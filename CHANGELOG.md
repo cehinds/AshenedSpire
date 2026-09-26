@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.15.0] — 2026-09-26
+
+Stories: us-5.11, us-2.3
+
+- Combat: weapon-set swap and re-arming, unrated poise, profile snapshot; run creation: custom attributes, derived-stat options, hand-rule settings, derived-stat restore and save migrations (all oracle-verified)
+
 ## [0.1.13.2] — 2026-09-26
 
 - Refactor: rest stop and merchant share one smithing/card-extraction port; upgraded-item resolution has one home (-1,469 lines, oracles unchanged)

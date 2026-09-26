@@ -31,9 +31,15 @@ namespace Ashen.Domain.Combat
             var handRules = args.Obj(K.HandRules);
             var hpMult = Js.Coalesce(args[K.HpMult], 1);
             var maxMana = Js.IsFinite(player[K.MaxMana]) ? player.Num(K.MaxMana) : 0;
-            var profileSnapshot = player.Obj(K.EquipmentProfileRuleSnapshot) ?? throw new NotSupportedException(M.ProfileSnapshotRequired);
+            // A player handed without the run's profile snapshot (a headless fixture) gets the host rows resolved now.
+            var profileSnapshot = Js.Truthy(player[K.EquipmentProfileRuleSnapshot])
+                ? (JObject)player[K.EquipmentProfileRuleSnapshot].DeepClone()
+                : (data.EquipmentPort ?? throw new NotSupportedException(M.ProfileSnapshotNeedsRunData)).CreateProfileSnapshot();
             var poiseMax = Js.IsInt(player[K.PoiseMax]) ? player.Num(K.PoiseMax)
-                : player.Obj(K.Loadout) != null ? PoiseThreshold(data, player) : 0;
+                : player.Obj(K.Loadout) != null
+                    ? Equipment.PoiseThreshold(data, player.Obj(K.Loadout), player[K.RelicIds] ?? new JArray(), player.Str(K.ClassId),
+                        player.Obj(K.ItemUpgradeLevels), player.Obj(K.Attributes), Js.Truthy(player[K.DerivedStatRuleSnapshot]) ? player[K.DerivedStatRuleSnapshot] : null)
+                    : 0;
 
             var c = new CombatState
             {
@@ -42,7 +48,7 @@ namespace Ashen.Domain.Combat
                 RatingsRules = ratingsRules != null && ratingsRules.Is(K.Enabled) ? (JObject)ratingsRules.DeepClone() : null,
                 HandRules = handRules != null ? (JObject)handRules.DeepClone() : null,
                 PendingDiscardDraw = 0,
-                EquipmentProfileRuleSnapshot = (JObject)profileSnapshot.DeepClone(),
+                EquipmentProfileRuleSnapshot = profileSnapshot,
                 RemovedAttackSlotIds = player[K.RemovedAttackSlotIds]?.DeepClone() ?? new JArray(),
                 EquipmentAttackSlotCount = Js.IsFinite(player[K.EquipmentAttackSlotCount]) ? player[K.EquipmentAttackSlotCount].DeepClone() : null,
                 ItemUpgradeLevels = (JObject)(player.Obj(K.ItemUpgradeLevels)?.DeepClone() ?? new JObject()),
@@ -61,7 +67,8 @@ namespace Ashen.Domain.Combat
                 DerivedStatRuleSnapshot = Js.Truthy(player[K.DerivedStatRuleSnapshot]) ? player[K.DerivedStatRuleSnapshot] : null,
                 Skills = (JObject)(player.Obj(K.Skills)?.DeepClone() ?? new JObject()),
                 CoreTags = player[K.CoreTags] is JArray core ? (JArray)core.DeepClone() : new JArray(),
-                SwapCostRule = args[K.SwapCostRule]?.DeepClone() ?? throw new NotSupportedException(M.SwapCostRuleRequired),
+                // A fight's price rule is resolved once (swapCostRule || resolveSwapCostRule(registries, null)).
+                SwapCostRule = Js.Truthy(args[K.SwapCostRule]) ? args[K.SwapCostRule].DeepClone() : Equipment.ResolveSwapCostRule(data, null),
                 SwapsLeft = 0,
             };
             c.Player = PlayerEntity(data, player, maxMana, poiseMax);
@@ -124,16 +131,6 @@ namespace Ashen.Domain.Combat
             var stamina = !Js.Nullish(player[K.Stamina]) ? player.Num(K.Stamina) : !Js.Nullish(player[K.MaxStamina]) ? player.Num(K.MaxStamina) : 0;
             var mana = !Js.Nullish(player[K.Mana]) ? player.Num(K.Mana) : maxMana;
             return Js.Obj(K.Hp, Math.Max(0, player.Num(K.MaxHp) - player.Num(K.Hp)), K.Mana, Math.Max(0, maxMana - mana), K.Stamina, Math.Max(0, maxStamina - stamina));
-        }
-
-        /// <summary>playerPoiseThresholdReceipt(...).value under combat ratings: the rated Poise total.</summary>
-        private static double PoiseThreshold(CombatData data, JObject player)
-        {
-            var config = data.Balance.Obj(K.CombatRatings);
-            if (config == null || !config.Is(K.Enabled)) throw new NotSupportedException(M.UnratedPoiseDeferred);
-            var totals = Ratings.Receipt(data, config, player.Obj(K.Attributes), player.Obj(K.Loadout), player.Str(K.ClassId), player[K.RelicIds],
-                player.Obj(K.ItemUpgradeLevels), out _);
-            return totals.Num(K.Poise);
         }
 
         /// <summary>createPlayerCombatEntity + stampPlayerPoiseMax.</summary>

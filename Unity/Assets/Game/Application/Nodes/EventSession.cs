@@ -177,7 +177,7 @@ namespace Ashen.App.Nodes
                     : strings.Format(NodeStringKeys.NodesDialogueTitle, new StringArgs().Add(NodePlaceholders.Speaker, state.SpeakerName).Add(NodePlaceholders.Title, state.Title));
             }
             var cinders = session.Run.Num(RK.Cinders);
-            var visible = Js.Items(open[EK.Choices]).OfType<JObject>().ToList();
+            var visible = Js.Items(open[RK.Choices]).OfType<JObject>().ToList();
             for (var index = 0; index < all.Count; index++)
             {
                 var choice = all[index];

@@ -143,7 +143,7 @@ namespace Ashen.Domain.Run
             }
             UnknownFields(d, out_, o, RK.DefaultFields, path);
             foreach (var key in d.RuleList(RK.Derived, RK.DefaultFields)) if (!partial && o[key] == null) Add(out_, Sub(path, key), RM.Missing);
-            ValidatePoints(out_, o[RK.PointsPerTier], Sub(path, RK.PointsPerTier), !partial);
+            ValidatePoints(out_, o[K.PointsPerTier], Sub(path, K.PointsPerTier), !partial);
             ValidateRounding(d, out_, o[RK.Rounding], Sub(path, RK.Rounding), !partial);
             ValidateCap(out_, o[RK.Cap], Sub(path, RK.Cap), !partial);
         }
@@ -166,8 +166,8 @@ namespace Ashen.Domain.Run
                 var got = Js.IsStr(source) ? RunJs.Fmt(RM.QuotedPrefix, Js.Str(source)) : string.Empty;
                 Add(out_, Sub(path, RK.SourceStat), got + RunJs.Fmt(RM.MustNameOneOf, string.Join(RV.ListJoiner, options.AttributeIds)));
             }
-            ValidatePoints(out_, o[RK.PointsPerTier], Sub(path, RK.PointsPerTier), false);
-            ValidateGain(d, out_, o[RK.GainPerTier], Sub(path, RK.GainPerTier), !partial, options.ClassFields);
+            ValidatePoints(out_, o[K.PointsPerTier], Sub(path, K.PointsPerTier), false);
+            ValidateGain(d, out_, o[K.GainPerTier], Sub(path, K.GainPerTier), !partial, options.ClassFields);
             ValidateRounding(d, out_, o[RK.Rounding], Sub(path, RK.Rounding), false);
             ValidateCap(out_, o[RK.Cap], Sub(path, RK.Cap), false);
             ValidatePerLevel(d, out_, o[RK.PerLevel], Sub(path, RK.PerLevel));
@@ -195,21 +195,21 @@ namespace Ashen.Domain.Run
             if (!Js.IsInt(s[RK.RulesetVersion]) || !versions.Contains(s.Num(RK.RulesetVersion)))
                 Add(out_, RK.RulesetVersion, RunJs.Fmt(RM.MustBeOneOf, string.Join(RV.ListJoiner, versions.Select(RunJs.NumStr))));
             ValidateDefaults(d, out_, s[K.Defaults], K.Defaults, false);
-            if (!(s[RK.Rules] is JObject rules))
+            if (!(s[K.Rules] is JObject rules))
             {
-                Add(out_, RK.Rules, RM.MustBePlainObject);
+                Add(out_, K.Rules, RM.MustBePlainObject);
                 return out_;
             }
             var required = StatIdsFor(d, s[RK.RulesetVersion]);
             foreach (var id in required)
             {
-                if (rules[id] == null) Add(out_, RK.Rules + RV.PathDot + id, RM.MissingDerivedRow);
-                else ValidateRule(d, out_, rules[id], RK.Rules + RV.PathDot + id, opts, false);
+                if (rules[id] == null) Add(out_, K.Rules + RV.PathDot + id, RM.MissingDerivedRow);
+                else ValidateRule(d, out_, rules[id], K.Rules + RV.PathDot + id, opts, false);
             }
             foreach (var id in StatIds(d))
-                if (!required.Contains(id) && rules[id] != null) ValidateRule(d, out_, rules[id], RK.Rules + RV.PathDot + id, opts, false);
+                if (!required.Contains(id) && rules[id] != null) ValidateRule(d, out_, rules[id], K.Rules + RV.PathDot + id, opts, false);
             foreach (var p in rules.Properties())
-                if (!StatIds(d).Contains(p.Name)) Add(out_, RK.Rules + RV.PathDot + p.Name, RunJs.Fmt(RM.UnknownDerivedRow, p.Name));
+                if (!StatIds(d).Contains(p.Name)) Add(out_, K.Rules + RV.PathDot + p.Name, RunJs.Fmt(RM.UnknownDerivedRow, p.Name));
             return out_;
         }
 
@@ -219,13 +219,13 @@ namespace Ashen.Domain.Run
             if (!(value is JObject o)) return new List<Problem> { new Problem(path, RM.MustBePlainObject) };
             UnknownFields(d, out_, o, RK.OverrideFields, path);
             if (o[K.Defaults] != null) ValidateDefaults(d, out_, o[K.Defaults], path + RV.PathDot + K.Defaults, true);
-            if (o[RK.Rules] != null)
+            if (o[K.Rules] != null)
             {
-                if (!(o[RK.Rules] is JObject rules)) Add(out_, path + RV.PathDot + RK.Rules, RM.MustBePlainObject);
+                if (!(o[K.Rules] is JObject rules)) Add(out_, path + RV.PathDot + K.Rules, RM.MustBePlainObject);
                 else
                     foreach (var p in rules.Properties())
                     {
-                        var rowPath = path + RV.PathDot + RK.Rules + RV.PathDot + p.Name;
+                        var rowPath = path + RV.PathDot + K.Rules + RV.PathDot + p.Name;
                         if (!StatIds(d).Contains(p.Name)) Add(out_, rowPath, RunJs.Fmt(RM.UnknownDerivedRow, p.Name));
                         else ValidateRule(d, out_, p.Value, rowPath, options, true);
                     }
@@ -263,12 +263,12 @@ namespace Ashen.Domain.Run
             var defaults = source.Obj(K.Defaults);
             var rules = new JObject();
             foreach (var id in StatIds(d))
-                if (source.Obj(RK.Rules)[id] != null) rules[id] = Js.Spread(defaults, (JObject)source.Obj(RK.Rules)[id].DeepClone());
+                if (source.Obj(K.Rules)[id] != null) rules[id] = Js.Spread(defaults, (JObject)source.Obj(K.Rules)[id].DeepClone());
             var replayed = new JObject
             {
                 [RK.RulesetVersion] = source[RK.RulesetVersion]?.DeepClone(),
                 [K.Defaults] = Js.Spread(defaults),
-                [RK.Rules] = rules,
+                [K.Rules] = rules,
             };
             foreach (var layer in layers)
             {
@@ -278,8 +278,8 @@ namespace Ashen.Domain.Run
                     Assign(replayed.Obj(K.Defaults), l.Obj(K.Defaults));
                     foreach (var id in StatIds(d)) if (rules.Obj(id) != null) Assign(rules.Obj(id), l.Obj(K.Defaults));
                 }
-                if (Js.Truthy(l[RK.Rules]))
-                    foreach (var p in l.Obj(RK.Rules).Properties())
+                if (Js.Truthy(l[K.Rules]))
+                    foreach (var p in l.Obj(K.Rules).Properties())
                     {
                         if (rules.Obj(p.Name) == null) throw new InvalidOperationException(RunJs.Fmt(RM.OverridePatchesMissingRow, p.Name, RunJs.Show(replayed[RK.RulesetVersion])));
                         Assign(rules.Obj(p.Name), p.Value as JObject);
@@ -323,9 +323,9 @@ namespace Ashen.Domain.Run
             var sourceStat = rule.Str(RK.SourceStat);
             var points = attributes?[sourceStat ?? string.Empty];
             if (!Js.IsFinite(points)) throw new InvalidOperationException(RunJs.Fmt(RM.SourceStatNotFinite, sourceStat));
-            if (!Js.IsFinite(rule[RK.PointsPerTier]) || rule.Num(RK.PointsPerTier) <= 0) throw new InvalidOperationException(RM.PointsPerTierInvalid);
-            var gain = GainValue(rule[RK.GainPerTier], classDef, statId);
-            var tier = Rounded(rule.Str(RK.Rounding), Js.D(points) / rule.Num(RK.PointsPerTier));
+            if (!Js.IsFinite(rule[K.PointsPerTier]) || rule.Num(K.PointsPerTier) <= 0) throw new InvalidOperationException(RM.PointsPerTierInvalid);
+            var gain = GainValue(rule[K.GainPerTier], classDef, statId);
+            var tier = Rounded(rule.Str(RK.Rounding), Js.D(points) / rule.Num(K.PointsPerTier));
             return new StatReceipt { Id = statId, Points = Js.D(points), Tier = tier, GainPerTier = gain, Value = tier * gain };
         }
 
@@ -341,7 +341,7 @@ namespace Ashen.Domain.Run
         /// <summary>deriveStat(resolved, statId, { attributes, classDef, level }).</summary>
         public static StatReceipt Derive(JObject resolved, string statId, JObject attributes, JObject classDef, double level)
         {
-            var row = resolved?.Obj(RK.Rules)?.Obj(statId);
+            var row = resolved?.Obj(K.Rules)?.Obj(statId);
             if (row == null) throw new InvalidOperationException(RunJs.Fmt(RM.UnknownDerivedStat, statId));
             var tier = AttributeTierReceipt(row, attributes, classDef, statId);
             var b = BaseValue(row[K.Base], classDef, statId);
@@ -357,8 +357,8 @@ namespace Ashen.Domain.Run
             var problems = new List<string>();
             if (term == null || rule == null) return new List<string> { RM.FoldNeedsRule };
             if (term.Str(RK.SourceStat) != rule.Str(RK.SourceStat)) problems.Add(RunJs.Fmt(RM.FoldSourceStat, rule.Str(RK.SourceStat)));
-            if (term[RK.PointsPerTier] != null && Js.D(term[RK.PointsPerTier]) != Js.D(rule[RK.PointsPerTier]))
-                problems.Add(RunJs.Fmt(RM.FoldPointsPerTier, RunJs.Show(rule[RK.PointsPerTier])));
+            if (term[K.PointsPerTier] != null && Js.D(term[K.PointsPerTier]) != Js.D(rule[K.PointsPerTier]))
+                problems.Add(RunJs.Fmt(RM.FoldPointsPerTier, RunJs.Show(rule[K.PointsPerTier])));
             if (rule.Str(RK.Rounding) != RV.Floor) problems.Add(RunJs.Fmt(RM.FoldRounding, rule.Str(RK.Rounding)));
             return problems;
         }
@@ -367,31 +367,82 @@ namespace Ashen.Domain.Run
         {
             if (classDef == null) throw new InvalidOperationException(RM.SnapshotNeedsClass);
             var out_ = RunJs.Clone(rules);
-            foreach (var p in out_.Obj(RK.Rules).Properties())
+            foreach (var p in out_.Obj(K.Rules).Properties())
             {
                 var row = (JObject)p.Value;
                 row.Put(K.Base, BaseValue(row[K.Base], classDef, p.Name));
-                row.Put(RK.GainPerTier, GainValue(row[RK.GainPerTier], classDef, p.Name));
+                row.Put(K.GainPerTier, GainValue(row[K.GainPerTier], classDef, p.Name));
             }
             var resources = relicModifierReceipt?.Obj(RK.Resources) ?? new JObject();
             foreach (var p in resources.Properties())
             {
                 var bonus = p.Value as JObject;
                 if (!Js.Truthy(bonus) || (!bonus.Is(RK.Flat) && !(Js.Items(bonus[RK.AttributeTiers]).Any()))) continue;
-                var row = out_.Obj(RK.Rules).Obj(p.Name);
+                var row = out_.Obj(K.Rules).Obj(p.Name);
                 if (row == null) throw new InvalidOperationException(RunJs.Fmt(RM.RelicTargetsUnknownResource, p.Name));
-                var explicitRow = explicitOverride?.Obj(RK.Rules)?.Obj(p.Name) ?? new JObject();
+                var explicitRow = explicitOverride?.Obj(K.Rules)?.Obj(p.Name) ?? new JObject();
                 if (explicitRow[K.Base] == null) row.Put(K.Base, row.Num(K.Base) + bonus.Or0(RK.Flat));
-                if (explicitRow[RK.GainPerTier] == null)
+                if (explicitRow[K.GainPerTier] == null)
                     foreach (var term in Js.Items(bonus[RK.AttributeTiers]).OfType<JObject>())
                     {
                         if (FoldProblems(d, term, row).Count > 0)
-                            throw new InvalidOperationException(RunJs.Fmt(RM.RelicTierCannotFold, p.Name, term.Str(RK.SourceStat), RunJs.Show(term[RK.PointsPerTier]),
-                                row.Str(RK.SourceStat), RunJs.Show(row[RK.PointsPerTier]), row.Str(RK.Rounding)));
-                        row.Put(RK.GainPerTier, row.Num(RK.GainPerTier) + term.Num(RK.AmountPerTier));
+                            throw new InvalidOperationException(RunJs.Fmt(RM.RelicTierCannotFold, p.Name, term.Str(RK.SourceStat), RunJs.Show(term[K.PointsPerTier]),
+                                row.Str(RK.SourceStat), RunJs.Show(row[K.PointsPerTier]), row.Str(RK.Rounding)));
+                        row.Put(K.GainPerTier, row.Num(K.GainPerTier) + term.Num(RK.AmountPerTier));
                     }
             }
             return out_;
+        }
+
+        /// <summary>
+        /// restoreDerivedStatRuleSnapshot(snapshot, options): validate exactly what the host saved — the envelope and
+        /// ruleset versions, their agreement, a v2 snapshot's numeric rows and relic receipt, then the rules through the
+        /// same problem door — and return it without consulting the live table.
+        /// </summary>
+        public static JObject RestoreSnapshot(RunData d, JToken input, DerivedOptions options)
+        {
+            if (!(input is JObject snapshot)) throw new InvalidOperationException(RM.DerivedSnapshotNotObject);
+            var envelopes = d.RuleNums(RK.Derived, RK.SnapshotVersions);
+            var rulesets = d.RuleNums(RK.Derived, RK.RulesetVersions);
+            var version = snapshot[K.SnapshotVersion];
+            var ruleset = snapshot[RK.RulesetVersion];
+            if (!Js.IsNum(version) || !envelopes.Contains(Js.D(version)))
+                throw new InvalidOperationException(RunJs.Fmt(RM.DerivedSnapshotVersionUnknown, RunJs.Key(version), string.Join(RV.ListJoiner, envelopes.Select(RunJs.NumStr))));
+            if (!Js.IsNum(ruleset) || !rulesets.Contains(Js.D(ruleset)))
+                throw new InvalidOperationException(RunJs.Fmt(RM.DerivedRulesetVersionUnknown, RunJs.Key(ruleset), string.Join(RV.ListJoiner, rulesets.Select(RunJs.NumStr))));
+            if (!(snapshot[K.Rules] is JObject rules) || !Equipment.StrictEquals(rules[RK.RulesetVersion], ruleset))
+                throw new InvalidOperationException(RM.DerivedSnapshotRulesetDisagrees);
+            var source = RunJs.Clone(rules);
+            var current = d.RuleNum(RK.Derived, K.SnapshotVersion);
+            if (Js.D(version) == current)
+            {
+                foreach (var p in (source.Obj(K.Rules) ?? new JObject()).Properties())
+                    if (!Js.IsFinite(Js.Get(p.Value, K.Base)) || !Js.IsFinite(Js.Get(p.Value, K.GainPerTier)))
+                        throw new InvalidOperationException(RunJs.Fmt(RM.DerivedSnapshotRowNotNumeric, RunJs.NumStr(current), p.Name));
+                var modifiers = snapshot[RK.RelicModifiers] as JObject;
+                if (modifiers == null || !(modifiers[K.DamageBySchoolAdd] is JObject damage) || !(modifiers[RK.Sources] is JArray))
+                    throw new InvalidOperationException(RunJs.Fmt(RM.DerivedSnapshotModifiersShape, RunJs.NumStr(current)));
+                var legal = Normalized(d, options).DamageSchools;
+                foreach (var school in legal)
+                    if (damage[school] == null) throw new InvalidOperationException(RunJs.Fmt(RM.DerivedSnapshotSchoolMissing, RunJs.NumStr(current), school));
+                foreach (var p in damage.Properties())
+                {
+                    if (legal.Count > 0 && !legal.Contains(p.Name)) throw new InvalidOperationException(RunJs.Fmt(RM.DerivedSnapshotSchoolIllegal, RunJs.NumStr(current), p.Name));
+                    if (!Js.IsFinite(p.Value) || Js.D(p.Value) < 0) throw new InvalidOperationException(RunJs.Fmt(RM.DerivedSnapshotSchoolNegative, RunJs.NumStr(current), p.Name));
+                }
+            }
+            var expected = Js.D(ruleset) >= d.RuleNum(RK.Derived, RK.CurrentRulesetSince) ? current : d.RuleNum(RK.Derived, RK.LegacySnapshotVersion);
+            if (Js.D(version) != expected)
+                throw new InvalidOperationException(RunJs.Fmt(RM.DerivedSnapshotEnvelopeMismatch, RunJs.NumStr(Js.D(ruleset)), RunJs.NumStr(expected)));
+            ThrowProblems(RK.DerivedStatSnapshot, RuleProblems(d, source, Normalized(d, options)));
+            var restored = new JObject
+            {
+                [K.SnapshotVersion] = version.DeepClone(),
+                [RK.RulesetVersion] = ruleset.DeepClone(),
+                [K.Rules] = source,
+            };
+            if (Js.Truthy(snapshot[RK.RelicModifiers])) restored[RK.RelicModifiers] = snapshot[RK.RelicModifiers].DeepClone();
+            return restored;
         }
 
         /// <summary>createDerivedStatRuleSnapshot: the host-created, immutable-by-convention rules receipt.</summary>
@@ -404,7 +455,7 @@ namespace Ashen.Domain.Run
             {
                 [K.SnapshotVersion] = Js.N(d.RuleNum(RK.Derived, K.SnapshotVersion)),
                 [RK.RulesetVersion] = rules[RK.RulesetVersion]?.DeepClone(),
-                [RK.Rules] = rules,
+                [K.Rules] = rules,
                 [RK.RelicModifiers] = receipt != null
                     ? Js.Obj(K.DamageBySchoolAdd, receipt[K.DamageBySchoolAdd]?.DeepClone(), RK.Sources, receipt[RK.Sources]?.DeepClone())
                     : Js.Obj(K.DamageBySchoolAdd, new JObject(), RK.Sources, new JArray()),

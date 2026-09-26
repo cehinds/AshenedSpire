@@ -156,7 +156,7 @@ namespace Ashen.Domain.Loop
             var ids = CreationStats.OrderedAttributes(d.Run).Select(a => a.Str(K.Id)).ToList();
             if (!ids.Contains(attributeId)) throw new InvalidOperationException(RunJs.Fmt(LM.NotAnAttribute, attributeId, string.Join(RV.ListJoiner, ids)));
             if (Waiting(run) <= 0) throw new InvalidOperationException(LM.NoPointWaiting);
-            if (!run.Is(K.DerivedStatRuleSnapshot) || !run.Obj(K.DerivedStatRuleSnapshot).Is(RK.Rules)) throw new InvalidOperationException(LM.NoDerivedSnapshot);
+            if (!run.Is(K.DerivedStatRuleSnapshot) || !run.Obj(K.DerivedStatRuleSnapshot).Is(K.Rules)) throw new InvalidOperationException(LM.NoDerivedSnapshot);
             var attributes = run.Obj(K.Attributes);
             attributes.Put(attributeId, attributes.Num(attributeId) + 1);
             var level = run.Obj(K.Level);
