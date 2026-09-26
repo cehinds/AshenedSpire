@@ -1,0 +1,50 @@
+{
+  "$id": "catalog/resources.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "domainMax": {
+        "type": "integer"
+      },
+      "glyph": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "order": {
+        "type": "integer"
+      },
+      "source": {
+        "type": "string"
+      },
+      "surfaces": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "main",
+            "model"
+          ]
+        }
+      },
+      "tint": {
+        "type": "string"
+      },
+      "weight": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "glyph",
+      "id",
+      "order",
+      "source",
+      "surfaces",
+      "tint",
+      "weight"
+    ]
+  }
+}

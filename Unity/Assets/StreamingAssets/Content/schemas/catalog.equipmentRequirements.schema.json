@@ -1,0 +1,47 @@
+{
+  "$id": "catalog/equipmentRequirements.json",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attributeId": {
+            "type": "string",
+            "enum": [
+              "dexterity",
+              "intelligence",
+              "strength",
+              "wisdom"
+            ]
+          },
+          "itemId": {
+            "type": "string",
+            "enum": [
+              "ashStaff",
+              "dagger",
+              "greatsword",
+              "gutterLeathers",
+              "nightweave",
+              "riteVestments",
+              "straightSword",
+              "wayfarerPlate"
+            ]
+          },
+          "minimum": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "attributeId",
+          "itemId",
+          "minimum"
+        ]
+      }
+    }
+  },
+  "required": [
+    "rows"
+  ]
+}

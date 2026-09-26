@@ -1,0 +1,90 @@
+{
+  "brace": {
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": 1,
+            "status": "strength",
+            "target": "owner"
+          }
+        ],
+        "on": "stanceExited"
+      }
+    ],
+    "icon": "🦶",
+    "id": "brace",
+    "modifiers": {
+      "damageTakenMult": 0.75
+    },
+    "onEnter": [
+      {
+        "amount": 4,
+        "op": "block",
+        "target": "self"
+      }
+    ]
+  },
+  "bulwark": {
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": 2,
+            "op": "block",
+            "target": "owner"
+          }
+        ],
+        "if": {
+          "p": "cardTypeIs",
+          "type": "skill"
+        },
+        "on": "cardPlayed"
+      }
+    ],
+    "icon": "🛡",
+    "id": "bulwark",
+    "onEnter": [
+      {
+        "amount": 3,
+        "op": "block",
+        "target": "self"
+      }
+    ]
+  },
+  "gorefire": {
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": 2,
+            "status": "bleed"
+          }
+        ],
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventSourceIsOwner"
+            },
+            {
+              "p": "eventIsAttack"
+            }
+          ]
+        },
+        "on": "damageDealt"
+      }
+    ],
+    "icon": "🔥",
+    "id": "gorefire",
+    "onEnter": [
+      {
+        "amount": 2,
+        "op": "loseHp",
+        "target": "self"
+      }
+    ]
+  }
+}

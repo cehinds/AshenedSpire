@@ -1,0 +1,58 @@
+{
+  "heraldBaseline": {
+    "baseline": true,
+    "classId": "herald",
+    "id": "heraldBaseline",
+    "leftHand": "",
+    "rightHand": "boneSceptre"
+  },
+  "heraldEmberlight": {
+    "baseline": false,
+    "classId": "herald",
+    "id": "heraldEmberlight",
+    "leftHand": "",
+    "rightHand": "emberlightSceptre"
+  },
+  "reaverBaseline": {
+    "baseline": true,
+    "classId": "reaver",
+    "id": "reaverBaseline",
+    "leftHand": "roundShield",
+    "rightHand": "straightSword"
+  },
+  "reaverGreatsword": {
+    "baseline": false,
+    "classId": "reaver",
+    "id": "reaverGreatsword",
+    "leftHand": "",
+    "rightHand": "greatsword"
+  },
+  "rogueBaseline": {
+    "baseline": true,
+    "classId": "rogue",
+    "id": "rogueBaseline",
+    "leftHand": "buckler",
+    "rightHand": "dagger"
+  },
+  "rogueBow": {
+    "baseline": false,
+    "classId": "rogue",
+    "id": "rogueBow",
+    "leftHand": "parryDagger",
+    "rightHand": "shortbow"
+  },
+  "starseerBaseline": {
+    "baseline": true,
+    "classId": "starseer",
+    "id": "starseerBaseline",
+    "leftHand": "",
+    "rightHand": "ashStaff"
+  },
+  "starseerStarstone": {
+    "baseline": false,
+    "classId": "starseer",
+    "id": "starseerStarstone",
+    "leftHand": "",
+    "rightHand": "starstoneStaff"
+  }
+}

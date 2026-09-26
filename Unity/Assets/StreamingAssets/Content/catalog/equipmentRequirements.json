@@ -1,0 +1,44 @@
+{
+  "rows": [
+    {
+      "attributeId": "strength",
+      "itemId": "straightSword",
+      "minimum": 2
+    },
+    {
+      "attributeId": "strength",
+      "itemId": "greatsword",
+      "minimum": 3
+    },
+    {
+      "attributeId": "dexterity",
+      "itemId": "dagger",
+      "minimum": 2
+    },
+    {
+      "attributeId": "intelligence",
+      "itemId": "ashStaff",
+      "minimum": 3
+    },
+    {
+      "attributeId": "strength",
+      "itemId": "wayfarerPlate",
+      "minimum": 3
+    },
+    {
+      "attributeId": "intelligence",
+      "itemId": "nightweave",
+      "minimum": 3
+    },
+    {
+      "attributeId": "wisdom",
+      "itemId": "riteVestments",
+      "minimum": 3
+    },
+    {
+      "attributeId": "dexterity",
+      "itemId": "gutterLeathers",
+      "minimum": 3
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "lean": {
+    "baseline": 1,
+    "belowBaseline": "allow",
+    "bonusPool": 3,
+    "id": "lean",
+    "maximum": 4,
+    "minimum": 1,
+    "redistribution": "fixedTotal"
+  },
+  "pointbuy": {
+    "baseline": 10,
+    "belowBaseline": "allow",
+    "bonusPool": 10,
+    "id": "pointbuy",
+    "maximum": 15,
+    "minimum": 8,
+    "redistribution": "fixedTotal"
+  },
+  "standard": {
+    "baseline": 10,
+    "belowBaseline": "forbid",
+    "bonusPool": 5,
+    "id": "standard",
+    "maximum": 15,
+    "minimum": 10,
+    "redistribution": "fixedTotal"
+  },
+  "tuned": {
+    "baseline": 10,
+    "belowBaseline": "allow",
+    "bonusPool": 3,
+    "id": "tuned",
+    "maximum": 15,
+    "minimum": 8,
+    "redistribution": "fixedTotal"
+  },
+  "tuned2": {
+    "baseline": 5,
+    "belowBaseline": "allow",
+    "bonusPool": 10,
+    "id": "tuned2",
+    "maximum": 12,
+    "minimum": 3,
+    "redistribution": "fixedTotal"
+  }
+}

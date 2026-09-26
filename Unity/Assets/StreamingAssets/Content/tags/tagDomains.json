@@ -1,0 +1,134 @@
+{
+  "attackSource": {
+    "aside": false,
+    "blurb": "Source profile supplying an attack; separate from damage type.",
+    "id": "attackSource",
+    "label": "Attack source"
+  },
+  "card": {
+    "aside": false,
+    "blurb": "What a card IS — its school, form and feel. Carried by cards, by the classes that lean on them, and by the equipment that rewrites them.",
+    "id": "card",
+    "label": "Card"
+  },
+  "classification": {
+    "aside": true,
+    "blurb": "",
+    "id": "classification",
+    "label": "classification"
+  },
+  "cost": {
+    "aside": false,
+    "blurb": "",
+    "id": "cost",
+    "label": "cost"
+  },
+  "creature": {
+    "aside": false,
+    "blurb": "What a creature IS. Gates proc resistance, and the one domain the engine reads at runtime.",
+    "id": "creature",
+    "label": "Creature"
+  },
+  "damage": {
+    "aside": false,
+    "blurb": "",
+    "id": "damage",
+    "label": "damage"
+  },
+  "damageType": {
+    "aside": false,
+    "blurb": "Identity of a typed HP damage component.",
+    "id": "damageType",
+    "label": "Damage type"
+  },
+  "delivery": {
+    "aside": false,
+    "blurb": "How a direct attack reaches its targets.",
+    "id": "delivery",
+    "label": "Delivery"
+  },
+  "equipment": {
+    "aside": false,
+    "blurb": "",
+    "id": "equipment",
+    "label": "equipment"
+  },
+  "grantSource": {
+    "aside": false,
+    "blurb": "Where a starting card came from. The composed deck deals bound cards in this vocabulary's authored order, so adding a source is a row here rather than a code change. Nothing WEARS these — the `grant` family exists to declare them, the way `effect` declares which words a damage effect may carry.",
+    "id": "grantSource",
+    "label": "Grant source"
+  },
+  "internal": {
+    "aside": false,
+    "blurb": "",
+    "id": "internal",
+    "label": "internal"
+  },
+  "item": {
+    "aside": false,
+    "blurb": "What a piece of gear DOES beyond its numbers, and what a run pickup is.",
+    "id": "item",
+    "label": "Item"
+  },
+  "itemType": {
+    "aside": false,
+    "blurb": "What a piece of equipment IS, as the Armoury and the smith name it. Distinct from the card domain: a Blade item type and a Blade card school are different facts about the same sword.",
+    "id": "itemType",
+    "label": "Item type"
+  },
+  "lifecycle": {
+    "aside": false,
+    "blurb": "",
+    "id": "lifecycle",
+    "label": "lifecycle"
+  },
+  "presentation": {
+    "aside": true,
+    "blurb": "Sprite selection only; never damage or resistance identity.",
+    "id": "presentation",
+    "label": "Combat presentation"
+  },
+  "property": {
+    "aside": false,
+    "blurb": "What a holder CONFERS while it is held. Each property node has exactly one entry in nodeEffects.json; the holder grants it, and it leaves when the holder does. EVERY family may carry one — what the mount path can hold (worn, owned, chosen) is the engine's narrower list, engine/properties.js MOUNTABLE_KINDS.",
+    "id": "property",
+    "label": "Property"
+  },
+  "run": {
+    "aside": false,
+    "blurb": "Run structure — what an event, an encounter or an unlock is about.",
+    "id": "run",
+    "label": "Run"
+  },
+  "scaling": {
+    "aside": false,
+    "blurb": "",
+    "id": "scaling",
+    "label": "scaling"
+  },
+  "targeting": {
+    "aside": false,
+    "blurb": "",
+    "id": "targeting",
+    "label": "targeting"
+  },
+  "technique": {
+    "aside": false,
+    "blurb": "Conditions for explicit technique bonuses.",
+    "id": "technique",
+    "label": "Technique"
+  },
+  "theme": {
+    "aside": false,
+    "blurb": "Build synergies; tags alone grant no effects.",
+    "id": "theme",
+    "label": "Theme"
+  },
+  "utility": {
+    "aside": false,
+    "blurb": "",
+    "id": "utility",
+    "label": "utility"
+  }
+}

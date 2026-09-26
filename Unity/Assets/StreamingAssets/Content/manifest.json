@@ -1,0 +1,703 @@
+{
+  "contentHash": "daabb0c4b44b59b51e7566f0b07629615433e2ef9df8742e659b899a3e2ffd6e",
+  "contentVersion": "0.7.1",
+  "counts": {
+    "catalog/armaments.json": 28,
+    "catalog/armour.json": 35,
+    "catalog/atlasQuests.json": 6,
+    "catalog/attributes.json": 5,
+    "catalog/basicCardProfiles.json": 17,
+    "catalog/cardExposure.json": 84,
+    "catalog/cardTagging.json": 195,
+    "catalog/cards.json": 195,
+    "catalog/classTree.json": 24,
+    "catalog/classes.json": 4,
+    "catalog/creationModes.json": 5,
+    "catalog/encounters.json": 35,
+    "catalog/enemies.json": 33,
+    "catalog/equipmentRequirements.json": 8,
+    "catalog/events.json": 25,
+    "catalog/flasks.json": 7,
+    "catalog/itemUpgradeChanges.json": 152,
+    "catalog/keywords.json": 5,
+    "catalog/relics.json": 63,
+    "catalog/resources.json": 5,
+    "catalog/seats.json": 3,
+    "catalog/speakers.json": 3,
+    "catalog/stances.json": 3,
+    "catalog/startingKits.json": 8,
+    "catalog/statuses.json": 50,
+    "catalog/unlocks.json": 18,
+    "catalog/weaponCardPackages.json": 28,
+    "tags/familyNodes.json": 90,
+    "tags/nodeRelations.json": 27,
+    "tags/nodeTerms.json": 82,
+    "tags/nodeVariables.json": 102,
+    "tags/nodes.json": 262,
+    "tags/propertyRules.json": 91,
+    "tags/tagDomains.json": 22,
+    "tags/tagFamilies.json": 17,
+    "tags/tagFamilyDomains.json": 90,
+    "tags/tagging.json": 1785,
+    "tags/tags.json": 240,
+    "tags/variableBindings.json": 102
+  },
+  "files": {
+    "audio/music.json": {
+      "bytes": 6136,
+      "generated": true,
+      "sha256": "387f5eb530c57a80ac720f66f3e8f96070f4ab4fc0e47d6adb87d51dd4446c49"
+    },
+    "audio/sfx.json": {
+      "bytes": 6149,
+      "generated": true,
+      "sha256": "541b20d0862867083ba7a4db188a5bb98965d93ab81f427e847c5f316fe6e38d"
+    },
+    "balance/balance.json": {
+      "bytes": 43015,
+      "generated": true,
+      "sha256": "6f9797dee99b2a0e324761fd347a6fce0bf7d785e1c96acbf0f211964a02259d"
+    },
+    "balance/customRun.json": {
+      "bytes": 2127,
+      "generated": true,
+      "sha256": "f0d38bca2b32d1cafd6b040db8005690d1edaea4cbf65868108a8297473c12c6"
+    },
+    "balance/mapConfigs.json": {
+      "bytes": 2511,
+      "generated": true,
+      "sha256": "f35336047c8d355302685e45bb000d952c6a8d1fa85ebb316fe00eaef2691eae"
+    },
+    "balance/mapShape.json": {
+      "bytes": 2993,
+      "generated": true,
+      "sha256": "72eefbac25f3b579c81904e0f50e0c3f664cab4087a372c0cb0fc354257643da"
+    },
+    "catalog/armaments.json": {
+      "bytes": 28192,
+      "generated": true,
+      "sha256": "4a1859f2dee441117dde6ad830581c94c46810a19503a345a8133b277930e7d3"
+    },
+    "catalog/armour.json": {
+      "bytes": 15622,
+      "generated": true,
+      "sha256": "7d3c0769aa15491943d468b73c549703ba46ec0678e8880d58ab6cde3731f53b"
+    },
+    "catalog/atlasQuests.json": {
+      "bytes": 988,
+      "generated": true,
+      "sha256": "81377da10ac7ea2750597f8473ac36c771bf7550aae23d4024122d0232224ff3"
+    },
+    "catalog/attributes.json": {
+      "bytes": 773,
+      "generated": true,
+      "sha256": "b8fabc4552b74ba5ad3e0f67997924c5fa34907680e0d950cf24e5dd1172db6f"
+    },
+    "catalog/basicCardProfiles.json": {
+      "bytes": 12641,
+      "generated": true,
+      "sha256": "157568fd5c640fedb56294a0ee7af2c2134f6dc9136159173802d0de77903261"
+    },
+    "catalog/bossDestinations.json": {
+      "bytes": 428,
+      "generated": true,
+      "sha256": "29026f7ebe39ef1e8ea28c91b54d06e6f365c3692219ac4b3f59bc6358fdd375"
+    },
+    "catalog/cardExposure.json": {
+      "bytes": 9258,
+      "generated": true,
+      "sha256": "2810fce66d35ca40d01e45b85ebc5b1ef367c931dae848ce5624c9f1a884e38e"
+    },
+    "catalog/cardTagging.json": {
+      "bytes": 30871,
+      "generated": true,
+      "sha256": "86c33b2976ed6825f562ae46d3dc137f9b6e985959d927d28b4cb66b6063df2d"
+    },
+    "catalog/cards.json": {
+      "bytes": 163369,
+      "generated": true,
+      "sha256": "30260196fbac05aee83ba978768b366598f95369b36766134a5a5a6ead6df5f6"
+    },
+    "catalog/characterCreation.json": {
+      "bytes": 2931,
+      "generated": true,
+      "sha256": "ce5be553cf9b8bbaddb0ef5b84949582c2a89be30dc5c08fdbed012c189aa79c"
+    },
+    "catalog/classTree.json": {
+      "bytes": 2305,
+      "generated": true,
+      "sha256": "05cde760d6db8d7dc3b9880c4b7a76cf26c9e019b924c8f568850b9cf52c32ec"
+    },
+    "catalog/classes.json": {
+      "bytes": 4768,
+      "generated": true,
+      "sha256": "bb4d0b85f798cf7c404bb6fbfe8ea6297895d7194b0f05654d29f21c3b3574a6"
+    },
+    "catalog/creationModes.json": {
+      "bytes": 911,
+      "generated": true,
+      "sha256": "a30464ce97de5f513b6d590293c75bc182c2fdede25f3430c725ae3220db78eb"
+    },
+    "catalog/encounters.json": {
+      "bytes": 9903,
+      "generated": true,
+      "sha256": "e09c8290efa8bc5e33c635ed1bd190fbdc43323e8a5a85eda26e4c0eaa3843bc"
+    },
+    "catalog/enemies.json": {
+      "bytes": 34134,
+      "generated": true,
+      "sha256": "5b95c82d109041f60bd366a33998a302c9cc4a333fffb183cdcb53dc6cb4346d"
+    },
+    "catalog/equipmentMeta.json": {
+      "bytes": 9215,
+      "generated": true,
+      "sha256": "74b00b5159c6305e228faf59c38c4cbd5aa0484bcf43002bbeef923e834f8793"
+    },
+    "catalog/equipmentRequirements.json": {
+      "bytes": 794,
+      "generated": true,
+      "sha256": "d142e4ba1dc0f129fc7c22c83676039bf037a6e364efcc712e194dec5311dd07"
+    },
+    "catalog/equipmentSlots.json": {
+      "bytes": 2339,
+      "generated": true,
+      "sha256": "cc6248d980837376f58e566e351ad02e2b827efcc51b1b40240fae99d3bd32c9"
+    },
+    "catalog/eventMeta.json": {
+      "bytes": 4050,
+      "generated": true,
+      "sha256": "c8b3ef38faa3eaa79b6932b30d09d05ba308cf73f112b4314599a0b7f4e16826"
+    },
+    "catalog/events.json": {
+      "bytes": 25663,
+      "generated": true,
+      "sha256": "ac6049ded3a172cb26a70495e31b02e572b8ee802237c8fbd813d1cd950b2e48"
+    },
+    "catalog/flasks.json": {
+      "bytes": 2088,
+      "generated": true,
+      "sha256": "e55f4cff6f456d2dfda6fb538de51602ccef26c661f6e6aa3b9780bded6d4ed8"
+    },
+    "catalog/itemUpgradeChanges.json": {
+      "bytes": 20395,
+      "generated": true,
+      "sha256": "7d5d9d1a539ec595b0b8e61de5a7a1796b0586361dcfc9ed7f207cbc771fa44e"
+    },
+    "catalog/keywords.json": {
+      "bytes": 207,
+      "generated": true,
+      "sha256": "c820e9576fc2d63a9e31017fca98cd447e2c8f3fdacae078c91114cc149711c9"
+    },
+    "catalog/legacyDungeons.json": {
+      "bytes": 53583,
+      "generated": true,
+      "sha256": "0c641a101610329b756e3d2d6d6cdbf318d149f7b5fe25ba22adb327ecccc112"
+    },
+    "catalog/relics.json": {
+      "bytes": 7421,
+      "generated": true,
+      "sha256": "d24a44e3d47c42c58bbc51b9e370db1947337cbd650da32f2a605251a25f45d7"
+    },
+    "catalog/resources.json": {
+      "bytes": 990,
+      "generated": true,
+      "sha256": "1ae0e3b28d3eaa0fe9f8d4bbb62e9ad65a0c4f9c52e8922618b25bc4f734b2c2"
+    },
+    "catalog/seats.json": {
+      "bytes": 268,
+      "generated": true,
+      "sha256": "92cbac08dd5569bf7154e6e02260b2f557c25cbd580e68e3be826767f0b74a5a"
+    },
+    "catalog/speakers.json": {
+      "bytes": 258,
+      "generated": true,
+      "sha256": "92cc45cdad307d9b1e7cab229e99b8fc97245fa4cd4b94c5de1e646b6862adf8"
+    },
+    "catalog/stances.json": {
+      "bytes": 1504,
+      "generated": true,
+      "sha256": "64880d9d7af4bb140270a8394c99abc4cbcf14fabcfa489448176fd7ab036878"
+    },
+    "catalog/startingKits.json": {
+      "bytes": 1265,
+      "generated": true,
+      "sha256": "a66712d1f19bf5936e6ec698dcf1424c1164c9c40fb6acf393d67aa9684b2f4c"
+    },
+    "catalog/statuses.json": {
+      "bytes": 22547,
+      "generated": true,
+      "sha256": "95d15c495d2e225c78f5a263ec71379a988d5c2dcb175a0a6df794bf52e949a6"
+    },
+    "catalog/unlocks.json": {
+      "bytes": 3102,
+      "generated": true,
+      "sha256": "cdadbaa8acd7a8c1182e9b7de6aa871c98d57bf0390947dc8ff5c41ce2531901"
+    },
+    "catalog/weaponCardPackages.json": {
+      "bytes": 10416,
+      "generated": true,
+      "sha256": "0d589bc7af2b27ccad39cd8ceec17ea9f892cd1d4bf40dda74836bc9547bba57"
+    },
+    "catalog/worldAtlas.json": {
+      "bytes": 304801,
+      "generated": true,
+      "sha256": "97b914987f8550075a5ba60fa4f951912dae6ab8c763114180e603217a6a8bb3"
+    },
+    "rules/attributeRules.json": {
+      "bytes": 3232,
+      "generated": true,
+      "sha256": "5bc2d2daa83f8f34e3763eed63e4a6da18c2197757659e5ebbf1931fd898feb6"
+    },
+    "rules/combatRules.json": {
+      "bytes": 2049,
+      "generated": true,
+      "sha256": "965195631327457fea835be1cb9a2511265e41957c1164bb4740e42e0b0d0993"
+    },
+    "rules/derivedStatRules.json": {
+      "bytes": 2286,
+      "generated": true,
+      "sha256": "6063a5fcfc99528b5ff5edebb1d661afcb4b612ce212f3cc2ccae336dbffa64e"
+    },
+    "rules/handRules.json": {
+      "bytes": 671,
+      "generated": true,
+      "sha256": "dbb9e4236786b3448e9c0b04efcd27f15429c7ab29b7d3ae999a202f011779fd"
+    },
+    "rules/mechanics.json": {
+      "bytes": 3606,
+      "generated": true,
+      "sha256": "9e763e9a7e0f98656a6fb557c9afb847673c5190c48bf2377970a83dd5f3ae7c"
+    },
+    "rules/nodeEffects.json": {
+      "bytes": 32680,
+      "generated": true,
+      "sha256": "66bcfe2b1e2a98efac7e1c97b89f1fa67a0bbfbf0f022284b916e7c42e9daa38"
+    },
+    "rules/propertyRuleEffects.json": {
+      "bytes": 34551,
+      "generated": true,
+      "sha256": "c638c5255aae12e46e933155a0a4bbb682576a3a040937b7612d0e9c6d2c3d03"
+    },
+    "schemas/audio.music.schema.json": {
+      "bytes": 11107,
+      "generated": false,
+      "sha256": "dbdaa9867acbe14af91fb0467d766301a1a33373b05b45fac6d6027b4214f990"
+    },
+    "schemas/audio.sfx.schema.json": {
+      "bytes": 19357,
+      "generated": false,
+      "sha256": "3c6fa7a5919d47b705780d51a1a8e41f988202cdc3d6a111311470c890caacc4"
+    },
+    "schemas/balance.balance.schema.json": {
+      "bytes": 4086,
+      "generated": false,
+      "sha256": "b361abdb77f8ef6296fe78854a9386c931ebd91fba729db8926b48398ff29ccc"
+    },
+    "schemas/balance.customRun.schema.json": {
+      "bytes": 2521,
+      "generated": false,
+      "sha256": "fa5ff17464e99cce7224fcdae8df2ab3d2de02c8425d36d7a0d55bd0cd4a0a00"
+    },
+    "schemas/balance.mapConfigs.schema.json": {
+      "bytes": 11243,
+      "generated": false,
+      "sha256": "aa27390811f620dbec569f4d52518e8e6bdb98ed32429587b2218aeceb6e558b"
+    },
+    "schemas/balance.mapShape.schema.json": {
+      "bytes": 13955,
+      "generated": false,
+      "sha256": "262a955103acbdb4a47ae63dfbcd7f5a29835b6dc52a7cee4986fd8c34d27fdd"
+    },
+    "schemas/catalog.armaments.schema.json": {
+      "bytes": 2144,
+      "generated": false,
+      "sha256": "6da02b067665426c9a1919ff433ba72849b30740a605e3783421fac2026a1e82"
+    },
+    "schemas/catalog.armour.schema.json": {
+      "bytes": 2597,
+      "generated": false,
+      "sha256": "fabf10ca1757477eaabbe3f60098280045db3759ec9e679ca2fa5a72095b15dd"
+    },
+    "schemas/catalog.atlasQuests.schema.json": {
+      "bytes": 943,
+      "generated": false,
+      "sha256": "42b6a0a4bd8b0b4851e2480499f71662556d78417110626029072bc2437a37b0"
+    },
+    "schemas/catalog.attributes.schema.json": {
+      "bytes": 451,
+      "generated": false,
+      "sha256": "d52f768f619e45c064d2a556883b72e8527af9437eae4846f5e59d3787251c7b"
+    },
+    "schemas/catalog.basicCardProfiles.schema.json": {
+      "bytes": 1689,
+      "generated": false,
+      "sha256": "da495392eb93f2dd8d5a937143b25018fd1ab6409eacc24d84a46e470f9f68a6"
+    },
+    "schemas/catalog.bossDestinations.schema.json": {
+      "bytes": 385,
+      "generated": false,
+      "sha256": "eabd482dc3fee3dbd4877ceba3317706aaf7431d1ef88fe6407ea49a4f7660ba"
+    },
+    "schemas/catalog.cardExposure.schema.json": {
+      "bytes": 679,
+      "generated": false,
+      "sha256": "703398f2adaa94a2e71fbd68e1c73d948e46ea8927841fe97d1c21251e2e10b5"
+    },
+    "schemas/catalog.cardTagging.schema.json": {
+      "bytes": 506,
+      "generated": false,
+      "sha256": "eba0ca86b93b2ba51d08586c623aa42e136fe8609f8c37f857dbe4eb8163e98b"
+    },
+    "schemas/catalog.cards.schema.json": {
+      "bytes": 14959,
+      "generated": false,
+      "sha256": "c193c74b691a6b1a89e6eb5738d304370cb34d4700bd08e71d4173e049b7efcc"
+    },
+    "schemas/catalog.characterCreation.schema.json": {
+      "bytes": 5703,
+      "generated": false,
+      "sha256": "39e4d079c365cdfb07fee60838beca4c6403d9ddc7782a86f6e8365d057f005a"
+    },
+    "schemas/catalog.classTree.schema.json": {
+      "bytes": 425,
+      "generated": false,
+      "sha256": "6c8c7366c683f3ac16d7e517b8a2be3ed69a753b311c693daa5a65fa9d47ff6c"
+    },
+    "schemas/catalog.classes.schema.json": {
+      "bytes": 1857,
+      "generated": false,
+      "sha256": "2ae1ea66f7e28e2b4015a18897fc1f29b1dca0b80318287ca8bb43a55b180857"
+    },
+    "schemas/catalog.creationModes.schema.json": {
+      "bytes": 701,
+      "generated": false,
+      "sha256": "c6e5cf5fae2c2678392dc419383f578f17c5809db85b80a94a006fd9e1e556a6"
+    },
+    "schemas/catalog.encounters.schema.json": {
+      "bytes": 1370,
+      "generated": false,
+      "sha256": "58a337954222435300090b0cf1ab47a79c68c5668b73c5e601977443e5413260"
+    },
+    "schemas/catalog.enemies.schema.json": {
+      "bytes": 7564,
+      "generated": false,
+      "sha256": "616f6e654684d2045404ab99cb2cc94fbdbe02f1cca0e11af3189f1f93356617"
+    },
+    "schemas/catalog.equipmentMeta.schema.json": {
+      "bytes": 32406,
+      "generated": false,
+      "sha256": "2279bd85a354e8817c6a04baebff1eb8b28f07422813d7a96605d79e77fdc454"
+    },
+    "schemas/catalog.equipmentRequirements.schema.json": {
+      "bytes": 959,
+      "generated": false,
+      "sha256": "9a65e49359a6697ca72eb267c65c15418ad0cbab7b51580a8cb2a276fbcdd7e9"
+    },
+    "schemas/catalog.equipmentSlots.schema.json": {
+      "bytes": 1874,
+      "generated": false,
+      "sha256": "3bfbbe99b2631d34a98f7495c9bf07a7d845c402f56a93131c35158e180679f7"
+    },
+    "schemas/catalog.eventMeta.schema.json": {
+      "bytes": 4810,
+      "generated": false,
+      "sha256": "a81f13f2a2f858567abb432e51c25ca58591d1e58edf21040e22e61491ddfa22"
+    },
+    "schemas/catalog.events.schema.json": {
+      "bytes": 3895,
+      "generated": false,
+      "sha256": "2b0b00210b76ce998f26bacea368211f01ce63f2ccda39da64a7a94c8add85a3"
+    },
+    "schemas/catalog.flasks.schema.json": {
+      "bytes": 2146,
+      "generated": false,
+      "sha256": "bbf0a40fc672851d9e637f63a0f3378977011eadf9e8ec1ebbad9618ac17cdd1"
+    },
+    "schemas/catalog.itemUpgradeChanges.schema.json": {
+      "bytes": 1011,
+      "generated": false,
+      "sha256": "a64e4beb3103e6f8614fee152632553011f16a42520804f1c2c6c4a272231d57"
+    },
+    "schemas/catalog.keywords.schema.json": {
+      "bytes": 240,
+      "generated": false,
+      "sha256": "046b6834b233fd8f1cf7d6c869a56e873f1e1812c3f086fc69be716560dc5521"
+    },
+    "schemas/catalog.legacyDungeons.schema.json": {
+      "bytes": 8087,
+      "generated": false,
+      "sha256": "960371e5224e395a2d528ce6484f8538f7a8429635a0415a44d9c6c79bdc1059"
+    },
+    "schemas/catalog.relics.schema.json": {
+      "bytes": 1966,
+      "generated": false,
+      "sha256": "43cf5e8cc0689bcf6eb5ba7b2639bab339ecdc5d89246fc1ccbb18084b44c953"
+    },
+    "schemas/catalog.resources.schema.json": {
+      "bytes": 831,
+      "generated": false,
+      "sha256": "22863aa87a7268d65982b2ea972641fe941fb6306f4106018163e2c1816c1c31"
+    },
+    "schemas/catalog.seats.schema.json": {
+      "bytes": 382,
+      "generated": false,
+      "sha256": "1c3033ed07bc1af500e6baa0ec75e4c296f8315e80a7ab14b534bce0a1061472"
+    },
+    "schemas/catalog.speakers.schema.json": {
+      "bytes": 318,
+      "generated": false,
+      "sha256": "1b6c106c7e549029bfd5edeaacdd49f12935cd5f3a52bf4ea95f7ec19049287c"
+    },
+    "schemas/catalog.stances.schema.json": {
+      "bytes": 2730,
+      "generated": false,
+      "sha256": "ad724d7eb02bbd113fbca2a550daf47e3ad901ebab12567fffa43cf4b1046567"
+    },
+    "schemas/catalog.startingKits.schema.json": {
+      "bytes": 914,
+      "generated": false,
+      "sha256": "0df2b199c1c6472b4bff6d4c1f78783eb1a10e5047f3169ef8b660f52d8f4832"
+    },
+    "schemas/catalog.statuses.schema.json": {
+      "bytes": 11874,
+      "generated": false,
+      "sha256": "827080a00ea55efd2a7415ea72a2d0fb7ebe723d11313c9a0fc01b7911fbcb93"
+    },
+    "schemas/catalog.unlocks.schema.json": {
+      "bytes": 910,
+      "generated": false,
+      "sha256": "cdbb6a4ec1160e7e079faaf5a198f4b14cf36e5326298587654f27bfe3ee4356"
+    },
+    "schemas/catalog.weaponCardPackages.schema.json": {
+      "bytes": 2150,
+      "generated": false,
+      "sha256": "1e03cce0825d88a43e38fa74fd39503be5a1b583e2f915db8c578928b465850b"
+    },
+    "schemas/catalog.worldAtlas.schema.json": {
+      "bytes": 283,
+      "generated": false,
+      "sha256": "7c819888e8ca103de3571d0b3d535451b8e5d94b793c88150a55768d1d81c6c1"
+    },
+    "schemas/rules.attributeRules.schema.json": {
+      "bytes": 16471,
+      "generated": false,
+      "sha256": "91c0dccf147ff515759b763316fe696f9a37bc2a7a4e801203fcd60a5d573173"
+    },
+    "schemas/rules.combatRules.schema.json": {
+      "bytes": 9025,
+      "generated": false,
+      "sha256": "d29d3b917cb8d3d6d6db247a83c8ea920555e9dda903589ad89bac16c837b21f"
+    },
+    "schemas/rules.derivedStatRules.schema.json": {
+      "bytes": 9301,
+      "generated": false,
+      "sha256": "cf381c7f16b8fc5024525a55c6affc6b0c3a3c83c44dac3f2d28da4f6c70f55a"
+    },
+    "schemas/rules.handRules.schema.json": {
+      "bytes": 2625,
+      "generated": false,
+      "sha256": "850cee3992a01ce372461a60b9e0f87d9cb7a5583f5d8adc9044238e2d05a21e"
+    },
+    "schemas/rules.mechanics.schema.json": {
+      "bytes": 4206,
+      "generated": false,
+      "sha256": "7193c268f458f3777b0700efc002afbf1af6058cddc55aaa48ad8b71d94f6411"
+    },
+    "schemas/rules.nodeEffects.schema.json": {
+      "bytes": 10110,
+      "generated": false,
+      "sha256": "2bfca937840e75294fb5351d064873a743ef5fab215f41df63696a401dc77fea"
+    },
+    "schemas/rules.propertyRuleEffects.schema.json": {
+      "bytes": 9214,
+      "generated": false,
+      "sha256": "d4c07284354e421cfc9035b01866110521284645fa4076dfcca7c8e828177fef"
+    },
+    "schemas/settings.presets.reference.schema.json": {
+      "bytes": 20862,
+      "generated": false,
+      "sha256": "d584db9cb0f0d9f84b1448c4a4e5420cb92a11b2a728580c15f41300482b92e3"
+    },
+    "schemas/settings.presets.shipped.schema.json": {
+      "bytes": 375,
+      "generated": false,
+      "sha256": "e063afd07631161ba0144a3067458bf3b6e8596869a4267defe674e1f85e6f8a"
+    },
+    "schemas/tags.familyNodes.schema.json": {
+      "bytes": 316,
+      "generated": false,
+      "sha256": "5211c2d627b131de3ccc791ecdc723aa274a6e53b6263c8a20104303d411d0ed"
+    },
+    "schemas/tags.nodeRelations.schema.json": {
+      "bytes": 803,
+      "generated": false,
+      "sha256": "6e2339e2e41711a68a70f98085da494a25d140e87834cadc2127d09a3be948db"
+    },
+    "schemas/tags.nodeTerms.schema.json": {
+      "bytes": 635,
+      "generated": false,
+      "sha256": "bb06a4805a205ee4fcaa724cac5ffe6cfa8859c1162b44951981b63fe89dd04d"
+    },
+    "schemas/tags.nodeVariables.schema.json": {
+      "bytes": 766,
+      "generated": false,
+      "sha256": "5ab056e22aca6a5c58d83562ad8d3b7394554046de3710a94d95b68bf048b3df"
+    },
+    "schemas/tags.nodes.schema.json": {
+      "bytes": 1360,
+      "generated": false,
+      "sha256": "3adf44387a3a40545771f7994aa03d925601590071528693db14b1b03282f64b"
+    },
+    "schemas/tags.propertyRules.schema.json": {
+      "bytes": 8662,
+      "generated": false,
+      "sha256": "884ee952924055f7f8fcc5e026acc3c53a5da5bf8fbd0cb6eaf83039497a476a"
+    },
+    "schemas/tags.tagDomains.schema.json": {
+      "bytes": 438,
+      "generated": false,
+      "sha256": "7bd29679e9931972857528d21f393a71c9c43316b426d5829a528b0184a97932"
+    },
+    "schemas/tags.tagFamilies.schema.json": {
+      "bytes": 587,
+      "generated": false,
+      "sha256": "58fb80bd735938c775d4b65eadf1081ede6e3399b404c56c71188efec8eef24b"
+    },
+    "schemas/tags.tagFamilyDomains.schema.json": {
+      "bytes": 321,
+      "generated": false,
+      "sha256": "f677edb3e6a3fb1a0532dd457fef29811ab42d57154d1ae8883f15b284128c92"
+    },
+    "schemas/tags.tagging.schema.json": {
+      "bytes": 571,
+      "generated": false,
+      "sha256": "45a1c67ca355a5fb32e04752f8c16df6fce320b597520a83a8f6ccc01284c4cf"
+    },
+    "schemas/tags.tags.schema.json": {
+      "bytes": 792,
+      "generated": false,
+      "sha256": "145bd08c2cff27c2c0225a4262283d8609fa3153464b98728a9559aa74ee5c2a"
+    },
+    "schemas/tags.variableBindings.schema.json": {
+      "bytes": 825,
+      "generated": false,
+      "sha256": "b737b74ae845e045c72f49a06586301dd739bf3a52236d55dd9c919acc888103"
+    },
+    "schemas/ui.confirmationPolicies.schema.json": {
+      "bytes": 2064,
+      "generated": false,
+      "sha256": "bcfb76b5df5dbe3e2da9f0826aa435589234696921faf71040a6744f8b6da8d0"
+    },
+    "schemas/ui.locationPresentation.schema.json": {
+      "bytes": 3438,
+      "generated": false,
+      "sha256": "4a4726ea6740c861649d8476085f9b8c7ae611c3b325948227bde0e2c7ac9b09"
+    },
+    "schemas/ui.terms.schema.json": {
+      "bytes": 857,
+      "generated": false,
+      "sha256": "4f94653ded6714dc1de3dbac72bb70937fdd6609ed894f54137a74e5ecaf3781"
+    },
+    "schemas/ui.theme.schema.json": {
+      "bytes": 5399,
+      "generated": false,
+      "sha256": "32a1c3a5c840792bc91d71a1312558e924fdc91db29a79d285470822bf5a873e"
+    },
+    "settings/presets/reference.json": {
+      "bytes": 4585,
+      "generated": true,
+      "sha256": "58f334277629a84a835d4264e1b298b9acdc34cf4e77ae5aa5c789215b17b02f"
+    },
+    "settings/presets/shipped.json": {
+      "bytes": 154,
+      "generated": true,
+      "sha256": "7432767534664d497ef1aa853279f0470661e3681e08ccc8509650009c0924b7"
+    },
+    "strings/en.json": {
+      "bytes": 204265,
+      "generated": true,
+      "sha256": "84d0bea47b859fddc18177c3068231ec3e1bd73d07686c6c11c0d5452bee32f7"
+    },
+    "tags/familyNodes.json": {
+      "bytes": 7187,
+      "generated": true,
+      "sha256": "7e0aed3f917c0b3da376d85cf225e245c51168b4f75b725ef0470490fa517677"
+    },
+    "tags/nodeRelations.json": {
+      "bytes": 3996,
+      "generated": true,
+      "sha256": "04770c97f8628e90f09b0069ec41c03077bc7c52c8775e2bc46827aed259b86d"
+    },
+    "tags/nodeTerms.json": {
+      "bytes": 13407,
+      "generated": true,
+      "sha256": "f9251de735a90d957f7f18b0c467e24d4a9fa9e71e809da6f231eaac01b0fda0"
+    },
+    "tags/nodeVariables.json": {
+      "bytes": 9897,
+      "generated": true,
+      "sha256": "2242130b21e1185fa374383dd422402023c9297e88b784f055ad29795e7e7a33"
+    },
+    "tags/nodes.json": {
+      "bytes": 75383,
+      "generated": true,
+      "sha256": "caa0000a2a6ce98f21f719783e8f69f6262c4ed08e36c31c403298773a968ca1"
+    },
+    "tags/propertyRules.json": {
+      "bytes": 40390,
+      "generated": true,
+      "sha256": "ac3263e0d9a1b2b5e26419296c6acb21452dad79c187e30c4d8418c49783827f"
+    },
+    "tags/tagDomains.json": {
+      "bytes": 3741,
+      "generated": true,
+      "sha256": "889fe3a29a1e49ba5722d1162428cafb41ebb0786a07251b539ee00024a9da68"
+    },
+    "tags/tagFamilies.json": {
+      "bytes": 3271,
+      "generated": true,
+      "sha256": "190f29aad0c93c275adf97cb8a94d6ff0573075337f9570f903efcb727e53c4b"
+    },
+    "tags/tagFamilyDomains.json": {
+      "bytes": 7187,
+      "generated": true,
+      "sha256": "e0ca2b31d5943eb9a9842ebeeead7b211a20463aa02a3789bf7be9a9c2419993"
+    },
+    "tags/tagging.json": {
+      "bytes": 264028,
+      "generated": true,
+      "sha256": "17b2c998dbfc957df2f8ae655f1a0deddd7d07ed6fc1b3cf4ee07ecabc6dad23"
+    },
+    "tags/tags.json": {
+      "bytes": 55337,
+      "generated": true,
+      "sha256": "646cf385e7f9d2a34cb66fa63d271b9afbf2f25e9b9985d115326f8d8fc8b699"
+    },
+    "tags/variableBindings.json": {
+      "bytes": 17514,
+      "generated": true,
+      "sha256": "654a2078a25bc3a83581bd02146a124feb4c8004844c594cd3c9f614acfded71"
+    },
+    "ui/confirmationPolicies.json": {
+      "bytes": 3228,
+      "generated": true,
+      "sha256": "5e8cf06cdc81f586694334f52115a11de4c3ec6542a3044a607c56413664d5fd"
+    },
+    "ui/locationPresentation.json": {
+      "bytes": 25682,
+      "generated": true,
+      "sha256": "69e08859512577f9a01cb5fda87299dbbbb33f420f21ea70dca2177698d57e61"
+    },
+    "ui/terms.json": {
+      "bytes": 12076,
+      "generated": true,
+      "sha256": "a2f81683304c4e09521c5a34f468b7fd3df9b87f4eea9a00599967e763be332e"
+    },
+    "ui/theme.json": {
+      "bytes": 2974,
+      "generated": true,
+      "sha256": "9237226557bb3b182f73488acbcd5a21e3869b903d63dda57f011d3bf1265f06"
+    }
+  },
+  "schemaVersion": 1
+}

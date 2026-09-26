@@ -1,0 +1,61 @@
+{
+  "hp": {
+    "domainMax": 200,
+    "glyph": "❤",
+    "id": "hp",
+    "order": 10,
+    "source": "hp",
+    "surfaces": [
+      "main",
+      "model"
+    ],
+    "tint": "var(--res-hp)",
+    "weight": "normal"
+  },
+  "mana": {
+    "domainMax": 20,
+    "glyph": "◆",
+    "id": "mana",
+    "order": 20,
+    "source": "mana",
+    "surfaces": [
+      "main"
+    ],
+    "tint": "#315c9b",
+    "weight": "normal"
+  },
+  "poise": {
+    "glyph": "◈",
+    "id": "poise",
+    "order": 90,
+    "source": "poise",
+    "surfaces": [
+      "model"
+    ],
+    "tint": "var(--gold)",
+    "weight": "skinny"
+  },
+  "stamina": {
+    "domainMax": 20,
+    "glyph": "▲",
+    "id": "stamina",
+    "order": 30,
+    "source": "stamina",
+    "surfaces": [
+      "main"
+    ],
+    "tint": "#4d7a45",
+    "weight": "normal"
+  },
+  "ward": {
+    "glyph": "✧",
+    "id": "ward",
+    "order": 91,
+    "source": "ward",
+    "surfaces": [
+      "model"
+    ],
+    "tint": "#779fe0",
+    "weight": "skinny"
+  }
+}

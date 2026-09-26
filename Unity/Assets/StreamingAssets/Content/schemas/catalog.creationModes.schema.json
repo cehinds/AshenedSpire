@@ -1,0 +1,40 @@
+{
+  "$id": "catalog/creationModes.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "baseline": {
+        "type": "integer"
+      },
+      "belowBaseline": {
+        "type": "string"
+      },
+      "bonusPool": {
+        "type": "integer"
+      },
+      "id": {
+        "type": "string"
+      },
+      "maximum": {
+        "type": "integer"
+      },
+      "minimum": {
+        "type": "integer"
+      },
+      "redistribution": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "baseline",
+      "belowBaseline",
+      "bonusPool",
+      "id",
+      "maximum",
+      "minimum",
+      "redistribution"
+    ]
+  }
+}

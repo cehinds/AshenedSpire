@@ -1,0 +1,273 @@
+{
+  "$id": "ui/theme.json",
+  "type": "object",
+  "properties": {
+    "borders": {
+      "type": "object",
+      "properties": {
+        "control": {
+          "type": "string"
+        },
+        "hairline": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "control",
+        "hairline"
+      ]
+    },
+    "colors": {
+      "type": "object",
+      "properties": {
+        "bg": {
+          "type": "string"
+        },
+        "bgRaise": {
+          "type": "string"
+        },
+        "blood": {
+          "type": "string"
+        },
+        "danger": {
+          "type": "string"
+        },
+        "gold": {
+          "type": "string"
+        },
+        "green": {
+          "type": "string"
+        },
+        "line": {
+          "type": "string"
+        },
+        "lineSoft": {
+          "type": "string"
+        },
+        "muted": {
+          "type": "string"
+        },
+        "panel": {
+          "type": "string"
+        },
+        "parchment": {
+          "type": "string"
+        },
+        "resHp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "bg",
+        "bgRaise",
+        "blood",
+        "danger",
+        "gold",
+        "green",
+        "line",
+        "lineSoft",
+        "muted",
+        "panel",
+        "parchment",
+        "resHp"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "contrastPairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "bg": {
+            "type": "string"
+          },
+          "fg": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "minimumRatio": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "bg",
+          "fg",
+          "id",
+          "minimumRatio"
+        ]
+      }
+    },
+    "interactionStates": {
+      "type": "object",
+      "properties": {
+        "disabledOpacity": {
+          "type": "number"
+        },
+        "focusRing": {
+          "type": "object",
+          "properties": {
+            "color": {
+              "type": "string"
+            },
+            "offsetPx": {
+              "type": "integer"
+            },
+            "widthPx": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "color",
+            "offsetPx",
+            "widthPx"
+          ]
+        },
+        "pressedScale": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "disabledOpacity",
+        "focusRing",
+        "pressedScale"
+      ]
+    },
+    "layout": {
+      "type": "object",
+      "properties": {
+        "breakpoints": {
+          "type": "object",
+          "properties": {
+            "compactMaxPx": {
+              "type": "integer"
+            },
+            "shortLandscapeMaxHeightPx": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "compactMaxPx",
+            "shortLandscapeMaxHeightPx"
+          ]
+        },
+        "forbiddenOverflow": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "minTapTargetPx": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "breakpoints",
+        "forbiddenOverflow",
+        "minTapTargetPx"
+      ]
+    },
+    "radius": {
+      "type": "object",
+      "properties": {
+        "card": {
+          "type": "string"
+        },
+        "chip": {
+          "type": "string"
+        },
+        "modal": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "card",
+        "chip",
+        "modal"
+      ]
+    },
+    "spacing": {
+      "type": "object",
+      "properties": {
+        "scale": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "unit": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "scale",
+        "unit"
+      ]
+    },
+    "typography": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "type.body",
+                  "type.caption",
+                  "type.cardText",
+                  "type.chip",
+                  "type.heading",
+                  "type.title"
+                ]
+              },
+              "maximumRem": {
+                "type": "number"
+              },
+              "minimumRem": {
+                "type": "number"
+              },
+              "overflowPolicy": {
+                "type": "string",
+                "enum": [
+                  "expand",
+                  "scroll",
+                  "wrap"
+                ]
+              },
+              "preferredRem": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "maximumRem",
+              "minimumRem",
+              "overflowPolicy",
+              "preferredRem"
+            ]
+          }
+        }
+      },
+      "required": [
+        "roles"
+      ]
+    }
+  },
+  "required": [
+    "borders",
+    "colors",
+    "comment",
+    "contrastPairs",
+    "interactionStates",
+    "layout",
+    "radius",
+    "spacing",
+    "typography"
+  ]
+}

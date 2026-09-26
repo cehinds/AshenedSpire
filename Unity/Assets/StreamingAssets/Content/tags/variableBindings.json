@@ -1,0 +1,718 @@
+{
+  "rows": [
+    {
+      "balancePath": "exposure.siphonRefund",
+      "nodeId": "siphon",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "restoreMana"
+    },
+    {
+      "balancePath": "exposure.siphonRefundMastered",
+      "nodeId": "siphon",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "restoreMana_2"
+    },
+    {
+      "balancePath": "exposure.siphonMasteryLevel",
+      "nodeId": "siphon",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "siphonMasteryLevel"
+    },
+    {
+      "balancePath": "exposure.overchargeBuildupMult",
+      "nodeId": "overcharge",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "overchargeBuildupMult"
+    },
+    {
+      "balancePath": "exposure.staggerBreakPoise",
+      "nodeId": "staggerBreak",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "poiseDamage"
+    },
+    {
+      "balancePath": "exposure.resonanceSpreadPct",
+      "nodeId": "resonance",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "spreadPct"
+    },
+    {
+      "balancePath": "powers.forsakenMedallion.poiseDamage",
+      "nodeId": "forsakenMedallion",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "poiseDamage"
+    },
+    {
+      "balancePath": "powers.starstoneShard.starstoneCharge",
+      "nodeId": "starstoneShard",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "starstoneCharge"
+    },
+    {
+      "balancePath": "powers.starstoneShard.restoreMana",
+      "nodeId": "starstoneShard",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "restoreMana"
+    },
+    {
+      "balancePath": "powers.cutpursesCoin.prepared",
+      "nodeId": "cutpursesCoin",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "prepared"
+    },
+    {
+      "balancePath": "powers.cutpursesCoin.venom",
+      "nodeId": "cutpursesCoin",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "venom"
+    },
+    {
+      "balancePath": "powers.goldFigurine.block",
+      "nodeId": "goldFigurine",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "powers.goldenSprout.heal",
+      "nodeId": "goldenSprout",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "heal"
+    },
+    {
+      "balancePath": "powers.whetstoneFragment.damage",
+      "nodeId": "whetstoneFragment",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "damage"
+    },
+    {
+      "balancePath": "powers.kindlingCharm.draw",
+      "nodeId": "kindlingCharm",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "draw"
+    },
+    {
+      "balancePath": "powers.goldleafCharm.block",
+      "nodeId": "goldleafCharm",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "powers.crackedLantern.gainEnergy",
+      "nodeId": "crackedLantern",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "gainEnergy"
+    },
+    {
+      "balancePath": "powers.sacrificialKnife.bleed",
+      "nodeId": "sacrificialKnife",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "bleed"
+    },
+    {
+      "balancePath": "powers.curedHide.block",
+      "nodeId": "curedHide",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "powers.ivoryComb.draw",
+      "nodeId": "ivoryComb",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "draw"
+    },
+    {
+      "balancePath": "powers.ivoryComb.n",
+      "nodeId": "ivoryComb",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "n"
+    },
+    {
+      "balancePath": "powers.fellWardenBrand.draw",
+      "nodeId": "fellWardenBrand",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "draw"
+    },
+    {
+      "balancePath": "powers.bloodiedTalisman.loseHp",
+      "nodeId": "bloodiedTalisman",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "loseHp"
+    },
+    {
+      "balancePath": "powers.twinnedArmor.block",
+      "nodeId": "twinnedArmor",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "powers.twinnedArmor.n",
+      "nodeId": "twinnedArmor",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "n"
+    },
+    {
+      "balancePath": "powers.blightTouchedIdol.crimsonBlight",
+      "nodeId": "blightTouchedIdol",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "crimsonBlight"
+    },
+    {
+      "balancePath": "powers.warhorn.strength",
+      "nodeId": "warhorn",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "strength"
+    },
+    {
+      "balancePath": "powers.vowOfVengeance.strength",
+      "nodeId": "vowOfVengeance",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "strength"
+    },
+    {
+      "balancePath": "powers.pearlOfSagacity.gainEnergy",
+      "nodeId": "pearlOfSagacity",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "gainEnergy"
+    },
+    {
+      "balancePath": "powers.pearlOfSagacity.n",
+      "nodeId": "pearlOfSagacity",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "n"
+    },
+    {
+      "balancePath": "powers.blessedDew.heal",
+      "nodeId": "blessedDew",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "heal"
+    },
+    {
+      "balancePath": "powers.azureSigil.gainEnergy",
+      "nodeId": "azureSigil",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "gainEnergy"
+    },
+    {
+      "balancePath": "powers.bloodstainedChalice.block",
+      "nodeId": "bloodstainedChalice",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "powers.goldboughSapling.block",
+      "nodeId": "goldboughSapling",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "powers.wyrmHeart.gainEnergy",
+      "nodeId": "wyrmHeart",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "gainEnergy"
+    },
+    {
+      "balancePath": "powers.titansCinder.strength",
+      "nodeId": "titansCinder",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "strength"
+    },
+    {
+      "balancePath": "powers.radiantAegis.block",
+      "nodeId": "radiantAegis",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "powers.flayersCenser.crimsonBlight",
+      "nodeId": "flayersCenser",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "crimsonBlight"
+    },
+    {
+      "balancePath": "powers.vigilantHalo.heal",
+      "nodeId": "vigilantHalo",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "heal"
+    },
+    {
+      "balancePath": "powers.carrionTalon.damage",
+      "nodeId": "carrionTalon",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "damage"
+    },
+    {
+      "balancePath": "powers.emberIdol.damage",
+      "nodeId": "emberIdol",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "damage"
+    },
+    {
+      "balancePath": "powers.crownOfStitches.strength",
+      "nodeId": "crownOfStitches",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "strength"
+    },
+    {
+      "balancePath": "powers.crownOfStitches.frail",
+      "nodeId": "crownOfStitches",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "frail"
+    },
+    {
+      "balancePath": "powers.wardenHorn.draw",
+      "nodeId": "wardenHorn",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "draw"
+    },
+    {
+      "balancePath": "powers.wardenHorn.loseHp",
+      "nodeId": "wardenHorn",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "loseHp"
+    },
+    {
+      "balancePath": "powers.ashOfRemembrance.gainEnergy",
+      "nodeId": "ashOfRemembrance",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "gainEnergy"
+    },
+    {
+      "balancePath": "powers.ashOfRemembrance.madness",
+      "nodeId": "ashOfRemembrance",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "madness"
+    },
+    {
+      "balancePath": "powers.cinderOfTheFallen.madness",
+      "nodeId": "cinderOfTheFallen",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "madness"
+    },
+    {
+      "balancePath": "powers.cinderOfTheFallen.gainEnergy",
+      "nodeId": "cinderOfTheFallen",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "gainEnergy"
+    },
+    {
+      "balancePath": "powers.crimsonCovenant.loseHp",
+      "nodeId": "crimsonCovenant",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "loseHp"
+    },
+    {
+      "balancePath": "powers.crimsonCovenant.bleed",
+      "nodeId": "crimsonCovenant",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "bleed"
+    },
+    {
+      "balancePath": "powers.travelersWhetstone.strength",
+      "nodeId": "travelersWhetstone",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "strength"
+    },
+    {
+      "balancePath": "powers.moonlitVial.block",
+      "nodeId": "moonlitVial",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "powers.wardensLantern.draw",
+      "nodeId": "wardensLantern",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "draw"
+    },
+    {
+      "balancePath": "powers.hollowedHorn.vulnerable",
+      "nodeId": "hollowedHorn",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "vulnerable"
+    },
+    {
+      "balancePath": "powers.gildedTear.heal",
+      "nodeId": "gildedTear",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "heal"
+    },
+    {
+      "balancePath": "powers.watchmansBadge.strength",
+      "nodeId": "watchmansBadge",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "strength"
+    },
+    {
+      "balancePath": "powers.howlingStandard.strength",
+      "nodeId": "howlingStandard",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "strength"
+    },
+    {
+      "balancePath": "powers.emberwickCharm.gainEnergy",
+      "nodeId": "emberwickCharm",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "gainEnergy"
+    },
+    {
+      "balancePath": "powers.carrionMorsel.heal",
+      "nodeId": "carrionMorsel",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "heal"
+    },
+    {
+      "balancePath": "powers.gravetendersBell.draw",
+      "nodeId": "gravetendersBell",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "draw"
+    },
+    {
+      "balancePath": "powers.sentinelsOath.strength",
+      "nodeId": "sentinelsOath",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "strength"
+    },
+    {
+      "balancePath": "powers.sentinelsOath.n",
+      "nodeId": "sentinelsOath",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "n"
+    },
+    {
+      "balancePath": "powers.forsakenWarflag.weak",
+      "nodeId": "forsakenWarflag",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "weak"
+    },
+    {
+      "balancePath": "powers.wrathCoil.damage",
+      "nodeId": "wrathCoil",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "damage"
+    },
+    {
+      "balancePath": "skill.favoredXpMult",
+      "nodeId": "favored",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "skillXpMult"
+    },
+    {
+      "balancePath": "powers.ashenGrip.restoreStamina",
+      "nodeId": "ashenGrip",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "restoreStamina"
+    },
+    {
+      "balancePath": "powers.lodestarShard.restoreMana",
+      "nodeId": "lodestarShard",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "restoreMana"
+    },
+    {
+      "balancePath": "powers.waxenSeal.heal",
+      "nodeId": "waxenSeal",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "heal"
+    },
+    {
+      "balancePath": "powers.whetstonePouch.bleed",
+      "nodeId": "whetstonePouch",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "bleed"
+    },
+    {
+      "balancePath": "costs.action",
+      "nodeId": "cost.action",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "amount"
+    },
+    {
+      "balancePath": "costs.stamina",
+      "nodeId": "cost.stamina",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "amount"
+    },
+    {
+      "balancePath": "costs.mana",
+      "nodeId": "cost.mana",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "amount"
+    },
+    {
+      "balancePath": "classTree.ironFooting.block",
+      "nodeId": "ironFooting",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "classTree.bloodTempo.draw",
+      "nodeId": "bloodTempo",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "draw"
+    },
+    {
+      "balancePath": "classTree.ashenReserve.restoreStamina",
+      "nodeId": "ashenReserve",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "restoreStamina"
+    },
+    {
+      "balancePath": "classTree.grimHarvest.heal",
+      "nodeId": "grimHarvest",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "heal"
+    },
+    {
+      "balancePath": "classTree.warlord.strength",
+      "nodeId": "warlord",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "strength"
+    },
+    {
+      "balancePath": "classTree.bulwarkKing.block",
+      "nodeId": "bulwarkKing",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "classTree.attunedMind.draw",
+      "nodeId": "attunedMind",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "draw"
+    },
+    {
+      "balancePath": "classTree.starlitFocus.starstoneCharge",
+      "nodeId": "starlitFocus",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "starstoneCharge"
+    },
+    {
+      "balancePath": "classTree.lodestarCap.restoreMana",
+      "nodeId": "lodestarCap",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "restoreMana"
+    },
+    {
+      "balancePath": "classTree.arcaneDraw.draw",
+      "nodeId": "arcaneDraw",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "draw"
+    },
+    {
+      "balancePath": "classTree.conduit.restoreStamina",
+      "nodeId": "conduit",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "restoreStamina"
+    },
+    {
+      "balancePath": "classTree.reservoir.restoreMana",
+      "nodeId": "reservoir",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "restoreMana"
+    },
+    {
+      "balancePath": "classTree.warmth.block",
+      "nodeId": "warmth",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "classTree.vigil.heal",
+      "nodeId": "vigil",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "heal"
+    },
+    {
+      "balancePath": "classTree.sealOfPlenty.restoreMana",
+      "nodeId": "sealOfPlenty",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "restoreMana"
+    },
+    {
+      "balancePath": "classTree.wakingRot.crimsonBlight",
+      "nodeId": "wakingRot",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "crimsonBlight"
+    },
+    {
+      "balancePath": "classTree.martyr.block",
+      "nodeId": "martyr",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "classTree.saint.heal",
+      "nodeId": "saint",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "heal"
+    },
+    {
+      "balancePath": "classTree.quickHands.prepared",
+      "nodeId": "quickHands",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "prepared"
+    },
+    {
+      "balancePath": "classTree.secondWind.draw",
+      "nodeId": "secondWind",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "draw"
+    },
+    {
+      "balancePath": "classTree.honedEdge.bleed",
+      "nodeId": "honedEdge",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "bleed"
+    },
+    {
+      "balancePath": "classTree.poisonedPouch.venom",
+      "nodeId": "poisonedPouch",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "venom"
+    },
+    {
+      "balancePath": "classTree.assassin.prepared",
+      "nodeId": "assassin",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "prepared"
+    },
+    {
+      "balancePath": "classTree.assassin.draw",
+      "nodeId": "assassin",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "draw"
+    },
+    {
+      "balancePath": "classTree.shadow.block",
+      "nodeId": "shadow",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "block"
+    },
+    {
+      "balancePath": "rest.hpSmallPct",
+      "nodeId": "restHpSmall",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "pct"
+    },
+    {
+      "balancePath": "rest.hpPartialPct",
+      "nodeId": "restHpPartial",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "pct"
+    },
+    {
+      "balancePath": "rest.mana.flat",
+      "nodeId": "restManaFlat",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "restoreMana"
+    },
+    {
+      "balancePath": "rest.mana.floorPct",
+      "nodeId": "restManaFloor",
+      "scope": "default",
+      "scopeId": "",
+      "variable": "floorPct"
+    }
+  ]
+}

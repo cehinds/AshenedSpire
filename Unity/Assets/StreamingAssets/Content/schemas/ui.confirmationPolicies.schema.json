@@ -1,0 +1,88 @@
+{
+  "$id": "ui/confirmationPolicies.json",
+  "type": "object",
+  "properties": {
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "destructive": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          },
+          "policyId": {
+            "type": "string",
+            "enum": [
+              "policy.abandonRun",
+              "policy.blacksmithExtract",
+              "policy.blacksmithInstall",
+              "policy.blacksmithUpgrade",
+              "policy.cardRemove",
+              "policy.deleteSave",
+              "policy.discardUnsavedProgress",
+              "policy.equipSwap",
+              "policy.playCard",
+              "policy.purchase",
+              "policy.restDeckEdit",
+              "policy.saveOverwrite"
+            ]
+          }
+        },
+        "required": [
+          "destructive",
+          "id",
+          "policyId"
+        ]
+      }
+    },
+    "comment": {
+      "type": "string"
+    },
+    "policies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "policy.abandonRun",
+              "policy.blacksmithExtract",
+              "policy.blacksmithInstall",
+              "policy.blacksmithUpgrade",
+              "policy.cardRemove",
+              "policy.deleteSave",
+              "policy.discardUnsavedProgress",
+              "policy.equipSwap",
+              "policy.playCard",
+              "policy.purchase",
+              "policy.restDeckEdit",
+              "policy.saveOverwrite"
+            ]
+          },
+          "level": {
+            "type": "string",
+            "enum": [
+              "COMMITMENT",
+              "DESTRUCTIVE",
+              "NONE",
+              "REVERSIBLE"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "level"
+        ]
+      }
+    }
+  },
+  "required": [
+    "actions",
+    "comment",
+    "policies"
+  ]
+}

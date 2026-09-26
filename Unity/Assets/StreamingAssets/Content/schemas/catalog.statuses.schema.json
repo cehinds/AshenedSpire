@@ -1,0 +1,455 @@
+{
+  "$id": "catalog/statuses.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "decay": {
+        "type": [
+          "object",
+          "string"
+        ],
+        "properties": {
+          "duration": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "duration"
+        ]
+      },
+      "hooks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "do": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": [
+                      "integer",
+                      "object"
+                    ],
+                    "properties": {
+                      "args": {
+                        "type": "array",
+                        "items": {
+                          "type": [
+                            "integer",
+                            "object"
+                          ],
+                          "properties": {
+                            "f": {
+                              "type": "string"
+                            },
+                            "of": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "f",
+                            "of",
+                            "status"
+                          ]
+                        }
+                      },
+                      "f": {
+                        "type": "string",
+                        "enum": [
+                          "mul",
+                          "stacks"
+                        ]
+                      },
+                      "of": {
+                        "type": "string",
+                        "enum": [
+                          "owner"
+                        ]
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "burn",
+                          "crimsonBlight",
+                          "deadlyTempo",
+                          "harbingerOfBlight",
+                          "madness",
+                          "opportunist",
+                          "rallyingStandard",
+                          "regen",
+                          "venom"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "f"
+                    ]
+                  },
+                  "op": {
+                    "type": "string",
+                    "enum": [
+                      "applyStatus",
+                      "block",
+                      "damage",
+                      "draw",
+                      "gainEnergy",
+                      "heal",
+                      "loseHp",
+                      "removeStatus"
+                    ]
+                  },
+                  "stacks": {
+                    "type": [
+                      "integer",
+                      "object"
+                    ],
+                    "properties": {
+                      "args": {
+                        "type": "array",
+                        "items": {
+                          "type": [
+                            "integer",
+                            "object"
+                          ],
+                          "properties": {
+                            "f": {
+                              "type": "string"
+                            },
+                            "of": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "f",
+                            "of",
+                            "status"
+                          ]
+                        }
+                      },
+                      "f": {
+                        "type": "string",
+                        "enum": [
+                          "add",
+                          "mul",
+                          "stacks"
+                        ]
+                      },
+                      "of": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "f"
+                    ]
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "bleed",
+                      "bulwarkEcho",
+                      "crimsonBlight",
+                      "madness",
+                      "prepared",
+                      "starstoneCharge",
+                      "strength",
+                      "venom",
+                      "vulnerable"
+                    ]
+                  },
+                  "target": {
+                    "type": "string",
+                    "enum": [
+                      "allEnemies",
+                      "owner",
+                      "randomEnemy"
+                    ]
+                  }
+                },
+                "required": [
+                  "op"
+                ]
+              }
+            },
+            "if": {
+              "type": "object",
+              "properties": {
+                "n": {
+                  "type": "integer"
+                },
+                "p": {
+                  "type": "string",
+                  "enum": [
+                    "all",
+                    "cardTypeIs",
+                    "eventStatusIs",
+                    "eventTargetIsOwner",
+                    "everyNthCardThisCombat"
+                  ]
+                },
+                "preds": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "p": {
+                        "type": "string",
+                        "enum": [
+                          "eventIsAttack",
+                          "eventSourceIsOwner",
+                          "eventStatusIs",
+                          "eventTargetIsOwner"
+                        ]
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "p"
+                    ]
+                  }
+                },
+                "status": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "p"
+              ]
+            },
+            "on": {
+              "type": "string",
+              "enum": [
+                "cardPlayed",
+                "damageDealt",
+                "enemyDied",
+                "enemyStaggered",
+                "healed",
+                "hpLost",
+                "meterFilled",
+                "ownerTurnEnd",
+                "ownerTurnStart",
+                "statusApplied"
+              ]
+            }
+          },
+          "required": [
+            "do",
+            "on"
+          ]
+        }
+      },
+      "icon": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "instancePresentation": {
+        "type": "object",
+        "properties": {
+          "durationToken": {
+            "type": "string"
+          },
+          "valueToken": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "durationToken",
+          "valueToken"
+        ]
+      },
+      "modifiers": {
+        "type": "object",
+        "properties": {
+          "attackDamageAdd": {
+            "type": "integer"
+          },
+          "blockAdd": {
+            "type": "integer"
+          },
+          "blockCap": {
+            "type": "integer"
+          },
+          "blockGainedMult": {
+            "type": "number"
+          },
+          "damageDealtMult": {
+            "type": "number"
+          },
+          "damageTakenMult": {
+            "type": "number"
+          },
+          "meterMaxGrowthDisabled": {
+            "type": "boolean"
+          },
+          "retainBlock": {
+            "type": "boolean"
+          }
+        }
+      },
+      "proc": {
+        "type": "object",
+        "properties": {
+          "burstMax": {
+            "type": "integer"
+          },
+          "burstMin": {
+            "type": "integer"
+          },
+          "burstPercent": {
+            "type": "integer"
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "op": {
+                  "type": "string"
+                },
+                "stacks": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string",
+                  "x-ref": "catalog/statuses.json"
+                },
+                "target": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "op",
+                "stacks",
+                "status",
+                "target"
+              ]
+            }
+          },
+          "poiseDamage": {
+            "type": "integer"
+          },
+          "resistance": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "beast",
+                    "humanoid",
+                    "spirit"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "status",
+              "tags"
+            ]
+          },
+          "stagger": {
+            "type": "boolean"
+          },
+          "threshold": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "burstMax",
+          "burstMin",
+          "burstPercent",
+          "resistance",
+          "threshold"
+        ]
+      },
+      "resists": {
+        "type": "object",
+        "properties": {
+          "percent": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "percent",
+          "status"
+        ]
+      },
+      "schoolDamageVulnerability": {
+        "type": "object",
+        "properties": {
+          "school": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "school"
+        ]
+      },
+      "stackMode": {
+        "type": "string",
+        "enum": [
+          "add",
+          "refresh",
+          "unique"
+        ]
+      },
+      "taggedVulnerability": {
+        "type": "object",
+        "properties": {
+          "mult": {
+            "type": "number"
+          },
+          "stacking": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "mult",
+          "stacking",
+          "tags"
+        ]
+      },
+      "tint": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "decay",
+      "icon",
+      "id",
+      "stackMode"
+    ]
+  }
+}

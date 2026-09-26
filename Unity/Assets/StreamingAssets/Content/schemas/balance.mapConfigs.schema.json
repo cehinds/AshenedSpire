@@ -1,0 +1,494 @@
+{
+  "$id": "balance/mapConfigs.json",
+  "type": "object",
+  "properties": {
+    "1": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "integer"
+        },
+        "entries": {
+          "type": "integer"
+        },
+        "floorRules": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "at": {
+                    "type": "string"
+                  },
+                  "of": {
+                    "type": "number"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "at",
+                  "type"
+                ]
+              }
+            },
+            "minElites": {
+              "type": "integer"
+            },
+            "minMerchants": {
+              "type": "integer"
+            },
+            "noEliteBefore": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string"
+                },
+                "of": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "at",
+                "of"
+              ]
+            },
+            "noShrineBefore": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string"
+                },
+                "of": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "at",
+                "of"
+              ]
+            },
+            "noShrineOn": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "at"
+              ]
+            },
+            "restBeforeElite": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "fixed",
+            "minElites",
+            "minMerchants",
+            "noEliteBefore",
+            "noShrineBefore",
+            "noShrineOn",
+            "restBeforeElite"
+          ]
+        },
+        "floors": {
+          "type": "integer"
+        },
+        "pathCount": {
+          "type": "integer"
+        },
+        "typeWeights": {
+          "type": "object",
+          "properties": {
+            "elite": {
+              "type": "integer"
+            },
+            "event": {
+              "type": "integer"
+            },
+            "merchant": {
+              "type": "integer"
+            },
+            "monster": {
+              "type": "integer"
+            },
+            "shrine": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "elite",
+            "event",
+            "merchant",
+            "monster",
+            "shrine"
+          ]
+        },
+        "unknownWeights": {
+          "type": "object",
+          "properties": {
+            "event": {
+              "type": "integer"
+            },
+            "fight": {
+              "type": "integer"
+            },
+            "shrine": {
+              "type": "integer"
+            },
+            "treasure": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "event",
+            "fight",
+            "shrine",
+            "treasure"
+          ]
+        }
+      },
+      "required": [
+        "columns",
+        "entries",
+        "floorRules",
+        "floors",
+        "pathCount",
+        "typeWeights",
+        "unknownWeights"
+      ]
+    },
+    "2": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "integer"
+        },
+        "entries": {
+          "type": "integer"
+        },
+        "floorRules": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "at": {
+                    "type": "string"
+                  },
+                  "of": {
+                    "type": "number"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "at",
+                  "type"
+                ]
+              }
+            },
+            "minElites": {
+              "type": "integer"
+            },
+            "minMerchants": {
+              "type": "integer"
+            },
+            "noEliteBefore": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string"
+                },
+                "of": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "at",
+                "of"
+              ]
+            },
+            "noShrineBefore": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string"
+                },
+                "of": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "at",
+                "of"
+              ]
+            },
+            "noShrineOn": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "at"
+              ]
+            },
+            "restBeforeElite": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "fixed",
+            "minElites",
+            "minMerchants",
+            "noEliteBefore",
+            "noShrineBefore",
+            "noShrineOn",
+            "restBeforeElite"
+          ]
+        },
+        "floors": {
+          "type": "integer"
+        },
+        "pathCount": {
+          "type": "integer"
+        },
+        "typeWeights": {
+          "type": "object",
+          "properties": {
+            "elite": {
+              "type": "integer"
+            },
+            "event": {
+              "type": "integer"
+            },
+            "merchant": {
+              "type": "integer"
+            },
+            "monster": {
+              "type": "integer"
+            },
+            "shrine": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "elite",
+            "event",
+            "merchant",
+            "monster",
+            "shrine"
+          ]
+        },
+        "unknownWeights": {
+          "type": "object",
+          "properties": {
+            "event": {
+              "type": "integer"
+            },
+            "fight": {
+              "type": "integer"
+            },
+            "shrine": {
+              "type": "integer"
+            },
+            "treasure": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "event",
+            "fight",
+            "shrine",
+            "treasure"
+          ]
+        }
+      },
+      "required": [
+        "columns",
+        "entries",
+        "floorRules",
+        "floors",
+        "pathCount",
+        "typeWeights",
+        "unknownWeights"
+      ]
+    },
+    "3": {
+      "type": "object",
+      "properties": {
+        "columns": {
+          "type": "integer"
+        },
+        "entries": {
+          "type": "integer"
+        },
+        "floorRules": {
+          "type": "object",
+          "properties": {
+            "fixed": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "at": {
+                    "type": "string"
+                  },
+                  "of": {
+                    "type": "number"
+                  },
+                  "type": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "at",
+                  "type"
+                ]
+              }
+            },
+            "minElites": {
+              "type": "integer"
+            },
+            "minMerchants": {
+              "type": "integer"
+            },
+            "noEliteBefore": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string"
+                },
+                "of": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "at",
+                "of"
+              ]
+            },
+            "noShrineBefore": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string"
+                },
+                "of": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "at",
+                "of"
+              ]
+            },
+            "noShrineOn": {
+              "type": "object",
+              "properties": {
+                "at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "at"
+              ]
+            },
+            "restBeforeElite": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "fixed",
+            "minElites",
+            "minMerchants",
+            "noEliteBefore",
+            "noShrineBefore",
+            "noShrineOn",
+            "restBeforeElite"
+          ]
+        },
+        "floors": {
+          "type": "integer"
+        },
+        "pathCount": {
+          "type": "integer"
+        },
+        "typeWeights": {
+          "type": "object",
+          "properties": {
+            "elite": {
+              "type": "integer"
+            },
+            "event": {
+              "type": "integer"
+            },
+            "merchant": {
+              "type": "integer"
+            },
+            "monster": {
+              "type": "integer"
+            },
+            "shrine": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "elite",
+            "event",
+            "merchant",
+            "monster",
+            "shrine"
+          ]
+        },
+        "unknownWeights": {
+          "type": "object",
+          "properties": {
+            "event": {
+              "type": "integer"
+            },
+            "fight": {
+              "type": "integer"
+            },
+            "shrine": {
+              "type": "integer"
+            },
+            "treasure": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "event",
+            "fight",
+            "shrine",
+            "treasure"
+          ]
+        }
+      },
+      "required": [
+        "columns",
+        "entries",
+        "floorRules",
+        "floors",
+        "pathCount",
+        "typeWeights",
+        "unknownWeights"
+      ]
+    }
+  },
+  "required": [
+    "1",
+    "2",
+    "3"
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "ASCENSION_ORDER": [
+    "toughElites",
+    "deadlyEnemies",
+    "lessHealing",
+    "bigBosses",
+    "cursedStart",
+    "expensiveShops"
+  ],
+  "CHAOS_MODS": [
+    {
+      "desc": "Every monster node is an Elite fight.",
+      "id": "allElite",
+      "label": "Elite Gauntlet"
+    },
+    {
+      "desc": "Start with +250 cinders — but every shop price doubles.",
+      "id": "hoarder",
+      "label": "Hoarder"
+    },
+    {
+      "desc": "Card rewards ignore rarity: rares everywhere.",
+      "id": "chaosRewards",
+      "label": "Chaos Rewards"
+    },
+    {
+      "desc": "You deal +25% damage, but take +25% damage.",
+      "id": "glassCannon",
+      "label": "Glass Cannon"
+    },
+    {
+      "desc": "After Act 3 the spire loops — each cycle, foes gain HP and Strength. Only death ends the climb.",
+      "id": "endless",
+      "label": "Endless Spire"
+    }
+  ],
+  "DECK_MODES": [
+    {
+      "desc": "Your class's normal starting deck.",
+      "id": "standard",
+      "label": "Standard"
+    },
+    {
+      "desc": "A random starting deck drawn from your class pool.",
+      "id": "sealed",
+      "label": "Sealed"
+    },
+    {
+      "desc": "Draft your starting deck card by card.",
+      "id": "draft",
+      "label": "Draft"
+    }
+  ],
+  "DIFFICULTY_MODS": [
+    {
+      "desc": "Elites and bosses have +30% HP.",
+      "id": "toughElites",
+      "label": "Tough Elites"
+    },
+    {
+      "desc": "Shrine rest and between-act healing are halved.",
+      "id": "lessHealing",
+      "label": "Scarce Embers"
+    },
+    {
+      "desc": "Every enemy begins combat with +1 Strength.",
+      "id": "deadlyEnemies",
+      "label": "Deadly Foes"
+    },
+    {
+      "desc": "Begin the run with a Guilt curse shuffled into your deck.",
+      "id": "cursedStart",
+      "label": "Cursed Start"
+    },
+    {
+      "desc": "Shop prices are 50% higher.",
+      "id": "expensiveShops",
+      "label": "Greedy Merchants"
+    },
+    {
+      "desc": "Act bosses have +50% HP.",
+      "id": "bigBosses",
+      "label": "Dread Bosses"
+    }
+  ],
+  "ENDLESS_HP_PER_LOOP": 0.35,
+  "ENDLESS_STR_PER_LOOP": 1,
+  "MAX_ASCENSION": 6
+}
