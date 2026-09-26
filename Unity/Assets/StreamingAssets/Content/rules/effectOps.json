@@ -1,5 +1,5 @@
 {
-  "comment": "Authoritative effect-op vocabulary (docs/design/08 §7). Codegen emits the EffectOp enum from this list. The validator fails if content uses an op not listed here. Adding an op: add it here, run Tools/codegen.mjs, implement IEffectOp, add a test.",
+  "comment": "Authoritative effect-op vocabulary (docs/design/08 \u00a77). Codegen emits the EffectOp enum from 'ops' IN ORDER (append new ops at the end to keep enum values stable). 'containers' are the keys whose arrays hold effect objects; the validator checks 'op' only there. Adding an op: append it here, run Tools/codegen.mjs, implement IEffectOp, add a test.",
   "ops": [
     "addCard",
     "addCardToDeck",
@@ -25,6 +25,13 @@
     "restoreStamina",
     "startCombat",
     "swapClass",
-    "upgradeCard"
+    "upgradeCard",
+    "addFlaskCapacity"
+  ],
+  "containers": [
+    "do",
+    "effects",
+    "onEnter",
+    "onFill"
   ]
 }

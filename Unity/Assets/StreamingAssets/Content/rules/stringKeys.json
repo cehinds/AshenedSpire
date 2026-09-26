@@ -1,0 +1,150 @@
+{
+  "catalog/armaments.json": {
+    "optional": [],
+    "prefix": "armament",
+    "required": [
+      "name"
+    ]
+  },
+  "catalog/armour.json": {
+    "optional": [],
+    "prefix": "armour",
+    "required": [
+      "name",
+      "blurb"
+    ]
+  },
+  "catalog/atlasQuests.json": {
+    "optional": [],
+    "prefix": "quest",
+    "required": [
+      "name",
+      "description"
+    ]
+  },
+  "catalog/attributes.json": {
+    "optional": [],
+    "prefix": "attribute",
+    "required": [
+      "label",
+      "short"
+    ]
+  },
+  "catalog/cards.json": {
+    "optional": [],
+    "prefix": "card",
+    "required": [
+      "name",
+      "flavor",
+      "text"
+    ]
+  },
+  "catalog/classes.json": {
+    "optional": [],
+    "prefix": "class",
+    "required": [
+      "name",
+      "description"
+    ]
+  },
+  "catalog/creationModes.json": {
+    "optional": [],
+    "prefix": "creationMode",
+    "required": [
+      "label"
+    ]
+  },
+  "catalog/enemies.json": {
+    "optional": [],
+    "prefix": "enemy",
+    "required": [
+      "name"
+    ]
+  },
+  "catalog/events.json": {
+    "optional": [],
+    "prefix": "event",
+    "required": [
+      "name",
+      "text"
+    ]
+  },
+  "catalog/flasks.json": {
+    "optional": [],
+    "prefix": "flask",
+    "required": [
+      "name",
+      "text"
+    ]
+  },
+  "catalog/keywords.json": {
+    "optional": [],
+    "prefix": "keyword",
+    "required": [
+      "name",
+      "tooltip"
+    ]
+  },
+  "catalog/relics.json": {
+    "optional": [
+      "flavor"
+    ],
+    "prefix": "relic",
+    "required": [
+      "name",
+      "text"
+    ]
+  },
+  "catalog/resources.json": {
+    "optional": [],
+    "prefix": "resource",
+    "required": [
+      "name"
+    ]
+  },
+  "catalog/seats.json": {
+    "optional": [],
+    "prefix": "seat",
+    "required": [
+      "name"
+    ]
+  },
+  "catalog/speakers.json": {
+    "optional": [],
+    "prefix": "speaker",
+    "required": [
+      "name"
+    ]
+  },
+  "catalog/stances.json": {
+    "optional": [],
+    "prefix": "stance",
+    "required": [
+      "name",
+      "tooltip"
+    ]
+  },
+  "catalog/startingKits.json": {
+    "optional": [],
+    "prefix": "kit",
+    "required": [
+      "label"
+    ]
+  },
+  "catalog/statuses.json": {
+    "optional": [],
+    "prefix": "status",
+    "required": [
+      "name",
+      "tooltip"
+    ]
+  },
+  "catalog/unlocks.json": {
+    "optional": [],
+    "prefix": "unlock",
+    "required": [
+      "name",
+      "hint"
+    ]
+  }
+}

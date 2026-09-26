@@ -1,0 +1,75 @@
+{
+  "$id": "rules/validation.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "rowRules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "require": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "field": {
+                  "type": "string"
+                },
+                "gte": {
+                  "type": "integer"
+                },
+                "orValues": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "integer",
+                      "string"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "field",
+                "gte"
+              ]
+            }
+          },
+          "table": {
+            "type": "string"
+          },
+          "when": {
+            "type": "object",
+            "properties": {
+              "field": {
+                "type": "string"
+              },
+              "gt": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "field",
+              "gt"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "require",
+          "table",
+          "when"
+        ]
+      }
+    }
+  },
+  "required": [
+    "comment",
+    "rowRules"
+  ]
+}

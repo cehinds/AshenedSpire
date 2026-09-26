@@ -30,6 +30,7 @@ namespace Ashen.Generated
         StartCombat = 23,
         SwapClass = 24,
         UpgradeCard = 25,
+        AddFlaskCapacity = 26,
     }
 
     /// <summary>Wire names for EffectOp (the strings used in content).</summary>
@@ -62,6 +63,7 @@ namespace Ashen.Generated
             "startCombat",
             "swapClass",
             "upgradeCard",
+            "addFlaskCapacity",
         };
 
         public static EffectOp Parse(string wire)
@@ -93,6 +95,7 @@ namespace Ashen.Generated
                 case "startCombat": return EffectOp.StartCombat;
                 case "swapClass": return EffectOp.SwapClass;
                 case "upgradeCard": return EffectOp.UpgradeCard;
+                case "addFlaskCapacity": return EffectOp.AddFlaskCapacity;
                 default: return EffectOp.None;
             }
         }
@@ -126,6 +129,7 @@ namespace Ashen.Generated
                 case EffectOp.StartCombat: return "startCombat";
                 case EffectOp.SwapClass: return "swapClass";
                 case EffectOp.UpgradeCard: return "upgradeCard";
+                case EffectOp.AddFlaskCapacity: return "addFlaskCapacity";
                 default: return null;
             }
         }

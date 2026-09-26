@@ -4,6 +4,24 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 ## Phase F0 Foundation (in progress)
 
+### us-0.4: the validator names exactly what is wrong (2026-09-26)
+
+- **`Ashen.Content.ContentValidator`** (engine-free) checks:
+  - manifest integrity (SHA-256 per file);
+  - a schema per data file, via `SchemaValidator`: types including unions, required, unknown properties, enums, `x-keyed`, `x-ref`;
+  - effect ops, only inside the containers listed in `rules/effectOps.json` (`effects`, `do`, `onEnter`, `onFill`);
+  - required string keys (`rules/stringKeys.json`, generated from the transform config);
+  - data-driven row rules (`rules/validation.json`: Mana ⇒ ≥ 1 Action and ≥ 1 Stamina);
+  - every preset, merge-patched (`MergePatch`, RFC 7386) onto its base file and re-validated.
+- **Every issue** reports file, JSON path, a stable rule ID (`ValidationRules`) and a message (`ValidationMessages`), all generated constants.
+- **Real findings fixed:**
+  - The keepsake op `addFlaskCapacity` was missing from the vocabulary. It is appended at the end to keep enum values stable.
+  - `equipmentMeta.modFields.*.op` is not an effect op; the check is now scoped to containers.
+  - The hand-rules schema now allows the owner's `openingWeighted` rule.
+- **Tests:** `ContentValidatorTests` covers committed content valid, counts, hash drift, dangling reference, type and unknown property, unknown op, missing string, cost rule, preset cleanliness, and RFC 7386 cases. dotnet 14/14; Unity EditMode 15/15.
+- **Editor CLI:** `Ashen.EditorTools.Cli.ValidateContent` (batchmode exit code) and the menu item `Ashen/Validate Content`. It validates 137 files in the Unity batchmode run.
+- **CI** is green on `dev` at 0.0.3.1. The Unity jobs skip because the `UNITY_LICENSE` secret isn't set.
+
 ### us-0.9: generated key constants (2026-09-26)
 
 - **`Tools/codegen.mjs`** (Node, D-028) reads `Tools/codegen.config.json` and the content, and writes `Unity/Assets/Game/Generated/*.g.cs`:
