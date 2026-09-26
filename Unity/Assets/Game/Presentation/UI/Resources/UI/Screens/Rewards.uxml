@@ -1,0 +1,30 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:VisualElement name="REWARDS_BACKGROUND" class="rewards-background" picking-mode="Ignore" />
+    <ui:VisualElement name="SCRIM" class="page page--center scrim">
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="rewards-shell" exit-visible="false">
+            <ui:VisualElement name="REWARDS_BODY" class="rewards-body">
+                <ui:ScrollView name="REWARD_SCROLL" class="reward-scroll" horizontal-scroller-visibility="Hidden">
+                    <ui:VisualElement name="REWARD_LIST" class="reward-list" />
+                </ui:ScrollView>
+                <ui:VisualElement name="CLAIM_STATUS" class="claim-status">
+                    <Ashen.Presentation.UI.LocLabel class="eyebrow kit-text-header" string-key="rewards.claim.heading" />
+                    <ui:VisualElement name="CLAIM_LIST" class="claim-list" />
+                    <Ashen.Presentation.UI.LocLabel name="CLAIM_REQUIRED" class="claim-required kit-text-value" />
+                    <Ashen.Presentation.UI.LocLabel name="REWARDS_HINT" class="rewards-hint kit-text-value" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="REWARD_PICK" class="reward-pick is-hidden">
+                <Ashen.Presentation.UI.LocLabel name="PICK_TITLE" class="pick-title kit-text-header" />
+                <Ashen.Presentation.UI.LocLabel name="PICK_PROMPT" class="pick-prompt kit-text-value" string-key="rewards.pick.prompt" />
+                <ui:VisualElement name="PICK_CARDS" class="pick-cards" />
+                <ui:VisualElement name="PICK_FOOTER" class="pick-footer">
+                    <Ashen.Presentation.UI.LocButton name="PICK_BACK" class="kit-button--back pick-button" string-key="rewards.pick.back" />
+                    <Ashen.Presentation.UI.LocButton name="PICK_SKIP" class="pick-button pick-skip" string-key="rewards.pick.skip" />
+                    <ui:VisualElement class="pick-gap" />
+                    <Ashen.Presentation.UI.LocButton name="PICK_CONFIRM" class="kit-button--primary pick-button" string-key="rewards.pick.confirm" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </Ashen.Presentation.UI.Kit.Shell>
+    </ui:VisualElement>
+</ui:UXML>

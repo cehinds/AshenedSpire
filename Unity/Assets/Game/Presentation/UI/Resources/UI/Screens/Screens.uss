@@ -509,3 +509,320 @@
     margin-left: 0;
     margin-top: var(--space-xxs);
 }
+
+/* ---- W-08 rewards (W1t: the reward list beside its claim status; the card or draft pick as a sub-state) ---- */
+
+.rewards-background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg);
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+.rewards-shell {
+    width: var(--size-rewards-shell-w);
+}
+
+.rewards-status {
+    flex-shrink: 0;
+    margin-left: var(--space-lg);
+    margin-right: var(--space-md);
+    color: var(--color-parchment);
+    font-size: var(--font-heading);
+}
+
+.rewards-body {
+    flex-direction: row;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.reward-scroll {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.reward-list {
+    flex-shrink: 0;
+}
+
+.reward-line {
+    flex-direction: row;
+    align-items: stretch;
+    margin-bottom: var(--space-sm);
+}
+
+.reward-row {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: row;
+    align-items: center;
+    min-height: var(--size-reward-row-min-h);
+    padding-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+    white-space: normal;
+    -unity-text-align: middle-left;
+}
+
+.reward-icon {
+    width: var(--size-reward-icon);
+    height: var(--size-reward-icon);
+    flex-shrink: 0;
+    margin-right: var(--space-md);
+    align-items: center;
+    justify-content: center;
+    background-size: contain;
+    background-color: var(--color-bg-raise);
+    border-radius: var(--radius-chip);
+}
+
+.reward-glyph {
+    font-size: var(--font-glyph);
+    color: var(--color-gold);
+    -unity-text-align: middle-center;
+}
+
+.reward-texts {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.reward-title {
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.reward-body {
+    margin-top: var(--space-xxs);
+    font-size: var(--font-caption);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.reward-chip {
+    flex-shrink: 0;
+    min-width: var(--size-reward-chip-min-w);
+    margin-left: var(--space-md);
+    padding: var(--space-xxs) var(--space-sm);
+    font-size: var(--font-chip);
+    color: var(--color-parchment);
+    background-color: var(--color-bg-raise);
+    border-radius: var(--radius-chip);
+    -unity-text-align: middle-center;
+}
+
+.reward-row--taken .reward-chip {
+    color: var(--color-green);
+}
+
+.reward-row--blocked .reward-chip,
+.reward-row--skipped .reward-chip {
+    color: var(--color-muted);
+}
+
+.reward-row:focus .reward-title,
+.reward-row:hover .reward-title {
+    color: var(--color-gold);
+}
+
+.reward-row:disabled {
+    opacity: var(--opacity-muted);
+}
+
+.reward-skip {
+    flex-shrink: 0;
+    width: var(--size-reward-skip-w);
+    margin-left: var(--space-sm);
+}
+
+.claim-status {
+    width: var(--size-claim-status-w);
+    flex-shrink: 0;
+    margin-left: var(--space-xl);
+    padding-left: var(--space-lg);
+    border-left-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.claim-list {
+    margin-top: var(--space-sm);
+}
+
+.claim-row {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: var(--space-xs);
+}
+
+.claim-name {
+    flex-shrink: 1;
+    margin-right: var(--space-sm);
+    font-size: var(--font-caption);
+    white-space: normal;
+}
+
+.claim-state {
+    flex-shrink: 0;
+    font-size: var(--font-caption);
+    color: var(--color-muted);
+}
+
+.claim-row.reward-row--taken .claim-state {
+    color: var(--color-green);
+}
+
+.claim-required {
+    margin-top: var(--space-md);
+    color: var(--color-gold);
+    font-size: var(--font-caption);
+    white-space: normal;
+}
+
+.rewards-hint {
+    margin-top: var(--space-md);
+    color: var(--color-muted);
+    font-size: var(--font-caption);
+    white-space: normal;
+}
+
+.reward-pick {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.pick-title {
+    font-size: var(--font-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.pick-prompt {
+    margin-top: var(--space-xs);
+    color: var(--color-muted);
+}
+
+.pick-cards {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.pick-cards .pick-card {
+    width: var(--size-pick-card-w);
+    height: var(--size-pick-card-h);
+    margin: var(--space-md);
+}
+
+.pick-node {
+    width: var(--size-pick-node-w);
+    min-height: var(--size-pick-node-h);
+    margin: var(--space-md);
+    white-space: normal;
+    -unity-text-align: middle-center;
+}
+
+.pick-selected,
+.pick-card.card--chosen {
+    border-color: var(--color-ready-line);
+    border-width: var(--border-glow);
+}
+
+.pick-footer {
+    flex-direction: row;
+    align-items: center;
+    min-height: var(--size-button-h);
+}
+
+.pick-gap {
+    flex-grow: 1;
+}
+
+.pick-button {
+    width: var(--size-third-width);
+}
+
+.pick-skip {
+    margin-left: var(--space-sm);
+}
+
+/* Continue stays green once every row is resolved, with the focus glow on top (04 W-08). */
+.rewards-shell .unity-button.kit-button--ready:focus:enabled,
+.rewards-shell .unity-button.kit-button--ready:hover:enabled {
+    background-color: var(--color-ready);
+    color: var(--color-parchment);
+}
+
+.band-compact .reward-row {
+    min-height: var(--size-button-h);
+}
+
+.band-compact .reward-body {
+    display: none;
+}
+
+.band-compact .rewards-status {
+    font-size: var(--font-body);
+}
+
+.band-compact .pick-cards .pick-card {
+    width: var(--size-pick-card-compact-w);
+    height: var(--size-pick-card-compact-h);
+    margin: var(--space-xs);
+}
+
+.band-compact .pick-card .card-art {
+    display: none;
+}
+
+.band-compact .claim-row {
+    flex-direction: column;
+}
+
+.band-compact .claim-status {
+    margin-left: var(--space-md);
+    padding-left: var(--space-md);
+}
+
+.layout-narrow .rewards-shell {
+    width: var(--size-full-width);
+}
+
+.layout-narrow .rewards-body {
+    flex-direction: column;
+}
+
+.layout-narrow .claim-status {
+    width: var(--size-full-width);
+    margin-left: 0;
+    margin-top: var(--space-md);
+    padding-left: 0;
+    padding-top: var(--space-sm);
+    border-left-width: 0;
+    border-top-width: var(--border-hairline);
+}
+
+.layout-narrow .reward-chip {
+    min-width: 0;
+}
+
+.layout-narrow .pick-cards .pick-card {
+    width: var(--size-card-narrow-w);
+    height: var(--size-card-narrow-h);
+    margin: var(--space-xs);
+}
+
+.layout-narrow .pick-button {
+    width: var(--size-third-width);
+}

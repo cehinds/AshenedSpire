@@ -147,6 +147,18 @@
     --size-banner-w: 420px;
     --size-pause-shell-w: 52%;
     --size-pause-shell-h: 80%;
+    --size-rewards-shell-w: 84%;
+    --size-reward-row-min-h: 64px;
+    --size-reward-icon: 44px;
+    --size-reward-skip-w: 96px;
+    --size-reward-chip-min-w: 104px;
+    --size-claim-status-w: 290px;
+    --size-pick-card-w: 184px;
+    --size-pick-card-h: 294px;
+    --size-pick-card-compact-w: 250px;
+    --size-pick-card-compact-h: 330px;
+    --size-pick-node-w: 240px;
+    --size-pick-node-h: 150px;
     --size-class-tile-inset: 88px;
     --size-combat-bg-scale: 200%;
     --size-card-combat-w: 120px;
