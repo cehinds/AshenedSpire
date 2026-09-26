@@ -16,5 +16,6 @@ namespace Ashen.Generated
         public const string CrLf = "\r\n";
         public const string ParentDirectory = "..";
         public const string ContentFolder = "Content";
+        public const string HexByteFormat = "x2";
     }
 }

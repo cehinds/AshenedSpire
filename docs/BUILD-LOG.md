@@ -4,6 +4,25 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 ## Phase F0 Foundation (in progress)
 
+### us-0.7: predictable config layers (2026-09-26)
+
+- **`ConfigLayers.Build(LayerSelection)`** applies base content → preset (default: `reference`) → ordered patches (ascension, custom-run modifiers, advanced settings) → modding overrides.
+  - Each layer is an RFC 7386 merge-patch over id-keyed documents.
+  - Every changed file is then re-validated against its schema.
+- **The result is a `RunSnapshot`:** an immutable `ContentSet` with a canonical SHA-256 (independent of key order), the preset id, the player settings (preset defaults with player overrides), and the list of applied overrides.
+- **Modding layer:** off unless enabled; manifest paths only; 1 MB and depth-64 caps (`ConfigLimits`, generated).
+- **Tests** (`ConfigLayersTests`, 12 cases):
+  - the reference is the default (starting cinders 100, AR DEX .25, break recovery 1, Reaver flasks 2, weighted opening hand, `shrineMultiUse`);
+  - `shipped` keeps the web defaults;
+  - both presets' effective configs are schema-valid;
+  - later patches win and null deletes;
+  - an unknown file or an invalid patch is caught;
+  - the hash is stable and differs per preset;
+  - the snapshot is immutable;
+  - the modding gate and size cap hold;
+  - player settings layer correctly.
+- **Results:** dotnet 33/33 · Unity EditMode 34/34.
+
 ### us-0.5 (part 1) + us-18.4: deterministic RNG proven against the shipped JS (2026-09-26)
 
 - **`Ashen.Domain.Random.Rng`** is a mulberry32 per named stream: base = seed XOR fnv1a(name); the value at draw i comes in O(1), so a restored counter is exact.
