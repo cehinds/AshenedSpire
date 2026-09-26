@@ -1,0 +1,96 @@
+{
+  "comment": "Codegen inputs (docs/design/08 §6; D-028). Everything code needs to NAME comes from here or from content files, never from literals in C#.",
+  "namespace": "Ashen.Generated",
+  "outDir": "Unity/Assets/Game/Generated",
+  "enums": [
+    {
+      "name": "EffectOp",
+      "from": "rules/effectOps.json",
+      "path": "ops",
+      "doc": "Effect DSL op names (rules/effectOps.json)."
+    }
+  ],
+  "keySets": [
+    {
+      "name": "SchemaKeys",
+      "doc": "JSON-Schema subset keywords used by the content validator (docs/design/08 §4).",
+      "keys": {
+        "Id": "$id",
+        "Type": "type",
+        "Properties": "properties",
+        "Required": "required",
+        "Items": "items",
+        "Enum": "enum",
+        "AdditionalProperties": "additionalProperties",
+        "Keyed": "x-keyed",
+        "Ref": "x-ref"
+      }
+    },
+    {
+      "name": "SchemaTypes",
+      "doc": "JSON-Schema type names.",
+      "keys": {
+        "Object": "object",
+        "Array": "array",
+        "String": "string",
+        "Integer": "integer",
+        "Number": "number",
+        "Boolean": "boolean",
+        "Null": "null"
+      }
+    },
+    {
+      "name": "ManifestKeys",
+      "doc": "Keys of StreamingAssets/Content/manifest.json.",
+      "keys": {
+        "SchemaVersion": "schemaVersion",
+        "ContentVersion": "contentVersion",
+        "ContentHash": "contentHash",
+        "Counts": "counts",
+        "Files": "files",
+        "Sha256": "sha256",
+        "Bytes": "bytes",
+        "Generated": "generated"
+      }
+    },
+    {
+      "name": "ContentLayout",
+      "doc": "Content folder conventions.",
+      "keys": {
+        "Manifest": "manifest.json",
+        "SchemaFolder": "schemas/",
+        "SchemaSuffix": ".schema.json",
+        "JsonSuffix": ".json",
+        "PathSeparator": "/",
+        "SchemaNameSeparator": ".",
+        "KeyJoiner": ":",
+        "ListRows": "rows",
+        "Lf": "\n",
+        "CrLf": "\r\n",
+        "ParentDirectory": ".."
+      }
+    },
+    {
+      "name": "ValidationRules",
+      "doc": "Rule identifiers reported by the content validator (stable, used by tests and tooling).",
+      "keys": {
+        "Type": "type",
+        "Required": "required",
+        "Enum": "enum",
+        "Ref": "ref",
+        "Unknown": "unknownProperty",
+        "Parse": "parse",
+        "MissingFile": "missingFile",
+        "Hash": "hash",
+        "UnknownOp": "unknownOp",
+        "Schema": "schema",
+        "String": "stringKey",
+        "Cost": "costRule"
+      }
+    }
+  ],
+  "contentFiles": {
+    "name": "ContentFiles",
+    "doc": "Every file listed in the content manifest (regenerated when content files are added or removed)."
+  }
+}

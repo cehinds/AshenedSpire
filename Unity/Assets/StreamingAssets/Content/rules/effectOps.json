@@ -1,0 +1,30 @@
+{
+  "comment": "Authoritative effect-op vocabulary (docs/design/08 §7). Codegen emits the EffectOp enum from this list. The validator fails if content uses an op not listed here. Adding an op: add it here, run Tools/codegen.mjs, implement IEffectOp, add a test.",
+  "ops": [
+    "addCard",
+    "addCardToDeck",
+    "addCinders",
+    "addRelic",
+    "applyStatus",
+    "arcaneBuildup",
+    "block",
+    "damage",
+    "discard",
+    "dodgeRoll",
+    "draw",
+    "enterStance",
+    "gainEnergy",
+    "heal",
+    "loseHp",
+    "loseMaxHpPct",
+    "poiseDamage",
+    "refillFlasks",
+    "removeCardFromDeck",
+    "removeStatus",
+    "restoreMana",
+    "restoreStamina",
+    "startCombat",
+    "swapClass",
+    "upgradeCard"
+  ]
+}
