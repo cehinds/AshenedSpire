@@ -37,5 +37,6 @@ namespace Ashen.Generated
         public const string Duration = "h\\:mm\\:ss";
         public const string StepLessSuffix = "_LESS";
         public const string StepMoreSuffix = "_MORE";
+        public const string DecimalPoint = ".";
     }
 }

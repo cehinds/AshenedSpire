@@ -107,5 +107,6 @@ namespace Ashen.Generated
         public const string RowHeight = "rowHeight";
         public const string EdgeWidth = "edgeWidth";
         public const string DotSpacing = "dotSpacing";
+        public const string RowTouchRatio = "rowTouchRatio";
     }
 }

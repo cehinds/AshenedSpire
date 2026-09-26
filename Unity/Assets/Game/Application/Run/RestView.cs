@@ -234,9 +234,15 @@ namespace Ashen.App.Run
                 Commit = strings.Format(StringKeys.RestSmithUpgrade, new StringArgs().Add(UiPlaceholders.Amount, Int(c.Num(K.Cost)))),
             };
             foreach (var change in Js.Items(c[SK.Changes]).OfType<JObject>())
-                item.Changes.Add(strings.Format(StringKeys.RestSmithChange, new StringArgs().Add(UiPlaceholders.Label, change.Str(K.Label))
+                AddOnce(item.Changes, strings.Format(StringKeys.RestSmithChange, new StringArgs().Add(UiPlaceholders.Label, change.Str(K.Label))
                     .Add(UiPlaceholders.Before, Show(change[WK.Before])).Add(UiPlaceholders.After, Show(change[WK.After]))));
             return item;
+        }
+
+        /// <summary>A change line once: several lent copies of one card change alike (the smith upgrades them all).</summary>
+        private static void AddOnce(List<string> lines, string line)
+        {
+            if (!lines.Contains(line)) lines.Add(line);
         }
 
         private static string Show(JToken value) => value == null || value.Type == JTokenType.Null ? string.Empty

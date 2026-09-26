@@ -177,12 +177,14 @@
     --size-run-hud: 10%;
     --size-run-hud-min: 52px;
     --size-run-hud-meter-compact-w: 110px;
+    --size-run-hud-meter-w: 120px;
+    --size-run-hud-identity-min: 190px;
     --size-run-hud-identity-narrow: 58%;
     --size-map-node: 40px;
     --size-map-boss-node: 58px;
     --size-map-board-pad-x: 72px;
     --size-map-board-pad-narrow-x: 32px;
-    --size-map-boss-label-w: 220px;
+    --size-map-boss-label-w: 150px;
     --size-tray-w: 560px;
     --size-tray-narrow-w: 94%;
     --size-tray-bottom: 68px;

@@ -98,6 +98,7 @@ namespace Ashen.Presentation.UI.Screens
             RenderOptions();
             UiDom.Show(Root.Q(UiNames.RestMain), _pane == null);
             UiDom.Show(Root.Q(UiNames.RestPane), _pane != null);
+            UiDom.Show(_shell.Footer, _pane == null && _view.ContinueShown);
             if (_pane != null) RenderPane();
         }
 

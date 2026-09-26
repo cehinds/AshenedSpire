@@ -210,6 +210,9 @@
         },
         "victoryBackground": {
           "type": "string"
+        },
+        "rowTouchRatio": {
+          "type": "number"
         }
       },
       "required": [
@@ -220,7 +223,8 @@
         "edgeWidth",
         "dotSpacing",
         "restBackground",
-        "victoryBackground"
+        "victoryBackground",
+        "rowTouchRatio"
       ]
     }
   },

@@ -26,11 +26,11 @@
 .runhud-identity {
     flex-grow: 1;
     flex-shrink: 1;
-    min-width: 0;
+    min-width: var(--size-run-hud-identity-min);
 }
 
 .runhud-name {
-    font-size: var(--font-heading);
+    font-size: var(--font-body);
     color: var(--color-parchment);
     -unity-font-style: bold;
     white-space: nowrap;
@@ -76,7 +76,7 @@
 }
 
 .runhud-meter {
-    width: var(--size-hud-meter-w);
+    width: var(--size-run-hud-meter-w);
     margin-left: var(--space-md);
     margin-bottom: 0;
 }
@@ -114,7 +114,9 @@
 }
 
 .layout-narrow .runhud-identity {
-    width: var(--size-run-hud-identity-narrow);
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 0;
 }
 
 .layout-narrow .runhud-menu {

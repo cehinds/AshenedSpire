@@ -1,0 +1,8 @@
+{
+  "comment": "W-06 planned door: the merchant's stall is a later build (W-09, the node screens' stream); its stock is rolled and Leave closes it (D-122c).",
+  "screen": "actMap",
+  "seed": 2,
+  "assisted": true,
+  "until": "merchant",
+  "skipSizes": ["1920x1080", "844x390", "390x844"]
+}

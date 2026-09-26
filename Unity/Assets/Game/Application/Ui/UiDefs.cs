@@ -360,6 +360,7 @@ namespace Ashen.App.Ui
         public int ZoomDefault;
         public double EdgeWidth;
         public double DotSpacing;
+        public double RowTouchRatio = 1d;
 
         public static ClimbDefaults From(JObject json)
         {
@@ -374,6 +375,7 @@ namespace Ashen.App.Ui
                 ZoomDefault = (int?)json[UiKeys.ZoomDefault] ?? 0,
                 EdgeWidth = (double?)json[UiKeys.EdgeWidth] ?? 1d,
                 DotSpacing = (double?)json[UiKeys.DotSpacing] ?? 1d,
+                RowTouchRatio = (double?)json[UiKeys.RowTouchRatio] ?? 1d,
             };
         }
     }

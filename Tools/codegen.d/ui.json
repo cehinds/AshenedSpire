@@ -266,7 +266,8 @@
         "RunEndDeckScroll": "RUNEND_DECK_SCROLL",
         "RunEndDeck": "RUNEND_DECK",
         "RunEndUnlocks": "RUNEND_UNLOCKS",
-        "EndSummary": "END_SUMMARY"
+        "EndSummary": "END_SUMMARY",
+        "RunEndUnlockScroll": "RUNEND_UNLOCK_SCROLL"
       }
     },
     {
@@ -493,7 +494,8 @@
         "ZoomDefault": "zoomDefault",
         "RowHeight": "rowHeight",
         "EdgeWidth": "edgeWidth",
-        "DotSpacing": "dotSpacing"
+        "DotSpacing": "dotSpacing",
+        "RowTouchRatio": "rowTouchRatio"
       }
     },
     {
@@ -541,7 +543,8 @@
       "keys": {
         "Always": "always",
         "HasValidSlot": "hasValidSlot",
-        "TargetBuilt": "targetBuilt"
+        "TargetBuilt": "targetBuilt",
+        "Planned": "planned"
       }
     },
     {
@@ -664,7 +667,8 @@
         "UnlockKindKey": "runEnd.unlockKind.{0}",
         "Duration": "h\\:mm\\:ss",
         "StepLessSuffix": "_LESS",
-        "StepMoreSuffix": "_MORE"
+        "StepMoreSuffix": "_MORE",
+        "DecimalPoint": "."
       }
     },
     {
@@ -763,7 +767,8 @@
         "Half": 0.5,
         "Percent": 100,
         "MillisPerSecond": 1000,
-        "FullTurnDegrees": 360
+        "FullTurnDegrees": 360,
+        "ByteMax": 255
       }
     }
   ]

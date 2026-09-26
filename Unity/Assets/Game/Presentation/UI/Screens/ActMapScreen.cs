@@ -42,6 +42,7 @@ namespace Ashen.Presentation.UI.Screens
         private bool _tray;
         private PlannedDoorState _door;
         private IVisualElementScheduledItem _trayShow;
+        private bool _centred;
 
         public RunSession Session => _session;
         public ActMapViewState View => _view;
@@ -97,7 +98,16 @@ namespace Ashen.Presentation.UI.Screens
             ApplyBackground();
             Render();
             Context.Instance.LastFocused = _door != null ? (VisualElement)action : FirstReachable();
-            Root.schedule.Execute(CentreOnRun).StartingIn(Ui.Data.Tokens.Duration(TokenKeys.FocusSettle));
+            _viewport.contentViewport.RegisterCallback<GeometryChangedEvent>(OnViewportLaidOut);
+            _board.RegisterCallback<GeometryChangedEvent>(OnViewportLaidOut);
+        }
+
+        /// <summary>The first layout of the viewport and board scrolls the run's position into view (the start row at an act's start).</summary>
+        private void OnViewportLaidOut(GeometryChangedEvent evt)
+        {
+            if (_centred || float.IsNaN(_viewport.contentViewport.layout.height) || _board.layout.height <= _viewport.contentViewport.layout.height * UiMath.Half) return;
+            _centred = true;
+            CentreOnRun();
         }
 
         private void ApplyBackground()
@@ -120,7 +130,8 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocLabel>(UiNames.MapSeat)?.SetResolved(_view.SeatText);
             Root.Q<LocLabel>(UiNames.MapFloor)?.SetResolved(_view.FloorText);
             var climb = Ui.Data.Components.Climb;
-            _board.RowHeight = (float)(climb.RowHeight * climb.ZoomSteps[_zoom]);
+            var touch = Nav.Layout == null ? 0d : Nav.Layout.ReferenceMinimum(Ui.Data.Layout.MinPhysicalOf(UiKeys.Touch)) * climb.RowTouchRatio;
+            _board.RowHeight = (float)Math.Max(climb.RowHeight * climb.ZoomSteps[_zoom], touch);
             _board.Bind(_view);
             if (_selected != null && _view.Node(_selected)?.Reachable != true) _selected = null;
             _board.Select(_selected);
@@ -374,5 +385,8 @@ namespace Ashen.Presentation.UI.Screens
         }
 
         public override void Unbind() => _trayShow?.Pause();
+
+        /// <summary>Opens the legend (review captures).</summary>
+        public void LegendForReview() => ShowLegend(true);
     }
 }

@@ -158,7 +158,7 @@
     position: absolute;
     bottom: var(--size-map-boss-node);
     width: var(--size-map-boss-label-w);
-    font-size: var(--font-caption);
+    font-size: var(--font-chip);
     color: var(--color-parchment);
     -unity-text-align: lower-center;
     white-space: normal;
@@ -326,16 +326,18 @@
 }
 
 .layout-narrow .map-head {
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
     padding: var(--space-xxs) var(--space-md);
 }
 
-.layout-narrow .map-title {
-    width: var(--size-full-width);
+.layout-narrow .map-seat,
+.layout-narrow .map-floor {
+    margin-left: 0;
 }
 
-.layout-narrow .map-seat {
-    margin-left: 0;
+.layout-narrow .map-node-label {
+    display: none;
 }
 
 .layout-narrow .map-hint {
@@ -361,6 +363,19 @@
     right: var(--space-sm);
     left: var(--space-sm);
     width: auto;
+}
+
+/* A ready primary keeps its green under the focus glow (04 §0), as on W-08. */
+.node-tray .unity-button.kit-button--ready:focus:enabled,
+.node-tray .unity-button.kit-button--ready:hover:enabled,
+.planned-panel .unity-button.kit-button--ready:focus:enabled,
+.planned-panel .unity-button.kit-button--ready:hover:enabled,
+.rest-shell .unity-button.kit-button--ready:focus:enabled,
+.rest-shell .unity-button.kit-button--ready:hover:enabled,
+.runend-shell .unity-button.kit-button--ready:focus:enabled,
+.runend-shell .unity-button.kit-button--ready:hover:enabled {
+    background-color: var(--color-ready);
+    color: var(--color-parchment);
 }
 
 /* ---- W-10 rest (W1s): the option cards beside their availability; panes for smith, extract/install, flasks, level ---- */
@@ -414,7 +429,11 @@
 .rest-option {
     flex-direction: row;
     align-items: center;
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
+}
+
+.rest-shell .shell-body {
+    padding: var(--space-md) var(--space-xl);
 }
 
 .rest-option-button {
@@ -671,6 +690,7 @@
 }
 
 .runend-stat {
+    white-space: normal;
     margin-right: var(--space-sm);
     margin-bottom: var(--space-xs);
     padding: var(--space-xxs) var(--space-sm);
@@ -722,7 +742,9 @@
     border-color: var(--color-line);
 }
 
-.runend-unlocks {
+.runend-unlock-scroll {
+    flex-grow: 1;
+    flex-shrink: 1;
     margin-top: var(--space-xs);
 }
 

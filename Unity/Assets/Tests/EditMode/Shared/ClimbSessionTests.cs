@@ -399,6 +399,62 @@ namespace Ashen.Tests
                 }
         }
 
+        /// <summary>
+        /// Seed search for the F1 smoke (explicit): a Classic climb whose first map node is a fight the first-playable policy
+        /// wins with a card offer and a second open reward row.
+        /// </summary>
+        [Test, Explicit("seed search")]
+        public void SearchFirstFightSeeds()
+        {
+            for (uint seed = 20260920; seed <= 20260990; seed++)
+            {
+                var s = NewClimb(seed);
+                var first = s.ReachableNodes()[0];
+                s.Travel(first);
+                if (!s.IsInCombat) continue;
+                var enemies = s.Combat.State.Enemies.Count;
+                for (var i = 0; i < 400 && s.IsInCombat; i++)
+                {
+                    var view = CombatViewModel.Build(s.Combat.State);
+                    var card = view.Hand.FirstOrDefault(c => c.Playable);
+                    var plan = HandRules.Plan(s.Combat.State);
+                    s.Execute(card != null ? CombatCommand.PlayCard(card.InstanceId, card.Targets.FirstOrDefault())
+                        : CombatCommand.EndTurn(plan.Cards.Take((int)plan.Minimum).Select(c => c.Value<string>("instanceId"))));
+                }
+                if (s.FightOutcome != "reward") continue;
+                var rows = RewardsView.Build(s, Ui).Rows;
+                var offer = rows.Any(r => r.Kind == "card");
+                var other = rows.Count(r => r.Pending && r.Kind != "card");
+                if (offer && other > 0) TestContext.Progress.WriteLine("first-fight seed " + seed + ": " + enemies + " enemies, rows " + string.Join(",", rows.Select(r => r.Kind + "=" + r.State)));
+            }
+        }
+
+        /// <summary>Seed search for the rest capture fixtures (explicit): the rest places the smoke policy reaches preferring shrines, and whether their smith is offered.</summary>
+        [Test, Explicit("seed search")]
+        public void SearchSmithRests()
+        {
+            RunSession.ReviewEnemyHpScale = Assisted;
+            for (uint seed = 1; seed <= 8; seed++)
+            {
+                var s = NewClimb(seed);
+                var pilot = new Driver(Default, _saves, s, seed) { Reload = false, Smoke = true };
+                var found = new List<string>();
+                for (var i = 0; i < 300 && !pilot.Session.RunOver && found.Count < 4; i++)
+                {
+                    var x = pilot.Session;
+                    if (x.Location == "map")
+                    {
+                        var nodes = x.ReachableNodes();
+                        x.Travel(nodes.FirstOrDefault(id => ((JObject)x.Run["mapGraph"]["nodes"][id])["type"].Value<string>() == "shrine") ?? nodes[0]);
+                        if (x.Location == "rest") found.Add("act " + x.Act + " floor " + x.Floor + " smith=" + (RestView.Build(x, Ui).Option("smith") != null));
+                        continue;
+                    }
+                    pilot.StepOnce();
+                }
+                TestContext.Progress.WriteLine("rests seed " + seed + ": " + string.Join("; ", found));
+            }
+        }
+
         // ------------------------------------------------------------------ rest stays (W-10; US-8.1 to US-8.6)
 
         /// <summary>Plays with the driver until the run stands at a rest place (without acting there).</summary>

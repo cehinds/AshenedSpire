@@ -1,5 +1,5 @@
 {
-  "contentHash": "28538bbeda0cb4af653bfaaf4aa5439f52b27e0030ea04b3abe41d99a81645f0",
+  "contentHash": "b250e952c6260f54e6591fb9f85226c59b0233787f8f710172f9019333d27ec6",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -804,9 +804,9 @@
       "sha256": "b737b74ae845e045c72f49a06586301dd739bf3a52236d55dd9c919acc888103"
     },
     "schemas/ui.components.schema.json": {
-      "bytes": 4543,
+      "bytes": 4633,
       "generated": false,
-      "sha256": "498d36e7619c466dc43c4e469dcf660d1fa8b68ebb9cd3850e41c18fde48ea10"
+      "sha256": "fa24f2047cb186d992de2eb7ffc872576a60e784861902df73ef864d489c4e70"
     },
     "schemas/ui.confirmationPolicies.schema.json": {
       "bytes": 2064,
@@ -824,9 +824,9 @@
       "sha256": "4a4726ea6740c861649d8476085f9b8c7ae611c3b325948227bde0e2c7ac9b09"
     },
     "schemas/ui.menus.schema.json": {
-      "bytes": 3714,
+      "bytes": 3764,
       "generated": false,
-      "sha256": "c4945458263b669980e3907357faaba2aaefe20a4ee93ea50cc8d4d714d6096a"
+      "sha256": "f487c2e18ed8f21667fa3e74091481bfe232df0ca5114d9a57e676f57be5edd1"
     },
     "schemas/ui.screens.schema.json": {
       "bytes": 2330,
@@ -859,9 +859,9 @@
       "sha256": "39fe1a403dd55892dc6cc0451a94725b99b3a1ffb0138ea02ca10c28f4106fcc"
     },
     "strings/app.en.json": {
-      "bytes": 19723,
+      "bytes": 19748,
       "generated": false,
-      "sha256": "8d63690f4a0a0558ba06cb556104d142c4ba5c94e266916c171a06e258c089b5"
+      "sha256": "9d42d0c6ae8705611c79caffc5b6c77d9540934c51b37dc6a774b04df42981f1"
     },
     "strings/combat.en.json": {
       "bytes": 1252,
@@ -944,9 +944,9 @@
       "sha256": "800f85c25beaa464dee1ad55f25b838ca54e8cb72b0fa8ed44b0b40a9f5efbe0"
     },
     "ui/components.json": {
-      "bytes": 3372,
+      "bytes": 3536,
       "generated": false,
-      "sha256": "dd132397713f62052ddfdc292dfd9249ab34488948978baa8ced337abe69d993"
+      "sha256": "c405ba2ce0adc94895fd29cb68f4f026f08b20bbed4b96d75e31c648375400ff"
     },
     "ui/confirmationPolicies.json": {
       "bytes": 3228,
@@ -964,9 +964,9 @@
       "sha256": "330892274c3cc8c87947d2662b07dccbd95f7c3275dc2922a80e3d30a546d178"
     },
     "ui/menus.json": {
-      "bytes": 5823,
+      "bytes": 5902,
       "generated": false,
-      "sha256": "0bf75631fa889ead1dddce03a04b9ac2fea7f2bdd0e7d9cefa54def123c20158"
+      "sha256": "687c5e0011dd208e92216afe5e3b22c07d5ce282cf248c47a929e9d5f1944d27"
     },
     "ui/screens.json": {
       "bytes": 6799,
@@ -984,9 +984,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 6716,
+      "bytes": 6771,
       "generated": false,
-      "sha256": "0a1f5b0dfe047e7c69e9a69c8fa069509e284d0926712c58358d7d357f9931b1"
+      "sha256": "ba42b2124120d24dfb3f768a483b4eeaa176647bea0633addabb50ea070b3b11"
     }
   },
   "schemaVersion": 1

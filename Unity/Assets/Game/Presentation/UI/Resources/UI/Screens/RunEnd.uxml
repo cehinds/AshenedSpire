@@ -22,7 +22,9 @@
                 </ui:VisualElement>
                 <ui:VisualElement class="runend-unlock-column">
                     <Ashen.Presentation.UI.LocLabel class="eyebrow kit-text-header" string-key="runEnd.unlocks" />
-                    <ui:VisualElement name="RUNEND_UNLOCKS" class="runend-unlocks" />
+                    <ui:ScrollView name="RUNEND_UNLOCK_SCROLL" class="runend-unlock-scroll" horizontal-scroller-visibility="Hidden">
+                        <ui:VisualElement name="RUNEND_UNLOCKS" class="runend-unlocks" />
+                    </ui:ScrollView>
                 </ui:VisualElement>
             </ui:VisualElement>
         </Ashen.Presentation.UI.Kit.Shell>

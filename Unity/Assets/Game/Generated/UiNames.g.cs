@@ -236,5 +236,6 @@ namespace Ashen.Generated
         public const string RunEndDeck = "RUNEND_DECK";
         public const string RunEndUnlocks = "RUNEND_UNLOCKS";
         public const string EndSummary = "END_SUMMARY";
+        public const string RunEndUnlockScroll = "RUNEND_UNLOCK_SCROLL";
     }
 }
