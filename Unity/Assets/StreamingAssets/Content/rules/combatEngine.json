@@ -90,28 +90,9 @@
       "relic:passive:power-cost-reduction": "powerCostReduction"
     },
     "costTag": "upgrade:cost:smithing-stone",
-    "effectPart": "effect",
-    "costPart": "cost",
-    "cardRoles": [
-      "attack",
-      "guard",
-      "technique"
-    ],
-    "cardEffects": [
-      "damage",
-      "block",
-      "draw",
-      "discard"
-    ],
-    "cardResources": [
-      "action",
-      "mana",
-      "stamina"
-    ],
-    "actionResource": "action",
-    "actionCostField": "cost",
-    "resourceCostSuffix": "Cost",
-    "nameSuffix": "+"
+    "cardRoles": ["attack", "guard", "technique"],
+    "cardEffects": ["damage", "block", "draw", "discard"],
+    "cardResources": ["action", "mana", "stamina"]
   },
   "flasks": {
     "chargeKinds": [

@@ -37,7 +37,7 @@ namespace Ashen.Domain.Loop
     /// The end of a run (shipped main.js runResult, finishRun and the profile writes of engine/save.js recordResult and
     /// saveMeta, over model/unlocks.js recordProgress/evaluateUnlocks, classCard.js runClassIdentity, classSwap.js
     /// peakClassLevel and customMods.js isCustomRun). A death and a victory close out through the same door, so they
-    /// can never disagree about what counts. Profiles are their stored JSON, rewritten in place (D-073l).
+    /// can never disagree about what counts. Profiles are their stored JSON, rewritten in place (D-092).
     /// </summary>
     public static class RunEnd
     {

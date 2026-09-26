@@ -75,7 +75,7 @@ namespace Ashen.Domain.Loop
     /// The run-level door's context (shipped engine/actions.js createRunContext/syncRunContext/drainRunContext): a player
     /// facade over the run's pools, no enemies, an action queue and trigger gates, so heal and restoreMana reach the run
     /// through the same opcode bodies a fight uses. The only run opcode it runs is the rest's <c>refillFlasks</c>; the
-    /// other run opcodes (event choices, purchases) are the shop/events stream's (D-074l).
+    /// other run opcodes (event choices, purchases) are the shop/events stream's (D-093).
     /// </summary>
     public sealed class RunEffectContext
     {
@@ -158,7 +158,7 @@ namespace Ashen.Domain.Loop
     /// <summary>
     /// What a grace hands back (shipped model/gracerefill.js and engine/encounters.js applyGraceRefill): the Crimson and
     /// Azure charge pools are refilled to their split, and re-split at a grace one charge at a time with the total held.
-    /// A run without charge pools (a pre-authority save) takes the legacy flask-slot refill, deferred (D-075l).
+    /// A run without charge pools (a pre-authority save) takes the legacy flask-slot refill, deferred (D-094).
     /// </summary>
     public static class GraceRefill
     {

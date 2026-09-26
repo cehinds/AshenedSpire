@@ -246,43 +246,7 @@
     "itemUpgrades": {
       "type": "object",
       "properties": {
-        "actionCostField": {
-          "type": "string"
-        },
-        "actionResource": {
-          "type": "string"
-        },
-        "cardEffects": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "cardResources": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "cardRoles": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "costPart": {
-          "type": "string"
-        },
-        "costTag": {
-          "type": "string"
-        },
-        "effectPart": {
-          "type": "string"
-        },
         "equipmentPoiseTag": {
-          "type": "string"
-        },
-        "nameSuffix": {
           "type": "string"
         },
         "relicPassiveTags": {
@@ -300,23 +264,35 @@
             "relic:passive:power-cost-reduction"
           ]
         },
-        "resourceCostSuffix": {
+        "costTag": {
           "type": "string"
+        },
+        "cardRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cardEffects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cardResources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
-        "actionCostField",
-        "actionResource",
-        "cardEffects",
-        "cardResources",
-        "cardRoles",
-        "costPart",
-        "costTag",
-        "effectPart",
         "equipmentPoiseTag",
-        "nameSuffix",
         "relicPassiveTags",
-        "resourceCostSuffix"
+        "costTag",
+        "cardRoles",
+        "cardEffects",
+        "cardResources"
       ]
     },
     "limits": {

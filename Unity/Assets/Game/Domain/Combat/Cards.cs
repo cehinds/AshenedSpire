@@ -58,11 +58,14 @@ namespace Ashen.Domain.Combat
                 if (Js.IsStr(inst[K.DamageSchool])) result[K.DamageSchool] = inst[K.DamageSchool].DeepClone();
                 if (Js.IsInt(inst[K.ExposureBuildupPerHit])) result[K.ExposureBuildupPerHit] = inst[K.ExposureBuildupPerHit].DeepClone();
             }
-            // Smithing changes are exact item/tier content: no source id means no authority for a tier.
-            if (smithingLevel > 0 && string.IsNullOrEmpty(sourceArmamentId)) throw new InvalidOperationException(M.SmithedCardNeedsSource);
-            var upgradeRole = Js.Truthy(inst[K.KitRole]) ? inst.Str(K.KitRole) : Js.Truthy(inst[K.EquipmentRole]) ? inst.Str(K.EquipmentRole) : result.Str(K.EquipmentRole);
+            // Smithing changes are exact item/tier content; no source id means no authority for a tier.
+            if (smithingLevel > 0 && sourceArmamentId.Length == 0) throw new InvalidOperationException(M.SmithedCardNeedsSource);
             for (var nextTier = 1; nextTier <= smithingLevel; nextTier += 1)
-                result = ItemUpgrades.ApplyCardUpgradeRows(data, result, upgradeRole, ItemUpgrades.Rows(data, V.ArmamentRefPrefix + V.ItemRefSeparator + sourceArmamentId, nextTier));
+            {
+                var role = Js.Truthy(inst[K.KitRole]) ? inst.Str(K.KitRole) : Js.Truthy(inst[K.EquipmentRole]) ? inst.Str(K.EquipmentRole) : result.Str(K.EquipmentRole);
+                result = ItemUpgrades.ApplyCardRows(data, result, role,
+                    ItemUpgrades.Rows(data, string.Join(V.ItemRefSeparator, V.ArmamentRefPrefix, sourceArmamentId), nextTier));
+            }
             data.ResolveCache[key] = result;
             return result;
         }

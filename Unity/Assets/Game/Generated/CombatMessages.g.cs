@@ -61,7 +61,8 @@ namespace Ashen.Generated
         public const string UnratedPoiseDeferred = "Restoring a fight without combat ratings needs the poise-threshold receipt (not ported yet)";
         public const string UnresolvableRef = "Predicate 'of' ref '{0}' is not resolvable (use self/owner/player/enemy/target)";
         public const string UpgradeBelowZero = "{0} tier {1} tag '{2}' would reduce {3} below zero";
-        public const string UpgradeEffectNotSingle = "{0} tier {1} tag '{2}' expected exactly one '{3}' effect for role '{4}', found {5}";
-        public const string UpgradeTargetNotNumeric = "{0} tier {1} tag '{2}' targets a non-numeric {3}";
+        public const string UpgradeEffectCount = "{0} tier {1} tag '{2}' expected exactly one '{3}' effect for role '{4}', found {5}";
+        public const string UpgradeNonNumericAmount = "{0} tier {1} tag '{2}' targets a non-numeric amount";
+        public const string UpgradeNonNumericField = "{0} tier {1} tag '{2}' targets non-numeric {3}";
     }
 }

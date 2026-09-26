@@ -13,7 +13,7 @@ namespace Ashen.Domain.Loop
     /// Between acts (US-4.6; shipped main.js advanceAct): the act counter climbs, the map position resets, the run is
     /// healed to full (halved under Scarce Embers), and the next seat's map is built — the Endless Spire looping the
     /// acts' content while the real act number keeps counting. The seat's tower is the one the new map belongs to
-    /// (<see cref="RunLoop.CurrentSeat"/>); the shipped run keeps no separate "lit towers" field (D-076l).
+    /// (<see cref="RunLoop.CurrentSeat"/>); the shipped run keeps no separate "lit towers" field (D-095).
     /// </summary>
     public static class Acts
     {

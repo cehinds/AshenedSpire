@@ -73,7 +73,7 @@ namespace Ashen.Domain.Loop
     /// The run loop's map half (shipped main.js enterNode, startFight, enterCombat's arguments, combatMods, showEvent's
     /// onDone, and the endlessOn/contentAct/currentSeat/runMapShape readers): travelling to a node writes the path
     /// bookkeeping and resolves what the node is; a fight's encounter is rolled (or read off the boss destination) and
-    /// its arguments carry the Custom Climb rules and the seat tier's HP ratio. Journeys are deferred (D-072l).
+    /// its arguments carry the Custom Climb rules and the seat tier's HP ratio. Journeys are deferred (D-091).
     /// </summary>
     public static partial class RunLoop
     {

@@ -2,126 +2,162 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
 using V = Ashen.Generated.CombatValues;
+using CombatMath = Ashen.Generated.CombatMath;
 
 namespace Ashen.Domain.Combat
 {
-    /// <summary>
-    /// One parsed upgrade tag (shipped model/itemUpgrades.js parseItemUpgradeTag): what kind of change it is and what
-    /// it names — the card role, effect op or cost resource, the attribute of a requirement, or the relic passive key.
-    /// </summary>
+    /// <summary>A namespaced item ref split into its parts (shipped model/itemUpgrades.js itemRefIdentity).</summary>
+    public sealed class ItemIdentity
+    {
+        public string ItemRef;
+        public string ItemKind;
+        public string ItemId;
+        public string ClassId;
+    }
+
+    /// <summary>One upgrade tag read against the closed vocabulary (shipped parseItemUpgradeTag).</summary>
     public sealed class UpgradeTag
     {
         public string Kind;
+        public string Resource;
+        public string Field;
+        public string PassiveKey;
+        public string AttributeId;
         public string Role;
         public string Op;
-        public string Resource;
-        public string AttributeId;
-        public string PassiveKey;
     }
 
     /// <summary>
-    /// The closed, data-owned upgrade vocabulary (shipped model/itemUpgrades.js): content selects exact item/tier rows
-    /// (equipment.itemUpgradeChanges) and the code only interprets the registered tags. The vocabulary (the cost tag,
-    /// the card roles, effects and resources, the tag grammar) is rules/combatEngine.json itemUpgrades.
+    /// The closed, data-owned upgrade vocabulary (shipped model/itemUpgrades.js): item refs, the exact item/tier rows of
+    /// equipment.itemUpgradeChanges, the tag grammar (rules/combatEngine.json itemUpgrades) and the card face a Smithing
+    /// tier gives an armament's basic card (applyItemCardUpgradeRows, which resolveCard applies per tier).
     /// </summary>
     public static class ItemUpgrades
     {
-        private static readonly Regex RequirementTag = new Regex(Ashen.Generated.CombatPatterns.UpgradeRequirementTag, RegexOptions.CultureInvariant);
-        private static readonly Regex CardTag = new Regex(Ashen.Generated.CombatPatterns.UpgradeCardTag, RegexOptions.CultureInvariant);
+        private static readonly int Two = (int)CombatMath.Two;
+        private static readonly int Three = Two + 1;
+        private static readonly int Four = Two * Two;
 
-        private static JObject Rules(CombatData data) => data.Engine.Obj(K.ItemUpgrades) ?? new JObject();
+        private static JObject Vocabulary(CombatData d) => d.Engine.Obj(K.ItemUpgrades) ?? new JObject();
 
-        private static List<string> List(CombatData data, string key) => Js.Items(Rules(data)[key]).Select(Js.Str).ToList();
+        private static List<string> List(CombatData d, string key) => Js.Items(Vocabulary(d)[key]).Select(Js.Str).ToList();
 
-        /// <summary>parseItemUpgradeTag(tag, attributeIds): the descriptor, or null for a tag outside the vocabulary.</summary>
-        public static UpgradeTag Parse(CombatData data, string tag)
+        /// <summary>The Smithing Stone cost tag every authored tier carries (UPGRADE_COST_TAG).</summary>
+        public static string CostTag(CombatData d) => Vocabulary(d).Str(K.CostTag);
+
+        private static string Num(double n) => n.ToString(CultureInfo.InvariantCulture);
+
+        /// <summary>itemRefIdentity(itemRef): armament/&lt;id&gt;, armor/&lt;class&gt;/&lt;id&gt; or relic/&lt;id&gt;; null otherwise.</summary>
+        public static ItemIdentity Identity(string itemRef)
         {
-            var rules = Rules(data);
-            if (tag == null) return null;
-            if (tag == rules.Str(K.CostTag)) return new UpgradeTag { Kind = V.UpgradeCostKind, Resource = V.SmithingStoneResource };
-            if (tag == rules.Str(K.EquipmentPoiseTag)) return new UpgradeTag { Kind = V.EquipmentPoiseKind };
-            var passive = rules.Obj(K.RelicPassiveTags)?[tag];
-            if (passive != null) return new UpgradeTag { Kind = V.RelicPassiveKind, PassiveKey = Js.Str(passive) };
-            var requirement = RequirementTag.Match(tag);
-            if (requirement.Success && data.Attributes.Has(requirement.Groups[V.GroupAttribute].Value))
-                return new UpgradeTag { Kind = V.RequirementKind, AttributeId = requirement.Groups[V.GroupAttribute].Value };
-            var card = CardTag.Match(tag);
-            if (!card.Success) return null;
-            var role = card.Groups[V.GroupRole].Value;
-            var part = card.Groups[V.GroupPart].Value;
-            var name = card.Groups[V.GroupName].Value;
-            if (!List(data, K.CardRoles).Contains(role)) return null;
-            if (part == rules.Str(K.EffectPart) && List(data, K.CardEffects).Contains(name))
-                return new UpgradeTag { Kind = V.CardEffectKind, Role = role, Op = name };
-            if (part == rules.Str(K.CostPart) && List(data, K.CardResources).Contains(name))
-                return new UpgradeTag { Kind = V.CardCostKind, Role = role, Resource = name };
+            var parts = itemRef != null ? itemRef.Split(V.ItemRefSeparator[0]) : new string[0];
+            if (parts.Length == 0) return null;
+            if (parts[0] == V.ArmamentRefPrefix && parts.Length == Two && parts[1].Length > 0)
+                return new ItemIdentity { ItemRef = itemRef, ItemKind = V.ArmamentRefPrefix, ItemId = parts[1] };
+            if (parts[0] == V.ArmorRefPrefix && parts.Length == Three && parts[1].Length > 0 && parts[Two].Length > 0)
+                return new ItemIdentity { ItemRef = itemRef, ItemKind = V.Armor, ItemId = parts[Two], ClassId = parts[1] };
+            if (parts[0] == V.RelicRefPrefix && parts.Length == Two && parts[1].Length > 0)
+                return new ItemIdentity { ItemRef = itemRef, ItemKind = V.RelicKind, ItemId = parts[1] };
             return null;
         }
 
-        /// <summary>The card field a cost resource writes: the action resource is <c>cost</c>, any other <c>&lt;resource&gt;Cost</c>.</summary>
-        public static string CostField(CombatData data, string resource) =>
-            resource == Rules(data).Str(K.ActionResource) ? Rules(data).Str(K.ActionCostField) : resource + Rules(data).Str(K.ResourceCostSuffix);
+        /// <summary>parseItemUpgradeTag(tag, attributeIds): the descriptor a registered tag names, or null.</summary>
+        public static UpgradeTag ParseTag(CombatData d, string tag)
+        {
+            var vocab = Vocabulary(d);
+            if (tag == CostTag(d)) return new UpgradeTag { Kind = V.UpgradeCostKind, Resource = V.SmithingStoneResource };
+            if (tag == vocab.Str(K.EquipmentPoiseTag)) return new UpgradeTag { Kind = V.EquipmentPoiseKind, Field = K.PoiseThreshold };
+            var passive = vocab.Obj(K.RelicPassiveTags);
+            if (tag != null && passive != null && passive[tag] != null) return new UpgradeTag { Kind = V.RelicPassiveKind, PassiveKey = passive.Str(tag) };
+            var parts = tag != null ? tag.Split(V.TagSeparator[0]) : new string[0];
+            if (parts.Length == Two && parts[0] == V.RequirementKind && d.Attributes.Has(parts[1]))
+                return new UpgradeTag { Kind = V.RequirementKind, AttributeId = parts[1] };
+            if (parts.Length != Four || parts[0] != V.UpgradeCardPart || !List(d, K.CardRoles).Contains(parts[1])) return null;
+            var third = parts[Two];
+            var fourth = parts[Three];
+            if (third == V.UpgradeEffectPart && List(d, K.CardEffects).Contains(fourth)) return new UpgradeTag { Kind = V.CardEffectKind, Role = parts[1], Op = fourth };
+            if (third == V.UpgradeCostPart && List(d, K.CardResources).Contains(fourth)) return new UpgradeTag { Kind = V.CardCostKind, Role = parts[1], Resource = fourth };
+            return null;
+        }
 
-        /// <summary>itemUpgradeRows(registries, itemRef, nextTier): the exact authored rows of one tier.</summary>
-        public static List<JObject> Rows(CombatData data, string itemRef, double nextTier) =>
-            Js.Items(data.Equipment[K.ItemUpgradeChanges]).OfType<JObject>()
-                .Where(row => row.Str(K.ItemRef) == itemRef && Js.IsNum(row[K.NextTier]) && row.Num(K.NextTier) == nextTier).ToList();
+        /// <summary>The same parse under the run loop's name (the rest stop's smith reads descriptors through it).</summary>
+        public static UpgradeTag Parse(CombatData d, string tag) => ParseTag(d, tag);
+
+        /// <summary>The card field a cost resource writes: the action resource is <c>cost</c>, any other <c>&lt;resource&gt;Cost</c>.</summary>
+        public static string CostField(CombatData d, string resource) => resource == V.ActionResource ? K.Cost : resource + V.CostFieldSuffix;
+
+        /// <summary>itemUpgradeTagMatchesKind(descriptor, itemKind).</summary>
+        public static bool TagMatchesKind(UpgradeTag t, string itemKind)
+        {
+            if (t == null) return false;
+            if (t.Kind == V.UpgradeCostKind) return itemKind == V.ArmamentRefPrefix || itemKind == V.Armor || itemKind == V.RelicKind;
+            if (itemKind == V.ArmamentRefPrefix) return t.Kind == V.RequirementKind || t.Kind == V.CardEffectKind || t.Kind == V.CardCostKind;
+            if (itemKind == V.Armor) return t.Kind == V.EquipmentPoiseKind;
+            if (itemKind == V.RelicKind) return t.Kind == V.RelicPassiveKind;
+            return false;
+        }
+
+        /// <summary>itemUpgradeRows(registries, itemRef, nextTier): the authored rows of one exact tier.</summary>
+        public static List<JObject> Rows(CombatData d, string itemRef, double nextTier) =>
+            Js.Items(d.Equipment[K.ItemUpgradeChanges]).OfType<JObject>().Where(r => r.Str(K.ItemRef) == itemRef && Js.IsNum(r[K.NextTier]) && r.Num(K.NextTier) == nextTier).ToList();
+
+        /// <summary>itemUpgradeTiers(registries, itemRef): the distinct tiers an item authors, ascending.</summary>
+        public static List<double> Tiers(CombatData d, string itemRef)
+        {
+            var tiers = new List<double>();
+            foreach (var r in Js.Items(d.Equipment[K.ItemUpgradeChanges]).OfType<JObject>())
+                if (r.Str(K.ItemRef) == itemRef && !tiers.Contains(r.Num(K.NextTier))) tiers.Add(r.Num(K.NextTier));
+            tiers.Sort();
+            return tiers;
+        }
 
         /// <summary>
-        /// applyItemCardUpgradeRows(def, role, rows, attributeIds): one tier's card rows applied to a resolved face —
-        /// an effect amount or a cost moved by the row's value (never below zero), and the name marked once.
+        /// applyItemCardUpgradeRows(def, role, rows): one tier's card changes for a role — an effect's amount or a cost
+        /// field moved by the row's value — and a '+' on the name when anything changed. Throws by name on a row the
+        /// face cannot take.
         /// </summary>
-        public static JObject ApplyCardUpgradeRows(CombatData data, JObject def, string role, IEnumerable<JObject> rows)
+        public static JObject ApplyCardRows(CombatData d, JObject def, string role, IEnumerable<JObject> rows)
         {
             var result = Js.Spread(def);
-            var effects = new JArray(Js.Items(def[K.Effects]).OfType<JObject>().Select(e => (JToken)Js.Spread(e)));
-            result[K.Effects] = effects;
+            result[K.Effects] = new JArray(Js.Items(def[K.Effects]).Select(e => e is JObject o ? (JToken)Js.Spread(o) : e.DeepClone()));
             var changed = false;
             foreach (var row in rows)
             {
-                var descriptor = Parse(data, row.Str(K.Tag));
-                if (descriptor == null || descriptor.Role != role) continue;
-                if (descriptor.Kind == V.CardEffectKind)
+                var t = ParseTag(d, row.Str(K.Tag));
+                if (t == null || t.Role != role) continue;
+                var at = Num(row.Num(K.NextTier));
+                if (t.Kind == V.CardEffectKind)
                 {
-                    var matches = effects.OfType<JObject>().Where(e => e.Str(K.Op) == descriptor.Op).ToList();
+                    var matches = Js.Items(result[K.Effects]).OfType<JObject>().Where(e => e.Str(K.Op) == t.Op).ToList();
                     if (matches.Count != 1)
-                        throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UpgradeEffectNotSingle, row.Str(K.ItemRef), Js.D(row[K.NextTier]), row.Str(K.Tag), descriptor.Op, role, matches.Count));
+                        throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UpgradeEffectCount, row.Str(K.ItemRef), at, row.Str(K.Tag), t.Op, role, matches.Count));
                     var target = matches[0];
-                    if (!Js.IsNum(target[K.Amount]))
-                        throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UpgradeTargetNotNumeric, row.Str(K.ItemRef), Js.D(row[K.NextTier]), row.Str(K.Tag), K.Amount));
+                    if (!Js.IsNum(target[K.Amount])) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UpgradeNonNumericAmount, row.Str(K.ItemRef), at, row.Str(K.Tag)));
                     var next = target.Num(K.Amount) + row.Num(K.Value);
-                    if (next < 0) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UpgradeBelowZero, row.Str(K.ItemRef), Js.D(row[K.NextTier]), row.Str(K.Tag), K.Amount));
+                    if (next < 0) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UpgradeBelowZero, row.Str(K.ItemRef), at, row.Str(K.Tag), K.Amount));
                     target.Put(K.Amount, next);
                     changed = true;
                 }
-                else if (descriptor.Kind == V.CardCostKind)
+                else if (t.Kind == V.CardCostKind)
                 {
-                    var field = CostField(data, descriptor.Resource);
+                    var field = CostField(d, t.Resource);
                     var before = Js.Nullish(result[field]) ? Js.N(0) : result[field];
-                    if (!Js.IsNum(before))
-                        throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UpgradeTargetNotNumeric, row.Str(K.ItemRef), Js.D(row[K.NextTier]), row.Str(K.Tag), field));
+                    if (!Js.IsNum(before)) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UpgradeNonNumericField, row.Str(K.ItemRef), at, row.Str(K.Tag), field));
                     var next = Js.D(before) + row.Num(K.Value);
-                    if (next < 0) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UpgradeBelowZero, row.Str(K.ItemRef), Js.D(row[K.NextTier]), row.Str(K.Tag), field));
+                    if (next < 0) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UpgradeBelowZero, row.Str(K.ItemRef), at, row.Str(K.Tag), field));
                     result.Put(field, next);
                     changed = true;
                 }
             }
-            if (changed)
-            {
-                var suffix = Rules(data).Str(K.NameSuffix);
-                var name = Js.Truthy(result[K.Name]) ? JsString(result[K.Name]) : string.Empty;
-                while (suffix.Length > 0 && name.EndsWith(suffix, StringComparison.Ordinal)) name = name.Substring(0, name.Length - suffix.Length);
-                result[K.Name] = name + suffix;
-            }
+            if (changed) result.Put(K.Name, (Js.Truthy(result[K.Name]) ? JsString(result[K.Name]) : string.Empty).TrimEnd(V.UpgradeSuffix.ToCharArray()) + V.UpgradeSuffix);
             return result;
         }
 
-        /// <summary><c>String(v)</c> for a card name.</summary>
-        private static string JsString(JToken v) => Js.IsStr(v) ? Js.Str(v) : v.ToString(Newtonsoft.Json.Formatting.None);
+        /// <summary><c>String(v)</c> for a truthy name (a string in every shipped row).</summary>
+        private static string JsString(JToken v) => Js.IsStr(v) ? Js.Str(v) : v.ToString();
     }
 }

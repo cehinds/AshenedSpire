@@ -5,9 +5,7 @@ namespace Ashen.Generated
     public static class CombatKeys
     {
         public const string AcquiredAt = "acquiredAt";
-        public const string ActionCostField = "actionCostField";
         public const string ActionLoss = "actionLoss";
-        public const string ActionResource = "actionResource";
         public const string Active = "active";
         public const string Alive = "alive";
         public const string AllEnemies = "allEnemies";
@@ -84,7 +82,6 @@ namespace Ashen.Generated
         public const string CoreTags = "coreTags";
         public const string Cost = "cost";
         public const string CostIsX = "costIsX";
-        public const string CostPart = "costPart";
         public const string CostResource = "costResource";
         public const string CostTag = "costTag";
         public const string Count = "count";
@@ -123,7 +120,6 @@ namespace Ashen.Generated
         public const string DualWieldSkill = "dualWieldSkill";
         public const string Duration = "duration";
         public const string EffTarget = "effTarget";
-        public const string EffectPart = "effectPart";
         public const string EffectiveRatings = "effectiveRatings";
         public const string Effects = "effects";
         public const string EmitDepth = "emitDepth";
@@ -256,7 +252,6 @@ namespace Ashen.Generated
         public const string Multiplier = "multiplier";
         public const string N = "n";
         public const string Name = "name";
-        public const string NameSuffix = "nameSuffix";
         public const string NeedsTarget = "needsTarget";
         public const string NextTier = "nextTier";
         public const string NodeId = "nodeId";
@@ -338,7 +333,6 @@ namespace Ashen.Generated
         public const string Resistance = "resistance";
         public const string Resists = "resists";
         public const string ResolveOnTurn = "resolveOnTurn";
-        public const string ResourceCostSuffix = "resourceCostSuffix";
         public const string Result = "result";
         public const string Retain = "retain";
         public const string RetainBlock = "retainBlock";

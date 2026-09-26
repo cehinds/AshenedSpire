@@ -13,8 +13,8 @@ namespace Ashen.Generated
         public const string FlaskSlotsNotPositive = "balance.flaskSlots must be a positive integer";
         public const string InsufficientStones = "Insufficient Smithing Stones (shortfall {0})";
         public const string ItemUpgradeLevelsNotObject = "run.itemUpgradeLevels must be an object";
-        public const string JourneyDeferred = "World Journey runs are not ported yet (run-loop story; D-072l)";
-        public const string LegacyGraceRefillDeferred = "A run without flask charge pools takes the legacy flask-slot refill, which is not ported (D-075l)";
+        public const string JourneyDeferred = "World Journey runs are not ported yet (run-loop story; D-091)";
+        public const string LegacyGraceRefillDeferred = "A run without flask charge pools takes the legacy flask-slot refill, which is not ported (D-094)";
         public const string LevelAboveTiers = "run.itemUpgradeLevels.{0} exceeds its highest authored tier";
         public const string LevelConflict = "Smithing level conflict: run.armamentLevels.{0} disagrees with run.itemUpgradeLevels.{1}";
         public const string LevelKeyNotItemRef = "run.itemUpgradeLevels key '{0}' is not a namespaced item ref";

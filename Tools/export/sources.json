@@ -17,7 +17,8 @@
     "src/content/attributes.js",
     "src/content/mapconfig.js",
     "src/content/music.js",
-    "src/content/sfx.js"
+    "src/content/sfx.js",
+    "src/content/events.js"
   ],
   "json": [
     "content/framework/mechanics.json",

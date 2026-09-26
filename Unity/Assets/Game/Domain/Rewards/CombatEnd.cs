@@ -63,7 +63,7 @@ namespace Ashen.Domain.Rewards
     /// The post-combat pipeline (shipped main.js onCombatEnd, rollSkillDrafts, rollClassDrafts, beginPendingReward,
     /// rollDrop and victoryTitle): the pure, run-writing half of a fight's end, in the shipped order and on the shipped
     /// RNG streams. Screens, audio, the victory beat, saves and the profile's run record are the caller's (D-067);
-    /// journeys are deferred (D-066); a legacy dungeon's fight resolves its node through the run loop's DungeonResolver (D-078l).
+    /// journeys are deferred (D-066); a legacy dungeon's fight resolves its node through the run loop's DungeonResolver (D-097).
     /// </summary>
     public static class CombatEnd
     {

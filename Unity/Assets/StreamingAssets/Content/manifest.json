@@ -1,5 +1,5 @@
 {
-  "contentHash": "1794c0a6141e0da5a5e25a014bb535ea86b6e3deeabb79ce3e63bfab7030e92c",
+  "contentHash": "5f08661f398700cebcf381c35edbef259c33b696a06069ea0a864833cd2800d9",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -183,6 +183,11 @@
       "generated": true,
       "sha256": "d3e5c91217ea22827cc6f985f1873ca491b76fedc9591df2225ec4bc9dec8cfa"
     },
+    "catalog/eventChoiceRequirements.json": {
+      "bytes": 1352,
+      "generated": true,
+      "sha256": "b47f8ae998d5c37635313e54733da1e2c25e56be36d410ab8bef7563ff7ce4a4"
+    },
     "catalog/eventMeta.json": {
       "bytes": 4050,
       "generated": true,
@@ -269,9 +274,9 @@
       "sha256": "902b7036c88ae1194fabab4bc9072f5763e99332bb9801f1b7aa94082773e582"
     },
     "rules/combatEngine.json": {
-      "bytes": 3576,
+      "bytes": 3326,
       "generated": false,
-      "sha256": "512b768470f0bc9121d56c6483ed88658f09e70129e3c736dfb4fc573b2c2c69"
+      "sha256": "e97276c7f509c822d9eea6df702b7603f9f771060c617d0a01eb791ff7bb0bf9"
     },
     "rules/combatRules.json": {
       "bytes": 2049,
@@ -287,6 +292,11 @@
       "bytes": 932,
       "generated": false,
       "sha256": "0d955c905f65a08ef8bfb55cc44987e87909440228f7663a6e72b8a88a87c60c"
+    },
+    "rules/eventsEngine.json": {
+      "bytes": 1189,
+      "generated": false,
+      "sha256": "9eb7bbba848957c5a7e7541318d7a6108791814e5612f881396a7a6f03cb8456"
     },
     "rules/handRules.json": {
       "bytes": 671,
@@ -347,6 +357,11 @@
       "bytes": 371,
       "generated": false,
       "sha256": "6e4cfcb8137ac4ccc96b74727b3d9380ae76f6d98a0fd6ddb5dab204056ed747"
+    },
+    "rules/shopEngine.json": {
+      "bytes": 1907,
+      "generated": false,
+      "sha256": "c503de1fb9dfafa26a8cb86f28d5319467ce313ef397f1842752a07f89f90245"
     },
     "rules/stringKeys.json": {
       "bytes": 3664,
@@ -503,6 +518,11 @@
       "generated": false,
       "sha256": "3bfbbe99b2631d34a98f7495c9bf07a7d845c402f56a93131c35158e180679f7"
     },
+    "schemas/catalog.eventChoiceRequirements.schema.json": {
+      "bytes": 1450,
+      "generated": false,
+      "sha256": "026a92330dc0251a32aa8811239d362048c13824136fd83ed2c474470f3899de"
+    },
     "schemas/catalog.eventMeta.schema.json": {
       "bytes": 4810,
       "generated": false,
@@ -589,9 +609,9 @@
       "sha256": "91c0dccf147ff515759b763316fe696f9a37bc2a7a4e801203fcd60a5d573173"
     },
     "schemas/rules.combatEngine.schema.json": {
-      "bytes": 9914,
+      "bytes": 9380,
       "generated": false,
-      "sha256": "1428c62f1b8c72cfc3fce773510dcf4cc089bd9547f61ac2f624fa1e11aa9bcc"
+      "sha256": "c0f905d954b9fb40c99dc9b69e43037a498f0c002438ec50ebe9dbe793abf132"
     },
     "schemas/rules.combatRules.schema.json": {
       "bytes": 9025,
@@ -607,6 +627,11 @@
       "bytes": 382,
       "generated": false,
       "sha256": "b404be67874cde45f86d63e2b99c9b6645075aca9ca060347c177a07e5599037"
+    },
+    "schemas/rules.eventsEngine.schema.json": {
+      "bytes": 1907,
+      "generated": false,
+      "sha256": "e24280afeea41c86c468c965cbaf22e0da9703af5735ed1052990ead86ad8aef"
     },
     "schemas/rules.handRules.schema.json": {
       "bytes": 3796,
@@ -668,6 +693,11 @@
       "generated": false,
       "sha256": "273835d8303750290f81712ea1399de424a8fb124c74babe2b74f77eb999ebc3"
     },
+    "schemas/rules.shopEngine.schema.json": {
+      "bytes": 4781,
+      "generated": false,
+      "sha256": "4fc74399eece51428307b96f0522687a009e9857d6092bd662fb71730c39595e"
+    },
     "schemas/rules.stringKeys.schema.json": {
       "bytes": 14917,
       "generated": false,
@@ -702,6 +732,16 @@
       "bytes": 2348,
       "generated": false,
       "sha256": "052e85935c6d50ce406726eb55cb88625b41a1c00e0823869b62ca02ccefd4db"
+    },
+    "schemas/strings.events.en.schema.json": {
+      "bytes": 388,
+      "generated": false,
+      "sha256": "3e82202a186fd6805d98d64b1b620f1dd7b5ff54f7ad5dc6076171ec9b53ecda"
+    },
+    "schemas/strings.shop.en.schema.json": {
+      "bytes": 2294,
+      "generated": false,
+      "sha256": "bd950a8d431e81fe48845a1a7cee643c2f2dbfea9116be709418912ca1aac9b2"
     },
     "schemas/tags.familyNodes.schema.json": {
       "bytes": 316,
@@ -832,6 +872,16 @@
       "bytes": 204265,
       "generated": true,
       "sha256": "84d0bea47b859fddc18177c3068231ec3e1bd73d07686c6c11c0d5452bee32f7"
+    },
+    "strings/events.en.json": {
+      "bytes": 225,
+      "generated": false,
+      "sha256": "a9fcfcd2fa31bd0f98983762267ad9c5220649ba685d002700016d684325d957"
+    },
+    "strings/shop.en.json": {
+      "bytes": 1583,
+      "generated": false,
+      "sha256": "9d03cf27e245a8bc91d98e3a1678b6fb443f89fc6502c666441892881065ca06"
     },
     "tags/familyNodes.json": {
       "bytes": 7187,

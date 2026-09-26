@@ -72,8 +72,8 @@ namespace Ashen.Tests
         }
 
         /// <summary>
-        /// The deferred reachable paths throw by name: a World Journey run's travel (D-072l) and a rest for a run without
-        /// flask charge pools (the legacy flask-slot refill, D-075l).
+        /// The deferred reachable paths throw by name: a World Journey run's travel (D-091) and a rest for a run without
+        /// flask charge pools (the legacy flask-slot refill, D-094).
         /// </summary>
         [Test]
         public void DeferredPathsThrowByName()
