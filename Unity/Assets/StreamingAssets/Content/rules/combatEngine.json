@@ -145,5 +145,10 @@
       "light": 1,
       "medium": 0.5
     }
+  },
+  "playerPoise": {
+    "attribute": "constitution",
+    "legacyRule": { "base": 0, "pointsPerTier": 1, "gainPerTier": 1 },
+    "defaultPointsPerTier": 1
   }
 }

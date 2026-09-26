@@ -12,7 +12,7 @@ using V = Ashen.Generated.CombatValues;
 
 namespace Ashen.Domain.Combat
 {
-    /// <summary>A player intent (shipped dispatch intents: playCard / endTurn / useFlask).</summary>
+    /// <summary>A player intent (shipped dispatch intents: playCard / endTurn / useFlask / swapArmament / changeEquipment).</summary>
     public sealed class CombatCommand
     {
         public string Type;
@@ -21,6 +21,9 @@ namespace Ashen.Domain.Combat
         public List<string> DiscardIds = new List<string>();
         public int Slot;
         public string ChargeKind;
+        public string SlotId;
+        public int SetIndex;
+        public string PieceId;
 
         public static CombatCommand PlayCard(string cardInstanceId, string targetId = null) =>
             new CombatCommand { Type = V.CommandPlayCard, CardInstanceId = cardInstanceId, TargetId = targetId };
@@ -31,16 +34,30 @@ namespace Ashen.Domain.Combat
         public static CombatCommand UseFlask(int slot, string chargeKind = null, string targetId = null) =>
             new CombatCommand { Type = V.CommandUseFlask, Slot = slot, ChargeKind = chargeKind, TargetId = targetId };
 
+        /// <summary>Cycle a hand to another of its prepared sets (shipped doSwapArmament).</summary>
+        public static CombatCommand SwapArmament(string slotId, int setIndex) =>
+            new CombatCommand { Type = V.CommandSwapArmament, SlotId = slotId, SetIndex = setIndex };
+
+        /// <summary>Put a carried piece into one position of a slot, or empty it with a null piece (shipped doChangeEquipment).</summary>
+        public static CombatCommand ChangeEquipment(string slotId, int setIndex, string pieceId) =>
+            new CombatCommand { Type = V.CommandChangeEquipment, SlotId = slotId, SetIndex = setIndex, PieceId = pieceId };
+
         /// <summary>The wire form, as FromJson reads it (what the save's command log records).</summary>
         public JObject ToJson()
         {
             var o = Js.Obj(K.Type, Type, K.CardInstanceId, CardInstanceId, K.TargetId, TargetId, K.ChargeKind, ChargeKind);
             if (Type == V.CommandEndTurn && DiscardIds != null && DiscardIds.Count > 0) o[K.DiscardIds] = new JArray(DiscardIds);
             if (Type == V.CommandUseFlask && ChargeKind == null) o.Put(K.Slot, Slot);
+            if (Type == V.CommandSwapArmament || Type == V.CommandChangeEquipment)
+            {
+                o[K.SlotId] = Js.S(SlotId);
+                o.Put(K.SetIndex, SetIndex);
+            }
+            if (Type == V.CommandChangeEquipment) o[K.PieceId] = Js.S(PieceId);
             return o;
         }
 
-        /// <summary>The wire form ({ type, cardInstanceId?, targetId?, discardIds?, slot?, chargeKind? }).</summary>
+        /// <summary>The wire form ({ type, cardInstanceId?, targetId?, discardIds?, slot?, chargeKind?, slotId?, setIndex?, pieceId? }).</summary>
         public static CombatCommand FromJson(JObject o) => new CombatCommand
         {
             Type = o.Str(K.Type),
@@ -49,6 +66,9 @@ namespace Ashen.Domain.Combat
             DiscardIds = Js.Items(o[K.DiscardIds]).Select(Js.Str).ToList(),
             Slot = (int)Js.Or0(o[K.Slot]),
             ChargeKind = o.Str(K.ChargeKind),
+            SlotId = o.Str(K.SlotId),
+            SetIndex = (int)Js.Or0(o[K.SetIndex]),
+            PieceId = o.Str(K.PieceId),
         };
     }
 
@@ -76,6 +96,12 @@ namespace Ashen.Domain.Combat
                     case V.CommandUseFlask:
                         UseFlask(c, command);
                         break;
+                    case V.CommandSwapArmament:
+                        EquipmentPort(c).SwapArmament(c, command.SlotId, command.SetIndex);
+                        break;
+                    case V.CommandChangeEquipment:
+                        EquipmentPort(c).ChangeEquipment(c, command.SlotId, command.SetIndex, command.PieceId);
+                        break;
                     default:
                         throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UnknownIntent, command.Type));
                 }
@@ -86,6 +112,9 @@ namespace Ashen.Domain.Combat
                 c.Buffer = null;
             }
         }
+
+        /// <summary>The run port the equipment intents restamp through (set by RunData); a fight on combat data alone has none.</summary>
+        internal static IEquipmentPort EquipmentPort(CombatState c) => c.Data.EquipmentPort ?? throw new NotSupportedException(M.EquipmentNeedsRunData);
 
         // ------------------------------------------------------------------ queue
 
@@ -490,7 +519,8 @@ namespace Ashen.Domain.Combat
             }
         }
 
-        private static void EndTurn(CombatState c, IReadOnlyList<string> discardIds)
+        /// <summary>doEndTurn(combat, discardIds): the player turn ends, the enemies act, the next turn starts.</summary>
+        internal static void EndTurn(CombatState c, IReadOnlyList<string> discardIds)
         {
             if (c.Phase != V.PhasePlayer) throw new InvalidOperationException(M.NotPlayerTurn);
             HandRules.ValidateDiscardChoice(c, discardIds);

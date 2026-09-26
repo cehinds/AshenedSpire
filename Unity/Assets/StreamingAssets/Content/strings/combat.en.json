@@ -22,5 +22,18 @@
   "combat.cardKind.skill": "Skill",
   "combat.cardKind.power": "Power",
   "combat.cardKind.status": "Status",
-  "combat.cardKind.curse": "Curse"
+  "combat.cardKind.curse": "Curse",
+  "combat.refusal.equipmentDisabled": "Equipment cannot be changed in this fight.",
+  "combat.refusal.noLoadout": "You carry no equipment to change.",
+  "combat.refusal.noSlot": "That equipment slot does not exist.",
+  "combat.refusal.slotFastened": "{0} stays fastened until the fight ends.",
+  "combat.refusal.changesDisabled": "Equipment changes are disabled during combat.",
+  "combat.refusal.requirement": "{0} requires {1} {2} (you have {3}).",
+  "combat.refusal.grip": "{0} needs both hands, and {1} is in the other one. Free that hand first.",
+  "combat.refusal.noSwapsLeft": "No swaps left this turn.",
+  "combat.refusal.noChangesLeft": "No equipment changes left this turn.",
+  "combat.refusal.swapEnergy": "Swapping needs {0} Energy (you have {1}).",
+  "combat.refusal.changeEnergy": "Changing equipment needs {0} Energy (you have {1}).",
+  "combat.refusal.changeUnavailable": "That equipment change is not available.",
+  "combat.refusal.noSet": "That set is empty or not open yet."
 }

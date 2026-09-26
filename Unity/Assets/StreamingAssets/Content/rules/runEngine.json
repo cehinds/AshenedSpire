@@ -12,6 +12,10 @@
     "rounding": ["floor", "ceil", "round"],
     "rulesetVersions": [1, 2, 3, 4, 5],
     "snapshotVersion": 2,
+    "snapshotVersions": [1, 2],
+    "legacySnapshotVersion": 1,
+    "currentRulesetSince": 3,
+    "persistedStats": { "maxMana": "mana", "maxStamina": "stamina", "energyMax": "energy", "drawPerTurn": "draw" },
     "rootFields": ["rulesetVersion", "defaults", "rules", "presentation"],
     "defaultFields": ["pointsPerTier", "rounding", "cap"],
     "ruleFields": ["base", "sourceStat", "pointsPerTier", "gainPerTier", "rounding", "cap", "perLevel"],
@@ -42,7 +46,9 @@
     "handsRequired": [1, 2],
     "twoHandedHands": 2,
     "defaultStrikeBias": 0.5,
-    "defaultOddFillerGoesTo": "attack"
+    "defaultOddFillerGoesTo": "attack",
+    "swapCostBases": ["default", "category"],
+    "storageSlotsDefault": 8
   },
   "mounts": {
     "kinds": ["granted", "weaponArt"]
@@ -75,5 +81,13 @@
       "main": "rightHand",
       "off": "leftHand"
     }
+  },
+  "handRuleSettings": {
+    "groups": ["starting", "turn", "capacity"],
+    "choices": { "overflow": ["keep", "discard"], "drawMode": ["fill", "fixed"] },
+    "attributeChoiceFields": ["stat"],
+    "numberMinimum": 0,
+    "numberMaximum": 99,
+    "numberMinimums": { "pointsPerCard": 1, "capacity.base": 1, "capacity.minimum": 1, "capacity.maximum": 1 }
   }
 }

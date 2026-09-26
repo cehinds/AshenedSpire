@@ -2,6 +2,21 @@
   "$id": "strings/combat.en.json",
   "type": "object",
   "properties": {
+    "combat.cardKind.attack": {
+      "type": "string"
+    },
+    "combat.cardKind.curse": {
+      "type": "string"
+    },
+    "combat.cardKind.power": {
+      "type": "string"
+    },
+    "combat.cardKind.skill": {
+      "type": "string"
+    },
+    "combat.cardKind.status": {
+      "type": "string"
+    },
     "combat.error.unexpected": {
       "type": "string"
     },
@@ -23,6 +38,15 @@
     "combat.intent.unknown": {
       "type": "string"
     },
+    "combat.refusal.changeEnergy": {
+      "type": "string"
+    },
+    "combat.refusal.changeUnavailable": {
+      "type": "string"
+    },
+    "combat.refusal.changesDisabled": {
+      "type": "string"
+    },
     "combat.refusal.combatOver": {
       "type": "string"
     },
@@ -32,16 +56,37 @@
     "combat.refusal.energy": {
       "type": "string"
     },
+    "combat.refusal.equipmentDisabled": {
+      "type": "string"
+    },
+    "combat.refusal.grip": {
+      "type": "string"
+    },
     "combat.refusal.invalidTarget": {
       "type": "string"
     },
     "combat.refusal.mana": {
       "type": "string"
     },
+    "combat.refusal.noChangesLeft": {
+      "type": "string"
+    },
     "combat.refusal.noFlask": {
       "type": "string"
     },
     "combat.refusal.noFlaskCharges": {
+      "type": "string"
+    },
+    "combat.refusal.noLoadout": {
+      "type": "string"
+    },
+    "combat.refusal.noSet": {
+      "type": "string"
+    },
+    "combat.refusal.noSlot": {
+      "type": "string"
+    },
+    "combat.refusal.noSwapsLeft": {
       "type": "string"
     },
     "combat.refusal.noTarget": {
@@ -53,25 +98,19 @@
     "combat.refusal.notPlayerTurn": {
       "type": "string"
     },
+    "combat.refusal.requirement": {
+      "type": "string"
+    },
+    "combat.refusal.slotFastened": {
+      "type": "string"
+    },
     "combat.refusal.stamina": {
       "type": "string"
     },
+    "combat.refusal.swapEnergy": {
+      "type": "string"
+    },
     "combat.refusal.unplayable": {
-      "type": "string"
-    },
-    "combat.cardKind.attack": {
-      "type": "string"
-    },
-    "combat.cardKind.skill": {
-      "type": "string"
-    },
-    "combat.cardKind.power": {
-      "type": "string"
-    },
-    "combat.cardKind.status": {
-      "type": "string"
-    },
-    "combat.cardKind.curse": {
       "type": "string"
     }
   },
@@ -88,17 +127,30 @@
     "combat.intent.debuff",
     "combat.intent.staggered",
     "combat.intent.unknown",
+    "combat.refusal.changeEnergy",
+    "combat.refusal.changeUnavailable",
+    "combat.refusal.changesDisabled",
     "combat.refusal.combatOver",
     "combat.refusal.discardSelection",
     "combat.refusal.energy",
+    "combat.refusal.equipmentDisabled",
+    "combat.refusal.grip",
     "combat.refusal.invalidTarget",
     "combat.refusal.mana",
+    "combat.refusal.noChangesLeft",
     "combat.refusal.noFlask",
     "combat.refusal.noFlaskCharges",
+    "combat.refusal.noLoadout",
+    "combat.refusal.noSet",
+    "combat.refusal.noSlot",
+    "combat.refusal.noSwapsLeft",
     "combat.refusal.noTarget",
     "combat.refusal.notInHand",
     "combat.refusal.notPlayerTurn",
+    "combat.refusal.requirement",
+    "combat.refusal.slotFastened",
     "combat.refusal.stamina",
+    "combat.refusal.swapEnergy",
     "combat.refusal.unplayable"
   ]
 }
