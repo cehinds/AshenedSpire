@@ -1,0 +1,437 @@
+{
+  "$id": "rules/loopEngine.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "customMods": {
+      "type": "object",
+      "properties": {
+        "deadlyEnemies": {
+          "type": "object",
+          "properties": {
+            "stacks": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "stacks",
+            "status"
+          ]
+        },
+        "endlessStatus": {
+          "type": "string"
+        },
+        "glassCannon": {
+          "type": "object",
+          "properties": {
+            "stacks": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "stacks",
+            "status"
+          ]
+        }
+      },
+      "required": [
+        "deadlyEnemies",
+        "endlessStatus",
+        "glassCannon"
+      ]
+    },
+    "dungeons": {
+      "type": "object",
+      "properties": {
+        "cacheCinders": {
+          "type": "integer"
+        },
+        "cacheKind": {
+          "type": "string"
+        },
+        "fightKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fleeRoll": {
+          "type": "object",
+          "properties": {
+            "max": {
+              "type": "integer"
+            },
+            "min": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "max",
+            "min"
+          ]
+        },
+        "hostileKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rooms": {
+          "type": "object",
+          "properties": {
+            "boss": {
+              "type": "string"
+            },
+            "cache": {
+              "type": "string"
+            },
+            "fight": {
+              "type": "string"
+            },
+            "shrine": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "boss",
+            "cache",
+            "fight",
+            "shrine"
+          ]
+        },
+        "shrineKind": {
+          "type": "string"
+        },
+        "texts": {
+          "type": "object",
+          "properties": {
+            "cache": {
+              "type": "string"
+            },
+            "caught": {
+              "type": "string"
+            },
+            "escape": {
+              "type": "string"
+            },
+            "escaped": {
+              "type": "string"
+            },
+            "fight": {
+              "type": "string"
+            },
+            "flee": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "cache",
+            "caught",
+            "escape",
+            "escaped",
+            "fight",
+            "flee"
+          ]
+        },
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cacheCinders",
+        "cacheKind",
+        "fightKinds",
+        "fleeRoll",
+        "hostileKinds",
+        "rooms",
+        "shrineKind",
+        "texts",
+        "version"
+      ]
+    },
+    "locations": {
+      "type": "object",
+      "properties": {
+        "camp": {
+          "type": "string"
+        },
+        "family": {
+          "type": "string"
+        },
+        "restManaTag": {
+          "type": "string"
+        },
+        "restManaTagByMode": {
+          "type": "object",
+          "properties": {
+            "flat": {
+              "type": "string"
+            },
+            "floorOrFull": {
+              "type": "string"
+            },
+            "full": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "flat",
+            "floorOrFull",
+            "full"
+          ]
+        },
+        "serviceTags": {
+          "type": "object",
+          "properties": {
+            "flasks": {
+              "type": "string"
+            },
+            "levelUp": {
+              "type": "string"
+            },
+            "smith": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "flasks",
+            "levelUp",
+            "smith"
+          ]
+        },
+        "shrine": {
+          "type": "string"
+        },
+        "smithNodeKind": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "camp",
+        "family",
+        "restManaTag",
+        "restManaTagByMode",
+        "serviceTags",
+        "shrine",
+        "smithNodeKind"
+      ]
+    },
+    "map": {
+      "type": "object",
+      "properties": {
+        "recentEncounters": {
+          "type": "integer"
+        },
+        "treasureTitle": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "recentEncounters",
+        "treasureTitle"
+      ]
+    },
+    "mounts": {
+      "type": "object",
+      "properties": {
+        "receiptSchemaVersion": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "receiptSchemaVersion"
+      ]
+    },
+    "profile": {
+      "type": "object",
+      "properties": {
+        "historyLimit": {
+          "type": "integer"
+        },
+        "schemaVersion": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "historyLimit",
+        "schemaVersion"
+      ]
+    },
+    "rewards": {
+      "type": "object",
+      "properties": {
+        "cardInstancePrefix": {
+          "type": "string"
+        },
+        "cardInstanceSeparator": {
+          "type": "string"
+        },
+        "kindOrder": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "armament",
+              "card",
+              "cinders",
+              "classDraft",
+              "flask",
+              "relic",
+              "skillDraft",
+              "smithingStone"
+            ]
+          }
+        },
+        "receiptLimit": {
+          "type": "integer"
+        },
+        "storageSlots": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cardInstancePrefix",
+        "cardInstanceSeparator",
+        "kindOrder",
+        "receiptLimit",
+        "storageSlots"
+      ]
+    },
+    "runContext": {
+      "type": "object",
+      "properties": {
+        "queueGuard": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "queueGuard"
+      ]
+    },
+    "smithing": {
+      "type": "object",
+      "properties": {
+        "certainChance": {
+          "type": "integer"
+        },
+        "inertServices": {
+          "type": "object",
+          "properties": {
+            "extract": {
+              "type": "object",
+              "properties": {
+                "cost": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "cost"
+              ]
+            },
+            "install": {
+              "type": "object",
+              "properties": {
+                "cost": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "cost"
+              ]
+            },
+            "offeredAt": {
+              "type": "object",
+              "properties": {
+                "shrine": {
+                  "type": "object",
+                  "properties": {
+                    "chance": {
+                      "type": "integer"
+                    },
+                    "services": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "chance",
+                    "services"
+                  ]
+                }
+              },
+              "required": [
+                "shrine"
+              ]
+            }
+          },
+          "required": [
+            "extract",
+            "install",
+            "offeredAt"
+          ]
+        },
+        "requirementLabel": {
+          "type": "string"
+        },
+        "schemaVersion": {
+          "type": "integer"
+        },
+        "serviceIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "valueLabels": {
+          "type": "object",
+          "properties": {
+            "equipmentPoise": {
+              "type": "string"
+            },
+            "otherPassive": {
+              "type": "string"
+            },
+            "poiseThresholdAdd": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "equipmentPoise",
+            "otherPassive",
+            "poiseThresholdAdd"
+          ]
+        }
+      },
+      "required": [
+        "certainChance",
+        "inertServices",
+        "requirementLabel",
+        "schemaVersion",
+        "serviceIds",
+        "valueLabels"
+      ]
+    }
+  },
+  "required": [
+    "comment",
+    "customMods",
+    "dungeons",
+    "locations",
+    "map",
+    "mounts",
+    "profile",
+    "rewards",
+    "runContext",
+    "smithing"
+  ]
+}

@@ -54,5 +54,9 @@
  "ProfileSnapshotRequired": "createCombat requires the run equipmentProfileRuleSnapshot",
  "SwapCostRuleRequired": "createCombat requires the resolved swapCostRule",
  "UnknownCardInstance": "Unknown card instance {0}",
- "UnknownEnemyInstance": "Unknown enemy instance {0}"
+ "UnknownEnemyInstance": "Unknown enemy instance {0}",
+ "UpgradeEffectNotSingle": "{0} tier {1} tag '{2}' expected exactly one '{3}' effect for role '{4}', found {5}",
+ "UpgradeTargetNotNumeric": "{0} tier {1} tag '{2}' targets a non-numeric {3}",
+ "UpgradeBelowZero": "{0} tier {1} tag '{2}' would reduce {3} below zero",
+ "SmithedCardNeedsSource": "A Smithed card must carry sourceArmamentId"
 }
