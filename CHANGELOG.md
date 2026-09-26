@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.10.0] — 2026-09-26
+
+Stories: us-2.1, us-5.10, pf-06
+
+- F1 first fight: W-04 class pane, W-07 combat screen, W-20 pause, save and resume mid-fight (RunSession)
+
 ## [0.1.9.0] — 2026-09-26
 
 Stories: us-0.4
