@@ -4,6 +4,7 @@ namespace Ashen.Generated
     /// <summary>Keys of combat documents, content rows and rules the combat engine reads (shipped wire names).</summary>
     public static class CombatKeys
     {
+        public const string AcquiredAt = "acquiredAt";
         public const string ActionLoss = "actionLoss";
         public const string Active = "active";
         public const string Alive = "alive";
@@ -40,6 +41,7 @@ namespace Ashen.Generated
         public const string BlockRemaining = "blockRemaining";
         public const string Blocked = "blocked";
         public const string Bonuses = "bonuses";
+        public const string BoostTint = "boostTint";
         public const string Breaks = "breaks";
         public const string BuildupMultiplier = "buildupMultiplier";
         public const string BurstMax = "burstMax";
@@ -69,9 +71,11 @@ namespace Ashen.Generated
         public const string Classes = "classes";
         public const string Clause = "clause";
         public const string Colossal = "colossal";
+        public const string CombatRatings = "combatRatings";
         public const string Constitution = "constitution";
         public const string CoreTags = "coreTags";
         public const string Cost = "cost";
+        public const string CostIsX = "costIsX";
         public const string CostResource = "costResource";
         public const string Count = "count";
         public const string Counters = "counters";
@@ -80,8 +84,10 @@ namespace Ashen.Generated
         public const string DamageDealtMult = "damageDealtMult";
         public const string DamageResistanceBySchool = "damageResistanceBySchool";
         public const string DamageSchool = "damageSchool";
+        public const string DamageSchools = "damageSchools";
         public const string DamageTakenMult = "damageTakenMult";
         public const string Decay = "decay";
+        public const string Deck = "deck";
         public const string Defaults = "defaults";
         public const string DefenseRating = "defenseRating";
         public const string Delay = "delay";
@@ -109,18 +115,24 @@ namespace Ashen.Generated
         public const string EffectiveRatings = "effectiveRatings";
         public const string Effects = "effects";
         public const string EmitDepth = "emitDepth";
+        public const string Enabled = "enabled";
         public const string Enemies = "enemies";
         public const string EnemyAttackType = "enemyAttackType";
         public const string EnemyId = "enemyId";
+        public const string EnemyIds = "enemyIds";
         public const string EnemyImpact = "enemyImpact";
         public const string EnemyPhysical = "enemyPhysical";
+        public const string EnemyRatings = "enemyRatings";
+        public const string EnemyStatuses = "enemyStatuses";
         public const string Energy = "energy";
         public const string EnergyMax = "energyMax";
         public const string EnergySpent = "energySpent";
         public const string EquipMods = "equipMods";
         public const string Equipment = "equipment";
         public const string EquipmentAttackSlotCount = "equipmentAttackSlotCount";
+        public const string EquipmentAttackSlotId = "equipmentAttackSlotId";
         public const string EquipmentChanged = "equipmentChanged";
+        public const string EquipmentPlanFingerprint = "equipmentPlanFingerprint";
         public const string EquipmentPoiseTag = "equipmentPoiseTag";
         public const string EquipmentPoolDeficits = "equipmentPoolDeficits";
         public const string EquipmentProfileId = "equipmentProfileId";
@@ -141,8 +153,10 @@ namespace Ashen.Generated
         public const string FlaskPowerMult = "flaskPowerMult";
         public const string Flasks = "flasks";
         public const string Flavor = "flavor";
+        public const string GrantSource = "grantSource";
         public const string GrantedBy = "grantedBy";
         public const string Grip = "grip";
+        public const string Growth = "growth";
         public const string GrowthMult = "growthMult";
         public const string Growths = "growths";
         public const string Hand = "hand";
@@ -154,6 +168,7 @@ namespace Ashen.Generated
         public const string Hits = "hits";
         public const string Hooks = "hooks";
         public const string Hp = "hp";
+        public const string HpMult = "hpMult";
         public const string Icon = "icon";
         public const string Id = "id";
         public const string IdCounter = "idCounter";
@@ -177,6 +192,7 @@ namespace Ashen.Generated
         public const string KindByOp = "kindByOp";
         public const string KindIds = "kindIds";
         public const string Kinds = "kinds";
+        public const string KitRole = "kitRole";
         public const string Label = "label";
         public const string Level = "level";
         public const string Light = "light";
@@ -221,6 +237,7 @@ namespace Ashen.Generated
         public const string Multiplier = "multiplier";
         public const string N = "n";
         public const string Name = "name";
+        public const string NeedsTarget = "needsTarget";
         public const string NextTier = "nextTier";
         public const string NodeId = "nodeId";
         public const string Of = "of";
@@ -242,6 +259,7 @@ namespace Ashen.Generated
         public const string PendingDiscardDraw = "pendingDiscardDraw";
         public const string PendingMove = "pendingMove";
         public const string Per = "per";
+        public const string PerTarget = "perTarget";
         public const string Percent = "percent";
         public const string PerformedMoves = "performedMoves";
         public const string Phase = "phase";
@@ -252,11 +270,13 @@ namespace Ashen.Generated
         public const string Player = "player";
         public const string PlayerId = "playerId";
         public const string PlayerImpactPerHit = "playerImpactPerHit";
+        public const string PlayerStatuses = "playerStatuses";
         public const string PointsPerCard = "pointsPerCard";
         public const string Poise = "poise";
         public const string PoiseActionLoss = "poiseActionLoss";
         public const string PoiseDamage = "poiseDamage";
         public const string PoiseGrowthMult = "poiseGrowthMult";
+        public const string PoiseMax = "poiseMax";
         public const string PoiseMeter = "poiseMeter";
         public const string PoiseThreshold = "poiseThreshold";
         public const string PoiseThresholdAdd = "poiseThresholdAdd";
@@ -267,6 +287,7 @@ namespace Ashen.Generated
         public const string Preds = "preds";
         public const string Proc = "proc";
         public const string ProfileId = "profileId";
+        public const string ProfileReceipt = "profileReceipt";
         public const string PromptDiscard = "promptDiscard";
         public const string PropertyRules = "propertyRules";
         public const string PropertyTags = "propertyTags";
@@ -316,6 +337,7 @@ namespace Ashen.Generated
         public const string SmithingLevel = "smithingLevel";
         public const string SnapshotVersion = "snapshotVersion";
         public const string SourceArmamentId = "sourceArmamentId";
+        public const string SourceEquipmentInstanceId = "sourceEquipmentInstanceId";
         public const string SourceHand = "sourceHand";
         public const string SourceId = "sourceId";
         public const string StackMode = "stackMode";
@@ -353,8 +375,13 @@ namespace Ashen.Generated
         public const string TextTemplate = "textTemplate";
         public const string Threshold = "threshold";
         public const string ThresholdGrowth = "thresholdGrowth";
+        public const string Tint = "tint";
         public const string ToFloorPct = "toFloorPct";
+        public const string Token = "token";
+        public const string TokenizableOps = "tokenizableOps";
+        public const string Tokens = "tokens";
         public const string Total = "total";
+        public const string TotalDamage = "totalDamage";
         public const string TriggerState = "triggerState";
         public const string Triggers = "triggers";
         public const string Turn = "turn";
@@ -367,6 +394,7 @@ namespace Ashen.Generated
         public const string Upgrade = "upgrade";
         public const string Upgraded = "upgraded";
         public const string Value = "value";
+        public const string Values = "values";
         public const string Variable = "variable";
         public const string Version = "version";
         public const string Victory = "victory";

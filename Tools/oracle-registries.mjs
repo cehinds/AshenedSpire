@@ -5,7 +5,7 @@
 //   node Tools/oracle-registries.mjs [--source D:/repos/AshenSpire]
 //
 // Writes Unity/Assets/Tests/Oracle/registries/{shipped,reference}/<table>.json (id-keyed, canonical).
-import { writeFileSync, mkdirSync, readFileSync, rmSync, existsSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync, rmSync, existsSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -35,7 +35,11 @@ function write(preset, registries) {
   writeFileSync(join(dir, 'balance.json'), `${JSON.stringify(sortKeys(plain(registries.balance)), null, 1)}\n`);
 }
 
-if (existsSync(OUT)) rmSync(OUT, { recursive: true });
+// Remove only the previous JSON outputs: the Unity .meta files beside them are committed and must survive.
+for (const preset of ['shipped', 'reference']) {
+  const dir = join(OUT, preset);
+  if (existsSync(dir)) for (const f of readdirSync(dir)) if (f.endsWith('.json')) rmSync(join(dir, f));
+}
 write('shipped', createRegistries(configuredContentBundle(contentBundle, {})));
 const refSettings = JSON.parse(readFileSync(join(RAW, 'reference.settings.json'), 'utf8'));
 write('reference', createRegistries(configuredContentBundle(contentBundle, refSettings.settings || refSettings)));

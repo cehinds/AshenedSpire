@@ -12,6 +12,8 @@ namespace Ashen.Generated
         public const string CardUnplayable = "'{0}' is unplayable";
         public const string CombatOver = "Combat is over";
         public const string DiscardSelection = "Select {0} to {1} eligible cards to discard.";
+        public const string DrawPerTurnRequired = "Player combat entity requires stamped non-negative integer drawPerTurn";
+        public const string EnergyMaxRequired = "Player combat entity requires stamped non-negative integer energyMax";
         public const string ExpectedNumber = "Expected number or formula, got {0}";
         public const string FormulaGroupRef = "Formula '{0}' cannot target '{1}' (a group); use a single entity ref";
         public const string FormulaNaN = "Formula evaluated to a non-number: {0}";
@@ -38,11 +40,15 @@ namespace Ashen.Generated
         public const string PassiveNotInteger = "{0} passive '{1}' must already be an authored integer";
         public const string PoiseLoop = "Poise meter fill loop did not terminate";
         public const string PoiseThresholdNotInteger = "{0} poiseThreshold must be an integer";
+        public const string ProfileSnapshotRequired = "createCombat requires the run equipmentProfileRuleSnapshot";
         public const string QueueDidNotDrain = "Action queue did not drain (possible infinite trigger loop)";
         public const string SmithedCardsDeferred = "Smithed card faces are not ported yet (smithing story)";
         public const string StillResolving = "Combat is still resolving; wait for the action to finish before saving";
+        public const string SwapCostRuleRequired = "createCombat requires the resolved swapCostRule";
         public const string TriggerRecursion = "Trigger recursion exceeded the emit depth (event '{0}')";
+        public const string UnknownCardInstance = "Unknown card instance {0}";
         public const string UnknownCardVocabulary = "card {0}: unknown {1} '{2}'";
+        public const string UnknownEnemyInstance = "Unknown enemy instance {0}";
         public const string UnknownFormulaOp = "Unknown formula op '{0}'";
         public const string UnknownIntent = "Unknown combat intent '{0}'";
         public const string UnknownOpcode = "Unknown opcode '{0}'";
