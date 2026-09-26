@@ -289,6 +289,15 @@ namespace Ashen.App.Ui
         public string CardRefusalTooltip;
         public int StatusChips;
 
+        /// <summary>W-08 row icons (ui/components.json rewards): relic ({id}), armament and flask ({art}) registry-id templates, and the flask artKey prefix removed first.</summary>
+        public string RewardRelicArt;
+        public string RewardArmamentArt;
+        public string RewardFlaskArt;
+        public string RewardFlaskArtPrefix;
+
+        /// <summary>How a relic's passive modifier names its text token (rewards.modifierTokens: tag → { from, suffix, value }).</summary>
+        public JObject RewardModifierTokens = new JObject();
+
         /// <summary>
         /// Whether a registry id is in art.include: a plain entry is an id prefix; an entry with the wildcard matches ids
         /// that start with its first half and end with its second (Cli.BuildUiArt and the data tests use this one rule).
@@ -308,8 +317,14 @@ namespace Ashen.App.Ui
         {
             var fan = (JObject)json[UiKeys.HandFan];
             var combat = json[UiKeys.Combat] as JObject ?? new JObject();
+            var rewards = json[UiKeys.Rewards] as JObject ?? new JObject();
             return new ComponentDefaults
             {
+                RewardRelicArt = (string)rewards[UiKeys.RelicArt],
+                RewardArmamentArt = (string)rewards[UiKeys.ArmamentArt],
+                RewardFlaskArt = (string)rewards[UiKeys.FlaskArt],
+                RewardFlaskArtPrefix = (string)rewards[UiKeys.FlaskArtPrefix],
+                RewardModifierTokens = rewards[UiKeys.ModifierTokens] as JObject ?? new JObject(),
                 CombatBackground = (string)combat[UiKeys.Background],
                 CombatFallbackBackground = (string)combat[UiKeys.FallbackBackground],
                 EnemyArt = (string)combat[UiKeys.Enemy],

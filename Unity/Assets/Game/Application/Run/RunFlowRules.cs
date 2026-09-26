@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Ashen.App.Run
 {
-    /// <summary>rules/runFlow.json: the F1 default character, the first-fight rule and the autosave policy (D-071).</summary>
+    /// <summary>rules/runFlow.json: the F1 default character, the first-fight rule, the autosave policy (D-071) and newRun's additions.</summary>
     public sealed class RunFlowRules
     {
         public int SaveFormat;
@@ -20,6 +20,9 @@ namespace Ashen.App.Run
         public int FirstFightOrdinal;
         public string AfterCommand;
         public IReadOnlyCollection<string> CheckpointOn = Array.Empty<string>();
+
+        /// <summary>main.js newRun's additions to a created run, in order (newRun): customization, stats, path, seenEvents, lastEncounters.</summary>
+        public JObject NewRun = new JObject();
 
         public static RunFlowRules From(JObject json)
         {
@@ -38,6 +41,7 @@ namespace Ashen.App.Run
                 FirstFightPool = (string)fight[RunFlowKeys.Pool],
                 FirstFightOrdinal = (int)fight[RunFlowKeys.Ordinal],
                 AfterCommand = (string)autosave[RunFlowKeys.AfterCommand],
+                NewRun = json[RunFlowKeys.NewRun] as JObject ?? new JObject(),
                 CheckpointOn = new HashSet<string>((autosave[RunFlowKeys.CheckpointOn] as JArray ?? new JArray()).Select(t => (string)t), StringComparer.Ordinal),
             };
         }

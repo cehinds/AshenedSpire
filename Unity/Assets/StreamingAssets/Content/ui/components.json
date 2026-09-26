@@ -1,11 +1,18 @@
 {
-  "comment": "Component kit defaults (docs/design/04 §1, 08 §10). 'art.include' lists the assets/registry.json ids the UI art catalog preloads (Cli.BuildUiArt): a plain entry is an id prefix, an entry with one '*' matches any ids between its two halves (so 'enemy.*.base' takes each enemy's base frame and none of its state frames); screens name backgrounds by registry id in ui/screens.json. 'meter.kinds' are the Meter kinds (each becomes the USS class meter--<kind>). 'handFan': degrees between neighbouring cards, the widest total spread, and the card count after which the hand scrolls. 'tooltip.sizes' are WT0-WT3 (USS class tooltip--<size>). 'boot.filesPerFrame' paces the determinate boot bar over the manifest. 'card.costKinds' are the cost pips in order (actions, stamina, mana); 'card.refusalTooltip' is the tooltip size that explains an unplayable card. 'combat' names the W-07 art by template: the battlefield background per region ({region}), the fallback when that art is missing, and each enemy's figure ({id}). 'combatant.statusChips' caps the status chips before the last one reads '+N' (04 W-07 lower stack).",
-  "art": { "include": ["bg.title-city-tower", "bg.tower-city-background-unlit", "bg.bg_act1", "class.", "enemy.*.base", "env.*-combat"] },
+  "comment": "Component kit defaults (docs/design/04 §1, 08 §10). 'art.include' lists the assets/registry.json ids the UI art catalog preloads (Cli.BuildUiArt): a plain entry is an id prefix, an entry with one '*' matches any ids between its two halves (so 'enemy.*.base' takes each enemy's base frame and none of its state frames); screens name backgrounds by registry id in ui/screens.json. 'meter.kinds' are the Meter kinds (each becomes the USS class meter--<kind>). 'handFan': degrees between neighbouring cards, the widest total spread, and the card count after which the hand scrolls. 'tooltip.sizes' are WT0-WT3 (USS class tooltip--<size>). 'boot.filesPerFrame' paces the determinate boot bar over the manifest. 'card.costKinds' are the cost pips in order (actions, stamina, mana); 'card.refusalTooltip' is the tooltip size that explains an unplayable card. 'combat' names the W-07 art by template: the battlefield background per region ({region}), the fallback when that art is missing, and each enemy's figure ({id}). 'combatant.statusChips' caps the status chips before the last one reads '+N' (04 W-07 lower stack). 'rewards' names the W-08 row icons by template: a relic's icon ({id}), an armament's icon and a flask's art by the row's artKey ({art}, with flaskArtPrefix removed from a flask's artKey); a row whose art is missing shows its glyph (strings glyph.<kind>); 'modifierTokens' names the text token a relic's passive modifier fills (validate.js relicModifierTokenBindings: the row's 'from' field plus the suffix, valued by its 'value' field).",
+  "art": { "include": ["bg.title-city-tower", "bg.tower-city-background-unlit", "bg.bg_act1", "class.", "enemy.*.base", "env.*-combat", "relic.*.icon128", "equipment.icon.", "flask."] },
   "meter": { "kinds": ["hp", "mp", "sp", "actions", "poise", "ward", "buildUp", "progress"] },
   "handFan": { "degreesPerCard": 4, "maxSpread": 30, "scrollAfter": 10 },
   "tooltip": { "sizes": ["wt0", "wt1", "wt2", "wt3"] },
   "boot": { "filesPerFrame": 12 },
   "card": { "costKinds": ["actions", "stamina", "mana"], "refusalTooltip": "wt2" },
   "combat": { "background": "env.{region}-combat", "fallbackBackground": "bg.bg_act1", "enemy": "enemy.{id}.base" },
-  "combatant": { "statusChips": 4 }
+  "combatant": { "statusChips": 4 },
+  "rewards": { "relicArt": "relic.{id}.icon128", "armamentArt": "equipment.icon.{art}", "flaskArt": "flask.{art}", "flaskArtPrefix": "flask-",
+    "modifierTokens": {
+      "resource.flat": { "from": "resource", "suffix": "Flat", "value": "amount" },
+      "resource.attributeTier": { "from": "resource", "suffix": "PerTier", "value": "amountPerTier" },
+      "damage.school.flat": { "from": "school", "suffix": "DamageFlat", "value": "amount" }
+    }
+  }
 }

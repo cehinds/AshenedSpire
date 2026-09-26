@@ -17,5 +17,10 @@ namespace Ashen.Generated
         public const string SeatNameKey = "seat.{0}.name";
         public const string ClassDescriptionKey = "class.{0}.description";
         public const string AttributeShortKey = "attribute.{0}.short";
+        public const string RewardTitleKey = "rewards.title.{0}";
+        public const string RewardStateKey = "rewards.state.{0}";
+        public const string GlyphKey = "glyph.{0}";
+        public const string RewardRefusalKey = "rewards.refusal.{0}";
+        public const string RewardSkipName = "REWARD_SKIP_{0}";
     }
 }

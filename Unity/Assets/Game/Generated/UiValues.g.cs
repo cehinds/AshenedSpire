@@ -22,5 +22,8 @@ namespace Ashen.Generated
         public const string FocusFlasks = "flasks";
         public const string FocusEnemyTurn = "enemyTurn";
         public const string FocusEnded = "ended";
+        public const string FocusPick = "pick";
+        public const string RewardCardKind = "card";
+        public const string RewardCollectAuto = "auto";
     }
 }
