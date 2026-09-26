@@ -39,8 +39,13 @@ for (const file of Object.keys(manifest.files)) {
 }
 const disclosure = /created with generative AI/i;
 if (!disclosure.test(readFileSync(join(ROOT, 'README.md'), 'utf8'))) errors.push('README.md is missing the AI disclosure');
-const strings = JSON.parse(read('strings/en.json'));
-if ('about.aiDisclosure' in strings && !disclosure.test(strings['about.aiDisclosure'])) errors.push('strings about.aiDisclosure does not state AI creation');
+const about = JSON.parse(read('about.json'));
+const appStrings = JSON.parse(read('strings/app.en.json'));
+const full = appStrings[about.aiDisclosure.fullKey];
+if (!full || !disclosure.test(full)) errors.push(`strings/app.en.json ${about.aiDisclosure.fullKey} must state the game was created with generative AI`);
+for (const m of about.aiDisclosure.modalities) if (full && !full.toLowerCase().includes(m)) errors.push(`AI disclosure does not name modality "${m}"`);
+if (!appStrings[about.aiDisclosure.shortKey]) errors.push(`missing ${about.aiDisclosure.shortKey}`);
+if (!about.aiDisclosure.showOnTitle || !about.aiDisclosure.showOnFirstLaunch) errors.push('AI disclosure must show on the title and on first launch (owner ruling 2026-09-26)');
 
 if (errors.length) { console.error(`content: ${errors.length} problem(s)\n  ${errors.join('\n  ')}`); process.exit(1); }
 console.log(`content: ok — ${Object.keys(manifest.files).length} files, contentHash ${manifest.contentHash.slice(0, 12)}, counts gate ${Object.keys(CONFIG.expectedCounts).length} tables`);

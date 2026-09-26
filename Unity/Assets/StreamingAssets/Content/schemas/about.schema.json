@@ -1,0 +1,66 @@
+{
+  "$id": "about.json",
+  "type": "object",
+  "properties": {
+    "aiDisclosure": {
+      "type": "object",
+      "properties": {
+        "fullKey": {
+          "type": "string"
+        },
+        "modalities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "art",
+              "code",
+              "design",
+              "music",
+              "sound",
+              "text"
+            ]
+          }
+        },
+        "noticeContinueKey": {
+          "type": "string"
+        },
+        "noticeTitleKey": {
+          "type": "string"
+        },
+        "shortKey": {
+          "type": "string"
+        },
+        "showOnFirstLaunch": {
+          "type": "boolean"
+        },
+        "showOnTitle": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "fullKey",
+        "modalities",
+        "noticeContinueKey",
+        "noticeTitleKey",
+        "shortKey",
+        "showOnFirstLaunch",
+        "showOnTitle"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "aiDisclosure",
+    "comment",
+    "provenance"
+  ]
+}

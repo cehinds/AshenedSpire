@@ -4,6 +4,16 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 ## Phase F0 Foundation (in progress)
 
+### us-0.10: clear AI disclosure (2026-09-26)
+
+- **Data:** the disclosure text is in `strings/app.en.json`, a hand-written app string table (string-map schema). `about.json` holds the full and short keys, the notice keys, `showOnTitle` and `showOnFirstLaunch` (both true), the 6 modalities the text must name, and the credit sources.
+- **Code:** the generated `StringKeys` (from `strings/app.en.json`) and `AboutKeys`.
+- **Enforcement:**
+  - `AiDisclosureTests` (4): the text says "generative AI" and names every modality and "no licensed third-party"; title and first-launch flags are on; README and `build-info.json` carry the statement; credit sources exist.
+  - The CI content job checks the same.
+- **Not yet built:** the title footer, the first-launch notice and the About screen that bind these keys. They come with F1 (W-02, W-23) and F4 (W-18).
+- **Results:** dotnet 62/62 · Unity 63/63.
+
 ### us-0.1 + us-0.2: asset registry, lossless pipeline, provenance (2026-09-26)
 
 - **`Tools/scan-assets.mjs`** plus the data-driven ID rules in `Tools/assets.config.json`:
