@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b770e2a1272504da3ba25d303e0ca9, type: 3}
+  m_Name: UiArtCatalog
+  m_EditorClassIdentifier: Ashen.Presentation::Ashen.Presentation.UI.UiArtCatalog
+  entries:
+  - id: bg.title-city-tower
+    texture: {fileID: 2800000, guid: aa968f431b32e1147bbb6d785069657f, type: 3}
+  - id: bg.tower-city-background-unlit
+    texture: {fileID: 2800000, guid: d9bfefad85984fc4ab7a50dffd28e35c, type: 3}
+  - id: class.herald.sprite.ember
+    texture: {fileID: 2800000, guid: 43a8a9ed1c75f0e42b5684895c38b301, type: 3}
+  - id: class.herald.sprite.frost
+    texture: {fileID: 2800000, guid: 5f55932a5277ebd47bda64d0bfd7caee, type: 3}
+  - id: class.herald.sprite.gold
+    texture: {fileID: 2800000, guid: 2f4f3726ad935ed4a865a5c782c4096b, type: 3}
+  - id: class.herald.sprite.grace
+    texture: {fileID: 2800000, guid: 7df1a7cab30290f47ab3dbbde063f781, type: 3}
+  - id: class.herald.sprite.rot
+    texture: {fileID: 2800000, guid: 8fcf9e294ecd157409364218f00136ed, type: 3}
+  - id: class.reaver.sprite.ember
+    texture: {fileID: 2800000, guid: 85411b7b39a3e0a40a6e09e1e97b999e, type: 3}
+  - id: class.reaver.sprite.frost
+    texture: {fileID: 2800000, guid: fda164e43ce05924aa121fd25a4a9f7e, type: 3}
+  - id: class.reaver.sprite.gold
+    texture: {fileID: 2800000, guid: 3c8a6d156c8e5bc428db73dc50a90f16, type: 3}
+  - id: class.reaver.sprite.grace
+    texture: {fileID: 2800000, guid: 3f0f03f368ca6c5489a84704ed65475a, type: 3}
+  - id: class.reaver.sprite.rot
+    texture: {fileID: 2800000, guid: ece5eb0b348a58d4689ffa42a3a78db6, type: 3}
+  - id: class.rogue.sprite.ember
+    texture: {fileID: 2800000, guid: 6dfaccd6e0fc6ef4ab89f5b250918d29, type: 3}
+  - id: class.rogue.sprite.frost
+    texture: {fileID: 2800000, guid: 3bcfd4ed108015c48af17c7d0f3b311b, type: 3}
+  - id: class.rogue.sprite.gold
+    texture: {fileID: 2800000, guid: a60201fb38853f845a6340ee099130e5, type: 3}
+  - id: class.rogue.sprite.grace
+    texture: {fileID: 2800000, guid: d3c1936a9d77a8e4e928cd9242dc5e61, type: 3}
+  - id: class.rogue.sprite.rot
+    texture: {fileID: 2800000, guid: 2fb59827f1fa4264ab9a9f40e943a10b, type: 3}
+  - id: class.starseer.sprite.ember
+    texture: {fileID: 2800000, guid: 2108093db34e10549b06ae2cbb9793c7, type: 3}
+  - id: class.starseer.sprite.frost
+    texture: {fileID: 2800000, guid: 6a22d287f15d8354090f57f0c121b12b, type: 3}
+  - id: class.starseer.sprite.gold
+    texture: {fileID: 2800000, guid: 19d5e0ddfd0f6964fb0df96d854bd376, type: 3}
+  - id: class.starseer.sprite.grace
+    texture: {fileID: 2800000, guid: 5a9f4af897f6ba84f9404044c835ba80, type: 3}
+  - id: class.starseer.sprite.rot
+    texture: {fileID: 2800000, guid: 0de573e2bac0a734cb1d523685f3733e, type: 3}

@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="CategoryNav.uss" />
+    <ui:VisualElement name="NAV_RAIL" class="nav-rail" />
+    <Ashen.Presentation.UI.LocButton name="NAV_SELECTOR" class="nav-selector" />
+    <ui:VisualElement name="NAV_SELECTOR_LIST" class="nav-selector-list" />
+</ui:UXML>

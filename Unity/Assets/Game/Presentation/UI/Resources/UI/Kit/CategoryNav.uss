@@ -1,0 +1,51 @@
+/* Rule 11 CategoryNav (docs/design/04 §0): rail or [Category ▾] selector, toggled by class. No tabs, no accordions. */
+.categorynav {
+    flex-shrink: 0;
+}
+
+.nav--rail .nav-selector,
+.nav--rail .nav-selector-list {
+    display: none;
+}
+
+.nav--selector .nav-rail {
+    display: none;
+}
+
+.nav-rail {
+    width: var(--size-rail-width);
+    padding-right: var(--space-md);
+    border-right-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.nav-selector {
+    width: var(--size-selector-width);
+    -unity-text-align: middle-left;
+}
+
+.nav-selector-list {
+    display: none;
+    position: absolute;
+    top: var(--size-button-h);
+    left: 0;
+    width: var(--size-selector-width);
+    padding: var(--space-xs);
+    background-color: var(--color-bg-raise);
+    border-color: var(--color-gold-soft);
+    border-width: var(--border-hairline);
+}
+
+.nav--open .nav-selector-list {
+    display: flex;
+}
+
+.nav-item {
+    margin-bottom: var(--space-xs);
+    -unity-text-align: middle-left;
+}
+
+.nav-item.is-selected {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}

@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Workspace.uss" />
+    <Ashen.Presentation.UI.Kit.CategoryNav name="WORKSPACE_NAV" />
+    <ui:VisualElement name="WORKSPACE_PANE" class="workspace-pane" />
+</ui:UXML>

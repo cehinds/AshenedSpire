@@ -1,0 +1,103 @@
+/* SlotRow (docs/design/04 W-03): radio mark, slot label, portrait, facts, saved time and seed, delete. */
+.slotrow {
+    flex-direction: row;
+    align-items: center;
+    min-height: var(--size-slot-row-h);
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel);
+    border-color: var(--color-line);
+    border-width: var(--border-control);
+    border-radius: var(--radius-chip);
+}
+
+.slotrow:hover {
+    border-color: var(--color-gold-soft);
+}
+
+.slotrow:focus {
+    border-color: var(--color-gold);
+    border-width: var(--border-glow);
+    background-color: var(--color-panel-raise);
+}
+
+.slotrow.is-selected .slot-mark {
+    color: var(--color-gold);
+}
+
+.slot-mark {
+    width: var(--size-cost-pip);
+    font-size: var(--font-heading);
+    color: var(--color-muted);
+    -unity-text-align: middle-center;
+}
+
+.slot-label {
+    width: var(--size-button-min-w);
+    font-size: var(--font-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.slot-portrait {
+    width: var(--size-slot-portrait);
+    height: var(--size-slot-portrait);
+    margin-right: var(--space-md);
+    background-size: contain;
+    background-color: var(--color-bg-raise);
+    border-radius: var(--radius-chip);
+}
+
+.slot-texts {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    min-width: 0;
+    margin-right: var(--space-sm);
+}
+
+.slot-facts {
+    white-space: normal;
+}
+
+.slot-saved {
+    white-space: normal;
+    font-size: var(--font-caption);
+    color: var(--color-muted);
+}
+
+.slot--empty .slot-facts,
+.slot--unreadable .slot-facts {
+    color: var(--color-muted);
+    -unity-font-style: italic;
+}
+
+.slot--unreadable .slot-facts {
+    color: var(--color-danger);
+}
+
+.slot-delete {
+    width: var(--size-icon-button);
+    padding-left: 0;
+    padding-right: 0;
+    font-size: var(--font-heading);
+}
+
+.layout-narrow .slot-label {
+    width: auto;
+    margin-right: var(--space-sm);
+}
+
+.layout-narrow .slot-portrait {
+    width: var(--size-slot-portrait-narrow);
+    height: var(--size-slot-portrait-narrow);
+    margin-right: var(--space-sm);
+}
+
+.layout-narrow .slotrow {
+    padding: var(--space-xs) var(--space-sm);
+}
+
+.slot-delete {
+    flex-shrink: 0;
+}

@@ -11,7 +11,7 @@ namespace Ashen.EditorTools
     ///   Unity -batchmode -projectPath Unity -executeMethod Ashen.EditorTools.Cli.ValidateContent -quit
     /// Exit code 0 = ok, 1 = failure (details in the log).
     /// </summary>
-    public static class Cli
+    public static partial class Cli
     {
         public static string ContentRoot => Path.Combine(Application.streamingAssetsPath, ContentLayout.ContentFolder);
 

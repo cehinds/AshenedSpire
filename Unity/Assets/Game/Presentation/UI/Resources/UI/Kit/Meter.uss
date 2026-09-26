@@ -1,0 +1,48 @@
+/* Meter (docs/design/04 §1): track length = max / referenceMax; colour by kind. */
+.meter {
+    flex-direction: row;
+    align-items: center;
+    width: var(--size-meter-w);
+    margin-bottom: var(--space-xs);
+}
+
+.meter-glyph {
+    width: var(--size-cost-pip);
+    font-size: var(--font-glyph);
+    -unity-text-align: middle-center;
+    color: var(--color-gold);
+}
+
+.meter-lane {
+    flex-grow: 1;
+}
+
+.meter-track {
+    height: var(--size-meter-h);
+    background-color: var(--color-track);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-button);
+    overflow: hidden;
+}
+
+.meter-fill {
+    height: var(--size-full-width);
+    width: 0;
+    background-color: var(--color-gold);
+}
+
+.meter-value {
+    margin-left: var(--space-sm);
+    font-size: var(--font-caption);
+    min-width: var(--size-icon-button);
+}
+
+.meter--hp .meter-fill { background-color: var(--color-res-hp); }
+.meter--mp .meter-fill { background-color: var(--color-res-mp); }
+.meter--sp .meter-fill { background-color: var(--color-res-sp); }
+.meter--actions .meter-fill { background-color: var(--color-res-actions); }
+.meter--poise .meter-fill { background-color: var(--color-poise); }
+.meter--ward .meter-fill { background-color: var(--color-ward); }
+.meter--buildUp .meter-fill { background-color: var(--color-build-up); }
+.meter--progress .meter-fill { background-color: var(--color-gold); }
