@@ -11,6 +11,9 @@ namespace Ashen.App.Ui
         /// <summary>At least one run slot holds a save this build can load.</summary>
         public bool HasValidSlot;
 
+        /// <summary>A fight is on: rows marked hideInCombat are hidden.</summary>
+        public bool InCombat;
+
         /// <summary>Whether a screen id is built (not 'planned' in ui/screens.json).</summary>
         public Func<string, bool> IsBuilt = _ => false;
     }
@@ -30,7 +33,11 @@ namespace Ashen.App.Ui
     public static class MenuRules
     {
         public static IReadOnlyList<MenuEntryState> Evaluate(IReadOnlyList<MenuEntryDef> entries, MenuContext context) =>
-            entries.Select(e => new MenuEntryState { Def = e, Visible = e.Visible, Enabled = e.Visible && IsEnabled(e, context) }).ToList();
+            entries.Select(e =>
+            {
+                var visible = e.Visible && !(e.HideInCombat && context.InCombat);
+                return new MenuEntryState { Def = e, Visible = visible, Enabled = visible && IsEnabled(e, context) };
+            }).ToList();
 
         public static bool IsEnabled(MenuEntryDef entry, MenuContext context)
         {

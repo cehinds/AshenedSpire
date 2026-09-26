@@ -173,7 +173,7 @@ namespace Ashen.Presentation.UI.Screens
             {
                 if (slot.Status == SlotStatus.Empty) { Refuse(anchor, StringKeys.SlotsRefusalEmpty); return; }
                 if (!slot.IsReady) { Refuse(anchor, StringKeys.SlotsRefusalUnreadable); return; }
-                ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.LoadSlot, Args = args, Target = target, OnConfirm = () => Refuse(anchor, StringKeys.SlotsRefusalLater) });
+                ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.LoadSlot, Args = args, Target = target, OnConfirm = () => RunFlow.Resume(Context, slot.Index, anchor) });
                 return;
             }
             ConfirmRequest.Open(Nav, new ConfirmRequest
@@ -182,7 +182,7 @@ namespace Ashen.Presentation.UI.Screens
                 Args = args,
                 Target = slot.Status == SlotStatus.Empty ? null : target,
                 Occupied = slot.Status != SlotStatus.Empty,
-                OnConfirm = () => Refuse(anchor, StringKeys.SlotsRefusalLater),
+                OnConfirm = () => Nav.Go(ScreenIds.Creation, new CreationArgs { SlotIndex = slot.Index }),
             });
         }
 

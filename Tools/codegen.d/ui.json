@@ -1,5 +1,5 @@
 {
-  "comment": "UI key sets (F1 UI foundation: US-1.2, US-1.3, US-1.4, US-0.10 title footer, US-17.1). Screen ids mirror ui/screens.json; UiNames are the UXML name= regions (04 UPPER_SNAKE); UiClasses are the USS classes code toggles; UiKeys are the keys of ui/*.json; UiValues are their wire values. UiDataTests keep these in step with the content and the UXML.",
+  "comment": "UI key sets (F1 UI foundation: US-1.2, US-1.3, US-1.4, US-0.10 title footer, US-17.1). Screen ids mirror ui/screens.json; UiNames are the UXML name= regions (04 UPPER_SNAKE); UiClasses are the USS classes code toggles; UiKeys are the keys of ui/*.json; UiValues are their wire values. UiDataTests keep these in step with the content and the UXML. F1 first fight adds W-04 creation (Class pane), W-07 combat with the Combatant kit element, W-20 pause, and the planned rewards, pile viewer, armoury and run end.",
   "keySets": [
     {
       "name": "ScreenIds",
@@ -17,7 +17,13 @@
         "Journal": "journal",
         "CustomRun": "customRun",
         "Settings": "settings",
-        "Lobby": "lobby"
+        "Lobby": "lobby",
+        "Combat": "combat",
+        "Pause": "pause",
+        "Rewards": "rewards",
+        "PileViewer": "pileViewer",
+        "Armoury": "armoury",
+        "RunEnd": "runEnd"
       }
     },
     {
@@ -115,7 +121,66 @@
         "KitFooterGroup": "KIT_FOOTER_GROUP",
         "KitTooltips": "KIT_TOOLTIPS",
         "KitHold": "KIT_HOLD",
-        "KitRefusal": "KIT_REFUSAL"
+        "KitRefusal": "KIT_REFUSAL",
+        "ClassPane": "CLASS_PANE",
+        "ClassList": "CLASS_LIST",
+        "ClassDetail": "CLASS_DETAIL",
+        "ClassFigure": "CLASS_FIGURE",
+        "ClassName": "CLASS_NAME",
+        "ClassSummary": "CLASS_SUMMARY",
+        "ClassStats": "CLASS_STATS",
+        "ClassDerived": "CLASS_DERIVED",
+        "ClassFlasks": "CLASS_FLASKS",
+        "ClassProblem": "CLASS_PROBLEM",
+        "CombatBackground": "COMBAT_BACKGROUND",
+        "CombatPage": "COMBAT_PAGE",
+        "RunHud": "RUN_HUD",
+        "HudPortrait": "HUD_PORTRAIT",
+        "HudName": "HUD_NAME",
+        "HudTrail": "HUD_TRAIL",
+        "HudMeters": "HUD_METERS",
+        "HudHp": "HUD_HP",
+        "HudMp": "HUD_MP",
+        "HudSp": "HUD_SP",
+        "HudMenu": "HUD_MENU",
+        "Battlefield": "BATTLEFIELD",
+        "AllyRow": "ALLY_ROW",
+        "EnemyRow": "ENEMY_ROW",
+        "PhaseBanner": "PHASE_BANNER",
+        "HandBand": "HAND_BAND",
+        "TargetPrompt": "TARGET_PROMPT",
+        "DiscardBar": "DISCARD_BAR",
+        "DiscardPrompt": "DISCARD_PROMPT",
+        "DiscardCount": "DISCARD_COUNT",
+        "Hand": "HAND",
+        "CombatFooter": "COMBAT_FOOTER",
+        "DiscardFooter": "DISCARD_FOOTER",
+        "DiscardBack": "DISCARD_BACK",
+        "DiscardConfirm": "DISCARD_CONFIRM",
+        "FlaskPanel": "FLASK_PANEL",
+        "FlaskTitle": "FLASK_TITLE",
+        "FlaskList": "FLASK_LIST",
+        "FlaskClose": "FLASK_CLOSE",
+        "CombatEnd": "COMBAT_END",
+        "EndTitle": "END_TITLE",
+        "EndBody": "END_BODY",
+        "EndPlanned": "END_PLANNED",
+        "EndRewards": "END_REWARDS",
+        "EndToTitle": "END_TO_TITLE",
+        "CombatantIntent": "COMBATANT_INTENT",
+        "CombatantArt": "COMBATANT_ART",
+        "CombatantBlock": "COMBATANT_BLOCK",
+        "CombatantBadge": "COMBATANT_BADGE",
+        "CombatantName": "COMBATANT_NAME",
+        "CombatantPreview": "COMBATANT_PREVIEW",
+        "CombatantHp": "COMBATANT_HP",
+        "CombatantBreak": "COMBATANT_BREAK",
+        "CombatantPoise": "COMBATANT_POISE",
+        "CombatantWard": "COMBATANT_WARD",
+        "CombatantStance": "COMBATANT_STANCE",
+        "CombatantStatuses": "COMBATANT_STATUSES",
+        "PauseSeed": "PAUSE_SEED",
+        "PauseRows": "PAUSE_ROWS"
       }
     },
     {
@@ -169,7 +234,26 @@
         "ReportRow": "report-row",
         "EndTurnReady": "end-turn--ready",
         "BuildDev": "build-dev",
-        "BuildPlayer": "build-player"
+        "BuildPlayer": "build-player",
+        "ClassTile": "class-tile",
+        "ClassTilePortrait": "class-tile-portrait",
+        "ClassTileProblem": "class-tile--problem",
+        "CombatantPlayer": "combatant--player",
+        "CombatantEnemy": "combatant--enemy",
+        "CombatantDead": "combatant--dead",
+        "CombatantTarget": "combatant--target",
+        "CombatantActing": "combatant--acting",
+        "CombatantStaggered": "combatant--staggered",
+        "IntentPrefix": "intent--",
+        "StatusChip": "status-chip",
+        "CombatModePrefix": "combat--",
+        "CardChosen": "card--chosen",
+        "CardArmed": "card--armed",
+        "FlaskChip": "flask-chip",
+        "PauseRow": "pause-row",
+        "PauseHint": "pause-hint",
+        "GroupBusy": "group--busy",
+        "Busy": "is-busy"
       }
     },
     {
@@ -251,7 +335,19 @@
         "Card": "card",
         "CostKinds": "costKinds",
         "Policies": "policies",
-        "Level": "level"
+        "Level": "level",
+        "Pause": "pause",
+        "CreationPanes": "creationPanes",
+        "HideInCombat": "hideInCombat",
+        "Built": "built",
+        "FocusModes": "focusModes",
+        "Combat": "combat",
+        "Combatant": "combatant",
+        "StatusChips": "statusChips",
+        "FallbackBackground": "fallbackBackground",
+        "Enemy": "enemy",
+        "ReducedMotion": "reducedMotion",
+        "RefusalTooltip": "refusalTooltip"
       }
     },
     {
@@ -270,28 +366,58 @@
         "MatchWidthOrHeight": "matchWidthOrHeight",
         "PolicyDestructive": "DESTRUCTIVE",
         "SlotModeLoad": "load",
-        "SlotModeNew": "new"
+        "SlotModeNew": "new",
+        "FocusTargeting": "targeting",
+        "FocusDiscard": "discard",
+        "FocusFlasks": "flasks",
+        "FocusEnemyTurn": "enemyTurn",
+        "FocusEnded": "ended"
       }
     },
     {
       "name": "MenuActions",
       "doc": "Menu row actions (ui/menus.json 'action').",
-      "keys": { "Continue": "continue", "Open": "open", "Confirm": "confirm" }
+      "keys": {
+        "Continue": "continue",
+        "Open": "open",
+        "Confirm": "confirm"
+      }
     },
     {
       "name": "MenuRuleIds",
       "doc": "Menu enablement rules (ui/menus.json 'enabledWhen'; Ashen.App.Ui.MenuRules).",
-      "keys": { "Always": "always", "HasValidSlot": "hasValidSlot", "TargetBuilt": "targetBuilt" }
+      "keys": {
+        "Always": "always",
+        "HasValidSlot": "hasValidSlot",
+        "TargetBuilt": "targetBuilt"
+      }
     },
     {
       "name": "ConfirmIds",
       "doc": "Confirmation doors (ui/menus.json 'confirms').",
-      "keys": { "Quit": "quit", "LoadSlot": "loadSlot", "StartSlot": "startSlot", "DeleteSlot": "deleteSlot", "AiNotice": "aiNotice", "Recovery": "recovery" }
+      "keys": {
+        "Quit": "quit",
+        "LoadSlot": "loadSlot",
+        "StartSlot": "startSlot",
+        "DeleteSlot": "deleteSlot",
+        "AiNotice": "aiNotice",
+        "Recovery": "recovery",
+        "ReplaceSlot": "replaceSlot",
+        "SaveQuit": "saveQuit",
+        "SaveFailed": "saveFailed"
+      }
     },
     {
       "name": "ScreenTriggers",
       "doc": "Transition triggers (ui/screens.json 'transitions').",
-      "keys": { "Ready": "ready", "Failed": "failed", "Recovery": "recovery", "Done": "done" }
+      "keys": {
+        "Ready": "ready",
+        "Failed": "failed",
+        "Recovery": "recovery",
+        "Done": "done",
+        "Begin": "begin",
+        "Quit": "quit"
+      }
     },
     {
       "name": "UiPlaceholders",
@@ -320,7 +446,23 @@
         "Count": "count",
         "Label": "label",
         "Facts": "facts",
-        "Time": "time"
+        "Time": "time",
+        "Mark": "mark",
+        "Mp": "mp",
+        "Sp": "sp",
+        "Actions": "actions",
+        "Region": "region",
+        "Turn": "turn",
+        "Before": "before",
+        "After": "after",
+        "Min": "min",
+        "Cap": "cap",
+        "Stacks": "stacks",
+        "Exhaust": "exhaust",
+        "Damage": "damage",
+        "Hits": "hits",
+        "Block": "block",
+        "Id": "id"
       }
     },
     {
@@ -334,7 +476,12 @@
         "TimeOfDay": "h:mm tt",
         "Date": "yyyy-MM-dd",
         "Integer": "0",
-        "Newline": "\n"
+        "Newline": "\n",
+        "ArtWildcard": "*",
+        "CardKindKey": "combat.cardKind.{0}",
+        "SeatNameKey": "seat.{0}.name",
+        "ClassDescriptionKey": "class.{0}.description",
+        "AttributeShortKey": "attribute.{0}.short"
       }
     },
     {
@@ -369,7 +516,11 @@
         "NavRepeatDelay": "navRepeatDelay",
         "NavRepeatInterval": "navRepeatInterval",
         "FocusSettle": "focusSettle",
-        "Bg": "bg"
+        "Bg": "bg",
+        "EnemyStep": "enemyStep",
+        "EnemyStepReduced": "enemyStepReduced",
+        "TurnBanner": "turnBanner",
+        "Notice": "notice"
       }
     },
     {
@@ -390,7 +541,8 @@
         "KitHold": "UI/Kit/Hold",
         "KitRefusal": "UI/Kit/Refusal",
         "KitSlot": "UI/Kit/Slot",
-        "SavesFolder": "saves"
+        "SavesFolder": "saves",
+        "KitCombatant": "UI/Kit/Combatant"
       }
     },
     {
@@ -402,7 +554,12 @@
         "MissingTemplate": "ui: missing UXML '{0}'",
         "MissingArt": "ui: art '{0}' is not in the UI art catalog",
         "ContentInvalid": "ui: content invalid ({0} issues)",
-        "Booted": "ui: booted with {0} content files in {1} ms"
+        "Booted": "ui: booted with {0} content files in {1} ms",
+        "LoadFailed": "ui: slot {0} not resumed ({1}): {2}",
+        "ClassRefused": "ui: class '{0}' cannot begin: {1}",
+        "SaveFailed": "ui: save failed: {0}",
+        "CombatCommandFailed": "ui: combat command rolled back: {0}",
+        "NoFight": "ui: the combat screen opened without a fight"
       }
     }
   ],
@@ -411,7 +568,11 @@
       "name": "UiMath",
       "type": "double",
       "doc": "Unit conversions and geometry identities used by the UI (not tuning).",
-      "values": { "Half": 0.5, "Percent": 100, "MillisPerSecond": 1000 }
+      "values": {
+        "Half": 0.5,
+        "Percent": 100,
+        "MillisPerSecond": 1000
+      }
     }
   ]
 }

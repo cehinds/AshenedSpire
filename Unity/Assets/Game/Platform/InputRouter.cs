@@ -8,7 +8,7 @@ namespace Ashen.Platform
     /// <summary>
     /// One input source for the focus model (US-17.1; docs/design/09 §5.2 InputRouter). Reads the Input System's
     /// UI actions (Navigate, Submit, Cancel: keyboard arrows/WASD/Enter/Escape, pad stick/d-pad/South/East) plus
-    /// Tab/Shift+Tab, and raises intents: Move(+1 next / -1 previous), Submit, Cancel. A held direction repeats after
+    /// Tab/Shift+Tab and the pad's Start button, and raises intents: Move(+1 next / -1 previous), Submit, Cancel, Menu. A held direction repeats after
     /// the navRepeatDelay token, then every navRepeatInterval. Pointer input stays with UI Toolkit.
     /// </summary>
     public sealed class InputRouter : IDisposable
@@ -34,6 +34,9 @@ namespace Ashen.Platform
         public event Action Submit;
         public event Action Cancel;
 
+        /// <summary>Pad Start: open or close the in-run menu (W-20). Escape stays Cancel, which a run screen also maps to pause.</summary>
+        public event Action Menu;
+
         private void OnSubmit(InputAction.CallbackContext _) => Submit?.Invoke();
         private void OnCancel(InputAction.CallbackContext _) => Cancel?.Invoke();
 
@@ -42,6 +45,8 @@ namespace Ashen.Platform
         {
             var keyboard = Keyboard.current;
             if (keyboard != null && keyboard.tabKey.wasPressedThisFrame) Move?.Invoke(keyboard.shiftKey.isPressed ? -1 : 1);
+            var pad = Gamepad.current;
+            if (pad != null && pad.startButton.wasPressedThisFrame) Menu?.Invoke();
 
             var direction = Direction(_actions.UI.Navigate.ReadValue<Vector2>());
             if (direction == 0)

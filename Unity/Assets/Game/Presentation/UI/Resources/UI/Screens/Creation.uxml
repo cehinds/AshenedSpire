@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:VisualElement class="page page--center">
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL" title-key="creation.title">
+            <Ashen.Presentation.UI.Kit.Workspace name="WORKSPACE" class="creation-workspace">
+                <ui:VisualElement name="CLASS_PANE" class="class-pane">
+                    <ui:VisualElement name="CLASS_LIST" class="class-list" />
+                    <ui:VisualElement name="CLASS_DETAIL" class="class-detail">
+                        <ui:VisualElement name="CLASS_FIGURE" class="class-figure" />
+                        <ui:VisualElement class="class-texts">
+                            <Ashen.Presentation.UI.LocLabel name="CLASS_NAME" class="class-name kit-text-header" />
+                            <Ashen.Presentation.UI.LocLabel name="CLASS_SUMMARY" class="class-summary kit-text-value" />
+                            <Ashen.Presentation.UI.LocLabel name="CLASS_STATS" class="class-line kit-text-value" />
+                            <Ashen.Presentation.UI.LocLabel name="CLASS_DERIVED" class="class-line kit-text-value" />
+                            <Ashen.Presentation.UI.LocLabel name="CLASS_FLASKS" class="class-line kit-text-value" />
+                            <Ashen.Presentation.UI.LocLabel name="CLASS_PROBLEM" class="class-problem kit-text-value is-hidden" string-key="creation.problem" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </Ashen.Presentation.UI.Kit.Workspace>
+        </Ashen.Presentation.UI.Kit.Shell>
+    </ui:VisualElement>
+</ui:UXML>

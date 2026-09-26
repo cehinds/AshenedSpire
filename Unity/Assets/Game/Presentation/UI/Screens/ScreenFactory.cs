@@ -16,6 +16,9 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.Slots: return new SlotsScreen();
                 case ScreenIds.Confirm: return new ConfirmScreen();
                 case ScreenIds.KitGallery: return new KitGalleryScreen();
+                case ScreenIds.Creation: return new CreationScreen();
+                case ScreenIds.Combat: return new CombatScreen();
+                case ScreenIds.Pause: return new PauseScreen();
                 default: return new PlaceholderScreen();
             }
         }

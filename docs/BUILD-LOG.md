@@ -2,6 +2,113 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-2.1 (Class pane), us-5.1–us-5.10, us-6.x display, us-17.1, pf-06: F1 first fight, pause and resume (feature/first-fight, 2026-09-26)
+
+**Landed**
+- **Application (`Ashen.App.Run`, engine-free):**
+  - `RunContent`: the layered content (default preset unless named, optional patches), run and combat data through `RuntimeRegistries.ToRunData` (D-069), `rules/runFlow.json` and the seed codec; `ClassProblem`, `DefaultClass` and `Preview` for W-04; `FirstFightEncounter` and `RegionOf` from data (D-063f).
+  - `RunSession`: New (createRunState) → StartEncounter (enterCombat args) → Execute through `CombatSession` with autosave (append each command; checkpoint on end turn, fight end and Save & quit) → Save (versioned payload with the D-059 summary) → Load (hash-verified, log replay, D-017 fallback with a warning, re-commit) (D-062f).
+  - `CombatSession.Commit` and a checkpoint + log `Load`; `CombatOutcome.EnemyActors`; `CombatViewModel` flasks (charge pools and carried flasks, with refusals); `CombatText` (refusals from `strings/combat.en.json`, intent chips with live numbers, card kinds).
+  - UI data: `screens.json#focusModes`; `menus.json#pause` (with `hideInCombat`) and `#creationPanes`; new doors `replaceSlot`, `saveQuit` and `saveFailed`; `components.json#combat` art templates and wildcard art includes (D-068f). The combat strings join the string table.
+- **Presentation:**
+  - **W-04 creation, Class pane:** the four classes in authoring order with portrait, name and summary. The selected class unfolds with its attributes, pools and flask split, read from createRunState. The rail shows Class plus the planned Character, Equipment and Review (D-058). Begin (W2c Replace when the slot is occupied) → `RunSession.New` → first fight → W-07. The Reaver cannot begin under the reference preset (D-065f).
+  - **W-07 combat:**
+    - HUD: portrait, identity, act · region · turn, labelled HP/MP/SP meters, Menu.
+    - Battlefield: the new `Combatant` kit element (intent chip coloured by kind, figure art, Block badge, HP, labelled Poise and Ward meters, stance, status chips with `+N`, staggered and defeated badges) over the region's combat art.
+    - Hand fan of CardViews (cost pips, resolved text, kind, refusal line and refusal tooltip) and the footer group (Actions, Draw, End Turn, Discard · Exhaust, Potions).
+    - States with their own focus orders (D-066f): targeting (legal targets outlined with a ghost HP preview), the discard chooser when the hand rules prompt, the flask panel (targeted flasks arm the target layer), the enemy turn (red wash, the acting enemy lifts in order, Skip ▶▶, reduced motion; D-067f) and the end state with rewards planned (D-064f).
+    - Every intent is a command through `RunSession`; a refusal shows at the control that started it and keeps focus there.
+  - **W-20 pause:** seed and slot; rows from data (Deck, Settings and Abandon planned; Armoury hidden in combat); full-width Resume. Save & quit goes through its hold door → checkpoint → title; a failed save opens W1r.
+  - Title **Continue** and W-03 **Load** resume the slot mid-fight (`RunFlow.Resume`); W-03 **New** opens W-04 (D-069f). Pad Start is a new router intent (Menu).
+- **Screenshots:** 8 new fixtures (creation, combat, combat_intents, combat_targeting, combat_discard, combat_refusal, combat_end, pause): 27 PNGs, about 18 MB. The five state fixtures skip 1920×1080 through the new `skipSizes` fixture field. Fixtures can name layer patches, an encounter, bot commands and a screen state.
+
+**Tests**
+- `RunSessionTests` (16):
+  - content-built runs and combat args equal 8 recorded shipped runs, and the creation tables equal the shipped registries;
+  - the first fight is the data rule's encounter, and every class that can begin starts it under the default preset;
+  - new → fight → save → load gives the identical state hash;
+  - resume after 1, 3, 7 and 12 commands equals the live fight and plays on identically;
+  - the append/checkpoint policy; a refusal is neither applied nor saved;
+  - a tampered log and changed content resume with a warning and re-commit;
+  - empty, newer, foreign and damaged payloads; the live slot summary; a finished fight is checkpointed.
+- `FirstFightUiTests` (10): every combat refusal resolves; intent text; the first fight's view (two targets, intents, flasks, card kinds); a charge flask spends a charge; the prompted discard chooser refuses too many and accepts a choice; pause rows in a fight; the creation rail; the class preview; focus modes; art includes.
+- PlayMode `FirstFightSmokeTests`: Boot → title → New → W-03 → door → W-04 (the data default preselected and focused) → Begin → W-07 → a targeted card played on an enemy with the keyboard (autosaved to the log) → End Turn with the pad → the enemy turn (a distinct state) → the next intents → Escape pauses, pad Start resumes and pauses again → Save & quit (Enter held past holdMs) → title with Continue focused → Continue → **the identical state hash** → the fight finished through the screen's command path → the end state (Rewards disabled) → title.
+- Results:
+  - dotnet 1104/1104;
+  - Unity EditMode 1105/1105, Enforcement green;
+  - PlayMode 2 passed, 1 skipped (the capture test);
+  - `codegen --check`, `check-content`, `transform --check` and `check-docs` green.
+
+**Review** (own screenshot review against W-04, W-07 and W-20; fixed and recaptured):
+- the region combat art is a 2×2 sheet of variants (W-07 now shows the first quadrant);
+- cards clipped at the top of the hand band (combat card size; the hand takes the remaining height);
+- enemy meters overflowing their combatant; unlabelled Poise, Ward and HUD meters (labels from the resource strings);
+- the target and discard prompts hidden behind the cards (moved to the foot of the battlefield);
+- discard footer buttons not spread; narrow footer labels ellipsized (short labels on narrow);
+- the creation rail's planned values ellipsized; the intent-variety fixture ending the fight before two kinds showed.
+
+**Not verified / open**
+- **Mouse:** cards, combatants and buttons take UI Toolkit pointer events, but there is no automated pointer test. Keyboard and pad are covered by the smoke test.
+- **Compact band (844×390):** W-07's "rails" layout (Actions and Draw on the left, End Turn, Discard and Potions on the right) is not built. The hand is small there, card text is raised to the physical minimum and clips, and a lifted target overlaps the HUD. The upright gate is not wired.
+- Not built:
+  - US-7.1 weapon-set swap (there is no domain command yet) and the Armaments popover;
+  - the W-17 inspector and the pile viewer (planned);
+  - per-hit animation, VFX and enemy state frames (D-067f); status icons (text chips, D-068f);
+  - the relic rail and cinders in the HUD; Abandon run.
+- W-04's other panes, name entry, seed choice and journey are planned; the default name is `creation.defaultName`.
+- **D-065f needs an owner ruling** (the reference preset's Reaver flask split).
+
+**Next:** W-08 rewards on the post-combat pipeline (feature/rewards), then the compact rails layout and a pointer test.
+
+## us-0.4: run and rewards data from content (feature/content-data, 2026-09-26)
+
+**Landed**
+- `RuntimeRegistries.ToRunData` / `ToRewardsData` (D-069): the run port's and the post-combat port's data built from the layered content, replacing the oracle dumps for real play. `RegistryBundle` now also loads creation modes, characterCreation, attributeRules, derivedStatRules and the tag tree; `RunSnapshot.ContentVersion` carries the manifest's contentVersion.
+- Key order parity for content-built rows: `rules/textAnchors.json` (generated by `Tools/transform-content.mjs`, with its schema) records where each display-text field sat, and the bundle re-attaches text there; tag stamping writes keys in the shipped spread order.
+- `run-keys.mjs` fixed on dev (`RunState` uses `K.Xp`).
+
+**Tests**
+- `ContentRunDataTests`: registries and documents equal the rewards oracle dump exactly (key order included); all 76 recorded runs with their 152 combat starts and all 168 post-combat cases replay identically on content-built data.
+- `ContentCombatDataTests` tightened from sorted-key to exact comparison (equipment top level compared by name).
+
+**Not verified**
+- Non-shipped presets (reference) are only covered by the existing layer tests, not replayed.
+
+**Next**
+- The first-fight UI stream switches RunSession to `ToRunData`.
+
+## us-11.1: post-combat pipeline with shipped parity (feature/rewards, 2026-09-26)
+
+**Landed**
+- `Ashen.Domain.Rewards` (D-062). `CombatEnd.Apply(data, run, combat, enc, result, rng, options)` is the run-writing half of the shipped `main.js onCombatEnd`, ported line by line in the shipped order. Scope was taken from V8 precise coverage of the shipped calls (`node Tools/oracle-rewards.mjs --coverage`). It covers:
+  - the write-back of flasks, charges, pools and deficits from the fight, with the shared loadout rejoined (D-063);
+  - the skill tracks: `applySkillXp`/`awardSkillXp`, derived tracks, the curve, draft schools, rarity unlocks and the standing auto-upgrade rule;
+  - the class track (`awardClassXp`) and the class-tree draft pool (tiers, REQUIRES and CONFLICTS_WITH read in both directions);
+  - the character level: `combatLevelXp`, `awardLevelXp` with the points dial and cap, and `rederivePools` through `reconcileRunLoadoutHp`;
+  - `combatXpGains`, and `stampDeck` with `adoptEquipmentBonuses`;
+  - the defeat path (`hp = 0`), the win count, the cleared combat receipt and `grantSmithingReward` (with idempotent claims);
+  - the boss ledgers (`bossesBeaten`, `bossGroups`), the act-3 summit and Endless;
+  - the reward rolls on their shipped streams: cinders with `runeGainMult`, the card offer (Feral Eye, Chaos Rewards), skill and class drafts, the flask pity counter, elite and boss relics, armament drops with consolation cinders;
+  - `run.pendingReward` (`beginPendingReward`).
+- `rules/rewardsEngine.json` (hand-written, schema inferred) holds the tree parents, track kinds, level-curve defaults, the roll guard, flat Chaos odds, relic rarities, the legacy charge-flask seam, smithing pools, the summit act and the victory titles. Names come from `Tools/codegen.d/rewards.json` via `Tools/rewards-keys.mjs`: 85 keys, 13 values and 14 messages, with combat and run names reused.
+- `Tools/oracle-rewards.mjs` records 168 cases: the 60 golden combats replayed to their end, and 108 generated fights (4 classes × normal/elite/boss × 18 run variants). The variants reach level thresholds and multi-level climbs, track crossings and the standing upgrade, class thresholds and tier-2 pools, queued drafts on every track, rune and Feral Eye relics, a claimed Smithing reward, Chaos Rewards, Endless and the act-3 summit, a fully found armoury, full flask pity, `equipmentChanged` and low-HP defeats. Each case stores the run before, the combat end snapshot, the encounter, the result, the RNG counters, the options, and the expected run, receipt and counters after. A JS self-check requires each snapshot to restore to an identical pipeline. Re-running the oracle gives byte-identical files. Outcomes: normal 55 reward / 20 defeat, elite 26 / 15, boss 21 reward / 29 defeat / 2 summit. Size: 12 MB with the registry dump (which adds `nodes`).
+
+**Tests**
+- `RewardsParityTests`, 170 cases:
+  - 168 cases, each restoring the fight with `CombatSnapshot.Restore` on an RNG at the recorded counters and running `CombatEnd.Apply`. The run document and the receipt must equal the shipped ones strictly (presence, values and key order), and every RNG counter must match;
+  - an oracle-presence test;
+  - a deferred-path test (journey and legacy dungeon throw by name).
+- Mutation check: corrupting a pending-reward cinder value, swapping two reward keys, bumping an expected `cardRewards` counter and bumping a receipt `levelAward.points` each failed exactly one test. The failures named the path (or the key order, or the stream). Each file was then restored byte for byte (sha256 checked).
+- dotnet 768/768, enforcement included; `codegen --check`, `check-content` and `transform-content --check` green.
+
+**Not verified:** Unity EditMode (the UI stream owns Unity). The rewards data is built from the oracle dump; there is no content-built `RunData`/`RewardsData` path yet. Swapping equipment mid-fight is exercised only through the flag, because the C# combat has no swap commands yet.
+
+**Deferred:**
+- journey and legacy-dungeon fights (D-066);
+- the smith's services-table normalization (D-065);
+- the caller-side profile, save, audio and screen work (`finishRun`, `collectArmament`, game over and the reward screen; D-067).
+
+**Next:** the reward screen (take/skip rows, `collectArmament`, draft picks via `spendSkillDraft`/`pickClassNode`) and the game-over flow's `finishRun`, driven by `CombatEndReceipt`.
 ## us-1.2, us-1.3, us-1.4, us-0.10 (title footer), us-17.1: F1 UI foundation, boot, title and slots (feature/boot-title, 2026-09-26)
 
 **Landed**

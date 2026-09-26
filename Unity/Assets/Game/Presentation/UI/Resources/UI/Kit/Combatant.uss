@@ -1,0 +1,183 @@
+/* Combatant (docs/design/04 §1, W-07): intent chip, figure with guard and state badges, then the lower stack. */
+.combatant {
+    width: var(--size-combatant-w);
+    align-items: center;
+    padding: var(--space-xs);
+    margin-left: var(--space-sm);
+    margin-right: var(--space-sm);
+    border-color: var(--color-transparent);
+    border-width: var(--border-control);
+    border-radius: var(--radius-card);
+    transition-property: border-color, background-color, translate;
+    transition-duration: var(--duration-fast);
+}
+
+.combatant:focus,
+.combatant:hover {
+    border-color: var(--color-gold);
+    background-color: var(--color-scrim-soft);
+}
+
+.combatant-intent {
+    min-width: var(--size-intent-min-w);
+    padding: var(--space-xxs) var(--space-sm);
+    margin-bottom: var(--space-xs);
+    font-size: var(--font-intent);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    color: var(--color-parchment);
+    background-color: var(--color-shade);
+    border-width: var(--border-control);
+    border-color: var(--color-line-soft);
+    border-radius: var(--radius-chip);
+}
+
+.intent--attack { border-color: var(--color-intent-attack); color: var(--color-intent-attack); }
+.intent--block { border-color: var(--color-intent-block); color: var(--color-intent-block); }
+.intent--buff { border-color: var(--color-intent-buff); color: var(--color-intent-buff); }
+.intent--debuff { border-color: var(--color-intent-debuff); color: var(--color-intent-debuff); }
+.intent--staggered {
+    border-color: var(--color-staggered);
+    color: var(--color-staggered);
+    background-color: var(--color-bg);
+    -unity-font-style: bold-and-italic;
+}
+
+.combatant-art {
+    width: var(--size-full-width);
+    height: var(--size-combatant-art-h);
+    background-size: contain;
+    background-position-x: center;
+    background-position-y: bottom;
+}
+
+.combatant-block {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: var(--space-xxs) var(--space-xs);
+    font-size: var(--font-chip);
+    -unity-font-style: bold;
+    color: var(--color-parchment);
+    background-color: var(--color-res-mp);
+    border-radius: var(--radius-chip);
+}
+
+.combatant-badge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-xxs);
+    font-size: var(--font-chip);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    color: var(--color-parchment);
+    background-color: var(--color-shade);
+}
+
+.combatant-name {
+    margin-top: var(--space-xxs);
+    font-size: var(--font-chip);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+.combatant-preview {
+    font-size: var(--font-chip);
+    -unity-font-style: bold;
+    color: var(--color-target-line);
+}
+
+.combatant .meter {
+    width: var(--size-full-width);
+    margin-bottom: var(--space-xxs);
+}
+
+.combatant .meter-glyph {
+    width: auto;
+    margin-right: var(--space-xs);
+    font-size: var(--font-chip);
+    color: var(--color-muted);
+}
+
+.combatant-break {
+    width: var(--size-full-width);
+}
+
+.combatant .combatant-meter--small .meter-track {
+    height: var(--space-sm);
+}
+
+.combatant .combatant-meter--small .meter-value {
+    font-size: var(--font-chip);
+}
+
+.combatant-stance {
+    font-size: var(--font-chip);
+    color: var(--color-gold);
+}
+
+.combatant-statuses {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.status-chip {
+    height: var(--size-status-chip-h);
+    padding-left: var(--space-xs);
+    padding-right: var(--space-xs);
+    margin: var(--space-xxs);
+    font-size: var(--font-status-chip);
+    -unity-text-align: middle-center;
+    background-color: var(--color-panel);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-chip);
+}
+
+/* States: legal target (dashed-style gold outline and lift), acting in the enemy timeline, staggered, defeated. */
+.combatant--target {
+    border-color: var(--color-target-line);
+    translate: 0 var(--size-hand-lift);
+}
+
+.combatant--acting {
+    border-color: var(--color-danger);
+    background-color: var(--color-enemy-turn-wash);
+    translate: 0 var(--size-hand-lift);
+}
+
+.combatant--staggered .combatant-badge {
+    color: var(--color-bg);
+    background-color: var(--color-staggered);
+}
+
+.combatant--dead {
+    opacity: var(--opacity-disabled);
+}
+
+.combatant--dead .combatant-art {
+    -unity-background-image-tint-color: var(--color-muted);
+}
+
+.band-compact .combatant-art {
+    height: var(--size-combatant-art-compact-h);
+}
+
+.band-compact .combatant-break,
+.band-compact .combatant-stance {
+    display: none;
+}
+
+.layout-narrow .combatant {
+    width: var(--size-combatant-narrow-w);
+    margin-left: var(--space-xxs);
+    margin-right: var(--space-xxs);
+}
+
+.layout-narrow .combatant-art {
+    height: var(--size-combatant-art-narrow-h);
+}

@@ -503,7 +503,7 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>The flask backing a charge-pool kind: the first authored flask of that kind (rules/combatEngine.json flasks).</summary>
-        private static string ChargeFlaskId(CombatState c, string kind)
+        public static string ChargeFlaskId(CombatState c, string kind)
         {
             var cfg = c.Data.Engine.Obj(K.Flasks);
             if (kind == null || !Js.Includes(cfg?[K.ChargeKinds], kind)) return null;

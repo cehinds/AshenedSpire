@@ -83,6 +83,15 @@
           },
           "uxml": {
             "type": "string"
+          },
+          "focusModes": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         },
         "required": [

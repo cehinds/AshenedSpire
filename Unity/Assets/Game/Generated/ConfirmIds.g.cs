@@ -10,5 +10,8 @@ namespace Ashen.Generated
         public const string DeleteSlot = "deleteSlot";
         public const string AiNotice = "aiNotice";
         public const string Recovery = "recovery";
+        public const string ReplaceSlot = "replaceSlot";
+        public const string SaveQuit = "saveQuit";
+        public const string SaveFailed = "saveFailed";
     }
 }

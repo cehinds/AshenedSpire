@@ -8,5 +8,7 @@ namespace Ashen.Generated
         public const string Failed = "failed";
         public const string Recovery = "recovery";
         public const string Done = "done";
+        public const string Begin = "begin";
+        public const string Quit = "quit";
     }
 }

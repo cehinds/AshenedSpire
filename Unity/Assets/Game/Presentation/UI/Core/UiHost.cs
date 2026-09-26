@@ -52,6 +52,7 @@ namespace Ashen.Presentation.UI
             host._input.Move += host.Navigator.MoveFocus;
             host._input.Submit += host.Navigator.Submit;
             host._input.Cancel += host.Navigator.Back;
+            host._input.Menu += host.Navigator.Menu;
             return host;
         }
 

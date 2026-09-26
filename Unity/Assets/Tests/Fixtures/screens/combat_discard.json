@@ -1,0 +1,19 @@
+{
+  "comment": "W-07 discard chooser (hand rules patched to promptDiscard; 04 W-07): selected 1, Back and Discard.",
+  "screen": "combat",
+  "seed": 20260926,
+  "state": "discard",
+  "chosen": 1,
+  "patches": [
+    {
+      "files": {
+        "rules/handRules.json": {
+          "promptDiscard": true
+        }
+      }
+    }
+  ],
+  "skipSizes": [
+    "1920x1080"
+  ]
+}

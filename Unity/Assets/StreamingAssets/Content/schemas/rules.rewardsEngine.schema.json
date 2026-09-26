@@ -1,0 +1,174 @@
+{
+  "$id": "rules/rewardsEngine.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "flasks": {
+      "type": "object",
+      "properties": {
+        "legacyChargeKindById": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "legacyChargeKindById"
+      ]
+    },
+    "level": {
+      "type": "object",
+      "properties": {
+        "defaultBase": {
+          "type": "integer"
+        },
+        "defaultGrowth": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "defaultBase",
+        "defaultGrowth"
+      ]
+    },
+    "rewards": {
+      "type": "object",
+      "properties": {
+        "bossRelicRarities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "flatRarityWeights": {
+          "type": "object",
+          "properties": {
+            "common": {
+              "type": "integer"
+            },
+            "rare": {
+              "type": "integer"
+            },
+            "uncommon": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "common",
+            "rare",
+            "uncommon"
+          ]
+        },
+        "relicRarities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "bossRelicRarities",
+        "flatRarityWeights",
+        "relicRarities"
+      ]
+    },
+    "rolls": {
+      "type": "object",
+      "properties": {
+        "guard": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "guard"
+      ]
+    },
+    "smithing": {
+      "type": "object",
+      "properties": {
+        "rewardPools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "rewardPools"
+      ]
+    },
+    "summit": {
+      "type": "object",
+      "properties": {
+        "finalAct": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "finalAct"
+      ]
+    },
+    "titles": {
+      "type": "object",
+      "properties": {
+        "boss": {
+          "type": "string"
+        },
+        "elite": {
+          "type": "string"
+        },
+        "normal": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "boss",
+        "elite",
+        "normal"
+      ]
+    },
+    "tracks": {
+      "type": "object",
+      "properties": {
+        "cardParent": {
+          "type": "string"
+        },
+        "draftingKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "itemTypeParent": {
+          "type": "string"
+        },
+        "kinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "cardParent",
+        "draftingKinds",
+        "itemTypeParent",
+        "kinds"
+      ]
+    }
+  },
+  "required": [
+    "comment",
+    "flasks",
+    "level",
+    "rewards",
+    "rolls",
+    "smithing",
+    "summit",
+    "titles",
+    "tracks"
+  ]
+}

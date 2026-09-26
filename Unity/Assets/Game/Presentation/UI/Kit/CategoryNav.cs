@@ -12,6 +12,9 @@ namespace Ashen.Presentation.UI.Kit
         public string Id;
         public string LabelKey;
         public string Count;
+
+        /// <summary>False for a category that is not built yet (it shows, but cannot be picked; D-058).</summary>
+        public bool Enabled = true;
     }
 
     /// <summary>
@@ -91,6 +94,7 @@ namespace Ashen.Presentation.UI.Kit
             b.SetResolved(Label(item));
             b.AddToClassList(UiClasses.NavItem);
             b.EnableInClassList(UiClasses.Selected, item.Id == ActiveId);
+            b.SetEnabled(item.Enabled);
             b.clicked += () =>
             {
                 ActiveId = item.Id;

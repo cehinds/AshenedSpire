@@ -1,0 +1,2205 @@
+{
+  "catalog/cards.json": {
+    "strike": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "defend": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "technique": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "evasiveGuard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "dodgeRoll": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "gorefireSlash": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "crimsonCleave": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "shieldBash": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "quickstep": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "guardCounter": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "ironResolve": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "serratedBlade": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "enterGorefire": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "enterBulwark": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "riposte": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "rend": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "cleavingBlow": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "stomp": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "rallyingStandard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "warSurgeon": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "hemorrhage": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "twinbladeFlurry": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "shieldwall": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "kickOff": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "wardingLunge": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "impale": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "warcry": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "executioner": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "goreblood": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "unbreakable": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "stitchedArms": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "lastStand": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "warriorsVow": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "ruinousBlow": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "bloodhuntersStrike": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "sanguinePactCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "goreslash": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "bracingStance": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "flameToBlade": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "ironVowCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "bloodTithe": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "poiseBreaker": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "rondelParry": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "sunderplate": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "brace": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starstonePebble": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "cometFragment": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starbladePhalanx": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "crystalBarrier": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starShower": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "scholarsInsight": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "frostVeil": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starSlicer": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starstoneWard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starlance": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "twinkling": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "frostNova": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starstoneArc": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "lucidity": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "stargazerCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "astralArmorCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "moonrendCut": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "meteorite": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "meteorSwarm": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "gravityWell": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "azureCoilCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "astralCleave": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "radiantSpray": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "supernova": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "timeDilation": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starstoneKris": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "constellationCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starfallBeam": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starcaller": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "umbralWard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "waxingMoonCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "shootingShard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "wardingStar": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starPath": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "moonlitShieldCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "celestialLance": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "astromancerCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "starSpark": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "astralInsight": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "attune": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "urgentHeal": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "bloodPact": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "blightTouch": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "flagellation": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "penance": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "litany": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "graveOffering": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "bloodletting": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "contagion": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "cullTheWeak": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "transfusion": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "blightward": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "martyrBlood": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "blightBloom": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "sacredHarvest": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "thornHaloCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "communionCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "gildedOath": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "plagueBearer": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "exsanguinate": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "stigmataCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "scourge": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "reclamation": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "secondBloom": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "butterflyPlague": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "lifeTitheCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "crimsonRite": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "blightNova": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "lastRites": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "zealotryCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "bloodHarvest": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "painOffering": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "witheringTouch": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "desperateRite": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "emberTideCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "bloodOfferingRite": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "harbingerOfBlightCard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "blightwardLash": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "lastMercy": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "warmLitany": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "ambush": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "rogueShiv": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "smokePellet": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "quickCut": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "feint": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "backstep": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "twinPrick": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "pocketSand": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "hamstringRogue": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "serratedShiv": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "smokeVeil": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "ricochet": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "lowBlow": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "pilfer": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "vanish": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "cheapShot": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "bladeDanceRogue": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "garrote": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "fanOfKnives": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "setupRogue": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "acrobaticsRogue": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "disorient": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "coupDeGrace": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "sap": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "shadowstep": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "afterimageCard": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "bloodletterRogue": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "venomcoat": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "misdirect": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "assassinate": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "thousandCutsRogue": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "deadlyTempoCard": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "opportunistCard": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "envenomCard": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "toxicVolley": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "smokeBomb": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "executionWindow": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "perfectHeist": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "deathblow": {
+      "name": "id",
+      "flavor": "icon",
+      "textTemplate": "effects"
+    },
+    "prepare": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "katanaDrawCut": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "greatswordSunderingHew": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "honedEdge": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "ironSkin": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "fieldDressing": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "hex": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "transmute": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "twinFang": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "blindingSand": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "hamstring": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "masterOfStrategy": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "bashingBlow": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "quickGuard": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "sweepingBlow": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "enfeeble": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "colossusSmash": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "wound": {
+      "name": "id",
+      "textTemplate": "effects",
+      "flavor": "textTemplate"
+    },
+    "dazed": {
+      "name": "id",
+      "textTemplate": "effects",
+      "flavor": "textTemplate"
+    },
+    "slimed": {
+      "name": "id",
+      "textTemplate": "effects",
+      "flavor": "textTemplate"
+    },
+    "guilt": {
+      "name": "id",
+      "textTemplate": "effects",
+      "flavor": "textTemplate"
+    },
+    "rallyingBanner": {
+      "name": "id",
+      "textTemplate": "effects",
+      "flavor": "upgrade"
+    },
+    "sharedFlame": {
+      "name": "id",
+      "textTemplate": "effects",
+      "flavor": "upgrade"
+    },
+    "ashOath": {
+      "name": "id",
+      "textTemplate": "effects",
+      "flavor": "upgrade"
+    },
+    "shieldGuardian": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "guardianBulwark": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "shieldBastion": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "spikedReprisal": {
+      "name": "id",
+      "flavor": "type",
+      "textTemplate": "effects"
+    },
+    "rimeThrust": {
+      "flavor": "id",
+      "name": "flavor",
+      "textTemplate": "effects"
+    },
+    "kilnCleave": {
+      "flavor": "id",
+      "name": "flavor",
+      "textTemplate": "effects"
+    },
+    "vesperWard": {
+      "flavor": "id",
+      "name": "flavor",
+      "textTemplate": "effects"
+    }
+  },
+  "catalog/relics.json": {
+    "forsakenMedallion": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "starstoneShard": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "cutpursesCoin": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "goldFigurine": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "goldenSprout": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "whetstoneFragment": {
+      "name": "id",
+      "textTemplate": "icon"
+    },
+    "kindlingCharm": {
+      "name": "id",
+      "textTemplate": "icon"
+    },
+    "cinderPouch": {
+      "name": "id",
+      "textTemplate": "passives"
+    },
+    "feralEye": {
+      "name": "id",
+      "textTemplate": "passives"
+    },
+    "goldleafCharm": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "crackedLantern": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "sacrificialKnife": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "curedHide": {
+      "name": "id",
+      "textTemplate": "passives",
+      "flavor": "textTemplate"
+    },
+    "ivoryComb": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "crackedTear": {
+      "name": "id",
+      "textTemplate": "passives"
+    },
+    "sealstoneKey": {
+      "name": "id",
+      "textTemplate": "passives"
+    },
+    "fellWardenBrand": {
+      "name": "id",
+      "textTemplate": "icon"
+    },
+    "bloodiedTalisman": {
+      "name": "id",
+      "textTemplate": "icon"
+    },
+    "emberFragment": {
+      "name": "id",
+      "textTemplate": "passives"
+    },
+    "twinnedArmor": {
+      "name": "id",
+      "textTemplate": "icon"
+    },
+    "blightTouchedIdol": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "warhorn": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "vowOfVengeance": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "pearlOfSagacity": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "blessedDew": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "azureSigil": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "bloodstainedChalice": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "goldboughSapling": {
+      "name": "id",
+      "textTemplate": "icon"
+    },
+    "wyrmHeart": {
+      "name": "id",
+      "textTemplate": "passives",
+      "flavor": "textTemplate"
+    },
+    "ancestralHorn": {
+      "name": "id",
+      "textTemplate": "passives"
+    },
+    "titansCinder": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "radiantAegis": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "flayersCenser": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "vigilantHalo": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "carrionTalon": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "emberIdol": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "crownOfStitches": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "wardenHorn": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "ashOfRemembrance": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "cinderOfTheFallen": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "crimsonCovenant": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "travelersWhetstone": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "moonlitVial": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "wardensLantern": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "saltedRelic": {
+      "name": "id",
+      "textTemplate": "passives",
+      "flavor": "textTemplate"
+    },
+    "hollowedHorn": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "gildedTear": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "watchmansBadge": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "howlingStandard": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "emberwickCharm": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "carrionMorsel": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "gravetendersBell": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "sentinelsOath": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "forsakenWarflag": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "wrathCoil": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "ashenGrip": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "lodestarShard": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "waxenSeal": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "whetstonePouch": {
+      "name": "id",
+      "textTemplate": "icon",
+      "flavor": "textTemplate"
+    },
+    "wayfarersKnot": {
+      "name": "id",
+      "textTemplate": "passives",
+      "flavor": "textTemplate"
+    },
+    "prismaticThorn": {
+      "name": "id",
+      "textTemplate": "passives",
+      "flavor": "textTemplate"
+    },
+    "restlessClasp": {
+      "name": "id",
+      "textTemplate": "passives",
+      "flavor": "textTemplate"
+    },
+    "paupersDiadem": {
+      "name": "id",
+      "textTemplate": "passives",
+      "flavor": "textTemplate"
+    }
+  },
+  "catalog/statuses.json": {
+    "strength": {
+      "name": "tint",
+      "tooltip": "modifiers"
+    },
+    "dexterity": {
+      "name": "id",
+      "tooltip": "modifiers"
+    },
+    "weak": {
+      "name": "tint",
+      "tooltip": "modifiers"
+    },
+    "vulnerable": {
+      "name": "tint",
+      "tooltip": "modifiers"
+    },
+    "frail": {
+      "name": "tint",
+      "tooltip": "modifiers"
+    },
+    "bleed": {
+      "name": "tint",
+      "tooltip": "proc"
+    },
+    "frost": {
+      "name": "tint",
+      "tooltip": "proc"
+    },
+    "insanity": {
+      "name": "tint",
+      "tooltip": "proc"
+    },
+    "bleedResist": {
+      "name": "tint",
+      "tooltip": "resists"
+    },
+    "frostResist": {
+      "name": "tint",
+      "tooltip": "resists"
+    },
+    "insanityResist": {
+      "name": "tint",
+      "tooltip": "resists"
+    },
+    "frostExposed": {
+      "name": "tint",
+      "tooltip": "taggedVulnerability"
+    },
+    "insanityExposed": {
+      "name": "tint",
+      "tooltip": "taggedVulnerability"
+    },
+    "crimsonBlight": {
+      "name": "tint",
+      "tooltip": "hooks"
+    },
+    "burn": {
+      "name": "tint",
+      "tooltip": "hooks"
+    },
+    "regen": {
+      "name": "tint",
+      "tooltip": "hooks"
+    },
+    "madness": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "staggered": {
+      "name": "tint",
+      "tooltip": "modifiers"
+    },
+    "rallyingStandard": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "rallyingStandardUp": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "unbreakable": {
+      "name": "id",
+      "tooltip": "modifiers"
+    },
+    "unbreakableUp": {
+      "name": "id",
+      "tooltip": "modifiers"
+    },
+    "goreblood": {
+      "name": "id",
+      "tooltip": "modifiers"
+    },
+    "sanguinePact": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "starstoneCharge": {
+      "name": "id",
+      "tooltip": "decay"
+    },
+    "stargazer": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "astralArmor": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "constellation": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "azureCoil": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "waxingMoon": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "moonlitShield": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "astromancer": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "thornHalo": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "communion": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "lifeTithe": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "stigmata": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "zealotry": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "emberTide": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "harbingerOfBlight": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "bloodUnction": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "ironVow": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "bulwarkEcho": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "prepared": {
+      "name": "id",
+      "tooltip": "decay"
+    },
+    "venom": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "afterimage": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "deadlyTempo": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "opportunist": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "envenom": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "glassCannon": {
+      "name": "id",
+      "tooltip": "modifiers"
+    },
+    "magicVulnerable": {
+      "name": "id",
+      "tooltip": "schoolDamageVulnerability"
+    }
+  },
+  "catalog/stances.json": {
+    "gorefire": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "bulwark": {
+      "name": "id",
+      "tooltip": "hooks"
+    },
+    "brace": {
+      "name": "id",
+      "tooltip": "hooks"
+    }
+  },
+  "catalog/resources.json": {
+    "stamina": {
+      "name": "id"
+    },
+    "mana": {
+      "name": "id"
+    },
+    "hp": {
+      "name": "id"
+    },
+    "ward": {
+      "name": "id"
+    },
+    "poise": {
+      "name": "id"
+    }
+  },
+  "catalog/keywords.json": {
+    "exhaust": {
+      "name": "id",
+      "tooltip": "name"
+    },
+    "ethereal": {
+      "name": "id",
+      "tooltip": "name"
+    },
+    "innate": {
+      "name": "id",
+      "tooltip": "name"
+    },
+    "retain": {
+      "name": "id",
+      "tooltip": "name"
+    },
+    "unplayable": {
+      "name": "id",
+      "tooltip": "name"
+    }
+  },
+  "catalog/enemies.json": {
+    "wanderingSoldier": {
+      "name": "size"
+    },
+    "blightHound": {
+      "name": "tint"
+    },
+    "huskBrute": {
+      "name": "size"
+    },
+    "graveWisp": {
+      "name": "tint"
+    },
+    "wyrmAspirant": {
+      "name": "tint"
+    },
+    "fellWarden": {
+      "name": "tint"
+    },
+    "lanternMoth": {
+      "name": "id"
+    },
+    "briarHermit": {
+      "name": "id"
+    },
+    "chainScavenger": {
+      "name": "id"
+    },
+    "bellKeeper": {
+      "name": "id"
+    },
+    "thornMatriarch": {
+      "name": "id"
+    },
+    "gildedKnight": {
+      "name": "tint"
+    },
+    "courtSurgeon": {
+      "name": "tint"
+    },
+    "stitchedHound": {
+      "name": "tint"
+    },
+    "courtMarionette": {
+      "name": "tint"
+    },
+    "livingArmor": {
+      "name": "tint"
+    },
+    "courtDuelist": {
+      "name": "tint"
+    },
+    "stitchedKing": {
+      "name": "tint"
+    },
+    "mirrorScribe": {
+      "name": "id"
+    },
+    "stitchCrab": {
+      "name": "id"
+    },
+    "glassRegent": {
+      "name": "id"
+    },
+    "marrowOrganist": {
+      "name": "id"
+    },
+    "ashRevenant": {
+      "name": "tint"
+    },
+    "emberStarvedPilgrim": {
+      "name": "tint"
+    },
+    "valkyrieShade": {
+      "name": "tint"
+    },
+    "charredColossus": {
+      "name": "tint"
+    },
+    "wyrmLord": {
+      "name": "tint"
+    },
+    "blightedValkyrie": {
+      "name": "tint"
+    },
+    "cinderMantis": {
+      "name": "id"
+    },
+    "eclipseCantor": {
+      "name": "id"
+    },
+    "furnaceSaint": {
+      "name": "id"
+    },
+    "hollowAstronomer": {
+      "name": "id"
+    },
+    "ashheartDragon": {
+      "name": "id"
+    }
+  },
+  "catalog/seats.json": {
+    "weald": {
+      "name": "regionId"
+    },
+    "marches": {
+      "name": "regionId"
+    },
+    "reach": {
+      "name": "regionId"
+    }
+  },
+  "catalog/events.json": {
+    "turncoatMirror": {
+      "name": "id",
+      "text": "art"
+    },
+    "goldboughAvatar": {
+      "name": "id",
+      "text": "art"
+    },
+    "abandonedCart": {
+      "name": "id",
+      "text": "art"
+    },
+    "weepingPilgrim": {
+      "name": "id",
+      "text": "art"
+    },
+    "bloodstainedAltar": {
+      "name": "id",
+      "text": "art"
+    },
+    "wanderingPhysician": {
+      "name": "id",
+      "text": "art"
+    },
+    "goldenMoth": {
+      "name": "id",
+      "text": "art"
+    },
+    "feralShrine": {
+      "name": "id",
+      "text": "art"
+    },
+    "ancientRuneStone": {
+      "name": "id",
+      "text": "art"
+    },
+    "graveOfTheNameless": {
+      "name": "id",
+      "text": "art"
+    },
+    "sleepingSmith": {
+      "name": "id",
+      "text": "art"
+    },
+    "wyrmTrial": {
+      "name": "id",
+      "text": "art"
+    },
+    "discardedReliquary": {
+      "name": "id",
+      "text": "art"
+    },
+    "omensAltar": {
+      "name": "id",
+      "text": "art"
+    },
+    "rotPriestOffer": {
+      "name": "id",
+      "text": "art"
+    },
+    "handspiderNest": {
+      "name": "id",
+      "text": "art"
+    },
+    "fadedGrace": {
+      "name": "id",
+      "text": "art"
+    },
+    "merchantsGhost": {
+      "name": "id",
+      "text": "art"
+    },
+    "cinderbearDen": {
+      "name": "id",
+      "text": "art"
+    },
+    "stakeOfTheMartyr": {
+      "name": "id",
+      "text": "art"
+    },
+    "twoFingersRiddle": {
+      "name": "id",
+      "text": "art"
+    },
+    "namelessKeeper": {
+      "name": "id",
+      "text": "art"
+    },
+    "namelessRest": {
+      "name": "id",
+      "text": "art"
+    },
+    "lastLantern": {
+      "name": "id",
+      "text": "art"
+    },
+    "lanternCaravan": {
+      "name": "id",
+      "text": "art"
+    }
+  },
+  "catalog/speakers.json": {
+    "theNameless": {
+      "name": "id"
+    },
+    "keeperOfTheNameless": {
+      "name": "id"
+    },
+    "roadWarden": {
+      "name": "id"
+    }
+  },
+  "catalog/atlasQuests.json": {
+    "survey:crownfall": {
+      "displayName": "questId",
+      "description": "displayName"
+    },
+    "survey:bellhaven": {
+      "displayName": "questId",
+      "description": "displayName"
+    },
+    "survey:lantern-haven": {
+      "displayName": "questId",
+      "description": "displayName"
+    },
+    "survey:frostgate": {
+      "displayName": "questId",
+      "description": "displayName"
+    },
+    "survey:emberhold": {
+      "displayName": "questId",
+      "description": "displayName"
+    },
+    "survey:saltwatch": {
+      "displayName": "questId",
+      "description": "displayName"
+    }
+  },
+  "catalog/flasks.json": {
+    "crimsonFlask": {
+      "name": "id",
+      "textTemplate": "effects"
+    },
+    "azureFlask": {
+      "name": "id",
+      "textTemplate": "effects"
+    },
+    "flaskOfFerocity": {
+      "name": "id",
+      "textTemplate": "effects"
+    },
+    "flaskOfStone": {
+      "name": "id",
+      "textTemplate": "effects"
+    },
+    "blightCoating": {
+      "name": "id",
+      "textTemplate": "effects"
+    },
+    "bloodUnction": {
+      "name": "id",
+      "textTemplate": "effects"
+    },
+    "wondrousDraught": {
+      "name": "id",
+      "textTemplate": "effects"
+    }
+  },
+  "catalog/classes.json": {
+    "reaver": {
+      "name": "glyph",
+      "description": "cardPool"
+    },
+    "starseer": {
+      "name": "glyph",
+      "description": "cardPool"
+    },
+    "rogue": {
+      "name": "glyph",
+      "description": "cardPool"
+    },
+    "herald": {
+      "name": "glyph",
+      "description": "cardPool"
+    }
+  },
+  "catalog/unlocks.json": {
+    "winAsReaver": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "winAsStarseer": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "beatStitchedKing": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "beatBlightedValkyrie": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "graveWardenUnlock": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "ashChildUnlock": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "reachAshenCrown": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "beatFellWarden": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "winTwice": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "beatKingAsHerald": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "reachStitchedCourt": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "rack2Right": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "rack3Right": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "rack2Left": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "rack3Left": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "winAsRogue": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "rogueBeatWarden": {
+      "name": "ref",
+      "hint": "reveal"
+    },
+    "rogueReachCrown": {
+      "name": "ref",
+      "hint": "reveal"
+    }
+  },
+  "catalog/attributes.json": {
+    "strength": {
+      "label": "id",
+      "shortLabel": "label"
+    },
+    "dexterity": {
+      "label": "id",
+      "shortLabel": "label"
+    },
+    "constitution": {
+      "label": "id",
+      "shortLabel": "label"
+    },
+    "wisdom": {
+      "label": "id",
+      "shortLabel": "label"
+    },
+    "intelligence": {
+      "label": "id",
+      "shortLabel": "label"
+    }
+  },
+  "catalog/creationModes.json": {
+    "lean": {
+      "label": "id"
+    },
+    "tuned2": {
+      "label": "id"
+    },
+    "tuned": {
+      "label": "id"
+    },
+    "standard": {
+      "label": "id"
+    },
+    "pointbuy": {
+      "label": "id"
+    }
+  },
+  "catalog/armaments.json": {
+    "straightSword": {
+      "name": "id"
+    },
+    "greatsword": {
+      "name": "id"
+    },
+    "dagger": {
+      "name": "id"
+    },
+    "shortbow": {
+      "name": "id"
+    },
+    "katana": {
+      "name": "id"
+    },
+    "halberd": {
+      "name": "id"
+    },
+    "warhammer": {
+      "name": "id"
+    },
+    "twinblade": {
+      "name": "id"
+    },
+    "battleaxe": {
+      "name": "id"
+    },
+    "buckler": {
+      "name": "id"
+    },
+    "kiteShield": {
+      "name": "id"
+    },
+    "towerShield": {
+      "name": "id"
+    },
+    "roundShield": {
+      "name": "id"
+    },
+    "spikedShield": {
+      "name": "id"
+    },
+    "lantern": {
+      "name": "id"
+    },
+    "torch": {
+      "name": "id"
+    },
+    "parryDagger": {
+      "name": "id"
+    },
+    "ashStaff": {
+      "name": "id"
+    },
+    "starstoneStaff": {
+      "name": "id"
+    },
+    "boneSceptre": {
+      "name": "id"
+    },
+    "emberlightSceptre": {
+      "name": "id"
+    },
+    "goldboughBranch": {
+      "name": "id"
+    },
+    "blightRod": {
+      "name": "id"
+    },
+    "gorefireBrand": {
+      "name": "id"
+    },
+    "wyrmhornStaff": {
+      "name": "id"
+    },
+    "frostSpear": {
+      "name": "id"
+    },
+    "cinderAxe": {
+      "name": "id"
+    },
+    "duskChime": {
+      "name": "id"
+    }
+  },
+  "catalog/armour.json": {
+    "reaver:default": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "reaver:vigil": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "reaver:oathsworn": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "reaver:warden": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "starseer:default": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "starseer:eclipse": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "starseer:starlit": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "starseer:astral": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "herald:default": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "herald:ossuary": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "herald:emberhabit": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "herald:pilgrim": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "rogue:default": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "rogue:nightveil": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "rogue:duelist": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "rogue:shadow": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "reaver:bastion": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "starseer:rimeweave": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "rogue:waywatcher": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "reaver:wayfarerPlate": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "starseer:wayfarerPlate": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "herald:wayfarerPlate": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "rogue:wayfarerPlate": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "reaver:nightweave": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "starseer:nightweave": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "herald:nightweave": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "rogue:nightweave": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "reaver:riteVestments": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "starseer:riteVestments": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "herald:riteVestments": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "rogue:riteVestments": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "reaver:gutterLeathers": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "starseer:gutterLeathers": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "herald:gutterLeathers": {
+      "name": "classId",
+      "blurb": "unlock"
+    },
+    "rogue:gutterLeathers": {
+      "name": "classId",
+      "blurb": "unlock"
+    }
+  },
+  "catalog/startingKits.json": {
+    "reaverBaseline": {
+      "label": "classId"
+    },
+    "reaverGreatsword": {
+      "label": "classId"
+    },
+    "starseerBaseline": {
+      "label": "classId"
+    },
+    "starseerStarstone": {
+      "label": "classId"
+    },
+    "heraldBaseline": {
+      "label": "classId"
+    },
+    "heraldEmberlight": {
+      "label": "classId"
+    },
+    "rogueBaseline": {
+      "label": "classId"
+    },
+    "rogueBow": {
+      "label": "classId"
+    }
+  }
+}

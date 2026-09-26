@@ -58,9 +58,29 @@
     },
     "combat.refusal.unplayable": {
       "type": "string"
+    },
+    "combat.cardKind.attack": {
+      "type": "string"
+    },
+    "combat.cardKind.skill": {
+      "type": "string"
+    },
+    "combat.cardKind.power": {
+      "type": "string"
+    },
+    "combat.cardKind.status": {
+      "type": "string"
+    },
+    "combat.cardKind.curse": {
+      "type": "string"
     }
   },
   "required": [
+    "combat.cardKind.attack",
+    "combat.cardKind.curse",
+    "combat.cardKind.power",
+    "combat.cardKind.skill",
+    "combat.cardKind.status",
     "combat.error.unexpected",
     "combat.intent.attack",
     "combat.intent.block",
