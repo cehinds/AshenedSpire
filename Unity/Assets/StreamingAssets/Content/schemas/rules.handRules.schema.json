@@ -127,6 +127,63 @@
         "stat",
         "statEnabled"
       ]
+    },
+    "openingWeighted": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "number"
+        },
+        "terms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "attr": {
+                "type": "string",
+                "enum": [
+                  "constitution",
+                  "dexterity",
+                  "intelligence",
+                  "strength",
+                  "wisdom"
+                ]
+              },
+              "weight": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "attr",
+              "weight"
+            ]
+          }
+        },
+        "perLevel": {
+          "type": "number"
+        },
+        "min": {
+          "type": "integer"
+        },
+        "max": {
+          "type": "integer"
+        },
+        "rounding": {
+          "type": "string",
+          "enum": [
+            "floor"
+          ]
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "base",
+        "terms",
+        "min",
+        "max"
+      ]
     }
   },
   "required": [
