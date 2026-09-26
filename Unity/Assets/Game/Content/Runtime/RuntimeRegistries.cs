@@ -166,6 +166,11 @@ namespace Ashen.Content
             new Ashen.Domain.Rewards.RewardsData(ToRunData(mechanics, combatEngine, handRules, runEngine, contentVersion),
                 (JArray)_run[RewardsKeys.Nodes].DeepClone(), ascensionOrder, rewardsEngine);
 
+        /// <summary>The merchant's view (US-9.1): the post-combat data plus the merchant rules (rules/shopEngine.json).</summary>
+        public Ashen.Domain.Shop.ShopData ToShopData(JObject mechanics, JObject combatEngine, JObject handRules, JObject runEngine,
+            string contentVersion, JArray ascensionOrder, JObject rewardsEngine, JObject shopEngine) =>
+            new Ashen.Domain.Shop.ShopData(ToRewardsData(mechanics, combatEngine, handRules, runEngine, contentVersion, ascensionOrder, rewardsEngine), shopEngine);
+
         /// <summary>The map documents, in content key order: balance/mapConfigs.json, eventMeta's gates, boss locations, mapShape limits and legacy bosses.</summary>
         private static JObject MapDocuments(ContentSet content)
         {

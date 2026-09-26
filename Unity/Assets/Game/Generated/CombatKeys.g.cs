@@ -56,10 +56,13 @@ namespace Ashen.Generated
         public const string CapacityPerConstitution = "capacityPerConstitution";
         public const string CapacityPerStrength = "capacityPerStrength";
         public const string Card = "card";
+        public const string CardEffects = "cardEffects";
         public const string CardId = "cardId";
         public const string CardInstanceId = "cardInstanceId";
         public const string CardProperties = "cardProperties";
         public const string CardRatingValues = "cardRatingValues";
+        public const string CardResources = "cardResources";
+        public const string CardRoles = "cardRoles";
         public const string CardTags = "cardTags";
         public const string CardType = "cardType";
         public const string Cards = "cards";
@@ -80,6 +83,7 @@ namespace Ashen.Generated
         public const string Cost = "cost";
         public const string CostIsX = "costIsX";
         public const string CostResource = "costResource";
+        public const string CostTag = "costTag";
         public const string Count = "count";
         public const string Counters = "counters";
         public const string Damage = "damage";
