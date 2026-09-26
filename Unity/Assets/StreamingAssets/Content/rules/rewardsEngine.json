@@ -1,0 +1,35 @@
+{
+  "comment": "Post-combat engine rules (stream D, us-11.1; the C# port of the shipped main.js onCombatEnd pipeline: model/skills.js, classTree.js, levelup.js, rewardprogress.js, smithing.js grantSmithingReward and the engine/encounters.js reward rolls). Defaults, vocabulary lists and the victory titles the shipped code kept as constants live here as data. Track vocabulary shared with the combat hooks stays in rules/combatEngine.json skillXp. Changing a value changes the post-combat pipeline; the rewards parity oracle pins the shipped values.",
+  "tracks": {
+    "itemTypeParent": "itemType",
+    "cardParent": "card",
+    "kinds": ["weapon", "armour", "focus", "dual", "class"],
+    "draftingKinds": ["weapon", "focus", "dual"]
+  },
+  "level": {
+    "defaultBase": 100,
+    "defaultGrowth": 1.15
+  },
+  "rolls": {
+    "guard": 100
+  },
+  "rewards": {
+    "flatRarityWeights": { "common": 1, "uncommon": 1, "rare": 1 },
+    "relicRarities": ["common", "uncommon", "rare"],
+    "bossRelicRarities": ["boss"]
+  },
+  "flasks": {
+    "legacyChargeKindById": { "crimsonFlask": "hp", "azureFlask": "mana" }
+  },
+  "smithing": {
+    "rewardPools": ["normal", "elite", "boss", "treasure"]
+  },
+  "summit": {
+    "finalAct": 3
+  },
+  "titles": {
+    "boss": "{0} FALLS",
+    "elite": "ELITE VANQUISHED",
+    "normal": "VICTORY"
+  }
+}
