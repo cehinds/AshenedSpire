@@ -31,7 +31,10 @@
         "TagFamilies": "tagFamilies",
         "PathSeparator": ".",
         "StringKeyFields": "fields",
-        "Id": "id"
+        "Id": "id",
+        "Attributes": "attributes",
+        "PropertyRules": "propertyRules",
+        "ClassTree": "classTree"
       }
     },
     {

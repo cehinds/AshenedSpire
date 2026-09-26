@@ -32,5 +32,8 @@ namespace Ashen.Generated
         public const string PathSeparator = ".";
         public const string StringKeyFields = "fields";
         public const string Id = "id";
+        public const string Attributes = "attributes";
+        public const string PropertyRules = "propertyRules";
+        public const string ClassTree = "classTree";
     }
 }
