@@ -1,6 +1,6 @@
 # Ashen Spire — Unity Rebuild, One-Session Mega Prompt
 
-> Paste everything below the line into a fresh Claude Code session opened at `D:\repos\AshenedSpire`.
+> Paste everything below the line into a fresh Claude Code session opened at `D:\repo\AshenedSpire`.
 > The session runs **unattended to completion**. It never asks the user anything.
 
 ---
