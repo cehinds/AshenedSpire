@@ -792,9 +792,7 @@
         "LegacyRelicGate": "^relic:(?<owner>.+):(?<relic>[^:]+):(?<index>\\d+)$",
         "ArmamentRef": "^armament/(?<id>[^/]+)$",
         "ArmorRef": "^armor/(?<classId>[^/]+)/(?<id>[^/]+)$",
-        "RelicRef": "^relic/(?<id>[^/]+)$",
-        "UpgradeRequirementTag": "^requirement:(?<attribute>[^:]*)$",
-        "UpgradeCardTag": "^card:(?<role>[^:]*):(?<part>[^:]*):(?<name>[^:]*)$"
+        "RelicRef": "^relic/(?<id>[^/]+)$"
       }
     }
   ],
