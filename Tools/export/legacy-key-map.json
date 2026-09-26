@@ -1,0 +1,9 @@
+{
+  "comment": "Web config key renames applied before the shipped strict import (D-029). Data, not code: add a row to teach the exporter a rename. Patterns are anchored regular expressions; $1.. are capture groups.",
+  "renames": [
+    { "from": "^gameConfig\\.derivedStatRules\\.rules\\.(ar|dr|pr|poise|ward)\\.(base|strength|dexterity|constitution|wisdom|intelligence)$", "to": "gameConfig.combatRatings.ratings.$1.$2" }
+  ],
+  "unmappedInShippedBuild": [
+    { "pattern": "^gameConfig\\.derivedStatRules\\.rules\\.openingHand\\.", "reason": "Owner's weighted multi-attribute opening-hand model (base + DEX/WIS weights + per-level, min/max). The shipped handRules.starting uses a single stat; the Unity rebuild's rules/hand.json supports the weighted form, so transform-content applies these to the reference preset directly." }
+  ]
+}

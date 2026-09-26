@@ -1,0 +1,121 @@
+{
+  "armament": {
+    "blurb": "Weapons, shields and staves.",
+    "family": "armament",
+    "label": "Armament",
+    "scopeField": "",
+    "source": "equipment.armaments"
+  },
+  "armour": {
+    "blurb": "Armour sets. Ids repeat per class, so classId is part of the key.",
+    "family": "armour",
+    "label": "Armour",
+    "scopeField": "classId",
+    "source": "equipment.armour"
+  },
+  "basicCardProfile": {
+    "blurb": "Equipment-bound core card profiles.",
+    "family": "basicCardProfile",
+    "label": "Card profile",
+    "scopeField": "",
+    "source": "equipment.basicCardProfiles"
+  },
+  "card": {
+    "blurb": "Every playable card.",
+    "family": "card",
+    "label": "Card",
+    "scopeField": "",
+    "source": "cards"
+  },
+  "class": {
+    "blurb": "A class's identity in card terms — what it leans toward.",
+    "family": "class",
+    "label": "Class",
+    "scopeField": "",
+    "source": "classes"
+  },
+  "effect": {
+    "blurb": "Damage effects carry card tags; a hit inherits the card's identity.",
+    "family": "effect",
+    "label": "Effect",
+    "scopeField": "",
+    "source": ""
+  },
+  "encounter": {
+    "blurb": "Authored fights.",
+    "family": "encounter",
+    "label": "Encounter",
+    "scopeField": "",
+    "source": "encounters"
+  },
+  "enemy": {
+    "blurb": "Creature identity; gates proc resistance at runtime.",
+    "family": "enemy",
+    "label": "Enemy",
+    "scopeField": "",
+    "source": "enemies"
+  },
+  "event": {
+    "blurb": "Unknown-node encounters.",
+    "family": "event",
+    "label": "Event",
+    "scopeField": "",
+    "source": "events"
+  },
+  "flask": {
+    "blurb": "Consumables, refilled at Grace.",
+    "family": "flask",
+    "label": "Flask",
+    "scopeField": "",
+    "source": "flasks"
+  },
+  "grant": {
+    "blurb": "Where a starting card comes from. No collection: like `effect`, this family exists only to declare a vocabulary — the order bound cards are dealt in.",
+    "family": "grant",
+    "label": "Grant",
+    "scopeField": "",
+    "source": ""
+  },
+  "keepsake": {
+    "blurb": "The boon you start the run holding.",
+    "family": "keepsake",
+    "label": "Keepsake",
+    "scopeField": "",
+    "source": "characterCreation.keepsakes"
+  },
+  "location": {
+    "blurb": "Where a run stops: a classic node type (shrine), the Unknown node's camp, an atlas rest service's type (inn, chapel) or one atlas node by id. No collection — the ids are the map's, checked by model/locations.js. Mounted from arrival to departure (engine/locations.js).",
+    "family": "location",
+    "label": "Location",
+    "scopeField": "",
+    "source": ""
+  },
+  "relic": {
+    "blurb": "Permanent run pickups.",
+    "family": "relic",
+    "label": "Relic",
+    "scopeField": "",
+    "source": "relics"
+  },
+  "slot": {
+    "blurb": "What you can wear, and when you may swap.",
+    "family": "slot",
+    "label": "Slot",
+    "scopeField": "",
+    "source": "equipment.slots"
+  },
+  "startingKit": {
+    "blurb": "A class's listed opening loadout.",
+    "family": "startingKit",
+    "label": "Starting kit",
+    "scopeField": "",
+    "source": "equipment.startingKits"
+  },
+  "unlock": {
+    "blurb": "What a run can earn.",
+    "family": "unlock",
+    "label": "Unlock",
+    "scopeField": "",
+    "source": "unlocks"
+  }
+}

@@ -1,0 +1,854 @@
+{
+  "$id": "audio/sfx.json",
+  "type": "object",
+  "properties": {
+    "SFX_FAMILY_IDS": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "SFX_RECIPES": {
+      "type": "object",
+      "properties": {
+        "beat": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "t0": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "type"
+            ]
+          }
+        },
+        "block": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "hp": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "kind",
+              "peak"
+            ]
+          }
+        },
+        "buy": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        },
+        "cardPlay": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        },
+        "default": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        },
+        "enemyDeath": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        },
+        "flask": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        },
+        "heal": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "t0": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        },
+        "hit": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "hp": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "lp": {
+                "type": "integer"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "kind",
+              "peak"
+            ]
+          }
+        },
+        "holdCommit": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "t0": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "type"
+            ]
+          }
+        },
+        "holdTick": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "type"
+            ]
+          }
+        },
+        "nodeTravel": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        },
+        "procBurst": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "hp": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "lp": {
+                "type": "integer"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "kind",
+              "peak"
+            ]
+          }
+        },
+        "procBurst_bleed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "hp": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "lp": {
+                "type": "integer"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "kind",
+              "peak"
+            ]
+          }
+        },
+        "procBurst_frost": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "hp": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "lp": {
+                "type": "integer"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "t0": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "kind",
+              "peak"
+            ]
+          }
+        },
+        "procBurst_insanity": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "hp": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "lp": {
+                "type": "integer"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "t0": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "kind",
+              "peak"
+            ]
+          }
+        },
+        "relic": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        },
+        "rewardTake": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        },
+        "shrine": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        },
+        "stagger": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "hp": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "lp": {
+                "type": "integer"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "kind",
+              "peak"
+            ]
+          }
+        },
+        "stance": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        },
+        "victory": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "t0": {
+                "type": "number"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "type"
+            ]
+          }
+        },
+        "youDied": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dur": {
+                "type": "number"
+              },
+              "freq": {
+                "type": "integer"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "peak": {
+                "type": "number"
+              },
+              "to": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dur",
+              "freq",
+              "kind",
+              "peak",
+              "to",
+              "type"
+            ]
+          }
+        }
+      },
+      "required": [
+        "beat",
+        "block",
+        "buy",
+        "cardPlay",
+        "default",
+        "enemyDeath",
+        "flask",
+        "heal",
+        "hit",
+        "holdCommit",
+        "holdTick",
+        "nodeTravel",
+        "procBurst",
+        "procBurst_bleed",
+        "procBurst_frost",
+        "procBurst_insanity",
+        "relic",
+        "rewardTake",
+        "shrine",
+        "stagger",
+        "stance",
+        "victory",
+        "youDied"
+      ]
+    }
+  },
+  "required": [
+    "SFX_FAMILY_IDS",
+    "SFX_RECIPES"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$id": "catalog/worldAtlas.json",
+  "type": "object",
+  "additionalProperties": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "null",
+          "number",
+          "string"
+        ]
+      }
+    }
+  }
+}

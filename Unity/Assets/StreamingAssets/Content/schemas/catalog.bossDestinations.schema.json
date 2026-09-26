@@ -1,0 +1,19 @@
+{
+  "$id": "catalog/bossDestinations.json",
+  "type": "object",
+  "additionalProperties": {
+    "type": "string",
+    "enum": [
+      "Ashen Crown",
+      "Ashheart Caldera",
+      "Bellfoundry",
+      "Briar Sanctum",
+      "Eclipse Observatory",
+      "Fell Courtyard",
+      "Furnace Chapel",
+      "Hall of Mirrors",
+      "Ossuary Organ Hall",
+      "Stitched Throne"
+    ]
+  }
+}

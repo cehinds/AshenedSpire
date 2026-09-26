@@ -1,0 +1,28 @@
+{
+  "$id": "tags/tagDomains.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "aside": {
+        "type": "boolean"
+      },
+      "blurb": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "label": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "aside",
+      "blurb",
+      "id",
+      "label"
+    ]
+  }
+}

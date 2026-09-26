@@ -1,0 +1,45 @@
+{
+  "$id": "catalog/itemUpgradeChanges.json",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "itemRef": {
+            "type": "string"
+          },
+          "nextTier": {
+            "type": "integer"
+          },
+          "tag": {
+            "type": "string",
+            "enum": [
+              "card:attack:effect:damage",
+              "card:guard:effect:block",
+              "card:technique:effect:block",
+              "equipment:poise-threshold",
+              "relic:passive:poise-threshold-add",
+              "relic:passive:power-cost-reduction",
+              "requirement:strength",
+              "upgrade:cost:smithing-stone"
+            ]
+          },
+          "value": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "itemRef",
+          "nextTier",
+          "tag",
+          "value"
+        ]
+      }
+    }
+  },
+  "required": [
+    "rows"
+  ]
+}

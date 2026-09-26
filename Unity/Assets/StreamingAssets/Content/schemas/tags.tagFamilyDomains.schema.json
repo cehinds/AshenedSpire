@@ -1,0 +1,20 @@
+{
+  "$id": "tags/tagFamilyDomains.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "domain": {
+        "type": "string"
+      },
+      "family": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "domain",
+      "family"
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "$id": "catalog/cardExposure.json",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cardId": {
+            "type": "string"
+          },
+          "damageSchool": {
+            "type": "string",
+            "enum": [
+              "arcane",
+              "magic",
+              "physical"
+            ]
+          },
+          "exposureBuildupPerHit": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "cardId",
+          "damageSchool",
+          "exposureBuildupPerHit"
+        ]
+      }
+    }
+  },
+  "required": [
+    "rows"
+  ]
+}

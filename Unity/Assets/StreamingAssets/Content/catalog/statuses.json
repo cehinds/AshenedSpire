@@ -1,0 +1,1142 @@
+{
+  "afterimage": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                3,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "afterimage"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "block",
+            "target": "owner"
+          }
+        ],
+        "if": {
+          "n": 3,
+          "p": "everyNthCardThisCombat"
+        },
+        "on": "cardPlayed"
+      }
+    ],
+    "icon": "〽",
+    "id": "afterimage",
+    "stackMode": "add"
+  },
+  "astralArmor": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                4,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "astralArmor"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "block",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnEnd"
+      }
+    ],
+    "icon": "🌌",
+    "id": "astralArmor",
+    "stackMode": "add"
+  },
+  "astromancer": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": 1,
+            "status": "starstoneCharge",
+            "target": "owner"
+          },
+          {
+            "amount": 1,
+            "op": "draw",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "📚",
+    "id": "astromancer",
+    "stackMode": "unique"
+  },
+  "azureCoil": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                2,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "azureCoil"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "block",
+            "target": "owner"
+          }
+        ],
+        "if": {
+          "p": "cardTypeIs",
+          "type": "skill"
+        },
+        "on": "cardPlayed"
+      }
+    ],
+    "icon": "🌀",
+    "id": "azureCoil",
+    "stackMode": "add"
+  },
+  "bleed": {
+    "decay": "none",
+    "icon": "💧",
+    "id": "bleed",
+    "proc": {
+      "burstMax": 35,
+      "burstMin": 8,
+      "burstPercent": 15,
+      "poiseDamage": 3,
+      "resistance": {
+        "status": "bleedResist",
+        "tags": [
+          "beast",
+          "humanoid"
+        ]
+      },
+      "threshold": 7
+    },
+    "stackMode": "add",
+    "tint": "var(--ember)"
+  },
+  "bleedResist": {
+    "decay": {
+      "duration": 2
+    },
+    "icon": "🩹",
+    "id": "bleedResist",
+    "resists": {
+      "percent": 50,
+      "status": "bleed"
+    },
+    "stackMode": "refresh",
+    "tint": "var(--muted)"
+  },
+  "bloodUnction": {
+    "decay": "perTurnEnd",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": 2,
+            "status": "bleed"
+          }
+        ],
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventSourceIsOwner"
+            },
+            {
+              "p": "eventIsAttack"
+            }
+          ]
+        },
+        "on": "damageDealt"
+      }
+    ],
+    "icon": "🫗",
+    "id": "bloodUnction",
+    "stackMode": "refresh"
+  },
+  "bulwarkEcho": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                4,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "bulwarkEcho"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "block",
+            "target": "owner"
+          },
+          {
+            "op": "removeStatus",
+            "status": "bulwarkEcho",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "⛨",
+    "id": "bulwarkEcho",
+    "stackMode": "add"
+  },
+  "burn": {
+    "decay": "perTurnEnd",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "burn"
+            },
+            "op": "loseHp",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "🔥",
+    "id": "burn",
+    "stackMode": "add",
+    "tint": "var(--ember)"
+  },
+  "communion": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                3,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "communion"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "heal",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "🕊",
+    "id": "communion",
+    "stackMode": "add"
+  },
+  "constellation": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                4,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "constellation"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "damage",
+            "target": "randomEnemy"
+          }
+        ],
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventStatusIs",
+              "status": "starstoneCharge"
+            },
+            {
+              "p": "eventTargetIsOwner"
+            }
+          ]
+        },
+        "on": "statusApplied"
+      }
+    ],
+    "icon": "💫",
+    "id": "constellation",
+    "stackMode": "add"
+  },
+  "crimsonBlight": {
+    "decay": {
+      "duration": 3
+    },
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "crimsonBlight"
+            },
+            "op": "loseHp",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "❀",
+    "id": "crimsonBlight",
+    "stackMode": "add",
+    "tint": "var(--rot)"
+  },
+  "deadlyTempo": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": {
+              "args": [
+                1
+              ],
+              "f": "add"
+            },
+            "status": "prepared",
+            "target": "owner"
+          },
+          {
+            "amount": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "deadlyTempo"
+            },
+            "op": "draw"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "♬",
+    "id": "deadlyTempo",
+    "stackMode": "add"
+  },
+  "dexterity": {
+    "decay": "none",
+    "icon": "◇",
+    "id": "dexterity",
+    "modifiers": {
+      "blockAdd": 1
+    },
+    "stackMode": "add"
+  },
+  "emberTide": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "emberTide"
+            },
+            "status": "strength",
+            "target": "owner"
+          }
+        ],
+        "if": {
+          "p": "eventTargetIsOwner"
+        },
+        "on": "healed"
+      }
+    ],
+    "icon": "🌊",
+    "id": "emberTide",
+    "stackMode": "add"
+  },
+  "envenom": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "envenom"
+            },
+            "status": "venom"
+          }
+        ],
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventSourceIsOwner"
+            },
+            {
+              "p": "eventIsAttack"
+            }
+          ]
+        },
+        "on": "damageDealt"
+      }
+    ],
+    "icon": "♜",
+    "id": "envenom",
+    "stackMode": "add"
+  },
+  "frail": {
+    "decay": "perTurnEnd",
+    "icon": "✂",
+    "id": "frail",
+    "modifiers": {
+      "blockGainedMult": 0.75
+    },
+    "stackMode": "add",
+    "tint": "var(--muted)"
+  },
+  "frost": {
+    "decay": "none",
+    "icon": "❄",
+    "id": "frost",
+    "proc": {
+      "burstMax": 20,
+      "burstMin": 4,
+      "burstPercent": 8,
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "weak",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "frostExposed",
+          "target": "self"
+        }
+      ],
+      "resistance": {
+        "status": "frostResist",
+        "tags": [
+          "beast",
+          "humanoid"
+        ]
+      },
+      "threshold": 10
+    },
+    "stackMode": "add",
+    "tint": "#7fa8c9"
+  },
+  "frostExposed": {
+    "decay": {
+      "duration": 2
+    },
+    "icon": "🫧",
+    "id": "frostExposed",
+    "stackMode": "refresh",
+    "taggedVulnerability": {
+      "mult": 1.25,
+      "stacking": "multiplicative",
+      "tags": [
+        "starstone"
+      ]
+    },
+    "tint": "#7fa8c9"
+  },
+  "frostResist": {
+    "decay": {
+      "duration": 2
+    },
+    "icon": "🧣",
+    "id": "frostResist",
+    "resists": {
+      "percent": 50,
+      "status": "frost"
+    },
+    "stackMode": "refresh",
+    "tint": "var(--muted)"
+  },
+  "glassCannon": {
+    "decay": "none",
+    "icon": "💥",
+    "id": "glassCannon",
+    "modifiers": {
+      "damageDealtMult": 1.25,
+      "damageTakenMult": 1.25
+    },
+    "stackMode": "unique"
+  },
+  "goreblood": {
+    "decay": "none",
+    "icon": "♛",
+    "id": "goreblood",
+    "modifiers": {
+      "meterMaxGrowthDisabled": true
+    },
+    "stackMode": "unique"
+  },
+  "harbingerOfBlight": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "harbingerOfBlight"
+            },
+            "op": "heal",
+            "target": "owner"
+          }
+        ],
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventStatusIs",
+              "status": "crimsonBlight"
+            },
+            {
+              "p": "eventSourceIsOwner"
+            }
+          ]
+        },
+        "on": "statusApplied"
+      }
+    ],
+    "icon": "❀",
+    "id": "harbingerOfBlight",
+    "stackMode": "add"
+  },
+  "insanity": {
+    "decay": "none",
+    "icon": "🌀",
+    "id": "insanity",
+    "proc": {
+      "burstMax": 40,
+      "burstMin": 10,
+      "burstPercent": 18,
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "insanityExposed",
+          "target": "self"
+        }
+      ],
+      "poiseDamage": 8,
+      "resistance": {
+        "status": "insanityResist",
+        "tags": [
+          "humanoid",
+          "spirit"
+        ]
+      },
+      "stagger": true,
+      "threshold": 14
+    },
+    "stackMode": "add",
+    "tint": "#a06bd0"
+  },
+  "insanityExposed": {
+    "decay": {
+      "duration": 2
+    },
+    "icon": "🕳",
+    "id": "insanityExposed",
+    "stackMode": "refresh",
+    "taggedVulnerability": {
+      "mult": 1.3,
+      "stacking": "multiplicative",
+      "tags": [
+        "ritual",
+        "blight"
+      ]
+    },
+    "tint": "#a06bd0"
+  },
+  "insanityResist": {
+    "decay": {
+      "duration": 2
+    },
+    "icon": "🛡",
+    "id": "insanityResist",
+    "resists": {
+      "percent": 50,
+      "status": "insanity"
+    },
+    "stackMode": "refresh",
+    "tint": "var(--muted)"
+  },
+  "ironVow": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                3,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "ironVow"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "block",
+            "target": "owner"
+          }
+        ],
+        "if": {
+          "p": "eventTargetIsOwner"
+        },
+        "on": "hpLost"
+      }
+    ],
+    "icon": "⛓",
+    "id": "ironVow",
+    "stackMode": "add"
+  },
+  "lifeTithe": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                8,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "lifeTithe"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "heal",
+            "target": "owner"
+          }
+        ],
+        "on": "enemyDied"
+      }
+    ],
+    "icon": "⚰",
+    "id": "lifeTithe",
+    "stackMode": "add"
+  },
+  "madness": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                2,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "madness"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "loseHp",
+            "target": "owner"
+          },
+          {
+            "amount": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "madness"
+            },
+            "op": "gainEnergy"
+          },
+          {
+            "op": "removeStatus",
+            "status": "madness",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "☀",
+    "id": "madness",
+    "stackMode": "add"
+  },
+  "magicVulnerable": {
+    "decay": {
+      "duration": 2
+    },
+    "icon": "✧",
+    "id": "magicVulnerable",
+    "instancePresentation": {
+      "durationToken": "turns",
+      "valueToken": "percent"
+    },
+    "schoolDamageVulnerability": {
+      "school": "magic"
+    },
+    "stackMode": "refresh",
+    "tint": "#8b7cd6"
+  },
+  "moonlitShield": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                3,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "moonlitShield"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "block",
+            "target": "owner"
+          }
+        ],
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventStatusIs",
+              "status": "starstoneCharge"
+            },
+            {
+              "p": "eventTargetIsOwner"
+            }
+          ]
+        },
+        "on": "statusApplied"
+      }
+    ],
+    "icon": "🔷",
+    "id": "moonlitShield",
+    "stackMode": "add"
+  },
+  "opportunist": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": {
+              "args": [
+                1
+              ],
+              "f": "add"
+            },
+            "status": "prepared",
+            "target": "owner"
+          },
+          {
+            "amount": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "opportunist"
+            },
+            "op": "draw"
+          }
+        ],
+        "on": "enemyStaggered"
+      }
+    ],
+    "icon": "⌁",
+    "id": "opportunist",
+    "stackMode": "add"
+  },
+  "prepared": {
+    "decay": "perTurnEnd",
+    "icon": "◈",
+    "id": "prepared",
+    "stackMode": "unique"
+  },
+  "rallyingStandard": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "rallyingStandard"
+            },
+            "status": "strength",
+            "target": "owner"
+          },
+          {
+            "amount": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "rallyingStandard"
+            },
+            "op": "loseHp",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "⚑",
+    "id": "rallyingStandard",
+    "stackMode": "add"
+  },
+  "rallyingStandardUp": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "rallyingStandardUp"
+            },
+            "status": "strength",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "⚑",
+    "id": "rallyingStandardUp",
+    "stackMode": "add"
+  },
+  "regen": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "regen"
+            },
+            "op": "heal",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "🌿",
+    "id": "regen",
+    "stackMode": "add",
+    "tint": "var(--grace)"
+  },
+  "sanguinePact": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": {
+              "args": [
+                2,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "sanguinePact"
+                }
+              ],
+              "f": "mul"
+            },
+            "status": "strength",
+            "target": "owner"
+          }
+        ],
+        "if": {
+          "p": "eventStatusIs",
+          "status": "bleed"
+        },
+        "on": "meterFilled"
+      }
+    ],
+    "icon": "🩸",
+    "id": "sanguinePact",
+    "stackMode": "add"
+  },
+  "staggered": {
+    "decay": "perTurnEnd",
+    "icon": "✦",
+    "id": "staggered",
+    "modifiers": {
+      "damageTakenMult": 1.5
+    },
+    "stackMode": "refresh",
+    "tint": "var(--gold)"
+  },
+  "stargazer": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": 1,
+            "status": "starstoneCharge",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "🔭",
+    "id": "stargazer",
+    "stackMode": "unique"
+  },
+  "starstoneCharge": {
+    "decay": "perTurnEnd",
+    "icon": "✦",
+    "id": "starstoneCharge",
+    "stackMode": "unique"
+  },
+  "stigmata": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                2,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "stigmata"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "heal",
+            "target": "owner"
+          }
+        ],
+        "if": {
+          "p": "eventTargetIsOwner"
+        },
+        "on": "hpLost"
+      }
+    ],
+    "icon": "🩹",
+    "id": "stigmata",
+    "stackMode": "add"
+  },
+  "strength": {
+    "decay": "none",
+    "icon": "↑",
+    "id": "strength",
+    "modifiers": {
+      "attackDamageAdd": 1
+    },
+    "stackMode": "add",
+    "tint": "var(--gold)"
+  },
+  "thornHalo": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "thornHalo"
+            },
+            "status": "crimsonBlight",
+            "target": "allEnemies"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "🌿",
+    "id": "thornHalo",
+    "stackMode": "add"
+  },
+  "unbreakable": {
+    "decay": "none",
+    "icon": "⬟",
+    "id": "unbreakable",
+    "modifiers": {
+      "blockCap": 30,
+      "retainBlock": true
+    },
+    "stackMode": "unique"
+  },
+  "unbreakableUp": {
+    "decay": "none",
+    "icon": "⬟",
+    "id": "unbreakableUp",
+    "modifiers": {
+      "blockCap": 40,
+      "retainBlock": true
+    },
+    "stackMode": "unique"
+  },
+  "venom": {
+    "decay": "perTurnEnd",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "f": "stacks",
+              "of": "owner",
+              "status": "venom"
+            },
+            "op": "loseHp",
+            "target": "owner"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "☠",
+    "id": "venom",
+    "stackMode": "add"
+  },
+  "vulnerable": {
+    "decay": "perTurnEnd",
+    "icon": "V",
+    "id": "vulnerable",
+    "modifiers": {
+      "damageTakenMult": 1.5
+    },
+    "stackMode": "add",
+    "tint": "var(--grace)"
+  },
+  "waxingMoon": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "op": "applyStatus",
+            "stacks": {
+              "args": [
+                2,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "waxingMoon"
+                }
+              ],
+              "f": "mul"
+            },
+            "status": "vulnerable",
+            "target": "allEnemies"
+          }
+        ],
+        "on": "ownerTurnStart"
+      }
+    ],
+    "icon": "🌕",
+    "id": "waxingMoon",
+    "stackMode": "add"
+  },
+  "weak": {
+    "decay": "perTurnEnd",
+    "icon": "↓",
+    "id": "weak",
+    "modifiers": {
+      "damageDealtMult": 0.75
+    },
+    "stackMode": "add",
+    "tint": "var(--muted)"
+  },
+  "zealotry": {
+    "decay": "none",
+    "hooks": [
+      {
+        "do": [
+          {
+            "amount": {
+              "args": [
+                3,
+                {
+                  "f": "stacks",
+                  "of": "owner",
+                  "status": "zealotry"
+                }
+              ],
+              "f": "mul"
+            },
+            "op": "damage",
+            "target": "randomEnemy"
+          }
+        ],
+        "if": {
+          "p": "eventTargetIsOwner"
+        },
+        "on": "hpLost"
+      }
+    ],
+    "icon": "⚡",
+    "id": "zealotry",
+    "stackMode": "add"
+  }
+}

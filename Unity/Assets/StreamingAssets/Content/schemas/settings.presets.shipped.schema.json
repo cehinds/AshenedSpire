@@ -1,0 +1,25 @@
+{
+  "$id": "settings/presets/shipped.json",
+  "type": "object",
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "files": {
+      "type": "object",
+      "properties": {}
+    },
+    "id": {
+      "type": "string"
+    },
+    "labelKey": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "description",
+    "files",
+    "id",
+    "labelKey"
+  ]
+}

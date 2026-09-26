@@ -1,0 +1,104 @@
+{
+  "$id": "catalog/equipmentSlots.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "blurb": {
+        "type": "string"
+      },
+      "hand": {
+        "type": "string",
+        "enum": [
+          "",
+          "left",
+          "right"
+        ]
+      },
+      "id": {
+        "type": "string",
+        "enum": [
+          "armor",
+          "feet",
+          "hands",
+          "head",
+          "leftHand",
+          "rightHand",
+          "talisman"
+        ]
+      },
+      "kinds": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "armor",
+            "feet",
+            "hands",
+            "head",
+            "shield",
+            "staff",
+            "talisman",
+            "weapon"
+          ]
+        }
+      },
+      "label": {
+        "type": "string"
+      },
+      "order": {
+        "type": "integer"
+      },
+      "positionCode": {
+        "type": "string",
+        "enum": [
+          "BODY",
+          "FEET",
+          "HANDS",
+          "HEAD",
+          "MH{n}",
+          "OH{n}",
+          "TAL{n}"
+        ]
+      },
+      "positionLabel": {
+        "type": "string",
+        "enum": [
+          "Armour Slot {n}",
+          "Feet Slot {n}",
+          "Hands Slot {n}",
+          "Head Slot {n}",
+          "Main Hand Slot {n}",
+          "Off Hand Slot {n}",
+          "Talisman Slot {n}"
+        ]
+      },
+      "sets": {
+        "type": "integer"
+      },
+      "storage": {
+        "type": "boolean"
+      },
+      "swap": {
+        "type": "string",
+        "enum": [
+          "combat",
+          "outOfCombat"
+        ]
+      }
+    },
+    "required": [
+      "blurb",
+      "hand",
+      "id",
+      "kinds",
+      "label",
+      "order",
+      "positionCode",
+      "positionLabel",
+      "sets",
+      "storage",
+      "swap"
+    ]
+  }
+}

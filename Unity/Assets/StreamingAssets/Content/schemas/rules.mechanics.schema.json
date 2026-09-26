@@ -1,0 +1,192 @@
+{
+  "$id": "rules/mechanics.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "deckComposition": {
+      "type": "object",
+      "properties": {
+        "uniquePreference": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "uniquePreference"
+      ]
+    },
+    "dodgeRoll": {
+      "type": "object",
+      "properties": {
+        "baseDifficulty": {
+          "type": "integer"
+        },
+        "die": {
+          "type": "integer"
+        },
+        "temporaryGuardBase": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "baseDifficulty",
+        "die",
+        "temporaryGuardBase"
+      ]
+    },
+    "mana": {
+      "type": "object",
+      "properties": {
+        "intelligenceWeight": {
+          "type": "number"
+        },
+        "naturalRecoveryPerTurn": {
+          "type": "integer"
+        },
+        "restSpotRefill": {
+          "type": "string"
+        },
+        "wisdomWeight": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "intelligenceWeight",
+        "naturalRecoveryPerTurn",
+        "restSpotRefill",
+        "wisdomWeight"
+      ]
+    },
+    "sourcePrecedence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "CLASS",
+          "EQUIPMENT",
+          "EXPLICIT_CARD_EXCEPTION",
+          "PROPERTY_DEFAULT",
+          "RELIC",
+          "RUNE",
+          "SYSTEM_FALLBACK",
+          "TEMPORARY_COMBAT_RESTRICTION"
+        ]
+      }
+    },
+    "stamina": {
+      "type": "object",
+      "properties": {
+        "idleRecoveryPerTurn": {
+          "type": "integer"
+        },
+        "refundErasesSpend": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "idleRecoveryPerTurn",
+        "refundErasesSpend"
+      ]
+    },
+    "unarmedPackage": {
+      "type": "object",
+      "properties": {
+        "emptySlotWeaponArtId": {
+          "type": "string"
+        },
+        "guardCardId": {
+          "type": "string"
+        },
+        "strikeCardId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "emptySlotWeaponArtId",
+        "guardCardId",
+        "strikeCardId"
+      ]
+    },
+    "weight": {
+      "type": "object",
+      "properties": {
+        "capacityBase": {
+          "type": "integer"
+        },
+        "capacityBaseNote": {
+          "type": "string"
+        },
+        "capacityPerConstitution": {
+          "type": "integer"
+        },
+        "capacityPerStrength": {
+          "type": "integer"
+        },
+        "classes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "dodgeActionCost": {
+                "type": "integer"
+              },
+              "dodgeStaminaCost": {
+                "type": "integer"
+              },
+              "evasionModifier": {
+                "type": "integer"
+              },
+              "extraEligibleDexterityCards": {
+                "type": "integer"
+              },
+              "extraPhysicalAttacks": {
+                "type": "integer"
+              },
+              "id": {
+                "type": "string"
+              },
+              "maxLoadPercent": {
+                "type": "integer"
+              },
+              "temporaryGuardModifier": {
+                "type": "integer"
+              },
+              "termId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dodgeActionCost",
+              "dodgeStaminaCost",
+              "evasionModifier",
+              "extraEligibleDexterityCards",
+              "extraPhysicalAttacks",
+              "id",
+              "maxLoadPercent",
+              "temporaryGuardModifier",
+              "termId"
+            ]
+          }
+        }
+      },
+      "required": [
+        "capacityBase",
+        "capacityBaseNote",
+        "capacityPerConstitution",
+        "capacityPerStrength",
+        "classes"
+      ]
+    }
+  },
+  "required": [
+    "comment",
+    "deckComposition",
+    "dodgeRoll",
+    "mana",
+    "sourcePrecedence",
+    "stamina",
+    "unarmedPackage",
+    "weight"
+  ]
+}

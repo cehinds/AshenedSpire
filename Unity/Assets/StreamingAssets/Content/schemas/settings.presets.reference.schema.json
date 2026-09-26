@@ -1,0 +1,725 @@
+{
+  "$id": "settings/presets/reference.json",
+  "type": "object",
+  "properties": {
+    "default": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "string"
+    },
+    "files": {
+      "type": "object",
+      "properties": {
+        "balance/balance.json": {
+          "type": "object",
+          "properties": {
+            "combatRatings": {
+              "type": "object",
+              "properties": {
+                "breaks": {
+                  "type": "object",
+                  "properties": {
+                    "recoveryPerTurn": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "recoveryPerTurn"
+                  ]
+                },
+                "ratings": {
+                  "type": "object",
+                  "properties": {
+                    "ar": {
+                      "type": "object",
+                      "properties": {
+                        "constitution": {
+                          "type": "number"
+                        },
+                        "dexterity": {
+                          "type": "number"
+                        },
+                        "intelligence": {
+                          "type": "number"
+                        },
+                        "wisdom": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "constitution",
+                        "dexterity",
+                        "intelligence",
+                        "wisdom"
+                      ]
+                    },
+                    "dr": {
+                      "type": "object",
+                      "properties": {
+                        "constitution": {
+                          "type": "number"
+                        },
+                        "dexterity": {
+                          "type": "number"
+                        },
+                        "intelligence": {
+                          "type": "number"
+                        },
+                        "strength": {
+                          "type": "number"
+                        },
+                        "wisdom": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "constitution",
+                        "dexterity",
+                        "intelligence",
+                        "strength",
+                        "wisdom"
+                      ]
+                    },
+                    "poise": {
+                      "type": "object",
+                      "properties": {
+                        "constitution": {
+                          "type": "number"
+                        },
+                        "intelligence": {
+                          "type": "number"
+                        },
+                        "strength": {
+                          "type": "number"
+                        },
+                        "wisdom": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "constitution",
+                        "intelligence",
+                        "strength",
+                        "wisdom"
+                      ]
+                    },
+                    "pr": {
+                      "type": "object",
+                      "properties": {
+                        "constitution": {
+                          "type": "number"
+                        },
+                        "dexterity": {
+                          "type": "number"
+                        },
+                        "intelligence": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "constitution",
+                        "dexterity",
+                        "intelligence"
+                      ]
+                    },
+                    "ward": {
+                      "type": "object",
+                      "properties": {
+                        "constitution": {
+                          "type": "number"
+                        },
+                        "dexterity": {
+                          "type": "number"
+                        },
+                        "wisdom": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "constitution",
+                        "dexterity",
+                        "wisdom"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "ar",
+                    "dr",
+                    "poise",
+                    "pr",
+                    "ward"
+                  ]
+                }
+              },
+              "required": [
+                "breaks",
+                "ratings"
+              ]
+            },
+            "damage": {
+              "type": "object",
+              "properties": {
+                "defenseCards": {
+                  "type": "object",
+                  "properties": {
+                    "cardBonuses": {
+                      "type": "object",
+                      "properties": {
+                        "backstep": {
+                          "type": "integer"
+                        },
+                        "brace": {
+                          "type": "integer"
+                        },
+                        "bracingStance": {
+                          "type": "integer"
+                        },
+                        "enterBulwark": {
+                          "type": "integer"
+                        },
+                        "evasiveGuard": {
+                          "type": "integer"
+                        },
+                        "ironResolve": {
+                          "type": "integer"
+                        },
+                        "pocketSand": {
+                          "type": "integer"
+                        },
+                        "quickstep": {
+                          "type": "integer"
+                        },
+                        "technique": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "backstep",
+                        "brace",
+                        "bracingStance",
+                        "enterBulwark",
+                        "evasiveGuard",
+                        "ironResolve",
+                        "pocketSand",
+                        "quickstep",
+                        "technique"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "cardBonuses"
+                  ]
+                }
+              },
+              "required": [
+                "defenseCards"
+              ]
+            },
+            "level": {
+              "type": "object",
+              "properties": {
+                "xp": {
+                  "type": "object",
+                  "properties": {
+                    "growth": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "growth"
+                  ]
+                }
+              },
+              "required": [
+                "xp"
+              ]
+            },
+            "rewards": {
+              "type": "object",
+              "properties": {
+                "cinders": {
+                  "type": "object",
+                  "properties": {
+                    "boss": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "elite": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "normal": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "boss",
+                    "elite",
+                    "normal"
+                  ]
+                }
+              },
+              "required": [
+                "cinders"
+              ]
+            },
+            "shop": {
+              "type": "object",
+              "properties": {
+                "armamentCost": {
+                  "type": "object",
+                  "properties": {
+                    "common": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "common"
+                  ]
+                },
+                "armamentStock": {
+                  "type": "integer"
+                },
+                "cardCost": {
+                  "type": "object",
+                  "properties": {
+                    "common": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "uncommon": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "common",
+                    "uncommon"
+                  ]
+                },
+                "flaskCost": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "flaskStock": {
+                  "type": "integer"
+                },
+                "relicCost": {
+                  "type": "object",
+                  "properties": {
+                    "common": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "uncommon": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "common",
+                    "uncommon"
+                  ]
+                },
+                "weaponArtStock": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "armamentCost",
+                "armamentStock",
+                "cardCost",
+                "flaskCost",
+                "flaskStock",
+                "relicCost",
+                "weaponArtStock"
+              ]
+            },
+            "skill": {
+              "type": "object",
+              "properties": {
+                "class": {
+                  "type": "object",
+                  "properties": {
+                    "tierAt": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "xp": {
+                      "type": "object",
+                      "properties": {
+                        "base": {
+                          "type": "integer"
+                        },
+                        "growth": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "base",
+                        "growth"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "tierAt",
+                    "xp"
+                  ]
+                },
+                "draftSize": {
+                  "type": "integer"
+                },
+                "rarityUnlock": {
+                  "type": "object",
+                  "properties": {
+                    "common": {
+                      "type": "integer"
+                    },
+                    "rare": {
+                      "type": "integer"
+                    },
+                    "uncommon": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "common",
+                    "rare",
+                    "uncommon"
+                  ]
+                },
+                "xp": {
+                  "type": "object",
+                  "properties": {
+                    "base": {
+                      "type": "integer"
+                    },
+                    "growth": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "growth"
+                  ]
+                }
+              },
+              "required": [
+                "class",
+                "draftSize",
+                "rarityUnlock",
+                "xp"
+              ]
+            },
+            "smithing": {
+              "type": "object",
+              "properties": {
+                "rewardByPool": {
+                  "type": "object",
+                  "properties": {
+                    "boss": {
+                      "type": "integer"
+                    },
+                    "treasure": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "boss",
+                    "treasure"
+                  ]
+                }
+              },
+              "required": [
+                "rewardByPool"
+              ]
+            },
+            "startingCinders": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "combatRatings",
+            "damage",
+            "level",
+            "rewards",
+            "shop",
+            "skill",
+            "smithing",
+            "startingCinders"
+          ]
+        },
+        "catalog/classes.json": {
+          "type": "object",
+          "properties": {
+            "reaver": {
+              "type": "object",
+              "properties": {
+                "startingFlaskAllocation": {
+                  "type": "object",
+                  "properties": {
+                    "hp": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "hp"
+                  ]
+                }
+              },
+              "required": [
+                "startingFlaskAllocation"
+              ]
+            }
+          },
+          "required": [
+            "reaver"
+          ]
+        },
+        "rules/attributeRules.json": {
+          "type": "object",
+          "properties": {
+            "presets": {
+              "type": "object",
+              "properties": {
+                "tuned2": {
+                  "type": "object",
+                  "properties": {
+                    "herald": {
+                      "type": "object",
+                      "properties": {
+                        "constitution": {
+                          "type": "integer"
+                        },
+                        "dexterity": {
+                          "type": "integer"
+                        },
+                        "intelligence": {
+                          "type": "integer"
+                        },
+                        "strength": {
+                          "type": "integer"
+                        },
+                        "wisdom": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "constitution",
+                        "dexterity",
+                        "intelligence",
+                        "strength",
+                        "wisdom"
+                      ]
+                    },
+                    "reaver": {
+                      "type": "object",
+                      "properties": {
+                        "constitution": {
+                          "type": "integer"
+                        },
+                        "intelligence": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "constitution",
+                        "intelligence"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "herald",
+                    "reaver"
+                  ]
+                }
+              },
+              "required": [
+                "tuned2"
+              ]
+            }
+          },
+          "required": [
+            "presets"
+          ]
+        },
+        "rules/handRules.json": {
+          "type": "object",
+          "properties": {
+            "openingWeighted": {
+              "type": "object",
+              "properties": {
+                "base": {
+                  "type": "integer"
+                },
+                "max": {
+                  "type": "integer"
+                },
+                "min": {
+                  "type": "integer"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "perLevel": {
+                  "type": "number"
+                },
+                "rounding": {
+                  "type": "string"
+                },
+                "terms": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "attr": {
+                        "type": "string"
+                      },
+                      "weight": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "attr",
+                      "weight"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "base",
+                "max",
+                "min",
+                "note",
+                "perLevel",
+                "rounding",
+                "terms"
+              ]
+            }
+          },
+          "required": [
+            "openingWeighted"
+          ]
+        }
+      },
+      "required": [
+        "balance/balance.json",
+        "catalog/classes.json",
+        "rules/attributeRules.json",
+        "rules/handRules.json"
+      ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "labelKey": {
+      "type": "string"
+    },
+    "playerSettings": {
+      "type": "object",
+      "properties": {
+        "cardWidth_focus": {
+          "type": "integer"
+        },
+        "cardWidth_glance": {
+          "type": "integer"
+        },
+        "holdConfirm": {
+          "type": "string"
+        },
+        "rewardCollect": {
+          "type": "string"
+        },
+        "showPlayedCard": {
+          "type": "boolean"
+        },
+        "shrineMultiUse": {
+          "type": "boolean"
+        },
+        "useRestorativeFlasksOutsideCombat": {
+          "type": "boolean"
+        },
+        "walkedFade": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cardWidth_focus",
+        "cardWidth_glance",
+        "holdConfirm",
+        "rewardCollect",
+        "showPlayedCard",
+        "shrineMultiUse",
+        "useRestorativeFlasksOutsideCombat",
+        "walkedFade"
+      ]
+    },
+    "source": {
+      "type": "string"
+    },
+    "unresolved": {
+      "type": "object",
+      "properties": {
+        "gameConfig.prologue.presentation.captionFixedHeight": {
+          "type": "boolean"
+        },
+        "gameConfig.prologue.presentation.captionHeightVh": {
+          "type": "integer"
+        },
+        "gameConfig.prologue.presentation.editorGrid": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "gameConfig.prologue.presentation.captionFixedHeight",
+        "gameConfig.prologue.presentation.captionHeightVh",
+        "gameConfig.prologue.presentation.editorGrid"
+      ]
+    },
+    "widenedRanges": {
+      "type": "object",
+      "properties": {
+        "gameConfig.balance.startingCinders": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "gameConfig.balance.startingCinders"
+      ]
+    }
+  },
+  "required": [
+    "default",
+    "description",
+    "files",
+    "id",
+    "labelKey",
+    "playerSettings",
+    "source",
+    "unresolved",
+    "widenedRanges"
+  ]
+}

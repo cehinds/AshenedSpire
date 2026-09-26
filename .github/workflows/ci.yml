@@ -36,6 +36,10 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: node Tools/ci/check-docs.mjs
+      - name: render every mermaid block
+        run: |
+          echo '{"args":["--no-sandbox"]}' > /tmp/puppeteer.json
+          for f in Logs/mermaid/*.mmd; do npx -y @mermaid-js/mermaid-cli@11 -p /tmp/puppeteer.json -i "$f" -o "${f%.mmd}.svg" >/dev/null || { echo "::error file=$f::mermaid render failed"; exit 1; }; done
 
   content:
     runs-on: ubuntu-latest

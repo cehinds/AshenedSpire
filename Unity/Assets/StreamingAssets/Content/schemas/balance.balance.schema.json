@@ -1,0 +1,199 @@
+{
+  "$id": "balance/balance.json",
+  "type": "object",
+  "additionalProperties": {
+    "type": [
+      "array",
+      "boolean",
+      "integer",
+      "object"
+    ],
+    "additionalProperties": {
+      "type": [
+        "array",
+        "boolean",
+        "null",
+        "number",
+        "object",
+        "string"
+      ],
+      "additionalProperties": {
+        "type": [
+          "array",
+          "boolean",
+          "number",
+          "object",
+          "string"
+        ],
+        "additionalProperties": {
+          "type": [
+            "array",
+            "boolean",
+            "number",
+            "object",
+            "string"
+          ],
+          "properties": {
+            "accepts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "chance": {
+              "type": "integer"
+            },
+            "common": {
+              "type": "integer"
+            },
+            "fallback": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "properties": {
+                "unarmedProfile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "unarmedProfile"
+              ]
+            },
+            "floorPx": {
+              "type": "integer"
+            },
+            "grow": {
+              "type": "integer"
+            },
+            "idealCh": {
+              "type": "number"
+            },
+            "maxPx": {
+              "type": "integer"
+            },
+            "minPx": {
+              "type": "integer"
+            },
+            "priority": {
+              "type": "integer"
+            },
+            "rare": {
+              "type": "integer"
+            },
+            "services": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "extract",
+                  "install",
+                  "upgrade"
+                ]
+              }
+            },
+            "strikeBias": {
+              "type": "number"
+            },
+            "uncommon": {
+              "type": "integer"
+            }
+          },
+          "items": {}
+        },
+        "items": {
+          "type": [
+            "number",
+            "object",
+            "string"
+          ],
+          "properties": {
+            "slot": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "slot"
+          ]
+        }
+      },
+      "items": {
+        "type": [
+          "integer",
+          "object",
+          "string"
+        ],
+        "properties": {
+          "base": {
+            "type": "string"
+          },
+          "cost": {
+            "type": "integer"
+          },
+          "figure": {
+            "type": "boolean"
+          },
+          "gear": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string",
+            "enum": [
+              "cards",
+              "category",
+              "flat",
+              "gear",
+              "grid",
+              "hybrid",
+              "rack"
+            ]
+          },
+          "label": {
+            "type": "string"
+          },
+          "op": {
+            "type": "string"
+          },
+          "slots": {
+            "type": "string"
+          },
+          "stacks": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tag": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "items": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "id",
+        "kind",
+        "source"
+      ]
+    }
+  }
+}
