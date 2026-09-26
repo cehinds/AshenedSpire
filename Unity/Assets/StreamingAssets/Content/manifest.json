@@ -1,5 +1,5 @@
 {
-  "contentHash": "daabb0c4b44b59b51e7566f0b07629615433e2ef9df8742e659b899a3e2ffd6e",
+  "contentHash": "6d8798cd2f5c195cfe59c2ad47b202aaba02958c790c92f334c16adb528adddd",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -258,6 +258,11 @@
       "generated": true,
       "sha256": "6063a5fcfc99528b5ff5edebb1d661afcb4b612ce212f3cc2ccae336dbffa64e"
     },
+    "rules/effectOps.json": {
+      "bytes": 726,
+      "generated": false,
+      "sha256": "18674f4b16a26582bb6385db5adf410532555d581dc6d2c8056c438522238926"
+    },
     "rules/handRules.json": {
       "bytes": 671,
       "generated": true,
@@ -492,6 +497,11 @@
       "bytes": 9301,
       "generated": false,
       "sha256": "cf381c7f16b8fc5024525a55c6affc6b0c3a3c83c44dac3f2d28da4f6c70f55a"
+    },
+    "schemas/rules.effectOps.schema.json": {
+      "bytes": 264,
+      "generated": false,
+      "sha256": "be7812ac7ad45d10676a52f1f2e60e6a31128f0b23403a9798aa4ccef7472c73"
     },
     "schemas/rules.handRules.schema.json": {
       "bytes": 2625,

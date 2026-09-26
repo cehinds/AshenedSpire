@@ -7,7 +7,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 UNITY_EXE="${UNITY_EXE:-/d/Unity/6000.6.0f1/Editor/Unity.exe}"
 LOCAL_APPDATA="${LOCALAPPDATA:-$HOME/AppData/Local}"
-export UPM_CACHE_ROOT="${UPM_CACHE_ROOT:-$(cygpath -m "$LOCAL_APPDATA" 2>/dev/null || echo "$LOCAL_APPDATA")/Unity/cache}"
+export UPM_CACHE_ROOT="${UPM_CACHE_ROOT:-$(cygpath -m "$ROOT/.cache/upm" 2>/dev/null || echo "$ROOT/.cache/upm")}"
 NAME="${1:?log name required}"; shift
 mkdir -p "$ROOT/Logs"
 LOG="$ROOT/Logs/$NAME.log"

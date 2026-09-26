@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.0.3.0] — 2026-09-26
+
+Stories: us-0.9
+
+- Codegen of C# keys and enums; assembly skeleton; shared test harness (us-0.9)
+
 ## [0.0.2.0] — 2026-09-26
 
 Stories: us-0.3

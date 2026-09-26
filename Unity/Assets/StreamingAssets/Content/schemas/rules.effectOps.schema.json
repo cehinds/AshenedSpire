@@ -1,0 +1,19 @@
+{
+  "$id": "rules/effectOps.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "ops": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "comment",
+    "ops"
+  ]
+}

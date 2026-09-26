@@ -4,6 +4,17 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 ## Phase F0 Foundation (in progress)
 
+### us-0.9: generated key constants (2026-09-26)
+
+- **`Tools/codegen.mjs`** (Node, D-028) reads `Tools/codegen.config.json` and the content, and writes `Unity/Assets/Game/Generated/*.g.cs`:
+  - `EffectOp` (25 ops from `rules/effectOps.json`), with a wire-name `Parse`/`ToWire`;
+  - `SchemaKeys`, `SchemaTypes`, `ManifestKeys`, `ContentLayout`, `ValidationRules`;
+  - `ContentFiles`, one constant per manifest path.
+  - It is idempotent. `--check` runs in the CI content job.
+- **Assembly skeleton:** `Ashen.Generated`, `Domain` and `Content` (engine-free, with precompiled Newtonsoft), `Application` (namespace `Ashen.App`, D-027), `Platform`, `Presentation`, `EditorTools`, plus the EditMode and PlayMode test assemblies.
+- **Shared tests** (D-032) in `Unity/Assets/Tests/EditMode/Shared`, run through `Tests/Domain.Tests` (net8, NUnit) and through Unity EditMode. `CodegenTests` passes on both runners: dotnet 2/2, Unity EditMode passed.
+- **Environment:** **C: is full.** I deleted only my own temp extraction (205 MB). The NuGet and UPM caches now live in the repo's gitignored `.cache/` on D: (D-031), which has 4.9 GB free. **The owner needs to free space on C:.**
+
 ### us-0.3: content in JSON with schemas (2026-09-26)
 
 - **Export** (`Tools/export-content.mjs`, read-only against `D:\repos\AshenSpire`) produces:

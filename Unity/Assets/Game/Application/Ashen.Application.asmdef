@@ -1,0 +1,9 @@
+{
+  "name": "Ashen.Application",
+  "rootNamespace": "Ashen.App",
+  "references": ["Ashen.Generated", "Ashen.Domain", "Ashen.Content"],
+  "noEngineReferences": true,
+  "overrideReferences": true,
+  "precompiledReferences": ["Newtonsoft.Json.dll"],
+  "autoReferenced": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Ashen.Generated",
+  "rootNamespace": "Ashen.Generated",
+  "references": [],
+  "noEngineReferences": true,
+  "autoReferenced": true
+}
