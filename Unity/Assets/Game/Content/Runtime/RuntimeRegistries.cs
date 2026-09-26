@@ -24,13 +24,18 @@ namespace Ashen.Content
             RegistryKeys.Enemies, RegistryKeys.Encounters, RegistryKeys.Flasks, RegistryKeys.Classes, RegistryKeys.Events,
         };
 
+        /// <summary>The further tables the combat engine reads (attributes by id, property rules by tag).</summary>
+        public static readonly IReadOnlyList<string> CombatTableNames = new[] { RegistryKeys.Attributes, RegistryKeys.PropertyRules };
+
         private readonly Dictionary<string, JObject> _tables;
+        private readonly JArray _classTree;
         private readonly JObject _equipment;
         private readonly JObject _balance;
 
-        private RuntimeRegistries(Dictionary<string, JObject> tables, JObject equipment, JObject balance)
+        private RuntimeRegistries(Dictionary<string, JObject> tables, JArray classTree, JObject equipment, JObject balance)
         {
             _tables = tables;
+            _classTree = classTree;
             _equipment = equipment;
             _balance = balance;
         }
@@ -46,6 +51,9 @@ namespace Ashen.Content
 
             var tables = new Dictionary<string, JObject>(StringComparer.Ordinal);
             foreach (var name in TableNames) tables[name] = MakeRegistry(name, Collection(name));
+            tables[RegistryKeys.Attributes] = MakeRegistry(RegistryKeys.Attributes, Collection(RegistryKeys.Attributes));
+            tables[RegistryKeys.PropertyRules] = MakeRegistry(RegistryKeys.PropertyRules, Collection(RegistryKeys.PropertyRules), CombatKeys.Tag);
+            var classTree = (JArray)Collection(RegistryKeys.ClassTree).DeepClone();
 
             var equipment = JsValues.Spread(bundle[RegistryKeys.Equipment] as JObject);
             foreach (var kv in stamped) WriteEquipment(equipment, kv.Key, kv.Value);
@@ -61,7 +69,7 @@ namespace Ashen.Content
             else equipment.Remove(RegistryKeys.CardTagging);
 
             var balance = JsValues.Spread(bundle[RegistryKeys.Balance] as JObject);
-            return new RuntimeRegistries(tables, equipment, balance);
+            return new RuntimeRegistries(tables, classTree, equipment, balance);
         }
 
         /// <summary>An id-keyed registry table ("cards", "relics", ...), or null for a name that is not one.</summary>
@@ -70,16 +78,35 @@ namespace Ashen.Content
         /// <summary>The equipment tables (armaments, armour, slots, profiles, ... with tags stamped, plus cardTagging).</summary>
         public JObject Equipment => (JObject)_equipment.DeepClone();
 
+        /// <summary>The class tree rows (classId, nodeId, ...) in authoring order.</summary>
+        public JArray ClassTree => (JArray)_classTree.DeepClone();
+
+        /// <summary>
+        /// The combat engine's view of these registries (D-041): every table it reads as an ordered registry, plus the
+        /// class tree, equipment and balance, with the framework mechanics and the engine rules.
+        /// </summary>
+        public Ashen.Domain.Combat.CombatData ToCombatData(JObject mechanics, JObject engine)
+        {
+            var tables = new Dictionary<string, Ashen.Domain.Combat.Registry>(StringComparer.Ordinal);
+            foreach (var name in Ashen.Domain.Combat.CombatData.TableNames)
+            {
+                if (!_tables.TryGetValue(name, out var table)) continue;
+                var key = name == RegistryKeys.PropertyRules ? CombatKeys.Tag : RegistryKeys.Id;
+                tables[name] = new Ashen.Domain.Combat.Registry(name, table.Properties().Select(p => p.Value.DeepClone()).ToList(), key);
+            }
+            return new Ashen.Domain.Combat.CombatData(tables, ClassTree, Equipment, Balance, mechanics, engine);
+        }
+
         /// <summary>The balance constants, with balance.damage's statusMultipliers and cardBonuses materialized.</summary>
         public JObject Balance => (JObject)_balance.DeepClone();
 
         /// <summary>The shipped makeRegistry: every def has a string id, unique within its table.</summary>
-        private static JObject MakeRegistry(string name, JArray defs)
+        private static JObject MakeRegistry(string name, JArray defs, string key = RegistryKeys.Id)
         {
             var byId = new JObject();
             foreach (var def in defs)
             {
-                var id = JsValues.Str(JsValues.Get(def, RegistryKeys.Id));
+                var id = JsValues.Str(JsValues.Get(def, key));
                 if (id == null) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, RegistryMessages.MissingId, name));
                 if (byId.ContainsKey(id)) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, RegistryMessages.DuplicateId, name, id));
                 byId[id] = def.DeepClone();
