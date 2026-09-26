@@ -1,0 +1,10 @@
+{
+  "comment": "W-07 targeting: an armed card outlines the legal targets with ghost HP previews.",
+  "screen": "combat",
+  "seed": 20260926,
+  "state": "targeting",
+  "settleMs": 400,
+  "skipSizes": [
+    "1920x1080"
+  ]
+}

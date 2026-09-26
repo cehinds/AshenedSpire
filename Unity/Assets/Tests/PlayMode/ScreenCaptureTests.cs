@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Ashen.App.Combat;
+using Ashen.App.Run;
 using Ashen.App.Saves;
 using Ashen.App.Ui;
 using Ashen.Content;
+using Ashen.Domain.Combat;
 using Ashen.Generated;
 using Ashen.Platform;
 using Ashen.Presentation.UI;
@@ -72,8 +75,10 @@ namespace Ashen.Tests.Play
                 var name = Path.GetFileNameWithoutExtension(file);
                 if (!string.IsNullOrEmpty(only) && !only.Split(',').Contains(name)) continue;
                 var fixture = JObject.Parse(File.ReadAllText(file));
+                var skip = new HashSet<string>((fixture["skipSizes"] as JArray ?? new JArray()).Select(t => (string)t));
                 foreach (var size in sizes)
                 {
+                    if (skip.Contains(size.x + "x" + size.y)) continue;
                     var path = Path.Combine(outDir, name + "_" + size.x + "x" + size.y + ".png");
                     yield return CaptureOne(fixture, size.x, size.y, path);
                     written.Add(path);
@@ -104,6 +109,8 @@ namespace Ashen.Tests.Play
             for (var i = 0; i < SettleFrames; i++) yield return null;
             AfterShow(host, fixture);
             for (var i = 0; i < SettleFrames; i++) yield return null;
+            var settleMs = (int?)fixture["settleMs"] ?? 0;
+            if (settleMs > 0) yield return new WaitForSecondsRealtime(settleMs / 1000f);
 
             var previous = RenderTexture.active;
             RenderTexture.active = rt;
@@ -160,14 +167,83 @@ namespace Ashen.Tests.Play
                 case ScreenIds.KitGallery:
                     nav.Go(ScreenIds.KitGallery, KitArgs(host.Context, fixture));
                     break;
+                case ScreenIds.Creation:
+                    nav.Go(ScreenIds.Title, new TitleArgs { Gate = false });
+                    nav.Go(ScreenIds.Creation, new CreationArgs { SlotIndex = (int?)fixture["slot"] ?? 1 });
+                    break;
+                case ScreenIds.Combat:
+                case ScreenIds.Pause:
+                    nav.Go(ScreenIds.Combat, new CombatArgs { Session = Fight(host.Context, source, fixture) }, true);
+                    break;
                 default:
                     nav.Go(screen);
                     break;
             }
         }
 
+        /// <summary>A fight for a combat fixture: the run content (with the fixture's layer patches), a new run in slot 1, the encounter (the F1 rule unless named), then bot commands.</summary>
+        private static RunSession Fight(UiContext ui, IContentSource source, JObject fixture)
+        {
+            var patches = (fixture["patches"] as JArray)?.OfType<JObject>().ToList();
+            var content = RunContent.Load(source, null, patches);
+            var session = RunSession.New(content, ui.Saves, 1, (uint)((long?)fixture["seed"] ?? 1L), (string)fixture["classId"] ?? content.DefaultClass(), ui.Data.Strings.Get(content.Flow.NameKey));
+            session.StartEncounter((string)fixture["encounter"]);
+            var commands = (int?)fixture["commands"] ?? 0;
+            for (var i = 0; i < commands && !session.Combat.IsOver; i++) session.Execute(NextCommand(session.Combat.State));
+            if ((bool?)fixture["intentVariety"] == true)
+            {
+                // End turns (the enemies act and roll new intents) until two intent kinds show, then land one play.
+                for (var i = 0; i < 12 && !session.Combat.IsOver; i++)
+                {
+                    if (CombatViewModel.Build(session.Combat.State).Enemies.Where(e => e.Alive && e.Intent != null).Select(e => e.Intent.Kind).Distinct().Count() > 1) break;
+                    var plan = HandRules.Plan(session.Combat.State);
+                    session.Execute(CombatCommand.EndTurn(plan.Cards.Take((int)plan.Minimum).Select(c => c.Value<string>("instanceId"))));
+                }
+                var play = CombatViewModel.Build(session.Combat.State).Hand.FirstOrDefault(c => c.Playable && c.NeedsTarget);
+                if (play != null && !session.Combat.IsOver) session.Execute(CombatCommand.PlayCard(play.InstanceId, play.Targets.FirstOrDefault()));
+            }
+            if ((bool?)fixture["playUntilStuck"] == true)
+                for (var i = 0; i < 20; i++)
+                {
+                    var card = CombatViewModel.Build(session.Combat.State).Hand.FirstOrDefault(c => c.Playable);
+                    if (card == null) break;
+                    session.Execute(CombatCommand.PlayCard(card.InstanceId, card.Targets.FirstOrDefault()));
+                }
+            if ((bool?)fixture["finish"] == true)
+                for (var i = 0; i < 400 && !session.Combat.IsOver; i++) session.Execute(NextCommand(session.Combat.State));
+            ui.Session = session;
+            return session;
+        }
+
+        private static CombatCommand NextCommand(CombatState state)
+        {
+            var card = CombatViewModel.Build(state).Hand.FirstOrDefault(c => c.Playable);
+            if (card != null) return CombatCommand.PlayCard(card.InstanceId, card.Targets.FirstOrDefault());
+            var plan = HandRules.Plan(state);
+            return CombatCommand.EndTurn(plan.Cards.Take((int)plan.Minimum).Select(c => c.Value<string>("instanceId")));
+        }
+
         private static void AfterShow(UiHost host, JObject fixture)
         {
+            if (host.Navigator.Top?.View is CombatScreen combat)
+            {
+                switch ((string)fixture["state"])
+                {
+                    case "targeting":
+                        combat.ArmForReview(combat.View.Hand.FindIndex(c => c.Playable && c.NeedsTarget));
+                        break;
+                    case "discard":
+                        combat.DiscardForReview((int?)fixture["chosen"] ?? 1);
+                        break;
+                    case "refusal":
+                        combat.RefuseForReview(0);
+                        break;
+                    case "flasks":
+                        combat.FlasksForReview();
+                        break;
+                }
+                if ((string)fixture["screen"] == ScreenIds.Pause) host.Navigator.OpenModal(ScreenIds.Pause, new PauseArgs { Session = combat.Session });
+            }
             if (!(fixture["confirm"] is JObject confirm)) return;
             var nav = host.Navigator;
             var request = new ConfirmRequest { ConfirmId = (string)confirm["id"] };
