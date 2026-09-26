@@ -24,7 +24,7 @@ This file is normative for the implementation session ([09 §0 rule 3](09-UNITY-
 
 | Part | Bumps when… | Resets |
 |---|---|---|
-| **E**: epic release | an epic release (a build phase F0–F6 in 09 §8) is complete. The bump is the last commit on `dev`, and that commit is then promoted `dev → test → main` | F, S, P → 0 |
+| **E**: epic release | **only when the owner declares a release** (owner ruling, 2026-09-26: nothing is 1.x yet). `Tools/version.mjs` refuses `bump epic` unless `ASHEN_OWNER_RELEASE=1` is set. Completing a build phase (F0–F6) is a **promotion** `dev → test → main` with the current version, not an epic bump | F, S, P → 0 |
 | **F**: feature | a feature lane merges into `dev` with its **final** story, completing the feature | S, P → 0 |
 | **S**: user story | a feature lane merges into `dev` carrying one or more **newly completed stories**. S increases by the number of stories landed | P → 0 |
 | **P**: patch | a `fix/*` merge, or a non-feature change (docs, CI, tooling) lands on `dev` | — |
@@ -39,7 +39,9 @@ Worked example:
 0.1.0.0   feature/foundation/main → dev, final story: the feature is complete
 0.1.1.0   feature/boot-title/main → dev with us-1.1 done
 …
-1.0.0.0   epic release F0 complete → bump on dev → promoted to test → main, tagged v1.0.0.0
+0.1.1.1   phase F0 complete → promoted dev → test → main (no version change), tagged v0.1.1.1
+…
+1.0.0.0   only when the owner declares the first release
 ```
 
 The version is **monotonic and single-writer**:
@@ -64,7 +66,7 @@ Rules for `check`:
 |---|---|
 | `feature/*/main → dev` | `story` or `feature` |
 | `fix/*` or chore → `dev` | `patch` |
-| Epic release commit on `dev` | `epic` |
+| Owner-declared release commit on `dev` | `epic` (requires `ASHEN_OWNER_RELEASE=1`) |
 | `dev → test` and `test → main` | **none**: versions must be equal |
 
 ## 3. CI — at most 9 jobs (hard cap 20), all concurrent
@@ -111,7 +113,7 @@ The 08 §12 enforcement tests map onto suites 5 and 6.
 
 ## 5. Promotion checklist (dev → test → main)
 
-1. Every feature in the epic release has merged into `dev`, and the `epic` bump commit is on `dev`.
+1. Every feature in the phase has merged into `dev`. (An `epic` bump happens only if the owner declared a release.)
 2. CI is green on `dev`. Then `git checkout test && git merge --no-ff dev` and push. CI runs with `bot` at 200 seeds and `build-windows`.
 3. CI is green on `test`. Then `git checkout main && git merge --no-ff test`, tag `v<E.F.S.P>`, and push the tag.
 4. Record the release in `CHANGELOG.md` and `docs/BUILD-LOG.md`. **Do not claim owner approval.** A promotion is a process step, not a sign-off.
