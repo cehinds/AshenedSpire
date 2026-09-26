@@ -61,6 +61,7 @@
     { "out": "catalog/worldAtlas.json", "from": "extras.worldAtlas.worldAtlas" },
     { "out": "catalog/characterCreation.json", "from": "bundle.characterCreation" },
     { "out": "catalog/eventMeta.json", "from": "bundle", "pick": ["eventHistoryRequirements", "eventChoiceIds", "questChains", "eventSpeakers"] },
+    { "out": "catalog/eventChoiceRequirements.json", "from": "extras.events.eventChoiceHistoryRequirements" },
     { "out": "ui/locationPresentation.json", "from": "extras.locationPresentation.locationPresentation" },
     { "out": "ui/theme.json", "from": "extras.framework.theme" },
     { "out": "ui/terms.json", "from": "extras.framework.terms" },

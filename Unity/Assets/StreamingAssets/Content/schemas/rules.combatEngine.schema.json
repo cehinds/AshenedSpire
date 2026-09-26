@@ -263,11 +263,36 @@
             "relic:passive:poise-threshold-add",
             "relic:passive:power-cost-reduction"
           ]
+        },
+        "costTag": {
+          "type": "string"
+        },
+        "cardRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cardEffects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cardResources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
         "equipmentPoiseTag",
-        "relicPassiveTags"
+        "relicPassiveTags",
+        "costTag",
+        "cardRoles",
+        "cardEffects",
+        "cardResources"
       ]
     },
     "limits": {

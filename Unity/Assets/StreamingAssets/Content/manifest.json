@@ -1,5 +1,5 @@
 {
-  "contentHash": "b2addf9ad5b51c94430c6f0e193553479f37f2454c187644de4d829f1a488958",
+  "contentHash": "44605b05af949029e40feb6300f7a40df5cdeb5447253d0528398df24dc8e489",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -183,6 +183,11 @@
       "generated": true,
       "sha256": "d3e5c91217ea22827cc6f985f1873ca491b76fedc9591df2225ec4bc9dec8cfa"
     },
+    "catalog/eventChoiceRequirements.json": {
+      "bytes": 1352,
+      "generated": true,
+      "sha256": "b47f8ae998d5c37635313e54733da1e2c25e56be36d410ab8bef7563ff7ce4a4"
+    },
     "catalog/eventMeta.json": {
       "bytes": 4050,
       "generated": true,
@@ -269,9 +274,9 @@
       "sha256": "902b7036c88ae1194fabab4bc9072f5763e99332bb9801f1b7aa94082773e582"
     },
     "rules/combatEngine.json": {
-      "bytes": 3118,
+      "bytes": 3326,
       "generated": false,
-      "sha256": "f5914436f4e1f09d086633d7fea4bb42285975cc3b7ec88ba0507d4decb5f6f4"
+      "sha256": "e97276c7f509c822d9eea6df702b7603f9f771060c617d0a01eb791ff7bb0bf9"
     },
     "rules/combatRules.json": {
       "bytes": 2049,
@@ -337,6 +342,11 @@
       "bytes": 371,
       "generated": false,
       "sha256": "6e4cfcb8137ac4ccc96b74727b3d9380ae76f6d98a0fd6ddb5dab204056ed747"
+    },
+    "rules/shopEngine.json": {
+      "bytes": 1907,
+      "generated": false,
+      "sha256": "c503de1fb9dfafa26a8cb86f28d5319467ce313ef397f1842752a07f89f90245"
     },
     "rules/stringKeys.json": {
       "bytes": 3664,
@@ -493,6 +503,11 @@
       "generated": false,
       "sha256": "3bfbbe99b2631d34a98f7495c9bf07a7d845c402f56a93131c35158e180679f7"
     },
+    "schemas/catalog.eventChoiceRequirements.schema.json": {
+      "bytes": 1450,
+      "generated": false,
+      "sha256": "026a92330dc0251a32aa8811239d362048c13824136fd83ed2c474470f3899de"
+    },
     "schemas/catalog.eventMeta.schema.json": {
       "bytes": 4810,
       "generated": false,
@@ -579,9 +594,9 @@
       "sha256": "91c0dccf147ff515759b763316fe696f9a37bc2a7a4e801203fcd60a5d573173"
     },
     "schemas/rules.combatEngine.schema.json": {
-      "bytes": 8858,
+      "bytes": 9380,
       "generated": false,
-      "sha256": "db9c06bcaeb795143cd9a4acfcde7c0c0ad873da0f46eb353d0152fe3e884c00"
+      "sha256": "c0f905d954b9fb40c99dc9b69e43037a498f0c002438ec50ebe9dbe793abf132"
     },
     "schemas/rules.combatRules.schema.json": {
       "bytes": 9025,
@@ -648,6 +663,11 @@
       "generated": false,
       "sha256": "273835d8303750290f81712ea1399de424a8fb124c74babe2b74f77eb999ebc3"
     },
+    "schemas/rules.shopEngine.schema.json": {
+      "bytes": 4781,
+      "generated": false,
+      "sha256": "4fc74399eece51428307b96f0522687a009e9857d6092bd662fb71730c39595e"
+    },
     "schemas/rules.stringKeys.schema.json": {
       "bytes": 14917,
       "generated": false,
@@ -682,6 +702,11 @@
       "bytes": 1894,
       "generated": false,
       "sha256": "dc7d86b346eab76cefb68dad84092c7cd96feb06a7a268d62122320bab64ed81"
+    },
+    "schemas/strings.shop.en.schema.json": {
+      "bytes": 2294,
+      "generated": false,
+      "sha256": "bd950a8d431e81fe48845a1a7cee643c2f2dbfea9116be709418912ca1aac9b2"
     },
     "schemas/tags.familyNodes.schema.json": {
       "bytes": 316,
@@ -812,6 +837,11 @@
       "bytes": 204265,
       "generated": true,
       "sha256": "84d0bea47b859fddc18177c3068231ec3e1bd73d07686c6c11c0d5452bee32f7"
+    },
+    "strings/shop.en.json": {
+      "bytes": 1583,
+      "generated": false,
+      "sha256": "9d03cf27e245a8bc91d98e3a1678b6fb443f89fc6502c666441892881065ca06"
     },
     "tags/familyNodes.json": {
       "bytes": 7187,

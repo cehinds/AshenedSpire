@@ -225,12 +225,12 @@ namespace Ashen.Domain.Run
             foreach (var w in desired) if (!present.Contains(w.Str(K.InstanceId) ?? V.Undefined)) deck.Add(w);
         }
 
-        private static string PieceFamily(JObject piece) => piece != null && piece.Str(K.Kind) == V.Armor ? V.ArmourKind : V.ArmamentRefPrefix;
+        internal static string PieceFamily(JObject piece) => piece != null && piece.Str(K.Kind) == V.Armor ? V.ArmourKind : V.ArmamentRefPrefix;
 
         private static string MountKey(params string[] parts) => string.Join(V.KeySeparator, parts);
 
         /// <summary>boundMountInstances: the bound table's cards for one piece, copies numbered.</summary>
-        private static List<JObject> BoundMountInstances(RunData d, JObject settings, JObject piece)
+        internal static List<JObject> BoundMountInstances(RunData d, JObject settings, JObject piece)
         {
             var family = PieceFamily(piece);
             var owner = Combat.Equipment.PieceItemRef(piece);
@@ -248,7 +248,7 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>packageGrantInstances: a package's grantedCards as item-owned instances.</summary>
-        private static List<JObject> PackageGrantInstances(WeaponCardPackage pkg, JToken weaponSource)
+        internal static List<JObject> PackageGrantInstances(WeaponCardPackage pkg, JToken weaponSource)
         {
             var out_ = new List<JObject>();
             foreach (var grant in pkg.GrantedCards)
@@ -259,7 +259,7 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>weaponArtInstance: one authored weapon art as an item-owned instance.</summary>
-        private static JObject WeaponArtInstance(string weaponId, string artId, JToken weaponSource) =>
+        internal static JObject WeaponArtInstance(string weaponId, string artId, JToken weaponSource) =>
             Js.Obj(K.InstanceId, MountKey(RV.RoleWeaponArt, weaponId, artId), K.CardId, artId, K.Upgraded, false,
                 K.EquipmentRole, RV.RoleWeaponArt, K.GrantedBy, weaponId, K.GrantSource, weaponSource);
 

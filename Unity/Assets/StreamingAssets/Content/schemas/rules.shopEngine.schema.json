@@ -1,0 +1,222 @@
+{
+  "$id": "rules/shopEngine.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "labels": {
+      "type": "object",
+      "properties": {
+        "cardChange": {
+          "type": "string"
+        },
+        "otherPassive": {
+          "type": "string"
+        },
+        "passives": {
+          "type": "object",
+          "properties": {
+            "poiseThresholdAdd": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "poiseThresholdAdd"
+          ]
+        },
+        "poiseThreshold": {
+          "type": "string"
+        },
+        "requirement": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cardChange",
+        "otherPassive",
+        "passives",
+        "poiseThreshold",
+        "requirement"
+      ]
+    },
+    "priceMods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "mod": {
+            "type": "string"
+          },
+          "mult": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "mod",
+          "mult"
+        ]
+      }
+    },
+    "smith": {
+      "type": "object",
+      "properties": {
+        "inertServices": {
+          "type": "object",
+          "properties": {
+            "extract": {
+              "type": "object",
+              "properties": {
+                "cost": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "cost"
+              ]
+            },
+            "install": {
+              "type": "object",
+              "properties": {
+                "cost": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "cost"
+              ]
+            },
+            "offeredAt": {
+              "type": "object",
+              "properties": {
+                "shrine": {
+                  "type": "object",
+                  "properties": {
+                    "chance": {
+                      "type": "integer"
+                    },
+                    "services": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "chance",
+                    "services"
+                  ]
+                }
+              },
+              "required": [
+                "shrine"
+              ]
+            }
+          },
+          "required": [
+            "extract",
+            "install",
+            "offeredAt"
+          ]
+        },
+        "mountReceiptSchemaVersion": {
+          "type": "integer"
+        },
+        "openMountStates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "pricedServices": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "serviceKeys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "services": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "smithingSchemaVersion": {
+          "type": "integer"
+        },
+        "sourceKeys": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "inertServices",
+        "mountReceiptSchemaVersion",
+        "openMountStates",
+        "pricedServices",
+        "serviceKeys",
+        "services",
+        "smithingSchemaVersion",
+        "sourceKeys"
+      ]
+    },
+    "stock": {
+      "type": "object",
+      "properties": {
+        "cardRarities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "colorlessClass": {
+          "type": "string"
+        },
+        "defaultExtractableTag": {
+          "type": "string"
+        },
+        "defaultStorageSlots": {
+          "type": "integer"
+        },
+        "merchantNodeKind": {
+          "type": "string"
+        },
+        "priceShelves": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "relicRarities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "cardRarities",
+        "colorlessClass",
+        "defaultExtractableTag",
+        "defaultStorageSlots",
+        "merchantNodeKind",
+        "priceShelves",
+        "relicRarities"
+      ]
+    }
+  },
+  "required": [
+    "comment",
+    "labels",
+    "priceMods",
+    "smith",
+    "stock"
+  ]
+}
