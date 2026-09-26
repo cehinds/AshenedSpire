@@ -4,6 +4,28 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 ## Phase F0 Foundation (in progress)
 
+### us-16.2: procedural SFX core (2026-09-26)
+
+- **`Ashen.App.Audio.SynthRenderer`** (engine-free) renders the shipped `tone`/`noise` recipe layers to mono PCM with the shipped Web Audio shapes:
+  - tones: exponential glide, and an exponential attack of min(attackMax, dur·fraction) followed by an exponential decay;
+  - noise: filtered through high- and low-pass stages, with an exponential decay.
+- **Recipe resolution:** exact id, then family (text before `_`), then `default`, which is audible.
+- **Deterministic noise:** its own xorshift seeded from the recipe id, never a domain RNG stream.
+- **Data:**
+  - `audio/synth.json` holds the engine parameters;
+  - `audio/contexts.json` maps the 8 contexts plus `quiet` to a bed or `"silence"`, and holds generated-file slots (null today) and stingers.
+  - Generated: `SynthKeys`, `Waveforms`, `DspConstants`, `NoiseAlgorithm`.
+- **Unity:** `Ashen.Presentation.Audio.SynthClipCache` wraps the PCM in cached `AudioClip`s.
+- **Tests** (`SynthRendererTests`, 10):
+  - resolution order;
+  - every recipe renders finite, audible, bounded samples;
+  - length covers the longest layer;
+  - determinism, and a missing id is never silent;
+  - contexts map to beds or silence, and stingers resolve.
+- **Enforcement:** the number allowlist now also accepts the identities 0.0 and 1.0.
+- **Results:** dotnet 72/72 · Unity 73/73.
+- **Not yet built:** music-bed synthesis (drone, pulse, arpeggio variants) and context playback, with the F1 title and map screens; generated music tracks go in the file slots then (D-006).
+
 ### us-0.10: clear AI disclosure (2026-09-26)
 
 - **Data:** the disclosure text is in `strings/app.en.json`, a hand-written app string table (string-map schema). `about.json` holds the full and short keys, the notice keys, `showOnTitle` and `showOnFirstLaunch` (both true), the 6 modalities the text must name, and the credit sources.

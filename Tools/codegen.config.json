@@ -226,6 +226,58 @@
         "Provenance": "provenance",
         "AppStrings": "strings/app.en.json"
       }
+    },
+    {
+      "name": "SynthKeys",
+      "doc": "Keys of audio/synth.json, audio/sfx.json, audio/music.json and audio/contexts.json.",
+      "keys": {
+        "SynthFile": "audio/synth.json",
+        "SfxFile": "audio/sfx.json",
+        "MusicFile": "audio/music.json",
+        "ContextsFile": "audio/contexts.json",
+        "SampleRate": "sampleRate",
+        "Tone": "tone",
+        "Noise": "noise",
+        "Recipe": "recipe",
+        "DefaultType": "defaultType",
+        "DefaultPeak": "defaultPeak",
+        "AttackMax": "attackMax",
+        "AttackFraction": "attackFraction",
+        "FloorGain": "floorGain",
+        "MinFrequency": "minFrequency",
+        "DefaultHighPass": "defaultHighPass",
+        "DefaultLowPass": "defaultLowPass",
+        "DefaultId": "defaultId",
+        "FamilySeparator": "familySeparator",
+        "SilenceWord": "silenceWord",
+        "Recipes": "SFX_RECIPES",
+        "Kind": "kind",
+        "Type": "type",
+        "Freq": "freq",
+        "To": "to",
+        "Dur": "dur",
+        "Peak": "peak",
+        "T0": "t0",
+        "HighPass": "hp",
+        "LowPass": "lp",
+        "Contexts": "contexts",
+        "Stingers": "stingers",
+        "File": "file",
+        "Bed": "bed",
+        "Beds": "BEDS"
+      }
+    },
+    {
+      "name": "Waveforms",
+      "doc": "Oscillator and layer kinds used by synth recipes.",
+      "keys": {
+        "Sine": "sine",
+        "Square": "square",
+        "Sawtooth": "sawtooth",
+        "Triangle": "triangle",
+        "ToneKind": "tone",
+        "NoiseKind": "noise"
+      }
     }
   ],
   "contentFiles": {
@@ -270,6 +322,26 @@
         "TableSize": "256",
         "BitsPerByte": "8",
         "ByteMask": "0xFF"
+      }
+    },
+    {
+      "name": "DspConstants",
+      "type": "double",
+      "doc": "Signal-processing identities used by the synth (not tuning).",
+      "values": {
+        "Two": "2.0",
+        "Half": "0.5"
+      }
+    },
+    {
+      "name": "NoiseAlgorithm",
+      "type": "uint",
+      "doc": "xorshift32 constants for deterministic synth noise (own generator, never a domain RNG stream; PF-12).",
+      "values": {
+        "ShiftA": "13",
+        "ShiftB": "17",
+        "ShiftC": "5",
+        "Fallback": "0x9E3779B9"
       }
     }
   ],

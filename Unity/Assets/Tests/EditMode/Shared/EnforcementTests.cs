@@ -20,7 +20,7 @@ namespace Ashen.Tests
     {
         private static readonly string[] ScannedAssemblies = { "Domain", "Application", "Content", "Presentation", "Platform" };
         private static readonly string[] EngineFreeAssemblies = { "Generated", "Domain", "Application", "Content" };
-        private static readonly HashSet<string> AllowedNumbers = new HashSet<string> { "0", "1", "0u", "1u", "0m", "1m", "0L", "1L" };
+        private static readonly HashSet<string> AllowedNumbers = new HashSet<string> { "0", "1", "0u", "1u", "0m", "1m", "0L", "1L", "0.0", "1.0", "0f", "1f", "0d", "1d" };
 
         /// <summary>Layer order (docs/design/08 §2): an assembly may reference only assemblies to its left.</summary>
         private static readonly string[] LayerOrder = { "Ashen.Generated", "Ashen.Domain", "Ashen.Content", "Ashen.Application", "Ashen.Platform", "Ashen.Presentation" };

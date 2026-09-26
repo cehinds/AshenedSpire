@@ -1,5 +1,5 @@
 {
-  "contentHash": "5ce77a851e9fe4927f106c8cd02e27cb5e9ab932ec69e3bdf9b16fc3768201c7",
+  "contentHash": "40481832702a12a6548533f168009c03ce9c4ce619424f03ad4e343d1a967f08",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -53,6 +53,11 @@
       "generated": false,
       "sha256": "7b306db8a3177f91793d8911881bb6d36bd44c2d0f21b10420e159333d6a9214"
     },
+    "audio/contexts.json": {
+      "bytes": 865,
+      "generated": false,
+      "sha256": "a51d7d54ef54c0ab178856ab079290186e2fa135cf5c8bd063fc1d9202a3e8d0"
+    },
     "audio/music.json": {
       "bytes": 6136,
       "generated": true,
@@ -62,6 +67,11 @@
       "bytes": 6149,
       "generated": true,
       "sha256": "541b20d0862867083ba7a4db188a5bb98965d93ab81f427e847c5f316fe6e38d"
+    },
+    "audio/synth.json": {
+      "bytes": 560,
+      "generated": false,
+      "sha256": "a4ac76741efcbdf162af6f67e6416ea2825522c96eb8112715e0f14fc68980ff"
     },
     "balance/balance.json": {
       "bytes": 43015,
@@ -323,6 +333,11 @@
       "generated": false,
       "sha256": "57cf4bae50afa2771c9a32928074869ac3446d08f98bf2d0872ee13ffe464db2"
     },
+    "schemas/audio.contexts.schema.json": {
+      "bytes": 977,
+      "generated": false,
+      "sha256": "481dfe10da6353c99b5f7653d7f573d34424d2c06906ac892215630b2297154f"
+    },
     "schemas/audio.music.schema.json": {
       "bytes": 11107,
       "generated": false,
@@ -332,6 +347,11 @@
       "bytes": 19357,
       "generated": false,
       "sha256": "3c6fa7a5919d47b705780d51a1a8e41f988202cdc3d6a111311470c890caacc4"
+    },
+    "schemas/audio.synth.schema.json": {
+      "bytes": 1692,
+      "generated": false,
+      "sha256": "1ebff33ee82ad0f45d894dacc9e0fe4c30ff2de134417cb6a8747f5eee70b075"
     },
     "schemas/balance.balance.schema.json": {
       "bytes": 4086,
