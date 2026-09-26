@@ -1,6 +1,6 @@
 {
-  "description": "The shipped web build defaults (content 0.7.1), unmodified.",
-  "files": {},
   "id": "shipped",
-  "labelKey": "preset.shipped.name"
+  "labelKey": "preset.shipped.name",
+  "description": "The shipped web build defaults (content 0.7.1), unmodified.",
+  "files": {}
 }

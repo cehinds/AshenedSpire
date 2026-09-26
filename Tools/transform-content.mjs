@@ -15,7 +15,7 @@ const CONTENT = join(ROOT, 'Unity', 'Assets', 'StreamingAssets', 'Content');
 const CONFIG = JSON.parse(readFileSync(join(ROOT, 'Tools', 'transform.config.json'), 'utf8'));
 const CHECK = process.argv.includes('--check');
 const GENERATED_DIRS = ['catalog', 'balance', 'rules', 'tags', 'strings', 'settings/presets', 'audio', 'ui'];
-const HAND_WRITTEN = new Set(['ui/screens.json', 'ui/menus.json', 'ui/layout.json', 'ui/tokens.json', 'ui/components.json', 'audio/contexts.json', 'settings/defaults.json', 'about.json', 'rules/effectOps.json', 'rules/validation.json', 'rules/rng.json', 'rules/saves.json', 'assets/registry.json', 'strings/app.en.json', 'audio/synth.json']);
+const HAND_WRITTEN = new Set(['ui/screens.json', 'ui/menus.json', 'ui/layout.json', 'ui/tokens.json', 'ui/components.json', 'audio/contexts.json', 'settings/defaults.json', 'about.json', 'rules/effectOps.json', 'rules/validation.json', 'rules/rng.json', 'rules/saves.json', 'assets/registry.json', 'strings/app.en.json', 'audio/synth.json', 'rules/combatEngine.json']);
 
 const fail = (m) => { console.error(`transform: ${m}`); process.exit(1); };
 const readRaw = (name) => {
@@ -24,7 +24,10 @@ const readRaw = (name) => {
   return JSON.parse(readFileSync(p, 'utf8'));
 };
 
-// ---------- canonical JSON: sorted keys (ordinal), 2-space indent, LF, trailing newline ----------
+// ---------- canonical JSON: SOURCE key order, 2-space indent, LF, trailing newline ----------
+// Key order is kept exactly as the shipped bundle authored it (D-040): object order is semantic in the rules
+// (weighted enemy move picks walk `moves` in order; reward pools and RNG picks walk registry order), so sorting
+// would silently change seeded outcomes. The export is deterministic, so the rendering still is.
 function sortKeys(v) {
   if (Array.isArray(v)) return v.map(sortKeys);
   if (v && typeof v === 'object') {
@@ -34,7 +37,9 @@ function sortKeys(v) {
   }
   return v;
 }
-export const canonical = (v) => `${JSON.stringify(sortKeys(v), null, 2)}\n`;
+export const canonical = (v) => `${JSON.stringify(v, null, 2)}\n`;
+// Sorted form, for files whose key order carries no meaning and reads better sorted (string tables, manifest).
+export const sortedCanonical = (v) => `${JSON.stringify(sortKeys(v), null, 2)}\n`;
 const sha256 = (s) => createHash('sha256').update(s, 'utf8').digest('hex');
 
 function at(roots, path) {
@@ -173,7 +178,7 @@ strings['preset.reference.name'] = 'Reference (owner tuning)';
 const all = { ...base.files, ...presets };
 const manifestFiles = {};
 const rendered = {};
-for (const path of Object.keys(all).sort()) { rendered[path] = canonical(all[path]); }
+for (const path of Object.keys(all).sort()) { rendered[path] = (path.startsWith('strings/') ? sortedCanonical : canonical)(all[path]); }
 // Hand-written content files (not generated) are part of the manifest too, as are the committed schemas.
 const handWritten = new Set(HAND_WRITTEN);
 const schemaDir = join(CONTENT, 'schemas');
@@ -185,7 +190,7 @@ for (const rel of handWritten) {
 for (const path of Object.keys(rendered).sort()) manifestFiles[path] = { sha256: sha256(rendered[path]), bytes: Buffer.byteLength(rendered[path]), generated: !handWritten.has(path) };
 const contentHash = sha256(Object.keys(manifestFiles).sort().map(p => `${p}:${manifestFiles[p].sha256}`).join('\n'));
 const manifest = { schemaVersion: 1, contentVersion: CONFIG.contentVersion, contentHash, counts: base.counts, files: manifestFiles };
-rendered['manifest.json'] = canonical(manifest);
+rendered['manifest.json'] = sortedCanonical(manifest);
 
 if (CHECK) {
   const drift = [];

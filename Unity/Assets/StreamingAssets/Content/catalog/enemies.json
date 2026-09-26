@@ -1,1513 +1,536 @@
 {
-  "ashRevenant": {
-    "art": "🌋",
-    "hp": [
-      34,
-      38
-    ],
-    "id": "ashRevenant",
-    "levelProfile": {
-      "max": 16,
-      "min": 13
-    },
-    "moves": {
-      "cinderSlash": {
-        "damage": 12,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 55
-      },
-      "reform": {
-        "effects": [
-          {
-            "amount": 6,
-            "op": "heal",
-            "target": "self"
-          },
-          {
-            "amount": 6,
-            "op": "block",
-            "target": "self"
-          }
-        ],
-        "intent": "buff",
-        "maxConsecutive": 1,
-        "weight": 45
-      }
-    },
-    "poiseMax": 10,
+  "wanderingSoldier": {
+    "id": "wanderingSoldier",
     "size": "medium",
-    "tint": "var(--ember)"
-  },
-  "ashheartDragon": {
-    "art": "◆",
-    "artFaces": "left",
-    "firstMove": "obsidianClaws",
     "hp": [
-      245,
-      245
+      22,
+      26
     ],
-    "id": "ashheartDragon",
+    "poiseMax": 10,
     "levelProfile": {
-      "max": 20,
-      "min": 19
+      "min": 1,
+      "max": 4
     },
+    "arcaneExposure": {
+      "mode": "configured",
+      "threshold": 8,
+      "buildupMultiplier": 1,
+      "resetMode": "zero",
+      "overflowPolicy": "discard",
+      "lockPolicy": "whileMagicVulnerable",
+      "onBreak": {
+        "status": "magicVulnerable",
+        "value": 25,
+        "duration": 2
+      }
+    },
+    "art": "⚔",
     "moves": {
-      "ashBreath": {
-        "damage": 9,
-        "delay": {
-          "turns": 1,
-          "whileCharging": {
-            "block": 5
-          }
-        },
-        "hits": 4,
+      "slash": {
         "intent": "attack",
-        "locked": true,
-        "maxConsecutive": 1,
-        "weight": 35
+        "damage": 7,
+        "weight": 45,
+        "maxConsecutive": 2
       },
-      "heartRumble": {
+      "guard": {
+        "intent": "block",
+        "block": 6,
+        "weight": 30,
+        "maxConsecutive": 1
+      },
+      "warcry": {
+        "intent": "buff",
+        "weight": 25,
+        "maxConsecutive": 1,
         "effects": [
           {
             "op": "applyStatus",
-            "stacks": 1,
+            "target": "self",
             "status": "strength",
-            "target": "self"
+            "stacks": 2
           }
-        ],
-        "intent": "buff",
-        "maxConsecutive": 1,
-        "weight": 15
-      },
-      "obsidianClaws": {
-        "damage": 12,
-        "hits": 2,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 45
-      },
-      "tailBastion": {
-        "block": 12,
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 25
-      }
-    },
-    "phases": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": 1,
-            "status": "frail",
-            "target": "player"
-          },
-          {
-            "op": "applyStatus",
-            "stacks": 2,
-            "status": "strength",
-            "target": "self"
-          }
-        ],
-        "on": "hpBelowPct",
-        "pct": 60,
-        "unlockMoves": [
-          "ashBreath"
         ]
       }
-    ],
-    "poiseMax": 34,
-    "size": "large"
-  },
-  "bellKeeper": {
-    "art": "◆",
-    "artFaces": "left",
-    "firstMove": "bronzeToll",
-    "hp": [
-      116,
-      116
-    ],
-    "id": "bellKeeper",
-    "levelProfile": {
-      "max": 7,
-      "min": 5
-    },
-    "moves": {
-      "bronzeToll": {
-        "damage": 19,
-        "delay": {
-          "turns": 1,
-          "whileCharging": {
-            "block": 6
-          }
-        },
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 35
-      },
-      "clapperSwing": {
-        "damage": 9,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 45
-      },
-      "crackedPeal": {
-        "damage": 6,
-        "hits": 3,
-        "intent": "attack",
-        "locked": true,
-        "maxConsecutive": 1,
-        "weight": 25
-      },
-      "muffledPrayer": {
-        "block": 9,
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 20
-      }
-    },
-    "phases": [
-      {
-        "do": [],
-        "on": "hpBelowPct",
-        "pct": 45,
-        "unlockMoves": [
-          "crackedPeal"
-        ]
-      }
-    ],
-    "poiseMax": 25,
-    "size": "large"
+    }
   },
   "blightHound": {
-    "art": "🐕",
-    "artFaces": "left",
+    "id": "blightHound",
+    "size": "small",
+    "tint": "var(--rot)",
     "hp": [
       12,
       15
     ],
-    "id": "blightHound",
+    "poiseMax": 6,
     "levelProfile": {
-      "max": 3,
-      "min": 1
+      "min": 1,
+      "max": 3
     },
+    "art": "🐕",
+    "artFaces": "left",
     "moves": {
       "bite": {
-        "damage": 6,
         "intent": "attack",
+        "damage": 6,
         "weight": 60
       },
       "lunge": {
+        "intent": "attack",
         "damage": 3,
         "hits": 2,
-        "intent": "attack",
         "weight": 40
       }
-    },
-    "poiseMax": 6,
-    "size": "small",
-    "tint": "var(--rot)"
+    }
   },
-  "blightedValkyrie": {
-    "art": "🦋",
-    "firstMove": "spiralThrust",
+  "huskBrute": {
+    "id": "huskBrute",
+    "size": "medium",
     "hp": [
-      250,
-      250
+      30,
+      34
     ],
-    "id": "blightedValkyrie",
+    "poiseMax": 16,
     "levelProfile": {
-      "max": 20,
-      "min": 19
+      "min": 2,
+      "max": 5
     },
+    "art": "🪨",
     "moves": {
-      "rotWings": {
-        "block": 10,
+      "club": {
+        "intent": "attack",
+        "damage": 9,
+        "weight": 50
+      },
+      "bellow": {
+        "intent": "debuff",
+        "weight": 25,
+        "maxConsecutive": 1,
         "effects": [
           {
             "op": "applyStatus",
-            "stacks": 3,
-            "status": "crimsonBlight",
-            "target": "player"
+            "target": "player",
+            "status": "frail",
+            "stacks": 1
           }
-        ],
+        ]
+      },
+      "brace": {
         "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 20
-      },
-      "scarletDance": {
-        "damage": 5,
-        "hits": 5,
-        "intent": "attack",
-        "locked": true,
-        "weight": 35
-      },
-      "spiralThrust": {
-        "damage": 12,
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 2,
-            "status": "bleed",
-            "target": "player"
-          }
-        ],
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 35
-      },
-      "whirlwind": {
-        "damage": 4,
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 2,
-            "status": "bleed",
-            "target": "player"
-          }
-        ],
-        "hits": 5,
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 30
+        "block": 8,
+        "weight": 25,
+        "maxConsecutive": 1
       }
+    }
+  },
+  "graveWisp": {
+    "id": "graveWisp",
+    "size": "small",
+    "tint": "var(--grace)",
+    "hp": [
+      10,
+      12
+    ],
+    "poiseMax": 4,
+    "levelProfile": {
+      "min": 1,
+      "max": 4
     },
-    "phases": [
-      {
-        "do": [
+    "art": "👻",
+    "moves": {
+      "curse": {
+        "intent": "debuff",
+        "weight": 50,
+        "maxConsecutive": 2,
+        "effects": [
           {
-            "amount": 2,
-            "op": "heal",
-            "target": "self"
+            "op": "addCard",
+            "card": "dazed",
+            "pile": "draw",
+            "position": "random"
           }
-        ],
-        "if": {
-          "p": "eventSourceIsOwner"
-        },
-        "on": "damageDealt",
-        "once": false
+        ]
       },
-      {
-        "do": [
+      "drain": {
+        "intent": "attack",
+        "damage": 4,
+        "weight": 50,
+        "effects": [
           {
-            "op": "applyStatus",
-            "stacks": 3,
-            "status": "strength",
-            "target": "self"
-          },
-          {
-            "op": "applyStatus",
-            "stacks": 4,
-            "status": "crimsonBlight",
-            "target": "player"
+            "op": "heal",
+            "target": "self",
+            "amount": 4
           }
-        ],
-        "on": "hpBelowPct",
-        "pct": 50,
-        "unlockMoves": [
-          "scarletDance"
         ]
       }
-    ],
-    "poiseMax": 36,
-    "size": "large",
-    "tint": "var(--rot)"
+    }
   },
-  "briarHermit": {
-    "art": "◆",
-    "artFaces": "left",
-    "firstMove": "rootShelter",
+  "wyrmAspirant": {
+    "id": "wyrmAspirant",
+    "size": "large",
+    "tint": "var(--gold)",
     "hp": [
-      24,
-      28
+      68,
+      72
     ],
-    "id": "briarHermit",
+    "poiseMax": 24,
     "levelProfile": {
-      "max": 5,
-      "min": 2
+      "min": 4,
+      "max": 6
     },
+    "art": "🐲",
+    "firstMove": "consecrate",
     "moves": {
-      "briarCast": {
-        "damage": 5,
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 1,
-            "status": "bleed",
-            "target": "player"
-          }
-        ],
-        "intent": "attack",
-        "weight": 45
-      },
-      "rootShelter": {
-        "block": 7,
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 30
-      },
-      "sapMend": {
-        "effects": [
-          {
-            "amount": 4,
-            "op": "heal",
-            "target": "self"
-          }
-        ],
+      "consecrate": {
         "intent": "buff",
+        "weight": 10,
         "maxConsecutive": 1,
-        "weight": 25
-      }
-    },
-    "poiseMax": 9,
-    "size": "medium"
-  },
-  "chainScavenger": {
-    "art": "◆",
-    "artFaces": "left",
-    "hp": [
-      20,
-      24
-    ],
-    "id": "chainScavenger",
-    "levelProfile": {
-      "max": 5,
-      "min": 2
-    },
-    "moves": {
-      "chainSnare": {
         "effects": [
           {
             "op": "applyStatus",
-            "stacks": 1,
-            "status": "frail",
-            "target": "player"
-          }
-        ],
-        "intent": "debuff",
-        "maxConsecutive": 1,
-        "weight": 20
-      },
-      "draggingBlow": {
-        "damage": 12,
-        "delay": {
-          "turns": 1,
-          "whileCharging": {
-            "block": 3
-          }
-        },
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 20
-      },
-      "hookCast": {
-        "damage": 6,
-        "intent": "attack",
-        "weight": 60
-      }
-    },
-    "poiseMax": 8,
-    "size": "medium"
-  },
-  "charredColossus": {
-    "arcaneExposure": {
-      "mode": "immune"
-    },
-    "art": "🗿",
-    "damageResistanceBySchool": {
-      "magic": 10
-    },
-    "hp": [
-      55,
-      60
-    ],
-    "id": "charredColossus",
-    "levelProfile": {
-      "max": 18,
-      "min": 15
-    },
-    "moves": {
-      "ashCloud": {
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 2,
-            "status": "weak",
-            "target": "player"
-          }
-        ],
-        "intent": "debuff",
-        "maxConsecutive": 1,
-        "weight": 25
-      },
-      "harden": {
-        "block": 14,
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 25
-      },
-      "smash": {
-        "damage": 16,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 50
-      }
-    },
-    "poiseMax": 30,
-    "size": "large",
-    "tint": "var(--ember)"
-  },
-  "cinderMantis": {
-    "art": "◆",
-    "artFaces": "left",
-    "hp": [
-      36,
-      40
-    ],
-    "id": "cinderMantis",
-    "levelProfile": {
-      "max": 17,
-      "min": 14
-    },
-    "moves": {
-      "emberPounce": {
-        "damage": 18,
-        "delay": {
-          "turns": 1,
-          "whileCharging": {
-            "block": 2
-          }
-        },
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 30
-      },
-      "foldedBlades": {
-        "block": 8,
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 15
-      },
-      "scythePair": {
-        "damage": 5,
-        "hits": 2,
-        "intent": "attack",
-        "weight": 55
-      }
-    },
-    "poiseMax": 11,
-    "size": "medium"
-  },
-  "courtDuelist": {
-    "art": "🤺",
-    "firstMove": "enGarde",
-    "hp": [
-      90,
-      96
-    ],
-    "id": "courtDuelist",
-    "levelProfile": {
-      "max": 11,
-      "min": 10
-    },
-    "moves": {
-      "enGarde": {
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 3,
+            "target": "self",
             "status": "strength",
-            "target": "self"
+            "stacks": 3
           }
-        ],
-        "intent": "buff",
-        "maxConsecutive": 1,
-        "weight": 10
+        ]
       },
-      "flurry": {
-        "damage": 5,
-        "hits": 3,
+      "halberdSweep": {
         "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 40
-      },
-      "lunge": {
-        "damage": 14,
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 30
-      },
-      "riposte": {
-        "block": 10,
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 20
-      }
-    },
-    "poiseMax": 26,
-    "size": "large",
-    "tint": "var(--frost)"
-  },
-  "courtMarionette": {
-    "art": "🪆",
-    "hp": [
-      16,
-      18
-    ],
-    "id": "courtMarionette",
-    "levelProfile": {
-      "max": 9,
-      "min": 6
-    },
-    "moves": {
-      "blowdart": {
-        "damage": 3,
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 2,
-            "status": "crimsonBlight",
-            "target": "player"
-          }
-        ],
-        "intent": "attack",
-        "weight": 50
-      },
-      "dart": {
-        "damage": 4,
-        "hits": 2,
-        "intent": "attack",
-        "weight": 50
-      }
-    },
-    "poiseMax": 6,
-    "size": "small",
-    "tint": "var(--rot)"
-  },
-  "courtSurgeon": {
-    "art": "⚕",
-    "hp": [
-      30,
-      34
-    ],
-    "id": "courtSurgeon",
-    "levelProfile": {
-      "max": 9,
-      "min": 6
-    },
-    "moves": {
-      "scalpel": {
-        "damage": 7,
-        "intent": "attack",
-        "weight": 40
-      },
-      "sedate": {
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 1,
-            "status": "weak",
-            "target": "player"
-          },
-          {
-            "op": "applyStatus",
-            "stacks": 1,
-            "status": "frail",
-            "target": "player"
-          }
-        ],
-        "intent": "debuff",
-        "maxConsecutive": 1,
-        "weight": 30
-      },
-      "stitch": {
-        "effects": [
-          {
-            "amount": 8,
-            "op": "heal",
-            "target": "self"
-          }
-        ],
-        "intent": "buff",
-        "maxConsecutive": 1,
-        "weight": 30
-      }
-    },
-    "poiseMax": 10,
-    "size": "medium",
-    "tint": "var(--grace)"
-  },
-  "eclipseCantor": {
-    "art": "◆",
-    "artFaces": "left",
-    "hp": [
-      30,
-      34
-    ],
-    "id": "eclipseCantor",
-    "levelProfile": {
-      "max": 17,
-      "min": 14
-    },
-    "moves": {
-      "darkHymn": {
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 3,
-            "status": "insanity",
-            "target": "player"
-          }
-        ],
-        "intent": "debuff",
-        "maxConsecutive": 1,
-        "weight": 30
-      },
-      "fadingEcho": {
-        "damage": 6,
-        "effects": [
-          {
-            "card": "dazed",
-            "op": "addCard",
-            "pile": "discard"
-          }
-        ],
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 20
-      },
-      "lunarRay": {
         "damage": 11,
-        "intent": "attack",
-        "weight": 50
-      }
-    },
-    "poiseMax": 7,
-    "size": "medium"
-  },
-  "emberStarvedPilgrim": {
-    "art": "🧎",
-    "hp": [
-      28,
-      32
-    ],
-    "id": "emberStarvedPilgrim",
-    "levelProfile": {
-      "max": 15,
-      "min": 13
-    },
-    "moves": {
-      "desperateClaw": {
-        "damage": 9,
-        "intent": "attack",
-        "weight": 60
+        "weight": 50,
+        "maxConsecutive": 2
       },
-      "wail": {
+      "tailSlam": {
+        "intent": "attack",
+        "damage": 7,
+        "weight": 30,
         "effects": [
           {
             "op": "applyStatus",
-            "stacks": 1,
+            "target": "player",
             "status": "weak",
-            "target": "player"
-          },
-          {
-            "op": "applyStatus",
-            "stacks": 1,
-            "status": "frail",
-            "target": "player"
-          },
-          {
-            "op": "applyStatus",
-            "stacks": 3,
-            "status": "insanity",
-            "target": "player"
+            "stacks": 1
           }
-        ],
-        "intent": "debuff",
+        ]
+      },
+      "goldenGuard": {
+        "intent": "block",
+        "block": 12,
+        "weight": 20,
         "maxConsecutive": 1,
-        "weight": 40
+        "effects": [
+          {
+            "op": "heal",
+            "target": "self",
+            "amount": 4
+          }
+        ]
       }
-    },
-    "poiseMax": 8,
-    "size": "small",
-    "tint": "var(--grace)"
+    }
   },
   "fellWarden": {
-    "art": "👁",
-    "firstMove": "caneStrike",
+    "id": "fellWarden",
+    "size": "large",
+    "tint": "var(--blood)",
     "hp": [
       120,
       120
     ],
-    "id": "fellWarden",
+    "poiseMax": 30,
     "levelProfile": {
-      "max": 7,
-      "min": 5
+      "min": 5,
+      "max": 7
     },
+    "art": "👁",
+    "firstMove": "caneStrike",
     "moves": {
       "caneStrike": {
-        "damage": 8,
         "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 40
+        "damage": 8,
+        "weight": 40,
+        "maxConsecutive": 2
       },
       "hammerToss": {
+        "intent": "attack",
         "damage": 5,
         "hits": 2,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 30
+        "weight": 30,
+        "maxConsecutive": 2
       },
       "heldBlade": {
+        "intent": "attack",
         "damage": 14,
+        "weight": 30,
+        "maxConsecutive": 1,
         "delay": {
           "turns": 1,
           "whileCharging": {
             "block": 8
           }
-        },
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 30
+        }
       },
       "twinDaggers": {
+        "intent": "attack",
         "damage": 3,
         "hits": 4,
-        "intent": "attack",
-        "locked": true,
-        "weight": 35
+        "weight": 35,
+        "locked": true
       }
     },
     "phases": [
       {
+        "on": "hpBelowPct",
+        "pct": 50,
         "do": [
           {
             "op": "applyStatus",
-            "stacks": 1,
+            "target": "player",
             "status": "frail",
-            "target": "player"
+            "stacks": 1
           },
           {
             "op": "applyStatus",
-            "stacks": 1,
+            "target": "player",
             "status": "weak",
-            "target": "player"
+            "stacks": 1
           },
           {
             "op": "applyStatus",
-            "stacks": 2,
+            "target": "self",
             "status": "strength",
-            "target": "self"
+            "stacks": 2
           }
         ],
-        "on": "hpBelowPct",
-        "pct": 50,
         "unlockMoves": [
           "twinDaggers"
         ]
       }
-    ],
-    "poiseMax": 30,
-    "size": "large",
-    "tint": "var(--blood)"
+    ]
   },
-  "furnaceSaint": {
+  "lanternMoth": {
+    "id": "lanternMoth",
+    "size": "small",
+    "hp": [
+      14,
+      17
+    ],
+    "poiseMax": 5,
+    "levelProfile": {
+      "min": 2,
+      "max": 5
+    },
     "art": "◆",
     "artFaces": "left",
-    "firstMove": "openFurnace",
-    "hp": [
-      260,
-      260
-    ],
-    "id": "furnaceSaint",
-    "levelProfile": {
-      "max": 20,
-      "min": 19
-    },
     "moves": {
-      "censerSweep": {
-        "damage": 22,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 45
-      },
-      "coolingAsh": {
-        "block": 14,
-        "intent": "block",
+      "lanternDust": {
+        "intent": "debuff",
+        "weight": 35,
         "maxConsecutive": 1,
-        "weight": 25
-      },
-      "openFurnace": {
-        "damage": 32,
-        "delay": {
-          "turns": 1,
-          "whileCharging": {
-            "block": 10
-          }
-        },
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 30
-      }
-    },
-    "phases": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": 8,
-            "status": "strength",
-            "target": "self"
-          }
-        ],
-        "on": "hpBelowPct",
-        "pct": 50
-      }
-    ],
-    "poiseMax": 40,
-    "size": "large"
-  },
-  "gildedKnight": {
-    "art": "♞",
-    "hp": [
-      42,
-      46
-    ],
-    "id": "gildedKnight",
-    "levelProfile": {
-      "max": 9,
-      "min": 6
-    },
-    "moves": {
-      "parry": {
-        "block": 9,
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 30
-      },
-      "rally": {
         "effects": [
           {
             "op": "applyStatus",
-            "stacks": 2,
-            "status": "strength",
-            "target": "self"
+            "target": "player",
+            "status": "weak",
+            "stacks": 1
           }
-        ],
-        "intent": "buff",
-        "maxConsecutive": 1,
-        "weight": 20
+        ]
       },
-      "thrust": {
-        "damage": 11,
+      "wingSparks": {
         "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 50
+        "damage": 2,
+        "weight": 65,
+        "hits": 3
       }
-    },
-    "poiseMax": 18,
-    "size": "medium",
-    "tint": "var(--gold)"
+    }
   },
-  "glassRegent": {
+  "briarHermit": {
+    "id": "briarHermit",
+    "size": "medium",
+    "hp": [
+      24,
+      28
+    ],
+    "poiseMax": 9,
+    "levelProfile": {
+      "min": 2,
+      "max": 5
+    },
     "art": "◆",
     "artFaces": "left",
-    "firstMove": "prismGuard",
-    "hp": [
-      180,
-      180
-    ],
-    "id": "glassRegent",
-    "levelProfile": {
-      "max": 12,
-      "min": 11
-    },
     "moves": {
-      "crystalRapier": {
-        "damage": 15,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 45
-      },
-      "prismGuard": {
-        "block": 16,
+      "rootShelter": {
         "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 25
+        "block": 7,
+        "weight": 30,
+        "maxConsecutive": 1
       },
-      "shatteredCourt": {
-        "damage": 7,
-        "delay": {
-          "turns": 1,
-          "whileCharging": {
-            "block": 0
-          }
-        },
-        "hits": 5,
+      "briarCast": {
         "intent": "attack",
-        "locked": true,
-        "maxConsecutive": 1,
-        "weight": 35
-      },
-      "splinterRain": {
-        "damage": 6,
-        "hits": 3,
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 30
-      }
-    },
-    "phases": [
-      {
-        "do": [
+        "damage": 5,
+        "weight": 45,
+        "effects": [
           {
             "op": "applyStatus",
-            "stacks": 4,
-            "status": "strength",
-            "target": "self"
+            "target": "player",
+            "status": "bleed",
+            "stacks": 1
           }
-        ],
-        "on": "hpBelowPct",
-        "pct": 50,
-        "unlockMoves": [
-          "shatteredCourt"
+        ]
+      },
+      "sapMend": {
+        "intent": "buff",
+        "weight": 25,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "heal",
+            "target": "self",
+            "amount": 4
+          }
         ]
       }
-    ],
-    "poiseMax": 26,
-    "size": "large"
+    },
+    "firstMove": "rootShelter"
   },
-  "graveWisp": {
-    "art": "👻",
+  "chainScavenger": {
+    "id": "chainScavenger",
+    "size": "medium",
     "hp": [
-      10,
-      12
+      20,
+      24
     ],
-    "id": "graveWisp",
+    "poiseMax": 8,
     "levelProfile": {
-      "max": 4,
-      "min": 1
+      "min": 2,
+      "max": 5
     },
-    "moves": {
-      "curse": {
-        "effects": [
-          {
-            "card": "dazed",
-            "op": "addCard",
-            "pile": "draw",
-            "position": "random"
-          }
-        ],
-        "intent": "debuff",
-        "maxConsecutive": 2,
-        "weight": 50
-      },
-      "drain": {
-        "damage": 4,
-        "effects": [
-          {
-            "amount": 4,
-            "op": "heal",
-            "target": "self"
-          }
-        ],
-        "intent": "attack",
-        "weight": 50
-      }
-    },
-    "poiseMax": 4,
-    "size": "small",
-    "tint": "var(--grace)"
-  },
-  "hollowAstronomer": {
     "art": "◆",
     "artFaces": "left",
-    "firstMove": "starChart",
-    "hp": [
-      225,
-      225
-    ],
-    "id": "hollowAstronomer",
-    "levelProfile": {
-      "max": 20,
-      "min": 19
-    },
     "moves": {
-      "fallingHeavens": {
-        "damage": 10,
-        "hits": 3,
+      "hookCast": {
         "intent": "attack",
-        "locked": true,
+        "damage": 6,
+        "weight": 60
+      },
+      "chainSnare": {
+        "intent": "debuff",
+        "weight": 20,
         "maxConsecutive": 1,
-        "weight": 30
-      },
-      "orbitalShards": {
-        "damage": 8,
-        "hits": 4,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 45
-      },
-      "starChart": {
         "effects": [
           {
-            "card": "dazed",
-            "op": "addCard",
-            "pile": "discard"
+            "op": "applyStatus",
+            "target": "player",
+            "status": "frail",
+            "stacks": 1
           }
-        ],
-        "intent": "debuff",
-        "maxConsecutive": 1,
-        "weight": 20
+        ]
       },
-      "totalEclipse": {
-        "damage": 30,
+      "draggingBlow": {
+        "intent": "attack",
+        "damage": 12,
+        "weight": 20,
+        "maxConsecutive": 1,
+        "delay": {
+          "turns": 1,
+          "whileCharging": {
+            "block": 3
+          }
+        }
+      }
+    }
+  },
+  "bellKeeper": {
+    "id": "bellKeeper",
+    "size": "large",
+    "hp": [
+      116,
+      116
+    ],
+    "poiseMax": 25,
+    "levelProfile": {
+      "min": 5,
+      "max": 7
+    },
+    "art": "◆",
+    "artFaces": "left",
+    "moves": {
+      "bronzeToll": {
+        "intent": "attack",
+        "damage": 19,
+        "weight": 35,
+        "maxConsecutive": 1,
         "delay": {
           "turns": 1,
           "whileCharging": {
             "block": 6
           }
-        },
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 3,
-            "status": "insanity",
-            "target": "player"
-          }
-        ],
+        }
+      },
+      "clapperSwing": {
         "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 35
-      }
-    },
-    "phases": [
-      {
-        "do": [],
-        "on": "hpBelowPct",
-        "pct": 40,
-        "unlockMoves": [
-          "fallingHeavens"
-        ]
-      }
-    ],
-    "poiseMax": 25,
-    "size": "large"
-  },
-  "huskBrute": {
-    "art": "🪨",
-    "hp": [
-      30,
-      34
-    ],
-    "id": "huskBrute",
-    "levelProfile": {
-      "max": 5,
-      "min": 2
-    },
-    "moves": {
-      "bellow": {
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 1,
-            "status": "frail",
-            "target": "player"
-          }
-        ],
-        "intent": "debuff",
-        "maxConsecutive": 1,
-        "weight": 25
-      },
-      "brace": {
-        "block": 8,
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 25
-      },
-      "club": {
         "damage": 9,
-        "intent": "attack",
-        "weight": 50
-      }
-    },
-    "poiseMax": 16,
-    "size": "medium"
-  },
-  "lanternMoth": {
-    "art": "◆",
-    "artFaces": "left",
-    "hp": [
-      14,
-      17
-    ],
-    "id": "lanternMoth",
-    "levelProfile": {
-      "max": 5,
-      "min": 2
-    },
-    "moves": {
-      "lanternDust": {
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 1,
-            "status": "weak",
-            "target": "player"
-          }
-        ],
-        "intent": "debuff",
-        "maxConsecutive": 1,
-        "weight": 35
+        "weight": 45,
+        "maxConsecutive": 2
       },
-      "wingSparks": {
-        "damage": 2,
-        "hits": 3,
-        "intent": "attack",
-        "weight": 65
-      }
-    },
-    "poiseMax": 5,
-    "size": "small"
-  },
-  "livingArmor": {
-    "art": "🛡",
-    "hp": [
-      36,
-      40
-    ],
-    "id": "livingArmor",
-    "levelProfile": {
-      "max": 10,
-      "min": 7
-    },
-    "moves": {
-      "crush": {
-        "damage": 14,
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 20
-      },
-      "fortify": {
-        "block": 12,
+      "muffledPrayer": {
         "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 25
+        "block": 9,
+        "weight": 20,
+        "maxConsecutive": 1
       },
-      "rimeCrush": {
-        "damage": 8,
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 3,
-            "status": "frost",
-            "target": "player"
-          }
-        ],
+      "crackedPeal": {
         "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 25
-      },
-      "slam": {
-        "damage": 10,
-        "intent": "attack",
-        "weight": 30
-      }
-    },
-    "poiseMax": 22,
-    "size": "medium",
-    "tint": "var(--frost)"
-  },
-  "marrowOrganist": {
-    "art": "◆",
-    "artFaces": "left",
-    "firstMove": "bonePrelude",
-    "hp": [
-      190,
-      190
-    ],
-    "id": "marrowOrganist",
-    "levelProfile": {
-      "max": 12,
-      "min": 11
-    },
-    "moves": {
-      "bonePrelude": {
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 1,
-            "status": "weak",
-            "target": "player"
-          }
-        ],
-        "intent": "debuff",
-        "maxConsecutive": 1,
-        "weight": 20
-      },
-      "funeralChord": {
-        "damage": 28,
-        "delay": {
-          "turns": 1,
-          "whileCharging": {
-            "block": 5
-          }
-        },
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 25
-      },
-      "ivoryKeys": {
-        "damage": 8,
-        "hits": 3,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 40
-      },
-      "quietRefrain": {
-        "effects": [
-          {
-            "amount": 7,
-            "op": "heal",
-            "target": "self"
-          }
-        ],
-        "intent": "buff",
-        "maxConsecutive": 1,
-        "weight": 15
-      }
-    },
-    "phases": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": 6,
-            "status": "strength",
-            "target": "self"
-          }
-        ],
-        "on": "hpBelowPct",
-        "pct": 35
-      }
-    ],
-    "poiseMax": 30,
-    "size": "large"
-  },
-  "mirrorScribe": {
-    "art": "◆",
-    "artFaces": "left",
-    "hp": [
-      28,
-      32
-    ],
-    "id": "mirrorScribe",
-    "levelProfile": {
-      "max": 10,
-      "min": 7
-    },
-    "moves": {
-      "polishedWard": {
-        "block": 6,
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 20
-      },
-      "shardVolley": {
-        "damage": 3,
-        "hits": 3,
-        "intent": "attack",
-        "weight": 50
-      },
-      "silverScript": {
-        "effects": [
-          {
-            "card": "dazed",
-            "op": "addCard",
-            "pile": "discard"
-          }
-        ],
-        "intent": "debuff",
-        "maxConsecutive": 1,
-        "weight": 30
-      }
-    },
-    "poiseMax": 8,
-    "size": "medium"
-  },
-  "stitchCrab": {
-    "art": "◆",
-    "artFaces": "left",
-    "firstMove": "shellFold",
-    "hp": [
-      32,
-      36
-    ],
-    "id": "stitchCrab",
-    "levelProfile": {
-      "max": 10,
-      "min": 7
-    },
-    "moves": {
-      "scuttleRush": {
-        "damage": 13,
-        "intent": "attack",
-        "maxConsecutive": 1,
-        "weight": 25
-      },
-      "seamShears": {
-        "damage": 4,
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 1,
-            "status": "bleed",
-            "target": "player"
-          }
-        ],
-        "hits": 2,
-        "intent": "attack",
-        "weight": 45
-      },
-      "shellFold": {
-        "block": 11,
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 30
-      }
-    },
-    "poiseMax": 17,
-    "size": "small"
-  },
-  "stitchedHound": {
-    "art": "🐩",
-    "artFaces": "left",
-    "hp": [
-      24,
-      28
-    ],
-    "id": "stitchedHound",
-    "levelProfile": {
-      "max": 8,
-      "min": 6
-    },
-    "moves": {
-      "maul": {
-        "damage": 4,
-        "hits": 2,
-        "intent": "attack",
-        "weight": 60
-      },
-      "rend": {
         "damage": 6,
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 2,
-            "status": "bleed",
-            "target": "player"
-          }
-        ],
-        "intent": "attack",
-        "weight": 40
-      }
-    },
-    "poiseMax": 8,
-    "size": "small",
-    "tint": "var(--blood)"
-  },
-  "stitchedKing": {
-    "art": "👑",
-    "firstMove": "courtlyDecree",
-    "hp": [
-      195,
-      195
-    ],
-    "id": "stitchedKing",
-    "levelProfile": {
-      "max": 12,
-      "min": 11
-    },
-    "moves": {
-      "courtlyDecree": {
-        "block": 15,
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 2,
-            "status": "strength",
-            "target": "self"
-          }
-        ],
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 30
-      },
-      "graspingHands": {
-        "damage": 5,
+        "weight": 25,
         "hits": 3,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 30
-      },
-      "scepterBlow": {
-        "damage": 11,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 40
-      },
-      "thousandHands": {
-        "damage": 3,
-        "hits": 6,
-        "intent": "attack",
         "locked": true,
-        "weight": 40
+        "maxConsecutive": 1
       }
     },
+    "firstMove": "bronzeToll",
     "phases": [
       {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": 2,
-            "status": "strength",
-            "target": "self"
-          },
-          {
-            "op": "applyStatus",
-            "stacks": 1,
-            "status": "frail",
-            "target": "player"
-          }
-        ],
         "on": "hpBelowPct",
-        "pct": 50,
+        "pct": 45,
+        "do": [],
         "unlockMoves": [
-          "thousandHands"
+          "crackedPeal"
         ]
       }
-    ],
-    "poiseMax": 34,
-    "size": "large",
-    "tint": "var(--gold)"
+    ]
   },
   "thornMatriarch": {
-    "art": "◆",
-    "artFaces": "left",
-    "firstMove": "rootCrown",
+    "id": "thornMatriarch",
+    "size": "large",
     "hp": [
       110,
       110
     ],
-    "id": "thornMatriarch",
+    "poiseMax": 22,
     "levelProfile": {
-      "max": 7,
-      "min": 5
+      "min": 5,
+      "max": 7
     },
+    "art": "◆",
+    "artFaces": "left",
     "moves": {
+      "rootCrown": {
+        "intent": "block",
+        "block": 8,
+        "weight": 25,
+        "maxConsecutive": 1
+      },
+      "thornNeedles": {
+        "intent": "attack",
+        "damage": 4,
+        "weight": 45,
+        "hits": 3,
+        "maxConsecutive": 2
+      },
       "entwiningRoots": {
+        "intent": "attack",
         "damage": 15,
+        "weight": 30,
+        "maxConsecutive": 1,
         "delay": {
           "turns": 1,
           "whileCharging": {
@@ -1517,265 +540,1242 @@
         "effects": [
           {
             "op": "applyStatus",
-            "stacks": 2,
+            "target": "player",
             "status": "bleed",
-            "target": "player"
+            "stacks": 2
           }
-        ],
+        ]
+      }
+    },
+    "firstMove": "rootCrown",
+    "phases": [
+      {
+        "on": "hpBelowPct",
+        "pct": 40,
+        "do": [
+          {
+            "op": "heal",
+            "target": "self",
+            "amount": 12
+          },
+          {
+            "op": "applyStatus",
+            "target": "self",
+            "status": "strength",
+            "stacks": 2
+          }
+        ]
+      }
+    ]
+  },
+  "gildedKnight": {
+    "id": "gildedKnight",
+    "size": "medium",
+    "tint": "var(--gold)",
+    "hp": [
+      42,
+      46
+    ],
+    "poiseMax": 18,
+    "levelProfile": {
+      "min": 6,
+      "max": 9
+    },
+    "art": "♞",
+    "moves": {
+      "thrust": {
         "intent": "attack",
+        "damage": 11,
+        "weight": 50,
+        "maxConsecutive": 2
+      },
+      "parry": {
+        "intent": "block",
+        "block": 9,
+        "weight": 30,
+        "maxConsecutive": 1
+      },
+      "rally": {
+        "intent": "buff",
+        "weight": 20,
         "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "self",
+            "status": "strength",
+            "stacks": 2
+          }
+        ]
+      }
+    }
+  },
+  "courtSurgeon": {
+    "id": "courtSurgeon",
+    "size": "medium",
+    "tint": "var(--grace)",
+    "hp": [
+      30,
+      34
+    ],
+    "poiseMax": 10,
+    "levelProfile": {
+      "min": 6,
+      "max": 9
+    },
+    "art": "⚕",
+    "moves": {
+      "scalpel": {
+        "intent": "attack",
+        "damage": 7,
+        "weight": 40
+      },
+      "sedate": {
+        "intent": "debuff",
+        "weight": 30,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "weak",
+            "stacks": 1
+          },
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "frail",
+            "stacks": 1
+          }
+        ]
+      },
+      "stitch": {
+        "intent": "buff",
+        "weight": 30,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "heal",
+            "target": "self",
+            "amount": 8
+          }
+        ]
+      }
+    }
+  },
+  "stitchedHound": {
+    "id": "stitchedHound",
+    "size": "small",
+    "tint": "var(--blood)",
+    "hp": [
+      24,
+      28
+    ],
+    "poiseMax": 8,
+    "levelProfile": {
+      "min": 6,
+      "max": 8
+    },
+    "art": "🐩",
+    "artFaces": "left",
+    "moves": {
+      "maul": {
+        "intent": "attack",
+        "damage": 4,
+        "hits": 2,
+        "weight": 60
+      },
+      "rend": {
+        "intent": "attack",
+        "damage": 6,
+        "weight": 40,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "bleed",
+            "stacks": 2
+          }
+        ]
+      }
+    }
+  },
+  "courtMarionette": {
+    "id": "courtMarionette",
+    "size": "small",
+    "tint": "var(--rot)",
+    "hp": [
+      16,
+      18
+    ],
+    "poiseMax": 6,
+    "levelProfile": {
+      "min": 6,
+      "max": 9
+    },
+    "art": "🪆",
+    "moves": {
+      "dart": {
+        "intent": "attack",
+        "damage": 4,
+        "hits": 2,
+        "weight": 50
+      },
+      "blowdart": {
+        "intent": "attack",
+        "damage": 3,
+        "weight": 50,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "crimsonBlight",
+            "stacks": 2
+          }
+        ]
+      }
+    }
+  },
+  "livingArmor": {
+    "id": "livingArmor",
+    "size": "medium",
+    "tint": "var(--frost)",
+    "hp": [
+      36,
+      40
+    ],
+    "poiseMax": 22,
+    "levelProfile": {
+      "min": 7,
+      "max": 10
+    },
+    "art": "🛡",
+    "moves": {
+      "slam": {
+        "intent": "attack",
+        "damage": 10,
         "weight": 30
       },
-      "rootCrown": {
-        "block": 8,
+      "fortify": {
         "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 25
+        "block": 12,
+        "weight": 25,
+        "maxConsecutive": 1
       },
-      "thornNeedles": {
-        "damage": 4,
-        "hits": 3,
+      "crush": {
         "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 45
+        "damage": 14,
+        "weight": 20,
+        "maxConsecutive": 1
+      },
+      "rimeCrush": {
+        "intent": "attack",
+        "damage": 8,
+        "weight": 25,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "frost",
+            "stacks": 3
+          }
+        ]
+      }
+    }
+  },
+  "courtDuelist": {
+    "id": "courtDuelist",
+    "size": "large",
+    "tint": "var(--frost)",
+    "hp": [
+      90,
+      96
+    ],
+    "poiseMax": 26,
+    "levelProfile": {
+      "min": 10,
+      "max": 11
+    },
+    "art": "🤺",
+    "firstMove": "enGarde",
+    "moves": {
+      "enGarde": {
+        "intent": "buff",
+        "weight": 10,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "self",
+            "status": "strength",
+            "stacks": 3
+          }
+        ]
+      },
+      "flurry": {
+        "intent": "attack",
+        "damage": 5,
+        "hits": 3,
+        "weight": 40,
+        "maxConsecutive": 2
+      },
+      "lunge": {
+        "intent": "attack",
+        "damage": 14,
+        "weight": 30,
+        "maxConsecutive": 1
+      },
+      "riposte": {
+        "intent": "block",
+        "block": 10,
+        "weight": 20,
+        "maxConsecutive": 1
+      }
+    }
+  },
+  "stitchedKing": {
+    "id": "stitchedKing",
+    "size": "large",
+    "tint": "var(--gold)",
+    "hp": [
+      195,
+      195
+    ],
+    "poiseMax": 34,
+    "levelProfile": {
+      "min": 11,
+      "max": 12
+    },
+    "art": "👑",
+    "firstMove": "courtlyDecree",
+    "moves": {
+      "scepterBlow": {
+        "intent": "attack",
+        "damage": 11,
+        "weight": 40,
+        "maxConsecutive": 2
+      },
+      "graspingHands": {
+        "intent": "attack",
+        "damage": 5,
+        "hits": 3,
+        "weight": 30,
+        "maxConsecutive": 2
+      },
+      "courtlyDecree": {
+        "intent": "block",
+        "block": 15,
+        "weight": 30,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "self",
+            "status": "strength",
+            "stacks": 2
+          }
+        ]
+      },
+      "thousandHands": {
+        "intent": "attack",
+        "damage": 3,
+        "hits": 6,
+        "weight": 40,
+        "locked": true
       }
     },
     "phases": [
       {
+        "on": "hpBelowPct",
+        "pct": 50,
         "do": [
           {
-            "amount": 12,
-            "op": "heal",
-            "target": "self"
+            "op": "applyStatus",
+            "target": "self",
+            "status": "strength",
+            "stacks": 2
           },
           {
             "op": "applyStatus",
-            "stacks": 2,
-            "status": "strength",
-            "target": "self"
+            "target": "player",
+            "status": "frail",
+            "stacks": 1
           }
         ],
-        "on": "hpBelowPct",
-        "pct": 40
+        "unlockMoves": [
+          "thousandHands"
+        ]
       }
+    ]
+  },
+  "mirrorScribe": {
+    "id": "mirrorScribe",
+    "size": "medium",
+    "hp": [
+      28,
+      32
     ],
-    "poiseMax": 22,
-    "size": "large"
+    "poiseMax": 8,
+    "levelProfile": {
+      "min": 7,
+      "max": 10
+    },
+    "art": "◆",
+    "artFaces": "left",
+    "moves": {
+      "silverScript": {
+        "intent": "debuff",
+        "weight": 30,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "addCard",
+            "card": "dazed",
+            "pile": "discard"
+          }
+        ]
+      },
+      "shardVolley": {
+        "intent": "attack",
+        "damage": 3,
+        "weight": 50,
+        "hits": 3
+      },
+      "polishedWard": {
+        "intent": "block",
+        "block": 6,
+        "weight": 20,
+        "maxConsecutive": 1
+      }
+    }
+  },
+  "stitchCrab": {
+    "id": "stitchCrab",
+    "size": "small",
+    "hp": [
+      32,
+      36
+    ],
+    "poiseMax": 17,
+    "levelProfile": {
+      "min": 7,
+      "max": 10
+    },
+    "art": "◆",
+    "artFaces": "left",
+    "moves": {
+      "shellFold": {
+        "intent": "block",
+        "block": 11,
+        "weight": 30,
+        "maxConsecutive": 1
+      },
+      "seamShears": {
+        "intent": "attack",
+        "damage": 4,
+        "weight": 45,
+        "hits": 2,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "bleed",
+            "stacks": 1
+          }
+        ]
+      },
+      "scuttleRush": {
+        "intent": "attack",
+        "damage": 13,
+        "weight": 25,
+        "maxConsecutive": 1
+      }
+    },
+    "firstMove": "shellFold"
+  },
+  "glassRegent": {
+    "id": "glassRegent",
+    "size": "large",
+    "hp": [
+      180,
+      180
+    ],
+    "poiseMax": 26,
+    "levelProfile": {
+      "min": 11,
+      "max": 12
+    },
+    "art": "◆",
+    "artFaces": "left",
+    "moves": {
+      "prismGuard": {
+        "intent": "block",
+        "block": 16,
+        "weight": 25,
+        "maxConsecutive": 1
+      },
+      "crystalRapier": {
+        "intent": "attack",
+        "damage": 15,
+        "weight": 45,
+        "maxConsecutive": 2
+      },
+      "splinterRain": {
+        "intent": "attack",
+        "damage": 6,
+        "weight": 30,
+        "hits": 3,
+        "maxConsecutive": 1
+      },
+      "shatteredCourt": {
+        "intent": "attack",
+        "damage": 7,
+        "weight": 35,
+        "maxConsecutive": 1,
+        "delay": {
+          "turns": 1,
+          "whileCharging": {
+            "block": 0
+          }
+        },
+        "hits": 5,
+        "locked": true
+      }
+    },
+    "firstMove": "prismGuard",
+    "phases": [
+      {
+        "on": "hpBelowPct",
+        "pct": 50,
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "self",
+            "status": "strength",
+            "stacks": 4
+          }
+        ],
+        "unlockMoves": [
+          "shatteredCourt"
+        ]
+      }
+    ]
+  },
+  "marrowOrganist": {
+    "id": "marrowOrganist",
+    "size": "large",
+    "hp": [
+      190,
+      190
+    ],
+    "poiseMax": 30,
+    "levelProfile": {
+      "min": 11,
+      "max": 12
+    },
+    "art": "◆",
+    "artFaces": "left",
+    "moves": {
+      "bonePrelude": {
+        "intent": "debuff",
+        "weight": 20,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "weak",
+            "stacks": 1
+          }
+        ]
+      },
+      "ivoryKeys": {
+        "intent": "attack",
+        "damage": 8,
+        "weight": 40,
+        "hits": 3,
+        "maxConsecutive": 2
+      },
+      "funeralChord": {
+        "intent": "attack",
+        "damage": 28,
+        "weight": 25,
+        "maxConsecutive": 1,
+        "delay": {
+          "turns": 1,
+          "whileCharging": {
+            "block": 5
+          }
+        }
+      },
+      "quietRefrain": {
+        "intent": "buff",
+        "weight": 15,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "heal",
+            "target": "self",
+            "amount": 7
+          }
+        ]
+      }
+    },
+    "firstMove": "bonePrelude",
+    "phases": [
+      {
+        "on": "hpBelowPct",
+        "pct": 35,
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "self",
+            "status": "strength",
+            "stacks": 6
+          }
+        ]
+      }
+    ]
+  },
+  "ashRevenant": {
+    "id": "ashRevenant",
+    "size": "medium",
+    "tint": "var(--ember)",
+    "hp": [
+      34,
+      38
+    ],
+    "poiseMax": 10,
+    "levelProfile": {
+      "min": 13,
+      "max": 16
+    },
+    "art": "🌋",
+    "moves": {
+      "cinderSlash": {
+        "intent": "attack",
+        "damage": 12,
+        "weight": 55,
+        "maxConsecutive": 2
+      },
+      "reform": {
+        "intent": "buff",
+        "weight": 45,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "heal",
+            "target": "self",
+            "amount": 6
+          },
+          {
+            "op": "block",
+            "target": "self",
+            "amount": 6
+          }
+        ]
+      }
+    }
+  },
+  "emberStarvedPilgrim": {
+    "id": "emberStarvedPilgrim",
+    "size": "small",
+    "tint": "var(--grace)",
+    "hp": [
+      28,
+      32
+    ],
+    "poiseMax": 8,
+    "levelProfile": {
+      "min": 13,
+      "max": 15
+    },
+    "art": "🧎",
+    "moves": {
+      "desperateClaw": {
+        "intent": "attack",
+        "damage": 9,
+        "weight": 60
+      },
+      "wail": {
+        "intent": "debuff",
+        "weight": 40,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "weak",
+            "stacks": 1
+          },
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "frail",
+            "stacks": 1
+          },
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "insanity",
+            "stacks": 3
+          }
+        ]
+      }
+    }
   },
   "valkyrieShade": {
-    "art": "🪶",
+    "id": "valkyrieShade",
+    "size": "medium",
+    "tint": "var(--blood)",
     "hp": [
       40,
       44
     ],
-    "id": "valkyrieShade",
+    "poiseMax": 14,
     "levelProfile": {
-      "max": 17,
-      "min": 14
+      "min": 14,
+      "max": 17
     },
+    "art": "🪶",
     "moves": {
-      "bloodFeather": {
-        "damage": 5,
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 3,
-            "status": "bleed",
-            "target": "player"
-          }
-        ],
-        "intent": "attack",
-        "weight": 50
-      },
       "spiralLance": {
+        "intent": "attack",
         "damage": 5,
         "hits": 2,
-        "intent": "attack",
-        "weight": 50
-      }
-    },
-    "poiseMax": 14,
-    "size": "medium",
-    "tint": "var(--blood)"
-  },
-  "wanderingSoldier": {
-    "arcaneExposure": {
-      "buildupMultiplier": 1,
-      "lockPolicy": "whileMagicVulnerable",
-      "mode": "configured",
-      "onBreak": {
-        "duration": 2,
-        "status": "magicVulnerable",
-        "value": 25
-      },
-      "overflowPolicy": "discard",
-      "resetMode": "zero",
-      "threshold": 8
-    },
-    "art": "⚔",
-    "hp": [
-      22,
-      26
-    ],
-    "id": "wanderingSoldier",
-    "levelProfile": {
-      "max": 4,
-      "min": 1
-    },
-    "moves": {
-      "guard": {
-        "block": 6,
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 30
-      },
-      "slash": {
-        "damage": 7,
-        "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 45
-      },
-      "warcry": {
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 2,
-            "status": "strength",
-            "target": "self"
-          }
-        ],
-        "intent": "buff",
-        "maxConsecutive": 1,
-        "weight": 25
-      }
-    },
-    "poiseMax": 10,
-    "size": "medium"
-  },
-  "wyrmAspirant": {
-    "art": "🐲",
-    "firstMove": "consecrate",
-    "hp": [
-      68,
-      72
-    ],
-    "id": "wyrmAspirant",
-    "levelProfile": {
-      "max": 6,
-      "min": 4
-    },
-    "moves": {
-      "consecrate": {
-        "effects": [
-          {
-            "op": "applyStatus",
-            "stacks": 3,
-            "status": "strength",
-            "target": "self"
-          }
-        ],
-        "intent": "buff",
-        "maxConsecutive": 1,
-        "weight": 10
-      },
-      "goldenGuard": {
-        "block": 12,
-        "effects": [
-          {
-            "amount": 4,
-            "op": "heal",
-            "target": "self"
-          }
-        ],
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 20
-      },
-      "halberdSweep": {
-        "damage": 11,
-        "intent": "attack",
-        "maxConsecutive": 2,
         "weight": 50
       },
-      "tailSlam": {
-        "damage": 7,
+      "bloodFeather": {
+        "intent": "attack",
+        "damage": 5,
+        "weight": 50,
         "effects": [
           {
             "op": "applyStatus",
-            "stacks": 1,
-            "status": "weak",
-            "target": "player"
+            "target": "player",
+            "status": "bleed",
+            "stacks": 3
           }
-        ],
-        "intent": "attack",
-        "weight": 30
+        ]
       }
-    },
-    "poiseMax": 24,
+    }
+  },
+  "charredColossus": {
+    "id": "charredColossus",
     "size": "large",
-    "tint": "var(--gold)"
+    "tint": "var(--ember)",
+    "hp": [
+      55,
+      60
+    ],
+    "poiseMax": 30,
+    "levelProfile": {
+      "min": 15,
+      "max": 18
+    },
+    "arcaneExposure": {
+      "mode": "immune"
+    },
+    "damageResistanceBySchool": {
+      "magic": 10
+    },
+    "art": "🗿",
+    "moves": {
+      "smash": {
+        "intent": "attack",
+        "damage": 16,
+        "weight": 50,
+        "maxConsecutive": 2
+      },
+      "ashCloud": {
+        "intent": "debuff",
+        "weight": 25,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "weak",
+            "stacks": 2
+          }
+        ]
+      },
+      "harden": {
+        "intent": "block",
+        "block": 14,
+        "weight": 25,
+        "maxConsecutive": 1
+      }
+    }
   },
   "wyrmLord": {
-    "art": "🐉",
-    "firstMove": "consecration",
+    "id": "wyrmLord",
+    "size": "large",
+    "tint": "var(--gold)",
     "hp": [
       130,
       140
     ],
-    "id": "wyrmLord",
+    "poiseMax": 30,
     "levelProfile": {
-      "max": 19,
-      "min": 18
+      "min": 18,
+      "max": 19
     },
+    "art": "🐉",
+    "firstMove": "consecration",
     "moves": {
       "consecration": {
+        "intent": "buff",
+        "weight": 10,
+        "maxConsecutive": 1,
         "effects": [
           {
             "op": "applyStatus",
-            "stacks": 4,
+            "target": "self",
             "status": "strength",
-            "target": "self"
+            "stacks": 4
           }
-        ],
-        "intent": "buff",
-        "maxConsecutive": 1,
-        "weight": 10
-      },
-      "goldenBulwark": {
-        "block": 16,
-        "effects": [
-          {
-            "amount": 6,
-            "op": "heal",
-            "target": "self"
-          }
-        ],
-        "intent": "block",
-        "maxConsecutive": 1,
-        "weight": 25
+        ]
       },
       "halberdReign": {
-        "damage": 15,
         "intent": "attack",
-        "maxConsecutive": 2,
-        "weight": 45
+        "damage": 15,
+        "weight": 45,
+        "maxConsecutive": 2
       },
       "tailSweep": {
+        "intent": "attack",
         "damage": 8,
+        "weight": 30,
         "effects": [
           {
             "op": "applyStatus",
-            "stacks": 1,
+            "target": "player",
             "status": "weak",
-            "target": "player"
+            "stacks": 1
           }
-        ],
+        ]
+      },
+      "goldenBulwark": {
+        "intent": "block",
+        "block": 16,
+        "weight": 25,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "heal",
+            "target": "self",
+            "amount": 6
+          }
+        ]
+      }
+    }
+  },
+  "blightedValkyrie": {
+    "id": "blightedValkyrie",
+    "size": "large",
+    "tint": "var(--rot)",
+    "hp": [
+      250,
+      250
+    ],
+    "poiseMax": 36,
+    "levelProfile": {
+      "min": 19,
+      "max": 20
+    },
+    "art": "🦋",
+    "firstMove": "spiralThrust",
+    "moves": {
+      "spiralThrust": {
         "intent": "attack",
-        "weight": 30
+        "damage": 12,
+        "weight": 35,
+        "maxConsecutive": 2,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "bleed",
+            "stacks": 2
+          }
+        ]
+      },
+      "whirlwind": {
+        "intent": "attack",
+        "damage": 4,
+        "hits": 5,
+        "weight": 30,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "bleed",
+            "stacks": 2
+          }
+        ]
+      },
+      "rotWings": {
+        "intent": "block",
+        "block": 10,
+        "weight": 20,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "crimsonBlight",
+            "stacks": 3
+          }
+        ]
+      },
+      "scarletDance": {
+        "intent": "attack",
+        "damage": 5,
+        "hits": 5,
+        "weight": 35,
+        "locked": true
       }
     },
-    "poiseMax": 30,
+    "phases": [
+      {
+        "on": "damageDealt",
+        "once": false,
+        "if": {
+          "p": "eventSourceIsOwner"
+        },
+        "do": [
+          {
+            "op": "heal",
+            "target": "self",
+            "amount": 2
+          }
+        ]
+      },
+      {
+        "on": "hpBelowPct",
+        "pct": 50,
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "self",
+            "status": "strength",
+            "stacks": 3
+          },
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "crimsonBlight",
+            "stacks": 4
+          }
+        ],
+        "unlockMoves": [
+          "scarletDance"
+        ]
+      }
+    ]
+  },
+  "cinderMantis": {
+    "id": "cinderMantis",
+    "size": "medium",
+    "hp": [
+      36,
+      40
+    ],
+    "poiseMax": 11,
+    "levelProfile": {
+      "min": 14,
+      "max": 17
+    },
+    "art": "◆",
+    "artFaces": "left",
+    "moves": {
+      "scythePair": {
+        "intent": "attack",
+        "damage": 5,
+        "weight": 55,
+        "hits": 2
+      },
+      "emberPounce": {
+        "intent": "attack",
+        "damage": 18,
+        "weight": 30,
+        "maxConsecutive": 1,
+        "delay": {
+          "turns": 1,
+          "whileCharging": {
+            "block": 2
+          }
+        }
+      },
+      "foldedBlades": {
+        "intent": "block",
+        "block": 8,
+        "weight": 15,
+        "maxConsecutive": 1
+      }
+    }
+  },
+  "eclipseCantor": {
+    "id": "eclipseCantor",
+    "size": "medium",
+    "hp": [
+      30,
+      34
+    ],
+    "poiseMax": 7,
+    "levelProfile": {
+      "min": 14,
+      "max": 17
+    },
+    "art": "◆",
+    "artFaces": "left",
+    "moves": {
+      "darkHymn": {
+        "intent": "debuff",
+        "weight": 30,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "insanity",
+            "stacks": 3
+          }
+        ]
+      },
+      "lunarRay": {
+        "intent": "attack",
+        "damage": 11,
+        "weight": 50
+      },
+      "fadingEcho": {
+        "intent": "attack",
+        "damage": 6,
+        "weight": 20,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "addCard",
+            "card": "dazed",
+            "pile": "discard"
+          }
+        ]
+      }
+    }
+  },
+  "furnaceSaint": {
+    "id": "furnaceSaint",
     "size": "large",
-    "tint": "var(--gold)"
+    "hp": [
+      260,
+      260
+    ],
+    "poiseMax": 40,
+    "levelProfile": {
+      "min": 19,
+      "max": 20
+    },
+    "art": "◆",
+    "artFaces": "left",
+    "moves": {
+      "openFurnace": {
+        "intent": "attack",
+        "damage": 32,
+        "weight": 30,
+        "maxConsecutive": 1,
+        "delay": {
+          "turns": 1,
+          "whileCharging": {
+            "block": 10
+          }
+        }
+      },
+      "censerSweep": {
+        "intent": "attack",
+        "damage": 22,
+        "weight": 45,
+        "maxConsecutive": 2
+      },
+      "coolingAsh": {
+        "intent": "block",
+        "block": 14,
+        "weight": 25,
+        "maxConsecutive": 1
+      }
+    },
+    "firstMove": "openFurnace",
+    "phases": [
+      {
+        "on": "hpBelowPct",
+        "pct": 50,
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "self",
+            "status": "strength",
+            "stacks": 8
+          }
+        ]
+      }
+    ]
+  },
+  "hollowAstronomer": {
+    "id": "hollowAstronomer",
+    "size": "large",
+    "hp": [
+      225,
+      225
+    ],
+    "poiseMax": 25,
+    "levelProfile": {
+      "min": 19,
+      "max": 20
+    },
+    "art": "◆",
+    "artFaces": "left",
+    "moves": {
+      "starChart": {
+        "intent": "debuff",
+        "weight": 20,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "addCard",
+            "card": "dazed",
+            "pile": "discard"
+          }
+        ]
+      },
+      "orbitalShards": {
+        "intent": "attack",
+        "damage": 8,
+        "weight": 45,
+        "hits": 4,
+        "maxConsecutive": 2
+      },
+      "totalEclipse": {
+        "intent": "attack",
+        "damage": 30,
+        "weight": 35,
+        "maxConsecutive": 1,
+        "delay": {
+          "turns": 1,
+          "whileCharging": {
+            "block": 6
+          }
+        },
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "insanity",
+            "stacks": 3
+          }
+        ]
+      },
+      "fallingHeavens": {
+        "intent": "attack",
+        "damage": 10,
+        "weight": 30,
+        "hits": 3,
+        "locked": true,
+        "maxConsecutive": 1
+      }
+    },
+    "firstMove": "starChart",
+    "phases": [
+      {
+        "on": "hpBelowPct",
+        "pct": 40,
+        "do": [],
+        "unlockMoves": [
+          "fallingHeavens"
+        ]
+      }
+    ]
+  },
+  "ashheartDragon": {
+    "id": "ashheartDragon",
+    "size": "large",
+    "hp": [
+      245,
+      245
+    ],
+    "poiseMax": 34,
+    "levelProfile": {
+      "min": 19,
+      "max": 20
+    },
+    "art": "◆",
+    "artFaces": "left",
+    "moves": {
+      "obsidianClaws": {
+        "intent": "attack",
+        "damage": 12,
+        "weight": 45,
+        "hits": 2,
+        "maxConsecutive": 2
+      },
+      "tailBastion": {
+        "intent": "block",
+        "block": 12,
+        "weight": 25,
+        "maxConsecutive": 1
+      },
+      "heartRumble": {
+        "intent": "buff",
+        "weight": 15,
+        "maxConsecutive": 1,
+        "effects": [
+          {
+            "op": "applyStatus",
+            "target": "self",
+            "status": "strength",
+            "stacks": 1
+          }
+        ]
+      },
+      "ashBreath": {
+        "intent": "attack",
+        "damage": 9,
+        "weight": 35,
+        "maxConsecutive": 1,
+        "delay": {
+          "turns": 1,
+          "whileCharging": {
+            "block": 5
+          }
+        },
+        "hits": 4,
+        "locked": true
+      }
+    },
+    "firstMove": "obsidianClaws",
+    "phases": [
+      {
+        "on": "hpBelowPct",
+        "pct": 60,
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "player",
+            "status": "frail",
+            "stacks": 1
+          },
+          {
+            "op": "applyStatus",
+            "target": "self",
+            "status": "strength",
+            "stacks": 2
+          }
+        ],
+        "unlockMoves": [
+          "ashBreath"
+        ]
+      }
+    ]
   }
 }

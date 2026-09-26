@@ -1,58 +1,58 @@
 {
-  "heraldBaseline": {
-    "baseline": true,
-    "classId": "herald",
-    "id": "heraldBaseline",
-    "leftHand": "",
-    "rightHand": "boneSceptre"
-  },
-  "heraldEmberlight": {
-    "baseline": false,
-    "classId": "herald",
-    "id": "heraldEmberlight",
-    "leftHand": "",
-    "rightHand": "emberlightSceptre"
-  },
   "reaverBaseline": {
-    "baseline": true,
-    "classId": "reaver",
     "id": "reaverBaseline",
-    "leftHand": "roundShield",
-    "rightHand": "straightSword"
+    "classId": "reaver",
+    "baseline": true,
+    "rightHand": "straightSword",
+    "leftHand": "roundShield"
   },
   "reaverGreatsword": {
-    "baseline": false,
-    "classId": "reaver",
     "id": "reaverGreatsword",
-    "leftHand": "",
-    "rightHand": "greatsword"
-  },
-  "rogueBaseline": {
-    "baseline": true,
-    "classId": "rogue",
-    "id": "rogueBaseline",
-    "leftHand": "buckler",
-    "rightHand": "dagger"
-  },
-  "rogueBow": {
+    "classId": "reaver",
     "baseline": false,
-    "classId": "rogue",
-    "id": "rogueBow",
-    "leftHand": "parryDagger",
-    "rightHand": "shortbow"
+    "rightHand": "greatsword",
+    "leftHand": ""
   },
   "starseerBaseline": {
-    "baseline": true,
-    "classId": "starseer",
     "id": "starseerBaseline",
-    "leftHand": "",
-    "rightHand": "ashStaff"
+    "classId": "starseer",
+    "baseline": true,
+    "rightHand": "ashStaff",
+    "leftHand": ""
   },
   "starseerStarstone": {
-    "baseline": false,
-    "classId": "starseer",
     "id": "starseerStarstone",
-    "leftHand": "",
-    "rightHand": "starstoneStaff"
+    "classId": "starseer",
+    "baseline": false,
+    "rightHand": "starstoneStaff",
+    "leftHand": ""
+  },
+  "heraldBaseline": {
+    "id": "heraldBaseline",
+    "classId": "herald",
+    "baseline": true,
+    "rightHand": "boneSceptre",
+    "leftHand": ""
+  },
+  "heraldEmberlight": {
+    "id": "heraldEmberlight",
+    "classId": "herald",
+    "baseline": false,
+    "rightHand": "emberlightSceptre",
+    "leftHand": ""
+  },
+  "rogueBaseline": {
+    "id": "rogueBaseline",
+    "classId": "rogue",
+    "baseline": true,
+    "rightHand": "dagger",
+    "leftHand": "buckler"
+  },
+  "rogueBow": {
+    "id": "rogueBow",
+    "classId": "rogue",
+    "baseline": false,
+    "rightHand": "shortbow",
+    "leftHand": "parryDagger"
   }
 }

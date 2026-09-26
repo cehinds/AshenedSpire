@@ -1,61 +1,61 @@
 {
+  "stamina": {
+    "id": "stamina",
+    "glyph": "▲",
+    "tint": "#4d7a45",
+    "weight": "normal",
+    "order": 30,
+    "surfaces": [
+      "main"
+    ],
+    "source": "stamina",
+    "domainMax": 20
+  },
+  "mana": {
+    "id": "mana",
+    "glyph": "◆",
+    "tint": "#315c9b",
+    "weight": "normal",
+    "order": 20,
+    "surfaces": [
+      "main"
+    ],
+    "source": "mana",
+    "domainMax": 20
+  },
   "hp": {
-    "domainMax": 200,
-    "glyph": "❤",
     "id": "hp",
+    "glyph": "❤",
+    "tint": "var(--res-hp)",
+    "weight": "normal",
     "order": 10,
-    "source": "hp",
     "surfaces": [
       "main",
       "model"
     ],
-    "tint": "var(--res-hp)",
-    "weight": "normal"
-  },
-  "mana": {
-    "domainMax": 20,
-    "glyph": "◆",
-    "id": "mana",
-    "order": 20,
-    "source": "mana",
-    "surfaces": [
-      "main"
-    ],
-    "tint": "#315c9b",
-    "weight": "normal"
-  },
-  "poise": {
-    "glyph": "◈",
-    "id": "poise",
-    "order": 90,
-    "source": "poise",
-    "surfaces": [
-      "model"
-    ],
-    "tint": "var(--gold)",
-    "weight": "skinny"
-  },
-  "stamina": {
-    "domainMax": 20,
-    "glyph": "▲",
-    "id": "stamina",
-    "order": 30,
-    "source": "stamina",
-    "surfaces": [
-      "main"
-    ],
-    "tint": "#4d7a45",
-    "weight": "normal"
+    "source": "hp",
+    "domainMax": 200
   },
   "ward": {
-    "glyph": "✧",
     "id": "ward",
+    "glyph": "✧",
+    "tint": "#779fe0",
+    "weight": "skinny",
     "order": 91,
-    "source": "ward",
     "surfaces": [
       "model"
     ],
-    "tint": "#779fe0",
-    "weight": "skinny"
+    "source": "ward"
+  },
+  "poise": {
+    "id": "poise",
+    "glyph": "◈",
+    "tint": "var(--gold)",
+    "weight": "skinny",
+    "order": 90,
+    "surfaces": [
+      "model"
+    ],
+    "source": "poise"
   }
 }

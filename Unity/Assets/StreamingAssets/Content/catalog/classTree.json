@@ -1,4 +1,84 @@
 {
+  "reaver:ironFooting": {
+    "classId": "reaver",
+    "nodeId": "ironFooting",
+    "tier": 1
+  },
+  "reaver:bloodTempo": {
+    "classId": "reaver",
+    "nodeId": "bloodTempo",
+    "tier": 1
+  },
+  "reaver:ashenReserve": {
+    "classId": "reaver",
+    "nodeId": "ashenReserve",
+    "tier": 2
+  },
+  "reaver:grimHarvest": {
+    "classId": "reaver",
+    "nodeId": "grimHarvest",
+    "tier": 2
+  },
+  "reaver:warlord": {
+    "classId": "reaver",
+    "nodeId": "warlord",
+    "tier": 3
+  },
+  "reaver:bulwarkKing": {
+    "classId": "reaver",
+    "nodeId": "bulwarkKing",
+    "tier": 3
+  },
+  "starseer:attunedMind": {
+    "classId": "starseer",
+    "nodeId": "attunedMind",
+    "tier": 1
+  },
+  "starseer:starlitFocus": {
+    "classId": "starseer",
+    "nodeId": "starlitFocus",
+    "tier": 1
+  },
+  "starseer:lodestarCap": {
+    "classId": "starseer",
+    "nodeId": "lodestarCap",
+    "tier": 2
+  },
+  "starseer:arcaneDraw": {
+    "classId": "starseer",
+    "nodeId": "arcaneDraw",
+    "tier": 2
+  },
+  "starseer:conduit": {
+    "classId": "starseer",
+    "nodeId": "conduit",
+    "tier": 3
+  },
+  "starseer:reservoir": {
+    "classId": "starseer",
+    "nodeId": "reservoir",
+    "tier": 3
+  },
+  "herald:warmth": {
+    "classId": "herald",
+    "nodeId": "warmth",
+    "tier": 1
+  },
+  "herald:vigil": {
+    "classId": "herald",
+    "nodeId": "vigil",
+    "tier": 1
+  },
+  "herald:sealOfPlenty": {
+    "classId": "herald",
+    "nodeId": "sealOfPlenty",
+    "tier": 2
+  },
+  "herald:wakingRot": {
+    "classId": "herald",
+    "nodeId": "wakingRot",
+    "tier": 2
+  },
   "herald:martyr": {
     "classId": "herald",
     "nodeId": "martyr",
@@ -8,71 +88,6 @@
     "classId": "herald",
     "nodeId": "saint",
     "tier": 3
-  },
-  "herald:sealOfPlenty": {
-    "classId": "herald",
-    "nodeId": "sealOfPlenty",
-    "tier": 2
-  },
-  "herald:vigil": {
-    "classId": "herald",
-    "nodeId": "vigil",
-    "tier": 1
-  },
-  "herald:wakingRot": {
-    "classId": "herald",
-    "nodeId": "wakingRot",
-    "tier": 2
-  },
-  "herald:warmth": {
-    "classId": "herald",
-    "nodeId": "warmth",
-    "tier": 1
-  },
-  "reaver:ashenReserve": {
-    "classId": "reaver",
-    "nodeId": "ashenReserve",
-    "tier": 2
-  },
-  "reaver:bloodTempo": {
-    "classId": "reaver",
-    "nodeId": "bloodTempo",
-    "tier": 1
-  },
-  "reaver:bulwarkKing": {
-    "classId": "reaver",
-    "nodeId": "bulwarkKing",
-    "tier": 3
-  },
-  "reaver:grimHarvest": {
-    "classId": "reaver",
-    "nodeId": "grimHarvest",
-    "tier": 2
-  },
-  "reaver:ironFooting": {
-    "classId": "reaver",
-    "nodeId": "ironFooting",
-    "tier": 1
-  },
-  "reaver:warlord": {
-    "classId": "reaver",
-    "nodeId": "warlord",
-    "tier": 3
-  },
-  "rogue:assassin": {
-    "classId": "rogue",
-    "nodeId": "assassin",
-    "tier": 3
-  },
-  "rogue:honedEdge": {
-    "classId": "rogue",
-    "nodeId": "honedEdge",
-    "tier": 2
-  },
-  "rogue:poisonedPouch": {
-    "classId": "rogue",
-    "nodeId": "poisonedPouch",
-    "tier": 2
   },
   "rogue:quickHands": {
     "classId": "rogue",
@@ -84,39 +99,24 @@
     "nodeId": "secondWind",
     "tier": 1
   },
+  "rogue:honedEdge": {
+    "classId": "rogue",
+    "nodeId": "honedEdge",
+    "tier": 2
+  },
+  "rogue:poisonedPouch": {
+    "classId": "rogue",
+    "nodeId": "poisonedPouch",
+    "tier": 2
+  },
+  "rogue:assassin": {
+    "classId": "rogue",
+    "nodeId": "assassin",
+    "tier": 3
+  },
   "rogue:shadow": {
     "classId": "rogue",
     "nodeId": "shadow",
     "tier": 3
-  },
-  "starseer:arcaneDraw": {
-    "classId": "starseer",
-    "nodeId": "arcaneDraw",
-    "tier": 2
-  },
-  "starseer:attunedMind": {
-    "classId": "starseer",
-    "nodeId": "attunedMind",
-    "tier": 1
-  },
-  "starseer:conduit": {
-    "classId": "starseer",
-    "nodeId": "conduit",
-    "tier": 3
-  },
-  "starseer:lodestarCap": {
-    "classId": "starseer",
-    "nodeId": "lodestarCap",
-    "tier": 2
-  },
-  "starseer:reservoir": {
-    "classId": "starseer",
-    "nodeId": "reservoir",
-    "tier": 3
-  },
-  "starseer:starlitFocus": {
-    "classId": "starseer",
-    "nodeId": "starlitFocus",
-    "tier": 1
   }
 }

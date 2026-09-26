@@ -1,91 +1,4 @@
 {
-  "actions": [
-    {
-      "destructive": false,
-      "id": "action.playCard",
-      "policyId": "policy.playCard"
-    },
-    {
-      "destructive": false,
-      "id": "action.equip",
-      "policyId": "policy.equipSwap"
-    },
-    {
-      "destructive": false,
-      "id": "action.unequip",
-      "policyId": "policy.equipSwap"
-    },
-    {
-      "destructive": false,
-      "id": "action.handSwap",
-      "policyId": "policy.equipSwap"
-    },
-    {
-      "destructive": false,
-      "id": "action.restDeckEdit",
-      "policyId": "policy.restDeckEdit"
-    },
-    {
-      "destructive": false,
-      "id": "action.installWeaponArt",
-      "policyId": "policy.blacksmithInstall"
-    },
-    {
-      "destructive": false,
-      "id": "action.replaceWeaponArt",
-      "policyId": "policy.blacksmithInstall"
-    },
-    {
-      "destructive": false,
-      "id": "action.extractWeaponArt",
-      "policyId": "policy.blacksmithExtract"
-    },
-    {
-      "destructive": false,
-      "id": "action.upgradeEquipment",
-      "policyId": "policy.blacksmithUpgrade"
-    },
-    {
-      "destructive": false,
-      "id": "action.installRune",
-      "policyId": "policy.blacksmithUpgrade"
-    },
-    {
-      "destructive": false,
-      "id": "action.purchase",
-      "policyId": "policy.purchase"
-    },
-    {
-      "destructive": true,
-      "id": "action.removeCard",
-      "policyId": "policy.cardRemove"
-    },
-    {
-      "destructive": true,
-      "id": "action.loadSlot",
-      "policyId": "policy.discardUnsavedProgress"
-    },
-    {
-      "destructive": true,
-      "id": "action.quitWithoutSaving",
-      "policyId": "policy.discardUnsavedProgress"
-    },
-    {
-      "destructive": true,
-      "id": "action.overwriteSave",
-      "policyId": "policy.saveOverwrite"
-    },
-    {
-      "destructive": true,
-      "id": "action.abandonRun",
-      "policyId": "policy.abandonRun"
-    },
-    {
-      "destructive": true,
-      "id": "action.deleteSave",
-      "policyId": "policy.deleteSave"
-    }
-  ],
   "comment": "Confirmation grammar data: one policy per action family, one DESTRUCTIVE policy per destructive transition (framework contract: Modal and confirmation grammar — one destructive transition receives exactly one destructive confirmation). Actions bind to exactly one policy.",
   "policies": [
     {
@@ -135,6 +48,93 @@
     {
       "id": "policy.deleteSave",
       "level": "DESTRUCTIVE"
+    }
+  ],
+  "actions": [
+    {
+      "id": "action.playCard",
+      "policyId": "policy.playCard",
+      "destructive": false
+    },
+    {
+      "id": "action.equip",
+      "policyId": "policy.equipSwap",
+      "destructive": false
+    },
+    {
+      "id": "action.unequip",
+      "policyId": "policy.equipSwap",
+      "destructive": false
+    },
+    {
+      "id": "action.handSwap",
+      "policyId": "policy.equipSwap",
+      "destructive": false
+    },
+    {
+      "id": "action.restDeckEdit",
+      "policyId": "policy.restDeckEdit",
+      "destructive": false
+    },
+    {
+      "id": "action.installWeaponArt",
+      "policyId": "policy.blacksmithInstall",
+      "destructive": false
+    },
+    {
+      "id": "action.replaceWeaponArt",
+      "policyId": "policy.blacksmithInstall",
+      "destructive": false
+    },
+    {
+      "id": "action.extractWeaponArt",
+      "policyId": "policy.blacksmithExtract",
+      "destructive": false
+    },
+    {
+      "id": "action.upgradeEquipment",
+      "policyId": "policy.blacksmithUpgrade",
+      "destructive": false
+    },
+    {
+      "id": "action.installRune",
+      "policyId": "policy.blacksmithUpgrade",
+      "destructive": false
+    },
+    {
+      "id": "action.purchase",
+      "policyId": "policy.purchase",
+      "destructive": false
+    },
+    {
+      "id": "action.removeCard",
+      "policyId": "policy.cardRemove",
+      "destructive": true
+    },
+    {
+      "id": "action.loadSlot",
+      "policyId": "policy.discardUnsavedProgress",
+      "destructive": true
+    },
+    {
+      "id": "action.quitWithoutSaving",
+      "policyId": "policy.discardUnsavedProgress",
+      "destructive": true
+    },
+    {
+      "id": "action.overwriteSave",
+      "policyId": "policy.saveOverwrite",
+      "destructive": true
+    },
+    {
+      "id": "action.abandonRun",
+      "policyId": "policy.abandonRun",
+      "destructive": true
+    },
+    {
+      "id": "action.deleteSave",
+      "policyId": "policy.deleteSave",
+      "destructive": true
     }
   ]
 }

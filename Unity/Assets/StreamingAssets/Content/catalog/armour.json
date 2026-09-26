@@ -1,730 +1,730 @@
 {
-  "herald:default": {
-    "artClassId": "",
-    "artKey": "default",
-    "classId": "herald",
-    "id": "default",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [],
-    "plate": "2E1F1F",
-    "plateLt": "3A2A2A",
-    "poiseThreshold": 5,
-    "sharedSet": "",
-    "under": 241413,
-    "unlock": ""
-  },
-  "herald:emberhabit": {
-    "artClassId": "",
-    "artKey": "emberhabit",
-    "classId": "herald",
-    "id": "emberhabit",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "3A2618",
-    "mods": [
-      "power.potency=+1",
-      "self.regen=+1"
-    ],
-    "plate": "6E3212",
-    "plateLt": "B4602A",
-    "poiseThreshold": 4,
-    "sharedSet": "",
-    "under": "2A1C12",
-    "unlock": "beatKingAsHerald"
-  },
-  "herald:gutterLeathers": {
-    "artClassId": "rogue",
-    "artKey": "default",
-    "classId": "herald",
-    "id": "gutterLeathers",
-    "inventoryArtKey": "gutterLeathers",
-    "kind": "armor",
-    "leather": "3C2E25",
-    "mods": [
-      "strike.damage=+1",
-      "self.maxStamina=+1"
-    ],
-    "plate": "303A35",
-    "plateLt": "52665D",
-    "poiseThreshold": 3,
-    "requirements": {
-      "attributes": {
-        "dexterity": 3
-      }
-    },
-    "sharedSet": true,
-    "under": "1D211F",
-    "unlock": ""
-  },
-  "herald:nightweave": {
-    "artClassId": "starseer",
-    "artKey": "default",
-    "classId": "herald",
-    "id": "nightweave",
-    "inventoryArtKey": "nightweave",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [
-      "power.potency=+1",
-      "self.maxMana=+1"
-    ],
-    "plate": "17294F",
-    "plateLt": "26406E",
-    "poiseThreshold": 3,
-    "requirements": {
-      "attributes": {
-        "intelligence": 3
-      }
-    },
-    "sharedSet": true,
-    "under": "332A1E",
-    "unlock": ""
-  },
-  "herald:ossuary": {
-    "artClassId": "",
-    "artKey": "ossuary",
-    "classId": "herald",
-    "id": "ossuary",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "2A2622",
-    "mods": [
-      "strike.blight=+1"
-    ],
-    "plate": "3A3630",
-    "plateLt": 555047,
-    "poiseThreshold": 6,
-    "sharedSet": "",
-    "under": "1E1B18",
-    "unlock": "beatBlightedValkyrie"
-  },
-  "herald:pilgrim": {
-    "artClassId": "",
-    "artKey": "pilgrim",
-    "classId": "herald",
-    "id": "pilgrim",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "3A3226",
-    "mods": [
-      "defend.block=+2",
-      "self.maxHp=+4"
-    ],
-    "plate": "44483A",
-    "plateLt": "747A5C",
-    "poiseThreshold": 5,
-    "sharedSet": "",
-    "under": "2A2418",
-    "unlock": "reachStitchedCourt"
-  },
-  "herald:riteVestments": {
-    "artClassId": "herald",
-    "artKey": "default",
-    "classId": "herald",
-    "id": "riteVestments",
-    "inventoryArtKey": "riteVestments",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [
-      "defend.block=+1",
-      "self.maxHp=+6"
-    ],
-    "plate": "2E1F1F",
-    "plateLt": "3A2A2A",
-    "poiseThreshold": 5,
-    "requirements": {
-      "attributes": {
-        "wisdom": 3
-      }
-    },
-    "sharedSet": true,
-    "under": 241413,
-    "unlock": ""
-  },
-  "herald:wayfarerPlate": {
-    "artClassId": "reaver",
-    "artKey": "default",
-    "classId": "herald",
-    "id": "wayfarerPlate",
-    "inventoryArtKey": "wayfarerPlate",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [
-      "defend.block=+2",
-      "self.maxHp=+4"
-    ],
-    "plate": "3E6157",
-    "plateLt": "64907F",
-    "poiseThreshold": 8,
-    "requirements": {
-      "attributes": {
-        "strength": 3
-      }
-    },
-    "sharedSet": true,
-    "under": "332A1E",
-    "unlock": ""
-  },
-  "reaver:bastion": {
-    "artClassId": "",
-    "artKey": "warden",
-    "classId": "reaver",
-    "id": "bastion",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "3A3226",
-    "mods": [
-      "defend.block=+4",
-      "self.maxStamina=-1"
-    ],
-    "plate": "3F4C5A",
-    "plateLt": "64798E",
-    "poiseThreshold": 11,
-    "sharedSet": "",
-    "under": "24272A",
-    "unlock": "reachStitchedCourt"
-  },
   "reaver:default": {
-    "artClassId": "",
-    "artKey": "default",
-    "classId": "reaver",
     "id": "default",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [],
+    "classId": "reaver",
     "plate": "3E6157",
     "plateLt": "64907F",
-    "poiseThreshold": 8,
-    "sharedSet": "",
-    "under": "332A1E",
-    "unlock": ""
-  },
-  "reaver:gutterLeathers": {
-    "artClassId": "rogue",
-    "artKey": "default",
-    "classId": "reaver",
-    "id": "gutterLeathers",
-    "inventoryArtKey": "gutterLeathers",
-    "kind": "armor",
-    "leather": "3C2E25",
-    "mods": [
-      "strike.damage=+1",
-      "self.maxStamina=+1"
-    ],
-    "plate": "303A35",
-    "plateLt": "52665D",
-    "poiseThreshold": 3,
-    "requirements": {
-      "attributes": {
-        "dexterity": 3
-      }
-    },
-    "sharedSet": true,
-    "under": "1D211F",
-    "unlock": ""
-  },
-  "reaver:nightweave": {
-    "artClassId": "starseer",
-    "artKey": "default",
-    "classId": "reaver",
-    "id": "nightweave",
-    "inventoryArtKey": "nightweave",
-    "kind": "armor",
     "leather": "4B3522",
-    "mods": [
-      "power.potency=+1",
-      "self.maxMana=+1"
-    ],
-    "plate": "17294F",
-    "plateLt": "26406E",
-    "poiseThreshold": 3,
-    "requirements": {
-      "attributes": {
-        "intelligence": 3
-      }
-    },
-    "sharedSet": true,
     "under": "332A1E",
-    "unlock": ""
+    "mods": [],
+    "unlock": "",
+    "poiseThreshold": 8,
+    "artKey": "default",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "reaver:vigil": {
+    "id": "vigil",
+    "classId": "reaver",
+    "plate": "302B25",
+    "plateLt": "4A433A",
+    "leather": "241C16",
+    "under": "1A1712",
+    "mods": [
+      "defend.block=+2"
+    ],
+    "unlock": "beatStitchedKing",
+    "poiseThreshold": 7,
+    "artKey": "vigil",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
   },
   "reaver:oathsworn": {
-    "artClassId": "",
-    "artKey": "oathsworn",
-    "classId": "reaver",
     "id": "oathsworn",
-    "inventoryArtKey": "",
-    "kind": "armor",
+    "classId": "reaver",
+    "plate": "B39C5E",
+    "plateLt": "E0CB8C",
     "leather": "5A4626",
+    "under": "3A3020",
     "mods": [
       "defend.block=+1",
       "self.strength=+1"
     ],
-    "plate": "B39C5E",
-    "plateLt": "E0CB8C",
+    "unlock": "winAsReaver",
     "poiseThreshold": 9,
+    "artKey": "oathsworn",
     "sharedSet": "",
-    "under": "3A3020",
-    "unlock": "winAsReaver"
-  },
-  "reaver:riteVestments": {
-    "artClassId": "herald",
-    "artKey": "default",
-    "classId": "reaver",
-    "id": "riteVestments",
-    "inventoryArtKey": "riteVestments",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [
-      "defend.block=+1",
-      "self.maxHp=+6"
-    ],
-    "plate": "2E1F1F",
-    "plateLt": "3A2A2A",
-    "poiseThreshold": 5,
-    "requirements": {
-      "attributes": {
-        "wisdom": 3
-      }
-    },
-    "sharedSet": true,
-    "under": 241413,
-    "unlock": ""
-  },
-  "reaver:vigil": {
     "artClassId": "",
-    "artKey": "vigil",
-    "classId": "reaver",
-    "id": "vigil",
     "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "241C16",
-    "mods": [
-      "defend.block=+2"
-    ],
-    "plate": "302B25",
-    "plateLt": "4A433A",
-    "poiseThreshold": 7,
-    "sharedSet": "",
-    "under": "1A1712",
-    "unlock": "beatStitchedKing"
+    "kind": "armor"
   },
   "reaver:warden": {
-    "artClassId": "",
-    "artKey": "warden",
-    "classId": "reaver",
     "id": "warden",
-    "inventoryArtKey": "",
-    "kind": "armor",
+    "classId": "reaver",
+    "plate": "3F4C5A",
+    "plateLt": "64798E",
     "leather": "3A3226",
+    "under": "24272A",
     "mods": [
       "defend.block=+3",
       "strike.damage=-1"
     ],
-    "plate": "3F4C5A",
-    "plateLt": "64798E",
+    "unlock": "reachAshenCrown",
     "poiseThreshold": 10,
+    "artKey": "warden",
     "sharedSet": "",
-    "under": "24272A",
-    "unlock": "reachAshenCrown"
-  },
-  "reaver:wayfarerPlate": {
-    "artClassId": "reaver",
-    "artKey": "default",
-    "classId": "reaver",
-    "id": "wayfarerPlate",
-    "inventoryArtKey": "wayfarerPlate",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [
-      "defend.block=+2",
-      "self.maxHp=+4"
-    ],
-    "plate": "3E6157",
-    "plateLt": "64907F",
-    "poiseThreshold": 8,
-    "requirements": {
-      "attributes": {
-        "strength": 3
-      }
-    },
-    "sharedSet": true,
-    "under": "332A1E",
-    "unlock": ""
-  },
-  "rogue:default": {
     "artClassId": "",
-    "artKey": "default",
-    "classId": "rogue",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "starseer:default": {
     "id": "default",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "3C2E25",
+    "classId": "starseer",
+    "plate": "17294F",
+    "plateLt": "26406E",
+    "leather": "4B3522",
+    "under": "332A1E",
     "mods": [],
-    "plate": "303A35",
-    "plateLt": "52665D",
+    "unlock": "",
     "poiseThreshold": 3,
+    "artKey": "default",
     "sharedSet": "",
-    "under": "1D211F",
-    "unlock": ""
-  },
-  "rogue:duelist": {
     "artClassId": "",
-    "artKey": "duelist",
-    "classId": "rogue",
-    "id": "duelist",
     "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "43362C",
+    "kind": "armor"
+  },
+  "starseer:eclipse": {
+    "id": "eclipse",
+    "classId": "starseer",
+    "plate": "1C1A2E",
+    "plateLt": "2E2B47",
+    "leather": "2A2118",
+    "under": "17151F",
+    "mods": [
+      "power.potency=+1"
+    ],
+    "unlock": "winAsStarseer",
+    "poiseThreshold": 4,
+    "artKey": "eclipse",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "starseer:starlit": {
+    "id": "starlit",
+    "classId": "starseer",
+    "plate": "4A5E96",
+    "plateLt": "93AEE2",
+    "leather": "3A3226",
+    "under": "242A40",
     "mods": [
       "strike.hits=+1",
       "strike.damage=-1"
     ],
-    "plate": "46515A",
-    "plateLt": "78909A",
+    "unlock": "beatFellWarden",
     "poiseThreshold": 3,
+    "artKey": "starlit",
     "sharedSet": "",
-    "under": "25282A",
-    "unlock": "winAsRogue"
-  },
-  "rogue:gutterLeathers": {
-    "artClassId": "rogue",
-    "artKey": "default",
-    "classId": "rogue",
-    "id": "gutterLeathers",
-    "inventoryArtKey": "gutterLeathers",
-    "kind": "armor",
-    "leather": "3C2E25",
-    "mods": [
-      "strike.damage=+1",
-      "self.maxStamina=+1"
-    ],
-    "plate": "303A35",
-    "plateLt": "52665D",
-    "poiseThreshold": 3,
-    "requirements": {
-      "attributes": {
-        "dexterity": 3
-      }
-    },
-    "sharedSet": true,
-    "under": "1D211F",
-    "unlock": ""
-  },
-  "rogue:nightveil": {
     "artClassId": "",
-    "artKey": "nightveil",
-    "classId": "rogue",
-    "id": "nightveil",
     "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "211F25",
-    "mods": [
-      "defend.block=+2"
-    ],
-    "plate": "20272A",
-    "plateLt": "3B4B4A",
-    "poiseThreshold": 3,
-    "sharedSet": "",
-    "under": 151719,
-    "unlock": "rogueBeatWarden"
-  },
-  "rogue:nightweave": {
-    "artClassId": "starseer",
-    "artKey": "default",
-    "classId": "rogue",
-    "id": "nightweave",
-    "inventoryArtKey": "nightweave",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [
-      "power.potency=+1",
-      "self.maxMana=+1"
-    ],
-    "plate": "17294F",
-    "plateLt": "26406E",
-    "poiseThreshold": 3,
-    "requirements": {
-      "attributes": {
-        "intelligence": 3
-      }
-    },
-    "sharedSet": true,
-    "under": "332A1E",
-    "unlock": ""
-  },
-  "rogue:riteVestments": {
-    "artClassId": "herald",
-    "artKey": "default",
-    "classId": "rogue",
-    "id": "riteVestments",
-    "inventoryArtKey": "riteVestments",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [
-      "defend.block=+1",
-      "self.maxHp=+6"
-    ],
-    "plate": "2E1F1F",
-    "plateLt": "3A2A2A",
-    "poiseThreshold": 5,
-    "requirements": {
-      "attributes": {
-        "wisdom": 3
-      }
-    },
-    "sharedSet": true,
-    "under": 241413,
-    "unlock": ""
-  },
-  "rogue:shadow": {
-    "artClassId": "",
-    "artKey": "shadow",
-    "classId": "rogue",
-    "id": "shadow",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "2A2430",
-    "mods": [
-      "self.strength=+1"
-    ],
-    "plate": 292136,
-    "plateLt": 534066,
-    "poiseThreshold": 4,
-    "sharedSet": "",
-    "under": "17131F",
-    "unlock": "rogueReachCrown"
-  },
-  "rogue:wayfarerPlate": {
-    "artClassId": "reaver",
-    "artKey": "default",
-    "classId": "rogue",
-    "id": "wayfarerPlate",
-    "inventoryArtKey": "wayfarerPlate",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [
-      "defend.block=+2",
-      "self.maxHp=+4"
-    ],
-    "plate": "3E6157",
-    "plateLt": "64907F",
-    "poiseThreshold": 8,
-    "requirements": {
-      "attributes": {
-        "strength": 3
-      }
-    },
-    "sharedSet": true,
-    "under": "332A1E",
-    "unlock": ""
-  },
-  "rogue:waywatcher": {
-    "artClassId": "",
-    "artKey": "nightveil",
-    "classId": "rogue",
-    "id": "waywatcher",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "211F25",
-    "mods": [
-      "self.maxStamina=+1",
-      "strike.damage=-1"
-    ],
-    "plate": "20272A",
-    "plateLt": "3B4B4A",
-    "poiseThreshold": 3,
-    "sharedSet": "",
-    "under": 151719,
-    "unlock": "rogueBeatWarden"
+    "kind": "armor"
   },
   "starseer:astral": {
-    "artClassId": "",
-    "artKey": "astral",
-    "classId": "starseer",
     "id": "astral",
-    "inventoryArtKey": "",
-    "kind": "armor",
+    "classId": "starseer",
+    "plate": "4E1747",
+    "plateLt": "9327A0",
     "leather": "3A2E4A",
+    "under": "241E33",
     "mods": [
       "power.potency=+2",
       "defend.block=-1"
     ],
-    "plate": "4E1747",
-    "plateLt": "9327A0",
+    "unlock": "winTwice",
     "poiseThreshold": 4,
+    "artKey": "astral",
     "sharedSet": "",
-    "under": "241E33",
-    "unlock": "winTwice"
-  },
-  "starseer:default": {
     "artClassId": "",
-    "artKey": "default",
-    "classId": "starseer",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "herald:default": {
     "id": "default",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [],
-    "plate": "17294F",
-    "plateLt": "26406E",
-    "poiseThreshold": 3,
-    "sharedSet": "",
-    "under": "332A1E",
-    "unlock": ""
-  },
-  "starseer:eclipse": {
-    "artClassId": "",
-    "artKey": "eclipse",
-    "classId": "starseer",
-    "id": "eclipse",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "2A2118",
-    "mods": [
-      "power.potency=+1"
-    ],
-    "plate": "1C1A2E",
-    "plateLt": "2E2B47",
-    "poiseThreshold": 4,
-    "sharedSet": "",
-    "under": "17151F",
-    "unlock": "winAsStarseer"
-  },
-  "starseer:gutterLeathers": {
-    "artClassId": "rogue",
-    "artKey": "default",
-    "classId": "starseer",
-    "id": "gutterLeathers",
-    "inventoryArtKey": "gutterLeathers",
-    "kind": "armor",
-    "leather": "3C2E25",
-    "mods": [
-      "strike.damage=+1",
-      "self.maxStamina=+1"
-    ],
-    "plate": "303A35",
-    "plateLt": "52665D",
-    "poiseThreshold": 3,
-    "requirements": {
-      "attributes": {
-        "dexterity": 3
-      }
-    },
-    "sharedSet": true,
-    "under": "1D211F",
-    "unlock": ""
-  },
-  "starseer:nightweave": {
-    "artClassId": "starseer",
-    "artKey": "default",
-    "classId": "starseer",
-    "id": "nightweave",
-    "inventoryArtKey": "nightweave",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [
-      "power.potency=+1",
-      "self.maxMana=+1"
-    ],
-    "plate": "17294F",
-    "plateLt": "26406E",
-    "poiseThreshold": 3,
-    "requirements": {
-      "attributes": {
-        "intelligence": 3
-      }
-    },
-    "sharedSet": true,
-    "under": "332A1E",
-    "unlock": ""
-  },
-  "starseer:rimeweave": {
-    "artClassId": "",
-    "artKey": "starlit",
-    "classId": "starseer",
-    "id": "rimeweave",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "3A3226",
-    "mods": [
-      "strike.frost=+2",
-      "defend.block=-1"
-    ],
-    "plate": "4A5E96",
-    "plateLt": "93AEE2",
-    "poiseThreshold": 3,
-    "sharedSet": "",
-    "under": "242A40",
-    "unlock": "beatFellWarden"
-  },
-  "starseer:riteVestments": {
-    "artClassId": "herald",
-    "artKey": "default",
-    "classId": "starseer",
-    "id": "riteVestments",
-    "inventoryArtKey": "riteVestments",
-    "kind": "armor",
-    "leather": "4B3522",
-    "mods": [
-      "defend.block=+1",
-      "self.maxHp=+6"
-    ],
+    "classId": "herald",
     "plate": "2E1F1F",
     "plateLt": "3A2A2A",
-    "poiseThreshold": 5,
-    "requirements": {
-      "attributes": {
-        "wisdom": 3
-      }
-    },
-    "sharedSet": true,
-    "under": 241413,
-    "unlock": ""
-  },
-  "starseer:starlit": {
-    "artClassId": "",
-    "artKey": "starlit",
-    "classId": "starseer",
-    "id": "starlit",
-    "inventoryArtKey": "",
-    "kind": "armor",
-    "leather": "3A3226",
-    "mods": [
-      "strike.hits=+1",
-      "strike.damage=-1"
-    ],
-    "plate": "4A5E96",
-    "plateLt": "93AEE2",
-    "poiseThreshold": 3,
-    "sharedSet": "",
-    "under": "242A40",
-    "unlock": "beatFellWarden"
-  },
-  "starseer:wayfarerPlate": {
-    "artClassId": "reaver",
-    "artKey": "default",
-    "classId": "starseer",
-    "id": "wayfarerPlate",
-    "inventoryArtKey": "wayfarerPlate",
-    "kind": "armor",
     "leather": "4B3522",
+    "under": 241413,
+    "mods": [],
+    "unlock": "",
+    "poiseThreshold": 5,
+    "artKey": "default",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "herald:ossuary": {
+    "id": "ossuary",
+    "classId": "herald",
+    "plate": "3A3630",
+    "plateLt": 555047,
+    "leather": "2A2622",
+    "under": "1E1B18",
+    "mods": [
+      "strike.blight=+1"
+    ],
+    "unlock": "beatBlightedValkyrie",
+    "poiseThreshold": 6,
+    "artKey": "ossuary",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "herald:emberhabit": {
+    "id": "emberhabit",
+    "classId": "herald",
+    "plate": "6E3212",
+    "plateLt": "B4602A",
+    "leather": "3A2618",
+    "under": "2A1C12",
+    "mods": [
+      "power.potency=+1",
+      "self.regen=+1"
+    ],
+    "unlock": "beatKingAsHerald",
+    "poiseThreshold": 4,
+    "artKey": "emberhabit",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "herald:pilgrim": {
+    "id": "pilgrim",
+    "classId": "herald",
+    "plate": "44483A",
+    "plateLt": "747A5C",
+    "leather": "3A3226",
+    "under": "2A2418",
     "mods": [
       "defend.block=+2",
       "self.maxHp=+4"
     ],
+    "unlock": "reachStitchedCourt",
+    "poiseThreshold": 5,
+    "artKey": "pilgrim",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "rogue:default": {
+    "id": "default",
+    "classId": "rogue",
+    "plate": "303A35",
+    "plateLt": "52665D",
+    "leather": "3C2E25",
+    "under": "1D211F",
+    "mods": [],
+    "unlock": "",
+    "poiseThreshold": 3,
+    "artKey": "default",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "rogue:nightveil": {
+    "id": "nightveil",
+    "classId": "rogue",
+    "plate": "20272A",
+    "plateLt": "3B4B4A",
+    "leather": "211F25",
+    "under": 151719,
+    "mods": [
+      "defend.block=+2"
+    ],
+    "unlock": "rogueBeatWarden",
+    "poiseThreshold": 3,
+    "artKey": "nightveil",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "rogue:duelist": {
+    "id": "duelist",
+    "classId": "rogue",
+    "plate": "46515A",
+    "plateLt": "78909A",
+    "leather": "43362C",
+    "under": "25282A",
+    "mods": [
+      "strike.hits=+1",
+      "strike.damage=-1"
+    ],
+    "unlock": "winAsRogue",
+    "poiseThreshold": 3,
+    "artKey": "duelist",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "rogue:shadow": {
+    "id": "shadow",
+    "classId": "rogue",
+    "plate": 292136,
+    "plateLt": 534066,
+    "leather": "2A2430",
+    "under": "17131F",
+    "mods": [
+      "self.strength=+1"
+    ],
+    "unlock": "rogueReachCrown",
+    "poiseThreshold": 4,
+    "artKey": "shadow",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "reaver:bastion": {
+    "id": "bastion",
+    "classId": "reaver",
+    "plate": "3F4C5A",
+    "plateLt": "64798E",
+    "leather": "3A3226",
+    "under": "24272A",
+    "mods": [
+      "defend.block=+4",
+      "self.maxStamina=-1"
+    ],
+    "unlock": "reachStitchedCourt",
+    "poiseThreshold": 11,
+    "artKey": "warden",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "starseer:rimeweave": {
+    "id": "rimeweave",
+    "classId": "starseer",
+    "plate": "4A5E96",
+    "plateLt": "93AEE2",
+    "leather": "3A3226",
+    "under": "242A40",
+    "mods": [
+      "strike.frost=+2",
+      "defend.block=-1"
+    ],
+    "unlock": "beatFellWarden",
+    "poiseThreshold": 3,
+    "artKey": "starlit",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "rogue:waywatcher": {
+    "id": "waywatcher",
+    "classId": "rogue",
+    "plate": "20272A",
+    "plateLt": "3B4B4A",
+    "leather": "211F25",
+    "under": 151719,
+    "mods": [
+      "self.maxStamina=+1",
+      "strike.damage=-1"
+    ],
+    "unlock": "rogueBeatWarden",
+    "poiseThreshold": 3,
+    "artKey": "nightveil",
+    "sharedSet": "",
+    "artClassId": "",
+    "inventoryArtKey": "",
+    "kind": "armor"
+  },
+  "reaver:wayfarerPlate": {
+    "id": "wayfarerPlate",
+    "classId": "reaver",
     "plate": "3E6157",
     "plateLt": "64907F",
+    "leather": "4B3522",
+    "under": "332A1E",
+    "mods": [
+      "defend.block=+2",
+      "self.maxHp=+4"
+    ],
+    "unlock": "",
     "poiseThreshold": 8,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "reaver",
+    "inventoryArtKey": "wayfarerPlate",
     "requirements": {
       "attributes": {
         "strength": 3
       }
     },
-    "sharedSet": true,
+    "kind": "armor"
+  },
+  "starseer:wayfarerPlate": {
+    "id": "wayfarerPlate",
+    "classId": "starseer",
+    "plate": "3E6157",
+    "plateLt": "64907F",
+    "leather": "4B3522",
     "under": "332A1E",
-    "unlock": ""
+    "mods": [
+      "defend.block=+2",
+      "self.maxHp=+4"
+    ],
+    "unlock": "",
+    "poiseThreshold": 8,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "reaver",
+    "inventoryArtKey": "wayfarerPlate",
+    "requirements": {
+      "attributes": {
+        "strength": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "herald:wayfarerPlate": {
+    "id": "wayfarerPlate",
+    "classId": "herald",
+    "plate": "3E6157",
+    "plateLt": "64907F",
+    "leather": "4B3522",
+    "under": "332A1E",
+    "mods": [
+      "defend.block=+2",
+      "self.maxHp=+4"
+    ],
+    "unlock": "",
+    "poiseThreshold": 8,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "reaver",
+    "inventoryArtKey": "wayfarerPlate",
+    "requirements": {
+      "attributes": {
+        "strength": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "rogue:wayfarerPlate": {
+    "id": "wayfarerPlate",
+    "classId": "rogue",
+    "plate": "3E6157",
+    "plateLt": "64907F",
+    "leather": "4B3522",
+    "under": "332A1E",
+    "mods": [
+      "defend.block=+2",
+      "self.maxHp=+4"
+    ],
+    "unlock": "",
+    "poiseThreshold": 8,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "reaver",
+    "inventoryArtKey": "wayfarerPlate",
+    "requirements": {
+      "attributes": {
+        "strength": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "reaver:nightweave": {
+    "id": "nightweave",
+    "classId": "reaver",
+    "plate": "17294F",
+    "plateLt": "26406E",
+    "leather": "4B3522",
+    "under": "332A1E",
+    "mods": [
+      "power.potency=+1",
+      "self.maxMana=+1"
+    ],
+    "unlock": "",
+    "poiseThreshold": 3,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "starseer",
+    "inventoryArtKey": "nightweave",
+    "requirements": {
+      "attributes": {
+        "intelligence": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "starseer:nightweave": {
+    "id": "nightweave",
+    "classId": "starseer",
+    "plate": "17294F",
+    "plateLt": "26406E",
+    "leather": "4B3522",
+    "under": "332A1E",
+    "mods": [
+      "power.potency=+1",
+      "self.maxMana=+1"
+    ],
+    "unlock": "",
+    "poiseThreshold": 3,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "starseer",
+    "inventoryArtKey": "nightweave",
+    "requirements": {
+      "attributes": {
+        "intelligence": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "herald:nightweave": {
+    "id": "nightweave",
+    "classId": "herald",
+    "plate": "17294F",
+    "plateLt": "26406E",
+    "leather": "4B3522",
+    "under": "332A1E",
+    "mods": [
+      "power.potency=+1",
+      "self.maxMana=+1"
+    ],
+    "unlock": "",
+    "poiseThreshold": 3,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "starseer",
+    "inventoryArtKey": "nightweave",
+    "requirements": {
+      "attributes": {
+        "intelligence": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "rogue:nightweave": {
+    "id": "nightweave",
+    "classId": "rogue",
+    "plate": "17294F",
+    "plateLt": "26406E",
+    "leather": "4B3522",
+    "under": "332A1E",
+    "mods": [
+      "power.potency=+1",
+      "self.maxMana=+1"
+    ],
+    "unlock": "",
+    "poiseThreshold": 3,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "starseer",
+    "inventoryArtKey": "nightweave",
+    "requirements": {
+      "attributes": {
+        "intelligence": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "reaver:riteVestments": {
+    "id": "riteVestments",
+    "classId": "reaver",
+    "plate": "2E1F1F",
+    "plateLt": "3A2A2A",
+    "leather": "4B3522",
+    "under": 241413,
+    "mods": [
+      "defend.block=+1",
+      "self.maxHp=+6"
+    ],
+    "unlock": "",
+    "poiseThreshold": 5,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "herald",
+    "inventoryArtKey": "riteVestments",
+    "requirements": {
+      "attributes": {
+        "wisdom": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "starseer:riteVestments": {
+    "id": "riteVestments",
+    "classId": "starseer",
+    "plate": "2E1F1F",
+    "plateLt": "3A2A2A",
+    "leather": "4B3522",
+    "under": 241413,
+    "mods": [
+      "defend.block=+1",
+      "self.maxHp=+6"
+    ],
+    "unlock": "",
+    "poiseThreshold": 5,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "herald",
+    "inventoryArtKey": "riteVestments",
+    "requirements": {
+      "attributes": {
+        "wisdom": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "herald:riteVestments": {
+    "id": "riteVestments",
+    "classId": "herald",
+    "plate": "2E1F1F",
+    "plateLt": "3A2A2A",
+    "leather": "4B3522",
+    "under": 241413,
+    "mods": [
+      "defend.block=+1",
+      "self.maxHp=+6"
+    ],
+    "unlock": "",
+    "poiseThreshold": 5,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "herald",
+    "inventoryArtKey": "riteVestments",
+    "requirements": {
+      "attributes": {
+        "wisdom": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "rogue:riteVestments": {
+    "id": "riteVestments",
+    "classId": "rogue",
+    "plate": "2E1F1F",
+    "plateLt": "3A2A2A",
+    "leather": "4B3522",
+    "under": 241413,
+    "mods": [
+      "defend.block=+1",
+      "self.maxHp=+6"
+    ],
+    "unlock": "",
+    "poiseThreshold": 5,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "herald",
+    "inventoryArtKey": "riteVestments",
+    "requirements": {
+      "attributes": {
+        "wisdom": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "reaver:gutterLeathers": {
+    "id": "gutterLeathers",
+    "classId": "reaver",
+    "plate": "303A35",
+    "plateLt": "52665D",
+    "leather": "3C2E25",
+    "under": "1D211F",
+    "mods": [
+      "strike.damage=+1",
+      "self.maxStamina=+1"
+    ],
+    "unlock": "",
+    "poiseThreshold": 3,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "rogue",
+    "inventoryArtKey": "gutterLeathers",
+    "requirements": {
+      "attributes": {
+        "dexterity": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "starseer:gutterLeathers": {
+    "id": "gutterLeathers",
+    "classId": "starseer",
+    "plate": "303A35",
+    "plateLt": "52665D",
+    "leather": "3C2E25",
+    "under": "1D211F",
+    "mods": [
+      "strike.damage=+1",
+      "self.maxStamina=+1"
+    ],
+    "unlock": "",
+    "poiseThreshold": 3,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "rogue",
+    "inventoryArtKey": "gutterLeathers",
+    "requirements": {
+      "attributes": {
+        "dexterity": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "herald:gutterLeathers": {
+    "id": "gutterLeathers",
+    "classId": "herald",
+    "plate": "303A35",
+    "plateLt": "52665D",
+    "leather": "3C2E25",
+    "under": "1D211F",
+    "mods": [
+      "strike.damage=+1",
+      "self.maxStamina=+1"
+    ],
+    "unlock": "",
+    "poiseThreshold": 3,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "rogue",
+    "inventoryArtKey": "gutterLeathers",
+    "requirements": {
+      "attributes": {
+        "dexterity": 3
+      }
+    },
+    "kind": "armor"
+  },
+  "rogue:gutterLeathers": {
+    "id": "gutterLeathers",
+    "classId": "rogue",
+    "plate": "303A35",
+    "plateLt": "52665D",
+    "leather": "3C2E25",
+    "under": "1D211F",
+    "mods": [
+      "strike.damage=+1",
+      "self.maxStamina=+1"
+    ],
+    "unlock": "",
+    "poiseThreshold": 3,
+    "artKey": "default",
+    "sharedSet": true,
+    "artClassId": "rogue",
+    "inventoryArtKey": "gutterLeathers",
+    "requirements": {
+      "attributes": {
+        "dexterity": 3
+      }
+    },
+    "kind": "armor"
   }
 }

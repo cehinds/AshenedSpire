@@ -49,6 +49,7 @@ namespace Ashen.Generated
         public const string CatalogWeaponCardPackages = "catalog/weaponCardPackages.json";
         public const string CatalogWorldAtlas = "catalog/worldAtlas.json";
         public const string RulesAttributeRules = "rules/attributeRules.json";
+        public const string RulesCombatEngine = "rules/combatEngine.json";
         public const string RulesCombatRules = "rules/combatRules.json";
         public const string RulesDerivedStatRules = "rules/derivedStatRules.json";
         public const string RulesEffectOps = "rules/effectOps.json";
@@ -106,6 +107,7 @@ namespace Ashen.Generated
         public const string SchemasCatalogWeaponCardPackagesSchema = "schemas/catalog.weaponCardPackages.schema.json";
         public const string SchemasCatalogWorldAtlasSchema = "schemas/catalog.worldAtlas.schema.json";
         public const string SchemasRulesAttributeRulesSchema = "schemas/rules.attributeRules.schema.json";
+        public const string SchemasRulesCombatEngineSchema = "schemas/rules.combatEngine.schema.json";
         public const string SchemasRulesCombatRulesSchema = "schemas/rules.combatRules.schema.json";
         public const string SchemasRulesDerivedStatRulesSchema = "schemas/rules.derivedStatRules.schema.json";
         public const string SchemasRulesEffectOpsSchema = "schemas/rules.effectOps.schema.json";

@@ -1,6 +1,156 @@
 {
-  "music": [],
-  "musicProfiles": [],
+  "settings": [
+    {
+      "settingId": "road"
+    },
+    {
+      "settingId": "city"
+    },
+    {
+      "settingId": "forest"
+    },
+    {
+      "settingId": "dungeon"
+    },
+    {
+      "settingId": "mine"
+    },
+    {
+      "settingId": "shore"
+    }
+  ],
+  "times": [
+    {
+      "timeId": "day"
+    },
+    {
+      "timeId": "dusk"
+    },
+    {
+      "timeId": "night"
+    }
+  ],
+  "weather": [
+    {
+      "weatherId": "any"
+    },
+    {
+      "weatherId": "clear"
+    },
+    {
+      "weatherId": "rain"
+    },
+    {
+      "weatherId": "snow"
+    }
+  ],
+  "profiles": [
+    {
+      "profileId": "ashen-crown/city",
+      "regionId": "ashen-crown",
+      "settingId": "city"
+    },
+    {
+      "profileId": "ashen-crown/dungeon",
+      "regionId": "ashen-crown",
+      "settingId": "dungeon"
+    },
+    {
+      "profileId": "ashen-crown/forest",
+      "regionId": "ashen-crown",
+      "settingId": "forest"
+    },
+    {
+      "profileId": "ashen-crown/road",
+      "regionId": "ashen-crown",
+      "settingId": "road"
+    },
+    {
+      "profileId": "hollow-weald/city",
+      "regionId": "hollow-weald",
+      "settingId": "city"
+    },
+    {
+      "profileId": "hollow-weald/dungeon",
+      "regionId": "hollow-weald",
+      "settingId": "dungeon"
+    },
+    {
+      "profileId": "hollow-weald/forest",
+      "regionId": "hollow-weald",
+      "settingId": "forest"
+    },
+    {
+      "profileId": "hollow-weald/road",
+      "regionId": "hollow-weald",
+      "settingId": "road"
+    },
+    {
+      "profileId": "pale-marches/city",
+      "regionId": "pale-marches",
+      "settingId": "city"
+    },
+    {
+      "profileId": "pale-marches/dungeon",
+      "regionId": "pale-marches",
+      "settingId": "dungeon"
+    },
+    {
+      "profileId": "pale-marches/road",
+      "regionId": "pale-marches",
+      "settingId": "road"
+    },
+    {
+      "profileId": "pale-marches/shore",
+      "regionId": "pale-marches",
+      "settingId": "shore"
+    },
+    {
+      "profileId": "cinder-reach/city",
+      "regionId": "cinder-reach",
+      "settingId": "city"
+    },
+    {
+      "profileId": "cinder-reach/dungeon",
+      "regionId": "cinder-reach",
+      "settingId": "dungeon"
+    },
+    {
+      "profileId": "cinder-reach/mine",
+      "regionId": "cinder-reach",
+      "settingId": "mine"
+    },
+    {
+      "profileId": "cinder-reach/road",
+      "regionId": "cinder-reach",
+      "settingId": "road"
+    },
+    {
+      "profileId": "cinder-reach/shore",
+      "regionId": "cinder-reach",
+      "settingId": "shore"
+    },
+    {
+      "profileId": "drowned-coast/city",
+      "regionId": "drowned-coast",
+      "settingId": "city"
+    },
+    {
+      "profileId": "drowned-coast/dungeon",
+      "regionId": "drowned-coast",
+      "settingId": "dungeon"
+    },
+    {
+      "profileId": "drowned-coast/road",
+      "regionId": "drowned-coast",
+      "settingId": "road"
+    },
+    {
+      "profileId": "drowned-coast/shore",
+      "regionId": "drowned-coast",
+      "settingId": "shore"
+    }
+  ],
   "nodeProfiles": [
     {
       "nodeId": "crownfall",
@@ -803,111 +953,106 @@
       "profileId": "cinder-reach/city"
     }
   ],
-  "profiles": [
+  "scenes": [
     {
-      "profileId": "ashen-crown/city",
-      "regionId": "ashen-crown",
-      "settingId": "city"
+      "sceneId": "ashen-crown-1",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "ashen-crown/dungeon",
-      "regionId": "ashen-crown",
-      "settingId": "dungeon"
+      "sceneId": "ashen-crown-2",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "ashen-crown/forest",
-      "regionId": "ashen-crown",
-      "settingId": "forest"
+      "sceneId": "ashen-crown-3",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "ashen-crown/road",
-      "regionId": "ashen-crown",
-      "settingId": "road"
+      "sceneId": "ashen-crown-4",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "hollow-weald/city",
-      "regionId": "hollow-weald",
-      "settingId": "city"
+      "sceneId": "hollow-weald-1",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "hollow-weald/dungeon",
-      "regionId": "hollow-weald",
-      "settingId": "dungeon"
+      "sceneId": "hollow-weald-2",
+      "timeId": "night",
+      "weatherId": "any"
     },
     {
-      "profileId": "hollow-weald/forest",
-      "regionId": "hollow-weald",
-      "settingId": "forest"
+      "sceneId": "hollow-weald-3",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "hollow-weald/road",
-      "regionId": "hollow-weald",
-      "settingId": "road"
+      "sceneId": "hollow-weald-4",
+      "timeId": "night",
+      "weatherId": "any"
     },
     {
-      "profileId": "pale-marches/city",
-      "regionId": "pale-marches",
-      "settingId": "city"
+      "sceneId": "pale-marches-1",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "pale-marches/dungeon",
-      "regionId": "pale-marches",
-      "settingId": "dungeon"
+      "sceneId": "pale-marches-2",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "pale-marches/road",
-      "regionId": "pale-marches",
-      "settingId": "road"
+      "sceneId": "pale-marches-3",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "pale-marches/shore",
-      "regionId": "pale-marches",
-      "settingId": "shore"
+      "sceneId": "pale-marches-4",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "cinder-reach/city",
-      "regionId": "cinder-reach",
-      "settingId": "city"
+      "sceneId": "cinder-reach-1",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "cinder-reach/dungeon",
-      "regionId": "cinder-reach",
-      "settingId": "dungeon"
+      "sceneId": "cinder-reach-2",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "cinder-reach/mine",
-      "regionId": "cinder-reach",
-      "settingId": "mine"
+      "sceneId": "cinder-reach-3",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "cinder-reach/road",
-      "regionId": "cinder-reach",
-      "settingId": "road"
+      "sceneId": "cinder-reach-4",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "cinder-reach/shore",
-      "regionId": "cinder-reach",
-      "settingId": "shore"
+      "sceneId": "drowned-coast-1",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "drowned-coast/city",
-      "regionId": "drowned-coast",
-      "settingId": "city"
+      "sceneId": "drowned-coast-2",
+      "timeId": "day",
+      "weatherId": "any"
     },
     {
-      "profileId": "drowned-coast/dungeon",
-      "regionId": "drowned-coast",
-      "settingId": "dungeon"
+      "sceneId": "drowned-coast-3",
+      "timeId": "night",
+      "weatherId": "any"
     },
     {
-      "profileId": "drowned-coast/road",
-      "regionId": "drowned-coast",
-      "settingId": "road"
-    },
-    {
-      "profileId": "drowned-coast/shore",
-      "regionId": "drowned-coast",
-      "settingId": "shore"
+      "sceneId": "drowned-coast-4",
+      "timeId": "day",
+      "weatherId": "any"
     }
   ],
   "sceneProfiles": [
@@ -1042,151 +1187,6 @@
       "weight": 1
     }
   ],
-  "scenes": [
-    {
-      "sceneId": "ashen-crown-1",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "ashen-crown-2",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "ashen-crown-3",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "ashen-crown-4",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "hollow-weald-1",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "hollow-weald-2",
-      "timeId": "night",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "hollow-weald-3",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "hollow-weald-4",
-      "timeId": "night",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "pale-marches-1",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "pale-marches-2",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "pale-marches-3",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "pale-marches-4",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "cinder-reach-1",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "cinder-reach-2",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "cinder-reach-3",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "cinder-reach-4",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "drowned-coast-1",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "drowned-coast-2",
-      "timeId": "day",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "drowned-coast-3",
-      "timeId": "night",
-      "weatherId": "any"
-    },
-    {
-      "sceneId": "drowned-coast-4",
-      "timeId": "day",
-      "weatherId": "any"
-    }
-  ],
-  "settings": [
-    {
-      "settingId": "road"
-    },
-    {
-      "settingId": "city"
-    },
-    {
-      "settingId": "forest"
-    },
-    {
-      "settingId": "dungeon"
-    },
-    {
-      "settingId": "mine"
-    },
-    {
-      "settingId": "shore"
-    }
-  ],
-  "times": [
-    {
-      "timeId": "day"
-    },
-    {
-      "timeId": "dusk"
-    },
-    {
-      "timeId": "night"
-    }
-  ],
-  "weather": [
-    {
-      "weatherId": "any"
-    },
-    {
-      "weatherId": "clear"
-    },
-    {
-      "weatherId": "rain"
-    },
-    {
-      "weatherId": "snow"
-    }
-  ]
+  "music": [],
+  "musicProfiles": []
 }

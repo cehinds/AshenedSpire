@@ -2,6 +2,33 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-5.1: combat engine port with shipped parity (feature/combat-core, 2026-09-26)
+
+**Landed**
+- `Ashen.Domain.Combat` (D-041): the shipped engine/combat.js family ported line by line onto a JSON document state (D-036, D-037).
+  - Covered: `dispatch` (playCard, endTurn, useFlask), queue drain, end check, player and enemy turns, delayed moves, weighted move picks with `maxConsecutive`, and phases.
+  - Every combat opcode, status stack modes, meters, procs, resists and decay, triggers (stance, property mount, status, phase) and the full predicate set.
+  - Formulas, AR/DR/PR/Poise/Ward ratings with break meters, hand rules and the discard choice, relic/equipment/class property mounts, card resolution (upgrade, profile, school variant, mods), and snapshot restore/serialize.
+- `CombatData` plus `rules/combatEngine.json` (limits, defaults, card-property vocabulary, grip tags, upgrade tags, flask kinds).
+- Names come from `Tools/codegen.d/combat.json`: 374 keys, 42 events, 19 ops, 22 predicates, 118 values, 50 messages.
+- **Content order fix (D-040):** generated content now keeps the shipped key order. Enemy move order and registry order decide seeded outcomes.
+- Tools:
+  - `Tools/oracle-replay.mjs` replays the golden logs from their snapshots through the shipped engine: 60/60 combats, 0 failures.
+  - `oracle-combat` now also writes the registry tables it ran against.
+- The registries port (us-0.3, background agent) merged into the lane first: 26 parity tests, both presets exact.
+
+**Tests**
+- `CombatParityTests`: every golden combat (60 combats, 1,068 steps, 31 victories and 29 defeats, all 35 encounters) replays through the C# engine with the projection identical after every step. The projection covers HP, block, statuses, intents, resources, hand, pile sizes and all RNG counters.
+- The same test also saves mid-fight, restores and resumes to the end identically.
+- Mutation check: corrupting one oracle HP value fails both tests.
+- dotnet 219/219; Unity EditMode 220/220. Enforcement green (no literals in the engine).
+
+**Not verified / open**
+- The engine rules for US-5.2 to 5.8 and 6.1 to 6.5 are in place, but their UI acceptance items (previews, targeting, HUD, enemy timeline) are not done. Only US-5.1 is counted complete.
+- `useFlask` is ported but not in the golden logs (the bot never drinks). `createCombat` and previews come in the next story, with oracle-recorded inputs.
+
+**Next:** us-5.3: `createCombat` and previews (`previewCard`/`previewIntent`), with oracle parity; then an F1 playable-loop combat screen.
+
 ## Phase F0 Foundation — complete (promoted at 0.1.1.1; renumbered from 1.0.0.0 by owner ruling, 2026-09-26)
 
 **Exit gate** (09 §8):

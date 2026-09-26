@@ -1,100 +1,295 @@
 {
+  "modFields": {
+    "damage": {
+      "field": "damage",
+      "scope": "card",
+      "apply": "amount",
+      "op": "damage",
+      "effTarget": "enemy",
+      "status": "",
+      "label": "Damage",
+      "clause": "Deal {damage} damage.",
+      "blurb": "How hard the card hits."
+    },
+    "block": {
+      "field": "block",
+      "scope": "card",
+      "apply": "amount",
+      "op": "block",
+      "effTarget": "self",
+      "status": "",
+      "label": "Block",
+      "clause": "Gain {block} Block.",
+      "blurb": "How much the card guards."
+    },
+    "poise": {
+      "field": "poise",
+      "scope": "card",
+      "apply": "amount",
+      "op": "poiseDamage",
+      "effTarget": "enemy",
+      "status": "",
+      "label": "Poise",
+      "clause": "Deal {poiseDamage} Poise damage.",
+      "blurb": "Build-up toward a Stagger."
+    },
+    "hits": {
+      "field": "hits",
+      "scope": "card",
+      "apply": "hits",
+      "op": "damage",
+      "effTarget": "enemy",
+      "status": "",
+      "label": "Hits",
+      "clause": "Strikes {hits} times.",
+      "blurb": "How many times the damage lands."
+    },
+    "cost": {
+      "field": "cost",
+      "scope": "card",
+      "apply": "cost",
+      "op": "",
+      "effTarget": "",
+      "status": "",
+      "label": "Cost",
+      "clause": "",
+      "blurb": "Energy to play. Never drops below 0."
+    },
+    "potency": {
+      "field": "potency",
+      "scope": "card",
+      "apply": "scale",
+      "op": "",
+      "effTarget": "",
+      "status": "",
+      "label": "Potency",
+      "clause": "",
+      "blurb": "Every number on the card, together."
+    },
+    "bleed": {
+      "field": "bleed",
+      "scope": "card",
+      "apply": "status",
+      "op": "applyStatus",
+      "effTarget": "enemy",
+      "status": "bleed",
+      "label": "Bleed",
+      "clause": "Apply {bleed} Bleed.",
+      "blurb": "Bleed build-up the card applies."
+    },
+    "blight": {
+      "field": "blight",
+      "scope": "card",
+      "apply": "status",
+      "op": "applyStatus",
+      "effTarget": "enemy",
+      "status": "crimsonBlight",
+      "label": "Blight",
+      "clause": "Apply {crimsonBlight} Crimson Blight.",
+      "blurb": "Crimson Blight the card applies."
+    },
+    "burn": {
+      "field": "burn",
+      "scope": "card",
+      "apply": "status",
+      "op": "applyStatus",
+      "effTarget": "enemy",
+      "status": "burn",
+      "label": "Burn",
+      "clause": "Apply {burn} Burn.",
+      "blurb": "Burn the card applies."
+    },
+    "frost": {
+      "field": "frost",
+      "scope": "card",
+      "apply": "status",
+      "op": "applyStatus",
+      "effTarget": "enemy",
+      "status": "frost",
+      "label": "Frost",
+      "clause": "Apply {frost} Frost.",
+      "blurb": "Frost build-up the card applies."
+    },
+    "insanity": {
+      "field": "insanity",
+      "scope": "card",
+      "apply": "status",
+      "op": "applyStatus",
+      "effTarget": "enemy",
+      "status": "insanity",
+      "label": "Insanity",
+      "clause": "Apply {insanity} Insanity.",
+      "blurb": "Insanity build-up the card applies."
+    },
+    "strength": {
+      "field": "strength",
+      "scope": "run",
+      "apply": "startStatus",
+      "op": "",
+      "effTarget": "",
+      "status": "strength",
+      "label": "Strength",
+      "clause": "",
+      "blurb": "Strength you begin every fight with."
+    },
+    "dexterity": {
+      "field": "dexterity",
+      "scope": "run",
+      "apply": "startStatus",
+      "op": "",
+      "effTarget": "",
+      "status": "dexterity",
+      "label": "Dexterity",
+      "clause": "",
+      "blurb": "Dexterity you begin every fight with."
+    },
+    "regen": {
+      "field": "regen",
+      "scope": "run",
+      "apply": "startStatus",
+      "op": "",
+      "effTarget": "",
+      "status": "regen",
+      "label": "Regen",
+      "clause": "",
+      "blurb": "HP recovered at the start of each turn."
+    },
+    "maxHp": {
+      "field": "maxHp",
+      "scope": "run",
+      "apply": "maxHp",
+      "op": "",
+      "effTarget": "",
+      "status": "",
+      "label": "Max HP",
+      "clause": "",
+      "blurb": "Added to your maximum HP for the run."
+    },
+    "maxMana": {
+      "field": "maxMana",
+      "scope": "run",
+      "apply": "maxMana",
+      "op": "",
+      "effTarget": "",
+      "status": "",
+      "label": "Max Mana",
+      "clause": "",
+      "blurb": "Added to your maximum Mana for the run."
+    },
+    "maxStamina": {
+      "field": "maxStamina",
+      "scope": "run",
+      "apply": "maxStamina",
+      "op": "",
+      "effTarget": "",
+      "status": "",
+      "label": "Max Stamina",
+      "clause": "",
+      "blurb": "Added to your maximum Stamina for the run."
+    },
+    "swapCost": {
+      "field": "swapCost",
+      "scope": "run",
+      "apply": "swapCost",
+      "op": "",
+      "effTarget": "",
+      "status": "",
+      "label": "Swap cost",
+      "clause": "",
+      "blurb": "Changed cost to switch armament sets mid-fight."
+    }
+  },
+  "targets": [
+    {
+      "target": "strike",
+      "classId": "*",
+      "cardId": "strike"
+    },
+    {
+      "target": "defend",
+      "classId": "*",
+      "cardId": "defend"
+    },
+    {
+      "target": "power",
+      "classId": "reaver",
+      "cardId": "gorefireSlash"
+    },
+    {
+      "target": "power",
+      "classId": "starseer",
+      "cardId": "starstonePebble"
+    },
+    {
+      "target": "power",
+      "classId": "herald",
+      "cardId": "urgentHeal"
+    },
+    {
+      "target": "power",
+      "classId": "rogue",
+      "cardId": "ambush"
+    }
+  ],
+  "cardTargets": [
+    "strike",
+    "defend",
+    "power"
+  ],
+  "cardEquipmentExceptions": [
+    {
+      "cardId": "starstoneKris",
+      "weaponId": "dagger"
+    }
+  ],
+  "equipmentGrants": [],
   "armouryUi": {
     "equippedTag": {
-      "customColor": "#7FD47F",
-      "useCustomColor": true
+      "useCustomColor": true,
+      "customColor": "#7FD47F"
     },
     "layout": {
-      "cardClasses": {
-        "inventoryItem": {
-          "holdAction": true
-        }
-      },
-      "cards": {
-        "defaultView": "list",
-        "gridColumns": 4
+      "shell": {
+        "characterRatio": 0.4,
+        "equipmentRatio": 0.6,
+        "gapRem": 1.6
       },
       "character": {
-        "minWidth": "0",
         "spriteRatio": 0.38,
+        "statsRatio": 0.62,
         "statsPaneRatio": 0.6,
-        "statsRatio": 0.62
-      },
-      "combatPower": {
-        "cards": [
-          {
-            "fullLabel": "Strike Power",
-            "id": "strike",
-            "label": "Strike",
-            "role": "attack"
-          },
-          {
-            "fullLabel": "Magic Power",
-            "id": "potency",
-            "label": "Magic",
-            "role": "technique"
-          },
-          {
-            "fullLabel": "Guard / Defense",
-            "id": "defense",
-            "label": "Defense",
-            "role": "guard"
-          }
-        ],
-        "groupLabel": "Combat Power"
-      },
-      "comparison": {
-        "holdPreviewDelayMs": 160,
-        "presentation": "tooltip",
-        "tooltipMaxHeightRatio": 0.8,
-        "tooltipWidthRem": 52
+        "minWidth": "0"
       },
       "equipment": {
-        "defaultView": "list",
-        "gridColumns": 3,
         "groupLabel": "Armaments",
         "outerBorder": false,
         "slotOrder": [
           "armor",
           "rightHand",
           "leftHand"
-        ]
+        ],
+        "defaultView": "list",
+        "gridColumns": 3
       },
       "inventorySplit": {
-        "compactItemsBelowPx": 520,
         "defaultArmamentsRatio": 0.6,
-        "foldGroupsBelowPx": 260,
-        "foldSubcardsBelowPx": 420,
-        "maximumArmamentsRatio": 0.8,
         "minimumArmamentsRatio": 0.3,
+        "maximumArmamentsRatio": 0.8,
         "snapRatios": [
           0.4,
           0.5,
           0.6,
           0.7
         ],
-        "snapTolerance": 0.035
-      },
-      "responsive": {
-        "breakpoint": 760,
-        "phone": {
-          "armamentGridColumns": 2,
-          "cardsGridColumns": 2,
-          "characterRatio": 0.4,
-          "equipmentRatio": 0.6,
-          "minWidth": "0"
-        }
-      },
-      "shell": {
-        "characterRatio": 0.4,
-        "equipmentRatio": 0.6,
-        "gapRem": 1.6
+        "snapTolerance": 0.035,
+        "compactItemsBelowPx": 520,
+        "foldSubcardsBelowPx": 420,
+        "foldGroupsBelowPx": 260
       },
       "trays": {
-        "contentGapRem": 0.35,
         "defaultHeightRatio": 0.45,
-        "maximumHeightRatio": 0.9,
         "minimumHeightRatio": 0.3,
+        "maximumHeightRatio": 0.9,
         "multipleExpandedMinimumRatio": 0.3,
         "snapRatios": [
           0.3,
@@ -105,286 +300,91 @@
           0.8,
           0.9
         ],
-        "snapTolerance": 0.035
+        "snapTolerance": 0.035,
+        "contentGapRem": 0.35
+      },
+      "combatPower": {
+        "groupLabel": "Combat Power",
+        "cards": [
+          {
+            "id": "strike",
+            "role": "attack",
+            "label": "Strike",
+            "fullLabel": "Strike Power"
+          },
+          {
+            "id": "potency",
+            "role": "technique",
+            "label": "Magic",
+            "fullLabel": "Magic Power"
+          },
+          {
+            "id": "defense",
+            "role": "guard",
+            "label": "Defense",
+            "fullLabel": "Guard / Defense"
+          }
+        ]
+      },
+      "cards": {
+        "defaultView": "list",
+        "gridColumns": 4
+      },
+      "comparison": {
+        "presentation": "tooltip",
+        "holdPreviewDelayMs": 160,
+        "tooltipWidthRem": 52,
+        "tooltipMaxHeightRatio": 0.8
+      },
+      "cardClasses": {
+        "inventoryItem": {
+          "holdAction": true
+        }
       },
       "viewModes": {
-        "cards": {
-          "armaments": "folded",
-          "cards": "expanded",
-          "character": "folded",
-          "inventory": "folded",
-          "label": "Cards",
-          "pane": "inventory"
-        },
         "grid": {
-          "armaments": "folded",
-          "cards": "expanded",
-          "character": "expanded",
-          "inventory": "folded",
           "label": "Character",
-          "pane": "character"
-        },
-        "hybrid": {
-          "armaments": "expanded",
-          "cards": "folded",
-          "character": "folded",
-          "inventory": "expanded",
-          "label": "Inventory",
-          "pane": "inventory"
+          "pane": "character",
+          "character": "expanded",
+          "armaments": "folded",
+          "inventory": "folded",
+          "cards": "expanded"
         },
         "rack": {
-          "armaments": "expanded",
-          "cards": "folded",
-          "character": "folded",
-          "inventory": "expanded",
           "label": "Equipment",
-          "pane": "inventory"
+          "pane": "inventory",
+          "character": "folded",
+          "armaments": "expanded",
+          "inventory": "expanded",
+          "cards": "folded"
+        },
+        "hybrid": {
+          "label": "Inventory",
+          "pane": "inventory",
+          "character": "folded",
+          "armaments": "expanded",
+          "inventory": "expanded",
+          "cards": "folded"
+        },
+        "cards": {
+          "label": "Cards",
+          "pane": "inventory",
+          "character": "folded",
+          "armaments": "folded",
+          "inventory": "folded",
+          "cards": "expanded"
+        }
+      },
+      "responsive": {
+        "breakpoint": 760,
+        "phone": {
+          "minWidth": "0",
+          "characterRatio": 0.4,
+          "equipmentRatio": 0.6,
+          "cardsGridColumns": 2,
+          "armamentGridColumns": 2
         }
       }
     }
-  },
-  "cardEquipmentExceptions": [
-    {
-      "cardId": "starstoneKris",
-      "weaponId": "dagger"
-    }
-  ],
-  "cardTargets": [
-    "strike",
-    "defend",
-    "power"
-  ],
-  "equipmentGrants": [],
-  "modFields": {
-    "bleed": {
-      "apply": "status",
-      "blurb": "Bleed build-up the card applies.",
-      "clause": "Apply {bleed} Bleed.",
-      "effTarget": "enemy",
-      "field": "bleed",
-      "label": "Bleed",
-      "op": "applyStatus",
-      "scope": "card",
-      "status": "bleed"
-    },
-    "blight": {
-      "apply": "status",
-      "blurb": "Crimson Blight the card applies.",
-      "clause": "Apply {crimsonBlight} Crimson Blight.",
-      "effTarget": "enemy",
-      "field": "blight",
-      "label": "Blight",
-      "op": "applyStatus",
-      "scope": "card",
-      "status": "crimsonBlight"
-    },
-    "block": {
-      "apply": "amount",
-      "blurb": "How much the card guards.",
-      "clause": "Gain {block} Block.",
-      "effTarget": "self",
-      "field": "block",
-      "label": "Block",
-      "op": "block",
-      "scope": "card",
-      "status": ""
-    },
-    "burn": {
-      "apply": "status",
-      "blurb": "Burn the card applies.",
-      "clause": "Apply {burn} Burn.",
-      "effTarget": "enemy",
-      "field": "burn",
-      "label": "Burn",
-      "op": "applyStatus",
-      "scope": "card",
-      "status": "burn"
-    },
-    "cost": {
-      "apply": "cost",
-      "blurb": "Energy to play. Never drops below 0.",
-      "clause": "",
-      "effTarget": "",
-      "field": "cost",
-      "label": "Cost",
-      "op": "",
-      "scope": "card",
-      "status": ""
-    },
-    "damage": {
-      "apply": "amount",
-      "blurb": "How hard the card hits.",
-      "clause": "Deal {damage} damage.",
-      "effTarget": "enemy",
-      "field": "damage",
-      "label": "Damage",
-      "op": "damage",
-      "scope": "card",
-      "status": ""
-    },
-    "dexterity": {
-      "apply": "startStatus",
-      "blurb": "Dexterity you begin every fight with.",
-      "clause": "",
-      "effTarget": "",
-      "field": "dexterity",
-      "label": "Dexterity",
-      "op": "",
-      "scope": "run",
-      "status": "dexterity"
-    },
-    "frost": {
-      "apply": "status",
-      "blurb": "Frost build-up the card applies.",
-      "clause": "Apply {frost} Frost.",
-      "effTarget": "enemy",
-      "field": "frost",
-      "label": "Frost",
-      "op": "applyStatus",
-      "scope": "card",
-      "status": "frost"
-    },
-    "hits": {
-      "apply": "hits",
-      "blurb": "How many times the damage lands.",
-      "clause": "Strikes {hits} times.",
-      "effTarget": "enemy",
-      "field": "hits",
-      "label": "Hits",
-      "op": "damage",
-      "scope": "card",
-      "status": ""
-    },
-    "insanity": {
-      "apply": "status",
-      "blurb": "Insanity build-up the card applies.",
-      "clause": "Apply {insanity} Insanity.",
-      "effTarget": "enemy",
-      "field": "insanity",
-      "label": "Insanity",
-      "op": "applyStatus",
-      "scope": "card",
-      "status": "insanity"
-    },
-    "maxHp": {
-      "apply": "maxHp",
-      "blurb": "Added to your maximum HP for the run.",
-      "clause": "",
-      "effTarget": "",
-      "field": "maxHp",
-      "label": "Max HP",
-      "op": "",
-      "scope": "run",
-      "status": ""
-    },
-    "maxMana": {
-      "apply": "maxMana",
-      "blurb": "Added to your maximum Mana for the run.",
-      "clause": "",
-      "effTarget": "",
-      "field": "maxMana",
-      "label": "Max Mana",
-      "op": "",
-      "scope": "run",
-      "status": ""
-    },
-    "maxStamina": {
-      "apply": "maxStamina",
-      "blurb": "Added to your maximum Stamina for the run.",
-      "clause": "",
-      "effTarget": "",
-      "field": "maxStamina",
-      "label": "Max Stamina",
-      "op": "",
-      "scope": "run",
-      "status": ""
-    },
-    "poise": {
-      "apply": "amount",
-      "blurb": "Build-up toward a Stagger.",
-      "clause": "Deal {poiseDamage} Poise damage.",
-      "effTarget": "enemy",
-      "field": "poise",
-      "label": "Poise",
-      "op": "poiseDamage",
-      "scope": "card",
-      "status": ""
-    },
-    "potency": {
-      "apply": "scale",
-      "blurb": "Every number on the card, together.",
-      "clause": "",
-      "effTarget": "",
-      "field": "potency",
-      "label": "Potency",
-      "op": "",
-      "scope": "card",
-      "status": ""
-    },
-    "regen": {
-      "apply": "startStatus",
-      "blurb": "HP recovered at the start of each turn.",
-      "clause": "",
-      "effTarget": "",
-      "field": "regen",
-      "label": "Regen",
-      "op": "",
-      "scope": "run",
-      "status": "regen"
-    },
-    "strength": {
-      "apply": "startStatus",
-      "blurb": "Strength you begin every fight with.",
-      "clause": "",
-      "effTarget": "",
-      "field": "strength",
-      "label": "Strength",
-      "op": "",
-      "scope": "run",
-      "status": "strength"
-    },
-    "swapCost": {
-      "apply": "swapCost",
-      "blurb": "Changed cost to switch armament sets mid-fight.",
-      "clause": "",
-      "effTarget": "",
-      "field": "swapCost",
-      "label": "Swap cost",
-      "op": "",
-      "scope": "run",
-      "status": ""
-    }
-  },
-  "targets": [
-    {
-      "cardId": "strike",
-      "classId": "*",
-      "target": "strike"
-    },
-    {
-      "cardId": "defend",
-      "classId": "*",
-      "target": "defend"
-    },
-    {
-      "cardId": "gorefireSlash",
-      "classId": "reaver",
-      "target": "power"
-    },
-    {
-      "cardId": "starstonePebble",
-      "classId": "starseer",
-      "target": "power"
-    },
-    {
-      "cardId": "urgentHeal",
-      "classId": "herald",
-      "target": "power"
-    },
-    {
-      "cardId": "ambush",
-      "classId": "rogue",
-      "target": "power"
-    }
-  ]
+  }
 }
