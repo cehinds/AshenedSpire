@@ -25,5 +25,19 @@ namespace Ashen.Generated
         public const string RefusalNoSuchRow = "noSuchRow";
         public const string RefusalNoReward = "noReward";
         public const string RefusalRefused = "refused";
+        public const string LocationRest = "rest";
+        public const string LocationMerchant = "merchant";
+        public const string LocationEvent = "event";
+        public const string LocationDungeon = "dungeon";
+        public const string LocationRunEnd = "runEnd";
+        public const string RefusalNotOnMap = "notOnMap";
+        public const string RefusalNotReachable = "notReachable";
+        public const string RefusalNotHere = "notHere";
+        public const string OptionRest = "rest";
+        public const string OptionSmith = "smith";
+        public const string OptionExtract = "extract";
+        public const string OptionInstall = "install";
+        public const string OptionFlasks = "flasks";
+        public const string OptionLevel = "level";
     }
 }

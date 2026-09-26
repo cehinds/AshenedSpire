@@ -19,5 +19,10 @@ namespace Ashen.Generated
         public const string EnemyStepReduced = "enemyStepReduced";
         public const string TurnBanner = "turnBanner";
         public const string Notice = "notice";
+        public const string MapEdge = "mapEdge";
+        public const string MapTrail = "mapTrail";
+        public const string MapWay = "mapWay";
+        public const string TrayDelay = "trayDelay";
+        public const string RepeatPick = "repeatPick";
     }
 }

@@ -52,5 +52,6 @@ namespace Ashen.Generated
         public const string Round = "round";
         public const string Rounds = "rounds";
         public const string Art = "art";
+        public const string Heal = "heal";
     }
 }

@@ -103,41 +103,121 @@
             "glyph"
           ]
         },
-        "stats": {
+        "advancedConfigSnapshot": {
           "type": "object",
           "properties": {
-            "fightsWon": {
+            "schemaVersion": {
               "type": "integer"
             },
-            "damageDealt": {
+            "ratingsVersion": {
               "type": "integer"
             },
-            "damageTaken": {
-              "type": "integer"
+            "overrides": {
+              "type": "object"
             }
           },
           "required": [
-            "fightsWon",
-            "damageDealt",
-            "damageTaken"
+            "schemaVersion",
+            "ratingsVersion",
+            "overrides"
           ]
         },
-        "path": {
-          "type": "array"
-        },
-        "seenEvents": {
-          "type": "array"
-        },
-        "lastEncounters": {
-          "type": "array"
+        "prologue": {
+          "type": "boolean"
         }
       },
       "required": [
         "customization",
-        "stats",
-        "path",
-        "seenEvents",
-        "lastEncounters"
+        "advancedConfigSnapshot",
+        "prologue"
+      ]
+    },
+    "settings": {
+      "type": "object",
+      "properties": {
+        "multiUse": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string"
+            },
+            "def": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "key"
+          ]
+        },
+        "shopSell": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string"
+            },
+            "def": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "key"
+          ]
+        },
+        "holdConfirm": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "key"
+          ]
+        }
+      },
+      "required": [
+        "multiUse",
+        "shopSell",
+        "holdConfirm"
+      ]
+    },
+    "screens": {
+      "type": "object",
+      "properties": {
+        "combat": {
+          "type": "string"
+        },
+        "rewards": {
+          "type": "string"
+        },
+        "map": {
+          "type": "string"
+        },
+        "rest": {
+          "type": "string"
+        },
+        "merchant": {
+          "type": "string"
+        },
+        "event": {
+          "type": "string"
+        },
+        "dungeon": {
+          "type": "string"
+        },
+        "runEnd": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "combat",
+        "rewards",
+        "map",
+        "rest",
+        "merchant",
+        "event",
+        "dungeon",
+        "runEnd"
       ]
     }
   },
@@ -147,6 +227,8 @@
     "creation",
     "firstFight",
     "newRun",
-    "saveFormat"
+    "saveFormat",
+    "screens",
+    "settings"
   ]
 }

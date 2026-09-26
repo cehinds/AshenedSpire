@@ -1,0 +1,10 @@
+{
+  "comment": "W-06 mid-act: the travelled trail gold and dotted, the ways on lit from where the run stands, a node selected with the tray over the map foot (kind, hint, Back, Enter).",
+  "screen": "actMap",
+  "seed": 2,
+  "assisted": true,
+  "until": "mid",
+  "select": true,
+  "settleMs": 300,
+  "skipSizes": ["1920x1080", "844x390"]
+}

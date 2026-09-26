@@ -25,5 +25,8 @@ namespace Ashen.Generated
         public const string FocusPick = "pick";
         public const string RewardCardKind = "card";
         public const string RewardCollectAuto = "auto";
+        public const string FocusPlanned = "planned";
+        public const string FocusLegend = "legend";
+        public const string FocusPane = "pane";
     }
 }

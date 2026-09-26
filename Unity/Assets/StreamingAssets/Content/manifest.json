@@ -1,5 +1,5 @@
 {
-  "contentHash": "b0081b94a2eb45cf2291e059b75fefdf4610e55b40bd25725db9efedf6c6059c",
+  "contentHash": "a1f8eaec58c12a9b3edeb0f41fc6f0962d05b26585a9fc3a87e11a7ca690b3dd",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -349,9 +349,9 @@
       "sha256": "52cc58b6c3d768a243ed82ba783ea2dc54783e4e88dc860138dae75591834747"
     },
     "rules/runFlow.json": {
-      "bytes": 1818,
+      "bytes": 2761,
       "generated": false,
-      "sha256": "f4b2d8e7afdc6bc73720c2b65fbc97e891afcaae77ffdbb7c1617b6b04c32720"
+      "sha256": "07748a438a0ac92bf3e31076207fe719b431fc7ae364ef87ff60761c2da3a260"
     },
     "rules/saves.json": {
       "bytes": 371,
@@ -684,9 +684,9 @@
       "sha256": "f0b908a4cb2212d7c249c6430d7b9ce0cbc398ce47a2da50c4d092229a1a8f2b"
     },
     "schemas/rules.runFlow.schema.json": {
-      "bytes": 2930,
+      "bytes": 4517,
       "generated": false,
-      "sha256": "7b5d640831c934f6cf780bc8573c74c4fe339322bb36e341a3dee5e7e2a5dd31"
+      "sha256": "560ed5f1ff4a589926ea46223945f32f7e0739ed87895ccbe681a27c30408dfc"
     },
     "schemas/rules.saves.schema.json": {
       "bytes": 532,
@@ -804,9 +804,9 @@
       "sha256": "b737b74ae845e045c72f49a06586301dd739bf3a52236d55dd9c919acc888103"
     },
     "schemas/ui.components.schema.json": {
-      "bytes": 3681,
+      "bytes": 4633,
       "generated": false,
-      "sha256": "e024386963054570bbdb390f62debddd880531d4439e651f65d67d05fee7b82e"
+      "sha256": "fa24f2047cb186d992de2eb7ffc872576a60e784861902df73ef864d489c4e70"
     },
     "schemas/ui.confirmationPolicies.schema.json": {
       "bytes": 2064,
@@ -824,9 +824,9 @@
       "sha256": "4a4726ea6740c861649d8476085f9b8c7ae611c3b325948227bde0e2c7ac9b09"
     },
     "schemas/ui.menus.schema.json": {
-      "bytes": 3714,
+      "bytes": 3764,
       "generated": false,
-      "sha256": "c4945458263b669980e3907357faaba2aaefe20a4ee93ea50cc8d4d714d6096a"
+      "sha256": "f487c2e18ed8f21667fa3e74091481bfe232df0ca5114d9a57e676f57be5edd1"
     },
     "schemas/ui.screens.schema.json": {
       "bytes": 2330,
@@ -859,9 +859,9 @@
       "sha256": "39fe1a403dd55892dc6cc0451a94725b99b3a1ffb0138ea02ca10c28f4106fcc"
     },
     "strings/app.en.json": {
-      "bytes": 12086,
+      "bytes": 19795,
       "generated": false,
-      "sha256": "96459c5251403f21395851099e56bb22364a52a3ce32da3c8bb1540c729efd66"
+      "sha256": "7fdeb2f61e9d980e8a739ff34f236d516f66312b29e098ca7a0559f7ac2d7bd7"
     },
     "strings/combat.en.json": {
       "bytes": 2247,
@@ -944,9 +944,9 @@
       "sha256": "800f85c25beaa464dee1ad55f25b838ca54e8cb72b0fa8ed44b0b40a9f5efbe0"
     },
     "ui/components.json": {
-      "bytes": 2714,
+      "bytes": 3536,
       "generated": false,
-      "sha256": "6448380e2b3d635ba8eb37049468b7648eadb4768a8c3408ccb15a704bb2c12a"
+      "sha256": "c405ba2ce0adc94895fd29cb68f4f026f08b20bbed4b96d75e31c648375400ff"
     },
     "ui/confirmationPolicies.json": {
       "bytes": 3228,
@@ -964,14 +964,14 @@
       "sha256": "330892274c3cc8c87947d2662b07dccbd95f7c3275dc2922a80e3d30a546d178"
     },
     "ui/menus.json": {
-      "bytes": 5823,
+      "bytes": 5902,
       "generated": false,
-      "sha256": "0bf75631fa889ead1dddce03a04b9ac2fea7f2bdd0e7d9cefa54def123c20158"
+      "sha256": "687c5e0011dd208e92216afe5e3b22c07d5ce282cf248c47a929e9d5f1944d27"
     },
     "ui/screens.json": {
-      "bytes": 5459,
+      "bytes": 6799,
       "generated": false,
-      "sha256": "26776bb60145ab44910d7cb00631bae29505f8bbdf8d8230247be9cd763d8d49"
+      "sha256": "efad068d5c2773c2308ba1737b412faf65166bc961e9e2fc8ef6633a9e259bb4"
     },
     "ui/terms.json": {
       "bytes": 12076,
@@ -984,9 +984,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 5800,
+      "bytes": 6771,
       "generated": false,
-      "sha256": "657da118e62b883d561c255af072c16830e4e616de690ea3b3cf09d8d06564a0"
+      "sha256": "ba42b2124120d24dfb3f768a483b4eeaa176647bea0633addabb50ea070b3b11"
     }
   },
   "schemaVersion": 1

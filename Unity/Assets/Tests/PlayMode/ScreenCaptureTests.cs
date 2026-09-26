@@ -59,7 +59,7 @@ namespace Ashen.Tests.Play
 
         private static string RepoRoot => Path.GetFullPath(Path.Combine(Application.dataPath, "..", ".."));
 
-        [UnityTest]
+        [UnityTest, Timeout(1800000)]
         public IEnumerator CaptureScreens()
         {
             if (Environment.GetEnvironmentVariable(CaptureVariable) != "1") Assert.Ignore("screen capture runs only with " + CaptureVariable + "=1 (Cli.CaptureScreens)");
@@ -188,9 +188,86 @@ namespace Ashen.Tests.Play
                     nav.Go(ScreenIds.Rewards, new RewardsArgs { Session = session }, true);
                     break;
                 }
+                case ScreenIds.ActMap:
+                case ScreenIds.Rest:
+                case ScreenIds.RunEnd:
+                {
+                    var session = Climb(host.Context, source, fixture);
+                    nav.Go(screen, new RunScreenArgs { Session = session }, true);
+                    break;
+                }
                 default:
                     nav.Go(screen);
                     break;
+            }
+        }
+
+        /// <summary>
+        /// A climb for a W-06/W-10/W-15 fixture: a new climb (Classic, or the short Custom Climb with 'short'), played by the
+        /// smoke policy (ClimbPilot; enemy HP on the assisted scale with 'assisted'; 'prefer' picks the first reachable node of
+        /// that kind) until 'until' holds: start, mid (half the act climbed), boss (the keeper reachable), rest, restSmith (a
+        /// rest place whose smith is offered), merchant, death (every turn ended) or end (the run is over). 'act' first climbs
+        /// to that act. 'grantPoints' and 'grantStones' edit the run for review before the screen opens.
+        /// </summary>
+        private static RunSession Climb(UiContext ui, IContentSource source, JObject fixture)
+        {
+            var content = RunContent.Load(source);
+            var seed = (uint)((long?)fixture["seed"] ?? 1L);
+            RunSession.ReviewEnemyHpScale = (bool?)fixture["assisted"] == true ? ClimbPilot.Assisted : (Func<string, double>)null;
+            try
+            {
+                var session = RunSession.New(content, ui.Saves, 1, seed, (string)fixture["classId"] ?? content.DefaultClass(), ui.Data.Strings.Get(content.Flow.NameKey),
+                    null, (bool?)fixture["short"] == true ? ClimbPilot.ShortClimb() : null);
+                var pilot = new ClimbPilot(seed);
+                var until = (string)fixture["until"] ?? "start";
+                var act = (int?)fixture["act"] ?? 1;
+                var prefer = (string)fixture["prefer"];
+                bool Done()
+                {
+                    if (session.RunOver) return true;
+                    if (session.Act < act) return false;
+                    var graph = session.Run["mapGraph"];
+                    switch (until)
+                    {
+                        case "start": return session.Location == "map";
+                        case "mid": return session.Location == "map" && session.Floor * 2 >= ActMapView.Build(session, ui.Data).Floors;
+                        case "boss": return session.Location == "map" && session.ReachableNodes().Any(id => (string)graph["nodes"][id]["type"] == "boss");
+                        case "rest": return session.Location == "rest";
+                        case "restSmith": return session.Location == "rest" && RestView.Build(session, ui.Data).Option("smith") != null;
+                        case "merchant": return session.Location == "merchant";
+                        default: return false;
+                    }
+                }
+                for (var i = 0; i < 2000 && !Done(); i++)
+                {
+                    if (until == "death" && session.IsInCombat)
+                    {
+                        session.Execute(ClimbPilot.EndTurn(session.Combat.State));
+                        continue;
+                    }
+                    if (session.Location == "map" && prefer != null)
+                    {
+                        var graph = session.Run["mapGraph"];
+                        var nodes = session.ReachableNodes();
+                        session.Travel(nodes.FirstOrDefault(id => (string)graph["nodes"][id]["type"] == prefer) ?? nodes[0]);
+                        continue;
+                    }
+                    if (!pilot.Step(session, ui.Data)) break;
+                }
+                var points = (int?)fixture["grantPoints"];
+                var stones = (int?)fixture["grantStones"];
+                if (points != null || stones != null)
+                    session.EditRunForReview(run =>
+                    {
+                        if (points != null) ((JObject)run["level"])["unspentPoints"] = (double)points.Value;
+                        if (stones != null) run["smithingStones"] = (double)stones.Value;
+                    });
+                ui.Session = session;
+                return session;
+            }
+            finally
+            {
+                RunSession.ReviewEnemyHpScale = null;
             }
         }
 
@@ -266,6 +343,13 @@ namespace Ashen.Tests.Play
             }
             if (host.Navigator.Top?.View is RewardsScreen rewards && (string)fixture["state"] == "pick")
                 rewards.PickForReview((string)fixture["pickKind"], (int?)fixture["select"] ?? -1);
+            if (host.Navigator.Top?.View is ActMapScreen map)
+            {
+                if ((bool?)fixture["select"] == true && map.Session.ReachableNodes().Count > 0) map.Select(map.Session.ReachableNodes()[0]);
+                if ((bool?)fixture["legend"] == true) map.LegendForReview();
+            }
+            if (host.Navigator.Top?.View is RestScreen rest && fixture["pane"] != null)
+                rest.PaneForReview((string)fixture["pane"], (bool?)fixture["selectFirst"] ?? false, (int?)fixture["assign"] ?? 0);
             if (!(fixture["confirm"] is JObject confirm)) return;
             var nav = host.Navigator;
             var request = new ConfirmRequest { ConfirmId = (string)confirm["id"] };
