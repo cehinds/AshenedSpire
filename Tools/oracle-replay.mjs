@@ -31,7 +31,7 @@ const projection = (c, rng) => ({
   turn: c.turn, phase: c.phase, result: c.result,
   player: { ...ent(c.player), energy: c.player.energy, mana: c.player.mana, stamina: c.player.stamina },
   enemies: c.enemies.map(ent), hand: c.piles.hand.map(x => x.instanceId),
-  draw: c.piles.draw.length, discard: c.piles.discard.length, exhaust: c.piles.exhaust.length, rng: rng.getCounters(),
+  draw: c.piles.draw.length, discard: c.piles.discard.length, exhaust: c.piles.exhaust.length, rng: rng.getCounters(), skillXp: structuredClone(c.skillXp?.player ?? null),
 });
 
 const previews = (c) => ({

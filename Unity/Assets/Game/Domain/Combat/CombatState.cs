@@ -113,7 +113,13 @@ namespace Ashen.Domain.Combat
         /// <summary>ownerKey → (sourceKey → mount), both insertion-ordered.</summary>
         public OrderedMap<OrderedMap<PropertyMount>> PropertyMounts;
 
-        public JObject Emit(string type, JObject payload = null) => Triggers.EmitEvent(this, type, payload);
+        /// <summary>combat.emit: the bus (triggers) then the skill-XP listener, as the shipped attachSkillXp wraps it.</summary>
+        public JObject Emit(string type, JObject payload = null)
+        {
+            var ev = Triggers.EmitEvent(this, type, payload);
+            Ashen.Domain.Combat.SkillXp.Record(this, ev);
+            return ev;
+        }
 
         public void Enqueue(CombatAction action) => Queue.AddLast(action);
 
