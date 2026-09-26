@@ -2,6 +2,19 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Combat session, legality, content-built data and skill XP (feature/combat-core, 2026-09-26)
+
+- **Content → engine:** `RuntimeRegistries.ToCombatData` builds the combat data from content, adding attributes, property rules by tag, and the class tree. `ContentCombatDataTests` confirm:
+  - every table equals the shipped one (rows, row order, enemy move order);
+  - all 60 golden combats start and replay identically on it. (0.1.4.1)
+- **Legality and session** (engine side of US-5.9), 0.1.4.2:
+  - `CombatLegality` answers the engine's pre-payment checks without mutating. Refusal keys come from `strings/combat.en.json`.
+  - `CombatSession` (Application) handles refusals, rolls back to the last safe point, and checkpoints to SaveService with a hashed command log (D-017).
+  - A property test shows legality equals engine acceptance for every card and target at every step of 10 golden combats.
+- **Skill XP** (removes the D-041 deferral): `SkillXp.Record` listens on the bus exactly as the shipped `attachSkillXp` does. The vocabulary lives in `rules/combatEngine.json` `skillXp`.
+  - The oracle now projects the receipt after every step. This also fixed a recorder bug: it had stored a live reference, so every step showed the final value.
+  - All 60 combats match.
+
 ## us-5.3: combat start and previews with shipped parity (feature/combat-core, 2026-09-26)
 
 **Landed**

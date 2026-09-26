@@ -170,6 +170,7 @@ namespace Ashen.Tests
                 ["discard"] = c.Piles.Discard.Count,
                 ["exhaust"] = c.Piles.Exhaust.Count,
                 ["rng"] = rng,
+                ["skillXp"] = c.SkillXp["player"]?.DeepClone() ?? JValue.CreateNull(),
             };
         }
 
