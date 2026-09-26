@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.0.9.0] — 2026-09-26
+
+Stories: us-0.8
+
+- Enforcement tests: no magic strings/numbers/content IDs, engine-free layers (us-0.8)
+
 ## [0.0.8.0] — 2026-09-26
 
 Stories: us-0.6
