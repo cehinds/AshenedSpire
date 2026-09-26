@@ -101,14 +101,20 @@ namespace Ashen.Content
             var propertyTags = authored.Where(t => propertyIds.Contains(t)).ToList();
             var kinds = index.Kinds.TryGetValue(key, out var k) ? k : new List<string>();
 
+            // Key order is the shipped spread's: { ...def, tags, ...conferred } and { ...def, ...conferred, entityTags, ... }.
             var result = JsValues.Spread(def);
-            if (propertyTags.Count > 0) result[TagKeys.PropertyTags] = new JArray(propertyTags);
-            if (kinds.Count > 0) result[TagKeys.KindIds] = new JArray(kinds);
+            void Confer()
+            {
+                if (propertyTags.Count > 0) result[TagKeys.PropertyTags] = new JArray(propertyTags);
+                if (kinds.Count > 0) result[TagKeys.KindIds] = new JArray(kinds);
+            }
             if (!EquipmentItemFamilies.Contains(family))
             {
                 result[TagKeys.Tags] = new JArray(entityTags);
+                Confer();
                 return result;
             }
+            Confer();
             // Equipment splits its tags: the whole vocabulary, the item-type half the Armoury names the piece by,
             // and the gameplay/presentation half that stays `tags`.
             var itemTypeTags = entityTags.Where(t => ItemTypeLabel(t).Length > 0).ToList();

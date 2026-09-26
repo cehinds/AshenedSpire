@@ -17,9 +17,8 @@ namespace Ashen.Tests
     /// <summary>
     /// US-0.3 end to end (D-040, D-041): the combat data built from CONTENT (config layers → runtime registries →
     /// CombatData) equals the registry tables the shipped engine ran the golden combats against — the same rows,
-    /// the same row order and equal rows (display text is re-attached after the mechanics, which the rules never
-    /// read in order), with the key orders the rules DO read held exactly (enemy moves: weighted picks walk them in
-    /// order) — and the golden combats replay identically on it.
+    /// the same row order and equal rows with the SAME key order (display text re-attached at its authored anchor,
+    /// D-069; tags stamped in the shipped spread order) — and the golden combats replay identically on it.
     /// </summary>
     [TestFixture, Category("Parity")]
     public class ContentCombatDataTests
@@ -58,7 +57,7 @@ namespace Ashen.Tests
             Assert.That(got.Select(r => r.Value<string>(key)), Is.EqualTo(want.Select(r => r.Value<string>(key))), table + ": row order");
             for (var i = 0; i < want.Count; i++)
             {
-                Assert.That(Canonical(got[i], true), Is.EqualTo(Canonical(want[i], true)), $"{table}[{want[i].Value<string>(key)}] (numbers as doubles)");
+                Assert.That(Canonical(got[i]), Is.EqualTo(Canonical(want[i])), $"{table}[{want[i].Value<string>(key)}] (numbers as doubles)");
                 if (want[i]["moves"] is JObject moves)
                     Assert.That(((JObject)got[i]["moves"]).Properties().Select(p => p.Name), Is.EqualTo(moves.Properties().Select(p => p.Name)), $"{table}[{want[i].Value<string>(key)}].moves order");
             }
@@ -68,9 +67,16 @@ namespace Ashen.Tests
         public void ContentEquipmentBalanceAndClassTreeEqualTheShippedOnes()
         {
             var dump = ReadJson(Path.Combine(CombatDir, "registries.json"));
-            Assert.That(Canonical(ContentData.Equipment, true), Is.EqualTo(Canonical(dump["equipment"], true)), "equipment");
-            Assert.That(Canonical(ContentData.Balance, true), Is.EqualTo(Canonical(dump["balance"], true)), "balance");
-            Assert.That(Canonical(ContentData.ClassTree, true), Is.EqualTo(Canonical(dump["classTree"], true)), "classTree");
+            var equipment = (JObject)dump["equipment"];
+            Assert.That(ContentData.Equipment.Properties().Select(p => p.Name), Is.EquivalentTo(equipment.Properties().Select(p => p.Name)), "equipment tables (read by name, never iterated)");
+            foreach (var p in equipment.Properties())
+            {
+                if (p.Value is JArray rows && ContentData.Equipment[p.Name] is JArray got && got.Count == rows.Count)
+                    for (var i = 0; i < rows.Count; i++) Assert.That(Canonical(got[i]), Is.EqualTo(Canonical(rows[i])), $"equipment.{p.Name}[{i}]");
+                Assert.That(Canonical(ContentData.Equipment[p.Name]), Is.EqualTo(Canonical(p.Value)), "equipment." + p.Name);
+            }
+            Assert.That(Canonical(ContentData.Balance), Is.EqualTo(Canonical(dump["balance"])), "balance");
+            Assert.That(Canonical(ContentData.ClassTree), Is.EqualTo(Canonical(dump["classTree"])), "classTree");
         }
 
         public static IEnumerable<string> CombatFiles() =>

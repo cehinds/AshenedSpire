@@ -59,6 +59,9 @@ function build(bundle, extras) {
   // Canonical JSON sorts every object's keys, so an id-keyed table loses its authoring order. The shipped engine
   // iterates its registries in that order (tag lists, equipment arrays, card order), so it is recorded here.
   const rowOrder = {};
+  // Where each extracted text field sat in its row (D-069): the key it followed ('' = first). Rows are copied verbatim
+  // into run documents (a creation mode snapshot, a relic, a card), so re-attached text must land where it was authored.
+  const textAnchors = {};
   for (const t of CONFIG.tables) {
     const rows = at(roots, t.from);
     if (!Array.isArray(rows)) fail(`${t.from} is not an array`);
@@ -70,9 +73,13 @@ function build(bundle, extras) {
       const key = t.key.map(k => row[k]).join(':');
       if (!key || t.key.some(k => row[k] == null)) fail(`${t.out}: row without key ${t.key.join('+')}`);
       if (key in table) fail(`${t.out}: duplicate key "${key}"`);
+      const keys = Object.keys(row);
+      const anchors = {};
       for (const [field, name] of Object.entries(t.text || {})) {
         if (typeof row[field] === 'string') { strings[`${t.stringPrefix}.${key}.${name}`] = row[field]; delete row[field]; }
       }
+      for (const [i, k] of keys.entries()) if (t.text && k in t.text && typeof src[k] === 'string') anchors[k] = i === 0 ? '' : keys[i - 1];
+      if (Object.keys(anchors).length) (textAnchors[t.out] ||= {})[key] = anchors;
       table[key] = row;
       order.push(key);
     }
@@ -98,6 +105,7 @@ function build(bundle, extras) {
   }
   files['rules/stringKeys.json'] = stringKeys;
   files['rules/rowOrder.json'] = rowOrder;
+  files['rules/textAnchors.json'] = textAnchors;
   const us = at(roots, CONFIG.uiStrings.from) || [];
   for (const row of us) for (const f of CONFIG.uiStrings.fields) if (typeof row[f] === 'string') strings[`${CONFIG.uiStrings.prefix}.${row.id}.${f}`] = row[f];
   files['strings/en.json'] = strings;
