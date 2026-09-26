@@ -17,112 +17,165 @@ env:
 jobs:
   version:
     runs-on: ubuntu-latest
-    concurrency: { group: ci-${{ github.ref }}-version, cancel-in-progress: true }
+    concurrency:
+      group: ci-${{ github.ref }}-version
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
-        with: { node-version: 22 }
+        with:
+          node-version: 22
       - run: node Tools/version.mjs selftest
       - name: check bump against base
         if: github.event_name == 'pull_request'
-        run: node Tools/version.mjs check origin/${{ github.base_ref }} --head-branch "${{ github.head_ref }}" --base-branch "${{ github.base_ref }}"
+        run: node Tools/version.mjs check "origin/${{ github.base_ref }}" --head-branch "${{ github.head_ref }}" --base-branch "${{ github.base_ref }}"
 
   docs:
     runs-on: ubuntu-latest
-    concurrency: { group: ci-${{ github.ref }}-docs, cancel-in-progress: true }
+    concurrency:
+      group: ci-${{ github.ref }}-docs
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 22 }
+        with:
+          node-version: 22
       - run: node Tools/ci/check-docs.mjs
       - name: render every mermaid block
         run: |
           echo '{"args":["--no-sandbox"]}' > /tmp/puppeteer.json
-          for f in Logs/mermaid/*.mmd; do npx -y @mermaid-js/mermaid-cli@11 -p /tmp/puppeteer.json -i "$f" -o "${f%.mmd}.svg" >/dev/null || { echo "::error file=$f::mermaid render failed"; exit 1; }; done
+          for f in Logs/mermaid/*.mmd; do
+            npx -y @mermaid-js/mermaid-cli@11 -p /tmp/puppeteer.json -i "$f" -o "${f%.mmd}.svg" > /dev/null || { echo "::error file=$f::mermaid render failed"; exit 1; }
+          done
 
   content:
     runs-on: ubuntu-latest
-    concurrency: { group: ci-${{ github.ref }}-content, cancel-in-progress: true }
+    concurrency:
+      group: ci-${{ github.ref }}-content
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 22 }
+        with:
+          node-version: 22
       - run: node Tools/ci/check-content.mjs
       - run: node Tools/codegen.mjs --check
 
   domain:
     runs-on: ubuntu-latest
-    concurrency: { group: ci-${{ github.ref }}-domain, cancel-in-progress: true }
+    concurrency:
+      group: ci-${{ github.ref }}-domain
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
-        with: { dotnet-version: '8.0.x' }
+        with:
+          dotnet-version: '8.0.x'
       - uses: actions/cache@v4
         with:
-          path: ~/.nuget/packages
+          path: .cache/nuget
           key: nuget-domain-${{ hashFiles('Tests/Domain.Tests/*.csproj') }}
-      - run: dotnet test Tests/Domain.Tests/Domain.Tests.csproj -c Release --logger "console;verbosity=normal"
+      - run: dotnet test Tests/Domain.Tests/Domain.Tests.csproj -c Release --filter "Category!=Bot"
 
   editmode:
     runs-on: ubuntu-latest
-    concurrency: { group: ci-${{ github.ref }}-editmode, cancel-in-progress: true }
-    env: { UNITY_LICENSE: '${{ secrets.UNITY_LICENSE }}' }
+    concurrency:
+      group: ci-${{ github.ref }}-editmode
+      cancel-in-progress: true
+    env:
+      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
     steps:
       - name: licence present?
         id: lic
-        run: if [ -n "$UNITY_LICENSE" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "::notice::UNITY_LICENSE not set — editmode skipped; local batchmode is the gate"; fi
+        run: |
+          if [ -n "$UNITY_LICENSE" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "::notice::UNITY_LICENSE not set; editmode skipped, local batchmode is the gate"; fi
       - uses: actions/checkout@v4
         if: steps.lic.outputs.ok == 'true'
       - uses: actions/cache@v4
         if: steps.lic.outputs.ok == 'true'
-        with: { path: Unity/Library, key: library-editmode-${{ env.UNITY_VERSION }}-${{ hashFiles('Unity/Packages/packages-lock.json') }} }
+        with:
+          path: Unity/Library
+          key: library-editmode-${{ env.UNITY_VERSION }}-${{ hashFiles('Unity/Packages/packages-lock.json') }}
       - uses: game-ci/unity-test-runner@v4
         if: steps.lic.outputs.ok == 'true'
-        env: { UNITY_EMAIL: '${{ secrets.UNITY_EMAIL }}', UNITY_PASSWORD: '${{ secrets.UNITY_PASSWORD }}' }
-        with: { projectPath: Unity, unityVersion: '${{ env.UNITY_VERSION }}', testMode: editmode }
+        with:
+          projectPath: Unity
+          unityVersion: ${{ env.UNITY_VERSION }}
+          testMode: editmode
 
   playmode:
     runs-on: ubuntu-latest
-    concurrency: { group: ci-${{ github.ref }}-playmode, cancel-in-progress: true }
-    env: { UNITY_LICENSE: '${{ secrets.UNITY_LICENSE }}' }
+    concurrency:
+      group: ci-${{ github.ref }}-playmode
+      cancel-in-progress: true
+    env:
+      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
     steps:
       - name: licence present?
         id: lic
-        run: if [ -n "$UNITY_LICENSE" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "::notice::UNITY_LICENSE not set — playmode skipped; local batchmode is the gate"; fi
+        run: |
+          if [ -n "$UNITY_LICENSE" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "::notice::UNITY_LICENSE not set; playmode skipped, local batchmode is the gate"; fi
       - uses: actions/checkout@v4
         if: steps.lic.outputs.ok == 'true'
       - uses: actions/cache@v4
         if: steps.lic.outputs.ok == 'true'
-        with: { path: Unity/Library, key: library-playmode-${{ env.UNITY_VERSION }}-${{ hashFiles('Unity/Packages/packages-lock.json') }} }
+        with:
+          path: Unity/Library
+          key: library-playmode-${{ env.UNITY_VERSION }}-${{ hashFiles('Unity/Packages/packages-lock.json') }}
       - uses: game-ci/unity-test-runner@v4
         if: steps.lic.outputs.ok == 'true'
-        env: { UNITY_EMAIL: '${{ secrets.UNITY_EMAIL }}', UNITY_PASSWORD: '${{ secrets.UNITY_PASSWORD }}' }
-        with: { projectPath: Unity, unityVersion: '${{ env.UNITY_VERSION }}', testMode: playmode }
+        with:
+          projectPath: Unity
+          unityVersion: ${{ env.UNITY_VERSION }}
+          testMode: playmode
 
   bot:
     runs-on: ubuntu-latest
-    concurrency: { group: ci-${{ github.ref }}-bot, cancel-in-progress: true }
+    concurrency:
+      group: ci-${{ github.ref }}-bot
+      cancel-in-progress: true
+    env:
+      ASHEN_BOT_SEEDS: ${{ github.ref == 'refs/heads/test' && '200' || '20' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
-        with: { dotnet-version: '8.0.x' }
+        with:
+          dotnet-version: '8.0.x'
+      - uses: actions/cache@v4
+        with:
+          path: .cache/nuget
+          key: nuget-bot-${{ hashFiles('Tests/Domain.Tests/*.csproj') }}
       - name: seeded headless bot (engine-free)
-        run: dotnet test Tests/Domain.Tests/Domain.Tests.csproj -c Release --filter "Category=Bot" -- TestRunParameters.Parameter\(name=\"botSeeds\",value=\"${{ github.ref == 'refs/heads/test' && '200' || '20' }}\"\)
+        run: dotnet test Tests/Domain.Tests/Domain.Tests.csproj -c Release --filter "Category=Bot"
 
   build-windows:
     if: github.ref == 'refs/heads/test' || github.ref == 'refs/heads/main' || github.base_ref == 'test' || github.base_ref == 'main'
     runs-on: windows-latest
-    concurrency: { group: ci-${{ github.ref }}-build-windows, cancel-in-progress: true }
-    env: { UNITY_LICENSE: '${{ secrets.UNITY_LICENSE }}' }
+    concurrency:
+      group: ci-${{ github.ref }}-build-windows
+      cancel-in-progress: true
+    env:
+      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
     steps:
       - name: licence present?
         id: lic
         shell: bash
-        run: if [ -n "$UNITY_LICENSE" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "::notice::UNITY_LICENSE not set — Windows build skipped; local batchmode is the gate"; fi
+        run: |
+          if [ -n "$UNITY_LICENSE" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "::notice::UNITY_LICENSE not set; Windows build skipped, local batchmode is the gate"; fi
       - uses: actions/checkout@v4
         if: steps.lic.outputs.ok == 'true'
       - uses: game-ci/unity-builder@v4
         if: steps.lic.outputs.ok == 'true'
-        env: { UNITY_EMAIL: '${{ secrets.UNITY_EMAIL }}', UNITY_PASSWORD: '${{ secrets.UNITY_PASSWORD }}' }
-        with: { projectPath: Unity, unityVersion: '${{ env.UNITY_VERSION }}', targetPlatform: StandaloneWindows64, buildMethod: Ashen.EditorTools.Cli.BuildWindows }
+        with:
+          projectPath: Unity
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: StandaloneWindows64
+          buildMethod: Ashen.EditorTools.Cli.BuildWindows
