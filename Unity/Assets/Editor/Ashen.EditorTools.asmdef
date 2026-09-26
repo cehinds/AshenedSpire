@@ -1,7 +1,18 @@
 {
   "name": "Ashen.EditorTools",
   "rootNamespace": "Ashen.EditorTools",
-  "references": ["Ashen.Generated", "Ashen.Domain", "Ashen.Content", "Ashen.Application", "Ashen.Platform", "Ashen.Presentation"],
-  "includePlatforms": ["Editor"],
+  "references": [
+    "Ashen.Generated",
+    "Ashen.Domain",
+    "Ashen.Content",
+    "Ashen.Application",
+    "Ashen.Platform",
+    "Ashen.Presentation",
+    "UnityEditor.TestRunner",
+    "UnityEngine.TestRunner"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
   "autoReferenced": false
 }

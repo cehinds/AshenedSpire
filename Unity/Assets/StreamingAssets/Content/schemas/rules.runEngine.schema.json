@@ -1,0 +1,542 @@
+{
+  "$id": "rules/runEngine.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "derived": {
+      "type": "object",
+      "properties": {
+        "baseFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "classFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defaultFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "overrideFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "perLevelFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requiredRuleFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rootFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rounding": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rowSinceRuleset": {
+          "type": "object",
+          "properties": {
+            "poise": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "poise"
+          ]
+        },
+        "ruleFields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "base",
+              "cap",
+              "gainPerTier",
+              "perLevel",
+              "pointsPerTier",
+              "rounding",
+              "sourceStat"
+            ]
+          }
+        },
+        "rulesetVersions": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "snapshotVersion": {
+          "type": "integer"
+        },
+        "statIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "draw",
+              "energy",
+              "hp",
+              "mana",
+              "poise",
+              "stamina"
+            ]
+          }
+        }
+      },
+      "required": [
+        "baseFields",
+        "classFields",
+        "defaultFields",
+        "overrideFields",
+        "perLevelFields",
+        "requiredRuleFields",
+        "rootFields",
+        "rounding",
+        "rowSinceRuleset",
+        "ruleFields",
+        "rulesetVersions",
+        "snapshotVersion",
+        "statIds"
+      ]
+    },
+    "loadout": {
+      "type": "object",
+      "properties": {
+        "compatibilitySuffix": {
+          "type": "string"
+        },
+        "defaultOddFillerGoesTo": {
+          "type": "string"
+        },
+        "defaultStrikeBias": {
+          "type": "number"
+        },
+        "handOrder": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "handsRequired": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "itemOwnedRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "kitRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "legacyProfileSnapshotVersion": {
+          "type": "integer"
+        },
+        "packageCompatibility": {
+          "type": "string"
+        },
+        "poolCurrent": {
+          "type": "object",
+          "properties": {
+            "maxHp": {
+              "type": "string"
+            },
+            "maxMana": {
+              "type": "string"
+            },
+            "maxStamina": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "maxHp",
+            "maxMana",
+            "maxStamina"
+          ]
+        },
+        "poolFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profileCarrierFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profilePatchFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profileSnapshotVersion": {
+          "type": "integer"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "twoHandedHands": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "compatibilitySuffix",
+        "defaultOddFillerGoesTo",
+        "defaultStrikeBias",
+        "handOrder",
+        "hands",
+        "handsRequired",
+        "itemOwnedRoles",
+        "kitRoles",
+        "legacyProfileSnapshotVersion",
+        "packageCompatibility",
+        "poolCurrent",
+        "poolFields",
+        "profileCarrierFields",
+        "profilePatchFields",
+        "profileSnapshotVersion",
+        "roles",
+        "twoHandedHands"
+      ]
+    },
+    "mounts": {
+      "type": "object",
+      "properties": {
+        "kinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "kinds"
+      ]
+    },
+    "ratings": {
+      "type": "object",
+      "properties": {
+        "defaultFormula": {
+          "type": "object",
+          "properties": {
+            "multiplier": {
+              "type": "integer"
+            },
+            "ratings": {
+              "type": "object",
+              "properties": {
+                "ar": {
+                  "type": "object",
+                  "properties": {
+                    "base": {
+                      "type": "integer"
+                    },
+                    "constitution": {
+                      "type": "integer"
+                    },
+                    "dexterity": {
+                      "type": "integer"
+                    },
+                    "intelligence": {
+                      "type": "integer"
+                    },
+                    "strength": {
+                      "type": "number"
+                    },
+                    "wisdom": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "constitution",
+                    "dexterity",
+                    "intelligence",
+                    "strength",
+                    "wisdom"
+                  ]
+                },
+                "dr": {
+                  "type": "object",
+                  "properties": {
+                    "base": {
+                      "type": "integer"
+                    },
+                    "constitution": {
+                      "type": "integer"
+                    },
+                    "dexterity": {
+                      "type": "number"
+                    },
+                    "intelligence": {
+                      "type": "integer"
+                    },
+                    "strength": {
+                      "type": "integer"
+                    },
+                    "wisdom": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "constitution",
+                    "dexterity",
+                    "intelligence",
+                    "strength",
+                    "wisdom"
+                  ]
+                },
+                "poise": {
+                  "type": "object",
+                  "properties": {
+                    "base": {
+                      "type": "integer"
+                    },
+                    "constitution": {
+                      "type": "integer"
+                    },
+                    "dexterity": {
+                      "type": "integer"
+                    },
+                    "intelligence": {
+                      "type": "integer"
+                    },
+                    "strength": {
+                      "type": "number"
+                    },
+                    "wisdom": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "constitution",
+                    "dexterity",
+                    "intelligence",
+                    "strength",
+                    "wisdom"
+                  ]
+                },
+                "pr": {
+                  "type": "object",
+                  "properties": {
+                    "base": {
+                      "type": "integer"
+                    },
+                    "constitution": {
+                      "type": "integer"
+                    },
+                    "dexterity": {
+                      "type": "integer"
+                    },
+                    "intelligence": {
+                      "type": "number"
+                    },
+                    "strength": {
+                      "type": "integer"
+                    },
+                    "wisdom": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "constitution",
+                    "dexterity",
+                    "intelligence",
+                    "strength",
+                    "wisdom"
+                  ]
+                },
+                "ward": {
+                  "type": "object",
+                  "properties": {
+                    "base": {
+                      "type": "integer"
+                    },
+                    "constitution": {
+                      "type": "integer"
+                    },
+                    "dexterity": {
+                      "type": "integer"
+                    },
+                    "intelligence": {
+                      "type": "number"
+                    },
+                    "strength": {
+                      "type": "integer"
+                    },
+                    "wisdom": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "constitution",
+                    "dexterity",
+                    "intelligence",
+                    "strength",
+                    "wisdom"
+                  ]
+                }
+              },
+              "required": [
+                "ar",
+                "dr",
+                "poise",
+                "pr",
+                "ward"
+              ]
+            }
+          },
+          "required": [
+            "multiplier",
+            "ratings"
+          ]
+        }
+      },
+      "required": [
+        "defaultFormula"
+      ]
+    },
+    "relics": {
+      "type": "object",
+      "properties": {
+        "resourceIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "resourceIds"
+      ]
+    },
+    "run": {
+      "type": "object",
+      "properties": {
+        "instanceIdPrefix": {
+          "type": "string"
+        },
+        "schemaVersion": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "instanceIdPrefix",
+        "schemaVersion"
+      ]
+    },
+    "zones": {
+      "type": "object",
+      "properties": {
+        "handSlotIds": {
+          "type": "object",
+          "properties": {
+            "main": {
+              "type": "string"
+            },
+            "off": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "main",
+            "off"
+          ]
+        },
+        "wornSlotIds": {
+          "type": "object",
+          "properties": {
+            "body": {
+              "type": "string"
+            },
+            "feet": {
+              "type": "string"
+            },
+            "hands": {
+              "type": "string"
+            },
+            "head": {
+              "type": "string"
+            },
+            "talisman": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "body",
+            "feet",
+            "hands",
+            "head",
+            "talisman"
+          ]
+        },
+        "wornZoneSlots": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "handSlotIds",
+        "wornSlotIds",
+        "wornZoneSlots"
+      ]
+    }
+  },
+  "required": [
+    "comment",
+    "derived",
+    "loadout",
+    "mounts",
+    "ratings",
+    "relics",
+    "run",
+    "zones"
+  ]
+}

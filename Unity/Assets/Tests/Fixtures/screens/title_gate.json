@@ -1,0 +1,23 @@
+{
+  "comment": "US-1.2 press-any-input gate over the title.",
+  "screen": "title",
+  "gate": true,
+  "saves": [
+    {
+      "slot": 1,
+      "summary": {
+        "name": "Aldric",
+        "classId": "reaver",
+        "portrait": "class.reaver.sprite.ember",
+        "act": 2,
+        "floor": 7,
+        "hp": 31,
+        "hpMax": 40,
+        "seed": "ASH-7Q2K",
+        "savedAt": "2026-09-25T20:29:00Z",
+        "journey": "classic",
+        "playtimeSeconds": 5400
+      }
+    }
+  ]
+}

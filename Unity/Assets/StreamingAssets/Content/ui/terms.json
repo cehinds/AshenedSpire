@@ -2,475 +2,475 @@
   "comment": "Canonical TermDefinition rows — the single home for mechanical vocabulary. Legacy keyword tooltips (exhaust/ethereal/innate/retain/unplayable) are carried verbatim from src/content/keywords.js; changing a canonicalText here changes every valid surface. aliasesForImportOnly lets the importer match legacy spellings without keeping them alive.",
   "terms": [
     {
-      "canonicalText": "Armament",
       "id": "term.armament",
+      "canonicalText": "Armament",
       "pluralText": "Armaments"
     },
     {
-      "canonicalText": "Attack",
       "id": "term.attack",
+      "canonicalText": "Attack",
       "pluralText": "Attacks"
     },
     {
-      "canonicalText": "Strike",
       "id": "term.strike",
+      "canonicalText": "Strike",
       "pluralText": "Strikes"
     },
     {
-      "canonicalText": "Guard",
       "id": "term.guard",
+      "canonicalText": "Guard",
       "pluralText": "Guards"
     },
     {
-      "canonicalText": "Weapon Art",
       "id": "term.weaponArt",
+      "canonicalText": "Weapon Art",
       "pluralText": "Weapon Arts"
     },
     {
-      "canonicalText": "Skill",
       "id": "term.skill",
+      "canonicalText": "Skill",
       "pluralText": "Skills"
     },
     {
-      "canonicalText": "Power",
       "id": "term.power",
+      "canonicalText": "Power",
       "pluralText": "Powers"
     },
     {
-      "canonicalText": "Curse",
       "id": "term.curse",
+      "canonicalText": "Curse",
       "pluralText": "Curses"
     },
     {
-      "canonicalText": "Status",
       "id": "term.statusCard",
+      "canonicalText": "Status",
       "pluralText": "Statuses"
     },
     {
-      "canonicalText": "Physical",
-      "id": "term.physical"
+      "id": "term.physical",
+      "canonicalText": "Physical"
     },
     {
-      "canonicalText": "Magic",
-      "id": "term.magic"
+      "id": "term.magic",
+      "canonicalText": "Magic"
     },
     {
-      "canonicalText": "Arcane",
-      "id": "term.arcane"
+      "id": "term.arcane",
+      "canonicalText": "Arcane"
     },
     {
-      "canonicalText": "Blade",
-      "id": "term.blade"
+      "id": "term.blade",
+      "canonicalText": "Blade"
     },
     {
-      "canonicalText": "Blunt",
-      "id": "term.blunt"
+      "id": "term.blunt",
+      "canonicalText": "Blunt"
     },
     {
-      "canonicalText": "Piercing",
-      "id": "term.piercing"
+      "id": "term.piercing",
+      "canonicalText": "Piercing"
     },
     {
-      "canonicalText": "Strength",
       "id": "term.strength",
+      "canonicalText": "Strength",
       "shortText": "STR"
     },
     {
-      "canonicalText": "Dexterity",
       "id": "term.dexterity",
+      "canonicalText": "Dexterity",
       "shortText": "DEX"
     },
     {
-      "canonicalText": "Constitution",
       "id": "term.constitution",
+      "canonicalText": "Constitution",
       "shortText": "CON"
     },
     {
-      "canonicalText": "Intelligence",
       "id": "term.intelligence",
+      "canonicalText": "Intelligence",
       "shortText": "INT"
     },
     {
-      "canonicalText": "Wisdom",
       "id": "term.wisdom",
+      "canonicalText": "Wisdom",
       "shortText": "WIS"
     },
     {
-      "canonicalText": "Action",
       "id": "term.action",
+      "canonicalText": "Action",
       "pluralText": "Actions"
     },
     {
-      "canonicalText": "Energy",
-      "id": "term.energy"
+      "id": "term.energy",
+      "canonicalText": "Energy"
     },
     {
-      "canonicalText": "Stamina",
-      "id": "term.stamina"
+      "id": "term.stamina",
+      "canonicalText": "Stamina"
     },
     {
-      "canonicalText": "Mana",
-      "id": "term.mana"
+      "id": "term.mana",
+      "canonicalText": "Mana"
     },
     {
-      "canonicalText": "Alternative Cost",
       "id": "term.alternativeCost",
+      "canonicalText": "Alternative Cost",
       "pluralText": "Alternative Costs"
     },
     {
-      "canonicalText": "Innate",
-      "id": "term.innate"
+      "id": "term.innate",
+      "canonicalText": "Innate"
     },
     {
-      "canonicalText": "Retain",
-      "id": "term.retain"
+      "id": "term.retain",
+      "canonicalText": "Retain"
     },
     {
-      "canonicalText": "Recall",
-      "id": "term.recall"
+      "id": "term.recall",
+      "canonicalText": "Recall"
     },
     {
-      "canonicalText": "Recall After Use",
-      "id": "term.recallAfterUse"
+      "id": "term.recallAfterUse",
+      "canonicalText": "Recall After Use"
     },
     {
-      "canonicalText": "Recall After Turn Draw",
-      "id": "term.recallAfterTurnDraw"
+      "id": "term.recallAfterTurnDraw",
+      "canonicalText": "Recall After Turn Draw"
     },
     {
-      "canonicalText": "Recall After Card Play",
-      "id": "term.recallAfterCardPlay"
+      "id": "term.recallAfterCardPlay",
+      "canonicalText": "Recall After Card Play"
     },
     {
-      "canonicalText": "Exhaust",
-      "id": "term.exhaust"
+      "id": "term.exhaust",
+      "canonicalText": "Exhaust"
     },
     {
-      "canonicalText": "Seal",
       "id": "term.seal",
+      "canonicalText": "Seal",
       "pluralText": "Seals"
     },
     {
-      "canonicalText": "Ethereal",
-      "id": "term.ethereal"
+      "id": "term.ethereal",
+      "canonicalText": "Ethereal"
     },
     {
-      "canonicalText": "Unplayable",
-      "id": "term.unplayable"
+      "id": "term.unplayable",
+      "canonicalText": "Unplayable"
     },
     {
+      "id": "term.equipmentBound",
+      "canonicalText": "Equipment-Bound",
       "aliasesForImportOnly": [
         "bounded",
         "Bounded"
-      ],
-      "canonicalText": "Equipment-Bound",
-      "id": "term.equipmentBound"
+      ]
     },
     {
-      "canonicalText": "Main Hand",
-      "id": "term.mainHand"
+      "id": "term.mainHand",
+      "canonicalText": "Main Hand"
     },
     {
-      "canonicalText": "Off Hand",
-      "id": "term.offHand"
+      "id": "term.offHand",
+      "canonicalText": "Off Hand"
     },
     {
-      "canonicalText": "Two-Handed",
-      "id": "term.twoHanded"
+      "id": "term.twoHanded",
+      "canonicalText": "Two-Handed"
     },
     {
-      "canonicalText": "Shield",
       "id": "term.shield",
+      "canonicalText": "Shield",
       "pluralText": "Shields"
     },
     {
-      "canonicalText": "Parry Tool",
       "id": "term.parryTool",
+      "canonicalText": "Parry Tool",
       "pluralText": "Parry Tools"
     },
     {
-      "canonicalText": "Evasion",
-      "id": "term.evasion"
+      "id": "term.evasion",
+      "canonicalText": "Evasion"
     },
     {
-      "canonicalText": "Conduit",
-      "id": "term.conduit"
+      "id": "term.conduit",
+      "canonicalText": "Conduit"
     },
     {
-      "canonicalText": "Mana Charge",
-      "id": "term.manaCharge"
+      "id": "term.manaCharge",
+      "canonicalText": "Mana Charge"
     },
     {
-      "canonicalText": "Self",
-      "id": "term.targetSelf"
+      "id": "term.targetSelf",
+      "canonicalText": "Self"
     },
     {
-      "canonicalText": "Enemy",
       "id": "term.targetEnemy",
+      "canonicalText": "Enemy",
       "pluralText": "Enemies"
     },
     {
-      "canonicalText": "All Enemies",
-      "id": "term.targetAllEnemies"
+      "id": "term.targetAllEnemies",
+      "canonicalText": "All Enemies"
     },
     {
-      "canonicalText": "Random Enemy",
-      "id": "term.targetRandomEnemy"
+      "id": "term.targetRandomEnemy",
+      "canonicalText": "Random Enemy"
     },
     {
-      "canonicalText": "Ally",
       "id": "term.targetAlly",
+      "canonicalText": "Ally",
       "pluralText": "Allies"
     },
     {
-      "canonicalText": "Light",
-      "id": "term.weightLight"
+      "id": "term.weightLight",
+      "canonicalText": "Light"
     },
     {
-      "canonicalText": "Medium",
-      "id": "term.weightMedium"
+      "id": "term.weightMedium",
+      "canonicalText": "Medium"
     },
     {
-      "canonicalText": "Heavy",
-      "id": "term.weightHeavy"
+      "id": "term.weightHeavy",
+      "canonicalText": "Heavy"
     },
     {
-      "canonicalText": "Dodge Roll",
-      "id": "term.dodgeRoll"
+      "id": "term.dodgeRoll",
+      "canonicalText": "Dodge Roll"
     },
     {
-      "canonicalText": "Temporary Guard",
-      "id": "term.temporaryGuard"
+      "id": "term.temporaryGuard",
+      "canonicalText": "Temporary Guard"
     },
     {
-      "canonicalText": "Unarmed Strike",
-      "id": "term.unarmedStrike"
+      "id": "term.unarmedStrike",
+      "canonicalText": "Unarmed Strike"
     },
     {
-      "canonicalText": "Evasive Guard",
-      "id": "term.evasiveGuard"
+      "id": "term.evasiveGuard",
+      "canonicalText": "Evasive Guard"
     },
     {
-      "canonicalText": "Rest Spot",
       "id": "term.restSpot",
+      "canonicalText": "Rest Spot",
       "pluralText": "Rest Spots"
     },
     {
-      "canonicalText": "Blacksmith",
-      "id": "term.blacksmith"
+      "id": "term.blacksmith",
+      "canonicalText": "Blacksmith"
     },
     {
-      "canonicalText": "Confirm",
-      "id": "term.confirm"
+      "id": "term.confirm",
+      "canonicalText": "Confirm"
     },
     {
-      "canonicalText": "Cancel",
-      "id": "term.cancel"
+      "id": "term.cancel",
+      "canonicalText": "Cancel"
     },
     {
-      "accessibilityText": "Close dialog",
+      "id": "term.close",
       "canonicalText": "Close",
-      "id": "term.close"
+      "accessibilityText": "Close dialog"
     },
     {
-      "canonicalText": "A card that deals damage when played.",
-      "id": "term.tooltip.attack"
+      "id": "term.tooltip.attack",
+      "canonicalText": "A card that deals damage when played."
     },
     {
-      "canonicalText": "A basic attacking card. Equipped armaments replace your basic Strikes.",
-      "id": "term.tooltip.strike"
+      "id": "term.tooltip.strike",
+      "canonicalText": "A basic attacking card. Equipped armaments replace your basic Strikes."
     },
     {
-      "canonicalText": "A basic defending card. Equipped armaments replace your basic Guards.",
-      "id": "term.tooltip.guard"
+      "id": "term.tooltip.guard",
+      "canonicalText": "A basic defending card. Equipped armaments replace your basic Guards."
     },
     {
-      "canonicalText": "A real card granted by an armament. It counts toward hand size and follows every card rule.",
-      "id": "term.tooltip.weaponArt"
+      "id": "term.tooltip.weaponArt",
+      "canonicalText": "A real card granted by an armament. It counts toward hand size and follows every card rule."
     },
     {
-      "canonicalText": "A card with a non-attack effect.",
-      "id": "term.tooltip.skill"
+      "id": "term.tooltip.skill",
+      "canonicalText": "A card with a non-attack effect."
     },
     {
-      "canonicalText": "A lasting effect for the rest of this combat.",
-      "id": "term.tooltip.power"
+      "id": "term.tooltip.power",
+      "canonicalText": "A lasting effect for the rest of this combat."
     },
     {
-      "canonicalText": "A card that hinders you while it is in your deck.",
-      "id": "term.tooltip.curse"
+      "id": "term.tooltip.curse",
+      "canonicalText": "A card that hinders you while it is in your deck."
     },
     {
-      "canonicalText": "A temporary junk card added during combat.",
-      "id": "term.tooltip.statusCard"
+      "id": "term.tooltip.statusCard",
+      "canonicalText": "A temporary junk card added during combat."
     },
     {
-      "canonicalText": "Physical damage. Independent of what the card costs to play.",
-      "id": "term.tooltip.physical"
+      "id": "term.tooltip.physical",
+      "canonicalText": "Physical damage. Independent of what the card costs to play."
     },
     {
-      "canonicalText": "Magic damage. Independent of what the card costs to play.",
-      "id": "term.tooltip.magic"
+      "id": "term.tooltip.magic",
+      "canonicalText": "Magic damage. Independent of what the card costs to play."
     },
     {
-      "canonicalText": "Arcane damage. Builds Arcane Exposure on enemies that track it.",
-      "id": "term.tooltip.arcane"
+      "id": "term.tooltip.arcane",
+      "canonicalText": "Arcane damage. Builds Arcane Exposure on enemies that track it."
     },
     {
-      "canonicalText": "Damage dealt with an edge.",
-      "id": "term.tooltip.blade"
+      "id": "term.tooltip.blade",
+      "canonicalText": "Damage dealt with an edge."
     },
     {
-      "canonicalText": "Damage dealt with mass and impact.",
-      "id": "term.tooltip.blunt"
+      "id": "term.tooltip.blunt",
+      "canonicalText": "Damage dealt with mass and impact."
     },
     {
-      "canonicalText": "Damage dealt with a point.",
-      "id": "term.tooltip.piercing"
+      "id": "term.tooltip.piercing",
+      "canonicalText": "Damage dealt with a point."
     },
     {
-      "canonicalText": "This card scales with Strength.",
-      "id": "term.tooltip.strength"
+      "id": "term.tooltip.strength",
+      "canonicalText": "This card scales with Strength."
     },
     {
-      "canonicalText": "This card scales with Dexterity.",
-      "id": "term.tooltip.dexterity"
+      "id": "term.tooltip.dexterity",
+      "canonicalText": "This card scales with Dexterity."
     },
     {
-      "canonicalText": "This card scales with Constitution.",
-      "id": "term.tooltip.constitution"
+      "id": "term.tooltip.constitution",
+      "canonicalText": "This card scales with Constitution."
     },
     {
-      "canonicalText": "This card scales with Intelligence.",
-      "id": "term.tooltip.intelligence"
+      "id": "term.tooltip.intelligence",
+      "canonicalText": "This card scales with Intelligence."
     },
     {
-      "canonicalText": "This card scales with Wisdom.",
-      "id": "term.tooltip.wisdom"
+      "id": "term.tooltip.wisdom",
+      "canonicalText": "This card scales with Wisdom."
     },
     {
-      "canonicalText": "Costs Actions to play.",
-      "id": "term.tooltip.action"
+      "id": "term.tooltip.action",
+      "canonicalText": "Costs Actions to play."
     },
     {
-      "canonicalText": "Costs Stamina to play. Spend no Stamina for a full turn to recover 1.",
-      "id": "term.tooltip.stamina"
+      "id": "term.tooltip.stamina",
+      "canonicalText": "Costs Stamina to play. Spend no Stamina for a full turn to recover 1."
     },
     {
-      "canonicalText": "Costs Mana to play. Mana refills at Rest Spots, not between turns.",
-      "id": "term.tooltip.mana"
+      "id": "term.tooltip.mana",
+      "canonicalText": "Costs Mana to play. Mana refills at Rest Spots, not between turns."
     },
     {
-      "canonicalText": "May be paid with a complete alternative option instead of its listed cost.",
-      "id": "term.tooltip.alternativeCost"
+      "id": "term.tooltip.alternativeCost",
+      "canonicalText": "May be paid with a complete alternative option instead of its listed cost."
     },
     {
-      "canonicalText": "Starts each combat on top of your draw pile.",
-      "id": "term.tooltip.innate"
+      "id": "term.tooltip.innate",
+      "canonicalText": "Starts each combat on top of your draw pile."
     },
     {
-      "canonicalText": "Not discarded at the end of your turn.",
-      "id": "term.tooltip.retain"
+      "id": "term.tooltip.retain",
+      "canonicalText": "Not discarded at the end of your turn."
     },
     {
-      "canonicalText": "Returns to your hand after the named moment instead of being discarded.",
-      "id": "term.tooltip.recall"
+      "id": "term.tooltip.recall",
+      "canonicalText": "Returns to your hand after the named moment instead of being discarded."
     },
     {
-      "canonicalText": "Returns to your hand after being played. A forced discard is not a use.",
-      "id": "term.tooltip.recallAfterUse"
+      "id": "term.tooltip.recallAfterUse",
+      "canonicalText": "Returns to your hand after being played. A forced discard is not a use."
     },
     {
-      "canonicalText": "Returns to your hand after your turn's draw.",
-      "id": "term.tooltip.recallAfterTurnDraw"
+      "id": "term.tooltip.recallAfterTurnDraw",
+      "canonicalText": "Returns to your hand after your turn's draw."
     },
     {
-      "canonicalText": "Returns to your hand after you play another card.",
-      "id": "term.tooltip.recallAfterCardPlay"
+      "id": "term.tooltip.recallAfterCardPlay",
+      "canonicalText": "Returns to your hand after you play another card."
     },
     {
-      "canonicalText": "Removed from your deck for the rest of this combat after being played.",
-      "id": "term.tooltip.exhaust"
+      "id": "term.tooltip.exhaust",
+      "canonicalText": "Removed from your deck for the rest of this combat after being played."
     },
     {
-      "canonicalText": "Set aside in the Sealed zone when its seal condition is met.",
-      "id": "term.tooltip.seal"
+      "id": "term.tooltip.seal",
+      "canonicalText": "Set aside in the Sealed zone when its seal condition is met."
     },
     {
-      "canonicalText": "If this card is in your hand at the end of your turn, it Exhausts.",
-      "id": "term.tooltip.ethereal"
+      "id": "term.tooltip.ethereal",
+      "canonicalText": "If this card is in your hand at the end of your turn, it Exhausts."
     },
     {
-      "canonicalText": "This card cannot be played.",
-      "id": "term.tooltip.unplayable"
+      "id": "term.tooltip.unplayable",
+      "canonicalText": "This card cannot be played."
     },
     {
-      "canonicalText": "Granted by an equipped armament. It leaves your deck when the armament does.",
-      "id": "term.tooltip.equipmentBound"
+      "id": "term.tooltip.equipmentBound",
+      "canonicalText": "Granted by an equipped armament. It leaves your deck when the armament does."
     },
     {
-      "canonicalText": "Bound to the armament in your main hand.",
-      "id": "term.tooltip.mainHand"
+      "id": "term.tooltip.mainHand",
+      "canonicalText": "Bound to the armament in your main hand."
     },
     {
-      "canonicalText": "Bound to the armament in your off hand.",
-      "id": "term.tooltip.offHand"
+      "id": "term.tooltip.offHand",
+      "canonicalText": "Bound to the armament in your off hand."
     },
     {
-      "canonicalText": "Bound to an armament held in both hands.",
-      "id": "term.tooltip.twoHanded"
+      "id": "term.tooltip.twoHanded",
+      "canonicalText": "Bound to an armament held in both hands."
     },
     {
-      "canonicalText": "Bound to an equipped shield.",
-      "id": "term.tooltip.shield"
+      "id": "term.tooltip.shield",
+      "canonicalText": "Bound to an equipped shield."
     },
     {
-      "canonicalText": "Bound to an equipped parry tool.",
-      "id": "term.tooltip.parryTool"
+      "id": "term.tooltip.parryTool",
+      "canonicalText": "Bound to an equipped parry tool."
     },
     {
-      "canonicalText": "Contributes to Dodge Rolls and avoiding damage.",
-      "id": "term.tooltip.evasion"
+      "id": "term.tooltip.evasion",
+      "canonicalText": "Contributes to Dodge Rolls and avoiding damage."
     },
     {
-      "canonicalText": "Channels magic through an equipped armament.",
-      "id": "term.tooltip.conduit"
+      "id": "term.tooltip.conduit",
+      "canonicalText": "Channels magic through an equipped armament."
     },
     {
-      "canonicalText": "Recovers the stated amount of Mana.",
-      "id": "term.tooltip.manaCharge"
+      "id": "term.tooltip.manaCharge",
+      "canonicalText": "Recovers the stated amount of Mana."
     },
     {
-      "canonicalText": "Affects you.",
-      "id": "term.tooltip.targetSelf"
+      "id": "term.tooltip.targetSelf",
+      "canonicalText": "Affects you."
     },
     {
-      "canonicalText": "Affects one chosen enemy.",
-      "id": "term.tooltip.targetEnemy"
+      "id": "term.tooltip.targetEnemy",
+      "canonicalText": "Affects one chosen enemy."
     },
     {
-      "canonicalText": "Affects every enemy.",
-      "id": "term.tooltip.targetAllEnemies"
+      "id": "term.tooltip.targetAllEnemies",
+      "canonicalText": "Affects every enemy."
     },
     {
-      "canonicalText": "Affects a random enemy.",
-      "id": "term.tooltip.targetRandomEnemy"
+      "id": "term.tooltip.targetRandomEnemy",
+      "canonicalText": "Affects a random enemy."
     },
     {
-      "canonicalText": "Affects one ally.",
-      "id": "term.tooltip.targetAlly"
+      "id": "term.tooltip.targetAlly",
+      "canonicalText": "Affects one ally."
     },
     {
-      "canonicalText": "A last resort, still yours. Strikes with bare hands; scales with Strength and grants no attack-rating bonus.",
-      "id": "term.desc.unarmedStrike"
+      "id": "term.desc.unarmedStrike",
+      "canonicalText": "A last resort, still yours. Strikes with bare hands; scales with Strength and grants no attack-rating bonus."
     },
     {
-      "canonicalText": "Guard by not being there. Scales with Dexterity.",
-      "id": "term.desc.evasiveGuard"
+      "id": "term.desc.evasiveGuard",
+      "canonicalText": "Guard by not being there. Scales with Dexterity."
     },
     {
-      "canonicalText": "Roll clear of the next blow. On success, gain Temporary Guard against the next damage tick.",
-      "id": "term.desc.dodgeRoll"
+      "id": "term.desc.dodgeRoll",
+      "canonicalText": "Roll clear of the next blow. On success, gain Temporary Guard against the next damage tick."
     }
   ]
 }

@@ -1,0 +1,206 @@
+{
+  "comment": "Kit review sheet: every F1 kit component with sample values (card ids are fixture data, never code).",
+  "screen": "kitGallery",
+  "cards": [
+    {
+      "id": "strike",
+      "typeLine": "Attack",
+      "rarity": "starter",
+      "costs": [
+        {
+          "kind": "actions",
+          "text": "1"
+        }
+      ],
+      "vars": {
+        "damage": "6"
+      }
+    },
+    {
+      "id": "crimsonCleave",
+      "typeLine": "Attack · Reaver",
+      "rarity": "common",
+      "costs": [
+        {
+          "kind": "actions",
+          "text": "2"
+        },
+        {
+          "kind": "stamina",
+          "text": "1"
+        }
+      ],
+      "vars": {
+        "damage": "8",
+        "bleed": "3"
+      },
+      "affordable": false,
+      "refusalKey": "kit.card.unaffordable"
+    },
+    {
+      "id": "starlance",
+      "typeLine": "Attack · Starseer",
+      "rarity": "common",
+      "costs": [
+        {
+          "kind": "actions",
+          "text": "2"
+        },
+        {
+          "kind": "stamina",
+          "text": "1"
+        },
+        {
+          "kind": "mana",
+          "text": "1"
+        }
+      ],
+      "vars": {
+        "damage": "9",
+        "damage.2": "14"
+      },
+      "upgraded": true
+    }
+  ],
+  "hand": [
+    {
+      "id": "strike",
+      "typeLine": "Attack",
+      "rarity": "starter",
+      "costs": [
+        {
+          "kind": "actions",
+          "text": "1"
+        }
+      ],
+      "vars": {
+        "damage": "6"
+      }
+    },
+    {
+      "id": "defend",
+      "typeLine": "Skill",
+      "rarity": "starter",
+      "costs": [
+        {
+          "kind": "actions",
+          "text": "1"
+        }
+      ],
+      "vars": {
+        "block": "5"
+      }
+    },
+    {
+      "id": "goreslash",
+      "typeLine": "Attack · Reaver",
+      "rarity": "common",
+      "costs": [
+        {
+          "kind": "actions",
+          "text": "1"
+        }
+      ],
+      "vars": {
+        "damage": "7",
+        "bleed": "2"
+      }
+    },
+    {
+      "id": "rondelParry",
+      "typeLine": "Skill · Reaver",
+      "rarity": "common",
+      "costs": [
+        {
+          "kind": "actions",
+          "text": "1"
+        }
+      ],
+      "vars": {
+        "block": "6",
+        "poiseDamage": "4"
+      }
+    },
+    {
+      "id": "wardingLunge",
+      "typeLine": "Skill · Reaver",
+      "rarity": "uncommon",
+      "costs": [
+        {
+          "kind": "actions",
+          "text": "1"
+        },
+        {
+          "kind": "stamina",
+          "text": "1"
+        }
+      ],
+      "vars": {
+        "block": "8"
+      }
+    }
+  ],
+  "categories": [
+    {
+      "id": "weapons",
+      "labelKey": "kit.category.weapons",
+      "count": "3"
+    },
+    {
+      "id": "armour",
+      "labelKey": "kit.category.armour",
+      "count": "5"
+    },
+    {
+      "id": "relics",
+      "labelKey": "kit.category.relics",
+      "count": "2"
+    },
+    {
+      "id": "cards",
+      "labelKey": "kit.category.cards",
+      "count": "14"
+    }
+  ],
+  "meters": [
+    {
+      "kind": "hp",
+      "glyphKey": null,
+      "value": 31,
+      "max": 40,
+      "referenceMax": 60
+    },
+    {
+      "kind": "mp",
+      "value": 2,
+      "max": 3,
+      "referenceMax": 6
+    },
+    {
+      "kind": "sp",
+      "value": 3,
+      "max": 4,
+      "referenceMax": 6
+    },
+    {
+      "kind": "poise",
+      "value": 5,
+      "max": 12,
+      "referenceMax": 12
+    },
+    {
+      "kind": "buildUp",
+      "value": 9,
+      "max": 15,
+      "referenceMax": 15
+    }
+  ],
+  "footer": {
+    "actions": 0,
+    "actionsMax": 3,
+    "draw": 12,
+    "discard": 4,
+    "potions": 2
+  },
+  "holdProgress": 0.4
+}

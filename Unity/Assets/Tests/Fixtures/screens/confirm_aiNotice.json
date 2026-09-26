@@ -1,0 +1,9 @@
+{
+  "comment": "W2 AI notice: the full disclosure with a single Continue.",
+  "screen": "title",
+  "gate": false,
+  "saves": [],
+  "confirm": {
+    "id": "aiNotice"
+  }
+}

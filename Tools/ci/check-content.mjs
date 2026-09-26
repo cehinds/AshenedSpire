@@ -6,6 +6,7 @@ import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const CONTENT = join(ROOT, 'Unity', 'Assets', 'StreamingAssets', 'Content');
@@ -46,6 +47,10 @@ if (!full || !disclosure.test(full)) errors.push(`strings/app.en.json ${about.ai
 for (const m of about.aiDisclosure.modalities) if (full && !full.toLowerCase().includes(m)) errors.push(`AI disclosure does not name modality "${m}"`);
 if (!appStrings[about.aiDisclosure.shortKey]) errors.push(`missing ${about.aiDisclosure.shortKey}`);
 if (!about.aiDisclosure.showOnTitle || !about.aiDisclosure.showOnFirstLaunch) errors.push('AI disclosure must show on the title and on first launch (owner ruling 2026-09-26)');
+
+// UI tokens: Tokens.uss is generated from ui/tokens.json and USS may only use its variables (Tools/ui-tokens.mjs).
+const tokensCheck = spawnSync(process.execPath, [join(ROOT, 'Tools', 'ui-tokens.mjs'), '--check'], { encoding: 'utf8' });
+if (tokensCheck.status !== 0) errors.push((tokensCheck.stderr || tokensCheck.stdout).trim());
 
 if (errors.length) { console.error(`content: ${errors.length} problem(s)\n  ${errors.join('\n  ')}`); process.exit(1); }
 console.log(`content: ok — ${Object.keys(manifest.files).length} files, contentHash ${manifest.contentHash.slice(0, 12)}, counts gate ${Object.keys(CONFIG.expectedCounts).length} tables`);

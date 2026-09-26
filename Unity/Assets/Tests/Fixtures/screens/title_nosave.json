@@ -1,0 +1,6 @@
+{
+  "comment": "W3a: no save, lone centred menu, Continue disabled.",
+  "screen": "title",
+  "gate": false,
+  "saves": []
+}

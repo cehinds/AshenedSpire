@@ -1,36 +1,36 @@
 {
-  "capacity": {
-    "base": 10,
-    "baseline": 10,
-    "maximum": 30,
-    "minimum": 1,
-    "pointsPerCard": 10,
-    "stat": "intelligence",
-    "statEnabled": false
-  },
-  "discardLimit": 10,
-  "drawMode": "fill",
-  "overflow": "keep",
-  "promptDiscard": false,
-  "replaceDiscards": false,
-  "reshuffle": true,
   "retain": true,
+  "promptDiscard": false,
+  "discardLimit": 10,
+  "replaceDiscards": false,
+  "overflow": "keep",
+  "reshuffle": true,
+  "drawMode": "fill",
   "starting": {
     "base": 3,
-    "baseline": 10,
-    "maximum": 10,
-    "minimum": 0,
-    "pointsPerCard": 10,
+    "statEnabled": true,
     "stat": "intelligence",
-    "statEnabled": true
+    "baseline": 10,
+    "pointsPerCard": 10,
+    "minimum": 0,
+    "maximum": 10
   },
   "turn": {
     "base": 2,
-    "baseline": 10,
-    "maximum": 10,
-    "minimum": 0,
-    "pointsPerCard": 10,
+    "statEnabled": false,
     "stat": "intelligence",
-    "statEnabled": false
+    "baseline": 10,
+    "pointsPerCard": 10,
+    "minimum": 0,
+    "maximum": 10
+  },
+  "capacity": {
+    "base": 10,
+    "statEnabled": false,
+    "stat": "intelligence",
+    "baseline": 10,
+    "pointsPerCard": 10,
+    "minimum": 1,
+    "maximum": 30
   }
 }

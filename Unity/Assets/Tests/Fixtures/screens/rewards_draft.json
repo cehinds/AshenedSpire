@@ -1,0 +1,13 @@
+{
+  "comment": "W-08 draft variant: a class draft queued before the fight ended; the pick shows the class-tree nodes (no card offer at a draft door), the first selected; no Skip.",
+  "screen": "rewards",
+  "seed": 20260927,
+  "finish": true,
+  "queueClassDraft": true,
+  "state": "pick",
+  "pickKind": "classDraft",
+  "select": 0,
+  "skipSizes": [
+    "1920x1080"
+  ]
+}

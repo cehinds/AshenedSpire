@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:VisualElement name="SCRIM" class="page page--center scrim">
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="pause-shell" title-key="pause.title">
+            <Ashen.Presentation.UI.LocLabel name="PAUSE_SEED" class="pause-seed kit-text-value" />
+            <ui:VisualElement name="PAUSE_ROWS" class="pause-rows" />
+        </Ashen.Presentation.UI.Kit.Shell>
+    </ui:VisualElement>
+</ui:UXML>

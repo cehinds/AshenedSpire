@@ -1,0 +1,8 @@
+{
+  "comment": "W-24 boot mid-load (determinate bar over the manifest count).",
+  "screen": "boot",
+  "boot": {
+    "done": 97,
+    "total": 165
+  }
+}

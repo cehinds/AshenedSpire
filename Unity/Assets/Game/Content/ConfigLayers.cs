@@ -28,8 +28,9 @@ namespace Ashen.Content
     /// <summary>The frozen result of layering: effective content + player settings + provenance, carried in the save.</summary>
     public sealed class RunSnapshot
     {
-        internal RunSnapshot(ContentSet content, string presetId, JObject playerSettings, IReadOnlyList<string> overridesApplied)
+        internal RunSnapshot(ContentSet content, string presetId, JObject playerSettings, IReadOnlyList<string> overridesApplied, string contentVersion)
         {
+            ContentVersion = contentVersion;
             Content = content;
             PresetId = presetId;
             PlayerSettings = (JObject)playerSettings.DeepClone();
@@ -40,6 +41,10 @@ namespace Ashen.Content
         public string PresetId { get; }
         public JObject PlayerSettings { get; }
         public IReadOnlyList<string> OverridesApplied { get; }
+
+        /// <summary>The manifest's contentVersion (the shipped registries.contentVersion the run stamps).</summary>
+        public string ContentVersion { get; }
+
         public string Hash => Content.Hash;
     }
 
@@ -79,7 +84,7 @@ namespace Ashen.Content
             if (selection.PlayerSettings != null) settings = (JObject)MergePatch.Apply(settings, selection.PlayerSettings);
 
             if (report != null) ValidateChanged(files, changed, report);
-            return new RunSnapshot(new ContentSet(files), (string)preset[RuleKeys.PresetId], settings, overridesApplied);
+            return new RunSnapshot(new ContentSet(files), (string)preset[RuleKeys.PresetId], settings, overridesApplied, _manifest.ContentVersion);
         }
 
         private IEnumerable<string> PresetFiles() => _manifest.Files.Select(e => e.Path).Where(ContentManifest.IsPreset);

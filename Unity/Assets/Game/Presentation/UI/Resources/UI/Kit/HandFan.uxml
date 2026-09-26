@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="HandFan.uss" />
+    <ui:ScrollView name="HAND_CARDS" class="hand-cards" mode="Horizontal" vertical-scroller-visibility="Hidden" />
+</ui:UXML>

@@ -1,0 +1,14 @@
+{
+  "comment": "Event door rules (stream shop-events, us-10.1; the C# port of engine/quests.js, model/quests.js, model/consequence.js, model/classSwap.js and the run opcodes of engine/actions.js executeRunEffects). The history requirement groups, the quest completion sources, the ops positively ruled safe (every other op binds), the card kinds that make addCardToDeck bind, the run opcode vocabulary and the run context's queue guard and flask-capacity kinds the shipped code kept as constants live here as data. Changing a value changes the event door; the events parity oracle pins the shipped values.",
+  "history": {
+    "requirementGroups": ["all", "any", "none"],
+    "completionSources": ["event", "atlas"]
+  },
+  "safeOps": ["addRelic", "addFlask", "addFlaskCapacity", "upgradeCard", "damage", "heal", "loseHp", "block", "gainEnergy", "addCinders", "startCombat"],
+  "bindingCardTypes": ["curse", "status"],
+  "runOpcodes": ["addCinders", "addCardToDeck", "removeCardFromDeck", "upgradeCard", "addRelic", "addFlask", "addFlaskCapacity", "loseMaxHpPct", "startCombat", "swapClass", "refillFlasks"],
+  "effects": {
+    "queueGuard": 1000,
+    "capacityKinds": ["hp", "mana"]
+  }
+}

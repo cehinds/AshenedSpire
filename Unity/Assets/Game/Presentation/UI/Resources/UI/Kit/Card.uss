@@ -1,0 +1,100 @@
+/* CardView (docs/design/04 §1): ratio 5:8 (card tokens), costs, name, art, type, text, keywords. */
+.cardview {
+    width: var(--size-card-w);
+    height: var(--size-card-h);
+    padding: var(--space-sm);
+    margin: var(--space-xs);
+    background-color: var(--color-panel);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-control);
+    border-radius: var(--radius-card);
+    transition-property: translate, border-color;
+    transition-duration: var(--duration-fast);
+}
+
+.cardview:focus,
+.cardview:hover {
+    border-color: var(--color-gold);
+}
+
+.card--rare { border-color: var(--color-gold-soft); }
+.card--uncommon { border-color: var(--color-ward); }
+
+.card-costs {
+    flex-direction: row;
+    position: absolute;
+    left: var(--space-xs);
+    top: var(--space-xs);
+}
+
+.card-cost {
+    width: var(--size-cost-pip);
+    height: var(--size-cost-pip);
+    margin-right: var(--space-xxs);
+    border-radius: var(--radius-chip);
+    font-size: var(--font-cost);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    color: var(--color-bg);
+}
+
+.card-cost--actions { background-color: var(--color-res-actions); }
+.card-cost--stamina { background-color: var(--color-res-sp); }
+.card-cost--mana { background-color: var(--color-res-mp); }
+
+.card-name {
+    margin-top: var(--size-cost-pip);
+    font-size: var(--font-card-name);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+.card-art {
+    height: var(--size-card-art-h);
+    margin-top: var(--space-xs);
+    background-color: var(--color-bg-raise);
+    border-radius: var(--radius-chip);
+    background-size: cover;
+}
+
+.card-type {
+    margin-top: var(--space-xs);
+    font-size: var(--font-chip);
+    color: var(--color-muted);
+    -unity-text-align: middle-center;
+}
+
+.card-text {
+    flex-grow: 1;
+    font-size: var(--font-card-text);
+    white-space: normal;
+    -unity-text-align: upper-center;
+}
+
+.card-keywords,
+.card-lent {
+    font-size: var(--font-chip);
+    color: var(--color-gold);
+    -unity-text-align: middle-center;
+}
+
+.card-refusal {
+    font-size: var(--font-chip);
+    color: var(--color-danger);
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+.card--unaffordable {
+    opacity: var(--opacity-muted);
+}
+
+.card--unaffordable .card-cost {
+    background-color: var(--color-blood);
+    color: var(--color-danger);
+}
+
+.card--upgraded .card-name {
+    color: var(--color-green);
+}

@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Meter.uss" />
+    <Ashen.Presentation.UI.LocLabel name="METER_GLYPH" class="meter-glyph is-hidden" />
+    <ui:VisualElement class="meter-lane">
+        <ui:VisualElement name="METER_TRACK" class="meter-track">
+            <ui:VisualElement name="METER_FILL" class="meter-fill" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <Ashen.Presentation.UI.LocLabel name="METER_VALUE" class="meter-value kit-text-value" />
+</ui:UXML>

@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:VisualElement class="page page--center">
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL">
+            <Ashen.Presentation.UI.LocLabel name="ERROR_BODY" class="error-body kit-text-value" />
+            <ui:ListView name="REPORT_LIST" class="report-list" />
+        </Ashen.Presentation.UI.Kit.Shell>
+    </ui:VisualElement>
+</ui:UXML>

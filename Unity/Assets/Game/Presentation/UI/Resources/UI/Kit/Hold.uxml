@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Hold.uss" />
+    <Ashen.Presentation.UI.LocLabel name="HOLD_LABEL" class="hold-label kit-text-value" picking-mode="Ignore" />
+    <ui:VisualElement name="HOLD_BAR" class="hold-bar" picking-mode="Ignore">
+        <ui:VisualElement name="HOLD_FILL" class="hold-fill" picking-mode="Ignore" />
+    </ui:VisualElement>
+    <Ashen.Presentation.UI.LocLabel name="HOLD_STATE" class="hold-state kit-text-value" picking-mode="Ignore" />
+</ui:UXML>

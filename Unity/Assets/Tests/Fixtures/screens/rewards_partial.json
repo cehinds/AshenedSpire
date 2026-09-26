@@ -1,0 +1,15 @@
+{
+  "comment": "W-08 partly claimed: the card offer taken (its first card); the flask still open, so no choice waits and Continue stays gold.",
+  "screen": "rewards",
+  "seed": 20260927,
+  "finish": true,
+  "claims": [
+    {
+      "key": "card",
+      "pick": 0
+    }
+  ],
+  "skipSizes": [
+    "1920x1080"
+  ]
+}

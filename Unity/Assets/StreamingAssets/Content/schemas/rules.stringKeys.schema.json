@@ -5,6 +5,17 @@
     "catalog/armaments.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -20,6 +31,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -28,6 +40,21 @@
     "catalog/armour.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "blurb": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "blurb",
+            "name"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -43,6 +70,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -51,6 +79,21 @@
     "catalog/atlasQuests.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "displayName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "displayName"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -66,6 +109,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -74,6 +118,21 @@
     "catalog/attributes.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "shortLabel": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label",
+            "shortLabel"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -89,6 +148,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -97,6 +157,25 @@
     "catalog/cards.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "flavor": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "textTemplate": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "flavor",
+            "name",
+            "textTemplate"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -112,6 +191,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -120,6 +200,21 @@
     "catalog/classes.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "description": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "description",
+            "name"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -135,6 +230,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -143,6 +239,17 @@
     "catalog/creationModes.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -158,6 +265,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -166,6 +274,17 @@
     "catalog/enemies.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -181,6 +300,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -189,6 +309,21 @@
     "catalog/events.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "text"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -204,6 +339,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -212,6 +348,21 @@
     "catalog/flasks.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "textTemplate": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "textTemplate"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -227,6 +378,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -235,6 +387,21 @@
     "catalog/keywords.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "tooltip": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "tooltip"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -250,6 +417,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -258,6 +426,25 @@
     "catalog/relics.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "flavor": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "textTemplate": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "flavor",
+            "name",
+            "textTemplate"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {
@@ -275,6 +462,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -283,6 +471,17 @@
     "catalog/resources.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -298,6 +497,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -306,6 +506,17 @@
     "catalog/seats.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -321,6 +532,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -329,6 +541,17 @@
     "catalog/speakers.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -344,6 +567,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -352,6 +576,21 @@
     "catalog/stances.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "tooltip": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "tooltip"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -367,6 +606,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -375,6 +615,17 @@
     "catalog/startingKits.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "label"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -390,6 +641,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -398,6 +650,21 @@
     "catalog/statuses.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "tooltip": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "tooltip"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -413,6 +680,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"
@@ -421,6 +689,21 @@
     "catalog/unlocks.json": {
       "type": "object",
       "properties": {
+        "fields": {
+          "type": "object",
+          "properties": {
+            "hint": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "hint",
+            "name"
+          ]
+        },
         "optional": {
           "type": "array",
           "items": {}
@@ -436,6 +719,7 @@
         }
       },
       "required": [
+        "fields",
         "optional",
         "prefix",
         "required"

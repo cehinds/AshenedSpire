@@ -1,0 +1,58 @@
+/* W2 confirmation (docs/design/04 §0, W-23): 50% x 50% on wide, 90% wide on compact and narrow. */
+.confirm {
+    width: var(--size-confirm-width);
+    min-height: var(--size-confirm-height);
+    padding: var(--space-xl);
+    background-color: var(--color-panel);
+    border-color: var(--color-gold-soft);
+    border-width: var(--border-control);
+    border-radius: var(--radius-modal);
+}
+
+.band-compact .confirm,
+.layout-narrow .confirm {
+    width: var(--size-confirm-narrow-width);
+    min-height: 0;
+}
+
+.confirm-title {
+    font-size: var(--font-title);
+    color: var(--color-gold);
+    white-space: normal;
+}
+
+.confirm-target {
+    margin-top: var(--space-md);
+    font-size: var(--font-heading);
+    white-space: normal;
+}
+
+.confirm-body {
+    flex-grow: 1;
+    margin-top: var(--space-md);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.confirm-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: var(--space-xl);
+}
+
+.confirm-button {
+    width: var(--size-third-width);
+}
+
+.band-compact .confirm-button,
+.layout-narrow .confirm-button {
+    width: var(--size-half-gap-width);
+}
+
+.confirm--single .confirm-button {
+    flex-grow: 1;
+}
+
+.tone-destructive {
+    border-color: var(--color-destructive-line);
+}

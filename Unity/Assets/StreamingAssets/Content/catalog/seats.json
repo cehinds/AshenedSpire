@@ -1,17 +1,17 @@
 {
+  "weald": {
+    "id": "weald",
+    "regionId": "hollow-weald",
+    "baseTier": 1
+  },
   "marches": {
-    "baseTier": 2,
     "id": "marches",
-    "regionId": "pale-marches"
+    "regionId": "pale-marches",
+    "baseTier": 2
   },
   "reach": {
-    "baseTier": 3,
     "id": "reach",
-    "regionId": "cinder-reach"
-  },
-  "weald": {
-    "baseTier": 1,
-    "id": "weald",
-    "regionId": "hollow-weald"
+    "regionId": "cinder-reach",
+    "baseTier": 3
   }
 }

@@ -2,6 +2,92 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.13.0] — 2026-09-26
+
+Stories: us-11.1, us-11.2, us-11.3, us-8.10
+
+- F1 complete: W-08 rewards on RewardDoor (claims oracle incl. tap path), resume on rewards, permadeath on defeat; one run-effects door, chained full runs (108/108), bot smoke
+
+## [0.1.12.0] — 2026-09-26
+
+Stories: us-8.1, us-4.4, us-4.5, us-4.6, us-4.7, us-4.8, us-4.9
+
+- Run loop (node travel, rest stops, acts, legacy dungeons, victory/death/Endless, run record and unlocks) ported with shipped parity: 108 runs, 14,983 steps
+
+## [0.1.11.0] — 2026-09-26
+
+Stories: us-9.1, us-10.1
+
+- Merchant (stock, purchases, removal, sell, smith) and all 25 events ported with shipped parity
+
+## [0.1.10.0] — 2026-09-26
+
+Stories: us-2.1, us-5.10, pf-06
+
+- F1 first fight: W-04 class pane, W-07 combat screen, W-20 pause, save and resume mid-fight (RunSession)
+
+## [0.1.9.0] — 2026-09-26
+
+Stories: us-0.4
+
+- Run and rewards data built from content with exact key order (textAnchors, tag stamp order)
+
+## [0.1.8.0] — 2026-09-26
+
+Stories: us-11.1
+
+- Post-combat pipeline (skills, class tree, levels, smithing, reward rolls, pendingReward) ported with shipped parity: 168 cases
+
+## [0.1.7.0] — 2026-09-26
+
+Stories: us-1.2, us-1.3, us-1.4, us-17.1
+
+- F1 UI kit, boot gate, title, save slots, confirmations, keyboard/pad focus (US-1.2, 1.3 partial, 1.4, 0.10 footer, 17.1)
+
+## [0.1.6.0] — 2026-09-26
+
+Stories: us-4.2
+
+- Act map generation (buildActMap, floor plans, run shapes, encounters, seats) ported with shipped parity: 1,883 maps
+
+## [0.1.5.1] — 2026-09-26
+
+- Commit Unity metas for CombatStringKeys.g.cs and SessionKeys.g.cs
+
+## [0.1.5.0] — 2026-09-26
+
+Stories: us-2.2
+
+- Run creation (createRunState) and combat start args ported with shipped parity: 76 runs, 152 combat starts, 8 refusals
+
+## [0.1.4.4] — 2026-09-26
+
+- W-07 combat view-model
+
+## [0.1.4.3] — 2026-09-26
+
+- skill XP receipts recorded on the combat bus with shipped parity
+
+## [0.1.4.2] — 2026-09-26
+
+- legality service and combat session with save/resume (engine side of US-5.9)
+
+## [0.1.4.1] — 2026-09-26
+
+- combat data built from content equals the shipped registries; golden combats replay on it
+
+## [0.1.4.0] — 2026-09-26
+
+Stories: us-5.3
+
+- createCombat and card/intent previews with shipped parity
+
+## [0.1.3.0] — 2026-09-26
+
+Stories: us-0.3, us-5.1
+
+- runtime registries port and C# combat engine with shipped parity (60 golden combats, 1068 steps); content keeps shipped key order (D-040)
+
 ## [0.1.1.4] — 2026-09-26
 
 - Version correction: owner ruling 2026-09-26: nothing is 1.x yet; 1.0.0.0-1.0.0.3 renumbered to 0.1.1.1-0.1.1.4, phase F0 completion is a promotion, not an epic release

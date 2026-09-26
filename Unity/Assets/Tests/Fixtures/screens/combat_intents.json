@@ -1,0 +1,10 @@
+{
+  "comment": "W-07 intent variety and statuses: a Weald encounter with a debuffer and a blocker, played until two intent kinds and an enemy status show (fixture data may name content ids).",
+  "screen": "combat",
+  "seed": 4242,
+  "encounter": "bruiser",
+  "intentVariety": true,
+  "skipSizes": [
+    "1920x1080"
+  ]
+}

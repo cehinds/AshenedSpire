@@ -1,0 +1,187 @@
+{
+  "$id": "ui/menus.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "confirms": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "backKey": {
+            "type": "string"
+          },
+          "bodyKey": {
+            "type": "string"
+          },
+          "hold": {
+            "type": "boolean"
+          },
+          "occupiedBodyKey": {
+            "type": "string"
+          },
+          "policy": {
+            "type": "string"
+          },
+          "primaryKey": {
+            "type": "string"
+          },
+          "single": {
+            "type": "boolean"
+          },
+          "titleKey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "backKey",
+          "bodyKey",
+          "hold",
+          "primaryKey",
+          "single",
+          "titleKey"
+        ]
+      }
+    },
+    "title": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "confirm",
+              "continue",
+              "open"
+            ]
+          },
+          "confirm": {
+            "type": "string"
+          },
+          "enabledWhen": {
+            "type": "string",
+            "enum": [
+              "always",
+              "hasValidSlot",
+              "targetBuilt"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "labelKey": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "load",
+              "new"
+            ]
+          },
+          "target": {
+            "type": "string"
+          },
+          "visible": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "action",
+          "enabledWhen",
+          "id",
+          "labelKey",
+          "visible"
+        ]
+      }
+    },
+    "pause": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "confirm",
+              "continue",
+              "open"
+            ]
+          },
+          "confirm": {
+            "type": "string"
+          },
+          "enabledWhen": {
+            "type": "string",
+            "enum": [
+              "always",
+              "hasValidSlot",
+              "targetBuilt"
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "labelKey": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "load",
+              "new"
+            ]
+          },
+          "target": {
+            "type": "string"
+          },
+          "visible": {
+            "type": "boolean"
+          },
+          "hideInCombat": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "action",
+          "enabledWhen",
+          "id",
+          "labelKey",
+          "visible"
+        ]
+      }
+    },
+    "creationPanes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "labelKey": {
+            "type": "string"
+          },
+          "built": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "built",
+          "id",
+          "labelKey"
+        ]
+      }
+    }
+  },
+  "required": [
+    "comment",
+    "confirms",
+    "creationPanes",
+    "pause",
+    "title"
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "$id": "rules/eventsEngine.json",
+  "type": "object",
+  "properties": {
+    "bindingCardTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "comment": {
+      "type": "string"
+    },
+    "effects": {
+      "type": "object",
+      "properties": {
+        "capacityKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "queueGuard": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "capacityKinds",
+        "queueGuard"
+      ]
+    },
+    "history": {
+      "type": "object",
+      "properties": {
+        "completionSources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requirementGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "completionSources",
+        "requirementGroups"
+      ]
+    },
+    "runOpcodes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "addCardToDeck",
+          "addCinders",
+          "addFlask",
+          "addFlaskCapacity",
+          "addRelic",
+          "loseMaxHpPct",
+          "refillFlasks",
+          "removeCardFromDeck",
+          "startCombat",
+          "swapClass",
+          "upgradeCard"
+        ]
+      }
+    },
+    "safeOps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "addCinders",
+          "addFlask",
+          "addFlaskCapacity",
+          "addRelic",
+          "block",
+          "damage",
+          "gainEnergy",
+          "heal",
+          "loseHp",
+          "startCombat",
+          "upgradeCard"
+        ]
+      }
+    }
+  },
+  "required": [
+    "bindingCardTypes",
+    "comment",
+    "effects",
+    "history",
+    "runOpcodes",
+    "safeOps"
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "$id": "rules/runFlow.json",
+  "type": "object",
+  "properties": {
+    "autosave": {
+      "type": "object",
+      "properties": {
+        "afterCommand": {
+          "type": "string",
+          "enum": [
+            "append",
+            "checkpoint",
+            "none"
+          ]
+        },
+        "checkpointOn": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "endTurn",
+              "playCard",
+              "useFlask"
+            ]
+          }
+        }
+      },
+      "required": [
+        "afterCommand",
+        "checkpointOn"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "creation": {
+      "type": "object",
+      "properties": {
+        "defaultClass": {
+          "type": "string",
+          "x-ref": "catalog/classes.json"
+        },
+        "defaultTint": {
+          "type": "string"
+        },
+        "journey": {
+          "type": "string"
+        },
+        "nameKey": {
+          "type": "string"
+        },
+        "portrait": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "defaultClass",
+        "defaultTint",
+        "journey",
+        "nameKey",
+        "portrait"
+      ]
+    },
+    "firstFight": {
+      "type": "object",
+      "properties": {
+        "ordinal": {
+          "type": "integer"
+        },
+        "pool": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "elite",
+            "boss"
+          ]
+        },
+        "seat": {
+          "type": "string",
+          "x-ref": "catalog/seats.json"
+        }
+      },
+      "required": [
+        "ordinal",
+        "pool",
+        "seat"
+      ]
+    },
+    "saveFormat": {
+      "type": "integer"
+    },
+    "newRun": {
+      "type": "object",
+      "properties": {
+        "customization": {
+          "type": "object",
+          "properties": {
+            "glyph": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "glyph"
+          ]
+        },
+        "stats": {
+          "type": "object",
+          "properties": {
+            "fightsWon": {
+              "type": "integer"
+            },
+            "damageDealt": {
+              "type": "integer"
+            },
+            "damageTaken": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "fightsWon",
+            "damageDealt",
+            "damageTaken"
+          ]
+        },
+        "path": {
+          "type": "array"
+        },
+        "seenEvents": {
+          "type": "array"
+        },
+        "lastEncounters": {
+          "type": "array"
+        }
+      },
+      "required": [
+        "customization",
+        "stats",
+        "path",
+        "seenEvents",
+        "lastEncounters"
+      ]
+    }
+  },
+  "required": [
+    "autosave",
+    "comment",
+    "creation",
+    "firstFight",
+    "newRun",
+    "saveFormat"
+  ]
+}

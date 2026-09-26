@@ -1,6 +1,12 @@
 {
   "name": "Ashen.Platform",
   "rootNamespace": "Ashen.Platform",
-  "references": ["Ashen.Generated", "Ashen.Domain", "Ashen.Content", "Ashen.Application"],
+  "references": [
+    "Ashen.Generated",
+    "Ashen.Domain",
+    "Ashen.Content",
+    "Ashen.Application",
+    "Unity.InputSystem"
+  ],
   "autoReferenced": true
 }

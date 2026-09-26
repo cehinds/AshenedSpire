@@ -1,0 +1,451 @@
+{
+  "$id": "rules/combatEngine.json",
+  "type": "object",
+  "properties": {
+    "cardProperties": {
+      "type": "object",
+      "properties": {
+        "costResource": {
+          "type": "object",
+          "properties": {
+            "cost.action": {
+              "type": "string"
+            },
+            "cost.mana": {
+              "type": "string"
+            },
+            "cost.stamina": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "cost.action",
+            "cost.mana",
+            "cost.stamina"
+          ]
+        },
+        "damageSchool": {
+          "type": "object",
+          "properties": {
+            "arcane": {
+              "type": "string"
+            },
+            "magic": {
+              "type": "string"
+            },
+            "physical": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "arcane",
+            "magic",
+            "physical"
+          ]
+        },
+        "keyword": {
+          "type": "object",
+          "properties": {
+            "ethereal": {
+              "type": "string"
+            },
+            "exhaust": {
+              "type": "string"
+            },
+            "innate": {
+              "type": "string"
+            },
+            "retain": {
+              "type": "string"
+            },
+            "unplayable": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "ethereal",
+            "exhaust",
+            "innate",
+            "retain",
+            "unplayable"
+          ]
+        },
+        "kind": {
+          "type": "object",
+          "properties": {
+            "classification.attack": {
+              "type": "string"
+            },
+            "classification.curse": {
+              "type": "string"
+            },
+            "classification.power": {
+              "type": "string"
+            },
+            "classification.skill": {
+              "type": "string"
+            },
+            "classification.statusCard": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "classification.attack",
+            "classification.curse",
+            "classification.power",
+            "classification.skill",
+            "classification.statusCard"
+          ]
+        },
+        "target": {
+          "type": "object",
+          "properties": {
+            "allEnemies": {
+              "type": "string"
+            },
+            "ally": {
+              "type": "string"
+            },
+            "enemy": {
+              "type": "string"
+            },
+            "randomEnemy": {
+              "type": "string"
+            },
+            "self": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "allEnemies",
+            "ally",
+            "enemy",
+            "randomEnemy",
+            "self"
+          ]
+        }
+      },
+      "required": [
+        "costResource",
+        "damageSchool",
+        "keyword",
+        "kind",
+        "target"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "damageSchools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "dexterity": {
+          "type": "integer"
+        },
+        "handMax": {
+          "type": "integer"
+        },
+        "maxHits": {
+          "type": "integer"
+        },
+        "poiseGrowthMult": {
+          "type": "number"
+        },
+        "weightAttribute": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "dexterity",
+        "handMax",
+        "maxHits",
+        "poiseGrowthMult",
+        "weightAttribute"
+      ]
+    },
+    "dodge": {
+      "type": "object",
+      "properties": {
+        "attributeBaseline": {
+          "type": "integer"
+        },
+        "attributeDivisor": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "attributeBaseline",
+        "attributeDivisor"
+      ]
+    },
+    "flasks": {
+      "type": "object",
+      "properties": {
+        "chargeKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "kindByOp": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "op": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "op"
+            ]
+          }
+        }
+      },
+      "required": [
+        "chargeKinds",
+        "kindByOp"
+      ]
+    },
+    "grip": {
+      "type": "object",
+      "properties": {
+        "dual": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "one": {
+          "type": "array",
+          "items": {}
+        },
+        "two": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "dual",
+        "one",
+        "two"
+      ]
+    },
+    "itemUpgrades": {
+      "type": "object",
+      "properties": {
+        "equipmentPoiseTag": {
+          "type": "string"
+        },
+        "relicPassiveTags": {
+          "type": "object",
+          "properties": {
+            "relic:passive:poise-threshold-add": {
+              "type": "string"
+            },
+            "relic:passive:power-cost-reduction": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "relic:passive:poise-threshold-add",
+            "relic:passive:power-cost-reduction"
+          ]
+        },
+        "costTag": {
+          "type": "string"
+        },
+        "cardRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cardEffects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cardResources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "equipmentPoiseTag",
+        "relicPassiveTags",
+        "costTag",
+        "cardRoles",
+        "cardEffects",
+        "cardResources"
+      ]
+    },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "fillLoopGuard": {
+          "type": "integer"
+        },
+        "maxEmitDepth": {
+          "type": "integer"
+        },
+        "queueGuard": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "fillLoopGuard",
+        "maxEmitDepth",
+        "queueGuard"
+      ]
+    },
+    "magicalTags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "arcane",
+          "fire",
+          "holy",
+          "magic",
+          "magical",
+          "spell"
+        ]
+      }
+    },
+    "ratings": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "attributes",
+        "ids"
+      ]
+    },
+    "skillXp": {
+      "type": "object",
+      "properties": {
+        "armorItemType": {
+          "type": "string"
+        },
+        "armourSkillPrefix": {
+          "type": "string"
+        },
+        "dualWieldSkill": {
+          "type": "string"
+        },
+        "evadeShare": {
+          "type": "object",
+          "properties": {
+            "light": {
+              "type": "integer"
+            },
+            "medium": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "light",
+            "medium"
+          ]
+        },
+        "focusItemType": {
+          "type": "string"
+        },
+        "impactShare": {
+          "type": "object",
+          "properties": {
+            "heavy": {
+              "type": "integer"
+            },
+            "medium": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "heavy",
+            "medium"
+          ]
+        },
+        "unarmedGrantPrefix": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "armorItemType",
+        "armourSkillPrefix",
+        "dualWieldSkill",
+        "evadeShare",
+        "focusItemType",
+        "impactShare",
+        "unarmedGrantPrefix"
+      ]
+    },
+    "snapshotVersion": {
+      "type": "integer"
+    },
+    "tokenizableOps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "addCinders",
+          "applyStatus",
+          "block",
+          "damage",
+          "draw",
+          "gainEnergy",
+          "heal",
+          "loseHp",
+          "loseMaxHpPct",
+          "poiseDamage",
+          "restoreMana",
+          "restoreStamina"
+        ]
+      }
+    }
+  },
+  "required": [
+    "cardProperties",
+    "comment",
+    "damageSchools",
+    "defaults",
+    "dodge",
+    "flasks",
+    "grip",
+    "itemUpgrades",
+    "limits",
+    "magicalTags",
+    "ratings",
+    "skillXp",
+    "snapshotVersion",
+    "tokenizableOps"
+  ]
+}

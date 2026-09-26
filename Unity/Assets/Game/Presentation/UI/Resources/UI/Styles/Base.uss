@@ -1,0 +1,151 @@
+/* Base styles for every screen (docs/design/04 §0). Values come only from Tokens.uss variables. */
+
+.screen {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.screen-background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg);
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+.is-hidden {
+    display: none;
+}
+
+.unity-text-element {
+    color: var(--color-parchment);
+    font-size: var(--font-body);
+}
+
+.wordmark {
+    font-size: var(--font-wordmark);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    letter-spacing: var(--size-wordmark-letter);
+    -unity-text-align: middle-center;
+}
+
+.band-compact .wordmark {
+    font-size: var(--font-wordmark-compact);
+}
+
+.layout-narrow .wordmark {
+    font-size: var(--font-wordmark-narrow);
+    letter-spacing: var(--size-wordmark-letter-narrow);
+}
+
+.caption {
+    font-size: var(--font-caption);
+    color: var(--color-muted);
+}
+
+.eyebrow {
+    font-size: var(--font-caption);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+/* ---- buttons: neutral brown and gold at rest; Exit and Back turn red on focus; ready primary is green;
+        destructive primary is red and never green; disabled overrides every other state (04 §0) ---- */
+
+.kit-button {
+    min-height: var(--size-button-h);
+    margin: 0;
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+    background-color: var(--color-neutral);
+    border-color: var(--color-neutral-line);
+    border-width: var(--border-control);
+    border-radius: var(--radius-button);
+    color: var(--color-parchment);
+    font-size: var(--font-button);
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition-property: background-color, border-color, color;
+    transition-duration: var(--duration-fast);
+}
+
+.kit-button:hover {
+    background-color: var(--color-panel-raise);
+    border-color: var(--color-gold);
+}
+
+.kit-button:focus,
+.unity-button.kit-button:focus:enabled {
+    background-color: var(--color-panel-raise);
+    border-color: var(--color-gold);
+    border-width: var(--border-glow);
+    color: var(--color-gold);
+}
+
+.kit-button:active {
+    background-color: var(--color-gold-soft);
+}
+
+.kit-button--back:hover,
+.kit-button--back:focus,
+.unity-button.kit-button--back:focus:enabled {
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+}
+
+.kit-button--primary {
+    border-color: var(--color-gold);
+}
+
+.kit-button--ready,
+.kit-button--ready:hover,
+.kit-button--ready:focus {
+    background-color: var(--color-ready);
+    border-color: var(--color-ready-line);
+    color: var(--color-parchment);
+}
+
+.tone-destructive .kit-button--primary,
+.tone-destructive .kit-button--primary:hover,
+.tone-destructive .kit-button--primary:focus,
+.tone-destructive .holdbutton,
+.tone-destructive .holdbutton:hover,
+.tone-destructive .holdbutton:focus {
+    background-color: var(--color-destructive);
+    border-color: var(--color-destructive-line);
+    color: var(--color-parchment);
+}
+
+.kit-button:disabled,
+.kit-button:disabled:hover,
+.kit-button:disabled:focus {
+    opacity: var(--opacity-disabled);
+    background-color: var(--color-neutral);
+    border-color: var(--color-line);
+    border-width: var(--border-control);
+    color: var(--color-muted);
+}
+
+/* ---- scroll bars in the palette ---- */
+
+.unity-scroll-view .unity-scroller,
+.unity-scroll-view .unity-scroller .unity-base-slider__tracker,
+.unity-scroll-view .unity-scroller .unity-repeat-button {
+    background-color: var(--color-bg-raise);
+    border-color: var(--color-line);
+}
+
+.unity-scroll-view .unity-scroller .unity-base-slider__dragger {
+    background-color: var(--color-line-soft);
+    border-color: var(--color-gold-soft);
+}

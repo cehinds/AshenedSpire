@@ -1,0 +1,27 @@
+{
+  "comment": "First playable run flow (F1; D-071, D-072). 'saveFormat' versions the run payload inside the save envelope (a payload with another format is not resumed). 'creation' is the W-04 default character: the preselected class, the default tint that picks its portrait, the portrait registry-id template ({class}, {tint}), the journey recorded in the slot summary and the string key of the default character name. 'firstFight' picks the one F1 encounter deterministically: the encounters of 'seat' in 'pool', in authoring order, at 'ordinal'. 'autosave' says what happens after each committed combat command: 'append' writes it to the slot's command log (PF-06), 'checkpoint' writes a full checkpoint, 'none' writes nothing; 'checkpointOn' lists the command types that also write a full checkpoint (the PF-06 commit point 'combat turn end'). 'newRun' is what shipped main.js newRun adds to a created run before the first fight, in order: seedString, customization (the name and tint are the character's; the glyph is data), stats, path, seenEvents and lastEncounters; the post-combat pipeline and the run loop read them. The Custom Climb block (custom) is left out until fights enter through the run loop (RunCombat.CreateArgs refuses it).",
+  "saveFormat": 1,
+  "creation": {
+    "defaultClass": "reaver",
+    "defaultTint": "ember",
+    "portrait": "class.{class}.sprite.{tint}",
+    "journey": "classic",
+    "nameKey": "creation.defaultName"
+  },
+  "firstFight": {
+    "seat": "weald",
+    "pool": "normal",
+    "ordinal": 1
+  },
+  "autosave": {
+    "afterCommand": "append",
+    "checkpointOn": ["endTurn"]
+  },
+  "newRun": {
+    "customization": { "glyph": "⚔" },
+    "stats": { "fightsWon": 0, "damageDealt": 0, "damageTaken": 0 },
+    "path": [],
+    "seenEvents": [],
+    "lastEncounters": []
+  }
+}

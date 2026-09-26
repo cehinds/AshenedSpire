@@ -1,0 +1,1857 @@
+{
+ "source": "main.js enterNode merchant + shopPriceMult + showShop onLeave; ui/screens/shop.js handlers over engine/encounters.js buildShopStock, model/{armamentTrading,cardRemoval,smithing,cardExtraction,flaskgrowth}.js (shipped preset)",
+ "sessions": [
+  {
+   "file": "session-000-reaver-poor.json",
+   "name": "session-000-reaver-poor",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "poor",
+   "smithOffered": false
+  },
+  {
+   "file": "session-001-starseer-poor.json",
+   "name": "session-001-starseer-poor",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "poor",
+   "smithOffered": false
+  },
+  {
+   "file": "session-002-rogue-poor.json",
+   "name": "session-002-rogue-poor",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "poor",
+   "smithOffered": false
+  },
+  {
+   "file": "session-003-herald-poor.json",
+   "name": "session-003-herald-poor",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "poor",
+   "smithOffered": true
+  },
+  {
+   "file": "session-004-reaver-modest.json",
+   "name": "session-004-reaver-modest",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "modest",
+   "smithOffered": false
+  },
+  {
+   "file": "session-005-starseer-modest.json",
+   "name": "session-005-starseer-modest",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "modest",
+   "smithOffered": false
+  },
+  {
+   "file": "session-006-rogue-modest.json",
+   "name": "session-006-rogue-modest",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "modest",
+   "smithOffered": false
+  },
+  {
+   "file": "session-007-herald-modest.json",
+   "name": "session-007-herald-modest",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "modest",
+   "smithOffered": true
+  },
+  {
+   "file": "session-008-reaver-rich.json",
+   "name": "session-008-reaver-rich",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "rich",
+   "smithOffered": false
+  },
+  {
+   "file": "session-009-starseer-rich.json",
+   "name": "session-009-starseer-rich",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "rich",
+   "smithOffered": false
+  },
+  {
+   "file": "session-010-rogue-rich.json",
+   "name": "session-010-rogue-rich",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "rich",
+   "smithOffered": true
+  },
+  {
+   "file": "session-011-herald-rich.json",
+   "name": "session-011-herald-rich",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "rich",
+   "smithOffered": false
+  },
+  {
+   "file": "session-012-reaver-relics.json",
+   "name": "session-012-reaver-relics",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "relics",
+   "smithOffered": false
+  },
+  {
+   "file": "session-013-starseer-relics.json",
+   "name": "session-013-starseer-relics",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "relics",
+   "smithOffered": false
+  },
+  {
+   "file": "session-014-rogue-relics.json",
+   "name": "session-014-rogue-relics",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "relics",
+   "smithOffered": false
+  },
+  {
+   "file": "session-015-herald-relics.json",
+   "name": "session-015-herald-relics",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "relics",
+   "smithOffered": false
+  },
+  {
+   "file": "session-016-reaver-flasks-full.json",
+   "name": "session-016-reaver-flasks-full",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "flasks-full",
+   "smithOffered": false
+  },
+  {
+   "file": "session-017-starseer-flasks-full.json",
+   "name": "session-017-starseer-flasks-full",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "flasks-full",
+   "smithOffered": false
+  },
+  {
+   "file": "session-018-rogue-flasks-full.json",
+   "name": "session-018-rogue-flasks-full",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "flasks-full",
+   "smithOffered": true
+  },
+  {
+   "file": "session-019-herald-flasks-full.json",
+   "name": "session-019-herald-flasks-full",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "flasks-full",
+   "smithOffered": true
+  },
+  {
+   "file": "session-020-reaver-flasks-some.json",
+   "name": "session-020-reaver-flasks-some",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "flasks-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-021-starseer-flasks-some.json",
+   "name": "session-021-starseer-flasks-some",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "flasks-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-022-rogue-flasks-some.json",
+   "name": "session-022-rogue-flasks-some",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "flasks-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-023-herald-flasks-some.json",
+   "name": "session-023-herald-flasks-some",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "flasks-some",
+   "smithOffered": true
+  },
+  {
+   "file": "session-024-reaver-inventory-full.json",
+   "name": "session-024-reaver-inventory-full",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "inventory-full",
+   "smithOffered": false
+  },
+  {
+   "file": "session-025-starseer-inventory-full.json",
+   "name": "session-025-starseer-inventory-full",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "inventory-full",
+   "smithOffered": false
+  },
+  {
+   "file": "session-026-rogue-inventory-full.json",
+   "name": "session-026-rogue-inventory-full",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "inventory-full",
+   "smithOffered": false
+  },
+  {
+   "file": "session-027-herald-inventory-full.json",
+   "name": "session-027-herald-inventory-full",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "inventory-full",
+   "smithOffered": false
+  },
+  {
+   "file": "session-028-reaver-inventory-some.json",
+   "name": "session-028-reaver-inventory-some",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "inventory-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-029-starseer-inventory-some.json",
+   "name": "session-029-starseer-inventory-some",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "inventory-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-030-rogue-inventory-some.json",
+   "name": "session-030-rogue-inventory-some",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "inventory-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-031-herald-inventory-some.json",
+   "name": "session-031-herald-inventory-some",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "inventory-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-032-reaver-stones.json",
+   "name": "session-032-reaver-stones",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "stones",
+   "smithOffered": true
+  },
+  {
+   "file": "session-033-starseer-stones.json",
+   "name": "session-033-starseer-stones",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "stones",
+   "smithOffered": true
+  },
+  {
+   "file": "session-034-rogue-stones.json",
+   "name": "session-034-rogue-stones",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "stones",
+   "smithOffered": true
+  },
+  {
+   "file": "session-035-herald-stones.json",
+   "name": "session-035-herald-stones",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "stones",
+   "smithOffered": false
+  },
+  {
+   "file": "session-036-reaver-bench.json",
+   "name": "session-036-reaver-bench",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "bench",
+   "smithOffered": true
+  },
+  {
+   "file": "session-037-starseer-bench.json",
+   "name": "session-037-starseer-bench",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "bench",
+   "smithOffered": true
+  },
+  {
+   "file": "session-038-rogue-bench.json",
+   "name": "session-038-rogue-bench",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "bench",
+   "smithOffered": true
+  },
+  {
+   "file": "session-039-herald-bench.json",
+   "name": "session-039-herald-bench",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "bench",
+   "smithOffered": false
+  },
+  {
+   "file": "session-040-reaver-stones-short.json",
+   "name": "session-040-reaver-stones-short",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "stones-short",
+   "smithOffered": true
+  },
+  {
+   "file": "session-041-starseer-stones-short.json",
+   "name": "session-041-starseer-stones-short",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "stones-short",
+   "smithOffered": true
+  },
+  {
+   "file": "session-042-rogue-stones-short.json",
+   "name": "session-042-rogue-stones-short",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "stones-short",
+   "smithOffered": true
+  },
+  {
+   "file": "session-043-herald-stones-short.json",
+   "name": "session-043-herald-stones-short",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "stones-short",
+   "smithOffered": false
+  },
+  {
+   "file": "session-044-reaver-mounts-emptied.json",
+   "name": "session-044-reaver-mounts-emptied",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "mounts-emptied",
+   "smithOffered": true
+  },
+  {
+   "file": "session-045-starseer-mounts-emptied.json",
+   "name": "session-045-starseer-mounts-emptied",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "mounts-emptied",
+   "smithOffered": true
+  },
+  {
+   "file": "session-046-rogue-mounts-emptied.json",
+   "name": "session-046-rogue-mounts-emptied",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "mounts-emptied",
+   "smithOffered": true
+  },
+  {
+   "file": "session-047-herald-mounts-emptied.json",
+   "name": "session-047-herald-mounts-emptied",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "mounts-emptied",
+   "smithOffered": true
+  },
+  {
+   "file": "session-048-reaver-mounts-carried.json",
+   "name": "session-048-reaver-mounts-carried",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "mounts-carried",
+   "smithOffered": true
+  },
+  {
+   "file": "session-049-starseer-mounts-carried.json",
+   "name": "session-049-starseer-mounts-carried",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "mounts-carried",
+   "smithOffered": true
+  },
+  {
+   "file": "session-050-rogue-mounts-carried.json",
+   "name": "session-050-rogue-mounts-carried",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "mounts-carried",
+   "smithOffered": true
+  },
+  {
+   "file": "session-051-herald-mounts-carried.json",
+   "name": "session-051-herald-mounts-carried",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "mounts-carried",
+   "smithOffered": false
+  },
+  {
+   "file": "session-052-reaver-mounts-worked.json",
+   "name": "session-052-reaver-mounts-worked",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "mounts-worked",
+   "smithOffered": true
+  },
+  {
+   "file": "session-053-starseer-mounts-worked.json",
+   "name": "session-053-starseer-mounts-worked",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "mounts-worked",
+   "smithOffered": true
+  },
+  {
+   "file": "session-054-rogue-mounts-worked.json",
+   "name": "session-054-rogue-mounts-worked",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "mounts-worked",
+   "smithOffered": true
+  },
+  {
+   "file": "session-055-herald-mounts-worked.json",
+   "name": "session-055-herald-mounts-worked",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "mounts-worked",
+   "smithOffered": false
+  },
+  {
+   "file": "session-056-reaver-smithed.json",
+   "name": "session-056-reaver-smithed",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "smithed",
+   "smithOffered": true
+  },
+  {
+   "file": "session-057-starseer-smithed.json",
+   "name": "session-057-starseer-smithed",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "smithed",
+   "smithOffered": true
+  },
+  {
+   "file": "session-058-rogue-smithed.json",
+   "name": "session-058-rogue-smithed",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "smithed",
+   "smithOffered": true
+  },
+  {
+   "file": "session-059-herald-smithed.json",
+   "name": "session-059-herald-smithed",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "smithed",
+   "smithOffered": false
+  },
+  {
+   "file": "session-060-reaver-removes-bought.json",
+   "name": "session-060-reaver-removes-bought",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "removes-bought",
+   "smithOffered": false
+  },
+  {
+   "file": "session-061-starseer-removes-bought.json",
+   "name": "session-061-starseer-removes-bought",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "removes-bought",
+   "smithOffered": false
+  },
+  {
+   "file": "session-062-rogue-removes-bought.json",
+   "name": "session-062-rogue-removes-bought",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "removes-bought",
+   "smithOffered": false
+  },
+  {
+   "file": "session-063-herald-removes-bought.json",
+   "name": "session-063-herald-removes-bought",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "removes-bought",
+   "smithOffered": false
+  },
+  {
+   "file": "session-064-reaver-thin-deck.json",
+   "name": "session-064-reaver-thin-deck",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "thin-deck",
+   "smithOffered": true
+  },
+  {
+   "file": "session-065-starseer-thin-deck.json",
+   "name": "session-065-starseer-thin-deck",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "thin-deck",
+   "smithOffered": true
+  },
+  {
+   "file": "session-066-rogue-thin-deck.json",
+   "name": "session-066-rogue-thin-deck",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "thin-deck",
+   "smithOffered": false
+  },
+  {
+   "file": "session-067-herald-thin-deck.json",
+   "name": "session-067-herald-thin-deck",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "thin-deck",
+   "smithOffered": false
+  },
+  {
+   "file": "session-068-reaver-greedy.json",
+   "name": "session-068-reaver-greedy",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "greedy",
+   "smithOffered": true
+  },
+  {
+   "file": "session-069-starseer-greedy.json",
+   "name": "session-069-starseer-greedy",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "greedy",
+   "smithOffered": false
+  },
+  {
+   "file": "session-070-rogue-greedy.json",
+   "name": "session-070-rogue-greedy",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "greedy",
+   "smithOffered": false
+  },
+  {
+   "file": "session-071-herald-greedy.json",
+   "name": "session-071-herald-greedy",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "greedy",
+   "smithOffered": false
+  },
+  {
+   "file": "session-072-reaver-hoarder.json",
+   "name": "session-072-reaver-hoarder",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-073-starseer-hoarder.json",
+   "name": "session-073-starseer-hoarder",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "hoarder",
+   "smithOffered": true
+  },
+  {
+   "file": "session-074-rogue-hoarder.json",
+   "name": "session-074-rogue-hoarder",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-075-herald-hoarder.json",
+   "name": "session-075-herald-hoarder",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "hoarder",
+   "smithOffered": true
+  },
+  {
+   "file": "session-076-reaver-greedy-hoarder.json",
+   "name": "session-076-reaver-greedy-hoarder",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "greedy-hoarder",
+   "smithOffered": true
+  },
+  {
+   "file": "session-077-starseer-greedy-hoarder.json",
+   "name": "session-077-starseer-greedy-hoarder",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "greedy-hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-078-rogue-greedy-hoarder.json",
+   "name": "session-078-rogue-greedy-hoarder",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "greedy-hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-079-herald-greedy-hoarder.json",
+   "name": "session-079-herald-greedy-hoarder",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "greedy-hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-080-reaver-ascension.json",
+   "name": "session-080-reaver-ascension",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "ascension",
+   "smithOffered": false
+  },
+  {
+   "file": "session-081-starseer-ascension.json",
+   "name": "session-081-starseer-ascension",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "ascension",
+   "smithOffered": false
+  },
+  {
+   "file": "session-082-rogue-ascension.json",
+   "name": "session-082-rogue-ascension",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "ascension",
+   "smithOffered": true
+  },
+  {
+   "file": "session-083-herald-ascension.json",
+   "name": "session-083-herald-ascension",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "ascension",
+   "smithOffered": false
+  },
+  {
+   "file": "session-084-reaver-sell-off.json",
+   "name": "session-084-reaver-sell-off",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "sell-off",
+   "smithOffered": false
+  },
+  {
+   "file": "session-085-starseer-sell-off.json",
+   "name": "session-085-starseer-sell-off",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "sell-off",
+   "smithOffered": false
+  },
+  {
+   "file": "session-086-rogue-sell-off.json",
+   "name": "session-086-rogue-sell-off",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "sell-off",
+   "smithOffered": true
+  },
+  {
+   "file": "session-087-herald-sell-off.json",
+   "name": "session-087-herald-sell-off",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "sell-off",
+   "smithOffered": true
+  },
+  {
+   "file": "session-088-reaver-legacy-levels.json",
+   "name": "session-088-reaver-legacy-levels",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "legacy-levels",
+   "smithOffered": true
+  },
+  {
+   "file": "session-089-starseer-legacy-levels.json",
+   "name": "session-089-starseer-legacy-levels",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "legacy-levels",
+   "smithOffered": true
+  },
+  {
+   "file": "session-090-rogue-legacy-levels.json",
+   "name": "session-090-rogue-legacy-levels",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "legacy-levels",
+   "smithOffered": true
+  },
+  {
+   "file": "session-091-herald-legacy-levels.json",
+   "name": "session-091-herald-legacy-levels",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "legacy-levels",
+   "smithOffered": true
+  },
+  {
+   "file": "session-092-reaver-no-loadout.json",
+   "name": "session-092-reaver-no-loadout",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "no-loadout",
+   "smithOffered": false
+  },
+  {
+   "file": "session-093-starseer-no-loadout.json",
+   "name": "session-093-starseer-no-loadout",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "no-loadout",
+   "smithOffered": true
+  },
+  {
+   "file": "session-094-rogue-no-loadout.json",
+   "name": "session-094-rogue-no-loadout",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "no-loadout",
+   "smithOffered": false
+  },
+  {
+   "file": "session-095-herald-no-loadout.json",
+   "name": "session-095-herald-no-loadout",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "no-loadout",
+   "smithOffered": false
+  },
+  {
+   "file": "session-096-reaver-fractional-cinders.json",
+   "name": "session-096-reaver-fractional-cinders",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "fractional-cinders",
+   "smithOffered": false
+  },
+  {
+   "file": "session-097-starseer-fractional-cinders.json",
+   "name": "session-097-starseer-fractional-cinders",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "fractional-cinders",
+   "smithOffered": false
+  },
+  {
+   "file": "session-098-rogue-fractional-cinders.json",
+   "name": "session-098-rogue-fractional-cinders",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "fractional-cinders",
+   "smithOffered": false
+  },
+  {
+   "file": "session-099-herald-fractional-cinders.json",
+   "name": "session-099-herald-fractional-cinders",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "fractional-cinders",
+   "smithOffered": false
+  },
+  {
+   "file": "session-100-reaver-tampered.json",
+   "name": "session-100-reaver-tampered",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "tampered",
+   "smithOffered": true
+  },
+  {
+   "file": "session-101-starseer-tampered.json",
+   "name": "session-101-starseer-tampered",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "tampered",
+   "smithOffered": true
+  },
+  {
+   "file": "session-102-rogue-tampered.json",
+   "name": "session-102-rogue-tampered",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "tampered",
+   "smithOffered": true
+  },
+  {
+   "file": "session-103-herald-tampered.json",
+   "name": "session-103-herald-tampered",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "tampered",
+   "smithOffered": true
+  },
+  {
+   "file": "session-104-reaver-act2.json",
+   "name": "session-104-reaver-act2",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "act2",
+   "smithOffered": false
+  },
+  {
+   "file": "session-105-starseer-act2.json",
+   "name": "session-105-starseer-act2",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "act2",
+   "smithOffered": true
+  },
+  {
+   "file": "session-106-rogue-act2.json",
+   "name": "session-106-rogue-act2",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "act2",
+   "smithOffered": false
+  },
+  {
+   "file": "session-107-herald-act2.json",
+   "name": "session-107-herald-act2",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "act2",
+   "smithOffered": false
+  },
+  {
+   "file": "session-108-reaver-act3.json",
+   "name": "session-108-reaver-act3",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "act3",
+   "smithOffered": false
+  },
+  {
+   "file": "session-109-starseer-act3.json",
+   "name": "session-109-starseer-act3",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "act3",
+   "smithOffered": false
+  },
+  {
+   "file": "session-110-rogue-act3.json",
+   "name": "session-110-rogue-act3",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "act3",
+   "smithOffered": false
+  },
+  {
+   "file": "session-111-herald-act3.json",
+   "name": "session-111-herald-act3",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "act3",
+   "smithOffered": false
+  },
+  {
+   "file": "session-112-rogue-poor.json",
+   "name": "session-112-rogue-poor",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "poor",
+   "smithOffered": false
+  },
+  {
+   "file": "session-113-herald-poor.json",
+   "name": "session-113-herald-poor",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "poor",
+   "smithOffered": true
+  },
+  {
+   "file": "session-114-starseer-poor.json",
+   "name": "session-114-starseer-poor",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "poor",
+   "smithOffered": false
+  },
+  {
+   "file": "session-115-rogue-poor.json",
+   "name": "session-115-rogue-poor",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "poor",
+   "smithOffered": false
+  },
+  {
+   "file": "session-116-herald-modest.json",
+   "name": "session-116-herald-modest",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "modest",
+   "smithOffered": false
+  },
+  {
+   "file": "session-117-starseer-modest.json",
+   "name": "session-117-starseer-modest",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "modest",
+   "smithOffered": false
+  },
+  {
+   "file": "session-118-rogue-modest.json",
+   "name": "session-118-rogue-modest",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "modest",
+   "smithOffered": false
+  },
+  {
+   "file": "session-119-herald-modest.json",
+   "name": "session-119-herald-modest",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "modest",
+   "smithOffered": true
+  },
+  {
+   "file": "session-120-starseer-rich.json",
+   "name": "session-120-starseer-rich",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "rich",
+   "smithOffered": true
+  },
+  {
+   "file": "session-121-rogue-rich.json",
+   "name": "session-121-rogue-rich",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "rich",
+   "smithOffered": false
+  },
+  {
+   "file": "session-122-herald-rich.json",
+   "name": "session-122-herald-rich",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "rich",
+   "smithOffered": true
+  },
+  {
+   "file": "session-123-starseer-rich.json",
+   "name": "session-123-starseer-rich",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "rich",
+   "smithOffered": false
+  },
+  {
+   "file": "session-124-rogue-relics.json",
+   "name": "session-124-rogue-relics",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "relics",
+   "smithOffered": false
+  },
+  {
+   "file": "session-125-herald-relics.json",
+   "name": "session-125-herald-relics",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "relics",
+   "smithOffered": false
+  },
+  {
+   "file": "session-126-starseer-relics.json",
+   "name": "session-126-starseer-relics",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "relics",
+   "smithOffered": false
+  },
+  {
+   "file": "session-127-rogue-relics.json",
+   "name": "session-127-rogue-relics",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "relics",
+   "smithOffered": true
+  },
+  {
+   "file": "session-128-herald-flasks-full.json",
+   "name": "session-128-herald-flasks-full",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "flasks-full",
+   "smithOffered": false
+  },
+  {
+   "file": "session-129-starseer-flasks-full.json",
+   "name": "session-129-starseer-flasks-full",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "flasks-full",
+   "smithOffered": false
+  },
+  {
+   "file": "session-130-rogue-flasks-full.json",
+   "name": "session-130-rogue-flasks-full",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "flasks-full",
+   "smithOffered": true
+  },
+  {
+   "file": "session-131-herald-flasks-full.json",
+   "name": "session-131-herald-flasks-full",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "flasks-full",
+   "smithOffered": true
+  },
+  {
+   "file": "session-132-starseer-flasks-some.json",
+   "name": "session-132-starseer-flasks-some",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "flasks-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-133-rogue-flasks-some.json",
+   "name": "session-133-rogue-flasks-some",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "flasks-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-134-herald-flasks-some.json",
+   "name": "session-134-herald-flasks-some",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "flasks-some",
+   "smithOffered": true
+  },
+  {
+   "file": "session-135-starseer-flasks-some.json",
+   "name": "session-135-starseer-flasks-some",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "flasks-some",
+   "smithOffered": true
+  },
+  {
+   "file": "session-136-rogue-inventory-full.json",
+   "name": "session-136-rogue-inventory-full",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "inventory-full",
+   "smithOffered": true
+  },
+  {
+   "file": "session-137-herald-inventory-full.json",
+   "name": "session-137-herald-inventory-full",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "inventory-full",
+   "smithOffered": true
+  },
+  {
+   "file": "session-138-starseer-inventory-full.json",
+   "name": "session-138-starseer-inventory-full",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "inventory-full",
+   "smithOffered": false
+  },
+  {
+   "file": "session-139-rogue-inventory-full.json",
+   "name": "session-139-rogue-inventory-full",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "inventory-full",
+   "smithOffered": true
+  },
+  {
+   "file": "session-140-herald-inventory-some.json",
+   "name": "session-140-herald-inventory-some",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "inventory-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-141-starseer-inventory-some.json",
+   "name": "session-141-starseer-inventory-some",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "inventory-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-142-rogue-inventory-some.json",
+   "name": "session-142-rogue-inventory-some",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "inventory-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-143-herald-inventory-some.json",
+   "name": "session-143-herald-inventory-some",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "inventory-some",
+   "smithOffered": false
+  },
+  {
+   "file": "session-144-starseer-stones.json",
+   "name": "session-144-starseer-stones",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "stones",
+   "smithOffered": true
+  },
+  {
+   "file": "session-145-rogue-stones.json",
+   "name": "session-145-rogue-stones",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "stones",
+   "smithOffered": true
+  },
+  {
+   "file": "session-146-herald-stones.json",
+   "name": "session-146-herald-stones",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "stones",
+   "smithOffered": true
+  },
+  {
+   "file": "session-147-starseer-stones.json",
+   "name": "session-147-starseer-stones",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "stones",
+   "smithOffered": false
+  },
+  {
+   "file": "session-148-rogue-bench.json",
+   "name": "session-148-rogue-bench",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "bench",
+   "smithOffered": true
+  },
+  {
+   "file": "session-149-herald-bench.json",
+   "name": "session-149-herald-bench",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "bench",
+   "smithOffered": true
+  },
+  {
+   "file": "session-150-starseer-bench.json",
+   "name": "session-150-starseer-bench",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "bench",
+   "smithOffered": true
+  },
+  {
+   "file": "session-151-rogue-bench.json",
+   "name": "session-151-rogue-bench",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "bench",
+   "smithOffered": false
+  },
+  {
+   "file": "session-152-herald-stones-short.json",
+   "name": "session-152-herald-stones-short",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "stones-short",
+   "smithOffered": true
+  },
+  {
+   "file": "session-153-starseer-stones-short.json",
+   "name": "session-153-starseer-stones-short",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "stones-short",
+   "smithOffered": true
+  },
+  {
+   "file": "session-154-rogue-stones-short.json",
+   "name": "session-154-rogue-stones-short",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "stones-short",
+   "smithOffered": true
+  },
+  {
+   "file": "session-155-herald-stones-short.json",
+   "name": "session-155-herald-stones-short",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "stones-short",
+   "smithOffered": false
+  },
+  {
+   "file": "session-156-starseer-mounts-emptied.json",
+   "name": "session-156-starseer-mounts-emptied",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "mounts-emptied",
+   "smithOffered": true
+  },
+  {
+   "file": "session-157-rogue-mounts-emptied.json",
+   "name": "session-157-rogue-mounts-emptied",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "mounts-emptied",
+   "smithOffered": true
+  },
+  {
+   "file": "session-158-herald-mounts-emptied.json",
+   "name": "session-158-herald-mounts-emptied",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "mounts-emptied",
+   "smithOffered": true
+  },
+  {
+   "file": "session-159-starseer-mounts-emptied.json",
+   "name": "session-159-starseer-mounts-emptied",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "mounts-emptied",
+   "smithOffered": false
+  },
+  {
+   "file": "session-160-rogue-mounts-carried.json",
+   "name": "session-160-rogue-mounts-carried",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "mounts-carried",
+   "smithOffered": true
+  },
+  {
+   "file": "session-161-herald-mounts-carried.json",
+   "name": "session-161-herald-mounts-carried",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "mounts-carried",
+   "smithOffered": true
+  },
+  {
+   "file": "session-162-starseer-mounts-carried.json",
+   "name": "session-162-starseer-mounts-carried",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "mounts-carried",
+   "smithOffered": true
+  },
+  {
+   "file": "session-163-rogue-mounts-carried.json",
+   "name": "session-163-rogue-mounts-carried",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "mounts-carried",
+   "smithOffered": false
+  },
+  {
+   "file": "session-164-herald-mounts-worked.json",
+   "name": "session-164-herald-mounts-worked",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "mounts-worked",
+   "smithOffered": true
+  },
+  {
+   "file": "session-165-starseer-mounts-worked.json",
+   "name": "session-165-starseer-mounts-worked",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "mounts-worked",
+   "smithOffered": true
+  },
+  {
+   "file": "session-166-rogue-mounts-worked.json",
+   "name": "session-166-rogue-mounts-worked",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "mounts-worked",
+   "smithOffered": true
+  },
+  {
+   "file": "session-167-herald-mounts-worked.json",
+   "name": "session-167-herald-mounts-worked",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "mounts-worked",
+   "smithOffered": false
+  },
+  {
+   "file": "session-168-starseer-smithed.json",
+   "name": "session-168-starseer-smithed",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "smithed",
+   "smithOffered": true
+  },
+  {
+   "file": "session-169-rogue-smithed.json",
+   "name": "session-169-rogue-smithed",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "smithed",
+   "smithOffered": true
+  },
+  {
+   "file": "session-170-herald-smithed.json",
+   "name": "session-170-herald-smithed",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "smithed",
+   "smithOffered": true
+  },
+  {
+   "file": "session-171-starseer-smithed.json",
+   "name": "session-171-starseer-smithed",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "smithed",
+   "smithOffered": true
+  },
+  {
+   "file": "session-172-rogue-removes-bought.json",
+   "name": "session-172-rogue-removes-bought",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "removes-bought",
+   "smithOffered": false
+  },
+  {
+   "file": "session-173-herald-removes-bought.json",
+   "name": "session-173-herald-removes-bought",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "removes-bought",
+   "smithOffered": false
+  },
+  {
+   "file": "session-174-starseer-removes-bought.json",
+   "name": "session-174-starseer-removes-bought",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "removes-bought",
+   "smithOffered": true
+  },
+  {
+   "file": "session-175-rogue-removes-bought.json",
+   "name": "session-175-rogue-removes-bought",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "removes-bought",
+   "smithOffered": false
+  },
+  {
+   "file": "session-176-herald-thin-deck.json",
+   "name": "session-176-herald-thin-deck",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "thin-deck",
+   "smithOffered": false
+  },
+  {
+   "file": "session-177-starseer-thin-deck.json",
+   "name": "session-177-starseer-thin-deck",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "thin-deck",
+   "smithOffered": false
+  },
+  {
+   "file": "session-178-rogue-thin-deck.json",
+   "name": "session-178-rogue-thin-deck",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "thin-deck",
+   "smithOffered": false
+  },
+  {
+   "file": "session-179-herald-thin-deck.json",
+   "name": "session-179-herald-thin-deck",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "thin-deck",
+   "smithOffered": false
+  },
+  {
+   "file": "session-180-starseer-greedy.json",
+   "name": "session-180-starseer-greedy",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "greedy",
+   "smithOffered": false
+  },
+  {
+   "file": "session-181-rogue-greedy.json",
+   "name": "session-181-rogue-greedy",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "greedy",
+   "smithOffered": false
+  },
+  {
+   "file": "session-182-herald-greedy.json",
+   "name": "session-182-herald-greedy",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "greedy",
+   "smithOffered": false
+  },
+  {
+   "file": "session-183-starseer-greedy.json",
+   "name": "session-183-starseer-greedy",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "greedy",
+   "smithOffered": true
+  },
+  {
+   "file": "session-184-rogue-hoarder.json",
+   "name": "session-184-rogue-hoarder",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-185-herald-hoarder.json",
+   "name": "session-185-herald-hoarder",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-186-starseer-hoarder.json",
+   "name": "session-186-starseer-hoarder",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-187-rogue-hoarder.json",
+   "name": "session-187-rogue-hoarder",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-188-herald-greedy-hoarder.json",
+   "name": "session-188-herald-greedy-hoarder",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "greedy-hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-189-starseer-greedy-hoarder.json",
+   "name": "session-189-starseer-greedy-hoarder",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "greedy-hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-190-rogue-greedy-hoarder.json",
+   "name": "session-190-rogue-greedy-hoarder",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "greedy-hoarder",
+   "smithOffered": false
+  },
+  {
+   "file": "session-191-herald-greedy-hoarder.json",
+   "name": "session-191-herald-greedy-hoarder",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "greedy-hoarder",
+   "smithOffered": true
+  },
+  {
+   "file": "session-192-starseer-ascension.json",
+   "name": "session-192-starseer-ascension",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "ascension",
+   "smithOffered": false
+  },
+  {
+   "file": "session-193-rogue-ascension.json",
+   "name": "session-193-rogue-ascension",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "ascension",
+   "smithOffered": false
+  },
+  {
+   "file": "session-194-herald-ascension.json",
+   "name": "session-194-herald-ascension",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "ascension",
+   "smithOffered": true
+  },
+  {
+   "file": "session-195-starseer-ascension.json",
+   "name": "session-195-starseer-ascension",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "ascension",
+   "smithOffered": false
+  },
+  {
+   "file": "session-196-rogue-sell-off.json",
+   "name": "session-196-rogue-sell-off",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "sell-off",
+   "smithOffered": false
+  },
+  {
+   "file": "session-197-herald-sell-off.json",
+   "name": "session-197-herald-sell-off",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "sell-off",
+   "smithOffered": false
+  },
+  {
+   "file": "session-198-starseer-sell-off.json",
+   "name": "session-198-starseer-sell-off",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "sell-off",
+   "smithOffered": false
+  },
+  {
+   "file": "session-199-rogue-sell-off.json",
+   "name": "session-199-rogue-sell-off",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "sell-off",
+   "smithOffered": false
+  },
+  {
+   "file": "session-200-herald-legacy-levels.json",
+   "name": "session-200-herald-legacy-levels",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "legacy-levels",
+   "smithOffered": true
+  },
+  {
+   "file": "session-201-starseer-legacy-levels.json",
+   "name": "session-201-starseer-legacy-levels",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "legacy-levels",
+   "smithOffered": true
+  },
+  {
+   "file": "session-202-rogue-legacy-levels.json",
+   "name": "session-202-rogue-legacy-levels",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "legacy-levels",
+   "smithOffered": true
+  },
+  {
+   "file": "session-203-herald-legacy-levels.json",
+   "name": "session-203-herald-legacy-levels",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "legacy-levels",
+   "smithOffered": false
+  },
+  {
+   "file": "session-204-starseer-no-loadout.json",
+   "name": "session-204-starseer-no-loadout",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "no-loadout",
+   "smithOffered": false
+  },
+  {
+   "file": "session-205-rogue-no-loadout.json",
+   "name": "session-205-rogue-no-loadout",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "no-loadout",
+   "smithOffered": false
+  },
+  {
+   "file": "session-206-herald-no-loadout.json",
+   "name": "session-206-herald-no-loadout",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "no-loadout",
+   "smithOffered": true
+  },
+  {
+   "file": "session-207-starseer-no-loadout.json",
+   "name": "session-207-starseer-no-loadout",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "no-loadout",
+   "smithOffered": false
+  },
+  {
+   "file": "session-208-rogue-fractional-cinders.json",
+   "name": "session-208-rogue-fractional-cinders",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "fractional-cinders",
+   "smithOffered": true
+  },
+  {
+   "file": "session-209-herald-fractional-cinders.json",
+   "name": "session-209-herald-fractional-cinders",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "fractional-cinders",
+   "smithOffered": false
+  },
+  {
+   "file": "session-210-starseer-fractional-cinders.json",
+   "name": "session-210-starseer-fractional-cinders",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "fractional-cinders",
+   "smithOffered": false
+  },
+  {
+   "file": "session-211-rogue-fractional-cinders.json",
+   "name": "session-211-rogue-fractional-cinders",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "fractional-cinders",
+   "smithOffered": true
+  },
+  {
+   "file": "session-212-herald-tampered.json",
+   "name": "session-212-herald-tampered",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "tampered",
+   "smithOffered": true
+  },
+  {
+   "file": "session-213-starseer-tampered.json",
+   "name": "session-213-starseer-tampered",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "tampered",
+   "smithOffered": true
+  },
+  {
+   "file": "session-214-rogue-tampered.json",
+   "name": "session-214-rogue-tampered",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "tampered",
+   "smithOffered": true
+  },
+  {
+   "file": "session-215-herald-tampered.json",
+   "name": "session-215-herald-tampered",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "tampered",
+   "smithOffered": true
+  },
+  {
+   "file": "session-216-starseer-act2.json",
+   "name": "session-216-starseer-act2",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "act2",
+   "smithOffered": false
+  },
+  {
+   "file": "session-217-rogue-act2.json",
+   "name": "session-217-rogue-act2",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "act2",
+   "smithOffered": false
+  },
+  {
+   "file": "session-218-herald-act2.json",
+   "name": "session-218-herald-act2",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "act2",
+   "smithOffered": false
+  },
+  {
+   "file": "session-219-starseer-act2.json",
+   "name": "session-219-starseer-act2",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "act2",
+   "smithOffered": false
+  },
+  {
+   "file": "session-220-rogue-act3.json",
+   "name": "session-220-rogue-act3",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "act3",
+   "smithOffered": false
+  },
+  {
+   "file": "session-221-herald-act3.json",
+   "name": "session-221-herald-act3",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "act3",
+   "smithOffered": false
+  },
+  {
+   "file": "session-222-starseer-act3.json",
+   "name": "session-222-starseer-act3",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "act3",
+   "smithOffered": false
+  },
+  {
+   "file": "session-223-rogue-act3.json",
+   "name": "session-223-rogue-act3",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "act3",
+   "smithOffered": false
+  }
+ ],
+ "tally": {
+  "accepted": {
+   "buyFlask": 133,
+   "sellFlask": 21,
+   "buyCard": 148,
+   "removeCard": 140,
+   "buyWeaponArt": 101,
+   "leave": 74,
+   "buyArmament": 97,
+   "buyRelic": 88,
+   "sellRelic": 18,
+   "sellArmament": 18,
+   "smithUpgrade": 82,
+   "smithInstall": 31,
+   "smithExtract": 35
+  },
+  "refused": {
+   "buyWeaponArt:shop.refusal.offerGone": 49,
+   "smithUpgrade:ui.shop.avail.locked": 241,
+   "smithExtract:ui.shop.avail.locked": 324,
+   "buyRelic:shop.refusal.offerGone": 82,
+   "removeCard:ui.shop.avail.cinders": 42,
+   "sellArmament:shop.refusal.equipped": 85,
+   "buyCard:ui.shop.avail.cinders": 29,
+   "smithInstall:ui.shop.avail.locked": 373,
+   "buyRelic:ui.shop.avail.cinders": 32,
+   "buyCard:shop.refusal.offerGone": 37,
+   "buyWeaponArt:shop.refusal.cinders": 34,
+   "sellRelic:ui.shop.avail.locked": 128,
+   "buyFlask:ui.shop.avail.cinders": 21,
+   "buyArmament:shop.refusal.cinders": 42,
+   "sellArmament:shop.refusal.unknownArmament": 40,
+   "sellFlask:shop.refusal.offerGone": 63,
+   "buyFlask:shop.refusal.offerGone": 74,
+   "smithUpgrade:smith.refusal.insufficientStones": 75,
+   "sellArmament:shop.refusal.notInInventory": 23,
+   "removeCard:ui.shop.avail.locked": 40,
+   "buyArmament:shop.refusal.offerChanged": 21,
+   "buyArmament:shop.refusal.offerGone": 25,
+   "buyWeaponArt:shop.refusal.offerChanged": 22,
+   "buyFlask:ui.shop.avail.full": 5,
+   "buyCard:ui.shop.avail.locked": 29,
+   "leave:ui.shop.avail.locked": 24,
+   "sellArmament:shop.refusal.saleChanged": 27,
+   "buyArmament:shop.refusal.inventoryFull": 9,
+   "smithUpgrade:smith.refusal.notCandidate": 24,
+   "smithInstall:smith.refusal.mountNotOpen": 8,
+   "smithExtract:smith.refusal.mountNotExtractable": 12,
+   "smithInstall:smith.refusal.cardNotSeatable": 7,
+   "smithExtract:smith.refusal.noExtractableMount": 12,
+   "smithInstall:smith.refusal.noOpenMount": 3,
+   "sellArmament:ui.shop.avail.locked": 29,
+   "sellFlask:ui.shop.avail.locked": 7,
+   "buyArmament:shop.refusal.inventoryUnavailable": 11,
+   "sellArmament:shop.refusal.cinderBalance": 3,
+   "buyArmament:shop.refusal.noPrice": 19,
+   "buyArmament:shop.refusal.alreadyCarried": 8,
+   "buyWeaponArt:shop.refusal.notWeaponArt": 11
+  }
+ }
+}
