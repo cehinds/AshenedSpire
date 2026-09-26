@@ -7,7 +7,8 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const OUT = join(ROOT, 'Logs', 'mermaid');
-const SKIP = new Set(['node_modules', 'Library', 'Temp', 'Logs', '.git', 'Unity']);
+// Provenance/ holds verbatim archival copies whose links point into the original repo.
+const SKIP = new Set(['node_modules', 'Library', 'Temp', 'Logs', '.git', 'Unity', 'Provenance', '.cache']);
 const errors = [];
 let blocks = 0;
 
