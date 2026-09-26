@@ -209,6 +209,23 @@
         "Migrated": "migrated save from version {0} to {1}",
         "ContentChanged": "content changed since the save; resuming from the snapshot"
       }
+    },
+    {
+      "name": "AboutKeys",
+      "doc": "Keys of about.json.",
+      "keys": {
+        "File": "about.json",
+        "AiDisclosure": "aiDisclosure",
+        "FullKey": "fullKey",
+        "ShortKey": "shortKey",
+        "NoticeTitleKey": "noticeTitleKey",
+        "NoticeContinueKey": "noticeContinueKey",
+        "ShowOnTitle": "showOnTitle",
+        "ShowOnFirstLaunch": "showOnFirstLaunch",
+        "Modalities": "modalities",
+        "Provenance": "provenance",
+        "AppStrings": "strings/app.en.json"
+      }
     }
   ],
   "contentFiles": {
@@ -254,6 +271,13 @@
         "BitsPerByte": "8",
         "ByteMask": "0xFF"
       }
+    }
+  ],
+  "stringTables": [
+    {
+      "name": "StringKeys",
+      "from": "strings/app.en.json",
+      "doc": "String keys code must name (strings/app.en.json). Catalog strings are addressed by convention (<prefix>.<id>.<field>), never by constant."
     }
   ]
 }
