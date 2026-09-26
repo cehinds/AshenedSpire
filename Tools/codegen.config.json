@@ -74,7 +74,8 @@
         "Lf": "\n",
         "CrLf": "\r\n",
         "ParentDirectory": "..",
-        "ContentFolder": "Content"
+        "ContentFolder": "Content",
+        "HexByteFormat": "x2"
       }
     },
     {
@@ -121,7 +122,11 @@
         "StringsFile": "strings/en.json",
         "PresetFolder": "settings/presets/",
         "Containers": "containers",
-        "EffectOpsFile": "rules/effectOps.json"
+        "EffectOpsFile": "rules/effectOps.json",
+        "PresetId": "id",
+        "PresetDefault": "default",
+        "PlayerSettings": "playerSettings",
+        "Modding": "modding"
       }
     },
     {
@@ -141,6 +146,17 @@
         "String": "missing string key '{0}'",
         "Cost": "rule '{0}' failed: {1} = {2}",
         "PresetFile": "preset patches unknown file {0}"
+      }
+    },
+    {
+      "name": "ConfigMessages",
+      "doc": "Config-layer refusal messages (developer-facing).",
+      "keys": {
+        "UnknownPreset": "unknown preset '{0}'",
+        "NoDefaultPreset": "no preset is marked default",
+        "OverridePath": "override '{0}' rejected: not a manifest file",
+        "OverrideSize": "override '{0}' rejected: {1} bytes exceeds {2}",
+        "UnknownFile": "patch targets unknown file '{0}'"
       }
     }
   ],
@@ -164,6 +180,15 @@
         "OrB": "61",
         "FractionBits": "32",
         "PercentScale": "100"
+      }
+    },
+    {
+      "name": "ConfigLimits",
+      "type": "int",
+      "doc": "Override-layer safety limits (docs/design/08 §2).",
+      "values": {
+        "MaxOverrideBytes": "1048576",
+        "MaxJsonDepth": "64"
       }
     }
   ]
