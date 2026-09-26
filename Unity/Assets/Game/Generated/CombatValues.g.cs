@@ -39,6 +39,7 @@ namespace Ashen.Generated
         public const string DisruptionLabel = "Disruption";
         public const string DrawFill = "fill";
         public const string Enemy = "enemy";
+        public const string EnemyInstancePrefix = "e";
         public const string EquipmentSource = "equipment";
         public const string Exhaust = "exhaust";
         public const string ExhaustPile = "EXHAUST_PILE";
@@ -78,6 +79,7 @@ namespace Ashen.Generated
         public const string PhaseEnemy = "enemy";
         public const string PhaseGate = "phase";
         public const string PhasePlayer = "player";
+        public const string PhaseSetup = "setup";
         public const string Physical = "physical";
         public const string PileDiscard = "discard";
         public const string PileDraw = "draw";
@@ -127,6 +129,7 @@ namespace Ashen.Generated
         public const string TargetOtherEnemies = "otherEnemies";
         public const string TargetRandomEnemy = "randomEnemy";
         public const string TargetSelf = "self";
+        public const string TokenRepeatSeparator = ".";
         public const string Undefined = "undefined";
         public const string UpgradeSuffix = "+";
         public const string Victory = "victory";

@@ -5,6 +5,7 @@ namespace Ashen.Generated
     public static class CombatOps
     {
         public const string AddCard = "addCard";
+        public const string AddCinders = "addCinders";
         public const string ApplyStatus = "applyStatus";
         public const string ArcaneBuildup = "arcaneBuildup";
         public const string Block = "block";
@@ -17,6 +18,7 @@ namespace Ashen.Generated
         public const string GainEnergy = "gainEnergy";
         public const string Heal = "heal";
         public const string LoseHp = "loseHp";
+        public const string LoseMaxHpPct = "loseMaxHpPct";
         public const string PoiseDamage = "poiseDamage";
         public const string RemoveStatus = "removeStatus";
         public const string RestoreMana = "restoreMana";

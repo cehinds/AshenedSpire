@@ -136,10 +136,19 @@
     "comment": {
       "type": "string"
     },
+    "damageSchools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "defaults": {
       "type": "object",
       "properties": {
         "dexterity": {
+          "type": "integer"
+        },
+        "handMax": {
           "type": "integer"
         },
         "maxHits": {
@@ -154,6 +163,7 @@
       },
       "required": [
         "dexterity",
+        "handMax",
         "maxHits",
         "poiseGrowthMult",
         "weightAttribute"
@@ -316,11 +326,32 @@
     },
     "snapshotVersion": {
       "type": "integer"
+    },
+    "tokenizableOps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "addCinders",
+          "applyStatus",
+          "block",
+          "damage",
+          "draw",
+          "gainEnergy",
+          "heal",
+          "loseHp",
+          "loseMaxHpPct",
+          "poiseDamage",
+          "restoreMana",
+          "restoreStamina"
+        ]
+      }
     }
   },
   "required": [
     "cardProperties",
     "comment",
+    "damageSchools",
     "defaults",
     "dodge",
     "flasks",
@@ -329,6 +360,7 @@
     "limits",
     "magicalTags",
     "ratings",
-    "snapshotVersion"
+    "snapshotVersion",
+    "tokenizableOps"
   ]
 }

@@ -56,7 +56,7 @@ namespace Ashen.Tests
             var counters = ((JObject)log["rngCounters"]).Properties().ToDictionary(p => RngStreamNames.Parse(p.Name), p => (uint)p.Value.Value<long>());
             var rng = new Rng((uint)log["seed"].Value<long>(), counters);
             var combat = CombatSnapshot.Restore(Data, rng, (JObject)log["snapshot"]);
-            Check(file, "start", log["start"], Projection(combat));
+            Check(file, "start", log["start"], WithPreviews(combat, log["start"]));
             var steps = (JArray)log["steps"];
             for (var i = 0; i < steps.Count; i++)
             {
@@ -72,9 +72,26 @@ namespace Ashen.Tests
                     error = e.GetType().Name + ": " + e.Message + "\n" + e.StackTrace;
                 }
                 if (error != null && step["error"] == null) Assert.Fail($"{file} step {i} ({step["command"].ToString(Formatting.None)}): unexpected {error}");
-                Check(file, $"step {i} ({step["command"].ToString(Formatting.None)})", step["after"], Projection(combat));
+                Check(file, $"step {i} ({step["command"].ToString(Formatting.None)})", step["after"], WithPreviews(combat, step["after"]));
             }
             Assert.That(combat.Result, Is.EqualTo(log["result"].Type == JTokenType.Null ? null : log.Value<string>("result")));
+        }
+
+        /// <summary>
+        /// createCombat from the recorded shipped inputs must produce the shipped initial snapshot exactly: enemy HP
+        /// rolls, ratings and meters, the shuffled draw pile with Innate on top, the event log, the first intents,
+        /// the opening hand and every RNG counter.
+        /// </summary>
+        [TestCaseSource(nameof(CombatFiles))]
+        public void CreateCombatMatchesTheShippedStart(string file)
+        {
+            var log = ReadJson(Path.Combine(CombatDir, file));
+            var rng = new Rng((uint)log["seed"].Value<long>());
+            var combat = CombatStart.Create(Data, rng, (JObject)log["create"]);
+            Check(file, "createCombat snapshot", log["snapshot"], CombatSnapshot.Serialize(combat));
+            var start = (JObject)log["start"].DeepClone();
+            start.Remove("previews");
+            Check(file, "createCombat start", start, Projection(combat));
         }
 
         [TestCaseSource(nameof(CombatFiles))]
@@ -94,7 +111,7 @@ namespace Ashen.Tests
             for (var i = half; i < steps.Count; i++)
             {
                 CombatEngine.Dispatch(resumed, CombatCommand.FromJson((JObject)steps[i]["command"]));
-                Check(file, $"resumed step {i}", steps[i]["after"], Projection(resumed));
+                Check(file, $"resumed step {i}", steps[i]["after"], WithPreviews(resumed, steps[i]["after"]));
             }
         }
 
@@ -154,6 +171,49 @@ namespace Ashen.Tests
                 ["exhaust"] = c.Piles.Exhaust.Count,
                 ["rng"] = rng,
             };
+        }
+
+        /// <summary>The projection plus, when the oracle recorded them, the previews (card and intent) at that point.</summary>
+        private static JObject WithPreviews(CombatState c, JToken want)
+        {
+            var projection = Projection(c);
+            if (want?["previews"] == null) return projection;
+            var cards = new JArray();
+            foreach (var card in c.Piles.Hand)
+            {
+                var p = CombatPreview.PreviewCard(c, card.Value<string>("instanceId"));
+                var values = new JArray();
+                foreach (var v in (JArray)p["values"])
+                {
+                    var entry = new JObject { ["op"] = v["op"].DeepClone(), ["target"] = v["target"]?.DeepClone() ?? JValue.CreateNull(), ["value"] = v["value"]?.DeepClone() ?? JValue.CreateNull() };
+                    if (v["hits"] != null && v["hits"].Type != JTokenType.Null) entry["hits"] = v["hits"].DeepClone();
+                    if (Js.Truthy(v["perTarget"])) entry["perTarget"] = v["perTarget"].DeepClone();
+                    if (Js.Truthy(v["status"])) entry["status"] = v["status"].DeepClone();
+                    if (Js.Truthy(v["token"])) entry["token"] = v["token"].DeepClone();
+                    if (Js.Truthy(v["boostTint"])) entry["boostTint"] = v["boostTint"].DeepClone();
+                    values.Add(entry);
+                }
+                cards.Add(new JObject
+                {
+                    ["id"] = card["instanceId"].DeepClone(), ["cost"] = p["cost"].DeepClone(), ["costIsX"] = p["costIsX"].DeepClone(),
+                    ["needsTarget"] = p["needsTarget"].DeepClone(), ["manaCost"] = p["manaCost"].DeepClone(), ["staminaCost"] = p["staminaCost"].DeepClone(),
+                    ["values"] = values, ["tokens"] = p["tokens"].DeepClone(),
+                });
+            }
+            var intents = new JArray();
+            foreach (var e in c.Enemies.Where(e => Js.Truthy(e["alive"])))
+            {
+                var i = CombatPreview.PreviewIntent(c, e.Value<string>("id"));
+                intents.Add(new JObject
+                {
+                    ["id"] = e["id"].DeepClone(), ["kind"] = Coalesce(i["kind"], JValue.CreateNull()).DeepClone(), ["moveId"] = Coalesce(i["moveId"], JValue.CreateNull()).DeepClone(),
+                    ["damage"] = Coalesce(i["damage"], JValue.CreateNull()).DeepClone(), ["hits"] = Coalesce(i["hits"], JValue.CreateNull()).DeepClone(),
+                    ["totalDamage"] = Coalesce(i["totalDamage"], JValue.CreateNull()).DeepClone(), ["block"] = Coalesce(i["block"], JValue.CreateNull()).DeepClone(),
+                    ["pending"] = Js.Truthy(i["pending"]),
+                });
+            }
+            projection["previews"] = new JObject { ["cards"] = cards, ["intents"] = intents };
+            return projection;
         }
 
         // ------------------------------------------------------------------ comparison
