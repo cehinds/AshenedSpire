@@ -48,7 +48,7 @@ namespace Ashen.Content
                     sb.Append(Canonical(_files[path])).Append(Ashen.Generated.ContentLayout.Lf);
                 }
                 var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(sb.ToString()));
-                var hex = new StringBuilder(bytes.Length * 2);
+                var hex = new StringBuilder();
                 foreach (var b in bytes) hex.Append(b.ToString(Ashen.Generated.ContentLayout.HexByteFormat, CultureInfo.InvariantCulture));
                 return hex.ToString();
             }

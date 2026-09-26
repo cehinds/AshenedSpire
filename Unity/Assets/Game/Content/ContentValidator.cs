@@ -174,7 +174,7 @@ namespace Ashen.Content
             using (var sha = SHA256.Create())
             {
                 var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(text));
-                var sb = new StringBuilder(bytes.Length * 2);
+                var sb = new StringBuilder();
                 foreach (var b in bytes) sb.Append(b.ToString(Ashen.Generated.ContentLayout.HexByteFormat, CultureInfo.InvariantCulture));
                 return sb.ToString();
             }

@@ -16,7 +16,7 @@ namespace Ashen.Content
             FloatParseHandling = FloatParseHandling.Decimal,
             DateParseHandling = DateParseHandling.None,
             Culture = CultureInfo.InvariantCulture,
-            MaxDepth = 128,
+            MaxDepth = Ashen.Generated.ConfigLimits.MaxParseDepth,
         };
 
         public static JToken Parse(string text)

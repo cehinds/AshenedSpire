@@ -6,5 +6,6 @@ namespace Ashen.Generated
     {
         public const int MaxOverrideBytes = 1048576;
         public const int MaxJsonDepth = 64;
+        public const int MaxParseDepth = 128;
     }
 }
