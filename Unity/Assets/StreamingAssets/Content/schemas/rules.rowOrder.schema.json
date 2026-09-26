@@ -1,0 +1,10 @@
+{
+  "$id": "rules/rowOrder.json",
+  "type": "object",
+  "additionalProperties": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  }
+}

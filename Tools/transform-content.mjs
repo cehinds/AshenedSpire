@@ -51,11 +51,15 @@ function build(bundle, extras) {
   const files = {};
   const strings = {};
   const counts = {};
+  // Canonical JSON sorts every object's keys, so an id-keyed table loses its authoring order. The shipped engine
+  // iterates its registries in that order (tag lists, equipment arrays, card order), so it is recorded here.
+  const rowOrder = {};
   for (const t of CONFIG.tables) {
     const rows = at(roots, t.from);
     if (!Array.isArray(rows)) fail(`${t.from} is not an array`);
     if (t.list) { files[t.out] = { rows: deepClone(rows) }; counts[t.out] = rows.length; continue; }
     const table = {};
+    const order = [];
     for (const src of rows) {
       const row = deepClone(src);
       const key = t.key.map(k => row[k]).join(':');
@@ -65,8 +69,10 @@ function build(bundle, extras) {
         if (typeof row[field] === 'string') { strings[`${t.stringPrefix}.${key}.${name}`] = row[field]; delete row[field]; }
       }
       table[key] = row;
+      order.push(key);
     }
     files[t.out] = table;
+    rowOrder[t.out] = order; // an array: integer-like keys would reorder an object's keys
     counts[t.out] = Object.keys(table).length;
   }
   for (const o of CONFIG.objects) {
@@ -83,9 +89,10 @@ function build(bundle, extras) {
     const rows = at(roots, t.from);
     const required = Object.entries(t.text).filter(([field]) => rows.every(r => typeof r[field] === 'string')).map(([, name]) => name);
     const optional = Object.entries(t.text).filter(([field]) => !rows.every(r => typeof r[field] === 'string')).map(([, name]) => name);
-    stringKeys[t.out] = { prefix: t.stringPrefix, required, optional };
+    stringKeys[t.out] = { prefix: t.stringPrefix, required, optional, fields: { ...t.text } };
   }
   files['rules/stringKeys.json'] = stringKeys;
+  files['rules/rowOrder.json'] = rowOrder;
   const us = at(roots, CONFIG.uiStrings.from) || [];
   for (const row of us) for (const f of CONFIG.uiStrings.fields) if (typeof row[f] === 'string') strings[`${CONFIG.uiStrings.prefix}.${row.id}.${f}`] = row[f];
   files['strings/en.json'] = strings;
