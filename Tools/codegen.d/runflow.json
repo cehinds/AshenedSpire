@@ -1,0 +1,71 @@
+{
+  "comment": "F1 run flow (US-2.1 default character, US-5.x/6.x combat screen, PF-06 run saves): rules/runFlow.json keys and values, the run save payload, and developer messages.",
+  "keySets": [
+    {
+      "name": "RunFlowKeys",
+      "doc": "Keys of rules/runFlow.json (Ashen.App.Run.RunFlowRules).",
+      "keys": {
+        "SaveFormat": "saveFormat",
+        "Creation": "creation",
+        "DefaultClass": "defaultClass",
+        "DefaultTint": "defaultTint",
+        "Portrait": "portrait",
+        "Journey": "journey",
+        "NameKey": "nameKey",
+        "FirstFight": "firstFight",
+        "Seat": "seat",
+        "Pool": "pool",
+        "Ordinal": "ordinal",
+        "Autosave": "autosave",
+        "AfterCommand": "afterCommand",
+        "CheckpointOn": "checkpointOn",
+        "RegionId": "regionId",
+        "SeedRules": "seed",
+        "Alphabet": "alphabet",
+        "Homoglyphs": "homoglyphs",
+        "MaxLength": "maxLength"
+      }
+    },
+    {
+      "name": "RunSaveKeys",
+      "doc": "Keys of a run save payload (RunSession.Save): the format, preset, slot summary (SlotSummaryKeys), run document, location, encounter and combat checkpoint.",
+      "keys": {
+        "FormatVersion": "formatVersion",
+        "PresetId": "presetId",
+        "Run": "run",
+        "Location": "location",
+        "EncounterId": "encounterId",
+        "Combat": "combat",
+        "Name": "name",
+        "Portrait": "portrait",
+        "Playtime": "playtimeSeconds"
+      }
+    },
+    {
+      "name": "RunFlowValues",
+      "doc": "Wire values of rules/runFlow.json and the run save payload.",
+      "keys": {
+        "LocationCombat": "combat",
+        "AutosaveAppend": "append",
+        "AutosaveCheckpoint": "checkpoint",
+        "AutosaveNone": "none",
+        "PlaceholderClass": "class",
+        "PlaceholderTint": "tint",
+        "SavedAtFormat": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+      }
+    },
+    {
+      "name": "RunFlowMessages",
+      "doc": "Developer-facing run-flow messages (exceptions and warnings; never shown to players).",
+      "keys": {
+        "NoFirstFight": "run: no encounter for seat '{0}' pool '{1}' at ordinal {2}",
+        "UnknownClass": "run: unknown class '{0}'",
+        "NotInCombat": "run: the run is not in a fight",
+        "FormatMismatch": "run: slot '{0}' holds run format {1}; this build reads {2}",
+        "ContentChanged": "run: content changed since the save (saved {0}, now {1}); resumed from the checkpoint without replaying the log",
+        "LogDiverged": "run: the command log diverged after {0} commands; resumed at the last verified state",
+        "LoadRefused": "run: slot '{0}' could not be loaded ({1})"
+      }
+    }
+  ]
+}

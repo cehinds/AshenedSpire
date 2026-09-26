@@ -118,11 +118,20 @@ namespace Ashen.App.Combat
         // ------------------------------------------------------------------ saves
 
         /// <summary>Commit a checkpoint to a save slot; later commands append to its log.</summary>
-        public void Save(SaveService saves, string slot, string contentHash)
+        public void Save(SaveService saves, string slot, string contentHash) => Commit(saves, slot, Checkpoint(), contentHash);
+
+        /// <summary>
+        /// Commit a payload that carries this fight's checkpoint (a run save wraps it with the run document) as a new
+        /// save generation; later commands append to that generation's log.
+        /// </summary>
+        public void Commit(SaveService saves, string slot, JToken payload, string contentHash)
         {
-            _gen = saves.Checkpoint(slot, Checkpoint(), contentHash, StateHash());
+            _gen = saves.Checkpoint(slot, payload, contentHash, StateHash());
             _seq = 0;
         }
+
+        /// <summary>Commands appended to the current generation's log since the last commit.</summary>
+        public int LoggedCommands => _seq;
 
         /// <summary>Execute and, when accepted, append the command with its after-state hash to the slot's log.</summary>
         public CombatOutcome ExecuteAndLog(SaveService saves, string slot, CombatCommand command)
@@ -136,12 +145,16 @@ namespace Ashen.App.Combat
         /// Resume from a loaded slot: restore the checkpoint, then replay the log while every after-state hash
         /// matches. The first mismatch stops the replay at the last verified state and reports it (D-017).
         /// </summary>
-        public static CombatSession Load(CombatData data, LoadResult loaded, out bool logDiverged)
+        public static CombatSession Load(CombatData data, LoadResult loaded, out bool logDiverged) =>
+            Load(data, (JObject)loaded.Payload, loaded.Gen, loaded.Commands, out logDiverged);
+
+        /// <summary>Resume from a checkpoint inside a larger payload, replaying that generation's verified log records.</summary>
+        public static CombatSession Load(CombatData data, JObject checkpoint, int gen, IEnumerable<JObject> commands, out bool logDiverged)
         {
-            var session = Resume(data, (JObject)loaded.Payload);
-            session._gen = loaded.Gen;
+            var session = Resume(data, checkpoint);
+            session._gen = gen;
             logDiverged = false;
-            foreach (var record in loaded.Commands)
+            foreach (var record in commands)
             {
                 var safe = session.Checkpoint();
                 var outcome = session.Execute(CombatCommand.FromJson((JObject)record[SaveKeys.Cmd]));

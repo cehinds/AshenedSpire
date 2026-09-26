@@ -140,7 +140,7 @@ namespace Ashen.Tests
         /// Order-insensitive deep equality with numbers compared as doubles. Unlike the combat projection compare, an
         /// absent key and an explicit null differ: the shipped document drops undefined and keeps null.
         /// </summary>
-        private static string FirstDifference(JToken a, JToken b, string path)
+        internal static string FirstDifference(JToken a, JToken b, string path)
         {
             if (a == null || b == null) return a == null && b == null ? null : $"{path}: {Show(a)} vs {Show(b)}";
             if (Js.IsNum(a) && Js.IsNum(b)) return Js.D(a) == Js.D(b) ? null : $"{path}: {Show(a)} vs {Show(b)}";
