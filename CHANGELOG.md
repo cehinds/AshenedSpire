@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.4.4] — 2026-09-26
+
+- W-07 combat view-model
+
 ## [0.1.4.3] — 2026-09-26
 
 - skill XP receipts recorded on the combat bus with shipped parity
