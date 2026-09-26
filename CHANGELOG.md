@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.13.0] — 2026-09-26
+
+Stories: us-11.1, us-11.2, us-11.3, us-8.10
+
+- F1 complete: W-08 rewards on RewardDoor (claims oracle incl. tap path), resume on rewards, permadeath on defeat; one run-effects door, chained full runs (108/108), bot smoke
+
 ## [0.1.12.0] — 2026-09-26
 
 Stories: us-8.1, us-4.4, us-4.5, us-4.6, us-4.7, us-4.8, us-4.9
