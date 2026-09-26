@@ -2,6 +2,13 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Promotion: F1 first playable loop (v0.1.13.0, 2026-09-26)
+
+- `dev` 0.1.13.0 promoted to `test` (CI green, incl. build-windows and bot jobs) and to `main`, tagged `v0.1.13.0`. No version change and no owner approval implied (D-039).
+- F1 exit gate (09 §8): boot → title → slots → class → fight → rewards → save & quit → resume mid-fight and on rewards, with keyboard, pad and mouse (PlayMode smoke, local batchmode: EditMode 2102 passed / 2 skipped, PlayMode 3 passed / 1 skipped).
+- Open owner questions: the reference preset Reaver flask allocation (D-073) and cinders granted on arrival vs US-11.1 (D-105).
+- CI Unity jobs still skip without the `UNITY_*` secrets; local batchmode remains the Unity gate.
+
 ## us-11.1–us-11.3, pf-06: W-08 rewards and the F1 loop closed (feature/first-fight/us-11.2, 2026-09-26)
 
 **Landed**
