@@ -13,11 +13,13 @@ namespace Ashen.Generated
         public const string CardExhausted = "cardExhausted";
         public const string CardPlayed = "cardPlayed";
         public const string CombatEnd = "combatEnd";
+        public const string CombatStart = "combatStart";
         public const string DamageDealt = "damageDealt";
         public const string DeckShuffled = "deckShuffled";
         public const string DodgeRolled = "dodgeRolled";
         public const string EnemyDied = "enemyDied";
         public const string EnemyMoveStarted = "enemyMoveStarted";
+        public const string EnemySpawned = "enemySpawned";
         public const string EnemyStaggered = "enemyStaggered";
         public const string EnemyTurnEnd = "enemyTurnEnd";
         public const string EnemyTurnStart = "enemyTurnStart";

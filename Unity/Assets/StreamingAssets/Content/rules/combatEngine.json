@@ -10,13 +10,21 @@
     "poiseGrowthMult": 1.25,
     "maxHits": 99,
     "dexterity": 10,
-    "weightAttribute": 10
+    "weightAttribute": 10,
+    "handMax": 10
   },
   "dodge": {
     "attributeBaseline": 10,
     "attributeDivisor": 2
   },
-  "magicalTags": ["magic", "magical", "arcane", "holy", "fire", "spell"],
+  "magicalTags": [
+    "magic",
+    "magical",
+    "arcane",
+    "holy",
+    "fire",
+    "spell"
+  ],
   "cardProperties": {
     "kind": {
       "classification.attack": "attack",
@@ -52,12 +60,28 @@
   },
   "grip": {
     "one": [],
-    "two": ["equipment.twoHanded"],
-    "dual": ["equipment.dualWield"]
+    "two": [
+      "equipment.twoHanded"
+    ],
+    "dual": [
+      "equipment.dualWield"
+    ]
   },
   "ratings": {
-    "ids": ["ar", "dr", "pr", "poise", "ward"],
-    "attributes": ["strength", "dexterity", "constitution", "wisdom", "intelligence"]
+    "ids": [
+      "ar",
+      "dr",
+      "pr",
+      "poise",
+      "ward"
+    ],
+    "attributes": [
+      "strength",
+      "dexterity",
+      "constitution",
+      "wisdom",
+      "intelligence"
+    ]
   },
   "itemUpgrades": {
     "equipmentPoiseTag": "equipment:poise-threshold",
@@ -67,10 +91,40 @@
     }
   },
   "flasks": {
-    "chargeKinds": ["hp", "mana"],
+    "chargeKinds": [
+      "hp",
+      "mana"
+    ],
     "kindByOp": [
-      { "op": "restoreMana", "kind": "mana" },
-      { "op": "heal", "kind": "hp" }
+      {
+        "op": "restoreMana",
+        "kind": "mana"
+      },
+      {
+        "op": "heal",
+        "kind": "hp"
+      }
     ]
-  }
+  },
+  "damageSchools": [
+    "physical",
+    "magic",
+    "arcane",
+    "holy",
+    "fire"
+  ],
+  "tokenizableOps": [
+    "damage",
+    "block",
+    "heal",
+    "loseHp",
+    "applyStatus",
+    "poiseDamage",
+    "draw",
+    "gainEnergy",
+    "restoreMana",
+    "restoreStamina",
+    "addCinders",
+    "loseMaxHpPct"
+  ]
 }

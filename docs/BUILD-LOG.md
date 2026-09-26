@@ -2,6 +2,32 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-5.3: combat start and previews with shipped parity (feature/combat-core, 2026-09-26)
+
+**Landed**
+- `CombatStart.Create` (shipped `createCombat`), covering:
+  - the entity factories and `stampPlayerPoiseMax`, with the rated poise threshold as the vessel;
+  - property mounts, enemy HP on `enemyHP` (with the JS `Math.round`), enemy ratings and meters;
+  - the deck-instance copy, shuffle with Innate on top, start statuses, opening intents and turn 1.
+- `CombatPreview.PreviewCard` and `PreviewIntent` (shipped previews, SPEC §3.13) plus `TokenBindings` (`computeTokenBindings`). These use the same math as execution and consume no RNG.
+- The oracle now records the exact `createCombat` inputs and previews (every hand card and every living enemy's intent) after every step. Output is compact (5.6 MB for 60 combats).
+- `Tools/oracle-replay.mjs` also checks the previews: 60/60, 0 failures.
+- Oracle scripts delete only their JSON outputs, so committed `.meta` files survive regeneration.
+- `Tools/combat-keys.mjs` regenerates `Tools/codegen.d/combat.json` from the engine's alias usage, plus `Tools/combat-keys/{values,messages}.json`.
+- `rules/combatEngine.json` gains `defaults.handMax`, `damageSchools` and `tokenizableOps`.
+
+**Tests**
+- `CombatParityTests` now runs 181 cases:
+  - `CreateCombatMatchesTheShippedStart`: the full serialized snapshot equals the shipped one for all 60 combats (event log, piles, meters, intents, RNG).
+  - The replay compares previews after every step.
+  - The resume test also checks previews.
+- Mutation check: a changed event-log type or preview value fails the create and replay tests.
+- dotnet 279/279.
+
+**Not verified:** Unity EditMode in this worktree. The UI stream owns the main checkout's Unity instance; this runs at integration.
+
+**Next:** run creation (`createRunState`) for a default character with oracle parity, so F1 can start a fight from content alone.
+
 ## us-5.1: combat engine port with shipped parity (feature/combat-core, 2026-09-26)
 
 **Landed**

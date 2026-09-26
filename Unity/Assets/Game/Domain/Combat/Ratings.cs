@@ -118,14 +118,14 @@ namespace Ashen.Domain.Combat
 
         // ------------------------------------------------------------------ receipt
 
-        private static double AttributeValue(CombatState c, JObject config, string id)
+        private static double AttributeValue(CombatData data, JObject attributes, JObject config, string id)
         {
             var rule = config.Obj(K.Ratings)?.Obj(id) ?? throw new InvalidOperationException(id);
             double weighted = 0;
-            foreach (var attr in AttributeIds(c.Data))
+            foreach (var attr in AttributeIds(data))
             {
                 var a = Js.Str(attr);
-                weighted += Math.Floor(Js.Or0(c.Attributes?[a]) * rule.Num(a) + Ashen.Generated.CombatMath.Epsilon);
+                weighted += Math.Floor(Js.Or0(attributes?[a]) * rule.Num(a) + Ashen.Generated.CombatMath.Epsilon);
             }
             var multiplier = Js.Coalesce(config[K.Multiplier], 1);
             return rule.Num(K.Base) + Math.Floor(weighted * multiplier + Ashen.Generated.CombatMath.Epsilon);
@@ -164,23 +164,21 @@ namespace Ashen.Domain.Combat
             }
         }
 
-        /// <summary>refreshCombatRatings(ctx): restamp the player's ratings, their sources and the Poise/Ward meters.</summary>
-        public static void Refresh(CombatState c)
+        /// <summary>ratingReceipt(registries, run, config): rating totals and their sources from attributes, worn equipment and relics.</summary>
+        public static JObject Receipt(CombatData data, JObject config, JObject attributes, JObject loadout, string classId, JToken relicIds, JObject itemUpgradeLevels, out JArray sources)
         {
-            var config = c.RatingsRules;
-            if (config == null) return;
-            var ids = Ids(c.Data);
+            var ids = Ids(data);
             var totals = new JObject();
             foreach (var id in ids) totals.Put(Js.Str(id), 0);
-            var sources = new JArray();
+            sources = new JArray();
             var stat = new JObject();
-            foreach (var id in ids) stat.Put(Js.Str(id), AttributeValue(c, config, Js.Str(id)));
+            foreach (var id in ids) stat.Put(Js.Str(id), AttributeValue(data, attributes, config, Js.Str(id)));
             Add(totals, sources, ids, V.AttributesSourceName, stat, V.AttributeSource, null);
-            if (c.Loadout != null)
+            if (loadout != null)
             {
-                foreach (var piece in Equipment.EquippedPieces(c.Data, c.Loadout, c.Player.Str(K.ClassId), c.ItemUpgradeLevels ?? new JObject()))
+                foreach (var piece in Equipment.EquippedPieces(data, loadout, classId, itemUpgradeLevels ?? new JObject()))
                 {
-                    var magical = IsMagicalPiece(c.Data, piece);
+                    var magical = IsMagicalPiece(data, piece);
                     var attack = piece.Or0(K.AttackRating);
                     var values = new JObject();
                     values.Put(K.Ar, magical ? 0 : attack);
@@ -196,18 +194,26 @@ namespace Ashen.Domain.Combat
                     Add(totals, sources, ids, piece.Str(K.Name), values, V.EquipmentSource, piece.Str(K.Id));
                 }
             }
-            foreach (var relicToken in Js.Items(c.Player[K.RelicIds]))
+            foreach (var relicToken in Js.Items(relicIds))
             {
                 var relicId = Js.Str(relicToken);
                 var itemRef = V.RelicRefPrefix + V.ItemRefSeparator + relicId;
-                var relic = Equipment.ResolveUpgradedRelic(c.Data, itemRef, Js.Or0(c.ItemUpgradeLevels?[itemRef]));
+                var relic = Equipment.ResolveUpgradedRelic(data, itemRef, Js.Or0(itemUpgradeLevels?[itemRef]));
                 var values = Js.Spread(config.Obj(K.Bonuses)?.Obj(V.RelicBonusPrefix + V.KeySeparator + relicId));
                 var passives = relic.Obj(K.Passives);
                 values.Put(K.Poise, values.Or0(K.Poise) + Js.Or0(passives?[K.PoiseThresholdAdd]));
                 foreach (var id in ids.Select(Js.Str)) values.Put(id, values.Or0(id) + Js.Or0(passives?[BonusKey(id)]));
                 Add(totals, sources, ids, relic.Str(K.Name), values, V.RelicKind, relicId);
             }
+            return totals;
+        }
 
+        /// <summary>refreshCombatRatings(ctx): restamp the player's ratings, their sources and the Poise/Ward meters.</summary>
+        public static void Refresh(CombatState c)
+        {
+            var config = c.RatingsRules;
+            if (config == null) return;
+            var totals = Receipt(c.Data, config, c.Attributes, c.Loadout, c.Player.Str(K.ClassId), c.Player[K.RelicIds], c.ItemUpgradeLevels, out var sources);
             if (c.PropertyMounts != null && c.PropertyMounts.TryGetValue(Triggers.OwnerKey(c.Player), out var mounts))
             {
                 foreach (var entry in mounts.Entries())

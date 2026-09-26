@@ -18,7 +18,7 @@ const { contentBundle } = await load('src/content/index.js');
 const { configuredContentBundle } = await load('src/model/advancedConfig.js');
 const { createRegistries } = await load('src/model/registries.js');
 const { createRng } = await load('src/engine/rng.js');
-const { dispatch } = await load('src/engine/combat.js');
+const { dispatch, previewCard, previewIntent } = await load('src/engine/combat.js');
 const { restoreCombatSnapshot } = await load('src/engine/combatSnapshot.js');
 
 const registries = createRegistries(configuredContentBundle(contentBundle, {}));
@@ -34,13 +34,32 @@ const projection = (c, rng) => ({
   draw: c.piles.draw.length, discard: c.piles.discard.length, exhaust: c.piles.exhaust.length, rng: rng.getCounters(),
 });
 
+const previews = (c) => ({
+  cards: c.piles.hand.map((x) => {
+    const p = previewCard(c, x.instanceId);
+    return {
+      id: x.instanceId, cost: p.cost, costIsX: p.costIsX, needsTarget: p.needsTarget, manaCost: p.manaCost, staminaCost: p.staminaCost,
+      values: p.values.map((v) => ({
+        op: v.op, target: v.target ?? null, value: v.value ?? null,
+        ...(v.hits != null ? { hits: v.hits } : {}), ...(v.perTarget ? { perTarget: v.perTarget } : {}),
+        ...(v.status ? { status: v.status } : {}), ...(v.token ? { token: v.token } : {}), ...(v.boostTint ? { boostTint: v.boostTint } : {}),
+      })),
+      tokens: p.tokens,
+    };
+  }),
+  intents: c.enemies.filter((e) => e.alive).map((e) => {
+    const i = previewIntent(c, e.id);
+    return { id: e.id, kind: i.kind ?? null, moveId: i.moveId ?? null, damage: i.damage ?? null, hits: i.hits ?? null, totalDamage: i.totalDamage ?? null, block: i.block ?? null, pending: !!i.pending };
+  }),
+});
+
 let files = 0, steps = 0, failures = 0;
 for (const f of readdirSync(DIR).filter(n => /^combat-\d+\.json$/.test(n)).sort()) {
   const log = JSON.parse(readFileSync(join(DIR, f), 'utf8'));
   const rng = createRng(log.seed, log.rngCounters);
   const combat = restoreCombatSnapshot({ registries, rng, snapshot: log.snapshot });
   const check = (label, want) => {
-    const got = JSON.stringify(projection(combat, rng));
+    const got = JSON.stringify(want.previews ? { ...projection(combat, rng), previews: previews(combat) } : projection(combat, rng));
     if (got !== JSON.stringify(want)) { failures++; console.error(`${f} ${label}: mismatch\n  want ${JSON.stringify(want)}\n  got  ${got}`); return false; }
     return true;
   };

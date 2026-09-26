@@ -1,5 +1,5 @@
 {
-  "contentHash": "777383e7bdb8c07f5fc9695c35565250876f0ed9dbbbe804fd41272a10da16ee",
+  "contentHash": "f68e5e39c5e9286542158e2be9eef4ef8cc9a873c130391e81dfd5e3f96d33a6",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -269,9 +269,9 @@
       "sha256": "902b7036c88ae1194fabab4bc9072f5763e99332bb9801f1b7aa94082773e582"
     },
     "rules/combatEngine.json": {
-      "bytes": 2260,
+      "bytes": 2783,
       "generated": false,
-      "sha256": "d7c19eb0d81eeaefbd9eb235634d8ab9bf9235816ed0258c2866b3e165a1e173"
+      "sha256": "87964e92480982d01d5dabc61306541095c8dac15fd19f46c40a797c2776007c"
     },
     "rules/combatRules.json": {
       "bytes": 2049,
@@ -559,9 +559,9 @@
       "sha256": "91c0dccf147ff515759b763316fe696f9a37bc2a7a4e801203fcd60a5d573173"
     },
     "schemas/rules.combatEngine.schema.json": {
-      "bytes": 6955,
+      "bytes": 7584,
       "generated": false,
-      "sha256": "96787a71ca4022ec25c6f4aa3bf7e594e82918be07a2520e97fcb7fc4170f813"
+      "sha256": "7f5fe1b349721c4b38ed96653f8808294aaff583401e2fe797cda5413657e92e"
     },
     "schemas/rules.combatRules.schema.json": {
       "bytes": 9025,
