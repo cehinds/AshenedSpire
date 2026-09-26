@@ -16,7 +16,6 @@ using Ashen.Generated;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
-using LoopSmithing = Ashen.Domain.Loop.ItemSmithing;
 
 namespace Ashen.Tests
 {
@@ -354,8 +353,8 @@ namespace Ashen.Tests
             }
             if (!visit.Left && visit.SmithRefusal() == null && r.Pick.Next(2) == 0)
             {
-                var candidate = LoopSmithing.Plan(ctx.Data, ctx.Run).Candidates.First(c => c.Affordable);
-                visit.SmithItem(candidate.ItemRef);
+                var candidate = ItemSmithing.Plan(ctx.Data.Shop, ctx.Run)["candidates"].OfType<JObject>().First(c => c.Value<bool>("affordable"));
+                visit.SmithItem(candidate.Value<string>("itemRef"));
                 After(r);
             }
             if (!visit.Left)

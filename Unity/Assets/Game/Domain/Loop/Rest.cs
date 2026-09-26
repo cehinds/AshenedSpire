@@ -6,6 +6,7 @@ using Ashen.Domain.Events;
 using Ashen.Domain.Random;
 using Ashen.Domain.Rewards;
 using Ashen.Domain.Run;
+using Ashen.Domain.Shop;
 using Newtonsoft.Json.Linq;
 using K = Ashen.Generated.CombatKeys;
 using MK = Ashen.Generated.MapKeys;
@@ -14,6 +15,7 @@ using LM = Ashen.Generated.LoopMessages;
 using LV = Ashen.Generated.LoopValues;
 using RK = Ashen.Generated.RunKeys;
 using RV = Ashen.Generated.RunValues;
+using SK = Ashen.Generated.ShopKeys;
 using V = Ashen.Generated.CombatValues;
 using WK = Ashen.Generated.RewardsKeys;
 
@@ -190,7 +192,7 @@ namespace Ashen.Domain.Loop
         /// <summary>The arrival's refill receipt, or null (a place that refills nothing, or a stay whose arrival already ran).</summary>
         public JObject Refill { get; private set; }
 
-        /// <summary>smithServicesAt(registries, 'shrine', rng) where the place carries the smith tag, else null.</summary>
+        /// <summary>smithServicesAt(registries, 'shrine', rng) where the place carries the smith tag (the merchant's <see cref="SmithServices"/>), else null.</summary>
         public JObject Smith { get; private set; }
 
         /// <summary>Whether an action re-opens the place (the multi-use setting) rather than ending the stay.</summary>
@@ -234,7 +236,7 @@ namespace Ashen.Domain.Loop
                 visit.Arrive();
                 if (restState != null) restState.Put(LK.Refilled, true);
             }
-            if (visit.Services.Is(LK.Smith)) visit.Smith = SmithServices.At(ctx, ctx.Data.RuleStr(LK.Locations, LK.SmithNodeKind));
+            if (visit.Services.Is(LK.Smith)) visit.Smith = SmithServices.At(ctx.Data.Shop, ctx.Data.RuleStr(LK.Locations, LK.SmithNodeKind), ctx.Rng);
             return visit;
         }
 
@@ -333,9 +335,9 @@ namespace Ashen.Domain.Loop
         public string SmithRefusal()
         {
             if (!OfferedServices().Contains(LV.UpgradeService)) return LV.NoneRefusal;
-            var plan = ItemSmithing.Plan(_ctx.Data, _ctx.Run);
-            if (plan.Candidates.Count == 0) return LV.NoneRefusal;
-            return plan.Candidates.Any(c => c.Affordable) ? null : LV.StonesRefusal;
+            var candidates = ItemSmithing.Plan(_ctx.Data.Shop, _ctx.Run).Arr(SK.Candidates);
+            if (candidates.Count == 0) return LV.NoneRefusal;
+            return candidates.OfType<JObject>().Any(c => c.Is(SK.Affordable)) ? null : LV.StonesRefusal;
         }
 
         /// <summary>Smith: one item promoted a tier (commitSmithing), ending a single-use stay.</summary>
@@ -343,7 +345,7 @@ namespace Ashen.Domain.Loop
         {
             var refusal = SmithRefusal();
             if (refusal != null) return Js.Obj(K.Op, LV.SmithAction, LK.Refused, refusal);
-            var receipt = ItemSmithing.Commit(_ctx.Data, _ctx.Run, itemRef);
+            var receipt = ItemSmithing.Commit(_ctx.Data.Shop, _ctx.Run, itemRef);
             if (!MultiUse) Left = true;
             return Js.Obj(K.Op, LV.SmithAction, K.ItemRef, receipt[K.ItemRef], LK.AfterLevel, receipt[LK.AfterLevel], LK.Spent, receipt[LK.Spent]);
         }
@@ -352,8 +354,8 @@ namespace Ashen.Domain.Loop
         public string CardServiceRefusal(string service)
         {
             if (!OfferedServices().Contains(service)) return LV.NoneRefusal;
-            var plan = service == LV.ExtractService ? CardServices.ExtractionPlan(_ctx.Data, _ctx.Run) : CardServices.InstallPlan(_ctx.Data, _ctx.Run);
-            return plan.Count == 0 ? LV.NoneRefusal : null;
+            var plan = service == LV.ExtractService ? CardExtraction.ExtractionPlan(_ctx.Data.Shop, _ctx.Run) : CardExtraction.InstallPlan(_ctx.Data.Shop, _ctx.Run);
+            return plan.Arr(SK.Candidates).Count == 0 ? LV.NoneRefusal : null;
         }
 
         /// <summary>Extract: the card lifted out of one mount into the run's deck, ending a single-use stay.</summary>
@@ -361,7 +363,7 @@ namespace Ashen.Domain.Loop
         {
             var refusal = CardServiceRefusal(LV.ExtractService);
             if (refusal != null) return Js.Obj(K.Op, LV.ExtractService, LK.Refused, refusal);
-            var receipt = CardServices.CommitExtraction(_ctx.Data, _ctx.Run, itemRef, mountKey);
+            var receipt = CardExtraction.CommitExtraction(_ctx.Data.Shop, _ctx.Run, itemRef, mountKey);
             if (!MultiUse) Left = true;
             return MountReceipt(LV.ExtractService, receipt);
         }
@@ -371,7 +373,7 @@ namespace Ashen.Domain.Loop
         {
             var refusal = CardServiceRefusal(LV.InstallService);
             if (refusal != null) return Js.Obj(K.Op, LV.InstallService, LK.Refused, refusal);
-            var receipt = CardServices.CommitInstall(_ctx.Data, _ctx.Run, itemRef, mountKey, instanceId);
+            var receipt = CardExtraction.CommitInstall(_ctx.Data.Shop, _ctx.Run, itemRef, mountKey, instanceId);
             if (!MultiUse) Left = true;
             return MountReceipt(LV.InstallService, receipt);
         }
@@ -388,64 +390,6 @@ namespace Ashen.Domain.Loop
             Properties.UnmountCarrier(_effects.State, V.Player, LV.LocationKind, LocationId);
             Left = true;
             if (_ctx.Run.Obj(RK.LegacyDungeon)?.Is(LK.ActiveRest) ?? false) LegacyDungeons.ResolveNode(_ctx.Data, _ctx.Run);
-        }
-    }
-
-    /// <summary>The smith's services at a node kind (shipped model/cardExtraction.js smithServicesAt over smithingRules.js normalizeServices).</summary>
-    public static class SmithServices
-    {
-        /// <summary>
-        /// smithServicesAt(registries, nodeKind, rng) → { nodeKind, offered, rolled, chance, services }: a chance of 100 is a
-        /// promise (no roll), 0 a refusal, anything between one draw on the smith's stream.
-        /// </summary>
-        public static JObject At(LoopContext ctx, string nodeKind)
-        {
-            var rules = Rules(ctx.Data);
-            var row = rules.Obj(LK.OfferedAt)?.Obj(nodeKind);
-            if (row == null) return Js.Obj(LK.NodeKind, nodeKind, LK.Offered, false, LK.Rolled, false, WK.Chance, 0.0, LK.Services, new JArray());
-            var chance = row.Num(WK.Chance);
-            var hundred = ctx.Data.RuleNum(WK.Smithing, LK.CertainChance);
-            var rolled = chance > 0 && chance < hundred;
-            var offered = chance >= hundred || (!(chance <= 0) && ctx.Rng.Chance(Ashen.Generated.RngStream.Smith, (long)(chance * Ashen.Generated.RngAlgorithm.PercentScale)));
-            return Js.Obj(LK.NodeKind, nodeKind, LK.Offered, offered, LK.Rolled, rolled, WK.Chance, chance, LK.Services, offered ? row[LK.Services].DeepClone() : new JArray());
-        }
-
-        /// <summary>normalizeServices(balance.smithing.services): the offer table and the card services' prices, validated.</summary>
-        public static JObject Rules(LoopData d)
-        {
-            var smithing = d.Balance.Obj(WK.Smithing) ?? throw new InvalidOperationException(LM.SmithingRulesNotObject);
-            var raw = smithing[LK.Services];
-            var known = d.RuleList(WK.Smithing, LK.ServiceIds);
-            var hundred = d.RuleNum(WK.Smithing, LK.CertainChance);
-            if (Js.Nullish(raw)) return d.RuleObj(WK.Smithing, LK.InertServices);
-            if (!(raw is JObject source)) throw new InvalidOperationException(LM.ServicesNotObject);
-            if (!(source[LK.OfferedAt] is JObject offeredRaw)) throw new InvalidOperationException(LM.OfferedAtNotObject);
-            var offeredAt = new JObject();
-            foreach (var entry in offeredRaw.Properties())
-            {
-                if (entry.Name.Length == 0) throw new InvalidOperationException(LM.OfferedAtEmptyKind);
-                if (!(entry.Value is JObject spec)) throw new InvalidOperationException(RunJs.Fmt(LM.OfferedAtRowNotObject, entry.Name));
-                var chance = spec[WK.Chance];
-                if (!Js.IsInt(chance) || Js.D(chance) < 0 || Js.D(chance) > hundred) throw new InvalidOperationException(RunJs.Fmt(LM.OfferedAtChance, entry.Name));
-                if (!(spec[LK.Services] is JArray services) || services.Count == 0) throw new InvalidOperationException(RunJs.Fmt(LM.OfferedAtServices, entry.Name));
-                var seen = new HashSet<string>(StringComparer.Ordinal);
-                foreach (var s in services.Select(Js.Str))
-                {
-                    if (!known.Contains(s)) throw new InvalidOperationException(RunJs.Fmt(LM.UnknownSmithService, entry.Name, s));
-                    if (!seen.Add(s)) throw new InvalidOperationException(RunJs.Fmt(LM.SmithServiceTwice, entry.Name, s));
-                }
-                offeredAt[entry.Name] = Js.Obj(WK.Chance, chance.DeepClone(), LK.Services, services.DeepClone());
-            }
-            var out_ = Js.Obj(LK.OfferedAt, offeredAt);
-            foreach (var service in new[] { LV.ExtractService, LV.InstallService })
-            {
-                if (!(source[service] is JObject row)) throw new InvalidOperationException(RunJs.Fmt(LM.ServicePriceNotObject, service));
-                if (!Js.IsInt(row[K.Cost]) || row.Num(K.Cost) < 0) throw new InvalidOperationException(RunJs.Fmt(LM.ServicePriceNotInteger, service));
-                out_[service] = Js.Obj(K.Cost, row[K.Cost].DeepClone());
-            }
-            foreach (var p in source.Properties())
-                if (p.Name != LK.OfferedAt && p.Name != LV.ExtractService && p.Name != LV.InstallService) throw new InvalidOperationException(RunJs.Fmt(LM.ServicesUnknownKey, p.Name));
-            return out_;
         }
     }
 }

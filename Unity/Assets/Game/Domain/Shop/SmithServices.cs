@@ -20,7 +20,8 @@ namespace Ashen.Domain.Shop
     /// The smith's service table and who offers it (shipped model/smithingRules.js normalizeSmithingRules and
     /// normalizeServices, model/cardExtraction.js smithServiceRules and smithServicesAt): which node kinds offer which
     /// services on a visit (a chance of 100 is a promise and draws nothing; anything between 0 and 100 is one draw on the
-    /// 'smith' stream) and what the priced services cost in Smithing Stones. Malformed authoring is refused by name.
+    /// 'smith' stream, rng.chance) and what the priced services cost in Smithing Stones. Malformed authoring is refused by
+    /// name. The one port: the merchant's stock and the rest stop's smith both read it (D-112u).
     /// </summary>
     public static class SmithServices
     {
@@ -94,7 +95,7 @@ namespace Ashen.Domain.Shop
             if (row == null) return Js.Obj(SK.NodeKind, nodeKind, SK.Offered, false, SK.Rolled, false, WK.Chance, 0.0, SK.Services, new JArray());
             var chance = row.Num(WK.Chance);
             var rolled = chance > 0 && chance < CombatMath.Percent;
-            var offered = chance >= CombatMath.Percent || (!(chance <= 0) && rng.Float(RngStream.Smith) * CombatMath.Percent < chance);
+            var offered = chance >= CombatMath.Percent || (!(chance <= 0) && rng.Chance(RngStream.Smith, (long)(chance * Ashen.Generated.RngAlgorithm.PercentScale)));
             return Js.Obj(SK.NodeKind, nodeKind, SK.Offered, offered, SK.Rolled, rolled, WK.Chance, chance, SK.Services, offered ? row[SK.Services].DeepClone() : new JArray());
         }
     }

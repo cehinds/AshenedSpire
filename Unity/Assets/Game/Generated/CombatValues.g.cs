@@ -51,9 +51,7 @@ namespace Ashen.Generated
         public const string GripDual = "dual";
         public const string GripOne = "one";
         public const string GripTwo = "two";
-        public const string GroupClassId = "classId";
         public const string GroupField = "field";
-        public const string GroupId = "id";
         public const string GroupIndex = "index";
         public const string GroupNumber = "num";
         public const string GroupOwner = "owner";

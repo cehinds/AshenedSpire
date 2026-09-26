@@ -14,10 +14,6 @@ namespace Ashen.Generated
         public const string LevelKeyNotNamespaced = "run.itemUpgradeLevels key '{0}' is not a namespaced item ref";
         public const string MustBeIntegerAtLeast = "{0} must be an integer >= {1}";
         public const string MustBeObject = "{0} must be an object";
-        public const string PassiveBelowZero = "{0} passive '{1}' would fall below zero";
-        public const string PassiveNotAuthored = "{0} passive '{1}' must already be an authored integer";
-        public const string PoiseBelowZero = "{0} poiseThreshold would fall below zero";
-        public const string PoiseNotInteger = "{0} poiseThreshold must be an integer";
         public const string ServiceTwice = "{0}.services lists '{1}' twice";
         public const string ServicesNotListed = "{0}.services must be a non-empty array";
         public const string TierMissingCost = "Authored upgrade tier is missing upgrade:cost:smithing-stone";
@@ -29,7 +25,5 @@ namespace Ashen.Generated
         public const string UnknownServicesKey = "{0}: unknown key";
         public const string UnknownSourceArmament = "Unknown source armament '{0}'";
         public const string UnknownUpgradeItem = "Unknown namespaced upgrade item '{0}'";
-        public const string UnknownUpgradeItemId = "Unknown upgrade item '{0}'";
-        public const string UpgradeTagInvalid = "{0} tier {1} tag '{2}' is invalid for {3}";
     }
 }

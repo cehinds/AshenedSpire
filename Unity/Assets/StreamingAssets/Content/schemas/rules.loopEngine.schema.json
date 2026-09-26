@@ -239,17 +239,6 @@
         "treasureTitle"
       ]
     },
-    "mounts": {
-      "type": "object",
-      "properties": {
-        "receiptSchemaVersion": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "receiptSchemaVersion"
-      ]
-    },
     "newRun": {
       "type": "object",
       "properties": {
@@ -430,111 +419,6 @@
         "receiptLimit",
         "storageSlots"
       ]
-    },
-    "smithing": {
-      "type": "object",
-      "properties": {
-        "certainChance": {
-          "type": "integer"
-        },
-        "inertServices": {
-          "type": "object",
-          "properties": {
-            "extract": {
-              "type": "object",
-              "properties": {
-                "cost": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "cost"
-              ]
-            },
-            "install": {
-              "type": "object",
-              "properties": {
-                "cost": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "cost"
-              ]
-            },
-            "offeredAt": {
-              "type": "object",
-              "properties": {
-                "shrine": {
-                  "type": "object",
-                  "properties": {
-                    "chance": {
-                      "type": "integer"
-                    },
-                    "services": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "required": [
-                    "chance",
-                    "services"
-                  ]
-                }
-              },
-              "required": [
-                "shrine"
-              ]
-            }
-          },
-          "required": [
-            "extract",
-            "install",
-            "offeredAt"
-          ]
-        },
-        "requirementLabel": {
-          "type": "string"
-        },
-        "schemaVersion": {
-          "type": "integer"
-        },
-        "serviceIds": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "valueLabels": {
-          "type": "object",
-          "properties": {
-            "equipmentPoise": {
-              "type": "string"
-            },
-            "otherPassive": {
-              "type": "string"
-            },
-            "poiseThresholdAdd": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "equipmentPoise",
-            "otherPassive",
-            "poiseThresholdAdd"
-          ]
-        }
-      },
-      "required": [
-        "certainChance",
-        "inertServices",
-        "requirementLabel",
-        "schemaVersion",
-        "serviceIds",
-        "valueLabels"
-      ]
     }
   },
   "required": [
@@ -543,10 +427,8 @@
     "dungeons",
     "locations",
     "map",
-    "mounts",
     "newRun",
     "profile",
-    "rewards",
-    "smithing"
+    "rewards"
   ]
 }

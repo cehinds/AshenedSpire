@@ -2,6 +2,42 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-8.11: domain unification — one smith port, one item resolver (feature/domain-unify/us-8.11, 2026-09-26)
+
+**Landed**
+- **One smith port (D-112u).** The rest stop's smith (`Loop/Smith.cs`, `Loop/CardServices.cs`, `Loop.SmithServices`) and the merchant's (`Shop/ItemSmithing.cs`, `Shop/CardExtraction.cs`, `Shop/SmithServices.cs`) were two ports of shipped smithing.js, smithingRules.js `normalizeServices` and cardExtraction.js. The shop copy is now the only one.
+  - `RestVisit` (Smith, Extract, Install, the refusals and the arrival's `smithServicesAt`) calls it with `LoopData.Shop`. The event door already did (D-085).
+  - The shop copy was kept because it has the shipped return shapes and messages. Five behaviours only the loop copy had were merged into it:
+    - JS `===` on receipt values;
+    - `?? null` on a card's numeric effect;
+    - `itemByRef` through `resolveUpgradedItem(…, 0)` inside a catch;
+    - the commit receipt's item name read from the owned piece;
+    - `rng.chance` for the smith roll.
+  - `rules/loopEngine.json` loses its `smithing` and `mounts` sections, and the schema and manifest follow. 52 LoopKeys, 13 LoopValues and 34 LoopMessages go.
+- **One `resolveUpgradedItem` (D-113u).** `Combat.Equipment` now holds the faithful resolvers: tags checked per item kind, and poise and passives never below zero. The smith's private copy is deleted. 4 CombatMessages are added. The ref regexes, their group names and `ItemUpgrades.Parse` are gone.
+- **Smaller readers with one home each (D-114u):**
+  - `CardMounts.IsExtraMountKey`/`OpenExtraMountKey`;
+  - `StartingDeck.ItemMountInstances` (the shop's copy is deleted);
+  - `Rewards.Smithing.StoneBalance` (three copies before);
+  - `Creation.TierOf` (`MapSeats.TierOf` is deleted);
+  - `ItemUpgrades.CostField`.
+- **Scan:** every shipped function name in the Domain's and Application's doc comments, checked for more than one port. The quest-history gate (`Events.Quests` and `Map.EventHistory`) is left for its own story; `rollDrop` and `drawSeatOrder` are adapters over one implementation (D-115u).
+- **Size:** 34 files outside the docs, +173 −1,468 lines. In the Domain: +146 −1,022.
+
+**Tests**
+- dotnet 2,101/2,101 in about 3 m 48 s (2,101 before; nothing added or removed), the explicit sweeps excluded. No oracle file changed.
+- `RunLoopParityTests` now drives the shop port through the loop oracle's rest stays: 446 smith, 175 extract and 155 install commits, plus 82 smith, 131 extract and 126 install refusals. `ChainedRunTests`, `BotRunTests`, `ShopParityTests`, `EventsParityTests`, `RewardsParityTests` and `RewardClaimsParityTests` are green.
+- `BotRunTests` reads the smith plan from `Shop.ItemSmithing`, the only change to a test.
+- Mutation check: `receipt.transaction` in the shop's `CommitExtraction` was set to n + 1 and the loop and chain tests run. 30 of 219 failed, each at the rest step's `$.lastMountReceipt.transaction` (1 vs 2). The file was restored byte for byte (sha256 checked).
+- `codegen --check`, `check-content`, `transform-content --check` and `check-docs` are green.
+
+**Not verified**
+- Unity EditMode and PlayMode (not run). Presentation, Platform and the PlayMode tests were grepped for every removed generated name and API; none uses one.
+- A malformed upgrade tier now throws in combat too (D-113u). No valid content reaches that path, and no test covers the throw.
+
+**Next**
+- Unify the quest-history gate (D-115u).
+
 ## us-11.1–us-11.3, pf-06: W-08 rewards and the F1 loop closed (feature/first-fight/us-11.2, 2026-09-26)
 
 **Landed**
