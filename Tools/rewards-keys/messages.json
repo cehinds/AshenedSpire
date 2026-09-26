@@ -1,0 +1,16 @@
+{
+ "AwardLevelNoRun": "awardLevelXp: no run",
+ "ClassCurveNotAuthored": "balance.skill.class.xp is not authored — the class curve has no numbers",
+ "JourneyCombatEndDeferred": "onCombatEnd: journeys and legacy dungeons (completeJourneyNode, resolveDungeonNode) are not ported yet (D-050w)",
+ "NotASkillKind": "xpToNext: '{0}' is not a skill kind ({1})",
+ "NotASkillTrack": "awardSkillXp: '{0}' is not a skill track",
+ "RewardByPoolNotInteger": "smithing.rewardByPool.{0} must be an integer >= 0",
+ "RewardByPoolNotObject": "smithing.rewardByPool must be an object",
+ "RewardByPoolUnknownPool": "smithing.rewardByPool.{0}: unknown pool",
+ "RunHasNoStats": "onCombatEnd: the run has no stats ledger (main.js newRun writes run.stats)",
+ "SkillCurveNotAuthored": "balance.skill.xp is not authored — the {0} curve has no numbers",
+ "SmithingRewardIdBlank": "Smithing reward id must be a non-empty string",
+ "SmithingRulesNotObject": "smithing rules must be an object",
+ "SmithingStonesNotInteger": "run.smithingStones must be an integer >= 0",
+ "UnknownSmithingPool": "Unknown Smithing reward pool '{0}'"
+}

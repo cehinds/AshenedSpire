@@ -57,6 +57,7 @@ namespace Ashen.Generated
         public const string RulesMechanics = "rules/mechanics.json";
         public const string RulesNodeEffects = "rules/nodeEffects.json";
         public const string RulesPropertyRuleEffects = "rules/propertyRuleEffects.json";
+        public const string RulesRewardsEngine = "rules/rewardsEngine.json";
         public const string RulesRng = "rules/rng.json";
         public const string RulesRowOrder = "rules/rowOrder.json";
         public const string RulesRunEngine = "rules/runEngine.json";
@@ -116,6 +117,7 @@ namespace Ashen.Generated
         public const string SchemasRulesMechanicsSchema = "schemas/rules.mechanics.schema.json";
         public const string SchemasRulesNodeEffectsSchema = "schemas/rules.nodeEffects.schema.json";
         public const string SchemasRulesPropertyRuleEffectsSchema = "schemas/rules.propertyRuleEffects.schema.json";
+        public const string SchemasRulesRewardsEngineSchema = "schemas/rules.rewardsEngine.schema.json";
         public const string SchemasRulesRngSchema = "schemas/rules.rng.schema.json";
         public const string SchemasRulesRowOrderSchema = "schemas/rules.rowOrder.schema.json";
         public const string SchemasRulesRunEngineSchema = "schemas/rules.runEngine.schema.json";
