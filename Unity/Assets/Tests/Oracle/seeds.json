@@ -1,0 +1,123 @@
+{
+ "source": "engine/rng.js",
+ "format": [
+  {
+   "seed": 0,
+   "text": "0"
+  },
+  {
+   "seed": 1,
+   "text": "1"
+  },
+  {
+   "seed": 34,
+   "text": "Z"
+  },
+  {
+   "seed": 35,
+   "text": "10"
+  },
+  {
+   "seed": 36,
+   "text": "11"
+  },
+  {
+   "seed": 1234,
+   "text": "109"
+  },
+  {
+   "seed": 987654321,
+   "text": "IT5NEW"
+  },
+  {
+   "seed": 4294967295,
+   "text": "2BS45RA"
+  },
+  {
+   "seed": 0,
+   "text": "0"
+  },
+  {
+   "seed": 1,
+   "text": "1"
+  },
+  {
+   "seed": 42,
+   "text": "17"
+  },
+  {
+   "seed": 123456789,
+   "text": "2C9G1U"
+  },
+  {
+   "seed": 4294967295,
+   "text": "2BS45RA"
+  },
+  {
+   "seed": 2654435761,
+   "text": "1FIW1BR"
+  },
+  {
+   "seed": 1013904226,
+   "text": "JAMWX6"
+  },
+  {
+   "seed": 3668339987,
+   "text": "1ZUIY8X"
+  },
+  {
+   "seed": 2027808452,
+   "text": "13LATUC"
+  },
+  {
+   "seed": 387276917,
+   "text": "7D2PES"
+  },
+  {
+   "seed": 3041712678,
+   "text": "1MWYQRI"
+  },
+  {
+   "seed": 1401181143,
+   "text": "RNQLBY"
+  },
+  {
+   "seed": 4055616904,
+   "text": "277LMNP"
+  },
+  {
+   "seed": 2415085369,
+   "text": "1AZDI94"
+  },
+  {
+   "seed": 774553834,
+   "text": "ER5DUJ"
+  }
+ ],
+ "parse": [
+  {
+   "text": "ab12",
+   "seed": 442262
+  },
+  {
+   "text": " zz9 ",
+   "seed": 42849
+  },
+  {
+   "text": "OOPS1",
+   "seed": 30346
+  },
+  {
+   "text": "HELLO",
+   "seed": 26137335
+  },
+  {
+   "text": "0",
+   "seed": 0
+  },
+  {
+   "text": "ZZZZZZZZZZ",
+   "seed": 1528444520
+  }
+ ]
+}

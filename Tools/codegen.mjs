@@ -51,6 +51,12 @@ for (const e of CONFIG.enums) {
   files[`${e.name}.g.cs`] = enumFile(e.name, e.doc, e.path.split('.').reduce((o, k) => o[k], data));
 }
 for (const k of CONFIG.keySets) files[`${k.name}.g.cs`] = keySet(k.name, k.doc, Object.entries(k.keys));
+for (const n of CONFIG.numberSets || []) {
+  const lines = [HEADER, `namespace ${CONFIG.namespace}\n{\n`, doc(n.doc), `    public static class ${n.name}\n    {\n`];
+  for (const [id, v] of uniqueNames(Object.entries(n.values))) lines.push(`        public const ${n.type} ${id} = ${v};\n`);
+  lines.push('    }\n}\n');
+  files[`${n.name}.g.cs`] = lines.join('');
+}
 const manifest = JSON.parse(readFileSync(join(CONTENT, 'manifest.json'), 'utf8'));
 const contentEntries = Object.keys(manifest.files).sort().map(p => [pascal(p.replace(/\.json$/, '')), p]);
 files[`${CONFIG.contentFiles.name}.g.cs`] = keySet(CONFIG.contentFiles.name, CONFIG.contentFiles.doc, contentEntries);

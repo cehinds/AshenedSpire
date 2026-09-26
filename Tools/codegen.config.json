@@ -8,6 +8,12 @@
       "from": "rules/effectOps.json",
       "path": "ops",
       "doc": "Effect DSL op names (rules/effectOps.json)."
+    },
+    {
+      "name": "RngStream",
+      "from": "rules/rng.json",
+      "path": "streams",
+      "doc": "Named RNG streams (rules/rng.json). Values derive from the stream NAME, never its position."
     }
   ],
   "keySets": [
@@ -141,5 +147,24 @@
   "contentFiles": {
     "name": "ContentFiles",
     "doc": "Every file listed in the content manifest (regenerated when content files are added or removed)."
-  }
+  },
+  "numberSets": [
+    {
+      "name": "RngAlgorithm",
+      "type": "uint",
+      "doc": "mulberry32 and FNV-1a constants (algorithm definition, identical to the shipped engine/rng.js; not tuning).",
+      "values": {
+        "Increment": "0x6D2B79F5",
+        "FnvOffset": "0x811C9DC5",
+        "FnvPrime": "0x01000193",
+        "ShiftA": "15",
+        "ShiftB": "7",
+        "ShiftC": "14",
+        "OrA": "1",
+        "OrB": "61",
+        "FractionBits": "32",
+        "PercentScale": "100"
+      }
+    }
+  ]
 }

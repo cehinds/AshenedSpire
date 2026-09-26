@@ -1,0 +1,45 @@
+{
+  "$id": "rules/rng.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "seed": {
+      "type": "object",
+      "properties": {
+        "alphabet": {
+          "type": "string"
+        },
+        "homoglyphs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "maxLength": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "alphabet",
+        "homoglyphs",
+        "maxLength"
+      ]
+    },
+    "streams": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "comment",
+    "seed",
+    "streams"
+  ]
+}
