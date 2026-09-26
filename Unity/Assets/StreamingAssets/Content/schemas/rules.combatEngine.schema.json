@@ -246,7 +246,43 @@
     "itemUpgrades": {
       "type": "object",
       "properties": {
+        "actionCostField": {
+          "type": "string"
+        },
+        "actionResource": {
+          "type": "string"
+        },
+        "cardEffects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cardResources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cardRoles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "costPart": {
+          "type": "string"
+        },
+        "costTag": {
+          "type": "string"
+        },
+        "effectPart": {
+          "type": "string"
+        },
         "equipmentPoiseTag": {
+          "type": "string"
+        },
+        "nameSuffix": {
           "type": "string"
         },
         "relicPassiveTags": {
@@ -263,11 +299,24 @@
             "relic:passive:poise-threshold-add",
             "relic:passive:power-cost-reduction"
           ]
+        },
+        "resourceCostSuffix": {
+          "type": "string"
         }
       },
       "required": [
+        "actionCostField",
+        "actionResource",
+        "cardEffects",
+        "cardResources",
+        "cardRoles",
+        "costPart",
+        "costTag",
+        "effectPart",
         "equipmentPoiseTag",
-        "relicPassiveTags"
+        "nameSuffix",
+        "relicPassiveTags",
+        "resourceCostSuffix"
       ]
     },
     "limits": {

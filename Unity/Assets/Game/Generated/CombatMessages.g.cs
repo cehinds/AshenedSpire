@@ -42,7 +42,7 @@ namespace Ashen.Generated
         public const string PoiseThresholdNotInteger = "{0} poiseThreshold must be an integer";
         public const string ProfileSnapshotRequired = "createCombat requires the run equipmentProfileRuleSnapshot";
         public const string QueueDidNotDrain = "Action queue did not drain (possible infinite trigger loop)";
-        public const string SmithedCardsDeferred = "Smithed card faces are not ported yet (smithing story)";
+        public const string SmithedCardNeedsSource = "A Smithed card must carry sourceArmamentId";
         public const string StillResolving = "Combat is still resolving; wait for the action to finish before saving";
         public const string SwapCostRuleRequired = "createCombat requires the resolved swapCostRule";
         public const string TriggerRecursion = "Trigger recursion exceeded the emit depth (event '{0}')";
@@ -60,5 +60,8 @@ namespace Ashen.Generated
         public const string UnknownUpgradeItem = "Unknown upgrade item '{0}'";
         public const string UnratedPoiseDeferred = "Restoring a fight without combat ratings needs the poise-threshold receipt (not ported yet)";
         public const string UnresolvableRef = "Predicate 'of' ref '{0}' is not resolvable (use self/owner/player/enemy/target)";
+        public const string UpgradeBelowZero = "{0} tier {1} tag '{2}' would reduce {3} below zero";
+        public const string UpgradeEffectNotSingle = "{0} tier {1} tag '{2}' expected exactly one '{3}' effect for role '{4}', found {5}";
+        public const string UpgradeTargetNotNumeric = "{0} tier {1} tag '{2}' targets a non-numeric {3}";
     }
 }

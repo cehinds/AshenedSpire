@@ -139,6 +139,23 @@ namespace Ashen.Domain.Combat
             owned[sourceKey] = new PropertyMount { Kind = kind, Id = id, InstanceId = instanceId ?? id, Rules = rules, ScopeTags = (scopeTags ?? Enumerable.Empty<string>()).ToList() };
         }
 
+        /// <summary>mountProperties(ctx, carrier) for a carrier outside the loadout (a location): false when it confers nothing.</summary>
+        public static bool MountCarrier(CombatState c, string ownerKey, string kind, string id, string instanceId, IReadOnlyList<string> tagIds)
+        {
+            if (CarrierRules(c.Data, tagIds).Count == 0) return false;
+            Mount(c, ownerKey, kind, id, instanceId, tagIds, null);
+            return true;
+        }
+
+        /// <summary>unmountProperties(ctx, carrier): true if a mount was removed (an owner left with none is dropped).</summary>
+        public static bool UnmountCarrier(CombatState c, string ownerKey, string kind, string instanceId)
+        {
+            if (c.PropertyMounts == null || !c.PropertyMounts.TryGetValue(ownerKey, out var owned)) return false;
+            if (!owned.Remove(SourceKey(kind, instanceId))) return false;
+            if (owned.Count == 0) c.PropertyMounts.Remove(ownerKey);
+            return true;
+        }
+
         private static bool IsMounted(CombatState c, string ownerKey, string kind, string instanceId) =>
             c.PropertyMounts != null && c.PropertyMounts.TryGetValue(ownerKey, out var owned) && owned.ContainsKey(SourceKey(kind, instanceId));
 

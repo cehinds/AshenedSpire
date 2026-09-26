@@ -2,6 +2,53 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-8.1, us-8.3–8.6, us-4.4–4.9, us-13.1, us-13.2: the run loop with shipped parity (feature/run-loop, 2026-09-26)
+
+**Landed**
+- `Ashen.Domain.Loop` (D-070l): the run-writing half of the shipped `main.js` controller between fights, ported line by line in the shipped order and on the shipped RNG streams. Scope was taken from V8 precise coverage of the shipped calls (`node Tools/oracle-loop.mjs --coverage`):
+  - travel: `RunLoop.EnterNode` (path, floor, Unknown resolutions, the field camp), `StartFight` (Elite Gauntlet, boss destinations including the causeway's no-seat boss, the recent-encounter window), `EnterCombat` (the createCombat arguments under `CombatMods`: Tough Elites, Dread Bosses, Deadly Foes, Glass Cannon, the seat tier ratio, Endless loops) and `EnterEventCombat`. Merchants and events come back as outcomes for the shop/events stream;
+  - fights' ends: `RunLoop.EndCombat` over `CombatEnd.Apply`, closing a death or the summit out through `RunEnd.Finish`;
+  - the reward door: `RewardDoor` (arrival cinders, auto and manual Continue with the pick on `cardRewards`, drafts via `pickClassNode`/`spendSkillDraft`, flasks and relics with flask growth, `collectArmament` with the profile's found set and discovery receipts, `meta.seen`), then `Acts.Advance` after a boss;
+  - rest places: `RestVisit` over the location carrier (tags from tagging, `restMana` resolved by mode, services, `restDenied`, `restHealMult`, Scarce Embers), the arrival's flask refill, `previewRest`, Rest, the flask re-split, level points (`applyLevelUp`), Smith (`ItemSmithing`: plan, commit, restamp, value receipts, `lastSmithingReceipt`), Extract and Install (`CardServices`, `lastMountReceipt`), single-use and multi-use stays;
+  - acts: `Acts.Advance` (full or halved heal, the next seat's map, Endless content loops);
+  - legacy dungeons: `LegacyDungeons` (the entrance in place of the boss fight, rooms, dialogue with listen/fight/flee on `events`, caches, shrines, retreat, leaving to the summit or the next act) (D-078l);
+  - the run's end: `RunEnd.Finish` (`runResult` with the subclass name and the class peak, `recordResult` capped at 20, `recordProgress`, `evaluateUnlocks`) (D-073l).
+- Combat port: smithed card faces resolve (`ItemUpgrades`, D-077l); the run-level context hooks `HealMult`/`RunOpcodes` and the location carrier mount (D-074l). Run port: `RunCombat.Arguments` (combat modifiers) and `StartingDeck.ItemMountInstances`. Rewards port: `CombatEndOptions.DungeonResolver`, `BeginPendingReward` made public.
+- Content: `rules/loopEngine.json` (hand-written, schema inferred, in the manifest) and the item-upgrade vocabulary in `rules/combatEngine.json`. Names: `Tools/codegen.d/loop.json` via `Tools/loop-keys.mjs` (169 keys, 68 values, 60 messages), reusing the combat, run, map and rewards names. `RuntimeRegistries.ToLoopData`.
+- `Tools/oracle-loop.mjs` (D-071l): 108 sequences and 14,983 steps.
+  - 2,383 fight entries: 62 summit victories, 31 deaths, 5 Endless runs capped at act 5; all ten boss encounters, the causeway boss 29 times.
+  - 3,079 reward doors (auto and manual), 126 act advances.
+  - 740 rest stays: 340 Rests, 182 Smith commits (7 on armour), 22 extractions, 12 installs, 182 flask moves, 138 level assignments, 73 relic-denied Rests.
+  - 91 legacy dungeons (all three) with 1,025 dungeon steps.
+  - Regenerations are byte-identical. Size: 12 MB.
+
+**Tests**
+- `RunLoopParityTests`:
+  - 108 sequence cases. Each checked step starts from the recorded documents (run, RNG counters, profile); its outcome and the three documents after it must equal the shipped ones strictly (presence, values and key order). Fights are replayed from their command logs in `CombatEngine`;
+  - an oracle-presence test (tally floors per door and outcome);
+  - a deferred-paths test (journey travel and rest, and the legacy refill, throw by name).
+- Mutation check (each file restored byte for byte, sha256 checked):
+  - the recent-encounter trim `>` changed to `>=` failed 98 sequences at `$.lastEncounters`;
+  - ignoring the rest heal scale failed 34 at `receipts[..].preview.heal`;
+  - the flee roll on `misc` instead of `events` failed 35 at the dungeon receipt's roll text or action;
+  - swapping two run-record keys failed 108;
+  - a corrupted profile patch in the oracle failed exactly that sequence, at `$.seen.flasks[0]`.
+- dotnet 1,188/1,188, enforcement included; `codegen --check`, `check-content`, `transform-content --check` and `check-docs` green.
+
+**Not verified**
+- Unity EditMode (the UI stream owns Unity).
+- The reward door's tap path (`Take`/`Skip`) is not in the oracle (D-079l).
+- Settings resolution is the caller's (`LoopSettings`).
+- Chains are checked step by step from the recorded documents, not as one uninterrupted C# run.
+
+**Deferred**
+- World Journey (D-072l); the legacy flask-slot refill (D-075l); the run-level opcodes beyond `refillFlasks`, which the shop/events stream owns (D-074l); a `rules/victory.json` and a lit-towers ledger (D-076l).
+- Shipped defects recorded, not fixed (D-080l).
+
+**Next**
+- Integration with the shop/events stream (one `executeRunEffects` context).
+- The UI binds `NodeOutcome`, `CombatOutcome`, `RewardDoor`, `RestVisit` and `RunEndReceipt`.
+
 ## us-0.4: run and rewards data from content (feature/content-data, 2026-09-26)
 
 **Landed**

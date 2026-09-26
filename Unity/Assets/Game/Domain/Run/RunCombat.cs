@@ -54,6 +54,17 @@ namespace Ashen.Domain.Run
                 var act = run.Num(RK.ActNumber);
                 hpMult *= Creation.SeatTierHpMult(d, Creation.SeatAtTier(seatOrder, act), act);
             }
+            return Arguments(run, encounter, d, settings, hpMult, new JArray(), new JArray());
+        }
+
+        /// <summary>
+        /// The createCombat arguments main.js enterCombat builds (without registries/rng, JSON-plain), for the combat
+        /// modifiers the caller resolved (main.js combatMods: the HP ratio, the enemies' and the player's opening
+        /// statuses); the run's own <c>self.*</c> start statuses follow the player's.
+        /// </summary>
+        public static JObject Arguments(JObject run, JObject encounter, RunData d, JObject settings, double hpMult, JArray enemyStatuses, JArray playerStatuses)
+        {
+            settings ??= new JObject();
             var loadout = run.Obj(K.Loadout);
             var player = new JObject();
             void Put(string key, JToken value)
@@ -73,6 +84,8 @@ namespace Ashen.Domain.Run
             Put(K.FlaskCharges, run[K.FlaskCharges]);
             Put(K.Loadout, loadout);
             var ratings = d.Balance[K.CombatRatings];
+            var starts = new JArray(Js.Items(playerStatuses).Select(t => t.DeepClone()));
+            foreach (var status in Loadout.RunMods(d, loadout, run.Str(RK.Class)).StartStatuses) starts.Add(status.DeepClone());
             return new JObject
             {
                 [K.RatingsRules] = Js.Truthy(ratings) ? ratings.DeepClone() : Js.Null(),
@@ -80,9 +93,9 @@ namespace Ashen.Domain.Run
                 [K.Player] = player,
                 [K.EnemyIds] = encounter[K.Enemies]?.DeepClone(),
                 [K.HpMult] = Js.N(hpMult),
-                [K.EnemyStatuses] = new JArray(),
+                [K.EnemyStatuses] = new JArray(Js.Items(enemyStatuses).Select(t => t.DeepClone())),
                 [K.SwapCostRule] = ResolveSwapCostRule(d, settings),
-                [K.PlayerStatuses] = Loadout.RunMods(d, loadout, run.Str(RK.Class)).StartStatuses,
+                [K.PlayerStatuses] = starts,
             };
         }
     }

@@ -23,6 +23,8 @@ namespace Ashen.Generated
         public const string BonusHeal = "heal";
         public const string BonusSuffix = "Bonus";
         public const string CacheKeySeparator = "|";
+        public const string CardCostKind = "cardCost";
+        public const string CardEffectKind = "cardEffect";
         public const string CauseAttack = "attack";
         public const string CauseEffect = "effect";
         public const string ClassKind = "class";
@@ -40,6 +42,7 @@ namespace Ashen.Generated
         public const string DrawFill = "fill";
         public const string Enemy = "enemy";
         public const string EnemyInstancePrefix = "e";
+        public const string EquipmentPoiseKind = "equipmentPoise";
         public const string EquipmentSource = "equipment";
         public const string Exhaust = "exhaust";
         public const string ExhaustPile = "EXHAUST_PILE";
@@ -47,13 +50,17 @@ namespace Ashen.Generated
         public const string GripDual = "dual";
         public const string GripOne = "one";
         public const string GripTwo = "two";
+        public const string GroupAttribute = "attribute";
         public const string GroupClassId = "classId";
         public const string GroupField = "field";
         public const string GroupId = "id";
         public const string GroupIndex = "index";
+        public const string GroupName = "name";
         public const string GroupNumber = "num";
         public const string GroupOwner = "owner";
+        public const string GroupPart = "part";
         public const string GroupRelic = "relic";
+        public const string GroupRole = "role";
         public const string GroupSign = "sign";
         public const string GroupToken = "token";
         public const string HandZone = "HAND";
@@ -111,9 +118,12 @@ namespace Ashen.Generated
         public const string RefTarget = "target";
         public const string RelicBonusPrefix = "relic";
         public const string RelicKind = "relic";
+        public const string RelicPassiveKind = "relicPassive";
         public const string RelicRefPrefix = "relic";
         public const string RemovedFromPlay = "REMOVED_FROM_PLAY";
+        public const string RequirementKind = "requirement";
         public const string Right = "right";
+        public const string SmithingStoneResource = "smithingStone";
         public const string Space = " ";
         public const string StackAdd = "add";
         public const string StackRefresh = "refresh";
@@ -132,6 +142,7 @@ namespace Ashen.Generated
         public const string TargetSelf = "self";
         public const string TokenRepeatSeparator = ".";
         public const string Undefined = "undefined";
+        public const string UpgradeCostKind = "upgradeCost";
         public const string UpgradeSuffix = "+";
         public const string Victory = "victory";
         public const string XCost = "X";

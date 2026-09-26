@@ -1,0 +1,897 @@
+{
+ "source": "main.js controller harness (enterNode, startFight, enterCombat args, onCombatEnd routing, reward door, showRest, advanceAct, legacy dungeons, finishRun) over the shipped model/engine modules (shipped preset)",
+ "sequences": [
+  {
+   "file": "seq-000-reaver-climb.json",
+   "classId": "reaver",
+   "variant": "climb",
+   "steps": 169,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-001-reaver-climb-multiuse.json",
+   "classId": "reaver",
+   "variant": "climb-multiuse",
+   "steps": 70,
+   "ended": "defeat",
+   "acts": 1
+  },
+  {
+   "file": "seq-002-reaver-hard.json",
+   "classId": "reaver",
+   "variant": "hard",
+   "steps": 13,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-003-reaver-endless.json",
+   "classId": "reaver",
+   "variant": "endless",
+   "steps": 261,
+   "ended": "defeat",
+   "acts": 3
+  },
+  {
+   "file": "seq-004-reaver-ascension.json",
+   "classId": "reaver",
+   "variant": "ascension",
+   "steps": 286,
+   "ended": "victory",
+   "acts": 0
+  },
+  {
+   "file": "seq-005-reaver-chaos.json",
+   "classId": "reaver",
+   "variant": "chaos",
+   "steps": 145,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-006-reaver-scarce.json",
+   "classId": "reaver",
+   "variant": "scarce",
+   "steps": 58,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-007-reaver-manual.json",
+   "classId": "reaver",
+   "variant": "manual",
+   "steps": 104,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-008-reaver-relics.json",
+   "classId": "reaver",
+   "variant": "relics",
+   "steps": 103,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-009-reaver-veteran.json",
+   "classId": "reaver",
+   "variant": "veteran",
+   "steps": 141,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-010-reaver-dungeon-seeker.json",
+   "classId": "reaver",
+   "variant": "dungeon-seeker",
+   "steps": 109,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-011-reaver-rester.json",
+   "classId": "reaver",
+   "variant": "rester",
+   "steps": 102,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-012-reaver-armoury.json",
+   "classId": "reaver",
+   "variant": "armoury",
+   "steps": 187,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-013-starseer-climb.json",
+   "classId": "starseer",
+   "variant": "climb",
+   "steps": 105,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-014-starseer-climb-multiuse.json",
+   "classId": "starseer",
+   "variant": "climb-multiuse",
+   "steps": 179,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-015-starseer-hard.json",
+   "classId": "starseer",
+   "variant": "hard",
+   "steps": 33,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-016-starseer-endless.json",
+   "classId": "starseer",
+   "variant": "endless",
+   "steps": 234,
+   "ended": "defeat",
+   "acts": 3
+  },
+  {
+   "file": "seq-017-starseer-ascension.json",
+   "classId": "starseer",
+   "variant": "ascension",
+   "steps": 59,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-018-starseer-chaos.json",
+   "classId": "starseer",
+   "variant": "chaos",
+   "steps": 151,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-019-starseer-scarce.json",
+   "classId": "starseer",
+   "variant": "scarce",
+   "steps": 218,
+   "ended": "defeat",
+   "acts": 1
+  },
+  {
+   "file": "seq-020-starseer-manual.json",
+   "classId": "starseer",
+   "variant": "manual",
+   "steps": 106,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-021-starseer-relics.json",
+   "classId": "starseer",
+   "variant": "relics",
+   "steps": 174,
+   "ended": "defeat",
+   "acts": 1
+  },
+  {
+   "file": "seq-022-starseer-veteran.json",
+   "classId": "starseer",
+   "variant": "veteran",
+   "steps": 190,
+   "ended": "victory",
+   "acts": 0
+  },
+  {
+   "file": "seq-023-starseer-dungeon-seeker.json",
+   "classId": "starseer",
+   "variant": "dungeon-seeker",
+   "steps": 181,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-024-starseer-rester.json",
+   "classId": "starseer",
+   "variant": "rester",
+   "steps": 103,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-025-starseer-armoury.json",
+   "classId": "starseer",
+   "variant": "armoury",
+   "steps": 33,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-026-rogue-climb.json",
+   "classId": "rogue",
+   "variant": "climb",
+   "steps": 187,
+   "ended": "victory",
+   "acts": 0
+  },
+  {
+   "file": "seq-027-rogue-climb-multiuse.json",
+   "classId": "rogue",
+   "variant": "climb-multiuse",
+   "steps": 150,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-028-rogue-hard.json",
+   "classId": "rogue",
+   "variant": "hard",
+   "steps": 2,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-029-rogue-endless.json",
+   "classId": "rogue",
+   "variant": "endless",
+   "steps": 335,
+   "ended": "cap",
+   "acts": 2
+  },
+  {
+   "file": "seq-030-rogue-ascension.json",
+   "classId": "rogue",
+   "variant": "ascension",
+   "steps": 67,
+   "ended": "defeat",
+   "acts": 1
+  },
+  {
+   "file": "seq-031-rogue-chaos.json",
+   "classId": "rogue",
+   "variant": "chaos",
+   "steps": 144,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-032-rogue-scarce.json",
+   "classId": "rogue",
+   "variant": "scarce",
+   "steps": 136,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-033-rogue-manual.json",
+   "classId": "rogue",
+   "variant": "manual",
+   "steps": 103,
+   "ended": "defeat",
+   "acts": 2
+  },
+  {
+   "file": "seq-034-rogue-relics.json",
+   "classId": "rogue",
+   "variant": "relics",
+   "steps": 178,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-035-rogue-veteran.json",
+   "classId": "rogue",
+   "variant": "veteran",
+   "steps": 143,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-036-rogue-dungeon-seeker.json",
+   "classId": "rogue",
+   "variant": "dungeon-seeker",
+   "steps": 151,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-037-rogue-rester.json",
+   "classId": "rogue",
+   "variant": "rester",
+   "steps": 179,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-038-rogue-armoury.json",
+   "classId": "rogue",
+   "variant": "armoury",
+   "steps": 178,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-039-herald-climb.json",
+   "classId": "herald",
+   "variant": "climb",
+   "steps": 160,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-040-herald-climb-multiuse.json",
+   "classId": "herald",
+   "variant": "climb-multiuse",
+   "steps": 140,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-041-herald-hard.json",
+   "classId": "herald",
+   "variant": "hard",
+   "steps": 43,
+   "ended": "defeat",
+   "acts": 1
+  },
+  {
+   "file": "seq-042-herald-endless.json",
+   "classId": "herald",
+   "variant": "endless",
+   "steps": 336,
+   "ended": "cap",
+   "acts": 2
+  },
+  {
+   "file": "seq-043-herald-ascension.json",
+   "classId": "herald",
+   "variant": "ascension",
+   "steps": 104,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-044-herald-chaos.json",
+   "classId": "herald",
+   "variant": "chaos",
+   "steps": 222,
+   "ended": "victory",
+   "acts": 0
+  },
+  {
+   "file": "seq-045-herald-scarce.json",
+   "classId": "herald",
+   "variant": "scarce",
+   "steps": 37,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-046-herald-manual.json",
+   "classId": "herald",
+   "variant": "manual",
+   "steps": 102,
+   "ended": "defeat",
+   "acts": 2
+  },
+  {
+   "file": "seq-047-herald-relics.json",
+   "classId": "herald",
+   "variant": "relics",
+   "steps": 102,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-048-herald-veteran.json",
+   "classId": "herald",
+   "variant": "veteran",
+   "steps": 212,
+   "ended": "victory",
+   "acts": 0
+  },
+  {
+   "file": "seq-049-herald-dungeon-seeker.json",
+   "classId": "herald",
+   "variant": "dungeon-seeker",
+   "steps": 190,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-050-herald-rester.json",
+   "classId": "herald",
+   "variant": "rester",
+   "steps": 104,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-051-herald-armoury.json",
+   "classId": "herald",
+   "variant": "armoury",
+   "steps": 125,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-052-reaver-climb.json",
+   "classId": "reaver",
+   "variant": "climb",
+   "steps": 132,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-053-reaver-climb-multiuse.json",
+   "classId": "reaver",
+   "variant": "climb-multiuse",
+   "steps": 103,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-054-reaver-hard.json",
+   "classId": "reaver",
+   "variant": "hard",
+   "steps": 11,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-055-reaver-endless.json",
+   "classId": "reaver",
+   "variant": "endless",
+   "steps": 475,
+   "ended": "cap",
+   "acts": 3
+  },
+  {
+   "file": "seq-056-reaver-ascension.json",
+   "classId": "reaver",
+   "variant": "ascension",
+   "steps": 38,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-057-reaver-chaos.json",
+   "classId": "reaver",
+   "variant": "chaos",
+   "steps": 166,
+   "ended": "victory",
+   "acts": 0
+  },
+  {
+   "file": "seq-058-reaver-scarce.json",
+   "classId": "reaver",
+   "variant": "scarce",
+   "steps": 104,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-059-reaver-manual.json",
+   "classId": "reaver",
+   "variant": "manual",
+   "steps": 152,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-060-reaver-relics.json",
+   "classId": "reaver",
+   "variant": "relics",
+   "steps": 126,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-061-reaver-veteran.json",
+   "classId": "reaver",
+   "variant": "veteran",
+   "steps": 103,
+   "ended": "defeat",
+   "acts": 2
+  },
+  {
+   "file": "seq-062-reaver-dungeon-seeker.json",
+   "classId": "reaver",
+   "variant": "dungeon-seeker",
+   "steps": 105,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-063-reaver-rester.json",
+   "classId": "reaver",
+   "variant": "rester",
+   "steps": 102,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-064-reaver-armoury.json",
+   "classId": "reaver",
+   "variant": "armoury",
+   "steps": 141,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-065-starseer-climb.json",
+   "classId": "starseer",
+   "variant": "climb",
+   "steps": 101,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-066-starseer-climb-multiuse.json",
+   "classId": "starseer",
+   "variant": "climb-multiuse",
+   "steps": 185,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-067-starseer-hard.json",
+   "classId": "starseer",
+   "variant": "hard",
+   "steps": 8,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-068-starseer-endless.json",
+   "classId": "starseer",
+   "variant": "endless",
+   "steps": 52,
+   "ended": "defeat",
+   "acts": 1
+  },
+  {
+   "file": "seq-069-starseer-ascension.json",
+   "classId": "starseer",
+   "variant": "ascension",
+   "steps": 27,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-070-starseer-chaos.json",
+   "classId": "starseer",
+   "variant": "chaos",
+   "steps": 201,
+   "ended": "victory",
+   "acts": 0
+  },
+  {
+   "file": "seq-071-starseer-scarce.json",
+   "classId": "starseer",
+   "variant": "scarce",
+   "steps": 183,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-072-starseer-manual.json",
+   "classId": "starseer",
+   "variant": "manual",
+   "steps": 113,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-073-starseer-relics.json",
+   "classId": "starseer",
+   "variant": "relics",
+   "steps": 96,
+   "ended": "defeat",
+   "acts": 1
+  },
+  {
+   "file": "seq-074-starseer-veteran.json",
+   "classId": "starseer",
+   "variant": "veteran",
+   "steps": 21,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-075-starseer-dungeon-seeker.json",
+   "classId": "starseer",
+   "variant": "dungeon-seeker",
+   "steps": 109,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-076-starseer-rester.json",
+   "classId": "starseer",
+   "variant": "rester",
+   "steps": 199,
+   "ended": "victory",
+   "acts": 0
+  },
+  {
+   "file": "seq-077-starseer-armoury.json",
+   "classId": "starseer",
+   "variant": "armoury",
+   "steps": 54,
+   "ended": "defeat",
+   "acts": 1
+  },
+  {
+   "file": "seq-078-rogue-climb.json",
+   "classId": "rogue",
+   "variant": "climb",
+   "steps": 145,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-079-rogue-climb-multiuse.json",
+   "classId": "rogue",
+   "variant": "climb-multiuse",
+   "steps": 219,
+   "ended": "victory",
+   "acts": 0
+  },
+  {
+   "file": "seq-080-rogue-hard.json",
+   "classId": "rogue",
+   "variant": "hard",
+   "steps": 7,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-081-rogue-endless.json",
+   "classId": "rogue",
+   "variant": "endless",
+   "steps": 222,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-082-rogue-ascension.json",
+   "classId": "rogue",
+   "variant": "ascension",
+   "steps": 189,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-083-rogue-chaos.json",
+   "classId": "rogue",
+   "variant": "chaos",
+   "steps": 205,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-084-rogue-scarce.json",
+   "classId": "rogue",
+   "variant": "scarce",
+   "steps": 142,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-085-rogue-manual.json",
+   "classId": "rogue",
+   "variant": "manual",
+   "steps": 105,
+   "ended": "defeat",
+   "acts": 2
+  },
+  {
+   "file": "seq-086-rogue-relics.json",
+   "classId": "rogue",
+   "variant": "relics",
+   "steps": 103,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-087-rogue-veteran.json",
+   "classId": "rogue",
+   "variant": "veteran",
+   "steps": 182,
+   "ended": "victory",
+   "acts": 0
+  },
+  {
+   "file": "seq-088-rogue-dungeon-seeker.json",
+   "classId": "rogue",
+   "variant": "dungeon-seeker",
+   "steps": 104,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-089-rogue-rester.json",
+   "classId": "rogue",
+   "variant": "rester",
+   "steps": 103,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-090-rogue-armoury.json",
+   "classId": "rogue",
+   "variant": "armoury",
+   "steps": 161,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-091-herald-climb.json",
+   "classId": "herald",
+   "variant": "climb",
+   "steps": 103,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-092-herald-climb-multiuse.json",
+   "classId": "herald",
+   "variant": "climb-multiuse",
+   "steps": 101,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-093-herald-hard.json",
+   "classId": "herald",
+   "variant": "hard",
+   "steps": 241,
+   "ended": "victory",
+   "acts": 0
+  },
+  {
+   "file": "seq-094-herald-endless.json",
+   "classId": "herald",
+   "variant": "endless",
+   "steps": 371,
+   "ended": "cap",
+   "acts": 3
+  },
+  {
+   "file": "seq-095-herald-ascension.json",
+   "classId": "herald",
+   "variant": "ascension",
+   "steps": 107,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-096-herald-chaos.json",
+   "classId": "herald",
+   "variant": "chaos",
+   "steps": 108,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-097-herald-scarce.json",
+   "classId": "herald",
+   "variant": "scarce",
+   "steps": 145,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-098-herald-manual.json",
+   "classId": "herald",
+   "variant": "manual",
+   "steps": 105,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-099-herald-relics.json",
+   "classId": "herald",
+   "variant": "relics",
+   "steps": 105,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-100-herald-veteran.json",
+   "classId": "herald",
+   "variant": "veteran",
+   "steps": 178,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-101-herald-dungeon-seeker.json",
+   "classId": "herald",
+   "variant": "dungeon-seeker",
+   "steps": 103,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-102-herald-rester.json",
+   "classId": "herald",
+   "variant": "rester",
+   "steps": 104,
+   "ended": "victory",
+   "acts": 2
+  },
+  {
+   "file": "seq-103-herald-armoury.json",
+   "classId": "herald",
+   "variant": "armoury",
+   "steps": 257,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-104-reaver-climb.json",
+   "classId": "reaver",
+   "variant": "climb",
+   "steps": 126,
+   "ended": "victory",
+   "acts": 1
+  },
+  {
+   "file": "seq-105-reaver-climb-multiuse.json",
+   "classId": "reaver",
+   "variant": "climb-multiuse",
+   "steps": 128,
+   "ended": "defeat",
+   "acts": 1
+  },
+  {
+   "file": "seq-106-reaver-hard.json",
+   "classId": "reaver",
+   "variant": "hard",
+   "steps": 15,
+   "ended": "defeat",
+   "acts": 0
+  },
+  {
+   "file": "seq-107-reaver-endless.json",
+   "classId": "reaver",
+   "variant": "endless",
+   "steps": 348,
+   "ended": "cap",
+   "acts": 2
+  }
+ ],
+ "tally": {
+  "enter:fight": 2383,
+  "fight:reward": 2653,
+  "claim": 3079,
+  "enter:event": 307,
+  "x": 489,
+  "enter:rest": 631,
+  "rest": 740,
+  "enter:treasure": 340,
+  "enter:merchant": 182,
+  "act": 126,
+  "enter:dungeon": 91,
+  "dungeon": 1025,
+  "dungeon:map": 1255,
+  "dungeon:dialogue": 934,
+  "dungeon:fight": 335,
+  "dungeon:rest": 109,
+  "dungeon:advanced": 76,
+  "dungeon:treasure": 86,
+  "dungeon:victory": 10,
+  "end:victory": 72,
+  "fight:defeat": 31,
+  "end:defeat": 31,
+  "dungeon:retreat": 11,
+  "eventFight:fight": 28,
+  "fight:victory": 62,
+  "end:cap": 5
+ }
+}

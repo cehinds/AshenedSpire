@@ -58,7 +58,11 @@ namespace Ashen.Domain.Combat
                 if (Js.IsStr(inst[K.DamageSchool])) result[K.DamageSchool] = inst[K.DamageSchool].DeepClone();
                 if (Js.IsInt(inst[K.ExposureBuildupPerHit])) result[K.ExposureBuildupPerHit] = inst[K.ExposureBuildupPerHit].DeepClone();
             }
-            if (smithingLevel > 0) throw new NotSupportedException(M.SmithedCardsDeferred);
+            // Smithing changes are exact item/tier content: no source id means no authority for a tier.
+            if (smithingLevel > 0 && string.IsNullOrEmpty(sourceArmamentId)) throw new InvalidOperationException(M.SmithedCardNeedsSource);
+            var upgradeRole = Js.Truthy(inst[K.KitRole]) ? inst.Str(K.KitRole) : Js.Truthy(inst[K.EquipmentRole]) ? inst.Str(K.EquipmentRole) : result.Str(K.EquipmentRole);
+            for (var nextTier = 1; nextTier <= smithingLevel; nextTier += 1)
+                result = ItemUpgrades.ApplyCardUpgradeRows(data, result, upgradeRole, ItemUpgrades.Rows(data, V.ArmamentRefPrefix + V.ItemRefSeparator + sourceArmamentId, nextTier));
             data.ResolveCache[key] = result;
             return result;
         }

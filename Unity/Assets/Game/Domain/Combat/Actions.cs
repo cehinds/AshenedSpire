@@ -396,6 +396,19 @@ namespace Ashen.Domain.Combat
             return v;
         }
 
+        /// <summary>evalRaw: the unfloored amount, for the heal under the run-level heal scale; amountMult applies as in EvalNum.</summary>
+        public static double EvalRaw(CombatState c, CombatAction action, JToken value, double dflt, JObject target = null)
+        {
+            if (value == null) return dflt;
+            double v;
+            if (Js.IsNum(value)) v = Js.D(value);
+            else if (Formulas.IsFormula(value)) v = Formulas.EvaluateRaw(value, FormulaCtxFor(c, action, target));
+            else throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.ExpectedNumber, value));
+            var mult = action.Meta?.AmountMult;
+            if (mult != null && mult.Value != 1) v = Math.Ceiling(v * mult.Value);
+            return v;
+        }
+
         // ------------------------------------------------------------------ interpreter
 
         public static void ExecuteAction(CombatState c, CombatAction action)
@@ -417,6 +430,7 @@ namespace Ashen.Domain.Combat
 
         private static void RunOpcode(CombatState c, CombatAction action, JObject eff)
         {
+            if (c.RunOpcodes != null && c.RunOpcodes(c, action, eff)) return;
             var op = eff.Str(K.Op);
             var target = eff.Str(K.Target);
             switch (op)
@@ -572,7 +586,8 @@ namespace Ashen.Domain.Combat
                 case Op.Heal:
                     foreach (var t in ResolveTargets(c, action, target))
                     {
-                        var amount = EvalNum(c, action, eff[K.Amount], 0, t);
+                        // Under the run-level heal scale the amount is floored ONCE, after the multiplier (shipped #1195).
+                        var amount = c.HealMult == 1 ? EvalNum(c, action, eff[K.Amount], 0, t) : Math.Floor(EvalRaw(c, action, eff[K.Amount], 0, t) * c.HealMult);
                         ApplyHeal(c, t, amount + Ratings.CardBonus(c, action.Source, action.Card, V.BonusHeal, amount));
                     }
                     break;
