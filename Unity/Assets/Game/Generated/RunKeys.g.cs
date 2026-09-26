@@ -203,7 +203,6 @@ namespace Ashen.Generated
         public const string Worn = "worn";
         public const string WornSlotIds = "wornSlotIds";
         public const string WornZoneSlots = "wornZoneSlots";
-        public const string Xp = "xp";
         public const string Z = "z";
         public const string Zones = "zones";
     }

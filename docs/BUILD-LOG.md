@@ -2,6 +2,38 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-11.1: post-combat pipeline with shipped parity (feature/rewards, 2026-09-26)
+
+**Landed**
+- `Ashen.Domain.Rewards` (D-062). `CombatEnd.Apply(data, run, combat, enc, result, rng, options)` is the run-writing half of the shipped `main.js onCombatEnd`, ported line by line in the shipped order. Scope was taken from V8 precise coverage of the shipped calls (`node Tools/oracle-rewards.mjs --coverage`). It covers:
+  - the write-back of flasks, charges, pools and deficits from the fight, with the shared loadout rejoined (D-063);
+  - the skill tracks: `applySkillXp`/`awardSkillXp`, derived tracks, the curve, draft schools, rarity unlocks and the standing auto-upgrade rule;
+  - the class track (`awardClassXp`) and the class-tree draft pool (tiers, REQUIRES and CONFLICTS_WITH read in both directions);
+  - the character level: `combatLevelXp`, `awardLevelXp` with the points dial and cap, and `rederivePools` through `reconcileRunLoadoutHp`;
+  - `combatXpGains`, and `stampDeck` with `adoptEquipmentBonuses`;
+  - the defeat path (`hp = 0`), the win count, the cleared combat receipt and `grantSmithingReward` (with idempotent claims);
+  - the boss ledgers (`bossesBeaten`, `bossGroups`), the act-3 summit and Endless;
+  - the reward rolls on their shipped streams: cinders with `runeGainMult`, the card offer (Feral Eye, Chaos Rewards), skill and class drafts, the flask pity counter, elite and boss relics, armament drops with consolation cinders;
+  - `run.pendingReward` (`beginPendingReward`).
+- `rules/rewardsEngine.json` (hand-written, schema inferred) holds the tree parents, track kinds, level-curve defaults, the roll guard, flat Chaos odds, relic rarities, the legacy charge-flask seam, smithing pools, the summit act and the victory titles. Names come from `Tools/codegen.d/rewards.json` via `Tools/rewards-keys.mjs`: 85 keys, 13 values and 14 messages, with combat and run names reused.
+- `Tools/oracle-rewards.mjs` records 168 cases: the 60 golden combats replayed to their end, and 108 generated fights (4 classes × normal/elite/boss × 18 run variants). The variants reach level thresholds and multi-level climbs, track crossings and the standing upgrade, class thresholds and tier-2 pools, queued drafts on every track, rune and Feral Eye relics, a claimed Smithing reward, Chaos Rewards, Endless and the act-3 summit, a fully found armoury, full flask pity, `equipmentChanged` and low-HP defeats. Each case stores the run before, the combat end snapshot, the encounter, the result, the RNG counters, the options, and the expected run, receipt and counters after. A JS self-check requires each snapshot to restore to an identical pipeline. Re-running the oracle gives byte-identical files. Outcomes: normal 55 reward / 20 defeat, elite 26 / 15, boss 21 reward / 29 defeat / 2 summit. Size: 12 MB with the registry dump (which adds `nodes`).
+
+**Tests**
+- `RewardsParityTests`, 170 cases:
+  - 168 cases, each restoring the fight with `CombatSnapshot.Restore` on an RNG at the recorded counters and running `CombatEnd.Apply`. The run document and the receipt must equal the shipped ones strictly (presence, values and key order), and every RNG counter must match;
+  - an oracle-presence test;
+  - a deferred-path test (journey and legacy dungeon throw by name).
+- Mutation check: corrupting a pending-reward cinder value, swapping two reward keys, bumping an expected `cardRewards` counter and bumping a receipt `levelAward.points` each failed exactly one test. The failures named the path (or the key order, or the stream). Each file was then restored byte for byte (sha256 checked).
+- dotnet 768/768, enforcement included; `codegen --check`, `check-content` and `transform-content --check` green.
+
+**Not verified:** Unity EditMode (the UI stream owns Unity). The rewards data is built from the oracle dump; there is no content-built `RunData`/`RewardsData` path yet. Swapping equipment mid-fight is exercised only through the flag, because the C# combat has no swap commands yet.
+
+**Deferred:**
+- journey and legacy-dungeon fights (D-066);
+- the smith's services-table normalization (D-065);
+- the caller-side profile, save, audio and screen work (`finishRun`, `collectArmament`, game over and the reward screen; D-067).
+
+**Next:** the reward screen (take/skip rows, `collectArmament`, draft picks via `spendSkillDraft`/`pickClassNode`) and the game-over flow's `finishRun`, driven by `CombatEndReceipt`.
 ## us-1.2, us-1.3, us-1.4, us-0.10 (title footer), us-17.1: F1 UI foundation, boot, title and slots (feature/boot-title, 2026-09-26)
 
 **Landed**
