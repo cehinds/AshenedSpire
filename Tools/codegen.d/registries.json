@@ -34,7 +34,9 @@
         "Id": "id",
         "Attributes": "attributes",
         "PropertyRules": "propertyRules",
-        "ClassTree": "classTree"
+        "ClassTree": "classTree",
+        "Keepsakes": "keepsakes",
+        "ContentVersionFallback": "0"
       }
     },
     {

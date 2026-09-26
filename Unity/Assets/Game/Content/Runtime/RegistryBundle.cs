@@ -45,6 +45,11 @@ namespace Ashen.Content
             new Source(RegistryKeys.Attributes, ContentFiles.CatalogAttributes, Shape.Keyed),
             new Source(RegistryKeys.ClassTree, ContentFiles.CatalogClassTree, Shape.Keyed),
             new Source(MapKeys.Seats, ContentFiles.CatalogSeats, Shape.Keyed),
+            new Source(RunKeys.CreationModes, ContentFiles.CatalogCreationModes, Shape.Keyed),
+            new Source(RunKeys.CharacterCreation, ContentFiles.CatalogCharacterCreation, Shape.Document),
+            new Source(RunKeys.AttributeRules, ContentFiles.RulesAttributeRules, Shape.Document),
+            new Source(RunKeys.DerivedStatRules, ContentFiles.RulesDerivedStatRules, Shape.Document),
+            new Source(RewardsKeys.Nodes, ContentFiles.TagsNodes, Shape.Keyed),
             new Source(RegistryKeys.PropertyRules, ContentFiles.TagsPropertyRules, Shape.List),
             new Source(RegistryKeys.TagDomains, ContentFiles.TagsTagDomains, Shape.Keyed),
             new Source(RegistryKeys.TagRegistry, ContentFiles.TagsTags, Shape.Keyed),
@@ -65,6 +70,7 @@ namespace Ashen.Content
         private readonly JObject _strings;
         private readonly JObject _rowOrder;
         private readonly JObject _stringKeys;
+        private readonly JObject _textAnchors;
 
         private RegistryBundle(ContentSet content, JObject strings)
         {
@@ -72,6 +78,7 @@ namespace Ashen.Content
             _strings = strings ?? new JObject();
             _rowOrder = content.Get(ContentFiles.RulesRowOrder) as JObject ?? new JObject();
             _stringKeys = content.Get(ContentFiles.RulesStringKeys) as JObject ?? new JObject();
+            _textAnchors = content.Get(ContentFiles.RulesTextAnchors) as JObject ?? new JObject();
         }
 
         /// <summary>The bundle object: { cards: [...], equipment: { armaments: [...], ... }, balance: {...}, tagging: [...], ... }.</summary>
@@ -107,19 +114,52 @@ namespace Ashen.Content
             var spec = _stringKeys[file] as JObject;
             var prefix = (string)spec?[RuleKeys.Prefix];
             var fields = spec?[RegistryKeys.StringKeyFields] as JObject;
+            var anchorsByRow = _textAnchors[file] as JObject;
             var rows = new JArray();
             foreach (var key in order)
             {
                 var row = doc[key];
                 if (row is JObject obj && fields != null && prefix != null)
+                {
+                    var texts = new List<KeyValuePair<string, JToken>>();
                     foreach (var field in fields.Properties())
                     {
                         var text = _strings[string.Join(ContentLayout.SchemaNameSeparator, prefix, key, (string)field.Value)];
-                        if (text != null && text.Type == JTokenType.String) obj[field.Name] = text.DeepClone();
+                        if (text != null && text.Type == JTokenType.String) texts.Add(new KeyValuePair<string, JToken>(field.Name, text.DeepClone()));
                     }
+                    row = texts.Count == 0 ? obj : Attach(obj, texts, anchorsByRow?[key] as JObject);
+                }
                 rows.Add(row);
             }
             return rows;
+        }
+
+        /// <summary>
+        /// Re-attaches display text where it was authored (D-069): each field goes after the key rules/textAnchors.json
+        /// recorded for it ('' = first; a field may follow another text field). Text with no anchor, or whose anchor the
+        /// row no longer has, follows the row's own keys.
+        /// </summary>
+        private static JObject Attach(JObject row, List<KeyValuePair<string, JToken>> texts, JObject anchors)
+        {
+            var pending = texts.ToDictionary(kv => kv.Key, kv => kv.Value, StringComparer.Ordinal);
+            var result = new JObject();
+            void Place(string anchor)
+            {
+                foreach (var field in texts.Select(kv => kv.Key).Where(f => pending.ContainsKey(f) && anchors?[f] is JValue v && (string)v == anchor).ToList())
+                {
+                    result[field] = pending[field];
+                    pending.Remove(field);
+                    Place(field);
+                }
+            }
+            Place(string.Empty);
+            foreach (var p in row.Properties())
+            {
+                result[p.Name] = p.Value;
+                Place(p.Name);
+            }
+            foreach (var kv in texts.Where(kv => pending.ContainsKey(kv.Key))) result[kv.Key] = kv.Value;
+            return result;
         }
 
         private List<string> OrderedKeys(string file, JObject doc)
