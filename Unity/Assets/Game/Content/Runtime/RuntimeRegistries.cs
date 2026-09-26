@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
+using MK = Ashen.Generated.MapKeys;
+using MV = Ashen.Generated.MapValues;
 
 namespace Ashen.Content
 {
@@ -31,13 +33,15 @@ namespace Ashen.Content
         private readonly JArray _classTree;
         private readonly JObject _equipment;
         private readonly JObject _balance;
+        private readonly JObject _map;
 
-        private RuntimeRegistries(Dictionary<string, JObject> tables, JArray classTree, JObject equipment, JObject balance)
+        private RuntimeRegistries(Dictionary<string, JObject> tables, JArray classTree, JObject equipment, JObject balance, JObject map)
         {
             _tables = tables;
             _classTree = classTree;
             _equipment = equipment;
             _balance = balance;
+            _map = map;
         }
 
         /// <summary>Builds the registries from an effective content set (e.g. <c>RunSnapshot.Content</c>) and its display strings.</summary>
@@ -53,6 +57,7 @@ namespace Ashen.Content
             foreach (var name in TableNames) tables[name] = MakeRegistry(name, Collection(name));
             tables[RegistryKeys.Attributes] = MakeRegistry(RegistryKeys.Attributes, Collection(RegistryKeys.Attributes));
             tables[RegistryKeys.PropertyRules] = MakeRegistry(RegistryKeys.PropertyRules, Collection(RegistryKeys.PropertyRules), CombatKeys.Tag);
+            tables[MK.Seats] = MakeRegistry(MK.Seats, Collection(MK.Seats));
             var classTree = (JArray)Collection(RegistryKeys.ClassTree).DeepClone();
 
             var equipment = JsValues.Spread(bundle[RegistryKeys.Equipment] as JObject);
@@ -69,7 +74,7 @@ namespace Ashen.Content
             else equipment.Remove(RegistryKeys.CardTagging);
 
             var balance = JsValues.Spread(bundle[RegistryKeys.Balance] as JObject);
-            return new RuntimeRegistries(tables, classTree, equipment, balance);
+            return new RuntimeRegistries(tables, classTree, equipment, balance, MapDocuments(content));
         }
 
         /// <summary>An id-keyed registry table ("cards", "relics", ...), or null for a name that is not one.</summary>
@@ -95,6 +100,38 @@ namespace Ashen.Content
                 tables[name] = new Ashen.Domain.Combat.Registry(name, table.Properties().Select(p => p.Value.DeepClone()).ToList(), key);
             }
             return new Ashen.Domain.Combat.CombatData(tables, ClassTree, Equipment, Balance, mechanics, engine);
+        }
+
+        /// <summary>
+        /// The map port's view of these registries (US-4.2): the encounter, event, enemy and seat registries in authoring
+        /// order, the per-tier map configs, the quest gates on events, the boss locations, the run-shape limits, the
+        /// legacy act bosses and balance.endless, with the map engine rules (rules/mapEngine.json).
+        /// </summary>
+        public Ashen.Domain.Map.MapData ToMapData(JObject mapEngine)
+        {
+            Ashen.Domain.Combat.Registry Table(string name) =>
+                new Ashen.Domain.Combat.Registry(name, (_tables.TryGetValue(name, out var t) ? t : new JObject()).Properties().Select(p => p.Value.DeepClone()).ToList(), RegistryKeys.Id);
+            JObject Doc(string key) => _map[key] is JObject o ? (JObject)o.DeepClone() : new JObject();
+            return new Ashen.Domain.Map.MapData(
+                Table(RegistryKeys.Encounters), Table(RegistryKeys.Events), Table(RegistryKeys.Enemies), Table(MK.Seats),
+                Doc(MK.MapConfigs), Doc(MK.EventHistoryRequirements), Doc(MK.BossLocations), Doc(MK.MapShapeLimits),
+                Doc(MK.LegacyActBosses), _balance[MK.Endless] is JObject endless ? (JObject)endless.DeepClone() : new JObject(),
+                new Ashen.Domain.Map.MapRules(mapEngine));
+        }
+
+        /// <summary>The map documents, in content key order: balance/mapConfigs.json, eventMeta's gates, boss locations, mapShape limits and legacy bosses.</summary>
+        private static JObject MapDocuments(ContentSet content)
+        {
+            JToken Get(string file) => content.Contains(file) ? content.Get(file) : null;
+            var shape = Get(ContentFiles.BalanceMapShape) as JObject;
+            return new JObject
+            {
+                [MK.MapConfigs] = Get(ContentFiles.BalanceMapConfigs)?.DeepClone(),
+                [MK.EventHistoryRequirements] = (Get(ContentFiles.CatalogEventMeta) as JObject)?[MK.EventHistoryRequirements]?.DeepClone(),
+                [MK.BossLocations] = Get(ContentFiles.CatalogBossDestinations)?.DeepClone(),
+                [MK.MapShapeLimits] = shape?[MV.MapShapeLimitsKey]?.DeepClone(),
+                [MK.LegacyActBosses] = shape?[MV.LegacyActBossesKey]?.DeepClone(),
+            };
         }
 
         /// <summary>The balance constants, with balance.damage's statusMultipliers and cardBonuses materialized.</summary>
