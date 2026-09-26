@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.6.0] — 2026-09-26
+
+Stories: us-4.2
+
+- Act map generation (buildActMap, floor plans, run shapes, encounters, seats) ported with shipped parity: 1,883 maps
+
 ## [0.1.5.1] — 2026-09-26
 
 - Commit Unity metas for CombatStringKeys.g.cs and SessionKeys.g.cs
