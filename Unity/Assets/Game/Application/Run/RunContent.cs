@@ -25,35 +25,33 @@ namespace Ashen.App.Run
         public RunData Data { get; private set; }
         public RunFlowRules Flow { get; private set; }
         public SeedCodec Seeds { get; private set; }
-        public string ContentVersion { get; private set; }
 
         public CombatData Combat => Data.Combat;
+        public string ContentVersion => Snapshot.ContentVersion;
         public string ContentHash => Snapshot.Hash;
         public string PresetId => Snapshot.PresetId;
 
         /// <summary>Class ids in authoring order (W-04 lists them in this order).</summary>
         public IReadOnlyList<string> ClassIds => Data.Classes.All.Select(c => c.Str(CombatKeys.Id)).ToList();
 
-        public static RunContent Load(IContentSource source, string presetId = null)
-        {
-            var snapshot = new ConfigLayers(source).Build(new LayerSelection { PresetId = presetId });
-            return From(snapshot, ContentManifest.Load(source).ContentVersion);
-        }
+        /// <summary>The effective content for a run: the named preset (the default one when null) and optional ordered patches.</summary>
+        public static RunContent Load(IContentSource source, string presetId = null, IReadOnlyList<JObject> patches = null) =>
+            From(new ConfigLayers(source).Build(new LayerSelection { PresetId = presetId, Patches = patches ?? Array.Empty<JObject>() }));
 
-        public static RunContent From(RunSnapshot snapshot, string contentVersion)
+        public static RunContent From(RunSnapshot snapshot)
         {
             var content = snapshot.Content;
-            var registries = RuntimeRegistries.Build(content, (JObject)content.Get(ContentFiles.StringsEn));
-            var seed = (JObject)content.Get(ContentFiles.RulesRng)[RunFlowKeys.SeedRules];
+            JObject Doc(string file) => (JObject)content.Get(file);
+            var registries = RuntimeRegistries.Build(content, Doc(ContentFiles.StringsEn));
+            var seed = (JObject)Doc(ContentFiles.RulesRng)[RunFlowKeys.SeedRules];
             return new RunContent
             {
                 Snapshot = snapshot,
-                Data = ContentRunData.Build(content, registries, contentVersion),
+                Data = registries.ToRunData(Doc(ContentFiles.RulesMechanics), Doc(ContentFiles.RulesCombatEngine), Doc(ContentFiles.RulesHandRules), Doc(ContentFiles.RulesRunEngine), snapshot.ContentVersion),
                 Flow = RunFlowRules.From((JObject)content.Get(ContentFiles.RulesRunFlow)),
                 Seeds = new SeedCodec((string)seed[RunFlowKeys.Alphabet],
                     ((JArray)seed[RunFlowKeys.Homoglyphs]).Select(p => new KeyValuePair<string, string>((string)p[0], (string)p[1])).ToList(),
                     (int)seed[RunFlowKeys.MaxLength]),
-                ContentVersion = contentVersion,
             };
         }
 
@@ -104,63 +102,5 @@ namespace Ashen.App.Run
         public string Portrait(string classId, string tint = null) =>
             Ashen.App.Ui.StringTable.Fill(Flow.PortraitTemplate,
                 new Ashen.App.Ui.StringArgs().Add(RunFlowValues.PlaceholderClass, classId).Add(RunFlowValues.PlaceholderTint, tint ?? Flow.DefaultTint));
-    }
-
-    /// <summary>
-    /// TEMPORARY (D-062f): RunData built from a content set, until the integrator's RuntimeRegistries.ToRunData lands on
-    /// dev. The combat data, seats and encounters come from the runtime registries; creation modes and tag families are
-    /// read in authoring order (rules/rowOrder.json) with their display text attached (rules/stringKeys.json); the
-    /// attribute rules, character creation and derived-stat rules are the content documents. Character creation's
-    /// keepsakes are not tag-stamped here (createRunState does not read keepsake tags).
-    /// </summary>
-    internal static class ContentRunData
-    {
-        public static RunData Build(ContentSet content, RuntimeRegistries registries, string contentVersion)
-        {
-            JObject Doc(string file) => content.Get(file) as JObject;
-            var combat = registries.ToCombatData(Doc(ContentFiles.RulesMechanics), Doc(ContentFiles.RulesCombatEngine));
-            Registry Table(string name) => new Registry(name, (registries.Table(name) ?? new JObject()).Properties().Select(p => p.Value), CombatKeys.Id);
-            var strings = Doc(ContentFiles.StringsEn) ?? new JObject();
-            var rowOrder = Doc(ContentFiles.RulesRowOrder) ?? new JObject();
-            var stringKeys = Doc(ContentFiles.RulesStringKeys) ?? new JObject();
-            return new RunData(combat,
-                new Registry(RunKeys.CreationModes, Keyed(content, ContentFiles.CatalogCreationModes, rowOrder, stringKeys, strings), CombatKeys.Id),
-                Table(MK.Seats),
-                Table(RegistryKeys.Encounters),
-                Doc(ContentFiles.RulesAttributeRules),
-                Doc(ContentFiles.CatalogCharacterCreation),
-                Doc(ContentFiles.RulesDerivedStatRules),
-                new JArray(Keyed(content, ContentFiles.TagsTagFamilies, rowOrder, stringKeys, strings)),
-                contentVersion,
-                Doc(ContentFiles.RulesHandRules),
-                Doc(ContentFiles.RulesRunEngine));
-        }
-
-        /// <summary>An id-keyed content file as rows in authoring order, with its string fields attached.</summary>
-        private static List<JToken> Keyed(ContentSet content, string file, JObject rowOrder, JObject stringKeys, JObject strings)
-        {
-            var doc = content.Get(file) as JObject ?? new JObject();
-            var present = new HashSet<string>(doc.Properties().Select(p => p.Name), StringComparer.Ordinal);
-            var keys = new List<string>();
-            foreach (var key in (rowOrder[file] as JArray ?? new JArray()).Select(t => (string)t))
-                if (key != null && present.Remove(key)) keys.Add(key);
-            keys.AddRange(present.OrderBy(k => k, StringComparer.Ordinal));
-            var spec = stringKeys[file] as JObject;
-            var prefix = (string)spec?[RuleKeys.Prefix];
-            var fields = spec?[RegistryKeys.StringKeyFields] as JObject;
-            var rows = new List<JToken>();
-            foreach (var key in keys)
-            {
-                var row = doc[key].DeepClone();
-                if (row is JObject obj && fields != null && prefix != null)
-                    foreach (var field in fields.Properties())
-                    {
-                        var text = strings[string.Join(ContentLayout.SchemaNameSeparator, prefix, key, (string)field.Value)];
-                        if (text != null && text.Type == JTokenType.String) obj[field.Name] = text.DeepClone();
-                    }
-                rows.Add(row);
-            }
-            return rows;
-        }
     }
 }

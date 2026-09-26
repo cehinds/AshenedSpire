@@ -11,7 +11,7 @@
   "firstFight": {
     "seat": "weald",
     "pool": "normal",
-    "ordinal": 0
+    "ordinal": 1
   },
   "autosave": {
     "afterCommand": "append",
