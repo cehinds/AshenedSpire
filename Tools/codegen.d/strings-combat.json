@@ -1,0 +1,10 @@
+{
+  "comment": "Combat UI string keys (strings/combat.en.json): refusals the legality service names, and the combat error notice.",
+  "stringTables": [
+    {
+      "name": "CombatStringKeys",
+      "from": "strings/combat.en.json",
+      "doc": "Combat string keys code must name (strings/combat.en.json)."
+    }
+  ]
+}

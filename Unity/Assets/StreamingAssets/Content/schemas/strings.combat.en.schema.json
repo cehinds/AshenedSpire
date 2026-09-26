@@ -1,0 +1,60 @@
+{
+  "$id": "strings/combat.en.json",
+  "type": "object",
+  "properties": {
+    "combat.error.unexpected": {
+      "type": "string"
+    },
+    "combat.refusal.combatOver": {
+      "type": "string"
+    },
+    "combat.refusal.discardSelection": {
+      "type": "string"
+    },
+    "combat.refusal.energy": {
+      "type": "string"
+    },
+    "combat.refusal.invalidTarget": {
+      "type": "string"
+    },
+    "combat.refusal.mana": {
+      "type": "string"
+    },
+    "combat.refusal.noFlask": {
+      "type": "string"
+    },
+    "combat.refusal.noFlaskCharges": {
+      "type": "string"
+    },
+    "combat.refusal.noTarget": {
+      "type": "string"
+    },
+    "combat.refusal.notInHand": {
+      "type": "string"
+    },
+    "combat.refusal.notPlayerTurn": {
+      "type": "string"
+    },
+    "combat.refusal.stamina": {
+      "type": "string"
+    },
+    "combat.refusal.unplayable": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "combat.error.unexpected",
+    "combat.refusal.combatOver",
+    "combat.refusal.discardSelection",
+    "combat.refusal.energy",
+    "combat.refusal.invalidTarget",
+    "combat.refusal.mana",
+    "combat.refusal.noFlask",
+    "combat.refusal.noFlaskCharges",
+    "combat.refusal.noTarget",
+    "combat.refusal.notInHand",
+    "combat.refusal.notPlayerTurn",
+    "combat.refusal.stamina",
+    "combat.refusal.unplayable"
+  ]
+}
