@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.5.1] — 2026-09-26
+
+- Commit Unity metas for CombatStringKeys.g.cs and SessionKeys.g.cs
+
 ## [0.1.5.0] — 2026-09-26
 
 Stories: us-2.2
