@@ -41,6 +41,8 @@ namespace Ashen.Presentation.UI.Screens
                 context.Navigator.Go(ScreenIds.Rewards, new RewardsArgs { Session = session }, true);
                 return;
             }
+            // A node screen (merchant, event, dialogue, legacy dungeon) resumes on the same screen in the same state (D-141n).
+            if (NodeRouter.Resume(context.Navigator, ui, session)) return;
             if (session.Location == RunFlowValues.LocationMap)
             {
                 // After the rewards the climb goes to the act map, a later build (D-058): the slot is kept and refused here.

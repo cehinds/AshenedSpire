@@ -19,6 +19,10 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: aa968f431b32e1147bbb6d785069657f, type: 3}
   - id: bg.tower-city-background-unlit
     texture: {fileID: 2800000, guid: d9bfefad85984fc4ab7a50dffd28e35c, type: 3}
+  - id: bg.tower-entrance-hall
+    texture: {fileID: 2800000, guid: 5d06673e6a4e78149921736b42cadd81, type: 3}
+  - id: bg.tower-entrance-hall-phone
+    texture: {fileID: 2800000, guid: 693acfbf9987a944493fe6bb48248afd, type: 3}
   - id: class.herald.sprite.ember
     texture: {fileID: 2800000, guid: 43a8a9ed1c75f0e42b5684895c38b301, type: 3}
   - id: class.herald.sprite.frost
@@ -127,14 +131,78 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: e14747d8533a2df4984bfe9d42986966, type: 3}
   - id: env.ashen-crown-combat
     texture: {fileID: 2800000, guid: a3cb393244ef8a04da68fbd8cdf7dfb4, type: 3}
+  - id: env.ashen-crown-map
+    texture: {fileID: 2800000, guid: 5c73cd712828819498af2068db3bdeec, type: 3}
   - id: env.cinder-reach-combat
     texture: {fileID: 2800000, guid: f2a48e958c3efb64d8028f09060b1995, type: 3}
+  - id: env.cinder-reach-map
+    texture: {fileID: 2800000, guid: 2ede6dd3ec9602541a7d71628ffe4005, type: 3}
   - id: env.drowned-coast-combat
     texture: {fileID: 2800000, guid: 13dc427522d47a5469cff557ba10faa4, type: 3}
+  - id: env.drowned-coast-map
+    texture: {fileID: 2800000, guid: 669ce4d23e75ae14a8956863de0bf113, type: 3}
   - id: env.hollow-weald-combat
     texture: {fileID: 2800000, guid: a7e7149aeefffc44d889ff8a74f3490f, type: 3}
+  - id: env.hollow-weald-map
+    texture: {fileID: 2800000, guid: da5921bf6745035449aeebc1e56fba64, type: 3}
+  - id: env.legacy.BS-ENV-01-background
+    texture: {fileID: 2800000, guid: 11e389ab929dcfa4ebd9b9211a0aa5f4, type: 3}
+  - id: env.legacy.BS-ENV-01-floor
+    texture: {fileID: 2800000, guid: 9dd01f306a845ae4083d97c79d762bc2, type: 3}
+  - id: env.legacy.BS-ENV-02-background
+    texture: {fileID: 2800000, guid: b357d22fd5e4ed143a2fef0de72cf247, type: 3}
+  - id: env.legacy.BS-ENV-02-floor
+    texture: {fileID: 2800000, guid: 0473d5e29ffbaf64bb4b49654456d749, type: 3}
+  - id: env.legacy.BS-ENV-03-background
+    texture: {fileID: 2800000, guid: 536fe36c03e42db4f8ceedfb85644c30, type: 3}
+  - id: env.legacy.BS-ENV-03-floor
+    texture: {fileID: 2800000, guid: f05c054744d8e30498734ac322e80d7f, type: 3}
+  - id: env.legacy.BS-ENV-04-background
+    texture: {fileID: 2800000, guid: b3319ec3e5a13a64d8aca72641645865, type: 3}
+  - id: env.legacy.BS-ENV-04-floor
+    texture: {fileID: 2800000, guid: d8c6c343f15b82443ae1fed2f7871d72, type: 3}
+  - id: env.legacy.FC-ENV-01-background
+    texture: {fileID: 2800000, guid: 90ec14908c61ca246bda52d41ac1541a, type: 3}
+  - id: env.legacy.FC-ENV-01-floor
+    texture: {fileID: 2800000, guid: 1a45832670610c342b3d284a064433ac, type: 3}
+  - id: env.legacy.FC-ENV-02-background
+    texture: {fileID: 2800000, guid: 76b90f626d3b67b45b93f3448f5ef92f, type: 3}
+  - id: env.legacy.FC-ENV-02-floor
+    texture: {fileID: 2800000, guid: 1e902b05ac6f92844b8e5b9d45b8f603, type: 3}
+  - id: env.legacy.FC-ENV-03-background
+    texture: {fileID: 2800000, guid: 72f591957eebf684db450316f969d67d, type: 3}
+  - id: env.legacy.FC-ENV-03-floor
+    texture: {fileID: 2800000, guid: d97352ac2e432ef4bb75b6b208a43dcc, type: 3}
+  - id: env.legacy.FC-ENV-04-background
+    texture: {fileID: 2800000, guid: cc6a015f084dc714aaa97ab415cae013, type: 3}
+  - id: env.legacy.FC-ENV-04-floor
+    texture: {fileID: 2800000, guid: 5272db3b1f0b0e54682c2b8c68a7036c, type: 3}
+  - id: env.legacy.HM-ENV-01-background
+    texture: {fileID: 2800000, guid: 36d74c33737cc014ba7291b57ea601d7, type: 3}
+  - id: env.legacy.HM-ENV-01-floor
+    texture: {fileID: 2800000, guid: f35d98851a29a7749866f7776c118955, type: 3}
+  - id: env.legacy.HM-ENV-02-background
+    texture: {fileID: 2800000, guid: f4c2fe05113e8da44a9f0d7fa6979ef7, type: 3}
+  - id: env.legacy.HM-ENV-02-floor
+    texture: {fileID: 2800000, guid: 596a59810cb67c247b55e2137bf456bf, type: 3}
+  - id: env.legacy.HM-ENV-03-background
+    texture: {fileID: 2800000, guid: 2e6f1926f3770424389863ac46eb96c3, type: 3}
+  - id: env.legacy.HM-ENV-03-floor
+    texture: {fileID: 2800000, guid: c5787038e55641d4b9f89a7e1de47f29, type: 3}
+  - id: env.legacy.HM-ENV-04-background
+    texture: {fileID: 2800000, guid: 92835d6c56e0fb34abeb5282890a5ffa, type: 3}
+  - id: env.legacy.HM-ENV-04-floor
+    texture: {fileID: 2800000, guid: 3dab7c2a1d2fdf64fbd52b360fbc8419, type: 3}
+  - id: env.legacy.MAP-01-briar-sanctum
+    texture: {fileID: 2800000, guid: 45e91802a9265f64ab37dc9d07c61c34, type: 3}
+  - id: env.legacy.MAP-02-hall-of-mirrors
+    texture: {fileID: 2800000, guid: 6ab0f0d8f5d88874480848629fdac84d, type: 3}
+  - id: env.legacy.MAP-03-furnace-chapel
+    texture: {fileID: 2800000, guid: 39017b558edce684e9f87068e39647d6, type: 3}
   - id: env.pale-marches-combat
     texture: {fileID: 2800000, guid: 8495c67d01c9a404692496c80a1d79fc, type: 3}
+  - id: env.pale-marches-map
+    texture: {fileID: 2800000, guid: 7b44df6abfe017f49a6bbc896013bcea, type: 3}
   - id: equipment.icon.ashStaff
     texture: {fileID: 2800000, guid: 24aad20eaf4699a4b9c9da8d6572a946, type: 3}
   - id: equipment.icon.battleaxe

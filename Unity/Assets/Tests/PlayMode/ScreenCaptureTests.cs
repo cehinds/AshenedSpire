@@ -189,7 +189,8 @@ namespace Ashen.Tests.Play
                     break;
                 }
                 default:
-                    nav.Go(screen);
+                    if (NodeCapture.Handles(screen)) NodeCapture.Show(host, fixture, source);
+                    else nav.Go(screen);
                     break;
             }
         }
@@ -245,6 +246,7 @@ namespace Ashen.Tests.Play
 
         private static void AfterShow(UiHost host, JObject fixture)
         {
+            NodeCapture.After(host, fixture);
             if (host.Navigator.Top?.View is CombatScreen combat)
             {
                 switch ((string)fixture["state"])

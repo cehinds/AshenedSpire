@@ -23,5 +23,9 @@ namespace Ashen.Generated
         public const string PileViewer = "pileViewer";
         public const string Armoury = "armoury";
         public const string RunEnd = "runEnd";
+        public const string Merchant = "merchant";
+        public const string Event = "event";
+        public const string Dialogue = "dialogue";
+        public const string LegacyDungeon = "legacyDungeon";
     }
 }

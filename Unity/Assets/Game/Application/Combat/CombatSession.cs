@@ -57,6 +57,10 @@ namespace Ashen.App.Combat
         public static CombatSession Start(CombatData data, uint seed, JObject createArgs) =>
             new CombatSession(data, CombatStart.Create(data, new Rng(seed), createArgs), seed);
 
+        /// <summary>A fight the run loop entered mid-run: it draws from the run's own RNG (its counters carry on), as the shipped enterCombat does.</summary>
+        public static CombatSession Start(CombatData data, Rng rng, JObject createArgs) =>
+            new CombatSession(data, CombatStart.Create(data, rng, createArgs), rng.Seed);
+
         /// <summary>Restore a checkpoint payload written by <see cref="Checkpoint"/>.</summary>
         public static CombatSession Resume(CombatData data, JObject checkpoint)
         {

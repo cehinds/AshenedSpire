@@ -16,6 +16,9 @@ namespace Ashen.App.Ui
         public StringTable Strings;
         public JObject About;
 
+        /// <summary>ui/nodes.json: the node screens' presentation data (W-09, W-11, W-13).</summary>
+        public Ashen.App.Nodes.NodeRules Nodes;
+
         public static UiData Load(IContentSource source)
         {
             JObject Read(string path) => (JObject)JsonContent.Parse(source.ReadText(path));
@@ -27,8 +30,9 @@ namespace Ashen.App.Ui
                 Tokens = new UiTokens(Read(ContentFiles.UiTokens)),
                 Components = ComponentDefaults.From(Read(ContentFiles.UiComponents)),
                 Policies = ConfirmPolicies.From(Read(ContentFiles.UiConfirmationPolicies)),
-                Strings = new StringTable(Read(ContentFiles.StringsEn), Read(ContentFiles.StringsCombatEn), Read(ContentFiles.StringsAppEn)),
+                Strings = new StringTable(Read(ContentFiles.StringsEn), Read(ContentFiles.StringsCombatEn), Read(ContentFiles.StringsAppEn), Read(ContentFiles.StringsShopEn), Read(ContentFiles.StringsEventsEn), Read(ContentFiles.StringsNodesEn)),
                 About = Read(ContentFiles.About),
+                Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
             };
         }
 

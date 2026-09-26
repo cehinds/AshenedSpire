@@ -20,6 +20,10 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.Combat: return new CombatScreen();
                 case ScreenIds.Pause: return new PauseScreen();
                 case ScreenIds.Rewards: return new RewardsScreen();
+                case ScreenIds.Merchant: return new MerchantScreen();
+                case ScreenIds.Event:
+                case ScreenIds.Dialogue: return new EventScreen();
+                case ScreenIds.LegacyDungeon: return new DungeonScreen();
                 default: return new PlaceholderScreen();
             }
         }

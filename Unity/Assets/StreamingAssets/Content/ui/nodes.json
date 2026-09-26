@@ -1,0 +1,47 @@
+{
+  "comment": "Node screen presentation (04 W-09, W-11, W-13; D-140n). 'merchant.shelves' is the rail order (the sell shelf shows only while the shopSell setting is on); 'merchant.figure' is the art shown for the merchant (existing enemy art, per 04 W-09 'chosen per data'). 'event.art' maps an event id to the reused registry art of its narrative panel; without an entry the first enemy of a fight the event can start is shown ('event.enemyArt', {id}), else the region's map art ('event.background', {region}; 'event.fallbackBackground' when the art is missing). 'dialogue.speakerArt' is a speaker portrait by its portraitKey ({id}); 'dialogue.playerArt' names the player's figure (the run's portrait). 'legacyDungeon' names a scene's background and floor ({scene}: the catalog scene id whose node range holds the node), the dungeon's map art ({asset}: the dungeon's assetId) and the occupant of a hostile node (its encounter's first enemy, {id}). Every value is an assets/registry.json id or template.",
+  "merchant": {
+    "shelves": ["cards", "armaments", "weaponArts", "relics", "flasks", "services", "sell"],
+    "background": "bg.tower-entrance-hall",
+    "figure": "enemy.chainScavenger.base"
+  },
+  "event": {
+    "background": "env.{region}-map",
+    "fallbackBackground": "bg.bg_act1",
+    "enemyArt": "enemy.{id}.base",
+    "art": {
+      "turncoatMirror": "enemy.mirrorScribe.base",
+      "goldboughAvatar": "enemy.briarHermit.base",
+      "weepingPilgrim": "enemy.emberStarvedPilgrim.base",
+      "bloodstainedAltar": "enemy.eclipseCantor.base",
+      "wanderingPhysician": "enemy.courtSurgeon.base",
+      "goldenMoth": "enemy.lanternMoth.base",
+      "ancientRuneStone": "enemy.hollowAstronomer.base",
+      "graveOfTheNameless": "enemy.graveWisp.base",
+      "sleepingSmith": "enemy.furnaceSaint.base",
+      "wyrmTrial": "enemy.wyrmAspirant.base",
+      "discardedReliquary": "enemy.chainScavenger.base",
+      "omensAltar": "enemy.fellWarden.base",
+      "rotPriestOffer": "enemy.marrowOrganist.base",
+      "handspiderNest": "enemy.stitchCrab.base",
+      "fadedGrace": "enemy.valkyrieShade.base",
+      "merchantsGhost": "enemy.courtMarionette.base",
+      "cinderbearDen": "enemy.huskBrute.base",
+      "stakeOfTheMartyr": "enemy.charredColossus.base",
+      "twoFingersRiddle": "enemy.glassRegent.base",
+      "namelessKeeper": "enemy.emberStarvedPilgrim.base",
+      "namelessRest": "enemy.graveWisp.base",
+      "lastLantern": "enemy.lanternMoth.base",
+      "lanternCaravan": "enemy.lanternMoth.base"
+    }
+  },
+  "dialogue": {
+    "speakerArt": "enemy.{id}.base"
+  },
+  "legacyDungeon": {
+    "background": "env.legacy.{scene}-background",
+    "floor": "env.legacy.{scene}-floor",
+    "map": "env.legacy.{asset}",
+    "occupantArt": "enemy.{id}.base"
+  }
+}

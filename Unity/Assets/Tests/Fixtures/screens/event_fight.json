@@ -1,0 +1,10 @@
+{
+  "comment": "W-11 resolved with a fight: the result sentence replaces the responses and Continue reads Steel yourself.",
+  "screen": "event",
+  "eventId": "wyrmTrial",
+  "take": "enterRing",
+  "skipSizes": [
+    "1920x1080",
+    "390x844"
+  ]
+}

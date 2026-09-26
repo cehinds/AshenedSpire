@@ -1,5 +1,5 @@
 {
-  "comment": "Screen registry (docs/design/08 §10, 06 PF-08, 04 W-*; 09 Appendix C ids). Each built screen names its UXML (a Resources path), its 'layer' (screen | modal), an optional registry 'background' (assets/registry.json id), and the REQUIRED 'focusOrder': UiNames regions walked in order, the focusable items inside a region in document order (04 §0 default: rail, pane, footer Primary, footer Back). 'initialFocus' names the element that takes focus first (Back on every confirmation). 'back' is what Escape / pad B does when nothing inner is open: 'pop' returns to the previous screen, 'close' closes a modal, null does nothing. 'transitions' map a trigger to a target screen and a mode (push | replace). 'input': 'none' marks a screen that takes no input (boot). 'gate' shows the press-any-input gate on first entry (US-1.2). 'planned' registers a screen that is not built yet: menu entries that target it are disabled. 'dev' marks review-only screens. ScreenIds (Tools/codegen.d/ui.json) must list exactly these keys (UiDataTests). 'focusModes' names alternative focus orders a screen switches to while one of its states is active (combat: targeting, discard chooser, flask panel, enemy turn, end state; rewards: the card or draft pick); each is a list of regions like 'focusOrder'.",
+  "comment": "Screen registry (docs/design/08 §10, 06 PF-08, 04 W-*; 09 Appendix C ids). Each built screen names its UXML (a Resources path), its 'layer' (screen | modal), an optional registry 'background' (assets/registry.json id), and the REQUIRED 'focusOrder': UiNames regions walked in order, the focusable items inside a region in document order (04 §0 default: rail, pane, footer Primary, footer Back). 'initialFocus' names the element that takes focus first (Back on every confirmation). 'back' is what Escape / pad B does when nothing inner is open: 'pop' returns to the previous screen, 'close' closes a modal, null does nothing. 'transitions' map a trigger to a target screen and a mode (push | replace). 'input': 'none' marks a screen that takes no input (boot). 'gate' shows the press-any-input gate on first entry (US-1.2). 'planned' registers a screen that is not built yet: menu entries that target it are disabled. 'dev' marks review-only screens. ScreenIds (Tools/codegen.d/ui.json) must list exactly these keys (UiDataTests). 'focusModes' names alternative focus orders a screen switches to while one of its states is active (combat: targeting, discard chooser, flask panel, enemy turn, end state; rewards: the card or draft pick; merchant: the card pick of a burn or an install); each is a list of regions like 'focusOrder'.",
   "initial": "boot",
   "screens": {
     "boot": {
@@ -102,6 +102,38 @@
       "focusModes": {
         "pick": ["PICK_CARDS", "PICK_FOOTER"]
       },
+      "back": null,
+      "transitions": {}
+    },
+    "merchant": {
+      "uxml": "UI/Screens/Merchant",
+      "layer": "screen",
+      "background": "bg.tower-entrance-hall",
+      "focusOrder": ["WORKSPACE_NAV", "SHELF_LIST", "FOOTER_PRIMARY", "FOOTER_BACK", "SHELL_EXIT", "HUD_MENU"],
+      "focusModes": {
+        "pick": ["PICK_CARDS", "PICK_FOOTER"]
+      },
+      "back": null,
+      "transitions": {}
+    },
+    "event": {
+      "uxml": "UI/Screens/Event",
+      "layer": "screen",
+      "focusOrder": ["RESPONSE_LIST", "FOOTER_PRIMARY", "HUD_MENU"],
+      "back": null,
+      "transitions": {}
+    },
+    "dialogue": {
+      "uxml": "UI/Screens/Dialogue",
+      "layer": "screen",
+      "focusOrder": ["RESPONSE_LIST", "DIALOGUE_CONTINUE", "HUD_MENU"],
+      "back": null,
+      "transitions": {}
+    },
+    "legacyDungeon": {
+      "uxml": "UI/Screens/LegacyDungeon",
+      "layer": "screen",
+      "focusOrder": ["TRAY_ACTIONS", "HUD_MENU"],
       "back": null,
       "transitions": {}
     },

@@ -434,6 +434,8 @@ namespace Ashen.Presentation.UI.Screens
                 SaveFailed(e, Finish);
                 return;
             }
+            // Inside a legacy dungeon (a cache or a room fight) the climb returns to the dungeon (D-141n).
+            if (NodeRouter.Resume(Nav, Ui, _session)) return;
             Ui.Session = null;
             Nav.Go(Ui.Data.Screens.IsBuilt(ScreenIds.ActMap) ? ScreenIds.ActMap : ScreenIds.Title, null, true);
         }

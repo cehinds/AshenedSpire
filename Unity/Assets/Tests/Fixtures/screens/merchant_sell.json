@@ -1,0 +1,12 @@
+{
+  "comment": "W-09 sell mode (shopSell on): the Sell shelf with what the merchant will take and the Buy back note; the primary reads Sell · n cinders.",
+  "screen": "merchant",
+  "cinders": 150,
+  "sellOn": true,
+  "shelf": "sell",
+  "select": "available",
+  "skipSizes": [
+    "1920x1080",
+    "390x844"
+  ]
+}

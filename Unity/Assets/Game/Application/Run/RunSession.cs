@@ -77,7 +77,7 @@ namespace Ashen.App.Run
     /// (D-059), the run document, the location and, in a fight, the combat checkpoint; commands between checkpoints go
     /// to the generation's log with their after-state hash. Engine-free.
     /// </summary>
-    public sealed class RunSession
+    public sealed partial class RunSession
     {
         private readonly Func<DateTime> _clock;
         private JObject _run;
@@ -441,6 +441,7 @@ namespace Ashen.App.Run
             if (EncounterId != null) payload[RunSaveKeys.EncounterId] = EncounterId;
             if (After != null) payload[RunSaveKeys.After] = After;
             if (IsInCombat) payload[RunSaveKeys.Combat] = Combat.Checkpoint();
+            if (_node != null && !IsInCombat) payload[NodeKeys.Node] = _node.ToJson();
             return payload;
         }
 
@@ -525,6 +526,7 @@ namespace Ashen.App.Run
                 EncounterId = (string)payload[RunSaveKeys.EncounterId],
                 After = (string)payload[RunSaveKeys.After],
                 _location = (string)payload[RunSaveKeys.Location],
+                _node = Ashen.App.Nodes.NodeEntry.FromJson(payload[NodeKeys.Node]),
             };
             var warned = false;
             try

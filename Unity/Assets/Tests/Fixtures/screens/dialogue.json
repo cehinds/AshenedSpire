@@ -1,0 +1,15 @@
+{
+  "comment": "W4c dialogue: a quest chain step with its speaker (the Keeper of the Nameless) and the player figure, the context band with the line and the responses (one still locked by the history).",
+  "screen": "dialogue",
+  "eventId": "namelessKeeper",
+  "cinders": 120,
+  "history": [
+    {
+      "eventId": "graveOfTheNameless",
+      "choiceId": "digForCinders"
+    }
+  ],
+  "skipSizes": [
+    "1920x1080"
+  ]
+}
