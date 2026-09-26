@@ -8,6 +8,7 @@ namespace Ashen.Generated
         public const string CompletionQuestId = "recordQuestCompletion: stable quest id required, got '{0}'";
         public const string CompletionSource = "recordQuestCompletion: source must be one of {0}, got '{1}'";
         public const string HistoryRequired = "history: array required";
+        public const string LegacyGraceRefillDeferred = "A run without flask charge pools takes the legacy flask-slot refill, which is not ported (D-094)";
         public const string MaxHpLedgerMissing = "loseMaxHpPct requires the run maxHpAdjustment ledger";
         public const string ProblemActNumber = "{0}.actNumber: positive integer required";
         public const string ProblemChoiceId = "{0}.choiceId: stable id required";
@@ -20,7 +21,6 @@ namespace Ashen.Generated
         public const string RecordNeedsFloor = "recordEventChoice requires a non-negative integer run.floor";
         public const string RecordNeedsHistory = "recordEventChoice requires run.history";
         public const string RecordNeedsNode = "recordEventChoice requires a stable run.mapNodeId or null";
-        public const string RefillFlasksDeferred = "executeRunEffects: the refillFlasks op (the grace refill, engine/encounters.js applyGraceRefill) belongs to the rest story and is not ported yet (D-088)";
         public const string RequirementAnyEmpty = "requirement.any: at least one choice required";
         public const string RequirementGroupArray = "requirement.{0}: array required";
         public const string RequirementObject = "requirement: object required";

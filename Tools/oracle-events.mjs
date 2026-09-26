@@ -344,10 +344,18 @@ function smithOut(run) {
     commitSmithing(registries, run, c.itemRef, undefined, { free: true });
   }
 }
+// The grace refill (engine/encounters.js applyGraceRefill through runRunOpcode's refillFlasks), recorded after the
+// lists above so their names and seeds stay put: the run-level door is one port shared by events and rest places
+// (D-100i), so the event side pins the opcode too. Spent pools, a part-spent pool, a refill twice, a heal after it.
+const REFILL = [
+  { name: 'refill-spent', setup: (run) => { for (const k of ['hp', 'mana']) if (run.flaskCharges && `${k}Current` in run.flaskCharges) run.flaskCharges[`${k}Current`] = 0; }, effects: () => [{ op: 'refillFlasks' }] },
+  { name: 'refill-part', setup: (run) => { if (run.flaskCharges) run.flaskCharges.hpCurrent = Math.max(0, run.flaskCharges.hp - 1); run.hp = Math.max(1, run.hp - 9); }, effects: () => [{ op: 'refillFlasks' }, { op: 'refillFlasks' }, { op: 'heal', target: 'self', amount: 4 }] },
+];
 let e = 0;
+const recordEffects = (lists) => {
 for (const preset of ['shipped', 'reference']) {
   registries = PRESETS[preset];
-  for (const spec of EFFECTS) {
+  for (const spec of lists) {
     for (let c = 0; c < 2; c++) {
       const classId = startable[preset][(e + c) % startable[preset].length];
       const seed = sweepSeed(13000 + e);
@@ -374,6 +382,9 @@ for (const preset of ['shipped', 'reference']) {
     }
   }
 }
+};
+recordEffects(EFFECTS);
+recordEffects(REFILL);
 
 if (coverage) {
   const { result } = await coverage.post('Profiler.takePreciseCoverage');

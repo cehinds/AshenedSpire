@@ -10,11 +10,11 @@ namespace Ashen.Generated
         public const string ChargeNotACount = "flaskChargePlan: charges.{0} is not a count";
         public const string ChargePlanNeedsCapacity = "flaskChargePlan needs a run flask-charge pool with a positive capacity";
         public const string DeckCardVanished = "Deck card '{0}' vanished between plan and commit";
+        public const string DeckModeDeferred = "newRun: the '{0}' deck mode is not ported (D-102i)";
         public const string FlaskSlotsNotPositive = "balance.flaskSlots must be a positive integer";
         public const string InsufficientStones = "Insufficient Smithing Stones (shortfall {0})";
         public const string ItemUpgradeLevelsNotObject = "run.itemUpgradeLevels must be an object";
         public const string JourneyDeferred = "World Journey runs are not ported yet (run-loop story; D-091)";
-        public const string LegacyGraceRefillDeferred = "A run without flask charge pools takes the legacy flask-slot refill, which is not ported (D-094)";
         public const string LevelAboveTiers = "run.itemUpgradeLevels.{0} exceeds its highest authored tier";
         public const string LevelConflict = "Smithing level conflict: run.armamentLevels.{0} disagrees with run.itemUpgradeLevels.{1}";
         public const string LevelKeyNotItemRef = "run.itemUpgradeLevels key '{0}' is not a namespaced item ref";
@@ -24,6 +24,9 @@ namespace Ashen.Generated
         public const string MountNotOpen = "Mount '{0}' on '{1}' is not open";
         public const string MountTransactionsNotInteger = "run.mountTransactions must be an integer >= 0";
         public const string MoveSameKind = "moveFlaskCharge: from and to are the same kind";
+        public const string NewRunNeedsConfigSnapshot = "newRun: the advanced config snapshot (advancedConfigSnapshot(settings)) is required";
+        public const string NewRunNeedsSeedString = "newRun: the seed string (seedToString) is required";
+        public const string NewRunRulesMissing = "rules/loopEngine.json newRun is missing";
         public const string NoChargeToMove = "moveFlaskCharge: no '{0}' charge to move";
         public const string NoDerivedSnapshot = "levelUp: the run carries no derived-stat snapshot to re-derive against";
         public const string NoExtractableMount = "Item '{0}' has no extractable mount";
@@ -45,7 +48,6 @@ namespace Ashen.Generated
         public const string RunHasNoLastEncounters = "The run carries no lastEncounters list";
         public const string RunHasNoPath = "The run carries no path list";
         public const string RunHasNoSeenEvents = "The run carries no seenEvents list";
-        public const string RunQueueDidNotDrain = "Run effect queue did not drain";
         public const string ServicePriceNotInteger = "smithing.services.{0}.cost must be an integer >= 0";
         public const string ServicePriceNotObject = "smithing.services.{0} must be an object";
         public const string ServicesNotObject = "smithing.services must be an object";
