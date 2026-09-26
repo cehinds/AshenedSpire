@@ -27,8 +27,8 @@ namespace Ashen.Presentation.UI.Screens
     /// W-04 creation, Class pane only (US-2.1, US-2.8; D-058 for the planned panes). The four classes come from content in
     /// authoring order, each with its portrait, name and summary; the selected class unfolds with its starting attributes,
     /// pools and flask split read from createRunState. The data default (rules/runFlow.json) is preselected when it can
-    /// begin. The rail lists Class, Character, Equipment and Review with their values; only Class is built. Begin writes the
-    /// run (W2c Replace first when the slot holds a climb), enters the first fight and opens W-07.
+    /// begin. The rail lists Class, Character, Equipment and Review with their values; only Class is built. Begin makes the
+    /// climb through the run loop's newRun (W2c Replace first when the slot holds a climb) and opens the act map (W-06).
     /// </summary>
     public sealed class CreationScreen : ScreenView
     {
@@ -150,10 +150,9 @@ namespace Ashen.Presentation.UI.Screens
 
         private void StartRun()
         {
-            var session = RunSession.New(_content, Ui.Saves, _slot, RunFlow.NewSeed(), ViewModel.Selected, Ui.Data.Strings.Get(_content.Flow.NameKey));
-            session.StartEncounter();
+            var session = RunSession.New(_content, Ui.Saves, _slot, RunFlow.NewSeed(), ViewModel.Selected, Ui.Data.Strings.Get(_content.Flow.NameKey), null, RunFlow.CustomOverride);
             Ui.Session = session;
-            Nav.Fire(ScreenTriggers.Begin, new CombatArgs { Session = session });
+            Nav.Fire(ScreenTriggers.Begin, new RunScreenArgs { Session = session });
         }
     }
 }

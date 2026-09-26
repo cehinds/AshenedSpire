@@ -1,0 +1,30 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Climb.uss" />
+    <ui:VisualElement name="RUNEND_BACKGROUND" class="runend-background" picking-mode="Ignore" />
+    <ui:VisualElement name="SCRIM" class="page page--center scrim">
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="runend-shell" exit-visible="false">
+            <ui:VisualElement class="runend-top">
+                <ui:VisualElement name="RUNEND_FIGURE" class="runend-figure" picking-mode="Ignore" />
+                <ui:VisualElement class="runend-card">
+                    <Ashen.Presentation.UI.LocLabel name="RUNEND_DETAIL" class="runend-detail kit-text-header" />
+                    <Ashen.Presentation.UI.LocLabel name="RUNEND_WHERE" class="runend-where kit-text-value" />
+                    <Ashen.Presentation.UI.LocLabel class="eyebrow kit-text-header runend-eyebrow" string-key="runEnd.stats" />
+                    <ui:VisualElement name="RUNEND_STATS" class="runend-stats" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="runend-bottom">
+                <ui:VisualElement class="runend-deck-column">
+                    <Ashen.Presentation.UI.LocLabel name="RUNEND_DECK_TITLE" class="eyebrow kit-text-header" />
+                    <ui:ScrollView name="RUNEND_DECK_SCROLL" class="runend-deck-scroll" horizontal-scroller-visibility="Hidden">
+                        <ui:VisualElement name="RUNEND_DECK" class="runend-deck" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
+                <ui:VisualElement class="runend-unlock-column">
+                    <Ashen.Presentation.UI.LocLabel class="eyebrow kit-text-header" string-key="runEnd.unlocks" />
+                    <ui:VisualElement name="RUNEND_UNLOCKS" class="runend-unlocks" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </Ashen.Presentation.UI.Kit.Shell>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,147 @@
+/* RUN_HUD band (docs/design/04 §1 RunHud, W-06, W-10): identity and trail, the purse (cinders, stones, flask charges,
+   deck), the three pool meters and [Menu]. It never shows potions as controls (04 §1). Tokens only. */
+
+.runhud {
+    height: var(--size-run-hud);
+    min-height: var(--size-run-hud-min);
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    padding: var(--space-xs) var(--space-lg);
+    background-color: var(--color-shade);
+    border-bottom-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.runhud-portrait {
+    width: var(--size-hud-portrait);
+    height: var(--size-hud-portrait);
+    flex-shrink: 0;
+    margin-right: var(--space-md);
+    background-size: contain;
+    background-color: var(--color-bg-raise);
+    border-radius: var(--radius-chip);
+}
+
+.runhud-identity {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+.runhud-name {
+    font-size: var(--font-heading);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.runhud-trail {
+    font-size: var(--font-caption);
+    color: var(--color-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.runhud-purse {
+    flex-direction: row;
+    flex-shrink: 0;
+    align-items: center;
+    margin-left: var(--space-md);
+}
+
+.runhud-chip {
+    margin-left: var(--space-sm);
+    padding: var(--space-xxs) var(--space-sm);
+    font-size: var(--font-chip);
+    color: var(--color-parchment);
+    background-color: var(--color-bg-raise);
+    border-radius: var(--radius-chip);
+    white-space: nowrap;
+}
+
+.runhud-cinders {
+    color: var(--color-gold);
+}
+
+.runhud-meters {
+    flex-direction: row;
+    flex-shrink: 0;
+    align-items: center;
+    margin-left: var(--space-md);
+    margin-right: var(--space-md);
+}
+
+.runhud-meter {
+    width: var(--size-hud-meter-w);
+    margin-left: var(--space-md);
+    margin-bottom: 0;
+}
+
+.runhud-meter .meter-glyph {
+    width: auto;
+    margin-right: var(--space-xs);
+    font-size: var(--font-caption);
+    color: var(--color-muted);
+}
+
+.runhud-menu {
+    flex-shrink: 0;
+    min-width: var(--size-button-min-w);
+}
+
+.band-compact .runhud-meter {
+    width: var(--size-run-hud-meter-compact-w);
+}
+
+.band-compact .runhud-portrait {
+    display: none;
+}
+
+.layout-narrow .runhud {
+    height: auto;
+    flex-wrap: wrap;
+    padding: var(--space-xs) var(--space-sm);
+}
+
+.layout-narrow .runhud-portrait {
+    width: var(--size-slot-portrait-narrow);
+    height: var(--size-slot-portrait-narrow);
+    margin-right: var(--space-sm);
+}
+
+.layout-narrow .runhud-identity {
+    width: var(--size-run-hud-identity-narrow);
+}
+
+.layout-narrow .runhud-menu {
+    min-width: 0;
+}
+
+.layout-narrow .runhud-purse {
+    width: var(--size-full-width);
+    margin-left: 0;
+    margin-top: var(--space-xxs);
+}
+
+.layout-narrow .runhud-chip {
+    margin-left: 0;
+    margin-right: var(--space-xs);
+}
+
+.layout-narrow .runhud-meters {
+    width: var(--size-full-width);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: var(--space-xxs);
+}
+
+.layout-narrow .runhud-meter {
+    flex-grow: 1;
+    width: auto;
+    margin-left: 0;
+    margin-right: var(--space-sm);
+}

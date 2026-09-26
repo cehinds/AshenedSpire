@@ -98,5 +98,14 @@ namespace Ashen.Generated
         public const string FlaskArt = "flaskArt";
         public const string FlaskArtPrefix = "flaskArtPrefix";
         public const string ModifierTokens = "modifierTokens";
+        public const string Climb = "climb";
+        public const string MapBackground = "mapBackground";
+        public const string RestBackground = "restBackground";
+        public const string VictoryBackground = "victoryBackground";
+        public const string ZoomSteps = "zoomSteps";
+        public const string ZoomDefault = "zoomDefault";
+        public const string RowHeight = "rowHeight";
+        public const string EdgeWidth = "edgeWidth";
+        public const string DotSpacing = "dotSpacing";
     }
 }

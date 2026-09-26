@@ -298,6 +298,9 @@ namespace Ashen.App.Ui
         /// <summary>How a relic's passive modifier names its text token (rewards.modifierTokens: tag → { from, suffix, value }).</summary>
         public JObject RewardModifierTokens = new JObject();
 
+        /// <summary>The climb screens (ui/components.json climb): W-06 board metrics and backgrounds, W-10 and W-15 backgrounds.</summary>
+        public ClimbDefaults Climb = new ClimbDefaults();
+
         /// <summary>
         /// Whether a registry id is in art.include: a plain entry is an id prefix; an entry with the wildcard matches ids
         /// that start with its first half and end with its second (Cli.BuildUiArt and the data tests use this one rule).
@@ -325,6 +328,7 @@ namespace Ashen.App.Ui
                 RewardFlaskArt = (string)rewards[UiKeys.FlaskArt],
                 RewardFlaskArtPrefix = (string)rewards[UiKeys.FlaskArtPrefix],
                 RewardModifierTokens = rewards[UiKeys.ModifierTokens] as JObject ?? new JObject(),
+                Climb = ClimbDefaults.From(json[UiKeys.Climb] as JObject ?? new JObject()),
                 CombatBackground = (string)combat[UiKeys.Background],
                 CombatFallbackBackground = (string)combat[UiKeys.FallbackBackground],
                 EnemyArt = (string)combat[UiKeys.Enemy],
@@ -338,6 +342,38 @@ namespace Ashen.App.Ui
                 MaxSpread = (double)fan[UiKeys.MaxSpread],
                 ScrollAfter = (int)fan[UiKeys.ScrollAfter],
                 BootFilesPerFrame = (int)json[UiKeys.Boot][UiKeys.FilesPerFrame],
+            };
+        }
+    }
+
+    /// <summary>
+    /// ui/components.json climb: the act map's background template ({region}), the floor height in reference px, the zoom
+    /// steps and the default step, the edge width and the travelled trail's dot spacing; the rest and victory backgrounds.
+    /// </summary>
+    public sealed class ClimbDefaults
+    {
+        public string MapBackground;
+        public string RestBackground;
+        public string VictoryBackground;
+        public double RowHeight;
+        public IReadOnlyList<double> ZoomSteps = new double[] { 1d };
+        public int ZoomDefault;
+        public double EdgeWidth;
+        public double DotSpacing;
+
+        public static ClimbDefaults From(JObject json)
+        {
+            var steps = (json[UiKeys.ZoomSteps] as JArray)?.Select(t => (double)t).ToList();
+            return new ClimbDefaults
+            {
+                MapBackground = (string)json[UiKeys.MapBackground],
+                RestBackground = (string)json[UiKeys.RestBackground],
+                VictoryBackground = (string)json[UiKeys.VictoryBackground],
+                RowHeight = (double?)json[UiKeys.RowHeight] ?? 0d,
+                ZoomSteps = steps != null && steps.Count > 0 ? steps : (IReadOnlyList<double>)new double[] { 1d },
+                ZoomDefault = (int?)json[UiKeys.ZoomDefault] ?? 0,
+                EdgeWidth = (double?)json[UiKeys.EdgeWidth] ?? 1d,
+                DotSpacing = (double?)json[UiKeys.DotSpacing] ?? 1d,
             };
         }
     }
