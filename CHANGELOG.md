@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.0.6.0] — 2026-09-26
+
+Stories: us-0.5, us-18.4
+
+- Deterministic RNG streams, seed codec, seat order; parity oracle (us-0.5 part 1, us-18.4)
+
 ## [0.0.4.0] — 2026-09-26
 
 Stories: us-0.4

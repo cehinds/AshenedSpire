@@ -1,0 +1,24 @@
+{
+  "comment": "Named RNG streams and seed vocabulary (docs/design/08, PF-07; ported from the shipped engine/rng.js). Each stream is derived from (seed XOR fnv1a(streamName)); ORDER DOES NOT AFFECT VALUES. Codegen emits the RngStream enum from 'streams' in order — append new streams at the end.",
+  "streams": [
+    "map",
+    "shuffle",
+    "cardRewards",
+    "relicRewards",
+    "flaskRewards",
+    "armaments",
+    "enemyAI",
+    "enemyHP",
+    "events",
+    "shop",
+    "misc",
+    "smith",
+    "combatProcs",
+    "seats"
+  ],
+  "seed": {
+    "alphabet": "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ",
+    "homoglyphs": [["O", "0"]],
+    "maxLength": 10
+  }
+}

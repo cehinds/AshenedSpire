@@ -4,6 +4,27 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 ## Phase F0 Foundation (in progress)
 
+### us-0.5 (part 1) + us-18.4: deterministic RNG proven against the shipped JS (2026-09-26)
+
+- **`Ashen.Domain.Random.Rng`** is a mulberry32 per named stream: base = seed XOR fnv1a(name); the value at draw i comes in O(1), so a restored counter is exact.
+  - It is integer-only. Ranges use `(u·n) >> 32`; chance uses hundredths.
+  - `Clone()` exists for previews that must not advance the real streams.
+- **`SeedCodec`** does base-35 with homoglyph folding; the alphabet comes from `rules/rng.json`.
+- **`SeatOrder.Draw`** does one shuffle on `seats`; a pinned first seat rotates the order.
+- **Generated:** the `RngStream` enum (from `rules/rng.json`) and the `RngAlgorithm` constants (D-034).
+- **`Tools/oracle.mjs`** calls the shipped `engine/rng.js` and `drawSeatOrder` and writes `Unity/Assets/Tests/Oracle/{rng,seeds,seats}.json`:
+  - 15 seeds × 14 streams × 64 raw draws;
+  - int, shuffle and chance samples, and restored counters;
+  - the seed codec;
+  - 50 seat orders, plus the same seeds with Marches pinned first.
+- **`RngParityTests`** (suite: Parity) passes:
+  - **13,440 raw draws bit-identical**;
+  - ints, shuffles, chances at 5, 12.5, 25, 50, 75 and 99.99%, and restored counters identical;
+  - seed format and parse identical;
+  - all 100 seat-order cases identical.
+- **Results:** dotnet 21/21 · Unity EditMode 22/22.
+- **Deferred (D-033):** golden replays and map-generation parity move to F2/F3, when the combat loop and the map generator exist.
+
 ### us-0.4: the validator names exactly what is wrong (2026-09-26)
 
 - **`Ashen.Content.ContentValidator`** (engine-free) checks:
