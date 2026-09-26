@@ -1,5 +1,5 @@
 {
-  "contentHash": "87279e96210542a312ac411310dbb77133f17ebd32d4e6500b3a641762a99c46",
+  "contentHash": "efbf8b1b5e543d7fbe95371e5cbf5ce9e54d26f2e736055dfd16918709369801",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -61,12 +61,12 @@
     "audio/music.json": {
       "bytes": 6136,
       "generated": true,
-      "sha256": "387f5eb530c57a80ac720f66f3e8f96070f4ab4fc0e47d6adb87d51dd4446c49"
+      "sha256": "746e467fffa634a19323142bf0d275abf7e9be573c9c824a2a4d046075f2935c"
     },
     "audio/sfx.json": {
       "bytes": 6149,
       "generated": true,
-      "sha256": "541b20d0862867083ba7a4db188a5bb98965d93ab81f427e847c5f316fe6e38d"
+      "sha256": "91aa694ab1feabd15b6e76db009feaf3772bec3538309a504c540f28c70b7bd3"
     },
     "audio/synth.json": {
       "bytes": 560,
@@ -76,52 +76,52 @@
     "balance/balance.json": {
       "bytes": 43015,
       "generated": true,
-      "sha256": "6f9797dee99b2a0e324761fd347a6fce0bf7d785e1c96acbf0f211964a02259d"
+      "sha256": "ba78cdc0d24d30578e430c8a4dff5893a5d6177d3f16789c2534c876becb9d3f"
     },
     "balance/customRun.json": {
       "bytes": 2127,
       "generated": true,
-      "sha256": "f0d38bca2b32d1cafd6b040db8005690d1edaea4cbf65868108a8297473c12c6"
+      "sha256": "c17de936e4f6c6f344957c4bb7dedff643a7c5be52f7075b563f14cc18426212"
     },
     "balance/mapConfigs.json": {
       "bytes": 2511,
       "generated": true,
-      "sha256": "f35336047c8d355302685e45bb000d952c6a8d1fa85ebb316fe00eaef2691eae"
+      "sha256": "ace3b7ed4bf54c118927e0df5e38b3c1e35123be86cb7194657d00d3e60de7c3"
     },
     "balance/mapShape.json": {
       "bytes": 2993,
       "generated": true,
-      "sha256": "72eefbac25f3b579c81904e0f50e0c3f664cab4087a372c0cb0fc354257643da"
+      "sha256": "cad116a147d7f04bd37e6b79125d5b991c4481c68b12e852ce562232dd8fd837"
     },
     "catalog/armaments.json": {
       "bytes": 28192,
       "generated": true,
-      "sha256": "4a1859f2dee441117dde6ad830581c94c46810a19503a345a8133b277930e7d3"
+      "sha256": "6ce83d253182ddb78584540ef46ff644d259f0b99e4441fb0959a5815f5883e3"
     },
     "catalog/armour.json": {
       "bytes": 15622,
       "generated": true,
-      "sha256": "7d3c0769aa15491943d468b73c549703ba46ec0678e8880d58ab6cde3731f53b"
+      "sha256": "a492f5a8ad547eac3b3667147bc8ec4726e527dddbe2b151e2fae75c72fbaf69"
     },
     "catalog/atlasQuests.json": {
       "bytes": 988,
       "generated": true,
-      "sha256": "81377da10ac7ea2750597f8473ac36c771bf7550aae23d4024122d0232224ff3"
+      "sha256": "04417b0c0247f3204694c92a83ff8024db9202e76f7ffc9844c8ea92278bf75d"
     },
     "catalog/attributes.json": {
       "bytes": 773,
       "generated": true,
-      "sha256": "b8fabc4552b74ba5ad3e0f67997924c5fa34907680e0d950cf24e5dd1172db6f"
+      "sha256": "76c6d14b5b85cafe4f8f07179488331ba9e0761fbe20b1a7164de467d31d9491"
     },
     "catalog/basicCardProfiles.json": {
       "bytes": 12641,
       "generated": true,
-      "sha256": "157568fd5c640fedb56294a0ee7af2c2134f6dc9136159173802d0de77903261"
+      "sha256": "792122e07e4be7859dacefef4ff029255b351261508d28e5626096d9c48fbed0"
     },
     "catalog/bossDestinations.json": {
       "bytes": 428,
       "generated": true,
-      "sha256": "29026f7ebe39ef1e8ea28c91b54d06e6f365c3692219ac4b3f59bc6358fdd375"
+      "sha256": "1a4112f278c45960104c893003e00fb0d519dffa4aa6f98bbc17cbb781bdbc58"
     },
     "catalog/cardExposure.json": {
       "bytes": 9258,
@@ -136,67 +136,67 @@
     "catalog/cards.json": {
       "bytes": 163369,
       "generated": true,
-      "sha256": "30260196fbac05aee83ba978768b366598f95369b36766134a5a5a6ead6df5f6"
+      "sha256": "060fa58ff1cafdb58f1cd16649a82dd24730075a59be7ec609f944fe45c27b8b"
     },
     "catalog/characterCreation.json": {
       "bytes": 2931,
       "generated": true,
-      "sha256": "ce5be553cf9b8bbaddb0ef5b84949582c2a89be30dc5c08fdbed012c189aa79c"
+      "sha256": "7ea33234df23738a2dec1224f5a81b36795b158c5459952e0473e4401fc6d552"
     },
     "catalog/classTree.json": {
       "bytes": 2305,
       "generated": true,
-      "sha256": "05cde760d6db8d7dc3b9880c4b7a76cf26c9e019b924c8f568850b9cf52c32ec"
+      "sha256": "40c10ac03502ced09964728f67fe9cefac51c8156e783bb1c994e8b64bcfe1c7"
     },
     "catalog/classes.json": {
       "bytes": 4768,
       "generated": true,
-      "sha256": "bb4d0b85f798cf7c404bb6fbfe8ea6297895d7194b0f05654d29f21c3b3574a6"
+      "sha256": "c83863968eea7d36d6722831dab092bed189b4b6d0ed39943f275705cb8f838c"
     },
     "catalog/creationModes.json": {
       "bytes": 911,
       "generated": true,
-      "sha256": "a30464ce97de5f513b6d590293c75bc182c2fdede25f3430c725ae3220db78eb"
+      "sha256": "ade91e971667df4d943d4ed21101c908f612fcba5ed43ed1c9f498bdee7b5c2c"
     },
     "catalog/encounters.json": {
       "bytes": 9903,
       "generated": true,
-      "sha256": "e09c8290efa8bc5e33c635ed1bd190fbdc43323e8a5a85eda26e4c0eaa3843bc"
+      "sha256": "b8af428f8e64dc6dff4fef476c86c3e31ac8fec6fe114725783ec31f43bf141b"
     },
     "catalog/enemies.json": {
       "bytes": 34134,
       "generated": true,
-      "sha256": "5b95c82d109041f60bd366a33998a302c9cc4a333fffb183cdcb53dc6cb4346d"
+      "sha256": "9ca8c7032dbae850588ac5d4bb6f9081b706e524abb143c1679799a535d15397"
     },
     "catalog/equipmentMeta.json": {
       "bytes": 9215,
       "generated": true,
-      "sha256": "74b00b5159c6305e228faf59c38c4cbd5aa0484bcf43002bbeef923e834f8793"
+      "sha256": "39bce1b479c2f159b9eb30352ac1585f3d74aeb4016881448c8752258a9f7f86"
     },
     "catalog/equipmentRequirements.json": {
       "bytes": 794,
       "generated": true,
-      "sha256": "d142e4ba1dc0f129fc7c22c83676039bf037a6e364efcc712e194dec5311dd07"
+      "sha256": "ace0841b2859d145fb1e44b8d3b74d44f91b567ee1818afd46ac71921a49c8bc"
     },
     "catalog/equipmentSlots.json": {
       "bytes": 2339,
       "generated": true,
-      "sha256": "cc6248d980837376f58e566e351ad02e2b827efcc51b1b40240fae99d3bd32c9"
+      "sha256": "d3e5c91217ea22827cc6f985f1873ca491b76fedc9591df2225ec4bc9dec8cfa"
     },
     "catalog/eventMeta.json": {
       "bytes": 4050,
       "generated": true,
-      "sha256": "c8b3ef38faa3eaa79b6932b30d09d05ba308cf73f112b4314599a0b7f4e16826"
+      "sha256": "39e6955bfdc83c2f97c6204e7ba876141376a9b968662349ccd61aec5577e108"
     },
     "catalog/events.json": {
       "bytes": 25663,
       "generated": true,
-      "sha256": "ac6049ded3a172cb26a70495e31b02e572b8ee802237c8fbd813d1cd950b2e48"
+      "sha256": "378e80f425a7c5c982c1afdf8f2d5d4f6db833e49bac1a728f8298fa2d2da393"
     },
     "catalog/flasks.json": {
       "bytes": 2088,
       "generated": true,
-      "sha256": "e55f4cff6f456d2dfda6fb538de51602ccef26c661f6e6aa3b9780bded6d4ed8"
+      "sha256": "382a53e1474243588da09279232e163e3fba358013d5d380d1ea5617c3ad87c1"
     },
     "catalog/itemUpgradeChanges.json": {
       "bytes": 20395,
@@ -206,77 +206,77 @@
     "catalog/keywords.json": {
       "bytes": 207,
       "generated": true,
-      "sha256": "c820e9576fc2d63a9e31017fca98cd447e2c8f3fdacae078c91114cc149711c9"
+      "sha256": "8ac42a4ec9e0e80cbf6569de37791b2d6259528e58deabceda273d077ed0ccda"
     },
     "catalog/legacyDungeons.json": {
       "bytes": 53583,
       "generated": true,
-      "sha256": "0c641a101610329b756e3d2d6d6cdbf318d149f7b5fe25ba22adb327ecccc112"
+      "sha256": "3f5a29e3f3e622f916424cd2b865ad3b7fa06abf40be7097f193f9b254215e1d"
     },
     "catalog/relics.json": {
       "bytes": 7421,
       "generated": true,
-      "sha256": "d24a44e3d47c42c58bbc51b9e370db1947337cbd650da32f2a605251a25f45d7"
+      "sha256": "12e80c0f1cf41f99f7dc4d126227afca397936e8170a54017c15083e8c51de91"
     },
     "catalog/resources.json": {
       "bytes": 990,
       "generated": true,
-      "sha256": "1ae0e3b28d3eaa0fe9f8d4bbb62e9ad65a0c4f9c52e8922618b25bc4f734b2c2"
+      "sha256": "d0525ef7ff166597e7450218b13ef8f0168cde73018d55c43997e4f1b191bb6e"
     },
     "catalog/seats.json": {
       "bytes": 268,
       "generated": true,
-      "sha256": "92cbac08dd5569bf7154e6e02260b2f557c25cbd580e68e3be826767f0b74a5a"
+      "sha256": "0f47cba7967afe1ed485ef4adb0c09c07089e3e3a2559756d5ee665f2fb85603"
     },
     "catalog/speakers.json": {
       "bytes": 258,
       "generated": true,
-      "sha256": "92cc45cdad307d9b1e7cab229e99b8fc97245fa4cd4b94c5de1e646b6862adf8"
+      "sha256": "a3842319a70fee95fddf7b29e5ed224d98071ac5cdcb61371c59986e903bf2c6"
     },
     "catalog/stances.json": {
       "bytes": 1504,
       "generated": true,
-      "sha256": "64880d9d7af4bb140270a8394c99abc4cbcf14fabcfa489448176fd7ab036878"
+      "sha256": "22f7dbd178664cda3b4250f46af5f3a221929901134200f277a95c16cc436145"
     },
     "catalog/startingKits.json": {
       "bytes": 1265,
       "generated": true,
-      "sha256": "a66712d1f19bf5936e6ec698dcf1424c1164c9c40fb6acf393d67aa9684b2f4c"
+      "sha256": "43e6eedfb4716e2c0d4426d3dd573979ec91f6684d2fc42f6343b6ca4f2fabed"
     },
     "catalog/statuses.json": {
       "bytes": 22547,
       "generated": true,
-      "sha256": "95d15c495d2e225c78f5a263ec71379a988d5c2dcb175a0a6df794bf52e949a6"
+      "sha256": "c07e29b133dd97746affc665280a373b63eeb3d1307531f55d367a6e651114ea"
     },
     "catalog/unlocks.json": {
       "bytes": 3102,
       "generated": true,
-      "sha256": "cdadbaa8acd7a8c1182e9b7de6aa871c98d57bf0390947dc8ff5c41ce2531901"
+      "sha256": "1a41ff811a1a567daad3aead47ecb64c6951c702b3e0211ff79dd935ae2d5518"
     },
     "catalog/weaponCardPackages.json": {
       "bytes": 10416,
       "generated": true,
-      "sha256": "0d589bc7af2b27ccad39cd8ceec17ea9f892cd1d4bf40dda74836bc9547bba57"
+      "sha256": "1c79fe7798a1a1806f8e84d161b31d42094b0a6478e2a952879b424fad1a1b3c"
     },
     "catalog/worldAtlas.json": {
       "bytes": 304801,
       "generated": true,
-      "sha256": "97b914987f8550075a5ba60fa4f951912dae6ab8c763114180e603217a6a8bb3"
+      "sha256": "28a3e5bc115c897eabfd655d493c575b292bcba4ec9385041fe22e24a468ae34"
     },
     "rules/attributeRules.json": {
       "bytes": 3232,
       "generated": true,
-      "sha256": "5bc2d2daa83f8f34e3763eed63e4a6da18c2197757659e5ebbf1931fd898feb6"
+      "sha256": "902b7036c88ae1194fabab4bc9072f5763e99332bb9801f1b7aa94082773e582"
     },
     "rules/combatRules.json": {
       "bytes": 2049,
       "generated": true,
-      "sha256": "965195631327457fea835be1cb9a2511265e41957c1164bb4740e42e0b0d0993"
+      "sha256": "23bb3e60573cc039bf7018baba780d472c46e43af0ea885895ac2bc9d1736368"
     },
     "rules/derivedStatRules.json": {
       "bytes": 2286,
       "generated": true,
-      "sha256": "6063a5fcfc99528b5ff5edebb1d661afcb4b612ce212f3cc2ccae336dbffa64e"
+      "sha256": "95026121724a1447ec20bf96e398eb1bfaa2012d29ff475b10850de74ebd7804"
     },
     "rules/effectOps.json": {
       "bytes": 932,
@@ -286,22 +286,22 @@
     "rules/handRules.json": {
       "bytes": 671,
       "generated": true,
-      "sha256": "dbb9e4236786b3448e9c0b04efcd27f15429c7ab29b7d3ae999a202f011779fd"
+      "sha256": "bf819f80177da69fee3c490a5af4dc40d1eebba3ace3cd375d648fb65ac54602"
     },
     "rules/mechanics.json": {
       "bytes": 3606,
       "generated": true,
-      "sha256": "9e763e9a7e0f98656a6fb557c9afb847673c5190c48bf2377970a83dd5f3ae7c"
+      "sha256": "5d335d7fba65fce7a2ad58fc81ad6d6ab2298fdf26433ae04e4e6411037ea4a0"
     },
     "rules/nodeEffects.json": {
       "bytes": 32680,
       "generated": true,
-      "sha256": "66bcfe2b1e2a98efac7e1c97b89f1fa67a0bbfbf0f022284b916e7c42e9daa38"
+      "sha256": "1faac819ade8bdca667c3e6225fb58e6669bb35d285da32da68f7ab946ac865e"
     },
     "rules/propertyRuleEffects.json": {
       "bytes": 34551,
       "generated": true,
-      "sha256": "c638c5255aae12e46e933155a0a4bbb682576a3a040937b7612d0e9c6d2c3d03"
+      "sha256": "50f980d3b4648e459320acd5ce34192147d66e0a572789756dde9a06e515d16d"
     },
     "rules/rng.json": {
       "bytes": 659,
@@ -311,7 +311,7 @@
     "rules/rowOrder.json": {
       "bytes": 102330,
       "generated": true,
-      "sha256": "6532dc6171da062bf30952e9877eb53ea52ea0688e25287bb7359bf61d574877"
+      "sha256": "7773cb4e25f485d70d085ee18e24a57d88f5cd249a1facd0beebcd6f7c0dcad9"
     },
     "rules/saves.json": {
       "bytes": 371,
@@ -321,7 +321,7 @@
     "rules/stringKeys.json": {
       "bytes": 3664,
       "generated": true,
-      "sha256": "29eae2bf7fac5d6b68d3e3589a6836ac9410c05cc0b87e75f4c61d71a87cd163"
+      "sha256": "d6df21e52e5745e211cefcb96689490c59389757504241e429ee849a67e5720f"
     },
     "rules/validation.json": {
       "bytes": 574,
@@ -711,12 +711,12 @@
     "settings/presets/reference.json": {
       "bytes": 4585,
       "generated": true,
-      "sha256": "58f334277629a84a835d4264e1b298b9acdc34cf4e77ae5aa5c789215b17b02f"
+      "sha256": "f0055036d6b7ac6528dcf9a2b4a999fefe88dc8c44af6db8ba76321f6fe326ac"
     },
     "settings/presets/shipped.json": {
       "bytes": 154,
       "generated": true,
-      "sha256": "7432767534664d497ef1aa853279f0470661e3681e08ccc8509650009c0924b7"
+      "sha256": "39fe1a403dd55892dc6cc0451a94725b99b3a1ffb0138ea02ca10c28f4106fcc"
     },
     "strings/app.en.json": {
       "bytes": 571,
@@ -731,82 +731,82 @@
     "tags/familyNodes.json": {
       "bytes": 7187,
       "generated": true,
-      "sha256": "7e0aed3f917c0b3da376d85cf225e245c51168b4f75b725ef0470490fa517677"
+      "sha256": "af523660dbc6415e6f4b20617edbef0b0fb1ed4c3455cc00d9bba95e92c83efa"
     },
     "tags/nodeRelations.json": {
       "bytes": 3996,
       "generated": true,
-      "sha256": "04770c97f8628e90f09b0069ec41c03077bc7c52c8775e2bc46827aed259b86d"
+      "sha256": "23727512c5b3793686e607cf98c005cc6c2af35004227b352fb00dcc2e1c7dff"
     },
     "tags/nodeTerms.json": {
       "bytes": 13407,
       "generated": true,
-      "sha256": "f9251de735a90d957f7f18b0c467e24d4a9fa9e71e809da6f231eaac01b0fda0"
+      "sha256": "ea853347aeb30ac53207c1b7d02a5e7cd2764ad853afd8cf7331cdc4d3318ef5"
     },
     "tags/nodeVariables.json": {
       "bytes": 9897,
       "generated": true,
-      "sha256": "2242130b21e1185fa374383dd422402023c9297e88b784f055ad29795e7e7a33"
+      "sha256": "558cfb47907e8b5920129804539deb90c9c81ef304ac1f0087f68fe13cb907a6"
     },
     "tags/nodes.json": {
       "bytes": 75383,
       "generated": true,
-      "sha256": "caa0000a2a6ce98f21f719783e8f69f6262c4ed08e36c31c403298773a968ca1"
+      "sha256": "3005c9e825329c37ba564de97be23f16097a21ea16d97246e97299dbd3db9abe"
     },
     "tags/propertyRules.json": {
       "bytes": 40390,
       "generated": true,
-      "sha256": "ac3263e0d9a1b2b5e26419296c6acb21452dad79c187e30c4d8418c49783827f"
+      "sha256": "b4b57d1311249c6e8c7f77e79cddab39016dd32a19214ceded7f1e6c83f8ace9"
     },
     "tags/tagDomains.json": {
       "bytes": 3741,
       "generated": true,
-      "sha256": "889fe3a29a1e49ba5722d1162428cafb41ebb0786a07251b539ee00024a9da68"
+      "sha256": "be442ccd1fd9567ac20f87eb94993d6d8a905caf06baa566acac3851414cba72"
     },
     "tags/tagFamilies.json": {
       "bytes": 3271,
       "generated": true,
-      "sha256": "190f29aad0c93c275adf97cb8a94d6ff0573075337f9570f903efcb727e53c4b"
+      "sha256": "0c9fda1bbcb05f7efb4b962c0c1a54e13e99c984014551c4a86473493c8659db"
     },
     "tags/tagFamilyDomains.json": {
       "bytes": 7187,
       "generated": true,
-      "sha256": "e0ca2b31d5943eb9a9842ebeeead7b211a20463aa02a3789bf7be9a9c2419993"
+      "sha256": "e4d1c7782fee12b172b2a6e1b4b546e8589bab4f3fddda619ae8c2593ac12f95"
     },
     "tags/tagging.json": {
       "bytes": 264028,
       "generated": true,
-      "sha256": "17b2c998dbfc957df2f8ae655f1a0deddd7d07ed6fc1b3cf4ee07ecabc6dad23"
+      "sha256": "30f7e24507615f837728ff61fb55ea04bfba44bbb29d172e31024164f7d6c0d6"
     },
     "tags/tags.json": {
       "bytes": 55337,
       "generated": true,
-      "sha256": "646cf385e7f9d2a34cb66fa63d271b9afbf2f25e9b9985d115326f8d8fc8b699"
+      "sha256": "44c587a7b56c22b3daacdf5821373924674e1987f3ada22f871c0a140d7e5127"
     },
     "tags/variableBindings.json": {
       "bytes": 17514,
       "generated": true,
-      "sha256": "654a2078a25bc3a83581bd02146a124feb4c8004844c594cd3c9f614acfded71"
+      "sha256": "800f85c25beaa464dee1ad55f25b838ca54e8cb72b0fa8ed44b0b40a9f5efbe0"
     },
     "ui/confirmationPolicies.json": {
       "bytes": 3228,
       "generated": true,
-      "sha256": "5e8cf06cdc81f586694334f52115a11de4c3ec6542a3044a607c56413664d5fd"
+      "sha256": "81c39ab04d97e7a52e2f66ca82f59d9963b55949c81f6c91fc241e7b3dfbce97"
     },
     "ui/locationPresentation.json": {
       "bytes": 25682,
       "generated": true,
-      "sha256": "69e08859512577f9a01cb5fda87299dbbbb33f420f21ea70dca2177698d57e61"
+      "sha256": "330892274c3cc8c87947d2662b07dccbd95f7c3275dc2922a80e3d30a546d178"
     },
     "ui/terms.json": {
       "bytes": 12076,
       "generated": true,
-      "sha256": "a2f81683304c4e09521c5a34f468b7fd3df9b87f4eea9a00599967e763be332e"
+      "sha256": "994994250284397e9e0dafb3b0f9e6108c1ae3bb13533a04e4feeee6a4b44246"
     },
     "ui/theme.json": {
       "bytes": 2974,
       "generated": true,
-      "sha256": "9237226557bb3b182f73488acbcd5a21e3869b903d63dda57f011d3bf1265f06"
+      "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     }
   },
   "schemaVersion": 1

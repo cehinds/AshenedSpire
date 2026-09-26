@@ -1,68 +1,17 @@
 {
-  "brace": {
-    "hooks": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": 1,
-            "status": "strength",
-            "target": "owner"
-          }
-        ],
-        "on": "stanceExited"
-      }
-    ],
-    "icon": "🦶",
-    "id": "brace",
-    "modifiers": {
-      "damageTakenMult": 0.75
-    },
-    "onEnter": [
-      {
-        "amount": 4,
-        "op": "block",
-        "target": "self"
-      }
-    ]
-  },
-  "bulwark": {
-    "hooks": [
-      {
-        "do": [
-          {
-            "amount": 2,
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "if": {
-          "p": "cardTypeIs",
-          "type": "skill"
-        },
-        "on": "cardPlayed"
-      }
-    ],
-    "icon": "🛡",
-    "id": "bulwark",
-    "onEnter": [
-      {
-        "amount": 3,
-        "op": "block",
-        "target": "self"
-      }
-    ]
-  },
   "gorefire": {
+    "id": "gorefire",
+    "icon": "🔥",
+    "onEnter": [
+      {
+        "op": "loseHp",
+        "target": "self",
+        "amount": 2
+      }
+    ],
     "hooks": [
       {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": 2,
-            "status": "bleed"
-          }
-        ],
+        "on": "damageDealt",
         "if": {
           "p": "all",
           "preds": [
@@ -74,16 +23,67 @@
             }
           ]
         },
-        "on": "damageDealt"
+        "do": [
+          {
+            "op": "applyStatus",
+            "status": "bleed",
+            "stacks": 2
+          }
+        ]
       }
-    ],
-    "icon": "🔥",
-    "id": "gorefire",
+    ]
+  },
+  "bulwark": {
+    "id": "bulwark",
+    "icon": "🛡",
     "onEnter": [
       {
-        "amount": 2,
-        "op": "loseHp",
-        "target": "self"
+        "op": "block",
+        "target": "self",
+        "amount": 3
+      }
+    ],
+    "hooks": [
+      {
+        "on": "cardPlayed",
+        "if": {
+          "p": "cardTypeIs",
+          "type": "skill"
+        },
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": 2
+          }
+        ]
+      }
+    ]
+  },
+  "brace": {
+    "id": "brace",
+    "icon": "🦶",
+    "onEnter": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 4
+      }
+    ],
+    "modifiers": {
+      "damageTakenMult": 0.75
+    },
+    "hooks": [
+      {
+        "on": "stanceExited",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "strength",
+            "stacks": 1
+          }
+        ]
       }
     ]
   }

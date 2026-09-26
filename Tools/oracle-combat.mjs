@@ -118,5 +118,13 @@ for (let i = 0; i < COMBATS; i++) {
   writeFileSync(join(OUT, name), `${JSON.stringify({ seed, classId, encounterId: encounter.id, rngCounters: initialRng, snapshot: initial, start, steps, result: combat.result }, null, 1)}\n`);
   index.push({ file: name, seed, classId, encounterId: encounter.id, steps: steps.length, result: combat.result });
 }
+// The registry tables these combats ran against, in the SHIPPED insertion order (D-040), so the C# parity test
+// exercises the engine alone; a separate test holds the content-built registries to the same tables.
+const plain = (v) => JSON.parse(JSON.stringify(v, (k, x) => (typeof x === 'function' ? undefined : x)));
+const REGISTRY_TABLES = ['attributes', 'cards', 'relics', 'statuses', 'stances', 'keywords', 'enemies', 'flasks', 'classes', 'propertyRules'];
+const dump = Object.fromEntries(REGISTRY_TABLES.map((t) => [t, plain(registries[t].all())]));
+for (const t of ['classTree', 'equipment', 'balance']) dump[t] = plain(registries[t]);
+writeFileSync(join(OUT, 'registries.json'), `${JSON.stringify(dump)}
+`);
 writeFileSync(join(OUT, 'index.json'), `${JSON.stringify({ source: 'engine/combat.js createCombat + dispatch (shipped preset)', combats: index }, null, 1)}\n`);
 console.log(`oracle-combat: ${COMBATS} combats, ${totalSteps} steps, ${victories} victories, ${defeats} defeats → Unity/Assets/Tests/Oracle/combat`);

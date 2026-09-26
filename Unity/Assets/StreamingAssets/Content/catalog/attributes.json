@@ -1,32 +1,32 @@
 {
-  "constitution": {
-    "disclosure": "face",
-    "id": "constitution",
-    "order": 3,
-    "sense": "What your body takes before the climb ends."
-  },
-  "dexterity": {
-    "disclosure": "face",
-    "id": "dexterity",
-    "order": 2,
-    "sense": "Speed of hand — the quick armaments answer to it."
-  },
-  "intelligence": {
-    "disclosure": "face",
-    "id": "intelligence",
-    "order": 5,
-    "sense": "How much of the Spire you read at once."
-  },
   "strength": {
-    "disclosure": "face",
     "id": "strength",
     "order": 1,
+    "disclosure": "face",
     "sense": "Raw force. Heavy armaments ask for it before they will let you hold them."
   },
-  "wisdom": {
+  "dexterity": {
+    "id": "dexterity",
+    "order": 2,
     "disclosure": "face",
+    "sense": "Speed of hand — the quick armaments answer to it."
+  },
+  "constitution": {
+    "id": "constitution",
+    "order": 3,
+    "disclosure": "face",
+    "sense": "What your body takes before the climb ends."
+  },
+  "wisdom": {
     "id": "wisdom",
     "order": 4,
+    "disclosure": "face",
     "sense": "What you hold in mind, and can pour back out."
+  },
+  "intelligence": {
+    "id": "intelligence",
+    "order": 5,
+    "disclosure": "face",
+    "sense": "How much of the Spire you read at once."
   }
 }

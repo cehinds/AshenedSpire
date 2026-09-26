@@ -1,221 +1,221 @@
 {
-  "catalog/armaments.json": {
-    "fields": {
-      "name": "name"
-    },
-    "optional": [],
-    "prefix": "armament",
-    "required": [
-      "name"
-    ]
-  },
-  "catalog/armour.json": {
-    "fields": {
-      "blurb": "blurb",
-      "name": "name"
-    },
-    "optional": [],
-    "prefix": "armour",
-    "required": [
-      "name",
-      "blurb"
-    ]
-  },
-  "catalog/atlasQuests.json": {
-    "fields": {
-      "description": "description",
-      "displayName": "name"
-    },
-    "optional": [],
-    "prefix": "quest",
-    "required": [
-      "name",
-      "description"
-    ]
-  },
-  "catalog/attributes.json": {
-    "fields": {
-      "label": "label",
-      "shortLabel": "short"
-    },
-    "optional": [],
-    "prefix": "attribute",
-    "required": [
-      "label",
-      "short"
-    ]
-  },
   "catalog/cards.json": {
-    "fields": {
-      "flavor": "flavor",
-      "name": "name",
-      "textTemplate": "text"
-    },
-    "optional": [],
     "prefix": "card",
     "required": [
       "name",
       "flavor",
       "text"
-    ]
-  },
-  "catalog/classes.json": {
-    "fields": {
-      "description": "description",
-      "name": "name"
-    },
+    ],
     "optional": [],
-    "prefix": "class",
-    "required": [
-      "name",
-      "description"
-    ]
-  },
-  "catalog/creationModes.json": {
-    "fields": {
-      "label": "label"
-    },
-    "optional": [],
-    "prefix": "creationMode",
-    "required": [
-      "label"
-    ]
-  },
-  "catalog/enemies.json": {
-    "fields": {
-      "name": "name"
-    },
-    "optional": [],
-    "prefix": "enemy",
-    "required": [
-      "name"
-    ]
-  },
-  "catalog/events.json": {
     "fields": {
       "name": "name",
-      "text": "text"
-    },
-    "optional": [],
-    "prefix": "event",
-    "required": [
-      "name",
-      "text"
-    ]
-  },
-  "catalog/flasks.json": {
-    "fields": {
-      "name": "name",
+      "flavor": "flavor",
       "textTemplate": "text"
-    },
-    "optional": [],
-    "prefix": "flask",
-    "required": [
-      "name",
-      "text"
-    ]
-  },
-  "catalog/keywords.json": {
-    "fields": {
-      "name": "name",
-      "tooltip": "tooltip"
-    },
-    "optional": [],
-    "prefix": "keyword",
-    "required": [
-      "name",
-      "tooltip"
-    ]
+    }
   },
   "catalog/relics.json": {
-    "fields": {
-      "flavor": "flavor",
-      "name": "name",
-      "textTemplate": "text"
-    },
-    "optional": [
-      "flavor"
-    ],
     "prefix": "relic",
     "required": [
       "name",
       "text"
-    ]
-  },
-  "catalog/resources.json": {
-    "fields": {
-      "name": "name"
-    },
-    "optional": [],
-    "prefix": "resource",
-    "required": [
-      "name"
-    ]
-  },
-  "catalog/seats.json": {
-    "fields": {
-      "name": "name"
-    },
-    "optional": [],
-    "prefix": "seat",
-    "required": [
-      "name"
-    ]
-  },
-  "catalog/speakers.json": {
-    "fields": {
-      "name": "name"
-    },
-    "optional": [],
-    "prefix": "speaker",
-    "required": [
-      "name"
-    ]
-  },
-  "catalog/stances.json": {
+    ],
+    "optional": [
+      "flavor"
+    ],
     "fields": {
       "name": "name",
-      "tooltip": "tooltip"
-    },
-    "optional": [],
-    "prefix": "stance",
-    "required": [
-      "name",
-      "tooltip"
-    ]
-  },
-  "catalog/startingKits.json": {
-    "fields": {
-      "label": "label"
-    },
-    "optional": [],
-    "prefix": "kit",
-    "required": [
-      "label"
-    ]
+      "flavor": "flavor",
+      "textTemplate": "text"
+    }
   },
   "catalog/statuses.json": {
-    "fields": {
-      "name": "name",
-      "tooltip": "tooltip"
-    },
-    "optional": [],
     "prefix": "status",
     "required": [
       "name",
       "tooltip"
-    ]
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name",
+      "tooltip": "tooltip"
+    }
+  },
+  "catalog/stances.json": {
+    "prefix": "stance",
+    "required": [
+      "name",
+      "tooltip"
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name",
+      "tooltip": "tooltip"
+    }
+  },
+  "catalog/resources.json": {
+    "prefix": "resource",
+    "required": [
+      "name"
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name"
+    }
+  },
+  "catalog/keywords.json": {
+    "prefix": "keyword",
+    "required": [
+      "name",
+      "tooltip"
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name",
+      "tooltip": "tooltip"
+    }
+  },
+  "catalog/enemies.json": {
+    "prefix": "enemy",
+    "required": [
+      "name"
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name"
+    }
+  },
+  "catalog/seats.json": {
+    "prefix": "seat",
+    "required": [
+      "name"
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name"
+    }
+  },
+  "catalog/events.json": {
+    "prefix": "event",
+    "required": [
+      "name",
+      "text"
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name",
+      "text": "text"
+    }
+  },
+  "catalog/speakers.json": {
+    "prefix": "speaker",
+    "required": [
+      "name"
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name"
+    }
+  },
+  "catalog/atlasQuests.json": {
+    "prefix": "quest",
+    "required": [
+      "name",
+      "description"
+    ],
+    "optional": [],
+    "fields": {
+      "displayName": "name",
+      "description": "description"
+    }
+  },
+  "catalog/flasks.json": {
+    "prefix": "flask",
+    "required": [
+      "name",
+      "text"
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name",
+      "textTemplate": "text"
+    }
+  },
+  "catalog/classes.json": {
+    "prefix": "class",
+    "required": [
+      "name",
+      "description"
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name",
+      "description": "description"
+    }
   },
   "catalog/unlocks.json": {
-    "fields": {
-      "hint": "hint",
-      "name": "name"
-    },
-    "optional": [],
     "prefix": "unlock",
     "required": [
       "name",
       "hint"
-    ]
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name",
+      "hint": "hint"
+    }
+  },
+  "catalog/attributes.json": {
+    "prefix": "attribute",
+    "required": [
+      "label",
+      "short"
+    ],
+    "optional": [],
+    "fields": {
+      "label": "label",
+      "shortLabel": "short"
+    }
+  },
+  "catalog/creationModes.json": {
+    "prefix": "creationMode",
+    "required": [
+      "label"
+    ],
+    "optional": [],
+    "fields": {
+      "label": "label"
+    }
+  },
+  "catalog/armaments.json": {
+    "prefix": "armament",
+    "required": [
+      "name"
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name"
+    }
+  },
+  "catalog/armour.json": {
+    "prefix": "armour",
+    "required": [
+      "name",
+      "blurb"
+    ],
+    "optional": [],
+    "fields": {
+      "name": "name",
+      "blurb": "blurb"
+    }
+  },
+  "catalog/startingKits.json": {
+    "prefix": "kit",
+    "required": [
+      "label"
+    ],
+    "optional": [],
+    "fields": {
+      "label": "label"
+    }
   }
 }

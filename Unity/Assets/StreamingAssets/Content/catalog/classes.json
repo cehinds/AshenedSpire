@@ -1,62 +1,21 @@
 {
-  "herald": {
-    "abilityCard": "warmLitany",
-    "cardPool": [
-      "bloodPact",
-      "blightTouch",
-      "flagellation",
-      "penance",
-      "litany",
-      "graveOffering",
-      "bloodletting",
-      "contagion",
-      "cullTheWeak",
-      "transfusion",
-      "blightward",
-      "painOffering",
-      "witheringTouch",
-      "martyrBlood",
-      "blightBloom",
-      "sacredHarvest",
-      "thornHaloCard",
-      "communionCard",
-      "gildedOath",
-      "plagueBearer",
-      "exsanguinate",
-      "stigmataCard",
-      "scourge",
-      "reclamation",
-      "desperateRite",
-      "emberTideCard",
-      "secondBloom",
-      "butterflyPlague",
-      "lifeTitheCard",
-      "crimsonRite",
-      "blightNova",
-      "lastRites",
-      "zealotryCard",
-      "bloodHarvest",
-      "bloodOfferingRite",
-      "harbingerOfBlightCard"
-    ],
-    "cardTint": "#c98a6a",
-    "eligibleStartingKitIds": [
-      "heraldBaseline",
-      "heraldEmberlight"
-    ],
-    "glyph": "☀",
-    "id": "herald",
-    "kitRelic": "waxenSeal",
-    "maxHp": 78,
+  "reaver": {
+    "id": "reaver",
+    "cardTint": "#a8724a",
+    "glyph": "⚔",
+    "maxHp": 84,
     "startingFlaskAllocation": {
       "hp": 3,
       "mana": 1
     },
-    "startingRelic": "goldFigurine",
-    "startingSignatureCard": "urgentHeal"
-  },
-  "reaver": {
+    "startingRelic": "forsakenMedallion",
+    "kitRelic": "ashenGrip",
+    "startingSignatureCard": "gorefireSlash",
     "abilityCard": "brace",
+    "eligibleStartingKitIds": [
+      "reaverBaseline",
+      "reaverGreatsword"
+    ],
     "cardPool": [
       "crimsonCleave",
       "shieldBash",
@@ -94,81 +53,25 @@
       "sanguinePactCard",
       "bloodTithe",
       "poiseBreaker"
-    ],
-    "cardTint": "#a8724a",
-    "eligibleStartingKitIds": [
-      "reaverBaseline",
-      "reaverGreatsword"
-    ],
-    "glyph": "⚔",
-    "id": "reaver",
-    "kitRelic": "ashenGrip",
-    "maxHp": 84,
-    "startingFlaskAllocation": {
-      "hp": 3,
-      "mana": 1
-    },
-    "startingRelic": "forsakenMedallion",
-    "startingSignatureCard": "gorefireSlash"
-  },
-  "rogue": {
-    "abilityCard": "prepare",
-    "cardPool": [
-      "quickCut",
-      "feint",
-      "backstep",
-      "twinPrick",
-      "pocketSand",
-      "hamstringRogue",
-      "serratedShiv",
-      "smokeVeil",
-      "ricochet",
-      "lowBlow",
-      "pilfer",
-      "vanish",
-      "cheapShot",
-      "bladeDanceRogue",
-      "garrote",
-      "fanOfKnives",
-      "setupRogue",
-      "acrobaticsRogue",
-      "disorient",
-      "coupDeGrace",
-      "sap",
-      "shadowstep",
-      "afterimageCard",
-      "bloodletterRogue",
-      "venomcoat",
-      "misdirect",
-      "assassinate",
-      "thousandCutsRogue",
-      "deadlyTempoCard",
-      "opportunistCard",
-      "envenomCard",
-      "toxicVolley",
-      "smokeBomb",
-      "executionWindow",
-      "perfectHeist",
-      "deathblow"
-    ],
-    "cardTint": "#647b73",
-    "eligibleStartingKitIds": [
-      "rogueBaseline",
-      "rogueBow"
-    ],
-    "glyph": "🗡",
-    "id": "rogue",
-    "kitRelic": "whetstonePouch",
-    "maxHp": 74,
-    "startingFlaskAllocation": {
-      "hp": 3,
-      "mana": 1
-    },
-    "startingRelic": "cutpursesCoin",
-    "startingSignatureCard": "ambush"
+    ]
   },
   "starseer": {
+    "id": "starseer",
+    "cardTint": "#8f86d8",
+    "glyph": "☄",
+    "maxHp": 72,
+    "startingFlaskAllocation": {
+      "hp": 2,
+      "mana": 2
+    },
+    "startingRelic": "starstoneShard",
+    "kitRelic": "lodestarShard",
+    "startingSignatureCard": "starstonePebble",
     "abilityCard": "attune",
+    "eligibleStartingKitIds": [
+      "starseerBaseline",
+      "starseerStarstone"
+    ],
     "cardPool": [
       "cometFragment",
       "starbladePhalanx",
@@ -206,21 +109,118 @@
       "waxingMoonCard",
       "celestialLance",
       "astromancerCard"
-    ],
-    "cardTint": "#8f86d8",
-    "eligibleStartingKitIds": [
-      "starseerBaseline",
-      "starseerStarstone"
-    ],
-    "glyph": "☄",
-    "id": "starseer",
-    "kitRelic": "lodestarShard",
-    "maxHp": 72,
+    ]
+  },
+  "rogue": {
+    "id": "rogue",
+    "cardTint": "#647b73",
+    "glyph": "🗡",
+    "maxHp": 74,
     "startingFlaskAllocation": {
-      "hp": 2,
-      "mana": 2
+      "hp": 3,
+      "mana": 1
     },
-    "startingRelic": "starstoneShard",
-    "startingSignatureCard": "starstonePebble"
+    "startingRelic": "cutpursesCoin",
+    "kitRelic": "whetstonePouch",
+    "startingSignatureCard": "ambush",
+    "abilityCard": "prepare",
+    "eligibleStartingKitIds": [
+      "rogueBaseline",
+      "rogueBow"
+    ],
+    "cardPool": [
+      "quickCut",
+      "feint",
+      "backstep",
+      "twinPrick",
+      "pocketSand",
+      "hamstringRogue",
+      "serratedShiv",
+      "smokeVeil",
+      "ricochet",
+      "lowBlow",
+      "pilfer",
+      "vanish",
+      "cheapShot",
+      "bladeDanceRogue",
+      "garrote",
+      "fanOfKnives",
+      "setupRogue",
+      "acrobaticsRogue",
+      "disorient",
+      "coupDeGrace",
+      "sap",
+      "shadowstep",
+      "afterimageCard",
+      "bloodletterRogue",
+      "venomcoat",
+      "misdirect",
+      "assassinate",
+      "thousandCutsRogue",
+      "deadlyTempoCard",
+      "opportunistCard",
+      "envenomCard",
+      "toxicVolley",
+      "smokeBomb",
+      "executionWindow",
+      "perfectHeist",
+      "deathblow"
+    ]
+  },
+  "herald": {
+    "id": "herald",
+    "cardTint": "#c98a6a",
+    "glyph": "☀",
+    "maxHp": 78,
+    "startingFlaskAllocation": {
+      "hp": 3,
+      "mana": 1
+    },
+    "startingRelic": "goldFigurine",
+    "kitRelic": "waxenSeal",
+    "startingSignatureCard": "urgentHeal",
+    "abilityCard": "warmLitany",
+    "eligibleStartingKitIds": [
+      "heraldBaseline",
+      "heraldEmberlight"
+    ],
+    "cardPool": [
+      "bloodPact",
+      "blightTouch",
+      "flagellation",
+      "penance",
+      "litany",
+      "graveOffering",
+      "bloodletting",
+      "contagion",
+      "cullTheWeak",
+      "transfusion",
+      "blightward",
+      "painOffering",
+      "witheringTouch",
+      "martyrBlood",
+      "blightBloom",
+      "sacredHarvest",
+      "thornHaloCard",
+      "communionCard",
+      "gildedOath",
+      "plagueBearer",
+      "exsanguinate",
+      "stigmataCard",
+      "scourge",
+      "reclamation",
+      "desperateRite",
+      "emberTideCard",
+      "secondBloom",
+      "butterflyPlague",
+      "lifeTitheCard",
+      "crimsonRite",
+      "blightNova",
+      "lastRites",
+      "zealotryCard",
+      "bloodHarvest",
+      "bloodOfferingRite",
+      "harbingerOfBlightCard"
+    ]
   }
 }

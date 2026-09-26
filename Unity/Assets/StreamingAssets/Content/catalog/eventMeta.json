@@ -1,55 +1,55 @@
 {
+  "eventHistoryRequirements": {
+    "lanternCaravan": {
+      "any": [
+        {
+          "eventId": "lastLantern",
+          "choiceId": "buyOil"
+        },
+        {
+          "eventId": "lastLantern",
+          "choiceId": "haulBeacon"
+        }
+      ]
+    },
+    "namelessKeeper": {
+      "any": [
+        {
+          "eventId": "graveOfTheNameless",
+          "choiceId": "digForCinders"
+        },
+        {
+          "eventId": "graveOfTheNameless",
+          "choiceId": "payRespects"
+        }
+      ]
+    },
+    "namelessRest": {
+      "any": [
+        {
+          "eventId": "namelessKeeper",
+          "choiceId": "returnCinders"
+        },
+        {
+          "eventId": "namelessKeeper",
+          "choiceId": "faceKeeper"
+        },
+        {
+          "eventId": "namelessKeeper",
+          "choiceId": "acceptThanks"
+        }
+      ]
+    }
+  },
   "eventChoiceIds": {
-    "abandonedCart": [
-      "lootStrongbox",
-      "leave"
+    "turncoatMirror": [
+      "stepThrough",
+      "turnAway"
     ],
-    "ancientRuneStone": [
-      "studyStone",
-      "smashStone",
+    "lastLantern": [
+      "buyOil",
+      "haulBeacon",
       "leave"
-    ],
-    "bloodstainedAltar": [
-      "offerBlood",
-      "leave"
-    ],
-    "cinderbearDen": [
-      "takeHoard",
-      "skimEdges",
-      "leave"
-    ],
-    "discardedReliquary": [
-      "takeCurse",
-      "burnPack",
-      "leave"
-    ],
-    "fadedGrace": [
-      "warmYourself",
-      "temperBlade",
-      "leave"
-    ],
-    "feralShrine": [
-      "takeOffering",
-      "leave"
-    ],
-    "goldboughAvatar": [
-      "offerCard",
-      "pray",
-      "leave"
-    ],
-    "goldenMoth": [
-      "gatherCinders",
-      "keepVigil",
-      "leave"
-    ],
-    "graveOfTheNameless": [
-      "digForCinders",
-      "payRespects",
-      "leave"
-    ],
-    "handspiderNest": [
-      "snatchStrongbox",
-      "backAway"
     ],
     "lanternCaravan": [
       "acceptLesson",
@@ -57,14 +57,98 @@
       "claimStrongbox",
       "leave"
     ],
-    "lastLantern": [
-      "buyOil",
-      "haulBeacon",
+    "goldboughAvatar": [
+      "offerCard",
+      "pray",
+      "leave"
+    ],
+    "abandonedCart": [
+      "lootStrongbox",
+      "leave"
+    ],
+    "weepingPilgrim": [
+      "giveCinders",
+      "refuse"
+    ],
+    "bloodstainedAltar": [
+      "offerBlood",
+      "leave"
+    ],
+    "wanderingPhysician": [
+      "procedure",
+      "patch",
+      "leave"
+    ],
+    "goldenMoth": [
+      "gatherCinders",
+      "keepVigil",
+      "leave"
+    ],
+    "feralShrine": [
+      "takeOffering",
+      "leave"
+    ],
+    "ancientRuneStone": [
+      "studyStone",
+      "smashStone",
+      "leave"
+    ],
+    "graveOfTheNameless": [
+      "digForCinders",
+      "payRespects",
+      "leave"
+    ],
+    "sleepingSmith": [
+      "takeBlade",
+      "wakeSmith",
+      "leave"
+    ],
+    "wyrmTrial": [
+      "enterRing",
+      "circleRing",
+      "leave"
+    ],
+    "discardedReliquary": [
+      "takeCurse",
+      "burnPack",
+      "leave"
+    ],
+    "omensAltar": [
+      "acceptGaze",
+      "shatterAltar",
+      "leave"
+    ],
+    "rotPriestOffer": [
+      "acceptBlessing",
+      "robPriest",
+      "leave"
+    ],
+    "handspiderNest": [
+      "snatchStrongbox",
+      "backAway"
+    ],
+    "fadedGrace": [
+      "warmYourself",
+      "temperBlade",
       "leave"
     ],
     "merchantsGhost": [
       "payInKind",
       "stealRelic",
+      "leave"
+    ],
+    "cinderbearDen": [
+      "takeHoard",
+      "skimEdges",
+      "leave"
+    ],
+    "stakeOfTheMartyr": [
+      "makeOffering",
+      "leave"
+    ],
+    "twoFingersRiddle": [
+      "sharpen",
+      "mend",
       "leave"
     ],
     "namelessKeeper": [
@@ -78,140 +162,56 @@
       "restAmongStones",
       "lootBarrow",
       "leave"
-    ],
-    "omensAltar": [
-      "acceptGaze",
-      "shatterAltar",
-      "leave"
-    ],
-    "rotPriestOffer": [
-      "acceptBlessing",
-      "robPriest",
-      "leave"
-    ],
-    "sleepingSmith": [
-      "takeBlade",
-      "wakeSmith",
-      "leave"
-    ],
-    "stakeOfTheMartyr": [
-      "makeOffering",
-      "leave"
-    ],
-    "turncoatMirror": [
-      "stepThrough",
-      "turnAway"
-    ],
-    "twoFingersRiddle": [
-      "sharpen",
-      "mend",
-      "leave"
-    ],
-    "wanderingPhysician": [
-      "procedure",
-      "patch",
-      "leave"
-    ],
-    "weepingPilgrim": [
-      "giveCinders",
-      "refuse"
-    ],
-    "wyrmTrial": [
-      "enterRing",
-      "circleRing",
-      "leave"
     ]
   },
-  "eventHistoryRequirements": {
-    "lanternCaravan": {
-      "any": [
+  "questChains": {
+    "lastLantern": {
+      "steps": [
+        "lastLantern",
+        "lanternCaravan"
+      ],
+      "completes": [
         {
-          "choiceId": "buyOil",
-          "eventId": "lastLantern"
+          "eventId": "lanternCaravan",
+          "choiceId": "acceptLesson"
         },
         {
-          "choiceId": "haulBeacon",
-          "eventId": "lastLantern"
+          "eventId": "lanternCaravan",
+          "choiceId": "acceptWages"
+        },
+        {
+          "eventId": "lanternCaravan",
+          "choiceId": "claimStrongbox"
         }
       ]
     },
-    "namelessKeeper": {
-      "any": [
+    "nameless": {
+      "steps": [
+        "graveOfTheNameless",
+        "namelessKeeper",
+        "namelessRest"
+      ],
+      "completes": [
         {
-          "choiceId": "digForCinders",
-          "eventId": "graveOfTheNameless"
+          "eventId": "namelessRest",
+          "choiceId": "keepVigil"
         },
         {
-          "choiceId": "payRespects",
-          "eventId": "graveOfTheNameless"
-        }
-      ]
-    },
-    "namelessRest": {
-      "any": [
-        {
-          "choiceId": "returnCinders",
-          "eventId": "namelessKeeper"
+          "eventId": "namelessRest",
+          "choiceId": "restAmongStones"
         },
         {
-          "choiceId": "faceKeeper",
-          "eventId": "namelessKeeper"
-        },
-        {
-          "choiceId": "acceptThanks",
-          "eventId": "namelessKeeper"
+          "eventId": "namelessRest",
+          "choiceId": "lootBarrow"
         }
       ]
     }
   },
   "eventSpeakers": {
-    "graveOfTheNameless": "theNameless",
-    "lanternCaravan": "roadWarden",
     "lastLantern": "roadWarden",
+    "lanternCaravan": "roadWarden",
+    "graveOfTheNameless": "theNameless",
     "namelessKeeper": "keeperOfTheNameless",
     "namelessRest": "theNameless"
-  },
-  "questChains": {
-    "lastLantern": {
-      "completes": [
-        {
-          "choiceId": "acceptLesson",
-          "eventId": "lanternCaravan"
-        },
-        {
-          "choiceId": "acceptWages",
-          "eventId": "lanternCaravan"
-        },
-        {
-          "choiceId": "claimStrongbox",
-          "eventId": "lanternCaravan"
-        }
-      ],
-      "steps": [
-        "lastLantern",
-        "lanternCaravan"
-      ]
-    },
-    "nameless": {
-      "completes": [
-        {
-          "choiceId": "keepVigil",
-          "eventId": "namelessRest"
-        },
-        {
-          "choiceId": "restAmongStones",
-          "eventId": "namelessRest"
-        },
-        {
-          "choiceId": "lootBarrow",
-          "eventId": "namelessRest"
-        }
-      ],
-      "steps": [
-        "graveOfTheNameless",
-        "namelessKeeper",
-        "namelessRest"
-      ]
-    }
   }
 }

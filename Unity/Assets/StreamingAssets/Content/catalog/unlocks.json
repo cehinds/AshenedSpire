@@ -1,146 +1,146 @@
 {
-  "ashChildUnlock": {
-    "condition": "beatBoss",
-    "id": "ashChildUnlock",
-    "kind": "character",
-    "param": "blightedValkyrie",
-    "ref": "ashChild",
-    "reveal": "hidden"
-  },
-  "beatBlightedValkyrie": {
-    "condition": "beatBoss",
-    "id": "beatBlightedValkyrie",
-    "kind": "outfit",
-    "param": "blightedValkyrie",
-    "ref": "ossuary",
-    "reveal": "listed"
-  },
-  "beatFellWarden": {
-    "condition": "beatBoss",
-    "id": "beatFellWarden",
-    "kind": "outfit",
-    "param": "fellWarden",
-    "ref": "starlit",
-    "reveal": "listed"
-  },
-  "beatKingAsHerald": {
-    "condition": "beatBoss",
-    "id": "beatKingAsHerald",
-    "kind": "outfit",
-    "param": "stitchedKing",
-    "ref": "emberhabit",
-    "reveal": "listed"
-  },
-  "beatStitchedKing": {
-    "condition": "beatBoss",
-    "id": "beatStitchedKing",
-    "kind": "outfit",
-    "param": "stitchedKing",
-    "ref": "vigil",
-    "reveal": "listed"
-  },
-  "graveWardenUnlock": {
-    "condition": "winRuns",
-    "id": "graveWardenUnlock",
-    "kind": "character",
-    "param": 3,
-    "ref": "graveWarden",
-    "reveal": "teased"
-  },
-  "rack2Left": {
-    "condition": "reachAct",
-    "id": "rack2Left",
-    "kind": "slot",
-    "param": 3,
-    "ref": "leftHand",
-    "reveal": "listed"
-  },
-  "rack2Right": {
-    "condition": "reachAct",
-    "id": "rack2Right",
-    "kind": "slot",
-    "param": 2,
-    "ref": "rightHand",
-    "reveal": "listed"
-  },
-  "rack3Left": {
-    "condition": "winRuns",
-    "id": "rack3Left",
-    "kind": "slot",
-    "param": 2,
-    "ref": "leftHand",
-    "reveal": "listed"
-  },
-  "rack3Right": {
-    "condition": "winRuns",
-    "id": "rack3Right",
-    "kind": "slot",
-    "param": 1,
-    "ref": "rightHand",
-    "reveal": "listed"
-  },
-  "reachAshenCrown": {
-    "condition": "reachAct",
-    "id": "reachAshenCrown",
-    "kind": "outfit",
-    "param": 3,
-    "ref": "warden",
-    "reveal": "listed"
-  },
-  "reachStitchedCourt": {
-    "condition": "reachAct",
-    "id": "reachStitchedCourt",
-    "kind": "outfit",
-    "param": 2,
-    "ref": "pilgrim",
-    "reveal": "listed"
-  },
-  "rogueBeatWarden": {
-    "condition": "beatBoss",
-    "id": "rogueBeatWarden",
-    "kind": "outfit",
-    "param": "fellWarden",
-    "ref": "nightveil",
-    "reveal": "listed"
-  },
-  "rogueReachCrown": {
-    "condition": "reachAct",
-    "id": "rogueReachCrown",
-    "kind": "outfit",
-    "param": 3,
-    "ref": "shadow",
-    "reveal": "listed"
-  },
   "winAsReaver": {
-    "condition": "winAsClass",
     "id": "winAsReaver",
     "kind": "outfit",
-    "param": "reaver",
     "ref": "oathsworn",
-    "reveal": "listed"
-  },
-  "winAsRogue": {
     "condition": "winAsClass",
-    "id": "winAsRogue",
-    "kind": "outfit",
-    "param": "rogue",
-    "ref": "duelist",
+    "param": "reaver",
     "reveal": "listed"
   },
   "winAsStarseer": {
-    "condition": "winAsClass",
     "id": "winAsStarseer",
     "kind": "outfit",
-    "param": "starseer",
     "ref": "eclipse",
+    "condition": "winAsClass",
+    "param": "starseer",
+    "reveal": "listed"
+  },
+  "beatStitchedKing": {
+    "id": "beatStitchedKing",
+    "kind": "outfit",
+    "ref": "vigil",
+    "condition": "beatBoss",
+    "param": "stitchedKing",
+    "reveal": "listed"
+  },
+  "beatBlightedValkyrie": {
+    "id": "beatBlightedValkyrie",
+    "kind": "outfit",
+    "ref": "ossuary",
+    "condition": "beatBoss",
+    "param": "blightedValkyrie",
+    "reveal": "listed"
+  },
+  "graveWardenUnlock": {
+    "id": "graveWardenUnlock",
+    "kind": "character",
+    "ref": "graveWarden",
+    "condition": "winRuns",
+    "param": 3,
+    "reveal": "teased"
+  },
+  "ashChildUnlock": {
+    "id": "ashChildUnlock",
+    "kind": "character",
+    "ref": "ashChild",
+    "condition": "beatBoss",
+    "param": "blightedValkyrie",
+    "reveal": "hidden"
+  },
+  "reachAshenCrown": {
+    "id": "reachAshenCrown",
+    "kind": "outfit",
+    "ref": "warden",
+    "condition": "reachAct",
+    "param": 3,
+    "reveal": "listed"
+  },
+  "beatFellWarden": {
+    "id": "beatFellWarden",
+    "kind": "outfit",
+    "ref": "starlit",
+    "condition": "beatBoss",
+    "param": "fellWarden",
     "reveal": "listed"
   },
   "winTwice": {
-    "condition": "winRuns",
     "id": "winTwice",
     "kind": "outfit",
-    "param": 2,
     "ref": "astral",
+    "condition": "winRuns",
+    "param": 2,
+    "reveal": "listed"
+  },
+  "beatKingAsHerald": {
+    "id": "beatKingAsHerald",
+    "kind": "outfit",
+    "ref": "emberhabit",
+    "condition": "beatBoss",
+    "param": "stitchedKing",
+    "reveal": "listed"
+  },
+  "reachStitchedCourt": {
+    "id": "reachStitchedCourt",
+    "kind": "outfit",
+    "ref": "pilgrim",
+    "condition": "reachAct",
+    "param": 2,
+    "reveal": "listed"
+  },
+  "rack2Right": {
+    "id": "rack2Right",
+    "kind": "slot",
+    "ref": "rightHand",
+    "condition": "reachAct",
+    "param": 2,
+    "reveal": "listed"
+  },
+  "rack3Right": {
+    "id": "rack3Right",
+    "kind": "slot",
+    "ref": "rightHand",
+    "condition": "winRuns",
+    "param": 1,
+    "reveal": "listed"
+  },
+  "rack2Left": {
+    "id": "rack2Left",
+    "kind": "slot",
+    "ref": "leftHand",
+    "condition": "reachAct",
+    "param": 3,
+    "reveal": "listed"
+  },
+  "rack3Left": {
+    "id": "rack3Left",
+    "kind": "slot",
+    "ref": "leftHand",
+    "condition": "winRuns",
+    "param": 2,
+    "reveal": "listed"
+  },
+  "winAsRogue": {
+    "id": "winAsRogue",
+    "kind": "outfit",
+    "ref": "duelist",
+    "condition": "winAsClass",
+    "param": "rogue",
+    "reveal": "listed"
+  },
+  "rogueBeatWarden": {
+    "id": "rogueBeatWarden",
+    "kind": "outfit",
+    "ref": "nightveil",
+    "condition": "beatBoss",
+    "param": "fellWarden",
+    "reveal": "listed"
+  },
+  "rogueReachCrown": {
+    "id": "rogueReachCrown",
+    "kind": "outfit",
+    "ref": "shadow",
+    "condition": "reachAct",
+    "param": 3,
     "reveal": "listed"
   }
 }

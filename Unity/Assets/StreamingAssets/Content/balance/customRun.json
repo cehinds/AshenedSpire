@@ -9,78 +9,78 @@
   ],
   "CHAOS_MODS": [
     {
-      "desc": "Every monster node is an Elite fight.",
       "id": "allElite",
-      "label": "Elite Gauntlet"
+      "label": "Elite Gauntlet",
+      "desc": "Every monster node is an Elite fight."
     },
     {
-      "desc": "Start with +250 cinders — but every shop price doubles.",
       "id": "hoarder",
-      "label": "Hoarder"
+      "label": "Hoarder",
+      "desc": "Start with +250 cinders — but every shop price doubles."
     },
     {
-      "desc": "Card rewards ignore rarity: rares everywhere.",
       "id": "chaosRewards",
-      "label": "Chaos Rewards"
+      "label": "Chaos Rewards",
+      "desc": "Card rewards ignore rarity: rares everywhere."
     },
     {
-      "desc": "You deal +25% damage, but take +25% damage.",
       "id": "glassCannon",
-      "label": "Glass Cannon"
+      "label": "Glass Cannon",
+      "desc": "You deal +25% damage, but take +25% damage."
     },
     {
-      "desc": "After Act 3 the spire loops — each cycle, foes gain HP and Strength. Only death ends the climb.",
       "id": "endless",
-      "label": "Endless Spire"
+      "label": "Endless Spire",
+      "desc": "After Act 3 the spire loops — each cycle, foes gain HP and Strength. Only death ends the climb."
     }
   ],
   "DECK_MODES": [
     {
-      "desc": "Your class's normal starting deck.",
       "id": "standard",
-      "label": "Standard"
+      "label": "Standard",
+      "desc": "Your class's normal starting deck."
     },
     {
-      "desc": "A random starting deck drawn from your class pool.",
       "id": "sealed",
-      "label": "Sealed"
+      "label": "Sealed",
+      "desc": "A random starting deck drawn from your class pool."
     },
     {
-      "desc": "Draft your starting deck card by card.",
       "id": "draft",
-      "label": "Draft"
+      "label": "Draft",
+      "desc": "Draft your starting deck card by card."
     }
   ],
   "DIFFICULTY_MODS": [
     {
-      "desc": "Elites and bosses have +30% HP.",
       "id": "toughElites",
-      "label": "Tough Elites"
+      "label": "Tough Elites",
+      "desc": "Elites and bosses have +30% HP."
     },
     {
-      "desc": "Shrine rest and between-act healing are halved.",
       "id": "lessHealing",
-      "label": "Scarce Embers"
+      "label": "Scarce Embers",
+      "desc": "Shrine rest and between-act healing are halved."
     },
     {
-      "desc": "Every enemy begins combat with +1 Strength.",
       "id": "deadlyEnemies",
-      "label": "Deadly Foes"
+      "label": "Deadly Foes",
+      "desc": "Every enemy begins combat with +1 Strength."
     },
     {
-      "desc": "Begin the run with a Guilt curse shuffled into your deck.",
       "id": "cursedStart",
-      "label": "Cursed Start"
+      "label": "Cursed Start",
+      "desc": "Begin the run with a Guilt curse shuffled into your deck."
     },
     {
-      "desc": "Shop prices are 50% higher.",
       "id": "expensiveShops",
-      "label": "Greedy Merchants"
+      "label": "Greedy Merchants",
+      "desc": "Shop prices are 50% higher."
     },
     {
-      "desc": "Act bosses have +50% HP.",
       "id": "bigBosses",
-      "label": "Dread Bosses"
+      "label": "Dread Bosses",
+      "desc": "Act bosses have +50% HP."
     }
   ],
   "ENDLESS_HP_PER_LOOP": 0.35,
