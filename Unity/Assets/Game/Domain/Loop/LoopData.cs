@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ashen.Domain.Combat;
+using Ashen.Domain.Events;
 using Ashen.Domain.Map;
 using Ashen.Domain.Random;
 using Ashen.Domain.Rewards;
 using Ashen.Domain.Run;
+using Ashen.Domain.Shop;
 using Newtonsoft.Json.Linq;
 using K = Ashen.Generated.CombatKeys;
 using MK = Ashen.Generated.MapKeys;
@@ -15,16 +17,17 @@ using LV = Ashen.Generated.LoopValues;
 namespace Ashen.Domain.Loop
 {
     /// <summary>
-    /// Everything the run loop reads (the shipped registries main.js hands its controller between fights): the
-    /// post-combat data (run and combat data, the tag tree, the ascension order), the map data (encounters, seats,
-    /// configs, boss destinations), the tagging rows (a location's tags), the legacy dungeons, the unlock rows and the
-    /// loop's own rules (rules/loopEngine.json). Read-only.
+    /// Everything the run loop reads (the shipped registries main.js hands its controller between fights): the event
+    /// door's data (the merchant's and the post-combat data under it: run and combat data, the tag tree, the ascension
+    /// order; the run-level effect door runs on it, D-100i), the map data (encounters, seats, configs, boss
+    /// destinations), the tagging rows (a location's tags), the legacy dungeons, the unlock rows and the loop's own rules
+    /// (rules/loopEngine.json). Read-only.
     /// </summary>
     public sealed class LoopData
     {
-        public LoopData(RewardsData rewards, MapData map, JArray tagging, JObject legacyDungeons, JArray unlocks, JObject engine)
+        public LoopData(EventsData events, MapData map, JArray tagging, JObject legacyDungeons, JArray unlocks, JObject engine)
         {
-            Rewards = rewards ?? throw new ArgumentNullException(nameof(rewards));
+            Events = events ?? throw new ArgumentNullException(nameof(events));
             Map = map ?? throw new ArgumentNullException(nameof(map));
             Tagging = tagging ?? new JArray();
             LegacyDungeons = legacyDungeons ?? new JObject();
@@ -32,7 +35,11 @@ namespace Ashen.Domain.Loop
             Engine = engine ?? throw new ArgumentNullException(nameof(engine));
         }
 
-        public RewardsData Rewards { get; }
+        /// <summary>The event door's data (and under it the merchant's: <see cref="EventsData.Shop"/>).</summary>
+        public EventsData Events { get; }
+
+        public ShopData Shop => Events.Shop;
+        public RewardsData Rewards => Events.Rewards;
         public RunData Run => Rewards.Run;
         public CombatData Combat => Rewards.Combat;
         public MapData Map { get; }

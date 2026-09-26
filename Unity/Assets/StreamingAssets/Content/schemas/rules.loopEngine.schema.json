@@ -250,6 +250,132 @@
         "receiptSchemaVersion"
       ]
     },
+    "newRun": {
+      "type": "object",
+      "properties": {
+        "cursedStart": {
+          "type": "object",
+          "properties": {
+            "cards": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "idPrefix": {
+              "type": "string"
+            },
+            "mod": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "cards",
+            "idPrefix",
+            "mod"
+          ]
+        },
+        "custom": {
+          "type": "object",
+          "properties": {
+            "ascension": {
+              "type": "integer"
+            },
+            "deckMode": {
+              "type": "string"
+            },
+            "mods": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "required": [
+            "ascension",
+            "deckMode",
+            "mods"
+          ]
+        },
+        "customization": {
+          "type": "object",
+          "properties": {
+            "glyph": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "tint": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "glyph",
+            "name",
+            "tint"
+          ]
+        },
+        "defaultDeckMode": {
+          "type": "string"
+        },
+        "deferredDeckModes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hoarderMod": {
+          "type": "string"
+        },
+        "prologue": {
+          "type": "object",
+          "properties": {
+            "scene": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            },
+            "version": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "scene",
+            "status",
+            "version"
+          ]
+        },
+        "stats": {
+          "type": "object",
+          "properties": {
+            "damageDealt": {
+              "type": "integer"
+            },
+            "damageTaken": {
+              "type": "integer"
+            },
+            "fightsWon": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "damageDealt",
+            "damageTaken",
+            "fightsWon"
+          ]
+        }
+      },
+      "required": [
+        "cursedStart",
+        "custom",
+        "customization",
+        "defaultDeckMode",
+        "deferredDeckModes",
+        "hoarderMod",
+        "prologue",
+        "stats"
+      ]
+    },
     "profile": {
       "type": "object",
       "properties": {
@@ -303,17 +429,6 @@
         "kindOrder",
         "receiptLimit",
         "storageSlots"
-      ]
-    },
-    "runContext": {
-      "type": "object",
-      "properties": {
-        "queueGuard": {
-          "type": "integer"
-        }
-      },
-      "required": [
-        "queueGuard"
       ]
     },
     "smithing": {
@@ -429,9 +544,9 @@
     "locations",
     "map",
     "mounts",
+    "newRun",
     "profile",
     "rewards",
-    "runContext",
     "smithing"
   ]
 }

@@ -205,13 +205,13 @@ namespace Ashen.Content
         }
 
         /// <summary>
-        /// The run loop's view (US-8.1): the post-combat data and the map data, with the tagging rows (a location's tags),
-        /// the legacy dungeons (catalog/legacyDungeons.json), the unlock rows (catalog/unlocks.json, in table order) and the
-        /// loop's own rules (rules/loopEngine.json).
+        /// The run loop's view (US-8.1, D-100i): the event door's data (with the merchant's and the post-combat data under
+        /// it) and the map data, with the tagging rows (a location's tags), the legacy dungeons (catalog/legacyDungeons.json),
+        /// the unlock rows (catalog/unlocks.json, in table order) and the loop's own rules (rules/loopEngine.json).
         /// </summary>
         public Ashen.Domain.Loop.LoopData ToLoopData(JObject mechanics, JObject combatEngine, JObject handRules, JObject runEngine, string contentVersion,
-            JArray ascensionOrder, JObject rewardsEngine, JObject mapEngine, JObject loopEngine) =>
-            new Ashen.Domain.Loop.LoopData(ToRewardsData(mechanics, combatEngine, handRules, runEngine, contentVersion, ascensionOrder, rewardsEngine),
+            JArray ascensionOrder, JObject rewardsEngine, JObject shopEngine, JObject eventsEngine, JObject mapEngine, JObject loopEngine) =>
+            new Ashen.Domain.Loop.LoopData(ToEventsData(mechanics, combatEngine, handRules, runEngine, contentVersion, ascensionOrder, rewardsEngine, shopEngine, eventsEngine),
                 ToMapData(mapEngine), (JArray)_tagging.DeepClone(), (JObject)_legacyDungeons.DeepClone(), (JArray)_unlocks.DeepClone(), loopEngine);
 
         /// <summary>The map documents, in content key order: balance/mapConfigs.json, eventMeta's gates, boss locations, mapShape limits and legacy bosses.</summary>
