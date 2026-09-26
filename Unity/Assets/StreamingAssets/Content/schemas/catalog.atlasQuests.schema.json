@@ -1,0 +1,46 @@
+{
+  "$id": "catalog/atlasQuests.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "objectiveNodeId": {
+        "type": "string",
+        "enum": [
+          "ashen-crown:04:0",
+          "cinder-reach:04:0",
+          "drowned-coast:04:0",
+          "hollow-weald:04:0",
+          "pale-marches:04:0"
+        ]
+      },
+      "questId": {
+        "type": "string",
+        "enum": [
+          "survey:bellhaven",
+          "survey:crownfall",
+          "survey:emberhold",
+          "survey:frostgate",
+          "survey:lantern-haven",
+          "survey:saltwatch"
+        ]
+      },
+      "rewardCinders": {
+        "type": "integer"
+      },
+      "speakerId": {
+        "type": "string",
+        "enum": [
+          "roadWarden"
+        ]
+      }
+    },
+    "required": [
+      "objectiveNodeId",
+      "questId",
+      "rewardCinders",
+      "speakerId"
+    ]
+  }
+}

@@ -1,0 +1,264 @@
+{
+  "$id": "catalog/characterCreation.json",
+  "type": "object",
+  "properties": {
+    "classes": {
+      "type": "object",
+      "properties": {
+        "herald": {
+          "type": "object",
+          "properties": {
+            "armourIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "equipSlotIds": {
+              "type": "array",
+              "items": {}
+            },
+            "handIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "relicIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "armourIds",
+            "equipSlotIds",
+            "handIds",
+            "relicIds"
+          ]
+        },
+        "reaver": {
+          "type": "object",
+          "properties": {
+            "armourIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "equipSlotIds": {
+              "type": "array",
+              "items": {}
+            },
+            "handIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "relicIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "armourIds",
+            "equipSlotIds",
+            "handIds",
+            "relicIds"
+          ]
+        },
+        "rogue": {
+          "type": "object",
+          "properties": {
+            "armourIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "equipSlotIds": {
+              "type": "array",
+              "items": {}
+            },
+            "handIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "relicIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "armourIds",
+            "equipSlotIds",
+            "handIds",
+            "relicIds"
+          ]
+        },
+        "starseer": {
+          "type": "object",
+          "properties": {
+            "armourIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "equipSlotIds": {
+              "type": "array",
+              "items": {}
+            },
+            "handIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "relicIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "armourIds",
+            "equipSlotIds",
+            "handIds",
+            "relicIds"
+          ]
+        }
+      },
+      "required": [
+        "herald",
+        "reaver",
+        "rogue",
+        "starseer"
+      ]
+    },
+    "equipmentSections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "slot": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "label"
+        ]
+      }
+    },
+    "keepsakes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "desc": {
+            "type": "string"
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "card": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "op": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "op"
+              ]
+            }
+          },
+          "icon": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "desc",
+          "effects",
+          "icon",
+          "id",
+          "name"
+        ]
+      }
+    },
+    "layout": {
+      "type": "object",
+      "properties": {
+        "classChoiceView": {
+          "type": "string"
+        },
+        "classPreviewPercent": {
+          "type": "integer"
+        },
+        "equipmentAutoAdvance": {
+          "type": "boolean"
+        },
+        "equipmentChoiceView": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "classChoiceView",
+        "classPreviewPercent",
+        "equipmentAutoAdvance",
+        "equipmentChoiceView"
+      ]
+    },
+    "spritePreviewSide": {
+      "type": "string"
+    },
+    "visibleModeIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "classes",
+    "equipmentSections",
+    "keepsakes",
+    "layout",
+    "spritePreviewSide",
+    "visibleModeIds"
+  ]
+}

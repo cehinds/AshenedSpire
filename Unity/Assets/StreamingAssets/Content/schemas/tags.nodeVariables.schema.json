@@ -1,0 +1,41 @@
+{
+  "$id": "tags/nodeVariables.json",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "nodeId": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "amount",
+              "exposureBuildupMult",
+              "level",
+              "n",
+              "pct",
+              "skillXpMult",
+              "stacks",
+              "toFloorPct"
+            ]
+          },
+          "variable": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId",
+          "role",
+          "variable"
+        ]
+      }
+    }
+  },
+  "required": [
+    "rows"
+  ]
+}

@@ -1,0 +1,354 @@
+{
+  "SFX_FAMILY_IDS": [
+    "procBurst",
+    "beat",
+    "holdTick",
+    "holdCommit",
+    "rewardTake"
+  ],
+  "SFX_RECIPES": {
+    "beat": [
+      {
+        "dur": 0.14,
+        "freq": 220,
+        "kind": "tone",
+        "peak": 0.3,
+        "to": 330,
+        "type": "triangle"
+      },
+      {
+        "dur": 0.16,
+        "freq": 440,
+        "kind": "tone",
+        "peak": 0.16,
+        "t0": 0.025,
+        "type": "sine"
+      }
+    ],
+    "block": [
+      {
+        "dur": 0.14,
+        "freq": 320,
+        "kind": "tone",
+        "peak": 0.4,
+        "to": 520,
+        "type": "sine"
+      },
+      {
+        "dur": 0.08,
+        "hp": 2000,
+        "kind": "noise",
+        "peak": 0.2
+      }
+    ],
+    "buy": [
+      {
+        "dur": 0.16,
+        "freq": 700,
+        "kind": "tone",
+        "peak": 0.35,
+        "to": 1050,
+        "type": "triangle"
+      }
+    ],
+    "cardPlay": [
+      {
+        "dur": 0.12,
+        "freq": 520,
+        "kind": "tone",
+        "peak": 0.35,
+        "to": 380,
+        "type": "triangle"
+      }
+    ],
+    "default": [
+      {
+        "dur": 0.05,
+        "freq": 440,
+        "kind": "tone",
+        "peak": 0.15,
+        "to": 440,
+        "type": "sine"
+      }
+    ],
+    "enemyDeath": [
+      {
+        "dur": 0.6,
+        "freq": 240,
+        "kind": "tone",
+        "peak": 0.45,
+        "to": 30,
+        "type": "sawtooth"
+      }
+    ],
+    "flask": [
+      {
+        "dur": 0.18,
+        "freq": 640,
+        "kind": "tone",
+        "peak": 0.3,
+        "to": 400,
+        "type": "sine"
+      }
+    ],
+    "heal": [
+      {
+        "dur": 0.4,
+        "freq": 480,
+        "kind": "tone",
+        "peak": 0.35,
+        "to": 720,
+        "type": "sine"
+      },
+      {
+        "dur": 0.4,
+        "freq": 720,
+        "kind": "tone",
+        "peak": 0.2,
+        "t0": 0.06,
+        "to": 960,
+        "type": "sine"
+      }
+    ],
+    "hit": [
+      {
+        "dur": 0.16,
+        "hp": 300,
+        "kind": "noise",
+        "lp": 4200,
+        "peak": 0.5
+      },
+      {
+        "dur": 0.14,
+        "freq": 150,
+        "kind": "tone",
+        "peak": 0.35,
+        "to": 60,
+        "type": "square"
+      }
+    ],
+    "holdCommit": [
+      {
+        "dur": 0.14,
+        "freq": 220,
+        "kind": "tone",
+        "peak": 0.3,
+        "to": 330,
+        "type": "triangle"
+      },
+      {
+        "dur": 0.16,
+        "freq": 440,
+        "kind": "tone",
+        "peak": 0.16,
+        "t0": 0.025,
+        "type": "sine"
+      }
+    ],
+    "holdTick": [
+      {
+        "dur": 0.035,
+        "freq": 220,
+        "kind": "tone",
+        "peak": 0.1,
+        "type": "triangle"
+      }
+    ],
+    "nodeTravel": [
+      {
+        "dur": 0.14,
+        "freq": 300,
+        "kind": "tone",
+        "peak": 0.3,
+        "to": 460,
+        "type": "triangle"
+      }
+    ],
+    "procBurst": [
+      {
+        "dur": 0.42,
+        "freq": 340,
+        "kind": "tone",
+        "peak": 0.45,
+        "to": 130,
+        "type": "triangle"
+      },
+      {
+        "dur": 0.32,
+        "hp": 700,
+        "kind": "noise",
+        "lp": 4000,
+        "peak": 0.33
+      }
+    ],
+    "procBurst_bleed": [
+      {
+        "dur": 0.55,
+        "freq": 200,
+        "kind": "tone",
+        "peak": 0.5,
+        "to": 60,
+        "type": "sawtooth"
+      },
+      {
+        "dur": 0.45,
+        "hp": 140,
+        "kind": "noise",
+        "lp": 1900,
+        "peak": 0.38
+      }
+    ],
+    "procBurst_frost": [
+      {
+        "dur": 0.3,
+        "freq": 1180,
+        "kind": "tone",
+        "peak": 0.4,
+        "to": 700,
+        "type": "triangle"
+      },
+      {
+        "dur": 0.34,
+        "hp": 1800,
+        "kind": "noise",
+        "lp": 9000,
+        "peak": 0.3
+      },
+      {
+        "dur": 0.28,
+        "freq": 150,
+        "kind": "tone",
+        "peak": 0.14,
+        "t0": 0.02,
+        "to": 90,
+        "type": "sine"
+      }
+    ],
+    "procBurst_insanity": [
+      {
+        "dur": 0.5,
+        "freq": 310,
+        "kind": "tone",
+        "peak": 0.34,
+        "to": 118,
+        "type": "square"
+      },
+      {
+        "dur": 0.5,
+        "freq": 296,
+        "kind": "tone",
+        "peak": 0.3,
+        "t0": 0.015,
+        "to": 112,
+        "type": "square"
+      },
+      {
+        "dur": 0.34,
+        "hp": 700,
+        "kind": "noise",
+        "lp": 3400,
+        "peak": 0.26
+      }
+    ],
+    "relic": [
+      {
+        "dur": 0.25,
+        "freq": 880,
+        "kind": "tone",
+        "peak": 0.3,
+        "to": 1320,
+        "type": "sine"
+      }
+    ],
+    "rewardTake": [
+      {
+        "dur": 0.14,
+        "freq": 520,
+        "kind": "tone",
+        "peak": 0.3,
+        "to": 780,
+        "type": "sine"
+      }
+    ],
+    "shrine": [
+      {
+        "dur": 0.6,
+        "freq": 392,
+        "kind": "tone",
+        "peak": 0.3,
+        "to": 588,
+        "type": "sine"
+      }
+    ],
+    "stagger": [
+      {
+        "dur": 0.35,
+        "freq": 90,
+        "kind": "tone",
+        "peak": 0.5,
+        "to": 40,
+        "type": "square"
+      },
+      {
+        "dur": 0.22,
+        "hp": 120,
+        "kind": "noise",
+        "lp": 1800,
+        "peak": 0.4
+      }
+    ],
+    "stance": [
+      {
+        "dur": 0.3,
+        "freq": 300,
+        "kind": "tone",
+        "peak": 0.4,
+        "to": 600,
+        "type": "triangle"
+      }
+    ],
+    "victory": [
+      {
+        "dur": 0.5,
+        "freq": 392,
+        "kind": "tone",
+        "peak": 0.32,
+        "type": "triangle"
+      },
+      {
+        "dur": 0.5,
+        "freq": 494,
+        "kind": "tone",
+        "peak": 0.32,
+        "t0": 0.12,
+        "type": "triangle"
+      },
+      {
+        "dur": 0.5,
+        "freq": 587,
+        "kind": "tone",
+        "peak": 0.32,
+        "t0": 0.24,
+        "type": "triangle"
+      },
+      {
+        "dur": 0.5,
+        "freq": 784,
+        "kind": "tone",
+        "peak": 0.32,
+        "t0": 0.36,
+        "type": "triangle"
+      }
+    ],
+    "youDied": [
+      {
+        "dur": 1.2,
+        "freq": 160,
+        "kind": "tone",
+        "peak": 0.5,
+        "to": 40,
+        "type": "sawtooth"
+      }
+    ]
+  }
+}

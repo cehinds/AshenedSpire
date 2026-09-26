@@ -1,0 +1,632 @@
+{
+  "$id": "rules/attributeRules.json",
+  "type": "object",
+  "properties": {
+    "defaultMode": {
+      "type": "string"
+    },
+    "presets": {
+      "type": "object",
+      "properties": {
+        "lean": {
+          "type": "object",
+          "properties": {
+            "herald": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "reaver": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "rogue": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "starseer": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            }
+          },
+          "required": [
+            "herald",
+            "reaver",
+            "rogue",
+            "starseer"
+          ]
+        },
+        "pointbuy": {
+          "type": "object",
+          "properties": {
+            "herald": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "reaver": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "rogue": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "starseer": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            }
+          },
+          "required": [
+            "herald",
+            "reaver",
+            "rogue",
+            "starseer"
+          ]
+        },
+        "standard": {
+          "type": "object",
+          "properties": {
+            "herald": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "reaver": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "rogue": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "starseer": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            }
+          },
+          "required": [
+            "herald",
+            "reaver",
+            "rogue",
+            "starseer"
+          ]
+        },
+        "tuned": {
+          "type": "object",
+          "properties": {
+            "herald": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "reaver": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "rogue": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "starseer": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            }
+          },
+          "required": [
+            "herald",
+            "reaver",
+            "rogue",
+            "starseer"
+          ]
+        },
+        "tuned2": {
+          "type": "object",
+          "properties": {
+            "herald": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "reaver": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "rogue": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            },
+            "starseer": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "dexterity": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "strength": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "dexterity",
+                "intelligence",
+                "strength",
+                "wisdom"
+              ]
+            }
+          },
+          "required": [
+            "herald",
+            "reaver",
+            "rogue",
+            "starseer"
+          ]
+        }
+      },
+      "required": [
+        "lean",
+        "pointbuy",
+        "standard",
+        "tuned",
+        "tuned2"
+      ]
+    },
+    "retired": {
+      "type": "object",
+      "properties": {
+        "vigour": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "vigour"
+      ]
+    }
+  },
+  "required": [
+    "defaultMode",
+    "presets",
+    "retired"
+  ]
+}

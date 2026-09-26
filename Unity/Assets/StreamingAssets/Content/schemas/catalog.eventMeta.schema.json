@@ -1,0 +1,211 @@
+{
+  "$id": "catalog/eventMeta.json",
+  "type": "object",
+  "properties": {
+    "eventChoiceIds": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "eventHistoryRequirements": {
+      "type": "object",
+      "properties": {
+        "lanternCaravan": {
+          "type": "object",
+          "properties": {
+            "any": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "choiceId": {
+                    "type": "string"
+                  },
+                  "eventId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "choiceId",
+                  "eventId"
+                ]
+              }
+            }
+          },
+          "required": [
+            "any"
+          ]
+        },
+        "namelessKeeper": {
+          "type": "object",
+          "properties": {
+            "any": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "choiceId": {
+                    "type": "string"
+                  },
+                  "eventId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "choiceId",
+                  "eventId"
+                ]
+              }
+            }
+          },
+          "required": [
+            "any"
+          ]
+        },
+        "namelessRest": {
+          "type": "object",
+          "properties": {
+            "any": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "choiceId": {
+                    "type": "string"
+                  },
+                  "eventId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "choiceId",
+                  "eventId"
+                ]
+              }
+            }
+          },
+          "required": [
+            "any"
+          ]
+        }
+      },
+      "required": [
+        "lanternCaravan",
+        "namelessKeeper",
+        "namelessRest"
+      ]
+    },
+    "eventSpeakers": {
+      "type": "object",
+      "properties": {
+        "graveOfTheNameless": {
+          "type": "string"
+        },
+        "lanternCaravan": {
+          "type": "string"
+        },
+        "lastLantern": {
+          "type": "string"
+        },
+        "namelessKeeper": {
+          "type": "string"
+        },
+        "namelessRest": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "graveOfTheNameless",
+        "lanternCaravan",
+        "lastLantern",
+        "namelessKeeper",
+        "namelessRest"
+      ]
+    },
+    "questChains": {
+      "type": "object",
+      "properties": {
+        "lastLantern": {
+          "type": "object",
+          "properties": {
+            "completes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "choiceId": {
+                    "type": "string"
+                  },
+                  "eventId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "choiceId",
+                  "eventId"
+                ]
+              }
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "completes",
+            "steps"
+          ]
+        },
+        "nameless": {
+          "type": "object",
+          "properties": {
+            "completes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "choiceId": {
+                    "type": "string"
+                  },
+                  "eventId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "choiceId",
+                  "eventId"
+                ]
+              }
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "completes",
+            "steps"
+          ]
+        }
+      },
+      "required": [
+        "lastLantern",
+        "nameless"
+      ]
+    }
+  },
+  "required": [
+    "eventChoiceIds",
+    "eventHistoryRequirements",
+    "eventSpeakers",
+    "questChains"
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "LEGACY_ACT_BOSSES": {
+    "1": "bossOmen",
+    "2": "a2_bossStitchedKing",
+    "3": "a3_bossRotValkyrie"
+  },
+  "MAP_SHAPE_LIMITS": {
+    "maxWeight": 100,
+    "minColumns": 2
+  },
+  "mapConfigs": {
+    "1": {
+      "columns": 7,
+      "entries": 1,
+      "floorRules": {
+        "fixed": [
+          {
+            "at": "first",
+            "type": "monster"
+          },
+          {
+            "at": "fraction",
+            "of": 0.64,
+            "type": "treasure"
+          }
+        ],
+        "minElites": 2,
+        "minMerchants": 1,
+        "noEliteBefore": {
+          "at": "fraction",
+          "of": 0.43
+        },
+        "noShrineBefore": {
+          "at": "fraction",
+          "of": 0.27
+        },
+        "noShrineOn": {
+          "at": "last"
+        },
+        "restBeforeElite": true
+      },
+      "floors": 12,
+      "pathCount": 6,
+      "typeWeights": {
+        "elite": 8,
+        "event": 22,
+        "merchant": 5,
+        "monster": 45,
+        "shrine": 12
+      },
+      "unknownWeights": {
+        "event": 55,
+        "fight": 25,
+        "shrine": 12,
+        "treasure": 8
+      }
+    },
+    "2": {
+      "columns": 7,
+      "entries": 1,
+      "floorRules": {
+        "fixed": [
+          {
+            "at": "first",
+            "type": "monster"
+          },
+          {
+            "at": "fraction",
+            "of": 0.64,
+            "type": "treasure"
+          }
+        ],
+        "minElites": 2,
+        "minMerchants": 1,
+        "noEliteBefore": {
+          "at": "fraction",
+          "of": 0.43
+        },
+        "noShrineBefore": {
+          "at": "fraction",
+          "of": 0.27
+        },
+        "noShrineOn": {
+          "at": "last"
+        },
+        "restBeforeElite": true
+      },
+      "floors": 12,
+      "pathCount": 6,
+      "typeWeights": {
+        "elite": 8,
+        "event": 22,
+        "merchant": 5,
+        "monster": 45,
+        "shrine": 12
+      },
+      "unknownWeights": {
+        "event": 55,
+        "fight": 25,
+        "shrine": 12,
+        "treasure": 8
+      }
+    },
+    "3": {
+      "columns": 7,
+      "entries": 1,
+      "floorRules": {
+        "fixed": [
+          {
+            "at": "first",
+            "type": "monster"
+          },
+          {
+            "at": "fraction",
+            "of": 0.64,
+            "type": "treasure"
+          }
+        ],
+        "minElites": 2,
+        "minMerchants": 1,
+        "noEliteBefore": {
+          "at": "fraction",
+          "of": 0.43
+        },
+        "noShrineBefore": {
+          "at": "fraction",
+          "of": 0.27
+        },
+        "noShrineOn": {
+          "at": "last"
+        },
+        "restBeforeElite": true
+      },
+      "floors": 12,
+      "pathCount": 6,
+      "typeWeights": {
+        "elite": 8,
+        "event": 22,
+        "merchant": 5,
+        "monster": 45,
+        "shrine": 12
+      },
+      "unknownWeights": {
+        "event": 55,
+        "fight": 25,
+        "shrine": 12,
+        "treasure": 8
+      }
+    }
+  }
+}

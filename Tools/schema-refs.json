@@ -1,0 +1,23 @@
+{
+  "comment": "Cross-table references for schema bootstrap (Tools/infer-schemas.mjs) and the validator. 'path' is a regex over the inference path (<file-as-dots>.<field>[.<field>…], arrays add []). An empty string value counts as 'no reference'.",
+  "refs": [
+    { "path": "^catalog\\.encounters\\.enemies\\[\\]$", "table": "catalog/enemies.json" },
+    { "path": "^catalog\\.encounters\\.seat$", "table": "catalog/seats.json" },
+    { "path": "^catalog\\.classes\\.(abilityCard|startingSignatureCard)$", "table": "catalog/cards.json" },
+    { "path": "^catalog\\.classes\\.cardPool\\[\\]$", "table": "catalog/cards.json" },
+    { "path": "^catalog\\.classes\\.(startingRelic|kitRelic)$", "table": "catalog/relics.json" },
+    { "path": "^catalog\\.startingKits\\.(rightHand|leftHand)$", "table": "catalog/armaments.json" },
+    { "path": "^catalog\\.(startingKits|armour|classTree)\\.classId$", "table": "catalog/classes.json" },
+    { "path": "^catalog\\.weaponCardPackages\\.weaponId$", "table": "catalog/armaments.json" },
+    { "path": "\\.effects\\[\\]\\.status$", "table": "catalog/statuses.json" },
+    { "path": "\\.effects\\[\\]\\.stance$", "table": "catalog/stances.json" }
+  ],
+  "mapPaths": [
+    "catalog.enemies.moves",
+    "catalog.bossDestinations",
+    "catalog.eventMeta.eventChoiceIds",
+    "balance.balance.combatRatings.enemyAttackType",
+    "balance.balance.combatRatings.itemRatings"
+  ],
+  "freeText": ["icon", "art", "tint", "glyph", "color", "flavor", "name", "text", "label", "blurb", "aside", "template", "textTemplate", "tooltip", "description", "artKey", "artAsset", "portraitKey", "cardTint"]
+}

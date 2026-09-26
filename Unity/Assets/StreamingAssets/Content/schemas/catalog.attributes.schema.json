@@ -1,0 +1,28 @@
+{
+  "$id": "catalog/attributes.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "disclosure": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "order": {
+        "type": "integer"
+      },
+      "sense": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "disclosure",
+      "id",
+      "order",
+      "sense"
+    ]
+  }
+}

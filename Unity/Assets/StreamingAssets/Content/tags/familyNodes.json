@@ -1,0 +1,362 @@
+{
+  "armament:attackSource": {
+    "family": "armament",
+    "nodeId": "attackSource"
+  },
+  "armament:card": {
+    "family": "armament",
+    "nodeId": "card"
+  },
+  "armament:classification": {
+    "family": "armament",
+    "nodeId": "classification"
+  },
+  "armament:damageType": {
+    "family": "armament",
+    "nodeId": "damageType"
+  },
+  "armament:delivery": {
+    "family": "armament",
+    "nodeId": "delivery"
+  },
+  "armament:item": {
+    "family": "armament",
+    "nodeId": "item"
+  },
+  "armament:itemType": {
+    "family": "armament",
+    "nodeId": "itemType"
+  },
+  "armament:property": {
+    "family": "armament",
+    "nodeId": "property"
+  },
+  "armament:technique": {
+    "family": "armament",
+    "nodeId": "technique"
+  },
+  "armament:theme": {
+    "family": "armament",
+    "nodeId": "theme"
+  },
+  "armour:attackSource": {
+    "family": "armour",
+    "nodeId": "attackSource"
+  },
+  "armour:card": {
+    "family": "armour",
+    "nodeId": "card"
+  },
+  "armour:classification": {
+    "family": "armour",
+    "nodeId": "classification"
+  },
+  "armour:damageType": {
+    "family": "armour",
+    "nodeId": "damageType"
+  },
+  "armour:delivery": {
+    "family": "armour",
+    "nodeId": "delivery"
+  },
+  "armour:item": {
+    "family": "armour",
+    "nodeId": "item"
+  },
+  "armour:itemType": {
+    "family": "armour",
+    "nodeId": "itemType"
+  },
+  "armour:property": {
+    "family": "armour",
+    "nodeId": "property"
+  },
+  "armour:technique": {
+    "family": "armour",
+    "nodeId": "technique"
+  },
+  "armour:theme": {
+    "family": "armour",
+    "nodeId": "theme"
+  },
+  "basicCardProfile:attackSource": {
+    "family": "basicCardProfile",
+    "nodeId": "attackSource"
+  },
+  "basicCardProfile:card": {
+    "family": "basicCardProfile",
+    "nodeId": "card"
+  },
+  "basicCardProfile:classification": {
+    "family": "basicCardProfile",
+    "nodeId": "classification"
+  },
+  "basicCardProfile:damageType": {
+    "family": "basicCardProfile",
+    "nodeId": "damageType"
+  },
+  "basicCardProfile:delivery": {
+    "family": "basicCardProfile",
+    "nodeId": "delivery"
+  },
+  "basicCardProfile:presentation": {
+    "family": "basicCardProfile",
+    "nodeId": "presentation"
+  },
+  "basicCardProfile:property": {
+    "family": "basicCardProfile",
+    "nodeId": "property"
+  },
+  "basicCardProfile:technique": {
+    "family": "basicCardProfile",
+    "nodeId": "technique"
+  },
+  "basicCardProfile:theme": {
+    "family": "basicCardProfile",
+    "nodeId": "theme"
+  },
+  "card:attackSource": {
+    "family": "card",
+    "nodeId": "attackSource"
+  },
+  "card:card": {
+    "family": "card",
+    "nodeId": "card"
+  },
+  "card:classification": {
+    "family": "card",
+    "nodeId": "classification"
+  },
+  "card:cost": {
+    "family": "card",
+    "nodeId": "cost"
+  },
+  "card:damage": {
+    "family": "card",
+    "nodeId": "damage"
+  },
+  "card:damageType": {
+    "family": "card",
+    "nodeId": "damageType"
+  },
+  "card:delivery": {
+    "family": "card",
+    "nodeId": "delivery"
+  },
+  "card:equipment": {
+    "family": "card",
+    "nodeId": "equipment"
+  },
+  "card:internal": {
+    "family": "card",
+    "nodeId": "internal"
+  },
+  "card:lifecycle": {
+    "family": "card",
+    "nodeId": "lifecycle"
+  },
+  "card:presentation": {
+    "family": "card",
+    "nodeId": "presentation"
+  },
+  "card:property": {
+    "family": "card",
+    "nodeId": "property"
+  },
+  "card:scaling": {
+    "family": "card",
+    "nodeId": "scaling"
+  },
+  "card:targeting": {
+    "family": "card",
+    "nodeId": "targeting"
+  },
+  "card:technique": {
+    "family": "card",
+    "nodeId": "technique"
+  },
+  "card:theme": {
+    "family": "card",
+    "nodeId": "theme"
+  },
+  "card:utility": {
+    "family": "card",
+    "nodeId": "utility"
+  },
+  "class:card": {
+    "family": "class",
+    "nodeId": "card"
+  },
+  "class:classification": {
+    "family": "class",
+    "nodeId": "classification"
+  },
+  "class:itemType": {
+    "family": "class",
+    "nodeId": "itemType"
+  },
+  "class:property": {
+    "family": "class",
+    "nodeId": "property"
+  },
+  "effect:attackSource": {
+    "family": "effect",
+    "nodeId": "attackSource"
+  },
+  "effect:card": {
+    "family": "effect",
+    "nodeId": "card"
+  },
+  "effect:damageType": {
+    "family": "effect",
+    "nodeId": "damageType"
+  },
+  "effect:delivery": {
+    "family": "effect",
+    "nodeId": "delivery"
+  },
+  "effect:technique": {
+    "family": "effect",
+    "nodeId": "technique"
+  },
+  "effect:theme": {
+    "family": "effect",
+    "nodeId": "theme"
+  },
+  "encounter:classification": {
+    "family": "encounter",
+    "nodeId": "classification"
+  },
+  "encounter:property": {
+    "family": "encounter",
+    "nodeId": "property"
+  },
+  "encounter:run": {
+    "family": "encounter",
+    "nodeId": "run"
+  },
+  "enemy:classification": {
+    "family": "enemy",
+    "nodeId": "classification"
+  },
+  "enemy:creature": {
+    "family": "enemy",
+    "nodeId": "creature"
+  },
+  "enemy:property": {
+    "family": "enemy",
+    "nodeId": "property"
+  },
+  "event:classification": {
+    "family": "event",
+    "nodeId": "classification"
+  },
+  "event:property": {
+    "family": "event",
+    "nodeId": "property"
+  },
+  "event:run": {
+    "family": "event",
+    "nodeId": "run"
+  },
+  "flask:classification": {
+    "family": "flask",
+    "nodeId": "classification"
+  },
+  "flask:item": {
+    "family": "flask",
+    "nodeId": "item"
+  },
+  "flask:property": {
+    "family": "flask",
+    "nodeId": "property"
+  },
+  "grant:grantSource": {
+    "family": "grant",
+    "nodeId": "grantSource"
+  },
+  "keepsake:classification": {
+    "family": "keepsake",
+    "nodeId": "classification"
+  },
+  "keepsake:item": {
+    "family": "keepsake",
+    "nodeId": "item"
+  },
+  "keepsake:property": {
+    "family": "keepsake",
+    "nodeId": "property"
+  },
+  "location:property": {
+    "family": "location",
+    "nodeId": "property"
+  },
+  "relic:attackSource": {
+    "family": "relic",
+    "nodeId": "attackSource"
+  },
+  "relic:classification": {
+    "family": "relic",
+    "nodeId": "classification"
+  },
+  "relic:damageType": {
+    "family": "relic",
+    "nodeId": "damageType"
+  },
+  "relic:delivery": {
+    "family": "relic",
+    "nodeId": "delivery"
+  },
+  "relic:item": {
+    "family": "relic",
+    "nodeId": "item"
+  },
+  "relic:property": {
+    "family": "relic",
+    "nodeId": "property"
+  },
+  "relic:technique": {
+    "family": "relic",
+    "nodeId": "technique"
+  },
+  "relic:theme": {
+    "family": "relic",
+    "nodeId": "theme"
+  },
+  "slot:classification": {
+    "family": "slot",
+    "nodeId": "classification"
+  },
+  "slot:item": {
+    "family": "slot",
+    "nodeId": "item"
+  },
+  "slot:property": {
+    "family": "slot",
+    "nodeId": "property"
+  },
+  "startingKit:classification": {
+    "family": "startingKit",
+    "nodeId": "classification"
+  },
+  "startingKit:item": {
+    "family": "startingKit",
+    "nodeId": "item"
+  },
+  "startingKit:property": {
+    "family": "startingKit",
+    "nodeId": "property"
+  },
+  "unlock:classification": {
+    "family": "unlock",
+    "nodeId": "classification"
+  },
+  "unlock:property": {
+    "family": "unlock",
+    "nodeId": "property"
+  },
+  "unlock:run": {
+    "family": "unlock",
+    "nodeId": "run"
+  }
+}

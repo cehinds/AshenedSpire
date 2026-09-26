@@ -1,0 +1,20 @@
+{
+  "$id": "catalog/speakers.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "portraitKey": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "portraitKey"
+    ]
+  }
+}

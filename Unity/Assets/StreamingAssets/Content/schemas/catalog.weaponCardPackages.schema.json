@@ -1,0 +1,87 @@
+{
+  "$id": "catalog/weaponCardPackages.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "package": {
+        "type": "object",
+        "properties": {
+          "combatKit": {
+            "type": "object",
+            "properties": {
+              "artCardId": {
+                "type": "string"
+              },
+              "attackProfileId": {
+                "type": "string",
+                "enum": [
+                  "bladeAttack",
+                  "bowPierceAttack",
+                  "daggerPierceAttack",
+                  "sceptreArcaneAttack",
+                  "shieldAttack",
+                  "staffMagicAttack",
+                  "twinbladeAttack"
+                ]
+              },
+              "guardProfileId": {
+                "type": "string",
+                "enum": [
+                  "sceptreGuard",
+                  "shieldGuard",
+                  "staffGuard",
+                  "weaponGuard"
+                ]
+              }
+            },
+            "required": [
+              "artCardId",
+              "attackProfileId",
+              "guardProfileId"
+            ]
+          },
+          "compatibility": {
+            "type": "string",
+            "enum": [
+              "attack-v1"
+            ]
+          },
+          "fillerAttackProfileId": {
+            "type": "string",
+            "enum": [
+              "bladeAttack",
+              "bowPierceAttack",
+              "daggerPierceAttack",
+              "sceptreArcaneAttack",
+              "shieldAttack",
+              "staffMagicAttack",
+              "twinbladeAttack"
+            ]
+          },
+          "weaponArtDefaults": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "combatKit",
+          "compatibility",
+          "fillerAttackProfileId",
+          "weaponArtDefaults"
+        ]
+      },
+      "weaponId": {
+        "type": "string",
+        "x-ref": "catalog/armaments.json"
+      }
+    },
+    "required": [
+      "package",
+      "weaponId"
+    ]
+  }
+}

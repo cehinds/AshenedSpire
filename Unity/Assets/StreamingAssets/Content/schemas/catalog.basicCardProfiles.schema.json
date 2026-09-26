@@ -1,0 +1,95 @@
+{
+  "$id": "catalog/basicCardProfiles.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "baseCardId": {
+        "type": "string",
+        "enum": [
+          "defend",
+          "dodgeRoll",
+          "evasiveGuard",
+          "strike",
+          "technique"
+        ]
+      },
+      "baseValue": {
+        "type": "integer"
+      },
+      "cap": {
+        "type": "string",
+        "enum": [
+          ""
+        ]
+      },
+      "compatibility": {
+        "type": "string",
+        "enum": [
+          "attack-v1",
+          "guard-v1",
+          "technique-v1"
+        ]
+      },
+      "damageSchool": {
+        "type": "string",
+        "enum": [
+          "arcane",
+          "magic",
+          "physical"
+        ]
+      },
+      "displayName": {
+        "type": "string"
+      },
+      "exposureBuildupPerHit": {
+        "type": "integer"
+      },
+      "flavor": {
+        "type": "string"
+      },
+      "icon": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "mods": {
+        "type": "array",
+        "items": {}
+      },
+      "ratingId": {
+        "type": "string",
+        "enum": [
+          "ar",
+          "dr",
+          "pr"
+        ]
+      },
+      "role": {
+        "type": "string",
+        "enum": [
+          "attack",
+          "guard",
+          "technique"
+        ]
+      }
+    },
+    "required": [
+      "baseCardId",
+      "baseValue",
+      "cap",
+      "compatibility",
+      "damageSchool",
+      "displayName",
+      "exposureBuildupPerHit",
+      "flavor",
+      "icon",
+      "id",
+      "mods",
+      "ratingId",
+      "role"
+    ]
+  }
+}

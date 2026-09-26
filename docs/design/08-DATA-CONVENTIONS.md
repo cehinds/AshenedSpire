@@ -72,7 +72,7 @@ Build-only configuration (`importRules.json`, `addressablesPlan.json`, codegen s
 
 | Rule | Example |
 |---|---|
-| IDs are `lower_snake_case`, unique **within their table** | `grave_wisp`, `cleave`, `bleed` |
+| IDs are the **shipped IDs** (lowerCamelCase; D-030), unique **within their table** | `graveWisp`, `cleave`, `bleed` |
 | References are **typed by the schema** (`"x-ref": "statuses"`), never by a prefix inside the string | `{ "op": "applyStatus", "status": "bleed", "amount": 3 }` |
 | Cross-kind references in free positions use `kind:id` | `"reward": "relic:golden_sprout"` |
 | Asset IDs are dotted paths from the registry | `enemy.grave_wisp.hurt`, `vfx.slash`, `pose.reaver.oathsworn.atk_03.ember` |

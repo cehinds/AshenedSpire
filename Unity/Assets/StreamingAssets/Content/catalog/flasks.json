@@ -1,0 +1,107 @@
+{
+  "azureFlask": {
+    "artAsset": "assets/ui/flasks/flask-azure.webp",
+    "artKey": "flask-azure",
+    "effects": [
+      {
+        "amount": 1,
+        "op": "restoreMana"
+      }
+    ],
+    "icon": "🫙",
+    "id": "azureFlask",
+    "rarity": "common",
+    "tint": "#75a9ff"
+  },
+  "blightCoating": {
+    "artKey": "flask-blight",
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 4,
+        "status": "crimsonBlight",
+        "target": "enemy"
+      }
+    ],
+    "icon": "🦠",
+    "id": "blightCoating",
+    "rarity": "uncommon",
+    "targeted": true,
+    "tint": "#73984d"
+  },
+  "bloodUnction": {
+    "artKey": "flask-blood",
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "bloodUnction",
+        "target": "self"
+      }
+    ],
+    "icon": "🫗",
+    "id": "bloodUnction",
+    "rarity": "uncommon",
+    "tint": "#8e3143"
+  },
+  "crimsonFlask": {
+    "artAsset": "assets/ui/flasks/flask-crimson.webp",
+    "artKey": "flask-crimson",
+    "effects": [
+      {
+        "amount": {
+          "f": "percentMaxHp",
+          "of": "self",
+          "pct": 25
+        },
+        "op": "heal",
+        "target": "self"
+      }
+    ],
+    "icon": "🧪",
+    "id": "crimsonFlask",
+    "rarity": "common",
+    "tint": "#ef7272"
+  },
+  "flaskOfFerocity": {
+    "artKey": "flask-ferocity",
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "strength",
+        "target": "self"
+      }
+    ],
+    "icon": "🍶",
+    "id": "flaskOfFerocity",
+    "rarity": "common",
+    "tint": "#d77b35"
+  },
+  "flaskOfStone": {
+    "artKey": "flask-stone",
+    "effects": [
+      {
+        "amount": 15,
+        "op": "block",
+        "target": "self"
+      }
+    ],
+    "icon": "🏺",
+    "id": "flaskOfStone",
+    "rarity": "common",
+    "tint": "#9a8b73"
+  },
+  "wondrousDraught": {
+    "artKey": "flask-wondrous",
+    "effects": [
+      {
+        "script": "wondrousDraught"
+      }
+    ],
+    "icon": "⚗",
+    "id": "wondrousDraught",
+    "rarity": "rare",
+    "tint": "#9a65c7"
+  }
+}

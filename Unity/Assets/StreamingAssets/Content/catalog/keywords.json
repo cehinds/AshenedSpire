@@ -1,0 +1,17 @@
+{
+  "ethereal": {
+    "id": "ethereal"
+  },
+  "exhaust": {
+    "id": "exhaust"
+  },
+  "innate": {
+    "id": "innate"
+  },
+  "retain": {
+    "id": "retain"
+  },
+  "unplayable": {
+    "id": "unplayable"
+  }
+}

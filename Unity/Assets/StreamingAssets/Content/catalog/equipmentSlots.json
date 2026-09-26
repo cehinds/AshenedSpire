@@ -1,0 +1,111 @@
+[
+  {
+    "blurb": "Your active main-hand armament. Rewrites Strike.",
+    "hand": "right",
+    "id": "rightHand",
+    "kinds": [
+      "weapon",
+      "shield",
+      "staff"
+    ],
+    "label": "Main Hand",
+    "order": 1,
+    "positionCode": "MH{n}",
+    "positionLabel": "Main Hand Slot {n}",
+    "sets": 3,
+    "storage": true,
+    "swap": "combat"
+  },
+  {
+    "blurb": "Your active off-hand armament. Rewrites Defend.",
+    "hand": "left",
+    "id": "leftHand",
+    "kinds": [
+      "weapon",
+      "shield",
+      "staff"
+    ],
+    "label": "Off Hand",
+    "order": 2,
+    "positionCode": "OH{n}",
+    "positionLabel": "Off Hand Slot {n}",
+    "sets": 3,
+    "storage": true,
+    "swap": "combat"
+  },
+  {
+    "blurb": "Your set. Repaints you and steadies the numbers.",
+    "hand": "",
+    "id": "armor",
+    "kinds": [
+      "armor"
+    ],
+    "label": "Armour",
+    "order": 3,
+    "positionCode": "BODY",
+    "positionLabel": "Armour Slot {n}",
+    "sets": 1,
+    "storage": false,
+    "swap": "outOfCombat"
+  },
+  {
+    "blurb": "What you wear on your head. Empty until head pieces are authored.",
+    "hand": "",
+    "id": "head",
+    "kinds": [
+      "head"
+    ],
+    "label": "Head",
+    "order": 4,
+    "positionCode": "HEAD",
+    "positionLabel": "Head Slot {n}",
+    "sets": 1,
+    "storage": false,
+    "swap": "outOfCombat"
+  },
+  {
+    "blurb": "What you wear on your hands. Empty until hand pieces are authored.",
+    "hand": "",
+    "id": "hands",
+    "kinds": [
+      "hands"
+    ],
+    "label": "Hands",
+    "order": 5,
+    "positionCode": "HANDS",
+    "positionLabel": "Hands Slot {n}",
+    "sets": 1,
+    "storage": false,
+    "swap": "outOfCombat"
+  },
+  {
+    "blurb": "What you wear on your feet. Empty until foot pieces are authored.",
+    "hand": "",
+    "id": "feet",
+    "kinds": [
+      "feet"
+    ],
+    "label": "Feet",
+    "order": 6,
+    "positionCode": "FEET",
+    "positionLabel": "Feet Slot {n}",
+    "sets": 1,
+    "storage": false,
+    "swap": "outOfCombat"
+  },
+  {
+    "blurb": "Small charms. Empty until talismans are authored.",
+    "hand": "",
+    "id": "talisman",
+    "kinds": [
+      "talisman"
+    ],
+    "label": "Talisman",
+    "order": 7,
+    "positionCode": "TAL{n}",
+    "positionLabel": "Talisman Slot {n}",
+    "sets": 3,
+    "storage": false,
+    "swap": "outOfCombat"
+  }
+]
