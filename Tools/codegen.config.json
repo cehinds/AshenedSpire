@@ -67,7 +67,8 @@
         "ListRows": "rows",
         "Lf": "\n",
         "CrLf": "\r\n",
-        "ParentDirectory": ".."
+        "ParentDirectory": "..",
+        "ContentFolder": "Content"
       }
     },
     {
@@ -86,6 +87,54 @@
         "Schema": "schema",
         "String": "stringKey",
         "Cost": "costRule"
+      }
+    },
+    {
+      "name": "RuleKeys",
+      "doc": "Keys of rules/validation.json, rules/stringKeys.json, presets and effect objects read by the validator.",
+      "keys": {
+        "RowRules": "rowRules",
+        "RuleId": "id",
+        "Table": "table",
+        "When": "when",
+        "Field": "field",
+        "Eq": "eq",
+        "Gt": "gt",
+        "Gte": "gte",
+        "Lt": "lt",
+        "Lte": "lte",
+        "OrValues": "orValues",
+        "Require": "require",
+        "Prefix": "prefix",
+        "Required": "required",
+        "Optional": "optional",
+        "PresetFiles": "files",
+        "Op": "op",
+        "StringKeysFile": "rules/stringKeys.json",
+        "ValidationFile": "rules/validation.json",
+        "StringsFile": "strings/en.json",
+        "PresetFolder": "settings/presets/",
+        "Containers": "containers",
+        "EffectOpsFile": "rules/effectOps.json"
+      }
+    },
+    {
+      "name": "ValidationMessages",
+      "doc": "Developer-facing validator message templates (string.Format placeholders).",
+      "keys": {
+        "MissingFile": "manifest lists {0} but the file is missing",
+        "Hash": "sha256 mismatch (manifest {0}, file {1}); regenerate content through the tools",
+        "Parse": "invalid JSON: {0}",
+        "NoSchema": "no schema {0}",
+        "Type": "expected {0}, found {1}",
+        "Required": "missing required property '{0}'",
+        "Enum": "value '{0}' is not one of [{1}]",
+        "Unknown": "unknown property '{0}'",
+        "Ref": "'{0}' does not exist in {1}",
+        "UnknownOp": "unknown effect op '{0}' (add it to rules/effectOps.json)",
+        "String": "missing string key '{0}'",
+        "Cost": "rule '{0}' failed: {1} = {2}",
+        "PresetFile": "preset patches unknown file {0}"
       }
     }
   ],

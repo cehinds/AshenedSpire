@@ -1,5 +1,5 @@
 {
-  "contentHash": "6d8798cd2f5c195cfe59c2ad47b202aaba02958c790c92f334c16adb528adddd",
+  "contentHash": "a2af536940fa8c741701134f5265406d927ac0bf7757b658ad64123a3b2176e4",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -259,9 +259,9 @@
       "sha256": "6063a5fcfc99528b5ff5edebb1d661afcb4b612ce212f3cc2ccae336dbffa64e"
     },
     "rules/effectOps.json": {
-      "bytes": 726,
+      "bytes": 932,
       "generated": false,
-      "sha256": "18674f4b16a26582bb6385db5adf410532555d581dc6d2c8056c438522238926"
+      "sha256": "0d955c905f65a08ef8bfb55cc44987e87909440228f7663a6e72b8a88a87c60c"
     },
     "rules/handRules.json": {
       "bytes": 671,
@@ -282,6 +282,16 @@
       "bytes": 34551,
       "generated": true,
       "sha256": "c638c5255aae12e46e933155a0a4bbb682576a3a040937b7612d0e9c6d2c3d03"
+    },
+    "rules/stringKeys.json": {
+      "bytes": 2420,
+      "generated": true,
+      "sha256": "96b16292ca0283768e275c55c58e2c5fc76f4596ae8435b636b50d4de9057d39"
+    },
+    "rules/validation.json": {
+      "bytes": 574,
+      "generated": false,
+      "sha256": "414dd661f53883f134f39aeb8c6948b19005b1664284fd158b99e8f8f2fa3c8a"
     },
     "schemas/audio.music.schema.json": {
       "bytes": 11107,
@@ -499,14 +509,14 @@
       "sha256": "cf381c7f16b8fc5024525a55c6affc6b0c3a3c83c44dac3f2d28da4f6c70f55a"
     },
     "schemas/rules.effectOps.schema.json": {
-      "bytes": 264,
+      "bytes": 382,
       "generated": false,
-      "sha256": "be7812ac7ad45d10676a52f1f2e60e6a31128f0b23403a9798aa4ccef7472c73"
+      "sha256": "b404be67874cde45f86d63e2b99c9b6645075aca9ca060347c177a07e5599037"
     },
     "schemas/rules.handRules.schema.json": {
-      "bytes": 2625,
+      "bytes": 3796,
       "generated": false,
-      "sha256": "850cee3992a01ce372461a60b9e0f87d9cb7a5583f5d8adc9044238e2d05a21e"
+      "sha256": "543b92123974e063975e4bd7c1a391a9acffcca959c1df35b4a87e20c4e35738"
     },
     "schemas/rules.mechanics.schema.json": {
       "bytes": 4206,
@@ -522,6 +532,16 @@
       "bytes": 9214,
       "generated": false,
       "sha256": "d4c07284354e421cfc9035b01866110521284645fa4076dfcca7c8e828177fef"
+    },
+    "schemas/rules.stringKeys.schema.json": {
+      "bytes": 9027,
+      "generated": false,
+      "sha256": "73c95ec191e8112873f988ba84988d16d963841d85f85ab65d9ff8ed9ee8bdc7"
+    },
+    "schemas/rules.validation.schema.json": {
+      "bytes": 1554,
+      "generated": false,
+      "sha256": "69827ab65db63ea47edf2f653dd275bb1bfd1d0a12380ed10d2c872bf1aae0ed"
     },
     "schemas/settings.presets.reference.schema.json": {
       "bytes": 20862,

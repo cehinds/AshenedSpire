@@ -15,7 +15,7 @@ const CONTENT = join(ROOT, 'Unity', 'Assets', 'StreamingAssets', 'Content');
 const CONFIG = JSON.parse(readFileSync(join(ROOT, 'Tools', 'transform.config.json'), 'utf8'));
 const CHECK = process.argv.includes('--check');
 const GENERATED_DIRS = ['catalog', 'balance', 'rules', 'tags', 'strings', 'settings/presets', 'audio', 'ui'];
-const HAND_WRITTEN = new Set(['ui/screens.json', 'ui/menus.json', 'ui/layout.json', 'ui/tokens.json', 'ui/components.json', 'audio/contexts.json', 'settings/defaults.json', 'about.json', 'rules/effectOps.json']);
+const HAND_WRITTEN = new Set(['ui/screens.json', 'ui/menus.json', 'ui/layout.json', 'ui/tokens.json', 'ui/components.json', 'audio/contexts.json', 'settings/defaults.json', 'about.json', 'rules/effectOps.json', 'rules/validation.json']);
 
 const fail = (m) => { console.error(`transform: ${m}`); process.exit(1); };
 const readRaw = (name) => {
@@ -76,6 +76,16 @@ function build(bundle, extras) {
     if (o.omit) for (const k of o.omit) delete v[k];
     files[o.out] = v;
   }
+  // Required string keys per keyed catalog: a text field present on every source row is required (validator reads this).
+  const stringKeys = {};
+  for (const t of CONFIG.tables) {
+    if (t.list || !t.text) continue;
+    const rows = at(roots, t.from);
+    const required = Object.entries(t.text).filter(([field]) => rows.every(r => typeof r[field] === 'string')).map(([, name]) => name);
+    const optional = Object.entries(t.text).filter(([field]) => !rows.every(r => typeof r[field] === 'string')).map(([, name]) => name);
+    stringKeys[t.out] = { prefix: t.stringPrefix, required, optional };
+  }
+  files['rules/stringKeys.json'] = stringKeys;
   const us = at(roots, CONFIG.uiStrings.from) || [];
   for (const row of us) for (const f of CONFIG.uiStrings.fields) if (typeof row[f] === 'string') strings[`${CONFIG.uiStrings.prefix}.${row.id}.${f}`] = row[f];
   files['strings/en.json'] = strings;

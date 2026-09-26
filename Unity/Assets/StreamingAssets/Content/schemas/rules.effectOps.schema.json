@@ -5,6 +5,12 @@
     "comment": {
       "type": "string"
     },
+    "containers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "ops": {
       "type": "array",
       "items": {
@@ -14,6 +20,7 @@
   },
   "required": [
     "comment",
+    "containers",
     "ops"
   ]
 }
