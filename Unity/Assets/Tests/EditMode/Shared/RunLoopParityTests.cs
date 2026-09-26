@@ -21,7 +21,8 @@ namespace Ashen.Tests
     /// step by step through Ashen.Domain.Loop on content-built data. Each checked step starts from the recorded documents
     /// before it (run, RNG counters, profile), applies the port, and must produce the recorded outcome and the recorded
     /// documents after it, strictly (presence, values as doubles, key order). External steps (an event's choice, a
-    /// merchant visit — the shop/events stream's) only advance the documents.
+    /// merchant visit) only advance the documents here; <see cref="ChainedRunTests"/> drives them through the shop and
+    /// events ports in one unbroken C# run.
     /// </summary>
     [TestFixture, Category("Parity")]
     public class RunLoopParityTests
