@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [1.0.0.3] — 2026-09-26
+
+- combat and registries parity oracles
+
 ## [1.0.0.2] — 2026-09-26
 
 - codegen config fragments

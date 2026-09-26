@@ -1,0 +1,149 @@
+{
+ "azureFlask": {
+  "artAsset": "assets/ui/flasks/flask-azure.webp",
+  "artKey": "flask-azure",
+  "effects": [
+   {
+    "amount": 1,
+    "op": "restoreMana"
+   }
+  ],
+  "icon": "🫙",
+  "id": "azureFlask",
+  "kindIds": [
+   "classification.flask"
+  ],
+  "name": "Azure Flask",
+  "rarity": "common",
+  "tags": [],
+  "textTemplate": "Restore 1 Mana.",
+  "tint": "#75a9ff"
+ },
+ "blightCoating": {
+  "artKey": "flask-blight",
+  "effects": [
+   {
+    "op": "applyStatus",
+    "stacks": 4,
+    "status": "crimsonBlight",
+    "target": "enemy"
+   }
+  ],
+  "icon": "🦠",
+  "id": "blightCoating",
+  "kindIds": [
+   "classification.flask"
+  ],
+  "name": "Blight Coating",
+  "rarity": "uncommon",
+  "tags": [],
+  "targeted": true,
+  "textTemplate": "Apply 4 Crimson Blight to an enemy.",
+  "tint": "#73984d"
+ },
+ "bloodUnction": {
+  "artKey": "flask-blood",
+  "effects": [
+   {
+    "op": "applyStatus",
+    "stacks": 1,
+    "status": "bloodUnction",
+    "target": "self"
+   }
+  ],
+  "icon": "🫗",
+  "id": "bloodUnction",
+  "kindIds": [
+   "classification.flask"
+  ],
+  "name": "Blood Unction",
+  "rarity": "uncommon",
+  "tags": [],
+  "textTemplate": "This turn, your attacks apply 2 extra Bleed per hit.",
+  "tint": "#8e3143"
+ },
+ "crimsonFlask": {
+  "artAsset": "assets/ui/flasks/flask-crimson.webp",
+  "artKey": "flask-crimson",
+  "effects": [
+   {
+    "amount": {
+     "f": "percentMaxHp",
+     "of": "self",
+     "pct": 25
+    },
+    "op": "heal",
+    "target": "self"
+   }
+  ],
+  "icon": "🧪",
+  "id": "crimsonFlask",
+  "kindIds": [
+   "classification.flask"
+  ],
+  "name": "Crimson Flask",
+  "rarity": "common",
+  "tags": [],
+  "textTemplate": "Heal 25% of your max HP.",
+  "tint": "#ef7272"
+ },
+ "flaskOfFerocity": {
+  "artKey": "flask-ferocity",
+  "effects": [
+   {
+    "op": "applyStatus",
+    "stacks": 2,
+    "status": "strength",
+    "target": "self"
+   }
+  ],
+  "icon": "🍶",
+  "id": "flaskOfFerocity",
+  "kindIds": [
+   "classification.flask"
+  ],
+  "name": "Flask of Ferocity",
+  "rarity": "common",
+  "tags": [],
+  "textTemplate": "Gain 2 Strength this combat.",
+  "tint": "#d77b35"
+ },
+ "flaskOfStone": {
+  "artKey": "flask-stone",
+  "effects": [
+   {
+    "amount": 15,
+    "op": "block",
+    "target": "self"
+   }
+  ],
+  "icon": "🏺",
+  "id": "flaskOfStone",
+  "kindIds": [
+   "classification.flask"
+  ],
+  "name": "Flask of Stone",
+  "rarity": "common",
+  "tags": [],
+  "textTemplate": "Gain 15 Block.",
+  "tint": "#9a8b73"
+ },
+ "wondrousDraught": {
+  "artKey": "flask-wondrous",
+  "effects": [
+   {
+    "script": "wondrousDraught"
+   }
+  ],
+  "icon": "⚗",
+  "id": "wondrousDraught",
+  "kindIds": [
+   "classification.flask"
+  ],
+  "name": "Wondrous Draught",
+  "rarity": "rare",
+  "tags": [],
+  "textTemplate": "Gain the effects of two different random flasks at once.",
+  "tint": "#9a65c7"
+ }
+}

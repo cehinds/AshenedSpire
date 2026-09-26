@@ -1,0 +1,1090 @@
+{
+ "abandonedCart": {
+  "art": "🛒",
+  "choices": [
+   {
+    "effects": [
+     {
+      "amount": 75,
+      "op": "addCinders"
+     },
+     {
+      "encounterId": "loneSoldier",
+      "if": {
+       "p": "random",
+       "pct": 50
+      },
+      "op": "startCombat"
+     }
+    ],
+    "label": "Loot the strongbox (gain 75 cinders; the owners may object)",
+    "resultText": "You scoop the cinders from the mud. Behind you, someone clears their throat."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "Not every gift is free. You keep walking."
+   }
+  ],
+  "id": "abandonedCart",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Abandoned Merchant Cart",
+  "tags": [],
+  "text": "A trader’s cart lies tipped in the mud, one wheel still turning. Cinder-light glints from a split strongbox. The mud around it is churned with bootprints."
+ },
+ "ancientRuneStone": {
+  "art": "🗿",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "upgradeCard",
+      "random": true
+     },
+     {
+      "op": "loseMaxHpPct",
+      "pct": 7
+     }
+    ],
+    "label": "Study it (upgrade a random card, lose 7% max HP)",
+    "resultText": "The script rearranges something behind your eyes. You are sharper, and less."
+   },
+   {
+    "effects": [
+     {
+      "amount": 35,
+      "op": "addCinders"
+     }
+    ],
+    "label": "Smash it (gain 35 cinders)",
+    "resultText": "The stone comes apart into cinder-light. The hum does not entirely stop."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "Some doors are better left unread."
+   }
+  ],
+  "id": "ancientRuneStone",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Ancient Cinder Stone",
+  "tags": [],
+  "text": "A standing stone hums with old script. Reading it makes your teeth ache and your hands steadier. It would also break beautifully."
+ },
+ "bloodstainedAltar": {
+  "art": "🩸",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "upgradeCard",
+      "random": true
+     },
+     {
+      "op": "upgradeCard",
+      "random": true
+     },
+     {
+      "op": "loseMaxHpPct",
+      "pct": 8
+     }
+    ],
+    "label": "Offer your blood (upgrade 2 random cards, lose 8% max HP)",
+    "resultText": "The channels drink. Two of your cards come back keener than any smith could make them."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "The altar does not care. It has waited longer than you."
+   }
+  ],
+  "id": "bloodstainedAltar",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Bloodstained Altar",
+  "tags": [],
+  "text": "An altar of dark stone, its channels worn smooth by use. The instructions are carved plainly: the stone sharpens what is given to it, and it keeps a portion."
+ },
+ "cinderbearDen": {
+  "art": "🐻",
+  "choices": [
+   {
+    "effects": [
+     {
+      "amount": 100,
+      "op": "addCinders"
+     },
+     {
+      "encounterId": "eliteWyrm",
+      "if": {
+       "p": "random",
+       "pct": 75
+      },
+      "op": "startCombat"
+     }
+    ],
+    "label": "Go for the hoard (gain 100 cinders; it will almost certainly wake)",
+    "resultText": "Your hands fill with cold light. Behind you, the breathing stops."
+   },
+   {
+    "effects": [
+     {
+      "op": "loseMaxHpPct",
+      "pct": 5
+     },
+     {
+      "amount": 25,
+      "op": "addCinders"
+     }
+    ],
+    "label": "Skim the edges (squeeze past the rubble, lose 5% max HP, gain 25 cinders)",
+    "resultText": "You take only what is within reach and pay for it in scraped ribs. The den keeps its heart."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "Some fortunes are guarded by teeth. You leave this one to its keeper."
+   }
+  ],
+  "id": "cinderbearDen",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Cinderbear Den",
+  "tags": [],
+  "text": "The cave reeks of musk and old kills. Cinder-light glitters in the bone-litter at the back — a fortune, if you are quiet, and quick, and the mound of fur by the wall keeps breathing slow."
+ },
+ "discardedReliquary": {
+  "art": "📦",
+  "choices": [
+   {
+    "effects": [
+     {
+      "card": "guilt",
+      "op": "addCardToDeck"
+     },
+     {
+      "amount": 45,
+      "op": "addCinders"
+     }
+    ],
+    "label": "Take it with you (gain a Guilt curse; the pack has 45 cinders)",
+    "resultText": "You pick it up before you can think better of it. It settles into your deck like it was always there."
+   },
+   {
+    "effects": [
+     {
+      "amount": 25,
+      "op": "addCinders"
+     }
+    ],
+    "label": "Burn the pack (gain 25 cinders; leave the card)",
+    "resultText": "The provisions catch fast. The face-down card curls to ash before you can read it."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "You step around the pack and do not look back."
+   }
+  ],
+  "id": "discardedReliquary",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Discarded Reliquary",
+  "tags": [],
+  "text": "A traveler's pack lies split open at the trail's edge, its owner nowhere to be found. Among the ruined provisions, a single card sits face-down, deliberately placed — as though left as a warning, not a gift."
+ },
+ "fadedGrace": {
+  "art": "🕯",
+  "choices": [
+   {
+    "effects": [
+     {
+      "amount": {
+       "f": "percentMaxHp",
+       "of": "self",
+       "pct": 18
+      },
+      "op": "heal",
+      "target": "self"
+     }
+    ],
+    "label": "Warm yourself (heal 18% max HP)",
+    "resultText": "The last of the light soaks into you. When it fades, the ground is only ground."
+   },
+   {
+    "effects": [
+     {
+      "op": "upgradeCard",
+      "random": true
+     },
+     {
+      "op": "loseMaxHpPct",
+      "pct": 6
+     }
+    ],
+    "label": "Temper a blade (upgrade a random card, lose 6% max HP)",
+    "resultText": "You hold a card to the dying ember until it takes the edge. It costs you something to keep the flame that long."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "You let the ember fade unspent. Some kindnesses are not yours to take."
+   }
+  ],
+  "id": "fadedGrace",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Seat of Faded Emberlight",
+  "tags": [],
+  "text": "A guiding ember once pooled here, now guttering to a thread of gold. It has just enough left to give — a mending, or a sharpening — but not both, and not for long."
+ },
+ "feralShrine": {
+  "art": "🐾",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "addRelic",
+      "random": true
+     },
+     {
+      "encounterId": "eliteWyrm",
+      "op": "startCombat"
+     }
+    ],
+    "label": "Take the offering (gain a random relic — its keeper objects)",
+    "resultText": "Your hand closes on the relic. Behind you, the undergrowth stands up."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "Wild ember keeps its own accounts. You leave the ledger closed."
+   }
+  ],
+  "id": "feralShrine",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Shrine of the Feral Ember",
+  "tags": [],
+  "text": "A shrine no church would recognize: antlers, wax, and old blood. Ember pools here anyway — wild, unattended, and guarded by something that has not left claw marks this fresh by accident."
+ },
+ "goldboughAvatar": {
+  "art": "🌳",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "removeCardFromDeck",
+      "random": true
+     },
+     {
+      "amount": 6,
+      "op": "damage",
+      "target": "self"
+     }
+    ],
+    "label": "Offer a card (lose a random card, take 6 damage)",
+    "resultText": "The card crumbles to gold leaf in its palm. Its other hand closes around yours — the blessing is not gentle."
+   },
+   {
+    "effects": [
+     {
+      "amount": {
+       "f": "percentMaxHp",
+       "of": "self",
+       "pct": 20
+      },
+      "op": "heal",
+      "target": "self"
+     },
+     {
+      "card": "guilt",
+      "op": "addCardToDeck"
+     }
+    ],
+    "label": "Pray (heal 20% max HP, gain a Guilt curse)",
+    "resultText": "Warmth knits your wounds shut. Something else follows you out of the clearing."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "The hand stays open behind you for a long time."
+   }
+  ],
+  "id": "goldboughAvatar",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Goldbough Avatar",
+  "tags": [],
+  "text": "A hulking avatar kneels in a clearing, grown into the roots of a golden sapling. It does not attack. It holds out one massive hand, palm up, waiting."
+ },
+ "goldenMoth": {
+  "art": "🦋",
+  "choices": [
+   {
+    "effects": [
+     {
+      "amount": 40,
+      "op": "addCinders"
+     }
+    ],
+    "label": "Gather the falling cinders (gain 40 cinders)",
+    "resultText": "The cinders come away easily. The moth watches you with something like approval."
+   },
+   {
+    "effects": [
+     {
+      "amount": {
+       "f": "percentMaxHp",
+       "of": "self",
+       "pct": 10
+      },
+      "op": "heal",
+      "target": "self"
+     }
+    ],
+    "label": "Sit with it a while (heal 10% max HP)",
+    "resultText": "You keep the vigil. When you rise, some of its lightness has passed to you."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "Some deaths are not yours to attend."
+   }
+  ],
+  "id": "goldenMoth",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Golden Moth",
+  "tags": [],
+  "text": "A moth the size of a shield rests on a broken pillar, wings dusted with cinder-light. It is dying, slowly and without complaint. Cinders drip from its wings like pollen."
+ },
+ "graveOfTheNameless": {
+  "art": "⚰",
+  "choices": [
+   {
+    "effects": [
+     {
+      "amount": 90,
+      "op": "addCinders"
+     },
+     {
+      "encounterId": "loneSoldier",
+      "if": {
+       "p": "random",
+       "pct": 40
+      },
+      "op": "startCombat"
+     }
+    ],
+    "label": "Dig for cinders (gain 90 cinders; the grave may wake)",
+    "resultText": "The cinders come loose in cold handfuls. Somewhere under the swords, something shifts its weight."
+   },
+   {
+    "effects": [
+     {
+      "amount": {
+       "f": "percentMaxHp",
+       "of": "self",
+       "pct": 15
+      },
+      "op": "heal",
+      "target": "self"
+     }
+    ],
+    "label": "Pay respects (heal 15% max HP)",
+    "resultText": "You right a fallen blade and stand a while. When you leave, you are lighter than you came."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "You leave the broken swords where they lie. No name is written here."
+   }
+  ],
+  "id": "graveOfTheNameless",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Grave of the Nameless",
+  "tags": [],
+  "text": "A cairn of broken swords marks a grave no one tends. Cinder-light seeps between the blades like frost.\n\nThe mound is quiet — the particular quiet of something that could stop being quiet."
+ },
+ "handspiderNest": {
+  "art": "🕷",
+  "choices": [
+   {
+    "effects": [
+     {
+      "amount": 80,
+      "op": "addCinders"
+     },
+     {
+      "encounterId": "loneSoldier",
+      "if": {
+       "p": "random",
+       "pct": 45
+      },
+      "op": "startCombat"
+     }
+    ],
+    "label": "Snatch the strongbox (gain 80 cinders; they may wake)",
+    "resultText": "The box comes free with a wet scrape. All around you, fingers go still — then flex."
+   },
+   {
+    "effects": [],
+    "label": "Back away slowly",
+    "resultText": "You retrace your steps one careful footfall at a time. The nest never stirs."
+   }
+  ],
+  "id": "handspiderNest",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Handspider Nest",
+  "tags": [],
+  "text": "A cluster of pale, many-jointed hands scuttles in the dark ahead, nested around a strongbox they have dragged from somewhere below. They have not noticed you. Yet."
+ },
+ "lanternCaravan": {
+  "art": "🏮",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "upgradeCard",
+      "random": true
+     }
+    ],
+    "label": "Accept the quartermaster’s lesson (upgrade a random card)",
+    "resultText": "The quartermaster shows you the economy of a practiced motion. Your investment returns as knowledge."
+   },
+   {
+    "effects": [
+     {
+      "amount": 60,
+      "op": "addCinders"
+     }
+    ],
+    "label": "Accept wages for the climb (gain 60 cinders)",
+    "resultText": "The Road Warden counts out fair wages. The cuts on your hands have earned their keep."
+   },
+   {
+    "effects": [
+     {
+      "amount": 100,
+      "op": "addCinders"
+     },
+     {
+      "card": "guilt",
+      "op": "addCardToDeck"
+     }
+    ],
+    "label": "Steal the emergency strongbox (gain 100 cinders and a Guilt curse)",
+    "resultText": "No one stops you. A driver crosses the medicine purchase off Lantern Haven’s manifest. The hamlets’ names remain beneath it, with nothing beside them."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "You wave the wagons onward, asking nothing in return."
+   }
+  ],
+  "id": "lanternCaravan",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "The Caravan Comes Through",
+  "tags": [],
+  "text": "The Road Warden stands beside Lantern Haven’s mud-spattered wagons. The last one carries the lantern you helped raise.\n\n\"You bought these people a road. We can pay our debt. That strongbox is for medicine at the next trading post; it belongs to the cold hamlets.\""
+ },
+ "lastLantern": {
+  "art": "🏮",
+  "choices": [
+   {
+    "effects": [
+     {
+      "amount": -40,
+      "op": "addCinders"
+     }
+    ],
+    "label": "Buy signal oil (pay 40 cinders; aid the caravan)",
+    "requires": {
+     "cinders": 40
+    },
+    "resultText": "The wick catches. The Road Warden records forty cinders beside Lantern Haven in a weathered supply ledger."
+   },
+   {
+    "effects": [
+     {
+      "amount": 8,
+      "op": "damage",
+      "target": "self"
+     }
+    ],
+    "label": "Haul the beacon (take 8 damage; aid the caravan)",
+    "resultText": "The iron frame cuts your palms, but its light clears the ridge. The Road Warden waves Lantern Haven’s wagons through and promises to remember the work."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "You pass the unlit lantern. The caravan must find another way."
+   }
+  ],
+  "id": "lastLantern",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "The Last Lantern",
+  "tags": [],
+  "text": "An unmarked routekeeper braces a broken signal lantern against the rain. The drivers call this traveler the Road Warden; there is no Fell Courtyard crest on the coat.\n\n\"That caravan carries medicine to Lantern Haven and the cold hamlets beyond. Oil costs forty cinders. Or help me haul the spare beacon up the scree.\""
+ },
+ "merchantsGhost": {
+  "art": "👻",
+  "choices": [
+   {
+    "effects": [
+     {
+      "amount": -60,
+      "op": "addCinders"
+     },
+     {
+      "op": "addRelic",
+      "random": true
+     }
+    ],
+    "label": "Pay in kind (give 60 cinders, gain a random relic)",
+    "requires": {
+     "cinders": 60
+    },
+    "resultText": "The cinders vanish from your hand into a ledger that isn't there. The relic is very solid, and very cold."
+   },
+   {
+    "effects": [
+     {
+      "op": "addRelic",
+      "random": true
+     },
+     {
+      "card": "guilt",
+      "op": "addCardToDeck"
+     }
+    ],
+    "label": "Take it and run (gain a random relic and a Guilt curse)",
+    "resultText": "It does not chase you. It only watches, and writes something down, and the writing follows you out."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "\"Come again,\" it says, to no one, already forgetting you."
+   }
+  ],
+  "id": "merchantsGhost",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Merchant's Ghost",
+  "tags": [],
+  "text": "A translucent figure keeps a stall that is no longer there, weighing wares no living hand can hold. \"Custom,\" it sighs, almost grateful. \"It has been so long. I have something you'll want.\""
+ },
+ "namelessKeeper": {
+  "art": "🕯",
+  "choices": [
+   {
+    "effects": [
+     {
+      "amount": -90,
+      "op": "addCinders"
+     }
+    ],
+    "label": "Return what you took (lose 90 cinders; the keeper stands down)",
+    "requires": {
+     "cinders": 90
+    },
+    "resultText": "The cinders go back into the lantern one by one. The keeper turns without a word and walks the way you came."
+   },
+   {
+    "effects": [
+     {
+      "encounterId": "patrol",
+      "op": "startCombat"
+     }
+    ],
+    "label": "Stand your ground (fight; keep what you took)",
+    "resultText": "The keeper turns away, the lantern dimming along the road. The figures following it stop in front of you and draw their weapons."
+   },
+   {
+    "effects": [
+     {
+      "id": "gravetendersBell",
+      "op": "addRelic"
+     }
+    ],
+    "label": "Accept the keeper's thanks (gain the Gravetender's Bell)",
+    "resultText": "A small bell, iron and cold, pressed into your palm. \"One toll for each name,\" the keeper says. \"You will know when.\""
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "The keeper does not follow. It only needed to be seen."
+   }
+  ],
+  "id": "namelessKeeper",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "The Keeper of the Nameless",
+  "tags": [],
+  "text": "A figure in grave-clothes waits at a fork in the road, a lantern of cinder-light held low.\n\nIt knows the cairn of broken swords. It knows what you did there. It has been walking since."
+ },
+ "namelessRest": {
+  "art": "🪦",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "upgradeCard",
+      "random": true
+     },
+     {
+      "op": "upgradeCard",
+      "random": true
+     }
+    ],
+    "label": "Raise every sword and keep the vigil (upgrade 2 random cards)",
+    "resultText": "You raise every fallen sword and stand among them until the cinder-light gutters. The bell in your pack rings once, though nothing moved it. The stones remain unwritten."
+   },
+   {
+    "effects": [
+     {
+      "amount": {
+       "f": "percentMaxHp",
+       "of": "self",
+       "pct": 30
+      },
+      "op": "heal",
+      "target": "self"
+     }
+    ],
+    "label": "Raise every sword, then rest (heal 30% max HP)",
+    "resultText": "You set every sword upright before lying down among the stones. What you returned bought you this much: a night among the nameless, and no one waking you."
+   },
+   {
+    "effects": [
+     {
+      "amount": 120,
+      "op": "addCinders"
+     },
+     {
+      "card": "guilt",
+      "op": "addCardToDeck"
+     }
+    ],
+    "label": "Loot the barrow (gain 120 cinders, gain a Guilt curse)",
+    "resultText": "You drag the fallen swords aside and prise the cinders from beneath them. Second time is easier. You leave the blades in the mud; that is the part that follows you."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "You leave the swords fallen and follow the road. The cairn keeps its silence."
+   }
+  ],
+  "id": "namelessRest",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "The Second Cairn",
+  "tags": [],
+  "text": "Beside the road stands a second cairn. Its swords have fallen into the mud; no names are carved on its stones.\n\nThe keeper is not here. The road continues beyond it, and you cannot tell which way the keeper went."
+ },
+ "omensAltar": {
+  "art": "🔱",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "addRelic",
+      "random": true
+     },
+     {
+      "card": "guilt",
+      "op": "addCardToDeck"
+     }
+    ],
+    "label": "Accept its gaze (gain a random relic; take a Guilt curse)",
+    "resultText": "The eyes close over yours like a second lid. You do not feel them leave."
+   },
+   {
+    "effects": [
+     {
+      "amount": 70,
+      "op": "addCinders"
+     },
+     {
+      "encounterId": "eliteWyrm",
+      "op": "startCombat"
+     }
+    ],
+    "label": "Shatter the altar (fight what wakes, gain 70 cinders)",
+    "resultText": "The stone face cracks down the middle. What answers the noise is not stone at all."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "The many eyes stay open behind you, patient as ever."
+   }
+  ],
+  "id": "omensAltar",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Warden's Altar",
+  "tags": [],
+  "text": "An altar carved with a face too many-eyed to be a saint. A voice — or something like one — offers to lend you its strength, if you will let it watch through your eyes for the rest of the road."
+ },
+ "rotPriestOffer": {
+  "art": "☣",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "addRelic",
+      "random": true
+     },
+     {
+      "op": "loseMaxHpPct",
+      "pct": 10
+     }
+    ],
+    "label": "Accept the blessing (gain a random relic; lose 10% max HP)",
+    "resultText": "His hand closes over yours. The reliquary is warm, and the warmth does not stop where your skin does."
+   },
+   {
+    "effects": [
+     {
+      "amount": 50,
+      "op": "addCinders"
+     },
+     {
+      "card": "guilt",
+      "op": "addCardToDeck"
+     }
+    ],
+    "label": "Rob him (gain 50 cinders; take a Guilt curse)",
+    "resultText": "He does not resist. He only smiles wider, as if you have taken exactly what he meant you to."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "\"The Blight is patient,\" he calls after you. \"It will keep your seat.\""
+   }
+  ],
+  "id": "rotPriestOffer",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Blight-Priest's Offer",
+  "tags": [],
+  "text": "A priest kneels in a ring of dead grass, robes fused to weeping skin. He is unbothered, almost radiant. \"The Blight gives,\" he says, holding out a reliquary in one ruined hand. \"It asks only a little flesh in return.\""
+ },
+ "sleepingSmith": {
+  "art": "🔨",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "upgradeCard",
+      "random": true
+     }
+    ],
+    "label": "Take the blade (upgrade a random card)",
+    "resultText": "The hum quiets the moment it leaves the anvil, as if it was only ever waiting for a hand."
+   },
+   {
+    "effects": [
+     {
+      "amount": -30,
+      "op": "addCinders"
+     },
+     {
+      "amount": {
+       "f": "percentMaxHp",
+       "of": "self",
+       "pct": 12
+      },
+      "op": "heal",
+      "target": "self"
+     }
+    ],
+    "label": "Wake him (pay 30 cinders, heal 12% max HP)",
+    "requires": {
+     "cinders": 30
+    },
+    "resultText": "He blinks awake just long enough to press a cold coin into your palm, and something in you settles."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "You let him sleep. The blade goes on humming behind you."
+   }
+  ],
+  "id": "sleepingSmith",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Sleeping Smith",
+  "tags": [],
+  "text": "A smith slumps over his anvil, hammer still loose in one hand. His forge is cold, but the blade laid across it hums like it remembers heat. He does not stir when you approach."
+ },
+ "stakeOfTheMartyr": {
+  "art": "⛧",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "removeCardFromDeck",
+      "random": true
+     },
+     {
+      "op": "loseMaxHpPct",
+      "pct": 8
+     },
+     {
+      "op": "addRelic",
+      "random": true
+     }
+    ],
+    "label": "Give what it asks (remove a random card, lose 8% max HP, gain a random relic)",
+    "resultText": "The stake drinks a card and a breath of your strength, and hands back something older than either."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "You step around the thorn. It hums after you, patient, certain you'll be back."
+   }
+  ],
+  "id": "stakeOfTheMartyr",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Stake of the Martyr",
+  "tags": [],
+  "text": "A stake of gilded thorn juts from the path, humming with the promise of return. It asks for a piece of you to hold in trust — a card, and a measure of your vigor — and offers a relic drawn up from where the dead wait."
+ },
+ "turncoatMirror": {
+  "art": "🪞",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "swapClass",
+      "random": true
+     }
+    ],
+    "label": "Step through (take up another class; your class levels start over)",
+    "resultText": "The glass gives like water. On the far side your weight sits differently, and the old name will not come."
+   },
+   {
+    "effects": [],
+    "label": "Turn away",
+    "resultText": "The figure in the glass turns away too, a moment after you do."
+   }
+  ],
+  "id": "turncoatMirror",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "The Turncoat's Mirror",
+  "tags": [],
+  "text": "A standing mirror in a ruined chapel, its silver gone to smoke. In it you are someone else: the same hands, the same scars, another calling. It waits to see whether you will step through."
+ },
+ "twoFingersRiddle": {
+  "art": "✌",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "upgradeCard",
+      "random": true
+     },
+     {
+      "op": "upgradeCard",
+      "random": true
+     },
+     {
+      "amount": 5,
+      "op": "damage",
+      "target": "self"
+     }
+    ],
+    "label": "Sharpen (upgrade 2 random cards, take 5 damage)",
+    "resultText": "The rhythm settles behind your eyes. Two of your cards come back keener; your hands ache with the knowing."
+   },
+   {
+    "effects": [
+     {
+      "amount": {
+       "f": "percentMaxHp",
+       "of": "self",
+       "pct": 22
+      },
+      "op": "heal",
+      "target": "self"
+     },
+     {
+      "card": "guilt",
+      "op": "addCardToDeck"
+     }
+    ],
+    "label": "Mend (heal 22% max HP, gain a Guilt curse)",
+    "resultText": "Warmth floods you, generous and total. Something reads back through the water, and does not look away."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "The fingers tap on. You leave the riddle unanswered, which is its own kind of answer."
+   }
+  ],
+  "id": "twoFingersRiddle",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "The Oracle's Riddle",
+  "tags": [],
+  "text": "A pair of enormous fingers rises from a font of still water, tapping a slow rhythm only they understand. Read one way, the rhythm sharpens the mind. Read another, it mends the flesh — but the second reading leaves a mark."
+ },
+ "wanderingPhysician": {
+  "art": "🩺",
+  "choices": [
+   {
+    "effects": [
+     {
+      "op": "removeCardFromDeck",
+      "random": true
+     },
+     {
+      "amount": 4,
+      "op": "damage",
+      "target": "self"
+     }
+    ],
+    "label": "The procedure (remove a random card, take 4 damage)",
+    "resultText": "He holds something up to the light, nods, and does not let you see it."
+   },
+   {
+    "effects": [
+     {
+      "amount": {
+       "f": "percentMaxHp",
+       "of": "self",
+       "pct": 15
+      },
+      "op": "heal",
+      "target": "self"
+     }
+    ],
+    "label": "The patch (heal 15% max HP)",
+    "resultText": "Competent, quick, and strangely cold. He refuses payment."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "\"Suit yourself. The spire will finish what I would have started.\""
+   }
+  ],
+  "id": "wanderingPhysician",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Wandering Physician",
+  "tags": [],
+  "text": "A physician in a rain-rotted coat unrolls his instruments without being asked. \"I can cut something out of you,\" he says. \"The procedure is not painless. Or I can simply patch you.\""
+ },
+ "weepingPilgrim": {
+  "art": "🧎",
+  "choices": [
+   {
+    "effects": [
+     {
+      "amount": -50,
+      "op": "addCinders"
+     },
+     {
+      "op": "addRelic",
+      "random": true
+     }
+    ],
+    "label": "Give 50 cinders (gain a random relic)",
+    "requires": {
+     "cinders": 50
+    },
+    "resultText": "She presses the bundle into your hands and walks into the rain without counting."
+   },
+   {
+    "effects": [],
+    "label": "Refuse",
+    "resultText": "She nods, as if she expected nothing else."
+   }
+  ],
+  "id": "weepingPilgrim",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Wayward Pilgrim",
+  "tags": [],
+  "text": "A pilgrim sits at the roadside, robes soaked through, cradling something wrapped in cloth. \"Fifty cinders,\" she says, without looking up. \"It was my sister’s. I can’t carry it further.\""
+ },
+ "wyrmTrial": {
+  "art": "⚔",
+  "choices": [
+   {
+    "effects": [
+     {
+      "amount": 60,
+      "op": "addCinders"
+     },
+     {
+      "encounterId": "loneSoldier",
+      "op": "startCombat"
+     }
+    ],
+    "label": "Enter the ring (fight the soldier for 60 cinders)",
+    "resultText": "You step across the stone line. The soldier finally moves."
+   },
+   {
+    "effects": [
+     {
+      "op": "loseMaxHpPct",
+      "pct": 5
+     },
+     {
+      "amount": 20,
+      "op": "addCinders"
+     }
+    ],
+    "label": "Circle it instead (lose 5% max HP crossing the rubble, gain 20 cinders)",
+    "resultText": "The rubble takes its toll, but the ring — and whatever waits in it — stays quiet."
+   },
+   {
+    "effects": [],
+    "label": "Leave",
+    "resultText": "Some rings are drawn for a reason. You leave this one closed."
+   }
+  ],
+  "id": "wyrmTrial",
+  "kindIds": [
+   "classification.event"
+  ],
+  "name": "Wyrm Trial",
+  "tags": [],
+  "text": "A cracked stone ring marks a trial-ground no map names. A single soldier stands within it, unmoving, waiting for someone foolish or hungry enough to step inside."
+ }
+}
