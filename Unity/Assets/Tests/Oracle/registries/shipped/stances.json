@@ -1,0 +1,96 @@
+{
+ "brace": {
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": 1,
+      "status": "strength",
+      "target": "owner"
+     }
+    ],
+    "on": "stanceExited"
+   }
+  ],
+  "icon": "🦶",
+  "id": "brace",
+  "modifiers": {
+   "damageTakenMult": 0.75
+  },
+  "name": "Brace",
+  "onEnter": [
+   {
+    "amount": 4,
+    "op": "block",
+    "target": "self"
+   }
+  ],
+  "tooltip": "Damage taken −25%. On entering: gain 4 Block. On leaving: gain 1 Strength."
+ },
+ "bulwark": {
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": 2,
+      "op": "block",
+      "target": "owner"
+     }
+    ],
+    "if": {
+     "p": "cardTypeIs",
+     "type": "skill"
+    },
+    "on": "cardPlayed"
+   }
+  ],
+  "icon": "🛡",
+  "id": "bulwark",
+  "name": "Bulwark Stance",
+  "onEnter": [
+   {
+    "amount": 3,
+    "op": "block",
+    "target": "self"
+   }
+  ],
+  "tooltip": "Whenever you play a Skill, gain 2 Block. On entering: gain 3 Block."
+ },
+ "gorefire": {
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": 2,
+      "status": "bleed"
+     }
+    ],
+    "if": {
+     "p": "all",
+     "preds": [
+      {
+       "p": "eventSourceIsOwner"
+      },
+      {
+       "p": "eventIsAttack"
+      }
+     ]
+    },
+    "on": "damageDealt"
+   }
+  ],
+  "icon": "🔥",
+  "id": "gorefire",
+  "name": "Gorefire Stance",
+  "onEnter": [
+   {
+    "amount": 2,
+    "op": "loseHp",
+    "target": "self"
+   }
+  ],
+  "tooltip": "Your attacks apply 2 Bleed per hit. On entering: take 2 damage (ignores Block)."
+ }
+}

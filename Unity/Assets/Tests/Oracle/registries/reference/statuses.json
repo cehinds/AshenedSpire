@@ -1,0 +1,1242 @@
+{
+ "afterimage": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        3,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "afterimage"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "block",
+      "target": "owner"
+     }
+    ],
+    "if": {
+     "n": 3,
+     "p": "everyNthCardThisCombat"
+    },
+    "on": "cardPlayed"
+   }
+  ],
+  "icon": "〽",
+  "id": "afterimage",
+  "name": "Afterimage",
+  "stackMode": "add",
+  "tooltip": "Every third card played each combat grants 3 Block per stack."
+ },
+ "astralArmor": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        4,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "astralArmor"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "block",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnEnd"
+   }
+  ],
+  "icon": "🌌",
+  "id": "astralArmor",
+  "name": "Astral Armor",
+  "stackMode": "add",
+  "tooltip": "At the end of your turn, gain 4 Block per stack."
+ },
+ "astromancer": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": 1,
+      "status": "starstoneCharge",
+      "target": "owner"
+     },
+     {
+      "amount": 1,
+      "op": "draw",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "📚",
+  "id": "astromancer",
+  "name": "Astromancer",
+  "stackMode": "unique",
+  "tooltip": "At the start of your turn, gain Starstone Charge and draw a card."
+ },
+ "azureCoil": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        2,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "azureCoil"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "block",
+      "target": "owner"
+     }
+    ],
+    "if": {
+     "p": "cardTypeIs",
+     "type": "skill"
+    },
+    "on": "cardPlayed"
+   }
+  ],
+  "icon": "🌀",
+  "id": "azureCoil",
+  "name": "Azure Coil",
+  "stackMode": "add",
+  "tooltip": "Whenever you play a Skill, gain 2 Block per stack."
+ },
+ "bleed": {
+  "decay": "none",
+  "icon": "💧",
+  "id": "bleed",
+  "name": "Bleed",
+  "proc": {
+   "burstMax": 35,
+   "burstMin": 8,
+   "burstPercent": 15,
+   "poiseDamage": 3,
+   "resistance": {
+    "status": "bleedResist",
+    "tags": [
+     "beast",
+     "humanoid"
+    ]
+   },
+   "threshold": 7
+  },
+  "stackMode": "add",
+  "tint": "var(--ember)",
+  "tooltip": "Build-up: points do not decay. At {proc.threshold}, burst for {proc.burstPercent}% of max HP (min {proc.burstMin}, max {proc.burstMax}), ignoring Block, plus {proc.poiseDamage} Poise damage — then the build-up resets to zero. Fleshy targets briefly resist further Bleed after a burst."
+ },
+ "bleedResist": {
+  "decay": {
+   "duration": 2
+  },
+  "icon": "🩹",
+  "id": "bleedResist",
+  "name": "Clotted",
+  "resists": {
+   "percent": 50,
+   "status": "bleed"
+  },
+  "stackMode": "refresh",
+  "tint": "var(--muted)",
+  "tooltip": "Just burst — hardened against Bleed: incoming build-up reduced {resists.percent}% for {decay.duration} turns."
+ },
+ "bloodUnction": {
+  "decay": "perTurnEnd",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": 2,
+      "status": "bleed"
+     }
+    ],
+    "if": {
+     "p": "all",
+     "preds": [
+      {
+       "p": "eventSourceIsOwner"
+      },
+      {
+       "p": "eventIsAttack"
+      }
+     ]
+    },
+    "on": "damageDealt"
+   }
+  ],
+  "icon": "🫗",
+  "id": "bloodUnction",
+  "name": "Blood Unction",
+  "stackMode": "refresh",
+  "tooltip": "Your attacks apply 2 extra Bleed per hit this turn."
+ },
+ "bulwarkEcho": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        4,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "bulwarkEcho"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "block",
+      "target": "owner"
+     },
+     {
+      "op": "removeStatus",
+      "status": "bulwarkEcho",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "⛨",
+  "id": "bulwarkEcho",
+  "name": "Shieldwall Echo",
+  "stackMode": "add",
+  "tooltip": "At the start of your next turn: gain 4 Block per stack."
+ },
+ "burn": {
+  "decay": "perTurnEnd",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "burn"
+      },
+      "op": "loseHp",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "🔥",
+  "id": "burn",
+  "name": "Burn",
+  "stackMode": "add",
+  "tint": "var(--ember)",
+  "tooltip": "At the start of its turn, loses HP equal to Burn stacks (ignores Block). One stack burns out each turn."
+ },
+ "communion": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        3,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "communion"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "heal",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "🕊",
+  "id": "communion",
+  "name": "Communion",
+  "stackMode": "add",
+  "tooltip": "At the start of your turn, heal 3 HP per stack."
+ },
+ "constellation": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        4,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "constellation"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "damage",
+      "target": "randomEnemy"
+     }
+    ],
+    "if": {
+     "p": "all",
+     "preds": [
+      {
+       "p": "eventStatusIs",
+       "status": "starstoneCharge"
+      },
+      {
+       "p": "eventTargetIsOwner"
+      }
+     ]
+    },
+    "on": "statusApplied"
+   }
+  ],
+  "icon": "💫",
+  "id": "constellation",
+  "name": "Constellation",
+  "stackMode": "add",
+  "tooltip": "Whenever you gain Starstone Charge, deal 4 damage per stack to a random enemy."
+ },
+ "crimsonBlight": {
+  "decay": {
+   "duration": 3
+  },
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "crimsonBlight"
+      },
+      "op": "loseHp",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "❀",
+  "id": "crimsonBlight",
+  "name": "Crimson Blight",
+  "stackMode": "add",
+  "tint": "var(--rot)",
+  "tooltip": "At the start of its turn, loses HP equal to Blight stacks (ignores Block). Stacks do not tick down; the Blight expires entirely after 3 turns. Re-applying adds stacks and refreshes the duration."
+ },
+ "deadlyTempo": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": {
+       "args": [
+        1
+       ],
+       "f": "add"
+      },
+      "status": "prepared",
+      "target": "owner"
+     },
+     {
+      "amount": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "deadlyTempo"
+      },
+      "op": "draw"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "♬",
+  "id": "deadlyTempo",
+  "name": "Deadly Tempo",
+  "stackMode": "add",
+  "tooltip": "At turn start, become Prepared and draw 1 card per stack."
+ },
+ "dexterity": {
+  "decay": "none",
+  "icon": "◇",
+  "id": "dexterity",
+  "modifiers": {
+   "blockAdd": 1
+  },
+  "name": "Dexterity",
+  "stackMode": "add",
+  "tooltip": "Cards grant +1 Block per stack."
+ },
+ "emberTide": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "emberTide"
+      },
+      "status": "strength",
+      "target": "owner"
+     }
+    ],
+    "if": {
+     "p": "eventTargetIsOwner"
+    },
+    "on": "healed"
+   }
+  ],
+  "icon": "🌊",
+  "id": "emberTide",
+  "name": "Ember Tide",
+  "stackMode": "add",
+  "tooltip": "Whenever you heal, gain 1 Strength per stack."
+ },
+ "envenom": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "envenom"
+      },
+      "status": "venom"
+     }
+    ],
+    "if": {
+     "p": "all",
+     "preds": [
+      {
+       "p": "eventSourceIsOwner"
+      },
+      {
+       "p": "eventIsAttack"
+      }
+     ]
+    },
+    "on": "damageDealt"
+   }
+  ],
+  "icon": "♜",
+  "id": "envenom",
+  "name": "Envenom",
+  "stackMode": "add",
+  "tooltip": "Your attacks apply 1 Venom per stack."
+ },
+ "frail": {
+  "decay": "perTurnEnd",
+  "icon": "✂",
+  "id": "frail",
+  "modifiers": {
+   "blockGainedMult": 0.75
+  },
+  "name": "Frail",
+  "stackMode": "add",
+  "tint": "var(--muted)",
+  "tooltip": "Gains 25% less Block from cards. 1 stack expires each turn."
+ },
+ "frost": {
+  "decay": "none",
+  "icon": "❄",
+  "id": "frost",
+  "name": "Frost",
+  "proc": {
+   "burstMax": 20,
+   "burstMin": 4,
+   "burstPercent": 8,
+   "effects": [
+    {
+     "op": "applyStatus",
+     "stacks": 1,
+     "status": "weak",
+     "target": "self"
+    },
+    {
+     "op": "applyStatus",
+     "stacks": 1,
+     "status": "frostExposed",
+     "target": "self"
+    }
+   ],
+   "resistance": {
+    "status": "frostResist",
+    "tags": [
+     "beast",
+     "humanoid"
+    ]
+   },
+   "threshold": 10
+  },
+  "stackMode": "add",
+  "tint": "#7fa8c9",
+  "tooltip": "Build-up: points do not decay. At {proc.threshold}, burst for {proc.burstPercent}% of max HP (min {proc.burstMin}, max {proc.burstMax}), ignoring Block, and the target is left Weak and Frost-Exposed — then the build-up resets to zero."
+ },
+ "frostExposed": {
+  "decay": {
+   "duration": 2
+  },
+  "icon": "🫧",
+  "id": "frostExposed",
+  "name": "Frost-Exposed",
+  "stackMode": "refresh",
+  "taggedVulnerability": {
+   "mult": 1.25,
+   "stacking": "multiplicative",
+   "tags": [
+    "starstone"
+   ]
+  },
+  "tint": "#7fa8c9",
+  "tooltip": "Takes {tv.pct}% more damage from starstone attacks. Stacks with Vulnerable. {decay.duration} turns."
+ },
+ "frostResist": {
+  "decay": {
+   "duration": 2
+  },
+  "icon": "🧣",
+  "id": "frostResist",
+  "name": "Weathered",
+  "resists": {
+   "percent": 50,
+   "status": "frost"
+  },
+  "stackMode": "refresh",
+  "tint": "var(--muted)",
+  "tooltip": "Just burst — hardened against Frost: incoming build-up reduced {resists.percent}% for {decay.duration} turns."
+ },
+ "glassCannon": {
+  "decay": "none",
+  "icon": "💥",
+  "id": "glassCannon",
+  "modifiers": {
+   "damageDealtMult": 1.25,
+   "damageTakenMult": 1.25
+  },
+  "name": "Glass Cannon",
+  "stackMode": "unique",
+  "tooltip": "Deal 25% more attack damage, and take 25% more."
+ },
+ "goreblood": {
+  "decay": "none",
+  "icon": "♛",
+  "id": "goreblood",
+  "modifiers": {
+   "meterMaxGrowthDisabled": true
+  },
+  "name": "Goreblood",
+  "stackMode": "unique",
+  "tooltip": "Poise thresholds no longer increase after filling."
+ },
+ "harbingerOfBlight": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "harbingerOfBlight"
+      },
+      "op": "heal",
+      "target": "owner"
+     }
+    ],
+    "if": {
+     "p": "all",
+     "preds": [
+      {
+       "p": "eventStatusIs",
+       "status": "crimsonBlight"
+      },
+      {
+       "p": "eventSourceIsOwner"
+      }
+     ]
+    },
+    "on": "statusApplied"
+   }
+  ],
+  "icon": "❀",
+  "id": "harbingerOfBlight",
+  "name": "Harbinger of Blight",
+  "stackMode": "add",
+  "tooltip": "Whenever you apply Crimson Blight to an enemy, heal 1 HP per stack."
+ },
+ "insanity": {
+  "decay": "none",
+  "icon": "🌀",
+  "id": "insanity",
+  "name": "Insanity",
+  "proc": {
+   "burstMax": 40,
+   "burstMin": 10,
+   "burstPercent": 18,
+   "effects": [
+    {
+     "op": "applyStatus",
+     "stacks": 1,
+     "status": "insanityExposed",
+     "target": "self"
+    }
+   ],
+   "poiseDamage": 8,
+   "resistance": {
+    "status": "insanityResist",
+    "tags": [
+     "humanoid",
+     "spirit"
+    ]
+   },
+   "stagger": true,
+   "threshold": 14
+  },
+  "stackMode": "add",
+  "tint": "#a06bd0",
+  "tooltip": "Build-up: points do not decay. At {proc.threshold}, burst for {proc.burstPercent}% of max HP (min {proc.burstMin}, max {proc.burstMax}), ignoring Block, with {proc.poiseDamage} Poise damage and a guaranteed Stagger — then the build-up resets to zero."
+ },
+ "insanityExposed": {
+  "decay": {
+   "duration": 2
+  },
+  "icon": "🕳",
+  "id": "insanityExposed",
+  "name": "Unraveled",
+  "stackMode": "refresh",
+  "taggedVulnerability": {
+   "mult": 1.3,
+   "stacking": "multiplicative",
+   "tags": [
+    "ritual",
+    "blight"
+   ]
+  },
+  "tint": "#a06bd0",
+  "tooltip": "Takes {tv.pct}% more damage from ritual and blight attacks. Stacks with Vulnerable. {decay.duration} turns."
+ },
+ "insanityResist": {
+  "decay": {
+   "duration": 2
+  },
+  "icon": "🛡",
+  "id": "insanityResist",
+  "name": "Resolute",
+  "resists": {
+   "percent": 50,
+   "status": "insanity"
+  },
+  "stackMode": "refresh",
+  "tint": "var(--muted)",
+  "tooltip": "Just burst — hardened against Insanity: incoming build-up reduced {resists.percent}% for {decay.duration} turns."
+ },
+ "ironVow": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        3,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "ironVow"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "block",
+      "target": "owner"
+     }
+    ],
+    "if": {
+     "p": "eventTargetIsOwner"
+    },
+    "on": "hpLost"
+   }
+  ],
+  "icon": "⛓",
+  "id": "ironVow",
+  "name": "Iron Vow",
+  "stackMode": "add",
+  "tooltip": "Whenever you lose HP, gain 3 Block per stack."
+ },
+ "lifeTithe": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        8,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "lifeTithe"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "heal",
+      "target": "owner"
+     }
+    ],
+    "on": "enemyDied"
+   }
+  ],
+  "icon": "⚰",
+  "id": "lifeTithe",
+  "name": "Life Tithe",
+  "stackMode": "add",
+  "tooltip": "Whenever an enemy dies, heal 8 HP per stack."
+ },
+ "madness": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        2,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "madness"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "loseHp",
+      "target": "owner"
+     },
+     {
+      "amount": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "madness"
+      },
+      "op": "gainEnergy"
+     },
+     {
+      "op": "removeStatus",
+      "status": "madness",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "☀",
+  "id": "madness",
+  "name": "Madness",
+  "stackMode": "add",
+  "tooltip": "At the start of your turn: lose 2 HP per stack, gain 1 Energy per stack, then Madness clears."
+ },
+ "magicVulnerable": {
+  "decay": {
+   "duration": 2
+  },
+  "icon": "✧",
+  "id": "magicVulnerable",
+  "instancePresentation": {
+   "durationToken": "turns",
+   "valueToken": "percent"
+  },
+  "name": "Magic Vulnerable",
+  "schoolDamageVulnerability": {
+   "school": "magic"
+  },
+  "stackMode": "refresh",
+  "tint": "#8b7cd6",
+  "tooltip": "Magic-school HP damage is increased while this lasts. Arcane Exposure buildup is locked."
+ },
+ "moonlitShield": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        3,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "moonlitShield"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "block",
+      "target": "owner"
+     }
+    ],
+    "if": {
+     "p": "all",
+     "preds": [
+      {
+       "p": "eventStatusIs",
+       "status": "starstoneCharge"
+      },
+      {
+       "p": "eventTargetIsOwner"
+      }
+     ]
+    },
+    "on": "statusApplied"
+   }
+  ],
+  "icon": "🔷",
+  "id": "moonlitShield",
+  "name": "Moonlit Shield",
+  "stackMode": "add",
+  "tooltip": "Whenever you gain Starstone Charge, gain 3 Block per stack."
+ },
+ "opportunist": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": {
+       "args": [
+        1
+       ],
+       "f": "add"
+      },
+      "status": "prepared",
+      "target": "owner"
+     },
+     {
+      "amount": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "opportunist"
+      },
+      "op": "draw"
+     }
+    ],
+    "on": "enemyStaggered"
+   }
+  ],
+  "icon": "⌁",
+  "id": "opportunist",
+  "name": "Opportunist",
+  "stackMode": "add",
+  "tooltip": "When an enemy staggers, become Prepared and draw 1 card per stack."
+ },
+ "prepared": {
+  "decay": "perTurnEnd",
+  "icon": "◈",
+  "id": "prepared",
+  "name": "Prepared",
+  "stackMode": "unique",
+  "tooltip": "Your next setup payoff is empowered. Expires at turn end."
+ },
+ "rallyingStandard": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "rallyingStandard"
+      },
+      "status": "strength",
+      "target": "owner"
+     },
+     {
+      "amount": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "rallyingStandard"
+      },
+      "op": "loseHp",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "⚑",
+  "id": "rallyingStandard",
+  "name": "Rallying Standard",
+  "stackMode": "add",
+  "tooltip": "At the start of your turn: gain 1 Strength and take 1 damage (per stack)."
+ },
+ "rallyingStandardUp": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "rallyingStandardUp"
+      },
+      "status": "strength",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "⚑",
+  "id": "rallyingStandardUp",
+  "name": "Rallying Standard+",
+  "stackMode": "add",
+  "tooltip": "At the start of your turn: gain 1 Strength (per stack)."
+ },
+ "regen": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "regen"
+      },
+      "op": "heal",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "🌿",
+  "id": "regen",
+  "name": "Regen",
+  "stackMode": "add",
+  "tint": "var(--grace)",
+  "tooltip": "At the start of its turn, heals HP equal to Regen stacks. Lasts the whole fight."
+ },
+ "sanguinePact": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": {
+       "args": [
+        2,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "sanguinePact"
+        }
+       ],
+       "f": "mul"
+      },
+      "status": "strength",
+      "target": "owner"
+     }
+    ],
+    "if": {
+     "p": "eventStatusIs",
+     "status": "bleed"
+    },
+    "on": "meterFilled"
+   }
+  ],
+  "icon": "🩸",
+  "id": "sanguinePact",
+  "name": "Sanguine Pact",
+  "stackMode": "add",
+  "tooltip": "Whenever Bleed bursts on an enemy, gain 2 Strength per stack."
+ },
+ "staggered": {
+  "decay": "perTurnEnd",
+  "icon": "✦",
+  "id": "staggered",
+  "modifiers": {
+   "damageTakenMult": 1.5
+  },
+  "name": "Staggered",
+  "stackMode": "refresh",
+  "tint": "var(--gold)",
+  "tooltip": "Poise broken: skips its next turn and takes 50% more attack damage until the end of your next turn."
+ },
+ "stargazer": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": 1,
+      "status": "starstoneCharge",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "🔭",
+  "id": "stargazer",
+  "name": "Stargazer",
+  "stackMode": "unique",
+  "tooltip": "At the start of your turn, gain Starstone Charge."
+ },
+ "starstoneCharge": {
+  "decay": "perTurnEnd",
+  "icon": "✦",
+  "id": "starstoneCharge",
+  "name": "Starstone Charge",
+  "stackMode": "unique",
+  "tooltip": "A spell was cast this turn: your next Starstone bonus is live. Fades at end of turn."
+ },
+ "stigmata": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        2,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "stigmata"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "heal",
+      "target": "owner"
+     }
+    ],
+    "if": {
+     "p": "eventTargetIsOwner"
+    },
+    "on": "hpLost"
+   }
+  ],
+  "icon": "🩹",
+  "id": "stigmata",
+  "name": "Stigmata",
+  "stackMode": "add",
+  "tooltip": "Whenever you lose HP, heal 2 HP per stack."
+ },
+ "strength": {
+  "decay": "none",
+  "icon": "↑",
+  "id": "strength",
+  "modifiers": {
+   "attackDamageAdd": 1
+  },
+  "name": "Strength",
+  "stackMode": "add",
+  "tint": "var(--gold)",
+  "tooltip": "Attacks deal +1 damage per stack."
+ },
+ "thornHalo": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "thornHalo"
+      },
+      "status": "crimsonBlight",
+      "target": "allEnemies"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "🌿",
+  "id": "thornHalo",
+  "name": "Thorn Halo",
+  "stackMode": "add",
+  "tooltip": "At the start of your turn, apply 1 Crimson Blight per stack to ALL enemies."
+ },
+ "unbreakable": {
+  "decay": "none",
+  "icon": "⬟",
+  "id": "unbreakable",
+  "modifiers": {
+   "blockCap": 30,
+   "retainBlock": true
+  },
+  "name": "Unbreakable",
+  "stackMode": "unique",
+  "tooltip": "Block no longer expires at the start of your turn. Block is capped at 30."
+ },
+ "unbreakableUp": {
+  "decay": "none",
+  "icon": "⬟",
+  "id": "unbreakableUp",
+  "modifiers": {
+   "blockCap": 40,
+   "retainBlock": true
+  },
+  "name": "Unbreakable+",
+  "stackMode": "unique",
+  "tooltip": "Block no longer expires at the start of your turn. Block is capped at 40."
+ },
+ "venom": {
+  "decay": "perTurnEnd",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "f": "stacks",
+       "of": "owner",
+       "status": "venom"
+      },
+      "op": "loseHp",
+      "target": "owner"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "☠",
+  "id": "venom",
+  "name": "Venom",
+  "stackMode": "add",
+  "tooltip": "At turn start, lose HP equal to Venom. 1 stack expires each turn."
+ },
+ "vulnerable": {
+  "decay": "perTurnEnd",
+  "icon": "V",
+  "id": "vulnerable",
+  "modifiers": {
+   "damageTakenMult": 1.5
+  },
+  "name": "Vulnerable",
+  "stackMode": "add",
+  "tint": "var(--grace)",
+  "tooltip": "Takes 50% more attack damage. 1 stack expires each turn."
+ },
+ "waxingMoon": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "op": "applyStatus",
+      "stacks": {
+       "args": [
+        2,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "waxingMoon"
+        }
+       ],
+       "f": "mul"
+      },
+      "status": "vulnerable",
+      "target": "allEnemies"
+     }
+    ],
+    "on": "ownerTurnStart"
+   }
+  ],
+  "icon": "🌕",
+  "id": "waxingMoon",
+  "name": "Waxing Moon",
+  "stackMode": "add",
+  "tooltip": "At the start of your turn, apply 2 Vulnerable to ALL enemies per stack."
+ },
+ "weak": {
+  "decay": "perTurnEnd",
+  "icon": "↓",
+  "id": "weak",
+  "modifiers": {
+   "damageDealtMult": 0.75
+  },
+  "name": "Weak",
+  "stackMode": "add",
+  "tint": "var(--muted)",
+  "tooltip": "Deals 25% less attack damage. 1 stack expires each turn."
+ },
+ "zealotry": {
+  "decay": "none",
+  "hooks": [
+   {
+    "do": [
+     {
+      "amount": {
+       "args": [
+        3,
+        {
+         "f": "stacks",
+         "of": "owner",
+         "status": "zealotry"
+        }
+       ],
+       "f": "mul"
+      },
+      "op": "damage",
+      "target": "randomEnemy"
+     }
+    ],
+    "if": {
+     "p": "eventTargetIsOwner"
+    },
+    "on": "hpLost"
+   }
+  ],
+  "icon": "⚡",
+  "id": "zealotry",
+  "name": "Zealotry",
+  "stackMode": "add",
+  "tooltip": "Whenever you lose HP, deal 3 damage to a random enemy per stack."
+ }
+}

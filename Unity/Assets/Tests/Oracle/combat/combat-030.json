@@ -1,0 +1,2562 @@
+{
+ "seed": 829102039,
+ "classId": "rogue",
+ "encounterId": "a3_cinderNest",
+ "rngCounters": {
+  "map": 0,
+  "shuffle": 10,
+  "cardRewards": 0,
+  "relicRewards": 0,
+  "flaskRewards": 0,
+  "armaments": 0,
+  "enemyAI": 1,
+  "enemyHP": 1,
+  "events": 0,
+  "shop": 0,
+  "misc": 0,
+  "smith": 0,
+  "combatProcs": 0,
+  "seats": 0
+ },
+ "snapshot": {
+  "version": 1,
+  "ratingsRules": {
+   "enabled": true,
+   "multiplier": 1,
+   "ratings": {
+    "ar": {
+     "base": 0,
+     "strength": 0.5,
+     "dexterity": 0,
+     "constitution": 0,
+     "wisdom": 0,
+     "intelligence": 0
+    },
+    "dr": {
+     "base": 0,
+     "strength": 0,
+     "dexterity": 0.5,
+     "constitution": 0,
+     "wisdom": 0,
+     "intelligence": 0
+    },
+    "pr": {
+     "base": 0,
+     "strength": 0,
+     "dexterity": 0,
+     "constitution": 0,
+     "wisdom": 0.5,
+     "intelligence": 0.5
+    },
+    "poise": {
+     "base": 1,
+     "strength": 0.5,
+     "dexterity": 0,
+     "constitution": 1,
+     "wisdom": 0,
+     "intelligence": 0
+    },
+    "ward": {
+     "base": 1,
+     "strength": 0,
+     "dexterity": 0,
+     "constitution": 0,
+     "wisdom": 1,
+     "intelligence": 0.5
+    }
+   },
+   "resistance": {
+    "physicalK": 100,
+    "magicalK": 100,
+    "statusK": 100,
+    "maximum": 0.8
+   },
+   "impact": {
+    "magic": 1,
+    "light": 1,
+    "medium": 2,
+    "heavy": 3,
+    "colossal": 4,
+    "lightMaxWeight": 3,
+    "mediumMaxWeight": 6,
+    "heavyMaxWeight": 8,
+    "unarmed": 1,
+    "enemyPhysical": 2
+   },
+   "breaks": {
+    "poiseActionLoss": 1,
+    "wardActionLoss": 1,
+    "thresholdGrowth": 1.25,
+    "recoveryPerTurn": 0
+   },
+   "statuses": {
+    "bleed": {
+     "poise": 1,
+     "ward": 0
+    },
+    "frost": {
+     "poise": 0.5,
+     "ward": 0.5
+    },
+    "insanity": {
+     "poise": 0,
+     "ward": 1
+    },
+    "madness": {
+     "poise": 0,
+     "ward": 1
+    },
+    "crimsonBlight": {
+     "poise": 0.5,
+     "ward": 0.5
+    },
+    "venom": {
+     "poise": 1,
+     "ward": 0
+    },
+    "burn": {
+     "poise": 0.25,
+     "ward": 0.75
+    }
+   },
+   "bonuses": {},
+   "attackImpact": {},
+   "enemyImpact": {},
+   "enemyAttackType": {
+    "wanderingSoldier:slash": "auto",
+    "wanderingSoldier:guard": "auto",
+    "wanderingSoldier:warcry": "auto",
+    "blightHound:bite": "auto",
+    "blightHound:lunge": "auto",
+    "huskBrute:club": "auto",
+    "huskBrute:bellow": "auto",
+    "huskBrute:brace": "auto",
+    "graveWisp:curse": "auto",
+    "graveWisp:drain": "auto",
+    "wyrmAspirant:consecrate": "auto",
+    "wyrmAspirant:halberdSweep": "auto",
+    "wyrmAspirant:tailSlam": "auto",
+    "wyrmAspirant:goldenGuard": "auto",
+    "fellWarden:caneStrike": "auto",
+    "fellWarden:hammerToss": "auto",
+    "fellWarden:heldBlade": "auto",
+    "fellWarden:twinDaggers": "auto",
+    "lanternMoth:lanternDust": "auto",
+    "lanternMoth:wingSparks": "auto",
+    "briarHermit:rootShelter": "auto",
+    "briarHermit:briarCast": "auto",
+    "briarHermit:sapMend": "auto",
+    "chainScavenger:hookCast": "auto",
+    "chainScavenger:chainSnare": "auto",
+    "chainScavenger:draggingBlow": "auto",
+    "bellKeeper:bronzeToll": "auto",
+    "bellKeeper:clapperSwing": "auto",
+    "bellKeeper:muffledPrayer": "auto",
+    "bellKeeper:crackedPeal": "auto",
+    "thornMatriarch:rootCrown": "auto",
+    "thornMatriarch:thornNeedles": "auto",
+    "thornMatriarch:entwiningRoots": "auto",
+    "gildedKnight:thrust": "auto",
+    "gildedKnight:parry": "auto",
+    "gildedKnight:rally": "auto",
+    "courtSurgeon:scalpel": "auto",
+    "courtSurgeon:sedate": "auto",
+    "courtSurgeon:stitch": "auto",
+    "stitchedHound:maul": "auto",
+    "stitchedHound:rend": "auto",
+    "courtMarionette:dart": "auto",
+    "courtMarionette:blowdart": "auto",
+    "livingArmor:slam": "auto",
+    "livingArmor:fortify": "auto",
+    "livingArmor:crush": "auto",
+    "livingArmor:rimeCrush": "auto",
+    "courtDuelist:enGarde": "auto",
+    "courtDuelist:flurry": "auto",
+    "courtDuelist:lunge": "auto",
+    "courtDuelist:riposte": "auto",
+    "stitchedKing:scepterBlow": "auto",
+    "stitchedKing:graspingHands": "auto",
+    "stitchedKing:courtlyDecree": "auto",
+    "stitchedKing:thousandHands": "auto",
+    "mirrorScribe:silverScript": "auto",
+    "mirrorScribe:shardVolley": "auto",
+    "mirrorScribe:polishedWard": "auto",
+    "stitchCrab:shellFold": "auto",
+    "stitchCrab:seamShears": "auto",
+    "stitchCrab:scuttleRush": "auto",
+    "glassRegent:prismGuard": "auto",
+    "glassRegent:crystalRapier": "auto",
+    "glassRegent:splinterRain": "auto",
+    "glassRegent:shatteredCourt": "auto",
+    "marrowOrganist:bonePrelude": "auto",
+    "marrowOrganist:ivoryKeys": "auto",
+    "marrowOrganist:funeralChord": "auto",
+    "marrowOrganist:quietRefrain": "auto",
+    "ashRevenant:cinderSlash": "auto",
+    "ashRevenant:reform": "auto",
+    "emberStarvedPilgrim:desperateClaw": "auto",
+    "emberStarvedPilgrim:wail": "auto",
+    "valkyrieShade:spiralLance": "auto",
+    "valkyrieShade:bloodFeather": "auto",
+    "charredColossus:smash": "auto",
+    "charredColossus:ashCloud": "auto",
+    "charredColossus:harden": "auto",
+    "wyrmLord:consecration": "auto",
+    "wyrmLord:halberdReign": "auto",
+    "wyrmLord:tailSweep": "auto",
+    "wyrmLord:goldenBulwark": "auto",
+    "blightedValkyrie:spiralThrust": "auto",
+    "blightedValkyrie:whirlwind": "auto",
+    "blightedValkyrie:rotWings": "auto",
+    "blightedValkyrie:scarletDance": "auto",
+    "cinderMantis:scythePair": "auto",
+    "cinderMantis:emberPounce": "auto",
+    "cinderMantis:foldedBlades": "auto",
+    "eclipseCantor:darkHymn": "auto",
+    "eclipseCantor:lunarRay": "auto",
+    "eclipseCantor:fadingEcho": "auto",
+    "furnaceSaint:openFurnace": "auto",
+    "furnaceSaint:censerSweep": "auto",
+    "furnaceSaint:coolingAsh": "auto",
+    "hollowAstronomer:starChart": "auto",
+    "hollowAstronomer:orbitalShards": "auto",
+    "hollowAstronomer:totalEclipse": "auto",
+    "hollowAstronomer:fallingHeavens": "auto",
+    "ashheartDragon:obsidianClaws": "auto",
+    "ashheartDragon:tailBastion": "auto",
+    "ashheartDragon:heartRumble": "auto",
+    "ashheartDragon:ashBreath": "auto"
+   },
+   "enemyRatings": {
+    "wanderingSoldier": {
+     "poise": 10,
+     "ward": 10
+    },
+    "blightHound": {
+     "poise": 6,
+     "ward": 6
+    },
+    "huskBrute": {
+     "poise": 16,
+     "ward": 16
+    },
+    "graveWisp": {
+     "poise": 4,
+     "ward": 4
+    },
+    "wyrmAspirant": {
+     "poise": 24,
+     "ward": 24
+    },
+    "fellWarden": {
+     "poise": 30,
+     "ward": 30
+    },
+    "lanternMoth": {
+     "poise": 5,
+     "ward": 5
+    },
+    "briarHermit": {
+     "poise": 9,
+     "ward": 9
+    },
+    "chainScavenger": {
+     "poise": 8,
+     "ward": 8
+    },
+    "bellKeeper": {
+     "poise": 25,
+     "ward": 25
+    },
+    "thornMatriarch": {
+     "poise": 22,
+     "ward": 22
+    },
+    "gildedKnight": {
+     "poise": 18,
+     "ward": 18
+    },
+    "courtSurgeon": {
+     "poise": 10,
+     "ward": 10
+    },
+    "stitchedHound": {
+     "poise": 8,
+     "ward": 8
+    },
+    "courtMarionette": {
+     "poise": 6,
+     "ward": 6
+    },
+    "livingArmor": {
+     "poise": 22,
+     "ward": 22
+    },
+    "courtDuelist": {
+     "poise": 26,
+     "ward": 26
+    },
+    "stitchedKing": {
+     "poise": 34,
+     "ward": 34
+    },
+    "mirrorScribe": {
+     "poise": 8,
+     "ward": 8
+    },
+    "stitchCrab": {
+     "poise": 17,
+     "ward": 17
+    },
+    "glassRegent": {
+     "poise": 26,
+     "ward": 26
+    },
+    "marrowOrganist": {
+     "poise": 30,
+     "ward": 30
+    },
+    "ashRevenant": {
+     "poise": 10,
+     "ward": 10
+    },
+    "emberStarvedPilgrim": {
+     "poise": 8,
+     "ward": 8
+    },
+    "valkyrieShade": {
+     "poise": 14,
+     "ward": 14
+    },
+    "charredColossus": {
+     "poise": 30,
+     "ward": 30
+    },
+    "wyrmLord": {
+     "poise": 30,
+     "ward": 30
+    },
+    "blightedValkyrie": {
+     "poise": 36,
+     "ward": 36
+    },
+    "cinderMantis": {
+     "poise": 11,
+     "ward": 11
+    },
+    "eclipseCantor": {
+     "poise": 7,
+     "ward": 7
+    },
+    "furnaceSaint": {
+     "poise": 40,
+     "ward": 40
+    },
+    "hollowAstronomer": {
+     "poise": 25,
+     "ward": 25
+    },
+    "ashheartDragon": {
+     "poise": 34,
+     "ward": 34
+    }
+   },
+   "itemRatings": {}
+  },
+  "handRules": {
+   "retain": true,
+   "promptDiscard": false,
+   "discardLimit": 10,
+   "replaceDiscards": false,
+   "overflow": "keep",
+   "reshuffle": true,
+   "drawMode": "fill",
+   "starting": {
+    "base": 3,
+    "statEnabled": true,
+    "stat": "intelligence",
+    "baseline": 10,
+    "pointsPerCard": 10,
+    "minimum": 0,
+    "maximum": 10
+   },
+   "turn": {
+    "base": 2,
+    "statEnabled": false,
+    "stat": "intelligence",
+    "baseline": 10,
+    "pointsPerCard": 10,
+    "minimum": 0,
+    "maximum": 10
+   },
+   "capacity": {
+    "base": 10,
+    "statEnabled": false,
+    "stat": "intelligence",
+    "baseline": 10,
+    "pointsPerCard": 10,
+    "minimum": 1,
+    "maximum": 30
+   }
+  },
+  "pendingDiscardDraw": 0,
+  "equipmentProfileRuleSnapshot": {
+   "snapshotVersion": 2,
+   "profiles": {
+    "unarmedAttack": {
+     "baseValue": 3,
+     "ratingId": "ar",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "attack-v1"
+    },
+    "shieldAttack": {
+     "baseValue": 2,
+     "ratingId": "ar",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "attack-v1"
+    },
+    "bladeAttack": {
+     "baseValue": 5,
+     "ratingId": "ar",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "attack-v1"
+    },
+    "twinbladeAttack": {
+     "baseValue": 2,
+     "ratingId": "ar",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "attack-v1"
+    },
+    "daggerPierceAttack": {
+     "baseValue": 3,
+     "ratingId": "ar",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "attack-v1"
+    },
+    "bowPierceAttack": {
+     "baseValue": 4,
+     "ratingId": "ar",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "attack-v1"
+    },
+    "staffMagicAttack": {
+     "baseValue": 2,
+     "ratingId": "pr",
+     "cap": null,
+     "damageSchool": "magic",
+     "exposureBuildupPerHit": 1,
+     "compatibility": "attack-v1"
+    },
+    "sceptreArcaneAttack": {
+     "baseValue": 3,
+     "ratingId": "pr",
+     "cap": null,
+     "damageSchool": "arcane",
+     "exposureBuildupPerHit": 1,
+     "compatibility": "attack-v1"
+    },
+    "unarmedGuard": {
+     "baseValue": 1,
+     "ratingId": "dr",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "guard-v1"
+    },
+    "weaponGuard": {
+     "baseValue": 2,
+     "ratingId": "dr",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "guard-v1"
+    },
+    "shieldGuard": {
+     "baseValue": 3,
+     "ratingId": "dr",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "guard-v1"
+    },
+    "staffGuard": {
+     "baseValue": 1,
+     "ratingId": "pr",
+     "cap": null,
+     "damageSchool": "magic",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "guard-v1"
+    },
+    "sceptreGuard": {
+     "baseValue": 1,
+     "ratingId": "pr",
+     "cap": null,
+     "damageSchool": "arcane",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "guard-v1"
+    },
+    "unarmedTechnique": {
+     "baseValue": 0,
+     "ratingId": "dr",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "technique-v1"
+    },
+    "weaponTechnique": {
+     "baseValue": 0,
+     "ratingId": "ar",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "technique-v1"
+    },
+    "bowTechnique": {
+     "baseValue": 0,
+     "ratingId": "ar",
+     "cap": null,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "technique-v1"
+    },
+    "staffTechnique": {
+     "baseValue": 0,
+     "ratingId": "pr",
+     "cap": null,
+     "damageSchool": "magic",
+     "exposureBuildupPerHit": 0,
+     "compatibility": "technique-v1"
+    }
+   },
+   "rarityBonuses": {
+    "common": {
+     "attack": 0,
+     "guard": 0
+    },
+    "uncommon": {
+     "attack": 1,
+     "guard": 1
+    },
+    "rare": {
+     "attack": 2,
+     "guard": 2
+    }
+   }
+  },
+  "equipmentAttackSlotCount": 2,
+  "removedAttackSlotIds": [],
+  "itemUpgradeLevels": {},
+  "itemMounts": {},
+  "equipmentPoolDeficits": {
+   "hp": 0,
+   "mana": 0,
+   "stamina": 0
+  },
+  "equipmentChanged": false,
+  "turn": 1,
+  "phase": "player",
+  "result": null,
+  "handMax": 10,
+  "drawPerTurn": 3,
+  "player": {
+   "id": "player",
+   "kind": "player",
+   "classId": "rogue",
+   "hp": 38,
+   "maxHp": 38,
+   "mana": 2,
+   "maxMana": 2,
+   "stamina": 3,
+   "maxStamina": 3,
+   "block": 0,
+   "energy": 3,
+   "energyMax": 3,
+   "drawPerTurn": 3,
+   "statuses": {
+    "prepared": {
+     "stacks": 1
+    }
+   },
+   "stanceId": null,
+   "relicIds": [
+    "cutpursesCoin",
+    "whetstonePouch"
+   ],
+   "itemUpgradeLevels": {},
+   "damageBySchoolAdd": {
+    "physical": 0,
+    "magic": 0,
+    "arcane": 0,
+    "holy": 0,
+    "fire": 0
+   },
+   "flasks": [],
+   "flaskCharges": {
+    "capacity": 4,
+    "base": 4,
+    "hp": 3,
+    "mana": 1,
+    "hpCurrent": 3,
+    "manaCurrent": 1,
+    "grown": {
+     "hp": 0,
+     "mana": 0
+    },
+    "granted": 0
+   },
+   "counters": {
+    "cardsPlayedThisTurn": 0,
+    "cardsPlayedThisCombat": 0,
+    "attacksPlayedThisCombat": 0,
+    "staminaSpentThisTurn": 0
+   },
+   "alive": true,
+   "poiseMeter": {
+    "value": 0,
+    "max": 6,
+    "growths": 0
+   },
+   "ratings": {
+    "ar": 2,
+    "dr": 8,
+    "pr": 0,
+    "poise": 6,
+    "ward": 2
+   },
+   "ratingSources": [
+    {
+     "name": "Attributes",
+     "kind": "attribute",
+     "ar": 0,
+     "dr": 1,
+     "pr": 0,
+     "poise": 3,
+     "ward": 2
+    },
+    {
+     "name": "Dagger",
+     "kind": "equipment",
+     "sourceId": "dagger",
+     "ar": 1,
+     "dr": 2,
+     "pr": 0,
+     "poise": 0,
+     "ward": 0,
+     "effectiveRatings": {
+      "ar": 1,
+      "dr": 2,
+      "pr": 1,
+      "poise": 0,
+      "ward": 2
+     }
+    },
+    {
+     "name": "Buckler",
+     "kind": "equipment",
+     "sourceId": "buckler",
+     "ar": 1,
+     "dr": 5,
+     "pr": 0,
+     "poise": 0,
+     "ward": 0,
+     "effectiveRatings": {
+      "ar": 1,
+      "dr": 5,
+      "pr": 1,
+      "poise": 0,
+      "ward": 5
+     }
+    },
+    {
+     "name": "Gutter Leathers",
+     "kind": "equipment",
+     "sourceId": "default",
+     "ar": 0,
+     "dr": 0,
+     "pr": 0,
+     "poise": 3,
+     "ward": 0,
+     "effectiveRatings": {
+      "ar": 0,
+      "dr": 0,
+      "pr": 0,
+      "poise": 3,
+      "ward": 0
+     }
+    },
+    {
+     "name": "Cutpurse's Coin",
+     "kind": "relic",
+     "sourceId": "cutpursesCoin",
+     "poise": 0,
+     "ar": 0,
+     "dr": 0,
+     "pr": 0,
+     "ward": 0
+    },
+    {
+     "name": "Whetstone Pouch",
+     "kind": "relic",
+     "sourceId": "whetstonePouch",
+     "poise": 0,
+     "ar": 0,
+     "dr": 0,
+     "pr": 0,
+     "ward": 0
+    }
+   ],
+   "wardMeter": {
+    "value": 0,
+    "max": 2,
+    "growths": 0
+   },
+   "pendingActionLoss": 0
+  },
+  "enemies": [
+   {
+    "id": "e1",
+    "kind": "enemy",
+    "enemyId": "cinderMantis",
+    "hp": 38,
+    "maxHp": 38,
+    "block": 0,
+    "statuses": {},
+    "poiseMeter": {
+     "value": 0,
+     "max": 11,
+     "growths": 0
+    },
+    "movesHistory": [
+     "emberPounce"
+    ],
+    "performedMoves": [],
+    "intent": {
+     "kind": "attack",
+     "moveId": "emberPounce",
+     "damage": 18,
+     "hits": 1,
+     "block": null,
+     "delayed": true,
+     "pending": false
+    },
+    "pendingMove": null,
+    "skipNextTurn": false,
+    "unlockedMoves": [],
+    "alive": true,
+    "ratings": {
+     "ar": 0,
+     "dr": 0,
+     "pr": 0,
+     "poise": 11,
+     "ward": 11
+    },
+    "wardMeter": {
+     "value": 0,
+     "max": 11,
+     "growths": 0
+    }
+   }
+  ],
+  "loadout": {
+   "sets": {
+    "rightHand": [
+     "dagger",
+     null,
+     null
+    ],
+    "leftHand": [
+     "buckler",
+     null,
+     null
+    ],
+    "armor": [
+     "default"
+    ],
+    "head": [
+     null
+    ],
+    "hands": [
+     null
+    ],
+    "feet": [
+     null
+    ],
+    "talisman": [
+     null,
+     null,
+     null
+    ]
+   },
+   "active": {
+    "rightHand": 0,
+    "leftHand": 0,
+    "armor": 0,
+    "head": 0,
+    "hands": 0,
+    "feet": 0,
+    "talisman": 0
+   },
+   "storage": [],
+   "creationArmourGrant": {
+    "classId": "rogue",
+    "id": "default"
+   }
+  },
+  "attributes": {
+   "strength": 1,
+   "dexterity": 3,
+   "constitution": 2,
+   "wisdom": 1,
+   "intelligence": 1
+  },
+  "derivedStatRuleSnapshot": {
+   "snapshotVersion": 2,
+   "rulesetVersion": 5,
+   "rules": {
+    "rulesetVersion": 5,
+    "defaults": {
+     "pointsPerTier": 5,
+     "rounding": "floor",
+     "cap": null
+    },
+    "rules": {
+     "energy": {
+      "pointsPerTier": 5,
+      "rounding": "floor",
+      "cap": null,
+      "base": 3,
+      "sourceStat": "dexterity",
+      "gainPerTier": 1
+     },
+     "draw": {
+      "pointsPerTier": 5,
+      "rounding": "floor",
+      "cap": null,
+      "base": 3,
+      "sourceStat": "intelligence",
+      "gainPerTier": 1,
+      "perLevel": {
+       "every": 10,
+       "gain": 1
+      }
+     },
+     "hp": {
+      "pointsPerTier": 1,
+      "rounding": "floor",
+      "cap": null,
+      "base": 30,
+      "sourceStat": "constitution",
+      "gainPerTier": 4,
+      "perLevel": {
+       "every": 5,
+       "gain": 5
+      }
+     },
+     "stamina": {
+      "pointsPerTier": 1,
+      "rounding": "floor",
+      "cap": null,
+      "base": 1,
+      "sourceStat": "constitution",
+      "gainPerTier": 1,
+      "perLevel": {
+       "every": 5,
+       "gain": 1
+      }
+     },
+     "mana": {
+      "pointsPerTier": 1,
+      "rounding": "floor",
+      "cap": null,
+      "base": 1,
+      "sourceStat": "wisdom",
+      "gainPerTier": 1,
+      "perLevel": {
+       "every": 5,
+       "gain": 1
+      }
+     },
+     "poise": {
+      "pointsPerTier": 1,
+      "rounding": "floor",
+      "cap": null,
+      "base": 1,
+      "sourceStat": "constitution",
+      "gainPerTier": 1
+     }
+    }
+   },
+   "relicModifiers": {
+    "damageBySchoolAdd": {
+     "physical": 0,
+     "magic": 0,
+     "arcane": 0,
+     "holy": 0,
+     "fire": 0
+    },
+    "sources": []
+   }
+  },
+  "swapCostRule": {
+   "id": "flat",
+   "label": "Flat",
+   "base": "default",
+   "gear": false
+  },
+  "swapsLeft": 0,
+  "piles": {
+   "draw": [
+    {
+     "instanceId": "kit:dagger:guard",
+     "cardId": "defend",
+     "upgraded": false,
+     "mods": [
+      "block=2"
+     ],
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "equipmentRole": "granted",
+     "profileId": "weaponGuard",
+     "profileReceipt": {
+      "role": "guard",
+      "profileId": "weaponGuard",
+      "pieceId": "dagger",
+      "base": 2,
+      "rarity": "common",
+      "rarityBonus": 0,
+      "rating": {
+       "id": "dr",
+       "attributeBase": 0,
+       "attributeValue": 1,
+       "equipmentBase": 2,
+       "value": 3,
+       "sourceLabel": "weapon"
+      },
+      "effectBase": 2,
+      "raw": 5,
+      "cap": null,
+      "value": 5
+     },
+     "ratingId": "dr",
+     "ratingValue": 3,
+     "kitRole": "guard",
+     "grantedBy": "dagger",
+     "grantSource": "from:weapon",
+     "sourceArmamentId": "dagger",
+     "smithingLevel": 0
+    },
+    {
+     "instanceId": "kit:buckler:attack",
+     "cardId": "strike",
+     "upgraded": false,
+     "mods": [
+      "damage=2"
+     ],
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "equipmentRole": "granted",
+     "profileId": "shieldAttack",
+     "profileReceipt": {
+      "role": "attack",
+      "profileId": "shieldAttack",
+      "pieceId": "buckler",
+      "base": 2,
+      "rarity": "common",
+      "rarityBonus": 0,
+      "rating": {
+       "id": "ar",
+       "attributeBase": 0,
+       "attributeValue": 0,
+       "equipmentBase": 1,
+       "value": 1,
+       "sourceLabel": "shield"
+      },
+      "effectBase": 2,
+      "raw": 3,
+      "cap": null,
+      "value": 3
+     },
+     "ratingId": "ar",
+     "ratingValue": 1,
+     "kitRole": "attack",
+     "grantedBy": "buckler",
+     "grantSource": "from:weapon",
+     "sourceArmamentId": "buckler",
+     "smithingLevel": 0
+    },
+    {
+     "instanceId": "rc2",
+     "cardId": "strike",
+     "upgraded": false,
+     "mods": [
+      "damage=3",
+      "hits=2"
+     ],
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "equipmentRole": "attack",
+     "profileId": "daggerPierceAttack",
+     "profileReceipt": {
+      "role": "attack",
+      "profileId": "daggerPierceAttack",
+      "pieceId": "dagger",
+      "base": 3,
+      "rarity": "common",
+      "rarityBonus": 0,
+      "rating": {
+       "id": "ar",
+       "attributeBase": 0,
+       "attributeValue": 0,
+       "equipmentBase": 1,
+       "value": 1,
+       "sourceLabel": "weapon"
+      },
+      "effectBase": 3,
+      "raw": 4,
+      "cap": null,
+      "value": 4
+     },
+     "ratingId": "ar",
+     "ratingValue": 1,
+     "equipmentAttackSlotId": "attack:1",
+     "equipmentPlanFingerprint": "attack:0:right:dagger:strike:daggerPierceAttack|attack:1:right:dagger:strike:daggerPierceAttack",
+     "sourceHand": "right",
+     "weaponId": "dagger",
+     "sourceArmamentId": "dagger",
+     "smithingLevel": 0
+    },
+    {
+     "instanceId": "rc4",
+     "cardId": "ambush",
+     "upgraded": false,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0
+    },
+    {
+     "instanceId": "kit:dagger:attack",
+     "cardId": "strike",
+     "upgraded": false,
+     "mods": [
+      "damage=3",
+      "hits=2"
+     ],
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "equipmentRole": "granted",
+     "profileId": "daggerPierceAttack",
+     "profileReceipt": {
+      "role": "attack",
+      "profileId": "daggerPierceAttack",
+      "pieceId": "dagger",
+      "base": 3,
+      "rarity": "common",
+      "rarityBonus": 0,
+      "rating": {
+       "id": "ar",
+       "attributeBase": 0,
+       "attributeValue": 0,
+       "equipmentBase": 1,
+       "value": 1,
+       "sourceLabel": "weapon"
+      },
+      "effectBase": 3,
+      "raw": 4,
+      "cap": null,
+      "value": 4
+     },
+     "ratingId": "ar",
+     "ratingValue": 1,
+     "kitRole": "attack",
+     "grantedBy": "dagger",
+     "grantSource": "from:weapon",
+     "sourceArmamentId": "dagger",
+     "smithingLevel": 0
+    },
+    {
+     "instanceId": "kit:buckler:guard",
+     "cardId": "defend",
+     "upgraded": false,
+     "mods": [
+      "block=3"
+     ],
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "equipmentRole": "granted",
+     "profileId": "shieldGuard",
+     "profileReceipt": {
+      "role": "guard",
+      "profileId": "shieldGuard",
+      "pieceId": "buckler",
+      "base": 3,
+      "rarity": "common",
+      "rarityBonus": 0,
+      "rating": {
+       "id": "dr",
+       "attributeBase": 0,
+       "attributeValue": 1,
+       "equipmentBase": 5,
+       "value": 6,
+       "sourceLabel": "shield"
+      },
+      "effectBase": 3,
+      "raw": 9,
+      "cap": null,
+      "value": 9
+     },
+     "ratingId": "dr",
+     "ratingValue": 6,
+     "kitRole": "guard",
+     "grantedBy": "buckler",
+     "grantSource": "from:weapon",
+     "sourceArmamentId": "buckler",
+     "smithingLevel": 0
+    },
+    {
+     "instanceId": "rc5",
+     "cardId": "prepare",
+     "upgraded": false
+    },
+    {
+     "instanceId": "weaponArt:dagger:twinFang",
+     "cardId": "twinFang",
+     "upgraded": false,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "equipmentRole": "weaponArt",
+     "grantedBy": "dagger",
+     "grantSource": "from:weapon"
+    }
+   ],
+   "hand": [
+    {
+     "instanceId": "rc3",
+     "cardId": "defend",
+     "upgraded": false,
+     "mods": [
+      "block=3"
+     ],
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "equipmentRole": "guard",
+     "profileId": "shieldGuard",
+     "profileReceipt": {
+      "role": "guard",
+      "profileId": "shieldGuard",
+      "pieceId": "buckler",
+      "base": 3,
+      "rarity": "common",
+      "rarityBonus": 0,
+      "rating": {
+       "id": "dr",
+       "attributeBase": 0,
+       "attributeValue": 1,
+       "equipmentBase": 5,
+       "value": 6,
+       "sourceLabel": "shield"
+      },
+      "effectBase": 3,
+      "raw": 9,
+      "cap": null,
+      "value": 9
+     },
+     "ratingId": "dr",
+     "ratingValue": 6,
+     "sourceArmamentId": "buckler",
+     "smithingLevel": 0
+    },
+    {
+     "instanceId": "weaponArt:buckler:riposte",
+     "cardId": "riposte",
+     "upgraded": false,
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "equipmentRole": "weaponArt",
+     "grantedBy": "buckler",
+     "grantSource": "from:weapon"
+    },
+    {
+     "instanceId": "rc1",
+     "cardId": "strike",
+     "upgraded": false,
+     "mods": [
+      "damage=3",
+      "hits=2"
+     ],
+     "damageSchool": "physical",
+     "exposureBuildupPerHit": 0,
+     "equipmentRole": "attack",
+     "profileId": "daggerPierceAttack",
+     "profileReceipt": {
+      "role": "attack",
+      "profileId": "daggerPierceAttack",
+      "pieceId": "dagger",
+      "base": 3,
+      "rarity": "common",
+      "rarityBonus": 0,
+      "rating": {
+       "id": "ar",
+       "attributeBase": 0,
+       "attributeValue": 0,
+       "equipmentBase": 1,
+       "value": 1,
+       "sourceLabel": "weapon"
+      },
+      "effectBase": 3,
+      "raw": 4,
+      "cap": null,
+      "value": 4
+     },
+     "ratingId": "ar",
+     "ratingValue": 1,
+     "equipmentAttackSlotId": "attack:0",
+     "equipmentPlanFingerprint": "attack:0:right:dagger:strike:daggerPierceAttack|attack:1:right:dagger:strike:daggerPierceAttack",
+     "sourceHand": "right",
+     "weaponId": "dagger",
+     "sourceArmamentId": "dagger",
+     "smithingLevel": 0
+    }
+   ],
+   "discard": [],
+   "exhaust": []
+  },
+  "eventLog": [
+   {
+    "type": "enemySpawned",
+    "targetId": "e1",
+    "enemyId": "cinderMantis"
+   },
+   {
+    "type": "combatStart"
+   },
+   {
+    "type": "relicTriggered",
+    "relicId": "cutpursesCoin"
+   },
+   {
+    "type": "statusApplied",
+    "targetId": "player",
+    "sourceId": "player",
+    "status": "prepared",
+    "stacks": 1,
+    "total": 1
+   },
+   {
+    "type": "cardDrawn",
+    "cardInstanceId": "rc3",
+    "cardId": "defend"
+   },
+   {
+    "type": "cardDrawn",
+    "cardInstanceId": "weaponArt:buckler:riposte",
+    "cardId": "riposte"
+   },
+   {
+    "type": "cardDrawn",
+    "cardInstanceId": "rc1",
+    "cardId": "strike"
+   },
+   {
+    "type": "playerTurnStart",
+    "turn": 1
+   }
+  ],
+  "triggerState": [
+   [
+    "property:player:relic:cutpursesCoin:0",
+    {
+     "fires": 1,
+     "turn": 0,
+     "turnFires": 1
+    }
+   ]
+  ],
+  "idCounter": 0,
+  "emitDepth": 0,
+  "skills": {},
+  "skillXp": {},
+  "coreTags": []
+ },
+ "start": {
+  "turn": 1,
+  "phase": "player",
+  "result": null,
+  "player": {
+   "id": "player",
+   "hp": 38,
+   "maxHp": 38,
+   "block": 0,
+   "alive": true,
+   "statuses": {
+    "prepared": 1
+   },
+   "energy": 3,
+   "mana": 2,
+   "stamina": 3
+  },
+  "enemies": [
+   {
+    "id": "e1",
+    "hp": 38,
+    "maxHp": 38,
+    "block": 0,
+    "alive": true,
+    "statuses": {},
+    "intent": {
+     "moveId": "emberPounce",
+     "kind": "attack",
+     "amount": 18
+    }
+   }
+  ],
+  "hand": [
+   "rc3",
+   "weaponArt:buckler:riposte",
+   "rc1"
+  ],
+  "draw": 8,
+  "discard": 0,
+  "exhaust": 0,
+  "rng": {
+   "map": 0,
+   "shuffle": 10,
+   "cardRewards": 0,
+   "relicRewards": 0,
+   "flaskRewards": 0,
+   "armaments": 0,
+   "enemyAI": 1,
+   "enemyHP": 1,
+   "events": 0,
+   "shop": 0,
+   "misc": 0,
+   "smith": 0,
+   "combatProcs": 0,
+   "seats": 0
+  }
+ },
+ "steps": [
+  {
+   "command": {
+    "type": "endTurn"
+   },
+   "after": {
+    "turn": 2,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 38,
+     "maxHp": 38,
+     "block": 0,
+     "alive": true,
+     "statuses": {},
+     "energy": 3,
+     "mana": 2,
+     "stamina": 3
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 38,
+      "maxHp": 38,
+      "block": 2,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "emberPounce",
+       "kind": "attack",
+       "amount": 18
+      }
+     }
+    ],
+    "hand": [
+     "rc3",
+     "weaponArt:buckler:riposte",
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "rc4",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "rc5"
+    ],
+    "draw": 1,
+    "discard": 0,
+    "exhaust": 0,
+    "rng": {
+     "map": 0,
+     "shuffle": 10,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 1,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "rc3"
+   },
+   "after": {
+    "turn": 2,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 38,
+     "maxHp": 38,
+     "block": 9,
+     "alive": true,
+     "statuses": {},
+     "energy": 2,
+     "mana": 2,
+     "stamina": 3
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 38,
+      "maxHp": 38,
+      "block": 2,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "emberPounce",
+       "kind": "attack",
+       "amount": 18
+      }
+     }
+    ],
+    "hand": [
+     "weaponArt:buckler:riposte",
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "rc4",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "rc5"
+    ],
+    "draw": 1,
+    "discard": 1,
+    "exhaust": 0,
+    "rng": {
+     "map": 0,
+     "shuffle": 10,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 1,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "rc4"
+   },
+   "after": {
+    "turn": 2,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 38,
+     "maxHp": 38,
+     "block": 9,
+     "alive": true,
+     "statuses": {},
+     "energy": 1,
+     "mana": 1,
+     "stamina": 2
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 34,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {
+       "venom": 1,
+       "vulnerable": 1
+      },
+      "intent": {
+       "moveId": "emberPounce",
+       "kind": "attack",
+       "amount": 18
+      }
+     }
+    ],
+    "hand": [
+     "weaponArt:buckler:riposte",
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "rc5"
+    ],
+    "draw": 1,
+    "discard": 2,
+    "exhaust": 0,
+    "rng": {
+     "map": 0,
+     "shuffle": 10,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 1,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "weaponArt:buckler:riposte"
+   },
+   "after": {
+    "turn": 2,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 38,
+     "maxHp": 38,
+     "block": 9,
+     "alive": true,
+     "statuses": {},
+     "energy": 0,
+     "mana": 1,
+     "stamina": 2
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 26,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {
+       "venom": 1,
+       "vulnerable": 1
+      },
+      "intent": {
+       "moveId": "emberPounce",
+       "kind": "attack",
+       "amount": 18
+      }
+     }
+    ],
+    "hand": [
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "rc5"
+    ],
+    "draw": 1,
+    "discard": 3,
+    "exhaust": 0,
+    "rng": {
+     "map": 0,
+     "shuffle": 10,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 1,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "rc5"
+   },
+   "after": {
+    "turn": 2,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 38,
+     "maxHp": 38,
+     "block": 9,
+     "alive": true,
+     "statuses": {
+      "prepared": 1
+     },
+     "energy": 0,
+     "mana": 1,
+     "stamina": 1
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 26,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {
+       "venom": 1,
+       "vulnerable": 1
+      },
+      "intent": {
+       "moveId": "emberPounce",
+       "kind": "attack",
+       "amount": 18
+      }
+     }
+    ],
+    "hand": [
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard"
+    ],
+    "draw": 1,
+    "discard": 3,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 10,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 1,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "endTurn"
+   },
+   "after": {
+    "turn": 3,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 31,
+     "maxHp": 38,
+     "block": 0,
+     "alive": true,
+     "statuses": {},
+     "energy": 3,
+     "mana": 1,
+     "stamina": 1
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 25,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "scythePair",
+       "kind": "attack",
+       "amount": 5
+      }
+     }
+    ],
+    "hand": [
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "weaponArt:dagger:twinFang",
+     "rc3",
+     "rc4",
+     "weaponArt:buckler:riposte"
+    ],
+    "draw": 0,
+    "discard": 0,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 12,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 2,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "weaponArt:dagger:twinFang"
+   },
+   "after": {
+    "turn": 3,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 31,
+     "maxHp": 38,
+     "block": 0,
+     "alive": true,
+     "statuses": {},
+     "energy": 2,
+     "mana": 1,
+     "stamina": 1
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 19,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "scythePair",
+       "kind": "attack",
+       "amount": 5
+      }
+     }
+    ],
+    "hand": [
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "rc3",
+     "rc4",
+     "weaponArt:buckler:riposte"
+    ],
+    "draw": 0,
+    "discard": 1,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 12,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 2,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "endTurn"
+   },
+   "after": {
+    "turn": 4,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 23,
+     "maxHp": 38,
+     "block": 0,
+     "alive": true,
+     "statuses": {},
+     "energy": 2,
+     "mana": 1,
+     "stamina": 2
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 19,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "emberPounce",
+       "kind": "attack",
+       "amount": 18
+      }
+     }
+    ],
+    "hand": [
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "rc3",
+     "rc4",
+     "weaponArt:buckler:riposte",
+     "weaponArt:dagger:twinFang"
+    ],
+    "draw": 0,
+    "discard": 0,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 12,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 3,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "rc4"
+   },
+   "after": {
+    "turn": 4,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 23,
+     "maxHp": 38,
+     "block": 0,
+     "alive": true,
+     "statuses": {},
+     "energy": 1,
+     "mana": 0,
+     "stamina": 1
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 13,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {
+       "vulnerable": 1
+      },
+      "intent": {
+       "moveId": null,
+       "kind": "staggered",
+       "amount": null
+      }
+     }
+    ],
+    "hand": [
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "rc3",
+     "weaponArt:buckler:riposte",
+     "weaponArt:dagger:twinFang"
+    ],
+    "draw": 0,
+    "discard": 1,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 12,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 3,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "rc3"
+   },
+   "after": {
+    "turn": 4,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 23,
+     "maxHp": 38,
+     "block": 9,
+     "alive": true,
+     "statuses": {},
+     "energy": 0,
+     "mana": 0,
+     "stamina": 1
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 13,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {
+       "vulnerable": 1
+      },
+      "intent": {
+       "moveId": null,
+       "kind": "staggered",
+       "amount": null
+      }
+     }
+    ],
+    "hand": [
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "weaponArt:buckler:riposte",
+     "weaponArt:dagger:twinFang"
+    ],
+    "draw": 0,
+    "discard": 2,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 12,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 3,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "endTurn"
+   },
+   "after": {
+    "turn": 5,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 23,
+     "maxHp": 38,
+     "block": 0,
+     "alive": true,
+     "statuses": {},
+     "energy": 3,
+     "mana": 0,
+     "stamina": 1
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 13,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "scythePair",
+       "kind": "attack",
+       "amount": 5
+      }
+     }
+    ],
+    "hand": [
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "weaponArt:buckler:riposte",
+     "weaponArt:dagger:twinFang",
+     "rc3",
+     "rc4"
+    ],
+    "draw": 0,
+    "discard": 0,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 13,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 4,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "rc3"
+   },
+   "after": {
+    "turn": 5,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 23,
+     "maxHp": 38,
+     "block": 9,
+     "alive": true,
+     "statuses": {},
+     "energy": 2,
+     "mana": 0,
+     "stamina": 1
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 13,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "scythePair",
+       "kind": "attack",
+       "amount": 5
+      }
+     }
+    ],
+    "hand": [
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "weaponArt:buckler:riposte",
+     "weaponArt:dagger:twinFang",
+     "rc4"
+    ],
+    "draw": 0,
+    "discard": 1,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 13,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 4,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "endTurn"
+   },
+   "after": {
+    "turn": 6,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 23,
+     "maxHp": 38,
+     "block": 0,
+     "alive": true,
+     "statuses": {},
+     "energy": 3,
+     "mana": 0,
+     "stamina": 2
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 13,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "scythePair",
+       "kind": "attack",
+       "amount": 5
+      }
+     }
+    ],
+    "hand": [
+     "rc1",
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "weaponArt:buckler:riposte",
+     "weaponArt:dagger:twinFang",
+     "rc4",
+     "rc3"
+    ],
+    "draw": 0,
+    "discard": 0,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 13,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 5,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "rc1"
+   },
+   "after": {
+    "turn": 6,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 23,
+     "maxHp": 38,
+     "block": 0,
+     "alive": true,
+     "statuses": {},
+     "energy": 2,
+     "mana": 0,
+     "stamina": 2
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 7,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "scythePair",
+       "kind": "attack",
+       "amount": 5
+      }
+     }
+    ],
+    "hand": [
+     "kit:dagger:guard",
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "weaponArt:buckler:riposte",
+     "weaponArt:dagger:twinFang",
+     "rc4",
+     "rc3"
+    ],
+    "draw": 0,
+    "discard": 1,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 13,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 5,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "kit:dagger:guard"
+   },
+   "after": {
+    "turn": 6,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 23,
+     "maxHp": 38,
+     "block": 5,
+     "alive": true,
+     "statuses": {},
+     "energy": 1,
+     "mana": 0,
+     "stamina": 2
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 7,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "scythePair",
+       "kind": "attack",
+       "amount": 5
+      }
+     }
+    ],
+    "hand": [
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "weaponArt:buckler:riposte",
+     "weaponArt:dagger:twinFang",
+     "rc4",
+     "rc3"
+    ],
+    "draw": 0,
+    "discard": 2,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 13,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 5,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "weaponArt:buckler:riposte"
+   },
+   "after": {
+    "turn": 6,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 23,
+     "maxHp": 38,
+     "block": 5,
+     "alive": true,
+     "statuses": {},
+     "energy": 0,
+     "mana": 0,
+     "stamina": 2
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 2,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "scythePair",
+       "kind": "attack",
+       "amount": 5
+      }
+     }
+    ],
+    "hand": [
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "weaponArt:dagger:twinFang",
+     "rc4",
+     "rc3"
+    ],
+    "draw": 0,
+    "discard": 3,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 13,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 5,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "endTurn"
+   },
+   "after": {
+    "turn": 7,
+    "phase": "player",
+    "result": null,
+    "player": {
+     "id": "player",
+     "hp": 20,
+     "maxHp": 38,
+     "block": 0,
+     "alive": true,
+     "statuses": {},
+     "energy": 3,
+     "mana": 0,
+     "stamina": 3
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 2,
+      "maxHp": 38,
+      "block": 0,
+      "alive": true,
+      "statuses": {},
+      "intent": {
+       "moveId": "emberPounce",
+       "kind": "attack",
+       "amount": 18
+      }
+     }
+    ],
+    "hand": [
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "weaponArt:dagger:twinFang",
+     "rc4",
+     "rc3",
+     "kit:dagger:guard",
+     "weaponArt:buckler:riposte",
+     "rc1"
+    ],
+    "draw": 0,
+    "discard": 0,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 15,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 6,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  },
+  {
+   "command": {
+    "type": "playCard",
+    "cardInstanceId": "weaponArt:dagger:twinFang"
+   },
+   "after": {
+    "turn": 7,
+    "phase": "ended",
+    "result": "victory",
+    "player": {
+     "id": "player",
+     "hp": 20,
+     "maxHp": 38,
+     "block": 0,
+     "alive": true,
+     "statuses": {},
+     "energy": 2,
+     "mana": 0,
+     "stamina": 3
+    },
+    "enemies": [
+     {
+      "id": "e1",
+      "hp": 0,
+      "maxHp": 38,
+      "block": 0,
+      "alive": false,
+      "statuses": {},
+      "intent": {
+       "moveId": "emberPounce",
+       "kind": "attack",
+       "amount": 18
+      }
+     }
+    ],
+    "hand": [
+     "kit:buckler:attack",
+     "rc2",
+     "kit:dagger:attack",
+     "kit:buckler:guard",
+     "rc4",
+     "rc3",
+     "kit:dagger:guard",
+     "weaponArt:buckler:riposte",
+     "rc1"
+    ],
+    "draw": 0,
+    "discard": 0,
+    "exhaust": 1,
+    "rng": {
+     "map": 0,
+     "shuffle": 15,
+     "cardRewards": 0,
+     "relicRewards": 0,
+     "flaskRewards": 0,
+     "armaments": 0,
+     "enemyAI": 6,
+     "enemyHP": 1,
+     "events": 0,
+     "shop": 0,
+     "misc": 0,
+     "smith": 0,
+     "combatProcs": 0,
+     "seats": 0
+    }
+   }
+  }
+ ],
+ "result": "victory"
+}
