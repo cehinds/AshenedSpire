@@ -5,6 +5,12 @@ namespace Ashen.Generated
     public static class CombatStringKeys
     {
         public const string CombatErrorUnexpected = "combat.error.unexpected";
+        public const string CombatIntentAttack = "combat.intent.attack";
+        public const string CombatIntentBlock = "combat.intent.block";
+        public const string CombatIntentBuff = "combat.intent.buff";
+        public const string CombatIntentDebuff = "combat.intent.debuff";
+        public const string CombatIntentStaggered = "combat.intent.staggered";
+        public const string CombatIntentUnknown = "combat.intent.unknown";
         public const string CombatRefusalCombatOver = "combat.refusal.combatOver";
         public const string CombatRefusalDiscardSelection = "combat.refusal.discardSelection";
         public const string CombatRefusalEnergy = "combat.refusal.energy";

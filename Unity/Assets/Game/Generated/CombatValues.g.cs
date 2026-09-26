@@ -58,6 +58,7 @@ namespace Ashen.Generated
         public const string GroupToken = "token";
         public const string HandZone = "HAND";
         public const string Immune = "immune";
+        public const string IntentLabelPrefix = "combat.intent.";
         public const string IntentStaggered = "staggered";
         public const string IntentUnknown = "unknown";
         public const string ItemRefSeparator = "/";
