@@ -101,6 +101,16 @@ namespace Ashen.Presentation.UI.Screens
             if (!Guard(Begin, () => OnBind(args))) return;
             Ready = true;
             Render();
+            // A rail that folds into its selector (or a redraw) can hide the focused control; the node screens never leave
+            // the keyboard and pad without a focus while they are on top.
+            Root.schedule.Execute(KeepFocus).Every(Ui.Data.Tokens.Duration(TokenKeys.FocusSettle));
+        }
+
+        private void KeepFocus()
+        {
+            if (Nav.Top != Context.Instance || Context.Instance.View.InputBlocked) return;
+            var focused = Context.Instance.Focus.Focused;
+            if (focused == null || !UiDom.IsShown(focused, Root.parent)) Nav.FocusTop();
         }
 
         /// <summary>Starts the screen's application session (it saves the run at this screen).</summary>
