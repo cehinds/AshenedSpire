@@ -37,7 +37,9 @@ namespace Ashen.Generated
         public const string NotPlayerTurnForCards = "Cards can only be played on the player turn";
         public const string NotPlayerTurnForFlasks = "Flasks can only be used on the player turn";
         public const string NotRelicRef = "'{0}' is not a namespaced relic";
+        public const string PassiveBelowZero = "{0} passive '{1}' would fall below zero";
         public const string PassiveNotInteger = "{0} passive '{1}' must already be an authored integer";
+        public const string PoiseBelowZero = "{0} poiseThreshold would fall below zero";
         public const string PoiseLoop = "Poise meter fill loop did not terminate";
         public const string PoiseThresholdNotInteger = "{0} poiseThreshold must be an integer";
         public const string ProfileSnapshotRequired = "createCombat requires the run equipmentProfileRuleSnapshot";
@@ -51,6 +53,7 @@ namespace Ashen.Generated
         public const string UnknownEnemyInstance = "Unknown enemy instance {0}";
         public const string UnknownFormulaOp = "Unknown formula op '{0}'";
         public const string UnknownIntent = "Unknown combat intent '{0}'";
+        public const string UnknownNamespacedItem = "Unknown namespaced upgrade item '{0}'";
         public const string UnknownOpcode = "Unknown opcode '{0}'";
         public const string UnknownPile = "Unknown pile '{0}'";
         public const string UnknownPredicate = "Unknown predicate '{0}'";
@@ -64,5 +67,6 @@ namespace Ashen.Generated
         public const string UpgradeEffectCount = "{0} tier {1} tag '{2}' expected exactly one '{3}' effect for role '{4}', found {5}";
         public const string UpgradeNonNumericAmount = "{0} tier {1} tag '{2}' targets a non-numeric amount";
         public const string UpgradeNonNumericField = "{0} tier {1} tag '{2}' targets non-numeric {3}";
+        public const string UpgradeTagInvalid = "{0} tier {1} tag '{2}' is invalid for {3}";
     }
 }

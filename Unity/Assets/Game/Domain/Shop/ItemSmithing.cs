@@ -20,9 +20,10 @@ namespace Ashen.Domain.Shop
     /// <summary>
     /// Smithing as a run-owned transaction over a namespaced item (shipped model/smithing.js smithingPlan,
     /// smithingCardReceipt, commitItemUpgrade/commitSmithing and restampSmithingCards, with model/itemUpgrades.js
-    /// resolveUpgradedItem and itemUpgradeValueReceipts): every owned item with an authored next tier and an effective
-    /// change, priced in Smithing Stones with exact before/after receipts; a commit revalidates through the plan,
-    /// promotes the item and restamps the cards it supplies.
+    /// itemUpgradeValueReceipts over <see cref="Combat.Equipment.ResolveUpgradedItem"/>): every owned item with an
+    /// authored next tier and an effective change, priced in Smithing Stones with exact before/after receipts; a commit
+    /// revalidates through the plan, promotes the item and restamps the cards it supplies. The one port: the merchant,
+    /// the events (free grants) and the rest stop's smith all call it (D-085, D-112).
     /// </summary>
     public static class ItemSmithing
     {
@@ -33,54 +34,24 @@ namespace Ashen.Domain.Shop
 
         private static string ArmamentRef(string id) => string.Join(V.ItemRefSeparator, V.ArmamentRefPrefix, id);
 
-        /// <summary>itemByRef(registries, itemRef): the item a namespaced ref names (armament, armour or relic), or null.</summary>
+        /// <summary>
+        /// itemByRef(registries, itemRef) (smithing.js): the item a namespaced ref names (armament, armour or relic) at tier
+        /// 0, or null when the ref names no item kind or resolves to nothing.
+        /// </summary>
         public static JObject ItemByRef(ShopData d, string itemRef)
         {
-            var identity = ItemUpgrades.Identity(itemRef);
-            if (identity == null) return null;
-            if (identity.ItemKind == V.ArmamentRefPrefix) return d.Armament(identity.ItemId);
-            if (identity.ItemKind == V.Armor)
-                return d.Run.EquipmentRows(K.Armour).FirstOrDefault(r => r.Str(K.ClassId) == identity.ClassId && r.Str(K.Id) == identity.ItemId);
-            return d.Run.Relics.Has(identity.ItemId) ? d.Run.Relics.Get(identity.ItemId) : null;
+            if (ItemUpgrades.Identity(itemRef) == null) return null;
+            try
+            {
+                return Combat.Equipment.ResolveUpgradedItem(d.Combat, itemRef, 0);
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
         }
 
-        /// <summary>resolveUpgradedItem(registries, itemRef, level): the item's poise threshold or relic passives at a tier (tags validated per kind).</summary>
-        private static JObject ResolveUpgradedItem(ShopData d, string itemRef, double level)
-        {
-            var identity = ItemUpgrades.Identity(itemRef) ?? throw new InvalidOperationException(RunJs.Fmt(SM.UnknownUpgradeItem, itemRef));
-            var baseDef = ItemByRef(d, itemRef) ?? throw new InvalidOperationException(RunJs.Fmt(SM.UnknownUpgradeItemId, itemRef));
-            var result = Js.Spread(baseDef);
-            if (identity.ItemKind == V.RelicKind)
-            {
-                var passives = Js.Spread(baseDef.Obj(K.Passives));
-                for (var tier = 1; tier <= level; tier += 1)
-                    foreach (var row in ItemUpgrades.Rows(d.Combat, itemRef, tier))
-                    {
-                        var t = ItemUpgrades.ParseTag(d.Combat, row.Str(K.Tag));
-                        if (!ItemUpgrades.TagMatchesKind(t, identity.ItemKind)) throw new InvalidOperationException(RunJs.Fmt(SM.UpgradeTagInvalid, itemRef, RunJs.Key(row[K.NextTier]), row.Str(K.Tag), identity.ItemKind));
-                        if (t.Kind != V.RelicPassiveKind) continue;
-                        if (!Js.IsInt(passives[t.PassiveKey])) throw new InvalidOperationException(RunJs.Fmt(SM.PassiveNotAuthored, itemRef, t.PassiveKey));
-                        var after = passives.Num(t.PassiveKey) + row.Num(K.Value);
-                        if (after < 0) throw new InvalidOperationException(RunJs.Fmt(SM.PassiveBelowZero, itemRef, t.PassiveKey));
-                        passives.Put(t.PassiveKey, after);
-                    }
-                result[K.Passives] = passives;
-                return result;
-            }
-            var poise = baseDef[K.PoiseThreshold];
-            for (var tier = 1; tier <= level; tier += 1)
-                foreach (var row in ItemUpgrades.Rows(d.Combat, itemRef, tier))
-                {
-                    var t = ItemUpgrades.ParseTag(d.Combat, row.Str(K.Tag));
-                    if (!ItemUpgrades.TagMatchesKind(t, identity.ItemKind)) throw new InvalidOperationException(RunJs.Fmt(SM.UpgradeTagInvalid, itemRef, RunJs.Key(row[K.NextTier]), row.Str(K.Tag), identity.ItemKind));
-                    if (t.Kind != V.EquipmentPoiseKind) continue;
-                    if (!Js.IsInt(poise)) throw new InvalidOperationException(RunJs.Fmt(SM.PoiseNotInteger, itemRef));
-                    poise = Js.N(Js.D(poise) + row.Num(K.Value));
-                    if (Js.D(poise) < 0) throw new InvalidOperationException(RunJs.Fmt(SM.PoiseBelowZero, itemRef));
-                }
-            Cards.SetOrRemove(result, K.PoiseThreshold, poise);
-            return result;
-        }
+        private static JObject ResolveUpgradedItem(ShopData d, string itemRef, double level) => Combat.Equipment.ResolveUpgradedItem(d.Combat, itemRef, level);
 
         /// <summary>itemUpgradeCost(rows): the tier's Smithing Stone cost row.</summary>
         private static double UpgradeCost(ShopData d, List<JObject> rows)
@@ -163,15 +134,16 @@ namespace Ashen.Domain.Shop
         {
             var effect = Js.Items(def[K.Effects]).OfType<JObject>().FirstOrDefault(e => e.Str(K.Op) == op);
             if (effect == null) return null;
-            return RunJs.Coalesce(effect[K.Amount], effect[K.Stacks], effect[K.Hits]);
+            return RunJs.Coalesce(effect[K.Amount], effect[K.Stacks], effect[K.Hits]) ?? Js.Null();
         }
 
-        /// <summary><c>a === b</c> for two JSON values: numbers by value, strings by content, anything else by structure.</summary>
+        /// <summary>JS <c>===</c> on two receipt values: numbers by value, absent and null distinct, objects and arrays never equal.</summary>
         private static bool Same(JToken a, JToken b)
         {
             if (a == null || b == null) return a == null && b == null;
             if (Js.IsNum(a) && Js.IsNum(b)) return Js.D(a) == Js.D(b);
-            return JToken.DeepEquals(a, b);
+            if (a.Type != b.Type) return false;
+            return a is JValue && JToken.DeepEquals(a, b);
         }
 
         private static JArray CardChangesForTier(ShopData d, JObject instance, JObject before, JObject after, string pieceId, double nextLevel)
@@ -185,12 +157,12 @@ namespace Ashen.Domain.Shop
                 {
                     var b = NumericEffect(before, t.Op);
                     var a = NumericEffect(after, t.Op);
-                    if (b == null || a == null || Same(b, a)) continue;
+                    if (Js.Nullish(b) || Js.Nullish(a) || Same(b, a)) continue;
                     changes.Add(Js.Obj(K.Kind, SV.ChangeEffect, K.Tag, row[K.Tag], K.Op, t.Op, WK.Before, b.DeepClone(), WK.After, a.DeepClone()));
                 }
                 else if (t.Kind == V.CardCostKind)
                 {
-                    var field = t.Resource == V.ActionResource ? K.Cost : t.Resource + V.CostFieldSuffix;
+                    var field = ItemUpgrades.CostField(d.Combat, t.Resource);
                     var b = Js.IsNum(before[field]) ? Js.D(before[field]) : 0;
                     var a = Js.IsNum(after[field]) ? Js.D(after[field]) : 0;
                     if (b == a) continue;
@@ -307,7 +279,7 @@ namespace Ashen.Domain.Shop
                 {
                     var label = d.RuleObj(SK.Labels, K.Passives).Str(t.PassiveKey) ?? d.RuleStr(SK.Labels, SK.OtherPassive);
                     receipts.Add(Js.Obj(K.Kind, t.Kind, K.Tag, row[K.Tag], SK.PassiveKey, t.PassiveKey, K.Label, label,
-                        WK.Before, before.Obj(K.Passives)[t.PassiveKey], WK.After, after.Obj(K.Passives)[t.PassiveKey]));
+                        WK.Before, before.Obj(K.Passives)?[t.PassiveKey], WK.After, after.Obj(K.Passives)?[t.PassiveKey]));
                 }
             }
             if (receipts.Count == 0 || receipts.OfType<JObject>().All(r => Same(r[WK.Before], r[WK.After])))
@@ -365,7 +337,7 @@ namespace Ashen.Domain.Shop
                 var top = tiers.Count > 0 ? tiers[tiers.Count - 1] : 0;
                 if (Js.D(p.Value) > top) throw new InvalidOperationException(RunJs.Fmt(SM.LevelExceedsTier, p.Name, RunJs.NumStr(top)));
             }
-            var stones = CardExtraction.StoneBalance(run);
+            var stones = Rewards.Smithing.StoneBalance(run);
             var inventory = RewardRolls.CarriedIds(run.Obj(K.Loadout));
             var candidates = new JArray();
             foreach (var itemRef in OwnedItemRefs(d, run))
