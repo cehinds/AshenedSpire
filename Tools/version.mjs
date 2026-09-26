@@ -6,6 +6,8 @@
 //   node Tools/version.mjs next  <epic|feature|story|patch> [--count n]
 //   node Tools/version.mjs bump  <epic|feature|story|patch> [--count n] [--note "text"] [--stories us-0.1,us-0.2]
 //   node Tools/version.mjs check <base-ref> [--head-branch name] [--base-branch name]
+//   node Tools/version.mjs set <E.F.S.P> --reason "..."   (corrections only)
+// Epic bumps are owner-only (ASHEN_OWNER_RELEASE=1).
 //
 // Files touched by `bump`: VERSION, CHANGELOG.md, Unity/ProjectSettings/ProjectSettings.asset
 // (bundleVersion + AndroidBundleVersionCode) when present, build-info.json.
@@ -30,7 +32,7 @@ const ALLOWED = [
   { head: /^(fix|chore)\//, base: /^(dev|test)$/, parts: ['patch'] },
   { head: /^dev$/, base: /^test$/, parts: null },
   { head: /^test$/, base: /^main$/, parts: null },
-  { head: /^dev$/, base: /^dev$/, parts: ['epic', 'feature', 'story', 'patch'] },
+  { head: /^dev$/, base: /^dev$/, parts: ['feature', 'story', 'patch'] },
 ];
 
 function fail(msg) { console.error(`version: ${msg}`); process.exit(1); }
@@ -121,9 +123,19 @@ const count = Number(arg('--count', '1'));
 if (cmd === 'current') console.log(format(readVersion()));
 else if (cmd === 'next') console.log(format(next(readVersion(), part, count)));
 else if (cmd === 'bump') {
+  // Owner ruling (2026-09-26): nothing is 1.x until the OWNER declares a release. Phase completions are
+  // promotions (dev → test → main) with the current version, never an epic bump.
+  if (part === 'epic' && process.env.ASHEN_OWNER_RELEASE !== '1') fail('epic bumps are owner-only: set ASHEN_OWNER_RELEASE=1 when the owner declares a release');
   const v = format(next(readVersion(), part, count));
   const stories = (arg('--stories', '') || '').split(',').filter(Boolean);
   writeAll(v, arg('--note'), stories);
+  console.log(v);
+} else if (cmd === 'set') {
+  // Corrections only (e.g. an owner-ordered renumber). Requires --reason; recorded in the CHANGELOG.
+  const reason = arg('--reason');
+  if (!reason) fail('set requires --reason');
+  const v = format(parse(part));
+  writeAll(v, `Version correction: ${reason}`, []);
   console.log(v);
 } else if (cmd === 'check') check(part || 'origin/dev');
 else if (cmd === 'selftest') {

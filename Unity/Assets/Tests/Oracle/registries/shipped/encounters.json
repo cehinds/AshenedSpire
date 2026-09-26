@@ -1,0 +1,750 @@
+{
+ "a2_bossGlassRegent": {
+  "enemies": [
+   "glassRegent"
+  ],
+  "floorBand": {
+   "max": 6,
+   "min": 6
+  },
+  "id": "a2_bossGlassRegent",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "boss",
+  "seat": "marches",
+  "tags": [],
+  "targetBand": {
+   "max": 12,
+   "min": 11
+  },
+  "weight": 1
+ },
+ "a2_bossMarrowOrganist": {
+  "enemies": [
+   "marrowOrganist"
+  ],
+  "floorBand": {
+   "max": 6,
+   "min": 6
+  },
+  "id": "a2_bossMarrowOrganist",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "boss",
+  "seat": "marches",
+  "tags": [],
+  "targetBand": {
+   "max": 12,
+   "min": 11
+  },
+  "weight": 1
+ },
+ "a2_bossStitchedKing": {
+  "enemies": [
+   "stitchedKing"
+  ],
+  "floorBand": {
+   "max": 6,
+   "min": 6
+  },
+  "id": "a2_bossStitchedKing",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "boss",
+  "seat": "marches",
+  "tags": [],
+  "targetBand": {
+   "max": 12,
+   "min": 11
+  },
+  "weight": 1
+ },
+ "a2_eliteDuelist": {
+  "enemies": [
+   "courtDuelist"
+  ],
+  "floorBand": {
+   "max": 5,
+   "min": 5
+  },
+  "id": "a2_eliteDuelist",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "elite",
+  "seat": "marches",
+  "tags": [],
+  "targetBand": {
+   "max": 11,
+   "min": 10
+  },
+  "weight": 1
+ },
+ "a2_kennel": {
+  "enemies": [
+   "stitchedHound",
+   "stitchedHound"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a2_kennel",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "marches",
+  "tags": [],
+  "targetBand": {
+   "max": 9,
+   "min": 6
+  },
+  "weight": 20
+ },
+ "a2_knight": {
+  "enemies": [
+   "gildedKnight"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a2_knight",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "marches",
+  "tags": [],
+  "targetBand": {
+   "max": 9,
+   "min": 6
+  },
+  "weight": 20
+ },
+ "a2_mirrorArchive": {
+  "enemies": [
+   "mirrorScribe"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a2_mirrorArchive",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "marches",
+  "tags": [],
+  "targetBand": {
+   "max": 10,
+   "min": 7
+  },
+  "weight": 15
+ },
+ "a2_procession": {
+  "enemies": [
+   "gildedKnight",
+   "courtMarionette"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a2_procession",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "marches",
+  "tags": [],
+  "targetBand": {
+   "max": 9,
+   "min": 6
+  },
+  "weight": 20
+ },
+ "a2_stitchDrain": {
+  "enemies": [
+   "stitchCrab"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 2
+  },
+  "id": "a2_stitchDrain",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "marches",
+  "tags": [],
+  "targetBand": {
+   "max": 10,
+   "min": 7
+  },
+  "weight": 15
+ },
+ "a2_surgery": {
+  "enemies": [
+   "courtSurgeon",
+   "courtMarionette"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a2_surgery",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "marches",
+  "tags": [],
+  "targetBand": {
+   "max": 9,
+   "min": 6
+  },
+  "weight": 25
+ },
+ "a2_vault": {
+  "enemies": [
+   "livingArmor",
+   "courtSurgeon"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a2_vault",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "marches",
+  "tags": [],
+  "targetBand": {
+   "max": 9,
+   "min": 6
+  },
+  "weight": 15
+ },
+ "a3_ashChoir": {
+  "enemies": [
+   "ashRevenant",
+   "valkyrieShade"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a3_ashChoir",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "reach",
+  "tags": [],
+  "targetBand": {
+   "max": 17,
+   "min": 13
+  },
+  "weight": 20
+ },
+ "a3_bossAshheartDragon": {
+  "enemies": [
+   "ashheartDragon"
+  ],
+  "floorBand": {
+   "max": 6,
+   "min": 6
+  },
+  "id": "a3_bossAshheartDragon",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "boss",
+  "seat": "reach",
+  "tags": [],
+  "targetBand": {
+   "max": 20,
+   "min": 19
+  },
+  "weight": 1
+ },
+ "a3_bossFurnaceSaint": {
+  "enemies": [
+   "furnaceSaint"
+  ],
+  "floorBand": {
+   "max": 6,
+   "min": 6
+  },
+  "id": "a3_bossFurnaceSaint",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "boss",
+  "seat": "reach",
+  "tags": [],
+  "targetBand": {
+   "max": 20,
+   "min": 19
+  },
+  "weight": 1
+ },
+ "a3_bossHollowAstronomer": {
+  "enemies": [
+   "hollowAstronomer"
+  ],
+  "floorBand": {
+   "max": 6,
+   "min": 6
+  },
+  "id": "a3_bossHollowAstronomer",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "boss",
+  "seat": "reach",
+  "tags": [],
+  "targetBand": {
+   "max": 20,
+   "min": 19
+  },
+  "weight": 1
+ },
+ "a3_bossRotValkyrie": {
+  "enemies": [
+   "blightedValkyrie"
+  ],
+  "floorBand": {
+   "max": 6,
+   "min": 6
+  },
+  "id": "a3_bossRotValkyrie",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "boss",
+  "seat": null,
+  "tags": [],
+  "targetBand": {
+   "max": 20,
+   "min": 19
+  },
+  "weight": 1
+ },
+ "a3_cinderNest": {
+  "enemies": [
+   "cinderMantis"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a3_cinderNest",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "reach",
+  "tags": [],
+  "targetBand": {
+   "max": 17,
+   "min": 14
+  },
+  "weight": 15
+ },
+ "a3_colossus": {
+  "enemies": [
+   "charredColossus"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a3_colossus",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "reach",
+  "tags": [],
+  "targetBand": {
+   "max": 18,
+   "min": 14
+  },
+  "weight": 15
+ },
+ "a3_eclipseChapel": {
+  "enemies": [
+   "eclipseCantor"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 2
+  },
+  "id": "a3_eclipseChapel",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "reach",
+  "tags": [],
+  "targetBand": {
+   "max": 17,
+   "min": 14
+  },
+  "weight": 15
+ },
+ "a3_eliteWyrmLord": {
+  "enemies": [
+   "wyrmLord"
+  ],
+  "floorBand": {
+   "max": 5,
+   "min": 5
+  },
+  "id": "a3_eliteWyrmLord",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "elite",
+  "seat": "reach",
+  "tags": [],
+  "targetBand": {
+   "max": 19,
+   "min": 18
+  },
+  "weight": 1
+ },
+ "a3_pilgrims": {
+  "enemies": [
+   "emberStarvedPilgrim",
+   "emberStarvedPilgrim"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a3_pilgrims",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "reach",
+  "tags": [],
+  "targetBand": {
+   "max": 16,
+   "min": 13
+  },
+  "weight": 20
+ },
+ "a3_revenant": {
+  "enemies": [
+   "ashRevenant"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a3_revenant",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "reach",
+  "tags": [],
+  "targetBand": {
+   "max": 16,
+   "min": 13
+  },
+  "weight": 20
+ },
+ "a3_shades": {
+  "enemies": [
+   "valkyrieShade",
+   "emberStarvedPilgrim"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "a3_shades",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "reach",
+  "tags": [],
+  "targetBand": {
+   "max": 17,
+   "min": 13
+  },
+  "weight": 25
+ },
+ "bossBellKeeper": {
+  "enemies": [
+   "bellKeeper"
+  ],
+  "floorBand": {
+   "max": 6,
+   "min": 6
+  },
+  "id": "bossBellKeeper",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "boss",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 7,
+   "min": 5
+  },
+  "weight": 1
+ },
+ "bossOmen": {
+  "enemies": [
+   "fellWarden"
+  ],
+  "floorBand": {
+   "max": 6,
+   "min": 6
+  },
+  "id": "bossOmen",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "boss",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 7,
+   "min": 5
+  },
+  "weight": 1
+ },
+ "bossThornMatriarch": {
+  "enemies": [
+   "thornMatriarch"
+  ],
+  "floorBand": {
+   "max": 6,
+   "min": 6
+  },
+  "id": "bossThornMatriarch",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "boss",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 7,
+   "min": 5
+  },
+  "weight": 1
+ },
+ "briarRefuge": {
+  "enemies": [
+   "briarHermit"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 2
+  },
+  "id": "briarRefuge",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 5,
+   "min": 2
+  },
+  "weight": 15
+ },
+ "bruiser": {
+  "enemies": [
+   "huskBrute",
+   "graveWisp"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "bruiser",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 4,
+   "min": 1
+  },
+  "weight": 15
+ },
+ "chainAmbush": {
+  "enemies": [
+   "chainScavenger"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 2
+  },
+  "id": "chainAmbush",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 5,
+   "min": 2
+  },
+  "weight": 15
+ },
+ "eliteWyrm": {
+  "enemies": [
+   "wyrmAspirant"
+  ],
+  "floorBand": {
+   "max": 5,
+   "min": 5
+  },
+  "id": "eliteWyrm",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "elite",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 6,
+   "min": 4
+  },
+  "weight": 1
+ },
+ "lanternFlight": {
+  "enemies": [
+   "lanternMoth",
+   "lanternMoth"
+  ],
+  "floorBand": {
+   "max": 3,
+   "min": 1
+  },
+  "id": "lanternFlight",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 5,
+   "min": 2
+  },
+  "weight": 15
+ },
+ "loneSoldier": {
+  "enemies": [
+   "wanderingSoldier"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "loneSoldier",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 4,
+   "min": 1
+  },
+  "weight": 20
+ },
+ "packHunt": {
+  "enemies": [
+   "blightHound",
+   "blightHound",
+   "graveWisp"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "packHunt",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 4,
+   "min": 1
+  },
+  "weight": 25
+ },
+ "patrol": {
+  "enemies": [
+   "wanderingSoldier",
+   "blightHound"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "patrol",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 4,
+   "min": 1
+  },
+  "weight": 25
+ },
+ "twinPatrol": {
+  "enemies": [
+   "wanderingSoldier",
+   "wanderingSoldier"
+  ],
+  "floorBand": {
+   "max": 4,
+   "min": 1
+  },
+  "id": "twinPatrol",
+  "kindIds": [
+   "classification.encounter"
+  ],
+  "pool": "normal",
+  "seat": "weald",
+  "tags": [],
+  "targetBand": {
+   "max": 4,
+   "min": 1
+  },
+  "weight": 15
+ }
+}

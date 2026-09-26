@@ -10,6 +10,14 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CONFIG = JSON.parse(readFileSync(join(ROOT, 'Tools', 'codegen.config.json'), 'utf8'));
+// Fragments (Tools/codegen.d/*.json) let parallel streams own their key sets without editing one shared file.
+const FRAGMENTS = join(ROOT, 'Tools', 'codegen.d');
+if (existsSync(FRAGMENTS)) {
+  for (const f of readdirSync(FRAGMENTS).filter(f => f.endsWith('.json')).sort()) {
+    const frag = JSON.parse(readFileSync(join(FRAGMENTS, f), 'utf8'));
+    for (const key of ['enums', 'keySets', 'numberSets', 'stringTables']) if (frag[key]) CONFIG[key] = [...(CONFIG[key] || []), ...frag[key]];
+  }
+}
 const CONTENT = join(ROOT, 'Unity', 'Assets', 'StreamingAssets', 'Content');
 const OUT = join(ROOT, CONFIG.outDir);
 const CHECK = process.argv.includes('--check');
