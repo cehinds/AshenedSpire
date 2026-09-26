@@ -4,6 +4,7 @@ namespace Ashen.Generated
     /// <summary>Every file listed in the content manifest (regenerated when content files are added or removed).</summary>
     public static class ContentFiles
     {
+        public const string About = "about.json";
         public const string AssetsRegistry = "assets/registry.json";
         public const string AudioMusic = "audio/music.json";
         public const string AudioSfx = "audio/sfx.json";
@@ -57,6 +58,7 @@ namespace Ashen.Generated
         public const string RulesSaves = "rules/saves.json";
         public const string RulesStringKeys = "rules/stringKeys.json";
         public const string RulesValidation = "rules/validation.json";
+        public const string SchemasAboutSchema = "schemas/about.schema.json";
         public const string SchemasAssetsRegistrySchema = "schemas/assets.registry.schema.json";
         public const string SchemasAudioMusicSchema = "schemas/audio.music.schema.json";
         public const string SchemasAudioSfxSchema = "schemas/audio.sfx.schema.json";
@@ -112,6 +114,7 @@ namespace Ashen.Generated
         public const string SchemasRulesValidationSchema = "schemas/rules.validation.schema.json";
         public const string SchemasSettingsPresetsReferenceSchema = "schemas/settings.presets.reference.schema.json";
         public const string SchemasSettingsPresetsShippedSchema = "schemas/settings.presets.shipped.schema.json";
+        public const string SchemasStringsAppEnSchema = "schemas/strings.app.en.schema.json";
         public const string SchemasTagsFamilyNodesSchema = "schemas/tags.familyNodes.schema.json";
         public const string SchemasTagsNodeRelationsSchema = "schemas/tags.nodeRelations.schema.json";
         public const string SchemasTagsNodeTermsSchema = "schemas/tags.nodeTerms.schema.json";
@@ -130,6 +133,7 @@ namespace Ashen.Generated
         public const string SchemasUiThemeSchema = "schemas/ui.theme.schema.json";
         public const string SettingsPresetsReference = "settings/presets/reference.json";
         public const string SettingsPresetsShipped = "settings/presets/shipped.json";
+        public const string StringsAppEn = "strings/app.en.json";
         public const string StringsEn = "strings/en.json";
         public const string TagsFamilyNodes = "tags/familyNodes.json";
         public const string TagsNodeRelations = "tags/nodeRelations.json";

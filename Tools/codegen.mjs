@@ -57,6 +57,10 @@ for (const n of CONFIG.numberSets || []) {
   lines.push('    }\n}\n');
   files[`${n.name}.g.cs`] = lines.join('');
 }
+for (const t of CONFIG.stringTables || []) {
+  const table = JSON.parse(readFileSync(join(CONTENT, t.from), 'utf8'));
+  files[`${t.name}.g.cs`] = keySet(t.name, t.doc, Object.keys(table).sort().map(k => [pascal(k), k]));
+}
 const manifest = JSON.parse(readFileSync(join(CONTENT, 'manifest.json'), 'utf8'));
 const contentEntries = Object.keys(manifest.files).sort().map(p => [pascal(p.replace(/\.json$/, '')), p]);
 files[`${CONFIG.contentFiles.name}.g.cs`] = keySet(CONFIG.contentFiles.name, CONFIG.contentFiles.doc, contentEntries);
