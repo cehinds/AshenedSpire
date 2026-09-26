@@ -126,5 +126,20 @@
     "restoreStamina",
     "addCinders",
     "loseMaxHpPct"
-  ]
+  ],
+  "skillXp": {
+    "focusItemType": "item:magic-focus",
+    "armorItemType": "item:armor",
+    "unarmedGrantPrefix": "unarmed:",
+    "dualWieldSkill": "dualWield",
+    "armourSkillPrefix": "armour:",
+    "impactShare": {
+      "heavy": 1,
+      "medium": 0.5
+    },
+    "evadeShare": {
+      "light": 1,
+      "medium": 0.5
+    }
+  }
 }

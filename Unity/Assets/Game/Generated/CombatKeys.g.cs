@@ -16,7 +16,9 @@ namespace Ashen.Generated
         public const string ArcaneExposure = "arcaneExposure";
         public const string Args = "args";
         public const string Armaments = "armaments";
+        public const string ArmorItemType = "armorItemType";
         public const string Armour = "armour";
+        public const string ArmourSkillPrefix = "armourSkillPrefix";
         public const string AtLeast = "atLeast";
         public const string Attack = "attack";
         public const string AttackDamageAdd = "attackDamageAdd";
@@ -44,6 +46,7 @@ namespace Ashen.Generated
         public const string BoostTint = "boostTint";
         public const string Breaks = "breaks";
         public const string BuildupMultiplier = "buildupMultiplier";
+        public const string BuildupPerXp = "buildupPerXp";
         public const string BurstMax = "burstMax";
         public const string BurstMin = "burstMin";
         public const string BurstPercent = "burstPercent";
@@ -110,6 +113,7 @@ namespace Ashen.Generated
         public const string Draw = "draw";
         public const string DrawMode = "drawMode";
         public const string DrawPerTurn = "drawPerTurn";
+        public const string DualWieldSkill = "dualWieldSkill";
         public const string Duration = "duration";
         public const string EffTarget = "effTarget";
         public const string EffectiveRatings = "effectiveRatings";
@@ -138,6 +142,8 @@ namespace Ashen.Generated
         public const string EquipmentProfileId = "equipmentProfileId";
         public const string EquipmentProfileRuleSnapshot = "equipmentProfileRuleSnapshot";
         public const string EquipmentRole = "equipmentRole";
+        public const string EvadeShare = "evadeShare";
+        public const string EvadeXp = "evadeXp";
         public const string EvasionModifier = "evasionModifier";
         public const string EventLog = "eventLog";
         public const string Excludes = "excludes";
@@ -153,6 +159,7 @@ namespace Ashen.Generated
         public const string FlaskPowerMult = "flaskPowerMult";
         public const string Flasks = "flasks";
         public const string Flavor = "flavor";
+        public const string FocusItemType = "focusItemType";
         public const string GrantSource = "grantSource";
         public const string GrantedBy = "grantedBy";
         public const string Grip = "grip";
@@ -176,6 +183,8 @@ namespace Ashen.Generated
         public const string Ids = "ids";
         public const string If = "if";
         public const string Impact = "impact";
+        public const string ImpactPerXp = "impactPerXp";
+        public const string ImpactShare = "impactShare";
         public const string InstanceId = "instanceId";
         public const string Intent = "intent";
         public const string IsAttack = "isAttack";
@@ -188,6 +197,8 @@ namespace Ashen.Generated
         public const string ItemUpgrades = "itemUpgrades";
         public const string Keyword = "keyword";
         public const string Keywords = "keywords";
+        public const string KillGroup = "killGroup";
+        public const string KillMult = "killMult";
         public const string Kind = "kind";
         public const string KindByOp = "kindByOp";
         public const string KindIds = "kindIds";
@@ -259,7 +270,9 @@ namespace Ashen.Generated
         public const string PendingDiscardDraw = "pendingDiscardDraw";
         public const string PendingMove = "pendingMove";
         public const string Per = "per";
+        public const string PerHit = "perHit";
         public const string PerTarget = "perTarget";
+        public const string PerWinEquipped = "perWinEquipped";
         public const string Percent = "percent";
         public const string PerformedMoves = "performedMoves";
         public const string Phase = "phase";
@@ -329,6 +342,7 @@ namespace Ashen.Generated
         public const string Size = "size";
         public const string Skill = "skill";
         public const string SkillXp = "skillXp";
+        public const string SkillXpMult = "skillXpMult";
         public const string Skills = "skills";
         public const string SkipNextTurn = "skipNextTurn";
         public const string SkipTurn = "skipTurn";
@@ -389,6 +403,7 @@ namespace Ashen.Generated
         public const string Turns = "turns";
         public const string Type = "type";
         public const string Unarmed = "unarmed";
+        public const string UnarmedGrantPrefix = "unarmedGrantPrefix";
         public const string UnlockMoves = "unlockMoves";
         public const string UnlockedMoves = "unlockedMoves";
         public const string Upgrade = "upgrade";
@@ -406,5 +421,6 @@ namespace Ashen.Generated
         public const string WeightAttribute = "weightAttribute";
         public const string WeightClass = "weightClass";
         public const string WhileCharging = "whileCharging";
+        public const string Xp = "xp";
     }
 }

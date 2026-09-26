@@ -324,6 +324,65 @@
         "ids"
       ]
     },
+    "skillXp": {
+      "type": "object",
+      "properties": {
+        "armorItemType": {
+          "type": "string"
+        },
+        "armourSkillPrefix": {
+          "type": "string"
+        },
+        "dualWieldSkill": {
+          "type": "string"
+        },
+        "evadeShare": {
+          "type": "object",
+          "properties": {
+            "light": {
+              "type": "integer"
+            },
+            "medium": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "light",
+            "medium"
+          ]
+        },
+        "focusItemType": {
+          "type": "string"
+        },
+        "impactShare": {
+          "type": "object",
+          "properties": {
+            "heavy": {
+              "type": "integer"
+            },
+            "medium": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "heavy",
+            "medium"
+          ]
+        },
+        "unarmedGrantPrefix": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "armorItemType",
+        "armourSkillPrefix",
+        "dualWieldSkill",
+        "evadeShare",
+        "focusItemType",
+        "impactShare",
+        "unarmedGrantPrefix"
+      ]
+    },
     "snapshotVersion": {
       "type": "integer"
     },
@@ -360,6 +419,7 @@
     "limits",
     "magicalTags",
     "ratings",
+    "skillXp",
     "snapshotVersion",
     "tokenizableOps"
   ]

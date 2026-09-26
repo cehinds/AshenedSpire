@@ -7,6 +7,7 @@ namespace Ashen.Generated
         public const string ArcaneBreak = "arcaneBreak";
         public const string ArcaneExposureChanged = "arcaneExposureChanged";
         public const string ArcaneExposureRefused = "arcaneExposureRefused";
+        public const string AttackEvaded = "attackEvaded";
         public const string BlockGained = "blockGained";
         public const string CardDiscarded = "cardDiscarded";
         public const string CardDrawn = "cardDrawn";

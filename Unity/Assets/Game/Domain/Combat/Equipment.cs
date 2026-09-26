@@ -147,7 +147,11 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>gripOf → its derived framework tags (equipment.twoHanded / equipment.dualWield), read at play time.</summary>
-        public static JArray GripTags(CombatData data, JObject loadout, string classId)
+        public static JArray GripTags(CombatData data, JObject loadout, string classId) =>
+            (JArray)(data.Engine.Obj(K.Grip)?[GripMode(data, loadout, classId)] ?? new JArray()).DeepClone();
+
+        /// <summary>gripOf(...).mode: one hand, two-handed, or dual-wielding a shared item type.</summary>
+        public static string GripMode(CombatData data, JObject loadout, string classId)
         {
             var right = HandPiece(data, loadout, classId, V.Right, out var rightTwo);
             var left = HandPiece(data, loadout, classId, V.Left, out var leftTwo);
@@ -158,8 +162,12 @@ namespace Ashen.Domain.Combat
                 var leftTags = left[K.ItemTypeTags];
                 if (Js.Items(right[K.ItemTypeTags]).Any(t => Js.Includes(leftTags, Js.Str(t)))) mode = V.GripDual;
             }
-            return (JArray)(data.Engine.Obj(K.Grip)?[mode] ?? new JArray()).DeepClone();
+            return mode;
         }
+
+        /// <summary>The piece held in a hand (the slot whose hand is right/left), or null.</summary>
+        public static JObject PieceInHand(CombatData data, JObject loadout, string classId, string hand) =>
+            HandPiece(data, loadout, classId, hand, out _);
 
         // ------------------------------------------------------------------ weight class (framework)
 

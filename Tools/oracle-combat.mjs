@@ -50,6 +50,7 @@ function projection(combat, rng) {
     hand: combat.piles.hand.map(c => c.instanceId),
     draw: combat.piles.draw.length, discard: combat.piles.discard.length, exhaust: combat.piles.exhaust.length,
     rng: rng.getCounters(),
+    skillXp: structuredClone(combat.skillXp?.player ?? null),
   };
 }
 
