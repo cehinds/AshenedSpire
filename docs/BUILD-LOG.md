@@ -4,6 +4,27 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 ## Phase F0 Foundation (in progress)
 
+### us-0.1 + us-0.2: asset registry, lossless pipeline, provenance (2026-09-26)
+
+- **`Tools/scan-assets.mjs`** plus the data-driven ID rules in `Tools/assets.config.json`:
+  - registers **5,265 assets in 17 domains, with 0 unmatched files**;
+  - reads dimensions and alpha from WebP (VP8, VP8L, VP8X) and SVG headers;
+  - writes a SHA-256 per source file;
+  - output `Content/assets/registry.json` is in the manifest and has a schema.
+- **Conversion:** Blender 4.0 headless (`Tools/blender/webp_to_png.py`) with the Standard view transform. Every PNG is reloaded and compared: **899/899 pixel-identical (max diff 0.0000)**, 145 MB, 3.5 min. SVG is copied for the built-in Vector Graphics importer.
+- **Unity import:** `AshenTextureImporter` applies `Editor/Config/importRules.json` (Sprite, alpha as transparency, no mips, per-domain size and compression; backgrounds and environments at 4096 HQ, VFX at 1024). The batchmode import is clean.
+- **Git:** PNGs are gitignored and `.meta` files committed (D-018). `Tools/scan-assets.mjs --import` rebuilds the PNGs deterministically.
+- **Docs:** `docs/ASSET-INVENTORY.md` (counts per domain, derivations) and `docs/ASSET-GAPS.md` (known gaps and fallbacks, unused list: empty).
+- **Provenance (us-0.2):** `CREDITS.md` and 18 `provenance.json`/`prompts*.json` files are copied into `Provenance/imported` with a SHA-256 manifest. `Provenance/generated/manifest.json` is ready for AI-generated assets.
+- **Tests** (`AssetRegistryTests`):
+  - IDs, origins and hashes;
+  - every imported asset has its committed `.meta`;
+  - no unregistered image under `Art/`;
+  - all 33 enemies have base art and 7 state frames;
+  - provenance is complete, and generated assets must be declared.
+- **Results:** dotnet 58/58 · Unity 59/59.
+- **Disk:** D: has 3.7 GB free, C: 0.2 GB. The remaining domains import per phase (D-035).
+
 ### us-0.8: the build fails on magic strings or numbers (2026-09-26)
 
 - **`EnforcementTests`** (suite: Enforcement) uses a small C# lexer that skips comments and finds string, char and number literals, with file and line. It scans `Game/{Domain,Application,Content,Presentation,Platform}` (not `Generated/`) and checks:

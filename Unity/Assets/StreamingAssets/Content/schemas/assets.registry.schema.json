@@ -1,0 +1,57 @@
+{
+  "$id": "assets/registry.json",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "alpha": {
+        "type": "boolean"
+      },
+      "bytes": {
+        "type": "integer"
+      },
+      "format": {
+        "type": "string",
+        "enum": [
+          "svg",
+          "webp"
+        ]
+      },
+      "height": {
+        "type": "integer"
+      },
+      "origin": {
+        "type": "string",
+        "enum": [
+          "imported"
+        ]
+      },
+      "sha256": {
+        "type": "string"
+      },
+      "source": {
+        "type": "string"
+      },
+      "unityPath": {
+        "type": [
+          "null",
+          "string"
+        ]
+      },
+      "width": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "alpha",
+      "bytes",
+      "format",
+      "height",
+      "origin",
+      "sha256",
+      "source",
+      "unityPath",
+      "width"
+    ]
+  }
+}
