@@ -42,6 +42,7 @@ namespace Ashen.Content
             new Source(RegistryKeys.Flasks, ContentFiles.CatalogFlasks, Shape.Keyed),
             new Source(RegistryKeys.Classes, ContentFiles.CatalogClasses, Shape.Keyed),
             new Source(RegistryKeys.Events, ContentFiles.CatalogEvents, Shape.Keyed),
+            new Source(EventKeys.Speakers, ContentFiles.CatalogSpeakers, Shape.Keyed),
             new Source(RegistryKeys.Attributes, ContentFiles.CatalogAttributes, Shape.Keyed),
             new Source(RegistryKeys.ClassTree, ContentFiles.CatalogClassTree, Shape.Keyed),
             new Source(MapKeys.Seats, ContentFiles.CatalogSeats, Shape.Keyed),

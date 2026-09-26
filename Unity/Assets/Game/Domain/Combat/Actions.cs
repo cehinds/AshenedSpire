@@ -415,7 +415,7 @@ namespace Ashen.Domain.Combat
             }
         }
 
-        private static void RunOpcode(CombatState c, CombatAction action, JObject eff)
+        internal static void RunOpcode(CombatState c, CombatAction action, JObject eff)
         {
             var op = eff.Str(K.Op);
             var target = eff.Str(K.Target);

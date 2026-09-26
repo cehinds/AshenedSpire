@@ -14,7 +14,9 @@ const SHOP_DIR = 'Unity/Assets/Game/Domain/Shop';
 const EVENTS_DIR = 'Unity/Assets/Game/Domain/Events';
 const read = (dir) => (existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith('.cs')).map((f) => readFileSync(`${dir}/${f}`, 'utf8')).join('\n') : '');
 const shopSrc = read(SHOP_DIR);
-const eventsSrc = read(EVENTS_DIR);
+// The content layer names the event documents it builds through EventKeys. (added here as EK. uses).
+const contentEventKeys = [...read('Unity/Assets/Game/Content/Runtime').matchAll(/(?<![A-Za-z0-9_.])EventKeys[.]([A-Z][A-Za-z0-9]*)/g)].map((m) => `EK.${m[1]}`).join('\n');
+const eventsSrc = `${read(EVENTS_DIR)}\n${contentEventKeys}`;
 const both = `${shopSrc}\n${eventsSrc}`;
 const usedIn = (src, alias) => [...new Set([...src.matchAll(new RegExp(`(?<![A-Za-z0-9_.])${alias}[.]([A-Z][A-Za-z0-9]*)`, 'g'))].map((m) => m[1]))].sort();
 const camel = (s) => s[0].toLowerCase() + s.slice(1);
