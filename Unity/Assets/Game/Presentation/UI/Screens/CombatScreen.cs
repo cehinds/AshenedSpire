@@ -31,8 +31,8 @@ namespace Ashen.Presentation.UI.Screens
     /// by the session. States, each with its own focus order (ui/screens.json focusModes): normal; targeting (an armed
     /// card or flask outlines the legal targets and previews "HP 30 → 18"); the discard chooser when the hand rules prompt;
     /// the flask panel; the enemy turn (the field washes red, the acting enemy lifts in board order, End Turn becomes
-    /// Skip ▶▶; reduced motion shortens each step); and the end state, which returns to the title with rewards marked for a
-    /// later build (D-058). Escape backs out of the innermost state, else opens W-20; pad Start opens W-20.
+    /// Skip ▶▶; reduced motion shortens each step); and the end state: a win opens W-08 with the rolled rewards (already
+    /// saved at the rewards), a death has closed the run out and cleared the slot. Escape backs out of the innermost state, else opens W-20; pad Start opens W-20.
     /// </summary>
     public sealed class CombatScreen : ScreenView
     {
@@ -90,7 +90,9 @@ namespace Ashen.Presentation.UI.Screens
                 Ui.Session = null;
                 Nav.Fire(ScreenTriggers.Quit);
             };
-            Root.Q<LocButton>(UiNames.EndRewards).SetEnabled(Ui.Data.Screens.IsBuilt(ScreenIds.Rewards));
+            var rewards = Root.Q<LocButton>(UiNames.EndRewards);
+            rewards.SetEnabled(Ui.Data.Screens.IsBuilt(ScreenIds.Rewards));
+            rewards.clicked += OpenRewards;
 
             ApplyBackground();
             _player = new Combatant { focusable = false };
@@ -626,7 +628,7 @@ namespace Ashen.Presentation.UI.Screens
             if (hideAfterMs > 0) _bannerHide = banner.schedule.Execute(() => UiDom.Show(banner, false)).StartingIn(hideAfterMs);
         }
 
-        // ------------------------------------------------------------------ end state (rewards are planned: D-058)
+        // ------------------------------------------------------------------ end state (victory → W-08 rewards; a death ends the run)
 
         private void EnterEnded()
         {
@@ -634,10 +636,27 @@ namespace Ashen.Presentation.UI.Screens
             Render();
             UiDom.Show(Root.Q(UiNames.PhaseBanner), false);
             var victory = _session.Combat.State.Result == CombatValues.Victory;
+            var rewards = _session.HasPendingReward;
             Root.Q<LocLabel>(UiNames.EndTitle)?.SetResolved(Strings.Get(victory ? StringKeys.CombatEndVictory : StringKeys.CombatEndDefeat));
-            Root.Q<LocLabel>(UiNames.EndBody)?.SetResolved(Strings.Format(StringKeys.CombatEndBody, new StringArgs().Add(UiPlaceholders.Slot, _session.SlotIndex)));
+            Root.Q<LocLabel>(UiNames.EndBody)?.SetResolved(Strings.Format(_session.RunOver ? StringKeys.CombatEndDefeatBody : StringKeys.CombatEndBody,
+                new StringArgs().Add(UiPlaceholders.Slot, _session.SlotIndex)));
+            Root.Q<LocLabel>(UiNames.EndPlanned)?.SetResolved(Strings.Get(rewards ? StringKeys.CombatEndPlannedVictory : StringKeys.CombatEndPlanned));
+            var rewardsButton = Root.Q<LocButton>(UiNames.EndRewards);
+            var toTitle = Root.Q<LocButton>(UiNames.EndToTitle);
+            UiDom.Show(rewardsButton, rewards);
+            rewardsButton?.EnableInClassList(UiClasses.ButtonPrimary, rewards);
+            rewardsButton?.EnableInClassList(UiClasses.ButtonReady, rewards);
+            toTitle?.EnableInClassList(UiClasses.ButtonPrimary, !rewards);
+            toTitle?.EnableInClassList(UiClasses.ButtonReady, !rewards);
             UiDom.Show(Root.Q(UiNames.CombatEnd), true);
-            FocusSoon(Root.Q(UiNames.EndToTitle));
+            FocusSoon(rewards && rewardsButton != null && rewardsButton.enabledSelf ? rewardsButton : (VisualElement)toTitle);
+        }
+
+        /// <summary>The spoils (W-08): the pending reward the fight's end rolled, on its own screen.</summary>
+        private void OpenRewards()
+        {
+            if (!Ended || !_session.HasPendingReward) return;
+            Nav.Go(ScreenIds.Rewards, new RewardsArgs { Session = _session }, true);
         }
 
         // ------------------------------------------------------------------ pause and back

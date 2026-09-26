@@ -11,5 +11,6 @@ namespace Ashen.Generated
         public const string ContentChanged = "run: content changed since the save (saved {0}, now {1}); resumed from the checkpoint without replaying the log";
         public const string LogDiverged = "run: the command log diverged after {0} commands; resumed at the last verified state";
         public const string LoadRefused = "run: slot '{0}' could not be loaded ({1})";
+        public const string NoPendingReward = "run: the run holds no pending reward";
     }
 }

@@ -1,5 +1,5 @@
 {
-  "contentHash": "45dc2ba9366f2ad324fc6451d18c2128e0d8e0a0d891168cb55593b6cefdb776",
+  "contentHash": "5a2a22bf9d56ada62084fd87292019a7ac15d21876917c8f4a9c21f2e5d57a80",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -349,9 +349,9 @@
       "sha256": "c57292b57738764ba8cddc652fedd043342688dc83b8858db8cd114100c89655"
     },
     "rules/runFlow.json": {
-      "bytes": 1228,
+      "bytes": 1818,
       "generated": false,
-      "sha256": "a2cc0e512d9c667d6c44bf169f36e29e2f98b6973224605b1ce6585b842918c7"
+      "sha256": "f4b2d8e7afdc6bc73720c2b65fbc97e891afcaae77ffdbb7c1617b6b04c32720"
     },
     "rules/saves.json": {
       "bytes": 371,
@@ -684,9 +684,9 @@
       "sha256": "f5d2567e5c7e608626709343d023c029eb5b32f1930373bd8186d8a58aaafdaf"
     },
     "schemas/rules.runFlow.schema.json": {
-      "bytes": 1860,
+      "bytes": 2930,
       "generated": false,
-      "sha256": "ee76e53cc32fe24eac2e139eedef1195a2e87556c48b87ebb4b23259126ccb10"
+      "sha256": "7b5d640831c934f6cf780bc8573c74c4fe339322bb36e341a3dee5e7e2a5dd31"
     },
     "schemas/rules.saves.schema.json": {
       "bytes": 532,
@@ -804,9 +804,9 @@
       "sha256": "b737b74ae845e045c72f49a06586301dd739bf3a52236d55dd9c919acc888103"
     },
     "schemas/ui.components.schema.json": {
-      "bytes": 2677,
+      "bytes": 3681,
       "generated": false,
-      "sha256": "06935fc17adef59816456527c32092b796adf25ed00190d7de86c009b7342950"
+      "sha256": "e024386963054570bbdb390f62debddd880531d4439e651f65d67d05fee7b82e"
     },
     "schemas/ui.confirmationPolicies.schema.json": {
       "bytes": 2064,
@@ -859,9 +859,9 @@
       "sha256": "39fe1a403dd55892dc6cc0451a94725b99b3a1ffb0138ea02ca10c28f4106fcc"
     },
     "strings/app.en.json": {
-      "bytes": 8694,
+      "bytes": 12086,
       "generated": false,
-      "sha256": "78dcae8faace4e0d98b911a483171bc500829e5f8d7ac44ab5d0e0950536efa0"
+      "sha256": "96459c5251403f21395851099e56bb22364a52a3ce32da3c8bb1540c729efd66"
     },
     "strings/combat.en.json": {
       "bytes": 1252,
@@ -944,9 +944,9 @@
       "sha256": "800f85c25beaa464dee1ad55f25b838ca54e8cb72b0fa8ed44b0b40a9f5efbe0"
     },
     "ui/components.json": {
-      "bytes": 1772,
+      "bytes": 2714,
       "generated": false,
-      "sha256": "8478adcf33d3c6655a39cfd71f1fc1ae7b71c6f194d79e53357bd4b0c163b6b8"
+      "sha256": "6448380e2b3d635ba8eb37049468b7648eadb4768a8c3408ccb15a704bb2c12a"
     },
     "ui/confirmationPolicies.json": {
       "bytes": 3228,
@@ -964,14 +964,14 @@
       "sha256": "330892274c3cc8c87947d2662b07dccbd95f7c3275dc2922a80e3d30a546d178"
     },
     "ui/menus.json": {
-      "bytes": 5243,
+      "bytes": 5823,
       "generated": false,
-      "sha256": "538a0c023bca632e770bdc70225a2ea0aa7946320cd1fb23d34534f8bb4ee347"
+      "sha256": "0bf75631fa889ead1dddce03a04b9ac2fea7f2bdd0e7d9cefa54def123c20158"
     },
     "ui/screens.json": {
-      "bytes": 5271,
+      "bytes": 5459,
       "generated": false,
-      "sha256": "aea8b030040ac790007bf8d5f7df18c55727edfbe0f642960d6c2b7b8fb4210d"
+      "sha256": "26776bb60145ab44910d7cb00631bae29505f8bbdf8d8230247be9cd763d8d49"
     },
     "ui/terms.json": {
       "bytes": 12076,
@@ -984,9 +984,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 5504,
+      "bytes": 5800,
       "generated": false,
-      "sha256": "69cde6faba5906505be8dbddb4862646ec593c44412cd2811adb0b454acc182c"
+      "sha256": "657da118e62b883d561c255af072c16830e4e616de690ea3b3cf09d8d06564a0"
     }
   },
   "schemaVersion": 1

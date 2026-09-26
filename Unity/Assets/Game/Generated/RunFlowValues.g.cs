@@ -11,5 +11,19 @@ namespace Ashen.Generated
         public const string PlaceholderClass = "class";
         public const string PlaceholderTint = "tint";
         public const string SavedAtFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+        public const string LocationRewards = "rewards";
+        public const string LocationMap = "map";
+        public const string StateBlocked = "blocked";
+        public const string StateAvailable = "available";
+        public const string StateChoice = "choice";
+        public const string RefusalClaimed = "claimed";
+        public const string RefusalBlocked = "blocked";
+        public const string RefusalSpent = "spent";
+        public const string RefusalNoRoom = "noRoom";
+        public const string RefusalNoPick = "noPick";
+        public const string RefusalNotOffered = "notOffered";
+        public const string RefusalNoSuchRow = "noSuchRow";
+        public const string RefusalNoReward = "noReward";
+        public const string RefusalRefused = "refused";
     }
 }

@@ -175,6 +175,19 @@ namespace Ashen.Tests.Play
                 case ScreenIds.Pause:
                     nav.Go(ScreenIds.Combat, new CombatArgs { Session = Fight(host.Context, source, fixture) }, true);
                     break;
+                case ScreenIds.Rewards:
+                {
+                    var session = Fight(host.Context, source, fixture);
+                    foreach (var claim in (fixture["claims"] as JArray ?? new JArray()).OfType<JObject>())
+                    {
+                        var key = (string)claim["key"];
+                        var row = RewardsView.Build(session, host.Context.Data).Rows.First(r => r.Key == key || r.Kind == key);
+                        if ((bool?)claim["skip"] == true) session.SkipReward(row.Key);
+                        else session.ClaimReward(row.Key, row.Picks.Count > 0 ? row.Picks[(int?)claim["pick"] ?? 0].Id : null);
+                    }
+                    nav.Go(ScreenIds.Rewards, new RewardsArgs { Session = session }, true);
+                    break;
+                }
                 default:
                     nav.Go(screen);
                     break;
@@ -209,6 +222,13 @@ namespace Ashen.Tests.Play
                     if (card == null) break;
                     session.Execute(CombatCommand.PlayCard(card.InstanceId, card.Targets.FirstOrDefault()));
                 }
+            if ((bool?)fixture["queueClassDraft"] == true)
+                session.EditRunForReview(run =>
+                {
+                    var skills = run["skills"] as JObject ?? new JObject();
+                    skills[Ashen.Domain.Rewards.Skills.ClassSkillId(session.ClassId)] = new JObject { ["xp"] = 0.0, ["level"] = 1.0, ["pendingDrafts"] = 1.0 };
+                    run["skills"] = skills;
+                });
             if ((bool?)fixture["finish"] == true)
                 for (var i = 0; i < 400 && !session.Combat.IsOver; i++) session.Execute(NextCommand(session.Combat.State));
             ui.Session = session;
@@ -244,6 +264,8 @@ namespace Ashen.Tests.Play
                 }
                 if ((string)fixture["screen"] == ScreenIds.Pause) host.Navigator.OpenModal(ScreenIds.Pause, new PauseArgs { Session = combat.Session });
             }
+            if (host.Navigator.Top?.View is RewardsScreen rewards && (string)fixture["state"] == "pick")
+                rewards.PickForReview((string)fixture["pickKind"], (int?)fixture["select"] ?? -1);
             if (!(fixture["confirm"] is JObject confirm)) return;
             var nav = host.Navigator;
             var request = new ConfirmRequest { ConfirmId = (string)confirm["id"] };

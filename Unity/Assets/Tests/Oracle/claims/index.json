@@ -1,0 +1,995 @@
+{
+ "source": "reward.js mountRewards handler harness over model/rewardplan.js, model/{skills,classTree,flaskgrowth,gracerefill,loadout}.js and main.js onDone/collectArmament (shipped preset)",
+ "cases": [
+  {
+   "file": "claims-golden-000.json",
+   "source": "case-golden-000.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual"
+   ]
+  },
+  {
+   "file": "claims-golden-001.json",
+   "source": "case-golden-001.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-002.json",
+   "source": "case-golden-002.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-golden-003.json",
+   "source": "case-golden-003.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-golden-004.json",
+   "source": "case-golden-004.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-007.json",
+   "source": "case-golden-007.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-008.json",
+   "source": "case-golden-008.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual"
+   ]
+  },
+  {
+   "file": "claims-golden-009.json",
+   "source": "case-golden-009.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-012.json",
+   "source": "case-golden-012.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-016.json",
+   "source": "case-golden-016.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-golden-019.json",
+   "source": "case-golden-019.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-020.json",
+   "source": "case-golden-020.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-023.json",
+   "source": "case-golden-023.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual"
+   ]
+  },
+  {
+   "file": "claims-golden-024.json",
+   "source": "case-golden-024.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-030.json",
+   "source": "case-golden-030.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-golden-031.json",
+   "source": "case-golden-031.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-035.json",
+   "source": "case-golden-035.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-036.json",
+   "source": "case-golden-036.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-037.json",
+   "source": "case-golden-037.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual"
+   ]
+  },
+  {
+   "file": "claims-golden-038.json",
+   "source": "case-golden-038.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-039.json",
+   "source": "case-golden-039.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-golden-042.json",
+   "source": "case-golden-042.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-043.json",
+   "source": "case-golden-043.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-044.json",
+   "source": "case-golden-044.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-047.json",
+   "source": "case-golden-047.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual"
+   ]
+  },
+  {
+   "file": "claims-golden-048.json",
+   "source": "case-golden-048.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-054.json",
+   "source": "case-golden-054.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-055.json",
+   "source": "case-golden-055.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-golden-058.json",
+   "source": "case-golden-058.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-golden-059.json",
+   "source": "case-golden-059.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-000-reaver-normal-base.json",
+   "source": "case-gen-000-reaver-normal-base.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual"
+   ]
+  },
+  {
+   "file": "claims-gen-002-rogue-boss-base.json",
+   "source": "case-gen-002-rogue-boss-base.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "duplicateArmament"
+   ]
+  },
+  {
+   "file": "claims-gen-003-herald-normal-level-threshold.json",
+   "source": "case-gen-003-herald-normal-level-threshold.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-004-reaver-elite-level-threshold.json",
+   "source": "case-gen-004-reaver-elite-level-threshold.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto",
+    "duplicateArmament"
+   ]
+  },
+  {
+   "file": "claims-gen-005-starseer-boss-level-threshold.json",
+   "source": "case-gen-005-starseer-boss-level-threshold.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-006-rogue-normal-level-multi.json",
+   "source": "case-gen-006-rogue-normal-level-multi.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-008-reaver-boss-level-multi.json",
+   "source": "case-gen-008-reaver-boss-level-multi.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-010-rogue-elite-track-upgrade-cross.json",
+   "source": "case-gen-010-rogue-elite-track-upgrade-cross.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-011-herald-boss-track-upgrade-cross.json",
+   "source": "case-gen-011-herald-boss-track-upgrade-cross.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-012-reaver-normal-track-upgrade-standing.json",
+   "source": "case-gen-012-reaver-normal-track-upgrade-standing.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-014-rogue-boss-track-upgrade-standing.json",
+   "source": "case-gen-014-rogue-boss-track-upgrade-standing.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-015-herald-normal-class-threshold.json",
+   "source": "case-gen-015-herald-normal-class-threshold.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-016-reaver-elite-class-threshold.json",
+   "source": "case-gen-016-reaver-elite-class-threshold.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "blocked",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-019-herald-elite-class-tier2-picked.json",
+   "source": "case-gen-019-herald-elite-class-tier2-picked.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-020-reaver-boss-class-tier2-picked.json",
+   "source": "case-gen-020-reaver-boss-class-tier2-picked.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-021-starseer-normal-relics-rune-feral.json",
+   "source": "case-gen-021-starseer-normal-relics-rune-feral.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-022-rogue-elite-relics-rune-feral.json",
+   "source": "case-gen-022-rogue-elite-relics-rune-feral.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-023-herald-boss-relics-rune-feral.json",
+   "source": "case-gen-023-herald-boss-relics-rune-feral.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "duplicateArmament"
+   ]
+  },
+  {
+   "file": "claims-gen-024-reaver-normal-smithing-claimed.json",
+   "source": "case-gen-024-reaver-normal-smithing-claimed.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual"
+   ]
+  },
+  {
+   "file": "claims-gen-027-herald-normal-chaos-rewards.json",
+   "source": "case-gen-027-herald-normal-chaos-rewards.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-028-reaver-elite-chaos-rewards.json",
+   "source": "case-gen-028-reaver-elite-chaos-rewards.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-030-rogue-normal-endless-act3.json",
+   "source": "case-gen-030-rogue-normal-endless-act3.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-031-herald-elite-endless-act3.json",
+   "source": "case-gen-031-herald-elite-endless-act3.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-032-reaver-boss-endless-act3.json",
+   "source": "case-gen-032-reaver-boss-endless-act3.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "duplicateArmament"
+   ]
+  },
+  {
+   "file": "claims-gen-034-rogue-elite-act3.json",
+   "source": "case-gen-034-rogue-elite-act3.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-036-reaver-normal-found-everything.json",
+   "source": "case-gen-036-reaver-normal-found-everything.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-037-starseer-elite-found-everything.json",
+   "source": "case-gen-037-starseer-elite-found-everything.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-038-rogue-boss-found-everything.json",
+   "source": "case-gen-038-rogue-boss-found-everything.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-040-reaver-elite-flask-pity-full.json",
+   "source": "case-gen-040-reaver-elite-flask-pity-full.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-041-starseer-boss-flask-pity-full.json",
+   "source": "case-gen-041-starseer-boss-flask-pity-full.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "duplicateArmament"
+   ]
+  },
+  {
+   "file": "claims-gen-042-rogue-normal-equipment-changed.json",
+   "source": "case-gen-042-rogue-normal-equipment-changed.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-043-herald-elite-equipment-changed.json",
+   "source": "case-gen-043-herald-elite-equipment-changed.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-046-rogue-elite-drafts-queued.json",
+   "source": "case-gen-046-rogue-elite-drafts-queued.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-048-reaver-normal-boss-history.json",
+   "source": "case-gen-048-reaver-normal-boss-history.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-049-starseer-elite-boss-history.json",
+   "source": "case-gen-049-starseer-elite-boss-history.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-050-rogue-boss-boss-history.json",
+   "source": "case-gen-050-rogue-boss-boss-history.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "duplicateArmament"
+   ]
+  },
+  {
+   "file": "claims-gen-055-herald-elite-base.json",
+   "source": "case-gen-055-herald-elite-base.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-057-starseer-normal-level-threshold.json",
+   "source": "case-gen-057-starseer-normal-level-threshold.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-058-rogue-elite-level-threshold.json",
+   "source": "case-gen-058-rogue-elite-level-threshold.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-059-herald-boss-level-threshold.json",
+   "source": "case-gen-059-herald-boss-level-threshold.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto",
+    "duplicateArmament"
+   ]
+  },
+  {
+   "file": "claims-gen-061-starseer-elite-level-multi.json",
+   "source": "case-gen-061-starseer-elite-level-multi.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-062-rogue-boss-level-multi.json",
+   "source": "case-gen-062-rogue-boss-level-multi.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "duplicateArmament"
+   ]
+  },
+  {
+   "file": "claims-gen-065-starseer-boss-track-upgrade-cross.json",
+   "source": "case-gen-065-starseer-boss-track-upgrade-cross.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-066-rogue-normal-track-upgrade-standing.json",
+   "source": "case-gen-066-rogue-normal-track-upgrade-standing.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-067-herald-elite-track-upgrade-standing.json",
+   "source": "case-gen-067-herald-elite-track-upgrade-standing.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-069-starseer-normal-class-threshold.json",
+   "source": "case-gen-069-starseer-normal-class-threshold.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-070-rogue-elite-class-threshold.json",
+   "source": "case-gen-070-rogue-elite-class-threshold.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-071-herald-boss-class-threshold.json",
+   "source": "case-gen-071-herald-boss-class-threshold.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "spentDraft",
+    "duplicateArmament"
+   ]
+  },
+  {
+   "file": "claims-gen-072-reaver-normal-class-tier2-picked.json",
+   "source": "case-gen-072-reaver-normal-class-tier2-picked.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-075-herald-normal-relics-rune-feral.json",
+   "source": "case-gen-075-herald-normal-relics-rune-feral.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-076-reaver-elite-relics-rune-feral.json",
+   "source": "case-gen-076-reaver-elite-relics-rune-feral.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-079-herald-elite-smithing-claimed.json",
+   "source": "case-gen-079-herald-elite-smithing-claimed.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto",
+    "duplicateArmament"
+   ]
+  },
+  {
+   "file": "claims-gen-080-reaver-boss-smithing-claimed.json",
+   "source": "case-gen-080-reaver-boss-smithing-claimed.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-081-starseer-normal-chaos-rewards.json",
+   "source": "case-gen-081-starseer-normal-chaos-rewards.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-083-herald-boss-chaos-rewards.json",
+   "source": "case-gen-083-herald-boss-chaos-rewards.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-084-reaver-normal-endless-act3.json",
+   "source": "case-gen-084-reaver-normal-endless-act3.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-085-starseer-elite-endless-act3.json",
+   "source": "case-gen-085-starseer-elite-endless-act3.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-087-herald-normal-act3.json",
+   "source": "case-gen-087-herald-normal-act3.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-088-reaver-elite-act3.json",
+   "source": "case-gen-088-reaver-elite-act3.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-090-rogue-normal-found-everything.json",
+   "source": "case-gen-090-rogue-normal-found-everything.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-091-herald-elite-found-everything.json",
+   "source": "case-gen-091-herald-elite-found-everything.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual"
+   ]
+  },
+  {
+   "file": "claims-gen-092-reaver-boss-found-everything.json",
+   "source": "case-gen-092-reaver-boss-found-everything.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-093-starseer-normal-flask-pity-full.json",
+   "source": "case-gen-093-starseer-normal-flask-pity-full.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "blocked"
+   ]
+  },
+  {
+   "file": "claims-gen-094-rogue-elite-flask-pity-full.json",
+   "source": "case-gen-094-rogue-elite-flask-pity-full.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-096-reaver-normal-equipment-changed.json",
+   "source": "case-gen-096-reaver-normal-equipment-changed.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-097-starseer-elite-equipment-changed.json",
+   "source": "case-gen-097-starseer-elite-equipment-changed.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto"
+   ]
+  },
+  {
+   "file": "claims-gen-098-rogue-boss-equipment-changed.json",
+   "source": "case-gen-098-rogue-boss-equipment-changed.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "blocked",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-099-herald-normal-drafts-queued.json",
+   "source": "case-gen-099-herald-normal-drafts-queued.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-100-reaver-elite-drafts-queued.json",
+   "source": "case-gen-100-reaver-elite-drafts-queued.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-101-starseer-boss-drafts-queued.json",
+   "source": "case-gen-101-starseer-boss-drafts-queued.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "sweepManual",
+    "partialAuto",
+    "spentDraft",
+    "duplicateArmament"
+   ]
+  },
+  {
+   "file": "claims-gen-102-rogue-normal-boss-history.json",
+   "source": "case-gen-102-rogue-normal-boss-history.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "spentDraft"
+   ]
+  },
+  {
+   "file": "claims-gen-104-reaver-boss-boss-history.json",
+   "source": "case-gen-104-reaver-boss-boss-history.json",
+   "scripts": [
+    "eachRow",
+    "sweepAuto",
+    "partialAuto",
+    "duplicateArmament"
+   ]
+  }
+ ],
+ "tally": {
+  "eachRow": 102,
+  "take:refused": 301,
+  "take:card": 103,
+  "sweepAuto": 102,
+  "swept:card": 95,
+  "sweepManual": 34,
+  "partialAuto": 51,
+  "take:skillDraft": 40,
+  "swept:skillDraft": 38,
+  "spentDraft": 32,
+  "take:flask": 28,
+  "swept:flask": 40,
+  "blocked": 23,
+  "take:armament": 26,
+  "take:relic": 47,
+  "swept:armament": 35,
+  "swept:relic": 104,
+  "duplicateArmament": 12,
+  "take:classDraft": 18,
+  "swept:classDraft": 17
+ }
+}

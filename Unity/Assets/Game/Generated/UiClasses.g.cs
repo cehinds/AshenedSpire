@@ -71,5 +71,22 @@ namespace Ashen.Generated
         public const string PauseHint = "pause-hint";
         public const string GroupBusy = "group--busy";
         public const string Busy = "is-busy";
+        public const string RewardsStatus = "rewards-status";
+        public const string RewardLine = "reward-line";
+        public const string RewardRow = "reward-row";
+        public const string RewardRowStatePrefix = "reward-row--";
+        public const string RewardIcon = "reward-icon";
+        public const string RewardGlyph = "reward-glyph";
+        public const string RewardTexts = "reward-texts";
+        public const string RewardTitle = "reward-title";
+        public const string RewardBody = "reward-body";
+        public const string RewardChip = "reward-chip";
+        public const string RewardSkip = "reward-skip";
+        public const string ClaimRow = "claim-row";
+        public const string ClaimName = "claim-name";
+        public const string ClaimState = "claim-state";
+        public const string PickNode = "pick-node";
+        public const string PickCard = "pick-card";
+        public const string PickSelected = "pick-selected";
     }
 }

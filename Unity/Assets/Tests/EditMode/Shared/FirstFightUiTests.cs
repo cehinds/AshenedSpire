@@ -177,7 +177,11 @@ namespace Ashen.Tests
                 foreach (var region in combat.FocusOrderFor(mode)) Assert.That(names, Does.Contain(region), mode + " " + region);
             }
             Assert.That(combat.FocusOrderFor(null), Is.EqualTo(combat.FocusOrder));
-            Assert.That(Ui.Screens.IsBuilt(ScreenIds.Rewards), Is.False, "W-08 rewards is planned in this build (D-058)");
+            var rewards = Ui.Screens.Get(ScreenIds.Rewards);
+            Assert.That(Ui.Screens.IsBuilt(ScreenIds.Rewards), Is.True, "W-08 rewards is built (us-11.2)");
+            Assert.That(rewards.FocusModes.ContainsKey(UiValues.FocusPick), Is.True, "the pick sub-state has its own focus order");
+            foreach (var region in rewards.FocusOrderFor(UiValues.FocusPick).Concat(rewards.FocusOrder)) Assert.That(names, Does.Contain(region), "rewards " + region);
+            Assert.That(Ui.Screens.IsBuilt(ScreenIds.ActMap), Is.False, "the act map is planned, so W-08 Continue returns to the title (D-058)");
         }
 
         [Test]

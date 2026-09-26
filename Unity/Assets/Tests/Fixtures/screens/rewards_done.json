@@ -1,0 +1,20 @@
+{
+  "comment": "W-08 all resolved: the card taken, the flask taken; Continue turns green with the all-claimed cue (04 §0 non-colour cue).",
+  "screen": "rewards",
+  "seed": 20260927,
+  "finish": true,
+  "claims": [
+    {
+      "key": "card",
+      "pick": 2
+    },
+    {
+      "key": "flask"
+    }
+  ],
+  "skipSizes": [
+    "1920x1080",
+    "844x390",
+    "390x844"
+  ]
+}

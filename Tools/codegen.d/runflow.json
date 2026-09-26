@@ -23,7 +23,30 @@
         "SeedRules": "seed",
         "Alphabet": "alphabet",
         "Homoglyphs": "homoglyphs",
-        "MaxLength": "maxLength"
+        "MaxLength": "maxLength",
+        "Name": "name",
+        "Tint": "tint",
+        "Ui": "ui",
+        "RewardCollect": "rewardCollect",
+        "Modes": "modes",
+        "Def": "def",
+        "LevelUpValue": "levelUpValue",
+        "NewRun": "newRun",
+        "AscensionOrder": "ASCENSION_ORDER",
+        "State": "state",
+        "Claimed": "claimed",
+        "Skipped": "skipped",
+        "Available": "available",
+        "RequiredChoice": "requiredChoice",
+        "Rows": "rows",
+        "StoneBalanceAfter": "stoneBalanceAfter",
+        "Label": "label",
+        "Blurb": "blurb",
+        "Tag": "tag",
+        "From": "from",
+        "Suffix": "suffix",
+        "Value": "value",
+        "ArtKey": "artKey"
       }
     },
     {
@@ -38,7 +61,8 @@
         "Combat": "combat",
         "Name": "name",
         "Portrait": "portrait",
-        "Playtime": "playtimeSeconds"
+        "Playtime": "playtimeSeconds",
+        "After": "after"
       }
     },
     {
@@ -51,7 +75,21 @@
         "AutosaveNone": "none",
         "PlaceholderClass": "class",
         "PlaceholderTint": "tint",
-        "SavedAtFormat": "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        "SavedAtFormat": "yyyy-MM-dd'T'HH:mm:ss'Z'",
+        "LocationRewards": "rewards",
+        "LocationMap": "map",
+        "StateBlocked": "blocked",
+        "StateAvailable": "available",
+        "StateChoice": "choice",
+        "RefusalClaimed": "claimed",
+        "RefusalBlocked": "blocked",
+        "RefusalSpent": "spent",
+        "RefusalNoRoom": "noRoom",
+        "RefusalNoPick": "noPick",
+        "RefusalNotOffered": "notOffered",
+        "RefusalNoSuchRow": "noSuchRow",
+        "RefusalNoReward": "noReward",
+        "RefusalRefused": "refused"
       }
     },
     {
@@ -64,7 +102,8 @@
         "FormatMismatch": "run: slot '{0}' holds run format {1}; this build reads {2}",
         "ContentChanged": "run: content changed since the save (saved {0}, now {1}); resumed from the checkpoint without replaying the log",
         "LogDiverged": "run: the command log diverged after {0} commands; resumed at the last verified state",
-        "LoadRefused": "run: slot '{0}' could not be loaded ({1})"
+        "LoadRefused": "run: slot '{0}' could not be loaded ({1})",
+        "NoPendingReward": "run: the run holds no pending reward"
       }
     }
   ]

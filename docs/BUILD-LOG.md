@@ -2,6 +2,82 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-11.1–us-11.3, pf-06: W-08 rewards and the F1 loop closed (feature/first-fight/us-11.2, 2026-09-26)
+
+**Landed**
+- **Merged `origin/feature/run-loop/main`, then `origin/dev` 0.1.12.0** (the run loop and shop/events integrated) into the story branch, and W-08 is built on its `RewardDoor` and `RunLoop.EndCombat` (D-104). An earlier `Ashen.Domain.Rewards.RewardClaims` port was dropped as a duplicate before commit; its oracle now verifies `RewardDoor`.
+- **Claims parity:** `Tools/oracle-claims.mjs` is a faithful harness of `reward.js`' run-writing handlers plus `main.js` onDone/collectArmament, over the real shipped model functions. Its inputs are the 102 pending-reward checkpoints in `Oracle/rewards`, run through 356 scripts: claim each row, auto and manual sweeps, partial then reload then auto, a blocked belt and bag with Skip, a spent draft and a duplicate armament. The files are in `Oracle/claims` (8 MB); a self-check replays each script byte-identically.
+- **Application (`Ashen.App.Run`):**
+  - `RunSession` runs the post-combat door with the command that ends the fight (D-107). A win saves at the rewards (`location: rewards`); a death writes the profile's run record and clears the slot.
+  - `Door`, `ClaimReward`, `SkipReward` and `FinishRewards` each save at once (PF-06 "reward claimed"). A failed save restores the run and the profile.
+  - The `rewardCollect` and level-up dials come from the profile, then the preset (D-106).
+  - After Continue the save is at `location: map` (D-108). The run has main.js newRun's additions (D-109), and `run.streamCounters` is stamped on saves outside a fight.
+  - `ProfileStore` is the profile slot.
+  - `RewardsView` is the W-08 display data: rows, states, sentences, picks, icons, the head count, the waiting choice and the Continue hint (D-111). It also holds `rewardClaimStatus` and the claim refusals.
+- **Presentation:**
+  - **W-08 `screen:rewards`** (W1t):
+    - The head reads "{claimed} of {total} claimed", with no close control.
+    - Reward rows have an icon or glyph, a title, a body and a state chip. A blocked row has Skip.
+    - The claim-status column lists every row and the waiting choice; it stacks below the list on narrow screens.
+    - The pick sub-state has its own focus mode (`focusModes.pick`): three CardViews (larger in compact, art hidden) or class-tree node tiles. Select, then Confirm; Back; Skip on the card offer only.
+    - Continue is full width: gold while rows are open, with a door stating what the setting will do; green with "✓ All claimed" once everything is resolved (D-110).
+    - Refusals come from `strings rewards.refusal.*` at the control that asked. Escape leaves the pick, else opens W-20. Pad Start opens W-20.
+    - Save & quit on W-08 checkpoints and returns to the title.
+  - **W-07 end state:** a win shows [Claim rewards] (green, focused) and opens W-08; a death shows "Your climb has ended. Slot n is free again." with only [Return to title].
+  - **Resume:** title Continue and W-03 Load land on W-08 when the slot holds a pending reward. A post-reward slot refuses with the later-build note.
+- **Data:**
+  - strings `rewards.*`, `confirm.rewardLeave.*`, and the combat end strings and glyphs;
+  - `ui/screens.json#rewards` (built) and the confirms `rewardLeaveAuto`/`rewardLeaveManual`;
+  - `ui/components.json#rewards` (icon templates, relic modifier tokens) and `art.include` (relic icons, armament icons, flasks);
+  - reward tokens and `rules/runFlow.json#newRun`, with schemas extended by hand;
+  - codegen names in `ui.json` and `runflow.json`.
+- **Screenshots:** the new fixtures are rewards (4 sizes), rewards_partial, rewards_pick and rewards_draft (3 sizes each), and rewards_done (1280×720 only); combat_end was recaptured. That is 17 PNGs.
+
+**Tests**
+- **Claims parity:** `RewardClaimsParityTests` (104 tests) replays the 102 claim files through `RewardDoor`, strictly, and checks a coverage tally and the session's refusals.
+  - Mutation check: four corruptions each failed exactly one test, and the failure named the path. They were an expected run's cinders, the order of two expected run keys, one take's `ok`, and one RNG counter. Each file was restored byte for byte (sha256 checked).
+- **`RewardsSessionTests`** (7):
+  - the smoke seed wins the first fight with a card offer and a flask;
+  - a win resumes at the rewards, and the cinders are granted once;
+  - claims, skips and refusals are saved and never applied twice across a reload;
+  - manual Continue leaves the rest and resumes at the map;
+  - auto takes every unskipped row;
+  - a death writes the profile's record and clears the slot;
+  - the view reads all 102 recorded offers (every kind) with resolved titles and picks.
+- `RunSessionTests` has a new test in place of the old finished-fight one: a finished fight is checkpointed at its rewards, or cleared by a death. `FirstFightUiTests` now expects W-08 built with its pick focus mode, and the act map still planned.
+- **PlayMode `FirstFightSmokeTests`** extends the F1 flow: … → the fight won (seed pinned through `RunFlow.SeedOverride`) → the end state → Claim rewards → W-08.
+  - The cinders are taken on arrival.
+  - The card offer is claimed: the keyboard opens the pick, Submit selects, a synthesized pointer release on the last card moves the selection, and Confirm takes it; the deck gains it.
+  - The flask is claimed with the pad.
+  - Escape opens pause, then Save & quit (hold) → title → Continue → the load door → W-08 with the same claim count and row states, and the card not granted twice.
+  - Continue → title; the slot then holds no pending reward and is at `location: map`.
+  - A second test, **defeat**, ends every turn: the run is closed out, the slot cleared, no rewards are offered, and the title's Continue is disabled.
+- **Results:**
+  - dotnet 1977/1977 after the dev 0.1.12.0 merge (1325 before it);
+  - Unity EditMode 1978 passed, 1 explicit skipped (the seed search), after the merge;
+  - PlayMode 3 passed, 1 skipped (capture);
+  - `codegen --check`, `check-content`, `transform-content --check` and `check-docs` green.
+
+**Review** (own screenshot review against W-08; fixed and recaptured):
+- the pick cards stayed at hand-card size (the kit's `.cardview` rule won; the selector is now scoped);
+- at 844×390 the claim column squeezed its names to one letter per line (the rows stack name over state there), and the compact cards overflowed their text once the physical minimum raised it (larger compact cards, art hidden);
+- a focused ready Continue lost its green (the focus glow now sits on top of the green inside W-08).
+- The minimum text size holds, nothing overlaps, and focus is visible on rows, cards, tiles and Continue at all sizes.
+
+**Not verified / open**
+- **D-105 needs an owner ruling** (arrival cinders vs US-11.1).
+- Relic sentences bind property-rule numbers by op, not by variable (D-111); a mismatched token keeps its braces.
+- Not built:
+  - the 'new' markers;
+  - the progression panel (XP gains);
+  - the inspect door for flask, armament and relic;
+  - a skill-draft (card) pick capture (the draft fixture is a class draft);
+  - boss rewards' `advanceAct`;
+  - W-15 run end.
+- **Mouse:** only card selection is exercised by a synthesized pointer event; buttons are driven by keyboard and pad.
+- `custom` is omitted from new runs until fights enter through the run loop (D-109).
+
+**Next:** W-06 act map and the run-loop screens (rest, merchant, events) on the ported domain; W-15 run end.
 ## us-8.10: run integration — one run-effects door, C# newRun, chained runs, bot smoke (feature/run-integration, 2026-09-26)
 
 **Landed**
