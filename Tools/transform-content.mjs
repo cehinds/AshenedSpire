@@ -15,7 +15,7 @@ const CONTENT = join(ROOT, 'Unity', 'Assets', 'StreamingAssets', 'Content');
 const CONFIG = JSON.parse(readFileSync(join(ROOT, 'Tools', 'transform.config.json'), 'utf8'));
 const CHECK = process.argv.includes('--check');
 const GENERATED_DIRS = ['catalog', 'balance', 'rules', 'tags', 'strings', 'settings/presets', 'audio', 'ui'];
-const HAND_WRITTEN = new Set(['ui/screens.json', 'ui/menus.json', 'ui/layout.json', 'ui/tokens.json', 'ui/components.json', 'audio/contexts.json', 'settings/defaults.json', 'about.json', 'rules/effectOps.json', 'rules/validation.json', 'rules/rng.json', 'rules/saves.json', 'assets/registry.json', 'strings/app.en.json', 'audio/synth.json']);
+const HAND_WRITTEN = new Set(['ui/screens.json', 'ui/menus.json', 'ui/layout.json', 'ui/tokens.json', 'ui/components.json', 'audio/contexts.json', 'settings/defaults.json', 'about.json', 'rules/effectOps.json', 'rules/validation.json', 'rules/rng.json', 'rules/saves.json', 'assets/registry.json', 'strings/app.en.json', 'audio/synth.json', 'rules/combatEngine.json']);
 
 const fail = (m) => { console.error(`transform: ${m}`); process.exit(1); };
 const readRaw = (name) => {

@@ -39,6 +39,9 @@ namespace Ashen.Domain.Random
             return ValueAt(_bases[i], _counters[i]);
         }
 
+        /// <summary>The shipped rng.float(stream): the next draw as a double in [0, 1), exactly u / 2^32.</summary>
+        public double Float(RngStream stream) => NextUInt(stream) / ((double)uint.MaxValue + 1d);
+
         /// <summary>Uniform integer in [0, n) — equals Math.floor(rng.float() * n).</summary>
         public int Below(RngStream stream, int n)
         {
