@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.3.0] — 2026-09-26
+
+Stories: us-0.3, us-5.1
+
+- runtime registries port and C# combat engine with shipped parity (60 golden combats, 1068 steps); content keeps shipped key order (D-040)
+
 ## [0.1.1.4] — 2026-09-26
 
 - Version correction: owner ruling 2026-09-26: nothing is 1.x yet; 1.0.0.0-1.0.0.3 renumbered to 0.1.1.1-0.1.1.4, phase F0 completion is a promotion, not an epic release
