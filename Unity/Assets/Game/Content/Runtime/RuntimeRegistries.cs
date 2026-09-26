@@ -36,11 +36,18 @@ namespace Ashen.Content
         private readonly JObject _map;
         private readonly JObject _run;
         private readonly JObject _events;
+        private readonly JArray _tagging;
+        private readonly JObject _legacyDungeons;
+        private readonly JArray _unlocks;
 
-        private RuntimeRegistries(Dictionary<string, JObject> tables, JArray classTree, JObject equipment, JObject balance, JObject map, JObject run, JObject events)
+        private RuntimeRegistries(Dictionary<string, JObject> tables, JArray classTree, JObject equipment, JObject balance, JObject map, JObject run, JObject events,
+            JArray tagging, JObject legacyDungeons, JArray unlocks)
         {
             _run = run;
             _events = events;
+            _tagging = tagging;
+            _legacyDungeons = legacyDungeons;
+            _unlocks = unlocks;
             _tables = tables;
             _classTree = classTree;
             _equipment = equipment;
@@ -80,7 +87,12 @@ namespace Ashen.Content
             else equipment.Remove(RegistryKeys.CardTagging);
 
             var balance = JsValues.Spread(bundle[RegistryKeys.Balance] as JObject);
-            return new RuntimeRegistries(tables, classTree, equipment, balance, MapDocuments(content), RunDocuments(bundle, stamped), EventDocuments(content));
+            var tagging = (bundle[RegistryKeys.Tagging] as JArray)?.DeepClone() as JArray ?? new JArray();
+            var legacyDungeons = content.Contains(ContentFiles.CatalogLegacyDungeons) ? content.Get(ContentFiles.CatalogLegacyDungeons).DeepClone() as JObject : null;
+            var unlockTable = content.Contains(ContentFiles.CatalogUnlocks) ? content.Get(ContentFiles.CatalogUnlocks) as JObject : null;
+            var unlocks = new JArray((unlockTable ?? new JObject()).Properties().Select(p => p.Value.DeepClone()));
+            return new RuntimeRegistries(tables, classTree, equipment, balance, MapDocuments(content), RunDocuments(bundle, stamped), EventDocuments(content),
+                tagging, legacyDungeons ?? new JObject(), unlocks);
         }
 
         /// <summary>An id-keyed registry table ("cards", "relics", ...), or null for a name that is not one.</summary>
@@ -191,6 +203,16 @@ namespace Ashen.Content
                 [EventKeys.ChoiceRequirements] = Get(ContentFiles.CatalogEventChoiceRequirements),
             };
         }
+
+        /// <summary>
+        /// The run loop's view (US-8.1): the post-combat data and the map data, with the tagging rows (a location's tags),
+        /// the legacy dungeons (catalog/legacyDungeons.json), the unlock rows (catalog/unlocks.json, in table order) and the
+        /// loop's own rules (rules/loopEngine.json).
+        /// </summary>
+        public Ashen.Domain.Loop.LoopData ToLoopData(JObject mechanics, JObject combatEngine, JObject handRules, JObject runEngine, string contentVersion,
+            JArray ascensionOrder, JObject rewardsEngine, JObject mapEngine, JObject loopEngine) =>
+            new Ashen.Domain.Loop.LoopData(ToRewardsData(mechanics, combatEngine, handRules, runEngine, contentVersion, ascensionOrder, rewardsEngine),
+                ToMapData(mapEngine), (JArray)_tagging.DeepClone(), (JObject)_legacyDungeons.DeepClone(), (JArray)_unlocks.DeepClone(), loopEngine);
 
         /// <summary>The map documents, in content key order: balance/mapConfigs.json, eventMeta's gates, boss locations, mapShape limits and legacy bosses.</summary>
         private static JObject MapDocuments(ContentSet content)

@@ -23,6 +23,12 @@ namespace Ashen.Domain.Rewards
 
         /// <summary>resolveLevelUpValue(settings) — points per character level; null or non-positive reads balance.levelUp.</summary>
         public JToken PointsPerLevel;
+
+        /// <summary>
+        /// legacyDungeon.js resolveDungeonNode(run), for a fight won inside a legacy dungeon (the run loop's). Null: a
+        /// dungeon fight is deferred and throws by name, as before.
+        /// </summary>
+        public Action<JObject> DungeonResolver;
     }
 
     /// <summary>
@@ -57,7 +63,7 @@ namespace Ashen.Domain.Rewards
     /// The post-combat pipeline (shipped main.js onCombatEnd, rollSkillDrafts, rollClassDrafts, beginPendingReward,
     /// rollDrop and victoryTitle): the pure, run-writing half of a fight's end, in the shipped order and on the shipped
     /// RNG streams. Screens, audio, the victory beat, saves and the profile's run record are the caller's (D-067);
-    /// journeys and legacy dungeons are deferred (D-066).
+    /// journeys are deferred (D-066); a legacy dungeon's fight resolves its node through the run loop's DungeonResolver (D-097).
     /// </summary>
     public static class CombatEnd
     {
@@ -74,7 +80,8 @@ namespace Ashen.Domain.Rewards
             if (combat == null) throw new ArgumentNullException(nameof(combat));
             options ??= new CombatEndOptions();
             rng ??= combat.Rng;
-            if (run.Is(RK.Journey) || run.Is(RK.LegacyDungeon)) throw new NotSupportedException(WM.JourneyCombatEndDeferred);
+            var inDungeon = run.Is(RK.LegacyDungeon);
+            if (run.Is(RK.Journey) || (inDungeon && options.DungeonResolver == null)) throw new NotSupportedException(WM.JourneyCombatEndDeferred);
             var pool = enc?.Str(WK.Pool);
             var victory = result == V.Victory;
 
@@ -110,9 +117,12 @@ namespace Ashen.Domain.Rewards
 
             var stats = run.Obj(WK.Stats) ?? throw new InvalidOperationException(WM.RunHasNoStats);
             stats.Put(WK.FightsWon, stats.Num(WK.FightsWon) + 1);
+            if (inDungeon) options.DungeonResolver(run);
             run[RK.CombatEntered] = Js.Null();
-            var rewardId = string.Join(V.KeySeparator, WV.CombatRewardPrefix, RunJs.Key(run[RK.ActNumber]), RunJs.Key(run[RK.Floor]),
-                run.Is(RK.MapNodeId) ? RunJs.Key(run[RK.MapNodeId]) : WV.UnknownNode, pool ?? V.Undefined);
+            var rewardParts = new List<string> { WV.CombatRewardPrefix, RunJs.Key(run[RK.ActNumber]), RunJs.Key(run[RK.Floor]), run.Is(RK.MapNodeId) ? RunJs.Key(run[RK.MapNodeId]) : WV.UnknownNode };
+            if (inDungeon) rewardParts.Add(RunJs.Key(run.Obj(RK.LegacyDungeon)[WK.Current]));
+            rewardParts.Add(pool ?? V.Undefined);
+            var rewardId = string.Join(V.KeySeparator, rewardParts);
             receipt.SmithingStoneReceipt = Smithing.GrantReward(d, run, pool, rewardId);
 
             if (pool == WV.Boss)
@@ -127,7 +137,7 @@ namespace Ashen.Domain.Rewards
                     .SelectMany(piece => Js.Items(piece[K.ItemTypeTags]).Select(RunJs.Key)).Distinct().ToList();
                 foreach (var id in enemies)
                     groups[id] = new JArray(Js.Items(groups[id]).Select(RunJs.Key).Concat(held).Distinct());
-                if (run.Num(RK.ActNumber) >= d.RuleNum(WK.Summit, WK.FinalAct) && !ModOn(d, run, RK.Endless))
+                if (!inDungeon && run.Num(RK.ActNumber) >= d.RuleNum(WK.Summit, WK.FinalAct) && !ModOn(d, run, RK.Endless))
                 {
                     receipt.Outcome = V.Victory;
                     return receipt;
@@ -144,7 +154,7 @@ namespace Ashen.Domain.Rewards
                 receipt.Rewards = Js.Obj(WK.Title, VictoryTitle(d, enc, pool), RK.Cinders, cinders, WK.ClassDrafts, bossClassDrafts, WK.SkillDrafts, bossDrafts,
                     WK.CardIds, cardIds, K.RelicId, Js.S(relicId), WK.ArmamentId, Js.S(bossArmament), WK.SmithingStoneReceipt, receipt.SmithingStoneReceipt.DeepClone(),
                     WK.XpGains, receipt.XpGains.DeepClone());
-                BeginPendingReward(run, receipt.Rewards, WV.Boss, WV.AdvanceAct);
+                BeginPendingReward(run, receipt.Rewards, WV.Boss, inDungeon ? WV.MapDoor : WV.AdvanceAct);
                 receipt.Outcome = WV.RewardOutcome;
                 return receipt;
             }
@@ -229,7 +239,7 @@ namespace Ashen.Domain.Rewards
         }
 
         /// <summary>beginPendingReward(rewards, { source, after }): the resumable reward checkpoint on the run.</summary>
-        private static void BeginPendingReward(JObject run, JObject rewards, string source, string after)
+        public static void BeginPendingReward(JObject run, JObject rewards, string source, string after)
         {
             var taken = rewards.Obj(WK.SmithingStoneReceipt)?.Num(K.Amount) > 0;
             run[WK.PendingReward] = Js.Obj(RK.SchemaVersion, 1.0, RK.Source, source, WK.After, after, WK.Rewards, rewards.DeepClone(),

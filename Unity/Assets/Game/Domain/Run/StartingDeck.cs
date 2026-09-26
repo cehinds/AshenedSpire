@@ -264,6 +264,30 @@ namespace Ashen.Domain.Run
                 K.EquipmentRole, RV.RoleWeaponArt, K.GrantedBy, weaponId, K.GrantSource, weaponSource);
 
         /// <summary>
+        /// itemMountInstances(registries, run, piece, { authored }): the item-owned instances one piece lends by its own
+        /// authoring (bound cards, package grants, weapon-art defaults); unless <paramref name="authored"/>, with the smith's
+        /// overrides applied and its filled extra mounts appended.
+        /// </summary>
+        public static List<JObject> ItemMountInstances(RunData d, JObject itemMounts, JObject piece, bool authored)
+        {
+            if (piece == null) return new List<JObject>();
+            var settings = Settings(d);
+            var weaponSource = GrantSourceFor(settings, RK.Weapon);
+            var list = BoundMountInstances(d, settings, piece);
+            var pkg = piece.Str(K.Kind) == V.Armor ? null : WeaponCards.FromPiece(d, piece);
+            if (pkg != null)
+            {
+                list.AddRange(PackageGrantInstances(pkg, weaponSource));
+                foreach (var artId in pkg.WeaponArtDefaults) list.Add(WeaponArtInstance(pkg.WeaponId, artId, weaponSource));
+            }
+            if (authored) return list;
+            var result = CardMounts.ApplyMountOverrides(d, itemMounts, list);
+            result.AddRange(CardMounts.ExtraMountInstances(d, itemMounts, Combat.Equipment.PieceItemRef(piece),
+                GrantSourceFor(settings, PieceFamily(piece) == V.ArmourKind ? RK.Armor : RK.Weapon)));
+            return result;
+        }
+
+        /// <summary>
         /// desiredGrantInstances(registries, run): every item-owned instance the worn equipment lends — bound-table
         /// cards, package grants, weapon arts (split when both hands are armed), smith overrides, kit basics, the empty
         /// hand's art and filled extra mounts.

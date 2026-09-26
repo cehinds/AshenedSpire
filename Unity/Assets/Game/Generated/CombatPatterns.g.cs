@@ -10,5 +10,7 @@ namespace Ashen.Generated
         public const string ArmamentRef = "^armament/(?<id>[^/]+)$";
         public const string ArmorRef = "^armor/(?<classId>[^/]+)/(?<id>[^/]+)$";
         public const string RelicRef = "^relic/(?<id>[^/]+)$";
+        public const string UpgradeRequirementTag = "^requirement:(?<attribute>[^:]*)$";
+        public const string UpgradeCardTag = "^card:(?<role>[^:]*):(?<part>[^:]*):(?<name>[^:]*)$";
     }
 }
