@@ -11,5 +11,11 @@
   "combat.refusal.discardSelection": "Choose {0} to {1} cards to discard.",
   "combat.refusal.noFlask": "There is no flask in that slot.",
   "combat.refusal.noFlaskCharges": "No charges left.",
-  "combat.error.unexpected": "The fight hit an unexpected error and was restored to the last safe point."
+  "combat.error.unexpected": "The fight hit an unexpected error and was restored to the last safe point.",
+  "combat.intent.attack": "Attack",
+  "combat.intent.block": "Defend",
+  "combat.intent.buff": "Empower",
+  "combat.intent.debuff": "Hex",
+  "combat.intent.staggered": "Staggered",
+  "combat.intent.unknown": "Unknown"
 }

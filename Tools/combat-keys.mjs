@@ -4,8 +4,8 @@
 // as their wire names; closed values and messages come from Tools/combat-keys/values.json and messages.json.
 //   node Tools/combat-keys.mjs        (then node Tools/codegen.mjs)
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
-const DIR = process.env.COMBAT_DIR || 'Unity/Assets/Game/Domain/Combat';
-const src = readdirSync(DIR).filter(f => f.endsWith('.cs')).map(f => readFileSync(`${DIR}/${f}`, 'utf8')).join('\n');
+const DIRS = ['Unity/Assets/Game/Domain/Combat', 'Unity/Assets/Game/Application/Combat'];
+const src = DIRS.flatMap((dir) => readdirSync(dir).filter((f) => f.endsWith('.cs')).map((f) => readFileSync(`${dir}/${f}`, 'utf8'))).join('\n');
 const used = (alias) => [...new Set([...src.matchAll(new RegExp(`(?<![A-Za-z0-9_.])${alias}[.]([A-Z][A-Za-z0-9]*)`, 'g'))].map(m => m[1]))].sort();
 const camel = (s) => s[0].toLowerCase() + s.slice(1);
 const auto = (alias) => Object.fromEntries(used(alias).map(k => [k, camel(k)]));
