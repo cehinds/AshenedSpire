@@ -1,0 +1,12 @@
+{
+  "comment": "W-08 card pick: three CardViews, the second selected (green outline), Back, Skip and Confirm.",
+  "screen": "rewards",
+  "seed": 20260927,
+  "finish": true,
+  "state": "pick",
+  "pickKind": "card",
+  "select": 1,
+  "skipSizes": [
+    "1920x1080"
+  ]
+}
