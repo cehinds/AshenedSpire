@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.13.2] — 2026-09-26
+
+- Refactor: rest stop and merchant share one smithing/card-extraction port; upgraded-item resolution has one home (-1,469 lines, oracles unchanged)
+
 ## [0.1.13.1] — 2026-09-26
 
 - Record the F1 promotion (v0.1.13.0) in CHANGELOG and BUILD-LOG
