@@ -1,0 +1,81 @@
+{
+  "files": [
+    {
+      "sha256": "a29b5f26c07c2f84af342d677e6c887a7939d343119c7e5174e712329294c51b",
+      "source": "CREDITS.md"
+    },
+    {
+      "sha256": "3a0804339fdee2652cc3122d031f91ddee0185a150dbf07f3add8cf0dfac27c5",
+      "source": "art/class-outfit-sprites-2026-09-19/prompts.json"
+    },
+    {
+      "sha256": "40c3769011bae2421b6499a54e55eb0c2a9277dcdd84026737cc23ad5d404ade",
+      "source": "art/dagger-outfits-2026-09-19/prompts.json"
+    },
+    {
+      "sha256": "c44804b4fb7ff48f1a6c92add80308886a02cb8c5a235e886fe226dd22d7433e",
+      "source": "art/greatsword-outfits-2026-09-19/prompts.json"
+    },
+    {
+      "sha256": "38ba60717fa0cea7f23642767418c3cb06d0c1567cc2e239cb01119a6a7b576a",
+      "source": "art/inventory-webp-2026-09-19/prompts.json"
+    },
+    {
+      "sha256": "07bccffac83ce6740b1119673367b1d9281e03f1dd44c7509cbd70087f3c788c",
+      "source": "art/painted-combat-2026-09-07/prompts.json"
+    },
+    {
+      "sha256": "620ca73d352a0e7f417c936b183e6416a5c731cae8d809b81d16575b36b92bac",
+      "source": "art/painted-items-2026-09-07/prompts.json"
+    },
+    {
+      "sha256": "7a12e2db613b5f9266367e121063b1758744fc8d3a3f3f9b7e344543ab37bae0",
+      "source": "art/prologue-2026-09-19/prompts.json"
+    },
+    {
+      "sha256": "31f03db853585ab15e7bccf5cc79468b3d95fc6d982d5cf7c2a4e5be231e6eae",
+      "source": "art/sword-shield-outfits-2026-09-19/prompts-no-aura.json"
+    },
+    {
+      "sha256": "d9155b863fc506c12ed51bb9c2eb649bf79dc49f7aa379a1f24cb4a8a1584f7a",
+      "source": "art/sword-shield-outfits-2026-09-19/prompts.json"
+    },
+    {
+      "sha256": "08c32a15059e316e8bdf08cd36d5c4dc421f5ac38b0f9f3ce44013e5bcf38964",
+      "source": "art/twin-sword-reference-2026-09-19/prompts.json"
+    },
+    {
+      "sha256": "2a261caf07255f936804a997b53ecd3bf2b9764a79939b2a75efd81eb54b9e31",
+      "source": "art/unarmed-magic-2026-09-19/prompts.json"
+    },
+    {
+      "sha256": "25ceaffe0c6a20475638c4846155d9887589b862052d2a1a3d8e85c1bdb24dcc",
+      "source": "art/unarmed-reference-2026-09-19/prompts-variants.json"
+    },
+    {
+      "sha256": "1ea9aafd607a84969eb2248edf9a4cc2d1ccb24d3b08f3197c4925ac89ec2a92",
+      "source": "art/unarmed-reference-2026-09-19/prompts.json"
+    },
+    {
+      "sha256": "3a5631f9a5aaf925e2aad44f67da5e99208aa1a3e40cd832557e08e6e9b14871",
+      "source": "art/webp-maps-2026-09-19/provenance.json"
+    },
+    {
+      "sha256": "50ba4c9d85946d5cb09398f3922dc776f5d02afbda25c2991fb71618da5af791",
+      "source": "art/webp-maps-2026-09-19/scene-layers/provenance.json"
+    },
+    {
+      "sha256": "4b351755f3d155e3853751de80944ab4684206dd873d43dc105d533e8476762d",
+      "source": "art/webp-pack-2026-09-19-premerge-backup/prompts.json"
+    },
+    {
+      "sha256": "4b351755f3d155e3853751de80944ab4684206dd873d43dc105d533e8476762d",
+      "source": "art/webp-pack-2026-09-19/prompts.json"
+    },
+    {
+      "sha256": "7541a010aee64deaebd18f45f647a656e235b1587440165c2ab9a25a42073e90",
+      "source": "assets/enemies-unity/provenance.json"
+    }
+  ],
+  "source": "D:/repos/AshenSpire"
+}
