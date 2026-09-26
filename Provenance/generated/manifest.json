@@ -1,0 +1,4 @@
+{
+  "assets": [],
+  "comment": "One entry per AI-generated asset: id, modality, tool, model, prompt, references, date, sha256 (docs/design/09 §3.1)."
+}

@@ -1,5 +1,5 @@
 {
-  "contentHash": "2d0f00cdfb34d59c5d88c9d900dd41803dbeaa137e483af41b338ff3ef21c3b1",
+  "contentHash": "f73a6c8b7d0e1c276a388f31167640f6eb7150ea18b2d85937e9aee4f68605df",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -43,6 +43,11 @@
     "tags/variableBindings.json": 102
   },
   "files": {
+    "assets/registry.json": {
+      "bytes": 1895183,
+      "generated": false,
+      "sha256": "7b306db8a3177f91793d8911881bb6d36bd44c2d0f21b10420e159333d6a9214"
+    },
     "audio/music.json": {
       "bytes": 6136,
       "generated": true,
@@ -302,6 +307,11 @@
       "bytes": 574,
       "generated": false,
       "sha256": "414dd661f53883f134f39aeb8c6948b19005b1664284fd158b99e8f8f2fa3c8a"
+    },
+    "schemas/assets.registry.schema.json": {
+      "bytes": 929,
+      "generated": false,
+      "sha256": "57cf4bae50afa2771c9a32928074869ac3446d08f98bf2d0872ee13ffe464db2"
     },
     "schemas/audio.music.schema.json": {
       "bytes": 11107,

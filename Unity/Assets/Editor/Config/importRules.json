@@ -1,0 +1,10 @@
+{
+  "comment": "Texture import presets for Assets/Art (PF-01). First rule whose 'prefix' matches the asset path wins. Build-only configuration (never shipped in StreamingAssets).",
+  "rules": [
+    { "prefix": "Assets/Art/Imported/bg/", "maxSize": 4096, "compression": "highQuality", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Imported/env/", "maxSize": 4096, "compression": "highQuality", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Imported/vfx/", "maxSize": 1024, "compression": "normal", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Imported/", "maxSize": 2048, "compression": "normal", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Generated/", "maxSize": 2048, "compression": "normal", "pixelsPerUnit": 100 }
+  ]
+}
