@@ -1,0 +1,485 @@
+{
+ "source": "engine/combat.js createCombat + dispatch (shipped preset)",
+ "combats": [
+  {
+   "file": "combat-000.json",
+   "seed": 2800407833,
+   "classId": "reaver",
+   "encounterId": "loneSoldier",
+   "steps": 12,
+   "result": "victory"
+  },
+  {
+   "file": "combat-001.json",
+   "seed": 1159876298,
+   "classId": "starseer",
+   "encounterId": "patrol",
+   "steps": 27,
+   "result": "victory"
+  },
+  {
+   "file": "combat-002.json",
+   "seed": 3814312059,
+   "classId": "rogue",
+   "encounterId": "packHunt",
+   "steps": 23,
+   "result": "victory"
+  },
+  {
+   "file": "combat-003.json",
+   "seed": 2173780524,
+   "classId": "herald",
+   "encounterId": "twinPatrol",
+   "steps": 16,
+   "result": "victory"
+  },
+  {
+   "file": "combat-004.json",
+   "seed": 533248989,
+   "classId": "reaver",
+   "encounterId": "bruiser",
+   "steps": 13,
+   "result": "victory"
+  },
+  {
+   "file": "combat-005.json",
+   "seed": 3187684750,
+   "classId": "starseer",
+   "encounterId": "eliteWyrm",
+   "steps": 15,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-006.json",
+   "seed": 1547153215,
+   "classId": "rogue",
+   "encounterId": "bossOmen",
+   "steps": 22,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-007.json",
+   "seed": 4201588976,
+   "classId": "herald",
+   "encounterId": "lanternFlight",
+   "steps": 11,
+   "result": "victory"
+  },
+  {
+   "file": "combat-008.json",
+   "seed": 2561057441,
+   "classId": "reaver",
+   "encounterId": "briarRefuge",
+   "steps": 11,
+   "result": "victory"
+  },
+  {
+   "file": "combat-009.json",
+   "seed": 920525906,
+   "classId": "starseer",
+   "encounterId": "chainAmbush",
+   "steps": 3,
+   "result": "victory"
+  },
+  {
+   "file": "combat-010.json",
+   "seed": 3574961667,
+   "classId": "rogue",
+   "encounterId": "bossBellKeeper",
+   "steps": 30,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-011.json",
+   "seed": 1934430132,
+   "classId": "herald",
+   "encounterId": "bossThornMatriarch",
+   "steps": 38,
+   "result": "victory"
+  },
+  {
+   "file": "combat-012.json",
+   "seed": 293898597,
+   "classId": "reaver",
+   "encounterId": "a2_knight",
+   "steps": 21,
+   "result": "victory"
+  },
+  {
+   "file": "combat-013.json",
+   "seed": 2948334358,
+   "classId": "starseer",
+   "encounterId": "a2_surgery",
+   "steps": 10,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-014.json",
+   "seed": 1307802823,
+   "classId": "rogue",
+   "encounterId": "a2_kennel",
+   "steps": 10,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-015.json",
+   "seed": 3962238584,
+   "classId": "herald",
+   "encounterId": "a2_procession",
+   "steps": 20,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-016.json",
+   "seed": 2321707049,
+   "classId": "reaver",
+   "encounterId": "a2_vault",
+   "steps": 41,
+   "result": "victory"
+  },
+  {
+   "file": "combat-017.json",
+   "seed": 681175514,
+   "classId": "starseer",
+   "encounterId": "a2_eliteDuelist",
+   "steps": 13,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-018.json",
+   "seed": 3335611275,
+   "classId": "rogue",
+   "encounterId": "a2_bossStitchedKing",
+   "steps": 9,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-019.json",
+   "seed": 1695079740,
+   "classId": "herald",
+   "encounterId": "a2_mirrorArchive",
+   "steps": 11,
+   "result": "victory"
+  },
+  {
+   "file": "combat-020.json",
+   "seed": 54548205,
+   "classId": "reaver",
+   "encounterId": "a2_stitchDrain",
+   "steps": 32,
+   "result": "victory"
+  },
+  {
+   "file": "combat-021.json",
+   "seed": 2708983966,
+   "classId": "starseer",
+   "encounterId": "a2_bossGlassRegent",
+   "steps": 16,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-022.json",
+   "seed": 1068452431,
+   "classId": "rogue",
+   "encounterId": "a2_bossMarrowOrganist",
+   "steps": 15,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-023.json",
+   "seed": 3722888192,
+   "classId": "herald",
+   "encounterId": "a3_revenant",
+   "steps": 28,
+   "result": "victory"
+  },
+  {
+   "file": "combat-024.json",
+   "seed": 2082356657,
+   "classId": "reaver",
+   "encounterId": "a3_pilgrims",
+   "steps": 29,
+   "result": "victory"
+  },
+  {
+   "file": "combat-025.json",
+   "seed": 441825122,
+   "classId": "starseer",
+   "encounterId": "a3_shades",
+   "steps": 7,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-026.json",
+   "seed": 3096260883,
+   "classId": "rogue",
+   "encounterId": "a3_colossus",
+   "steps": 19,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-027.json",
+   "seed": 1455729348,
+   "classId": "herald",
+   "encounterId": "a3_ashChoir",
+   "steps": 16,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-028.json",
+   "seed": 4110165109,
+   "classId": "reaver",
+   "encounterId": "a3_eliteWyrmLord",
+   "steps": 36,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-029.json",
+   "seed": 2469633574,
+   "classId": "starseer",
+   "encounterId": "a3_bossRotValkyrie",
+   "steps": 14,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-030.json",
+   "seed": 829102039,
+   "classId": "rogue",
+   "encounterId": "a3_cinderNest",
+   "steps": 18,
+   "result": "victory"
+  },
+  {
+   "file": "combat-031.json",
+   "seed": 3483537800,
+   "classId": "herald",
+   "encounterId": "a3_eclipseChapel",
+   "steps": 19,
+   "result": "victory"
+  },
+  {
+   "file": "combat-032.json",
+   "seed": 1843006265,
+   "classId": "reaver",
+   "encounterId": "a3_bossFurnaceSaint",
+   "steps": 13,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-033.json",
+   "seed": 202474730,
+   "classId": "starseer",
+   "encounterId": "a3_bossHollowAstronomer",
+   "steps": 10,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-034.json",
+   "seed": 2856910491,
+   "classId": "rogue",
+   "encounterId": "a3_bossAshheartDragon",
+   "steps": 7,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-035.json",
+   "seed": 1216378956,
+   "classId": "herald",
+   "encounterId": "loneSoldier",
+   "steps": 6,
+   "result": "victory"
+  },
+  {
+   "file": "combat-036.json",
+   "seed": 3870814717,
+   "classId": "reaver",
+   "encounterId": "patrol",
+   "steps": 16,
+   "result": "victory"
+  },
+  {
+   "file": "combat-037.json",
+   "seed": 2230283182,
+   "classId": "starseer",
+   "encounterId": "packHunt",
+   "steps": 15,
+   "result": "victory"
+  },
+  {
+   "file": "combat-038.json",
+   "seed": 589751647,
+   "classId": "rogue",
+   "encounterId": "twinPatrol",
+   "steps": 15,
+   "result": "victory"
+  },
+  {
+   "file": "combat-039.json",
+   "seed": 3244187408,
+   "classId": "herald",
+   "encounterId": "bruiser",
+   "steps": 17,
+   "result": "victory"
+  },
+  {
+   "file": "combat-040.json",
+   "seed": 1603655873,
+   "classId": "reaver",
+   "encounterId": "eliteWyrm",
+   "steps": 30,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-041.json",
+   "seed": 4258091634,
+   "classId": "starseer",
+   "encounterId": "bossOmen",
+   "steps": 19,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-042.json",
+   "seed": 2617560099,
+   "classId": "rogue",
+   "encounterId": "lanternFlight",
+   "steps": 8,
+   "result": "victory"
+  },
+  {
+   "file": "combat-043.json",
+   "seed": 977028564,
+   "classId": "herald",
+   "encounterId": "briarRefuge",
+   "steps": 13,
+   "result": "victory"
+  },
+  {
+   "file": "combat-044.json",
+   "seed": 3631464325,
+   "classId": "reaver",
+   "encounterId": "chainAmbush",
+   "steps": 8,
+   "result": "victory"
+  },
+  {
+   "file": "combat-045.json",
+   "seed": 1990932790,
+   "classId": "starseer",
+   "encounterId": "bossBellKeeper",
+   "steps": 29,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-046.json",
+   "seed": 350401255,
+   "classId": "rogue",
+   "encounterId": "bossThornMatriarch",
+   "steps": 24,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-047.json",
+   "seed": 3004837016,
+   "classId": "herald",
+   "encounterId": "a2_knight",
+   "steps": 19,
+   "result": "victory"
+  },
+  {
+   "file": "combat-048.json",
+   "seed": 1364305481,
+   "classId": "reaver",
+   "encounterId": "a2_surgery",
+   "steps": 18,
+   "result": "victory"
+  },
+  {
+   "file": "combat-049.json",
+   "seed": 4018741242,
+   "classId": "starseer",
+   "encounterId": "a2_kennel",
+   "steps": 19,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-050.json",
+   "seed": 2378209707,
+   "classId": "rogue",
+   "encounterId": "a2_procession",
+   "steps": 17,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-051.json",
+   "seed": 737678172,
+   "classId": "herald",
+   "encounterId": "a2_vault",
+   "steps": 21,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-052.json",
+   "seed": 3392113933,
+   "classId": "reaver",
+   "encounterId": "a2_eliteDuelist",
+   "steps": 18,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-053.json",
+   "seed": 1751582398,
+   "classId": "starseer",
+   "encounterId": "a2_bossStitchedKing",
+   "steps": 15,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-054.json",
+   "seed": 111050863,
+   "classId": "rogue",
+   "encounterId": "a2_mirrorArchive",
+   "steps": 10,
+   "result": "victory"
+  },
+  {
+   "file": "combat-055.json",
+   "seed": 2765486624,
+   "classId": "herald",
+   "encounterId": "a2_stitchDrain",
+   "steps": 17,
+   "result": "victory"
+  },
+  {
+   "file": "combat-056.json",
+   "seed": 1124955089,
+   "classId": "reaver",
+   "encounterId": "a2_bossGlassRegent",
+   "steps": 28,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-057.json",
+   "seed": 3779390850,
+   "classId": "starseer",
+   "encounterId": "a2_bossMarrowOrganist",
+   "steps": 12,
+   "result": "defeat"
+  },
+  {
+   "file": "combat-058.json",
+   "seed": 2138859315,
+   "classId": "rogue",
+   "encounterId": "a3_revenant",
+   "steps": 15,
+   "result": "victory"
+  },
+  {
+   "file": "combat-059.json",
+   "seed": 498327780,
+   "classId": "herald",
+   "encounterId": "a3_pilgrims",
+   "steps": 24,
+   "result": "victory"
+  }
+ ]
+}
