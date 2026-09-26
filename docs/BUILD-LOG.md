@@ -2,6 +2,47 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-2.2: run creation with shipped parity (feature/run-state, 2026-09-26)
+
+**Landed**
+- `Ashen.Domain.Run` (D-042r): `RunState.Create` is the shipped `createRunState`, ported line by line onto the JSON run document. Scope was taken from V8 precise coverage of the shipped calls (`node Tools/oracle-run.mjs --coverage`). It covers:
+  - creation modes and class presets, with the allocation rules;
+  - the derived-stat rule resolve, validation, derive and host snapshot;
+  - the equipment profile snapshot (create and restore), the kit plan and role receipts, `effectiveEquipmentRating`;
+  - weapon card packages and the equipped attack plan;
+  - the composed starting deck, grant refs, `orderStartingDeck`, item-owned cards (`reconcileGrantedCards`, `desiredGrantInstances`, card mounts);
+  - `stampDeck`, card and run mods, the pool reconcile, requirement receipts;
+  - starting kits, armour, hands and relic; relic modifiers; flask charges and growth; zones; the default seat order.
+- `RunCombat.CreateArgs(run, encounterId, data, settings)`: the `createCombat` arguments `main.js enterCombat` builds (seat-tier HP ratio, hand-rule defaults, swap-cost rule, start statuses). A fight can now start from content alone.
+- `rules/runEngine.json` (hand-written, schema inferred): versions, defaults and vocabulary lists. Names come from `Tools/codegen.d/run.json` via `Tools/run-keys.mjs`: 202 keys, 53 values, 154 messages and 2 patterns, with combat names reused.
+- `Tools/oracle-run.mjs` records, for every class:
+  - twelve default seeds (`sweepSeed(2000+i)`);
+  - seven creation variants: two more modes, the alternate kit, armour and relic, and two hand picks;
+  - two refused variants.
+  For each run it writes the run document, the RNG counters, and two fights (args, combat-start snapshot, counters). Its JS self-check replays each fight from the JSON-plain args and requires the identical start. Output: 76 runs, 152 fights, 7.0 MB, plus the registry dump.
+
+**Tests**
+- `RunParityTests`, 238 cases:
+  - the run document equals the shipped one for all 76 runs, with strict presence (D-045r);
+  - the args equal the recorded ones;
+  - `CombatStart.Create` on those args reproduces the shipped snapshot and counters, and a turn can be ended;
+  - the 8 refused variants throw the shipped message;
+  - the deferred paths throw `NotSupportedException`.
+- Mutation check: corrupting a run `maxHp`, an args card id and a snapshot enemy HP failed the three tests, naming the first differing path. The file was then restored.
+- dotnet 517/517, enforcement included; `codegen --check` and `check-content` green.
+
+**Not verified:** Unity EditMode (the UI stream owns Unity). The creation-mode `equipmentProfiles` layer is ported, but no shipped mode authors one, so it is not exercised.
+
+**Deferred (D-043r, D-044r):**
+- custom allocations;
+- derived-stat option layers;
+- the load door (snapshot restore and migrations);
+- hand-rule settings overrides;
+- journey, legacy-dungeon and Custom Climb fights;
+- the heal ledger.
+
+**Next:** F1 playable loop: a run-backed combat screen. Then the load door (`restoreDerivedStatRuleSnapshot`, schema migrations) with save round-trip parity.
+
 ## us-5.3: combat start and previews with shipped parity (feature/combat-core, 2026-09-26)
 
 **Landed**

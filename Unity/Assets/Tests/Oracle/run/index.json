@@ -1,0 +1,535 @@
+{
+ "source": "model/state.js createRunState + main.js enterCombat args + engine/combat.js createCombat (shipped preset)",
+ "runs": [
+  {
+   "file": "run-reaver-seed00.json",
+   "classId": "reaver",
+   "seed": 2946379905,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-seed01.json",
+   "classId": "reaver",
+   "seed": 1305848370,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-seed02.json",
+   "classId": "reaver",
+   "seed": 3960284131,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-seed03.json",
+   "classId": "reaver",
+   "seed": 2319752596,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-seed04.json",
+   "classId": "reaver",
+   "seed": 679221061,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-seed05.json",
+   "classId": "reaver",
+   "seed": 3333656822,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-seed06.json",
+   "classId": "reaver",
+   "seed": 1693125287,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-seed07.json",
+   "classId": "reaver",
+   "seed": 52593752,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-seed08.json",
+   "classId": "reaver",
+   "seed": 2707029513,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-seed09.json",
+   "classId": "reaver",
+   "seed": 1066497978,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-seed10.json",
+   "classId": "reaver",
+   "seed": 3720933739,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-seed11.json",
+   "classId": "reaver",
+   "seed": 2080402204,
+   "variant": "default"
+  },
+  {
+   "file": "run-reaver-mode-standard.json",
+   "classId": "reaver",
+   "seed": 3092351977,
+   "variant": "mode-standard"
+  },
+  {
+   "file": "run-reaver-mode-pointbuy.json",
+   "classId": "reaver",
+   "seed": 1451820442,
+   "variant": "mode-pointbuy"
+  },
+  {
+   "file": "run-reaver-kit-reaverGreatsword.json",
+   "classId": "reaver",
+   "seed": 4106256203,
+   "variant": "kit-reaverGreatsword"
+  },
+  {
+   "file": "run-reaver-armour-vigil.json",
+   "classId": "reaver",
+   "seed": 2465724668,
+   "variant": "armour-vigil"
+  },
+  {
+   "file": "run-reaver-relic-goldenSprout.json",
+   "classId": "reaver",
+   "seed": 825193133,
+   "variant": "relic-goldenSprout"
+  },
+  {
+   "file": "run-reaver-hands-empty.json",
+   "classId": "reaver",
+   "seed": 3479628894,
+   "variant": "hands-empty"
+  },
+  {
+   "file": "run-reaver-hands-last.json",
+   "classId": "reaver",
+   "seed": 1839097359,
+   "variant": "hands-last"
+  },
+  {
+   "file": "run-starseer-seed00.json",
+   "classId": "starseer",
+   "seed": 2946379905,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-seed01.json",
+   "classId": "starseer",
+   "seed": 1305848370,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-seed02.json",
+   "classId": "starseer",
+   "seed": 3960284131,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-seed03.json",
+   "classId": "starseer",
+   "seed": 2319752596,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-seed04.json",
+   "classId": "starseer",
+   "seed": 679221061,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-seed05.json",
+   "classId": "starseer",
+   "seed": 3333656822,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-seed06.json",
+   "classId": "starseer",
+   "seed": 1693125287,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-seed07.json",
+   "classId": "starseer",
+   "seed": 52593752,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-seed08.json",
+   "classId": "starseer",
+   "seed": 2707029513,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-seed09.json",
+   "classId": "starseer",
+   "seed": 1066497978,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-seed10.json",
+   "classId": "starseer",
+   "seed": 3720933739,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-seed11.json",
+   "classId": "starseer",
+   "seed": 2080402204,
+   "variant": "default"
+  },
+  {
+   "file": "run-starseer-mode-standard.json",
+   "classId": "starseer",
+   "seed": 3092351977,
+   "variant": "mode-standard"
+  },
+  {
+   "file": "run-starseer-mode-pointbuy.json",
+   "classId": "starseer",
+   "seed": 1451820442,
+   "variant": "mode-pointbuy"
+  },
+  {
+   "file": "run-starseer-kit-starseerStarstone.json",
+   "classId": "starseer",
+   "seed": 4106256203,
+   "variant": "kit-starseerStarstone"
+  },
+  {
+   "file": "run-starseer-armour-eclipse.json",
+   "classId": "starseer",
+   "seed": 2465724668,
+   "variant": "armour-eclipse"
+  },
+  {
+   "file": "run-starseer-relic-goldenSprout.json",
+   "classId": "starseer",
+   "seed": 825193133,
+   "variant": "relic-goldenSprout"
+  },
+  {
+   "file": "run-starseer-hands-empty.json",
+   "classId": "starseer",
+   "seed": 3479628894,
+   "variant": "hands-empty"
+  },
+  {
+   "file": "run-starseer-hands-last.json",
+   "classId": "starseer",
+   "seed": 1839097359,
+   "variant": "hands-last"
+  },
+  {
+   "file": "run-rogue-seed00.json",
+   "classId": "rogue",
+   "seed": 2946379905,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-seed01.json",
+   "classId": "rogue",
+   "seed": 1305848370,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-seed02.json",
+   "classId": "rogue",
+   "seed": 3960284131,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-seed03.json",
+   "classId": "rogue",
+   "seed": 2319752596,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-seed04.json",
+   "classId": "rogue",
+   "seed": 679221061,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-seed05.json",
+   "classId": "rogue",
+   "seed": 3333656822,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-seed06.json",
+   "classId": "rogue",
+   "seed": 1693125287,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-seed07.json",
+   "classId": "rogue",
+   "seed": 52593752,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-seed08.json",
+   "classId": "rogue",
+   "seed": 2707029513,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-seed09.json",
+   "classId": "rogue",
+   "seed": 1066497978,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-seed10.json",
+   "classId": "rogue",
+   "seed": 3720933739,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-seed11.json",
+   "classId": "rogue",
+   "seed": 2080402204,
+   "variant": "default"
+  },
+  {
+   "file": "run-rogue-mode-standard.json",
+   "classId": "rogue",
+   "seed": 3092351977,
+   "variant": "mode-standard"
+  },
+  {
+   "file": "run-rogue-mode-pointbuy.json",
+   "classId": "rogue",
+   "seed": 1451820442,
+   "variant": "mode-pointbuy"
+  },
+  {
+   "file": "run-rogue-kit-rogueBow.json",
+   "classId": "rogue",
+   "seed": 4106256203,
+   "variant": "kit-rogueBow"
+  },
+  {
+   "file": "run-rogue-armour-nightveil.json",
+   "classId": "rogue",
+   "seed": 2465724668,
+   "variant": "armour-nightveil"
+  },
+  {
+   "file": "run-rogue-relic-goldenSprout.json",
+   "classId": "rogue",
+   "seed": 825193133,
+   "variant": "relic-goldenSprout"
+  },
+  {
+   "file": "run-rogue-hands-empty.json",
+   "classId": "rogue",
+   "seed": 3479628894,
+   "variant": "hands-empty"
+  },
+  {
+   "file": "run-rogue-hands-last.json",
+   "classId": "rogue",
+   "seed": 1839097359,
+   "variant": "hands-last"
+  },
+  {
+   "file": "run-herald-seed00.json",
+   "classId": "herald",
+   "seed": 2946379905,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-seed01.json",
+   "classId": "herald",
+   "seed": 1305848370,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-seed02.json",
+   "classId": "herald",
+   "seed": 3960284131,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-seed03.json",
+   "classId": "herald",
+   "seed": 2319752596,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-seed04.json",
+   "classId": "herald",
+   "seed": 679221061,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-seed05.json",
+   "classId": "herald",
+   "seed": 3333656822,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-seed06.json",
+   "classId": "herald",
+   "seed": 1693125287,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-seed07.json",
+   "classId": "herald",
+   "seed": 52593752,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-seed08.json",
+   "classId": "herald",
+   "seed": 2707029513,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-seed09.json",
+   "classId": "herald",
+   "seed": 1066497978,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-seed10.json",
+   "classId": "herald",
+   "seed": 3720933739,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-seed11.json",
+   "classId": "herald",
+   "seed": 2080402204,
+   "variant": "default"
+  },
+  {
+   "file": "run-herald-mode-standard.json",
+   "classId": "herald",
+   "seed": 3092351977,
+   "variant": "mode-standard"
+  },
+  {
+   "file": "run-herald-mode-pointbuy.json",
+   "classId": "herald",
+   "seed": 1451820442,
+   "variant": "mode-pointbuy"
+  },
+  {
+   "file": "run-herald-kit-heraldEmberlight.json",
+   "classId": "herald",
+   "seed": 4106256203,
+   "variant": "kit-heraldEmberlight"
+  },
+  {
+   "file": "run-herald-armour-ossuary.json",
+   "classId": "herald",
+   "seed": 2465724668,
+   "variant": "armour-ossuary"
+  },
+  {
+   "file": "run-herald-relic-goldenSprout.json",
+   "classId": "herald",
+   "seed": 825193133,
+   "variant": "relic-goldenSprout"
+  },
+  {
+   "file": "run-herald-hands-empty.json",
+   "classId": "herald",
+   "seed": 3479628894,
+   "variant": "hands-empty"
+  },
+  {
+   "file": "run-herald-hands-last.json",
+   "classId": "herald",
+   "seed": 1839097359,
+   "variant": "hands-last"
+  }
+ ],
+ "refused": [
+  {
+   "classId": "reaver",
+   "seed": 198565824,
+   "variant": "refused-kit-undiscovered",
+   "options": {
+    "startingKitId": "reaverGreatsword"
+   },
+   "error": "starting kit 'reaverGreatsword' is not discovered"
+  },
+  {
+   "classId": "reaver",
+   "seed": 2853001585,
+   "variant": "refused-relic-foreign",
+   "options": {
+    "startingRelicId": "starstoneShard"
+   },
+   "error": "starting relic 'starstoneShard' is unavailable to class 'reaver'"
+  },
+  {
+   "classId": "starseer",
+   "seed": 198565824,
+   "variant": "refused-kit-undiscovered",
+   "options": {
+    "startingKitId": "starseerStarstone"
+   },
+   "error": "starting kit 'starseerStarstone' is not discovered"
+  },
+  {
+   "classId": "starseer",
+   "seed": 2853001585,
+   "variant": "refused-relic-foreign",
+   "options": {
+    "startingRelicId": "forsakenMedallion"
+   },
+   "error": "starting relic 'forsakenMedallion' is unavailable to class 'starseer'"
+  },
+  {
+   "classId": "rogue",
+   "seed": 198565824,
+   "variant": "refused-kit-undiscovered",
+   "options": {
+    "startingKitId": "rogueBow"
+   },
+   "error": "starting kit 'rogueBow' is not discovered"
+  },
+  {
+   "classId": "rogue",
+   "seed": 2853001585,
+   "variant": "refused-relic-foreign",
+   "options": {
+    "startingRelicId": "forsakenMedallion"
+   },
+   "error": "starting relic 'forsakenMedallion' is unavailable to class 'rogue'"
+  },
+  {
+   "classId": "herald",
+   "seed": 198565824,
+   "variant": "refused-kit-undiscovered",
+   "options": {
+    "startingKitId": "heraldEmberlight"
+   },
+   "error": "starting kit 'heraldEmberlight' is not discovered"
+  },
+  {
+   "classId": "herald",
+   "seed": 2853001585,
+   "variant": "refused-relic-foreign",
+   "options": {
+    "startingRelicId": "forsakenMedallion"
+   },
+   "error": "starting relic 'forsakenMedallion' is unavailable to class 'herald'"
+  }
+ ]
+}
