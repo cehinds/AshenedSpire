@@ -26,6 +26,7 @@
         "ClassDrafts": "classDrafts",
         "CombatWin": "combatWin",
         "ConsolationCinders": "consolationCinders",
+        "Current": "current",
         "DefaultBase": "defaultBase",
         "DefaultGrowth": "defaultGrowth",
         "DraftSize": "draftSize",

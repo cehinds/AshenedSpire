@@ -130,5 +130,16 @@
  "EnemyInstancePrefix": "e",
  "PhaseSetup": "setup",
  "TokenRepeatSeparator": ".",
- "IntentLabelPrefix": "combat.intent."
+ "IntentLabelPrefix": "combat.intent.",
+ "UpgradeCostKind": "upgradeCost",
+ "SmithingStoneResource": "smithingStone",
+ "EquipmentPoiseKind": "equipmentPoise",
+ "RelicPassiveKind": "relicPassive",
+ "RequirementKind": "requirement",
+ "CardEffectKind": "cardEffect",
+ "CardCostKind": "cardCost",
+ "GroupAttribute": "attribute",
+ "GroupRole": "role",
+ "GroupPart": "part",
+ "GroupName": "name"
 }

@@ -1,0 +1,125 @@
+{
+  "comment": "Run-loop rules (stream E, us-8.1; the C# port of the shipped main.js controller between fights: enterNode, startFight, combatMods, onCombatEnd routing, the reward door, showRest with engine/locations.js, advanceAct, legacy dungeons and finishRun, over model/gracerefill.js, levelup.js, smithing.js, itemUpgrades.js, cardExtraction.js, legacyDungeon.js and unlocks.js). The ids, texts, defaults and bounds the shipped controller kept as constants live here as data. Changing a value changes the run loop; the run-loop parity oracle pins the shipped values.",
+  "map": {
+    "recentEncounters": 2,
+    "treasureTitle": "TREASURE"
+  },
+  "customMods": {
+    "deadlyEnemies": {
+      "status": "strength",
+      "stacks": 1
+    },
+    "glassCannon": {
+      "status": "glassCannon",
+      "stacks": 1
+    },
+    "endlessStatus": "strength"
+  },
+  "locations": {
+    "family": "location",
+    "shrine": "shrine",
+    "camp": "camp",
+    "restManaTag": "restMana",
+    "restManaTagByMode": {
+      "flat": "restManaFlat",
+      "floorOrFull": "restManaFloor",
+      "full": "restManaFull"
+    },
+    "serviceTags": {
+      "smith": "smith",
+      "levelUp": "levelUp",
+      "flasks": "restFlasks"
+    },
+    "smithNodeKind": "shrine"
+  },
+  "runContext": {
+    "queueGuard": 1000
+  },
+  "rewards": {
+    "kindOrder": [
+      "cinders",
+      "smithingStone",
+      "classDraft",
+      "skillDraft",
+      "card",
+      "flask",
+      "armament",
+      "relic"
+    ],
+    "cardInstancePrefix": "r",
+    "cardInstanceSeparator": "_",
+    "storageSlots": 8,
+    "receiptLimit": 64
+  },
+  "profile": {
+    "schemaVersion": 2,
+    "historyLimit": 20
+  },
+  "smithing": {
+    "schemaVersion": 3,
+    "certainChance": 100,
+    "serviceIds": [
+      "upgrade",
+      "extract",
+      "install"
+    ],
+    "inertServices": {
+      "offeredAt": {
+        "shrine": {
+          "chance": 100,
+          "services": [
+            "upgrade"
+          ]
+        }
+      },
+      "extract": {
+        "cost": 0
+      },
+      "install": {
+        "cost": 0
+      }
+    },
+    "requirementLabel": "{0} requirement",
+    "valueLabels": {
+      "equipmentPoise": "Poise threshold",
+      "poiseThresholdAdd": "Poise threshold bonus",
+      "otherPassive": "Power cost reduction"
+    }
+  },
+  "mounts": {
+    "receiptSchemaVersion": 1
+  },
+  "dungeons": {
+    "version": 1,
+    "rooms": {
+      "shrine": "rest",
+      "cache": "treasure",
+      "fight": "combat",
+      "boss": "combat"
+    },
+    "hostileKinds": [
+      "encounter",
+      "fight",
+      "boss"
+    ],
+    "fightKinds": [
+      "fight",
+      "boss"
+    ],
+    "shrineKind": "shrine",
+    "cacheKind": "cache",
+    "cacheCinders": 20,
+    "fleeRoll": {
+      "min": 1,
+      "max": 100
+    },
+    "texts": {
+      "fight": "Steel answers. Prepare yourself.",
+      "flee": "",
+      "cache": " You recover {0} cinders.",
+      "escape": "Escape roll {0} / {1}. {2}",
+      "escaped": "You slip back along the road. The encounter remains.",
+      "caught": "Your route closes. You must fight."
+    }
+  }
+}
