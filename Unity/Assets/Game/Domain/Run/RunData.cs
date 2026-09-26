@@ -35,6 +35,8 @@ namespace Ashen.Domain.Run
             ContentVersion = contentVersion;
             HandRules = handRules ?? throw new ArgumentNullException(nameof(handRules));
             Engine = engine ?? throw new ArgumentNullException(nameof(engine));
+            // The fight's mid-combat equipment intents and createCombat's profile fallback restamp through this data.
+            combat.EquipmentPort = new CombatEquipment(this);
         }
 
         public CombatData Combat { get; }

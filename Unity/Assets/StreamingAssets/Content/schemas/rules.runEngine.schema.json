@@ -20,11 +20,17 @@
             "type": "string"
           }
         },
+        "currentRulesetSince": {
+          "type": "integer"
+        },
         "defaultFields": {
           "type": "array",
           "items": {
             "type": "string"
           }
+        },
+        "legacySnapshotVersion": {
+          "type": "integer"
         },
         "overrideFields": {
           "type": "array",
@@ -37,6 +43,29 @@
           "items": {
             "type": "string"
           }
+        },
+        "persistedStats": {
+          "type": "object",
+          "properties": {
+            "drawPerTurn": {
+              "type": "string"
+            },
+            "energyMax": {
+              "type": "string"
+            },
+            "maxMana": {
+              "type": "string"
+            },
+            "maxStamina": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "drawPerTurn",
+            "energyMax",
+            "maxMana",
+            "maxStamina"
+          ]
         },
         "requiredRuleFields": {
           "type": "array",
@@ -91,6 +120,12 @@
         "snapshotVersion": {
           "type": "integer"
         },
+        "snapshotVersions": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
         "statIds": {
           "type": "array",
           "items": {
@@ -109,9 +144,12 @@
       "required": [
         "baseFields",
         "classFields",
+        "currentRulesetSince",
         "defaultFields",
+        "legacySnapshotVersion",
         "overrideFields",
         "perLevelFields",
+        "persistedStats",
         "requiredRuleFields",
         "rootFields",
         "rounding",
@@ -119,7 +157,83 @@
         "ruleFields",
         "rulesetVersions",
         "snapshotVersion",
+        "snapshotVersions",
         "statIds"
+      ]
+    },
+    "handRuleSettings": {
+      "type": "object",
+      "properties": {
+        "attributeChoiceFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "choices": {
+          "type": "object",
+          "properties": {
+            "drawMode": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "overflow": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "drawMode",
+            "overflow"
+          ]
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "numberMaximum": {
+          "type": "integer"
+        },
+        "numberMinimum": {
+          "type": "integer"
+        },
+        "numberMinimums": {
+          "type": "object",
+          "properties": {
+            "capacity.base": {
+              "type": "integer"
+            },
+            "capacity.maximum": {
+              "type": "integer"
+            },
+            "capacity.minimum": {
+              "type": "integer"
+            },
+            "pointsPerCard": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "capacity.base",
+            "capacity.maximum",
+            "capacity.minimum",
+            "pointsPerCard"
+          ]
+        }
+      },
+      "required": [
+        "attributeChoiceFields",
+        "choices",
+        "groups",
+        "numberMaximum",
+        "numberMinimum",
+        "numberMinimums"
       ]
     },
     "loadout": {
@@ -216,6 +330,15 @@
             "type": "string"
           }
         },
+        "storageSlotsDefault": {
+          "type": "integer"
+        },
+        "swapCostBases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "twoHandedHands": {
           "type": "integer"
         }
@@ -237,6 +360,8 @@
         "profilePatchFields",
         "profileSnapshotVersion",
         "roles",
+        "storageSlotsDefault",
+        "swapCostBases",
         "twoHandedHands"
       ]
     },
@@ -532,6 +657,7 @@
   "required": [
     "comment",
     "derived",
+    "handRuleSettings",
     "loadout",
     "mounts",
     "ratings",

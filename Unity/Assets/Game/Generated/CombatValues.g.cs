@@ -29,8 +29,10 @@ namespace Ashen.Generated
         public const string CauseEffect = "effect";
         public const string ClassKind = "class";
         public const string ClassSkillPrefix = "class";
+        public const string CommandChangeEquipment = "changeEquipment";
         public const string CommandEndTurn = "endTurn";
         public const string CommandPlayCard = "playCard";
+        public const string CommandSwapArmament = "swapArmament";
         public const string CommandUseFlask = "useFlask";
         public const string Configured = "configured";
         public const string CostFieldSuffix = "Cost";

@@ -2,6 +2,67 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-5.11: deferred rule paths closed — mid-fight equipment, unrated Poise, run-creation options, the load door's derived stats (feature/combat-complete/us-5.11, 2026-09-26)
+
+**Landed**
+- **Mid-fight equipment (D-160x, D-161x).** Shipped `doSwapArmament` and `doChangeEquipment` are ported in the shipped order: guards, price and currency, the mutation, the property remount, the pool moves, the charge, the granted-card reconcile, four pile restamps, the Poise and ratings refresh, the events, and `swapEndsTurn`.
+  - New intents: `CombatCommand.SwapArmament(slotId, setIndex)` and `ChangeEquipment(slotId, setIndex, pieceId)`. The wire form adds `slotId`, `setIndex` and `pieceId`.
+  - The loadout.js model they need is `Run.Armoury` (canSwap, swapCostFor, canEquip, gripRefusal, cycleSet, openedSets, equipPiece, the storage transition, ownership, fitsSlot, the change payload), `Run.CombatEquipment`, `StartingDeck.StampPile` and `StartingDeck.ReconcileGrantedCardsInCombat`.
+  - Combat reaches the model through `Combat.IEquipmentPort`, which `RunData` attaches to its `CombatData`. Combat data built alone refuses the intents by name.
+  - Legality and prices: `CombatLegality.CanSwap`, `CombatLegality.CanChangeEquipment` (and `Check`), `CombatPreview.SwapPrice` and `CombatPreview.ChangePrice` (the shipped `swapCostFor` receipt). There are 13 new `combat.refusal.*` strings.
+- **Application (data only).** `CombatViewState.Armoury` holds the hand slots, each set (item, active flag, price, cost, refusal, command), the carried pieces, the cost kind and the allowance left. `CombatViewModel.EquipmentChanges(c, slotId, setIndex)` lists the re-arm options. `CombatSession` runs the new commands through its legality gate unchanged. Presentation is untouched.
+- **Unrated Poise (D-163x).** `Combat.Equipment.PoiseThreshold` ports `playerPoiseThresholdReceipt` with combat ratings off. The data is in `rules/combatEngine.json#playerPoise`. createCombat, snapshot restore and both intents stamp it.
+- **createCombat fallbacks (D-164x).** A missing profile snapshot is created through the port. A missing or null swap-cost rule resolves to the configured default (`Equipment.ResolveSwapCostRule`).
+- **Run creation (D-165x).** Newly supported:
+  - custom allocations (`CreationStats.NormalizeRunAttributes`, with the retired-id migration);
+  - `derivedStatOptions` layers;
+  - being born under a saved derived-stat snapshot;
+  - hand-rule Settings (`RunCombat.ResolveHandRules`, with `rules/runEngine.json#handRuleSettings`).
+- **Load door (D-166x).** `RunState.RestoreDerivedStats` ports initializeRunDerivedStats' restore and migration branches: current-snapshot validation, the v4 pool-bonus inference, deficit capture, the v3 max-HP adjustment and re-derivation under an older ruleset. `DerivedStats.RestoreSnapshot` ports restoreDerivedStatRuleSnapshot.
+- **Keys (D-167x).** Shared names were moved to the earlier fragment. `combat-keys.mjs` now also reads event names from `Domain/Run`.
+- **Decisions.** D-041 and D-043 now list what is closed. D-063 and D-064 note that the swap is ported.
+
+**Oracles**
+- `Tools/oracle-combat.mjs` gained 48 swap combats (`swap-*.json`) and five registry overlays (`registries-<variant>.json`), and `registries.json` now carries the run tables.
+  - Counts: 1,124 steps, 49 swaps, 141 changes and 14,182 recorded options (7,985 refused, 11,250 priced).
+  - Configurations: shipped, ratings off, swaps end the turn, changes locked, equipment off, and the allowance content edit.
+  - The 60 existing combat files are byte-identical. Added about 11 MB.
+- `Tools/oracle-run.mjs` gained 91 creation runs, 69 refusals and 74 load-door cases (`restore-*.json`; 36 are refused, 2 are the shipped `tests/fixtures/run-save-*.json`). The 76 existing run files are byte-identical. Added about 8 MB.
+- **Coverage** (`--coverage` on both oracles). Every newly ported shipped function executed:
+  - combat.js `doSwapArmament`, `doChangeEquipment`;
+  - loadout.js `canSwap`, `swapCostFor`, `canEquip`, `gripRefusal`, `cycleSet`, `openedSets`, `ownership`, `equipPiece`, `equipTransitionPlan`, `applyEquipTransition`, `reconcileGrantedCardsInCombat`, `loadoutSignature`, `equipmentChangedPayload`, `createEquipmentProfileRuleSnapshot`;
+  - statProjection.js `playerPoiseThresholdReceipt`;
+  - attributes.js `normalizeRunAttributes`, `migrateRetiredAttributeNames`, `grantedAttributePoints`;
+  - derivedStats.js `restoreDerivedStatRuleSnapshot`;
+  - handRules.js `resolveHandRules`;
+  - state.js `initializeRunDerivedStats`.
+
+**Tests**
+- New `CombatParityTests` cases:
+  - `SwapReplayMatchesTheShippedEngine`: projection and previews every step; events and the equipment projection on each equipment step; every recorded option (legality, the exact shipped message from a restored clone, the price); the final state.
+  - `SwapCreateCombatMatchesTheShippedStart`.
+  - `SwapSnapshotRoundTripsAndResumesIdentically`: includes a wire-form round trip.
+  - `ArmouryViewAndSessionAgreeWithTheShippedOptions`: the view model and `CombatSession`.
+  - `TheSwapLogsCoverEveryDoor`.
+- New `RunParityTests` cases:
+  - `LoadDoorMatchesTheShippedRestore` and `TheLoadDoorOracleCoversEveryShape`;
+  - the hand-rule settings on args and starts;
+  - `DeferredCreationPathsThrowByName`, which now checks only Custom Climb.
+- `ContentRunDataTests` passes the recorded settings. `FirstFightUiTests` formats refusals with four arguments.
+- dotnet: 2,802 of 2,802 passed in about 6 m 15 s (2,101 before this story).
+- Mutation check: twelve mutations, each caught, and each file restored byte for byte (sha256 checked).
+  - Combat side, of the 144 swap tests: energy charge +1 (62 failed); category price ignored (12); displaced piece not stored (40); granted-card reconcile skipped (58); the unrated Poise attribute term dropped (24); the profile-snapshot fallback altered (6); the swap-rule fallback nulled (6).
+  - Run side, of the 655 run tests: retired-id migration skipped (16); run-modifier layers dropped (28); the hand-rule clamp removed (8); the inferred pool bonus +1 (10); the snapshot envelope check removed (4). `codegen --check`, `check-content`, `transform-content --check` and `check-docs` are green.
+
+**Not verified**
+- Unity EditMode and PlayMode (not run).
+- The grip refusal's sentence: no shipped armament is two-handed, so `gripRefusal` runs but never refuses.
+- The phase and no-loadout refusals: no recorded option reaches them.
+- The rest of shipped `loadRun` beyond the derived-stat door is not wired (D-166x).
+
+**Next**
+- Bind `CombatViewState.Armoury` in the W-07 Armaments popover (D-010).
+- Wire the Application load door.
 ## us-8.11: domain unification — one smith port, one item resolver (feature/domain-unify/us-8.11, 2026-09-26)
 
 **Landed**

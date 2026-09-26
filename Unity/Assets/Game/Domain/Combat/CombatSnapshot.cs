@@ -79,7 +79,9 @@ namespace Ashen.Domain.Combat
             Properties.SyncRelics(c);
             Properties.SyncClass(c);
             if (c.RatingsRules != null) Ratings.Refresh(c);
-            else if (c.Player != null && c.Loadout != null) throw new NotSupportedException(M.UnratedPoiseDeferred);
+            else if (c.Player != null && c.Loadout != null)
+                CombatStart.StampPoiseMax(data, c.Player, Equipment.PoiseThreshold(data, c.Loadout, c.Player[K.RelicIds] ?? new JArray(), c.Player.Str(K.ClassId),
+                    c.ItemUpgradeLevels, c.Attributes, c.DerivedStatRuleSnapshot));
             return c;
         }
 
