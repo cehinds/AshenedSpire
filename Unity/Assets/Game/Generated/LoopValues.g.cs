@@ -9,7 +9,6 @@ namespace Ashen.Generated
         public const string ArmamentDiscovery = "armamentDiscovery";
         public const string ArmamentKind = "armament";
         public const string Arrived = "arrived";
-        public const string AuthoredMount = "authored";
         public const string BeatBoss = "beatBoss";
         public const string BigBosses = "bigBosses";
         public const string BossWithGroup = "bossWithGroup";
@@ -18,18 +17,12 @@ namespace Ashen.Generated
         public const string ClassSwapped = "classSwapped";
         public const string CollectAuto = "auto";
         public const string CombatAction = "combat";
-        public const string CostChange = "cost";
-        public const string CostOpFormat = "cost:{0}";
         public const string CustomProgression = "custom";
         public const string DeadlyEnemies = "deadlyEnemies";
         public const string DialogueAction = "dialogue";
         public const string DungeonOutcome = "dungeon";
         public const string EdgeRefusal = "edge";
-        public const string EffectChange = "effect";
-        public const string EmptyMount = "empty";
         public const string ExtractService = "extract";
-        public const string ExtractedPrefix = "extracted";
-        public const string FallbackMount = "fallback";
         public const string FightChoice = "fight";
         public const string FightOutcome = "fight";
         public const string FlaskAction = "flask";
@@ -37,8 +30,6 @@ namespace Ashen.Generated
         public const string FleeChoice = "flee";
         public const string GlassCannon = "glassCannon";
         public const string InstallService = "install";
-        public const string InstalledMount = "installed";
-        public const string LabelSpace = " ";
         public const string LeaveChoice = "leave";
         public const string LessHealing = "lessHealing";
         public const string LevelAction = "level";
@@ -47,12 +38,9 @@ namespace Ashen.Generated
         public const string NoneRefusal = "none";
         public const string NormalProgression = "normal";
         public const string OfferRefusal = "offer";
-        public const string OpenMount = "open";
         public const string ReachAct = "reachAct";
         public const string RefusedOutcome = "refused";
         public const string RelicRefusal = "relic";
-        public const string RequirementChange = "requirement";
-        public const string RequirementTagFormat = "requirement:{0}";
         public const string RestAction = "rest";
         public const string RestOutcome = "rest";
         public const string Rested = "rested";
@@ -63,7 +51,6 @@ namespace Ashen.Generated
         public const string Skipped = "skipped";
         public const string SlotsBlocked = "slots";
         public const string SmithAction = "smith";
-        public const string SmithPreviewPrefix = "smith-preview";
         public const string StandardDeck = "standard";
         public const string StonesRefusal = "stones";
         public const string StorageBlocked = "storage";

@@ -6,8 +6,6 @@
   "GroupOwner": "owner",
   "GroupRelic": "relic",
   "GroupIndex": "index",
-  "GroupId": "id",
-  "GroupClassId": "classId",
   "Zero": "0",
   "One": "1",
   "CacheKeySeparator": "|",
