@@ -1,51 +1,59 @@
 {
-  "classes": {
-    "herald": {
-      "armourIds": [
-        "default",
-        "ossuary"
-      ],
-      "equipSlotIds": [],
-      "handIds": [
-        "boneSceptre",
-        "emberlightSceptre"
-      ],
-      "relicIds": [
-        "goldFigurine",
-        "goldenSprout"
-      ]
+  "spritePreviewSide": "right",
+  "visibleModeIds": [
+    "lean"
+  ],
+  "layout": {
+    "classPreviewPercent": 30,
+    "classChoiceView": "list",
+    "equipmentChoiceView": "grid",
+    "equipmentAutoAdvance": false
+  },
+  "equipmentSections": [
+    {
+      "id": "armour",
+      "label": "STARTING ARMOUR",
+      "kind": "armour"
     },
+    {
+      "id": "rightHand",
+      "label": "MAIN HAND",
+      "kind": "hand",
+      "slot": "rightHand"
+    },
+    {
+      "id": "leftHand",
+      "label": "OFF HAND",
+      "kind": "hand",
+      "slot": "leftHand"
+    },
+    {
+      "id": "equipSlot",
+      "label": "EQUIP SLOT",
+      "kind": "slot",
+      "slot": "talisman"
+    },
+    {
+      "id": "relic",
+      "label": "RELIC",
+      "kind": "relic"
+    }
+  ],
+  "classes": {
     "reaver": {
       "armourIds": [
         "default",
         "vigil"
       ],
-      "equipSlotIds": [],
       "handIds": [
         "straightSword",
         "roundShield",
         "greatsword",
         "buckler"
       ],
+      "equipSlotIds": [],
       "relicIds": [
         "forsakenMedallion",
-        "goldenSprout"
-      ]
-    },
-    "rogue": {
-      "armourIds": [
-        "default",
-        "nightveil"
-      ],
-      "equipSlotIds": [],
-      "handIds": [
-        "dagger",
-        "buckler",
-        "shortbow",
-        "parryDagger"
-      ],
-      "relicIds": [
-        "cutpursesCoin",
         "goldenSprout"
       ]
     },
@@ -54,101 +62,93 @@
         "default",
         "eclipse"
       ],
-      "equipSlotIds": [],
       "handIds": [
         "ashStaff",
         "starstoneStaff"
       ],
+      "equipSlotIds": [],
       "relicIds": [
         "starstoneShard",
         "goldenSprout"
       ]
+    },
+    "rogue": {
+      "armourIds": [
+        "default",
+        "nightveil"
+      ],
+      "handIds": [
+        "dagger",
+        "buckler",
+        "shortbow",
+        "parryDagger"
+      ],
+      "equipSlotIds": [],
+      "relicIds": [
+        "cutpursesCoin",
+        "goldenSprout"
+      ]
+    },
+    "herald": {
+      "armourIds": [
+        "default",
+        "ossuary"
+      ],
+      "handIds": [
+        "boneSceptre",
+        "emberlightSceptre"
+      ],
+      "equipSlotIds": [],
+      "relicIds": [
+        "goldFigurine",
+        "goldenSprout"
+      ]
     }
   },
-  "equipmentSections": [
-    {
-      "id": "armour",
-      "kind": "armour",
-      "label": "STARTING ARMOUR"
-    },
-    {
-      "id": "rightHand",
-      "kind": "hand",
-      "label": "MAIN HAND",
-      "slot": "rightHand"
-    },
-    {
-      "id": "leftHand",
-      "kind": "hand",
-      "label": "OFF HAND",
-      "slot": "leftHand"
-    },
-    {
-      "id": "equipSlot",
-      "kind": "slot",
-      "label": "EQUIP SLOT",
-      "slot": "talisman"
-    },
-    {
-      "id": "relic",
-      "kind": "relic",
-      "label": "RELIC"
-    }
-  ],
   "keepsakes": [
     {
-      "desc": "Walk alone. The climb is enough.",
-      "effects": [],
-      "icon": "🕳",
       "id": "none",
-      "name": "Nothing"
+      "name": "Nothing",
+      "icon": "🕳",
+      "desc": "Walk alone. The climb is enough.",
+      "effects": []
     },
     {
+      "id": "oldCinder",
+      "name": "Old Cinder",
+      "icon": "🪙",
       "desc": "Begin the climb with 50 cinders.",
       "effects": [
         {
-          "amount": 50,
-          "op": "addCinders"
+          "op": "addCinders",
+          "amount": 50
         }
-      ],
-      "icon": "🪙",
-      "id": "oldCinder",
-      "name": "Old Cinder"
+      ]
     },
     {
+      "id": "travelersFlask",
+      "name": "Traveler's Flask",
+      "icon": "🧪",
       "desc": "Begin with one additional Crimson charge.",
       "effects": [
         {
-          "amount": 1,
+          "op": "addFlaskCapacity",
           "kind": "hp",
-          "op": "addFlaskCapacity"
+          "amount": 1
         }
-      ],
-      "icon": "🧪",
-      "id": "travelersFlask",
-      "name": "Traveler's Flask"
+      ]
     },
     {
+      "id": "whetstoneMemory",
+      "name": "Whetstone Memory",
+      "icon": "🪨",
       "desc": "Begin with one armament already Smithed, improving all of its sourced basic cards.",
       "effects": [
         {
-          "card": "strike",
-          "op": "upgradeCard"
+          "op": "upgradeCard",
+          "card": "strike"
         }
-      ],
-      "icon": "🪨",
-      "id": "whetstoneMemory",
-      "name": "Whetstone Memory"
+      ]
     }
-  ],
-  "layout": {
-    "classChoiceView": "list",
-    "classPreviewPercent": 30,
-    "equipmentAutoAdvance": false,
-    "equipmentChoiceView": "grid"
-  },
-  "spritePreviewSide": "right",
-  "visibleModeIds": [
-    "lean"
   ]
 }

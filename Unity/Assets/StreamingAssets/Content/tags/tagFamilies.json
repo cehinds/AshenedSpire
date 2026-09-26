@@ -1,121 +1,121 @@
 {
-  "armament": {
-    "blurb": "Weapons, shields and staves.",
-    "family": "armament",
-    "label": "Armament",
-    "scopeField": "",
-    "source": "equipment.armaments"
-  },
-  "armour": {
-    "blurb": "Armour sets. Ids repeat per class, so classId is part of the key.",
-    "family": "armour",
-    "label": "Armour",
-    "scopeField": "classId",
-    "source": "equipment.armour"
-  },
-  "basicCardProfile": {
-    "blurb": "Equipment-bound core card profiles.",
-    "family": "basicCardProfile",
-    "label": "Card profile",
-    "scopeField": "",
-    "source": "equipment.basicCardProfiles"
-  },
   "card": {
-    "blurb": "Every playable card.",
     "family": "card",
-    "label": "Card",
+    "source": "cards",
     "scopeField": "",
-    "source": "cards"
+    "label": "Card",
+    "blurb": "Every playable card."
   },
   "class": {
-    "blurb": "A class's identity in card terms — what it leans toward.",
     "family": "class",
+    "source": "classes",
+    "scopeField": "",
     "label": "Class",
-    "scopeField": "",
-    "source": "classes"
-  },
-  "effect": {
-    "blurb": "Damage effects carry card tags; a hit inherits the card's identity.",
-    "family": "effect",
-    "label": "Effect",
-    "scopeField": "",
-    "source": ""
-  },
-  "encounter": {
-    "blurb": "Authored fights.",
-    "family": "encounter",
-    "label": "Encounter",
-    "scopeField": "",
-    "source": "encounters"
-  },
-  "enemy": {
-    "blurb": "Creature identity; gates proc resistance at runtime.",
-    "family": "enemy",
-    "label": "Enemy",
-    "scopeField": "",
-    "source": "enemies"
-  },
-  "event": {
-    "blurb": "Unknown-node encounters.",
-    "family": "event",
-    "label": "Event",
-    "scopeField": "",
-    "source": "events"
-  },
-  "flask": {
-    "blurb": "Consumables, refilled at Grace.",
-    "family": "flask",
-    "label": "Flask",
-    "scopeField": "",
-    "source": "flasks"
-  },
-  "grant": {
-    "blurb": "Where a starting card comes from. No collection: like `effect`, this family exists only to declare a vocabulary — the order bound cards are dealt in.",
-    "family": "grant",
-    "label": "Grant",
-    "scopeField": "",
-    "source": ""
-  },
-  "keepsake": {
-    "blurb": "The boon you start the run holding.",
-    "family": "keepsake",
-    "label": "Keepsake",
-    "scopeField": "",
-    "source": "characterCreation.keepsakes"
-  },
-  "location": {
-    "blurb": "Where a run stops: a classic node type (shrine), the Unknown node's camp, an atlas rest service's type (inn, chapel) or one atlas node by id. No collection — the ids are the map's, checked by model/locations.js. Mounted from arrival to departure (engine/locations.js).",
-    "family": "location",
-    "label": "Location",
-    "scopeField": "",
-    "source": ""
+    "blurb": "A class's identity in card terms — what it leans toward."
   },
   "relic": {
-    "blurb": "Permanent run pickups.",
     "family": "relic",
-    "label": "Relic",
+    "source": "relics",
     "scopeField": "",
-    "source": "relics"
+    "label": "Relic",
+    "blurb": "Permanent run pickups."
+  },
+  "flask": {
+    "family": "flask",
+    "source": "flasks",
+    "scopeField": "",
+    "label": "Flask",
+    "blurb": "Consumables, refilled at Grace."
+  },
+  "keepsake": {
+    "family": "keepsake",
+    "source": "characterCreation.keepsakes",
+    "scopeField": "",
+    "label": "Keepsake",
+    "blurb": "The boon you start the run holding."
+  },
+  "event": {
+    "family": "event",
+    "source": "events",
+    "scopeField": "",
+    "label": "Event",
+    "blurb": "Unknown-node encounters."
+  },
+  "encounter": {
+    "family": "encounter",
+    "source": "encounters",
+    "scopeField": "",
+    "label": "Encounter",
+    "blurb": "Authored fights."
+  },
+  "enemy": {
+    "family": "enemy",
+    "source": "enemies",
+    "scopeField": "",
+    "label": "Enemy",
+    "blurb": "Creature identity; gates proc resistance at runtime."
+  },
+  "armament": {
+    "family": "armament",
+    "source": "equipment.armaments",
+    "scopeField": "",
+    "label": "Armament",
+    "blurb": "Weapons, shields and staves."
+  },
+  "armour": {
+    "family": "armour",
+    "source": "equipment.armour",
+    "scopeField": "classId",
+    "label": "Armour",
+    "blurb": "Armour sets. Ids repeat per class, so classId is part of the key."
+  },
+  "basicCardProfile": {
+    "family": "basicCardProfile",
+    "source": "equipment.basicCardProfiles",
+    "scopeField": "",
+    "label": "Card profile",
+    "blurb": "Equipment-bound core card profiles."
   },
   "slot": {
-    "blurb": "What you can wear, and when you may swap.",
     "family": "slot",
-    "label": "Slot",
+    "source": "equipment.slots",
     "scopeField": "",
-    "source": "equipment.slots"
+    "label": "Slot",
+    "blurb": "What you can wear, and when you may swap."
   },
   "startingKit": {
-    "blurb": "A class's listed opening loadout.",
     "family": "startingKit",
-    "label": "Starting kit",
+    "source": "equipment.startingKits",
     "scopeField": "",
-    "source": "equipment.startingKits"
+    "label": "Starting kit",
+    "blurb": "A class's listed opening loadout."
   },
   "unlock": {
-    "blurb": "What a run can earn.",
     "family": "unlock",
-    "label": "Unlock",
+    "source": "unlocks",
     "scopeField": "",
-    "source": "unlocks"
+    "label": "Unlock",
+    "blurb": "What a run can earn."
+  },
+  "effect": {
+    "family": "effect",
+    "source": "",
+    "scopeField": "",
+    "label": "Effect",
+    "blurb": "Damage effects carry card tags; a hit inherits the card's identity."
+  },
+  "grant": {
+    "family": "grant",
+    "source": "",
+    "scopeField": "",
+    "label": "Grant",
+    "blurb": "Where a starting card comes from. No collection: like `effect`, this family exists only to declare a vocabulary — the order bound cards are dealt in."
+  },
+  "location": {
+    "family": "location",
+    "source": "",
+    "scopeField": "",
+    "label": "Location",
+    "blurb": "Where a run stops: a classic node type (shrine), the Unknown node's camp, an atlas rest service's type (inn, chapel) or one atlas node by id. No collection — the ids are the map's, checked by model/locations.js. Mounted from arrival to departure (engine/locations.js)."
   }
 }

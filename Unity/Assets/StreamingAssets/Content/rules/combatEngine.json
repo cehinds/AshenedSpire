@@ -1,0 +1,76 @@
+{
+  "comment": "Combat engine rules (stream B, us-5.1; the C# port of the shipped engine/combat.js). Limits, defaults and the vocabulary maps the shipped engine kept as code constants live here as data. Changing a limit or default changes the engine; the parity oracle pins the shipped values.",
+  "snapshotVersion": 1,
+  "limits": {
+    "queueGuard": 10000,
+    "maxEmitDepth": 64,
+    "fillLoopGuard": 100
+  },
+  "defaults": {
+    "poiseGrowthMult": 1.25,
+    "maxHits": 99,
+    "dexterity": 10,
+    "weightAttribute": 10
+  },
+  "dodge": {
+    "attributeBaseline": 10,
+    "attributeDivisor": 2
+  },
+  "magicalTags": ["magic", "magical", "arcane", "holy", "fire", "spell"],
+  "cardProperties": {
+    "kind": {
+      "classification.attack": "attack",
+      "classification.skill": "skill",
+      "classification.power": "power",
+      "classification.curse": "curse",
+      "classification.statusCard": "status"
+    },
+    "keyword": {
+      "exhaust": "lifecycle.exhaust",
+      "ethereal": "lifecycle.ethereal",
+      "innate": "lifecycle.innate",
+      "retain": "lifecycle.retain",
+      "unplayable": "internal.unplayable"
+    },
+    "damageSchool": {
+      "physical": "damage.physical",
+      "magic": "damage.magic",
+      "arcane": "damage.arcane"
+    },
+    "target": {
+      "self": "targeting.self",
+      "enemy": "targeting.enemy",
+      "allEnemies": "targeting.allEnemies",
+      "randomEnemy": "targeting.randomEnemy",
+      "ally": "targeting.ally"
+    },
+    "costResource": {
+      "cost.action": "action",
+      "cost.stamina": "stamina",
+      "cost.mana": "mana"
+    }
+  },
+  "grip": {
+    "one": [],
+    "two": ["equipment.twoHanded"],
+    "dual": ["equipment.dualWield"]
+  },
+  "ratings": {
+    "ids": ["ar", "dr", "pr", "poise", "ward"],
+    "attributes": ["strength", "dexterity", "constitution", "wisdom", "intelligence"]
+  },
+  "itemUpgrades": {
+    "equipmentPoiseTag": "equipment:poise-threshold",
+    "relicPassiveTags": {
+      "relic:passive:poise-threshold-add": "poiseThresholdAdd",
+      "relic:passive:power-cost-reduction": "powerCostReduction"
+    }
+  },
+  "flasks": {
+    "chargeKinds": ["hp", "mana"],
+    "kindByOp": [
+      { "op": "restoreMana", "kind": "mana" },
+      { "op": "heal", "kind": "hp" }
+    ]
+  }
+}

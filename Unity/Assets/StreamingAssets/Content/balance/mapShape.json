@@ -5,13 +5,28 @@
     "3": "a3_bossRotValkyrie"
   },
   "MAP_SHAPE_LIMITS": {
-    "maxWeight": 100,
-    "minColumns": 2
+    "minColumns": 2,
+    "maxWeight": 100
   },
   "mapConfigs": {
     "1": {
+      "floors": 12,
       "columns": 7,
+      "pathCount": 6,
       "entries": 1,
+      "typeWeights": {
+        "monster": 45,
+        "event": 22,
+        "shrine": 12,
+        "elite": 8,
+        "merchant": 5
+      },
+      "unknownWeights": {
+        "event": 55,
+        "fight": 25,
+        "shrine": 12,
+        "treasure": 8
+      },
       "floorRules": {
         "fixed": [
           {
@@ -24,40 +39,40 @@
             "type": "treasure"
           }
         ],
-        "minElites": 2,
-        "minMerchants": 1,
-        "noEliteBefore": {
-          "at": "fraction",
-          "of": 0.43
-        },
         "noShrineBefore": {
           "at": "fraction",
           "of": 0.27
         },
+        "noEliteBefore": {
+          "at": "fraction",
+          "of": 0.43
+        },
         "noShrineOn": {
           "at": "last"
         },
-        "restBeforeElite": true
-      },
-      "floors": 12,
-      "pathCount": 6,
-      "typeWeights": {
-        "elite": 8,
-        "event": 22,
-        "merchant": 5,
-        "monster": 45,
-        "shrine": 12
-      },
-      "unknownWeights": {
-        "event": 55,
-        "fight": 25,
-        "shrine": 12,
-        "treasure": 8
+        "restBeforeElite": true,
+        "minElites": 2,
+        "minMerchants": 1
       }
     },
     "2": {
+      "floors": 12,
       "columns": 7,
+      "pathCount": 6,
       "entries": 1,
+      "typeWeights": {
+        "monster": 45,
+        "event": 22,
+        "shrine": 12,
+        "elite": 8,
+        "merchant": 5
+      },
+      "unknownWeights": {
+        "event": 55,
+        "fight": 25,
+        "shrine": 12,
+        "treasure": 8
+      },
       "floorRules": {
         "fixed": [
           {
@@ -70,40 +85,40 @@
             "type": "treasure"
           }
         ],
-        "minElites": 2,
-        "minMerchants": 1,
-        "noEliteBefore": {
-          "at": "fraction",
-          "of": 0.43
-        },
         "noShrineBefore": {
           "at": "fraction",
           "of": 0.27
         },
+        "noEliteBefore": {
+          "at": "fraction",
+          "of": 0.43
+        },
         "noShrineOn": {
           "at": "last"
         },
-        "restBeforeElite": true
-      },
-      "floors": 12,
-      "pathCount": 6,
-      "typeWeights": {
-        "elite": 8,
-        "event": 22,
-        "merchant": 5,
-        "monster": 45,
-        "shrine": 12
-      },
-      "unknownWeights": {
-        "event": 55,
-        "fight": 25,
-        "shrine": 12,
-        "treasure": 8
+        "restBeforeElite": true,
+        "minElites": 2,
+        "minMerchants": 1
       }
     },
     "3": {
+      "floors": 12,
       "columns": 7,
+      "pathCount": 6,
       "entries": 1,
+      "typeWeights": {
+        "monster": 45,
+        "event": 22,
+        "shrine": 12,
+        "elite": 8,
+        "merchant": 5
+      },
+      "unknownWeights": {
+        "event": 55,
+        "fight": 25,
+        "shrine": 12,
+        "treasure": 8
+      },
       "floorRules": {
         "fixed": [
           {
@@ -116,35 +131,20 @@
             "type": "treasure"
           }
         ],
-        "minElites": 2,
-        "minMerchants": 1,
-        "noEliteBefore": {
-          "at": "fraction",
-          "of": 0.43
-        },
         "noShrineBefore": {
           "at": "fraction",
           "of": 0.27
         },
+        "noEliteBefore": {
+          "at": "fraction",
+          "of": 0.43
+        },
         "noShrineOn": {
           "at": "last"
         },
-        "restBeforeElite": true
-      },
-      "floors": 12,
-      "pathCount": 6,
-      "typeWeights": {
-        "elite": 8,
-        "event": 22,
-        "merchant": 5,
-        "monster": 45,
-        "shrine": 12
-      },
-      "unknownWeights": {
-        "event": 55,
-        "fight": 25,
-        "shrine": 12,
-        "treasure": 8
+        "restBeforeElite": true,
+        "minElites": 2,
+        "minMerchants": 1
       }
     }
   }

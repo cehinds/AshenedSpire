@@ -1,106 +1,106 @@
 {
+  "rulesetVersion": 5,
   "defaults": {
-    "cap": null,
     "pointsPerTier": 5,
-    "rounding": "floor"
-  },
-  "presentation": {
-    "draw": {
-      "disclosure": "face",
-      "faceLabel": "Draw",
-      "label": "Draw / turn and opening hand",
-      "order": 5,
-      "sense": "How many cards you hold to choose from."
-    },
-    "energy": {
-      "disclosure": "face",
-      "faceLabel": "Actions",
-      "label": "Actions / turn",
-      "order": 4,
-      "sense": "How much you can do in one turn."
-    },
-    "hp": {
-      "disclosure": "face",
-      "label": "HP",
-      "order": 1,
-      "sense": "What you have left before the climb ends."
-    },
-    "mana": {
-      "disclosure": "face",
-      "label": "Mana",
-      "order": 2,
-      "sense": "Spent by the cards that ask for more than effort."
-    },
-    "poise": {
-      "disclosure": "reveal",
-      "label": "Poise",
-      "order": 6,
-      "sense": "How much blows you can take before your footing breaks."
-    },
-    "stamina": {
-      "disclosure": "reveal",
-      "label": "Stamina",
-      "order": 3,
-      "sense": "Spent by cards that ask for it — the dodge roll among them. An idle turn recovers some."
-    }
+    "rounding": "floor",
+    "cap": null
   },
   "rules": {
+    "energy": {
+      "base": 3,
+      "sourceStat": "dexterity",
+      "pointsPerTier": 5,
+      "gainPerTier": 1,
+      "cap": null
+    },
     "draw": {
       "base": 3,
-      "cap": null,
+      "sourceStat": "intelligence",
+      "pointsPerTier": 5,
       "gainPerTier": 1,
+      "cap": null,
       "perLevel": {
         "every": 10,
         "gain": 1
-      },
-      "pointsPerTier": 5,
-      "sourceStat": "intelligence"
-    },
-    "energy": {
-      "base": 3,
-      "cap": null,
-      "gainPerTier": 1,
-      "pointsPerTier": 5,
-      "sourceStat": "dexterity"
+      }
     },
     "hp": {
       "base": 30,
+      "sourceStat": "constitution",
+      "pointsPerTier": 1,
       "gainPerTier": 4,
       "perLevel": {
         "every": 5,
         "gain": 5
-      },
-      "pointsPerTier": 1,
-      "sourceStat": "constitution"
-    },
-    "mana": {
-      "base": 1,
-      "cap": null,
-      "gainPerTier": 1,
-      "perLevel": {
-        "every": 5,
-        "gain": 1
-      },
-      "pointsPerTier": 1,
-      "sourceStat": "wisdom"
-    },
-    "poise": {
-      "base": 1,
-      "cap": null,
-      "gainPerTier": 1,
-      "pointsPerTier": 1,
-      "sourceStat": "constitution"
+      }
     },
     "stamina": {
       "base": 1,
+      "sourceStat": "constitution",
+      "pointsPerTier": 1,
       "gainPerTier": 1,
       "perLevel": {
         "every": 5,
         "gain": 1
-      },
+      }
+    },
+    "mana": {
+      "base": 1,
+      "sourceStat": "wisdom",
       "pointsPerTier": 1,
-      "sourceStat": "constitution"
+      "gainPerTier": 1,
+      "cap": null,
+      "perLevel": {
+        "every": 5,
+        "gain": 1
+      }
+    },
+    "poise": {
+      "base": 1,
+      "sourceStat": "constitution",
+      "pointsPerTier": 1,
+      "gainPerTier": 1,
+      "cap": null
     }
   },
-  "rulesetVersion": 5
+  "presentation": {
+    "hp": {
+      "label": "HP",
+      "order": 1,
+      "disclosure": "face",
+      "sense": "What you have left before the climb ends."
+    },
+    "mana": {
+      "label": "Mana",
+      "order": 2,
+      "disclosure": "face",
+      "sense": "Spent by the cards that ask for more than effort."
+    },
+    "stamina": {
+      "label": "Stamina",
+      "order": 3,
+      "disclosure": "reveal",
+      "sense": "Spent by cards that ask for it — the dodge roll among them. An idle turn recovers some."
+    },
+    "energy": {
+      "label": "Actions / turn",
+      "faceLabel": "Actions",
+      "order": 4,
+      "disclosure": "face",
+      "sense": "How much you can do in one turn."
+    },
+    "draw": {
+      "label": "Draw / turn and opening hand",
+      "faceLabel": "Draw",
+      "order": 5,
+      "disclosure": "face",
+      "sense": "How many cards you hold to choose from."
+    },
+    "poise": {
+      "label": "Poise",
+      "order": 6,
+      "disclosure": "reveal",
+      "sense": "How much blows you can take before your footing breaks."
+    }
+  }
 }

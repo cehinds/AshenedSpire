@@ -1,88 +1,83 @@
 {
+  "id": "reference",
+  "labelKey": "preset.reference.name",
   "default": true,
+  "source": "docs/design/reference/ashen-spire-game-config.json",
   "description": "The owner's reference tuning (D-019), applied through the shipped import path (D-029).",
   "files": {
-    "balance/balance.json": {
-      "combatRatings": {
-        "breaks": {
-          "recoveryPerTurn": 1
-        },
-        "ratings": {
-          "ar": {
-            "constitution": 0.25,
-            "dexterity": 0.25,
-            "intelligence": 0.12,
-            "wisdom": 0.13
-          },
-          "dr": {
-            "constitution": 0.25,
-            "dexterity": 0.75,
-            "intelligence": 0.12,
-            "strength": 0.25,
-            "wisdom": 0.13
-          },
-          "poise": {
-            "constitution": 0.5,
-            "intelligence": 0.1,
-            "strength": 0.25,
-            "wisdom": 0.25
-          },
-          "pr": {
-            "constitution": 0.05,
-            "dexterity": 0.05,
-            "intelligence": 0.4
-          },
-          "ward": {
-            "constitution": 0.1,
-            "dexterity": 0.1,
-            "wisdom": 0.3
-          }
+    "catalog/classes.json": {
+      "reaver": {
+        "startingFlaskAllocation": {
+          "hp": 2
         }
-      },
+      }
+    },
+    "balance/balance.json": {
       "damage": {
         "defenseCards": {
           "cardBonuses": {
-            "backstep": 6,
-            "brace": 4,
-            "bracingStance": 6,
-            "enterBulwark": 5,
+            "technique": 5,
             "evasiveGuard": 5,
-            "ironResolve": 7,
-            "pocketSand": 5,
             "quickstep": 5,
-            "technique": 5
+            "ironResolve": 7,
+            "enterBulwark": 5,
+            "bracingStance": 6,
+            "brace": 4,
+            "backstep": 6,
+            "pocketSand": 5
           }
         }
       },
-      "level": {
+      "startingCinders": 100,
+      "skill": {
         "xp": {
+          "base": 100,
           "growth": 1.8
-        }
+        },
+        "class": {
+          "xp": {
+            "base": 3,
+            "growth": 1.3
+          },
+          "tierAt": [
+            3,
+            5,
+            10
+          ]
+        },
+        "rarityUnlock": {
+          "common": 3,
+          "uncommon": 5,
+          "rare": 10
+        },
+        "draftSize": 4
       },
       "rewards": {
         "cinders": {
-          "boss": [
-            400,
-            600
+          "normal": [
+            75,
+            150
           ],
           "elite": [
             200,
             300
           ],
-          "normal": [
-            75,
-            150
+          "boss": [
+            400,
+            600
           ]
         }
       },
       "shop": {
+        "flaskStock": 4,
+        "armamentStock": 5,
+        "weaponArtStock": 4,
         "armamentCost": {
           "common": [
             100,
             180
           ]
         },
-        "armamentStock": 5,
         "cardCost": {
           "common": [
             70,
@@ -93,11 +88,6 @@
             246
           ]
         },
-        "flaskCost": [
-          75,
-          240
-        ],
-        "flaskStock": 4,
         "relicCost": {
           "common": [
             200,
@@ -108,30 +98,10 @@
             500
           ]
         },
-        "weaponArtStock": 4
-      },
-      "skill": {
-        "class": {
-          "tierAt": [
-            3,
-            5,
-            10
-          ],
-          "xp": {
-            "base": 3,
-            "growth": 1.3
-          }
-        },
-        "draftSize": 4,
-        "rarityUnlock": {
-          "common": 3,
-          "rare": 10,
-          "uncommon": 5
-        },
-        "xp": {
-          "base": 100,
-          "growth": 1.8
-        }
+        "flaskCost": [
+          75,
+          240
+        ]
       },
       "smithing": {
         "rewardByPool": {
@@ -139,27 +109,60 @@
           "treasure": 1
         }
       },
-      "startingCinders": 100
-    },
-    "catalog/classes.json": {
-      "reaver": {
-        "startingFlaskAllocation": {
-          "hp": 2
+      "level": {
+        "xp": {
+          "growth": 1.8
+        }
+      },
+      "combatRatings": {
+        "ratings": {
+          "ar": {
+            "dexterity": 0.25,
+            "constitution": 0.25,
+            "wisdom": 0.13,
+            "intelligence": 0.12
+          },
+          "dr": {
+            "strength": 0.25,
+            "dexterity": 0.75,
+            "constitution": 0.25,
+            "wisdom": 0.13,
+            "intelligence": 0.12
+          },
+          "pr": {
+            "dexterity": 0.05,
+            "constitution": 0.05,
+            "intelligence": 0.4
+          },
+          "poise": {
+            "strength": 0.25,
+            "constitution": 0.5,
+            "wisdom": 0.25,
+            "intelligence": 0.1
+          },
+          "ward": {
+            "dexterity": 0.1,
+            "constitution": 0.1,
+            "wisdom": 0.3
+          }
+        },
+        "breaks": {
+          "recoveryPerTurn": 1
         }
       }
     },
     "rules/attributeRules.json": {
       "presets": {
         "tuned2": {
-          "herald": {
-            "constitution": 1,
-            "dexterity": 1,
-            "intelligence": 1,
-            "strength": 1,
-            "wisdom": 4
-          },
           "reaver": {
             "constitution": 1,
+            "intelligence": 1
+          },
+          "herald": {
+            "strength": 1,
+            "dexterity": 1,
+            "constitution": 1,
+            "wisdom": 4,
             "intelligence": 1
           }
         }
@@ -168,11 +171,6 @@
     "rules/handRules.json": {
       "openingWeighted": {
         "base": 3,
-        "max": 20,
-        "min": 3,
-        "note": "Owner reference model (weighted multi-attribute). Replaces handRules.starting when present.",
-        "perLevel": 0.1,
-        "rounding": "floor",
         "terms": [
           {
             "attr": "dexterity",
@@ -182,12 +180,15 @@
             "attr": "wisdom",
             "weight": 0.25
           }
-        ]
+        ],
+        "perLevel": 0.1,
+        "min": 3,
+        "max": 20,
+        "rounding": "floor",
+        "note": "Owner reference model (weighted multi-attribute). Replaces handRules.starting when present."
       }
     }
   },
-  "id": "reference",
-  "labelKey": "preset.reference.name",
   "playerSettings": {
     "cardWidth_focus": 300,
     "cardWidth_glance": 250,
@@ -198,7 +199,6 @@
     "useRestorativeFlasksOutsideCombat": true,
     "walkedFade": "strong"
   },
-  "source": "docs/design/reference/ashen-spire-game-config.json",
   "unresolved": {
     "gameConfig.prologue.presentation.captionFixedHeight": true,
     "gameConfig.prologue.presentation.captionHeightVh": 30,
