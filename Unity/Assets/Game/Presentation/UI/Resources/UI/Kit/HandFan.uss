@@ -1,0 +1,28 @@
+/* HandFan (docs/design/04 §1): overlapping cards on a shallow fan; focused or hovered cards lift. */
+.handfan {
+    min-height: var(--size-hand-h);
+    justify-content: flex-end;
+}
+
+.hand-cards {
+    flex-grow: 1;
+}
+
+.hand-cards .unity-scroll-view__content-container {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    flex-grow: 1;
+    padding-top: var(--space-xl);
+    padding-left: var(--size-card-w);
+}
+
+.hand-card {
+    margin-left: var(--size-hand-overlap);
+    transform-origin: center bottom;
+}
+
+.hand-card:focus,
+.hand-card:hover {
+    translate: 0 var(--size-hand-lift);
+}

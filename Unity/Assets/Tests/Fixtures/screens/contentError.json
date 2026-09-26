@@ -1,0 +1,11 @@
+{
+  "comment": "W-24 content error in a dev build: a mutated menus.json fails the hash and schema checks.",
+  "screen": "contentError",
+  "mutations": [
+    {
+      "file": "ui/menus.json",
+      "find": "\"visible\": true",
+      "replace": "\"visible\": \"yes\""
+    }
+  ]
+}

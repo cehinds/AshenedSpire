@@ -1,116 +1,1431 @@
 {
-  "arcaneDraw": {
+  "siphon": {
     "triggers": [
       {
+        "on": "arcaneBreak",
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventSourceIsOwner"
+            },
+            {
+              "p": "not",
+              "pred": {
+                "p": "skillLevelAtLeast",
+                "skill": "item:magic-focus",
+                "level": {
+                  "balance": "exposure.siphonMasteryLevel"
+                }
+              }
+            }
+          ]
+        },
         "do": [
           {
+            "op": "restoreMana",
+            "target": "self",
             "amount": {
-              "balance": "classTree.arcaneDraw.draw"
-            },
-            "op": "draw"
+              "balance": "exposure.siphonRefund"
+            }
           }
-        ],
+        ]
+      },
+      {
+        "on": "arcaneBreak",
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventSourceIsOwner"
+            },
+            {
+              "p": "skillLevelAtLeast",
+              "skill": "item:magic-focus",
+              "level": {
+                "balance": "exposure.siphonMasteryLevel"
+              }
+            }
+          ]
+        },
+        "do": [
+          {
+            "op": "restoreMana",
+            "target": "self",
+            "amount": {
+              "balance": "exposure.siphonRefundMastered"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "overcharge": {
+    "passives": {
+      "exposureBuildupMult": {
+        "balance": "exposure.overchargeBuildupMult"
+      }
+    }
+  },
+  "staggerBreak": {
+    "triggers": [
+      {
+        "on": "arcaneBreak",
         "if": {
           "p": "eventSourceIsOwner"
         },
+        "do": [
+          {
+            "op": "poiseDamage",
+            "amount": {
+              "balance": "exposure.staggerBreakPoise"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "resonance": {
+    "triggers": [
+      {
         "on": "arcaneBreak",
-        "once": true
+        "if": {
+          "p": "eventSourceIsOwner"
+        },
+        "do": [
+          {
+            "op": "arcaneBuildup",
+            "target": "otherEnemies",
+            "pct": {
+              "balance": "exposure.resonanceSpreadPct"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "forsakenMedallion": {
+    "triggers": [
+      {
+        "on": "damageDealt",
+        "once": true,
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventIsAttack"
+            },
+            {
+              "p": "eventSourceIsOwner"
+            }
+          ]
+        },
+        "do": [
+          {
+            "op": "poiseDamage",
+            "amount": {
+              "balance": "powers.forsakenMedallion.poiseDamage"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "starstoneShard": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "starstoneCharge",
+            "stacks": {
+              "f": "add",
+              "args": [
+                {
+                  "balance": "powers.starstoneShard.starstoneCharge"
+                }
+              ]
+            }
+          },
+          {
+            "op": "restoreMana",
+            "amount": {
+              "balance": "powers.starstoneShard.restoreMana"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "cutpursesCoin": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "prepared",
+            "stacks": {
+              "f": "add",
+              "args": [
+                {
+                  "balance": "powers.cutpursesCoin.prepared"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "on": "damageDealt",
+        "once": true,
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventIsAttack"
+            },
+            {
+              "p": "eventSourceIsOwner"
+            }
+          ]
+        },
+        "do": [
+          {
+            "op": "applyStatus",
+            "status": "venom",
+            "stacks": {
+              "balance": "powers.cutpursesCoin.venom"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "goldFigurine": {
+    "triggers": [
+      {
+        "on": "healed",
+        "if": {
+          "p": "eventTargetIsOwner"
+        },
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.goldFigurine.block"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "goldenSprout": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "heal",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.goldenSprout.heal"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "whetstoneFragment": {
+    "triggers": [
+      {
+        "on": "damageDealt",
+        "once": true,
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventIsAttack"
+            },
+            {
+              "p": "eventSourceIsOwner"
+            }
+          ]
+        },
+        "do": [
+          {
+            "op": "damage",
+            "amount": {
+              "balance": "powers.whetstoneFragment.damage"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "kindlingCharm": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "draw",
+            "amount": {
+              "balance": "powers.kindlingCharm.draw"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "goldleafCharm": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "once": true,
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.goldleafCharm.block"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "crackedLantern": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "once": true,
+        "do": [
+          {
+            "op": "gainEnergy",
+            "amount": {
+              "balance": "powers.crackedLantern.gainEnergy"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "sacrificialKnife": {
+    "triggers": [
+      {
+        "on": "damageDealt",
+        "once": true,
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventIsAttack"
+            },
+            {
+              "p": "eventSourceIsOwner"
+            }
+          ]
+        },
+        "do": [
+          {
+            "op": "applyStatus",
+            "status": "bleed",
+            "stacks": {
+              "balance": "powers.sacrificialKnife.bleed"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "curedHide": {
+    "triggers": [
+      {
+        "on": "hpLost",
+        "once": true,
+        "if": {
+          "p": "eventTargetIsOwner"
+        },
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.curedHide.block"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ivoryComb": {
+    "triggers": [
+      {
+        "on": "cardPlayed",
+        "if": {
+          "p": "everyNthCardThisCombat",
+          "n": {
+            "balance": "powers.ivoryComb.n"
+          }
+        },
+        "do": [
+          {
+            "op": "draw",
+            "amount": {
+              "balance": "powers.ivoryComb.draw"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "fellWardenBrand": {
+    "triggers": [
+      {
+        "on": "enemyStaggered",
+        "do": [
+          {
+            "op": "draw",
+            "amount": {
+              "balance": "powers.fellWardenBrand.draw"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "bloodiedTalisman": {
+    "triggers": [
+      {
+        "on": "meterFilled",
+        "if": {
+          "p": "eventStatusIs",
+          "status": "bleed"
+        },
+        "do": [
+          {
+            "op": "loseHp",
+            "amount": {
+              "balance": "powers.bloodiedTalisman.loseHp"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "twinnedArmor": {
+    "triggers": [
+      {
+        "on": "cardPlayed",
+        "if": {
+          "p": "everyNthCardThisCombat",
+          "n": {
+            "balance": "powers.twinnedArmor.n"
+          }
+        },
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.twinnedArmor.block"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "blightTouchedIdol": {
+    "triggers": [
+      {
+        "on": "damageDealt",
+        "once": true,
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventIsAttack"
+            },
+            {
+              "p": "eventSourceIsOwner"
+            }
+          ]
+        },
+        "do": [
+          {
+            "op": "applyStatus",
+            "status": "crimsonBlight",
+            "stacks": {
+              "balance": "powers.blightTouchedIdol.crimsonBlight"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "warhorn": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "strength",
+            "stacks": {
+              "balance": "powers.warhorn.strength"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "vowOfVengeance": {
+    "triggers": [
+      {
+        "on": "enemyDied",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "strength",
+            "stacks": {
+              "balance": "powers.vowOfVengeance.strength"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "pearlOfSagacity": {
+    "triggers": [
+      {
+        "on": "cardPlayed",
+        "if": {
+          "p": "everyNthCardThisCombat",
+          "n": {
+            "balance": "powers.pearlOfSagacity.n"
+          }
+        },
+        "do": [
+          {
+            "op": "gainEnergy",
+            "amount": {
+              "balance": "powers.pearlOfSagacity.gainEnergy"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "blessedDew": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "do": [
+          {
+            "op": "heal",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.blessedDew.heal"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "azureSigil": {
+    "triggers": [
+      {
+        "on": "cardPlayed",
+        "once": true,
+        "if": {
+          "p": "cardTypeIs",
+          "type": "skill"
+        },
+        "do": [
+          {
+            "op": "gainEnergy",
+            "amount": {
+              "balance": "powers.azureSigil.gainEnergy"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "bloodstainedChalice": {
+    "triggers": [
+      {
+        "on": "meterFilled",
+        "if": {
+          "p": "eventStatusIs",
+          "status": "bleed"
+        },
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.bloodstainedChalice.block"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "goldboughSapling": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "if": {
+          "p": "not",
+          "pred": {
+            "p": "hasBlock",
+            "of": "owner"
+          }
+        },
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.goldboughSapling.block"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "wyrmHeart": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "do": [
+          {
+            "op": "gainEnergy",
+            "amount": {
+              "balance": "powers.wyrmHeart.gainEnergy"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "titansCinder": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "strength",
+            "stacks": {
+              "balance": "powers.titansCinder.strength"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "radiantAegis": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "if": {
+          "p": "hasBlock",
+          "of": "owner"
+        },
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.radiantAegis.block"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "flayersCenser": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "allEnemies",
+            "status": "crimsonBlight",
+            "stacks": {
+              "balance": "powers.flayersCenser.crimsonBlight"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "vigilantHalo": {
+    "triggers": [
+      {
+        "on": "enemyStaggered",
+        "do": [
+          {
+            "op": "heal",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.vigilantHalo.heal"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "carrionTalon": {
+    "triggers": [
+      {
+        "on": "enemyDied",
+        "do": [
+          {
+            "op": "damage",
+            "target": "randomEnemy",
+            "amount": {
+              "balance": "powers.carrionTalon.damage"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "emberIdol": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "do": [
+          {
+            "op": "damage",
+            "target": "allEnemies",
+            "amount": {
+              "balance": "powers.emberIdol.damage"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "crownOfStitches": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "strength",
+            "stacks": {
+              "balance": "powers.crownOfStitches.strength"
+            }
+          }
+        ]
+      },
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "frail",
+            "stacks": {
+              "balance": "powers.crownOfStitches.frail"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "wardenHorn": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "do": [
+          {
+            "op": "draw",
+            "amount": {
+              "balance": "powers.wardenHorn.draw"
+            }
+          }
+        ]
+      },
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "loseHp",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.wardenHorn.loseHp"
+            }
+          }
+        ]
       }
     ]
   },
   "ashOfRemembrance": {
     "triggers": [
       {
+        "on": "playerTurnStart",
         "do": [
           {
+            "op": "gainEnergy",
             "amount": {
               "balance": "powers.ashOfRemembrance.gainEnergy"
-            },
-            "op": "gainEnergy"
+            }
           }
-        ],
-        "on": "playerTurnStart"
+        ]
       },
       {
+        "on": "combatStart",
         "do": [
           {
             "op": "applyStatus",
+            "target": "owner",
+            "status": "madness",
             "stacks": {
               "balance": "powers.ashOfRemembrance.madness"
-            },
-            "status": "madness",
-            "target": "owner"
+            }
           }
-        ],
-        "on": "combatStart"
+        ]
       }
     ]
+  },
+  "cinderOfTheFallen": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "madness",
+            "stacks": {
+              "balance": "powers.cinderOfTheFallen.madness"
+            }
+          }
+        ]
+      },
+      {
+        "on": "enemyDied",
+        "do": [
+          {
+            "op": "gainEnergy",
+            "amount": {
+              "balance": "powers.cinderOfTheFallen.gainEnergy"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "crimsonCovenant": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "loseHp",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.crimsonCovenant.loseHp"
+            }
+          }
+        ]
+      },
+      {
+        "on": "damageDealt",
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventIsAttack"
+            },
+            {
+              "p": "eventSourceIsOwner"
+            }
+          ]
+        },
+        "do": [
+          {
+            "op": "applyStatus",
+            "status": "bleed",
+            "stacks": {
+              "balance": "powers.crimsonCovenant.bleed"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "travelersWhetstone": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "strength",
+            "stacks": {
+              "balance": "powers.travelersWhetstone.strength"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "moonlitVial": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.moonlitVial.block"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "wardensLantern": {
+    "triggers": [
+      {
+        "on": "hpLost",
+        "once": true,
+        "if": {
+          "p": "eventTargetIsOwner"
+        },
+        "do": [
+          {
+            "op": "draw",
+            "amount": {
+              "balance": "powers.wardensLantern.draw"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "hollowedHorn": {
+    "triggers": [
+      {
+        "on": "enemyStaggered",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "allEnemies",
+            "status": "vulnerable",
+            "stacks": {
+              "balance": "powers.hollowedHorn.vulnerable"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "gildedTear": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "once": true,
+        "do": [
+          {
+            "op": "heal",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.gildedTear.heal"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "watchmansBadge": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "if": {
+          "p": "not",
+          "pred": {
+            "p": "hasStatus",
+            "of": "owner",
+            "status": "weak"
+          }
+        },
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "strength",
+            "stacks": {
+              "balance": "powers.watchmansBadge.strength"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "howlingStandard": {
+    "triggers": [
+      {
+        "on": "enemyStaggered",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "strength",
+            "stacks": {
+              "balance": "powers.howlingStandard.strength"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "emberwickCharm": {
+    "triggers": [
+      {
+        "on": "hpLost",
+        "once": true,
+        "if": {
+          "p": "eventTargetIsOwner"
+        },
+        "do": [
+          {
+            "op": "gainEnergy",
+            "amount": {
+              "balance": "powers.emberwickCharm.gainEnergy"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "carrionMorsel": {
+    "triggers": [
+      {
+        "on": "enemyDied",
+        "do": [
+          {
+            "op": "heal",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.carrionMorsel.heal"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "gravetendersBell": {
+    "triggers": [
+      {
+        "on": "enemyDied",
+        "do": [
+          {
+            "op": "draw",
+            "amount": {
+              "balance": "powers.gravetendersBell.draw"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "sentinelsOath": {
+    "triggers": [
+      {
+        "on": "cardPlayed",
+        "if": {
+          "p": "everyNthCardThisCombat",
+          "n": {
+            "balance": "powers.sentinelsOath.n"
+          }
+        },
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "strength",
+            "stacks": {
+              "balance": "powers.sentinelsOath.strength"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "forsakenWarflag": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "allEnemies",
+            "status": "weak",
+            "stacks": {
+              "balance": "powers.forsakenWarflag.weak"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "wrathCoil": {
+    "triggers": [
+      {
+        "on": "hpLost",
+        "if": {
+          "p": "eventTargetIsOwner"
+        },
+        "do": [
+          {
+            "op": "damage",
+            "target": "randomEnemy",
+            "amount": {
+              "balance": "powers.wrathCoil.damage"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "favored": {
+    "passives": {
+      "skillXpMult": {
+        "balance": "skill.favoredXpMult"
+      }
+    }
   },
   "ashenGrip": {
     "triggers": [
       {
+        "on": "stanceEntered",
+        "limitPerTurn": 1,
         "do": [
           {
+            "op": "restoreStamina",
             "amount": {
               "balance": "powers.ashenGrip.restoreStamina"
-            },
-            "op": "restoreStamina"
+            }
           }
-        ],
+        ]
+      }
+    ]
+  },
+  "lodestarShard": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "restoreMana",
+            "amount": {
+              "balance": "powers.lodestarShard.restoreMana"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "waxenSeal": {
+    "triggers": [
+      {
+        "on": "healed",
+        "once": true,
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventTargetIsOwner"
+            },
+            {
+              "p": "healPositive"
+            }
+          ]
+        },
+        "do": [
+          {
+            "op": "heal",
+            "target": "owner",
+            "amount": {
+              "balance": "powers.waxenSeal.heal"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "whetstonePouch": {
+    "triggers": [
+      {
+        "on": "damageDealt",
+        "once": true,
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventIsAttack"
+            },
+            {
+              "p": "eventSourceIsOwner"
+            },
+            {
+              "p": "hasStatus",
+              "of": "owner",
+              "status": "prepared"
+            }
+          ]
+        },
+        "do": [
+          {
+            "op": "applyStatus",
+            "status": "bleed",
+            "stacks": {
+              "balance": "powers.whetstonePouch.bleed"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ironFooting": {
+    "triggers": [
+      {
+        "on": "stanceEntered",
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "classTree.ironFooting.block"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "bloodTempo": {
+    "triggers": [
+      {
+        "on": "stanceEntered",
         "limitPerTurn": 1,
-        "on": "stanceEntered"
+        "do": [
+          {
+            "op": "draw",
+            "amount": {
+              "balance": "classTree.bloodTempo.draw"
+            }
+          }
+        ]
       }
     ]
   },
   "ashenReserve": {
     "triggers": [
       {
+        "on": "playerTurnStart",
         "do": [
           {
+            "op": "restoreStamina",
             "amount": {
               "balance": "classTree.ashenReserve.restoreStamina"
-            },
-            "op": "restoreStamina"
+            }
           }
-        ],
-        "on": "playerTurnStart"
+        ]
       }
     ]
   },
-  "assassin": {
+  "grimHarvest": {
     "triggers": [
       {
+        "on": "enemyDied",
+        "do": [
+          {
+            "op": "heal",
+            "target": "owner",
+            "amount": {
+              "balance": "classTree.grimHarvest.heal"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "restHpSmall": {
+    "triggers": [
+      {
+        "on": "rested",
+        "do": [
+          {
+            "op": "heal",
+            "target": "self",
+            "amount": {
+              "f": "percentMaxHp",
+              "of": "owner",
+              "pct": {
+                "balance": "rest.hpSmallPct"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "restHpPartial": {
+    "triggers": [
+      {
+        "on": "rested",
+        "do": [
+          {
+            "op": "heal",
+            "target": "self",
+            "amount": {
+              "f": "percentMaxHp",
+              "of": "owner",
+              "pct": {
+                "balance": "rest.hpPartialPct"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "restHpFull": {
+    "triggers": [
+      {
+        "on": "rested",
+        "do": [
+          {
+            "op": "heal",
+            "target": "self",
+            "amount": {
+              "f": "missingHp",
+              "of": "owner"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "restManaFlat": {
+    "triggers": [
+      {
+        "on": "rested",
+        "do": [
+          {
+            "op": "restoreMana",
+            "target": "self",
+            "amount": {
+              "balance": "rest.mana.flat"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "restManaFloor": {
+    "triggers": [
+      {
+        "on": "rested",
+        "do": [
+          {
+            "op": "restoreMana",
+            "target": "self",
+            "toFloorPct": {
+              "balance": "rest.mana.floorPct"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "restManaFull": {
+    "triggers": [
+      {
+        "on": "rested",
+        "do": [
+          {
+            "op": "restoreMana",
+            "target": "self",
+            "amount": {
+              "f": "missingMana",
+              "of": "owner"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "restFlasks": {
+    "triggers": [
+      {
+        "on": "arrived",
+        "do": [
+          {
+            "op": "refillFlasks"
+          }
+        ]
+      }
+    ]
+  },
+  "warlord": {
+    "triggers": [
+      {
+        "on": "combatStart",
         "do": [
           {
             "op": "applyStatus",
+            "target": "owner",
+            "status": "strength",
             "stacks": {
-              "balance": "classTree.assassin.prepared"
-            },
-            "status": "prepared",
-            "target": "owner"
-          },
-          {
-            "amount": {
-              "balance": "classTree.assassin.draw"
-            },
-            "op": "draw"
+              "balance": "classTree.warlord.strength"
+            }
           }
-        ],
-        "on": "enemyStaggered"
+        ]
+      }
+    ]
+  },
+  "bulwarkKing": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "classTree.bulwarkKing.block"
+            }
+          }
+        ]
       }
     ]
   },
   "attunedMind": {
     "triggers": [
       {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.attunedMind.draw"
-            },
-            "op": "draw"
-          }
-        ],
+        "on": "manaRestored",
+        "limitPerTurn": 1,
         "if": {
           "p": "all",
           "preds": [
@@ -122,1571 +1437,146 @@
             }
           ]
         },
-        "limitPerTurn": 1,
-        "on": "manaRestored"
-      }
-    ]
-  },
-  "azureSigil": {
-    "triggers": [
-      {
         "do": [
           {
+            "op": "draw",
             "amount": {
-              "balance": "powers.azureSigil.gainEnergy"
-            },
-            "op": "gainEnergy"
-          }
-        ],
-        "if": {
-          "p": "cardTypeIs",
-          "type": "skill"
-        },
-        "on": "cardPlayed",
-        "once": true
-      }
-    ]
-  },
-  "blessedDew": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.blessedDew.heal"
-            },
-            "op": "heal",
-            "target": "owner"
-          }
-        ],
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "blightTouchedIdol": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.blightTouchedIdol.crimsonBlight"
-            },
-            "status": "crimsonBlight"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventIsAttack"
-            },
-            {
-              "p": "eventSourceIsOwner"
-            }
-          ]
-        },
-        "on": "damageDealt",
-        "once": true
-      }
-    ]
-  },
-  "bloodTempo": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.bloodTempo.draw"
-            },
-            "op": "draw"
-          }
-        ],
-        "limitPerTurn": 1,
-        "on": "stanceEntered"
-      }
-    ]
-  },
-  "bloodiedTalisman": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.bloodiedTalisman.loseHp"
-            },
-            "op": "loseHp"
-          }
-        ],
-        "if": {
-          "p": "eventStatusIs",
-          "status": "bleed"
-        },
-        "on": "meterFilled"
-      }
-    ]
-  },
-  "bloodstainedChalice": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.bloodstainedChalice.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "if": {
-          "p": "eventStatusIs",
-          "status": "bleed"
-        },
-        "on": "meterFilled"
-      }
-    ]
-  },
-  "bulwarkKing": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.bulwarkKing.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "carrionMorsel": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.carrionMorsel.heal"
-            },
-            "op": "heal",
-            "target": "owner"
-          }
-        ],
-        "on": "enemyDied"
-      }
-    ]
-  },
-  "carrionTalon": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.carrionTalon.damage"
-            },
-            "op": "damage",
-            "target": "randomEnemy"
-          }
-        ],
-        "on": "enemyDied"
-      }
-    ]
-  },
-  "cinderOfTheFallen": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.cinderOfTheFallen.madness"
-            },
-            "status": "madness",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
-      },
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.cinderOfTheFallen.gainEnergy"
-            },
-            "op": "gainEnergy"
-          }
-        ],
-        "on": "enemyDied"
-      }
-    ]
-  },
-  "conduit": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.conduit.restoreStamina"
-            },
-            "op": "restoreStamina"
-          }
-        ],
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "crackedLantern": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.crackedLantern.gainEnergy"
-            },
-            "op": "gainEnergy"
-          }
-        ],
-        "on": "playerTurnStart",
-        "once": true
-      }
-    ]
-  },
-  "crimsonCovenant": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.crimsonCovenant.loseHp"
-            },
-            "op": "loseHp",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
-      },
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.crimsonCovenant.bleed"
-            },
-            "status": "bleed"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventIsAttack"
-            },
-            {
-              "p": "eventSourceIsOwner"
-            }
-          ]
-        },
-        "on": "damageDealt"
-      }
-    ]
-  },
-  "crownOfStitches": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.crownOfStitches.strength"
-            },
-            "status": "strength",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
-      },
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.crownOfStitches.frail"
-            },
-            "status": "frail",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
-      }
-    ]
-  },
-  "curedHide": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.curedHide.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "if": {
-          "p": "eventTargetIsOwner"
-        },
-        "on": "hpLost",
-        "once": true
-      }
-    ]
-  },
-  "cutpursesCoin": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "args": [
-                {
-                  "balance": "powers.cutpursesCoin.prepared"
-                }
-              ],
-              "f": "add"
-            },
-            "status": "prepared",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
-      },
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.cutpursesCoin.venom"
-            },
-            "status": "venom"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventIsAttack"
-            },
-            {
-              "p": "eventSourceIsOwner"
-            }
-          ]
-        },
-        "on": "damageDealt",
-        "once": true
-      }
-    ]
-  },
-  "emberIdol": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.emberIdol.damage"
-            },
-            "op": "damage",
-            "target": "allEnemies"
-          }
-        ],
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "emberwickCharm": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.emberwickCharm.gainEnergy"
-            },
-            "op": "gainEnergy"
-          }
-        ],
-        "if": {
-          "p": "eventTargetIsOwner"
-        },
-        "on": "hpLost",
-        "once": true
-      }
-    ]
-  },
-  "favored": {
-    "passives": {
-      "skillXpMult": {
-        "balance": "skill.favoredXpMult"
-      }
-    }
-  },
-  "fellWardenBrand": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.fellWardenBrand.draw"
-            },
-            "op": "draw"
-          }
-        ],
-        "on": "enemyStaggered"
-      }
-    ]
-  },
-  "flayersCenser": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.flayersCenser.crimsonBlight"
-            },
-            "status": "crimsonBlight",
-            "target": "allEnemies"
-          }
-        ],
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "forsakenMedallion": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.forsakenMedallion.poiseDamage"
-            },
-            "op": "poiseDamage"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventIsAttack"
-            },
-            {
-              "p": "eventSourceIsOwner"
-            }
-          ]
-        },
-        "on": "damageDealt",
-        "once": true
-      }
-    ]
-  },
-  "forsakenWarflag": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.forsakenWarflag.weak"
-            },
-            "status": "weak",
-            "target": "allEnemies"
-          }
-        ],
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "gildedTear": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.gildedTear.heal"
-            },
-            "op": "heal",
-            "target": "owner"
-          }
-        ],
-        "on": "playerTurnStart",
-        "once": true
-      }
-    ]
-  },
-  "goldFigurine": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.goldFigurine.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "if": {
-          "p": "eventTargetIsOwner"
-        },
-        "on": "healed"
-      }
-    ]
-  },
-  "goldboughSapling": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.goldboughSapling.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "if": {
-          "p": "not",
-          "pred": {
-            "of": "owner",
-            "p": "hasBlock"
-          }
-        },
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "goldenSprout": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.goldenSprout.heal"
-            },
-            "op": "heal",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
-      }
-    ]
-  },
-  "goldleafCharm": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.goldleafCharm.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "on": "playerTurnStart",
-        "once": true
-      }
-    ]
-  },
-  "gravetendersBell": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.gravetendersBell.draw"
-            },
-            "op": "draw"
-          }
-        ],
-        "on": "enemyDied"
-      }
-    ]
-  },
-  "grimHarvest": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.grimHarvest.heal"
-            },
-            "op": "heal",
-            "target": "owner"
-          }
-        ],
-        "on": "enemyDied"
-      }
-    ]
-  },
-  "hollowedHorn": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.hollowedHorn.vulnerable"
-            },
-            "status": "vulnerable",
-            "target": "allEnemies"
-          }
-        ],
-        "on": "enemyStaggered"
-      }
-    ]
-  },
-  "honedEdge": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "classTree.honedEdge.bleed"
-            },
-            "status": "bleed"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventIsAttack"
-            },
-            {
-              "p": "eventSourceIsOwner"
-            },
-            {
-              "of": "owner",
-              "p": "hasStatus",
-              "status": "prepared"
-            }
-          ]
-        },
-        "on": "damageDealt"
-      }
-    ]
-  },
-  "howlingStandard": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.howlingStandard.strength"
-            },
-            "status": "strength",
-            "target": "owner"
-          }
-        ],
-        "on": "enemyStaggered"
-      }
-    ]
-  },
-  "ironFooting": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.ironFooting.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "on": "stanceEntered"
-      }
-    ]
-  },
-  "ivoryComb": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.ivoryComb.draw"
-            },
-            "op": "draw"
-          }
-        ],
-        "if": {
-          "n": {
-            "balance": "powers.ivoryComb.n"
-          },
-          "p": "everyNthCardThisCombat"
-        },
-        "on": "cardPlayed"
-      }
-    ]
-  },
-  "kindlingCharm": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.kindlingCharm.draw"
-            },
-            "op": "draw"
-          }
-        ],
-        "on": "combatStart"
-      }
-    ]
-  },
-  "lodestarCap": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.lodestarCap.restoreMana"
-            },
-            "op": "restoreMana"
-          }
-        ],
-        "on": "combatStart"
-      }
-    ]
-  },
-  "lodestarShard": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.lodestarShard.restoreMana"
-            },
-            "op": "restoreMana"
-          }
-        ],
-        "on": "combatStart"
-      }
-    ]
-  },
-  "martyr": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.martyr.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "if": {
-          "p": "eventTargetIsOwner"
-        },
-        "on": "hpLost"
-      }
-    ]
-  },
-  "moonlitVial": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.moonlitVial.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
-      }
-    ]
-  },
-  "overcharge": {
-    "passives": {
-      "exposureBuildupMult": {
-        "balance": "exposure.overchargeBuildupMult"
-      }
-    }
-  },
-  "pearlOfSagacity": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.pearlOfSagacity.gainEnergy"
-            },
-            "op": "gainEnergy"
-          }
-        ],
-        "if": {
-          "n": {
-            "balance": "powers.pearlOfSagacity.n"
-          },
-          "p": "everyNthCardThisCombat"
-        },
-        "on": "cardPlayed"
-      }
-    ]
-  },
-  "poisonedPouch": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "classTree.poisonedPouch.venom"
-            },
-            "status": "venom"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventIsAttack"
-            },
-            {
-              "p": "eventSourceIsOwner"
-            },
-            {
-              "of": "owner",
-              "p": "hasStatus",
-              "status": "prepared"
-            }
-          ]
-        },
-        "on": "damageDealt"
-      }
-    ]
-  },
-  "quickHands": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "classTree.quickHands.prepared"
-            },
-            "status": "prepared",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
-      }
-    ]
-  },
-  "radiantAegis": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.radiantAegis.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "if": {
-          "of": "owner",
-          "p": "hasBlock"
-        },
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "reservoir": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.reservoir.restoreMana"
-            },
-            "op": "restoreMana"
-          }
-        ],
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "resonance": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "arcaneBuildup",
-            "pct": {
-              "balance": "exposure.resonanceSpreadPct"
-            },
-            "target": "otherEnemies"
-          }
-        ],
-        "if": {
-          "p": "eventSourceIsOwner"
-        },
-        "on": "arcaneBreak"
-      }
-    ]
-  },
-  "restFlasks": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "refillFlasks"
-          }
-        ],
-        "on": "arrived"
-      }
-    ]
-  },
-  "restHpFull": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "f": "missingHp",
-              "of": "owner"
-            },
-            "op": "heal",
-            "target": "self"
-          }
-        ],
-        "on": "rested"
-      }
-    ]
-  },
-  "restHpPartial": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "f": "percentMaxHp",
-              "of": "owner",
-              "pct": {
-                "balance": "rest.hpPartialPct"
-              }
-            },
-            "op": "heal",
-            "target": "self"
-          }
-        ],
-        "on": "rested"
-      }
-    ]
-  },
-  "restHpSmall": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "f": "percentMaxHp",
-              "of": "owner",
-              "pct": {
-                "balance": "rest.hpSmallPct"
-              }
-            },
-            "op": "heal",
-            "target": "self"
-          }
-        ],
-        "on": "rested"
-      }
-    ]
-  },
-  "restManaFlat": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "rest.mana.flat"
-            },
-            "op": "restoreMana",
-            "target": "self"
-          }
-        ],
-        "on": "rested"
-      }
-    ]
-  },
-  "restManaFloor": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "restoreMana",
-            "target": "self",
-            "toFloorPct": {
-              "balance": "rest.mana.floorPct"
+              "balance": "classTree.attunedMind.draw"
             }
           }
-        ],
-        "on": "rested"
-      }
-    ]
-  },
-  "restManaFull": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "f": "missingMana",
-              "of": "owner"
-            },
-            "op": "restoreMana",
-            "target": "self"
-          }
-        ],
-        "on": "rested"
-      }
-    ]
-  },
-  "sacrificialKnife": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.sacrificialKnife.bleed"
-            },
-            "status": "bleed"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventIsAttack"
-            },
-            {
-              "p": "eventSourceIsOwner"
-            }
-          ]
-        },
-        "on": "damageDealt",
-        "once": true
-      }
-    ]
-  },
-  "saint": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.saint.heal"
-            },
-            "op": "heal",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
-      }
-    ]
-  },
-  "sealOfPlenty": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.sealOfPlenty.restoreMana"
-            },
-            "op": "restoreMana"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventTargetIsOwner"
-            },
-            {
-              "p": "healPositive"
-            }
-          ]
-        },
-        "on": "healed",
-        "once": true
-      }
-    ]
-  },
-  "secondWind": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.secondWind.draw"
-            },
-            "op": "draw"
-          }
-        ],
-        "limitPerTurn": 1,
-        "on": "cardExhausted"
-      }
-    ]
-  },
-  "sentinelsOath": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.sentinelsOath.strength"
-            },
-            "status": "strength",
-            "target": "owner"
-          }
-        ],
-        "if": {
-          "n": {
-            "balance": "powers.sentinelsOath.n"
-          },
-          "p": "everyNthCardThisCombat"
-        },
-        "on": "cardPlayed"
-      }
-    ]
-  },
-  "shadow": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.shadow.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "siphon": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "exposure.siphonRefund"
-            },
-            "op": "restoreMana",
-            "target": "self"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventSourceIsOwner"
-            },
-            {
-              "p": "not",
-              "pred": {
-                "level": {
-                  "balance": "exposure.siphonMasteryLevel"
-                },
-                "p": "skillLevelAtLeast",
-                "skill": "item:magic-focus"
-              }
-            }
-          ]
-        },
-        "on": "arcaneBreak"
-      },
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "exposure.siphonRefundMastered"
-            },
-            "op": "restoreMana",
-            "target": "self"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventSourceIsOwner"
-            },
-            {
-              "level": {
-                "balance": "exposure.siphonMasteryLevel"
-              },
-              "p": "skillLevelAtLeast",
-              "skill": "item:magic-focus"
-            }
-          ]
-        },
-        "on": "arcaneBreak"
-      }
-    ]
-  },
-  "staggerBreak": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "exposure.staggerBreakPoise"
-            },
-            "op": "poiseDamage"
-          }
-        ],
-        "if": {
-          "p": "eventSourceIsOwner"
-        },
-        "on": "arcaneBreak"
+        ]
       }
     ]
   },
   "starlitFocus": {
     "triggers": [
       {
+        "on": "combatStart",
         "do": [
           {
             "op": "applyStatus",
+            "target": "owner",
+            "status": "starstoneCharge",
             "stacks": {
               "balance": "classTree.starlitFocus.starstoneCharge"
-            },
-            "status": "starstoneCharge",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
-      }
-    ]
-  },
-  "starstoneShard": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "args": [
-                {
-                  "balance": "powers.starstoneShard.starstoneCharge"
-                }
-              ],
-              "f": "add"
-            },
-            "status": "starstoneCharge",
-            "target": "owner"
-          },
-          {
-            "amount": {
-              "balance": "powers.starstoneShard.restoreMana"
-            },
-            "op": "restoreMana"
-          }
-        ],
-        "on": "combatStart"
-      }
-    ]
-  },
-  "titansCinder": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.titansCinder.strength"
-            },
-            "status": "strength",
-            "target": "owner"
-          }
-        ],
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "travelersWhetstone": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.travelersWhetstone.strength"
-            },
-            "status": "strength",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
-      }
-    ]
-  },
-  "twinnedArmor": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.twinnedArmor.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "if": {
-          "n": {
-            "balance": "powers.twinnedArmor.n"
-          },
-          "p": "everyNthCardThisCombat"
-        },
-        "on": "cardPlayed"
-      }
-    ]
-  },
-  "vigil": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "classTree.vigil.heal"
-            },
-            "op": "heal",
-            "target": "owner"
-          }
-        ],
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "vigilantHalo": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.vigilantHalo.heal"
-            },
-            "op": "heal",
-            "target": "owner"
-          }
-        ],
-        "on": "enemyStaggered"
-      }
-    ]
-  },
-  "vowOfVengeance": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.vowOfVengeance.strength"
-            },
-            "status": "strength",
-            "target": "owner"
-          }
-        ],
-        "on": "enemyDied"
-      }
-    ]
-  },
-  "wakingRot": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "classTree.wakingRot.crimsonBlight"
-            },
-            "status": "crimsonBlight"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventIsAttack"
-            },
-            {
-              "p": "eventSourceIsOwner"
             }
-          ]
-        },
-        "on": "damageDealt"
+          }
+        ]
       }
     ]
   },
-  "wardenHorn": {
+  "lodestarCap": {
     "triggers": [
       {
+        "on": "combatStart",
         "do": [
           {
+            "op": "restoreMana",
             "amount": {
-              "balance": "powers.wardenHorn.draw"
-            },
-            "op": "draw"
+              "balance": "classTree.lodestarCap.restoreMana"
+            }
           }
-        ],
-        "on": "playerTurnStart"
-      },
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.wardenHorn.loseHp"
-            },
-            "op": "loseHp",
-            "target": "owner"
-          }
-        ],
-        "on": "combatStart"
+        ]
       }
     ]
   },
-  "wardensLantern": {
+  "arcaneDraw": {
     "triggers": [
       {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.wardensLantern.draw"
-            },
-            "op": "draw"
-          }
-        ],
+        "on": "arcaneBreak",
+        "once": true,
         "if": {
-          "p": "eventTargetIsOwner"
+          "p": "eventSourceIsOwner"
         },
-        "on": "hpLost",
-        "once": true
+        "do": [
+          {
+            "op": "draw",
+            "amount": {
+              "balance": "classTree.arcaneDraw.draw"
+            }
+          }
+        ]
       }
     ]
   },
-  "warhorn": {
+  "conduit": {
     "triggers": [
       {
+        "on": "playerTurnStart",
         "do": [
           {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.warhorn.strength"
-            },
-            "status": "strength",
-            "target": "owner"
+            "op": "restoreStamina",
+            "amount": {
+              "balance": "classTree.conduit.restoreStamina"
+            }
           }
-        ],
-        "on": "combatStart"
+        ]
       }
     ]
   },
-  "warlord": {
+  "reservoir": {
     "triggers": [
       {
+        "on": "playerTurnStart",
         "do": [
           {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "classTree.warlord.strength"
-            },
-            "status": "strength",
-            "target": "owner"
+            "op": "restoreMana",
+            "amount": {
+              "balance": "classTree.reservoir.restoreMana"
+            }
           }
-        ],
-        "on": "combatStart"
+        ]
       }
     ]
   },
   "warmth": {
     "triggers": [
       {
+        "on": "healed",
+        "if": {
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventTargetIsOwner"
+            },
+            {
+              "p": "healPositive"
+            }
+          ]
+        },
         "do": [
           {
+            "op": "block",
+            "target": "owner",
             "amount": {
               "balance": "classTree.warmth.block"
-            },
-            "op": "block",
-            "target": "owner"
-          }
-        ],
-        "if": {
-          "p": "all",
-          "preds": [
-            {
-              "p": "eventTargetIsOwner"
-            },
-            {
-              "p": "healPositive"
             }
-          ]
-        },
-        "on": "healed"
+          }
+        ]
       }
     ]
   },
-  "watchmansBadge": {
+  "vigil": {
     "triggers": [
       {
+        "on": "playerTurnStart",
         "do": [
           {
-            "op": "applyStatus",
-            "stacks": {
-              "balance": "powers.watchmansBadge.strength"
-            },
-            "status": "strength",
-            "target": "owner"
-          }
-        ],
-        "if": {
-          "p": "not",
-          "pred": {
-            "of": "owner",
-            "p": "hasStatus",
-            "status": "weak"
-          }
-        },
-        "on": "playerTurnStart"
-      }
-    ]
-  },
-  "waxenSeal": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.waxenSeal.heal"
-            },
             "op": "heal",
-            "target": "owner"
+            "target": "owner",
+            "amount": {
+              "balance": "classTree.vigil.heal"
+            }
           }
-        ],
+        ]
+      }
+    ]
+  },
+  "sealOfPlenty": {
+    "triggers": [
+      {
+        "on": "healed",
+        "once": true,
         "if": {
           "p": "all",
           "preds": [
@@ -1698,22 +1588,21 @@
             }
           ]
         },
-        "on": "healed",
-        "once": true
+        "do": [
+          {
+            "op": "restoreMana",
+            "amount": {
+              "balance": "classTree.sealOfPlenty.restoreMana"
+            }
+          }
+        ]
       }
     ]
   },
-  "whetstoneFragment": {
+  "wakingRot": {
     "triggers": [
       {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.whetstoneFragment.damage"
-            },
-            "op": "damage"
-          }
-        ],
+        "on": "damageDealt",
         "if": {
           "p": "all",
           "preds": [
@@ -1725,23 +1614,90 @@
             }
           ]
         },
-        "on": "damageDealt",
-        "once": true
-      }
-    ]
-  },
-  "whetstonePouch": {
-    "triggers": [
-      {
         "do": [
           {
             "op": "applyStatus",
+            "status": "crimsonBlight",
             "stacks": {
-              "balance": "powers.whetstonePouch.bleed"
-            },
-            "status": "bleed"
+              "balance": "classTree.wakingRot.crimsonBlight"
+            }
           }
-        ],
+        ]
+      }
+    ]
+  },
+  "martyr": {
+    "triggers": [
+      {
+        "on": "hpLost",
+        "if": {
+          "p": "eventTargetIsOwner"
+        },
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "classTree.martyr.block"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "saint": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "heal",
+            "target": "owner",
+            "amount": {
+              "balance": "classTree.saint.heal"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "quickHands": {
+    "triggers": [
+      {
+        "on": "combatStart",
+        "do": [
+          {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "prepared",
+            "stacks": {
+              "balance": "classTree.quickHands.prepared"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "secondWind": {
+    "triggers": [
+      {
+        "on": "cardExhausted",
+        "limitPerTurn": 1,
+        "do": [
+          {
+            "op": "draw",
+            "amount": {
+              "balance": "classTree.secondWind.draw"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "honedEdge": {
+    "triggers": [
+      {
+        "on": "damageDealt",
         "if": {
           "p": "all",
           "preds": [
@@ -1752,48 +1708,92 @@
               "p": "eventSourceIsOwner"
             },
             {
-              "of": "owner",
               "p": "hasStatus",
+              "of": "owner",
               "status": "prepared"
             }
           ]
         },
+        "do": [
+          {
+            "op": "applyStatus",
+            "status": "bleed",
+            "stacks": {
+              "balance": "classTree.honedEdge.bleed"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "poisonedPouch": {
+    "triggers": [
+      {
         "on": "damageDealt",
-        "once": true
-      }
-    ]
-  },
-  "wrathCoil": {
-    "triggers": [
-      {
-        "do": [
-          {
-            "amount": {
-              "balance": "powers.wrathCoil.damage"
-            },
-            "op": "damage",
-            "target": "randomEnemy"
-          }
-        ],
         "if": {
-          "p": "eventTargetIsOwner"
+          "p": "all",
+          "preds": [
+            {
+              "p": "eventIsAttack"
+            },
+            {
+              "p": "eventSourceIsOwner"
+            },
+            {
+              "p": "hasStatus",
+              "of": "owner",
+              "status": "prepared"
+            }
+          ]
         },
-        "on": "hpLost"
+        "do": [
+          {
+            "op": "applyStatus",
+            "status": "venom",
+            "stacks": {
+              "balance": "classTree.poisonedPouch.venom"
+            }
+          }
+        ]
       }
     ]
   },
-  "wyrmHeart": {
+  "assassin": {
     "triggers": [
       {
+        "on": "enemyStaggered",
         "do": [
           {
+            "op": "applyStatus",
+            "target": "owner",
+            "status": "prepared",
+            "stacks": {
+              "balance": "classTree.assassin.prepared"
+            }
+          },
+          {
+            "op": "draw",
             "amount": {
-              "balance": "powers.wyrmHeart.gainEnergy"
-            },
-            "op": "gainEnergy"
+              "balance": "classTree.assassin.draw"
+            }
           }
-        ],
-        "on": "playerTurnStart"
+        ]
+      }
+    ]
+  },
+  "shadow": {
+    "triggers": [
+      {
+        "on": "playerTurnStart",
+        "do": [
+          {
+            "op": "block",
+            "target": "owner",
+            "amount": {
+              "balance": "classTree.shadow.block"
+            }
+          }
+        ]
       }
     ]
   }

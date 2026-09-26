@@ -3,494 +3,494 @@
     {
       "nodeId": "classification.attack",
       "playerTermId": "term.attack",
-      "template": "",
-      "tooltipTermId": "term.tooltip.attack"
+      "tooltipTermId": "term.tooltip.attack",
+      "template": ""
     },
     {
       "nodeId": "classification.strike",
       "playerTermId": "term.strike",
-      "template": "",
-      "tooltipTermId": "term.tooltip.strike"
+      "tooltipTermId": "term.tooltip.strike",
+      "template": ""
     },
     {
       "nodeId": "classification.guard",
       "playerTermId": "term.guard",
-      "template": "",
-      "tooltipTermId": "term.tooltip.guard"
+      "tooltipTermId": "term.tooltip.guard",
+      "template": ""
     },
     {
       "nodeId": "classification.weaponArt",
       "playerTermId": "term.weaponArt",
-      "template": "",
-      "tooltipTermId": "term.tooltip.weaponArt"
+      "tooltipTermId": "term.tooltip.weaponArt",
+      "template": ""
     },
     {
       "nodeId": "classification.skill",
       "playerTermId": "term.skill",
-      "template": "",
-      "tooltipTermId": "term.tooltip.skill"
+      "tooltipTermId": "term.tooltip.skill",
+      "template": ""
     },
     {
       "nodeId": "classification.power",
       "playerTermId": "term.power",
-      "template": "",
-      "tooltipTermId": "term.tooltip.power"
+      "tooltipTermId": "term.tooltip.power",
+      "template": ""
     },
     {
       "nodeId": "classification.curse",
       "playerTermId": "term.curse",
-      "template": "",
-      "tooltipTermId": "term.tooltip.curse"
+      "tooltipTermId": "term.tooltip.curse",
+      "template": ""
     },
     {
       "nodeId": "classification.statusCard",
       "playerTermId": "term.statusCard",
-      "template": "",
-      "tooltipTermId": "term.tooltip.statusCard"
+      "tooltipTermId": "term.tooltip.statusCard",
+      "template": ""
     },
     {
       "nodeId": "damage.physical",
       "playerTermId": "term.physical",
-      "template": "",
-      "tooltipTermId": "term.tooltip.physical"
+      "tooltipTermId": "term.tooltip.physical",
+      "template": ""
     },
     {
       "nodeId": "damage.magic",
       "playerTermId": "term.magic",
-      "template": "",
-      "tooltipTermId": "term.tooltip.magic"
+      "tooltipTermId": "term.tooltip.magic",
+      "template": ""
     },
     {
       "nodeId": "damage.arcane",
       "playerTermId": "term.arcane",
-      "template": "",
-      "tooltipTermId": "term.tooltip.arcane"
+      "tooltipTermId": "term.tooltip.arcane",
+      "template": ""
     },
     {
       "nodeId": "damage.blade",
       "playerTermId": "term.blade",
-      "template": "",
-      "tooltipTermId": "term.tooltip.blade"
+      "tooltipTermId": "term.tooltip.blade",
+      "template": ""
     },
     {
       "nodeId": "damage.blunt",
       "playerTermId": "term.blunt",
-      "template": "",
-      "tooltipTermId": "term.tooltip.blunt"
+      "tooltipTermId": "term.tooltip.blunt",
+      "template": ""
     },
     {
       "nodeId": "damage.piercing",
       "playerTermId": "term.piercing",
-      "template": "",
-      "tooltipTermId": "term.tooltip.piercing"
+      "tooltipTermId": "term.tooltip.piercing",
+      "template": ""
     },
     {
       "nodeId": "scaling.strength",
       "playerTermId": "term.strength",
-      "template": "",
-      "tooltipTermId": "term.tooltip.strength"
+      "tooltipTermId": "term.tooltip.strength",
+      "template": ""
     },
     {
       "nodeId": "scaling.dexterity",
       "playerTermId": "term.dexterity",
-      "template": "",
-      "tooltipTermId": "term.tooltip.dexterity"
+      "tooltipTermId": "term.tooltip.dexterity",
+      "template": ""
     },
     {
       "nodeId": "scaling.constitution",
       "playerTermId": "term.constitution",
-      "template": "",
-      "tooltipTermId": "term.tooltip.constitution"
+      "tooltipTermId": "term.tooltip.constitution",
+      "template": ""
     },
     {
       "nodeId": "scaling.intelligence",
       "playerTermId": "term.intelligence",
-      "template": "",
-      "tooltipTermId": "term.tooltip.intelligence"
+      "tooltipTermId": "term.tooltip.intelligence",
+      "template": ""
     },
     {
       "nodeId": "scaling.wisdom",
       "playerTermId": "term.wisdom",
-      "template": "",
-      "tooltipTermId": "term.tooltip.wisdom"
+      "tooltipTermId": "term.tooltip.wisdom",
+      "template": ""
     },
     {
       "nodeId": "cost.action",
       "playerTermId": "term.action",
-      "template": "",
-      "tooltipTermId": "term.tooltip.action"
+      "tooltipTermId": "term.tooltip.action",
+      "template": ""
     },
     {
       "nodeId": "cost.stamina",
       "playerTermId": "term.stamina",
-      "template": "",
-      "tooltipTermId": "term.tooltip.stamina"
+      "tooltipTermId": "term.tooltip.stamina",
+      "template": ""
     },
     {
       "nodeId": "cost.mana",
       "playerTermId": "term.mana",
-      "template": "",
-      "tooltipTermId": "term.tooltip.mana"
+      "tooltipTermId": "term.tooltip.mana",
+      "template": ""
     },
     {
       "nodeId": "cost.alternative",
       "playerTermId": "term.alternativeCost",
-      "template": "",
-      "tooltipTermId": "term.tooltip.alternativeCost"
+      "tooltipTermId": "term.tooltip.alternativeCost",
+      "template": ""
     },
     {
       "nodeId": "lifecycle.innate",
       "playerTermId": "term.innate",
-      "template": "",
-      "tooltipTermId": "term.tooltip.innate"
+      "tooltipTermId": "term.tooltip.innate",
+      "template": ""
     },
     {
       "nodeId": "lifecycle.retain",
       "playerTermId": "term.retain",
-      "template": "",
-      "tooltipTermId": "term.tooltip.retain"
+      "tooltipTermId": "term.tooltip.retain",
+      "template": ""
     },
     {
       "nodeId": "lifecycle.recall",
       "playerTermId": "term.recall",
-      "template": "",
-      "tooltipTermId": "term.tooltip.recall"
+      "tooltipTermId": "term.tooltip.recall",
+      "template": ""
     },
     {
       "nodeId": "lifecycle.recall.afterUse",
       "playerTermId": "term.recallAfterUse",
-      "template": "",
-      "tooltipTermId": "term.tooltip.recallAfterUse"
+      "tooltipTermId": "term.tooltip.recallAfterUse",
+      "template": ""
     },
     {
       "nodeId": "lifecycle.recall.afterTurnDraw",
       "playerTermId": "term.recallAfterTurnDraw",
-      "template": "",
-      "tooltipTermId": "term.tooltip.recallAfterTurnDraw"
+      "tooltipTermId": "term.tooltip.recallAfterTurnDraw",
+      "template": ""
     },
     {
       "nodeId": "lifecycle.recall.afterCardPlay",
       "playerTermId": "term.recallAfterCardPlay",
-      "template": "",
-      "tooltipTermId": "term.tooltip.recallAfterCardPlay"
+      "tooltipTermId": "term.tooltip.recallAfterCardPlay",
+      "template": ""
     },
     {
       "nodeId": "lifecycle.exhaust",
       "playerTermId": "term.exhaust",
-      "template": "",
-      "tooltipTermId": "term.tooltip.exhaust"
+      "tooltipTermId": "term.tooltip.exhaust",
+      "template": ""
     },
     {
       "nodeId": "lifecycle.seal",
       "playerTermId": "term.seal",
-      "template": "",
-      "tooltipTermId": "term.tooltip.seal"
+      "tooltipTermId": "term.tooltip.seal",
+      "template": ""
     },
     {
       "nodeId": "lifecycle.ethereal",
       "playerTermId": "term.ethereal",
-      "template": "",
-      "tooltipTermId": "term.tooltip.ethereal"
+      "tooltipTermId": "term.tooltip.ethereal",
+      "template": ""
     },
     {
       "nodeId": "equipment.bound",
       "playerTermId": "term.equipmentBound",
-      "template": "",
-      "tooltipTermId": "term.tooltip.equipmentBound"
+      "tooltipTermId": "term.tooltip.equipmentBound",
+      "template": ""
     },
     {
       "nodeId": "equipment.mainHand",
       "playerTermId": "term.mainHand",
-      "template": "",
-      "tooltipTermId": "term.tooltip.mainHand"
+      "tooltipTermId": "term.tooltip.mainHand",
+      "template": ""
     },
     {
       "nodeId": "equipment.offHand",
       "playerTermId": "term.offHand",
-      "template": "",
-      "tooltipTermId": "term.tooltip.offHand"
+      "tooltipTermId": "term.tooltip.offHand",
+      "template": ""
     },
     {
       "nodeId": "equipment.twoHanded",
       "playerTermId": "term.twoHanded",
-      "template": "",
-      "tooltipTermId": "term.tooltip.twoHanded"
+      "tooltipTermId": "term.tooltip.twoHanded",
+      "template": ""
     },
     {
       "nodeId": "equipment.shield",
       "playerTermId": "term.shield",
-      "template": "",
-      "tooltipTermId": "term.tooltip.shield"
+      "tooltipTermId": "term.tooltip.shield",
+      "template": ""
     },
     {
       "nodeId": "equipment.parryTool",
       "playerTermId": "term.parryTool",
-      "template": "",
-      "tooltipTermId": "term.tooltip.parryTool"
+      "tooltipTermId": "term.tooltip.parryTool",
+      "template": ""
     },
     {
       "nodeId": "utility.evasion",
       "playerTermId": "term.evasion",
-      "template": "",
-      "tooltipTermId": "term.tooltip.evasion"
+      "tooltipTermId": "term.tooltip.evasion",
+      "template": ""
     },
     {
       "nodeId": "utility.conduit",
       "playerTermId": "term.conduit",
-      "template": "",
-      "tooltipTermId": "term.tooltip.conduit"
+      "tooltipTermId": "term.tooltip.conduit",
+      "template": ""
     },
     {
       "nodeId": "utility.manaCharge",
       "playerTermId": "term.manaCharge",
-      "template": "",
-      "tooltipTermId": "term.tooltip.manaCharge"
+      "tooltipTermId": "term.tooltip.manaCharge",
+      "template": ""
     },
     {
       "nodeId": "targeting.self",
       "playerTermId": "term.targetSelf",
-      "template": "",
-      "tooltipTermId": "term.tooltip.targetSelf"
+      "tooltipTermId": "term.tooltip.targetSelf",
+      "template": ""
     },
     {
       "nodeId": "targeting.enemy",
       "playerTermId": "term.targetEnemy",
-      "template": "",
-      "tooltipTermId": "term.tooltip.targetEnemy"
+      "tooltipTermId": "term.tooltip.targetEnemy",
+      "template": ""
     },
     {
       "nodeId": "targeting.allEnemies",
       "playerTermId": "term.targetAllEnemies",
-      "template": "",
-      "tooltipTermId": "term.tooltip.targetAllEnemies"
+      "tooltipTermId": "term.tooltip.targetAllEnemies",
+      "template": ""
     },
     {
       "nodeId": "targeting.randomEnemy",
       "playerTermId": "term.targetRandomEnemy",
-      "template": "",
-      "tooltipTermId": "term.tooltip.targetRandomEnemy"
+      "tooltipTermId": "term.tooltip.targetRandomEnemy",
+      "template": ""
     },
     {
       "nodeId": "targeting.ally",
       "playerTermId": "term.targetAlly",
-      "template": "",
-      "tooltipTermId": "term.tooltip.targetAlly"
+      "tooltipTermId": "term.tooltip.targetAlly",
+      "template": ""
     },
     {
       "nodeId": "internal.unplayable",
       "playerTermId": "term.unplayable",
-      "template": "",
-      "tooltipTermId": "term.tooltip.unplayable"
+      "tooltipTermId": "term.tooltip.unplayable",
+      "template": ""
     },
     {
       "nodeId": "siphon",
       "playerTermId": "",
-      "template": "Breaking a foe's Arcane Exposure restores {restoreMana} Mana, or {restoreMana.2} once your focus skill is mastered.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Breaking a foe's Arcane Exposure restores {restoreMana} Mana, or {restoreMana.2} once your focus skill is mastered."
     },
     {
       "nodeId": "overcharge",
       "playerTermId": "",
-      "template": "Your hits build Arcane Exposure faster.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Your hits build Arcane Exposure faster."
     },
     {
       "nodeId": "staggerBreak",
       "playerTermId": "",
-      "template": "Breaking a foe's Arcane Exposure deals {poiseDamage} Poise damage to it.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Breaking a foe's Arcane Exposure deals {poiseDamage} Poise damage to it."
     },
     {
       "nodeId": "resonance",
       "playerTermId": "",
-      "template": "Breaking a foe's Arcane Exposure builds {spreadPct}% of its threshold on every other foe.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Breaking a foe's Arcane Exposure builds {spreadPct}% of its threshold on every other foe."
     },
     {
       "nodeId": "ironFooting",
       "playerTermId": "",
-      "template": "Entering a stance grants {block} Block.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Entering a stance grants {block} Block."
     },
     {
       "nodeId": "bloodTempo",
       "playerTermId": "",
-      "template": "The first stance you enter each turn draws {draw} card.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "The first stance you enter each turn draws {draw} card."
     },
     {
       "nodeId": "ashenReserve",
       "playerTermId": "",
-      "template": "At the start of your turn, recover {restoreStamina} Stamina.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "At the start of your turn, recover {restoreStamina} Stamina."
     },
     {
       "nodeId": "grimHarvest",
       "playerTermId": "",
-      "template": "Whenever an enemy dies, heal {heal}.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Whenever an enemy dies, heal {heal}."
     },
     {
       "nodeId": "warlord",
       "playerTermId": "",
-      "template": "Begin each combat with {strength} Strength.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Begin each combat with {strength} Strength."
     },
     {
       "nodeId": "bulwarkKing",
       "playerTermId": "",
-      "template": "At the start of your turn, gain {block} Block.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "At the start of your turn, gain {block} Block."
     },
     {
       "nodeId": "attunedMind",
       "playerTermId": "",
-      "template": "The first time you restore Mana each turn, draw {draw} card.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "The first time you restore Mana each turn, draw {draw} card."
     },
     {
       "nodeId": "starlitFocus",
       "playerTermId": "",
-      "template": "Begin each combat with {starstoneCharge} Starstone Charge.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Begin each combat with {starstoneCharge} Starstone Charge."
     },
     {
       "nodeId": "lodestarCap",
       "playerTermId": "",
-      "template": "Begin each combat with {restoreMana} more Mana.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Begin each combat with {restoreMana} more Mana."
     },
     {
       "nodeId": "arcaneDraw",
       "playerTermId": "",
-      "template": "The first Arcane break each combat draws {draw} cards.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "The first Arcane break each combat draws {draw} cards."
     },
     {
       "nodeId": "conduit",
       "playerTermId": "",
-      "template": "At the start of your turn, recover {restoreStamina} Stamina.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "At the start of your turn, recover {restoreStamina} Stamina."
     },
     {
       "nodeId": "reservoir",
       "playerTermId": "",
-      "template": "At the start of your turn, restore {restoreMana} Mana.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "At the start of your turn, restore {restoreMana} Mana."
     },
     {
       "nodeId": "warmth",
       "playerTermId": "",
-      "template": "Whenever you heal, gain {block} Block.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Whenever you heal, gain {block} Block."
     },
     {
       "nodeId": "vigil",
       "playerTermId": "",
-      "template": "At the start of your turn, heal {heal}.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "At the start of your turn, heal {heal}."
     },
     {
       "nodeId": "sealOfPlenty",
       "playerTermId": "",
-      "template": "The first time you heal each combat, restore {restoreMana} Mana.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "The first time you heal each combat, restore {restoreMana} Mana."
     },
     {
       "nodeId": "wakingRot",
       "playerTermId": "",
-      "template": "Your attacks apply {crimsonBlight} Crimson Blight.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Your attacks apply {crimsonBlight} Crimson Blight."
     },
     {
       "nodeId": "martyr",
       "playerTermId": "",
-      "template": "Whenever you lose HP, gain {block} Block.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Whenever you lose HP, gain {block} Block."
     },
     {
       "nodeId": "saint",
       "playerTermId": "",
-      "template": "Begin each combat healing {heal}.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Begin each combat healing {heal}."
     },
     {
       "nodeId": "quickHands",
       "playerTermId": "",
-      "template": "Begin each combat with {prepared} Prepared.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Begin each combat with {prepared} Prepared."
     },
     {
       "nodeId": "secondWind",
       "playerTermId": "",
-      "template": "The first card you exhaust each turn draws {draw} card.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "The first card you exhaust each turn draws {draw} card."
     },
     {
       "nodeId": "honedEdge",
       "playerTermId": "",
-      "template": "Your attacks while Prepared apply {bleed} Bleed.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Your attacks while Prepared apply {bleed} Bleed."
     },
     {
       "nodeId": "poisonedPouch",
       "playerTermId": "",
-      "template": "Your attacks while Prepared apply {venom} Venom.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Your attacks while Prepared apply {venom} Venom."
     },
     {
       "nodeId": "assassin",
       "playerTermId": "",
-      "template": "When an enemy staggers, gain {prepared} Prepared and draw {draw} card.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "When an enemy staggers, gain {prepared} Prepared and draw {draw} card."
     },
     {
       "nodeId": "shadow",
       "playerTermId": "",
-      "template": "At the start of your turn, gain {block} Block.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "At the start of your turn, gain {block} Block."
     },
     {
       "nodeId": "restHpSmall",
       "playerTermId": "",
-      "template": "Resting restores {pct}% of your max HP.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Resting restores {pct}% of your max HP."
     },
     {
       "nodeId": "restHpPartial",
       "playerTermId": "",
-      "template": "Resting restores {pct}% of your max HP.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Resting restores {pct}% of your max HP."
     },
     {
       "nodeId": "restHpFull",
       "playerTermId": "",
-      "template": "Resting restores your HP to full.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Resting restores your HP to full."
     },
     {
       "nodeId": "restManaFlat",
       "playerTermId": "",
-      "template": "Resting restores {restoreMana} Mana.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Resting restores {restoreMana} Mana."
     },
     {
       "nodeId": "restManaFloor",
       "playerTermId": "",
-      "template": "Resting restores Mana to {floorPct}% of max, or to full if already there.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Resting restores Mana to {floorPct}% of max, or to full if already there."
     },
     {
       "nodeId": "restManaFull",
       "playerTermId": "",
-      "template": "Resting restores your Mana to full.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Resting restores your Mana to full."
     },
     {
       "nodeId": "restFlasks",
       "playerTermId": "",
-      "template": "Arriving refills your flask charges.",
-      "tooltipTermId": ""
+      "tooltipTermId": "",
+      "template": "Arriving refills your flask charges."
     }
   ]
 }

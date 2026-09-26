@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:VisualElement class="page page--center">
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL" title-key="kit.title">
+            <ui:ScrollView class="kit-scroll">
+                <ui:VisualElement class="kit-row">
+                    <Ashen.Presentation.UI.Kit.Workspace name="WORKSPACE" class="kit-workspace">
+                        <Ashen.Presentation.UI.LocLabel class="kit-text-value kit-pane-text" string-key="kit.pane.body" />
+                    </Ashen.Presentation.UI.Kit.Workspace>
+                    <ui:VisualElement name="KIT_METERS" class="kit-cell" />
+                    <ui:VisualElement name="KIT_TOOLTIPS" class="kit-cell kit-tooltips" />
+                </ui:VisualElement>
+                <ui:VisualElement class="kit-row">
+                    <ui:VisualElement name="KIT_CARDS" class="kit-cell kit-cards" />
+                    <Ashen.Presentation.UI.Kit.HandFan name="KIT_HAND" class="kit-hand" />
+                </ui:VisualElement>
+                <ui:VisualElement class="kit-row">
+                    <Ashen.Presentation.UI.Kit.FooterGroup name="KIT_FOOTER_GROUP" class="kit-footer-group" />
+                    <Ashen.Presentation.UI.Kit.HoldButton name="KIT_HOLD" class="kit-hold tone-destructive" label-key="kit.hold.label" />
+                    <Ashen.Presentation.UI.Kit.Refusal name="KIT_REFUSAL" class="refusal-inline refusal--visible" text-key="kit.refusal.sample" />
+                </ui:VisualElement>
+            </ui:ScrollView>
+        </Ashen.Presentation.UI.Kit.Shell>
+    </ui:VisualElement>
+</ui:UXML>

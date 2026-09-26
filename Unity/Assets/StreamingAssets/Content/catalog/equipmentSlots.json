@@ -1,111 +1,111 @@
 [
   {
-    "blurb": "Your active main-hand armament. Rewrites Strike.",
-    "hand": "right",
     "id": "rightHand",
-    "kinds": [
-      "weapon",
-      "shield",
-      "staff"
-    ],
     "label": "Main Hand",
-    "order": 1,
-    "positionCode": "MH{n}",
     "positionLabel": "Main Hand Slot {n}",
-    "sets": 3,
-    "storage": true,
-    "swap": "combat"
-  },
-  {
-    "blurb": "Your active off-hand armament. Rewrites Defend.",
-    "hand": "left",
-    "id": "leftHand",
+    "positionCode": "MH{n}",
     "kinds": [
       "weapon",
       "shield",
       "staff"
     ],
-    "label": "Off Hand",
-    "order": 2,
-    "positionCode": "OH{n}",
-    "positionLabel": "Off Hand Slot {n}",
+    "hand": "right",
     "sets": 3,
+    "swap": "combat",
     "storage": true,
-    "swap": "combat"
+    "order": 1,
+    "blurb": "Your active main-hand armament. Rewrites Strike."
   },
   {
-    "blurb": "Your set. Repaints you and steadies the numbers.",
-    "hand": "",
+    "id": "leftHand",
+    "label": "Off Hand",
+    "positionLabel": "Off Hand Slot {n}",
+    "positionCode": "OH{n}",
+    "kinds": [
+      "weapon",
+      "shield",
+      "staff"
+    ],
+    "hand": "left",
+    "sets": 3,
+    "swap": "combat",
+    "storage": true,
+    "order": 2,
+    "blurb": "Your active off-hand armament. Rewrites Defend."
+  },
+  {
     "id": "armor",
+    "label": "Armour",
+    "positionLabel": "Armour Slot {n}",
+    "positionCode": "BODY",
     "kinds": [
       "armor"
     ],
-    "label": "Armour",
-    "order": 3,
-    "positionCode": "BODY",
-    "positionLabel": "Armour Slot {n}",
+    "hand": "",
     "sets": 1,
+    "swap": "outOfCombat",
     "storage": false,
-    "swap": "outOfCombat"
+    "order": 3,
+    "blurb": "Your set. Repaints you and steadies the numbers."
   },
   {
-    "blurb": "What you wear on your head. Empty until head pieces are authored.",
-    "hand": "",
     "id": "head",
+    "label": "Head",
+    "positionLabel": "Head Slot {n}",
+    "positionCode": "HEAD",
     "kinds": [
       "head"
     ],
-    "label": "Head",
-    "order": 4,
-    "positionCode": "HEAD",
-    "positionLabel": "Head Slot {n}",
+    "hand": "",
     "sets": 1,
+    "swap": "outOfCombat",
     "storage": false,
-    "swap": "outOfCombat"
+    "order": 4,
+    "blurb": "What you wear on your head. Empty until head pieces are authored."
   },
   {
-    "blurb": "What you wear on your hands. Empty until hand pieces are authored.",
-    "hand": "",
     "id": "hands",
+    "label": "Hands",
+    "positionLabel": "Hands Slot {n}",
+    "positionCode": "HANDS",
     "kinds": [
       "hands"
     ],
-    "label": "Hands",
-    "order": 5,
-    "positionCode": "HANDS",
-    "positionLabel": "Hands Slot {n}",
+    "hand": "",
     "sets": 1,
+    "swap": "outOfCombat",
     "storage": false,
-    "swap": "outOfCombat"
+    "order": 5,
+    "blurb": "What you wear on your hands. Empty until hand pieces are authored."
   },
   {
-    "blurb": "What you wear on your feet. Empty until foot pieces are authored.",
-    "hand": "",
     "id": "feet",
+    "label": "Feet",
+    "positionLabel": "Feet Slot {n}",
+    "positionCode": "FEET",
     "kinds": [
       "feet"
     ],
-    "label": "Feet",
-    "order": 6,
-    "positionCode": "FEET",
-    "positionLabel": "Feet Slot {n}",
+    "hand": "",
     "sets": 1,
+    "swap": "outOfCombat",
     "storage": false,
-    "swap": "outOfCombat"
+    "order": 6,
+    "blurb": "What you wear on your feet. Empty until foot pieces are authored."
   },
   {
-    "blurb": "Small charms. Empty until talismans are authored.",
-    "hand": "",
     "id": "talisman",
+    "label": "Talisman",
+    "positionLabel": "Talisman Slot {n}",
+    "positionCode": "TAL{n}",
     "kinds": [
       "talisman"
     ],
-    "label": "Talisman",
-    "order": 7,
-    "positionCode": "TAL{n}",
-    "positionLabel": "Talisman Slot {n}",
+    "hand": "",
     "sets": 3,
+    "swap": "outOfCombat",
     "storage": false,
-    "swap": "outOfCombat"
+    "order": 7,
+    "blurb": "Small charms. Empty until talismans are authored."
   }
 ]

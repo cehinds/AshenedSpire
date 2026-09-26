@@ -2,153 +2,153 @@
   "defaultMode": "lean",
   "presets": {
     "lean": {
-      "herald": {
-        "constitution": 2,
-        "dexterity": 1,
-        "intelligence": 1,
-        "strength": 1,
-        "wisdom": 3
-      },
       "reaver": {
-        "constitution": 2,
-        "dexterity": 1,
-        "intelligence": 1,
         "strength": 3,
-        "wisdom": 1
-      },
-      "rogue": {
-        "constitution": 2,
-        "dexterity": 3,
-        "intelligence": 1,
-        "strength": 1,
-        "wisdom": 1
-      },
-      "starseer": {
-        "constitution": 1,
         "dexterity": 1,
-        "intelligence": 3,
+        "constitution": 2,
+        "wisdom": 1,
+        "intelligence": 1
+      },
+      "starseer": {
         "strength": 1,
-        "wisdom": 2
-      }
-    },
-    "pointbuy": {
-      "herald": {
-        "constitution": 13,
-        "dexterity": 10,
-        "intelligence": 12,
-        "strength": 10,
-        "wisdom": 15
+        "dexterity": 1,
+        "constitution": 1,
+        "wisdom": 2,
+        "intelligence": 3
       },
-      "reaver": {
-        "constitution": 14,
-        "dexterity": 10,
-        "intelligence": 11,
-        "strength": 14,
-        "wisdom": 11
+      "herald": {
+        "strength": 1,
+        "dexterity": 1,
+        "constitution": 2,
+        "wisdom": 3,
+        "intelligence": 1
       },
       "rogue": {
-        "constitution": 12,
-        "dexterity": 15,
-        "intelligence": 13,
-        "strength": 10,
-        "wisdom": 10
-      },
-      "starseer": {
-        "constitution": 11,
-        "dexterity": 12,
-        "intelligence": 15,
-        "strength": 10,
-        "wisdom": 12
-      }
-    },
-    "standard": {
-      "herald": {
-        "constitution": 12,
-        "dexterity": 10,
-        "intelligence": 10,
-        "strength": 10,
-        "wisdom": 13
-      },
-      "reaver": {
-        "constitution": 12,
-        "dexterity": 10,
-        "intelligence": 10,
-        "strength": 13,
-        "wisdom": 10
-      },
-      "rogue": {
-        "constitution": 10,
-        "dexterity": 15,
-        "intelligence": 10,
-        "strength": 10,
-        "wisdom": 10
-      },
-      "starseer": {
-        "constitution": 10,
-        "dexterity": 11,
-        "intelligence": 14,
-        "strength": 10,
-        "wisdom": 10
-      }
-    },
-    "tuned": {
-      "herald": {
-        "constitution": 8,
-        "dexterity": 11,
-        "intelligence": 10,
-        "strength": 12,
-        "wisdom": 12
-      },
-      "reaver": {
-        "constitution": 11,
-        "dexterity": 11,
-        "intelligence": 10,
-        "strength": 13,
-        "wisdom": 8
-      },
-      "rogue": {
-        "constitution": 10,
-        "dexterity": 13,
-        "intelligence": 10,
-        "strength": 11,
-        "wisdom": 9
-      },
-      "starseer": {
-        "constitution": 8,
-        "dexterity": 11,
-        "intelligence": 10,
-        "strength": 11,
-        "wisdom": 13
+        "strength": 1,
+        "dexterity": 3,
+        "constitution": 2,
+        "wisdom": 1,
+        "intelligence": 1
       }
     },
     "tuned2": {
-      "herald": {
-        "constitution": 7,
-        "dexterity": 5,
-        "intelligence": 7,
-        "strength": 6,
-        "wisdom": 10
-      },
       "reaver": {
-        "constitution": 9,
-        "dexterity": 6,
-        "intelligence": 7,
         "strength": 10,
-        "wisdom": 3
-      },
-      "rogue": {
-        "constitution": 7,
-        "dexterity": 11,
-        "intelligence": 7,
-        "strength": 7,
-        "wisdom": 3
+        "dexterity": 6,
+        "constitution": 9,
+        "wisdom": 3,
+        "intelligence": 7
       },
       "starseer": {
-        "constitution": 7,
-        "dexterity": 6,
-        "intelligence": 8,
         "strength": 3,
-        "wisdom": 11
+        "dexterity": 6,
+        "constitution": 7,
+        "wisdom": 11,
+        "intelligence": 8
+      },
+      "herald": {
+        "strength": 6,
+        "dexterity": 5,
+        "constitution": 7,
+        "wisdom": 10,
+        "intelligence": 7
+      },
+      "rogue": {
+        "strength": 7,
+        "dexterity": 11,
+        "constitution": 7,
+        "wisdom": 3,
+        "intelligence": 7
+      }
+    },
+    "tuned": {
+      "reaver": {
+        "strength": 13,
+        "dexterity": 11,
+        "constitution": 11,
+        "wisdom": 8,
+        "intelligence": 10
+      },
+      "starseer": {
+        "strength": 11,
+        "dexterity": 11,
+        "constitution": 8,
+        "wisdom": 13,
+        "intelligence": 10
+      },
+      "herald": {
+        "strength": 12,
+        "dexterity": 11,
+        "constitution": 8,
+        "wisdom": 12,
+        "intelligence": 10
+      },
+      "rogue": {
+        "strength": 11,
+        "dexterity": 13,
+        "constitution": 10,
+        "wisdom": 9,
+        "intelligence": 10
+      }
+    },
+    "standard": {
+      "reaver": {
+        "strength": 13,
+        "dexterity": 10,
+        "constitution": 12,
+        "wisdom": 10,
+        "intelligence": 10
+      },
+      "starseer": {
+        "strength": 10,
+        "dexterity": 11,
+        "constitution": 10,
+        "wisdom": 10,
+        "intelligence": 14
+      },
+      "herald": {
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 12,
+        "wisdom": 13,
+        "intelligence": 10
+      },
+      "rogue": {
+        "strength": 10,
+        "dexterity": 15,
+        "constitution": 10,
+        "wisdom": 10,
+        "intelligence": 10
+      }
+    },
+    "pointbuy": {
+      "reaver": {
+        "strength": 14,
+        "dexterity": 10,
+        "constitution": 14,
+        "wisdom": 11,
+        "intelligence": 11
+      },
+      "starseer": {
+        "strength": 10,
+        "dexterity": 12,
+        "constitution": 11,
+        "wisdom": 12,
+        "intelligence": 15
+      },
+      "herald": {
+        "strength": 10,
+        "dexterity": 10,
+        "constitution": 13,
+        "wisdom": 15,
+        "intelligence": 12
+      },
+      "rogue": {
+        "strength": 10,
+        "dexterity": 15,
+        "constitution": 12,
+        "wisdom": 10,
+        "intelligence": 13
       }
     }
   },

@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:VisualElement class="page page--center">
+        <Ashen.Presentation.UI.Kit.Confirm name="CONFIRM" />
+    </ui:VisualElement>
+</ui:UXML>

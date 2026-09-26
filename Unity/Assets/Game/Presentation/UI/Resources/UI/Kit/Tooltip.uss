@@ -1,0 +1,48 @@
+/* Tooltip (docs/design/04 §0): sizes WT0-WT3; shown after the tooltip delay. */
+.tooltip {
+    position: absolute;
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg-raise);
+    border-color: var(--color-gold-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-chip);
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: var(--duration-fast);
+}
+
+.tooltip--visible {
+    opacity: 1;
+}
+
+.tooltip--wt0 { width: var(--size-tooltip-wt0); }
+.tooltip--wt1 { width: var(--size-tooltip-wt1); }
+.tooltip--wt2 { width: var(--size-tooltip-wt2); }
+.tooltip--wt3 { width: var(--size-tooltip-wt3); }
+
+.tooltip--wt0 .tooltip-body {
+    display: none;
+}
+
+.tooltip-head {
+    flex-direction: row;
+    align-items: center;
+}
+
+.tooltip-glyph {
+    margin-right: var(--space-xs);
+    color: var(--color-gold);
+    font-size: var(--font-heading);
+}
+
+.tooltip-title {
+    color: var(--color-gold);
+    font-size: var(--font-body);
+    -unity-font-style: bold;
+}
+
+.tooltip-body {
+    margin-top: var(--space-xxs);
+    font-size: var(--font-caption);
+    white-space: normal;
+}

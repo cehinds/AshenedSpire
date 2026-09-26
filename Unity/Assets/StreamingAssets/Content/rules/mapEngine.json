@@ -1,0 +1,59 @@
+{
+  "comment": "Map engine rules (US-4.1 to 4.4; the C# port of the shipped engine/mapgen.js, model/floorplan.js, engine/actmap.js and the Unknown-node roll). The retry and guard counts and the closed vocabularies the shipped code kept as constants live here as data. Changing any of them changes every seeded map; the parity oracle pins the shipped values.",
+  "typing": {
+    "retries": 40
+  },
+  "walk": {
+    "doorGuard": 50,
+    "stepMin": -1,
+    "stepMax": 1
+  },
+  "limits": {
+    "shortestAct": 2
+  },
+  "nodeTypes": {
+    "monster": "monster",
+    "event": "event",
+    "elite": "elite",
+    "shrine": "shrine",
+    "merchant": "merchant",
+    "treasure": "treasure",
+    "boss": "boss"
+  },
+  "anchorKinds": {
+    "first": "first",
+    "last": "last",
+    "floor": "floor",
+    "fraction": "fraction"
+  },
+  "unknownKinds": {
+    "event": "event",
+    "fight": "fight"
+  },
+  "runShapeKeys": [
+    "floors",
+    "columns",
+    "typeWeights"
+  ],
+  "nodeId": {
+    "prefix": "n",
+    "separator": "_"
+  },
+  "bossPool": "boss",
+  "bossLabel": {
+    "enemySeparator": " & ",
+    "partSeparator": " · "
+  },
+  "history": {
+    "eventChoiceKind": "eventChoice",
+    "idPattern": "^[A-Za-z][A-Za-z0-9_-]{0,79}$",
+    "requirementGroups": [
+      "all",
+      "any",
+      "none"
+    ]
+  },
+  "sample": {
+    "seeds": 24
+  }
+}

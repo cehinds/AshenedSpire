@@ -1,0 +1,39 @@
+{
+  "comment": "Menus and confirmation doors (docs/design/04 W-02, W-23; US-1.3; D-004). 'title' rows are in the owner order: Continue, Load, New, Journal, Custom Run, Settings, Quit (the co-op row exists with visible:false). Each row: id, labelKey (strings), action (continue | open | confirm), target screen and slots 'mode' for open, 'confirm' door id for confirm, 'enabledWhen' (always | hasValidSlot | targetBuilt) and 'visible'. Continue is shown disabled when no slot holds a valid save (shipped, AW:245). 'confirms' are W2 doors: question title, target identity, exact consequence, footer keys. 'policy' names a ui/confirmationPolicies.json policy; a DESTRUCTIVE policy gives the red, never-green primary. 'hold' makes the primary hold-to-confirm (holdMs is the holdConfirm token). 'single' shows one full-width action (the AI notice). 'occupiedBodyKey' replaces the body when the slot already holds a climb. 'rewardLeaveAuto' and 'rewardLeaveManual' guard W-08 Continue while rewards are unresolved (the rewardCollect setting picks which consequence is stated). 'pause' rows are the W-20 list in order (same fields as title rows; 'hideInCombat' hides a row while a fight is on, e.g. the Armoury). 'creationPanes' are the W-04 rail items in order: id, labelKey, and 'built' (only built panes open; the others show the planned note, D-058).",
+  "title": [
+    { "id": "continue", "labelKey": "title.menu.continue", "action": "continue", "enabledWhen": "hasValidSlot", "visible": true },
+    { "id": "load", "labelKey": "title.menu.load", "action": "open", "target": "slots", "mode": "load", "enabledWhen": "always", "visible": true },
+    { "id": "new", "labelKey": "title.menu.new", "action": "open", "target": "slots", "mode": "new", "enabledWhen": "always", "visible": true },
+    { "id": "journal", "labelKey": "title.menu.journal", "action": "open", "target": "journal", "enabledWhen": "targetBuilt", "visible": true },
+    { "id": "customRun", "labelKey": "title.menu.customRun", "action": "open", "target": "customRun", "enabledWhen": "targetBuilt", "visible": true },
+    { "id": "settings", "labelKey": "title.menu.settings", "action": "open", "target": "settings", "enabledWhen": "targetBuilt", "visible": true },
+    { "id": "quit", "labelKey": "title.menu.quit", "action": "confirm", "confirm": "quit", "enabledWhen": "always", "visible": true },
+    { "id": "coop", "labelKey": "title.menu.coop", "action": "open", "target": "lobby", "enabledWhen": "targetBuilt", "visible": false }
+  ],
+  "pause": [
+    { "id": "deck", "labelKey": "pause.deck", "action": "open", "target": "pileViewer", "enabledWhen": "targetBuilt", "visible": true },
+    { "id": "armoury", "labelKey": "pause.armoury", "action": "open", "target": "armoury", "enabledWhen": "targetBuilt", "visible": true, "hideInCombat": true },
+    { "id": "settings", "labelKey": "pause.settings", "action": "open", "target": "settings", "enabledWhen": "targetBuilt", "visible": true },
+    { "id": "saveQuit", "labelKey": "pause.saveQuit", "action": "confirm", "confirm": "saveQuit", "enabledWhen": "always", "visible": true },
+    { "id": "abandon", "labelKey": "pause.abandon", "action": "open", "target": "runEnd", "enabledWhen": "targetBuilt", "visible": true }
+  ],
+  "creationPanes": [
+    { "id": "class", "labelKey": "creation.pane.class", "built": true },
+    { "id": "character", "labelKey": "creation.pane.character", "built": false },
+    { "id": "equipment", "labelKey": "creation.pane.equipment", "built": false },
+    { "id": "review", "labelKey": "creation.pane.review", "built": false }
+  ],
+  "confirms": {
+    "quit": { "titleKey": "confirm.quit.title", "bodyKey": "confirm.quit.body", "primaryKey": "confirm.quit.primary", "backKey": "confirm.back", "hold": false, "single": false },
+    "loadSlot": { "titleKey": "confirm.load.title", "bodyKey": "confirm.load.body", "primaryKey": "confirm.load.primary", "backKey": "confirm.back", "hold": false, "single": false },
+    "startSlot": { "titleKey": "confirm.start.title", "bodyKey": "confirm.start.body", "occupiedBodyKey": "confirm.start.occupied", "primaryKey": "confirm.start.primary", "backKey": "confirm.back", "hold": false, "single": false },
+    "deleteSlot": { "titleKey": "confirm.delete.title", "bodyKey": "confirm.delete.body", "primaryKey": "confirm.delete.primary", "backKey": "confirm.back", "policy": "policy.deleteSave", "hold": true, "single": false },
+    "aiNotice": { "titleKey": "notice.ai.title", "bodyKey": "about.aiDisclosure", "primaryKey": "notice.ai.continue", "backKey": "confirm.back", "hold": false, "single": true },
+    "recovery": { "titleKey": "recovery.title", "bodyKey": "recovery.body", "primaryKey": "recovery.restore", "backKey": "recovery.fresh", "hold": true, "single": false },
+    "replaceSlot": { "titleKey": "confirm.replace.title", "bodyKey": "confirm.replace.body", "primaryKey": "confirm.replace.primary", "backKey": "confirm.back", "policy": "policy.saveOverwrite", "hold": true, "single": false },
+    "saveQuit": { "titleKey": "confirm.saveQuit.title", "bodyKey": "confirm.saveQuit.body", "primaryKey": "confirm.saveQuit.primary", "backKey": "confirm.back", "hold": true, "single": false },
+    "saveFailed": { "titleKey": "confirm.saveFailed.title", "bodyKey": "confirm.saveFailed.body", "primaryKey": "confirm.saveFailed.primary", "backKey": "confirm.back", "hold": false, "single": false },
+    "rewardLeaveAuto": { "titleKey": "confirm.rewardLeave.title", "bodyKey": "confirm.rewardLeave.auto", "primaryKey": "confirm.rewardLeave.primary", "backKey": "confirm.back", "hold": false, "single": false },
+    "rewardLeaveManual": { "titleKey": "confirm.rewardLeave.title", "bodyKey": "confirm.rewardLeave.manual", "primaryKey": "confirm.rewardLeave.primary", "backKey": "confirm.back", "hold": false, "single": false }
+  }
+}

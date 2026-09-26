@@ -1,0 +1,9 @@
+{
+  "comment": "W-07 end state: the fight won, rewards marked for a later build (D-058), Return to title.",
+  "screen": "combat",
+  "seed": 20260926,
+  "finish": true,
+  "skipSizes": [
+    "1920x1080"
+  ]
+}

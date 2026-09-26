@@ -1,0 +1,79 @@
+{
+  "comment": "Run engine rules (stream C, us-2.2; the C# port of the shipped model/state.js createRunState family). Versions, defaults and the vocabulary lists the shipped code kept as constants live here as data. Changing one changes run creation; the run parity oracle pins the shipped values.",
+  "run": {
+    "schemaVersion": 10,
+    "instanceIdPrefix": "rc"
+  },
+  "derived": {
+    "statIds": ["energy", "draw", "hp", "stamina", "mana", "poise"],
+    "rowSinceRuleset": {
+      "poise": 5
+    },
+    "rounding": ["floor", "ceil", "round"],
+    "rulesetVersions": [1, 2, 3, 4, 5],
+    "snapshotVersion": 2,
+    "rootFields": ["rulesetVersion", "defaults", "rules", "presentation"],
+    "defaultFields": ["pointsPerTier", "rounding", "cap"],
+    "ruleFields": ["base", "sourceStat", "pointsPerTier", "gainPerTier", "rounding", "cap", "perLevel"],
+    "requiredRuleFields": ["base", "sourceStat", "gainPerTier"],
+    "perLevelFields": ["every", "gain"],
+    "overrideFields": ["defaults", "rules"],
+    "baseFields": ["strategy", "field"],
+    "classFields": ["maxHp", "maxMana"]
+  },
+  "loadout": {
+    "profileSnapshotVersion": 2,
+    "legacyProfileSnapshotVersion": 1,
+    "profilePatchFields": ["baseValue", "ratingId", "cap"],
+    "profileCarrierFields": ["damageSchool", "exposureBuildupPerHit"],
+    "compatibilitySuffix": "-v1",
+    "packageCompatibility": "attack-v1",
+    "roles": ["attack", "guard", "technique"],
+    "kitRoles": ["attack", "guard"],
+    "itemOwnedRoles": ["granted", "weaponArt"],
+    "poolFields": ["maxHp", "maxMana", "maxStamina"],
+    "poolCurrent": {
+      "maxHp": "hp",
+      "maxMana": "mana",
+      "maxStamina": "stamina"
+    },
+    "hands": ["left", "right"],
+    "handOrder": ["right", "left"],
+    "handsRequired": [1, 2],
+    "twoHandedHands": 2,
+    "defaultStrikeBias": 0.5,
+    "defaultOddFillerGoesTo": "attack"
+  },
+  "mounts": {
+    "kinds": ["granted", "weaponArt"]
+  },
+  "relics": {
+    "resourceIds": ["hp", "mana", "stamina"]
+  },
+  "ratings": {
+    "defaultFormula": {
+      "multiplier": 1,
+      "ratings": {
+        "ar": { "base": 0, "strength": 0.5, "dexterity": 0, "constitution": 0, "wisdom": 0, "intelligence": 0 },
+        "dr": { "base": 0, "strength": 0, "dexterity": 0.5, "constitution": 0, "wisdom": 0, "intelligence": 0 },
+        "pr": { "base": 0, "strength": 0, "dexterity": 0, "constitution": 0, "wisdom": 0.5, "intelligence": 0.5 },
+        "poise": { "base": 1, "strength": 0.5, "dexterity": 0, "constitution": 1, "wisdom": 0, "intelligence": 0 },
+        "ward": { "base": 1, "strength": 0, "dexterity": 0, "constitution": 0, "wisdom": 1, "intelligence": 0.5 }
+      }
+    }
+  },
+  "zones": {
+    "wornZoneSlots": ["body", "head", "hands", "feet", "talisman"],
+    "wornSlotIds": {
+      "body": "armor",
+      "head": "head",
+      "hands": "hands",
+      "feet": "feet",
+      "talisman": "talisman"
+    },
+    "handSlotIds": {
+      "main": "rightHand",
+      "off": "leftHand"
+    }
+  }
+}

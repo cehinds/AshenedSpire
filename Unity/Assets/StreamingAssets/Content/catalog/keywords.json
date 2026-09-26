@@ -1,9 +1,9 @@
 {
-  "ethereal": {
-    "id": "ethereal"
-  },
   "exhaust": {
     "id": "exhaust"
+  },
+  "ethereal": {
+    "id": "ethereal"
   },
   "innate": {
     "id": "innate"

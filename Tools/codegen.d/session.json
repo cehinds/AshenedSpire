@@ -1,0 +1,14 @@
+{
+  "comment": "Application session payload keys (combat checkpoints: seed, RNG counters, snapshot).",
+  "keySets": [
+    {
+      "name": "SessionKeys",
+      "doc": "Keys of a combat checkpoint payload (CombatSession.Checkpoint).",
+      "keys": {
+        "Seed": "seed",
+        "Rng": "rng",
+        "Snapshot": "snapshot"
+      }
+    }
+  ]
+}

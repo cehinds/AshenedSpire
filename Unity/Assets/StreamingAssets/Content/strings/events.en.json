@@ -1,0 +1,5 @@
+{
+  "events.refusal.cinders": "You cannot pay for this response yet.",
+  "events.refusal.history": "Your earlier choices have not opened this response.",
+  "events.refusal.unknownChoice": "This event has no such response."
+}

@@ -3,5 +3,7 @@
   "rootNamespace": "Ashen.Domain",
   "references": ["Ashen.Generated"],
   "noEngineReferences": true,
+  "overrideReferences": true,
+  "precompiledReferences": ["Newtonsoft.Json.dll"],
   "autoReferenced": true
 }

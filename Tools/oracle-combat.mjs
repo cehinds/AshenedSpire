@@ -6,7 +6,7 @@
 //   node Tools/oracle-combat.mjs [--source D:/repos/AshenSpire] [--combats 48] [--steps 80]
 //
 // Writes Unity/Assets/Tests/Oracle/combat/*.json (committed; CI has no access to the old repo).
-import { writeFileSync, mkdirSync, rmSync, existsSync } from 'node:fs';
+import { writeFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -23,7 +23,7 @@ const { configuredContentBundle } = await load('src/model/advancedConfig.js');
 const { createRegistries } = await load('src/model/registries.js');
 const { createRng, sweepSeed } = await load('src/engine/rng.js');
 const { createRunState } = await load('src/model/state.js');
-const { createCombat, dispatch } = await load('src/engine/combat.js');
+const { createCombat, dispatch, previewCard, previewIntent } = await load('src/engine/combat.js');
 const { serializeCombatSnapshot, restoreCombatSnapshot } = await load('src/engine/combatSnapshot.js');
 const { resolveHandRules } = await load('src/model/handRules.js');
 const { resolveSwapCostRule, runMods } = await load('src/model/loadout.js');
@@ -50,7 +50,30 @@ function projection(combat, rng) {
     hand: combat.piles.hand.map(c => c.instanceId),
     draw: combat.piles.draw.length, discard: combat.piles.discard.length, exhaust: combat.piles.exhaust.length,
     rng: rng.getCounters(),
+    skillXp: structuredClone(combat.skillXp?.player ?? null),
   };
+}
+
+// What the UI is shown: previewCard for every card in hand and previewIntent for every living enemy — the SAME
+// math the engine executes (SPEC §3.13). Recorded after every step so preview/resolve divergence is caught.
+function previews(combat) {
+  const cards = combat.piles.hand.map((c) => {
+    const p = previewCard(combat, c.instanceId);
+    return {
+      id: c.instanceId, cost: p.cost, costIsX: p.costIsX, needsTarget: p.needsTarget, manaCost: p.manaCost, staminaCost: p.staminaCost,
+      values: p.values.map((v) => ({
+        op: v.op, target: v.target ?? null, value: v.value ?? null,
+        ...(v.hits != null ? { hits: v.hits } : {}), ...(v.perTarget ? { perTarget: v.perTarget } : {}),
+        ...(v.status ? { status: v.status } : {}), ...(v.token ? { token: v.token } : {}), ...(v.boostTint ? { boostTint: v.boostTint } : {}),
+      })),
+      tokens: p.tokens,
+    };
+  });
+  const intents = combat.enemies.filter((e) => e.alive).map((e) => {
+    const i = previewIntent(combat, e.id);
+    return { id: e.id, kind: i.kind ?? null, moveId: i.moveId ?? null, damage: i.damage ?? null, hits: i.hits ?? null, totalDamage: i.totalDamage ?? null, block: i.block ?? null, pending: !!i.pending };
+  });
+  return { cards, intents };
 }
 
 function cloneCombat(combat, seed) {
@@ -71,8 +94,9 @@ function legalCommands(combat, seed) {
   return out;
 }
 
-if (existsSync(OUT)) rmSync(OUT, { recursive: true });
+// Remove only the previous JSON outputs: the Unity .meta files beside them are committed and must survive.
 mkdirSync(OUT, { recursive: true });
+for (const f of readdirSync(OUT)) if (f.endsWith('.json')) rmSync(join(OUT, f));
 const index = [];
 let totalSteps = 0, victories = 0, defeats = 0;
 for (let i = 0; i < COMBATS; i++) {
@@ -82,8 +106,8 @@ for (let i = 0; i < COMBATS; i++) {
   const rng = createRng(seed);
   const run = createRunState({ seed, classId, registries });
   const handRules = resolveHandRules({}, bundle.attributes);
-  const combat = createCombat({
-    ratingsRules: registries.balance.combatRatings || null, handRules, registries, rng,
+  const createArgs = {
+    ratingsRules: registries.balance.combatRatings || null, handRules,
     player: {
       classId: run.class, attributes: run.attributes, derivedStatRuleSnapshot: run.derivedStatRuleSnapshot, skills: run.skills,
       coreTags: run.coreTags, maxHp: run.maxHp, hp: run.hp, maxMana: run.maxMana, mana: run.mana, maxStamina: run.maxStamina,
@@ -96,12 +120,16 @@ for (let i = 0; i < COMBATS; i++) {
     enemyIds: encounter.enemies, hpMult: 1, enemyStatuses: [],
     swapCostRule: resolveSwapCostRule(registries, null),
     playerStatuses: [...runMods(registries, run.loadout, run.class).startStatuses],
-  });
+  };
+  // The exact createCombat inputs (JSON-plain, captured before the call), so the C# CreateCombat is held to the
+  // shipped combat-start sequence: HP rolls, shuffle, innate order, combatStart triggers, first intents, turn 1.
+  const create = JSON.parse(JSON.stringify(createArgs));
+  const combat = createCombat({ ...createArgs, registries, rng });
   const initial = serializeCombatSnapshot(combat);
   const initialRng = rng.getCounters();
   const pick = botRng(seed);
   const steps = [];
-  const start = projection(combat, rng);
+  const start = { ...projection(combat, rng), previews: previews(combat) };
   for (let s = 0; s < STEPS && !combat.result; s++) {
     const legal = legalCommands(combat, seed);
     // Prefer playing cards (80%) so fights progress; endTurn is always legal.
@@ -109,14 +137,23 @@ for (let i = 0; i < COMBATS; i++) {
     const cmd = cards.length && pick(10) < 8 ? cards[pick(cards.length)] : { type: 'endTurn' };
     let error = null;
     try { dispatch(combat, cmd); } catch (e) { error = e.message; }
-    steps.push({ command: cmd, ...(error ? { error } : {}), after: projection(combat, rng) });
+    const after = projection(combat, rng);
+    steps.push({ command: cmd, ...(error ? { error } : {}), after: combat.result ? after : { ...after, previews: previews(combat) } });
   }
   totalSteps += steps.length;
   if (combat.result === 'victory') victories++;
   if (combat.result === 'defeat') defeats++;
   const name = `combat-${String(i).padStart(3, '0')}.json`;
-  writeFileSync(join(OUT, name), `${JSON.stringify({ seed, classId, encounterId: encounter.id, rngCounters: initialRng, snapshot: initial, start, steps, result: combat.result }, null, 1)}\n`);
+  writeFileSync(join(OUT, name), `${JSON.stringify({ seed, classId, encounterId: encounter.id, create, rngCounters: initialRng, snapshot: initial, start, steps, result: combat.result })}\n`);
   index.push({ file: name, seed, classId, encounterId: encounter.id, steps: steps.length, result: combat.result });
 }
+// The registry tables these combats ran against, in the SHIPPED insertion order (D-040), so the C# parity test
+// exercises the engine alone; a separate test holds the content-built registries to the same tables.
+const plain = (v) => JSON.parse(JSON.stringify(v, (k, x) => (typeof x === 'function' ? undefined : x)));
+const REGISTRY_TABLES = ['attributes', 'cards', 'relics', 'statuses', 'stances', 'keywords', 'enemies', 'flasks', 'classes', 'propertyRules'];
+const dump = Object.fromEntries(REGISTRY_TABLES.map((t) => [t, plain(registries[t].all())]));
+for (const t of ['classTree', 'equipment', 'balance']) dump[t] = plain(registries[t]);
+writeFileSync(join(OUT, 'registries.json'), `${JSON.stringify(dump)}
+`);
 writeFileSync(join(OUT, 'index.json'), `${JSON.stringify({ source: 'engine/combat.js createCombat + dispatch (shipped preset)', combats: index }, null, 1)}\n`);
 console.log(`oracle-combat: ${COMBATS} combats, ${totalSteps} steps, ${victories} victories, ${defeats} defeats → Unity/Assets/Tests/Oracle/combat`);

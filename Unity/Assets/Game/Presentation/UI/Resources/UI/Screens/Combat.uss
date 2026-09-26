@@ -1,0 +1,401 @@
+/* W-07 combat (docs/design/04 W-07): bands 10/55/30/5 of the screen; HUD, battlefield, hand, footer group. Tokens only. */
+
+.combat-background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-bg);
+    background-size: var(--size-combat-bg-scale) var(--size-combat-bg-scale);
+    background-position-x: left;
+    background-position-y: top;
+}
+
+.footer-gap {
+    flex-grow: 1;
+}
+
+.combat-page {
+    flex-direction: column;
+}
+
+/* ---- RUN_HUD (10%) ---- */
+
+.combat-hud {
+    height: var(--size-combat-hud);
+    flex-direction: row;
+    align-items: center;
+    padding: var(--space-xs) var(--space-lg);
+    background-color: var(--color-shade);
+    border-bottom-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.hud-portrait {
+    width: var(--size-hud-portrait);
+    height: var(--size-hud-portrait);
+    margin-right: var(--space-md);
+    background-size: contain;
+    background-color: var(--color-bg-raise);
+    border-radius: var(--radius-chip);
+}
+
+.hud-identity {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.hud-name {
+    font-size: var(--font-heading);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.hud-trail {
+    font-size: var(--font-caption);
+    color: var(--color-muted);
+}
+
+.hud-meters {
+    flex-direction: row;
+    align-items: center;
+    margin-right: var(--space-lg);
+}
+
+.hud-meter {
+    width: var(--size-hud-meter-w);
+    margin-left: var(--space-md);
+    margin-bottom: 0;
+}
+
+.hud-meter .meter-glyph {
+    width: auto;
+    margin-right: var(--space-xs);
+    font-size: var(--font-caption);
+    color: var(--color-muted);
+}
+
+.hud-menu {
+    min-width: var(--size-button-min-w);
+}
+
+/* ---- BATTLEFIELD (55%) ---- */
+
+.battlefield {
+    height: var(--size-combat-field);
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: var(--space-md) var(--space-xxl);
+}
+
+.ally-row,
+.enemy-row {
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.enemy-row {
+    justify-content: flex-end;
+}
+
+.phase-banner {
+    position: absolute;
+    top: var(--space-lg);
+    left: 0;
+    right: 0;
+    align-self: center;
+    font-size: var(--font-banner);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    color: var(--color-parchment);
+}
+
+.combat-notice {
+    position: absolute;
+    top: var(--space-lg);
+    left: var(--space-xxl);
+    max-width: var(--size-refusal-max-w);
+    padding: var(--space-xs) var(--space-md);
+    white-space: normal;
+    background-color: var(--color-blood);
+    border-color: var(--color-danger);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-chip);
+}
+
+/* ---- HAND (30%) ---- */
+
+.hand-band {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: var(--size-hand-h);
+    justify-content: flex-end;
+}
+
+.band-prompt {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--space-xs) var(--space-md);
+    -unity-text-align: middle-center;
+    color: var(--color-target-line);
+    -unity-font-style: bold;
+    background-color: var(--color-shade);
+}
+
+.combat-hand .cardview {
+    width: var(--size-card-combat-w);
+    height: var(--size-card-combat-h);
+}
+
+.combat-hand .card-art {
+    height: var(--size-card-art-combat-h);
+}
+
+.combat-hand .hand-card {
+    margin-left: var(--size-hand-combat-overlap);
+}
+
+.discard-bar {
+    flex-direction: row;
+    justify-content: center;
+}
+
+.discard-count {
+    margin-left: var(--space-lg);
+    color: var(--color-parchment);
+}
+
+.combat-hand {
+    flex-grow: 1;
+}
+
+.card--armed {
+    border-color: var(--color-target-line);
+    translate: 0 var(--size-hand-lift);
+}
+
+.card--chosen {
+    border-color: var(--color-danger);
+    opacity: var(--opacity-muted);
+    translate: 0 var(--size-hand-lift);
+}
+
+/* ---- FOOTER (5%, at least the combat footer minimum) ---- */
+
+.combat-footer {
+    flex-shrink: 0;
+    min-height: var(--size-footer-group-h);
+    justify-content: center;
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+    background-color: var(--color-shade);
+    border-top-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.discard-footer {
+    flex-direction: row;
+    align-items: center;
+}
+
+.discard-button {
+    width: var(--size-third-width);
+}
+
+.group--busy .group-end-turn {
+    background-color: var(--color-blood);
+    border-color: var(--color-danger);
+}
+
+/* ---- enemy turn: the field washes red and the banner names who acts ---- */
+
+.combat--enemyTurn .battlefield {
+    background-color: var(--color-enemy-turn-wash);
+}
+
+.combat--enemyTurn .hand-band {
+    opacity: var(--opacity-disabled);
+}
+
+.combat--targeting .hand-band .hand-card {
+    opacity: var(--opacity-muted);
+}
+
+.combat--targeting .hand-band .card--armed {
+    opacity: 1;
+}
+
+/* ---- flask panel (the Potions circle opens it; minis hang above the footer) ---- */
+
+.flask-panel {
+    position: absolute;
+    right: var(--space-lg);
+    bottom: var(--size-footer-group-h);
+    width: var(--size-flask-panel-w);
+    padding: var(--space-md);
+    background-color: var(--color-bg-raise);
+    border-color: var(--color-gold-soft);
+    border-width: var(--border-control);
+    border-radius: var(--radius-card);
+}
+
+.flask-title {
+    font-size: var(--font-heading);
+    color: var(--color-gold);
+    margin-bottom: var(--space-sm);
+}
+
+.flask-chip {
+    margin-bottom: var(--space-xs);
+    -unity-text-align: middle-left;
+}
+
+.flask-chip.card--unaffordable {
+    opacity: var(--opacity-disabled);
+}
+
+.flask-close {
+    margin-top: var(--space-sm);
+}
+
+/* ---- end state (W-08 rewards is planned: D-058) ---- */
+
+.combat-end .end-panel {
+    width: var(--size-end-panel-w);
+    min-height: var(--size-end-panel-min-h);
+    padding: var(--space-xl);
+    background-color: var(--color-shade);
+    border-color: var(--color-gold-soft);
+    border-width: var(--border-control);
+    border-radius: var(--radius-modal);
+}
+
+.end-title {
+    font-size: var(--font-title);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    margin-bottom: var(--space-md);
+}
+
+.end-body,
+.end-planned {
+    white-space: normal;
+    margin-bottom: var(--space-md);
+}
+
+.end-planned {
+    color: var(--color-muted);
+}
+
+.end-footer {
+    flex-direction: row;
+    align-items: center;
+    margin-top: var(--space-lg);
+}
+
+.end-button {
+    width: var(--size-half-gap-width);
+}
+
+/* ---- compact band: tighter bands, smaller cards ---- */
+
+.band-compact .combat-hud {
+    height: var(--size-combat-hud-compact);
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.band-compact .hud-portrait,
+.band-compact .hud-trail {
+    display: none;
+}
+
+.band-compact .battlefield {
+    height: var(--size-combat-field-compact);
+    padding-top: var(--space-xs);
+    padding-bottom: 0;
+}
+
+.band-compact .hand-band {
+    min-height: 0;
+}
+
+.band-compact .combat-hand {
+    min-height: 0;
+}
+
+/* ---- narrow portrait: HUD on two lines, the field stacks ally over enemies, smaller cards ---- */
+
+.layout-narrow .combat-hud {
+    height: auto;
+    min-height: var(--size-combat-hud-narrow);
+    flex-wrap: wrap;
+    padding: var(--space-xs) var(--space-sm);
+}
+
+.layout-narrow .hud-meters {
+    margin-right: 0;
+}
+
+.layout-narrow .hud-meter {
+    width: var(--size-intent-min-w);
+    margin-left: var(--space-xs);
+}
+
+.layout-narrow .hud-portrait,
+.layout-narrow .hud-trail {
+    display: none;
+}
+
+.layout-narrow .battlefield {
+    height: var(--size-combat-field-narrow);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: var(--space-sm);
+}
+
+.layout-narrow .ally-row {
+    justify-content: flex-start;
+}
+
+.layout-narrow .enemy-row {
+    justify-content: flex-end;
+}
+
+
+.layout-narrow .combat-hand .cardview {
+    width: var(--size-card-narrow-w);
+    height: var(--size-card-narrow-h);
+}
+
+.layout-narrow .group-button {
+    min-width: 0;
+    padding-left: var(--space-xs);
+    padding-right: var(--space-xs);
+    font-size: var(--font-caption);
+    flex-shrink: 1;
+}
+
+.layout-narrow .group-end-turn {
+    min-width: 0;
+}
+
+.layout-narrow .group-actions {
+    margin-right: var(--space-xs);
+    font-size: var(--font-body);
+}
+
+.layout-narrow .flask-panel {
+    left: var(--space-sm);
+    right: var(--space-sm);
+    width: auto;
+}
+
+.layout-narrow .combat-end .end-panel {
+    width: var(--size-end-panel-narrow-w);
+}

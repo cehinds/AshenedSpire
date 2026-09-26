@@ -1,1114 +1,1114 @@
 {
-  "ashStaff": {
-    "accent": "C9A227",
-    "artKey": "ashStaff",
-    "attackProfile": "staffMagicAttack",
-    "attackRating": 1,
-    "blurb": "Grey wood, warm at the grip.",
-    "defenseRating": 1,
-    "dropWeight": 10,
-    "geom": "staffOrb",
-    "guardProfile": "staffGuard",
-    "hand": "either",
-    "id": "ashStaff",
-    "inventoryArtKey": "",
-    "kind": "staff",
-    "metal": "6B5D45",
-    "mods": [
-      "power.potency=+1"
-    ],
-    "poiseThreshold": 3,
-    "rarity": "common",
-    "requirements": {
-      "attributes": {
-        "intelligence": 3
-      }
-    },
-    "scale": 1,
-    "techniqueProfile": "staffTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 1,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "starSpark",
-        "attackProfileId": "staffMagicAttack",
-        "guardProfileId": "staffGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "staffMagicAttack",
-      "weaponArtDefaults": [
-        "starSpark"
-      ]
-    },
-    "weight": 3
-  },
-  "battleaxe": {
-    "accent": "C9502E",
-    "artKey": "battleaxe",
-    "attackProfile": "bladeAttack",
-    "attackRating": 2,
-    "blurb": "It was a woodcutter's once.",
-    "defenseRating": 2,
-    "dropWeight": 10,
-    "geom": "axe",
-    "guardProfile": "weaponGuard",
-    "hand": "either",
-    "id": "battleaxe",
-    "inventoryArtKey": "",
-    "kind": "weapon",
-    "metal": "A8A090",
-    "mods": [
-      "strike.cost=+1"
-    ],
-    "poiseThreshold": 7,
-    "rarity": "common",
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "cleavingBlow",
-        "attackProfileId": "bladeAttack",
-        "guardProfileId": "weaponGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "bladeAttack",
-      "weaponArtDefaults": [
-        "cleavingBlow"
-      ]
-    },
-    "weight": 7
-  },
-  "blightRod": {
-    "accent": "B5541C",
-    "artKey": "blightRod",
-    "attackProfile": "sceptreArcaneAttack",
-    "attackRating": 3,
-    "blurb": "Wet to the touch. It should not be.",
-    "defenseRating": 0,
-    "dropWeight": 7,
-    "geom": "staffOrb",
-    "guardProfile": "sceptreGuard",
-    "hand": "either",
-    "id": "blightRod",
-    "inventoryArtKey": "",
-    "kind": "staff",
-    "metal": "4B3522",
-    "mods": [
-      "strike.blight=+3",
-      "self.maxMana=+1"
-    ],
-    "poiseThreshold": 3,
-    "rarity": "uncommon",
-    "scale": 0.95,
-    "techniqueProfile": "staffTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 1,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "contagion",
-        "attackProfileId": "sceptreArcaneAttack",
-        "guardProfileId": "sceptreGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "sceptreArcaneAttack",
-      "weaponArtDefaults": [
-        "contagion"
-      ]
-    },
-    "weight": 3
-  },
-  "boneSceptre": {
-    "accent": "B5541C",
-    "artKey": "boneSceptre",
-    "attackProfile": "sceptreArcaneAttack",
-    "attackRating": 2,
-    "blurb": "Someone knelt for this once.",
-    "defenseRating": 1,
-    "dropWeight": 7,
-    "geom": "staffSkull",
-    "guardProfile": "sceptreGuard",
-    "hand": "either",
-    "id": "boneSceptre",
-    "inventoryArtKey": "",
-    "kind": "staff",
-    "metal": "B8AE98",
-    "mods": [
-      "power.potency=+1",
-      "strike.blight=+2"
-    ],
-    "poiseThreshold": 4,
-    "rarity": "uncommon",
-    "scale": 1,
-    "techniqueProfile": "staffTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 1,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "blightTouch",
-        "attackProfileId": "sceptreArcaneAttack",
-        "guardProfileId": "sceptreGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "sceptreArcaneAttack",
-      "weaponArtDefaults": [
-        "blightTouch"
-      ]
-    },
-    "weight": 4
-  },
-  "buckler": {
-    "accent": "C9A227",
-    "artKey": "buckler",
-    "attackProfile": "shieldAttack",
-    "attackRating": 1,
-    "blurb": "Small enough to be quick with.",
-    "defenseRating": 5,
-    "dropWeight": 10,
-    "geom": "round",
-    "guardProfile": "shieldGuard",
-    "hand": "either",
-    "id": "buckler",
-    "inventoryArtKey": "",
-    "kind": "shield",
-    "metal": "8E8678",
-    "mods": [],
-    "poiseThreshold": 4,
-    "rarity": "common",
-    "scale": 0.8,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "riposte",
-        "attackProfileId": "shieldAttack",
-        "guardProfileId": "shieldGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "shieldAttack",
-      "weaponArtDefaults": [
-        "riposte"
-      ]
-    },
-    "weight": 4
-  },
-  "cinderAxe": {
-    "accent": "C9502E",
-    "artKey": "battleaxe",
-    "attackProfile": "bladeAttack",
-    "attackRating": 3,
-    "blurb": "A furnace edge bought with a slower swing.",
-    "defenseRating": 2,
-    "dropWeight": 7,
-    "geom": "axe",
-    "guardProfile": "weaponGuard",
-    "hand": "either",
-    "id": "cinderAxe",
-    "inventoryArtKey": "battleaxe",
-    "kind": "weapon",
-    "metal": "A8A090",
-    "mods": [
-      "strike.cost=+1",
-      "strike.burn=+3"
-    ],
-    "poiseThreshold": 7,
-    "rarity": "uncommon",
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "kilnCleave",
-        "attackProfileId": "bladeAttack",
-        "guardProfileId": "weaponGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "bladeAttack",
-      "weaponArtDefaults": [
-        "kilnCleave"
-      ]
-    },
-    "weight": 7
-  },
-  "dagger": {
-    "accent": "C9A227",
-    "artKey": "dagger",
-    "attackProfile": "daggerPierceAttack",
-    "attackRating": 1,
-    "blurb": "Two cuts where one would do.",
-    "defenseRating": 2,
-    "dropWeight": 10,
-    "geom": "dagger",
-    "guardProfile": "weaponGuard",
-    "hand": "either",
-    "id": "dagger",
-    "inventoryArtKey": "",
-    "kind": "weapon",
-    "metal": "C0B8A6",
-    "mods": [
-      "strike.hits=2"
-    ],
-    "poiseThreshold": 3,
-    "rarity": "common",
-    "requirements": {
-      "attributes": {
-        "dexterity": 2
-      }
-    },
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "twinFang",
-        "attackProfileId": "daggerPierceAttack",
-        "guardProfileId": "weaponGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "daggerPierceAttack",
-      "weaponArtDefaults": [
-        "twinFang"
-      ]
-    },
-    "weight": 3
-  },
-  "duskChime": {
-    "accent": "B5541C",
-    "artKey": "boneSceptre",
-    "attackProfile": "sceptreArcaneAttack",
-    "attackRating": 1,
-    "blurb": "Its last note settles into a sheltering hush.",
-    "defenseRating": 1,
-    "dropWeight": 4,
-    "geom": "staffSkull",
-    "guardProfile": "sceptreGuard",
-    "hand": "either",
-    "id": "duskChime",
-    "inventoryArtKey": "boneSceptre",
-    "kind": "staff",
-    "metal": "B8AE98",
-    "mods": [
-      "strike.blight=+1",
-      "self.maxMana=+1"
-    ],
-    "poiseThreshold": 3,
-    "rarity": "rare",
-    "scale": 1,
-    "techniqueProfile": "staffTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 1,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "vesperWard",
-        "attackProfileId": "sceptreArcaneAttack",
-        "guardProfileId": "sceptreGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "sceptreArcaneAttack",
-      "weaponArtDefaults": [
-        "vesperWard"
-      ]
-    },
-    "weight": 3
-  },
-  "emberlightSceptre": {
-    "accent": "C9A227",
-    "artKey": "emberlightSceptre",
-    "attackProfile": "sceptreArcaneAttack",
-    "attackRating": 3,
-    "blurb": "It keeps a little of the guiding flame.",
-    "defenseRating": 0,
-    "dropWeight": 4,
-    "geom": "staffFlame",
-    "guardProfile": "sceptreGuard",
-    "hand": "either",
-    "id": "emberlightSceptre",
-    "inventoryArtKey": "",
-    "kind": "staff",
-    "metal": "6B5D45",
-    "mods": [
-      "power.potency=+3"
-    ],
-    "poiseThreshold": 4,
-    "rarity": "rare",
-    "scale": 1,
-    "techniqueProfile": "staffTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 1,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "penance",
-        "attackProfileId": "sceptreArcaneAttack",
-        "guardProfileId": "sceptreGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "sceptreArcaneAttack",
-      "weaponArtDefaults": [
-        "penance"
-      ]
-    },
-    "weight": 4
-  },
-  "frostSpear": {
-    "accent": "C9A227",
-    "artKey": "halberd",
-    "attackProfile": "bladeAttack",
-    "attackRating": 3,
-    "blurb": "A rimed point that slows the next advance.",
-    "defenseRating": 2,
-    "dropWeight": 7,
-    "geom": "polearm",
-    "guardProfile": "weaponGuard",
-    "hand": "either",
-    "id": "frostSpear",
-    "inventoryArtKey": "halberd",
-    "kind": "weapon",
-    "metal": "A8A090",
-    "mods": [
-      "strike.frost=+2"
-    ],
-    "poiseThreshold": 6,
-    "rarity": "uncommon",
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "rimeThrust",
-        "attackProfileId": "bladeAttack",
-        "guardProfileId": "weaponGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "bladeAttack",
-      "weaponArtDefaults": [
-        "rimeThrust"
-      ]
-    },
-    "weight": 6
-  },
-  "goldboughBranch": {
-    "accent": "C9A227",
-    "artKey": "goldboughBranch",
-    "attackProfile": "sceptreArcaneAttack",
-    "attackRating": 3,
-    "blurb": "Cut, and still growing.",
-    "defenseRating": 0,
-    "dropWeight": 4,
-    "geom": "staffBranch",
-    "guardProfile": "sceptreGuard",
-    "hand": "either",
-    "id": "goldboughBranch",
-    "inventoryArtKey": "",
-    "kind": "staff",
-    "metal": "6B5D45",
-    "mods": [
-      "power.potency=+2",
-      "self.regen=+1"
-    ],
-    "poiseThreshold": 4,
-    "rarity": "rare",
-    "scale": 1,
-    "techniqueProfile": "staffTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 1,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "urgentHeal",
-        "attackProfileId": "sceptreArcaneAttack",
-        "guardProfileId": "sceptreGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "sceptreArcaneAttack",
-      "weaponArtDefaults": [
-        "urgentHeal"
-      ]
-    },
-    "weight": 4
-  },
-  "gorefireBrand": {
-    "accent": "C9502E",
-    "artKey": "gorefireBrand",
-    "attackProfile": "sceptreArcaneAttack",
-    "attackRating": 3,
-    "blurb": "Blood takes to flame more readily than wood.",
-    "defenseRating": 0,
-    "dropWeight": 4,
-    "geom": "staffFlame",
-    "guardProfile": "sceptreGuard",
-    "hand": "either",
-    "id": "gorefireBrand",
-    "inventoryArtKey": "",
-    "kind": "staff",
-    "metal": "4B3522",
-    "mods": [
-      "strike.burn=+2",
-      "strike.bleed=+1"
-    ],
-    "poiseThreshold": 3,
-    "rarity": "rare",
-    "scale": 0.95,
-    "techniqueProfile": "staffTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 1,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "gorefireSlash",
-        "attackProfileId": "sceptreArcaneAttack",
-        "guardProfileId": "sceptreGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "sceptreArcaneAttack",
-      "weaponArtDefaults": [
-        "gorefireSlash"
-      ]
-    },
-    "weight": 3
-  },
-  "greatsword": {
-    "accent": "C9A227",
-    "artKey": "greatsword",
-    "attackProfile": "bladeAttack",
-    "attackRating": 4,
-    "blurb": "Slow, and it does not care.",
-    "defenseRating": 2,
-    "dropWeight": 7,
-    "geom": "colossal",
-    "guardProfile": "weaponGuard",
-    "hand": "either",
-    "id": "greatsword",
-    "inventoryArtKey": "",
-    "kind": "weapon",
-    "metal": "B8B0A0",
-    "mods": [
-      "strike.cost=+1",
-      "strike.poise=+3"
-    ],
-    "poiseThreshold": 8,
-    "rarity": "uncommon",
-    "requirements": {
-      "attributes": {
-        "strength": 3
-      }
-    },
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "greatswordSunderingHew",
-        "attackProfileId": "bladeAttack",
-        "guardProfileId": "weaponGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "bladeAttack",
-      "weaponArtDefaults": [
-        "greatswordSunderingHew"
-      ]
-    },
-    "weight": 8
-  },
-  "halberd": {
-    "accent": "C9A227",
-    "artKey": "halberd",
-    "attackProfile": "bladeAttack",
-    "attackRating": 4,
-    "blurb": "Reach enough to keep the dead at arm's length.",
-    "defenseRating": 2,
-    "dropWeight": 7,
-    "geom": "polearm",
-    "guardProfile": "weaponGuard",
-    "hand": "either",
-    "id": "halberd",
-    "inventoryArtKey": "",
-    "kind": "weapon",
-    "metal": "A8A090",
-    "mods": [
-      "strike.cost=+1",
-      "strike.poise=+4"
-    ],
-    "poiseThreshold": 7,
-    "rarity": "uncommon",
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "sweepingBlow",
-        "attackProfileId": "bladeAttack",
-        "guardProfileId": "weaponGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "bladeAttack",
-      "weaponArtDefaults": [
-        "sweepingBlow"
-      ]
-    },
-    "weight": 7
-  },
-  "katana": {
-    "accent": "C9502E",
-    "artKey": "katana",
-    "attackProfile": "bladeAttack",
-    "attackRating": 2,
-    "blurb": "A long curve, and a long grudge.",
-    "defenseRating": 2,
-    "dropWeight": 7,
-    "geom": "curved",
-    "guardProfile": "weaponGuard",
-    "hand": "either",
-    "id": "katana",
-    "inventoryArtKey": "",
-    "kind": "weapon",
-    "metal": "C6BEAC",
-    "mods": [
-      "strike.bleed=+2"
-    ],
-    "poiseThreshold": 5,
-    "rarity": "uncommon",
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "katanaDrawCut",
-        "attackProfileId": "bladeAttack",
-        "guardProfileId": "weaponGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "bladeAttack",
-      "weaponArtDefaults": [
-        "katanaDrawCut"
-      ]
-    },
-    "weight": 5
-  },
-  "kiteShield": {
-    "accent": "C9A227",
-    "artKey": "kiteShield",
-    "attackProfile": "shieldAttack",
-    "attackRating": 0,
-    "blurb": "A wall you can carry. Your arm knows it.",
-    "defenseRating": 4,
-    "dropWeight": 10,
-    "geom": "kite",
-    "guardProfile": "shieldGuard",
-    "hand": "either",
-    "id": "kiteShield",
-    "inventoryArtKey": "kiteShieldInventory2026",
-    "kind": "shield",
-    "metal": "8E8678",
-    "mods": [],
-    "poiseThreshold": 8,
-    "rarity": "common",
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "shieldGuardian",
-        "attackProfileId": "shieldAttack",
-        "guardProfileId": "shieldGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "shieldAttack",
-      "weaponArtDefaults": [
-        "shieldGuardian"
-      ]
-    },
-    "weight": 8
-  },
-  "lantern": {
-    "accent": "C9A227",
-    "artKey": "lantern",
-    "attackProfile": "shieldAttack",
-    "attackRating": 0,
-    "blurb": "Light enough to see what is coming.",
-    "defenseRating": 4,
-    "dropWeight": 10,
-    "geom": "lantern",
-    "guardProfile": "shieldGuard",
-    "hand": "either",
-    "id": "lantern",
-    "inventoryArtKey": "",
-    "kind": "shield",
-    "metal": "6B5D45",
-    "mods": [
-      "self.regen=+1"
-    ],
-    "poiseThreshold": 2,
-    "rarity": "common",
-    "scale": 0.85,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "scholarsInsight",
-        "attackProfileId": "shieldAttack",
-        "guardProfileId": "shieldGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "shieldAttack",
-      "weaponArtDefaults": [
-        "scholarsInsight"
-      ]
-    },
-    "weight": 2
-  },
-  "parryDagger": {
-    "accent": "7FA8C9",
-    "artKey": "parryDagger",
-    "attackProfile": "shieldAttack",
-    "attackRating": 0,
-    "blurb": "Held wrong on purpose.",
-    "defenseRating": 4,
-    "dropWeight": 7,
-    "geom": "dagger",
-    "guardProfile": "shieldGuard",
-    "hand": "either",
-    "id": "parryDagger",
-    "inventoryArtKey": "",
-    "kind": "shield",
-    "metal": "C0B8A6",
-    "mods": [
-      "strike.poise=+2"
-    ],
-    "poiseThreshold": 3,
-    "rarity": "uncommon",
-    "scale": 0.85,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "riposte",
-        "attackProfileId": "shieldAttack",
-        "guardProfileId": "shieldGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "shieldAttack",
-      "weaponArtDefaults": [
-        "riposte"
-      ]
-    },
-    "weight": 3
-  },
-  "roundShield": {
-    "accent": "7FA8C9",
-    "artKey": "roundShield",
-    "attackProfile": "shieldAttack",
-    "attackRating": 0,
-    "blurb": "Plain, round, and enough.",
-    "defenseRating": 5,
-    "dropWeight": 10,
-    "geom": "round",
-    "guardProfile": "shieldGuard",
-    "hand": "either",
-    "id": "roundShield",
-    "inventoryArtKey": "",
-    "kind": "shield",
-    "metal": "8E8678",
-    "mods": [],
-    "poiseThreshold": 7,
-    "rarity": "common",
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "shieldBash",
-        "attackProfileId": "shieldAttack",
-        "guardProfileId": "shieldGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "shieldAttack",
-      "weaponArtDefaults": [
-        "shieldBash"
-      ]
-    },
-    "weight": 7
-  },
-  "shortbow": {
-    "accent": "C9A227",
-    "artKey": "dagger",
-    "attackProfile": "bowPierceAttack",
-    "attackRating": 1,
-    "blurb": "A compact ash-wood bow bound for a quick draw.",
-    "defenseRating": 2,
-    "dropWeight": 10,
-    "geom": "dagger",
-    "guardProfile": "weaponGuard",
-    "hand": "either",
-    "id": "shortbow",
-    "inventoryArtKey": "",
-    "kind": "weapon",
-    "metal": "C0B8A6",
-    "mods": [],
-    "poiseThreshold": 2,
-    "rarity": "common",
-    "scale": 1,
-    "techniqueProfile": "bowTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "quickstep",
-        "attackProfileId": "bowPierceAttack",
-        "guardProfileId": "weaponGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "bowPierceAttack",
-      "weaponArtDefaults": [
-        "quickstep"
-      ]
-    },
-    "weight": 2
-  },
-  "spikedShield": {
-    "accent": "C9502E",
-    "artKey": "spikedShield",
-    "attackProfile": "shieldAttack",
-    "attackRating": 2,
-    "blurb": "Defence with an opinion.",
-    "defenseRating": 5,
-    "dropWeight": 7,
-    "geom": "spiked",
-    "guardProfile": "shieldGuard",
-    "hand": "either",
-    "id": "spikedShield",
-    "inventoryArtKey": "",
-    "kind": "shield",
-    "metal": "8E8678",
-    "mods": [],
-    "poiseThreshold": 8,
-    "rarity": "uncommon",
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "spikedReprisal",
-        "attackProfileId": "shieldAttack",
-        "guardProfileId": "shieldGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "shieldAttack",
-      "weaponArtDefaults": [
-        "spikedReprisal"
-      ]
-    },
-    "weight": 8
-  },
-  "starstoneStaff": {
-    "accent": "7FA8C9",
-    "artKey": "starstoneStaff",
-    "attackProfile": "staffMagicAttack",
-    "attackRating": 1,
-    "blurb": "The stone hums before you do.",
-    "defenseRating": 1,
-    "dropWeight": 7,
-    "geom": "staffCrystal",
-    "guardProfile": "staffGuard",
-    "hand": "either",
-    "id": "starstoneStaff",
-    "inventoryArtKey": "",
-    "kind": "staff",
-    "metal": "6B5D45",
-    "mods": [
-      "power.potency=+2",
-      "strike.frost=+2"
-    ],
-    "poiseThreshold": 3,
-    "rarity": "uncommon",
-    "scale": 1,
-    "techniqueProfile": "staffTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 1,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "frostNova",
-        "attackProfileId": "staffMagicAttack",
-        "guardProfileId": "staffGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "staffMagicAttack",
-      "weaponArtDefaults": [
-        "frostNova"
-      ]
-    },
-    "weight": 3
-  },
   "straightSword": {
-    "accent": "C9A227",
-    "artKey": "straightSword",
-    "attackProfile": "bladeAttack",
-    "attackRating": 2,
-    "blurb": "Honest steel. It asks nothing clever of you.",
-    "defenseRating": 2,
-    "dropWeight": 10,
-    "geom": "sword",
-    "guardProfile": "weaponGuard",
-    "hand": "either",
     "id": "straightSword",
-    "inventoryArtKey": "straightSwordInventory2026",
     "kind": "weapon",
-    "metal": "B8B0A0",
-    "mods": [],
-    "poiseThreshold": 5,
+    "hand": "either",
     "rarity": "common",
+    "geom": "sword",
+    "scale": 1,
+    "metal": "B8B0A0",
+    "accent": "C9A227",
+    "attackProfile": "bladeAttack",
+    "guardProfile": "weaponGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [],
+    "unlock": "",
+    "blurb": "Honest steel. It asks nothing clever of you.",
+    "dropWeight": 10,
+    "artKey": "straightSword",
+    "poiseThreshold": 5,
+    "attackRating": 2,
+    "defenseRating": 2,
+    "weight": 5,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "straightSwordInventory2026",
     "requirements": {
       "attributes": {
         "strength": 2
       }
     },
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
     "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "guardCounter",
-        "attackProfileId": "bladeAttack",
-        "guardProfileId": "weaponGuard"
-      },
       "compatibility": "attack-v1",
       "fillerAttackProfileId": "bladeAttack",
       "weaponArtDefaults": [
         "guardCounter"
-      ]
-    },
-    "weight": 5
-  },
-  "torch": {
-    "accent": "C9502E",
-    "artKey": "torch",
-    "attackProfile": "shieldAttack",
-    "attackRating": 0,
-    "blurb": "Fire remembers what steel forgets.",
-    "defenseRating": 3,
-    "dropWeight": 10,
-    "geom": "torch",
-    "guardProfile": "shieldGuard",
-    "hand": "either",
-    "id": "torch",
-    "inventoryArtKey": "",
-    "kind": "shield",
-    "metal": "6B5D45",
-    "mods": [
-      "strike.burn=+2"
-    ],
-    "poiseThreshold": 2,
-    "rarity": "common",
-    "scale": 0.9,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
+      ],
       "combatKit": {
-        "artCardId": "flameToBlade",
-        "attackProfileId": "shieldAttack",
-        "guardProfileId": "shieldGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "shieldAttack",
-      "weaponArtDefaults": [
-        "flameToBlade"
-      ]
-    },
-    "weight": 2
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard",
+        "artCardId": "guardCounter"
+      }
+    }
   },
-  "towerShield": {
-    "accent": "C9A227",
-    "artKey": "towerShield",
-    "attackProfile": "shieldAttack",
-    "attackRating": 0,
-    "blurb": "You will not be moved. You will not move.",
-    "defenseRating": 9,
-    "dropWeight": 4,
-    "geom": "tower",
-    "guardProfile": "shieldGuard",
-    "hand": "either",
-    "id": "towerShield",
-    "inventoryArtKey": "",
-    "kind": "shield",
-    "metal": "7E766A",
-    "mods": [
-      "self.maxHp=+10"
-    ],
-    "poiseThreshold": 12,
-    "rarity": "rare",
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
-    "unlock": "",
-    "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "shieldBastion",
-        "attackProfileId": "shieldAttack",
-        "guardProfileId": "shieldGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "shieldAttack",
-      "weaponArtDefaults": [
-        "shieldBastion"
-      ]
-    },
-    "weight": 12
-  },
-  "twinblade": {
-    "accent": "7FA8C9",
-    "artKey": "twinblade",
-    "attackProfile": "twinbladeAttack",
-    "attackRating": 2,
-    "blurb": "Both ends are the business end.",
-    "defenseRating": 2,
-    "dropWeight": 4,
-    "geom": "twin",
-    "guardProfile": "weaponGuard",
-    "hand": "either",
-    "id": "twinblade",
-    "inventoryArtKey": "",
+  "greatsword": {
+    "id": "greatsword",
     "kind": "weapon",
-    "metal": "C0B8A6",
-    "mods": [
-      "strike.hits=3",
-      "self.maxStamina=+1"
-    ],
-    "poiseThreshold": 5,
-    "rarity": "rare",
+    "hand": "either",
+    "rarity": "uncommon",
+    "geom": "colossal",
     "scale": 1,
+    "metal": "B8B0A0",
+    "accent": "C9A227",
+    "attackProfile": "bladeAttack",
+    "guardProfile": "weaponGuard",
     "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
+    "mods": [
+      "strike.cost=+1",
+      "strike.poise=+3"
+    ],
     "unlock": "",
+    "blurb": "Slow, and it does not care.",
+    "dropWeight": 7,
+    "artKey": "greatsword",
+    "poiseThreshold": 8,
+    "attackRating": 4,
+    "defenseRating": 2,
+    "weight": 8,
     "weaponArtManaCost": 0,
-    "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "twinbladeFlurry",
-        "attackProfileId": "twinbladeAttack",
-        "guardProfileId": "weaponGuard"
-      },
-      "compatibility": "attack-v1",
-      "fillerAttackProfileId": "twinbladeAttack",
-      "weaponArtDefaults": [
-        "twinbladeFlurry"
-      ]
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "requirements": {
+      "attributes": {
+        "strength": 3
+      }
     },
-    "weight": 5
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "greatswordSunderingHew"
+      ],
+      "combatKit": {
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard",
+        "artCardId": "greatswordSunderingHew"
+      }
+    }
+  },
+  "dagger": {
+    "id": "dagger",
+    "kind": "weapon",
+    "hand": "either",
+    "rarity": "common",
+    "geom": "dagger",
+    "scale": 1,
+    "metal": "C0B8A6",
+    "accent": "C9A227",
+    "attackProfile": "daggerPierceAttack",
+    "guardProfile": "weaponGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [
+      "strike.hits=2"
+    ],
+    "unlock": "",
+    "blurb": "Two cuts where one would do.",
+    "dropWeight": 10,
+    "artKey": "dagger",
+    "poiseThreshold": 3,
+    "attackRating": 1,
+    "defenseRating": 2,
+    "weight": 3,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "requirements": {
+      "attributes": {
+        "dexterity": 2
+      }
+    },
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "daggerPierceAttack",
+      "weaponArtDefaults": [
+        "twinFang"
+      ],
+      "combatKit": {
+        "attackProfileId": "daggerPierceAttack",
+        "guardProfileId": "weaponGuard",
+        "artCardId": "twinFang"
+      }
+    }
+  },
+  "shortbow": {
+    "id": "shortbow",
+    "kind": "weapon",
+    "hand": "either",
+    "rarity": "common",
+    "geom": "dagger",
+    "scale": 1,
+    "metal": "C0B8A6",
+    "accent": "C9A227",
+    "attackProfile": "bowPierceAttack",
+    "guardProfile": "weaponGuard",
+    "techniqueProfile": "bowTechnique",
+    "mods": [],
+    "unlock": "",
+    "blurb": "A compact ash-wood bow bound for a quick draw.",
+    "dropWeight": 10,
+    "artKey": "dagger",
+    "poiseThreshold": 2,
+    "attackRating": 1,
+    "defenseRating": 2,
+    "weight": 2,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bowPierceAttack",
+      "weaponArtDefaults": [
+        "quickstep"
+      ],
+      "combatKit": {
+        "attackProfileId": "bowPierceAttack",
+        "guardProfileId": "weaponGuard",
+        "artCardId": "quickstep"
+      }
+    }
+  },
+  "katana": {
+    "id": "katana",
+    "kind": "weapon",
+    "hand": "either",
+    "rarity": "uncommon",
+    "geom": "curved",
+    "scale": 1,
+    "metal": "C6BEAC",
+    "accent": "C9502E",
+    "attackProfile": "bladeAttack",
+    "guardProfile": "weaponGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [
+      "strike.bleed=+2"
+    ],
+    "unlock": "",
+    "blurb": "A long curve, and a long grudge.",
+    "dropWeight": 7,
+    "artKey": "katana",
+    "poiseThreshold": 5,
+    "attackRating": 2,
+    "defenseRating": 2,
+    "weight": 5,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "katanaDrawCut"
+      ],
+      "combatKit": {
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard",
+        "artCardId": "katanaDrawCut"
+      }
+    }
+  },
+  "halberd": {
+    "id": "halberd",
+    "kind": "weapon",
+    "hand": "either",
+    "rarity": "uncommon",
+    "geom": "polearm",
+    "scale": 1,
+    "metal": "A8A090",
+    "accent": "C9A227",
+    "attackProfile": "bladeAttack",
+    "guardProfile": "weaponGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [
+      "strike.cost=+1",
+      "strike.poise=+4"
+    ],
+    "unlock": "",
+    "blurb": "Reach enough to keep the dead at arm's length.",
+    "dropWeight": 7,
+    "artKey": "halberd",
+    "poiseThreshold": 7,
+    "attackRating": 4,
+    "defenseRating": 2,
+    "weight": 7,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "sweepingBlow"
+      ],
+      "combatKit": {
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard",
+        "artCardId": "sweepingBlow"
+      }
+    }
   },
   "warhammer": {
-    "accent": "C9A227",
-    "artKey": "warhammer",
-    "attackProfile": "bladeAttack",
-    "attackRating": 3,
-    "blurb": "Poise is a fiction. This is the argument.",
-    "defenseRating": 2,
-    "dropWeight": 7,
-    "geom": "hammer",
-    "guardProfile": "weaponGuard",
-    "hand": "either",
     "id": "warhammer",
-    "inventoryArtKey": "",
     "kind": "weapon",
+    "hand": "either",
+    "rarity": "uncommon",
+    "geom": "hammer",
+    "scale": 1,
     "metal": "8E8678",
+    "accent": "C9A227",
+    "attackProfile": "bladeAttack",
+    "guardProfile": "weaponGuard",
+    "techniqueProfile": "weaponTechnique",
     "mods": [
       "strike.poise=+6"
     ],
-    "poiseThreshold": 9,
-    "rarity": "uncommon",
-    "scale": 1,
-    "techniqueProfile": "weaponTechnique",
-    "uniqueSkillStaminaCost": 0,
     "unlock": "",
+    "blurb": "Poise is a fiction. This is the argument.",
+    "dropWeight": 7,
+    "artKey": "warhammer",
+    "poiseThreshold": 9,
+    "attackRating": 3,
+    "defenseRating": 2,
+    "weight": 9,
     "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
     "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "bashingBlow",
-        "attackProfileId": "bladeAttack",
-        "guardProfileId": "weaponGuard"
-      },
       "compatibility": "attack-v1",
       "fillerAttackProfileId": "bladeAttack",
       "weaponArtDefaults": [
         "bashingBlow"
-      ]
+      ],
+      "combatKit": {
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard",
+        "artCardId": "bashingBlow"
+      }
+    }
+  },
+  "twinblade": {
+    "id": "twinblade",
+    "kind": "weapon",
+    "hand": "either",
+    "rarity": "rare",
+    "geom": "twin",
+    "scale": 1,
+    "metal": "C0B8A6",
+    "accent": "7FA8C9",
+    "attackProfile": "twinbladeAttack",
+    "guardProfile": "weaponGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [
+      "strike.hits=3",
+      "self.maxStamina=+1"
+    ],
+    "unlock": "",
+    "blurb": "Both ends are the business end.",
+    "dropWeight": 4,
+    "artKey": "twinblade",
+    "poiseThreshold": 5,
+    "attackRating": 2,
+    "defenseRating": 2,
+    "weight": 5,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "twinbladeAttack",
+      "weaponArtDefaults": [
+        "twinbladeFlurry"
+      ],
+      "combatKit": {
+        "attackProfileId": "twinbladeAttack",
+        "guardProfileId": "weaponGuard",
+        "artCardId": "twinbladeFlurry"
+      }
+    }
+  },
+  "battleaxe": {
+    "id": "battleaxe",
+    "kind": "weapon",
+    "hand": "either",
+    "rarity": "common",
+    "geom": "axe",
+    "scale": 1,
+    "metal": "A8A090",
+    "accent": "C9502E",
+    "attackProfile": "bladeAttack",
+    "guardProfile": "weaponGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [
+      "strike.cost=+1"
+    ],
+    "unlock": "",
+    "blurb": "It was a woodcutter's once.",
+    "dropWeight": 10,
+    "artKey": "battleaxe",
+    "poiseThreshold": 7,
+    "attackRating": 2,
+    "defenseRating": 2,
+    "weight": 7,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "cleavingBlow"
+      ],
+      "combatKit": {
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard",
+        "artCardId": "cleavingBlow"
+      }
+    }
+  },
+  "buckler": {
+    "id": "buckler",
+    "kind": "shield",
+    "hand": "either",
+    "rarity": "common",
+    "geom": "round",
+    "scale": 0.8,
+    "metal": "8E8678",
+    "accent": "C9A227",
+    "attackProfile": "shieldAttack",
+    "guardProfile": "shieldGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [],
+    "unlock": "",
+    "blurb": "Small enough to be quick with.",
+    "dropWeight": 10,
+    "artKey": "buckler",
+    "poiseThreshold": 4,
+    "attackRating": 1,
+    "defenseRating": 5,
+    "weight": 4,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "riposte"
+      ],
+      "combatKit": {
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard",
+        "artCardId": "riposte"
+      }
+    }
+  },
+  "kiteShield": {
+    "id": "kiteShield",
+    "kind": "shield",
+    "hand": "either",
+    "rarity": "common",
+    "geom": "kite",
+    "scale": 1,
+    "metal": "8E8678",
+    "accent": "C9A227",
+    "attackProfile": "shieldAttack",
+    "guardProfile": "shieldGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [],
+    "unlock": "",
+    "blurb": "A wall you can carry. Your arm knows it.",
+    "dropWeight": 10,
+    "artKey": "kiteShield",
+    "poiseThreshold": 8,
+    "attackRating": 0,
+    "defenseRating": 4,
+    "weight": 8,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "kiteShieldInventory2026",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "shieldGuardian"
+      ],
+      "combatKit": {
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard",
+        "artCardId": "shieldGuardian"
+      }
+    }
+  },
+  "towerShield": {
+    "id": "towerShield",
+    "kind": "shield",
+    "hand": "either",
+    "rarity": "rare",
+    "geom": "tower",
+    "scale": 1,
+    "metal": "7E766A",
+    "accent": "C9A227",
+    "attackProfile": "shieldAttack",
+    "guardProfile": "shieldGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [
+      "self.maxHp=+10"
+    ],
+    "unlock": "",
+    "blurb": "You will not be moved. You will not move.",
+    "dropWeight": 4,
+    "artKey": "towerShield",
+    "poiseThreshold": 12,
+    "attackRating": 0,
+    "defenseRating": 9,
+    "weight": 12,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "shieldBastion"
+      ],
+      "combatKit": {
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard",
+        "artCardId": "shieldBastion"
+      }
+    }
+  },
+  "roundShield": {
+    "id": "roundShield",
+    "kind": "shield",
+    "hand": "either",
+    "rarity": "common",
+    "geom": "round",
+    "scale": 1,
+    "metal": "8E8678",
+    "accent": "7FA8C9",
+    "attackProfile": "shieldAttack",
+    "guardProfile": "shieldGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [],
+    "unlock": "",
+    "blurb": "Plain, round, and enough.",
+    "dropWeight": 10,
+    "artKey": "roundShield",
+    "poiseThreshold": 7,
+    "attackRating": 0,
+    "defenseRating": 5,
+    "weight": 7,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "shieldBash"
+      ],
+      "combatKit": {
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard",
+        "artCardId": "shieldBash"
+      }
+    }
+  },
+  "spikedShield": {
+    "id": "spikedShield",
+    "kind": "shield",
+    "hand": "either",
+    "rarity": "uncommon",
+    "geom": "spiked",
+    "scale": 1,
+    "metal": "8E8678",
+    "accent": "C9502E",
+    "attackProfile": "shieldAttack",
+    "guardProfile": "shieldGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [],
+    "unlock": "",
+    "blurb": "Defence with an opinion.",
+    "dropWeight": 7,
+    "artKey": "spikedShield",
+    "poiseThreshold": 8,
+    "attackRating": 2,
+    "defenseRating": 5,
+    "weight": 8,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "spikedReprisal"
+      ],
+      "combatKit": {
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard",
+        "artCardId": "spikedReprisal"
+      }
+    }
+  },
+  "lantern": {
+    "id": "lantern",
+    "kind": "shield",
+    "hand": "either",
+    "rarity": "common",
+    "geom": "lantern",
+    "scale": 0.85,
+    "metal": "6B5D45",
+    "accent": "C9A227",
+    "attackProfile": "shieldAttack",
+    "guardProfile": "shieldGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [
+      "self.regen=+1"
+    ],
+    "unlock": "",
+    "blurb": "Light enough to see what is coming.",
+    "dropWeight": 10,
+    "artKey": "lantern",
+    "poiseThreshold": 2,
+    "attackRating": 0,
+    "defenseRating": 4,
+    "weight": 2,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "scholarsInsight"
+      ],
+      "combatKit": {
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard",
+        "artCardId": "scholarsInsight"
+      }
+    }
+  },
+  "torch": {
+    "id": "torch",
+    "kind": "shield",
+    "hand": "either",
+    "rarity": "common",
+    "geom": "torch",
+    "scale": 0.9,
+    "metal": "6B5D45",
+    "accent": "C9502E",
+    "attackProfile": "shieldAttack",
+    "guardProfile": "shieldGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [
+      "strike.burn=+2"
+    ],
+    "unlock": "",
+    "blurb": "Fire remembers what steel forgets.",
+    "dropWeight": 10,
+    "artKey": "torch",
+    "poiseThreshold": 2,
+    "attackRating": 0,
+    "defenseRating": 3,
+    "weight": 2,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "flameToBlade"
+      ],
+      "combatKit": {
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard",
+        "artCardId": "flameToBlade"
+      }
+    }
+  },
+  "parryDagger": {
+    "id": "parryDagger",
+    "kind": "shield",
+    "hand": "either",
+    "rarity": "uncommon",
+    "geom": "dagger",
+    "scale": 0.85,
+    "metal": "C0B8A6",
+    "accent": "7FA8C9",
+    "attackProfile": "shieldAttack",
+    "guardProfile": "shieldGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [
+      "strike.poise=+2"
+    ],
+    "unlock": "",
+    "blurb": "Held wrong on purpose.",
+    "dropWeight": 7,
+    "artKey": "parryDagger",
+    "poiseThreshold": 3,
+    "attackRating": 0,
+    "defenseRating": 4,
+    "weight": 3,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "riposte"
+      ],
+      "combatKit": {
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard",
+        "artCardId": "riposte"
+      }
+    }
+  },
+  "ashStaff": {
+    "id": "ashStaff",
+    "kind": "staff",
+    "hand": "either",
+    "rarity": "common",
+    "geom": "staffOrb",
+    "scale": 1,
+    "metal": "6B5D45",
+    "accent": "C9A227",
+    "attackProfile": "staffMagicAttack",
+    "guardProfile": "staffGuard",
+    "techniqueProfile": "staffTechnique",
+    "mods": [
+      "power.potency=+1"
+    ],
+    "unlock": "",
+    "blurb": "Grey wood, warm at the grip.",
+    "dropWeight": 10,
+    "artKey": "ashStaff",
+    "poiseThreshold": 3,
+    "attackRating": 1,
+    "defenseRating": 1,
+    "weight": 3,
+    "weaponArtManaCost": 1,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "requirements": {
+      "attributes": {
+        "intelligence": 3
+      }
     },
-    "weight": 9
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "staffMagicAttack",
+      "weaponArtDefaults": [
+        "starSpark"
+      ],
+      "combatKit": {
+        "attackProfileId": "staffMagicAttack",
+        "guardProfileId": "staffGuard",
+        "artCardId": "starSpark"
+      }
+    }
+  },
+  "starstoneStaff": {
+    "id": "starstoneStaff",
+    "kind": "staff",
+    "hand": "either",
+    "rarity": "uncommon",
+    "geom": "staffCrystal",
+    "scale": 1,
+    "metal": "6B5D45",
+    "accent": "7FA8C9",
+    "attackProfile": "staffMagicAttack",
+    "guardProfile": "staffGuard",
+    "techniqueProfile": "staffTechnique",
+    "mods": [
+      "power.potency=+2",
+      "strike.frost=+2"
+    ],
+    "unlock": "",
+    "blurb": "The stone hums before you do.",
+    "dropWeight": 7,
+    "artKey": "starstoneStaff",
+    "poiseThreshold": 3,
+    "attackRating": 1,
+    "defenseRating": 1,
+    "weight": 3,
+    "weaponArtManaCost": 1,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "staffMagicAttack",
+      "weaponArtDefaults": [
+        "frostNova"
+      ],
+      "combatKit": {
+        "attackProfileId": "staffMagicAttack",
+        "guardProfileId": "staffGuard",
+        "artCardId": "frostNova"
+      }
+    }
+  },
+  "boneSceptre": {
+    "id": "boneSceptre",
+    "kind": "staff",
+    "hand": "either",
+    "rarity": "uncommon",
+    "geom": "staffSkull",
+    "scale": 1,
+    "metal": "B8AE98",
+    "accent": "B5541C",
+    "attackProfile": "sceptreArcaneAttack",
+    "guardProfile": "sceptreGuard",
+    "techniqueProfile": "staffTechnique",
+    "mods": [
+      "power.potency=+1",
+      "strike.blight=+2"
+    ],
+    "unlock": "",
+    "blurb": "Someone knelt for this once.",
+    "dropWeight": 7,
+    "artKey": "boneSceptre",
+    "poiseThreshold": 4,
+    "attackRating": 2,
+    "defenseRating": 1,
+    "weight": 4,
+    "weaponArtManaCost": 1,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "blightTouch"
+      ],
+      "combatKit": {
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard",
+        "artCardId": "blightTouch"
+      }
+    }
+  },
+  "emberlightSceptre": {
+    "id": "emberlightSceptre",
+    "kind": "staff",
+    "hand": "either",
+    "rarity": "rare",
+    "geom": "staffFlame",
+    "scale": 1,
+    "metal": "6B5D45",
+    "accent": "C9A227",
+    "attackProfile": "sceptreArcaneAttack",
+    "guardProfile": "sceptreGuard",
+    "techniqueProfile": "staffTechnique",
+    "mods": [
+      "power.potency=+3"
+    ],
+    "unlock": "",
+    "blurb": "It keeps a little of the guiding flame.",
+    "dropWeight": 4,
+    "artKey": "emberlightSceptre",
+    "poiseThreshold": 4,
+    "attackRating": 3,
+    "defenseRating": 0,
+    "weight": 4,
+    "weaponArtManaCost": 1,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "penance"
+      ],
+      "combatKit": {
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard",
+        "artCardId": "penance"
+      }
+    }
+  },
+  "goldboughBranch": {
+    "id": "goldboughBranch",
+    "kind": "staff",
+    "hand": "either",
+    "rarity": "rare",
+    "geom": "staffBranch",
+    "scale": 1,
+    "metal": "6B5D45",
+    "accent": "C9A227",
+    "attackProfile": "sceptreArcaneAttack",
+    "guardProfile": "sceptreGuard",
+    "techniqueProfile": "staffTechnique",
+    "mods": [
+      "power.potency=+2",
+      "self.regen=+1"
+    ],
+    "unlock": "",
+    "blurb": "Cut, and still growing.",
+    "dropWeight": 4,
+    "artKey": "goldboughBranch",
+    "poiseThreshold": 4,
+    "attackRating": 3,
+    "defenseRating": 0,
+    "weight": 4,
+    "weaponArtManaCost": 1,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "urgentHeal"
+      ],
+      "combatKit": {
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard",
+        "artCardId": "urgentHeal"
+      }
+    }
+  },
+  "blightRod": {
+    "id": "blightRod",
+    "kind": "staff",
+    "hand": "either",
+    "rarity": "uncommon",
+    "geom": "staffOrb",
+    "scale": 0.95,
+    "metal": "4B3522",
+    "accent": "B5541C",
+    "attackProfile": "sceptreArcaneAttack",
+    "guardProfile": "sceptreGuard",
+    "techniqueProfile": "staffTechnique",
+    "mods": [
+      "strike.blight=+3",
+      "self.maxMana=+1"
+    ],
+    "unlock": "",
+    "blurb": "Wet to the touch. It should not be.",
+    "dropWeight": 7,
+    "artKey": "blightRod",
+    "poiseThreshold": 3,
+    "attackRating": 3,
+    "defenseRating": 0,
+    "weight": 3,
+    "weaponArtManaCost": 1,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "contagion"
+      ],
+      "combatKit": {
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard",
+        "artCardId": "contagion"
+      }
+    }
+  },
+  "gorefireBrand": {
+    "id": "gorefireBrand",
+    "kind": "staff",
+    "hand": "either",
+    "rarity": "rare",
+    "geom": "staffFlame",
+    "scale": 0.95,
+    "metal": "4B3522",
+    "accent": "C9502E",
+    "attackProfile": "sceptreArcaneAttack",
+    "guardProfile": "sceptreGuard",
+    "techniqueProfile": "staffTechnique",
+    "mods": [
+      "strike.burn=+2",
+      "strike.bleed=+1"
+    ],
+    "unlock": "",
+    "blurb": "Blood takes to flame more readily than wood.",
+    "dropWeight": 4,
+    "artKey": "gorefireBrand",
+    "poiseThreshold": 3,
+    "attackRating": 3,
+    "defenseRating": 0,
+    "weight": 3,
+    "weaponArtManaCost": 1,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "gorefireSlash"
+      ],
+      "combatKit": {
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard",
+        "artCardId": "gorefireSlash"
+      }
+    }
   },
   "wyrmhornStaff": {
-    "accent": "C9A227",
-    "artKey": "wyrmhornStaff",
-    "attackProfile": "sceptreArcaneAttack",
-    "attackRating": 3,
-    "blurb": "Taken from something that objected.",
-    "defenseRating": 0,
-    "dropWeight": 4,
-    "geom": "staffHorn",
-    "guardProfile": "staffGuard",
-    "hand": "either",
     "id": "wyrmhornStaff",
-    "inventoryArtKey": "",
     "kind": "staff",
+    "hand": "either",
+    "rarity": "rare",
+    "geom": "staffHorn",
+    "scale": 1,
     "metal": "B8AE98",
+    "accent": "C9A227",
+    "attackProfile": "sceptreArcaneAttack",
+    "guardProfile": "staffGuard",
+    "techniqueProfile": "staffTechnique",
     "mods": [
       "power.potency=+2",
       "strike.poise=+2",
       "strike.insanity=+2"
     ],
-    "poiseThreshold": 5,
-    "rarity": "rare",
-    "scale": 1,
-    "techniqueProfile": "staffTechnique",
-    "uniqueSkillStaminaCost": 0,
     "unlock": "",
+    "blurb": "Taken from something that objected.",
+    "dropWeight": 4,
+    "artKey": "wyrmhornStaff",
+    "poiseThreshold": 5,
+    "attackRating": 3,
+    "defenseRating": 0,
+    "weight": 5,
     "weaponArtManaCost": 1,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "",
     "weaponCardPackage": {
-      "combatKit": {
-        "artCardId": "moonrendCut",
-        "attackProfileId": "sceptreArcaneAttack",
-        "guardProfileId": "staffGuard"
-      },
       "compatibility": "attack-v1",
       "fillerAttackProfileId": "sceptreArcaneAttack",
       "weaponArtDefaults": [
         "moonrendCut"
-      ]
-    },
-    "weight": 5
+      ],
+      "combatKit": {
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "staffGuard",
+        "artCardId": "moonrendCut"
+      }
+    }
+  },
+  "frostSpear": {
+    "id": "frostSpear",
+    "kind": "weapon",
+    "hand": "either",
+    "rarity": "uncommon",
+    "geom": "polearm",
+    "scale": 1,
+    "metal": "A8A090",
+    "accent": "C9A227",
+    "attackProfile": "bladeAttack",
+    "guardProfile": "weaponGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [
+      "strike.frost=+2"
+    ],
+    "unlock": "",
+    "blurb": "A rimed point that slows the next advance.",
+    "dropWeight": 7,
+    "artKey": "halberd",
+    "poiseThreshold": 6,
+    "attackRating": 3,
+    "defenseRating": 2,
+    "weight": 6,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "halberd",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "rimeThrust"
+      ],
+      "combatKit": {
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard",
+        "artCardId": "rimeThrust"
+      }
+    }
+  },
+  "cinderAxe": {
+    "id": "cinderAxe",
+    "kind": "weapon",
+    "hand": "either",
+    "rarity": "uncommon",
+    "geom": "axe",
+    "scale": 1,
+    "metal": "A8A090",
+    "accent": "C9502E",
+    "attackProfile": "bladeAttack",
+    "guardProfile": "weaponGuard",
+    "techniqueProfile": "weaponTechnique",
+    "mods": [
+      "strike.cost=+1",
+      "strike.burn=+3"
+    ],
+    "unlock": "",
+    "blurb": "A furnace edge bought with a slower swing.",
+    "dropWeight": 7,
+    "artKey": "battleaxe",
+    "poiseThreshold": 7,
+    "attackRating": 3,
+    "defenseRating": 2,
+    "weight": 7,
+    "weaponArtManaCost": 0,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "battleaxe",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "kilnCleave"
+      ],
+      "combatKit": {
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard",
+        "artCardId": "kilnCleave"
+      }
+    }
+  },
+  "duskChime": {
+    "id": "duskChime",
+    "kind": "staff",
+    "hand": "either",
+    "rarity": "rare",
+    "geom": "staffSkull",
+    "scale": 1,
+    "metal": "B8AE98",
+    "accent": "B5541C",
+    "attackProfile": "sceptreArcaneAttack",
+    "guardProfile": "sceptreGuard",
+    "techniqueProfile": "staffTechnique",
+    "mods": [
+      "strike.blight=+1",
+      "self.maxMana=+1"
+    ],
+    "unlock": "",
+    "blurb": "Its last note settles into a sheltering hush.",
+    "dropWeight": 4,
+    "artKey": "boneSceptre",
+    "poiseThreshold": 3,
+    "attackRating": 1,
+    "defenseRating": 1,
+    "weight": 3,
+    "weaponArtManaCost": 1,
+    "uniqueSkillStaminaCost": 0,
+    "inventoryArtKey": "boneSceptre",
+    "weaponCardPackage": {
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "vesperWard"
+      ],
+      "combatKit": {
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard",
+        "artCardId": "vesperWard"
+      }
+    }
   }
 }

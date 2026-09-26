@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Slot.uss" />
+    <Ashen.Presentation.UI.LocLabel name="SLOT_MARK" class="slot-mark" picking-mode="Ignore" />
+    <Ashen.Presentation.UI.LocLabel name="SLOT_LABEL" class="slot-label kit-text-header" picking-mode="Ignore" />
+    <ui:VisualElement name="SLOT_PORTRAIT" class="slot-portrait" picking-mode="Ignore" />
+    <ui:VisualElement class="slot-texts" picking-mode="Ignore">
+        <Ashen.Presentation.UI.LocLabel name="SLOT_FACTS" class="slot-facts kit-text-value" picking-mode="Ignore" />
+        <Ashen.Presentation.UI.LocLabel name="SLOT_SAVED" class="slot-saved kit-text-value" picking-mode="Ignore" />
+    </ui:VisualElement>
+    <Ashen.Presentation.UI.LocButton name="SLOT_DELETE" class="kit-button--back slot-delete" string-key="glyph.delete" />
+</ui:UXML>

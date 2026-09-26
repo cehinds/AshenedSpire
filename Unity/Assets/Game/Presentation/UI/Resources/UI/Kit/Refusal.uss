@@ -1,0 +1,29 @@
+/* Refusal (docs/design/04 W-24): inline at the control, then it fades. */
+.refusal {
+    position: absolute;
+    max-width: var(--size-refusal-max-w);
+    margin-top: var(--space-xs);
+    padding: var(--space-xs) var(--space-md);
+    background-color: var(--color-blood);
+    border-color: var(--color-danger);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-chip);
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: var(--duration-normal);
+}
+
+.refusal--visible {
+    opacity: 1;
+}
+
+.refusal-inline {
+    position: relative;
+    align-self: flex-start;
+}
+
+.refusal-text {
+    font-size: var(--font-caption);
+    color: var(--color-parchment);
+    white-space: normal;
+}

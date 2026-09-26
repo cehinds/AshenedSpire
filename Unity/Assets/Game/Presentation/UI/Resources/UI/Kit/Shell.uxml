@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Shell.uss" />
+    <ui:VisualElement name="SHELL_HEADER" class="shell-header">
+        <Ashen.Presentation.UI.LocLabel name="SHELL_TITLE" class="shell-title kit-text-header" />
+        <Ashen.Presentation.UI.LocButton name="SHELL_EXIT" class="kit-button--back shell-exit" string-key="glyph.close" />
+    </ui:VisualElement>
+    <ui:VisualElement name="SHELL_BODY" class="shell-body" />
+    <ui:VisualElement name="SHELL_FOOTER" class="shell-footer">
+        <Ashen.Presentation.UI.LocButton name="FOOTER_BACK" class="kit-button--back shell-footer-button" />
+        <ui:VisualElement class="shell-footer-gap" />
+        <Ashen.Presentation.UI.LocButton name="FOOTER_PRIMARY" class="kit-button--primary shell-footer-button" />
+    </ui:VisualElement>
+</ui:UXML>

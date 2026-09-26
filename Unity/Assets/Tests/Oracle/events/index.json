@@ -1,0 +1,3967 @@
+{
+ "source": "main.js showEvent/onDone + ui/screens/event.js & dialogue.js view facts over engine/quests.js commitEventChoice, model/{quests,consequence,classSwap,smithing}.js, engine/actions.js executeRunEffects (shipped and reference presets)",
+ "sessions": [
+  {
+   "file": "sweep-001-shipped-turncoatMirror-stepThrough-open.json",
+   "name": "sweep-001-shipped-turncoatMirror-stepThrough-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-002-shipped-turncoatMirror-stepThrough-shut.json",
+   "name": "sweep-002-shipped-turncoatMirror-stepThrough-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-003-shipped-turncoatMirror-turnAway-open.json",
+   "name": "sweep-003-shipped-turncoatMirror-turnAway-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-004-shipped-turncoatMirror-turnAway-shut.json",
+   "name": "sweep-004-shipped-turncoatMirror-turnAway-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-005-shipped-goldboughAvatar-offerCard-open.json",
+   "name": "sweep-005-shipped-goldboughAvatar-offerCard-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-006-shipped-goldboughAvatar-offerCard-shut.json",
+   "name": "sweep-006-shipped-goldboughAvatar-offerCard-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-007-shipped-goldboughAvatar-pray-open.json",
+   "name": "sweep-007-shipped-goldboughAvatar-pray-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-008-shipped-goldboughAvatar-pray-shut.json",
+   "name": "sweep-008-shipped-goldboughAvatar-pray-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-009-shipped-goldboughAvatar-leave-open.json",
+   "name": "sweep-009-shipped-goldboughAvatar-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-010-shipped-goldboughAvatar-leave-shut.json",
+   "name": "sweep-010-shipped-goldboughAvatar-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-011-shipped-abandonedCart-lootStrongbox-open.json",
+   "name": "sweep-011-shipped-abandonedCart-lootStrongbox-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-012-shipped-abandonedCart-lootStrongbox-shut.json",
+   "name": "sweep-012-shipped-abandonedCart-lootStrongbox-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-013-shipped-abandonedCart-leave-open.json",
+   "name": "sweep-013-shipped-abandonedCart-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-014-shipped-abandonedCart-leave-shut.json",
+   "name": "sweep-014-shipped-abandonedCart-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-015-shipped-weepingPilgrim-giveCinders-open.json",
+   "name": "sweep-015-shipped-weepingPilgrim-giveCinders-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-016-shipped-weepingPilgrim-giveCinders-shut.json",
+   "name": "sweep-016-shipped-weepingPilgrim-giveCinders-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-017-shipped-weepingPilgrim-refuse-open.json",
+   "name": "sweep-017-shipped-weepingPilgrim-refuse-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-018-shipped-weepingPilgrim-refuse-shut.json",
+   "name": "sweep-018-shipped-weepingPilgrim-refuse-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-019-shipped-bloodstainedAltar-offerBlood-open.json",
+   "name": "sweep-019-shipped-bloodstainedAltar-offerBlood-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-020-shipped-bloodstainedAltar-offerBlood-shut.json",
+   "name": "sweep-020-shipped-bloodstainedAltar-offerBlood-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-021-shipped-bloodstainedAltar-leave-open.json",
+   "name": "sweep-021-shipped-bloodstainedAltar-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-022-shipped-bloodstainedAltar-leave-shut.json",
+   "name": "sweep-022-shipped-bloodstainedAltar-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-023-shipped-wanderingPhysician-procedure-open.json",
+   "name": "sweep-023-shipped-wanderingPhysician-procedure-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-024-shipped-wanderingPhysician-procedure-shut.json",
+   "name": "sweep-024-shipped-wanderingPhysician-procedure-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-025-shipped-wanderingPhysician-patch-open.json",
+   "name": "sweep-025-shipped-wanderingPhysician-patch-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-026-shipped-wanderingPhysician-patch-shut.json",
+   "name": "sweep-026-shipped-wanderingPhysician-patch-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-027-shipped-wanderingPhysician-leave-open.json",
+   "name": "sweep-027-shipped-wanderingPhysician-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-028-shipped-wanderingPhysician-leave-shut.json",
+   "name": "sweep-028-shipped-wanderingPhysician-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-029-shipped-goldenMoth-gatherCinders-open.json",
+   "name": "sweep-029-shipped-goldenMoth-gatherCinders-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-030-shipped-goldenMoth-gatherCinders-shut.json",
+   "name": "sweep-030-shipped-goldenMoth-gatherCinders-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-031-shipped-goldenMoth-keepVigil-open.json",
+   "name": "sweep-031-shipped-goldenMoth-keepVigil-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-032-shipped-goldenMoth-keepVigil-shut.json",
+   "name": "sweep-032-shipped-goldenMoth-keepVigil-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-033-shipped-goldenMoth-leave-open.json",
+   "name": "sweep-033-shipped-goldenMoth-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-034-shipped-goldenMoth-leave-shut.json",
+   "name": "sweep-034-shipped-goldenMoth-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-035-shipped-feralShrine-takeOffering-open.json",
+   "name": "sweep-035-shipped-feralShrine-takeOffering-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-036-shipped-feralShrine-takeOffering-shut.json",
+   "name": "sweep-036-shipped-feralShrine-takeOffering-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-037-shipped-feralShrine-leave-open.json",
+   "name": "sweep-037-shipped-feralShrine-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-038-shipped-feralShrine-leave-shut.json",
+   "name": "sweep-038-shipped-feralShrine-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-039-shipped-ancientRuneStone-studyStone-open.json",
+   "name": "sweep-039-shipped-ancientRuneStone-studyStone-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-040-shipped-ancientRuneStone-studyStone-shut.json",
+   "name": "sweep-040-shipped-ancientRuneStone-studyStone-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-041-shipped-ancientRuneStone-smashStone-open.json",
+   "name": "sweep-041-shipped-ancientRuneStone-smashStone-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-042-shipped-ancientRuneStone-smashStone-shut.json",
+   "name": "sweep-042-shipped-ancientRuneStone-smashStone-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-043-shipped-ancientRuneStone-leave-open.json",
+   "name": "sweep-043-shipped-ancientRuneStone-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-044-shipped-ancientRuneStone-leave-shut.json",
+   "name": "sweep-044-shipped-ancientRuneStone-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-045-shipped-graveOfTheNameless-digForCinders-open.json",
+   "name": "sweep-045-shipped-graveOfTheNameless-digForCinders-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-046-shipped-graveOfTheNameless-digForCinders-shut.json",
+   "name": "sweep-046-shipped-graveOfTheNameless-digForCinders-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-047-shipped-graveOfTheNameless-payRespects-open.json",
+   "name": "sweep-047-shipped-graveOfTheNameless-payRespects-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-048-shipped-graveOfTheNameless-payRespects-shut.json",
+   "name": "sweep-048-shipped-graveOfTheNameless-payRespects-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-049-shipped-graveOfTheNameless-leave-open.json",
+   "name": "sweep-049-shipped-graveOfTheNameless-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-050-shipped-graveOfTheNameless-leave-shut.json",
+   "name": "sweep-050-shipped-graveOfTheNameless-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-051-shipped-sleepingSmith-takeBlade-open.json",
+   "name": "sweep-051-shipped-sleepingSmith-takeBlade-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-052-shipped-sleepingSmith-takeBlade-shut.json",
+   "name": "sweep-052-shipped-sleepingSmith-takeBlade-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-053-shipped-sleepingSmith-wakeSmith-open.json",
+   "name": "sweep-053-shipped-sleepingSmith-wakeSmith-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-054-shipped-sleepingSmith-wakeSmith-shut.json",
+   "name": "sweep-054-shipped-sleepingSmith-wakeSmith-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-055-shipped-sleepingSmith-leave-open.json",
+   "name": "sweep-055-shipped-sleepingSmith-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-056-shipped-sleepingSmith-leave-shut.json",
+   "name": "sweep-056-shipped-sleepingSmith-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-057-shipped-wyrmTrial-enterRing-open.json",
+   "name": "sweep-057-shipped-wyrmTrial-enterRing-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-058-shipped-wyrmTrial-enterRing-shut.json",
+   "name": "sweep-058-shipped-wyrmTrial-enterRing-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-059-shipped-wyrmTrial-circleRing-open.json",
+   "name": "sweep-059-shipped-wyrmTrial-circleRing-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-060-shipped-wyrmTrial-circleRing-shut.json",
+   "name": "sweep-060-shipped-wyrmTrial-circleRing-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-061-shipped-wyrmTrial-leave-open.json",
+   "name": "sweep-061-shipped-wyrmTrial-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-062-shipped-wyrmTrial-leave-shut.json",
+   "name": "sweep-062-shipped-wyrmTrial-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-063-shipped-discardedReliquary-takeCurse-open.json",
+   "name": "sweep-063-shipped-discardedReliquary-takeCurse-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-064-shipped-discardedReliquary-takeCurse-shut.json",
+   "name": "sweep-064-shipped-discardedReliquary-takeCurse-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-065-shipped-discardedReliquary-burnPack-open.json",
+   "name": "sweep-065-shipped-discardedReliquary-burnPack-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-066-shipped-discardedReliquary-burnPack-shut.json",
+   "name": "sweep-066-shipped-discardedReliquary-burnPack-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-067-shipped-discardedReliquary-leave-open.json",
+   "name": "sweep-067-shipped-discardedReliquary-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-068-shipped-discardedReliquary-leave-shut.json",
+   "name": "sweep-068-shipped-discardedReliquary-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-069-shipped-omensAltar-acceptGaze-open.json",
+   "name": "sweep-069-shipped-omensAltar-acceptGaze-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-070-shipped-omensAltar-acceptGaze-shut.json",
+   "name": "sweep-070-shipped-omensAltar-acceptGaze-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-071-shipped-omensAltar-shatterAltar-open.json",
+   "name": "sweep-071-shipped-omensAltar-shatterAltar-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-072-shipped-omensAltar-shatterAltar-shut.json",
+   "name": "sweep-072-shipped-omensAltar-shatterAltar-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-073-shipped-omensAltar-leave-open.json",
+   "name": "sweep-073-shipped-omensAltar-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-074-shipped-omensAltar-leave-shut.json",
+   "name": "sweep-074-shipped-omensAltar-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-075-shipped-rotPriestOffer-acceptBlessing-open.json",
+   "name": "sweep-075-shipped-rotPriestOffer-acceptBlessing-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-076-shipped-rotPriestOffer-acceptBlessing-shut.json",
+   "name": "sweep-076-shipped-rotPriestOffer-acceptBlessing-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-077-shipped-rotPriestOffer-robPriest-open.json",
+   "name": "sweep-077-shipped-rotPriestOffer-robPriest-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-078-shipped-rotPriestOffer-robPriest-shut.json",
+   "name": "sweep-078-shipped-rotPriestOffer-robPriest-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-079-shipped-rotPriestOffer-leave-open.json",
+   "name": "sweep-079-shipped-rotPriestOffer-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-080-shipped-rotPriestOffer-leave-shut.json",
+   "name": "sweep-080-shipped-rotPriestOffer-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-081-shipped-handspiderNest-snatchStrongbox-open.json",
+   "name": "sweep-081-shipped-handspiderNest-snatchStrongbox-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-082-shipped-handspiderNest-snatchStrongbox-shut.json",
+   "name": "sweep-082-shipped-handspiderNest-snatchStrongbox-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-083-shipped-handspiderNest-backAway-open.json",
+   "name": "sweep-083-shipped-handspiderNest-backAway-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-084-shipped-handspiderNest-backAway-shut.json",
+   "name": "sweep-084-shipped-handspiderNest-backAway-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-085-shipped-fadedGrace-warmYourself-open.json",
+   "name": "sweep-085-shipped-fadedGrace-warmYourself-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-086-shipped-fadedGrace-warmYourself-shut.json",
+   "name": "sweep-086-shipped-fadedGrace-warmYourself-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-087-shipped-fadedGrace-temperBlade-open.json",
+   "name": "sweep-087-shipped-fadedGrace-temperBlade-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-088-shipped-fadedGrace-temperBlade-shut.json",
+   "name": "sweep-088-shipped-fadedGrace-temperBlade-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-089-shipped-fadedGrace-leave-open.json",
+   "name": "sweep-089-shipped-fadedGrace-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-090-shipped-fadedGrace-leave-shut.json",
+   "name": "sweep-090-shipped-fadedGrace-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-091-shipped-merchantsGhost-payInKind-open.json",
+   "name": "sweep-091-shipped-merchantsGhost-payInKind-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-092-shipped-merchantsGhost-payInKind-shut.json",
+   "name": "sweep-092-shipped-merchantsGhost-payInKind-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-093-shipped-merchantsGhost-stealRelic-open.json",
+   "name": "sweep-093-shipped-merchantsGhost-stealRelic-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-094-shipped-merchantsGhost-stealRelic-shut.json",
+   "name": "sweep-094-shipped-merchantsGhost-stealRelic-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-095-shipped-merchantsGhost-leave-open.json",
+   "name": "sweep-095-shipped-merchantsGhost-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-096-shipped-merchantsGhost-leave-shut.json",
+   "name": "sweep-096-shipped-merchantsGhost-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-097-shipped-cinderbearDen-takeHoard-open.json",
+   "name": "sweep-097-shipped-cinderbearDen-takeHoard-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-098-shipped-cinderbearDen-takeHoard-shut.json",
+   "name": "sweep-098-shipped-cinderbearDen-takeHoard-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-099-shipped-cinderbearDen-skimEdges-open.json",
+   "name": "sweep-099-shipped-cinderbearDen-skimEdges-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-100-shipped-cinderbearDen-skimEdges-shut.json",
+   "name": "sweep-100-shipped-cinderbearDen-skimEdges-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-101-shipped-cinderbearDen-leave-open.json",
+   "name": "sweep-101-shipped-cinderbearDen-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-102-shipped-cinderbearDen-leave-shut.json",
+   "name": "sweep-102-shipped-cinderbearDen-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-103-shipped-stakeOfTheMartyr-makeOffering-open.json",
+   "name": "sweep-103-shipped-stakeOfTheMartyr-makeOffering-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-104-shipped-stakeOfTheMartyr-makeOffering-shut.json",
+   "name": "sweep-104-shipped-stakeOfTheMartyr-makeOffering-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-105-shipped-stakeOfTheMartyr-leave-open.json",
+   "name": "sweep-105-shipped-stakeOfTheMartyr-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-106-shipped-stakeOfTheMartyr-leave-shut.json",
+   "name": "sweep-106-shipped-stakeOfTheMartyr-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-107-shipped-twoFingersRiddle-sharpen-open.json",
+   "name": "sweep-107-shipped-twoFingersRiddle-sharpen-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-108-shipped-twoFingersRiddle-sharpen-shut.json",
+   "name": "sweep-108-shipped-twoFingersRiddle-sharpen-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-109-shipped-twoFingersRiddle-mend-open.json",
+   "name": "sweep-109-shipped-twoFingersRiddle-mend-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-110-shipped-twoFingersRiddle-mend-shut.json",
+   "name": "sweep-110-shipped-twoFingersRiddle-mend-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-111-shipped-twoFingersRiddle-leave-open.json",
+   "name": "sweep-111-shipped-twoFingersRiddle-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-112-shipped-twoFingersRiddle-leave-shut.json",
+   "name": "sweep-112-shipped-twoFingersRiddle-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-113-shipped-namelessKeeper-returnCinders-open.json",
+   "name": "sweep-113-shipped-namelessKeeper-returnCinders-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-114-shipped-namelessKeeper-returnCinders-shut.json",
+   "name": "sweep-114-shipped-namelessKeeper-returnCinders-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-115-shipped-namelessKeeper-faceKeeper-open.json",
+   "name": "sweep-115-shipped-namelessKeeper-faceKeeper-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-116-shipped-namelessKeeper-faceKeeper-shut.json",
+   "name": "sweep-116-shipped-namelessKeeper-faceKeeper-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-117-shipped-namelessKeeper-acceptThanks-open.json",
+   "name": "sweep-117-shipped-namelessKeeper-acceptThanks-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-118-shipped-namelessKeeper-acceptThanks-shut.json",
+   "name": "sweep-118-shipped-namelessKeeper-acceptThanks-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-119-shipped-namelessKeeper-leave-open.json",
+   "name": "sweep-119-shipped-namelessKeeper-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-120-shipped-namelessKeeper-leave-shut.json",
+   "name": "sweep-120-shipped-namelessKeeper-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-121-shipped-namelessRest-keepVigil-open.json",
+   "name": "sweep-121-shipped-namelessRest-keepVigil-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-122-shipped-namelessRest-keepVigil-shut.json",
+   "name": "sweep-122-shipped-namelessRest-keepVigil-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-123-shipped-namelessRest-restAmongStones-open.json",
+   "name": "sweep-123-shipped-namelessRest-restAmongStones-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-124-shipped-namelessRest-restAmongStones-shut.json",
+   "name": "sweep-124-shipped-namelessRest-restAmongStones-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-125-shipped-namelessRest-lootBarrow-open.json",
+   "name": "sweep-125-shipped-namelessRest-lootBarrow-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-126-shipped-namelessRest-lootBarrow-shut.json",
+   "name": "sweep-126-shipped-namelessRest-lootBarrow-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-127-shipped-namelessRest-leave-open.json",
+   "name": "sweep-127-shipped-namelessRest-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-128-shipped-namelessRest-leave-shut.json",
+   "name": "sweep-128-shipped-namelessRest-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-129-shipped-lastLantern-buyOil-open.json",
+   "name": "sweep-129-shipped-lastLantern-buyOil-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-130-shipped-lastLantern-buyOil-shut.json",
+   "name": "sweep-130-shipped-lastLantern-buyOil-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-131-shipped-lastLantern-haulBeacon-open.json",
+   "name": "sweep-131-shipped-lastLantern-haulBeacon-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-132-shipped-lastLantern-haulBeacon-shut.json",
+   "name": "sweep-132-shipped-lastLantern-haulBeacon-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-133-shipped-lastLantern-leave-open.json",
+   "name": "sweep-133-shipped-lastLantern-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-134-shipped-lastLantern-leave-shut.json",
+   "name": "sweep-134-shipped-lastLantern-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-135-shipped-lanternCaravan-acceptLesson-open.json",
+   "name": "sweep-135-shipped-lanternCaravan-acceptLesson-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-136-shipped-lanternCaravan-acceptLesson-shut.json",
+   "name": "sweep-136-shipped-lanternCaravan-acceptLesson-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-137-shipped-lanternCaravan-acceptWages-open.json",
+   "name": "sweep-137-shipped-lanternCaravan-acceptWages-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-138-shipped-lanternCaravan-acceptWages-shut.json",
+   "name": "sweep-138-shipped-lanternCaravan-acceptWages-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-139-shipped-lanternCaravan-claimStrongbox-open.json",
+   "name": "sweep-139-shipped-lanternCaravan-claimStrongbox-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-140-shipped-lanternCaravan-claimStrongbox-shut.json",
+   "name": "sweep-140-shipped-lanternCaravan-claimStrongbox-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-141-shipped-lanternCaravan-leave-open.json",
+   "name": "sweep-141-shipped-lanternCaravan-leave-open",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-142-shipped-lanternCaravan-leave-shut.json",
+   "name": "sweep-142-shipped-lanternCaravan-leave-shut",
+   "family": "sweep",
+   "preset": "shipped",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-143-reference-turncoatMirror-stepThrough-open.json",
+   "name": "sweep-143-reference-turncoatMirror-stepThrough-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-144-reference-turncoatMirror-stepThrough-shut.json",
+   "name": "sweep-144-reference-turncoatMirror-stepThrough-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-145-reference-turncoatMirror-turnAway-open.json",
+   "name": "sweep-145-reference-turncoatMirror-turnAway-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-146-reference-turncoatMirror-turnAway-shut.json",
+   "name": "sweep-146-reference-turncoatMirror-turnAway-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-147-reference-goldboughAvatar-offerCard-open.json",
+   "name": "sweep-147-reference-goldboughAvatar-offerCard-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-148-reference-goldboughAvatar-offerCard-shut.json",
+   "name": "sweep-148-reference-goldboughAvatar-offerCard-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-149-reference-goldboughAvatar-pray-open.json",
+   "name": "sweep-149-reference-goldboughAvatar-pray-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-150-reference-goldboughAvatar-pray-shut.json",
+   "name": "sweep-150-reference-goldboughAvatar-pray-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-151-reference-goldboughAvatar-leave-open.json",
+   "name": "sweep-151-reference-goldboughAvatar-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-152-reference-goldboughAvatar-leave-shut.json",
+   "name": "sweep-152-reference-goldboughAvatar-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-153-reference-abandonedCart-lootStrongbox-open.json",
+   "name": "sweep-153-reference-abandonedCart-lootStrongbox-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-154-reference-abandonedCart-lootStrongbox-shut.json",
+   "name": "sweep-154-reference-abandonedCart-lootStrongbox-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-155-reference-abandonedCart-leave-open.json",
+   "name": "sweep-155-reference-abandonedCart-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-156-reference-abandonedCart-leave-shut.json",
+   "name": "sweep-156-reference-abandonedCart-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-157-reference-weepingPilgrim-giveCinders-open.json",
+   "name": "sweep-157-reference-weepingPilgrim-giveCinders-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-158-reference-weepingPilgrim-giveCinders-shut.json",
+   "name": "sweep-158-reference-weepingPilgrim-giveCinders-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-159-reference-weepingPilgrim-refuse-open.json",
+   "name": "sweep-159-reference-weepingPilgrim-refuse-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-160-reference-weepingPilgrim-refuse-shut.json",
+   "name": "sweep-160-reference-weepingPilgrim-refuse-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-161-reference-bloodstainedAltar-offerBlood-open.json",
+   "name": "sweep-161-reference-bloodstainedAltar-offerBlood-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-162-reference-bloodstainedAltar-offerBlood-shut.json",
+   "name": "sweep-162-reference-bloodstainedAltar-offerBlood-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-163-reference-bloodstainedAltar-leave-open.json",
+   "name": "sweep-163-reference-bloodstainedAltar-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-164-reference-bloodstainedAltar-leave-shut.json",
+   "name": "sweep-164-reference-bloodstainedAltar-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-165-reference-wanderingPhysician-procedure-open.json",
+   "name": "sweep-165-reference-wanderingPhysician-procedure-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-166-reference-wanderingPhysician-procedure-shut.json",
+   "name": "sweep-166-reference-wanderingPhysician-procedure-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-167-reference-wanderingPhysician-patch-open.json",
+   "name": "sweep-167-reference-wanderingPhysician-patch-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-168-reference-wanderingPhysician-patch-shut.json",
+   "name": "sweep-168-reference-wanderingPhysician-patch-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-169-reference-wanderingPhysician-leave-open.json",
+   "name": "sweep-169-reference-wanderingPhysician-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-170-reference-wanderingPhysician-leave-shut.json",
+   "name": "sweep-170-reference-wanderingPhysician-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-171-reference-goldenMoth-gatherCinders-open.json",
+   "name": "sweep-171-reference-goldenMoth-gatherCinders-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-172-reference-goldenMoth-gatherCinders-shut.json",
+   "name": "sweep-172-reference-goldenMoth-gatherCinders-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-173-reference-goldenMoth-keepVigil-open.json",
+   "name": "sweep-173-reference-goldenMoth-keepVigil-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-174-reference-goldenMoth-keepVigil-shut.json",
+   "name": "sweep-174-reference-goldenMoth-keepVigil-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-175-reference-goldenMoth-leave-open.json",
+   "name": "sweep-175-reference-goldenMoth-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-176-reference-goldenMoth-leave-shut.json",
+   "name": "sweep-176-reference-goldenMoth-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-177-reference-feralShrine-takeOffering-open.json",
+   "name": "sweep-177-reference-feralShrine-takeOffering-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-178-reference-feralShrine-takeOffering-shut.json",
+   "name": "sweep-178-reference-feralShrine-takeOffering-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-179-reference-feralShrine-leave-open.json",
+   "name": "sweep-179-reference-feralShrine-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-180-reference-feralShrine-leave-shut.json",
+   "name": "sweep-180-reference-feralShrine-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-181-reference-ancientRuneStone-studyStone-open.json",
+   "name": "sweep-181-reference-ancientRuneStone-studyStone-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-182-reference-ancientRuneStone-studyStone-shut.json",
+   "name": "sweep-182-reference-ancientRuneStone-studyStone-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-183-reference-ancientRuneStone-smashStone-open.json",
+   "name": "sweep-183-reference-ancientRuneStone-smashStone-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-184-reference-ancientRuneStone-smashStone-shut.json",
+   "name": "sweep-184-reference-ancientRuneStone-smashStone-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-185-reference-ancientRuneStone-leave-open.json",
+   "name": "sweep-185-reference-ancientRuneStone-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-186-reference-ancientRuneStone-leave-shut.json",
+   "name": "sweep-186-reference-ancientRuneStone-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-187-reference-graveOfTheNameless-digForCinders-open.json",
+   "name": "sweep-187-reference-graveOfTheNameless-digForCinders-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-188-reference-graveOfTheNameless-digForCinders-shut.json",
+   "name": "sweep-188-reference-graveOfTheNameless-digForCinders-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-189-reference-graveOfTheNameless-payRespects-open.json",
+   "name": "sweep-189-reference-graveOfTheNameless-payRespects-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-190-reference-graveOfTheNameless-payRespects-shut.json",
+   "name": "sweep-190-reference-graveOfTheNameless-payRespects-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-191-reference-graveOfTheNameless-leave-open.json",
+   "name": "sweep-191-reference-graveOfTheNameless-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-192-reference-graveOfTheNameless-leave-shut.json",
+   "name": "sweep-192-reference-graveOfTheNameless-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-193-reference-sleepingSmith-takeBlade-open.json",
+   "name": "sweep-193-reference-sleepingSmith-takeBlade-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-194-reference-sleepingSmith-takeBlade-shut.json",
+   "name": "sweep-194-reference-sleepingSmith-takeBlade-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-195-reference-sleepingSmith-wakeSmith-open.json",
+   "name": "sweep-195-reference-sleepingSmith-wakeSmith-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-196-reference-sleepingSmith-wakeSmith-shut.json",
+   "name": "sweep-196-reference-sleepingSmith-wakeSmith-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-197-reference-sleepingSmith-leave-open.json",
+   "name": "sweep-197-reference-sleepingSmith-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-198-reference-sleepingSmith-leave-shut.json",
+   "name": "sweep-198-reference-sleepingSmith-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-199-reference-wyrmTrial-enterRing-open.json",
+   "name": "sweep-199-reference-wyrmTrial-enterRing-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-200-reference-wyrmTrial-enterRing-shut.json",
+   "name": "sweep-200-reference-wyrmTrial-enterRing-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-201-reference-wyrmTrial-circleRing-open.json",
+   "name": "sweep-201-reference-wyrmTrial-circleRing-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-202-reference-wyrmTrial-circleRing-shut.json",
+   "name": "sweep-202-reference-wyrmTrial-circleRing-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-203-reference-wyrmTrial-leave-open.json",
+   "name": "sweep-203-reference-wyrmTrial-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-204-reference-wyrmTrial-leave-shut.json",
+   "name": "sweep-204-reference-wyrmTrial-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-205-reference-discardedReliquary-takeCurse-open.json",
+   "name": "sweep-205-reference-discardedReliquary-takeCurse-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-206-reference-discardedReliquary-takeCurse-shut.json",
+   "name": "sweep-206-reference-discardedReliquary-takeCurse-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-207-reference-discardedReliquary-burnPack-open.json",
+   "name": "sweep-207-reference-discardedReliquary-burnPack-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-208-reference-discardedReliquary-burnPack-shut.json",
+   "name": "sweep-208-reference-discardedReliquary-burnPack-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-209-reference-discardedReliquary-leave-open.json",
+   "name": "sweep-209-reference-discardedReliquary-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-210-reference-discardedReliquary-leave-shut.json",
+   "name": "sweep-210-reference-discardedReliquary-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-211-reference-omensAltar-acceptGaze-open.json",
+   "name": "sweep-211-reference-omensAltar-acceptGaze-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-212-reference-omensAltar-acceptGaze-shut.json",
+   "name": "sweep-212-reference-omensAltar-acceptGaze-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-213-reference-omensAltar-shatterAltar-open.json",
+   "name": "sweep-213-reference-omensAltar-shatterAltar-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-214-reference-omensAltar-shatterAltar-shut.json",
+   "name": "sweep-214-reference-omensAltar-shatterAltar-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-215-reference-omensAltar-leave-open.json",
+   "name": "sweep-215-reference-omensAltar-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-216-reference-omensAltar-leave-shut.json",
+   "name": "sweep-216-reference-omensAltar-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-217-reference-rotPriestOffer-acceptBlessing-open.json",
+   "name": "sweep-217-reference-rotPriestOffer-acceptBlessing-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-218-reference-rotPriestOffer-acceptBlessing-shut.json",
+   "name": "sweep-218-reference-rotPriestOffer-acceptBlessing-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-219-reference-rotPriestOffer-robPriest-open.json",
+   "name": "sweep-219-reference-rotPriestOffer-robPriest-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-220-reference-rotPriestOffer-robPriest-shut.json",
+   "name": "sweep-220-reference-rotPriestOffer-robPriest-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-221-reference-rotPriestOffer-leave-open.json",
+   "name": "sweep-221-reference-rotPriestOffer-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-222-reference-rotPriestOffer-leave-shut.json",
+   "name": "sweep-222-reference-rotPriestOffer-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-223-reference-handspiderNest-snatchStrongbox-open.json",
+   "name": "sweep-223-reference-handspiderNest-snatchStrongbox-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-224-reference-handspiderNest-snatchStrongbox-shut.json",
+   "name": "sweep-224-reference-handspiderNest-snatchStrongbox-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-225-reference-handspiderNest-backAway-open.json",
+   "name": "sweep-225-reference-handspiderNest-backAway-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-226-reference-handspiderNest-backAway-shut.json",
+   "name": "sweep-226-reference-handspiderNest-backAway-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-227-reference-fadedGrace-warmYourself-open.json",
+   "name": "sweep-227-reference-fadedGrace-warmYourself-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-228-reference-fadedGrace-warmYourself-shut.json",
+   "name": "sweep-228-reference-fadedGrace-warmYourself-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-229-reference-fadedGrace-temperBlade-open.json",
+   "name": "sweep-229-reference-fadedGrace-temperBlade-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-230-reference-fadedGrace-temperBlade-shut.json",
+   "name": "sweep-230-reference-fadedGrace-temperBlade-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-231-reference-fadedGrace-leave-open.json",
+   "name": "sweep-231-reference-fadedGrace-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-232-reference-fadedGrace-leave-shut.json",
+   "name": "sweep-232-reference-fadedGrace-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-233-reference-merchantsGhost-payInKind-open.json",
+   "name": "sweep-233-reference-merchantsGhost-payInKind-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-234-reference-merchantsGhost-payInKind-shut.json",
+   "name": "sweep-234-reference-merchantsGhost-payInKind-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-235-reference-merchantsGhost-stealRelic-open.json",
+   "name": "sweep-235-reference-merchantsGhost-stealRelic-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-236-reference-merchantsGhost-stealRelic-shut.json",
+   "name": "sweep-236-reference-merchantsGhost-stealRelic-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-237-reference-merchantsGhost-leave-open.json",
+   "name": "sweep-237-reference-merchantsGhost-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-238-reference-merchantsGhost-leave-shut.json",
+   "name": "sweep-238-reference-merchantsGhost-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-239-reference-cinderbearDen-takeHoard-open.json",
+   "name": "sweep-239-reference-cinderbearDen-takeHoard-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-240-reference-cinderbearDen-takeHoard-shut.json",
+   "name": "sweep-240-reference-cinderbearDen-takeHoard-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-241-reference-cinderbearDen-skimEdges-open.json",
+   "name": "sweep-241-reference-cinderbearDen-skimEdges-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-242-reference-cinderbearDen-skimEdges-shut.json",
+   "name": "sweep-242-reference-cinderbearDen-skimEdges-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-243-reference-cinderbearDen-leave-open.json",
+   "name": "sweep-243-reference-cinderbearDen-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-244-reference-cinderbearDen-leave-shut.json",
+   "name": "sweep-244-reference-cinderbearDen-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-245-reference-stakeOfTheMartyr-makeOffering-open.json",
+   "name": "sweep-245-reference-stakeOfTheMartyr-makeOffering-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-246-reference-stakeOfTheMartyr-makeOffering-shut.json",
+   "name": "sweep-246-reference-stakeOfTheMartyr-makeOffering-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-247-reference-stakeOfTheMartyr-leave-open.json",
+   "name": "sweep-247-reference-stakeOfTheMartyr-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-248-reference-stakeOfTheMartyr-leave-shut.json",
+   "name": "sweep-248-reference-stakeOfTheMartyr-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-249-reference-twoFingersRiddle-sharpen-open.json",
+   "name": "sweep-249-reference-twoFingersRiddle-sharpen-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-250-reference-twoFingersRiddle-sharpen-shut.json",
+   "name": "sweep-250-reference-twoFingersRiddle-sharpen-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-251-reference-twoFingersRiddle-mend-open.json",
+   "name": "sweep-251-reference-twoFingersRiddle-mend-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-252-reference-twoFingersRiddle-mend-shut.json",
+   "name": "sweep-252-reference-twoFingersRiddle-mend-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-253-reference-twoFingersRiddle-leave-open.json",
+   "name": "sweep-253-reference-twoFingersRiddle-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-254-reference-twoFingersRiddle-leave-shut.json",
+   "name": "sweep-254-reference-twoFingersRiddle-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-255-reference-namelessKeeper-returnCinders-open.json",
+   "name": "sweep-255-reference-namelessKeeper-returnCinders-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-256-reference-namelessKeeper-returnCinders-shut.json",
+   "name": "sweep-256-reference-namelessKeeper-returnCinders-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-257-reference-namelessKeeper-faceKeeper-open.json",
+   "name": "sweep-257-reference-namelessKeeper-faceKeeper-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-258-reference-namelessKeeper-faceKeeper-shut.json",
+   "name": "sweep-258-reference-namelessKeeper-faceKeeper-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-259-reference-namelessKeeper-acceptThanks-open.json",
+   "name": "sweep-259-reference-namelessKeeper-acceptThanks-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-260-reference-namelessKeeper-acceptThanks-shut.json",
+   "name": "sweep-260-reference-namelessKeeper-acceptThanks-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-261-reference-namelessKeeper-leave-open.json",
+   "name": "sweep-261-reference-namelessKeeper-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-262-reference-namelessKeeper-leave-shut.json",
+   "name": "sweep-262-reference-namelessKeeper-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-263-reference-namelessRest-keepVigil-open.json",
+   "name": "sweep-263-reference-namelessRest-keepVigil-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-264-reference-namelessRest-keepVigil-shut.json",
+   "name": "sweep-264-reference-namelessRest-keepVigil-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-265-reference-namelessRest-restAmongStones-open.json",
+   "name": "sweep-265-reference-namelessRest-restAmongStones-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-266-reference-namelessRest-restAmongStones-shut.json",
+   "name": "sweep-266-reference-namelessRest-restAmongStones-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-267-reference-namelessRest-lootBarrow-open.json",
+   "name": "sweep-267-reference-namelessRest-lootBarrow-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-268-reference-namelessRest-lootBarrow-shut.json",
+   "name": "sweep-268-reference-namelessRest-lootBarrow-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-269-reference-namelessRest-leave-open.json",
+   "name": "sweep-269-reference-namelessRest-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-270-reference-namelessRest-leave-shut.json",
+   "name": "sweep-270-reference-namelessRest-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-271-reference-lastLantern-buyOil-open.json",
+   "name": "sweep-271-reference-lastLantern-buyOil-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-272-reference-lastLantern-buyOil-shut.json",
+   "name": "sweep-272-reference-lastLantern-buyOil-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-273-reference-lastLantern-haulBeacon-open.json",
+   "name": "sweep-273-reference-lastLantern-haulBeacon-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-274-reference-lastLantern-haulBeacon-shut.json",
+   "name": "sweep-274-reference-lastLantern-haulBeacon-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-275-reference-lastLantern-leave-open.json",
+   "name": "sweep-275-reference-lastLantern-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-276-reference-lastLantern-leave-shut.json",
+   "name": "sweep-276-reference-lastLantern-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-277-reference-lanternCaravan-acceptLesson-open.json",
+   "name": "sweep-277-reference-lanternCaravan-acceptLesson-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-278-reference-lanternCaravan-acceptLesson-shut.json",
+   "name": "sweep-278-reference-lanternCaravan-acceptLesson-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-279-reference-lanternCaravan-acceptWages-open.json",
+   "name": "sweep-279-reference-lanternCaravan-acceptWages-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-280-reference-lanternCaravan-acceptWages-shut.json",
+   "name": "sweep-280-reference-lanternCaravan-acceptWages-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-281-reference-lanternCaravan-claimStrongbox-open.json",
+   "name": "sweep-281-reference-lanternCaravan-claimStrongbox-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-282-reference-lanternCaravan-claimStrongbox-shut.json",
+   "name": "sweep-282-reference-lanternCaravan-claimStrongbox-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "sweep-283-reference-lanternCaravan-leave-open.json",
+   "name": "sweep-283-reference-lanternCaravan-leave-open",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "open",
+   "visits": 1
+  },
+  {
+   "file": "sweep-284-reference-lanternCaravan-leave-shut.json",
+   "name": "sweep-284-reference-lanternCaravan-leave-shut",
+   "family": "sweep",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "shut",
+   "visits": 1
+  },
+  {
+   "file": "walk-001-shipped-reaver-base.json",
+   "name": "walk-001-shipped-reaver-base",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "base",
+   "visits": 8
+  },
+  {
+   "file": "walk-002-shipped-rogue-base.json",
+   "name": "walk-002-shipped-rogue-base",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "base",
+   "visits": 8
+  },
+  {
+   "file": "walk-003-shipped-rogue-rich.json",
+   "name": "walk-003-shipped-rogue-rich",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "rich",
+   "visits": 8
+  },
+  {
+   "file": "walk-004-shipped-reaver-rich.json",
+   "name": "walk-004-shipped-reaver-rich",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "rich",
+   "visits": 8
+  },
+  {
+   "file": "walk-005-shipped-reaver-modest.json",
+   "name": "walk-005-shipped-reaver-modest",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "modest",
+   "visits": 8
+  },
+  {
+   "file": "walk-006-shipped-rogue-modest.json",
+   "name": "walk-006-shipped-rogue-modest",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "modest",
+   "visits": 8
+  },
+  {
+   "file": "walk-007-shipped-rogue-low-hp.json",
+   "name": "walk-007-shipped-rogue-low-hp",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "low-hp",
+   "visits": 8
+  },
+  {
+   "file": "walk-008-shipped-reaver-low-hp.json",
+   "name": "walk-008-shipped-reaver-low-hp",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "low-hp",
+   "visits": 8
+  },
+  {
+   "file": "walk-009-shipped-reaver-upgraded-deck.json",
+   "name": "walk-009-shipped-reaver-upgraded-deck",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "upgraded-deck",
+   "visits": 8
+  },
+  {
+   "file": "walk-010-shipped-rogue-upgraded-deck.json",
+   "name": "walk-010-shipped-rogue-upgraded-deck",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "upgraded-deck",
+   "visits": 8
+  },
+  {
+   "file": "walk-011-shipped-rogue-smithed-out.json",
+   "name": "walk-011-shipped-rogue-smithed-out",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "smithed-out",
+   "visits": 8
+  },
+  {
+   "file": "walk-012-shipped-reaver-smithed-out.json",
+   "name": "walk-012-shipped-reaver-smithed-out",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "smithed-out",
+   "visits": 8
+  },
+  {
+   "file": "walk-013-shipped-reaver-relics-all.json",
+   "name": "walk-013-shipped-reaver-relics-all",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "relics-all",
+   "visits": 8
+  },
+  {
+   "file": "walk-014-shipped-rogue-relics-all.json",
+   "name": "walk-014-shipped-rogue-relics-all",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "relics-all",
+   "visits": 8
+  },
+  {
+   "file": "walk-015-shipped-rogue-relics-most.json",
+   "name": "walk-015-shipped-rogue-relics-most",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "relics-most",
+   "visits": 8
+  },
+  {
+   "file": "walk-016-shipped-reaver-relics-most.json",
+   "name": "walk-016-shipped-reaver-relics-most",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "relics-most",
+   "visits": 8
+  },
+  {
+   "file": "walk-017-shipped-reaver-lantern-oil.json",
+   "name": "walk-017-shipped-reaver-lantern-oil",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "lantern-oil",
+   "visits": 8
+  },
+  {
+   "file": "walk-018-shipped-rogue-lantern-oil.json",
+   "name": "walk-018-shipped-rogue-lantern-oil",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "lantern-oil",
+   "visits": 8
+  },
+  {
+   "file": "walk-019-shipped-rogue-lantern-beacon.json",
+   "name": "walk-019-shipped-rogue-lantern-beacon",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "lantern-beacon",
+   "visits": 8
+  },
+  {
+   "file": "walk-020-shipped-reaver-lantern-beacon.json",
+   "name": "walk-020-shipped-reaver-lantern-beacon",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "lantern-beacon",
+   "visits": 8
+  },
+  {
+   "file": "walk-021-shipped-reaver-grave-dug.json",
+   "name": "walk-021-shipped-reaver-grave-dug",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "grave-dug",
+   "visits": 8
+  },
+  {
+   "file": "walk-022-shipped-rogue-grave-dug.json",
+   "name": "walk-022-shipped-rogue-grave-dug",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "grave-dug",
+   "visits": 8
+  },
+  {
+   "file": "walk-023-shipped-rogue-grave-mourned.json",
+   "name": "walk-023-shipped-rogue-grave-mourned",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "grave-mourned",
+   "visits": 8
+  },
+  {
+   "file": "walk-024-shipped-reaver-grave-mourned.json",
+   "name": "walk-024-shipped-reaver-grave-mourned",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "grave-mourned",
+   "visits": 8
+  },
+  {
+   "file": "walk-025-shipped-reaver-keeper-fought.json",
+   "name": "walk-025-shipped-reaver-keeper-fought",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "keeper-fought",
+   "visits": 8
+  },
+  {
+   "file": "walk-026-shipped-rogue-keeper-fought.json",
+   "name": "walk-026-shipped-rogue-keeper-fought",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "keeper-fought",
+   "visits": 8
+  },
+  {
+   "file": "walk-027-shipped-rogue-quest-done.json",
+   "name": "walk-027-shipped-rogue-quest-done",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "quest-done",
+   "visits": 8
+  },
+  {
+   "file": "walk-028-shipped-reaver-quest-done.json",
+   "name": "walk-028-shipped-reaver-quest-done",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "quest-done",
+   "visits": 8
+  },
+  {
+   "file": "walk-029-shipped-reaver-cart-looted.json",
+   "name": "walk-029-shipped-reaver-cart-looted",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "cart-looted",
+   "visits": 8
+  },
+  {
+   "file": "walk-030-shipped-rogue-cart-looted.json",
+   "name": "walk-030-shipped-rogue-cart-looted",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "cart-looted",
+   "visits": 8
+  },
+  {
+   "file": "walk-031-shipped-rogue-history-malformed.json",
+   "name": "walk-031-shipped-rogue-history-malformed",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "history-malformed",
+   "visits": 8
+  },
+  {
+   "file": "walk-032-shipped-reaver-history-malformed.json",
+   "name": "walk-032-shipped-reaver-history-malformed",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "history-malformed",
+   "visits": 8
+  },
+  {
+   "file": "walk-033-shipped-reaver-swap-ready.json",
+   "name": "walk-033-shipped-reaver-swap-ready",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "swap-ready",
+   "visits": 8
+  },
+  {
+   "file": "walk-034-shipped-rogue-swap-ready.json",
+   "name": "walk-034-shipped-rogue-swap-ready",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "swap-ready",
+   "visits": 8
+  },
+  {
+   "file": "walk-035-shipped-rogue-carried.json",
+   "name": "walk-035-shipped-rogue-carried",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "carried",
+   "visits": 8
+  },
+  {
+   "file": "walk-036-shipped-reaver-carried.json",
+   "name": "walk-036-shipped-reaver-carried",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "carried",
+   "visits": 8
+  },
+  {
+   "file": "walk-037-shipped-reaver-act3.json",
+   "name": "walk-037-shipped-reaver-act3",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "act3",
+   "visits": 8
+  },
+  {
+   "file": "walk-038-shipped-rogue-act3.json",
+   "name": "walk-038-shipped-rogue-act3",
+   "family": "walk",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "act3",
+   "visits": 8
+  },
+  {
+   "file": "walk-039-reference-herald-base.json",
+   "name": "walk-039-reference-herald-base",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "base",
+   "visits": 8
+  },
+  {
+   "file": "walk-040-reference-rogue-base.json",
+   "name": "walk-040-reference-rogue-base",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "base",
+   "visits": 8
+  },
+  {
+   "file": "walk-041-reference-rogue-rich.json",
+   "name": "walk-041-reference-rogue-rich",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "rich",
+   "visits": 8
+  },
+  {
+   "file": "walk-042-reference-starseer-rich.json",
+   "name": "walk-042-reference-starseer-rich",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "rich",
+   "visits": 8
+  },
+  {
+   "file": "walk-043-reference-starseer-modest.json",
+   "name": "walk-043-reference-starseer-modest",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "modest",
+   "visits": 8
+  },
+  {
+   "file": "walk-044-reference-herald-modest.json",
+   "name": "walk-044-reference-herald-modest",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "modest",
+   "visits": 8
+  },
+  {
+   "file": "walk-045-reference-herald-low-hp.json",
+   "name": "walk-045-reference-herald-low-hp",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "low-hp",
+   "visits": 8
+  },
+  {
+   "file": "walk-046-reference-rogue-low-hp.json",
+   "name": "walk-046-reference-rogue-low-hp",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "low-hp",
+   "visits": 8
+  },
+  {
+   "file": "walk-047-reference-rogue-upgraded-deck.json",
+   "name": "walk-047-reference-rogue-upgraded-deck",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "upgraded-deck",
+   "visits": 8
+  },
+  {
+   "file": "walk-048-reference-starseer-upgraded-deck.json",
+   "name": "walk-048-reference-starseer-upgraded-deck",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "upgraded-deck",
+   "visits": 8
+  },
+  {
+   "file": "walk-049-reference-starseer-smithed-out.json",
+   "name": "walk-049-reference-starseer-smithed-out",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "smithed-out",
+   "visits": 8
+  },
+  {
+   "file": "walk-050-reference-herald-smithed-out.json",
+   "name": "walk-050-reference-herald-smithed-out",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "smithed-out",
+   "visits": 8
+  },
+  {
+   "file": "walk-051-reference-herald-relics-all.json",
+   "name": "walk-051-reference-herald-relics-all",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "relics-all",
+   "visits": 8
+  },
+  {
+   "file": "walk-052-reference-rogue-relics-all.json",
+   "name": "walk-052-reference-rogue-relics-all",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "relics-all",
+   "visits": 8
+  },
+  {
+   "file": "walk-053-reference-rogue-relics-most.json",
+   "name": "walk-053-reference-rogue-relics-most",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "relics-most",
+   "visits": 8
+  },
+  {
+   "file": "walk-054-reference-starseer-relics-most.json",
+   "name": "walk-054-reference-starseer-relics-most",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "relics-most",
+   "visits": 8
+  },
+  {
+   "file": "walk-055-reference-starseer-lantern-oil.json",
+   "name": "walk-055-reference-starseer-lantern-oil",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "lantern-oil",
+   "visits": 8
+  },
+  {
+   "file": "walk-056-reference-herald-lantern-oil.json",
+   "name": "walk-056-reference-herald-lantern-oil",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "lantern-oil",
+   "visits": 8
+  },
+  {
+   "file": "walk-057-reference-herald-lantern-beacon.json",
+   "name": "walk-057-reference-herald-lantern-beacon",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "lantern-beacon",
+   "visits": 8
+  },
+  {
+   "file": "walk-058-reference-rogue-lantern-beacon.json",
+   "name": "walk-058-reference-rogue-lantern-beacon",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "lantern-beacon",
+   "visits": 8
+  },
+  {
+   "file": "walk-059-reference-rogue-grave-dug.json",
+   "name": "walk-059-reference-rogue-grave-dug",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "grave-dug",
+   "visits": 8
+  },
+  {
+   "file": "walk-060-reference-starseer-grave-dug.json",
+   "name": "walk-060-reference-starseer-grave-dug",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "grave-dug",
+   "visits": 8
+  },
+  {
+   "file": "walk-061-reference-starseer-grave-mourned.json",
+   "name": "walk-061-reference-starseer-grave-mourned",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "grave-mourned",
+   "visits": 8
+  },
+  {
+   "file": "walk-062-reference-herald-grave-mourned.json",
+   "name": "walk-062-reference-herald-grave-mourned",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "grave-mourned",
+   "visits": 8
+  },
+  {
+   "file": "walk-063-reference-herald-keeper-fought.json",
+   "name": "walk-063-reference-herald-keeper-fought",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "keeper-fought",
+   "visits": 8
+  },
+  {
+   "file": "walk-064-reference-rogue-keeper-fought.json",
+   "name": "walk-064-reference-rogue-keeper-fought",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "keeper-fought",
+   "visits": 8
+  },
+  {
+   "file": "walk-065-reference-rogue-quest-done.json",
+   "name": "walk-065-reference-rogue-quest-done",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "quest-done",
+   "visits": 8
+  },
+  {
+   "file": "walk-066-reference-starseer-quest-done.json",
+   "name": "walk-066-reference-starseer-quest-done",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "quest-done",
+   "visits": 8
+  },
+  {
+   "file": "walk-067-reference-starseer-cart-looted.json",
+   "name": "walk-067-reference-starseer-cart-looted",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "cart-looted",
+   "visits": 8
+  },
+  {
+   "file": "walk-068-reference-herald-cart-looted.json",
+   "name": "walk-068-reference-herald-cart-looted",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "cart-looted",
+   "visits": 8
+  },
+  {
+   "file": "walk-069-reference-herald-history-malformed.json",
+   "name": "walk-069-reference-herald-history-malformed",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "history-malformed",
+   "visits": 8
+  },
+  {
+   "file": "walk-070-reference-rogue-history-malformed.json",
+   "name": "walk-070-reference-rogue-history-malformed",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "history-malformed",
+   "visits": 8
+  },
+  {
+   "file": "walk-071-reference-rogue-swap-ready.json",
+   "name": "walk-071-reference-rogue-swap-ready",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "swap-ready",
+   "visits": 8
+  },
+  {
+   "file": "walk-072-reference-starseer-swap-ready.json",
+   "name": "walk-072-reference-starseer-swap-ready",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "swap-ready",
+   "visits": 8
+  },
+  {
+   "file": "walk-073-reference-starseer-carried.json",
+   "name": "walk-073-reference-starseer-carried",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "carried",
+   "visits": 8
+  },
+  {
+   "file": "walk-074-reference-herald-carried.json",
+   "name": "walk-074-reference-herald-carried",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "carried",
+   "visits": 8
+  },
+  {
+   "file": "walk-075-reference-herald-act3.json",
+   "name": "walk-075-reference-herald-act3",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "act3",
+   "visits": 8
+  },
+  {
+   "file": "walk-076-reference-rogue-act3.json",
+   "name": "walk-076-reference-rogue-act3",
+   "family": "walk",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "act3",
+   "visits": 8
+  },
+  {
+   "file": "effects-001-shipped-reaver-flasks.json",
+   "name": "effects-001-shipped-reaver-flasks",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "flasks",
+   "error": null
+  },
+  {
+   "file": "effects-002-shipped-rogue-flasks.json",
+   "name": "effects-002-shipped-rogue-flasks",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "flasks",
+   "error": null
+  },
+  {
+   "file": "effects-003-shipped-rogue-flasks-full.json",
+   "name": "effects-003-shipped-rogue-flasks-full",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "flasks-full",
+   "error": null
+  },
+  {
+   "file": "effects-004-shipped-reaver-flasks-full.json",
+   "name": "effects-004-shipped-reaver-flasks-full",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "flasks-full",
+   "error": null
+  },
+  {
+   "file": "effects-005-shipped-reaver-flask-capacity.json",
+   "name": "effects-005-shipped-reaver-flask-capacity",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "flask-capacity",
+   "error": null
+  },
+  {
+   "file": "effects-006-shipped-rogue-flask-capacity.json",
+   "name": "effects-006-shipped-rogue-flask-capacity",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "flask-capacity",
+   "error": null
+  },
+  {
+   "file": "effects-007-shipped-rogue-remove-named.json",
+   "name": "effects-007-shipped-rogue-remove-named",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "remove-named",
+   "error": null
+  },
+  {
+   "file": "effects-008-shipped-reaver-remove-named.json",
+   "name": "effects-008-shipped-reaver-remove-named",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "remove-named",
+   "error": null
+  },
+  {
+   "file": "effects-009-shipped-reaver-upgrade-named.json",
+   "name": "effects-009-shipped-reaver-upgrade-named",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "upgrade-named",
+   "error": null
+  },
+  {
+   "file": "effects-010-shipped-rogue-upgrade-named.json",
+   "name": "effects-010-shipped-rogue-upgrade-named",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "upgrade-named",
+   "error": null
+  },
+  {
+   "file": "effects-011-shipped-rogue-upgrade-ordinary.json",
+   "name": "effects-011-shipped-rogue-upgrade-ordinary",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "upgrade-ordinary",
+   "error": null
+  },
+  {
+   "file": "effects-012-shipped-reaver-upgrade-ordinary.json",
+   "name": "effects-012-shipped-reaver-upgrade-ordinary",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "upgrade-ordinary",
+   "error": null
+  },
+  {
+   "file": "effects-013-shipped-reaver-swap-named.json",
+   "name": "effects-013-shipped-reaver-swap-named",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "swap-named",
+   "error": null
+  },
+  {
+   "file": "effects-014-shipped-rogue-swap-named.json",
+   "name": "effects-014-shipped-rogue-swap-named",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "swap-named",
+   "error": null
+  },
+  {
+   "file": "effects-015-shipped-rogue-cinders-floor.json",
+   "name": "effects-015-shipped-rogue-cinders-floor",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "cinders-floor",
+   "error": null
+  },
+  {
+   "file": "effects-016-shipped-reaver-cinders-floor.json",
+   "name": "effects-016-shipped-reaver-cinders-floor",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "cinders-floor",
+   "error": null
+  },
+  {
+   "file": "effects-017-shipped-reaver-relic-named.json",
+   "name": "effects-017-shipped-reaver-relic-named",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "relic-named",
+   "error": null
+  },
+  {
+   "file": "effects-018-shipped-rogue-relic-named.json",
+   "name": "effects-018-shipped-rogue-relic-named",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "relic-named",
+   "error": null
+  },
+  {
+   "file": "effects-019-shipped-rogue-fight-named.json",
+   "name": "effects-019-shipped-rogue-fight-named",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "fight-named",
+   "error": null
+  },
+  {
+   "file": "effects-020-shipped-reaver-fight-named.json",
+   "name": "effects-020-shipped-reaver-fight-named",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "fight-named",
+   "error": null
+  },
+  {
+   "file": "effects-021-shipped-reaver-cards-in.json",
+   "name": "effects-021-shipped-reaver-cards-in",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "cards-in",
+   "error": null
+  },
+  {
+   "file": "effects-022-shipped-rogue-cards-in.json",
+   "name": "effects-022-shipped-rogue-cards-in",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "cards-in",
+   "error": null
+  },
+  {
+   "file": "effects-023-shipped-rogue-hp-facade.json",
+   "name": "effects-023-shipped-rogue-hp-facade",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "hp-facade",
+   "error": null
+  },
+  {
+   "file": "effects-024-shipped-reaver-hp-facade.json",
+   "name": "effects-024-shipped-reaver-hp-facade",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "hp-facade",
+   "error": null
+  },
+  {
+   "file": "effects-025-shipped-reaver-hp-lethal.json",
+   "name": "effects-025-shipped-reaver-hp-lethal",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "hp-lethal",
+   "error": null
+  },
+  {
+   "file": "effects-026-shipped-rogue-hp-lethal.json",
+   "name": "effects-026-shipped-rogue-hp-lethal",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "hp-lethal",
+   "error": null
+  },
+  {
+   "file": "effects-027-shipped-rogue-max-hp.json",
+   "name": "effects-027-shipped-rogue-max-hp",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "max-hp",
+   "error": null
+  },
+  {
+   "file": "effects-028-shipped-reaver-max-hp.json",
+   "name": "effects-028-shipped-reaver-max-hp",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "max-hp",
+   "error": null
+  },
+  {
+   "file": "effects-029-shipped-reaver-unknown-op.json",
+   "name": "effects-029-shipped-reaver-unknown-op",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "unknown-op",
+   "error": "Unknown opcode 'noSuchOp'"
+  },
+  {
+   "file": "effects-030-shipped-rogue-unknown-op.json",
+   "name": "effects-030-shipped-rogue-unknown-op",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "unknown-op",
+   "error": "Unknown opcode 'noSuchOp'"
+  },
+  {
+   "file": "effects-031-reference-starseer-flasks.json",
+   "name": "effects-031-reference-starseer-flasks",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "flasks",
+   "error": null
+  },
+  {
+   "file": "effects-032-reference-herald-flasks.json",
+   "name": "effects-032-reference-herald-flasks",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "flasks",
+   "error": null
+  },
+  {
+   "file": "effects-033-reference-herald-flasks-full.json",
+   "name": "effects-033-reference-herald-flasks-full",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "flasks-full",
+   "error": null
+  },
+  {
+   "file": "effects-034-reference-rogue-flasks-full.json",
+   "name": "effects-034-reference-rogue-flasks-full",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "flasks-full",
+   "error": null
+  },
+  {
+   "file": "effects-035-reference-rogue-flask-capacity.json",
+   "name": "effects-035-reference-rogue-flask-capacity",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "flask-capacity",
+   "error": null
+  },
+  {
+   "file": "effects-036-reference-starseer-flask-capacity.json",
+   "name": "effects-036-reference-starseer-flask-capacity",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "flask-capacity",
+   "error": null
+  },
+  {
+   "file": "effects-037-reference-starseer-remove-named.json",
+   "name": "effects-037-reference-starseer-remove-named",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "remove-named",
+   "error": null
+  },
+  {
+   "file": "effects-038-reference-herald-remove-named.json",
+   "name": "effects-038-reference-herald-remove-named",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "remove-named",
+   "error": null
+  },
+  {
+   "file": "effects-039-reference-herald-upgrade-named.json",
+   "name": "effects-039-reference-herald-upgrade-named",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "upgrade-named",
+   "error": null
+  },
+  {
+   "file": "effects-040-reference-rogue-upgrade-named.json",
+   "name": "effects-040-reference-rogue-upgrade-named",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "upgrade-named",
+   "error": null
+  },
+  {
+   "file": "effects-041-reference-rogue-upgrade-ordinary.json",
+   "name": "effects-041-reference-rogue-upgrade-ordinary",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "upgrade-ordinary",
+   "error": null
+  },
+  {
+   "file": "effects-042-reference-starseer-upgrade-ordinary.json",
+   "name": "effects-042-reference-starseer-upgrade-ordinary",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "upgrade-ordinary",
+   "error": null
+  },
+  {
+   "file": "effects-043-reference-starseer-swap-named.json",
+   "name": "effects-043-reference-starseer-swap-named",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "swap-named",
+   "error": null
+  },
+  {
+   "file": "effects-044-reference-herald-swap-named.json",
+   "name": "effects-044-reference-herald-swap-named",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "swap-named",
+   "error": null
+  },
+  {
+   "file": "effects-045-reference-herald-cinders-floor.json",
+   "name": "effects-045-reference-herald-cinders-floor",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "cinders-floor",
+   "error": null
+  },
+  {
+   "file": "effects-046-reference-rogue-cinders-floor.json",
+   "name": "effects-046-reference-rogue-cinders-floor",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "cinders-floor",
+   "error": null
+  },
+  {
+   "file": "effects-047-reference-rogue-relic-named.json",
+   "name": "effects-047-reference-rogue-relic-named",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "relic-named",
+   "error": null
+  },
+  {
+   "file": "effects-048-reference-starseer-relic-named.json",
+   "name": "effects-048-reference-starseer-relic-named",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "relic-named",
+   "error": null
+  },
+  {
+   "file": "effects-049-reference-starseer-fight-named.json",
+   "name": "effects-049-reference-starseer-fight-named",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "fight-named",
+   "error": null
+  },
+  {
+   "file": "effects-050-reference-herald-fight-named.json",
+   "name": "effects-050-reference-herald-fight-named",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "fight-named",
+   "error": null
+  },
+  {
+   "file": "effects-051-reference-herald-cards-in.json",
+   "name": "effects-051-reference-herald-cards-in",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "cards-in",
+   "error": null
+  },
+  {
+   "file": "effects-052-reference-rogue-cards-in.json",
+   "name": "effects-052-reference-rogue-cards-in",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "cards-in",
+   "error": null
+  },
+  {
+   "file": "effects-053-reference-rogue-hp-facade.json",
+   "name": "effects-053-reference-rogue-hp-facade",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "hp-facade",
+   "error": null
+  },
+  {
+   "file": "effects-054-reference-starseer-hp-facade.json",
+   "name": "effects-054-reference-starseer-hp-facade",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "hp-facade",
+   "error": null
+  },
+  {
+   "file": "effects-055-reference-starseer-hp-lethal.json",
+   "name": "effects-055-reference-starseer-hp-lethal",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "hp-lethal",
+   "error": null
+  },
+  {
+   "file": "effects-056-reference-herald-hp-lethal.json",
+   "name": "effects-056-reference-herald-hp-lethal",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "hp-lethal",
+   "error": null
+  },
+  {
+   "file": "effects-057-reference-herald-max-hp.json",
+   "name": "effects-057-reference-herald-max-hp",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "max-hp",
+   "error": null
+  },
+  {
+   "file": "effects-058-reference-rogue-max-hp.json",
+   "name": "effects-058-reference-rogue-max-hp",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "max-hp",
+   "error": null
+  },
+  {
+   "file": "effects-059-reference-rogue-unknown-op.json",
+   "name": "effects-059-reference-rogue-unknown-op",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "unknown-op",
+   "error": "Unknown opcode 'noSuchOp'"
+  },
+  {
+   "file": "effects-060-reference-starseer-unknown-op.json",
+   "name": "effects-060-reference-starseer-unknown-op",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "unknown-op",
+   "error": "Unknown opcode 'noSuchOp'"
+  },
+  {
+   "file": "effects-061-shipped-reaver-refill-spent.json",
+   "name": "effects-061-shipped-reaver-refill-spent",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "refill-spent",
+   "error": null
+  },
+  {
+   "file": "effects-062-shipped-rogue-refill-spent.json",
+   "name": "effects-062-shipped-rogue-refill-spent",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "refill-spent",
+   "error": null
+  },
+  {
+   "file": "effects-063-shipped-rogue-refill-part.json",
+   "name": "effects-063-shipped-rogue-refill-part",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "refill-part",
+   "error": null
+  },
+  {
+   "file": "effects-064-shipped-reaver-refill-part.json",
+   "name": "effects-064-shipped-reaver-refill-part",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "refill-part",
+   "error": null
+  },
+  {
+   "file": "effects-065-reference-rogue-refill-spent.json",
+   "name": "effects-065-reference-rogue-refill-spent",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "refill-spent",
+   "error": null
+  },
+  {
+   "file": "effects-066-reference-starseer-refill-spent.json",
+   "name": "effects-066-reference-starseer-refill-spent",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "refill-spent",
+   "error": null
+  },
+  {
+   "file": "effects-067-reference-starseer-refill-part.json",
+   "name": "effects-067-reference-starseer-refill-part",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "refill-part",
+   "error": null
+  },
+  {
+   "file": "effects-068-reference-herald-refill-part.json",
+   "name": "effects-068-reference-herald-refill-part",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "refill-part",
+   "error": null
+  }
+ ],
+ "tally": {
+  "accepted": {
+   "turncoatMirror/stepThrough": 17,
+   "turncoatMirror/turnAway": 17,
+   "goldboughAvatar/offerCard": 11,
+   "goldboughAvatar/pray": 13,
+   "goldboughAvatar/leave": 9,
+   "abandonedCart/lootStrongbox": 18,
+   "abandonedCart/leave": 11,
+   "weepingPilgrim/giveCinders": 16,
+   "weepingPilgrim/refuse": 10,
+   "bloodstainedAltar/offerBlood": 15,
+   "bloodstainedAltar/leave": 8,
+   "wanderingPhysician/procedure": 15,
+   "wanderingPhysician/patch": 8,
+   "wanderingPhysician/leave": 13,
+   "goldenMoth/gatherCinders": 9,
+   "goldenMoth/keepVigil": 11,
+   "goldenMoth/leave": 8,
+   "feralShrine/takeOffering": 20,
+   "feralShrine/leave": 9,
+   "ancientRuneStone/studyStone": 12,
+   "ancientRuneStone/smashStone": 11,
+   "ancientRuneStone/leave": 9,
+   "graveOfTheNameless/digForCinders": 10,
+   "graveOfTheNameless/payRespects": 8,
+   "graveOfTheNameless/leave": 11,
+   "sleepingSmith/takeBlade": 13,
+   "sleepingSmith/wakeSmith": 11,
+   "sleepingSmith/leave": 11,
+   "wyrmTrial/enterRing": 12,
+   "wyrmTrial/circleRing": 11,
+   "wyrmTrial/leave": 11,
+   "discardedReliquary/takeCurse": 11,
+   "discardedReliquary/burnPack": 8,
+   "discardedReliquary/leave": 13,
+   "omensAltar/acceptGaze": 15,
+   "omensAltar/shatterAltar": 15,
+   "omensAltar/leave": 7,
+   "rotPriestOffer/acceptBlessing": 12,
+   "rotPriestOffer/robPriest": 14,
+   "rotPriestOffer/leave": 11,
+   "handspiderNest/snatchStrongbox": 16,
+   "handspiderNest/backAway": 14,
+   "fadedGrace/warmYourself": 11,
+   "fadedGrace/temperBlade": 10,
+   "fadedGrace/leave": 9,
+   "merchantsGhost/payInKind": 4,
+   "merchantsGhost/stealRelic": 10,
+   "merchantsGhost/leave": 11,
+   "cinderbearDen/takeHoard": 14,
+   "cinderbearDen/skimEdges": 8,
+   "cinderbearDen/leave": 14,
+   "stakeOfTheMartyr/makeOffering": 24,
+   "stakeOfTheMartyr/leave": 12,
+   "twoFingersRiddle/sharpen": 15,
+   "twoFingersRiddle/mend": 10,
+   "twoFingersRiddle/leave": 14,
+   "namelessKeeper/returnCinders": 4,
+   "namelessKeeper/faceKeeper": 3,
+   "namelessKeeper/acceptThanks": 4,
+   "namelessKeeper/leave": 20,
+   "namelessRest/keepVigil": 5,
+   "namelessRest/restAmongStones": 2,
+   "namelessRest/lootBarrow": 4,
+   "namelessRest/leave": 25,
+   "lastLantern/buyOil": 7,
+   "lastLantern/haulBeacon": 10,
+   "lastLantern/leave": 18,
+   "lanternCaravan/acceptLesson": 4,
+   "lanternCaravan/acceptWages": 2,
+   "lanternCaravan/claimStrongbox": 18,
+   "lanternCaravan/leave": 12
+  },
+  "refused": {
+   "weepingPilgrim/giveCinders:events.refusal.cinders": 4,
+   "sleepingSmith/wakeSmith:events.refusal.cinders": 2,
+   "merchantsGhost/payInKind:events.refusal.history": 2,
+   "namelessKeeper/returnCinders:events.refusal.history": 5,
+   "namelessKeeper/faceKeeper:events.refusal.history": 2,
+   "namelessKeeper/acceptThanks:events.refusal.history": 3,
+   "namelessRest/keepVigil:events.refusal.history": 3,
+   "namelessRest/restAmongStones:events.refusal.history": 2,
+   "namelessRest/lootBarrow:events.refusal.history": 2,
+   "lastLantern/buyOil:events.refusal.cinders": 4,
+   "lanternCaravan/acceptLesson:events.refusal.history": 2,
+   "lanternCaravan/acceptWages:events.refusal.history": 2,
+   "goldboughAvatar/noSuchChoice:events.refusal.unknownChoice": 4,
+   "turncoatMirror/noSuchChoice:events.refusal.unknownChoice": 2,
+   "discardedReliquary/noSuchChoice:events.refusal.unknownChoice": 2,
+   "graveOfTheNameless/noSuchChoice:events.refusal.unknownChoice": 2,
+   "bloodstainedAltar/noSuchChoice:events.refusal.unknownChoice": 2,
+   "weepingPilgrim/noSuchChoice:events.refusal.unknownChoice": 5,
+   "abandonedCart/noSuchChoice:events.refusal.unknownChoice": 3,
+   "cinderbearDen/noSuchChoice:events.refusal.unknownChoice": 2,
+   "handspiderNest/noSuchChoice:events.refusal.unknownChoice": 4,
+   "goldenMoth/noSuchChoice:events.refusal.unknownChoice": 4,
+   "fadedGrace/noSuchChoice:events.refusal.unknownChoice": 2,
+   "lastLantern/noSuchChoice:events.refusal.unknownChoice": 4,
+   "sleepingSmith/noSuchChoice:events.refusal.unknownChoice": 2,
+   "omensAltar/noSuchChoice:events.refusal.unknownChoice": 3,
+   "wyrmTrial/noSuchChoice:events.refusal.unknownChoice": 3,
+   "stakeOfTheMartyr/makeOffering:events.refusal.history": 1,
+   "namelessKeeper/noSuchChoice:events.refusal.unknownChoice": 2,
+   "lanternCaravan/noSuchChoice:events.refusal.unknownChoice": 1,
+   "namelessRest/noSuchChoice:events.refusal.unknownChoice": 2,
+   "twoFingersRiddle/mend:events.refusal.history": 1
+  },
+  "fights": 75
+ }
+}

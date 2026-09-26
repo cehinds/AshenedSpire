@@ -1,0 +1,197 @@
+{
+  "$id": "ui/components.json",
+  "type": "object",
+  "properties": {
+    "art": {
+      "type": "object",
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "include"
+      ]
+    },
+    "boot": {
+      "type": "object",
+      "properties": {
+        "filesPerFrame": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "filesPerFrame"
+      ]
+    },
+    "card": {
+      "type": "object",
+      "properties": {
+        "costKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "refusalTooltip": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "costKinds"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "handFan": {
+      "type": "object",
+      "properties": {
+        "degreesPerCard": {
+          "type": "integer"
+        },
+        "maxSpread": {
+          "type": "integer"
+        },
+        "scrollAfter": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "degreesPerCard",
+        "maxSpread",
+        "scrollAfter"
+      ]
+    },
+    "meter": {
+      "type": "object",
+      "properties": {
+        "kinds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "actions",
+              "buildUp",
+              "hp",
+              "mp",
+              "poise",
+              "progress",
+              "sp",
+              "ward"
+            ]
+          }
+        }
+      },
+      "required": [
+        "kinds"
+      ]
+    },
+    "tooltip": {
+      "type": "object",
+      "properties": {
+        "sizes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "sizes"
+      ]
+    },
+    "combat": {
+      "type": "object",
+      "properties": {
+        "background": {
+          "type": "string"
+        },
+        "fallbackBackground": {
+          "type": "string",
+          "x-ref": "assets/registry.json"
+        },
+        "enemy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "background",
+        "enemy",
+        "fallbackBackground"
+      ]
+    },
+    "combatant": {
+      "type": "object",
+      "properties": {
+        "statusChips": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "statusChips"
+      ]
+    },
+    "rewards": {
+      "type": "object",
+      "properties": {
+        "relicArt": {
+          "type": "string"
+        },
+        "armamentArt": {
+          "type": "string"
+        },
+        "flaskArt": {
+          "type": "string"
+        },
+        "flaskArtPrefix": {
+          "type": "string"
+        },
+        "modifierTokens": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "suffix": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "from",
+              "suffix",
+              "value"
+            ]
+          }
+        }
+      },
+      "required": [
+        "relicArt",
+        "armamentArt",
+        "flaskArt",
+        "flaskArtPrefix",
+        "modifierTokens"
+      ]
+    }
+  },
+  "required": [
+    "art",
+    "boot",
+    "card",
+    "combat",
+    "combatant",
+    "comment",
+    "handFan",
+    "meter",
+    "rewards",
+    "tooltip"
+  ]
+}
