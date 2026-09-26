@@ -88,7 +88,11 @@
     "relicPassiveTags": {
       "relic:passive:poise-threshold-add": "poiseThresholdAdd",
       "relic:passive:power-cost-reduction": "powerCostReduction"
-    }
+    },
+    "costTag": "upgrade:cost:smithing-stone",
+    "cardRoles": ["attack", "guard", "technique"],
+    "cardEffects": ["damage", "block", "draw", "discard"],
+    "cardResources": ["action", "mana", "stamina"]
   },
   "flasks": {
     "chargeKinds": [

@@ -2,6 +2,52 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-10.1, us-10.2, us-10.3: events with shipped parity (feature/shop-events, 2026-09-26)
+
+**Landed**
+- `Ashen.Domain.Events` (D-084 to D-088), a line-faithful port of the run-writing half of the shipped event door:
+  - `Events.Open`: the event and dialogue screens' facts — the visible choices (model/quests.js `availableEventChoices` over content/events.js `eventChoicesWithHistory`), each with its price (`choiceAffordable`), binding reasons (model/consequence.js, fail closed) and refusal key, the choices history hides, a quest step's speaker with its portrait check, and the head's status;
+  - `Events.Choose`: engine/quests.js `commitEventChoice` — the three refusals, then the choice's effects through the run-level door (`RunEffects.Execute`, engine/actions.js `executeRunEffects` over a player facade on the combat interpreter: cinders, cards in and out with attack slots retired, card upgrades through the merchant's smithing, relics, flasks, flask capacity, max HP, fights, the class swap, and damage/heal/loseHp through the facade), the history row and quest completion at most once per quest;
+  - `Events.Finish`: main.js onDone — a fight the choice started leaves `run.combatEntered` and is returned as its encounter id for the run loop's enterCombat;
+  - model/classSwap.js `swapRunClass` (the Turncoat's Mirror): class tracks reset, tree picks pruned, armour the new class cannot wear set aside, the deck restamped, a `classSwapped` history row, the zones projection.
+- Content: `rules/eventsEngine.json` and `strings/events.en.json` (hand-written, schema'd, in the manifest); `catalog/eventChoiceRequirements.json` exported from the shipped content/events.js; the speakers catalog is now a runtime registry; `RuntimeRegistries.ToEventsData`.
+- Names through `Tools/shop-keys.mjs`: 35 event keys, 32 values, 24 messages and the EventStringKeys table, reusing the shop, combat, run, rewards and map names.
+- `Tools/oracle-events.mjs` records 420 sessions on the shipped and reference presets: the sweep (every one of the 25 events' 71 choices, opened and shut: 284), walks (19 run variants — purses, low HP, upgraded and smithed-out decks, owning every relic, each quest step taken, a completed quest, a looted cart, a malformed history row, a class ready to swap, carried armaments, act 3 — × 2 classes × 8 visits: 76) and 60 run-effect lists. 808 commits (every event × choice), 84 refusals (all three keys), 75 fights handed on. Byte-identical on re-run. V8 block coverage over the 27 ported functions: 125 of 218 blocks ran; the rest are defaults on present content (17), throws on malformed content or state (16), the malformed-requirement and malformed-ref validation the shipped content never triggers, combat opcodes the run door never receives from events (parity-tested in combat), the foundation ruleset the shipped game does not create, and the deferred `refillFlasks` and scripts.
+
+**Tests**
+- `EventsParityTests`, 425 cases: 360 sessions replayed on content-built data (every view, outcome or refusal, event log, the run after every choice and after onDone, the RNG counters), 60 run-effect lists (run, events, counters; the unknown op throws), the content-built event tables against the shipped registries on both presets, oracle presence, refusal texts and the deferred ops throwing by name.
+- Mutation check (shop and events; each file restored byte for byte, sha256 checked): a cinder value after a purchase, two stock keys swapped, the `shop` counter and a Smithing receipt's balance each failed exactly one shop session, naming the path, the key order or the stream; rounding the price multiplier down failed 16. A cinder value after a choice, two view keys swapped, the `misc` counter and a refusal key each failed exactly one event session; removing the cinder floor failed 4.
+- dotnet 1730/1730, enforcement included; `codegen --check`, `check-content`, `transform-content --check` and `check-docs` green.
+
+**Not verified:** Unity EditMode. Malformed requirement groups in content are refused as shipped but not recorded (the shipped content is valid).
+
+**Deferred:** `refillFlasks` and script effects (D-088); a journey's `atlasQuestAction`.
+
+**Next:** the event and dialogue screens (W1u, W4c) over `Events.Open`/`Choose`/`Finish`; the run loop calls `Events.Open` from enterNode for an Unknown node's event.
+
+## us-9.1, us-9.2, us-9.3: the merchant with shipped parity (feature/shop-events, 2026-09-26)
+
+**Landed**
+- `Ashen.Domain.Shop` (D-078 to D-083), a line-faithful port of the run-writing half of the shipped merchant:
+  - main.js enterNode `'merchant'` and `shopPriceMult`: the stock on the `shop` stream (engine/encounters.js `buildShopStock`, `rollShopCards`), the Greedy Merchants / Hoarder multiplier on cards, relics, flasks and the removal, and the smith's roll on the `smith` stream, all stored on `run.shopStock` (it persists with the run);
+  - the shop screen's handlers (ui/screens/shop.js), UI-free: buy card / relic (with `syncFlaskGrowth`) / flask (flask belt cap), armament and weapon-art trades with inert quotes and revalidating commits (model/armamentTrading.js), the card burn with its rising price (model/cardRemoval.js, attack slots retired in order), the sell shelf behind `shopSell` (relics, flasks, armaments), and Leave;
+  - the smith the merchant keeps: `smithingPlan`/`commitSmithing` with exact card receipts (model/smithing.js), the service table (model/smithingRules.js `normalizeServices`, closing D-065) and `extractionPlan`/`installPlan`/`commitExtraction`/`commitInstall` (model/cardExtraction.js with `mountRows` and `itemMountInstances`);
+  - `Shop.View`: every offer with its price and availability, the burn grid's cards, the smith's candidates and the sell shelf.
+- Smithed card faces now resolve in combat (`Cards.Resolve` applies the tier rows; D-080).
+- Content: `rules/shopEngine.json` and `strings/shop.en.json` (hand-written, schema'd, in the manifest); `rules/combatEngine.json#itemUpgrades` gains the tag grammar lists; `catalog/eventChoiceRequirements.json` is exported from the shipped content/events.js (for the events story). `RuntimeRegistries.ToShopData` builds the merchant's data from content.
+- Names from `Tools/codegen.d/shop.json` via the new `Tools/shop-keys.mjs` (covering Shop and Events): 102 keys, 36 values, 27 messages and the ShopStringKeys table, with combat, run, rewards and map names reused.
+- `Tools/oracle-shop.mjs` records 208 sessions (4 classes × 26 run variants × the shipped and reference presets) × 14 steps: purses, relics, full and part flask belts, full and part inventories, Smithing Stones, emptied, worked and carried mounts, smithed items, legacy armament levels, removals bought, a thin deck, Greedy Merchants / Hoarder / Ascension, the sell toggle off, no loadout, a fractional purse, edited shelves and acts 1–3. Accepted: every action kind (buy card 152, relic 92, flask 130, armament 96, weapon art 96, burn 146, sell relic 21 / flask 22 / armament 19, smith upgrade 82 / extract 35 / install 31, leave 72); refused: every strings/shop.en.json key but the two a shop can never reach (`noTrader`, `notBuying`), plus the screen's three availability ids. Byte-identical on re-run. V8 block coverage over the 62 ported functions: 278 of 400 blocks ran; of the 122 that did not, 49 are defaults on always-present content, 35 are throws on malformed content or state, and the rest are features the shipped content does not author (card-cost upgrade tags, extra mounts, armour mounts, smith chances of 0 or 100, a missing services table) or nulls unreachable by construction.
+
+**Tests**
+- `ShopParityTests`, 211 cases: the 208 sessions replayed on content-built data for their preset — the stock, every receipt or refusal, the run document after every step (strict: presence, values, key order), the shop view and the RNG counters (no shop action draws); an oracle-presence test (both presets, every action kind accepted, every reachable refusal key recorded); every refusal key resolves to text; the deferred journey shop throws by name.
+- Mutation check: in the us-10.1 entry.
+- dotnet 1305/1305, enforcement included; `codegen --check`, `check-content`, `transform-content --check` and `check-docs` green.
+
+**Not verified:** Unity EditMode. The shipped merchant's role-source branch of `sourceArmamentId` (a role instance with no source key) and the legacy level conflict are ported but not recorded.
+
+**Deferred:** a World Journey's atlas shop service (D-083).
+
+**Next:** the shop screen (W1d) over `Shop.View`/`Shop.Execute`; the run loop calls `Shop.Open` from enterNode.
 ## us-2.1 (Class pane), us-5.1–us-5.10, us-6.x display, us-17.1, pf-06: F1 first fight, pause and resume (feature/first-fight, 2026-09-26)
 
 **Landed**
