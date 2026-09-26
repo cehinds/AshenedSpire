@@ -53,6 +53,7 @@ namespace Ashen.Generated
         public const string RulesNodeEffects = "rules/nodeEffects.json";
         public const string RulesPropertyRuleEffects = "rules/propertyRuleEffects.json";
         public const string RulesRng = "rules/rng.json";
+        public const string RulesSaves = "rules/saves.json";
         public const string RulesStringKeys = "rules/stringKeys.json";
         public const string RulesValidation = "rules/validation.json";
         public const string SchemasAudioMusicSchema = "schemas/audio.music.schema.json";
@@ -104,6 +105,7 @@ namespace Ashen.Generated
         public const string SchemasRulesNodeEffectsSchema = "schemas/rules.nodeEffects.schema.json";
         public const string SchemasRulesPropertyRuleEffectsSchema = "schemas/rules.propertyRuleEffects.schema.json";
         public const string SchemasRulesRngSchema = "schemas/rules.rng.schema.json";
+        public const string SchemasRulesSavesSchema = "schemas/rules.saves.schema.json";
         public const string SchemasRulesStringKeysSchema = "schemas/rules.stringKeys.schema.json";
         public const string SchemasRulesValidationSchema = "schemas/rules.validation.schema.json";
         public const string SchemasSettingsPresetsReferenceSchema = "schemas/settings.presets.reference.schema.json";

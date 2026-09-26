@@ -1,5 +1,5 @@
 {
-  "contentHash": "6c3d8436c395e5e917cd75d09508a7401cd0bd19e31ad85c4025d054c3777b5d",
+  "contentHash": "2d0f00cdfb34d59c5d88c9d900dd41803dbeaa137e483af41b338ff3ef21c3b1",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -288,6 +288,11 @@
       "generated": false,
       "sha256": "d6929c4ea9532ef2ae2923cd0817417ef8f305e8cfd2cf81e0028bcf9e8d4077"
     },
+    "rules/saves.json": {
+      "bytes": 371,
+      "generated": false,
+      "sha256": "6e4cfcb8137ac4ccc96b74727b3d9380ae76f6d98a0fd6ddb5dab204056ed747"
+    },
     "rules/stringKeys.json": {
       "bytes": 2420,
       "generated": true,
@@ -542,6 +547,11 @@
       "bytes": 757,
       "generated": false,
       "sha256": "27bb6e185997c5a3652d13c1290d14f6fdb46255f04cc2fb44aea64fb170d692"
+    },
+    "schemas/rules.saves.schema.json": {
+      "bytes": 532,
+      "generated": false,
+      "sha256": "273835d8303750290f81712ea1399de424a8fb124c74babe2b74f77eb999ebc3"
     },
     "schemas/rules.stringKeys.schema.json": {
       "bytes": 9027,

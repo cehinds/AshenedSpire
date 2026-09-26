@@ -158,6 +158,55 @@
         "OverrideSize": "override '{0}' rejected: {1} bytes exceeds {2}",
         "UnknownFile": "patch targets unknown file '{0}'"
       }
+    },
+    {
+      "name": "SaveKeys",
+      "doc": "Save envelope and log record fields (PF-06) and rules/saves.json keys.",
+      "keys": {
+        "SaveVersion": "saveVersion",
+        "Gen": "gen",
+        "ContentHash": "contentHash",
+        "SnapshotHash": "snapshotHash",
+        "Payload": "payload",
+        "Hash": "hash",
+        "Seq": "seq",
+        "Crc": "crc32",
+        "Cmd": "cmd",
+        "StateHashAfter": "stateHashAfter",
+        "RulesFile": "rules/saves.json",
+        "RunSlots": "runSlots",
+        "CurrentVersion": "currentVersion",
+        "ProfileSlot": "profileSlot",
+        "ReplaceRetries": "replaceRetries",
+        "ReplaceRetryDelayMs": "replaceRetryDelayMs"
+      }
+    },
+    {
+      "name": "SaveLayout",
+      "doc": "Save file naming (string.Format patterns; {0} = slot name, {1} = gen).",
+      "keys": {
+        "Primary": "{0}.json",
+        "Backup": "{0}.json.bak",
+        "Mirror": "{0}.mirror.json",
+        "MirrorBackup": "{0}.mirror.json.bak",
+        "Temp": "{0}.json.tmp",
+        "MirrorTemp": "{0}.mirror.json.tmp",
+        "Log": "{0}.{1}.log",
+        "LogSearch": "{0}.*.log",
+        "RunSlot": "slot{0}"
+      }
+    },
+    {
+      "name": "SaveMessages",
+      "doc": "Save-service warnings/refusals (developer-facing; the UI maps statuses to string keys).",
+      "keys": {
+        "FellBack": "primary save unreadable; loaded {0} (gen {1})",
+        "Newer": "save version {0} is newer than this build ({1}); kept, not loaded",
+        "NoValidCopy": "no valid copy of {0}",
+        "TornLog": "command log truncated at record {0} (bad checksum)",
+        "Migrated": "migrated save from version {0} to {1}",
+        "ContentChanged": "content changed since the save; resuming from the snapshot"
+      }
     }
   ],
   "contentFiles": {
@@ -189,6 +238,18 @@
       "values": {
         "MaxOverrideBytes": "1048576",
         "MaxJsonDepth": "64"
+      }
+    },
+    {
+      "name": "Crc32Algorithm",
+      "type": "uint",
+      "doc": "CRC-32 (IEEE, reflected) constants for command-log records.",
+      "values": {
+        "Polynomial": "0xEDB88320",
+        "Init": "0xFFFFFFFF",
+        "TableSize": "256",
+        "BitsPerByte": "8",
+        "ByteMask": "0xFF"
       }
     }
   ]
