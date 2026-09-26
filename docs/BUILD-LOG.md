@@ -53,8 +53,8 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
   - Continue → title; the slot then holds no pending reward and is at `location: map`.
   - A second test, **defeat**, ends every turn: the run is closed out, the slot cleared, no rewards are offered, and the title's Continue is disabled.
 - **Results:**
-  - dotnet 1325/1325;
-  - Unity EditMode 1326 passed, 1 explicit skipped (the seed search);
+  - dotnet 1977/1977 after the dev 0.1.12.0 merge (1325 before it);
+  - Unity EditMode 1978 passed, 1 explicit skipped (the seed search), after the merge;
   - PlayMode 3 passed, 1 skipped (capture);
   - `codegen --check`, `check-content`, `transform-content --check` and `check-docs` green.
 
