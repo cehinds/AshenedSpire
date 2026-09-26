@@ -1,0 +1,37 @@
+{
+  "comment": "Asset ID rules (US-0.1, PF-01). Each rule maps a source path (relative to the shipped repo, regex) to a dotted asset ID template ($1.. = groups; {lower:$n} lower-cases a group). First match wins. Unmatched files under 'roots' are orphans (reported, never shipped). 'import' lists the ID prefixes converted into Unity in the current phase (D-035: disk-constrained, phase-by-phase import).",
+  "roots": ["assets", "art/relic-icons-pack-01/webp", "art/relic-icons-pack-02/webp", "art/relic-icons-pack-03/webp"],
+  "ignore": ["\\.(json|md|mjs|py|txt)$", "^assets/classes/", "^assets/components/"],
+  "rules": [
+    { "match": "^assets/sprites/(reaver|rogue|starseer|herald)_(ember|frost|gold|grace|rot)\\.webp$", "id": "class.$1.sprite.$2" },
+    { "match": "^assets/sprites/enemy_(\\w+)\\.webp$", "id": "enemy.$1.base" },
+    { "match": "^assets/enemies-expansion/(\\w+)\\.webp$", "id": "enemy.$1.base" },
+    { "match": "^assets/enemies-unity/painted_(\\w+)\\.webp$", "id": "enemy.$1.painted" },
+    { "match": "^assets/enemy-states/(\\w+)_(\\w+)\\.webp$", "id": "enemy.$1.state.$2" },
+    { "match": "^assets/enemy-poses/(\\w+)_(attack|idle)\\.webp$", "id": "enemy.$1.pose.$2" },
+    { "match": "^assets/defeated-poses/([\\w-]+)\\.webp$", "id": "defeated.$1" },
+    { "match": "^assets/combat-effects/([A-Za-z]+)(\\d+)\\.webp$", "id": "vfx.$1.$2" },
+    { "match": "^assets/pose-effects/([A-Za-z]+)(\\d+)\\.webp$", "id": "posefx.$1.$2" },
+    { "match": "^assets/animations/reaver/default-greatsword/right/(F\\d+)\\.webp$", "id": "anim.reaver.defaultGreatsword.{lower:$1}" },
+    { "match": "^assets/animations/([\\w-]+)/([\\w-]+)/([A-Z0-9-]+)\\.webp$", "id": "anim.$1.$2.{lower:$3}" },
+    { "match": "^assets/poses/([\\w-]+)_(\\w+)_(ember|frost|gold|grace|rot)\\.webp$", "id": "pose.$1.$2.$3" },
+    { "match": "^assets/painted-outfits/([\\w-]+)/(\\w+)\\.webp$", "id": "outfit.$1.$2" },
+    { "match": "^assets/readiness-poses/([\\w-]+)/(\\w+)\\.webp$", "id": "readiness.$1.$2" },
+    { "match": "^assets/equipment/components/v1/(\\w+)/(\\w+)\\.webp$", "id": "equipment.part.$2" },
+    { "match": "^assets/equipment/(body|icon|weapon)_(\\w+)\\.webp$", "id": "equipment.$1.$2" },
+    { "match": "^assets/relics/(\\w+)\\.webp$", "id": "relic.$1" },
+    { "match": "^art/relic-icons-pack-0\\d/webp/(\\w+)-(\\d+)\\.webp$", "id": "relic.$1.icon$2" },
+    { "match": "^assets/ui/flasks/flask-(\\w+)\\.webp$", "id": "flask.$1" },
+    { "match": "^assets/environments/legacy/([\\w-]+)\\.webp$", "id": "env.legacy.$1" },
+    { "match": "^assets/environments/([\\w-]+)\\.webp$", "id": "env.$1" },
+    { "match": "^assets/bg/([\\w-]+)\\.(webp|svg)$", "id": "bg.$1" },
+    { "match": "^assets/map/parchment_act(\\d)\\.svg$", "id": "map.parchment.act$1" },
+    { "match": "^assets/prologue/([\\w-]+)\\.webp$", "id": "prologue.$1" },
+    { "match": "^assets/framework/(missing)\\.svg$", "id": "framework.$1" }
+  ],
+  "import": ["flask.", "class.", "enemy.", "vfx.", "bg.", "env.", "map.", "framework.", "relic.", "equipment.icon.", "defeated."],
+  "provenance": {
+    "files": ["CREDITS.md"],
+    "globs": ["assets/**/provenance.json", "art/**/provenance.json", "art/**/prompts*.json"]
+  }
+}

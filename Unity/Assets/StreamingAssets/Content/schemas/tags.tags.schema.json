@@ -1,0 +1,48 @@
+{
+  "$id": "tags/tags.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "blurb": {
+        "type": "string"
+      },
+      "color": {
+        "type": "string"
+      },
+      "domain": {
+        "type": "string"
+      },
+      "glyph": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "label": {
+        "type": "string"
+      },
+      "visibility": {
+        "type": "string",
+        "enum": [
+          "",
+          "CONTEXTUAL",
+          "DEBUG",
+          "INTERNAL",
+          "PRIMARY",
+          "SECONDARY"
+        ]
+      }
+    },
+    "required": [
+      "blurb",
+      "color",
+      "domain",
+      "glyph",
+      "id",
+      "label",
+      "visibility"
+    ]
+  }
+}

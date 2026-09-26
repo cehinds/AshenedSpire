@@ -1,0 +1,46 @@
+{
+  "$id": "ui/terms.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "accessibilityText": {
+            "type": "string"
+          },
+          "aliasesForImportOnly": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "canonicalText": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "pluralText": {
+            "type": "string"
+          },
+          "shortText": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "canonicalText",
+          "id"
+        ]
+      }
+    }
+  },
+  "required": [
+    "comment",
+    "terms"
+  ]
+}

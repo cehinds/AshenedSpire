@@ -1,0 +1,9 @@
+{
+  "name": "Ashen.Tests.PlayMode",
+  "rootNamespace": "Ashen.Tests.Play",
+  "references": ["UnityEngine.TestRunner", "UnityEditor.TestRunner", "Ashen.Generated", "Ashen.Domain", "Ashen.Content", "Ashen.Application", "Ashen.Platform", "Ashen.Presentation"],
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll"],
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "autoReferenced": false
+}

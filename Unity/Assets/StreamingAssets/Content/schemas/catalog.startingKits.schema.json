@@ -1,0 +1,45 @@
+{
+  "$id": "catalog/startingKits.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "baseline": {
+        "type": "boolean"
+      },
+      "classId": {
+        "type": "string",
+        "x-ref": "catalog/classes.json"
+      },
+      "id": {
+        "type": "string",
+        "enum": [
+          "heraldBaseline",
+          "heraldEmberlight",
+          "reaverBaseline",
+          "reaverGreatsword",
+          "rogueBaseline",
+          "rogueBow",
+          "starseerBaseline",
+          "starseerStarstone"
+        ]
+      },
+      "leftHand": {
+        "type": "string",
+        "x-ref": "catalog/armaments.json"
+      },
+      "rightHand": {
+        "type": "string",
+        "x-ref": "catalog/armaments.json"
+      }
+    },
+    "required": [
+      "baseline",
+      "classId",
+      "id",
+      "leftHand",
+      "rightHand"
+    ]
+  }
+}

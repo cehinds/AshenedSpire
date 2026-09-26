@@ -1,0 +1,2162 @@
+{
+  "arcaneDraw": {
+    "blurb": "The first break each combat is a hand.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🌀",
+    "id": "arcaneDraw",
+    "label": "Arcane Draw",
+    "visibility": ""
+  },
+  "ash": {
+    "blurb": "Spent once, then gone to ash.",
+    "color": "7A6F5A",
+    "domain": "card",
+    "glyph": "•",
+    "id": "ash",
+    "label": "Ash",
+    "visibility": ""
+  },
+  "ashOfRemembrance": {
+    "blurb": "What Ash of Remembrance does when the fight gives it its moment.",
+    "color": "C9A227",
+    "domain": "property",
+    "glyph": "⚱",
+    "id": "ashOfRemembrance",
+    "label": "Ash of Remembrance",
+    "visibility": ""
+  },
+  "ashenGrip": {
+    "blurb": "What Ashen Grip does when the fight gives it its moment.",
+    "color": "8C7A5B",
+    "domain": "property",
+    "glyph": "🤚",
+    "id": "ashenGrip",
+    "label": "Ashen Grip",
+    "visibility": ""
+  },
+  "ashenReserve": {
+    "blurb": "The grip gives back a little more.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🤚",
+    "id": "ashenReserve",
+    "label": "Ashen Reserve",
+    "visibility": ""
+  },
+  "assassin": {
+    "blurb": "The subclass that reads a stagger as an opening.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🗡",
+    "id": "assassin",
+    "label": "Assassin",
+    "visibility": ""
+  },
+  "attunedMind": {
+    "blurb": "Mana found is a card found.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "✴",
+    "id": "attunedMind",
+    "label": "Attuned Mind",
+    "visibility": ""
+  },
+  "azureSigil": {
+    "blurb": "What Azure Sigil does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "🔵",
+    "id": "azureSigil",
+    "label": "Azure Sigil",
+    "visibility": ""
+  },
+  "basic": {
+    "blurb": "Everybody's — on the shelf without being found.",
+    "color": "7A6F5A",
+    "domain": "card",
+    "glyph": "○",
+    "id": "basic",
+    "label": "Basic",
+    "visibility": ""
+  },
+  "beast": {
+    "blurb": "Animal, unreasoning, driven by hunger.",
+    "color": "7A6F5A",
+    "domain": "creature",
+    "glyph": "🐾",
+    "id": "beast",
+    "label": "Beast",
+    "visibility": ""
+  },
+  "blade": {
+    "blurb": "Steel and edge — direct weapon work.",
+    "color": "C9502E",
+    "domain": "card",
+    "glyph": "⚔",
+    "id": "blade",
+    "label": "Blade",
+    "visibility": ""
+  },
+  "blessedDew": {
+    "blurb": "What Blessed Dew does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "💧",
+    "id": "blessedDew",
+    "label": "Blessed Dew",
+    "visibility": ""
+  },
+  "blight": {
+    "blurb": "Creeping decay.",
+    "color": "B5541C",
+    "domain": "card",
+    "glyph": "☣",
+    "id": "blight",
+    "label": "Blight",
+    "visibility": ""
+  },
+  "blightTouchedIdol": {
+    "blurb": "What Blight-Touched Idol does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "☣",
+    "id": "blightTouchedIdol",
+    "label": "Blight-Touched Idol",
+    "visibility": ""
+  },
+  "blood": {
+    "blurb": "Bleed, and the letting of it.",
+    "color": "8A1A1A",
+    "domain": "card",
+    "glyph": "🩸",
+    "id": "blood",
+    "label": "Blood",
+    "visibility": ""
+  },
+  "bloodTempo": {
+    "blurb": "A change of footing is a breath.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "♪",
+    "id": "bloodTempo",
+    "label": "Blood Tempo",
+    "visibility": ""
+  },
+  "bloodiedTalisman": {
+    "blurb": "What Bloodied Talisman does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "🩸",
+    "id": "bloodiedTalisman",
+    "label": "Bloodied Talisman",
+    "visibility": ""
+  },
+  "bloodstainedChalice": {
+    "blurb": "What Bloodstained Chalice does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "🍷",
+    "id": "bloodstainedChalice",
+    "label": "Bloodstained Chalice",
+    "visibility": ""
+  },
+  "bound": {
+    "blurb": "Carries its own cards — they arrive with the piece and are named in equipmentGrants.csv.",
+    "color": "C9A227",
+    "domain": "item",
+    "glyph": "⛓",
+    "id": "bound",
+    "label": "Bound",
+    "visibility": ""
+  },
+  "bulwarkKing": {
+    "blurb": "The subclass that is never caught open.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🏰",
+    "id": "bulwarkKing",
+    "label": "Bulwark King",
+    "visibility": ""
+  },
+  "carrionMorsel": {
+    "blurb": "What Carrion Morsel does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🍖",
+    "id": "carrionMorsel",
+    "label": "Carrion Morsel",
+    "visibility": ""
+  },
+  "carrionTalon": {
+    "blurb": "What Carrion Talon does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "🦅",
+    "id": "carrionTalon",
+    "label": "Carrion Talon",
+    "visibility": ""
+  },
+  "cinderOfTheFallen": {
+    "blurb": "What Cinder of the Fallen does when the fight gives it its moment.",
+    "color": "C9A227",
+    "domain": "property",
+    "glyph": "☠",
+    "id": "cinderOfTheFallen",
+    "label": "Cinder of the Fallen",
+    "visibility": ""
+  },
+  "classification.armament": {
+    "blurb": "What a armament is. Every object in the armament collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.armament",
+    "label": "armament",
+    "visibility": "INTERNAL"
+  },
+  "classification.armour": {
+    "blurb": "What a armour is. Every object in the armour collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.armour",
+    "label": "armour",
+    "visibility": "INTERNAL"
+  },
+  "classification.attack": {
+    "blurb": "",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.attack",
+    "label": "attack",
+    "visibility": "PRIMARY"
+  },
+  "classification.basicCardProfile": {
+    "blurb": "What a basicCardProfile is. Every object in the basicCardProfile collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.basicCardProfile",
+    "label": "basicCardProfile",
+    "visibility": "INTERNAL"
+  },
+  "classification.class": {
+    "blurb": "What a class is. Every object in the class collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.class",
+    "label": "class",
+    "visibility": "INTERNAL"
+  },
+  "classification.curse": {
+    "blurb": "",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.curse",
+    "label": "curse",
+    "visibility": "PRIMARY"
+  },
+  "classification.encounter": {
+    "blurb": "What a encounter is. Every object in the encounter collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.encounter",
+    "label": "encounter",
+    "visibility": "INTERNAL"
+  },
+  "classification.enemy": {
+    "blurb": "What a enemy is. Every object in the enemy collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.enemy",
+    "label": "enemy",
+    "visibility": "INTERNAL"
+  },
+  "classification.event": {
+    "blurb": "What a event is. Every object in the event collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.event",
+    "label": "event",
+    "visibility": "INTERNAL"
+  },
+  "classification.flask": {
+    "blurb": "What a flask is. Every object in the flask collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.flask",
+    "label": "flask",
+    "visibility": "INTERNAL"
+  },
+  "classification.guard": {
+    "blurb": "",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.guard",
+    "label": "guard",
+    "visibility": "PRIMARY"
+  },
+  "classification.keepsake": {
+    "blurb": "What a keepsake is. Every object in the keepsake collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.keepsake",
+    "label": "keepsake",
+    "visibility": "INTERNAL"
+  },
+  "classification.power": {
+    "blurb": "",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.power",
+    "label": "power",
+    "visibility": "PRIMARY"
+  },
+  "classification.relic": {
+    "blurb": "What a relic is. Every object in the relic collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.relic",
+    "label": "relic",
+    "visibility": "INTERNAL"
+  },
+  "classification.skill": {
+    "blurb": "",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.skill",
+    "label": "skill",
+    "visibility": "PRIMARY"
+  },
+  "classification.slot": {
+    "blurb": "What a slot is. Every object in the slot collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.slot",
+    "label": "slot",
+    "visibility": "INTERNAL"
+  },
+  "classification.startingKit": {
+    "blurb": "What a startingKit is. Every object in the startingKit collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.startingKit",
+    "label": "startingKit",
+    "visibility": "INTERNAL"
+  },
+  "classification.statusCard": {
+    "blurb": "",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.statusCard",
+    "label": "statusCard",
+    "visibility": "PRIMARY"
+  },
+  "classification.strike": {
+    "blurb": "",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.strike",
+    "label": "strike",
+    "visibility": "PRIMARY"
+  },
+  "classification.unlock": {
+    "blurb": "What a unlock is. Every object in the unlock collection carries this, and nothing outside it may.",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.unlock",
+    "label": "unlock",
+    "visibility": "INTERNAL"
+  },
+  "classification.weaponArt": {
+    "blurb": "",
+    "color": "",
+    "domain": "classification",
+    "glyph": "",
+    "id": "classification.weaponArt",
+    "label": "weaponArt",
+    "visibility": "PRIMARY"
+  },
+  "conduit": {
+    "blurb": "The subclass whose casts cost breath, not blood.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "⚡",
+    "id": "conduit",
+    "label": "Conduit",
+    "visibility": ""
+  },
+  "construct": {
+    "blurb": "Built, not born — no blood to let.",
+    "color": "9FC3E8",
+    "domain": "creature",
+    "glyph": "⚙",
+    "id": "construct",
+    "label": "Construct",
+    "visibility": ""
+  },
+  "cost.action": {
+    "blurb": "",
+    "color": "",
+    "domain": "cost",
+    "glyph": "",
+    "id": "cost.action",
+    "label": "action",
+    "visibility": "PRIMARY"
+  },
+  "cost.alternative": {
+    "blurb": "",
+    "color": "",
+    "domain": "cost",
+    "glyph": "",
+    "id": "cost.alternative",
+    "label": "alternative",
+    "visibility": "PRIMARY"
+  },
+  "cost.mana": {
+    "blurb": "",
+    "color": "",
+    "domain": "cost",
+    "glyph": "",
+    "id": "cost.mana",
+    "label": "mana",
+    "visibility": "PRIMARY"
+  },
+  "cost.stamina": {
+    "blurb": "",
+    "color": "",
+    "domain": "cost",
+    "glyph": "",
+    "id": "cost.stamina",
+    "label": "stamina",
+    "visibility": "PRIMARY"
+  },
+  "crackedLantern": {
+    "blurb": "What Cracked Lantern does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🏮",
+    "id": "crackedLantern",
+    "label": "Cracked Lantern",
+    "visibility": ""
+  },
+  "crimsonCovenant": {
+    "blurb": "What Crimson Covenant does when the fight gives it its moment.",
+    "color": "C9A227",
+    "domain": "property",
+    "glyph": "🩸",
+    "id": "crimsonCovenant",
+    "label": "Crimson Covenant",
+    "visibility": ""
+  },
+  "crownOfStitches": {
+    "blurb": "What Crown of Stitches does when the fight gives it its moment.",
+    "color": "C9A227",
+    "domain": "property",
+    "glyph": "👑",
+    "id": "crownOfStitches",
+    "label": "Crown of Stitches",
+    "visibility": ""
+  },
+  "curedHide": {
+    "blurb": "What Cured Hide does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🛡",
+    "id": "curedHide",
+    "label": "Cured Hide",
+    "visibility": ""
+  },
+  "cutpursesCoin": {
+    "blurb": "What Cutpurse's Coin does when the fight gives it its moment.",
+    "color": "8C7A5B",
+    "domain": "property",
+    "glyph": "🪙",
+    "id": "cutpursesCoin",
+    "label": "Cutpurse's Coin",
+    "visibility": ""
+  },
+  "damage.arcane": {
+    "blurb": "",
+    "color": "",
+    "domain": "damage",
+    "glyph": "",
+    "id": "damage.arcane",
+    "label": "arcane",
+    "visibility": "SECONDARY"
+  },
+  "damage.blade": {
+    "blurb": "",
+    "color": "",
+    "domain": "damage",
+    "glyph": "",
+    "id": "damage.blade",
+    "label": "blade",
+    "visibility": "SECONDARY"
+  },
+  "damage.blunt": {
+    "blurb": "",
+    "color": "",
+    "domain": "damage",
+    "glyph": "",
+    "id": "damage.blunt",
+    "label": "blunt",
+    "visibility": "SECONDARY"
+  },
+  "damage.magic": {
+    "blurb": "",
+    "color": "",
+    "domain": "damage",
+    "glyph": "",
+    "id": "damage.magic",
+    "label": "magic",
+    "visibility": "SECONDARY"
+  },
+  "damage.physical": {
+    "blurb": "",
+    "color": "",
+    "domain": "damage",
+    "glyph": "",
+    "id": "damage.physical",
+    "label": "physical",
+    "visibility": "SECONDARY"
+  },
+  "damage.piercing": {
+    "blurb": "",
+    "color": "",
+    "domain": "damage",
+    "glyph": "",
+    "id": "damage.piercing",
+    "label": "piercing",
+    "visibility": "SECONDARY"
+  },
+  "damage:arcane": {
+    "blurb": "Categorized Arcane identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "damageType",
+    "glyph": "◇",
+    "id": "damage:arcane",
+    "label": "Arcane",
+    "visibility": ""
+  },
+  "damage:blunt": {
+    "blurb": "Categorized Blunt identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "damageType",
+    "glyph": "◇",
+    "id": "damage:blunt",
+    "label": "Blunt",
+    "visibility": ""
+  },
+  "damage:decay": {
+    "blurb": "Categorized Decay identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "damageType",
+    "glyph": "◇",
+    "id": "damage:decay",
+    "label": "Decay",
+    "visibility": ""
+  },
+  "damage:fire": {
+    "blurb": "Categorized Fire identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "damageType",
+    "glyph": "◇",
+    "id": "damage:fire",
+    "label": "Fire",
+    "visibility": ""
+  },
+  "damage:frost": {
+    "blurb": "Categorized Frost identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "damageType",
+    "glyph": "◇",
+    "id": "damage:frost",
+    "label": "Frost",
+    "visibility": ""
+  },
+  "damage:lightning": {
+    "blurb": "Categorized Lightning identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "damageType",
+    "glyph": "◇",
+    "id": "damage:lightning",
+    "label": "Lightning",
+    "visibility": ""
+  },
+  "damage:piercing": {
+    "blurb": "Categorized Piercing identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "damageType",
+    "glyph": "◇",
+    "id": "damage:piercing",
+    "label": "Piercing",
+    "visibility": ""
+  },
+  "damage:sacred": {
+    "blurb": "Categorized Sacred identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "damageType",
+    "glyph": "◇",
+    "id": "damage:sacred",
+    "label": "Sacred",
+    "visibility": ""
+  },
+  "damage:slashing": {
+    "blurb": "Categorized Slashing identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "damageType",
+    "glyph": "◇",
+    "id": "damage:slashing",
+    "label": "Slashing",
+    "visibility": ""
+  },
+  "delivery:area": {
+    "blurb": "Categorized Area identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "delivery",
+    "glyph": "◇",
+    "id": "delivery:area",
+    "label": "Area",
+    "visibility": ""
+  },
+  "delivery:melee": {
+    "blurb": "Categorized Melee identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "delivery",
+    "glyph": "◇",
+    "id": "delivery:melee",
+    "label": "Melee",
+    "visibility": ""
+  },
+  "delivery:projectile": {
+    "blurb": "Categorized Projectile identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "delivery",
+    "glyph": "◇",
+    "id": "delivery:projectile",
+    "label": "Projectile",
+    "visibility": ""
+  },
+  "emberIdol": {
+    "blurb": "What Ember Idol does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "🌋",
+    "id": "emberIdol",
+    "label": "Ember Idol",
+    "visibility": ""
+  },
+  "emberwickCharm": {
+    "blurb": "What Emberwick Charm does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🕯",
+    "id": "emberwickCharm",
+    "label": "Emberwick Charm",
+    "visibility": ""
+  },
+  "equipment.bound": {
+    "blurb": "",
+    "color": "",
+    "domain": "equipment",
+    "glyph": "",
+    "id": "equipment.bound",
+    "label": "bound",
+    "visibility": "PRIMARY"
+  },
+  "equipment.dualWield": {
+    "blurb": "",
+    "color": "",
+    "domain": "equipment",
+    "glyph": "",
+    "id": "equipment.dualWield",
+    "label": "dualWield",
+    "visibility": "SECONDARY"
+  },
+  "equipment.mainHand": {
+    "blurb": "",
+    "color": "",
+    "domain": "equipment",
+    "glyph": "",
+    "id": "equipment.mainHand",
+    "label": "mainHand",
+    "visibility": "SECONDARY"
+  },
+  "equipment.offHand": {
+    "blurb": "",
+    "color": "",
+    "domain": "equipment",
+    "glyph": "",
+    "id": "equipment.offHand",
+    "label": "offHand",
+    "visibility": "SECONDARY"
+  },
+  "equipment.parryTool": {
+    "blurb": "",
+    "color": "",
+    "domain": "equipment",
+    "glyph": "",
+    "id": "equipment.parryTool",
+    "label": "parryTool",
+    "visibility": "SECONDARY"
+  },
+  "equipment.shield": {
+    "blurb": "",
+    "color": "",
+    "domain": "equipment",
+    "glyph": "",
+    "id": "equipment.shield",
+    "label": "shield",
+    "visibility": "SECONDARY"
+  },
+  "equipment.twoHanded": {
+    "blurb": "",
+    "color": "",
+    "domain": "equipment",
+    "glyph": "",
+    "id": "equipment.twoHanded",
+    "label": "twoHanded",
+    "visibility": "SECONDARY"
+  },
+  "extractable": {
+    "blurb": "A smith can lift this card out of the item that lends it, and seat it in another item's mount. Strikes and defends do not carry it — today.",
+    "color": "C9A227",
+    "domain": "card",
+    "glyph": "⚙",
+    "id": "extractable",
+    "label": "Extractable",
+    "visibility": ""
+  },
+  "favored": {
+    "blurb": "A class card's leaning: skill XP in the weapon groups the card also names (its item-type tags) is multiplied. Scoped by the carrier's own tags, never by a second table.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "✦",
+    "id": "favored",
+    "label": "Favored",
+    "visibility": ""
+  },
+  "fellWardenBrand": {
+    "blurb": "What Fell Warden Brand does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "🔱",
+    "id": "fellWardenBrand",
+    "label": "Fell Warden Brand",
+    "visibility": ""
+  },
+  "flayersCenser": {
+    "blurb": "What Flayer's Censer does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "🔥",
+    "id": "flayersCenser",
+    "label": "Flayer's Censer",
+    "visibility": ""
+  },
+  "flourish": {
+    "blurb": "Finesse — footwork and multi-hit.",
+    "color": "9FC3E8",
+    "domain": "card",
+    "glyph": "✧",
+    "id": "flourish",
+    "label": "Flourish",
+    "visibility": ""
+  },
+  "forsakenMedallion": {
+    "blurb": "What Forsaken Medallion does when the fight gives it its moment.",
+    "color": "8C7A5B",
+    "domain": "property",
+    "glyph": "🏅",
+    "id": "forsakenMedallion",
+    "label": "Forsaken Medallion",
+    "visibility": ""
+  },
+  "forsakenWarflag": {
+    "blurb": "What Forsaken Warflag does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "🏴",
+    "id": "forsakenWarflag",
+    "label": "Forsaken Warflag",
+    "visibility": ""
+  },
+  "from:armor": {
+    "blurb": "Bound to the outfit the run begins wearing.",
+    "color": "7FA8C9",
+    "domain": "grantSource",
+    "glyph": "▣",
+    "id": "from:armor",
+    "label": "Armor",
+    "visibility": ""
+  },
+  "from:class": {
+    "blurb": "The class signature card.",
+    "color": "9FC3E8",
+    "domain": "grantSource",
+    "glyph": "✦",
+    "id": "from:class",
+    "label": "Class",
+    "visibility": ""
+  },
+  "from:global": {
+    "blurb": "Dealt to every class whatever it wears — balance.equipment.startingDeck.global.grants.",
+    "color": "B8B0A0",
+    "domain": "grantSource",
+    "glyph": "🌐",
+    "id": "from:global",
+    "label": "Global",
+    "visibility": ""
+  },
+  "from:relic": {
+    "blurb": "Carried in by the starting relic.",
+    "color": "C9A227",
+    "domain": "grantSource",
+    "glyph": "◈",
+    "id": "from:relic",
+    "label": "Relic",
+    "visibility": ""
+  },
+  "from:weapon": {
+    "blurb": "Bound to an armament in hand at creation.",
+    "color": "C9502E",
+    "domain": "grantSource",
+    "glyph": "⚔",
+    "id": "from:weapon",
+    "label": "Weapon",
+    "visibility": ""
+  },
+  "fx:arcane": {
+    "blurb": "arcane visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:arcane",
+    "label": "arcane",
+    "visibility": ""
+  },
+  "fx:ash": {
+    "blurb": "ash visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:ash",
+    "label": "ash",
+    "visibility": ""
+  },
+  "fx:barrier": {
+    "blurb": "barrier visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:barrier",
+    "label": "barrier",
+    "visibility": ""
+  },
+  "fx:bind": {
+    "blurb": "bind visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:bind",
+    "label": "bind",
+    "visibility": ""
+  },
+  "fx:blade": {
+    "blurb": "blade visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:blade",
+    "label": "blade",
+    "visibility": ""
+  },
+  "fx:blight": {
+    "blurb": "blight visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:blight",
+    "label": "blight",
+    "visibility": ""
+  },
+  "fx:blood": {
+    "blurb": "blood visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:blood",
+    "label": "blood",
+    "visibility": ""
+  },
+  "fx:bulwark": {
+    "blurb": "bulwark visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:bulwark",
+    "label": "bulwark",
+    "visibility": ""
+  },
+  "fx:cleanse": {
+    "blurb": "cleanse visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:cleanse",
+    "label": "cleanse",
+    "visibility": ""
+  },
+  "fx:dodge": {
+    "blurb": "dodge visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:dodge",
+    "label": "dodge",
+    "visibility": ""
+  },
+  "fx:flourish": {
+    "blurb": "flourish visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:flourish",
+    "label": "flourish",
+    "visibility": ""
+  },
+  "fx:frost": {
+    "blurb": "frost visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:frost",
+    "label": "frost",
+    "visibility": ""
+  },
+  "fx:gorefire": {
+    "blurb": "gorefire visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:gorefire",
+    "label": "gorefire",
+    "visibility": ""
+  },
+  "fx:guard": {
+    "blurb": "guard visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:guard",
+    "label": "guard",
+    "visibility": ""
+  },
+  "fx:guile": {
+    "blurb": "guile visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:guile",
+    "label": "guile",
+    "visibility": ""
+  },
+  "fx:heal": {
+    "blurb": "heal visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:heal",
+    "label": "heal",
+    "visibility": ""
+  },
+  "fx:heavy": {
+    "blurb": "heavy visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:heavy",
+    "label": "heavy",
+    "visibility": ""
+  },
+  "fx:magic": {
+    "blurb": "magic visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:magic",
+    "label": "magic",
+    "visibility": ""
+  },
+  "fx:oath": {
+    "blurb": "oath visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:oath",
+    "label": "oath",
+    "visibility": ""
+  },
+  "fx:pierce": {
+    "blurb": "pierce visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:pierce",
+    "label": "pierce",
+    "visibility": ""
+  },
+  "fx:precision": {
+    "blurb": "precision visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:precision",
+    "label": "precision",
+    "visibility": ""
+  },
+  "fx:ranged": {
+    "blurb": "ranged visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:ranged",
+    "label": "ranged",
+    "visibility": ""
+  },
+  "fx:riposte": {
+    "blurb": "riposte visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:riposte",
+    "label": "riposte",
+    "visibility": ""
+  },
+  "fx:ritual": {
+    "blurb": "ritual visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:ritual",
+    "label": "ritual",
+    "visibility": ""
+  },
+  "fx:shield": {
+    "blurb": "shield visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:shield",
+    "label": "shield",
+    "visibility": ""
+  },
+  "fx:starstone": {
+    "blurb": "starstone visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:starstone",
+    "label": "starstone",
+    "visibility": ""
+  },
+  "fx:utility": {
+    "blurb": "utility visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:utility",
+    "label": "utility",
+    "visibility": ""
+  },
+  "fx:venom": {
+    "blurb": "venom visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:venom",
+    "label": "venom",
+    "visibility": ""
+  },
+  "fx:ward": {
+    "blurb": "ward visual identity; no combat modifier.",
+    "color": "9FC3E8",
+    "domain": "presentation",
+    "glyph": "✧",
+    "id": "fx:ward",
+    "label": "ward",
+    "visibility": ""
+  },
+  "gildedTear": {
+    "blurb": "What Gilded Tear does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "💛",
+    "id": "gildedTear",
+    "label": "Gilded Tear",
+    "visibility": ""
+  },
+  "goldFigurine": {
+    "blurb": "What Gold Figurine does when the fight gives it its moment.",
+    "color": "8C7A5B",
+    "domain": "property",
+    "glyph": "🗿",
+    "id": "goldFigurine",
+    "label": "Gold Figurine",
+    "visibility": ""
+  },
+  "goldboughSapling": {
+    "blurb": "What Goldbough Sapling does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "🌱",
+    "id": "goldboughSapling",
+    "label": "Goldbough Sapling",
+    "visibility": ""
+  },
+  "goldenSprout": {
+    "blurb": "What Golden Sprout does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🌰",
+    "id": "goldenSprout",
+    "label": "Golden Sprout",
+    "visibility": ""
+  },
+  "goldleafCharm": {
+    "blurb": "What Goldleaf Charm does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🍂",
+    "id": "goldleafCharm",
+    "label": "Goldleaf Charm",
+    "visibility": ""
+  },
+  "gorefire": {
+    "blurb": "The blood-and-flame stance.",
+    "color": "C9502E",
+    "domain": "card",
+    "glyph": "🔥",
+    "id": "gorefire",
+    "label": "Gorefire",
+    "visibility": ""
+  },
+  "gravetendersBell": {
+    "blurb": "What Gravetender's Bell does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "🔔",
+    "id": "gravetendersBell",
+    "label": "Gravetender's Bell",
+    "visibility": ""
+  },
+  "grimHarvest": {
+    "blurb": "What falls feeds you.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🩸",
+    "id": "grimHarvest",
+    "label": "Grim Harvest",
+    "visibility": ""
+  },
+  "guard": {
+    "blurb": "Bracing, blocking, holding the line.",
+    "color": "7FA8C9",
+    "domain": "card",
+    "glyph": "🛡",
+    "id": "guard",
+    "label": "Guard",
+    "visibility": ""
+  },
+  "guile": {
+    "blurb": "Preparation, misdirection, and stolen openings.",
+    "color": "647B73",
+    "domain": "card",
+    "glyph": "◇",
+    "id": "guile",
+    "label": "Guile",
+    "visibility": ""
+  },
+  "heavy": {
+    "blurb": "Slow, committed, and hard to stop.",
+    "color": "C9A227",
+    "domain": "card",
+    "glyph": "◆",
+    "id": "heavy",
+    "label": "Heavy",
+    "visibility": ""
+  },
+  "hollowedHorn": {
+    "blurb": "What Hollowed Horn does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "📯",
+    "id": "hollowedHorn",
+    "label": "Hollowed Horn",
+    "visibility": ""
+  },
+  "honedEdge": {
+    "blurb": "Every prepared cut opens a vein.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🔪",
+    "id": "honedEdge",
+    "label": "Honed Edge",
+    "visibility": ""
+  },
+  "howlingStandard": {
+    "blurb": "What Howling Standard does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "🚩",
+    "id": "howlingStandard",
+    "label": "Howling Standard",
+    "visibility": ""
+  },
+  "humanoid": {
+    "blurb": "Two arms, two legs, and a reason for being here.",
+    "color": "B8B0A0",
+    "domain": "creature",
+    "glyph": "👤",
+    "id": "humanoid",
+    "label": "Humanoid",
+    "visibility": ""
+  },
+  "internal.unplayable": {
+    "blurb": "",
+    "color": "",
+    "domain": "internal",
+    "glyph": "",
+    "id": "internal.unplayable",
+    "label": "unplayable",
+    "visibility": "SECONDARY"
+  },
+  "internal.upgraded": {
+    "blurb": "",
+    "color": "",
+    "domain": "internal",
+    "glyph": "",
+    "id": "internal.upgraded",
+    "label": "upgraded",
+    "visibility": "DEBUG"
+  },
+  "ironFooting": {
+    "blurb": "Every stance you enter braces you.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🦶",
+    "id": "ironFooting",
+    "label": "Iron Footing",
+    "visibility": ""
+  },
+  "item:armor": {
+    "blurb": "What this piece IS: the Armoury and the smith name it Armor.",
+    "color": "B8B0A0",
+    "domain": "itemType",
+    "glyph": "▣",
+    "id": "item:armor",
+    "label": "Armor",
+    "visibility": ""
+  },
+  "item:blade": {
+    "blurb": "What this piece IS: the Armoury and the smith name it Blade.",
+    "color": "C9502E",
+    "domain": "itemType",
+    "glyph": "⚔",
+    "id": "item:blade",
+    "label": "Blade",
+    "visibility": ""
+  },
+  "item:magic-focus": {
+    "blurb": "What this piece IS: the Armoury and the smith name it Magic Focus.",
+    "color": "9FC3E8",
+    "domain": "itemType",
+    "glyph": "✦",
+    "id": "item:magic-focus",
+    "label": "Magic Focus",
+    "visibility": ""
+  },
+  "item:shield": {
+    "blurb": "What this piece IS: the Armoury and the smith name it Shield.",
+    "color": "7FA8C9",
+    "domain": "itemType",
+    "glyph": "🛡",
+    "id": "item:shield",
+    "label": "Shield",
+    "visibility": ""
+  },
+  "ivoryComb": {
+    "blurb": "What Ivory Comb does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🪮",
+    "id": "ivoryComb",
+    "label": "Ivory Comb",
+    "visibility": ""
+  },
+  "kindlingCharm": {
+    "blurb": "What Kindling Charm does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🕯",
+    "id": "kindlingCharm",
+    "label": "Kindling Charm",
+    "visibility": ""
+  },
+  "levelUp": {
+    "blurb": "The place is where waiting attribute points are assigned.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "✦",
+    "id": "levelUp",
+    "label": "Level-up",
+    "visibility": ""
+  },
+  "lifecycle.ethereal": {
+    "blurb": "",
+    "color": "",
+    "domain": "lifecycle",
+    "glyph": "",
+    "id": "lifecycle.ethereal",
+    "label": "ethereal",
+    "visibility": "PRIMARY"
+  },
+  "lifecycle.exhaust": {
+    "blurb": "",
+    "color": "",
+    "domain": "lifecycle",
+    "glyph": "",
+    "id": "lifecycle.exhaust",
+    "label": "exhaust",
+    "visibility": "PRIMARY"
+  },
+  "lifecycle.innate": {
+    "blurb": "",
+    "color": "",
+    "domain": "lifecycle",
+    "glyph": "",
+    "id": "lifecycle.innate",
+    "label": "innate",
+    "visibility": "PRIMARY"
+  },
+  "lifecycle.recall": {
+    "blurb": "",
+    "color": "",
+    "domain": "lifecycle",
+    "glyph": "",
+    "id": "lifecycle.recall",
+    "label": "recall",
+    "visibility": "SECONDARY"
+  },
+  "lifecycle.recall.afterCardPlay": {
+    "blurb": "",
+    "color": "",
+    "domain": "lifecycle",
+    "glyph": "",
+    "id": "lifecycle.recall.afterCardPlay",
+    "label": "afterCardPlay",
+    "visibility": "PRIMARY"
+  },
+  "lifecycle.recall.afterTurnDraw": {
+    "blurb": "",
+    "color": "",
+    "domain": "lifecycle",
+    "glyph": "",
+    "id": "lifecycle.recall.afterTurnDraw",
+    "label": "afterTurnDraw",
+    "visibility": "PRIMARY"
+  },
+  "lifecycle.recall.afterUse": {
+    "blurb": "",
+    "color": "",
+    "domain": "lifecycle",
+    "glyph": "",
+    "id": "lifecycle.recall.afterUse",
+    "label": "afterUse",
+    "visibility": "PRIMARY"
+  },
+  "lifecycle.retain": {
+    "blurb": "",
+    "color": "",
+    "domain": "lifecycle",
+    "glyph": "",
+    "id": "lifecycle.retain",
+    "label": "retain",
+    "visibility": "PRIMARY"
+  },
+  "lifecycle.seal": {
+    "blurb": "",
+    "color": "",
+    "domain": "lifecycle",
+    "glyph": "",
+    "id": "lifecycle.seal",
+    "label": "seal",
+    "visibility": "PRIMARY"
+  },
+  "lodestarCap": {
+    "blurb": "The shard opens the fight wider.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🌟",
+    "id": "lodestarCap",
+    "label": "Lodestar Cap",
+    "visibility": ""
+  },
+  "lodestarShard": {
+    "blurb": "What Lodestar Shard does when the fight gives it its moment.",
+    "color": "8C7A5B",
+    "domain": "property",
+    "glyph": "🌟",
+    "id": "lodestarShard",
+    "label": "Lodestar Shard",
+    "visibility": ""
+  },
+  "martyr": {
+    "blurb": "The subclass that turns every wound to a wall.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "✝",
+    "id": "martyr",
+    "label": "Martyr",
+    "visibility": ""
+  },
+  "moonlitVial": {
+    "blurb": "What Moonlit Vial does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🧪",
+    "id": "moonlitVial",
+    "label": "Moonlit Vial",
+    "visibility": ""
+  },
+  "oath": {
+    "blurb": "Binding, lasting commitments.",
+    "color": "C9A227",
+    "domain": "card",
+    "glyph": "✚",
+    "id": "oath",
+    "label": "Oath",
+    "visibility": ""
+  },
+  "overcharge": {
+    "blurb": "A focus that pushes harder: each hit builds more Arcane Exposure.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "✧",
+    "id": "overcharge",
+    "label": "Overcharge",
+    "visibility": ""
+  },
+  "pearlOfSagacity": {
+    "blurb": "What Pearl of Sagacity does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "🔮",
+    "id": "pearlOfSagacity",
+    "label": "Pearl of Sagacity",
+    "visibility": ""
+  },
+  "pierce": {
+    "blurb": "A precise physical form; presentation only.",
+    "color": "9FC3E8",
+    "domain": "card",
+    "glyph": "†",
+    "id": "pierce",
+    "label": "Pierce",
+    "visibility": ""
+  },
+  "poisonedPouch": {
+    "blurb": "The whetstone is not the only thing in the pouch.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "☠",
+    "id": "poisonedPouch",
+    "label": "Poisoned Pouch",
+    "visibility": ""
+  },
+  "precision": {
+    "blurb": "Deliberate aim and finesse; presentation only.",
+    "color": "C9A227",
+    "domain": "card",
+    "glyph": "◎",
+    "id": "precision",
+    "label": "Precision",
+    "visibility": ""
+  },
+  "quickHands": {
+    "blurb": "Prepared before the first card.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🤏",
+    "id": "quickHands",
+    "label": "Quick Hands",
+    "visibility": ""
+  },
+  "radiantAegis": {
+    "blurb": "What Radiant Aegis does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "🛡",
+    "id": "radiantAegis",
+    "label": "Radiant Aegis",
+    "visibility": ""
+  },
+  "ranged": {
+    "blurb": "Authored ranged presentation; no position system.",
+    "color": "7FA8C9",
+    "domain": "card",
+    "glyph": "➶",
+    "id": "ranged",
+    "label": "Ranged",
+    "visibility": ""
+  },
+  "reservoir": {
+    "blurb": "The subclass that never runs dry.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🫙",
+    "id": "reservoir",
+    "label": "Reservoir",
+    "visibility": ""
+  },
+  "resonance": {
+    "blurb": "A focus that rings out: breaking a foe's Arcane Exposure builds it on every other foe.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "◎",
+    "id": "resonance",
+    "label": "Resonance",
+    "visibility": ""
+  },
+  "restFlasks": {
+    "blurb": "Arriving refills your flask charges (the grace refill).",
+    "color": "7FA8C9",
+    "domain": "property",
+    "glyph": "⚗",
+    "id": "restFlasks",
+    "label": "Flask refill",
+    "visibility": ""
+  },
+  "restHpFull": {
+    "blurb": "A town's bed: HP to full.",
+    "color": "7FA8C9",
+    "domain": "property",
+    "glyph": "♨",
+    "id": "restHpFull",
+    "label": "Full rest",
+    "visibility": ""
+  },
+  "restHpPartial": {
+    "blurb": "A shrine's rest: part of your max HP back.",
+    "color": "7FA8C9",
+    "domain": "property",
+    "glyph": "♨",
+    "id": "restHpPartial",
+    "label": "Partial rest",
+    "visibility": ""
+  },
+  "restHpSmall": {
+    "blurb": "A rough camp's rest: a small share of your max HP back.",
+    "color": "7FA8C9",
+    "domain": "property",
+    "glyph": "♨",
+    "id": "restHpSmall",
+    "label": "Small rest",
+    "visibility": ""
+  },
+  "restMana": {
+    "blurb": "Mana back by the configured mode (balance.rest.mana.mode) — the door resolves this tag to the mode's own tag, so a place that wants another amount carries restManaFlat, restManaFloor or restManaFull instead.",
+    "color": "7FA8C9",
+    "domain": "property",
+    "glyph": "◈",
+    "id": "restMana",
+    "label": "Mana rest",
+    "visibility": ""
+  },
+  "restManaFlat": {
+    "blurb": "Mana back by a fixed amount.",
+    "color": "7FA8C9",
+    "domain": "property",
+    "glyph": "◈",
+    "id": "restManaFlat",
+    "label": "Flat mana rest",
+    "visibility": ""
+  },
+  "restManaFloor": {
+    "blurb": "Mana back to a floor of max, or to full when already there.",
+    "color": "7FA8C9",
+    "domain": "property",
+    "glyph": "◈",
+    "id": "restManaFloor",
+    "label": "Mana rest to a floor",
+    "visibility": ""
+  },
+  "restManaFull": {
+    "blurb": "Mana to full.",
+    "color": "7FA8C9",
+    "domain": "property",
+    "glyph": "◈",
+    "id": "restManaFull",
+    "label": "Full mana rest",
+    "visibility": ""
+  },
+  "ritual": {
+    "blurb": "Rites, offerings, and faith work.",
+    "color": "C9A227",
+    "domain": "card",
+    "glyph": "◈",
+    "id": "ritual",
+    "label": "Ritual",
+    "visibility": ""
+  },
+  "sacrificialKnife": {
+    "blurb": "What Sacrificial Knife does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🔪",
+    "id": "sacrificialKnife",
+    "label": "Sacrificial Knife",
+    "visibility": ""
+  },
+  "saint": {
+    "blurb": "The subclass that walks in whole.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🌞",
+    "id": "saint",
+    "label": "Saint",
+    "visibility": ""
+  },
+  "scaling.constitution": {
+    "blurb": "",
+    "color": "",
+    "domain": "scaling",
+    "glyph": "",
+    "id": "scaling.constitution",
+    "label": "constitution",
+    "visibility": "SECONDARY"
+  },
+  "scaling.dexterity": {
+    "blurb": "",
+    "color": "",
+    "domain": "scaling",
+    "glyph": "",
+    "id": "scaling.dexterity",
+    "label": "dexterity",
+    "visibility": "SECONDARY"
+  },
+  "scaling.intelligence": {
+    "blurb": "",
+    "color": "",
+    "domain": "scaling",
+    "glyph": "",
+    "id": "scaling.intelligence",
+    "label": "intelligence",
+    "visibility": "SECONDARY"
+  },
+  "scaling.strength": {
+    "blurb": "",
+    "color": "",
+    "domain": "scaling",
+    "glyph": "",
+    "id": "scaling.strength",
+    "label": "strength",
+    "visibility": "SECONDARY"
+  },
+  "scaling.wisdom": {
+    "blurb": "",
+    "color": "",
+    "domain": "scaling",
+    "glyph": "",
+    "id": "scaling.wisdom",
+    "label": "wisdom",
+    "visibility": "SECONDARY"
+  },
+  "sealOfPlenty": {
+    "blurb": "The first heal pays for the next cast.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "📿",
+    "id": "sealOfPlenty",
+    "label": "Seal of Plenty",
+    "visibility": ""
+  },
+  "secondWind": {
+    "blurb": "What you burn, you draw.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "💨",
+    "id": "secondWind",
+    "label": "Second Wind",
+    "visibility": ""
+  },
+  "sentinelsOath": {
+    "blurb": "What Sentinel's Oath does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "🛡",
+    "id": "sentinelsOath",
+    "label": "Sentinel's Oath",
+    "visibility": ""
+  },
+  "shadow": {
+    "blurb": "The subclass nothing quite reaches.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🌑",
+    "id": "shadow",
+    "label": "Shadow",
+    "visibility": ""
+  },
+  "siphon": {
+    "blurb": "A focus that drinks back: breaking a foe's Arcane Exposure restores Mana.",
+    "color": "7FA8C9",
+    "domain": "property",
+    "glyph": "◈",
+    "id": "siphon",
+    "label": "Siphon",
+    "visibility": ""
+  },
+  "smith": {
+    "blurb": "The place offers a smith: upgrade, extract, install (balance.smithing.services says which).",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "⚒",
+    "id": "smith",
+    "label": "Smith",
+    "visibility": ""
+  },
+  "source:spell": {
+    "blurb": "Categorized Spell identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "attackSource",
+    "glyph": "◇",
+    "id": "source:spell",
+    "label": "Spell",
+    "visibility": ""
+  },
+  "source:unarmed": {
+    "blurb": "Categorized Unarmed identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "attackSource",
+    "glyph": "◇",
+    "id": "source:unarmed",
+    "label": "Unarmed",
+    "visibility": ""
+  },
+  "source:weapon": {
+    "blurb": "Categorized Weapon identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "attackSource",
+    "glyph": "◇",
+    "id": "source:weapon",
+    "label": "Weapon",
+    "visibility": ""
+  },
+  "spirit": {
+    "blurb": "Untethered from the body it used to wear.",
+    "color": "7FA8C9",
+    "domain": "creature",
+    "glyph": "👻",
+    "id": "spirit",
+    "label": "Spirit",
+    "visibility": ""
+  },
+  "staggerBreak": {
+    "blurb": "A focus that breaks harder: breaking a foe's Arcane Exposure batters its Poise.",
+    "color": "C9A96B",
+    "domain": "property",
+    "glyph": "✦",
+    "id": "staggerBreak",
+    "label": "Stagger Break",
+    "visibility": ""
+  },
+  "starlitFocus": {
+    "blurb": "The charge is there before the first cast.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "✦",
+    "id": "starlitFocus",
+    "label": "Starlit Focus",
+    "visibility": ""
+  },
+  "starstone": {
+    "blurb": "Astral sorcery — charges and combos.",
+    "color": "7FA8C9",
+    "domain": "card",
+    "glyph": "✦",
+    "id": "starstone",
+    "label": "Starstone",
+    "visibility": ""
+  },
+  "starstoneShard": {
+    "blurb": "What Starstone Shard does when the fight gives it its moment.",
+    "color": "8C7A5B",
+    "domain": "property",
+    "glyph": "💠",
+    "id": "starstoneShard",
+    "label": "Starstone Shard",
+    "visibility": ""
+  },
+  "targeting.allEnemies": {
+    "blurb": "",
+    "color": "",
+    "domain": "targeting",
+    "glyph": "",
+    "id": "targeting.allEnemies",
+    "label": "allEnemies",
+    "visibility": "CONTEXTUAL"
+  },
+  "targeting.ally": {
+    "blurb": "",
+    "color": "",
+    "domain": "targeting",
+    "glyph": "",
+    "id": "targeting.ally",
+    "label": "ally",
+    "visibility": "CONTEXTUAL"
+  },
+  "targeting.enemy": {
+    "blurb": "",
+    "color": "",
+    "domain": "targeting",
+    "glyph": "",
+    "id": "targeting.enemy",
+    "label": "enemy",
+    "visibility": "CONTEXTUAL"
+  },
+  "targeting.randomEnemy": {
+    "blurb": "",
+    "color": "",
+    "domain": "targeting",
+    "glyph": "",
+    "id": "targeting.randomEnemy",
+    "label": "randomEnemy",
+    "visibility": "CONTEXTUAL"
+  },
+  "targeting.self": {
+    "blurb": "",
+    "color": "",
+    "domain": "targeting",
+    "glyph": "",
+    "id": "targeting.self",
+    "label": "self",
+    "visibility": "CONTEXTUAL"
+  },
+  "technique:cleave": {
+    "blurb": "Categorized Cleave identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "technique",
+    "glyph": "◇",
+    "id": "technique:cleave",
+    "label": "Cleave",
+    "visibility": ""
+  },
+  "technique:counter": {
+    "blurb": "Categorized Counter identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "technique",
+    "glyph": "◇",
+    "id": "technique:counter",
+    "label": "Counter",
+    "visibility": ""
+  },
+  "technique:flourish": {
+    "blurb": "Categorized Flourish identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "technique",
+    "glyph": "◇",
+    "id": "technique:flourish",
+    "label": "Flourish",
+    "visibility": ""
+  },
+  "technique:heavy": {
+    "blurb": "Categorized Heavy identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "technique",
+    "glyph": "◇",
+    "id": "technique:heavy",
+    "label": "Heavy",
+    "visibility": ""
+  },
+  "technique:precision": {
+    "blurb": "Categorized Precision identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "technique",
+    "glyph": "◇",
+    "id": "technique:precision",
+    "label": "Precision",
+    "visibility": ""
+  },
+  "theme:astral": {
+    "blurb": "Categorized Astral identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "theme",
+    "glyph": "◇",
+    "id": "theme:astral",
+    "label": "Astral",
+    "visibility": ""
+  },
+  "theme:blight": {
+    "blurb": "Categorized Blight identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "theme",
+    "glyph": "◇",
+    "id": "theme:blight",
+    "label": "Blight",
+    "visibility": ""
+  },
+  "theme:blood": {
+    "blurb": "Categorized Blood identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "theme",
+    "glyph": "◇",
+    "id": "theme:blood",
+    "label": "Blood",
+    "visibility": ""
+  },
+  "theme:oath": {
+    "blurb": "Categorized Oath identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "theme",
+    "glyph": "◇",
+    "id": "theme:oath",
+    "label": "Oath",
+    "visibility": ""
+  },
+  "theme:stance": {
+    "blurb": "Categorized Stance identity; effects are authored separately.",
+    "color": "9FC3E8",
+    "domain": "theme",
+    "glyph": "◇",
+    "id": "theme:stance",
+    "label": "Stance",
+    "visibility": ""
+  },
+  "titansCinder": {
+    "blurb": "What Titan's Cinder does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "🌟",
+    "id": "titansCinder",
+    "label": "Titan's Cinder",
+    "visibility": ""
+  },
+  "travelersWhetstone": {
+    "blurb": "What Traveler's Whetstone does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🔪",
+    "id": "travelersWhetstone",
+    "label": "Traveler's Whetstone",
+    "visibility": ""
+  },
+  "twinnedArmor": {
+    "blurb": "What Twinned Armor does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "👥",
+    "id": "twinnedArmor",
+    "label": "Twinned Armor",
+    "visibility": ""
+  },
+  "undead": {
+    "blurb": "Died once and did not stay down.",
+    "color": "647B73",
+    "domain": "creature",
+    "glyph": "💀",
+    "id": "undead",
+    "label": "Undead",
+    "visibility": ""
+  },
+  "utility.conduit": {
+    "blurb": "",
+    "color": "",
+    "domain": "utility",
+    "glyph": "",
+    "id": "utility.conduit",
+    "label": "conduit",
+    "visibility": "SECONDARY"
+  },
+  "utility.evasion": {
+    "blurb": "",
+    "color": "",
+    "domain": "utility",
+    "glyph": "",
+    "id": "utility.evasion",
+    "label": "evasion",
+    "visibility": "SECONDARY"
+  },
+  "utility.manaCharge": {
+    "blurb": "",
+    "color": "",
+    "domain": "utility",
+    "glyph": "",
+    "id": "utility.manaCharge",
+    "label": "manaCharge",
+    "visibility": "SECONDARY"
+  },
+  "venom": {
+    "blurb": "Poisons that punish enemies over time.",
+    "color": "7FAF63",
+    "domain": "card",
+    "glyph": "☠",
+    "id": "venom",
+    "label": "Venom",
+    "visibility": ""
+  },
+  "vigil": {
+    "blurb": "The litany never quite stops.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🕯",
+    "id": "vigil",
+    "label": "Vigil",
+    "visibility": ""
+  },
+  "vigilantHalo": {
+    "blurb": "What Vigilant Halo does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "🌸",
+    "id": "vigilantHalo",
+    "label": "Vigilant Halo",
+    "visibility": ""
+  },
+  "vowOfVengeance": {
+    "blurb": "What Vow of Vengeance does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "⚔",
+    "id": "vowOfVengeance",
+    "label": "Vow of Vengeance",
+    "visibility": ""
+  },
+  "wakingRot": {
+    "blurb": "Your blows carry the blight.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "🦠",
+    "id": "wakingRot",
+    "label": "Waking Rot",
+    "visibility": ""
+  },
+  "wardenHorn": {
+    "blurb": "What Warden Horn does when the fight gives it its moment.",
+    "color": "C9A227",
+    "domain": "property",
+    "glyph": "📯",
+    "id": "wardenHorn",
+    "label": "Warden Horn",
+    "visibility": ""
+  },
+  "wardensLantern": {
+    "blurb": "What Warden's Lantern does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🏮",
+    "id": "wardensLantern",
+    "label": "Warden's Lantern",
+    "visibility": ""
+  },
+  "warhorn": {
+    "blurb": "What Warhorn does when the fight gives it its moment.",
+    "color": "6E9C6E",
+    "domain": "property",
+    "glyph": "📣",
+    "id": "warhorn",
+    "label": "Warhorn",
+    "visibility": ""
+  },
+  "warlord": {
+    "blurb": "The subclass that opens every fight already swinging.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "👑",
+    "id": "warlord",
+    "label": "Warlord",
+    "visibility": ""
+  },
+  "warmth": {
+    "blurb": "Every heal braces you.",
+    "color": "9FC3E8",
+    "domain": "property",
+    "glyph": "☀",
+    "id": "warmth",
+    "label": "Warmth",
+    "visibility": ""
+  },
+  "watchmansBadge": {
+    "blurb": "What Watchman's Badge does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "🎖",
+    "id": "watchmansBadge",
+    "label": "Watchman's Badge",
+    "visibility": ""
+  },
+  "waxenSeal": {
+    "blurb": "What Waxen Seal does when the fight gives it its moment.",
+    "color": "8C7A5B",
+    "domain": "property",
+    "glyph": "🕯",
+    "id": "waxenSeal",
+    "label": "Waxen Seal",
+    "visibility": ""
+  },
+  "whetstoneFragment": {
+    "blurb": "What Whetstone Fragment does when the fight gives it its moment.",
+    "color": "9A9A9A",
+    "domain": "property",
+    "glyph": "🪨",
+    "id": "whetstoneFragment",
+    "label": "Whetstone Fragment",
+    "visibility": ""
+  },
+  "whetstonePouch": {
+    "blurb": "What Whetstone Pouch does when the fight gives it its moment.",
+    "color": "8C7A5B",
+    "domain": "property",
+    "glyph": "👝",
+    "id": "whetstonePouch",
+    "label": "Whetstone Pouch",
+    "visibility": ""
+  },
+  "wrathCoil": {
+    "blurb": "What Wrath Coil does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "⚡",
+    "id": "wrathCoil",
+    "label": "Wrath Coil",
+    "visibility": ""
+  },
+  "wyrmHeart": {
+    "blurb": "What Wyrm Heart does when the fight gives it its moment.",
+    "color": "B08CC9",
+    "domain": "property",
+    "glyph": "🫀",
+    "id": "wyrmHeart",
+    "label": "Wyrm Heart",
+    "visibility": ""
+  }
+}

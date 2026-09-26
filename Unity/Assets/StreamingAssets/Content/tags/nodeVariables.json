@@ -1,0 +1,514 @@
+{
+  "rows": [
+    {
+      "nodeId": "siphon",
+      "role": "amount",
+      "variable": "restoreMana"
+    },
+    {
+      "nodeId": "siphon",
+      "role": "amount",
+      "variable": "restoreMana_2"
+    },
+    {
+      "nodeId": "siphon",
+      "role": "level",
+      "variable": "siphonMasteryLevel"
+    },
+    {
+      "nodeId": "overcharge",
+      "role": "exposureBuildupMult",
+      "variable": "overchargeBuildupMult"
+    },
+    {
+      "nodeId": "staggerBreak",
+      "role": "amount",
+      "variable": "poiseDamage"
+    },
+    {
+      "nodeId": "resonance",
+      "role": "pct",
+      "variable": "spreadPct"
+    },
+    {
+      "nodeId": "forsakenMedallion",
+      "role": "amount",
+      "variable": "poiseDamage"
+    },
+    {
+      "nodeId": "starstoneShard",
+      "role": "stacks",
+      "variable": "starstoneCharge"
+    },
+    {
+      "nodeId": "starstoneShard",
+      "role": "amount",
+      "variable": "restoreMana"
+    },
+    {
+      "nodeId": "cutpursesCoin",
+      "role": "stacks",
+      "variable": "prepared"
+    },
+    {
+      "nodeId": "cutpursesCoin",
+      "role": "stacks",
+      "variable": "venom"
+    },
+    {
+      "nodeId": "goldFigurine",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "goldenSprout",
+      "role": "amount",
+      "variable": "heal"
+    },
+    {
+      "nodeId": "whetstoneFragment",
+      "role": "amount",
+      "variable": "damage"
+    },
+    {
+      "nodeId": "kindlingCharm",
+      "role": "amount",
+      "variable": "draw"
+    },
+    {
+      "nodeId": "goldleafCharm",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "crackedLantern",
+      "role": "amount",
+      "variable": "gainEnergy"
+    },
+    {
+      "nodeId": "sacrificialKnife",
+      "role": "stacks",
+      "variable": "bleed"
+    },
+    {
+      "nodeId": "curedHide",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "ivoryComb",
+      "role": "amount",
+      "variable": "draw"
+    },
+    {
+      "nodeId": "ivoryComb",
+      "role": "n",
+      "variable": "n"
+    },
+    {
+      "nodeId": "fellWardenBrand",
+      "role": "amount",
+      "variable": "draw"
+    },
+    {
+      "nodeId": "bloodiedTalisman",
+      "role": "amount",
+      "variable": "loseHp"
+    },
+    {
+      "nodeId": "twinnedArmor",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "twinnedArmor",
+      "role": "n",
+      "variable": "n"
+    },
+    {
+      "nodeId": "blightTouchedIdol",
+      "role": "stacks",
+      "variable": "crimsonBlight"
+    },
+    {
+      "nodeId": "warhorn",
+      "role": "stacks",
+      "variable": "strength"
+    },
+    {
+      "nodeId": "vowOfVengeance",
+      "role": "stacks",
+      "variable": "strength"
+    },
+    {
+      "nodeId": "pearlOfSagacity",
+      "role": "amount",
+      "variable": "gainEnergy"
+    },
+    {
+      "nodeId": "pearlOfSagacity",
+      "role": "n",
+      "variable": "n"
+    },
+    {
+      "nodeId": "blessedDew",
+      "role": "amount",
+      "variable": "heal"
+    },
+    {
+      "nodeId": "azureSigil",
+      "role": "amount",
+      "variable": "gainEnergy"
+    },
+    {
+      "nodeId": "bloodstainedChalice",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "goldboughSapling",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "wyrmHeart",
+      "role": "amount",
+      "variable": "gainEnergy"
+    },
+    {
+      "nodeId": "titansCinder",
+      "role": "stacks",
+      "variable": "strength"
+    },
+    {
+      "nodeId": "radiantAegis",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "flayersCenser",
+      "role": "stacks",
+      "variable": "crimsonBlight"
+    },
+    {
+      "nodeId": "vigilantHalo",
+      "role": "amount",
+      "variable": "heal"
+    },
+    {
+      "nodeId": "carrionTalon",
+      "role": "amount",
+      "variable": "damage"
+    },
+    {
+      "nodeId": "emberIdol",
+      "role": "amount",
+      "variable": "damage"
+    },
+    {
+      "nodeId": "crownOfStitches",
+      "role": "stacks",
+      "variable": "strength"
+    },
+    {
+      "nodeId": "crownOfStitches",
+      "role": "stacks",
+      "variable": "frail"
+    },
+    {
+      "nodeId": "wardenHorn",
+      "role": "amount",
+      "variable": "draw"
+    },
+    {
+      "nodeId": "wardenHorn",
+      "role": "amount",
+      "variable": "loseHp"
+    },
+    {
+      "nodeId": "ashOfRemembrance",
+      "role": "amount",
+      "variable": "gainEnergy"
+    },
+    {
+      "nodeId": "ashOfRemembrance",
+      "role": "stacks",
+      "variable": "madness"
+    },
+    {
+      "nodeId": "cinderOfTheFallen",
+      "role": "stacks",
+      "variable": "madness"
+    },
+    {
+      "nodeId": "cinderOfTheFallen",
+      "role": "amount",
+      "variable": "gainEnergy"
+    },
+    {
+      "nodeId": "crimsonCovenant",
+      "role": "amount",
+      "variable": "loseHp"
+    },
+    {
+      "nodeId": "crimsonCovenant",
+      "role": "stacks",
+      "variable": "bleed"
+    },
+    {
+      "nodeId": "travelersWhetstone",
+      "role": "stacks",
+      "variable": "strength"
+    },
+    {
+      "nodeId": "moonlitVial",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "wardensLantern",
+      "role": "amount",
+      "variable": "draw"
+    },
+    {
+      "nodeId": "hollowedHorn",
+      "role": "stacks",
+      "variable": "vulnerable"
+    },
+    {
+      "nodeId": "gildedTear",
+      "role": "amount",
+      "variable": "heal"
+    },
+    {
+      "nodeId": "watchmansBadge",
+      "role": "stacks",
+      "variable": "strength"
+    },
+    {
+      "nodeId": "howlingStandard",
+      "role": "stacks",
+      "variable": "strength"
+    },
+    {
+      "nodeId": "emberwickCharm",
+      "role": "amount",
+      "variable": "gainEnergy"
+    },
+    {
+      "nodeId": "carrionMorsel",
+      "role": "amount",
+      "variable": "heal"
+    },
+    {
+      "nodeId": "gravetendersBell",
+      "role": "amount",
+      "variable": "draw"
+    },
+    {
+      "nodeId": "sentinelsOath",
+      "role": "stacks",
+      "variable": "strength"
+    },
+    {
+      "nodeId": "sentinelsOath",
+      "role": "n",
+      "variable": "n"
+    },
+    {
+      "nodeId": "forsakenWarflag",
+      "role": "stacks",
+      "variable": "weak"
+    },
+    {
+      "nodeId": "wrathCoil",
+      "role": "amount",
+      "variable": "damage"
+    },
+    {
+      "nodeId": "favored",
+      "role": "skillXpMult",
+      "variable": "skillXpMult"
+    },
+    {
+      "nodeId": "ashenGrip",
+      "role": "amount",
+      "variable": "restoreStamina"
+    },
+    {
+      "nodeId": "lodestarShard",
+      "role": "amount",
+      "variable": "restoreMana"
+    },
+    {
+      "nodeId": "waxenSeal",
+      "role": "amount",
+      "variable": "heal"
+    },
+    {
+      "nodeId": "whetstonePouch",
+      "role": "stacks",
+      "variable": "bleed"
+    },
+    {
+      "nodeId": "cost.action",
+      "role": "amount",
+      "variable": "amount"
+    },
+    {
+      "nodeId": "cost.stamina",
+      "role": "amount",
+      "variable": "amount"
+    },
+    {
+      "nodeId": "cost.mana",
+      "role": "amount",
+      "variable": "amount"
+    },
+    {
+      "nodeId": "ironFooting",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "bloodTempo",
+      "role": "amount",
+      "variable": "draw"
+    },
+    {
+      "nodeId": "ashenReserve",
+      "role": "amount",
+      "variable": "restoreStamina"
+    },
+    {
+      "nodeId": "grimHarvest",
+      "role": "amount",
+      "variable": "heal"
+    },
+    {
+      "nodeId": "warlord",
+      "role": "stacks",
+      "variable": "strength"
+    },
+    {
+      "nodeId": "bulwarkKing",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "attunedMind",
+      "role": "amount",
+      "variable": "draw"
+    },
+    {
+      "nodeId": "starlitFocus",
+      "role": "stacks",
+      "variable": "starstoneCharge"
+    },
+    {
+      "nodeId": "lodestarCap",
+      "role": "amount",
+      "variable": "restoreMana"
+    },
+    {
+      "nodeId": "arcaneDraw",
+      "role": "amount",
+      "variable": "draw"
+    },
+    {
+      "nodeId": "conduit",
+      "role": "amount",
+      "variable": "restoreStamina"
+    },
+    {
+      "nodeId": "reservoir",
+      "role": "amount",
+      "variable": "restoreMana"
+    },
+    {
+      "nodeId": "warmth",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "vigil",
+      "role": "amount",
+      "variable": "heal"
+    },
+    {
+      "nodeId": "sealOfPlenty",
+      "role": "amount",
+      "variable": "restoreMana"
+    },
+    {
+      "nodeId": "wakingRot",
+      "role": "stacks",
+      "variable": "crimsonBlight"
+    },
+    {
+      "nodeId": "martyr",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "saint",
+      "role": "amount",
+      "variable": "heal"
+    },
+    {
+      "nodeId": "quickHands",
+      "role": "stacks",
+      "variable": "prepared"
+    },
+    {
+      "nodeId": "secondWind",
+      "role": "amount",
+      "variable": "draw"
+    },
+    {
+      "nodeId": "honedEdge",
+      "role": "stacks",
+      "variable": "bleed"
+    },
+    {
+      "nodeId": "poisonedPouch",
+      "role": "stacks",
+      "variable": "venom"
+    },
+    {
+      "nodeId": "assassin",
+      "role": "stacks",
+      "variable": "prepared"
+    },
+    {
+      "nodeId": "assassin",
+      "role": "amount",
+      "variable": "draw"
+    },
+    {
+      "nodeId": "shadow",
+      "role": "amount",
+      "variable": "block"
+    },
+    {
+      "nodeId": "restHpSmall",
+      "role": "pct",
+      "variable": "pct"
+    },
+    {
+      "nodeId": "restHpPartial",
+      "role": "pct",
+      "variable": "pct"
+    },
+    {
+      "nodeId": "restManaFlat",
+      "role": "amount",
+      "variable": "restoreMana"
+    },
+    {
+      "nodeId": "restManaFloor",
+      "role": "toFloorPct",
+      "variable": "floorPct"
+    }
+  ]
+}

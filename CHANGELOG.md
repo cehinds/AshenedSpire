@@ -2,6 +2,82 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [1.0.0.0] — 2026-09-26
+
+- Epic release F0 Foundation complete
+
+## [0.1.1.1] — 2026-09-26
+
+- docs link check skips the verbatim Provenance archive
+
+## [0.1.1.0] — 2026-09-26
+
+Stories: us-16.2
+
+- Procedural SFX core and audio contexts (us-16.2)
+
+## [0.1.0.0] — 2026-09-26
+
+- Feature complete: foundation (us-0.1..0.10; us-0.5 part 2 deferred per D-033)
+
+## [0.0.12.0] — 2026-09-26
+
+Stories: us-0.10
+
+- AI disclosure as data with enforcement (us-0.10)
+
+## [0.0.11.0] — 2026-09-26
+
+Stories: us-0.1, us-0.2
+
+- Asset registry, lossless pipeline, provenance (us-0.1, us-0.2)
+
+## [0.0.9.0] — 2026-09-26
+
+Stories: us-0.8
+
+- Enforcement tests: no magic strings/numbers/content IDs, engine-free layers (us-0.8)
+
+## [0.0.8.0] — 2026-09-26
+
+Stories: us-0.6
+
+- Crash-safe saves: verified mirror, gen-stamped command log, migrations (us-0.6)
+
+## [0.0.7.0] — 2026-09-26
+
+Stories: us-0.7
+
+- Config layers, presets and frozen RunSnapshot (us-0.7)
+
+## [0.0.6.0] — 2026-09-26
+
+Stories: us-0.5, us-18.4
+
+- Deterministic RNG streams, seed codec, seat order; parity oracle (us-0.5 part 1, us-18.4)
+
+## [0.0.4.0] — 2026-09-26
+
+Stories: us-0.4
+
+- Content validator: schemas, references, ops, strings, row rules, presets (us-0.4)
+
+## [0.0.3.1] — 2026-09-26
+
+- CI workflow YAML fix
+
+## [0.0.3.0] — 2026-09-26
+
+Stories: us-0.9
+
+- Codegen of C# keys and enums; assembly skeleton; shared test harness (us-0.9)
+
+## [0.0.2.0] — 2026-09-26
+
+Stories: us-0.3
+
+- Content exported to id-keyed JSON with schemas; reference preset (us-0.3)
+
 ## [0.0.1.0] — 2026-09-26
 
 ### Added

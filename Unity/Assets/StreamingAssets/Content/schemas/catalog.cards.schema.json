@@ -1,0 +1,566 @@
+{
+  "$id": "catalog/cards.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "class": {
+        "type": "string",
+        "enum": [
+          "colorless",
+          "herald",
+          "reaver",
+          "rogue",
+          "starseer"
+        ]
+      },
+      "cost": {
+        "type": [
+          "integer",
+          "string"
+        ]
+      },
+      "damageSchool": {
+        "type": "string",
+        "enum": [
+          "arcane",
+          "magic",
+          "physical"
+        ]
+      },
+      "effects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": [
+                "integer",
+                "object"
+              ],
+              "properties": {
+                "args": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "number",
+                      "object"
+                    ],
+                    "properties": {
+                      "f": {
+                        "type": "string"
+                      },
+                      "of": {
+                        "type": "string"
+                      },
+                      "per": {
+                        "type": "integer"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "f",
+                      "of"
+                    ]
+                  }
+                },
+                "f": {
+                  "type": "string",
+                  "enum": [
+                    "energySpent",
+                    "missingHp",
+                    "mul",
+                    "percentMaxHp",
+                    "stacks"
+                  ]
+                },
+                "max": {
+                  "type": "integer"
+                },
+                "of": {
+                  "type": "string"
+                },
+                "pct": {
+                  "type": "integer"
+                },
+                "per": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "f"
+              ]
+            },
+            "card": {
+              "type": "string"
+            },
+            "hits": {
+              "type": [
+                "integer",
+                "object"
+              ],
+              "properties": {
+                "f": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "f"
+              ]
+            },
+            "if": {
+              "type": "object",
+              "properties": {
+                "of": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "target"
+                  ]
+                },
+                "p": {
+                  "type": "string",
+                  "enum": [
+                    "hasBlock",
+                    "hasStatus",
+                    "hpBelowPct",
+                    "inStance",
+                    "not"
+                  ]
+                },
+                "pct": {
+                  "type": "integer"
+                },
+                "pred": {
+                  "type": "object",
+                  "properties": {
+                    "of": {
+                      "type": "string",
+                      "enum": [
+                        "self",
+                        "target"
+                      ]
+                    },
+                    "p": {
+                      "type": "string",
+                      "enum": [
+                        "hasBlock",
+                        "hasStatus",
+                        "hpBelowPct",
+                        "inStance"
+                      ]
+                    },
+                    "pct": {
+                      "type": "integer"
+                    },
+                    "stance": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "staggered",
+                        "starstoneCharge"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "p"
+                  ]
+                },
+                "stance": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "bleed",
+                    "crimsonBlight",
+                    "prepared",
+                    "staggered",
+                    "starstoneCharge",
+                    "venom",
+                    "vulnerable",
+                    "weak"
+                  ]
+                }
+              },
+              "required": [
+                "p"
+              ]
+            },
+            "op": {
+              "type": "string"
+            },
+            "pile": {
+              "type": "string"
+            },
+            "position": {
+              "type": "string"
+            },
+            "random": {
+              "type": "boolean"
+            },
+            "stacks": {
+              "type": [
+                "integer",
+                "object"
+              ],
+              "properties": {
+                "args": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "f": {
+                  "type": "string",
+                  "enum": [
+                    "add",
+                    "stacks"
+                  ]
+                },
+                "of": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "f"
+              ]
+            },
+            "stance": {
+              "type": "string",
+              "x-ref": "catalog/stances.json"
+            },
+            "status": {
+              "type": "string",
+              "x-ref": "catalog/statuses.json"
+            },
+            "target": {
+              "type": "string",
+              "enum": [
+                "allEnemies",
+                "ally",
+                "enemy",
+                "randomEnemy",
+                "self"
+              ]
+            }
+          },
+          "required": [
+            "op"
+          ]
+        }
+      },
+      "exposureBuildupPerHit": {
+        "type": "integer"
+      },
+      "icon": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "keywords": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "ethereal",
+            "exhaust",
+            "innate",
+            "unplayable"
+          ]
+        }
+      },
+      "manaCost": {
+        "type": "integer"
+      },
+      "rarity": {
+        "type": "string",
+        "enum": [
+          "common",
+          "rare",
+          "special",
+          "starter",
+          "uncommon"
+        ]
+      },
+      "staminaCost": {
+        "type": "integer"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "attack",
+          "curse",
+          "power",
+          "skill",
+          "status"
+        ]
+      },
+      "upgrade": {
+        "type": "object",
+        "properties": {
+          "cost": {
+            "type": "integer"
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": [
+                    "integer",
+                    "object"
+                  ],
+                  "properties": {
+                    "args": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "integer",
+                          "object"
+                        ],
+                        "properties": {
+                          "f": {
+                            "type": "string"
+                          },
+                          "of": {
+                            "type": "string"
+                          },
+                          "per": {
+                            "type": "integer"
+                          },
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "f",
+                          "of",
+                          "status"
+                        ]
+                      }
+                    },
+                    "f": {
+                      "type": "string",
+                      "enum": [
+                        "energySpent",
+                        "missingHp",
+                        "mul",
+                        "stacks"
+                      ]
+                    },
+                    "max": {
+                      "type": "integer"
+                    },
+                    "of": {
+                      "type": "string"
+                    },
+                    "per": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "f"
+                  ]
+                },
+                "card": {
+                  "type": "string"
+                },
+                "hits": {
+                  "type": [
+                    "integer",
+                    "object"
+                  ],
+                  "properties": {
+                    "f": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "f"
+                  ]
+                },
+                "if": {
+                  "type": "object",
+                  "properties": {
+                    "of": {
+                      "type": "string",
+                      "enum": [
+                        "self",
+                        "target"
+                      ]
+                    },
+                    "p": {
+                      "type": "string",
+                      "enum": [
+                        "hasBlock",
+                        "hasStatus",
+                        "hpBelowPct",
+                        "inStance",
+                        "not"
+                      ]
+                    },
+                    "pct": {
+                      "type": "integer"
+                    },
+                    "pred": {
+                      "type": "object",
+                      "properties": {
+                        "of": {
+                          "type": "string",
+                          "enum": [
+                            "self",
+                            "target"
+                          ]
+                        },
+                        "p": {
+                          "type": "string",
+                          "enum": [
+                            "hasBlock",
+                            "hasStatus",
+                            "hpBelowPct",
+                            "inStance"
+                          ]
+                        },
+                        "pct": {
+                          "type": "integer"
+                        },
+                        "stance": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "staggered",
+                            "starstoneCharge"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "p"
+                      ]
+                    },
+                    "stance": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "bleed",
+                        "crimsonBlight",
+                        "prepared",
+                        "staggered",
+                        "starstoneCharge",
+                        "venom",
+                        "vulnerable",
+                        "weak"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "p"
+                  ]
+                },
+                "op": {
+                  "type": "string"
+                },
+                "pile": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "string"
+                },
+                "random": {
+                  "type": "boolean"
+                },
+                "stacks": {
+                  "type": [
+                    "integer",
+                    "object"
+                  ],
+                  "properties": {
+                    "args": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "f": {
+                      "type": "string",
+                      "enum": [
+                        "add"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "args",
+                    "f"
+                  ]
+                },
+                "stance": {
+                  "type": "string",
+                  "x-ref": "catalog/stances.json"
+                },
+                "status": {
+                  "type": "string",
+                  "x-ref": "catalog/statuses.json"
+                },
+                "target": {
+                  "type": "string",
+                  "enum": [
+                    "allEnemies",
+                    "ally",
+                    "enemy",
+                    "randomEnemy",
+                    "self"
+                  ]
+                }
+              },
+              "required": [
+                "op"
+              ]
+            }
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "manaCost": {
+            "type": "integer"
+          },
+          "textTemplate": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "required": [
+      "class",
+      "cost",
+      "effects",
+      "icon",
+      "id",
+      "keywords",
+      "rarity",
+      "type"
+    ]
+  }
+}

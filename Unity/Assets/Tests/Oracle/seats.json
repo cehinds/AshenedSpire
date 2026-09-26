@@ -1,0 +1,669 @@
+{
+ "source": "engine/actmap.js drawSeatOrder",
+ "seats": [
+  {
+   "id": "weald",
+   "baseTier": 1
+  },
+  {
+   "id": "marches",
+   "baseTier": 2
+  },
+  {
+   "id": "reach",
+   "baseTier": 3
+  }
+ ],
+ "cases": [
+  {
+   "seed": 2654435761,
+   "order": [
+    "marches",
+    "weald",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 1013904226,
+   "order": [
+    "weald",
+    "reach",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 3668339987,
+   "order": [
+    "marches",
+    "weald",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 2027808452,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 387276917,
+   "order": [
+    "marches",
+    "weald",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 3041712678,
+   "order": [
+    "reach",
+    "weald",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 1401181143,
+   "order": [
+    "marches",
+    "weald",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 4055616904,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 2415085369,
+   "order": [
+    "marches",
+    "reach",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 774553834,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 3428989595,
+   "order": [
+    "reach",
+    "weald",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 1788458060,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 147926525,
+   "order": [
+    "marches",
+    "reach",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 2802362286,
+   "order": [
+    "marches",
+    "reach",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 1161830751,
+   "order": [
+    "weald",
+    "marches",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 3816266512,
+   "order": [
+    "marches",
+    "reach",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 2175734977,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 535203442,
+   "order": [
+    "weald",
+    "reach",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 3189639203,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 1549107668,
+   "order": [
+    "marches",
+    "weald",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 4203543429,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 2563011894,
+   "order": [
+    "weald",
+    "marches",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 922480359,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 3576916120,
+   "order": [
+    "weald",
+    "reach",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 1936384585,
+   "order": [
+    "weald",
+    "reach",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 295853050,
+   "order": [
+    "weald",
+    "reach",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 2950288811,
+   "order": [
+    "marches",
+    "weald",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 1309757276,
+   "order": [
+    "reach",
+    "weald",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 3964193037,
+   "order": [
+    "marches",
+    "weald",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 2323661502,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 683129967,
+   "order": [
+    "weald",
+    "reach",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 3337565728,
+   "order": [
+    "marches",
+    "reach",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 1697034193,
+   "order": [
+    "reach",
+    "weald",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 56502658,
+   "order": [
+    "reach",
+    "weald",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 2710938419,
+   "order": [
+    "reach",
+    "weald",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 1070406884,
+   "order": [
+    "marches",
+    "weald",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 3724842645,
+   "order": [
+    "marches",
+    "weald",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 2084311110,
+   "order": [
+    "marches",
+    "reach",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 443779575,
+   "order": [
+    "weald",
+    "reach",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 3098215336,
+   "order": [
+    "marches",
+    "weald",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 1457683801,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 4112119562,
+   "order": [
+    "marches",
+    "reach",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 2471588027,
+   "order": [
+    "reach",
+    "weald",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 831056492,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 3485492253,
+   "order": [
+    "marches",
+    "reach",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 1844960718,
+   "order": [
+    "reach",
+    "marches",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 204429183,
+   "order": [
+    "weald",
+    "reach",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 2858864944,
+   "order": [
+    "marches",
+    "reach",
+    "weald"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "reach",
+    "weald"
+   ]
+  },
+  {
+   "seed": 1218333409,
+   "order": [
+    "weald",
+    "reach",
+    "marches"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  },
+  {
+   "seed": 3872769170,
+   "order": [
+    "marches",
+    "weald",
+    "reach"
+   ],
+   "pinnedMarches": [
+    "marches",
+    "weald",
+    "reach"
+   ]
+  }
+ ]
+}

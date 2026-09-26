@@ -1,0 +1,13 @@
+{
+  "comment": "About / disclosure configuration (US-0.10, US-1.5). The disclosure text lives in strings/app.en.json; 'modalities' must each be named in the full text (AiDisclosurePresent test). 'provenance' lists the manifests the About credits are generated from.",
+  "aiDisclosure": {
+    "fullKey": "about.aiDisclosure",
+    "shortKey": "title.aiDisclosure",
+    "noticeTitleKey": "notice.ai.title",
+    "noticeContinueKey": "notice.ai.continue",
+    "showOnTitle": true,
+    "showOnFirstLaunch": true,
+    "modalities": ["code", "art", "music", "sound", "text", "design"]
+  },
+  "provenance": ["Provenance/imported/manifest.json", "Provenance/generated/manifest.json"]
+}

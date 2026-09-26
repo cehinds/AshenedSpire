@@ -1,0 +1,136 @@
+{
+  "borders": {
+    "control": "2px",
+    "hairline": "1px"
+  },
+  "colors": {
+    "bg": "#0d0b08",
+    "bgRaise": "#171310",
+    "blood": "#8a1a1a",
+    "danger": "#e08585",
+    "gold": "#c9a227",
+    "green": "#7fd97f",
+    "line": "#3a3226",
+    "lineSoft": "#4a4034",
+    "muted": "#7a6f5a",
+    "panel": "#241d15",
+    "parchment": "#e8dcc0",
+    "resHp": "#a43c35"
+  },
+  "comment": "ThemeRegistry data. Semantic color values are the shipped palette's resting hex values (styles/base.css is the visual source; these are the framework's validated mirror for contrast checking). Typography roles carry minimum/preferred/maximum in rem — fitText never shrinks below minimum. contrastPairs is the readable-text gate: every pair must clear its floor.",
+  "contrastPairs": [
+    {
+      "bg": "bg",
+      "fg": "parchment",
+      "id": "pair.bodyOnBg",
+      "minimumRatio": 4.5
+    },
+    {
+      "bg": "panel",
+      "fg": "parchment",
+      "id": "pair.bodyOnPanel",
+      "minimumRatio": 4.5
+    },
+    {
+      "bg": "bg",
+      "fg": "gold",
+      "id": "pair.accentOnBg",
+      "minimumRatio": 4.5
+    },
+    {
+      "bg": "bg",
+      "fg": "muted",
+      "id": "pair.mutedOnBg",
+      "minimumRatio": 3
+    },
+    {
+      "bg": "panel",
+      "fg": "danger",
+      "id": "pair.dangerOnPanel",
+      "minimumRatio": 4.5
+    }
+  ],
+  "interactionStates": {
+    "disabledOpacity": 0.45,
+    "focusRing": {
+      "color": "gold",
+      "offsetPx": 2,
+      "widthPx": 2
+    },
+    "pressedScale": 0.97
+  },
+  "layout": {
+    "breakpoints": {
+      "compactMaxPx": 720,
+      "shortLandscapeMaxHeightPx": 480
+    },
+    "forbiddenOverflow": [
+      "horizontalViewport",
+      "componentBleed"
+    ],
+    "minTapTargetPx": 44
+  },
+  "radius": {
+    "card": "0.6rem",
+    "chip": "0.35rem",
+    "modal": "0.8rem"
+  },
+  "spacing": {
+    "scale": [
+      0.25,
+      0.5,
+      0.75,
+      1,
+      1.5,
+      2,
+      3
+    ],
+    "unit": "rem"
+  },
+  "typography": {
+    "roles": [
+      {
+        "id": "type.title",
+        "maximumRem": 3.2,
+        "minimumRem": 1.4,
+        "overflowPolicy": "wrap",
+        "preferredRem": 2.2
+      },
+      {
+        "id": "type.heading",
+        "maximumRem": 1.8,
+        "minimumRem": 1.1,
+        "overflowPolicy": "wrap",
+        "preferredRem": 1.4
+      },
+      {
+        "id": "type.body",
+        "maximumRem": 1.2,
+        "minimumRem": 0.9,
+        "overflowPolicy": "scroll",
+        "preferredRem": 1
+      },
+      {
+        "id": "type.cardText",
+        "maximumRem": 1.1,
+        "minimumRem": 0.8,
+        "overflowPolicy": "scroll",
+        "preferredRem": 0.95
+      },
+      {
+        "id": "type.chip",
+        "maximumRem": 1,
+        "minimumRem": 0.75,
+        "overflowPolicy": "expand",
+        "preferredRem": 0.85
+      },
+      {
+        "id": "type.caption",
+        "maximumRem": 1,
+        "minimumRem": 0.75,
+        "overflowPolicy": "wrap",
+        "preferredRem": 0.85
+      }
+    ]
+  }
+}

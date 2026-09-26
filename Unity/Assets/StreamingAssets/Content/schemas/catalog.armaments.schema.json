@@ -1,0 +1,93 @@
+{
+  "$id": "catalog/armaments.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "additionalProperties": {
+      "type": [
+        "array",
+        "number",
+        "object",
+        "string"
+      ],
+      "properties": {
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "dexterity": {
+              "type": "integer"
+            },
+            "intelligence": {
+              "type": "integer"
+            },
+            "strength": {
+              "type": "integer"
+            }
+          }
+        },
+        "combatKit": {
+          "type": "object",
+          "properties": {
+            "artCardId": {
+              "type": "string"
+            },
+            "attackProfileId": {
+              "type": "string",
+              "enum": [
+                "bladeAttack",
+                "bowPierceAttack",
+                "daggerPierceAttack",
+                "sceptreArcaneAttack",
+                "shieldAttack",
+                "staffMagicAttack",
+                "twinbladeAttack"
+              ]
+            },
+            "guardProfileId": {
+              "type": "string",
+              "enum": [
+                "sceptreGuard",
+                "shieldGuard",
+                "staffGuard",
+                "weaponGuard"
+              ]
+            }
+          },
+          "required": [
+            "artCardId",
+            "attackProfileId",
+            "guardProfileId"
+          ]
+        },
+        "compatibility": {
+          "type": "string",
+          "enum": [
+            "attack-v1"
+          ]
+        },
+        "fillerAttackProfileId": {
+          "type": "string",
+          "enum": [
+            "bladeAttack",
+            "bowPierceAttack",
+            "daggerPierceAttack",
+            "sceptreArcaneAttack",
+            "shieldAttack",
+            "staffMagicAttack",
+            "twinbladeAttack"
+          ]
+        },
+        "weaponArtDefaults": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

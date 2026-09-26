@@ -1,0 +1,14 @@
+{
+  "keeperOfTheNameless": {
+    "id": "keeperOfTheNameless",
+    "portraitKey": "emberStarvedPilgrim"
+  },
+  "roadWarden": {
+    "id": "roadWarden",
+    "portraitKey": ""
+  },
+  "theNameless": {
+    "id": "theNameless",
+    "portraitKey": "graveWisp"
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "armor": {
+    "cap": 0.6,
+    "scale": 100
+  },
+  "damageTypes": {
+    "arcane": {
+      "physical": false,
+      "tag": "damage:arcane"
+    },
+    "blunt": {
+      "physical": true,
+      "tag": "damage:blunt"
+    },
+    "decay": {
+      "physical": false,
+      "tag": "damage:decay"
+    },
+    "fire": {
+      "physical": false,
+      "tag": "damage:fire"
+    },
+    "frost": {
+      "physical": false,
+      "tag": "damage:frost"
+    },
+    "lightning": {
+      "physical": false,
+      "tag": "damage:lightning"
+    },
+    "piercing": {
+      "physical": true,
+      "tag": "damage:piercing"
+    },
+    "sacred": {
+      "physical": false,
+      "tag": "damage:sacred"
+    },
+    "slashing": {
+      "physical": true,
+      "tag": "damage:slashing"
+    }
+  },
+  "dodge": {
+    "actions": 0,
+    "charges": 1,
+    "stamina": {
+      "heavy": 3,
+      "light": 1,
+      "medium": 2
+    },
+    "usesPerTurn": 1
+  },
+  "equipmentSources": {
+    "itemFamilies": {
+      "warhammer": "hammer"
+    },
+    "profileFamilies": {
+      "bladeAttack": "blade",
+      "bowPierceAttack": "bow",
+      "daggerPierceAttack": "blade",
+      "sceptreArcaneAttack": "focus",
+      "shieldAttack": "hammer",
+      "staffMagicAttack": "focus"
+    }
+  },
+  "fallbackSource": {
+    "buildup": [],
+    "damageType": "blunt",
+    "family": "natural",
+    "grip": "oneHand",
+    "id": "unarmed",
+    "tags": [],
+    "weight": 1
+  },
+  "id": "combat-foundations-v1",
+  "impact": {
+    "delivery": {
+      "magical": 0.2,
+      "physical": 1
+    },
+    "family": {
+      "blade": 0.5,
+      "bow": 0.35,
+      "focus": 0.5,
+      "hammer": 0.7,
+      "natural": 0.5
+    },
+    "grip": {
+      "oneHand": 1,
+      "twoHand": 1.2
+    },
+    "minimum": 1,
+    "protectionTurns": 1
+  },
+  "recovery": {
+    "manaPerTurn": 0,
+    "staminaPerTurn": 1
+  },
+  "resistanceCap": 0.75,
+  "stacking": {
+    "cap": 99
+  },
+  "triggers": {
+    "chance": 1,
+    "limitPerAction": 32,
+    "maxDepth": 16,
+    "maxEvents": 2048,
+    "rollScope": "play"
+  },
+  "vulnerabilityCap": 3
+}

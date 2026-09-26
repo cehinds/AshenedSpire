@@ -1,0 +1,166 @@
+{
+  "rows": [
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "classification.attack",
+      "targetId": "classification.skill"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "classification.attack",
+      "targetId": "classification.power"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "classification.attack",
+      "targetId": "classification.curse"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "classification.attack",
+      "targetId": "classification.statusCard"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "classification.skill",
+      "targetId": "classification.power"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "classification.skill",
+      "targetId": "classification.curse"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "classification.skill",
+      "targetId": "classification.statusCard"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "classification.power",
+      "targetId": "classification.curse"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "classification.power",
+      "targetId": "classification.statusCard"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "classification.curse",
+      "targetId": "classification.statusCard"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "classification.strike",
+      "targetId": "classification.guard"
+    },
+    {
+      "precedence": 20,
+      "relation": "INHERITS",
+      "sourceId": "classification.strike",
+      "targetId": "classification.attack"
+    },
+    {
+      "precedence": 100,
+      "relation": "SUPPRESSES",
+      "sourceId": "lifecycle.exhaust",
+      "targetId": "lifecycle.recall.afterUse"
+    },
+    {
+      "precedence": 10,
+      "relation": "REQUIRES",
+      "sourceId": "equipment.mainHand",
+      "targetId": "equipment.bound"
+    },
+    {
+      "precedence": 10,
+      "relation": "REQUIRES",
+      "sourceId": "equipment.offHand",
+      "targetId": "equipment.bound"
+    },
+    {
+      "precedence": 10,
+      "relation": "REQUIRES",
+      "sourceId": "equipment.twoHanded",
+      "targetId": "equipment.bound"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "equipment.twoHanded",
+      "targetId": "equipment.offHand"
+    },
+    {
+      "precedence": 10,
+      "relation": "PERMITS",
+      "sourceId": "classification.attack",
+      "targetId": "damage"
+    },
+    {
+      "precedence": 10,
+      "relation": "PERMITS",
+      "sourceId": "classification.attack",
+      "targetId": "scaling"
+    },
+    {
+      "precedence": 10,
+      "relation": "PERMITS",
+      "sourceId": "classification.guard",
+      "targetId": "scaling"
+    },
+    {
+      "precedence": 10,
+      "relation": "PERMITS",
+      "sourceId": "classification.guard",
+      "targetId": "utility.evasion"
+    },
+    {
+      "precedence": 10,
+      "relation": "PERMITS",
+      "sourceId": "classification.skill",
+      "targetId": "scaling"
+    },
+    {
+      "precedence": 10,
+      "relation": "PERMITS",
+      "sourceId": "classification.skill",
+      "targetId": "utility"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "warlord",
+      "targetId": "bulwarkKing"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "conduit",
+      "targetId": "reservoir"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "martyr",
+      "targetId": "saint"
+    },
+    {
+      "precedence": 10,
+      "relation": "CONFLICTS_WITH",
+      "sourceId": "assassin",
+      "targetId": "shadow"
+    }
+  ]
+}

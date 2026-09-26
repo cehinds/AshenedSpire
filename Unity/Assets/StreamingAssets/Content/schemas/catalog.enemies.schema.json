@@ -1,0 +1,325 @@
+{
+  "$id": "catalog/enemies.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "arcaneExposure": {
+        "type": "object",
+        "properties": {
+          "buildupMultiplier": {
+            "type": "integer"
+          },
+          "lockPolicy": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          },
+          "onBreak": {
+            "type": "object",
+            "properties": {
+              "duration": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "value": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "duration",
+              "status",
+              "value"
+            ]
+          },
+          "overflowPolicy": {
+            "type": "string"
+          },
+          "resetMode": {
+            "type": "string"
+          },
+          "threshold": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      },
+      "art": {
+        "type": "string"
+      },
+      "artFaces": {
+        "type": "string",
+        "enum": [
+          "left"
+        ]
+      },
+      "damageResistanceBySchool": {
+        "type": "object",
+        "properties": {
+          "magic": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "magic"
+        ]
+      },
+      "firstMove": {
+        "type": "string"
+      },
+      "hp": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        }
+      },
+      "id": {
+        "type": "string"
+      },
+      "levelProfile": {
+        "type": "object",
+        "properties": {
+          "max": {
+            "type": "integer"
+          },
+          "min": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "max",
+          "min"
+        ]
+      },
+      "moves": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "block": {
+              "type": "integer"
+            },
+            "damage": {
+              "type": "integer"
+            },
+            "delay": {
+              "type": "object",
+              "properties": {
+                "turns": {
+                  "type": "integer"
+                },
+                "whileCharging": {
+                  "type": "object",
+                  "properties": {
+                    "block": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "block"
+                  ]
+                }
+              },
+              "required": [
+                "turns",
+                "whileCharging"
+              ]
+            },
+            "effects": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "card": {
+                    "type": "string"
+                  },
+                  "op": {
+                    "type": "string",
+                    "enum": [
+                      "addCard",
+                      "applyStatus",
+                      "block",
+                      "heal"
+                    ]
+                  },
+                  "pile": {
+                    "type": "string"
+                  },
+                  "position": {
+                    "type": "string"
+                  },
+                  "stacks": {
+                    "type": "integer"
+                  },
+                  "status": {
+                    "type": "string",
+                    "x-ref": "catalog/statuses.json"
+                  },
+                  "target": {
+                    "type": "string",
+                    "enum": [
+                      "player",
+                      "self"
+                    ]
+                  }
+                },
+                "required": [
+                  "op"
+                ]
+              }
+            },
+            "hits": {
+              "type": "integer"
+            },
+            "intent": {
+              "type": "string",
+              "enum": [
+                "attack",
+                "block",
+                "buff",
+                "debuff"
+              ]
+            },
+            "locked": {
+              "type": "boolean"
+            },
+            "maxConsecutive": {
+              "type": "integer"
+            },
+            "weight": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "intent",
+            "weight"
+          ]
+        }
+      },
+      "phases": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "do": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "op": {
+                    "type": "string",
+                    "enum": [
+                      "applyStatus",
+                      "heal"
+                    ]
+                  },
+                  "stacks": {
+                    "type": "integer"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "crimsonBlight",
+                      "frail",
+                      "strength",
+                      "weak"
+                    ]
+                  },
+                  "target": {
+                    "type": "string",
+                    "enum": [
+                      "player",
+                      "self"
+                    ]
+                  }
+                },
+                "required": [
+                  "op",
+                  "target"
+                ]
+              }
+            },
+            "if": {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "p"
+              ]
+            },
+            "on": {
+              "type": "string",
+              "enum": [
+                "damageDealt",
+                "hpBelowPct"
+              ]
+            },
+            "once": {
+              "type": "boolean"
+            },
+            "pct": {
+              "type": "integer"
+            },
+            "unlockMoves": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ashBreath",
+                  "crackedPeal",
+                  "fallingHeavens",
+                  "scarletDance",
+                  "shatteredCourt",
+                  "thousandHands",
+                  "twinDaggers"
+                ]
+              }
+            }
+          },
+          "required": [
+            "do",
+            "on"
+          ]
+        }
+      },
+      "poiseMax": {
+        "type": "integer"
+      },
+      "size": {
+        "type": "string",
+        "enum": [
+          "large",
+          "medium",
+          "small"
+        ]
+      },
+      "tint": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "art",
+      "hp",
+      "id",
+      "levelProfile",
+      "moves",
+      "poiseMax",
+      "size"
+    ]
+  }
+}

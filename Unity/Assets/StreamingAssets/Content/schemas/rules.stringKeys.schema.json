@@ -1,0 +1,466 @@
+{
+  "$id": "rules/stringKeys.json",
+  "type": "object",
+  "properties": {
+    "catalog/armaments.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/armour.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/atlasQuests.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/attributes.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/cards.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/classes.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/creationModes.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/enemies.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/events.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/flasks.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/keywords.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/relics.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/resources.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/seats.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/speakers.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/stances.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/startingKits.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/statuses.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    },
+    "catalog/unlocks.json": {
+      "type": "object",
+      "properties": {
+        "optional": {
+          "type": "array",
+          "items": {}
+        },
+        "prefix": {
+          "type": "string"
+        },
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "optional",
+        "prefix",
+        "required"
+      ]
+    }
+  },
+  "required": [
+    "catalog/armaments.json",
+    "catalog/armour.json",
+    "catalog/atlasQuests.json",
+    "catalog/attributes.json",
+    "catalog/cards.json",
+    "catalog/classes.json",
+    "catalog/creationModes.json",
+    "catalog/enemies.json",
+    "catalog/events.json",
+    "catalog/flasks.json",
+    "catalog/keywords.json",
+    "catalog/relics.json",
+    "catalog/resources.json",
+    "catalog/seats.json",
+    "catalog/speakers.json",
+    "catalog/stances.json",
+    "catalog/startingKits.json",
+    "catalog/statuses.json",
+    "catalog/unlocks.json"
+  ]
+}

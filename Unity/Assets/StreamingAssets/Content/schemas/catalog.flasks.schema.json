@@ -1,0 +1,105 @@
+{
+  "$id": "catalog/flasks.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "artAsset": {
+        "type": "string"
+      },
+      "artKey": {
+        "type": "string"
+      },
+      "effects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": [
+                "integer",
+                "object"
+              ],
+              "properties": {
+                "f": {
+                  "type": "string"
+                },
+                "of": {
+                  "type": "string"
+                },
+                "pct": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "f",
+                "of",
+                "pct"
+              ]
+            },
+            "op": {
+              "type": "string",
+              "enum": [
+                "applyStatus",
+                "block",
+                "heal",
+                "restoreMana"
+              ]
+            },
+            "script": {
+              "type": "string"
+            },
+            "stacks": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string",
+              "x-ref": "catalog/statuses.json"
+            },
+            "target": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "icon": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string",
+        "enum": [
+          "azureFlask",
+          "blightCoating",
+          "bloodUnction",
+          "crimsonFlask",
+          "flaskOfFerocity",
+          "flaskOfStone",
+          "wondrousDraught"
+        ]
+      },
+      "rarity": {
+        "type": "string",
+        "enum": [
+          "common",
+          "rare",
+          "uncommon"
+        ]
+      },
+      "targeted": {
+        "type": "boolean"
+      },
+      "tint": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "artKey",
+      "effects",
+      "icon",
+      "id",
+      "rarity",
+      "tint"
+    ]
+  }
+}

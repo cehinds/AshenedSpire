@@ -1,0 +1,6 @@
+{
+  "name": "Ashen.Platform",
+  "rootNamespace": "Ashen.Platform",
+  "references": ["Ashen.Generated", "Ashen.Domain", "Ashen.Content", "Ashen.Application"],
+  "autoReferenced": true
+}

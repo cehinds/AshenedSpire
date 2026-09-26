@@ -1,0 +1,10 @@
+{
+  "name": "Ashen.Tests.EditMode",
+  "rootNamespace": "Ashen.Tests",
+  "references": ["UnityEngine.TestRunner", "UnityEditor.TestRunner", "Ashen.Generated", "Ashen.Domain", "Ashen.Content", "Ashen.Application"],
+  "includePlatforms": ["Editor"],
+  "overrideReferences": true,
+  "precompiledReferences": ["nunit.framework.dll", "Newtonsoft.Json.dll"],
+  "defineConstraints": ["UNITY_INCLUDE_TESTS"],
+  "autoReferenced": false
+}

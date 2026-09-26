@@ -1,0 +1,45 @@
+{
+  "$id": "tags/variableBindings.json",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "balancePath": {
+            "type": "string"
+          },
+          "nodeId": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string",
+            "enum": [
+              "default"
+            ]
+          },
+          "scopeId": {
+            "type": "string",
+            "enum": [
+              ""
+            ]
+          },
+          "variable": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "balancePath",
+          "nodeId",
+          "scope",
+          "scopeId",
+          "variable"
+        ]
+      }
+    }
+  },
+  "required": [
+    "rows"
+  ]
+}

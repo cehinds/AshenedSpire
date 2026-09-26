@@ -1,0 +1,468 @@
+{
+  "$id": "audio/music.json",
+  "type": "object",
+  "properties": {
+    "BEDS": {
+      "type": "object",
+      "properties": {
+        "boss": {
+          "type": "object",
+          "properties": {
+            "drone": {
+              "type": "boolean"
+            },
+            "gain": {
+              "type": "number"
+            },
+            "pulse": {
+              "type": "boolean"
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cadence": {
+                    "type": "integer"
+                  },
+                  "lift": {
+                    "type": "integer"
+                  },
+                  "root": {
+                    "type": "number"
+                  },
+                  "scale": {
+                    "type": "string"
+                  },
+                  "wave": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cadence",
+                  "lift",
+                  "root",
+                  "scale",
+                  "wave"
+                ]
+              }
+            }
+          },
+          "required": [
+            "drone",
+            "gain",
+            "pulse",
+            "variants"
+          ]
+        },
+        "combat": {
+          "type": "object",
+          "properties": {
+            "drone": {
+              "type": "boolean"
+            },
+            "gain": {
+              "type": "number"
+            },
+            "pulse": {
+              "type": "boolean"
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cadence": {
+                    "type": "integer"
+                  },
+                  "lift": {
+                    "type": "integer"
+                  },
+                  "root": {
+                    "type": "number"
+                  },
+                  "scale": {
+                    "type": "string",
+                    "enum": [
+                      "dread",
+                      "tense",
+                      "veiled"
+                    ]
+                  },
+                  "wave": {
+                    "type": "string",
+                    "enum": [
+                      "sawtooth",
+                      "square",
+                      "triangle"
+                    ]
+                  }
+                },
+                "required": [
+                  "cadence",
+                  "lift",
+                  "root",
+                  "scale",
+                  "wave"
+                ]
+              }
+            }
+          },
+          "required": [
+            "drone",
+            "gain",
+            "pulse",
+            "variants"
+          ]
+        },
+        "elite": {
+          "type": "object",
+          "properties": {
+            "drone": {
+              "type": "boolean"
+            },
+            "gain": {
+              "type": "number"
+            },
+            "pulse": {
+              "type": "boolean"
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cadence": {
+                    "type": "integer"
+                  },
+                  "lift": {
+                    "type": "integer"
+                  },
+                  "root": {
+                    "type": "number"
+                  },
+                  "scale": {
+                    "type": "string"
+                  },
+                  "wave": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cadence",
+                  "lift",
+                  "root",
+                  "scale",
+                  "wave"
+                ]
+              }
+            }
+          },
+          "required": [
+            "drone",
+            "gain",
+            "pulse",
+            "variants"
+          ]
+        },
+        "map": {
+          "type": "object",
+          "properties": {
+            "drone": {
+              "type": "boolean"
+            },
+            "gain": {
+              "type": "number"
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cadence": {
+                    "type": "integer"
+                  },
+                  "lift": {
+                    "type": "integer"
+                  },
+                  "root": {
+                    "type": "number"
+                  },
+                  "scale": {
+                    "type": "string"
+                  },
+                  "wave": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cadence",
+                  "lift",
+                  "root",
+                  "scale",
+                  "wave"
+                ]
+              }
+            }
+          },
+          "required": [
+            "drone",
+            "gain",
+            "variants"
+          ]
+        },
+        "quiet": {
+          "type": "string"
+        },
+        "rest": {
+          "type": "object",
+          "properties": {
+            "drone": {
+              "type": "boolean"
+            },
+            "gain": {
+              "type": "number"
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cadence": {
+                    "type": "integer"
+                  },
+                  "lift": {
+                    "type": "integer"
+                  },
+                  "root": {
+                    "type": "number"
+                  },
+                  "scale": {
+                    "type": "string"
+                  },
+                  "wave": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cadence",
+                  "lift",
+                  "root",
+                  "scale",
+                  "wave"
+                ]
+              }
+            }
+          },
+          "required": [
+            "drone",
+            "gain",
+            "variants"
+          ]
+        },
+        "shop": {
+          "type": "object",
+          "properties": {
+            "drone": {
+              "type": "boolean"
+            },
+            "gain": {
+              "type": "number"
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cadence": {
+                    "type": "integer"
+                  },
+                  "lift": {
+                    "type": "integer"
+                  },
+                  "root": {
+                    "type": "number"
+                  },
+                  "scale": {
+                    "type": "string"
+                  },
+                  "wave": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cadence",
+                  "lift",
+                  "root",
+                  "scale",
+                  "wave"
+                ]
+              }
+            }
+          },
+          "required": [
+            "drone",
+            "gain",
+            "variants"
+          ]
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "drone": {
+              "type": "boolean"
+            },
+            "gain": {
+              "type": "number"
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cadence": {
+                    "type": "integer"
+                  },
+                  "lift": {
+                    "type": "integer"
+                  },
+                  "root": {
+                    "type": "number"
+                  },
+                  "scale": {
+                    "type": "string"
+                  },
+                  "wave": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cadence",
+                  "lift",
+                  "root",
+                  "scale",
+                  "wave"
+                ]
+              }
+            }
+          },
+          "required": [
+            "drone",
+            "gain",
+            "variants"
+          ]
+        },
+        "victory": {
+          "type": "object",
+          "properties": {
+            "drone": {
+              "type": "boolean"
+            },
+            "gain": {
+              "type": "number"
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cadence": {
+                    "type": "integer"
+                  },
+                  "lift": {
+                    "type": "integer"
+                  },
+                  "root": {
+                    "type": "number"
+                  },
+                  "scale": {
+                    "type": "string"
+                  },
+                  "wave": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cadence",
+                  "lift",
+                  "root",
+                  "scale",
+                  "wave"
+                ]
+              }
+            }
+          },
+          "required": [
+            "drone",
+            "gain",
+            "variants"
+          ]
+        }
+      },
+      "required": [
+        "boss",
+        "combat",
+        "elite",
+        "map",
+        "quiet",
+        "rest",
+        "shop",
+        "title",
+        "victory"
+      ]
+    },
+    "SCALES": {
+      "type": "object",
+      "properties": {
+        "calm": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "dread": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "hymn": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "tense": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "veiled": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "wrath": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "calm",
+        "dread",
+        "hymn",
+        "tense",
+        "veiled",
+        "wrath"
+      ]
+    }
+  },
+  "required": [
+    "BEDS",
+    "SCALES"
+  ]
+}

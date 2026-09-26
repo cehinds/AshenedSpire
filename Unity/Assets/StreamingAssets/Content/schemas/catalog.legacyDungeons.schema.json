@@ -1,0 +1,320 @@
+{
+  "$id": "catalog/legacyDungeons.json",
+  "type": "object",
+  "properties": {
+    "dungeons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "type": "string"
+          },
+          "boss": {
+            "type": "string"
+          },
+          "bossEncounter": {
+            "type": "string"
+          },
+          "bossNode": {
+            "type": "string"
+          },
+          "edges": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "a": {
+                  "type": "string"
+                },
+                "b": {
+                  "type": "string"
+                },
+                "via": {
+                  "type": "array",
+                  "items": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "a",
+                "b",
+                "via"
+              ]
+            }
+          },
+          "entrance": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "lanes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Grave Road",
+                "Lower Works",
+                "Pilgrim Stair",
+                "Tarn Causeway",
+                "Waterward Road",
+                "Winter Garden"
+              ]
+            }
+          },
+          "map": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "encounter": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "boss",
+                    "cache",
+                    "dialogue",
+                    "encounter",
+                    "entrance",
+                    "fight",
+                    "gate",
+                    "observation",
+                    "shrine"
+                  ]
+                },
+                "lore": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "number": {
+                  "type": "integer"
+                },
+                "reply": {
+                  "type": "string"
+                },
+                "speaker": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "integer"
+                },
+                "y": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "encounter",
+                "id",
+                "kind",
+                "lore",
+                "name",
+                "number",
+                "reply",
+                "speaker",
+                "x",
+                "y"
+              ]
+            }
+          },
+          "theme": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "assetId",
+          "boss",
+          "bossEncounter",
+          "bossNode",
+          "edges",
+          "entrance",
+          "id",
+          "lanes",
+          "map",
+          "name",
+          "nodes",
+          "theme"
+        ]
+      }
+    },
+    "flee": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "integer"
+        },
+        "bonusPerPoint": {
+          "type": "integer"
+        },
+        "dexBaseline": {
+          "type": "integer"
+        },
+        "failure": {
+          "type": "string"
+        },
+        "max": {
+          "type": "integer"
+        },
+        "min": {
+          "type": "integer"
+        },
+        "success": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "base",
+        "bonusPerPoint",
+        "dexBaseline",
+        "failure",
+        "max",
+        "min",
+        "success"
+      ]
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "background": {
+            "type": "string",
+            "enum": [
+              "assets/environments/legacy/BS-ENV-01-background.webp",
+              "assets/environments/legacy/BS-ENV-02-background.webp",
+              "assets/environments/legacy/BS-ENV-03-background.webp",
+              "assets/environments/legacy/BS-ENV-04-background.webp",
+              "assets/environments/legacy/FC-ENV-01-background.webp",
+              "assets/environments/legacy/FC-ENV-02-background.webp",
+              "assets/environments/legacy/FC-ENV-03-background.webp",
+              "assets/environments/legacy/FC-ENV-04-background.webp",
+              "assets/environments/legacy/HM-ENV-01-background.webp",
+              "assets/environments/legacy/HM-ENV-02-background.webp",
+              "assets/environments/legacy/HM-ENV-03-background.webp",
+              "assets/environments/legacy/HM-ENV-04-background.webp"
+            ]
+          },
+          "boss": {
+            "type": "boolean"
+          },
+          "box": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "floor": {
+            "type": "string",
+            "enum": [
+              "assets/environments/legacy/BS-ENV-01-floor.webp",
+              "assets/environments/legacy/BS-ENV-02-floor.webp",
+              "assets/environments/legacy/BS-ENV-03-floor.webp",
+              "assets/environments/legacy/BS-ENV-04-floor.webp",
+              "assets/environments/legacy/FC-ENV-01-floor.webp",
+              "assets/environments/legacy/FC-ENV-02-floor.webp",
+              "assets/environments/legacy/FC-ENV-03-floor.webp",
+              "assets/environments/legacy/FC-ENV-04-floor.webp",
+              "assets/environments/legacy/HM-ENV-01-floor.webp",
+              "assets/environments/legacy/HM-ENV-02-floor.webp",
+              "assets/environments/legacy/HM-ENV-03-floor.webp",
+              "assets/environments/legacy/HM-ENV-04-floor.webp"
+            ]
+          },
+          "floorStart": {
+            "type": "number"
+          },
+          "id": {
+            "type": "string",
+            "enum": [
+              "BS-ENV-01",
+              "BS-ENV-02",
+              "BS-ENV-03",
+              "BS-ENV-04",
+              "FC-ENV-01",
+              "FC-ENV-02",
+              "FC-ENV-03",
+              "FC-ENV-04",
+              "HM-ENV-01",
+              "HM-ENV-02",
+              "HM-ENV-03",
+              "HM-ENV-04"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "nodeEnd": {
+            "type": "string",
+            "enum": [
+              "BS-05",
+              "BS-10",
+              "BS-22",
+              "BS-24",
+              "FC-04",
+              "FC-10",
+              "FC-21",
+              "FC-24",
+              "HM-04",
+              "HM-08",
+              "HM-21",
+              "HM-24"
+            ]
+          },
+          "nodeStart": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string",
+            "enum": [
+              "BS",
+              "FC",
+              "HM"
+            ]
+          }
+        },
+        "required": [
+          "background",
+          "boss",
+          "box",
+          "floor",
+          "floorStart",
+          "id",
+          "name",
+          "nodeEnd",
+          "nodeStart",
+          "region"
+        ]
+      }
+    },
+    "status": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "dungeons",
+    "flee",
+    "scenes",
+    "status",
+    "version"
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "$id": "catalog/events.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "art": {
+        "type": "string"
+      },
+      "choices": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "effects": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": [
+                      "integer",
+                      "object"
+                    ],
+                    "properties": {
+                      "f": {
+                        "type": "string",
+                        "enum": [
+                          "percentMaxHp"
+                        ]
+                      },
+                      "of": {
+                        "type": "string",
+                        "enum": [
+                          "self"
+                        ]
+                      },
+                      "pct": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "f",
+                      "of",
+                      "pct"
+                    ]
+                  },
+                  "card": {
+                    "type": "string",
+                    "enum": [
+                      "guilt"
+                    ]
+                  },
+                  "encounterId": {
+                    "type": "string",
+                    "enum": [
+                      "eliteWyrm",
+                      "loneSoldier",
+                      "patrol"
+                    ]
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "if": {
+                    "type": "object",
+                    "properties": {
+                      "p": {
+                        "type": "string"
+                      },
+                      "pct": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "p",
+                      "pct"
+                    ]
+                  },
+                  "op": {
+                    "type": "string",
+                    "enum": [
+                      "addCardToDeck",
+                      "addCinders",
+                      "addRelic",
+                      "damage",
+                      "heal",
+                      "loseMaxHpPct",
+                      "removeCardFromDeck",
+                      "startCombat",
+                      "swapClass",
+                      "upgradeCard"
+                    ]
+                  },
+                  "pct": {
+                    "type": "integer"
+                  },
+                  "random": {
+                    "type": "boolean"
+                  },
+                  "target": {
+                    "type": "string",
+                    "enum": [
+                      "self"
+                    ]
+                  }
+                },
+                "required": [
+                  "op"
+                ]
+              }
+            },
+            "label": {
+              "type": "string"
+            },
+            "requires": {
+              "type": "object",
+              "properties": {
+                "cinders": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "cinders"
+              ]
+            },
+            "resultText": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "effects",
+            "label",
+            "resultText"
+          ]
+        }
+      },
+      "id": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "art",
+      "choices",
+      "id"
+    ]
+  }
+}

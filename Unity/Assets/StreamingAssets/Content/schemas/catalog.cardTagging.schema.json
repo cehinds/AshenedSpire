@@ -1,0 +1,30 @@
+{
+  "$id": "catalog/cardTagging.json",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cardId": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "cardId",
+          "tags"
+        ]
+      }
+    }
+  },
+  "required": [
+    "rows"
+  ]
+}

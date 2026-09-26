@@ -1,0 +1,1346 @@
+{
+  "$id": "catalog/equipmentMeta.json",
+  "type": "object",
+  "properties": {
+    "armouryUi": {
+      "type": "object",
+      "properties": {
+        "equippedTag": {
+          "type": "object",
+          "properties": {
+            "customColor": {
+              "type": "string"
+            },
+            "useCustomColor": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "customColor",
+            "useCustomColor"
+          ]
+        },
+        "layout": {
+          "type": "object",
+          "properties": {
+            "cardClasses": {
+              "type": "object",
+              "properties": {
+                "inventoryItem": {
+                  "type": "object",
+                  "properties": {
+                    "holdAction": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "holdAction"
+                  ]
+                }
+              },
+              "required": [
+                "inventoryItem"
+              ]
+            },
+            "cards": {
+              "type": "object",
+              "properties": {
+                "defaultView": {
+                  "type": "string"
+                },
+                "gridColumns": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "defaultView",
+                "gridColumns"
+              ]
+            },
+            "character": {
+              "type": "object",
+              "properties": {
+                "minWidth": {
+                  "type": "string"
+                },
+                "spriteRatio": {
+                  "type": "number"
+                },
+                "statsPaneRatio": {
+                  "type": "number"
+                },
+                "statsRatio": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "minWidth",
+                "spriteRatio",
+                "statsPaneRatio",
+                "statsRatio"
+              ]
+            },
+            "combatPower": {
+              "type": "object",
+              "properties": {
+                "cards": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "fullLabel": {
+                        "type": "string"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "fullLabel",
+                      "id",
+                      "label",
+                      "role"
+                    ]
+                  }
+                },
+                "groupLabel": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "cards",
+                "groupLabel"
+              ]
+            },
+            "comparison": {
+              "type": "object",
+              "properties": {
+                "holdPreviewDelayMs": {
+                  "type": "integer"
+                },
+                "presentation": {
+                  "type": "string"
+                },
+                "tooltipMaxHeightRatio": {
+                  "type": "number"
+                },
+                "tooltipWidthRem": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "holdPreviewDelayMs",
+                "presentation",
+                "tooltipMaxHeightRatio",
+                "tooltipWidthRem"
+              ]
+            },
+            "equipment": {
+              "type": "object",
+              "properties": {
+                "defaultView": {
+                  "type": "string"
+                },
+                "gridColumns": {
+                  "type": "integer"
+                },
+                "groupLabel": {
+                  "type": "string"
+                },
+                "outerBorder": {
+                  "type": "boolean"
+                },
+                "slotOrder": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "defaultView",
+                "gridColumns",
+                "groupLabel",
+                "outerBorder",
+                "slotOrder"
+              ]
+            },
+            "inventorySplit": {
+              "type": "object",
+              "properties": {
+                "compactItemsBelowPx": {
+                  "type": "integer"
+                },
+                "defaultArmamentsRatio": {
+                  "type": "number"
+                },
+                "foldGroupsBelowPx": {
+                  "type": "integer"
+                },
+                "foldSubcardsBelowPx": {
+                  "type": "integer"
+                },
+                "maximumArmamentsRatio": {
+                  "type": "number"
+                },
+                "minimumArmamentsRatio": {
+                  "type": "number"
+                },
+                "snapRatios": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "snapTolerance": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "compactItemsBelowPx",
+                "defaultArmamentsRatio",
+                "foldGroupsBelowPx",
+                "foldSubcardsBelowPx",
+                "maximumArmamentsRatio",
+                "minimumArmamentsRatio",
+                "snapRatios",
+                "snapTolerance"
+              ]
+            },
+            "responsive": {
+              "type": "object",
+              "properties": {
+                "breakpoint": {
+                  "type": "integer"
+                },
+                "phone": {
+                  "type": "object",
+                  "properties": {
+                    "armamentGridColumns": {
+                      "type": "integer"
+                    },
+                    "cardsGridColumns": {
+                      "type": "integer"
+                    },
+                    "characterRatio": {
+                      "type": "number"
+                    },
+                    "equipmentRatio": {
+                      "type": "number"
+                    },
+                    "minWidth": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "armamentGridColumns",
+                    "cardsGridColumns",
+                    "characterRatio",
+                    "equipmentRatio",
+                    "minWidth"
+                  ]
+                }
+              },
+              "required": [
+                "breakpoint",
+                "phone"
+              ]
+            },
+            "shell": {
+              "type": "object",
+              "properties": {
+                "characterRatio": {
+                  "type": "number"
+                },
+                "equipmentRatio": {
+                  "type": "number"
+                },
+                "gapRem": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "characterRatio",
+                "equipmentRatio",
+                "gapRem"
+              ]
+            },
+            "trays": {
+              "type": "object",
+              "properties": {
+                "contentGapRem": {
+                  "type": "number"
+                },
+                "defaultHeightRatio": {
+                  "type": "number"
+                },
+                "maximumHeightRatio": {
+                  "type": "number"
+                },
+                "minimumHeightRatio": {
+                  "type": "number"
+                },
+                "multipleExpandedMinimumRatio": {
+                  "type": "number"
+                },
+                "snapRatios": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "snapTolerance": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "contentGapRem",
+                "defaultHeightRatio",
+                "maximumHeightRatio",
+                "minimumHeightRatio",
+                "multipleExpandedMinimumRatio",
+                "snapRatios",
+                "snapTolerance"
+              ]
+            },
+            "viewModes": {
+              "type": "object",
+              "properties": {
+                "cards": {
+                  "type": "object",
+                  "properties": {
+                    "armaments": {
+                      "type": "string"
+                    },
+                    "cards": {
+                      "type": "string"
+                    },
+                    "character": {
+                      "type": "string"
+                    },
+                    "inventory": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "pane": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "armaments",
+                    "cards",
+                    "character",
+                    "inventory",
+                    "label",
+                    "pane"
+                  ]
+                },
+                "grid": {
+                  "type": "object",
+                  "properties": {
+                    "armaments": {
+                      "type": "string"
+                    },
+                    "cards": {
+                      "type": "string"
+                    },
+                    "character": {
+                      "type": "string"
+                    },
+                    "inventory": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "pane": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "armaments",
+                    "cards",
+                    "character",
+                    "inventory",
+                    "label",
+                    "pane"
+                  ]
+                },
+                "hybrid": {
+                  "type": "object",
+                  "properties": {
+                    "armaments": {
+                      "type": "string"
+                    },
+                    "cards": {
+                      "type": "string"
+                    },
+                    "character": {
+                      "type": "string"
+                    },
+                    "inventory": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "pane": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "armaments",
+                    "cards",
+                    "character",
+                    "inventory",
+                    "label",
+                    "pane"
+                  ]
+                },
+                "rack": {
+                  "type": "object",
+                  "properties": {
+                    "armaments": {
+                      "type": "string"
+                    },
+                    "cards": {
+                      "type": "string"
+                    },
+                    "character": {
+                      "type": "string"
+                    },
+                    "inventory": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    },
+                    "pane": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "armaments",
+                    "cards",
+                    "character",
+                    "inventory",
+                    "label",
+                    "pane"
+                  ]
+                }
+              },
+              "required": [
+                "cards",
+                "grid",
+                "hybrid",
+                "rack"
+              ]
+            }
+          },
+          "required": [
+            "cardClasses",
+            "cards",
+            "character",
+            "combatPower",
+            "comparison",
+            "equipment",
+            "inventorySplit",
+            "responsive",
+            "shell",
+            "trays",
+            "viewModes"
+          ]
+        }
+      },
+      "required": [
+        "equippedTag",
+        "layout"
+      ]
+    },
+    "cardEquipmentExceptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cardId": {
+            "type": "string"
+          },
+          "weaponId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cardId",
+          "weaponId"
+        ]
+      }
+    },
+    "cardTargets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "equipmentGrants": {
+      "type": "array",
+      "items": {}
+    },
+    "modFields": {
+      "type": "object",
+      "properties": {
+        "bleed": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "blight": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "block": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "burn": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "cost": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "damage": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "dexterity": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "frost": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "hits": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "insanity": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "maxHp": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "maxMana": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "maxStamina": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "poise": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "potency": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "regen": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "strength": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        },
+        "swapCost": {
+          "type": "object",
+          "properties": {
+            "apply": {
+              "type": "string"
+            },
+            "blurb": {
+              "type": "string"
+            },
+            "clause": {
+              "type": "string"
+            },
+            "effTarget": {
+              "type": "string"
+            },
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "op": {
+              "type": "string"
+            },
+            "scope": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "apply",
+            "blurb",
+            "clause",
+            "effTarget",
+            "field",
+            "label",
+            "op",
+            "scope",
+            "status"
+          ]
+        }
+      },
+      "required": [
+        "bleed",
+        "blight",
+        "block",
+        "burn",
+        "cost",
+        "damage",
+        "dexterity",
+        "frost",
+        "hits",
+        "insanity",
+        "maxHp",
+        "maxMana",
+        "maxStamina",
+        "poise",
+        "potency",
+        "regen",
+        "strength",
+        "swapCost"
+      ]
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cardId": {
+            "type": "string",
+            "enum": [
+              "ambush",
+              "defend",
+              "gorefireSlash",
+              "starstonePebble",
+              "strike",
+              "urgentHeal"
+            ]
+          },
+          "classId": {
+            "type": "string",
+            "enum": [
+              "*",
+              "herald",
+              "reaver",
+              "rogue",
+              "starseer"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "defend",
+              "power",
+              "strike"
+            ]
+          }
+        },
+        "required": [
+          "cardId",
+          "classId",
+          "target"
+        ]
+      }
+    }
+  },
+  "required": [
+    "armouryUi",
+    "cardEquipmentExceptions",
+    "cardTargets",
+    "equipmentGrants",
+    "modFields",
+    "targets"
+  ]
+}

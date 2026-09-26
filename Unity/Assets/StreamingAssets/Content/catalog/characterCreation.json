@@ -1,0 +1,154 @@
+{
+  "classes": {
+    "herald": {
+      "armourIds": [
+        "default",
+        "ossuary"
+      ],
+      "equipSlotIds": [],
+      "handIds": [
+        "boneSceptre",
+        "emberlightSceptre"
+      ],
+      "relicIds": [
+        "goldFigurine",
+        "goldenSprout"
+      ]
+    },
+    "reaver": {
+      "armourIds": [
+        "default",
+        "vigil"
+      ],
+      "equipSlotIds": [],
+      "handIds": [
+        "straightSword",
+        "roundShield",
+        "greatsword",
+        "buckler"
+      ],
+      "relicIds": [
+        "forsakenMedallion",
+        "goldenSprout"
+      ]
+    },
+    "rogue": {
+      "armourIds": [
+        "default",
+        "nightveil"
+      ],
+      "equipSlotIds": [],
+      "handIds": [
+        "dagger",
+        "buckler",
+        "shortbow",
+        "parryDagger"
+      ],
+      "relicIds": [
+        "cutpursesCoin",
+        "goldenSprout"
+      ]
+    },
+    "starseer": {
+      "armourIds": [
+        "default",
+        "eclipse"
+      ],
+      "equipSlotIds": [],
+      "handIds": [
+        "ashStaff",
+        "starstoneStaff"
+      ],
+      "relicIds": [
+        "starstoneShard",
+        "goldenSprout"
+      ]
+    }
+  },
+  "equipmentSections": [
+    {
+      "id": "armour",
+      "kind": "armour",
+      "label": "STARTING ARMOUR"
+    },
+    {
+      "id": "rightHand",
+      "kind": "hand",
+      "label": "MAIN HAND",
+      "slot": "rightHand"
+    },
+    {
+      "id": "leftHand",
+      "kind": "hand",
+      "label": "OFF HAND",
+      "slot": "leftHand"
+    },
+    {
+      "id": "equipSlot",
+      "kind": "slot",
+      "label": "EQUIP SLOT",
+      "slot": "talisman"
+    },
+    {
+      "id": "relic",
+      "kind": "relic",
+      "label": "RELIC"
+    }
+  ],
+  "keepsakes": [
+    {
+      "desc": "Walk alone. The climb is enough.",
+      "effects": [],
+      "icon": "🕳",
+      "id": "none",
+      "name": "Nothing"
+    },
+    {
+      "desc": "Begin the climb with 50 cinders.",
+      "effects": [
+        {
+          "amount": 50,
+          "op": "addCinders"
+        }
+      ],
+      "icon": "🪙",
+      "id": "oldCinder",
+      "name": "Old Cinder"
+    },
+    {
+      "desc": "Begin with one additional Crimson charge.",
+      "effects": [
+        {
+          "amount": 1,
+          "kind": "hp",
+          "op": "addFlaskCapacity"
+        }
+      ],
+      "icon": "🧪",
+      "id": "travelersFlask",
+      "name": "Traveler's Flask"
+    },
+    {
+      "desc": "Begin with one armament already Smithed, improving all of its sourced basic cards.",
+      "effects": [
+        {
+          "card": "strike",
+          "op": "upgradeCard"
+        }
+      ],
+      "icon": "🪨",
+      "id": "whetstoneMemory",
+      "name": "Whetstone Memory"
+    }
+  ],
+  "layout": {
+    "classChoiceView": "list",
+    "classPreviewPercent": 30,
+    "equipmentAutoAdvance": false,
+    "equipmentChoiceView": "grid"
+  },
+  "spritePreviewSide": "right",
+  "visibleModeIds": [
+    "lean"
+  ]
+}
