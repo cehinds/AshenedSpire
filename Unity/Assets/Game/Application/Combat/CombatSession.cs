@@ -20,6 +20,10 @@ namespace Ashen.App.Combat
         public bool RolledBack;
 
         public bool Accepted => Refusal == null && !RolledBack;
+
+        /// <summary>The enemies that acted, in the order they acted (the W-07 enemy timeline walks these).</summary>
+        public IReadOnlyList<string> EnemyActors =>
+            Events.Where(e => e.Str(CombatKeys.Type) == CombatEvents.EnemyMoveStarted).Select(e => e.Str(CombatKeys.SourceId)).Where(id => id != null).ToList();
     }
 
     /// <summary>

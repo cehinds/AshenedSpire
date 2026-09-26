@@ -31,6 +31,13 @@ namespace Ashen.App.Ui
         public IReadOnlyList<string> FocusOrder = Array.Empty<string>();
         public IReadOnlyList<ScreenTransition> Transitions = Array.Empty<ScreenTransition>();
 
+        /// <summary>Alternative focus orders by state (ui/screens.json 'focusModes': combat targeting, discard, flasks, enemy turn, end).</summary>
+        public IReadOnlyDictionary<string, IReadOnlyList<string>> FocusModes = new Dictionary<string, IReadOnlyList<string>>();
+
+        /// <summary>The focus order for a state; the screen's focusOrder when the state names none.</summary>
+        public IReadOnlyList<string> FocusOrderFor(string mode) =>
+            mode != null && FocusModes.TryGetValue(mode, out var order) ? order : FocusOrder;
+
         public bool IsModal => Layer == UiValues.LayerModal;
         public bool AcceptsInput => Input != UiValues.InputNone;
         public bool IsBuilt => !Planned && !string.IsNullOrEmpty(Uxml);
@@ -59,6 +66,9 @@ namespace Ashen.App.Ui
                 if (row[UiKeys.Transitions] is JObject t)
                     foreach (var tp in t.Properties())
                         transitions.Add(new ScreenTransition { Trigger = tp.Name, To = (string)tp.Value[UiKeys.To], Mode = (string)tp.Value[UiKeys.Mode] });
+                var modes = new Dictionary<string, IReadOnlyList<string>>(StringComparer.Ordinal);
+                if (row[UiKeys.FocusModes] is JObject m)
+                    foreach (var mp in m.Properties()) modes[mp.Name] = Strings(mp.Value);
                 registry._screens.Add(new ScreenDef
                 {
                     Id = p.Name,
@@ -73,6 +83,7 @@ namespace Ashen.App.Ui
                     Dev = (bool?)row[UiKeys.Dev] ?? false,
                     FocusOrder = Strings(row[UiKeys.FocusOrder]),
                     Transitions = transitions,
+                    FocusModes = modes,
                 });
             }
             return registry;
@@ -93,6 +104,17 @@ namespace Ashen.App.Ui
         public string Confirm;
         public string EnabledWhen;
         public bool Visible;
+
+        /// <summary>Hidden while a fight is on (the W-20 Armoury row).</summary>
+        public bool HideInCombat;
+    }
+
+    /// <summary>A W-04 creation rail item (ui/menus.json 'creationPanes').</summary>
+    public sealed class CreationPaneDef
+    {
+        public string Id;
+        public string LabelKey;
+        public bool Built;
     }
 
     /// <summary>A W2 confirmation door (ui/menus.json 'confirms'; 04 W-23).</summary>
@@ -114,6 +136,8 @@ namespace Ashen.App.Ui
         private readonly List<ConfirmDef> _confirms = new List<ConfirmDef>();
 
         public IReadOnlyList<MenuEntryDef> Title { get; private set; } = Array.Empty<MenuEntryDef>();
+        public IReadOnlyList<MenuEntryDef> Pause { get; private set; } = Array.Empty<MenuEntryDef>();
+        public IReadOnlyList<CreationPaneDef> CreationPanes { get; private set; } = Array.Empty<CreationPaneDef>();
         public IReadOnlyList<ConfirmDef> Confirms => _confirms;
 
         public ConfirmDef Confirm(string id) => _confirms.FirstOrDefault(c => c.Id == id);
@@ -122,16 +146,13 @@ namespace Ashen.App.Ui
         {
             var set = new MenuSet
             {
-                Title = ((JArray)json[UiKeys.Title]).OfType<JObject>().Select(r => new MenuEntryDef
+                Title = Rows(json[UiKeys.Title]),
+                Pause = Rows(json[UiKeys.Pause]),
+                CreationPanes = (json[UiKeys.CreationPanes] as JArray ?? new JArray()).OfType<JObject>().Select(r => new CreationPaneDef
                 {
                     Id = (string)r[UiKeys.Id],
                     LabelKey = (string)r[UiKeys.LabelKey],
-                    Action = (string)r[UiKeys.Action],
-                    Target = (string)r[UiKeys.Target],
-                    Mode = (string)r[UiKeys.Mode],
-                    Confirm = (string)r[UiKeys.Confirm],
-                    EnabledWhen = (string)r[UiKeys.EnabledWhen],
-                    Visible = (bool?)r[UiKeys.Visible] ?? true,
+                    Built = (bool?)r[UiKeys.Built] ?? false,
                 }).ToList(),
             };
             foreach (var p in ((JObject)json[UiKeys.Confirms]).Properties())
@@ -152,6 +173,20 @@ namespace Ashen.App.Ui
             }
             return set;
         }
+
+        private static IReadOnlyList<MenuEntryDef> Rows(JToken rows) =>
+            (rows as JArray ?? new JArray()).OfType<JObject>().Select(r => new MenuEntryDef
+            {
+                Id = (string)r[UiKeys.Id],
+                LabelKey = (string)r[UiKeys.LabelKey],
+                Action = (string)r[UiKeys.Action],
+                Target = (string)r[UiKeys.Target],
+                Mode = (string)r[UiKeys.Mode],
+                Confirm = (string)r[UiKeys.Confirm],
+                EnabledWhen = (string)r[UiKeys.EnabledWhen],
+                Visible = (bool?)r[UiKeys.Visible] ?? true,
+                HideInCombat = (bool?)r[UiKeys.HideInCombat] ?? false,
+            }).ToList();
     }
 
     /// <summary>A PanelSettings size (ui/layout.json 'panels').</summary>
@@ -248,12 +283,38 @@ namespace Ashen.App.Ui
         public double MaxSpread;
         public int ScrollAfter;
         public int BootFilesPerFrame;
+        public string CombatBackground;
+        public string CombatFallbackBackground;
+        public string EnemyArt;
+        public string CardRefusalTooltip;
+        public int StatusChips;
+
+        /// <summary>
+        /// Whether a registry id is in art.include: a plain entry is an id prefix; an entry with the wildcard matches ids
+        /// that start with its first half and end with its second (Cli.BuildUiArt and the data tests use this one rule).
+        /// </summary>
+        public bool ArtIncludes(string id) => id != null && ArtInclude.Any(entry => ArtMatches(entry, id));
+
+        public static bool ArtMatches(string entry, string id)
+        {
+            var star = entry.IndexOf(UiFormats.ArtWildcard, StringComparison.Ordinal);
+            if (star < 0) return id.StartsWith(entry, StringComparison.Ordinal);
+            var head = entry.Substring(0, star);
+            var tail = entry.Substring(star + UiFormats.ArtWildcard.Length);
+            return id.Length >= head.Length + tail.Length && id.StartsWith(head, StringComparison.Ordinal) && id.EndsWith(tail, StringComparison.Ordinal);
+        }
 
         public static ComponentDefaults From(JObject json)
         {
             var fan = (JObject)json[UiKeys.HandFan];
+            var combat = json[UiKeys.Combat] as JObject ?? new JObject();
             return new ComponentDefaults
             {
+                CombatBackground = (string)combat[UiKeys.Background],
+                CombatFallbackBackground = (string)combat[UiKeys.FallbackBackground],
+                EnemyArt = (string)combat[UiKeys.Enemy],
+                CardRefusalTooltip = (string)json[UiKeys.Card]?[UiKeys.RefusalTooltip],
+                StatusChips = (int?)json[UiKeys.Combatant]?[UiKeys.StatusChips] ?? 0,
                 ArtInclude = ScreenRegistry.Strings(json[UiKeys.Art]?[UiKeys.Include]),
                 MeterKinds = ScreenRegistry.Strings(json[UiKeys.Meter]?[UiKeys.Kinds]),
                 TooltipSizes = ScreenRegistry.Strings(json[UiKeys.Tooltip]?[UiKeys.Sizes]),

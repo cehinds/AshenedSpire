@@ -1,5 +1,5 @@
 {
-  "comment": "Screen registry (docs/design/08 §10, 06 PF-08, 04 W-*; 09 Appendix C ids). Each built screen names its UXML (a Resources path), its 'layer' (screen | modal), an optional registry 'background' (assets/registry.json id), and the REQUIRED 'focusOrder': UiNames regions walked in order, the focusable items inside a region in document order (04 §0 default: rail, pane, footer Primary, footer Back). 'initialFocus' names the element that takes focus first (Back on every confirmation). 'back' is what Escape / pad B does when nothing inner is open: 'pop' returns to the previous screen, 'close' closes a modal, null does nothing. 'transitions' map a trigger to a target screen and a mode (push | replace). 'input': 'none' marks a screen that takes no input (boot). 'gate' shows the press-any-input gate on first entry (US-1.2). 'planned' registers a screen that is not built yet: menu entries that target it are disabled. 'dev' marks review-only screens. ScreenIds (Tools/codegen.d/ui.json) must list exactly these keys (UiDataTests).",
+  "comment": "Screen registry (docs/design/08 §10, 06 PF-08, 04 W-*; 09 Appendix C ids). Each built screen names its UXML (a Resources path), its 'layer' (screen | modal), an optional registry 'background' (assets/registry.json id), and the REQUIRED 'focusOrder': UiNames regions walked in order, the focusable items inside a region in document order (04 §0 default: rail, pane, footer Primary, footer Back). 'initialFocus' names the element that takes focus first (Back on every confirmation). 'back' is what Escape / pad B does when nothing inner is open: 'pop' returns to the previous screen, 'close' closes a modal, null does nothing. 'transitions' map a trigger to a target screen and a mode (push | replace). 'input': 'none' marks a screen that takes no input (boot). 'gate' shows the press-any-input gate on first entry (US-1.2). 'planned' registers a screen that is not built yet: menu entries that target it are disabled. 'dev' marks review-only screens. ScreenIds (Tools/codegen.d/ui.json) must list exactly these keys (UiDataTests). 'focusModes' names alternative focus orders a screen switches to while one of its states is active (combat: targeting, discard chooser, flask panel, enemy turn, end state); each is a list of regions like 'focusOrder'.",
   "initial": "boot",
   "screens": {
     "boot": {
@@ -30,9 +30,7 @@
       "focusOrder": ["CONFIRM_FOOTER"],
       "initialFocus": "CONFIRM_BACK",
       "back": null,
-      "transitions": {
-        "done": { "to": "title", "mode": "replace" }
-      }
+      "transitions": { "done": { "to": "title", "mode": "replace" } }
     },
     "title": {
       "uxml": "UI/Screens/Title",
@@ -67,7 +65,40 @@
       "back": "pop",
       "transitions": {}
     },
-    "creation": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
+    "creation": {
+      "uxml": "UI/Screens/Creation",
+      "layer": "screen",
+      "background": "bg.tower-city-background-unlit",
+      "focusOrder": ["WORKSPACE_NAV", "CLASS_LIST", "FOOTER_PRIMARY", "FOOTER_BACK", "SHELL_EXIT"],
+      "back": "pop",
+      "transitions": { "begin": { "to": "combat", "mode": "replace" } }
+    },
+    "combat": {
+      "uxml": "UI/Screens/Combat",
+      "layer": "screen",
+      "focusOrder": ["HAND_CARDS", "ENEMY_ROW", "ALLY_ROW", "FOOTER_GROUP", "RUN_HUD"],
+      "focusModes": {
+        "targeting": ["ENEMY_ROW", "ALLY_ROW"],
+        "discard": ["HAND_CARDS", "DISCARD_FOOTER"],
+        "flasks": ["FLASK_PANEL"],
+        "enemyTurn": ["FOOTER_GROUP"],
+        "ended": ["COMBAT_END"]
+      },
+      "back": null,
+      "transitions": { "quit": { "to": "title", "mode": "replace" } }
+    },
+    "pause": {
+      "uxml": "UI/Screens/Pause",
+      "layer": "modal",
+      "focusOrder": ["PAUSE_ROWS", "FOOTER_PRIMARY", "SHELL_EXIT"],
+      "initialFocus": "FOOTER_PRIMARY",
+      "back": "close",
+      "transitions": {}
+    },
+    "rewards": { "layer": "screen", "planned": true, "focusOrder": [], "back": null, "transitions": {} },
+    "pileViewer": { "layer": "modal", "planned": true, "focusOrder": [], "back": "close", "transitions": {} },
+    "armoury": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
+    "runEnd": { "layer": "screen", "planned": true, "focusOrder": [], "back": null, "transitions": {} },
     "actMap": { "layer": "screen", "planned": true, "focusOrder": [], "back": null, "transitions": {} },
     "journal": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
     "customRun": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },

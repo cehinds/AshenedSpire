@@ -80,6 +80,7 @@ namespace Ashen.App.Run
         public uint Seed => (uint)_run.Num(RK.Seed);
         public string SeedText => Content.Seeds.Format(Seed);
         public string EncounterId { get; private set; }
+        public int Act => (int)_run.Num(RK.ActNumber);
         public CombatSession Combat { get; private set; }
 
         public bool IsInCombat => Combat != null;

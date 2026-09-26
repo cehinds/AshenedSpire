@@ -78,6 +78,22 @@ namespace Ashen.App.Combat
         public Dictionary<string, double> DamageByTarget = new Dictionary<string, double>();
     }
 
+    /// <summary>A flask the player can drink: a charge pool (by kind) or a carried flask (by slot).</summary>
+    public sealed class FlaskView
+    {
+        /// <summary>The carried flask's slot, or -1 for a charge pool.</summary>
+        public int Slot = -1;
+        public string ChargeKind;
+        public string FlaskId;
+        public string Name;
+        public double Current;
+        public double Max;
+        public bool Targeted;
+        public Refusal Refusal;
+        public bool Usable => Refusal == null;
+        public bool IsCharge => ChargeKind != null;
+    }
+
     public sealed class PlayerView
     {
         public CombatantView Body;
@@ -102,6 +118,7 @@ namespace Ashen.App.Combat
         public PlayerView Player;
         public List<CombatantView> Enemies = new List<CombatantView>();
         public List<CardView> Hand = new List<CardView>();
+        public List<FlaskView> Flasks = new List<FlaskView>();
         public int DrawCount;
         public int DiscardCount;
         public int ExhaustCount;
@@ -133,6 +150,7 @@ namespace Ashen.App.Combat
             };
             foreach (var enemy in c.Enemies) view.Enemies.Add(Enemy(c, enemy));
             foreach (var inst in c.Piles.Hand) view.Hand.Add(Card(c, inst));
+            view.Flasks = Flasks(c);
             view.EndTurnRefusal = CombatLegality.CanEndTurn(c, new string[0]);
             var plan = HandRules.Plan(c);
             view.DiscardChoice = plan.Prompt;
@@ -180,6 +198,47 @@ namespace Ashen.App.Combat
                     card.DamageByTarget[p.Name] = (card.DamageByTarget.TryGetValue(p.Name, out var d) ? d : 0) + Js.D(p.Value) * value.Num(K.Hits);
             }
             return card;
+        }
+
+        /// <summary>The charge pools (rules/combatEngine.json flasks.chargeKinds) with their backing flask, then the carried flasks by slot.</summary>
+        private static List<FlaskView> Flasks(CombatState c)
+        {
+            var list = new List<FlaskView>();
+            var p = c.Player;
+            var charges = p.Obj(K.FlaskCharges);
+            foreach (var kind in Js.Items(c.Data.Engine.Obj(K.Flasks)?[K.ChargeKinds]).Select(Js.Str).Where(k => k != null))
+            {
+                var flaskId = CombatEngine.ChargeFlaskId(c, kind);
+                if (flaskId == null || charges == null) continue;
+                var def = c.Data.Flasks.Get(flaskId);
+                list.Add(new FlaskView
+                {
+                    ChargeKind = kind,
+                    FlaskId = flaskId,
+                    Name = def.Str(K.Name),
+                    Current = charges.Num(kind + V.CurrentSuffix),
+                    Max = charges.Num(kind),
+                    Targeted = def.Is(K.Targeted),
+                    Refusal = CombatLegality.CanUseFlask(c, 0, kind),
+                });
+            }
+            var carried = p.Arr(K.Flasks) ?? new JArray();
+            for (var i = 0; i < carried.Count; i++)
+            {
+                if (!(carried[i] is JObject slot) || slot.Str(K.FlaskId) == null) continue;
+                var def = c.Data.Flasks.Get(slot.Str(K.FlaskId));
+                list.Add(new FlaskView
+                {
+                    Slot = i,
+                    FlaskId = slot.Str(K.FlaskId),
+                    Name = def.Str(K.Name),
+                    Current = 1,
+                    Max = 1,
+                    Targeted = def.Is(K.Targeted),
+                    Refusal = CombatLegality.CanUseFlask(c, i),
+                });
+            }
+            return list;
         }
 
         private static List<StatusView> StatusList(CombatState c, JObject entity)

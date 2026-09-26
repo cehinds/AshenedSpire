@@ -52,5 +52,24 @@ namespace Ashen.Generated
         public const string EndTurnReady = "end-turn--ready";
         public const string BuildDev = "build-dev";
         public const string BuildPlayer = "build-player";
+        public const string ClassTile = "class-tile";
+        public const string ClassTilePortrait = "class-tile-portrait";
+        public const string ClassTileProblem = "class-tile--problem";
+        public const string CombatantPlayer = "combatant--player";
+        public const string CombatantEnemy = "combatant--enemy";
+        public const string CombatantDead = "combatant--dead";
+        public const string CombatantTarget = "combatant--target";
+        public const string CombatantActing = "combatant--acting";
+        public const string CombatantStaggered = "combatant--staggered";
+        public const string IntentPrefix = "intent--";
+        public const string StatusChip = "status-chip";
+        public const string CombatModePrefix = "combat--";
+        public const string CardChosen = "card--chosen";
+        public const string CardArmed = "card--armed";
+        public const string FlaskChip = "flask-chip";
+        public const string PauseRow = "pause-row";
+        public const string PauseHint = "pause-hint";
+        public const string GroupBusy = "group--busy";
+        public const string Busy = "is-busy";
     }
 }

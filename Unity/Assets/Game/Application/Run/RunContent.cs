@@ -12,6 +12,18 @@ using MK = Ashen.Generated.MapKeys;
 
 namespace Ashen.App.Run
 {
+    /// <summary>A class's starting numbers for the W-04 Class pane.</summary>
+    public sealed class ClassPreview
+    {
+        public IReadOnlyList<KeyValuePair<string, double>> Attributes = Array.Empty<KeyValuePair<string, double>>();
+        public double MaxHp;
+        public double MaxMana;
+        public double MaxStamina;
+        public double Actions;
+        public double HpFlasks;
+        public double ManaFlasks;
+    }
+
     /// <summary>
     /// The effective content a run is played with (docs/design/08 §8): the layered snapshot (the default preset
     /// unless a preset is named), the combat and run data built from it, the run-flow rules and the seed codec.
@@ -71,6 +83,29 @@ namespace Ashen.App.Run
             catch (NotSupportedException e) { problem = e.Message; }
             _classProblems[classId] = problem;
             return problem;
+        }
+
+        /// <summary>
+        /// What W-04 shows for a class (US-2.1): its attributes in authoring order and the derived pools and flask split
+        /// the run would start with, read from createRunState's own document; null when the class cannot begin.
+        /// </summary>
+        public ClassPreview Preview(string classId)
+        {
+            if (ClassProblem(classId) != null) return null;
+            var run = RunState.Create(Data, 1u, classId);
+            var attributes = run.Obj(CombatKeys.Attributes) ?? new JObject();
+            var charges = run.Obj(CombatKeys.FlaskCharges) ?? new JObject();
+            return new ClassPreview
+            {
+                Attributes = Data.Attributes.All.Select(a => a.Str(CombatKeys.Id)).Where(id => attributes[id] != null)
+                    .Select(id => new KeyValuePair<string, double>(id, attributes.Num(id))).ToList(),
+                MaxHp = run.Num(CombatKeys.MaxHp),
+                MaxMana = run.Num(CombatKeys.MaxMana),
+                MaxStamina = run.Num(CombatKeys.MaxStamina),
+                Actions = run.Num(CombatKeys.EnergyMax),
+                HpFlasks = charges.Num(CombatKeys.Hp),
+                ManaFlasks = charges.Num(CombatKeys.Mana),
+            };
         }
 
         /// <summary>The preselected class: the rule's default when it can begin, else the first class that can (null when none can).</summary>

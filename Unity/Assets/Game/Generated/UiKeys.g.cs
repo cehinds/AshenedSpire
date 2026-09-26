@@ -80,5 +80,17 @@ namespace Ashen.Generated
         public const string CostKinds = "costKinds";
         public const string Policies = "policies";
         public const string Level = "level";
+        public const string Pause = "pause";
+        public const string CreationPanes = "creationPanes";
+        public const string HideInCombat = "hideInCombat";
+        public const string Built = "built";
+        public const string FocusModes = "focusModes";
+        public const string Combat = "combat";
+        public const string Combatant = "combatant";
+        public const string StatusChips = "statusChips";
+        public const string FallbackBackground = "fallbackBackground";
+        public const string Enemy = "enemy";
+        public const string ReducedMotion = "reducedMotion";
+        public const string RefusalTooltip = "refusalTooltip";
     }
 }

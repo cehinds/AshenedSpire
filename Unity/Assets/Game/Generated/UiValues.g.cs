@@ -17,5 +17,10 @@ namespace Ashen.Generated
         public const string PolicyDestructive = "DESTRUCTIVE";
         public const string SlotModeLoad = "load";
         public const string SlotModeNew = "new";
+        public const string FocusTargeting = "targeting";
+        public const string FocusDiscard = "discard";
+        public const string FocusFlasks = "flasks";
+        public const string FocusEnemyTurn = "enemyTurn";
+        public const string FocusEnded = "ended";
     }
 }
