@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.0.8.0] — 2026-09-26
+
+Stories: us-0.6
+
+- Crash-safe saves: verified mirror, gen-stamped command log, migrations (us-0.6)
+
 ## [0.0.7.0] — 2026-09-26
 
 Stories: us-0.7

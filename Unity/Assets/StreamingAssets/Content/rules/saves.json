@@ -1,0 +1,8 @@
+{
+  "comment": "Save rules (US-0.6, PF-06). 'runSlots' is how many run slots exist; 'currentVersion' is the save schema version this build writes (migrations are code, registered per version step); 'profileSlot' names the durable profile document.",
+  "runSlots": 3,
+  "currentVersion": 1,
+  "profileSlot": "profile",
+  "replaceRetries": 3,
+  "replaceRetryDelayMs": 50
+}

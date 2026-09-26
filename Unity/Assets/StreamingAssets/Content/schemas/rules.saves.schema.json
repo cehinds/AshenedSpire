@@ -1,0 +1,32 @@
+{
+  "$id": "rules/saves.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "currentVersion": {
+      "type": "integer"
+    },
+    "profileSlot": {
+      "type": "string"
+    },
+    "replaceRetries": {
+      "type": "integer"
+    },
+    "replaceRetryDelayMs": {
+      "type": "integer"
+    },
+    "runSlots": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "comment",
+    "currentVersion",
+    "profileSlot",
+    "replaceRetries",
+    "replaceRetryDelayMs",
+    "runSlots"
+  ]
+}
