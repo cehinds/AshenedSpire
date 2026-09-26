@@ -143,5 +143,7 @@
   "GroupAttribute": "attribute",
   "GroupRole": "role",
   "GroupPart": "part",
-  "GroupName": "name"
+  "GroupName": "name",
+  "CommandSwapArmament": "swapArmament",
+  "CommandChangeEquipment": "changeEquipment"
 }

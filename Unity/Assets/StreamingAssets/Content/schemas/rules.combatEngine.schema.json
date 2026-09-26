@@ -430,6 +430,41 @@
           "restoreStamina"
         ]
       }
+    },
+    "playerPoise": {
+      "type": "object",
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "defaultPointsPerTier": {
+          "type": "integer"
+        },
+        "legacyRule": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "gainPerTier": {
+              "type": "integer"
+            },
+            "pointsPerTier": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "base",
+            "gainPerTier",
+            "pointsPerTier"
+          ]
+        }
+      },
+      "required": [
+        "attribute",
+        "defaultPointsPerTier",
+        "legacyRule"
+      ]
     }
   },
   "required": [
@@ -443,6 +478,7 @@
     "itemUpgrades",
     "limits",
     "magicalTags",
+    "playerPoise",
     "ratings",
     "skillXp",
     "snapshotVersion",

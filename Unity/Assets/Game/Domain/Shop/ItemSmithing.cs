@@ -241,7 +241,7 @@ namespace Ashen.Domain.Shop
                 var nextRequired = Math.Max(0, baseRequired + nextDelta);
                 var actualToken = run.Obj(K.Attributes)?[p.Name];
                 var actual = Js.IsFinite(actualToken) ? actualToken.DeepClone() : Js.Null();
-                rows.Add(Js.Obj(RK.AttributeId, p.Name, K.Label, d.Run.Attributes.Get(p.Name)[SK.ShortLabel], RK.Actual, actual, RK.BaseRequired, p.Value.DeepClone(),
+                rows.Add(Js.Obj(RK.AttributeId, p.Name, K.Label, d.Run.Attributes.Get(p.Name)[RK.ShortLabel], RK.Actual, actual, RK.BaseRequired, p.Value.DeepClone(),
                     SK.CurrentRequired, currentRequired, SK.NextRequired, nextRequired, SK.Change, nextDelta - currentDelta,
                     SK.MetAfter, Js.IsFinite(actualToken) && Js.D(actualToken) >= nextRequired));
             }

@@ -118,7 +118,6 @@ namespace Ashen.Generated
         public const string SmithNodeKind = "smithNodeKind";
         public const string Spent = "spent";
         public const string StartingKitDiscovery = "startingKitDiscovery";
-        public const string StorageSlots = "storageSlots";
         public const string StrPerLoop = "strPerLoop";
         public const string TagId = "tagId";
         public const string Taken = "taken";

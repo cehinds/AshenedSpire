@@ -456,6 +456,552 @@
    "classId": "herald",
    "seed": 1839097359,
    "variant": "hands-last"
+  },
+  {
+   "file": "run-reaver-attrs-lean.json",
+   "classId": "reaver",
+   "seed": 3530268193,
+   "variant": "attrs-lean"
+  },
+  {
+   "file": "run-reaver-attrs-tuned2.json",
+   "classId": "reaver",
+   "seed": 1889736658,
+   "variant": "attrs-tuned2"
+  },
+  {
+   "file": "run-reaver-attrs-tuned.json",
+   "classId": "reaver",
+   "seed": 249205123,
+   "variant": "attrs-tuned"
+  },
+  {
+   "file": "run-reaver-attrs-standard.json",
+   "classId": "reaver",
+   "seed": 2903640884,
+   "variant": "attrs-standard"
+  },
+  {
+   "file": "run-reaver-attrs-pointbuy.json",
+   "classId": "reaver",
+   "seed": 1263109349,
+   "variant": "attrs-pointbuy"
+  },
+  {
+   "file": "run-reaver-attrs-retired.json",
+   "classId": "reaver",
+   "seed": 3917545110,
+   "variant": "attrs-retired"
+  },
+  {
+   "file": "run-reaver-attrs-reordered.json",
+   "classId": "reaver",
+   "seed": 636482040,
+   "variant": "attrs-reordered"
+  },
+  {
+   "file": "run-reaver-attrs-kit.json",
+   "classId": "reaver",
+   "seed": 2037663183,
+   "variant": "attrs-kit"
+  },
+  {
+   "file": "run-reaver-derived-tier3.json",
+   "classId": "reaver",
+   "seed": 3051567409,
+   "variant": "derived-tier3"
+  },
+  {
+   "file": "run-reaver-derived-tier1-standard.json",
+   "classId": "reaver",
+   "seed": 1411035874,
+   "variant": "derived-tier1-standard"
+  },
+  {
+   "file": "run-reaver-derived-mode-rows.json",
+   "classId": "reaver",
+   "seed": 4065471635,
+   "variant": "derived-mode-rows"
+  },
+  {
+   "file": "run-reaver-derived-run-layers.json",
+   "classId": "reaver",
+   "seed": 2424940100,
+   "variant": "derived-run-layers"
+  },
+  {
+   "file": "run-reaver-derived-run-single.json",
+   "classId": "reaver",
+   "seed": 784408565,
+   "variant": "derived-run-single"
+  },
+  {
+   "file": "run-reaver-derived-profiles.json",
+   "classId": "reaver",
+   "seed": 3438844326,
+   "variant": "derived-profiles"
+  },
+  {
+   "file": "run-reaver-snapshot-other-class.json",
+   "classId": "reaver",
+   "seed": 2185589708,
+   "variant": "snapshot-other-class"
+  },
+  {
+   "file": "run-reaver-snapshot-ruleset3.json",
+   "classId": "reaver",
+   "seed": 545058173,
+   "variant": "snapshot-ruleset3"
+  },
+  {
+   "file": "run-reaver-snapshot-ruleset2.json",
+   "classId": "reaver",
+   "seed": 3199493934,
+   "variant": "snapshot-ruleset2"
+  },
+  {
+   "file": "run-reaver-hand-fixed.json",
+   "classId": "reaver",
+   "seed": 1946239316,
+   "variant": "hand-fixed"
+  },
+  {
+   "file": "run-reaver-hand-opening.json",
+   "classId": "reaver",
+   "seed": 305707781,
+   "variant": "hand-opening"
+  },
+  {
+   "file": "run-reaver-hand-discard.json",
+   "classId": "reaver",
+   "seed": 2960143542,
+   "variant": "hand-discard"
+  },
+  {
+   "file": "run-reaver-hand-ignored.json",
+   "classId": "reaver",
+   "seed": 1319612007,
+   "variant": "hand-ignored"
+  },
+  {
+   "file": "run-reaver-hand-reset.json",
+   "classId": "reaver",
+   "seed": 3974047768,
+   "variant": "hand-reset"
+  },
+  {
+   "file": "run-starseer-attrs-lean.json",
+   "classId": "starseer",
+   "seed": 2685871941,
+   "variant": "attrs-lean"
+  },
+  {
+   "file": "run-starseer-attrs-tuned2.json",
+   "classId": "starseer",
+   "seed": 1045340406,
+   "variant": "attrs-tuned2"
+  },
+  {
+   "file": "run-starseer-attrs-tuned.json",
+   "classId": "starseer",
+   "seed": 3699776167,
+   "variant": "attrs-tuned"
+  },
+  {
+   "file": "run-starseer-attrs-standard.json",
+   "classId": "starseer",
+   "seed": 2059244632,
+   "variant": "attrs-standard"
+  },
+  {
+   "file": "run-starseer-attrs-pointbuy.json",
+   "classId": "starseer",
+   "seed": 418713097,
+   "variant": "attrs-pointbuy"
+  },
+  {
+   "file": "run-starseer-attrs-retired.json",
+   "classId": "starseer",
+   "seed": 3073148858,
+   "variant": "attrs-retired"
+  },
+  {
+   "file": "run-starseer-attrs-reordered.json",
+   "classId": "starseer",
+   "seed": 4087053084,
+   "variant": "attrs-reordered"
+  },
+  {
+   "file": "run-starseer-attrs-kit.json",
+   "classId": "starseer",
+   "seed": 1193266931,
+   "variant": "attrs-kit"
+  },
+  {
+   "file": "run-starseer-attrs-kit-low-strength.json",
+   "classId": "starseer",
+   "seed": 3847702692,
+   "variant": "attrs-kit-low-strength"
+  },
+  {
+   "file": "run-starseer-derived-tier3.json",
+   "classId": "starseer",
+   "seed": 2207171157,
+   "variant": "derived-tier3"
+  },
+  {
+   "file": "run-starseer-derived-tier1-standard.json",
+   "classId": "starseer",
+   "seed": 566639622,
+   "variant": "derived-tier1-standard"
+  },
+  {
+   "file": "run-starseer-derived-mode-rows.json",
+   "classId": "starseer",
+   "seed": 3221075383,
+   "variant": "derived-mode-rows"
+  },
+  {
+   "file": "run-starseer-derived-run-layers.json",
+   "classId": "starseer",
+   "seed": 1580543848,
+   "variant": "derived-run-layers"
+  },
+  {
+   "file": "run-starseer-derived-run-single.json",
+   "classId": "starseer",
+   "seed": 4234979609,
+   "variant": "derived-run-single"
+  },
+  {
+   "file": "run-starseer-derived-profiles.json",
+   "classId": "starseer",
+   "seed": 2594448074,
+   "variant": "derived-profiles"
+  },
+  {
+   "file": "run-starseer-snapshot-other-class.json",
+   "classId": "starseer",
+   "seed": 1341193456,
+   "variant": "snapshot-other-class"
+  },
+  {
+   "file": "run-starseer-snapshot-ruleset3.json",
+   "classId": "starseer",
+   "seed": 3995629217,
+   "variant": "snapshot-ruleset3"
+  },
+  {
+   "file": "run-starseer-snapshot-ruleset2.json",
+   "classId": "starseer",
+   "seed": 2355097682,
+   "variant": "snapshot-ruleset2"
+  },
+  {
+   "file": "run-starseer-hand-fixed.json",
+   "classId": "starseer",
+   "seed": 1101843064,
+   "variant": "hand-fixed"
+  },
+  {
+   "file": "run-starseer-hand-opening.json",
+   "classId": "starseer",
+   "seed": 3756278825,
+   "variant": "hand-opening"
+  },
+  {
+   "file": "run-starseer-hand-discard.json",
+   "classId": "starseer",
+   "seed": 2115747290,
+   "variant": "hand-discard"
+  },
+  {
+   "file": "run-starseer-hand-ignored.json",
+   "classId": "starseer",
+   "seed": 475215755,
+   "variant": "hand-ignored"
+  },
+  {
+   "file": "run-starseer-hand-reset.json",
+   "classId": "starseer",
+   "seed": 3129651516,
+   "variant": "hand-reset"
+  },
+  {
+   "file": "run-rogue-attrs-lean.json",
+   "classId": "rogue",
+   "seed": 1841475689,
+   "variant": "attrs-lean"
+  },
+  {
+   "file": "run-rogue-attrs-tuned2.json",
+   "classId": "rogue",
+   "seed": 200944154,
+   "variant": "attrs-tuned2"
+  },
+  {
+   "file": "run-rogue-attrs-tuned.json",
+   "classId": "rogue",
+   "seed": 2855379915,
+   "variant": "attrs-tuned"
+  },
+  {
+   "file": "run-rogue-attrs-standard.json",
+   "classId": "rogue",
+   "seed": 1214848380,
+   "variant": "attrs-standard"
+  },
+  {
+   "file": "run-rogue-attrs-pointbuy.json",
+   "classId": "rogue",
+   "seed": 3869284141,
+   "variant": "attrs-pointbuy"
+  },
+  {
+   "file": "run-rogue-attrs-retired.json",
+   "classId": "rogue",
+   "seed": 2228752606,
+   "variant": "attrs-retired"
+  },
+  {
+   "file": "run-rogue-attrs-reordered.json",
+   "classId": "rogue",
+   "seed": 3242656832,
+   "variant": "attrs-reordered"
+  },
+  {
+   "file": "run-rogue-attrs-kit.json",
+   "classId": "rogue",
+   "seed": 348870679,
+   "variant": "attrs-kit"
+  },
+  {
+   "file": "run-rogue-attrs-kit-low-strength.json",
+   "classId": "rogue",
+   "seed": 3003306440,
+   "variant": "attrs-kit-low-strength"
+  },
+  {
+   "file": "run-rogue-derived-tier3.json",
+   "classId": "rogue",
+   "seed": 1362774905,
+   "variant": "derived-tier3"
+  },
+  {
+   "file": "run-rogue-derived-tier1-standard.json",
+   "classId": "rogue",
+   "seed": 4017210666,
+   "variant": "derived-tier1-standard"
+  },
+  {
+   "file": "run-rogue-derived-mode-rows.json",
+   "classId": "rogue",
+   "seed": 2376679131,
+   "variant": "derived-mode-rows"
+  },
+  {
+   "file": "run-rogue-derived-run-layers.json",
+   "classId": "rogue",
+   "seed": 736147596,
+   "variant": "derived-run-layers"
+  },
+  {
+   "file": "run-rogue-derived-run-single.json",
+   "classId": "rogue",
+   "seed": 3390583357,
+   "variant": "derived-run-single"
+  },
+  {
+   "file": "run-rogue-derived-profiles.json",
+   "classId": "rogue",
+   "seed": 1750051822,
+   "variant": "derived-profiles"
+  },
+  {
+   "file": "run-rogue-snapshot-other-class.json",
+   "classId": "rogue",
+   "seed": 496797204,
+   "variant": "snapshot-other-class"
+  },
+  {
+   "file": "run-rogue-snapshot-ruleset3.json",
+   "classId": "rogue",
+   "seed": 3151232965,
+   "variant": "snapshot-ruleset3"
+  },
+  {
+   "file": "run-rogue-snapshot-ruleset2.json",
+   "classId": "rogue",
+   "seed": 1510701430,
+   "variant": "snapshot-ruleset2"
+  },
+  {
+   "file": "run-rogue-hand-fixed.json",
+   "classId": "rogue",
+   "seed": 257446812,
+   "variant": "hand-fixed"
+  },
+  {
+   "file": "run-rogue-hand-opening.json",
+   "classId": "rogue",
+   "seed": 2911882573,
+   "variant": "hand-opening"
+  },
+  {
+   "file": "run-rogue-hand-discard.json",
+   "classId": "rogue",
+   "seed": 1271351038,
+   "variant": "hand-discard"
+  },
+  {
+   "file": "run-rogue-hand-ignored.json",
+   "classId": "rogue",
+   "seed": 3925786799,
+   "variant": "hand-ignored"
+  },
+  {
+   "file": "run-rogue-hand-reset.json",
+   "classId": "rogue",
+   "seed": 2285255264,
+   "variant": "hand-reset"
+  },
+  {
+   "file": "run-herald-attrs-lean.json",
+   "classId": "herald",
+   "seed": 997079437,
+   "variant": "attrs-lean"
+  },
+  {
+   "file": "run-herald-attrs-tuned2.json",
+   "classId": "herald",
+   "seed": 3651515198,
+   "variant": "attrs-tuned2"
+  },
+  {
+   "file": "run-herald-attrs-tuned.json",
+   "classId": "herald",
+   "seed": 2010983663,
+   "variant": "attrs-tuned"
+  },
+  {
+   "file": "run-herald-attrs-standard.json",
+   "classId": "herald",
+   "seed": 370452128,
+   "variant": "attrs-standard"
+  },
+  {
+   "file": "run-herald-attrs-pointbuy.json",
+   "classId": "herald",
+   "seed": 3024887889,
+   "variant": "attrs-pointbuy"
+  },
+  {
+   "file": "run-herald-attrs-retired.json",
+   "classId": "herald",
+   "seed": 1384356354,
+   "variant": "attrs-retired"
+  },
+  {
+   "file": "run-herald-attrs-reordered.json",
+   "classId": "herald",
+   "seed": 2398260580,
+   "variant": "attrs-reordered"
+  },
+  {
+   "file": "run-herald-attrs-kit.json",
+   "classId": "herald",
+   "seed": 3799441723,
+   "variant": "attrs-kit"
+  },
+  {
+   "file": "run-herald-attrs-kit-low-strength.json",
+   "classId": "herald",
+   "seed": 2158910188,
+   "variant": "attrs-kit-low-strength"
+  },
+  {
+   "file": "run-herald-derived-tier3.json",
+   "classId": "herald",
+   "seed": 518378653,
+   "variant": "derived-tier3"
+  },
+  {
+   "file": "run-herald-derived-tier1-standard.json",
+   "classId": "herald",
+   "seed": 3172814414,
+   "variant": "derived-tier1-standard"
+  },
+  {
+   "file": "run-herald-derived-mode-rows.json",
+   "classId": "herald",
+   "seed": 1532282879,
+   "variant": "derived-mode-rows"
+  },
+  {
+   "file": "run-herald-derived-run-layers.json",
+   "classId": "herald",
+   "seed": 4186718640,
+   "variant": "derived-run-layers"
+  },
+  {
+   "file": "run-herald-derived-run-single.json",
+   "classId": "herald",
+   "seed": 2546187105,
+   "variant": "derived-run-single"
+  },
+  {
+   "file": "run-herald-derived-profiles.json",
+   "classId": "herald",
+   "seed": 905655570,
+   "variant": "derived-profiles"
+  },
+  {
+   "file": "run-herald-snapshot-other-class.json",
+   "classId": "herald",
+   "seed": 3947368248,
+   "variant": "snapshot-other-class"
+  },
+  {
+   "file": "run-herald-snapshot-ruleset3.json",
+   "classId": "herald",
+   "seed": 2306836713,
+   "variant": "snapshot-ruleset3"
+  },
+  {
+   "file": "run-herald-snapshot-ruleset2.json",
+   "classId": "herald",
+   "seed": 666305178,
+   "variant": "snapshot-ruleset2"
+  },
+  {
+   "file": "run-herald-hand-fixed.json",
+   "classId": "herald",
+   "seed": 3708017856,
+   "variant": "hand-fixed"
+  },
+  {
+   "file": "run-herald-hand-opening.json",
+   "classId": "herald",
+   "seed": 2067486321,
+   "variant": "hand-opening"
+  },
+  {
+   "file": "run-herald-hand-discard.json",
+   "classId": "herald",
+   "seed": 426954786,
+   "variant": "hand-discard"
+  },
+  {
+   "file": "run-herald-hand-ignored.json",
+   "classId": "herald",
+   "seed": 3081390547,
+   "variant": "hand-ignored"
+  },
+  {
+   "file": "run-herald-hand-reset.json",
+   "classId": "herald",
+   "seed": 1440859012,
+   "variant": "hand-reset"
   }
  ],
  "refused": [
@@ -530,6 +1076,3122 @@
     "startingRelicId": "forsakenMedallion"
    },
    "error": "starting relic 'forsakenMedallion' is unavailable to class 'herald'"
+  },
+  {
+   "classId": "reaver",
+   "seed": 2277013575,
+   "variant": "refused-attrs-mixed",
+   "options": {
+    "attributes": {
+     "strength": 3,
+     "dexterity": 1,
+     "constitution": 2,
+     "wisdom": 1,
+     "intelligence": 1,
+     "vigour": 1
+    }
+   },
+   "error": "Mixed retired attribute 'vigour' and heir 'constitution' at attributes.vigour, attributes.constitution"
+  },
+  {
+   "classId": "reaver",
+   "seed": 3290917801,
+   "variant": "refused-attrs-total",
+   "options": {
+    "attributes": {
+     "strength": 4,
+     "dexterity": 1,
+     "constitution": 2,
+     "wisdom": 1,
+     "intelligence": 1
+    }
+   },
+   "error": "attributes: total 9 must equal 8 for mode 'lean'"
+  },
+  {
+   "classId": "reaver",
+   "seed": 1650386266,
+   "variant": "refused-attrs-range",
+   "options": {
+    "attributeMode": "standard",
+    "attributes": {
+     "strength": 99,
+     "dexterity": 10,
+     "constitution": 12,
+     "wisdom": 10,
+     "intelligence": 10
+    }
+   },
+   "error": "attributes.strength: must be between 10 and 15 for mode 'standard'; attributes: total 141 must equal 55 for mode 'standard'"
+  },
+  {
+   "classId": "reaver",
+   "seed": 9854731,
+   "variant": "refused-attrs-unknown",
+   "options": {
+    "attributes": {
+     "strength": 3,
+     "dexterity": 1,
+     "constitution": 2,
+     "wisdom": 1,
+     "intelligence": 1,
+     "luck": 1
+    }
+   },
+   "error": "attributes.luck: unknown attribute id 'luck'"
+  },
+  {
+   "classId": "reaver",
+   "seed": 2664290492,
+   "variant": "refused-attrs-fraction",
+   "options": {
+    "attributes": {
+     "strength": 3,
+     "dexterity": 1.5,
+     "constitution": 1.5,
+     "wisdom": 1,
+     "intelligence": 1
+    }
+   },
+   "error": "attributes.dexterity: must be an integer; attributes.constitution: must be an integer"
+  },
+  {
+   "classId": "reaver",
+   "seed": 1023758957,
+   "variant": "refused-attrs-missing",
+   "options": {
+    "attributes": {
+     "strength": 3,
+     "dexterity": 1,
+     "constitution": 2,
+     "wisdom": 1
+    }
+   },
+   "error": "attributes.intelligence: missing attribute cell; attributes.intelligence: must be an integer"
+  },
+  {
+   "classId": "reaver",
+   "seed": 3678194718,
+   "variant": "refused-attrs-mode",
+   "options": {
+    "attributeMode": "epic",
+    "attributes": {
+     "strength": 3,
+     "dexterity": 1,
+     "constitution": 2,
+     "wisdom": 1,
+     "intelligence": 1
+    }
+   },
+   "error": "Unknown attribute creation mode 'epic'"
+  },
+  {
+   "classId": "reaver",
+   "seed": 397131648,
+   "variant": "attrs-kit-low-strength",
+   "options": {
+    "startingKitId": "reaverGreatsword",
+    "profileMeta": {
+     "discoveredArmaments": [
+      "greatsword"
+     ]
+    },
+    "attributes": {
+     "strength": 1,
+     "dexterity": 2,
+     "constitution": 2,
+     "wisdom": 2,
+     "intelligence": 1
+    }
+   },
+   "error": "reaverGreatsword.rightHand: greatsword requires strength 3 (got 1)"
+  },
+  {
+   "classId": "reaver",
+   "seed": 1798312791,
+   "variant": "refused-derived-row",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "rules": {
+       "luck": {
+        "base": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "explicitOverride: explicitOverride.rules.luck: unknown derived-stat row 'luck'"
+  },
+  {
+   "classId": "reaver",
+   "seed": 157781256,
+   "variant": "refused-derived-tier",
+   "options": {
+    "derivedStatOptions": {
+     "modeModifiers": {
+      "defaults": {
+       "pointsPerTier": 0
+      }
+     }
+    }
+   },
+   "error": "modeModifiers: modeModifiers.defaults.pointsPerTier: must be a finite number > 0"
+  },
+  {
+   "classId": "reaver",
+   "seed": 2812217017,
+   "variant": "refused-derived-field",
+   "options": {
+    "derivedStatOptions": {
+     "runModifiers": [
+      {
+       "rules": {
+        "hp": {
+         "bonus": 2
+        }
+       }
+      }
+     ]
+    }
+   },
+   "error": "runModifiers[0]: runModifiers[0].rules.hp.bonus: unknown field"
+  },
+  {
+   "classId": "reaver",
+   "seed": 1171685482,
+   "variant": "refused-derived-profile",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "equipmentProfiles": {
+       "nowhere": {
+        "baseValue": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "equipmentProfiles.nowhere: unknown profile"
+  },
+  {
+   "classId": "reaver",
+   "seed": 3826121243,
+   "variant": "refused-derived-profile-field",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "equipmentProfiles": {
+       "unarmedAttack": {
+        "damageSchool": "fire"
+       }
+      }
+     }
+    }
+   },
+   "error": "equipmentProfiles.unarmedAttack.damageSchool: unknown field"
+  },
+  {
+   "classId": "reaver",
+   "seed": 1558962399,
+   "variant": "refused-snapshot-version",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 7,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 40,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 0,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": [
+       {
+        "relicId": "forsakenMedallion",
+        "index": 0,
+        "tag": "resource.flat",
+        "resource": "hp",
+        "value": 10
+       }
+      ]
+     }
+    }
+   },
+   "error": "Unknown derived-stat snapshotVersion 7 (supported: 1, 2)"
+  },
+  {
+   "classId": "reaver",
+   "seed": 4213398160,
+   "variant": "refused-snapshot-disagrees",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 4,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 40,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 0,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": [
+       {
+        "relicId": "forsakenMedallion",
+        "index": 0,
+        "tag": "resource.flat",
+        "resource": "hp",
+        "value": 10
+       }
+      ]
+     }
+    }
+   },
+   "error": "Derived-stat snapshot rulesetVersion disagrees with its rules"
+  },
+  {
+   "classId": "reaver",
+   "seed": 2572866625,
+   "variant": "refused-snapshot-envelope",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 2,
+     "rules": {
+      "rulesetVersion": 2,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1
+       },
+       "hp": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": {
+         "strategy": "classField",
+         "field": "maxHp"
+        },
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       },
+       "stamina": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 0,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       },
+       "mana": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 0,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "Derived-stat snapshot v2 'hp' must carry numeric base and gainPerTier"
+  },
+  {
+   "classId": "reaver",
+   "seed": 932335090,
+   "variant": "refused-snapshot-envelope1",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 1,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 40,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 0,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": [
+       {
+        "relicId": "forsakenMedallion",
+        "index": 0,
+        "tag": "resource.flat",
+        "resource": "hp",
+        "value": 10
+       }
+      ]
+     }
+    }
+   },
+   "error": "Derived-stat rulesetVersion 5 requires snapshotVersion 2"
+  },
+  {
+   "classId": "reaver",
+   "seed": 3586770851,
+   "variant": "refused-snapshot-modifiers",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 40,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {},
+      "sources": []
+     }
+    }
+   },
+   "error": "Derived-stat snapshot v2 relicModifiers.damageBySchoolAdd.physical is missing"
+  },
+  {
+   "classId": "starseer",
+   "seed": 1432617323,
+   "variant": "refused-attrs-mixed",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 1,
+     "constitution": 1,
+     "wisdom": 2,
+     "intelligence": 3,
+     "vigour": 1
+    }
+   },
+   "error": "Mixed retired attribute 'vigour' and heir 'constitution' at attributes.vigour, attributes.constitution"
+  },
+  {
+   "classId": "starseer",
+   "seed": 2446521549,
+   "variant": "refused-attrs-total",
+   "options": {
+    "attributes": {
+     "strength": 2,
+     "dexterity": 1,
+     "constitution": 1,
+     "wisdom": 2,
+     "intelligence": 3
+    }
+   },
+   "error": "attributes: total 9 must equal 8 for mode 'lean'"
+  },
+  {
+   "classId": "starseer",
+   "seed": 805990014,
+   "variant": "refused-attrs-range",
+   "options": {
+    "attributeMode": "standard",
+    "attributes": {
+     "strength": 99,
+     "dexterity": 11,
+     "constitution": 10,
+     "wisdom": 10,
+     "intelligence": 14
+    }
+   },
+   "error": "attributes.strength: must be between 10 and 15 for mode 'standard'; attributes: total 144 must equal 55 for mode 'standard'"
+  },
+  {
+   "classId": "starseer",
+   "seed": 3460425775,
+   "variant": "refused-attrs-unknown",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 1,
+     "constitution": 1,
+     "wisdom": 2,
+     "intelligence": 3,
+     "luck": 1
+    }
+   },
+   "error": "attributes.luck: unknown attribute id 'luck'"
+  },
+  {
+   "classId": "starseer",
+   "seed": 1819894240,
+   "variant": "refused-attrs-fraction",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 1.5,
+     "constitution": 0.5,
+     "wisdom": 2,
+     "intelligence": 3
+    }
+   },
+   "error": "attributes.dexterity: must be an integer; attributes.constitution: must be an integer"
+  },
+  {
+   "classId": "starseer",
+   "seed": 179362705,
+   "variant": "refused-attrs-missing",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 1,
+     "constitution": 1,
+     "wisdom": 2
+    }
+   },
+   "error": "attributes.intelligence: missing attribute cell; attributes.intelligence: must be an integer"
+  },
+  {
+   "classId": "starseer",
+   "seed": 2833798466,
+   "variant": "refused-attrs-mode",
+   "options": {
+    "attributeMode": "epic",
+    "attributes": {
+     "strength": 1,
+     "dexterity": 1,
+     "constitution": 1,
+     "wisdom": 2,
+     "intelligence": 3
+    }
+   },
+   "error": "Unknown attribute creation mode 'epic'"
+  },
+  {
+   "classId": "starseer",
+   "seed": 953916539,
+   "variant": "refused-derived-row",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "rules": {
+       "luck": {
+        "base": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "explicitOverride: explicitOverride.rules.luck: unknown derived-stat row 'luck'"
+  },
+  {
+   "classId": "starseer",
+   "seed": 3608352300,
+   "variant": "refused-derived-tier",
+   "options": {
+    "derivedStatOptions": {
+     "modeModifiers": {
+      "defaults": {
+       "pointsPerTier": 0
+      }
+     }
+    }
+   },
+   "error": "modeModifiers: modeModifiers.defaults.pointsPerTier: must be a finite number > 0"
+  },
+  {
+   "classId": "starseer",
+   "seed": 1967820765,
+   "variant": "refused-derived-field",
+   "options": {
+    "derivedStatOptions": {
+     "runModifiers": [
+      {
+       "rules": {
+        "hp": {
+         "bonus": 2
+        }
+       }
+      }
+     ]
+    }
+   },
+   "error": "runModifiers[0]: runModifiers[0].rules.hp.bonus: unknown field"
+  },
+  {
+   "classId": "starseer",
+   "seed": 327289230,
+   "variant": "refused-derived-profile",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "equipmentProfiles": {
+       "nowhere": {
+        "baseValue": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "equipmentProfiles.nowhere: unknown profile"
+  },
+  {
+   "classId": "starseer",
+   "seed": 2981724991,
+   "variant": "refused-derived-profile-field",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "equipmentProfiles": {
+       "unarmedAttack": {
+        "damageSchool": "fire"
+       }
+      }
+     }
+    }
+   },
+   "error": "equipmentProfiles.unarmedAttack.damageSchool: unknown field"
+  },
+  {
+   "classId": "starseer",
+   "seed": 714566147,
+   "variant": "refused-snapshot-version",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 7,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 2,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 1,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": [
+       {
+        "relicId": "starstoneShard",
+        "index": 0,
+        "tag": "resource.flat",
+        "resource": "mana",
+        "value": 1
+       },
+       {
+        "relicId": "starstoneShard",
+        "index": 1,
+        "tag": "damage.school.flat",
+        "school": "magic",
+        "value": 1
+       }
+      ]
+     }
+    }
+   },
+   "error": "Unknown derived-stat snapshotVersion 7 (supported: 1, 2)"
+  },
+  {
+   "classId": "starseer",
+   "seed": 3369001908,
+   "variant": "refused-snapshot-disagrees",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 4,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 2,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 1,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": [
+       {
+        "relicId": "starstoneShard",
+        "index": 0,
+        "tag": "resource.flat",
+        "resource": "mana",
+        "value": 1
+       },
+       {
+        "relicId": "starstoneShard",
+        "index": 1,
+        "tag": "damage.school.flat",
+        "school": "magic",
+        "value": 1
+       }
+      ]
+     }
+    }
+   },
+   "error": "Derived-stat snapshot rulesetVersion disagrees with its rules"
+  },
+  {
+   "classId": "starseer",
+   "seed": 1728470373,
+   "variant": "refused-snapshot-envelope",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 2,
+     "rules": {
+      "rulesetVersion": 2,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1
+       },
+       "hp": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": {
+         "strategy": "classField",
+         "field": "maxHp"
+        },
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       },
+       "stamina": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 0,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       },
+       "mana": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 0,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "Derived-stat snapshot v2 'hp' must carry numeric base and gainPerTier"
+  },
+  {
+   "classId": "starseer",
+   "seed": 87938838,
+   "variant": "refused-snapshot-envelope1",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 1,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 2,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 1,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": [
+       {
+        "relicId": "starstoneShard",
+        "index": 0,
+        "tag": "resource.flat",
+        "resource": "mana",
+        "value": 1
+       },
+       {
+        "relicId": "starstoneShard",
+        "index": 1,
+        "tag": "damage.school.flat",
+        "school": "magic",
+        "value": 1
+       }
+      ]
+     }
+    }
+   },
+   "error": "Derived-stat rulesetVersion 5 requires snapshotVersion 2"
+  },
+  {
+   "classId": "starseer",
+   "seed": 2742374599,
+   "variant": "refused-snapshot-modifiers",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 2,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {},
+      "sources": []
+     }
+    }
+   },
+   "error": "Derived-stat snapshot v2 relicModifiers.damageBySchoolAdd.physical is missing"
+  },
+  {
+   "classId": "rogue",
+   "seed": 588221071,
+   "variant": "refused-attrs-mixed",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 3,
+     "constitution": 2,
+     "wisdom": 1,
+     "intelligence": 1,
+     "vigour": 1
+    }
+   },
+   "error": "Mixed retired attribute 'vigour' and heir 'constitution' at attributes.vigour, attributes.constitution"
+  },
+  {
+   "classId": "rogue",
+   "seed": 1602125297,
+   "variant": "refused-attrs-total",
+   "options": {
+    "attributes": {
+     "strength": 2,
+     "dexterity": 3,
+     "constitution": 2,
+     "wisdom": 1,
+     "intelligence": 1
+    }
+   },
+   "error": "attributes: total 9 must equal 8 for mode 'lean'"
+  },
+  {
+   "classId": "rogue",
+   "seed": 4256561058,
+   "variant": "refused-attrs-range",
+   "options": {
+    "attributeMode": "standard",
+    "attributes": {
+     "strength": 99,
+     "dexterity": 15,
+     "constitution": 10,
+     "wisdom": 10,
+     "intelligence": 10
+    }
+   },
+   "error": "attributes.strength: must be between 10 and 15 for mode 'standard'; attributes: total 144 must equal 55 for mode 'standard'"
+  },
+  {
+   "classId": "rogue",
+   "seed": 2616029523,
+   "variant": "refused-attrs-unknown",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 3,
+     "constitution": 2,
+     "wisdom": 1,
+     "intelligence": 1,
+     "luck": 1
+    }
+   },
+   "error": "attributes.luck: unknown attribute id 'luck'"
+  },
+  {
+   "classId": "rogue",
+   "seed": 975497988,
+   "variant": "refused-attrs-fraction",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 3.5,
+     "constitution": 1.5,
+     "wisdom": 1,
+     "intelligence": 1
+    }
+   },
+   "error": "attributes.dexterity: must be an integer; attributes.constitution: must be an integer"
+  },
+  {
+   "classId": "rogue",
+   "seed": 3629933749,
+   "variant": "refused-attrs-missing",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 3,
+     "constitution": 2,
+     "wisdom": 1
+    }
+   },
+   "error": "attributes.intelligence: missing attribute cell; attributes.intelligence: must be an integer"
+  },
+  {
+   "classId": "rogue",
+   "seed": 1989402214,
+   "variant": "refused-attrs-mode",
+   "options": {
+    "attributeMode": "epic",
+    "attributes": {
+     "strength": 1,
+     "dexterity": 3,
+     "constitution": 2,
+     "wisdom": 1,
+     "intelligence": 1
+    }
+   },
+   "error": "Unknown attribute creation mode 'epic'"
+  },
+  {
+   "classId": "rogue",
+   "seed": 109520287,
+   "variant": "refused-derived-row",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "rules": {
+       "luck": {
+        "base": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "explicitOverride: explicitOverride.rules.luck: unknown derived-stat row 'luck'"
+  },
+  {
+   "classId": "rogue",
+   "seed": 2763956048,
+   "variant": "refused-derived-tier",
+   "options": {
+    "derivedStatOptions": {
+     "modeModifiers": {
+      "defaults": {
+       "pointsPerTier": 0
+      }
+     }
+    }
+   },
+   "error": "modeModifiers: modeModifiers.defaults.pointsPerTier: must be a finite number > 0"
+  },
+  {
+   "classId": "rogue",
+   "seed": 1123424513,
+   "variant": "refused-derived-field",
+   "options": {
+    "derivedStatOptions": {
+     "runModifiers": [
+      {
+       "rules": {
+        "hp": {
+         "bonus": 2
+        }
+       }
+      }
+     ]
+    }
+   },
+   "error": "runModifiers[0]: runModifiers[0].rules.hp.bonus: unknown field"
+  },
+  {
+   "classId": "rogue",
+   "seed": 3777860274,
+   "variant": "refused-derived-profile",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "equipmentProfiles": {
+       "nowhere": {
+        "baseValue": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "equipmentProfiles.nowhere: unknown profile"
+  },
+  {
+   "classId": "rogue",
+   "seed": 2137328739,
+   "variant": "refused-derived-profile-field",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "equipmentProfiles": {
+       "unarmedAttack": {
+        "damageSchool": "fire"
+       }
+      }
+     }
+    }
+   },
+   "error": "equipmentProfiles.unarmedAttack.damageSchool: unknown field"
+  },
+  {
+   "classId": "rogue",
+   "seed": 4165137191,
+   "variant": "refused-snapshot-version",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 7,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 0,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": []
+     }
+    }
+   },
+   "error": "Unknown derived-stat snapshotVersion 7 (supported: 1, 2)"
+  },
+  {
+   "classId": "rogue",
+   "seed": 2524605656,
+   "variant": "refused-snapshot-disagrees",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 4,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 0,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": []
+     }
+    }
+   },
+   "error": "Derived-stat snapshot rulesetVersion disagrees with its rules"
+  },
+  {
+   "classId": "rogue",
+   "seed": 884074121,
+   "variant": "refused-snapshot-envelope",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 2,
+     "rules": {
+      "rulesetVersion": 2,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1
+       },
+       "hp": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": {
+         "strategy": "classField",
+         "field": "maxHp"
+        },
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       },
+       "stamina": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 0,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       },
+       "mana": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 0,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "Derived-stat snapshot v2 'hp' must carry numeric base and gainPerTier"
+  },
+  {
+   "classId": "rogue",
+   "seed": 3538509882,
+   "variant": "refused-snapshot-envelope1",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 1,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 0,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": []
+     }
+    }
+   },
+   "error": "Derived-stat rulesetVersion 5 requires snapshotVersion 2"
+  },
+  {
+   "classId": "rogue",
+   "seed": 1897978347,
+   "variant": "refused-snapshot-modifiers",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {},
+      "sources": []
+     }
+    }
+   },
+   "error": "Derived-stat snapshot v2 relicModifiers.damageBySchoolAdd.physical is missing"
+  },
+  {
+   "classId": "herald",
+   "seed": 4038792115,
+   "variant": "refused-attrs-mixed",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 1,
+     "constitution": 2,
+     "wisdom": 3,
+     "intelligence": 1,
+     "vigour": 1
+    }
+   },
+   "error": "Mixed retired attribute 'vigour' and heir 'constitution' at attributes.vigour, attributes.constitution"
+  },
+  {
+   "classId": "herald",
+   "seed": 757729045,
+   "variant": "refused-attrs-total",
+   "options": {
+    "attributes": {
+     "strength": 2,
+     "dexterity": 1,
+     "constitution": 2,
+     "wisdom": 3,
+     "intelligence": 1
+    }
+   },
+   "error": "attributes: total 9 must equal 8 for mode 'lean'"
+  },
+  {
+   "classId": "herald",
+   "seed": 3412164806,
+   "variant": "refused-attrs-range",
+   "options": {
+    "attributeMode": "standard",
+    "attributes": {
+     "strength": 99,
+     "dexterity": 10,
+     "constitution": 12,
+     "wisdom": 13,
+     "intelligence": 10
+    }
+   },
+   "error": "attributes.strength: must be between 10 and 15 for mode 'standard'; attributes: total 144 must equal 55 for mode 'standard'"
+  },
+  {
+   "classId": "herald",
+   "seed": 1771633271,
+   "variant": "refused-attrs-unknown",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 1,
+     "constitution": 2,
+     "wisdom": 3,
+     "intelligence": 1,
+     "luck": 1
+    }
+   },
+   "error": "attributes.luck: unknown attribute id 'luck'"
+  },
+  {
+   "classId": "herald",
+   "seed": 131101736,
+   "variant": "refused-attrs-fraction",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 1.5,
+     "constitution": 1.5,
+     "wisdom": 3,
+     "intelligence": 1
+    }
+   },
+   "error": "attributes.dexterity: must be an integer; attributes.constitution: must be an integer"
+  },
+  {
+   "classId": "herald",
+   "seed": 2785537497,
+   "variant": "refused-attrs-missing",
+   "options": {
+    "attributes": {
+     "strength": 1,
+     "dexterity": 1,
+     "constitution": 2,
+     "wisdom": 3
+    }
+   },
+   "error": "attributes.intelligence: missing attribute cell; attributes.intelligence: must be an integer"
+  },
+  {
+   "classId": "herald",
+   "seed": 1145005962,
+   "variant": "refused-attrs-mode",
+   "options": {
+    "attributeMode": "epic",
+    "attributes": {
+     "strength": 1,
+     "dexterity": 1,
+     "constitution": 2,
+     "wisdom": 3,
+     "intelligence": 1
+    }
+   },
+   "error": "Unknown attribute creation mode 'epic'"
+  },
+  {
+   "classId": "herald",
+   "seed": 3560091331,
+   "variant": "refused-derived-row",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "rules": {
+       "luck": {
+        "base": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "explicitOverride: explicitOverride.rules.luck: unknown derived-stat row 'luck'"
+  },
+  {
+   "classId": "herald",
+   "seed": 1919559796,
+   "variant": "refused-derived-tier",
+   "options": {
+    "derivedStatOptions": {
+     "modeModifiers": {
+      "defaults": {
+       "pointsPerTier": 0
+      }
+     }
+    }
+   },
+   "error": "modeModifiers: modeModifiers.defaults.pointsPerTier: must be a finite number > 0"
+  },
+  {
+   "classId": "herald",
+   "seed": 279028261,
+   "variant": "refused-derived-field",
+   "options": {
+    "derivedStatOptions": {
+     "runModifiers": [
+      {
+       "rules": {
+        "hp": {
+         "bonus": 2
+        }
+       }
+      }
+     ]
+    }
+   },
+   "error": "runModifiers[0]: runModifiers[0].rules.hp.bonus: unknown field"
+  },
+  {
+   "classId": "herald",
+   "seed": 2933464022,
+   "variant": "refused-derived-profile",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "equipmentProfiles": {
+       "nowhere": {
+        "baseValue": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "equipmentProfiles.nowhere: unknown profile"
+  },
+  {
+   "classId": "herald",
+   "seed": 1292932487,
+   "variant": "refused-derived-profile-field",
+   "options": {
+    "derivedStatOptions": {
+     "explicitOverride": {
+      "equipmentProfiles": {
+       "unarmedAttack": {
+        "damageSchool": "fire"
+       }
+      }
+     }
+    }
+   },
+   "error": "equipmentProfiles.unarmedAttack.damageSchool: unknown field"
+  },
+  {
+   "classId": "herald",
+   "seed": 3320740939,
+   "variant": "refused-snapshot-version",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 7,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 0,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": []
+     }
+    }
+   },
+   "error": "Unknown derived-stat snapshotVersion 7 (supported: 1, 2)"
+  },
+  {
+   "classId": "herald",
+   "seed": 1680209404,
+   "variant": "refused-snapshot-disagrees",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 4,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 0,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": []
+     }
+    }
+   },
+   "error": "Derived-stat snapshot rulesetVersion disagrees with its rules"
+  },
+  {
+   "classId": "herald",
+   "seed": 39677869,
+   "variant": "refused-snapshot-envelope",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 2,
+     "rules": {
+      "rulesetVersion": 2,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1
+       },
+       "hp": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": {
+         "strategy": "classField",
+         "field": "maxHp"
+        },
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       },
+       "stamina": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 0,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       },
+       "mana": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 0,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1
+       }
+      }
+     }
+    }
+   },
+   "error": "Derived-stat snapshot v2 'hp' must carry numeric base and gainPerTier"
+  },
+  {
+   "classId": "herald",
+   "seed": 2694113630,
+   "variant": "refused-snapshot-envelope1",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 1,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {
+       "physical": 0,
+       "magic": 0,
+       "arcane": 0,
+       "holy": 0,
+       "fire": 0
+      },
+      "sources": []
+     }
+    }
+   },
+   "error": "Derived-stat rulesetVersion 5 requires snapshotVersion 2"
+  },
+  {
+   "classId": "herald",
+   "seed": 1053582095,
+   "variant": "refused-snapshot-modifiers",
+   "options": {
+    "derivedStatRuleSnapshot": {
+     "snapshotVersion": 2,
+     "rulesetVersion": 5,
+     "rules": {
+      "rulesetVersion": 5,
+      "defaults": {
+       "pointsPerTier": 5,
+       "rounding": "floor",
+       "cap": null
+      },
+      "rules": {
+       "energy": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "dexterity",
+        "gainPerTier": 1
+       },
+       "draw": {
+        "pointsPerTier": 5,
+        "rounding": "floor",
+        "cap": null,
+        "base": 3,
+        "sourceStat": "intelligence",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 10,
+         "gain": 1
+        }
+       },
+       "hp": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 30,
+        "sourceStat": "constitution",
+        "gainPerTier": 4,
+        "perLevel": {
+         "every": 5,
+         "gain": 5
+        }
+       },
+       "stamina": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "mana": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "wisdom",
+        "gainPerTier": 1,
+        "perLevel": {
+         "every": 5,
+         "gain": 1
+        }
+       },
+       "poise": {
+        "pointsPerTier": 1,
+        "rounding": "floor",
+        "cap": null,
+        "base": 1,
+        "sourceStat": "constitution",
+        "gainPerTier": 1
+       }
+      }
+     },
+     "relicModifiers": {
+      "damageBySchoolAdd": {},
+      "sources": []
+     }
+    }
+   },
+   "error": "Derived-stat snapshot v2 relicModifiers.damageBySchoolAdd.physical is missing"
+  }
+ ],
+ "restores": [
+  {
+   "file": "restore-reaver-current.json",
+   "classId": "reaver",
+   "label": "current",
+   "source": "created"
+  },
+  {
+   "file": "restore-reaver-wounded.json",
+   "classId": "reaver",
+   "label": "wounded",
+   "source": "created"
+  },
+  {
+   "file": "restore-reaver-v4-pools.json",
+   "classId": "reaver",
+   "label": "v4-pools",
+   "source": "created"
+  },
+  {
+   "file": "restore-reaver-v3-cursed.json",
+   "classId": "reaver",
+   "label": "v3-cursed",
+   "source": "created"
+  },
+  {
+   "file": "restore-reaver-legacy-no-snapshot.json",
+   "classId": "reaver",
+   "label": "legacy-no-snapshot",
+   "source": "created"
+  },
+  {
+   "file": "restore-reaver-legacy-level6.json",
+   "classId": "reaver",
+   "label": "legacy-level6",
+   "source": "created"
+  },
+  {
+   "file": "restore-reaver-equipped-v4.json",
+   "classId": "reaver",
+   "label": "equipped-v4",
+   "source": "created"
+  },
+  {
+   "file": "restore-reaver-old-ruleset.json",
+   "classId": "reaver",
+   "label": "old-ruleset",
+   "source": "created"
+  },
+  {
+   "file": "restore-reaver-damage-absent.json",
+   "classId": "reaver",
+   "label": "damage-absent",
+   "source": "created"
+  },
+  {
+   "file": "restore-reaver-refused-mana.json",
+   "classId": "reaver",
+   "label": "refused-mana",
+   "source": "created",
+   "error": "Persisted maxMana 3 contradicts derived-stat snapshot value 2"
+  },
+  {
+   "file": "restore-reaver-refused-maxhp.json",
+   "classId": "reaver",
+   "label": "refused-maxhp",
+   "source": "created",
+   "error": "Persisted maxHp 50 contradicts derived-stat snapshot/equipment/adjustment value 48"
+  },
+  {
+   "file": "restore-reaver-refused-energy.json",
+   "classId": "reaver",
+   "label": "refused-energy",
+   "source": "created",
+   "error": "Persisted energyMax must be a non-negative integer under its derived-stat snapshot"
+  },
+  {
+   "file": "restore-reaver-refused-adjustment.json",
+   "classId": "reaver",
+   "label": "refused-adjustment",
+   "source": "created",
+   "error": "Persisted maxHpAdjustment must be an integer (got 1.5)"
+  },
+  {
+   "file": "restore-reaver-refused-adjustment-null.json",
+   "classId": "reaver",
+   "label": "refused-adjustment-null",
+   "source": "created",
+   "error": "Persisted maxHpAdjustment must be an integer (got null)"
+  },
+  {
+   "file": "restore-reaver-refused-deficit.json",
+   "classId": "reaver",
+   "label": "refused-deficit",
+   "source": "created",
+   "error": "Persisted equipmentPoolDeficits.hp must be a non-negative integer"
+  },
+  {
+   "file": "restore-reaver-refused-bonus.json",
+   "classId": "reaver",
+   "label": "refused-bonus",
+   "source": "created",
+   "error": "Persisted equipmentPoolBonuses.maxHp must be an integer"
+  },
+  {
+   "file": "restore-reaver-refused-snapshot.json",
+   "classId": "reaver",
+   "label": "refused-snapshot",
+   "source": "created",
+   "error": "Unknown derived-stat snapshotVersion 7 (supported: 1, 2)"
+  },
+  {
+   "file": "restore-reaver-refused-damage.json",
+   "classId": "reaver",
+   "label": "refused-damage",
+   "source": "created",
+   "error": "Persisted damageBySchoolAdd.fire contradicts host relic snapshot"
+  },
+  {
+   "file": "restore-starseer-current.json",
+   "classId": "starseer",
+   "label": "current",
+   "source": "created"
+  },
+  {
+   "file": "restore-starseer-wounded.json",
+   "classId": "starseer",
+   "label": "wounded",
+   "source": "created"
+  },
+  {
+   "file": "restore-starseer-v4-pools.json",
+   "classId": "starseer",
+   "label": "v4-pools",
+   "source": "created"
+  },
+  {
+   "file": "restore-starseer-v3-cursed.json",
+   "classId": "starseer",
+   "label": "v3-cursed",
+   "source": "created"
+  },
+  {
+   "file": "restore-starseer-legacy-no-snapshot.json",
+   "classId": "starseer",
+   "label": "legacy-no-snapshot",
+   "source": "created"
+  },
+  {
+   "file": "restore-starseer-legacy-level6.json",
+   "classId": "starseer",
+   "label": "legacy-level6",
+   "source": "created"
+  },
+  {
+   "file": "restore-starseer-equipped-v4.json",
+   "classId": "starseer",
+   "label": "equipped-v4",
+   "source": "created"
+  },
+  {
+   "file": "restore-starseer-old-ruleset.json",
+   "classId": "starseer",
+   "label": "old-ruleset",
+   "source": "created"
+  },
+  {
+   "file": "restore-starseer-damage-absent.json",
+   "classId": "starseer",
+   "label": "damage-absent",
+   "source": "created"
+  },
+  {
+   "file": "restore-starseer-refused-mana.json",
+   "classId": "starseer",
+   "label": "refused-mana",
+   "source": "created",
+   "error": "Persisted maxMana 5 contradicts derived-stat snapshot value 4"
+  },
+  {
+   "file": "restore-starseer-refused-maxhp.json",
+   "classId": "starseer",
+   "label": "refused-maxhp",
+   "source": "created",
+   "error": "Persisted maxHp 36 contradicts derived-stat snapshot/equipment/adjustment value 34"
+  },
+  {
+   "file": "restore-starseer-refused-energy.json",
+   "classId": "starseer",
+   "label": "refused-energy",
+   "source": "created",
+   "error": "Persisted energyMax must be a non-negative integer under its derived-stat snapshot"
+  },
+  {
+   "file": "restore-starseer-refused-adjustment.json",
+   "classId": "starseer",
+   "label": "refused-adjustment",
+   "source": "created",
+   "error": "Persisted maxHpAdjustment must be an integer (got 1.5)"
+  },
+  {
+   "file": "restore-starseer-refused-adjustment-null.json",
+   "classId": "starseer",
+   "label": "refused-adjustment-null",
+   "source": "created",
+   "error": "Persisted maxHpAdjustment must be an integer (got null)"
+  },
+  {
+   "file": "restore-starseer-refused-deficit.json",
+   "classId": "starseer",
+   "label": "refused-deficit",
+   "source": "created",
+   "error": "Persisted equipmentPoolDeficits.hp must be a non-negative integer"
+  },
+  {
+   "file": "restore-starseer-refused-bonus.json",
+   "classId": "starseer",
+   "label": "refused-bonus",
+   "source": "created",
+   "error": "Persisted equipmentPoolBonuses.maxHp must be an integer"
+  },
+  {
+   "file": "restore-starseer-refused-snapshot.json",
+   "classId": "starseer",
+   "label": "refused-snapshot",
+   "source": "created",
+   "error": "Unknown derived-stat snapshotVersion 7 (supported: 1, 2)"
+  },
+  {
+   "file": "restore-starseer-refused-damage.json",
+   "classId": "starseer",
+   "label": "refused-damage",
+   "source": "created",
+   "error": "Persisted damageBySchoolAdd.fire contradicts host relic snapshot"
+  },
+  {
+   "file": "restore-rogue-current.json",
+   "classId": "rogue",
+   "label": "current",
+   "source": "created"
+  },
+  {
+   "file": "restore-rogue-wounded.json",
+   "classId": "rogue",
+   "label": "wounded",
+   "source": "created"
+  },
+  {
+   "file": "restore-rogue-v4-pools.json",
+   "classId": "rogue",
+   "label": "v4-pools",
+   "source": "created"
+  },
+  {
+   "file": "restore-rogue-v3-cursed.json",
+   "classId": "rogue",
+   "label": "v3-cursed",
+   "source": "created"
+  },
+  {
+   "file": "restore-rogue-legacy-no-snapshot.json",
+   "classId": "rogue",
+   "label": "legacy-no-snapshot",
+   "source": "created"
+  },
+  {
+   "file": "restore-rogue-legacy-level6.json",
+   "classId": "rogue",
+   "label": "legacy-level6",
+   "source": "created"
+  },
+  {
+   "file": "restore-rogue-equipped-v4.json",
+   "classId": "rogue",
+   "label": "equipped-v4",
+   "source": "created"
+  },
+  {
+   "file": "restore-rogue-old-ruleset.json",
+   "classId": "rogue",
+   "label": "old-ruleset",
+   "source": "created"
+  },
+  {
+   "file": "restore-rogue-damage-absent.json",
+   "classId": "rogue",
+   "label": "damage-absent",
+   "source": "created"
+  },
+  {
+   "file": "restore-rogue-refused-mana.json",
+   "classId": "rogue",
+   "label": "refused-mana",
+   "source": "created",
+   "error": "Persisted maxMana 3 contradicts derived-stat snapshot value 2"
+  },
+  {
+   "file": "restore-rogue-refused-maxhp.json",
+   "classId": "rogue",
+   "label": "refused-maxhp",
+   "source": "created",
+   "error": "Persisted maxHp 40 contradicts derived-stat snapshot/equipment/adjustment value 38"
+  },
+  {
+   "file": "restore-rogue-refused-energy.json",
+   "classId": "rogue",
+   "label": "refused-energy",
+   "source": "created",
+   "error": "Persisted energyMax must be a non-negative integer under its derived-stat snapshot"
+  },
+  {
+   "file": "restore-rogue-refused-adjustment.json",
+   "classId": "rogue",
+   "label": "refused-adjustment",
+   "source": "created",
+   "error": "Persisted maxHpAdjustment must be an integer (got 1.5)"
+  },
+  {
+   "file": "restore-rogue-refused-adjustment-null.json",
+   "classId": "rogue",
+   "label": "refused-adjustment-null",
+   "source": "created",
+   "error": "Persisted maxHpAdjustment must be an integer (got null)"
+  },
+  {
+   "file": "restore-rogue-refused-deficit.json",
+   "classId": "rogue",
+   "label": "refused-deficit",
+   "source": "created",
+   "error": "Persisted equipmentPoolDeficits.hp must be a non-negative integer"
+  },
+  {
+   "file": "restore-rogue-refused-bonus.json",
+   "classId": "rogue",
+   "label": "refused-bonus",
+   "source": "created",
+   "error": "Persisted equipmentPoolBonuses.maxHp must be an integer"
+  },
+  {
+   "file": "restore-rogue-refused-snapshot.json",
+   "classId": "rogue",
+   "label": "refused-snapshot",
+   "source": "created",
+   "error": "Unknown derived-stat snapshotVersion 7 (supported: 1, 2)"
+  },
+  {
+   "file": "restore-rogue-refused-damage.json",
+   "classId": "rogue",
+   "label": "refused-damage",
+   "source": "created",
+   "error": "Persisted damageBySchoolAdd.fire contradicts host relic snapshot"
+  },
+  {
+   "file": "restore-herald-current.json",
+   "classId": "herald",
+   "label": "current",
+   "source": "created"
+  },
+  {
+   "file": "restore-herald-wounded.json",
+   "classId": "herald",
+   "label": "wounded",
+   "source": "created"
+  },
+  {
+   "file": "restore-herald-v4-pools.json",
+   "classId": "herald",
+   "label": "v4-pools",
+   "source": "created"
+  },
+  {
+   "file": "restore-herald-v3-cursed.json",
+   "classId": "herald",
+   "label": "v3-cursed",
+   "source": "created"
+  },
+  {
+   "file": "restore-herald-legacy-no-snapshot.json",
+   "classId": "herald",
+   "label": "legacy-no-snapshot",
+   "source": "created"
+  },
+  {
+   "file": "restore-herald-legacy-level6.json",
+   "classId": "herald",
+   "label": "legacy-level6",
+   "source": "created"
+  },
+  {
+   "file": "restore-herald-equipped-v4.json",
+   "classId": "herald",
+   "label": "equipped-v4",
+   "source": "created"
+  },
+  {
+   "file": "restore-herald-old-ruleset.json",
+   "classId": "herald",
+   "label": "old-ruleset",
+   "source": "created"
+  },
+  {
+   "file": "restore-herald-damage-absent.json",
+   "classId": "herald",
+   "label": "damage-absent",
+   "source": "created"
+  },
+  {
+   "file": "restore-herald-refused-mana.json",
+   "classId": "herald",
+   "label": "refused-mana",
+   "source": "created",
+   "error": "Persisted maxMana 5 contradicts derived-stat snapshot value 4"
+  },
+  {
+   "file": "restore-herald-refused-maxhp.json",
+   "classId": "herald",
+   "label": "refused-maxhp",
+   "source": "created",
+   "error": "Persisted maxHp 40 contradicts derived-stat snapshot/equipment/adjustment value 38"
+  },
+  {
+   "file": "restore-herald-refused-energy.json",
+   "classId": "herald",
+   "label": "refused-energy",
+   "source": "created",
+   "error": "Persisted energyMax must be a non-negative integer under its derived-stat snapshot"
+  },
+  {
+   "file": "restore-herald-refused-adjustment.json",
+   "classId": "herald",
+   "label": "refused-adjustment",
+   "source": "created",
+   "error": "Persisted maxHpAdjustment must be an integer (got 1.5)"
+  },
+  {
+   "file": "restore-herald-refused-adjustment-null.json",
+   "classId": "herald",
+   "label": "refused-adjustment-null",
+   "source": "created",
+   "error": "Persisted maxHpAdjustment must be an integer (got null)"
+  },
+  {
+   "file": "restore-herald-refused-deficit.json",
+   "classId": "herald",
+   "label": "refused-deficit",
+   "source": "created",
+   "error": "Persisted equipmentPoolDeficits.hp must be a non-negative integer"
+  },
+  {
+   "file": "restore-herald-refused-bonus.json",
+   "classId": "herald",
+   "label": "refused-bonus",
+   "source": "created",
+   "error": "Persisted equipmentPoolBonuses.maxHp must be an integer"
+  },
+  {
+   "file": "restore-herald-refused-snapshot.json",
+   "classId": "herald",
+   "label": "refused-snapshot",
+   "source": "created",
+   "error": "Unknown derived-stat snapshotVersion 7 (supported: 1, 2)"
+  },
+  {
+   "file": "restore-herald-refused-damage.json",
+   "classId": "herald",
+   "label": "refused-damage",
+   "source": "created",
+   "error": "Persisted damageBySchoolAdd.fire contradicts host relic snapshot"
+  },
+  {
+   "file": "restore-reaver-fixture-hp-5597166.json",
+   "classId": "reaver",
+   "label": "fixture-hp-5597166",
+   "source": "tests/fixtures/run-save-hp-5597166.json"
+  },
+  {
+   "file": "restore-reaver-fixture-constitution-acb8ffe.json",
+   "classId": "reaver",
+   "label": "fixture-constitution-acb8ffe",
+   "source": "tests/fixtures/run-save-constitution-acb8ffe.json"
   }
  ]
 }
