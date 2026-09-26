@@ -1,0 +1,5 @@
+{
+  "$id": "strings/app.en.json",
+  "type": "object",
+  "additionalProperties": { "type": "string" }
+}

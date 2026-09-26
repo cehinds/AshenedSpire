@@ -1,0 +1,55 @@
+{
+  "$id": "catalog/unlocks.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "condition": {
+        "type": "string",
+        "enum": [
+          "beatBoss",
+          "reachAct",
+          "winAsClass",
+          "winRuns"
+        ]
+      },
+      "id": {
+        "type": "string"
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "character",
+          "outfit",
+          "slot"
+        ]
+      },
+      "param": {
+        "type": [
+          "integer",
+          "string"
+        ]
+      },
+      "ref": {
+        "type": "string"
+      },
+      "reveal": {
+        "type": "string",
+        "enum": [
+          "hidden",
+          "listed",
+          "teased"
+        ]
+      }
+    },
+    "required": [
+      "condition",
+      "id",
+      "kind",
+      "param",
+      "ref",
+      "reveal"
+    ]
+  }
+}

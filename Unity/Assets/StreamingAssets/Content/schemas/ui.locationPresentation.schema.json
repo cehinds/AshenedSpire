@@ -1,0 +1,181 @@
+{
+  "$id": "ui/locationPresentation.json",
+  "type": "object",
+  "properties": {
+    "music": {
+      "type": "array",
+      "items": {}
+    },
+    "musicProfiles": {
+      "type": "array",
+      "items": {}
+    },
+    "nodeProfiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "nodeId": {
+            "type": "string"
+          },
+          "profileId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId",
+          "profileId"
+        ]
+      }
+    },
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "profileId": {
+            "type": "string"
+          },
+          "regionId": {
+            "type": "string",
+            "enum": [
+              "ashen-crown",
+              "cinder-reach",
+              "drowned-coast",
+              "hollow-weald",
+              "pale-marches"
+            ]
+          },
+          "settingId": {
+            "type": "string",
+            "enum": [
+              "city",
+              "dungeon",
+              "forest",
+              "mine",
+              "road",
+              "shore"
+            ]
+          }
+        },
+        "required": [
+          "profileId",
+          "regionId",
+          "settingId"
+        ]
+      }
+    },
+    "sceneProfiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "profileId": {
+            "type": "string"
+          },
+          "sceneId": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "profileId",
+          "sceneId",
+          "weight"
+        ]
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sceneId": {
+            "type": "string"
+          },
+          "timeId": {
+            "type": "string",
+            "enum": [
+              "day",
+              "night"
+            ]
+          },
+          "weatherId": {
+            "type": "string",
+            "enum": [
+              "any"
+            ]
+          }
+        },
+        "required": [
+          "sceneId",
+          "timeId",
+          "weatherId"
+        ]
+      }
+    },
+    "settings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "settingId": {
+            "type": "string",
+            "enum": [
+              "city",
+              "dungeon",
+              "forest",
+              "mine",
+              "road",
+              "shore"
+            ]
+          }
+        },
+        "required": [
+          "settingId"
+        ]
+      }
+    },
+    "times": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "timeId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "timeId"
+        ]
+      }
+    },
+    "weather": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "weatherId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "weatherId"
+        ]
+      }
+    }
+  },
+  "required": [
+    "music",
+    "musicProfiles",
+    "nodeProfiles",
+    "profiles",
+    "sceneProfiles",
+    "scenes",
+    "settings",
+    "times",
+    "weather"
+  ]
+}

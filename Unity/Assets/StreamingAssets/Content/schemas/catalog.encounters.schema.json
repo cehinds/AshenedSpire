@@ -1,0 +1,77 @@
+{
+  "$id": "catalog/encounters.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "enemies": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "x-ref": "catalog/enemies.json"
+        }
+      },
+      "floorBand": {
+        "type": "object",
+        "properties": {
+          "max": {
+            "type": "integer"
+          },
+          "min": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "max",
+          "min"
+        ]
+      },
+      "id": {
+        "type": "string"
+      },
+      "pool": {
+        "type": "string",
+        "enum": [
+          "boss",
+          "elite",
+          "normal"
+        ]
+      },
+      "seat": {
+        "type": [
+          "null",
+          "string"
+        ],
+        "x-ref": "catalog/seats.json"
+      },
+      "targetBand": {
+        "type": "object",
+        "properties": {
+          "max": {
+            "type": "integer"
+          },
+          "min": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "max",
+          "min"
+        ]
+      },
+      "weight": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "enemies",
+      "floorBand",
+      "id",
+      "pool",
+      "seat",
+      "targetBand",
+      "weight"
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$id": "tags/nodeTerms.json",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "nodeId": {
+            "type": "string"
+          },
+          "playerTermId": {
+            "type": "string"
+          },
+          "template": {
+            "type": "string"
+          },
+          "tooltipTermId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId",
+          "playerTermId",
+          "template",
+          "tooltipTermId"
+        ]
+      }
+    }
+  },
+  "required": [
+    "rows"
+  ]
+}

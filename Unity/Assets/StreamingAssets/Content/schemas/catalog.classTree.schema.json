@@ -1,0 +1,25 @@
+{
+  "$id": "catalog/classTree.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "classId": {
+        "type": "string",
+        "x-ref": "catalog/classes.json"
+      },
+      "nodeId": {
+        "type": "string"
+      },
+      "tier": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "classId",
+      "nodeId",
+      "tier"
+    ]
+  }
+}

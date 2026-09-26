@@ -1,0 +1,42 @@
+{
+  "$id": "tags/nodeRelations.json",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "precedence": {
+            "type": "integer"
+          },
+          "relation": {
+            "type": "string",
+            "enum": [
+              "CONFLICTS_WITH",
+              "INHERITS",
+              "PERMITS",
+              "REQUIRES",
+              "SUPPRESSES"
+            ]
+          },
+          "sourceId": {
+            "type": "string"
+          },
+          "targetId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "precedence",
+          "relation",
+          "sourceId",
+          "targetId"
+        ]
+      }
+    }
+  },
+  "required": [
+    "rows"
+  ]
+}

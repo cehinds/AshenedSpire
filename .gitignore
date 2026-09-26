@@ -1,0 +1,30 @@
+# Unity
+/Unity/[Ll]ibrary/
+/Unity/[Tt]emp/
+/Unity/[Oo]bj/
+/Unity/[Ll]ogs/
+/Unity/[Uu]ser[Ss]ettings/
+/Unity/[Bb]uild/
+/Unity/[Bb]uilds/
+/Unity/MemoryCaptures/
+/Unity/*.csproj
+/Unity/*.sln
+/Unity/*.slnx
+/Unity/.vs/
+/Unity/.vsconfig
+# Generated PNGs from the old repo are rebuilt by Tools/import-assets (D-018); their .meta files ARE committed
+/Unity/Assets/Art/Imported/**/*.png
+# Build outputs are never committed (LFS budget exhausted)
+/Build/
+/Builds/
+/Logs/
+/Tools/export/raw/
+/Tools/export/effective/
+# .NET
+**/bin/
+**/obj/
+*.user
+# Scratch
+/.scratch/
+node_modules/
+/.cache/

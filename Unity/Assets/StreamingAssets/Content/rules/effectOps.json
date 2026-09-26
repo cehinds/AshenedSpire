@@ -1,0 +1,37 @@
+{
+  "comment": "Authoritative effect-op vocabulary (docs/design/08 \u00a77). Codegen emits the EffectOp enum from 'ops' IN ORDER (append new ops at the end to keep enum values stable). 'containers' are the keys whose arrays hold effect objects; the validator checks 'op' only there. Adding an op: append it here, run Tools/codegen.mjs, implement IEffectOp, add a test.",
+  "ops": [
+    "addCard",
+    "addCardToDeck",
+    "addCinders",
+    "addRelic",
+    "applyStatus",
+    "arcaneBuildup",
+    "block",
+    "damage",
+    "discard",
+    "dodgeRoll",
+    "draw",
+    "enterStance",
+    "gainEnergy",
+    "heal",
+    "loseHp",
+    "loseMaxHpPct",
+    "poiseDamage",
+    "refillFlasks",
+    "removeCardFromDeck",
+    "removeStatus",
+    "restoreMana",
+    "restoreStamina",
+    "startCombat",
+    "swapClass",
+    "upgradeCard",
+    "addFlaskCapacity"
+  ],
+  "containers": [
+    "do",
+    "effects",
+    "onEnter",
+    "onFill"
+  ]
+}

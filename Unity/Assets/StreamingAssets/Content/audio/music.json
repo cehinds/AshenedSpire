@@ -1,0 +1,336 @@
+{
+  "BEDS": {
+    "boss": {
+      "drone": true,
+      "gain": 0.6,
+      "pulse": true,
+      "variants": [
+        {
+          "cadence": 1000,
+          "lift": 2,
+          "root": 98,
+          "scale": "dread",
+          "wave": "sawtooth"
+        },
+        {
+          "cadence": 900,
+          "lift": 3,
+          "root": 92.5,
+          "scale": "wrath",
+          "wave": "square"
+        },
+        {
+          "cadence": 950,
+          "lift": 4,
+          "root": 87.31,
+          "scale": "wrath",
+          "wave": "sawtooth"
+        },
+        {
+          "cadence": 860,
+          "lift": 2,
+          "root": 82.41,
+          "scale": "dread",
+          "wave": "square"
+        },
+        {
+          "cadence": 920,
+          "lift": 3,
+          "root": 103.83,
+          "scale": "wrath",
+          "wave": "sawtooth"
+        }
+      ]
+    },
+    "combat": {
+      "drone": true,
+      "gain": 0.5,
+      "pulse": true,
+      "variants": [
+        {
+          "cadence": 1500,
+          "lift": 3,
+          "root": 130.81,
+          "scale": "tense",
+          "wave": "triangle"
+        },
+        {
+          "cadence": 1300,
+          "lift": 2,
+          "root": 123.47,
+          "scale": "dread",
+          "wave": "square"
+        },
+        {
+          "cadence": 1400,
+          "lift": 4,
+          "root": 146.83,
+          "scale": "tense",
+          "wave": "triangle"
+        },
+        {
+          "cadence": 1250,
+          "lift": 3,
+          "root": 138.59,
+          "scale": "tense",
+          "wave": "sawtooth"
+        },
+        {
+          "cadence": 1350,
+          "lift": 5,
+          "root": 130.81,
+          "scale": "veiled",
+          "wave": "triangle"
+        },
+        {
+          "cadence": 1200,
+          "lift": 2,
+          "root": 155.56,
+          "scale": "dread",
+          "wave": "square"
+        }
+      ]
+    },
+    "elite": {
+      "drone": true,
+      "gain": 0.55,
+      "pulse": true,
+      "variants": [
+        {
+          "cadence": 1150,
+          "lift": 3,
+          "root": 110,
+          "scale": "tense",
+          "wave": "sawtooth"
+        },
+        {
+          "cadence": 1050,
+          "lift": 2,
+          "root": 103.83,
+          "scale": "dread",
+          "wave": "square"
+        },
+        {
+          "cadence": 1100,
+          "lift": 4,
+          "root": 116.54,
+          "scale": "wrath",
+          "wave": "sawtooth"
+        },
+        {
+          "cadence": 1000,
+          "lift": 3,
+          "root": 98,
+          "scale": "wrath",
+          "wave": "square"
+        }
+      ]
+    },
+    "map": {
+      "drone": true,
+      "gain": 0.42,
+      "variants": [
+        {
+          "cadence": 2200,
+          "lift": 3,
+          "root": 164.81,
+          "scale": "calm",
+          "wave": "triangle"
+        },
+        {
+          "cadence": 2500,
+          "lift": 4,
+          "root": 155.56,
+          "scale": "calm",
+          "wave": "sine"
+        },
+        {
+          "cadence": 2000,
+          "lift": 2,
+          "root": 174.61,
+          "scale": "dread",
+          "wave": "triangle"
+        },
+        {
+          "cadence": 2350,
+          "lift": 3,
+          "root": 146.83,
+          "scale": "veiled",
+          "wave": "sine"
+        }
+      ]
+    },
+    "quiet": "silence",
+    "rest": {
+      "drone": true,
+      "gain": 0.34,
+      "variants": [
+        {
+          "cadence": 3200,
+          "lift": 3,
+          "root": 130.81,
+          "scale": "calm",
+          "wave": "sine"
+        },
+        {
+          "cadence": 3000,
+          "lift": 2,
+          "root": 146.83,
+          "scale": "hymn",
+          "wave": "sine"
+        },
+        {
+          "cadence": 3400,
+          "lift": 3,
+          "root": 123.47,
+          "scale": "veiled",
+          "wave": "triangle"
+        }
+      ]
+    },
+    "shop": {
+      "drone": true,
+      "gain": 0.4,
+      "variants": [
+        {
+          "cadence": 2200,
+          "lift": 3,
+          "root": 196,
+          "scale": "hymn",
+          "wave": "triangle"
+        },
+        {
+          "cadence": 2000,
+          "lift": 4,
+          "root": 174.61,
+          "scale": "calm",
+          "wave": "sine"
+        },
+        {
+          "cadence": 2400,
+          "lift": 2,
+          "root": 220,
+          "scale": "hymn",
+          "wave": "triangle"
+        }
+      ]
+    },
+    "title": {
+      "drone": true,
+      "gain": 0.5,
+      "variants": [
+        {
+          "cadence": 2600,
+          "lift": 3,
+          "root": 146.83,
+          "scale": "calm",
+          "wave": "triangle"
+        },
+        {
+          "cadence": 3000,
+          "lift": 2,
+          "root": 130.81,
+          "scale": "dread",
+          "wave": "sine"
+        },
+        {
+          "cadence": 2400,
+          "lift": 4,
+          "root": 164.81,
+          "scale": "calm",
+          "wave": "triangle"
+        },
+        {
+          "cadence": 2800,
+          "lift": 3,
+          "root": 155.56,
+          "scale": "veiled",
+          "wave": "sine"
+        }
+      ]
+    },
+    "victory": {
+      "drone": false,
+      "gain": 0.5,
+      "variants": [
+        {
+          "cadence": 1400,
+          "lift": 3,
+          "root": 196,
+          "scale": "hymn",
+          "wave": "triangle"
+        },
+        {
+          "cadence": 1200,
+          "lift": 4,
+          "root": 220,
+          "scale": "hymn",
+          "wave": "triangle"
+        },
+        {
+          "cadence": 1300,
+          "lift": 2,
+          "root": 246.94,
+          "scale": "calm",
+          "wave": "sine"
+        }
+      ]
+    }
+  },
+  "SCALES": {
+    "calm": [
+      0,
+      3,
+      5,
+      7,
+      10,
+      12,
+      15
+    ],
+    "dread": [
+      0,
+      2,
+      3,
+      7,
+      8,
+      10,
+      12
+    ],
+    "hymn": [
+      0,
+      2,
+      4,
+      7,
+      9,
+      12,
+      16
+    ],
+    "tense": [
+      0,
+      1,
+      5,
+      6,
+      7,
+      10,
+      12
+    ],
+    "veiled": [
+      0,
+      3,
+      5,
+      6,
+      10,
+      12,
+      15
+    ],
+    "wrath": [
+      0,
+      1,
+      4,
+      5,
+      8,
+      11,
+      12
+    ]
+  }
+}

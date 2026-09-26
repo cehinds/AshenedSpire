@@ -1,0 +1,312 @@
+{
+  "$id": "rules/propertyRuleEffects.json",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "passives": {
+        "type": "object",
+        "properties": {
+          "exposureBuildupMult": {
+            "type": "object",
+            "properties": {
+              "balance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "balance"
+            ]
+          },
+          "skillXpMult": {
+            "type": "object",
+            "properties": {
+              "balance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "balance"
+            ]
+          }
+        }
+      },
+      "triggers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "do": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "object",
+                    "properties": {
+                      "balance": {
+                        "type": "string"
+                      },
+                      "f": {
+                        "type": "string"
+                      },
+                      "of": {
+                        "type": "string"
+                      },
+                      "pct": {
+                        "type": "object",
+                        "properties": {
+                          "balance": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "balance"
+                        ]
+                      }
+                    }
+                  },
+                  "op": {
+                    "type": "string",
+                    "enum": [
+                      "applyStatus",
+                      "arcaneBuildup",
+                      "block",
+                      "damage",
+                      "draw",
+                      "gainEnergy",
+                      "heal",
+                      "loseHp",
+                      "poiseDamage",
+                      "refillFlasks",
+                      "restoreMana",
+                      "restoreStamina"
+                    ]
+                  },
+                  "pct": {
+                    "type": "object",
+                    "properties": {
+                      "balance": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "balance"
+                    ]
+                  },
+                  "stacks": {
+                    "type": "object",
+                    "properties": {
+                      "args": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "balance": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "balance"
+                          ]
+                        }
+                      },
+                      "balance": {
+                        "type": "string"
+                      },
+                      "f": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "bleed",
+                      "crimsonBlight",
+                      "frail",
+                      "madness",
+                      "prepared",
+                      "starstoneCharge",
+                      "strength",
+                      "venom",
+                      "vulnerable",
+                      "weak"
+                    ]
+                  },
+                  "target": {
+                    "type": "string",
+                    "enum": [
+                      "allEnemies",
+                      "otherEnemies",
+                      "owner",
+                      "randomEnemy",
+                      "self"
+                    ]
+                  },
+                  "toFloorPct": {
+                    "type": "object",
+                    "properties": {
+                      "balance": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "balance"
+                    ]
+                  }
+                },
+                "required": [
+                  "op"
+                ]
+              }
+            },
+            "if": {
+              "type": "object",
+              "properties": {
+                "n": {
+                  "type": "object",
+                  "properties": {
+                    "balance": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "balance"
+                  ]
+                },
+                "of": {
+                  "type": "string"
+                },
+                "p": {
+                  "type": "string",
+                  "enum": [
+                    "all",
+                    "cardTypeIs",
+                    "eventSourceIsOwner",
+                    "eventStatusIs",
+                    "eventTargetIsOwner",
+                    "everyNthCardThisCombat",
+                    "hasBlock",
+                    "not"
+                  ]
+                },
+                "pred": {
+                  "type": "object",
+                  "properties": {
+                    "of": {
+                      "type": "string"
+                    },
+                    "p": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "of",
+                    "p"
+                  ]
+                },
+                "preds": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "level": {
+                        "type": "object",
+                        "properties": {
+                          "balance": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "balance"
+                        ]
+                      },
+                      "of": {
+                        "type": "string"
+                      },
+                      "p": {
+                        "type": "string",
+                        "enum": [
+                          "eventIsAttack",
+                          "eventSourceIsOwner",
+                          "eventTargetIsOwner",
+                          "hasStatus",
+                          "healPositive",
+                          "manaPositive",
+                          "not",
+                          "skillLevelAtLeast"
+                        ]
+                      },
+                      "pred": {
+                        "type": "object",
+                        "properties": {
+                          "level": {
+                            "type": "object",
+                            "properties": {
+                              "balance": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "balance"
+                            ]
+                          },
+                          "p": {
+                            "type": "string"
+                          },
+                          "skill": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "level",
+                          "p",
+                          "skill"
+                        ]
+                      },
+                      "skill": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "p"
+                    ]
+                  }
+                },
+                "status": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "p"
+              ]
+            },
+            "limitPerTurn": {
+              "type": "integer"
+            },
+            "on": {
+              "type": "string"
+            },
+            "once": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "do",
+            "on"
+          ]
+        }
+      }
+    }
+  }
+}

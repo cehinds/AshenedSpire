@@ -1,0 +1,422 @@
+{
+  "ashStaff": {
+    "package": {
+      "combatKit": {
+        "artCardId": "starSpark",
+        "attackProfileId": "staffMagicAttack",
+        "guardProfileId": "staffGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "staffMagicAttack",
+      "weaponArtDefaults": [
+        "starSpark"
+      ]
+    },
+    "weaponId": "ashStaff"
+  },
+  "battleaxe": {
+    "package": {
+      "combatKit": {
+        "artCardId": "cleavingBlow",
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "cleavingBlow"
+      ]
+    },
+    "weaponId": "battleaxe"
+  },
+  "blightRod": {
+    "package": {
+      "combatKit": {
+        "artCardId": "contagion",
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "contagion"
+      ]
+    },
+    "weaponId": "blightRod"
+  },
+  "boneSceptre": {
+    "package": {
+      "combatKit": {
+        "artCardId": "blightTouch",
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "blightTouch"
+      ]
+    },
+    "weaponId": "boneSceptre"
+  },
+  "buckler": {
+    "package": {
+      "combatKit": {
+        "artCardId": "riposte",
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "riposte"
+      ]
+    },
+    "weaponId": "buckler"
+  },
+  "cinderAxe": {
+    "package": {
+      "combatKit": {
+        "artCardId": "kilnCleave",
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "kilnCleave"
+      ]
+    },
+    "weaponId": "cinderAxe"
+  },
+  "dagger": {
+    "package": {
+      "combatKit": {
+        "artCardId": "twinFang",
+        "attackProfileId": "daggerPierceAttack",
+        "guardProfileId": "weaponGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "daggerPierceAttack",
+      "weaponArtDefaults": [
+        "twinFang"
+      ]
+    },
+    "weaponId": "dagger"
+  },
+  "duskChime": {
+    "package": {
+      "combatKit": {
+        "artCardId": "vesperWard",
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "vesperWard"
+      ]
+    },
+    "weaponId": "duskChime"
+  },
+  "emberlightSceptre": {
+    "package": {
+      "combatKit": {
+        "artCardId": "penance",
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "penance"
+      ]
+    },
+    "weaponId": "emberlightSceptre"
+  },
+  "frostSpear": {
+    "package": {
+      "combatKit": {
+        "artCardId": "rimeThrust",
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "rimeThrust"
+      ]
+    },
+    "weaponId": "frostSpear"
+  },
+  "goldboughBranch": {
+    "package": {
+      "combatKit": {
+        "artCardId": "urgentHeal",
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "urgentHeal"
+      ]
+    },
+    "weaponId": "goldboughBranch"
+  },
+  "gorefireBrand": {
+    "package": {
+      "combatKit": {
+        "artCardId": "gorefireSlash",
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "sceptreGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "gorefireSlash"
+      ]
+    },
+    "weaponId": "gorefireBrand"
+  },
+  "greatsword": {
+    "package": {
+      "combatKit": {
+        "artCardId": "greatswordSunderingHew",
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "greatswordSunderingHew"
+      ]
+    },
+    "weaponId": "greatsword"
+  },
+  "halberd": {
+    "package": {
+      "combatKit": {
+        "artCardId": "sweepingBlow",
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "sweepingBlow"
+      ]
+    },
+    "weaponId": "halberd"
+  },
+  "katana": {
+    "package": {
+      "combatKit": {
+        "artCardId": "katanaDrawCut",
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "katanaDrawCut"
+      ]
+    },
+    "weaponId": "katana"
+  },
+  "kiteShield": {
+    "package": {
+      "combatKit": {
+        "artCardId": "shieldGuardian",
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "shieldGuardian"
+      ]
+    },
+    "weaponId": "kiteShield"
+  },
+  "lantern": {
+    "package": {
+      "combatKit": {
+        "artCardId": "scholarsInsight",
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "scholarsInsight"
+      ]
+    },
+    "weaponId": "lantern"
+  },
+  "parryDagger": {
+    "package": {
+      "combatKit": {
+        "artCardId": "riposte",
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "riposte"
+      ]
+    },
+    "weaponId": "parryDagger"
+  },
+  "roundShield": {
+    "package": {
+      "combatKit": {
+        "artCardId": "shieldBash",
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "shieldBash"
+      ]
+    },
+    "weaponId": "roundShield"
+  },
+  "shortbow": {
+    "package": {
+      "combatKit": {
+        "artCardId": "quickstep",
+        "attackProfileId": "bowPierceAttack",
+        "guardProfileId": "weaponGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bowPierceAttack",
+      "weaponArtDefaults": [
+        "quickstep"
+      ]
+    },
+    "weaponId": "shortbow"
+  },
+  "spikedShield": {
+    "package": {
+      "combatKit": {
+        "artCardId": "spikedReprisal",
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "spikedReprisal"
+      ]
+    },
+    "weaponId": "spikedShield"
+  },
+  "starstoneStaff": {
+    "package": {
+      "combatKit": {
+        "artCardId": "frostNova",
+        "attackProfileId": "staffMagicAttack",
+        "guardProfileId": "staffGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "staffMagicAttack",
+      "weaponArtDefaults": [
+        "frostNova"
+      ]
+    },
+    "weaponId": "starstoneStaff"
+  },
+  "straightSword": {
+    "package": {
+      "combatKit": {
+        "artCardId": "guardCounter",
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "guardCounter"
+      ]
+    },
+    "weaponId": "straightSword"
+  },
+  "torch": {
+    "package": {
+      "combatKit": {
+        "artCardId": "flameToBlade",
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "flameToBlade"
+      ]
+    },
+    "weaponId": "torch"
+  },
+  "towerShield": {
+    "package": {
+      "combatKit": {
+        "artCardId": "shieldBastion",
+        "attackProfileId": "shieldAttack",
+        "guardProfileId": "shieldGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "shieldAttack",
+      "weaponArtDefaults": [
+        "shieldBastion"
+      ]
+    },
+    "weaponId": "towerShield"
+  },
+  "twinblade": {
+    "package": {
+      "combatKit": {
+        "artCardId": "twinbladeFlurry",
+        "attackProfileId": "twinbladeAttack",
+        "guardProfileId": "weaponGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "twinbladeAttack",
+      "weaponArtDefaults": [
+        "twinbladeFlurry"
+      ]
+    },
+    "weaponId": "twinblade"
+  },
+  "warhammer": {
+    "package": {
+      "combatKit": {
+        "artCardId": "bashingBlow",
+        "attackProfileId": "bladeAttack",
+        "guardProfileId": "weaponGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "bladeAttack",
+      "weaponArtDefaults": [
+        "bashingBlow"
+      ]
+    },
+    "weaponId": "warhammer"
+  },
+  "wyrmhornStaff": {
+    "package": {
+      "combatKit": {
+        "artCardId": "moonrendCut",
+        "attackProfileId": "sceptreArcaneAttack",
+        "guardProfileId": "staffGuard"
+      },
+      "compatibility": "attack-v1",
+      "fillerAttackProfileId": "sceptreArcaneAttack",
+      "weaponArtDefaults": [
+        "moonrendCut"
+      ]
+    },
+    "weaponId": "wyrmhornStaff"
+  }
+}

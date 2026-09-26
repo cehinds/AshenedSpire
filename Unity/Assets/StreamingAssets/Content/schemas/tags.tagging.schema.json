@@ -1,0 +1,35 @@
+{
+  "$id": "tags/tagging.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "family": {
+        "type": "string"
+      },
+      "objectId": {
+        "type": "string"
+      },
+      "scope": {
+        "type": "string",
+        "enum": [
+          "",
+          "herald",
+          "reaver",
+          "rogue",
+          "starseer"
+        ]
+      },
+      "tagId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "family",
+      "objectId",
+      "scope",
+      "tagId"
+    ]
+  }
+}

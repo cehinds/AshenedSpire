@@ -1,0 +1,19 @@
+{
+  "comment": "Audio contexts (US-16.1, D-006). 'file' is an asset ID of a generated track (resolved first; null today); 'bed' names a procedural bed in audio/music.json, or the silence word. Stingers are one-shot recipes or generated files.",
+  "contexts": {
+    "title": { "file": null, "bed": "title" },
+    "map": { "file": null, "bed": "map" },
+    "combat": { "file": null, "bed": "combat" },
+    "elite": { "file": null, "bed": "elite" },
+    "boss": { "file": null, "bed": "boss" },
+    "shop": { "file": null, "bed": "shop" },
+    "rest": { "file": null, "bed": "rest" },
+    "victory": { "file": null, "bed": "victory" },
+    "quiet": { "file": null, "bed": "silence" }
+  },
+  "stingers": {
+    "victory": { "file": null, "recipe": "victory" },
+    "defeat": { "file": null, "recipe": "youDied" },
+    "boss": { "file": null, "recipe": "stagger" }
+  }
+}

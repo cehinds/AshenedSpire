@@ -1,0 +1,36 @@
+{
+  "capacity": {
+    "base": 10,
+    "baseline": 10,
+    "maximum": 30,
+    "minimum": 1,
+    "pointsPerCard": 10,
+    "stat": "intelligence",
+    "statEnabled": false
+  },
+  "discardLimit": 10,
+  "drawMode": "fill",
+  "overflow": "keep",
+  "promptDiscard": false,
+  "replaceDiscards": false,
+  "reshuffle": true,
+  "retain": true,
+  "starting": {
+    "base": 3,
+    "baseline": 10,
+    "maximum": 10,
+    "minimum": 0,
+    "pointsPerCard": 10,
+    "stat": "intelligence",
+    "statEnabled": true
+  },
+  "turn": {
+    "base": 2,
+    "baseline": 10,
+    "maximum": 10,
+    "minimum": 0,
+    "pointsPerCard": 10,
+    "stat": "intelligence",
+    "statEnabled": false
+  }
+}

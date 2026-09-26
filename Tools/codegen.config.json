@@ -1,0 +1,355 @@
+{
+  "comment": "Codegen inputs (docs/design/08 §6; D-028). Everything code needs to NAME comes from here or from content files, never from literals in C#.",
+  "namespace": "Ashen.Generated",
+  "outDir": "Unity/Assets/Game/Generated",
+  "enums": [
+    {
+      "name": "EffectOp",
+      "from": "rules/effectOps.json",
+      "path": "ops",
+      "doc": "Effect DSL op names (rules/effectOps.json)."
+    },
+    {
+      "name": "RngStream",
+      "from": "rules/rng.json",
+      "path": "streams",
+      "doc": "Named RNG streams (rules/rng.json). Values derive from the stream NAME, never its position."
+    }
+  ],
+  "keySets": [
+    {
+      "name": "SchemaKeys",
+      "doc": "JSON-Schema subset keywords used by the content validator (docs/design/08 §4).",
+      "keys": {
+        "Id": "$id",
+        "Type": "type",
+        "Properties": "properties",
+        "Required": "required",
+        "Items": "items",
+        "Enum": "enum",
+        "AdditionalProperties": "additionalProperties",
+        "Keyed": "x-keyed",
+        "Ref": "x-ref"
+      }
+    },
+    {
+      "name": "SchemaTypes",
+      "doc": "JSON-Schema type names.",
+      "keys": {
+        "Object": "object",
+        "Array": "array",
+        "String": "string",
+        "Integer": "integer",
+        "Number": "number",
+        "Boolean": "boolean",
+        "Null": "null"
+      }
+    },
+    {
+      "name": "ManifestKeys",
+      "doc": "Keys of StreamingAssets/Content/manifest.json.",
+      "keys": {
+        "SchemaVersion": "schemaVersion",
+        "ContentVersion": "contentVersion",
+        "ContentHash": "contentHash",
+        "Counts": "counts",
+        "Files": "files",
+        "Sha256": "sha256",
+        "Bytes": "bytes",
+        "Generated": "generated"
+      }
+    },
+    {
+      "name": "ContentLayout",
+      "doc": "Content folder conventions.",
+      "keys": {
+        "Manifest": "manifest.json",
+        "SchemaFolder": "schemas/",
+        "SchemaSuffix": ".schema.json",
+        "JsonSuffix": ".json",
+        "PathSeparator": "/",
+        "SchemaNameSeparator": ".",
+        "KeyJoiner": ":",
+        "ListRows": "rows",
+        "Lf": "\n",
+        "CrLf": "\r\n",
+        "ParentDirectory": "..",
+        "ContentFolder": "Content",
+        "HexByteFormat": "x2"
+      }
+    },
+    {
+      "name": "ValidationRules",
+      "doc": "Rule identifiers reported by the content validator (stable, used by tests and tooling).",
+      "keys": {
+        "Type": "type",
+        "Required": "required",
+        "Enum": "enum",
+        "Ref": "ref",
+        "Unknown": "unknownProperty",
+        "Parse": "parse",
+        "MissingFile": "missingFile",
+        "Hash": "hash",
+        "UnknownOp": "unknownOp",
+        "Schema": "schema",
+        "String": "stringKey",
+        "Cost": "costRule"
+      }
+    },
+    {
+      "name": "RuleKeys",
+      "doc": "Keys of rules/validation.json, rules/stringKeys.json, presets and effect objects read by the validator.",
+      "keys": {
+        "RowRules": "rowRules",
+        "RuleId": "id",
+        "Table": "table",
+        "When": "when",
+        "Field": "field",
+        "Eq": "eq",
+        "Gt": "gt",
+        "Gte": "gte",
+        "Lt": "lt",
+        "Lte": "lte",
+        "OrValues": "orValues",
+        "Require": "require",
+        "Prefix": "prefix",
+        "Required": "required",
+        "Optional": "optional",
+        "PresetFiles": "files",
+        "Op": "op",
+        "StringKeysFile": "rules/stringKeys.json",
+        "ValidationFile": "rules/validation.json",
+        "StringsFile": "strings/en.json",
+        "PresetFolder": "settings/presets/",
+        "Containers": "containers",
+        "EffectOpsFile": "rules/effectOps.json",
+        "PresetId": "id",
+        "PresetDefault": "default",
+        "PlayerSettings": "playerSettings",
+        "Modding": "modding"
+      }
+    },
+    {
+      "name": "ValidationMessages",
+      "doc": "Developer-facing validator message templates (string.Format placeholders).",
+      "keys": {
+        "MissingFile": "manifest lists {0} but the file is missing",
+        "Hash": "sha256 mismatch (manifest {0}, file {1}); regenerate content through the tools",
+        "Parse": "invalid JSON: {0}",
+        "NoSchema": "no schema {0}",
+        "Type": "expected {0}, found {1}",
+        "Required": "missing required property '{0}'",
+        "Enum": "value '{0}' is not one of [{1}]",
+        "Unknown": "unknown property '{0}'",
+        "Ref": "'{0}' does not exist in {1}",
+        "UnknownOp": "unknown effect op '{0}' (add it to rules/effectOps.json)",
+        "String": "missing string key '{0}'",
+        "Cost": "rule '{0}' failed: {1} = {2}",
+        "PresetFile": "preset patches unknown file {0}",
+        "IssueFormat": "{0} {1} [{2}] {3}",
+        "MoreFormat": "… +{0}"
+      }
+    },
+    {
+      "name": "ConfigMessages",
+      "doc": "Config-layer refusal messages (developer-facing).",
+      "keys": {
+        "UnknownPreset": "unknown preset '{0}'",
+        "NoDefaultPreset": "no preset is marked default",
+        "OverridePath": "override '{0}' rejected: not a manifest file",
+        "OverrideSize": "override '{0}' rejected: {1} bytes exceeds {2}",
+        "UnknownFile": "patch targets unknown file '{0}'"
+      }
+    },
+    {
+      "name": "SaveKeys",
+      "doc": "Save envelope and log record fields (PF-06) and rules/saves.json keys.",
+      "keys": {
+        "SaveVersion": "saveVersion",
+        "Gen": "gen",
+        "ContentHash": "contentHash",
+        "SnapshotHash": "snapshotHash",
+        "Payload": "payload",
+        "Hash": "hash",
+        "Seq": "seq",
+        "Crc": "crc32",
+        "Cmd": "cmd",
+        "StateHashAfter": "stateHashAfter",
+        "RulesFile": "rules/saves.json",
+        "RunSlots": "runSlots",
+        "CurrentVersion": "currentVersion",
+        "ProfileSlot": "profileSlot",
+        "ReplaceRetries": "replaceRetries",
+        "ReplaceRetryDelayMs": "replaceRetryDelayMs"
+      }
+    },
+    {
+      "name": "SaveLayout",
+      "doc": "Save file naming (string.Format patterns; {0} = slot name, {1} = gen).",
+      "keys": {
+        "Primary": "{0}.json",
+        "Backup": "{0}.json.bak",
+        "Mirror": "{0}.mirror.json",
+        "MirrorBackup": "{0}.mirror.json.bak",
+        "Temp": "{0}.json.tmp",
+        "MirrorTemp": "{0}.mirror.json.tmp",
+        "Log": "{0}.{1}.log",
+        "LogSearch": "{0}.*.log",
+        "RunSlot": "slot{0}"
+      }
+    },
+    {
+      "name": "SaveMessages",
+      "doc": "Save-service warnings/refusals (developer-facing; the UI maps statuses to string keys).",
+      "keys": {
+        "FellBack": "primary save unreadable; loaded {0} (gen {1})",
+        "Newer": "save version {0} is newer than this build ({1}); kept, not loaded",
+        "NoValidCopy": "no valid copy of {0}",
+        "TornLog": "command log truncated at record {0} (bad checksum)",
+        "Migrated": "migrated save from version {0} to {1}",
+        "ContentChanged": "content changed since the save; resuming from the snapshot"
+      }
+    },
+    {
+      "name": "AboutKeys",
+      "doc": "Keys of about.json.",
+      "keys": {
+        "File": "about.json",
+        "AiDisclosure": "aiDisclosure",
+        "FullKey": "fullKey",
+        "ShortKey": "shortKey",
+        "NoticeTitleKey": "noticeTitleKey",
+        "NoticeContinueKey": "noticeContinueKey",
+        "ShowOnTitle": "showOnTitle",
+        "ShowOnFirstLaunch": "showOnFirstLaunch",
+        "Modalities": "modalities",
+        "Provenance": "provenance",
+        "AppStrings": "strings/app.en.json"
+      }
+    },
+    {
+      "name": "SynthKeys",
+      "doc": "Keys of audio/synth.json, audio/sfx.json, audio/music.json and audio/contexts.json.",
+      "keys": {
+        "SynthFile": "audio/synth.json",
+        "SfxFile": "audio/sfx.json",
+        "MusicFile": "audio/music.json",
+        "ContextsFile": "audio/contexts.json",
+        "SampleRate": "sampleRate",
+        "Tone": "tone",
+        "Noise": "noise",
+        "Recipe": "recipe",
+        "DefaultType": "defaultType",
+        "DefaultPeak": "defaultPeak",
+        "AttackMax": "attackMax",
+        "AttackFraction": "attackFraction",
+        "FloorGain": "floorGain",
+        "MinFrequency": "minFrequency",
+        "DefaultHighPass": "defaultHighPass",
+        "DefaultLowPass": "defaultLowPass",
+        "DefaultId": "defaultId",
+        "FamilySeparator": "familySeparator",
+        "SilenceWord": "silenceWord",
+        "Recipes": "SFX_RECIPES",
+        "Kind": "kind",
+        "Type": "type",
+        "Freq": "freq",
+        "To": "to",
+        "Dur": "dur",
+        "Peak": "peak",
+        "T0": "t0",
+        "HighPass": "hp",
+        "LowPass": "lp",
+        "Contexts": "contexts",
+        "Stingers": "stingers",
+        "File": "file",
+        "Bed": "bed",
+        "Beds": "BEDS"
+      }
+    },
+    {
+      "name": "Waveforms",
+      "doc": "Oscillator and layer kinds used by synth recipes.",
+      "keys": {
+        "Sine": "sine",
+        "Square": "square",
+        "Sawtooth": "sawtooth",
+        "Triangle": "triangle",
+        "ToneKind": "tone",
+        "NoiseKind": "noise"
+      }
+    }
+  ],
+  "contentFiles": {
+    "name": "ContentFiles",
+    "doc": "Every file listed in the content manifest (regenerated when content files are added or removed)."
+  },
+  "numberSets": [
+    {
+      "name": "RngAlgorithm",
+      "type": "uint",
+      "doc": "mulberry32 and FNV-1a constants (algorithm definition, identical to the shipped engine/rng.js; not tuning).",
+      "values": {
+        "Increment": "0x6D2B79F5",
+        "FnvOffset": "0x811C9DC5",
+        "FnvPrime": "0x01000193",
+        "ShiftA": "15",
+        "ShiftB": "7",
+        "ShiftC": "14",
+        "OrA": "1",
+        "OrB": "61",
+        "FractionBits": "32",
+        "PercentScale": "100"
+      }
+    },
+    {
+      "name": "ConfigLimits",
+      "type": "int",
+      "doc": "Override-layer safety limits (docs/design/08 §2).",
+      "values": {
+        "MaxOverrideBytes": "1048576",
+        "MaxJsonDepth": "64",
+        "MaxParseDepth": "128"
+      }
+    },
+    {
+      "name": "Crc32Algorithm",
+      "type": "uint",
+      "doc": "CRC-32 (IEEE, reflected) constants for command-log records.",
+      "values": {
+        "Polynomial": "0xEDB88320",
+        "Init": "0xFFFFFFFF",
+        "TableSize": "256",
+        "BitsPerByte": "8",
+        "ByteMask": "0xFF"
+      }
+    },
+    {
+      "name": "DspConstants",
+      "type": "double",
+      "doc": "Signal-processing identities used by the synth (not tuning).",
+      "values": {
+        "Two": "2.0",
+        "Half": "0.5"
+      }
+    },
+    {
+      "name": "NoiseAlgorithm",
+      "type": "uint",
+      "doc": "xorshift32 constants for deterministic synth noise (own generator, never a domain RNG stream; PF-12).",
+      "values": {
+        "ShiftA": "13",
+        "ShiftB": "17",
+        "ShiftC": "5",
+        "Fallback": "0x9E3779B9"
+      }
+    }
+  ],
+  "stringTables": [
+    {
+      "name": "StringKeys",
+      "from": "strings/app.en.json",
+      "doc": "String keys code must name (strings/app.en.json). Catalog strings are addressed by convention (<prefix>.<id>.<field>), never by constant."
+    }
+  ]
+}

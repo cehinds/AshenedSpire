@@ -1,0 +1,106 @@
+{
+  "defaults": {
+    "cap": null,
+    "pointsPerTier": 5,
+    "rounding": "floor"
+  },
+  "presentation": {
+    "draw": {
+      "disclosure": "face",
+      "faceLabel": "Draw",
+      "label": "Draw / turn and opening hand",
+      "order": 5,
+      "sense": "How many cards you hold to choose from."
+    },
+    "energy": {
+      "disclosure": "face",
+      "faceLabel": "Actions",
+      "label": "Actions / turn",
+      "order": 4,
+      "sense": "How much you can do in one turn."
+    },
+    "hp": {
+      "disclosure": "face",
+      "label": "HP",
+      "order": 1,
+      "sense": "What you have left before the climb ends."
+    },
+    "mana": {
+      "disclosure": "face",
+      "label": "Mana",
+      "order": 2,
+      "sense": "Spent by the cards that ask for more than effort."
+    },
+    "poise": {
+      "disclosure": "reveal",
+      "label": "Poise",
+      "order": 6,
+      "sense": "How much blows you can take before your footing breaks."
+    },
+    "stamina": {
+      "disclosure": "reveal",
+      "label": "Stamina",
+      "order": 3,
+      "sense": "Spent by cards that ask for it — the dodge roll among them. An idle turn recovers some."
+    }
+  },
+  "rules": {
+    "draw": {
+      "base": 3,
+      "cap": null,
+      "gainPerTier": 1,
+      "perLevel": {
+        "every": 10,
+        "gain": 1
+      },
+      "pointsPerTier": 5,
+      "sourceStat": "intelligence"
+    },
+    "energy": {
+      "base": 3,
+      "cap": null,
+      "gainPerTier": 1,
+      "pointsPerTier": 5,
+      "sourceStat": "dexterity"
+    },
+    "hp": {
+      "base": 30,
+      "gainPerTier": 4,
+      "perLevel": {
+        "every": 5,
+        "gain": 5
+      },
+      "pointsPerTier": 1,
+      "sourceStat": "constitution"
+    },
+    "mana": {
+      "base": 1,
+      "cap": null,
+      "gainPerTier": 1,
+      "perLevel": {
+        "every": 5,
+        "gain": 1
+      },
+      "pointsPerTier": 1,
+      "sourceStat": "wisdom"
+    },
+    "poise": {
+      "base": 1,
+      "cap": null,
+      "gainPerTier": 1,
+      "pointsPerTier": 1,
+      "sourceStat": "constitution"
+    },
+    "stamina": {
+      "base": 1,
+      "gainPerTier": 1,
+      "perLevel": {
+        "every": 5,
+        "gain": 1
+      },
+      "pointsPerTier": 1,
+      "sourceStat": "constitution"
+    }
+  },
+  "rulesetVersion": 5
+}

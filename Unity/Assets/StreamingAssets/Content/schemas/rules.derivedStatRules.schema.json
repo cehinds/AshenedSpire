@@ -1,0 +1,424 @@
+{
+  "$id": "rules/derivedStatRules.json",
+  "type": "object",
+  "properties": {
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "cap": {
+          "type": "null"
+        },
+        "pointsPerTier": {
+          "type": "integer"
+        },
+        "rounding": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cap",
+        "pointsPerTier",
+        "rounding"
+      ]
+    },
+    "presentation": {
+      "type": "object",
+      "properties": {
+        "draw": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "faceLabel": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "faceLabel",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "energy": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "faceLabel": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "faceLabel",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "hp": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "mana": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "poise": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "stamina": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        }
+      },
+      "required": [
+        "draw",
+        "energy",
+        "hp",
+        "mana",
+        "poise",
+        "stamina"
+      ]
+    },
+    "rules": {
+      "type": "object",
+      "properties": {
+        "draw": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "cap": {
+              "type": "null"
+            },
+            "gainPerTier": {
+              "type": "integer"
+            },
+            "perLevel": {
+              "type": "object",
+              "properties": {
+                "every": {
+                  "type": "integer"
+                },
+                "gain": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "every",
+                "gain"
+              ]
+            },
+            "pointsPerTier": {
+              "type": "integer"
+            },
+            "sourceStat": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "base",
+            "cap",
+            "gainPerTier",
+            "perLevel",
+            "pointsPerTier",
+            "sourceStat"
+          ]
+        },
+        "energy": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "cap": {
+              "type": "null"
+            },
+            "gainPerTier": {
+              "type": "integer"
+            },
+            "pointsPerTier": {
+              "type": "integer"
+            },
+            "sourceStat": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "base",
+            "cap",
+            "gainPerTier",
+            "pointsPerTier",
+            "sourceStat"
+          ]
+        },
+        "hp": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "gainPerTier": {
+              "type": "integer"
+            },
+            "perLevel": {
+              "type": "object",
+              "properties": {
+                "every": {
+                  "type": "integer"
+                },
+                "gain": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "every",
+                "gain"
+              ]
+            },
+            "pointsPerTier": {
+              "type": "integer"
+            },
+            "sourceStat": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "base",
+            "gainPerTier",
+            "perLevel",
+            "pointsPerTier",
+            "sourceStat"
+          ]
+        },
+        "mana": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "cap": {
+              "type": "null"
+            },
+            "gainPerTier": {
+              "type": "integer"
+            },
+            "perLevel": {
+              "type": "object",
+              "properties": {
+                "every": {
+                  "type": "integer"
+                },
+                "gain": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "every",
+                "gain"
+              ]
+            },
+            "pointsPerTier": {
+              "type": "integer"
+            },
+            "sourceStat": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "base",
+            "cap",
+            "gainPerTier",
+            "perLevel",
+            "pointsPerTier",
+            "sourceStat"
+          ]
+        },
+        "poise": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "cap": {
+              "type": "null"
+            },
+            "gainPerTier": {
+              "type": "integer"
+            },
+            "pointsPerTier": {
+              "type": "integer"
+            },
+            "sourceStat": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "base",
+            "cap",
+            "gainPerTier",
+            "pointsPerTier",
+            "sourceStat"
+          ]
+        },
+        "stamina": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "gainPerTier": {
+              "type": "integer"
+            },
+            "perLevel": {
+              "type": "object",
+              "properties": {
+                "every": {
+                  "type": "integer"
+                },
+                "gain": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "every",
+                "gain"
+              ]
+            },
+            "pointsPerTier": {
+              "type": "integer"
+            },
+            "sourceStat": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "base",
+            "gainPerTier",
+            "perLevel",
+            "pointsPerTier",
+            "sourceStat"
+          ]
+        }
+      },
+      "required": [
+        "draw",
+        "energy",
+        "hp",
+        "mana",
+        "poise",
+        "stamina"
+      ]
+    },
+    "rulesetVersion": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "defaults",
+    "presentation",
+    "rules",
+    "rulesetVersion"
+  ]
+}

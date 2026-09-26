@@ -1,0 +1,201 @@
+{
+  "$id": "rules/handRules.json",
+  "type": "object",
+  "properties": {
+    "capacity": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "integer"
+        },
+        "baseline": {
+          "type": "integer"
+        },
+        "maximum": {
+          "type": "integer"
+        },
+        "minimum": {
+          "type": "integer"
+        },
+        "pointsPerCard": {
+          "type": "integer"
+        },
+        "stat": {
+          "type": "string"
+        },
+        "statEnabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "base",
+        "baseline",
+        "maximum",
+        "minimum",
+        "pointsPerCard",
+        "stat",
+        "statEnabled"
+      ]
+    },
+    "discardLimit": {
+      "type": "integer"
+    },
+    "drawMode": {
+      "type": "string"
+    },
+    "overflow": {
+      "type": "string"
+    },
+    "promptDiscard": {
+      "type": "boolean"
+    },
+    "replaceDiscards": {
+      "type": "boolean"
+    },
+    "reshuffle": {
+      "type": "boolean"
+    },
+    "retain": {
+      "type": "boolean"
+    },
+    "starting": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "integer"
+        },
+        "baseline": {
+          "type": "integer"
+        },
+        "maximum": {
+          "type": "integer"
+        },
+        "minimum": {
+          "type": "integer"
+        },
+        "pointsPerCard": {
+          "type": "integer"
+        },
+        "stat": {
+          "type": "string"
+        },
+        "statEnabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "base",
+        "baseline",
+        "maximum",
+        "minimum",
+        "pointsPerCard",
+        "stat",
+        "statEnabled"
+      ]
+    },
+    "turn": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "integer"
+        },
+        "baseline": {
+          "type": "integer"
+        },
+        "maximum": {
+          "type": "integer"
+        },
+        "minimum": {
+          "type": "integer"
+        },
+        "pointsPerCard": {
+          "type": "integer"
+        },
+        "stat": {
+          "type": "string"
+        },
+        "statEnabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "base",
+        "baseline",
+        "maximum",
+        "minimum",
+        "pointsPerCard",
+        "stat",
+        "statEnabled"
+      ]
+    },
+    "openingWeighted": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "number"
+        },
+        "terms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "attr": {
+                "type": "string",
+                "enum": [
+                  "constitution",
+                  "dexterity",
+                  "intelligence",
+                  "strength",
+                  "wisdom"
+                ]
+              },
+              "weight": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "attr",
+              "weight"
+            ]
+          }
+        },
+        "perLevel": {
+          "type": "number"
+        },
+        "min": {
+          "type": "integer"
+        },
+        "max": {
+          "type": "integer"
+        },
+        "rounding": {
+          "type": "string",
+          "enum": [
+            "floor"
+          ]
+        },
+        "note": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "base",
+        "terms",
+        "min",
+        "max"
+      ]
+    }
+  },
+  "required": [
+    "capacity",
+    "discardLimit",
+    "drawMode",
+    "overflow",
+    "promptDiscard",
+    "replaceDiscards",
+    "reshuffle",
+    "retain",
+    "starting",
+    "turn"
+  ]
+}

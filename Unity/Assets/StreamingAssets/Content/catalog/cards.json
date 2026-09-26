@@ -1,0 +1,8578 @@
+{
+  "acrobaticsRogue": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 7,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 2,
+        "op": "draw"
+      },
+      {
+        "amount": 1,
+        "op": "discard",
+        "random": true
+      }
+    ],
+    "icon": "🤸",
+    "id": "acrobaticsRogue",
+    "keywords": [],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 9,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 3,
+          "op": "draw"
+        },
+        {
+          "amount": 1,
+          "op": "discard",
+          "random": true
+        }
+      ]
+    }
+  },
+  "afterimageCard": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "afterimage",
+        "target": "self"
+      }
+    ],
+    "icon": "👤",
+    "id": "afterimageCard",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "power",
+    "upgrade": {
+      "cost": 0
+    }
+  },
+  "ambush": {
+    "class": "rogue",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 8,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "prepared"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "vulnerable",
+        "target": "enemy"
+      },
+      {
+        "op": "removeStatus",
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🗡",
+    "id": "ambush",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "starter",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 10,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "prepared"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 2,
+          "status": "vulnerable",
+          "target": "enemy"
+        },
+        {
+          "op": "removeStatus",
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "ashOath": {
+    "class": "colorless",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "strength",
+        "target": "ally"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "strength",
+        "target": "self"
+      }
+    ],
+    "icon": "🤝",
+    "id": "ashOath",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "special",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "strength",
+          "target": "ally"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "strength",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "assassinate": {
+    "class": "rogue",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 14,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 14,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "prepared"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "removeStatus",
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🗡",
+    "id": "assassinate",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 18,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 18,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "prepared"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "removeStatus",
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "astralArmorCard": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "astralArmor",
+        "target": "self"
+      }
+    ],
+    "icon": "🌌",
+    "id": "astralArmorCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              2
+            ],
+            "f": "add"
+          },
+          "status": "astralArmor",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "At the end of your turn, gain 8 Block."
+    }
+  },
+  "astralCleave": {
+    "class": "starseer",
+    "cost": 2,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 10,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 8,
+        "op": "poiseDamage",
+        "target": "enemy"
+      },
+      {
+        "amount": 5,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "⚔",
+    "id": "astralCleave",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 13,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 10,
+          "op": "poiseDamage",
+          "target": "enemy"
+        },
+        {
+          "amount": 5,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "astralInsight": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      },
+      {
+        "amount": 1,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "draw"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "🌠",
+    "id": "astralInsight",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        },
+        {
+          "amount": 1,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "draw"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "astromancerCard": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "astromancer",
+        "target": "self"
+      }
+    ],
+    "icon": "📚",
+    "id": "astromancerCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "manaCost": 0
+    }
+  },
+  "attune": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 1,
+        "op": "restoreMana",
+        "target": "self"
+      }
+    ],
+    "icon": "✴",
+    "id": "attune",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "starter",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 1,
+          "op": "restoreMana",
+          "target": "self"
+        }
+      ],
+      "keywords": [],
+      "textTemplate": "Restore {restoreMana} Mana."
+    }
+  },
+  "azureCoilCard": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "azureCoil",
+        "target": "self"
+      }
+    ],
+    "icon": "🌀",
+    "id": "azureCoilCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "manaCost": 0
+    }
+  },
+  "backstep": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 6,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "icon": "👣",
+    "id": "backstep",
+    "keywords": [],
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 9,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "bashingBlow": {
+    "class": "colorless",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 7,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 4,
+        "op": "poiseDamage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🔨",
+    "id": "bashingBlow",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 9,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 6,
+          "op": "poiseDamage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "bladeDanceRogue": {
+    "class": "rogue",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 3,
+        "hits": 3,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 1,
+        "hits": 3,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "prepared"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "removeStatus",
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "⚔",
+    "id": "bladeDanceRogue",
+    "keywords": [],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 4,
+          "hits": 3,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 1,
+          "hits": 3,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "prepared"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "removeStatus",
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "blightBloom": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "f": "stacks",
+          "of": "target",
+          "status": "crimsonBlight"
+        },
+        "status": "crimsonBlight",
+        "target": "enemy"
+      }
+    ],
+    "icon": "🌺",
+    "id": "blightBloom",
+    "keywords": [
+      "exhaust"
+    ],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "keywords": [],
+      "textTemplate": "Double the target's Crimson Blight."
+    }
+  },
+  "blightNova": {
+    "class": "herald",
+    "cost": 2,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": {
+          "args": [
+            2,
+            {
+              "f": "stacks",
+              "of": "target",
+              "status": "crimsonBlight"
+            }
+          ],
+          "f": "mul"
+        },
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "💥",
+    "id": "blightNova",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": {
+            "args": [
+              3,
+              {
+                "f": "stacks",
+                "of": "target",
+                "status": "crimsonBlight"
+              }
+            ],
+            "f": "mul"
+          },
+          "op": "damage",
+          "target": "enemy"
+        }
+      ],
+      "textTemplate": "Deal damage equal to three times the target's Crimson Blight."
+    }
+  },
+  "blightTouch": {
+    "class": "herald",
+    "cost": 1,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "crimsonBlight",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🦠",
+    "id": "blightTouch",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "crimsonBlight",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "blightward": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 6,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 4,
+        "if": {
+          "of": "self",
+          "p": "hpBelowPct",
+          "pct": 50
+        },
+        "op": "block",
+        "target": "self"
+      }
+    ],
+    "icon": "🛡",
+    "id": "blightward",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 4,
+          "if": {
+            "of": "self",
+            "p": "hpBelowPct",
+            "pct": 50
+          },
+          "op": "block",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "blightwardLash": {
+    "class": "herald",
+    "cost": 1,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "crimsonBlight",
+        "target": "enemy"
+      },
+      {
+        "amount": 2,
+        "op": "loseHp",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "🦠",
+    "id": "blightwardLash",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "crimsonBlight",
+          "target": "enemy"
+        },
+        {
+          "amount": 2,
+          "op": "loseHp",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "blindingSand": {
+    "class": "colorless",
+    "cost": 0,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "weak",
+        "target": "allEnemies"
+      }
+    ],
+    "icon": "🌪",
+    "id": "blindingSand",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "weak",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "bloodHarvest": {
+    "class": "herald",
+    "cost": "X",
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 4,
+        "hits": {
+          "f": "energySpent"
+        },
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "amount": {
+          "f": "energySpent",
+          "per": 3
+        },
+        "op": "heal",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🌾",
+    "id": "bloodHarvest",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "hits": {
+            "f": "energySpent"
+          },
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "amount": {
+            "f": "energySpent",
+            "per": 3
+          },
+          "op": "heal",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "Deal {damage} damage to ALL enemies, scaling with Energy spent. Then heal 3 per Energy."
+    }
+  },
+  "bloodOfferingRite": {
+    "class": "herald",
+    "cost": 1,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "loseHp",
+        "target": "self"
+      },
+      {
+        "amount": 24,
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "⚰",
+    "id": "bloodOfferingRite",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "loseHp",
+          "target": "self"
+        },
+        {
+          "amount": 30,
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "bloodPact": {
+    "class": "herald",
+    "cost": 0,
+    "effects": [
+      {
+        "amount": 2,
+        "op": "loseHp",
+        "target": "self"
+      },
+      {
+        "amount": 1,
+        "op": "gainEnergy"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "icon": "🩸",
+    "id": "bloodPact",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 1,
+          "op": "loseHp",
+          "target": "self"
+        },
+        {
+          "amount": 1,
+          "op": "gainEnergy"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        }
+      ]
+    }
+  },
+  "bloodTithe": {
+    "class": "reaver",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": {
+          "args": [
+            2,
+            {
+              "f": "stacks",
+              "of": "target",
+              "status": "bleed"
+            }
+          ],
+          "f": "mul"
+        },
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🗡",
+    "id": "bloodTithe",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 9,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": {
+            "args": [
+              2,
+              {
+                "f": "stacks",
+                "of": "target",
+                "status": "bleed"
+              }
+            ],
+            "f": "mul"
+          },
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "bloodhuntersStrike": {
+    "class": "reaver",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": {
+          "f": "stacks",
+          "of": "target",
+          "status": "bleed"
+        },
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🩸",
+    "id": "bloodhuntersStrike",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": {
+            "f": "stacks",
+            "of": "target",
+            "status": "bleed"
+          },
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "bloodletterRogue": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "f": "stacks",
+          "of": "target",
+          "status": "bleed"
+        },
+        "status": "bleed",
+        "target": "enemy"
+      }
+    ],
+    "icon": "🩸",
+    "id": "bloodletterRogue",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "keywords": [],
+      "textTemplate": "Double the target's Bleed."
+    }
+  },
+  "bloodletting": {
+    "class": "herald",
+    "cost": 0,
+    "effects": [
+      {
+        "amount": 3,
+        "op": "loseHp",
+        "target": "self"
+      },
+      {
+        "amount": 8,
+        "op": "block",
+        "target": "self"
+      }
+    ],
+    "icon": "🩸",
+    "id": "bloodletting",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 3,
+          "op": "loseHp",
+          "target": "self"
+        },
+        {
+          "amount": 11,
+          "op": "block",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "brace": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "enterStance",
+        "stance": "brace"
+      }
+    ],
+    "icon": "🦶",
+    "id": "brace",
+    "keywords": [],
+    "rarity": "starter",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "enterStance",
+          "stance": "brace"
+        },
+        {
+          "amount": 3,
+          "op": "block",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "Enter Brace Stance. Gain {block} Block."
+    }
+  },
+  "bracingStance": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 6,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 3,
+        "if": {
+          "p": "inStance",
+          "stance": "bulwark"
+        },
+        "op": "block",
+        "target": "self"
+      }
+    ],
+    "icon": "🛡",
+    "id": "bracingStance",
+    "keywords": [],
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 4,
+          "if": {
+            "p": "inStance",
+            "stance": "bulwark"
+          },
+          "op": "block",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "butterflyPlague": {
+    "class": "herald",
+    "cost": 3,
+    "effects": [
+      {
+        "amount": 4,
+        "op": "loseHp",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 6,
+        "status": "crimsonBlight",
+        "target": "allEnemies"
+      }
+    ],
+    "icon": "🦋",
+    "id": "butterflyPlague",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 4,
+          "op": "loseHp",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 8,
+          "status": "crimsonBlight",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "celestialLance": {
+    "class": "starseer",
+    "cost": 2,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 10,
+        "if": {
+          "p": "not",
+          "pred": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          }
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 22,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🔱",
+    "id": "celestialLance",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 13,
+          "if": {
+            "p": "not",
+            "pred": {
+              "of": "self",
+              "p": "hasStatus",
+              "status": "starstoneCharge"
+            }
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 28,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "cheapShot": {
+    "class": "rogue",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 10,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 6,
+        "if": {
+          "of": "target",
+          "p": "hasStatus",
+          "status": "weak"
+        },
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "✹",
+    "id": "cheapShot",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 13,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 8,
+          "if": {
+            "of": "target",
+            "p": "hasStatus",
+            "status": "weak"
+          },
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "cleavingBlow": {
+    "class": "reaver",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 7,
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "amount": 3,
+        "op": "poiseDamage",
+        "target": "allEnemies"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🪓",
+    "id": "cleavingBlow",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 9,
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "amount": 4,
+          "op": "poiseDamage",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "colossusSmash": {
+    "class": "colorless",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 18,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "vulnerable",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "💥",
+    "id": "colossusSmash",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 24,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 2,
+          "status": "vulnerable",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "cometFragment": {
+    "class": "starseer",
+    "cost": 1,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 3,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "☄",
+    "id": "cometFragment",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 5,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "communionCard": {
+    "class": "herald",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "communion",
+        "target": "self"
+      }
+    ],
+    "icon": "🕊",
+    "id": "communionCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "cost": 1
+    }
+  },
+  "constellationCard": {
+    "class": "starseer",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "constellation",
+        "target": "self"
+      }
+    ],
+    "icon": "💫",
+    "id": "constellationCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "cost": 1
+    }
+  },
+  "contagion": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "crimsonBlight",
+        "target": "allEnemies"
+      }
+    ],
+    "icon": "☣",
+    "id": "contagion",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "crimsonBlight",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "coupDeGrace": {
+    "class": "rogue",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 10,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 10,
+        "if": {
+          "of": "target",
+          "p": "hasStatus",
+          "status": "vulnerable"
+        },
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "☠",
+    "id": "coupDeGrace",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 13,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 13,
+          "if": {
+            "of": "target",
+            "p": "hasStatus",
+            "status": "vulnerable"
+          },
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "crimsonCleave": {
+    "class": "reaver",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 8,
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "bleed",
+        "target": "allEnemies"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🪓",
+    "id": "crimsonCleave",
+    "keywords": [],
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 11,
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 2,
+          "status": "bleed",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "crimsonRite": {
+    "class": "herald",
+    "cost": "X",
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 5,
+        "hits": {
+          "f": "energySpent"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": {
+          "f": "energySpent",
+          "per": 2
+        },
+        "op": "heal",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🔺",
+    "id": "crimsonRite",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "hits": {
+            "f": "energySpent"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": {
+            "f": "energySpent",
+            "per": 3
+          },
+          "op": "heal",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "Deal {damage} damage, scaling with Energy spent, then heal 3 per Energy."
+    }
+  },
+  "crystalBarrier": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 4,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "🔷",
+    "id": "crystalBarrier",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 5,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "cullTheWeak": {
+    "class": "herald",
+    "cost": 1,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 4,
+        "if": {
+          "of": "target",
+          "p": "hasStatus",
+          "status": "crimsonBlight"
+        },
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "🗡",
+    "id": "cullTheWeak",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 6,
+          "if": {
+            "of": "target",
+            "p": "hasStatus",
+            "status": "crimsonBlight"
+          },
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "dazed": {
+    "class": "colorless",
+    "cost": 0,
+    "effects": [],
+    "icon": "💫",
+    "id": "dazed",
+    "keywords": [
+      "unplayable",
+      "ethereal"
+    ],
+    "rarity": "special",
+    "type": "status"
+  },
+  "deadlyTempoCard": {
+    "class": "rogue",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "deadlyTempo",
+        "target": "self"
+      }
+    ],
+    "icon": "⏱",
+    "id": "deadlyTempoCard",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "power",
+    "upgrade": {
+      "cost": 1
+    }
+  },
+  "deathblow": {
+    "class": "rogue",
+    "cost": 3,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 24,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 10,
+        "if": {
+          "of": "target",
+          "p": "hasStatus",
+          "status": "bleed"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 10,
+        "if": {
+          "of": "target",
+          "p": "hasStatus",
+          "status": "venom"
+        },
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "☠",
+    "id": "deathblow",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 30,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 12,
+          "if": {
+            "of": "target",
+            "p": "hasStatus",
+            "status": "bleed"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 12,
+          "if": {
+            "of": "target",
+            "p": "hasStatus",
+            "status": "venom"
+          },
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "defend": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "op": "block",
+        "target": "self"
+      }
+    ],
+    "icon": "🛡",
+    "id": "defend",
+    "keywords": [],
+    "rarity": "starter",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "block",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "desperateRite": {
+    "class": "herald",
+    "cost": 1,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 9,
+        "if": {
+          "p": "not",
+          "pred": {
+            "of": "self",
+            "p": "hpBelowPct",
+            "pct": 50
+          }
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 16,
+        "if": {
+          "of": "self",
+          "p": "hpBelowPct",
+          "pct": 50
+        },
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "🔺",
+    "id": "desperateRite",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 12,
+          "if": {
+            "p": "not",
+            "pred": {
+              "of": "self",
+              "p": "hpBelowPct",
+              "pct": 50
+            }
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 20,
+          "if": {
+            "of": "self",
+            "p": "hpBelowPct",
+            "pct": 50
+          },
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "disorient": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "weak",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "vulnerable",
+        "target": "enemy"
+      }
+    ],
+    "icon": "💫",
+    "id": "disorient",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 2,
+          "status": "weak",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 2,
+          "status": "vulnerable",
+          "target": "enemy"
+        }
+      ],
+      "keywords": [],
+      "textTemplate": "Apply {weak} Weak and {vulnerable} Vulnerable."
+    }
+  },
+  "dodgeRoll": {
+    "class": "colorless",
+    "cost": 0,
+    "effects": [
+      {
+        "op": "dodgeRoll",
+        "target": "self"
+      }
+    ],
+    "icon": "💨",
+    "id": "dodgeRoll",
+    "keywords": [],
+    "rarity": "starter",
+    "staminaCost": 1,
+    "type": "skill"
+  },
+  "emberTideCard": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "emberTide",
+        "target": "self"
+      }
+    ],
+    "icon": "🌊",
+    "id": "emberTideCard",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "power",
+    "upgrade": {
+      "cost": 0
+    }
+  },
+  "enfeeble": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "vulnerable",
+        "target": "allEnemies"
+      }
+    ],
+    "icon": "💀",
+    "id": "enfeeble",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 4,
+          "status": "vulnerable",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "enterBulwark": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "enterStance",
+        "stance": "bulwark"
+      }
+    ],
+    "icon": "🛡",
+    "id": "enterBulwark",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "enterStance",
+          "stance": "bulwark"
+        },
+        {
+          "amount": 3,
+          "op": "block",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "Enter Bulwark Stance. Gain {block} extra Block."
+    }
+  },
+  "enterGorefire": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "enterStance",
+        "stance": "gorefire"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "icon": "🔥",
+    "id": "enterGorefire",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "cost": 0
+    }
+  },
+  "envenomCard": {
+    "class": "rogue",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "envenom",
+        "target": "self"
+      }
+    ],
+    "icon": "☣",
+    "id": "envenomCard",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "power",
+    "upgrade": {
+      "cost": 1
+    }
+  },
+  "evasiveGuard": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 1,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "dodgeRoll",
+        "target": "self"
+      }
+    ],
+    "icon": "🌀",
+    "id": "evasiveGuard",
+    "keywords": [],
+    "rarity": "starter",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 3,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "dodgeRoll",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "executionWindow": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "vulnerable",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "prepared",
+        "target": "self"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "icon": "⌛",
+    "id": "executionWindow",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "rare",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 4,
+          "status": "vulnerable",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "prepared",
+          "target": "self"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        }
+      ]
+    }
+  },
+  "executioner": {
+    "class": "reaver",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 10,
+        "if": {
+          "p": "not",
+          "pred": {
+            "of": "target",
+            "p": "hasStatus",
+            "status": "staggered"
+          }
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 25,
+        "if": {
+          "of": "target",
+          "p": "hasStatus",
+          "status": "staggered"
+        },
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "⚰",
+    "id": "executioner",
+    "keywords": [],
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 14,
+          "if": {
+            "p": "not",
+            "pred": {
+              "of": "target",
+              "p": "hasStatus",
+              "status": "staggered"
+            }
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 32,
+          "if": {
+            "of": "target",
+            "p": "hasStatus",
+            "status": "staggered"
+          },
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "exsanguinate": {
+    "class": "herald",
+    "cost": 1,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 3,
+        "op": "loseHp",
+        "target": "self"
+      },
+      {
+        "amount": 14,
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "🔻",
+    "id": "exsanguinate",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 3,
+          "op": "loseHp",
+          "target": "self"
+        },
+        {
+          "amount": 18,
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "fanOfKnives": {
+    "class": "rogue",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🗡",
+    "id": "fanOfKnives",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        }
+      ]
+    }
+  },
+  "feint": {
+    "class": "rogue",
+    "cost": 0,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "prepared",
+        "target": "self"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "icon": "↝",
+    "id": "feint",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "prepared",
+          "target": "self"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        },
+        {
+          "amount": 3,
+          "op": "block",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "Become Prepared. Draw {draw} card. Gain {block} Block."
+    }
+  },
+  "fieldDressing": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 8,
+        "op": "heal",
+        "target": "self"
+      }
+    ],
+    "icon": "🩹",
+    "id": "fieldDressing",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 12,
+          "op": "heal",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "flagellation": {
+    "class": "herald",
+    "cost": 1,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 2,
+        "op": "loseHp",
+        "target": "self"
+      },
+      {
+        "amount": 9,
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "⛓",
+    "id": "flagellation",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 2,
+          "op": "loseHp",
+          "target": "self"
+        },
+        {
+          "amount": 12,
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "flameToBlade": {
+    "class": "reaver",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 8,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 6,
+        "if": {
+          "p": "inStance",
+          "stance": "gorefire"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "enterStance",
+        "stance": "gorefire"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🔥",
+    "id": "flameToBlade",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 10,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 8,
+          "if": {
+            "p": "inStance",
+            "stance": "gorefire"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "enterStance",
+          "stance": "gorefire"
+        }
+      ]
+    }
+  },
+  "frostNova": {
+    "class": "starseer",
+    "cost": 1,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 4,
+        "status": "frost",
+        "target": "enemy"
+      },
+      {
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "frost",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "❄",
+    "id": "frostNova",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 5,
+          "status": "frost",
+          "target": "enemy"
+        },
+        {
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "applyStatus",
+          "stacks": 4,
+          "status": "frost",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "frostVeil": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 4,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "frost",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "🌫",
+    "id": "frostVeil",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 4,
+          "status": "frost",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "garrote": {
+    "class": "rogue",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 5,
+        "status": "bleed",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "weak",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "➰",
+    "id": "garrote",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 6,
+          "status": "bleed",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "weak",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "gildedOath": {
+    "class": "herald",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "strength",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "dexterity",
+        "target": "self"
+      }
+    ],
+    "icon": "🌞",
+    "id": "gildedOath",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "strength",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "dexterity",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "goreblood": {
+    "class": "reaver",
+    "cost": 3,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "goreblood",
+        "target": "self"
+      }
+    ],
+    "icon": "♛",
+    "id": "goreblood",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "power",
+    "upgrade": {
+      "cost": 2
+    }
+  },
+  "gorefireSlash": {
+    "class": "reaver",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "bleed",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🗡",
+    "id": "gorefireSlash",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "starter",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 5,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 5,
+          "status": "bleed",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "goreslash": {
+    "class": "reaver",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "bleed",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🩸",
+    "id": "goreslash",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 2,
+          "status": "bleed",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "graveOffering": {
+    "class": "herald",
+    "cost": 2,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 3,
+        "op": "loseHp",
+        "target": "self"
+      },
+      {
+        "amount": 7,
+        "op": "damage",
+        "target": "allEnemies"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🪦",
+    "id": "graveOffering",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 3,
+          "op": "loseHp",
+          "target": "self"
+        },
+        {
+          "amount": 10,
+          "op": "damage",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "gravityWell": {
+    "class": "starseer",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "vulnerable",
+        "target": "allEnemies"
+      },
+      {
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "weak",
+        "target": "allEnemies"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "🕳",
+    "id": "gravityWell",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "vulnerable",
+          "target": "allEnemies"
+        },
+        {
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "weak",
+          "target": "allEnemies"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "greatswordSunderingHew": {
+    "class": "colorless",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 16,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 3,
+        "op": "poiseDamage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "⚒",
+    "id": "greatswordSunderingHew",
+    "keywords": [],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 20,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 4,
+          "op": "poiseDamage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "guardCounter": {
+    "class": "reaver",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 4,
+        "if": {
+          "p": "not",
+          "pred": {
+            "of": "self",
+            "p": "hasBlock"
+          }
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 10,
+        "if": {
+          "of": "self",
+          "p": "hasBlock"
+        },
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "↩",
+    "id": "guardCounter",
+    "keywords": [],
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "if": {
+            "p": "not",
+            "pred": {
+              "of": "self",
+              "p": "hasBlock"
+            }
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 14,
+          "if": {
+            "of": "self",
+            "p": "hasBlock"
+          },
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "guardianBulwark": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "enterStance",
+        "stance": "bulwark"
+      }
+    ],
+    "icon": "🛡",
+    "id": "guardianBulwark",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "special",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "enterStance",
+          "stance": "bulwark"
+        },
+        {
+          "amount": 3,
+          "op": "block",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "Enter Bulwark Stance. Gain {block} extra Block. Exhaust."
+    }
+  },
+  "guilt": {
+    "class": "colorless",
+    "cost": 0,
+    "effects": [],
+    "icon": "⛓",
+    "id": "guilt",
+    "keywords": [
+      "unplayable"
+    ],
+    "rarity": "special",
+    "type": "curse"
+  },
+  "hamstring": {
+    "class": "colorless",
+    "cost": 0,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "vulnerable",
+        "target": "allEnemies"
+      }
+    ],
+    "icon": "🦵",
+    "id": "hamstring",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "vulnerable",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "hamstringRogue": {
+    "class": "rogue",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "vulnerable",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🦵",
+    "id": "hamstringRogue",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 9,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "vulnerable",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "harbingerOfBlightCard": {
+    "class": "herald",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "harbingerOfBlight",
+        "target": "self"
+      }
+    ],
+    "icon": "❀",
+    "id": "harbingerOfBlightCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "cost": 1
+    }
+  },
+  "hemorrhage": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "f": "stacks",
+          "of": "target",
+          "status": "bleed"
+        },
+        "status": "bleed",
+        "target": "enemy"
+      }
+    ],
+    "icon": "🩸",
+    "id": "hemorrhage",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "keywords": [],
+      "textTemplate": "Double the target's Bleed."
+    }
+  },
+  "hex": {
+    "class": "colorless",
+    "cost": 0,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "weak",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "vulnerable",
+        "target": "enemy"
+      }
+    ],
+    "icon": "🕯",
+    "id": "hex",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "weak",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "vulnerable",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "honedEdge": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "strength",
+        "target": "self"
+      }
+    ],
+    "icon": "🔩",
+    "id": "honedEdge",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "strength",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "impale": {
+    "class": "reaver",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 9,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "if": {
+          "of": "target",
+          "p": "hasStatus",
+          "status": "staggered"
+        },
+        "op": "applyStatus",
+        "stacks": 6,
+        "status": "bleed",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🗡",
+    "id": "impale",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 12,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "if": {
+            "of": "target",
+            "p": "hasStatus",
+            "status": "staggered"
+          },
+          "op": "applyStatus",
+          "stacks": 8,
+          "status": "bleed",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "ironResolve": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "if": {
+          "p": "not",
+          "pred": {
+            "p": "inStance",
+            "stance": "bulwark"
+          }
+        },
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 9,
+        "if": {
+          "p": "inStance",
+          "stance": "bulwark"
+        },
+        "op": "block",
+        "target": "self"
+      }
+    ],
+    "icon": "⛨",
+    "id": "ironResolve",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "if": {
+            "p": "not",
+            "pred": {
+              "p": "inStance",
+              "stance": "bulwark"
+            }
+          },
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 12,
+          "if": {
+            "p": "inStance",
+            "stance": "bulwark"
+          },
+          "op": "block",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "ironSkin": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 8,
+        "op": "block",
+        "target": "self"
+      }
+    ],
+    "icon": "🛡",
+    "id": "ironSkin",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 11,
+          "op": "block",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "ironVowCard": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "ironVow",
+        "target": "self"
+      }
+    ],
+    "icon": "⛓",
+    "id": "ironVowCard",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "power",
+    "upgrade": {
+      "cost": 0
+    }
+  },
+  "katanaDrawCut": {
+    "class": "colorless",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 9,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "bleed",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "⚔",
+    "id": "katanaDrawCut",
+    "keywords": [],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 12,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "bleed",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "kickOff": {
+    "class": "reaver",
+    "cost": 0,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 3,
+        "op": "poiseDamage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🥾",
+    "id": "kickOff",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 3,
+          "op": "poiseDamage",
+          "target": "enemy"
+        }
+      ],
+      "keywords": [],
+      "textTemplate": "Deal {damage} damage and {poiseDamage} Poise damage."
+    }
+  },
+  "kilnCleave": {
+    "class": "colorless",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 10,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 4,
+        "status": "burn",
+        "target": "enemy"
+      },
+      {
+        "amount": 3,
+        "op": "poiseDamage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🔥",
+    "id": "kilnCleave",
+    "keywords": [],
+    "rarity": "special",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 13,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 5,
+          "status": "burn",
+          "target": "enemy"
+        },
+        {
+          "amount": 4,
+          "op": "poiseDamage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "lastMercy": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "op": "heal",
+        "target": "self"
+      },
+      {
+        "amount": 4,
+        "op": "block",
+        "target": "self"
+      }
+    ],
+    "icon": "🙏",
+    "id": "lastMercy",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "heal",
+          "target": "self"
+        },
+        {
+          "amount": 6,
+          "op": "block",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "lastRites": {
+    "class": "herald",
+    "cost": 2,
+    "effects": [
+      {
+        "amount": {
+          "f": "percentMaxHp",
+          "of": "self",
+          "pct": 20
+        },
+        "op": "heal",
+        "target": "self"
+      },
+      {
+        "amount": 2,
+        "op": "draw"
+      }
+    ],
+    "icon": "🕯",
+    "id": "lastRites",
+    "keywords": [
+      "exhaust"
+    ],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "keywords": [],
+      "textTemplate": "Heal 20% of your max HP. Draw {draw} cards."
+    }
+  },
+  "lastStand": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": {
+          "f": "missingHp",
+          "max": 20,
+          "of": "self"
+        },
+        "op": "block",
+        "target": "self"
+      }
+    ],
+    "icon": "🕯",
+    "id": "lastStand",
+    "keywords": [
+      "ethereal"
+    ],
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": {
+            "f": "missingHp",
+            "max": 30,
+            "of": "self"
+          },
+          "op": "block",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "Ethereal. Gain Block equal to your missing HP (max 30)."
+    }
+  },
+  "lifeTitheCard": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "lifeTithe",
+        "target": "self"
+      }
+    ],
+    "icon": "⚰",
+    "id": "lifeTitheCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "manaCost": 0
+    }
+  },
+  "litany": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "weak",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "insanity",
+        "target": "enemy"
+      }
+    ],
+    "icon": "📿",
+    "id": "litany",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "weak",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 4,
+          "status": "insanity",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "lowBlow": {
+    "class": "rogue",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 4,
+        "op": "poiseDamage",
+        "target": "enemy"
+      },
+      {
+        "amount": 5,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "prepared"
+        },
+        "op": "poiseDamage",
+        "target": "enemy"
+      },
+      {
+        "op": "removeStatus",
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "↘",
+    "id": "lowBlow",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 5,
+          "op": "poiseDamage",
+          "target": "enemy"
+        },
+        {
+          "amount": 6,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "prepared"
+          },
+          "op": "poiseDamage",
+          "target": "enemy"
+        },
+        {
+          "op": "removeStatus",
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "lucidity": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 1,
+        "op": "gainEnergy"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "🌙",
+    "id": "lucidity",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 1,
+          "op": "gainEnergy"
+        },
+        {
+          "amount": 2,
+          "op": "draw"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "martyrBlood": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "op": "loseHp",
+        "target": "self"
+      },
+      {
+        "amount": 2,
+        "op": "gainEnergy"
+      },
+      {
+        "amount": 2,
+        "op": "draw"
+      }
+    ],
+    "icon": "🥀",
+    "id": "martyrBlood",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 3,
+          "op": "loseHp",
+          "target": "self"
+        },
+        {
+          "amount": 2,
+          "op": "gainEnergy"
+        },
+        {
+          "amount": 2,
+          "op": "draw"
+        }
+      ]
+    }
+  },
+  "masterOfStrategy": {
+    "class": "colorless",
+    "cost": 0,
+    "effects": [
+      {
+        "amount": 3,
+        "op": "draw"
+      }
+    ],
+    "icon": "📜",
+    "id": "masterOfStrategy",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "rare",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 4,
+          "op": "draw"
+        }
+      ]
+    }
+  },
+  "meteorSwarm": {
+    "class": "starseer",
+    "cost": 2,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "amount": 5,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "☄",
+    "id": "meteorSwarm",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "amount": 7,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "meteorite": {
+    "class": "starseer",
+    "cost": 3,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 18,
+        "if": {
+          "p": "not",
+          "pred": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          }
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 24,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🪨",
+    "id": "meteorite",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 22,
+          "if": {
+            "p": "not",
+            "pred": {
+              "of": "self",
+              "p": "hasStatus",
+              "status": "starstoneCharge"
+            }
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 30,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "misdirect": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 6,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "weak",
+        "target": "allEnemies"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "icon": "↪",
+    "id": "misdirect",
+    "keywords": [],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 9,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "weak",
+          "target": "allEnemies"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "moonlitShieldCard": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "moonlitShield",
+        "target": "self"
+      }
+    ],
+    "icon": "🔷",
+    "id": "moonlitShieldCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "manaCost": 0
+    }
+  },
+  "moonrendCut": {
+    "class": "starseer",
+    "cost": 2,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 8,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 6,
+        "op": "poiseDamage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🌒",
+    "id": "moonrendCut",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 11,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 8,
+          "op": "poiseDamage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "opportunistCard": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "opportunist",
+        "target": "self"
+      }
+    ],
+    "icon": "◎",
+    "id": "opportunistCard",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "power",
+    "upgrade": {
+      "cost": 0
+    }
+  },
+  "painOffering": {
+    "class": "herald",
+    "cost": 0,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 2,
+        "op": "loseHp",
+        "target": "self"
+      },
+      {
+        "amount": 7,
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "🩸",
+    "id": "painOffering",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 2,
+          "op": "loseHp",
+          "target": "self"
+        },
+        {
+          "amount": 10,
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "penance": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 2,
+        "op": "heal",
+        "target": "self"
+      }
+    ],
+    "icon": "🙏",
+    "id": "penance",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 3,
+          "op": "heal",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "perfectHeist": {
+    "class": "rogue",
+    "cost": 0,
+    "effects": [
+      {
+        "amount": 3,
+        "op": "draw"
+      },
+      {
+        "amount": 1,
+        "op": "gainEnergy"
+      }
+    ],
+    "icon": "💎",
+    "id": "perfectHeist",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 4,
+          "op": "draw"
+        },
+        {
+          "amount": 1,
+          "op": "gainEnergy"
+        }
+      ]
+    }
+  },
+  "pilfer": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 2,
+        "op": "draw"
+      },
+      {
+        "amount": 1,
+        "op": "discard",
+        "random": true
+      }
+    ],
+    "icon": "🖐",
+    "id": "pilfer",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 3,
+          "op": "draw"
+        },
+        {
+          "amount": 1,
+          "op": "discard",
+          "random": true
+        }
+      ]
+    }
+  },
+  "plagueBearer": {
+    "class": "herald",
+    "cost": 1,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "crimsonBlight",
+        "target": "enemy"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🐀",
+    "id": "plagueBearer",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 5,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "crimsonBlight",
+          "target": "enemy"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        }
+      ]
+    }
+  },
+  "pocketSand": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 4,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "weak",
+        "target": "enemy"
+      }
+    ],
+    "icon": "✺",
+    "id": "pocketSand",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 5,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "weak",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "poiseBreaker": {
+    "class": "reaver",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 11,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 10,
+        "op": "poiseDamage",
+        "target": "enemy"
+      },
+      {
+        "amount": 8,
+        "if": {
+          "of": "target",
+          "p": "hasStatus",
+          "status": "staggered"
+        },
+        "op": "poiseDamage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🔨",
+    "id": "poiseBreaker",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 14,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 12,
+          "op": "poiseDamage",
+          "target": "enemy"
+        },
+        {
+          "amount": 10,
+          "if": {
+            "of": "target",
+            "p": "hasStatus",
+            "status": "staggered"
+          },
+          "op": "poiseDamage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "prepare": {
+    "class": "rogue",
+    "cost": 0,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "icon": "◈",
+    "id": "prepare",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "starter",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "prepared",
+          "target": "self"
+        }
+      ],
+      "keywords": [],
+      "textTemplate": "Become Prepared."
+    }
+  },
+  "quickCut": {
+    "class": "rogue",
+    "cost": 0,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 3,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 3,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "prepared"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "removeStatus",
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "╱",
+    "id": "quickCut",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 4,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 4,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "prepared"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "removeStatus",
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "quickGuard": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "icon": "🛡",
+    "id": "quickGuard",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        }
+      ],
+      "keywords": [
+        "exhaust"
+      ]
+    }
+  },
+  "quickstep": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 6,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "icon": "👣",
+    "id": "quickstep",
+    "keywords": [],
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        }
+      ]
+    }
+  },
+  "radiantSpray": {
+    "class": "starseer",
+    "cost": 2,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "vulnerable",
+        "target": "allEnemies"
+      },
+      {
+        "amount": 4,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "🎇",
+    "id": "radiantSpray",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "vulnerable",
+          "target": "allEnemies"
+        },
+        {
+          "amount": 6,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "rallyingBanner": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 10,
+        "op": "block",
+        "target": "ally"
+      }
+    ],
+    "icon": "🚩",
+    "id": "rallyingBanner",
+    "keywords": [],
+    "rarity": "special",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 14,
+          "op": "block",
+          "target": "ally"
+        }
+      ]
+    }
+  },
+  "rallyingStandard": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "rallyingStandard",
+        "target": "self"
+      }
+    ],
+    "icon": "⚑",
+    "id": "rallyingStandard",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "power",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "rallyingStandardUp",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "At the start of your turn, gain 1 Strength."
+    }
+  },
+  "reclamation": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": {
+          "f": "stacks",
+          "of": "allEnemies",
+          "per": 2,
+          "status": "crimsonBlight"
+        },
+        "op": "heal",
+        "target": "self"
+      }
+    ],
+    "icon": "🍂",
+    "id": "reclamation",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": {
+            "f": "stacks",
+            "of": "allEnemies",
+            "status": "crimsonBlight"
+          },
+          "op": "heal",
+          "target": "self"
+        }
+      ],
+      "keywords": [
+        "exhaust"
+      ],
+      "textTemplate": "Heal 1 HP for every Crimson Blight on all enemies. Exhaust."
+    }
+  },
+  "rend": {
+    "class": "reaver",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "bleed",
+        "target": "enemy"
+      },
+      {
+        "if": {
+          "p": "inStance",
+          "stance": "gorefire"
+        },
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "bleed",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🩸",
+    "id": "rend",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 2,
+          "status": "bleed",
+          "target": "enemy"
+        },
+        {
+          "if": {
+            "p": "inStance",
+            "stance": "gorefire"
+          },
+          "op": "applyStatus",
+          "stacks": 2,
+          "status": "bleed",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "ricochet": {
+    "class": "rogue",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "allEnemies"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "➶",
+    "id": "ricochet",
+    "keywords": [],
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "damage",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "rimeThrust": {
+    "class": "colorless",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "frost",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "❄",
+    "id": "rimeThrust",
+    "keywords": [],
+    "rarity": "special",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 4,
+          "status": "frost",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "riposte": {
+    "class": "reaver",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 4,
+        "if": {
+          "of": "self",
+          "p": "hasBlock"
+        },
+        "op": "poiseDamage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "⚔",
+    "id": "riposte",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 6,
+          "if": {
+            "of": "self",
+            "p": "hasBlock"
+          },
+          "op": "poiseDamage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "rogueShiv": {
+    "class": "rogue",
+    "cost": 0,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🔪",
+    "id": "rogueShiv",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "special",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "rondelParry": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 5,
+        "op": "poiseDamage",
+        "target": "enemy"
+      }
+    ],
+    "icon": "🗡",
+    "id": "rondelParry",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 7,
+          "op": "poiseDamage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "ruinousBlow": {
+    "class": "reaver",
+    "cost": 3,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 20,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 12,
+        "op": "poiseDamage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🔨",
+    "id": "ruinousBlow",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 26,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 14,
+          "op": "poiseDamage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "sacredHarvest": {
+    "class": "herald",
+    "cost": 1,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 3,
+        "op": "heal",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🌾",
+    "id": "sacredHarvest",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 4,
+          "op": "heal",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "sanguinePactCard": {
+    "class": "reaver",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "sanguinePact",
+        "target": "self"
+      }
+    ],
+    "icon": "🩸",
+    "id": "sanguinePactCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "cost": 1
+    }
+  },
+  "sap": {
+    "class": "rogue",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "weak",
+        "target": "enemy"
+      },
+      {
+        "amount": 4,
+        "op": "poiseDamage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "♠",
+    "id": "sap",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "weak",
+          "target": "enemy"
+        },
+        {
+          "amount": 5,
+          "op": "poiseDamage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "scholarsInsight": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 2,
+        "op": "draw"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "📖",
+    "id": "scholarsInsight",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 3,
+          "op": "draw"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "scourge": {
+    "class": "herald",
+    "cost": 2,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "crimsonBlight",
+        "target": "allEnemies"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "🌊",
+    "id": "scourge",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 2,
+          "status": "crimsonBlight",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "secondBloom": {
+    "class": "herald",
+    "cost": 2,
+    "effects": [
+      {
+        "amount": {
+          "args": [
+            0.5,
+            {
+              "f": "missingHp",
+              "of": "self"
+            }
+          ],
+          "f": "mul"
+        },
+        "op": "heal",
+        "target": "self"
+      }
+    ],
+    "icon": "🌸",
+    "id": "secondBloom",
+    "keywords": [
+      "exhaust"
+    ],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "cost": 1
+    }
+  },
+  "serratedBlade": {
+    "class": "reaver",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 7,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "if": {
+          "of": "target",
+          "p": "hasStatus",
+          "status": "bleed"
+        },
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "bleed",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🪚",
+    "id": "serratedBlade",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 9,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "if": {
+            "of": "target",
+            "p": "hasStatus",
+            "status": "bleed"
+          },
+          "op": "applyStatus",
+          "stacks": 4,
+          "status": "bleed",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "serratedShiv": {
+    "class": "rogue",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "bleed",
+        "target": "enemy"
+      },
+      {
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "prepared"
+        },
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "bleed",
+        "target": "enemy"
+      },
+      {
+        "op": "removeStatus",
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🩸",
+    "id": "serratedShiv",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 4,
+          "status": "bleed",
+          "target": "enemy"
+        },
+        {
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "prepared"
+          },
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "bleed",
+          "target": "enemy"
+        },
+        {
+          "op": "removeStatus",
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "setupRogue": {
+    "class": "rogue",
+    "cost": 0,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "prepared",
+        "target": "self"
+      },
+      {
+        "amount": 1,
+        "op": "gainEnergy"
+      },
+      {
+        "card": "rogueShiv",
+        "op": "addCard",
+        "pile": "hand"
+      }
+    ],
+    "icon": "⚙",
+    "id": "setupRogue",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "prepared",
+          "target": "self"
+        },
+        {
+          "amount": 1,
+          "op": "gainEnergy"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        },
+        {
+          "card": "rogueShiv",
+          "op": "addCard",
+          "pile": "hand"
+        }
+      ],
+      "textTemplate": "Become Prepared. Gain {gainEnergy} Energy. Draw {draw} card. Add a Shiv to your hand. Exhaust."
+    }
+  },
+  "shadowstep": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "prepared",
+        "target": "self"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "icon": "◐",
+    "id": "shadowstep",
+    "keywords": [],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "prepared",
+          "target": "self"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        }
+      ]
+    }
+  },
+  "sharedFlame": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 7,
+        "op": "heal",
+        "target": "ally"
+      }
+    ],
+    "icon": "✚",
+    "id": "sharedFlame",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "special",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 11,
+          "op": "heal",
+          "target": "ally"
+        }
+      ]
+    }
+  },
+  "shieldBash": {
+    "class": "reaver",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 4,
+        "op": "poiseDamage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🛡",
+    "id": "shieldBash",
+    "keywords": [],
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 5,
+          "op": "poiseDamage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "shieldBastion": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 12,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "weak",
+        "target": "self"
+      }
+    ],
+    "icon": "🛡",
+    "id": "shieldBastion",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "special",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 16,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "weak",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "shieldGuardian": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "card": "guardianBulwark",
+        "op": "addCard",
+        "pile": "hand",
+        "position": "bottom"
+      }
+    ],
+    "icon": "🛡",
+    "id": "shieldGuardian",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "special",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "card": "guardianBulwark",
+          "op": "addCard",
+          "pile": "hand",
+          "position": "bottom"
+        }
+      ]
+    }
+  },
+  "shieldwall": {
+    "class": "reaver",
+    "cost": 2,
+    "effects": [
+      {
+        "amount": 12,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "if": {
+          "p": "inStance",
+          "stance": "bulwark"
+        },
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "bulwarkEcho",
+        "target": "self"
+      }
+    ],
+    "icon": "🧱",
+    "id": "shieldwall",
+    "keywords": [],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 16,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "if": {
+            "p": "inStance",
+            "stance": "bulwark"
+          },
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "bulwarkEcho",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "shootingShard": {
+    "class": "starseer",
+    "cost": 0,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 3,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "💫",
+    "id": "shootingShard",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 5,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 4,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "slimed": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [],
+    "icon": "🫠",
+    "id": "slimed",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "special",
+    "type": "status"
+  },
+  "smokeBomb": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 8,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "weak",
+        "target": "allEnemies"
+      }
+    ],
+    "icon": "💨",
+    "id": "smokeBomb",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 10,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 4,
+          "status": "weak",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "smokePellet": {
+    "class": "rogue",
+    "cost": 0,
+    "effects": [
+      {
+        "amount": 3,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "icon": "🌫",
+    "id": "smokePellet",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "special",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 5,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "smokeVeil": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 5,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "weak",
+        "target": "allEnemies"
+      }
+    ],
+    "icon": "🌁",
+    "id": "smokeVeil",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "weak",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "spikedReprisal": {
+    "class": "colorless",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 2,
+        "status": "bleed",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🛡",
+    "id": "spikedReprisal",
+    "keywords": [],
+    "rarity": "special",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 6,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 3,
+          "status": "bleed",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "starPath": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 1,
+        "op": "draw"
+      },
+      {
+        "amount": 1,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "draw"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "🌌",
+    "id": "starPath",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 2,
+          "op": "draw"
+        },
+        {
+          "amount": 1,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "draw"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "starShower": {
+    "class": "starseer",
+    "cost": 2,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 3,
+        "hits": 3,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 3,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "🌠",
+    "id": "starShower",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 4,
+          "hits": 3,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 4,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "starSlicer": {
+    "class": "starseer",
+    "cost": 1,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 4,
+        "hits": 2,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 4,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "🌠",
+    "id": "starSlicer",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 5,
+          "hits": 2,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 5,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "starSpark": {
+    "class": "starseer",
+    "cost": 1,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "weak",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 1,
+    "icon": "✨",
+    "id": "starSpark",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "weak",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "starbladePhalanx": {
+    "class": "starseer",
+    "cost": 1,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 4,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🗡",
+    "id": "starbladePhalanx",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 6,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "starcaller": {
+    "class": "starseer",
+    "cost": "X",
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 6,
+        "hits": {
+          "f": "energySpent"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 8,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "⭐",
+    "id": "starcaller",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "hits": {
+            "f": "energySpent"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 10,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "Deal {damage} damage, scaling with Energy spent. Starstone: deal {damage.2} more."
+    }
+  },
+  "starfallBeam": {
+    "class": "starseer",
+    "cost": 3,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 12,
+        "if": {
+          "p": "not",
+          "pred": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          }
+        },
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "amount": 20,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🔆",
+    "id": "starfallBeam",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 16,
+          "if": {
+            "p": "not",
+            "pred": {
+              "of": "self",
+              "p": "hasStatus",
+              "status": "starstoneCharge"
+            }
+          },
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "amount": 26,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "stargazerCard": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "stargazer",
+        "target": "self"
+      }
+    ],
+    "icon": "🔭",
+    "id": "stargazerCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "manaCost": 0
+    }
+  },
+  "starlance": {
+    "class": "starseer",
+    "cost": 2,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 9,
+        "if": {
+          "p": "not",
+          "pred": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          }
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 13,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🏹",
+    "id": "starlance",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 12,
+          "if": {
+            "p": "not",
+            "pred": {
+              "of": "self",
+              "p": "hasStatus",
+              "status": "starstoneCharge"
+            }
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 17,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "starstoneArc": {
+    "class": "starseer",
+    "cost": 1,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 7,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "vulnerable",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "⚡",
+    "id": "starstoneArc",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 9,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "applyStatus",
+          "stacks": 2,
+          "status": "vulnerable",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "starstoneKris": {
+    "class": "starseer",
+    "cost": 1,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 5,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 1,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "draw"
+      },
+      {
+        "amount": 5,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🔪",
+    "id": "starstoneKris",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 7,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 1,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "draw"
+        },
+        {
+          "amount": 7,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "starstonePebble": {
+    "class": "starseer",
+    "cost": 1,
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 3,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "💎",
+    "id": "starstonePebble",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "starter",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 5,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "starstoneWard": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 4,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "weak",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "🔰",
+    "id": "starstoneWard",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "weak",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "stigmataCard": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "stigmata",
+        "target": "self"
+      }
+    ],
+    "icon": "🩹",
+    "id": "stigmataCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "manaCost": 0
+    }
+  },
+  "stitchedArms": {
+    "class": "reaver",
+    "cost": "X",
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 6,
+        "hits": {
+          "f": "energySpent"
+        },
+        "op": "damage",
+        "target": "randomEnemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🦾",
+    "id": "stitchedArms",
+    "keywords": [],
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "hits": {
+            "f": "energySpent"
+          },
+          "op": "damage",
+          "target": "randomEnemy"
+        }
+      ],
+      "textTemplate": "Deal {damage} damage to a random enemy, scaling with Energy spent."
+    }
+  },
+  "stomp": {
+    "class": "reaver",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 12,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 8,
+        "op": "poiseDamage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🦶",
+    "id": "stomp",
+    "keywords": [],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 16,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 10,
+          "op": "poiseDamage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "strike": {
+    "class": "colorless",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "⚔",
+    "id": "strike",
+    "keywords": [],
+    "rarity": "starter",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 9,
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "sunderplate": {
+    "class": "reaver",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 9,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 10,
+        "op": "poiseDamage",
+        "target": "enemy"
+      },
+      {
+        "if": {
+          "of": "target",
+          "p": "hasStatus",
+          "status": "staggered"
+        },
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "bleed",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "⚒",
+    "id": "sunderplate",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 12,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 13,
+          "op": "poiseDamage",
+          "target": "enemy"
+        },
+        {
+          "if": {
+            "of": "target",
+            "p": "hasStatus",
+            "status": "staggered"
+          },
+          "op": "applyStatus",
+          "stacks": 4,
+          "status": "bleed",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "supernova": {
+    "class": "starseer",
+    "cost": "X",
+    "damageSchool": "magic",
+    "effects": [
+      {
+        "amount": 8,
+        "hits": {
+          "f": "energySpent"
+        },
+        "op": "damage",
+        "target": "allEnemies"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "💥",
+    "id": "supernova",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 10,
+          "hits": {
+            "f": "energySpent"
+          },
+          "op": "damage",
+          "target": "allEnemies"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "Deal {damage} damage to ALL enemies, scaling with Energy spent."
+    }
+  },
+  "sweepingBlow": {
+    "class": "colorless",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 6,
+        "op": "damage",
+        "target": "allEnemies"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🌀",
+    "id": "sweepingBlow",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "damage",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "technique": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 3,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "icon": "✧",
+    "id": "technique",
+    "keywords": [],
+    "rarity": "starter",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 5,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        }
+      ]
+    }
+  },
+  "thornHaloCard": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "thornHalo",
+        "target": "self"
+      }
+    ],
+    "icon": "🌿",
+    "id": "thornHaloCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "manaCost": 0
+    }
+  },
+  "thousandCutsRogue": {
+    "class": "rogue",
+    "cost": 2,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 2,
+        "hits": 6,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 1,
+        "hits": 6,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "prepared"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "removeStatus",
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "✣",
+    "id": "thousandCutsRogue",
+    "keywords": [],
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 3,
+          "hits": 6,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 1,
+          "hits": 6,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "prepared"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "removeStatus",
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "timeDilation": {
+    "class": "starseer",
+    "cost": 2,
+    "effects": [
+      {
+        "amount": 2,
+        "op": "gainEnergy"
+      },
+      {
+        "amount": 3,
+        "op": "draw"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "⏳",
+    "id": "timeDilation",
+    "keywords": [
+      "exhaust"
+    ],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "keywords": [],
+      "textTemplate": "Gain {gainEnergy} Energy. Draw {draw} cards."
+    }
+  },
+  "toxicVolley": {
+    "class": "rogue",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 5,
+        "status": "venom",
+        "target": "allEnemies"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "weak",
+        "target": "allEnemies"
+      }
+    ],
+    "icon": "🏹",
+    "id": "toxicVolley",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 7,
+          "status": "venom",
+          "target": "allEnemies"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "weak",
+          "target": "allEnemies"
+        }
+      ]
+    }
+  },
+  "transfusion": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 6,
+        "op": "heal",
+        "target": "self"
+      }
+    ],
+    "icon": "➕",
+    "id": "transfusion",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 9,
+          "op": "heal",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "transmute": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 2,
+        "op": "gainEnergy"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "icon": "⚗",
+    "id": "transmute",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "rare",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 2,
+          "op": "gainEnergy"
+        },
+        {
+          "amount": 2,
+          "op": "draw"
+        }
+      ]
+    }
+  },
+  "twinFang": {
+    "class": "colorless",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 4,
+        "hits": 2,
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "🗡",
+    "id": "twinFang",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "hits": 2,
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "twinPrick": {
+    "class": "rogue",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 3,
+        "hits": 2,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "amount": 2,
+        "hits": 2,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "prepared"
+        },
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "removeStatus",
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "†",
+    "id": "twinPrick",
+    "keywords": [],
+    "rarity": "common",
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 4,
+          "hits": 2,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "amount": 2,
+          "hits": 2,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "prepared"
+          },
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "removeStatus",
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "twinbladeFlurry": {
+    "class": "reaver",
+    "cost": 1,
+    "damageSchool": "physical",
+    "effects": [
+      {
+        "amount": 3,
+        "hits": 3,
+        "op": "damage",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 0,
+    "icon": "⚔",
+    "id": "twinbladeFlurry",
+    "keywords": [],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 4,
+          "hits": 3,
+          "op": "damage",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "twinkling": {
+    "class": "starseer",
+    "cost": 0,
+    "effects": [
+      {
+        "amount": 1,
+        "op": "draw"
+      },
+      {
+        "amount": 1,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "gainEnergy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "✨",
+    "id": "twinkling",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 2,
+          "op": "draw"
+        },
+        {
+          "amount": 1,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "gainEnergy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "umbralWard": {
+    "class": "starseer",
+    "cost": 2,
+    "effects": [
+      {
+        "amount": 20,
+        "if": {
+          "p": "not",
+          "pred": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          }
+        },
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 30,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "🌑",
+    "id": "umbralWard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 26,
+          "if": {
+            "p": "not",
+            "pred": {
+              "of": "self",
+              "p": "hasStatus",
+              "status": "starstoneCharge"
+            }
+          },
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 38,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "unbreakable": {
+    "class": "reaver",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "unbreakable",
+        "target": "self"
+      }
+    ],
+    "icon": "⬟",
+    "id": "unbreakable",
+    "keywords": [],
+    "rarity": "rare",
+    "type": "power",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "unbreakableUp",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "Block no longer expires at the start of your turn. (Block capped at 40.)"
+    }
+  },
+  "urgentHeal": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 4,
+        "op": "heal",
+        "target": "self"
+      }
+    ],
+    "icon": "✚",
+    "id": "urgentHeal",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "starter",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "heal",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "vanish": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 8,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "prepared",
+        "target": "self"
+      },
+      {
+        "card": "smokePellet",
+        "op": "addCard",
+        "pile": "hand"
+      }
+    ],
+    "icon": "◌",
+    "id": "vanish",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "prepared",
+          "target": "self"
+        },
+        {
+          "card": "smokePellet",
+          "op": "addCard",
+          "pile": "hand"
+        }
+      ],
+      "keywords": [],
+      "textTemplate": "Gain {block} Block. Become Prepared. Add a Smoke Pellet to your hand."
+    }
+  },
+  "venomcoat": {
+    "class": "rogue",
+    "cost": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 4,
+        "status": "venom",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "prepared",
+        "target": "self"
+      }
+    ],
+    "icon": "🐍",
+    "id": "venomcoat",
+    "keywords": [],
+    "rarity": "uncommon",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "applyStatus",
+          "stacks": 6,
+          "status": "venom",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "prepared",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "vesperWard": {
+    "class": "colorless",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 7,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "regen",
+        "target": "self"
+      }
+    ],
+    "icon": "◈",
+    "id": "vesperWard",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "special",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 10,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 1,
+          "status": "regen",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "warSurgeon": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": {
+          "args": [
+            2,
+            {
+              "f": "stacks",
+              "of": "allEnemies",
+              "per": 4,
+              "status": "bleed"
+            }
+          ],
+          "f": "mul"
+        },
+        "op": "heal",
+        "target": "self"
+      }
+    ],
+    "icon": "⚕",
+    "id": "warSurgeon",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": {
+            "args": [
+              2,
+              {
+                "f": "stacks",
+                "of": "allEnemies",
+                "per": 3,
+                "status": "bleed"
+              }
+            ],
+            "f": "mul"
+          },
+          "op": "heal",
+          "target": "self"
+        }
+      ],
+      "textTemplate": "Heal 2 HP for every 3 Bleed on all enemies. Exhaust."
+    }
+  },
+  "warcry": {
+    "class": "reaver",
+    "cost": 0,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": 1,
+        "status": "strength",
+        "target": "self"
+      },
+      {
+        "amount": 1,
+        "op": "draw"
+      }
+    ],
+    "icon": "📣",
+    "id": "warcry",
+    "keywords": [
+      "exhaust"
+    ],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "keywords": [],
+      "textTemplate": "Gain {strength} Strength. Draw {draw} card."
+    }
+  },
+  "wardingLunge": {
+    "class": "reaver",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 8,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "op": "enterStance",
+        "stance": "gorefire"
+      }
+    ],
+    "icon": "🛡",
+    "id": "wardingLunge",
+    "keywords": [],
+    "rarity": "uncommon",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 11,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "op": "enterStance",
+          "stance": "gorefire"
+        }
+      ]
+    }
+  },
+  "wardingStar": {
+    "class": "starseer",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 6,
+        "op": "block",
+        "target": "self"
+      },
+      {
+        "amount": 1,
+        "if": {
+          "of": "self",
+          "p": "hasStatus",
+          "status": "starstoneCharge"
+        },
+        "op": "draw"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "starstoneCharge",
+        "target": "self"
+      }
+    ],
+    "icon": "⭐",
+    "id": "wardingStar",
+    "keywords": [],
+    "rarity": "common",
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 8,
+          "op": "block",
+          "target": "self"
+        },
+        {
+          "amount": 1,
+          "if": {
+            "of": "self",
+            "p": "hasStatus",
+            "status": "starstoneCharge"
+          },
+          "op": "draw"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": {
+            "args": [
+              1
+            ],
+            "f": "add"
+          },
+          "status": "starstoneCharge",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "warmLitany": {
+    "class": "herald",
+    "cost": 1,
+    "effects": [
+      {
+        "amount": 3,
+        "op": "heal",
+        "target": "self"
+      },
+      {
+        "amount": 3,
+        "op": "block",
+        "target": "self"
+      }
+    ],
+    "icon": "📿",
+    "id": "warmLitany",
+    "keywords": [],
+    "rarity": "starter",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 5,
+          "op": "heal",
+          "target": "self"
+        },
+        {
+          "amount": 5,
+          "op": "block",
+          "target": "self"
+        }
+      ]
+    }
+  },
+  "warriorsVow": {
+    "class": "reaver",
+    "cost": 0,
+    "effects": [
+      {
+        "op": "enterStance",
+        "stance": "gorefire"
+      }
+    ],
+    "icon": "📜",
+    "id": "warriorsVow",
+    "keywords": [
+      "innate",
+      "exhaust"
+    ],
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "skill",
+    "upgrade": {
+      "effects": [
+        {
+          "op": "enterStance",
+          "stance": "gorefire"
+        },
+        {
+          "amount": 1,
+          "op": "draw"
+        }
+      ],
+      "textTemplate": "Innate. Enter Gorefire Stance. Draw {draw} card. Exhaust."
+    }
+  },
+  "waxingMoonCard": {
+    "class": "starseer",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "waxingMoon",
+        "target": "self"
+      }
+    ],
+    "icon": "🌕",
+    "id": "waxingMoonCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "cost": 1
+    }
+  },
+  "witheringTouch": {
+    "class": "herald",
+    "cost": 1,
+    "damageSchool": "arcane",
+    "effects": [
+      {
+        "amount": 4,
+        "op": "damage",
+        "target": "enemy"
+      },
+      {
+        "op": "applyStatus",
+        "stacks": 3,
+        "status": "crimsonBlight",
+        "target": "enemy"
+      }
+    ],
+    "exposureBuildupPerHit": 5,
+    "icon": "🦠",
+    "id": "witheringTouch",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "common",
+    "staminaCost": 1,
+    "type": "attack",
+    "upgrade": {
+      "effects": [
+        {
+          "amount": 6,
+          "op": "damage",
+          "target": "enemy"
+        },
+        {
+          "op": "applyStatus",
+          "stacks": 4,
+          "status": "crimsonBlight",
+          "target": "enemy"
+        }
+      ]
+    }
+  },
+  "wound": {
+    "class": "colorless",
+    "cost": 0,
+    "effects": [],
+    "icon": "💢",
+    "id": "wound",
+    "keywords": [
+      "unplayable"
+    ],
+    "rarity": "special",
+    "type": "status"
+  },
+  "zealotryCard": {
+    "class": "herald",
+    "cost": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "stacks": {
+          "args": [
+            1
+          ],
+          "f": "add"
+        },
+        "status": "zealotry",
+        "target": "self"
+      }
+    ],
+    "icon": "⚡",
+    "id": "zealotryCard",
+    "keywords": [],
+    "manaCost": 1,
+    "rarity": "rare",
+    "staminaCost": 1,
+    "type": "power",
+    "upgrade": {
+      "cost": 1
+    }
+  }
+}

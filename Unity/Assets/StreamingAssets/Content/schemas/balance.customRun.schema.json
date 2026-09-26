@@ -1,0 +1,120 @@
+{
+  "$id": "balance/customRun.json",
+  "type": "object",
+  "properties": {
+    "ASCENSION_ORDER": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "bigBosses",
+          "cursedStart",
+          "deadlyEnemies",
+          "expensiveShops",
+          "lessHealing",
+          "toughElites"
+        ]
+      }
+    },
+    "CHAOS_MODS": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "desc": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "desc",
+          "id",
+          "label"
+        ]
+      }
+    },
+    "DECK_MODES": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "desc": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "desc",
+          "id",
+          "label"
+        ]
+      }
+    },
+    "DIFFICULTY_MODS": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "desc": {
+            "type": "string",
+            "enum": [
+              "Act bosses have +50% HP.",
+              "Begin the run with a Guilt curse shuffled into your deck.",
+              "Elites and bosses have +30% HP.",
+              "Every enemy begins combat with +1 Strength.",
+              "Shop prices are 50% higher.",
+              "Shrine rest and between-act healing are halved."
+            ]
+          },
+          "id": {
+            "type": "string",
+            "enum": [
+              "bigBosses",
+              "cursedStart",
+              "deadlyEnemies",
+              "expensiveShops",
+              "lessHealing",
+              "toughElites"
+            ]
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "desc",
+          "id",
+          "label"
+        ]
+      }
+    },
+    "ENDLESS_HP_PER_LOOP": {
+      "type": "number"
+    },
+    "ENDLESS_STR_PER_LOOP": {
+      "type": "integer"
+    },
+    "MAX_ASCENSION": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "ASCENSION_ORDER",
+    "CHAOS_MODS",
+    "DECK_MODES",
+    "DIFFICULTY_MODS",
+    "ENDLESS_HP_PER_LOOP",
+    "ENDLESS_STR_PER_LOOP",
+    "MAX_ASCENSION"
+  ]
+}

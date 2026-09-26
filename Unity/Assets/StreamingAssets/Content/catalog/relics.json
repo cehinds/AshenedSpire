@@ -1,0 +1,392 @@
+{
+  "ancestralHorn": {
+    "icon": "📯",
+    "id": "ancestralHorn",
+    "passives": {
+      "powerCostReduction": 1
+    },
+    "rarity": "rare"
+  },
+  "ashOfRemembrance": {
+    "icon": "⚱",
+    "id": "ashOfRemembrance",
+    "rarity": "boss"
+  },
+  "ashenGrip": {
+    "icon": "🤚",
+    "id": "ashenGrip",
+    "rarity": "starter"
+  },
+  "azureSigil": {
+    "icon": "🔵",
+    "id": "azureSigil",
+    "rarity": "uncommon"
+  },
+  "blessedDew": {
+    "icon": "💧",
+    "id": "blessedDew",
+    "rarity": "uncommon"
+  },
+  "blightTouchedIdol": {
+    "icon": "☣",
+    "id": "blightTouchedIdol",
+    "rarity": "uncommon"
+  },
+  "bloodiedTalisman": {
+    "icon": "🩸",
+    "id": "bloodiedTalisman",
+    "rarity": "uncommon"
+  },
+  "bloodstainedChalice": {
+    "icon": "🍷",
+    "id": "bloodstainedChalice",
+    "rarity": "uncommon"
+  },
+  "carrionMorsel": {
+    "icon": "🍖",
+    "id": "carrionMorsel",
+    "rarity": "common"
+  },
+  "carrionTalon": {
+    "icon": "🦅",
+    "id": "carrionTalon",
+    "rarity": "rare"
+  },
+  "cinderOfTheFallen": {
+    "icon": "☠",
+    "id": "cinderOfTheFallen",
+    "rarity": "boss"
+  },
+  "cinderPouch": {
+    "icon": "👝",
+    "id": "cinderPouch",
+    "passives": {
+      "runeGainMult": 1.25
+    },
+    "rarity": "common"
+  },
+  "crackedLantern": {
+    "icon": "🏮",
+    "id": "crackedLantern",
+    "rarity": "common"
+  },
+  "crackedTear": {
+    "icon": "💧",
+    "id": "crackedTear",
+    "passives": {
+      "flaskPowerMult": 1.5
+    },
+    "rarity": "uncommon"
+  },
+  "crimsonCovenant": {
+    "icon": "🩸",
+    "id": "crimsonCovenant",
+    "rarity": "boss"
+  },
+  "crownOfStitches": {
+    "icon": "👑",
+    "id": "crownOfStitches",
+    "rarity": "boss"
+  },
+  "curedHide": {
+    "icon": "🛡",
+    "id": "curedHide",
+    "passives": {
+      "poiseThresholdAdd": 2
+    },
+    "rarity": "common"
+  },
+  "cutpursesCoin": {
+    "icon": "🪙",
+    "id": "cutpursesCoin",
+    "passives": {
+      "modifiers": []
+    },
+    "rarity": "starter"
+  },
+  "emberFragment": {
+    "icon": "✨",
+    "id": "emberFragment",
+    "passives": {
+      "restHealMult": 1.15
+    },
+    "rarity": "uncommon"
+  },
+  "emberIdol": {
+    "icon": "🌋",
+    "id": "emberIdol",
+    "rarity": "rare"
+  },
+  "emberwickCharm": {
+    "icon": "🕯",
+    "id": "emberwickCharm",
+    "rarity": "common"
+  },
+  "fellWardenBrand": {
+    "icon": "🔱",
+    "id": "fellWardenBrand",
+    "rarity": "uncommon"
+  },
+  "feralEye": {
+    "icon": "👁",
+    "id": "feralEye",
+    "passives": {
+      "eliteExtraCardReward": true
+    },
+    "rarity": "common"
+  },
+  "flayersCenser": {
+    "icon": "🔥",
+    "id": "flayersCenser",
+    "rarity": "rare"
+  },
+  "forsakenMedallion": {
+    "icon": "🏅",
+    "id": "forsakenMedallion",
+    "passives": {
+      "modifiers": [
+        {
+          "amount": 10,
+          "resource": "hp",
+          "tag": "resource.flat"
+        }
+      ]
+    },
+    "rarity": "starter"
+  },
+  "forsakenWarflag": {
+    "icon": "🏴",
+    "id": "forsakenWarflag",
+    "rarity": "rare"
+  },
+  "gildedTear": {
+    "icon": "💛",
+    "id": "gildedTear",
+    "rarity": "uncommon"
+  },
+  "goldFigurine": {
+    "icon": "🗿",
+    "id": "goldFigurine",
+    "passives": {
+      "modifiers": []
+    },
+    "rarity": "starter"
+  },
+  "goldboughSapling": {
+    "icon": "🌱",
+    "id": "goldboughSapling",
+    "rarity": "rare"
+  },
+  "goldenSprout": {
+    "icon": "🌰",
+    "id": "goldenSprout",
+    "rarity": "common"
+  },
+  "goldleafCharm": {
+    "icon": "🍂",
+    "id": "goldleafCharm",
+    "rarity": "common"
+  },
+  "gravetendersBell": {
+    "icon": "🔔",
+    "id": "gravetendersBell",
+    "pool": "quest",
+    "rarity": "uncommon"
+  },
+  "hollowedHorn": {
+    "icon": "📯",
+    "id": "hollowedHorn",
+    "rarity": "uncommon"
+  },
+  "howlingStandard": {
+    "icon": "🚩",
+    "id": "howlingStandard",
+    "rarity": "rare"
+  },
+  "ivoryComb": {
+    "icon": "🪮",
+    "id": "ivoryComb",
+    "rarity": "common"
+  },
+  "kindlingCharm": {
+    "icon": "🕯",
+    "id": "kindlingCharm",
+    "rarity": "common"
+  },
+  "lodestarShard": {
+    "icon": "🌟",
+    "id": "lodestarShard",
+    "rarity": "starter"
+  },
+  "moonlitVial": {
+    "icon": "🧪",
+    "id": "moonlitVial",
+    "rarity": "common"
+  },
+  "paupersDiadem": {
+    "icon": "👑",
+    "id": "paupersDiadem",
+    "passives": {
+      "powerCostReduction": 1,
+      "runeGainMult": 0.65
+    },
+    "rarity": "boss"
+  },
+  "pearlOfSagacity": {
+    "icon": "🔮",
+    "id": "pearlOfSagacity",
+    "rarity": "uncommon"
+  },
+  "prismaticThorn": {
+    "icon": "🔷",
+    "id": "prismaticThorn",
+    "passives": {
+      "exposureBuildupMult": 1.25,
+      "flaskPowerMult": 0.75
+    },
+    "rarity": "uncommon"
+  },
+  "radiantAegis": {
+    "icon": "🛡",
+    "id": "radiantAegis",
+    "rarity": "rare"
+  },
+  "restlessClasp": {
+    "icon": "🧷",
+    "id": "restlessClasp",
+    "passives": {
+      "flaskPowerMult": 2,
+      "restHealMult": 0.5
+    },
+    "rarity": "rare"
+  },
+  "sacrificialKnife": {
+    "icon": "🔪",
+    "id": "sacrificialKnife",
+    "rarity": "common"
+  },
+  "saltedRelic": {
+    "icon": "🧂",
+    "id": "saltedRelic",
+    "passives": {
+      "runeGainMult": 1.2
+    },
+    "rarity": "uncommon"
+  },
+  "sealstoneKey": {
+    "icon": "🗝",
+    "id": "sealstoneKey",
+    "passives": {
+      "revealUnknown": true
+    },
+    "rarity": "uncommon"
+  },
+  "sentinelsOath": {
+    "icon": "🛡",
+    "id": "sentinelsOath",
+    "rarity": "uncommon"
+  },
+  "starstoneShard": {
+    "icon": "💠",
+    "id": "starstoneShard",
+    "passives": {
+      "modifiers": [
+        {
+          "amount": 1,
+          "resource": "mana",
+          "tag": "resource.flat"
+        },
+        {
+          "amount": 1,
+          "school": "magic",
+          "tag": "damage.school.flat"
+        }
+      ]
+    },
+    "rarity": "starter"
+  },
+  "titansCinder": {
+    "icon": "🌟",
+    "id": "titansCinder",
+    "rarity": "rare"
+  },
+  "travelersWhetstone": {
+    "icon": "🔪",
+    "id": "travelersWhetstone",
+    "rarity": "common"
+  },
+  "twinnedArmor": {
+    "icon": "👥",
+    "id": "twinnedArmor",
+    "rarity": "uncommon"
+  },
+  "vigilantHalo": {
+    "icon": "🌸",
+    "id": "vigilantHalo",
+    "rarity": "rare"
+  },
+  "vowOfVengeance": {
+    "icon": "⚔",
+    "id": "vowOfVengeance",
+    "rarity": "uncommon"
+  },
+  "wardenHorn": {
+    "icon": "📯",
+    "id": "wardenHorn",
+    "rarity": "boss"
+  },
+  "wardensLantern": {
+    "icon": "🏮",
+    "id": "wardensLantern",
+    "rarity": "common"
+  },
+  "warhorn": {
+    "icon": "📣",
+    "id": "warhorn",
+    "rarity": "uncommon"
+  },
+  "watchmansBadge": {
+    "icon": "🎖",
+    "id": "watchmansBadge",
+    "rarity": "rare"
+  },
+  "waxenSeal": {
+    "icon": "🕯",
+    "id": "waxenSeal",
+    "rarity": "starter"
+  },
+  "wayfarersKnot": {
+    "icon": "🪢",
+    "id": "wayfarersKnot",
+    "passives": {
+      "restHealMult": 1.1,
+      "runeGainMult": 1.1
+    },
+    "rarity": "common"
+  },
+  "whetstoneFragment": {
+    "icon": "🪨",
+    "id": "whetstoneFragment",
+    "rarity": "common"
+  },
+  "whetstonePouch": {
+    "icon": "👝",
+    "id": "whetstonePouch",
+    "rarity": "starter"
+  },
+  "wrathCoil": {
+    "icon": "⚡",
+    "id": "wrathCoil",
+    "rarity": "rare"
+  },
+  "wyrmHeart": {
+    "icon": "🫀",
+    "id": "wyrmHeart",
+    "passives": {
+      "restDenied": [
+        "restHpPartial"
+      ]
+    },
+    "rarity": "rare"
+  }
+}

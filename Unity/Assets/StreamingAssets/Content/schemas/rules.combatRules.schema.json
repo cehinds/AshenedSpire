@@ -1,0 +1,450 @@
+{
+  "$id": "rules/combatRules.json",
+  "type": "object",
+  "properties": {
+    "armor": {
+      "type": "object",
+      "properties": {
+        "cap": {
+          "type": "number"
+        },
+        "scale": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cap",
+        "scale"
+      ]
+    },
+    "damageTypes": {
+      "type": "object",
+      "properties": {
+        "arcane": {
+          "type": "object",
+          "properties": {
+            "physical": {
+              "type": "boolean"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "physical",
+            "tag"
+          ]
+        },
+        "blunt": {
+          "type": "object",
+          "properties": {
+            "physical": {
+              "type": "boolean"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "physical",
+            "tag"
+          ]
+        },
+        "decay": {
+          "type": "object",
+          "properties": {
+            "physical": {
+              "type": "boolean"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "physical",
+            "tag"
+          ]
+        },
+        "fire": {
+          "type": "object",
+          "properties": {
+            "physical": {
+              "type": "boolean"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "physical",
+            "tag"
+          ]
+        },
+        "frost": {
+          "type": "object",
+          "properties": {
+            "physical": {
+              "type": "boolean"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "physical",
+            "tag"
+          ]
+        },
+        "lightning": {
+          "type": "object",
+          "properties": {
+            "physical": {
+              "type": "boolean"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "physical",
+            "tag"
+          ]
+        },
+        "piercing": {
+          "type": "object",
+          "properties": {
+            "physical": {
+              "type": "boolean"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "physical",
+            "tag"
+          ]
+        },
+        "sacred": {
+          "type": "object",
+          "properties": {
+            "physical": {
+              "type": "boolean"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "physical",
+            "tag"
+          ]
+        },
+        "slashing": {
+          "type": "object",
+          "properties": {
+            "physical": {
+              "type": "boolean"
+            },
+            "tag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "physical",
+            "tag"
+          ]
+        }
+      },
+      "required": [
+        "arcane",
+        "blunt",
+        "decay",
+        "fire",
+        "frost",
+        "lightning",
+        "piercing",
+        "sacred",
+        "slashing"
+      ]
+    },
+    "dodge": {
+      "type": "object",
+      "properties": {
+        "actions": {
+          "type": "integer"
+        },
+        "charges": {
+          "type": "integer"
+        },
+        "stamina": {
+          "type": "object",
+          "properties": {
+            "heavy": {
+              "type": "integer"
+            },
+            "light": {
+              "type": "integer"
+            },
+            "medium": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "heavy",
+            "light",
+            "medium"
+          ]
+        },
+        "usesPerTurn": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "actions",
+        "charges",
+        "stamina",
+        "usesPerTurn"
+      ]
+    },
+    "equipmentSources": {
+      "type": "object",
+      "properties": {
+        "itemFamilies": {
+          "type": "object",
+          "properties": {
+            "warhammer": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "warhammer"
+          ]
+        },
+        "profileFamilies": {
+          "type": "object",
+          "properties": {
+            "bladeAttack": {
+              "type": "string"
+            },
+            "bowPierceAttack": {
+              "type": "string"
+            },
+            "daggerPierceAttack": {
+              "type": "string"
+            },
+            "sceptreArcaneAttack": {
+              "type": "string"
+            },
+            "shieldAttack": {
+              "type": "string"
+            },
+            "staffMagicAttack": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "bladeAttack",
+            "bowPierceAttack",
+            "daggerPierceAttack",
+            "sceptreArcaneAttack",
+            "shieldAttack",
+            "staffMagicAttack"
+          ]
+        }
+      },
+      "required": [
+        "itemFamilies",
+        "profileFamilies"
+      ]
+    },
+    "fallbackSource": {
+      "type": "object",
+      "properties": {
+        "buildup": {
+          "type": "array",
+          "items": {}
+        },
+        "damageType": {
+          "type": "string"
+        },
+        "family": {
+          "type": "string"
+        },
+        "grip": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {}
+        },
+        "weight": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "buildup",
+        "damageType",
+        "family",
+        "grip",
+        "id",
+        "tags",
+        "weight"
+      ]
+    },
+    "id": {
+      "type": "string"
+    },
+    "impact": {
+      "type": "object",
+      "properties": {
+        "delivery": {
+          "type": "object",
+          "properties": {
+            "magical": {
+              "type": "number"
+            },
+            "physical": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "magical",
+            "physical"
+          ]
+        },
+        "family": {
+          "type": "object",
+          "properties": {
+            "blade": {
+              "type": "number"
+            },
+            "bow": {
+              "type": "number"
+            },
+            "focus": {
+              "type": "number"
+            },
+            "hammer": {
+              "type": "number"
+            },
+            "natural": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "blade",
+            "bow",
+            "focus",
+            "hammer",
+            "natural"
+          ]
+        },
+        "grip": {
+          "type": "object",
+          "properties": {
+            "oneHand": {
+              "type": "integer"
+            },
+            "twoHand": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "oneHand",
+            "twoHand"
+          ]
+        },
+        "minimum": {
+          "type": "integer"
+        },
+        "protectionTurns": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "delivery",
+        "family",
+        "grip",
+        "minimum",
+        "protectionTurns"
+      ]
+    },
+    "recovery": {
+      "type": "object",
+      "properties": {
+        "manaPerTurn": {
+          "type": "integer"
+        },
+        "staminaPerTurn": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "manaPerTurn",
+        "staminaPerTurn"
+      ]
+    },
+    "resistanceCap": {
+      "type": "number"
+    },
+    "stacking": {
+      "type": "object",
+      "properties": {
+        "cap": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cap"
+      ]
+    },
+    "triggers": {
+      "type": "object",
+      "properties": {
+        "chance": {
+          "type": "integer"
+        },
+        "limitPerAction": {
+          "type": "integer"
+        },
+        "maxDepth": {
+          "type": "integer"
+        },
+        "maxEvents": {
+          "type": "integer"
+        },
+        "rollScope": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "chance",
+        "limitPerAction",
+        "maxDepth",
+        "maxEvents",
+        "rollScope"
+      ]
+    },
+    "vulnerabilityCap": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "armor",
+    "damageTypes",
+    "dodge",
+    "equipmentSources",
+    "fallbackSource",
+    "id",
+    "impact",
+    "recovery",
+    "resistanceCap",
+    "stacking",
+    "triggers",
+    "vulnerabilityCap"
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "$id": "tags/nodes.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "aside": {
+        "type": [
+          "boolean",
+          "string"
+        ]
+      },
+      "blurb": {
+        "type": "string"
+      },
+      "color": {
+        "type": "string"
+      },
+      "domain": {
+        "type": "string",
+        "enum": [
+          "",
+          "ACTION_ROLE",
+          "CLASSIFICATION",
+          "COST",
+          "DAMAGE",
+          "EQUIPMENT",
+          "INTERNAL",
+          "LIFECYCLE",
+          "PRESENTATION",
+          "SCALING",
+          "TARGETING"
+        ]
+      },
+      "glyph": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "label": {
+        "type": "string"
+      },
+      "parentId": {
+        "type": "string"
+      },
+      "priority": {
+        "type": [
+          "integer",
+          "string"
+        ]
+      },
+      "visibility": {
+        "type": "string",
+        "enum": [
+          "",
+          "CONTEXTUAL",
+          "DEBUG",
+          "INTERNAL",
+          "PRIMARY",
+          "SECONDARY"
+        ]
+      }
+    },
+    "required": [
+      "aside",
+      "blurb",
+      "color",
+      "domain",
+      "glyph",
+      "id",
+      "label",
+      "parentId",
+      "priority",
+      "visibility"
+    ]
+  }
+}
