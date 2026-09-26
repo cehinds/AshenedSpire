@@ -1,5 +1,5 @@
 {
-  "contentHash": "c350f4dca98f2044d5138e6842e044bb07191dc61ee8b6b13994e00d665e2332",
+  "contentHash": "01fe8d363222b45db314dacce25a661485e467a94d1caddb2a1da11ac2e6b029",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -313,6 +313,11 @@
       "generated": true,
       "sha256": "50f980d3b4648e459320acd5ce34192147d66e0a572789756dde9a06e515d16d"
     },
+    "rules/rewardsEngine.json": {
+      "bytes": 1332,
+      "generated": false,
+      "sha256": "23a00f2670efcea8b9d87d37a65c676c7b7b521db196737fda7c7d1a26322eb1"
+    },
     "rules/rng.json": {
       "bytes": 659,
       "generated": false,
@@ -342,6 +347,11 @@
       "bytes": 3664,
       "generated": true,
       "sha256": "d6df21e52e5745e211cefcb96689490c59389757504241e429ee849a67e5720f"
+    },
+    "rules/textAnchors.json": {
+      "bytes": 43824,
+      "generated": true,
+      "sha256": "95c606c72211b7ee3eab661fbdbabe5d98661da9d7367fe633a90b68b5ce518f"
     },
     "rules/validation.json": {
       "bytes": 574,
@@ -618,6 +628,11 @@
       "generated": false,
       "sha256": "d4c07284354e421cfc9035b01866110521284645fa4076dfcca7c8e828177fef"
     },
+    "schemas/rules.rewardsEngine.schema.json": {
+      "bytes": 3222,
+      "generated": false,
+      "sha256": "43409b81310fa0a7839586058077581119ca15c93206bdca56ebb4327ac5e651"
+    },
     "schemas/rules.rng.schema.json": {
       "bytes": 757,
       "generated": false,
@@ -647,6 +662,11 @@
       "bytes": 14917,
       "generated": false,
       "sha256": "51d0fad564c3a7558ad2f12051572e50b5b9b7ceb432952e92f37b4745adeeda"
+    },
+    "schemas/rules.textAnchors.schema.json": {
+      "bytes": 238,
+      "generated": false,
+      "sha256": "8aab49b95cb1dd5cb9bb7b40b57b6f6e1d2e10d2682a8439272bfd1e3d0c43b8"
     },
     "schemas/rules.validation.schema.json": {
       "bytes": 1554,

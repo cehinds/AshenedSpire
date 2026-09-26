@@ -1,0 +1,15 @@
+{
+ "AdvanceAct": "advanceAct",
+ "Boss": "boss",
+ "CombatRewardPrefix": "combat",
+ "DualKind": "dual",
+ "Elite": "elite",
+ "FocusKind": "focus",
+ "MapDoor": "map",
+ "Normal": "normal",
+ "RewardOutcome": "reward",
+ "RewardPool": "reward",
+ "Taken": "taken",
+ "UnknownNode": "unknown",
+ "WeaponKind": "weapon"
+}

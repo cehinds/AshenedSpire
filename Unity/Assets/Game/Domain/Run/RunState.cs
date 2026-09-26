@@ -136,7 +136,7 @@ namespace Ashen.Domain.Run
                 [RK.AttributeModeSnapshot] = modeSnapshot,
                 [K.Attributes] = attributes,
                 [RK.LevelUps] = 0,
-                [K.Level] = Js.Obj(RK.Xp, 0, K.Level, 1, RK.UnspentPoints, 0),
+                [K.Level] = Js.Obj(K.Xp, 0, K.Level, 1, RK.UnspentPoints, 0),
                 [K.Skills] = new JObject(),
                 [K.CoreTags] = new JArray(),
                 [RK.LevelPoints] = 0,
