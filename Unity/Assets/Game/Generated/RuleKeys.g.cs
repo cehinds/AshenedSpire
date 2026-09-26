@@ -27,5 +27,9 @@ namespace Ashen.Generated
         public const string PresetFolder = "settings/presets/";
         public const string Containers = "containers";
         public const string EffectOpsFile = "rules/effectOps.json";
+        public const string PresetId = "id";
+        public const string PresetDefault = "default";
+        public const string PlayerSettings = "playerSettings";
+        public const string Modding = "modding";
     }
 }
