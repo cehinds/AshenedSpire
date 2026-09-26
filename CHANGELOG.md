@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.9.0] — 2026-09-26
+
+Stories: us-0.4
+
+- Run and rewards data built from content with exact key order (textAnchors, tag stamp order)
+
 ## [0.1.8.0] — 2026-09-26
 
 Stories: us-11.1
