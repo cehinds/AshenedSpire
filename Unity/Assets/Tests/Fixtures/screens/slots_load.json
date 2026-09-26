@@ -1,0 +1,27 @@
+{
+  "comment": "W-03 Load with a ready slot, a slot from a newer build and an empty slot.",
+  "screen": "slots",
+  "mode": "load",
+  "saves": [
+    {
+      "slot": 1,
+      "summary": {
+        "name": "Aldric",
+        "classId": "reaver",
+        "portrait": "class.reaver.sprite.ember",
+        "act": 2,
+        "floor": 7,
+        "hp": 31,
+        "hpMax": 40,
+        "seed": "ASH-7Q2K",
+        "savedAt": "2026-09-25T20:29:00Z",
+        "journey": "classic",
+        "playtimeSeconds": 5400
+      }
+    },
+    {
+      "slot": 2,
+      "newer": true
+    }
+  ]
+}
