@@ -39,6 +39,15 @@ namespace Ashen.Tests
 
         public static IContentSource Source => new DirectoryContentSource(Root);
 
+        /// <summary>Oracle files generated from the shipped JS by Tools/oracle.mjs (Unity/Assets/Tests/Oracle).</summary>
+        public static string OracleRoot => Path.GetFullPath(Path.Combine(Root, "..", "..", "Tests", "Oracle"));
+
+        public static Newtonsoft.Json.Linq.JObject Oracle(string name) =>
+            (Newtonsoft.Json.Linq.JObject)JsonContent.Parse(File.ReadAllText(Path.Combine(OracleRoot, name)));
+
+        public static Newtonsoft.Json.Linq.JObject ContentJson(string relativePath) =>
+            (Newtonsoft.Json.Linq.JObject)JsonContent.Parse(Source.ReadText(relativePath));
+
         /// <summary>Repository root (parent of the Unity project).</summary>
         public static string RepoRoot => Path.GetFullPath(Path.Combine(Root, "..", "..", "..", ".."));
     }
