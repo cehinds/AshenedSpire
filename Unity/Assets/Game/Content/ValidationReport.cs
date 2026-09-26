@@ -20,7 +20,7 @@ namespace Ashen.Content
         public string Rule { get; }
         public string Message { get; }
 
-        public override string ToString() => File + " " + Path + " [" + Rule + "] " + Message;
+        public override string ToString() => string.Format(System.Globalization.CultureInfo.InvariantCulture, Ashen.Generated.ValidationMessages.IssueFormat, File, Path, Rule, Message);
     }
 
     public sealed class ValidationReport
@@ -39,7 +39,7 @@ namespace Ashen.Content
         {
             var sb = new StringBuilder();
             foreach (var issue in _issues.Take(max)) sb.AppendLine(issue.ToString());
-            if (_issues.Count > max) sb.AppendLine("… +" + (_issues.Count - max));
+            if (_issues.Count > max) sb.AppendLine(string.Format(System.Globalization.CultureInfo.InvariantCulture, Ashen.Generated.ValidationMessages.MoreFormat, _issues.Count - max));
             return sb.ToString();
         }
     }

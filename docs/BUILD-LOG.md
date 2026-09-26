@@ -4,6 +4,20 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 ## Phase F0 Foundation (in progress)
 
+### us-0.8: the build fails on magic strings or numbers (2026-09-26)
+
+- **`EnforcementTests`** (suite: Enforcement) uses a small C# lexer that skips comments and finds string, char and number literals, with file and line. It scans `Game/{Domain,Application,Content,Presentation,Platform}` (not `Generated/`) and checks:
+  - `NoMagicStrings`: zero string or char literals;
+  - `NoMagicNumbers`: only 0 and 1;
+  - `NoContentIdsInCode`: 300+ catalog IDs, none of them in code;
+  - `EngineFreeAssembliesDoNotReferenceUnity`: `noEngineReferences` set, and no `using UnityEngine/UnityEditor`;
+  - `AssemblyReferencesPointDownTheLayersOnly`: Generated → Domain → Content → Application → Platform → Presentation;
+  - `GeneratedCodeIsMarkedAndNotHandEdited`;
+  - a lexer self-test.
+- **Violations found and fixed (7):** two `bytes.Length * 2` capacity hints, a parse depth of 128 (now `ConfigLimits.MaxParseDepth`), and report-format literals (now `ValidationMessages.IssueFormat` and `MoreFormat`).
+- **Results:** dotnet 53/53 · Unity EditMode 54/54.
+- **Note:** the 08 §12 table lists `CodegenClean` and `ContentValid` as tests. They run as `codegen --check` in the CI content job and as `ContentValidatorTests`.
+
 ### us-0.6: saves are never lost or corrupted (2026-09-26)
 
 - **`Ashen.App.Saves.SaveService`** (engine-free, PF-06):

@@ -17,5 +17,7 @@ namespace Ashen.Generated
         public const string String = "missing string key '{0}'";
         public const string Cost = "rule '{0}' failed: {1} = {2}";
         public const string PresetFile = "preset patches unknown file {0}";
+        public const string IssueFormat = "{0} {1} [{2}] {3}";
+        public const string MoreFormat = "… +{0}";
     }
 }
