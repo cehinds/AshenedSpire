@@ -28,5 +28,30 @@
     "UnknownUpgradeItemId": "Unknown upgrade item '{0}'",
     "UpgradeTagInvalid": "{0} tier {1} tag '{2}' is invalid for {3}"
   },
-  "events": {}
+  "events": {
+    "CompletionNeedsHistory": "recordQuestCompletion requires run.history",
+    "CompletionQuestId": "recordQuestCompletion: stable quest id required, got '{0}'",
+    "CompletionSource": "recordQuestCompletion: source must be one of {0}, got '{1}'",
+    "HistoryRequired": "history: array required",
+    "MaxHpLedgerMissing": "loseMaxHpPct requires the run maxHpAdjustment ledger",
+    "ProblemActNumber": "{0}.actNumber: positive integer required",
+    "ProblemChoiceId": "{0}.choiceId: stable id required",
+    "ProblemEventId": "{0}.eventId: stable id required",
+    "ProblemFloor": "{0}.floor: non-negative integer required",
+    "ProblemMapNodeId": "{0}.mapNodeId: stable id or null required",
+    "ProblemMustBeObject": "{0}: must be an object",
+    "QueueDidNotDrain": "Run effect queue did not drain",
+    "RecordNeedsAct": "recordEventChoice requires a positive integer run.actNumber",
+    "RecordNeedsFloor": "recordEventChoice requires a non-negative integer run.floor",
+    "RecordNeedsHistory": "recordEventChoice requires run.history",
+    "RecordNeedsNode": "recordEventChoice requires a stable run.mapNodeId or null",
+    "RefillFlasksDeferred": "executeRunEffects: the refillFlasks op (the grace refill, engine/encounters.js applyGraceRefill) belongs to the rest story and is not ported yet (D-080e)",
+    "RequirementAnyEmpty": "requirement.any: at least one choice required",
+    "RequirementGroupArray": "requirement.{0}: array required",
+    "RequirementObject": "requirement: object required",
+    "RequirementUnknownGroup": "requirement.{0}: unknown group",
+    "RunOpcodeUnimplemented": "Run opcode '{0}' has no implementation",
+    "ScriptsDeferred": "executeAction: script effects (registries.scripts) are not ported yet (D-080e)",
+    "UnknownSwapClass": "swapClass: unknown class '{0}'"
+  }
 }

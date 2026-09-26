@@ -1,5 +1,5 @@
 {
-  "contentHash": "44605b05af949029e40feb6300f7a40df5cdeb5447253d0528398df24dc8e489",
+  "contentHash": "09819805858b2bf97f17532af5ec8853cd91a9dbf6e3f0550dd0f4f52b5b7b1c",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -292,6 +292,11 @@
       "bytes": 932,
       "generated": false,
       "sha256": "0d955c905f65a08ef8bfb55cc44987e87909440228f7663a6e72b8a88a87c60c"
+    },
+    "rules/eventsEngine.json": {
+      "bytes": 1189,
+      "generated": false,
+      "sha256": "9eb7bbba848957c5a7e7541318d7a6108791814e5612f881396a7a6f03cb8456"
     },
     "rules/handRules.json": {
       "bytes": 671,
@@ -613,6 +618,11 @@
       "generated": false,
       "sha256": "b404be67874cde45f86d63e2b99c9b6645075aca9ca060347c177a07e5599037"
     },
+    "schemas/rules.eventsEngine.schema.json": {
+      "bytes": 1907,
+      "generated": false,
+      "sha256": "e24280afeea41c86c468c965cbaf22e0da9703af5735ed1052990ead86ad8aef"
+    },
     "schemas/rules.handRules.schema.json": {
       "bytes": 3796,
       "generated": false,
@@ -702,6 +712,11 @@
       "bytes": 1894,
       "generated": false,
       "sha256": "dc7d86b346eab76cefb68dad84092c7cd96feb06a7a268d62122320bab64ed81"
+    },
+    "schemas/strings.events.en.schema.json": {
+      "bytes": 388,
+      "generated": false,
+      "sha256": "3e82202a186fd6805d98d64b1b620f1dd7b5ff54f7ad5dc6076171ec9b53ecda"
     },
     "schemas/strings.shop.en.schema.json": {
       "bytes": 2294,
@@ -837,6 +852,11 @@
       "bytes": 204265,
       "generated": true,
       "sha256": "84d0bea47b859fddc18177c3068231ec3e1bd73d07686c6c11c0d5452bee32f7"
+    },
+    "strings/events.en.json": {
+      "bytes": 225,
+      "generated": false,
+      "sha256": "a9fcfcd2fa31bd0f98983762267ad9c5220649ba685d002700016d684325d957"
     },
     "strings/shop.en.json": {
       "bytes": 1583,

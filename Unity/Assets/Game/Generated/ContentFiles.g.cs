@@ -54,6 +54,7 @@ namespace Ashen.Generated
         public const string RulesCombatRules = "rules/combatRules.json";
         public const string RulesDerivedStatRules = "rules/derivedStatRules.json";
         public const string RulesEffectOps = "rules/effectOps.json";
+        public const string RulesEventsEngine = "rules/eventsEngine.json";
         public const string RulesHandRules = "rules/handRules.json";
         public const string RulesMapEngine = "rules/mapEngine.json";
         public const string RulesMechanics = "rules/mechanics.json";
@@ -118,6 +119,7 @@ namespace Ashen.Generated
         public const string SchemasRulesCombatRulesSchema = "schemas/rules.combatRules.schema.json";
         public const string SchemasRulesDerivedStatRulesSchema = "schemas/rules.derivedStatRules.schema.json";
         public const string SchemasRulesEffectOpsSchema = "schemas/rules.effectOps.schema.json";
+        public const string SchemasRulesEventsEngineSchema = "schemas/rules.eventsEngine.schema.json";
         public const string SchemasRulesHandRulesSchema = "schemas/rules.handRules.schema.json";
         public const string SchemasRulesMapEngineSchema = "schemas/rules.mapEngine.schema.json";
         public const string SchemasRulesMechanicsSchema = "schemas/rules.mechanics.schema.json";
@@ -136,6 +138,7 @@ namespace Ashen.Generated
         public const string SchemasSettingsPresetsShippedSchema = "schemas/settings.presets.shipped.schema.json";
         public const string SchemasStringsAppEnSchema = "schemas/strings.app.en.schema.json";
         public const string SchemasStringsCombatEnSchema = "schemas/strings.combat.en.schema.json";
+        public const string SchemasStringsEventsEnSchema = "schemas/strings.events.en.schema.json";
         public const string SchemasStringsShopEnSchema = "schemas/strings.shop.en.schema.json";
         public const string SchemasTagsFamilyNodesSchema = "schemas/tags.familyNodes.schema.json";
         public const string SchemasTagsNodeRelationsSchema = "schemas/tags.nodeRelations.schema.json";
@@ -163,6 +166,7 @@ namespace Ashen.Generated
         public const string StringsAppEn = "strings/app.en.json";
         public const string StringsCombatEn = "strings/combat.en.json";
         public const string StringsEn = "strings/en.json";
+        public const string StringsEventsEn = "strings/events.en.json";
         public const string StringsShopEn = "strings/shop.en.json";
         public const string TagsFamilyNodes = "tags/familyNodes.json";
         public const string TagsNodeRelations = "tags/nodeRelations.json";
