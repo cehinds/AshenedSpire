@@ -10,6 +10,7 @@ namespace Ashen.Generated
         public const string BindingCardTypes = "bindingCardTypes";
         public const string BindingReasons = "bindingReasons";
         public const string CapacityKinds = "capacityKinds";
+        public const string ChargePools = "chargePools";
         public const string ChoiceRequirements = "choiceRequirements";
         public const string Choices = "choices";
         public const string Completes = "completes";
@@ -34,6 +35,7 @@ namespace Ashen.Generated
         public const string RunOpcodes = "runOpcodes";
         public const string SafeOps = "safeOps";
         public const string Script = "script";
+        public const string Shortfalls = "shortfalls";
         public const string Speaker = "speaker";
         public const string Speakers = "speakers";
         public const string Steps = "steps";

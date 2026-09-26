@@ -49,7 +49,6 @@ namespace Ashen.Generated
         public const string OfferRefusal = "offer";
         public const string OpenMount = "open";
         public const string ReachAct = "reachAct";
-        public const string RefillFlasks = "refillFlasks";
         public const string RefusedOutcome = "refused";
         public const string RelicRefusal = "relic";
         public const string RequirementChange = "requirement";

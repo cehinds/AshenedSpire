@@ -3780,6 +3780,78 @@
    "classId": "starseer",
    "variant": "unknown-op",
    "error": "Unknown opcode 'noSuchOp'"
+  },
+  {
+   "file": "effects-061-shipped-reaver-refill-spent.json",
+   "name": "effects-061-shipped-reaver-refill-spent",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "refill-spent",
+   "error": null
+  },
+  {
+   "file": "effects-062-shipped-rogue-refill-spent.json",
+   "name": "effects-062-shipped-rogue-refill-spent",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "refill-spent",
+   "error": null
+  },
+  {
+   "file": "effects-063-shipped-rogue-refill-part.json",
+   "name": "effects-063-shipped-rogue-refill-part",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "rogue",
+   "variant": "refill-part",
+   "error": null
+  },
+  {
+   "file": "effects-064-shipped-reaver-refill-part.json",
+   "name": "effects-064-shipped-reaver-refill-part",
+   "family": "effects",
+   "preset": "shipped",
+   "classId": "reaver",
+   "variant": "refill-part",
+   "error": null
+  },
+  {
+   "file": "effects-065-reference-rogue-refill-spent.json",
+   "name": "effects-065-reference-rogue-refill-spent",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "rogue",
+   "variant": "refill-spent",
+   "error": null
+  },
+  {
+   "file": "effects-066-reference-starseer-refill-spent.json",
+   "name": "effects-066-reference-starseer-refill-spent",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "refill-spent",
+   "error": null
+  },
+  {
+   "file": "effects-067-reference-starseer-refill-part.json",
+   "name": "effects-067-reference-starseer-refill-part",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "starseer",
+   "variant": "refill-part",
+   "error": null
+  },
+  {
+   "file": "effects-068-reference-herald-refill-part.json",
+   "name": "effects-068-reference-herald-refill-part",
+   "family": "effects",
+   "preset": "reference",
+   "classId": "herald",
+   "variant": "refill-part",
+   "error": null
   }
  ],
  "tally": {

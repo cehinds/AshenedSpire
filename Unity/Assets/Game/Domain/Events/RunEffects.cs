@@ -14,7 +14,6 @@ using WK = Ashen.Generated.RewardsKeys;
 using WV = Ashen.Generated.RewardsValues;
 using MK = Ashen.Generated.MapKeys;
 using SK = Ashen.Generated.ShopKeys;
-using SV = Ashen.Generated.ShopValues;
 using SM = Ashen.Generated.ShopMessages;
 using EK = Ashen.Generated.EventKeys;
 using EV = Ashen.Generated.EventValues;
@@ -24,39 +23,122 @@ using CombatMath = Ashen.Generated.CombatMath;
 namespace Ashen.Domain.Events
 {
     /// <summary>
-    /// The run-level effect door (shipped engine/actions.js executeRunEffects, createRunContext, drainRunContext and
-    /// runRunOpcode): an effect list runs outside combat through the same interpreter a fight uses, against a player
-    /// FACADE over the run's pools (so damage, heal and loseHp apply to run.hp) with no enemies; the run opcodes
-    /// (cinders, cards in and out, card upgrades, relics, flasks, flask capacity, max HP, fights, the class swap) write
-    /// the run itself. After the queue drains, the facade's HP and Mana are written back. Returns the event log.
+    /// The run-level door's context, the ONE port of shipped engine/actions.js createRunContext / syncRunContext /
+    /// drainRunContext / runRunOpcode (D-100): a player FACADE over the run's pools, no enemies, empty piles, an action
+    /// queue and trigger gates, so damage, heal, loseHp and restoreMana reach the run through the same opcode bodies a
+    /// fight uses, and the run opcodes (rules/eventsEngine.json <c>runOpcodes</c>: cinders, cards in and out, card
+    /// upgrades, relics, flasks, flask capacity, max HP, fights, the class swap and the grace refill) write the run
+    /// itself. Three doors share it, as shipped: <see cref="RunEffects.Execute"/> (event choices), the rest visit (which
+    /// mounts a place's property rules on <see cref="State"/> and emits <c>arrived</c>/<c>rested</c> through
+    /// <see cref="EmitAndDrain"/>, with its heal scale) and whatever else runs an effect list outside a fight.
+    /// </summary>
+    public sealed class RunEffectContext
+    {
+        public EventsData Data { get; }
+        public JObject Run { get; }
+        public CombatState State { get; }
+
+        /// <summary>ctx.receipts.refill: the refillFlasks receipt, or null.</summary>
+        public JObject Refill;
+
+        /// <summary>ctx.refillOpts: handed to the refillFlasks opcode.</summary>
+        internal JObject RefillOpts { get; }
+
+        /// <summary>
+        /// createRunContext({ run, registries, rng }, { healMult, refillOpts }): <paramref name="healMult"/> scales every
+        /// heal the context applies (floored once after it; a rest's custom mod × restHealMult), <paramref name="refillOpts"/>
+        /// are handed to the refillFlasks opcode.
+        /// </summary>
+        public RunEffectContext(EventsData d, JObject run, Rng rng, double healMult = 1, JObject refillOpts = null)
+        {
+            Data = d ?? throw new ArgumentNullException(nameof(d));
+            Run = run ?? throw new ArgumentNullException(nameof(run));
+            RefillOpts = refillOpts ?? new JObject();
+            var facade = Js.Obj(K.Id, V.Player, K.Kind, V.Player, K.Hp, run[K.Hp]?.DeepClone(), K.MaxHp, run[K.MaxHp]?.DeepClone(),
+                K.Mana, run[K.Mana]?.DeepClone(), K.MaxMana, run[K.MaxMana]?.DeepClone(), K.Block, 0.0, K.Statuses, new JObject(),
+                K.StanceId, Js.Null(), K.RelicIds, new JArray(),
+                K.Counters, Js.Obj(K.CardsPlayedThisTurn, 0.0, K.CardsPlayedThisCombat, 0.0, K.AttacksPlayedThisCombat, 0.0),
+                K.Alive, run.Num(K.Hp) > 0);
+            State = new CombatState
+            {
+                Data = d.Combat,
+                Rng = rng,
+                Player = facade,
+                HandMax = d.Combat.Balance.Num(K.HandMax),
+                Turn = 0,
+                HealMult = healMult,
+                RunOpcodes = RunOpcodeHook,
+            };
+        }
+
+        /// <summary>nextInstanceId: <c>run&lt;n&gt;</c> on the context's own counter.</summary>
+        internal string NextInstanceId()
+        {
+            State.IdCounter += 1;
+            return EV.RunInstancePrefix + RunJs.NumStr(State.IdCounter);
+        }
+
+        /// <summary>runOpcode's first branch: a run opcode goes to runRunOpcode (also for actions a combat opcode runs inline).</summary>
+        private bool RunOpcodeHook(CombatState c, CombatAction action, JObject eff)
+        {
+            if (!Data.List(EK.RunOpcodes).Contains(eff.Str(K.Op))) return false;
+            RunEffects.RunOpcode(this, action, eff);
+            return true;
+        }
+
+        /// <summary>executeAction: the result check, then the (deferred) script escape hatch, then the combat interpreter's body.</summary>
+        internal void ExecuteAction(CombatAction action)
+        {
+            if (State.Result != null) return;
+            if (Js.IsStr(action.Effect[EK.Script])) throw new NotSupportedException(EM.ScriptsDeferred);
+            Actions.ExecuteAction(State, action);
+        }
+
+        /// <summary>syncRunContext: re-read the run's pools into the facade.</summary>
+        public void Sync()
+        {
+            var p = State.Player;
+            p[K.Hp] = Run[K.Hp]?.DeepClone();
+            p[K.MaxHp] = Run[K.MaxHp]?.DeepClone();
+            p[K.Mana] = Run[K.Mana]?.DeepClone();
+            p[K.MaxMana] = Run[K.MaxMana]?.DeepClone();
+            p.Put(K.Alive, Run.Num(K.Hp) > 0);
+        }
+
+        /// <summary>drainRunContext: run the queue to empty (bounded), then write the facade's pools back.</summary>
+        public void Drain()
+        {
+            double guard = 0;
+            var limit = Js.D(Data.Rule(K.Effects, K.QueueGuard));
+            while (State.Queue.Count > 0)
+            {
+                if (++guard > limit) throw new InvalidOperationException(EM.QueueDidNotDrain);
+                var action = State.Queue.First.Value;
+                State.Queue.RemoveFirst();
+                ExecuteAction(action);
+            }
+            Run.Put(K.Hp, Math.Min(State.Player.Num(K.Hp), Run.Num(K.MaxHp)));
+            Run.Put(K.Mana, Math.Min(State.Player.Num(K.Mana), Run.Num(K.MaxMana)));
+        }
+
+        /// <summary>emitAndDrain (engine/locations.js): sync, emit the event, drain; returns the events it logged.</summary>
+        public JArray EmitAndDrain(string type, JObject payload)
+        {
+            Sync();
+            var from = State.EventLog.Count;
+            Triggers.EmitEvent(State, type, payload);
+            Drain();
+            return new JArray(State.EventLog.Skip(from).Select(e => e.DeepClone()));
+        }
+    }
+
+    /// <summary>
+    /// The run-level effect door (shipped engine/actions.js executeRunEffects and runRunOpcode, engine/encounters.js
+    /// applyGraceRefill): an effect list runs outside combat on a <see cref="RunEffectContext"/>; after the queue drains,
+    /// the facade's HP and Mana are written back. Returns the event log.
     /// </summary>
     public static class RunEffects
     {
-        private sealed class RunContext
-        {
-            public EventsData Data;
-            public JObject Run;
-            public CombatState Combat;
-            public double IdCounter;
-
-            public string NextInstanceId()
-            {
-                IdCounter += 1;
-                return EV.RunInstancePrefix + RunJs.NumStr(IdCounter);
-            }
-        }
-
-        /// <summary>createRunContext({ run, registries, rng }): the facade, an empty board and an action queue.</summary>
-        private static RunContext Create(EventsData d, JObject run, Rng rng)
-        {
-            var facade = Js.Obj(K.Id, V.Player, K.Kind, V.Player, K.Hp, run[K.Hp]?.DeepClone(), K.MaxHp, run[K.MaxHp]?.DeepClone(),
-                K.Mana, run[K.Mana]?.DeepClone(), K.MaxMana, run[K.MaxMana]?.DeepClone(), K.Block, 0.0, K.Statuses, new JObject(), K.StanceId, Js.Null(),
-                K.RelicIds, new JArray(), K.Counters, Js.Obj(K.CardsPlayedThisTurn, 0.0, K.CardsPlayedThisCombat, 0.0, K.AttacksPlayedThisCombat, 0.0),
-                K.Alive, run.Num(K.Hp) > 0);
-            var combat = new CombatState { Data = d.Combat, Rng = rng, Player = facade, HandMax = d.Combat.Balance.Num(K.HandMax) };
-            return new RunContext { Data = d, Run = run, Combat = combat };
-        }
-
         /// <summary>
         /// executeRunEffects({ run, registries, rng }, effects) → events: every effect queued against the facade (source,
         /// owner and target), the queue drained, the facade's pools written back.
@@ -65,43 +147,27 @@ namespace Ashen.Domain.Events
         {
             if (d == null) throw new ArgumentNullException(nameof(d));
             if (run == null) throw new ArgumentNullException(nameof(run));
-            var ctx = Create(d, run, rng);
-            var c = ctx.Combat;
+            var ctx = new RunEffectContext(d, run, rng);
+            var c = ctx.State;
             foreach (var eff in Js.Items(effects).OfType<JObject>())
                 c.Enqueue(new CombatAction { Effect = eff, Source = c.Player, Owner = c.Player, Target = c.Player, Meta = ActionMeta.Empty() });
-            double guard = 0;
-            var limit = Js.D(d.Rule(K.Effects, K.QueueGuard));
-            while (c.Queue.Count > 0)
-            {
-                if (++guard > limit) throw new InvalidOperationException(EM.QueueDidNotDrain);
-                var action = c.Queue.First.Value;
-                c.Queue.RemoveFirst();
-                ExecuteAction(ctx, action);
-            }
-            run.Put(K.Hp, Math.Min(c.Player.Num(K.Hp), run.Num(K.MaxHp)));
-            run.Put(K.Mana, Math.Min(c.Player.Num(K.Mana), run.Num(K.MaxMana)));
+            ctx.Drain();
             return new JArray(c.EventLog.Select(e => e.DeepClone()));
         }
 
-        /// <summary>executeAction: the `if` gate and `repeat`, then one opcode per repetition.</summary>
-        private static void ExecuteAction(RunContext ctx, CombatAction action)
+        /// <summary>The flask charge kinds (rules/combatEngine.json flasks.chargeKinds), in order.</summary>
+        public static List<string> ChargeKinds(CombatData d) => Js.Items(d.Engine.Obj(K.Flasks)?[K.ChargeKinds]).Select(Js.Str).ToList();
+
+        /// <summary>
+        /// applyGraceRefill(registries, run, opts): the Crimson and Azure charge pools refilled to their split; the receipt
+        /// the rest screen's refill line reads. A run without charge pools (a pre-authority save) takes the legacy
+        /// flask-slot refill, deferred (D-094).
+        /// </summary>
+        public static JObject GraceRefill(CombatData d, JObject run, JObject opts)
         {
-            var c = ctx.Combat;
-            if (c.Result != null) return;
-            var eff = action.Effect;
-            if (Js.IsStr(eff[EK.Script])) throw new NotSupportedException(EM.ScriptsDeferred);
-            if (Js.Truthy(eff[K.If]))
-            {
-                var pctx = new PredicateContext { Owner = action.Owner ?? action.Source, Source = action.Source, Target = action.Target, Card = action.Card, Meta = action.Meta };
-                if (!Triggers.EvalPredicate(c, eff.Obj(K.If), pctx)) return;
-            }
-            var repeat = Actions.EvalNum(c, action, eff[K.Repeat], 1);
-            for (var r = 0; r < repeat; r++)
-            {
-                if (ctx.Data.List(EK.RunOpcodes).Contains(eff.Str(K.Op))) RunOpcode(ctx, action, eff);
-                else Actions.RunOpcode(c, action, eff);
-                if (c.Result != null) return;
-            }
+            if (!(run[K.FlaskCharges] is JObject charges) || !Js.Truthy(run[K.FlaskCharges])) throw new NotSupportedException(EM.LegacyGraceRefillDeferred);
+            foreach (var kind in ChargeKinds(d)) charges[kind + V.CurrentSuffix] = charges[kind]?.DeepClone();
+            return Js.Obj(EK.ChargePools, charges.DeepClone(), RK.Grants, new JArray(), K.Total, 0.0, EK.Shortfalls, new JArray());
         }
 
         private static double FlaskSlotCap(EventsData d)
@@ -111,12 +177,12 @@ namespace Ashen.Domain.Events
             return Js.D(n);
         }
 
-        /// <summary>runRunOpcode: the run-level opcodes (events, shops and rewards share the same DSL).</summary>
-        private static void RunOpcode(RunContext ctx, CombatAction action, JObject eff)
+        /// <summary>runRunOpcode: the run-level opcodes (events, shops, rewards and rest places share the same DSL).</summary>
+        internal static void RunOpcode(RunEffectContext ctx, CombatAction action, JObject eff)
         {
             var d = ctx.Data;
             var run = ctx.Run;
-            var c = ctx.Combat;
+            var c = ctx.State;
             var rng = c.Rng;
             var op = eff.Str(K.Op);
             if (op == EV.AddCinders)
@@ -236,7 +302,7 @@ namespace Ashen.Domain.Events
                 var classId = Js.Truthy(eff[K.Random]) ? (others.Count > 0 ? rng.Pick(RngStream.Misc, others) : run.Str(RK.Class)) : eff.Str(K.ClassId);
                 ClassSwap.Swap(d, run, classId);
             }
-            else if (op == EV.RefillFlasks) throw new NotSupportedException(EM.RefillFlasksDeferred);
+            else if (op == EV.RefillFlasks) ctx.Refill = GraceRefill(d.Combat, run, ctx.RefillOpts);
             else throw new InvalidOperationException(RunJs.Fmt(EM.RunOpcodeUnimplemented, op));
         }
     }

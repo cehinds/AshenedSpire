@@ -1,5 +1,5 @@
 {
-  "comment": "Run-loop rules (stream E, us-8.1; the C# port of the shipped main.js controller between fights: enterNode, startFight, combatMods, onCombatEnd routing, the reward door, showRest with engine/locations.js, advanceAct, legacy dungeons and finishRun, over model/gracerefill.js, levelup.js, smithing.js, itemUpgrades.js, cardExtraction.js, legacyDungeon.js and unlocks.js). The ids, texts, defaults and bounds the shipped controller kept as constants live here as data. Changing a value changes the run loop; the run-loop parity oracle pins the shipped values.",
+  "comment": "Run-loop rules (stream E, us-8.1; the C# port of the shipped main.js controller between fights: newRun and startClimb, enterNode, startFight, combatMods, onCombatEnd routing, the reward door, showRest with engine/locations.js, advanceAct, legacy dungeons and finishRun, over model/gracerefill.js, levelup.js, smithing.js, itemUpgrades.js, cardExtraction.js, legacyDungeon.js and unlocks.js). The ids, texts, defaults and bounds the shipped controller kept as constants live here as data. Changing a value changes the run loop; the run-loop parity oracle pins the shipped values.",
   "map": {
     "recentEncounters": 2,
     "treasureTitle": "TREASURE"
@@ -14,6 +14,41 @@
       "stacks": 1
     },
     "endlessStatus": "strength"
+  },
+  "newRun": {
+    "customization": {
+      "name": "Forsaken",
+      "glyph": "⚔",
+      "tint": "gold"
+    },
+    "custom": {
+      "ascension": 0,
+      "mods": {},
+      "deckMode": "standard"
+    },
+    "stats": {
+      "fightsWon": 0,
+      "damageDealt": 0,
+      "damageTaken": 0
+    },
+    "defaultDeckMode": "standard",
+    "deferredDeckModes": [
+      "sealed",
+      "draft"
+    ],
+    "cursedStart": {
+      "mod": "cursedStart",
+      "cards": [
+        "guilt"
+      ],
+      "idPrefix": "cx"
+    },
+    "hoarderMod": "hoarder",
+    "prologue": {
+      "version": 2,
+      "status": "pending",
+      "scene": 0
+    }
   },
   "locations": {
     "family": "location",
@@ -31,9 +66,6 @@
       "flasks": "restFlasks"
     },
     "smithNodeKind": "shrine"
-  },
-  "runContext": {
-    "queueGuard": 1000
   },
   "rewards": {
     "kindOrder": [

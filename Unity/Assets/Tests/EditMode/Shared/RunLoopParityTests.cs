@@ -21,14 +21,15 @@ namespace Ashen.Tests
     /// step by step through Ashen.Domain.Loop on content-built data. Each checked step starts from the recorded documents
     /// before it (run, RNG counters, profile), applies the port, and must produce the recorded outcome and the recorded
     /// documents after it, strictly (presence, values as doubles, key order). External steps (an event's choice, a
-    /// merchant visit — the shop/events stream's) only advance the documents.
+    /// merchant visit) only advance the documents here; <see cref="ChainedRunTests"/> drives them through the shop and
+    /// events ports in one unbroken C# run.
     /// </summary>
     [TestFixture, Category("Parity")]
     public class RunLoopParityTests
     {
-        private static string LoopDir => Path.Combine(TestContent.OracleRoot, "loop");
+        internal static string LoopDir => Path.Combine(TestContent.OracleRoot, "loop");
 
-        private static JObject ReadJson(string path)
+        internal static JObject ReadJson(string path)
         {
             using (var reader = new JsonTextReader(new StringReader(File.ReadAllText(path))) { FloatParseHandling = FloatParseHandling.Double, DateParseHandling = DateParseHandling.None })
                 return JObject.Load(reader);
@@ -36,7 +37,7 @@ namespace Ashen.Tests
 
         private static LoopData _data;
 
-        private static LoopData Data
+        internal static LoopData Data
         {
             get
             {
@@ -48,7 +49,8 @@ namespace Ashen.Tests
                     (JObject)content.Get(ContentFiles.RulesMechanics), (JObject)content.Get(ContentFiles.RulesCombatEngine),
                     (JObject)content.Get(ContentFiles.RulesHandRules), (JObject)content.Get(ContentFiles.RulesRunEngine),
                     snapshot.ContentVersion, (JArray)content.Get(ContentFiles.BalanceCustomRun)["ASCENSION_ORDER"],
-                    (JObject)content.Get(ContentFiles.RulesRewardsEngine), (JObject)content.Get(ContentFiles.RulesMapEngine),
+                    (JObject)content.Get(ContentFiles.RulesRewardsEngine), (JObject)content.Get(ContentFiles.RulesShopEngine),
+                    (JObject)content.Get(ContentFiles.RulesEventsEngine), (JObject)content.Get(ContentFiles.RulesMapEngine),
                     (JObject)content.Get(ContentFiles.RulesLoopEngine));
             }
         }
@@ -94,13 +96,13 @@ namespace Ashen.Tests
             Assert.That(e.Message, Is.EqualTo(LoopMessages.JourneyDeferred));
             var legacy = Context(run => run.Remove("flaskCharges"));
             e = Assert.Throws<NotSupportedException>(() => RestVisit.Open(legacy, "shrine"));
-            Assert.That(e.Message, Is.EqualTo(LoopMessages.LegacyGraceRefillDeferred));
+            Assert.That(e.Message, Is.EqualTo(EventMessages.LegacyGraceRefillDeferred));
         }
 
-        private static Dictionary<RngStream, uint> Counters(JObject o) =>
+        internal static Dictionary<RngStream, uint> Counters(JObject o) =>
             o.Properties().ToDictionary(p => RngStreamNames.Parse(p.Name), p => (uint)p.Value.Value<long>());
 
-        private static JObject CountersJson(Rng rng)
+        internal static JObject CountersJson(Rng rng)
         {
             var o = new JObject();
             foreach (var name in RngStreamNames.All) o[name] = rng.Counter(RngStreamNames.Parse(name));
@@ -158,7 +160,7 @@ namespace Ashen.Tests
         }
 
         /// <summary>Applies one checked step through the port; returns its outcome document.</summary>
-        private static JToken Apply(LoopContext ctx, JObject step, string label, ref FightEntry fight, ref NodeOutcome lastOutcome)
+        internal static JToken Apply(LoopContext ctx, JObject step, string label, ref FightEntry fight, ref NodeOutcome lastOutcome)
         {
             var i = (JObject)step["i"];
             switch (step.Value<string>("k"))
@@ -199,7 +201,7 @@ namespace Ashen.Tests
                     Acts.Advance(ctx);
                     return new JObject();
                 case "rest":
-                    return Rest(ctx, step, label);
+                    return Rest(ctx, step, label, i.Value<string>("location"));
                 case "dungeon":
                 {
                     NodeOutcome out_;
@@ -221,11 +223,12 @@ namespace Ashen.Tests
             }
         }
 
-        private static JToken Rest(LoopContext ctx, JObject step, string label)
+        /// <summary>A rest stay opened at <paramref name="location"/> (null: where the last one stood) and driven by the recorded actions.</summary>
+        internal static JToken Rest(LoopContext ctx, JObject step, string label, string location)
         {
             var i = (JObject)step["i"];
             var o = (JObject)step["o"];
-            var visit = RestVisit.Open(ctx, i.Value<string>("location"));
+            var visit = RestVisit.Open(ctx, location);
             var opened = visit.ToJson();
             var receipts = new JArray();
             var actions = (JArray)i["actions"];
@@ -296,7 +299,7 @@ namespace Ashen.Tests
             }
         }
 
-        private static void Check(string label, string what, JToken want, JToken got)
+        internal static void Check(string label, string what, JToken want, JToken got)
         {
             var diff = RewardsParityTests.FirstDifference(want, got, "$");
             if (diff != null) Assert.Fail($"{label} {what}: first difference at {diff}");

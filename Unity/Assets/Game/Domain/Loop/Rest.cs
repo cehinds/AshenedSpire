@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ashen.Domain.Combat;
+using Ashen.Domain.Events;
 using Ashen.Domain.Random;
 using Ashen.Domain.Rewards;
 using Ashen.Domain.Run;
@@ -72,105 +73,13 @@ namespace Ashen.Domain.Loop
     }
 
     /// <summary>
-    /// The run-level door's context (shipped engine/actions.js createRunContext/syncRunContext/drainRunContext): a player
-    /// facade over the run's pools, no enemies, an action queue and trigger gates, so heal and restoreMana reach the run
-    /// through the same opcode bodies a fight uses. The only run opcode it runs is the rest's <c>refillFlasks</c>; the
-    /// other run opcodes (event choices, purchases) are the shop/events stream's (D-093).
-    /// </summary>
-    public sealed class RunEffectContext
-    {
-        public CombatState State { get; }
-        public JObject Run { get; }
-
-        /// <summary>The refillFlasks receipt (ctx.receipts.refill), or null.</summary>
-        public JObject Refill;
-
-        private readonly LoopData _data;
-        private readonly JObject _refillOpts;
-
-        public RunEffectContext(LoopData d, JObject run, Rng rng, double healMult, JObject refillOpts)
-        {
-            _data = d;
-            _refillOpts = refillOpts ?? new JObject();
-            Run = run;
-            var facade = Js.Obj(K.Id, V.Player, K.Kind, V.Player, K.Hp, run[K.Hp]?.DeepClone(), K.MaxHp, run[K.MaxHp]?.DeepClone(),
-                K.Mana, run[K.Mana]?.DeepClone(), K.MaxMana, run[K.MaxMana]?.DeepClone(), K.Block, 0.0, K.Statuses, new JObject(),
-                K.StanceId, Js.Null(), K.RelicIds, new JArray(),
-                K.Counters, Js.Obj(K.CardsPlayedThisTurn, 0.0, K.CardsPlayedThisCombat, 0.0, K.AttacksPlayedThisCombat, 0.0),
-                K.Alive, run.Num(K.Hp) > 0);
-            State = new CombatState
-            {
-                Data = d.Combat,
-                Rng = rng,
-                Player = facade,
-                HandMax = Js.D(d.Balance[K.HandMax]),
-                Turn = 0,
-                HealMult = healMult,
-                RunOpcodes = RunOpcode,
-            };
-        }
-
-        private bool RunOpcode(CombatState c, CombatAction action, JObject eff)
-        {
-            if (eff.Str(K.Op) != LV.RefillFlasks) return false;
-            Refill = GraceRefill.Apply(_data, Run, _refillOpts);
-            return true;
-        }
-
-        /// <summary>syncRunContext: re-read the run's pools into the facade.</summary>
-        public void Sync()
-        {
-            var p = State.Player;
-            p[K.Hp] = Run[K.Hp]?.DeepClone();
-            p[K.MaxHp] = Run[K.MaxHp]?.DeepClone();
-            p[K.Mana] = Run[K.Mana]?.DeepClone();
-            p[K.MaxMana] = Run[K.MaxMana]?.DeepClone();
-            p.Put(K.Alive, Run.Num(K.Hp) > 0);
-        }
-
-        /// <summary>drainRunContext: run the queue to empty (bounded), then write the facade's pools back.</summary>
-        public void Drain()
-        {
-            var guard = 0;
-            var limit = _data.RuleNum(LK.RunContext, K.QueueGuard);
-            while (State.Queue.Count > 0)
-            {
-                if (++guard > limit) throw new InvalidOperationException(LM.RunQueueDidNotDrain);
-                var action = State.Queue.First.Value;
-                State.Queue.RemoveFirst();
-                Actions.ExecuteAction(State, action);
-            }
-            Run.Put(K.Hp, Math.Min(State.Player.Num(K.Hp), Run.Num(K.MaxHp)));
-            Run.Put(K.Mana, Math.Min(State.Player.Num(K.Mana), Run.Num(K.MaxMana)));
-        }
-
-        /// <summary>emitAndDrain: sync, emit the event, drain; returns the events it logged.</summary>
-        public JArray EmitAndDrain(string type, JObject payload)
-        {
-            Sync();
-            var from = State.EventLog.Count;
-            Triggers.EmitEvent(State, type, payload);
-            Drain();
-            return new JArray(State.EventLog.Skip(from).Select(e => e.DeepClone()));
-        }
-    }
-
-    /// <summary>
-    /// What a grace hands back (shipped model/gracerefill.js and engine/encounters.js applyGraceRefill): the Crimson and
-    /// Azure charge pools are refilled to their split, and re-split at a grace one charge at a time with the total held.
-    /// A run without charge pools (a pre-authority save) takes the legacy flask-slot refill, deferred (D-094).
+    /// The grace's flask split (shipped model/gracerefill.js): the Crimson and Azure charge pools are re-split at a grace
+    /// one charge at a time with the total held. The refill itself is the run-level door's refillFlasks opcode
+    /// (<see cref="RunEffects.GraceRefill"/>, D-100).
     /// </summary>
     public static class GraceRefill
     {
-        private static List<string> Kinds(LoopData d) => Js.Items(d.Combat.Engine.Obj(K.Flasks)?[K.ChargeKinds]).Select(Js.Str).ToList();
-
-        /// <summary>applyGraceRefill(registries, run, opts): charges refilled; the receipt the screen's refill line reads.</summary>
-        public static JObject Apply(LoopData d, JObject run, JObject opts)
-        {
-            if (!(run[K.FlaskCharges] is JObject charges) || !Js.Truthy(run[K.FlaskCharges])) throw new NotSupportedException(LM.LegacyGraceRefillDeferred);
-            foreach (var kind in Kinds(d)) charges[kind + V.CurrentSuffix] = charges[kind]?.DeepClone();
-            return Js.Obj(LK.ChargePools, charges.DeepClone(), RK.Grants, new JArray(), K.Total, 0.0, LK.Shortfalls, new JArray());
-        }
+        private static List<string> Kinds(LoopData d) => RunEffects.ChargeKinds(d.Combat);
 
         private static double Count(JObject charges, string kind)
         {
@@ -301,7 +210,7 @@ namespace Ashen.Domain.Loop
             TagIds = Locations.RestTags(d, authored);
             Services = Locations.Services(d, TagIds);
             var mult = healMult * Cards.PassiveMult(d.Combat, ctx.Run[K.Relics] as JArray ?? new JArray(), LK.RestHealMult, null);
-            _effects = new RunEffectContext(d, ctx.Run, ctx.Rng, mult, Js.Obj(LK.Counts, ctx.Settings.RefillCounts?.DeepClone() ?? new JObject()));
+            _effects = new RunEffectContext(d.Events, ctx.Run, ctx.Rng, mult, Js.Obj(LK.Counts, ctx.Settings.RefillCounts?.DeepClone() ?? new JObject()));
             Properties.MountCarrier(_effects.State, V.Player, LV.LocationKind, locationId, locationId, TagIds);
             RestDenied = Locations.RestDeniedBy(d, ctx.Run[K.Relics], TagIds);
             MultiUse = !ctx.Run.Is(RK.Journey) && ctx.Settings.MultiUse;

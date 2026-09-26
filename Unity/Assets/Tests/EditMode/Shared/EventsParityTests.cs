@@ -161,8 +161,12 @@ namespace Ashen.Tests
             var log = ShopParityTests.ReadJson(Path.Combine(EventsDir, file));
             var d = Data(log.Value<string>("preset"));
             var rng = new Rng((uint)log["seed"].Value<long>(), ShopParityTests.Counters((JObject)log["rngBefore"]));
-            var e = Assert.Throws<NotSupportedException>(() => RunEffects.Execute(d, (JObject)log["run"].DeepClone(), rng, new JArray(new JObject { ["op"] = "refillFlasks" })));
-            Assert.That(e.Message, Is.EqualTo(EventMessages.RefillFlasksDeferred));
+            // refillFlasks runs since the run-level door was unified (D-100; recorded as effects-*-refill-*); only a run
+            // without charge pools, whose legacy flask-slot refill is not ported (D-094), still throws by name.
+            var legacy = (JObject)log["run"].DeepClone();
+            legacy.Remove("flaskCharges");
+            var e = Assert.Throws<NotSupportedException>(() => RunEffects.Execute(d, legacy, rng, new JArray(new JObject { ["op"] = "refillFlasks" })));
+            Assert.That(e.Message, Is.EqualTo(EventMessages.LegacyGraceRefillDeferred));
             e = Assert.Throws<NotSupportedException>(() => RunEffects.Execute(d, (JObject)log["run"].DeepClone(), rng, new JArray(new JObject { ["script"] = "anything" })));
             Assert.That(e.Message, Is.EqualTo(EventMessages.ScriptsDeferred));
         }

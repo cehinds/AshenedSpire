@@ -2,6 +2,45 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-8.10: run integration — one run-effects door, C# newRun, chained runs, bot smoke (feature/run-integration, 2026-09-26)
+
+**Landed**
+- **One run-level effect door (D-100).** The events port's `RunEffects.Execute` (D-085) and the run loop's `RunEffectContext` (D-093) were two ports of the shipped `createRunContext`/`executeRunEffects`. They are now one: `Ashen.Domain.Events.RunEffectContext` + `RunEffects`.
+  - It keeps both behaviour sets: the full run-opcode vocabulary, the rest heal scale, `Sync`/`Drain`/`EmitAndDrain` for mounted location rules, and the script deferral.
+  - `refillFlasks` is now an opcode of the door (`RunEffects.GraceRefill`), which closes D-088's deferral.
+  - Both the rest visit and event choices run on it; Loop's copy and `GraceRefill.Apply` are deleted.
+  - `LoopData` now wraps `EventsData` (and through it `ShopData`); `ToLoopData` takes the shop and events rules.
+  - `loopEngine.json#runContext` is removed (the guard is `eventsEngine.json#effects.queueGuard`).
+- **newRun and startClimb (D-102).** `RunLoop.NewRun` ports main.js 989–1094's run-writing half, with Classic defaults in `rules/loopEngine.json#newRun`. Keepsakes run through the unified door. Sealed and Draft decks throw by name.
+- **Oracles.**
+  - `Tools/oracle-loop.mjs` records the external steps' inputs (event id, quest flag, open choices, the choice taken) and newRun's inputs (`start`, plus `resolved` config snapshot, derived-stat options and prologue flag). Every other byte is unchanged (checked against HEAD for all 108 sequences).
+  - `Tools/oracle-events.mjs` appends 8 `refillFlasks` lists. The existing 420 sessions are unchanged.
+
+**Tests**
+- `ChainedRunTests` (D-101), 109 cases. Each of the 108 recorded runs is made in C# (`NewRun` equals the recorded start: run, RNG, profile) and played through one `LoopContext`. That covers every step, including the 489 external ones: 182 merchant visits through `Shop.Open` + Leave, and 307 events through `Events.Open` (open choices checked) + `Events.Choose`, with 28 event fights handed to `RunLoop.EnterEventCombat`. The documents are compared strictly after each step.
+  - **Result: 108/108 chain end to end. No integration divergence was found.**
+  - Mutation checks (each file restored): skipping the event choice (and the merchant roll) fails the sequences at their first x-step (`$.history`, `$.cinders`, `$.hp`, `$.maxHp`); skipping the keepsake in `NewRun` fails the veteran sequences at their start (`$.cinders`, `$.flaskCharges.capacity`, `$.itemUpgradeLevels`).
+- `BotRunTests` (D-103): a seeded C# bot over the default preset (reference: Starseer, Rogue and Herald can begin; the Reaver cannot, D-073) and the shipped preset (all 4 classes).
+  - Default suite: 7 tests, about 12 s. That is 3 seeds × 3 classes × {fair, assisted}, each played twice for the hash, plus 4 shipped runs. A run takes 30–500 ms.
+  - Explicit sweep (`--filter TestCategory=Bot`): 144 runs, each replayed, in about 54 s. Outcomes: assisted 54 victories / 18 defeats, fair 10 victories / 62 defeats. Doors reached: 2,131 fights, 598 rests, 321 treasures, 174 merchants, 318 events, 71 legacy dungeons, 107 act advances.
+  - Every run is terminal and deterministic, with the invariants holding at every step.
+- `EventsParityTests` now 433 (8 refill lists; the deferral test checks only the legacy refill). `RunLoopParityTests` unchanged and green.
+- dotnet 1,990/1,990 (enforcement included; the explicit sweep excluded), about 3 m 44 s; `codegen --check`, `check-content`, `transform-content --check` and `check-docs` green.
+
+**Found**
+- Two copies of smithing remain: `Ashen.Domain.Loop.ItemSmithing` (rest smith) and `Ashen.Domain.Shop.ItemSmithing` (merchant smith, event `upgradeCard`). The same holds for card extraction (`Loop.CardServices` / `Shop.CardExtraction`). Both copies are oracle-green and the chains agree, but they should be unified the way the effect door was.
+- A random heal-and-block card policy can hold a fight forever: the shipped combat has no turn cap. The bot plays aimed cards first.
+
+**Not verified**
+- Unity EditMode (not run).
+- The chains cover the shipped preset only (the loop oracle's).
+- The merchant in the chain buys nothing (the harness buys nothing). Purchases are covered by `ShopParityTests` and exercised, unverified against shipped, by the bot.
+
+**Next**
+- Unify the smithing and card-service copies.
+- The Application layer drives `RunLoop.NewRun` and the loop in place of F1's first-fight-only `RunSession.New`.
+- Raise the bot sweep toward F4's 200 seeds once journeys and settings resolution land.
+
 ## us-8.1, us-8.3–8.6, us-4.4–4.9, us-13.1, us-13.2: the run loop with shipped parity (feature/run-loop, 2026-09-26)
 
 **Landed**

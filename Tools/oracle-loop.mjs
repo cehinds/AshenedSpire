@@ -31,7 +31,8 @@
 // Every sequence starts from newRun's run and walks the map node by node under a fixed policy (a seeded LCG that
 // never touches the game RNG). Each checked step records its inputs, its outcome and patches of the run document,
 // the RNG counters and the profile document; external steps (an event's choice, a merchant visit — another stream's
-// port) record only their patches. The C# test re-applies each checked step to the document before it.
+// port) record their patches and the inputs they chose (an event's open choices and the one taken). RunLoopParityTests
+// re-applies each checked step to the document before it; ChainedRunTests carries the C# documents through every step.
 //
 //   node Tools/oracle-loop.mjs [--source D:/repos/AshenSpire] [--sequences 108] [--coverage]
 //
@@ -827,10 +828,13 @@ function runSequence(j) {
   const registries = makeRegistries({});
   const ctx = { registries, run: null, rng: null, saves, settings: saves.loadMeta().settings, restLocationId: 'shrine', fight: null };
   const keepsakes = registries.characterCreation.keepsakes || [];
-  newRun(ctx, {
-    classId, seed, custom: variant.custom ? structuredClone(variant.custom) : undefined,
-    keepsakeId: variant.keepsake && keepsakes.length ? keepsakes[j % keepsakes.length].id : null,
-  });
+  const keepsakeId = variant.keepsake && keepsakes.length ? keepsakes[j % keepsakes.length].id : null;
+  newRun(ctx, { classId, seed, custom: variant.custom ? structuredClone(variant.custom) : undefined, keepsakeId });
+  // The newRun inputs and the harness's own edits after it, so a chained replay can make the starting run in C# (D-102).
+  const start = {
+    classId, custom: variant.custom ? plain(variant.custom) : null, keepsakeId,
+    storage: variant.storage ? [...variant.storage] : null, relics: variant.relics ? variant.relics() : null,
+  };
   if (variant.storage) { ctx.run.loadout.storage = [...(ctx.run.loadout.storage || []), ...variant.storage.filter((id) => !(ctx.run.loadout.storage || []).includes(id))]; }
   if (variant.relics) { for (const id of variant.relics()) if (!ctx.run.relics.includes(id)) ctx.run.relics.push(id); syncFlaskGrowth(registries, ctx.run); }
   const pick = lcg(seed ^ 0x5bd1e995);
@@ -841,7 +845,11 @@ function runSequence(j) {
     resolved: {
       pointsPerLevel: resolveLevelUpValue(ctx.settings), multiUse: settingOn(ctx.settings, 'shrineMultiUse'),
       rewardCollect: ctx.settings.rewardCollect === 'manual' ? 'manual' : 'auto', refillCounts: resolveGraceRefill(ctx.settings).counts,
+      // newRun's settings-resolved inputs.
+      advancedConfigSnapshot: plain(advancedConfigSnapshot(ctx.settings)), derivedStatOptions: plain(derivedStatDialOptions(ctx.settings)),
+      prologue: shouldPlayPrologue(ctx.settings, ctx.settings?.prologueSeen === true),
     },
+    start,
     init: { run: plain(ctx.run), rng: ctx.rng.getCounters(), profile: plain(saves.loadMeta()) }, steps: [],
   };
   let prev = { run: seq.init.run, rng: seq.init.rng, profile: seq.init.profile };
@@ -917,8 +925,9 @@ function runSequence(j) {
     snap({ k: 'rest', i: { location: ctx.restLocationId, actions }, o: out });
   };
 
-  // An event (another stream's port): the first open, affordable choice, then its fight if it starts one.
-  const external = (what, body) => { body(); snap({ k: 'x', i: { what } }); };
+  // A merchant visit or an event (another stream's port). The body returns the inputs it chose (an event's id, the
+  // open affordable choices and the one taken), so a chained replay can drive the shop/events ports (D-101).
+  const external = (what, body) => { const inputs = body() || {}; snap({ k: 'x', i: { what, ...inputs } }); };
 
   const dungeon = () => {
     let turns = 0;
@@ -1018,9 +1027,11 @@ function runSequence(j) {
     if (out.kind === 'event') {
       external('event', () => {
         const def = registries.events.get(out.eventId);
-        if (questChainForEvent(registries.questChains, out.eventId)) return;
+        if (questChainForEvent(registries.questChains, out.eventId)) return { eventId: out.eventId, quest: true, open: [], choiceId: null };
         const open = availableEventChoices(eventChoicesWithHistory(def), ctx.run).map((e) => e.choice).filter((c) => choiceAffordable(c, ctx.run));
-        if (open.length) commitEventChoice({ run: ctx.run, registries, rng: ctx.rng }, { eventId: out.eventId, choiceId: open[pick(open.length)].id });
+        const choiceId = open.length ? open[pick(open.length)].id : null;
+        if (choiceId) commitEventChoice({ run: ctx.run, registries, rng: ctx.rng }, { eventId: out.eventId, choiceId });
+        return { eventId: out.eventId, quest: false, open: open.map((c) => c.id), choiceId };
       });
       if (ctx.run.combatEntered) {
         // showEvent onDone (2636-2641)

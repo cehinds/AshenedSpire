@@ -9,6 +9,7 @@ namespace Ashen.Generated
         public const string Action = "action";
         public const string ActiveCopies = "activeCopies";
         public const string ActiveRest = "activeRest";
+        public const string AdvancedConfigSnapshot = "advancedConfigSnapshot";
         public const string AffectedCards = "affectedCards";
         public const string Affordable = "affordable";
         public const string AfterLevel = "afterLevel";
@@ -36,7 +37,6 @@ namespace Ashen.Generated
         public const string CertainChance = "certainChance";
         public const string Change = "change";
         public const string Changes = "changes";
-        public const string ChargePools = "chargePools";
         public const string Charges = "charges";
         public const string Choice = "choice";
         public const string ClassName = "className";
@@ -45,11 +45,14 @@ namespace Ashen.Generated
         public const string Counts = "counts";
         public const string CurrentLevel = "currentLevel";
         public const string CurrentRequired = "currentRequired";
+        public const string CursedStart = "cursedStart";
         public const string CustomMods = "customMods";
         public const string Customization = "customization";
         public const string DamageDealt = "damageDealt";
         public const string DamageTaken = "damageTaken";
         public const string DeckMode = "deckMode";
+        public const string DefaultDeckMode = "defaultDeckMode";
+        public const string DeferredDeckModes = "deferredDeckModes";
         public const string DexBaseline = "dexBaseline";
         public const string DiscoveryReceipts = "discoveryReceipts";
         public const string DungeonId = "dungeonId";
@@ -76,13 +79,17 @@ namespace Ashen.Generated
         public const string FromLevel = "fromLevel";
         public const string Heal = "heal";
         public const string HistoryLimit = "historyLimit";
+        public const string HoarderCinders = "hoarderCinders";
+        public const string HoarderMod = "hoarderMod";
         public const string HostileKinds = "hostileKinds";
         public const string HpPerLoop = "hpPerLoop";
+        public const string IdPrefix = "idPrefix";
         public const string InertServices = "inertServices";
         public const string InventoryCount = "inventoryCount";
         public const string ItemId = "itemId";
         public const string ItemKind = "itemKind";
         public const string ItemName = "itemName";
+        public const string Keepsakes = "keepsakes";
         public const string Key = "key";
         public const string KindOrder = "kindOrder";
         public const string LastEncounters = "lastEncounters";
@@ -97,9 +104,11 @@ namespace Ashen.Generated
         public const string MaxAct = "maxAct";
         public const string MaxClassLevel = "maxClassLevel";
         public const string MetAfter = "metAfter";
+        public const string Mod = "mod";
         public const string MountKey = "mountKey";
         public const string MountTransactions = "mountTransactions";
         public const string MultiUse = "multiUse";
+        public const string NewRun = "newRun";
         public const string NextLevel = "nextLevel";
         public const string NextRequired = "nextRequired";
         public const string NodeKind = "nodeKind";
@@ -118,6 +127,7 @@ namespace Ashen.Generated
         public const string Previous = "previous";
         public const string Profile = "profile";
         public const string Progress = "progress";
+        public const string Prologue = "prologue";
         public const string ReceiptLimit = "receiptLimit";
         public const string ReceiptSchemaVersion = "receiptSchemaVersion";
         public const string RecentEncounters = "recentEncounters";
@@ -137,7 +147,6 @@ namespace Ashen.Generated
         public const string Results = "results";
         public const string Rolled = "rolled";
         public const string Rooms = "rooms";
-        public const string RunContext = "runContext";
         public const string RunSeed = "runSeed";
         public const string Runs = "runs";
         public const string Seen = "seen";
@@ -150,7 +159,6 @@ namespace Ashen.Generated
         public const string Settings = "settings";
         public const string ShortLabel = "shortLabel";
         public const string Shortfall = "shortfall";
-        public const string Shortfalls = "shortfalls";
         public const string ShrineKind = "shrineKind";
         public const string Smith = "smith";
         public const string SmithNodeKind = "smithNodeKind";
