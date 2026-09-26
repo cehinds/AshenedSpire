@@ -1,0 +1,6 @@
+{
+  "name": "Ashen.Presentation",
+  "rootNamespace": "Ashen.Presentation",
+  "references": ["Ashen.Generated", "Ashen.Domain", "Ashen.Content", "Ashen.Application", "Ashen.Platform", "Unity.InputSystem"],
+  "autoReferenced": true
+}

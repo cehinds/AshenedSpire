@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Engine-free test runner (docs/design/10 §3 job "domain"). Compiles the noEngineReferences assemblies
+       straight from the Unity project and runs the shared NUnit tests in Unity/Assets/Tests/EditMode/Shared. -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <RootNamespace>Ashen.Tests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Unity/Assets/Game/Generated/**/*.cs" />
+    <Compile Include="../../Unity/Assets/Game/Domain/**/*.cs" />
+    <Compile Include="../../Unity/Assets/Game/Content/**/*.cs" />
+    <Compile Include="../../Unity/Assets/Game/Application/**/*.cs" />
+    <Compile Include="../../Unity/Assets/Tests/EditMode/Shared/**/*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+</Project>

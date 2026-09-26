@@ -1,0 +1,7 @@
+{
+  "name": "Ashen.EditorTools",
+  "rootNamespace": "Ashen.EditorTools",
+  "references": ["Ashen.Generated", "Ashen.Domain", "Ashen.Content", "Ashen.Application", "Ashen.Platform", "Ashen.Presentation"],
+  "includePlatforms": ["Editor"],
+  "autoReferenced": false
+}
