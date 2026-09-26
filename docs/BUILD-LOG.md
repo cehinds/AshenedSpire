@@ -4,6 +4,27 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 ## Phase F0 Foundation (in progress)
 
+### us-0.6: saves are never lost or corrupted (2026-09-26)
+
+- **`Ashen.App.Saves.SaveService`** (engine-free, PF-06):
+  - **Envelope:** version, gen, content hash, snapshot hash, payload, and a canonical SHA-256.
+  - **Checkpoint:** write tmp → `Flush(true)` → read back and verify → `File.Replace` with `.bak` (or `File.Move` on first save), with data-driven retries. The mirror is written the same way. Then a fresh log for the gen starts, and only then are older logs deleted.
+  - **Command log:** one JSON line per record with gen, seq, CRC32 and `stateHashAfter`.
+  - **Load:** picks the highest valid gen among primary, mirror and both `.bak` files. Newer versions are refused without touching the files. Older versions migrate step by step and never replay old-schema commands (D-017). Replay stops at the first torn or bad-CRC record.
+- **Data** in `rules/saves.json`: 3 run slots, current version, profile slot name, retry policy. Generated: `SaveKeys`, `SaveLayout`, `SaveMessages`, `Crc32Algorithm`.
+- **Tests** (`SaveServiceTests`, 13 cases):
+  - round trip and gen increments;
+  - corrupt primary falls back to the mirror; a tampered payload fails the hash;
+  - all copies corrupt reports Corrupt and keeps the files;
+  - a newer version is refused and left untouched;
+  - two-step migration;
+  - the log replays and truncates at a torn record;
+  - a new gen drops old logs;
+  - slot isolation, and profile mirror recovery;
+  - the CRC-32 IEEE check value.
+- **Results:** dotnet 46/46 · Unity EditMode 47/47.
+- **Not yet covered:** `File.Replace` under antivirus locking was not reproduced; the retry path exists but is untested. Replay against real game state waits for the F1/F2 command loop.
+
 ### us-0.7: predictable config layers (2026-09-26)
 
 - **`ConfigLayers.Build(LayerSelection)`** applies base content → preset (default: `reference`) → ordered patches (ascension, custom-run modifiers, advanced settings) → modding overrides.
