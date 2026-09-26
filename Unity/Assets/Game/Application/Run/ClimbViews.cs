@@ -239,7 +239,7 @@ namespace Ashen.App.Run
                 else
                 {
                     var id = session.EventStandInChoice();
-                    var choice = Js.Items(view?[EventKeys.Choices]).OfType<JObject>().FirstOrDefault(c => c.Str(MK.ChoiceId) == id);
+                    var choice = Js.Items(view?[RunKeys.Choices]).OfType<JObject>().FirstOrDefault(c => c.Str(MK.ChoiceId) == id);
                     state.ActionText = strings.Format(StringKeys.MapPlannedChoose, new StringArgs().Add(UiPlaceholders.Label, choice?.Str(K.Label) ?? id));
                 }
             }
@@ -265,7 +265,7 @@ namespace Ashen.App.Run
             var last = history?.Count > 0 ? history[history.Count - 1] as JObject : null;
             var choiceId = last?.Str(MK.ChoiceId);
             var def = session.Content.Loop.Events.Events.Get(session.EventId);
-            var choice = Js.Items(def?[EventKeys.Choices]).OfType<JObject>().FirstOrDefault(c => c.Str(K.Id) == choiceId);
+            var choice = Js.Items(def?[RunKeys.Choices]).OfType<JObject>().FirstOrDefault(c => c.Str(K.Id) == choiceId);
             return choice?.Str(EventKeys.ResultText) ?? view?.Str(EventKeys.Text) ?? string.Empty;
         }
     }

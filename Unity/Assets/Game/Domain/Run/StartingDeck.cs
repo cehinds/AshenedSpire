@@ -28,7 +28,7 @@ namespace Ashen.Domain.Run
     /// <summary>
     /// The composed starting deck and the cards items own (shipped model/loadout.js: startingDeckConfig/Settings,
     /// grantRefsFor, sortBySourceOrder, startingDeckPlan, startingDeckRefs, orderStartingDeck, boundGrantCardIds,
-    /// reconcileGrantedCards, desiredGrantInstances and the three minters, stampDeck).
+    /// reconcileGrantedCards, reconcileGrantedCardsInCombat, desiredGrantInstances and the three minters, stampDeck).
     /// </summary>
     public static class StartingDeck
     {
@@ -186,7 +186,7 @@ namespace Ashen.Domain.Run
         /// <summary>isItemOwned(inst): the instance rides with an item rather than belonging to the run.</summary>
         public static bool IsItemOwned(RunData d, JObject inst) => inst != null && d.RuleList(K.Loadout, RK.ItemOwnedRoles).Contains(inst.Str(K.EquipmentRole));
 
-        private static JObject AdoptWanted(JObject inst, JObject wanted)
+        internal static JObject AdoptWanted(JObject inst, JObject wanted)
         {
             if (inst.Str(K.CardId) != wanted.Str(K.CardId) || (inst[K.Upgraded]?.Type == JTokenType.Boolean && inst.Is(K.Upgraded)) != (wanted[K.Upgraded]?.Type == JTokenType.Boolean && wanted.Is(K.Upgraded)))
                 return wanted;
@@ -223,6 +223,37 @@ namespace Ashen.Domain.Run
             deck.RemoveAll();
             foreach (var inst in kept) deck.Add(inst);
             foreach (var w in desired) if (!present.Contains(w.Str(K.InstanceId) ?? V.Undefined)) deck.Add(w);
+        }
+
+        /// <summary>
+        /// reconcileGrantedCardsInCombat(registries, run, piles): the mid-fight form. Item-owned instances the worn
+        /// equipment no longer lends leave every pile (in place), those it keeps adopt their ownership metadata, and those
+        /// it newly lends land in the discard pile — before the pile stamps, which then stamp them like every other card.
+        /// </summary>
+        public static void ReconcileGrantedCardsInCombat(RunData d, JObject run, Piles piles)
+        {
+            var desired = DesiredGrantInstances(d, run.Obj(K.Loadout), run.Str(RK.Class), run.Obj(K.ItemUpgradeLevels), run.Obj(K.ItemMounts));
+            var wanted = new Dictionary<string, JObject>(StringComparer.Ordinal);
+            foreach (var w in desired) wanted[w.Str(K.InstanceId) ?? V.Undefined] = w;
+            var present = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var pile in new[] { piles.Hand, piles.Draw, piles.Discard, piles.Exhaust })
+            {
+                var kept = new List<JObject>();
+                foreach (var inst in pile)
+                {
+                    if (!IsItemOwned(d, inst))
+                    {
+                        kept.Add(inst);
+                        continue;
+                    }
+                    if (!wanted.TryGetValue(inst.Str(K.InstanceId) ?? V.Undefined, out var want)) continue;
+                    present.Add(inst.Str(K.InstanceId));
+                    kept.Add(AdoptWanted(inst, want));
+                }
+                pile.Clear();
+                pile.AddRange(kept);
+            }
+            foreach (var w in desired) if (!present.Contains(w.Str(K.InstanceId) ?? V.Undefined)) piles.Discard.Add(w);
         }
 
         internal static string PieceFamily(JObject piece) => piece != null && piece.Str(K.Kind) == V.Armor ? V.ArmourKind : V.ArmamentRefPrefix;
@@ -366,12 +397,22 @@ namespace Ashen.Domain.Run
         /// slots, reconcile item-owned cards, then stamp every instance's profile receipt, carriers and mods.
         /// Returns the number of instances re-stamped.
         /// </summary>
-        public static int StampDeck(RunData d, JObject run, bool adoptEquipmentBonuses = true, bool reconcileEquipmentPools = true)
+        public static int StampDeck(RunData d, JObject run, bool adoptEquipmentBonuses = true, bool reconcileEquipmentPools = true) =>
+            Stamp(d, run, null, adoptEquipmentBonuses, reconcileEquipmentPools);
+
+        /// <summary>
+        /// stampDeck(registries, run, cards) — a subset restamp (one combat pile, in place): the attack instances rebind
+        /// to the run's birth quota (a subset may hold any of the slots), and no item-owned card is minted or dropped.
+        /// </summary>
+        public static int StampPile(RunData d, JObject run, List<JObject> cards) => Stamp(d, run, cards, true, true);
+
+        private static int Stamp(RunData d, JObject run, List<JObject> cards, bool adoptEquipmentBonuses, bool reconcileEquipmentPools)
         {
             if (reconcileEquipmentPools) Loadout.ReconcileRunLoadoutHp(d, run, adoptEquipmentBonuses);
-            // `run.deck || []`: without a deck the list is a detached empty array (the reconcile below then creates
-            // run.deck, and nothing it adds is stamped this pass — as shipped).
-            var list = run[K.Deck] as JArray ?? new JArray();
+            // `cards || run.deck || []`: without a deck the list is a detached empty array (the reconcile below then
+            // creates run.deck, and nothing it adds is stamped this pass — as shipped).
+            var deck = run[K.Deck] as JArray ?? new JArray();
+            List<JObject> Items() => cards ?? deck.OfType<JObject>().ToList();
             if (!Js.Truthy(run[K.Attributes])) throw new InvalidOperationException(RM.StampNeedsAttributes);
             var loadout = run.Obj(K.Loadout);
             var classId = run.Str(RK.Class);
@@ -379,7 +420,7 @@ namespace Ashen.Domain.Run
             double? bornWith = Js.IsFinite(run[K.EquipmentAttackSlotCount]) ? run.Num(K.EquipmentAttackSlotCount) : (double?)null;
             if (bornWith == null && run[K.Deck] is JArray born && born.Count > 0) bornWith = born.OfType<JObject>().Count(c => c.Str(K.EquipmentRole) == RV.RoleAttack);
             var attackPlan = WeaponCards.BuildPlan(d, loadout, classId, bornWith, run[K.RemovedAttackSlotIds]);
-            foreach (var inst in list.OfType<JObject>().Where(c => c.Str(K.EquipmentRole) == RV.RoleAttack).ToList())
+            foreach (var inst in Items().Where(c => c.Str(K.EquipmentRole) == RV.RoleAttack).ToList())
             {
                 var prior = Js.Truthy(inst[K.ProfileId]) ? snapshot.Obj(RK.Profiles).Obj(inst.Str(K.ProfileId)) : null;
                 var desiredSlot = attackPlan.Slots.FirstOrDefault(s => s.Str(K.EquipmentAttackSlotId) == inst.Str(K.EquipmentAttackSlotId));
@@ -387,12 +428,12 @@ namespace Ashen.Domain.Run
                 if (prior != null && next != null && prior.Str(RK.Compatibility) != next.Str(RK.Compatibility))
                     throw new InvalidOperationException(RunJs.Fmt(RM.IncompatibleAttackSwap, inst.Str(K.ProfileId), prior.Str(RK.Compatibility), desiredSlot.Str(K.ProfileId), next.Str(RK.Compatibility)));
             }
-            WeaponCards.ApplyPlan(attackPlan, list.OfType<JObject>().ToList(), false);
-            ReconcileGrantedCards(d, run);
+            WeaponCards.ApplyPlan(attackPlan, Items(), cards != null);
+            if (cards == null) ReconcileGrantedCards(d, run);
             var rolePlan = new Dictionary<string, KitRow>(StringComparer.Ordinal);
             foreach (var row in Loadout.KitReceipt(d, loadout, classId, run.Obj(K.Attributes), snapshot)) rolePlan[row.Role] = row;
             var n = 0;
-            foreach (var inst in list.OfType<JObject>().ToList())
+            foreach (var inst in Items())
             {
                 KitRow row = null;
                 if (Js.Truthy(inst[K.EquipmentRole])) rolePlan.TryGetValue(inst.Str(K.EquipmentRole), out row);

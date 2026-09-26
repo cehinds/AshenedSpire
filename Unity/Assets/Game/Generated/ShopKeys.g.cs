@@ -89,7 +89,6 @@ namespace Ashen.Generated
         public const string Services = "services";
         public const string Shop = "shop";
         public const string ShopStock = "shopStock";
-        public const string ShortLabel = "shortLabel";
         public const string Shortfall = "shortfall";
         public const string Smith = "smith";
         public const string SmithingSchemaVersion = "smithingSchemaVersion";
@@ -99,7 +98,6 @@ namespace Ashen.Generated
         public const string Stock = "stock";
         public const string StoneBalanceBefore = "stoneBalanceBefore";
         public const string Stones = "stones";
-        public const string StorageSlots = "storageSlots";
         public const string TradeRevision = "tradeRevision";
         public const string Transaction = "transaction";
         public const string Used = "used";

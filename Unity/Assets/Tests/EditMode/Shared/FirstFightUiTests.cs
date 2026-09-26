@@ -47,7 +47,7 @@ namespace Ashen.Tests
             var combat = TestContent.ContentJson(ContentFiles.StringsCombatEn);
             foreach (var key in combat.Properties().Select(p => p.Name).Where(k => k.StartsWith("combat.refusal.", StringComparison.Ordinal)))
             {
-                var text = CombatText.Refusal(Ui.Strings, new Refusal(key, 2d, 1d));
+                var text = CombatText.Refusal(Ui.Strings, new Refusal(key, 2d, 1d, 3d, 4d));
                 Assert.That(text, Is.Not.Empty.And.Not.EqualTo(key), key);
                 Assert.That(Regex.IsMatch(text, "\\{\\d\\}"), Is.False, key + " → " + text);
             }

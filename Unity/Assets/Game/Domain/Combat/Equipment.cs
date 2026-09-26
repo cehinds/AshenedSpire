@@ -195,6 +195,74 @@ namespace Ashen.Domain.Combat
         public static JObject PieceInHand(CombatData data, JObject loadout, string classId, string hand) =>
             HandPiece(data, loadout, classId, hand, out _);
 
+        // ------------------------------------------------------------------ swap price rule, player Poise
+
+        /// <summary>JS <c>a === b</c> on two JSON scalars (an absent key is undefined, a JSON null is null).</summary>
+        public static bool StrictEquals(JToken a, JToken b)
+        {
+            var aUndefined = a == null || a.Type == JTokenType.Undefined;
+            var bUndefined = b == null || b.Type == JTokenType.Undefined;
+            if (aUndefined || bUndefined) return aUndefined && bUndefined;
+            if (Js.IsNum(a) && Js.IsNum(b)) return Js.D(a) == Js.D(b);
+            if (a.Type != b.Type || a is JContainer) return false;
+            return JToken.DeepEquals(a, b);
+        }
+
+        /// <summary>
+        /// resolveSwapCostRule(registries, meta): the rule row the Settings choice names (<paramref name="want"/>), else the
+        /// row balance.equipment.swapCostRule names, else null (JSON null). createCombat resolves it once per fight.
+        /// </summary>
+        public static JToken ResolveSwapCostRule(CombatData data, JToken want)
+        {
+            var cfg = data.Balance.Obj(K.Equipment) ?? new JObject();
+            var rows = Js.Items(cfg[K.SwapCostRules]).ToList();
+            var row = rows.FirstOrDefault(r => Js.Truthy(r) && StrictEquals(Js.Get(r, K.Id), want))
+                      ?? rows.FirstOrDefault(r => Js.Truthy(r) && StrictEquals(Js.Get(r, K.Id), cfg[K.SwapCostRule]));
+            return row?.DeepClone() ?? Js.Null();
+        }
+
+        /// <summary>
+        /// playerPoiseThresholdReceipt(registries, run).value: the player's Poise vessel maximum. Under combat ratings it is
+        /// the rated Poise total; without them (us-5.11) it is the derived Poise row read against the attribute
+        /// (rules/combatEngine.json playerPoise), the worn body armour's thresholds and the relics' poiseThresholdAdd.
+        /// The run's own rule snapshot is the authority; a snapshot without the row keeps the legacy rule; a fight with
+        /// no snapshot reads the live derived-stat table through the run port.
+        /// </summary>
+        public static double PoiseThreshold(CombatData data, JObject loadout, JToken relicIds, string classId, JObject itemUpgradeLevels, JObject attributes, JToken derivedStatRuleSnapshot)
+        {
+            if (loadout == null) throw new InvalidOperationException(M.PoiseNeedsLoadout);
+            var config = data.Balance.Obj(K.CombatRatings);
+            if (config != null && config.Is(K.Enabled))
+                return Ratings.Receipt(data, config, attributes, loadout, classId, relicIds, itemUpgradeLevels, out _).Num(K.Poise);
+            var levels = itemUpgradeLevels ?? new JObject();
+            var rules = data.Engine.Obj(K.PlayerPoise);
+            var ownSnapshot = Js.Get(Js.Get(derivedStatRuleSnapshot, K.Rules), K.Rules);
+            JObject live = null;
+            JObject LiveTable() => live ??= (data.EquipmentPort ?? throw new NotSupportedException(M.PoiseNeedsRunData)).DerivedStatRules ?? new JObject();
+            JObject poiseRule;
+            if (Js.Truthy(ownSnapshot)) poiseRule = Js.Truthy(Js.Get(ownSnapshot, K.Poise)) ? Js.Get(ownSnapshot, K.Poise) as JObject : rules.Obj(K.LegacyRule);
+            else poiseRule = LiveTable().Obj(K.Rules)?.Obj(K.Poise);
+            double perTier;
+            if (Js.IsFinite(poiseRule?[K.PointsPerTier])) perTier = poiseRule.Num(K.PointsPerTier);
+            else
+            {
+                var defaults = LiveTable().Obj(K.Defaults)?[K.PointsPerTier];
+                perTier = Js.IsFinite(defaults) ? Js.D(defaults) : rules.Num(K.DefaultPointsPerTier);
+            }
+            var gain = Js.IsFinite(poiseRule?[K.GainPerTier]) ? poiseRule.Num(K.GainPerTier) : 0;
+            var poiseBase = Js.IsFinite(poiseRule?[K.Base]) ? poiseRule.Num(K.Base) : 0;
+            var attributeId = rules.Str(K.Attribute);
+            var points = attributes != null && Js.IsFinite(attributes[attributeId]) ? attributes.Num(attributeId) : 0;
+            // `perTier || 1`: a zero (or NaN) tier size divides by one.
+            var divisor = perTier == 0 || double.IsNaN(perTier) ? rules.Num(K.DefaultPointsPerTier) : perTier;
+            var attribute = poiseRule != null ? poiseBase + Math.Floor(points / divisor) * gain : 0;
+            double equipment = 0;
+            foreach (var piece in EquippedPieces(data, loadout, classId, levels).Where(piece => piece.Str(K.Kind) == V.Armor))
+                equipment += Js.IsNum(piece[K.PoiseThreshold]) ? piece.Num(K.PoiseThreshold) : double.NaN;
+            var relic = Cards.PassiveSum(data, relicIds as JArray, K.PoiseThresholdAdd, levels, null);
+            return attribute + equipment + relic;
+        }
+
         // ------------------------------------------------------------------ weight class (framework)
 
         public static WeightClassReceipt ComputeWeightClass(CombatData data, double constitution, double strength, double bonuses, double load)

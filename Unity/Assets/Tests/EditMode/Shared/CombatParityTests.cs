@@ -115,6 +115,227 @@ namespace Ashen.Tests
             }
         }
 
+        // ------------------------------------------------------------------ mid-fight equipment (us-5.11)
+
+        private static readonly Dictionary<string, CombatData> _variants = new Dictionary<string, CombatData>(StringComparer.Ordinal);
+
+        /// <summary>
+        /// The combat data a swap case ran against: RunData built from registries.json (the swap port restamps through
+        /// the run's composition model), with the configuration variant's overlay (its differing top-level tables).
+        /// </summary>
+        private static CombatData Variant(string name)
+        {
+            if (_variants.TryGetValue(name, out var cached)) return cached;
+            var dump = ReadJson(Path.Combine(CombatDir, "registries.json"));
+            if (name != "shipped")
+                foreach (var p in ((JObject)ReadJson(Path.Combine(CombatDir, "registries-" + name + ".json"))["overlay"]).Properties())
+                    dump[p.Name] = p.Value.DeepClone();
+            var run = Ashen.Domain.Run.RunData.FromRegistryDump(dump,
+                TestContent.ContentJson("rules/mechanics.json"),
+                TestContent.ContentJson("rules/combatEngine.json"),
+                TestContent.ContentJson("rules/handRules.json"),
+                TestContent.ContentJson("rules/runEngine.json"));
+            return _variants[name] = run.Combat;
+        }
+
+        public static IEnumerable<string> SwapFiles() =>
+            Directory.Exists(CombatDir)
+                ? Directory.GetFiles(CombatDir, "swap-*.json").Select(Path.GetFileName).OrderBy(f => f, StringComparer.Ordinal)
+                : Enumerable.Empty<string>();
+
+        private static Rng RngAt(JObject log)
+        {
+            var counters = ((JObject)log["rngCounters"]).Properties().ToDictionary(p => RngStreamNames.Parse(p.Name), p => (uint)p.Value.Value<long>());
+            return new Rng((uint)log["seed"].Value<long>(), counters);
+        }
+
+        /// <summary>The oracle's equipment projection: the loadout, the full piles, the player entity, the pool deficits and the flags.</summary>
+        private static JObject EquipProjection(CombatState c)
+        {
+            var s = CombatSnapshot.Serialize(c);
+            return new JObject
+            {
+                ["loadout"] = s["loadout"], ["piles"] = s["piles"], ["player"] = s["player"],
+                ["equipmentPoolDeficits"] = s["equipmentPoolDeficits"], ["equipmentChanged"] = s["equipmentChanged"], ["swapsLeft"] = s["swapsLeft"],
+            };
+        }
+
+        /// <summary>
+        /// Every recorded equipment option at this point: the legality service refuses exactly the options the shipped
+        /// dispatch refused, a refused option dispatched on a restored clone throws the shipped message, and the price
+        /// preview equals the shipped swapCostFor receipt (or is absent where the engine refuses before pricing).
+        /// </summary>
+        private static void CheckOptions(string file, string label, CombatState c, JToken options)
+        {
+            if (options == null) return;
+            foreach (var option in ((JArray)options).OfType<JObject>())
+            {
+                var command = CombatCommand.FromJson((JObject)option["command"]);
+                var where = $"{file} {label} {option["command"].ToString(Formatting.None)}";
+                var refusal = CombatLegality.Check(c, command);
+                var error = option["error"]?.Type == JTokenType.String ? option.Value<string>("error") : null;
+                Assert.That(refusal == null, Is.EqualTo(error == null), where + " legality (" + (refusal?.Key ?? "legal") + " vs " + (error ?? "legal") + ")");
+                var clone = CombatSnapshot.Restore(c.Data, c.Rng.Clone(), CombatSnapshot.Serialize(c));
+                string thrown = null;
+                try
+                {
+                    CombatEngine.Dispatch(clone, command);
+                }
+                catch (InvalidOperationException e)
+                {
+                    thrown = e.Message;
+                }
+                Assert.That(thrown, Is.EqualTo(error), where + " dispatch");
+                var price = command.Type == CombatValues.CommandSwapArmament
+                    ? CombatPreview.SwapPrice(c, command.SlotId, command.SetIndex)
+                    : CombatPreview.ChangePrice(c, command.SlotId, command.SetIndex, command.PieceId);
+                Check(file, label + " price " + option["command"].ToString(Formatting.None), option["price"], price);
+            }
+        }
+
+        /// <summary>
+        /// US-5.11 mid-fight equipment parity: every golden combat that swaps sets and re-arms positions (every class, its
+        /// kits, carried armaments, the three swap-cost rules and the configuration variants) replays through the C#
+        /// port. After every step the projection and previews must match; after every equipment step the events it
+        /// emitted and the equipment projection; the recorded equipment options (legality, message and price) at the
+        /// start, after each equipment step and after the first End Turn; and the final committed state.
+        /// </summary>
+        [TestCaseSource(nameof(SwapFiles))]
+        public void SwapReplayMatchesTheShippedEngine(string file)
+        {
+            var log = ReadJson(Path.Combine(CombatDir, file));
+            var data = Variant(log.Value<string>("variant"));
+            var combat = CombatSnapshot.Restore(data, RngAt(log), (JObject)log["snapshot"]);
+            Check(file, "start", log["start"].DeepClone() is JObject start && start.Remove("options") ? start : log["start"], WithPreviews(combat, log["start"]));
+            CheckOptions(file, "start options", combat, log["start"]["options"]);
+            var steps = (JArray)log["steps"];
+            for (var i = 0; i < steps.Count; i++)
+            {
+                var step = (JObject)steps[i];
+                var label = $"step {i} ({step["command"].ToString(Formatting.None)})";
+                var command = CombatCommand.FromJson((JObject)step["command"]);
+                List<JObject> events = null;
+                try
+                {
+                    events = CombatEngine.Dispatch(combat, command);
+                }
+                catch (Exception e) when (!(e is AssertionException))
+                {
+                    if (step["error"] == null) Assert.Fail($"{file} {label}: unexpected {e.GetType().Name}: {e.Message}\n{e.StackTrace}");
+                }
+                Check(file, label, step["after"], WithPreviews(combat, step["after"]));
+                if (step["equip"] != null)
+                {
+                    Check(file, label + " events", step["events"], new JArray(events.Select(e => e.DeepClone())));
+                    Check(file, label + " equipment", step["equip"], EquipProjection(combat));
+                }
+                CheckOptions(file, label + " options", combat, step["options"]);
+            }
+            Assert.That(combat.Result, Is.EqualTo(log["result"].Type == JTokenType.Null ? null : log.Value<string>("result")), file);
+            var final = CombatSnapshot.Serialize(combat);
+            final.Remove("eventLog");
+            Check(file, "final", log["final"], final);
+        }
+
+        [TestCaseSource(nameof(SwapFiles))]
+        public void SwapCreateCombatMatchesTheShippedStart(string file)
+        {
+            var log = ReadJson(Path.Combine(CombatDir, file));
+            var rng = new Rng((uint)log["seed"].Value<long>());
+            var combat = CombatStart.Create(Variant(log.Value<string>("variant")), rng, (JObject)log["create"]);
+            Check(file, "createCombat snapshot", log["snapshot"], CombatSnapshot.Serialize(combat));
+        }
+
+        [TestCaseSource(nameof(SwapFiles))]
+        public void SwapSnapshotRoundTripsAndResumesIdentically(string file)
+        {
+            var log = ReadJson(Path.Combine(CombatDir, file));
+            var data = Variant(log.Value<string>("variant"));
+            var combat = CombatSnapshot.Restore(data, RngAt(log), (JObject)log["snapshot"]);
+            var steps = (JArray)log["steps"];
+            var half = steps.Count / 2;
+            for (var i = 0; i < half; i++) CombatEngine.Dispatch(combat, CombatCommand.FromJson((JObject)steps[i]["command"]));
+            if (combat.Result != null) return;
+            var resumed = CombatSnapshot.Restore(data, combat.Rng.Clone(), (JObject)JToken.Parse(CombatSnapshot.Serialize(combat).ToString(Formatting.None)));
+            for (var i = half; i < steps.Count; i++)
+            {
+                var command = CombatCommand.FromJson((JObject)steps[i]["command"]);
+                Assert.That(CombatCommand.FromJson(command.ToJson()).ToJson().ToString(Formatting.None), Is.EqualTo(command.ToJson().ToString(Formatting.None)), file + " wire form");
+                CombatEngine.Dispatch(resumed, command);
+                Check(file, $"resumed step {i}", steps[i]["after"], WithPreviews(resumed, steps[i]["after"]));
+            }
+        }
+
+        /// <summary>
+        /// The mid-fight Armoury view (Application) reads the same legality and prices: every recorded start option on a
+        /// hand slot appears with the shipped verdict and cost, and the session runs the first recorded equipment
+        /// command through its legality gate to the same equipment projection.
+        /// </summary>
+        [TestCaseSource(nameof(SwapFiles))]
+        public void ArmouryViewAndSessionAgreeWithTheShippedOptions(string file)
+        {
+            var log = ReadJson(Path.Combine(CombatDir, file));
+            var data = Variant(log.Value<string>("variant"));
+            var combat = CombatSnapshot.Restore(data, RngAt(log), (JObject)log["snapshot"]);
+            var view = Ashen.App.Combat.CombatViewModel.Build(combat);
+            Assert.That(view.Armoury, Is.Not.Null, file);
+            foreach (var option in ((JArray)log["start"]["options"]).OfType<JObject>())
+            {
+                var command = CombatCommand.FromJson((JObject)option["command"]);
+                var legal = option["error"]?.Type != JTokenType.String;
+                var cost = option["price"]?["cost"];
+                if (command.Type == CombatValues.CommandSwapArmament)
+                {
+                    var slot = view.Armoury.Slots.FirstOrDefault(s => s.SlotId == command.SlotId);
+                    if (slot == null) continue;
+                    var set = slot.Sets[command.SetIndex];
+                    Assert.That(set.Swappable, Is.EqualTo(legal), file + " " + option["command"]);
+                    Assert.That(set.Cost, Is.EqualTo(cost == null ? (double?)null : Js.D(cost)), file + " " + option["command"]);
+                }
+                else
+                {
+                    var change = Ashen.App.Combat.CombatViewModel.EquipmentChanges(combat, command.SlotId, command.SetIndex).FirstOrDefault(x => x.PieceId == command.PieceId);
+                    if (change == null) continue;
+                    Assert.That(change.Allowed, Is.EqualTo(legal), file + " " + option["command"]);
+                    Assert.That(change.Cost, Is.EqualTo(cost == null ? (double?)null : Js.D(cost)), file + " " + option["command"]);
+                }
+            }
+            var steps = ((JArray)log["steps"]).OfType<JObject>().ToList();
+            var first = steps.FindIndex(s => s["equip"] != null);
+            if (first < 0) return;
+            var session = Ashen.App.Combat.CombatSession.Start(data, (uint)log["seed"].Value<long>(), (JObject)log["create"]);
+            for (var i = 0; i <= first; i++)
+            {
+                var outcome = session.Execute(CombatCommand.FromJson((JObject)steps[i]["command"]));
+                Assert.That(outcome.Accepted, Is.True, $"{file} step {i}");
+            }
+            Check(file, "session equipment", steps[first]["equip"], EquipProjection(session.State));
+        }
+
+        [Test]
+        public void TheSwapLogsCoverEveryDoor()
+        {
+            var index = (JArray)ReadJson(Path.Combine(CombatDir, "index.json"))["swaps"];
+            Assert.That(SwapFiles().Count(), Is.EqualTo(index.Count));
+            var commands = new HashSet<string>();
+            var errors = new HashSet<string>();
+            var variants = new HashSet<string>();
+            foreach (var file in SwapFiles())
+            {
+                var log = ReadJson(Path.Combine(CombatDir, file));
+                variants.Add(log.Value<string>("variant"));
+                foreach (var step in ((JArray)log["steps"]).OfType<JObject>().Prepend((JObject)log["start"]))
+                {
+                    if (step["equip"] != null) commands.Add(step["command"].Value<string>("type"));
+                    foreach (var option in Js.Items(step["options"]).OfType<JObject>())
+                        if (option["error"]?.Type == JTokenType.String) errors.Add(System.Text.RegularExpressions.Regex.Replace(option.Value<string>("error"), "[0-9]+", "#"));
+                }
+            }
+            Assert.That(commands, Is.EquivalentTo(new[] { "swapArmament", "changeEquipment" }), "both intents are played");
+            Assert.That(variants, Is.SupersetOf(new[] { "shipped", "unrated", "endsTurn", "locked", "disabled", "allowance" }));
+            Assert.That(errors.Count, Is.GreaterThanOrEqualTo(8), "refusal kinds: " + string.Join(" | ", errors));
+        }
+
         // ------------------------------------------------------------------ projection (Tools/oracle-combat.mjs)
 
         private static JObject Entity(JObject e)

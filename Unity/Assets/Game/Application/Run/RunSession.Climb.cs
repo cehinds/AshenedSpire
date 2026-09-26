@@ -194,7 +194,7 @@ namespace Ashen.App.Run
         public string EventStandInChoice()
         {
             var view = EventView();
-            var choice = Js.Items(view?[EventKeys.Choices]).OfType<JObject>().FirstOrDefault(c => c.Is(ShopKeys.Affordable));
+            var choice = Js.Items(view?[RunKeys.Choices]).OfType<JObject>().FirstOrDefault(c => c.Is(ShopKeys.Affordable));
             return choice?.Str(MK.ChoiceId) ?? throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, RunFlowMessages.NoEventChoice, _eventId));
         }
 

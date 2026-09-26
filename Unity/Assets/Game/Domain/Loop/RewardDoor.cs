@@ -165,8 +165,8 @@ namespace Ashen.Domain.Loop
         /// <summary><c>balance.equipment.storageSlots || 8</c>: the bag's cap.</summary>
         public static int StorageSlots(LoopData d)
         {
-            var n = d.Run.EquipmentBalance[LK.StorageSlots];
-            return Js.Truthy(n) ? (int)Js.D(n) : (int)d.RuleNum(WK.Rewards, LK.StorageSlots);
+            var n = d.Run.EquipmentBalance[RK.StorageSlots];
+            return Js.Truthy(n) ? (int)Js.D(n) : (int)d.RuleNum(WK.Rewards, RK.StorageSlots);
         }
 
         // ------------------------------------------------------------------ taking rows
@@ -380,7 +380,7 @@ namespace Ashen.Domain.Loop
             var d = ctx.Data;
             var run = ctx.Run;
             if (!RewardRolls.CarriedIds(run.Obj(K.Loadout)).Contains(id)) return;
-            if (!(d.Run.EquipmentBalance.Obj(WK.Drops)?.Is(LK.PermanentOnFind) ?? false)) return;
+            if (!(d.Run.EquipmentBalance.Obj(RK.Drops)?.Is(LK.PermanentOnFind) ?? false)) return;
             var meta = ctx.Profile;
             if (Js.Includes(meta[LK.Found], id)) return;
             var found = new JArray(Js.Items(meta[LK.Found]).Select(t => t.DeepClone())) { id };
@@ -405,7 +405,7 @@ namespace Ashen.Domain.Loop
                 meta[LK.DiscoveryReceipts] = receipts;
                 return;
             }
-            var receipt = Js.Obj(K.Kind, LV.ArmamentDiscovery, RK.PieceId, pieceId, MK.First, true, RK.Source, source,
+            var receipt = Js.Obj(K.Kind, LV.ArmamentDiscovery, K.PieceId, pieceId, MK.First, true, RK.Source, source,
                 LK.RunSeed, Js.Nullish(runSeed) ? Js.Null() : Js.S(RunJs.Key(runSeed)), LK.Sequence, (double)(receipts.Count + 1));
             discovered.Add(pieceId);
             receipts.Add(receipt);
