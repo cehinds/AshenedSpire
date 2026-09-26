@@ -17,7 +17,10 @@
     "catalog.bossDestinations",
     "catalog.eventMeta.eventChoiceIds",
     "balance.balance.combatRatings.enemyAttackType",
-    "balance.balance.combatRatings.itemRatings"
+    "balance.balance.combatRatings.itemRatings",
+    "ui.screens.screens",
+    "ui.screens.screens.*.transitions",
+    "ui.menus.confirms"
   ],
   "freeText": ["icon", "art", "tint", "glyph", "color", "flavor", "name", "text", "label", "blurb", "aside", "template", "textTemplate", "tooltip", "description", "artKey", "artAsset", "portraitKey", "cardTint"]
 }

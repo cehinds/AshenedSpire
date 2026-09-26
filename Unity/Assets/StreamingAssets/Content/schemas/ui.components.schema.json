@@ -1,0 +1,114 @@
+{
+  "$id": "ui/components.json",
+  "type": "object",
+  "properties": {
+    "art": {
+      "type": "object",
+      "properties": {
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "include"
+      ]
+    },
+    "boot": {
+      "type": "object",
+      "properties": {
+        "filesPerFrame": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "filesPerFrame"
+      ]
+    },
+    "card": {
+      "type": "object",
+      "properties": {
+        "costKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "costKinds"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "handFan": {
+      "type": "object",
+      "properties": {
+        "degreesPerCard": {
+          "type": "integer"
+        },
+        "maxSpread": {
+          "type": "integer"
+        },
+        "scrollAfter": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "degreesPerCard",
+        "maxSpread",
+        "scrollAfter"
+      ]
+    },
+    "meter": {
+      "type": "object",
+      "properties": {
+        "kinds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "actions",
+              "buildUp",
+              "hp",
+              "mp",
+              "poise",
+              "progress",
+              "sp",
+              "ward"
+            ]
+          }
+        }
+      },
+      "required": [
+        "kinds"
+      ]
+    },
+    "tooltip": {
+      "type": "object",
+      "properties": {
+        "sizes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "sizes"
+      ]
+    }
+  },
+  "required": [
+    "art",
+    "boot",
+    "card",
+    "comment",
+    "handFan",
+    "meter",
+    "tooltip"
+  ]
+}

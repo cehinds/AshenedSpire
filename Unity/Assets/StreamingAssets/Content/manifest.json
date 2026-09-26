@@ -1,5 +1,5 @@
 {
-  "contentHash": "777383e7bdb8c07f5fc9695c35565250876f0ed9dbbbe804fd41272a10da16ee",
+  "contentHash": "e1ff23b7c2406fec495d3552d0af57907382f8bb173c955a1b725edcf07ae35f",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -698,15 +698,35 @@
       "generated": false,
       "sha256": "b737b74ae845e045c72f49a06586301dd739bf3a52236d55dd9c919acc888103"
     },
+    "schemas/ui.components.schema.json": {
+      "bytes": 1981,
+      "generated": false,
+      "sha256": "fdcb79c7d986b1e416b695d0c6bd5683078287c8037425caccb96e3494c7fbf9"
+    },
     "schemas/ui.confirmationPolicies.schema.json": {
       "bytes": 2064,
       "generated": false,
       "sha256": "bcfb76b5df5dbe3e2da9f0826aa435589234696921faf71040a6744f8b6da8d0"
     },
+    "schemas/ui.layout.schema.json": {
+      "bytes": 3666,
+      "generated": false,
+      "sha256": "9a8eeeb1560785c035d8fe99467348d329fa1a8fba6d7cc556db69a799cecd3c"
+    },
     "schemas/ui.locationPresentation.schema.json": {
       "bytes": 3438,
       "generated": false,
       "sha256": "4a4726ea6740c861649d8476085f9b8c7ae611c3b325948227bde0e2c7ac9b09"
+    },
+    "schemas/ui.menus.schema.json": {
+      "bytes": 2105,
+      "generated": false,
+      "sha256": "3481fcb722c42fa8adf18e5a28a161d426a7424506925b686b5d1ca136ab7edf"
+    },
+    "schemas/ui.screens.schema.json": {
+      "bytes": 2104,
+      "generated": false,
+      "sha256": "7cb74edc7a22796d83d48547db729df2be261f757dc5978c7432d3b822ce6248"
     },
     "schemas/ui.terms.schema.json": {
       "bytes": 857,
@@ -717,6 +737,11 @@
       "bytes": 5399,
       "generated": false,
       "sha256": "32a1c3a5c840792bc91d71a1312558e924fdc91db29a79d285470822bf5a873e"
+    },
+    "schemas/ui.tokens.schema.json": {
+      "bytes": 1848,
+      "generated": false,
+      "sha256": "a42873f655cd32a51c8fec8b331df0be513833550ad1b44bbf170788f387a649"
     },
     "settings/presets/reference.json": {
       "bytes": 4585,
@@ -729,9 +754,9 @@
       "sha256": "39fe1a403dd55892dc6cc0451a94725b99b3a1ffb0138ea02ca10c28f4106fcc"
     },
     "strings/app.en.json": {
-      "bytes": 571,
+      "bytes": 4911,
       "generated": false,
-      "sha256": "6c2f826804a918d680e566f667e0b354a9ebc7a901fe539037baea8776d7f02a"
+      "sha256": "8132f90cb42fc47dad4f5565c0d9376222394cd165f03e50d820b4ff55fe1ec8"
     },
     "strings/en.json": {
       "bytes": 204265,
@@ -798,15 +823,35 @@
       "generated": true,
       "sha256": "800f85c25beaa464dee1ad55f25b838ca54e8cb72b0fa8ed44b0b40a9f5efbe0"
     },
+    "ui/components.json": {
+      "bytes": 1089,
+      "generated": false,
+      "sha256": "e7f2c680367b52840c888f721b4edc55613cbf98daa55a9291397687387251b0"
+    },
     "ui/confirmationPolicies.json": {
       "bytes": 3228,
       "generated": true,
       "sha256": "81c39ab04d97e7a52e2f66ca82f59d9963b55949c81f6c91fc241e7b3dfbce97"
     },
+    "ui/layout.json": {
+      "bytes": 1746,
+      "generated": false,
+      "sha256": "9c824e55481d2ddc7130e1189d3d37a66733963c4964729dcc511d7d336cd00d"
+    },
     "ui/locationPresentation.json": {
       "bytes": 25682,
       "generated": true,
       "sha256": "330892274c3cc8c87947d2662b07dccbd95f7c3275dc2922a80e3d30a546d178"
+    },
+    "ui/menus.json": {
+      "bytes": 3263,
+      "generated": false,
+      "sha256": "77df3840db30f1c538919d296530690db6d5a8645bc1802239245dae3131d83c"
+    },
+    "ui/screens.json": {
+      "bytes": 3678,
+      "generated": false,
+      "sha256": "e0ede934ee22fa62c1793983c5dc6ac37e2fc8860edf44d0ed9f3241ac414f77"
     },
     "ui/terms.json": {
       "bytes": 12076,
@@ -817,6 +862,11 @@
       "bytes": 2974,
       "generated": true,
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
+    },
+    "ui/tokens.json": {
+      "bytes": 4194,
+      "generated": false,
+      "sha256": "7c90bd733032dcf47a14ec08817ab40d940ac027cc33cf94df1ff9dad9304082"
     }
   },
   "schemaVersion": 1
