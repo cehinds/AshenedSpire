@@ -129,5 +129,6 @@
  "CommandUseFlask": "useFlask",
  "EnemyInstancePrefix": "e",
  "PhaseSetup": "setup",
- "TokenRepeatSeparator": "."
+ "TokenRepeatSeparator": ".",
+ "IntentLabelPrefix": "combat.intent."
 }

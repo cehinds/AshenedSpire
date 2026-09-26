@@ -605,6 +605,7 @@
         "GroupToken": "token",
         "HandZone": "HAND",
         "Immune": "immune",
+        "IntentLabelPrefix": "combat.intent.",
         "IntentStaggered": "staggered",
         "IntentUnknown": "unknown",
         "ItemRefSeparator": "/",
