@@ -67,9 +67,10 @@ namespace Ashen.Presentation.UI
             var value = Data.Tokens.Color(key);
             if (ColorUtility.TryParseHtmlString(value, out var c)) return c;
             var n = Numbers(value);
-            if (n.Count < 3) return Color.black;
+            var channels = (int)UiMath.RgbChannels;
+            if (n.Count < channels) return Color.black;
             var byteMax = (float)UiMath.ByteMax;
-            return new Color(n[0] / byteMax, n[1] / byteMax, n[2] / byteMax, n.Count > 3 ? n[3] : 1f);
+            return new Color(n[0] / byteMax, n[1] / byteMax, n[channels - 1] / byteMax, n.Count > channels ? n[channels] : 1f);
         }
 
         /// <summary>The decimal numbers in a string, in order (the channels of an rgb()/rgba() colour).</summary>

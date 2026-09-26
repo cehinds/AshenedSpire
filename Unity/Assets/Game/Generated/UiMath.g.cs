@@ -9,5 +9,6 @@ namespace Ashen.Generated
         public const double MillisPerSecond = 1000;
         public const double FullTurnDegrees = 360;
         public const double ByteMax = 255;
+        public const double RgbChannels = 3;
     }
 }

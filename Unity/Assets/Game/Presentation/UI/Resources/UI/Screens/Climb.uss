@@ -596,7 +596,10 @@
     flex-direction: column;
 }
 
-.layout-narrow .rest-availability,
+.layout-narrow .rest-availability {
+    display: none;
+}
+
 .layout-narrow .pane-detail {
     width: var(--size-full-width);
     margin-left: 0;

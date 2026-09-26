@@ -238,6 +238,7 @@
   "rest.detail.extract": "{count} cards in mounts",
   "rest.detail.install": "{count} ways to fill a mount",
   "rest.detail.level": "{count} points banked",
+  "rest.detail.refused": "{label} · {value}",
   "rest.detail.rest": "+{heal} HP ({before} → {after}/{hpMax}) · MP {mp} → {value}/{max}",
   "rest.detail.restHp": "+{heal} HP ({before} → {after}/{hpMax})",
   "rest.detail.smith": "Smithing Stones {amount} · {count} to upgrade",

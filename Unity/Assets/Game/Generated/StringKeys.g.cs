@@ -243,6 +243,7 @@ namespace Ashen.Generated
         public const string RestDetailExtract = "rest.detail.extract";
         public const string RestDetailInstall = "rest.detail.install";
         public const string RestDetailLevel = "rest.detail.level";
+        public const string RestDetailRefused = "rest.detail.refused";
         public const string RestDetailRest = "rest.detail.rest";
         public const string RestDetailRestHp = "rest.detail.restHp";
         public const string RestDetailSmith = "rest.detail.smith";

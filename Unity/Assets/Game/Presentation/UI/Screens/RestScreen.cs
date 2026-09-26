@@ -145,7 +145,7 @@ namespace Ashen.Presentation.UI.Screens
                 }
                 line.Add(control);
                 var detail = new LocLabel { pickingMode = PickingMode.Ignore };
-                detail.SetResolved(option.Detail ?? string.Empty);
+                detail.SetResolved(option.Available || string.IsNullOrEmpty(option.Detail) ? option.Detail ?? option.StateText : Strings.Format(StringKeys.RestDetailRefused, new StringArgs().Add(UiPlaceholders.Label, option.Detail).Add(UiPlaceholders.Value, option.StateText)));
                 detail.AddToClassList(UiClasses.RestOptionDetail);
                 detail.AddToClassList(UiClasses.ValueText);
                 line.Add(detail);

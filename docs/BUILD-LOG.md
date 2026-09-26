@@ -2,6 +2,97 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-4.2, us-4.1–4.9, us-8.1–8.6, us-13.1 (partial): the Classic Climb run flow — W-06 act map, W-10 rest, W-15 run end (feature/climb-ui/us-4.2, 2026-09-26)
+
+**Landed**
+- **Merged `origin/dev` 0.1.13.2** (one smith port; the rest stop reads `Shop.ItemSmithing`/`CardExtraction`) **and 0.1.15.0** (armament swap; `Choices` moved to `RunKeys`) into the story branch.
+- **RunSession on the run loop (Application):**
+  - `New` makes the climb through `RunLoop.NewRun` (D-126c): name, glyph and tint, the empty advanced settings' config snapshot, no prologue while W-05 is planned; `saveFormat` 2. It saves at the act map.
+  - `Travel(nodeId)` goes only to a reachable node and routes the loop's door (PF-06 "node entered"):
+    - a fight enters through `RunLoop.EnterCombat` on the run's own RNG (`CombatSession.Start(data, rng, args)`, D-127c);
+    - a rest place opens its stay;
+    - a treasure room becomes a reward checkpoint (D-121c);
+    - a merchant rolls its stock;
+    - an event or a legacy dungeon waits for its screen.
+  - The reward door is unchanged; `FinishRewards` also runs `Acts.Advance` after a boss, in one commit (D-129c).
+  - Rest actions: `RestHere`, `MoveFlask`, `AssignPoints`, `Smith`, `Extract`, `Install`, `LeaveRest`. Each saves; a committed service at a single-use place closes the stay.
+  - Node seams: `EventView`/`ChooseEvent`/`FinishEvent`, `LeaveMerchant`, `AdvanceDungeon` (the planned dungeon walk, D-123c), and `CommitStep` for the node screens' own steps (D-122c).
+  - The run's end: a death or the summit closes the run out (`End` is finishRun's receipt), as does leaving a cleared dungeon at the summit.
+  - Load resumes at every place: the fight from its checkpoint and log, the rest stay re-opened on the streams it opened on (D-120c), the reward door, the map, the merchant, the event (with its taken response) and the dungeon.
+  - Settings come from the profile, then the preset, then data: multi-use shrines, the sell shelf, and the Rest hold from the shipped hold dial (D-128c).
+- **Views (Application):**
+  - `ActMapView`: nodes, edges, the reachable row, the trail, boss destinations, the seat and floor header and the legend. The whole act is drawn (D-124c).
+  - `RestView`: options per place tags with availability, the Rest preview before and after, smith candidates with tier and changes, mount rows with receipts, the flask split, attributes and the live level receipt.
+  - `RunEndView`: result, seed, class, act and floor, the killer or felled keeper, time, cinders, fights, the deck and the unlocks (D-125c).
+  - `RunHudView`: identity, trail, the three pools, cinders, stones, flask charges and the deck.
+  - `PlannedDoorView`: the merchant, event and dungeon stand-ins.
+- **Presentation:**
+  - **W-06 `screen:actMap`:**
+    - the `RunHud` kit band;
+    - the `MapBoard` kit element: discs laid out by floor and column, edges drawn with Painter2D, the travelled trail in gold dots, reachable discs rimmed with the › cue, boss labels;
+    - select, then Enter: the tray opens after 150 ms and a repeat pick after 400 ms travels (D-132c);
+    - zoom −/+, centre ⊙, the legend ?, and the Potions refusal;
+    - the planned door (D-122c).
+  - **W-10 `screen:rest`:**
+    - option cards beside their availability column;
+    - Rest is a `HoldButton` (a short press shows the review; the hold commits);
+    - panes for smith (W1i), extract and install (W1j/W1k), the flask split (−/+ within the pool) and level up (+/− and the derived receipt);
+    - Continue at a multi-use place or when a relic forbids Rest.
+  - **W-15 `screen:runEnd`:** victory over the lit citadel, or death over the fight's region dimmed; stats, deck and unlocks; [Run history] refuses (W-16 is planned); [Return to title].
+  - **Routing:** `RunFlow.Show` is the one router (`rules/runFlow.json#screens`, D-122c). W-04 Begin opens W-06. W-07's end state offers [Claim rewards] or [Run summary]. W-08's Continue goes on to the map. W-20's Abandon run stays planned (D-130c).
+- **Data:**
+  - `rules/runFlow.json`: `newRun`, `settings`, `screens` (schema updated);
+  - `ui/screens.json`: `actMap`, `rest`, `runEnd` built; `merchant`, `event`, `dialogue`, `legacyDungeon` planned;
+  - `ui/components.json#climb` (board metrics, backgrounds) and `art.include` (`env.*-map`, `bg.river-citadel-lit`);
+  - map, rest and HUD tokens; strings `hud.*`, `map.*`, `rest.*`, `runEnd.*`, `glyph.node.*`;
+  - codegen names in `ui.json` and `runflow.json`; the `planned` menu rule.
+  - The default font lacks ⬡ and ⟲ (D-131c).
+
+**Tests**
+- **`ClimbSessionTests`** (engine-free, 11 plus 3 explicit seed searches):
+  - a new climb stands at the map with its start row reachable;
+  - travel is legal only to reachable nodes;
+  - the map view draws every node and edge; the short Custom Climb shape is valid;
+  - **a seeded Classic climb (seed 2) reaches the act-3 summit through 29 fights, 7 rests, 31 reward doors, 3 treasures, a merchant, events and two legacy dungeons, loading the slot into a fresh session at every commit point (228 reloads, hash and location equal each time) and playing on from the loaded session;**
+  - a climb ends in a death that clears the slot and names the killer;
+  - the short climb the PlayMode smoke plays wins with the smoke policy;
+  - a rest stay resumes on its streams, and its Rest is saved and refused a second time across a reload;
+  - the level preview, the routes and the settings.
+- **PlayMode `ClimbSmokeTests`** (76 s): Boot → title → New → W-03 → W-04 Begin → W-06, then a short seeded climb (D-133c) played with the keyboard and pad:
+  - map nodes are walked to and picked (select, then a repeat pick or the tray's Enter);
+  - fights are auto-played through the screen's command path;
+  - reward doors take Continue and its door;
+  - rest places take a held Rest, then Continue;
+  - the merchant, event and legacy-dungeon doors take their actions;
+  - acts advance to the act-3 keeper and W-15 shows **victory**;
+  - Save & quit → Continue is done once each at the map, a rest place, a reward door and mid-fight, each landing on the same screen with the identical state hash.
+- **PlayMode `FirstFightSmokeTests`** follows the climb: Begin opens W-06 and the first node is picked with the keyboard. After the rewards the slot is at the map. The defeat test goes W-07 → [Run summary] → W-15 (**death**, the killer named) → title, with Continue disabled.
+- `FirstFightUiTests` expects W-06 built and checks the new focus modes.
+- **Results:** dotnet 2813/2813; Unity EditMode 2814 passed, 5 explicit skipped (the bot sweep and the seed searches); PlayMode 4 passed, 1 skipped (capture); `codegen --check`, `check-content`, `transform-content --check` and `check-docs` green.
+
+**Screenshots** (docs/screens; 25 new PNGs): actmap_start (4 sizes), actmap_mid (tray open, 2), actmap_boss (legend open, 2), actmap_planned (1), rest (4), rest_smith (2), rest_flasks (2), rest_level (2), runend_win (4), runend_death (2); combat_end recaptured (3).
+
+**Review** (own screenshot review against W-06/W-10/W-15; fixed and recaptured):
+- The board's edges drew black: rgba tokens did not parse in `TokenColor`, which now reads rgb()/rgba().
+- ⬡ and ⟲ showed as boxes (D-131c).
+- The start row was below the fold: the board centres on the run at first layout.
+- In the compact band the discs overlapped once the touch minimum raised them. A floor is now never below the minimum × 1.15.
+- The HUD name collapsed to "The F…": the identity now has a minimum width, and the meters are narrower.
+- On narrow, [Menu] wrapped to its own line (it now sits top-right) and the boss labels piled up (now hidden; the tray names the path's end).
+- The smith pane kept the shell's Continue (now hidden in panes) and repeated identical change lines (deduplicated).
+- Ready buttons lost their green under focus (the W-08 rule was extended).
+- The run end's unlocks overflowed (now a ScrollView), and long killer chips clipped on narrow (they wrap).
+
+**Not verified / open**
+- W-09 merchant, W-11 events and dialogue, and W-13 legacy dungeon belong to the node-screens stream. Until they land, the planned doors keep the run legal (D-122c, D-123c).
+- No fog (D-124c). Flasks outside combat are not ported (the Potions button refuses). There is no settings screen, so the hold and multi-use values come from the preset (D-128c).
+- US-13.1: W-15 shows the killer, duration and deck, but the profile's history rows are the shipped record (D-125c). W-16 is planned.
+- Mouse: node picks are exercised by Submit only. A pointer click takes the same `clicked` path, but no synthesized pointer test was written.
+- Only the PlayMode smoke's short climb is played through the screens. The full-length Classic climb is covered engine-free.
+- Abandon run needs an owner ruling (D-130c).
+
+**Next:** the node screens land on the seam (`RunFlow.Show` + the RunSession node APIs); a settings screen for the hold, multi-use and map-reveal settings; fog of war.
+
 ## us-5.11: deferred rule paths closed — mid-fight equipment, unrated Poise, run-creation options, the load door's derived stats (feature/combat-complete/us-5.11, 2026-09-26)
 
 **Landed**

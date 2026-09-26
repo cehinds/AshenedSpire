@@ -120,7 +120,14 @@
 }
 
 .layout-narrow .runhud-menu {
+    position: absolute;
+    top: var(--space-xs);
+    right: var(--space-sm);
     min-width: 0;
+}
+
+.layout-narrow .runhud-identity {
+    margin-right: var(--size-button-min-w);
 }
 
 .layout-narrow .runhud-purse {

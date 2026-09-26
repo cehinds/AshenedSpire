@@ -768,7 +768,8 @@
         "Percent": 100,
         "MillisPerSecond": 1000,
         "FullTurnDegrees": 360,
-        "ByteMax": 255
+        "ByteMax": 255,
+        "RgbChannels": 3
       }
     }
   ]
