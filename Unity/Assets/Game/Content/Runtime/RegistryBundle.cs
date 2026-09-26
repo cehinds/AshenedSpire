@@ -44,6 +44,7 @@ namespace Ashen.Content
             new Source(RegistryKeys.Events, ContentFiles.CatalogEvents, Shape.Keyed),
             new Source(RegistryKeys.Attributes, ContentFiles.CatalogAttributes, Shape.Keyed),
             new Source(RegistryKeys.ClassTree, ContentFiles.CatalogClassTree, Shape.Keyed),
+            new Source(MapKeys.Seats, ContentFiles.CatalogSeats, Shape.Keyed),
             new Source(RegistryKeys.PropertyRules, ContentFiles.TagsPropertyRules, Shape.List),
             new Source(RegistryKeys.TagDomains, ContentFiles.TagsTagDomains, Shape.Keyed),
             new Source(RegistryKeys.TagRegistry, ContentFiles.TagsTags, Shape.Keyed),

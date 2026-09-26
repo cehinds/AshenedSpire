@@ -1,0 +1,18 @@
+{
+  "AnArray": "an array",
+  "ErrorPair": "{0}: {1}",
+  "ErrorSeparator": " · ",
+  "FixedEntryKey": "floorRules.fixed[{0}]",
+  "FixedEntryTypeKey": "floorRules.fixed[{0}].type",
+  "FloorRuleKey": "floorRules.{0}",
+  "LegacyActBossesKey": "LEGACY_ACT_BOSSES",
+  "ListJoin": ", ",
+  "MapShapeKnob": "mapShape.{0}",
+  "MapShapeLimitsKey": "MAP_SHAPE_LIMITS",
+  "MapShapePlan": "mapShape -> {0}",
+  "MapShapeWeight": "mapShape.typeWeights.{0}",
+  "TypeBoolean": "boolean",
+  "TypeNumber": "number",
+  "TypeObject": "object",
+  "TypeString": "string"
+}

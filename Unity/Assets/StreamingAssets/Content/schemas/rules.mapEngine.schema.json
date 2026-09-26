@@ -1,0 +1,210 @@
+{
+  "$id": "rules/mapEngine.json",
+  "type": "object",
+  "properties": {
+    "anchorKinds": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "string"
+        },
+        "floor": {
+          "type": "string"
+        },
+        "fraction": {
+          "type": "string"
+        },
+        "last": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "first",
+        "floor",
+        "fraction",
+        "last"
+      ]
+    },
+    "bossLabel": {
+      "type": "object",
+      "properties": {
+        "enemySeparator": {
+          "type": "string"
+        },
+        "partSeparator": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "enemySeparator",
+        "partSeparator"
+      ]
+    },
+    "bossPool": {
+      "type": "string"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "history": {
+      "type": "object",
+      "properties": {
+        "eventChoiceKind": {
+          "type": "string"
+        },
+        "idPattern": {
+          "type": "string"
+        },
+        "requirementGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "eventChoiceKind",
+        "idPattern",
+        "requirementGroups"
+      ]
+    },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "shortestAct": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "shortestAct"
+      ]
+    },
+    "nodeId": {
+      "type": "object",
+      "properties": {
+        "prefix": {
+          "type": "string"
+        },
+        "separator": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "prefix",
+        "separator"
+      ]
+    },
+    "nodeTypes": {
+      "type": "object",
+      "properties": {
+        "boss": {
+          "type": "string"
+        },
+        "elite": {
+          "type": "string"
+        },
+        "event": {
+          "type": "string"
+        },
+        "merchant": {
+          "type": "string"
+        },
+        "monster": {
+          "type": "string"
+        },
+        "shrine": {
+          "type": "string"
+        },
+        "treasure": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "boss",
+        "elite",
+        "event",
+        "merchant",
+        "monster",
+        "shrine",
+        "treasure"
+      ]
+    },
+    "runShapeKeys": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sample": {
+      "type": "object",
+      "properties": {
+        "seeds": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "seeds"
+      ]
+    },
+    "typing": {
+      "type": "object",
+      "properties": {
+        "retries": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "retries"
+      ]
+    },
+    "unknownKinds": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "type": "string"
+        },
+        "fight": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "event",
+        "fight"
+      ]
+    },
+    "walk": {
+      "type": "object",
+      "properties": {
+        "doorGuard": {
+          "type": "integer"
+        },
+        "stepMax": {
+          "type": "integer"
+        },
+        "stepMin": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "doorGuard",
+        "stepMax",
+        "stepMin"
+      ]
+    }
+  },
+  "required": [
+    "anchorKinds",
+    "bossLabel",
+    "bossPool",
+    "comment",
+    "history",
+    "limits",
+    "nodeId",
+    "nodeTypes",
+    "runShapeKeys",
+    "sample",
+    "typing",
+    "unknownKinds",
+    "walk"
+  ]
+}
