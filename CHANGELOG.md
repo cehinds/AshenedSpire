@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.1.0] — 2026-09-26
+
+Stories: us-16.2
+
+- Procedural SFX core and audio contexts (us-16.2)
+
 ## [0.1.0.0] — 2026-09-26
 
 - Feature complete: foundation (us-0.1..0.10; us-0.5 part 2 deferred per D-033)
