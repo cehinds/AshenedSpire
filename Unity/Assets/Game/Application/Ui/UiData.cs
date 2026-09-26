@@ -27,12 +27,12 @@ namespace Ashen.App.Ui
                 Tokens = new UiTokens(Read(ContentFiles.UiTokens)),
                 Components = ComponentDefaults.From(Read(ContentFiles.UiComponents)),
                 Policies = ConfirmPolicies.From(Read(ContentFiles.UiConfirmationPolicies)),
-                Strings = new StringTable(Read(ContentFiles.StringsEn), Read(ContentFiles.StringsAppEn)),
+                Strings = new StringTable(Read(ContentFiles.StringsEn), Read(ContentFiles.StringsCombatEn), Read(ContentFiles.StringsAppEn)),
                 About = Read(ContentFiles.About),
             };
         }
 
         /// <summary>The menu context for the title (US-1.3): valid slots from the save service, built screens from the registry.</summary>
-        public MenuContext MenuContext(bool hasValidSlot) => new MenuContext { HasValidSlot = hasValidSlot, IsBuilt = Screens.IsBuilt };
+        public MenuContext MenuContext(bool hasValidSlot, bool inCombat = false) => new MenuContext { HasValidSlot = hasValidSlot, InCombat = inCombat, IsBuilt = Screens.IsBuilt };
     }
 }

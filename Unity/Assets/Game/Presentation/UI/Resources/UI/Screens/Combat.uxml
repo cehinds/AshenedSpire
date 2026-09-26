@@ -1,0 +1,59 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Combat.uss" />
+    <ui:VisualElement name="COMBAT_BACKGROUND" class="combat-background" picking-mode="Ignore" />
+    <ui:VisualElement name="COMBAT_PAGE" class="page combat-page">
+        <ui:VisualElement name="RUN_HUD" class="combat-hud">
+            <ui:VisualElement name="HUD_PORTRAIT" class="hud-portrait" />
+            <ui:VisualElement class="hud-identity">
+                <Ashen.Presentation.UI.LocLabel name="HUD_NAME" class="hud-name kit-text-value" />
+                <Ashen.Presentation.UI.LocLabel name="HUD_TRAIL" class="hud-trail kit-text-header" />
+            </ui:VisualElement>
+            <ui:VisualElement name="HUD_METERS" class="hud-meters">
+                <Ashen.Presentation.UI.Kit.Meter name="HUD_HP" class="hud-meter" kind="hp" glyph-key="resource.hp.name" />
+                <Ashen.Presentation.UI.Kit.Meter name="HUD_MP" class="hud-meter" kind="mp" glyph-key="resource.mana.name" />
+                <Ashen.Presentation.UI.Kit.Meter name="HUD_SP" class="hud-meter" kind="sp" glyph-key="resource.stamina.name" />
+            </ui:VisualElement>
+            <Ashen.Presentation.UI.LocButton name="HUD_MENU" class="hud-menu" string-key="combat.menu" />
+        </ui:VisualElement>
+        <ui:VisualElement name="BATTLEFIELD" class="battlefield">
+            <ui:VisualElement name="ALLY_ROW" class="ally-row" />
+            <ui:VisualElement name="ENEMY_ROW" class="enemy-row" />
+            <Ashen.Presentation.UI.LocLabel name="PHASE_BANNER" class="phase-banner kit-text-header is-hidden" />
+            <Ashen.Presentation.UI.LocLabel name="NOTICE" class="combat-notice kit-text-value is-hidden" />
+            <Ashen.Presentation.UI.LocLabel name="TARGET_PROMPT" class="band-prompt kit-text-value is-hidden" />
+            <ui:VisualElement name="DISCARD_BAR" class="band-prompt discard-bar is-hidden">
+                <Ashen.Presentation.UI.LocLabel name="DISCARD_PROMPT" class="discard-prompt kit-text-value" />
+                <Ashen.Presentation.UI.LocLabel name="DISCARD_COUNT" class="discard-count kit-text-value" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="HAND_BAND" class="hand-band">
+            <Ashen.Presentation.UI.Kit.HandFan name="HAND" class="combat-hand" />
+        </ui:VisualElement>
+        <ui:VisualElement name="COMBAT_FOOTER" class="combat-footer">
+            <Ashen.Presentation.UI.Kit.FooterGroup name="FOOTER_GROUP" class="combat-footer-group" />
+            <ui:VisualElement name="DISCARD_FOOTER" class="discard-footer is-hidden">
+                <Ashen.Presentation.UI.LocButton name="DISCARD_BACK" class="kit-button--back discard-button" string-key="combat.discard.back" />
+                <ui:VisualElement class="footer-gap" />
+                <Ashen.Presentation.UI.LocButton name="DISCARD_CONFIRM" class="kit-button--primary discard-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="FLASK_PANEL" class="flask-panel is-hidden">
+        <Ashen.Presentation.UI.LocLabel name="FLASK_TITLE" class="flask-title kit-text-header" string-key="combat.flasks.title" />
+        <ui:VisualElement name="FLASK_LIST" class="flask-list" />
+        <Ashen.Presentation.UI.LocButton name="FLASK_CLOSE" class="kit-button--back flask-close" string-key="combat.flasks.close" />
+    </ui:VisualElement>
+    <ui:VisualElement name="COMBAT_END" class="page page--center scrim combat-end is-hidden">
+        <ui:VisualElement class="end-panel">
+            <Ashen.Presentation.UI.LocLabel name="END_TITLE" class="end-title kit-text-header" />
+            <Ashen.Presentation.UI.LocLabel name="END_BODY" class="end-body kit-text-value" />
+            <Ashen.Presentation.UI.LocLabel name="END_PLANNED" class="end-planned kit-text-value" string-key="combat.end.planned" />
+            <ui:VisualElement class="end-footer">
+                <Ashen.Presentation.UI.LocButton name="END_REWARDS" class="end-button" string-key="combat.end.rewards" />
+                <ui:VisualElement class="footer-gap" />
+                <Ashen.Presentation.UI.LocButton name="END_TO_TITLE" class="kit-button--primary kit-button--ready end-button" string-key="combat.end.toTitle" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -45,7 +45,7 @@ namespace Ashen.EditorTools
             }
             catalog.entries.Clear();
             var missing = 0;
-            foreach (var p in registry.Properties().Where(p => data.Components.ArtInclude.Any(prefix => p.Name.StartsWith(prefix, StringComparison.Ordinal))))
+            foreach (var p in registry.Properties().Where(p => data.Components.ArtIncludes(p.Name)))
             {
                 var texture = AssetDatabase.LoadAssetAtPath<Texture2D>((string)p.Value[UnityPathKey]);
                 if (texture == null) { missing++; continue; }

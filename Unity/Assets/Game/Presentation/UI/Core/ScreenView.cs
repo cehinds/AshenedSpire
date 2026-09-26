@@ -30,6 +30,12 @@ namespace Ashen.Presentation.UI
         /// <summary>True while the screen takes no focus or navigation (the title gate).</summary>
         bool InputBlocked { get; }
 
+        /// <summary>Pad Start / the menu intent reached this screen. True when the screen handled it (combat opens pause).</summary>
+        bool HandleMenu();
+
+        /// <summary>The screens.json focusModes entry in force (null = the screen's focusOrder).</summary>
+        string FocusMode { get; }
+
         void Unbind();
     }
 
@@ -54,6 +60,10 @@ namespace Ashen.Presentation.UI
         public virtual bool HandleBack() => false;
 
         public virtual bool InputBlocked => false;
+
+        public virtual bool HandleMenu() => false;
+
+        public virtual string FocusMode => null;
 
         public virtual void Unbind() { }
     }

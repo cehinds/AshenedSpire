@@ -15,5 +15,9 @@ namespace Ashen.Generated
         public const string NavRepeatInterval = "navRepeatInterval";
         public const string FocusSettle = "focusSettle";
         public const string Bg = "bg";
+        public const string EnemyStep = "enemyStep";
+        public const string EnemyStepReduced = "enemyStepReduced";
+        public const string TurnBanner = "turnBanner";
+        public const string Notice = "notice";
     }
 }

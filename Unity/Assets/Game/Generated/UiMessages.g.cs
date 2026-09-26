@@ -10,5 +10,10 @@ namespace Ashen.Generated
         public const string MissingArt = "ui: art '{0}' is not in the UI art catalog";
         public const string ContentInvalid = "ui: content invalid ({0} issues)";
         public const string Booted = "ui: booted with {0} content files in {1} ms";
+        public const string LoadFailed = "ui: slot {0} not resumed ({1}): {2}";
+        public const string ClassRefused = "ui: class '{0}' cannot begin: {1}";
+        public const string SaveFailed = "ui: save failed: {0}";
+        public const string CombatCommandFailed = "ui: combat command rolled back: {0}";
+        public const string NoFight = "ui: the combat screen opened without a fight";
     }
 }

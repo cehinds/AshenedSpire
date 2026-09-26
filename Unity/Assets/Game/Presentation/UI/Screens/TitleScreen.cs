@@ -166,7 +166,7 @@ namespace Ashen.Presentation.UI.Screens
                         ConfirmId = ConfirmIds.LoadSlot,
                         Args = new StringArgs().Add(UiPlaceholders.Slot, target.Index),
                         Target = ViewModel.PreviewIdentity,
-                        OnConfirm = () => Refuse(button, StringKeys.SlotsRefusalLater),
+                        OnConfirm = () => RunFlow.Resume(Context, target.Index, button),
                     });
                     break;
                 case MenuActions.Open:
@@ -178,9 +178,6 @@ namespace Ashen.Presentation.UI.Screens
                     break;
             }
         }
-
-        private void Refuse(VisualElement anchor, string key) =>
-            Refusal.Show(anchor, Context.Overlay, Ui.Data.Strings.Get(key), Ui.Data.Tokens.Duration(TokenKeys.Refusal));
 
         public override void OnReturned() => Refresh();
 

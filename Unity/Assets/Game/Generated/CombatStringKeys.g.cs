@@ -4,6 +4,11 @@ namespace Ashen.Generated
     /// <summary>Combat string keys code must name (strings/combat.en.json).</summary>
     public static class CombatStringKeys
     {
+        public const string CombatCardKindAttack = "combat.cardKind.attack";
+        public const string CombatCardKindCurse = "combat.cardKind.curse";
+        public const string CombatCardKindPower = "combat.cardKind.power";
+        public const string CombatCardKindSkill = "combat.cardKind.skill";
+        public const string CombatCardKindStatus = "combat.cardKind.status";
         public const string CombatErrorUnexpected = "combat.error.unexpected";
         public const string CombatIntentAttack = "combat.intent.attack";
         public const string CombatIntentBlock = "combat.intent.block";

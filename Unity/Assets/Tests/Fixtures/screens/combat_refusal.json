@@ -1,0 +1,11 @@
+{
+  "comment": "W-07 refusals: the hand played down to 0 Actions (every card shows its reason) and the inline refusal at a card.",
+  "screen": "combat",
+  "seed": 20260926,
+  "playUntilStuck": true,
+  "state": "refusal",
+  "settleMs": 500,
+  "skipSizes": [
+    "1920x1080"
+  ]
+}

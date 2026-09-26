@@ -2,6 +2,64 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-2.1 (Class pane), us-5.1–us-5.10, us-6.x display, us-17.1, pf-06: F1 first fight, pause and resume (feature/first-fight, 2026-09-26)
+
+**Landed**
+- **Application (`Ashen.App.Run`, engine-free):**
+  - `RunContent`: the layered content (default preset unless named, optional patches), run and combat data through `RuntimeRegistries.ToRunData` (D-069), `rules/runFlow.json` and the seed codec; `ClassProblem`, `DefaultClass` and `Preview` for W-04; `FirstFightEncounter` and `RegionOf` from data (D-071).
+  - `RunSession`: New (createRunState) → StartEncounter (enterCombat args) → Execute through `CombatSession` with autosave (append each command; checkpoint on end turn, fight end and Save & quit) → Save (versioned payload with the D-059 summary) → Load (hash-verified, log replay, D-017 fallback with a warning, re-commit) (D-070).
+  - `CombatSession.Commit` and a checkpoint + log `Load`; `CombatOutcome.EnemyActors`; `CombatViewModel` flasks (charge pools and carried flasks, with refusals); `CombatText` (refusals from `strings/combat.en.json`, intent chips with live numbers, card kinds).
+  - UI data: `screens.json#focusModes`; `menus.json#pause` (with `hideInCombat`) and `#creationPanes`; new doors `replaceSlot`, `saveQuit` and `saveFailed`; `components.json#combat` art templates and wildcard art includes (D-076). The combat strings join the string table.
+- **Presentation:**
+  - **W-04 creation, Class pane:** the four classes in authoring order with portrait, name and summary. The selected class unfolds with its attributes, pools and flask split, read from createRunState. The rail shows Class plus the planned Character, Equipment and Review (D-058). Begin (W2c Replace when the slot is occupied) → `RunSession.New` → first fight → W-07. The Reaver cannot begin under the reference preset (D-073).
+  - **W-07 combat:**
+    - HUD: portrait, identity, act · region · turn, labelled HP/MP/SP meters, Menu.
+    - Battlefield: the new `Combatant` kit element (intent chip coloured by kind, figure art, Block badge, HP, labelled Poise and Ward meters, stance, status chips with `+N`, staggered and defeated badges) over the region's combat art.
+    - Hand fan of CardViews (cost pips, resolved text, kind, refusal line and refusal tooltip) and the footer group (Actions, Draw, End Turn, Discard · Exhaust, Potions).
+    - States with their own focus orders (D-074): targeting (legal targets outlined with a ghost HP preview), the discard chooser when the hand rules prompt, the flask panel (targeted flasks arm the target layer), the enemy turn (red wash, the acting enemy lifts in order, Skip ▶▶, reduced motion; D-075) and the end state with rewards planned (D-072).
+    - Every intent is a command through `RunSession`; a refusal shows at the control that started it and keeps focus there.
+  - **W-20 pause:** seed and slot; rows from data (Deck, Settings and Abandon planned; Armoury hidden in combat); full-width Resume. Save & quit goes through its hold door → checkpoint → title; a failed save opens W1r.
+  - Title **Continue** and W-03 **Load** resume the slot mid-fight (`RunFlow.Resume`); W-03 **New** opens W-04 (D-077). Pad Start is a new router intent (Menu).
+- **Screenshots:** 8 new fixtures (creation, combat, combat_intents, combat_targeting, combat_discard, combat_refusal, combat_end, pause): 27 PNGs, about 18 MB. The five state fixtures skip 1920×1080 through the new `skipSizes` fixture field. Fixtures can name layer patches, an encounter, bot commands and a screen state.
+
+**Tests**
+- `RunSessionTests` (16):
+  - content-built runs and combat args equal 8 recorded shipped runs, and the creation tables equal the shipped registries;
+  - the first fight is the data rule's encounter, and every class that can begin starts it under the default preset;
+  - new → fight → save → load gives the identical state hash;
+  - resume after 1, 3, 7 and 12 commands equals the live fight and plays on identically;
+  - the append/checkpoint policy; a refusal is neither applied nor saved;
+  - a tampered log and changed content resume with a warning and re-commit;
+  - empty, newer, foreign and damaged payloads; the live slot summary; a finished fight is checkpointed.
+- `FirstFightUiTests` (10): every combat refusal resolves; intent text; the first fight's view (two targets, intents, flasks, card kinds); a charge flask spends a charge; the prompted discard chooser refuses too many and accepts a choice; pause rows in a fight; the creation rail; the class preview; focus modes; art includes.
+- PlayMode `FirstFightSmokeTests`: Boot → title → New → W-03 → door → W-04 (the data default preselected and focused) → Begin → W-07 → a targeted card played on an enemy with the keyboard (autosaved to the log) → End Turn with the pad → the enemy turn (a distinct state) → the next intents → Escape pauses, pad Start resumes and pauses again → Save & quit (Enter held past holdMs) → title with Continue focused → Continue → **the identical state hash** → the fight finished through the screen's command path → the end state (Rewards disabled) → title.
+- Results:
+  - dotnet 1104/1104;
+  - Unity EditMode 1105/1105, Enforcement green;
+  - PlayMode 2 passed, 1 skipped (the capture test);
+  - `codegen --check`, `check-content`, `transform --check` and `check-docs` green.
+
+**Review** (own screenshot review against W-04, W-07 and W-20; fixed and recaptured):
+- the region combat art is a 2×2 sheet of variants (W-07 now shows the first quadrant);
+- cards clipped at the top of the hand band (combat card size; the hand takes the remaining height);
+- enemy meters overflowing their combatant; unlabelled Poise, Ward and HUD meters (labels from the resource strings);
+- the target and discard prompts hidden behind the cards (moved to the foot of the battlefield);
+- discard footer buttons not spread; narrow footer labels ellipsized (short labels on narrow);
+- the creation rail's planned values ellipsized; the intent-variety fixture ending the fight before two kinds showed.
+
+**Not verified / open**
+- **Mouse:** cards, combatants and buttons take UI Toolkit pointer events, but there is no automated pointer test. Keyboard and pad are covered by the smoke test.
+- **Compact band (844×390):** W-07's "rails" layout (Actions and Draw on the left, End Turn, Discard and Potions on the right) is not built. The hand is small there, card text is raised to the physical minimum and clips, and a lifted target overlaps the HUD. The upright gate is not wired.
+- Not built:
+  - US-7.1 weapon-set swap (there is no domain command yet) and the Armaments popover;
+  - the W-17 inspector and the pile viewer (planned);
+  - per-hit animation, VFX and enemy state frames (D-075); status icons (text chips, D-076);
+  - the relic rail and cinders in the HUD; Abandon run.
+- W-04's other panes, name entry, seed choice and journey are planned; the default name is `creation.defaultName`.
+- **D-073 needs an owner ruling** (the reference preset's Reaver flask split).
+
+**Next:** W-08 rewards on the post-combat pipeline (feature/rewards), then the compact rails layout and a pointer test.
+
 ## us-0.4: run and rewards data from content (feature/content-data, 2026-09-26)
 
 **Landed**

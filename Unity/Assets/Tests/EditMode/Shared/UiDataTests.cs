@@ -59,7 +59,7 @@ namespace Ashen.Tests
             var names = Constants(typeof(UiNames));
             var inUxml = UxmlNames();
             foreach (var s in Ui.Screens.All)
-                foreach (var region in s.FocusOrder.Concat(s.InitialFocus == null ? new string[0] : new[] { s.InitialFocus }))
+                foreach (var region in s.FocusOrder.Concat(s.FocusModes.Values.SelectMany(m => m)).Concat(s.InitialFocus == null ? new string[0] : new[] { s.InitialFocus }))
                 {
                     Assert.That(names, Does.Contain(region), s.Id + " focus region " + region + " is not in UiNames");
                     Assert.That(inUxml, Does.Contain(region), s.Id + " focus region " + region + " is in no UXML");
@@ -100,8 +100,9 @@ namespace Ashen.Tests
         {
             var registry = TestContent.ContentJson(ContentFiles.AssetsRegistry);
             foreach (var s in Ui.Screens.All.Where(s => s.Background != null)) Assert.That(registry[s.Background], Is.Not.Null, s.Id + " " + s.Background);
-            foreach (var prefix in Ui.Components.ArtInclude)
-                Assert.That(registry.Properties().Any(p => p.Name.StartsWith(prefix, StringComparison.Ordinal)), Is.True, prefix);
+            foreach (var entry in Ui.Components.ArtInclude)
+                Assert.That(registry.Properties().Any(p => ComponentDefaults.ArtMatches(entry, p.Name)), Is.True, entry);
+            Assert.That(registry[Ui.Components.CombatFallbackBackground], Is.Not.Null, "the combat fallback background");
         }
 
         [Test]

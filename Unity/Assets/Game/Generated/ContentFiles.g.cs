@@ -62,6 +62,7 @@ namespace Ashen.Generated
         public const string RulesRng = "rules/rng.json";
         public const string RulesRowOrder = "rules/rowOrder.json";
         public const string RulesRunEngine = "rules/runEngine.json";
+        public const string RulesRunFlow = "rules/runFlow.json";
         public const string RulesSaves = "rules/saves.json";
         public const string RulesStringKeys = "rules/stringKeys.json";
         public const string RulesTextAnchors = "rules/textAnchors.json";
@@ -124,6 +125,7 @@ namespace Ashen.Generated
         public const string SchemasRulesRngSchema = "schemas/rules.rng.schema.json";
         public const string SchemasRulesRowOrderSchema = "schemas/rules.rowOrder.schema.json";
         public const string SchemasRulesRunEngineSchema = "schemas/rules.runEngine.schema.json";
+        public const string SchemasRulesRunFlowSchema = "schemas/rules.runFlow.schema.json";
         public const string SchemasRulesSavesSchema = "schemas/rules.saves.schema.json";
         public const string SchemasRulesStringKeysSchema = "schemas/rules.stringKeys.schema.json";
         public const string SchemasRulesTextAnchorsSchema = "schemas/rules.textAnchors.schema.json";

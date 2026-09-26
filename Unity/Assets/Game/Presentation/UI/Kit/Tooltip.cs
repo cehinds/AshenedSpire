@@ -49,9 +49,19 @@ namespace Ashen.Presentation.UI.Kit
         }
 
         /// <summary>Hover/focus tooltip for target, shown in overlay after delayMs.</summary>
-        public static Tooltip Attach(VisualElement target, VisualElement overlay, string sizeId, string titleKey, string bodyKey, int delayMs)
+        public static Tooltip Attach(VisualElement target, VisualElement overlay, string sizeId, string titleKey, string bodyKey, int delayMs) =>
+            Hook(new Tooltip { size = sizeId, titleKey = titleKey, bodyKey = bodyKey }, target, overlay, delayMs);
+
+        /// <summary>Hover/focus tooltip with already-resolved text (a refusal reason, a filled template).</summary>
+        public static Tooltip AttachResolved(VisualElement target, VisualElement overlay, string sizeId, string title, string body, int delayMs)
         {
-            var tip = new Tooltip { size = sizeId, titleKey = titleKey, bodyKey = bodyKey };
+            var tip = new Tooltip { size = sizeId };
+            tip.SetText(title, body);
+            return Hook(tip, target, overlay, delayMs);
+        }
+
+        private static Tooltip Hook(Tooltip tip, VisualElement target, VisualElement overlay, int delayMs)
+        {
             IVisualElementScheduledItem pending = null;
             void Show()
             {

@@ -21,6 +21,12 @@ namespace Ashen.Presentation.UI.Kit
             AddToClassList(nameof(HandFan).ToLowerInvariant());
             UiDom.CloneTemplate(this, UiResources.KitHandFan);
             _cards = this.Q<ScrollView>(UiNames.HandCards);
+            // The focus model walks the cards; the scroll bars never take focus (the router, not the scroller, moves).
+            if (_cards != null)
+            {
+                _cards.horizontalScroller.slider.focusable = false;
+                _cards.verticalScroller.slider.focusable = false;
+            }
         }
 
         public IReadOnlyList<CardView> Cards => _views;
@@ -40,6 +46,7 @@ namespace Ashen.Presentation.UI.Kit
                 view.Bind(cards[i]);
                 var angle = flat ? 0d : (i - (n - 1) * UiMath.Half) * step;
                 view.style.rotate = new Rotate(new Angle((float)angle, AngleUnit.Degree));
+                view.RegisterCallback<FocusInEvent>(_ => _cards.ScrollTo(view));
                 _cards.Add(view);
                 _views.Add(view);
             }

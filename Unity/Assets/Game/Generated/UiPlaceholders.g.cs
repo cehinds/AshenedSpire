@@ -28,5 +28,21 @@ namespace Ashen.Generated
         public const string Label = "label";
         public const string Facts = "facts";
         public const string Time = "time";
+        public const string Mark = "mark";
+        public const string Mp = "mp";
+        public const string Sp = "sp";
+        public const string Actions = "actions";
+        public const string Region = "region";
+        public const string Turn = "turn";
+        public const string Before = "before";
+        public const string After = "after";
+        public const string Min = "min";
+        public const string Cap = "cap";
+        public const string Stacks = "stacks";
+        public const string Exhaust = "exhaust";
+        public const string Damage = "damage";
+        public const string Hits = "hits";
+        public const string Block = "block";
+        public const string Id = "id";
     }
 }

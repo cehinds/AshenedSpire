@@ -35,6 +35,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "refusalTooltip": {
+          "type": "string"
         }
       },
       "required": [
@@ -100,12 +103,45 @@
       "required": [
         "sizes"
       ]
+    },
+    "combat": {
+      "type": "object",
+      "properties": {
+        "background": {
+          "type": "string"
+        },
+        "fallbackBackground": {
+          "type": "string",
+          "x-ref": "assets/registry.json"
+        },
+        "enemy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "background",
+        "enemy",
+        "fallbackBackground"
+      ]
+    },
+    "combatant": {
+      "type": "object",
+      "properties": {
+        "statusChips": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "statusChips"
+      ]
     }
   },
   "required": [
     "art",
     "boot",
     "card",
+    "combat",
+    "combatant",
     "comment",
     "handFan",
     "meter",

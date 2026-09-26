@@ -17,5 +17,11 @@ namespace Ashen.Generated
         public const string CustomRun = "customRun";
         public const string Settings = "settings";
         public const string Lobby = "lobby";
+        public const string Combat = "combat";
+        public const string Pause = "pause";
+        public const string Rewards = "rewards";
+        public const string PileViewer = "pileViewer";
+        public const string Armoury = "armoury";
+        public const string RunEnd = "runEnd";
     }
 }
