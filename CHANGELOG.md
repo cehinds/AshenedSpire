@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [1.0.0.0] — 2026-09-26
+
+- Epic release F0 Foundation complete
+
 ## [0.1.1.1] — 2026-09-26
 
 - docs link check skips the verbatim Provenance archive

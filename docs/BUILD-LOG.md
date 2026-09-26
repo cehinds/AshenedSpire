@@ -2,7 +2,45 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
-## Phase F0 Foundation (in progress)
+## Phase F0 Foundation — complete (1.0.0.0, 2026-09-26)
+
+**Exit gate** (09 §8):
+
+| Check | Result |
+|---|---|
+| Validator | Green: 150 content files, 65+ schemas |
+| Counts | Match the shipped game (195 cards, 63 relics, 33 enemies, 35 encounters, 25 events, …) |
+| RNG and seat oracles | Green: 13,440 draws plus 100 seat cases, bit-identical |
+| Registry | 5,265 assets, no dangling IDs, 899 imported pixel-identical |
+| Tests | dotnet 72/72, Unity EditMode 73/73 |
+| CI on `dev` | 7/7 jobs green; the Unity jobs skip because the licence secret isn't set; the Windows build runs from `test` onward |
+
+**Moved out of F0:**
+- Map-generation parity and golden replays go to F3/F2 (D-033).
+- Most art domains import per phase (D-035).
+
+**Stories:**
+
+| Story | Version |
+|---|---|
+| us-0.3 | 0.0.2.0 |
+| us-0.9 | 0.0.3.0 |
+| CI fix | 0.0.3.1 |
+| us-0.4 | 0.0.4.0 |
+| us-0.5 (part 1) and us-18.4 | 0.0.6.0 |
+| us-0.7 | 0.0.7.0 |
+| us-0.6 | 0.0.8.0 |
+| us-0.8 | 0.0.9.0 |
+| us-0.1 and us-0.2 | 0.0.11.0 |
+| us-0.10 | 0.0.12.0 |
+| foundation feature complete | 0.1.0.0 |
+| us-16.2 | 0.1.1.0 |
+| docs-check fix | 0.1.1.1 |
+| **epic F0** | **1.0.0.0** |
+
+**Environment:** **C: is full (0.2 GB free)** and D: has about 3.7 GB. The owner needs to free space before the F1/F2 art imports (animations are 122 MB of WebP source, several times that as PNG plus Library).
+
+**Next:** F1, the first playable loop (kit → W-02 title → W-03 slots → W-04 Class pane → W-07 combat → W-08 rewards → W-23 → W-20 → checkpoint and resume).
 
 ### us-16.2: procedural SFX core (2026-09-26)
 
