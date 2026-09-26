@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [1.0.0.1] — 2026-09-26
+
+- Repository moved to D:/repo/AshenedSpire
+
 ## [1.0.0.0] — 2026-09-26
 
 - Epic release F0 Foundation complete
