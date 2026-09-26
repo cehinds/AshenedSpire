@@ -34,9 +34,11 @@ namespace Ashen.Content
         private readonly JObject _equipment;
         private readonly JObject _balance;
         private readonly JObject _map;
+        private readonly JObject _run;
 
-        private RuntimeRegistries(Dictionary<string, JObject> tables, JArray classTree, JObject equipment, JObject balance, JObject map)
+        private RuntimeRegistries(Dictionary<string, JObject> tables, JArray classTree, JObject equipment, JObject balance, JObject map, JObject run)
         {
+            _run = run;
             _tables = tables;
             _classTree = classTree;
             _equipment = equipment;
@@ -58,6 +60,7 @@ namespace Ashen.Content
             tables[RegistryKeys.Attributes] = MakeRegistry(RegistryKeys.Attributes, Collection(RegistryKeys.Attributes));
             tables[RegistryKeys.PropertyRules] = MakeRegistry(RegistryKeys.PropertyRules, Collection(RegistryKeys.PropertyRules), CombatKeys.Tag);
             tables[MK.Seats] = MakeRegistry(MK.Seats, Collection(MK.Seats));
+            tables[RunKeys.CreationModes] = MakeRegistry(RunKeys.CreationModes, Collection(RunKeys.CreationModes));
             var classTree = (JArray)Collection(RegistryKeys.ClassTree).DeepClone();
 
             var equipment = JsValues.Spread(bundle[RegistryKeys.Equipment] as JObject);
@@ -74,7 +77,7 @@ namespace Ashen.Content
             else equipment.Remove(RegistryKeys.CardTagging);
 
             var balance = JsValues.Spread(bundle[RegistryKeys.Balance] as JObject);
-            return new RuntimeRegistries(tables, classTree, equipment, balance, MapDocuments(content));
+            return new RuntimeRegistries(tables, classTree, equipment, balance, MapDocuments(content), RunDocuments(bundle, stamped));
         }
 
         /// <summary>An id-keyed registry table ("cards", "relics", ...), or null for a name that is not one.</summary>
@@ -118,6 +121,50 @@ namespace Ashen.Content
                 Doc(MK.LegacyActBosses), _balance[MK.Endless] is JObject endless ? (JObject)endless.DeepClone() : new JObject(),
                 new Ashen.Domain.Map.MapRules(mapEngine));
         }
+
+        /// <summary>
+        /// The run documents createRegistries keeps beside the tables: characterCreation (its keepsakes stamped like
+        /// every tagged collection), attributeRules, derivedStatRules, the tagFamilies rows and the tag tree (nodes).
+        /// </summary>
+        private static JObject RunDocuments(JObject bundle, List<KeyValuePair<string, JArray>> stamped)
+        {
+            var creation = JsValues.Spread(bundle[RunKeys.CharacterCreation] as JObject);
+            var keepsakesPath = string.Join(RegistryKeys.PathSeparator, RunKeys.CharacterCreation, RegistryKeys.Keepsakes);
+            var keepsakes = stamped.Where(kv => kv.Key == keepsakesPath).Select(kv => kv.Value).FirstOrDefault();
+            if (keepsakes != null) creation[RegistryKeys.Keepsakes] = keepsakes.DeepClone();
+            return new JObject
+            {
+                [RunKeys.CharacterCreation] = creation,
+                [RunKeys.AttributeRules] = JsValues.Spread(bundle[RunKeys.AttributeRules] as JObject),
+                [RunKeys.DerivedStatRules] = (bundle[RunKeys.DerivedStatRules] as JObject)?.DeepClone() ?? new JObject(),
+                [RunKeys.TagFamilies] = (bundle[RegistryKeys.TagFamilies] as JArray)?.DeepClone() ?? new JArray(),
+                [RewardsKeys.Nodes] = (bundle[RewardsKeys.Nodes] as JArray)?.DeepClone() ?? new JArray(),
+            };
+        }
+
+        private Ashen.Domain.Combat.Registry DomainRegistry(string name) =>
+            new Ashen.Domain.Combat.Registry(name, (_tables.TryGetValue(name, out var t) ? t : new JObject()).Properties().Select(p => p.Value.DeepClone()).ToList(), RegistryKeys.Id);
+
+        /// <summary>
+        /// The run port's view of these registries (US-2.2, D-042): the combat data plus the creation-mode, seat and
+        /// encounter registries and the run documents, with the hand rules and the run engine rules. The content version
+        /// is the shipped <c>String(bundle.version || bundle.contentVersion || '0')</c>, read from the manifest by the caller.
+        /// </summary>
+        public Ashen.Domain.Run.RunData ToRunData(JObject mechanics, JObject combatEngine, JObject handRules, JObject runEngine, string contentVersion)
+        {
+            JObject Doc(string key) => (JObject)_run[key].DeepClone();
+            return new Ashen.Domain.Run.RunData(ToCombatData(mechanics, combatEngine),
+                DomainRegistry(RunKeys.CreationModes), DomainRegistry(MK.Seats), DomainRegistry(RegistryKeys.Encounters),
+                Doc(RunKeys.AttributeRules), Doc(RunKeys.CharacterCreation), Doc(RunKeys.DerivedStatRules),
+                (JArray)_run[RunKeys.TagFamilies].DeepClone(),
+                string.IsNullOrEmpty(contentVersion) ? RegistryKeys.ContentVersionFallback : contentVersion, handRules, runEngine);
+        }
+
+        /// <summary>The post-combat pipeline's view (US-11.1): the run data plus the tag tree, the ascension order and the rewards rules.</summary>
+        public Ashen.Domain.Rewards.RewardsData ToRewardsData(JObject mechanics, JObject combatEngine, JObject handRules, JObject runEngine,
+            string contentVersion, JArray ascensionOrder, JObject rewardsEngine) =>
+            new Ashen.Domain.Rewards.RewardsData(ToRunData(mechanics, combatEngine, handRules, runEngine, contentVersion),
+                (JArray)_run[RewardsKeys.Nodes].DeepClone(), ascensionOrder, rewardsEngine);
 
         /// <summary>The map documents, in content key order: balance/mapConfigs.json, eventMeta's gates, boss locations, mapShape limits and legacy bosses.</summary>
         private static JObject MapDocuments(ContentSet content)
