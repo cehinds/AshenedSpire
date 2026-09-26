@@ -2,10 +2,25 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.15.0] — 2026-09-26
+
+Stories: us-5.11, us-2.3
+
+- Combat: weapon-set swap and re-arming, unrated poise, profile snapshot; run creation: custom attributes, derived-stat options, hand-rule settings, derived-stat restore and save migrations (all oracle-verified)
+
+## [0.1.13.2] — 2026-09-26
+
+- Refactor: rest stop and merchant share one smithing/card-extraction port; upgraded-item resolution has one home (-1,469 lines, oracles unchanged)
+
+## [0.1.13.1] — 2026-09-26
+
+- Record the F1 promotion (v0.1.13.0) in CHANGELOG and BUILD-LOG
+
 ## [0.1.13.0] — 2026-09-26
 
 Stories: us-11.1, us-11.2, us-11.3, us-8.10
 
+- **Promoted dev → test → main, tagged v0.1.13.0 (phase F1 First playable loop complete). A promotion is a process step, not an owner sign-off; the epic stays 0 (D-039).** CI green on dev and test; Unity EditMode 2102 passed / 2 skipped and PlayMode 3 passed / 1 skipped locally (CI Unity jobs skip without the UNITY_* secrets).
 - F1 complete: W-08 rewards on RewardDoor (claims oracle incl. tap path), resume on rewards, permadeath on defeat; one run-effects door, chained full runs (108/108), bot smoke
 
 ## [0.1.12.0] — 2026-09-26

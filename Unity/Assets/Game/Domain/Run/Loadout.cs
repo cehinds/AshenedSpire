@@ -320,7 +320,7 @@ namespace Ashen.Domain.Run
             var raw = uncapped + rating.Num(K.Value);
             var value = capped ? Math.Min(rule.Num(RK.Cap), raw) : raw;
             if (double.IsNaN(value) || double.IsInfinity(value) || value < 0) throw new InvalidOperationException(RunJs.Fmt(RM.ProfileValueInvalid, profile.Str(K.Id), RunJs.NumStr(value)));
-            return Js.Obj(K.Role, row.Role, K.ProfileId, profile[K.Id], RK.PieceId, row.Piece == null ? Js.Null() : row.Piece[K.Id],
+            return Js.Obj(K.Role, row.Role, K.ProfileId, profile[K.Id], K.PieceId, row.Piece == null ? Js.Null() : row.Piece[K.Id],
                 K.Base, rule[RK.BaseValue], RK.Rarity, rarity, RK.RarityBonus, rarityBonus, RK.Rating, rating, RK.EffectBase, effectBase,
                 RK.Raw, raw, RK.Cap, rule[RK.Cap], K.Value, value);
         }
@@ -409,7 +409,7 @@ namespace Ashen.Domain.Run
         {
             var poolFields = PoolFields(d);
             var current = d.RuleObj(K.Loadout, RK.PoolCurrent);
-            if (run == null || !Js.Truthy(run[K.DerivedStatRuleSnapshot]) || !Js.Truthy(run.Obj(K.DerivedStatRuleSnapshot)?[RK.Rules])
+            if (run == null || !Js.Truthy(run[K.DerivedStatRuleSnapshot]) || !Js.Truthy(run.Obj(K.DerivedStatRuleSnapshot)?[K.Rules])
                 || !poolFields.All(f => Js.IsFinite(run[f]) && Js.IsFinite(run[current.Str(f) ?? V.Undefined]))) return false;
             if (!Js.IsInt(run[RK.MaxHpAdjustment])) throw new InvalidOperationException(RM.ReconcileNeedsAdjustment);
             var classDef = d.Classes.Get(run.Str(RK.Class));
@@ -420,7 +420,7 @@ namespace Ashen.Domain.Run
             var bonuses = adoptEquipmentBonuses ? liveBonuses : prior;
             var deficits = new JObject();
             var level = RunState.CharacterLevelOf(run);
-            var rules = run.Obj(K.DerivedStatRuleSnapshot).Obj(RK.Rules);
+            var rules = run.Obj(K.DerivedStatRuleSnapshot).Obj(K.Rules);
             var attributes = run.Obj(K.Attributes);
             var hpField = poolFields[0];
             var derived = DerivedStats.Derive(rules, RV.StatHp, attributes, classDef, level);

@@ -27,6 +27,7 @@ namespace Ashen.Generated
         public const string AttackRating = "attackRating";
         public const string AttacksPlayedThisCombat = "attacksPlayedThisCombat";
         public const string Attempted = "attempted";
+        public const string Attribute = "attribute";
         public const string AttributeBaseline = "attributeBaseline";
         public const string AttributeDivisor = "attributeDivisor";
         public const string Attributes = "attributes";
@@ -95,6 +96,7 @@ namespace Ashen.Generated
         public const string DamageTakenMult = "damageTakenMult";
         public const string Decay = "decay";
         public const string Deck = "deck";
+        public const string DefaultPointsPerTier = "defaultPointsPerTier";
         public const string Defaults = "defaults";
         public const string DefenseRating = "defenseRating";
         public const string Delay = "delay";
@@ -164,6 +166,7 @@ namespace Ashen.Generated
         public const string Flasks = "flasks";
         public const string Flavor = "flavor";
         public const string FocusItemType = "focusItemType";
+        public const string GainPerTier = "gainPerTier";
         public const string GrantSource = "grantSource";
         public const string GrantedBy = "grantedBy";
         public const string Grip = "grip";
@@ -209,6 +212,7 @@ namespace Ashen.Generated
         public const string Kinds = "kinds";
         public const string KitRole = "kitRole";
         public const string Label = "label";
+        public const string LegacyRule = "legacyRule";
         public const string Level = "level";
         public const string Light = "light";
         public const string LightMaxWeight = "lightMaxWeight";
@@ -282,13 +286,16 @@ namespace Ashen.Generated
         public const string Phase = "phase";
         public const string Phases = "phases";
         public const string PhysicalK = "physicalK";
+        public const string PieceId = "pieceId";
         public const string Pile = "pile";
         public const string Piles = "piles";
         public const string Player = "player";
         public const string PlayerId = "playerId";
         public const string PlayerImpactPerHit = "playerImpactPerHit";
+        public const string PlayerPoise = "playerPoise";
         public const string PlayerStatuses = "playerStatuses";
         public const string PointsPerCard = "pointsPerCard";
+        public const string PointsPerTier = "pointsPerTier";
         public const string Poise = "poise";
         public const string PoiseActionLoss = "poiseActionLoss";
         public const string PoiseDamage = "poiseDamage";
@@ -338,10 +345,12 @@ namespace Ashen.Generated
         public const string RetainBlock = "retainBlock";
         public const string Role = "role";
         public const string Roll = "roll";
+        public const string Rules = "rules";
         public const string School = "school";
         public const string SchoolBuildupMultipliers = "schoolBuildupMultipliers";
         public const string SchoolDamageVulnerability = "schoolDamageVulnerability";
         public const string SchoolVariant = "schoolVariant";
+        public const string SetIndex = "setIndex";
         public const string Sets = "sets";
         public const string Size = "size";
         public const string Skill = "skill";
@@ -351,6 +360,7 @@ namespace Ashen.Generated
         public const string SkipNextTurn = "skipNextTurn";
         public const string SkipTurn = "skipTurn";
         public const string Slot = "slot";
+        public const string SlotId = "slotId";
         public const string Slots = "slots";
         public const string SmithingLevel = "smithingLevel";
         public const string SnapshotVersion = "snapshotVersion";
@@ -380,6 +390,7 @@ namespace Ashen.Generated
         public const string SwapAllowancePerTurn = "swapAllowancePerTurn";
         public const string SwapCostKind = "swapCostKind";
         public const string SwapCostRule = "swapCostRule";
+        public const string SwapCostRules = "swapCostRules";
         public const string SwapsLeft = "swapsLeft";
         public const string Tag = "tag";
         public const string TaggedVulnerability = "taggedVulnerability";

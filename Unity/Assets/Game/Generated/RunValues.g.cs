@@ -18,6 +18,8 @@ namespace Ashen.Generated
         public const string FixedTotal = "fixedTotal";
         public const string Floor = "floor";
         public const string Forbid = "forbid";
+        public const string GateUnearned = "unearned";
+        public const string GateUnfound = "unfound";
         public const string GrantedCardLabel = "granted card";
         public const string GroupPrefix = "prefix";
         public const string HandRulesPrefix = "gameConfig.handRules.";
@@ -28,10 +30,15 @@ namespace Ashen.Generated
         public const string NaN = "NaN";
         public const string Null = "null";
         public const string PathDot = ".";
+        public const string PersistenceUnlocked = "unlocked";
         public const string Plus = "+";
         public const string ProblemJoiner = "; ";
         public const string ProfileIdSuffix = "ProfileId";
         public const string ProfileSuffix = "Profile";
+        public const string ReasonEquip = "equip";
+        public const string ReasonMove = "move";
+        public const string ReasonSwapSet = "swapSet";
+        public const string ReasonUnequip = "unequip";
         public const string RelicKindSource = "relic";
         public const string RequirementTagPrefix = "requirement";
         public const string ResourceAttributeTier = "resource.attributeTier";
@@ -45,17 +52,26 @@ namespace Ashen.Generated
         public const string RoundTripFormat = "R";
         public const string RunScope = "run";
         public const string ShieldKind = "shield";
+        public const string SignatureEmptyCell = "-";
+        public const string SignatureJoiner = "|";
+        public const string SignaturePairSeparator = ":";
         public const string StartStatusApply = "startStatus";
         public const string StatDraw = "draw";
         public const string StatEnergy = "energy";
         public const string StatHp = "hp";
         public const string StatMana = "mana";
         public const string StatStamina = "stamina";
+        public const string SwapBaseCategory = "category";
+        public const string SwapBaseDefault = "default";
         public const string SwapCostApply = "swapCost";
+        public const string SwapInCombat = "combat";
         public const string TalismanSource = "talisman";
         public const string True = "true";
         public const string Unarmed = "unarmed";
+        public const string UnknownAmount = "unknown";
         public const string WeaponArtLabel = "weapon art";
         public const string WeaponLabel = "weapon";
+        public const string WordFastened = "fastened";
+        public const string WordUnknown = "unknown";
     }
 }

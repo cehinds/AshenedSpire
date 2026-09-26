@@ -237,7 +237,7 @@ namespace Ashen.Domain.Rewards
         /// </summary>
         public static string ArmamentDrop(RewardsData d, Rng rng, string source, IEnumerable<string> found, IEnumerable<string> carried)
         {
-            var cfg = d.Run.EquipmentBalance.Obj(WK.Drops) ?? new JObject();
+            var cfg = d.Run.EquipmentBalance.Obj(RK.Drops) ?? new JObject();
             if (!cfg.Is(K.Enabled)) return null;
             var chance = source != null ? cfg.Obj(WK.Chance)?[source] : null;
             if (!Js.Truthy(chance)) return null;

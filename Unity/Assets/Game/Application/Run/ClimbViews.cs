@@ -1,0 +1,349 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using Ashen.App.Ui;
+using Ashen.Domain.Combat;
+using Ashen.Generated;
+using Newtonsoft.Json.Linq;
+using K = Ashen.Generated.CombatKeys;
+using LK = Ashen.Generated.LoopKeys;
+using MK = Ashen.Generated.MapKeys;
+using RK = Ashen.Generated.RunKeys;
+using V = Ashen.Generated.CombatValues;
+using WK = Ashen.Generated.RewardsKeys;
+
+namespace Ashen.App.Run
+{
+    /// <summary>The RUN_HUD band (04 §1 RunHud) as display data: identity, trail, the three pools, cinders, stones, flask charges and the deck.</summary>
+    public sealed class RunHudState
+    {
+        public string Portrait;
+        public string Identity;
+        public string Trail;
+        public int Hp;
+        public int MaxHp;
+        public int Mana;
+        public int MaxMana;
+        public int Stamina;
+        public int MaxStamina;
+        public string Cinders;
+        public string Stones;
+        public string Flasks;
+        public string Deck;
+    }
+
+    public static class RunHudView
+    {
+        private static int Int(double v) => (int)Math.Floor(v);
+
+        public static RunHudState Build(RunSession session, UiData ui)
+        {
+            var strings = ui.Strings;
+            var run = session.Run;
+            var charges = run.Obj(K.FlaskCharges) ?? new JObject();
+            var seat = session.SeatId;
+            var level = Int(run.Obj(K.Level)?.Num(K.Level) ?? 0);
+            return new RunHudState
+            {
+                Portrait = session.Portrait,
+                Identity = strings.Format(StringKeys.HudIdentity, new StringArgs().Add(UiPlaceholders.Name, session.Name)
+                    .Add(UiPlaceholders.Class, ClassName(ui, session.ClassId)).Add(UiPlaceholders.Level, level)),
+                Trail = strings.Format(StringKeys.HudTrail, new StringArgs().Add(UiPlaceholders.Act, session.Act)
+                    .Add(UiPlaceholders.Region, SeatName(ui, seat)).Add(UiPlaceholders.Floor, session.Floor)),
+                Hp = Int(run.Num(K.Hp)),
+                MaxHp = Int(run.Num(K.MaxHp)),
+                Mana = Int(run.Num(K.Mana)),
+                MaxMana = Int(run.Num(K.MaxMana)),
+                Stamina = Int(run.Num(K.Stamina)),
+                MaxStamina = Int(run.Num(K.MaxStamina)),
+                Cinders = strings.Format(StringKeys.HudCinders, new StringArgs().Add(UiPlaceholders.Amount, Int(run.Num(RK.Cinders)))),
+                Stones = strings.Format(StringKeys.HudStones, new StringArgs().Add(UiPlaceholders.Amount, Int(run.Num(RK.SmithingStones)))),
+                Flasks = strings.Format(StringKeys.HudFlasks, new StringArgs()
+                    .Add(UiPlaceholders.Hp, Int(charges.Num(K.Hp + V.CurrentSuffix))).Add(UiPlaceholders.Mp, Int(charges.Num(K.Mana + V.CurrentSuffix)))
+                    .Add(UiPlaceholders.Count, run.Arr(K.Flasks)?.Count ?? 0)),
+                Deck = strings.Format(StringKeys.HudDeck, new StringArgs().Add(UiPlaceholders.Count, run.Arr(K.Deck)?.Count ?? 0)),
+            };
+        }
+
+        public static string ClassName(UiData ui, string classId) =>
+            classId == null ? string.Empty : ui.Strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.ClassNameKey, classId));
+
+        public static string SeatName(UiData ui, string seat) =>
+            seat == null ? string.Empty : ui.Strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.SeatNameKey, seat));
+    }
+
+    /// <summary>One node of the act map as W-06 draws it.</summary>
+    public sealed class MapNodeView
+    {
+        public string Id;
+        public int Floor;
+        public int Col;
+
+        /// <summary>The node's authored type (monster, elite, boss, event, shrine, merchant, treasure); an Unknown stays 'event' (path mode).</summary>
+        public string Kind;
+
+        public string GlyphKey;
+        public string Label;
+        public string Hint;
+
+        /// <summary>A boss node's destination ("location · enemy"), composed by the map port (D-051).</summary>
+        public string BossLabel;
+
+        public bool Reachable;
+        public bool Current;
+        public bool Travelled;
+
+        /// <summary>The accessible name: kind, floor and the non-colour reachable cue (›).</summary>
+        public string AccessibleName;
+    }
+
+    public sealed class MapEdgeView
+    {
+        public string From;
+        public string To;
+        public bool Travelled;
+    }
+
+    public sealed class MapLegendEntry
+    {
+        public string GlyphKey;
+        public string Label;
+        public string Kind;
+    }
+
+    /// <summary>
+    /// The act map (W-06) as display data: the seat and floor header, every node (position, kind, glyph, label, boss
+    /// destination) and edge, where the run stands, the travelled trail, what is reachable, and the legend. Fog of war is
+    /// not ported: the whole act is drawn, the shipped 'path' reveal mode (D-124c).
+    /// </summary>
+    public sealed class ActMapViewState
+    {
+        public string Title;
+        public string SeatText;
+        public string FloorText;
+        public int Floors;
+        public int Columns;
+        public string CurrentId;
+        public readonly List<MapNodeView> Nodes = new List<MapNodeView>();
+        public readonly List<MapEdgeView> Edges = new List<MapEdgeView>();
+        public readonly List<MapLegendEntry> Legend = new List<MapLegendEntry>();
+
+        public MapNodeView Node(string id) => Nodes.FirstOrDefault(n => n.Id == id);
+    }
+
+    public static class ActMapView
+    {
+        public static ActMapViewState Build(RunSession session, UiData ui)
+        {
+            var strings = ui.Strings;
+            var run = session.Run;
+            var graph = run.Obj(RK.MapGraph) ?? new JObject();
+            var nodes = graph.Obj(MK.Nodes) ?? new JObject();
+            var path = Js.Items(run[LK.Path]).Select(Js.Str).ToList();
+            var at = Js.Str(run[MK.MapNodeId]);
+            var reachable = new HashSet<string>(session.ReachableNodes(), StringComparer.Ordinal);
+            var seatOrder = Js.Items(run[RK.SeatOrder]).Select(Js.Str).ToList();
+            var seat = session.SeatId;
+            var view = new ActMapViewState
+            {
+                CurrentId = at,
+                Columns = (int)Js.Or0(graph[MK.Columns]),
+                Title = strings.Format(StringKeys.MapTitle, new StringArgs().Add(UiPlaceholders.Act, session.Act).Add(UiPlaceholders.Region, RunHudView.SeatName(ui, seat))),
+                SeatText = strings.Format(StringKeys.MapSeat, new StringArgs().Add(UiPlaceholders.Count, seatOrder.IndexOf(seat) + 1).Add(UiPlaceholders.Total, seatOrder.Count)),
+            };
+            foreach (var p in nodes.Properties())
+            {
+                var n = (JObject)p.Value;
+                var kind = n.Str(K.Type);
+                var floor = (int)Js.Or0(n[MK.Floor]);
+                var label = Name(strings, UiFormats.MapNodeKey, kind);
+                var node = new MapNodeView
+                {
+                    Id = p.Name,
+                    Floor = floor,
+                    Col = (int)Js.Or0(n[MK.Col]),
+                    Kind = kind,
+                    GlyphKey = string.Format(CultureInfo.InvariantCulture, UiFormats.MapGlyphKey, kind),
+                    Label = label,
+                    Hint = Name(strings, UiFormats.MapNodeHintKey, kind),
+                    BossLabel = n.Str(MK.DestinationLabel),
+                    Reachable = reachable.Contains(p.Name),
+                    Current = p.Name == at,
+                    Travelled = path.Contains(p.Name),
+                };
+                node.AccessibleName = strings.Format(node.Reachable ? StringKeys.MapNodeReachable : StringKeys.MapNodeName,
+                    new StringArgs().Add(UiPlaceholders.Kind, label).Add(UiPlaceholders.Floor, floor));
+                view.Nodes.Add(node);
+                foreach (var next in Js.Items(n[MK.Next]).Select(Js.Str))
+                {
+                    var i = path.IndexOf(p.Name);
+                    view.Edges.Add(new MapEdgeView { From = p.Name, To = next, Travelled = i >= 0 && i + 1 < path.Count && path[i + 1] == next });
+                }
+            }
+            view.Floors = view.Nodes.Count == 0 ? 0 : view.Nodes.Max(n => n.Floor);
+            view.FloorText = strings.Format(StringKeys.MapFloor, new StringArgs().Add(UiPlaceholders.Floor, session.Floor).Add(UiPlaceholders.Total, view.Floors));
+            foreach (var kind in view.Nodes.Select(n => n.Kind).Distinct())
+                view.Legend.Add(new MapLegendEntry { Kind = kind, GlyphKey = string.Format(CultureInfo.InvariantCulture, UiFormats.MapGlyphKey, kind), Label = Name(strings, UiFormats.MapNodeKey, kind) });
+            return view;
+        }
+
+        internal static string Name(StringTable strings, string format, string id)
+        {
+            var key = string.Format(CultureInfo.InvariantCulture, format, id);
+            return strings.Has(key) ? strings.Get(key) : id ?? string.Empty;
+        }
+    }
+
+    /// <summary>
+    /// The act map's planned door (D-122c/D-123c): the place a node led to whose screen is not built yet (the merchant, an
+    /// event, a legacy dungeon), with the one legal action that keeps the run moving.
+    /// </summary>
+    public sealed class PlannedDoorState
+    {
+        public string Location;
+        public string Title;
+        public string Body;
+
+        /// <summary>The event's response text once a response is taken (then the action is Continue).</summary>
+        public string Result;
+
+        public string ActionText;
+    }
+
+    public static class PlannedDoorView
+    {
+        public static PlannedDoorState Build(RunSession session, UiData ui)
+        {
+            var strings = ui.Strings;
+            var location = session.Location;
+            var state = new PlannedDoorState
+            {
+                Location = location,
+                Body = strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.PlannedBodyKey, location)),
+            };
+            if (location == RunFlowValues.LocationMerchant)
+            {
+                state.Title = strings.Get(StringKeys.MapPlannedMerchantTitle);
+                state.ActionText = strings.Get(StringKeys.MapPlannedLeave);
+            }
+            else if (location == RunFlowValues.LocationEvent)
+            {
+                var view = session.EventView();
+                state.Title = view?.Str(WK.Title) ?? string.Empty;
+                if (session.EventDone)
+                {
+                    state.Result = LastResult(session);
+                    state.ActionText = strings.Get(StringKeys.MapPlannedContinue);
+                }
+                else
+                {
+                    var id = session.EventStandInChoice();
+                    var choice = Js.Items(view?[RunKeys.Choices]).OfType<JObject>().FirstOrDefault(c => c.Str(MK.ChoiceId) == id);
+                    state.ActionText = strings.Format(StringKeys.MapPlannedChoose, new StringArgs().Add(UiPlaceholders.Label, choice?.Str(K.Label) ?? id));
+                }
+            }
+            else if (location == RunFlowValues.LocationDungeon)
+            {
+                var run = session.Run;
+                var dungeon = Ashen.Domain.Loop.LegacyDungeons.Definition(session.Content.Loop, run);
+                var room = Ashen.Domain.Loop.LegacyDungeons.Node(session.Content.Loop, run);
+                state.Title = strings.Format(StringKeys.MapPlannedDungeonTitle, new StringArgs()
+                    .Add(UiPlaceholders.Name, dungeon?.Str(K.Name) ?? session.DungeonId).Add(UiPlaceholders.Label, room?.Str(K.Name) ?? string.Empty));
+                var pending = run.Obj(RK.LegacyDungeon)?.Obj(K.Pending);
+                if (pending != null) state.Result = pending.Str(LK.Text);
+                state.ActionText = strings.Get(StringKeys.MapPlannedAdvance);
+            }
+            return state;
+        }
+
+        /// <summary>The response text of the event's last history row (the choice just taken).</summary>
+        private static string LastResult(RunSession session)
+        {
+            var view = session.EventView();
+            var history = session.Run.Arr(MK.History);
+            var last = history?.Count > 0 ? history[history.Count - 1] as JObject : null;
+            var choiceId = last?.Str(MK.ChoiceId);
+            var def = session.Content.Loop.Events.Events.Get(session.EventId);
+            var choice = Js.Items(def?[RunKeys.Choices]).OfType<JObject>().FirstOrDefault(c => c.Str(K.Id) == choiceId);
+            return choice?.Str(EventKeys.ResultText) ?? view?.Str(EventKeys.Text) ?? string.Empty;
+        }
+    }
+
+    /// <summary>
+    /// W-15 run end (AF-11, US-4.7, US-4.9) as display data: victory or death, who and where, the seed, class, act and
+    /// floor, what ended it, how long it took, the final deck and what was newly unlocked (finishRun's receipt). The killer
+    /// and the duration are this build's (the shipped run record keeps neither; D-125c).
+    /// </summary>
+    public sealed class RunEndViewState
+    {
+        public bool Victory;
+        public string Title;
+        public string Detail;
+        public string Where;
+        public string Region;
+        public string Portrait;
+        public readonly List<string> Stats = new List<string>();
+        public readonly List<string> Deck = new List<string>();
+        public readonly List<string> Unlocks = new List<string>();
+        public string DeckTitle;
+    }
+
+    public static class RunEndView
+    {
+        public static RunEndViewState Build(RunSession session, UiData ui)
+        {
+            var strings = ui.Strings;
+            var run = session.Run;
+            var result = session.End?.Result ?? new JObject();
+            var victory = session.End?.Victory ?? false;
+            var data = session.Content.Combat;
+            var view = new RunEndViewState
+            {
+                Victory = victory,
+                Region = session.Region,
+                Portrait = session.Portrait,
+                Title = strings.Get(victory ? StringKeys.RunEndVictory : StringKeys.RunEndDefeat),
+                Detail = strings.Format(StringKeys.RunEndDetail, new StringArgs().Add(UiPlaceholders.Name, session.Name)
+                    .Add(UiPlaceholders.Class, result.Str(LK.ClassName) ?? RunHudView.ClassName(ui, session.ClassId))),
+                Where = strings.Format(StringKeys.RunEndWhere, new StringArgs().Add(UiPlaceholders.Act, session.Act).Add(UiPlaceholders.Floor, session.Floor)
+                    .Add(UiPlaceholders.Region, RunHudView.SeatName(ui, session.SeatId))),
+            };
+            view.Stats.Add(strings.Format(StringKeys.RunEndSeed, new StringArgs().Add(UiPlaceholders.Seed, session.SeedText)));
+            view.Stats.Add(strings.Format(StringKeys.RunEndClass, new StringArgs().Add(UiPlaceholders.Class, RunHudView.ClassName(ui, session.ClassId))));
+            view.Stats.Add(strings.Format(StringKeys.RunEndFloor, new StringArgs().Add(UiPlaceholders.Act, session.Act).Add(UiPlaceholders.Floor, session.Floor)));
+            var foe = Killer(session);
+            if (foe != null) view.Stats.Add(strings.Format(victory ? StringKeys.RunEndFelled : StringKeys.RunEndKiller, new StringArgs().Add(UiPlaceholders.Name, foe)));
+            view.Stats.Add(strings.Format(StringKeys.RunEndDuration, new StringArgs()
+                .Add(UiPlaceholders.Time, TimeSpan.FromSeconds(session.PlaytimeSeconds).ToString(UiFormats.Duration, CultureInfo.InvariantCulture))));
+            view.Stats.Add(strings.Format(StringKeys.RunEndCinders, new StringArgs().Add(UiPlaceholders.Amount, (int)run.Num(RK.Cinders))));
+            view.Stats.Add(strings.Format(StringKeys.RunEndFights, new StringArgs().Add(UiPlaceholders.Count, (int)Js.Or0(run.Obj(WK.Stats)?[WK.FightsWon]))));
+            foreach (var card in Js.Items(run[K.Deck]).OfType<JObject>())
+            {
+                var id = card.Str(K.CardId);
+                var name = id != null && data.Cards.Has(id) ? data.Cards.Get(id).Str(K.Name) ?? id : id;
+                view.Deck.Add(strings.Format(card.Is(K.Upgraded) ? StringKeys.RunEndCardUpgraded : StringKeys.RunEndCard, new StringArgs().Add(UiPlaceholders.Name, name)));
+            }
+            view.DeckTitle = strings.Format(StringKeys.RunEndDeck, new StringArgs().Add(UiPlaceholders.Count, view.Deck.Count));
+            foreach (var unlock in session.End?.Earned ?? new List<JObject>())
+            {
+                var key = string.Format(CultureInfo.InvariantCulture, UiFormats.UnlockNameKey, unlock.Str(K.Id));
+                var name = strings.Has(key) ? strings.Get(key) : unlock.Str(RunFlowKeys.Ref) ?? unlock.Str(K.Id);
+                view.Unlocks.Add(strings.Format(StringKeys.RunEndUnlock, new StringArgs().Add(UiPlaceholders.Kind, ActMapView.Name(strings, UiFormats.UnlockKindKey, unlock.Str(K.Kind)))
+                    .Add(UiPlaceholders.Name, name)));
+            }
+            return view;
+        }
+
+        /// <summary>The last fight's foes by name (the enemies of its encounter), or null when the run did not end in a fight.</summary>
+        private static string Killer(RunSession session)
+        {
+            if (session.LastOutcome == null || session.EncounterId == null) return null;
+            var data = session.Content.Data;
+            if (!data.Encounters.Has(session.EncounterId)) return null;
+            var names = Js.Items(data.Encounters.Get(session.EncounterId)[K.Enemies]).Select(Js.Str)
+                .Select(id => session.Content.Combat.Enemies.Has(id) ? session.Content.Combat.Enemies.Get(id).Str(K.Name) ?? id : id).Distinct().ToList();
+            return names.Count == 0 ? null : string.Join(session.Content.Loop.Map.Rules.EnemySeparator, names);
+        }
+    }
+}

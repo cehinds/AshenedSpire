@@ -7,5 +7,6 @@ namespace Ashen.Generated
         public const string Always = "always";
         public const string HasValidSlot = "hasValidSlot";
         public const string TargetBuilt = "targetBuilt";
+        public const string Planned = "planned";
     }
 }

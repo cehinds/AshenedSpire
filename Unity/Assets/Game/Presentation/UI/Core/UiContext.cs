@@ -61,9 +61,35 @@ namespace Ashen.Presentation.UI
             element.style.backgroundImage = t != null ? new StyleBackground(t) : new StyleBackground(StyleKeyword.None);
         }
 
+        /// <summary>A colour token as a Color: hex through ColorUtility, else the rgb()/rgba() form USS also reads (channels 0–255, alpha 0–1).</summary>
         public Color TokenColor(string key)
         {
-            return ColorUtility.TryParseHtmlString(Data.Tokens.Color(key), out var c) ? c : Color.black;
+            var value = Data.Tokens.Color(key);
+            if (ColorUtility.TryParseHtmlString(value, out var c)) return c;
+            var n = Numbers(value);
+            var channels = (int)UiMath.RgbChannels;
+            if (n.Count < channels) return Color.black;
+            var byteMax = (float)UiMath.ByteMax;
+            return new Color(n[0] / byteMax, n[1] / byteMax, n[channels - 1] / byteMax, n.Count > channels ? n[channels] : 1f);
+        }
+
+        /// <summary>The decimal numbers in a string, in order (the channels of an rgb()/rgba() colour).</summary>
+        private static List<float> Numbers(string value)
+        {
+            var list = new List<float>();
+            if (string.IsNullOrEmpty(value)) return list;
+            var start = -1;
+            for (var i = 0; i <= value.Length; i++)
+            {
+                var part = i < value.Length && (char.IsDigit(value[i]) || value[i] == UiFormats.DecimalPoint[0]);
+                if (part && start < 0) start = i;
+                if (!part && start >= 0)
+                {
+                    if (float.TryParse(value.Substring(start, i - start), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out var f)) list.Add(f);
+                    start = -1;
+                }
+            }
+            return list;
         }
     }
 }

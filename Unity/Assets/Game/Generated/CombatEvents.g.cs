@@ -7,6 +7,7 @@ namespace Ashen.Generated
         public const string ArcaneBreak = "arcaneBreak";
         public const string ArcaneExposureChanged = "arcaneExposureChanged";
         public const string ArcaneExposureRefused = "arcaneExposureRefused";
+        public const string ArmamentSwapped = "armamentSwapped";
         public const string AttackEvaded = "attackEvaded";
         public const string BlockGained = "blockGained";
         public const string CardDiscarded = "cardDiscarded";
@@ -26,6 +27,8 @@ namespace Ashen.Generated
         public const string EnemyTurnStart = "enemyTurnStart";
         public const string EnergyGained = "energyGained";
         public const string EnergySpent = "energySpent";
+        public const string EquipmentChanged = "equipmentChanged";
+        public const string EquipmentRearmed = "equipmentRearmed";
         public const string FlaskUsed = "flaskUsed";
         public const string Healed = "healed";
         public const string HpBelowPct = "hpBelowPct";

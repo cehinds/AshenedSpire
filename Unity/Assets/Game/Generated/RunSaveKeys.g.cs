@@ -14,5 +14,12 @@ namespace Ashen.Generated
         public const string Portrait = "portrait";
         public const string Playtime = "playtimeSeconds";
         public const string After = "after";
+        public const string Rest = "rest";
+        public const string RestPlace = "place";
+        public const string Counters = "counters";
+        public const string Rested = "rested";
+        public const string RestAnchor = "restAnchor";
+        public const string EventId = "eventId";
+        public const string EventDone = "eventDone";
     }
 }

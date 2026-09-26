@@ -180,6 +180,52 @@
         "flaskArtPrefix",
         "modifierTokens"
       ]
+    },
+    "climb": {
+      "type": "object",
+      "properties": {
+        "mapBackground": {
+          "type": "string"
+        },
+        "rowHeight": {
+          "type": "number"
+        },
+        "zoomSteps": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "zoomDefault": {
+          "type": "integer"
+        },
+        "edgeWidth": {
+          "type": "number"
+        },
+        "dotSpacing": {
+          "type": "number"
+        },
+        "restBackground": {
+          "type": "string"
+        },
+        "victoryBackground": {
+          "type": "string"
+        },
+        "rowTouchRatio": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "mapBackground",
+        "rowHeight",
+        "zoomSteps",
+        "zoomDefault",
+        "edgeWidth",
+        "dotSpacing",
+        "restBackground",
+        "victoryBackground",
+        "rowTouchRatio"
+      ]
     }
   },
   "required": [

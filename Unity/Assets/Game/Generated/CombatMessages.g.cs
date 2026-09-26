@@ -14,6 +14,7 @@ namespace Ashen.Generated
         public const string DiscardSelection = "Select {0} to {1} eligible cards to discard.";
         public const string DrawPerTurnRequired = "Player combat entity requires stamped non-negative integer drawPerTurn";
         public const string EnergyMaxRequired = "Player combat entity requires stamped non-negative integer energyMax";
+        public const string EquipmentNeedsRunData = "The mid-fight equipment intents need the run's equipment model (combat data built through RunData)";
         public const string ExpectedNumber = "Expected number or formula, got {0}";
         public const string FormulaGroupRef = "Formula '{0}' cannot target '{1}' (a group); use a single entity ref";
         public const string FormulaNaN = "Formula evaluated to a non-number: {0}";
@@ -37,20 +38,24 @@ namespace Ashen.Generated
         public const string NotPlayerTurnForCards = "Cards can only be played on the player turn";
         public const string NotPlayerTurnForFlasks = "Flasks can only be used on the player turn";
         public const string NotRelicRef = "'{0}' is not a namespaced relic";
+        public const string PassiveBelowZero = "{0} passive '{1}' would fall below zero";
         public const string PassiveNotInteger = "{0} passive '{1}' must already be an authored integer";
+        public const string PoiseBelowZero = "{0} poiseThreshold would fall below zero";
         public const string PoiseLoop = "Poise meter fill loop did not terminate";
+        public const string PoiseNeedsLoadout = "playerPoiseThresholdReceipt requires a run loadout";
+        public const string PoiseNeedsRunData = "The unrated Poise receipt needs the live derived-stat table (combat data built through RunData)";
         public const string PoiseThresholdNotInteger = "{0} poiseThreshold must be an integer";
-        public const string ProfileSnapshotRequired = "createCombat requires the run equipmentProfileRuleSnapshot";
+        public const string ProfileSnapshotNeedsRunData = "createCombat without the run's equipmentProfileRuleSnapshot needs the run's equipment model (combat data built through RunData)";
         public const string QueueDidNotDrain = "Action queue did not drain (possible infinite trigger loop)";
         public const string SmithedCardNeedsSource = "A Smithed card must carry sourceArmamentId";
         public const string StillResolving = "Combat is still resolving; wait for the action to finish before saving";
-        public const string SwapCostRuleRequired = "createCombat requires the resolved swapCostRule";
         public const string TriggerRecursion = "Trigger recursion exceeded the emit depth (event '{0}')";
         public const string UnknownCardInstance = "Unknown card instance {0}";
         public const string UnknownCardVocabulary = "card {0}: unknown {1} '{2}'";
         public const string UnknownEnemyInstance = "Unknown enemy instance {0}";
         public const string UnknownFormulaOp = "Unknown formula op '{0}'";
         public const string UnknownIntent = "Unknown combat intent '{0}'";
+        public const string UnknownNamespacedItem = "Unknown namespaced upgrade item '{0}'";
         public const string UnknownOpcode = "Unknown opcode '{0}'";
         public const string UnknownPile = "Unknown pile '{0}'";
         public const string UnknownPredicate = "Unknown predicate '{0}'";
@@ -58,11 +63,11 @@ namespace Ashen.Generated
         public const string UnknownStackMode = "Unknown stackMode '{0}' on status '{1}'";
         public const string UnknownTarget = "Unknown effect target '{0}'";
         public const string UnknownUpgradeItem = "Unknown upgrade item '{0}'";
-        public const string UnratedPoiseDeferred = "Restoring a fight without combat ratings needs the poise-threshold receipt (not ported yet)";
         public const string UnresolvableRef = "Predicate 'of' ref '{0}' is not resolvable (use self/owner/player/enemy/target)";
         public const string UpgradeBelowZero = "{0} tier {1} tag '{2}' would reduce {3} below zero";
         public const string UpgradeEffectCount = "{0} tier {1} tag '{2}' expected exactly one '{3}' effect for role '{4}', found {5}";
         public const string UpgradeNonNumericAmount = "{0} tier {1} tag '{2}' targets a non-numeric amount";
         public const string UpgradeNonNumericField = "{0} tier {1} tag '{2}' targets non-numeric {3}";
+        public const string UpgradeTagInvalid = "{0} tier {1} tag '{2}' is invalid for {3}";
     }
 }

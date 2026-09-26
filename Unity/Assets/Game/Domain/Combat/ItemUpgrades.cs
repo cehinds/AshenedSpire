@@ -84,9 +84,6 @@ namespace Ashen.Domain.Combat
             return null;
         }
 
-        /// <summary>The same parse under the run loop's name (the rest stop's smith reads descriptors through it).</summary>
-        public static UpgradeTag Parse(CombatData d, string tag) => ParseTag(d, tag);
-
         /// <summary>The card field a cost resource writes: the action resource is <c>cost</c>, any other <c>&lt;resource&gt;Cost</c>.</summary>
         public static string CostField(CombatData d, string resource) => resource == V.ActionResource ? K.Cost : resource + V.CostFieldSuffix;
 

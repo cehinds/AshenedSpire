@@ -92,7 +92,7 @@ namespace Ashen.Tests
             Assert.That(Canonical(run), Is.EqualTo(Canonical(log["run"])), file + " run");
             foreach (var fight in ((JArray)log["fights"]).OfType<JObject>())
             {
-                var args = RunCombat.CreateArgs(run, fight.Value<string>("encounterId"), Run);
+                var args = RunCombat.CreateArgs(run, fight.Value<string>("encounterId"), Run, fight["settings"] as JObject);
                 Assert.That(Canonical(args), Is.EqualTo(Canonical(fight["args"])), file + " args " + fight.Value<string>("encounterId"));
                 var combat = CombatStart.Create(Run.Combat, new Rng((uint)log["seed"].Value<long>()), (JObject)JToken.Parse(args.ToString(Formatting.None)));
                 Assert.That(Canonical(CombatSnapshot.Serialize(combat)), Is.EqualTo(Canonical(fight["snapshot"])), file + " start " + fight.Value<string>("encounterId"));

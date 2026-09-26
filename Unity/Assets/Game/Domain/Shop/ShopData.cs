@@ -14,7 +14,9 @@ namespace Ashen.Domain.Shop
     /// Everything the merchant reads (the shipped registries main.js enterNode 'merchant', ui/screens/shop.js and the
     /// models it calls read): the post-combat data (run data, the tag tree and the Custom Climb ascension order) plus the
     /// merchant's own rules (rules/shopEngine.json — the shelves' rarities, the price mods, the smith's service
-    /// vocabulary and the Smithing receipt labels the shipped code kept as constants). Read-only.
+    /// vocabulary and the Smithing receipt labels the shipped code kept as constants). The smith's one port (SmithServices,
+    /// ItemSmithing, CardExtraction) reads it wherever it is called: the merchant, the events and the rest stop, which
+    /// reaches it as <c>LoopData.Shop</c> (D-112). Read-only.
     /// </summary>
     public sealed class ShopData
     {

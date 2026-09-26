@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="RunHud.uss" />
+    <ui:VisualElement name="HUD_PORTRAIT" class="runhud-portrait" picking-mode="Ignore" />
+    <ui:VisualElement class="runhud-identity" picking-mode="Ignore">
+        <Ashen.Presentation.UI.LocLabel name="HUD_NAME" class="runhud-name kit-text-value" />
+        <Ashen.Presentation.UI.LocLabel name="HUD_TRAIL" class="runhud-trail kit-text-header" />
+    </ui:VisualElement>
+    <ui:VisualElement name="HUD_PURSE" class="runhud-purse" picking-mode="Ignore">
+        <Ashen.Presentation.UI.LocLabel name="HUD_CINDERS" class="runhud-chip runhud-cinders kit-text-value" />
+        <Ashen.Presentation.UI.LocLabel name="HUD_STONES" class="runhud-chip kit-text-value" />
+        <Ashen.Presentation.UI.LocLabel name="HUD_FLASKS" class="runhud-chip kit-text-value" />
+        <Ashen.Presentation.UI.LocLabel name="HUD_DECK" class="runhud-chip kit-text-value" />
+    </ui:VisualElement>
+    <ui:VisualElement name="HUD_METERS" class="runhud-meters" picking-mode="Ignore">
+        <Ashen.Presentation.UI.Kit.Meter name="HUD_HP" class="runhud-meter" kind="hp" glyph-key="resource.hp.name" />
+        <Ashen.Presentation.UI.Kit.Meter name="HUD_MP" class="runhud-meter" kind="mp" glyph-key="resource.mana.name" />
+        <Ashen.Presentation.UI.Kit.Meter name="HUD_SP" class="runhud-meter" kind="sp" glyph-key="resource.stamina.name" />
+    </ui:VisualElement>
+    <Ashen.Presentation.UI.LocButton name="HUD_MENU" class="runhud-menu" string-key="hud.menu" />
+</ui:UXML>

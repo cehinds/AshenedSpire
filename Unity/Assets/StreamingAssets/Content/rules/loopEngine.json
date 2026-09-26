@@ -1,5 +1,5 @@
 {
-  "comment": "Run-loop rules (stream E, us-8.1; the C# port of the shipped main.js controller between fights: newRun and startClimb, enterNode, startFight, combatMods, onCombatEnd routing, the reward door, showRest with engine/locations.js, advanceAct, legacy dungeons and finishRun, over model/gracerefill.js, levelup.js, smithing.js, itemUpgrades.js, cardExtraction.js, legacyDungeon.js and unlocks.js). The ids, texts, defaults and bounds the shipped controller kept as constants live here as data. Changing a value changes the run loop; the run-loop parity oracle pins the shipped values.",
+  "comment": "Run-loop rules (stream E, us-8.1; the C# port of the shipped main.js controller between fights: newRun and startClimb, enterNode, startFight, combatMods, onCombatEnd routing, the reward door, showRest with engine/locations.js, advanceAct, legacy dungeons and finishRun, over model/gracerefill.js, levelup.js, legacyDungeon.js and unlocks.js; the rest stop's smith is the merchant's port, whose constants are rules/shopEngine.json smith). The ids, texts, defaults and bounds the shipped controller kept as constants live here as data. Changing a value changes the run loop; the run-loop parity oracle pins the shipped values.",
   "map": {
     "recentEncounters": 2,
     "treasureTitle": "TREASURE"
@@ -86,40 +86,6 @@
   "profile": {
     "schemaVersion": 2,
     "historyLimit": 20
-  },
-  "smithing": {
-    "schemaVersion": 3,
-    "certainChance": 100,
-    "serviceIds": [
-      "upgrade",
-      "extract",
-      "install"
-    ],
-    "inertServices": {
-      "offeredAt": {
-        "shrine": {
-          "chance": 100,
-          "services": [
-            "upgrade"
-          ]
-        }
-      },
-      "extract": {
-        "cost": 0
-      },
-      "install": {
-        "cost": 0
-      }
-    },
-    "requirementLabel": "{0} requirement",
-    "valueLabels": {
-      "equipmentPoise": "Poise threshold",
-      "poiseThresholdAdd": "Poise threshold bonus",
-      "otherPassive": "Power cost reduction"
-    }
-  },
-  "mounts": {
-    "receiptSchemaVersion": 1
   },
   "dungeons": {
     "version": 1,
