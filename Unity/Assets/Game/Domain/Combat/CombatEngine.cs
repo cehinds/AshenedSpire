@@ -31,6 +31,15 @@ namespace Ashen.Domain.Combat
         public static CombatCommand UseFlask(int slot, string chargeKind = null, string targetId = null) =>
             new CombatCommand { Type = V.CommandUseFlask, Slot = slot, ChargeKind = chargeKind, TargetId = targetId };
 
+        /// <summary>The wire form, as FromJson reads it (what the save's command log records).</summary>
+        public JObject ToJson()
+        {
+            var o = Js.Obj(K.Type, Type, K.CardInstanceId, CardInstanceId, K.TargetId, TargetId, K.ChargeKind, ChargeKind);
+            if (Type == V.CommandEndTurn && DiscardIds != null && DiscardIds.Count > 0) o[K.DiscardIds] = new JArray(DiscardIds);
+            if (Type == V.CommandUseFlask && ChargeKind == null) o.Put(K.Slot, Slot);
+            return o;
+        }
+
         /// <summary>The wire form ({ type, cardInstanceId?, targetId?, discardIds?, slot?, chargeKind? }).</summary>
         public static CombatCommand FromJson(JObject o) => new CombatCommand
         {

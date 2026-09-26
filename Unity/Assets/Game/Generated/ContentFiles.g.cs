@@ -123,6 +123,7 @@ namespace Ashen.Generated
         public const string SchemasSettingsPresetsReferenceSchema = "schemas/settings.presets.reference.schema.json";
         public const string SchemasSettingsPresetsShippedSchema = "schemas/settings.presets.shipped.schema.json";
         public const string SchemasStringsAppEnSchema = "schemas/strings.app.en.schema.json";
+        public const string SchemasStringsCombatEnSchema = "schemas/strings.combat.en.schema.json";
         public const string SchemasTagsFamilyNodesSchema = "schemas/tags.familyNodes.schema.json";
         public const string SchemasTagsNodeRelationsSchema = "schemas/tags.nodeRelations.schema.json";
         public const string SchemasTagsNodeTermsSchema = "schemas/tags.nodeTerms.schema.json";
@@ -142,6 +143,7 @@ namespace Ashen.Generated
         public const string SettingsPresetsReference = "settings/presets/reference.json";
         public const string SettingsPresetsShipped = "settings/presets/shipped.json";
         public const string StringsAppEn = "strings/app.en.json";
+        public const string StringsCombatEn = "strings/combat.en.json";
         public const string StringsEn = "strings/en.json";
         public const string TagsFamilyNodes = "tags/familyNodes.json";
         public const string TagsNodeRelations = "tags/nodeRelations.json";
