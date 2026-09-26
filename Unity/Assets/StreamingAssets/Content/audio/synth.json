@@ -1,0 +1,8 @@
+{
+  "comment": "Procedural synth engine parameters (US-16.2, PF-12), ported from the shipped ui/audio.js envelope maths. Recipes live in audio/sfx.json (tone/noise layers); beds in audio/music.json.",
+  "sampleRate": 44100,
+  "tone": { "defaultType": "sine", "defaultPeak": 0.6, "attackMax": 0.02, "attackFraction": 0.3, "floorGain": 0.0001, "minFrequency": 1 },
+  "noise": { "defaultPeak": 0.5, "defaultHighPass": 400, "defaultLowPass": 6000, "floorGain": 0.0001 },
+  "recipe": { "defaultId": "default", "familySeparator": "_" },
+  "silenceWord": "silence"
+}

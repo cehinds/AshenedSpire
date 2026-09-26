@@ -1,0 +1,56 @@
+{
+  "$id": "audio/contexts.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "contexts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "bed": {
+            "type": "string"
+          },
+          "file": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        },
+        "required": [
+          "bed",
+          "file"
+        ]
+      }
+    },
+    "stingers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "recipe": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "file",
+          "recipe"
+        ]
+      }
+    }
+  },
+  "required": [
+    "comment",
+    "contexts",
+    "stingers"
+  ]
+}

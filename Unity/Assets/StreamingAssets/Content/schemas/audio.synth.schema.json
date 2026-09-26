@@ -1,0 +1,92 @@
+{
+  "$id": "audio/synth.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "noise": {
+      "type": "object",
+      "properties": {
+        "defaultHighPass": {
+          "type": "integer"
+        },
+        "defaultLowPass": {
+          "type": "integer"
+        },
+        "defaultPeak": {
+          "type": "number"
+        },
+        "floorGain": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "defaultHighPass",
+        "defaultLowPass",
+        "defaultPeak",
+        "floorGain"
+      ]
+    },
+    "recipe": {
+      "type": "object",
+      "properties": {
+        "defaultId": {
+          "type": "string"
+        },
+        "familySeparator": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "defaultId",
+        "familySeparator"
+      ]
+    },
+    "sampleRate": {
+      "type": "integer"
+    },
+    "silenceWord": {
+      "type": "string"
+    },
+    "tone": {
+      "type": "object",
+      "properties": {
+        "attackFraction": {
+          "type": "number"
+        },
+        "attackMax": {
+          "type": "number"
+        },
+        "defaultPeak": {
+          "type": "number"
+        },
+        "defaultType": {
+          "type": "string"
+        },
+        "floorGain": {
+          "type": "number"
+        },
+        "minFrequency": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "attackFraction",
+        "attackMax",
+        "defaultPeak",
+        "defaultType",
+        "floorGain",
+        "minFrequency"
+      ]
+    }
+  },
+  "required": [
+    "comment",
+    "noise",
+    "recipe",
+    "sampleRate",
+    "silenceWord",
+    "tone"
+  ]
+}
