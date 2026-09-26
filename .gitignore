@@ -28,3 +28,4 @@
 /.scratch/
 node_modules/
 /.cache/
+/.claude/worktrees/

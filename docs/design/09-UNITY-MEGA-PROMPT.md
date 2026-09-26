@@ -23,7 +23,7 @@ You are the whole team: lead engineer, systems designer, UI engineer, technical 
    - **One branch per user story:** `feature/<feature>/<story>` (for example `feature/combat-core/us-5.3`), cut from the lane `feature/<feature>/main`, which is cut from `dev`.
    - Commit after every green component with a conventional message citing the story ID and a `Co-Authored-By` trailer.
    - When a story is green, merge it `--no-ff` into its lane, then merge the lane into `dev` and bump with `Tools/version.mjs bump story`. When the lane carries the feature's final story, bump `feature` instead.
-   - When a build phase (F0–F6) completes, the last commit on `dev` is `bump epic`. Then promote `dev → test → main` per 10 §5, and tag `main` `v<E.F.S.P>`.
+   - When a build phase (F0–F6) completes, promote `dev → test → main` per 10 §5 and tag `main` `v<E.F.S.P>` **without** bumping the epic. The epic stays 0 until the owner declares a release (`bump epic` is refused without `ASHEN_OWNER_RELEASE=1`).
    - The version scheme is `E.F.S.P`. The repo is at **0.0.1.0** (the design package).
    - Never force-push, never rebase shared branches, never skip a version check;
    - **never commit build outputs** (`Build/`, player builds, generated HTML) or Unity `Library/` files, because the Git LFS budget is exhausted.
@@ -325,7 +325,7 @@ A component is **done** only when steps 1–10 are complete and all tests, inclu
 | **F3 Classic Climb** | Remaining creation panes and the prologue (W-05), act map (W-06), node resolution, rest, smith, extract/install, level up (W-10), merchant (W-09), events and dialogue (W-11), legacy dungeons (W-13), boss destinations, the causeway, victory rules and the post-victory hook, run end (W-15), pause (W-20), permadeath | A seeded run from title to an act-3 boss win and to a death; resume works at every commit point |
 | **F4 Build and profile** | Equipment and the Armoury (W-12), weapon packages and lent cards, smithing tiers, XP, skill tracks, class tree and progression screens (W-22), deck floor, profile, unlocks, journal (W-16), settings (W-18) generated from the schema, recovery (W-01), all 4 classes × outfits × tints | Every art set referenced; bot runs 200 Classic seeds clean |
 | **F5 P1** | World Journey (W-14), inn and chapel, quest board and journal, Custom Run (W-19), Collection, accessibility pass | Bot runs 50 Journey seeds clean |
-| **F6 Ship** | Performance pass (60 fps combat, first input under 3 s), Windows build via PF-11 (`Build/Windows/`, not committed; player smoke replays golden_01), fresh-eyes playtest, final docs, `bump epic`, promotion `dev → test → main` with tag | §11 definition of done |
+| **F6 Ship** | Performance pass (60 fps combat, first input under 3 s), Windows build via PF-11 (`Build/Windows/`, not committed; player smoke replays golden_01), fresh-eyes playtest, final docs, promotion `dev → test → main` with tag (no epic bump) | §11 definition of done |
 
 When time or context runs short, apply the **scope-cut ladder** in 02 §4, from the top. Never cut the floor items.
 

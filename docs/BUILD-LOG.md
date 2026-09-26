@@ -2,7 +2,7 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
-## Phase F0 Foundation — complete (1.0.0.0, 2026-09-26)
+## Phase F0 Foundation — complete (promoted at 0.1.1.1; renumbered from 1.0.0.0 by owner ruling, 2026-09-26)
 
 **Exit gate** (09 §8):
 
@@ -36,7 +36,7 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 | foundation feature complete | 0.1.0.0 |
 | us-16.2 | 0.1.1.0 |
 | docs-check fix | 0.1.1.1 |
-| **epic F0** | **1.0.0.0** |
+| phase F0 promotion | 0.1.1.1 (was wrongly tagged v1.0.0.0; renumbered) |
 
 **Environment:** **C: is full (0.2 GB free)** and D: has about 3.7 GB. The owner needs to free space before the F1/F2 art imports (animations are 122 MB of WebP source, several times that as PNG plus Library).
 
