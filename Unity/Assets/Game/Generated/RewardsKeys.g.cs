@@ -25,6 +25,7 @@ namespace Ashen.Generated
         public const string ClassDrafts = "classDrafts";
         public const string CombatWin = "combatWin";
         public const string ConsolationCinders = "consolationCinders";
+        public const string Current = "current";
         public const string DefaultBase = "defaultBase";
         public const string DefaultGrowth = "defaultGrowth";
         public const string DraftSize = "draftSize";

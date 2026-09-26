@@ -35,6 +35,9 @@ namespace Ashen.App.Run
 
         public RunSnapshot Snapshot { get; private set; }
         public RunData Data { get; private set; }
+
+        /// <summary>The run loop's data (post-combat, map, tagging, dungeons, unlocks and rules/loopEngine.json): the reward door and the fight's end read it.</summary>
+        public Ashen.Domain.Loop.LoopData Loop { get; private set; }
         public RunFlowRules Flow { get; private set; }
         public SeedCodec Seeds { get; private set; }
 
@@ -56,10 +59,14 @@ namespace Ashen.App.Run
             JObject Doc(string file) => (JObject)content.Get(file);
             var registries = RuntimeRegistries.Build(content, Doc(ContentFiles.StringsEn));
             var seed = (JObject)Doc(ContentFiles.RulesRng)[RunFlowKeys.SeedRules];
+            var loop = registries.ToLoopData(Doc(ContentFiles.RulesMechanics), Doc(ContentFiles.RulesCombatEngine), Doc(ContentFiles.RulesHandRules), Doc(ContentFiles.RulesRunEngine),
+                snapshot.ContentVersion, (JArray)Doc(ContentFiles.BalanceCustomRun)[RunFlowKeys.AscensionOrder], Doc(ContentFiles.RulesRewardsEngine),
+                Doc(ContentFiles.RulesMapEngine), Doc(ContentFiles.RulesLoopEngine));
             return new RunContent
             {
                 Snapshot = snapshot,
-                Data = registries.ToRunData(Doc(ContentFiles.RulesMechanics), Doc(ContentFiles.RulesCombatEngine), Doc(ContentFiles.RulesHandRules), Doc(ContentFiles.RulesRunEngine), snapshot.ContentVersion),
+                Loop = loop,
+                Data = loop.Run,
                 Flow = RunFlowRules.From((JObject)content.Get(ContentFiles.RulesRunFlow)),
                 Seeds = new SeedCodec((string)seed[RunFlowKeys.Alphabet],
                     ((JArray)seed[RunFlowKeys.Homoglyphs]).Select(p => new KeyValuePair<string, string>((string)p[0], (string)p[1])).ToList(),

@@ -180,7 +180,24 @@
         "CombatantStance": "COMBATANT_STANCE",
         "CombatantStatuses": "COMBATANT_STATUSES",
         "PauseSeed": "PAUSE_SEED",
-        "PauseRows": "PAUSE_ROWS"
+        "PauseRows": "PAUSE_ROWS",
+        "RewardsBackground": "REWARDS_BACKGROUND",
+        "RewardsBody": "REWARDS_BODY",
+        "RewardScroll": "REWARD_SCROLL",
+        "RewardList": "REWARD_LIST",
+        "ClaimStatus": "CLAIM_STATUS",
+        "ClaimList": "CLAIM_LIST",
+        "ClaimRequired": "CLAIM_REQUIRED",
+        "RewardsHint": "REWARDS_HINT",
+        "RewardPick": "REWARD_PICK",
+        "PickTitle": "PICK_TITLE",
+        "PickPrompt": "PICK_PROMPT",
+        "PickCards": "PICK_CARDS",
+        "PickFooter": "PICK_FOOTER",
+        "PickBack": "PICK_BACK",
+        "PickSkip": "PICK_SKIP",
+        "PickConfirm": "PICK_CONFIRM",
+        "RewardsStatus": "REWARDS_STATUS"
       }
     },
     {
@@ -253,7 +270,24 @@
         "PauseRow": "pause-row",
         "PauseHint": "pause-hint",
         "GroupBusy": "group--busy",
-        "Busy": "is-busy"
+        "Busy": "is-busy",
+        "RewardsStatus": "rewards-status",
+        "RewardLine": "reward-line",
+        "RewardRow": "reward-row",
+        "RewardRowStatePrefix": "reward-row--",
+        "RewardIcon": "reward-icon",
+        "RewardGlyph": "reward-glyph",
+        "RewardTexts": "reward-texts",
+        "RewardTitle": "reward-title",
+        "RewardBody": "reward-body",
+        "RewardChip": "reward-chip",
+        "RewardSkip": "reward-skip",
+        "ClaimRow": "claim-row",
+        "ClaimName": "claim-name",
+        "ClaimState": "claim-state",
+        "PickNode": "pick-node",
+        "PickCard": "pick-card",
+        "PickSelected": "pick-selected"
       }
     },
     {
@@ -347,7 +381,13 @@
         "FallbackBackground": "fallbackBackground",
         "Enemy": "enemy",
         "ReducedMotion": "reducedMotion",
-        "RefusalTooltip": "refusalTooltip"
+        "RefusalTooltip": "refusalTooltip",
+        "Rewards": "rewards",
+        "RelicArt": "relicArt",
+        "ArmamentArt": "armamentArt",
+        "FlaskArt": "flaskArt",
+        "FlaskArtPrefix": "flaskArtPrefix",
+        "ModifierTokens": "modifierTokens"
       }
     },
     {
@@ -371,7 +411,10 @@
         "FocusDiscard": "discard",
         "FocusFlasks": "flasks",
         "FocusEnemyTurn": "enemyTurn",
-        "FocusEnded": "ended"
+        "FocusEnded": "ended",
+        "FocusPick": "pick",
+        "RewardCardKind": "card",
+        "RewardCollectAuto": "auto"
       }
     },
     {
@@ -404,7 +447,9 @@
         "Recovery": "recovery",
         "ReplaceSlot": "replaceSlot",
         "SaveQuit": "saveQuit",
-        "SaveFailed": "saveFailed"
+        "SaveFailed": "saveFailed",
+        "RewardLeaveAuto": "rewardLeaveAuto",
+        "RewardLeaveManual": "rewardLeaveManual"
       }
     },
     {
@@ -462,7 +507,15 @@
         "Damage": "damage",
         "Hits": "hits",
         "Block": "block",
-        "Id": "id"
+        "Id": "id",
+        "Title": "title",
+        "Claimed": "claimed",
+        "Kind": "kind",
+        "Amount": "amount",
+        "Level": "level",
+        "Round": "round",
+        "Rounds": "rounds",
+        "Art": "art"
       }
     },
     {
@@ -481,7 +534,12 @@
         "CardKindKey": "combat.cardKind.{0}",
         "SeatNameKey": "seat.{0}.name",
         "ClassDescriptionKey": "class.{0}.description",
-        "AttributeShortKey": "attribute.{0}.short"
+        "AttributeShortKey": "attribute.{0}.short",
+        "RewardTitleKey": "rewards.title.{0}",
+        "RewardStateKey": "rewards.state.{0}",
+        "GlyphKey": "glyph.{0}",
+        "RewardRefusalKey": "rewards.refusal.{0}",
+        "RewardSkipName": "REWARD_SKIP_{0}"
       }
     },
     {
@@ -559,7 +617,8 @@
         "ClassRefused": "ui: class '{0}' cannot begin: {1}",
         "SaveFailed": "ui: save failed: {0}",
         "CombatCommandFailed": "ui: combat command rolled back: {0}",
-        "NoFight": "ui: the combat screen opened without a fight"
+        "NoFight": "ui: the combat screen opened without a fight",
+        "NoReward": "ui: the rewards screen opened without a pending reward"
       }
     }
   ],

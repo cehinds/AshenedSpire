@@ -19,6 +19,7 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.Creation: return new CreationScreen();
                 case ScreenIds.Combat: return new CombatScreen();
                 case ScreenIds.Pause: return new PauseScreen();
+                case ScreenIds.Rewards: return new RewardsScreen();
                 default: return new PlaceholderScreen();
             }
         }

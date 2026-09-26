@@ -23,5 +23,28 @@ namespace Ashen.Generated
         public const string Alphabet = "alphabet";
         public const string Homoglyphs = "homoglyphs";
         public const string MaxLength = "maxLength";
+        public const string Name = "name";
+        public const string Tint = "tint";
+        public const string Ui = "ui";
+        public const string RewardCollect = "rewardCollect";
+        public const string Modes = "modes";
+        public const string Def = "def";
+        public const string LevelUpValue = "levelUpValue";
+        public const string NewRun = "newRun";
+        public const string AscensionOrder = "ASCENSION_ORDER";
+        public const string State = "state";
+        public const string Claimed = "claimed";
+        public const string Skipped = "skipped";
+        public const string Available = "available";
+        public const string RequiredChoice = "requiredChoice";
+        public const string Rows = "rows";
+        public const string StoneBalanceAfter = "stoneBalanceAfter";
+        public const string Label = "label";
+        public const string Blurb = "blurb";
+        public const string Tag = "tag";
+        public const string From = "from";
+        public const string Suffix = "suffix";
+        public const string Value = "value";
+        public const string ArtKey = "artKey";
     }
 }

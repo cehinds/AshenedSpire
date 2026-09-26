@@ -32,6 +32,7 @@ namespace Ashen.Generated
         public const string CatalogEquipmentMeta = "catalog/equipmentMeta.json";
         public const string CatalogEquipmentRequirements = "catalog/equipmentRequirements.json";
         public const string CatalogEquipmentSlots = "catalog/equipmentSlots.json";
+        public const string CatalogEventChoiceRequirements = "catalog/eventChoiceRequirements.json";
         public const string CatalogEventMeta = "catalog/eventMeta.json";
         public const string CatalogEvents = "catalog/events.json";
         public const string CatalogFlasks = "catalog/flasks.json";
@@ -53,7 +54,9 @@ namespace Ashen.Generated
         public const string RulesCombatRules = "rules/combatRules.json";
         public const string RulesDerivedStatRules = "rules/derivedStatRules.json";
         public const string RulesEffectOps = "rules/effectOps.json";
+        public const string RulesEventsEngine = "rules/eventsEngine.json";
         public const string RulesHandRules = "rules/handRules.json";
+        public const string RulesLoopEngine = "rules/loopEngine.json";
         public const string RulesMapEngine = "rules/mapEngine.json";
         public const string RulesMechanics = "rules/mechanics.json";
         public const string RulesNodeEffects = "rules/nodeEffects.json";
@@ -64,6 +67,7 @@ namespace Ashen.Generated
         public const string RulesRunEngine = "rules/runEngine.json";
         public const string RulesRunFlow = "rules/runFlow.json";
         public const string RulesSaves = "rules/saves.json";
+        public const string RulesShopEngine = "rules/shopEngine.json";
         public const string RulesStringKeys = "rules/stringKeys.json";
         public const string RulesTextAnchors = "rules/textAnchors.json";
         public const string RulesValidation = "rules/validation.json";
@@ -95,6 +99,7 @@ namespace Ashen.Generated
         public const string SchemasCatalogEquipmentMetaSchema = "schemas/catalog.equipmentMeta.schema.json";
         public const string SchemasCatalogEquipmentRequirementsSchema = "schemas/catalog.equipmentRequirements.schema.json";
         public const string SchemasCatalogEquipmentSlotsSchema = "schemas/catalog.equipmentSlots.schema.json";
+        public const string SchemasCatalogEventChoiceRequirementsSchema = "schemas/catalog.eventChoiceRequirements.schema.json";
         public const string SchemasCatalogEventMetaSchema = "schemas/catalog.eventMeta.schema.json";
         public const string SchemasCatalogEventsSchema = "schemas/catalog.events.schema.json";
         public const string SchemasCatalogFlasksSchema = "schemas/catalog.flasks.schema.json";
@@ -116,7 +121,9 @@ namespace Ashen.Generated
         public const string SchemasRulesCombatRulesSchema = "schemas/rules.combatRules.schema.json";
         public const string SchemasRulesDerivedStatRulesSchema = "schemas/rules.derivedStatRules.schema.json";
         public const string SchemasRulesEffectOpsSchema = "schemas/rules.effectOps.schema.json";
+        public const string SchemasRulesEventsEngineSchema = "schemas/rules.eventsEngine.schema.json";
         public const string SchemasRulesHandRulesSchema = "schemas/rules.handRules.schema.json";
+        public const string SchemasRulesLoopEngineSchema = "schemas/rules.loopEngine.schema.json";
         public const string SchemasRulesMapEngineSchema = "schemas/rules.mapEngine.schema.json";
         public const string SchemasRulesMechanicsSchema = "schemas/rules.mechanics.schema.json";
         public const string SchemasRulesNodeEffectsSchema = "schemas/rules.nodeEffects.schema.json";
@@ -127,6 +134,7 @@ namespace Ashen.Generated
         public const string SchemasRulesRunEngineSchema = "schemas/rules.runEngine.schema.json";
         public const string SchemasRulesRunFlowSchema = "schemas/rules.runFlow.schema.json";
         public const string SchemasRulesSavesSchema = "schemas/rules.saves.schema.json";
+        public const string SchemasRulesShopEngineSchema = "schemas/rules.shopEngine.schema.json";
         public const string SchemasRulesStringKeysSchema = "schemas/rules.stringKeys.schema.json";
         public const string SchemasRulesTextAnchorsSchema = "schemas/rules.textAnchors.schema.json";
         public const string SchemasRulesValidationSchema = "schemas/rules.validation.schema.json";
@@ -134,6 +142,8 @@ namespace Ashen.Generated
         public const string SchemasSettingsPresetsShippedSchema = "schemas/settings.presets.shipped.schema.json";
         public const string SchemasStringsAppEnSchema = "schemas/strings.app.en.schema.json";
         public const string SchemasStringsCombatEnSchema = "schemas/strings.combat.en.schema.json";
+        public const string SchemasStringsEventsEnSchema = "schemas/strings.events.en.schema.json";
+        public const string SchemasStringsShopEnSchema = "schemas/strings.shop.en.schema.json";
         public const string SchemasTagsFamilyNodesSchema = "schemas/tags.familyNodes.schema.json";
         public const string SchemasTagsNodeRelationsSchema = "schemas/tags.nodeRelations.schema.json";
         public const string SchemasTagsNodeTermsSchema = "schemas/tags.nodeTerms.schema.json";
@@ -160,6 +170,8 @@ namespace Ashen.Generated
         public const string StringsAppEn = "strings/app.en.json";
         public const string StringsCombatEn = "strings/combat.en.json";
         public const string StringsEn = "strings/en.json";
+        public const string StringsEventsEn = "strings/events.en.json";
+        public const string StringsShopEn = "strings/shop.en.json";
         public const string TagsFamilyNodes = "tags/familyNodes.json";
         public const string TagsNodeRelations = "tags/nodeRelations.json";
         public const string TagsNodeTerms = "tags/nodeTerms.json";

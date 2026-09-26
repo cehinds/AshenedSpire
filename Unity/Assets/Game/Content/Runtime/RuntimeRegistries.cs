@@ -35,10 +35,19 @@ namespace Ashen.Content
         private readonly JObject _balance;
         private readonly JObject _map;
         private readonly JObject _run;
+        private readonly JObject _events;
+        private readonly JArray _tagging;
+        private readonly JObject _legacyDungeons;
+        private readonly JArray _unlocks;
 
-        private RuntimeRegistries(Dictionary<string, JObject> tables, JArray classTree, JObject equipment, JObject balance, JObject map, JObject run)
+        private RuntimeRegistries(Dictionary<string, JObject> tables, JArray classTree, JObject equipment, JObject balance, JObject map, JObject run, JObject events,
+            JArray tagging, JObject legacyDungeons, JArray unlocks)
         {
             _run = run;
+            _events = events;
+            _tagging = tagging;
+            _legacyDungeons = legacyDungeons;
+            _unlocks = unlocks;
             _tables = tables;
             _classTree = classTree;
             _equipment = equipment;
@@ -61,6 +70,7 @@ namespace Ashen.Content
             tables[RegistryKeys.PropertyRules] = MakeRegistry(RegistryKeys.PropertyRules, Collection(RegistryKeys.PropertyRules), CombatKeys.Tag);
             tables[MK.Seats] = MakeRegistry(MK.Seats, Collection(MK.Seats));
             tables[RunKeys.CreationModes] = MakeRegistry(RunKeys.CreationModes, Collection(RunKeys.CreationModes));
+            tables[EventKeys.Speakers] = MakeRegistry(EventKeys.Speakers, Collection(EventKeys.Speakers));
             var classTree = (JArray)Collection(RegistryKeys.ClassTree).DeepClone();
 
             var equipment = JsValues.Spread(bundle[RegistryKeys.Equipment] as JObject);
@@ -77,7 +87,12 @@ namespace Ashen.Content
             else equipment.Remove(RegistryKeys.CardTagging);
 
             var balance = JsValues.Spread(bundle[RegistryKeys.Balance] as JObject);
-            return new RuntimeRegistries(tables, classTree, equipment, balance, MapDocuments(content), RunDocuments(bundle, stamped));
+            var tagging = (bundle[RegistryKeys.Tagging] as JArray)?.DeepClone() as JArray ?? new JArray();
+            var legacyDungeons = content.Contains(ContentFiles.CatalogLegacyDungeons) ? content.Get(ContentFiles.CatalogLegacyDungeons).DeepClone() as JObject : null;
+            var unlockTable = content.Contains(ContentFiles.CatalogUnlocks) ? content.Get(ContentFiles.CatalogUnlocks) as JObject : null;
+            var unlocks = new JArray((unlockTable ?? new JObject()).Properties().Select(p => p.Value.DeepClone()));
+            return new RuntimeRegistries(tables, classTree, equipment, balance, MapDocuments(content), RunDocuments(bundle, stamped), EventDocuments(content),
+                tagging, legacyDungeons ?? new JObject(), unlocks);
         }
 
         /// <summary>An id-keyed registry table ("cards", "relics", ...), or null for a name that is not one.</summary>
@@ -165,6 +180,39 @@ namespace Ashen.Content
             string contentVersion, JArray ascensionOrder, JObject rewardsEngine) =>
             new Ashen.Domain.Rewards.RewardsData(ToRunData(mechanics, combatEngine, handRules, runEngine, contentVersion),
                 (JArray)_run[RewardsKeys.Nodes].DeepClone(), ascensionOrder, rewardsEngine);
+
+        /// <summary>The merchant's view (US-9.1): the post-combat data plus the merchant rules (rules/shopEngine.json).</summary>
+        public Ashen.Domain.Shop.ShopData ToShopData(JObject mechanics, JObject combatEngine, JObject handRules, JObject runEngine,
+            string contentVersion, JArray ascensionOrder, JObject rewardsEngine, JObject shopEngine) =>
+            new Ashen.Domain.Shop.ShopData(ToRewardsData(mechanics, combatEngine, handRules, runEngine, contentVersion, ascensionOrder, rewardsEngine), shopEngine);
+
+        /// <summary>The event door's view (US-10.1): the merchant's data, the event and speaker registries, eventMeta, the per-choice requirements and rules/eventsEngine.json.</summary>
+        public Ashen.Domain.Events.EventsData ToEventsData(JObject mechanics, JObject combatEngine, JObject handRules, JObject runEngine,
+            string contentVersion, JArray ascensionOrder, JObject rewardsEngine, JObject shopEngine, JObject eventsEngine) =>
+            new Ashen.Domain.Events.EventsData(ToShopData(mechanics, combatEngine, handRules, runEngine, contentVersion, ascensionOrder, rewardsEngine, shopEngine),
+                DomainRegistry(RegistryKeys.Events), DomainRegistry(EventKeys.Speakers),
+                (JObject)_events[EventKeys.EventMeta].DeepClone(), (JObject)_events[EventKeys.ChoiceRequirements].DeepClone(), eventsEngine);
+
+        /// <summary>The event documents: catalog/eventMeta.json and catalog/eventChoiceRequirements.json (empty objects when absent).</summary>
+        private static JObject EventDocuments(ContentSet content)
+        {
+            JObject Get(string file) => content.Contains(file) && content.Get(file) is JObject o ? (JObject)o.DeepClone() : new JObject();
+            return new JObject
+            {
+                [EventKeys.EventMeta] = Get(ContentFiles.CatalogEventMeta),
+                [EventKeys.ChoiceRequirements] = Get(ContentFiles.CatalogEventChoiceRequirements),
+            };
+        }
+
+        /// <summary>
+        /// The run loop's view (US-8.1): the post-combat data and the map data, with the tagging rows (a location's tags),
+        /// the legacy dungeons (catalog/legacyDungeons.json), the unlock rows (catalog/unlocks.json, in table order) and the
+        /// loop's own rules (rules/loopEngine.json).
+        /// </summary>
+        public Ashen.Domain.Loop.LoopData ToLoopData(JObject mechanics, JObject combatEngine, JObject handRules, JObject runEngine, string contentVersion,
+            JArray ascensionOrder, JObject rewardsEngine, JObject mapEngine, JObject loopEngine) =>
+            new Ashen.Domain.Loop.LoopData(ToRewardsData(mechanics, combatEngine, handRules, runEngine, contentVersion, ascensionOrder, rewardsEngine),
+                ToMapData(mapEngine), (JArray)_tagging.DeepClone(), (JObject)_legacyDungeons.DeepClone(), (JArray)_unlocks.DeepClone(), loopEngine);
 
         /// <summary>The map documents, in content key order: balance/mapConfigs.json, eventMeta's gates, boss locations, mapShape limits and legacy bosses.</summary>
         private static JObject MapDocuments(ContentSet content)

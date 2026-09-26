@@ -44,5 +44,13 @@ namespace Ashen.Generated
         public const string Hits = "hits";
         public const string Block = "block";
         public const string Id = "id";
+        public const string Title = "title";
+        public const string Claimed = "claimed";
+        public const string Kind = "kind";
+        public const string Amount = "amount";
+        public const string Level = "level";
+        public const string Round = "round";
+        public const string Rounds = "rounds";
+        public const string Art = "art";
     }
 }

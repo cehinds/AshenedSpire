@@ -1,0 +1,96 @@
+{
+  "$id": "strings/shop.en.json",
+  "type": "object",
+  "properties": {
+    "shop.refusal.alreadyCarried": {
+      "type": "string"
+    },
+    "shop.refusal.cinderBalance": {
+      "type": "string"
+    },
+    "shop.refusal.cinders": {
+      "type": "string"
+    },
+    "shop.refusal.equipped": {
+      "type": "string"
+    },
+    "shop.refusal.inventoryFull": {
+      "type": "string"
+    },
+    "shop.refusal.inventoryUnavailable": {
+      "type": "string"
+    },
+    "shop.refusal.noPrice": {
+      "type": "string"
+    },
+    "shop.refusal.noTrader": {
+      "type": "string"
+    },
+    "shop.refusal.notBuying": {
+      "type": "string"
+    },
+    "shop.refusal.notInInventory": {
+      "type": "string"
+    },
+    "shop.refusal.notWeaponArt": {
+      "type": "string"
+    },
+    "shop.refusal.offerChanged": {
+      "type": "string"
+    },
+    "shop.refusal.offerGone": {
+      "type": "string"
+    },
+    "shop.refusal.saleChanged": {
+      "type": "string"
+    },
+    "shop.refusal.unknownArmament": {
+      "type": "string"
+    },
+    "smith.refusal.cardNotSeatable": {
+      "type": "string"
+    },
+    "smith.refusal.insufficientStones": {
+      "type": "string"
+    },
+    "smith.refusal.mountNotExtractable": {
+      "type": "string"
+    },
+    "smith.refusal.mountNotOpen": {
+      "type": "string"
+    },
+    "smith.refusal.noExtractableMount": {
+      "type": "string"
+    },
+    "smith.refusal.noOpenMount": {
+      "type": "string"
+    },
+    "smith.refusal.notCandidate": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "shop.refusal.alreadyCarried",
+    "shop.refusal.cinderBalance",
+    "shop.refusal.cinders",
+    "shop.refusal.equipped",
+    "shop.refusal.inventoryFull",
+    "shop.refusal.inventoryUnavailable",
+    "shop.refusal.noPrice",
+    "shop.refusal.noTrader",
+    "shop.refusal.notBuying",
+    "shop.refusal.notInInventory",
+    "shop.refusal.notWeaponArt",
+    "shop.refusal.offerChanged",
+    "shop.refusal.offerGone",
+    "shop.refusal.saleChanged",
+    "shop.refusal.unknownArmament",
+    "smith.refusal.cardNotSeatable",
+    "smith.refusal.insufficientStones",
+    "smith.refusal.mountNotExtractable",
+    "smith.refusal.mountNotOpen",
+    "smith.refusal.noExtractableMount",
+    "smith.refusal.noOpenMount",
+    "smith.refusal.notCandidate"
+  ]
+}

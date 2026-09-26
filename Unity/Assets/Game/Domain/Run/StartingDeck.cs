@@ -225,12 +225,12 @@ namespace Ashen.Domain.Run
             foreach (var w in desired) if (!present.Contains(w.Str(K.InstanceId) ?? V.Undefined)) deck.Add(w);
         }
 
-        private static string PieceFamily(JObject piece) => piece != null && piece.Str(K.Kind) == V.Armor ? V.ArmourKind : V.ArmamentRefPrefix;
+        internal static string PieceFamily(JObject piece) => piece != null && piece.Str(K.Kind) == V.Armor ? V.ArmourKind : V.ArmamentRefPrefix;
 
         private static string MountKey(params string[] parts) => string.Join(V.KeySeparator, parts);
 
         /// <summary>boundMountInstances: the bound table's cards for one piece, copies numbered.</summary>
-        private static List<JObject> BoundMountInstances(RunData d, JObject settings, JObject piece)
+        internal static List<JObject> BoundMountInstances(RunData d, JObject settings, JObject piece)
         {
             var family = PieceFamily(piece);
             var owner = Combat.Equipment.PieceItemRef(piece);
@@ -248,7 +248,7 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>packageGrantInstances: a package's grantedCards as item-owned instances.</summary>
-        private static List<JObject> PackageGrantInstances(WeaponCardPackage pkg, JToken weaponSource)
+        internal static List<JObject> PackageGrantInstances(WeaponCardPackage pkg, JToken weaponSource)
         {
             var out_ = new List<JObject>();
             foreach (var grant in pkg.GrantedCards)
@@ -259,9 +259,33 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>weaponArtInstance: one authored weapon art as an item-owned instance.</summary>
-        private static JObject WeaponArtInstance(string weaponId, string artId, JToken weaponSource) =>
+        internal static JObject WeaponArtInstance(string weaponId, string artId, JToken weaponSource) =>
             Js.Obj(K.InstanceId, MountKey(RV.RoleWeaponArt, weaponId, artId), K.CardId, artId, K.Upgraded, false,
                 K.EquipmentRole, RV.RoleWeaponArt, K.GrantedBy, weaponId, K.GrantSource, weaponSource);
+
+        /// <summary>
+        /// itemMountInstances(registries, run, piece, { authored }): the item-owned instances one piece lends by its own
+        /// authoring (bound cards, package grants, weapon-art defaults); unless <paramref name="authored"/>, with the smith's
+        /// overrides applied and its filled extra mounts appended.
+        /// </summary>
+        public static List<JObject> ItemMountInstances(RunData d, JObject itemMounts, JObject piece, bool authored)
+        {
+            if (piece == null) return new List<JObject>();
+            var settings = Settings(d);
+            var weaponSource = GrantSourceFor(settings, RK.Weapon);
+            var list = BoundMountInstances(d, settings, piece);
+            var pkg = piece.Str(K.Kind) == V.Armor ? null : WeaponCards.FromPiece(d, piece);
+            if (pkg != null)
+            {
+                list.AddRange(PackageGrantInstances(pkg, weaponSource));
+                foreach (var artId in pkg.WeaponArtDefaults) list.Add(WeaponArtInstance(pkg.WeaponId, artId, weaponSource));
+            }
+            if (authored) return list;
+            var result = CardMounts.ApplyMountOverrides(d, itemMounts, list);
+            result.AddRange(CardMounts.ExtraMountInstances(d, itemMounts, Combat.Equipment.PieceItemRef(piece),
+                GrantSourceFor(settings, PieceFamily(piece) == V.ArmourKind ? RK.Armor : RK.Weapon)));
+            return result;
+        }
 
         /// <summary>
         /// desiredGrantInstances(registries, run): every item-owned instance the worn equipment lends — bound-table

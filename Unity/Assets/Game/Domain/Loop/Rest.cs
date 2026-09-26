@@ -1,0 +1,542 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Ashen.Domain.Combat;
+using Ashen.Domain.Random;
+using Ashen.Domain.Rewards;
+using Ashen.Domain.Run;
+using Newtonsoft.Json.Linq;
+using K = Ashen.Generated.CombatKeys;
+using MK = Ashen.Generated.MapKeys;
+using LK = Ashen.Generated.LoopKeys;
+using LM = Ashen.Generated.LoopMessages;
+using LV = Ashen.Generated.LoopValues;
+using RK = Ashen.Generated.RunKeys;
+using RV = Ashen.Generated.RunValues;
+using V = Ashen.Generated.CombatValues;
+using WK = Ashen.Generated.RewardsKeys;
+
+namespace Ashen.Domain.Loop
+{
+    /// <summary>
+    /// Where a run stops, read as a property carrier (shipped model/locations.js): a location's tags are its tagging
+    /// rows under the location family, with <c>restMana</c> resolved to the configured mode's tag; its tags say which
+    /// services the place offers, and a relic's <c>restDenied</c> passive may forbid its Rest.
+    /// </summary>
+    public static class Locations
+    {
+        /// <summary>locationTags(registries, locationId): the tags tagging.csv hands a location, in file order.</summary>
+        public static List<string> Tags(LoopData d, string locationId) =>
+            d.Tagging.OfType<JObject>()
+                .Where(row => row.Str(RK.Family) == d.RuleStr(LK.Locations, RK.Family) && row.Str(LK.ObjectId) == locationId)
+                .Select(row => row.Str(LK.TagId)).ToList();
+
+        /// <summary>locationRestTags / resolveRestTags(mode, tags): <c>restMana</c> becomes the mode's tag unless a fixed tag is authored.</summary>
+        public static List<string> RestTags(LoopData d, IReadOnlyList<string> tags)
+        {
+            var mode = d.Balance.Obj(LK.Rest)?.Obj(K.Mana)?.Str(K.Mode);
+            var byMode = d.RuleObj(LK.Locations, LK.RestManaTagByMode);
+            var fixedTag = mode != null ? byMode.Str(mode) : null;
+            if (fixedTag == null) throw new InvalidOperationException(RunJs.Fmt(LM.RestManaModeUnknown, mode));
+            var fixedTags = byMode.Properties().Select(p => Js.Str(p.Value)).ToList();
+            var restMana = d.RuleStr(LK.Locations, LK.RestManaTag);
+            var overridden = tags.Any(fixedTags.Contains);
+            var out_ = new List<string>();
+            foreach (var tag in tags)
+            {
+                if (tag == restMana && overridden) continue;
+                var resolved = tag == restMana ? fixedTag : tag;
+                if (!out_.Contains(resolved)) out_.Add(resolved);
+            }
+            return out_;
+        }
+
+        /// <summary>locationServices(registries, tags): { smith, levelUp, flasks }.</summary>
+        public static JObject Services(LoopData d, IReadOnlyList<string> tags)
+        {
+            var service = d.RuleObj(LK.Locations, LK.ServiceTags);
+            return Js.Obj(LK.Smith, tags.Contains(service.Str(LK.Smith)), WK.LevelUp, tags.Contains(service.Str(WK.LevelUp)), K.Flasks, tags.Contains(service.Str(K.Flasks)));
+        }
+
+        /// <summary>restDeniedBy(registries, run, tags): the relic whose restDenied passive forbids a Rest here, or null.</summary>
+        public static string RestDeniedBy(LoopData d, JToken relicIds, IReadOnlyList<string> tags)
+        {
+            foreach (var id in Js.Items(relicIds).Select(Js.Str))
+            {
+                var denied = d.Combat.Relics.Get(id).Obj(K.Passives)?[LK.RestDenied];
+                if (denied != null && denied.Type == JTokenType.Boolean && denied.Value<bool>()) return id;
+                if (denied is JArray list && list.Any(t => tags.Contains(Js.Str(t)))) return id;
+            }
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// The run-level door's context (shipped engine/actions.js createRunContext/syncRunContext/drainRunContext): a player
+    /// facade over the run's pools, no enemies, an action queue and trigger gates, so heal and restoreMana reach the run
+    /// through the same opcode bodies a fight uses. The only run opcode it runs is the rest's <c>refillFlasks</c>; the
+    /// other run opcodes (event choices, purchases) are the shop/events stream's (D-093).
+    /// </summary>
+    public sealed class RunEffectContext
+    {
+        public CombatState State { get; }
+        public JObject Run { get; }
+
+        /// <summary>The refillFlasks receipt (ctx.receipts.refill), or null.</summary>
+        public JObject Refill;
+
+        private readonly LoopData _data;
+        private readonly JObject _refillOpts;
+
+        public RunEffectContext(LoopData d, JObject run, Rng rng, double healMult, JObject refillOpts)
+        {
+            _data = d;
+            _refillOpts = refillOpts ?? new JObject();
+            Run = run;
+            var facade = Js.Obj(K.Id, V.Player, K.Kind, V.Player, K.Hp, run[K.Hp]?.DeepClone(), K.MaxHp, run[K.MaxHp]?.DeepClone(),
+                K.Mana, run[K.Mana]?.DeepClone(), K.MaxMana, run[K.MaxMana]?.DeepClone(), K.Block, 0.0, K.Statuses, new JObject(),
+                K.StanceId, Js.Null(), K.RelicIds, new JArray(),
+                K.Counters, Js.Obj(K.CardsPlayedThisTurn, 0.0, K.CardsPlayedThisCombat, 0.0, K.AttacksPlayedThisCombat, 0.0),
+                K.Alive, run.Num(K.Hp) > 0);
+            State = new CombatState
+            {
+                Data = d.Combat,
+                Rng = rng,
+                Player = facade,
+                HandMax = Js.D(d.Balance[K.HandMax]),
+                Turn = 0,
+                HealMult = healMult,
+                RunOpcodes = RunOpcode,
+            };
+        }
+
+        private bool RunOpcode(CombatState c, CombatAction action, JObject eff)
+        {
+            if (eff.Str(K.Op) != LV.RefillFlasks) return false;
+            Refill = GraceRefill.Apply(_data, Run, _refillOpts);
+            return true;
+        }
+
+        /// <summary>syncRunContext: re-read the run's pools into the facade.</summary>
+        public void Sync()
+        {
+            var p = State.Player;
+            p[K.Hp] = Run[K.Hp]?.DeepClone();
+            p[K.MaxHp] = Run[K.MaxHp]?.DeepClone();
+            p[K.Mana] = Run[K.Mana]?.DeepClone();
+            p[K.MaxMana] = Run[K.MaxMana]?.DeepClone();
+            p.Put(K.Alive, Run.Num(K.Hp) > 0);
+        }
+
+        /// <summary>drainRunContext: run the queue to empty (bounded), then write the facade's pools back.</summary>
+        public void Drain()
+        {
+            var guard = 0;
+            var limit = _data.RuleNum(LK.RunContext, K.QueueGuard);
+            while (State.Queue.Count > 0)
+            {
+                if (++guard > limit) throw new InvalidOperationException(LM.RunQueueDidNotDrain);
+                var action = State.Queue.First.Value;
+                State.Queue.RemoveFirst();
+                Actions.ExecuteAction(State, action);
+            }
+            Run.Put(K.Hp, Math.Min(State.Player.Num(K.Hp), Run.Num(K.MaxHp)));
+            Run.Put(K.Mana, Math.Min(State.Player.Num(K.Mana), Run.Num(K.MaxMana)));
+        }
+
+        /// <summary>emitAndDrain: sync, emit the event, drain; returns the events it logged.</summary>
+        public JArray EmitAndDrain(string type, JObject payload)
+        {
+            Sync();
+            var from = State.EventLog.Count;
+            Triggers.EmitEvent(State, type, payload);
+            Drain();
+            return new JArray(State.EventLog.Skip(from).Select(e => e.DeepClone()));
+        }
+    }
+
+    /// <summary>
+    /// What a grace hands back (shipped model/gracerefill.js and engine/encounters.js applyGraceRefill): the Crimson and
+    /// Azure charge pools are refilled to their split, and re-split at a grace one charge at a time with the total held.
+    /// A run without charge pools (a pre-authority save) takes the legacy flask-slot refill, deferred (D-094).
+    /// </summary>
+    public static class GraceRefill
+    {
+        private static List<string> Kinds(LoopData d) => Js.Items(d.Combat.Engine.Obj(K.Flasks)?[K.ChargeKinds]).Select(Js.Str).ToList();
+
+        /// <summary>applyGraceRefill(registries, run, opts): charges refilled; the receipt the screen's refill line reads.</summary>
+        public static JObject Apply(LoopData d, JObject run, JObject opts)
+        {
+            if (!(run[K.FlaskCharges] is JObject charges) || !Js.Truthy(run[K.FlaskCharges])) throw new NotSupportedException(LM.LegacyGraceRefillDeferred);
+            foreach (var kind in Kinds(d)) charges[kind + V.CurrentSuffix] = charges[kind]?.DeepClone();
+            return Js.Obj(LK.ChargePools, charges.DeepClone(), RK.Grants, new JArray(), K.Total, 0.0, LK.Shortfalls, new JArray());
+        }
+
+        private static double Count(JObject charges, string kind)
+        {
+            var value = charges[kind];
+            if (!Js.IsInt(value) || Js.D(value) < 0) throw new InvalidOperationException(RunJs.Fmt(LM.ChargeNotACount, kind));
+            return Js.D(value);
+        }
+
+        /// <summary>flaskChargePlan(registries, charges): per kind, the count and whether one charge can come in (from the richest other) or go out (to the poorest other).</summary>
+        public static List<(string Kind, double Count, string Donor, string Receiver, bool CanAdd, bool CanSub)> Plan(LoopData d, JObject charges)
+        {
+            if (charges == null || !Js.IsInt(charges[K.Capacity]) || charges.Num(K.Capacity) <= 0) throw new InvalidOperationException(LM.ChargePlanNeedsCapacity);
+            var kinds = Kinds(d);
+            string Pick(string self, Func<double, double, bool> better)
+            {
+                string best = null;
+                foreach (var kind in kinds)
+                {
+                    if (kind == self) continue;
+                    if (best == null || better(Count(charges, kind), Count(charges, best))) best = kind;
+                }
+                return best;
+            }
+            foreach (var kind in kinds) Count(charges, kind);
+            return kinds.Select(kind =>
+            {
+                var donor = Pick(kind, (a, b) => a > b);
+                var receiver = Pick(kind, (a, b) => a < b);
+                var held = Count(charges, kind);
+                return (kind, held, donor, receiver, donor != null && Count(charges, donor) > 0, receiver != null && held > 0);
+            }).ToList();
+        }
+
+        /// <summary>moveFlaskCharge(registries, charges, { from, to }): one charge moved, the whole split rewritten (and refilled) through reallocate.</summary>
+        public static JObject Move(LoopData d, JObject charges, string from, string to)
+        {
+            Plan(d, charges);
+            var kinds = Kinds(d);
+            if (from == to) throw new InvalidOperationException(LM.MoveSameKind);
+            foreach (var kind in new[] { from, to }) if (!kinds.Contains(kind)) throw new InvalidOperationException(RunJs.Fmt(LM.NotAChargeKind, kind));
+            if (!(charges.Num(from) > 0)) throw new InvalidOperationException(RunJs.Fmt(LM.NoChargeToMove, from));
+            var next = new Dictionary<string, double>(StringComparer.Ordinal);
+            foreach (var kind in kinds) next[kind] = charges.Num(kind);
+            next[from] -= 1;
+            next[to] += 1;
+            if (next.Values.Any(v => v < 0) || next.Values.Sum() != charges.Num(K.Capacity))
+                throw new InvalidOperationException(RunJs.Fmt(LM.AllocationBreaksCapacity, RunJs.NumStr(charges.Num(K.Capacity))));
+            foreach (var kind in kinds) charges.Put(kind, next[kind]);
+            foreach (var kind in kinds) charges.Put(kind + V.CurrentSuffix, next[kind]);
+            return charges;
+        }
+    }
+
+    /// <summary>
+    /// The character level spent at a rest place (shipped model/levelup.js levelUpPlan/applyLevelUp): each earned point
+    /// raises one attribute, is recorded on the ledgers the load door checks (levelUps, levelPoints) and re-derives the
+    /// pools from the run's own snapshot.
+    /// </summary>
+    public static class LevelPoints
+    {
+        /// <summary>levelUpPlan(registries, run).points: the points waiting (0 when none).</summary>
+        public static double Waiting(JObject run)
+        {
+            var row = run.Obj(K.Level);
+            var points = row?[RK.UnspentPoints];
+            return Js.IsInt(points) && Js.D(points) > 0 ? Js.D(points) : 0;
+        }
+
+        /// <summary>applyLevelUp(registries, run, attributeId): one point spent on one attribute; throws by name when none waits.</summary>
+        public static void Apply(LoopData d, JObject run, string attributeId)
+        {
+            var ids = CreationStats.OrderedAttributes(d.Run).Select(a => a.Str(K.Id)).ToList();
+            if (!ids.Contains(attributeId)) throw new InvalidOperationException(RunJs.Fmt(LM.NotAnAttribute, attributeId, string.Join(RV.ListJoiner, ids)));
+            if (Waiting(run) <= 0) throw new InvalidOperationException(LM.NoPointWaiting);
+            if (!run.Is(K.DerivedStatRuleSnapshot) || !run.Obj(K.DerivedStatRuleSnapshot).Is(RK.Rules)) throw new InvalidOperationException(LM.NoDerivedSnapshot);
+            var attributes = run.Obj(K.Attributes);
+            attributes.Put(attributeId, attributes.Num(attributeId) + 1);
+            var level = run.Obj(K.Level);
+            level.Put(RK.UnspentPoints, level.Num(RK.UnspentPoints) - 1);
+            run.Put(RK.LevelUps, (Js.IsInt(run[RK.LevelUps]) ? run.Num(RK.LevelUps) : 0) + 1);
+            run.Put(RK.LevelPoints, (Js.IsInt(run[RK.LevelPoints]) ? run.Num(RK.LevelPoints) : 0) + 1);
+            LevelUp.RederivePools(d.Rewards, run);
+        }
+    }
+
+    /// <summary>
+    /// One stay at a rest place (shipped main.js showRest over engine/locations.js createLocationVisit/arriveAt/restAt/
+    /// previewRest/leaveLocation, and the rest screen's actions): the place's rules are mounted from arrival to departure;
+    /// arriving fires <c>arrived</c> (the flask refill) once per stay, Rest fires <c>rested</c>. Rest, Smith and the card
+    /// services end a single-use stay; flask moves and assigned points do not.
+    /// </summary>
+    public sealed class RestVisit
+    {
+        private readonly LoopContext _ctx;
+        private readonly RunEffectContext _effects;
+        private readonly double _healMult;
+        private bool _rested;
+
+        public string LocationId { get; }
+        public List<string> TagIds { get; }
+
+        /// <summary>{ smith, levelUp, flasks }: the services the place's tags offer.</summary>
+        public JObject Services { get; }
+
+        /// <summary>The relic forbidding the Rest here (re-read after arrival and before a Rest), or null.</summary>
+        public string RestDenied { get; private set; }
+
+        /// <summary>The arrival's refill receipt, or null (a place that refills nothing, or a stay whose arrival already ran).</summary>
+        public JObject Refill { get; private set; }
+
+        /// <summary>smithServicesAt(registries, 'shrine', rng) where the place carries the smith tag, else null.</summary>
+        public JObject Smith { get; private set; }
+
+        /// <summary>Whether an action re-opens the place (the multi-use setting) rather than ending the stay.</summary>
+        public bool MultiUse { get; }
+
+        /// <summary>Whether the stay has ended (an action of a single-use stay, or Leave).</summary>
+        public bool Left { get; private set; }
+
+        private RestVisit(LoopContext ctx, string locationId, double healMult)
+        {
+            _ctx = ctx;
+            var d = ctx.Data;
+            LocationId = locationId;
+            _healMult = healMult;
+            var authored = Locations.Tags(d, locationId);
+            if (authored.Count == 0) throw new InvalidOperationException(RunJs.Fmt(LM.LocationHasNoTags, locationId));
+            TagIds = Locations.RestTags(d, authored);
+            Services = Locations.Services(d, TagIds);
+            var mult = healMult * Cards.PassiveMult(d.Combat, ctx.Run[K.Relics] as JArray ?? new JArray(), LK.RestHealMult, null);
+            _effects = new RunEffectContext(d, ctx.Run, ctx.Rng, mult, Js.Obj(LK.Counts, ctx.Settings.RefillCounts?.DeepClone() ?? new JObject()));
+            Properties.MountCarrier(_effects.State, V.Player, LV.LocationKind, locationId, locationId, TagIds);
+            RestDenied = Locations.RestDeniedBy(d, ctx.Run[K.Relics], TagIds);
+            MultiUse = !ctx.Run.Is(RK.Journey) && ctx.Settings.MultiUse;
+        }
+
+        /// <summary>
+        /// showRest(null, locationId): the stay opens at the place (a null place stands where the last one stood); its
+        /// arrival fires unless a legacy-dungeon rest already refilled, and the smith services are resolved on the smith's
+        /// stream where the place carries the smith tag.
+        /// </summary>
+        public static RestVisit Open(LoopContext ctx, string locationId)
+        {
+            var run = ctx.Run;
+            if (run.Is(RK.Journey)) throw new NotSupportedException(LM.JourneyDeferred);
+            if (!string.IsNullOrEmpty(locationId)) ctx.RestLocationId = locationId;
+            var healMult = ctx.ModOn(LV.LessHealing) ? ctx.Data.Balance.Obj(LK.CustomMods).Num(LK.LessHealingMult) : 1;
+            var restState = run.Obj(RK.LegacyDungeon)?.Obj(LK.ActiveRest);
+            var visit = new RestVisit(ctx, ctx.RestLocationId, healMult);
+            if (!(restState?.Is(LK.Refilled) ?? false))
+            {
+                visit.Arrive();
+                if (restState != null) restState.Put(LK.Refilled, true);
+            }
+            if (visit.Services.Is(LK.Smith)) visit.Smith = SmithServices.At(ctx, ctx.Data.RuleStr(LK.Locations, LK.SmithNodeKind));
+            return visit;
+        }
+
+        private void Arrive()
+        {
+            _effects.Refill = null;
+            _effects.EmitAndDrain(LV.Arrived, Js.Obj(LK.LocationId, LocationId));
+            Refill = _effects.Refill;
+            RestDenied = Locations.RestDeniedBy(_ctx.Data, _ctx.Run[K.Relics], TagIds);
+        }
+
+        /// <summary>The stay as the screen opens it: { location, tags, services, restDenied, refill, smith, multiUse }.</summary>
+        public JObject ToJson() => Js.Obj(LK.Location, LocationId, K.Tags, new JArray(TagIds), LK.Services, Services.DeepClone(), LK.RestDenied, Js.S(RestDenied),
+            LK.Refill, (JToken)Refill?.DeepClone() ?? Js.Null(), LK.Smith, (JToken)Smith?.DeepClone() ?? Js.Null(), LK.MultiUse, MultiUse);
+
+        private JObject RestReceipt(RunEffectContext effects, JObject before)
+        {
+            var run = effects.Run;
+            var events = effects.EmitAndDrain(LV.Rested, Js.Obj(LK.LocationId, LocationId));
+            return Js.Obj(LK.Heal, run.Num(K.Hp) - before.Num(K.Hp), K.Mana, run.Num(K.Mana) - before.Num(K.Mana), K.Hp, run[K.Hp]?.DeepClone(),
+                K.MaxHp, run[K.MaxHp]?.DeepClone(), LK.ManaAfter, run[K.Mana]?.DeepClone(), MK.Events, events);
+        }
+
+        /// <summary>
+        /// previewRest(visit): what Rest would restore, on a copy of the run and of the streams, the arrival's gates carried
+        /// and the denying relics set aside — the same rules, no write. Null when a relic denies the Rest.
+        /// </summary>
+        public JObject Preview()
+        {
+            if (RestDenied != null) return null;
+            var d = _ctx.Data;
+            var clone = (JObject)_ctx.Run.DeepClone();
+            var dryCtx = new LoopContext(d, clone, _ctx.Rng.Clone(), _ctx.Profile, _ctx.Settings);
+            var dry = new RestVisit(dryCtx, LocationId, _healMult);
+            foreach (var gate in _effects.State.TriggerState.Entries())
+                dry._effects.State.TriggerState[gate.Key] = new TriggerGate { Fires = gate.Value.Fires, Turn = gate.Value.Turn, TurnFires = gate.Value.TurnFires };
+            clone[K.Relics] = new JArray(Js.Items(clone[K.Relics]).Where(id => Locations.RestDeniedBy(d, new JArray(id.DeepClone()), dry.TagIds) == null).Select(t => t.DeepClone()));
+            var receipt = dry.RestReceipt(dry._effects, Js.Obj(K.Hp, clone[K.Hp]?.DeepClone(), K.Mana, clone[K.Mana]?.DeepClone()));
+            Properties.UnmountCarrier(dry._effects.State, V.Player, LV.LocationKind, LocationId);
+            return receipt;
+        }
+
+        /// <summary>
+        /// Rest (restAt): the place's <c>rested</c> rules fire. Refused — with the preview beside it — when a relic denies
+        /// it, or when a multi-use stay has rested already.
+        /// </summary>
+        public JObject Rest()
+        {
+            var relicNoRest = RestDenied != null;
+            var preview = relicNoRest ? null : Preview();
+            if (relicNoRest || (MultiUse && _rested))
+                return Js.Obj(K.Op, LV.RestAction, LK.Refused, relicNoRest ? LV.RelicRefusal : LV.RestedRefusal, LK.Preview, (JToken)preview ?? Js.Null());
+            RestDenied = Locations.RestDeniedBy(_ctx.Data, _ctx.Run[K.Relics], TagIds);
+            if (RestDenied != null) throw new InvalidOperationException(RunJs.Fmt(LM.RestDenied, LocationId, RestDenied));
+            var r = RestReceipt(_effects, Js.Obj(K.Hp, _ctx.Run[K.Hp]?.DeepClone(), K.Mana, _ctx.Run[K.Mana]?.DeepClone()));
+            if (MultiUse) _rested = true; else Left = true;
+            return Js.Obj(K.Op, LV.RestAction, LK.Preview, (JToken)preview ?? Js.Null(), LK.Heal, r[LK.Heal], K.Mana, r[K.Mana], K.Hp, r[K.Hp],
+                K.MaxHp, r[K.MaxHp], LK.ManaAfter, r[LK.ManaAfter]);
+        }
+
+        /// <summary>One flask charge moved into (step &gt; 0) or out of <paramref name="kind"/>; the model picks the partner.</summary>
+        public JObject MoveFlask(string kind, double step)
+        {
+            if (!Services.Is(K.Flasks)) return Js.Obj(K.Op, LV.FlaskAction, LK.Refused, LV.ServiceRefusal);
+            var charges = _ctx.Run.Obj(K.FlaskCharges);
+            var row = GraceRefill.Plan(_ctx.Data, charges).First(r => r.Kind == kind);
+            var allowed = step > 0 ? row.CanAdd : row.CanSub;
+            if (!allowed) return Js.Obj(K.Op, LV.FlaskAction, LK.Refused, LV.EdgeRefusal);
+            var partner = step > 0 ? row.Donor : row.Receiver;
+            if (step > 0) GraceRefill.Move(_ctx.Data, charges, partner, kind);
+            else GraceRefill.Move(_ctx.Data, charges, kind, partner);
+            return Js.Obj(K.Op, LV.FlaskAction, LK.Charges, charges.DeepClone());
+        }
+
+        /// <summary>
+        /// The level card's Assign: <paramref name="assigned"/> points per attribute (at most the points waiting), committed
+        /// one applyLevelUp at a time in the attribute table's order.
+        /// </summary>
+        public JObject AssignPoints(JObject assigned)
+        {
+            var d = _ctx.Data;
+            if (!(LevelPoints.Waiting(_ctx.Run) > 0 && Services.Is(WK.LevelUp))) return Js.Obj(K.Op, LV.LevelAction, LK.Refused, LV.OfferRefusal);
+            var pending = new JObject();
+            foreach (var attr in CreationStats.OrderedAttributes(d.Run)) pending[attr.Str(K.Id)] = Js.N(Js.Or0(assigned?[attr.Str(K.Id)]));
+            foreach (var p in pending.Properties().ToList())
+                for (var i = 0; i < Js.D(p.Value); i++) LevelPoints.Apply(d, _ctx.Run, p.Name);
+            return Js.Obj(K.Op, LV.LevelAction, LK.Assigned, pending, WK.Points, _ctx.Run.Obj(K.Level)[RK.UnspentPoints]?.DeepClone());
+        }
+
+        /// <summary>The smith services this stay offers (the table's, else the upgrade alone), or none without the smith tag.</summary>
+        public List<string> OfferedServices() =>
+            !Services.Is(LK.Smith) ? new List<string>()
+                : Smith?[LK.Services] is JArray list ? list.Select(Js.Str).ToList() : new List<string> { LV.UpgradeService };
+
+        /// <summary>Why no Smith upgrade can be committed here ('none' — not offered or nothing to promote; 'stones'), or null.</summary>
+        public string SmithRefusal()
+        {
+            if (!OfferedServices().Contains(LV.UpgradeService)) return LV.NoneRefusal;
+            var plan = ItemSmithing.Plan(_ctx.Data, _ctx.Run);
+            if (plan.Candidates.Count == 0) return LV.NoneRefusal;
+            return plan.Candidates.Any(c => c.Affordable) ? null : LV.StonesRefusal;
+        }
+
+        /// <summary>Smith: one item promoted a tier (commitSmithing), ending a single-use stay.</summary>
+        public JObject SmithItem(string itemRef)
+        {
+            var refusal = SmithRefusal();
+            if (refusal != null) return Js.Obj(K.Op, LV.SmithAction, LK.Refused, refusal);
+            var receipt = ItemSmithing.Commit(_ctx.Data, _ctx.Run, itemRef);
+            if (!MultiUse) Left = true;
+            return Js.Obj(K.Op, LV.SmithAction, K.ItemRef, receipt[K.ItemRef], LK.AfterLevel, receipt[LK.AfterLevel], LK.Spent, receipt[LK.Spent]);
+        }
+
+        /// <summary>Why no card service can be committed here ('none'), or null.</summary>
+        public string CardServiceRefusal(string service)
+        {
+            if (!OfferedServices().Contains(service)) return LV.NoneRefusal;
+            var plan = service == LV.ExtractService ? CardServices.ExtractionPlan(_ctx.Data, _ctx.Run) : CardServices.InstallPlan(_ctx.Data, _ctx.Run);
+            return plan.Count == 0 ? LV.NoneRefusal : null;
+        }
+
+        /// <summary>Extract: the card lifted out of one mount into the run's deck, ending a single-use stay.</summary>
+        public JObject Extract(string itemRef, string mountKey)
+        {
+            var refusal = CardServiceRefusal(LV.ExtractService);
+            if (refusal != null) return Js.Obj(K.Op, LV.ExtractService, LK.Refused, refusal);
+            var receipt = CardServices.CommitExtraction(_ctx.Data, _ctx.Run, itemRef, mountKey);
+            if (!MultiUse) Left = true;
+            return MountReceipt(LV.ExtractService, receipt);
+        }
+
+        /// <summary>Install: a run-owned deck card seated in an open mount, ending a single-use stay.</summary>
+        public JObject Install(string itemRef, string mountKey, string instanceId)
+        {
+            var refusal = CardServiceRefusal(LV.InstallService);
+            if (refusal != null) return Js.Obj(K.Op, LV.InstallService, LK.Refused, refusal);
+            var receipt = CardServices.CommitInstall(_ctx.Data, _ctx.Run, itemRef, mountKey, instanceId);
+            if (!MultiUse) Left = true;
+            return MountReceipt(LV.InstallService, receipt);
+        }
+
+        private static JObject MountReceipt(string op, JObject receipt) =>
+            Js.Obj(K.Op, op, K.ItemRef, receipt[K.ItemRef], LK.MountKey, receipt[LK.MountKey], K.CardId, receipt[K.CardId], K.InstanceId, receipt[K.InstanceId]);
+
+        /// <summary>
+        /// Leave (the screen's onDone): the place's rules unmount; a legacy-dungeon shrine resolves its node. The caller
+        /// returns to the map.
+        /// </summary>
+        public void Leave()
+        {
+            Properties.UnmountCarrier(_effects.State, V.Player, LV.LocationKind, LocationId);
+            Left = true;
+            if (_ctx.Run.Obj(RK.LegacyDungeon)?.Is(LK.ActiveRest) ?? false) LegacyDungeons.ResolveNode(_ctx.Data, _ctx.Run);
+        }
+    }
+
+    /// <summary>The smith's services at a node kind (shipped model/cardExtraction.js smithServicesAt over smithingRules.js normalizeServices).</summary>
+    public static class SmithServices
+    {
+        /// <summary>
+        /// smithServicesAt(registries, nodeKind, rng) → { nodeKind, offered, rolled, chance, services }: a chance of 100 is a
+        /// promise (no roll), 0 a refusal, anything between one draw on the smith's stream.
+        /// </summary>
+        public static JObject At(LoopContext ctx, string nodeKind)
+        {
+            var rules = Rules(ctx.Data);
+            var row = rules.Obj(LK.OfferedAt)?.Obj(nodeKind);
+            if (row == null) return Js.Obj(LK.NodeKind, nodeKind, LK.Offered, false, LK.Rolled, false, WK.Chance, 0.0, LK.Services, new JArray());
+            var chance = row.Num(WK.Chance);
+            var hundred = ctx.Data.RuleNum(WK.Smithing, LK.CertainChance);
+            var rolled = chance > 0 && chance < hundred;
+            var offered = chance >= hundred || (!(chance <= 0) && ctx.Rng.Chance(Ashen.Generated.RngStream.Smith, (long)(chance * Ashen.Generated.RngAlgorithm.PercentScale)));
+            return Js.Obj(LK.NodeKind, nodeKind, LK.Offered, offered, LK.Rolled, rolled, WK.Chance, chance, LK.Services, offered ? row[LK.Services].DeepClone() : new JArray());
+        }
+
+        /// <summary>normalizeServices(balance.smithing.services): the offer table and the card services' prices, validated.</summary>
+        public static JObject Rules(LoopData d)
+        {
+            var smithing = d.Balance.Obj(WK.Smithing) ?? throw new InvalidOperationException(LM.SmithingRulesNotObject);
+            var raw = smithing[LK.Services];
+            var known = d.RuleList(WK.Smithing, LK.ServiceIds);
+            var hundred = d.RuleNum(WK.Smithing, LK.CertainChance);
+            if (Js.Nullish(raw)) return d.RuleObj(WK.Smithing, LK.InertServices);
+            if (!(raw is JObject source)) throw new InvalidOperationException(LM.ServicesNotObject);
+            if (!(source[LK.OfferedAt] is JObject offeredRaw)) throw new InvalidOperationException(LM.OfferedAtNotObject);
+            var offeredAt = new JObject();
+            foreach (var entry in offeredRaw.Properties())
+            {
+                if (entry.Name.Length == 0) throw new InvalidOperationException(LM.OfferedAtEmptyKind);
+                if (!(entry.Value is JObject spec)) throw new InvalidOperationException(RunJs.Fmt(LM.OfferedAtRowNotObject, entry.Name));
+                var chance = spec[WK.Chance];
+                if (!Js.IsInt(chance) || Js.D(chance) < 0 || Js.D(chance) > hundred) throw new InvalidOperationException(RunJs.Fmt(LM.OfferedAtChance, entry.Name));
+                if (!(spec[LK.Services] is JArray services) || services.Count == 0) throw new InvalidOperationException(RunJs.Fmt(LM.OfferedAtServices, entry.Name));
+                var seen = new HashSet<string>(StringComparer.Ordinal);
+                foreach (var s in services.Select(Js.Str))
+                {
+                    if (!known.Contains(s)) throw new InvalidOperationException(RunJs.Fmt(LM.UnknownSmithService, entry.Name, s));
+                    if (!seen.Add(s)) throw new InvalidOperationException(RunJs.Fmt(LM.SmithServiceTwice, entry.Name, s));
+                }
+                offeredAt[entry.Name] = Js.Obj(WK.Chance, chance.DeepClone(), LK.Services, services.DeepClone());
+            }
+            var out_ = Js.Obj(LK.OfferedAt, offeredAt);
+            foreach (var service in new[] { LV.ExtractService, LV.InstallService })
+            {
+                if (!(source[service] is JObject row)) throw new InvalidOperationException(RunJs.Fmt(LM.ServicePriceNotObject, service));
+                if (!Js.IsInt(row[K.Cost]) || row.Num(K.Cost) < 0) throw new InvalidOperationException(RunJs.Fmt(LM.ServicePriceNotInteger, service));
+                out_[service] = Js.Obj(K.Cost, row[K.Cost].DeepClone());
+            }
+            foreach (var p in source.Properties())
+                if (p.Name != LK.OfferedAt && p.Name != LV.ExtractService && p.Name != LV.InstallService) throw new InvalidOperationException(RunJs.Fmt(LM.ServicesUnknownKey, p.Name));
+            return out_;
+        }
+    }
+}

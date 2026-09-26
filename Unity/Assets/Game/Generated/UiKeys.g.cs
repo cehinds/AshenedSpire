@@ -92,5 +92,11 @@ namespace Ashen.Generated
         public const string Enemy = "enemy";
         public const string ReducedMotion = "reducedMotion";
         public const string RefusalTooltip = "refusalTooltip";
+        public const string Rewards = "rewards";
+        public const string RelicArt = "relicArt";
+        public const string ArmamentArt = "armamentArt";
+        public const string FlaskArt = "flaskArt";
+        public const string FlaskArtPrefix = "flaskArtPrefix";
+        public const string ModifierTokens = "modifierTokens";
     }
 }

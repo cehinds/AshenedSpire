@@ -110,6 +110,15 @@ namespace Ashen.Domain.Combat
         public JObject SkillXp = new JObject();
         public JArray CoreTags = new JArray();
 
+        /// <summary>The run-level door's heal scale (engine/actions.js createRunContext healMult: a rest's custom mod × restHealMult); a fight never sets it and reads 1.</summary>
+        public double HealMult = 1;
+
+        /// <summary>
+        /// The run-level door's run opcodes (engine/actions.js runRunOpcode): returns true when it ran the opcode. A fight
+        /// carries none, so a run opcode inside a fight is an unknown opcode, as shipped.
+        /// </summary>
+        public System.Func<CombatState, CombatAction, JObject, bool> RunOpcodes;
+
         /// <summary>ownerKey → (sourceKey → mount), both insertion-ordered.</summary>
         public OrderedMap<OrderedMap<PropertyMount>> PropertyMounts;
 

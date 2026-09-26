@@ -287,14 +287,23 @@ namespace Ashen.Tests
         }
 
         [Test]
-        public void AFinishedFightIsCheckpointedWithItsResult()
+        public void AFinishedFightIsCheckpointedAtItsRewardsOrClearedByADeath()
         {
             var session = NewFight(Default, 1);
             for (var i = 0; i < 400 && !session.Combat.IsOver; i++) session.Execute(NextCommand(session.Combat.State));
             Assert.That(session.Combat.IsOver, Is.True, "the bot finishes the fight");
+            Assert.That(session.FightFinished, Is.True, "the post-combat door ran with the last command");
             var loaded = RunSession.Load(Default, _saves, 1, Clock);
-            Assert.That(loaded.Session.Combat.IsOver, Is.True);
-            Assert.That(loaded.Session.Combat.State.Result, Is.EqualTo(session.Combat.State.Result));
+            if (session.Combat.State.Result == CombatValues.Victory)
+            {
+                Assert.That(loaded.Session.IsInCombat, Is.False, "the save no longer holds the fight");
+                Assert.That(loaded.Session.HasPendingReward, Is.True, "it holds the rolled rewards");
+                Assert.That(loaded.Session.StateHash(), Is.EqualTo(session.StateHash()));
+            }
+            else
+            {
+                Assert.That(loaded.Status, Is.EqualTo(RunLoadStatus.Empty), "a death clears the slot");
+            }
         }
     }
 }

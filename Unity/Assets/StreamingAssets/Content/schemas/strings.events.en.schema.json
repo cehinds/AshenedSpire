@@ -1,0 +1,20 @@
+{
+  "$id": "strings/events.en.json",
+  "type": "object",
+  "properties": {
+    "events.refusal.cinders": {
+      "type": "string"
+    },
+    "events.refusal.history": {
+      "type": "string"
+    },
+    "events.refusal.unknownChoice": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "events.refusal.cinders",
+    "events.refusal.history",
+    "events.refusal.unknownChoice"
+  ]
+}

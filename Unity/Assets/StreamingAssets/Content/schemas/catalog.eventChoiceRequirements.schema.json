@@ -1,0 +1,69 @@
+{
+  "$id": "catalog/eventChoiceRequirements.json",
+  "type": "object",
+  "additionalProperties": {
+    "type": "array",
+    "items": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "all": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "choiceId": {
+                "type": "string"
+              },
+              "eventId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "choiceId",
+              "eventId"
+            ]
+          }
+        },
+        "any": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "choiceId": {
+                "type": "string"
+              },
+              "eventId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "choiceId",
+              "eventId"
+            ]
+          }
+        },
+        "none": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "choiceId": {
+                "type": "string"
+              },
+              "eventId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "choiceId",
+              "eventId"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

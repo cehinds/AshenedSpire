@@ -2,6 +2,175 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-11.1–us-11.3, pf-06: W-08 rewards and the F1 loop closed (feature/first-fight/us-11.2, 2026-09-26)
+
+**Landed**
+- **Merged `origin/feature/run-loop/main`, then `origin/dev` 0.1.12.0** (the run loop and shop/events integrated) into the story branch, and W-08 is built on its `RewardDoor` and `RunLoop.EndCombat` (D-078w). An earlier `Ashen.Domain.Rewards.RewardClaims` port was dropped as a duplicate before commit; its oracle now verifies `RewardDoor`.
+- **Claims parity:** `Tools/oracle-claims.mjs` is a faithful harness of `reward.js`' run-writing handlers plus `main.js` onDone/collectArmament, over the real shipped model functions. Its inputs are the 102 pending-reward checkpoints in `Oracle/rewards`, run through 356 scripts: claim each row, auto and manual sweeps, partial then reload then auto, a blocked belt and bag with Skip, a spent draft and a duplicate armament. The files are in `Oracle/claims` (8 MB); a self-check replays each script byte-identically.
+- **Application (`Ashen.App.Run`):**
+  - `RunSession` runs the post-combat door with the command that ends the fight (D-081w). A win saves at the rewards (`location: rewards`); a death writes the profile's run record and clears the slot.
+  - `Door`, `ClaimReward`, `SkipReward` and `FinishRewards` each save at once (PF-06 "reward claimed"). A failed save restores the run and the profile.
+  - The `rewardCollect` and level-up dials come from the profile, then the preset (D-080w).
+  - After Continue the save is at `location: map` (D-082w). The run has main.js newRun's additions (D-083w), and `run.streamCounters` is stamped on saves outside a fight.
+  - `ProfileStore` is the profile slot.
+  - `RewardsView` is the W-08 display data: rows, states, sentences, picks, icons, the head count, the waiting choice and the Continue hint (D-085w). It also holds `rewardClaimStatus` and the claim refusals.
+- **Presentation:**
+  - **W-08 `screen:rewards`** (W1t):
+    - The head reads "{claimed} of {total} claimed", with no close control.
+    - Reward rows have an icon or glyph, a title, a body and a state chip. A blocked row has Skip.
+    - The claim-status column lists every row and the waiting choice; it stacks below the list on narrow screens.
+    - The pick sub-state has its own focus mode (`focusModes.pick`): three CardViews (larger in compact, art hidden) or class-tree node tiles. Select, then Confirm; Back; Skip on the card offer only.
+    - Continue is full width: gold while rows are open, with a door stating what the setting will do; green with "✓ All claimed" once everything is resolved (D-084w).
+    - Refusals come from `strings rewards.refusal.*` at the control that asked. Escape leaves the pick, else opens W-20. Pad Start opens W-20.
+    - Save & quit on W-08 checkpoints and returns to the title.
+  - **W-07 end state:** a win shows [Claim rewards] (green, focused) and opens W-08; a death shows "Your climb has ended. Slot n is free again." with only [Return to title].
+  - **Resume:** title Continue and W-03 Load land on W-08 when the slot holds a pending reward. A post-reward slot refuses with the later-build note.
+- **Data:**
+  - strings `rewards.*`, `confirm.rewardLeave.*`, and the combat end strings and glyphs;
+  - `ui/screens.json#rewards` (built) and the confirms `rewardLeaveAuto`/`rewardLeaveManual`;
+  - `ui/components.json#rewards` (icon templates, relic modifier tokens) and `art.include` (relic icons, armament icons, flasks);
+  - reward tokens and `rules/runFlow.json#newRun`, with schemas extended by hand;
+  - codegen names in `ui.json` and `runflow.json`.
+- **Screenshots:** the new fixtures are rewards (4 sizes), rewards_partial, rewards_pick and rewards_draft (3 sizes each), and rewards_done (1280×720 only); combat_end was recaptured. That is 17 PNGs.
+
+**Tests**
+- **Claims parity:** `RewardClaimsParityTests` (104 tests) replays the 102 claim files through `RewardDoor`, strictly, and checks a coverage tally and the session's refusals.
+  - Mutation check: four corruptions each failed exactly one test, and the failure named the path. They were an expected run's cinders, the order of two expected run keys, one take's `ok`, and one RNG counter. Each file was restored byte for byte (sha256 checked).
+- **`RewardsSessionTests`** (7):
+  - the smoke seed wins the first fight with a card offer and a flask;
+  - a win resumes at the rewards, and the cinders are granted once;
+  - claims, skips and refusals are saved and never applied twice across a reload;
+  - manual Continue leaves the rest and resumes at the map;
+  - auto takes every unskipped row;
+  - a death writes the profile's record and clears the slot;
+  - the view reads all 102 recorded offers (every kind) with resolved titles and picks.
+- `RunSessionTests` has a new test in place of the old finished-fight one: a finished fight is checkpointed at its rewards, or cleared by a death. `FirstFightUiTests` now expects W-08 built with its pick focus mode, and the act map still planned.
+- **PlayMode `FirstFightSmokeTests`** extends the F1 flow: … → the fight won (seed pinned through `RunFlow.SeedOverride`) → the end state → Claim rewards → W-08.
+  - The cinders are taken on arrival.
+  - The card offer is claimed: the keyboard opens the pick, Submit selects, a synthesized pointer release on the last card moves the selection, and Confirm takes it; the deck gains it.
+  - The flask is claimed with the pad.
+  - Escape opens pause, then Save & quit (hold) → title → Continue → the load door → W-08 with the same claim count and row states, and the card not granted twice.
+  - Continue → title; the slot then holds no pending reward and is at `location: map`.
+  - A second test, **defeat**, ends every turn: the run is closed out, the slot cleared, no rewards are offered, and the title's Continue is disabled.
+- **Results:**
+  - dotnet 1977/1977 after the dev 0.1.12.0 merge (1325 before it);
+  - Unity EditMode 1978 passed, 1 explicit skipped (the seed search), after the merge;
+  - PlayMode 3 passed, 1 skipped (capture);
+  - `codegen --check`, `check-content`, `transform-content --check` and `check-docs` green.
+
+**Review** (own screenshot review against W-08; fixed and recaptured):
+- the pick cards stayed at hand-card size (the kit's `.cardview` rule won; the selector is now scoped);
+- at 844×390 the claim column squeezed its names to one letter per line (the rows stack name over state there), and the compact cards overflowed their text once the physical minimum raised it (larger compact cards, art hidden);
+- a focused ready Continue lost its green (the focus glow now sits on top of the green inside W-08).
+- The minimum text size holds, nothing overlaps, and focus is visible on rows, cards, tiles and Continue at all sizes.
+
+**Not verified / open**
+- **D-079w needs an owner ruling** (arrival cinders vs US-11.1).
+- Relic sentences bind property-rule numbers by op, not by variable (D-085w); a mismatched token keeps its braces.
+- Not built:
+  - the 'new' markers;
+  - the progression panel (XP gains);
+  - the inspect door for flask, armament and relic;
+  - a skill-draft (card) pick capture (the draft fixture is a class draft);
+  - boss rewards' `advanceAct`;
+  - W-15 run end.
+- **Mouse:** only card selection is exercised by a synthesized pointer event; buttons are driven by keyboard and pad.
+- `custom` is omitted from new runs until fights enter through the run loop (D-083w).
+
+**Next:** W-06 act map and the run-loop screens (rest, merchant, events) on the ported domain; W-15 run end.
+
+## us-8.1, us-8.3–8.6, us-4.4–4.9, us-13.1, us-13.2: the run loop with shipped parity (feature/run-loop, 2026-09-26)
+
+**Landed**
+- `Ashen.Domain.Loop` (D-089): the run-writing half of the shipped `main.js` controller between fights, ported line by line in the shipped order and on the shipped RNG streams. Scope was taken from V8 precise coverage of the shipped calls (`node Tools/oracle-loop.mjs --coverage`):
+  - travel: `RunLoop.EnterNode` (path, floor, Unknown resolutions, the field camp), `StartFight` (Elite Gauntlet, boss destinations including the causeway's no-seat boss, the recent-encounter window), `EnterCombat` (the createCombat arguments under `CombatMods`: Tough Elites, Dread Bosses, Deadly Foes, Glass Cannon, the seat tier ratio, Endless loops) and `EnterEventCombat`. Merchants and events come back as outcomes for the shop/events stream;
+  - fights' ends: `RunLoop.EndCombat` over `CombatEnd.Apply`, closing a death or the summit out through `RunEnd.Finish`;
+  - the reward door: `RewardDoor` (arrival cinders, auto and manual Continue with the pick on `cardRewards`, drafts via `pickClassNode`/`spendSkillDraft`, flasks and relics with flask growth, `collectArmament` with the profile's found set and discovery receipts, `meta.seen`), then `Acts.Advance` after a boss;
+  - rest places: `RestVisit` over the location carrier (tags from tagging, `restMana` resolved by mode, services, `restDenied`, `restHealMult`, Scarce Embers), the arrival's flask refill, `previewRest`, Rest, the flask re-split, level points (`applyLevelUp`), Smith (`ItemSmithing`: plan, commit, restamp, value receipts, `lastSmithingReceipt`), Extract and Install (`CardServices`, `lastMountReceipt`), single-use and multi-use stays;
+  - acts: `Acts.Advance` (full or halved heal, the next seat's map, Endless content loops);
+  - legacy dungeons: `LegacyDungeons` (the entrance in place of the boss fight, rooms, dialogue with listen/fight/flee on `events`, caches, shrines, retreat, leaving to the summit or the next act) (D-097);
+  - the run's end: `RunEnd.Finish` (`runResult` with the subclass name and the class peak, `recordResult` capped at 20, `recordProgress`, `evaluateUnlocks`) (D-092).
+- Combat port: smithed card faces resolve (`ItemUpgrades`, D-096); the run-level context hooks `HealMult`/`RunOpcodes` and the location carrier mount (D-093). Run port: `RunCombat.Arguments` (combat modifiers) and `StartingDeck.ItemMountInstances`. Rewards port: `CombatEndOptions.DungeonResolver`, `BeginPendingReward` made public.
+- Content: `rules/loopEngine.json` (hand-written, schema inferred, in the manifest) and the item-upgrade vocabulary in `rules/combatEngine.json`. Names: `Tools/codegen.d/loop.json` via `Tools/loop-keys.mjs` (169 keys, 68 values, 60 messages), reusing the combat, run, map and rewards names. `RuntimeRegistries.ToLoopData`.
+- `Tools/oracle-loop.mjs` (D-090): 108 sequences and 14,983 steps.
+  - 2,383 fight entries: 62 summit victories, 31 deaths, 5 Endless runs capped at act 5; all ten boss encounters, the causeway boss 29 times.
+  - 3,079 reward doors (auto and manual), 126 act advances.
+  - 740 rest stays: 340 Rests, 182 Smith commits (7 on armour), 22 extractions, 12 installs, 182 flask moves, 138 level assignments, 73 relic-denied Rests.
+  - 91 legacy dungeons (all three) with 1,025 dungeon steps.
+  - Regenerations are byte-identical. Size: 12 MB.
+
+**Tests**
+- `RunLoopParityTests`:
+  - 108 sequence cases. Each checked step starts from the recorded documents (run, RNG counters, profile); its outcome and the three documents after it must equal the shipped ones strictly (presence, values and key order). Fights are replayed from their command logs in `CombatEngine`;
+  - an oracle-presence test (tally floors per door and outcome);
+  - a deferred-paths test (journey travel and rest, and the legacy refill, throw by name).
+- Mutation check (each file restored byte for byte, sha256 checked):
+  - the recent-encounter trim `>` changed to `>=` failed 98 sequences at `$.lastEncounters`;
+  - ignoring the rest heal scale failed 34 at `receipts[..].preview.heal`;
+  - the flee roll on `misc` instead of `events` failed 35 at the dungeon receipt's roll text or action;
+  - swapping two run-record keys failed 108;
+  - a corrupted profile patch in the oracle failed exactly that sequence, at `$.seen.flasks[0]`.
+- dotnet 1,188/1,188, enforcement included; `codegen --check`, `check-content`, `transform-content --check` and `check-docs` green.
+
+**Not verified**
+- Unity EditMode (the UI stream owns Unity).
+- The reward door's tap path (`Take`/`Skip`) is not in the oracle (D-098).
+- Settings resolution is the caller's (`LoopSettings`).
+- Chains are checked step by step from the recorded documents, not as one uninterrupted C# run.
+
+**Deferred**
+- World Journey (D-091); the legacy flask-slot refill (D-094); the run-level opcodes beyond `refillFlasks`, which the shop/events stream owns (D-093); a `rules/victory.json` and a lit-towers ledger (D-095).
+- Shipped defects recorded, not fixed (D-099).
+
+**Next**
+- Integration with the shop/events stream (one `executeRunEffects` context).
+- The UI binds `NodeOutcome`, `CombatOutcome`, `RewardDoor`, `RestVisit` and `RunEndReceipt`.
+## us-10.1, us-10.2, us-10.3: events with shipped parity (feature/shop-events, 2026-09-26)
+
+**Landed**
+- `Ashen.Domain.Events` (D-084 to D-088), a line-faithful port of the run-writing half of the shipped event door:
+  - `Events.Open`: the event and dialogue screens' facts — the visible choices (model/quests.js `availableEventChoices` over content/events.js `eventChoicesWithHistory`), each with its price (`choiceAffordable`), binding reasons (model/consequence.js, fail closed) and refusal key, the choices history hides, a quest step's speaker with its portrait check, and the head's status;
+  - `Events.Choose`: engine/quests.js `commitEventChoice` — the three refusals, then the choice's effects through the run-level door (`RunEffects.Execute`, engine/actions.js `executeRunEffects` over a player facade on the combat interpreter: cinders, cards in and out with attack slots retired, card upgrades through the merchant's smithing, relics, flasks, flask capacity, max HP, fights, the class swap, and damage/heal/loseHp through the facade), the history row and quest completion at most once per quest;
+  - `Events.Finish`: main.js onDone — a fight the choice started leaves `run.combatEntered` and is returned as its encounter id for the run loop's enterCombat;
+  - model/classSwap.js `swapRunClass` (the Turncoat's Mirror): class tracks reset, tree picks pruned, armour the new class cannot wear set aside, the deck restamped, a `classSwapped` history row, the zones projection.
+- Content: `rules/eventsEngine.json` and `strings/events.en.json` (hand-written, schema'd, in the manifest); `catalog/eventChoiceRequirements.json` exported from the shipped content/events.js; the speakers catalog is now a runtime registry; `RuntimeRegistries.ToEventsData`.
+- Names through `Tools/shop-keys.mjs`: 35 event keys, 32 values, 24 messages and the EventStringKeys table, reusing the shop, combat, run, rewards and map names.
+- `Tools/oracle-events.mjs` records 420 sessions on the shipped and reference presets: the sweep (every one of the 25 events' 71 choices, opened and shut: 284), walks (19 run variants — purses, low HP, upgraded and smithed-out decks, owning every relic, each quest step taken, a completed quest, a looted cart, a malformed history row, a class ready to swap, carried armaments, act 3 — × 2 classes × 8 visits: 76) and 60 run-effect lists. 808 commits (every event × choice), 84 refusals (all three keys), 75 fights handed on. Byte-identical on re-run. V8 block coverage over the 27 ported functions: 125 of 218 blocks ran; the rest are defaults on present content (17), throws on malformed content or state (16), the malformed-requirement and malformed-ref validation the shipped content never triggers, combat opcodes the run door never receives from events (parity-tested in combat), the foundation ruleset the shipped game does not create, and the deferred `refillFlasks` and scripts.
+
+**Tests**
+- `EventsParityTests`, 425 cases: 360 sessions replayed on content-built data (every view, outcome or refusal, event log, the run after every choice and after onDone, the RNG counters), 60 run-effect lists (run, events, counters; the unknown op throws), the content-built event tables against the shipped registries on both presets, oracle presence, refusal texts and the deferred ops throwing by name.
+- Mutation check (shop and events; each file restored byte for byte, sha256 checked): a cinder value after a purchase, two stock keys swapped, the `shop` counter and a Smithing receipt's balance each failed exactly one shop session, naming the path, the key order or the stream; rounding the price multiplier down failed 16. A cinder value after a choice, two view keys swapped, the `misc` counter and a refusal key each failed exactly one event session; removing the cinder floor failed 4.
+- dotnet 1730/1730, enforcement included; `codegen --check`, `check-content`, `transform-content --check` and `check-docs` green.
+
+**Not verified:** Unity EditMode. Malformed requirement groups in content are refused as shipped but not recorded (the shipped content is valid).
+
+**Deferred:** `refillFlasks` and script effects (D-088); a journey's `atlasQuestAction`.
+
+**Next:** the event and dialogue screens (W1u, W4c) over `Events.Open`/`Choose`/`Finish`; the run loop calls `Events.Open` from enterNode for an Unknown node's event.
+
+## us-9.1, us-9.2, us-9.3: the merchant with shipped parity (feature/shop-events, 2026-09-26)
+
+**Landed**
+- `Ashen.Domain.Shop` (D-078 to D-083), a line-faithful port of the run-writing half of the shipped merchant:
+  - main.js enterNode `'merchant'` and `shopPriceMult`: the stock on the `shop` stream (engine/encounters.js `buildShopStock`, `rollShopCards`), the Greedy Merchants / Hoarder multiplier on cards, relics, flasks and the removal, and the smith's roll on the `smith` stream, all stored on `run.shopStock` (it persists with the run);
+  - the shop screen's handlers (ui/screens/shop.js), UI-free: buy card / relic (with `syncFlaskGrowth`) / flask (flask belt cap), armament and weapon-art trades with inert quotes and revalidating commits (model/armamentTrading.js), the card burn with its rising price (model/cardRemoval.js, attack slots retired in order), the sell shelf behind `shopSell` (relics, flasks, armaments), and Leave;
+  - the smith the merchant keeps: `smithingPlan`/`commitSmithing` with exact card receipts (model/smithing.js), the service table (model/smithingRules.js `normalizeServices`, closing D-065) and `extractionPlan`/`installPlan`/`commitExtraction`/`commitInstall` (model/cardExtraction.js with `mountRows` and `itemMountInstances`);
+  - `Shop.View`: every offer with its price and availability, the burn grid's cards, the smith's candidates and the sell shelf.
+- Smithed card faces now resolve in combat (`Cards.Resolve` applies the tier rows; D-080).
+- Content: `rules/shopEngine.json` and `strings/shop.en.json` (hand-written, schema'd, in the manifest); `rules/combatEngine.json#itemUpgrades` gains the tag grammar lists; `catalog/eventChoiceRequirements.json` is exported from the shipped content/events.js (for the events story). `RuntimeRegistries.ToShopData` builds the merchant's data from content.
+- Names from `Tools/codegen.d/shop.json` via the new `Tools/shop-keys.mjs` (covering Shop and Events): 102 keys, 36 values, 27 messages and the ShopStringKeys table, with combat, run, rewards and map names reused.
+- `Tools/oracle-shop.mjs` records 208 sessions (4 classes × 26 run variants × the shipped and reference presets) × 14 steps: purses, relics, full and part flask belts, full and part inventories, Smithing Stones, emptied, worked and carried mounts, smithed items, legacy armament levels, removals bought, a thin deck, Greedy Merchants / Hoarder / Ascension, the sell toggle off, no loadout, a fractional purse, edited shelves and acts 1–3. Accepted: every action kind (buy card 152, relic 92, flask 130, armament 96, weapon art 96, burn 146, sell relic 21 / flask 22 / armament 19, smith upgrade 82 / extract 35 / install 31, leave 72); refused: every strings/shop.en.json key but the two a shop can never reach (`noTrader`, `notBuying`), plus the screen's three availability ids. Byte-identical on re-run. V8 block coverage over the 62 ported functions: 278 of 400 blocks ran; of the 122 that did not, 49 are defaults on always-present content, 35 are throws on malformed content or state, and the rest are features the shipped content does not author (card-cost upgrade tags, extra mounts, armour mounts, smith chances of 0 or 100, a missing services table) or nulls unreachable by construction.
+
+**Tests**
+- `ShopParityTests`, 211 cases: the 208 sessions replayed on content-built data for their preset — the stock, every receipt or refusal, the run document after every step (strict: presence, values, key order), the shop view and the RNG counters (no shop action draws); an oracle-presence test (both presets, every action kind accepted, every reachable refusal key recorded); every refusal key resolves to text; the deferred journey shop throws by name.
+- Mutation check: in the us-10.1 entry.
+- dotnet 1305/1305, enforcement included; `codegen --check`, `check-content`, `transform-content --check` and `check-docs` green.
+
+**Not verified:** Unity EditMode. The shipped merchant's role-source branch of `sourceArmamentId` (a role instance with no source key) and the legacy level conflict are ported but not recorded.
+
+**Deferred:** a World Journey's atlas shop service (D-083).
+
+**Next:** the shop screen (W1d) over `Shop.View`/`Shop.Execute`; the run loop calls `Shop.Open` from enterNode.
 ## us-2.1 (Class pane), us-5.1–us-5.10, us-6.x display, us-17.1, pf-06: F1 first fight, pause and resume (feature/first-fight, 2026-09-26)
 
 **Landed**

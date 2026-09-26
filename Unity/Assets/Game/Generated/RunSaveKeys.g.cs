@@ -13,5 +13,6 @@ namespace Ashen.Generated
         public const string Name = "name";
         public const string Portrait = "portrait";
         public const string Playtime = "playtimeSeconds";
+        public const string After = "after";
     }
 }

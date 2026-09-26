@@ -135,3 +135,93 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: a7e7149aeefffc44d889ff8a74f3490f, type: 3}
   - id: env.pale-marches-combat
     texture: {fileID: 2800000, guid: 8495c67d01c9a404692496c80a1d79fc, type: 3}
+  - id: equipment.icon.ashStaff
+    texture: {fileID: 2800000, guid: 24aad20eaf4699a4b9c9da8d6572a946, type: 3}
+  - id: equipment.icon.battleaxe
+    texture: {fileID: 2800000, guid: 823f30c25bdd1814d870c612e8fadbd6, type: 3}
+  - id: equipment.icon.blightRod
+    texture: {fileID: 2800000, guid: 584ab1c905f2d5648a583a9f02e973d8, type: 3}
+  - id: equipment.icon.boneSceptre
+    texture: {fileID: 2800000, guid: c134c0244c6d069428c5a3d8e8d5004d, type: 3}
+  - id: equipment.icon.buckler
+    texture: {fileID: 2800000, guid: d2b423479ff387b4782a73fb46b5cd1d, type: 3}
+  - id: equipment.icon.dagger
+    texture: {fileID: 2800000, guid: 0b0a0a7596d1dee4abb3eddc289c951d, type: 3}
+  - id: equipment.icon.emberlightSceptre
+    texture: {fileID: 2800000, guid: b84d2ef5cc82ca14b8a7cb4885552c41, type: 3}
+  - id: equipment.icon.goldboughBranch
+    texture: {fileID: 2800000, guid: 33d63fdd04d39d74cac54b79d9a876fd, type: 3}
+  - id: equipment.icon.gorefireBrand
+    texture: {fileID: 2800000, guid: 2a108028651bd2b478ba51a1567f816b, type: 3}
+  - id: equipment.icon.greatsword
+    texture: {fileID: 2800000, guid: 729e44866259031448f12314dcd0ee19, type: 3}
+  - id: equipment.icon.gutterLeathers
+    texture: {fileID: 2800000, guid: 34108116f0220f34a93ece94a3671d7f, type: 3}
+  - id: equipment.icon.halberd
+    texture: {fileID: 2800000, guid: 047df057222764349b6c10bbe47a8ecc, type: 3}
+  - id: equipment.icon.katana
+    texture: {fileID: 2800000, guid: 16c8f06cbeffa6841b9183205d2a8e3f, type: 3}
+  - id: equipment.icon.kiteShield
+    texture: {fileID: 2800000, guid: 345dd610c73437948807914632324d9e, type: 3}
+  - id: equipment.icon.kiteShieldInventory2026
+    texture: {fileID: 2800000, guid: 433bfeb909a1ed4428dd6ccb32cf366d, type: 3}
+  - id: equipment.icon.lantern
+    texture: {fileID: 2800000, guid: 089fa6419d33e884d8cc17fe63661736, type: 3}
+  - id: equipment.icon.nightweave
+    texture: {fileID: 2800000, guid: fc95eaafb56cb0447931af7472ce5b72, type: 3}
+  - id: equipment.icon.parryDagger
+    texture: {fileID: 2800000, guid: 44c2c2edbbdb4c04cadd160737e22158, type: 3}
+  - id: equipment.icon.riteVestments
+    texture: {fileID: 2800000, guid: 6c6a5f8cb5d23bb4cb7269c0566cfe2e, type: 3}
+  - id: equipment.icon.roundShield
+    texture: {fileID: 2800000, guid: ee53ccae2eb55b0498dd21f8a755f03e, type: 3}
+  - id: equipment.icon.shortbow
+    texture: {fileID: 2800000, guid: f73ebfbebc74697409c8c93a4736e0b5, type: 3}
+  - id: equipment.icon.spikedShield
+    texture: {fileID: 2800000, guid: 334991f4b80ee0048af8cbc9f1a85026, type: 3}
+  - id: equipment.icon.starstoneStaff
+    texture: {fileID: 2800000, guid: 6fbc01d60fcbc8c4db9ba3dedf827274, type: 3}
+  - id: equipment.icon.straightSword
+    texture: {fileID: 2800000, guid: 6785f32fa70386b45b0cff38f850cc28, type: 3}
+  - id: equipment.icon.straightSwordInventory2026
+    texture: {fileID: 2800000, guid: 5b461566aa2a66f42a8adc401f24bde1, type: 3}
+  - id: equipment.icon.torch
+    texture: {fileID: 2800000, guid: 7ae16c4d36f47fd41b9f13f9eebd87d5, type: 3}
+  - id: equipment.icon.towerShield
+    texture: {fileID: 2800000, guid: 84f105fd10c11314a8fb1b1e7e3f533e, type: 3}
+  - id: equipment.icon.twinblade
+    texture: {fileID: 2800000, guid: ed0dceea7f76b174cb4fb8352edb981f, type: 3}
+  - id: equipment.icon.warhammer
+    texture: {fileID: 2800000, guid: ac30680deaa8d5441a8b7ebb8e8ef29e, type: 3}
+  - id: equipment.icon.wayfarerPlate
+    texture: {fileID: 2800000, guid: 8fa0fe6d568fad949a53a56d4831051c, type: 3}
+  - id: equipment.icon.wyrmhornStaff
+    texture: {fileID: 2800000, guid: 6a82ff1ae4785d14ab1de4a1abe5505c, type: 3}
+  - id: flask.azure
+    texture: {fileID: 2800000, guid: 1b9406248228d9a409289bf5d3390246, type: 3}
+  - id: flask.crimson
+    texture: {fileID: 2800000, guid: f8712100abab6a948ad31242123e7e21, type: 3}
+  - id: relic.blessedDew.icon128
+    texture: {fileID: 2800000, guid: b39657e9957156242845949311302b8c, type: 3}
+  - id: relic.bloodstainedChalice.icon128
+    texture: {fileID: 2800000, guid: 7ffd0d2a3d162654aa7e6da51ab60cfa, type: 3}
+  - id: relic.crackedLantern.icon128
+    texture: {fileID: 2800000, guid: 3cc16f242466a1e498b857489bf68d16, type: 3}
+  - id: relic.crownOfStitches.icon128
+    texture: {fileID: 2800000, guid: 2c99486307789a9429dfddff7aceafff, type: 3}
+  - id: relic.cutpursesCoin.icon128
+    texture: {fileID: 2800000, guid: 10aec2a381c31a546abe361c7b3ba1fe, type: 3}
+  - id: relic.forsakenMedallion.icon128
+    texture: {fileID: 2800000, guid: 905fb6cabbe1a854bb869082b8eeb2f7, type: 3}
+  - id: relic.goldFigurine.icon128
+    texture: {fileID: 2800000, guid: e08ad3dc4e8c5194b9e37d2867391fb2, type: 3}
+  - id: relic.goldenSprout.icon128
+    texture: {fileID: 2800000, guid: e3a3aacd86c4f38499bed60abff29c11, type: 3}
+  - id: relic.gravetendersBell.icon128
+    texture: {fileID: 2800000, guid: 69fdd25390c074c46a6789ffd47b17d7, type: 3}
+  - id: relic.ivoryComb.icon128
+    texture: {fileID: 2800000, guid: d37e119f3d3b4af45b21e0329dc9efea, type: 3}
+  - id: relic.starstoneShard.icon128
+    texture: {fileID: 2800000, guid: cca84eeca5a14174190423180ddc9611, type: 3}
+  - id: relic.wyrmHeart.icon128
+    texture: {fileID: 2800000, guid: fcaf136a148597444b6b989ec69a7ee1, type: 3}

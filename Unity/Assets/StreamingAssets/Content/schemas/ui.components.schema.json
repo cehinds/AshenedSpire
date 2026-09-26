@@ -134,6 +134,52 @@
       "required": [
         "statusChips"
       ]
+    },
+    "rewards": {
+      "type": "object",
+      "properties": {
+        "relicArt": {
+          "type": "string"
+        },
+        "armamentArt": {
+          "type": "string"
+        },
+        "flaskArt": {
+          "type": "string"
+        },
+        "flaskArtPrefix": {
+          "type": "string"
+        },
+        "modifierTokens": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string"
+              },
+              "suffix": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "from",
+              "suffix",
+              "value"
+            ]
+          }
+        }
+      },
+      "required": [
+        "relicArt",
+        "armamentArt",
+        "flaskArt",
+        "flaskArtPrefix",
+        "modifierTokens"
+      ]
     }
   },
   "required": [
@@ -145,6 +191,7 @@
     "comment",
     "handFan",
     "meter",
+    "rewards",
     "tooltip"
   ]
 }

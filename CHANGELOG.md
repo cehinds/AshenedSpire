@@ -2,6 +2,18 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.12.0] — 2026-09-26
+
+Stories: us-8.1, us-4.4, us-4.5, us-4.6, us-4.7, us-4.8, us-4.9
+
+- Run loop (node travel, rest stops, acts, legacy dungeons, victory/death/Endless, run record and unlocks) ported with shipped parity: 108 runs, 14,983 steps
+
+## [0.1.11.0] — 2026-09-26
+
+Stories: us-9.1, us-10.1
+
+- Merchant (stock, purchases, removal, sell, smith) and all 25 events ported with shipped parity
+
 ## [0.1.10.0] — 2026-09-26
 
 Stories: us-2.1, us-5.10, pf-06

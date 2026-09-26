@@ -11,7 +11,7 @@ namespace Ashen.Presentation.UI.Screens
 {
     /// <summary>
     /// Entering a run from the title or W-03 (AF-10 Resume): load the slot through RunSession, open W-07 on the same turn
-    /// and hand, and warn when the log was skipped or diverged (D-017). A slot that cannot be resumed is refused at the
+    /// and hand (or W-08 when the slot holds a pending reward), and warn when the log was skipped or diverged (D-017). A slot that cannot be resumed is refused at the
     /// control that asked, the kit's unreadable-slot path (US-1.4).
     /// </summary>
     public static class RunFlow
@@ -35,14 +35,30 @@ namespace Ashen.Presentation.UI.Screens
                 return;
             }
             var session = result.Session;
+            if (session.HasPendingReward)
+            {
+                ui.Session = session;
+                context.Navigator.Go(ScreenIds.Rewards, new RewardsArgs { Session = session }, true);
+                return;
+            }
+            if (session.Location == RunFlowValues.LocationMap)
+            {
+                // After the rewards the climb goes to the act map, a later build (D-058): the slot is kept and refused here.
+                Refuse(context, anchor, StringKeys.SlotsRefusalLater);
+                return;
+            }
             if (!session.IsInCombat) session.StartEncounter();
             ui.Session = session;
             context.Navigator.Go(ScreenIds.Combat, new CombatArgs { Session = session, ResumeWarning = result.Status == RunLoadStatus.ResumedWithWarning }, true);
         }
 
+        /// <summary>A fixed seed for new climbs (the PlayMode smoke test pins the first fight); null draws a fresh one.</summary>
+        public static uint? SeedOverride;
+
         /// <summary>A new seed for a new climb (the seed is shown on the pause screen and in the slot).</summary>
         public static uint NewSeed()
         {
+            if (SeedOverride.HasValue) return SeedOverride.Value;
             var rng = new System.Random();
             return unchecked((uint)rng.Next() ^ ((uint)rng.Next() << 1));
         }

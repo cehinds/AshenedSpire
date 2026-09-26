@@ -155,5 +155,22 @@ namespace Ashen.Generated
         public const string CombatantStatuses = "COMBATANT_STATUSES";
         public const string PauseSeed = "PAUSE_SEED";
         public const string PauseRows = "PAUSE_ROWS";
+        public const string RewardsBackground = "REWARDS_BACKGROUND";
+        public const string RewardsBody = "REWARDS_BODY";
+        public const string RewardScroll = "REWARD_SCROLL";
+        public const string RewardList = "REWARD_LIST";
+        public const string ClaimStatus = "CLAIM_STATUS";
+        public const string ClaimList = "CLAIM_LIST";
+        public const string ClaimRequired = "CLAIM_REQUIRED";
+        public const string RewardsHint = "REWARDS_HINT";
+        public const string RewardPick = "REWARD_PICK";
+        public const string PickTitle = "PICK_TITLE";
+        public const string PickPrompt = "PICK_PROMPT";
+        public const string PickCards = "PICK_CARDS";
+        public const string PickFooter = "PICK_FOOTER";
+        public const string PickBack = "PICK_BACK";
+        public const string PickSkip = "PICK_SKIP";
+        public const string PickConfirm = "PICK_CONFIRM";
+        public const string RewardsStatus = "REWARDS_STATUS";
     }
 }

@@ -1,0 +1,37 @@
+{
+  "comment": "Merchant engine rules (stream shop-events, us-9.1; the C# port of main.js enterNode 'merchant' and shopPriceMult, engine/encounters.js buildShopStock, ui/screens/shop.js, model/armamentTrading.js, model/cardRemoval.js, model/smithing.js, model/smithingRules.js and model/cardExtraction.js). The shelves' rarities, the Custom Climb price mods, the smith's service vocabulary, the receipt schema versions and the Smithing receipt labels the shipped code kept as constants live here as data. Prices and stock sizes stay in balance.shop; the smith's table in balance.smithing.services. Changing a value changes the merchant; the shop parity oracle pins the shipped values.",
+  "stock": {
+    "cardRarities": ["common", "uncommon", "rare"],
+    "relicRarities": ["common", "uncommon", "rare"],
+    "colorlessClass": "colorless",
+    "priceShelves": ["cards", "relics", "flasks"],
+    "defaultStorageSlots": 8,
+    "defaultExtractableTag": "extractable",
+    "merchantNodeKind": "merchant"
+  },
+  "priceMods": [
+    { "mod": "expensiveShops", "mult": "expensiveShopsMult" },
+    { "mod": "hoarder", "mult": "hoarderShopMult" }
+  ],
+  "smith": {
+    "services": ["upgrade", "extract", "install"],
+    "pricedServices": ["extract", "install"],
+    "serviceKeys": ["offeredAt", "extract", "install"],
+    "inertServices": {
+      "offeredAt": { "shrine": { "chance": 100, "services": ["upgrade"] } },
+      "extract": { "cost": 0 },
+      "install": { "cost": 0 }
+    },
+    "smithingSchemaVersion": 3,
+    "mountReceiptSchemaVersion": 1,
+    "sourceKeys": ["sourceArmamentId", "armamentId", "weaponId"],
+    "openMountStates": ["fallback", "empty", "open"]
+  },
+  "labels": {
+    "cardChange": "{0} {1}",
+    "requirement": "{0} requirement",
+    "poiseThreshold": "Poise threshold",
+    "passives": { "poiseThresholdAdd": "Poise threshold bonus" },
+    "otherPassive": "Power cost reduction"
+  }
+}
