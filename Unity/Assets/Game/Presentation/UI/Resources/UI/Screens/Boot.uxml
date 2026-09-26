@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:VisualElement class="page page--center boot-page">
+        <Ashen.Presentation.UI.LocLabel name="WORDMARK" class="wordmark" string-key="title.wordmark" />
+        <Ashen.Presentation.UI.Kit.Meter name="BOOT_PROGRESS" class="boot-bar" kind="progress" show-value="false" />
+        <Ashen.Presentation.UI.LocLabel name="BOOT_STATUS" class="boot-status kit-text-value" string-key="boot.loading" />
+        <Ashen.Presentation.UI.LocLabel name="BOOT_COUNT" class="caption kit-text-value" />
+    </ui:VisualElement>
+</ui:UXML>

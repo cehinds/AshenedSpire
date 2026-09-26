@@ -1,0 +1,319 @@
+/* Screen layouts (docs/design/04 W-02, W-03, W-23, W-24). Values come only from Tokens.uss variables. */
+
+.page {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.page--center {
+    align-items: center;
+    justify-content: center;
+}
+
+.scrim {
+    background-color: var(--color-scrim);
+}
+
+/* ---- W-24 boot ---- */
+
+.boot-page {
+    background-color: var(--color-scrim-soft);
+}
+
+.boot-bar {
+    width: var(--size-boot-bar-width);
+    margin-top: var(--space-xxl);
+}
+
+.layout-narrow .boot-bar {
+    width: var(--size-slot-list-width);
+}
+
+.boot-status {
+    margin-top: var(--space-lg);
+    color: var(--color-parchment);
+}
+
+/* ---- W-24 content error ---- */
+
+.error-body {
+    white-space: normal;
+    margin-bottom: var(--space-md);
+}
+
+.report-list {
+    flex-grow: 1;
+    background-color: var(--color-bg);
+    border-color: var(--color-line);
+    border-width: var(--border-hairline);
+}
+
+.report-row {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-caption);
+    color: var(--color-danger);
+    white-space: normal;
+}
+
+/* ---- W-02 title ---- */
+
+.title-page {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-xxl) var(--space-xl) var(--space-lg) var(--space-xl);
+}
+
+.title-head {
+    align-items: center;
+    margin-top: var(--space-xl);
+}
+
+.subtitle {
+    margin-top: var(--space-xs);
+    font-size: var(--font-subtitle);
+    color: var(--color-parchment);
+    -unity-font-style: italic;
+}
+
+.title-main {
+    flex-grow: 1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: var(--duration-gate-fade);
+}
+
+.menu {
+    width: var(--size-menu-width);
+}
+
+.menu-item {
+    min-height: var(--size-menu-row-h);
+    margin-bottom: var(--space-sm);
+    background-color: var(--color-scrim-soft);
+}
+
+.save-preview {
+    width: var(--size-preview-width);
+    margin-left: var(--space-xxl);
+    padding: var(--space-lg);
+    background-color: var(--color-shade);
+    border-color: var(--color-gold-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-card);
+}
+
+.no-save .save-preview {
+    display: none;
+}
+
+.preview-row {
+    flex-direction: row;
+    align-items: center;
+    margin-top: var(--space-sm);
+}
+
+.preview-portrait {
+    width: var(--size-portrait);
+    height: var(--size-portrait);
+    margin-right: var(--space-md);
+    background-size: contain;
+    background-color: var(--color-bg-raise);
+    border-radius: var(--radius-chip);
+}
+
+.preview-texts {
+    flex-shrink: 1;
+}
+
+.preview-identity {
+    font-size: var(--font-heading);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.preview-line {
+    margin-top: var(--space-xxs);
+    white-space: normal;
+}
+
+.title-footer {
+    flex-direction: row;
+    align-self: stretch;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ai-disclosure {
+    background-color: var(--color-scrim-soft);
+    border-color: var(--color-transparent);
+    font-size: var(--font-caption);
+    color: var(--color-parchment);
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+}
+
+.gate {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: var(--size-gate-offset);
+}
+
+.gate-active .gate {
+    display: flex;
+}
+
+.gate-active .title-main {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.gate-prompt {
+    font-size: var(--font-heading);
+    color: var(--color-parchment);
+    padding: var(--space-sm) var(--space-xl);
+    background-color: var(--color-scrim-soft);
+    border-radius: var(--radius-card);
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: var(--duration-gate-pulse);
+}
+
+.gate-pulse .gate-prompt {
+    opacity: var(--opacity-gate-dim);
+}
+
+.band-compact .title-page {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-sm);
+}
+
+.band-compact .title-head {
+    margin-top: 0;
+}
+
+.band-compact .title-footer {
+    position: absolute;
+    left: var(--space-md);
+    right: var(--space-md);
+    bottom: var(--space-xs);
+}
+
+.band-compact .subtitle {
+    display: none;
+}
+
+.band-compact .menu-item {
+    margin-bottom: var(--space-xs);
+}
+
+.band-compact .save-preview {
+    width: var(--size-preview-width-compact);
+}
+
+.layout-narrow .title-page {
+    padding: var(--space-xl) var(--space-md) var(--space-md) var(--space-md);
+}
+
+.layout-narrow .title-main {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.layout-narrow .menu-item {
+    min-height: var(--size-menu-row-narrow-h);
+}
+
+.layout-narrow .save-preview {
+    margin-left: 0;
+    margin-top: var(--space-lg);
+    width: var(--size-menu-width);
+}
+
+.layout-narrow .title-footer {
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+/* ---- W-03 slots ---- */
+
+.slot-list {
+    flex-grow: 1;
+}
+
+.empty-state {
+    margin-bottom: var(--space-md);
+    font-size: var(--font-heading);
+    color: var(--color-muted);
+    -unity-text-align: middle-center;
+}
+
+.notice {
+    margin-top: var(--space-sm);
+    font-size: var(--font-caption);
+    color: var(--color-danger);
+}
+
+/* ---- kit review sheet ---- */
+
+.kit-scroll {
+    flex-grow: 1;
+}
+
+.kit-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: var(--space-lg);
+}
+
+.kit-cell {
+    margin-right: var(--space-xl);
+}
+
+.kit-workspace {
+    width: var(--size-kit-workspace-w);
+    min-height: var(--size-kit-workspace-h);
+    margin-right: var(--space-xl);
+}
+
+.kit-pane-text {
+    white-space: normal;
+}
+
+.kit-tooltips {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.kit-tooltips .tooltip {
+    position: relative;
+    margin-right: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+.kit-cards {
+    flex-direction: row;
+}
+
+.kit-hand {
+    flex-grow: 1;
+}
+
+.kit-hold {
+    width: var(--size-button-min-w);
+    margin-left: var(--space-xl);
+    margin-right: var(--space-xl);
+}
