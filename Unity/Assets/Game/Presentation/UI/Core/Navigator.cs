@@ -261,6 +261,14 @@ namespace Ashen.Presentation.UI
             _panel?.focusController?.IgnoreEvent(evt);
         }
 
+        /// <summary>Router Menu (pad Start): the top screen handles it (combat opens pause, pause resumes); nothing happens otherwise.</summary>
+        public void Menu()
+        {
+            var top = Top;
+            if (top == null || !top.Def.AcceptsInput || top.View.InputBlocked) return;
+            top.View.HandleMenu();
+        }
+
         /// <summary>Router Move: next (+1) or previous (-1) in the top screen's focus order.</summary>
         public void MoveFocus(int delta)
         {

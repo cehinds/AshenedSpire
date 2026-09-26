@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: UiArtCatalog
   m_EditorClassIdentifier: Ashen.Presentation::Ashen.Presentation.UI.UiArtCatalog
   entries:
+  - id: bg.bg_act1
+    texture: {fileID: 2800000, guid: 9d68151fc1ff8554995d5e05806b61df, type: 3}
   - id: bg.title-city-tower
     texture: {fileID: 2800000, guid: aa968f431b32e1147bbb6d785069657f, type: 3}
   - id: bg.tower-city-background-unlit
@@ -57,3 +59,79 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: 5a9f4af897f6ba84f9404044c835ba80, type: 3}
   - id: class.starseer.sprite.rot
     texture: {fileID: 2800000, guid: 0de573e2bac0a734cb1d523685f3733e, type: 3}
+  - id: enemy.ashRevenant.base
+    texture: {fileID: 2800000, guid: c713e50d97c8c4d40b59ff078e2996a2, type: 3}
+  - id: enemy.ashheartDragon.base
+    texture: {fileID: 2800000, guid: 1de34694ca950dc4f837c905574cf03b, type: 3}
+  - id: enemy.bellKeeper.base
+    texture: {fileID: 2800000, guid: 9e36f9adb30d5094baac6cb1aa3fd401, type: 3}
+  - id: enemy.blightHound.base
+    texture: {fileID: 2800000, guid: ca774701f94f0af43aac3a7605018e2c, type: 3}
+  - id: enemy.blightedValkyrie.base
+    texture: {fileID: 2800000, guid: a7f2cfe64c7f786429bb2c07f1c44009, type: 3}
+  - id: enemy.briarHermit.base
+    texture: {fileID: 2800000, guid: 0f1752265231ecb49afdf39ee864ea27, type: 3}
+  - id: enemy.chainScavenger.base
+    texture: {fileID: 2800000, guid: 1ebb6127b007d374b9ad6d6e07e0a21b, type: 3}
+  - id: enemy.charredColossus.base
+    texture: {fileID: 2800000, guid: fd364c0393ea61d4e824f2083fee545c, type: 3}
+  - id: enemy.cinderMantis.base
+    texture: {fileID: 2800000, guid: 91f862b18a038684fbb1c520ebce5970, type: 3}
+  - id: enemy.courtDuelist.base
+    texture: {fileID: 2800000, guid: a12f69dfd9eefb341b7e05bab18670bb, type: 3}
+  - id: enemy.courtMarionette.base
+    texture: {fileID: 2800000, guid: 2b250fc876206224084cad333291a0ab, type: 3}
+  - id: enemy.courtSurgeon.base
+    texture: {fileID: 2800000, guid: cc34d27646856244984b03459bb99cf2, type: 3}
+  - id: enemy.eclipseCantor.base
+    texture: {fileID: 2800000, guid: c9bbd84e52b824346bdc756bc5de2e13, type: 3}
+  - id: enemy.emberStarvedPilgrim.base
+    texture: {fileID: 2800000, guid: 059828af355bb934bbd95259f28a60d9, type: 3}
+  - id: enemy.fellWarden.base
+    texture: {fileID: 2800000, guid: 77e00c8a31dd92e42825bed85776070e, type: 3}
+  - id: enemy.furnaceSaint.base
+    texture: {fileID: 2800000, guid: b70d438ef1c0bab429e0046c874fe5ab, type: 3}
+  - id: enemy.gildedKnight.base
+    texture: {fileID: 2800000, guid: e6dde87d5bd1f1b4a9cd1efd5a337a89, type: 3}
+  - id: enemy.glassRegent.base
+    texture: {fileID: 2800000, guid: 32b7b507de237704fa3f3ef5c360f08c, type: 3}
+  - id: enemy.graveWisp.base
+    texture: {fileID: 2800000, guid: ffe7c151025a36d49b21630069f35aa7, type: 3}
+  - id: enemy.hollowAstronomer.base
+    texture: {fileID: 2800000, guid: c614a9013e5a2da45881b16a61ebac6e, type: 3}
+  - id: enemy.huskBrute.base
+    texture: {fileID: 2800000, guid: cc3b7ab0621a5004ab0eda82d797fbe8, type: 3}
+  - id: enemy.lanternMoth.base
+    texture: {fileID: 2800000, guid: 20d311c8a54087547b73e8e341746cca, type: 3}
+  - id: enemy.livingArmor.base
+    texture: {fileID: 2800000, guid: eb705d60aefaa8c46857a915bd1a848f, type: 3}
+  - id: enemy.marrowOrganist.base
+    texture: {fileID: 2800000, guid: 684a5f0c80a412145807c4e62895cd6a, type: 3}
+  - id: enemy.mirrorScribe.base
+    texture: {fileID: 2800000, guid: 8f36dd2d1a38dd44c80ee147726b50de, type: 3}
+  - id: enemy.stitchCrab.base
+    texture: {fileID: 2800000, guid: adf2a07e21f8f9f4487ddf6c24cbd31f, type: 3}
+  - id: enemy.stitchedHound.base
+    texture: {fileID: 2800000, guid: c2d714c412af96240be0d4eba01aadc4, type: 3}
+  - id: enemy.stitchedKing.base
+    texture: {fileID: 2800000, guid: e6d1a3ef02e7bab418ec7e5cdd905df1, type: 3}
+  - id: enemy.thornMatriarch.base
+    texture: {fileID: 2800000, guid: 3314417674e3f974fa839f9ac98814ff, type: 3}
+  - id: enemy.valkyrieShade.base
+    texture: {fileID: 2800000, guid: cf77ed3be524f9341a5b38af63e1fd43, type: 3}
+  - id: enemy.wanderingSoldier.base
+    texture: {fileID: 2800000, guid: 2625efa7c6d04b344bf743a9a674193d, type: 3}
+  - id: enemy.wyrmAspirant.base
+    texture: {fileID: 2800000, guid: 77514141c55b71244875f5bc8b7175e3, type: 3}
+  - id: enemy.wyrmLord.base
+    texture: {fileID: 2800000, guid: e14747d8533a2df4984bfe9d42986966, type: 3}
+  - id: env.ashen-crown-combat
+    texture: {fileID: 2800000, guid: a3cb393244ef8a04da68fbd8cdf7dfb4, type: 3}
+  - id: env.cinder-reach-combat
+    texture: {fileID: 2800000, guid: f2a48e958c3efb64d8028f09060b1995, type: 3}
+  - id: env.drowned-coast-combat
+    texture: {fileID: 2800000, guid: 13dc427522d47a5469cff557ba10faa4, type: 3}
+  - id: env.hollow-weald-combat
+    texture: {fileID: 2800000, guid: a7e7149aeefffc44d889ff8a74f3490f, type: 3}
+  - id: env.pale-marches-combat
+    texture: {fileID: 2800000, guid: 8495c67d01c9a404692496c80a1d79fc, type: 3}

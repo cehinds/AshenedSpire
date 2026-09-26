@@ -317,3 +317,195 @@
     margin-left: var(--space-xl);
     margin-right: var(--space-xl);
 }
+
+/* ---- W-04 creation, Class pane (04 W-04: list view, the selected class unfolded beside it) ---- */
+
+.creation-workspace {
+    flex-grow: 1;
+}
+
+.class-pane {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.class-list {
+    width: var(--size-class-list-w);
+    flex-shrink: 0;
+}
+
+.class-tile {
+    min-height: var(--size-class-tile-h);
+    margin-bottom: var(--space-sm);
+    padding-left: var(--size-class-tile-inset);
+    -unity-text-align: middle-left;
+}
+
+.class-tile-portrait {
+    position: absolute;
+    left: var(--space-sm);
+    top: 0;
+    bottom: 0;
+    width: var(--size-slot-portrait);
+    background-size: contain;
+    background-color: var(--color-bg-raise);
+    border-radius: var(--radius-chip);
+}
+
+.class-tile.is-selected {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
+.class-tile--problem {
+    color: var(--color-muted);
+}
+
+.class-detail {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: row;
+    margin-left: var(--space-xl);
+}
+
+.class-figure {
+    width: var(--size-class-figure);
+    height: var(--size-class-figure);
+    flex-shrink: 0;
+    margin-right: var(--space-xl);
+    background-size: contain;
+    background-color: var(--color-bg-raise);
+    border-radius: var(--radius-card);
+}
+
+.class-texts {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.class-name {
+    font-size: var(--font-title);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    margin-bottom: var(--space-sm);
+}
+
+.class-summary {
+    white-space: normal;
+    margin-bottom: var(--space-md);
+}
+
+.class-line {
+    margin-bottom: var(--space-xs);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.class-problem {
+    margin-top: var(--space-md);
+    color: var(--color-danger);
+    white-space: normal;
+}
+
+.band-compact .class-figure {
+    width: var(--size-class-figure-narrow);
+    height: var(--size-class-figure-narrow);
+}
+
+.band-compact .class-tile {
+    min-height: var(--size-button-h);
+    margin-bottom: var(--space-xs);
+}
+
+.band-compact .class-tile-portrait {
+    display: none;
+}
+
+.band-compact .class-tile,
+.layout-narrow .class-tile {
+    padding-left: var(--space-lg);
+}
+
+.layout-narrow .class-pane {
+    flex-direction: column;
+}
+
+.layout-narrow .class-list {
+    width: var(--size-full-width);
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.layout-narrow .class-tile {
+    width: var(--size-half-gap-width);
+}
+
+.layout-narrow .class-tile-portrait {
+    display: none;
+}
+
+.layout-narrow .class-detail {
+    margin-left: 0;
+    margin-top: var(--space-md);
+}
+
+.layout-narrow .class-figure {
+    width: var(--size-class-figure-narrow);
+    height: var(--size-class-figure-narrow);
+    margin-right: var(--space-md);
+}
+
+/* ---- W-20 pause (a W1 frame without categories) ---- */
+
+.pause-shell {
+    width: var(--size-pause-shell-w);
+    height: var(--size-pause-shell-h);
+}
+
+.pause-seed {
+    color: var(--color-muted);
+    margin-bottom: var(--space-md);
+}
+
+.pause-rows {
+    flex-grow: 1;
+}
+
+.pause-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+}
+
+.pause-row .kit-button {
+    width: var(--size-half-width);
+}
+
+.pause-hint {
+    margin-left: var(--space-lg);
+    color: var(--color-muted);
+    font-size: var(--font-caption);
+    flex-shrink: 1;
+    white-space: normal;
+}
+
+.layout-narrow .pause-shell,
+.band-compact .pause-shell {
+    width: var(--size-full-width);
+    height: var(--size-full-width);
+}
+
+.layout-narrow .pause-row .kit-button {
+    width: var(--size-full-width);
+}
+
+.layout-narrow .pause-row {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.layout-narrow .pause-hint {
+    margin-left: 0;
+    margin-top: var(--space-xxs);
+}

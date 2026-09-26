@@ -20,7 +20,7 @@ namespace Ashen.Presentation.UI
         private List<List<VisualElement>> Candidates()
         {
             var regions = new List<List<VisualElement>>();
-            foreach (var name in _screen.Def.FocusOrder)
+            foreach (var name in _screen.Def.FocusOrderFor(_screen.View?.FocusMode))
             {
                 var region = _screen.Root.Q(name);
                 var items = new List<VisualElement>();
