@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.7.0] — 2026-09-26
+
+Stories: us-1.2, us-1.3, us-1.4, us-17.1
+
+- F1 UI kit, boot gate, title, save slots, confirmations, keyboard/pad focus (US-1.2, 1.3 partial, 1.4, 0.10 footer, 17.1)
+
 ## [0.1.6.0] — 2026-09-26
 
 Stories: us-4.2
