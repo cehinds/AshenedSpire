@@ -1,0 +1,36 @@
+/* Hold-to-confirm (docs/design/04 §0): the label, a progress bar and its text equivalent. */
+.holdbutton {
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    padding-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+}
+
+.hold-label {
+    font-size: var(--font-button);
+    -unity-text-align: middle-center;
+    color: var(--color-parchment);
+}
+
+.hold-bar {
+    height: var(--size-hold-bar-h);
+    margin-top: var(--space-xxs);
+    background-color: var(--color-track);
+}
+
+.hold-fill {
+    height: var(--size-full-width);
+    width: 0;
+    background-color: var(--color-gold);
+}
+
+.hold-state {
+    font-size: var(--font-caption);
+    -unity-text-align: middle-center;
+    color: var(--color-parchment);
+}
+
+.is-holding .hold-fill {
+    background-color: var(--color-danger);
+}

@@ -1,0 +1,111 @@
+{
+  "$id": "ui/tokens.json",
+  "type": "object",
+  "properties": {
+    "border": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    },
+    "color": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    },
+    "comment": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    },
+    "font": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    },
+    "groups": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "prefix": {
+            "type": "string"
+          },
+          "unit": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "prefix",
+          "unit"
+        ]
+      }
+    },
+    "opacity": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    },
+    "radius": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    },
+    "size": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    },
+    "space": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    }
+  },
+  "required": [
+    "border",
+    "color",
+    "comment",
+    "duration",
+    "font",
+    "groups",
+    "opacity",
+    "radius",
+    "size",
+    "space"
+  ]
+}

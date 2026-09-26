@@ -135,10 +135,15 @@ namespace Ashen.Generated
         public const string SchemasTagsTaggingSchema = "schemas/tags.tagging.schema.json";
         public const string SchemasTagsTagsSchema = "schemas/tags.tags.schema.json";
         public const string SchemasTagsVariableBindingsSchema = "schemas/tags.variableBindings.schema.json";
+        public const string SchemasUiComponentsSchema = "schemas/ui.components.schema.json";
         public const string SchemasUiConfirmationPoliciesSchema = "schemas/ui.confirmationPolicies.schema.json";
+        public const string SchemasUiLayoutSchema = "schemas/ui.layout.schema.json";
         public const string SchemasUiLocationPresentationSchema = "schemas/ui.locationPresentation.schema.json";
+        public const string SchemasUiMenusSchema = "schemas/ui.menus.schema.json";
+        public const string SchemasUiScreensSchema = "schemas/ui.screens.schema.json";
         public const string SchemasUiTermsSchema = "schemas/ui.terms.schema.json";
         public const string SchemasUiThemeSchema = "schemas/ui.theme.schema.json";
+        public const string SchemasUiTokensSchema = "schemas/ui.tokens.schema.json";
         public const string SettingsPresetsReference = "settings/presets/reference.json";
         public const string SettingsPresetsShipped = "settings/presets/shipped.json";
         public const string StringsAppEn = "strings/app.en.json";
@@ -155,9 +160,14 @@ namespace Ashen.Generated
         public const string TagsTagging = "tags/tagging.json";
         public const string TagsTags = "tags/tags.json";
         public const string TagsVariableBindings = "tags/variableBindings.json";
+        public const string UiComponents = "ui/components.json";
         public const string UiConfirmationPolicies = "ui/confirmationPolicies.json";
+        public const string UiLayout = "ui/layout.json";
         public const string UiLocationPresentation = "ui/locationPresentation.json";
+        public const string UiMenus = "ui/menus.json";
+        public const string UiScreens = "ui/screens.json";
         public const string UiTerms = "ui/terms.json";
         public const string UiTheme = "ui/theme.json";
+        public const string UiTokens = "ui/tokens.json";
     }
 }

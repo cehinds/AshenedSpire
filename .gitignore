@@ -29,3 +29,7 @@
 node_modules/
 /.cache/
 /.claude/worktrees/
+
+# PlayMode test runner leftovers
+Unity/Assets/InitTestScene*.unity
+Unity/Assets/InitTestScene*.unity.meta

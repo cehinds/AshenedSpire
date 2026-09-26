@@ -1,0 +1,23 @@
+{
+  "comment": "Component kit defaults (docs/design/04 §1, 08 §10). 'art.include' lists the assets/registry.json id prefixes the UI art catalog preloads (Cli.BuildUiArt); screens name backgrounds by registry id in ui/screens.json. 'meter.kinds' are the Meter kinds (each becomes the USS class meter--<kind>). 'handFan': degrees between neighbouring cards, the widest total spread, and the card count after which the hand scrolls. 'tooltip.sizes' are WT0-WT3 (USS class tooltip--<size>). 'boot.filesPerFrame' paces the determinate boot bar over the manifest. 'card.costKinds' are the cost pips in order (actions, stamina, mana).",
+  "art": {
+    "include": ["bg.title-city-tower", "bg.tower-city-background-unlit", "class."]
+  },
+  "meter": {
+    "kinds": ["hp", "mp", "sp", "actions", "poise", "ward", "buildUp", "progress"]
+  },
+  "handFan": {
+    "degreesPerCard": 4,
+    "maxSpread": 30,
+    "scrollAfter": 10
+  },
+  "tooltip": {
+    "sizes": ["wt0", "wt1", "wt2", "wt3"]
+  },
+  "boot": {
+    "filesPerFrame": 12
+  },
+  "card": {
+    "costKinds": ["actions", "stamina", "mana"]
+  }
+}
