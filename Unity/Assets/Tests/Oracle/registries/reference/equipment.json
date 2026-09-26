@@ -1,0 +1,7198 @@
+{
+ "armaments": [
+  {
+   "accent": "C9A227",
+   "artKey": "straightSword",
+   "attackProfile": "bladeAttack",
+   "attackRating": 2,
+   "blurb": "Honest steel. It asks nothing clever of you.",
+   "defenseRating": 2,
+   "dropWeight": 10,
+   "entityTags": [
+    "item:blade",
+    "blade",
+    "basic",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "geom": "sword",
+   "guardProfile": "weaponGuard",
+   "hand": "either",
+   "id": "straightSword",
+   "inventoryArtKey": "straightSwordInventory2026",
+   "itemTypeTags": [
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "weapon",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "B8B0A0",
+   "mods": [],
+   "name": "Straight Sword",
+   "poiseThreshold": 5,
+   "rarity": "common",
+   "requirements": {
+    "attributes": {
+     "strength": 2
+    }
+   },
+   "scale": 1,
+   "tags": [
+    "blade",
+    "basic",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "guardCounter",
+     "attackProfileId": "bladeAttack",
+     "guardProfileId": "weaponGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "bladeAttack",
+    "weaponArtDefaults": [
+     "guardCounter"
+    ]
+   },
+   "weight": 5
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "greatsword",
+   "attackProfile": "bladeAttack",
+   "attackRating": 4,
+   "blurb": "Slow, and it does not care.",
+   "defenseRating": 2,
+   "dropWeight": 7,
+   "entityTags": [
+    "item:blade",
+    "blade",
+    "heavy",
+    "technique:heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "geom": "colossal",
+   "guardProfile": "weaponGuard",
+   "hand": "either",
+   "id": "greatsword",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "weapon",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "B8B0A0",
+   "mods": [
+    "strike.cost=+1",
+    "strike.poise=+3"
+   ],
+   "name": "Greatsword",
+   "poiseThreshold": 8,
+   "rarity": "uncommon",
+   "requirements": {
+    "attributes": {
+     "strength": 3
+    }
+   },
+   "scale": 1,
+   "tags": [
+    "blade",
+    "heavy",
+    "technique:heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "greatswordSunderingHew",
+     "attackProfileId": "bladeAttack",
+     "guardProfileId": "weaponGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "bladeAttack",
+    "weaponArtDefaults": [
+     "greatswordSunderingHew"
+    ]
+   },
+   "weight": 8
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "dagger",
+   "attackProfile": "daggerPierceAttack",
+   "attackRating": 1,
+   "blurb": "Two cuts where one would do.",
+   "defenseRating": 2,
+   "dropWeight": 10,
+   "entityTags": [
+    "item:blade",
+    "blade",
+    "pierce",
+    "flourish",
+    "technique:flourish",
+    "source:weapon",
+    "delivery:melee",
+    "damage:piercing"
+   ],
+   "geom": "dagger",
+   "guardProfile": "weaponGuard",
+   "hand": "either",
+   "id": "dagger",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "weapon",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "C0B8A6",
+   "mods": [
+    "strike.hits=2"
+   ],
+   "name": "Dagger",
+   "poiseThreshold": 3,
+   "rarity": "common",
+   "requirements": {
+    "attributes": {
+     "dexterity": 2
+    }
+   },
+   "scale": 1,
+   "tags": [
+    "blade",
+    "pierce",
+    "flourish",
+    "technique:flourish",
+    "source:weapon",
+    "delivery:melee",
+    "damage:piercing"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "twinFang",
+     "attackProfileId": "daggerPierceAttack",
+     "guardProfileId": "weaponGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "daggerPierceAttack",
+    "weaponArtDefaults": [
+     "twinFang"
+    ]
+   },
+   "weight": 3
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "dagger",
+   "attackProfile": "bowPierceAttack",
+   "attackRating": 1,
+   "blurb": "A compact ash-wood bow bound for a quick draw.",
+   "defenseRating": 2,
+   "dropWeight": 10,
+   "entityTags": [
+    "item:blade",
+    "pierce",
+    "ranged",
+    "precision",
+    "technique:precision",
+    "source:weapon",
+    "delivery:projectile",
+    "damage:piercing"
+   ],
+   "geom": "dagger",
+   "guardProfile": "weaponGuard",
+   "hand": "either",
+   "id": "shortbow",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "weapon",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "C0B8A6",
+   "mods": [],
+   "name": "Shortbow",
+   "poiseThreshold": 2,
+   "rarity": "common",
+   "scale": 1,
+   "tags": [
+    "pierce",
+    "ranged",
+    "precision",
+    "technique:precision",
+    "source:weapon",
+    "delivery:projectile",
+    "damage:piercing"
+   ],
+   "techniqueProfile": "bowTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "quickstep",
+     "attackProfileId": "bowPierceAttack",
+     "guardProfileId": "weaponGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "bowPierceAttack",
+    "weaponArtDefaults": [
+     "quickstep"
+    ]
+   },
+   "weight": 2
+  },
+  {
+   "accent": "C9502E",
+   "artKey": "katana",
+   "attackProfile": "bladeAttack",
+   "attackRating": 2,
+   "blurb": "A long curve, and a long grudge.",
+   "defenseRating": 2,
+   "dropWeight": 7,
+   "entityTags": [
+    "item:blade",
+    "blade",
+    "blood",
+    "flourish",
+    "theme:blood",
+    "technique:flourish",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "geom": "curved",
+   "guardProfile": "weaponGuard",
+   "hand": "either",
+   "id": "katana",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "weapon",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "C6BEAC",
+   "mods": [
+    "strike.bleed=+2"
+   ],
+   "name": "Katana",
+   "poiseThreshold": 5,
+   "rarity": "uncommon",
+   "scale": 1,
+   "tags": [
+    "blade",
+    "blood",
+    "flourish",
+    "theme:blood",
+    "technique:flourish",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "katanaDrawCut",
+     "attackProfileId": "bladeAttack",
+     "guardProfileId": "weaponGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "bladeAttack",
+    "weaponArtDefaults": [
+     "katanaDrawCut"
+    ]
+   },
+   "weight": 5
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "halberd",
+   "attackProfile": "bladeAttack",
+   "attackRating": 4,
+   "blurb": "Reach enough to keep the dead at arm's length.",
+   "defenseRating": 2,
+   "dropWeight": 7,
+   "entityTags": [
+    "item:blade",
+    "blade",
+    "heavy",
+    "technique:heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "geom": "polearm",
+   "guardProfile": "weaponGuard",
+   "hand": "either",
+   "id": "halberd",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "weapon",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "A8A090",
+   "mods": [
+    "strike.cost=+1",
+    "strike.poise=+4"
+   ],
+   "name": "Halberd",
+   "poiseThreshold": 7,
+   "rarity": "uncommon",
+   "scale": 1,
+   "tags": [
+    "blade",
+    "heavy",
+    "technique:heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "sweepingBlow",
+     "attackProfileId": "bladeAttack",
+     "guardProfileId": "weaponGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "bladeAttack",
+    "weaponArtDefaults": [
+     "sweepingBlow"
+    ]
+   },
+   "weight": 7
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "warhammer",
+   "attackProfile": "bladeAttack",
+   "attackRating": 3,
+   "blurb": "Poise is a fiction. This is the argument.",
+   "defenseRating": 2,
+   "dropWeight": 7,
+   "entityTags": [
+    "item:blade",
+    "heavy",
+    "technique:heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "geom": "hammer",
+   "guardProfile": "weaponGuard",
+   "hand": "either",
+   "id": "warhammer",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "weapon",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "8E8678",
+   "mods": [
+    "strike.poise=+6"
+   ],
+   "name": "Warhammer",
+   "poiseThreshold": 9,
+   "rarity": "uncommon",
+   "scale": 1,
+   "tags": [
+    "heavy",
+    "technique:heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "bashingBlow",
+     "attackProfileId": "bladeAttack",
+     "guardProfileId": "weaponGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "bladeAttack",
+    "weaponArtDefaults": [
+     "bashingBlow"
+    ]
+   },
+   "weight": 9
+  },
+  {
+   "accent": "7FA8C9",
+   "artKey": "twinblade",
+   "attackProfile": "twinbladeAttack",
+   "attackRating": 2,
+   "blurb": "Both ends are the business end.",
+   "defenseRating": 2,
+   "dropWeight": 4,
+   "entityTags": [
+    "item:blade",
+    "blade",
+    "flourish",
+    "technique:flourish",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "geom": "twin",
+   "guardProfile": "weaponGuard",
+   "hand": "either",
+   "id": "twinblade",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "weapon",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "C0B8A6",
+   "mods": [
+    "strike.hits=3",
+    "self.maxStamina=+1"
+   ],
+   "name": "Twinblade",
+   "poiseThreshold": 5,
+   "rarity": "rare",
+   "scale": 1,
+   "tags": [
+    "blade",
+    "flourish",
+    "technique:flourish",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "twinbladeFlurry",
+     "attackProfileId": "twinbladeAttack",
+     "guardProfileId": "weaponGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "twinbladeAttack",
+    "weaponArtDefaults": [
+     "twinbladeFlurry"
+    ]
+   },
+   "weight": 5
+  },
+  {
+   "accent": "C9502E",
+   "artKey": "battleaxe",
+   "attackProfile": "bladeAttack",
+   "attackRating": 2,
+   "blurb": "It was a woodcutter's once.",
+   "defenseRating": 2,
+   "dropWeight": 10,
+   "entityTags": [
+    "item:blade",
+    "blade",
+    "heavy",
+    "technique:heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "geom": "axe",
+   "guardProfile": "weaponGuard",
+   "hand": "either",
+   "id": "battleaxe",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "weapon",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "A8A090",
+   "mods": [
+    "strike.cost=+1"
+   ],
+   "name": "Battleaxe",
+   "poiseThreshold": 7,
+   "rarity": "common",
+   "scale": 1,
+   "tags": [
+    "blade",
+    "heavy",
+    "technique:heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "cleavingBlow",
+     "attackProfileId": "bladeAttack",
+     "guardProfileId": "weaponGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "bladeAttack",
+    "weaponArtDefaults": [
+     "cleavingBlow"
+    ]
+   },
+   "weight": 7
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "buckler",
+   "attackProfile": "shieldAttack",
+   "attackRating": 1,
+   "blurb": "Small enough to be quick with.",
+   "defenseRating": 5,
+   "dropWeight": 10,
+   "entityTags": [
+    "item:shield",
+    "guard",
+    "flourish",
+    "technique:flourish",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "geom": "round",
+   "guardProfile": "shieldGuard",
+   "hand": "either",
+   "id": "buckler",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:shield"
+   ],
+   "itemTypes": [
+    {
+     "label": "Shield",
+     "tag": "item:shield"
+    }
+   ],
+   "kind": "shield",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "8E8678",
+   "mods": [],
+   "name": "Buckler",
+   "poiseThreshold": 4,
+   "rarity": "common",
+   "scale": 0.8,
+   "tags": [
+    "guard",
+    "flourish",
+    "technique:flourish",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "riposte",
+     "attackProfileId": "shieldAttack",
+     "guardProfileId": "shieldGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "shieldAttack",
+    "weaponArtDefaults": [
+     "riposte"
+    ]
+   },
+   "weight": 4
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "kiteShield",
+   "attackProfile": "shieldAttack",
+   "attackRating": 0,
+   "blurb": "A wall you can carry. Your arm knows it.",
+   "defenseRating": 4,
+   "dropWeight": 10,
+   "entityTags": [
+    "item:shield",
+    "guard",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "geom": "kite",
+   "guardProfile": "shieldGuard",
+   "hand": "either",
+   "id": "kiteShield",
+   "inventoryArtKey": "kiteShieldInventory2026",
+   "itemTypeTags": [
+    "item:shield"
+   ],
+   "itemTypes": [
+    {
+     "label": "Shield",
+     "tag": "item:shield"
+    }
+   ],
+   "kind": "shield",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "8E8678",
+   "mods": [],
+   "name": "Kite Shield",
+   "poiseThreshold": 8,
+   "rarity": "common",
+   "scale": 1,
+   "tags": [
+    "guard",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "shieldGuardian",
+     "attackProfileId": "shieldAttack",
+     "guardProfileId": "shieldGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "shieldAttack",
+    "weaponArtDefaults": [
+     "shieldGuardian"
+    ]
+   },
+   "weight": 8
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "towerShield",
+   "attackProfile": "shieldAttack",
+   "attackRating": 0,
+   "blurb": "You will not be moved. You will not move.",
+   "defenseRating": 9,
+   "dropWeight": 4,
+   "entityTags": [
+    "item:shield",
+    "guard",
+    "heavy",
+    "technique:heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "geom": "tower",
+   "guardProfile": "shieldGuard",
+   "hand": "either",
+   "id": "towerShield",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:shield"
+   ],
+   "itemTypes": [
+    {
+     "label": "Shield",
+     "tag": "item:shield"
+    }
+   ],
+   "kind": "shield",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "7E766A",
+   "mods": [
+    "self.maxHp=+10"
+   ],
+   "name": "Tower Shield",
+   "poiseThreshold": 12,
+   "rarity": "rare",
+   "scale": 1,
+   "tags": [
+    "guard",
+    "heavy",
+    "technique:heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "shieldBastion",
+     "attackProfileId": "shieldAttack",
+     "guardProfileId": "shieldGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "shieldAttack",
+    "weaponArtDefaults": [
+     "shieldBastion"
+    ]
+   },
+   "weight": 12
+  },
+  {
+   "accent": "7FA8C9",
+   "artKey": "roundShield",
+   "attackProfile": "shieldAttack",
+   "attackRating": 0,
+   "blurb": "Plain, round, and enough.",
+   "defenseRating": 5,
+   "dropWeight": 10,
+   "entityTags": [
+    "item:shield",
+    "guard",
+    "basic",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "geom": "round",
+   "guardProfile": "shieldGuard",
+   "hand": "either",
+   "id": "roundShield",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:shield"
+   ],
+   "itemTypes": [
+    {
+     "label": "Shield",
+     "tag": "item:shield"
+    }
+   ],
+   "kind": "shield",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "8E8678",
+   "mods": [],
+   "name": "Round Shield",
+   "poiseThreshold": 7,
+   "rarity": "common",
+   "scale": 1,
+   "tags": [
+    "guard",
+    "basic",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "shieldBash",
+     "attackProfileId": "shieldAttack",
+     "guardProfileId": "shieldGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "shieldAttack",
+    "weaponArtDefaults": [
+     "shieldBash"
+    ]
+   },
+   "weight": 7
+  },
+  {
+   "accent": "C9502E",
+   "artKey": "spikedShield",
+   "attackProfile": "shieldAttack",
+   "attackRating": 2,
+   "blurb": "Defence with an opinion.",
+   "defenseRating": 5,
+   "dropWeight": 7,
+   "entityTags": [
+    "item:shield",
+    "item:blade",
+    "guard",
+    "blade",
+    "source:weapon",
+    "delivery:melee",
+    "damage:piercing"
+   ],
+   "geom": "spiked",
+   "guardProfile": "shieldGuard",
+   "hand": "either",
+   "id": "spikedShield",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:shield",
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Shield",
+     "tag": "item:shield"
+    },
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "shield",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "8E8678",
+   "mods": [],
+   "name": "Spiked Shield",
+   "poiseThreshold": 8,
+   "rarity": "uncommon",
+   "scale": 1,
+   "tags": [
+    "guard",
+    "blade",
+    "source:weapon",
+    "delivery:melee",
+    "damage:piercing"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "spikedReprisal",
+     "attackProfileId": "shieldAttack",
+     "guardProfileId": "shieldGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "shieldAttack",
+    "weaponArtDefaults": [
+     "spikedReprisal"
+    ]
+   },
+   "weight": 8
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "lantern",
+   "attackProfile": "shieldAttack",
+   "attackRating": 0,
+   "blurb": "Light enough to see what is coming.",
+   "defenseRating": 4,
+   "dropWeight": 10,
+   "entityTags": [
+    "item:shield",
+    "guard",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "geom": "lantern",
+   "guardProfile": "shieldGuard",
+   "hand": "either",
+   "id": "lantern",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:shield"
+   ],
+   "itemTypes": [
+    {
+     "label": "Shield",
+     "tag": "item:shield"
+    }
+   ],
+   "kind": "shield",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "6B5D45",
+   "mods": [
+    "self.regen=+1"
+   ],
+   "name": "Lantern",
+   "poiseThreshold": 2,
+   "rarity": "common",
+   "scale": 0.85,
+   "tags": [
+    "guard",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "scholarsInsight",
+     "attackProfileId": "shieldAttack",
+     "guardProfileId": "shieldGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "shieldAttack",
+    "weaponArtDefaults": [
+     "scholarsInsight"
+    ]
+   },
+   "weight": 2
+  },
+  {
+   "accent": "C9502E",
+   "artKey": "torch",
+   "attackProfile": "shieldAttack",
+   "attackRating": 0,
+   "blurb": "Fire remembers what steel forgets.",
+   "defenseRating": 3,
+   "dropWeight": 10,
+   "entityTags": [
+    "item:shield",
+    "gorefire",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "geom": "torch",
+   "guardProfile": "shieldGuard",
+   "hand": "either",
+   "id": "torch",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:shield"
+   ],
+   "itemTypes": [
+    {
+     "label": "Shield",
+     "tag": "item:shield"
+    }
+   ],
+   "kind": "shield",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "6B5D45",
+   "mods": [
+    "strike.burn=+2"
+   ],
+   "name": "Torch",
+   "poiseThreshold": 2,
+   "rarity": "common",
+   "scale": 0.9,
+   "tags": [
+    "gorefire",
+    "source:weapon",
+    "delivery:melee",
+    "damage:blunt"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "flameToBlade",
+     "attackProfileId": "shieldAttack",
+     "guardProfileId": "shieldGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "shieldAttack",
+    "weaponArtDefaults": [
+     "flameToBlade"
+    ]
+   },
+   "weight": 2
+  },
+  {
+   "accent": "7FA8C9",
+   "artKey": "parryDagger",
+   "attackProfile": "shieldAttack",
+   "attackRating": 0,
+   "blurb": "Held wrong on purpose.",
+   "defenseRating": 4,
+   "dropWeight": 7,
+   "entityTags": [
+    "item:blade",
+    "item:shield",
+    "guard",
+    "flourish",
+    "technique:flourish",
+    "source:weapon",
+    "delivery:melee",
+    "damage:piercing"
+   ],
+   "geom": "dagger",
+   "guardProfile": "shieldGuard",
+   "hand": "either",
+   "id": "parryDagger",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:blade",
+    "item:shield"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    },
+    {
+     "label": "Shield",
+     "tag": "item:shield"
+    }
+   ],
+   "kind": "shield",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "C0B8A6",
+   "mods": [
+    "strike.poise=+2"
+   ],
+   "name": "Parrying Dagger",
+   "poiseThreshold": 3,
+   "rarity": "uncommon",
+   "scale": 0.85,
+   "tags": [
+    "guard",
+    "flourish",
+    "technique:flourish",
+    "source:weapon",
+    "delivery:melee",
+    "damage:piercing"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "riposte",
+     "attackProfileId": "shieldAttack",
+     "guardProfileId": "shieldGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "shieldAttack",
+    "weaponArtDefaults": [
+     "riposte"
+    ]
+   },
+   "weight": 3
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "ashStaff",
+   "attackProfile": "staffMagicAttack",
+   "attackRating": 1,
+   "blurb": "Grey wood, warm at the grip.",
+   "defenseRating": 1,
+   "dropWeight": 10,
+   "entityTags": [
+    "item:magic-focus",
+    "ritual",
+    "basic",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "geom": "staffOrb",
+   "guardProfile": "staffGuard",
+   "hand": "either",
+   "id": "ashStaff",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:magic-focus"
+   ],
+   "itemTypes": [
+    {
+     "label": "Magic Focus",
+     "tag": "item:magic-focus"
+    }
+   ],
+   "kind": "staff",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "6B5D45",
+   "mods": [
+    "power.potency=+1"
+   ],
+   "name": "Ash Staff",
+   "poiseThreshold": 3,
+   "propertyTags": [
+    "staggerBreak"
+   ],
+   "rarity": "common",
+   "requirements": {
+    "attributes": {
+     "intelligence": 3
+    }
+   },
+   "scale": 1,
+   "tags": [
+    "ritual",
+    "basic",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "techniqueProfile": "staffTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 1,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "starSpark",
+     "attackProfileId": "staffMagicAttack",
+     "guardProfileId": "staffGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "staffMagicAttack",
+    "weaponArtDefaults": [
+     "starSpark"
+    ]
+   },
+   "weight": 3
+  },
+  {
+   "accent": "7FA8C9",
+   "artKey": "starstoneStaff",
+   "attackProfile": "staffMagicAttack",
+   "attackRating": 1,
+   "blurb": "The stone hums before you do.",
+   "defenseRating": 1,
+   "dropWeight": 7,
+   "entityTags": [
+    "item:magic-focus",
+    "starstone",
+    "theme:astral",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "geom": "staffCrystal",
+   "guardProfile": "staffGuard",
+   "hand": "either",
+   "id": "starstoneStaff",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:magic-focus"
+   ],
+   "itemTypes": [
+    {
+     "label": "Magic Focus",
+     "tag": "item:magic-focus"
+    }
+   ],
+   "kind": "staff",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "6B5D45",
+   "mods": [
+    "power.potency=+2",
+    "strike.frost=+2"
+   ],
+   "name": "Starstone Staff",
+   "poiseThreshold": 3,
+   "propertyTags": [
+    "staggerBreak"
+   ],
+   "rarity": "uncommon",
+   "scale": 1,
+   "tags": [
+    "starstone",
+    "theme:astral",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "techniqueProfile": "staffTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 1,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "frostNova",
+     "attackProfileId": "staffMagicAttack",
+     "guardProfileId": "staffGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "staffMagicAttack",
+    "weaponArtDefaults": [
+     "frostNova"
+    ]
+   },
+   "weight": 3
+  },
+  {
+   "accent": "B5541C",
+   "artKey": "boneSceptre",
+   "attackProfile": "sceptreArcaneAttack",
+   "attackRating": 2,
+   "blurb": "Someone knelt for this once.",
+   "defenseRating": 1,
+   "dropWeight": 7,
+   "entityTags": [
+    "item:magic-focus",
+    "ritual",
+    "blight",
+    "theme:blight",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "geom": "staffSkull",
+   "guardProfile": "sceptreGuard",
+   "hand": "either",
+   "id": "boneSceptre",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:magic-focus"
+   ],
+   "itemTypes": [
+    {
+     "label": "Magic Focus",
+     "tag": "item:magic-focus"
+    }
+   ],
+   "kind": "staff",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "B8AE98",
+   "mods": [
+    "power.potency=+1",
+    "strike.blight=+2"
+   ],
+   "name": "Bone Sceptre",
+   "poiseThreshold": 4,
+   "propertyTags": [
+    "siphon"
+   ],
+   "rarity": "uncommon",
+   "scale": 1,
+   "tags": [
+    "ritual",
+    "blight",
+    "theme:blight",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "techniqueProfile": "staffTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 1,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "blightTouch",
+     "attackProfileId": "sceptreArcaneAttack",
+     "guardProfileId": "sceptreGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "sceptreArcaneAttack",
+    "weaponArtDefaults": [
+     "blightTouch"
+    ]
+   },
+   "weight": 4
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "emberlightSceptre",
+   "attackProfile": "sceptreArcaneAttack",
+   "attackRating": 3,
+   "blurb": "It keeps a little of the guiding flame.",
+   "defenseRating": 0,
+   "dropWeight": 4,
+   "entityTags": [
+    "item:magic-focus",
+    "ritual",
+    "oath",
+    "theme:oath",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "geom": "staffFlame",
+   "guardProfile": "sceptreGuard",
+   "hand": "either",
+   "id": "emberlightSceptre",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:magic-focus"
+   ],
+   "itemTypes": [
+    {
+     "label": "Magic Focus",
+     "tag": "item:magic-focus"
+    }
+   ],
+   "kind": "staff",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "6B5D45",
+   "mods": [
+    "power.potency=+3"
+   ],
+   "name": "Emberlight Sceptre",
+   "poiseThreshold": 4,
+   "propertyTags": [
+    "siphon"
+   ],
+   "rarity": "rare",
+   "scale": 1,
+   "tags": [
+    "ritual",
+    "oath",
+    "theme:oath",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "techniqueProfile": "staffTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 1,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "penance",
+     "attackProfileId": "sceptreArcaneAttack",
+     "guardProfileId": "sceptreGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "sceptreArcaneAttack",
+    "weaponArtDefaults": [
+     "penance"
+    ]
+   },
+   "weight": 4
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "goldboughBranch",
+   "attackProfile": "sceptreArcaneAttack",
+   "attackRating": 3,
+   "blurb": "Cut, and still growing.",
+   "defenseRating": 0,
+   "dropWeight": 4,
+   "entityTags": [
+    "item:magic-focus",
+    "ritual",
+    "oath",
+    "theme:oath",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "geom": "staffBranch",
+   "guardProfile": "sceptreGuard",
+   "hand": "either",
+   "id": "goldboughBranch",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:magic-focus"
+   ],
+   "itemTypes": [
+    {
+     "label": "Magic Focus",
+     "tag": "item:magic-focus"
+    }
+   ],
+   "kind": "staff",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "6B5D45",
+   "mods": [
+    "power.potency=+2",
+    "self.regen=+1"
+   ],
+   "name": "Goldbough Branch",
+   "poiseThreshold": 4,
+   "propertyTags": [
+    "resonance"
+   ],
+   "rarity": "rare",
+   "scale": 1,
+   "tags": [
+    "ritual",
+    "oath",
+    "theme:oath",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "techniqueProfile": "staffTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 1,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "urgentHeal",
+     "attackProfileId": "sceptreArcaneAttack",
+     "guardProfileId": "sceptreGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "sceptreArcaneAttack",
+    "weaponArtDefaults": [
+     "urgentHeal"
+    ]
+   },
+   "weight": 4
+  },
+  {
+   "accent": "B5541C",
+   "artKey": "blightRod",
+   "attackProfile": "sceptreArcaneAttack",
+   "attackRating": 3,
+   "blurb": "Wet to the touch. It should not be.",
+   "defenseRating": 0,
+   "dropWeight": 7,
+   "entityTags": [
+    "item:magic-focus",
+    "blight",
+    "theme:blight",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "geom": "staffOrb",
+   "guardProfile": "sceptreGuard",
+   "hand": "either",
+   "id": "blightRod",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:magic-focus"
+   ],
+   "itemTypes": [
+    {
+     "label": "Magic Focus",
+     "tag": "item:magic-focus"
+    }
+   ],
+   "kind": "staff",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "4B3522",
+   "mods": [
+    "strike.blight=+3",
+    "self.maxMana=+1"
+   ],
+   "name": "Blight Rod",
+   "poiseThreshold": 3,
+   "propertyTags": [
+    "overcharge"
+   ],
+   "rarity": "uncommon",
+   "scale": 0.95,
+   "tags": [
+    "blight",
+    "theme:blight",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "techniqueProfile": "staffTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 1,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "contagion",
+     "attackProfileId": "sceptreArcaneAttack",
+     "guardProfileId": "sceptreGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "sceptreArcaneAttack",
+    "weaponArtDefaults": [
+     "contagion"
+    ]
+   },
+   "weight": 3
+  },
+  {
+   "accent": "C9502E",
+   "artKey": "gorefireBrand",
+   "attackProfile": "sceptreArcaneAttack",
+   "attackRating": 3,
+   "blurb": "Blood takes to flame more readily than wood.",
+   "defenseRating": 0,
+   "dropWeight": 4,
+   "entityTags": [
+    "item:magic-focus",
+    "gorefire",
+    "blood",
+    "theme:blood",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "geom": "staffFlame",
+   "guardProfile": "sceptreGuard",
+   "hand": "either",
+   "id": "gorefireBrand",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:magic-focus"
+   ],
+   "itemTypes": [
+    {
+     "label": "Magic Focus",
+     "tag": "item:magic-focus"
+    }
+   ],
+   "kind": "staff",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "4B3522",
+   "mods": [
+    "strike.burn=+2",
+    "strike.bleed=+1"
+   ],
+   "name": "Gorefire Brand",
+   "poiseThreshold": 3,
+   "propertyTags": [
+    "overcharge"
+   ],
+   "rarity": "rare",
+   "scale": 0.95,
+   "tags": [
+    "gorefire",
+    "blood",
+    "theme:blood",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "techniqueProfile": "staffTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 1,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "gorefireSlash",
+     "attackProfileId": "sceptreArcaneAttack",
+     "guardProfileId": "sceptreGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "sceptreArcaneAttack",
+    "weaponArtDefaults": [
+     "gorefireSlash"
+    ]
+   },
+   "weight": 3
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "wyrmhornStaff",
+   "attackProfile": "sceptreArcaneAttack",
+   "attackRating": 3,
+   "blurb": "Taken from something that objected.",
+   "defenseRating": 0,
+   "dropWeight": 4,
+   "entityTags": [
+    "item:magic-focus",
+    "ritual",
+    "heavy",
+    "technique:heavy",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "geom": "staffHorn",
+   "guardProfile": "staffGuard",
+   "hand": "either",
+   "id": "wyrmhornStaff",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:magic-focus"
+   ],
+   "itemTypes": [
+    {
+     "label": "Magic Focus",
+     "tag": "item:magic-focus"
+    }
+   ],
+   "kind": "staff",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "B8AE98",
+   "mods": [
+    "power.potency=+2",
+    "strike.poise=+2",
+    "strike.insanity=+2"
+   ],
+   "name": "Wyrmhorn Staff",
+   "poiseThreshold": 5,
+   "propertyTags": [
+    "staggerBreak"
+   ],
+   "rarity": "rare",
+   "scale": 1,
+   "tags": [
+    "ritual",
+    "heavy",
+    "technique:heavy",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "techniqueProfile": "staffTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 1,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "moonrendCut",
+     "attackProfileId": "sceptreArcaneAttack",
+     "guardProfileId": "staffGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "sceptreArcaneAttack",
+    "weaponArtDefaults": [
+     "moonrendCut"
+    ]
+   },
+   "weight": 5
+  },
+  {
+   "accent": "C9A227",
+   "artKey": "halberd",
+   "attackProfile": "bladeAttack",
+   "attackRating": 3,
+   "blurb": "A rimed point that slows the next advance.",
+   "defenseRating": 2,
+   "dropWeight": 7,
+   "entityTags": [
+    "item:blade",
+    "blade",
+    "source:weapon",
+    "delivery:melee",
+    "damage:piercing"
+   ],
+   "geom": "polearm",
+   "guardProfile": "weaponGuard",
+   "hand": "either",
+   "id": "frostSpear",
+   "inventoryArtKey": "halberd",
+   "itemTypeTags": [
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "weapon",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "A8A090",
+   "mods": [
+    "strike.frost=+2"
+   ],
+   "name": "Frost Spear",
+   "poiseThreshold": 6,
+   "rarity": "uncommon",
+   "scale": 1,
+   "tags": [
+    "blade",
+    "source:weapon",
+    "delivery:melee",
+    "damage:piercing"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "rimeThrust",
+     "attackProfileId": "bladeAttack",
+     "guardProfileId": "weaponGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "bladeAttack",
+    "weaponArtDefaults": [
+     "rimeThrust"
+    ]
+   },
+   "weight": 6
+  },
+  {
+   "accent": "C9502E",
+   "artKey": "battleaxe",
+   "attackProfile": "bladeAttack",
+   "attackRating": 3,
+   "blurb": "A furnace edge bought with a slower swing.",
+   "defenseRating": 2,
+   "dropWeight": 7,
+   "entityTags": [
+    "item:blade",
+    "blade",
+    "heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "geom": "axe",
+   "guardProfile": "weaponGuard",
+   "hand": "either",
+   "id": "cinderAxe",
+   "inventoryArtKey": "battleaxe",
+   "itemTypeTags": [
+    "item:blade"
+   ],
+   "itemTypes": [
+    {
+     "label": "Blade",
+     "tag": "item:blade"
+    }
+   ],
+   "kind": "weapon",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "A8A090",
+   "mods": [
+    "strike.cost=+1",
+    "strike.burn=+3"
+   ],
+   "name": "Cinder Axe",
+   "poiseThreshold": 7,
+   "rarity": "uncommon",
+   "scale": 1,
+   "tags": [
+    "blade",
+    "heavy",
+    "source:weapon",
+    "delivery:melee",
+    "damage:slashing"
+   ],
+   "techniqueProfile": "weaponTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 0,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "kilnCleave",
+     "attackProfileId": "bladeAttack",
+     "guardProfileId": "weaponGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "bladeAttack",
+    "weaponArtDefaults": [
+     "kilnCleave"
+    ]
+   },
+   "weight": 7
+  },
+  {
+   "accent": "B5541C",
+   "artKey": "boneSceptre",
+   "attackProfile": "sceptreArcaneAttack",
+   "attackRating": 1,
+   "blurb": "Its last note settles into a sheltering hush.",
+   "defenseRating": 1,
+   "dropWeight": 4,
+   "entityTags": [
+    "item:magic-focus",
+    "ritual",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "geom": "staffSkull",
+   "guardProfile": "sceptreGuard",
+   "hand": "either",
+   "id": "duskChime",
+   "inventoryArtKey": "boneSceptre",
+   "itemTypeTags": [
+    "item:magic-focus"
+   ],
+   "itemTypes": [
+    {
+     "label": "Magic Focus",
+     "tag": "item:magic-focus"
+    }
+   ],
+   "kind": "staff",
+   "kindIds": [
+    "classification.armament"
+   ],
+   "metal": "B8AE98",
+   "mods": [
+    "strike.blight=+1",
+    "self.maxMana=+1"
+   ],
+   "name": "Dusk Chime",
+   "poiseThreshold": 3,
+   "rarity": "rare",
+   "scale": 1,
+   "tags": [
+    "ritual",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ],
+   "techniqueProfile": "staffTechnique",
+   "uniqueSkillStaminaCost": 0,
+   "unlock": "",
+   "weaponArtManaCost": 1,
+   "weaponCardPackage": {
+    "combatKit": {
+     "artCardId": "vesperWard",
+     "attackProfileId": "sceptreArcaneAttack",
+     "guardProfileId": "sceptreGuard"
+    },
+    "compatibility": "attack-v1",
+    "fillerAttackProfileId": "sceptreArcaneAttack",
+    "weaponArtDefaults": [
+     "vesperWard"
+    ]
+   },
+   "weight": 3
+  }
+ ],
+ "armour": [
+  {
+   "artClassId": "",
+   "artKey": "default",
+   "blurb": "The armour you were buried in.",
+   "classId": "reaver",
+   "entityTags": [
+    "item:armor",
+    "guard"
+   ],
+   "id": "default",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [],
+   "name": "Wayfarer Plate",
+   "plate": "3E6157",
+   "plateLt": "64907F",
+   "poiseThreshold": 8,
+   "sharedSet": "",
+   "tags": [
+    "guard"
+   ],
+   "under": "332A1E",
+   "unlock": ""
+  },
+  {
+   "artClassId": "",
+   "artKey": "vigil",
+   "blurb": "Blackened at the court that broke.",
+   "classId": "reaver",
+   "entityTags": [
+    "item:armor",
+    "guard",
+    "ash"
+   ],
+   "id": "vigil",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "241C16",
+   "mods": [
+    "defend.block=+2"
+   ],
+   "name": "Ashen Vigil",
+   "plate": "302B25",
+   "plateLt": "4A433A",
+   "poiseThreshold": 7,
+   "sharedSet": "",
+   "tags": [
+    "guard",
+    "ash"
+   ],
+   "under": "1A1712",
+   "unlock": "beatStitchedKing"
+  },
+  {
+   "artClassId": "",
+   "artKey": "oathsworn",
+   "blurb": "Kept bright by an oath unbroken.",
+   "classId": "reaver",
+   "entityTags": [
+    "item:armor",
+    "guard",
+    "oath"
+   ],
+   "id": "oathsworn",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "5A4626",
+   "mods": [
+    "defend.block=+1",
+    "self.strength=+1"
+   ],
+   "name": "Gilded Oathsworn",
+   "plate": "B39C5E",
+   "plateLt": "E0CB8C",
+   "poiseThreshold": 9,
+   "sharedSet": "",
+   "tags": [
+    "guard",
+    "oath"
+   ],
+   "under": "3A3020",
+   "unlock": "winAsReaver"
+  },
+  {
+   "artClassId": "",
+   "artKey": "warden",
+   "blurb": "Issued, not chosen.",
+   "classId": "reaver",
+   "entityTags": [
+    "item:armor",
+    "guard",
+    "heavy"
+   ],
+   "id": "warden",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3A3226",
+   "mods": [
+    "defend.block=+3",
+    "strike.damage=-1"
+   ],
+   "name": "Warden Mail",
+   "plate": "3F4C5A",
+   "plateLt": "64798E",
+   "poiseThreshold": 10,
+   "sharedSet": "",
+   "tags": [
+    "guard",
+    "heavy"
+   ],
+   "under": "24272A",
+   "unlock": "reachAshenCrown"
+  },
+  {
+   "artClassId": "",
+   "artKey": "default",
+   "blurb": "Dyed with the dark between stars.",
+   "classId": "starseer",
+   "entityTags": [
+    "item:armor",
+    "starstone"
+   ],
+   "id": "default",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [],
+   "name": "Nightweave",
+   "plate": "17294F",
+   "plateLt": "26406E",
+   "poiseThreshold": 3,
+   "sharedSet": "",
+   "tags": [
+    "starstone"
+   ],
+   "under": "332A1E",
+   "unlock": ""
+  },
+  {
+   "artClassId": "",
+   "artKey": "eclipse",
+   "blurb": "Worn only when the moon is eaten.",
+   "classId": "starseer",
+   "entityTags": [
+    "item:armor",
+    "starstone",
+    "ritual"
+   ],
+   "id": "eclipse",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "2A2118",
+   "mods": [
+    "power.potency=+1"
+   ],
+   "name": "Eclipse Habit",
+   "plate": "1C1A2E",
+   "plateLt": "2E2B47",
+   "poiseThreshold": 4,
+   "sharedSet": "",
+   "tags": [
+    "starstone",
+    "ritual"
+   ],
+   "under": "17151F",
+   "unlock": "winAsStarseer"
+  },
+  {
+   "artClassId": "",
+   "artKey": "starlit",
+   "blurb": "It catches light that is not there.",
+   "classId": "starseer",
+   "entityTags": [
+    "item:armor",
+    "starstone",
+    "flourish"
+   ],
+   "id": "starlit",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3A3226",
+   "mods": [
+    "strike.hits=+1",
+    "strike.damage=-1"
+   ],
+   "name": "Starlit Silks",
+   "plate": "4A5E96",
+   "plateLt": "93AEE2",
+   "poiseThreshold": 3,
+   "sharedSet": "",
+   "tags": [
+    "starstone",
+    "flourish"
+   ],
+   "under": "242A40",
+   "unlock": "beatFellWarden"
+  },
+  {
+   "artClassId": "",
+   "artKey": "astral",
+   "blurb": "Cut for someone taller than you.",
+   "classId": "starseer",
+   "entityTags": [
+    "item:armor",
+    "starstone",
+    "oath"
+   ],
+   "id": "astral",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3A2E4A",
+   "mods": [
+    "power.potency=+2",
+    "defend.block=-1"
+   ],
+   "name": "Astral Vestment",
+   "plate": "4E1747",
+   "plateLt": "9327A0",
+   "poiseThreshold": 4,
+   "sharedSet": "",
+   "tags": [
+    "starstone",
+    "oath"
+   ],
+   "under": "241E33",
+   "unlock": "winTwice"
+  },
+  {
+   "artClassId": "",
+   "artKey": "default",
+   "blurb": "Plain cloth, plainly kept.",
+   "classId": "herald",
+   "entityTags": [
+    "item:armor",
+    "ritual"
+   ],
+   "id": "default",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [],
+   "name": "Rite Vestments",
+   "plate": "2E1F1F",
+   "plateLt": "3A2A2A",
+   "poiseThreshold": 5,
+   "sharedSet": "",
+   "tags": [
+    "ritual"
+   ],
+   "under": 241413,
+   "unlock": ""
+  },
+  {
+   "artClassId": "",
+   "artKey": "ossuary",
+   "blurb": "Threaded through with quiet bone.",
+   "classId": "herald",
+   "entityTags": [
+    "item:armor",
+    "ritual",
+    "blight"
+   ],
+   "id": "ossuary",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "2A2622",
+   "mods": [
+    "strike.blight=+1"
+   ],
+   "name": "Ossuary Weave",
+   "plate": "3A3630",
+   "plateLt": 555047,
+   "poiseThreshold": 6,
+   "sharedSet": "",
+   "tags": [
+    "ritual",
+    "blight"
+   ],
+   "under": "1E1B18",
+   "unlock": "beatBlightedValkyrie"
+  },
+  {
+   "artClassId": "",
+   "artKey": "emberhabit",
+   "blurb": "Warm long after the fire is out.",
+   "classId": "herald",
+   "entityTags": [
+    "item:armor",
+    "ritual",
+    "oath"
+   ],
+   "id": "emberhabit",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3A2618",
+   "mods": [
+    "power.potency=+1",
+    "self.regen=+1"
+   ],
+   "name": "Emberlight Habit",
+   "plate": "6E3212",
+   "plateLt": "B4602A",
+   "poiseThreshold": 4,
+   "sharedSet": "",
+   "tags": [
+    "ritual",
+    "oath"
+   ],
+   "under": "2A1C12",
+   "unlock": "beatKingAsHerald"
+  },
+  {
+   "artClassId": "",
+   "artKey": "pilgrim",
+   "blurb": "Road dust worked into the weave.",
+   "classId": "herald",
+   "entityTags": [
+    "item:armor",
+    "ritual",
+    "guard"
+   ],
+   "id": "pilgrim",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3A3226",
+   "mods": [
+    "defend.block=+2",
+    "self.maxHp=+4"
+   ],
+   "name": "Pilgrim Wrap",
+   "plate": "44483A",
+   "plateLt": "747A5C",
+   "poiseThreshold": 5,
+   "sharedSet": "",
+   "tags": [
+    "ritual",
+    "guard"
+   ],
+   "under": "2A2418",
+   "unlock": "reachStitchedCourt"
+  },
+  {
+   "artClassId": "",
+   "artKey": "default",
+   "blurb": "Quiet leather for a loud profession.",
+   "classId": "rogue",
+   "entityTags": [
+    "item:armor",
+    "flourish"
+   ],
+   "id": "default",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3C2E25",
+   "mods": [],
+   "name": "Gutter Leathers",
+   "plate": "303A35",
+   "plateLt": "52665D",
+   "poiseThreshold": 3,
+   "sharedSet": "",
+   "tags": [
+    "flourish"
+   ],
+   "under": "1D211F",
+   "unlock": ""
+  },
+  {
+   "artClassId": "",
+   "artKey": "nightveil",
+   "blurb": "Dark cloth that swallows the outline.",
+   "classId": "rogue",
+   "entityTags": [
+    "item:armor",
+    "flourish",
+    "ash"
+   ],
+   "id": "nightveil",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "211F25",
+   "mods": [
+    "defend.block=+2"
+   ],
+   "name": "Nightveil Coat",
+   "plate": "20272A",
+   "plateLt": "3B4B4A",
+   "poiseThreshold": 3,
+   "sharedSet": "",
+   "tags": [
+    "flourish",
+    "ash"
+   ],
+   "under": 151719,
+   "unlock": "rogueBeatWarden"
+  },
+  {
+   "artClassId": "",
+   "artKey": "duelist",
+   "blurb": "Cut close so nothing catches the blade.",
+   "classId": "rogue",
+   "entityTags": [
+    "item:armor",
+    "flourish",
+    "pierce"
+   ],
+   "id": "duelist",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "43362C",
+   "mods": [
+    "strike.hits=+1",
+    "strike.damage=-1"
+   ],
+   "name": "Duelist Jerkin",
+   "plate": "46515A",
+   "plateLt": "78909A",
+   "poiseThreshold": 3,
+   "sharedSet": "",
+   "tags": [
+    "flourish",
+    "pierce"
+   ],
+   "under": "25282A",
+   "unlock": "winAsRogue"
+  },
+  {
+   "artClassId": "",
+   "artKey": "shadow",
+   "blurb": "The hem remembers every alley.",
+   "classId": "rogue",
+   "entityTags": [
+    "item:armor",
+    "flourish",
+    "venom"
+   ],
+   "id": "shadow",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "2A2430",
+   "mods": [
+    "self.strength=+1"
+   ],
+   "name": "Shadow Mantle",
+   "plate": 292136,
+   "plateLt": 534066,
+   "poiseThreshold": 4,
+   "sharedSet": "",
+   "tags": [
+    "flourish",
+    "venom"
+   ],
+   "under": "17131F",
+   "unlock": "rogueReachCrown"
+  },
+  {
+   "artClassId": "",
+   "artKey": "warden",
+   "blurb": "Iron shelter that taxes every step.",
+   "classId": "reaver",
+   "entityTags": [
+    "item:armor"
+   ],
+   "id": "bastion",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3A3226",
+   "mods": [
+    "defend.block=+4",
+    "self.maxStamina=-1"
+   ],
+   "name": "Bastion Harness",
+   "plate": "3F4C5A",
+   "plateLt": "64798E",
+   "poiseThreshold": 11,
+   "sharedSet": "",
+   "tags": [],
+   "under": "24272A",
+   "unlock": "reachStitchedCourt"
+  },
+  {
+   "artClassId": "",
+   "artKey": "starlit",
+   "blurb": "Cold threads hold the enemy at a distance.",
+   "classId": "starseer",
+   "entityTags": [
+    "item:armor"
+   ],
+   "id": "rimeweave",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3A3226",
+   "mods": [
+    "strike.frost=+2",
+    "defend.block=-1"
+   ],
+   "name": "Rimeweave Robes",
+   "plate": "4A5E96",
+   "plateLt": "93AEE2",
+   "poiseThreshold": 3,
+   "sharedSet": "",
+   "tags": [],
+   "under": "242A40",
+   "unlock": "beatFellWarden"
+  },
+  {
+   "artClassId": "",
+   "artKey": "nightveil",
+   "blurb": "A light coat for the long retreat.",
+   "classId": "rogue",
+   "entityTags": [
+    "item:armor"
+   ],
+   "id": "waywatcher",
+   "inventoryArtKey": "",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "211F25",
+   "mods": [
+    "self.maxStamina=+1",
+    "strike.damage=-1"
+   ],
+   "name": "Waywatcher Coat",
+   "plate": "20272A",
+   "plateLt": "3B4B4A",
+   "poiseThreshold": 3,
+   "sharedSet": "",
+   "tags": [],
+   "under": 151719,
+   "unlock": "rogueBeatWarden"
+  },
+  {
+   "artClassId": "reaver",
+   "artKey": "default",
+   "blurb": "The armour you were buried in.",
+   "classId": "reaver",
+   "entityTags": [
+    "item:armor",
+    "guard",
+    "heavy"
+   ],
+   "id": "wayfarerPlate",
+   "inventoryArtKey": "wayfarerPlate",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "defend.block=+2",
+    "self.maxHp=+4"
+   ],
+   "name": "Wayfarer Plate",
+   "plate": "3E6157",
+   "plateLt": "64907F",
+   "poiseThreshold": 8,
+   "requirements": {
+    "attributes": {
+     "strength": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "guard",
+    "heavy"
+   ],
+   "under": "332A1E",
+   "unlock": ""
+  },
+  {
+   "artClassId": "reaver",
+   "artKey": "default",
+   "blurb": "The armour you were buried in.",
+   "classId": "starseer",
+   "entityTags": [
+    "item:armor",
+    "guard",
+    "heavy"
+   ],
+   "id": "wayfarerPlate",
+   "inventoryArtKey": "wayfarerPlate",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "defend.block=+2",
+    "self.maxHp=+4"
+   ],
+   "name": "Wayfarer Plate",
+   "plate": "3E6157",
+   "plateLt": "64907F",
+   "poiseThreshold": 8,
+   "requirements": {
+    "attributes": {
+     "strength": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "guard",
+    "heavy"
+   ],
+   "under": "332A1E",
+   "unlock": ""
+  },
+  {
+   "artClassId": "reaver",
+   "artKey": "default",
+   "blurb": "The armour you were buried in.",
+   "classId": "herald",
+   "entityTags": [
+    "item:armor",
+    "guard",
+    "heavy"
+   ],
+   "id": "wayfarerPlate",
+   "inventoryArtKey": "wayfarerPlate",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "defend.block=+2",
+    "self.maxHp=+4"
+   ],
+   "name": "Wayfarer Plate",
+   "plate": "3E6157",
+   "plateLt": "64907F",
+   "poiseThreshold": 8,
+   "requirements": {
+    "attributes": {
+     "strength": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "guard",
+    "heavy"
+   ],
+   "under": "332A1E",
+   "unlock": ""
+  },
+  {
+   "artClassId": "reaver",
+   "artKey": "default",
+   "blurb": "The armour you were buried in.",
+   "classId": "rogue",
+   "entityTags": [
+    "item:armor",
+    "guard",
+    "heavy"
+   ],
+   "id": "wayfarerPlate",
+   "inventoryArtKey": "wayfarerPlate",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "defend.block=+2",
+    "self.maxHp=+4"
+   ],
+   "name": "Wayfarer Plate",
+   "plate": "3E6157",
+   "plateLt": "64907F",
+   "poiseThreshold": 8,
+   "requirements": {
+    "attributes": {
+     "strength": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "guard",
+    "heavy"
+   ],
+   "under": "332A1E",
+   "unlock": ""
+  },
+  {
+   "artClassId": "starseer",
+   "artKey": "default",
+   "blurb": "Dyed with the dark between stars.",
+   "classId": "reaver",
+   "entityTags": [
+    "item:armor",
+    "starstone",
+    "ritual"
+   ],
+   "id": "nightweave",
+   "inventoryArtKey": "nightweave",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "power.potency=+1",
+    "self.maxMana=+1"
+   ],
+   "name": "Nightweave",
+   "plate": "17294F",
+   "plateLt": "26406E",
+   "poiseThreshold": 3,
+   "requirements": {
+    "attributes": {
+     "intelligence": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "starstone",
+    "ritual"
+   ],
+   "under": "332A1E",
+   "unlock": ""
+  },
+  {
+   "artClassId": "starseer",
+   "artKey": "default",
+   "blurb": "Dyed with the dark between stars.",
+   "classId": "starseer",
+   "entityTags": [
+    "item:armor",
+    "starstone",
+    "ritual"
+   ],
+   "id": "nightweave",
+   "inventoryArtKey": "nightweave",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "power.potency=+1",
+    "self.maxMana=+1"
+   ],
+   "name": "Nightweave",
+   "plate": "17294F",
+   "plateLt": "26406E",
+   "poiseThreshold": 3,
+   "requirements": {
+    "attributes": {
+     "intelligence": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "starstone",
+    "ritual"
+   ],
+   "under": "332A1E",
+   "unlock": ""
+  },
+  {
+   "artClassId": "starseer",
+   "artKey": "default",
+   "blurb": "Dyed with the dark between stars.",
+   "classId": "herald",
+   "entityTags": [
+    "item:armor",
+    "starstone",
+    "ritual"
+   ],
+   "id": "nightweave",
+   "inventoryArtKey": "nightweave",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "power.potency=+1",
+    "self.maxMana=+1"
+   ],
+   "name": "Nightweave",
+   "plate": "17294F",
+   "plateLt": "26406E",
+   "poiseThreshold": 3,
+   "requirements": {
+    "attributes": {
+     "intelligence": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "starstone",
+    "ritual"
+   ],
+   "under": "332A1E",
+   "unlock": ""
+  },
+  {
+   "artClassId": "starseer",
+   "artKey": "default",
+   "blurb": "Dyed with the dark between stars.",
+   "classId": "rogue",
+   "entityTags": [
+    "item:armor",
+    "starstone",
+    "ritual"
+   ],
+   "id": "nightweave",
+   "inventoryArtKey": "nightweave",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "power.potency=+1",
+    "self.maxMana=+1"
+   ],
+   "name": "Nightweave",
+   "plate": "17294F",
+   "plateLt": "26406E",
+   "poiseThreshold": 3,
+   "requirements": {
+    "attributes": {
+     "intelligence": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "starstone",
+    "ritual"
+   ],
+   "under": "332A1E",
+   "unlock": ""
+  },
+  {
+   "artClassId": "herald",
+   "artKey": "default",
+   "blurb": "Plain cloth, plainly kept.",
+   "classId": "reaver",
+   "entityTags": [
+    "item:armor",
+    "ritual",
+    "guard"
+   ],
+   "id": "riteVestments",
+   "inventoryArtKey": "riteVestments",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "defend.block=+1",
+    "self.maxHp=+6"
+   ],
+   "name": "Rite Vestments",
+   "plate": "2E1F1F",
+   "plateLt": "3A2A2A",
+   "poiseThreshold": 5,
+   "requirements": {
+    "attributes": {
+     "wisdom": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "ritual",
+    "guard"
+   ],
+   "under": 241413,
+   "unlock": ""
+  },
+  {
+   "artClassId": "herald",
+   "artKey": "default",
+   "blurb": "Plain cloth, plainly kept.",
+   "classId": "starseer",
+   "entityTags": [
+    "item:armor",
+    "ritual",
+    "guard"
+   ],
+   "id": "riteVestments",
+   "inventoryArtKey": "riteVestments",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "defend.block=+1",
+    "self.maxHp=+6"
+   ],
+   "name": "Rite Vestments",
+   "plate": "2E1F1F",
+   "plateLt": "3A2A2A",
+   "poiseThreshold": 5,
+   "requirements": {
+    "attributes": {
+     "wisdom": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "ritual",
+    "guard"
+   ],
+   "under": 241413,
+   "unlock": ""
+  },
+  {
+   "artClassId": "herald",
+   "artKey": "default",
+   "blurb": "Plain cloth, plainly kept.",
+   "classId": "herald",
+   "entityTags": [
+    "item:armor",
+    "ritual",
+    "guard"
+   ],
+   "id": "riteVestments",
+   "inventoryArtKey": "riteVestments",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "defend.block=+1",
+    "self.maxHp=+6"
+   ],
+   "name": "Rite Vestments",
+   "plate": "2E1F1F",
+   "plateLt": "3A2A2A",
+   "poiseThreshold": 5,
+   "requirements": {
+    "attributes": {
+     "wisdom": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "ritual",
+    "guard"
+   ],
+   "under": 241413,
+   "unlock": ""
+  },
+  {
+   "artClassId": "herald",
+   "artKey": "default",
+   "blurb": "Plain cloth, plainly kept.",
+   "classId": "rogue",
+   "entityTags": [
+    "item:armor",
+    "ritual",
+    "guard"
+   ],
+   "id": "riteVestments",
+   "inventoryArtKey": "riteVestments",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "4B3522",
+   "mods": [
+    "defend.block=+1",
+    "self.maxHp=+6"
+   ],
+   "name": "Rite Vestments",
+   "plate": "2E1F1F",
+   "plateLt": "3A2A2A",
+   "poiseThreshold": 5,
+   "requirements": {
+    "attributes": {
+     "wisdom": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "ritual",
+    "guard"
+   ],
+   "under": 241413,
+   "unlock": ""
+  },
+  {
+   "artClassId": "rogue",
+   "artKey": "default",
+   "blurb": "Quiet leather for a loud profession.",
+   "classId": "reaver",
+   "entityTags": [
+    "item:armor",
+    "flourish",
+    "pierce"
+   ],
+   "id": "gutterLeathers",
+   "inventoryArtKey": "gutterLeathers",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3C2E25",
+   "mods": [
+    "strike.damage=+1",
+    "self.maxStamina=+1"
+   ],
+   "name": "Gutter Leathers",
+   "plate": "303A35",
+   "plateLt": "52665D",
+   "poiseThreshold": 3,
+   "requirements": {
+    "attributes": {
+     "dexterity": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "flourish",
+    "pierce"
+   ],
+   "under": "1D211F",
+   "unlock": ""
+  },
+  {
+   "artClassId": "rogue",
+   "artKey": "default",
+   "blurb": "Quiet leather for a loud profession.",
+   "classId": "starseer",
+   "entityTags": [
+    "item:armor",
+    "flourish",
+    "pierce"
+   ],
+   "id": "gutterLeathers",
+   "inventoryArtKey": "gutterLeathers",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3C2E25",
+   "mods": [
+    "strike.damage=+1",
+    "self.maxStamina=+1"
+   ],
+   "name": "Gutter Leathers",
+   "plate": "303A35",
+   "plateLt": "52665D",
+   "poiseThreshold": 3,
+   "requirements": {
+    "attributes": {
+     "dexterity": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "flourish",
+    "pierce"
+   ],
+   "under": "1D211F",
+   "unlock": ""
+  },
+  {
+   "artClassId": "rogue",
+   "artKey": "default",
+   "blurb": "Quiet leather for a loud profession.",
+   "classId": "herald",
+   "entityTags": [
+    "item:armor",
+    "flourish",
+    "pierce"
+   ],
+   "id": "gutterLeathers",
+   "inventoryArtKey": "gutterLeathers",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3C2E25",
+   "mods": [
+    "strike.damage=+1",
+    "self.maxStamina=+1"
+   ],
+   "name": "Gutter Leathers",
+   "plate": "303A35",
+   "plateLt": "52665D",
+   "poiseThreshold": 3,
+   "requirements": {
+    "attributes": {
+     "dexterity": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "flourish",
+    "pierce"
+   ],
+   "under": "1D211F",
+   "unlock": ""
+  },
+  {
+   "artClassId": "rogue",
+   "artKey": "default",
+   "blurb": "Quiet leather for a loud profession.",
+   "classId": "rogue",
+   "entityTags": [
+    "item:armor",
+    "flourish",
+    "pierce"
+   ],
+   "id": "gutterLeathers",
+   "inventoryArtKey": "gutterLeathers",
+   "itemTypeTags": [
+    "item:armor"
+   ],
+   "itemTypes": [
+    {
+     "label": "Armor",
+     "tag": "item:armor"
+    }
+   ],
+   "kind": "armor",
+   "kindIds": [
+    "classification.armour"
+   ],
+   "leather": "3C2E25",
+   "mods": [
+    "strike.damage=+1",
+    "self.maxStamina=+1"
+   ],
+   "name": "Gutter Leathers",
+   "plate": "303A35",
+   "plateLt": "52665D",
+   "poiseThreshold": 3,
+   "requirements": {
+    "attributes": {
+     "dexterity": 3
+    }
+   },
+   "sharedSet": true,
+   "tags": [
+    "flourish",
+    "pierce"
+   ],
+   "under": "1D211F",
+   "unlock": ""
+  }
+ ],
+ "armouryUi": {
+  "equippedTag": {
+   "customColor": "#7FD47F",
+   "useCustomColor": true
+  },
+  "layout": {
+   "cardClasses": {
+    "inventoryItem": {
+     "holdAction": true
+    }
+   },
+   "cards": {
+    "defaultView": "list",
+    "gridColumns": 4
+   },
+   "character": {
+    "minWidth": "0",
+    "spriteRatio": 0.38,
+    "statsPaneRatio": 0.6,
+    "statsRatio": 0.62
+   },
+   "combatPower": {
+    "cards": [
+     {
+      "fullLabel": "Strike Power",
+      "id": "strike",
+      "label": "Strike",
+      "role": "attack"
+     },
+     {
+      "fullLabel": "Magic Power",
+      "id": "potency",
+      "label": "Magic",
+      "role": "technique"
+     },
+     {
+      "fullLabel": "Guard / Defense",
+      "id": "defense",
+      "label": "Defense",
+      "role": "guard"
+     }
+    ],
+    "groupLabel": "Combat Power"
+   },
+   "comparison": {
+    "holdPreviewDelayMs": 160,
+    "presentation": "tooltip",
+    "tooltipMaxHeightRatio": 0.8,
+    "tooltipWidthRem": 52
+   },
+   "equipment": {
+    "defaultView": "list",
+    "gridColumns": 3,
+    "groupLabel": "Armaments",
+    "outerBorder": false,
+    "slotOrder": [
+     "armor",
+     "rightHand",
+     "leftHand"
+    ]
+   },
+   "inventorySplit": {
+    "compactItemsBelowPx": 520,
+    "defaultArmamentsRatio": 0.6,
+    "foldGroupsBelowPx": 260,
+    "foldSubcardsBelowPx": 420,
+    "maximumArmamentsRatio": 0.8,
+    "minimumArmamentsRatio": 0.3,
+    "snapRatios": [
+     0.4,
+     0.5,
+     0.6,
+     0.7
+    ],
+    "snapTolerance": 0.035
+   },
+   "responsive": {
+    "breakpoint": 760,
+    "phone": {
+     "armamentGridColumns": 2,
+     "cardsGridColumns": 2,
+     "characterRatio": 0.4,
+     "equipmentRatio": 0.6,
+     "minWidth": "0"
+    }
+   },
+   "shell": {
+    "characterRatio": 0.4,
+    "equipmentRatio": 0.6,
+    "gapRem": 1.6
+   },
+   "trays": {
+    "contentGapRem": 0.35,
+    "defaultHeightRatio": 0.45,
+    "maximumHeightRatio": 0.9,
+    "minimumHeightRatio": 0.3,
+    "multipleExpandedMinimumRatio": 0.3,
+    "snapRatios": [
+     0.3,
+     0.4,
+     0.5,
+     0.6,
+     0.7,
+     0.8,
+     0.9
+    ],
+    "snapTolerance": 0.035
+   },
+   "viewModes": {
+    "cards": {
+     "armaments": "folded",
+     "cards": "expanded",
+     "character": "folded",
+     "inventory": "folded",
+     "label": "Cards",
+     "pane": "inventory"
+    },
+    "grid": {
+     "armaments": "folded",
+     "cards": "expanded",
+     "character": "expanded",
+     "inventory": "folded",
+     "label": "Character",
+     "pane": "character"
+    },
+    "hybrid": {
+     "armaments": "expanded",
+     "cards": "folded",
+     "character": "folded",
+     "inventory": "expanded",
+     "label": "Inventory",
+     "pane": "inventory"
+    },
+    "rack": {
+     "armaments": "expanded",
+     "cards": "folded",
+     "character": "folded",
+     "inventory": "expanded",
+     "label": "Equipment",
+     "pane": "inventory"
+    }
+   }
+  }
+ },
+ "basicCardProfiles": [
+  {
+   "baseCardId": "strike",
+   "baseValue": 3,
+   "cap": "",
+   "compatibility": "attack-v1",
+   "damageSchool": "physical",
+   "displayName": "Unarmed Strike",
+   "exposureBuildupPerHit": 0,
+   "flavor": "A blow thrown with nothing in the fist, the last thing a Forsaken owns once the blade has broken and the cairn has kept it. No hamlet teaches it. It is learned the first winter a sword is traded for salt, and old climbers carry knuckles scarred flat from it without saying which winter did the damage.\n\nA last resort, still yours.\n— cairn-scratch",
+   "icon": "✊",
+   "id": "unarmedAttack",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "ar",
+   "role": "attack",
+   "tags": [
+    "basic",
+    "source:unarmed",
+    "delivery:melee",
+    "damage:blunt"
+   ]
+  },
+  {
+   "baseCardId": "strike",
+   "baseValue": 2,
+   "cap": "",
+   "compatibility": "attack-v1",
+   "damageSchool": "physical",
+   "displayName": "Shield Strike",
+   "exposureBuildupPerHit": 0,
+   "flavor": "A rim-blow from the Bastion's shield line, used when the sword arm is caught or gone. Climbers learn it from salvaged Warden shields, which bore the gilded branch until the Forsaken scraped it off. Some leave the gold on. The corrupted Wardens at the Fell Courtyard hesitate at the sight of it, which the elders say is worth the risk of carrying it.\n\nA short iron answer.\n— Marl's Hollow elders",
+   "icon": "🛡",
+   "id": "shieldAttack",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "ar",
+   "role": "attack",
+   "tags": [
+    "guard",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "baseCardId": "strike",
+   "baseValue": 5,
+   "cap": "",
+   "compatibility": "attack-v1",
+   "damageSchool": "physical",
+   "displayName": "Slashing Strike",
+   "exposureBuildupPerHit": 0,
+   "flavor": "The plain cut of Bastion steel, drilled into field levies and the sellswords hired beside them. Weald smiths left their blades unsigned, a custom the Chapel's scribes found insolent and never managed to end. Unsigned blades lie all over the ring now, and a Forsaken can carry one without anyone asking whose it was.\n\nSteel gives the motion its name.\n— weald smiths' talk",
+   "icon": "⚔",
+   "id": "bladeAttack",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "ar",
+   "role": "attack",
+   "tags": [
+    "blade",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "baseCardId": "strike",
+   "baseValue": 2,
+   "cap": "",
+   "compatibility": "attack-v1",
+   "damageSchool": "physical",
+   "displayName": "Twinblade Flurry",
+   "exposureBuildupPerHit": 0,
+   "flavor": "A turning flurry from the Citadel's midwinter masque, where court dancers spun double-ended blades before the throne. The dancers were stitched to their posts when the Court Flame died, and some of them turn on the frozen river to this day, slower each winter. Climbers learn the step by watching. The docks say the dancers do not mind being copied.\n\nThree cuts, one turning.\n— east bank dock talk",
+   "icon": "⚔",
+   "id": "twinbladeAttack",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "ar",
+   "role": "attack",
+   "tags": [
+    "blade",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "baseCardId": "strike",
+   "baseValue": 3,
+   "cap": "",
+   "compatibility": "attack-v1",
+   "damageSchool": "physical",
+   "displayName": "Piercing Flurry",
+   "exposureBuildupPerHit": 0,
+   "flavor": "Two quick openings, the way the Court's surgeons let a vein. The surgeons' apprentices taught it on the docks once the Court stopped paying them, and one of them teaches it yet, for cinders, under the ice below the Citadel. He says he learned it to open people and taught himself to close them, and that he does not sell the second part.\n\nTwo, and quick.\n— east bank dock talk",
+   "icon": "†",
+   "id": "daggerPierceAttack",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "ar",
+   "role": "attack",
+   "tags": [
+    "pierce",
+    "flourish",
+    "technique:flourish",
+    "source:weapon",
+    "delivery:melee",
+    "damage:piercing"
+   ]
+  },
+  {
+   "baseCardId": "strike",
+   "baseValue": 4,
+   "cap": "",
+   "compatibility": "attack-v1",
+   "damageSchool": "physical",
+   "displayName": "Piercing Shot",
+   "exposureBuildupPerHit": 0,
+   "flavor": "A shot loosed from low cover, the way weald poachers took the deer the Bastion kept for its own tables. The Bastion hanged poachers, so the hamlets learned to loose on the peal of the dawn bell, which covered the sound of the string. The Bell Keeper rings the dawn peal yet, though no dawn follows it, and the poachers loose on the stroke regardless.\n\nThe point lands on the stroke.\n— weald hamlet saying",
+   "icon": "➶",
+   "id": "bowPierceAttack",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "ar",
+   "role": "attack",
+   "tags": [
+    "pierce",
+    "ranged",
+    "precision",
+    "technique:precision",
+    "source:weapon",
+    "delivery:projectile",
+    "damage:piercing"
+   ]
+  },
+  {
+   "baseCardId": "strike",
+   "baseValue": 2,
+   "cap": "",
+   "compatibility": "attack-v1",
+   "damageSchool": "magic",
+   "displayName": "Staff Magic Strike",
+   "exposureBuildupPerHit": 1,
+   "flavor": "A cold light struck from a staff, the working of the Observatory's apprentices. They cut their staffs green from the lanternwood of the weald and tipped them with starstone chips bought from the reach miners. The Starwatch taught that the light came from the stone. The apprentices noticed it came more easily when the staff was pointed at the sky, and were told to stop noticing.\n\nAsh carries a small cold light.\n— apprentice's letter",
+   "icon": "✦",
+   "id": "staffMagicAttack",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "pr",
+   "role": "attack",
+   "tags": [
+    "starstone",
+    "theme:astral",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ]
+  },
+  {
+   "baseCardId": "strike",
+   "baseValue": 3,
+   "cap": "",
+   "compatibility": "attack-v1",
+   "damageSchool": "arcane",
+   "displayName": "Arcane Strike",
+   "exposureBuildupPerHit": 1,
+   "flavor": "The sceptre's working, which answers in a darker tongue than the staff's. Chapel sceptres were carved with script copied from sealstone doors older than the Chapel, and the cantors who carried them were taught the sounds but not the sense. The Chapel called the script sacred. Among themselves, the cantors called it borrowed.\n\nThe sceptre answers in a darker tongue.\n— cantors' talk",
+   "icon": "◈",
+   "id": "sceptreArcaneAttack",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "pr",
+   "role": "attack",
+   "tags": [
+    "ritual",
+    "blight",
+    "theme:blight",
+    "source:spell",
+    "delivery:projectile",
+    "damage:arcane"
+   ]
+  },
+  {
+   "baseCardId": "evasiveGuard",
+   "baseValue": 1,
+   "cap": "",
+   "compatibility": "guard-v1",
+   "damageSchool": "physical",
+   "displayName": "Evasive Guard",
+   "exposureBuildupPerHit": 0,
+   "flavor": "A guard with empty hands, the ice-fishers' way of standing on lakes that crack all winter and hold one person at a time. They keep their weight low and their feet wide and let the ice decide. The fishers of Sallow Lake say the ice has a temper and can be reasoned with. The ones who said otherwise are under it.\n\nNothing in your hands but the ground under your feet.\n— ice-fishers' talk",
+   "icon": "🌀",
+   "id": "unarmedGuard",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "dr",
+   "role": "guard",
+   "tags": [
+    "guard"
+   ]
+  },
+  {
+   "baseCardId": "defend",
+   "baseValue": 2,
+   "cap": "",
+   "compatibility": "guard-v1",
+   "damageSchool": "physical",
+   "displayName": "Weapon Guard",
+   "exposureBuildupPerHit": 0,
+   "flavor": "A turn of the haft to take the blow on the wood, the levy drill of the Bastion's field-born. Sergeant Ilse drilled it into the weald's levies on the Muster Stair, and on quiet nights her voice carries from the Bastion walls, calling the count. The levies she drilled are mostly corrupted now. When they hear her, they take their places.\n\nTurn the haft and weather the blow.\n— weald hamlet saying",
+   "icon": "🛡",
+   "id": "weaponGuard",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "dr",
+   "role": "guard",
+   "tags": [
+    "guard"
+   ]
+  },
+  {
+   "baseCardId": "defend",
+   "baseValue": 3,
+   "cap": "",
+   "compatibility": "guard-v1",
+   "damageSchool": "physical",
+   "displayName": "Shield Defend",
+   "exposureBuildupPerHit": 0,
+   "flavor": "A shield set against a blow, as the Wardens taught it and as the Forsaken learned it from the shields themselves. The Bastion's shields carried strips of bell-bronze on the rim, cast from the metal left over when the great bell was founded. The Wardens said the bronze rang the hour when struck. Climbers who carry them say it rings at other times as well.\n\nMeet the blow on carried iron.\n— cairn-scratch",
+   "icon": "🛡",
+   "id": "shieldGuard",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "dr",
+   "role": "guard",
+   "tags": [
+    "guard"
+   ]
+  },
+  {
+   "baseCardId": "defend",
+   "baseValue": 1,
+   "cap": "",
+   "compatibility": "guard-v1",
+   "damageSchool": "magic",
+   "displayName": "Arcane Ward",
+   "exposureBuildupPerHit": 0,
+   "flavor": "A ward drawn through a staff, first taught to the Observatory's apprentices on Starwatch Terrace, where they measured the new tower's draw across the water. The Astronomer said the ward was against the salt wind. The apprentices said it was against the tower, because the ward leaned toward the Spire whenever they drew it.\n\nA thin ward drawn through the focus.\n— apprentice's letter",
+   "icon": "✦",
+   "id": "staffGuard",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "pr",
+   "role": "guard",
+   "tags": [
+    "starstone",
+    "theme:astral"
+   ]
+  },
+  {
+   "baseCardId": "defend",
+   "baseValue": 1,
+   "cap": "",
+   "compatibility": "guard-v1",
+   "damageSchool": "arcane",
+   "displayName": "Ritual Ward",
+   "exposureBuildupPerHit": 0,
+   "flavor": "A ward held together by rite, from the Chapel's night watch over a bier before a name was written. The cantors held a sceptre crosswise over the body until dawn. The Chapel taught that the ward kept the name from wandering. The cantors did not ask where a name might wander to, and the rubric does not say.\n\nA ward held together by rite.\n— Chapel rubric",
+   "icon": "◈",
+   "id": "sceptreGuard",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "pr",
+   "role": "guard",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "baseCardId": "dodgeRoll",
+   "baseValue": 0,
+   "cap": "",
+   "compatibility": "technique-v1",
+   "damageSchool": "physical",
+   "displayName": "Dodge Roll",
+   "exposureBuildupPerHit": 0,
+   "flavor": "The empty hand's art, which is mostly the art of not being where the blow lands. The ship-breakers of the Grave of Ships teach it on hulls that shift with the tide. Gull-Bet says it was the first thing the Forsaken ever had that the marked envied, and she says it the way one says a thing that has been true for a very short while.\n\nThe empty hand's art is not being there.\n— ship-breakers' talk",
+   "icon": "💨",
+   "id": "unarmedTechnique",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "dr",
+   "role": "technique",
+   "tags": [
+    "flourish",
+    "technique:flourish"
+   ]
+  },
+  {
+   "baseCardId": "technique",
+   "baseValue": 0,
+   "cap": "",
+   "compatibility": "technique-v1",
+   "damageSchool": "physical",
+   "displayName": "Weapon Technique",
+   "exposureBuildupPerHit": 0,
+   "flavor": "A weapon learned the way it was last used, by picking up what the corrupted drop and letting its habits show. Hamlet folk say a blade taken from a Warden cuts like a Warden. Orla, from a hamlet below the Bastion, carries a sword that dips toward the Fell Courtyard whenever she passes, and she has stopped fighting the pull.\n\nLet the weapon teach the hand.\n— weald hamlet saying",
+   "icon": "✧",
+   "id": "weaponTechnique",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "ar",
+   "role": "technique",
+   "tags": [
+    "blade",
+    "flourish",
+    "technique:flourish"
+   ]
+  },
+  {
+   "baseCardId": "technique",
+   "baseValue": 0,
+   "cap": "",
+   "compatibility": "technique-v1",
+   "damageSchool": "physical",
+   "displayName": "Steady Aim",
+   "exposureBuildupPerHit": 0,
+   "flavor": "The poacher's pause before loosing: breath out, hand set, wait for the bell. Weald poachers learned patience from the Bastion's gamekeepers, who hanged the impatient. The gamekeepers are among the corrupted now and walk the lanternwood yet. Poachers say they can be heard counting under their breath, and that the count never reaches its end.\n\nSet the hand before loosing.\n— weald hamlet saying",
+   "icon": "➶",
+   "id": "bowTechnique",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "ar",
+   "role": "technique",
+   "tags": [
+    "ranged",
+    "precision",
+    "technique:precision"
+   ]
+  },
+  {
+   "baseCardId": "technique",
+   "baseValue": 0,
+   "cap": "",
+   "compatibility": "technique-v1",
+   "damageSchool": "magic",
+   "displayName": "Staff Channel",
+   "exposureBuildupPerHit": 0,
+   "flavor": "The breath set behind the focus, counted to the rhythm of the star tables, which the apprentices recited until the rhythm lived in the breath. The Starwatch taught that the tables were only numbers. The apprentices say the rhythm is older than the numbers, and that the Astronomer read the last table aloud himself on the night of the eclipse and did not stop at the end.\n\nSet the breath behind the focus.\n— apprentice's letter",
+   "icon": "✦",
+   "id": "staffTechnique",
+   "kindIds": [
+    "classification.basicCardProfile"
+   ],
+   "mods": [],
+   "ratingId": "pr",
+   "role": "technique",
+   "tags": [
+    "ritual"
+   ]
+  }
+ ],
+ "cardEquipmentExceptions": [
+  {
+   "cardId": "starstoneKris",
+   "weaponId": "dagger"
+  }
+ ],
+ "cardExposure": [
+  {
+   "cardId": "strike",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "ambush",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "rogueShiv",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "quickCut",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "twinPrick",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "hamstringRogue",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "serratedShiv",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "ricochet",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "lowBlow",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "cheapShot",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "bladeDanceRogue",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "garrote",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "fanOfKnives",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "coupDeGrace",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "sap",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "assassinate",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "thousandCutsRogue",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "deathblow",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "gorefireSlash",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "crimsonCleave",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "shieldBash",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "guardCounter",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "serratedBlade",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "riposte",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "rend",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "cleavingBlow",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "stomp",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "twinbladeFlurry",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "kickOff",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "impale",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "executioner",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "stitchedArms",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "ruinousBlow",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "bloodhuntersStrike",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "goreslash",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "flameToBlade",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "bloodTithe",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "poiseBreaker",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "sunderplate",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "starstonePebble",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "cometFragment",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "starbladePhalanx",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "starShower",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "starSlicer",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "starlance",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "frostNova",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "starstoneArc",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "moonrendCut",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "meteorite",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "meteorSwarm",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "astralCleave",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "radiantSpray",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "supernova",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "starstoneKris",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "starfallBeam",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "starcaller",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "shootingShard",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "celestialLance",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "starSpark",
+   "damageSchool": "magic",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "blightTouch",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "flagellation",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "graveOffering",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "cullTheWeak",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "sacredHarvest",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "plagueBearer",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "exsanguinate",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "scourge",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "crimsonRite",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "blightNova",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "bloodHarvest",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "painOffering",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "witheringTouch",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "desperateRite",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "bloodOfferingRite",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 5
+  },
+  {
+   "cardId": "blightwardLash",
+   "damageSchool": "arcane",
+   "exposureBuildupPerHit": 1
+  },
+  {
+   "cardId": "twinFang",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "bashingBlow",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "sweepingBlow",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "colossusSmash",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "katanaDrawCut",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "greatswordSunderingHew",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "spikedReprisal",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "rimeThrust",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  },
+  {
+   "cardId": "kilnCleave",
+   "damageSchool": "physical",
+   "exposureBuildupPerHit": 0
+  }
+ ],
+ "cardTagging": [
+  {
+   "cardId": "strike",
+   "tags": [
+    "blade",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "defend",
+   "tags": [
+    "guard"
+   ]
+  },
+  {
+   "cardId": "gorefireSlash",
+   "tags": [
+    "blade",
+    "blood",
+    "gorefire",
+    "source:weapon",
+    "delivery:melee",
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "crimsonCleave",
+   "tags": [
+    "blade",
+    "blood",
+    "source:weapon",
+    "delivery:area",
+    "delivery:melee",
+    "theme:blood",
+    "technique:cleave"
+   ]
+  },
+  {
+   "cardId": "shieldBash",
+   "tags": [
+    "guard",
+    "blade",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "quickstep",
+   "tags": [
+    "flourish",
+    "technique:flourish"
+   ]
+  },
+  {
+   "cardId": "guardCounter",
+   "tags": [
+    "guard",
+    "flourish",
+    "source:weapon",
+    "delivery:melee",
+    "technique:flourish",
+    "technique:counter"
+   ]
+  },
+  {
+   "cardId": "ironResolve",
+   "tags": [
+    "guard"
+   ]
+  },
+  {
+   "cardId": "serratedBlade",
+   "tags": [
+    "blade",
+    "blood",
+    "source:weapon",
+    "delivery:melee",
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "enterGorefire",
+   "tags": [
+    "gorefire",
+    "oath",
+    "theme:oath",
+    "theme:stance",
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "enterBulwark",
+   "tags": [
+    "guard",
+    "oath",
+    "theme:oath",
+    "theme:stance"
+   ]
+  },
+  {
+   "cardId": "riposte",
+   "tags": [
+    "guard",
+    "flourish",
+    "source:weapon",
+    "delivery:melee",
+    "technique:flourish",
+    "technique:counter"
+   ]
+  },
+  {
+   "cardId": "rend",
+   "tags": [
+    "source:weapon",
+    "delivery:melee",
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "cleavingBlow",
+   "tags": [
+    "source:weapon",
+    "delivery:area",
+    "delivery:melee",
+    "technique:cleave"
+   ]
+  },
+  {
+   "cardId": "stomp",
+   "tags": [
+    "source:unarmed",
+    "damage:blunt",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "hemorrhage",
+   "tags": [
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "twinbladeFlurry",
+   "tags": [
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "kickOff",
+   "tags": [
+    "source:unarmed",
+    "damage:blunt",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "impale",
+   "tags": [
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "executioner",
+   "tags": [
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "goreblood",
+   "tags": [
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "stitchedArms",
+   "tags": [
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "ruinousBlow",
+   "tags": [
+    "source:weapon",
+    "delivery:melee",
+    "technique:heavy"
+   ]
+  },
+  {
+   "cardId": "bloodhuntersStrike",
+   "tags": [
+    "source:weapon",
+    "delivery:melee",
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "sanguinePactCard",
+   "tags": [
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "goreslash",
+   "tags": [
+    "source:weapon",
+    "delivery:melee",
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "flameToBlade",
+   "tags": [
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "bloodTithe",
+   "tags": [
+    "source:weapon",
+    "delivery:melee",
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "poiseBreaker",
+   "tags": [
+    "source:weapon",
+    "delivery:melee",
+    "technique:heavy"
+   ]
+  },
+  {
+   "cardId": "rondelParry",
+   "tags": [
+    "technique:counter"
+   ]
+  },
+  {
+   "cardId": "sunderplate",
+   "tags": [
+    "source:weapon",
+    "delivery:melee",
+    "technique:heavy"
+   ]
+  },
+  {
+   "cardId": "brace",
+   "tags": [
+    "guard"
+   ]
+  },
+  {
+   "cardId": "starstonePebble",
+   "tags": [
+    "starstone",
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "theme:astral"
+   ]
+  },
+  {
+   "cardId": "cometFragment",
+   "tags": [
+    "starstone",
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "theme:astral"
+   ]
+  },
+  {
+   "cardId": "starbladePhalanx",
+   "tags": [
+    "starstone",
+    "guard",
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "theme:astral"
+   ]
+  },
+  {
+   "cardId": "crystalBarrier",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "starShower",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "scholarsInsight",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "frostVeil",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "starSlicer",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:melee",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "starstoneWard",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "starlance",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "twinkling",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "frostNova",
+   "tags": [
+    "starstone",
+    "source:spell",
+    "damage:arcane",
+    "theme:astral"
+   ]
+  },
+  {
+   "cardId": "starstoneArc",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "lucidity",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "stargazerCard",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "astralArmorCard",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "moonrendCut",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:melee",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "meteorite",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "meteorSwarm",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "delivery:area",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "gravityWell",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "azureCoilCard",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "astralCleave",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:melee",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "radiantSpray",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "delivery:area",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "supernova",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:area",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "timeDilation",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "starstoneKris",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:melee",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "constellationCard",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "starfallBeam",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "delivery:area",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "starcaller",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "umbralWard",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "waxingMoonCard",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "shootingShard",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "wardingStar",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "starPath",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "moonlitShieldCard",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "celestialLance",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "astromancerCard",
+   "tags": [
+    "theme:astral",
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "starSpark",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:projectile",
+    "theme:astral"
+   ]
+  },
+  {
+   "cardId": "astralInsight",
+   "tags": [
+    "theme:astral"
+   ]
+  },
+  {
+   "cardId": "attune",
+   "tags": [
+    "starstone"
+   ]
+  },
+  {
+   "cardId": "urgentHeal",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "bloodPact",
+   "tags": [
+    "blood",
+    "ritual",
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "blightTouch",
+   "tags": [
+    "blight",
+    "ritual",
+    "source:spell",
+    "damage:arcane",
+    "delivery:melee",
+    "theme:blight"
+   ]
+  },
+  {
+   "cardId": "flagellation",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:melee",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "penance",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "litany",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "graveOffering",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:area",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "bloodletting",
+   "tags": [
+    "theme:blood",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "contagion",
+   "tags": [
+    "theme:blight",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "cullTheWeak",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "transfusion",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "blightward",
+   "tags": [
+    "theme:blight",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "martyrBlood",
+   "tags": [
+    "theme:blood",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "blightBloom",
+   "tags": [
+    "theme:blight",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "sacredHarvest",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "thornHaloCard",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "communionCard",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "gildedOath",
+   "tags": [
+    "ritual",
+    "oath",
+    "theme:oath"
+   ]
+  },
+  {
+   "cardId": "plagueBearer",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "theme:blight",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "exsanguinate",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "theme:blood",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "stigmataCard",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "scourge",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:area",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "reclamation",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "secondBloom",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "butterflyPlague",
+   "tags": [
+    "theme:blight",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "lifeTitheCard",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "crimsonRite",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "theme:blood",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "blightNova",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "theme:blight",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "lastRites",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "zealotryCard",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "bloodHarvest",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:area",
+    "theme:blood",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "painOffering",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "theme:blood",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "witheringTouch",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:melee",
+    "theme:blight",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "desperateRite",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "emberTideCard",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "bloodOfferingRite",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "theme:blood",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "harbingerOfBlightCard",
+   "tags": [
+    "theme:blight",
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "blightwardLash",
+   "tags": [
+    "source:spell",
+    "damage:arcane",
+    "delivery:melee",
+    "theme:blight"
+   ]
+  },
+  {
+   "cardId": "warmLitany",
+   "tags": [
+    "ritual"
+   ]
+  },
+  {
+   "cardId": "ambush",
+   "tags": [
+    "guile",
+    "blade",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "rogueShiv",
+   "tags": [
+    "blade",
+    "flourish",
+    "source:weapon",
+    "delivery:melee",
+    "technique:flourish"
+   ]
+  },
+  {
+   "cardId": "smokePellet",
+   "tags": [
+    "guile",
+    "ash"
+   ]
+  },
+  {
+   "cardId": "quickCut",
+   "tags": [
+    "blade",
+    "flourish",
+    "source:weapon",
+    "delivery:melee",
+    "technique:flourish"
+   ]
+  },
+  {
+   "cardId": "feint",
+   "tags": [
+    "guile"
+   ]
+  },
+  {
+   "cardId": "backstep",
+   "tags": [
+    "flourish",
+    "guard",
+    "technique:flourish"
+   ]
+  },
+  {
+   "cardId": "twinPrick",
+   "tags": [
+    "blade",
+    "flourish",
+    "source:weapon",
+    "delivery:melee",
+    "technique:flourish"
+   ]
+  },
+  {
+   "cardId": "pocketSand",
+   "tags": [
+    "guile",
+    "ash"
+   ]
+  },
+  {
+   "cardId": "hamstringRogue",
+   "tags": [
+    "blade",
+    "guile",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "serratedShiv",
+   "tags": [
+    "blade",
+    "blood",
+    "source:weapon",
+    "delivery:melee",
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "smokeVeil",
+   "tags": [
+    "guile",
+    "guard"
+   ]
+  },
+  {
+   "cardId": "ricochet",
+   "tags": [
+    "pierce",
+    "ranged",
+    "source:weapon",
+    "delivery:projectile",
+    "damage:piercing",
+    "delivery:area"
+   ]
+  },
+  {
+   "cardId": "lowBlow",
+   "tags": [
+    "blade",
+    "guile",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "pilfer",
+   "tags": [
+    "guile"
+   ]
+  },
+  {
+   "cardId": "vanish",
+   "tags": [
+    "guile",
+    "ash"
+   ]
+  },
+  {
+   "cardId": "cheapShot",
+   "tags": [
+    "blade",
+    "guile",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "bladeDanceRogue",
+   "tags": [
+    "blade",
+    "flourish",
+    "source:weapon",
+    "delivery:melee",
+    "technique:flourish"
+   ]
+  },
+  {
+   "cardId": "garrote",
+   "tags": [
+    "blade",
+    "blood",
+    "source:weapon",
+    "delivery:melee",
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "fanOfKnives",
+   "tags": [
+    "pierce",
+    "ranged",
+    "source:weapon",
+    "delivery:projectile",
+    "damage:piercing",
+    "delivery:area"
+   ]
+  },
+  {
+   "cardId": "setupRogue",
+   "tags": [
+    "guile"
+   ]
+  },
+  {
+   "cardId": "acrobaticsRogue",
+   "tags": [
+    "flourish",
+    "technique:flourish"
+   ]
+  },
+  {
+   "cardId": "disorient",
+   "tags": [
+    "guile"
+   ]
+  },
+  {
+   "cardId": "coupDeGrace",
+   "tags": [
+    "blade",
+    "precision",
+    "source:weapon",
+    "delivery:melee",
+    "technique:precision"
+   ]
+  },
+  {
+   "cardId": "sap",
+   "tags": [
+    "guile",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "shadowstep",
+   "tags": [
+    "flourish",
+    "guile",
+    "technique:flourish"
+   ]
+  },
+  {
+   "cardId": "afterimageCard",
+   "tags": [
+    "flourish",
+    "oath",
+    "technique:flourish",
+    "theme:oath"
+   ]
+  },
+  {
+   "cardId": "bloodletterRogue",
+   "tags": [
+    "blade",
+    "blood",
+    "theme:blood"
+   ]
+  },
+  {
+   "cardId": "venomcoat",
+   "tags": [
+    "venom",
+    "oath",
+    "theme:oath"
+   ]
+  },
+  {
+   "cardId": "misdirect",
+   "tags": [
+    "guile",
+    "guard"
+   ]
+  },
+  {
+   "cardId": "assassinate",
+   "tags": [
+    "blade",
+    "precision",
+    "source:weapon",
+    "delivery:melee",
+    "technique:precision"
+   ]
+  },
+  {
+   "cardId": "thousandCutsRogue",
+   "tags": [
+    "blade",
+    "flourish",
+    "source:weapon",
+    "delivery:melee",
+    "technique:flourish"
+   ]
+  },
+  {
+   "cardId": "deadlyTempoCard",
+   "tags": [
+    "flourish",
+    "oath",
+    "technique:flourish",
+    "theme:oath"
+   ]
+  },
+  {
+   "cardId": "opportunistCard",
+   "tags": [
+    "guile",
+    "oath",
+    "theme:oath"
+   ]
+  },
+  {
+   "cardId": "envenomCard",
+   "tags": [
+    "venom",
+    "oath",
+    "theme:oath"
+   ]
+  },
+  {
+   "cardId": "toxicVolley",
+   "tags": [
+    "venom",
+    "ranged"
+   ]
+  },
+  {
+   "cardId": "smokeBomb",
+   "tags": [
+    "guile",
+    "ash"
+   ]
+  },
+  {
+   "cardId": "executionWindow",
+   "tags": [
+    "blade",
+    "precision",
+    "technique:precision"
+   ]
+  },
+  {
+   "cardId": "perfectHeist",
+   "tags": [
+    "guile"
+   ]
+  },
+  {
+   "cardId": "deathblow",
+   "tags": [
+    "blade",
+    "precision",
+    "source:weapon",
+    "delivery:melee",
+    "technique:precision"
+   ]
+  },
+  {
+   "cardId": "prepare",
+   "tags": [
+    "guile"
+   ]
+  },
+  {
+   "cardId": "katanaDrawCut",
+   "tags": [
+    "blade",
+    "flourish",
+    "extractable",
+    "source:weapon",
+    "delivery:melee",
+    "technique:flourish"
+   ]
+  },
+  {
+   "cardId": "greatswordSunderingHew",
+   "tags": [
+    "blade",
+    "extractable",
+    "source:weapon",
+    "delivery:melee",
+    "technique:heavy"
+   ]
+  },
+  {
+   "cardId": "twinFang",
+   "tags": [
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "bashingBlow",
+   "tags": [
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "sweepingBlow",
+   "tags": [
+    "source:weapon",
+    "delivery:area",
+    "delivery:melee",
+    "technique:cleave"
+   ]
+  },
+  {
+   "cardId": "colossusSmash",
+   "tags": [
+    "source:weapon",
+    "delivery:melee",
+    "technique:heavy"
+   ]
+  },
+  {
+   "cardId": "shieldGuardian",
+   "tags": [
+    "guard"
+   ]
+  },
+  {
+   "cardId": "guardianBulwark",
+   "tags": [
+    "guard"
+   ]
+  },
+  {
+   "cardId": "shieldBastion",
+   "tags": [
+    "guard"
+   ]
+  },
+  {
+   "cardId": "spikedReprisal",
+   "tags": [
+    "guard",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "rimeThrust",
+   "tags": [
+    "blade",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "kilnCleave",
+   "tags": [
+    "heavy",
+    "source:weapon",
+    "delivery:melee"
+   ]
+  },
+  {
+   "cardId": "vesperWard",
+   "tags": [
+    "guard",
+    "source:spell"
+   ]
+  }
+ ],
+ "cardTargets": [
+  "strike",
+  "defend",
+  "power"
+ ],
+ "equipmentGrants": [],
+ "equipmentRequirements": [
+  {
+   "attributeId": "strength",
+   "itemId": "straightSword",
+   "minimum": 2
+  },
+  {
+   "attributeId": "strength",
+   "itemId": "greatsword",
+   "minimum": 3
+  },
+  {
+   "attributeId": "dexterity",
+   "itemId": "dagger",
+   "minimum": 2
+  },
+  {
+   "attributeId": "intelligence",
+   "itemId": "ashStaff",
+   "minimum": 3
+  },
+  {
+   "attributeId": "strength",
+   "itemId": "wayfarerPlate",
+   "minimum": 3
+  },
+  {
+   "attributeId": "intelligence",
+   "itemId": "nightweave",
+   "minimum": 3
+  },
+  {
+   "attributeId": "wisdom",
+   "itemId": "riteVestments",
+   "minimum": 3
+  },
+  {
+   "attributeId": "dexterity",
+   "itemId": "gutterLeathers",
+   "minimum": 3
+  }
+ ],
+ "itemUpgradeChanges": [
+  {
+   "itemRef": "armament/straightSword",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/straightSword",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/straightSword",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/straightSword",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/straightSword",
+   "nextTier": 1,
+   "tag": "requirement:strength",
+   "value": -1
+  },
+  {
+   "itemRef": "armament/greatsword",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/greatsword",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/greatsword",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/greatsword",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/dagger",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/dagger",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/dagger",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/dagger",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/shortbow",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/shortbow",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/shortbow",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/shortbow",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/katana",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/katana",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/katana",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/katana",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/halberd",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/halberd",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/halberd",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/halberd",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/warhammer",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/warhammer",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/warhammer",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/warhammer",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/twinblade",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/twinblade",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/twinblade",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/twinblade",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/battleaxe",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/battleaxe",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/battleaxe",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/battleaxe",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/buckler",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/buckler",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/buckler",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/buckler",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/kiteShield",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/kiteShield",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/kiteShield",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/kiteShield",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/towerShield",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/towerShield",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/towerShield",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/towerShield",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/roundShield",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/roundShield",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/roundShield",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/roundShield",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/spikedShield",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/spikedShield",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/spikedShield",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/spikedShield",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/lantern",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/lantern",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/lantern",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/lantern",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/torch",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/torch",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/torch",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/torch",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/parryDagger",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/parryDagger",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/parryDagger",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/parryDagger",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/ashStaff",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/ashStaff",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/ashStaff",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/ashStaff",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/starstoneStaff",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/starstoneStaff",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/starstoneStaff",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/starstoneStaff",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/boneSceptre",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/boneSceptre",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/boneSceptre",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/boneSceptre",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/emberlightSceptre",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/emberlightSceptre",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/emberlightSceptre",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/emberlightSceptre",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/goldboughBranch",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/goldboughBranch",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/goldboughBranch",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/goldboughBranch",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/blightRod",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/blightRod",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/blightRod",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/blightRod",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/gorefireBrand",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/gorefireBrand",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/gorefireBrand",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/gorefireBrand",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armament/wyrmhornStaff",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/wyrmhornStaff",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/wyrmhornStaff",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/wyrmhornStaff",
+   "nextTier": 1,
+   "tag": "card:technique:effect:block",
+   "value": 2
+  },
+  {
+   "itemRef": "armor/reaver/default",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/reaver/default",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/reaver/vigil",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/reaver/vigil",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/reaver/oathsworn",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/reaver/oathsworn",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/reaver/warden",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/reaver/warden",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/starseer/default",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/starseer/default",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/starseer/eclipse",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/starseer/eclipse",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/starseer/starlit",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/starseer/starlit",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/starseer/astral",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/starseer/astral",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/herald/default",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/herald/default",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/herald/ossuary",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/herald/ossuary",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/herald/emberhabit",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/herald/emberhabit",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/herald/pilgrim",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/herald/pilgrim",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/rogue/default",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/rogue/default",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/rogue/nightveil",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/rogue/nightveil",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/rogue/duelist",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/rogue/duelist",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/rogue/shadow",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/rogue/shadow",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "relic/curedHide",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "relic/curedHide",
+   "nextTier": 1,
+   "tag": "relic:passive:poise-threshold-add",
+   "value": 1
+  },
+  {
+   "itemRef": "relic/ancestralHorn",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "relic/ancestralHorn",
+   "nextTier": 1,
+   "tag": "relic:passive:power-cost-reduction",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/reaver/bastion",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/reaver/bastion",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/starseer/rimeweave",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/starseer/rimeweave",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/rogue/waywatcher",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armor/rogue/waywatcher",
+   "nextTier": 1,
+   "tag": "equipment:poise-threshold",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/frostSpear",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/frostSpear",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/frostSpear",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/cinderAxe",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/cinderAxe",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/cinderAxe",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/duskChime",
+   "nextTier": 1,
+   "tag": "upgrade:cost:smithing-stone",
+   "value": 1
+  },
+  {
+   "itemRef": "armament/duskChime",
+   "nextTier": 1,
+   "tag": "card:attack:effect:damage",
+   "value": 3
+  },
+  {
+   "itemRef": "armament/duskChime",
+   "nextTier": 1,
+   "tag": "card:guard:effect:block",
+   "value": 3
+  }
+ ],
+ "modFields": {
+  "bleed": {
+   "apply": "status",
+   "blurb": "Bleed build-up the card applies.",
+   "clause": "Apply {bleed} Bleed.",
+   "effTarget": "enemy",
+   "field": "bleed",
+   "label": "Bleed",
+   "op": "applyStatus",
+   "scope": "card",
+   "status": "bleed"
+  },
+  "blight": {
+   "apply": "status",
+   "blurb": "Crimson Blight the card applies.",
+   "clause": "Apply {crimsonBlight} Crimson Blight.",
+   "effTarget": "enemy",
+   "field": "blight",
+   "label": "Blight",
+   "op": "applyStatus",
+   "scope": "card",
+   "status": "crimsonBlight"
+  },
+  "block": {
+   "apply": "amount",
+   "blurb": "How much the card guards.",
+   "clause": "Gain {block} Block.",
+   "effTarget": "self",
+   "field": "block",
+   "label": "Block",
+   "op": "block",
+   "scope": "card",
+   "status": ""
+  },
+  "burn": {
+   "apply": "status",
+   "blurb": "Burn the card applies.",
+   "clause": "Apply {burn} Burn.",
+   "effTarget": "enemy",
+   "field": "burn",
+   "label": "Burn",
+   "op": "applyStatus",
+   "scope": "card",
+   "status": "burn"
+  },
+  "cost": {
+   "apply": "cost",
+   "blurb": "Energy to play. Never drops below 0.",
+   "clause": "",
+   "effTarget": "",
+   "field": "cost",
+   "label": "Cost",
+   "op": "",
+   "scope": "card",
+   "status": ""
+  },
+  "damage": {
+   "apply": "amount",
+   "blurb": "How hard the card hits.",
+   "clause": "Deal {damage} damage.",
+   "effTarget": "enemy",
+   "field": "damage",
+   "label": "Damage",
+   "op": "damage",
+   "scope": "card",
+   "status": ""
+  },
+  "dexterity": {
+   "apply": "startStatus",
+   "blurb": "Dexterity you begin every fight with.",
+   "clause": "",
+   "effTarget": "",
+   "field": "dexterity",
+   "label": "Dexterity",
+   "op": "",
+   "scope": "run",
+   "status": "dexterity"
+  },
+  "frost": {
+   "apply": "status",
+   "blurb": "Frost build-up the card applies.",
+   "clause": "Apply {frost} Frost.",
+   "effTarget": "enemy",
+   "field": "frost",
+   "label": "Frost",
+   "op": "applyStatus",
+   "scope": "card",
+   "status": "frost"
+  },
+  "hits": {
+   "apply": "hits",
+   "blurb": "How many times the damage lands.",
+   "clause": "Strikes {hits} times.",
+   "effTarget": "enemy",
+   "field": "hits",
+   "label": "Hits",
+   "op": "damage",
+   "scope": "card",
+   "status": ""
+  },
+  "insanity": {
+   "apply": "status",
+   "blurb": "Insanity build-up the card applies.",
+   "clause": "Apply {insanity} Insanity.",
+   "effTarget": "enemy",
+   "field": "insanity",
+   "label": "Insanity",
+   "op": "applyStatus",
+   "scope": "card",
+   "status": "insanity"
+  },
+  "maxHp": {
+   "apply": "maxHp",
+   "blurb": "Added to your maximum HP for the run.",
+   "clause": "",
+   "effTarget": "",
+   "field": "maxHp",
+   "label": "Max HP",
+   "op": "",
+   "scope": "run",
+   "status": ""
+  },
+  "maxMana": {
+   "apply": "maxMana",
+   "blurb": "Added to your maximum Mana for the run.",
+   "clause": "",
+   "effTarget": "",
+   "field": "maxMana",
+   "label": "Max Mana",
+   "op": "",
+   "scope": "run",
+   "status": ""
+  },
+  "maxStamina": {
+   "apply": "maxStamina",
+   "blurb": "Added to your maximum Stamina for the run.",
+   "clause": "",
+   "effTarget": "",
+   "field": "maxStamina",
+   "label": "Max Stamina",
+   "op": "",
+   "scope": "run",
+   "status": ""
+  },
+  "poise": {
+   "apply": "amount",
+   "blurb": "Build-up toward a Stagger.",
+   "clause": "Deal {poiseDamage} Poise damage.",
+   "effTarget": "enemy",
+   "field": "poise",
+   "label": "Poise",
+   "op": "poiseDamage",
+   "scope": "card",
+   "status": ""
+  },
+  "potency": {
+   "apply": "scale",
+   "blurb": "Every number on the card, together.",
+   "clause": "",
+   "effTarget": "",
+   "field": "potency",
+   "label": "Potency",
+   "op": "",
+   "scope": "card",
+   "status": ""
+  },
+  "regen": {
+   "apply": "startStatus",
+   "blurb": "HP recovered at the start of each turn.",
+   "clause": "",
+   "effTarget": "",
+   "field": "regen",
+   "label": "Regen",
+   "op": "",
+   "scope": "run",
+   "status": "regen"
+  },
+  "strength": {
+   "apply": "startStatus",
+   "blurb": "Strength you begin every fight with.",
+   "clause": "",
+   "effTarget": "",
+   "field": "strength",
+   "label": "Strength",
+   "op": "",
+   "scope": "run",
+   "status": "strength"
+  },
+  "swapCost": {
+   "apply": "swapCost",
+   "blurb": "Changed cost to switch armament sets mid-fight.",
+   "clause": "",
+   "effTarget": "",
+   "field": "swapCost",
+   "label": "Swap cost",
+   "op": "",
+   "scope": "run",
+   "status": ""
+  }
+ },
+ "slots": [
+  {
+   "blurb": "Your active main-hand armament. Rewrites Strike.",
+   "hand": "right",
+   "id": "rightHand",
+   "kindIds": [
+    "classification.slot"
+   ],
+   "kinds": [
+    "weapon",
+    "shield",
+    "staff"
+   ],
+   "label": "Main Hand",
+   "order": 1,
+   "positionCode": "MH{n}",
+   "positionLabel": "Main Hand Slot {n}",
+   "sets": 3,
+   "storage": true,
+   "swap": "combat",
+   "tags": []
+  },
+  {
+   "blurb": "Your active off-hand armament. Rewrites Defend.",
+   "hand": "left",
+   "id": "leftHand",
+   "kindIds": [
+    "classification.slot"
+   ],
+   "kinds": [
+    "weapon",
+    "shield",
+    "staff"
+   ],
+   "label": "Off Hand",
+   "order": 2,
+   "positionCode": "OH{n}",
+   "positionLabel": "Off Hand Slot {n}",
+   "sets": 3,
+   "storage": true,
+   "swap": "combat",
+   "tags": []
+  },
+  {
+   "blurb": "Your set. Repaints you and steadies the numbers.",
+   "hand": "",
+   "id": "armor",
+   "kindIds": [
+    "classification.slot"
+   ],
+   "kinds": [
+    "armor"
+   ],
+   "label": "Armour",
+   "order": 3,
+   "positionCode": "BODY",
+   "positionLabel": "Armour Slot {n}",
+   "sets": 1,
+   "storage": false,
+   "swap": "outOfCombat",
+   "tags": []
+  },
+  {
+   "blurb": "What you wear on your head. Empty until head pieces are authored.",
+   "hand": "",
+   "id": "head",
+   "kindIds": [
+    "classification.slot"
+   ],
+   "kinds": [
+    "head"
+   ],
+   "label": "Head",
+   "order": 4,
+   "positionCode": "HEAD",
+   "positionLabel": "Head Slot {n}",
+   "sets": 1,
+   "storage": false,
+   "swap": "outOfCombat",
+   "tags": []
+  },
+  {
+   "blurb": "What you wear on your hands. Empty until hand pieces are authored.",
+   "hand": "",
+   "id": "hands",
+   "kindIds": [
+    "classification.slot"
+   ],
+   "kinds": [
+    "hands"
+   ],
+   "label": "Hands",
+   "order": 5,
+   "positionCode": "HANDS",
+   "positionLabel": "Hands Slot {n}",
+   "sets": 1,
+   "storage": false,
+   "swap": "outOfCombat",
+   "tags": []
+  },
+  {
+   "blurb": "What you wear on your feet. Empty until foot pieces are authored.",
+   "hand": "",
+   "id": "feet",
+   "kindIds": [
+    "classification.slot"
+   ],
+   "kinds": [
+    "feet"
+   ],
+   "label": "Feet",
+   "order": 6,
+   "positionCode": "FEET",
+   "positionLabel": "Feet Slot {n}",
+   "sets": 1,
+   "storage": false,
+   "swap": "outOfCombat",
+   "tags": []
+  },
+  {
+   "blurb": "Small charms. Empty until talismans are authored.",
+   "hand": "",
+   "id": "talisman",
+   "kindIds": [
+    "classification.slot"
+   ],
+   "kinds": [
+    "talisman"
+   ],
+   "label": "Talisman",
+   "order": 7,
+   "positionCode": "TAL{n}",
+   "positionLabel": "Talisman Slot {n}",
+   "sets": 3,
+   "storage": false,
+   "swap": "outOfCombat",
+   "tags": []
+  }
+ ],
+ "startingKits": [
+  {
+   "baseline": true,
+   "classId": "reaver",
+   "id": "reaverBaseline",
+   "kindIds": [
+    "classification.startingKit"
+   ],
+   "label": "Iron Vanguard",
+   "leftHand": "roundShield",
+   "rightHand": "straightSword",
+   "tags": []
+  },
+  {
+   "baseline": false,
+   "classId": "reaver",
+   "id": "reaverGreatsword",
+   "kindIds": [
+    "classification.startingKit"
+   ],
+   "label": "Greatsword Vanguard",
+   "leftHand": "",
+   "rightHand": "greatsword",
+   "tags": []
+  },
+  {
+   "baseline": true,
+   "classId": "starseer",
+   "id": "starseerBaseline",
+   "kindIds": [
+    "classification.startingKit"
+   ],
+   "label": "Ash Focus",
+   "leftHand": "",
+   "rightHand": "ashStaff",
+   "tags": []
+  },
+  {
+   "baseline": false,
+   "classId": "starseer",
+   "id": "starseerStarstone",
+   "kindIds": [
+    "classification.startingKit"
+   ],
+   "label": "Starstone Focus",
+   "leftHand": "",
+   "rightHand": "starstoneStaff",
+   "tags": []
+  },
+  {
+   "baseline": true,
+   "classId": "herald",
+   "id": "heraldBaseline",
+   "kindIds": [
+    "classification.startingKit"
+   ],
+   "label": "Bone Rite",
+   "leftHand": "",
+   "rightHand": "boneSceptre",
+   "tags": []
+  },
+  {
+   "baseline": false,
+   "classId": "herald",
+   "id": "heraldEmberlight",
+   "kindIds": [
+    "classification.startingKit"
+   ],
+   "label": "Emberlight Rite",
+   "leftHand": "",
+   "rightHand": "emberlightSceptre",
+   "tags": []
+  },
+  {
+   "baseline": true,
+   "classId": "rogue",
+   "id": "rogueBaseline",
+   "kindIds": [
+    "classification.startingKit"
+   ],
+   "label": "Knife and Buckler",
+   "leftHand": "buckler",
+   "rightHand": "dagger",
+   "tags": []
+  },
+  {
+   "baseline": false,
+   "classId": "rogue",
+   "id": "rogueBow",
+   "kindIds": [
+    "classification.startingKit"
+   ],
+   "label": "Shortbow and Parrying Dagger",
+   "leftHand": "parryDagger",
+   "rightHand": "shortbow",
+   "tags": []
+  }
+ ],
+ "targets": [
+  {
+   "cardId": "strike",
+   "classId": "*",
+   "target": "strike"
+  },
+  {
+   "cardId": "defend",
+   "classId": "*",
+   "target": "defend"
+  },
+  {
+   "cardId": "gorefireSlash",
+   "classId": "reaver",
+   "target": "power"
+  },
+  {
+   "cardId": "starstonePebble",
+   "classId": "starseer",
+   "target": "power"
+  },
+  {
+   "cardId": "urgentHeal",
+   "classId": "herald",
+   "target": "power"
+  },
+  {
+   "cardId": "ambush",
+   "classId": "rogue",
+   "target": "power"
+  }
+ ]
+}
