@@ -1,0 +1,19 @@
+/* W1 workspace (docs/design/04 §1): the category rail beside the pane, or the selector above it. */
+.workspace {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.workspace.nav--selector {
+    flex-direction: column;
+}
+
+.workspace-pane {
+    flex-grow: 1;
+    padding-left: var(--space-lg);
+}
+
+.workspace.nav--selector .workspace-pane {
+    padding-left: 0;
+    padding-top: var(--space-md);
+}

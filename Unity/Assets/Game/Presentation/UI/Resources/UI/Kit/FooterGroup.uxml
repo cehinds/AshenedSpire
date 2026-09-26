@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="FooterGroup.uss" />
+    <Ashen.Presentation.UI.LocLabel name="GROUP_ACTIONS" class="group-actions kit-text-value" />
+    <Ashen.Presentation.UI.LocButton name="GROUP_DRAW" class="group-button" />
+    <Ashen.Presentation.UI.LocButton name="GROUP_END_TURN" class="group-button group-end-turn" string-key="kit.footer.endTurn" />
+    <Ashen.Presentation.UI.LocButton name="GROUP_DISCARD" class="group-button" />
+    <Ashen.Presentation.UI.LocButton name="GROUP_POTIONS" class="group-button" />
+</ui:UXML>

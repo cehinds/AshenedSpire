@@ -2,6 +2,96 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-1.2, us-1.3, us-1.4, us-0.10 (title footer), us-17.1: F1 UI foundation, boot, title and slots (feature/boot-title, 2026-09-26)
+
+**Landed**
+- **UI data** (hand-written, schema'd, in the manifest):
+  - `ui/tokens.json`: colours, space, radius, font, size, border, duration and opacity groups;
+  - `ui/layout.json`: two panels, bands, `minPhysical`, CategoryNav rules and the verification sizes;
+  - `ui/screens.json`: the registry, with a required `focusOrder`, `initialFocus`, back behaviour, transitions, and `planned`/`dev` flags;
+  - `ui/menus.json`: title rows in the owner order, plus the W2 doors;
+  - `ui/components.json`: kit defaults and the art prefixes.
+  - All display strings are in `strings/app.en.json`.
+- **Codegen:** the new fragment `Tools/codegen.d/ui.json` holds ScreenIds, UiNames, UiClasses, UiKeys, UiValues, menu actions and rules, confirm ids, placeholders, formats, SlotSummaryKeys, TokenKeys, UiResources, UiMessages and the UiMath numbers (D-054).
+- **Tokens:** `Tools/ui-tokens.mjs` generates `Tokens.uss` from `ui/tokens.json`. Its `--check` mode also lints every USS file for raw values (D-055), and `Tools/ci/check-content.mjs` runs it.
+- **Application (engine-free, `Ashen.App.Ui`):**
+  - `ScreenRegistry`, `MenuSet`, `LayoutRules`, `UiTokens`, `ComponentDefaults`, `ConfirmPolicies`;
+  - `LayoutClassifier` (bands, narrow mode, panel scale, physical minimums);
+  - `CategoryNavModel` (Rule 11 fit with hysteresis);
+  - `FocusOrder` (regions, then items; skips unusable items; wraps);
+  - `MenuRules` (always, hasValidSlot, targetBuilt);
+  - `SlotSummaries` (Ready, Newer, Unreadable, Empty; Continue target) (D-059);
+  - `StringTable` (named templates);
+  - `UiData`.
+- **Platform:** `PlatformPaths` and `InputRouter`. The router is the one Move/Submit/Cancel source, built on the Input System's UI actions plus Tab. Active Input Handling is now the Input System (D-053).
+- **Presentation (`Ashen.Presentation.UI`):**
+  - `UiHost`: the UIDocument and two runtime PanelSettings (D-057).
+  - `Navigator`: screen stack and modal layer; band and layout classes on the root; PanelSettings swap; `minPhysical` after scaling; innermost-first Back; focus return.
+  - `FocusModel` and the `ViewModel` base (`INotifyBindablePropertyChanged`).
+  - `LocLabel` and `LocButton` (`[UxmlElement]`, `string-key`), and the `UiArtCatalog` (D-056).
+  - Kit, each as UXML + USS + C#: Shell, Workspace, CategoryNav, Confirm, Meter, CardView, HandFan, FooterGroup, Tooltip, HoldButton, Refusal, and SlotRow.
+- **Screens:**
+  - W-24 boot: determinate bar over the manifest, then validation and the profile check.
+  - W-24 content error: dev report list with Copy/Quit; player notice with Quit.
+  - W-01 recovery: **stub**.
+  - W-02 title: press-any-input gate (D-052); menu from `menus.json` with Continue disabled when no slot is valid; W3b preview; footer with the build and the AI disclosure. The disclosure is focusable and opens the full notice.
+  - W-03 slots:
+    - Load and New modes with 3 rows;
+    - portrait, name, class, act, floor, HP, saved time and seed;
+    - empty, newer-build and unreadable states, and the empty state with a full-width Create character;
+    - the pre-review doors, and the destructive hold-to-confirm delete.
+  - W-23: the doors as a modal (D-061).
+  - `kitGallery` (dev): a review sheet for the kit.
+- **Boot scene:** `Assets/Scenes/Boot.unity` (a camera plus `AshenBoot`), built by `Cli.CreateBootScene`. It is the only scene in the build settings. `Cli.BuildUiArt` builds the art catalog.
+- **Screenshots:** `Cli.CaptureScreens` runs the `ScreenCaptureTests` PlayMode test over the 13 fixtures in `Tests/Fixtures/screens` at 1280×720, 1920×1080, 844×390 and 390×844, and writes `docs/screens/<fixture>_<w>x<h>.png`: 52 PNGs, about 21 MB (D-060). Run it without `-quit` and without `-nographics`.
+
+**Tests**
+- `UiRulesTests` (21 cases) and `UiDataTests` (9) in the shared suite, run by both runners:
+  - owner menu order; Continue enablement; planned targets;
+  - CategoryNav fit and hysteresis; focus order and wrap;
+  - bands and scales at 6 viewports; physical minimums; string templates;
+  - slot summaries for empty, ready, newer and damaged saves;
+  - ScreenIds match the registry; every built screen has UXML and a focusOrder; focus regions exist in the UXML;
+  - transitions, menus and doors resolve; backgrounds and art are in the registry;
+  - UXML names are generated and UXML carries no literal text; USS uses tokens only;
+  - the title footer binds `title.aiDisclosure`.
+- PlayMode `BootTitleSmokeTests`:
+  - the Boot scene reaches the gated title;
+  - Space lifts the gate and focus lands on Load (Continue is disabled with no save);
+  - Down/Up and wrap work; Enter opens W-03 Load, where focus is on Create character in the empty state;
+  - Escape returns with focus on Load; the pad d-pad moves focus.
+- Results:
+  - dotnet 249/249;
+  - Unity EditMode 250/250, Enforcement green (no literals in Presentation or Platform);
+  - PlayMode 1 passed, 1 skipped (the capture test is skipped unless `ASHEN_CAPTURE=1`);
+  - `codegen --check` and `check-content` (with the tokens check) green.
+
+**Review** (screenshot-review sub-agent against 04 and the story ACs; fixed and recaptured):
+- slot row delete overlapping the text on narrow;
+- no portrait or character name in the rows;
+- ready primaries not green;
+- hold text below the minimum on compact;
+- focus on an empty slot in the empty state;
+- a raw saved timestamp ("yesterday" and the time of day now);
+- a duplicated newer-build notice;
+- New mode preselecting an occupied slot;
+- touching footer buttons;
+- a clipped content-error title and a doubled separator;
+- the compact title overlapping its footer;
+- the blue default-theme focus ring (now gold, and red on Back/Exit).
+
+**Not verified / open**
+- **US-1.1:** the recovery screen is a stub. It does not archive or restore files.
+- **US-1.3:** Journal, Custom Run and Settings are disabled as planned (D-058). Confirming Continue, Load or New ends in a refusal until creation and the run screens exist.
+- **US-1.4:** journey type and playtime are read but not shown; they belong in the row tooltip.
+- **US-0.10:** the first-launch notice (once per profile) and About are not built. The notice frame exists as the `aiNotice` door.
+- Not verified:
+  - touch input on a device;
+  - UI Toolkit's native navigation in a player build (it is deliberately bypassed; D-053);
+  - the `⬡` glyph, which the default font lacks (ASSET-GAPS).
+- No ash particles on the gate; the title's lit/unlit rule waits for the profile service.
+
+**Next:** W-04 creation (Class pane), then W-07 combat with the kit (Meter, CardView, HandFan, FooterGroup), then W-08 rewards and W-20 pause.
 ## us-4.2 (with the map parts of us-4.1, us-4.3, us-4.4): act-map generation with shipped parity (feature/map, 2026-09-26)
 
 **Landed**

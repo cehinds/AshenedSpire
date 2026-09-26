@@ -1,0 +1,102 @@
+{
+  "$id": "ui/screens.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "initial": {
+      "type": "string"
+    },
+    "screens": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "back": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "enum": [
+              null,
+              "close",
+              "pop"
+            ]
+          },
+          "background": {
+            "type": "string",
+            "x-ref": "assets/registry.json"
+          },
+          "dev": {
+            "type": "boolean"
+          },
+          "focusOrder": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "gate": {
+            "type": "boolean"
+          },
+          "initialFocus": {
+            "type": "string"
+          },
+          "input": {
+            "type": "string",
+            "enum": [
+              "none"
+            ]
+          },
+          "layer": {
+            "type": "string",
+            "enum": [
+              "modal",
+              "screen"
+            ]
+          },
+          "planned": {
+            "type": "boolean"
+          },
+          "transitions": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "push",
+                    "replace"
+                  ]
+                },
+                "to": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "mode",
+                "to"
+              ]
+            }
+          },
+          "uxml": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "back",
+          "focusOrder",
+          "layer",
+          "transitions"
+        ]
+      }
+    }
+  },
+  "required": [
+    "comment",
+    "initial",
+    "screens"
+  ]
+}

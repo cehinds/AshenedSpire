@@ -1,0 +1,35 @@
+/* Combat footer group (docs/design/04 §1): packed and centred; label padding shrinks first in the compact band. */
+.footergroup {
+    min-height: var(--size-footer-group-h);
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.group-actions {
+    margin-right: var(--space-lg);
+    font-size: var(--font-heading);
+    color: var(--color-res-actions);
+    -unity-font-style: bold;
+}
+
+.group-button {
+    margin-left: var(--space-xs);
+    margin-right: var(--space-xs);
+    min-width: var(--size-button-min-w);
+}
+
+.group-end-turn {
+    min-width: var(--size-menu-width);
+}
+
+.band-compact .group-button {
+    min-width: 0;
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+}
+
+.band-compact .group-end-turn {
+    min-width: var(--size-button-min-w);
+}

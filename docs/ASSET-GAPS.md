@@ -12,6 +12,10 @@ Owner ruling (2026-09-26): gaps may be filled with **AI-generated** assets (prov
 | `greatsword`/`sword-shield` suites lack `CONVERSATION` | `PORTRAIT` frame | Generate |
 | 51 of 63 relics have no painting | Typographic sigil | Generate in the style of the 12 paintings (D-011) |
 | No logo/wordmark | Typographic | Generate (IP-safe) |
+| No card art in the imported set (F1 CardView) | Grey art box in `Kit/Card` | Import or generate card paintings (F2) |
+| Unity's default font has no `⬡` (Smithing Stone glyph, 04 §0) | Glyph renders as an empty box, so the kit uses `◆` in samples | Generated display face or an icon sprite |
+| Title gate ash particles (W-02) | None; the gate prompt pulses | Procedural particles in the SKIN step |
+| Title background lit/unlit rule (`profile.wins > 0`) | Always `bg.title-city-tower` | Needs the profile service (F4) and a lit/unlit pair |
 
 ## Unused
 

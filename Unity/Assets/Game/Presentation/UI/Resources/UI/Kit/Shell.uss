@@ -1,0 +1,99 @@
+/* W0 shell (docs/design/04 §0): header, body and footer bands of a 95% x 90% frame. */
+.shell {
+    width: var(--size-shell-width);
+    height: var(--size-shell-height);
+    align-self: center;
+    flex-direction: column;
+    background-color: var(--color-shade);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-control);
+    border-radius: var(--radius-modal);
+}
+
+.shell-header {
+    min-height: var(--size-shell-band);
+    padding-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+    flex-direction: row;
+    align-items: center;
+    padding-left: var(--space-xl);
+    padding-right: var(--space-md);
+    border-bottom-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.shell-title {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: var(--font-title);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.shell-exit {
+    flex-shrink: 0;
+    width: var(--size-icon-button);
+    padding-left: 0;
+    padding-right: 0;
+    font-size: var(--font-glyph);
+}
+
+.shell-body {
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: var(--space-xl);
+    overflow: hidden;
+}
+
+.shell-footer {
+    min-height: var(--size-shell-band);
+    flex-direction: row;
+    align-items: center;
+    padding: var(--space-sm) var(--space-xl);
+    border-top-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.shell-footer-gap {
+    flex-grow: 1;
+}
+
+.shell-footer-button {
+    width: var(--size-third-width);
+}
+
+.footer--single .shell-footer-gap {
+    display: none;
+}
+
+.footer--single .shell-footer-button {
+    flex-grow: 1;
+}
+
+.footer--empty {
+    display: none;
+}
+
+.band-compact .shell-body {
+    padding: var(--space-md) var(--space-xl);
+}
+
+.layout-narrow .shell {
+    width: var(--size-full-width);
+    height: var(--size-full-width);
+    border-radius: 0;
+}
+
+.layout-narrow .shell-body {
+    padding: var(--space-md);
+}
+
+.layout-narrow .shell-footer {
+    padding: var(--space-sm) var(--space-md);
+}
+
+.layout-narrow .shell-footer-button,
+.band-compact .shell-footer-button {
+    width: var(--size-half-gap-width);
+}

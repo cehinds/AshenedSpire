@@ -1,0 +1,44 @@
+{
+  "comment": "W2b delete: destructive red primary with hold-to-confirm, focus on Back.",
+  "screen": "slots",
+  "mode": "load",
+  "saves": [
+    {
+      "slot": 1,
+      "summary": {
+        "name": "Aldric",
+        "classId": "reaver",
+        "portrait": "class.reaver.sprite.ember",
+        "act": 2,
+        "floor": 7,
+        "hp": 31,
+        "hpMax": 40,
+        "seed": "ASH-7Q2K",
+        "savedAt": "2026-09-25T20:29:00Z",
+        "journey": "classic",
+        "playtimeSeconds": 5400
+      }
+    },
+    {
+      "slot": 2,
+      "summary": {
+        "name": "Mira",
+        "classId": "starseer",
+        "portrait": "class.starseer.sprite.frost",
+        "act": 1,
+        "floor": 3,
+        "hp": 22,
+        "hpMax": 24,
+        "seed": "ASH-M1RA",
+        "savedAt": "2026-09-24T18:05:00Z",
+        "journey": "classic",
+        "playtimeSeconds": 1800
+      }
+    }
+  ],
+  "confirm": {
+    "id": "deleteSlot",
+    "slot": 1,
+    "holdProgress": 0.4
+  }
+}

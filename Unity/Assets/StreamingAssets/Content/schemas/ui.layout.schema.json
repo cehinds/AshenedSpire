@@ -1,0 +1,191 @@
+{
+  "$id": "ui/layout.json",
+  "type": "object",
+  "properties": {
+    "bands": {
+      "type": "object",
+      "properties": {
+        "compactMinHeight": {
+          "type": "integer"
+        },
+        "standardMinHeight": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "compactMinHeight",
+        "standardMinHeight"
+      ]
+    },
+    "categoryNav": {
+      "type": "object",
+      "properties": {
+        "chrome": {
+          "type": "integer"
+        },
+        "hysteresis": {
+          "type": "integer"
+        },
+        "minPaneWidth": {
+          "type": "integer"
+        },
+        "railWidth": {
+          "type": "integer"
+        },
+        "tapFloor": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "chrome",
+        "hysteresis",
+        "minPaneWidth",
+        "railWidth",
+        "tapFloor"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "gateBelowHeight": {
+      "type": "integer"
+    },
+    "minPhysical": {
+      "type": "object",
+      "properties": {
+        "combatFooter": {
+          "type": "integer"
+        },
+        "hand": {
+          "type": "integer"
+        },
+        "headerText": {
+          "type": "integer"
+        },
+        "mapHeader": {
+          "type": "integer"
+        },
+        "pileButton": {
+          "type": "integer"
+        },
+        "touch": {
+          "type": "integer"
+        },
+        "valueText": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "combatFooter",
+        "hand",
+        "headerText",
+        "mapHeader",
+        "pileButton",
+        "touch",
+        "valueText"
+      ]
+    },
+    "narrowMaxWidth": {
+      "type": "integer"
+    },
+    "panels": {
+      "type": "object",
+      "properties": {
+        "narrow": {
+          "type": "object",
+          "properties": {
+            "height": {
+              "type": "integer"
+            },
+            "match": {
+              "type": "integer"
+            },
+            "screenMatch": {
+              "type": "string"
+            },
+            "width": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "height",
+            "match",
+            "screenMatch",
+            "width"
+          ]
+        },
+        "wide": {
+          "type": "object",
+          "properties": {
+            "height": {
+              "type": "integer"
+            },
+            "match": {
+              "type": "integer"
+            },
+            "screenMatch": {
+              "type": "string"
+            },
+            "width": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "height",
+            "match",
+            "screenMatch",
+            "width"
+          ]
+        }
+      },
+      "required": [
+        "narrow",
+        "wide"
+      ]
+    },
+    "reference": {
+      "type": "object",
+      "properties": {
+        "height": {
+          "type": "integer"
+        },
+        "width": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "height",
+        "width"
+      ]
+    },
+    "verification": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "height": {
+            "type": "integer"
+          },
+          "width": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "height",
+          "width"
+        ]
+      }
+    }
+  },
+  "required": [
+    "bands",
+    "categoryNav",
+    "comment",
+    "gateBelowHeight",
+    "minPhysical",
+    "narrowMaxWidth",
+    "panels",
+    "reference",
+    "verification"
+  ]
+}

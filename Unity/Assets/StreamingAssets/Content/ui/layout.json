@@ -1,0 +1,33 @@
+{
+  "comment": "Layout rules (docs/design/04 §0; D-001, D-016). 'panels' are the two PanelSettings, both Scale With Screen Size: 'wide' (1280x720, the reference canvas) and 'narrow' (430x780, the shipped narrow board); 'screenMatch' is expand | shrink | matchWidthOrHeight (with 'match' 0 = width .. 1 = height). The layout is 'narrow' when the viewport width is at most 'narrowMaxWidth'. Height bands (viewport px, ported from the shipped CSS): standard >= standardMinHeight, compact >= compactMinHeight, below that the upright gate ('gateBelowHeight'). 'minPhysical' is enforced after scaling (physical px): touch targets, hand, combat footer, map header, pile button, value text, header text. 'categoryNav' feeds the Rule 11 rail-or-selector model (reference px): rail width, the narrowest pane a rail leaves, the tap floor per category, the vertical chrome around the list, and the hysteresis that stops flapping.",
+  "reference": { "width": 1280, "height": 720 },
+  "panels": {
+    "wide": { "width": 1280, "height": 720, "screenMatch": "expand", "match": 0 },
+    "narrow": { "width": 430, "height": 780, "screenMatch": "expand", "match": 0 }
+  },
+  "narrowMaxWidth": 520,
+  "bands": { "standardMinHeight": 465, "compactMinHeight": 340 },
+  "gateBelowHeight": 340,
+  "minPhysical": {
+    "touch": 44,
+    "hand": 208,
+    "combatFooter": 56,
+    "mapHeader": 52,
+    "pileButton": 64,
+    "valueText": 12,
+    "headerText": 10
+  },
+  "categoryNav": {
+    "railWidth": 220,
+    "minPaneWidth": 520,
+    "tapFloor": 44,
+    "chrome": 120,
+    "hysteresis": 32
+  },
+  "verification": [
+    { "width": 1280, "height": 720 },
+    { "width": 1920, "height": 1080 },
+    { "width": 844, "height": 390 },
+    { "width": 390, "height": 844 }
+  ]
+}

@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Confirm.uss" />
+    <Ashen.Presentation.UI.LocLabel name="CONFIRM_TITLE" class="confirm-title kit-text-header" />
+    <Ashen.Presentation.UI.LocLabel name="CONFIRM_TARGET" class="confirm-target kit-text-value" />
+    <Ashen.Presentation.UI.LocLabel name="CONFIRM_BODY" class="confirm-body kit-text-value" />
+    <ui:VisualElement name="CONFIRM_FOOTER" class="confirm-footer">
+        <Ashen.Presentation.UI.LocButton name="CONFIRM_BACK" class="kit-button--back confirm-button" />
+        <Ashen.Presentation.UI.LocButton name="CONFIRM_PRIMARY" class="kit-button--primary confirm-button" />
+        <Ashen.Presentation.UI.Kit.HoldButton name="CONFIRM_HOLD" class="kit-button--primary confirm-button" />
+    </ui:VisualElement>
+</ui:UXML>
