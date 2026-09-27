@@ -20,6 +20,9 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.Combat: return new CombatScreen();
                 case ScreenIds.Pause: return new PauseScreen();
                 case ScreenIds.Rewards: return new RewardsScreen();
+                case ScreenIds.ActMap: return new ActMapScreen();
+                case ScreenIds.Rest: return new RestScreen();
+                case ScreenIds.RunEnd: return new RunEndScreen();
                 case ScreenIds.Merchant: return new MerchantScreen();
                 case ScreenIds.Event:
                 case ScreenIds.Dialogue: return new EventScreen();

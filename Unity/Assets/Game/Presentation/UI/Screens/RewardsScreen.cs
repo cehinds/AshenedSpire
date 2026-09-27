@@ -25,8 +25,8 @@ namespace Ashen.Presentation.UI.Screens
     /// class-tree nodes), select then Confirm, Back, and Skip on the card offer. Every claim is saved at once (PF-06),
     /// so a reload resumes the same state. Continue is always pressable: gold while rows are open, green with
     /// "✓ All claimed" once every row is resolved; while rows are open it asks first, stating what the rewardCollect
-    /// setting will do (take the rest, or leave it). The act map is a later build (D-058), so after Continue the climb
-    /// returns to the title. Refusals show at the control that asked. Escape leaves the pick, else opens W-20.
+    /// setting will do (take the rest, or leave it). After Continue the climb goes on at the act map (a boss's spoils advance
+    /// the act first). Refusals show at the control that asked. Escape leaves the pick, else opens W-20.
     /// </summary>
     public sealed class RewardsScreen : ScreenView
     {
@@ -96,7 +96,7 @@ namespace Ashen.Presentation.UI.Screens
         private void ApplyBackground()
         {
             var components = Ui.Data.Components;
-            var region = _session.Content.RegionOf(_session.EncounterId);
+            var region = _session.Content.RegionOf(_session.EncounterId) ?? _session.Region;
             var id = StringTable.Fill(components.CombatBackground, new StringArgs().Add(UiPlaceholders.Region, region));
             var element = Root.Q(UiNames.RewardsBackground);
             if (element != null) Ui.ApplyBackground(element, Ui.Art != null && Ui.Art.Get(id) != null ? id : components.CombatFallbackBackground);
@@ -425,7 +425,7 @@ namespace Ashen.Presentation.UI.Screens
             });
         }
 
-        /// <summary>Sweep per the setting, close the door, save; the act map is planned, so the climb returns to the title.</summary>
+        /// <summary>Sweep per the setting, close the door, save (a boss's spoils advance the act); then the map (or the dungeon, or the next act's map).</summary>
         public void Finish()
         {
             try { _session.FinishRewards(); }
@@ -434,10 +434,7 @@ namespace Ashen.Presentation.UI.Screens
                 SaveFailed(e, Finish);
                 return;
             }
-            // Inside a legacy dungeon (a cache or a room fight) the climb returns to the dungeon (D-141n).
-            if (NodeRouter.Resume(Nav, Ui, _session)) return;
-            Ui.Session = null;
-            Nav.Go(Ui.Data.Screens.IsBuilt(ScreenIds.ActMap) ? ScreenIds.ActMap : ScreenIds.Title, null, true);
+            RunFlow.Show(Context, _session);
         }
 
         private void SaveFailed(Exception e, Action retry)

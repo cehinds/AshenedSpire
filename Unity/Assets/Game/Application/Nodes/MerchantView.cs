@@ -100,8 +100,8 @@ namespace Ashen.App.Nodes
         {
             if (session == null) throw new ArgumentNullException(nameof(session));
             var strings = ui.Strings;
-            var view = session.DomainView();
             var run = session.Run;
+            var view = session.DomainView(run);
             var state = new MerchantViewState
             {
                 Title = strings.Get(NodeStringKeys.NodesMerchantTitle),
@@ -116,13 +116,13 @@ namespace Ashen.App.Nodes
                 var shelf = new MerchantShelfView { Id = id, LabelKey = string.Format(CultureInfo.InvariantCulture, NodeFormats.ShelfLabelKey, id) };
                 switch (id)
                 {
-                    case NodeValues.ShelfCards: Priced(session, ui, view, shelf, K.Cards, NodeValues.OfferCard, SV.ActionBuyCard); break;
-                    case NodeValues.ShelfArmaments: Priced(session, ui, view, shelf, K.Armaments, NodeValues.OfferArmament, SV.ActionBuyArmament); break;
-                    case NodeValues.ShelfWeaponArts: Priced(session, ui, view, shelf, SK.WeaponArts, NodeValues.OfferWeaponArt, SV.ActionBuyWeaponArt); break;
-                    case NodeValues.ShelfRelics: Priced(session, ui, view, shelf, K.Relics, NodeValues.OfferRelic, SV.ActionBuyRelic); break;
-                    case NodeValues.ShelfFlasks: Priced(session, ui, view, shelf, K.Flasks, NodeValues.OfferFlask, SV.ActionBuyFlask); break;
-                    case NodeValues.ShelfServices: Services(session, ui, view, shelf); break;
-                    case NodeValues.ShelfSell: Sell(session, ui, view, shelf); break;
+                    case NodeValues.ShelfCards: Priced(session, ui, run, view, shelf, K.Cards, NodeValues.OfferCard, SV.ActionBuyCard); break;
+                    case NodeValues.ShelfArmaments: Priced(session, ui, run, view, shelf, K.Armaments, NodeValues.OfferArmament, SV.ActionBuyArmament); break;
+                    case NodeValues.ShelfWeaponArts: Priced(session, ui, run, view, shelf, SK.WeaponArts, NodeValues.OfferWeaponArt, SV.ActionBuyWeaponArt); break;
+                    case NodeValues.ShelfRelics: Priced(session, ui, run, view, shelf, K.Relics, NodeValues.OfferRelic, SV.ActionBuyRelic); break;
+                    case NodeValues.ShelfFlasks: Priced(session, ui, run, view, shelf, K.Flasks, NodeValues.OfferFlask, SV.ActionBuyFlask); break;
+                    case NodeValues.ShelfServices: Services(session, ui, run, view, shelf); break;
+                    case NodeValues.ShelfSell: Sell(session, ui, run, view, shelf); break;
                     default: continue;
                 }
                 state.Shelves.Add(shelf);
@@ -132,12 +132,12 @@ namespace Ashen.App.Nodes
 
         // ------------------------------------------------------------------ priced shelves
 
-        private static void Priced(MerchantSession session, UiData ui, JObject view, MerchantShelfView shelf, string key, string kind, string action)
+        private static void Priced(MerchantSession session, UiData ui, JObject run, JObject view, MerchantShelfView shelf, string key, string kind, string action)
         {
             var strings = ui.Strings;
             var data = session.Data;
             var combat = data.Combat;
-            var cinders = session.Run.Num(RK.Cinders);
+            var cinders = run.Num(RK.Cinders);
             foreach (var row in Js.Items(view[key]).OfType<JObject>())
             {
                 var id = row.Str(K.Id);
@@ -227,11 +227,10 @@ namespace Ashen.App.Nodes
 
         // ------------------------------------------------------------------ services
 
-        private static void Services(MerchantSession session, UiData ui, JObject view, MerchantShelfView shelf)
+        private static void Services(MerchantSession session, UiData ui, JObject run, JObject view, MerchantShelfView shelf)
         {
             var strings = ui.Strings;
             var data = session.Data;
-            var run = session.Run;
             var cinders = run.Num(RK.Cinders);
             var remove = view.Obj(SK.Remove);
             if (remove != null)
@@ -344,12 +343,12 @@ namespace Ashen.App.Nodes
 
         // ------------------------------------------------------------------ the sell shelf (US-9.3; D-081)
 
-        private static void Sell(MerchantSession session, UiData ui, JObject view, MerchantShelfView shelf)
+        private static void Sell(MerchantSession session, UiData ui, JObject run, JObject view, MerchantShelfView shelf)
         {
             var strings = ui.Strings;
             var data = session.Data;
             var combat = data.Combat;
-            var cinders = session.Run.Num(RK.Cinders);
+            var cinders = run.Num(RK.Cinders);
             var sell = view.Obj(SK.Sell) ?? new JObject();
             var n = 0;
             foreach (var row in Js.Items(sell[K.Armaments]).OfType<JObject>())

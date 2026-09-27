@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Ashen.App.Ui;
+using Ashen.App.Run;
 using Ashen.Domain.Combat;
 using Ashen.Domain.Events;
 using Ashen.Domain.Loop;
@@ -18,92 +19,60 @@ using RK = Ashen.Generated.RunKeys;
 namespace Ashen.App.Nodes
 {
     /// <summary>
-    /// An Unknown-node event as the application plays it (W-11 event and W4c dialogue; US-10.1–10.3, AF-07), over the
-    /// ported event door (<see cref="Events"/>): <see cref="Start"/> saves at the event; <see cref="Choose"/> commits one
-    /// response through <see cref="Events.Choose"/> (a refused one changes nothing) and saves the resolved state (the
-    /// response is part of the resume entry); <see cref="Continue"/> is allowed only once a response is taken: a response
-    /// that started a fight enters it through <see cref="RunLoop.EnterEventCombat"/> and hands it to combat (the owner saves
-    /// the fight as it starts), any other returns to the act map. The Turncoat Mirror's class swap is an effect of its
-    /// response (the swapClass op) and needs nothing here. Engine-free.
+    /// An Unknown-node event (W-11 event and W4c dialogue; US-10.1–10.3, AF-07) on the climb's session: travel entered it
+    /// (the event id and whether a response was taken are saved with the run); <see cref="Choose"/> is
+    /// <see cref="RunSession.ChooseEvent"/> (the effects, the history row and the quests; a refusal changes nothing; saved
+    /// with the event still open, so a reload resumes resolved); <see cref="Continue"/> is <see cref="RunSession.FinishEvent"/>,
+    /// allowed once a response is taken: a response that started a fight begins it where the run stands (W-07), any other
+    /// returns to the act map. The Turncoat Mirror's class swap is an effect of its response (the swapClass op). Engine-free.
     /// </summary>
     public sealed class EventSession
     {
-        private EventSession(LoopContext ctx, INodeHost host, NodeEntry entry)
-        {
-            Context = ctx;
-            Host = host;
-            Entry = entry;
-        }
+        private EventSession(RunSession owner) => Owner = owner;
 
-        public LoopContext Context { get; }
-        public INodeHost Host { get; }
-
-        /// <summary>The resume entry (its ChoiceId is the response taken, once resolved).</summary>
-        public NodeEntry Entry { get; private set; }
-
-        public EventsData Data => Context.Data.Events;
-        public JObject Run => Context.Run;
-        public string EventId => Entry.EventId;
+        public RunSession Owner { get; }
+        public EventsData Data => Owner.Content.Loop.Events;
+        public string EventId => Owner.EventId;
 
         /// <summary>A response has been taken (Continue is enabled).</summary>
-        public bool Resolved => Entry.ChoiceId != null;
+        public bool Resolved => Owner.EventDone;
 
-        /// <summary>The outcome of the response taken in this session (null after a resume: the result text is re-read from the choice).</summary>
+        /// <summary>The outcome of the response taken in this session (null after a resume: the result is re-read from the choice).</summary>
         public EventResult LastResult { get; private set; }
 
-        /// <summary>The taken response started a fight (Continue reads "Steel yourself", US-10.1).</summary>
-        public bool StartsFight => Resolved && Js.Truthy(Run[RK.CombatEntered]);
-
-        public bool Finished { get; private set; }
-
-        public static EventSession Start(LoopContext ctx, INodeHost host, NodeEntry entry)
+        public static EventSession Start(RunSession owner)
         {
-            if (ctx == null) throw new ArgumentNullException(nameof(ctx));
-            if (entry?.EventId == null) throw new ArgumentException(NodeMessages.EventNeedsId);
-            var session = new EventSession(ctx, host, entry);
-            new NodeStep(ctx).Commit(host, entry);
-            return session;
+            if (owner?.EventId == null) throw new ArgumentException(NodeMessages.EventNeedsId);
+            return new EventSession(owner);
         }
 
         /// <summary>The domain's view (Events.Open) of the event before a response is taken.</summary>
-        public JObject DomainView() => Events.Open(Data, Run, EventId);
+        public JObject DomainView() => Owner.EventView();
 
         /// <summary>Every authored choice with its id and history requirement (content/events.js eventChoicesWithHistory).</summary>
         public List<JObject> AllChoices() => EventChoices.WithHistory(Data, Data.Events.Get(EventId));
 
-        /// <summary>Take a response. Refused (nothing changes) once resolved, or by the event door (history, price, unknown).</summary>
+        /// <summary>The response taken at this event (its history row; the last one for this event).</summary>
+        public string TakenChoice(JObject run)
+        {
+            if (!Resolved) return null;
+            return Js.Items(run?[RK.History]).OfType<JObject>().LastOrDefault(r => r.Str(K.Kind) == EV.ChoiceKind && r.Str(MK.EventId) == EventId)?.Str(MK.ChoiceId);
+        }
+
+        /// <summary>The taken response started a fight (Continue reads "Steel yourself", US-10.1).</summary>
+        public static bool StartsFight(JObject run, bool resolved) => resolved && Js.Truthy(run?[RK.CombatEntered]);
+
         public EventResult Choose(string choiceId)
         {
-            if (Resolved) return new EventResult { Refusal = new Ashen.Domain.Shop.Refusal(NodeStringKeys.NodesEventStatusResolved) };
-            var step = new NodeStep(Context);
-            var result = Events.Choose(Data, Run, EventId, choiceId, Context.Rng);
+            var result = Owner.ChooseEvent(choiceId);
             if (!result.Ok) return result;
-            var entry = Entry.With(choiceId);
-            step.Commit(Host, entry);
-            Entry = entry;
             LastResult = result;
+            Owner.FollowClass();
             return result;
         }
 
-        /// <summary>
-        /// Continue (showEvent's onDone): null before a response is taken; the fight the response started (entered now,
-        /// for the owner to start and save at once); else the act map, saved there.
-        /// </summary>
-        public NodeExit Continue()
-        {
-            if (!Resolved || Finished) return null;
-            if (StartsFight)
-            {
-                var fight = RunLoop.EnterEventCombat(Context);
-                Finished = true;
-                return new NodeExit { Kind = NodeValues.ExitFight, Fight = fight };
-            }
-            var step = new NodeStep(Context);
-            Events.Finish(Run);
-            step.Commit(Host, null);
-            Finished = true;
-            return NodeExit.To(NodeValues.ExitMap);
-        }
+        /// <summary>Continue: null before a response is taken; else the location after it (combat for the response's fight, else the map).</summary>
+        public string Continue() => Resolved ? Owner.FinishEvent() : null;
     }
 
     /// <summary>One response as W-11 draws it.</summary>
@@ -157,8 +126,10 @@ namespace Ashen.App.Nodes
             var strings = ui.Strings;
             var d = session.Data;
             var def = d.Events.Get(session.EventId) ?? new JObject();
-            var open = session.DomainView();
+            var run = session.Owner.Run;
+            var open = session.DomainView() ?? new JObject();
             var all = session.AllChoices();
+            var taken = session.TakenChoice(run);
             var state = new EventViewState
             {
                 EventId = session.EventId,
@@ -176,14 +147,14 @@ namespace Ashen.App.Nodes
                 state.DialogueTitle = state.SpeakerName == state.Title ? state.Title
                     : strings.Format(NodeStringKeys.NodesDialogueTitle, new StringArgs().Add(NodePlaceholders.Speaker, state.SpeakerName).Add(NodePlaceholders.Title, state.Title));
             }
-            var cinders = session.Run.Num(RK.Cinders);
+            var cinders = run.Num(RK.Cinders);
             var visible = Js.Items(open[RK.Choices]).OfType<JObject>().ToList();
             for (var index = 0; index < all.Count; index++)
             {
                 var choice = all[index];
                 var id = choice.Str(K.Id);
                 var row = visible.FirstOrDefault(v => v.Str(MK.ChoiceId) == id);
-                var response = new EventResponseView { ChoiceId = id, Preview = Preview(d, strings, choice), Chosen = session.Entry.ChoiceId == id };
+                var response = new EventResponseView { ChoiceId = id, Preview = Preview(d, strings, choice), Chosen = taken == id };
                 var label = choice.Str(K.Label) ?? id;
                 if (row == null)
                 {
@@ -209,12 +180,12 @@ namespace Ashen.App.Nodes
             }
             if (session.Resolved)
             {
-                var chosen = all.FirstOrDefault(c => c.Str(K.Id) == session.Entry.ChoiceId);
+                var chosen = all.FirstOrDefault(c => c.Str(K.Id) == taken);
                 state.ResultText = session.LastResult?.Outcome?.Str(EK.ResultText) ?? chosen?.Str(EK.ResultText) ?? string.Empty;
                 if (Js.Items(chosen?[K.Effects]).OfType<JObject>().Any(e => e.Str(K.Op) == EV.SwapClass))
                     state.SwapText = strings.Format(NodeStringKeys.NodesEventSwapped, new StringArgs().Add(NodePlaceholders.Class,
-                        strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.ClassNameKey, session.Run.Str(RK.Class)))));
-                state.StartsFight = session.StartsFight;
+                        strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.ClassNameKey, run.Str(RK.Class)))));
+                state.StartsFight = EventSession.StartsFight(run, session.Resolved);
                 state.FightNote = state.StartsFight ? strings.Get(NodeStringKeys.NodesEventFightNote) : null;
                 state.StatusText = strings.Get(NodeStringKeys.NodesEventStatusResolved);
             }

@@ -1,0 +1,12 @@
+{
+  "comment": "W-10 level up (W-22): two banked points, one assigned; the receipt shows the derived pools before and after; Confirm.",
+  "screen": "rest",
+  "seed": 3,
+  "assisted": true,
+  "prefer": "shrine",
+  "until": "rest",
+  "grantPoints": 2,
+  "pane": "level",
+  "assign": 1,
+  "skipSizes": ["1920x1080", "390x844"]
+}

@@ -7,5 +7,8 @@ namespace Ashen.Generated
         public const double Half = 0.5;
         public const double Percent = 100;
         public const double MillisPerSecond = 1000;
+        public const double FullTurnDegrees = 360;
+        public const double ByteMax = 255;
+        public const double RgbChannels = 3;
     }
 }

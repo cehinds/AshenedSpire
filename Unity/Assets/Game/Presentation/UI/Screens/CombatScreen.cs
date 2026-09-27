@@ -93,6 +93,7 @@ namespace Ashen.Presentation.UI.Screens
             var rewards = Root.Q<LocButton>(UiNames.EndRewards);
             rewards.SetEnabled(Ui.Data.Screens.IsBuilt(ScreenIds.Rewards));
             rewards.clicked += OpenRewards;
+            Root.Q<LocButton>(UiNames.EndSummary).clicked += OpenRunEnd;
 
             ApplyBackground();
             _player = new Combatant { focusable = false };
@@ -643,13 +644,21 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocLabel>(UiNames.EndPlanned)?.SetResolved(Strings.Get(rewards ? StringKeys.CombatEndPlannedVictory : StringKeys.CombatEndPlanned));
             var rewardsButton = Root.Q<LocButton>(UiNames.EndRewards);
             var toTitle = Root.Q<LocButton>(UiNames.EndToTitle);
+            var summary = Root.Q<LocButton>(UiNames.EndSummary);
+            var summaryShown = _session.RunOver && Ui.Data.Screens.IsBuilt(ScreenIds.RunEnd);
+            var nextBuilt = rewards ? Ui.Data.Screens.IsBuilt(ScreenIds.ActMap) : summaryShown;
+            UiDom.Show(Root.Q(UiNames.EndPlanned), !nextBuilt);
             UiDom.Show(rewardsButton, rewards);
+            UiDom.Show(summary, summaryShown);
+            UiDom.Show(toTitle, !rewards && !summaryShown);
             rewardsButton?.EnableInClassList(UiClasses.ButtonPrimary, rewards);
             rewardsButton?.EnableInClassList(UiClasses.ButtonReady, rewards);
+            summary?.EnableInClassList(UiClasses.ButtonPrimary, summaryShown);
+            summary?.EnableInClassList(UiClasses.ButtonReady, summaryShown);
             toTitle?.EnableInClassList(UiClasses.ButtonPrimary, !rewards);
             toTitle?.EnableInClassList(UiClasses.ButtonReady, !rewards);
             UiDom.Show(Root.Q(UiNames.CombatEnd), true);
-            FocusSoon(rewards && rewardsButton != null && rewardsButton.enabledSelf ? rewardsButton : (VisualElement)toTitle);
+            FocusSoon(rewards && rewardsButton != null && rewardsButton.enabledSelf ? rewardsButton : summaryShown ? summary : (VisualElement)toTitle);
         }
 
         /// <summary>The spoils (W-08): the pending reward the fight's end rolled, on its own screen.</summary>
@@ -657,6 +666,13 @@ namespace Ashen.Presentation.UI.Screens
         {
             if (!Ended || !_session.HasPendingReward) return;
             Nav.Go(ScreenIds.Rewards, new RewardsArgs { Session = _session }, true);
+        }
+
+        /// <summary>The run is over (a death, or the act-3 keeper felled): W-15 run end.</summary>
+        private void OpenRunEnd()
+        {
+            if (!Ended || !_session.RunOver) return;
+            Nav.Go(ScreenIds.RunEnd, new RunScreenArgs { Session = _session }, true);
         }
 
         // ------------------------------------------------------------------ pause and back

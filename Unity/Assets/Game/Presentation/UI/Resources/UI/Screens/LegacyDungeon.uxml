@@ -2,19 +2,7 @@
     <ui:Style src="Screens.uss" />
     <ui:Style src="Nodes.uss" />
     <ui:VisualElement name="NODE_PAGE" class="page node-page dungeon-page">
-        <ui:VisualElement name="RUN_HUD" class="node-hud">
-            <ui:VisualElement name="HUD_PORTRAIT" class="node-hud-portrait" />
-            <ui:VisualElement class="node-hud-identity">
-                <Ashen.Presentation.UI.LocLabel name="HUD_NAME" class="node-hud-name kit-text-value" />
-                <Ashen.Presentation.UI.LocLabel name="HUD_TRAIL" class="node-hud-trail kit-text-header" />
-            </ui:VisualElement>
-            <ui:VisualElement name="HUD_METERS" class="node-hud-meters">
-                <Ashen.Presentation.UI.Kit.Meter name="HUD_HP" class="node-hud-meter" kind="hp" glyph-key="resource.hp.name" />
-                <Ashen.Presentation.UI.Kit.Meter name="HUD_MP" class="node-hud-meter" kind="mp" glyph-key="resource.mana.name" />
-            </ui:VisualElement>
-            <Ashen.Presentation.UI.LocLabel name="HUD_CINDERS" class="node-hud-cinders kit-text-value" />
-            <Ashen.Presentation.UI.LocButton name="HUD_MENU" class="node-hud-menu" string-key="combat.menu" />
-        </ui:VisualElement>
+        <Ashen.Presentation.UI.Kit.RunHud name="RUN_HUD" />
         <ui:VisualElement name="SCENE" class="scene">
             <ui:VisualElement name="SCENE_BACKGROUND" class="scene-layer" picking-mode="Ignore" />
             <ui:VisualElement name="SCENE_FLOOR" class="scene-layer" picking-mode="Ignore" />

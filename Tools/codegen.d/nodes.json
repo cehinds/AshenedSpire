@@ -3,15 +3,8 @@
   "keySets": [
     {
       "name": "NodeKeys",
-      "doc": "Keys of ui/nodes.json, of the run payload's node entry (RunSession) and of the dungeon catalog fields the W-13 view reads.",
+      "doc": "Keys of ui/nodes.json and of the dungeon catalog fields the W-13 view reads.",
       "keys": {
-        "Node": "node",
-        "Screen": "screen",
-        "Kind": "kind",
-        "EventId": "eventId",
-        "ChoiceId": "choiceId",
-        "DungeonId": "dungeonId",
-        "EncounterId": "encounterId",
         "Merchant": "merchant",
         "Event": "event",
         "Dialogue": "dialogue",
@@ -26,7 +19,6 @@
         "Floor": "floor",
         "Map": "map",
         "OccupantArt": "occupantArt",
-        "ShopSell": "shopSell",
         "AssetId": "assetId",
         "Lore": "lore",
         "Boss": "boss",
@@ -40,14 +32,8 @@
     },
     {
       "name": "NodeValues",
-      "doc": "Wire values of the node sessions: where a node screen leads (exits), the merchant's shelves (ui/nodes.json merchant.shelves) and offer kinds, the W-13 tray's control kinds, and the event ops the preview names that the event vocabulary does not.",
+      "doc": "Wire values of the node views: the merchant shelves (ui/nodes.json merchant.shelves) and offer kinds, the W-13 tray control kinds, and the event ops the preview names that the event vocabulary does not.",
       "keys": {
-        "ExitMap": "map",
-        "ExitFight": "fight",
-        "ExitRest": "rest",
-        "ExitRewards": "rewards",
-        "ExitVictory": "victory",
-        "ExitStay": "stay",
         "ShelfCards": "cards",
         "ShelfArmaments": "armaments",
         "ShelfWeaponArts": "weaponArts",
@@ -166,10 +152,8 @@
       "name": "NodeMessages",
       "doc": "Developer-facing node-screen messages (exceptions and logs; never shown to players).",
       "keys": {
-        "LeaveThroughLeave": "The merchant's Leave goes through MerchantSession.Leave",
         "EventNeedsId": "An event session needs the event id of its node entry",
         "NotInDungeon": "The run stands in no legacy dungeon",
-        "NoFightArgs": "The node handed over no entered fight",
         "NoSession": "A node screen opened without a run session ({0})",
         "NodeFailed": "Node step failed: {0}"
       }

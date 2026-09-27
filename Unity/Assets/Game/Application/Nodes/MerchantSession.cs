@@ -1,87 +1,47 @@
 using System;
-using Ashen.Domain.Loop;
+using Ashen.App.Run;
 using Ashen.Domain.Shop;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using SK = Ashen.Generated.ShopKeys;
-using SV = Ashen.Generated.ShopValues;
 
 namespace Ashen.App.Nodes
 {
     /// <summary>
-    /// A merchant visit as the application plays it (W-09; US-9.1–9.3, AF-08), over the ported merchant
-    /// (<see cref="Shop"/>): <see cref="Start"/> rolls the stock onto the run when the run holds none (the 'shop' and
-    /// 'smith' streams; a resumed visit re-reads the saved stock) and saves at the merchant; <see cref="Execute"/> takes
-    /// one purchase, burn, smith service or sale through <see cref="Shop.Execute"/> and saves after every one that lands
-    /// (a refusal changes nothing and saves nothing); <see cref="Leave"/> clears the stock, saves at the act map and
-    /// returns the map exit. The sell shelf follows the host's shopSell setting. Engine-free.
+    /// A merchant visit (W-09; US-9.1–9.3, AF-08) on the climb's session: travel rolled the stock onto the run (the 'shop'
+    /// and 'smith' streams) and saved it, so a reload reuses it; <see cref="Execute"/> takes one purchase, burn, smith
+    /// service or sale through <see cref="RunSession.MerchantStep"/> (saved when it lands; a refusal changes and saves
+    /// nothing); <see cref="Leave"/> is <see cref="RunSession.LeaveMerchant"/> (the stock leaves the run; saved at the map).
+    /// The sell shelf follows the session's shopSell setting. Engine-free.
     /// </summary>
     public sealed class MerchantSession
     {
-        private MerchantSession(LoopContext ctx, INodeHost host, NodeEntry entry)
+        private MerchantSession(RunSession owner) => Owner = owner;
+
+        public RunSession Owner { get; }
+        public ShopData Data => Owner.Content.Loop.Shop;
+
+        /// <summary>settingOn(settings, 'shopSell') (D-081).</summary>
+        public bool SellOn => Owner.ShopSellOn;
+
+        /// <summary>The run document (a copy; views read one per redraw).</summary>
+        public JObject Run => Owner.Run;
+
+        public static MerchantSession Start(RunSession owner)
         {
-            Context = ctx;
-            Host = host;
-            Entry = entry;
+            if (owner == null) throw new ArgumentNullException(nameof(owner));
+            if (owner.Location != RunFlowValues.LocationMerchant) throw new InvalidOperationException(string.Format(System.Globalization.CultureInfo.InvariantCulture, RunFlowMessages.NotAtNode, RunFlowValues.LocationMerchant));
+            return new MerchantSession(owner);
         }
 
-        public LoopContext Context { get; }
-        public INodeHost Host { get; }
-        public NodeEntry Entry { get; }
-        public ShopData Data => Context.Data.Shop;
-        public JObject Run => Context.Run;
+        /// <summary>The stock on a run copy (null once left).</summary>
+        public static JObject Stock(JObject run) => run?[SK.ShopStock] as JObject;
 
-        /// <summary>The stock was rolled by this visit's <see cref="Start"/> (false on a resume).</summary>
-        public bool Rolled { get; private set; }
+        /// <summary>The domain's view of every offer (Shop.View) on a run copy, or null once left.</summary>
+        public JObject DomainView(JObject run) => Stock(run) == null ? null : Shop.View(Data, run, SellOn);
 
-        /// <summary>The visit is over (the stock left with the player).</summary>
-        public bool Left { get; private set; }
+        public ShopResult Execute(ShopAction action) => Owner.MerchantStep(action);
 
-        /// <summary>settingOn(settings, 'shopSell'), the shipped default on without a host.</summary>
-        public bool SellOn => Host?.SellOn ?? true;
-
-        /// <summary>The run's stock (run.shopStock), or null once left.</summary>
-        public JObject Stock => Run[SK.ShopStock] as JObject;
-
-        /// <summary>Open the merchant for a run standing on a merchant node: roll the stock unless it is already saved, then save here.</summary>
-        public static MerchantSession Start(LoopContext ctx, INodeHost host, NodeEntry entry = null)
-        {
-            if (ctx == null) throw new ArgumentNullException(nameof(ctx));
-            var session = new MerchantSession(ctx, host, entry ?? new NodeEntry { Screen = ScreenIds.Merchant, Kind = MapKeys.Merchant });
-            var step = new NodeStep(ctx);
-            if (!(ctx.Run[SK.ShopStock] is JObject))
-            {
-                Shop.Open(ctx.Data.Shop, ctx.Run, ctx.Rng);
-                session.Rolled = true;
-            }
-            step.Commit(host, session.Entry);
-            return session;
-        }
-
-        /// <summary>The domain's view of every offer (Shop.View), or null once left.</summary>
-        public JObject DomainView() => Stock == null ? null : Shop.View(Data, Run, SellOn);
-
-        /// <summary>One action; a landed one is saved at once (PF-06), a refused one changes nothing.</summary>
-        public ShopResult Execute(ShopAction action)
-        {
-            if (action == null) throw new ArgumentNullException(nameof(action));
-            if (action.Kind == SV.ActionLeave) throw new ArgumentException(NodeMessages.LeaveThroughLeave);
-            var step = new NodeStep(Context);
-            var result = Shop.Execute(Data, Run, action, SellOn);
-            if (!result.Ok) return result;
-            step.Commit(Host, Entry);
-            return result;
-        }
-
-        /// <summary>Leave: the stock is cleared (US-9.1) and the run saved at the act map.</summary>
-        public NodeExit Leave()
-        {
-            var step = new NodeStep(Context);
-            var result = Shop.Execute(Data, Run, new ShopAction { Kind = SV.ActionLeave }, SellOn);
-            if (!result.Ok) return NodeExit.To(NodeValues.ExitMap);
-            step.Commit(Host, null);
-            Left = true;
-            return NodeExit.To(NodeValues.ExitMap);
-        }
+        public void Leave() => Owner.LeaveMerchant();
     }
 }

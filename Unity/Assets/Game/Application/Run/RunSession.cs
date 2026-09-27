@@ -21,10 +21,14 @@ using LoopOutcome = Ashen.Domain.Loop.CombatOutcome;
 using LoopSettings = Ashen.Domain.Loop.LoopSettings;
 using LV = Ashen.Generated.LoopValues;
 using MK = Ashen.Generated.MapKeys;
+using NewRunOptions = Ashen.Domain.Loop.NewRunOptions;
+using NodeOutcome = Ashen.Domain.Loop.NodeOutcome;
 using RewardDoor = Ashen.Domain.Loop.RewardDoor;
 using RK = Ashen.Generated.RunKeys;
+using RunEndReceipt = Ashen.Domain.Loop.RunEndReceipt;
 using RunLoop = Ashen.Domain.Loop.RunLoop;
 using WK = Ashen.Generated.RewardsKeys;
+using WV = Ashen.Generated.RewardsValues;
 
 namespace Ashen.App.Run
 {
@@ -65,17 +69,19 @@ namespace Ashen.App.Run
     }
 
     /// <summary>
-    /// A run as the application plays it (F1: AF-02 → AF-05 → W-08 → AF-10, PF-06). New creates the run document through
-    /// the shipped createRunState port plus main.js newRun's additions and commits it to a slot; StartEncounter enters
-    /// the first fight through the shipped enterCombat arguments; every combat command goes through
-    /// <see cref="CombatSession.Execute"/> (legality first, rollback on failure) and is autosaved as rules/runFlow.json
-    /// says. When the fight ends the run loop's post-combat door runs at once (<see cref="RunLoop.EndCombat"/>: the
-    /// write-back, the ledgers, the reward rolls into run.pendingReward, or the run's close-out on a death) and the slot
-    /// is checkpointed at the rewards (a death clears it: permadeath, as shipped saves.clearRun). The reward door
-    /// (<see cref="RewardDoor"/>) claims, skips and continues with a save after every step, so a reload resumes the same
-    /// claim state. A save is one SaveService envelope whose payload holds the format, the preset, the slot summary
-    /// (D-059), the run document, the location and, in a fight, the combat checkpoint; commands between checkpoints go
-    /// to the generation's log with their after-state hash. Engine-free.
+    /// A run as the application plays it (AF-02 → AF-04 → AF-05 → W-08 → AF-06 … → AF-11, PF-06). <see cref="New"/> makes
+    /// the climb through the run loop's newRun (createRunState, the seat order, the keepsake, the first act's map) and
+    /// commits it at the act map. From the map the player travels to a reachable node (<see cref="Travel"/>, shipped
+    /// enterNode): a fight enters through the loop's enterCombat arguments on the run's own RNG; a rest place opens its
+    /// stay; a treasure room's offer becomes a reward checkpoint; a merchant rolls its stock; an event and a legacy dungeon
+    /// wait for their screens. Every combat command goes through <see cref="CombatSession.Execute"/> (legality first,
+    /// rollback on failure) and is autosaved as rules/runFlow.json says; the command that ends a fight runs the loop's
+    /// post-combat door at once (<see cref="RunLoop.EndCombat"/>), and a death or the summit closes the run out into the
+    /// profile and clears the slot (permadeath). The reward door claims, skips and continues with a save after every
+    /// step; a boss's spoils lead into the next act (<see cref="Ashen.Domain.Loop.Acts.Advance"/>). A save is one
+    /// SaveService envelope whose payload holds the format, the preset, the slot summary (D-059), the run document, the
+    /// location and what that location needs to resume (the fight's checkpoint, the rest stay, the event); commands between
+    /// checkpoints go to the generation's log with their after-state hash. Engine-free.
     /// </summary>
     public sealed partial class RunSession
     {
@@ -86,6 +92,8 @@ namespace Ashen.App.Run
         private Rng _rng;
         private ProfileStore _profile;
         private RewardDoor _door;
+        private string _location;
+        private string _restAnchor;
 
         private RunSession(RunContent content, SaveService saves, int slotIndex, Func<DateTime> clock)
         {
@@ -108,6 +116,7 @@ namespace Ashen.App.Run
         public string SeedText => Content.Seeds.Format(Seed);
         public string EncounterId { get; private set; }
         public int Act => (int)_run.Num(RK.ActNumber);
+        public int Floor => (int)_run.Num(RK.Floor);
 
         /// <summary>The fight in progress, or the one that just ended (kept for the W-07 end state until the screen leaves).</summary>
         public CombatSession Combat { get; private set; }
@@ -127,20 +136,25 @@ namespace Ashen.App.Run
         /// <summary>The run was closed out (a death or the summit) and its slot cleared.</summary>
         public bool RunOver { get; private set; }
 
-        /// <summary>Where the save resumes: null before the first fight, 'combat', 'rewards' or 'map' (rules/runFlow.json locations).</summary>
+        /// <summary>The run's close-out (finishRun's receipt: the result record and what was newly earned), once it is over.</summary>
+        public RunEndReceipt End { get; private set; }
+
+        /// <summary>
+        /// Where the run stands and a save resumes (rules/runFlow.json screens): 'combat', 'rewards', 'map', 'rest',
+        /// 'merchant', 'event', 'dungeon', or 'runEnd' once the run is over (never saved: the slot is cleared).
+        /// </summary>
         public string Location
         {
             get
             {
+                if (RunOver) return RunFlowValues.LocationRunEnd;
                 if (IsInCombat) return RunFlowValues.LocationCombat;
                 if (HasPendingReward) return RunFlowValues.LocationRewards;
                 return _location;
             }
         }
 
-        private string _location;
-
-        /// <summary>Where the last reward door led ('map' or 'advanceAct'); the act map is a later build (D-058).</summary>
+        /// <summary>Where the last reward door led ('map' or 'advanceAct', which the session has already taken).</summary>
         public string After { get; private set; }
 
         /// <summary>The run document (a copy).</summary>
@@ -152,55 +166,72 @@ namespace Ashen.App.Run
         /// <summary>Raised after every accepted combat command (after its autosave), with its outcome.</summary>
         public event Action<CombatOutcome> CommandCommitted;
 
+        /// <summary>
+        /// Review and test hook (PlayMode smoke, screen captures): scales each new fight's enemy HP by its pool, as the bot's
+        /// assisted policy does (D-103). Null in the game; never set by it.
+        /// </summary>
+        public static Func<string, double> ReviewEnemyHpScale;
+
         // ------------------------------------------------------------------ create
 
-        /// <summary>A new run in a slot (overwriting what was there) from a class and seed, saved at once.</summary>
-        public static RunSession New(RunContent content, SaveService saves, int slotIndex, uint seed, string classId, string name, Func<DateTime> clock = null)
+        /// <summary>
+        /// A new climb in a slot (overwriting what was there), saved at once at the act map: main.js newRun + startClimb
+        /// through <see cref="RunLoop.NewRun"/> with the character's name and tint, the data's glyph, the empty advanced
+        /// settings' config snapshot and the seed string; <paramref name="custom"/> is a Custom Climb block (null: Classic).
+        /// </summary>
+        public static RunSession New(RunContent content, SaveService saves, int slotIndex, uint seed, string classId, string name, Func<DateTime> clock = null, JObject custom = null)
         {
             if (classId == null || !content.Data.Classes.Has(classId))
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, RunFlowMessages.UnknownClass, classId));
             var session = new RunSession(content, saves, slotIndex, clock)
             {
-                _run = RunState.Create(content.Data, seed, classId),
                 Name = name,
                 Portrait = content.Portrait(classId),
             };
-            session.AddNewRunFields();
+            var customization = new JObject { [RunFlowKeys.Name] = name };
+            foreach (var p in content.Flow.Customization.Properties()) customization[p.Name] = p.Value.DeepClone();
+            customization[RunFlowKeys.Tint] = content.Flow.DefaultTint;
+            var ctx = RunLoop.NewRun(content.Loop, session.Profile.Doc, session.Settings(), new NewRunOptions
+            {
+                ClassId = classId,
+                Seed = seed,
+                SeedString = content.Seeds.Format(seed),
+                Custom = custom?.DeepClone() as JObject,
+                Customization = customization,
+                AdvancedConfigSnapshot = (JObject)content.Flow.AdvancedConfigSnapshot.DeepClone(),
+                Prologue = content.Flow.Prologue,
+            });
+            session._run = ctx.Run;
+            session._rng = ctx.Rng;
+            session._location = RunFlowValues.LocationMap;
             session.Save();
             return session;
         }
 
         /// <summary>
-        /// main.js newRun's additions to a created run, in order (rules/runFlow.json newRun): the seed string, the
-        /// customization (the character's name and tint, the data's glyph), stats, path, seenEvents and
-        /// lastEncounters. The post-combat pipeline counts wins in stats; the run loop reads the rest.
+        /// Review and test hook: enter a named fight (the rules/runFlow.json firstFight encounter unless one is named) where
+        /// the run stands, through the loop's enterCombat arguments, and checkpoint it. The climb's fights come from
+        /// <see cref="Travel"/>.
         /// </summary>
-        private void AddNewRunFields()
-        {
-            _run[RK.SeedString] = SeedText;
-            foreach (var p in Content.Flow.NewRun.Properties())
-            {
-                if (p.Name == LK.Customization)
-                {
-                    var customization = new JObject { [RunFlowKeys.Name] = Name };
-                    foreach (var q in ((JObject)p.Value).Properties()) customization[q.Name] = q.Value.DeepClone();
-                    customization[RunFlowKeys.Tint] = Content.Flow.DefaultTint;
-                    _run[p.Name] = customization;
-                }
-                else _run[p.Name] = p.Value.DeepClone();
-            }
-        }
-
-        /// <summary>Enter a fight (the F1 rule's encounter unless one is named) and checkpoint it.</summary>
         public CombatSession StartEncounter(string encounterId = null)
         {
-            EncounterId = encounterId ?? Content.FirstFightEncounter();
-            var args = RunCombat.CreateArgs(_run, EncounterId, Content.Data);
-            Combat = CombatSession.Start(Content.Combat, Seed, args);
-            FightFinished = false;
-            LastOutcome = null;
+            var ctx = Context();
+            var outcome = RunLoop.EnterCombat(ctx, Js.Str(_run[MK.MapNodeId]), encounterId ?? Content.FirstFightEncounter());
+            BeginFight(outcome);
             Save();
             return Combat;
+        }
+
+        /// <summary>A fight entered by the loop: the combat on the run's RNG (its draws continue the run's streams).</summary>
+        private void BeginFight(NodeOutcome outcome)
+        {
+            var args = (JObject)outcome.Args.DeepClone();
+            if (ReviewEnemyHpScale != null) args[K.HpMult] = Js.D(args[K.HpMult]) * ReviewEnemyHpScale(outcome.Pool);
+            _rng = _rng ?? RunRng();
+            EncounterId = outcome.EncounterId;
+            Combat = CombatSession.Start(Content.Combat, _rng, args);
+            FightFinished = false;
+            LastOutcome = null;
         }
 
         // ------------------------------------------------------------------ play
@@ -241,18 +272,26 @@ namespace Ashen.App.Run
             _door = null;
             if (LastOutcome.End != null)
             {
-                RunOver = true;
-                Profile.Save(Content.ContentHash);
-                Saves.Delete(Slot);
+                CloseOut(LastOutcome.End);
                 return;
             }
             Save();
         }
 
+        /// <summary>The run is over (a death, the summit, a cleared dungeon left at the summit): the profile holds its record, the slot is cleared.</summary>
+        private void CloseOut(RunEndReceipt end)
+        {
+            End = end;
+            RunOver = true;
+            _visit = null;
+            Profile.Save(Content.ContentHash);
+            Saves.Delete(Slot);
+        }
+
         // ------------------------------------------------------------------ the reward door (W-08; US-11.1 to US-11.3)
 
-        /// <summary>The run holds a pending reward (resume lands on W-08).</summary>
-        public bool HasPendingReward => RewardClaims(_run) != null;
+        /// <summary>The run holds a pending reward (a fight's spoils, a treasure room, a dungeon cache; resume lands on W-08).</summary>
+        public bool HasPendingReward => !RunOver && RewardClaims(_run) != null;
 
         private static JObject RewardClaims(JObject run) => run?.Obj(WK.PendingReward);
 
@@ -282,7 +321,7 @@ namespace Ashen.App.Run
             get
             {
                 var dial = Content.Data.Balance.Obj(RunFlowKeys.Ui)?.Obj(RunFlowKeys.RewardCollect);
-                var setting = Js.Str(Profile.Settings[RunFlowKeys.RewardCollect]) ?? Js.Str(Content.Snapshot.PlayerSettings?[RunFlowKeys.RewardCollect]);
+                var setting = Js.Str(Setting(RunFlowKeys.RewardCollect));
                 if (dial == null) return setting ?? LV.CollectAuto;
                 return setting != null && Js.Includes(dial[RunFlowKeys.Modes], setting) ? setting : dial.Str(RunFlowKeys.Def);
             }
@@ -330,32 +369,52 @@ namespace Ashen.App.Run
 
         /// <summary>
         /// Continue (reward.js finish and main.js onDone): the door takes the rest under the rewardCollect dial (auto: every
-        /// pending, unskipped row, a choice picked on 'cardRewards'; manual: nothing), the checkpoint leaves the run, and
-        /// the slot is saved at the post-reward location. Returns where the door leads ('map' or 'advanceAct').
+        /// pending, unskipped row, a choice picked on 'cardRewards'; manual: nothing), the checkpoint leaves the run, and a
+        /// boss's 'advanceAct' runs the act advance (the full heal and the next seat's map, PF-06 "act advanced"). The slot is
+        /// saved at the map (or the legacy dungeon the run stands in). Returns where the door led ('map' or 'advanceAct').
         /// </summary>
         public string FinishRewards()
         {
             var door = Door ?? throw new InvalidOperationException(RunFlowMessages.NoPendingReward);
             var snapshot = Snapshot();
-            var receipt = door.Continue(RewardCollectMode);
-            _door = null;
-            After = receipt.After;
-            _location = RunFlowValues.LocationMap;
-            try { Commit(snapshot); }
+            try
+            {
+                var receipt = door.Continue(RewardCollectMode);
+                _door = null;
+                After = receipt.After;
+                if (After == WV.AdvanceAct) Ashen.Domain.Loop.Acts.Advance(Context());
+                _location = OnMapOrDungeon();
+                Commit(snapshot);
+            }
             catch
             {
-                _location = null;
-                After = null;
+                Restore(snapshot);
                 throw;
             }
             return After;
         }
+
+        /// <summary>The map, or the legacy dungeon when the run stands in one (its own map).</summary>
+        private string OnMapOrDungeon() => _run.Obj(RK.LegacyDungeon) != null ? RunFlowValues.LocationDungeon : RunFlowValues.LocationMap;
+
+        // ------------------------------------------------------------------ steps (snapshot, commit, restore)
 
         private sealed class SessionSnapshot
         {
             public JObject Run;
             public JObject Profile;
             public string ProfileText;
+            public Rng Rng;
+            public string Location;
+            public string After;
+            public string EncounterId;
+            public CombatSession Combat;
+            public bool FightFinished;
+            public LoopOutcome LastOutcome;
+            public string RestAnchor;
+            public RestStay Stay;
+            public string EventId;
+            public bool EventDone;
         }
 
         private SessionSnapshot Snapshot() => new SessionSnapshot
@@ -363,12 +422,35 @@ namespace Ashen.App.Run
             Run = (JObject)_run.DeepClone(),
             Profile = Profile.Snapshot(),
             ProfileText = ContentSet.Canonical(Profile.Doc),
+            Rng = _rng?.Clone(),
+            Location = _location,
+            After = After,
+            EncounterId = EncounterId,
+            Combat = Combat,
+            FightFinished = FightFinished,
+            LastOutcome = LastOutcome,
+            RestAnchor = _restAnchor,
+            Stay = _stay?.Copy(),
+            EventId = _eventId,
+            EventDone = _eventDone,
         };
 
         private void Restore(SessionSnapshot s)
         {
             _run = s.Run;
             Profile.Restore(s.Profile);
+            _rng = s.Rng;
+            _location = s.Location;
+            After = s.After;
+            EncounterId = s.EncounterId;
+            Combat = s.Combat;
+            FightFinished = s.FightFinished;
+            LastOutcome = s.LastOutcome;
+            _restAnchor = s.RestAnchor;
+            _stay = s.Stay;
+            _visit = null;
+            _eventId = s.EventId;
+            _eventDone = s.EventDone;
             _door = null;
         }
 
@@ -387,23 +469,23 @@ namespace Ashen.App.Run
             }
         }
 
-        /// <summary>The run loop's context over this run: its RNG, the profile and the settings the loop reads.</summary>
+        /// <summary>The run loop's context over this run: its RNG, the profile, the settings the loop reads and the rest place it remembers.</summary>
         private LoopContext Context(Rng rng = null)
         {
             _rng = rng ?? _rng ?? RunRng();
-            return new LoopContext(Content.Loop, _run, _rng, Profile.Doc, new LoopSettings
-            {
-                PointsPerLevel = Profile.Settings[RunFlowKeys.LevelUpValue]?.DeepClone() ?? Content.Snapshot.PlayerSettings?[RunFlowKeys.LevelUpValue]?.DeepClone(),
-                RewardCollect = RewardCollectMode,
-            });
+            var ctx = new LoopContext(Content.Loop, _run, _rng, Profile.Doc, Settings());
+            if (_restAnchor != null) ctx.RestLocationId = _restAnchor;
+            return ctx;
         }
 
         /// <summary>The run's RNG from its saved stream counters (engine/save.js saveRun writes run.streamCounters).</summary>
-        private Rng RunRng()
+        private Rng RunRng() => new Rng(Seed, ParseCounters(_run.Obj(RK.StreamCounters)));
+
+        private static Dictionary<RngStream, uint> ParseCounters(JObject counters)
         {
-            var counters = new Dictionary<RngStream, uint>();
-            foreach (var p in (_run.Obj(RK.StreamCounters) ?? new JObject()).Properties()) counters[RngStreamNames.Parse(p.Name)] = (uint)Js.D(p.Value);
-            return new Rng(Seed, counters);
+            var parsed = new Dictionary<RngStream, uint>();
+            foreach (var p in (counters ?? new JObject()).Properties()) parsed[RngStreamNames.Parse(p.Name)] = (uint)Js.D(p.Value);
+            return parsed;
         }
 
         private static JObject Counters(Rng rng)
@@ -411,6 +493,50 @@ namespace Ashen.App.Run
             var o = new JObject();
             foreach (var kv in rng.Counters().OrderBy(kv => (int)kv.Key)) o[RngStreamNames.ToWire(kv.Key)] = (double)kv.Value;
             return o;
+        }
+
+        // ------------------------------------------------------------------ settings (the profile, then the preset, then the data default; D-106)
+
+        /// <summary>A stored player setting: the profile's, else the preset's playerSettings value, else null.</summary>
+        private JToken Setting(string key)
+        {
+            var stored = Profile.Settings[key];
+            if (stored != null && stored.Type != JTokenType.Null) return stored;
+            var preset = Content.Snapshot.PlayerSettings?[key];
+            return preset != null && preset.Type != JTokenType.Null ? preset : null;
+        }
+
+        /// <summary>settingOn(settings, key): a boolean setting with its data default.</summary>
+        private bool SettingOn(FlowSetting setting)
+        {
+            var value = setting?.Key == null ? null : Setting(setting.Key);
+            return value != null && value.Type == JTokenType.Boolean ? (bool)value : setting != null && setting.Default;
+        }
+
+        /// <summary>The settings the loop reads (shipped resolveLevelUpValue, settingOn('shrineMultiUse'), the rewardCollect dial).</summary>
+        public LoopSettings Settings() => new LoopSettings
+        {
+            PointsPerLevel = Setting(RunFlowKeys.LevelUpValue)?.DeepClone(),
+            RewardCollect = RewardCollectMode,
+            MultiUse = SettingOn(Content.Flow.MultiUse),
+        };
+
+        /// <summary>settingOn(settings, 'shopSell'): the merchant's sell shelf.</summary>
+        public bool ShopSellOn => SettingOn(Content.Flow.ShopSell);
+
+        /// <summary>
+        /// The hold-to-confirm dial (balance.ui.holdConfirm): the stored step (the profile's, else the preset's) when the
+        /// dial names it, else its default, in ms; 0 means the player turned holds off (a press commits). Falls back to
+        /// <paramref name="fallbackMs"/> when the content has no dial.
+        /// </summary>
+        public int HoldConfirmMs(int fallbackMs)
+        {
+            var dial = Content.Data.Balance.Obj(RunFlowKeys.Ui)?.Obj(RunFlowKeys.HoldConfirm);
+            var steps = dial?.Obj(RunFlowKeys.Steps);
+            if (steps == null) return fallbackMs;
+            var chosen = Js.Str(Content.Flow.HoldConfirm.Key == null ? null : Setting(Content.Flow.HoldConfirm.Key));
+            var step = chosen != null && steps[chosen] != null ? steps[chosen] : steps[dial.Str(RunFlowKeys.Def) ?? string.Empty];
+            return step == null ? fallbackMs : (int)Js.D(step);
         }
 
         // ------------------------------------------------------------------ save
@@ -440,8 +566,14 @@ namespace Ashen.App.Run
             if (Location != null) payload[RunSaveKeys.Location] = Location;
             if (EncounterId != null) payload[RunSaveKeys.EncounterId] = EncounterId;
             if (After != null) payload[RunSaveKeys.After] = After;
+            if (_restAnchor != null) payload[RunSaveKeys.RestAnchor] = _restAnchor;
+            if (_stay != null && Location == RunFlowValues.LocationRest) payload[RunSaveKeys.Rest] = _stay.ToJson();
+            if (_eventId != null && Location == RunFlowValues.LocationEvent)
+            {
+                payload[RunSaveKeys.EventId] = _eventId;
+                payload[RunSaveKeys.EventDone] = _eventDone;
+            }
             if (IsInCombat) payload[RunSaveKeys.Combat] = Combat.Checkpoint();
-            if (_node != null && !IsInCombat) payload[NodeKeys.Node] = _node.ToJson();
             return payload;
         }
 
@@ -479,10 +611,12 @@ namespace Ashen.App.Run
         // ------------------------------------------------------------------ load
 
         /// <summary>
-        /// Resume a slot (AF-10): verified envelope, current run format, then the fight from its checkpoint with the log
-        /// replayed while every after-state hash matches. A content change skips the log; a divergence stops at the last
-        /// verified command. Either way the session re-commits at once so the slot holds one clean generation. A fight
-        /// saved already over (an older build, or a crash before the rewards were rolled) runs its post-combat door now.
+        /// Resume a slot (AF-10): verified envelope, current run format, then the place it was saved at — the fight from its
+        /// checkpoint with the log replayed while every after-state hash matches (a content change skips the log; a
+        /// divergence stops at the last verified command; either way the session re-commits at once so the slot holds one
+        /// clean generation), the rest stay re-opened on the streams it opened on, or the map, reward door, merchant, event
+        /// or dungeon as the run holds them. A fight saved already over (a crash before the rewards were rolled) runs its
+        /// post-combat door now.
         /// </summary>
         public static RunLoadResult Load(RunContent content, SaveService saves, int slotIndex, Func<DateTime> clock = null)
         {
@@ -526,7 +660,10 @@ namespace Ashen.App.Run
                 EncounterId = (string)payload[RunSaveKeys.EncounterId],
                 After = (string)payload[RunSaveKeys.After],
                 _location = (string)payload[RunSaveKeys.Location],
-                _node = Ashen.App.Nodes.NodeEntry.FromJson(payload[NodeKeys.Node]),
+                _restAnchor = (string)payload[RunSaveKeys.RestAnchor],
+                _stay = RestStay.From(payload[RunSaveKeys.Rest] as JObject),
+                _eventId = (string)payload[RunSaveKeys.EventId],
+                _eventDone = payload[RunSaveKeys.EventDone]?.Type == JTokenType.Boolean && (bool)payload[RunSaveKeys.EventDone],
             };
             var warned = false;
             try
@@ -555,6 +692,7 @@ namespace Ashen.App.Run
                         }
                     }
                 }
+                else if (session._location == RunFlowValues.LocationRest && session.ReopenStay(result.Warnings)) warned = true;
             }
             catch (Exception e)
             {

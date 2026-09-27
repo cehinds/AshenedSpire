@@ -12,5 +12,11 @@ namespace Ashen.Generated
         public const string LogDiverged = "run: the command log diverged after {0} commands; resumed at the last verified state";
         public const string LoadRefused = "run: slot '{0}' could not be loaded ({1})";
         public const string NoPendingReward = "run: the run holds no pending reward";
+        public const string NotOnMap = "run: the run is not on the act map (it is at '{0}')";
+        public const string NotReachable = "run: node '{0}' is not reachable from here";
+        public const string NotAtRest = "run: the run is not at a rest place";
+        public const string NotAtNode = "run: the run is not at a {0}";
+        public const string RestResumeDrift = "run: the rest place re-opened on other stream counters than the save holds; it resumed on the saved counters";
+        public const string NoEventChoice = "run: event '{0}' offers no open choice";
     }
 }

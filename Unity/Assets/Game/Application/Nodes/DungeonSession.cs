@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ashen.App.Run;
 using Ashen.App.Ui;
 using Ashen.Domain.Combat;
 using Ashen.Domain.Loop;
@@ -19,47 +20,48 @@ using WV = Ashen.Generated.RewardsValues;
 namespace Ashen.App.Nodes
 {
     /// <summary>
-    /// A legacy dungeon as the application plays it (W-13; US-4.5), over the ported dungeon (<see cref="LegacyDungeons"/>):
-    /// the run stands on a node; a node's dialogue offers its responses (<see cref="Choose"/>: listen, fight, flee — a
-    /// Dexterity roll on 'events') and the chosen response's <see cref="Continue"/>; a resolved node offers its exits
-    /// (<see cref="Travel"/>, one edge at a time); the room a node is (a shrine's stay, a cache, a fight) is entered with
-    /// <see cref="EnterRoom"/> (the W-13 tray's Rest / Open / Fight — D-142n: travel and entering are two presses; the run
-    /// ends up exactly where the shipped travel-then-enter puts it); a cleared dungeon can be left (<see cref="Leave"/>:
-    /// the summit's victory or the next act). Every step that changes the run is saved; a fight is handed to combat (the
-    /// owner saves it as it starts). Engine-free.
+    /// A legacy dungeon (W-13; US-4.5) on the climb's session, over the ported dungeon (<see cref="LegacyDungeons"/>): the run
+    /// stands on a node; a node's dialogue offers its responses (<see cref="Choose"/>: listen, fight, flee — a Dexterity roll
+    /// on 'events') and the chosen response's <see cref="Continue"/>; a resolved node offers its exits (<see cref="Travel"/>,
+    /// one edge at a time, unvisited rooms and the way to the boss first); the room a node is (a shrine's stay, a cache, a
+    /// fight) is entered with <see cref="EnterRoom"/> (the W-13 tray's Rest / Open / Fight — D-142n: travel and entering are
+    /// two presses; the run ends up exactly where the shipped travel-then-enter puts it); a cleared dungeon can be left
+    /// (<see cref="Leave"/>: the summit's victory or the next act). Every step goes through <see cref="RunSession.NodeStep"/>
+    /// (saved; the door it opens routed like travel) and returns the run's location after it. Engine-free.
     /// </summary>
     public sealed class DungeonSession
     {
-        private DungeonSession(LoopContext ctx, INodeHost host, NodeEntry entry)
+        private JObject _run;
+
+        private DungeonSession(RunSession owner)
         {
-            Context = ctx;
-            Host = host;
-            Entry = entry;
+            Owner = owner;
+            Refresh();
         }
 
-        public LoopContext Context { get; }
-        public INodeHost Host { get; }
-        public NodeEntry Entry { get; }
-        public LoopData Data => Context.Data;
-        public JObject Run => Context.Run;
-        public JObject State => Run.Obj(RK.LegacyDungeon);
-        public JObject Definition => LegacyDungeons.Definition(Data, Run);
-        public JObject Node => LegacyDungeons.Node(Data, Run);
+        public RunSession Owner { get; }
+        public LoopData Data => Owner.Content.Loop;
+
+        /// <summary>The run copy the readers below see (refreshed after every step).</summary>
+        public JObject Run => _run;
+
+        public JObject State => _run.Obj(RK.LegacyDungeon);
+        public JObject Definition => LegacyDungeons.Definition(Data, _run);
+        public JObject Node => LegacyDungeons.Node(Data, _run);
 
         /// <summary>The run left the dungeon (it was cleared and left).</summary>
         public bool Left => State == null;
 
-        public static DungeonSession Start(LoopContext ctx, INodeHost host, NodeEntry entry = null)
+        public static DungeonSession Start(RunSession owner)
         {
-            if (ctx == null) throw new ArgumentNullException(nameof(ctx));
-            if (!(ctx.Run[RK.LegacyDungeon] is JObject state)) throw new InvalidOperationException(NodeMessages.NotInDungeon);
-            var session = new DungeonSession(ctx, host, entry ?? new NodeEntry { Screen = ScreenIds.LegacyDungeon, Kind = LV.DungeonOutcome, DungeonId = state.Str(K.Id) });
-            new NodeStep(ctx).Commit(host, session.Entry);
-            return session;
+            if (owner?.DungeonId == null) throw new InvalidOperationException(NodeMessages.NotInDungeon);
+            return new DungeonSession(owner);
         }
 
+        public void Refresh() => _run = Owner.Run;
+
         /// <summary>The room the node stands for now (dungeonNodeAction): dialogue, map (resolved or cleared), rest, treasure, combat.</summary>
-        public string Room => State == null ? WV.MapDoor : LegacyDungeons.NodeAction(Data, Run);
+        public string Room => State == null ? WV.MapDoor : LegacyDungeons.NodeAction(Data, _run);
 
         /// <summary>A chosen response waits for Continue.</summary>
         public JObject Pending => State?.Obj(K.Pending);
@@ -70,83 +72,83 @@ namespace Ashen.App.Nodes
         public bool Resting => State?.Is(LK.ActiveRest) ?? false;
 
         /// <summary>The responses the node's dialogue offers now (none while one is pending).</summary>
-        public List<JObject> Choices() => State == null || Pending != null || Room != LV.DialogueAction ? new List<JObject>() : LegacyDungeons.Choices(Data, Run);
+        public List<JObject> Choices() => State == null || Pending != null || Room != LV.DialogueAction ? new List<JObject>() : LegacyDungeons.Choices(Data, _run);
 
-        /// <summary>The nodes one edge away, when travel is open (the node resolved or the dungeon cleared, nothing pending).</summary>
+        /// <summary>The nodes one edge away when travel is open (the node resolved or the dungeon cleared, nothing pending): unvisited first, then nearer the boss room.</summary>
         public List<string> Exits()
         {
             if (State == null || Pending != null || Resting) return new List<string>();
             var resolved = Cleared || Js.Includes(State[MK.Resolved], State.Str(WK.Current));
-            return resolved ? LegacyDungeons.Neighbors(Data, Run) : new List<string>();
+            if (!resolved) return new List<string>();
+            var def = Definition;
+            var boss = def.Str(LK.BossNode);
+            var dist = new Dictionary<string, int>(StringComparer.Ordinal) { [boss] = 0 };
+            var queue = new Queue<string>();
+            queue.Enqueue(boss);
+            while (queue.Count > 0)
+            {
+                var here = queue.Dequeue();
+                foreach (var e in Js.Items(def[LK.Edges]).OfType<JObject>())
+                {
+                    var other = e.Str(LK.A) == here ? e.Str(LK.B) : e.Str(LK.B) == here ? e.Str(LK.A) : null;
+                    if (other != null && !dist.ContainsKey(other))
+                    {
+                        dist[other] = dist[here] + 1;
+                        queue.Enqueue(other);
+                    }
+                }
+            }
+            var seen = new HashSet<string>(Js.Items(State[LK.Visited]).Select(Js.Str), StringComparer.Ordinal);
+            return LegacyDungeons.Neighbors(Data, _run)
+                .OrderBy(n => seen.Contains(n) ? 1 : 0)
+                .ThenBy(n => dist.TryGetValue(n, out var v) ? v : int.MaxValue)
+                .ThenBy(n => n, StringComparer.Ordinal).ToList();
         }
 
-        /// <summary>A response (dungeonChoose): its receipt stays on the run until Continue; saved.</summary>
-        public JObject Choose(string choiceId)
+        private string Step(Func<LoopContext, NodeOutcome> step)
+        {
+            var location = Owner.NodeStep(step);
+            Refresh();
+            return location;
+        }
+
+        /// <summary>A response (dungeonChoose): its receipt stays on the run until Continue; saved. Null when the node offers no such response.</summary>
+        public string Choose(string choiceId)
         {
             if (!Choices().Any(c => c.Str(K.Id) == choiceId)) return null;
-            var step = new NodeStep(Context);
-            var pending = LegacyDungeons.Choose(Data, Run, choiceId, Context.Rng);
-            step.Commit(Host, Entry);
-            return pending;
+            return Step(ctx =>
+            {
+                LegacyDungeons.Choose(ctx.Data, ctx.Run, choiceId, ctx.Rng);
+                return null;
+            });
         }
 
-        /// <summary>
-        /// Continue after a response (showDungeonDialogue's onDone): a fight (entered now, for the owner to start and save),
-        /// a stay at the shrine (the rest screen), or back on the dungeon (resolved, or stepped back after an escape).
-        /// </summary>
-        public NodeExit Continue()
-        {
-            if (Pending == null) return null;
-            var step = new NodeStep(Context);
-            var outcome = LegacyDungeons.ContinueDialogue(Context);
-            if (outcome.Kind == LV.FightOutcome) return new NodeExit { Kind = NodeValues.ExitFight, Fight = outcome };
-            step.Commit(Host, Entry);
-            return outcome.Kind == LV.RestAction ? NodeExit.To(NodeValues.ExitRest) : NodeExit.To(NodeValues.ExitStay);
-        }
+        /// <summary>Continue after a response (showDungeonDialogue's onDone): the node's fight, a stay at the shrine, or back on the dungeon.</summary>
+        public string Continue() => Pending == null ? null : Step(LegacyDungeons.ContinueDialogue);
 
-        /// <summary>One step along an edge (travelDungeon); refused (nothing changes) unless the node is resolved and the target a neighbour.</summary>
+        /// <summary>One step along an edge (travelDungeon); refused (nothing changes, nothing saved) unless the node is resolved and the target a neighbour.</summary>
         public bool Travel(string nodeId)
         {
             if (!Exits().Contains(nodeId)) return false;
-            var step = new NodeStep(Context);
-            if (!LegacyDungeons.Travel(Data, Run, nodeId)) return false;
-            step.Commit(Host, Entry);
+            Step(ctx =>
+            {
+                LegacyDungeons.Travel(ctx.Data, ctx.Run, nodeId);
+                return null;
+            });
             return true;
         }
 
-        /// <summary>
-        /// Enter the room the node is (enterDungeonLocation): a stay at its shrine (the rest screen), a cache (rolled; the
-        /// reward screen), its fight (entered now, for the owner to start and save); a dialogue or a resolved node stays.
-        /// </summary>
-        public NodeExit EnterRoom()
+        /// <summary>Enter the room the node is (enterDungeonLocation): its shrine's stay, its cache (rolled), its fight. Null for a dialogue or a resolved node.</summary>
+        public string EnterRoom()
         {
             if (State == null || Pending != null) return null;
             var room = Room;
             if (room != LV.RestAction && room != MK.Treasure && room != LV.CombatAction) return null;
-            var step = new NodeStep(Context);
-            var outcome = LegacyDungeons.EnterLocation(Context);
-            if (outcome.Kind == LV.FightOutcome) return new NodeExit { Kind = NodeValues.ExitFight, Fight = outcome };
-            step.Commit(Host, Entry);
-            if (outcome.Kind == MK.Treasure) return NodeExit.To(NodeValues.ExitRewards);
-            if (outcome.Kind == LV.RestOutcome) return NodeExit.To(NodeValues.ExitRest);
-            return NodeExit.To(NodeValues.ExitStay);
+            return Step(LegacyDungeons.EnterLocation);
         }
 
-        /// <summary>Leave a cleared dungeon (leaveLegacyDungeon): the climb's victory at the summit, else the next act (saved at its map).</summary>
-        public NodeExit Leave()
-        {
-            if (!Cleared) return null;
-            var step = new NodeStep(Context);
-            var outcome = LegacyDungeons.Leave(Context);
-            if (outcome.Kind == LV.RefusedOutcome) return null;
-            if (outcome.End != null)
-            {
-                Host?.RunEnded(outcome.End);
-                return new NodeExit { Kind = NodeValues.ExitVictory, End = outcome.End };
-            }
-            step.Commit(Host, null);
-            return NodeExit.To(NodeValues.ExitMap);
-        }
+        /// <summary>Leave a cleared dungeon (leaveLegacyDungeon): the climb's victory at the summit, else the next act. Null unless cleared.</summary>
+        public string Leave() => Cleared ? Step(LegacyDungeons.Leave) : null;
     }
 
     /// <summary>One W-13 tray control.</summary>
@@ -250,7 +252,7 @@ namespace Ashen.App.Nodes
 
             if (session.Cleared)
             {
-                var final = session.Run.Num(RK.ActNumber) >= d.Rewards.RuleNum(WK.Summit, WK.FinalAct) && !RunLoop.EndlessOn(session.Context);
+                var final = session.Run.Num(RK.ActNumber) >= d.Rewards.RuleNum(WK.Summit, WK.FinalAct) && !Ashen.Domain.Rewards.CombatEnd.ModOn(d.Rewards, session.Run, RK.Endless);
                 state.LeaveText = strings.Get(final ? NodeStringKeys.NodesDungeonLeaveFinal : NodeStringKeys.NodesDungeonLeaveNext);
             }
 
@@ -269,6 +271,8 @@ namespace Ashen.App.Nodes
                 var room = session.Room;
                 if (room == LV.RestAction || room == MK.Treasure || room == LV.CombatAction)
                     state.Actions.Add(new DungeonAction { Kind = NodeValues.ActionRoom, Id = room, Label = strings.Get(RoomKey(room)) });
+                if (session.Cleared)
+                    state.Actions.Add(new DungeonAction { Kind = NodeValues.ActionLeave, Label = strings.Get(NodeStringKeys.NodesDungeonLeave) });
                 var visited = Js.Items(s[LK.Visited]).Select(Js.Str).ToList();
                 foreach (var exit in session.Exits())
                 {
@@ -278,8 +282,6 @@ namespace Ashen.App.Nodes
                         : strings.Format(seen ? NodeStringKeys.NodesDungeonTravelSeen : NodeStringKeys.NodesDungeonTravel, new StringArgs().Add(NodePlaceholders.Name, NameOf(exit)));
                     state.Actions.Add(new DungeonAction { Kind = NodeValues.ActionTravel, Id = exit, Label = label, Boss = exit == boss, Visited = seen });
                 }
-                if (session.Cleared)
-                    state.Actions.Add(new DungeonAction { Kind = NodeValues.ActionLeave, Label = strings.Get(NodeStringKeys.NodesDungeonLeave) });
             }
 
             var exits = new HashSet<string>(session.Exits());

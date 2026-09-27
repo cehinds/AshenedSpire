@@ -16,5 +16,6 @@ namespace Ashen.Generated
         public const string CombatCommandFailed = "ui: combat command rolled back: {0}";
         public const string NoFight = "ui: the combat screen opened without a fight";
         public const string NoReward = "ui: the rewards screen opened without a pending reward";
+        public const string NoRun = "ui: a climb screen opened without a run in the right place";
     }
 }

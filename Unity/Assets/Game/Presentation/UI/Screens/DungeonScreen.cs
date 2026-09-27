@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ashen.App.Nodes;
@@ -27,11 +28,12 @@ namespace Ashen.Presentation.UI.Screens
         public DungeonViewState View => _view;
         public IReadOnlyList<Button> Actions => _actions;
 
-        protected override void Begin() => _dungeon = DungeonSession.Start(Session.NodeContext(), Session, Entry);
+        protected override void Begin() => _dungeon = DungeonSession.Start(Session);
 
         public override void Render()
         {
-            if (_dungeon == null || _dungeon.Left) return;
+            if (_dungeon == null || Session.Location != RunFlowValues.LocationDungeon) return;
+            _dungeon.Refresh();
             var keep = Context.Instance.Focus.Focused?.name;
             _view = DungeonView.Build(_dungeon, Ui.Data);
             RenderHud();
@@ -97,33 +99,14 @@ namespace Ashen.Presentation.UI.Screens
             switch (action.Kind)
             {
                 case NodeValues.ActionResponse:
-                    if (Guard(() => _dungeon.Choose(action.Id), () => Press(action, anchor)))
-                    {
-                        Render();
-                        FocusSoon(_actions.FirstOrDefault());
-                    }
+                    Step(() => _dungeon.Choose(action.Id), () => Press(action, anchor));
                     return;
                 case NodeValues.ActionContinue:
-                {
-                    NodeExit exit = null;
-                    if (!Guard(() => exit = _dungeon.Continue(), () => Press(action, anchor))) return;
-                    if (exit == null || exit.Kind == NodeValues.ExitStay)
-                    {
-                        Render();
-                        FocusSoon(_actions.FirstOrDefault());
-                        return;
-                    }
-                    Leave(exit);
+                    Step(() => _dungeon.Continue(), () => Press(action, anchor));
                     return;
-                }
                 case NodeValues.ActionRoom:
-                {
-                    NodeExit exit = null;
-                    if (!Guard(() => exit = _dungeon.EnterRoom(), () => Press(action, anchor))) return;
-                    if (exit == null || exit.Kind == NodeValues.ExitStay) Render();
-                    else Leave(exit);
+                    Step(() => _dungeon.EnterRoom(), () => Press(action, anchor));
                     return;
-                }
                 case NodeValues.ActionTravel:
                 {
                     var moved = false;
@@ -133,7 +116,7 @@ namespace Ashen.Presentation.UI.Screens
                         Refuse(anchor, Strings.Get(NodeStringKeys.NodesDungeonRefused));
                         return;
                     }
-                    Render();
+                    Follow();
                     FocusSoon(_actions.FirstOrDefault());
                     return;
                 }
@@ -149,11 +132,14 @@ namespace Ashen.Presentation.UI.Screens
             }
         }
 
-        private void LeaveDungeon()
+        private void LeaveDungeon() => Step(() => _dungeon.Leave(), LeaveDungeon);
+
+        /// <summary>A step through the session (saved); the screen redraws while the run stays in the dungeon, else the router follows it.</summary>
+        private void Step(Action step, Action retry)
         {
-            NodeExit exit = null;
-            if (!Guard(() => exit = _dungeon.Leave(), LeaveDungeon)) return;
-            Leave(exit);
+            if (!Guard(step, retry)) return;
+            Follow();
+            if (Session.Location == RunFlowValues.LocationDungeon) FocusSoon(_actions.FirstOrDefault());
         }
 
         /// <summary>Presses the first tray control of a kind (and id) — smoke tests and captures.</summary>

@@ -23,7 +23,7 @@ namespace Ashen.Tests.Play
     /// <summary>
     /// F3 node screen smoke (W-09 US-9.1–9.3, W-11 US-10.1–10.3, W-13 US-4.5; AF-07, AF-08, AF-12, PF-06): a new run made
     /// by the loop's newRun is travelled to a merchant, an event or a legacy dungeon and opened through the router's entry
-    /// point (<see cref="NodeRouter.Open"/>); real keyboard and pad devices drive the kit Navigator. Merchant: buy a card
+    /// the climb's router (<see cref="RunFlow.Show"/>); real keyboard and pad devices drive the kit Navigator. Merchant: buy a card
     /// (select, then the W2a door), a refusal when unaffordable, burn a card (the pick, then the destructive hold door),
     /// sell (the shopSell setting on), Save &amp; quit → Continue → the same stock, Leave. Event: an illegal response shows and
     /// refuses its requirement, a legal one is taken through its review door, Save &amp; quit → Continue → the resolved
@@ -134,18 +134,18 @@ namespace Ashen.Tests.Play
             yield return Until(() => !title.GateActive && Focused != null, 5f, "the gate to lift");
         }
 
-        /// <summary>A run in slot 1 made by the loop's newRun, before it travels.</summary>
+        /// <summary>A new climb in slot 1 (the run loop's newRun), at the map before it travels.</summary>
         private static RunSession NewRun()
         {
             var content = Ui.RunContent;
-            var session = RunSession.New(content, Ui.Saves, 1, Seed, content.DefaultClass(), Ui.Data.Strings.Get(content.Flow.NameKey));
-            NodeReview.UseLoopRun(session, Seed);
-            return session;
+            return RunSession.New(content, Ui.Saves, 1, Seed, content.DefaultClass(), Ui.Data.Strings.Get(content.Flow.NameKey));
         }
 
-        private IEnumerator Open(RunSession session, NodeEntry entry, string screen)
+        /// <summary>The climb's router shows where the run stands (the screen the location names).</summary>
+        private IEnumerator Open(RunSession session, string screen)
         {
-            Assert.That(NodeRouter.Open(Nav, Ui, session, entry), Is.True, "the router opens " + screen);
+            session.Save();
+            RunFlow.Show(new ScreenContext { Host = AshenBoot.Current.Host, Navigator = Nav, Ui = Ui }, session);
             yield return Until(() => Nav.CurrentId == screen && Focused != null, 10f, screen);
         }
 
@@ -209,9 +209,9 @@ namespace Ashen.Tests.Play
         {
             yield return Boot();
             var session = NewRun();
-            var entry = NodeReview.AtMerchant(session);
+            NodeReview.AtMerchant(session);
             session.EditRunForReview(run => run["cinders"] = 600.0);
-            yield return Open(session, entry, ScreenIds.Merchant);
+            yield return Open(session, ScreenIds.Merchant);
             var merchant = (MerchantScreen)Nav.Top.View;
             Assert.That(merchant.View.Shelves.Select(s => s.Id), Does.Contain("sell"), "shopSell is on by default");
             Assert.That(merchant.ShelfId, Is.EqualTo("cards"));
@@ -286,13 +286,12 @@ namespace Ashen.Tests.Play
             yield return SaveQuitAndContinue(ScreenIds.Merchant);
             merchant = (MerchantScreen)Nav.Top.View;
             Assert.That(merchant.Session, Is.Not.SameAs(session), "a fresh session loaded from the slot");
-            Assert.That(merchant.Merchant.Rolled, Is.False);
             Assert.That(merchant.Session.Run["shopStock"].ToString(), Is.EqualTo(stock), "the saved stock is reused");
 
-            // Leave: the stock is cleared and the run saved at the map (the act map is a later build: the title).
+            // Leave: the stock is cleared and the run saved at the map; the router shows W-06.
             yield return PressUntil(Key.DownArrow, () => Focused == merchant.LeaveButton, 30, "focus on Leave");
             yield return Press(Key.Enter);
-            yield return Until(() => Nav.CurrentId == ScreenIds.Title, 10f, "the title after Leave");
+            yield return Until(() => Nav.CurrentId == ScreenIds.ActMap, 10f, "W-06 after Leave");
             var after = RunSession.Load(Ui.RunContent, Ui.Saves, 1).Session;
             Assert.That(after.Location, Is.EqualTo("map"));
             Assert.That(after.Run["shopStock"].Type, Is.EqualTo(JTokenType.Null));
@@ -305,9 +304,9 @@ namespace Ashen.Tests.Play
         {
             yield return Boot();
             var session = NewRun();
-            var entry = NodeReview.AtEvent(session, "weepingPilgrim");
+            NodeReview.AtEvent(session, "weepingPilgrim");
             session.EditRunForReview(run => run["cinders"] = 0.0);
-            yield return Open(session, entry, ScreenIds.Event);
+            yield return Open(session, ScreenIds.Event);
             var ev = (EventScreen)Nav.Top.View;
             Assert.That(ev.ContinueButton.enabledSelf, Is.False, "Continue is disabled until a response is taken (US-10.1)");
 
@@ -337,7 +336,7 @@ namespace Ashen.Tests.Play
             Assert.That(ev.View.ResultText, Is.EqualTo(result));
             yield return Until(() => Focused == ev.ContinueButton, 5f, "focus on Continue");
             yield return Press(Key.Enter);
-            yield return Until(() => Nav.CurrentId == ScreenIds.Title, 10f, "the map (the title while it is planned)");
+            yield return Until(() => Nav.CurrentId == ScreenIds.ActMap, 10f, "W-06 after the event");
             Assert.That(RunSession.Load(Ui.RunContent, Ui.Saves, 1).Session.Location, Is.EqualTo("map"));
         }
 
@@ -346,8 +345,8 @@ namespace Ashen.Tests.Play
         {
             yield return Boot();
             var session = NewRun();
-            var entry = NodeReview.AtEvent(session, "wyrmTrial");
-            yield return Open(session, entry, ScreenIds.Event);
+            NodeReview.AtEvent(session, "wyrmTrial");
+            yield return Open(session, ScreenIds.Event);
             var ev = (EventScreen)Nav.Top.View;
             var enter = ev.View.Responses.FindIndex(r => r.ChoiceId == "enterRing");
             yield return PressUntil(Key.DownArrow, () => Focused == ev.Responses[enter], 6, "focus on the fight response");
@@ -365,10 +364,10 @@ namespace Ashen.Tests.Play
 
             // A quest-gated step (US-10.2): with the Grave's history, the Keeper opens as dialogue with its speaker.
             var quest = NewRun();
+            NodeReview.AtEvent(quest, "namelessKeeper");
             quest.EditRunForReview(run => ((JArray)run["history"]).Add(new JObject { ["kind"] = "eventChoice", ["eventId"] = "graveOfTheNameless", ["choiceId"] = "payRespects", ["actNumber"] = 1.0, ["floor"] = 0.0, ["mapNodeId"] = null }));
-            var step = NodeReview.AtEvent(quest, "namelessKeeper");
-            Assert.That(step.Screen, Is.EqualTo(ScreenIds.Dialogue));
-            yield return Open(quest, step, ScreenIds.Dialogue);
+            Assert.That(NodeScreens.Refine(ScreenIds.Event, quest), Is.EqualTo(ScreenIds.Dialogue));
+            yield return Open(quest, ScreenIds.Dialogue);
             var dialogue = (EventScreen)Nav.Top.View;
             Assert.That(dialogue.IsDialogue && dialogue.View.HasSpeaker, Is.True);
             Assert.That(Nav.Top.Root.Q<LocLabel>(UiNames.SpeakerName).text, Is.EqualTo(dialogue.View.SpeakerName));
@@ -389,8 +388,8 @@ namespace Ashen.Tests.Play
         {
             yield return Boot();
             var session = NewRun();
-            var entry = NodeReview.AtDungeon(session, "BS");
-            yield return Open(session, entry, ScreenIds.LegacyDungeon);
+            NodeReview.AtDungeon(session, "BS");
+            yield return Open(session, ScreenIds.LegacyDungeon);
             var dungeon = (DungeonScreen)Nav.Top.View;
             Assert.That(dungeon.View.Actions.Single().Id, Is.EqualTo("listen"), "the gate's one response");
 
@@ -419,14 +418,14 @@ namespace Ashen.Tests.Play
             Assert.That(dungeon.View.NodeName, Is.EqualTo(node));
             Assert.That(dungeon.Session.Run["legacyDungeon"].ToString(), Is.EqualTo(state), "the dungeon state survived the reload");
 
-            // Leave a cleared dungeon: the door states the outcome, the next act follows (the map is planned: the title).
+            // Leave a cleared dungeon: Leave comes first, its door states the outcome, the next act's map follows (W-06).
             NodeReview.StandAt(dungeon.Session, "BS-24", true, true);
             dungeon.Render();
-            yield return PressUntil(Key.DownArrow, () => Focused != null && Focused == dungeon.Actions.Last(), 8, "focus on Leave");
-            Assert.That(dungeon.View.Actions.Last().Kind, Is.EqualTo("leave"));
+            yield return PressUntil(Key.DownArrow, () => Focused != null && Focused == dungeon.Actions.First(), 8, "focus on Leave");
+            Assert.That(dungeon.View.Actions.First().Kind, Is.EqualTo("leave"));
             yield return Press(Key.Enter);
             yield return ConfirmDoor();
-            yield return Until(() => Nav.CurrentId == ScreenIds.Title, 10f, "the next act (the title while the map is planned)");
+            yield return Until(() => Nav.CurrentId == ScreenIds.ActMap, 10f, "W-06 of the next act");
             var after = RunSession.Load(Ui.RunContent, Ui.Saves, 1).Session;
             Assert.That(after.Run["legacyDungeon"], Is.Null, "left the dungeon");
             Assert.That(after.Run.Value<double>("actNumber"), Is.EqualTo(2), "the act advanced");

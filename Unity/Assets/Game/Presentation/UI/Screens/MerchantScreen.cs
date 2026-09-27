@@ -53,7 +53,7 @@ namespace Ashen.Presentation.UI.Screens
 
         protected override void Begin()
         {
-            _merchant = MerchantSession.Start(Session.NodeContext(), Session, Entry);
+            _merchant = MerchantSession.Start(Session);
             _shell = Root.Q<Shell>(UiNames.Shell);
             _shell.SetFooter(NodeStringKeys.NodesMerchantLeave, NodeStringKeys.NodesMerchantPrimaryNone);
             _shell.Back += LeaveMerchant;
@@ -74,7 +74,7 @@ namespace Ashen.Presentation.UI.Screens
 
         public override void Render()
         {
-            if (_merchant == null) return;
+            if (_merchant == null || Session.Location != RunFlowValues.LocationMerchant) return;
             var keep = Context.Instance.Focus.Focused?.name;
             _view = MerchantView.Build(_merchant, Ui.Data);
             ScaleRailRules();
@@ -394,9 +394,8 @@ namespace Ashen.Presentation.UI.Screens
 
         private void LeaveMerchant()
         {
-            NodeExit exit = null;
-            if (!Guard(() => exit = _merchant.Leave(), LeaveMerchant)) return;
-            Leave(exit);
+            if (!Guard(_merchant.Leave, LeaveMerchant)) return;
+            Follow();
         }
 
         public override bool HandleBack()

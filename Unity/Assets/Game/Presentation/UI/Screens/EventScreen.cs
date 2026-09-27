@@ -38,7 +38,7 @@ namespace Ashen.Presentation.UI.Screens
         protected override void Begin()
         {
             _dialogue = Context.Def.Id == ScreenIds.Dialogue;
-            _event = EventSession.Start(Session.NodeContext(), Session, Entry);
+            _event = EventSession.Start(Session);
             if (_dialogue)
             {
                 Root.Q<LocButton>(UiNames.DialogueContinue).clicked += Continue;
@@ -58,9 +58,9 @@ namespace Ashen.Presentation.UI.Screens
 
         public override void Render()
         {
-            if (_event == null) return;
+            if (_event == null || Session.EventId == null) return;
             var keep = Context.Instance.Focus.Focused?.name;
-            _view = EventView.Build(_event, Ui.Data, Session.Region());
+            _view = EventView.Build(_event, Ui.Data, Session.Region);
             RenderHud();
             var background = Root.Q(_dialogue ? UiNames.DialogueBackground : UiNames.EventBackground);
             if (!Art(background, _view.BackgroundId)) Art(background, Ui.Data.Nodes.EventFallbackBackground);
@@ -173,9 +173,8 @@ namespace Ashen.Presentation.UI.Screens
                 Refuse(ContinueButton, _view?.StatusText);
                 return;
             }
-            NodeExit exit = null;
-            if (!Guard(() => exit = _event.Continue(), Continue)) return;
-            Leave(exit);
+            if (!Guard(() => _event.Continue(), Continue)) return;
+            Follow();
         }
 
         /// <summary>Opens the review door of a response by id (smoke tests and captures).</summary>

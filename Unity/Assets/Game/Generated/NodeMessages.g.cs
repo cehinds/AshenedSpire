@@ -4,10 +4,8 @@ namespace Ashen.Generated
     /// <summary>Developer-facing node-screen messages (exceptions and logs; never shown to players).</summary>
     public static class NodeMessages
     {
-        public const string LeaveThroughLeave = "The merchant's Leave goes through MerchantSession.Leave";
         public const string EventNeedsId = "An event session needs the event id of its node entry";
         public const string NotInDungeon = "The run stands in no legacy dungeon";
-        public const string NoFightArgs = "The node handed over no entered fight";
         public const string NoSession = "A node screen opened without a run session ({0})";
         public const string NodeFailed = "Node step failed: {0}";
     }

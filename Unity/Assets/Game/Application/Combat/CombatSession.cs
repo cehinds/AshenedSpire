@@ -57,7 +57,7 @@ namespace Ashen.App.Combat
         public static CombatSession Start(CombatData data, uint seed, JObject createArgs) =>
             new CombatSession(data, CombatStart.Create(data, new Rng(seed), createArgs), seed);
 
-        /// <summary>A fight the run loop entered mid-run: it draws from the run's own RNG (its counters carry on), as the shipped enterCombat does.</summary>
+        /// <summary>A fight on the run's own RNG (shipped enterCombat hands createCombat the run's rng): its draws continue the run's streams.</summary>
         public static CombatSession Start(CombatData data, Rng rng, JObject createArgs) =>
             new CombatSession(data, CombatStart.Create(data, rng, createArgs), rng.Seed);
 

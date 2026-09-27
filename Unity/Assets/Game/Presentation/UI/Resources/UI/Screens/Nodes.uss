@@ -18,74 +18,6 @@
     background-position-y: center;
 }
 
-.node-hud {
-    height: var(--size-node-hud-h);
-    flex-shrink: 0;
-    flex-direction: row;
-    align-items: center;
-    padding: var(--space-xs) var(--space-lg);
-    background-color: var(--color-shade);
-    border-bottom-width: var(--border-hairline);
-    border-color: var(--color-line);
-}
-
-.node-hud-portrait {
-    width: var(--size-hud-portrait);
-    height: var(--size-hud-portrait);
-    flex-shrink: 0;
-    margin-right: var(--space-md);
-    background-size: contain;
-    background-color: var(--color-bg-raise);
-    border-radius: var(--radius-chip);
-}
-
-.node-hud-identity {
-    flex-grow: 1;
-    flex-shrink: 1;
-}
-
-.node-hud-name {
-    font-size: var(--font-heading);
-    color: var(--color-parchment);
-    -unity-font-style: bold;
-}
-
-.node-hud-trail {
-    font-size: var(--font-caption);
-    color: var(--color-muted);
-}
-
-.node-hud-meters {
-    flex-direction: row;
-    align-items: center;
-}
-
-.node-hud-meter {
-    width: var(--size-hud-meter-w);
-    margin-left: var(--space-md);
-    margin-bottom: 0;
-}
-
-.node-hud-meter .meter-glyph {
-    width: auto;
-    margin-right: var(--space-xs);
-    font-size: var(--font-caption);
-    color: var(--color-muted);
-}
-
-.node-hud-cinders {
-    flex-shrink: 0;
-    margin-left: var(--space-lg);
-    margin-right: var(--space-lg);
-    color: var(--color-gold);
-    font-size: var(--font-heading);
-    -unity-font-style: bold;
-}
-
-.node-hud-menu {
-    min-width: var(--size-button-min-w);
-}
-
 .node-body {
     flex-grow: 1;
     flex-shrink: 1;
@@ -103,45 +35,6 @@
 .node-page .unity-button.kit-button--ready:hover:enabled {
     background-color: var(--color-ready);
     color: var(--color-parchment);
-}
-
-.band-compact .node-hud {
-    height: var(--size-node-hud-compact-h);
-    padding-top: 0;
-    padding-bottom: 0;
-}
-
-.band-compact .node-hud-portrait,
-.band-compact .node-hud-trail {
-    display: none;
-}
-
-.layout-narrow .node-hud {
-    height: auto;
-    min-height: var(--size-node-hud-compact-h);
-    flex-wrap: wrap;
-    padding-left: var(--space-sm);
-    padding-right: var(--space-sm);
-}
-
-.layout-narrow .node-hud-portrait {
-    display: none;
-}
-
-.layout-narrow .node-hud-meters {
-    width: var(--size-full-width);
-    order: 1;
-}
-
-.layout-narrow .node-hud-meter {
-    flex-grow: 1;
-    width: auto;
-    margin-left: 0;
-    margin-right: var(--space-sm);
-}
-
-.layout-narrow .node-hud-menu {
-    min-width: 0;
 }
 
 .layout-narrow .node-shell {

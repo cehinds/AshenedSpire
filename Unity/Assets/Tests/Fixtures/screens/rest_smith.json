@@ -1,0 +1,12 @@
+{
+  "comment": "W-10 smith picker (W1i): the items the smith can promote with tier and cost, the first selected with its changes, Upgrade.",
+  "screen": "rest",
+  "seed": 3,
+  "assisted": true,
+  "prefer": "shrine",
+  "until": "restSmith",
+  "grantStones": 4,
+  "pane": "smith",
+  "selectFirst": true,
+  "skipSizes": ["1920x1080", "390x844"]
+}
