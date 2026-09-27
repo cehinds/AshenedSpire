@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.29.0] — 2026-09-27
+
+Stories: us-4.1, us-4.2, us-4.3, us-4.4, us-4.6, us-4.7, us-4.8, us-4.9, us-8.1, us-8.2, us-8.3, us-8.4, us-8.5, us-8.6
+
+- F3 climb flow: W-06 act map, W-10 rest, W-15 run end; RunSession drives whole runs on RunLoop; owner ruling D-138 (shipped game is reference; no save compat)
+
 ## [0.1.15.0] — 2026-09-26
 
 Stories: us-5.11, us-2.3
