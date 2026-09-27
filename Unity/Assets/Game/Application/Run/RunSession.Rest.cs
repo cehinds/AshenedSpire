@@ -26,7 +26,7 @@ namespace Ashen.App.Run
     }
 
     /// <summary>
-    /// A rest stay as a save holds it (D-120c): the place it opened at (null: a legacy-dungeon shrine at the last rest place),
+    /// A rest stay as a save holds it (D-124): the place it opened at (null: a legacy-dungeon shrine at the last rest place),
     /// the run's stream counters just before it opened (so a reload re-opens it on the same draws: the arrival top-up and
     /// the smith's roll), and whether a multi-use stay has rested.
     /// </summary>

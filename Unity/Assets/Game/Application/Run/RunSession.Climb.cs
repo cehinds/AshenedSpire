@@ -108,7 +108,7 @@ namespace Ashen.App.Run
                     return;
                 case MK.Treasure:
                     // A treasure room's offer (shipped: mountRewards with no checkpoint). Held as the run's reward checkpoint so a
-                    // reload resumes the same door; Continue closes it as the shipped onDone does (D-121c).
+                    // reload resumes the same door; Continue closes it as the shipped onDone does (D-125).
                     if (outcome.Rewards != null) CombatEnd.BeginPendingReward(_run, outcome.Rewards, MK.Treasure, WV.MapDoor);
                     _location = OnMapOrDungeon();
                     return;
@@ -189,7 +189,7 @@ namespace Ashen.App.Run
 
         /// <summary>
         /// The response the planned event door takes: the first visible, affordable choice — the shipped screen's smart
-        /// default (focusFirst on the first available choice); the shipped event cannot be left without a response (D-122c).
+        /// default (focusFirst on the first available choice); the shipped event cannot be left without a response (D-126).
         /// </summary>
         public string EventStandInChoice()
         {
@@ -245,7 +245,7 @@ namespace Ashen.App.Run
         public string DungeonId => _run.Obj(RK.LegacyDungeon)?.Str(K.Id);
 
         /// <summary>
-        /// The planned dungeon door's one step (D-123c), the legal walk the loop oracle's harness takes: a pending response
+        /// The planned dungeon door's one step (D-127), the legal walk the loop oracle's harness takes: a pending response
         /// continues; a stay at the dungeon shrine opens; a cleared dungeon is left (the summit or the next act); a dialogue
         /// takes its first response; on the dungeon map the run steps one edge toward the boss room (unvisited rooms first);
         /// otherwise the room is entered (its fight, shrine or cache). Saved; returns the location after the step.

@@ -16,7 +16,7 @@ namespace Ashen.Presentation.UI.Screens
     /// RunSession and shows the place it was saved at; <see cref="Show"/> is the one router every climb screen uses after a
     /// step: the session's location (combat, rewards, map, rest, merchant, event, dungeon, runEnd) → the screen
     /// rules/runFlow.json 'screens' names. A screen that is planned (or not registered) falls back to the act map, whose
-    /// planned door carries the node's one legal action until the node screens land (D-122c). A slot that cannot be resumed is
+    /// planned door carries the node's one legal action until the node screens land (D-126). A slot that cannot be resumed is
     /// refused at the control that asked, the kit's unreadable-slot path (US-1.4).
     /// </summary>
     public static class RunFlow

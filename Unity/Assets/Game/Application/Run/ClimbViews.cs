@@ -115,7 +115,7 @@ namespace Ashen.App.Run
     /// <summary>
     /// The act map (W-06) as display data: the seat and floor header, every node (position, kind, glyph, label, boss
     /// destination) and edge, where the run stands, the travelled trail, what is reachable, and the legend. Fog of war is
-    /// not ported: the whole act is drawn, the shipped 'path' reveal mode (D-124c).
+    /// not ported: the whole act is drawn, the shipped 'path' reveal mode (D-128).
     /// </summary>
     public sealed class ActMapViewState
     {
@@ -196,7 +196,7 @@ namespace Ashen.App.Run
     }
 
     /// <summary>
-    /// The act map's planned door (D-122c/D-123c): the place a node led to whose screen is not built yet (the merchant, an
+    /// The act map's planned door (D-126/D-127): the place a node led to whose screen is not built yet (the merchant, an
     /// event, a legacy dungeon), with the one legal action that keeps the run moving.
     /// </summary>
     public sealed class PlannedDoorState
@@ -273,7 +273,7 @@ namespace Ashen.App.Run
     /// <summary>
     /// W-15 run end (AF-11, US-4.7, US-4.9) as display data: victory or death, who and where, the seed, class, act and
     /// floor, what ended it, how long it took, the final deck and what was newly unlocked (finishRun's receipt). The killer
-    /// and the duration are this build's (the shipped run record keeps neither; D-125c).
+    /// and the duration are this build's (the shipped run record keeps neither; D-129).
     /// </summary>
     public sealed class RunEndViewState
     {

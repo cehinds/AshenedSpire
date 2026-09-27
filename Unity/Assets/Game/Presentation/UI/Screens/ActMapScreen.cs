@@ -25,7 +25,7 @@ namespace Ashen.Presentation.UI.Screens
     /// the boss at the path's end; Back and Enter); picking it again after the repeat-pick delay, or Enter, travels. The
     /// session routes the node's door (a fight to W-07, a rest to W-10, a treasure to W-08). A merchant, an event or a
     /// legacy dungeon whose screen is not built yet opens the planned door over the map with the one action that keeps the
-    /// run moving (D-122c, D-123c). Fog is not ported: the whole act is drawn (D-124c). Escape closes the legend or the
+    /// run moving (D-126, D-127). Fog is not ported: the whole act is drawn (D-128). Escape closes the legend or the
     /// tray, else opens W-20; pad Start opens W-20.
     /// </summary>
     public sealed class ActMapScreen : ScreenView
