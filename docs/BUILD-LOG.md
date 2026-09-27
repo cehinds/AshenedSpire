@@ -81,10 +81,10 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
   - Event: a priced response shows and refuses its requirement; a legal one through its review door; Save & quit → Continue → resolved; Continue.
   - Fight and dialogue: "Steel yourself" → W-07 in combat, saved; a quest-gated step opens as dialogue with its speaker, and the Keeper's thanks gives the bell.
   - Dungeon: listen at the gate, Continue, travel with the pad, a response; Save & quit → Continue → the same node and pending state; leave a cleared dungeon → act 2.
-- **Results (after the dev 0.1.15.0 merge):**
-  - dotnet 2819/2819;
-  - Unity EditMode 2820 passed / 2 skipped (explicit);
-  - PlayMode 7 passed / 1 skipped (capture), including the 4 node smokes;
+- **Results (after merging climb-ui / local dev, one router):**
+  - dotnet 2830/2830;
+  - Unity EditMode 2831 passed / 5 skipped (explicit);
+  - PlayMode 8 passed / 1 skipped (capture): the 4 node smokes, the climb smoke (now through the merchant, event and dungeon screens) and the F1 smokes;
   - `codegen --check`, `check-content`, `transform-content --check`, `ui-tokens --check` and `check-docs` green.
 
 **Review** (own screenshot review against W-09, W-11 and W-13; fixed and recaptured):
