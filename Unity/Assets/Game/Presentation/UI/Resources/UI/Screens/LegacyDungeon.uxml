@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Nodes.uss" />
+    <ui:VisualElement name="NODE_PAGE" class="page node-page dungeon-page">
+        <Ashen.Presentation.UI.Kit.RunHud name="RUN_HUD" />
+        <ui:VisualElement name="SCENE" class="scene">
+            <ui:VisualElement name="SCENE_BACKGROUND" class="scene-layer" picking-mode="Ignore" />
+            <ui:VisualElement name="SCENE_FLOOR" class="scene-layer" picking-mode="Ignore" />
+            <ui:VisualElement name="SCENE_FIGURE" class="scene-figure" picking-mode="Ignore" />
+            <ui:VisualElement name="SCENE_OCCUPANT" class="scene-occupant" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="SCENE_TRAY" class="scene-tray">
+            <ui:VisualElement class="tray-main">
+                <Ashen.Presentation.UI.LocLabel name="SCENE_NAME" class="scene-name kit-text-header" />
+                <ui:ScrollView name="SCENE_SCROLL" class="scene-scroll" horizontal-scroller-visibility="Hidden">
+                    <Ashen.Presentation.UI.LocLabel name="SCENE_LINE" class="scene-line kit-text-value" />
+                </ui:ScrollView>
+                <ui:VisualElement name="TRAY_ACTIONS" class="tray-actions" />
+                <Ashen.Presentation.UI.LocLabel name="SCENE_NOTE" class="scene-note kit-text-value" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SCENE_MAP" class="scene-map">
+                <ui:VisualElement name="MAP_DOTS" class="map-dots" picking-mode="Ignore" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

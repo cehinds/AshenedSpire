@@ -22,5 +22,21 @@ namespace Ashen.Generated
         public const string GlyphKey = "glyph.{0}";
         public const string RewardRefusalKey = "rewards.refusal.{0}";
         public const string RewardSkipName = "REWARD_SKIP_{0}";
+        public const string LocationNameKey = "ui.location.{0}.title.short";
+        public const string RestTagKey = "rest.tag.{0}";
+        public const string RestRefusalKey = "rest.refusal.{0}";
+        public const string RestOptionKey = "rest.option.{0}";
+        public const string FlaskKindKey = "rest.flasks.kind.{0}";
+        public const string MapNodeKey = "map.kind.{0}";
+        public const string MapNodeHintKey = "map.kindHint.{0}";
+        public const string MapGlyphKey = "glyph.node.{0}";
+        public const string MapRefusalKey = "map.refusal.{0}";
+        public const string PlannedBodyKey = "map.planned.{0}";
+        public const string UnlockNameKey = "unlock.{0}.name";
+        public const string UnlockKindKey = "runEnd.unlockKind.{0}";
+        public const string Duration = "h\\:mm\\:ss";
+        public const string StepLessSuffix = "_LESS";
+        public const string StepMoreSuffix = "_MORE";
+        public const string DecimalPoint = ".";
     }
 }

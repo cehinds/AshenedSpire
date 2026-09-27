@@ -17,25 +17,58 @@ namespace Ashen.Domain.Run
     public static class RunCombat
     {
         /// <summary>
-        /// resolveHandRules(settings, attributes): the shipped defaults (rules/handRules.json). Settings-driven overrides
-        /// (gameConfig.handRules.*) are not ported yet and throw by name.
+        /// resolveHandRules(settings, attributes): the shipped defaults (rules/handRules.json) with the Settings overrides
+        /// (gameConfig.handRules.*) applied row by row, as the Advanced rows read them: a choice must be one of its
+        /// choices (the scaling stat: an attribute id), a switch must be a boolean, a number is floored and clamped to the
+        /// row's range (rules/runEngine.json handRuleSettings); a group whose minimum exceeds its maximum falls back to
+        /// its defaults. An unreadable value is ignored.
         /// </summary>
         public static JObject ResolveHandRules(RunData d, JObject settings)
         {
-            if (settings != null && settings.Properties().Any(p => p.Name.StartsWith(RV.HandRulesPrefix, StringComparison.Ordinal)))
-                throw new NotSupportedException(RM.HandRuleSettingsDeferred);
-            return RunJs.Clone(d.HandRules);
+            var rules = RunJs.Clone(d.HandRules);
+            if (settings == null) return rules;
+            var cfg = d.Engine.Obj(RK.HandRuleSettings) ?? new JObject();
+            var attributeIds = d.Attributes.Ids.ToList();
+            void Apply(JObject target, string path, string field, JToken def)
+            {
+                var raw = settings[RV.HandRulesPrefix + path];
+                if (raw == null) return;
+                JToken value;
+                if (Js.IsStr(def))
+                {
+                    var choices = Js.Includes(cfg[RK.AttributeChoiceFields], field) ? attributeIds : RunJs.Strs(cfg.Obj(RK.Choices)?[field]);
+                    if (!Js.IsStr(raw) || !choices.Contains(Js.Str(raw))) return;
+                    value = raw.DeepClone();
+                }
+                else if (def.Type == JTokenType.Boolean)
+                {
+                    if (raw.Type != JTokenType.Boolean) return;
+                    value = raw.DeepClone();
+                }
+                else
+                {
+                    var n = RunJs.Number(raw);
+                    if (double.IsNaN(n) || double.IsInfinity(n)) return;
+                    var minimums = cfg.Obj(RK.NumberMinimums) ?? new JObject();
+                    var min = Js.IsNum(minimums[path]) ? minimums.Num(path) : Js.IsNum(minimums[field]) ? minimums.Num(field) : cfg.Num(RK.NumberMinimum);
+                    value = Js.N(Math.Min(cfg.Num(RK.NumberMaximum), Math.Max(min, Math.Floor(n))));
+                }
+                target[field] = value;
+            }
+            var groups = RunJs.Strs(cfg[RK.Groups]);
+            foreach (var p in d.HandRules.Properties())
+            {
+                if (groups.Contains(p.Name) && p.Value is JObject group)
+                    foreach (var f in group.Properties()) Apply(rules.Obj(p.Name), p.Name + RV.PathDot + f.Name, f.Name, f.Value);
+                else Apply(rules, p.Name, p.Name, p.Value);
+            }
+            foreach (var group in groups)
+                if (rules.Obj(group) != null && rules.Obj(group).Num(K.Minimum) > rules.Obj(group).Num(K.Maximum)) rules[group] = RunJs.Clone(d.HandRules.Obj(group));
+            return rules;
         }
 
         /// <summary>resolveSwapCostRule(registries, meta): the live swap-price rule row, or null.</summary>
-        public static JToken ResolveSwapCostRule(RunData d, JObject settings)
-        {
-            var rows = Js.Items(d.EquipmentBalance[RK.SwapCostRules]).ToList();
-            var want = settings?[K.SwapCostRule];
-            var row = rows.FirstOrDefault(r => Js.Truthy(r) && want != null && JToken.DeepEquals(r[K.Id], want))
-                      ?? rows.FirstOrDefault(r => Js.Truthy(r) && d.EquipmentBalance[K.SwapCostRule] != null && JToken.DeepEquals(r[K.Id], d.EquipmentBalance[K.SwapCostRule]));
-            return row?.DeepClone() ?? Js.Null();
-        }
+        public static JToken ResolveSwapCostRule(RunData d, JObject settings) => Equipment.ResolveSwapCostRule(d.Combat, settings?[K.SwapCostRule]);
 
         /// <summary>
         /// The createCombat arguments main.js builds to enter <paramref name="encounterId"/> from <paramref name="run"/>

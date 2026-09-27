@@ -1,0 +1,13 @@
+{
+  "comment": "W-09 unaffordable: a purse of 20; the selected card is struck through with \"Need n more cinders\", and Buy is refused at the control.",
+  "screen": "merchant",
+  "cinders": 20,
+  "shelf": "cards",
+  "select": "unavailable",
+  "primary": true,
+  "skipSizes": [
+    "1920x1080",
+    "844x390"
+  ],
+  "settleMs": 500
+}

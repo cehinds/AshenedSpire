@@ -1,0 +1,11 @@
+{
+  "comment": "W-13 a fight room: the occupant stands in the scene and the tray offers Fight.",
+  "screen": "legacyDungeon",
+  "dungeon": "BS",
+  "standAt": "BS-14",
+  "resolved": false,
+  "skipSizes": [
+    "1920x1080",
+    "844x390"
+  ]
+}

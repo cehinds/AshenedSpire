@@ -23,7 +23,12 @@
         "Rewards": "rewards",
         "PileViewer": "pileViewer",
         "Armoury": "armoury",
-        "RunEnd": "runEnd"
+        "RunEnd": "runEnd",
+        "Rest": "rest",
+        "Merchant": "merchant",
+        "Event": "event",
+        "Dialogue": "dialogue",
+        "LegacyDungeon": "legacyDungeon"
       }
     },
     {
@@ -197,7 +202,130 @@
         "PickBack": "PICK_BACK",
         "PickSkip": "PICK_SKIP",
         "PickConfirm": "PICK_CONFIRM",
-        "RewardsStatus": "REWARDS_STATUS"
+        "RewardsStatus": "REWARDS_STATUS",
+        "HudPurse": "HUD_PURSE",
+        "HudCinders": "HUD_CINDERS",
+        "HudStones": "HUD_STONES",
+        "HudFlasks": "HUD_FLASKS",
+        "HudDeck": "HUD_DECK",
+        "MapBackground": "MAP_BACKGROUND",
+        "MapPage": "MAP_PAGE",
+        "MapHead": "MAP_HEAD",
+        "MapTitle": "MAP_TITLE",
+        "MapSeat": "MAP_SEAT",
+        "MapFloor": "MAP_FLOOR",
+        "MapViewport": "MAP_VIEWPORT",
+        "MapNodes": "MAP_NODES",
+        "MapFooter": "MAP_FOOTER",
+        "MapZoomOut": "MAP_ZOOM_OUT",
+        "MapZoomIn": "MAP_ZOOM_IN",
+        "MapCenter": "MAP_CENTER",
+        "MapLegendToggle": "MAP_LEGEND_TOGGLE",
+        "MapHint": "MAP_HINT",
+        "MapPotions": "MAP_POTIONS",
+        "NodeTray": "NODE_TRAY",
+        "TrayKind": "TRAY_KIND",
+        "TrayHint": "TRAY_HINT",
+        "TrayBoss": "TRAY_BOSS",
+        "TrayBack": "TRAY_BACK",
+        "TrayEnter": "TRAY_ENTER",
+        "MapLegend": "MAP_LEGEND",
+        "LegendRows": "LEGEND_ROWS",
+        "LegendClose": "LEGEND_CLOSE",
+        "PlannedDoor": "PLANNED_DOOR",
+        "PlannedTitle": "PLANNED_TITLE",
+        "PlannedBody": "PLANNED_BODY",
+        "PlannedResult": "PLANNED_RESULT",
+        "PlannedAction": "PLANNED_ACTION",
+        "RestBackground": "REST_BACKGROUND",
+        "RestPage": "REST_PAGE",
+        "RestMain": "REST_MAIN",
+        "RestTags": "REST_TAGS",
+        "RestRefill": "REST_REFILL",
+        "RestScroll": "REST_SCROLL",
+        "RestOptions": "REST_OPTIONS",
+        "RestAvailability": "REST_AVAILABILITY",
+        "AvailabilityList": "AVAILABILITY_LIST",
+        "RestHold": "REST_HOLD",
+        "RestPane": "REST_PANE",
+        "PaneTitle": "PANE_TITLE",
+        "PaneStatus": "PANE_STATUS",
+        "PaneScroll": "PANE_SCROLL",
+        "PaneItems": "PANE_ITEMS",
+        "PaneDetail": "PANE_DETAIL",
+        "PaneReceipt": "PANE_RECEIPT",
+        "PaneFooter": "PANE_FOOTER",
+        "PaneBack": "PANE_BACK",
+        "PaneCommit": "PANE_COMMIT",
+        "RunEndBackground": "RUNEND_BACKGROUND",
+        "RunEndFigure": "RUNEND_FIGURE",
+        "RunEndDetail": "RUNEND_DETAIL",
+        "RunEndWhere": "RUNEND_WHERE",
+        "RunEndStats": "RUNEND_STATS",
+        "RunEndDeckTitle": "RUNEND_DECK_TITLE",
+        "RunEndDeckScroll": "RUNEND_DECK_SCROLL",
+        "RunEndDeck": "RUNEND_DECK",
+        "RunEndUnlocks": "RUNEND_UNLOCKS",
+        "EndSummary": "END_SUMMARY",
+        "RunEndUnlockScroll": "RUNEND_UNLOCK_SCROLL",
+        "NodePage": "NODE_PAGE",
+        "NodeBody": "NODE_BODY",
+        "MerchantBody": "MERCHANT_BODY",
+        "ShelfPane": "SHELF_PANE",
+        "ShelfStatus": "SHELF_STATUS",
+        "ShelfScroll": "SHELF_SCROLL",
+        "ShelfList": "SHELF_LIST",
+        "ShelfNote": "SHELF_NOTE",
+        "NoteTitle": "NOTE_TITLE",
+        "NoteText": "NOTE_TEXT",
+        "MerchantDetail": "MERCHANT_DETAIL",
+        "DetailFigure": "DETAIL_FIGURE",
+        "DetailCardHost": "DETAIL_CARD_HOST",
+        "DetailKind": "DETAIL_KIND",
+        "DetailTitle": "DETAIL_TITLE",
+        "DetailText": "DETAIL_TEXT",
+        "DetailPrice": "DETAIL_PRICE",
+        "DetailReason": "DETAIL_REASON",
+        "MerchantPick": "MERCHANT_PICK",
+        "PickScroll": "PICK_SCROLL",
+        "EventBackground": "EVENT_BACKGROUND",
+        "EventBody": "EVENT_BODY",
+        "Narrative": "NARRATIVE",
+        "EventArt": "EVENT_ART",
+        "EventScroll": "EVENT_SCROLL",
+        "EventText": "EVENT_TEXT",
+        "Responses": "RESPONSES",
+        "ResponseScroll": "RESPONSE_SCROLL",
+        "ResponseList": "RESPONSE_LIST",
+        "EventResult": "EVENT_RESULT",
+        "ResultText": "RESULT_TEXT",
+        "ResultNote": "RESULT_NOTE",
+        "DialogueBackground": "DIALOGUE_BACKGROUND",
+        "DialogueStage": "DIALOGUE_STAGE",
+        "PlayerFigure": "PLAYER_FIGURE",
+        "PlayerName": "PLAYER_NAME",
+        "NpcFigure": "NPC_FIGURE",
+        "SpeakerName": "SPEAKER_NAME",
+        "ContextBand": "CONTEXT_BAND",
+        "DialogueTitle": "DIALOGUE_TITLE",
+        "EventStatus": "EVENT_STATUS",
+        "DialogueScroll": "DIALOGUE_SCROLL",
+        "DialogueLine": "DIALOGUE_LINE",
+        "DialogueFooter": "DIALOGUE_FOOTER",
+        "DialogueContinue": "DIALOGUE_CONTINUE",
+        "Scene": "SCENE",
+        "SceneBackground": "SCENE_BACKGROUND",
+        "SceneFloor": "SCENE_FLOOR",
+        "SceneFigure": "SCENE_FIGURE",
+        "SceneOccupant": "SCENE_OCCUPANT",
+        "SceneTray": "SCENE_TRAY",
+        "SceneName": "SCENE_NAME",
+        "SceneScroll": "SCENE_SCROLL",
+        "SceneLine": "SCENE_LINE",
+        "TrayActions": "TRAY_ACTIONS",
+        "SceneNote": "SCENE_NOTE",
+        "SceneMap": "SCENE_MAP",
+        "MapDots": "MAP_DOTS"
       }
     },
     {
@@ -287,7 +415,35 @@
         "ClaimState": "claim-state",
         "PickNode": "pick-node",
         "PickCard": "pick-card",
-        "PickSelected": "pick-selected"
+        "PickSelected": "pick-selected",
+        "MapNode": "map-node",
+        "MapNodeKindPrefix": "map-node--",
+        "MapNodeReachable": "map-node--reachable",
+        "MapNodeCurrent": "map-node--current",
+        "MapNodeTravelled": "map-node--travelled",
+        "MapNodeSelected": "map-node--selected",
+        "MapNodeGlyph": "map-node-glyph",
+        "MapNodeCue": "map-node-cue",
+        "MapNodeLabel": "map-node-label",
+        "LegendRow": "legend-row",
+        "LegendCue": "legend-cue",
+        "RestOption": "rest-option",
+        "RestOptionButton": "rest-option-button",
+        "RestOptionDetail": "rest-option-detail",
+        "RestOptionUnavailable": "rest-option--unavailable",
+        "AvailabilityRow": "availability-row",
+        "AvailabilityName": "availability-name",
+        "AvailabilityState": "availability-state",
+        "PaneItem": "pane-item",
+        "PaneRow": "pane-row",
+        "PaneStep": "pane-step",
+        "PaneValue": "pane-value",
+        "ReceiptLine": "receipt-line",
+        "RunEndVictory": "runend-victory",
+        "RunEndDefeat": "runend-defeat",
+        "RunEndStat": "runend-stat",
+        "RunEndCard": "runend-card-name",
+        "RunEndUnlock": "runend-unlock"
       }
     },
     {
@@ -387,7 +543,17 @@
         "ArmamentArt": "armamentArt",
         "FlaskArt": "flaskArt",
         "FlaskArtPrefix": "flaskArtPrefix",
-        "ModifierTokens": "modifierTokens"
+        "ModifierTokens": "modifierTokens",
+        "Climb": "climb",
+        "MapBackground": "mapBackground",
+        "RestBackground": "restBackground",
+        "VictoryBackground": "victoryBackground",
+        "ZoomSteps": "zoomSteps",
+        "ZoomDefault": "zoomDefault",
+        "RowHeight": "rowHeight",
+        "EdgeWidth": "edgeWidth",
+        "DotSpacing": "dotSpacing",
+        "RowTouchRatio": "rowTouchRatio"
       }
     },
     {
@@ -414,7 +580,10 @@
         "FocusEnded": "ended",
         "FocusPick": "pick",
         "RewardCardKind": "card",
-        "RewardCollectAuto": "auto"
+        "RewardCollectAuto": "auto",
+        "FocusPlanned": "planned",
+        "FocusLegend": "legend",
+        "FocusPane": "pane"
       }
     },
     {
@@ -432,7 +601,8 @@
       "keys": {
         "Always": "always",
         "HasValidSlot": "hasValidSlot",
-        "TargetBuilt": "targetBuilt"
+        "TargetBuilt": "targetBuilt",
+        "Planned": "planned"
       }
     },
     {
@@ -449,7 +619,14 @@
         "SaveQuit": "saveQuit",
         "SaveFailed": "saveFailed",
         "RewardLeaveAuto": "rewardLeaveAuto",
-        "RewardLeaveManual": "rewardLeaveManual"
+        "RewardLeaveManual": "rewardLeaveManual",
+        "MerchantBuy": "merchantBuy",
+        "MerchantRemove": "merchantRemove",
+        "MerchantSell": "merchantSell",
+        "MerchantSmith": "merchantSmith",
+        "EventChoose": "eventChoose",
+        "EventChooseBinding": "eventChooseBinding",
+        "DungeonLeave": "dungeonLeave"
       }
     },
     {
@@ -515,7 +692,8 @@
         "Level": "level",
         "Round": "round",
         "Rounds": "rounds",
-        "Art": "art"
+        "Art": "art",
+        "Heal": "heal"
       }
     },
     {
@@ -539,7 +717,23 @@
         "RewardStateKey": "rewards.state.{0}",
         "GlyphKey": "glyph.{0}",
         "RewardRefusalKey": "rewards.refusal.{0}",
-        "RewardSkipName": "REWARD_SKIP_{0}"
+        "RewardSkipName": "REWARD_SKIP_{0}",
+        "LocationNameKey": "ui.location.{0}.title.short",
+        "RestTagKey": "rest.tag.{0}",
+        "RestRefusalKey": "rest.refusal.{0}",
+        "RestOptionKey": "rest.option.{0}",
+        "FlaskKindKey": "rest.flasks.kind.{0}",
+        "MapNodeKey": "map.kind.{0}",
+        "MapNodeHintKey": "map.kindHint.{0}",
+        "MapGlyphKey": "glyph.node.{0}",
+        "MapRefusalKey": "map.refusal.{0}",
+        "PlannedBodyKey": "map.planned.{0}",
+        "UnlockNameKey": "unlock.{0}.name",
+        "UnlockKindKey": "runEnd.unlockKind.{0}",
+        "Duration": "h\\:mm\\:ss",
+        "StepLessSuffix": "_LESS",
+        "StepMoreSuffix": "_MORE",
+        "DecimalPoint": "."
       }
     },
     {
@@ -578,7 +772,12 @@
         "EnemyStep": "enemyStep",
         "EnemyStepReduced": "enemyStepReduced",
         "TurnBanner": "turnBanner",
-        "Notice": "notice"
+        "Notice": "notice",
+        "MapEdge": "mapEdge",
+        "MapTrail": "mapTrail",
+        "MapWay": "mapWay",
+        "TrayDelay": "trayDelay",
+        "RepeatPick": "repeatPick"
       }
     },
     {
@@ -600,7 +799,8 @@
         "KitRefusal": "UI/Kit/Refusal",
         "KitSlot": "UI/Kit/Slot",
         "SavesFolder": "saves",
-        "KitCombatant": "UI/Kit/Combatant"
+        "KitCombatant": "UI/Kit/Combatant",
+        "KitRunHud": "UI/Kit/RunHud"
       }
     },
     {
@@ -618,7 +818,8 @@
         "SaveFailed": "ui: save failed: {0}",
         "CombatCommandFailed": "ui: combat command rolled back: {0}",
         "NoFight": "ui: the combat screen opened without a fight",
-        "NoReward": "ui: the rewards screen opened without a pending reward"
+        "NoReward": "ui: the rewards screen opened without a pending reward",
+        "NoRun": "ui: a climb screen opened without a run in the right place"
       }
     }
   ],
@@ -630,7 +831,10 @@
       "values": {
         "Half": 0.5,
         "Percent": 100,
-        "MillisPerSecond": 1000
+        "MillisPerSecond": 1000,
+        "FullTurnDegrees": 360,
+        "ByteMax": 255,
+        "RgbChannels": 3
       }
     }
   ]

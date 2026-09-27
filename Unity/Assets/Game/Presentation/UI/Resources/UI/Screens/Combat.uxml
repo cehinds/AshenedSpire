@@ -51,6 +51,7 @@
             <Ashen.Presentation.UI.LocLabel name="END_PLANNED" class="end-planned kit-text-value" string-key="combat.end.planned" />
             <ui:VisualElement class="end-footer">
                 <Ashen.Presentation.UI.LocButton name="END_REWARDS" class="end-button" string-key="combat.end.rewards" />
+                <Ashen.Presentation.UI.LocButton name="END_SUMMARY" class="end-button is-hidden" string-key="combat.end.summary" />
                 <ui:VisualElement class="footer-gap" />
                 <Ashen.Presentation.UI.LocButton name="END_TO_TITLE" class="kit-button--primary kit-button--ready end-button" string-key="combat.end.toTitle" />
             </ui:VisualElement>

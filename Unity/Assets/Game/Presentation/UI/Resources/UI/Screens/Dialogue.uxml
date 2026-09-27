@@ -1,0 +1,36 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Nodes.uss" />
+    <ui:VisualElement name="DIALOGUE_BACKGROUND" class="node-background" picking-mode="Ignore" />
+    <ui:VisualElement name="NODE_PAGE" class="page node-page">
+        <Ashen.Presentation.UI.Kit.RunHud name="RUN_HUD" />
+        <ui:VisualElement name="DIALOGUE_STAGE" class="dialogue-stage">
+            <ui:VisualElement class="dialogue-side">
+                <ui:VisualElement name="PLAYER_FIGURE" class="dialogue-figure" />
+                <Ashen.Presentation.UI.LocLabel name="PLAYER_NAME" class="dialogue-name kit-text-header" string-key="nodes.dialogue.player" />
+            </ui:VisualElement>
+            <ui:VisualElement class="stage-gap" />
+            <ui:VisualElement class="dialogue-side">
+                <ui:VisualElement name="NPC_FIGURE" class="dialogue-figure" />
+                <Ashen.Presentation.UI.LocLabel name="SPEAKER_NAME" class="dialogue-name kit-text-header" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="CONTEXT_BAND" class="context-band">
+            <ui:VisualElement class="context-head">
+                <Ashen.Presentation.UI.LocLabel name="DIALOGUE_TITLE" class="dialogue-title kit-text-header" />
+                <Ashen.Presentation.UI.LocLabel name="EVENT_STATUS" class="event-status kit-text-value" />
+            </ui:VisualElement>
+            <ui:ScrollView name="DIALOGUE_SCROLL" class="dialogue-scroll" horizontal-scroller-visibility="Hidden">
+                <Ashen.Presentation.UI.LocLabel name="DIALOGUE_LINE" class="dialogue-line kit-text-value" />
+                <ui:VisualElement name="RESPONSE_LIST" class="response-list dialogue-responses" />
+                <ui:VisualElement name="EVENT_RESULT" class="event-result is-hidden">
+                    <Ashen.Presentation.UI.LocLabel name="RESULT_TEXT" class="result-text kit-text-value" />
+                    <Ashen.Presentation.UI.LocLabel name="RESULT_NOTE" class="result-note kit-text-value" />
+                </ui:VisualElement>
+            </ui:ScrollView>
+        </ui:VisualElement>
+        <ui:VisualElement name="DIALOGUE_FOOTER" class="dialogue-footer">
+            <Ashen.Presentation.UI.LocButton name="DIALOGUE_CONTINUE" class="kit-button--primary dialogue-continue" string-key="nodes.event.continue" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

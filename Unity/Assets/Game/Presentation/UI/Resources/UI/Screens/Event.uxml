@@ -1,0 +1,29 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Nodes.uss" />
+    <ui:VisualElement name="EVENT_BACKGROUND" class="node-background" picking-mode="Ignore" />
+    <ui:VisualElement name="NODE_PAGE" class="page node-page">
+        <Ashen.Presentation.UI.Kit.RunHud name="RUN_HUD" />
+        <ui:VisualElement name="NODE_BODY" class="node-body">
+            <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="node-shell event-shell" exit-visible="false">
+                <ui:VisualElement name="EVENT_BODY" class="event-body">
+                    <ui:VisualElement name="NARRATIVE" class="narrative">
+                        <ui:VisualElement name="EVENT_ART" class="event-art" />
+                        <ui:ScrollView name="EVENT_SCROLL" class="event-scroll" horizontal-scroller-visibility="Hidden">
+                            <Ashen.Presentation.UI.LocLabel name="EVENT_TEXT" class="event-text kit-text-value" />
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="RESPONSES" class="responses">
+                        <ui:ScrollView name="RESPONSE_SCROLL" class="response-scroll" horizontal-scroller-visibility="Hidden">
+                            <ui:VisualElement name="RESPONSE_LIST" class="response-list" />
+                            <ui:VisualElement name="EVENT_RESULT" class="event-result is-hidden">
+                                <Ashen.Presentation.UI.LocLabel name="RESULT_TEXT" class="result-text kit-text-value" />
+                                <Ashen.Presentation.UI.LocLabel name="RESULT_NOTE" class="result-note kit-text-value" />
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </Ashen.Presentation.UI.Kit.Shell>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

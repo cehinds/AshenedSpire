@@ -143,7 +143,7 @@ namespace Ashen.Domain.Rewards
                     return receipt;
                 }
                 var bossArmament = RollDrop(d, run, rng, options, WV.Boss);
-                var drops = d.Run.EquipmentBalance.Obj(WK.Drops) ?? new JObject();
+                var drops = d.Run.EquipmentBalance.Obj(RK.Drops) ?? new JObject();
                 var bossDrafts = RollSkillDrafts(d, run, rng, WV.Boss);
                 var bossClassDrafts = RollClassDrafts(d, run, rng);
                 var cinders = RewardRolls.RuneReward(d, rng, WV.Boss, run[K.Relics]) + (bossArmament != null ? 0 : drops.Or0(WK.ConsolationCinders));

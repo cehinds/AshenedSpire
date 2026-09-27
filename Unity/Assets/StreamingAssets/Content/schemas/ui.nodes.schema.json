@@ -1,0 +1,107 @@
+{
+  "$id": "ui/nodes.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "dialogue": {
+      "type": "object",
+      "properties": {
+        "speakerArt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "speakerArt"
+      ]
+    },
+    "event": {
+      "type": "object",
+      "properties": {
+        "art": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "background": {
+          "type": "string"
+        },
+        "enemyArt": {
+          "type": "string"
+        },
+        "fallbackBackground": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "art",
+        "background",
+        "enemyArt",
+        "fallbackBackground"
+      ]
+    },
+    "legacyDungeon": {
+      "type": "object",
+      "properties": {
+        "background": {
+          "type": "string"
+        },
+        "floor": {
+          "type": "string"
+        },
+        "map": {
+          "type": "string"
+        },
+        "occupantArt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "background",
+        "floor",
+        "map",
+        "occupantArt"
+      ]
+    },
+    "merchant": {
+      "type": "object",
+      "properties": {
+        "background": {
+          "type": "string"
+        },
+        "figure": {
+          "type": "string"
+        },
+        "shelves": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "armaments",
+              "cards",
+              "flasks",
+              "relics",
+              "sell",
+              "services",
+              "weaponArts"
+            ]
+          }
+        }
+      },
+      "required": [
+        "background",
+        "figure",
+        "shelves"
+      ]
+    }
+  },
+  "required": [
+    "comment",
+    "dialogue",
+    "event",
+    "legacyDungeon",
+    "merchant"
+  ]
+}

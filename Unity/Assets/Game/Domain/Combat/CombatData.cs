@@ -90,6 +90,9 @@ namespace Ashen.Domain.Combat
 
         internal Dictionary<string, JObject> ResolveCache => _resolveCache;
 
+        /// <summary>The run's equipment model (us-5.11): attached by <c>RunData</c>, absent on combat data alone (the mid-fight equipment intents then throw by name).</summary>
+        public IEquipmentPort EquipmentPort { get; internal set; }
+
         /// <summary>An engine rule number (rules/combatEngine.json section.key).</summary>
         public double Rule(string section, string key) => Js.D(Engine.Obj(section)?[key]);
 

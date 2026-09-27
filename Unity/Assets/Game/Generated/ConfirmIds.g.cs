@@ -15,5 +15,12 @@ namespace Ashen.Generated
         public const string SaveFailed = "saveFailed";
         public const string RewardLeaveAuto = "rewardLeaveAuto";
         public const string RewardLeaveManual = "rewardLeaveManual";
+        public const string MerchantBuy = "merchantBuy";
+        public const string MerchantRemove = "merchantRemove";
+        public const string MerchantSell = "merchantSell";
+        public const string MerchantSmith = "merchantSmith";
+        public const string EventChoose = "eventChoose";
+        public const string EventChooseBinding = "eventChooseBinding";
+        public const string DungeonLeave = "dungeonLeave";
     }
 }

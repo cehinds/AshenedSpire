@@ -94,8 +94,8 @@ namespace Ashen.Domain.Rewards
         /// </summary>
         public static double RederivePools(RewardsData d, JObject run)
         {
-            if (!run.Is(K.DerivedStatRuleSnapshot) || !run.Obj(K.DerivedStatRuleSnapshot).Is(RK.Rules)) return 0;
-            var rules = run.Obj(K.DerivedStatRuleSnapshot).Obj(RK.Rules);
+            if (!run.Is(K.DerivedStatRuleSnapshot) || !run.Obj(K.DerivedStatRuleSnapshot).Is(K.Rules)) return 0;
+            var rules = run.Obj(K.DerivedStatRuleSnapshot).Obj(K.Rules);
             var classDef = d.Run.Classes.Get(run.Str(RK.Class));
             var level = RunState.CharacterLevelOf(run);
             var before = new JObject();

@@ -6,8 +6,6 @@
   "GroupOwner": "owner",
   "GroupRelic": "relic",
   "GroupIndex": "index",
-  "GroupId": "id",
-  "GroupClassId": "classId",
   "Zero": "0",
   "One": "1",
   "CacheKeySeparator": "|",
@@ -145,5 +143,7 @@
   "GroupAttribute": "attribute",
   "GroupRole": "role",
   "GroupPart": "part",
-  "GroupName": "name"
+  "GroupName": "name",
+  "CommandSwapArmament": "swapArmament",
+  "CommandChangeEquipment": "changeEquipment"
 }

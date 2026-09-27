@@ -1,0 +1,7 @@
+{
+  "comment": "W-09 merchant: the cards shelf with an offer selected (its card face in the detail), the rail of shelves with counts, the purse in the RUN_HUD, Leave and Buy.",
+  "screen": "merchant",
+  "cinders": 400,
+  "shelf": "cards",
+  "select": "available"
+}

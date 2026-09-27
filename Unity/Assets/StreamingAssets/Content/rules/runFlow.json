@@ -1,6 +1,6 @@
 {
-  "comment": "First playable run flow (F1; D-071, D-072). 'saveFormat' versions the run payload inside the save envelope (a payload with another format is not resumed). 'creation' is the W-04 default character: the preselected class, the default tint that picks its portrait, the portrait registry-id template ({class}, {tint}), the journey recorded in the slot summary and the string key of the default character name. 'firstFight' picks the one F1 encounter deterministically: the encounters of 'seat' in 'pool', in authoring order, at 'ordinal'. 'autosave' says what happens after each committed combat command: 'append' writes it to the slot's command log (PF-06), 'checkpoint' writes a full checkpoint, 'none' writes nothing; 'checkpointOn' lists the command types that also write a full checkpoint (the PF-06 commit point 'combat turn end'). 'newRun' is what shipped main.js newRun adds to a created run before the first fight, in order: seedString, customization (the name and tint are the character's; the glyph is data), stats, path, seenEvents and lastEncounters; the post-combat pipeline and the run loop read them. The Custom Climb block (custom) is left out until fights enter through the run loop (RunCombat.CreateArgs refuses it).",
-  "saveFormat": 1,
+  "comment": "The Classic run flow (F1 D-071/D-072; F3 climb: W-06 act map, W-10 rest, W-15 run end). 'saveFormat' versions the run payload inside the save envelope (a payload with another format is not resumed; 2 = runs made by the run loop's newRun, with the map). 'creation' is the W-04 default character: the preselected class, the default tint that picks its portrait, the portrait registry-id template ({class}, {tint}), the journey recorded in the slot summary and the string key of the default character name. 'firstFight' names one encounter deterministically (the encounters of 'seat' in 'pool', in authoring order, at 'ordinal'): the review and test hook RunSession.StartEncounter enters it; a climb's fights come from the map. 'autosave' says what happens after each committed combat command: 'append' writes it to the slot's command log (PF-06), 'checkpoint' writes a full checkpoint, 'none' writes nothing; 'checkpointOn' lists the command types that also write a full checkpoint (the PF-06 commit point 'combat turn end'). 'newRun' is what the caller hands the run loop's newRun (main.js newRun's settings-derived inputs): the customization glyph (the name and tint are the character's), the advancedConfigSnapshot of empty advanced settings, and whether the prologue is queued (false while W-05 is planned). 'settings' names the profile settings the loop reads and their defaults when neither the profile nor the preset's playerSettings sets them (settingOn: shrineMultiUse, shopSell; the hold dial: holdConfirm over balance.ui.holdConfirm). 'screens' routes each place a save can resume at (RunSession.Location) to the screen that shows it; a screen that is planned or unregistered falls back to the act map's planned-door state (the seam the merchant, event and legacy-dungeon screens plug into).",
+  "saveFormat": 2,
   "creation": {
     "defaultClass": "reaver",
     "defaultTint": "ember",
@@ -19,9 +19,22 @@
   },
   "newRun": {
     "customization": { "glyph": "⚔" },
-    "stats": { "fightsWon": 0, "damageDealt": 0, "damageTaken": 0 },
-    "path": [],
-    "seenEvents": [],
-    "lastEncounters": []
+    "advancedConfigSnapshot": { "schemaVersion": 1, "ratingsVersion": 1, "overrides": {} },
+    "prologue": false
+  },
+  "settings": {
+    "multiUse": { "key": "shrineMultiUse", "def": false },
+    "shopSell": { "key": "shopSell", "def": true },
+    "holdConfirm": { "key": "holdConfirm" }
+  },
+  "screens": {
+    "combat": "combat",
+    "rewards": "rewards",
+    "map": "actMap",
+    "rest": "rest",
+    "merchant": "merchant",
+    "event": "event",
+    "dungeon": "legacyDungeon",
+    "runEnd": "runEnd"
   }
 }

@@ -198,6 +198,17 @@ namespace Ashen.Domain.Combat
             };
         }
 
+        /// <summary>
+        /// What a set swap would cost (the shipped swapCostFor receipt: cost, ruleId, base, baseCost, categoryTag, gearOn,
+        /// gearDelta, gearIgnored, floored), or null where doSwapArmament refuses before pricing (us-5.11).
+        /// </summary>
+        public static JObject SwapPrice(CombatState c, string slotId, int setIndex) =>
+            c.Result == null ? c.Data.EquipmentPort?.SwapPrice(c, slotId, setIndex) : null;
+
+        /// <summary>What an equipment change would cost (priced on the loadout it leaves), or null where doChangeEquipment refuses before pricing.</summary>
+        public static JObject ChangePrice(CombatState c, string slotId, int setIndex, string pieceId) =>
+            c.Result == null ? c.Data.EquipmentPort?.ChangePrice(c, slotId, setIndex, pieceId) : null;
+
         /// <summary>previewIntent(combat, enemyInstanceId) → the live intent numbers (the §4.2 math against the player).</summary>
         public static JObject PreviewIntent(CombatState c, string enemyInstanceId)
         {

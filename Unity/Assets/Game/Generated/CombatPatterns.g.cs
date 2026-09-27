@@ -7,8 +7,5 @@ namespace Ashen.Generated
         public const string CardMod = "^(?<prefix>[A-Za-z]\\w*)\\.(?<field>[A-Za-z]\\w*)=(?<sign>[+-]?)(?<num>\\d+(?:\\.\\d+)?)$";
         public const string TextToken = "\\{(?<token>[A-Za-z][\\w.]*)\\}";
         public const string LegacyRelicGate = "^relic:(?<owner>.+):(?<relic>[^:]+):(?<index>\\d+)$";
-        public const string ArmamentRef = "^armament/(?<id>[^/]+)$";
-        public const string ArmorRef = "^armor/(?<classId>[^/]+)/(?<id>[^/]+)$";
-        public const string RelicRef = "^relic/(?<id>[^/]+)$";
     }
 }

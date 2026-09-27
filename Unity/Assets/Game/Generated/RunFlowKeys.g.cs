@@ -46,5 +46,17 @@ namespace Ashen.Generated
         public const string Suffix = "suffix";
         public const string Value = "value";
         public const string ArtKey = "artKey";
+        public const string AdvancedConfigSnapshot = "advancedConfigSnapshot";
+        public const string Prologue = "prologue";
+        public const string Customization = "customization";
+        public const string Glyph = "glyph";
+        public const string Settings = "settings";
+        public const string MultiUse = "multiUse";
+        public const string ShopSell = "shopSell";
+        public const string HoldConfirm = "holdConfirm";
+        public const string Key = "key";
+        public const string Screens = "screens";
+        public const string Steps = "steps";
+        public const string Ref = "ref";
     }
 }
