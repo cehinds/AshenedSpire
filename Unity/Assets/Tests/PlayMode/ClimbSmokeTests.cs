@@ -24,8 +24,9 @@ namespace Ashen.Tests.Play
     /// seeded Custom Climb (the map rules' shortest act; enemy HP on the bot's assisted scale, a test hook) played through the
     /// screens with real keyboard and pad devices: map nodes are walked to and picked (select, then a repeat pick or the
     /// tray's Enter), fights are auto-played through the screen's command path by the smoke policy, reward doors are left
-    /// with Continue (and their door), rest places take a hold-to-confirm Rest then Continue, and the planned doors
-    /// (merchant, events, a legacy dungeon) take their one action — through act advances to the act-3 keeper and W-15. Save
+    /// with Continue (and their door), rest places take a hold-to-confirm Rest then Continue, the merchant is left, an
+    /// event takes an open response through its review door then Continue, and a legacy dungeon's tray takes its first
+    /// control each step (the node screens, D-140) — through act advances to the act-3 keeper and W-15. Save
     /// &amp; quit then Continue is exercised once each at the map, a rest place, a reward door and mid-fight, and each resume
     /// lands on the same screen with the identical state hash. The policy mirrors the EditMode driver, whose run with this
     /// seed is a victory (ClimbSessionTests.TheShortClimbWinsFastForThePlayModeSmoke).
@@ -317,6 +318,52 @@ namespace Ashen.Tests.Play
                         }
                         break;
                     }
+                    case ScreenIds.Merchant:
+                    {
+                        var merchant = (MerchantScreen)Nav.Top.View;
+                        var instance = Nav.Top;
+                        yield return Walk(() => Focused == merchant.LeaveButton, 40, "focus on the merchant's Leave");
+                        yield return step % 2 == 0 ? Press(Key.Enter) : Press(GamepadButton.South);
+                        yield return Until(() => Nav.Top != instance, 10f, "leaving the merchant");
+                        break;
+                    }
+                    case ScreenIds.Event:
+                    case ScreenIds.Dialogue:
+                    {
+                        var ev = (EventScreen)Nav.Top.View;
+                        var instance = Nav.Top;
+                        if (!ev.View.Resolved)
+                        {
+                            var open = ev.View.Responses.FindIndex(r => r.Available);
+                            yield return Walk(() => Focused == ev.Responses[open], 12, "focus on an open response");
+                            yield return Press(Key.Enter);
+                            yield return Until(() => Nav.CurrentId == ScreenIds.Confirm && Focused != null, 5f, "the response's review door");
+                            yield return Press(Key.DownArrow);
+                            if (Focused.name == UiNames.ConfirmHold) yield return Hold(Key.Enter, HoldMs / 1000f + 0.5f);
+                            else yield return Press(Key.Enter);
+                            yield return Until(() => ev.View.Resolved, 5f, "the response taken");
+                        }
+                        yield return Walk(() => Focused == ev.ContinueButton, 12, "focus on the event's Continue");
+                        yield return Press(Key.Enter);
+                        yield return Until(() => Nav.Top != instance, 10f, "leaving the event");
+                        break;
+                    }
+                    case ScreenIds.LegacyDungeon:
+                    {
+                        var dungeon = (DungeonScreen)Nav.Top.View;
+                        var instance = Nav.Top;
+                        var before = Current.StateHash();
+                        yield return Walk(() => dungeon.Actions.Count > 0 && Focused == dungeon.Actions[0], 8, "focus on the tray's first control");
+                        yield return step % 2 == 0 ? Press(Key.Enter) : Press(GamepadButton.South);
+                        if (Nav.CurrentId == ScreenIds.Confirm)
+                        {
+                            yield return Until(() => Focused != null && Focused.name == UiNames.ConfirmBack, 5f, "the leave door opens on Back");
+                            yield return Press(Key.DownArrow);
+                            yield return Press(Key.Enter);
+                        }
+                        yield return Until(() => Nav.Top != instance || Current.StateHash() != before, 10f, "the dungeon step");
+                        break;
+                    }
                     default:
                         yield return null;
                         break;
@@ -328,7 +375,7 @@ namespace Ashen.Tests.Play
             Assert.That(end.View.Victory, Is.True, "the seeded climb reaches the act-3 keeper and wins (US-4.7)");
             Assert.That(end.Session.Act, Is.EqualTo(3));
             foreach (var place in new[] { "map", "combat", "rewards", "rest" }) Assert.That(resumedAt, Does.Contain(place), "resumed at " + place);
-            Assert.That(seen.Keys, Does.Contain("dungeon").And.Contain("merchant").And.Contain("event"), "the planned doors were crossed");
+            Assert.That(seen.Keys, Does.Contain("dungeon").And.Contain("merchant").And.Contain("event"), "the node screens were crossed");
             yield return Until(() => Focused == end.TitleButton, 5f, "focus on Return to title");
             yield return Press(Key.Enter);
             yield return Until(() => Nav.CurrentId == ScreenIds.Title && Focused != null, 10f, "the title after the run");

@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using Ashen.App.Nodes;
 using Ashen.App.Run;
 using Ashen.App.Ui;
 using Ashen.Generated;
@@ -47,7 +48,8 @@ namespace Ashen.Presentation.UI.Screens
             var ui = context.Ui;
             ui.Session = session;
             var location = session.Location;
-            var id = session.Content.Flow.ScreenFor(location);
+            // A quest chain's event step shows on dialogue (W4c, D-140).
+            var id = NodeScreens.Refine(session.Content.Flow.ScreenFor(location), session);
             if (id == null || !ui.Data.Screens.IsBuilt(id)) id = ScreenIds.ActMap;
             object args;
             switch (id)

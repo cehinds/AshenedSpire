@@ -1,0 +1,46 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Nodes.uss" />
+    <ui:VisualElement name="NODE_PAGE" class="page node-page">
+        <Ashen.Presentation.UI.Kit.RunHud name="RUN_HUD" />
+        <ui:VisualElement name="NODE_BODY" class="node-body">
+            <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="node-shell merchant-shell" title-key="nodes.merchant.title">
+                <Ashen.Presentation.UI.Kit.Workspace name="WORKSPACE" class="merchant-workspace">
+                    <ui:VisualElement name="MERCHANT_BODY" class="merchant-body">
+                        <ui:VisualElement name="SHELF_PANE" class="shelf-pane">
+                            <Ashen.Presentation.UI.LocLabel name="SHELF_STATUS" class="shelf-status kit-text-value" />
+                            <ui:ScrollView name="SHELF_SCROLL" class="shelf-scroll" horizontal-scroller-visibility="Hidden">
+                                <ui:VisualElement name="SHELF_LIST" class="shelf-list" />
+                                <ui:VisualElement name="SHELF_NOTE" class="shelf-note is-hidden">
+                                    <Ashen.Presentation.UI.LocLabel name="NOTE_TITLE" class="eyebrow kit-text-header" />
+                                    <Ashen.Presentation.UI.LocLabel name="NOTE_TEXT" class="shelf-note-text kit-text-value" />
+                                </ui:VisualElement>
+                            </ui:ScrollView>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="MERCHANT_DETAIL" class="merchant-detail">
+                            <ui:VisualElement name="DETAIL_FIGURE" class="detail-figure" />
+                            <ui:VisualElement name="DETAIL_CARD_HOST" class="detail-card-host is-hidden" />
+                            <Ashen.Presentation.UI.LocLabel name="DETAIL_KIND" class="eyebrow kit-text-header" />
+                            <Ashen.Presentation.UI.LocLabel name="DETAIL_TITLE" class="detail-title kit-text-header" />
+                            <Ashen.Presentation.UI.LocLabel name="DETAIL_TEXT" class="detail-text kit-text-value" />
+                            <Ashen.Presentation.UI.LocLabel name="DETAIL_PRICE" class="detail-price kit-text-value" />
+                            <Ashen.Presentation.UI.LocLabel name="DETAIL_REASON" class="detail-reason kit-text-value" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </Ashen.Presentation.UI.Kit.Workspace>
+                <ui:VisualElement name="MERCHANT_PICK" class="merchant-pick is-hidden">
+                    <Ashen.Presentation.UI.LocLabel name="PICK_TITLE" class="pick-title kit-text-header" />
+                    <Ashen.Presentation.UI.LocLabel name="PICK_PROMPT" class="pick-prompt kit-text-value" string-key="nodes.merchant.pick.prompt" />
+                    <ui:ScrollView name="PICK_SCROLL" class="merchant-pick-scroll" horizontal-scroller-visibility="Hidden">
+                        <ui:VisualElement name="PICK_CARDS" class="pick-cards merchant-pick-cards" />
+                    </ui:ScrollView>
+                    <ui:VisualElement name="PICK_FOOTER" class="pick-footer">
+                        <Ashen.Presentation.UI.LocButton name="PICK_BACK" class="kit-button--back pick-button" string-key="nodes.merchant.pick.back" />
+                        <ui:VisualElement class="pick-gap" />
+                        <Ashen.Presentation.UI.LocButton name="PICK_CONFIRM" class="kit-button--primary pick-button" string-key="nodes.merchant.pick.confirm" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </Ashen.Presentation.UI.Kit.Shell>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

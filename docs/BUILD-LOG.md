@@ -2,6 +2,111 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## us-9.1–9.3, us-10.1–10.3, us-4.5: F3 node screens — W-09 merchant, W-11 event and dialogue, W-13 legacy dungeon (feature/node-ui/us-9.2, 2026-09-26)
+
+**Landed**
+- **Merged `origin/dev` 0.1.13.2** (one smith port) and **0.1.15.0** (weapon swap, run-creation options; `Choices` moved to `RunKeys`) into the story branch.
+- **Application (`Ashen.App.Nodes`, engine-free):**
+  - `MerchantSession` (W-09 on `Shop`):
+    - Start rolls the stock only when the run holds none (the 'shop' and 'smith' streams); a reload reuses the saved stock (US-9.1).
+    - `Execute` takes a purchase, burn, smith service or sale and saves when it lands; `Leave` clears the stock and saves at the map.
+  - `MerchantView` builds the shelves in `ui/nodes.json` order: cards, armaments, weapon arts, relics, flasks, services and sell.
+    - Each offer carries its name, text, art, price, availability and W2a door.
+    - An unaffordable offer reads "Need n more cinders". Other refusal keys resolve from `shop.en.json`, or the shipped `ui.shop.avail.*.short`.
+    - The card burn is priced at its rising price, with its pick.
+    - The smith's upgrade, extract and install come from the shipped plans, priced in stones.
+    - The sell shelf shows only while `shopSell` is on, with the Buy back note (D-081).
+  - `EventSession` and `EventView` (W-11 / W4c on `Events`):
+    - Open → responses, each with an effect preview, a binding mark and its requirement. The history-gated choices the shipped door hides show as locked rows.
+    - `Choose` saves the resolved state; the response is part of the resume entry.
+    - `Continue` is null until a response is taken. A fight is entered through `RunLoop.EnterEventCombat` and handed over; otherwise the run returns to the map.
+    - Continue reads "Steel yourself" when the response started a fight.
+    - A quest chain's step has its speaker and portrait. The Turncoat Mirror's swap is its op; the saved portrait follows the new class.
+  - `DungeonSession` and `DungeonView` (W-13 on `LegacyDungeons`):
+    - Responses: listen, fight, and flee with its Dexterity odds. Continue after a response.
+    - Travel along an edge, then enter the room: Rest / Open / Fight (D-141).
+    - Leave a cleared dungeon: the summit's victory, or the next act.
+    - The view gives the scene's background and floor, the occupant, and the scene-graph mini map.
+  - `NodeScreens.Refine` puts a quest chain's event step on `screen:dialogue`; `NodeReview` holds the review and test hooks (D-145).
+- **One path with the climb-ui lane (merged feature/climb-ui/main, then local dev):** the sessions are thin over `RunSession` (D-140):
+  - `MerchantSession` → `RunSession.MerchantStep` (new; a refusal saves nothing) and `LeaveMerchant`;
+  - `EventSession` → `EventView`, `ChooseEvent`, `FinishEvent`;
+  - `DungeonSession` → `RunSession.NodeStep` (new; a loop step whose door is routed as travel routes it, then one save);
+  - a Turncoat Mirror swap re-saves the slot portrait (`FollowClass`).
+  - The first cut's own router, node payload entry, `StartFight` and HUD view were removed in favour of the lane's seams.
+- **Presentation:**
+  - `RunFlow.Show` (rules/runFlow.json#screens) opens the four screens, which are now built; the act map's planned door stays only as a fallback.
+  - `NodeScreen` base: the `RunHud` kit band, W-20 on Escape / Start / [Menu], refusals, W1r "Could not save" with Retry, a focus keeper, and `Follow()`: redraw while the run stays at the node, else `RunFlow.Show`.
+  - `MerchantScreen` (W1d/W1v workspace with rail):
+    - the rail folds into the [Cards ▾] selector when the scaled tap floor does not fit: 844×390 and portrait;
+    - first press selects, a second press or the Primary opens the door;
+    - burn and install open a card pick (`focusModes.pick`).
+  - `EventScreen` serves `screen:event` (W1u) and `screen:dialogue` (W4c).
+  - `DungeonScreen` (W-13).
+  - `ClimbSmokeTests` now drives the merchant, event and dungeon screens instead of the planned doors.
+- **Data:**
+  - `ui/screens.json`: merchant, event, dialogue and legacyDungeon are built;
+  - `ui/nodes.json` and `strings/nodes.en.json` (new, with schemas; `HAND_WRITTEN`);
+  - `ui/menus.json`: the confirms merchantBuy, merchantRemove (destructive, hold), merchantSell, merchantSmith, eventChoose, eventChooseBinding (hold) and dungeonLeave;
+  - `ui/components.json art.include` adds the merchant's hall, the region maps and the legacy scenes;
+  - `ui/tokens.json` gains node sizes;
+  - codegen: the `Tools/codegen.d/nodes.json` fragment, plus screen ids, UXML names and confirm ids in `ui.json`;
+  - `UiData` also loads `strings/shop.en.json`, `strings/events.en.json` and `strings/nodes.en.json`.
+- **Screenshots:** 26 PNGs at the ui/layout.json sizes, with `skipSizes`:
+  - merchant (4), merchant_unaffordable (2), merchant_sell (2), merchant_services (1);
+  - event (4), event_refusal (2), event_fight (2), dialogue (3);
+  - legacyDungeon (4), legacyDungeon_room (2).
+
+**Tests**
+- **`NodeSessionTests`** (17, shared): each session runs on a seeded newRun run travelled to its node. After every step the run, the RNG counters and the profile must equal the same domain calls made directly on a copy of the context; the save's streamCounters stamp must equal the live counters. The tests cover:
+  - routing by outcome kind;
+  - the stock rolled once and reused after a reload;
+  - card, burn (rising price), relic, flask, armament and weapon-art purchases and a sale, each saved;
+  - an unaffordable refusal that changes and saves nothing;
+  - the shopSell toggle;
+  - every shelf and smith row reading with resolved text;
+  - Leave clearing the stock;
+  - Continue waiting for a response, then the resolved resume;
+  - the fight response's "Steel yourself" and the same createCombat arguments as `EnterEventCombat`, saved in combat;
+  - the requirement refusals (price, and the history in the Nameless chain);
+  - the dialogue speaker;
+  - the Turncoat Mirror as the only swapClass event, with the swap equal to the domain's;
+  - every event reading with resolved text;
+  - the dungeon: entering, listen, resume with the pending response, travel;
+  - rooms (fight, shrine, cache) equal to the shipped TravelTo;
+  - flee on the events stream;
+  - leaving into the next act, and victory at the summit clearing the slot.
+- **PlayMode `NodeScreensSmokeTests`** (4). Real keyboard and pad devices drive the kit Navigator; each screen is opened through `NodeRouter.Open`.
+  - Merchant: buy a card (select, then the W2a door); a refusal at Buy when unaffordable; burn a card from the Services rail pick (the pick, then the destructive hold door); sell with the pad; Save & quit → Continue → the same stock; Leave → saved at the map.
+  - Event: a priced response shows and refuses its requirement; a legal one through its review door; Save & quit → Continue → resolved; Continue.
+  - Fight and dialogue: "Steel yourself" → W-07 in combat, saved; a quest-gated step opens as dialogue with its speaker, and the Keeper's thanks gives the bell.
+  - Dungeon: listen at the gate, Continue, travel with the pad, a response; Save & quit → Continue → the same node and pending state; leave a cleared dungeon → act 2.
+- **Results (after merging climb-ui / local dev, one router):**
+  - dotnet 2830/2830;
+  - Unity EditMode 2831 passed / 5 skipped (explicit);
+  - PlayMode 8 passed / 1 skipped (capture): the 4 node smokes, the climb smoke (now through the merchant, event and dungeon screens) and the F1 smokes;
+  - `codegen --check`, `check-content`, `transform-content --check`, `ui-tokens --check` and `check-docs` green.
+
+**Review** (own screenshot review against W-09, W-11 and W-13; fixed and recaptured):
+- at 844×390 the merchant rail overflowed: the model counted 44 reference px per item, but the touch minimum after scaling is taller. The screen now gives the model the scaled tap floor, and the rail folds into the selector as 04 W-09 draws;
+- "Services · 1 of 1 open" was ellipsized in the rail (the count is now the open number);
+- the stone glyph ⬡ has no glyph in the default font (prices now read "n stones");
+- a focused ready control lost its green (the node pages keep it under the glow);
+- the dialogue title repeated the speaker when the speaker is the event; the dialogue footer had no band;
+- the legacy scene cropped to the floor (now centred);
+- a capture's refusal was anchored before layout (the fixture presses after it).
+- Nothing overlaps at the four sizes, the minimum text holds, and focus is visible on rail, tiles, responses and tray controls.
+
+**Not verified / open**
+- `ui.json`, `screens.json`, `menus.json`, `tokens.json`, `components.json`, the manifest and `ScreenCaptureTests.cs` are shared with the other lanes; expect textual conflicts (take the union, then rerun transform-content and codegen).
+- The 26 node captures were taken before the RunHud consolidation (the HUD band now is the climb's kit band); not recaptured.
+- US-9.3 is only partly met: there is no buy-back list (D-081); the Sell shelf states it.
+- An event's damage to 0 HP is not closed out (the shipped door has no death path there either).
+- W4c is a single beat, with no Skip speech or Voice control. Offers are rows; the card face shows in the detail pane.
+- Mouse: pointer clicks on tiles and responses are not synthesized in the smoke; keyboard and pad are.
+- The ☠ boss glyph renders in the default font here, but it is not checked on every platform.
+
+**Next:** integrate with the act-map router (W-06) and W-10 for dungeon stays; a buy-back list if the owner wants one (US-9.3).
 ## us-4.2, us-4.1–4.9, us-8.1–8.6, us-13.1 (partial): the Classic Climb run flow — W-06 act map, W-10 rest, W-15 run end (feature/climb-ui/us-4.2, 2026-09-26)
 
 **Landed**

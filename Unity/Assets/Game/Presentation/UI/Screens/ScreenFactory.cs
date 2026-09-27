@@ -23,6 +23,10 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.ActMap: return new ActMapScreen();
                 case ScreenIds.Rest: return new RestScreen();
                 case ScreenIds.RunEnd: return new RunEndScreen();
+                case ScreenIds.Merchant: return new MerchantScreen();
+                case ScreenIds.Event:
+                case ScreenIds.Dialogue: return new EventScreen();
+                case ScreenIds.LegacyDungeon: return new DungeonScreen();
                 default: return new PlaceholderScreen();
             }
         }
