@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.36.0] — 2026-09-27
+
+Stories: us-9.1, us-9.2, us-9.3, us-10.1, us-10.2, us-10.3, us-4.5
+
+- F3 node screens: W-09 merchant, W-11 event and dialogue, W-13 legacy dungeon on the climb router (US-9.3 sell only; the shipped game has no buy-back, D-081)
+
 ## [0.1.29.0] — 2026-09-27
 
 Stories: us-4.1, us-4.2, us-4.3, us-4.4, us-4.6, us-4.7, us-4.8, us-4.9, us-8.1, us-8.2, us-8.3, us-8.4, us-8.5, us-8.6
