@@ -584,7 +584,8 @@ namespace Ashen.Presentation.UI.Screens
             _timeline = Root.schedule.Execute(StepEnemyTurn).StartingIn(step).Every(step);
         }
 
-        private bool ReducedMotion => (bool?)_session.Content.Snapshot.PlayerSettings[UiKeys.ReducedMotion] ?? false;
+        /// <summary>The live reducedMotion setting (profile, then preset, then data; D-150), not the run's frozen snapshot.</summary>
+        private bool ReducedMotion => _session.PlayerSettings.On(SettingIds.ReducedMotion);
 
         private void StepEnemyTurn()
         {

@@ -15,5 +15,7 @@ namespace Ashen.Generated
         public const string MapFull = "full";
         public const string MapPath = "path";
         public const string MapFog = "fog";
+        public const string HoldConfirm = "holdConfirm";
+        public const string HoldOff = "off";
     }
 }

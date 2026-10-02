@@ -577,5 +577,23 @@ namespace Ashen.Tests
             }
             Assert.That(director.Choose("map", 0).Variant, Is.Not.EqualTo(director.Choose("map", 1).Variant), "acts sound apart");
         }
+
+        [Test]
+        public void AStoredSettingTellsLiveConsumers()
+        {
+            var settings = new SettingsSession(Default, ProfileStore.Load(_saves));
+            var heard = new System.Collections.Generic.List<string>();
+            void On(SettingsSession sender, string key) { if (sender == settings) heard.Add(key ?? "*"); }
+            SettingsSession.Changed += On;
+            try
+            {
+                Assert.That(settings.Set(SettingIds.MusicVolume, 40), Is.Null);
+                Assert.That(settings.Set(SettingIds.MusicVolume, 41), Is.Not.Null, "a refusal stays silent");
+                settings.ResetCategory("audio");
+                settings.ResetCategory("audio");
+            }
+            finally { SettingsSession.Changed -= On; }
+            Assert.That(heard, Is.EqualTo(new[] { SettingIds.MusicVolume, "*" }), "a reset that cleared nothing stays silent");
+        }
     }
 }

@@ -164,6 +164,9 @@ namespace Ashen.App.Settings
 
         public SettingsDefs Defs { get; }
 
+        /// <summary>A setting was stored or a category reset (the session that wrote it, and the key; null for a reset), so live consumers re-read it.</summary>
+        public static event Action<SettingsSession, string> Changed;
+
         /// <summary>Opened from the pause menu: run-scoped controls are marked as applying to the next run.</summary>
         public bool InRun { get; }
 
@@ -197,6 +200,7 @@ namespace Ashen.App.Settings
             if (!(_profile.Doc[SK.Settings] is JObject stored)) _profile.Doc[SK.Settings] = stored = new JObject();
             stored[key] = value.DeepClone();
             _profile.Save(_content.ContentHash);
+            Changed?.Invoke(this, key);
             return null;
         }
 
@@ -206,7 +210,9 @@ namespace Ashen.App.Settings
             if (!(Stored is JObject stored)) return;
             var changed = false;
             foreach (var def in Defs.Controls.Where(c => c.Category == category)) changed |= stored.Remove(def.Key);
-            if (changed) _profile.Save(_content.ContentHash);
+            if (!changed) return;
+            _profile.Save(_content.ContentHash);
+            Changed?.Invoke(this, null);
         }
 
         public SettingsViewState View(UiData ui, string category = null)

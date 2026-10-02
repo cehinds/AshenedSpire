@@ -16,6 +16,7 @@ namespace Ashen.Presentation.UI.Kit
         private bool _hold;
         private bool _single;
         private int _holdMs;
+        private bool _holdEnabled = true;
 
         public string Title { get => _title; set => Set(ref _title, value); }
         public string Target { get => _target; set => Set(ref _target, value); }
@@ -26,6 +27,9 @@ namespace Ashen.Presentation.UI.Kit
         public bool Hold { get => _hold; set => Set(ref _hold, value); }
         public bool Single { get => _single; set => Set(ref _single, value); }
         public int HoldMs { get => _holdMs; set => Set(ref _holdMs, value); }
+
+        /// <summary>False when the player turned holds off (holdConfirm 'off', US-17.1): the hold door commits on a press.</summary>
+        public bool HoldEnabled { get => _holdEnabled; set => Set(ref _holdEnabled, value); }
     }
 
     /// <summary>
@@ -82,6 +86,7 @@ namespace Ashen.Presentation.UI.Kit
                 HoldButton.labelKey = null;
                 HoldButton.Q<LocLabel>(UiNames.HoldLabel)?.SetResolved(_vm.Primary);
                 HoldButton.HoldMs = _vm.HoldMs;
+                HoldButton.HoldEnabled = _vm.HoldEnabled;
             }
             UiDom.Show(PrimaryButton, !_vm.Hold);
             UiDom.Show(HoldButton, _vm.Hold);

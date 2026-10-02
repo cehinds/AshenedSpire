@@ -119,7 +119,9 @@
         "CreationAutoAdvance": "creationAutoAdvance",
         "MapFull": "full",
         "MapPath": "path",
-        "MapFog": "fog"
+        "MapFog": "fog",
+        "HoldConfirm": "holdConfirm",
+        "HoldOff": "off"
       }
     },
     {
