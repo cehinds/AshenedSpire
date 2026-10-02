@@ -94,6 +94,12 @@ namespace Ashen.App.Run
         public bool Current;
         public bool Travelled;
 
+        /// <summary>Path and fog modes: the node can no longer be reached from where the run stands (drawn dimmed).</summary>
+        public bool Dimmed;
+
+        /// <summary>Fog mode: the node is beyond the revealed floors; its kind, glyph and label read as unseen.</summary>
+        public bool Hidden;
+
         /// <summary>The accessible name: kind, floor and the non-colour reachable cue (›).</summary>
         public string AccessibleName;
     }
@@ -103,6 +109,9 @@ namespace Ashen.App.Run
         public string From;
         public string To;
         public bool Travelled;
+
+        /// <summary>Either end is dimmed (path and fog modes).</summary>
+        public bool Dimmed;
     }
 
     public sealed class MapLegendEntry
@@ -114,8 +123,9 @@ namespace Ashen.App.Run
 
     /// <summary>
     /// The act map (W-06) as display data: the seat and floor header, every node (position, kind, glyph, label, boss
-    /// destination) and edge, where the run stands, the travelled trail, what is reachable, and the legend. Fog of war is
-    /// not ported: the whole act is drawn, the shipped 'path' reveal mode (D-128).
+    /// destination) and edge, where the run stands, the travelled trail, what is reachable, and the legend. The settings
+    /// mapMode picks the reveal (D-151): 'full' draws the whole act (D-128); 'path' dims what can no longer be reached;
+    /// 'fog' also hides the kinds beyond ui/meta.json's floors ahead, the boss destinations kept.
     /// </summary>
     public sealed class ActMapViewState
     {
@@ -125,6 +135,7 @@ namespace Ashen.App.Run
         public int Floors;
         public int Columns;
         public string CurrentId;
+        public string Mode;
         public readonly List<MapNodeView> Nodes = new List<MapNodeView>();
         public readonly List<MapEdgeView> Edges = new List<MapEdgeView>();
         public readonly List<MapLegendEntry> Legend = new List<MapLegendEntry>();
@@ -181,6 +192,7 @@ namespace Ashen.App.Run
                     view.Edges.Add(new MapEdgeView { From = p.Name, To = next, Travelled = i >= 0 && i + 1 < path.Count && path[i + 1] == next });
                 }
             }
+            Reveal(session, ui, view, nodes, reachable);
             view.Floors = view.Nodes.Count == 0 ? 0 : view.Nodes.Max(n => n.Floor);
             view.FloorText = strings.Format(StringKeys.MapFloor, new StringArgs().Add(UiPlaceholders.Floor, session.Floor).Add(UiPlaceholders.Total, view.Floors));
             foreach (var kind in view.Nodes.Select(n => n.Kind).Distinct())
@@ -192,6 +204,43 @@ namespace Ashen.App.Run
         {
             var key = string.Format(CultureInfo.InvariantCulture, format, id);
             return strings.Has(key) ? strings.Get(key) : id ?? string.Empty;
+        }
+
+        /// <summary>The mapMode reveal (D-151): dim what is behind or beside the run's way on; in fog, hide the far floors.</summary>
+        private static void Reveal(RunSession session, UiData ui, ActMapViewState view, JObject nodes, HashSet<string> reachable)
+        {
+            view.Mode = session.PlayerSettings.Text(SettingIds.MapMode) ?? SettingIds.MapFull;
+            if (view.Mode == SettingIds.MapFull) return;
+            // Every node still ahead: the forward closure of the reachable row (the start row before the first step).
+            var ahead = new HashSet<string>(reachable, StringComparer.Ordinal);
+            var queue = new Queue<string>(ahead);
+            while (queue.Count > 0)
+                foreach (var next in Js.Items(nodes.Obj(queue.Dequeue())?[MK.Next]).Select(Js.Str))
+                    if (next != null && ahead.Add(next)) queue.Enqueue(next);
+            foreach (var n in view.Nodes) n.Dimmed = !ahead.Contains(n.Id) && !n.Travelled && !n.Current;
+            var dimmed = new HashSet<string>(view.Nodes.Where(n => n.Dimmed).Select(n => n.Id), StringComparer.Ordinal);
+            foreach (var e in view.Edges) e.Dimmed = dimmed.Contains(e.From) || dimmed.Contains(e.To);
+            if (view.Mode != SettingIds.MapFog) return;
+
+            var rules = ui.Meta?.Obj(MetaUiKeys.MapReveal) ?? new JObject();
+            var keep = new HashSet<string>(Js.Items(rules[MetaUiKeys.FogKeepsKinds]).Select(Js.Str).Where(s => s != null), StringComparer.Ordinal);
+            var fogKind = rules.Str(MetaUiKeys.FogKind);
+            // The reachable row (else where the run stands) and the floors ahead of it are revealed.
+            var row = view.Nodes.Where(n => n.Reachable).Select(n => n.Floor).DefaultIfEmpty(view.Node(view.CurrentId)?.Floor ?? 0).Min();
+            var seen = row + (int)Js.Or0(rules[MetaUiKeys.FogFloorsAhead]);
+            var strings = ui.Strings;
+            foreach (var n in view.Nodes)
+            {
+                if (n.Floor <= seen || n.Travelled || n.Current || keep.Contains(n.Kind)) continue;
+                n.Hidden = true;
+                n.Kind = fogKind;
+                n.BossLabel = null;
+                n.GlyphKey = string.Format(CultureInfo.InvariantCulture, UiFormats.MapGlyphKey, fogKind);
+                n.Label = Name(strings, UiFormats.MapNodeKey, fogKind);
+                n.Hint = Name(strings, UiFormats.MapNodeHintKey, fogKind);
+                n.AccessibleName = strings.Format(n.Reachable ? StringKeys.MapNodeReachable : StringKeys.MapNodeName,
+                    new StringArgs().Add(UiPlaceholders.Kind, n.Label).Add(UiPlaceholders.Floor, n.Floor));
+            }
         }
     }
 

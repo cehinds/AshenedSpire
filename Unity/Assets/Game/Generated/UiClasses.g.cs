@@ -93,6 +93,8 @@ namespace Ashen.Generated
         public const string MapNodeReachable = "map-node--reachable";
         public const string MapNodeCurrent = "map-node--current";
         public const string MapNodeTravelled = "map-node--travelled";
+        public const string MapNodeDimmed = "map-node--dimmed";
+        public const string MapNodeHidden = "map-node--hidden";
         public const string MapNodeSelected = "map-node--selected";
         public const string MapNodeGlyph = "map-node-glyph";
         public const string MapNodeCue = "map-node-cue";

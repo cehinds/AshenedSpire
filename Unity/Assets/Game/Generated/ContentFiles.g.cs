@@ -164,6 +164,7 @@ namespace Ashen.Generated
         public const string SchemasUiLayoutSchema = "schemas/ui.layout.schema.json";
         public const string SchemasUiLocationPresentationSchema = "schemas/ui.locationPresentation.schema.json";
         public const string SchemasUiMenusSchema = "schemas/ui.menus.schema.json";
+        public const string SchemasUiMetaSchema = "schemas/ui.meta.schema.json";
         public const string SchemasUiNodesSchema = "schemas/ui.nodes.schema.json";
         public const string SchemasUiScreensSchema = "schemas/ui.screens.schema.json";
         public const string SchemasUiTermsSchema = "schemas/ui.terms.schema.json";
@@ -196,6 +197,7 @@ namespace Ashen.Generated
         public const string UiLayout = "ui/layout.json";
         public const string UiLocationPresentation = "ui/locationPresentation.json";
         public const string UiMenus = "ui/menus.json";
+        public const string UiMeta = "ui/meta.json";
         public const string UiNodes = "ui/nodes.json";
         public const string UiScreens = "ui/screens.json";
         public const string UiTerms = "ui/terms.json";

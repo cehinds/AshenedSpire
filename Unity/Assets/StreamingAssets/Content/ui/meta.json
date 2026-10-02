@@ -1,0 +1,8 @@
+{
+  "comment": "Presentation data of the meta lane (D-149): the act map's reveal modes (settings mapMode; US-4.2).",
+  "mapReveal": {
+    "fogFloorsAhead": 1,
+    "fogKeepsKinds": ["boss"],
+    "fogKind": "unseen"
+  }
+}

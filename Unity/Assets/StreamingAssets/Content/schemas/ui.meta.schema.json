@@ -1,0 +1,17 @@
+{
+  "$id": "ui/meta.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "mapReveal": {
+      "type": "object",
+      "properties": {
+        "fogFloorsAhead": { "type": "integer" },
+        "fogKeepsKinds": { "type": "array", "items": { "type": "string" } },
+        "fogKind": { "type": "string" }
+      },
+      "required": ["fogFloorsAhead", "fogKeepsKinds", "fogKind"]
+    }
+  },
+  "required": ["mapReveal"]
+}

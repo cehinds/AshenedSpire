@@ -421,6 +421,8 @@
         "MapNodeReachable": "map-node--reachable",
         "MapNodeCurrent": "map-node--current",
         "MapNodeTravelled": "map-node--travelled",
+        "MapNodeDimmed": "map-node--dimmed",
+        "MapNodeHidden": "map-node--hidden",
         "MapNodeSelected": "map-node--selected",
         "MapNodeGlyph": "map-node-glyph",
         "MapNodeCue": "map-node-cue",

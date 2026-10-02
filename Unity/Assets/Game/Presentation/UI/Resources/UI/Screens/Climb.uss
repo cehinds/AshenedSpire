@@ -108,6 +108,15 @@
     font-size: var(--font-map-boss-glyph);
 }
 
+/* mapMode reveal (D-151): path dims what is behind; fog greys the unseen kinds. */
+.map-node--dimmed {
+    opacity: var(--opacity-gate-dim);
+}
+
+.map-node--hidden .map-node-glyph {
+    color: var(--color-muted);
+}
+
 .map-node--travelled {
     opacity: 1;
     border-color: var(--color-map-trail);

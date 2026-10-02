@@ -4,6 +4,7 @@ namespace Ashen.Generated
     /// <summary>Meta screen string keys (strings/meta.en.json): W-16 journal, W-18 settings.</summary>
     public static class MetaStringKeys
     {
+        public const string GlyphNodeUnseen = "glyph.node.unseen";
         public const string JournalArmamentsEmpty = "journal.armaments.empty";
         public const string JournalDetailCard = "journal.detail.card";
         public const string JournalDetailCardUpgraded = "journal.detail.cardUpgraded";
@@ -35,6 +36,8 @@ namespace Ashen.Generated
         public const string JournalRailProfile = "journal.rail.profile";
         public const string JournalTitle = "journal.title";
         public const string JournalWinRate = "journal.winRate";
+        public const string MapKindUnseen = "map.kind.unseen";
+        public const string MapKindHintUnseen = "map.kindHint.unseen";
         public const string SettingsAppliesNextRun = "settings.appliesNextRun";
         public const string SettingsCardWidthFocus = "settings.cardWidthFocus";
         public const string SettingsCardWidthGlance = "settings.cardWidthGlance";

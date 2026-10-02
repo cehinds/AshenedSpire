@@ -19,6 +19,9 @@ namespace Ashen.App.Ui
         /// <summary>ui/nodes.json: the node screens' presentation data (W-09, W-11, W-13).</summary>
         public Ashen.App.Nodes.NodeRules Nodes;
 
+        /// <summary>ui/meta.json: the meta lane's presentation data (the act map's reveal modes).</summary>
+        public JObject Meta;
+
         public static UiData Load(IContentSource source)
         {
             JObject Read(string path) => (JObject)JsonContent.Parse(source.ReadText(path));
@@ -33,6 +36,7 @@ namespace Ashen.App.Ui
                 Strings = new StringTable(Read(ContentFiles.StringsEn), Read(ContentFiles.StringsCombatEn), Read(ContentFiles.StringsAppEn), Read(ContentFiles.StringsShopEn), Read(ContentFiles.StringsEventsEn), Read(ContentFiles.StringsNodesEn), Read(ContentFiles.StringsMetaEn)),
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
+                Meta = Read(ContentFiles.UiMeta),
             };
         }
 

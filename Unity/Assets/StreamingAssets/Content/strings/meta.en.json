@@ -92,5 +92,8 @@
   "settings.masterVolume": "Master volume",
   "settings.musicVolume": "Music volume",
   "settings.sfxVolume": "Effects volume",
-  "settings.playPrologue": "Play the prologue on a new run"
+  "settings.playPrologue": "Play the prologue on a new run",
+  "glyph.node.unseen": "·",
+  "map.kind.unseen": "Unseen",
+  "map.kindHint.unseen": "Climb closer to see what waits here."
 }

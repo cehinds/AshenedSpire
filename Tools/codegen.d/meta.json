@@ -105,6 +105,16 @@
         "MapPath": "path",
         "MapFog": "fog"
       }
+    },
+    {
+      "name": "MetaUiKeys",
+      "doc": "Keys of ui/meta.json.",
+      "keys": {
+        "MapReveal": "mapReveal",
+        "FogFloorsAhead": "fogFloorsAhead",
+        "FogKeepsKinds": "fogKeepsKinds",
+        "FogKind": "fogKind"
+      }
     }
   ],
   "stringTables": [

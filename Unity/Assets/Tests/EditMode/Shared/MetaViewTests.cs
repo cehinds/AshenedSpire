@@ -189,5 +189,49 @@ namespace Ashen.Tests
             Assert.That(gameplay.Controls.First(c => c.Key == "shopSell").AppliesNextRun, Is.Null);
             Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).View(Ui, "gameplay").Controls.All(c => c.AppliesNextRun == null), Is.True);
         }
+
+        // ------------------------------------------------------------------ W-06 reveal modes (US-4.2, D-151)
+
+        [Test]
+        public void TheMapRevealFollowsTheMapModeSetting()
+        {
+            var session = RunSession.New(Default, _saves, 1, 7, Default.DefaultClass(), "Aldric");
+            var full = ActMapView.Build(session, Ui);
+            Assert.That(full.Mode, Is.EqualTo(SettingIds.MapFull));
+            Assert.That(full.Nodes.Any(n => n.Dimmed || n.Hidden), Is.False, "full draws the whole act");
+
+            // Step onto the map so some of the act falls behind the run.
+            var first = session.ReachableNodes().First();
+            Assert.That(session.PlayerSettings.Set(SettingIds.MapMode, SettingIds.MapPath), Is.Null);
+            var start = ActMapView.Build(session, Ui);
+            Assert.That(start.Nodes.Any(n => n.Dimmed), Is.False, "before the first step everything is still ahead");
+
+            var after = RunSession.New(Default, _saves, 2, 7, Default.DefaultClass(), "Aldric");
+            after.PlayerSettings.Set(SettingIds.MapMode, SettingIds.MapPath);
+            after.Travel(first);
+            while (after.Location != RunFlowValues.LocationMap && !after.RunOver) Step(after);
+            var path = ActMapView.Build(after, Ui);
+            var reachable = new System.Collections.Generic.HashSet<string>(after.ReachableNodes());
+            Assert.That(path.Nodes.Where(n => reachable.Contains(n.Id)).Any(n => n.Dimmed), Is.False, "the reachable row is lit");
+            Assert.That(path.Nodes.Where(n => n.Floor == path.Node(path.CurrentId).Floor && !n.Current).All(n => n.Dimmed), Is.True, "the floor's other nodes are behind");
+            Assert.That(path.Nodes.Any(n => n.Hidden), Is.False, "path hides nothing");
+
+            after.PlayerSettings.Set(SettingIds.MapMode, SettingIds.MapFog);
+            var fog = ActMapView.Build(after, Ui);
+            var row = fog.Nodes.Where(n => n.Reachable).Min(n => n.Floor);
+            Assert.That(fog.Nodes.Where(n => n.Floor <= row + 1).Any(n => n.Hidden), Is.False, "the reachable row and the next floor are revealed");
+            Assert.That(fog.Nodes.Where(n => n.Floor > row + 1 && n.Kind != "boss").All(n => n.Hidden), Is.True, "beyond them the kinds are unseen");
+            Assert.That(fog.Nodes.Where(n => n.Hidden).All(n => n.Label == "Unseen" && n.Kind == "unseen" && n.BossLabel == null), Is.True);
+            Assert.That(fog.Nodes.Any(n => n.Kind == "boss" && !n.Hidden), Is.True, "the boss destinations stay drawn (US-4.4)");
+            Assert.That(fog.Legend.Any(l => l.Kind == "unseen"), Is.True);
+            Resolved(fog.Nodes.SelectMany(n => new[] { n.Label, n.Hint, n.AccessibleName }).Concat(fog.Legend.Select(l => l.Label)).ToArray());
+        }
+
+        /// <summary>Plays out whatever the first node opened (a fight's end turns, a reward's Continue, a place's Leave) back to the map.</summary>
+        private static void Step(RunSession s)
+        {
+            var driver = new ClimbSessionTests.Driver(Default, null, s, 7) { Reload = false };
+            driver.StepOnce();
+        }
     }
 }

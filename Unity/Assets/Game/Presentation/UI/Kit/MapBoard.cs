@@ -61,6 +61,8 @@ namespace Ashen.Presentation.UI.Kit
                 button.EnableInClassList(UiClasses.MapNodeReachable, node.Reachable);
                 button.EnableInClassList(UiClasses.MapNodeCurrent, node.Current);
                 button.EnableInClassList(UiClasses.MapNodeTravelled, node.Travelled && !node.Current);
+                button.EnableInClassList(UiClasses.MapNodeDimmed, node.Dimmed);
+                button.EnableInClassList(UiClasses.MapNodeHidden, node.Hidden);
                 var glyph = new LocLabel(node.Current ? StringKeys.GlyphNodeCurrent : node.GlyphKey) { pickingMode = PickingMode.Ignore };
                 glyph.AddToClassList(UiClasses.MapNodeGlyph);
                 button.Add(glyph);

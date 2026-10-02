@@ -516,6 +516,11 @@ namespace Ashen.App.Run
 
         // ------------------------------------------------------------------ settings (the profile, then the preset, then the data default; D-106)
 
+        private Ashen.App.Settings.SettingsSession _playerSettings;
+
+        /// <summary>The W-18 settings over this session's profile (settings/defaults.json; D-150).</summary>
+        public Ashen.App.Settings.SettingsSession PlayerSettings => _playerSettings ??= new Ashen.App.Settings.SettingsSession(Content, Profile, true);
+
         /// <summary>A stored player setting: the profile's, else the preset's playerSettings value, else null.</summary>
         private JToken Setting(string key)
         {
