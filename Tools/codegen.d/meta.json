@@ -48,7 +48,10 @@
         "Hint": "hint",
         "Mode": "mode",
         "Reason": "reason",
-        "Slot": "slot"
+        "Slot": "slot",
+        "Xp": "xp",
+        "Next": "next",
+        "List": "list"
       }
     },
     {
@@ -190,6 +193,16 @@
         "ClassNameKey": "class.{0}.name",
         "UnlockHintKey": "unlock.{0}.hint",
         "AttributeLabelKey": "attribute.{0}.label"
+      }
+    },
+    {
+      "name": "ProgressionValues",
+      "doc": "W-22 class-tree node states.",
+      "keys": {
+        "Picked": "picked",
+        "Available": "available",
+        "Closed": "closed",
+        "Excluded": "excluded"
       }
     }
   ],

@@ -333,7 +333,7 @@ namespace Ashen.App.Run
         private static string NodeName(RunSession session, string nodeId) => Node(session, nodeId)?.Str(RunFlowKeys.Label) ?? nodeId;
 
         /// <summary>A class-tree node as a tile: its label and its rule's sentence (numbers bound by op), else its blurb.</summary>
-        private static RewardPickView NodePick(RunSession session, string nodeId)
+        internal static RewardPickView NodePick(RunSession session, string nodeId)
         {
             var data = session.Content.Combat;
             var node = Node(session, nodeId) ?? new JObject();
@@ -349,7 +349,7 @@ namespace Ashen.App.Run
         }
 
         /// <summary>A skill track's name: its tree node's label, or the class's name for a class track.</summary>
-        private static string TrackName(RunSession session, string skillId)
+        internal static string TrackName(RunSession session, string skillId)
         {
             var node = Node(session, skillId);
             if (node != null) return node.Str(RunFlowKeys.Label) ?? skillId;

@@ -4,6 +4,15 @@ namespace Ashen.Generated
     /// <summary>Meta screen string keys (strings/meta.en.json): W-16 journal, W-18 settings, W-05 prologue, map reveal.</summary>
     public static class MetaStringKeys
     {
+        public const string ClassTreeAvailable = "classTree.available";
+        public const string ClassTreeClosed = "classTree.closed";
+        public const string ClassTreeExcluded = "classTree.excluded";
+        public const string ClassTreeExclusive = "classTree.exclusive";
+        public const string ClassTreeListJoin = "classTree.listJoin";
+        public const string ClassTreePicked = "classTree.picked";
+        public const string ClassTreeTier = "classTree.tier";
+        public const string ClassTreeTierClosed = "classTree.tierClosed";
+        public const string ClassTreeTitle = "classTree.title";
         public const string CreationDeck = "creation.deck";
         public const string CreationHandEmpty = "creation.hand.empty";
         public const string CreationHandMoved = "creation.hand.moved";
@@ -68,6 +77,13 @@ namespace Ashen.Generated
         public const string JournalWinRate = "journal.winRate";
         public const string MapKindUnseen = "map.kind.unseen";
         public const string MapKindHintUnseen = "map.kindHint.unseen";
+        public const string ProgressionLevel = "progression.level";
+        public const string ProgressionLevelMax = "progression.levelMax";
+        public const string ProgressionPoints = "progression.points";
+        public const string ProgressionTitle = "progression.title";
+        public const string ProgressionTrack = "progression.track";
+        public const string ProgressionTracks = "progression.tracks";
+        public const string ProgressionTracksNone = "progression.tracksNone";
         public const string PrologueCarryLine = "prologue.carry.line";
         public const string PrologueCarryLineHerald = "prologue.carry.line.herald";
         public const string PrologueCarryLineReaver = "prologue.carry.line.reaver";

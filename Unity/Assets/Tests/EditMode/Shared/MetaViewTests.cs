@@ -451,5 +451,40 @@ namespace Ashen.Tests
             Assert.That(again.Begin(true, out refusal).ClassId, Is.EqualTo("rogue"), "Replace confirmed");
             if (Directory.Exists(_dir + "-b")) Directory.Delete(_dir + "-b", true);
         }
+
+        // ------------------------------------------------------------------ W-22 progression (US-12.1-12.3, US-12.5)
+
+        [Test]
+        public void TheClassTreeShowsTiersStatesAndTheExclusiveChoice()
+        {
+            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
+            var view = ProgressionView.Build(session, Ui);
+            Assert.That(view.Tiers, Is.Not.Empty);
+            Assert.That(view.Tiers.All(t => !t.Open), Is.True, "class level 0: every tier is closed");
+            Assert.That(view.Tiers.SelectMany(t => t.Nodes).All(n => n.State == ProgressionValues.Closed), Is.True);
+            Assert.That(view.Tracks, Has.Count.EqualTo(1), "no track has grown yet");
+
+            // Raise the class track to the top tier: the open tiers' nodes can be drafted.
+            var classSkill = Ashen.Domain.Rewards.Skills.ClassSkillId("rogue");
+            var run = session.Run;
+            if (!(run["skills"] is JObject skills)) run["skills"] = skills = new JObject();
+            skills[classSkill] = new JObject { ["level"] = 20.0, ["xp"] = 0.0 };
+            view = ProgressionView.Build(session, Ui, run);
+            Assert.That(view.Tiers.All(t => t.Open), Is.True);
+            var first = view.Tiers[0].Nodes[0];
+            Assert.That(first.State, Is.EqualTo(ProgressionValues.Available));
+            var top = view.Tiers.Last();
+            Assert.That(top.Exclusive, Is.Not.Null.And.StartsWith("Choose one:"), "the tier-3 nodes are mutually exclusive");
+
+            // Choosing one top node closes its partner.
+            var core = new JArray(view.Tiers.Take(view.Tiers.Count - 1).SelectMany(t => t.Nodes).Select(n => (JToken)n.Id));
+            core.Add(top.Nodes[0].Id);
+            run["coreTags"] = core;
+            view = ProgressionView.Build(session, Ui, run);
+            Assert.That(view.Tiers.Last().Nodes[0].State, Is.EqualTo(ProgressionValues.Picked));
+            Assert.That(view.Tiers.Last().Nodes.Skip(1).Any(n => n.State == ProgressionValues.Excluded && n.StateText.StartsWith("Closed by", StringComparison.Ordinal)), Is.True);
+            Resolved(view.Tiers.SelectMany(t => t.Nodes.SelectMany(n => new[] { n.Name, n.StateText })).Concat(view.Tiers.Select(t => t.Title)).Concat(view.Tracks)
+                .Concat(new[] { view.Title, view.Level, view.Points, view.ClassTreeTitle, view.TracksTitle }).ToArray());
+        }
     }
 }

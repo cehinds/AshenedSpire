@@ -26,5 +26,8 @@ namespace Ashen.Generated
         public const string Mode = "mode";
         public const string Reason = "reason";
         public const string Slot = "slot";
+        public const string Xp = "xp";
+        public const string Next = "next";
+        public const string List = "list";
     }
 }

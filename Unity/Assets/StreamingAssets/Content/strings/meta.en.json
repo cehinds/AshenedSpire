@@ -141,5 +141,21 @@
   "creation.seed.random": "Random",
   "creation.slot.occupied": "Slot {n} holds a climb. Beginning replaces it.",
   "creation.slot": "Slot {n}",
-  "creation.deck": "Starting deck ({count})"
+  "creation.deck": "Starting deck ({count})",
+  "progression.title": "Progression",
+  "progression.level": "Level {level} · {xp} of {next} XP",
+  "progression.levelMax": "Level {level}",
+  "progression.points": "{n} points banked",
+  "progression.tracks": "Skill tracks",
+  "progression.track": "{name} · level {level} · {xp} of {next} XP",
+  "progression.tracksNone": "No track has grown yet.",
+  "classTree.title": "{class} · class level {level}",
+  "classTree.tier": "Tier {n} (class level {level})",
+  "classTree.tierClosed": "Tier {n} (opens at class level {level})",
+  "classTree.picked": "Chosen",
+  "classTree.available": "Can be drafted",
+  "classTree.closed": "Not yet",
+  "classTree.excluded": "Closed by {name}",
+  "classTree.exclusive": "Choose one: {list}",
+  "classTree.listJoin": " or "
 }
