@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.37.3] — 2026-10-02
+
+- Abandon run, buy-back, XP strip data, hand example, web config import/export, combat sounds (D-134, D-159-D-163)
+
 ## [0.1.37.2] — 2026-10-02
 
 - version check: promotions may carry accumulated dev bumps (D-158)
