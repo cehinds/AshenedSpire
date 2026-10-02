@@ -191,5 +191,7 @@
   "merchant.buyBack.kind": "Buy back",
   "merchant.buyBack.price": "{price} cinders to buy back",
   "merchant.buyBack.primary": "Buy back · {price} cinders",
-  "merchant.buyBack.note": "What you sell here can be bought back at the same price until you leave."
+  "merchant.buyBack.note": "What you sell here can be bought back at the same price until you leave.",
+  "hud.xp": "XP {xp}/{next}",
+  "hud.xpMax": "XP max"
 }

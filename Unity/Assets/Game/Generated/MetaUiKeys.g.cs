@@ -14,5 +14,7 @@ namespace Ashen.Generated
         public const string Glyphs = "glyphs";
         public const string AttributeMode = "attributeMode";
         public const string Panes = "panes";
+        public const string RunHud = "runHud";
+        public const string ShowXp = "showXp";
     }
 }

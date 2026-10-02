@@ -724,5 +724,17 @@ namespace Ashen.Tests
             Assert.That(((JArray)session.Run["loadout"]["storage"]).Select(t => (string)t), Has.Member(id));
             Assert.That(((JArray)session.Run["deck"]).Count, Is.EqualTo(deck), "the deck stamps back as it was");
         }
+
+        [Test]
+        public void TheXpStripStaysHiddenUntilTheFlagIsOn()
+        {
+            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
+            Assert.That(RunHudView.Build(session, Ui).Xp, Is.Null, "off by default (an open owner decision)");
+            var on = UiData.Load(TestContent.Source);
+            on.Meta["runHud"]["showXp"] = true;
+            var hud = RunHudView.Build(session, on);
+            Assert.That(hud.Xp, Does.StartWith("XP 0/"));
+            Assert.That(hud.XpFraction, Is.EqualTo(0));
+        }
     }
 }

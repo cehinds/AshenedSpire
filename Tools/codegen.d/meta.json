@@ -138,7 +138,9 @@
         "Tints": "tints",
         "Glyphs": "glyphs",
         "AttributeMode": "attributeMode",
-        "Panes": "panes"
+        "Panes": "panes",
+        "RunHud": "runHud",
+        "ShowXp": "showXp"
       }
     },
     {

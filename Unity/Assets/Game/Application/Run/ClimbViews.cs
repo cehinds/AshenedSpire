@@ -31,6 +31,12 @@ namespace Ashen.App.Run
         public string Stones;
         public string Flasks;
         public string Deck;
+
+        /// <summary>The XP strip (W-22 WGH5): null unless ui/meta.json runHud.showXp is on (an open owner decision; off).</summary>
+        public string Xp;
+
+        /// <summary>The strip's fill, 0..1 (0 while it is hidden or the level is at its cap).</summary>
+        public double XpFraction;
     }
 
     public static class RunHudView
@@ -44,7 +50,7 @@ namespace Ashen.App.Run
             var charges = run.Obj(K.FlaskCharges) ?? new JObject();
             var seat = session.SeatId;
             var level = Int(run.Obj(K.Level)?.Num(K.Level) ?? 0);
-            return new RunHudState
+            var hud = new RunHudState
             {
                 Portrait = session.Portrait,
                 Identity = strings.Format(StringKeys.HudIdentity, new StringArgs().Add(UiPlaceholders.Name, session.Name)
@@ -64,6 +70,16 @@ namespace Ashen.App.Run
                     .Add(UiPlaceholders.Count, run.Arr(K.Flasks)?.Count ?? 0)),
                 Deck = strings.Format(StringKeys.HudDeck, new StringArgs().Add(UiPlaceholders.Count, run.Arr(K.Deck)?.Count ?? 0)),
             };
+            if (ui.Meta?.Obj(MetaUiKeys.RunHud)?.Is(MetaUiKeys.ShowXp) == true)
+            {
+                var row = run.Obj(K.Level) ?? Ashen.Domain.Rewards.LevelUp.EmptyLevel();
+                var next = Ashen.Domain.Rewards.LevelUp.XpToNext(session.Content.Loop.Rewards, row[K.Level]);
+                var capped = double.IsInfinity(next) || double.IsNaN(next) || next <= 0;
+                hud.Xp = capped ? strings.Get(MetaStringKeys.HudXpMax)
+                    : strings.Format(MetaStringKeys.HudXp, new StringArgs().Add(MetaPlaceholders.Xp, Int(row.Num(K.Xp))).Add(MetaPlaceholders.Next, Int(next)));
+                hud.XpFraction = capped ? 0 : Math.Max(0, Math.Min(1, row.Num(K.Xp) / next));
+            }
+            return hud;
         }
 
         public static string ClassName(UiData ui, string classId) =>

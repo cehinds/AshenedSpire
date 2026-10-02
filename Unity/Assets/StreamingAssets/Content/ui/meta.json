@@ -1,5 +1,5 @@
 {
-  "comment": "Presentation data of the meta lane (D-149): the act map's reveal modes (settings mapMode; US-4.2) and W-04's creation choices (name length, tints, sigils; US-2.2/2.3).",
+  "comment": "Presentation data of the meta lane (D-149): the act map's reveal modes (settings mapMode; US-4.2) and W-04's creation choices (name length, tints, sigils; US-2.2/2.3); the RUN_HUD XP strip flag (W-22, an open owner decision: off).",
   "mapReveal": {
     "fogFloorsAhead": 1,
     "fogKeepsKinds": [
@@ -31,5 +31,8 @@
       "equipment",
       "review"
     ]
+  },
+  "runHud": {
+    "showXp": false
   }
 }
