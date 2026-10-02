@@ -26,12 +26,14 @@ const PATHS = {
   buildInfo: join(ROOT, 'build-info.json'),
 };
 // Merge kind → allowed bump parts (10 §2 "Rules for check"). null = versions must be equal.
+// 'promotion' = dev → test or test → main: carries dev's accumulated bumps, so the head may be ahead of
+// the base (never behind) and needs a CHANGELOG entry, but no single-part or reset rule applies (D-158).
 const ALLOWED = [
   { head: /^feature\/[^/]+\/main$/, base: /^dev$/, parts: ['story', 'feature'] },
   { head: /^feature\/[^/]+\/us-[\d.]+$/, base: /^feature\/[^/]+\/main$/, parts: null },
   { head: /^(fix|chore)\//, base: /^(dev|test)$/, parts: ['patch'] },
-  { head: /^dev$/, base: /^test$/, parts: null },
-  { head: /^test$/, base: /^main$/, parts: null },
+  { head: /^dev$/, base: /^test$/, parts: 'promotion' },
+  { head: /^test$/, base: /^main$/, parts: 'promotion' },
   { head: /^dev$/, base: /^dev$/, parts: ['feature', 'story', 'patch'] },
 ];
 
@@ -95,6 +97,29 @@ function writeAll(version, note, stories) {
   writeFileSync(PATHS.buildInfo, `${JSON.stringify(info, null, 2)}\n`);
 }
 
+// Pure decision for `check`: returns { error } or { part }. hasChangelog(versionText) → bool.
+export function decide({ base, head, rule, headBranch, baseBranch, hasChangelog }) {
+  const cmp = compare(head, base);
+  if (cmp < 0) return { error: `version went backwards: ${format(base)} → ${format(head)}` };
+  const part = bumpedPart(base, head);
+  if (rule && rule.parts === 'promotion') {
+    if (cmp > 0 && !hasChangelog(format(head))) return { error: `CHANGELOG.md has no entry for ${format(head)}` };
+    return { part };
+  }
+  if (rule && rule.parts === null && cmp !== 0) return { error: `${headBranch} → ${baseBranch} must not bump (${format(base)} → ${format(head)})` };
+  if (rule && rule.parts && cmp === 0) return { error: `${headBranch} → ${baseBranch} must bump one of ${rule.parts.join('|')}` };
+  if (rule && rule.parts && !rule.parts.includes(part)) return { error: `${headBranch} → ${baseBranch} bumped "${part}", allowed ${rule.parts.join('|')}` };
+  if (cmp > 0) {
+    const expected = next(base, part, part === 'story' ? head[2] - base[2] : 1);
+    if (compare(expected, head) !== 0) return { error: `lower parts must reset: expected ${format(expected)}, got ${format(head)}` };
+    if (!hasChangelog(format(head))) return { error: `CHANGELOG.md has no entry for ${format(head)}` };
+  }
+  return { part };
+}
+export function findRule(headBranch, baseBranch) {
+  return ALLOWED.find(r => r.head.test(headBranch) && r.base.test(baseBranch));
+}
+
 function check(baseRef) {
   const head = readVersion();
   const baseText = git(['show', `${baseRef}:VERSION`]);
@@ -102,20 +127,12 @@ function check(baseRef) {
   const base = parse(baseText);
   const headBranch = arg('--head-branch', process.env.GITHUB_HEAD_REF || git(['rev-parse', '--abbrev-ref', 'HEAD']));
   const baseBranch = arg('--base-branch', process.env.GITHUB_BASE_REF || baseRef.replace(/^origin\//, ''));
-  const rule = ALLOWED.find(r => r.head.test(headBranch) && r.base.test(baseBranch));
-  const cmp = compare(head, base);
-  if (cmp < 0) fail(`version went backwards: ${format(base)} → ${format(head)}`);
-  const part = bumpedPart(base, head);
-  if (rule && rule.parts === null && cmp !== 0) fail(`${headBranch} → ${baseBranch} must not bump (${format(base)} → ${format(head)})`);
-  if (rule && rule.parts && cmp === 0) fail(`${headBranch} → ${baseBranch} must bump one of ${rule.parts.join('|')}`);
-  if (rule && rule.parts && !rule.parts.includes(part)) fail(`${headBranch} → ${baseBranch} bumped "${part}", allowed ${rule.parts.join('|')}`);
-  if (cmp > 0) {
-    const expected = next(base, part, part === 'story' ? head[2] - base[2] : 1);
-    if (compare(expected, head) !== 0) fail(`lower parts must reset: expected ${format(expected)}, got ${format(head)}`);
-    const log = existsSync(PATHS.changelog) ? readFileSync(PATHS.changelog, 'utf8') : '';
-    if (!log.includes(`## [${format(head)}]`)) fail(`CHANGELOG.md has no entry for ${format(head)}`);
-  }
-  console.log(`version: ok ${format(base)} → ${format(head)}${part ? ` (${part})` : ''} [${headBranch} → ${baseBranch}]`);
+  const rule = findRule(headBranch, baseBranch);
+  const log = existsSync(PATHS.changelog) ? readFileSync(PATHS.changelog, 'utf8') : '';
+  const { error, part } = decide({ base, head, rule, headBranch, baseBranch, hasChangelog: v => log.includes(`## [${v}]`) });
+  if (error) fail(error);
+  const kind = rule && rule.parts === 'promotion' ? ' promotion' : '';
+  console.log(`version: ok ${format(base)} → ${format(head)}${part ? ` (${part})` : ''}${kind} [${headBranch} → ${baseBranch}]`);
 }
 
 const [cmd, part] = process.argv.slice(2);
@@ -146,6 +163,17 @@ else if (cmd === 'selftest') {
   t(format(next([0, 4, 3, 1], 'epic')), '1.0.0.0', 'epic');
   t(format(next([1, 2, 3, 4], 'patch')), '1.2.3.5', 'patch');
   t(bumpedPart([0, 1, 0, 0], [0, 1, 1, 0]), 'story', 'bumpedPart');
+  const yes = () => true, no = () => false;
+  const d = (h, b, base, head, hasChangelog = yes) =>
+    decide({ base, head, rule: findRule(h, b), headBranch: h, baseBranch: b, hasChangelog });
+  t(d('dev', 'test', [0, 1, 13, 0], [0, 1, 37, 1]).error, undefined, 'promotion ahead passes');
+  t(d('test', 'main', [0, 1, 13, 0], [0, 2, 4, 3]).error, undefined, 'promotion multi-part ahead passes');
+  t(d('dev', 'test', [0, 1, 13, 0], [0, 1, 13, 0]).error, undefined, 'promotion equal passes');
+  t(typeof d('dev', 'test', [0, 1, 37, 1], [0, 1, 13, 0]).error, 'string', 'promotion backwards fails');
+  t(typeof d('test', 'main', [0, 1, 13, 0], [0, 1, 37, 1], no).error, 'string', 'promotion needs changelog');
+  t(typeof d('fix/x', 'dev', [0, 1, 37, 1], [0, 1, 38, 0]).error, 'string', 'fix must bump patch');
+  t(d('fix/x', 'dev', [0, 1, 37, 1], [0, 1, 37, 2]).error, undefined, 'fix patch passes');
+  t(typeof d('feature/a/us-1.2', 'feature/a/main', [0, 1, 0, 0], [0, 1, 1, 0]).error, 'string', 'story branch must not bump');
   console.log('version: selftest ok');
 } else {
   console.log('usage: node Tools/version.mjs <current|next|bump|check|selftest> ...');
