@@ -305,12 +305,19 @@ namespace Ashen.Domain.Loop
             }
         }
 
-        /// <summary>A card joins the deck as <c>r&lt;deck length&gt;_&lt;cardId&gt;</c>.</summary>
+        /// <summary>
+        /// A card joins the deck as <c>r&lt;deck length&gt;_&lt;cardId&gt;</c>. When a removal shrank the deck and that id is
+        /// already held, the number steps on to the next free one (the shipped door repeats the id; D-146).
+        /// </summary>
         private void AddDeckCard(string cardId, bool upgraded)
         {
             var deck = _ctx.Run.Arr(K.Deck);
             var d = _ctx.Data;
-            var id = d.RuleStr(WK.Rewards, LK.CardInstancePrefix) + RunJs.NumStr(deck.Count) + d.RuleStr(WK.Rewards, LK.CardInstanceSeparator) + cardId;
+            var held = new HashSet<string>(deck.OfType<JObject>().Select(c => c.Str(K.InstanceId)), StringComparer.Ordinal);
+            var n = deck.Count;
+            string id;
+            do id = d.RuleStr(WK.Rewards, LK.CardInstancePrefix) + RunJs.NumStr(n++) + d.RuleStr(WK.Rewards, LK.CardInstanceSeparator) + cardId;
+            while (held.Contains(id));
             deck.Add(Js.Obj(K.InstanceId, id, K.CardId, cardId, K.Upgraded, upgraded));
         }
 

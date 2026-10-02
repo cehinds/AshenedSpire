@@ -2,6 +2,12 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.37.0] — 2026-10-02
+
+Stories: us-18.1
+
+- 200-seed Classic bot report; reward card ids stay unique (D-146, D-147)
+
 ## [0.1.36.0] — 2026-09-27
 
 Stories: us-9.1, us-9.2, us-9.3, us-10.1, us-10.2, us-10.3, us-4.5
