@@ -57,7 +57,12 @@
         "Next": "next",
         "List": "list",
         "Before": "before",
-        "After": "after"
+        "After": "after",
+        "Opening": "opening",
+        "Capacity": "capacity",
+        "Draw": "draw",
+        "Hand": "hand",
+        "Kept": "kept"
       }
     },
     {
@@ -140,7 +145,10 @@
         "AttributeMode": "attributeMode",
         "Panes": "panes",
         "RunHud": "runHud",
-        "ShowXp": "showXp"
+        "ShowXp": "showXp",
+        "HandExample": "handExample",
+        "Turns": "turns",
+        "PlaysPerTurn": "playsPerTurn"
       }
     },
     {

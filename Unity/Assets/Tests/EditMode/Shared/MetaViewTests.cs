@@ -736,5 +736,32 @@ namespace Ashen.Tests
             Assert.That(hud.Xp, Does.StartWith("XP 0/"));
             Assert.That(hud.XpFraction, Is.EqualTo(0));
         }
+
+        // ------------------------------------------------------------------ W-18 hand-rules worked example (US-15.2)
+
+        [Test]
+        public void TheHandExampleFollowsTheFormulasForTheClass()
+        {
+            var view = HandExample.ForClass(Default, Ui, "rogue");
+            Assert.That(view.Title, Is.EqualTo("Worked example · " + RunHudView.ClassName(Ui, "rogue")));
+            Assert.That(view.Rules, Is.EqualTo("Opening 3 · capacity 10 · each turn fills the hand"));
+            Assert.That(view.Lines, Is.EqualTo(new[]
+            {
+                "Turn 1: draw 3, holding 3 of 10", "Play 2; 1 stay in hand",
+                "Turn 2: draw 9, holding 10 of 10", "Play 2; 8 stay in hand",
+                "Turn 3: draw 2, holding 10 of 10", "Play 2; 8 stay in hand",
+            }));
+
+            // Other modes stay selectable in the rules: a fixed draw with discard, and a stat that raises the opening hand.
+            var rules = TestContent.ContentJson("rules/handRules.json");
+            rules["drawMode"] = "draw";
+            rules["retain"] = false;
+            var attributes = new JObject { ["intelligence"] = 30.0 };
+            var other = HandExample.Build(rules, attributes, "X", Ui);
+            Assert.That(other.Rules, Is.EqualTo("Opening 5 · capacity 10 · each turn draws 2"));
+            Assert.That(other.Lines[0], Is.EqualTo("Turn 1: draw 5, holding 5 of 10"));
+            Assert.That(other.Lines[1], Is.EqualTo("Play 2; the other 3 are discarded"));
+            Assert.That(other.Lines[2], Is.EqualTo("Turn 2: draw 2, holding 2 of 10"));
+        }
     }
 }

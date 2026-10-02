@@ -193,5 +193,12 @@
   "merchant.buyBack.primary": "Buy back · {price} cinders",
   "merchant.buyBack.note": "What you sell here can be bought back at the same price until you leave.",
   "hud.xp": "XP {xp}/{next}",
-  "hud.xpMax": "XP max"
+  "hud.xpMax": "XP max",
+  "handExample.title": "Worked example · {class}",
+  "handExample.rules": "Opening {opening} · capacity {capacity} · {mode}",
+  "handExample.mode.fill": "each turn fills the hand",
+  "handExample.mode.draw": "each turn draws {n}",
+  "handExample.turn": "Turn {n}: draw {draw}, holding {hand} of {capacity}",
+  "handExample.playRetain": "Play {count}; {kept} stay in hand",
+  "handExample.playDiscard": "Play {count}; the other {kept} are discarded"
 }

@@ -16,5 +16,8 @@ namespace Ashen.Generated
         public const string Panes = "panes";
         public const string RunHud = "runHud";
         public const string ShowXp = "showXp";
+        public const string HandExample = "handExample";
+        public const string Turns = "turns";
+        public const string PlaysPerTurn = "playsPerTurn";
     }
 }

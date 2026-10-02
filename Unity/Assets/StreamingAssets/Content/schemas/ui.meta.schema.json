@@ -80,6 +80,21 @@
       "required": [
         "showXp"
       ]
+    },
+    "handExample": {
+      "type": "object",
+      "properties": {
+        "turns": {
+          "type": "integer"
+        },
+        "playsPerTurn": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "turns",
+        "playsPerTurn"
+      ]
     }
   },
   "required": [

@@ -67,6 +67,13 @@ namespace Ashen.Generated
         public const string CreationStatModeAssign = "creation.statMode.assign";
         public const string CreationStatModeStandard = "creation.statMode.standard";
         public const string GlyphNodeUnseen = "glyph.node.unseen";
+        public const string HandExampleModeDraw = "handExample.mode.draw";
+        public const string HandExampleModeFill = "handExample.mode.fill";
+        public const string HandExamplePlayDiscard = "handExample.playDiscard";
+        public const string HandExamplePlayRetain = "handExample.playRetain";
+        public const string HandExampleRules = "handExample.rules";
+        public const string HandExampleTitle = "handExample.title";
+        public const string HandExampleTurn = "handExample.turn";
         public const string HudXp = "hud.xp";
         public const string HudXpMax = "hud.xpMax";
         public const string JournalArmamentsEmpty = "journal.armaments.empty";

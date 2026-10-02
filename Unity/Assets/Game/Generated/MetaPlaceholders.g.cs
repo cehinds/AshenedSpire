@@ -31,5 +31,10 @@ namespace Ashen.Generated
         public const string List = "list";
         public const string Before = "before";
         public const string After = "after";
+        public const string Opening = "opening";
+        public const string Capacity = "capacity";
+        public const string Draw = "draw";
+        public const string Hand = "hand";
+        public const string Kept = "kept";
     }
 }
