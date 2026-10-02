@@ -6,6 +6,7 @@ namespace Ashen.Generated
     {
         public const string About = "about.json";
         public const string AssetsRegistry = "assets/registry.json";
+        public const string AudioBeds = "audio/beds.json";
         public const string AudioContexts = "audio/contexts.json";
         public const string AudioMusic = "audio/music.json";
         public const string AudioSfx = "audio/sfx.json";
@@ -73,6 +74,7 @@ namespace Ashen.Generated
         public const string RulesValidation = "rules/validation.json";
         public const string SchemasAboutSchema = "schemas/about.schema.json";
         public const string SchemasAssetsRegistrySchema = "schemas/assets.registry.schema.json";
+        public const string SchemasAudioBedsSchema = "schemas/audio.beds.schema.json";
         public const string SchemasAudioContextsSchema = "schemas/audio.contexts.schema.json";
         public const string SchemasAudioMusicSchema = "schemas/audio.music.schema.json";
         public const string SchemasAudioSfxSchema = "schemas/audio.sfx.schema.json";

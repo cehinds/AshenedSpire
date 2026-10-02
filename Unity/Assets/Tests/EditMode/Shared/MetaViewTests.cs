@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Ashen.App.Audio;
 using Ashen.App.Run;
 using Ashen.App.Saves;
 using Ashen.App.Settings;
@@ -545,6 +546,36 @@ namespace Ashen.Tests
             Assert.That(after.Cards, Has.Count.EqualTo(1));
             Assert.That(after.Rail[0].Value, Is.EqualTo("Discard (1)"));
             Resolved(after.Rail.Select(r => r.Value).Concat(new[] { after.Title, after.Draw }).ToArray());
+        }
+
+        // ------------------------------------------------------------------ music (US-16.1)
+
+        [Test]
+        public void MusicFollowsWhereTheRunStandsAndEveryContextResolves()
+        {
+            var director = MusicDirector.From(TestContent.Source);
+            Assert.That(director.ContextFor(RunFlowValues.LocationMap), Is.EqualTo("map"));
+            Assert.That(director.ContextFor(RunFlowValues.LocationCombat, "normal"), Is.EqualTo("combat"));
+            Assert.That(director.ContextFor(RunFlowValues.LocationCombat, "elite"), Is.EqualTo("elite"));
+            Assert.That(director.ContextFor(RunFlowValues.LocationCombat, "boss"), Is.EqualTo("boss"));
+            Assert.That(director.ContextFor(RunFlowValues.LocationMerchant), Is.EqualTo("shop"));
+            Assert.That(director.RunEndContext(true), Is.EqualTo("victory"));
+            Assert.That(director.Choose(director.RunEndContext(false)).Silence, Is.True, "defeat: the quiet bed is silence");
+            Assert.That(director.Stinger("defeat").Recipe, Is.EqualTo("youDied"));
+
+            var music = TestContent.ContentJson(ContentFiles.AudioMusic);
+            var renderer = new BedRenderer(music, TestContent.ContentJson(ContentFiles.AudioBeds), (int)TestContent.ContentJson(ContentFiles.AudioSynth)["sampleRate"]);
+            foreach (var context in new[] { "title", "map", "combat", "elite", "boss", "shop", "rest", "victory" })
+            {
+                var choice = director.Choose(context, 1);
+                Assert.That(choice.Silence, Is.False, context);
+                Assert.That(choice.Bed, Is.Not.Null, context + ": no generated file yet, so the bed plays");
+                var pcm = renderer.RenderLoop(choice.Bed, choice.Variant);
+                Assert.That(pcm.Length, Is.GreaterThan(0));
+                Assert.That(pcm.Max(Math.Abs), Is.GreaterThan(0.01f).And.LessThanOrEqualTo(1f), context + ": audible, not clipping");
+                Assert.That(renderer.RenderLoop(choice.Bed, choice.Variant), Is.EqualTo(pcm), context + ": deterministic");
+            }
+            Assert.That(director.Choose("map", 0).Variant, Is.Not.EqualTo(director.Choose("map", 1).Variant), "acts sound apart");
         }
     }
 }

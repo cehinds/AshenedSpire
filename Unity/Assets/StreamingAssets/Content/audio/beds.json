@@ -1,0 +1,30 @@
+{
+  "comment": "Music selection and the procedural bed renderer (US-16.1; D-156). 'locations' maps where the run stands to an audio/contexts.json context; a fight's encounter pool may override it ('pools'). The run end picks by outcome. A bed loop is 'notesPerLoop' notes, one per variant cadence (ms), each a scale degree within 'lift' steps above the root an octave up, walked by a seeded xorshift so a bed always renders the same samples; 'drone' adds the root under it, 'pulse' a short tick on every beat. Gains are fractions of the bed's own gain.",
+  "locations": {
+    "title": "title",
+    "prologue": "title",
+    "map": "map",
+    "combat": "combat",
+    "rewards": "map",
+    "rest": "rest",
+    "merchant": "shop",
+    "event": "map",
+    "dungeon": "map"
+  },
+  "pools": { "elite": "elite", "boss": "boss" },
+  "runEnd": { "victory": "victory", "defeat": "quiet" },
+  "stingers": { "victory": "victory", "defeat": "defeat", "bossEnter": "boss" },
+  "render": {
+    "notesPerLoop": 8,
+    "noteLengthFraction": 0.9,
+    "noteAttackSeconds": 0.08,
+    "noteGain": 0.5,
+    "droneGain": 0.25,
+    "droneOctaveDown": 1,
+    "pulseGain": 0.18,
+    "pulseSeconds": 0.06,
+    "pulseFrequency": 60,
+    "semitonesPerOctave": 12,
+    "melodyOctaveUp": 1
+  }
+}
