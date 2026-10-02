@@ -30,7 +30,7 @@ namespace Ashen.App.Ui
                 Tokens = new UiTokens(Read(ContentFiles.UiTokens)),
                 Components = ComponentDefaults.From(Read(ContentFiles.UiComponents)),
                 Policies = ConfirmPolicies.From(Read(ContentFiles.UiConfirmationPolicies)),
-                Strings = new StringTable(Read(ContentFiles.StringsEn), Read(ContentFiles.StringsCombatEn), Read(ContentFiles.StringsAppEn), Read(ContentFiles.StringsShopEn), Read(ContentFiles.StringsEventsEn), Read(ContentFiles.StringsNodesEn)),
+                Strings = new StringTable(Read(ContentFiles.StringsEn), Read(ContentFiles.StringsCombatEn), Read(ContentFiles.StringsAppEn), Read(ContentFiles.StringsShopEn), Read(ContentFiles.StringsEventsEn), Read(ContentFiles.StringsNodesEn), Read(ContentFiles.StringsMetaEn)),
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
             };

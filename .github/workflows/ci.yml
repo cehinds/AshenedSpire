@@ -62,6 +62,7 @@ jobs:
           node-version: 22
       - run: node Tools/ci/check-content.mjs
       - run: node Tools/codegen.mjs --check
+      - run: node Tools/refresh-manifest.mjs --check
 
   domain:
     runs-on: ubuntu-latest

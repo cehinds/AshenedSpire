@@ -1,0 +1,61 @@
+{
+  "comment": "Meta screens built engine-free (W-16 journal; later W-18 settings, W-05 prologue, W-22 progression, W-12 armoury, W-17 piles): the keys this build adds to the profile's run record, wire values, placeholders and formats. strings/meta.en.json keys are generated as MetaStringKeys.",
+  "keySets": [
+    {
+      "name": "MetaKeys",
+      "doc": "Keys this build reads or adds: the run record's killer, duration and deck (D-148), and the journal's rail ids.",
+      "keys": {
+        "Killer": "killer",
+        "Duration": "duration",
+        "Deck": "deck",
+        "CardId": "cardId",
+        "Upgraded": "upgraded"
+      }
+    },
+    {
+      "name": "MetaValues",
+      "doc": "Wire values of the meta views.",
+      "keys": {
+        "JournalHistory": "history",
+        "JournalProfile": "profile",
+        "JournalArmaments": "armaments"
+      }
+    },
+    {
+      "name": "MetaPlaceholders",
+      "doc": "Named placeholders of strings/meta.en.json templates.",
+      "keys": {
+        "Act": "act",
+        "Class": "class",
+        "Count": "count",
+        "Dealt": "dealt",
+        "Floor": "floor",
+        "Level": "level",
+        "N": "n",
+        "Name": "name",
+        "Runs": "runs",
+        "Seed": "seed",
+        "Taken": "taken",
+        "Time": "time",
+        "Wins": "wins"
+      }
+    },
+    {
+      "name": "MetaFormats",
+      "doc": "String-key formats of catalog names the meta views read (<prefix>.<id>.<field>).",
+      "keys": {
+        "ArmamentName": "armament.{0}.name",
+        "EnemyName": "enemy.{0}.name",
+        "CardName": "card.{0}.name",
+        "UnlockName": "unlock.{0}.name"
+      }
+    }
+  ],
+  "stringTables": [
+    {
+      "name": "MetaStringKeys",
+      "from": "strings/meta.en.json",
+      "doc": "Meta screen string keys (strings/meta.en.json): W-16 journal."
+    }
+  ]
+}

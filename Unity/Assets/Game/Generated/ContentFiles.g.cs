@@ -143,6 +143,7 @@ namespace Ashen.Generated
         public const string SchemasStringsAppEnSchema = "schemas/strings.app.en.schema.json";
         public const string SchemasStringsCombatEnSchema = "schemas/strings.combat.en.schema.json";
         public const string SchemasStringsEventsEnSchema = "schemas/strings.events.en.schema.json";
+        public const string SchemasStringsMetaEnSchema = "schemas/strings.meta.en.schema.json";
         public const string SchemasStringsNodesEnSchema = "schemas/strings.nodes.en.schema.json";
         public const string SchemasStringsShopEnSchema = "schemas/strings.shop.en.schema.json";
         public const string SchemasTagsFamilyNodesSchema = "schemas/tags.familyNodes.schema.json";
@@ -173,6 +174,7 @@ namespace Ashen.Generated
         public const string StringsCombatEn = "strings/combat.en.json";
         public const string StringsEn = "strings/en.json";
         public const string StringsEventsEn = "strings/events.en.json";
+        public const string StringsMetaEn = "strings/meta.en.json";
         public const string StringsNodesEn = "strings/nodes.en.json";
         public const string StringsShopEn = "strings/shop.en.json";
         public const string TagsFamilyNodes = "tags/familyNodes.json";
