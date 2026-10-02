@@ -74,6 +74,16 @@ namespace Ashen.App.Run
             };
         }
 
+        private HashSet<string> _assets;
+
+        /// <summary>Whether assets/registry.json has the asset id (the registry is the one source of art and sound; US-0.1).</summary>
+        public bool HasAsset(string assetId)
+        {
+            if (assetId == null) return false;
+            _assets ??= new HashSet<string>(((Snapshot.Content.Get(ContentFiles.AssetsRegistry) as JObject)?.Properties() ?? Enumerable.Empty<JProperty>()).Select(p => p.Name), StringComparer.Ordinal);
+            return _assets.Contains(assetId);
+        }
+
         private readonly Dictionary<string, string> _classProblems = new Dictionary<string, string>(StringComparer.Ordinal);
 
         /// <summary>

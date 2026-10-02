@@ -1,0 +1,66 @@
+{
+  "$id": "ui/prologue.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "presentation": {
+      "type": "object",
+      "properties": {
+        "layout": { "type": "string", "enum": ["caption", "overlay", "letterbox", "side"] },
+        "reveal": { "type": "string", "enum": ["typewriter", "fade", "instant"] },
+        "revealCharsPerSecond": { "type": "number" },
+        "advanceOnClick": { "type": "boolean" },
+        "captionHeightPct": { "type": "number" },
+        "showPause": { "type": "boolean" },
+        "showSkip": { "type": "boolean" },
+        "skipHoldMs": { "type": "number" },
+        "textOutline": { "type": "boolean" },
+        "vignette": { "type": "number" },
+        "transition": { "type": "string", "enum": ["fade", "cut"] },
+        "transitionMs": { "type": "number" }
+      },
+      "required": ["layout", "reveal", "advanceOnClick", "showPause", "showSkip", "skipHoldMs"]
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "order": { "type": "integer" },
+          "enabled": { "type": "boolean" },
+          "art": {
+            "type": "object",
+            "properties": {
+              "wide": { "type": "string" },
+              "narrow": { "type": "string" },
+              "wideFallback": { "type": "string" },
+              "narrowFallback": { "type": "string" }
+            },
+            "required": ["wide", "narrow"]
+          },
+          "item": { "type": "string" },
+          "lineKey": { "type": "string" },
+          "lineFallbackKey": { "type": "string" },
+          "holdMs": { "type": "number" },
+          "music": { "type": "string" },
+          "banner": { "type": "boolean" },
+          "transition": { "type": "string", "enum": ["fade", "cut"] },
+          "stage": {
+            "type": "object",
+            "properties": {
+              "focusX": { "type": "number" },
+              "focusY": { "type": "number" },
+              "scale": { "type": "number" },
+              "vignette": { "type": "number" },
+              "brightness": { "type": "number" },
+              "contrast": { "type": "number" }
+            }
+          }
+        },
+        "required": ["id", "order", "enabled"]
+      }
+    }
+  },
+  "required": ["presentation", "scenes"]
+}

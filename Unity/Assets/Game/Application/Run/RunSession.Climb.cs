@@ -60,7 +60,7 @@ namespace Ashen.App.Run
         /// <summary>The node ids the run may travel to from where it stands (the map's start row before the first step), in graph order.</summary>
         public IReadOnlyList<string> ReachableNodes()
         {
-            if (Location != RunFlowValues.LocationMap) return Array.Empty<string>();
+            if (Location != RunFlowValues.LocationMap || ProloguePending) return Array.Empty<string>();
             var graph = _run.Obj(RK.MapGraph);
             if (graph == null) return Array.Empty<string>();
             var at = _run[MK.MapNodeId];

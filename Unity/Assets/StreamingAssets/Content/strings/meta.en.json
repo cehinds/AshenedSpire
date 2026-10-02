@@ -95,5 +95,21 @@
   "settings.playPrologue": "Play the prologue on a new run",
   "glyph.node.unseen": "·",
   "map.kind.unseen": "Unseen",
-  "map.kindHint.unseen": "Climb closer to see what waits here."
+  "map.kindHint.unseen": "Climb closer to see what waits here.",
+  "prologue.warmth.line": "There was a hearth once, and a city that kept it burning.",
+  "prologue.year.line": "Then came the year the ash fell, and did not stop falling.",
+  "prologue.carry.line": "You took up what was left by the door, and went out into the grey.",
+  "prologue.carry.line.reaver": "You took up the heavy blade left by the door. It still remembered the forge.",
+  "prologue.carry.line.starseer": "You took up the staff and the old star charts. The sky had not gone out for you yet.",
+  "prologue.carry.line.rogue": "You took up the knives no one would miss, and learned to walk where the ash was thin.",
+  "prologue.carry.line.herald": "You took up the bell and the oath that went with it. Someone had to call the hours.",
+  "prologue.night.line": "One by one the towers let their fires die, and the long night settled in.",
+  "prologue.step.line": "Three seats still smoulder at the Spire's heart. Climb, and take back the light.",
+  "prologue.continue": "Continue",
+  "prologue.setForth": "Set forth",
+  "prologue.skip": "Hold to skip",
+  "prologue.pause": "Pause",
+  "prologue.resume": "Resume",
+  "prologue.quit": "Quit to title",
+  "prologue.progress": "Scene {n} of {count}"
 }

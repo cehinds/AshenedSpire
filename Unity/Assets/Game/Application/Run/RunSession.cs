@@ -199,7 +199,7 @@ namespace Ashen.App.Run
                 Custom = custom?.DeepClone() as JObject,
                 Customization = customization,
                 AdvancedConfigSnapshot = (JObject)content.Flow.AdvancedConfigSnapshot.DeepClone(),
-                Prologue = content.Flow.Prologue,
+                Prologue = content.Flow.Prologue && session.PlayerSettings.On(SettingIds.PlayPrologue),
             });
             session._run = ctx.Run;
             session._rng = ctx.Rng;

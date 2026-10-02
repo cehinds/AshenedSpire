@@ -115,13 +115,53 @@
         "FogKeepsKinds": "fogKeepsKinds",
         "FogKind": "fogKind"
       }
+    },
+    {
+      "name": "PrologueKeys",
+      "doc": "Keys of ui/prologue.json (W-05) and of the run's prologue row (rules/loopEngine.json newRun prologue).",
+      "keys": {
+        "Presentation": "presentation",
+        "Scenes": "scenes",
+        "Id": "id",
+        "Order": "order",
+        "Enabled": "enabled",
+        "Art": "art",
+        "Wide": "wide",
+        "Narrow": "narrow",
+        "WideFallback": "wideFallback",
+        "NarrowFallback": "narrowFallback",
+        "Item": "item",
+        "LineKey": "lineKey",
+        "LineFallbackKey": "lineFallbackKey",
+        "HoldMs": "holdMs",
+        "Music": "music",
+        "Banner": "banner",
+        "Stage": "stage",
+        "Transition": "transition",
+        "SkipHoldMs": "skipHoldMs",
+        "ShowPause": "showPause",
+        "ShowSkip": "showSkip",
+        "AdvanceOnClick": "advanceOnClick",
+        "Status": "status",
+        "Scene": "scene"
+      }
+    },
+    {
+      "name": "PrologueValues",
+      "doc": "Wire values of the prologue: the run row's status and the class token of art ids and line keys.",
+      "keys": {
+        "Pending": "pending",
+        "Done": "done",
+        "Skipped": "skipped",
+        "ClassToken": "{class}"
+      }
     }
   ],
   "stringTables": [
     {
       "name": "MetaStringKeys",
       "from": "strings/meta.en.json",
-      "doc": "Meta screen string keys (strings/meta.en.json): W-16 journal, W-18 settings."
+      "doc": "Meta screen string keys (strings/meta.en.json): W-16 journal, W-18 settings, W-05 prologue, map reveal."
     }
   ]
 }

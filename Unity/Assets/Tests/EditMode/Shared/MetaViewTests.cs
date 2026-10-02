@@ -233,5 +233,82 @@ namespace Ashen.Tests
             var driver = new ClimbSessionTests.Driver(Default, null, s, 7) { Reload = false };
             driver.StepOnce();
         }
+
+        // ------------------------------------------------------------------ W-05 prologue (US-3.1-3.3)
+
+        /// <summary>The content with prologue playback on (rules/runFlow.json newRun.prologue stays off until W-05's screen is built; D-152).</summary>
+        private static RunContent WithPrologue(params JObject[] more) =>
+            RunContent.Load(TestContent.Source, null, new[] { JObject.Parse("{\"files\":{\"rules/runFlow.json\":{\"newRun\":{\"prologue\":true}}}}") }.Concat(more).ToArray());
+
+        [Test]
+        public void ANewRunPlaysThePrologueSceneByScene()
+        {
+            var content = WithPrologue();
+            var session = RunSession.New(content, _saves, 1, 7, "rogue", "Aldric");
+            Assert.That(session.ProloguePending, Is.True);
+            Assert.That(session.ReachableNodes(), Is.Empty, "the map waits on the prologue");
+            var seen = new System.Collections.Generic.List<string>();
+            var guard = 0;
+            while (session.ProloguePending && guard++ < 20)
+            {
+                var view = session.PrologueView(Ui);
+                seen.Add(view.SceneId);
+                Assert.That(content.HasAsset(view.ArtWide) && content.HasAsset(view.ArtNarrow), Is.True, view.SceneId + ": art resolves");
+                Assert.That(view.Dots.Count(d => d), Is.EqualTo(seen.Count));
+                Assert.That(view.Continue, Is.EqualTo(view.IsLast ? "Set forth" : "Continue"));
+                Resolved(view.Line, view.Continue, view.Skip, view.Progress);
+                Assert.That(view.Line, Is.Not.Empty);
+                if (view.SceneId == "carry")
+                {
+                    Assert.That(view.ArtWide, Is.EqualTo("prologue.carry-rogue-desktop"), "the class's own art");
+                    Assert.That(view.Item, Is.EqualTo("prologue.rogue"));
+                    Assert.That(view.Line, Does.Contain("knives"), "the class's own line");
+                }
+                // Every scene is a checkpoint: a reload stands at the same scene.
+                var loaded = RunSession.Load(content, _saves, 1).Session;
+                Assert.That(loaded.PrologueView(Ui).SceneId, Is.EqualTo(view.SceneId));
+                session.AdvancePrologue();
+            }
+            Assert.That(seen, Is.EqualTo(new[] { "warmth", "year", "carry", "night", "step" }), "the shipped subset and order; the empty slots are skipped");
+            Assert.That(session.ProloguePending, Is.False);
+            Assert.That(session.ReachableNodes(), Is.Not.Empty, "Set forth lands on the map");
+            Assert.That(RunSession.Load(content, _saves, 1).Session.ProloguePending, Is.False, "saved done");
+        }
+
+        [Test]
+        public void HoldToSkipEndsThePrologueAndTheSettingTurnsItOff()
+        {
+            var content = WithPrologue();
+            var session = RunSession.New(content, _saves, 1, 7, Default.DefaultClass(), "Aldric");
+            session.AdvancePrologue();
+            session.SkipPrologue();
+            Assert.That(session.ProloguePending, Is.False);
+            Assert.That(RunSession.Load(content, _saves, 1).Session.ReachableNodes(), Is.Not.Empty);
+
+            Assert.That(new SettingsSession(content, ProfileStore.Load(_saves)).Set(SettingIds.PlayPrologue, false), Is.Null);
+            var off = RunSession.New(content, _saves, 2, 7, Default.DefaultClass(), "Aldric");
+            Assert.That(off.ProloguePending, Is.False, "playback off: the run starts at the map");
+            Assert.That(RunSession.New(Default, _saves, 3, 7, Default.DefaultClass(), "Aldric").ProloguePending, Is.False, "the shipped flow keeps it off");
+        }
+
+        [Test]
+        public void ADisabledSavedSceneResumesAtTheNextAndANewSlotPlaysFromData()
+        {
+            var content = WithPrologue();
+            var session = RunSession.New(content, _saves, 1, 7, Default.DefaultClass(), "Aldric");
+            session.AdvancePrologue();
+            Assert.That(session.PrologueView(Ui).SceneId, Is.EqualTo("year"));
+
+            // The designer disables 'year' (slot 2) and fills the first extra slot: no code change (US-3.2, US-3.3).
+            var scenes = (JArray)TestContent.ContentJson("ui/prologue.json")["scenes"];
+            scenes[1]["enabled"] = false;
+            scenes[5] = JObject.Parse("{\"id\":\"extraA\",\"order\":6,\"enabled\":true,\"art\":{\"wide\":\"prologue.road-desktop\",\"narrow\":\"prologue.road-mobile\"},\"lineKey\":\"prologue.step.line\",\"holdMs\":3000}");
+            var edited = WithPrologue(new JObject { ["files"] = new JObject { ["ui/prologue.json"] = new JObject { ["scenes"] = scenes } } });
+            var resumed = RunSession.Load(edited, _saves, 1).Session;
+            Assert.That(resumed.PrologueView(Ui).SceneId, Is.EqualTo("carry"), "the disabled scene is passed over");
+            var order = new System.Collections.Generic.List<string>();
+            while (resumed.ProloguePending) { order.Add(resumed.PrologueView(Ui).SceneId); resumed.AdvancePrologue(); }
+            Assert.That(order, Is.EqualTo(new[] { "carry", "night", "step", "extraA" }));
+        }
     }
 }
