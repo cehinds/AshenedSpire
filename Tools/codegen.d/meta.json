@@ -9,7 +9,9 @@
         "Duration": "duration",
         "Deck": "deck",
         "CardId": "cardId",
-        "Upgraded": "upgraded"
+        "Upgraded": "upgraded",
+        "Desc": "desc",
+        "Icon": "icon"
       }
     },
     {
@@ -40,7 +42,13 @@
         "Wins": "wins",
         "Min": "min",
         "Max": "max",
-        "Value": "value"
+        "Value": "value",
+        "Armour": "armour",
+        "Hands": "hands",
+        "Hint": "hint",
+        "Mode": "mode",
+        "Reason": "reason",
+        "Slot": "slot"
       }
     },
     {
@@ -113,7 +121,13 @@
         "MapReveal": "mapReveal",
         "FogFloorsAhead": "fogFloorsAhead",
         "FogKeepsKinds": "fogKeepsKinds",
-        "FogKind": "fogKind"
+        "FogKind": "fogKind",
+        "Creation": "creation",
+        "NameMaxLength": "nameMaxLength",
+        "Tints": "tints",
+        "Glyphs": "glyphs",
+        "AttributeMode": "attributeMode",
+        "Panes": "panes"
       }
     },
     {
@@ -154,6 +168,28 @@
         "Done": "done",
         "Skipped": "skipped",
         "ClassToken": "{class}"
+      }
+    },
+    {
+      "name": "CreationValues",
+      "doc": "W-04 pane ids (ui/meta.json creation.panes) and choice kinds.",
+      "keys": {
+        "PaneClass": "class",
+        "PaneCharacter": "character",
+        "PaneEquipment": "equipment",
+        "PaneReview": "review",
+        "ChoiceArmour": "armour",
+        "ChoiceRightHand": "rightHand",
+        "ChoiceLeftHand": "leftHand",
+        "ChoiceRelic": "relic",
+        "ChoiceKit": "kit",
+        "ChoiceKeepsake": "keepsake",
+        "ArmourNameKey": "armour.{0}:{1}.name",
+        "RelicNameKey": "relic.{0}.name",
+        "KitNameKey": "kit.{0}.label",
+        "ClassNameKey": "class.{0}.name",
+        "UnlockHintKey": "unlock.{0}.hint",
+        "AttributeLabelKey": "attribute.{0}.label"
       }
     }
   ],

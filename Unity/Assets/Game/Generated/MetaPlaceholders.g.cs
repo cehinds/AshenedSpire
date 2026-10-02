@@ -20,5 +20,11 @@ namespace Ashen.Generated
         public const string Min = "min";
         public const string Max = "max";
         public const string Value = "value";
+        public const string Armour = "armour";
+        public const string Hands = "hands";
+        public const string Hint = "hint";
+        public const string Mode = "mode";
+        public const string Reason = "reason";
+        public const string Slot = "slot";
     }
 }

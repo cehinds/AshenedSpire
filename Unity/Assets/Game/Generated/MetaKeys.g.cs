@@ -9,5 +9,7 @@ namespace Ashen.Generated
         public const string Deck = "deck";
         public const string CardId = "cardId";
         public const string Upgraded = "upgraded";
+        public const string Desc = "desc";
+        public const string Icon = "icon";
     }
 }

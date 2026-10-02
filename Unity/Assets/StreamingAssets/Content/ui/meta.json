@@ -1,8 +1,35 @@
 {
-  "comment": "Presentation data of the meta lane (D-149): the act map's reveal modes (settings mapMode; US-4.2).",
+  "comment": "Presentation data of the meta lane (D-149): the act map's reveal modes (settings mapMode; US-4.2) and W-04's creation choices (name length, tints, sigils; US-2.2/2.3).",
   "mapReveal": {
     "fogFloorsAhead": 1,
-    "fogKeepsKinds": ["boss"],
+    "fogKeepsKinds": [
+      "boss"
+    ],
     "fogKind": "unseen"
+  },
+  "creation": {
+    "nameMaxLength": 20,
+    "tints": [
+      "ember",
+      "frost",
+      "gold",
+      "grace",
+      "rot"
+    ],
+    "glyphs": [
+      "⚔",
+      "✦",
+      "◆",
+      "▲",
+      "✕",
+      "◊"
+    ],
+    "attributeMode": "lean",
+    "panes": [
+      "class",
+      "character",
+      "equipment",
+      "review"
+    ]
   }
 }

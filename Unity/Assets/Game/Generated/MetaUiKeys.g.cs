@@ -8,5 +8,11 @@ namespace Ashen.Generated
         public const string FogFloorsAhead = "fogFloorsAhead";
         public const string FogKeepsKinds = "fogKeepsKinds";
         public const string FogKind = "fogKind";
+        public const string Creation = "creation";
+        public const string NameMaxLength = "nameMaxLength";
+        public const string Tints = "tints";
+        public const string Glyphs = "glyphs";
+        public const string AttributeMode = "attributeMode";
+        public const string Panes = "panes";
     }
 }

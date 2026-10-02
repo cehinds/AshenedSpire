@@ -310,5 +310,146 @@ namespace Ashen.Tests
             while (resumed.ProloguePending) { order.Add(resumed.PrologueView(Ui).SceneId); resumed.AdvancePrologue(); }
             Assert.That(order, Is.EqualTo(new[] { "carry", "night", "step", "extraA" }));
         }
+
+        // ------------------------------------------------------------------ W-04 creation panes (US-2.1-2.6, US-2.8)
+
+        private CreationSession NewCreation(int slot = 1) => new CreationSession(Default, _saves, ProfileStore.Load(_saves).Doc, Ui, slot, () => 4242u);
+
+        [Test]
+        public void NextAlwaysAnswersWithTheReasonAndTheControlToFocus()
+        {
+            var c = NewCreation();
+            Assert.That(c.Pane, Is.EqualTo("class"));
+            var refusal = c.Next();
+            Assert.That(refusal.Text, Is.EqualTo("Choose a class."));
+            Assert.That(refusal.Focus, Is.EqualTo("class"));
+            var blocked = c.Classes().FirstOrDefault(o => o.Locked);
+            if (blocked != null)
+            {
+                c.ChooseClass(blocked.Id);
+                Assert.That(c.Next(), Is.Not.Null, "a class the tuning cannot begin refuses");
+            }
+            Assert.That(c.ChooseClass("rogue"), Is.Null);
+            Assert.That(c.Next(), Is.Null);
+            Assert.That(c.Pane, Is.EqualTo("character"));
+
+            c.SetAssign(true);
+            Assert.That(c.PointsLeft, Is.EqualTo(3), "the lean mode's bonus pool");
+            refusal = c.Next();
+            Assert.That(refusal.Text, Is.EqualTo("3 points left."));
+            Assert.That(refusal.Focus, Is.EqualTo("attributes"));
+            var rows = c.AttributeRows();
+            Assert.That(rows.All(r => r.Value == 1 && r.CanRaise && !r.CanLower), Is.True, "every cell starts at the baseline");
+            Assert.That(c.Adjust(rows[0].Id, -1), Is.Not.Null, "below the floor is refused");
+            Assert.That(c.Adjust(rows[0].Id, 1), Is.Null);
+            Assert.That(c.Adjust(rows[0].Id, 1), Is.Null);
+            Assert.That(c.Adjust(rows[0].Id, 1), Is.Null);
+            Assert.That(c.PointsLeft, Is.EqualTo(0));
+            Assert.That(c.Adjust(rows[1].Id, 1).Text, Is.EqualTo("No points left to spend."));
+            Assert.That(c.Adjust(rows[0].Id, -1), Is.Null);
+            Assert.That(c.Adjust(rows[1].Id, 1), Is.Null);
+            Assert.That(c.SetName("   ").Text, Is.EqualTo("Give your climber a name."));
+            Assert.That(c.SetName(new string('a', 40)), Is.Not.Null);
+            Assert.That(c.SetName("Vessa"), Is.Null);
+            Assert.That(c.ChooseKeepsake("oldCinder"), Is.Null);
+            Assert.That(c.ChooseTint("nope"), Is.Not.Null);
+            Assert.That(c.Tints(), Is.Not.Empty, "the class's portrait frame sets");
+            Assert.That(c.ChooseTint(c.Tints().Last().Id), Is.Null);
+            Assert.That(c.ChooseGlyph(c.Glyphs()[1].Id), Is.Null);
+            Assert.That(c.Next(), Is.Null);
+            Assert.That(c.Pane, Is.EqualTo("equipment"));
+
+            c.Back();
+            c.Back();
+            Assert.That(c.Pane, Is.EqualTo("class"));
+            Assert.That(c.ClassId, Is.EqualTo("rogue"), "Back keeps the choices");
+            Assert.That(c.Open("review"), Is.Null, "a rail jump over finished panes");
+            Assert.That(c.Rail().Select(r => r.Value).Any(v => v.Contains("{")), Is.False);
+            Assert.That(c.Rail()[1].Value, Is.EqualTo("Vessa · Assign"));
+        }
+
+        [Test]
+        public void AnItemNeverSitsInBothHandsAndAnIllegalLoadoutRefusesOnEquipment()
+        {
+            var c = NewCreation();
+            c.ChooseClass("rogue");
+            c.Next();
+            c.Next();
+            Assert.That(c.Pane, Is.EqualTo("equipment"));
+            Assert.That(c.Armour().Count(o => o.Selected), Is.EqualTo(1), "the free armour is preselected");
+            Assert.That(c.Armour().Where(o => o.Locked).All(o => !string.IsNullOrEmpty(o.LockReason)), Is.True, "locked armour names its unlock");
+            var right = c.RightHand;
+            Assert.That(right, Is.Not.Null, "the baseline kit's hands");
+            Assert.That(c.ChooseHand("leftHand", right, out var receipt), Is.Null);
+            Assert.That(c.LeftHand, Is.EqualTo(right));
+            Assert.That(c.RightHand, Is.Null, "moved, never duplicated");
+            Assert.That(receipt, Does.Contain("moved to the off hand"));
+            // Every pair the lists offer either previews a run or refuses on Next with the loadout's reason, never both.
+            var illegal = 0;
+            foreach (var r in c.Hands("rightHand"))
+                foreach (var l in c.Hands("leftHand"))
+                {
+                    c.ChooseHand("rightHand", r.Id, out _);
+                    c.ChooseHand("leftHand", l.Id, out _);
+                    var problem = c.Preview().Problem;
+                    var next = c.Next();
+                    if (next == null) { c.Back(); Assert.That(problem, Is.Null); continue; }
+                    illegal++;
+                    Assert.That(next.Text, Is.EqualTo(problem));
+                    Assert.That(next.Pane, Is.EqualTo("equipment"));
+                }
+            TestContext.Progress.WriteLine("rogue hand pairs refused: " + illegal);
+            // Put a legal pair back and every pane passes.
+            c.ChooseHand("rightHand", right, out _);
+            c.ChooseHand("leftHand", string.Empty, out _);
+            var preview = c.Preview();
+            Assert.That(preview.Problem, Is.Null);
+            Assert.That(preview.DeckCards, Has.Count.GreaterThanOrEqualTo(11), "the starting deck (US-7.2)");
+            Resolved(preview.Derived, preview.Flasks, preview.Deck);
+            Assert.That(c.Next(), Is.Null);
+            Assert.That(c.Pane, Is.EqualTo("review"));
+            Assert.That(c.Relics().Count(o => o.Selected), Is.EqualTo(1));
+            Assert.That(c.Kits(), Is.Not.Empty);
+        }
+
+        [Test]
+        public void BeginMakesTheRunFromEveryChoiceAndAnOccupiedSlotNeedsReplace()
+        {
+            var c = NewCreation();
+            c.ChooseClass("starseer");
+            c.SetName("Ilse");
+            c.SetAssign(true);
+            var rows = c.AttributeRows();
+            c.Adjust(rows[3].Id, 1);
+            c.Adjust(rows[3].Id, 1);
+            c.Adjust(rows[4].Id, 1);
+            c.ChooseKeepsake("oldCinder");
+            var tint = c.Tints().Last().Id;
+            c.ChooseTint(tint);
+            Assert.That(c.SetSeed("!!").Text, Does.StartWith("Seeds use only"));
+            Assert.That(c.SetSeed(string.Empty).Text, Is.EqualTo("Type a seed, or choose Random."));
+            Assert.That(c.SetSeed("ASH42"), Is.Null);
+            var seed = c.Seed;
+
+            var session = c.Begin(false, out var refusal);
+            Assert.That(refusal, Is.Null, refusal?.Text);
+            Assert.That(session.ClassId, Is.EqualTo("starseer"));
+            Assert.That(session.Name, Is.EqualTo("Ilse"));
+            Assert.That(session.Seed, Is.EqualTo(seed));
+            Assert.That(session.Portrait, Does.EndWith("." + tint));
+            var attributes = (JObject)session.Run["attributes"];
+            Assert.That((int)attributes[rows[3].Id].Value<double>(), Is.EqualTo(3), "the assigned cells");
+            var plain = RunSession.New(Default, new SaveService(_dir + "-b", SaveRules.From(TestContent.ContentJson(ContentFiles.RulesSaves))), 1, seed, "starseer", "Ilse");
+            Assert.That(session.Run["cinders"].Value<double>() - plain.Run["cinders"].Value<double>(), Is.EqualTo(50), "the keepsake's effect");
+
+            var again = NewCreation();
+            again.ChooseClass("rogue");
+            Assert.That(again.SlotOccupied, Is.True);
+            Assert.That(again.Begin(false, out refusal), Is.Null);
+            Assert.That(refusal.Text, Does.Contain("holds a climb"));
+            Assert.That(RunSession.Load(Default, _saves, 1).Session.ClassId, Is.EqualTo("starseer"), "nothing was written");
+            Assert.That(again.Begin(true, out refusal).ClassId, Is.EqualTo("rogue"), "Replace confirmed");
+            if (Directory.Exists(_dir + "-b")) Directory.Delete(_dir + "-b", true);
+        }
     }
 }

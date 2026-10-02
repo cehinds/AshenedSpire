@@ -2,16 +2,77 @@
   "$id": "ui/meta.json",
   "type": "object",
   "properties": {
-    "comment": { "type": "string" },
+    "comment": {
+      "type": "string"
+    },
     "mapReveal": {
       "type": "object",
       "properties": {
-        "fogFloorsAhead": { "type": "integer" },
-        "fogKeepsKinds": { "type": "array", "items": { "type": "string" } },
-        "fogKind": { "type": "string" }
+        "fogFloorsAhead": {
+          "type": "integer"
+        },
+        "fogKeepsKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fogKind": {
+          "type": "string"
+        }
       },
-      "required": ["fogFloorsAhead", "fogKeepsKinds", "fogKind"]
+      "required": [
+        "fogFloorsAhead",
+        "fogKeepsKinds",
+        "fogKind"
+      ]
+    },
+    "creation": {
+      "type": "object",
+      "properties": {
+        "nameMaxLength": {
+          "type": "integer"
+        },
+        "tints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "glyphs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attributeMode": {
+          "type": "string",
+          "x-ref": "catalog/creationModes.json"
+        },
+        "panes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "class",
+              "character",
+              "equipment",
+              "review"
+            ]
+          }
+        }
+      },
+      "required": [
+        "nameMaxLength",
+        "tints",
+        "glyphs",
+        "attributeMode",
+        "panes"
+      ]
     }
   },
-  "required": ["mapReveal"]
+  "required": [
+    "mapReveal",
+    "creation"
+  ]
 }

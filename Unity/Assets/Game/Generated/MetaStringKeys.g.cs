@@ -4,6 +4,36 @@ namespace Ashen.Generated
     /// <summary>Meta screen string keys (strings/meta.en.json): W-16 journal, W-18 settings, W-05 prologue, map reveal.</summary>
     public static class MetaStringKeys
     {
+        public const string CreationDeck = "creation.deck";
+        public const string CreationHandEmpty = "creation.hand.empty";
+        public const string CreationHandMoved = "creation.hand.moved";
+        public const string CreationHandsJoin = "creation.handsJoin";
+        public const string CreationJourneyClassic = "creation.journey.classic";
+        public const string CreationPointsLeft = "creation.pointsLeft";
+        public const string CreationReceiptCharacter = "creation.receipt.character";
+        public const string CreationReceiptEquipment = "creation.receipt.equipment";
+        public const string CreationReceiptNone = "creation.receipt.none";
+        public const string CreationReceiptReview = "creation.receipt.review";
+        public const string CreationRefusalAttributeCap = "creation.refusal.attributeCap";
+        public const string CreationRefusalAttributeFloor = "creation.refusal.attributeFloor";
+        public const string CreationRefusalLoadout = "creation.refusal.loadout";
+        public const string CreationRefusalLocked = "creation.refusal.locked";
+        public const string CreationRefusalNameEmpty = "creation.refusal.nameEmpty";
+        public const string CreationRefusalNameLong = "creation.refusal.nameLong";
+        public const string CreationRefusalNoPoints = "creation.refusal.noPoints";
+        public const string CreationRefusalPointsLeft = "creation.refusal.pointsLeft";
+        public const string CreationRefusalSeed = "creation.refusal.seed";
+        public const string CreationRefusalSeedEmpty = "creation.refusal.seedEmpty";
+        public const string CreationRefusalSeedLong = "creation.refusal.seedLong";
+        public const string CreationRefusalStandardMode = "creation.refusal.standardMode";
+        public const string CreationRefusalUnknown = "creation.refusal.unknown";
+        public const string CreationSeedRandom = "creation.seed.random";
+        public const string CreationSlot = "creation.slot";
+        public const string CreationSlotLeftHand = "creation.slot.leftHand";
+        public const string CreationSlotOccupied = "creation.slot.occupied";
+        public const string CreationSlotRightHand = "creation.slot.rightHand";
+        public const string CreationStatModeAssign = "creation.statMode.assign";
+        public const string CreationStatModeStandard = "creation.statMode.standard";
         public const string GlyphNodeUnseen = "glyph.node.unseen";
         public const string JournalArmamentsEmpty = "journal.armaments.empty";
         public const string JournalDetailCard = "journal.detail.card";

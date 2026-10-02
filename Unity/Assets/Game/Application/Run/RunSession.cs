@@ -83,6 +83,15 @@ namespace Ashen.App.Run
     /// location and what that location needs to resume (the fight's checkpoint, the rest stay, the event); commands between
     /// checkpoints go to the generation's log with their after-state hash. Engine-free.
     /// </summary>
+    /// <summary>W-04's choices beyond the class and name (US-2.2-2.4): createRunState's options, the keepsake, the tint and the sigil.</summary>
+    public sealed class CreationChoices
+    {
+        public Ashen.Domain.Run.RunOptions Creation;
+        public string KeepsakeId;
+        public string Tint;
+        public string Glyph;
+    }
+
     public sealed partial class RunSession
     {
         private readonly Func<DateTime> _clock;
@@ -179,18 +188,21 @@ namespace Ashen.App.Run
         /// through <see cref="RunLoop.NewRun"/> with the character's name and tint, the data's glyph, the empty advanced
         /// settings' config snapshot and the seed string; <paramref name="custom"/> is a Custom Climb block (null: Classic).
         /// </summary>
-        public static RunSession New(RunContent content, SaveService saves, int slotIndex, uint seed, string classId, string name, Func<DateTime> clock = null, JObject custom = null)
+        public static RunSession New(RunContent content, SaveService saves, int slotIndex, uint seed, string classId, string name, Func<DateTime> clock = null, JObject custom = null,
+            CreationChoices choices = null)
         {
             if (classId == null || !content.Data.Classes.Has(classId))
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, RunFlowMessages.UnknownClass, classId));
+            var tint = choices?.Tint ?? content.Flow.DefaultTint;
             var session = new RunSession(content, saves, slotIndex, clock)
             {
                 Name = name,
-                Portrait = content.Portrait(classId),
+                Portrait = content.Portrait(classId, tint),
             };
             var customization = new JObject { [RunFlowKeys.Name] = name };
             foreach (var p in content.Flow.Customization.Properties()) customization[p.Name] = p.Value.DeepClone();
-            customization[RunFlowKeys.Tint] = content.Flow.DefaultTint;
+            customization[RunFlowKeys.Tint] = tint;
+            if (choices?.Glyph != null) customization[RunFlowKeys.Glyph] = choices.Glyph;
             var ctx = RunLoop.NewRun(content.Loop, session.Profile.Doc, session.Settings(), new NewRunOptions
             {
                 ClassId = classId,
@@ -200,6 +212,8 @@ namespace Ashen.App.Run
                 Customization = customization,
                 AdvancedConfigSnapshot = (JObject)content.Flow.AdvancedConfigSnapshot.DeepClone(),
                 Prologue = content.Flow.Prologue && session.PlayerSettings.On(SettingIds.PlayPrologue),
+                Creation = choices?.Creation,
+                KeepsakeId = choices?.KeepsakeId,
             });
             session._run = ctx.Run;
             session._rng = ctx.Rng;
