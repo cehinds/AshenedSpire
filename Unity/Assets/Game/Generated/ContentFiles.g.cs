@@ -138,6 +138,7 @@ namespace Ashen.Generated
         public const string SchemasRulesStringKeysSchema = "schemas/rules.stringKeys.schema.json";
         public const string SchemasRulesTextAnchorsSchema = "schemas/rules.textAnchors.schema.json";
         public const string SchemasRulesValidationSchema = "schemas/rules.validation.schema.json";
+        public const string SchemasSettingsDefaultsSchema = "schemas/settings.defaults.schema.json";
         public const string SchemasSettingsPresetsReferenceSchema = "schemas/settings.presets.reference.schema.json";
         public const string SchemasSettingsPresetsShippedSchema = "schemas/settings.presets.shipped.schema.json";
         public const string SchemasStringsAppEnSchema = "schemas/strings.app.en.schema.json";
@@ -168,6 +169,7 @@ namespace Ashen.Generated
         public const string SchemasUiTermsSchema = "schemas/ui.terms.schema.json";
         public const string SchemasUiThemeSchema = "schemas/ui.theme.schema.json";
         public const string SchemasUiTokensSchema = "schemas/ui.tokens.schema.json";
+        public const string SettingsDefaults = "settings/defaults.json";
         public const string SettingsPresetsReference = "settings/presets/reference.json";
         public const string SettingsPresetsShipped = "settings/presets/shipped.json";
         public const string StringsAppEn = "strings/app.en.json";

@@ -37,7 +37,10 @@
         "Seed": "seed",
         "Taken": "taken",
         "Time": "time",
-        "Wins": "wins"
+        "Wins": "wins",
+        "Min": "min",
+        "Max": "max",
+        "Value": "value"
       }
     },
     {
@@ -49,13 +52,66 @@
         "CardName": "card.{0}.name",
         "UnlockName": "unlock.{0}.name"
       }
+    },
+    {
+      "name": "SettingsKeys",
+      "doc": "Keys of settings/defaults.json (W-18, US-15.1).",
+      "keys": {
+        "Categories": "categories",
+        "Controls": "controls",
+        "Id": "id",
+        "LabelKey": "labelKey",
+        "Key": "key",
+        "Category": "category",
+        "Type": "type",
+        "Scope": "scope",
+        "Options": "options",
+        "Min": "min",
+        "Max": "max",
+        "Step": "step",
+        "Def": "def",
+        "HelpKey": "helpKey",
+        "OptionKey": "optionKey",
+        "UnitKey": "unitKey",
+        "Settings": "settings"
+      }
+    },
+    {
+      "name": "SettingsValues",
+      "doc": "Wire values of settings/defaults.json: control types, scopes and the content reference separators.",
+      "keys": {
+        "Toggle": "toggle",
+        "Enum": "enum",
+        "Slider": "slider",
+        "Live": "live",
+        "Run": "run",
+        "RefSeparator": "#",
+        "PathSeparator": "."
+      }
+    },
+    {
+      "name": "SettingIds",
+      "doc": "Setting keys (settings/defaults.json controls) that code reads by name.",
+      "keys": {
+        "MapMode": "mapMode",
+        "PlayPrologue": "playPrologue",
+        "ReducedMotion": "reducedMotion",
+        "TextScale": "textScale",
+        "MasterVolume": "masterVolume",
+        "MusicVolume": "musicVolume",
+        "SfxVolume": "sfxVolume",
+        "CreationAutoAdvance": "creationAutoAdvance",
+        "MapFull": "full",
+        "MapPath": "path",
+        "MapFog": "fog"
+      }
     }
   ],
   "stringTables": [
     {
       "name": "MetaStringKeys",
       "from": "strings/meta.en.json",
-      "doc": "Meta screen string keys (strings/meta.en.json): W-16 journal."
+      "doc": "Meta screen string keys (strings/meta.en.json): W-16 journal, W-18 settings."
     }
   ]
 }

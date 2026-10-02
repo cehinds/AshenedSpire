@@ -17,5 +17,8 @@ namespace Ashen.Generated
         public const string Taken = "taken";
         public const string Time = "time";
         public const string Wins = "wins";
+        public const string Min = "min";
+        public const string Max = "max";
+        public const string Value = "value";
     }
 }
