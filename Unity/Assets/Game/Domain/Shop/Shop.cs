@@ -112,7 +112,7 @@ namespace Ashen.Domain.Shop
             return smith != null && smith.Is(SK.Offered) ? smith.Arr(SK.Services) ?? new JArray() : new JArray();
         }
 
-        private static double FlaskSlotCap(ShopData d)
+        internal static double FlaskSlotCap(ShopData d)
         {
             var n = d.Balance[SK.FlaskSlots];
             if (!Js.IsInt(n) || Js.D(n) <= 0) throw new InvalidOperationException(SM.FlaskSlotsNotPositive);
@@ -120,7 +120,7 @@ namespace Ashen.Domain.Shop
         }
 
         /// <summary>offerAvailability: a plan's refusal first, then a full flask belt, then the price against the purse.</summary>
-        private static string Availability(double? price, double cinders, string reason = null, bool capacityFull = false)
+        internal static string Availability(double? price, double cinders, string reason = null, bool capacityFull = false)
         {
             if (reason != null) return reason;
             if (capacityFull) return SV.AvailFull;

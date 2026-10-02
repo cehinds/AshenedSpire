@@ -4,6 +4,7 @@ namespace Ashen.Generated
     /// <summary>Keys of run documents, shop stock, receipts, balance tables and rules/shopEngine.json the merchant port reads (shipped wire names).</summary>
     public static class ShopKeys
     {
+        public const string BuyBack = "buyBack";
         public const string ActiveCopies = "activeCopies";
         public const string AffectedCards = "affectedCards";
         public const string Affordable = "affordable";

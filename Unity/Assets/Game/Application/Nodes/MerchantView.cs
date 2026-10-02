@@ -379,13 +379,45 @@ namespace Ashen.App.Nodes
                 offer.GlyphKey = string.Format(CultureInfo.InvariantCulture, UiFormats.GlyphKey, relic ? NodeValues.OfferRelic : NodeValues.OfferFlask);
                 shelf.Offers.Add(offer);
             }
+            // Buy back (D-159): what was sold this visit, at the price received.
+            var back = session.Owner.BuyBackList;
+            for (var i = 0; i < back.Count; i++)
+            {
+                var entry = back[i];
+                var id = entry.Str(K.Id);
+                var kind = entry.Str(K.Kind);
+                var name = kind == SV.KindArmament ? (data.Armament(id)?.Str(K.Name) ?? id)
+                    : kind == SV.KindRelic ? (combat.Relics.Has(id) ? combat.Relics.Get(id).Str(K.Name) ?? id : id)
+                    : (combat.Flasks.Has(id) ? combat.Flasks.Get(id).Str(K.Name) ?? id : id);
+                var price = entry.Num(SK.Price);
+                var refusal = Ashen.Domain.Shop.BuyBack.Refusal(data, run, entry);
+                var offer = new MerchantOffer
+                {
+                    Key = shelf.Id + NodeFormats.KeySeparator + SV.ActionBuyBack + NodeFormats.KeySeparator + NodeText.Number(i),
+                    Shelf = shelf.Id,
+                    Kind = NodeValues.OfferSale,
+                    Action = new ShopAction { Kind = SV.ActionBuyBack, Index = i },
+                    Name = name,
+                    Text = string.Empty,
+                    KindText = strings.Get(MetaStringKeys.MerchantBuyBackKind),
+                    Price = price,
+                    Available = true,
+                    PriceText = strings.Format(MetaStringKeys.MerchantBuyBackPrice, new StringArgs().Add(NodePlaceholders.Price, NodeText.Number(price))),
+                    PrimaryText = strings.Format(MetaStringKeys.MerchantBuyBackPrimary, new StringArgs().Add(NodePlaceholders.Price, NodeText.Number(price))),
+                    ConfirmId = ConfirmIds.MerchantBuy,
+                };
+                offer.ConfirmArgs = new StringArgs().Add(NodePlaceholders.Item, name).Add(NodePlaceholders.Price, NodeText.Number(price)).Add(NodePlaceholders.Cinders, NodeText.Number(cinders));
+                offer.GlyphKey = string.Format(CultureInfo.InvariantCulture, UiFormats.GlyphKey, kind == SV.KindArmament ? NodeValues.OfferArmament : kind == SV.KindRelic ? NodeValues.OfferRelic : NodeValues.OfferFlask);
+                Availability(strings, offer, refusal, cinders);
+                shelf.Offers.Add(offer);
+            }
             var takes = shelf.Offers.Count(o => o.Available);
             shelf.Count = NodeText.Number(takes);
             shelf.Empty = shelf.Offers.Count == 0;
             shelf.Status = shelf.Empty ? strings.Get(NodeStringKeys.NodesMerchantNothingWanted)
                 : strings.Format(NodeStringKeys.NodesMerchantWillTake, new StringArgs().Add(NodePlaceholders.N, NodeText.Number(takes)));
             shelf.NoteTitle = strings.Get(NodeStringKeys.NodesMerchantBuyBack);
-            shelf.Note = strings.Get(NodeStringKeys.NodesMerchantBuyBackNote);
+            shelf.Note = strings.Get(MetaStringKeys.MerchantBuyBackNote);
         }
 
         private static MerchantOffer SaleOffer(StringTable strings, MerchantShelfView shelf, int n, double price, double cinders, string name, string text, string kindText, ShopAction action)

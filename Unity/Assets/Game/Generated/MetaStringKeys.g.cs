@@ -101,6 +101,10 @@ namespace Ashen.Generated
         public const string JournalWinRate = "journal.winRate";
         public const string MapKindUnseen = "map.kind.unseen";
         public const string MapKindHintUnseen = "map.kindHint.unseen";
+        public const string MerchantBuyBackKind = "merchant.buyBack.kind";
+        public const string MerchantBuyBackNote = "merchant.buyBack.note";
+        public const string MerchantBuyBackPrice = "merchant.buyBack.price";
+        public const string MerchantBuyBackPrimary = "merchant.buyBack.primary";
         public const string PilesDiscard = "piles.discard";
         public const string PilesDraw = "piles.draw";
         public const string PilesEmpty = "piles.empty";

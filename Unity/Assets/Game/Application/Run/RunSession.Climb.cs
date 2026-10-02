@@ -171,6 +171,7 @@ namespace Ashen.App.Run
             {
                 var left = Shop.Execute(Content.Loop.Shop, _run, new ShopAction { Kind = SV.ActionLeave }, ShopSellOn);
                 if (!left.Ok) throw new InvalidOperationException(left.Refusal?.Key);
+                _buyBack = new JArray();
                 _location = RunFlowValues.LocationMap;
                 return left.Receipt;
             });

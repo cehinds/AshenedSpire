@@ -187,5 +187,9 @@
   "confirm.abandon.body": "The run ends now and its slot is cleared. It is written in your journal as abandoned; it counts as a run but earns nothing new.",
   "confirm.abandon.primary": "Abandon run",
   "runEnd.abandoned": "CLIMB ABANDONED",
-  "journal.history.abandoned": "Abandoned"
+  "journal.history.abandoned": "Abandoned",
+  "merchant.buyBack.kind": "Buy back",
+  "merchant.buyBack.price": "{price} cinders to buy back",
+  "merchant.buyBack.primary": "Buy back · {price} cinders",
+  "merchant.buyBack.note": "What you sell here can be bought back at the same price until you leave."
 }

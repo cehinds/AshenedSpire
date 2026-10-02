@@ -5,6 +5,7 @@
       "name": "ShopKeys",
       "doc": "Keys of run documents, shop stock, receipts, balance tables and rules/shopEngine.json the merchant port reads (shipped wire names).",
       "keys": {
+        "BuyBack": "buyBack",
         "ActiveCopies": "activeCopies",
         "AffectedCards": "affectedCards",
         "Affordable": "affordable",
@@ -111,6 +112,7 @@
       "name": "ShopValues",
       "doc": "Closed merchant values (actions, offer kinds, smith services, mount states, availability ids, instance-id formats) — shipped wire strings.",
       "keys": {
+        "ActionBuyBack": "buyBack",
         "ActionBuyArmament": "buyArmament",
         "ActionBuyCard": "buyCard",
         "ActionBuyFlask": "buyFlask",

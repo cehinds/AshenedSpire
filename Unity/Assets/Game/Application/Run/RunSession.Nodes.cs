@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ashen.Domain.Combat;
 using Ashen.Domain.Shop;
@@ -24,6 +25,11 @@ namespace Ashen.App.Run
     /// </summary>
     public sealed partial class RunSession
     {
+        private JArray _buyBack = new JArray();
+
+        /// <summary>What was sold at this merchant visit and can be bought back at its price (D-159); cleared on leave.</summary>
+        public IReadOnlyList<JObject> BuyBackList => _buyBack.OfType<JObject>().Select(e => (JObject)e.DeepClone()).ToList();
+
         /// <summary>One merchant action (Shop.Execute): saved when it lands; a refusal changes and saves nothing.</summary>
         public ShopResult MerchantStep(ShopAction action)
         {
@@ -33,7 +39,19 @@ namespace Ashen.App.Run
             try
             {
                 var ctx = Context();
-                var result = Shop.Execute(ctx.Data.Shop, _run, action, ShopSellOn);
+                ShopResult result;
+                if (action.Kind == ShopValues.ActionBuyBack)
+                {
+                    var entry = action.Index >= 0 && action.Index < _buyBack.Count ? (JObject)_buyBack[action.Index] : null;
+                    result = BuyBack.Commit(ctx.Data.Shop, _run, entry);
+                    if (result.Ok) _buyBack.RemoveAt(action.Index);
+                }
+                else
+                {
+                    result = Shop.Execute(ctx.Data.Shop, _run, action, ShopSellOn);
+                    var sold = result.Ok ? BuyBack.EntryFor(action, result.Receipt) : null;
+                    if (sold != null) _buyBack.Add(sold);
+                }
                 if (!result.Ok)
                 {
                     Restore(snapshot);

@@ -463,6 +463,7 @@ namespace Ashen.App.Run
             public RestStay Stay;
             public string EventId;
             public bool EventDone;
+            public JArray BuyBack;
         }
 
         private SessionSnapshot Snapshot() => new SessionSnapshot
@@ -481,6 +482,7 @@ namespace Ashen.App.Run
             Stay = _stay?.Copy(),
             EventId = _eventId,
             EventDone = _eventDone,
+            BuyBack = (JArray)_buyBack.DeepClone(),
         };
 
         private void Restore(SessionSnapshot s)
@@ -499,6 +501,7 @@ namespace Ashen.App.Run
             _visit = null;
             _eventId = s.EventId;
             _eventDone = s.EventDone;
+            _buyBack = s.BuyBack ?? new JArray();
             _door = null;
         }
 
@@ -626,6 +629,7 @@ namespace Ashen.App.Run
                 payload[RunSaveKeys.EventId] = _eventId;
                 payload[RunSaveKeys.EventDone] = _eventDone;
             }
+            if (Location == RunFlowValues.LocationMerchant && _buyBack.Count > 0) payload[ShopKeys.BuyBack] = _buyBack.DeepClone();
             if (IsInCombat) payload[RunSaveKeys.Combat] = Combat.Checkpoint();
             return payload;
         }
@@ -717,6 +721,7 @@ namespace Ashen.App.Run
                 _stay = RestStay.From(payload[RunSaveKeys.Rest] as JObject),
                 _eventId = (string)payload[RunSaveKeys.EventId],
                 _eventDone = payload[RunSaveKeys.EventDone]?.Type == JTokenType.Boolean && (bool)payload[RunSaveKeys.EventDone],
+                _buyBack = payload[ShopKeys.BuyBack] as JArray ?? new JArray(),
             };
             var warned = false;
             try

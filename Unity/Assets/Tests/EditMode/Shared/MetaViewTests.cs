@@ -2,10 +2,12 @@ using System;
 using System.IO;
 using System.Linq;
 using Ashen.App.Audio;
+using Ashen.App.Nodes;
 using Ashen.App.Run;
 using Ashen.App.Saves;
 using Ashen.App.Settings;
 using Ashen.App.Ui;
+using Ashen.Domain.Shop;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -641,6 +643,86 @@ namespace Ashen.Tests
             Assert.That(door.Hold, Is.True);
             Assert.That(Ui.Policies.IsDestructive(door.Policy), Is.True);
             Resolved(Ui.Strings.Get(door.TitleKey), Ui.Strings.Get(door.BodyKey), Ui.Strings.Get(door.PrimaryKey));
+        }
+
+        // ------------------------------------------------------------------ W-09 buy-back (US-9.3, D-159)
+
+        /// <summary>A common relic put first in the run's relics, so the sell shelf has something it buys.</summary>
+        private static void GiveSellableRelic(RunSession session)
+        {
+            var id = Default.Combat.Relics.All.First(r => (string)r["rarity"] == "common").Value<string>("id");
+            session.EditRunForReview(run => ((JArray)run["relics"]).Insert(0, id));
+        }
+
+        [Test]
+        public void ASoldRelicCanBeBoughtBackAtItsPriceUntilTheMerchantIsLeft()
+        {
+            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
+            NodeReview.AtMerchant(session);
+            GiveSellableRelic(session);
+            var merchant = MerchantSession.Start(session);
+            var relics = ((JArray)session.Run["relics"]).Count;
+            var cinders = session.Run["cinders"].Value<double>();
+            var sale = merchant.Execute(new ShopAction { Kind = "sellRelic", Index = 0 });
+            Assert.That(sale.Ok, Is.True);
+            var received = sale.Receipt["received"].Value<double>();
+            Assert.That(session.BuyBackList, Has.Count.EqualTo(1));
+
+            // The shelf offers it back; a reload keeps the list.
+            var offer = MerchantView.Build(merchant, Ui).Shelf("sell").Offers.Single(o => o.Action.Kind == ShopValues.ActionBuyBack);
+            Assert.That(offer.Price, Is.EqualTo(received));
+            Assert.That(offer.Available, Is.True);
+            Resolved(offer.PriceText, offer.PrimaryText, offer.KindText);
+            var resumed = RunSession.Load(Default, _saves, 1).Session;
+            Assert.That(resumed.BuyBackList, Has.Count.EqualTo(1), "saved with the visit");
+
+            var back = MerchantSession.Start(resumed).Execute(offer.Action);
+            Assert.That(back.Ok, Is.True);
+            Assert.That(((JArray)resumed.Run["relics"]).Count, Is.EqualTo(relics));
+            Assert.That(resumed.Run["cinders"].Value<double>(), Is.EqualTo(cinders), "sold and bought back at the same price");
+            Assert.That(resumed.BuyBackList, Is.Empty);
+            Assert.That(MerchantSession.Start(resumed).Execute(offer.Action).Ok, Is.False, "an entry is bought back once");
+
+            // Sell again, then leave: the list is gone.
+            Assert.That(MerchantSession.Start(resumed).Execute(new ShopAction { Kind = "sellRelic", Index = relics - 1 }).Ok, Is.True, "the bought-back relic sits last");
+            Assert.That(resumed.BuyBackList, Has.Count.EqualTo(1));
+            resumed.LeaveMerchant();
+            Assert.That(resumed.BuyBackList, Is.Empty);
+            Assert.That(RunSession.Load(Default, _saves, 1).Session.BuyBackList, Is.Empty);
+        }
+
+        [Test]
+        public void ABuyBackThePurseCannotCoverIsRefusedAndChangesNothing()
+        {
+            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
+            NodeReview.AtMerchant(session);
+            GiveSellableRelic(session);
+            var merchant = MerchantSession.Start(session);
+            Assert.That(merchant.Execute(new ShopAction { Kind = "sellRelic", Index = 0 }).Ok, Is.True);
+            session.EditRunForReview(run => run["cinders"] = 0.0);
+            var before = session.Run.ToString();
+            var result = merchant.Execute(new ShopAction { Kind = ShopValues.ActionBuyBack, Index = 0 });
+            Assert.That(result.Ok, Is.False);
+            Assert.That(session.Run.ToString(), Is.EqualTo(before));
+            Assert.That(session.BuyBackList, Has.Count.EqualTo(1));
+            Assert.That(MerchantView.Build(merchant, Ui).Shelf("sell").Offers.Single(o => o.Action.Kind == ShopValues.ActionBuyBack).ReasonText, Does.StartWith("Need"));
+        }
+
+        [Test]
+        public void ASoldArmamentComesBackToStorageWithItsTier()
+        {
+            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
+            NodeReview.AtMerchant(session);
+            Assert.That(session.Equip(Ui, "leftHand", 0, null).Done, Is.True, "the off hand goes to storage");
+            var id = (string)session.Run["loadout"]["storage"][0];
+            var deck = ((JArray)session.Run["deck"]).Count;
+            var merchant = MerchantSession.Start(session);
+            var sale = merchant.Execute(new ShopAction { Kind = "sellArmament", Id = id });
+            Assert.That(sale.Ok, Is.True, sale.Refusal?.Key);
+            Assert.That((JArray)session.Run["loadout"]["storage"], Is.Empty);
+            Assert.That(merchant.Execute(new ShopAction { Kind = ShopValues.ActionBuyBack, Index = 0 }).Ok, Is.True);
+            Assert.That(((JArray)session.Run["loadout"]["storage"]).Select(t => (string)t), Has.Member(id));
+            Assert.That(((JArray)session.Run["deck"]).Count, Is.EqualTo(deck), "the deck stamps back as it was");
         }
     }
 }
