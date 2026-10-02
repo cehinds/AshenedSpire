@@ -198,6 +198,17 @@ namespace Ashen.App.Combat
         public ArmouryView Armoury;
     }
 
+    /// <summary>W-17 W1h: the open pile's cards, the rail with counts, and the draw pile's count.</summary>
+    public sealed class PileViewState
+    {
+        public string Title;
+        public string Pile;
+        public readonly List<KeyValuePair<string, string>> Rail = new List<KeyValuePair<string, string>>();
+        public readonly List<CardView> Cards = new List<CardView>();
+        public string Empty;
+        public string Draw;
+    }
+
     /// <summary>
     /// Builds the display-ready combat view (component loop step 4, VM): strings come from the content rows (names,
     /// text templates), numbers from the engine's previews and legality, never recomputed here.
@@ -227,6 +238,26 @@ namespace Ashen.App.Combat
             view.DiscardMinimum = plan.Minimum;
             view.DiscardMaximum = plan.Maximum;
             view.Armoury = Armoury(c);
+            return view;
+        }
+
+        /// <summary>
+        /// W-17 W1h the pile viewer: the rail is Discard and Exhaust (as shipped), each card as the hand draws it; the draw
+        /// pile shows its count only, its order hidden (AW:821).
+        /// </summary>
+        public static PileViewState Piles(CombatState c, Ashen.App.Ui.StringTable strings, string pile)
+        {
+            var count = new System.Func<int, Ashen.App.Ui.StringArgs>(n => new Ashen.App.Ui.StringArgs().Add(Ashen.Generated.MetaPlaceholders.Count, n));
+            var view = new PileViewState
+            {
+                Title = strings.Get(Ashen.Generated.MetaStringKeys.PilesTitle),
+                Pile = pile == Ashen.Generated.MetaValues.PileExhaust ? pile : Ashen.Generated.MetaValues.PileDiscard,
+                Draw = strings.Format(Ashen.Generated.MetaStringKeys.PilesDraw, count(c.Piles.Draw.Count)),
+            };
+            view.Rail.Add(new KeyValuePair<string, string>(Ashen.Generated.MetaValues.PileDiscard, strings.Format(Ashen.Generated.MetaStringKeys.PilesDiscard, count(c.Piles.Discard.Count))));
+            view.Rail.Add(new KeyValuePair<string, string>(Ashen.Generated.MetaValues.PileExhaust, strings.Format(Ashen.Generated.MetaStringKeys.PilesExhaust, count(c.Piles.Exhaust.Count))));
+            foreach (var inst in view.Pile == Ashen.Generated.MetaValues.PileExhaust ? c.Piles.Exhaust : c.Piles.Discard) view.Cards.Add(Card(c, inst));
+            if (view.Cards.Count == 0) view.Empty = strings.Get(Ashen.Generated.MetaStringKeys.PilesEmpty);
             return view;
         }
 

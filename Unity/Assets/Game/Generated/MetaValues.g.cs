@@ -7,5 +7,7 @@ namespace Ashen.Generated
         public const string JournalHistory = "history";
         public const string JournalProfile = "profile";
         public const string JournalArmaments = "armaments";
+        public const string PileDiscard = "discard";
+        public const string PileExhaust = "exhaust";
     }
 }

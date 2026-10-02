@@ -29,5 +29,7 @@ namespace Ashen.Generated
         public const string Xp = "xp";
         public const string Next = "next";
         public const string List = "list";
+        public const string Before = "before";
+        public const string After = "after";
     }
 }

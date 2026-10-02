@@ -4,6 +4,26 @@ namespace Ashen.Generated
     /// <summary>Meta screen string keys (strings/meta.en.json): W-16 journal, W-18 settings, W-05 prologue, map reveal.</summary>
     public static class MetaStringKeys
     {
+        public const string ArmouryEmpty = "armoury.empty";
+        public const string ArmouryPoolEnergyMax = "armoury.pool.energyMax";
+        public const string ArmouryPoolMaxHp = "armoury.pool.maxHp";
+        public const string ArmouryPoolMaxMana = "armoury.pool.maxMana";
+        public const string ArmouryPoolMaxStamina = "armoury.pool.maxStamina";
+        public const string ArmouryReceiptDeck = "armoury.receipt.deck";
+        public const string ArmouryReceiptNone = "armoury.receipt.none";
+        public const string ArmouryReceiptPool = "armoury.receipt.pool";
+        public const string ArmouryReceiptWeight = "armoury.receipt.weight";
+        public const string ArmouryRefusalCannot = "armoury.refusal.cannot";
+        public const string ArmouryRefusalInCombat = "armoury.refusal.inCombat";
+        public const string ArmouryRefusalSame = "armoury.refusal.same";
+        public const string ArmourySet = "armoury.set";
+        public const string ArmouryStorage = "armoury.storage";
+        public const string ArmouryStorageEmpty = "armoury.storageEmpty";
+        public const string ArmouryTitle = "armoury.title";
+        public const string ArmouryWeight = "armoury.weight";
+        public const string ArmouryWeightHeavy = "armoury.weight.heavy";
+        public const string ArmouryWeightLight = "armoury.weight.light";
+        public const string ArmouryWeightMedium = "armoury.weight.medium";
         public const string ClassTreeAvailable = "classTree.available";
         public const string ClassTreeClosed = "classTree.closed";
         public const string ClassTreeExcluded = "classTree.excluded";
@@ -77,6 +97,11 @@ namespace Ashen.Generated
         public const string JournalWinRate = "journal.winRate";
         public const string MapKindUnseen = "map.kind.unseen";
         public const string MapKindHintUnseen = "map.kindHint.unseen";
+        public const string PilesDiscard = "piles.discard";
+        public const string PilesDraw = "piles.draw";
+        public const string PilesEmpty = "piles.empty";
+        public const string PilesExhaust = "piles.exhaust";
+        public const string PilesTitle = "piles.title";
         public const string ProgressionLevel = "progression.level";
         public const string ProgressionLevelMax = "progression.levelMax";
         public const string ProgressionPoints = "progression.points";

@@ -11,5 +11,6 @@ namespace Ashen.Generated
         public const string Upgraded = "upgraded";
         public const string Desc = "desc";
         public const string Icon = "icon";
+        public const string Order = "order";
     }
 }

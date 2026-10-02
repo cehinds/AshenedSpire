@@ -486,5 +486,65 @@ namespace Ashen.Tests
             Resolved(view.Tiers.SelectMany(t => t.Nodes.SelectMany(n => new[] { n.Name, n.StateText })).Concat(view.Tiers.Select(t => t.Title)).Concat(view.Tracks)
                 .Concat(new[] { view.Title, view.Level, view.Points, view.ClassTreeTitle, view.TracksTitle }).ToArray());
         }
+
+        // ------------------------------------------------------------------ W-12 armoury (US-7.3, US-7.4, US-7.6)
+
+        [Test]
+        public void TheArmouryMovesPiecesRestampsTheDeckAndSaves()
+        {
+            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
+            var view = session.ArmouryView(Ui);
+            Assert.That(view.Slots.Select(s => s.SlotId), Has.Member("rightHand").And.Member("leftHand").And.Member("armor"));
+            Assert.That(view.Slots.First(s => s.SlotId == "rightHand").Cells, Has.Count.EqualTo(3), "three sets per hand");
+            Assert.That(view.Weight, Does.StartWith("Weight "));
+            Resolved(view.Slots.SelectMany(s => s.Cells.Select(c => c.Label)).Concat(new[] { view.Title, view.Weight, view.StorageTitle, view.StorageEmpty }).ToArray());
+
+            var right = (string)session.Run["loadout"]["sets"]["rightHand"][0];
+            var deck = ((JArray)session.Run["deck"]).Count;
+            // Clear the off hand into storage: a preview changes nothing, the commit is saved.
+            var preview = session.PreviewEquip(Ui, "leftHand", 0, null);
+            Assert.That(preview.Done, Is.True, preview.Refusal);
+            Assert.That(preview.Receipts, Is.Not.Empty);
+            Assert.That(session.Run["loadout"]["sets"]["leftHand"][0].Type, Is.Not.EqualTo(JTokenType.Null), "the preview left the run alone");
+            var change = session.Equip(Ui, "leftHand", 0, null);
+            Assert.That(change.Done, Is.True);
+            var loaded = RunSession.Load(Default, _saves, 1).Session;
+            Assert.That(loaded.Run["loadout"]["sets"]["leftHand"][0].Type, Is.EqualTo(JTokenType.Null), "saved");
+            Assert.That(loaded.ArmouryView(Ui).Storage, Is.Not.Empty, "the piece went to storage");
+            Assert.That(session.Equip(Ui, "rightHand", 0, right).Refusal, Is.EqualTo("That is already there."));
+
+            // Put it back from storage; a second set of the main hand can be made active.
+            var stored = loaded.ArmouryView(Ui).Storage[0].Key;
+            Assert.That(loaded.ArmouryCandidates("leftHand"), Has.Member(stored));
+            Assert.That(loaded.Equip(Ui, "leftHand", 0, stored).Done, Is.True);
+            Assert.That(((JArray)loaded.Run["deck"]).Count, Is.EqualTo(deck), "the lent cards came back with the item");
+        }
+
+        [Test]
+        public void TheArmouryIsClosedInAFight()
+        {
+            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
+            session.StartEncounter();
+            Assert.That(session.Equip(Ui, "leftHand", 0, null).Refusal, Is.EqualTo("The Armoury is closed during a fight."));
+        }
+
+        // ------------------------------------------------------------------ W-17 pile viewer
+
+        [Test]
+        public void ThePileViewerShowsDiscardAndExhaustAndOnlyTheDrawCount()
+        {
+            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
+            var combat = session.StartEncounter();
+            var c = combat.State;
+            var start = Ashen.App.Combat.CombatViewModel.Piles(c, Ui.Strings, MetaValues.PileDiscard);
+            Assert.That(start.Cards, Is.Empty);
+            Assert.That(start.Empty, Is.EqualTo("Nothing here yet."));
+            Assert.That(start.Draw, Does.Contain(c.Piles.Draw.Count.ToString()));
+            c.Piles.Discard.Add(c.Piles.Hand[0]);
+            var after = Ashen.App.Combat.CombatViewModel.Piles(c, Ui.Strings, MetaValues.PileDiscard);
+            Assert.That(after.Cards, Has.Count.EqualTo(1));
+            Assert.That(after.Rail[0].Value, Is.EqualTo("Discard (1)"));
+            Resolved(after.Rail.Select(r => r.Value).Concat(new[] { after.Title, after.Draw }).ToArray());
+        }
     }
 }

@@ -11,7 +11,8 @@
         "CardId": "cardId",
         "Upgraded": "upgraded",
         "Desc": "desc",
-        "Icon": "icon"
+        "Icon": "icon",
+        "Order": "order"
       }
     },
     {
@@ -20,7 +21,9 @@
       "keys": {
         "JournalHistory": "history",
         "JournalProfile": "profile",
-        "JournalArmaments": "armaments"
+        "JournalArmaments": "armaments",
+        "PileDiscard": "discard",
+        "PileExhaust": "exhaust"
       }
     },
     {
@@ -51,7 +54,9 @@
         "Slot": "slot",
         "Xp": "xp",
         "Next": "next",
-        "List": "list"
+        "List": "list",
+        "Before": "before",
+        "After": "after"
       }
     },
     {
@@ -203,6 +208,14 @@
         "Available": "available",
         "Closed": "closed",
         "Excluded": "excluded"
+      }
+    },
+    {
+      "name": "ArmouryFormats",
+      "doc": "W-12 string-key formats.",
+      "keys": {
+        "WeightName": "armoury.weight.{0}",
+        "PoolName": "armoury.pool.{0}"
       }
     }
   ],
