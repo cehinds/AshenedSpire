@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.37.1] — 2026-10-02
+
+- Meta lane engine-free halves: journal, settings, map reveal, prologue, creation panes, progression, armoury, piles, music (D-148-D-156)
+
 ## [0.1.37.0] — 2026-10-02
 
 Stories: us-18.1

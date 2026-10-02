@@ -2,6 +2,32 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Meta lane, engine-free: journal, settings, map reveal, prologue, creation panes, progression, armoury, piles, music; the 200-seed bot (dev, 2026-10-02)
+
+This session had .NET 8 but no Unity editor, so every remaining screen landed as its engine-free half (views, sessions and data in `Ashen.App`, tested by the shared suite). Their UI Toolkit screens stay `planned` in `ui/screens.json` (D-149).
+
+**Landed**
+- **US-18.1 bot report:** `BotRunTests.BotClassic200` (explicit, Category Bot) plays 200 Classic seeds × both policies, each replayed; `docs/qa/bot-report.md`: 400 runs, **0 exceptions, 0 softlocks**. It found a shipped defect: reward cards minted `r<deck length>_<card>` repeat an id after a removal. Fixed in the port (D-146, D-147).
+- **W-16 journal (US-13.1):** `JournalView` (history newest first, per-class win rates, profile tally, found armaments). The run record now carries killer, duration and deck (D-148).
+- **W-18 settings (US-15.1):** `settings/defaults.json` (23 controls in 6 categories; options and ranges can point into balance data) and `SettingsSession` (profile → preset → def; validation; reset per category; "applies next run" in a run) (D-150).
+- **Map reveal (US-4.2):** the `mapMode` setting: full, path (dims what is behind) or fog (hides kinds beyond the next floor; bosses kept) (D-151).
+- **W-05 prologue (US-3.1–3.3):** `ui/prologue.json` (the 9 shipped slots and staging), Continue / Set forth / hold to skip, per-scene resume, a disabled saved scene resumes at the next, a filled slot plays from data. The lines are written for this build and recorded in `Provenance/generated/manifest.json`. Playback is still off in `rules/runFlow.json` until the screen exists (D-152).
+- **W-04 creation panes (US-2.2–2.6, US-2.8):** `CreationSession`: name, Standard/Assign, keepsake, tint, sigil, armour, hands (moves, never duplicates), relic, kit, seed, slot with Replace; Next always refuses with the reason and the focus. `RunSession.New` takes the choices (D-153).
+- **W-22 progression (US-12.5):** `ProgressionView` (level, XP, banked points, tracks, the class tree by tier with chosen / can be drafted / closed by / not yet, and the exclusive tier) (D-154).
+- **W-12 armoury and W-17 piles (US-7.6):** out-of-combat equip and set cycling through the shipped doors, then stampDeck and a save; a preview lists receipts; the pile viewer (D-155).
+- **Music (US-16.1):** `audio/beds.json`, `MusicDirector` (location → context, pool overrides, run end, stingers) and `BedRenderer` (deterministic PCM loops from `audio/music.json`); a `MusicPlayer` in `AshenBoot` (D-156).
+- **Tooling:** `Tools/refresh-manifest.mjs` refreshes the manifest for hand-written files and writes `.meta` files without the shipped export; CI runs its `--check`.
+
+**Tests**
+- dotnet **2849/2849** (`MetaViewTests`: 19 new); `BotClassic200` 400/400; `codegen --check`, `refresh-manifest --check`, `check-content`, `check-docs`, `ui-tokens --check` green.
+
+**Not verified / open**
+- No Unity in this session: EditMode, PlayMode and captures were not run. The blind Presentation edits are `MapBoard` (two USS classes), `Climb.uss`, `AshenBoot` and the new `Presentation/Audio/MusicPlayer.cs`; none were compiled.
+- Screens still to build in the editor: W-04 panes 2–4, W-05, W-12, W-16, W-17 piles, W-18, W-22; then flip `rules/runFlow.json#newRun.prologue` and mark the screens built.
+- Not built: US-15.4 web config import/export, US-15.2 the hand-rules example, the buy-back list (US-9.3), Abandon run (D-134 still needs the owner), the XP strip, SFX wiring, generated music files.
+
+**Next:** in the editor: build and capture the planned screens over these views; compile and hear `MusicPlayer`.
+
 ## us-9.1–9.3, us-10.1–10.3, us-4.5: F3 node screens — W-09 merchant, W-11 event and dialogue, W-13 legacy dungeon (feature/node-ui/us-9.2, 2026-09-26)
 
 **Landed**
