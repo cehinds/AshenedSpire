@@ -4,6 +4,7 @@ namespace Ashen.Generated
     /// <summary>Closed merchant values (actions, offer kinds, smith services, mount states, availability ids, instance-id formats) — shipped wire strings.</summary>
     public static class ShopValues
     {
+        public const string ActionBuyBack = "buyBack";
         public const string ActionBuyArmament = "buyArmament";
         public const string ActionBuyCard = "buyCard";
         public const string ActionBuyFlask = "buyFlask";

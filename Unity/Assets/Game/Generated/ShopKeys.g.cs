@@ -4,6 +4,7 @@ namespace Ashen.Generated
     /// <summary>Keys of run documents, shop stock, receipts, balance tables and rules/shopEngine.json the merchant port reads (shipped wire names).</summary>
     public static class ShopKeys
     {
+        public const string BuyBack = "buyBack";
         public const string ActiveCopies = "activeCopies";
         public const string AffectedCards = "affectedCards";
         public const string Affordable = "affordable";
@@ -89,7 +90,6 @@ namespace Ashen.Generated
         public const string Services = "services";
         public const string Shop = "shop";
         public const string ShopStock = "shopStock";
-        public const string ShortLabel = "shortLabel";
         public const string Shortfall = "shortfall";
         public const string Smith = "smith";
         public const string SmithingSchemaVersion = "smithingSchemaVersion";
@@ -99,7 +99,6 @@ namespace Ashen.Generated
         public const string Stock = "stock";
         public const string StoneBalanceBefore = "stoneBalanceBefore";
         public const string Stones = "stones";
-        public const string StorageSlots = "storageSlots";
         public const string TradeRevision = "tradeRevision";
         public const string Transaction = "transaction";
         public const string Used = "used";

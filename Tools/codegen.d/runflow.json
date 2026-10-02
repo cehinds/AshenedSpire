@@ -1,5 +1,5 @@
 {
-  "comment": "F1 run flow (US-2.1 default character, US-5.x/6.x combat screen, PF-06 run saves): rules/runFlow.json keys and values, the run save payload, and developer messages.",
+  "comment": "The run flow (F1 US-2.1, US-5.x/6.x, PF-06 run saves; F3 climb: W-06, W-10, W-15 and the node routing): rules/runFlow.json keys and values, the run save payload, and developer messages.",
   "keySets": [
     {
       "name": "RunFlowKeys",
@@ -46,7 +46,19 @@
         "From": "from",
         "Suffix": "suffix",
         "Value": "value",
-        "ArtKey": "artKey"
+        "ArtKey": "artKey",
+        "AdvancedConfigSnapshot": "advancedConfigSnapshot",
+        "Prologue": "prologue",
+        "Customization": "customization",
+        "Glyph": "glyph",
+        "Settings": "settings",
+        "MultiUse": "multiUse",
+        "ShopSell": "shopSell",
+        "HoldConfirm": "holdConfirm",
+        "Key": "key",
+        "Screens": "screens",
+        "Steps": "steps",
+        "Ref": "ref"
       }
     },
     {
@@ -62,7 +74,14 @@
         "Name": "name",
         "Portrait": "portrait",
         "Playtime": "playtimeSeconds",
-        "After": "after"
+        "After": "after",
+        "Rest": "rest",
+        "RestPlace": "place",
+        "Counters": "counters",
+        "Rested": "rested",
+        "RestAnchor": "restAnchor",
+        "EventId": "eventId",
+        "EventDone": "eventDone"
       }
     },
     {
@@ -89,7 +108,21 @@
         "RefusalNotOffered": "notOffered",
         "RefusalNoSuchRow": "noSuchRow",
         "RefusalNoReward": "noReward",
-        "RefusalRefused": "refused"
+        "RefusalRefused": "refused",
+        "LocationRest": "rest",
+        "LocationMerchant": "merchant",
+        "LocationEvent": "event",
+        "LocationDungeon": "dungeon",
+        "LocationRunEnd": "runEnd",
+        "RefusalNotOnMap": "notOnMap",
+        "RefusalNotReachable": "notReachable",
+        "RefusalNotHere": "notHere",
+        "OptionRest": "rest",
+        "OptionSmith": "smith",
+        "OptionExtract": "extract",
+        "OptionInstall": "install",
+        "OptionFlasks": "flasks",
+        "OptionLevel": "level"
       }
     },
     {
@@ -103,7 +136,13 @@
         "ContentChanged": "run: content changed since the save (saved {0}, now {1}); resumed from the checkpoint without replaying the log",
         "LogDiverged": "run: the command log diverged after {0} commands; resumed at the last verified state",
         "LoadRefused": "run: slot '{0}' could not be loaded ({1})",
-        "NoPendingReward": "run: the run holds no pending reward"
+        "NoPendingReward": "run: the run holds no pending reward",
+        "NotOnMap": "run: the run is not on the act map (it is at '{0}')",
+        "NotReachable": "run: node '{0}' is not reachable from here",
+        "NotAtRest": "run: the run is not at a rest place",
+        "NotAtNode": "run: the run is not at a {0}",
+        "RestResumeDrift": "run: the rest place re-opened on other stream counters than the save holds; it resumed on the saved counters",
+        "NoEventChoice": "run: event '{0}' offers no open choice"
       }
     }
   ]

@@ -1,0 +1,11 @@
+{
+  "comment": "W-11 requirement: a purse of 0; the priced response reads its requirement and pressing it is refused at the control.",
+  "screen": "event",
+  "eventId": "weepingPilgrim",
+  "cinders": 0,
+  "press": "giveCinders",
+  "skipSizes": [
+    "1920x1080",
+    "844x390"
+  ]
+}

@@ -16,17 +16,30 @@ namespace Ashen.Generated
         public const string CombatIntentDebuff = "combat.intent.debuff";
         public const string CombatIntentStaggered = "combat.intent.staggered";
         public const string CombatIntentUnknown = "combat.intent.unknown";
+        public const string CombatRefusalChangeEnergy = "combat.refusal.changeEnergy";
+        public const string CombatRefusalChangeUnavailable = "combat.refusal.changeUnavailable";
+        public const string CombatRefusalChangesDisabled = "combat.refusal.changesDisabled";
         public const string CombatRefusalCombatOver = "combat.refusal.combatOver";
         public const string CombatRefusalDiscardSelection = "combat.refusal.discardSelection";
         public const string CombatRefusalEnergy = "combat.refusal.energy";
+        public const string CombatRefusalEquipmentDisabled = "combat.refusal.equipmentDisabled";
+        public const string CombatRefusalGrip = "combat.refusal.grip";
         public const string CombatRefusalInvalidTarget = "combat.refusal.invalidTarget";
         public const string CombatRefusalMana = "combat.refusal.mana";
+        public const string CombatRefusalNoChangesLeft = "combat.refusal.noChangesLeft";
         public const string CombatRefusalNoFlask = "combat.refusal.noFlask";
         public const string CombatRefusalNoFlaskCharges = "combat.refusal.noFlaskCharges";
+        public const string CombatRefusalNoLoadout = "combat.refusal.noLoadout";
+        public const string CombatRefusalNoSet = "combat.refusal.noSet";
+        public const string CombatRefusalNoSlot = "combat.refusal.noSlot";
+        public const string CombatRefusalNoSwapsLeft = "combat.refusal.noSwapsLeft";
         public const string CombatRefusalNoTarget = "combat.refusal.noTarget";
         public const string CombatRefusalNotInHand = "combat.refusal.notInHand";
         public const string CombatRefusalNotPlayerTurn = "combat.refusal.notPlayerTurn";
+        public const string CombatRefusalRequirement = "combat.refusal.requirement";
+        public const string CombatRefusalSlotFastened = "combat.refusal.slotFastened";
         public const string CombatRefusalStamina = "combat.refusal.stamina";
+        public const string CombatRefusalSwapEnergy = "combat.refusal.swapEnergy";
         public const string CombatRefusalUnplayable = "combat.refusal.unplayable";
     }
 }

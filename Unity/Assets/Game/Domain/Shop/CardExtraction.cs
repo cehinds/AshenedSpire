@@ -18,62 +18,17 @@ using SS = Ashen.Generated.ShopStringKeys;
 namespace Ashen.Domain.Shop
 {
     /// <summary>
-    /// The smith's two card services (shipped model/cardExtraction.js, with model/cardMounts.js openExtraMountKey and
-    /// model/loadout.js itemMountInstances): EXTRACT a card out of an item's mount so it becomes the run's own, and
-    /// INSTALL a run-owned card into an emptied or open mount. A plan enumerates every legal transaction with its cost;
-    /// a commit revalidates through the same plan before it touches the run, then restamps the deck.
+    /// The smith's two card services (shipped model/cardExtraction.js, over model/cardMounts.js openExtraMountKey and
+    /// model/loadout.js itemMountInstances — <see cref="CardMounts"/> and <see cref="StartingDeck"/>): EXTRACT a card
+    /// out of an item's mount so it becomes the run's own, and INSTALL a run-owned card into an emptied or open mount.
+    /// A plan enumerates every legal transaction with its cost; a commit revalidates through the same plan before it
+    /// touches the run, then restamps the deck. The one port: the merchant, the events and the rest stop call it (D-112).
     /// </summary>
     public static class CardExtraction
     {
-        /// <summary>stoneBalance(run): run.smithingStones as an integer ≥ 0 (absent reads 0).</summary>
-        internal static double StoneBalance(JObject run) =>
-            SmithServices.Integer(Js.Nullish(run[RK.SmithingStones]) ? Js.N(0) : run[RK.SmithingStones], string.Join(RV.PathDot, RK.Run, RK.SmithingStones));
-
         private static JArray CardTags(ShopData d, string cardId) => d.Run.Cards.Get(cardId)[K.Tags] as JArray ?? new JArray();
 
         private static JToken CardName(ShopData d, string cardId) => d.Run.Cards.Get(cardId)[K.Name]?.DeepClone();
-
-        /// <summary>itemMountInstances(registries, run, piece, { authored }): the instances an item's mounts hold (authored, or with the smith's work).</summary>
-        public static List<JObject> ItemMountInstances(ShopData d, JObject run, JObject piece, bool authored)
-        {
-            if (piece == null) return new List<JObject>();
-            var settings = StartingDeck.Settings(d.Run);
-            var weaponSource = StartingDeck.GrantSourceFor(settings, RK.Weapon);
-            var list = StartingDeck.BoundMountInstances(d.Run, settings, piece);
-            var pkg = piece.Str(K.Kind) == V.Armor ? null : WeaponCards.FromPiece(d.Run, piece);
-            if (pkg != null)
-            {
-                list.AddRange(StartingDeck.PackageGrantInstances(pkg, weaponSource));
-                foreach (var artId in pkg.WeaponArtDefaults) list.Add(StartingDeck.WeaponArtInstance(pkg.WeaponId, artId, weaponSource));
-            }
-            if (authored) return list;
-            var itemRef = Combat.Equipment.PieceItemRef(piece);
-            var result = CardMounts.ApplyMountOverrides(d.Run, run.Obj(K.ItemMounts), list);
-            result.AddRange(CardMounts.ExtraMountInstances(d.Run, run.Obj(K.ItemMounts), itemRef,
-                StartingDeck.GrantSourceFor(settings, StartingDeck.PieceFamily(piece) == V.ArmourKind ? RK.Armor : RK.Weapon)));
-            return result;
-        }
-
-        /// <summary>isExtraMountKey(key).</summary>
-        public static bool IsExtraMountKey(string key) => key != null && key.StartsWith(RV.ExtraMountPrefix, StringComparison.Ordinal);
-
-        /// <summary>openExtraMountKey(registries, run, itemRef): the next open extra mount of an item, or null when the flag or the cap says no.</summary>
-        public static string OpenExtraMountKey(ShopData d, JObject run, string itemRef)
-        {
-            var extra = CardMounts.Rules(d.Run).Obj(RK.ExtraMounts);
-            if (!extra.Is(K.Enabled)) return null;
-            var entries = CardMounts.ItemMountEntries(run.Obj(K.ItemMounts), itemRef);
-            var used = entries.Properties().Count(p => IsExtraMountKey(p.Name) && Js.Truthy(p.Value) && Js.Truthy(Js.Get(p.Value, K.Card)));
-            var perItem = extra.Num(RK.PerItem);
-            if (used >= perItem) return null;
-            for (var index = 0; index < perItem; index++)
-            {
-                var key = RV.ExtraMountPrefix + itemRef + V.KeySeparator + RunJs.NumStr(index);
-                var entry = entries[key];
-                if (!Js.Truthy(entry) || !Js.Truthy(Js.Get(entry, K.Card))) return key;
-            }
-            return null;
-        }
 
         /// <summary>One owned item a smith can work: its ref, the piece and whether it is worn.</summary>
         public sealed class OwnedItem
@@ -116,8 +71,8 @@ namespace Ashen.Domain.Shop
             var rules = CardMounts.Rules(d.Run);
             var tag = rules.Str(RK.ExtractableTag);
             var entries = CardMounts.ItemMountEntries(run.Obj(K.ItemMounts), itemRef);
-            var authored = ItemMountInstances(d, run, piece, true);
-            var current = ItemMountInstances(d, run, piece, false);
+            var authored = StartingDeck.ItemMountInstances(d.Run, run.Obj(K.ItemMounts), piece, true);
+            var current = StartingDeck.ItemMountInstances(d.Run, run.Obj(K.ItemMounts), piece, false);
             var rows = new List<JObject>();
             foreach (var inst in authored)
             {
@@ -137,7 +92,7 @@ namespace Ashen.Domain.Shop
             foreach (var p in entries.Properties())
             {
                 var entry = p.Value;
-                if (!IsExtraMountKey(p.Name) || !Js.Truthy(entry) || !Js.Truthy(Js.Get(entry, K.Card))) continue;
+                if (!CardMounts.IsExtraMountKey(p.Name) || !Js.Truthy(entry) || !Js.Truthy(Js.Get(entry, K.Card))) continue;
                 var cardId = Js.Str(Js.Get(entry, K.Card));
                 rows.Add(Js.Obj(SK.MountKey, p.Name, K.Kind, extraKind, SK.State, SV.MountInstalled, SK.AuthoredCardId, Js.Null(),
                     K.CardId, cardId, SK.CardName, CardName(d, cardId) ?? Js.Null(),
@@ -145,7 +100,7 @@ namespace Ashen.Domain.Shop
                     SK.Extractable, !string.IsNullOrEmpty(tag) && Js.Includes(CardTags(d, cardId), tag),
                     SK.FallbackCardId, Js.Null(), RK.Accepts, Accepts(rules, extraKind).DeepClone(), SK.Extractions, Extractions(entry), SK.Extra, true));
             }
-            var open = OpenExtraMountKey(d, run, itemRef);
+            var open = CardMounts.OpenExtraMountKey(d.Run, run.Obj(K.ItemMounts), itemRef);
             if (open != null)
                 rows.Add(Js.Obj(SK.MountKey, open, K.Kind, extraKind, SK.State, SV.MountOpen, SK.AuthoredCardId, Js.Null(), K.CardId, Js.Null(), SK.CardName, Js.Null(),
                     K.Upgraded, false, SK.Extractable, false, SK.FallbackCardId, Js.Null(), RK.Accepts, Accepts(rules, extraKind).DeepClone(), SK.Extractions, 0.0, SK.Extra, true));
@@ -176,7 +131,7 @@ namespace Ashen.Domain.Shop
         public static JObject ExtractionPlan(ShopData d, JObject run)
         {
             var cost = ServiceCost(d, SV.ServiceExtract);
-            var stones = StoneBalance(run);
+            var stones = Rewards.Smithing.StoneBalance(run);
             var candidates = new JArray();
             foreach (var item in OwnedMountItems(d, run))
             {
@@ -195,7 +150,7 @@ namespace Ashen.Domain.Shop
         public static JObject InstallPlan(ShopData d, JObject run)
         {
             var cost = ServiceCost(d, SV.ServiceInstall);
-            var stones = StoneBalance(run);
+            var stones = Rewards.Smithing.StoneBalance(run);
             var openStates = d.RuleList(SK.Smith, SK.OpenMountStates);
             var candidates = new JArray();
             foreach (var item in OwnedMountItems(d, run))
@@ -254,8 +209,12 @@ namespace Ashen.Domain.Shop
 
         private static JObject Candidate(JObject plan, string itemRef) => Js.Items(plan[SK.Candidates]).OfType<JObject>().FirstOrDefault(c => c.Str(K.ItemRef) == itemRef);
 
-        private static JToken PieceName(ShopData d, JObject run, string itemRef, JObject candidate) =>
-            OwnedMountItems(d, run).FirstOrDefault(i => i.ItemRef == itemRef)?.Piece[K.Name] ?? candidate[SK.ItemName];
+        /// <summary>The receipt's item name: the owned piece's after the commit (<c>piece.name</c>, even when absent), else the plan's.</summary>
+        private static JToken PieceName(ShopData d, JObject run, string itemRef, JObject candidate)
+        {
+            var owned = OwnedMountItems(d, run).FirstOrDefault(i => i.ItemRef == itemRef);
+            return owned != null ? owned.Piece[K.Name] : candidate[SK.ItemName];
+        }
 
         /// <summary>
         /// commitExtraction(registries, run, itemRef, mountKey, rules, { free }): lift the card out of one mount — the

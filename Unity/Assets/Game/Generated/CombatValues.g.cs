@@ -29,8 +29,10 @@ namespace Ashen.Generated
         public const string CauseEffect = "effect";
         public const string ClassKind = "class";
         public const string ClassSkillPrefix = "class";
+        public const string CommandChangeEquipment = "changeEquipment";
         public const string CommandEndTurn = "endTurn";
         public const string CommandPlayCard = "playCard";
+        public const string CommandSwapArmament = "swapArmament";
         public const string CommandUseFlask = "useFlask";
         public const string Configured = "configured";
         public const string CostFieldSuffix = "Cost";
@@ -51,9 +53,7 @@ namespace Ashen.Generated
         public const string GripDual = "dual";
         public const string GripOne = "one";
         public const string GripTwo = "two";
-        public const string GroupClassId = "classId";
         public const string GroupField = "field";
-        public const string GroupId = "id";
         public const string GroupIndex = "index";
         public const string GroupNumber = "num";
         public const string GroupOwner = "owner";

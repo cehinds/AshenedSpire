@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using Ashen.Domain.Combat;
 using Newtonsoft.Json.Linq;
 using K = Ashen.Generated.CombatKeys;
+using RK = Ashen.Generated.RunKeys;
 using V = Ashen.Generated.CombatValues;
 
 namespace Ashen.App.Combat
@@ -109,6 +110,72 @@ namespace Ashen.App.Combat
         public double PendingActionLoss;
     }
 
+    /// <summary>One prepared set of a hand slot: what it holds, whether it is the active one, and what cycling to it costs now.</summary>
+    public sealed class ArmamentSetView
+    {
+        public int SetIndex;
+        public string ItemId;
+        public string Name;
+        public bool Active;
+
+        /// <summary>The price the engine would charge (swapCostFor: cost, ruleId, base, categoryTag, gear deltas), or null where it refuses first.</summary>
+        public JObject Price;
+
+        public double? Cost;
+        public Refusal Refusal;
+        public bool Swappable => Refusal == null;
+
+        /// <summary>The command that swaps to this set (hand it to the session).</summary>
+        public CombatCommand Command;
+    }
+
+    /// <summary>A hand slot as the mid-fight Armoury shows it (label from content, sets in order).</summary>
+    public sealed class ArmamentSlotView
+    {
+        public string SlotId;
+        public string Label;
+        public string Hand;
+        public List<ArmamentSetView> Sets = new List<ArmamentSetView>();
+    }
+
+    /// <summary>A carried piece (storage): id and name.</summary>
+    public sealed class CarriedItemView
+    {
+        public string ItemId;
+        public string Name;
+    }
+
+    /// <summary>One way to re-arm a position (a carried piece, or an empty hand when <see cref="PieceId"/> is null), priced and judged.</summary>
+    public sealed class EquipmentChangeView
+    {
+        public string SlotId;
+        public int SetIndex;
+        public string PieceId;
+        public string Name;
+        public JObject Price;
+        public double? Cost;
+        public Refusal Refusal;
+        public bool Allowed => Refusal == null;
+        public CombatCommand Command;
+    }
+
+    /// <summary>
+    /// The mid-fight Armoury as data (us-5.11; the D-010 popover binds it later): the hand slots and their sets with
+    /// the swap legality and price, the carried pieces, the currency the price is paid in and, under an allowance,
+    /// what is left this turn. Re-arming options for a position come from <see cref="CombatViewModel.EquipmentChanges"/>.
+    /// </summary>
+    public sealed class ArmouryView
+    {
+        public List<ArmamentSlotView> Slots = new List<ArmamentSlotView>();
+        public List<CarriedItemView> Carried = new List<CarriedItemView>();
+
+        /// <summary>balance.equipment.swapCostKind: energy or allowance.</summary>
+        public string CostKind;
+
+        /// <summary>The swaps left this turn under an allowance (null when swaps cost energy).</summary>
+        public double? SwapsLeft;
+    }
+
     /// <summary>Everything W-07 draws, derived from the committed combat state (views never call Domain directly).</summary>
     public sealed class CombatViewState
     {
@@ -126,6 +193,20 @@ namespace Ashen.App.Combat
         public bool DiscardChoice;
         public double DiscardMinimum;
         public double DiscardMaximum;
+
+        /// <summary>The mid-fight Armoury (null when the fight carries no loadout or its data has no equipment port).</summary>
+        public ArmouryView Armoury;
+    }
+
+    /// <summary>W-17 W1h: the open pile's cards, the rail with counts, and the draw pile's count.</summary>
+    public sealed class PileViewState
+    {
+        public string Title;
+        public string Pile;
+        public readonly List<KeyValuePair<string, string>> Rail = new List<KeyValuePair<string, string>>();
+        public readonly List<CardView> Cards = new List<CardView>();
+        public string Empty;
+        public string Draw;
     }
 
     /// <summary>
@@ -156,7 +237,103 @@ namespace Ashen.App.Combat
             view.DiscardChoice = plan.Prompt;
             view.DiscardMinimum = plan.Minimum;
             view.DiscardMaximum = plan.Maximum;
+            view.Armoury = Armoury(c);
             return view;
+        }
+
+        /// <summary>
+        /// W-17 W1h the pile viewer: the rail is Discard and Exhaust (as shipped), each card as the hand draws it; the draw
+        /// pile shows its count only, its order hidden (AW:821).
+        /// </summary>
+        public static PileViewState Piles(CombatState c, Ashen.App.Ui.StringTable strings, string pile)
+        {
+            var count = new System.Func<int, Ashen.App.Ui.StringArgs>(n => new Ashen.App.Ui.StringArgs().Add(Ashen.Generated.MetaPlaceholders.Count, n));
+            var view = new PileViewState
+            {
+                Title = strings.Get(Ashen.Generated.MetaStringKeys.PilesTitle),
+                Pile = pile == Ashen.Generated.MetaValues.PileExhaust ? pile : Ashen.Generated.MetaValues.PileDiscard,
+                Draw = strings.Format(Ashen.Generated.MetaStringKeys.PilesDraw, count(c.Piles.Draw.Count)),
+            };
+            view.Rail.Add(new KeyValuePair<string, string>(Ashen.Generated.MetaValues.PileDiscard, strings.Format(Ashen.Generated.MetaStringKeys.PilesDiscard, count(c.Piles.Discard.Count))));
+            view.Rail.Add(new KeyValuePair<string, string>(Ashen.Generated.MetaValues.PileExhaust, strings.Format(Ashen.Generated.MetaStringKeys.PilesExhaust, count(c.Piles.Exhaust.Count))));
+            foreach (var inst in view.Pile == Ashen.Generated.MetaValues.PileExhaust ? c.Piles.Exhaust : c.Piles.Discard) view.Cards.Add(Card(c, inst));
+            if (view.Cards.Count == 0) view.Empty = strings.Get(Ashen.Generated.MetaStringKeys.PilesEmpty);
+            return view;
+        }
+
+        private static string PieceName(CombatState c, string itemId) =>
+            itemId == null ? null
+                : Js.Items(c.Data.Equipment[K.Armaments]).OfType<JObject>().FirstOrDefault(a => a.Str(K.Id) == itemId)?.Str(K.Name) ?? itemId;
+
+        private static IEnumerable<JObject> HandSlots(CombatState c) =>
+            Js.Items(c.Data.Equipment[K.Slots]).OfType<JObject>().Where(s => s.Str(K.Hand) == V.Right || s.Str(K.Hand) == V.Left);
+
+        private static ArmouryView Armoury(CombatState c)
+        {
+            if (c.Loadout == null || c.Data.EquipmentPort == null) return null;
+            var cfg = c.Data.Balance.Obj(K.Equipment) ?? new JObject();
+            var view = new ArmouryView
+            {
+                CostKind = cfg.Str(K.SwapCostKind),
+                SwapsLeft = cfg.Str(K.SwapCostKind) == V.SwapAllowance ? c.SwapsLeft : (double?)null,
+            };
+            foreach (var slot in HandSlots(c))
+            {
+                var slotId = slot.Str(K.Id);
+                var cells = c.Loadout.Obj(K.Sets)?.Arr(slotId) ?? new JArray();
+                var active = (int)Js.Or0(c.Loadout.Obj(K.Active)?[slotId]);
+                var slotView = new ArmamentSlotView { SlotId = slotId, Label = slot.Str(K.Label), Hand = slot.Str(K.Hand) };
+                for (var i = 0; i < cells.Count; i++)
+                {
+                    var price = CombatPreview.SwapPrice(c, slotId, i);
+                    slotView.Sets.Add(new ArmamentSetView
+                    {
+                        SetIndex = i,
+                        ItemId = Js.Str(cells[i]),
+                        Name = PieceName(c, Js.Str(cells[i])),
+                        Active = i == active,
+                        Price = price,
+                        Cost = price != null ? price.Num(K.Cost) : (double?)null,
+                        Refusal = CombatLegality.CanSwap(c, slotId, i),
+                        Command = CombatCommand.SwapArmament(slotId, i),
+                    });
+                }
+                view.Slots.Add(slotView);
+            }
+            foreach (var id in Js.Items(c.Loadout[RK.Storage]).Select(Js.Str).Where(id => id != null))
+                view.Carried.Add(new CarriedItemView { ItemId = id, Name = PieceName(c, id) });
+            return view;
+        }
+
+        /// <summary>
+        /// Every way to re-arm one position now: an empty hand, each carried piece and each piece held in another hand
+        /// cell (a move), each with the engine's refusal and price.
+        /// </summary>
+        public static List<EquipmentChangeView> EquipmentChanges(CombatState c, string slotId, int setIndex)
+        {
+            var list = new List<EquipmentChangeView>();
+            if (c.Loadout == null) return list;
+            var pieces = new List<string> { null };
+            foreach (var id in Js.Items(c.Loadout[RK.Storage]).Select(Js.Str)) if (id != null && !pieces.Contains(id)) pieces.Add(id);
+            foreach (var slot in HandSlots(c))
+                foreach (var id in Js.Items(c.Loadout.Obj(K.Sets)?[slot.Str(K.Id)]).Select(Js.Str))
+                    if (!string.IsNullOrEmpty(id) && !pieces.Contains(id)) pieces.Add(id);
+            foreach (var pieceId in pieces)
+            {
+                var price = CombatPreview.ChangePrice(c, slotId, setIndex, pieceId);
+                list.Add(new EquipmentChangeView
+                {
+                    SlotId = slotId,
+                    SetIndex = setIndex,
+                    PieceId = pieceId,
+                    Name = PieceName(c, pieceId),
+                    Price = price,
+                    Cost = price != null ? price.Num(K.Cost) : (double?)null,
+                    Refusal = CombatLegality.CanChangeEquipment(c, slotId, setIndex, pieceId),
+                    Command = CombatCommand.ChangeEquipment(slotId, setIndex, pieceId),
+                });
+            }
+            return list;
         }
 
         /// <summary>A text template with its {tokens} replaced by the preview's values; unknown tokens stay as written.</summary>

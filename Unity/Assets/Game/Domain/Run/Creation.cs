@@ -140,11 +140,11 @@ namespace Ashen.Domain.Run
 
         private static double TierSizeFor(RunData d, string resource, JObject row, JObject tierSizes)
         {
-            if (Js.IsFinite(row[RK.PointsPerTier]) && row.Num(RK.PointsPerTier) > 0) return row.Num(RK.PointsPerTier);
+            if (Js.IsFinite(row[K.PointsPerTier]) && row.Num(K.PointsPerTier) > 0) return row.Num(K.PointsPerTier);
             if (tierSizes != null && Js.IsFinite(tierSizes[resource]) && tierSizes.Num(resource) > 0) return tierSizes.Num(resource);
             var table = d.DerivedStatRules ?? new JObject();
-            var authored = table.Obj(RK.Rules)?.Obj(resource) ?? new JObject();
-            var per = Js.IsFinite(authored[RK.PointsPerTier]) ? authored.Num(RK.PointsPerTier) : Js.D(table.Obj(K.Defaults)?[RK.PointsPerTier]);
+            var authored = table.Obj(K.Rules)?.Obj(resource) ?? new JObject();
+            var per = Js.IsFinite(authored[K.PointsPerTier]) ? authored.Num(K.PointsPerTier) : Js.D(table.Obj(K.Defaults)?[K.PointsPerTier]);
             if (double.IsNaN(per) || double.IsInfinity(per) || per <= 0) throw new InvalidOperationException(RunJs.Fmt(RM.RelicTierSizeUnknown, resource));
             return per;
         }
@@ -183,7 +183,7 @@ namespace Ashen.Domain.Run
                         var per = TierSizeFor(d, row.Str(RK.Resource), row, tierSizes);
                         var tier = Math.Floor(Js.D(points) / per);
                         var value = tier * row.Num(RK.AmountPerTier);
-                        var term = Js.Obj(RK.SourceStat, row[RK.SourceStat], RK.PointsPerTier, per, RK.AmountPerTier, row[RK.AmountPerTier], RK.Tier, tier, K.Value, value);
+                        var term = Js.Obj(RK.SourceStat, row[RK.SourceStat], K.PointsPerTier, per, RK.AmountPerTier, row[RK.AmountPerTier], RK.Tier, tier, K.Value, value);
                         var r = resources.Obj(row.Str(RK.Resource) ?? V.Undefined) ?? throw new InvalidOperationException(RunJs.Fmt(RM.RelicUnknownResource, relicId, index));
                         ((JArray)r[RK.AttributeTiers]).Add(term);
                         r.Put(K.Total, r.Num(K.Total) + value);

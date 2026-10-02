@@ -7,11 +7,15 @@ import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 const DIRS = ['Unity/Assets/Game/Domain/Combat', 'Unity/Assets/Game/Application/Combat'];
 const src = DIRS.flatMap((dir) => readdirSync(dir).filter((f) => f.endsWith('.cs')).map((f) => readFileSync(`${dir}/${f}`, 'utf8'))).join('\n');
 const used = (alias) => [...new Set([...src.matchAll(new RegExp(`(?<![A-Za-z0-9_.])${alias}[.]([A-Z][A-Za-z0-9]*)`, 'g'))].map(m => m[1]))].sort();
+// The run port emits combat events too (us-5.11: the mid-fight equipment intents live in Ashen.Domain.Run), so the
+// event names are read off both trees.
+const runSrc = readdirSync('Unity/Assets/Game/Domain/Run').filter((f) => f.endsWith('.cs')).map((f) => readFileSync(`Unity/Assets/Game/Domain/Run/${f}`, 'utf8')).join('\n');
+const usedEvents = () => [...new Set([...(src + runSrc).matchAll(/(?<![A-Za-z0-9_.])E[.]([A-Z][A-Za-z0-9]*)/g)].map(m => m[1]))].sort();
 const camel = (s) => s[0].toLowerCase() + s.slice(1);
 const auto = (alias) => Object.fromEntries(used(alias).map(k => [k, camel(k)]));
 const out = { comment: 'Combat engine names (stream B, us-5.1): state/effect/event keys, opcodes, predicates, closed values and messages the C# port of engine/combat.js reads. Values are the shipped wire strings (D-037).', keySets: [], numberSets: [] };
 out.keySets.push({ name: 'CombatKeys', doc: 'Keys of combat documents, content rows and rules the combat engine reads (shipped wire names).', keys: auto('K') });
-out.keySets.push({ name: 'CombatEvents', doc: 'Combat bus event types (shipped TRIGGER_EVENTS subset the engine emits or hooks).', keys: auto('E') });
+out.keySets.push({ name: 'CombatEvents', doc: 'Combat bus event types (shipped TRIGGER_EVENTS subset the engine emits or hooks).', keys: Object.fromEntries(usedEvents().map(k => [k, camel(k)])) });
 out.keySets.push({ name: 'CombatOps', doc: 'Combat effect opcodes the interpreter implements (engine/actions.js runOpcode).', keys: auto('Op') });
 out.keySets.push({ name: 'CombatPredicates', doc: 'Trigger/effect predicate names (engine/triggers.js evalPredicate).', keys: auto('Pr') });
 out.keySets.push({ name: 'FormulaOps', doc: 'Formula ops (model/formulas.js FORMULA_OPS).', keys: auto('F') });
@@ -28,9 +32,6 @@ out.keySets.push({ name: 'CombatPatterns', doc: 'Patterns the combat port parses
   CardMod: String.raw`^(?<prefix>[A-Za-z]\w*)\.(?<field>[A-Za-z]\w*)=(?<sign>[+-]?)(?<num>\d+(?:\.\d+)?)$`,
   TextToken: String.raw`\{(?<token>[A-Za-z][\w.]*)\}`,
   LegacyRelicGate: String.raw`^relic:(?<owner>.+):(?<relic>[^:]+):(?<index>\d+)$`,
-  ArmamentRef: String.raw`^armament/(?<id>[^/]+)$`,
-  ArmorRef: String.raw`^armor/(?<classId>[^/]+)/(?<id>[^/]+)$`,
-  RelicRef: String.raw`^relic/(?<id>[^/]+)$`,
 } });
 out.numberSets.push({ name: 'CombatMath', type: 'double', doc: 'Arithmetic constants of the combat rules (definitions, not tuning): percent scale, the float-floor epsilon, JS safe-integer bits.', values: { Percent: '100', Epsilon: '1e-9', Two: '2', Half: '0.5', SafeIntegerBits: '53' } });
 writeFileSync('Tools/codegen.d/combat.json', JSON.stringify(out, null, 2) + '\n');

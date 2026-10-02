@@ -295,7 +295,7 @@ namespace Ashen.App.Run
                 : strings.Format(StringKeys.RewardsPickDraft, new StringArgs().Add(UiPlaceholders.Title, title));
 
         /// <summary>A template-with-{art} registry id from an artKey (a flask's "flask-crimson" loses its prefix first), or null.</summary>
-        private static string ArtFromKey(string template, string artKey, string prefix)
+        internal static string ArtFromKey(string template, string artKey, string prefix)
         {
             if (string.IsNullOrEmpty(template) || string.IsNullOrEmpty(artKey)) return null;
             if (!string.IsNullOrEmpty(prefix) && artKey.StartsWith(prefix, StringComparison.Ordinal)) artKey = artKey.Substring(prefix.Length);
@@ -304,7 +304,7 @@ namespace Ashen.App.Run
 
         // ------------------------------------------------------------------ cards and nodes
 
-        private static string CardName(CombatData data, string cardId) => data.Cards.Has(cardId) ? data.Cards.Get(cardId).Str(K.Name) : cardId;
+        internal static string CardName(CombatData data, string cardId) => data.Cards.Has(cardId) ? data.Cards.Get(cardId).Str(K.Name) : cardId;
 
         /// <summary>A card as its CardView reads out of a fight: name, kind, rarity, authored costs and its text with the authored numbers.</summary>
         public static RewardPickView CardPick(CombatData data, StringTable strings, IReadOnlyList<string> costKinds, string cardId, bool upgraded)
@@ -333,7 +333,7 @@ namespace Ashen.App.Run
         private static string NodeName(RunSession session, string nodeId) => Node(session, nodeId)?.Str(RunFlowKeys.Label) ?? nodeId;
 
         /// <summary>A class-tree node as a tile: its label and its rule's sentence (numbers bound by op), else its blurb.</summary>
-        private static RewardPickView NodePick(RunSession session, string nodeId)
+        internal static RewardPickView NodePick(RunSession session, string nodeId)
         {
             var data = session.Content.Combat;
             var node = Node(session, nodeId) ?? new JObject();
@@ -349,7 +349,7 @@ namespace Ashen.App.Run
         }
 
         /// <summary>A skill track's name: its tree node's label, or the class's name for a class track.</summary>
-        private static string TrackName(RunSession session, string skillId)
+        internal static string TrackName(RunSession session, string skillId)
         {
             var node = Node(session, skillId);
             if (node != null) return node.Str(RunFlowKeys.Label) ?? skillId;
@@ -362,11 +362,11 @@ namespace Ashen.App.Run
         // ------------------------------------------------------------------ sentences (card.js staticTokens, validate.js relicTokens)
 
         /// <summary>A text template with its tokens filled from the numbers; an unresolved token keeps its braces (shipped honest degrade).</summary>
-        private static string Sentence(CombatData data, string template, JObject tokens) =>
+        internal static string Sentence(CombatData data, string template, JObject tokens) =>
             CombatViewModel.ResolveText(template ?? string.Empty, tokens);
 
         /// <summary>computeTokenBindings over an effect list: each tokenizable literal number under its token.</summary>
-        private static JObject EffectTokens(CombatData data, JToken effects)
+        internal static JObject EffectTokens(CombatData data, JToken effects)
         {
             var tokens = new JObject();
             var list = Js.Items(effects).ToList();
@@ -381,7 +381,7 @@ namespace Ashen.App.Run
         }
 
         /// <summary>A rule's or relic's trigger ops flattened (triggers[].do, then effects, then do).</summary>
-        private static JArray TriggerOps(JObject def)
+        internal static JArray TriggerOps(JObject def)
         {
             var ops = new JArray();
             foreach (var t in Js.Items(def?[K.Triggers]).OfType<JObject>()) foreach (var op in Js.Items(t[K.Do])) ops.Add(op.DeepClone());
@@ -396,7 +396,7 @@ namespace Ashen.App.Run
         /// bound by op here; the shipped build binds them by variable name, which agrees wherever the variable is named
         /// after its op).
         /// </summary>
-        private static JObject RelicTokens(CombatData data, JObject def, ComponentDefaults components)
+        internal static JObject RelicTokens(CombatData data, JObject def, ComponentDefaults components)
         {
             var tokens = EffectTokens(data, TriggerOps(def));
             var counts = new Dictionary<string, int>(StringComparer.Ordinal);

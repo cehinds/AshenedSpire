@@ -1,0 +1,125 @@
+{
+  "$id": "audio/beds.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "locations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "pools": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "runEnd": {
+      "type": "object",
+      "properties": {
+        "victory": {
+          "type": "string"
+        },
+        "defeat": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "victory",
+        "defeat"
+      ]
+    },
+    "stingers": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "render": {
+      "type": "object",
+      "properties": {
+        "notesPerLoop": {
+          "type": "integer"
+        },
+        "noteLengthFraction": {
+          "type": "number"
+        },
+        "noteAttackSeconds": {
+          "type": "number"
+        },
+        "noteGain": {
+          "type": "number"
+        },
+        "droneGain": {
+          "type": "number"
+        },
+        "droneOctaveDown": {
+          "type": "integer"
+        },
+        "pulseGain": {
+          "type": "number"
+        },
+        "pulseSeconds": {
+          "type": "number"
+        },
+        "pulseFrequency": {
+          "type": "number"
+        },
+        "semitonesPerOctave": {
+          "type": "number"
+        },
+        "melodyOctaveUp": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "notesPerLoop",
+        "noteLengthFraction",
+        "noteAttackSeconds",
+        "noteGain",
+        "droneGain",
+        "droneOctaveDown",
+        "pulseGain",
+        "pulseSeconds",
+        "pulseFrequency",
+        "semitonesPerOctave",
+        "melodyOctaveUp"
+      ]
+    },
+    "sfx": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "familyFields": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "maxPerCommand": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "events",
+        "familyFields",
+        "maxPerCommand"
+      ]
+    }
+  },
+  "required": [
+    "locations",
+    "pools",
+    "runEnd",
+    "stingers",
+    "render"
+  ]
+}

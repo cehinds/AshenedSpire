@@ -2,10 +2,55 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.37.3] — 2026-10-02
+
+- Abandon run, buy-back, XP strip data, hand example, web config import/export, combat sounds (D-134, D-159-D-163)
+
+## [0.1.37.2] — 2026-10-02
+
+- version check: promotions may carry accumulated dev bumps (D-158)
+
+## [0.1.37.1] — 2026-10-02
+
+- Meta lane engine-free halves: journal, settings, map reveal, prologue, creation panes, progression, armoury, piles, music (D-148-D-156)
+
+## [0.1.37.0] — 2026-10-02
+
+Stories: us-18.1
+
+- 200-seed Classic bot report; reward card ids stay unique (D-146, D-147)
+
+## [0.1.36.0] — 2026-09-27
+
+Stories: us-9.1, us-9.2, us-9.3, us-10.1, us-10.2, us-10.3, us-4.5
+
+- F3 node screens: W-09 merchant, W-11 event and dialogue, W-13 legacy dungeon on the climb router (US-9.3 sell only; the shipped game has no buy-back, D-081)
+
+## [0.1.29.0] — 2026-09-27
+
+Stories: us-4.1, us-4.2, us-4.3, us-4.4, us-4.6, us-4.7, us-4.8, us-4.9, us-8.1, us-8.2, us-8.3, us-8.4, us-8.5, us-8.6
+
+- F3 climb flow: W-06 act map, W-10 rest, W-15 run end; RunSession drives whole runs on RunLoop; owner ruling D-138 (shipped game is reference; no save compat)
+
+## [0.1.15.0] — 2026-09-26
+
+Stories: us-5.11, us-2.3
+
+- Combat: weapon-set swap and re-arming, unrated poise, profile snapshot; run creation: custom attributes, derived-stat options, hand-rule settings, derived-stat restore and save migrations (all oracle-verified)
+
+## [0.1.13.2] — 2026-09-26
+
+- Refactor: rest stop and merchant share one smithing/card-extraction port; upgraded-item resolution has one home (-1,469 lines, oracles unchanged)
+
+## [0.1.13.1] — 2026-09-26
+
+- Record the F1 promotion (v0.1.13.0) in CHANGELOG and BUILD-LOG
+
 ## [0.1.13.0] — 2026-09-26
 
 Stories: us-11.1, us-11.2, us-11.3, us-8.10
 
+- **Promoted dev → test → main, tagged v0.1.13.0 (phase F1 First playable loop complete). A promotion is a process step, not an owner sign-off; the epic stays 0 (D-039).** CI green on dev and test; Unity EditMode 2102 passed / 2 skipped and PlayMode 3 passed / 1 skipped locally (CI Unity jobs skip without the UNITY_* secrets).
 - F1 complete: W-08 rewards on RewardDoor (claims oracle incl. tap path), resume on rewards, permadeath on defeat; one run-effects door, chained full runs (108/108), bot smoke
 
 ## [0.1.12.0] — 2026-09-26

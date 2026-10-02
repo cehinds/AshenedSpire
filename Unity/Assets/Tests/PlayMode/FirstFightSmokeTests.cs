@@ -22,12 +22,12 @@ namespace Ashen.Tests.Play
 {
     /// <summary>
     /// F1 acceptance smoke (09 §F1; US-2.1, US-5.1, US-5.9, US-5.10, US-17.1; AF-10, AF-12, PF-06): Boot → title → New →
-    /// W-03 slot → W-04 Class (the data default) → Begin → W-07 → play a card on an enemy (keyboard targeting) → End Turn
+    /// W-03 slot → W-04 Class (the data default) → Begin → W-06 → the first map node → W-07 → play a card on an enemy (keyboard targeting) → End Turn
     /// and watch the enemy turn → pause (Escape; pad Start closes and reopens it) → Save &amp; quit (hold-to-confirm) →
     /// title → Continue → the same state hash → finish the fight through the screen's command path → the end state →
     /// W-08: claim the card offer (keyboard select, a pointer click, Confirm) and one other reward (pad) → pause → Save &amp;
-    /// quit on W-08 → Continue → W-08 with the same claims → Continue (sweep per rewardCollect) → title. A second test
-    /// loses the first fight: the run is closed out and its slot cleared. Real Input System keyboard and pad devices drive the focus model.
+    /// quit on W-08 → Continue → W-08 with the same claims → Continue (sweep per rewardCollect) → W-06. A second test
+    /// loses the first fight: the run is closed out, its slot cleared, and W-15 names the killer. Real Input System keyboard and pad devices drive the focus model.
     /// </summary>
     [TestFixture, Category("Smoke")]
     public class FirstFightSmokeTests
@@ -162,12 +162,22 @@ namespace Ashen.Tests.Play
             yield return PressUntil(Key.DownArrow, () => Focused == begin, 8, "focus on Begin");
             yield return Press(Key.Enter);
 
+            // W-06: the climb opens on the act map; the first reachable node (a fight: floor 1 is fixed) is picked with the keyboard.
+            yield return Until(() => Nav.CurrentId == ScreenIds.ActMap && Focused != null, 20f, "W-06 after Begin");
+            var map = (ActMapScreen)Nav.Top.View;
+            var firstNode = map.Board.Node(map.Session.ReachableNodes()[0]);
+            yield return PressUntil(Key.RightArrow, () => Focused == firstNode, 12, "focus on the first reachable node");
+            yield return Press(Key.Enter);
+            yield return Until(() => map.TrayOpen, 5f, "the node tray");
+            yield return new WaitForSecondsRealtime(0.5f);
+            yield return Press(Key.Enter);
+
             // W-07: play a targeted card on an enemy with the keyboard.
             yield return Until(() => Nav.CurrentId == ScreenIds.Combat && Focused != null, 20f, "W-07 combat");
             var combat = (CombatScreen)Nav.Top.View;
             var session = combat.Session;
-            Assert.That(session.EncounterId, Is.EqualTo(content.FirstFightEncounter()), "the data rule's Weald encounter");
-            Assert.That(combat.Enemies.Count, Is.GreaterThanOrEqualTo(2));
+            Assert.That(session.Content.Data.Encounters.Get(session.EncounterId).Value<string>("pool"), Is.EqualTo("normal"), "the first floor is a fight from the seat's pool");
+            Assert.That(combat.Enemies.Count, Is.GreaterThanOrEqualTo(2), "the pinned seed's first fight has a choice of targets");
             Func<int> focusedCard = () => combat.HandCards.ToList().IndexOf(Focused as Ashen.Presentation.UI.Kit.CardView);
             Func<bool> onTargetedPlayable = () =>
             {
@@ -339,10 +349,10 @@ namespace Ashen.Tests.Play
                 yield return Press(Key.DownArrow);
                 yield return Press(Key.Enter);
             }
-            yield return Until(() => Nav.CurrentId == ScreenIds.Title && Nav.Stack.Count == 1, 10f, "the title after the rewards");
+            yield return Until(() => Nav.CurrentId == ScreenIds.ActMap && Nav.Stack.Count == 1, 10f, "the act map after the rewards");
             var after = RunSession.Load(content, saves, 1).Session;
             Assert.That(after.HasPendingReward, Is.False, "the reward checkpoint closed");
-            Assert.That(after.Location, Is.EqualTo("map"), "the run is saved at the post-reward checkpoint (the act map is a later build)");
+            Assert.That(after.Location, Is.EqualTo("map"), "the run is saved at the map (PF-06 reward resolved)");
             Assert.That(after.Run["deck"].Count(c => c.Value<string>("instanceId").StartsWith("r")), Is.GreaterThanOrEqualTo(1));
         }
 
@@ -359,7 +369,8 @@ namespace Ashen.Tests.Play
             var ui = AshenBoot.Current.Host.Context;
             var content = ui.RunContent;
             var session = RunSession.New(content, ui.Saves, 1, WinningSeed, content.DefaultClass(), ui.Data.Strings.Get(content.Flow.NameKey));
-            session.StartEncounter();
+            Assert.That(session.Travel(session.ReachableNodes()[0]).Travelled, Is.True, "the first map node");
+            Assert.That(session.IsInCombat, Is.True, "floor 1 is a fight");
             Nav.Go(ScreenIds.Combat, new CombatArgs { Session = session }, true);
             yield return Until(() => Nav.CurrentId == ScreenIds.Combat && Focused != null, 10f, "W-07");
             var combat = (CombatScreen)Nav.Top.View;
@@ -375,8 +386,16 @@ namespace Ashen.Tests.Play
             Assert.That(session.RunOver, Is.True, "a death closes the run out (finishRun)");
             Assert.That(ui.Saves.Exists(session.Slot), Is.False, "permadeath: the slot is cleared (saves.clearRun)");
             Assert.That(Nav.Top.Root.Q(UiNames.EndRewards).ClassListContains(UiClasses.Hidden), Is.True, "no rewards after a death");
-            yield return Until(() => Focused != null && Focused.name == UiNames.EndToTitle, 5f, "focus on Return to title");
+            Assert.That(Nav.Top.Root.Q(UiNames.EndToTitle).ClassListContains(UiClasses.Hidden), Is.True, "the run summary replaces Return to title (W-15 is built)");
+            yield return Until(() => Focused != null && Focused.name == UiNames.EndSummary, 5f, "focus on Run summary");
             yield return Press(Key.Enter);
+            yield return Until(() => Nav.CurrentId == ScreenIds.RunEnd && Focused != null, 5f, "W-15 run end");
+            var end = (RunEndScreen)Nav.Top.View;
+            Assert.That(end.View.Victory, Is.False, "YOU PERISHED (US-4.9)");
+            Assert.That(end.View.Stats.Any(s => s.StartsWith("Fell to", StringComparison.Ordinal)), Is.True, "the killer is named");
+            Assert.That(end.View.Deck, Is.Not.Empty, "the final deck is listed");
+            Assert.That(Focused, Is.SameAs(end.TitleButton), "focus starts on Return to title");
+            yield return Press(GamepadButton.South);
             yield return Until(() => Nav.CurrentId == ScreenIds.Title && Focused != null, 5f, "the title after the defeat");
             title = (TitleScreen)Nav.Top.View;
             Assert.That(title.Buttons[0].enabledSelf, Is.False, "Continue is disabled: no slot holds a run");

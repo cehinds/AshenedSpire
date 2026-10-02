@@ -5,6 +5,7 @@
       "name": "ShopKeys",
       "doc": "Keys of run documents, shop stock, receipts, balance tables and rules/shopEngine.json the merchant port reads (shipped wire names).",
       "keys": {
+        "BuyBack": "buyBack",
         "ActiveCopies": "activeCopies",
         "AffectedCards": "affectedCards",
         "Affordable": "affordable",
@@ -90,7 +91,6 @@
         "Services": "services",
         "Shop": "shop",
         "ShopStock": "shopStock",
-        "ShortLabel": "shortLabel",
         "Shortfall": "shortfall",
         "Smith": "smith",
         "SmithingSchemaVersion": "smithingSchemaVersion",
@@ -100,7 +100,6 @@
         "Stock": "stock",
         "StoneBalanceBefore": "stoneBalanceBefore",
         "Stones": "stones",
-        "StorageSlots": "storageSlots",
         "TradeRevision": "tradeRevision",
         "Transaction": "transaction",
         "Used": "used",
@@ -113,6 +112,7 @@
       "name": "ShopValues",
       "doc": "Closed merchant values (actions, offer kinds, smith services, mount states, availability ids, instance-id formats) — shipped wire strings.",
       "keys": {
+        "ActionBuyBack": "buyBack",
         "ActionBuyArmament": "buyArmament",
         "ActionBuyCard": "buyCard",
         "ActionBuyFlask": "buyFlask",
@@ -165,10 +165,6 @@
         "LevelKeyNotNamespaced": "run.itemUpgradeLevels key '{0}' is not a namespaced item ref",
         "MustBeIntegerAtLeast": "{0} must be an integer >= {1}",
         "MustBeObject": "{0} must be an object",
-        "PassiveBelowZero": "{0} passive '{1}' would fall below zero",
-        "PassiveNotAuthored": "{0} passive '{1}' must already be an authored integer",
-        "PoiseBelowZero": "{0} poiseThreshold would fall below zero",
-        "PoiseNotInteger": "{0} poiseThreshold must be an integer",
         "ServiceTwice": "{0}.services lists '{1}' twice",
         "ServicesNotListed": "{0}.services must be a non-empty array",
         "TierMissingCost": "Authored upgrade tier is missing upgrade:cost:smithing-stone",
@@ -179,9 +175,7 @@
         "UnknownService": "{0}.services names unknown service '{1}' (known: {2})",
         "UnknownServicesKey": "{0}: unknown key",
         "UnknownSourceArmament": "Unknown source armament '{0}'",
-        "UnknownUpgradeItem": "Unknown namespaced upgrade item '{0}'",
-        "UnknownUpgradeItemId": "Unknown upgrade item '{0}'",
-        "UpgradeTagInvalid": "{0} tier {1} tag '{2}' is invalid for {3}"
+        "UnknownUpgradeItem": "Unknown namespaced upgrade item '{0}'"
       }
     },
     {
@@ -196,7 +190,6 @@
         "CapacityKinds": "capacityKinds",
         "ChargePools": "chargePools",
         "ChoiceRequirements": "choiceRequirements",
-        "Choices": "choices",
         "Completes": "completes",
         "CompletionSources": "completionSources",
         "Completions": "completions",

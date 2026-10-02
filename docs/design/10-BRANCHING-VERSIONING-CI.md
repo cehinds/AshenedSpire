@@ -67,7 +67,7 @@ Rules for `check`:
 | `feature/*/main → dev` | `story` or `feature` |
 | `fix/*` or chore → `dev` | `patch` |
 | Owner-declared release commit on `dev` | `epic` (requires `ASHEN_OWNER_RELEASE=1`) |
-| `dev → test` and `test → main` | **none**: versions must be equal |
+| `dev → test` and `test → main` | **none** of their own: a promotion carries the version `dev` reached, so it may be ahead of the base (the bumps accumulated by merges into `dev`) but never behind it, and a version ahead of the base needs its `CHANGELOG.md` entry. No single-part or reset rule applies (D-158) |
 
 ## 3. CI — at most 9 jobs (hard cap 20), all concurrent
 

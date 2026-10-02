@@ -1,0 +1,36 @@
+{
+  "comment": "W-18 settings (US-15.1): one control per key, generated from its type. A value is the profile's settings.<key>, else the active preset's playerSettings.<key>, else def. 'live' keys apply at once; 'run' keys apply to the next run (shown with settings.appliesNextRun in a run). options/min/max/def may name content as '<file>#<dotted.path>' (an array, or an object's keys, for options).",
+  "categories": [
+    { "id": "gameplay", "labelKey": "settings.category.gameplay" },
+    { "id": "map", "labelKey": "settings.category.map" },
+    { "id": "interface", "labelKey": "settings.category.interface" },
+    { "id": "accessibility", "labelKey": "settings.category.accessibility" },
+    { "id": "audio", "labelKey": "settings.category.audio" },
+    { "id": "opening", "labelKey": "settings.category.opening" }
+  ],
+  "controls": [
+    { "key": "shrineMultiUse", "category": "gameplay", "type": "toggle", "scope": "live", "def": false, "labelKey": "settings.shrineMultiUse", "helpKey": "settings.shrineMultiUse.help" },
+    { "key": "shopSell", "category": "gameplay", "type": "toggle", "scope": "live", "def": true, "labelKey": "settings.shopSell" },
+    { "key": "rewardCollect", "category": "gameplay", "type": "enum", "scope": "live", "options": "balance/balance.json#ui.rewardCollect.modes", "def": "balance/balance.json#ui.rewardCollect.def", "labelKey": "settings.rewardCollect", "optionKey": "settings.rewardCollect.{0}" },
+    { "key": "useRestorativeFlasksOutsideCombat", "category": "gameplay", "type": "toggle", "scope": "live", "def": false, "labelKey": "settings.useRestorativeFlasksOutsideCombat" },
+    { "key": "levelUpValue", "category": "gameplay", "type": "slider", "scope": "run", "min": "balance/balance.json#levelUp.pointsPerLevelMin", "max": "balance/balance.json#levelUp.pointsPerLevelMax", "step": 1, "def": "balance/balance.json#levelUp.pointsPerLevel", "labelKey": "settings.levelUpValue", "helpKey": "settings.levelUpValue.help" },
+    { "key": "creationAutoAdvance", "category": "gameplay", "type": "toggle", "scope": "live", "def": false, "labelKey": "settings.creationAutoAdvance" },
+    { "key": "mapMode", "category": "map", "type": "enum", "scope": "live", "options": ["full", "path", "fog"], "def": "full", "labelKey": "settings.mapMode", "optionKey": "settings.mapMode.{0}", "helpKey": "settings.mapMode.help" },
+    { "key": "walkedFade", "category": "map", "type": "enum", "scope": "live", "options": ["off", "soft", "strong"], "def": "soft", "labelKey": "settings.walkedFade", "optionKey": "settings.walkedFade.{0}" },
+    { "key": "holdConfirm", "category": "interface", "type": "enum", "scope": "live", "options": "balance/balance.json#ui.holdConfirm.steps", "def": "balance/balance.json#ui.holdConfirm.def", "labelKey": "settings.holdConfirm", "optionKey": "settings.holdConfirm.{0}" },
+    { "key": "showPlayedCard", "category": "interface", "type": "toggle", "scope": "live", "def": true, "labelKey": "settings.showPlayedCard" },
+    { "key": "handLayout", "category": "interface", "type": "enum", "scope": "live", "options": "balance/balance.json#ui.handLayoutModes", "def": "balance/balance.json#ui.handLayout", "labelKey": "settings.handLayout", "optionKey": "settings.handLayout.{0}" },
+    { "key": "cardWidth_focus", "category": "interface", "type": "slider", "scope": "live", "min": 200, "max": 400, "step": 10, "def": 300, "labelKey": "settings.cardWidthFocus" },
+    { "key": "cardWidth_glance", "category": "interface", "type": "slider", "scope": "live", "min": 150, "max": 350, "step": 10, "def": 250, "labelKey": "settings.cardWidthGlance" },
+    { "key": "uiScale", "category": "interface", "type": "enum", "scope": "live", "options": "balance/balance.json#ui.uiScale.named", "def": "m", "labelKey": "settings.uiScale", "optionKey": "settings.uiScale.{0}" },
+    { "key": "textScale", "category": "accessibility", "type": "slider", "scope": "live", "min": 80, "max": 150, "step": 10, "def": 100, "labelKey": "settings.textScale", "unitKey": "settings.unit.percent" },
+    { "key": "reducedMotion", "category": "accessibility", "type": "toggle", "scope": "live", "def": false, "labelKey": "settings.reducedMotion", "helpKey": "settings.reducedMotion.help" },
+    { "key": "colourBlindGlyphs", "category": "accessibility", "type": "toggle", "scope": "live", "def": false, "labelKey": "settings.colourBlindGlyphs" },
+    { "key": "tooltipDelayMs", "category": "accessibility", "type": "slider", "scope": "live", "min": 0, "max": 3000, "step": 250, "def": "balance/balance.json#ui.tooltipPlacement.hoverDelayMs", "labelKey": "settings.tooltipDelayMs", "unitKey": "settings.unit.ms" },
+    { "key": "touchFlickDistance", "category": "accessibility", "type": "slider", "scope": "live", "min": "balance/balance.json#ui.touchFlick.distance.min", "max": "balance/balance.json#ui.touchFlick.distance.max", "step": 8, "def": "balance/balance.json#ui.touchFlick.distance.def", "labelKey": "settings.touchFlickDistance", "unitKey": "settings.unit.px" },
+    { "key": "masterVolume", "category": "audio", "type": "slider", "scope": "live", "min": 0, "max": 100, "step": 5, "def": 80, "labelKey": "settings.masterVolume", "unitKey": "settings.unit.percent" },
+    { "key": "musicVolume", "category": "audio", "type": "slider", "scope": "live", "min": 0, "max": 100, "step": 5, "def": 70, "labelKey": "settings.musicVolume", "unitKey": "settings.unit.percent" },
+    { "key": "sfxVolume", "category": "audio", "type": "slider", "scope": "live", "min": 0, "max": 100, "step": 5, "def": 80, "labelKey": "settings.sfxVolume", "unitKey": "settings.unit.percent" },
+    { "key": "playPrologue", "category": "opening", "type": "toggle", "scope": "run", "def": true, "labelKey": "settings.playPrologue" }
+  ]
+}

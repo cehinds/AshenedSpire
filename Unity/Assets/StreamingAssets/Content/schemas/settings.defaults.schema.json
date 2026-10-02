@@ -1,0 +1,41 @@
+{
+  "$id": "settings/defaults.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "labelKey": { "type": "string" }
+        },
+        "required": ["id", "labelKey"]
+      }
+    },
+    "controls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "key": { "type": "string" },
+          "category": { "type": "string" },
+          "type": { "type": "string", "enum": ["toggle", "enum", "slider"] },
+          "scope": { "type": "string", "enum": ["live", "run"] },
+          "options": {},
+          "min": {},
+          "max": {},
+          "step": { "type": "number" },
+          "def": {},
+          "labelKey": { "type": "string" },
+          "helpKey": { "type": "string" },
+          "optionKey": { "type": "string" },
+          "unitKey": { "type": "string" }
+        },
+        "required": ["key", "category", "type", "scope", "def", "labelKey"]
+      }
+    }
+  },
+  "required": ["categories", "controls"]
+}

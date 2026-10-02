@@ -1,0 +1,42 @@
+{
+  "comment": "Presentation data of the meta lane (D-149): the act map's reveal modes (settings mapMode; US-4.2) and W-04's creation choices (name length, tints, sigils; US-2.2/2.3); the RUN_HUD XP strip flag (W-22, an open owner decision: off); the hand-rules worked example's turns and plays per turn (US-15.2).",
+  "mapReveal": {
+    "fogFloorsAhead": 1,
+    "fogKeepsKinds": [
+      "boss"
+    ],
+    "fogKind": "unseen"
+  },
+  "creation": {
+    "nameMaxLength": 20,
+    "tints": [
+      "ember",
+      "frost",
+      "gold",
+      "grace",
+      "rot"
+    ],
+    "glyphs": [
+      "⚔",
+      "✦",
+      "◆",
+      "▲",
+      "✕",
+      "◊"
+    ],
+    "attributeMode": "lean",
+    "panes": [
+      "class",
+      "character",
+      "equipment",
+      "review"
+    ]
+  },
+  "runHud": {
+    "showXp": false
+  },
+  "handExample": {
+    "turns": 3,
+    "playsPerTurn": 2
+  }
+}

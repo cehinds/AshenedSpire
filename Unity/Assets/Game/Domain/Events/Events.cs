@@ -81,7 +81,7 @@ namespace Ashen.Domain.Events
                 EK.Binding, (double)choices.OfType<JObject>().Count(c => c.Is(EK.Binding)), K.Phase, available < total ? EV.PhaseLimited : EV.PhaseChoose);
             var view = Js.Obj(MK.EventId, eventId, EK.QuestId, Key(questId), WK.Title, def[K.Name], EK.Text, def[EK.Text], EK.Art, def[EK.Art]);
             view[EK.Speaker] = speaker;
-            view[EK.Choices] = choices;
+            view[RK.Choices] = choices;
             view[EK.Hidden] = hidden;
             view[K.Status] = status;
             return view;

@@ -12,7 +12,6 @@ namespace Ashen.Generated
         public const string CapacityKinds = "capacityKinds";
         public const string ChargePools = "chargePools";
         public const string ChoiceRequirements = "choiceRequirements";
-        public const string Choices = "choices";
         public const string Completes = "completes";
         public const string CompletionSources = "completionSources";
         public const string Completions = "completions";

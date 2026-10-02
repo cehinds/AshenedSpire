@@ -102,7 +102,7 @@ namespace Ashen.Domain.Shop
 
         private static double StorageSlots(ShopData d)
         {
-            var slots = d.Run.EquipmentBalance[SK.StorageSlots];
+            var slots = d.Run.EquipmentBalance[RK.StorageSlots];
             return Js.Nullish(slots) ? d.RuleNum(SK.Stock, SK.DefaultStorageSlots) : Js.D(slots);
         }
 

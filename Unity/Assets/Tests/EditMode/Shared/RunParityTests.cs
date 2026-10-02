@@ -20,6 +20,8 @@ namespace Ashen.Tests
     /// run document; the createCombat arguments main.js would build for two encounters must equal
     /// <see cref="RunCombat.CreateArgs"/>, and <see cref="CombatStart.Create"/> on those arguments must produce the
     /// shipped combat-start snapshot and RNG counters. Variants the shipped creation refuses must be refused.
+    /// us-5.11 adds the creation options (custom allocations, derived-stat layers, a saved rule snapshot), hand-rule
+    /// Settings on the fights' arguments, and the load door's derived-stat restore and migrations on older-shape runs.
     /// </summary>
     [TestFixture, Category("Parity")]
     public class RunParityTests
@@ -46,6 +48,11 @@ namespace Ashen.Tests
         public static IEnumerable<string> RunFiles() =>
             Directory.Exists(RunDir)
                 ? Directory.GetFiles(RunDir, "run-*.json").Select(Path.GetFileName).OrderBy(f => f, StringComparer.Ordinal)
+                : Enumerable.Empty<string>();
+
+        public static IEnumerable<string> RestoreFiles() =>
+            Directory.Exists(RunDir)
+                ? Directory.GetFiles(RunDir, "restore-*.json").Select(Path.GetFileName).OrderBy(f => f, StringComparer.Ordinal)
                 : Enumerable.Empty<string>();
 
         public static IEnumerable<TestCaseData> RefusedCases()
@@ -85,7 +92,7 @@ namespace Ashen.Tests
             var log = ReadJson(Path.Combine(RunDir, file));
             var run = Create(log);
             foreach (var fight in ((JArray)log["fights"]).OfType<JObject>())
-                Check(file, "createCombat args " + fight.Value<string>("encounterId"), fight["args"], RunCombat.CreateArgs(run, fight.Value<string>("encounterId"), Data));
+                Check(file, "createCombat args " + fight.Value<string>("encounterId"), fight["args"], RunCombat.CreateArgs(run, fight.Value<string>("encounterId"), Data, fight["settings"] as JObject));
         }
 
         [TestCaseSource(nameof(RunFiles))]
@@ -95,7 +102,7 @@ namespace Ashen.Tests
             var run = Create(log);
             foreach (var fight in ((JArray)log["fights"]).OfType<JObject>())
             {
-                var args = RunCombat.CreateArgs(run, fight.Value<string>("encounterId"), Data);
+                var args = RunCombat.CreateArgs(run, fight.Value<string>("encounterId"), Data, fight["settings"] as JObject);
                 var rng = new Rng((uint)log["seed"].Value<long>());
                 var combat = CombatStart.Create(Data.Combat, rng, (JObject)JToken.Parse(args.ToString(Formatting.None)));
                 Check(file, "combat start " + fight.Value<string>("encounterId"), fight["snapshot"], CombatSnapshot.Serialize(combat));
@@ -115,15 +122,42 @@ namespace Ashen.Tests
             Assert.That(e.Message, Is.EqualTo(refused.Value<string>("error")));
         }
 
+        /// <summary>
+        /// The load door (engine/save.js loadRun → initializeRunDerivedStats(run, registries, { preserveDeficits: true }))
+        /// on every recorded older-shape run: the restored or migrated run must equal the shipped one, strictly on
+        /// presence; a run the shipped door refuses must be refused with the same message.
+        /// </summary>
+        [TestCaseSource(nameof(RestoreFiles))]
+        public void LoadDoorMatchesTheShippedRestore(string file)
+        {
+            var log = ReadJson(Path.Combine(RunDir, file));
+            var run = (JObject)log["input"].DeepClone();
+            if (log["error"] != null)
+            {
+                var e = Assert.Throws<InvalidOperationException>(() => RunState.RestoreDerivedStats(Data, run), file);
+                Assert.That(e.Message, Is.EqualTo(log.Value<string>("error")), file);
+                return;
+            }
+            RunState.RestoreDerivedStats(Data, run);
+            Check(file, "initializeRunDerivedStats", log["output"], run);
+        }
+
+        [Test]
+        public void TheLoadDoorOracleCoversEveryShape()
+        {
+            var restores = ((JArray)Index["restores"]).OfType<JObject>().ToList();
+            Assert.That(RestoreFiles().Count(), Is.EqualTo(restores.Count));
+            Assert.That(restores.Count(r => r["error"] == null), Is.GreaterThanOrEqualTo(30), "restored or migrated");
+            Assert.That(restores.Count(r => r["error"] != null), Is.GreaterThanOrEqualTo(30), "refused");
+            Assert.That(restores.Count(r => r.Value<string>("source").StartsWith("tests/fixtures/", StringComparison.Ordinal)), Is.EqualTo(2), "shipped fixtures");
+        }
+
         [Test]
         public void DeferredCreationPathsThrowByName()
         {
             var classId = Data.Classes.Ids.First();
-            Assert.Throws<NotSupportedException>(() => RunState.Create(Data, 1, classId, new RunOptions { Attributes = new JObject() }));
-            Assert.Throws<NotSupportedException>(() => RunState.Create(Data, 1, classId, new RunOptions { DerivedStatRuleSnapshot = new JObject() }));
             var run = RunState.Create(Data, 1, classId);
             var encounterId = Data.Encounters.Ids.First();
-            Assert.Throws<NotSupportedException>(() => RunCombat.CreateArgs(run, encounterId, Data, new JObject { [RunValues.HandRulesPrefix + "retain"] = false }));
             run["custom"] = new JObject();
             Assert.Throws<NotSupportedException>(() => RunCombat.CreateArgs(run, encounterId, Data));
         }
