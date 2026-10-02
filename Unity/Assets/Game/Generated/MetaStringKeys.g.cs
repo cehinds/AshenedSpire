@@ -33,6 +33,9 @@ namespace Ashen.Generated
         public const string ClassTreeTier = "classTree.tier";
         public const string ClassTreeTierClosed = "classTree.tierClosed";
         public const string ClassTreeTitle = "classTree.title";
+        public const string ConfirmAbandonBody = "confirm.abandon.body";
+        public const string ConfirmAbandonPrimary = "confirm.abandon.primary";
+        public const string ConfirmAbandonTitle = "confirm.abandon.title";
         public const string CreationDeck = "creation.deck";
         public const string CreationHandEmpty = "creation.hand.empty";
         public const string CreationHandMoved = "creation.hand.moved";
@@ -76,6 +79,7 @@ namespace Ashen.Generated
         public const string JournalDetailKiller = "journal.detail.killer";
         public const string JournalDetailKillerUnknown = "journal.detail.killerUnknown";
         public const string JournalDetailSeed = "journal.detail.seed";
+        public const string JournalHistoryAbandoned = "journal.history.abandoned";
         public const string JournalHistoryAscension = "journal.history.ascension";
         public const string JournalHistoryCustom = "journal.history.custom";
         public const string JournalHistoryDefeat = "journal.history.defeat";
@@ -125,6 +129,7 @@ namespace Ashen.Generated
         public const string PrologueStepLine = "prologue.step.line";
         public const string PrologueWarmthLine = "prologue.warmth.line";
         public const string PrologueYearLine = "prologue.year.line";
+        public const string RunEndAbandoned = "runEnd.abandoned";
         public const string SettingsAppliesNextRun = "settings.appliesNextRun";
         public const string SettingsCardWidthFocus = "settings.cardWidthFocus";
         public const string SettingsCardWidthGlance = "settings.cardWidthGlance";

@@ -4,6 +4,7 @@ namespace Ashen.Generated
     /// <summary>Confirmation doors (ui/menus.json 'confirms').</summary>
     public static class ConfirmIds
     {
+        public const string Abandon = "abandon";
         public const string Quit = "quit";
         public const string LoadSlot = "loadSlot";
         public const string StartSlot = "startSlot";

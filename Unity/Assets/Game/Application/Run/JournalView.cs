@@ -113,7 +113,7 @@ namespace Ashen.App.Run
             var row = new JournalRunRow
             {
                 Victory = victory,
-                Outcome = strings.Get(victory ? S.JournalHistoryVictory : S.JournalHistoryDefeat),
+                Outcome = strings.Get(r.Is(MetaKeys.Abandoned) ? S.JournalHistoryAbandoned : victory ? S.JournalHistoryVictory : S.JournalHistoryDefeat),
                 Title = string.IsNullOrEmpty(name) ? className : strings.Format(S.JournalHistoryTitle, new StringArgs().Add(P.Name, name).Add(P.Class, className)),
                 Where = strings.Format(S.JournalHistoryWhere, new StringArgs().Add(P.Act, (int)Js.Or0(r[LK.Act])).Add(P.Floor, (int)Js.Or0(r[MK.Floor]))),
                 Seed = strings.Format(S.JournalDetailSeed, new StringArgs().Add(P.Seed, Js.Str(r[RK.Seed]) ?? string.Empty)),

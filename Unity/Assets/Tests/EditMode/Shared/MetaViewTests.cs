@@ -595,5 +595,52 @@ namespace Ashen.Tests
             finally { SettingsSession.Changed -= On; }
             Assert.That(heard, Is.EqualTo(new[] { SettingIds.MusicVolume, "*" }), "a reset that cleared nothing stays silent");
         }
+
+        // ------------------------------------------------------------------ W-20 Abandon run (D-134)
+
+        [Test]
+        public void AbandoningMidFightRecordsAnAbandonedRunClearsTheSlotAndEarnsNothing()
+        {
+            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
+            session.StartEncounter();
+            Assert.That(session.IsInCombat, Is.True);
+            var end = session.Abandon();
+            Assert.That(end.Victory, Is.False);
+            Assert.That(end.Earned, Is.Empty, "no unlock is evaluated at the abandon door");
+            Assert.That(session.RunOver && session.Abandoned, Is.True);
+            Assert.That(session.Location, Is.EqualTo(RunFlowValues.LocationRunEnd));
+            Assert.That(_saves.Exists(session.Slot), Is.False, "the slot is cleared");
+            Assert.That(RunSession.Load(Default, _saves, 1).Status, Is.EqualTo(RunLoadStatus.Empty));
+
+            var profile = ProfileStore.Load(_saves).Doc;
+            var record = (JObject)((JArray)profile["results"]).Last();
+            Assert.That(record["abandoned"].Value<bool>(), Is.True);
+            Assert.That(record["victory"].Value<bool>(), Is.False);
+            Assert.That(record[MetaKeys.Killer], Is.Null, "an abandoned run names no killer");
+            Assert.That(record[MetaKeys.Deck], Is.Not.Null);
+            Assert.That(profile["progress"]["runs"].Value<double>(), Is.EqualTo(1), "it counts as a run");
+            Assert.That(profile["progress"]["wins"].Value<double>(), Is.EqualTo(0));
+            Assert.That(session.Abandon(), Is.SameAs(end), "a second abandon changes nothing");
+
+            var runEnd = RunEndView.Build(session, Ui);
+            Assert.That(runEnd.Title, Is.EqualTo("CLIMB ABANDONED"));
+            Assert.That(runEnd.Stats.Any(t => t.StartsWith("Fell to", StringComparison.Ordinal)), Is.False);
+            var journal = JournalView.Build(profile, Default, Ui);
+            Assert.That(journal.History[0].Outcome, Is.EqualTo("Abandoned"));
+            Assert.That(journal.History[0].Detail, Has.Member("Unknown."), "no killer to name");
+        }
+
+        [Test]
+        public void ThePauseMenuOffersAbandonBehindADestructiveHoldDoor()
+        {
+            var row = Ui.Menus.Pause.First(e => e.Id == "abandon");
+            Assert.That(row.Action, Is.EqualTo(MenuActions.Confirm));
+            Assert.That(row.Confirm, Is.EqualTo(ConfirmIds.Abandon));
+            Assert.That(MenuRules.IsEnabled(row, Ui.MenuContext(true)), Is.True);
+            var door = Ui.Menus.Confirm(ConfirmIds.Abandon);
+            Assert.That(door.Hold, Is.True);
+            Assert.That(Ui.Policies.IsDestructive(door.Policy), Is.True);
+            Resolved(Ui.Strings.Get(door.TitleKey), Ui.Strings.Get(door.BodyKey), Ui.Strings.Get(door.PrimaryKey));
+        }
     }
 }

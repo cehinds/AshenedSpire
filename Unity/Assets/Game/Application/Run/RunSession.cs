@@ -304,6 +304,21 @@ namespace Ashen.App.Run
         }
 
         /// <summary>
+        /// W-20 Abandon run (D-134): the run ends here, recorded as abandoned (it counts as a run, earns no unlock), the
+        /// profile is saved and the slot cleared, as at any end; the session then stands at the run end.
+        /// </summary>
+        public RunEndReceipt Abandon()
+        {
+            if (RunOver) return End;
+            var end = Ashen.Domain.Loop.RunEnd.Abandon(Context());
+            CloseOut(end);
+            return end;
+        }
+
+        /// <summary>The run was abandoned from W-20 rather than won or lost.</summary>
+        public bool Abandoned => End?.Result?.Is(MetaKeys.Abandoned) == true;
+
+        /// <summary>
         /// US-13.1: the run record gains what the shipped record keeps none of (D-148): the last fight's foes by enemy id
         /// (the killer, or the felled keeper on a win), the playtime in seconds and the final deck. Written to the newest
         /// profile history row (the record finishRun just appended) and to the receipt's copy.
@@ -311,7 +326,7 @@ namespace Ashen.App.Run
         private void RecordJournal(RunEndReceipt end)
         {
             var extra = new JObject();
-            if (LastOutcome != null && EncounterId != null && Content.Data.Encounters.Has(EncounterId))
+            if (!(end.Result?.Is(MetaKeys.Abandoned) ?? false) && LastOutcome != null && EncounterId != null && Content.Data.Encounters.Has(EncounterId))
                 extra[MetaKeys.Killer] = new JArray(Js.Items(Content.Data.Encounters.Get(EncounterId)[K.Enemies]).Select(t => t.DeepClone()));
             extra[MetaKeys.Duration] = PlaytimeSeconds;
             extra[MetaKeys.Deck] = new JArray(Js.Items(_run?[K.Deck]).OfType<JObject>()

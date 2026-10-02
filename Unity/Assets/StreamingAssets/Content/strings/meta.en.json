@@ -182,5 +182,10 @@
   "piles.discard": "Discard ({count})",
   "piles.exhaust": "Exhaust ({count})",
   "piles.empty": "Nothing here yet.",
-  "piles.draw": "Draw pile: {count} cards, order hidden"
+  "piles.draw": "Draw pile: {count} cards, order hidden",
+  "confirm.abandon.title": "Abandon this climb?",
+  "confirm.abandon.body": "The run ends now and its slot is cleared. It is written in your journal as abandoned; it counts as a run but earns nothing new.",
+  "confirm.abandon.primary": "Abandon run",
+  "runEnd.abandoned": "CLIMB ABANDONED",
+  "journal.history.abandoned": "Abandoned"
 }

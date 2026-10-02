@@ -611,6 +611,7 @@
       "name": "ConfirmIds",
       "doc": "Confirmation doors (ui/menus.json 'confirms').",
       "keys": {
+        "Abandon": "abandon",
         "Quit": "quit",
         "LoadSlot": "loadSlot",
         "StartSlot": "startSlot",

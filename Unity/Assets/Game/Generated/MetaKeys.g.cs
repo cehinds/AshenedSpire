@@ -12,5 +12,6 @@ namespace Ashen.Generated
         public const string Desc = "desc";
         public const string Icon = "icon";
         public const string Order = "order";
+        public const string Abandoned = "abandoned";
     }
 }

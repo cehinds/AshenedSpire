@@ -352,7 +352,7 @@ namespace Ashen.App.Run
                 Victory = victory,
                 Region = session.Region,
                 Portrait = session.Portrait,
-                Title = strings.Get(victory ? StringKeys.RunEndVictory : StringKeys.RunEndDefeat),
+                Title = strings.Get(session.Abandoned ? MetaStringKeys.RunEndAbandoned : victory ? StringKeys.RunEndVictory : StringKeys.RunEndDefeat),
                 Detail = strings.Format(StringKeys.RunEndDetail, new StringArgs().Add(UiPlaceholders.Name, session.Name)
                     .Add(UiPlaceholders.Class, result.Str(LK.ClassName) ?? RunHudView.ClassName(ui, session.ClassId))),
                 Where = strings.Format(StringKeys.RunEndWhere, new StringArgs().Add(UiPlaceholders.Act, session.Act).Add(UiPlaceholders.Floor, session.Floor)
@@ -361,7 +361,7 @@ namespace Ashen.App.Run
             view.Stats.Add(strings.Format(StringKeys.RunEndSeed, new StringArgs().Add(UiPlaceholders.Seed, session.SeedText)));
             view.Stats.Add(strings.Format(StringKeys.RunEndClass, new StringArgs().Add(UiPlaceholders.Class, RunHudView.ClassName(ui, session.ClassId))));
             view.Stats.Add(strings.Format(StringKeys.RunEndFloor, new StringArgs().Add(UiPlaceholders.Act, session.Act).Add(UiPlaceholders.Floor, session.Floor)));
-            var foe = Killer(session);
+            var foe = session.Abandoned ? null : Killer(session);
             if (foe != null) view.Stats.Add(strings.Format(victory ? StringKeys.RunEndFelled : StringKeys.RunEndKiller, new StringArgs().Add(UiPlaceholders.Name, foe)));
             view.Stats.Add(strings.Format(StringKeys.RunEndDuration, new StringArgs()
                 .Add(UiPlaceholders.Time, TimeSpan.FromSeconds(session.PlaytimeSeconds).ToString(UiFormats.Duration, CultureInfo.InvariantCulture))));

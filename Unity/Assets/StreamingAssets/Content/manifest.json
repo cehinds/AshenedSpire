@@ -1,5 +1,5 @@
 {
-  "contentHash": "ffdcecec2ff0fc80fbfffd67252979702fdb5806c9904416c5a60753d9a8cb35",
+  "contentHash": "8df9a0aec492b1b41a716db2122a7700bb73f93598aeb5affb3aadde5c2458be",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -924,9 +924,9 @@
       "sha256": "a9fcfcd2fa31bd0f98983762267ad9c5220649ba685d002700016d684325d957"
     },
     "strings/meta.en.json": {
-      "bytes": 9492,
+      "bytes": 9828,
       "generated": false,
-      "sha256": "8acd5b542ca817048ce6b88277b4f3c401d67286c2e8d03817a3eade4418b0f4"
+      "sha256": "de06965e57b73b63cea60838f64428dd4f55f2c1983a329c86341485e0eb46cc"
     },
     "strings/nodes.en.json": {
       "bytes": 7121,
@@ -1019,9 +1019,9 @@
       "sha256": "330892274c3cc8c87947d2662b07dccbd95f7c3275dc2922a80e3d30a546d178"
     },
     "ui/menus.json": {
-      "bytes": 7752,
+      "bytes": 8038,
       "generated": false,
-      "sha256": "7d02ab41deae45daa7c5e75a696828ccd9a35a01025e4ecc464b5d357ba3b452"
+      "sha256": "22fa58432a459cab7decfa121a7e77f126b6948da8e116ff35ce082cb8002ef5"
     },
     "ui/meta.json": {
       "bytes": 658,

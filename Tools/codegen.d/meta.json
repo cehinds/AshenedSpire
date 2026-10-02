@@ -12,7 +12,8 @@
         "Upgraded": "upgraded",
         "Desc": "desc",
         "Icon": "icon",
-        "Order": "order"
+        "Order": "order",
+        "Abandoned": "abandoned"
       }
     },
     {
