@@ -43,5 +43,12 @@ namespace Ashen.Generated
         public const string Prologue = "prologue";
         public const string SampleRate = "sampleRate";
         public const string LoopName = "music.{0}.{1}";
+        public const string Sfx = "sfx";
+        public const string Events = "events";
+        public const string FamilyFields = "familyFields";
+        public const string MaxPerCommand = "maxPerCommand";
+        public const string Type = "type";
+        public const string FamilySeparator = "familySeparator";
+        public const string RecipeSection = "recipe";
     }
 }

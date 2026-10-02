@@ -846,5 +846,42 @@ namespace Ashen.Tests
             Assert.That(again.Reported, Is.Empty, "the export imports cleanly");
             Assert.That(JToken.DeepEquals(again.GameConfig, result.GameConfig), Is.True, "round trip");
         }
+
+        // ------------------------------------------------------------------ SFX (US-16.2)
+
+        [Test]
+        public void CombatEventsCallForTheirSoundsFamilyFirstOncePerCommand()
+        {
+            var sfx = SfxDirector.From(TestContent.Source);
+            var events = new[]
+            {
+                JObject.Parse("{\"type\":\"cardPlayed\"}"),
+                JObject.Parse("{\"type\":\"damageDealt\"}"),
+                JObject.Parse("{\"type\":\"damageDealt\"}"),
+                JObject.Parse("{\"type\":\"cardDrawn\"}"),
+                JObject.Parse("{\"type\":\"procBurst\",\"status\":\"frost\"}"),
+                JObject.Parse("{\"type\":\"enemyDied\"}"),
+            };
+            Assert.That(sfx.For(events), Is.EqualTo(new[] { "cardPlay", "hit", "procBurst_frost" }), "mapped, each once, at most three");
+            var recipes = (JObject)TestContent.ContentJson("audio/sfx.json")["SFX_RECIPES"];
+            var renderer = new SynthRenderer(SynthParams.From(TestContent.ContentJson("audio/synth.json")), recipes);
+            foreach (var mapped in ((JObject)TestContent.ContentJson("audio/beds.json")["sfx"]["events"]).Properties())
+                Assert.That(recipes[(string)mapped.Value], Is.Not.Null, mapped.Name + " → a recipe that exists");
+            Assert.That(renderer.Resolve(sfx.For(new[] { JObject.Parse("{\"type\":\"procBurst\",\"status\":\"venom\"}") })[0]), Is.EqualTo("procBurst"), "family fallback");
+
+            // A real fight's first command calls for sounds.
+            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
+            var combat = session.StartEncounter();
+            var heard = new System.Collections.Generic.List<string>();
+            session.CommandCommitted += o => heard.AddRange(sfx.For(o.Events));
+            var c = combat.State;
+            var target = c.Enemies[0]["id"].Value<string>();
+            var card = c.Piles.Hand.Select(h => h["instanceId"].Value<string>())
+                .FirstOrDefault(id => Ashen.Domain.Combat.CombatLegality.CanPlay(c, id, target) == null || Ashen.Domain.Combat.CombatLegality.CanPlay(c, id, null) == null);
+            Assert.That(card, Is.Not.Null, "a playable opening card");
+            var played = session.Execute(Ashen.Domain.Combat.CombatCommand.PlayCard(card, Ashen.Domain.Combat.CombatLegality.CanPlay(c, card, target) == null ? target : null));
+            Assert.That(played.Accepted, Is.True);
+            Assert.That(heard, Has.Member("cardPlay"), "an accepted play makes its sound");
+        }
     }
 }

@@ -273,7 +273,14 @@
         "Pool": "pool",
         "Prologue": "prologue",
         "SampleRate": "sampleRate",
-        "LoopName": "music.{0}.{1}"
+        "LoopName": "music.{0}.{1}",
+        "Sfx": "sfx",
+        "Events": "events",
+        "FamilyFields": "familyFields",
+        "MaxPerCommand": "maxPerCommand",
+        "Type": "type",
+        "FamilySeparator": "familySeparator",
+        "RecipeSection": "recipe"
       }
     },
     {
