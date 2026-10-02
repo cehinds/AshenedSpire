@@ -1,5 +1,5 @@
 {
-  "contentHash": "d47dae40fd4f2230fb23fdf73111dc1e1b80debcaffd4972dd8d980bff97ddd5",
+  "contentHash": "a0fe2589962bdfa69f0e9d8b91d40a79375136a493bb1a2a4668a856f353dbdf",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -738,6 +738,11 @@
       "generated": false,
       "sha256": "e063afd07631161ba0144a3067458bf3b6e8596869a4267defe674e1f85e6f8a"
     },
+    "schemas/settings.webKeyMap.schema.json": {
+      "bytes": 884,
+      "generated": false,
+      "sha256": "d32b714fd0ff0a10ed8f11140179624dc484bd9193806fdb3a39fbc279f6ba8a"
+    },
     "schemas/strings.app.en.schema.json": {
       "bytes": 103,
       "generated": false,
@@ -903,6 +908,11 @@
       "generated": true,
       "sha256": "39fe1a403dd55892dc6cc0451a94725b99b3a1ffb0138ea02ca10c28f4106fcc"
     },
+    "settings/webKeyMap.json": {
+      "bytes": 4336,
+      "generated": false,
+      "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
+    },
     "strings/app.en.json": {
       "bytes": 19795,
       "generated": false,
@@ -924,9 +934,9 @@
       "sha256": "a9fcfcd2fa31bd0f98983762267ad9c5220649ba685d002700016d684325d957"
     },
     "strings/meta.en.json": {
-      "bytes": 10598,
+      "bytes": 11404,
       "generated": false,
-      "sha256": "3f6594cb31e04f05dc4af0aaffcbb45c5782f499f776f8e79ad5d610ea732fec"
+      "sha256": "727443bd8badb20e549e3969718860d912d7ca7d8768647ff57626d218560368"
     },
     "strings/nodes.en.json": {
       "bytes": 7121,

@@ -63,6 +63,7 @@ jobs:
       - run: node Tools/ci/check-content.mjs
       - run: node Tools/codegen.mjs --check
       - run: node Tools/refresh-manifest.mjs --check
+      - run: node Tools/web-key-map.mjs --check
 
   domain:
     runs-on: ubuntu-latest

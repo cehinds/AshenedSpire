@@ -275,6 +275,42 @@
         "SampleRate": "sampleRate",
         "LoopName": "music.{0}.{1}"
       }
+    },
+    {
+      "name": "WebConfigKeys",
+      "doc": "Keys of settings/webKeyMap.json and of a web-format config file (US-15.4).",
+      "keys": {
+        "GameConfigPrefix": "gameConfigPrefix",
+        "SettingsPrefix": "settingsPrefix",
+        "MirrorPrefix": "mirrorPrefix",
+        "Renames": "renames",
+        "Roots": "roots",
+        "Web": "web",
+        "File": "file",
+        "Path": "path",
+        "From": "from",
+        "To": "to",
+        "Files": "files",
+        "SchemaVersion": "schemaVersion",
+        "Overrides": "overrides",
+        "AdvancedConfig": "advancedConfig",
+        "ExportedBy": "exportedBy",
+        "Separator": "."
+      }
+    },
+    {
+      "name": "WebConfigReasons",
+      "doc": "Why a web config key was not imported (shown in the import report).",
+      "keys": {
+        "Mirror": "mirror",
+        "NoRoot": "noContentPath",
+        "UnknownSetting": "unknownSetting",
+        "SettingDoesNotFit": "settingDoesNotFit",
+        "Invalid": "invalid",
+        "NotAKey": "notAKey",
+        "UnknownPath": "unknownPath",
+        "WrongType": "wrongType"
+      }
     }
   ],
   "stringTables": [

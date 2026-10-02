@@ -143,6 +143,7 @@ namespace Ashen.Generated
         public const string SchemasSettingsDefaultsSchema = "schemas/settings.defaults.schema.json";
         public const string SchemasSettingsPresetsReferenceSchema = "schemas/settings.presets.reference.schema.json";
         public const string SchemasSettingsPresetsShippedSchema = "schemas/settings.presets.shipped.schema.json";
+        public const string SchemasSettingsWebKeyMapSchema = "schemas/settings.webKeyMap.schema.json";
         public const string SchemasStringsAppEnSchema = "schemas/strings.app.en.schema.json";
         public const string SchemasStringsCombatEnSchema = "schemas/strings.combat.en.schema.json";
         public const string SchemasStringsEventsEnSchema = "schemas/strings.events.en.schema.json";
@@ -176,6 +177,7 @@ namespace Ashen.Generated
         public const string SettingsDefaults = "settings/defaults.json";
         public const string SettingsPresetsReference = "settings/presets/reference.json";
         public const string SettingsPresetsShipped = "settings/presets/shipped.json";
+        public const string SettingsWebKeyMap = "settings/webKeyMap.json";
         public const string StringsAppEn = "strings/app.en.json";
         public const string StringsCombatEn = "strings/combat.en.json";
         public const string StringsEn = "strings/en.json";

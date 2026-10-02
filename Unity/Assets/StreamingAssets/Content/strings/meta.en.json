@@ -200,5 +200,17 @@
   "handExample.mode.draw": "each turn draws {n}",
   "handExample.turn": "Turn {n}: draw {draw}, holding {hand} of {capacity}",
   "handExample.playRetain": "Play {count}; {kept} stay in hand",
-  "handExample.playDiscard": "Play {count}; the other {kept} are discarded"
+  "handExample.playDiscard": "Play {count}; the other {kept} are discarded",
+  "settings.saves.imported": "Imported {count} values.",
+  "settings.saves.reported": "{count} keys were not imported:",
+  "settings.saves.reason.mirror": "a copy of a game key",
+  "settings.saves.reason.noContentPath": "no place for it in this build",
+  "settings.saves.reason.unknownSetting": "not a setting here",
+  "settings.saves.reason.settingDoesNotFit": "the value does not fit the setting",
+  "settings.saves.reason.invalid": "the value breaks the content rules",
+  "settings.saves.reason.notAKey": "not a game or settings key",
+  "settings.saves.reportLine": "{name}: {reason}",
+  "settings.saves.refused": "This file is not a game config (no overrides).",
+  "settings.saves.reason.unknownPath": "this build has no such value",
+  "settings.saves.reason.wrongType": "the value is the wrong kind"
 }

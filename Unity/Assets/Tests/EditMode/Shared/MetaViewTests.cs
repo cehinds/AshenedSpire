@@ -763,5 +763,88 @@ namespace Ashen.Tests
             Assert.That(other.Lines[1], Is.EqualTo("Play 2; the other 3 are discarded"));
             Assert.That(other.Lines[2], Is.EqualTo("Turn 2: draw 2, holding 2 of 10"));
         }
+
+        // ------------------------------------------------------------------ W-18 Saves: web config import/export (US-15.4, D-162)
+
+        private static JObject ReferenceWebConfig() =>
+            JObject.Parse(File.ReadAllText(Path.Combine(TestContent.RepoRoot, "docs", "design", "reference", "ashen-spire-game-config.json")));
+
+        [Test]
+        public void TheOwnersReferenceFileImportsOverTheShippedPresetAndReportsWhatItCannotPlace()
+        {
+            var web = ReferenceWebConfig();
+            var shipped = RunContent.Load(TestContent.Source, "shipped");
+            var defs = SettingsDefs.From(shipped.Snapshot.Content);
+            var result = WebConfig.Import(web, TestContent.Source, "shipped", defs);
+            var total = ((JObject)web["overrides"]).Count;
+            Assert.That(result.Recognised, Is.True);
+            Assert.That(result.Taken + result.Reported.Count, Is.EqualTo(total), "every key is taken or reported, never dropped");
+            foreach (var r in result.Reported.Where(r => r.Value == WebConfigReasons.Invalid || r.Value == WebConfigReasons.UnknownPath)) TestContext.Progress.WriteLine("not taken: " + r.Key + " (" + r.Value + ")");
+            TestContext.Progress.WriteLine($"web import: {result.GameConfig.Count} game keys, {result.PlayerSettings.Count} settings, {result.Reported.Count} reported: "
+                + string.Join(", ", result.Reported.GroupBy(r => r.Value).Select(g => g.Key + " " + g.Count())));
+            Assert.That(result.PlayerSettings["holdConfirm"].Value<string>(), Is.EqualTo("short"));
+            Assert.That(result.PlayerSettings.Count, Is.EqualTo(8), "the owner's eight player settings");
+            Assert.That(result.Reported.Where(r => r.Key.StartsWith("gameConfig.prologue.", StringComparison.Ordinal)).All(r => r.Value == WebConfigReasons.NoRoot), Is.True,
+                "the prologue's web staging has no content path here (ui/prologue.json is this build's)");
+            Assert.That(result.Reported.Any(r => r.Value == WebConfigReasons.Mirror), Is.True);
+            Assert.That(result.GameConfig["gameConfig.balance.startingCinders"].Value<double>(), Is.EqualTo(100));
+
+            // The patch over the shipped preset gives the values the reference preset carries.
+            var patched = RunContent.Load(TestContent.Source, "shipped", new[] { result.Patch });
+            var reference = RunContent.Load(TestContent.Source, "reference");
+            Assert.That(patched.Data.Balance["startingCinders"].Value<double>(), Is.EqualTo(reference.Data.Balance["startingCinders"].Value<double>()));
+            Assert.That(patched.Data.Classes.Get("reaver")["startingFlaskAllocation"]["hp"].Value<double>(),
+                Is.EqualTo(reference.Data.Classes.Get("reaver")["startingFlaskAllocation"]["hp"].Value<double>()));
+            Assert.That(patched.Data.Balance["combatRatings"]["ratings"]["ar"]["dexterity"].Value<double>(),
+                Is.EqualTo(reference.Data.Balance["combatRatings"]["ratings"]["ar"]["dexterity"].Value<double>()), "a renamed key lands where the shipped importer puts it");
+            Assert.That(JToken.DeepEquals(patched.Data.Balance["rewards"]["cinders"], reference.Data.Balance["rewards"]["cinders"]), Is.True, "array elements by index");
+            Assert.That(JToken.DeepEquals(patched.Data.Balance["skill"]["class"]["tierAt"], reference.Data.Balance["skill"]["class"]["tierAt"]), Is.True);
+            Assert.That(result.Reported.Count(r => r.Value == WebConfigReasons.UnknownPath), Is.LessThanOrEqualTo(8), "only the owner-only opening-hand model and one item rating have no place (D-029)");
+        }
+
+        [Test]
+        public void AnImportIsStoredOnTheProfileDrivesNewRunsAndExportsBackInWebForm()
+        {
+            var web = new JObject
+            {
+                ["schemaVersion"] = 1,
+                ["overrides"] = new JObject
+                {
+                    ["gameConfig.balance.startingCinders"] = 77,
+                    ["gameConfig.balance.shop.sellFraction"] = "lots",
+                    ["gameConfig.balance.nope"] = 1,
+                    ["gameConfig.noSuchRoot.x"] = 1,
+                    ["settings.mapMode"] = "fog",
+                    ["settings.textScale"] = 999,
+                    ["settings.unknownThing"] = true,
+                    ["somethingElse"] = 1,
+                },
+            };
+            var defs = SettingsDefs.From(Default.Snapshot.Content);
+            var result = WebConfig.Import(web, TestContent.Source, Default.PresetId, defs);
+            var reported = result.Reported.ToDictionary(r => r.Key, r => r.Value);
+            Assert.That(reported["gameConfig.balance.shop.sellFraction"], Is.EqualTo(WebConfigReasons.WrongType), "a string where balance.json holds a number");
+            Assert.That(reported["gameConfig.balance.nope"], Is.EqualTo(WebConfigReasons.UnknownPath), "strict: no new values");
+            Assert.That(reported["gameConfig.noSuchRoot.x"], Is.EqualTo(WebConfigReasons.NoRoot));
+            Assert.That(reported["settings.textScale"], Is.EqualTo(WebConfigReasons.SettingDoesNotFit));
+            Assert.That(reported["settings.unknownThing"], Is.EqualTo(WebConfigReasons.UnknownSetting));
+            Assert.That(reported["somethingElse"], Is.EqualTo(WebConfigReasons.NotAKey));
+            Assert.That(result.GameConfig.Properties().Select(p => p.Name), Is.EqualTo(new[] { "gameConfig.balance.startingCinders" }));
+
+            var store = ProfileStore.Load(_saves);
+            WebConfig.Apply(store, result, Default.ContentHash);
+            var profile = ProfileStore.Load(_saves).Doc;
+            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Text(SettingIds.MapMode), Is.EqualTo("fog"));
+            var content = WebConfig.ContentFor(TestContent.Source, profile);
+            var run = RunSession.New(content, _saves, 1, 7, "rogue", "Aldric");
+            Assert.That(run.Run["cinders"].Value<double>(), Is.EqualTo(77), "a new run starts with the imported tuning");
+
+            var exported = WebConfig.Export(profile, WebConfig.SettingsPrefix(TestContent.Source));
+            Assert.That(exported["overrides"]["gameConfig.balance.startingCinders"].Value<double>(), Is.EqualTo(77));
+            Assert.That(exported["overrides"]["settings.mapMode"].Value<string>(), Is.EqualTo("fog"));
+            var again = WebConfig.Import(exported, TestContent.Source, Default.PresetId, defs);
+            Assert.That(again.Reported, Is.Empty, "the export imports cleanly");
+            Assert.That(JToken.DeepEquals(again.GameConfig, result.GameConfig), Is.True, "round trip");
+        }
     }
 }
