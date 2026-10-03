@@ -23,7 +23,7 @@ namespace Ashen.Domain.Combat
     /// <summary>
     /// The one legality service (US-5.1, US-5.9): the checks the engine makes before it pays anything, asked without
     /// mutating, so the UI can grey a card, list legal targets and say exactly why an action is refused. It mirrors
-    /// the shipped doPlayCard / doEndTurn / doUseFlask guards in the same order.
+    /// the shipped doPlayCard / doEndTurn / doUseFlask / doSwapArmament / doChangeEquipment guards in the same order.
     /// </summary>
     public static class CombatLegality
     {
@@ -90,6 +90,25 @@ namespace Ashen.Domain.Combat
             return null;
         }
 
+        /// <summary>
+        /// Null when the hand can cycle to that set now (doSwapArmament's guards, the price and the ladder included);
+        /// otherwise the refusal. Asked through the run's equipment port; combat data alone refuses.
+        /// </summary>
+        public static Refusal CanSwap(CombatState c, string slotId, int setIndex)
+        {
+            if (c.Result != null) return new Refusal(S.CombatRefusalCombatOver);
+            var port = c.Data.EquipmentPort;
+            return port == null ? new Refusal(S.CombatRefusalEquipmentDisabled) : port.CheckSwap(c, slotId, setIndex);
+        }
+
+        /// <summary>Null when that piece (or an empty hand, for a null piece) can go into that position now (doChangeEquipment's guards).</summary>
+        public static Refusal CanChangeEquipment(CombatState c, string slotId, int setIndex, string pieceId)
+        {
+            if (c.Result != null) return new Refusal(S.CombatRefusalCombatOver);
+            var port = c.Data.EquipmentPort;
+            return port == null ? new Refusal(S.CombatRefusalEquipmentDisabled) : port.CheckChange(c, slotId, setIndex, pieceId);
+        }
+
         /// <summary>The refusal for a command, whatever its type (null when legal).</summary>
         public static Refusal Check(CombatState c, CombatCommand command)
         {
@@ -101,6 +120,10 @@ namespace Ashen.Domain.Combat
                     return CanEndTurn(c, command.DiscardIds);
                 case V.CommandUseFlask:
                     return CanUseFlask(c, command.Slot, command.ChargeKind);
+                case V.CommandSwapArmament:
+                    return CanSwap(c, command.SlotId, command.SetIndex);
+                case V.CommandChangeEquipment:
+                    return CanChangeEquipment(c, command.SlotId, command.SetIndex, command.PieceId);
                 default:
                     return new Refusal(S.CombatRefusalInvalidTarget);
             }

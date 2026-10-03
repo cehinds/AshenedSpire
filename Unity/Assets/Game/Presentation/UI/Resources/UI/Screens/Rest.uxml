@@ -1,0 +1,44 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Climb.uss" />
+    <ui:VisualElement name="REST_BACKGROUND" class="rest-background" picking-mode="Ignore" />
+    <ui:VisualElement name="REST_PAGE" class="page rest-page">
+        <Ashen.Presentation.UI.Kit.RunHud name="RUN_HUD" />
+        <ui:VisualElement class="rest-stage">
+            <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="rest-shell" exit-visible="false">
+                <ui:VisualElement name="REST_MAIN" class="rest-main">
+                    <Ashen.Presentation.UI.LocLabel name="REST_TAGS" class="rest-tags kit-text-value" />
+                    <Ashen.Presentation.UI.LocLabel name="REST_REFILL" class="rest-refill kit-text-value" />
+                    <ui:VisualElement class="rest-columns">
+                        <ui:ScrollView name="REST_SCROLL" class="rest-scroll" horizontal-scroller-visibility="Hidden">
+                            <ui:VisualElement name="REST_OPTIONS" class="rest-options" />
+                        </ui:ScrollView>
+                        <ui:VisualElement name="REST_AVAILABILITY" class="rest-availability">
+                            <Ashen.Presentation.UI.LocLabel class="eyebrow kit-text-header" string-key="rest.availability" />
+                            <ui:VisualElement name="AVAILABILITY_LIST" class="availability-list" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="REST_PANE" class="rest-pane is-hidden">
+                    <ui:VisualElement class="pane-head">
+                        <Ashen.Presentation.UI.LocLabel name="PANE_TITLE" class="pane-title kit-text-header" />
+                        <Ashen.Presentation.UI.LocLabel name="PANE_STATUS" class="pane-status kit-text-value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="pane-columns">
+                        <ui:ScrollView name="PANE_SCROLL" class="pane-scroll" horizontal-scroller-visibility="Hidden">
+                            <ui:VisualElement name="PANE_ITEMS" class="pane-items" />
+                        </ui:ScrollView>
+                        <ui:VisualElement name="PANE_DETAIL" class="pane-detail">
+                            <ui:VisualElement name="PANE_RECEIPT" class="pane-receipt" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="PANE_FOOTER" class="pane-footer">
+                        <Ashen.Presentation.UI.LocButton name="PANE_BACK" class="kit-button--back pane-button" string-key="rest.back" />
+                        <ui:VisualElement class="pane-gap" />
+                        <Ashen.Presentation.UI.LocButton name="PANE_COMMIT" class="kit-button--primary pane-button" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </Ashen.Presentation.UI.Kit.Shell>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

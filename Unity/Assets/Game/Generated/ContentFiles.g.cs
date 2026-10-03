@@ -6,6 +6,7 @@ namespace Ashen.Generated
     {
         public const string About = "about.json";
         public const string AssetsRegistry = "assets/registry.json";
+        public const string AudioBeds = "audio/beds.json";
         public const string AudioContexts = "audio/contexts.json";
         public const string AudioMusic = "audio/music.json";
         public const string AudioSfx = "audio/sfx.json";
@@ -73,6 +74,7 @@ namespace Ashen.Generated
         public const string RulesValidation = "rules/validation.json";
         public const string SchemasAboutSchema = "schemas/about.schema.json";
         public const string SchemasAssetsRegistrySchema = "schemas/assets.registry.schema.json";
+        public const string SchemasAudioBedsSchema = "schemas/audio.beds.schema.json";
         public const string SchemasAudioContextsSchema = "schemas/audio.contexts.schema.json";
         public const string SchemasAudioMusicSchema = "schemas/audio.music.schema.json";
         public const string SchemasAudioSfxSchema = "schemas/audio.sfx.schema.json";
@@ -138,11 +140,15 @@ namespace Ashen.Generated
         public const string SchemasRulesStringKeysSchema = "schemas/rules.stringKeys.schema.json";
         public const string SchemasRulesTextAnchorsSchema = "schemas/rules.textAnchors.schema.json";
         public const string SchemasRulesValidationSchema = "schemas/rules.validation.schema.json";
+        public const string SchemasSettingsDefaultsSchema = "schemas/settings.defaults.schema.json";
         public const string SchemasSettingsPresetsReferenceSchema = "schemas/settings.presets.reference.schema.json";
         public const string SchemasSettingsPresetsShippedSchema = "schemas/settings.presets.shipped.schema.json";
+        public const string SchemasSettingsWebKeyMapSchema = "schemas/settings.webKeyMap.schema.json";
         public const string SchemasStringsAppEnSchema = "schemas/strings.app.en.schema.json";
         public const string SchemasStringsCombatEnSchema = "schemas/strings.combat.en.schema.json";
         public const string SchemasStringsEventsEnSchema = "schemas/strings.events.en.schema.json";
+        public const string SchemasStringsMetaEnSchema = "schemas/strings.meta.en.schema.json";
+        public const string SchemasStringsNodesEnSchema = "schemas/strings.nodes.en.schema.json";
         public const string SchemasStringsShopEnSchema = "schemas/strings.shop.en.schema.json";
         public const string SchemasTagsFamilyNodesSchema = "schemas/tags.familyNodes.schema.json";
         public const string SchemasTagsNodeRelationsSchema = "schemas/tags.nodeRelations.schema.json";
@@ -161,16 +167,23 @@ namespace Ashen.Generated
         public const string SchemasUiLayoutSchema = "schemas/ui.layout.schema.json";
         public const string SchemasUiLocationPresentationSchema = "schemas/ui.locationPresentation.schema.json";
         public const string SchemasUiMenusSchema = "schemas/ui.menus.schema.json";
+        public const string SchemasUiMetaSchema = "schemas/ui.meta.schema.json";
+        public const string SchemasUiNodesSchema = "schemas/ui.nodes.schema.json";
+        public const string SchemasUiPrologueSchema = "schemas/ui.prologue.schema.json";
         public const string SchemasUiScreensSchema = "schemas/ui.screens.schema.json";
         public const string SchemasUiTermsSchema = "schemas/ui.terms.schema.json";
         public const string SchemasUiThemeSchema = "schemas/ui.theme.schema.json";
         public const string SchemasUiTokensSchema = "schemas/ui.tokens.schema.json";
+        public const string SettingsDefaults = "settings/defaults.json";
         public const string SettingsPresetsReference = "settings/presets/reference.json";
         public const string SettingsPresetsShipped = "settings/presets/shipped.json";
+        public const string SettingsWebKeyMap = "settings/webKeyMap.json";
         public const string StringsAppEn = "strings/app.en.json";
         public const string StringsCombatEn = "strings/combat.en.json";
         public const string StringsEn = "strings/en.json";
         public const string StringsEventsEn = "strings/events.en.json";
+        public const string StringsMetaEn = "strings/meta.en.json";
+        public const string StringsNodesEn = "strings/nodes.en.json";
         public const string StringsShopEn = "strings/shop.en.json";
         public const string TagsFamilyNodes = "tags/familyNodes.json";
         public const string TagsNodeRelations = "tags/nodeRelations.json";
@@ -189,6 +202,9 @@ namespace Ashen.Generated
         public const string UiLayout = "ui/layout.json";
         public const string UiLocationPresentation = "ui/locationPresentation.json";
         public const string UiMenus = "ui/menus.json";
+        public const string UiMeta = "ui/meta.json";
+        public const string UiNodes = "ui/nodes.json";
+        public const string UiPrologue = "ui/prologue.json";
         public const string UiScreens = "ui/screens.json";
         public const string UiTerms = "ui/terms.json";
         public const string UiTheme = "ui/theme.json";

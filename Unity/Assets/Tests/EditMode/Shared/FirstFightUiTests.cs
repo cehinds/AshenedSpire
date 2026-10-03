@@ -47,7 +47,7 @@ namespace Ashen.Tests
             var combat = TestContent.ContentJson(ContentFiles.StringsCombatEn);
             foreach (var key in combat.Properties().Select(p => p.Name).Where(k => k.StartsWith("combat.refusal.", StringComparison.Ordinal)))
             {
-                var text = CombatText.Refusal(Ui.Strings, new Refusal(key, 2d, 1d));
+                var text = CombatText.Refusal(Ui.Strings, new Refusal(key, 2d, 1d, 3d, 4d));
                 Assert.That(text, Is.Not.Empty.And.Not.EqualTo(key), key);
                 Assert.That(Regex.IsMatch(text, "\\{\\d\\}"), Is.False, key + " → " + text);
             }
@@ -181,7 +181,13 @@ namespace Ashen.Tests
             Assert.That(Ui.Screens.IsBuilt(ScreenIds.Rewards), Is.True, "W-08 rewards is built (us-11.2)");
             Assert.That(rewards.FocusModes.ContainsKey(UiValues.FocusPick), Is.True, "the pick sub-state has its own focus order");
             foreach (var region in rewards.FocusOrderFor(UiValues.FocusPick).Concat(rewards.FocusOrder)) Assert.That(names, Does.Contain(region), "rewards " + region);
-            Assert.That(Ui.Screens.IsBuilt(ScreenIds.ActMap), Is.False, "the act map is planned, so W-08 Continue returns to the title (D-058)");
+            Assert.That(Ui.Screens.IsBuilt(ScreenIds.ActMap), Is.True, "the act map is built (us-4.2), so W-08 Continue goes on to the map");
+            foreach (var id in new[] { ScreenIds.ActMap, ScreenIds.Rest })
+            {
+                var screen = Ui.Screens.Get(id);
+                foreach (var mode in screen.FocusModes.Keys)
+                    foreach (var region in screen.FocusOrderFor(mode)) Assert.That(names, Does.Contain(region), id + " " + mode + " " + region);
+            }
         }
 
         [Test]

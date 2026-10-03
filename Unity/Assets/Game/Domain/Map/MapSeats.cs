@@ -11,19 +11,12 @@ using MK = Ashen.Generated.MapKeys;
 namespace Ashen.Domain.Map
 {
     /// <summary>
-    /// The seat readers the map needs (shipped model/seats.js and model/bossDestinationLabels.js): the tier a content
-    /// act is, the final tier, whether a boss row may be a destination for a seat at a tier, and a destination's label.
+    /// The seat readers the map needs (shipped model/seats.js and model/bossDestinationLabels.js): the final tier,
+    /// whether a boss row may be a destination for a seat at a tier, and a destination's label. The tier a content act
+    /// is (seats.js tierOf) is the run port's <see cref="Creation.TierOf"/>.
     /// </summary>
     public static class MapSeats
     {
-        /// <summary>tierOf(contentAct, cycle): 1..cycle, looping for Endless (<c>Math.trunc(Number(x) || 1)</c>, floored at 1).</summary>
-        public static int TierOf(double contentAct, double cycle)
-        {
-            var n = Math.Max(1, Math.Truncate(Truthy(contentAct) ? contentAct : 1));
-            var len = Math.Max(1, Math.Truncate(Truthy(cycle) ? cycle : 1));
-            return (int)(((n - 1) % len) + 1);
-        }
-
         /// <summary>finalTier(registries) = balance.endless.actsPerCycle.</summary>
         public static int FinalTier(MapData data) => (int)data.Endless.Num(MK.ActsPerCycle);
 
@@ -36,7 +29,7 @@ namespace Ashen.Domain.Map
             if (encounter == null) return false;
             var own = encounter[MK.Seat];
             if (Js.IsStr(own) && Js.Str(own) == seat) return true;
-            return own != null && own.Type == JTokenType.Null && TierOf(tier, finalTier) == finalTier;
+            return own != null && own.Type == JTokenType.Null && Creation.TierOf(tier, finalTier) == finalTier;
         }
 
         /// <summary>bossDestinationLabel: "[location · ]enemy names joined by ' &amp; '".</summary>
@@ -61,7 +54,5 @@ namespace Ashen.Domain.Map
             if (Js.Nullish(t)) return string.Empty;
             return Js.IsStr(t) ? Js.Str(t) : t.ToString(Newtonsoft.Json.Formatting.None);
         }
-
-        private static bool Truthy(double d) => d != 0 && !double.IsNaN(d);
     }
 }

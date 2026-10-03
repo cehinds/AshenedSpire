@@ -1,0 +1,10 @@
+{
+  "comment": "W-10 flask split: Crimson and Azure within the shared pool of 4, − and + where the pool allows.",
+  "screen": "rest",
+  "seed": 3,
+  "assisted": true,
+  "prefer": "shrine",
+  "until": "rest",
+  "pane": "flasks",
+  "skipSizes": ["1920x1080", "844x390"]
+}

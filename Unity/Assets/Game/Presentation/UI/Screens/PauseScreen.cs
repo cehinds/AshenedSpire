@@ -79,6 +79,14 @@ namespace Ashen.Presentation.UI.Screens
                         OnConfirm = SaveAndQuit,
                     });
                     break;
+                case MenuActions.Confirm when def.Confirm == ConfirmIds.Abandon:
+                    ConfirmRequest.Open(Nav, new ConfirmRequest
+                    {
+                        ConfirmId = ConfirmIds.Abandon,
+                        Target = _session == null ? null : RunFlow.SlotFacts(Ui, SlotSummaries.ReadOne(Ui.Saves, _session.SlotIndex)),
+                        OnConfirm = Abandon,
+                    });
+                    break;
                 case MenuActions.Open:
                     Nav.Go(def.Target);
                     break;
@@ -100,6 +108,23 @@ namespace Ashen.Presentation.UI.Screens
             }
             Ui.Session = null;
             Nav.Go(ScreenIds.Title, null, true);
+        }
+
+        /// <summary>Abandon run (D-134): the run ends as abandoned and W-15 shows its summary; a save failure opens W1r with Retry.</summary>
+        public void Abandon()
+        {
+            if (_session == null) return;
+            try
+            {
+                _session.Abandon();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.SaveFailed, e.Message));
+                ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, OnConfirm = Abandon });
+                return;
+            }
+            RunFlow.Show(Context, _session);
         }
 
         public void Resume() => Nav.Close(Context.Instance);

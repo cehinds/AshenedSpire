@@ -132,6 +132,27 @@ namespace Ashen.Domain.Run
         public static JObject ItemMountEntries(JObject itemMounts, string itemRef) =>
             itemMounts?[itemRef ?? V.Undefined] as JObject ?? new JObject();
 
+        /// <summary>isExtraMountKey(key): a mount key the extra-mount rule minted.</summary>
+        public static bool IsExtraMountKey(string key) => key != null && key.StartsWith(RV.ExtraMountPrefix, StringComparison.Ordinal);
+
+        /// <summary>openExtraMountKey(registries, run, itemRef): the next open extra mount of an item, or null when the flag or the cap says no.</summary>
+        public static string OpenExtraMountKey(RunData d, JObject itemMounts, string itemRef)
+        {
+            var extra = Rules(d).Obj(RK.ExtraMounts);
+            if (!extra.Is(K.Enabled)) return null;
+            var entries = ItemMountEntries(itemMounts, itemRef);
+            var used = entries.Properties().Count(p => IsExtraMountKey(p.Name) && Js.Truthy(p.Value) && Js.Truthy(Js.Get(p.Value, K.Card)));
+            var perItem = extra.Num(RK.PerItem);
+            if (used >= perItem) return null;
+            for (var index = 0; index < perItem; index++)
+            {
+                var key = RV.ExtraMountPrefix + itemRef + V.KeySeparator + RunJs.NumStr(index);
+                var entry = entries[key];
+                if (!Js.Truthy(entry) || !Js.Truthy(Js.Get(entry, K.Card))) return key;
+            }
+            return null;
+        }
+
         /// <summary>applyMountOverrides: emptied mounts show their fallback (or nothing), refilled ones the installed card.</summary>
         public static List<JObject> ApplyMountOverrides(RunData d, JObject itemMounts, List<JObject> desired)
         {

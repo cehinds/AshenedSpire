@@ -15,6 +15,8 @@ MonoBehaviour:
   entries:
   - id: bg.bg_act1
     texture: {fileID: 2800000, guid: 9d68151fc1ff8554995d5e05806b61df, type: 3}
+  - id: bg.river-citadel-lit
+    texture: {fileID: 2800000, guid: bfb3d72bad4e5934fadfaead155b65ad, type: 3}
   - id: bg.title-city-tower
     texture: {fileID: 2800000, guid: aa968f431b32e1147bbb6d785069657f, type: 3}
   - id: bg.tower-city-background-unlit
@@ -127,14 +129,24 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: e14747d8533a2df4984bfe9d42986966, type: 3}
   - id: env.ashen-crown-combat
     texture: {fileID: 2800000, guid: a3cb393244ef8a04da68fbd8cdf7dfb4, type: 3}
+  - id: env.ashen-crown-map
+    texture: {fileID: 2800000, guid: 5c73cd712828819498af2068db3bdeec, type: 3}
   - id: env.cinder-reach-combat
     texture: {fileID: 2800000, guid: f2a48e958c3efb64d8028f09060b1995, type: 3}
+  - id: env.cinder-reach-map
+    texture: {fileID: 2800000, guid: 2ede6dd3ec9602541a7d71628ffe4005, type: 3}
   - id: env.drowned-coast-combat
     texture: {fileID: 2800000, guid: 13dc427522d47a5469cff557ba10faa4, type: 3}
+  - id: env.drowned-coast-map
+    texture: {fileID: 2800000, guid: 669ce4d23e75ae14a8956863de0bf113, type: 3}
   - id: env.hollow-weald-combat
     texture: {fileID: 2800000, guid: a7e7149aeefffc44d889ff8a74f3490f, type: 3}
+  - id: env.hollow-weald-map
+    texture: {fileID: 2800000, guid: da5921bf6745035449aeebc1e56fba64, type: 3}
   - id: env.pale-marches-combat
     texture: {fileID: 2800000, guid: 8495c67d01c9a404692496c80a1d79fc, type: 3}
+  - id: env.pale-marches-map
+    texture: {fileID: 2800000, guid: 7b44df6abfe017f49a6bbc896013bcea, type: 3}
   - id: equipment.icon.ashStaff
     texture: {fileID: 2800000, guid: 24aad20eaf4699a4b9c9da8d6572a946, type: 3}
   - id: equipment.icon.battleaxe

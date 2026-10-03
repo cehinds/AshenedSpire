@@ -1,0 +1,32 @@
+{
+  "$id": "settings/webKeyMap.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "gameConfigPrefix": { "type": "string" },
+    "settingsPrefix": { "type": "string" },
+    "mirrorPrefix": { "type": "string" },
+    "renames": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": { "from": { "type": "string" }, "to": { "type": "string" } },
+        "required": ["from", "to"]
+      }
+    },
+    "roots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "web": { "type": "string" },
+          "file": { "type": "string" },
+          "path": { "type": "string" },
+          "keyed": { "type": "boolean" }
+        },
+        "required": ["web", "file"]
+      }
+    }
+  },
+  "required": ["gameConfigPrefix", "settingsPrefix", "mirrorPrefix", "renames", "roots"]
+}

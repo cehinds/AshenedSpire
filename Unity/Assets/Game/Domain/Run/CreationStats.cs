@@ -55,11 +55,13 @@ namespace Ashen.Domain.Run
 
         private static JObject RetiredNames(RunData data) => data.AttributeRules?.Obj(RK.Retired) ?? new JObject();
 
-        private static List<Problem> AllocationProblems(RunData data, string classId, string modeId, JToken values, string path, double granted = 0)
+        private static List<Problem> AllocationProblems(RunData data, string classId, string modeId, JToken values, string path, double granted = 0, JToken modeSnapshot = null)
         {
             var problems = new List<Problem>();
             var attrs = OrderedAttributes(data);
-            var mode = data.CreationModes.All.FirstOrDefault(m => m.Str(K.Id) == modeId);
+            var mode = Js.Truthy(modeSnapshot) ? modeSnapshot as JObject : data.CreationModes.All.FirstOrDefault(m => m.Str(K.Id) == modeId);
+            if (Js.Truthy(modeSnapshot) && (!(modeSnapshot is JObject snap) || snap.Str(K.Id) != modeId))
+                problems.Add(new Problem(RK.AttributeModeSnapshot, RunJs.Fmt(RM.ModeSnapshotMismatch, modeId)));
             if (mode == null) problems.Add(new Problem(RK.AttributeMode, RunJs.Fmt(RM.UnknownCreationModeProblem, modeId)));
             if (!data.Classes.All.Any(c => c.Str(K.Id) == classId)) problems.Add(new Problem(RK.Class, RunJs.Fmt(RM.UnknownClassProblem, classId)));
             if (!(values is JObject cells))
@@ -108,6 +110,77 @@ namespace Ashen.Domain.Run
                         : RunJs.Fmt(RM.TotalMismatch, RunJs.NumStr(total), RunJs.NumStr(expected), mode.Str(K.Id))));
             }
             return problems;
+        }
+
+        /// <summary>grantedAttributePoints(run): the attribute points a run's levels granted (levelPoints, else the legacy levelUps).</summary>
+        public static double GrantedAttributePoints(JObject run)
+        {
+            if (Js.IsInt(run?[RK.LevelPoints])) return Math.Max(0, run.Num(RK.LevelPoints));
+            return Js.IsInt(run?[RK.LevelUps]) ? Math.Max(0, run.Num(RK.LevelUps)) : 0;
+        }
+
+        /// <summary>
+        /// migrateRetiredAttributeNames(run, source): carry every retired attribute id (attributeRules.retired) to its
+        /// heir, in the allocation and in the rule snapshot's sourceStat rows; a run holding both refuses by name.
+        /// </summary>
+        public static void MigrateRetiredAttributeNames(RunData data, JObject run)
+        {
+            foreach (var p in RetiredNames(data).Properties())
+            {
+                var dead = p.Name;
+                var heir = Js.Str(p.Value) ?? RunJs.Key(p.Value);
+                var rules = run.Obj(K.DerivedStatRuleSnapshot)?.Obj(K.Rules)?.Obj(K.Rules);
+                var attributes = run.Obj(K.Attributes);
+                var allocationDead = attributes != null && attributes[dead] != null;
+                var allocationHeir = attributes != null && attributes[heir] != null;
+                var rows = rules != null ? rules.Properties().Where(r => r.Value is JObject).ToList() : new List<JProperty>();
+                var deadPaths = new List<string>();
+                if (allocationDead) deadPaths.Add(K.Attributes + RV.PathDot + dead);
+                deadPaths.AddRange(rows.Where(r => ((JObject)r.Value).Str(RK.SourceStat) == dead).Select(r => RunJs.Fmt(RM.SnapshotSourceStatPath, r.Name)));
+                var heirPaths = new List<string>();
+                if (allocationHeir) heirPaths.Add(K.Attributes + RV.PathDot + heir);
+                heirPaths.AddRange(rows.Where(r => ((JObject)r.Value).Str(RK.SourceStat) == heir).Select(r => RunJs.Fmt(RM.SnapshotSourceStatPath, r.Name)));
+                if (deadPaths.Count > 0 && heirPaths.Count > 0)
+                    throw new InvalidOperationException(RunJs.Fmt(RM.MixedRetiredAttribute, dead, heir, string.Join(RV.ListJoiner, deadPaths.Concat(heirPaths))));
+                if (allocationDead)
+                {
+                    attributes[heir] = attributes[dead].DeepClone();
+                    attributes.Remove(dead);
+                }
+                foreach (var r in rows)
+                    if (((JObject)r.Value).Str(RK.SourceStat) == dead) ((JObject)r.Value)[RK.SourceStat] = heir;
+            }
+        }
+
+        /// <summary>
+        /// normalizeRunAttributes(run, registries): the allocation door (a custom creation allocation and the load door
+        /// share it). Mode and values are both present or both absent (absent refills the class preset), retired ids
+        /// are carried to their heirs, the mode snapshot is captured once, and the allocation must satisfy the mode (with
+        /// the points the run's levels granted); the result is written in attribute order.
+        /// </summary>
+        public static JObject NormalizeRunAttributes(RunData data, JObject run)
+        {
+            var modeAbsent = run[RK.AttributeMode] == null;
+            var valuesAbsent = run[K.Attributes] == null;
+            if (modeAbsent != valuesAbsent) throw new InvalidOperationException(RM.ModeAndAttributesTogether);
+            if (modeAbsent && run[RK.AttributeModeSnapshot] != null) throw new InvalidOperationException(RM.ModeSnapshotNeedsMode);
+            MigrateRetiredAttributeNames(data, run);
+            if (modeAbsent)
+            {
+                run[RK.AttributeMode] = DefaultCreationModeId(data);
+                run[K.Attributes] = ClassAttributePreset(data, run.Str(RK.Class), run.Str(RK.AttributeMode));
+                run[RK.AttributeModeSnapshot] = CreationModeSnapshot(data, run.Str(RK.AttributeMode));
+                return run;
+            }
+            if (run[RK.AttributeModeSnapshot] == null) run[RK.AttributeModeSnapshot] = CreationModeSnapshot(data, Js.Str(run[RK.AttributeMode]) ?? RunJs.Key(run[RK.AttributeMode]));
+            var problems = AllocationProblems(data, run.Str(RK.Class), Js.Str(run[RK.AttributeMode]) ?? RunJs.Key(run[RK.AttributeMode]), run[K.Attributes], K.Attributes,
+                GrantedAttributePoints(run), run[RK.AttributeModeSnapshot]);
+            if (problems.Count > 0) throw new InvalidOperationException(Problem.Join(problems));
+            var ordered = new JObject();
+            foreach (var def in OrderedAttributes(data))
+                if (run.Obj(K.Attributes)[def.Str(K.Id)] != null) ordered[def.Str(K.Id)] = run.Obj(K.Attributes)[def.Str(K.Id)].DeepClone();
+            run[K.Attributes] = ordered;
+            return run;
         }
 
         /// <summary>classAttributePreset(source, classId, modeId): the class's authored allocation, validated.</summary>

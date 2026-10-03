@@ -13,7 +13,9 @@ namespace Ashen.Domain.Rewards
     /// <summary>
     /// The Smithing Stone faucet (shipped model/smithing.js grantSmithingReward over smithingRules.js
     /// normalizeSmithingRules): a resolved reward pays balance.smithing.rewardByPool[pool] exactly once per reward id.
-    /// Only the reward table is normalized here; the services table belongs to the smith's own story (D-065).
+    /// Only the reward table is normalized here; the services table, the plans and the commits are the smith's one
+    /// port in Ashen.Domain.Shop (SmithServices, ItemSmithing, CardExtraction), which the merchant, the events and the
+    /// rest stop all call (D-065, D-112). The stone balance both shipped files read is this one.
     /// </summary>
     public static class Smithing
     {
@@ -35,7 +37,8 @@ namespace Ashen.Domain.Rewards
             return out_;
         }
 
-        private static double StoneBalance(JObject run)
+        /// <summary>stoneBalance(run) (smithing.js and cardExtraction.js alike): run.smithingStones as an integer ≥ 0; absent reads 0.</summary>
+        public static double StoneBalance(JObject run)
         {
             var value = run[RK.SmithingStones];
             if (Js.Nullish(value)) return 0;

@@ -1,0 +1,104 @@
+{
+  "$id": "ui/meta.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "mapReveal": {
+      "type": "object",
+      "properties": {
+        "fogFloorsAhead": {
+          "type": "integer"
+        },
+        "fogKeepsKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fogKind": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "fogFloorsAhead",
+        "fogKeepsKinds",
+        "fogKind"
+      ]
+    },
+    "creation": {
+      "type": "object",
+      "properties": {
+        "nameMaxLength": {
+          "type": "integer"
+        },
+        "tints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "glyphs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attributeMode": {
+          "type": "string",
+          "x-ref": "catalog/creationModes.json"
+        },
+        "panes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "class",
+              "character",
+              "equipment",
+              "review"
+            ]
+          }
+        }
+      },
+      "required": [
+        "nameMaxLength",
+        "tints",
+        "glyphs",
+        "attributeMode",
+        "panes"
+      ]
+    },
+    "runHud": {
+      "type": "object",
+      "properties": {
+        "showXp": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "showXp"
+      ]
+    },
+    "handExample": {
+      "type": "object",
+      "properties": {
+        "turns": {
+          "type": "integer"
+        },
+        "playsPerTurn": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "turns",
+        "playsPerTurn"
+      ]
+    }
+  },
+  "required": [
+    "mapReveal",
+    "creation"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "comment": "W-10 rest: the place and its availability count, tags and the arrival refill; the option cards (Rest with its heal before and after, Smith, Flask split, Level up) beside the availability column; Continue at a multi-use shrine (reference preset).",
+  "screen": "rest",
+  "seed": 3,
+  "assisted": true,
+  "prefer": "shrine",
+  "until": "rest",
+  "grantPoints": 2
+}

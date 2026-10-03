@@ -32,7 +32,6 @@ namespace Ashen.Generated
         public const string DraftingKinds = "draftingKinds";
         public const string DraftsPerCombat = "draftsPerCombat";
         public const string DropWeight = "dropWeight";
-        public const string Drops = "drops";
         public const string Duplicate = "duplicate";
         public const string EliteExtraCardReward = "eliteExtraCardReward";
         public const string FightsWon = "fightsWon";

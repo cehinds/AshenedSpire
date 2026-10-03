@@ -1,0 +1,13 @@
+{
+  "comment": "W-09 services with a smith travelling with the merchant: the card burn at its price and the smith's upgrade, extract and install rows priced in Smithing Stones.",
+  "screen": "merchant",
+  "cinders": 400,
+  "smith": true,
+  "shelf": "services",
+  "select": "available",
+  "skipSizes": [
+    "1920x1080",
+    "844x390",
+    "390x844"
+  ]
+}

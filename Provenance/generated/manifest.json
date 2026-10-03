@@ -1,4 +1,29 @@
 {
-  "assets": [],
+  "assets": [
+    {
+      "id": "text.prologue.lines",
+      "modality": "text",
+      "tool": "Claude Code",
+      "model": "Claude (Anthropic)",
+      "prompt": "Write one short narration line for each shipped prologue scene (warmth, year, carry, night, step) of a dark-fantasy tower-climbing deckbuilder, matching the scene art; the carry line varies by class (reaver, starseer, rogue, herald). Generic vocabulary only (IP-scrub).",
+      "references": [
+        "ui/prologue.json",
+        "assets/prologue/*"
+      ],
+      "keys": [
+        "prologue.carry.line",
+        "prologue.carry.line.herald",
+        "prologue.carry.line.reaver",
+        "prologue.carry.line.rogue",
+        "prologue.carry.line.starseer",
+        "prologue.night.line",
+        "prologue.step.line",
+        "prologue.warmth.line",
+        "prologue.year.line"
+      ],
+      "date": "2026-10-02",
+      "sha256": "6cca2a7e44fda3a5baff91f5ed2d557abee86d4396b803429b48051d5ad38e6d"
+    }
+  ],
   "comment": "One entry per AI-generated asset: id, modality, tool, model, prompt, references, date, sha256 (docs/design/09 §3.1)."
 }

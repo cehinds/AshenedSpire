@@ -26,7 +26,7 @@ namespace Ashen.Domain.Events
         public static List<JObject> WithHistory(EventsData d, JObject def)
         {
             var ids = def != null ? d.EventChoiceIds[def.Str(K.Id) ?? V.Undefined] as JArray : null;
-            var choices = def?[EK.Choices] as JArray;
+            var choices = def?[RK.Choices] as JArray;
             if (def == null || choices == null || ids == null || ids.Count != choices.Count) return new List<JObject>();
             var requirements = d.ChoiceRequirements[def.Str(K.Id)] as JArray ?? new JArray();
             var out_ = new List<JObject>();

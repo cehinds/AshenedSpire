@@ -1,0 +1,9 @@
+{
+  "comment": "W-06 boss approach: the keeper reachable, its destination label at the path end, the legend open.",
+  "screen": "actMap",
+  "seed": 2,
+  "assisted": true,
+  "until": "boss",
+  "legend": true,
+  "skipSizes": ["1920x1080", "390x844"]
+}

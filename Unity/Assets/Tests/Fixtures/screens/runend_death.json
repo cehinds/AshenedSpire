@@ -1,0 +1,7 @@
+{
+  "comment": "W-15 death: YOU PERISHED over the fight's region, dimmed; the killer named; the slot already clear.",
+  "screen": "runEnd",
+  "seed": 20260927,
+  "until": "death",
+  "skipSizes": ["1920x1080", "844x390"]
+}

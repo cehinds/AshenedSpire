@@ -1,0 +1,330 @@
+{
+  "comment": "Meta screens built engine-free (W-16 journal; later W-18 settings, W-05 prologue, W-22 progression, W-12 armoury, W-17 piles): the keys this build adds to the profile's run record, wire values, placeholders and formats. strings/meta.en.json keys are generated as MetaStringKeys.",
+  "keySets": [
+    {
+      "name": "MetaKeys",
+      "doc": "Keys this build reads or adds: the run record's killer, duration and deck (D-148), and the journal's rail ids.",
+      "keys": {
+        "Killer": "killer",
+        "Duration": "duration",
+        "Deck": "deck",
+        "CardId": "cardId",
+        "Upgraded": "upgraded",
+        "Desc": "desc",
+        "Icon": "icon",
+        "Order": "order",
+        "Abandoned": "abandoned"
+      }
+    },
+    {
+      "name": "MetaValues",
+      "doc": "Wire values of the meta views.",
+      "keys": {
+        "JournalHistory": "history",
+        "JournalProfile": "profile",
+        "JournalArmaments": "armaments",
+        "PileDiscard": "discard",
+        "PileExhaust": "exhaust"
+      }
+    },
+    {
+      "name": "MetaPlaceholders",
+      "doc": "Named placeholders of strings/meta.en.json templates.",
+      "keys": {
+        "Act": "act",
+        "Class": "class",
+        "Count": "count",
+        "Dealt": "dealt",
+        "Floor": "floor",
+        "Level": "level",
+        "N": "n",
+        "Name": "name",
+        "Runs": "runs",
+        "Seed": "seed",
+        "Taken": "taken",
+        "Time": "time",
+        "Wins": "wins",
+        "Min": "min",
+        "Max": "max",
+        "Value": "value",
+        "Armour": "armour",
+        "Hands": "hands",
+        "Hint": "hint",
+        "Mode": "mode",
+        "Reason": "reason",
+        "Slot": "slot",
+        "Xp": "xp",
+        "Next": "next",
+        "List": "list",
+        "Before": "before",
+        "After": "after",
+        "Opening": "opening",
+        "Capacity": "capacity",
+        "Draw": "draw",
+        "Hand": "hand",
+        "Kept": "kept"
+      }
+    },
+    {
+      "name": "MetaFormats",
+      "doc": "String-key formats of catalog names the meta views read (<prefix>.<id>.<field>).",
+      "keys": {
+        "ArmamentName": "armament.{0}.name",
+        "EnemyName": "enemy.{0}.name",
+        "CardName": "card.{0}.name",
+        "UnlockName": "unlock.{0}.name"
+      }
+    },
+    {
+      "name": "SettingsKeys",
+      "doc": "Keys of settings/defaults.json (W-18, US-15.1).",
+      "keys": {
+        "Categories": "categories",
+        "Controls": "controls",
+        "Id": "id",
+        "LabelKey": "labelKey",
+        "Key": "key",
+        "Category": "category",
+        "Type": "type",
+        "Scope": "scope",
+        "Options": "options",
+        "Min": "min",
+        "Max": "max",
+        "Step": "step",
+        "Def": "def",
+        "HelpKey": "helpKey",
+        "OptionKey": "optionKey",
+        "UnitKey": "unitKey",
+        "Settings": "settings"
+      }
+    },
+    {
+      "name": "SettingsValues",
+      "doc": "Wire values of settings/defaults.json: control types, scopes and the content reference separators.",
+      "keys": {
+        "Toggle": "toggle",
+        "Enum": "enum",
+        "Slider": "slider",
+        "Live": "live",
+        "Run": "run",
+        "RefSeparator": "#",
+        "PathSeparator": "."
+      }
+    },
+    {
+      "name": "SettingIds",
+      "doc": "Setting keys (settings/defaults.json controls) that code reads by name.",
+      "keys": {
+        "MapMode": "mapMode",
+        "PlayPrologue": "playPrologue",
+        "ReducedMotion": "reducedMotion",
+        "TextScale": "textScale",
+        "MasterVolume": "masterVolume",
+        "MusicVolume": "musicVolume",
+        "SfxVolume": "sfxVolume",
+        "CreationAutoAdvance": "creationAutoAdvance",
+        "MapFull": "full",
+        "MapPath": "path",
+        "MapFog": "fog",
+        "HoldConfirm": "holdConfirm",
+        "HoldOff": "off"
+      }
+    },
+    {
+      "name": "MetaUiKeys",
+      "doc": "Keys of ui/meta.json.",
+      "keys": {
+        "MapReveal": "mapReveal",
+        "FogFloorsAhead": "fogFloorsAhead",
+        "FogKeepsKinds": "fogKeepsKinds",
+        "FogKind": "fogKind",
+        "Creation": "creation",
+        "NameMaxLength": "nameMaxLength",
+        "Tints": "tints",
+        "Glyphs": "glyphs",
+        "AttributeMode": "attributeMode",
+        "Panes": "panes",
+        "RunHud": "runHud",
+        "ShowXp": "showXp",
+        "HandExample": "handExample",
+        "Turns": "turns",
+        "PlaysPerTurn": "playsPerTurn"
+      }
+    },
+    {
+      "name": "PrologueKeys",
+      "doc": "Keys of ui/prologue.json (W-05) and of the run's prologue row (rules/loopEngine.json newRun prologue).",
+      "keys": {
+        "Presentation": "presentation",
+        "Scenes": "scenes",
+        "Id": "id",
+        "Order": "order",
+        "Enabled": "enabled",
+        "Art": "art",
+        "Wide": "wide",
+        "Narrow": "narrow",
+        "WideFallback": "wideFallback",
+        "NarrowFallback": "narrowFallback",
+        "Item": "item",
+        "LineKey": "lineKey",
+        "LineFallbackKey": "lineFallbackKey",
+        "HoldMs": "holdMs",
+        "Music": "music",
+        "Banner": "banner",
+        "Stage": "stage",
+        "Transition": "transition",
+        "SkipHoldMs": "skipHoldMs",
+        "ShowPause": "showPause",
+        "ShowSkip": "showSkip",
+        "AdvanceOnClick": "advanceOnClick",
+        "Status": "status",
+        "Scene": "scene"
+      }
+    },
+    {
+      "name": "PrologueValues",
+      "doc": "Wire values of the prologue: the run row's status and the class token of art ids and line keys.",
+      "keys": {
+        "Pending": "pending",
+        "Done": "done",
+        "Skipped": "skipped",
+        "ClassToken": "{class}"
+      }
+    },
+    {
+      "name": "CreationValues",
+      "doc": "W-04 pane ids (ui/meta.json creation.panes) and choice kinds.",
+      "keys": {
+        "PaneClass": "class",
+        "PaneCharacter": "character",
+        "PaneEquipment": "equipment",
+        "PaneReview": "review",
+        "ChoiceArmour": "armour",
+        "ChoiceRightHand": "rightHand",
+        "ChoiceLeftHand": "leftHand",
+        "ChoiceRelic": "relic",
+        "ChoiceKit": "kit",
+        "ChoiceKeepsake": "keepsake",
+        "ArmourNameKey": "armour.{0}:{1}.name",
+        "RelicNameKey": "relic.{0}.name",
+        "KitNameKey": "kit.{0}.label",
+        "ClassNameKey": "class.{0}.name",
+        "UnlockHintKey": "unlock.{0}.hint",
+        "AttributeLabelKey": "attribute.{0}.label"
+      }
+    },
+    {
+      "name": "ProgressionValues",
+      "doc": "W-22 class-tree node states.",
+      "keys": {
+        "Picked": "picked",
+        "Available": "available",
+        "Closed": "closed",
+        "Excluded": "excluded"
+      }
+    },
+    {
+      "name": "ArmouryFormats",
+      "doc": "W-12 string-key formats.",
+      "keys": {
+        "WeightName": "armoury.weight.{0}",
+        "PoolName": "armoury.pool.{0}"
+      }
+    },
+    {
+      "name": "MusicKeys",
+      "doc": "Keys of audio/beds.json, audio/contexts.json and audio/music.json (US-16.1).",
+      "keys": {
+        "Locations": "locations",
+        "Pools": "pools",
+        "RunEnd": "runEnd",
+        "Stingers": "stingers",
+        "Render": "render",
+        "Victory": "victory",
+        "Defeat": "defeat",
+        "BossEnter": "bossEnter",
+        "Title": "title",
+        "NotesPerLoop": "notesPerLoop",
+        "NoteLengthFraction": "noteLengthFraction",
+        "NoteAttackSeconds": "noteAttackSeconds",
+        "NoteGain": "noteGain",
+        "DroneGain": "droneGain",
+        "DroneOctaveDown": "droneOctaveDown",
+        "PulseGain": "pulseGain",
+        "PulseSeconds": "pulseSeconds",
+        "PulseFrequency": "pulseFrequency",
+        "SemitonesPerOctave": "semitonesPerOctave",
+        "MelodyOctaveUp": "melodyOctaveUp",
+        "Contexts": "contexts",
+        "File": "file",
+        "Bed": "bed",
+        "Recipe": "recipe",
+        "Beds": "BEDS",
+        "Scales": "SCALES",
+        "Drone": "drone",
+        "Gain": "gain",
+        "Pulse": "pulse",
+        "Variants": "variants",
+        "Root": "root",
+        "Scale": "scale",
+        "Cadence": "cadence",
+        "Wave": "wave",
+        "Lift": "lift",
+        "Pool": "pool",
+        "Prologue": "prologue",
+        "SampleRate": "sampleRate",
+        "LoopName": "music.{0}.{1}",
+        "Sfx": "sfx",
+        "Events": "events",
+        "FamilyFields": "familyFields",
+        "MaxPerCommand": "maxPerCommand",
+        "Type": "type",
+        "FamilySeparator": "familySeparator",
+        "RecipeSection": "recipe"
+      }
+    },
+    {
+      "name": "WebConfigKeys",
+      "doc": "Keys of settings/webKeyMap.json and of a web-format config file (US-15.4).",
+      "keys": {
+        "GameConfigPrefix": "gameConfigPrefix",
+        "SettingsPrefix": "settingsPrefix",
+        "MirrorPrefix": "mirrorPrefix",
+        "Renames": "renames",
+        "Roots": "roots",
+        "Web": "web",
+        "File": "file",
+        "Path": "path",
+        "From": "from",
+        "To": "to",
+        "Files": "files",
+        "SchemaVersion": "schemaVersion",
+        "Overrides": "overrides",
+        "AdvancedConfig": "advancedConfig",
+        "ExportedBy": "exportedBy",
+        "Separator": "."
+      }
+    },
+    {
+      "name": "WebConfigReasons",
+      "doc": "Why a web config key was not imported (shown in the import report).",
+      "keys": {
+        "Mirror": "mirror",
+        "NoRoot": "noContentPath",
+        "UnknownSetting": "unknownSetting",
+        "SettingDoesNotFit": "settingDoesNotFit",
+        "Invalid": "invalid",
+        "NotAKey": "notAKey",
+        "UnknownPath": "unknownPath",
+        "WrongType": "wrongType"
+      }
+    }
+  ],
+  "stringTables": [
+    {
+      "name": "MetaStringKeys",
+      "from": "strings/meta.en.json",
+      "doc": "Meta screen string keys (strings/meta.en.json): W-16 journal, W-18 settings, W-05 prologue, map reveal."
+    }
+  ]
+}

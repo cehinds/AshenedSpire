@@ -1,0 +1,6 @@
+{
+  "comment": "W-06 act 1 start: the whole act drawn (fog not ported, D-128), the start row lit with rims and the › cue, the boss destination at the path end, the RUN_HUD band and the footer tools.",
+  "screen": "actMap",
+  "seed": 2,
+  "until": "start"
+}

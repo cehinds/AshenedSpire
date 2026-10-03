@@ -1,0 +1,28 @@
+{
+  "comment": "W-05 prologue (US-3.1-3.3; AF-03): nine scene slots in the shipped subset and order (the reference opening config). A slot plays when it is enabled and has art; the four extra slots are empty for a designer to fill. Lines are strings/meta.en.json keys; a class may have its own art and line ({class} in the art id and line key, the plain one the fallback). Staging values are the reference preset's (percent of the frame).",
+  "presentation": {
+    "layout": "caption",
+    "reveal": "typewriter",
+    "revealCharsPerSecond": 40,
+    "advanceOnClick": true,
+    "captionHeightPct": 30,
+    "showPause": false,
+    "showSkip": false,
+    "skipHoldMs": 1100,
+    "textOutline": true,
+    "vignette": 0.15,
+    "transition": "fade",
+    "transitionMs": 600
+  },
+  "scenes": [
+    { "id": "warmth", "order": 1, "enabled": true, "art": { "wide": "prologue.warmth-desktop", "narrow": "prologue.warmth-mobile" }, "lineKey": "prologue.warmth.line", "holdMs": 4000, "music": "title", "banner": true, "stage": { "focusX": 45, "focusY": 0, "scale": 1.55, "vignette": 0.05, "brightness": 0.8, "contrast": 1.15 } },
+    { "id": "year", "order": 2, "enabled": true, "art": { "wide": "prologue.year-desktop", "narrow": "prologue.year-mobile" }, "lineKey": "prologue.year.line", "holdMs": 4000, "music": "boss", "banner": true, "stage": { "focusX": 50, "focusY": 0, "scale": 1 } },
+    { "id": "carry", "order": 3, "enabled": true, "art": { "wide": "prologue.carry-{class}-desktop", "narrow": "prologue.carry-{class}-mobile", "wideFallback": "prologue.carry-desktop", "narrowFallback": "prologue.carry-mobile" }, "item": "prologue.{class}", "lineKey": "prologue.carry.line.{class}", "lineFallbackKey": "prologue.carry.line", "holdMs": 4500, "banner": true, "stage": { "focusX": 55, "focusY": 0, "scale": 1 } },
+    { "id": "night", "order": 4, "enabled": true, "art": { "wide": "prologue.night-desktop", "narrow": "prologue.night-mobile" }, "lineKey": "prologue.night.line", "holdMs": 4000, "banner": true, "stage": { "focusX": 50, "focusY": 0, "scale": 1, "vignette": 0.7 } },
+    { "id": "step", "order": 5, "enabled": true, "art": { "wide": "prologue.step-desktop", "narrow": "prologue.step-mobile" }, "lineKey": "prologue.step.line", "holdMs": 4500, "music": "rest", "banner": true, "stage": { "focusX": 50, "focusY": 20, "scale": 1 } },
+    { "id": "extraA", "order": 6, "enabled": false },
+    { "id": "extraB", "order": 7, "enabled": false },
+    { "id": "extraC", "order": 8, "enabled": false },
+    { "id": "extraD", "order": 9, "enabled": false }
+  ]
+}

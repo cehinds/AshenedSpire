@@ -88,5 +88,35 @@ namespace Ashen.Generated
         public const string PickNode = "pick-node";
         public const string PickCard = "pick-card";
         public const string PickSelected = "pick-selected";
+        public const string MapNode = "map-node";
+        public const string MapNodeKindPrefix = "map-node--";
+        public const string MapNodeReachable = "map-node--reachable";
+        public const string MapNodeCurrent = "map-node--current";
+        public const string MapNodeTravelled = "map-node--travelled";
+        public const string MapNodeDimmed = "map-node--dimmed";
+        public const string MapNodeHidden = "map-node--hidden";
+        public const string MapNodeSelected = "map-node--selected";
+        public const string MapNodeGlyph = "map-node-glyph";
+        public const string MapNodeCue = "map-node-cue";
+        public const string MapNodeLabel = "map-node-label";
+        public const string LegendRow = "legend-row";
+        public const string LegendCue = "legend-cue";
+        public const string RestOption = "rest-option";
+        public const string RestOptionButton = "rest-option-button";
+        public const string RestOptionDetail = "rest-option-detail";
+        public const string RestOptionUnavailable = "rest-option--unavailable";
+        public const string AvailabilityRow = "availability-row";
+        public const string AvailabilityName = "availability-name";
+        public const string AvailabilityState = "availability-state";
+        public const string PaneItem = "pane-item";
+        public const string PaneRow = "pane-row";
+        public const string PaneStep = "pane-step";
+        public const string PaneValue = "pane-value";
+        public const string ReceiptLine = "receipt-line";
+        public const string RunEndVictory = "runend-victory";
+        public const string RunEndDefeat = "runend-defeat";
+        public const string RunEndStat = "runend-stat";
+        public const string RunEndCard = "runend-card-name";
+        public const string RunEndUnlock = "runend-unlock";
     }
 }

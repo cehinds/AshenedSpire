@@ -70,6 +70,26 @@ namespace Ashen.Domain.Loop
         }
 
         /// <summary>
+        /// Abandon run (W-20, D-134; not in the shipped game): the run's record marked abandoned is appended to the
+        /// history like any end, and the durable tally advances as for a defeat (the run counts; acts reached and bosses
+        /// already felled stay theirs), but no unlock is evaluated at this door, so abandoning earns nothing new.
+        /// </summary>
+        public static RunEndReceipt Abandon(LoopContext ctx)
+        {
+            var d = ctx.Data;
+            var result = Result(ctx, false);
+            result[Ashen.Generated.MetaKeys.Abandoned] = true;
+            var meta = ctx.Profile;
+            if (!(meta[LK.Results] is JArray results) || !Js.Truthy(meta[LK.Results])) meta[LK.Results] = results = new JArray();
+            results.Add(result.DeepClone());
+            var limit = (int)d.RuleNum(LK.Profile, LK.HistoryLimit);
+            while (results.Count > limit) results.RemoveAt(0);
+            meta[LK.Progress] = RecordProgress(meta[LK.Progress] as JObject, result);
+            SaveMeta(d, meta);
+            return new RunEndReceipt { Victory = false, Result = result };
+        }
+
+        /// <summary>
         /// saveMeta(meta): the stored profile is <c>{ ...meta, schemaVersion }</c> at the current profile schema. Only the last
         /// write of a door is kept, so the loop applies it once, after the door's changes.
         /// </summary>
