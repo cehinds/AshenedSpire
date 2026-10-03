@@ -2,8 +2,13 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.37.4] — 2026-10-03
+
+- Record the 0.1.37.3 promotion (dev → test → main) in CHANGELOG and BUILD-LOG
+
 ## [0.1.37.3] — 2026-10-02
 
+- **Promoted dev → test → main (2026-10-03). A promotion is a process step, not an owner sign-off; the epic stays 0 (D-039).** CI green on dev and test (version, docs, domain, content, bot). Unity EditMode, PlayMode and the Windows build are unverified: the CI Unity steps skip without the UNITY_* secrets and no local batchmode run was made. Tag `v0.1.37.3` not yet created (the session could not write tags).
 - Abandon run, buy-back, XP strip data, hand example, web config import/export, combat sounds (D-134, D-159-D-163)
 
 ## [0.1.37.2] — 2026-10-02

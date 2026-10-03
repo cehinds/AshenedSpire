@@ -2,6 +2,13 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Promotion: 0.1.37.3 (2026-10-03)
+
+- `dev` 0.1.37.3 promoted to `test` (cehinds/AshenedSpire#1) and to `main` (cehinds/AshenedSpire#2, merge `e99920c`). No version change and no owner approval implied (D-039).
+- CI green on dev and test for the engine-free lanes: version, docs, domain, content, bot (200 seeds).
+- **Unverified:** EditMode, PlayMode and the Windows build. CI's `unity-test-runner` and `unity-builder` steps skip without the `UNITY_*` secrets, and no local batchmode run was made for this promotion.
+- Tag `v0.1.37.3` on `e99920c` is still to be created; the session's GitHub access refused tag writes.
+
 ## Owner rulings and the last engine-free gaps: abandon, buy-back, XP strip, hand example, web config, combat sounds (dev, 2026-10-02)
 
 **Landed**
