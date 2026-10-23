@@ -2,6 +2,28 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-13: the snapshot and the session of a Core 2 fight, proven by playing every recorded fight from its own snapshots (dev, 2026-10-23)
+
+**Landed**
+- **Snapshot (`CoreSnapshot`, D-280):** `Serialize(CombatState)` / `Restore(CoreCombatData, Rng, snapshot)` are `serializeCombatSnapshot` / `restoreCombatSnapshot` for a configured profile, in the web's shape: every Core field (`rangeState`, `formationPolicy`, `enemyKnowledge`, the rule snapshots, `reactionRulesVersion` / `reactionRules`, `reactionCursor`, `reactionHandCleanup`, `pendingReaction`, `reactionStack`, `enemyReactionRolls`, `reactionRootPlay`, `reactionResume`, `hiddenCards`, `proposalRewards`, the card choice left open with its `pendingAbilityPlay`), the fighters whole (persistent Poise and Ward, `barrier`, `combatStance`, `combatCounter`, `plannedMoves`, burden piles, statuses and meters), the piles, the event log, the trigger gates, the skill ledger and the id counter. A fight between two dispatches is data; a paused fight also writes its queued work (`abilityQueue`: `CoreSnapshotActions` turns an action, its meta, its committed-action group with the per-hit contact sequence and an enemy entry's plan into the web's JSON and back, joining the actions of one group by key as the web does). The profile body is a pin `{ id, hash }` and a restore under another hash is the recoverable `ProfileMismatch` (D-171 settled, D-280). `RngToJson` / `RngFromJson` carry all 25 stream counters (D-283).
+- **Validation (`CoreSnapshotProblems`, D-282):** the field-addressed refusals of `combatSnapshotProblems` for a Core 2 fight (scalars, the ruleset-7 derived-stat receipt, fighters, piles, the choice, the reaction state, the engagement state, the formation, the knowledge ledger); `Restore` and `Serialize` both refuse by name (`SnapshotRefusedException`).
+- **Session (`Application/Combat/Core2CombatSession`, D-283, D-284):** starts a fight from a run on the run's streams (`CoreRunCombat`, D-131), `Execute(intent)` through `CoreDispatch` with refusal-costs-nothing and rollback, `LegalIntents`, `PreviewCard` / `PreviewHit` / `CardCosts` / `PlayRefusal` / `PreviewEnemy`, `PendingOffer` / `PendingChoice`, `ReconcileKnowledge`; `Save` / `Commit` / `ExecuteAndLog` / `Load` through `SaveService` with the verified command log (D-017) and the profile pin; the Core 2 save is format 3, the 405 `saveFormat` 2 and its saves are untouched.
+- **Oracle (`Tools/oracle-core2-snapshot.mjs`):** replays the recorded fights on the pinned web and records `serializeCombatSnapshot` at sampled steps (43 snapshots in 22 shape signatures, 2.4 MB; the web refuses to write 94 of the 3,245 early states it looked at).
+- **Fix found by the shape test (D-286):** the round refresh's `deckShuffled` reason is `configuredRoundRefresh`.
+
+**Tests**
+- `Core2SnapshotParityTests`: clone-and-continue over all 969 recorded fights and exchanges (reactions, range, damage, matchups, statuses, enemy sets: the fight is its own snapshot after every step; the four replay loops take a `between` hook), the shape of 43 web snapshots, and the web's own snapshots restored and written back unchanged (43).
+- `Core2SnapshotUnitTests` (33): a sound snapshot round trips, a resolving or queued-but-unpaused fight is not saved, 27 malformed snapshots are refused by name, another profile and an unknown stream are refused, a card choice left open (`base.exhaust-choose`) is saved with its paid card and the fight goes on from it.
+- `Core2CombatSessionTests` (7): start on the run's streams, the recorded fight through the session (refusals cost nothing), save paused on an offer / reload / finish on the same state, the log replays on its checkpoint, a save the build cannot read is refused by name and kept, previews and legal intents, a fight played to its end.
+- Domain.Tests (`Category!=Bot`) 12,642 (baseline 11,546 + 1,096), all green after the last code change (33 min 47 s). `transform-content --check`, `codegen --check`, `refresh-manifest --check`, `ci/check-content`, `ci/check-docs` and `web-key-map --check` pass.
+
+**Not verified / deferred**
+- A reaction card that itself leaves a choice (`reactionResume` with its nested choice): the codec is the queue's and the validator checks it, but no recorded or unit fight pauses there (D-285).
+- The deep receipt-graph validators for a paused range plan (D-282); flasks, swaps, charges, arcane buildup and Ashen Blight state (the other stream's) join the snapshot with their rules: any new `Fields` key a fight carries fails the clone-and-continue test until the snapshot carries it.
+- No `RunSession` hosts the Core 2 session yet (the run flow, map and rewards are WP-14 and after); the 405 `CombatSession` is unchanged.
+
+**Next:** WP-14 onward: the Core 2 run loop on `Core2CombatSession`.
+
 ## Core 2 WP-12: range, engagement and the burden cards in C# with oracle parity (dev, 2026-10-23)
 
 **Landed**
