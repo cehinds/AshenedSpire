@@ -45,6 +45,7 @@ namespace Ashen.Domain.Run
                 StartingArmourId = o.Str(RK.StartingArmourId),
                 StartingRelicId = o.Str(RK.StartingRelicId),
                 ProfileMeta = o.Obj(RK.ProfileMeta) ?? profileMeta,
+                RunId = o.Str(CK.RunId),
             };
         }
     }

@@ -158,6 +158,14 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void ParsedOptionsKeepTheRunId()
+        {
+            var options = CoreRunOptions.FromJson(new JObject { ["runId"] = "replayed-run" }, Unlocked);
+            Assert.That(options.RunId, Is.EqualTo("replayed-run"));
+            Assert.That(CoreRunOptions.FromJson(new JObject(), Unlocked).RunId, Is.Null);
+        }
+
+        [Test]
         public void TheGateOpensOneClassPerCompletedRun()
         {
             var rules = (JObject)Read(Path.Combine(RunDir, "unlocks.json"))["rules"];
