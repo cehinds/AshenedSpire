@@ -15,6 +15,7 @@ using CK = Ashen.Generated.Core2CombatKeys;
 using CV = Ashen.Generated.Core2CombatValues;
 using EV = Ashen.Generated.Core2EnemyValues;
 using DK = Ashen.Generated.Core2DamageKeys;
+using DV = Ashen.Generated.Core2DamageValues;
 using NK = Ashen.Generated.Core2SnapshotKeys;
 using NM = Ashen.Generated.Core2SnapshotMessages;
 using NN = Ashen.Generated.Core2SnapshotNumbers;
@@ -256,6 +257,13 @@ namespace Ashen.App.Combat
                         if (target != null) intent[RK.TargetId] = target;
                         if (choice != null) intent[RK.Choice] = choice;
                         if (Accepts(intent)) legal.Add(intent);
+                        // Routes beyond the default advance come from the card's own preview; a route is tried even when the advance is not playable.
+                        foreach (var route in RoutesOf(instanceId, target))
+                        {
+                            var routed = (JObject)intent.DeepClone();
+                            routed[RK.RangeRoute] = route;
+                            if (Accepts(routed)) legal.Add(routed);
+                        }
                     }
             }
             var end = Intent(RV.IntentEndTurn, RK.DiscardIds, new JArray());
@@ -273,7 +281,24 @@ namespace Ashen.App.Combat
             }
             var reactions = Intent(RV.IntentSetReactions, RK.Enabled, State.Player[NK.ReactionsEnabled] != null && !State.Player.Is(NK.ReactionsEnabled));
             if (Accepts(reactions)) legal.Add(reactions);
+            // A control status the player holds is tried for recovery (one stack); the rules accept the ones that can be recovered and paid for.
+            foreach (var status in State.Player.Obj(Ashen.Generated.CombatKeys.Statuses)?.Properties().ToList() ?? new List<JProperty>())
+            {
+                if (!(status.Value is JObject held) || held.Num(Ashen.Generated.CombatKeys.Stacks) <= 0) continue;
+                var recover = Intent(RV.IntentRecoverControl, RK.Selections, new JArray(new JObject { [Ashen.Generated.CombatKeys.Status] = status.Name, [Ashen.Generated.CombatKeys.Stacks] = Js.N(NN.RecoverStacks) }));
+                if (Accepts(recover)) legal.Add(recover);
+            }
             return legal;
+        }
+
+        /// <summary>The range routes other than advance the card's preview offers against a target, in the preview's order (none when it has no preview).</summary>
+        private IEnumerable<string> RoutesOf(string instanceId, string target)
+        {
+            JObject range;
+            try { range = CoreRangePreview.Card(State, instanceId, target); }
+            catch (InvalidOperationException) { return Enumerable.Empty<string>(); }
+            catch (NotSupportedException) { return Enumerable.Empty<string>(); }
+            return Js.Items(range?[Ashen.Generated.Core2RangeKeys.Routes]).OfType<JObject>().Select(row => row.Str(Ashen.Generated.Core2RangeKeys.Id)).Where(id => id != DV.RouteAdvance).ToList();
         }
 
         /// <summary>What a telegraph the player could not read can be predicted to be (the web's PREDICTION_CHOICES).</summary>

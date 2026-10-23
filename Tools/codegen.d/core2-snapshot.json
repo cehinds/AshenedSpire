@@ -238,6 +238,7 @@
         "PendingDiscardDrawMax": "99",
         "ProposalRewardMax": "1000000000",
         "RangeStateFields": "3",
+        "RecoverStacks": "1",
         "SaveFormat": "3"
       }
     }

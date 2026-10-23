@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Ashen.App.Combat;
 using Ashen.App.Saves;
+using Ashen.Content;
 using Ashen.Domain.Combat;
 using Ashen.Domain.Random;
 using Ashen.Domain.Run;
@@ -283,6 +284,118 @@ namespace Ashen.Tests
             // A finished fight is not a resume point.
             Assert.Throws<InvalidOperationException>(() => session.Save(_saves, "slot4", "content-hash"));
             Assert.That(_saves.Exists("slot4"), Is.False);
+        }
+
+        // ------------------------------------------------------------------ legal intents: routes and recoveries
+
+        private static Core2CombatSession ReaverFight() => Core2CombatSession.Start(Data, Run("reaver", 1121046183), "loneSoldier");
+
+        /// <summary>The first control status the rules can recover by breaking it (a lock), by its id.</summary>
+        private static string RecoverableStatus(Core2CombatSession session) =>
+            CoreStatusControl.RecoveryControls(session.State, session.State.Player).OfType<JObject>().Select(row => row.Value<string>("status")).FirstOrDefault();
+
+        [Test]
+        public void ARecoverableControlStatusOffersItsRecoveryWhenTheStaminaIsThere()
+        {
+            var session = ReaverFight();
+            Assert.That(session.LegalIntents().Any(i => i.Value<string>("type") == "recoverControl"), Is.False, "nothing to recover at the start");
+            var lockRow = CoreStatuses.ControlRows(session.State).First(row => row.Value<bool?>("lock") == true);
+            var status = lockRow.Value<string>("activeStatus");
+            session.State.Player.Obj("statuses")[status] = new JObject { ["stacks"] = 2 };
+            var cost = lockRow.Value<double>("recoveryCost");
+            session.State.Player["stamina"] = cost;
+            var recoveries = session.LegalIntents().Where(i => i.Value<string>("type") == "recoverControl").ToList();
+            Assert.That(recoveries.Count, Is.EqualTo(1));
+            Assert.That(recoveries[0]["selections"].ToString(Newtonsoft.Json.Formatting.None), Is.EqualTo(new JArray(new JObject { ["status"] = status, ["stacks"] = 1 }).ToString(Newtonsoft.Json.Formatting.None)));
+            var hash = session.StateHash();
+            session.LegalIntents();
+            Assert.That(session.StateHash(), Is.EqualTo(hash), "probing recoveries changed nothing");
+            Assert.That(session.Execute(recoveries[0]).Accepted, Is.True);
+            Assert.That(session.State.Player.Obj("statuses").Obj(status)?.Value<double?>("stacks") ?? 0, Is.EqualTo(1));
+            session.State.Player["stamina"] = cost - 1;
+            Assert.That(session.LegalIntents().Any(i => i.Value<string>("type") == "recoverControl"), Is.False, "too little Stamina to pay for it");
+        }
+
+        /// <summary>A fight whose hand holds an aimed card that can be thrown for less than advancing costs, by scanning openings; the card, its target and the two prices.</summary>
+        private static (Core2CombatSession Session, string Card, string Target, double Advance, double Throw) CheaperThrow()
+        {
+            foreach (var classId in new[] { "reaver", "rogue", "herald", "starseer" })
+                for (uint seed = 1; seed <= 60; seed++)
+                    foreach (var encounter in new[] { "loneSoldier" })
+                    {
+                        var session = Core2CombatSession.Start(Data, Run(classId, seed), encounter);
+                        // The enemy one band beyond the card's reach: advancing costs Stamina for the approach, a throw reaches without it.
+                        var engagements = session.State.Fields.Obj("rangeState")?.Obj("engagements");
+                        if (engagements == null) continue;
+                        foreach (var pair in engagements.Properties().ToList()) engagements[pair.Name] = 1;
+                        foreach (var enemy in session.State.Enemies)
+                            foreach (var card in session.State.Piles.Hand)
+                            {
+                                JObject range;
+                                try { range = session.PreviewCard(card.Value<string>("instanceId"), enemy.Value<string>("id")); } catch (InvalidOperationException) { continue; }
+                                var rows = (range?["routes"] as JArray ?? new JArray()).OfType<JObject>().ToList();
+                                var advance = rows.FirstOrDefault(r => r.Value<string>("id") == "advance");
+                                var thrown = rows.FirstOrDefault(r => r.Value<string>("id") == "throw");
+                                if (advance == null || thrown == null || thrown.Value<bool>("available") != true || advance.Value<bool>("available") != true) continue;
+                                var advanceCost = advance["costs"].Value<double>("energy");
+                                var throwCost = thrown["costs"].Value<double>("energy");
+                                if (throwCost >= advanceCost) continue;
+                                // The card must take this enemy as its target when it can be paid for.
+                                session.State.Player["stamina"] = advanceCost;
+                                session.State.Player["energy"] = advanceCost;
+                                if (session.LegalIntents().Any(i => i.Value<string>("cardInstanceId") == card.Value<string>("instanceId") && i.Value<string>("targetId") == enemy.Value<string>("id") && i.Value<string>("rangeRoute") == "throw"))
+                                    return (session, card.Value<string>("instanceId"), enemy.Value<string>("id"), advanceCost, throwCost);
+                            }
+                    }
+            return (null, null, null, 0, 0);
+        }
+
+        [Test]
+        public void ACardWithAThrowRouteOffersBothRoutesAndOnlyThrowWhenTheAdvanceIsUnaffordable()
+        {
+            var (session, cardId, targetId, advance, thrown) = CheaperThrow();
+            Assert.That(session, Is.Not.Null, "some opening has a card that is cheaper to throw");
+            // With Stamina for either, both routes play (the default advance carries no route).
+            session.State.Player["stamina"] = advance;
+            session.State.Player["energy"] = advance;
+            var plays = session.LegalIntents().Where(i => i.Value<string>("cardInstanceId") == cardId && i.Value<string>("targetId") == targetId).ToList();
+            Assert.That(plays.Any(i => i["rangeRoute"] == null), Is.True, "the default advance");
+            Assert.That(plays.Any(i => i.Value<string>("rangeRoute") == "throw"), Is.True, "the throw");
+            Assert.That(plays.Any(i => i.Value<string>("rangeRoute") == "advance"), Is.False, "advance is the default, not a second candidate");
+            // Enough for the throw and not for the advance: only the throw plays.
+            session.State.Player["stamina"] = thrown;
+            session.State.Player["energy"] = thrown;
+            Assert.That(advance, Is.GreaterThan(thrown));
+            plays = session.LegalIntents().Where(i => i.Value<string>("cardInstanceId") == cardId && i.Value<string>("targetId") == targetId).ToList();
+            Assert.That(plays.Select(i => i.Value<string>("rangeRoute")), Is.EqualTo(new[] { "throw" }));
+            Assert.That(session.Execute(plays[0]).Accepted, Is.True, "the throw is accepted");
+        }
+
+        /// <summary>The recorded card-bot fights of the web's reference enumerator (<c>legalIntents</c> in Tools/oracle-core2.mjs), one case each.</summary>
+        public static System.Collections.Generic.IEnumerable<TestCaseData> RecordedCardFights() =>
+            Directory.GetFiles(Path.Combine(TestContent.OracleRoot, "core2", "combat"), "cards-*.json").Select(Path.GetFileName).OrderBy(f => f, StringComparer.Ordinal)
+                .Select(f => new TestCaseData(f).SetName("Core2LegalIntents_" + Path.GetFileNameWithoutExtension(f)));
+
+        /// <summary>
+        /// The fixtures record how many legal intents the web enumerated before each step. This build's dispatch has no flask yet, so the web's useFlask
+        /// candidates (at most the two charge kinds) are not enumerated: until a recorded flask is used, the lists differ by no more than those, and every other
+        /// kind (cards with their targets, choices and routes, end of turn, reactions, predictions, recoveries) counts the same at every step.
+        /// </summary>
+        [TestCaseSource(nameof(RecordedCardFights))]
+        public void TheLegalIntentsMatchTheWebsAtEveryRecordedStep(string file)
+        {
+            var record = (JObject)JsonContent.Parse(File.ReadAllText(Path.Combine(TestContent.OracleRoot, "core2", "combat", file)));
+            var session = Core2CombatSession.Start(Data, Run(record.Value<string>("classId"), (uint)record["seed"].Value<long>()), record.Value<string>("encounterId"));
+            const int flaskKinds = 2;
+            var checkedSteps = 0;
+            foreach (var step in ((JArray)record["steps"]).OfType<JObject>())
+            {
+                var intent = (JObject)step["intent"];
+                if (intent.Value<string>("type") == "useFlask") break;
+                Assert.That(step.Value<int>("legalCount") - session.LegalIntents().Count, Is.InRange(0, flaskKinds), file + " step " + checkedSteps);
+                Assert.That(session.Execute(intent).Accepted, Is.EqualTo(step["error"] == null), file + " step " + checkedSteps);
+                checkedSteps++;
+            }
         }
     }
 }

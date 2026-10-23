@@ -12,6 +12,7 @@ namespace Ashen.Generated
         public const double PendingDiscardDrawMax = 99;
         public const double ProposalRewardMax = 1000000000;
         public const double RangeStateFields = 3;
+        public const double RecoverStacks = 1;
         public const double SaveFormat = 3;
     }
 }
