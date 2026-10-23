@@ -20,7 +20,7 @@ namespace Ashen.Domain.Combat
 
         public Registry(string name, IEnumerable<JToken> rows, string key)
         {
-            _name = name;
+            _name = Singular(name);
             foreach (var token in rows)
             {
                 var row = (JObject)token;
@@ -30,6 +30,12 @@ namespace Ashen.Domain.Combat
                 _all.Add(row);
             }
         }
+
+        /// <summary>The shipped registry names its type in the singular ('card', 'status', 'enemy') in its messages.</summary>
+        private static string Singular(string plural) =>
+            plural.EndsWith("ies", StringComparison.Ordinal) ? plural.Substring(0, plural.Length - 3) + "y"
+            : plural.EndsWith("uses", StringComparison.Ordinal) ? plural.Substring(0, plural.Length - 2)
+            : plural.EndsWith("s", StringComparison.Ordinal) ? plural.Substring(0, plural.Length - 1) : plural;
 
         public IReadOnlyList<JObject> All => _all;
 

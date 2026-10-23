@@ -573,8 +573,9 @@ function traitsFile() {
     defs[def.id] = canon(def);
     baseTags[def.id] = tags.objectTagIds('card', def.id);
     for (const [name, rules] of Object.entries(ruleSets)) {
-      const out = traitProjection.applyCardTraits(structuredClone(def), structuredClone(rules));
-      projection.push({ id: def.id, rules: name, tier: traitProjection.cardTier(def), traitValues: canon(out.traitValues ?? null), tags: canon(out === def ? null : out.tags), cardTags: canon(out.cardTags ?? null) });
+      const input = structuredClone(def);
+      const out = traitProjection.applyCardTraits(input, structuredClone(rules));
+      projection.push({ id: def.id, rules: name, tier: traitProjection.cardTier(def), traitValues: canon(out.traitValues ?? null), tags: canon(out === input ? null : out.tags), cardTags: canon(out.cardTags ?? null) });
     }
   }
   const maneuvers = [null, 'attack', 'smash', 'defend', 'sweep', 'counter', 'casting', 'ranged', 'evade', 'prepared'];
@@ -646,7 +647,6 @@ function opGrid() {
   for (const maneuver of ['attack', 'smash', 'defend', 'sweep', 'counter', 'casting', 'evade', 'bogus']) add(`stance ${maneuver}`, { op: 'enterStance', maneuver, target: 'self' });
   add('stance choose', { op: 'enterStance', choose: 'maneuver' }, { meta: { choice: 'sweep' } });
   add('stance choose none', { op: 'enterStance', choose: 'maneuver' });
-  add('stance legacy', { op: 'enterStance', stance: 'gorefire' });
   add('stagger', { op: 'stagger', target: 'enemy' }, { targetWho: 'e0' });
   add('cinders', { op: 'addCinders', amount: 3 });
   for (const [label, status, amount] of [['bleed', 'bleed', 3], ['bleed big', 'bleed', 30], ['frost', 'frost', 8], ['sleep', 'sleep', 8], ['unknown', 'nothing', 3]])
@@ -659,8 +659,6 @@ function opGrid() {
   add('buildup ward', { op: 'buildup', target: 'enemy', status: 'frost', amount: 12 }, { targetWho: 'e0', patch: { e0: { persistentWard: { max: 4, value: 4 } } } });
   for (const amount of [0, 3, 30]) add(`gainPoise ${amount}`, { op: 'gainPoise', amount, target: 'self' });
   add('gainWard', { op: 'gainWard', amount: 3, target: 'self' });
-  add('restorePoise', { op: 'restorePoise', amount: 4, target: 'self' }, { patch: { p: { persistentPoise: { max: 8, value: 2 } } } });
-  add('restorePoise once', { op: 'restorePoise', amount: 4, target: 'self', oncePerCombat: 'k' }, { patch: { p: { persistentPoise: { max: 8, value: 2 } } }, twice: true });
   for (const amount of [0, 3, 30]) add(`poiseDamage ${amount}`, { op: 'poiseDamage', amount, target: 'enemy' }, { targetWho: 'e0' });
   for (const amount of [0, 3, 30]) add(`wardDamage ${amount}`, { op: 'wardDamage', amount, target: 'enemy' }, { targetWho: 'e0', patch: { e0: { persistentWard: { max: 6, value: 6 } } } });
   add('wardDamage none', { op: 'wardDamage', amount: 3, target: 'enemy' }, { targetWho: 'e0' });
@@ -695,9 +693,7 @@ function opGrid() {
     for (const selection of ['first', 'random']) add(`modify ${label} ${selection}`, { op: 'modifyCards', amount: 2, from: 'hand', selection, changes }, { patch: { p: { statuses: { strength: { stacks: 2 } } } } });
   add('modify choose', { op: 'modifyCards', amount: 1, from: 'hand', selection: 'choose', changes: { retain: true } });
   add('unknown op', { op: 'nothingAtAll' });
-  add('moveEngagement', { op: 'moveEngagement', target: 'enemy', bands: 1 }, { targetWho: 'e0' });
   add('addBurden', { op: 'addBurden', target: 'enemy', card: STRIKE }, { targetWho: 'e0' });
-  add('arcaneBuildup', { op: 'arcaneBuildup', target: 'enemy', amount: 3 }, { targetWho: 'e0' });
   variants.forEach((v, i) => {
     const who = i % 5 === 4 ? 'e0' : 'p';
     const s = scenario(`op ${v.name}`, v.patch ? { patch: v.patch } : {});

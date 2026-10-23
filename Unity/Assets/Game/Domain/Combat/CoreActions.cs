@@ -195,7 +195,8 @@ namespace Ashen.Domain.Combat
                     break;
                 default:
                     if (CoreOps.Run(c, action, eff)) break;
-                    throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, CM.OpcodeNotPorted, eff.Str(K.Op)));
+                    if (CoreSets.DeferredOps.Contains(eff.Str(K.Op))) throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, CM.OpcodeNotPorted, eff.Str(K.Op)));
+                    throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UnknownOpcode, eff.Str(K.Op)));
             }
         }
 
