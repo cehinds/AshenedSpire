@@ -12,7 +12,7 @@ namespace Ashen.Domain.Combat
     /// </summary>
     public sealed class CoreCombatData
     {
-        public CoreCombatData(CoreRunData run, JObject fixCore, JObject actionCosts, JObject stanceRules, JObject rules, JObject enemyKnowledgeRules, JObject handDefaults)
+        public CoreCombatData(CoreRunData run, JObject fixCore, JObject actionCosts, JObject stanceRules, JObject rules, JObject enemyKnowledgeRules, JObject handDefaults, JObject proposalStatusRules = null)
         {
             Run = run ?? throw new ArgumentNullException(nameof(run));
             FixCore = fixCore ?? throw new ArgumentNullException(nameof(fixCore));
@@ -21,6 +21,7 @@ namespace Ashen.Domain.Combat
             Rules = rules ?? throw new ArgumentNullException(nameof(rules));
             EnemyKnowledgeRules = enemyKnowledgeRules ?? throw new ArgumentNullException(nameof(enemyKnowledgeRules));
             HandDefaults = handDefaults ?? throw new ArgumentNullException(nameof(handDefaults));
+            ProposalStatusRules = proposalStatusRules ?? new JObject();
         }
 
         public CoreRunData Run { get; }
@@ -48,6 +49,9 @@ namespace Ashen.Domain.Combat
 
         /// <summary>rules/core2HandRules.json: the hand rules a configured fight starts from before the profile's hand rows are laid over them (web engine/handRules.js defaults).</summary>
         public JObject HandDefaults { get; }
+
+        /// <summary>The proposal status rules (<c>profile/bundle/proposalStatusRules.json</c>, the web registry's <c>proposalStatusRules</c>): the card taxes, restrictions and stance capacity statuses give, by status id.</summary>
+        public JObject ProposalStatusRules { get; }
 
         /// <summary>combatExpansionVersion of rules/versions.json: the expanded combat a Core 2 fight runs.</summary>
         public double ExpandedVersion => Js.D(Run.Versions[Ashen.Generated.Core2CombatKeys.CombatExpansionVersion]);

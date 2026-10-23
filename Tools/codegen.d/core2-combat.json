@@ -623,7 +623,6 @@
         "MissingResourceVariant": "Card {0} has no variant for the profile resources",
         "OncePerTurnNotPorted": "Core 2 combat: oncePerTurn effects are ported with the card kernel (WP-5)",
         "OpcodeNotPorted": "Core 2 combat: opcode {0} is ported with the card kernel (WP-5 to WP-9)",
-        "PlayerStaminaCostNotPorted": "Core 2 combat: card costs are ported with WP-5",
         "PoiseOverflowNotPorted": "Core 2 combat: Poise overflow is ported with WP-6",
         "ScriptNotPorted": "Core 2 combat: script effects are ported with WP-5",
         "StatusControlNotPorted": "Core 2 combat: status control {0} is ported with WP-9",

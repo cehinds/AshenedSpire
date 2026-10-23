@@ -2,6 +2,25 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-5: stances and card costs in C# with oracle parity (dev, 2026-10-23)
+
+**Landed**
+- **Oracle first (`Tools/oracle-core2-costs.mjs`, D-206):** the shipped web at `b8cfe4fac`, three kinds of file under `Tests/Oracle/core2/costs/` (6.9 MB, two runs byte-identical). `grid.json`: all 211 profile cards against 23 stances (none, nine physical, six Spell, four mirrored Spell, ranged, two Many Forms concurrent states) for `sameStance`, `spellChain`, `stanceEffectiveness` (1.25), `stanceEntryBonuses`, `stanceStaminaCost` in the player's and the enemy phase, `stanceManaCost`, and an enemy entity with and without a Mana price; plus `levels` (D-205): player `characterLevel` 0, 1, 4, 9 with every card's entry bonuses, grant, mix and the Precision and Evade a real `setProfileStance` leaves. `prices.json`: `cardCostBudget` / `applyActionCosts` for the 211 profile cards and 138 enemy cards at ranks 0..3 (as authored, forced through the derivation, upgraded) and every enemy's pool. `fights-<class>.json`: 4 classes x 12 fights: the opening hand and a hand of all 211 cards under 14 state variants priced (`cardPlayCosts`, `resolvedCardPlayCosts`, the cost parts of `previewCard`, the play legality with the Stamina and Mana one short and exactly enough), and chains of plays (the front half of `doPlayCard`) with the whole hand priced after each.
+- **`CoreCosts`** (D-200): `Resolve`, `Behavior` (play limit, cost growth), `ProposalCardPlan` (status restriction, flat tax, extra stance capacity), `StanceCapacity`, `RememberStance` (D-202), `ProfileCardCosts`, `PriceReceipt`, `PlayCosts`, `CardPlayCosts`, `PreviewCosts`, `PlayRefusal`. **`CoreStances`** (D-201): the player branch of `StaminaCost` (Reaction card in the enemy phase), `ManaCost`, `SpellChain`; `SetProfileStance` remembers the stance it leaves. **`CoreActionCosts`** (D-203): `Budget`, `IsCostOptOut`, `Apply`, `OwnRestoreFunds`. **`CoreCardPlay`** (D-204): `Carrier` and `Enter`, the front half of a card play.
+- **D-214 fixed (D-205):** `CoreStances.PrecisionStatMix` / `PrecisionEntryGrant` delegate to `CoreHitRoll`; a player stance entry now counts the fight's `characterLevel`. Signatures of `StanceOf`, `SameStance`, `EntryBonuses`, `MirroredManeuver` unchanged.
+- **Data:** `costs` section of `rules/core2Combat.json` (+ schema; poise line, cost growth cap, default stance capacity, reaction discount, `scaleFromSp`), `ProposalStatusRules` on `CoreCombatData`, codegen fragment `core2-costs.json` (`Core2CostKeys`, `Core2CostValues`, `Core2CostMessages`). `CoreFixCore.Rules` / `Family` take an optional carrier for the mechanics refusal.
+
+**Parity mismatches found, all fixed:** the player's stance-entry Precision was short by the character level (D-214, the one real bug); a magic `2` in the effect-scaling threshold (now `costs.scaleFromSp`); the test's expectation for a probe the web refuses earlier than the cost gates (the player-turn gate, a stance choice): the C# port has no such gates yet, so only the cost errors are compared there, and a short-resource probe may return a cost refusal or none.
+
+**Tests:** `Core2CostParityTests` 127 (oracle present, 23 grid cases, 4 player-level cases, 211 + 138 price tables, enemy pools, 48 fights of costs, previews and legality, 48 fights of play chains). Domain.Tests (`Category!=Bot`) 4957/4957 (baseline 4830 + 127). `transform-content --check`, `codegen --check`, `refresh-manifest --check`, `check-content`, `check-docs`, `web-key-map --check` green. EnforcementTests green.
+
+**Not verified / deferred**
+- Unity (no editor): everything is in `Ashen.Domain`, `Ashen.Content` and `Ashen.Generated`, compiled under dotnet only.
+- Not ported (refused by name): Combat Rounds queues, a `cardPreparing` listener, extra plays, proposal changes on an instance, a card outside the profile, mechanic tags or bindings on a card (the mechanics kernel, WP-7), and the range quote's Advance price in `previewCard` (WP-12). The effects, hit roll and damage of a play are WP-7+: `CoreCardPlay.Enter` stops after the stance.
+- Every shipped profile card is `costRule: fixed`, so `applyActionCosts` prices nothing in the shipped profile; it is proven by forcing it.
+
+**Next:** WP-7 (damage and protections) plays the effects after `CoreCardPlay.Enter`; WP-12 adds the Advance price to the preview.
+
 ## Core 2 WP-6: d20 hit resolution in C# with oracle parity (dev, 2026-10-23)
 
 **Landed**

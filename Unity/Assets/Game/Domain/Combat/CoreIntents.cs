@@ -27,7 +27,7 @@ namespace Ashen.Domain.Combat
         // ------------------------------------------------------------------ SP: the pool and the price of a move
 
         /// <summary>enemyAttributesOf(def): the authored attributes, shifted when the enemy is blighted.</summary>
-        private static JObject AttributesOf(CombatState c, JObject def)
+        public static JObject AttributesOf(CombatState c, JObject def)
         {
             var authored = def.Obj(K.Attributes) != null ? Js.Spread(def.Obj(K.Attributes)) : new JObject();
             if (!Js.Truthy(def[CK.Blighted])) return authored;

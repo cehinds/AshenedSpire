@@ -111,6 +111,41 @@
     "comment": {
       "type": "string"
     },
+    "costs": {
+      "type": "object",
+      "properties": {
+        "defaultMaxStances": {
+          "type": "integer"
+        },
+        "growthMax": {
+          "type": "integer"
+        },
+        "poiseLine": {
+          "type": "string"
+        },
+        "reactionDefaults": {
+          "type": "object",
+          "properties": {
+            "handCostDiscount": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "handCostDiscount"
+          ]
+        },
+        "scaleFromSp": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "defaultMaxStances",
+        "growthMax",
+        "poiseLine",
+        "reactionDefaults",
+        "scaleFromSp"
+      ]
+    },
     "counter": {
       "type": "object",
       "properties": {
@@ -695,6 +730,7 @@
     "actionStances",
     "classification",
     "comment",
+    "costs",
     "counter",
     "counterCoverage",
     "enemies",

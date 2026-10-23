@@ -108,7 +108,8 @@ namespace Ashen.Content
             JObject Rules(string file) => (JObject)content.Get(file);
             return new Ashen.Domain.Combat.CoreCombatData(run, Rules(ContentFiles.RulesFixCoreSnapshot), Rules(ContentFiles.RulesActionCosts),
                 (JObject)Rules(ContentFiles.RulesStanceRules)[Core2CombatKeys.StanceRules], Rules(ContentFiles.RulesCore2Combat),
-                Rules(ContentFiles.RulesEnemyKnowledgeRules), (JObject)Rules(ContentFiles.RulesCore2HandRules)[Core2CombatKeys.HandRulesDefaults]);
+                Rules(ContentFiles.RulesEnemyKnowledgeRules), (JObject)Rules(ContentFiles.RulesCore2HandRules)[Core2CombatKeys.HandRulesDefaults],
+                Object(Core2BundleKeys.ProposalStatusRules) as JObject);
         }
 
         /// <summary>

@@ -30,15 +30,16 @@ namespace Ashen.Domain.Combat
         public static JObject Raw(CombatState c) => c.Fields.Obj(CK.FixCoreRules) ?? c.CoreData.FixCore;
 
         /// <summary>fixCoreRules(ctx, entity): the rules as an entity reads them (see the class note).</summary>
-        public static JObject Rules(CombatState c, JObject entity = null)
+        public static JObject Rules(CombatState c, JObject entity = null, JObject carrier = null)
         {
-            if (entity != null && (Js.Items(entity[CK.MechanicTags]).GetEnumerator().MoveNext() || Js.Items(entity[CK.MechanicBindings]).GetEnumerator().MoveNext()))
-                throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.MechanicsKernelNotPorted);
+            foreach (var holder in new[] { entity, carrier })
+                if (holder != null && (Js.Items(holder[CK.MechanicTags]).GetEnumerator().MoveNext() || Js.Items(holder[CK.MechanicBindings]).GetEnumerator().MoveNext()))
+                    throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.MechanicsKernelNotPorted);
             return Raw(c);
         }
 
         /// <summary>One family of the rules (<c>stance</c>, <c>accuracy</c>, <c>perception</c>, <c>statuses</c>, ...).</summary>
-        public static JObject Family(CombatState c, string family, JObject entity = null) => Rules(c, entity).Obj(family) ?? new JObject();
+        public static JObject Family(CombatState c, string family, JObject entity = null, JObject carrier = null) => Rules(c, entity, carrier).Obj(family) ?? new JObject();
 
         /// <summary>fixCoreWardDisabled(ctx): FixCore is on and the data toggle has switched Ward off.</summary>
         public static bool WardDisabled(CombatState c) => Enabled(c) && Raw(c).Obj(CK.Ward)?[CK.Enabled] is JToken t && t.Type == JTokenType.Boolean && !t.Value<bool>();

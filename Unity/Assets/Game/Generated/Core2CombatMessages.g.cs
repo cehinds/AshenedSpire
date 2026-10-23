@@ -20,7 +20,6 @@ namespace Ashen.Generated
         public const string MissingResourceVariant = "Card {0} has no variant for the profile resources";
         public const string OncePerTurnNotPorted = "Core 2 combat: oncePerTurn effects are ported with the card kernel (WP-5)";
         public const string OpcodeNotPorted = "Core 2 combat: opcode {0} is ported with the card kernel (WP-5 to WP-9)";
-        public const string PlayerStaminaCostNotPorted = "Core 2 combat: card costs are ported with WP-5";
         public const string PoiseOverflowNotPorted = "Core 2 combat: Poise overflow is ported with WP-6";
         public const string ScriptNotPorted = "Core 2 combat: script effects are ported with WP-5";
         public const string StatusControlNotPorted = "Core 2 combat: status control {0} is ported with WP-9";

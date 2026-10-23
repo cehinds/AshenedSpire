@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using CC = Ashen.Generated.Core2CostKeys;
 using CK = Ashen.Generated.Core2CombatKeys;
+using CCV = Ashen.Generated.Core2CostValues;
 using CM = Ashen.Generated.Core2CombatMessages;
 using CV = Ashen.Generated.Core2CombatValues;
 using K = Ashen.Generated.CombatKeys;
@@ -266,22 +268,11 @@ namespace Ashen.Domain.Combat
                 K.Block, block, CK.Barrier, amount - block);
         }
 
-        /// <summary>precisionStatMix(ctx, entity, carrier): the stat mix a stance entry adds to its Precision grant (FixCore).</summary>
-        public static double PrecisionStatMix(CombatState c, JObject entity, JObject carrier)
-        {
-            var weights = CoreFixCore.Family(c, CK.Accuracy, entity).Obj(CK.PrecisionWeights);
-            var attributes = entity.Obj(K.Attributes) ?? new JObject();
-            double Attr(string id) => Js.Or0(attributes[id]);
-            var definition = entity.Str(K.Kind) == V.Enemy && entity.Str(K.EnemyId) != null && c.Data.Enemies.Has(entity.Str(K.EnemyId)) ? c.Data.Enemies.Get(entity.Str(K.EnemyId)) : null;
-            var level = entity.Str(K.Kind) == V.Enemy && !Js.Truthy(definition?[CK.LevelProfile]) ? 0
-                : Js.IsFinite(entity.Obj(K.Level)?[K.Level]) ? entity.Obj(K.Level).Num(K.Level) : Js.IsFinite(entity[K.Level]) ? entity.Num(K.Level) : 0;
-            return Math.Floor(weights.Num(CK.WeightDex) * Attr(CK.AttrDexterity) + weights.Num(CK.WeightStr) * Attr(CK.AttrStrength)
-                + weights.Num(CK.WeightWis) * Attr(CK.AttrWisdom) + weights.Num(CK.WeightInt) * Attr(CK.AttrIntelligence) + weights.Num(CK.WeightLevel) * level);
-        }
+        /// <summary>precisionStatMix(ctx, entity, carrier): the stat mix a stance entry adds to its Precision grant (FixCore). The web's one function, in <see cref="CoreHitRoll"/> (D-214: the player's level is the fight's characterLevel).</summary>
+        public static double PrecisionStatMix(CombatState c, JObject entity, JObject carrier) => CoreHitRoll.PrecisionStatMix(c, entity, carrier);
 
         /// <summary>precisionEntryGrant(ctx, entity, base, carrier): the Precision a stance entry grants under FixCore, base plus the stat mix.</summary>
-        public static double PrecisionEntryGrant(CombatState c, JObject entity, double baseGrant, JObject carrier) =>
-            baseGrant > 0 ? baseGrant + PrecisionStatMix(c, entity, carrier) : 0;
+        public static double PrecisionEntryGrant(CombatState c, JObject entity, double baseGrant, JObject carrier) => CoreHitRoll.PrecisionEntryGrant(c, entity, baseGrant, carrier);
 
         /// <summary>
         /// setProfileStance(ctx, entity, carrier): the stance an accepted card or a telegraphed enemy move puts its owner in. A new
@@ -294,6 +285,7 @@ namespace Ashen.Domain.Combat
             if (fixCore) entity[CK.MatchingStanceCardMultiplier] = carrier != null && carrier.Is(CK.FixCoreSameStance)
                 ? Js.N(CoreFixCore.Family(c, CK.Stance, entity).Num(CK.EffectivenessMultiplier) - 1) : Js.N(0);
             var grants = fixCore && !SameStance(c, entity, carrier) ? EntryBonuses(c, carrier) : null;
+            var previous = entity[CK.CombatStance]?.DeepClone();
             var rule = c.CoreData.Configured(CK.StancesModule);
             var stance = ConfiguredStance(c, carrier);
             var profile = carrier?.Obj(CK.CombatProfile);
@@ -313,12 +305,16 @@ namespace Ashen.Domain.Combat
                 CoreStatuses.Apply(c, entity, CV.StatusPrecision, PrecisionEntryGrant(c, entity, grants.Num(CK.Precision), carrier), entity, TagIds(carrier) ?? new List<string>());
             if (grants != null && grants.Num(CK.Evade) > 0 && !Js.Includes(carrier?[CK.AppliedStatuses], CV.StatusEvade))
                 CoreStatuses.Apply(c, entity, CV.StatusEvade, grants.Num(CK.Evade), entity);
-            // rememberCombatStance at capacity 1 keeps no concurrent stance.
-            entity.Remove(CK.ConcurrentStances);
+            CoreCosts.RememberStance(c, entity, previous);
             c.Emit(CK.CombatStanceChanged, Js.Obj(K.TargetId, entity[K.Id], CK.Maneuver, entity.Obj(CK.CombatStance)[CK.Maneuver]));
         }
 
-        /// <summary>stanceStaminaCost(base, entity, carrier): an enemy move in its owner's current stance costs the matching-stance discount less.</summary>
+        /// <summary>
+        /// stanceStaminaCost(base, entity, carrier, ctx, mpBase): the Stamina of a card or move played in a stance already held. An enemy move in its
+        /// owner's stance costs the matching-stance discount less (never below the minimum, and not when the move also costs Mana); a player's hand
+        /// card costs nothing less except a Reaction card played in the enemy phase, which costs the reaction discount less. Without FixCore the
+        /// stance rules' own discount and minimums apply.
+        /// </summary>
         public static double StaminaCost(CombatState c, double baseCost, JObject entity, JObject carrier, double manaBase = 0)
         {
             if (Js.D(c.Fields[CK.CombatExpansionVersion]) != c.CoreData.ExpandedVersion || !SameStance(c, entity, carrier)) return baseCost;
@@ -327,11 +323,37 @@ namespace Ashen.Domain.Combat
                 if (entity?.Str(K.Kind) == V.Enemy)
                 {
                     if (!(baseCost > 0) || manaBase > 0) return baseCost;
-                    var cfg = CoreFixCore.Family(c, CK.Stance);
+                    var cfg = CoreFixCore.Family(c, CK.Stance, entity, carrier);
                     return Math.Max(cfg.Num(CK.MinimumCost), baseCost - cfg.Num(CK.Discount));
                 }
+                var reaction = (TagIds(carrier) ?? new List<string>()).Contains(CCV.TagTraitReaction);
+                if (!(baseCost > 0) || carrier.Str(K.Cost) == CCV.CostX || c.Phase != V.PhaseEnemy || !reaction) return baseCost;
+                var discount = Js.Spread(c.CoreData.Section(CC.Costs).Obj(CC.ReactionDefaults), CoreFixCore.Rules(c, entity, carrier).Obj(CK.Reaction)).Num(CC.HandCostDiscount);
+                return Math.Max(0, baseCost - discount);
             }
-            throw new NotSupportedException(CM.PlayerStaminaCostNotPorted);
+            var rules = Rules(c);
+            var magical = StanceOf(c, carrier).Str(CK.Camp) == CV.CampSpell;
+            return Math.Max(magical ? rules.Num(CC.MagicalMinimumSp) : rules.Num(CC.PhysicalMinimumSp), baseCost - rules.Num(CC.SameStanceDiscount));
+        }
+
+        /// <summary>
+        /// spellChain(entity, carrier): successive Spells cut each other's Mana. A mirrored cantrip plays in its basic's stance but is still a Spell, so
+        /// a Spell after it (or it after a Spell) takes the same-stance Mana discount.
+        /// </summary>
+        public static bool SpellChain(CombatState c, JObject entity, JObject carrier)
+        {
+            var next = StanceOf(c, carrier, entity);
+            if (next == null || next.Str(CK.Camp) != CV.CampSpell) return false;
+            var rows = new List<JToken>(Js.Items(entity?[CK.ConcurrentStances])) { StanceOf(c, entity?.Obj(CK.CombatStance)) };
+            return rows.OfType<JObject>().Any(row => row.Str(CK.Camp) == CV.CampSpell && (row.Is(CK.Mirrored) || next.Is(CK.Mirrored)));
+        }
+
+        /// <summary>stanceManaCost(base, entity, carrier, ctx): the Mana of a card in a stance already held (or a Spell after a Spell) costs the stance discount less, never below the minimum.</summary>
+        public static double ManaCost(CombatState c, double baseCost, JObject entity, JObject carrier)
+        {
+            if (!CoreFixCore.Enabled(c) || !(baseCost > 0) || !(SameStance(c, entity, carrier) || SpellChain(c, entity, carrier))) return baseCost;
+            var cfg = CoreFixCore.Family(c, CK.Stance, entity, carrier);
+            return Math.Max(cfg.Num(CK.MinimumCost), baseCost - cfg.Num(CK.Discount));
         }
     }
 }
