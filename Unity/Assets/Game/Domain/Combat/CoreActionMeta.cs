@@ -46,6 +46,15 @@ namespace Ashen.Domain.Combat
         /// <summary>meta.triggeredBy: the status, stance, property or relic whose trigger enqueued the effect (<c>{ kind, id, ownerId }</c>), for the combat log.</summary>
         public JObject TriggeredBy;
 
+        /// <summary>meta.rangeSiteBatches: the sites of the root's causal graph each hit of the effect reaches (<c>[[{ id, siteId }]]</c>, one batch per repeat and hit).</summary>
+        public JArray RangeSiteBatches;
+
+        /// <summary>meta.rangeHitIndex: which hit of its effect a damage action is on.</summary>
+        public int? RangeHitIndex;
+
+        /// <summary>meta.rangeEffectIndex: the place of a reserved Counter payload in the reply (damage, Poise, Ward).</summary>
+        public int? RangeEffectIndex;
+
         /// <summary>meta.stanceRestore: the effect restores a stance's protection (a whole, unmodified amount).</summary>
         public bool StanceRestore;
     }

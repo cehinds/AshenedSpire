@@ -112,8 +112,7 @@
       "doc": "Core 2 hit error messages (developer-facing).",
       "keys": {
         "LegacyAvoidanceNotPorted": "Core 2 hit: the 405 distance and Evade avoidance rolls are not part of a Core 2 run",
-        "LegacyHitNotPorted": "Core 2 hit: Accuracy without FixCore is not part of a Core 2 run",
-        "RangeContactNotPorted": "Core 2 hit: the range contact of a fight with a range state is supplied by the engagement planner (WP-12)"
+        "LegacyHitNotPorted": "Core 2 hit: Accuracy without FixCore is not part of a Core 2 run"
       }
     }
   ]

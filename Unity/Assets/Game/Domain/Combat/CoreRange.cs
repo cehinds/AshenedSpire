@@ -11,6 +11,12 @@ using DK = Ashen.Generated.Core2DamageKeys;
 using DM = Ashen.Generated.Core2DamageMessages;
 using DN = Ashen.Generated.Core2DamageNumbers;
 using DV = Ashen.Generated.Core2DamageValues;
+using MK = Ashen.Generated.Core2MatchupKeys;
+using NK = Ashen.Generated.Core2RangeKeys;
+using NM = Ashen.Generated.Core2RangeMessages;
+using NV = Ashen.Generated.Core2RangeValues;
+using RV = Ashen.Generated.Core2ReactionValues;
+using CC = Ashen.Generated.Core2CostKeys;
 using K = Ashen.Generated.CombatKeys;
 using V = Ashen.Generated.CombatValues;
 
@@ -250,183 +256,122 @@ namespace Ashen.Domain.Combat
 
         private static double Floor0(double value) => Math.Max(0, Math.Floor(value));
 
-        /// <summary>The hooks an actor owns and the actions it takes can set going (web triggers.rangeHookSources over its statuses, widened by the statuses its friendly hooks apply).</summary>
-        private static List<JObject> HookRowsFor(CombatState c, JObject owner, IEnumerable<CombatAction> actions)
+        public static bool IsFriendlyTarget(string target) => target != null && Friendly.Contains(target);
+
+        /// <summary>The range name of a band (the vocabulary's order).</summary>
+        public static JToken RangeName(CombatState c, double band)
         {
-            var ids = new List<string>();
-            foreach (var p in (owner.Obj(K.Statuses) ?? new JObject()).Properties()) ids.Add(p.Name);
-            foreach (var action in actions)
-                if (action.Effect.Str(K.Op) == Ashen.Generated.CombatOps.ApplyStatus && (action.Effect.Str(K.Target) == V.TargetSelf || action.Effect.Str(K.Target) == V.RefOwner) && !ids.Contains(action.Effect.Str(K.Status))) ids.Add(action.Effect.Str(K.Status));
-            var rows = new List<JObject>();
-            var changed = true;
-            while (changed)
-            {
-                changed = false;
-                rows = HookRows(c, owner, ids);
-                foreach (var trigger in rows)
-                    foreach (var effect in Js.Items(trigger[K.Do]).OfType<JObject>())
-                        if (effect.Str(K.Op) == Ashen.Generated.CombatOps.ApplyStatus && (effect.Str(K.Target) == V.TargetSelf || effect.Str(K.Target) == V.RefOwner) && !ids.Contains(effect.Str(K.Status))) { ids.Add(effect.Str(K.Status)); changed = true; }
-            }
-            return rows;
+            var ranges = Js.Items(c.CoreData.Section(CK.Vocabulary)[CK.Ranges]).ToList();
+            var index = (int)band;
+            return index >= 0 && index < ranges.Count ? ranges[index].DeepClone() : Js.Null();
         }
 
-        private static bool Hostile(JObject trigger) =>
-            Js.Items(trigger[K.Do]).OfType<JObject>().Any(effect => IsHostileOp(effect.Str(K.Op)) && !Friendly.Contains(effect.Str(K.Target)));
-
-        /// <summary>
-        /// A hook the range lineage has to follow (web engine/combatRangeLineage.js extendRangeEnvelope): an owned trigger whose effect strikes another
-        /// creature, listening for an event the quoted actions (or the card's own lifecycle) can cause. Only then is there a causal envelope to reserve
-        /// and quote; with none the quote carries no lineage. The lineage of a hit through such a trigger belongs to the range package (WP-12): a quote
-        /// that needs one is refused by name.
-        /// </summary>
-        public static bool NeedsLineage(CombatState c, JObject owner, IReadOnlyList<CombatAction> actions)
-        {
-            if (State(c)?.Obj(CK.Policy)?.Is(CK.Enabled) != true) return false;
-            var rows = HookRowsFor(c, owner, actions);
-            if (!rows.Any(Hostile)) return false;
-            var carrier = actions.Count > 0 ? actions[0].Card : null;
-            var sites = new List<(string type, string status, JObject card)>();
-            foreach (var action in actions)
-            {
-                var effect = action.Effect;
-                var op = effect.Str(K.Op);
-                // A hostile action whose targets resolved to nobody has no site; a preview quote does not resolve them and keeps them.
-                if (IsHostileOp(op) && action.Meta?.RangeTargetBatches != null && !action.Meta.RangeTargetBatches.Any(batch => batch.Count > 0)) continue;
-                foreach (var ev in EventsFor(effect, action.Target)) sites.Add((ev.type, ev.status, action.Card));
-            }
-            if (carrier != null && Js.Truthy(carrier[K.InstanceId]) && !carrier.Is(DK.CounterReturnAttack) && !Js.Truthy(carrier[K.MoveId]))
-            {
-                sites.Add((DK.CardPlayed, null, carrier));
-                sites.Add((DK.CardResolved, null, carrier));
-            }
-            return sites.Any(site => rows.Any(hook => hook.Str(K.On) == site.type && Possible(hook[K.If], site.type, site.status, site.card ?? carrier)));
-        }
-
-        /// <summary>eventsFor(ctx, effect, target): the events an effect can cause (the ones a trigger can listen for).</summary>
-        private static IEnumerable<(string type, string status)> EventsFor(JObject effect, JObject target)
-        {
-            var op = effect.Str(K.Op);
-            if (op == Ashen.Generated.CombatOps.Damage)
-            {
-                yield return (Ashen.Generated.CombatEvents.DamageDealt, null);
-                yield return (Ashen.Generated.CombatEvents.HpLost, null);
-                yield return (Ashen.Generated.Core2HitValues.EventAttackHit, null);
-                yield return (Ashen.Generated.Core2HitValues.EventAttackMissed, null);
-                yield return (Ashen.Generated.CombatEvents.EnemyStaggered, null);
-                yield return (Ashen.Generated.CombatEvents.EnemyDied, null);
-                yield return (DK.BlockBroken, null);
-                if (target?.Is(K.ArcaneExposure) == true) yield return (Ashen.Generated.CombatEvents.ArcaneBreak, null);
-                yield return (Ashen.Generated.CombatEvents.StatusApplied, DV.StatusVulnerable);
-            }
-            else if (op == Ashen.Generated.CombatOps.ApplyStatus || op == CV.OpBuildup) yield return (Ashen.Generated.CombatEvents.StatusApplied, effect.Str(K.Status));
-            else if (op == DV.OpArcaneBuildup)
-            {
-                if (target?.Is(K.ArcaneExposure) == true)
-                {
-                    yield return (Ashen.Generated.CombatEvents.ArcaneBreak, null);
-                    yield return (Ashen.Generated.CombatEvents.StatusApplied, target.Obj(K.ArcaneExposure)?.Obj(Ashen.Generated.Core2ReactionKeys.OnBreak)?.Str(K.Status));
-                }
-            }
-            else if (op == Ashen.Generated.CombatOps.PoiseDamage || op == DV.OpStagger)
-            {
-                yield return (DK.PoiseBroken, null);
-                yield return (Ashen.Generated.CombatEvents.EnemyStaggered, null);
-                yield return (Ashen.Generated.CombatEvents.StatusApplied, DV.StatusVulnerable);
-            }
-            else if (op == DV.OpWardDamage) yield return (Ashen.Generated.Core2StatusValues.WardBroken, null);
-            else if (op == Ashen.Generated.CombatOps.Heal) yield return (Ashen.Generated.CombatEvents.Healed, null);
-            else if (op == Ashen.Generated.CombatOps.RestoreMana) yield return (Ashen.Generated.CombatEvents.ManaRestored, null);
-            else if (op == Ashen.Generated.CombatOps.RestoreStamina) yield return (Ashen.Generated.Core2ReactionValues.EventStaminaRestored, null);
-            else if (op == Ashen.Generated.CombatOps.EnterStance)
-            {
-                yield return (Ashen.Generated.CombatEvents.StanceEntered, null);
-                yield return (Ashen.Generated.CombatEvents.StanceExited, null);
-            }
-            else if (op == DV.OpLoseHp) yield return (Ashen.Generated.CombatEvents.HpLost, null);
-        }
-
-        /// <summary>possible(pred, event, ...): whether the hook's condition can hold for the event (state-dependent conditions stay possible).</summary>
-        private static bool Possible(JToken pred, string type, string status, JObject carrier)
-        {
-            if (!(pred is JObject p)) return true;
-            switch (p.Str(K.P))
-            {
-                case Ashen.Generated.CombatPredicates.All: return Js.Items(p[K.Preds]).All(row => Possible(row, type, status, carrier));
-                case Ashen.Generated.CombatPredicates.Any: return Js.Items(p[K.Preds]).Any(row => Possible(row, type, status, carrier));
-                case Ashen.Generated.CombatPredicates.EventStatusIs: return status != null && status == p.Str(K.Status);
-                case Ashen.Generated.CombatPredicates.EventIsAttack: return type == Ashen.Generated.CombatEvents.DamageDealt;
-                case Ashen.Generated.CombatPredicates.CardTagIs: return Js.Includes(carrier?[Ashen.Generated.Core2DamageKeys.AuthoredTags] ?? carrier?[K.Tags] ?? new JArray(), p.Str(K.Tag));
-                default: return true;
-            }
-        }
-
-        /// <summary>Whether the actor owns a hook that strikes another creature (the first test of <see cref="NeedsLineage"/>).</summary>
-        public static bool HasHostileHooks(CombatState c, JObject owner, IEnumerable<CombatAction> actions) => HookRowsFor(c, owner, actions).Any(Hostile);
-
-        private static List<JObject> HookRows(CombatState c, JObject owner, IEnumerable<string> statusIds)
-        {
-            var rows = new List<JObject>();
-            if (owner.Str(K.Kind) == V.Player)
-            {
-                if (Js.Truthy(owner[K.StanceId])) foreach (var t in Js.Items(c.Data.Stances.Get(owner.Str(K.StanceId)).Arr(K.Hooks))) rows.Add((JObject)t);
-                if (c.PropertyMounts != null && c.PropertyMounts.TryGetValue(OwnerKey(owner), out var mounts))
-                    foreach (var key in mounts.SortedKeys())
-                        foreach (var rule in mounts[key].Rules)
-                            foreach (var t in Js.Items(rule[DK.Triggers])) rows.Add((JObject)t);
-            }
-            foreach (var id in statusIds.Distinct())
-                if (c.Data.Statuses.Has(id)) foreach (var t in Js.Items(c.Data.Statuses.Get(id).Arr(K.Hooks))) rows.Add((JObject)t);
-            return rows;
-        }
-
-        private static string OwnerKey(JObject owner) => owner.Str(K.Id);
-
-        /// <summary>quoteRangeActions(ctx, source, actions, { route, preview }): the plan a committed action's hostile effects need. A preview changes nothing.</summary>
+        /// <summary>quoteRangeActions(ctx, source, actions, { route, preview, context }): the plan a committed action's hostile effects need. A preview changes nothing: it plans on a copy of the actions and of the RNG.</summary>
         public static JObject Quote(CombatState c, JObject source, List<CombatAction> actions, string route = null, bool preview = false, JObject context = null)
         {
             if (State(c) == null) return null;
             route ??= DV.RouteAdvance;
+            context ??= null;
             var contacts = new List<JObject>();
-            for (var index = 0; index < actions.Count; index++)
+            if (preview)
+                actions = actions.Select(action => new CombatAction { Effect = action.Effect, Source = action.Source, Owner = action.Owner, Target = action.Target, Card = action.Card, Meta = (action.Meta ?? ActionMeta.Empty()).Clone() }).ToList();
+            var saved = c.Rng;
+            if (preview) c.Rng = saved.Clone();
+            JObject lineage;
+            try
             {
-                var action = actions[index];
-                var eff = action.Effect;
-                if (!IsHostileOp(eff.Str(K.Op))) continue;
-                if (eff.Str(K.Target) == V.TargetRandomEnemy) throw new NotSupportedException(DM.RandomTargetNotPorted);
-                var repeats = Floor0(Actions.EvalNum(c, action, eff[K.Repeat], 1, action.Target));
-                var hits = eff.Str(K.Op) == Ashen.Generated.CombatOps.Damage ? Floor0(Actions.EvalNum(c, action, eff[K.Hits], 1, action.Target)) : 1;
-                var batches = new List<List<string>>();
-                for (var r = 0; r < repeats; r++)
-                    for (var h = 0; h < hits; h++)
-                    {
-                        var targets = Actions.ResolveTargets(c, action, eff.Str(K.Target));
-                        batches.Add(targets.Select(t => t.Str(K.Id)).ToList());
-                        foreach (var target in targets)
-                            if (target.Is(K.Alive) && source.Str(K.Kind) != target.Str(K.Kind))
-                            {
-                                var contact = SourceContact(c, source, target, action.Card, eff, string.Join(DV.ContactSeparator, index, r, h, ActorKey(c, target)));
-                                contacts.Add(contact);
-                                if (!preview && !(action.Card?.Is(DK.ResolvedSource) == true))
-                                {
-                                    var coverage = contact[DK.Coverage];
-                                    var resolved = new JObject
-                                    {
-                                        [DK.SourceType] = contact.Is(DK.Weapon) ? CV.SourceWeapon : Js.Str(coverage) == CV.RangeMelee ? DV.SourceUnarmed : DV.SourceSpell,
-                                        [DK.ItemId] = contact[DK.SourceWeaponId].DeepClone(), [CK.Range] = coverage.DeepClone(),
-                                        [DK.PropertyTags] = contact.Is(DK.ThrowCapable) ? new JArray(DV.TagThrow) : new JArray(),
-                                    };
-                                    action.Card = Js.Spread(action.Card, new JObject { [DK.ResolvedRangeSource] = resolved });
-                                }
-                            }
-                    }
-                if (!preview)
+                for (var index = 0; index < actions.Count; index++)
                 {
+                    var action = actions[index];
+                    var eff = action.Effect;
+                    if (!IsHostileOp(eff.Str(K.Op))) continue;
+                    var repeats = Floor0(Actions.EvalNum(c, action, eff[K.Repeat], 1, action.Target));
+                    var hits = eff.Str(K.Op) == Ashen.Generated.CombatOps.Damage ? Floor0(Actions.EvalNum(c, action, eff[K.Hits], 1, action.Target)) : 1;
+                    var batches = new List<List<string>>();
+                    for (var r = 0; r < repeats; r++)
+                        for (var h = 0; h < hits; h++)
+                        {
+                            var targets = Actions.ResolveTargets(c, action, eff.Str(K.Target));
+                            batches.Add(targets.Select(t => t.Str(K.Id)).ToList());
+                            foreach (var target in targets)
+                                if (target.Is(K.Alive) && source.Str(K.Kind) != target.Str(K.Kind))
+                                {
+                                    var contact = SourceContact(c, source, target, action.Card, eff, string.Join(DV.ContactSeparator, index, r, h, ActorKey(c, target)));
+                                    contacts.Add(contact);
+                                    if (!preview && !(action.Card?.Is(DK.ResolvedSource) == true))
+                                    {
+                                        var coverage = contact[DK.Coverage];
+                                        var resolved = new JObject
+                                        {
+                                            [DK.SourceType] = contact.Is(DK.Weapon) ? CV.SourceWeapon : Js.Str(coverage) == CV.RangeMelee ? DV.SourceUnarmed : DV.SourceSpell,
+                                            [DK.ItemId] = contact[DK.SourceWeaponId].DeepClone(), [CK.Range] = coverage.DeepClone(),
+                                            [DK.PropertyTags] = contact.Is(DK.ThrowCapable) ? new JArray(DV.TagThrow) : new JArray(),
+                                        };
+                                        action.Card = Js.Spread(action.Card, new JObject { [DK.ResolvedRangeSource] = resolved });
+                                    }
+                                }
+                        }
                     action.Meta = (action.Meta ?? ActionMeta.Empty()).Clone();
                     action.Meta.RangeTargetBatches = batches;
                 }
+                lineage = CoreRangeLineage.Extend(c, source, actions, contacts, preview, actions.Count > 0 ? actions[0].Card : null);
             }
-            if (NeedsLineage(c, source, actions)) throw new NotSupportedException(DM.RangeLineageNotPorted);
-            return ActionPlan(c, ActorKey(c, source), contacts, route, context);
+            finally { c.Rng = saved; }
+            var plan = ActionPlan(c, ActorKey(c, source), contacts, route, context);
+            if (lineage != null) plan[MK.Lineage] = lineage;
+            return plan;
+        }
+
+        /// <summary>assertRangeCardEnabled(ctx, def): no hostile hook may fire while the card is prepared, and a card that only moves the engagement needs range mechanics on.</summary>
+        public static void AssertCardEnabled(CombatState c, JObject def)
+        {
+            CoreRangeLineage.AssertPreparingSupported(c, c.Player, def);
+            var effects = Js.Items(def[K.Effects]).OfType<JObject>().ToList();
+            if (State(c) != null && State(c).Obj(CK.Policy)?.Is(CK.Enabled) != true && effects.Count > 0 && effects.All(effect => effect.Str(K.Op) == Ashen.Generated.Core2StatusValues.MoveEngagement))
+                throw new PlayRefusalException(NM.RangeDisabled, NV.ReasonRangeDisabled);
+        }
+
+        /// <summary>
+        /// executeEngagementMovement(ctx, action): the source moves one band toward (-1) or away from (1) its opponent. Without range mechanics it does
+        /// nothing; against <c>pendingAttacker</c> it moves the creature whose hit the reaction answers.
+        /// </summary>
+        public static void MoveEngagement(CombatState c, CombatAction action)
+        {
+            var state = State(c);
+            if (state?.Obj(CK.Policy)?.Is(CK.Enabled) != true) return;
+            var target = action.Target;
+            if (action.Effect.Str(K.Target) == NV.TargetPendingAttacker && (target == null || target.Str(K.Kind) == action.Source.Str(K.Kind)))
+                target = c.Enemies.FirstOrDefault(row => row.Str(K.Id) == c.Fields.Str(Ashen.Generated.Core2StatusKeys.ReactionSourceId));
+            if (target == null || target.Str(K.Kind) == action.Source.Str(K.Kind)) throw new InvalidOperationException(NM.MovementNeedsOpponent);
+            var bands = action.Effect.Num(NK.Bands);
+            if (bands != 1 && bands != -1) throw new InvalidOperationException(NM.MovementOneBand);
+            var sourceKey = ActorKey(c, action.Source);
+            var targetKey = ActorKey(c, target);
+            var next = Math.Max(0, Math.Min(DN.MaxBand, EngagementBand(c, sourceKey, targetKey) + bands));
+            var engagements = (JObject)state.Obj(CK.Engagements).DeepClone();
+            engagements[PairKey(sourceKey, targetKey)] = Js.N(next);
+            c.Fields[CK.RangeState] = Js.Spread(state, new JObject { [CK.Engagements] = engagements });
+            c.Emit(NV.EventEngagementMoved, new JObject { [K.SourceId] = action.Source[K.Id].DeepClone(), [K.TargetId] = target[K.Id].DeepClone(), [NK.Bands] = Js.N(bands) });
+        }
+
+        /// <summary>An enemy's Stamina to spend (fixCoreStaminaRemaining ?? stamina ?? maxStamina ?? 0).</summary>
+        internal static double StaminaOf(JObject enemy) =>
+            !Js.Nullish(enemy[CK.FixCoreStaminaRemaining]) ? enemy.Num(CK.FixCoreStaminaRemaining) : !Js.Nullish(enemy[K.Stamina]) ? enemy.Num(K.Stamina) : !Js.Nullish(enemy[K.MaxStamina]) ? enemy.Num(K.MaxStamina) : 0;
+
+        /// <summary>The Stamina the advance takes: an enemy's pool shrinks, a player's Actions are spent and told (energySpent, staminaSpent).</summary>
+        private static void PayAdvance(CombatState c, JObject source, double available, double extra)
+        {
+            if (source.Str(K.Kind) == V.Enemy)
+            {
+                source.Put(CK.FixCoreStaminaRemaining, available - extra);
+                source.Put(K.Stamina, available - extra);
+                return;
+            }
+            source.Put(K.Stamina, available - extra);
+            var counters = source.Obj(K.Counters);
+            counters.Put(CC.StaminaSpentThisTurn, counters.Or0(CC.StaminaSpentThisTurn) + extra);
+            c.Emit(Ashen.Generated.CombatEvents.EnergySpent, Js.Obj(K.Amount, extra));
+            c.Emit(Ashen.Generated.CombatEvents.StaminaSpent, Js.Obj(K.Amount, extra));
         }
 
         /// <summary>addRangeCosts(costs, plan): the base costs plus the Stamina the advance takes.</summary>
@@ -440,27 +385,40 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>
-        /// acceptRangeActions(ctx, source, actions, carrier, rootId): the plan a committed action carries. The Stamina to advance is paid here; a plan
-        /// that needs one is the range package's (WP-12), so only an action in range is accepted.
+        /// acceptRangeActions(ctx, source, actions, carrier, rootId): the plan a committed action carries. The Stamina to advance is paid here (an enemy's
+        /// pool shrinks, a player's Actions are spent), unless the plan was paid already: a card's plan is accepted once, and a Counter's reservation paid
+        /// for its reply when the Counter was played. A plan that carries a lineage freezes it on the root.
         /// </summary>
         public static JObject Accept(CombatState c, JObject source, List<CombatAction> actions, JObject carrier, string rootId)
         {
             if (State(c) == null) return null;
             // A Counter's reply carries the quote that priced it (authorizeCounterRange); it is accepted, not requoted.
             var authorization = carrier.Obj(DK.RangeReturnAuthorization);
-            var plan = authorization?.Obj(Ashen.Generated.Core2MatchupKeys.RangeReturnPlan) ?? carrier.Obj(DK.RangePlan) ?? Quote(c, source, actions, carrier.Is(DK.RangeRoute) ? carrier.Str(DK.RangeRoute) : DV.RouteAdvance, false, c.RangeContext);
-            if (!plan.Is(DK.Available)) throw new InvalidOperationException(DM.RangeRouteUnreachable);
+            var plan = authorization?.Obj(MK.RangeReturnPlan) ?? carrier.Obj(DK.RangePlan) ?? Quote(c, source, actions, carrier.Is(DK.RangeRoute) ? carrier.Str(DK.RangeRoute) : DV.RouteAdvance, false, c.RangeContext);
+            var lineage = authorization?.Obj(MK.Lineage) ?? plan.Obj(MK.Lineage);
+            if (authorization != null) CoreRangeLineage.BindReservedRootSites(c, actions, lineage);
+            var prepaidReturn = authorization != null && Js.Truthy(authorization[DK.Paid]);
+            if (!plan.Is(DK.Available)) throw new PlayRefusalException(DM.RangeRouteUnreachable, RV.ReasonRange);
             var extra = plan.Num(DK.AdvanceSp);
-            if (!carrier.Is(DK.RangePlan) && !Js.Truthy(authorization?[DK.Paid]) && extra > 0) throw new NotSupportedException(DM.RangeAdvanceNotPorted);
+            if (!carrier.Is(DK.RangePlan) && !prepaidReturn)
+            {
+                var enemy = source.Str(K.Kind) == V.Enemy;
+                var available = enemy ? StaminaOf(source) : source.Or0(K.Stamina);
+                if (available < extra) throw new PlayRefusalException(NM.NotEnoughAdvance, RV.ReasonCost, CoreCosts.ShortOf(RV.ResourceStamina, extra, available));
+                if (extra > 0) PayAdvance(c, source, available, extra);
+            }
             var paid = carrier.Obj(DK.RangePlan)?.Obj(DK.Paid) ?? authorization?.Obj(DK.Paid) ?? AddCosts(carrier.Obj(DK.RangeBaseCosts) ?? new JObject { [K.Energy] = 0, [K.Stamina] = 0, [K.Mana] = 0 }, plan);
             var accepted = Js.Spread(plan);
+            accepted.Remove(MK.Lineage);
             accepted[DK.RootId] = rootId;
             accepted[DK.Paid] = paid;
             carrier[DK.RangePlan] = accepted;
+            if (lineage != null) carrier[MK.RangeLineagePlan] = Js.Spread(lineage, new JObject { [DK.RootId] = rootId });
             foreach (var key in new[] { DK.RangeBaseCosts, DK.RangeRoute, DK.RangeQuotedPlan, DK.RangeReturnAuthorization, DK.RangeCounterReservation }) carrier.Remove(key);
             foreach (var action in actions)
             {
                 action.Card = Js.Spread(action.Card, new JObject { [DK.RangePlan] = accepted });
+                if (carrier.Has(MK.RangeLineagePlan)) action.Card[MK.RangeLineagePlan] = carrier[MK.RangeLineagePlan].DeepClone();
                 action.Card.Remove(DK.RangeReturnAuthorization);
                 action.Card.Remove(DK.RangeCounterReservation);
                 action.Meta = (action.Meta ?? ActionMeta.Empty()).Clone();
@@ -468,6 +426,81 @@ namespace Ashen.Domain.Combat
                 action.Meta.StaminaSpent = (action.Meta.StaminaSpent ?? 0) + extra;
             }
             return accepted;
+        }
+
+        /// <summary>The hit preview a route row reads: (state, source, target, carrier) to the odds of that contact, or null.</summary>
+        public delegate JObject HitPreview(CombatState c, JObject source, JObject target, JObject carrier);
+
+        /// <summary>
+        /// previewRangeRoutes(ctx, source, actions, baseCosts, { rangeRoute, hitPreview }): every route (advance, throw) quoted on a copy, with the price it
+        /// adds, whether it reaches every target, and the odds of each contact before and after the approach. Null without a range state.
+        /// </summary>
+        public static JObject PreviewRoutes(CombatState c, JObject source, List<CombatAction> actions, JObject baseCosts, string rangeRoute, HitPreview hitPreview)
+        {
+            if (State(c) == null) return null;
+            var plans = new[] { DV.RouteAdvance, DV.RouteThrow }.Select(route => Quote(c, source, actions, route, true, c.RangeContext)).ToList();
+            var opponents = source.Str(K.Kind) != V.Enemy ? c.Enemies : new List<JObject> { c.Player };
+            var rows = new JArray();
+            foreach (var plan in plans)
+            {
+                var costs = AddCosts(baseCosts, plan);
+                var targets = new List<JObject>();
+                foreach (var row in plan.Arr(DK.Targets).OfType<JObject>())
+                {
+                    var head = row.Str(DK.ContactId).Split(DV.ContactSeparator[0])[0];
+                    var index = int.TryParse(head, NumberStyles.Integer, CultureInfo.InvariantCulture, out var parsed) ? parsed : -1;
+                    var projected = index >= 0 && index < actions.Count && actions[index].Target != null ? actions[index].Target : actions.FirstOrDefault(action => ActorKey(c, action.Target) == row.Str(DK.TargetKey))?.Target;
+                    var target = projected != null && ActorKey(c, projected) == row.Str(DK.TargetKey) ? projected : opponents.FirstOrDefault(entity => ActorKey(c, entity) == row.Str(DK.TargetKey));
+                    var carrier = index >= 0 && index < actions.Count ? actions[index].Card ?? new JObject() : new JObject();
+                    var current = hitPreview?.Invoke(c, source, target, carrier);
+                    var after = hitPreview?.Invoke(c, source, target, Js.Spread(carrier, new JObject { [DK.RangePlan] = plan }));
+                    targets.Add(new JObject
+                    {
+                        [NK.Conditional] = row.Str(DK.ContactId).StartsWith(NV.RiderPrefix, StringComparison.Ordinal), [DK.ContactId] = row[DK.ContactId].DeepClone(), [DK.TargetKey] = row[DK.TargetKey].DeepClone(),
+                        [K.TargetId] = target?[K.Id]?.DeepClone() ?? Js.Null(), [DK.Band] = row[DK.ActualBand].DeepClone(), [DK.Coverage] = row[DK.Coverage].DeepClone(), [DK.EffectiveBand] = row[DK.EffectiveBand].DeepClone(),
+                        [DK.PrecisionDelta] = row[DK.PrecisionDelta].DeepClone(), [Ashen.Generated.Core2HitKeys.InRange] = after?.Is(Ashen.Generated.Core2HitKeys.InRange) == true,
+                        [Ashen.Generated.Core2HitKeys.HitChance] = after?[Ashen.Generated.Core2HitKeys.HitChance]?.DeepClone() ?? Js.Null(), [NK.CurrentInRange] = current?.Is(Ashen.Generated.Core2HitKeys.InRange) == true,
+                        [NK.CurrentHitChance] = current?[Ashen.Generated.Core2HitKeys.HitChance]?.DeepClone() ?? Js.Null(),
+                    });
+                }
+                var grouped = new JArray();
+                foreach (var key in targets.Select(row => row.Str(DK.TargetKey)).Distinct())
+                {
+                    var all = targets.Where(row => row.Str(DK.TargetKey) == key).ToList();
+                    var conditional = all.Where(row => row.Is(NK.Conditional)).ToList();
+                    var contacts = all.Where(row => !row.Is(NK.Conditional)).ToList();
+                    var first = contacts.FirstOrDefault() ?? conditional.FirstOrDefault();
+                    var hitChances = contacts.Select(row => row[Ashen.Generated.Core2HitKeys.HitChance]).ToList();
+                    var currentChances = contacts.Select(row => row[NK.CurrentHitChance]).ToList();
+                    JToken Uniform(List<JToken> chances) => chances.Count > 0 && chances.All(chance => JToken.DeepEquals(chance, chances[0])) ? chances[0].DeepClone() : Js.Null();
+                    var group = (JObject)first.DeepClone();
+                    group[NK.Contacts] = new JArray(contacts.Select(row => row.DeepClone()));
+                    group[NK.ConditionalContacts] = new JArray(conditional.Select(row => row.DeepClone()));
+                    group[NK.ConditionalOnly] = contacts.Count == 0;
+                    group[NK.HitChances] = new JArray(hitChances.Select(chance => chance.DeepClone()));
+                    group[NK.CurrentHitChances] = new JArray(currentChances.Select(chance => chance.DeepClone()));
+                    group[Ashen.Generated.Core2HitKeys.InRange] = contacts.All(row => row.Is(Ashen.Generated.Core2HitKeys.InRange));
+                    group[NK.CurrentInRange] = contacts.Any(row => row.Is(NK.CurrentInRange));
+                    group[NK.AllCurrentInRange] = contacts.All(row => row.Is(NK.CurrentInRange));
+                    group[Ashen.Generated.Core2HitKeys.HitChance] = Uniform(hitChances);
+                    group[NK.CurrentHitChance] = Uniform(currentChances);
+                    grouped.Add(group);
+                }
+                var affordable = source.Or0(K.Stamina) >= costs.Num(K.Energy) && source.Or0(K.Mana) >= costs.Num(K.Mana);
+                var precision = Math.Min(0, plan.Arr(DK.Targets).OfType<JObject>().Select(row => row.Num(DK.PrecisionDelta)).DefaultIfEmpty(0).Min());
+                rows.Add(new JObject
+                {
+                    [NK.Id] = plan[DK.Route].DeepClone(), [DK.Available] = plan[DK.Available].DeepClone(),
+                    [K.Reason] = !plan.Is(DK.Available) ? (JToken)RV.ReasonRange : !affordable ? (JToken)NV.ReasonStamina : Js.Null(),
+                    [DK.AdvanceSp] = plan[DK.AdvanceSp].DeepClone(), [DK.PrecisionDelta] = Js.N(precision), [Ashen.Generated.Core2ReactionKeys.Costs] = costs, [NK.Affordable] = affordable, [DK.Targets] = grouped,
+                });
+            }
+            var selected = rows.OfType<JObject>().FirstOrDefault(row => row.Str(NK.Id) == rangeRoute) ?? throw new InvalidOperationException(NM.UnknownRoute);
+            return new JObject
+            {
+                [CK.Version] = 1, [CK.Enabled] = State(c).Obj(CK.Policy)[CK.Enabled].DeepClone(), [NK.SelectedRoute] = rangeRoute, [NK.ChoiceRequired] = false,
+                [DK.Targets] = selected[DK.Targets].DeepClone(), [NK.Routes] = rows,
+            };
         }
 
         /// <summary>

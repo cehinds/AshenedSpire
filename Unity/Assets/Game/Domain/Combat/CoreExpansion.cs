@@ -219,6 +219,7 @@ namespace Ashen.Domain.Combat
                     meta.ExpansionContacts = new List<List<ContactRef>> { refs };
                     meta.ExpansionTargets = new List<List<string>> { action.Meta.ExpansionTargets[index] };
                     meta.ExpansionCursor = 0;
+                    meta.RangeSiteBatches = action.Meta.RangeSiteBatches != null ? new JArray { index < action.Meta.RangeSiteBatches.Count ? action.Meta.RangeSiteBatches[index].DeepClone() : new JArray() } : null;
                     var effect = Js.Spread(action.Effect);
                     effect[K.Hits] = 1;
                     effect[CK.Repeat] = 1;

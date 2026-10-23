@@ -73,9 +73,6 @@ namespace Ashen.Generated
         public const string QueryNeedsOneBinding = "query requires one active binding";
         public const string QueryNotInSubset = "a runtime query is outside the kernel subset";
         public const string RandomNotInSubset = "a random card choice is outside the kernel subset";
-        public const string RandomTargetNotPorted = "Core 2 combat: a random target in a committed action is ported with WP-12";
-        public const string RangeAdvanceNotPorted = "Core 2 combat: paying Stamina to advance is ported with WP-12";
-        public const string RangeLineageNotPorted = "Core 2 combat: the range lineage of a hostile hook is ported with WP-12";
         public const string RangeRouteUnreachable = "The selected range route cannot reach every target";
         public const string RecursionDepth = "Recursion depth exceeds {0}";
         public const string RequiredParameter = "required parameter";

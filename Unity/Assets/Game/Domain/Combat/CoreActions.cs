@@ -226,6 +226,7 @@ namespace Ashen.Domain.Combat
             var hits = Math.Max(0, Actions.EvalNum(c, action, eff[K.Hits], 1));
             for (var h = 0; h < hits; h++)
             {
+                if (c.Fields.Obj(CK.RangeState) != null) action.Meta.RangeHitIndex = h;
                 List<ContactRef> planned = null;
                 if (action.Meta.ExpansionContacts != null && action.Meta.ExpansionCursor < action.Meta.ExpansionContacts.Count) planned = action.Meta.ExpansionContacts[action.Meta.ExpansionCursor++];
                 var targets = planned != null ? planned.Select(contact => Triggers.FindEntity(c, contact.Id)).Where(e => e != null).ToList() : Actions.ResolveTargets(c, action, eff.Str(K.Target));
@@ -243,6 +244,7 @@ namespace Ashen.Domain.Combat
                     carrier[CK.CombatProfile] = effectCarrier[CK.CombatProfile].DeepClone();
                     carrier[CK.CombatRiderTargets] = new JArray();
                     carrier[DK.EnergySpent] = Js.N(action.Meta.EnergySpent ?? 0);
+                    if (action.Card?.Is(Ashen.Generated.Core2MatchupKeys.RangeLineage) == true) carrier[DK.RangeContactId] = CoreRangeLineage.InheritedContactId(c, action, t) is string inheritedId ? (JToken)inheritedId : Js.Null();
                     CoreImpact.Contact contact = null;
                     if (planned != null)
                     {

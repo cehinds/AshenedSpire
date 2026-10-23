@@ -24,9 +24,8 @@ namespace Ashen.Domain.Combat
     public static class CoreEvents
     {
         /// <summary>The payload with the executing action's card, source and move laid under it (<c>{ cardId, ..., ...payload }</c>).</summary>
-        public static JObject Decorate(CombatState c, string type, JObject payload)
+        public static JObject Decorate(CombatState c, string type, JObject payload, CombatAction action)
         {
-            var action = c.CurrentAction;
             if (action == null) return payload;
             var result = new JObject();
             if (action.Card != null)

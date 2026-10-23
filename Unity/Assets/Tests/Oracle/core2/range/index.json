@@ -1,0 +1,173 @@
+{
+ "coveredEvents": [
+  "attackHit",
+  "attackMissed",
+  "barrierBroken",
+  "barrierGained",
+  "blockBroken",
+  "blockGained",
+  "cardAdded",
+  "cardDrawn",
+  "cardExhausted",
+  "cardPlayed",
+  "cardPreparing",
+  "cardResolved",
+  "characterMoved",
+  "combatContactPrepared",
+  "combatCounterArmed",
+  "combatCounterConsumed",
+  "combatCounterTriggered",
+  "combatEnd",
+  "combatEnemyReactionStacked",
+  "combatEngagementMoved",
+  "combatGuardBroken",
+  "combatHitStarted",
+  "combatRangeActionUnavailable",
+  "combatRangeReturnUnavailable",
+  "combatReactionChosen",
+  "combatReactionFizzled",
+  "combatReactionOffered",
+  "combatReactionStacked",
+  "combatReactionUnavailable",
+  "combatStanceChanged",
+  "controlRecovered",
+  "controlResolveScheduled",
+  "damageDealt",
+  "deckShuffled",
+  "enemyActorTurnStarted",
+  "enemyDied",
+  "enemyMoveStarted",
+  "enemyMoveUnavailable",
+  "enemyStaggered",
+  "enemyTurnEnd",
+  "enemyTurnStart",
+  "energyGained",
+  "energySpent",
+  "healed",
+  "hpLost",
+  "manaRestored",
+  "manaSpent",
+  "perceptionGained",
+  "persistentPoiseChanged",
+  "playerStaggered",
+  "playerTurnEnd",
+  "playerTurnStart",
+  "poiseBroken",
+  "relicTriggered",
+  "staminaSpent",
+  "statusApplied",
+  "statusExpired",
+  "statusGaugeFilled",
+  "statusPoiseBreak",
+  "statusPressure",
+  "statusRecoveryRolled",
+  "statusRemoved"
+ ],
+ "coveredOps": [
+  "applyStatus",
+  "block",
+  "damage",
+  "gainBarrier",
+  "moveEngagement",
+  "poiseDamage",
+  "wardDamage"
+ ],
+ "deckPool": [
+  "core.defend",
+  "core.counter",
+  "core.counter",
+  "core.strike",
+  "core.smash",
+  "core.sweep",
+  "core.advance",
+  "core.advance",
+  "core.closingDodge",
+  "core.backstep"
+ ],
+ "exchanges": {
+  "bytes": 2318867,
+  "count": 120,
+  "file": "exchanges.json",
+  "kinds": [
+   "defend",
+   "counter",
+   "multiHit",
+   "switch",
+   "noStamina",
+   "noCandidate",
+   "controlled",
+   "poise",
+   "twoAttackers",
+   "lethal",
+   "counterReturn",
+   "stack",
+   "distant"
+  ],
+  "steps": 356
+ },
+ "fights": {
+  "herald": {
+   "fights": 2,
+   "steps": 23
+  },
+  "reaver": {
+   "fights": 2,
+   "steps": 29
+  },
+  "rogue": {
+   "fights": 2,
+   "steps": 19
+  },
+  "starseer": {
+   "fights": 2,
+   "steps": 16
+  }
+ },
+ "files": [
+  {
+   "bytes": 72715,
+   "classId": "reaver",
+   "fights": 2,
+   "file": "fights-reaver.json",
+   "steps": 29
+  },
+  {
+   "bytes": 65517,
+   "classId": "starseer",
+   "fights": 2,
+   "file": "fights-starseer.json",
+   "steps": 16
+  },
+  {
+   "bytes": 66934,
+   "classId": "rogue",
+   "fights": 2,
+   "file": "fights-rogue.json",
+   "steps": 19
+  },
+  {
+   "bytes": 77050,
+   "classId": "herald",
+   "fights": 2,
+   "file": "fights-herald.json",
+   "steps": 23
+  }
+ ],
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "seen": {
+  "back": 108,
+  "fizzled": 0,
+  "offers": 208,
+  "played": 100,
+  "stacked": 100,
+  "unavailable": 81
+ },
+ "units": {
+  "bytes": 183349,
+  "chosen": 163,
+  "count": 400,
+  "file": "units.json"
+ },
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

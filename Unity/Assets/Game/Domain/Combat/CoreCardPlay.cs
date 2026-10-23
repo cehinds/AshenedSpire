@@ -456,7 +456,9 @@ namespace Ashen.Domain.Combat
             if (cardRef.Has(DK.UsedArmamentId)) resolved[DK.UsedArmamentId] = cardRef[DK.UsedArmamentId].DeepClone();
             if (Js.Truthy(cardRef[K.GrantedBy])) resolved[K.GrantedBy] = cardRef[K.GrantedBy].DeepClone();
             if (Js.Truthy(cardRef[K.SourceHand])) resolved[K.SourceHand] = cardRef[K.SourceHand].DeepClone();
-            c.Emit(DK.CardResolved, resolved);
+            c.RangeLifecycleCarrier = cardRef.Has(Ashen.Generated.Core2MatchupKeys.RangeLineagePlan) ? cardRef : null;
+            try { c.Emit(DK.CardResolved, resolved); }
+            finally { c.RangeLifecycleCarrier = null; }
             if (c.Result != null) return;
             var def = CoreCosts.Resolve(c, inst);
             var destination = Js.Includes(def[K.Keywords], DV.KeywordExhaust) ? DV.DestinationExhaust : def.Str(K.Type) == CV.TypePower ? DV.DestinationRemoved : DV.DestinationDiscard;

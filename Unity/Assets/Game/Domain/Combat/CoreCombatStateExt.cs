@@ -42,6 +42,9 @@ namespace Ashen.Domain.Combat
         /// <summary>web <c>ctx._rangeIncoming</c>: which contact of which incoming root the reaction being played answers.</summary>
         public JObject RangeIncoming;
 
+        /// <summary>web <c>payload.rangeLifecycleCarrier</c>: the carrier of a card whose <c>cardResolved</c> is being told after its play left the pending slot.</summary>
+        public JObject RangeLifecycleCarrier;
+
         private static JObject Copy(JObject o) => (JObject)o?.DeepClone();
 
         private static JToken Copy(JToken t) => t?.DeepClone();

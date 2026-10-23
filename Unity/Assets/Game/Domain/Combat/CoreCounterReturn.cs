@@ -327,7 +327,7 @@ namespace Ashen.Domain.Combat
                 return null;
             }
             plan = QuoteReturn(c, defender, attacker, counterCarrier, context, false);
-            return AuthorizedCarrier(c, counterCarrier, new JObject { [MK.RangeReturnPlan] = plan, [MK.Lineage] = Js.Null() });
+            return AuthorizedCarrier(c, counterCarrier, new JObject { [MK.RangeReturnPlan] = plan, [MK.Lineage] = plan[MK.Lineage]?.DeepClone() ?? Js.Null() });
         }
 
         /// <summary>
@@ -346,13 +346,16 @@ namespace Ashen.Domain.Combat
             var costs = CoreRange.AddCosts(baseCosts, plan);
             var rootId = string.Join(DV.KeySeparator, incoming.Str(DK.RootId), RV.SegmentReturn, incoming.Str(RK.ContactId), Js.Truthy(carrier[K.InstanceId]) ? carrier.Str(K.InstanceId) : carrier.Str(K.CardId));
             var reserved = Js.Spread(plan);
+            reserved.Remove(MK.Lineage);
             reserved[DK.RootId] = rootId;
             reserved[DK.Paid] = costs;
             var reservation = new JObject
             {
                 [RK.Version] = 1, [DK.SourceKey] = plan[DK.SourceKey].DeepClone(), [DK.TargetKey] = incoming[DK.SourceKey].DeepClone(), [RK.IncomingRootId] = incoming[DK.RootId].DeepClone(),
-                [RK.ContactId] = incoming[RK.ContactId].DeepClone(), [RK.RangePlan] = reserved, [RK.Consumed] = false,
+                [RK.ContactId] = incoming[RK.ContactId].DeepClone(), [RK.RangePlan] = reserved,
             };
+            if (plan.Obj(MK.Lineage) != null) reservation[MK.RangeLineagePlan] = Js.Spread(plan.Obj(MK.Lineage), new JObject { [DK.RootId] = rootId });
+            reservation[RK.Consumed] = false;
             return new JObject { [RK.Costs] = costs, [RK.Reservation] = reservation };
         }
 

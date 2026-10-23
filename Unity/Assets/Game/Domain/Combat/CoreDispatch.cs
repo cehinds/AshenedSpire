@@ -55,6 +55,9 @@ namespace Ashen.Domain.Combat
                 case RV.IntentPlayCard:
                     CoreCardPlay.Play(c, intent.Str(RK.CardInstanceId), intent.Str(RK.TargetId), intent[RK.Choice], intent.Str(RK.RangeRoute));
                     break;
+                case Ashen.Generated.Core2RangeValues.IntentMoveCharacter:
+                    CoreFormation.Move(c, intent.Str(Ashen.Generated.Core2RangeKeys.Cell), intent.Obj(Ashen.Generated.Core2RangeKeys.Settings));
+                    break;
                 case RV.IntentEndTurn:
                     CoreTurns.EndTurn(c, Ids(intent[RK.DiscardIds]));
                     break;

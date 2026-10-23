@@ -30,7 +30,18 @@ namespace Ashen.Domain.Combat
     {
         public static JObject EmitEvent(CombatState c, string type, JObject payload)
         {
-            if (c.IsCore) payload = CoreEvents.Decorate(c, type, payload);
+            CombatAction rangeAction = null;
+            if (c.IsCore)
+            {
+                // A card with a range lineage announces its own lifecycle events from the sites it reserved.
+                var lifecycleCarrier = c.RangeLifecycleCarrier ?? c.PendingPlayRef;
+                var lifecycle = (type == Ashen.Generated.Core2DamageKeys.CardPlayed || type == Ashen.Generated.Core2DamageKeys.CardResolved) && lifecycleCarrier?.Has(Ashen.Generated.Core2MatchupKeys.RangeLineagePlan) == true
+                    ? new CombatAction { Card = lifecycleCarrier, Source = c.Player, Target = payload != null && payload[K.TargetId] != null ? FindEntity(c, payload.Str(K.TargetId)) : null, Meta = ActionMeta.Empty() } : null;
+                rangeAction = c.CurrentAction ?? lifecycle;
+                var origin = CoreRangeLineage.EventOrigin(c, type, payload, rangeAction);
+                if (origin != null) { payload = (JObject)(payload ?? new JObject()).DeepClone(); payload[Ashen.Generated.Core2RangeKeys.RangeOrigin] = origin; }
+                payload = CoreEvents.Decorate(c, type, payload, rangeAction);
+            }
             var ev = new JObject { [K.Type] = type };
             if (payload != null) foreach (var p in payload.Properties().ToList()) ev[p.Name] = p.Value;
             c.EventLog.Add(ev);
@@ -45,7 +56,7 @@ namespace Ashen.Domain.Combat
             }
             try
             {
-                ScanTriggers(c, ev);
+                ScanTriggers(c, ev, rangeAction?.Card);
             }
             finally
             {
@@ -57,11 +68,11 @@ namespace Ashen.Domain.Combat
         /// <summary>The key an entity's trigger gates and property mounts live under (solo: the entity id).</summary>
         public static string OwnerKey(JObject entity) => entity != null ? entity.Str(K.Id) : V.NoOwner;
 
-        private static string GateKey(params string[] parts) => string.Join(V.KeySeparator, parts);
+        internal static string GateKey(params string[] parts) => string.Join(V.KeySeparator, parts);
 
-        private static string Index(int i) => i.ToString(CultureInfo.InvariantCulture);
+        internal static string Index(int i) => i.ToString(CultureInfo.InvariantCulture);
 
-        private static void ScanTriggers(CombatState c, JObject ev)
+        private static void ScanTriggers(CombatState c, JObject ev, JObject rangeCarrier)
         {
             var player = c.Player;
             if (player == null) return;
@@ -76,7 +87,7 @@ namespace Ashen.Domain.Combat
                 {
                     var trig = (JObject)hooks[i];
                     if (trig.Str(K.On) != type) continue;
-                    MaybeFire(c, GateKey(V.StanceGate, pKey, stanceId, Index(i)), trig, player, ev, K.Stance, stanceId);
+                    MaybeFire(c, GateKey(V.StanceGate, pKey, stanceId, Index(i)), trig, player, ev, K.Stance, stanceId, rangeCarrier);
                 }
             }
 
@@ -93,7 +104,7 @@ namespace Ashen.Domain.Combat
                         {
                             var i = index++;
                             if (trig.Str(K.On) != type) continue;
-                            if (MaybeFire(c, GateKey(V.PropertyGate, pKey, sourceKey, Index(i)), trig, player, ev, mount.Kind ?? V.PropertyGate, mount.Id ?? sourceKey) && announce)
+                            if (MaybeFire(c, GateKey(V.PropertyGate, pKey, sourceKey, Index(i)), trig, player, ev, mount.Kind ?? V.PropertyGate, mount.Id ?? sourceKey, rangeCarrier) && announce)
                                 EmitEvent(c, E.RelicTriggered, Js.Obj(K.RelicId, relicId));
                         }
                 }
@@ -110,7 +121,7 @@ namespace Ashen.Domain.Combat
                     {
                         var trig = (JObject)hooks[i];
                         if (trig.Str(K.On) != type) continue;
-                        MaybeFire(c, GateKey(V.StatusGate, OwnerKey(entity), statusId, Index(i)), trig, entity, ev, K.Status, statusId);
+                        MaybeFire(c, GateKey(V.StatusGate, OwnerKey(entity), statusId, Index(i)), trig, entity, ev, K.Status, statusId, rangeCarrier);
                     }
                 }
             }
@@ -168,7 +179,7 @@ namespace Ashen.Domain.Combat
             return st;
         }
 
-        private static bool MaybeFire(CombatState c, string key, JObject trigger, JObject owner, JObject ev, string originKind = null, string originId = null)
+        private static bool MaybeFire(CombatState c, string key, JObject trigger, JObject owner, JObject ev, string originKind = null, string originId = null, JObject rangeCarrier = null)
         {
             var st = Gate(c, key);
             if (trigger.Is(K.Once) && st.Fires > 0) return false;
@@ -195,8 +206,17 @@ namespace Ashen.Domain.Combat
                             break;
                         }
             }
-            foreach (var eff in Js.Items(trigger[K.Do]).OfType<JObject>())
-                c.Enqueue(new CombatAction { Effect = eff, Source = owner, Owner = owner, Target = target, Card = ratingCard, Meta = new ActionMeta { Event = ev, TriggeredBy = originKind == null ? null : Js.Obj(K.Kind, originKind, K.Id, originId, K.OwnerId, owner?[K.Id]) } });
+            var actions = new System.Collections.Generic.List<CombatAction>();
+            var effects = Js.Items(trigger[K.Do]).OfType<JObject>().ToList();
+            for (var effectIndex = 0; effectIndex < effects.Count; effectIndex++)
+            {
+                var eff = effects[effectIndex];
+                var inherited = c.IsCore ? CoreRangeLineage.Inherited(c, key, owner, ev, eff, effectIndex, ratingCard, rangeCarrier) : null;
+                actions.Add(new CombatAction { Effect = eff, Source = owner, Owner = owner, Target = target, Card = inherited != null ? inherited.Carrier : ratingCard,
+                    Meta = new ActionMeta { Event = ev, RangeSiteBatches = inherited?.Batches, TriggeredBy = originKind == null ? null : Js.Obj(K.Kind, originKind, K.Id, originId, K.OwnerId, owner?[K.Id]) } });
+            }
+            if (c.IsCore) actions = CoreRangeLineage.AcceptIndependent(c, owner, actions, key);
+            foreach (var action in actions) c.Enqueue(action);
             return true;
         }
 

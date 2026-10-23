@@ -31,9 +31,10 @@ import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, detach, projectFull, delta, typesSince } from './oracle-core2.mjs';
 
-const OUT = join(ORACLE_DIR, 'reactions');
 const BOT = arg('--bot', 'reactions');
-if (BOT !== 'reactions') { console.error(`oracle-core2-reactions: unknown --bot '${BOT}' (reactions)`); process.exit(1); }
+if (!['reactions', 'range'].includes(BOT)) { console.error(`oracle-core2-reactions: unknown --bot '${BOT}' (reactions, range)`); process.exit(1); }
+const RANGE = BOT === 'range';
+const OUT = join(ORACLE_DIR, RANGE ? 'range' : 'reactions');
 const FIGHTS = Number(arg('--fights', '8'));
 const w = await loadWeb();
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
@@ -41,7 +42,6 @@ const triggers = await load('src/engine/triggers.js');
 const expansion = await load('src/engine/combatExpansion.js');
 const tactics = await load('src/engine/combatCardTactics.js');
 const policy = await load('src/model/autoCombatPolicy.js');
-const lineage = await load('src/engine/combatRangeLineage.js');
 const all = encounters(w);
 const classes = classIds(w);
 
@@ -54,66 +54,24 @@ const COVERED_EVENTS = new Set(['playerTurnEnd', 'playerTurnStart', 'enemyTurnSt
   'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
   'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
   'energySpent', 'staminaSpent', 'manaSpent', 'enemyDied', 'combatEnd', 'perceptionGained', 'combatHitStarted', 'controlRecovered', 'controlResolveScheduled', 'energyGained', 'healed',
-  'manaRestored', 'relicTriggered', 'statusGaugeFilled', 'statusPressure', 'statusRecoveryRolled', ...REACTION_EVENTS, ...COUNTER_EVENTS]);
-const COVERED_OPS = new Set(['damage', 'block', 'gainBarrier', 'poiseDamage', 'wardDamage']);
-const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'wardDamage', 'applyStatus', 'block', 'gainBarrier']);
+  'manaRestored', 'relicTriggered', 'statusGaugeFilled', 'statusPressure', 'statusRecoveryRolled', 'combatEngagementMoved', 'combatRangeActionUnavailable', 'characterMoved',
+  'cardAdded', 'barrierGained', 'barrierBroken', 'statusPoiseBreak', ...REACTION_EVENTS, ...COUNTER_EVENTS]);
+const COVERED_OPS = new Set(['damage', 'block', 'gainBarrier', 'poiseDamage', 'wardDamage', 'moveEngagement', 'applyStatus']);
+const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'wardDamage', 'applyStatus', 'block', 'gainBarrier', 'moveEngagement', 'addCard']);
 const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
-const HOSTILE_OPS = new Set(['damage', 'applyStatus', 'buildup', 'poiseDamage', 'wardDamage', 'loseHp', 'stagger', 'arcaneBuildup']);
-const FRIENDLY_TARGETS = new Set(['self', 'owner', 'player', 'ally', 'allAllies']);
-
-// engine/combatRangeLineage.js: an owned hook that strikes another creature makes the quote follow its lineage (WP-12); the port refuses on the same test.
-function hasHostileHooks(combat, owner, effects = []) {
-  const ids = new Set(Object.keys(owner.statuses || {}));
-  for (const effect of effects) if (effect.op === 'applyStatus' && ['self', 'owner'].includes(effect.target)) ids.add(effect.status);
-  let rows;
-  for (;;) {
-    rows = triggers.rangeHookSources(combat, owner, [...ids]);
-    let changed = false;
-    for (const { trigger } of rows) for (const effect of trigger.do || [])
-      if (effect.op === 'applyStatus' && ['self', 'owner'].includes(effect.target) && !ids.has(effect.status)) { ids.add(effect.status); changed = true; }
-    if (!changed) break;
-  }
-  return rows.some(({ trigger }) => (trigger.do || []).some((effect) => HOSTILE_OPS.has(effect.op) && !FRIENDLY_TARGETS.has(effect.target)));
-}
-
-/**
- * Whether playing the card would need a range lineage (WP-12): the web reserves a causal envelope when the actor owns a hook that strikes another
- * creature and the card (or a Counter's reply) can cause the event it listens for. Asked of the web's own extendRangeEnvelope on the card's actions.
- */
-function needsLineage(combat, card) {
-  const def = expansion.resolveCombatCard(combat, card);
-  const tags = (def.cardTags || def.tags || []).map((t) => (typeof t === 'string' ? t : t.id));
-  const counter = tags.includes('maneuver:counter');
-  const carrier = { instanceId: card.instanceId, cardId: card.cardId, tags, authoredTags: tags };
-  const enemy = combat.enemies.find((e) => e.alive) || combat.player;
-  const row = (effect, target, held) => ({ source: combat.player, owner: combat.player, target, card: held, effect, meta: {} });
-  const own = (def.effects || []).filter((e) => !(counter && ['damage', 'poiseDamage'].includes(e.op))).map((e) => row(e, ['enemy', 'allEnemies'].includes(e.target) ? enemy : combat.player, carrier));
-  const reply = counter ? ['damage', 'poiseDamage'].map((op) => row({ op, amount: 1, target: 'enemy' }, enemy, { ...carrier, counterReturnAttack: true })) : [];
-  try {
-    return [own, reply].some((actions) => actions.length && lineage.extendRangeEnvelope(combat, combat.player, actions, [], { preview: true, carrier: actions[0].card }));
-  } catch { return true; }
-}
 
 const tagsOf = (def) => (def.cardTags || def.tags || []).map((t) => (typeof t === 'string' ? t : t.id));
 const maneuverOfMove = (combat, enemy, id) => tactics.enemyMoveCarrier(enemy, combat.registries.enemies.get(enemy.enemyId).moves[id], id, combat).combatProfile.maneuver;
 
-// An enemy takes its turn inside the filter when every move it can play this turn (its intent and its planned follow-ups) stays within ENEMY_OPS,
-// none charges, and its hostile moves already reach the player from where it stands (no Stamina to advance, no closing move): a melee move from
-// melee range, a reach or ranged move from as far as its range goes.
-const RANGES = ['melee', 'reach', 'ranged'];
+// An enemy takes its turn inside the filter when every move it can play this turn (its intent, its planned follow-ups and the move that charges) stays within
+// ENEMY_OPS. Closing the distance (Stamina to advance, the closing move) and the hooks that strike are inside it (WP-12).
 function enemyFits(combat, enemy) {
-  const band = bandOf(combat, enemy);
-  if (band === undefined || band > 2) return false;
   const def = combat.registries.enemies.get(enemy.enemyId);
-  const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
+  const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId), def.rangeClosingMove].filter(Boolean);
   for (const id of ids) {
     const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
     if ((move.delay?.whileCharging?.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
     if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-    if (hasHostileHooks(combat, enemy, move.effects || [])) return false;
-    const hostile = move.damage != null || (move.effects || []).some((effect) => HOSTILE_OPS.has(effect.op));
-    const range = tactics.enemyMoveCarrier(enemy, def.moves[id], id, combat).combatProfile.range || 'melee';
-    if (hostile && RANGES.indexOf(range) < band) return false;
   }
   return true;
 }
@@ -132,7 +90,7 @@ function playable(combat, card) {
   if (def.effectVariants?.length || def.ashenBlightCost > 0) return false;
   if (Object.keys(combat.player.abilityRiders?.charges || {}).length) return false;
   if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
-  return !needsLineage(combat, card);
+  return true;
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -223,7 +181,6 @@ function offerOutside(combat) {
     const tags = tagsOf(def);
     if (!tags.includes('trait:reaction')) continue;
     if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return 'cardPreparing listener at an offer';
-    if (needsLineage(combat, card)) return 'range lineage at an offer';
   }
   return null;
 }
@@ -248,8 +205,6 @@ function dry(combat, intent, chooser) {
   const types = typesSince(copy, mark);
   const bad = types.find((t) => !COVERED_EVENTS.has(t));
   if (bad) return why(`event ${bad}`);
-  // A reply that must close the distance on its own Stamina pays to advance (WP-12): a payment that follows a Counter's trigger and no card.
-  if (types.some((t, i) => (t === 'energySpent' || t === 'staminaSpent') && types.slice(0, i).reverse().find((x) => ['cardPreparing', 'combatCounterTriggered', 'enemyMoveStarted'].includes(x)) === 'combatCounterTriggered')) return why('a reply pays to advance');
   if (copy.pendingCardChoice || copy.pendingAbilityDiscard) return why('pending choice');
   return { ok: true };
 }
@@ -306,16 +261,24 @@ function settle(combat, step, lcg) {
 /** The play intents the filter lets through for the current hand, each with the targets it can have. */
 function options(combat, lcg) {
   const out = [];
-  const targets = combat.enemies.filter((e) => e.alive && bandOf(combat, e) === 0).map((e) => e.id);
+  const targets = combat.enemies.filter((e) => e.alive).map((e) => e.id);
   for (const card of combat.piles.hand) {
     if (!playable(combat, card)) continue;
     const def = expansion.resolveCombatCard(combat, card);
-    if (def.effects.some((e) => e.op === 'damage' && e.target !== 'enemy') && combat.enemies.some((e) => e.alive && bandOf(combat, e) !== 0)) continue;
     const aimed = immediate(def).some((e) => e.target === 'enemy');
     for (const targetId of aimed ? targets : [undefined]) {
-      const intent = { type: 'playCard', cardInstanceId: card.instanceId, ...(targetId ? { targetId } : {}) };
-      if (dryRun(combat, intent, lcgChooser(lcg)).ok) out.push({ intent, reaction: tagsOf(def).includes('trait:reaction'), cardId: card.cardId });
+      const base = { type: 'playCard', cardInstanceId: card.instanceId, ...(targetId ? { targetId } : {}) };
+      // The range bot takes the route the card's own preview offers, alternating between the two.
+      const routes = RANGE ? (() => { try { return w.combat.previewCard(combat, card.instanceId, targetId).range?.routes || []; } catch { return []; } })().filter((r) => r.available).map((r) => r.id) : ['advance'];
+      for (const route of routes.length ? routes : ['advance']) {
+        const intent = route === 'advance' ? base : { ...base, rangeRoute: route };
+        if (dryRun(combat, intent, lcgChooser(lcg)).ok) out.push({ intent, reaction: tagsOf(def).includes('trait:reaction'), cardId: card.cardId });
+      }
     }
+  }
+  if (RANGE) for (const cell of ['A1', 'B1', 'C1', 'D1']) {
+    const intent = { type: 'moveCharacter', cell, settings: MOVE_SETTINGS };
+    if (dryRun(combat, intent, lcgChooser(lcg)).ok) out.push({ intent, reaction: false, cardId: null });
   }
   return out;
 }
@@ -324,14 +287,14 @@ function options(combat, lcg) {
 // Fights: the reactions bot
 // ---------------------------------------------------------------------------------------------------------------
 // Cards given to the deck: the reaction cards (Defend, Counter) and the attacks the player answers with.
-const DECK_POOL = ['core.defend', 'core.defend', 'core.counter', 'core.counter', 'core.strike', 'core.smash', 'core.sweep', 'core.defend'];
+const MOVE_SETTINGS = { 'gameConfig.presentation.movementEnabled': true };
+const DECK_POOL = RANGE ? ['core.defend', 'core.counter', 'core.counter', 'core.strike', 'core.smash', 'core.sweep', 'core.advance', 'core.advance', 'core.closingDodge', 'core.backstep']
+  : ['core.defend', 'core.defend', 'core.counter', 'core.counter', 'core.strike', 'core.smash', 'core.sweep', 'core.defend'];
 
 function fight(seed, classId, encounter, steps, fields) {
   const lcg = makeLcg(seed ^ 0x2f6b9d35);
-  // A class whose passives hold a hook that strikes (WP-12) keeps its Defends and loses its Counters: a Counter's reply would need the lineage.
-  const probe = open({ seed, classId, encounterId: encounter.id });
-  const deckRemove = hasHostileHooks(probe, probe.player, []) ? ['core.counter'] : undefined;
-  const pool = deckRemove ? DECK_POOL.filter((id) => !deckRemove.includes(id)) : DECK_POOL;
+  const deckRemove = undefined;
+  const pool = DECK_POOL;
   const deckAdd = Array.from({ length: 6 }, (_, i) => ({ instanceId: `mx${i + 1}`, cardId: pool[lcg(pool.length)] }));
   return record({ seed, classId, encounterId: encounter.id, ...(deckRemove ? { deckRemove } : {}), ...(fields ? { fields } : {}), deckAdd }, (combat, step) => {
     for (let i = 0; i < steps && !combat.result; i++) {

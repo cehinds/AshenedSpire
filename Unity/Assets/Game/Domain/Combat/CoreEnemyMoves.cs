@@ -6,7 +6,7 @@ using CK = Ashen.Generated.Core2CombatKeys;
 using CM = Ashen.Generated.Core2CombatMessages;
 using CV = Ashen.Generated.Core2CombatValues;
 using DK = Ashen.Generated.Core2DamageKeys;
-using DM = Ashen.Generated.Core2DamageMessages;
+using NK = Ashen.Generated.Core2RangeKeys;
 using DV = Ashen.Generated.Core2DamageValues;
 using K = Ashen.Generated.CombatKeys;
 using Op = Ashen.Generated.CombatOps;
@@ -18,8 +18,8 @@ namespace Ashen.Domain.Combat
     /// An enemy plays a move (web engine/combat.js enemyPhase, executeMovePayload, enemyMoveActions, enemyHalted, perceptionRead): it pays the
     /// move's Stamina (a move it cannot afford is told so and not played), plans the move's damage, Block and effects as one committed action
     /// against the player, and the queue resolves it hit by hit. A Counter move arms its reply and plays only its support (the reply is
-    /// <see cref="CoreCounterReturn"/>). A move that charges for a later turn, a burden and a move that needs the enemy to close the distance are the later
-    /// packages' (WP-9, WP-11, WP-12): each is refused by name.
+    /// <see cref="CoreCounterReturn"/>). A move that needs the enemy to close the distance pays the Stamina to advance with the move, or is swapped for the enemy's closing move when it
+    /// cannot afford both.
     /// </summary>
     public static class CoreEnemyMoves
     {
@@ -89,7 +89,14 @@ namespace Ashen.Domain.Combat
             {
                 var def = c.Data.Enemies.Get(enemy.Str(K.EnemyId));
                 var available = Js.IsNum(enemy[CK.FixCoreStaminaRemaining]) ? enemy.Num(CK.FixCoreStaminaRemaining) : Js.IsNum(enemy[K.MaxStamina]) ? enemy.Num(K.MaxStamina) : CoreIntents.Pool(c, def);
-                if (totalSp > available && advance > 0) throw new NotSupportedException(DM.RangeAdvanceNotPorted);
+                if (totalSp > available && advance > 0)
+                {
+                    // The enemy cannot pay to reach the player: it plays the move that closes the distance, when it can afford that.
+                    var closingId = def.Str(NK.RangeClosingMove);
+                    var closing = closingId != null ? def.Obj(K.Moves)?.Obj(closingId) : null;
+                    if (closing != null && closingId != moveId && Js.Items(closing[K.Effects]).OfType<JObject>().Any(effect => effect.Str(K.Op) == Ashen.Generated.Core2StatusValues.MoveEngagement)
+                        && CoreIntents.MoveSp(c, closing, enemy, closingId) <= available) return Execute(c, enemy, closing, closingId);
+                }
                 if (totalSp > available)
                 {
                     c.Emit(DK.EnemyMoveUnavailable, Js.Obj(K.SourceId, enemy[K.Id], K.MoveId, moveId, DK.Required, totalSp, DK.Available, available, DK.Resource, DV.ResourceSp));

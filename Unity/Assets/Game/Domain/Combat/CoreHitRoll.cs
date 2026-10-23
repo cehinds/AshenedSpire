@@ -26,8 +26,8 @@ namespace Ashen.Domain.Combat
         public JObject BaseEntity;
 
         /// <summary>
-        /// engagement.rangeHitContact(ctx, source, target, carrier): the range row of this contact (<c>inRange</c>, <c>precisionDelta</c>).
-        /// The engagement planner is WP-12; a fight that carries a range state must be handed the contact, a fight without one is not.
+        /// engagement.rangeHitContact(ctx, source, target, carrier): the range row of this contact (<c>inRange</c>, <c>precisionDelta</c>). A fight
+        /// that carries a range state reads it from the engagement planner when it is not handed one.
         /// </summary>
         public JObject RangeContact;
 
@@ -211,7 +211,7 @@ namespace Ashen.Domain.Combat
             // Target bypasses Evasion only; its spell still needs sufficient reach.
             JObject contact = null;
             if (c.Fields[CK.RangeState] != null)
-                contact = options.RangeContact ?? throw new NotSupportedException(HM.RangeContactNotPorted);
+                contact = options.RangeContact ?? CoreRange.HitContact(c, source, target, carrier);
             var ranges = Js.Items(c.CoreData.Section(CK.Vocabulary)[CK.Ranges]).Select(Js.Str).ToList();
             var inRange = contact != null ? contact.Is(HK.InRange)
                 : rangeOverride || (ranges.Contains(range) && ranges.Contains(requiredRange) && ranges.IndexOf(range) >= ranges.IndexOf(requiredRange));

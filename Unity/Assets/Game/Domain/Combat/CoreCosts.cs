@@ -395,6 +395,8 @@ namespace Ashen.Domain.Combat
             if (c.Phase != V.PhasePlayer && !c.ReactionPlaying) return new PlayRefusalException(CCM.PlayerTurnOnly, null);
             var instance = Instance(c, instanceId, false);
             var def = Resolve(c, instance);
+            try { CoreRange.AssertCardEnabled(c, def); }
+            catch (PlayRefusalException refused) { return refused; }
             var plan = ProposalCardPlan(c, c.Player, def);
             if (!plan.Is(CC.Allowed)) return new PlayRefusalException(plan.Str(CC.Refusal), RV.ReasonControlled);
             if (!CoreStatusControl.Gate(c, c.Player, def).Is(Ashen.Generated.Core2DamageKeys.Allowed)) return new PlayRefusalException(SM.RecoverFirst, RV.ReasonControlled);

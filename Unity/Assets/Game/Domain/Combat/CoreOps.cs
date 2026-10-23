@@ -100,6 +100,8 @@ namespace Ashen.Domain.Combat
         /// </summary>
         public static List<JObject> Targets(CombatState c, CombatAction action, string spec)
         {
+            var committed = CoreRangeLineage.TargetsFor(c, action);
+            if (committed != null) return committed;
             var group = action.Meta?.Group;
             var op = action.Effect?.Str(K.Op);
             var generic = op != Op.Damage && op != Op.ApplyStatus && op != CV.OpBuildup;
@@ -146,6 +148,7 @@ namespace Ashen.Domain.Combat
                 case K.Stagger: Stagger(c, action, eff); return true;
                 case Op.AddCinders: AddCinders(c, action, eff); return true;
                 case SV.AddBurden: AddBurden(c, action, eff); return true;
+                case SV.MoveEngagement: CoreRange.MoveEngagement(c, action); return true;
                 default: return false;
             }
         }

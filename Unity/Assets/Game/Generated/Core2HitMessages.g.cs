@@ -6,6 +6,5 @@ namespace Ashen.Generated
     {
         public const string LegacyAvoidanceNotPorted = "Core 2 hit: the 405 distance and Evade avoidance rolls are not part of a Core 2 run";
         public const string LegacyHitNotPorted = "Core 2 hit: Accuracy without FixCore is not part of a Core 2 run";
-        public const string RangeContactNotPorted = "Core 2 hit: the range contact of a fight with a range state is supplied by the engagement planner (WP-12)";
     }
 }
