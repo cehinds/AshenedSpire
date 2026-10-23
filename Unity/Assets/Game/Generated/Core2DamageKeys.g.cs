@@ -373,7 +373,6 @@ namespace Ashen.Generated
         public const string SkillId = "skillId";
         public const string SkipRatingBonus = "skipRatingBonus";
         public const string Slot = "slot";
-        public const string SmashGuard = "smashGuard";
         public const string SmashMultiplier = "smashMultiplier";
         public const string SmashVsDefensive = "smashVsDefensive";
         public const string SourceArmamentId = "sourceArmamentId";

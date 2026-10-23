@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.37.12] — 2026-10-23
+
+- Core 2 Counter, Smash and Sweep matchups in C# with oracle parity (WP-8)
+
 ## [0.1.37.11] — 2026-10-23
 
 - Core 2 damage receipt, protections and fight wiring in C# with oracle parity (WP-7)

@@ -177,7 +177,19 @@ namespace Ashen.Domain.Combat
                 var hit = CoreHitRoll.Resolve(c, source, target, carrier, new HitOptions { RangeContact = rangeContact, DamageType = CoreDamage.ProposalDamageType(c, carrier) }, draw);
                 if (hit != null && hit[DK.Hit] != null && hit[DK.Hit].Type == JTokenType.Boolean && !hit.Is(DK.Hit)) return 0;
             }
-            else if (target.Obj(CK.CombatCounter) != null) throw new NotSupportedException(DM.CounterNotPorted);
+            // A Counter with the advantage over this hit adds Block before the hit is absorbed (SPEC 17). Automatic returns share the owner-cycle
+            // limit; a newly paid per-contact response carries its exact preparation serial and earns its own Block.
+            if (contact != null && CoreFixCore.Enabled(c) && (!CoreCounterReturn.Spent(target) || CoreCounterReturn.PaidContact(c, carrier, contact.Receipt.Obj(CK.Counter))))
+            {
+                var incoming = CoreDamage.ProfileDamageReceipt(c, source, target, baseAmount, carrier, rangeContact).Obj(DK.DamageReceipt)?.Arr(DK.Hits)?[0]?[DK.Incoming];
+                var counterBlock = CoreCounterReturn.BlockBonus(c, contact.Receipt, contact.Index, incoming);
+                if (counterBlock > 0)
+                {
+                    var gained = CoreCounterReturn.BlockGrant(c, target, counterBlock);
+                    target.Put(K.Block, target.Or0(K.Block) + gained);
+                    if (gained > 0) c.Emit(E.BlockGained, Js.Obj(K.TargetId, target[K.Id], K.Amount, gained, DK.Total, target[K.Block], CK.Source, Ashen.Generated.Core2MatchupValues.SourceCounter));
+                }
+            }
             var receipt = CoreDamage.ProfileDamageReceipt(c, source, target, baseAmount, carrier, rangeContact);
             if (contact != null)
             {

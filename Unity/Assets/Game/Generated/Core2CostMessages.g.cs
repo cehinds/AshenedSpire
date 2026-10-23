@@ -7,12 +7,10 @@ namespace Ashen.Generated
         public const string CardOutsideProfile = "Core 2 combat: card {0} is not a card of the profile (registry cards are not part of a Core 2 run)";
         public const string CombatRoundsNotPorted = "Core 2 combat: Combat Rounds queues are ported with WP-10";
         public const string DisabledResource = "Card {0} requires an authored disabled-resource variant";
-        public const string ExtraPlayNotPorted = "Core 2 combat: the extra weapon and extra shield statuses are ported with WP-9";
         public const string NotEnough = "Not enough Stamina or Mana";
         public const string NotInHand = "Card '{0}' is not in hand";
         public const string PlayerTurnOnly = "Cards can only be played on the player turn";
-        public const string PreparingNotPorted = "Core 2 combat: a cardPreparing listener changes a card's price; preparing hooks are ported with WP-9";
-        public const string ProposalChangesNotPorted = "Core 2 combat: a card changed by a status is ported with WP-9";
+        public const string PreparingNotPorted = "Core 2 combat: a cardPreparing listener changes a card's price; preparing hooks are ported with the relic and property work package";
         public const string RestrictedBy = "Restricted by {0}";
         public const string UnknownInstance = "Unknown card instance '{0}'";
         public const string Unplayable = "'{0}' is unplayable";

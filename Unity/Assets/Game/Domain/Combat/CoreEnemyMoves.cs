@@ -17,8 +17,9 @@ namespace Ashen.Domain.Combat
     /// <summary>
     /// An enemy plays a move (web engine/combat.js enemyPhase, executeMovePayload, enemyMoveActions, enemyHalted, perceptionRead): it pays the
     /// move's Stamina (a move it cannot afford is told so and not played), plans the move's damage, Block and effects as one committed action
-    /// against the player, and the queue resolves it hit by hit. A move that charges for a later turn, a Counter, a burden and a move that
-    /// needs the enemy to close the distance are the later packages' (WP-8, WP-9, WP-12): each is refused by name.
+    /// against the player, and the queue resolves it hit by hit. A Counter move arms its reply and plays only its support (the reply is
+    /// <see cref="CoreCounterReturn"/>). A move that charges for a later turn, a burden and a move that needs the enemy to close the distance are the later
+    /// packages' (WP-9, WP-11, WP-12): each is refused by name.
     /// </summary>
     public static class CoreEnemyMoves
     {

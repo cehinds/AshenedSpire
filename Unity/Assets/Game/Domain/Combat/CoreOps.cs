@@ -126,7 +126,6 @@ namespace Ashen.Domain.Combat
                 case K.Retain: Retain(c, action, eff); return true;
                 case DV.OpGainPoise:
                 case SV.GainWard: GainGuard(c, action, eff); return true;
-                case CK.WardDamage: WardDamage(c, action, eff); return true;
                 case CV.OpBuildup: Buildup(c, action, eff); return true;
                 case K.DodgeRoll: DodgeRoll(c, action); return true;
                 case DV.OpGrantCardCharge: GrantCardCharge(c, action, eff); return true;
@@ -233,27 +232,6 @@ namespace Ashen.Domain.Combat
                 ? c_WardEdge : 1;
 
         private const double c_WardEdge = 1.25;
-
-        /// <summary>wardDamage: Ward spent (or, with Ward switched off, Poise drained) by the card's pressure; a Smash against a casting target is the Matchups package's.</summary>
-        private static void WardDamage(CombatState c, CombatAction action, JObject eff)
-        {
-            foreach (var t in Targets(c, action, eff.Str(K.Target)))
-            {
-                var row = RowOf(action, t);
-                if (row?.Receipt?.Is(DK.Avoided) == true) continue;
-                if (action.Card?.Obj(CK.CombatProfile)?.Str(CK.Maneuver) == CV.StanceSmash && CoreSets.CastingManeuvers.Contains(t.Obj(CK.CombatStance)?.Str(CK.Maneuver)) && row != null) throw new NotSupportedException(DM.SmashNotPorted);
-                var amount = Eval(c, action, eff[K.Amount], 0, t)
-                    * (Expanded(c) ? CoreTactical.StancePressureMultiplier(c, action.Source, t, action.Card, row?.Receipt?.Obj(DK.CounterAttack)) : 1) * EdgeMultiplier(action);
-                if (CoreFixCore.WardDisabled(c) && t.Obj(CK.PersistentPoise) != null)
-                {
-                    var drained = CoreImpact.DrainPoise(c, action.Source, t, amount);
-                    TrackOwnPressure(c, action, t, SK.PoiseDealt, drained);
-                    continue;
-                }
-                var spent = CoreStatusControl.SpendWard(c, t, amount, Js.Obj(K.SourceId, action.Source?[K.Id]));
-                TrackOwnPressure(c, action, t, SK.WardDealt, spent.Num(DK.Spent));
-            }
-        }
 
         // ------------------------------------------------------------------ riders and linked spells
 

@@ -35,6 +35,9 @@ namespace Ashen.Domain.Combat
         /// <summary>The ops a played card may not carry yet: the move of the engagement (WP-12) and the arcane buildup.</summary>
         public static readonly HashSet<string> DeferredOps = Of(SV.MoveEngagement, Op.ArcaneBuildup);
 
+        /// <summary>The ops a played card may carry (damage, Block and Barrier, and the Poise and Ward a Smash or a Counter deals).</summary>
+        public static readonly HashSet<string> CardOps = Of(Op.Damage, Op.Block, CV.OpGainBarrier, Op.PoiseDamage, DV.OpWardDamage);
+
         /// <summary>The target selectors that name a hostile creature.</summary>
         public static readonly HashSet<string> HostileSpecs = Of(DV.TargetEnemy, DV.TargetAllEnemies, V.TargetRandomEnemy, DV.TargetOtherEnemies);
 

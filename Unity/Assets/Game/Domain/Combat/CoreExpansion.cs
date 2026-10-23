@@ -20,7 +20,7 @@ namespace Ashen.Domain.Combat
     /// A committed card or move as one action (web engine/combatExpansionActions.js): its effects are planned together, every defender gets one
     /// receipt across all its contacts, and a per-hit fight (the reaction rules' contact policy) runs each hit as its own contact with its own
     /// receipt. Planning is committed and seeded: the targets, the contacts and their damage are fixed when the action is accepted and the queue
-    /// then plays them. A reaction, a Counter, a card trait or a critical hit is a later package's: an action that needs one is refused by name.
+    /// then plays them. A Counter's reply is one such action (<see cref="CoreCounterReturn"/>); a player's reaction, a card trait or a critical hit is a later package's and is refused by name.
     /// </summary>
     public static class CoreExpansion
     {
@@ -61,7 +61,8 @@ namespace Ashen.Domain.Combat
         /// </summary>
         public static ExpansionGroup Enqueue(CombatState c, List<CombatAction> actions, JObject source, JObject target, JObject carrier, ActionMeta completionMeta = null)
         {
-            if (carrier.Is(DK.CombatReaction)) throw new NotSupportedException(DM.ReactionsNotPorted);
+            // A Counter's reply is the one reaction a Core 2 fight plays before the reaction package (WP-10): it is marked a reaction and a reply.
+            if (carrier.Is(DK.CombatReaction) && !carrier.Is(DK.CounterReturnAttack)) throw new NotSupportedException(DM.ReactionsNotPorted);
             if (carrier.Is(DK.ComboHook)) throw new NotSupportedException(DM.ComboNotPorted);
             var serial = Js.Or0(c.Fields[DK.ExpansionActionSerial]) + 1;
             c.Fields[DK.ExpansionActionSerial] = Js.N(serial);
@@ -120,7 +121,7 @@ namespace Ashen.Domain.Combat
                             var profile = contactCarrier.Obj(CK.CombatProfile);
                             var baseToken = !Js.Nullish(eff[CK.Amount]) ? eff[CK.Amount] : !Js.Nullish(eff[K.Stacks]) ? eff[K.Stacks] : Js.N(1);
                             var baseAmount = Actions.EvalNum(c, action, baseToken, 1, entity);
-                            if (op == Op.Damage && source.Obj(CK.CritRules)?.Count > 0) throw new NotSupportedException(DM.CritNotPorted);
+                            if (op == Op.Damage && source.Obj(CK.CritRules)?.Count > 0 && !carrier.Is(DK.CombatReaction)) throw new NotSupportedException(DM.CritNotPorted);
                             var abilityBase = baseAmount;
                             double amount = 0;
                             JObject split = new JObject();
@@ -287,6 +288,7 @@ namespace Ashen.Domain.Combat
 
         private static void CompleteContact(CombatState c, CombatAction action, ExpansionGroup group)
         {
+            var start = c.Queue.Count;
             foreach (var pair in group.Targets.Entries().ToList())
             {
                 var key = pair.Key;
@@ -294,7 +296,9 @@ namespace Ashen.Domain.Combat
                 var target = EntityOf(c, row.Id);
                 var receipt = row.Receipt;
                 if (target == null || receipt == null || !Present(target)) continue;
-                CoreTactical.Complete(c, action.Source, target, Js.Spread(group.Carrier), receipt);
+                var incoming = Js.Spread(group.Carrier);
+                if (Js.Truthy(row.Contacts.FirstOrDefault()?[DK.RangeContactId])) incoming[DK.RangeContactId] = row.Contacts[0][DK.RangeContactId].DeepClone();
+                CoreTactical.Complete(c, action.Source, target, incoming, receipt);
                 var root = RootRow(group, key);
                 root.Receipt ??= new JObject { [DK.Connected] = false, [DK.StatusAccepted] = 0, [CK.Amount] = 0 };
                 root.Receipt[DK.Connected] = root.Receipt.Is(DK.Connected) || receipt.Is(DK.Connected);
@@ -302,6 +306,10 @@ namespace Ashen.Domain.Combat
                 root.Receipt[CK.Amount] = Js.N(root.Receipt.Num(CK.Amount) + receipt.Or0(CK.Amount));
                 root.Interactions ??= row.Interactions;
             }
+            // A reply and its bounded response finish before the next incoming contact.
+            var generated = c.Queue.Skip(start).ToList();
+            foreach (var queued in generated) c.Queue.Remove(queued);
+            for (var i = generated.Count - 1; i >= 0; i--) c.Queue.AddFirst(generated[i]);
         }
 
         private static OrderedMap<TargetRow> CompletedRootTargets(ExpansionGroup group)
@@ -347,7 +355,8 @@ namespace Ashen.Domain.Combat
                 var target = EntityOf(c, row.Id);
                 var receipt = row.Receipt;
                 if (target == null || receipt == null) continue;
-                if (!target.Is(K.Alive)) continue;
+                // A Smash that killed the target still broke its Guard; a dead target takes no bonus Poise.
+                if (!target.Is(K.Alive)) { CoreMatchups.CompleteGuardBreak(c, action.Source, target, group.Carrier, receipt); continue; }
                 if (group.ContactSequence == null) CoreTactical.Complete(c, action.Source, target, Js.Spread(group.Carrier), receipt);
                 CoreControl.CompleteStatusAction(c, target, row.Interactions ?? receipt.Obj(DK.Profile) ?? new JObject(), receipt.Is(DK.Connected), group.Key, receipt.Num(CK.Amount) > 0);
             }

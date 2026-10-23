@@ -52,5 +52,11 @@ namespace Ashen.Domain.Combat
         public ContactSequence ContactSequence;
         public List<string> ReactionAnswered;
         public List<string> ReactionNoticed;
+
+        /// <summary>The event of the Counter reply this group plays (web group.counterReturn); it stands in for the move's start when the reply is announced.</summary>
+        public JObject CounterReturn;
+
+        /// <summary>The creatures whose Poise and Ward a Smash against a caster's stance has already pooled (web group.smashPressureApplied).</summary>
+        public List<string> SmashPressureApplied;
     }
 }

@@ -575,6 +575,41 @@
         "proposalAccuracyDivisor"
       ]
     },
+    "matchups": {
+      "type": "object",
+      "properties": {
+        "counterDefaults": {
+          "type": "object",
+          "properties": {
+            "advantageBlockFraction": {
+              "type": "number"
+            },
+            "advantageIncomingFraction": {
+              "type": "number"
+            },
+            "advantagePoiseFraction": {
+              "type": "number"
+            },
+            "poiseFraction": {
+              "type": "number"
+            },
+            "returnFraction": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "advantageBlockFraction",
+            "advantageIncomingFraction",
+            "advantagePoiseFraction",
+            "poiseFraction",
+            "returnFraction"
+          ]
+        }
+      },
+      "required": [
+        "counterDefaults"
+      ]
+    },
     "mechanics": {
       "type": "object",
       "properties": {
@@ -1063,6 +1098,7 @@
     "formation",
     "hand",
     "hit",
+    "matchups",
     "mechanics",
     "perception",
     "plan",

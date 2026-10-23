@@ -5,26 +5,19 @@ namespace Ashen.Generated
     public static class Core2CombatMessages
     {
         public const string AshenBlightNotPorted = "Core 2 combat: Ashen Blight milestones are not part of a Core 2 run (WP-21)";
-        public const string BurdensNotPorted = "Core 2 combat: enemy burdens are ported with WP-9";
         public const string CarriersNotPorted = "Core 2 combat: feats, companions and sigils are not part of a Core 2 run";
         public const string ConflictingTags = "Core 2 combat: card tags conflict ({0}: {1}, {2})";
         public const string DelayedMoveNotPorted = "Core 2 combat: a delayed enemy move is ported with WP-11";
         public const string EnemyMechanicsNotPorted = "Core 2 combat: enemy gear mechanics are ported with WP-11";
-        public const string FluxNotPorted = "Core 2 combat: flux is ported with WP-9";
         public const string FormationFull = "Formation capacity exceeded";
         public const string HandRefreshNotPorted = "Core 2 combat: only the entire-deck round refresh is ported";
         public const string LegacyBlockNotPorted = "Core 2 combat: Block without FixCore is not part of a Core 2 run";
         public const string LegacyDecayNotPorted = "Core 2 combat: status decay without FixCore is not part of a Core 2 run";
         public const string LegacyKnowledgeNotPorted = "Core 2 combat: legacy enemy knowledge is not part of a Core 2 run";
         public const string MissingResourceVariant = "Card {0} has no variant for the profile resources";
-        public const string OncePerTurnNotPorted = "Core 2 combat: oncePerTurn effects are ported with WP-9";
-        public const string OpcodeNotPorted = "Core 2 combat: opcode {0} is ported with WP-9";
-        public const string ScriptNotPorted = "Core 2 combat: script effects are ported with WP-9";
-        public const string StatusControlNotPorted = "Core 2 combat: status control is ported with WP-9";
-        public const string StatusMeterNotPorted = "Core 2 combat: status meters are ported with WP-9";
-        public const string StatusProcNotPorted = "Core 2 combat: status procs are ported with WP-9";
+        public const string OpcodeNotPorted = "Core 2 combat: opcode {0} is ported with a later work package (the engagement and the legacy break meter)";
+        public const string ScriptNotPorted = "Core 2 combat: script effects are not ported (only the flask scripts use them)";
         public const string SyntheticBlockNotPorted = "Core 2 combat: synthetic Block is ported with WP-8";
-        public const string TurnEndInHandNotPorted = "Core 2 combat: turn-end-in-hand hooks are ported with WP-9";
         public const string UnknownTag = "Core 2 combat: unknown tag {0}";
     }
 }
