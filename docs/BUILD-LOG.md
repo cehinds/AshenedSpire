@@ -2,6 +2,27 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-6: d20 hit resolution in C# with oracle parity (dev, 2026-10-23)
+
+**Landed**
+- **Oracle first (`Tools/oracle-core2-hit.mjs`, D-215):** drives the SHIPPED `stanceHit.js` and `combatAvoidance.js` at `b8cfe4fac` on real Core 2 fights (`createRunCombat`, 4 classes x all encounters) with a declared overlay on the fighters, the rule snapshot and the engagement state. 360 grid cases (both directions; attributes, level, Precision and Evade stacks, flat bonuses, advantage and disadvantage on either side, prepared Evade, a pending next-Evade mode, maneuver x camp x range x reach x Target x mirrored Spell, the target's stance range, engagement bands, rule variants, real hand cards and enemy intents as carriers) with the preview and six resolutions each on scripted dice (naturals 1 and 20, the die either side of the need; the draws asked for, the Evade left behind, the events); 60 sequences (577 rolls) on the real `combatAvoidance` stream with every RNG counter after every step; units for evasion, stack gain, stat mix, the selected-card preview with its stance entry, the avoidance receipt, the proposal plan and the chance dice (5.1 MB, two runs byte-identical).
+- **`CoreHitRoll`** (D-210): `Preview` (the 20 / 400-outcome fixed-defense enumeration; Accuracy = Precision base + stat mix x (stacks + 1) + flat bonus + maneuver + proposal + range, Evasion = base + DEX + Evade stacks x (baseAC + DEX); in-range, Target and `unavoidable` bypass, nat 1 and 20, advantage and disadvantage), `Resolve` (the `combatAvoidance` d20 through an injected die; Evade stack, prepared charge and next-Evade mode spent; `attackHit` / `attackMissed`), `PreviewCard` (the stance entry's Precision), `EffectiveEvasion`, `EvadeStackGain`, `PrecisionStatMix` / `PrecisionEntryGrant`. **`CoreAvoidance`** (D-213): `ChanceMode`, `EffectiveChance`, `RollChanceDie`, the expanded-fight `PreviewAvoidance` / `Resolve`. **`CoreProposal`** (D-212): the status-rule plan a hit reads (accuracy delta, Greased fire, Veil / Evade checks).
+- **Data:** the `hit` section of `rules/core2Combat.json` (+ schema), codegen fragment `core2-hit.json` (`Core2HitKeys`, `Core2HitValues`, `Core2HitMessages`).
+
+**Parity mismatches found, all fixed:** the first full run failed 274 of 1152: the proposal behaviors are an array (read as an object, so Charm never applied); the web's `perceptionGained` receipt (enemy knowledge credited by a miss against Evade) is the knowledge port's hook, so the oracle records only the events a hit owns (D-211); and re-assigning a child token to its own parent property clones it in Newtonsoft (`projected[statuses] = statuses` detached the object the projected Precision was written to, so every selected-card preview ignored its stance entry).
+
+**Found in WP-4 code, not edited (D-214):** `CoreStances.PrecisionStatMix` reads the entity's level only; the web counts the fight's `characterLevel` for the player, so a player stance-entry Precision grant would be short by the level. `CoreHitRoll.PrecisionStatMix` / `PrecisionEntryGrant` follow the web. On merge with WP-5, `CoreStances` should delegate to them.
+
+**Tests:** `Core2HitParityTests` 1152 (the oracle is present, 360 previews, 360 scripted-roll cases of 2160 rolls, 60 real-stream sequences, 368 units, 3 chance-dice tests). Domain.Tests (`Category!=Bot`) 4830/4830. `transform-content --check`, `codegen --check`, `refresh-manifest --check`, `check-content`, `check-docs`, `web-key-map --check` green. EnforcementTests green.
+
+**Not verified / deferred**
+- Unity (no editor): everything is in `Ashen.Domain` and `Ashen.Generated`, compiled under dotnet only.
+- Handed in rather than computed (D-211): the range contact (WP-12; a fight with a `rangeState` and no contact is refused), the proposal damage type (WP-7), the knowledge credit of a missed or prevented attack (WP-11). `hitReadExact` / `previewTargetFor` (the hit-% badge's Perception gate) are not ported.
+- Refused by name: Accuracy without FixCore, the 405 distance and Evade rolls, an entity carrying mechanic tags or bindings (the mechanics kernel, WP-7).
+- Nothing calls `CoreHitRoll` yet: card play and the enemy action phase (`CoreActions.Execute`, WP-5, WP-7, WP-11) are its callers.
+
+**Next:** WP-7 (damage receipt and protections) consumes the hit result and the damage type; WP-12 supplies the range contact.
+
 ## Core 2 WP-4: combat start, hand and resources in C# with oracle parity (dev, 2026-10-23)
 
 **Landed**

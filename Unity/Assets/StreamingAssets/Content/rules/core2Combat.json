@@ -132,6 +132,16 @@
   "perception": {
     "die": 20
   },
+  "hit": {
+    "die": 20,
+    "naturalMiss": 1,
+    "percent": 100,
+    "proposalAccuracyDivisor": 5,
+    "decoyRanges": [
+      "reach",
+      "ranged"
+    ]
+  },
   "enemies": {
     "fillGuard": 10,
     "varianceAmong": 2,
