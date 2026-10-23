@@ -26,7 +26,7 @@
 //   extras.json                the core2.modules of sources.json (combatMatchups, actionCosts, ...)
 //   advancedRows.settings.json the player-setting subset of advancedConfigRows
 //   summary.json               web sha, profile id and hash, counts
-import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync, existsSync, rmSync, renameSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -41,7 +41,8 @@ const WITH_LEGACY = !process.argv.includes('--no-legacy');
 const OUT = join(ROOT, 'Tools', 'export', 'raw');
 const REFERENCE_CONFIG = join(ROOT, 'docs', 'design', 'reference', 'ashen-spire-game-config.json');
 
-if (!existsSync(join(SOURCE, 'src', 'content', 'index.js'))) {
+const NEEDS_SOURCE = PROFILE !== 'none' || (WITH_LEGACY && !argValue('--legacy-source'));
+if (NEEDS_SOURCE && !existsSync(join(SOURCE, 'src', 'content', 'index.js'))) {
   console.error(`export: shipped game not found at ${SOURCE} (set --source or ASHEN_SOURCE)`);
   process.exit(1);
 }
@@ -54,10 +55,15 @@ function legacyTree() {
   if (given) return given;
   const sha = SOURCES.legacy.sha;
   const dir = join(ROOT, '.cache', 'web-legacy', sha);
-  if (existsSync(join(dir, 'src', 'content', 'index.js'))) return dir;
-  mkdirSync(dir, { recursive: true });
+  // Re-extracted on every run into a fresh directory and swapped in only when tar succeeds, so an edited or
+  // half-written cache is never exported under legacy.sha.
+  const tmp = `${dir}.tmp`;
+  rmSync(tmp, { recursive: true, force: true });
+  mkdirSync(tmp, { recursive: true });
   // Only the trees the export reads (the full archive is over 1 GB of art). Streamed through tar, never buffered.
-  execFileSync('sh', ['-c', 'git -C "$0" archive "$1" src content | tar -x -C "$2"', SOURCE, sha, dir]);
+  execFileSync('bash', ['-c', 'set -o pipefail; git -C "$0" archive "$1" src content | tar -x -C "$2"', SOURCE, sha, tmp]);
+  rmSync(dir, { recursive: true, force: true });
+  renameSync(tmp, dir);
   return dir;
 }
 
