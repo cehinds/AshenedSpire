@@ -320,7 +320,7 @@ namespace Ashen.Domain.Combat
 
         private static JObject Projection(CombatState c, List<JObject> rows)
         {
-            var cap = Math.Round(c.CoreData.CombatRules.Num(RR.ResistanceCap) * 100, MidpointRounding.AwayFromZero);
+            var cap = Math.Round(c.CoreData.CombatRules.Num(RR.ResistanceCap) * Ashen.Generated.CombatMath.Percent, MidpointRounding.AwayFromZero);
             var result = new JObject
             {
                 [RR.ArmorClass] = RR.ArmorClassLight, [RR.DamageResistanceFlat] = new JObject(), [RR.DamageWeaknessPercent] = new JObject(),
