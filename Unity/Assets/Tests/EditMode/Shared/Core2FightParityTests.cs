@@ -45,11 +45,14 @@ namespace Ashen.Tests
         }
 
         [TestCaseSource(nameof(Fights))]
-        public void TheFightPlaysAsTheWebPlaysIt(string file, int index)
+        public void TheFightPlaysAsTheWebPlaysIt(string file, int index) => Replay((JObject)((JArray)Read(file)["fights"])[index], file + "[" + index + "]");
+
+        /// <summary>Plays one recorded fight on the port and holds it to the web after every step (the whole combat as a delta, the event types in order).</summary>
+        internal static void Replay(JObject fight, string where)
         {
-            var fight = (JObject)((JArray)Read(file)["fights"])[index];
+
             var c = Core2CombatStartParityTests.Open(fight, out _);
-            var label = $"{file}[{index}] {fight.Value<string>("bot")} {fight.Value<string>("encounterId")}";
+            var label = $"{where} {fight.Value<string>("bot")} {fight.Value<string>("encounterId")}";
             JToken want = fight["start"]["state"].DeepClone();
             Core2CombatStartParityTests.Same(label + " start", want, Core2CombatStartParityTests.Project(c));
             Assert.That(Core2CombatStartParityTests.Events(c, 0), Is.EqualTo(fight["start"]["events"].Select(t => t.Value<string>()).ToList()), label + " start events");
@@ -70,7 +73,20 @@ namespace Ashen.Tests
                         CoreTurns.EndTurn(c, intent["discardIds"].Select(t => t.Value<string>()).ToList());
                         break;
                     case "playCard":
-                        CoreCardPlay.Play(c, intent.Value<string>("cardInstanceId"), intent["targetId"]?.Value<string>());
+                        CoreCardPlay.Play(c, intent.Value<string>("cardInstanceId"), intent["targetId"]?.Value<string>(), intent["choice"]);
+                        break;
+                    case "chooseCards":
+                        CoreCardPlay.ChooseCards(c, intent["cardInstanceIds"].Select(t => t.Value<string>()).ToList());
+                        break;
+                    case "chooseDiscard":
+                        CoreCardPlay.ChooseDiscard(c, intent["cardInstanceIds"].Select(t => t.Value<string>()).ToList());
+                        break;
+                    case "recoverControl":
+                        CoreCardPlay.RecoverControl(c, (JArray)intent["selections"]);
+                        break;
+                    case "applyStatus":
+                        CoreStatuses.Apply(c, Core2StatusParityTests.Entity(c, intent.Value<string>("who")), intent.Value<string>("status"), intent.Value<double>("stacks"), Core2StatusParityTests.Entity(c, intent.Value<string>("from")));
+                        CoreActions.Drain(c);
                         break;
                     default:
                         Assert.Fail(at + " an intent the port does not play");

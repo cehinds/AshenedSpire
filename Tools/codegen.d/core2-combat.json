@@ -608,26 +608,19 @@
       "doc": "Core 2 combat error messages (developer-facing; {0}.. are string.Format slots).",
       "keys": {
         "AshenBlightNotPorted": "Core 2 combat: Ashen Blight milestones are not part of a Core 2 run (WP-21)",
-        "BurdensNotPorted": "Core 2 combat: enemy burdens are ported with WP-9",
         "CarriersNotPorted": "Core 2 combat: feats, companions and sigils are not part of a Core 2 run",
         "ConflictingTags": "Core 2 combat: card tags conflict ({0}: {1}, {2})",
         "DelayedMoveNotPorted": "Core 2 combat: a delayed enemy move is ported with WP-11",
         "EnemyMechanicsNotPorted": "Core 2 combat: enemy gear mechanics are ported with WP-11",
-        "FluxNotPorted": "Core 2 combat: flux is ported with WP-9",
         "FormationFull": "Formation capacity exceeded",
         "HandRefreshNotPorted": "Core 2 combat: only the entire-deck round refresh is ported",
         "LegacyBlockNotPorted": "Core 2 combat: Block without FixCore is not part of a Core 2 run",
         "LegacyDecayNotPorted": "Core 2 combat: status decay without FixCore is not part of a Core 2 run",
         "LegacyKnowledgeNotPorted": "Core 2 combat: legacy enemy knowledge is not part of a Core 2 run",
         "MissingResourceVariant": "Card {0} has no variant for the profile resources",
-        "OncePerTurnNotPorted": "Core 2 combat: oncePerTurn effects are ported with WP-9",
-        "OpcodeNotPorted": "Core 2 combat: opcode {0} is ported with WP-9",
-        "ScriptNotPorted": "Core 2 combat: script effects are ported with WP-9",
-        "StatusControlNotPorted": "Core 2 combat: status control is ported with WP-9",
-        "StatusMeterNotPorted": "Core 2 combat: status meters are ported with WP-9",
-        "StatusProcNotPorted": "Core 2 combat: status procs are ported with WP-9",
+        "OpcodeNotPorted": "Core 2 combat: opcode {0} is ported with a later work package (the engagement and the legacy break meter)",
+        "ScriptNotPorted": "Core 2 combat: script effects are not ported (only the flask scripts use them)",
         "SyntheticBlockNotPorted": "Core 2 combat: synthetic Block is ported with WP-8",
-        "TurnEndInHandNotPorted": "Core 2 combat: turn-end-in-hand hooks are ported with WP-9",
         "UnknownTag": "Core 2 combat: unknown tag {0}"
       }
     }

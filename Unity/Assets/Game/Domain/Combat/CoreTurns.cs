@@ -236,7 +236,7 @@ namespace Ashen.Domain.Combat
                 enemy.Put(CK.FixCoreStaminaRemaining, Math.Max(0, pool - enemy.Or0(CK.PendingStaminaLoss)));
                 enemy.Put(CK.PendingStaminaLoss, 0);
             }
-            if (enemy[CK.BurdenPiles] != null) throw new NotSupportedException(CM.BurdensNotPorted);
+            CoreBurdens.Begin(c, enemy, CoreIntents.Pool(c, c.Data.Enemies.Get(enemy.Str(K.EnemyId))));
             enemy.Put(CK.ActorIntentRevealed, true);
             c.Emit(CV.EventEnemyActorTurnStarted, Js.Obj(K.SourceId, enemy[K.Id], K.EnemyId, enemy[K.EnemyId], K.MoveId, Js.Truthy(enemy.Obj(K.PendingMove)?[K.MoveId]) ? enemy.Obj(K.PendingMove)[K.MoveId] : enemy.Obj(K.Intent)?[K.MoveId]));
             CoreProposal.Turn(c, enemy, SV.Start);
@@ -305,6 +305,7 @@ namespace Ashen.Domain.Combat
                 if (enemy.Arr(CK.PlannedMoves)?.Count == 0) enemy.Put(CK.PlanDue, false);
                 if (enemy.Is(K.Alive))
                 {
+                    CoreBurdens.End(c, enemy);
                     CoreProposal.Turn(c, enemy, SV.End);
                     FireOwnerHooks(c, enemy, E.OwnerTurnEnd);
                     CoreActions.Drain(c);

@@ -254,6 +254,7 @@ namespace Ashen.Domain.Combat
                         if (attackType != null && attackType != DV.AttackTypeAuto) carrier[CK.DamageSchool] = attackType;
                     }
                     if (action.Source.Obj(CK.CritRules)?.Count > 0 && planned == null) throw new NotSupportedException(DM.CritNotPorted);
+                    if (planned == null && action.Meta.InheritedContact != null) contact = action.Meta.InheritedContact;
                     CoreImpact.ApplyAttackDamage(c, action.Source, t, baseAmount, carrier, contact, CoreRange.HitContact(c, action.Source, t, carrier), null, action.Meta.ProposalTargetDecisions ??= new JObject());
                 }
             }

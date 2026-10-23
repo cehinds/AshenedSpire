@@ -77,7 +77,7 @@ namespace Ashen.Domain.Combat
                 enemy.Put(CK.FixCoreStaminaRemaining, available - spCost);
                 enemy.Put(K.Stamina, available - spCost);
             }
-            if (enemy[CK.BurdenPiles] != null) throw new NotSupportedException(CM.BurdensNotPorted);
+            if (!CoreBurdens.AllowMove(c, enemy, spCost, move)) return K.Blocked;
             var start = Js.Obj(K.SourceId, enemy[K.Id], K.EnemyId, enemy[K.EnemyId], K.MoveId, moveId, K.Kind, move[K.Intent],
                 DK.ActionPreview, Js.Obj(K.MoveId, moveId, DK.Profile, carrier[CK.CombatProfile], K.Tags, carrier[K.Tags], DK.SpCost, spCost, DK.TotalSp, totalSp));
             carrier[DK.RangeQuotedPlan] = rangeQuote;

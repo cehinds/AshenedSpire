@@ -216,14 +216,57 @@
     "damage": {
       "type": "object",
       "properties": {
+        "damageTypeAliases": {
+          "type": "object",
+          "properties": {
+            "cold": {
+              "type": "string"
+            },
+            "force": {
+              "type": "string"
+            },
+            "holy": {
+              "type": "string"
+            },
+            "necrotic": {
+              "type": "string"
+            },
+            "pierce": {
+              "type": "string"
+            },
+            "slash": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "cold",
+            "force",
+            "holy",
+            "necrotic",
+            "pierce",
+            "slash"
+          ]
+        },
+        "meleeReaches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "physicalSchool": {
+          "type": "string"
+        },
+        "schoolTagPrefix": {
+          "type": "string"
+        },
         "smashVsDefensive": {
           "type": "object",
           "properties": {
-            "damageMultiplier": {
-              "type": "number"
-            },
             "blockFraction": {
               "type": "number"
+            },
+            "damageMultiplier": {
+              "type": "integer"
             },
             "poiseFraction": {
               "type": "number"
@@ -235,20 +278,23 @@
             "poiseFraction"
           ]
         },
+        "staggerLimit": {
+          "type": "integer"
+        },
         "staggered": {
           "type": "object",
           "properties": {
-            "stance": {
+            "extendOnly": {
               "type": "boolean"
             },
             "staminaLoss": {
               "type": "integer"
             },
+            "stance": {
+              "type": "boolean"
+            },
             "vulnerableStacks": {
               "type": "integer"
-            },
-            "extendOnly": {
-              "type": "boolean"
             }
           },
           "required": [
@@ -257,27 +303,6 @@
             "stance",
             "vulnerableStacks"
           ]
-        },
-        "staggerLimit": {
-          "type": "integer"
-        },
-        "meleeReaches": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "damageTypeAliases": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
-        "physicalSchool": {
-          "type": "string"
-        },
-        "schoolTagPrefix": {
-          "type": "string"
         }
       },
       "required": [
@@ -553,11 +578,11 @@
     "mechanics": {
       "type": "object",
       "properties": {
-        "registered": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "actionCostsFamily": {
+          "type": "string"
+        },
+        "actionCostsKey": {
+          "type": "string"
         },
         "families": {
           "type": "array",
@@ -571,26 +596,60 @@
         "familyTagPrefix": {
           "type": "string"
         },
+        "mountKinds": {
+          "type": "object",
+          "properties": {
+            "armament": {
+              "type": "string"
+            },
+            "armour": {
+              "type": "string"
+            },
+            "class": {
+              "type": "string"
+            },
+            "companion": {
+              "type": "string"
+            },
+            "feat": {
+              "type": "string"
+            },
+            "sigil": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "armament",
+            "armour",
+            "class",
+            "companion",
+            "feat",
+            "sigil"
+          ]
+        },
         "protectionPrefix": {
           "type": "string"
+        },
+        "registered": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "combat.accuracy",
+              "combat.actionCosts",
+              "combat.perception",
+              "combat.stance",
+              "combat.statuses",
+              "defense.poiseProtection",
+              "defense.wardProtection"
+            ]
+          }
         },
         "rulesOwner": {
           "type": "string"
         },
         "wardTag": {
           "type": "string"
-        },
-        "actionCostsFamily": {
-          "type": "string"
-        },
-        "actionCostsKey": {
-          "type": "string"
-        },
-        "mountKinds": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
         }
       },
       "required": [
@@ -680,6 +739,138 @@
       "required": [
         "poisePool",
         "wardPool"
+      ]
+    },
+    "traits": {
+      "type": "object",
+      "properties": {
+        "counterFluxWard": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "alterationCounter",
+              "barrageCounter",
+              "decayCounter",
+              "divineCounter",
+              "fireCounter",
+              "frostCounter",
+              "illusionCounter",
+              "lightningCounter",
+              "progression-rime-mirror",
+              "umbralWard",
+              "wardingStar"
+            ]
+          }
+        },
+        "counterImpactExcluded": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "counterImpactSpell": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "alterationCounter",
+              "forceCounter",
+              "frostCounter",
+              "illusionCounter",
+              "progression-rime-mirror",
+              "umbralWard"
+            ]
+          }
+        },
+        "counterNoStrike": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "acrobaticsRogue",
+              "backstep",
+              "barrageCounter",
+              "dodgeRoll",
+              "evasiveGuard",
+              "nockAndWait"
+            ]
+          }
+        },
+        "counterstrikeAmountOps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "block",
+              "buildup",
+              "damage",
+              "gainBarrier",
+              "gainPoise",
+              "gainWard",
+              "heal",
+              "poiseDamage",
+              "wardDamage"
+            ]
+          }
+        },
+        "defendBarrierEffects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defendImpactTier4": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enemyDamageTargets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fallbackStrikeDamage": {
+          "type": "integer"
+        },
+        "fluxDamageTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fluxTier2": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "strikeCardId": {
+          "type": "string"
+        },
+        "sweepStrikeTier4": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "counterFluxWard",
+        "counterImpactExcluded",
+        "counterImpactSpell",
+        "counterNoStrike",
+        "counterstrikeAmountOps",
+        "defendBarrierEffects",
+        "defendImpactTier4",
+        "enemyDamageTargets",
+        "fallbackStrikeDamage",
+        "fluxDamageTypes",
+        "fluxTier2",
+        "strikeCardId",
+        "sweepStrikeTier4"
       ]
     },
     "vocabulary": {
@@ -878,6 +1069,7 @@
     "range",
     "ratingIds",
     "resistance",
+    "traits",
     "vocabulary"
   ]
 }

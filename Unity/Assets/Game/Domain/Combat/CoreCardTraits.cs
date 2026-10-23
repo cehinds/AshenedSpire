@@ -207,6 +207,21 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>
+        /// completeTraitGuard(ctx, source, target, receipt): a Defend guard armed with Impact or Flux answers the first enemy hit that Block, Barrier or Ward
+        /// reduced, with Poise damage and Ward spent on the attacker. (Reaction rules version 2; a configured fight never arms it, a saved one may carry it.)
+        /// </summary>
+        public static void CompleteTraitGuard(CombatState c, JObject source, JObject target, JObject receipt)
+        {
+            var guard = target?.Obj(CK.CombatTraitGuard);
+            if (guard == null || c.CoreData.ReactionVersion != DN.ReactionStackVersion || source?.Str(K.Kind) != V.Enemy || receipt.Is(DK.Avoided)) return;
+            if (!(receipt.Num(K.Amount) > 0) || !(receipt.Num(K.Blocked) + receipt.Num(DK.WardResisted) > 0)) return;
+            target.Remove(CK.CombatTraitGuard);
+            if (!source.Is(K.Alive)) return;
+            if (guard.Num(K.Poise) > 0) CoreImpact.DealPoiseDamage(c, source, guard.Num(K.Poise), target);
+            if (guard.Num(K.Ward) > 0) CoreStatusControl.SpendWard(c, source, guard.Num(K.Ward), Js.Obj(K.SourceId, target[K.Id]));
+        }
+
+        /// <summary>
         /// applyTraitImpact(ctx, action, group): a completed card's Impact adds Poise and its Flux adds Ward, once per target that was hit (a card
         /// with its own Poise or Ward doubles it; otherwise N). A Power with Flux deals its Ward to every living enemy when played.
         /// </summary>

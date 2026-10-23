@@ -150,12 +150,10 @@
         "CardOutsideProfile": "Core 2 combat: card {0} is not a card of the profile (registry cards are not part of a Core 2 run)",
         "CombatRoundsNotPorted": "Core 2 combat: Combat Rounds queues are ported with WP-10",
         "DisabledResource": "Card {0} requires an authored disabled-resource variant",
-        "ExtraPlayNotPorted": "Core 2 combat: the extra weapon and extra shield statuses are ported with WP-9",
         "NotEnough": "Not enough Stamina or Mana",
         "NotInHand": "Card '{0}' is not in hand",
         "PlayerTurnOnly": "Cards can only be played on the player turn",
-        "PreparingNotPorted": "Core 2 combat: a cardPreparing listener changes a card's price; preparing hooks are ported with WP-9",
-        "ProposalChangesNotPorted": "Core 2 combat: a card changed by a status is ported with WP-9",
+        "PreparingNotPorted": "Core 2 combat: a cardPreparing listener changes a card's price; preparing hooks are ported with the relic and property work package",
         "RestrictedBy": "Restricted by {0}",
         "UnknownInstance": "Unknown card instance '{0}'",
         "Unplayable": "'{0}' is unplayable"

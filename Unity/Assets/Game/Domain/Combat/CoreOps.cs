@@ -144,6 +144,7 @@ namespace Ashen.Domain.Combat
                 case Op.EnterStance: EnterStance(c, action, eff); return true;
                 case K.Stagger: Stagger(c, action, eff); return true;
                 case Op.AddCinders: AddCinders(c, action, eff); return true;
+                case SV.AddBurden: AddBurden(c, action, eff); return true;
                 default: return false;
             }
         }
@@ -459,6 +460,15 @@ namespace Ashen.Domain.Combat
         private static void Stagger(CombatState c, CombatAction action, JObject eff)
         {
             foreach (var t in Targets(c, action, eff.Str(K.Target))) CoreImpact.StaggerEnemy(c, t);
+        }
+
+        private static void AddBurden(CombatState c, CombatAction action, JObject eff)
+        {
+            foreach (var enemy in Targets(c, action, eff.Str(K.Target)))
+            {
+                if (enemy.Str(K.Kind) != V.Enemy) throw new InvalidOperationException(SM.BurdenEnemiesOnly);
+                CoreBurdens.Add(c, enemy, eff.Str(K.Card), Eval(c, action, eff[K.Count], 1), Js.Truthy(eff[K.Pile]) ? eff.Str(K.Pile) : K.Draw);
+            }
         }
 
         private static void AddCinders(CombatState c, CombatAction action, JObject eff)

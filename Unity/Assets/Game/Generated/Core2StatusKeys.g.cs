@@ -22,6 +22,9 @@ namespace Ashen.Generated
         public const string BuildupResistance = "buildupResistance";
         public const string BuildupStatus = "buildupStatus";
         public const string BuiltinRecovery = "builtinRecovery";
+        public const string Burden = "burden";
+        public const string BurdenBudget = "burdenBudget";
+        public const string BurdenTax = "burdenTax";
         public const string CandidateIds = "candidateIds";
         public const string CardTag = "cardTag";
         public const string ChilledBluntPercent = "chilledBluntPercent";
@@ -92,6 +95,7 @@ namespace Ashen.Generated
         public const string RecoveryCost = "recoveryCost";
         public const string RecoveryDisadvantage = "recoveryDisadvantage";
         public const string RecoveryProfile = "recoveryProfile";
+        public const string Remaining = "remaining";
         public const string ResistancePercent = "resistancePercent";
         public const string Resisted = "resisted";
         public const string Restrictions = "restrictions";
@@ -99,6 +103,8 @@ namespace Ashen.Generated
         public const string RetainUntilTurn = "retainUntilTurn";
         public const string ReturnTurn = "returnTurn";
         public const string Selections = "selections";
+        public const string Skip = "skip";
+        public const string SkipActions = "skipActions";
         public const string StackPenalty = "stackPenalty";
         public const string StandCost = "standCost";
         public const string StatusId = "statusId";
@@ -106,6 +112,7 @@ namespace Ashen.Generated
         public const string SweepStrikeTier4 = "sweepStrikeTier4";
         public const string TargetStatusesBefore = "targetStatusesBefore";
         public const string TargetsAllEnemies = "targetsAllEnemies";
+        public const string Tax = "tax";
         public const string TransformTo = "transformTo";
         public const string TriggeredBy = "triggeredBy";
         public const string Units = "units";

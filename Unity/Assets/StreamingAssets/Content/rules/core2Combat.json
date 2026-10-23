@@ -1,5 +1,5 @@
 {
-  "comment": "Core 2 combat constants that the web (model/combatCardProfile.js, model/cardClassification.js, model/profileStance.js, model/stanceRules.js, model/formationLayout.js, model/formationOccupancy.js, engine/combatCardTactics.js, engine/combatRoundsAdapter.js, engine/kernel/gameConfig.js, model/actionCosts.js, engine/combat.js at the pinned sha b8cfe4fac) keeps as literals in code (docs/design/11 WP-4). vocabulary: the identity sets combatProfileFor and stanceOf read. classification: what cardPreparationCategory leaves out and counts as a card kind. resistance: the share of the Ward and Poise ratings that opens a fight as a pool. perception: the die an enemy's intent read rolls. enemies: the enemy attribute fill and the seeded variance hash. formation: the perspective grid. range: the hands a primary weapon is looked for in. plan: the enemy plan constants. actionStances: how an enemy move is priced as a stance. enemyPressure: the buildup an enemy status becomes. counter: the version of the record an armed Counter keeps. counterCoverage: the lanes an authored-less enemy Counter covers. hand: the hand size when the profile names none and the three hand rows a fight is dealt by. ratingIds: the ratings a receipt totals. costs: the card price literals (the face's Poise line a smash gains, the cost growth cap, the derived SP from which effect amounts scale, the stances a Many Forms status allows and the reaction discount when the FixCore rules carry none).",
+  "comment": "Core 2 combat constants that the web (model/combatCardProfile.js, model/cardClassification.js, model/profileStance.js, model/stanceRules.js, model/formationLayout.js, model/formationOccupancy.js, engine/combatCardTactics.js, engine/combatRoundsAdapter.js, engine/kernel/gameConfig.js, model/actionCosts.js, engine/combat.js at the pinned sha b8cfe4fac) keeps as literals in code (docs/design/11 WP-4). vocabulary: the identity sets combatProfileFor and stanceOf read. classification: what cardPreparationCategory leaves out and counts as a card kind. resistance: the share of the Ward and Poise ratings that opens a fight as a pool. perception: the die an enemy's intent read rolls. enemies: the enemy attribute fill and the seeded variance hash. formation: the perspective grid. range: the hands a primary weapon is looked for in. plan: the enemy plan constants. actionStances: how an enemy move is priced as a stance. enemyPressure: the buildup an enemy status becomes. counter: the version of the record an armed Counter keeps. counterCoverage: the lanes an authored-less enemy Counter covers. hand: the hand size when the profile names none and the three hand rows a fight is dealt by. ratingIds: the ratings a receipt totals. costs: the card price literals (the face's Poise line a smash gains, the cost growth cap, the derived SP from which effect amounts scale, the stances a Many Forms status allows and the reaction discount when the FixCore rules carry none). traits: the card ids and effect sets the trait projection (content/traitProjection.js, combatCardTactics.js COUNTERSTRIKE_AMOUNT_OPS, model/cardBehavior.js weaponDamageBasis) keeps in code (WP-9).",
   "vocabulary": {
     "camps": [
       "physical",
@@ -397,5 +397,84 @@
     },
     "physicalSchool": "physical",
     "schoolTagPrefix": "school:"
+  },
+  "traits": {
+    "counterNoStrike": [
+      "dodgeRoll",
+      "evasiveGuard",
+      "backstep",
+      "acrobaticsRogue",
+      "nockAndWait",
+      "barrageCounter"
+    ],
+    "sweepStrikeTier4": [
+      "crimsonCleave",
+      "progression-ashen-cleaver"
+    ],
+    "counterImpactSpell": [
+      "frostCounter",
+      "forceCounter",
+      "alterationCounter",
+      "illusionCounter",
+      "umbralWard",
+      "progression-rime-mirror"
+    ],
+    "counterImpactExcluded": [
+      "dodgeRoll",
+      "evasiveGuard"
+    ],
+    "defendImpactTier4": [
+      "bracingStance",
+      "progression-cinder-guard",
+      "progression-warbound-defiance",
+      "progression-red-standard",
+      "progression-crown-of-cinders"
+    ],
+    "counterFluxWard": [
+      "umbralWard",
+      "wardingStar",
+      "frostCounter",
+      "fireCounter",
+      "lightningCounter",
+      "alterationCounter",
+      "illusionCounter",
+      "divineCounter",
+      "decayCounter",
+      "barrageCounter",
+      "progression-rime-mirror"
+    ],
+    "fluxTier2": [
+      "hex",
+      "contagion",
+      "butterflyPlague",
+      "gravityWell",
+      "blightBloom"
+    ],
+    "defendBarrierEffects": [
+      "block",
+      "gainBarrier",
+      "gainWard"
+    ],
+    "enemyDamageTargets": [
+      "enemy",
+      "allEnemies"
+    ],
+    "fluxDamageTypes": [
+      "fire",
+      "arcane"
+    ],
+    "counterstrikeAmountOps": [
+      "damage",
+      "block",
+      "gainBarrier",
+      "poiseDamage",
+      "wardDamage",
+      "gainPoise",
+      "gainWard",
+      "heal",
+      "buildup"
+    ],
+    "strikeCardId": "core.strike",
+    "fallbackStrikeDamage": 6
   }
 }

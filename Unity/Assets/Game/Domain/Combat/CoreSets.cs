@@ -32,8 +32,8 @@ namespace Ashen.Domain.Combat
         /// <summary>The discard reasons that count toward the ability riders.</summary>
         public static readonly HashSet<string> DiscardReasons = Of(DV.ReasonEffect, DV.ReasonChosen, DV.ReasonRandom);
 
-        /// <summary>The ops a played card may not carry yet: the move of the engagement (WP-12), the Burdens an enemy lays in the deck and the arcane buildup.</summary>
-        public static readonly HashSet<string> DeferredOps = Of(SV.MoveEngagement, SV.AddBurden, Op.ArcaneBuildup);
+        /// <summary>The ops a played card may not carry yet: the move of the engagement (WP-12) and the arcane buildup.</summary>
+        public static readonly HashSet<string> DeferredOps = Of(SV.MoveEngagement, Op.ArcaneBuildup);
 
         /// <summary>The target selectors that name a hostile creature.</summary>
         public static readonly HashSet<string> HostileSpecs = Of(DV.TargetEnemy, DV.TargetAllEnemies, V.TargetRandomEnemy, DV.TargetOtherEnemies);

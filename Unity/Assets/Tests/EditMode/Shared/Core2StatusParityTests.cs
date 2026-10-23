@@ -188,8 +188,37 @@ namespace Ashen.Tests
                         options["cap"] != null ? options.Value<double>("cap") : (double?)null, options.Value<string>("onceKey"));
                 case "breakWard": return CoreStatusControl.BreakWard(c, e, Obj(step["meta"]));
                 case "read": return Query(c, e, step);
+                case "tacticalComplete":
+                {
+                    var receipt = new JObject { ["completed"] = false, ["profiles"] = new JArray(), ["covered"] = new JArray() };
+                    foreach (var prop in ((JObject)step["receipt"]).Properties()) receipt[prop.Name] = prop.Value.DeepClone();
+                    CoreTactical.Complete(c, e, Entity(c, step.Value<string>("targetWho")), Obj(step["carrier"]), receipt);
+                    return Js.Null();
+                }
+                case "effect":
+                {
+                    var action = new CombatAction
+                    {
+                        Effect = (JObject)step["effect"].DeepClone(), Source = e, Owner = e, Target = step["targetWho"] != null ? Entity(c, step.Value<string>("targetWho")) : null,
+                        Card = step["card"] != null ? (JObject)step["card"].DeepClone() : null, Meta = EffectMeta(Obj(step["meta"])),
+                    };
+                    CoreActions.Execute(c, action);
+                    return Js.Null();
+                }
                 default: throw new InvalidOperationException("unknown step " + step.Value<string>("op"));
             }
+        }
+
+        private static ActionMeta EffectMeta(JObject meta)
+        {
+            var result = new ActionMeta();
+            if (meta["linkedDepth"] != null) result.LinkedDepth = meta.Value<int>("linkedDepth");
+            if (meta["choice"] != null) result.Choice = meta["choice"].DeepClone();
+            var charge = new JObject();
+            foreach (var p in new[] { ("abilityChargeBlock", "block"), ("abilityChargeHeal", "heal"), ("abilityChargeBuildup", "buildup"), ("abilityChargeDamage", "damage"), ("abilityChargeDamageEffect", "damageEffect"), ("abilityChargeBreak", "break") })
+                if (meta[p.Item1] != null) charge[p.Item2] = meta[p.Item1].DeepClone();
+            if (charge.Count > 0) result.Charge = charge;
+            return result;
         }
 
         private static JToken Query(CombatState c, JObject e, JObject step)
@@ -217,6 +246,60 @@ namespace Ashen.Tests
             ["effect"] = a.Effect.DeepClone(), ["source"] = a.Source?["id"]?.DeepClone() ?? Js.Null(), ["target"] = a.Target?["id"]?.DeepClone() ?? Js.Null(),
             ["killReceipt"] = a.Meta?.KillReceipt?.DeepClone() ?? Js.Null(),
         }));
+
+        // ------------------------------------------------------------------ the card traits
+
+        public static IEnumerable<TestCaseData> TraitProjections()
+        {
+            if (!File.Exists(Path.Combine(Dir, "traits.json"))) yield break;
+            var rows = (JArray)Read("traits.json")["projection"];
+            for (var i = 0; i < rows.Count; i += 20)
+                yield return new TestCaseData(i, Math.Min(rows.Count, i + 20)).SetName("Core2TraitProjection_" + i);
+        }
+
+        [TestCaseSource(nameof(TraitProjections))]
+        public void TheProjectionAddsTheTraitsTheWebAdds(int from, int to)
+        {
+            var file = Read("traits.json");
+            var c = Build((JObject)Read("defs.json")["spec"]);
+            for (var i = from; i < to; i++)
+            {
+                var row = (JObject)file["projection"][i];
+                var def = (JObject)file["defs"][row.Value<string>("id")];
+                var baseTags = ((JArray)file["baseTags"][row.Value<string>("id")]).Select(t => t.Value<string>()).ToList();
+                var rules = (JObject)file["rules"][row.Value<string>("rules")];
+                var at = row.Value<string>("id") + " " + row.Value<string>("rules");
+                Assert.That(CoreCardTraits.Tier(def), Is.EqualTo(row.Value<double>("tier")), at + " tier");
+                var input = (JObject)def.DeepClone();
+                var got = CoreCardTraits.Apply(c, input, rules, baseTags);
+                Core2DamageParityTests.Same(at + " input untouched", def, input);
+                Core2DamageParityTests.Same(at + " traitValues", row["traitValues"], got["traitValues"] ?? Js.Null());
+                Core2DamageParityTests.Same(at + " tags", row["tags"], ReferenceEquals(got, input) ? Js.Null() : got["tags"] ?? Js.Null());
+                Core2DamageParityTests.Same(at + " cardTags", row["cardTags"], got["cardTags"] ?? Js.Null());
+            }
+        }
+
+        [Test]
+        public void TheTraitMathIsTheWebs()
+        {
+            var file = Read("traits.json");
+            var c = Build((JObject)Read("defs.json")["spec"]);
+            foreach (JObject row in (JArray)file["math"])
+            {
+                var kind = row.Value<string>("kind");
+                if (row["rules"] != null) c.Fields["reactionRules"] = file["rules"][row.Value<string>("rules")].DeepClone();
+                var at = row.ToString(Newtonsoft.Json.Formatting.None);
+                switch (kind)
+                {
+                    case "advantage": Assert.That(CoreCardTraits.HasAdvantage(c, row.Value<string>("player"), row.Value<string>("target")), Is.EqualTo(row.Value<bool>("value")), at); break;
+                    case "pct": Assert.That(CoreCardTraits.CounterstrikePct(c, row.Value<string>("player"), row.Value<string>("target")), Is.EqualTo(row.Value<double>("value")).Within(1e-12), at); break;
+                    case "amount": Core2DamageParityTests.Same(at, row["value"], CoreCardTraits.CounterstrikeAmount(row["amount"], row.Value<double>("pct"))); break;
+                    case "hit": Assert.That(CoreCardTraits.HitAmount(row.Value<double>("own"), row.Value<double>("n")), Is.EqualTo(row.Value<double>("value")), at); break;
+                    case "maneuver": Assert.That(CoreCardTraits.ManeuverOf(row["entity"] as JObject, row.Value<string>("resolving")), Is.EqualTo(row.Value<string>("value")), at); break;
+                    default: Assert.Fail("unknown math row " + kind); break;
+                }
+            }
+        }
 
         [TestCaseSource(nameof(Scenarios))]
         public void TheScenarioPlaysAsTheWebPlaysIt(string file, int index)

@@ -26,6 +26,9 @@ namespace Ashen.Generated
         public const string Dazed = "dazed";
         public const string DistinctTypes = "distinctTypes";
         public const string End = "end";
+        public const string EnemyBurdenAdded = "enemyBurdenAdded";
+        public const string EnemyBurdenBlocked = "enemyBurdenBlocked";
+        public const string EnemyBurdenDrawn = "enemyBurdenDrawn";
         public const string EnemyKilledWithStatus = "enemyKilledWithStatus";
         public const string EnemyNegativeStatusNew = "enemyNegativeStatusNew";
         public const string EvadeStackGain = "evadeStackGain";

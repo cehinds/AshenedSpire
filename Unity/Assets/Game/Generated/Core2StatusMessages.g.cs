@@ -13,6 +13,9 @@ namespace Ashen.Generated
         public const string BadTransform = "Transform must name a card";
         public const string BadZoneCount = "Card count must be a bounded number or formula";
         public const string BuildupNeedsEnemy = "Buildup charge requires a living enemy target";
+        public const string BurdenBehavior = "Generated enemy card must define burden behavior";
+        public const string BurdenEnemiesOnly = "Burden targets enemies only";
+        public const string BurdenPile = "Enemy burden pile must be draw or hand";
         public const string ChoiceNeedsCard = "Card selection requires a resolving card";
         public const string ChooseBeforeAction = "Choose the cards to discard before taking another action";
         public const string ChooseExactDiscard = "Choose exactly {0} distinct cards from your hand";

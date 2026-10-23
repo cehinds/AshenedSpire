@@ -22,10 +22,11 @@
 import { writeFileSync, readFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, projectFull, delta, SOURCES } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, projectFull, delta, botLcg, detach, SOURCES } from './oracle-core2.mjs';
 
 const OUT = join(ORACLE_DIR, 'statuses');
 const PER_FILE = 60;
+const FIGHTS = Number(arg('--fights', '3'));
 const w = await loadWeb();
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const S = await load('src/engine/statuses.js');
@@ -35,6 +36,7 @@ const actions = await load('src/engine/actions.js');
 const fixcore = await load('src/model/fixCoreMechanics.js');
 const schemas = await load('src/model/schemas.js');
 const traitMath = await load('src/engine/combatCardTraitMath.js');
+const matchups = await load('src/engine/combatMatchups.js');
 const traitProjection = await load('src/content/traitProjection.js');
 const traitRules = await load('src/content/combatCardTraits.js');
 const all = encounters(w);
@@ -138,6 +140,16 @@ function run(c, step) {
     case 'restorePoise': return Control.restorePersistentPoise(c, e, step.nominal, structuredClone(step.options || {}));
     case 'breakWard': return Control.breakPersistentWard(c, e, structuredClone(step.meta || {}));
     case 'read': return read(c, step);
+    case 'tacticalComplete': {
+      const receipt = { completed: false, profiles: [], covered: [], ...structuredClone(step.receipt) };
+      matchups.completeTacticalAction(c, e, entityOf(c, step.targetWho), structuredClone(step.carrier || {}), receipt, {});
+      return null;
+    }
+    case 'effect': {
+      const action = { effect: structuredClone(step.effect), source: e, owner: e, target: step.targetWho ? entityOf(c, step.targetWho) : null, ...(step.card ? { card: structuredClone(step.card) } : {}), meta: structuredClone(step.meta || {}) };
+      actions.executeAction(c, action);
+      return null;
+    }
     default: throw new Error(`unknown step ${step.op}`);
   }
 }
@@ -352,6 +364,367 @@ function wardGrid() {
 }
 
 // ---------------------------------------------------------------------------------------------------------------
+// Fights
+// ---------------------------------------------------------------------------------------------------------------
+// THE FILTER. A step is recorded when its dry run on a detached copy throws nothing, opens no reaction window and emits no event of the packages
+// that are not ported yet (reactions and Counters, the engagement and the range, Burdens, flasks); a card is played when none of its faces (its
+// variants included) carries an op of a later package (the move of the engagement, a Burden, arcane buildup, a script, a legacy stance), a Counter,
+// an Ashen Blight cost, a cardPreparing listener or a hostile hook. An enemy takes its turn when it stands in melee range and every move it can
+// play stays within ENEMY_OPS; the others are held (the flag a Poise break sets). Statuses are laid on the fighters by `applyStatus` steps first,
+// so the hooks, the clocks, the controls and the procs run on real turns.
+const DEFERRED_OPS = new Set(['moveEngagement', 'addBurden', 'arcaneBuildup']);
+const FORBIDDEN_EVENT = /reaction|counter|engagement|range|burden|flask|swap|formation|characterMoved/i;
+const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'applyStatus', 'block', 'gainBarrier', 'buildup', 'heal', 'wardDamage', 'loseHp', 'removeStatus']);
+const HOSTILE_OPS = new Set(['damage', 'applyStatus', 'buildup', 'poiseDamage', 'wardDamage', 'loseHp', 'stagger', 'arcaneBuildup']);
+const FRIENDLY_TARGETS = new Set(['self', 'owner', 'player', 'ally', 'allAllies']);
+const expansion = await load('src/engine/combatExpansion.js');
+const tactics = await load('src/engine/combatCardTactics.js');
+const typesSince = (c, mark) => c.eventLog.slice(mark).map((e) => e.type);
+const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
+
+function hasHostileHooks(combat, owner, effects = []) {
+  const ids = new Set(Object.keys(owner.statuses || {}));
+  for (const effect of effects) if (effect.op === 'applyStatus' && ['self', 'owner'].includes(effect.target)) ids.add(effect.status);
+  let rows;
+  for (;;) {
+    rows = triggers.rangeHookSources(combat, owner, [...ids]);
+    let changed = false;
+    for (const { trigger } of rows) for (const effect of trigger.do || [])
+      if (effect.op === 'applyStatus' && ['self', 'owner'].includes(effect.target) && !ids.has(effect.status)) { ids.add(effect.status); changed = true; }
+    if (!changed) break;
+  }
+  return rows.some(({ trigger }) => (trigger.do || []).some((effect) => HOSTILE_OPS.has(effect.op) && !FRIENDLY_TARGETS.has(effect.target)));
+}
+
+const fightReacts = (combat) => combat.enemies.some((e) => Object.values(combat.registries.enemies.get(e.enemyId).moves || {}).some((m) => m.reaction?.on?.length));
+
+function enemyFits(combat, enemy) {
+  if (bandOf(combat, enemy) !== 0) return false;
+  const def = combat.registries.enemies.get(enemy.enemyId);
+  const ids = [enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
+  for (const id of ids) {
+    const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
+    if (move.delay) return false;
+    if (tactics.enemyMoveCarrier(enemy, def.moves[id], id, combat).combatProfile.maneuver === 'counter') return false;
+    if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
+    if (hasHostileHooks(combat, enemy, move.effects || [])) return false;
+  }
+  return !enemy.pendingMove;
+}
+
+function dryRun(combat, intent) {
+  const copy = detach(w, combat);
+  const mark = copy.eventLog.length;
+  try { w.combat.dispatch(copy, structuredClone(intent)); } catch (e) { return { ok: false, why: `throws: ${e.message}` }; }
+  const bad = typesSince(copy, mark).find((t) => FORBIDDEN_EVENT.test(t));
+  if (bad) return { ok: false, why: `event ${bad}` };
+  if (copy.pendingReaction) return { ok: false, why: 'reaction' };
+  return { ok: true };
+}
+
+const facesOf = (def) => [def.effects || [], ...(def.effectVariants || []).map((v) => v.effects || [])];
+function playable(combat, card) {
+  const def = expansion.resolveCombatCard(combat, card);
+  const faces = facesOf(def).flat();
+  const tags = def.cardTags || def.tags || [];
+  if (!faces.length) return false;
+  if (faces.some((e) => DEFERRED_OPS.has(e.op) || e.script || (e.op === 'enterStance' && (e.stance || e.choose === 'classStance')))) return false;
+  if (tags.includes('maneuver:counter') || def.ashenBlightCost > 0) return false;
+  if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
+  return !hasHostileHooks(combat, combat.player, faces);
+}
+
+const safeStatus = (combat, id) => !hasHostileHooks(combat, { statuses: { [id]: { stacks: 1 } } });
+const RESTING = new Set(['staggered', 'base.stagger']);
+
+function fight(seed, classId, encounter, bot, steps) {
+  const run = createRun(w, seed, classId);
+  const { combat } = createFight(w, run, encounter);
+  const pick = botLcg(seed ^ 0x51ed270b);
+  let last = projectFull(combat);
+  const start = { events: typesSince(combat, 0), state: last };
+  const record = [];
+  const step = (intent, extra = {}) => {
+    const mark = combat.eventLog.length;
+    let error = null;
+    try {
+      if (intent.type === 'applyStatus') {
+        S.applyStatus(combat, entityOf(combat, intent.who), intent.status, intent.stacks, entityOf(combat, intent.from));
+        drain(combat);
+      } else w.combat.dispatch(combat, structuredClone(intent));
+    } catch (e) { error = e.message; }
+    const state = projectFull(combat);
+    record.push({ intent, ...extra, ...(error ? { error } : {}), events: typesSince(combat, mark), delta: delta(last, state) ?? {} });
+    last = state;
+    return !error;
+  };
+  step({ type: 'setReactions', enabled: false });
+  // the opening statuses: a few on each side, chosen from those whose hooks stay inside the filter
+  const pool = statusIds.filter((id) => !RESTING.has(id) && safeStatus(combat, id));
+  const openers = bot === 'statuses' ? 5 : 2;
+  for (let i = 0; i < openers; i++) {
+    const id = pool[pick(pool.length)];
+    const who = pick(3) === 0 ? 'p' : `e${pick(combat.enemies.length)}`;
+    step({ type: 'applyStatus', who, status: id, stacks: 1 + pick(3), from: who === 'p' ? 'e0' : 'p' });
+  }
+  for (let i = 0; i < steps && !combat.result; i++) {
+    if (combat.phase !== 'player') break;
+    // a pending choice must be answered first
+    if (combat.pendingCardChoice) {
+      const ids = [...combat.pendingCardChoice.candidateIds];
+      const chosen = [];
+      while (chosen.length < combat.pendingCardChoice.count && ids.length) chosen.push(ids.splice(pick(ids.length), 1)[0]);
+      if (!step({ type: 'chooseCards', cardInstanceIds: chosen })) break;
+      continue;
+    }
+    if (combat.pendingAbilityDiscard) {
+      const ids = combat.piles.hand.map((card) => card.instanceId);
+      const chosen = [];
+      while (chosen.length < combat.pendingAbilityDiscard.count && ids.length) chosen.push(ids.splice(pick(ids.length), 1)[0]);
+      if (!step({ type: 'chooseDiscard', cardInstanceIds: chosen })) break;
+      continue;
+    }
+    const options = [];
+    if (!fightReacts(combat)) {
+      const targets = combat.enemies.filter((e) => e.alive && bandOf(combat, e) === 0).map((e) => e.id);
+      const alive = combat.enemies.filter((e) => e.alive).map((e) => e.id);
+      for (const card of combat.piles.hand) {
+        if (!playable(combat, card)) continue;
+        const def = expansion.resolveCombatCard(combat, card);
+        const faces = facesOf(def).flat();
+        const strikes = faces.some((e) => ['damage', 'poiseDamage', 'wardDamage'].includes(e.op) && e.target !== 'self');
+        if (strikes && !targets.length) continue;
+        const aimed = faces.some((e) => e.target === 'enemy');
+        const choices = faces.some((e) => e.op === 'enterStance' && e.choose === 'maneuver') ? ['attack', 'smash', 'defend', 'sweep', 'casting', 'evade'] : [undefined];
+        for (const choice of choices) for (const targetId of aimed ? (strikes ? targets : alive) : [undefined]) {
+          const intent = { type: 'playCard', cardInstanceId: card.instanceId, ...(targetId ? { targetId } : {}), ...(choice ? { choice } : {}) };
+          if (dryRun(combat, intent).ok) options.push(intent);
+        }
+      }
+    }
+    // the built-in recoveries of a held creature
+    const controls = Control.recoveryControls(combat, combat.player).filter((row) => !row.disabled && row.costPerStack <= combat.player.energy);
+    if (controls.length && pick(2) === 0) {
+      const intent = { type: 'recoverControl', selections: [{ status: controls[0].status, stacks: 1 }] };
+      if (dryRun(combat, intent).ok) { if (!step(intent)) break; continue; }
+    }
+    let intent;
+    if (options.length && pick(10) < 9) {
+      // a card that does more than strike or guard is the point of this oracle: it is picked first most of the time
+      const rich = options.filter((o) => { const card = combat.piles.hand.find((x) => x.instanceId === o.cardInstanceId); return facesOf(expansion.resolveCombatCard(combat, card)).flat().some((e) => !['damage', 'block', 'gainBarrier', 'draw'].includes(e.op)); });
+      intent = rich.length && pick(10) < 7 ? rich[pick(rich.length)] : options[pick(options.length)];
+    }
+    else {
+      intent = { type: 'endTurn', discardIds: [] };
+      const staggered = [];
+      for (const enemy of combat.enemies.filter((e) => e.alive && !e.skipNextTurn)) if (!enemyFits(combat, enemy)) { enemy.skipNextTurn = true; staggered.push(enemy.id); }
+      if (!dryRun(combat, intent).ok) {
+        for (const enemy of combat.enemies.filter((e) => e.alive)) {
+          const probe = detach(w, combat);
+          for (const other of probe.enemies) if (other.id !== enemy.id) other.skipNextTurn = true;
+          const mark = probe.eventLog.length;
+          let ok = true;
+          try { w.combat.dispatch(probe, structuredClone(intent)); } catch { ok = false; }
+          if (ok) ok = typesSince(probe, mark).every((t) => !FORBIDDEN_EVENT.test(t)) && !probe.pendingReaction;
+          if (!ok) staggered.push(enemy.id);
+        }
+        for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = true;
+        if (!dryRun(combat, intent).ok) { for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = false; break; }
+      }
+      if (!step(intent, { staggered })) break;
+      continue;
+    }
+    const played = intent.type === 'playCard' ? combat.piles.hand.find((card) => card.instanceId === intent.cardInstanceId) : null;
+    const face = played ? expansion.resolveCombatCard(combat, played) : null;
+    if (!step(intent, face ? { cardId: played.cardId, ops: facesOf(face).flat().map((e) => e.op) } : {})) break;
+  }
+  return { seed, classId, encounterId: encounter.id, bot, start, steps: record };
+}
+
+function fightFiles() {
+  const out = [];
+  classes.forEach((classId, ci) => {
+    const fights = [];
+    const pool = all.filter((e) => !/^a[23]_/.test(e.id));
+    for (const bot of ['plays', 'statuses']) for (let n = 0; n < FIGHTS * 4; n++) {
+      const encounter = pool[(ci * 5 + n * 7 + (bot === 'plays' ? 0 : 3)) % pool.length];
+      const seed = w.rngMod.sweepSeed(41000 + ci * 100 + n + (bot === 'plays' ? 0 : 50));
+      fights.push(fight(seed, classId, encounter, bot, 60));
+    }
+    out.push({ classId, fights });
+  });
+  return out;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// traits.json: the card-trait math and the projection over every card of the registry
+// ---------------------------------------------------------------------------------------------------------------
+const tags = await load('src/content/tags.js');
+function traitsFile() {
+  const tuned = structuredClone(traitRules.CARD_TRAIT_RULES);
+  tuned.counterstrike = { pct: 0.4, advantagedPct: 0.9 };
+  tuned.impact = { base: { smash: 3, default: 2 }, perTwoTiers: 2 };
+  tuned.flux = { base: 2, perTwoTiers: 1 };
+  tuned.advantage = { ...structuredClone(traitRules.CARD_TRAIT_RULES.advantage), casting: ['defend'], defend: ['sweep', 'attack'] };
+  const ruleSets = { shipped: structuredClone(traitRules.CARD_TRAIT_RULES), tuned };
+  const defs = {}, baseTags = {};
+  const projection = [];
+  for (const def of w.registries.cards.all()) {
+    defs[def.id] = canon(def);
+    baseTags[def.id] = tags.objectTagIds('card', def.id);
+    for (const [name, rules] of Object.entries(ruleSets)) {
+      const out = traitProjection.applyCardTraits(structuredClone(def), structuredClone(rules));
+      projection.push({ id: def.id, rules: name, tier: traitProjection.cardTier(def), traitValues: canon(out.traitValues ?? null), tags: canon(out === def ? null : out.tags), cardTags: canon(out.cardTags ?? null) });
+    }
+  }
+  const maneuvers = [null, 'attack', 'smash', 'defend', 'sweep', 'counter', 'casting', 'ranged', 'evade', 'prepared'];
+  const math = [];
+  for (const [name, rules] of Object.entries(ruleSets)) {
+    const ctx = { reactionRules: rules };
+    for (const player of maneuvers) for (const target of maneuvers) {
+      math.push({ rules: name, kind: 'advantage', player, target, value: traitMath.hasStanceAdvantage(ctx, player, target) });
+      math.push({ rules: name, kind: 'pct', player, target, value: traitMath.counterstrikePct(ctx, player, target) });
+    }
+  }
+  for (const amount of [-3, 0, 1, 2, 3, 4, 5, 7, 10, 13, 100, 0.5, 2.5, null, 'x', true]) for (const pct of [0.4, 0.5, 0.75, 0.9, 1])
+    math.push({ kind: 'amount', amount, pct, value: traitMath.counterstrikeAmount(amount, pct) });
+  for (const own of [-1, 0, 1, 3, 10]) for (const n of [-2, 0, 1, 2, 5]) math.push({ kind: 'hit', own, n, value: traitMath.traitHitAmount(own, n) });
+  const entities = [null, {}, { combatStance: { maneuver: 'smash' } }, { intent: { combatProfile: { maneuver: 'sweep' } } }, { combatProfile: { maneuver: 'counter' } },
+    { combatStance: { maneuver: 'attack' }, intent: { combatProfile: { maneuver: 'sweep' } } }, { combatStance: {}, intent: { combatProfile: { maneuver: 'defend' } }, combatProfile: { maneuver: 'counter' } }];
+  entities.forEach((entity, index) => { for (const resolving of [null, 'sweep']) math.push({ kind: 'maneuver', index, entity, resolving, value: traitMath.stanceManeuverOf(entity, resolving) }); });
+  return { rules: canon(ruleSets), defs, baseTags, projection, math: canon(math) };
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// The effect ops: each op of the DSL that this package ports, run on its own through the interpreter with the variants it reads
+// ---------------------------------------------------------------------------------------------------------------
+const cardIds = w.registries.cards.all().map((c) => c.id);
+const STRIKE = cardIds.includes('core.strike') ? 'core.strike' : cardIds[0];
+const SPELL = cardIds.includes('core.cantrip') ? 'core.cantrip' : cardIds[1];
+
+function opGrid() {
+  const variants = [];
+  const add = (name, effect, extra = {}) => variants.push({ name, effect, ...extra });
+  for (const amount of [0, 4, 40]) add(`block ${amount}`, { op: 'block', amount, target: 'self' });
+  add('block formula', { op: 'block', amount: { f: 'stacks', of: 'self', status: 'strength' }, target: 'self' }, { patch: { p: { statuses: { strength: { stacks: 3 } } } } });
+  add('block unbreakable', { op: 'block', amount: 30, target: 'self' }, { patch: { p: { statuses: { unbreakable: { stacks: 1 } } } } });
+  add('block charged', { op: 'block', amount: 5, target: 'self' }, { meta: { abilityChargeBlock: 4 } });
+  add('block floor', { op: 'block', amount: 5, target: 'self' }, { card: { proposalProtectionFloor: true } });
+  add('barrier', { op: 'gainBarrier', amount: 6, target: 'self' });
+  add('barrier floor', { op: 'gainBarrier', amount: 6, target: 'self' }, { card: { proposalProtectionFloor: true } });
+  for (const amount of [1, 3, 60]) add(`draw ${amount}`, { op: 'draw', amount });
+  add('draw once', { op: 'draw', amount: 1, oncePerTurn: true }, { twice: true });
+  add('draw marker', { op: 'draw', amount: 1, oncePerTurn: 'm1' }, { twice: true });
+  add('draw if', { op: 'draw', amount: 1, if: { p: 'hasStatus', of: 'self', status: 'strength' } });
+  add('draw if held', { op: 'draw', amount: 1, if: { p: 'hasStatus', of: 'self', status: 'strength' } }, { patch: { p: { statuses: { strength: { stacks: 1 } } } } });
+  add('draw repeat', { op: 'draw', amount: 1, repeat: 3 });
+  add('discard', { op: 'discard', amount: 2 });
+  add('discard random', { op: 'discard', amount: 2, random: true });
+  add('discard choose', { op: 'discard', amount: 1, choose: true });
+  add('exhaust', { op: 'exhaust', amount: 2 });
+  add('exhaust random', { op: 'exhaust', amount: 2, random: true });
+  for (const pile of ['hand', 'draw', 'discard', 'exhaust', 'bogus']) for (const position of [undefined, 'top', 'bottom']) add(`addCard ${pile} ${position}`, { op: 'addCard', card: STRIKE, pile, position, count: 2 });
+  add('addCard unknown', { op: 'addCard', card: 'nothing.here' });
+  add('addCard hand full', { op: 'addCard', card: STRIKE, pile: 'hand', count: 20 });
+  add('gainEnergy', { op: 'gainEnergy', amount: 2 });
+  add('gainEnergy funded', { op: 'gainEnergy', amount: 3, funded: 2 });
+  add('restoreMana', { op: 'restoreMana', amount: 2, target: 'self' }, { patch: { p: { mana: 0 } } });
+  add('restoreMana floor', { op: 'restoreMana', toFloorPct: 50, target: 'self' }, { patch: { p: { mana: 0 } } });
+  add('restoreMana floor full', { op: 'restoreMana', toFloorPct: 50, target: 'self' });
+  add('restoreStamina', { op: 'restoreStamina', amount: 2, target: 'self' }, { patch: { p: { stamina: 0 } } });
+  for (const amount of [0, 3, 500]) add(`loseHp ${amount}`, { op: 'loseHp', amount, target: 'self' });
+  add('loseHp cause', { op: 'loseHp', amount: 2, target: 'self', cause: 'proc:test' });
+  add('loseHp nonlethal', { op: 'loseHp', amount: 3, target: 'self', nonlethal: true }, { patch: { p: { hp: 3 } } });
+  add('loseHp offering', { op: 'loseHp', amount: 3, target: 'self', offering: true, nonlethal: true });
+  add('loseHp enemy', { op: 'loseHp', amount: 4, target: 'enemy' }, { targetWho: 'e0' });
+  add('loseHp kill', { op: 'loseHp', amount: 9999, target: 'enemy' }, { targetWho: 'e0' });
+  for (const [label, who, patch] of [['self', 'self', { p: { hp: 30 } }], ['enemy', 'enemy', { e0: { hp: 10 } }]])
+    for (const amount of [4, 100]) add(`heal ${label} ${amount}`, { op: 'heal', amount, target: who }, { patch, targetWho: 'e0' });
+  add('heal inverted', { op: 'heal', amount: 6, target: 'self' }, { patch: { p: { hp: 30, statuses: { 'base.divine-harm': { stacks: 2 } } } } });
+  add('heal charged', { op: 'heal', amount: 3, target: 'self' }, { patch: { p: { hp: 30 } }, meta: { abilityChargeHeal: 2 } });
+  add('shuffle', { op: 'shuffleDiscardIntoDraw' });
+  for (const maneuver of ['attack', 'smash', 'defend', 'sweep', 'counter', 'casting', 'evade', 'bogus']) add(`stance ${maneuver}`, { op: 'enterStance', maneuver, target: 'self' });
+  add('stance choose', { op: 'enterStance', choose: 'maneuver' }, { meta: { choice: 'sweep' } });
+  add('stance choose none', { op: 'enterStance', choose: 'maneuver' });
+  add('stance legacy', { op: 'enterStance', stance: 'gorefire' });
+  add('stagger', { op: 'stagger', target: 'enemy' }, { targetWho: 'e0' });
+  add('cinders', { op: 'addCinders', amount: 3 });
+  for (const [label, status, amount] of [['bleed', 'bleed', 3], ['bleed big', 'bleed', 30], ['frost', 'frost', 8], ['sleep', 'sleep', 8], ['unknown', 'nothing', 3]])
+    add(`buildup ${label}`, { op: 'buildup', target: 'enemy', status, amount }, { targetWho: 'e0' });
+  add('buildup self', { op: 'buildup', target: 'self', status: 'bleed', amount: 9 });
+  add('buildup chance', { op: 'buildup', target: 'enemy', status: 'bleed', amount: 9, chance: 50 }, { targetWho: 'e0', twice: true });
+  add('buildup camp', { op: 'buildup', target: 'enemy', status: 'weak', amount: 9, camp: 'spell', recoveryProfile: 'mental' }, { targetWho: 'e0' });
+  add('buildup charged', { op: 'buildup', target: 'enemy', status: 'bleed', amount: 4 }, { targetWho: 'e0', meta: { abilityChargeBuildup: 3 } });
+  add('buildup immune', { op: 'buildup', target: 'enemy', status: 'bleed', amount: 4, traits: { immuneStatuses: ['bleed'] } }, { targetWho: 'e0' });
+  add('buildup ward', { op: 'buildup', target: 'enemy', status: 'frost', amount: 12 }, { targetWho: 'e0', patch: { e0: { persistentWard: { max: 4, value: 4 } } } });
+  for (const amount of [0, 3, 30]) add(`gainPoise ${amount}`, { op: 'gainPoise', amount, target: 'self' });
+  add('gainWard', { op: 'gainWard', amount: 3, target: 'self' });
+  add('restorePoise', { op: 'restorePoise', amount: 4, target: 'self' }, { patch: { p: { persistentPoise: { max: 8, value: 2 } } } });
+  add('restorePoise once', { op: 'restorePoise', amount: 4, target: 'self', oncePerCombat: 'k' }, { patch: { p: { persistentPoise: { max: 8, value: 2 } } }, twice: true });
+  for (const amount of [0, 3, 30]) add(`poiseDamage ${amount}`, { op: 'poiseDamage', amount, target: 'enemy' }, { targetWho: 'e0' });
+  for (const amount of [0, 3, 30]) add(`wardDamage ${amount}`, { op: 'wardDamage', amount, target: 'enemy' }, { targetWho: 'e0', patch: { e0: { persistentWard: { max: 6, value: 6 } } } });
+  add('wardDamage none', { op: 'wardDamage', amount: 3, target: 'enemy' }, { targetWho: 'e0' });
+  add('wardDamage self', { op: 'wardDamage', amount: 2, target: 'self' }, { patch: { p: { persistentWard: { max: 6, value: 6 } } } });
+  add('charge damage', { op: 'grantCardCharge', target: 'self', key: 'k1', cardType: 'attack', damage: 6 });
+  add('charge all', { op: 'grantCardCharge', target: 'self', key: 'k2', cardTag: 'source:spell', abilityKind: 'spell', damage: 3, block: 2, heal: 1, break: 2, buildup: 2, buildupStatus: 'bleed', manaDiscount: 1, damageScope: 'effect' });
+  add('charge formula', { op: 'grantCardCharge', target: 'self', key: 'k3', cardType: 'attack', damage: { f: 'stacks', of: 'self', status: 'strength' } }, { patch: { p: { statuses: { strength: { stacks: 2 } } } } });
+  add('charge twice', { op: 'grantCardCharge', target: 'self', key: 'k4', cardType: 'attack', damage: 2, block: 1 }, { twice: true });
+  add('charge enemy', { op: 'grantCardCharge', target: 'enemy', key: 'k5', damage: 2 }, { targetWho: 'e0' });
+  add('linked spell', { op: 'castLinkedSpell', card: SPELL }, { targetWho: 'e0', card: { cardId: 'x' } });
+  add('linked spell deep', { op: 'castLinkedSpell', card: SPELL }, { targetWho: 'e0', meta: { linkedDepth: 8 } });
+  add('linked unknown', { op: 'castLinkedSpell', card: 'nothing.here' }, { targetWho: 'e0' });
+  for (const amount of [1, 5, 50]) add(`revealIntent ${amount}`, { op: 'revealIntent', amount, target: 'enemy' }, { targetWho: 'e0' });
+  add('revealIntent self', { op: 'revealIntent', amount: 2, target: 'self' });
+  add('retain', { op: 'retain', amount: 2 });
+  add('retain all', { op: 'retain', amount: -1 });
+  add('rollMode', { op: 'grantRollMode', roll: 'evade', advantage: true, target: 'self' });
+  add('rollMode dis', { op: 'grantRollMode', roll: 'evade', disadvantage: true, target: 'self' });
+  add('rollMode bad', { op: 'grantRollMode', roll: 'other', advantage: true, target: 'self' });
+  add('dodgeRoll', { op: 'dodgeRoll', target: 'self' });
+  for (const selection of ['first', 'random', 'choose']) {
+    add(`move ${selection} hand discard`, { op: 'moveCards', amount: 2, from: 'hand', to: 'discard', selection });
+    add(`move ${selection} draw hand top`, { op: 'moveCards', amount: 2, from: 'draw', to: 'hand', selection, position: 'top', look: 3 });
+    add(`move ${selection} discard draw random`, { op: 'moveCards', amount: 3, from: 'discard', to: 'draw', selection, position: 'random' });
+    add(`move ${selection} hand exhaust`, { op: 'moveCards', amount: 1, from: 'hand', to: 'exhaust', selection });
+  }
+  add('move transform', { op: 'moveCards', amount: 1, from: 'hand', to: 'hand', selection: 'first', transformTo: STRIKE });
+  add('move bad zone', { op: 'moveCards', amount: 1, from: 'nowhere', to: 'hand' });
+  add('move bad field', { op: 'moveCards', amount: 1, from: 'hand', to: 'hand', surprise: true });
+  add('move formula', { op: 'moveCards', amount: { f: 'stacks', of: 'self', status: 'strength' }, from: 'hand', to: 'discard', selection: 'first' }, { patch: { p: { statuses: { strength: { stacks: 2 } } } } });
+  for (const [label, changes] of [['retain', { retain: true }], ['retain turns', { retain: true, retainTurns: 3 }], ['maneuver', { maneuver: 'smash' }], ['range', { range: 'reach' }], ['hide', { hideTurns: 2 }], ['hide formula', { hideTurns: { f: 'stacks', of: 'self', status: 'strength' } }], ['bad', { retain: 'yes' }]])
+    for (const selection of ['first', 'random']) add(`modify ${label} ${selection}`, { op: 'modifyCards', amount: 2, from: 'hand', selection, changes }, { patch: { p: { statuses: { strength: { stacks: 2 } } } } });
+  add('modify choose', { op: 'modifyCards', amount: 1, from: 'hand', selection: 'choose', changes: { retain: true } });
+  add('unknown op', { op: 'nothingAtAll' });
+  add('moveEngagement', { op: 'moveEngagement', target: 'enemy', bands: 1 }, { targetWho: 'e0' });
+  add('addBurden', { op: 'addBurden', target: 'enemy', card: STRIKE }, { targetWho: 'e0' });
+  add('arcaneBuildup', { op: 'arcaneBuildup', target: 'enemy', amount: 3 }, { targetWho: 'e0' });
+  variants.forEach((v, i) => {
+    const who = i % 5 === 4 ? 'e0' : 'p';
+    const s = scenario(`op ${v.name}`, v.patch ? { patch: v.patch } : {});
+    const step = { op: 'effect', who, effect: v.effect, ...(v.targetWho ? { targetWho: v.targetWho } : {}), ...(v.card ? { card: v.card } : {}), ...(v.meta ? { meta: v.meta } : {}) };
+    s.steps.push(step, { op: 'drain' });
+    if (v.twice) s.steps.push(step, { op: 'drain' });
+  });
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// The Defend trait guard: it answers the first enemy hit that Block, Barrier or Ward reduced
+// ---------------------------------------------------------------------------------------------------------------
+function traitGuardGrid() {
+  const receipts = [
+    ['reduced', { amount: 5, blocked: 3, wardResisted: 0 }], ['warded', { amount: 5, blocked: 0, wardResisted: 2 }], ['bare', { amount: 5, blocked: 0, wardResisted: 0 }],
+    ['avoided', { amount: 5, blocked: 3, wardResisted: 0, avoided: true }], ['none', { amount: 0, blocked: 0, wardResisted: 0 }],
+  ];
+  for (const [label, receipt] of receipts) for (const guard of [{ poise: 2, ward: 1 }, { poise: 0, ward: 2 }, { poise: 3, ward: 0 }]) for (const attacker of ['e0', 'dead']) {
+    const patch = { e0: { persistentWard: { max: 4, value: 4 }, ...(attacker === 'dead' ? { alive: false, hp: 0 } : {}) }, p: { combatTraitGuard: guard } };
+    const s = scenario(`trait guard ${label} ${guard.poise}/${guard.ward} ${attacker}`, { patch });
+    s.steps.push({ op: 'tacticalComplete', who: 'e0', targetWho: 'p', receipt }, { op: 'drain' }, { op: 'tacticalComplete', who: 'e0', targetWho: 'p', receipt: { ...receipt, amount: 4 } }, { op: 'drain' });
+  }
+  const s = scenario('trait guard player attacker', { patch: { e0: { combatTraitGuard: { poise: 2, ward: 1 } } } });
+  s.steps.push({ op: 'tacticalComplete', who: 'p', targetWho: 'e0', receipt: { amount: 5, blocked: 3, wardResisted: 0 } }, { op: 'drain' });
+}
+
+// ---------------------------------------------------------------------------------------------------------------
 // Write
 // ---------------------------------------------------------------------------------------------------------------
 mkdirSync(OUT, { recursive: true });
@@ -368,6 +741,8 @@ eventGrid();
 controlGrid();
 controlInteractions();
 wardGrid();
+opGrid();
+traitGuardGrid();
 const recorded = [];
 for (const spec of scenarios) {
   const played = play(spec);
@@ -381,5 +756,17 @@ for (let f = 0; f * PER_FILE < recorded.length; f++) {
   index.files.push({ file, scenarios: part.length, bytes });
 }
 index.scenarios = recorded.length;
+bytes = write('traits.json', traitsFile());
+total += bytes; index.traits = { file: 'traits.json', bytes };
+const fightCount = {};
+for (const { classId, fights } of fightFiles()) {
+  const file = `fights-${classId}.json`;
+  const bytes2 = write(file, { classId, fights });
+  total += bytes2;
+  const stepCount = fights.reduce((n, f) => n + f.steps.length, 0);
+  fightCount[classId] = { fights: fights.length, steps: stepCount };
+  index.fightFiles = [...(index.fightFiles || []), { file, classId, fights: fights.length, steps: stepCount, bytes: bytes2 }];
+}
+index.fights = fightCount;
 writeFileSync(join(OUT, 'index.json'), `${JSON.stringify(canon(index), null, 1)}\n`);
 console.log(`oracle-core2-statuses: ${statusIds.length} statuses, ${recorded.length} scenarios, ${(total / 1024).toFixed(0)} KB -> Unity/Assets/Tests/Oracle/core2/statuses`);

@@ -270,8 +270,8 @@ namespace Ashen.Domain.Combat
             var damaged = c.EventLog.Skip(eventStart).FirstOrDefault(e => e.Str(K.Type) == E.DamageDealt && e.Str(K.TargetId) == target.Str(K.Id));
             if (plan.Num(DK.Healing) > 0 || (raw > 0 && damaged != null && !damaged.Is(DK.Evaded) && !damaged.Is(DK.Immune)))
             {
-                CoreProposal.ApplyPlan(c, plan, source, target, carrier);
-                CoreProposal.ApplyPlan(c, CoreProposal.AfterHitPlan(c, source, target, raw, Math.Max(0, hp - target.Num(K.Hp)), carrier), source, target, carrier);
+                CoreProposal.ApplyPlan(c, plan, source, target, carrier, contact);
+                CoreProposal.ApplyPlan(c, CoreProposal.AfterHitPlan(c, source, target, raw, Math.Max(0, hp - target.Num(K.Hp)), carrier), source, target, carrier, contact);
             }
             return amount;
         }

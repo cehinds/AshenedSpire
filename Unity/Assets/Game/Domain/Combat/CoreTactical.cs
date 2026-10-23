@@ -89,7 +89,7 @@ namespace Ashen.Domain.Combat
         {
             if (receipt == null || receipt.Is(DK.Completed)) return;
             receipt[DK.Completed] = true;
-            if (target?.Is(CK.CombatTraitGuard) == true && c.CoreData.ReactionVersion == DN.ReactionStackVersion) throw new NotSupportedException(DM.TraitsNotPorted);
+            CoreCardTraits.CompleteTraitGuard(c, source, target, receipt);
             if (receipt.Is(DK.SmashGuard)) throw new NotSupportedException(DM.CounterNotPorted);
             if (target != null) target.Remove(DK.CombatCounterStaggered);
         }
@@ -106,7 +106,9 @@ namespace Ashen.Domain.Combat
         /// <summary>stancePressureMultiplier(ctx, source, target, carrier, hit): one matchup matrix for HP, Poise and Ward.</summary>
         public static double StancePressureMultiplier(CombatState c, JObject source, JObject target, JObject carrier, JObject hit = null)
         {
-            hit ??= CoreHitRoll.Preview(c, source, target, carrier, new HitOptions { RangeContact = CoreRange.HitContact(c, source, target, carrier), DamageType = CoreDamage.ProposalDamageType(c, carrier), EvadeDisabled = CoreControl.Locked(c, target) });
+            // attackHitPreview answers nothing for a creature acting on its own side before it looks at the engagement.
+            var opposed = source != null && target != null && !ReferenceEquals(source, target) && source.Str(K.Kind) != target.Str(K.Kind);
+            if (hit == null && opposed) hit = CoreHitRoll.Preview(c, source, target, carrier, new HitOptions { RangeContact = CoreRange.HitContact(c, source, target, carrier), DamageType = CoreDamage.ProposalDamageType(c, carrier), EvadeDisabled = CoreControl.Locked(c, target) });
             var profile = NormalizedProfile(carrier);
             var stance = CoreStances.StanceOf(c, CoreDamage.DefensiveCombatStance(c, target, new JObject { [CK.CombatProfile] = profile }));
             var incoming = profile.Str(CK.Maneuver) == CV.StanceCounter ? new JObject { [CK.Maneuver] = CV.StanceCounter } : CoreStances.StanceOf(c, new JObject { [CK.CombatProfile] = profile });

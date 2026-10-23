@@ -29,6 +29,12 @@ namespace Ashen.Domain.Combat
         /// <summary>meta.expansionExecutionRepeat: which repeat of its effect the action is on (the plan's target batch it reads).</summary>
         public int? ExpansionExecutionRepeat;
 
+        /// <summary>
+        /// The contact of the hit a status rule's follow-up (a reflect, an automatic reaction) answers: the web copies the hit's carrier, its
+        /// <c>expansionContact</c> included, so the follow-up is not rolled again and settles into the same receipt.
+        /// </summary>
+        public CoreImpact.Contact InheritedContact;
+
         /// <summary>meta.cardInstanceId, cardId and trigger: the card whose turn-end-in-hand effect this is.</summary>
         public string CardInstanceId;
         public string CardId;

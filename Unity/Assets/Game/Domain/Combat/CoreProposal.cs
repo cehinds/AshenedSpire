@@ -305,7 +305,7 @@ namespace Ashen.Domain.Combat
         /// applyProposalPlan(ctx, plan, source, target, card): the plan's status changes and effects become queued actions (a negative change removes
         /// stacks, a positive one applies them), owned by the entity they name.
         /// </summary>
-        public static void ApplyPlan(CombatState c, JObject plan, JObject source, JObject target, JObject card)
+        public static void ApplyPlan(CombatState c, JObject plan, JObject source, JObject target, JObject card, CoreImpact.Contact contact = null)
         {
             var actors = new[] { c.Player }.Concat(c.Enemies).Where(a => a != null).ToList();
             JObject Find(JToken id) => actors.FirstOrDefault(a => TextOf(a[K.Id]) == TextOf(id)) ?? target ?? source;
@@ -333,7 +333,7 @@ namespace Ashen.Domain.Combat
                 profile[CK.Camp] = Js.Truthy(job[CK.Camp]) ? job[CK.Camp].DeepClone() : Js.Truthy(card?.Obj(CK.CombatProfile)?[CK.Camp]) ? card.Obj(CK.CombatProfile)[CK.Camp].DeepClone() : Js.S(CV.CampPhysical);
                 carrier[CK.CombatProfile] = profile;
                 carrier[DK.SkipRatingBonus] = reactive || card.Is(DK.SkipRatingBonus);
-                c.Enqueue(new CombatAction { Effect = effect, Source = actor, Owner = actor, Target = recipient, Card = carrier, Meta = new ActionMeta { ProposalReactive = reactive, Direct = job[DK.Direct] == null || job.Is(DK.Direct) } });
+                c.Enqueue(new CombatAction { Effect = effect, Source = actor, Owner = actor, Target = recipient, Card = carrier, Meta = new ActionMeta { ProposalReactive = reactive, Direct = job[DK.Direct] == null || job.Is(DK.Direct), InheritedContact = contact } });
             }
         }
 
