@@ -19,19 +19,19 @@
 //                        Counter played as a reaction pays for (WP-10: paidCounterRange and the reservation authorizeCounterRange accepts).
 //
 // THE FILTER (what a recorded sequence avoids; the C# port refuses these by name and the test asserts it never has to): a step is recorded only
-// when its dry run on a detached copy (a) throws nothing, (b) emits only event types in COVERED_EVENTS, (c) leaves no card choice, and (d) every
-// card it plays has only effects in COVERED_OPS (the card traits are WP-9's and are played). An enemy whose move would break (b) or (c) is marked
-// staggered for that end turn, as the WP-7 oracle does. The fights leave the player's reactions on (WP-10) and answer every offer with the bot's LCG,
-// one recorded step each; the exchanges switch them off to isolate the Counter.
-// The filter helpers are the WP-7 oracle's (Tools/oracle-core2-damage.mjs), widened for the matchups.
+// when the web accepts it (WP-C0: no card, enemy move or event is held back; the filters that did are gone). A card choice or a discard takes the first
+// cards offered, one recorded step. The fights leave the player's reactions on (WP-10) and answer every offer with the bot's LCG, one recorded step each;
+// the exchanges switch them off to isolate the Counter. What the web refuses is tallied in `rejections` (`--why`).
 import { writeFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, botLcg, detach, projectFull, delta, typesSince, answerer, dispatchAnswering, reactionFilter, REACTION_EVENTS } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, botLcg, detach, projectFull, delta, typesSince, answerer, dispatchAnswering, reactionFilter, pendingAny, choiceAnswer } from './oracle-core2.mjs';
+import { whyTally } from './oracle-core2-why.mjs';
 
 const OUT = join(ORACLE_DIR, 'matchups');
 const FIGHTS = Number(arg('--fights', '6'));
 const w = await loadWeb();
+const REJ = whyTally('matchups');
 await reactionFilter(w);
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const matchups = await load('src/engine/combatMatchups.js');
@@ -49,29 +49,13 @@ const classes = classIds(w);
 // The filter
 // ---------------------------------------------------------------------------------------------------------------
 const COUNTER_EVENTS = ['combatCounterArmed', 'combatCounterConsumed', 'combatCounterTriggered', 'combatGuardBroken', 'combatRangeReturnUnavailable'];
-const COVERED_EVENTS = new Set([...REACTION_EVENTS, 'playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared', 'combatReactionUnavailable',
-  'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
-  'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
-  'energySpent', 'staminaSpent', 'manaSpent', 'enemyDied', 'combatEnd', 'perceptionGained', 'combatHitStarted', 'combatEngagementMoved', 'combatRangeActionUnavailable', ...COUNTER_EVENTS]);
-// The ops a played card may carry: the damage, Block and Barrier of WP-7, and the Poise and Ward a Smash, a Sweep or a Counter deals.
-const COVERED_OPS = new Set(['damage', 'block', 'gainBarrier', 'poiseDamage', 'wardDamage']);
-const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'wardDamage', 'applyStatus', 'block', 'gainBarrier', 'moveEngagement']);
 const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
 
 const maneuverOfMove = (combat, enemy, id) => tactics.enemyMoveCarrier(enemy, combat.registries.enemies.get(enemy.enemyId).moves[id], id, combat).combatProfile.maneuver;
 
-// An enemy takes its turn inside the filter when every move it can play this turn (its intent and its planned follow-ups) stays within ENEMY_OPS,
-// none charges, and it already stands in melee range of the player (no Stamina to advance, no closing move).
-function enemyFits(combat, enemy) {
-  const def = combat.registries.enemies.get(enemy.enemyId);
-  const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
-  for (const id of ids) {
-    const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
-    if ((move.delay?.whileCharging?.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-    if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-  }
-  return true;
-}
+// Every enemy takes its turn and every card is played (WP-C0); only a refusal of the web keeps a step out of the record.
+const enemyFits = () => true;
+const playable = () => true;
 
 // The fights leave the player's reactions on: an offer a hit opens is answered by the bot (half the time it plays the first option, half the time it goes
 // Back, from its own LCG) and a dry run answers with a copy of that LCG (ANSWERS, set by `record` for the fight it records). The exchanges switch them off.
@@ -80,39 +64,21 @@ function dryRun(combat, intent) {
   if (ANSWERS) {
     const r = dispatchAnswering(w, combat, intent, ANSWERS);
     if (r.error) return { ok: false, why: `throws: ${r.error}` };
-    if (r.why) return { ok: false, why: r.why };
-    const bad = typesSince(r.copy, r.mark).find((t) => !COVERED_EVENTS.has(t));
-    if (bad) return { ok: false, why: `event ${bad}` };
-    if (r.copy.pendingCardChoice || r.copy.pendingAbilityDiscard) return { ok: false, why: 'pending choice' };
+    if (r.why) return REJ.why(r.why);
     return { ok: true };
   }
   const copy = detach(w, combat);
-  const mark = copy.eventLog.length;
-  try { w.combat.dispatch(copy, structuredClone(intent)); } catch (e) { return { ok: false, why: `throws: ${e.message}` }; }
-  const types = typesSince(copy, mark);
-  const bad = types.find((t) => !COVERED_EVENTS.has(t));
-  if (bad) return { ok: false, why: `event ${bad}` };
-  if (copy.pendingReaction || copy.pendingCardChoice || copy.pendingAbilityDiscard) return { ok: false, why: 'pending choice' };
+  try {
+    w.combat.dispatch(copy, structuredClone(intent));
+    for (let n = 0; (copy.pendingCardChoice || copy.pendingAbilityDiscard) && n < 60; n++) w.combat.dispatch(copy, choiceAnswer(copy));
+  } catch (e) { return REJ.why(`throws: ${e.message}`); }
+  if (copy.pendingReaction) return REJ.why('pending reaction offer with the reactions off');
   return { ok: true };
 }
 
 // model/combatCardEffects.js immediateCardEffects: a Counter plans its target by the support that resolves now, not by the reply it defers.
 const immediate = (def) => (maneuverOfCard(def) === 'counter' ? def.effects.filter((e) => !['damage', 'poiseDamage'].includes(e.op)) : def.effects);
 const maneuverOfCard = (def) => (def.cardTags || def.tags || []).map((t) => (typeof t === 'string' ? t : t.id)).find((t) => t.startsWith('maneuver:'))?.slice(9) ?? null;
-
-// A card is played inside the filter when its resolved face carries only the ops of COVERED_OPS (no gate, repeat or random target), no choice, no
-// variant, no Ashen Blight cost, nothing listens for it being prepared and the player holds no hostile hook.
-function playable(combat, card) {
-  const def = expansion.resolveCombatCard(combat, card);
-  const ops = (def?.effects || []).map((e) => e.op);
-  const tags = (def.cardTags || def.tags || []).map((t) => (typeof t === 'string' ? t : t.id));
-  if (!ops.length || !ops.every((op) => COVERED_OPS.has(op))) return false;
-  if (def.effects.some((e) => e.if || e.script || e.oncePerTurn || e.repeat !== undefined || e.choose || e.target === 'randomEnemy')) return false;
-  if (def.effectVariants?.length || def.ashenBlightCost > 0) return false;
-  if (Object.keys(combat.player.abilityRiders?.charges || {}).length) return false;
-  if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
-  return true;
-}
 
 // ---------------------------------------------------------------------------------------------------------------
 // Overlay and recording
@@ -164,10 +130,10 @@ function record(spec, drive, answers = null) {
   // With answers the player's reactions stay on and every offer a step opens is answered at once, one step each.
   const step = (intent, extra = {}) => {
     if (!one(intent, extra)) return false;
-    for (let n = 0; answers && combat.pendingReaction && !combat.result; n++) {
+    for (let n = 0; (answers ? pendingAny(combat) : combat.pendingCardChoice || combat.pendingAbilityDiscard) && !combat.result; n++) {
       if (n > 60) return false;
-      const answer = answers.next(combat);
-      if (!one(answer, { answer: answer.optionId === null ? 'back' : 'play' })) return false;
+      const answer = combat.pendingReaction ? answers.next(combat) : choiceAnswer(combat);
+      if (!one(answer, { answer: answer.type === 'chooseReaction' ? (answer.optionId === null ? 'back' : 'play') : 'choose' })) return false;
     }
     return true;
   };
@@ -670,7 +636,7 @@ for (let i = 0; i < 16; i++) {
 mkdirSync(OUT, { recursive: true });
 for (const f of readdirSync(OUT)) if (f.endsWith('.json')) rmSync(join(OUT, f));
 const write = (file, data) => { const text = `${JSON.stringify(canon(data))}\n`; writeFileSync(join(OUT, file), text); return Buffer.byteLength(text); };
-const index = { webSha: w.head, profileId: w.profile.id, profileHash: w.profile.hash, coveredEvents: [...COVERED_EVENTS].sort(), coveredOps: [...COVERED_OPS].sort(), counterEvents: COUNTER_EVENTS, deckPool: DECK_POOL, files: [] };
+const index = { webSha: w.head, profileId: w.profile.id, profileHash: w.profile.hash, counterEvents: COUNTER_EVENTS, deckPool: DECK_POOL, files: [] };
 let total = 0;
 
 const fightCount = {};
@@ -700,5 +666,6 @@ bytes = write('units.json', { units });
 total += bytes;
 index.units = { file: 'units.json', count: units.length, kinds: [...new Set(units.map((u) => u.kind))], bytes, errors: unitErrors };
 index.seen = seen;
+index.rejections = REJ.finish();
 writeFileSync(join(OUT, 'index.json'), `${JSON.stringify(canon(index), null, 1)}\n`);
 console.log(`oracle-core2-matchups: ${Object.values(fightCount).reduce((s, f) => s + f.fights, 0)} fights / ${Object.values(fightCount).reduce((s, f) => s + f.steps, 0)} steps, ${exchanges.length} exchanges / ${index.exchanges.steps} steps, ${JSON.stringify(seen)}, ${(total / 1024).toFixed(0)} KB -> Unity/Assets/Tests/Oracle/core2/matchups`);

@@ -124,6 +124,8 @@ namespace Ashen.Tests
                     case "setReactions":
                     case "playCard":
                     case "chooseReaction":
+                    case "chooseCards":
+                    case "chooseDiscard":
                         CoreDispatch.Dispatch(c, intent);
                         break;
                     default:

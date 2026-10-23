@@ -6,50 +6,50 @@
  },
  "fightFiles": [
   {
-   "bytes": 936142,
+   "bytes": 938735,
    "classId": "reaver",
    "fights": 24,
    "file": "fights-reaver.json",
-   "steps": 410
+   "steps": 412
   },
   {
-   "bytes": 838619,
+   "bytes": 841197,
    "classId": "starseer",
    "fights": 24,
    "file": "fights-starseer.json",
-   "steps": 309
+   "steps": 311
   },
   {
-   "bytes": 1151769,
+   "bytes": 1001415,
    "classId": "rogue",
    "fights": 24,
    "file": "fights-rogue.json",
-   "steps": 480
+   "steps": 412
   },
   {
-   "bytes": 817436,
+   "bytes": 808268,
    "classId": "herald",
    "fights": 24,
    "file": "fights-herald.json",
-   "steps": 311
+   "steps": 307
   }
  ],
  "fights": {
   "herald": {
    "fights": 24,
-   "steps": 311
+   "steps": 307
   },
   "reaver": {
    "fights": 24,
-   "steps": 410
+   "steps": 412
   },
   "rogue": {
    "fights": 24,
-   "steps": 480
+   "steps": 412
   },
   "starseer": {
    "fights": 24,
-   "steps": 309
+   "steps": 311
   }
  },
  "files": [
@@ -181,6 +181,7 @@
  ],
  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
  "profileId": "core",
+ "rejections": {},
  "scenarios": 1499,
  "traits": {
   "bytes": 887091,
