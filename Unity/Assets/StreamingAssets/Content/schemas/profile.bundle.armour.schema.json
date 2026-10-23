@@ -1,0 +1,143 @@
+{
+  "$id": "profile/bundle/armour.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "artClassId": {
+        "type": "string",
+        "enum": [
+          "",
+          "herald",
+          "reaver",
+          "rogue",
+          "starseer"
+        ]
+      },
+      "artKey": {
+        "type": "string"
+      },
+      "blurb": {
+        "type": "string"
+      },
+      "classId": {
+        "type": "string",
+        "x-ref": "profile/bundle/classes.json"
+      },
+      "defenseRating": {
+        "type": [
+          "integer",
+          "string"
+        ]
+      },
+      "id": {
+        "type": "string"
+      },
+      "inventoryArtKey": {
+        "type": "string",
+        "enum": [
+          "",
+          "gutterLeathers",
+          "nightweave",
+          "riteVestments",
+          "wayfarerPlate"
+        ]
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "armor"
+        ]
+      },
+      "leather": {
+        "type": "string",
+        "enum": [
+          "211F25",
+          "241C16",
+          "2A2118",
+          "2A2430",
+          "2A2622",
+          "3A2618",
+          "3A2E4A",
+          "3A3226",
+          "3C2E25",
+          "43362C",
+          "4B3522",
+          "5A4626"
+        ]
+      },
+      "mods": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "name": {
+        "type": "string"
+      },
+      "plate": {
+        "type": [
+          "integer",
+          "string"
+        ]
+      },
+      "plateLt": {
+        "type": [
+          "integer",
+          "string"
+        ]
+      },
+      "poiseThreshold": {
+        "type": "integer"
+      },
+      "requirements": {
+        "type": "object",
+        "properties": {
+          "attributes": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        "required": [
+          "attributes"
+        ]
+      },
+      "sharedSet": {
+        "type": [
+          "boolean",
+          "string"
+        ]
+      },
+      "under": {
+        "type": [
+          "integer",
+          "string"
+        ]
+      },
+      "unlock": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "artClassId",
+      "artKey",
+      "blurb",
+      "classId",
+      "defenseRating",
+      "id",
+      "inventoryArtKey",
+      "kind",
+      "leather",
+      "mods",
+      "name",
+      "plate",
+      "plateLt",
+      "poiseThreshold",
+      "requirements",
+      "sharedSet",
+      "under",
+      "unlock"
+    ]
+  }
+}

@@ -1,0 +1,2721 @@
+{
+  "$id": "rules/combatExpansionRules.json",
+  "type": "object",
+  "properties": {
+    "ashenBlight": {
+      "type": "object",
+      "properties": {
+        "convertedActionDiscount": {
+          "type": "integer"
+        },
+        "convertedPrintedBonusPct": {
+          "type": "integer"
+        },
+        "encounterLossPct": {
+          "type": "integer"
+        },
+        "maximum": {
+          "type": "integer"
+        },
+        "milestones": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "thresholdLossPct": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "convertedActionDiscount",
+        "convertedPrintedBonusPct",
+        "encounterLossPct",
+        "maximum",
+        "milestones",
+        "thresholdLossPct",
+        "version"
+      ]
+    },
+    "equipment": {
+      "type": "object",
+      "properties": {
+        "armaments": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "flat": {
+                "type": "object",
+                "properties": {
+                  "decay": {
+                    "type": "integer"
+                  },
+                  "fire": {
+                    "type": "integer"
+                  },
+                  "frost": {
+                    "type": "integer"
+                  },
+                  "piercing": {
+                    "type": "integer"
+                  },
+                  "slashing": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "traits": {
+                "type": "object",
+                "properties": {
+                  "caster": {
+                    "type": "boolean"
+                  },
+                  "conductive": {
+                    "type": "boolean"
+                  },
+                  "grounded": {
+                    "type": "boolean"
+                  },
+                  "insulated": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "armour": {
+          "type": "object",
+          "properties": {
+            "herald:default": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "decay": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "decay"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat"
+              ]
+            },
+            "herald:emberhabit": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "fire": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "fire"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "burn": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "burn"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "herald:ossuary": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "decay": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "decay"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "crimsonBlight": {
+                          "type": "integer"
+                        },
+                        "necroticBlight": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "crimsonBlight",
+                        "necroticBlight"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "herald:pilgrim": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "sacred": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "sacred"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "recoveryBonus": {
+                      "type": "object",
+                      "properties": {
+                        "curse": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "curse"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "recoveryBonus"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "reaver:bastion": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "blunt": {
+                      "type": "integer"
+                    },
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "blunt",
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "conductive": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "conductive"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "reaver:default": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "conductive": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "conductive"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "reaver:oathsworn": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "decay": {
+                      "type": "integer"
+                    },
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "decay",
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "conductive": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "conductive"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "reaver:vigil": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "frost"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat"
+              ]
+            },
+            "reaver:warden": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    },
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing",
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "conductive": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "conductive"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "rogue:default": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat"
+              ]
+            },
+            "rogue:duelist": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "recoveryBonus": {
+                      "type": "object",
+                      "properties": {
+                        "bodily": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "bodily"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "recoveryBonus"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "rogue:nightveil": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "sleep": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "sleep"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "rogue:shadow": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "venom": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "venom"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "rogue:waywatcher": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "insulated": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "insulated"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "starseer:astral": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "arcane": {
+                      "type": "integer"
+                    },
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "arcane",
+                    "frost"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "dazed": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "dazed"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "starseer:default": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "frost"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat"
+              ]
+            },
+            "starseer:eclipse": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "arcane": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "arcane"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "sleep": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "sleep"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "starseer:rimeweave": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "frost"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "frost": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "frost"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "starseer:starlit": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "frost"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "insulated": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "insulated"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            }
+          },
+          "required": [
+            "herald:default",
+            "herald:emberhabit",
+            "herald:ossuary",
+            "herald:pilgrim",
+            "reaver:bastion",
+            "reaver:default",
+            "reaver:oathsworn",
+            "reaver:vigil",
+            "reaver:warden",
+            "rogue:default",
+            "rogue:duelist",
+            "rogue:nightveil",
+            "rogue:shadow",
+            "rogue:waywatcher",
+            "starseer:astral",
+            "starseer:default",
+            "starseer:eclipse",
+            "starseer:rimeweave",
+            "starseer:starlit"
+          ]
+        },
+        "enemies": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "armorClass": {
+                "type": "string",
+                "enum": [
+                  "heavy",
+                  "light",
+                  "medium"
+                ]
+              },
+              "flat": {
+                "type": "object",
+                "properties": {
+                  "piercing": {
+                    "type": "integer"
+                  },
+                  "slashing": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "resist": {
+                "type": "object",
+                "properties": {
+                  "decay": {
+                    "type": "integer"
+                  },
+                  "earth": {
+                    "type": "integer"
+                  },
+                  "fire": {
+                    "type": "integer"
+                  },
+                  "psychic": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "traits": {
+                "type": "object",
+                "properties": {
+                  "buildupResistance": {
+                    "type": "object",
+                    "properties": {
+                      "venom": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "venom"
+                    ]
+                  },
+                  "caster": {
+                    "type": "boolean"
+                  },
+                  "conductive": {
+                    "type": "boolean"
+                  },
+                  "mindless": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "weak": {
+                "type": "object",
+                "properties": {
+                  "blunt": {
+                    "type": "integer"
+                  },
+                  "decay": {
+                    "type": "integer"
+                  },
+                  "fire": {
+                    "type": "integer"
+                  },
+                  "frost": {
+                    "type": "integer"
+                  },
+                  "piercing": {
+                    "type": "integer"
+                  },
+                  "sacred": {
+                    "type": "integer"
+                  },
+                  "slashing": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            "required": [
+              "armorClass",
+              "weak"
+            ]
+          }
+        },
+        "sharedArmour": {
+          "type": "object",
+          "properties": {
+            "gutterLeathers": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "venom": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "venom"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "nightweave": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "frost"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "recoveryBonus": {
+                      "type": "object",
+                      "properties": {
+                        "mental": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "mental"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "recoveryBonus"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "riteVestments": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "sacred": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "sacred"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "weak": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "weak"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "wayfarerPlate": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    },
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing",
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "conductive": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "conductive"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            }
+          },
+          "required": [
+            "gutterLeathers",
+            "nightweave",
+            "riteVestments",
+            "wayfarerPlate"
+          ]
+        }
+      },
+      "required": [
+        "armaments",
+        "armour",
+        "enemies",
+        "sharedArmour"
+      ]
+    },
+    "matchups": {
+      "type": "object",
+      "properties": {
+        "attack": {
+          "type": "object",
+          "properties": {
+            "preparedPoiseMultiplier": {
+              "type": "number"
+            },
+            "smashMultiplier": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "preparedPoiseMultiplier",
+            "smashMultiplier"
+          ]
+        },
+        "cleanseStatuses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "burn",
+              "crimsonBlight",
+              "frail",
+              "necroticBlight",
+              "vulnerable",
+              "weak"
+            ]
+          }
+        },
+        "counter": {
+          "type": "object",
+          "properties": {
+            "defaultCoverage": {
+              "type": "object",
+              "properties": {
+                "melee": {
+                  "type": "object",
+                  "properties": {
+                    "camps": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "maneuvers": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "ranges": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "targeting": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "camps",
+                    "effects",
+                    "maneuvers",
+                    "ranges",
+                    "targeting"
+                  ]
+                },
+                "ranged": {
+                  "type": "object",
+                  "properties": {
+                    "camps": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "ranges": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "targeting": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "camps",
+                    "effects",
+                    "ranges",
+                    "targeting"
+                  ]
+                },
+                "spell": {
+                  "type": "object",
+                  "properties": {
+                    "camps": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "ranges": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "targeting": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "camps",
+                    "effects",
+                    "ranges",
+                    "targeting"
+                  ]
+                }
+              },
+              "required": [
+                "melee",
+                "ranged",
+                "spell"
+              ]
+            },
+            "incomingMultiplier": {
+              "type": "number"
+            },
+            "maxReturnsPerCycle": {
+              "type": "integer"
+            },
+            "schoolMatchups": {
+              "type": "object",
+              "properties": {
+                "alteration": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "decay": {
+                  "type": "object",
+                  "properties": {
+                    "strongTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongTraits"
+                  ]
+                },
+                "divine": {
+                  "type": "object",
+                  "properties": {
+                    "strongSchools": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakDamageTypes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongSchools",
+                    "weakDamageTypes"
+                  ]
+                },
+                "earth": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "fire": {
+                  "type": "object",
+                  "properties": {
+                    "strongSchools": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakDamageTypes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongSchools",
+                    "weakDamageTypes"
+                  ]
+                },
+                "force": {
+                  "type": "object",
+                  "properties": {
+                    "strongTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongTraits",
+                    "weakTraits"
+                  ]
+                },
+                "frost": {
+                  "type": "object",
+                  "properties": {
+                    "strongRanges": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakSchools": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongRanges",
+                    "weakSchools",
+                    "weakTraits"
+                  ]
+                },
+                "illusion": {
+                  "type": "object",
+                  "properties": {
+                    "strongTargeting": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakTargeting": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongTargeting",
+                    "weakTargeting",
+                    "weakTraits"
+                  ]
+                },
+                "lightning": {
+                  "type": "object",
+                  "properties": {
+                    "strongTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongTraits",
+                    "weakTraits"
+                  ]
+                }
+              },
+              "required": [
+                "alteration",
+                "decay",
+                "divine",
+                "earth",
+                "fire",
+                "force",
+                "frost",
+                "illusion",
+                "lightning"
+              ]
+            },
+            "schoolStrongMultiplier": {
+              "type": "number"
+            },
+            "schoolWeakMultiplier": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "defaultCoverage",
+            "incomingMultiplier",
+            "maxReturnsPerCycle",
+            "schoolMatchups",
+            "schoolStrongMultiplier",
+            "schoolWeakMultiplier"
+          ]
+        },
+        "damageAliases": {
+          "type": "object",
+          "properties": {
+            "arcane": {
+              "type": "string"
+            },
+            "bludgeoning": {
+              "type": "string"
+            },
+            "decay": {
+              "type": "string"
+            },
+            "frost": {
+              "type": "string"
+            },
+            "pierce": {
+              "type": "string"
+            },
+            "sacred": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "arcane",
+            "bludgeoning",
+            "decay",
+            "frost",
+            "pierce",
+            "sacred"
+          ]
+        },
+        "damageRiders": {
+          "type": "object",
+          "properties": {
+            "blunt": {
+              "type": "object",
+              "properties": {
+                "poise": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "poise"
+              ]
+            },
+            "cold": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "earth": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "fire": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "holy": {
+              "type": "object",
+              "properties": {
+                "cleanse": {
+                  "type": "integer"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "cleanse",
+                "requiresHpLoss"
+              ]
+            },
+            "lightning": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "necrotic": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "piercing": {
+              "type": "object",
+              "properties": {
+                "guardBypass": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "guardBypass"
+              ]
+            },
+            "poison": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "psychic": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "slashing": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            }
+          },
+          "required": [
+            "blunt",
+            "cold",
+            "earth",
+            "fire",
+            "holy",
+            "lightning",
+            "necrotic",
+            "piercing",
+            "poison",
+            "psychic",
+            "slashing"
+          ]
+        },
+        "defend": {
+          "type": "object",
+          "properties": {
+            "sweepMultiplier": {
+              "type": "number"
+            },
+            "turnStartProtection": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "sweepMultiplier",
+            "turnStartProtection"
+          ]
+        },
+        "distance": {
+          "type": "object",
+          "properties": {
+            "maximumBaseChance": {
+              "type": "integer"
+            },
+            "rangedChance": {
+              "type": "integer"
+            },
+            "reachChance": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "maximumBaseChance",
+            "rangedChance",
+            "reachChance"
+          ]
+        },
+        "evade": {
+          "type": "object",
+          "properties": {
+            "areaDifficulty": {
+              "type": "object",
+              "properties": {
+                "melee": {
+                  "type": "integer"
+                },
+                "ranged": {
+                  "type": "integer"
+                },
+                "reach": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "melee",
+                "ranged",
+                "reach"
+              ]
+            },
+            "armorPenalty": {
+              "type": "object",
+              "properties": {
+                "heavy": {
+                  "type": "integer"
+                },
+                "light": {
+                  "type": "integer"
+                },
+                "medium": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "heavy",
+                "light",
+                "medium"
+              ]
+            },
+            "baseDC": {
+              "type": "integer"
+            },
+            "die": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "areaDifficulty",
+            "armorPenalty",
+            "baseDC",
+            "die"
+          ]
+        },
+        "reactionLocks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "smash": {
+          "type": "object",
+          "properties": {
+            "defendedMultiplier": {
+              "type": "number"
+            },
+            "guardBreakPoiseBonus": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "defendedMultiplier",
+            "guardBreakPoiseBonus"
+          ]
+        },
+        "tagRiders": {
+          "type": "object",
+          "properties": {
+            "gorefire": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "precision": {
+              "type": "object",
+              "properties": {
+                "guardBypass": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "guardBypass"
+              ]
+            }
+          },
+          "required": [
+            "gorefire",
+            "precision"
+          ]
+        }
+      },
+      "required": [
+        "attack",
+        "cleanseStatuses",
+        "counter",
+        "damageAliases",
+        "damageRiders",
+        "defend",
+        "distance",
+        "evade",
+        "reactionLocks",
+        "smash",
+        "tagRiders"
+      ]
+    },
+    "statuses": {
+      "type": "object",
+      "properties": {
+        "frozen": {
+          "type": "object",
+          "properties": {
+            "actionLoss": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "actionLoss",
+            "status"
+          ]
+        },
+        "interactions": {
+          "type": "object",
+          "properties": {
+            "chilled": {
+              "type": "string"
+            },
+            "chilledBluntPercent": {
+              "type": "integer"
+            },
+            "concealment": {
+              "type": "string"
+            },
+            "decoy": {
+              "type": "string"
+            },
+            "frostGauge": {
+              "type": "string"
+            },
+            "frozen": {
+              "type": "string"
+            },
+            "grounded": {
+              "type": "string"
+            },
+            "offBalance": {
+              "type": "string"
+            },
+            "paralysis": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "chilled",
+            "chilledBluntPercent",
+            "concealment",
+            "decoy",
+            "frostGauge",
+            "frozen",
+            "grounded",
+            "offBalance",
+            "paralysis"
+          ]
+        },
+        "profiles": {
+          "type": "object",
+          "properties": {
+            "bodily": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "intelligence",
+                "wisdom"
+              ]
+            },
+            "curse": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "number"
+                },
+                "wisdom": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "constitution",
+                "intelligence",
+                "wisdom"
+              ]
+            },
+            "elemental": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "number"
+                },
+                "intelligence": {
+                  "type": "number"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "intelligence",
+                "wisdom"
+              ]
+            },
+            "mental": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "number"
+                },
+                "wisdom": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "constitution",
+                "intelligence",
+                "wisdom"
+              ]
+            }
+          },
+          "required": [
+            "bodily",
+            "curse",
+            "elemental",
+            "mental"
+          ]
+        },
+        "prone": {
+          "type": "object",
+          "properties": {
+            "meleePercent": {
+              "type": "integer"
+            },
+            "rangedEvade": {
+              "type": "integer"
+            },
+            "rangedSinglePercent": {
+              "type": "integer"
+            },
+            "reachEvade": {
+              "type": "integer"
+            },
+            "standCost": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "meleePercent",
+            "rangedEvade",
+            "rangedSinglePercent",
+            "reachEvade",
+            "standCost",
+            "status"
+          ]
+        },
+        "recovery": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "maximum": {
+              "type": "integer"
+            },
+            "minimum": {
+              "type": "integer"
+            },
+            "pendingRemoval": {
+              "type": "number"
+            },
+            "stackPenalty": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "base",
+            "maximum",
+            "minimum",
+            "pendingRemoval",
+            "stackPenalty"
+          ]
+        },
+        "restoration": {
+          "type": "object",
+          "properties": {
+            "alterationCombatCap": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "alterationCombatCap"
+          ]
+        },
+        "sleep": {
+          "type": "object",
+          "properties": {
+            "damagePercentPerStack": {
+              "type": "integer"
+            },
+            "hpCombatCap": {
+              "type": "integer"
+            },
+            "hpPerStack": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            },
+            "wardCombatCap": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "damagePercentPerStack",
+            "hpCombatCap",
+            "hpPerStack",
+            "status",
+            "wardCombatCap"
+          ]
+        },
+        "statuses": {
+          "type": "object",
+          "properties": {
+            "bleed": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "burn": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "confused": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "crimsonBlight": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "dazed": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "lock": {
+                  "type": "boolean"
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "recoveryCost": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "lock",
+                "profile",
+                "recoveryCost"
+              ]
+            },
+            "frost": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "grants": {
+                  "type": "object",
+                  "properties": {
+                    "chilled": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "chilled"
+                  ]
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "grants",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "necroticBlight": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "offBalance": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "paralysis": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "lock": {
+                  "type": "boolean"
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "recoveryCost": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "lock",
+                "profile",
+                "recoveryCost"
+              ]
+            },
+            "sleep": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "lock": {
+                  "type": "boolean"
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "recoveryCost": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "lock",
+                "profile",
+                "recoveryCost"
+              ]
+            },
+            "slowed": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "venom": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "vulnerable": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "weak": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            }
+          },
+          "required": [
+            "bleed",
+            "burn",
+            "confused",
+            "crimsonBlight",
+            "dazed",
+            "frost",
+            "necroticBlight",
+            "offBalance",
+            "paralysis",
+            "sleep",
+            "slowed",
+            "venom",
+            "vulnerable",
+            "weak"
+          ]
+        },
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "frozen",
+        "interactions",
+        "profiles",
+        "prone",
+        "recovery",
+        "restoration",
+        "sleep",
+        "statuses",
+        "version"
+      ]
+    }
+  },
+  "required": [
+    "ashenBlight",
+    "equipment",
+    "matchups",
+    "statuses"
+  ]
+}

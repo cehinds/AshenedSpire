@@ -1,0 +1,962 @@
+{
+  "$id": "rules/combatStatusRules.json",
+  "type": "object",
+  "properties": {
+    "combatStatusRules": {
+      "type": "object",
+      "properties": {
+        "frozen": {
+          "type": "object",
+          "properties": {
+            "actionLoss": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "actionLoss",
+            "status"
+          ]
+        },
+        "interactions": {
+          "type": "object",
+          "properties": {
+            "chilled": {
+              "type": "string"
+            },
+            "chilledBluntPercent": {
+              "type": "integer"
+            },
+            "concealment": {
+              "type": "string"
+            },
+            "decoy": {
+              "type": "string"
+            },
+            "frostGauge": {
+              "type": "string"
+            },
+            "frozen": {
+              "type": "string"
+            },
+            "grounded": {
+              "type": "string"
+            },
+            "offBalance": {
+              "type": "string"
+            },
+            "paralysis": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "chilled",
+            "chilledBluntPercent",
+            "concealment",
+            "decoy",
+            "frostGauge",
+            "frozen",
+            "grounded",
+            "offBalance",
+            "paralysis"
+          ]
+        },
+        "profiles": {
+          "type": "object",
+          "properties": {
+            "bodily": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "integer"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "intelligence",
+                "wisdom"
+              ]
+            },
+            "curse": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "number"
+                },
+                "wisdom": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "constitution",
+                "intelligence",
+                "wisdom"
+              ]
+            },
+            "elemental": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "number"
+                },
+                "intelligence": {
+                  "type": "number"
+                },
+                "wisdom": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "constitution",
+                "intelligence",
+                "wisdom"
+              ]
+            },
+            "mental": {
+              "type": "object",
+              "properties": {
+                "constitution": {
+                  "type": "integer"
+                },
+                "intelligence": {
+                  "type": "number"
+                },
+                "wisdom": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "constitution",
+                "intelligence",
+                "wisdom"
+              ]
+            }
+          },
+          "required": [
+            "bodily",
+            "curse",
+            "elemental",
+            "mental"
+          ]
+        },
+        "prone": {
+          "type": "object",
+          "properties": {
+            "meleePercent": {
+              "type": "integer"
+            },
+            "rangedEvade": {
+              "type": "integer"
+            },
+            "rangedSinglePercent": {
+              "type": "integer"
+            },
+            "reachEvade": {
+              "type": "integer"
+            },
+            "standCost": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "meleePercent",
+            "rangedEvade",
+            "rangedSinglePercent",
+            "reachEvade",
+            "standCost",
+            "status"
+          ]
+        },
+        "recovery": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "maximum": {
+              "type": "integer"
+            },
+            "minimum": {
+              "type": "integer"
+            },
+            "pendingRemoval": {
+              "type": "number"
+            },
+            "stackPenalty": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "base",
+            "maximum",
+            "minimum",
+            "pendingRemoval",
+            "stackPenalty"
+          ]
+        },
+        "restoration": {
+          "type": "object",
+          "properties": {
+            "alterationCombatCap": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "alterationCombatCap"
+          ]
+        },
+        "sleep": {
+          "type": "object",
+          "properties": {
+            "damagePercentPerStack": {
+              "type": "integer"
+            },
+            "hpCombatCap": {
+              "type": "integer"
+            },
+            "hpPerStack": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string"
+            },
+            "wardCombatCap": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "damagePercentPerStack",
+            "hpCombatCap",
+            "hpPerStack",
+            "status",
+            "wardCombatCap"
+          ]
+        },
+        "statuses": {
+          "type": "object",
+          "properties": {
+            "bleed": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "burn": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "confused": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "crimsonBlight": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "dazed": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "lock": {
+                  "type": "boolean"
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "recoveryCost": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "lock",
+                "profile",
+                "recoveryCost"
+              ]
+            },
+            "frost": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "grants": {
+                  "type": "object",
+                  "properties": {
+                    "chilled": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "chilled"
+                  ]
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "grants",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "necroticBlight": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "offBalance": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "paralysis": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "lock": {
+                  "type": "boolean"
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "recoveryCost": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "lock",
+                "profile",
+                "recoveryCost"
+              ]
+            },
+            "sleep": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "lock": {
+                  "type": "boolean"
+                },
+                "profile": {
+                  "type": "string"
+                },
+                "recoveryCost": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "lock",
+                "profile",
+                "recoveryCost"
+              ]
+            },
+            "slowed": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "venom": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "vulnerable": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            },
+            "weak": {
+              "type": "object",
+              "properties": {
+                "activeStatus": {
+                  "type": "string"
+                },
+                "activeThreshold": {
+                  "type": "integer"
+                },
+                "camp": {
+                  "type": "string"
+                },
+                "cap": {
+                  "type": "integer"
+                },
+                "chanceRecovery": {
+                  "type": "boolean"
+                },
+                "initialThreshold": {
+                  "type": "integer"
+                },
+                "profile": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "activeStatus",
+                "activeThreshold",
+                "camp",
+                "cap",
+                "chanceRecovery",
+                "initialThreshold",
+                "profile"
+              ]
+            }
+          },
+          "required": [
+            "bleed",
+            "burn",
+            "confused",
+            "crimsonBlight",
+            "dazed",
+            "frost",
+            "necroticBlight",
+            "offBalance",
+            "paralysis",
+            "sleep",
+            "slowed",
+            "venom",
+            "vulnerable",
+            "weak"
+          ]
+        },
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "frozen",
+        "interactions",
+        "profiles",
+        "prone",
+        "recovery",
+        "restoration",
+        "sleep",
+        "statuses",
+        "version"
+      ]
+    },
+    "expansionStatuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "decay": {
+            "type": [
+              "object",
+              "string"
+            ],
+            "properties": {
+              "duration": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "duration"
+            ]
+          },
+          "hooks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "do": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "amount": {
+                        "type": "object",
+                        "properties": {
+                          "args": {
+                            "type": "array",
+                            "items": {
+                              "type": [
+                                "integer",
+                                "object"
+                              ]
+                            }
+                          },
+                          "f": {
+                            "type": "string"
+                          },
+                          "of": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "f"
+                        ]
+                      },
+                      "op": {
+                        "type": "string"
+                      },
+                      "target": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "amount",
+                      "op",
+                      "target"
+                    ]
+                  }
+                },
+                "if": {
+                  "type": "object",
+                  "properties": {
+                    "p": {
+                      "type": "string"
+                    },
+                    "pct": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "p",
+                    "pct"
+                  ]
+                },
+                "on": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "do",
+                "on"
+              ]
+            }
+          },
+          "icon": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "modifiers": {
+            "type": "object",
+            "properties": {
+              "blockGainedMult": {
+                "type": "number"
+              },
+              "damageDealtMult": {
+                "type": "number"
+              },
+              "damageTakenMult": {
+                "type": "number"
+              },
+              "skipTurn": {
+                "type": "boolean"
+              }
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "stackMode": {
+            "type": "string",
+            "enum": [
+              "add",
+              "refresh",
+              "unique"
+            ]
+          },
+          "tint": {
+            "type": "string"
+          },
+          "tooltip": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "decay",
+          "icon",
+          "id",
+          "name",
+          "stackMode",
+          "tooltip"
+        ]
+      }
+    }
+  },
+  "required": [
+    "combatStatusRules",
+    "expansionStatuses"
+  ]
+}

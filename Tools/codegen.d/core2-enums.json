@@ -1,0 +1,53 @@
+{
+  "enums": [
+    {
+      "name": "Stance",
+      "from": "profile/core.json",
+      "path": "modules.stances.include",
+      "doc": "Core 2 stances the profile includes (profile/core.json modules.stances.include)."
+    },
+    {
+      "name": "Camp",
+      "from": "rules/core2Vocabulary.json",
+      "path": "camps",
+      "doc": "Stance camps (rules/core2Vocabulary.json; docs/STANCE-COMBAT-RULES.md in the web repo)."
+    },
+    {
+      "name": "RangeBand",
+      "from": "rules/actionCosts.json",
+      "path": "RANGE_WEIGHTS",
+      "keys": true,
+      "doc": "Range bands, nearest first (rules/actionCosts.json RANGE_WEIGHTS)."
+    },
+    {
+      "name": "ReactionWindow",
+      "from": "rules/core2Vocabulary.json",
+      "path": "reactionWindows",
+      "doc": "Windows in which a reaction can open (rules/core2Vocabulary.json)."
+    },
+    {
+      "name": "CoreIntentType",
+      "from": "rules/core2Vocabulary.json",
+      "path": "intentTypes",
+      "doc": "Combat intents the Core 2 dispatch accepts (rules/core2Vocabulary.json; web dispatch in src/engine/combat.js)."
+    },
+    {
+      "name": "RewardOptionKind",
+      "from": "profile/content/rewards.json",
+      "path": "categories",
+      "doc": "Reward option categories (profile/content/rewards.json categories)."
+    },
+    {
+      "name": "RestService",
+      "from": "profile/content/rests.json",
+      "path": "services",
+      "doc": "Services a Core 2 rest offers (profile/content/rests.json services)."
+    },
+    {
+      "name": "Core2RngStream",
+      "from": "rules/rng.json",
+      "path": "core2Streams",
+      "doc": "RNG streams the web added after the 405 list (rules/rng.json core2Streams), in the web's order. RngStream holds the first 14."
+    }
+  ]
+}

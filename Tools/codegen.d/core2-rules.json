@@ -1,0 +1,172 @@
+{
+  "keySets": [
+    {
+      "name": "Core2FixCoreKeys",
+      "doc": "Keys of rules/fixCoreMechanics.json and rules/fixCoreSnapshot.json (web content/source/fixCoreMechanics.json, snapshotFixCoreRules), two levels deep.",
+      "keys": {
+        "Version": "version",
+        "Enabled": "enabled",
+        "Ward": "ward",
+        "DefaultTags": "defaultTags",
+        "Poise": "poise",
+        "Drain": "drain",
+        "Staggered": "staggered",
+        "Stance": "stance",
+        "StaminaLoss": "staminaLoss",
+        "VulnerableStacks": "vulnerableStacks",
+        "ExtendOnly": "extendOnly",
+        "Counter": "counter",
+        "ReturnFraction": "returnFraction",
+        "PoiseFraction": "poiseFraction",
+        "AdvantageIncomingFraction": "advantageIncomingFraction",
+        "AdvantagePoiseFraction": "advantagePoiseFraction",
+        "AdvantageBlockFraction": "advantageBlockFraction",
+        "Reaction": "reaction",
+        "HandCostDiscount": "handCostDiscount",
+        "SmashVsDefensive": "smashVsDefensive",
+        "DamageMultiplier": "damageMultiplier",
+        "BlockFraction": "blockFraction",
+        "EffectivenessMultiplier": "effectivenessMultiplier",
+        "Discount": "discount",
+        "MinimumCost": "minimumCost",
+        "Accuracy": "accuracy",
+        "PrecisionWeights": "precisionWeights",
+        "ManeuverPrecision": "maneuverPrecision",
+        "EvasionVersion": "evasionVersion",
+        "BaseAC": "baseAC",
+        "EvadeStackBase": "evadeStackBase",
+        "EvadeStackDex": "evadeStackDex",
+        "PrecisionBase": "precisionBase",
+        "EvasionBase": "evasionBase",
+        "StanceMinimum": "stanceMinimum",
+        "StanceMaximum": "stanceMaximum",
+        "StanceAdvantageBonus": "stanceAdvantageBonus",
+        "Perception": "perception",
+        "Bonuses": "bonuses",
+        "BaseDC": "baseDC",
+        "Statuses": "statuses",
+        "StaggerRiders": "staggerRiders",
+        "Overrides": "overrides",
+        "DecayAmount": "decayAmount",
+        "WeakARMultiplier": "weakARMultiplier",
+        "VulnerabilityMultiplier": "vulnerabilityMultiplier",
+        "EnemyHealBlockCost": "enemyHealBlockCost",
+        "ProtectionParameters": "protectionParameters",
+        "Range": "range",
+        "AdvanceSpPerBand": "advanceSpPerBand",
+        "ReachPrecisionBonus": "reachPrecisionBonus",
+        "ThrowPrecisionPenalty": "throwPrecisionPenalty"
+      }
+    },
+    {
+      "name": "Core2ReactionRuleKeys",
+      "doc": "Keys of rules/reactionRules.json (web reactionRulesSnapshot), two levels deep.",
+      "keys": {
+        "Counterstrike": "counterstrike",
+        "Pct": "pct",
+        "AdvantagedPct": "advantagedPct",
+        "Impact": "impact",
+        "Base": "base",
+        "PerTwoTiers": "perTwoTiers",
+        "Flux": "flux",
+        "Stack": "stack",
+        "MaxDepth": "maxDepth",
+        "CounterReturnMaxDepth": "counterReturnMaxDepth",
+        "Advantage": "advantage",
+        "EnemyReactions": "enemyReactions"
+      }
+    },
+    {
+      "name": "Core2RangePolicyKeys",
+      "doc": "Keys of rules/rangePolicy.json (web snapshotRangePolicy).",
+      "keys": {
+        "Version": "version",
+        "Enabled": "enabled",
+        "AdvanceSpPerBand": "advanceSpPerBand",
+        "ReachPrecisionBonus": "reachPrecisionBonus",
+        "ThrowPrecisionPenalty": "throwPrecisionPenalty"
+      }
+    },
+    {
+      "name": "Core2EnemyKnowledgeKeys",
+      "doc": "Keys of rules/enemyKnowledgeRules.json (web snapshotEnemyKnowledgeRules), two levels deep.",
+      "keys": {
+        "Version": "version",
+        "Reads": "reads",
+        "BaseExact": "baseExact",
+        "WisdomExact": "wisdomExact",
+        "IntelligenceExact": "intelligenceExact",
+        "LevelExact": "levelExact",
+        "PerceptionExact": "perceptionExact",
+        "MinimumExact": "minimumExact",
+        "MaximumExact": "maximumExact",
+        "BaseClue": "baseClue",
+        "WisdomClue": "wisdomClue",
+        "IntelligenceClue": "intelligenceClue",
+        "LevelClue": "levelClue",
+        "PerceptionClue": "perceptionClue",
+        "MinimumClue": "minimumClue",
+        "MaximumClue": "maximumClue",
+        "Perception": "perception",
+        "Base": "base",
+        "Growth": "growth",
+        "RoundTo": "roundTo",
+        "MaxLevel": "maxLevel",
+        "CorrectPredictionXp": "correctPredictionXp",
+        "Bestiary": "bestiary",
+        "EncountersToMaster": "encountersToMaster",
+        "PerEnemy": "perEnemy"
+      }
+    },
+    {
+      "name": "Core2VersionKeys",
+      "doc": "Keys of rules/versions.json (the version scalars a Core 2 run is stamped with).",
+      "keys": {
+        "WebContentVersion": "webContentVersion",
+        "RunSchemaVersion": "runSchemaVersion",
+        "MetaSchemaVersion": "metaSchemaVersion",
+        "CombatExpansionVersion": "combatExpansionVersion",
+        "ReactionRulesVersion": "reactionRulesVersion",
+        "BreakMeterVersion": "breakMeterVersion",
+        "ProfileFormatVersion": "profileFormatVersion",
+        "FoundationVersion": "foundationVersion",
+        "ProfileId": "profileId",
+        "ProfileHash": "profileHash"
+      }
+    },
+    {
+      "name": "Core2RunSnapshotKeys",
+      "doc": "Run and combat snapshot fields a Core 2 run adds (web createRunState and combatSnapshot; docs/design/11 section 1.2).",
+      "keys": {
+        "GameProfile": "gameProfile",
+        "CombatExpansionVersion": "combatExpansionVersion",
+        "ReactionRulesVersion": "reactionRulesVersion",
+        "ReactionRules": "reactionRules",
+        "RangePolicy": "rangePolicy",
+        "AshenBlight": "ashenBlight",
+        "CombatExpansionRules": "combatExpansionRules",
+        "EnemyKnowledgeRules": "enemyKnowledgeRules",
+        "RangeState": "rangeState",
+        "PendingReaction": "pendingReaction",
+        "ReactionResume": "reactionResume",
+        "ReactionCursor": "reactionCursor",
+        "PersistentPoise": "persistentPoise",
+        "Barrier": "barrier",
+        "CombatStance": "combatStance",
+        "CombatCounter": "combatCounter",
+        "EnemyKnowledge": "enemyKnowledge",
+        "PlannedMoves": "plannedMoves"
+      }
+    },
+    {
+      "name": "Core2ExpansionRuleKeys",
+      "doc": "Sections of the combat expansion rule snapshot (rules/combatExpansionRules.json, web createCombatExpansionRuleSnapshot).",
+      "keys": {
+        "Matchups": "matchups",
+        "Statuses": "statuses",
+        "AshenBlight": "ashenBlight",
+        "Equipment": "equipment"
+      }
+    }
+  ]
+}

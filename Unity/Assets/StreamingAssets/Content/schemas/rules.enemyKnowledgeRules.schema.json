@@ -1,0 +1,131 @@
+{
+  "$id": "rules/enemyKnowledgeRules.json",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "integer"
+    },
+    "reads": {
+      "type": "object",
+      "properties": {
+        "baseExact": {
+          "type": "number"
+        },
+        "wisdomExact": {
+          "type": "number"
+        },
+        "intelligenceExact": {
+          "type": "number"
+        },
+        "levelExact": {
+          "type": "number"
+        },
+        "perceptionExact": {
+          "type": "number"
+        },
+        "minimumExact": {
+          "type": "number"
+        },
+        "maximumExact": {
+          "type": "number"
+        },
+        "baseClue": {
+          "type": "number"
+        },
+        "wisdomClue": {
+          "type": "number"
+        },
+        "intelligenceClue": {
+          "type": "number"
+        },
+        "levelClue": {
+          "type": "number"
+        },
+        "perceptionClue": {
+          "type": "number"
+        },
+        "minimumClue": {
+          "type": "number"
+        },
+        "maximumClue": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "baseClue",
+        "baseExact",
+        "intelligenceClue",
+        "intelligenceExact",
+        "levelClue",
+        "levelExact",
+        "maximumClue",
+        "maximumExact",
+        "minimumClue",
+        "minimumExact",
+        "perceptionClue",
+        "perceptionExact",
+        "wisdomClue",
+        "wisdomExact"
+      ]
+    },
+    "perception": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "number"
+        },
+        "growth": {
+          "type": "number"
+        },
+        "roundTo": {
+          "type": "number"
+        },
+        "maxLevel": {
+          "type": "integer"
+        },
+        "correctPredictionXp": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "base",
+        "correctPredictionXp",
+        "growth",
+        "maxLevel",
+        "roundTo"
+      ]
+    },
+    "bestiary": {
+      "type": "object",
+      "properties": {
+        "encountersToMaster": {
+          "type": "integer"
+        },
+        "perEnemy": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "encountersToMaster": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "encountersToMaster"
+            ]
+          }
+        }
+      },
+      "required": [
+        "encountersToMaster",
+        "perEnemy"
+      ]
+    }
+  },
+  "required": [
+    "bestiary",
+    "perception",
+    "reads",
+    "version"
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "comment": "Authoritative effect-op vocabulary (docs/design/08 \u00a77). Codegen emits the EffectOp enum from 'ops' IN ORDER (append new ops at the end to keep enum values stable). 'containers' are the keys whose arrays hold effect objects; the validator checks 'op' only there. Adding an op: append it here, run Tools/codegen.mjs, implement IEffectOp, add a test.",
+  "comment": "Authoritative effect-op vocabulary (docs/design/08 \u00a77). Codegen emits the EffectOp enum from 'ops' IN ORDER (append new ops at the end to keep enum values stable). 'containers' are the keys whose arrays hold effect objects; the validator checks 'op' only there. The last 16 ops are the Core 2 effect ops found in the web content at b8cfe4fac (docs/design/11 WP-0): listed so the content validates, not yet implemented; each gets its IEffectOp and test in the work package that ports it (WP-9 and after). Adding an op: append it here, run Tools/codegen.mjs, implement IEffectOp, add a test.",
   "ops": [
     "addCard",
     "addCardToDeck",
@@ -26,7 +26,23 @@
     "startCombat",
     "swapClass",
     "upgradeCard",
-    "addFlaskCapacity"
+    "addFlaskCapacity",
+    "gainPoise",
+    "gainWard",
+    "buildup",
+    "gainBarrier",
+    "grantRollMode",
+    "retain",
+    "modifyCards",
+    "wardDamage",
+    "grantCardCharge",
+    "moveEngagement",
+    "addBurden",
+    "moveCards",
+    "revealIntent",
+    "castLinkedSpell",
+    "exhaust",
+    "stagger"
   ],
   "containers": [
     "do",

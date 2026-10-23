@@ -1,0 +1,20 @@
+{
+  "$id": "profile/bundle/familyNodes.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "family": {
+        "type": "string"
+      },
+      "nodeId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "family",
+      "nodeId"
+    ]
+  }
+}

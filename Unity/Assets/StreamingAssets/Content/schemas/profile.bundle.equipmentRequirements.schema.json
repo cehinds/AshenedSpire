@@ -1,0 +1,13 @@
+{
+  "$id": "profile/bundle/equipmentRequirements.json",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {}
+    }
+  },
+  "required": [
+    "rows"
+  ]
+}

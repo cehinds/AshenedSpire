@@ -1,0 +1,104 @@
+{
+  "$id": "profile/bundle/relics.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "flavor": {
+        "type": "string"
+      },
+      "icon": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "passives": {
+        "type": "object",
+        "properties": {
+          "eliteExtraCardReward": {
+            "type": "boolean"
+          },
+          "exposureBuildupMult": {
+            "type": "number"
+          },
+          "flaskPowerMult": {
+            "type": "number"
+          },
+          "modifiers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "resource": {
+                  "type": "string"
+                },
+                "school": {
+                  "type": "string"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "amount",
+                "tag"
+              ]
+            }
+          },
+          "poiseThresholdAdd": {
+            "type": "integer"
+          },
+          "powerCostReduction": {
+            "type": "integer"
+          },
+          "restDenied": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "restHealMult": {
+            "type": "number"
+          },
+          "revealUnknown": {
+            "type": "boolean"
+          },
+          "runeGainMult": {
+            "type": "number"
+          }
+        }
+      },
+      "pool": {
+        "type": "string"
+      },
+      "rarity": {
+        "type": "string",
+        "enum": [
+          "boss",
+          "common",
+          "rare",
+          "starter",
+          "uncommon"
+        ]
+      },
+      "textTemplate": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "icon",
+      "id",
+      "name",
+      "rarity",
+      "textTemplate"
+    ]
+  }
+}

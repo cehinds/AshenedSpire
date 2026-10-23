@@ -1,0 +1,29 @@
+{
+  "$id": "profile/content/classUnlocks.json",
+  "type": "object",
+  "properties": {
+    "initial": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "qualifyingOutcomes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sequence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "initial",
+    "qualifyingOutcomes",
+    "sequence"
+  ]
+}

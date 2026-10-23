@@ -1,5 +1,36 @@
 {
-  "comment": "Extra shipped modules exported alongside contentBundle (every named export). Paths are relative to the shipped repo root. Data-driven: add a row to export another source.",
+  "comment": "Extra shipped modules exported alongside contentBundle (every named export). Paths are relative to the shipped repo root. Data-driven: add a row to export another source. 'modules'/'json' feed the legacy (405) export, read from legacy.sha. 'core2' feeds the Core 2 export (docs/design/11 2.2), read from the web checkout, which must be at core2.webSha.",
+  "legacy": {
+    "sha": "0adaae515",
+    "note": "Web dev 0.7.1.405 (2026-09-23): the 405-era current profile the legacy tables and oracles were exported from (docs/qa/web-gap-2026-10-23.md section 1)."
+  },
+  "core2": {
+    "webSha": "b8cfe4fac",
+    "profile": "default",
+    "modules": [
+      "src/content/combatMatchups.js",
+      "src/content/combatStatusRules.js",
+      "src/content/combatExpansionEquipment.js",
+      "src/content/combatCardTraits.js",
+      "src/content/actionCosts.js",
+      "src/content/enemyKnowledge.js",
+      "src/content/ashenBlight.js"
+    ],
+    "json": [
+      "content/source/fixCoreMechanics.json",
+      "engine/runtime/ops.json",
+      "engine/runtime/formulas.json",
+      "engine/mechanics/index.json"
+    ],
+    "mechanicsDir": "engine/mechanics",
+    "mechanicParts": {
+      "mechanic": "mechanic.json",
+      "modelSchema": "model.schema.json",
+      "interface": "interface.json",
+      "service": "service.json",
+      "cases": "cases.json"
+    }
+  },
   "modules": [
     "src/content/generated/weapons.js",
     "src/content/generated/weaponCardPackages.js",

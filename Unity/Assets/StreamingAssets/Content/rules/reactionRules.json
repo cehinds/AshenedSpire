@@ -1,0 +1,45 @@
+{
+  "counterstrike": {
+    "pct": 0.5,
+    "advantagedPct": 0.75
+  },
+  "impact": {
+    "base": {
+      "smash": 2,
+      "default": 1
+    },
+    "perTwoTiers": 1
+  },
+  "flux": {
+    "base": 1,
+    "perTwoTiers": 1
+  },
+  "stack": {
+    "maxDepth": 4,
+    "counterReturnMaxDepth": 1
+  },
+  "advantage": {
+    "attack": [
+      "smash",
+      "casting"
+    ],
+    "smash": [
+      "defend"
+    ],
+    "defend": [
+      "sweep"
+    ],
+    "sweep": [
+      "counter"
+    ],
+    "ranged": [
+      "counter"
+    ],
+    "counter": [
+      "attack",
+      "smash"
+    ],
+    "casting": []
+  },
+  "enemyReactions": true
+}

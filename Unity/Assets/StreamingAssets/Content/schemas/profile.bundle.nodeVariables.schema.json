@@ -1,0 +1,31 @@
+{
+  "$id": "profile/bundle/nodeVariables.json",
+  "type": "object",
+  "properties": {
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "nodeId": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "variable": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "nodeId",
+          "role",
+          "variable"
+        ]
+      }
+    }
+  },
+  "required": [
+    "rows"
+  ]
+}

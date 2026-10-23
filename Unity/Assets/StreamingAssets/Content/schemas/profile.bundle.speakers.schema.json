@@ -1,0 +1,24 @@
+{
+  "$id": "profile/bundle/speakers.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "portraitKey": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "portraitKey"
+    ]
+  }
+}

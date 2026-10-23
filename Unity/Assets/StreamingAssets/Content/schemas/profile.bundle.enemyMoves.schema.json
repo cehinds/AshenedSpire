@@ -1,0 +1,158 @@
+{
+  "$id": "profile/bundle/enemyMoves.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "block": {
+        "type": "integer"
+      },
+      "counterDamage": {
+        "type": "integer"
+      },
+      "damage": {
+        "type": "integer"
+      },
+      "delay": {
+        "type": "object",
+        "properties": {
+          "turns": {
+            "type": "integer"
+          },
+          "whileCharging": {
+            "type": "object",
+            "properties": {
+              "block": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "block"
+            ]
+          }
+        },
+        "required": [
+          "turns",
+          "whileCharging"
+        ]
+      },
+      "effects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "integer"
+            },
+            "bands": {
+              "type": "integer"
+            },
+            "card": {
+              "type": "string",
+              "enum": [
+                "dazed",
+                "slimed",
+                "wound"
+              ]
+            },
+            "op": {
+              "type": "string",
+              "enum": [
+                "addCard",
+                "applyStatus",
+                "block",
+                "heal",
+                "moveEngagement"
+              ]
+            },
+            "pile": {
+              "type": "string",
+              "enum": [
+                "discard",
+                "draw"
+              ]
+            },
+            "position": {
+              "type": "string"
+            },
+            "stacks": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string",
+              "x-ref": "profile/bundle/statuses.json"
+            },
+            "target": {
+              "type": "string",
+              "enum": [
+                "enemy",
+                "player",
+                "self"
+              ]
+            }
+          },
+          "required": [
+            "op"
+          ]
+        }
+      },
+      "enemyId": {
+        "type": "string"
+      },
+      "hits": {
+        "type": "integer"
+      },
+      "id": {
+        "type": "string"
+      },
+      "intent": {
+        "type": "string",
+        "enum": [
+          "attack",
+          "block",
+          "buff",
+          "debuff"
+        ]
+      },
+      "locked": {
+        "type": "boolean"
+      },
+      "maxConsecutive": {
+        "type": "integer"
+      },
+      "reaction": {
+        "type": "object",
+        "properties": {
+          "chance": {
+            "type": "number"
+          },
+          "minIncoming": {
+            "type": "integer"
+          },
+          "on": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "minIncoming",
+          "on"
+        ]
+      },
+      "sp": {
+        "type": "integer"
+      },
+      "weight": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "enemyId",
+      "id",
+      "intent"
+    ]
+  }
+}

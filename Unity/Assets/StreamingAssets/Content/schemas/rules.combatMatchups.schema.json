@@ -1,0 +1,1217 @@
+{
+  "$id": "rules/combatMatchups.json",
+  "type": "object",
+  "properties": {
+    "combatExpansionMatchups": {
+      "type": "object",
+      "properties": {
+        "attack": {
+          "type": "object",
+          "properties": {
+            "preparedPoiseMultiplier": {
+              "type": "number"
+            },
+            "smashMultiplier": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "preparedPoiseMultiplier",
+            "smashMultiplier"
+          ]
+        },
+        "cleanseStatuses": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "burn",
+              "crimsonBlight",
+              "frail",
+              "necroticBlight",
+              "vulnerable",
+              "weak"
+            ]
+          }
+        },
+        "counter": {
+          "type": "object",
+          "properties": {
+            "defaultCoverage": {
+              "type": "object",
+              "properties": {
+                "melee": {
+                  "type": "object",
+                  "properties": {
+                    "camps": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "maneuvers": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "ranges": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "targeting": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "camps",
+                    "effects",
+                    "maneuvers",
+                    "ranges",
+                    "targeting"
+                  ]
+                },
+                "ranged": {
+                  "type": "object",
+                  "properties": {
+                    "camps": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "ranges": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "targeting": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "camps",
+                    "effects",
+                    "ranges",
+                    "targeting"
+                  ]
+                },
+                "spell": {
+                  "type": "object",
+                  "properties": {
+                    "camps": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "ranges": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "targeting": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "camps",
+                    "effects",
+                    "ranges",
+                    "targeting"
+                  ]
+                }
+              },
+              "required": [
+                "melee",
+                "ranged",
+                "spell"
+              ]
+            },
+            "incomingMultiplier": {
+              "type": "number"
+            },
+            "maxReturnsPerCycle": {
+              "type": "integer"
+            },
+            "schoolMatchups": {
+              "type": "object",
+              "properties": {
+                "alteration": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "decay": {
+                  "type": "object",
+                  "properties": {
+                    "strongTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongTraits"
+                  ]
+                },
+                "divine": {
+                  "type": "object",
+                  "properties": {
+                    "strongSchools": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakDamageTypes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongSchools",
+                    "weakDamageTypes"
+                  ]
+                },
+                "earth": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "fire": {
+                  "type": "object",
+                  "properties": {
+                    "strongSchools": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakDamageTypes": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongSchools",
+                    "weakDamageTypes"
+                  ]
+                },
+                "force": {
+                  "type": "object",
+                  "properties": {
+                    "strongTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongTraits",
+                    "weakTraits"
+                  ]
+                },
+                "frost": {
+                  "type": "object",
+                  "properties": {
+                    "strongRanges": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakSchools": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongRanges",
+                    "weakSchools",
+                    "weakTraits"
+                  ]
+                },
+                "illusion": {
+                  "type": "object",
+                  "properties": {
+                    "strongTargeting": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakTargeting": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongTargeting",
+                    "weakTargeting",
+                    "weakTraits"
+                  ]
+                },
+                "lightning": {
+                  "type": "object",
+                  "properties": {
+                    "strongTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "weakTraits": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "strongTraits",
+                    "weakTraits"
+                  ]
+                }
+              },
+              "required": [
+                "alteration",
+                "decay",
+                "divine",
+                "earth",
+                "fire",
+                "force",
+                "frost",
+                "illusion",
+                "lightning"
+              ]
+            },
+            "schoolStrongMultiplier": {
+              "type": "number"
+            },
+            "schoolWeakMultiplier": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "defaultCoverage",
+            "incomingMultiplier",
+            "maxReturnsPerCycle",
+            "schoolMatchups",
+            "schoolStrongMultiplier",
+            "schoolWeakMultiplier"
+          ]
+        },
+        "damageAliases": {
+          "type": "object",
+          "properties": {
+            "arcane": {
+              "type": "string"
+            },
+            "bludgeoning": {
+              "type": "string"
+            },
+            "decay": {
+              "type": "string"
+            },
+            "frost": {
+              "type": "string"
+            },
+            "pierce": {
+              "type": "string"
+            },
+            "sacred": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "arcane",
+            "bludgeoning",
+            "decay",
+            "frost",
+            "pierce",
+            "sacred"
+          ]
+        },
+        "damageRiders": {
+          "type": "object",
+          "properties": {
+            "blunt": {
+              "type": "object",
+              "properties": {
+                "poise": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "poise"
+              ]
+            },
+            "cold": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "earth": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "fire": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "holy": {
+              "type": "object",
+              "properties": {
+                "cleanse": {
+                  "type": "integer"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "cleanse",
+                "requiresHpLoss"
+              ]
+            },
+            "lightning": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "necrotic": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "piercing": {
+              "type": "object",
+              "properties": {
+                "guardBypass": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "guardBypass"
+              ]
+            },
+            "poison": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "psychic": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "slashing": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            }
+          },
+          "required": [
+            "blunt",
+            "cold",
+            "earth",
+            "fire",
+            "holy",
+            "lightning",
+            "necrotic",
+            "piercing",
+            "poison",
+            "psychic",
+            "slashing"
+          ]
+        },
+        "defend": {
+          "type": "object",
+          "properties": {
+            "sweepMultiplier": {
+              "type": "number"
+            },
+            "turnStartProtection": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "sweepMultiplier",
+            "turnStartProtection"
+          ]
+        },
+        "distance": {
+          "type": "object",
+          "properties": {
+            "maximumBaseChance": {
+              "type": "integer"
+            },
+            "rangedChance": {
+              "type": "integer"
+            },
+            "reachChance": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "maximumBaseChance",
+            "rangedChance",
+            "reachChance"
+          ]
+        },
+        "evade": {
+          "type": "object",
+          "properties": {
+            "areaDifficulty": {
+              "type": "object",
+              "properties": {
+                "melee": {
+                  "type": "integer"
+                },
+                "ranged": {
+                  "type": "integer"
+                },
+                "reach": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "melee",
+                "ranged",
+                "reach"
+              ]
+            },
+            "armorPenalty": {
+              "type": "object",
+              "properties": {
+                "heavy": {
+                  "type": "integer"
+                },
+                "light": {
+                  "type": "integer"
+                },
+                "medium": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "heavy",
+                "light",
+                "medium"
+              ]
+            },
+            "baseDC": {
+              "type": "integer"
+            },
+            "die": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "areaDifficulty",
+            "armorPenalty",
+            "baseDC",
+            "die"
+          ]
+        },
+        "reactionLocks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "smash": {
+          "type": "object",
+          "properties": {
+            "defendedMultiplier": {
+              "type": "number"
+            },
+            "guardBreakPoiseBonus": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "defendedMultiplier",
+            "guardBreakPoiseBonus"
+          ]
+        },
+        "tagRiders": {
+          "type": "object",
+          "properties": {
+            "gorefire": {
+              "type": "object",
+              "properties": {
+                "pressure": {
+                  "type": "integer"
+                },
+                "recoveryProfile": {
+                  "type": "string"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "pressure",
+                "recoveryProfile",
+                "requiresHpLoss",
+                "status"
+              ]
+            },
+            "precision": {
+              "type": "object",
+              "properties": {
+                "guardBypass": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "guardBypass"
+              ]
+            }
+          },
+          "required": [
+            "gorefire",
+            "precision"
+          ]
+        }
+      },
+      "required": [
+        "attack",
+        "cleanseStatuses",
+        "counter",
+        "damageAliases",
+        "damageRiders",
+        "defend",
+        "distance",
+        "evade",
+        "reactionLocks",
+        "smash",
+        "tagRiders"
+      ]
+    },
+    "combatIntent": {
+      "type": "object",
+      "properties": {
+        "baseHiddenChance": {
+          "type": "number"
+        },
+        "intelligenceReduction": {
+          "type": "number"
+        },
+        "maximumHiddenChance": {
+          "type": "number"
+        },
+        "minimumHiddenChance": {
+          "type": "integer"
+        },
+        "wisdomReduction": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "baseHiddenChance",
+        "intelligenceReduction",
+        "maximumHiddenChance",
+        "minimumHiddenChance",
+        "wisdomReduction"
+      ]
+    },
+    "combatMatchups": {
+      "type": "object",
+      "properties": {
+        "attack": {
+          "type": "object",
+          "properties": {
+            "preparedPoiseMultiplier": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "preparedPoiseMultiplier"
+          ]
+        },
+        "cleanseStatuses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "counter": {
+          "type": "object",
+          "properties": {
+            "defaultDamage": {
+              "type": "integer"
+            },
+            "guard": {
+              "type": "integer"
+            },
+            "incomingMultiplier": {
+              "type": "number"
+            },
+            "meleeBypassDamageTypes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "meleeIncomingManeuvers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "poiseMultiplier": {
+              "type": "number"
+            },
+            "retaliationFlat": {
+              "type": "integer"
+            },
+            "retaliationMultiplier": {
+              "type": "number"
+            },
+            "ward": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "defaultDamage",
+            "guard",
+            "incomingMultiplier",
+            "meleeBypassDamageTypes",
+            "meleeIncomingManeuvers",
+            "poiseMultiplier",
+            "retaliationFlat",
+            "retaliationMultiplier",
+            "ward"
+          ]
+        },
+        "damageAliases": {
+          "type": "object",
+          "properties": {
+            "arcane": {
+              "type": "string"
+            },
+            "bludgeoning": {
+              "type": "string"
+            },
+            "decay": {
+              "type": "string"
+            },
+            "frost": {
+              "type": "string"
+            },
+            "pierce": {
+              "type": "string"
+            },
+            "sacred": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "arcane",
+            "bludgeoning",
+            "decay",
+            "frost",
+            "pierce",
+            "sacred"
+          ]
+        },
+        "damageRiders": {
+          "type": "object",
+          "properties": {
+            "blunt": {
+              "type": "object",
+              "properties": {
+                "poise": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "poise"
+              ]
+            },
+            "cold": {
+              "type": "object",
+              "properties": {
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "stacks": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "requiresHpLoss",
+                "stacks",
+                "status"
+              ]
+            },
+            "earth": {
+              "type": "object",
+              "properties": {
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "stacks": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "requiresHpLoss",
+                "stacks",
+                "status"
+              ]
+            },
+            "fire": {
+              "type": "object",
+              "properties": {
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "stacks": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "requiresHpLoss",
+                "stacks",
+                "status"
+              ]
+            },
+            "force": {
+              "type": "object",
+              "properties": {
+                "wardDrain": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "wardDrain"
+              ]
+            },
+            "holy": {
+              "type": "object",
+              "properties": {
+                "cleanse": {
+                  "type": "integer"
+                },
+                "requiresHpLoss": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "cleanse",
+                "requiresHpLoss"
+              ]
+            },
+            "lightning": {
+              "type": "object",
+              "properties": {
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "stacks": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "requiresHpLoss",
+                "stacks",
+                "status"
+              ]
+            },
+            "necrotic": {
+              "type": "object",
+              "properties": {
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "stacks": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "requiresHpLoss",
+                "stacks",
+                "status"
+              ]
+            },
+            "piercing": {
+              "type": "object",
+              "properties": {
+                "guardBypass": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "guardBypass"
+              ]
+            },
+            "poison": {
+              "type": "object",
+              "properties": {
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "stacks": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "requiresHpLoss",
+                "stacks",
+                "status"
+              ]
+            },
+            "psychic": {
+              "type": "object",
+              "properties": {
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "stacks": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "requiresHpLoss",
+                "stacks",
+                "status"
+              ]
+            },
+            "slashing": {
+              "type": "object",
+              "properties": {
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "stacks": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "requiresHpLoss",
+                "stacks",
+                "status"
+              ]
+            }
+          },
+          "required": [
+            "blunt",
+            "cold",
+            "earth",
+            "fire",
+            "force",
+            "holy",
+            "lightning",
+            "necrotic",
+            "piercing",
+            "poison",
+            "psychic",
+            "slashing"
+          ]
+        },
+        "smash": {
+          "type": "object",
+          "properties": {
+            "guardBreakPoiseBonus": {
+              "type": "integer"
+            },
+            "guardedMultiplier": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "guardBreakPoiseBonus",
+            "guardedMultiplier"
+          ]
+        },
+        "tagRiders": {
+          "type": "object",
+          "properties": {
+            "gorefire": {
+              "type": "object",
+              "properties": {
+                "requiresHpLoss": {
+                  "type": "boolean"
+                },
+                "stacks": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "requiresHpLoss",
+                "stacks",
+                "status"
+              ]
+            },
+            "precision": {
+              "type": "object",
+              "properties": {
+                "guardBypass": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "guardBypass"
+              ]
+            }
+          },
+          "required": [
+            "gorefire",
+            "precision"
+          ]
+        }
+      },
+      "required": [
+        "attack",
+        "cleanseStatuses",
+        "counter",
+        "damageAliases",
+        "damageRiders",
+        "smash",
+        "tagRiders"
+      ]
+    }
+  },
+  "required": [
+    "combatExpansionMatchups",
+    "combatIntent",
+    "combatMatchups"
+  ]
+}

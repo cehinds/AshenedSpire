@@ -1,0 +1,20 @@
+{
+  "$id": "profile/content/shops.json",
+  "type": "object",
+  "properties": {
+    "itemsPerCategory": {
+      "type": "integer"
+    },
+    "offerCount": {
+      "type": "integer"
+    },
+    "price": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "itemsPerCategory",
+    "offerCount",
+    "price"
+  ]
+}

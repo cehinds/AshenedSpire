@@ -1,0 +1,89 @@
+{
+  "$id": "rules/reactionRules.json",
+  "type": "object",
+  "properties": {
+    "counterstrike": {
+      "type": "object",
+      "properties": {
+        "pct": {
+          "type": "number"
+        },
+        "advantagedPct": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "advantagedPct",
+        "pct"
+      ]
+    },
+    "impact": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        },
+        "perTwoTiers": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "base",
+        "perTwoTiers"
+      ]
+    },
+    "flux": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "integer"
+        },
+        "perTwoTiers": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "base",
+        "perTwoTiers"
+      ]
+    },
+    "stack": {
+      "type": "object",
+      "properties": {
+        "maxDepth": {
+          "type": "integer"
+        },
+        "counterReturnMaxDepth": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "counterReturnMaxDepth",
+        "maxDepth"
+      ]
+    },
+    "advantage": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "enemyReactions": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "advantage",
+    "counterstrike",
+    "enemyReactions",
+    "flux",
+    "impact",
+    "stack"
+  ]
+}

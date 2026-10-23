@@ -1,0 +1,157 @@
+{
+  "ASHEN_BLIGHT_PATHS": [
+    "martial",
+    "spell",
+    "survivor"
+  ],
+  "ASHEN_BLIGHT_RULES": {
+    "version": 1,
+    "maximum": 100,
+    "thresholdLossPct": 90,
+    "encounterLossPct": 5,
+    "convertedActionDiscount": 1,
+    "convertedPrintedBonusPct": 25,
+    "milestones": [
+      25,
+      50,
+      75
+    ]
+  },
+  "ashenBlightFeats": [
+    {
+      "id": "martialBlight1",
+      "path": "martial",
+      "threshold": 25,
+      "tier": 1,
+      "stage": "Singed",
+      "name": "Volcanic Sinew",
+      "buffs": [
+        "+1 STR.",
+        "First eligible Martial attack or Counter each owner cycle: +1 authored Poise damage."
+      ],
+      "drawbacks": [
+        "Persistent Ward restoration −10%."
+      ]
+    },
+    {
+      "id": "spellBlight1",
+      "path": "spell",
+      "threshold": 25,
+      "tier": 1,
+      "stage": "Singed",
+      "name": "Cinder Sight",
+      "buffs": [
+        "+1 INT.",
+        "First eligible elemental spell each owner cycle: +1 to one authored Burn, Frost, or Paralysis buildup."
+      ],
+      "drawbacks": [
+        "Maximum Stamina −1."
+      ]
+    },
+    {
+      "id": "survivorBlight1",
+      "path": "survivor",
+      "threshold": 25,
+      "tier": 1,
+      "stage": "Singed",
+      "name": "Ashen Heart",
+      "buffs": [
+        "+1 CON.",
+        "First positive HP or Ward restoration attempt each owner cycle: +10%."
+      ],
+      "drawbacks": [
+        "Opening hand −1 card, minimum 1."
+      ]
+    },
+    {
+      "id": "martialBlight2",
+      "path": "martial",
+      "threshold": 50,
+      "tier": 2,
+      "stage": "Kindled",
+      "name": "Volcanic Sinew",
+      "buffs": [
+        "+2 STR.",
+        "First eligible Martial attack or Counter each owner cycle: +2 authored Poise damage."
+      ],
+      "drawbacks": [
+        "Persistent Ward restoration −15%."
+      ]
+    },
+    {
+      "id": "spellBlight2",
+      "path": "spell",
+      "threshold": 50,
+      "tier": 2,
+      "stage": "Kindled",
+      "name": "Cinder Sight",
+      "buffs": [
+        "+2 INT.",
+        "First eligible elemental spell each owner cycle: +1 to one authored Burn, Frost, or Paralysis buildup."
+      ],
+      "drawbacks": [
+        "Maximum Stamina −2."
+      ]
+    },
+    {
+      "id": "survivorBlight2",
+      "path": "survivor",
+      "threshold": 50,
+      "tier": 2,
+      "stage": "Kindled",
+      "name": "Ashen Heart",
+      "buffs": [
+        "+2 CON.",
+        "First positive HP or Ward restoration attempt each owner cycle: +15%."
+      ],
+      "drawbacks": [
+        "Opening hand −1 card, minimum 1."
+      ]
+    },
+    {
+      "id": "martialBlight3",
+      "path": "martial",
+      "threshold": 75,
+      "tier": 3,
+      "stage": "Infernal",
+      "name": "Volcanic Sinew",
+      "buffs": [
+        "+3 STR.",
+        "First eligible Martial attack or Counter each owner cycle: +3 authored Poise damage."
+      ],
+      "drawbacks": [
+        "Persistent Ward restoration −20%."
+      ]
+    },
+    {
+      "id": "spellBlight3",
+      "path": "spell",
+      "threshold": 75,
+      "tier": 3,
+      "stage": "Infernal",
+      "name": "Cinder Sight",
+      "buffs": [
+        "+3 INT.",
+        "First eligible elemental spell each owner cycle: +1 to one authored Burn, Frost, or Paralysis buildup."
+      ],
+      "drawbacks": [
+        "Maximum Stamina −3."
+      ]
+    },
+    {
+      "id": "survivorBlight3",
+      "path": "survivor",
+      "threshold": 75,
+      "tier": 3,
+      "stage": "Infernal",
+      "name": "Ashen Heart",
+      "buffs": [
+        "+3 CON.",
+        "First positive HP or Ward restoration attempt each owner cycle: +20%."
+      ],
+      "drawbacks": [
+        "Opening hand −1 card, minimum 1."
+      ]
+    }
+  ]
+}

@@ -2,6 +2,29 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-0: content pipeline regenerated for the `default` profile at web `b8cfe4fac` (dev, 2026-10-23)
+
+**Landed**
+- **Exporter (`Tools/export-content.mjs`):** two reads of the web repo, each pinned in `Tools/export/sources.json`.
+  - `legacy.sha` `0adaae515` is unpacked with `git archive` (src and content only) under `.cache/` and exported as before, so the 405 tables are byte-identical.
+  - `core2.webSha` `b8cfe4fac` is read from the checkout itself (the sha is verified) into `Tools/export/raw/core2/`: the projected bundle (`applyGameProfileToContent(contentBundle, 'default')`), `resolveGameProfile('default')` and its content keys, and the rule snapshots (`fixCoreMechanics` verbatim, `snapshotFixCoreRules`, the 257 `engine/mechanics/*` folders, `engine/runtime` ops and formulas, `reactionRulesSnapshot`, `createCombatExpansionRuleSnapshot`, `snapshotEnemyKnowledgeRules`, `snapshotRangePolicy`, version scalars, `STREAM_NAMES`).
+  - The seven new modules (`combatMatchups`, `combatStatusRules`, `combatExpansionEquipment`, `combatCardTraits`, `actionCosts`, `enemyKnowledge`, `ashenBlight`) are in `sources.json` under `core2.modules`.
+  - The profile hash is shipped verbatim: `sha256:0b5c8941...bd27`.
+- **Transform:** new `core2` block in `Tools/transform.config.json` (51 tables, 49 documents). Optional key parts (`scope?`) fix the 255 scope-less tagging rows (4708 in the Core 2 bundle). Key order and `rowOrder` are kept for every new table (D-040). `manifest.json` gains `webSources` (both shas and the profile id and hash). `rules/rng.json` keeps its 14 `streams` and gains `core2Streams` (the web's other 11, enum `Core2RngStream`); the transform fails unless the two together equal the web's `STREAM_NAMES`. Appending to `streams` itself broke about 800 parity tests, because run, combat and map documents record every stream counter. `rules/effectOps.json` gains the 16 Core 2 ops used by the new content so it validates (no interpreter yet).
+- **Content (all new, the 405 files untouched):** `profile/core.json`, `profile/content/*.json` (26 keys), `profile/bundle/*.json` (cards 529, statuses 101, relics 73, enemies 33, enemyMoves 138, encounters 35, classes 4, classTree 40, sigils 7, consumables 11, companions 2, classMastery 229, classSkillFeats 70, tags 436, tagging 4708, nodes 464, propertyRules 182), `profile/content` (characters 37, cards 211, enemyCards 138, enemyRelics 6, gear 47, enemies 33), and 16 `rules/*` files. `rules/core2Vocabulary.json` (hand-written: camps, reaction windows, dispatch intent types) holds the vocabularies the web keeps only in code. D-164.
+- **Schemas:** 100 new. `Tools/infer-schemas.mjs` produced the shapes (it now reads the `core2` tables and skips `schemas/` entries) with Core 2 x-refs in `Tools/schema-refs.json` (profile cards, relics, statuses, stances, enemies, seats, classes, armaments). Hand-written: `rules.{versions,rangePolicy,reactionRules,enemyKnowledgeRules,core2Mechanics,runtime,core2Vocabulary}`.
+- **Codegen:** `Tools/codegen.d/core2-{profile,rules,enums}.json` add 11 key sets (profile, module, content, bundle, rule, snapshot, version keys) and the enums `Stance`, `Camp`, `RangeBand`, `ReactionWindow`, `CoreIntentType`, `RewardOptionKind`, `RestService`. `codegen.mjs` learned `keys: true` (an enum over an object's keys).
+
+**Tests:** `transform-content --check`, `codegen --check`, `refresh-manifest --check`, `check-content` (67 count-gate tables), `check-docs` green; dotnet 2860/2860 (Domain.Tests; the 405 parity fixtures untouched)
+
+**Not verified / deferred**
+- Unity (no editor). The new `Ashen.Generated` types (`Stance`, `Camp`, ...) compile under dotnet only if the Domain test project includes `Generated`.
+- `settings/webKeyMap.json` is not regenerated (WP-20); the HEAD Advanced rows are exported to `raw/core2/advancedRows.settings.json` (the 4 non-`gameConfig` rows) only.
+- Core 2 display text stays inline in `profile/` rows (no `strings/` keys yet). `weaponCardPackages` and the other 405-only extras (weapons, outfits, events module, music, sfx) are not re-exported for Core 2.
+- The 405 replacement (plan 2.1) is still the owner's call.
+
+**Next:** WP-1 (the oracle harness: registries, `createRunState`, `createRunCombat`, a bot, a registry dump) over `Tools/export/raw/core2` and the web at `b8cfe4fac`.
+
 ## Promotion: 0.1.37.3 (2026-10-03)
 
 - `dev` 0.1.37.3 promoted to `test` (cehinds/AshenedSpire#1) and to `main` (cehinds/AshenedSpire#2, merge `e99920c`). No version change and no owner approval implied (D-039).

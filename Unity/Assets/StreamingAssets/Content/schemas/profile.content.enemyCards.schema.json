@@ -1,0 +1,161 @@
+{
+  "$id": "profile/content/enemyCards.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "class": {
+        "type": "string",
+        "enum": [
+          "colorless"
+        ]
+      },
+      "cost": {
+        "type": "integer"
+      },
+      "costRule": {
+        "type": "string",
+        "enum": [
+          "fixed"
+        ]
+      },
+      "damageSchool": {
+        "type": "string",
+        "enum": [
+          "physical"
+        ]
+      },
+      "effects": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "integer"
+            },
+            "bands": {
+              "type": "integer"
+            },
+            "card": {
+              "type": "string",
+              "enum": [
+                "dazed",
+                "slimed",
+                "wound"
+              ]
+            },
+            "hits": {
+              "type": "integer"
+            },
+            "op": {
+              "type": "string",
+              "enum": [
+                "addCard",
+                "applyStatus",
+                "block",
+                "damage",
+                "heal",
+                "moveEngagement"
+              ]
+            },
+            "pile": {
+              "type": "string",
+              "enum": [
+                "discard",
+                "draw"
+              ]
+            },
+            "position": {
+              "type": "string"
+            },
+            "stacks": {
+              "type": "integer"
+            },
+            "status": {
+              "type": "string",
+              "x-ref": "profile/bundle/statuses.json"
+            },
+            "target": {
+              "type": "string",
+              "enum": [
+                "enemy",
+                "self"
+              ]
+            }
+          },
+          "required": [
+            "op",
+            "target"
+          ]
+        }
+      },
+      "exposureBuildupPerHit": {
+        "type": "integer"
+      },
+      "icon": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "keywords": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "manaCost": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "string"
+      },
+      "range": {
+        "type": "string"
+      },
+      "rarity": {
+        "type": "string",
+        "enum": [
+          "special"
+        ]
+      },
+      "staminaCost": {
+        "type": "integer"
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "textTemplate": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": [
+          "attack",
+          "power",
+          "skill"
+        ]
+      }
+    },
+    "required": [
+      "class",
+      "cost",
+      "costRule",
+      "effects",
+      "icon",
+      "id",
+      "keywords",
+      "manaCost",
+      "name",
+      "rarity",
+      "staminaCost",
+      "tags",
+      "textTemplate",
+      "type"
+    ]
+  }
+}

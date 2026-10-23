@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "reads": {
+    "baseExact": 0.3,
+    "wisdomExact": 0.01,
+    "intelligenceExact": 0.01,
+    "levelExact": 0.005,
+    "perceptionExact": 0.03,
+    "minimumExact": 0,
+    "maximumExact": 0.9,
+    "baseClue": 0.5,
+    "wisdomClue": 0.005,
+    "intelligenceClue": 0.005,
+    "levelClue": 0.0025,
+    "perceptionClue": 0.02,
+    "minimumClue": 0,
+    "maximumClue": 0.9
+  },
+  "perception": {
+    "base": 3,
+    "growth": 1.5,
+    "roundTo": 1,
+    "maxLevel": 10,
+    "correctPredictionXp": 1
+  },
+  "bestiary": {
+    "encountersToMaster": 30,
+    "perEnemy": {}
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "$id": "profile/bundle/tagFamilies.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "blurb": {
+        "type": "string"
+      },
+      "family": {
+        "type": "string"
+      },
+      "label": {
+        "type": "string"
+      },
+      "scopeField": {
+        "type": "string",
+        "enum": [
+          "",
+          "classId",
+          "enemyId"
+        ]
+      },
+      "source": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "blurb",
+      "family",
+      "label",
+      "scopeField",
+      "source"
+    ]
+  }
+}

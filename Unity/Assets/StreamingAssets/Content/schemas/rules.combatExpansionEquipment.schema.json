@@ -1,0 +1,1078 @@
+{
+  "$id": "rules/combatExpansionEquipment.json",
+  "type": "object",
+  "properties": {
+    "combatExpansionEquipment": {
+      "type": "object",
+      "properties": {
+        "armaments": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "flat": {
+                "type": "object",
+                "properties": {
+                  "decay": {
+                    "type": "integer"
+                  },
+                  "fire": {
+                    "type": "integer"
+                  },
+                  "frost": {
+                    "type": "integer"
+                  },
+                  "piercing": {
+                    "type": "integer"
+                  },
+                  "slashing": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "traits": {
+                "type": "object",
+                "properties": {
+                  "caster": {
+                    "type": "boolean"
+                  },
+                  "conductive": {
+                    "type": "boolean"
+                  },
+                  "grounded": {
+                    "type": "boolean"
+                  },
+                  "insulated": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "armour": {
+          "type": "object",
+          "properties": {
+            "herald:default": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "decay": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "decay"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat"
+              ]
+            },
+            "herald:emberhabit": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "fire": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "fire"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "burn": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "burn"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "herald:ossuary": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "decay": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "decay"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "crimsonBlight": {
+                          "type": "integer"
+                        },
+                        "necroticBlight": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "crimsonBlight",
+                        "necroticBlight"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "herald:pilgrim": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "sacred": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "sacred"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "recoveryBonus": {
+                      "type": "object",
+                      "properties": {
+                        "curse": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "curse"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "recoveryBonus"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "reaver:bastion": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "blunt": {
+                      "type": "integer"
+                    },
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "blunt",
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "conductive": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "conductive"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "reaver:default": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "conductive": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "conductive"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "reaver:oathsworn": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "decay": {
+                      "type": "integer"
+                    },
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "decay",
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "conductive": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "conductive"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "reaver:vigil": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "frost"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat"
+              ]
+            },
+            "reaver:warden": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    },
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing",
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "conductive": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "conductive"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "rogue:default": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat"
+              ]
+            },
+            "rogue:duelist": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "recoveryBonus": {
+                      "type": "object",
+                      "properties": {
+                        "bodily": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "bodily"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "recoveryBonus"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "rogue:nightveil": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "sleep": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "sleep"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "rogue:shadow": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "venom": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "venom"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "rogue:waywatcher": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "insulated": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "insulated"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "starseer:astral": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "arcane": {
+                      "type": "integer"
+                    },
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "arcane",
+                    "frost"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "dazed": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "dazed"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "starseer:default": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "frost"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat"
+              ]
+            },
+            "starseer:eclipse": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "arcane": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "arcane"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "sleep": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "sleep"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "starseer:rimeweave": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "frost"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "frost": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "frost"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "starseer:starlit": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "frost"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "insulated": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "insulated"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            }
+          },
+          "required": [
+            "herald:default",
+            "herald:emberhabit",
+            "herald:ossuary",
+            "herald:pilgrim",
+            "reaver:bastion",
+            "reaver:default",
+            "reaver:oathsworn",
+            "reaver:vigil",
+            "reaver:warden",
+            "rogue:default",
+            "rogue:duelist",
+            "rogue:nightveil",
+            "rogue:shadow",
+            "rogue:waywatcher",
+            "starseer:astral",
+            "starseer:default",
+            "starseer:eclipse",
+            "starseer:rimeweave",
+            "starseer:starlit"
+          ]
+        },
+        "enemies": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "armorClass": {
+                "type": "string",
+                "enum": [
+                  "heavy",
+                  "light",
+                  "medium"
+                ]
+              },
+              "flat": {
+                "type": "object",
+                "properties": {
+                  "piercing": {
+                    "type": "integer"
+                  },
+                  "slashing": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "resist": {
+                "type": "object",
+                "properties": {
+                  "decay": {
+                    "type": "integer"
+                  },
+                  "earth": {
+                    "type": "integer"
+                  },
+                  "fire": {
+                    "type": "integer"
+                  },
+                  "psychic": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "traits": {
+                "type": "object",
+                "properties": {
+                  "buildupResistance": {
+                    "type": "object",
+                    "properties": {
+                      "venom": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "venom"
+                    ]
+                  },
+                  "caster": {
+                    "type": "boolean"
+                  },
+                  "conductive": {
+                    "type": "boolean"
+                  },
+                  "mindless": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "weak": {
+                "type": "object",
+                "properties": {
+                  "blunt": {
+                    "type": "integer"
+                  },
+                  "decay": {
+                    "type": "integer"
+                  },
+                  "fire": {
+                    "type": "integer"
+                  },
+                  "frost": {
+                    "type": "integer"
+                  },
+                  "piercing": {
+                    "type": "integer"
+                  },
+                  "sacred": {
+                    "type": "integer"
+                  },
+                  "slashing": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            "required": [
+              "armorClass",
+              "weak"
+            ]
+          }
+        },
+        "sharedArmour": {
+          "type": "object",
+          "properties": {
+            "gutterLeathers": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "venom": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "venom"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "nightweave": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "frost": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "frost"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "recoveryBonus": {
+                      "type": "object",
+                      "properties": {
+                        "mental": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "mental"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "recoveryBonus"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "riteVestments": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "sacred": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "sacred"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "buildupResistance": {
+                      "type": "object",
+                      "properties": {
+                        "weak": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "weak"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "buildupResistance"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            },
+            "wayfarerPlate": {
+              "type": "object",
+              "properties": {
+                "armorClass": {
+                  "type": "string"
+                },
+                "flat": {
+                  "type": "object",
+                  "properties": {
+                    "piercing": {
+                      "type": "integer"
+                    },
+                    "slashing": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "piercing",
+                    "slashing"
+                  ]
+                },
+                "traits": {
+                  "type": "object",
+                  "properties": {
+                    "conductive": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "conductive"
+                  ]
+                }
+              },
+              "required": [
+                "armorClass",
+                "flat",
+                "traits"
+              ]
+            }
+          },
+          "required": [
+            "gutterLeathers",
+            "nightweave",
+            "riteVestments",
+            "wayfarerPlate"
+          ]
+        }
+      },
+      "required": [
+        "armaments",
+        "armour",
+        "enemies",
+        "sharedArmour"
+      ]
+    }
+  },
+  "required": [
+    "combatExpansionEquipment"
+  ]
+}

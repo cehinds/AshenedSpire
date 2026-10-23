@@ -1,0 +1,133 @@
+{
+  "$id": "rules/ashenBlight.json",
+  "type": "object",
+  "properties": {
+    "ASHEN_BLIGHT_PATHS": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ASHEN_BLIGHT_RULES": {
+      "type": "object",
+      "properties": {
+        "convertedActionDiscount": {
+          "type": "integer"
+        },
+        "convertedPrintedBonusPct": {
+          "type": "integer"
+        },
+        "encounterLossPct": {
+          "type": "integer"
+        },
+        "maximum": {
+          "type": "integer"
+        },
+        "milestones": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "thresholdLossPct": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "convertedActionDiscount",
+        "convertedPrintedBonusPct",
+        "encounterLossPct",
+        "maximum",
+        "milestones",
+        "thresholdLossPct",
+        "version"
+      ]
+    },
+    "ashenBlightFeats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "buffs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "drawbacks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Maximum Stamina −1.",
+                "Maximum Stamina −2.",
+                "Maximum Stamina −3.",
+                "Opening hand −1 card, minimum 1.",
+                "Persistent Ward restoration −10%.",
+                "Persistent Ward restoration −15%.",
+                "Persistent Ward restoration −20%."
+              ]
+            }
+          },
+          "id": {
+            "type": "string",
+            "enum": [
+              "martialBlight1",
+              "martialBlight2",
+              "martialBlight3",
+              "spellBlight1",
+              "spellBlight2",
+              "spellBlight3",
+              "survivorBlight1",
+              "survivorBlight2",
+              "survivorBlight3"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string",
+            "enum": [
+              "martial",
+              "spell",
+              "survivor"
+            ]
+          },
+          "stage": {
+            "type": "string",
+            "enum": [
+              "Infernal",
+              "Kindled",
+              "Singed"
+            ]
+          },
+          "threshold": {
+            "type": "integer"
+          },
+          "tier": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "buffs",
+          "drawbacks",
+          "id",
+          "name",
+          "path",
+          "stage",
+          "threshold",
+          "tier"
+        ]
+      }
+    }
+  },
+  "required": [
+    "ASHEN_BLIGHT_PATHS",
+    "ASHEN_BLIGHT_RULES",
+    "ashenBlightFeats"
+  ]
+}

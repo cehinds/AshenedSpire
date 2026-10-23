@@ -1,0 +1,425 @@
+{
+  "$id": "profile/bundle/enemies.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "arcaneExposure": {
+        "type": "object",
+        "properties": {
+          "buildupMultiplier": {
+            "type": "integer"
+          },
+          "lockPolicy": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          },
+          "onBreak": {
+            "type": "object",
+            "properties": {
+              "duration": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "value": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "duration",
+              "status",
+              "value"
+            ]
+          },
+          "overflowPolicy": {
+            "type": "string"
+          },
+          "resetMode": {
+            "type": "string"
+          },
+          "threshold": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      },
+      "art": {
+        "type": "string"
+      },
+      "artFaces": {
+        "type": "string",
+        "enum": [
+          "left"
+        ]
+      },
+      "attributes": {
+        "type": "object",
+        "properties": {
+          "constitution": {
+            "type": "integer"
+          },
+          "dexterity": {
+            "type": "integer"
+          },
+          "intelligence": {
+            "type": "integer"
+          },
+          "strength": {
+            "type": "integer"
+          },
+          "wisdom": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "constitution",
+          "dexterity",
+          "intelligence",
+          "strength",
+          "wisdom"
+        ]
+      },
+      "blighted": {
+        "type": "boolean"
+      },
+      "damageResistanceBySchool": {
+        "type": "object",
+        "properties": {
+          "magic": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "magic"
+        ]
+      },
+      "equipmentPower": {
+        "type": "number"
+      },
+      "firstMove": {
+        "type": "string"
+      },
+      "hp": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        }
+      },
+      "id": {
+        "type": "string"
+      },
+      "levelProfile": {
+        "type": "object",
+        "properties": {
+          "max": {
+            "type": "integer"
+          },
+          "min": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "max",
+          "min"
+        ]
+      },
+      "moves": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "block": {
+              "type": "integer"
+            },
+            "counterDamage": {
+              "type": "integer"
+            },
+            "damage": {
+              "type": "integer"
+            },
+            "delay": {
+              "type": "object",
+              "properties": {
+                "turns": {
+                  "type": "integer"
+                },
+                "whileCharging": {
+                  "type": "object",
+                  "properties": {
+                    "block": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "block"
+                  ]
+                }
+              },
+              "required": [
+                "turns",
+                "whileCharging"
+              ]
+            },
+            "effects": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "bands": {
+                    "type": "integer"
+                  },
+                  "card": {
+                    "type": "string",
+                    "enum": [
+                      "dazed",
+                      "slimed",
+                      "wound"
+                    ]
+                  },
+                  "op": {
+                    "type": "string",
+                    "enum": [
+                      "addCard",
+                      "applyStatus",
+                      "block",
+                      "heal",
+                      "moveEngagement"
+                    ]
+                  },
+                  "pile": {
+                    "type": "string",
+                    "enum": [
+                      "discard",
+                      "draw"
+                    ]
+                  },
+                  "position": {
+                    "type": "string"
+                  },
+                  "stacks": {
+                    "type": "integer"
+                  },
+                  "status": {
+                    "type": "string",
+                    "x-ref": "profile/bundle/statuses.json"
+                  },
+                  "target": {
+                    "type": "string",
+                    "enum": [
+                      "enemy",
+                      "player",
+                      "self"
+                    ]
+                  }
+                },
+                "required": [
+                  "op"
+                ]
+              }
+            },
+            "hits": {
+              "type": "integer"
+            },
+            "intent": {
+              "type": "string",
+              "enum": [
+                "attack",
+                "block",
+                "buff",
+                "debuff"
+              ]
+            },
+            "locked": {
+              "type": "boolean"
+            },
+            "maxConsecutive": {
+              "type": "integer"
+            },
+            "reaction": {
+              "type": "object",
+              "properties": {
+                "chance": {
+                  "type": "number"
+                },
+                "minIncoming": {
+                  "type": "integer"
+                },
+                "on": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "minIncoming",
+                "on"
+              ]
+            },
+            "sp": {
+              "type": "integer"
+            },
+            "weight": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "intent"
+          ]
+        }
+      },
+      "name": {
+        "type": "string"
+      },
+      "phases": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "do": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "op": {
+                    "type": "string",
+                    "enum": [
+                      "applyStatus",
+                      "heal"
+                    ]
+                  },
+                  "stacks": {
+                    "type": "integer"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "crimsonBlight",
+                      "frail",
+                      "strength",
+                      "weak"
+                    ]
+                  },
+                  "target": {
+                    "type": "string",
+                    "enum": [
+                      "player",
+                      "self"
+                    ]
+                  }
+                },
+                "required": [
+                  "op",
+                  "target"
+                ]
+              }
+            },
+            "if": {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "p"
+              ]
+            },
+            "on": {
+              "type": "string",
+              "enum": [
+                "damageDealt",
+                "hpBelowPct"
+              ]
+            },
+            "once": {
+              "type": "boolean"
+            },
+            "pct": {
+              "type": "integer"
+            },
+            "unlockMoves": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ashBreath",
+                  "crackedPeal",
+                  "fallingHeavens",
+                  "scarletDance",
+                  "shatteredCourt",
+                  "thousandHands",
+                  "twinDaggers"
+                ]
+              }
+            }
+          },
+          "required": [
+            "do",
+            "on"
+          ]
+        }
+      },
+      "poiseMax": {
+        "type": "integer"
+      },
+      "rangeClosingMove": {
+        "type": "string",
+        "enum": [
+          "advance"
+        ]
+      },
+      "rangeRoutePolicy": {
+        "type": "string",
+        "enum": [
+          "advance"
+        ]
+      },
+      "size": {
+        "type": "string",
+        "enum": [
+          "large",
+          "medium",
+          "small"
+        ]
+      },
+      "startingRange": {
+        "type": "string",
+        "enum": [
+          "melee",
+          "reach"
+        ]
+      },
+      "tint": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "art",
+      "attributes",
+      "hp",
+      "id",
+      "levelProfile",
+      "moves",
+      "name",
+      "poiseMax",
+      "rangeClosingMove",
+      "rangeRoutePolicy",
+      "size",
+      "startingRange"
+    ]
+  }
+}

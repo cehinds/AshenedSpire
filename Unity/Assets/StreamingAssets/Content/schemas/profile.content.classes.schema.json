@@ -1,0 +1,99 @@
+{
+  "$id": "profile/content/classes.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "attributes": {
+        "type": "object",
+        "properties": {
+          "constitution": {
+            "type": "integer"
+          },
+          "dexterity": {
+            "type": "integer"
+          },
+          "intelligence": {
+            "type": "integer"
+          },
+          "strength": {
+            "type": "integer"
+          },
+          "wisdom": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "constitution",
+          "dexterity",
+          "intelligence",
+          "strength",
+          "wisdom"
+        ]
+      },
+      "defaultDeck": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "base.draw",
+            "core.counter",
+            "core.defend",
+            "core.evade",
+            "core.heraldSpecial",
+            "core.reaverSpecial",
+            "core.rogueSpecial",
+            "core.smash",
+            "core.starseerSpecial",
+            "core.strike",
+            "core.sweep"
+          ]
+        }
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "loadout": {
+        "type": "object",
+        "properties": {
+          "leftHand": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "rightHand": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "leftHand",
+          "rightHand"
+        ]
+      },
+      "maxHp": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "string"
+      },
+      "specialCardId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "attributes",
+      "defaultDeck",
+      "description",
+      "id",
+      "loadout",
+      "maxHp",
+      "name",
+      "specialCardId"
+    ]
+  }
+}

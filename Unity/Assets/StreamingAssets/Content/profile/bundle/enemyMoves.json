@@ -1,0 +1,1716 @@
+{
+  "wanderingSoldier:slash": {
+    "intent": "attack",
+    "damage": 8,
+    "weight": 45,
+    "maxConsecutive": 2,
+    "id": "slash",
+    "enemyId": "wanderingSoldier"
+  },
+  "wanderingSoldier:guard": {
+    "intent": "block",
+    "block": 6,
+    "weight": 30,
+    "maxConsecutive": 1,
+    "id": "guard",
+    "enemyId": "wanderingSoldier"
+  },
+  "wanderingSoldier:warcry": {
+    "intent": "buff",
+    "weight": 25,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 2
+      }
+    ],
+    "id": "warcry",
+    "enemyId": "wanderingSoldier"
+  },
+  "wanderingSoldier:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "wanderingSoldier"
+  },
+  "blightHound:bite": {
+    "intent": "attack",
+    "damage": 6,
+    "weight": 60,
+    "id": "bite",
+    "enemyId": "blightHound"
+  },
+  "blightHound:lunge": {
+    "intent": "attack",
+    "damage": 3,
+    "hits": 2,
+    "weight": 40,
+    "id": "lunge",
+    "enemyId": "blightHound"
+  },
+  "blightHound:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "blightHound"
+  },
+  "huskBrute:club": {
+    "intent": "attack",
+    "damage": 15,
+    "weight": 50,
+    "id": "club",
+    "enemyId": "huskBrute"
+  },
+  "huskBrute:bellow": {
+    "intent": "debuff",
+    "weight": 25,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "frail",
+        "stacks": 1
+      },
+      {
+        "op": "addCard",
+        "target": "player",
+        "card": "slimed",
+        "pile": "discard"
+      }
+    ],
+    "id": "bellow",
+    "enemyId": "huskBrute"
+  },
+  "huskBrute:brace": {
+    "intent": "block",
+    "block": 8,
+    "weight": 25,
+    "maxConsecutive": 1,
+    "id": "brace",
+    "enemyId": "huskBrute"
+  },
+  "huskBrute:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "huskBrute"
+  },
+  "graveWisp:curse": {
+    "intent": "debuff",
+    "weight": 50,
+    "maxConsecutive": 2,
+    "effects": [
+      {
+        "op": "addCard",
+        "card": "dazed",
+        "pile": "draw",
+        "position": "random"
+      }
+    ],
+    "id": "curse",
+    "enemyId": "graveWisp"
+  },
+  "graveWisp:drain": {
+    "intent": "attack",
+    "damage": 8,
+    "weight": 50,
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 4
+      }
+    ],
+    "id": "drain",
+    "enemyId": "graveWisp"
+  },
+  "graveWisp:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "graveWisp"
+  },
+  "wyrmAspirant:consecrate": {
+    "intent": "buff",
+    "weight": 10,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 3
+      }
+    ],
+    "id": "consecrate",
+    "enemyId": "wyrmAspirant"
+  },
+  "wyrmAspirant:halberdSweep": {
+    "intent": "attack",
+    "damage": 17,
+    "weight": 50,
+    "maxConsecutive": 2,
+    "id": "halberdSweep",
+    "enemyId": "wyrmAspirant"
+  },
+  "wyrmAspirant:tailSlam": {
+    "intent": "attack",
+    "damage": 11,
+    "weight": 30,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "weak",
+        "stacks": 1
+      }
+    ],
+    "id": "tailSlam",
+    "enemyId": "wyrmAspirant"
+  },
+  "wyrmAspirant:goldenGuard": {
+    "intent": "block",
+    "block": 12,
+    "weight": 20,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 4
+      }
+    ],
+    "id": "goldenGuard",
+    "enemyId": "wyrmAspirant"
+  },
+  "wyrmAspirant:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "wyrmAspirant"
+  },
+  "fellWarden:caneStrike": {
+    "sp": 1,
+    "intent": "attack",
+    "damage": 8,
+    "weight": 40,
+    "maxConsecutive": 2,
+    "id": "caneStrike",
+    "enemyId": "fellWarden"
+  },
+  "fellWarden:hammerToss": {
+    "sp": 1,
+    "intent": "attack",
+    "damage": 5,
+    "hits": 2,
+    "weight": 30,
+    "maxConsecutive": 2,
+    "id": "hammerToss",
+    "enemyId": "fellWarden"
+  },
+  "fellWarden:heldBlade": {
+    "sp": 1,
+    "intent": "attack",
+    "damage": 14,
+    "weight": 30,
+    "maxConsecutive": 1,
+    "delay": {
+      "turns": 1,
+      "whileCharging": {
+        "block": 8
+      }
+    },
+    "id": "heldBlade",
+    "enemyId": "fellWarden"
+  },
+  "fellWarden:twinDaggers": {
+    "sp": 3,
+    "intent": "attack",
+    "damage": 3,
+    "hits": 4,
+    "weight": 35,
+    "locked": true,
+    "id": "twinDaggers",
+    "enemyId": "fellWarden"
+  },
+  "fellWarden:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "fellWarden"
+  },
+  "lanternMoth:lanternDust": {
+    "intent": "debuff",
+    "weight": 35,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "weak",
+        "stacks": 1
+      }
+    ],
+    "id": "lanternDust",
+    "enemyId": "lanternMoth"
+  },
+  "lanternMoth:wingSparks": {
+    "intent": "attack",
+    "sp": 1,
+    "damage": 3,
+    "weight": 65,
+    "hits": 3,
+    "id": "wingSparks",
+    "enemyId": "lanternMoth"
+  },
+  "lanternMoth:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "lanternMoth"
+  },
+  "briarHermit:rootShelter": {
+    "intent": "block",
+    "block": 7,
+    "weight": 30,
+    "maxConsecutive": 1,
+    "id": "rootShelter",
+    "enemyId": "briarHermit"
+  },
+  "briarHermit:briarCast": {
+    "intent": "attack",
+    "sp": 1,
+    "damage": 16,
+    "weight": 45,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "bleed",
+        "stacks": 1
+      }
+    ],
+    "id": "briarCast",
+    "enemyId": "briarHermit"
+  },
+  "briarHermit:sapMend": {
+    "intent": "buff",
+    "weight": 25,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 4
+      }
+    ],
+    "id": "sapMend",
+    "enemyId": "briarHermit"
+  },
+  "briarHermit:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "briarHermit"
+  },
+  "chainScavenger:hookCast": {
+    "intent": "attack",
+    "damage": 20,
+    "weight": 60,
+    "id": "hookCast",
+    "enemyId": "chainScavenger"
+  },
+  "chainScavenger:chainSnare": {
+    "intent": "debuff",
+    "counterDamage": 6,
+    "weight": 20,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "frail",
+        "stacks": 1
+      }
+    ],
+    "id": "chainSnare",
+    "enemyId": "chainScavenger"
+  },
+  "chainScavenger:draggingBlow": {
+    "intent": "attack",
+    "damage": 41,
+    "weight": 20,
+    "maxConsecutive": 1,
+    "delay": {
+      "turns": 1,
+      "whileCharging": {
+        "block": 3
+      }
+    },
+    "id": "draggingBlow",
+    "enemyId": "chainScavenger"
+  },
+  "chainScavenger:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "chainScavenger"
+  },
+  "bellKeeper:bronzeToll": {
+    "sp": 1,
+    "intent": "attack",
+    "damage": 19,
+    "weight": 35,
+    "maxConsecutive": 1,
+    "delay": {
+      "turns": 1,
+      "whileCharging": {
+        "block": 6
+      }
+    },
+    "id": "bronzeToll",
+    "enemyId": "bellKeeper"
+  },
+  "bellKeeper:clapperSwing": {
+    "sp": 1,
+    "intent": "attack",
+    "damage": 9,
+    "weight": 45,
+    "maxConsecutive": 2,
+    "id": "clapperSwing",
+    "enemyId": "bellKeeper"
+  },
+  "bellKeeper:muffledPrayer": {
+    "sp": 1,
+    "intent": "block",
+    "block": 9,
+    "weight": 20,
+    "maxConsecutive": 1,
+    "id": "muffledPrayer",
+    "enemyId": "bellKeeper"
+  },
+  "bellKeeper:crackedPeal": {
+    "sp": 1,
+    "intent": "attack",
+    "damage": 6,
+    "weight": 25,
+    "hits": 3,
+    "locked": true,
+    "maxConsecutive": 1,
+    "id": "crackedPeal",
+    "enemyId": "bellKeeper"
+  },
+  "bellKeeper:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "bellKeeper"
+  },
+  "thornMatriarch:rootCrown": {
+    "sp": 1,
+    "intent": "block",
+    "block": 8,
+    "weight": 25,
+    "maxConsecutive": 1,
+    "id": "rootCrown",
+    "enemyId": "thornMatriarch"
+  },
+  "thornMatriarch:thornNeedles": {
+    "sp": 1,
+    "intent": "attack",
+    "damage": 4,
+    "weight": 45,
+    "hits": 3,
+    "maxConsecutive": 2,
+    "id": "thornNeedles",
+    "enemyId": "thornMatriarch"
+  },
+  "thornMatriarch:entwiningRoots": {
+    "sp": 2,
+    "intent": "attack",
+    "damage": 15,
+    "weight": 30,
+    "maxConsecutive": 1,
+    "delay": {
+      "turns": 1,
+      "whileCharging": {
+        "block": 4
+      }
+    },
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "bleed",
+        "stacks": 2
+      }
+    ],
+    "id": "entwiningRoots",
+    "enemyId": "thornMatriarch"
+  },
+  "thornMatriarch:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "thornMatriarch"
+  },
+  "gildedKnight:thrust": {
+    "intent": "attack",
+    "damage": 11,
+    "weight": 50,
+    "maxConsecutive": 2,
+    "id": "thrust",
+    "enemyId": "gildedKnight"
+  },
+  "gildedKnight:parry": {
+    "intent": "block",
+    "counterDamage": 6,
+    "block": 9,
+    "weight": 30,
+    "maxConsecutive": 1,
+    "id": "parry",
+    "enemyId": "gildedKnight"
+  },
+  "gildedKnight:rally": {
+    "intent": "buff",
+    "weight": 20,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 2
+      }
+    ],
+    "id": "rally",
+    "enemyId": "gildedKnight"
+  },
+  "gildedKnight:gildedGuard": {
+    "intent": "attack",
+    "block": 6,
+    "damage": 3,
+    "reaction": {
+      "on": [
+        "playerAction"
+      ],
+      "minIncoming": 8
+    },
+    "id": "gildedGuard",
+    "enemyId": "gildedKnight"
+  },
+  "gildedKnight:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "gildedKnight"
+  },
+  "courtSurgeon:scalpel": {
+    "intent": "attack",
+    "damage": 7,
+    "weight": 40,
+    "effects": [
+      {
+        "op": "addCard",
+        "target": "player",
+        "card": "wound",
+        "pile": "discard"
+      }
+    ],
+    "id": "scalpel",
+    "enemyId": "courtSurgeon"
+  },
+  "courtSurgeon:sedate": {
+    "intent": "debuff",
+    "weight": 30,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "weak",
+        "stacks": 1
+      },
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "frail",
+        "stacks": 1
+      }
+    ],
+    "id": "sedate",
+    "enemyId": "courtSurgeon"
+  },
+  "courtSurgeon:stitch": {
+    "intent": "buff",
+    "weight": 30,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 8
+      }
+    ],
+    "id": "stitch",
+    "enemyId": "courtSurgeon"
+  },
+  "courtSurgeon:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "courtSurgeon"
+  },
+  "stitchedHound:maul": {
+    "intent": "attack",
+    "damage": 4,
+    "hits": 2,
+    "weight": 60,
+    "id": "maul",
+    "enemyId": "stitchedHound"
+  },
+  "stitchedHound:rend": {
+    "intent": "attack",
+    "damage": 6,
+    "weight": 40,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "bleed",
+        "stacks": 2
+      }
+    ],
+    "id": "rend",
+    "enemyId": "stitchedHound"
+  },
+  "stitchedHound:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "stitchedHound"
+  },
+  "courtMarionette:dart": {
+    "intent": "attack",
+    "damage": 4,
+    "hits": 2,
+    "weight": 50,
+    "id": "dart",
+    "enemyId": "courtMarionette"
+  },
+  "courtMarionette:blowdart": {
+    "intent": "attack",
+    "damage": 3,
+    "weight": 50,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "crimsonBlight",
+        "stacks": 2
+      }
+    ],
+    "id": "blowdart",
+    "enemyId": "courtMarionette"
+  },
+  "courtMarionette:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "courtMarionette"
+  },
+  "livingArmor:slam": {
+    "intent": "attack",
+    "damage": 10,
+    "weight": 30,
+    "id": "slam",
+    "enemyId": "livingArmor"
+  },
+  "livingArmor:fortify": {
+    "intent": "block",
+    "block": 12,
+    "weight": 25,
+    "maxConsecutive": 1,
+    "id": "fortify",
+    "enemyId": "livingArmor"
+  },
+  "livingArmor:crush": {
+    "intent": "attack",
+    "damage": 14,
+    "weight": 20,
+    "maxConsecutive": 1,
+    "id": "crush",
+    "enemyId": "livingArmor"
+  },
+  "livingArmor:rimeCrush": {
+    "intent": "attack",
+    "damage": 8,
+    "weight": 25,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "frost",
+        "stacks": 3
+      }
+    ],
+    "id": "rimeCrush",
+    "enemyId": "livingArmor"
+  },
+  "livingArmor:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "livingArmor"
+  },
+  "courtDuelist:enGarde": {
+    "intent": "buff",
+    "weight": 10,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 3
+      }
+    ],
+    "id": "enGarde",
+    "enemyId": "courtDuelist"
+  },
+  "courtDuelist:flurry": {
+    "intent": "attack",
+    "damage": 5,
+    "hits": 3,
+    "weight": 40,
+    "maxConsecutive": 2,
+    "id": "flurry",
+    "enemyId": "courtDuelist"
+  },
+  "courtDuelist:lunge": {
+    "intent": "attack",
+    "damage": 14,
+    "weight": 30,
+    "maxConsecutive": 1,
+    "id": "lunge",
+    "enemyId": "courtDuelist"
+  },
+  "courtDuelist:riposte": {
+    "intent": "block",
+    "counterDamage": 6,
+    "block": 10,
+    "weight": 20,
+    "maxConsecutive": 1,
+    "id": "riposte",
+    "enemyId": "courtDuelist"
+  },
+  "courtDuelist:bindingRiposte": {
+    "intent": "attack",
+    "damage": 4,
+    "reaction": {
+      "on": [
+        "playerReaction"
+      ],
+      "minIncoming": 0,
+      "chance": 0.5
+    },
+    "id": "bindingRiposte",
+    "enemyId": "courtDuelist"
+  },
+  "courtDuelist:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "courtDuelist"
+  },
+  "stitchedKing:scepterBlow": {
+    "intent": "attack",
+    "damage": 11,
+    "weight": 40,
+    "maxConsecutive": 2,
+    "id": "scepterBlow",
+    "enemyId": "stitchedKing"
+  },
+  "stitchedKing:graspingHands": {
+    "intent": "attack",
+    "damage": 5,
+    "hits": 3,
+    "weight": 30,
+    "maxConsecutive": 2,
+    "id": "graspingHands",
+    "enemyId": "stitchedKing"
+  },
+  "stitchedKing:courtlyDecree": {
+    "intent": "block",
+    "block": 15,
+    "weight": 30,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 2
+      }
+    ],
+    "id": "courtlyDecree",
+    "enemyId": "stitchedKing"
+  },
+  "stitchedKing:thousandHands": {
+    "intent": "attack",
+    "damage": 3,
+    "hits": 6,
+    "weight": 40,
+    "locked": true,
+    "id": "thousandHands",
+    "enemyId": "stitchedKing"
+  },
+  "stitchedKing:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "stitchedKing"
+  },
+  "mirrorScribe:silverScript": {
+    "intent": "debuff",
+    "weight": 30,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "addCard",
+        "card": "dazed",
+        "pile": "discard"
+      }
+    ],
+    "id": "silverScript",
+    "enemyId": "mirrorScribe"
+  },
+  "mirrorScribe:shardVolley": {
+    "intent": "attack",
+    "damage": 3,
+    "weight": 50,
+    "hits": 3,
+    "id": "shardVolley",
+    "enemyId": "mirrorScribe"
+  },
+  "mirrorScribe:polishedWard": {
+    "intent": "block",
+    "counterDamage": 6,
+    "block": 6,
+    "weight": 20,
+    "maxConsecutive": 1,
+    "id": "polishedWard",
+    "enemyId": "mirrorScribe"
+  },
+  "mirrorScribe:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "mirrorScribe"
+  },
+  "stitchCrab:shellFold": {
+    "intent": "block",
+    "block": 11,
+    "weight": 30,
+    "maxConsecutive": 1,
+    "id": "shellFold",
+    "enemyId": "stitchCrab"
+  },
+  "stitchCrab:seamShears": {
+    "intent": "attack",
+    "damage": 4,
+    "weight": 45,
+    "hits": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "bleed",
+        "stacks": 1
+      }
+    ],
+    "id": "seamShears",
+    "enemyId": "stitchCrab"
+  },
+  "stitchCrab:scuttleRush": {
+    "intent": "attack",
+    "damage": 13,
+    "weight": 25,
+    "maxConsecutive": 1,
+    "id": "scuttleRush",
+    "enemyId": "stitchCrab"
+  },
+  "stitchCrab:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "stitchCrab"
+  },
+  "glassRegent:prismGuard": {
+    "intent": "block",
+    "block": 16,
+    "weight": 25,
+    "maxConsecutive": 1,
+    "id": "prismGuard",
+    "enemyId": "glassRegent"
+  },
+  "glassRegent:crystalRapier": {
+    "intent": "attack",
+    "damage": 15,
+    "weight": 45,
+    "maxConsecutive": 2,
+    "id": "crystalRapier",
+    "enemyId": "glassRegent"
+  },
+  "glassRegent:splinterRain": {
+    "intent": "attack",
+    "damage": 6,
+    "weight": 30,
+    "hits": 3,
+    "maxConsecutive": 1,
+    "id": "splinterRain",
+    "enemyId": "glassRegent"
+  },
+  "glassRegent:shatteredCourt": {
+    "intent": "attack",
+    "damage": 7,
+    "weight": 35,
+    "maxConsecutive": 1,
+    "delay": {
+      "turns": 1,
+      "whileCharging": {
+        "block": 0
+      }
+    },
+    "hits": 5,
+    "locked": true,
+    "id": "shatteredCourt",
+    "enemyId": "glassRegent"
+  },
+  "glassRegent:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "glassRegent"
+  },
+  "marrowOrganist:bonePrelude": {
+    "intent": "debuff",
+    "weight": 20,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "weak",
+        "stacks": 1
+      }
+    ],
+    "id": "bonePrelude",
+    "enemyId": "marrowOrganist"
+  },
+  "marrowOrganist:ivoryKeys": {
+    "intent": "attack",
+    "damage": 8,
+    "weight": 40,
+    "hits": 3,
+    "maxConsecutive": 2,
+    "id": "ivoryKeys",
+    "enemyId": "marrowOrganist"
+  },
+  "marrowOrganist:funeralChord": {
+    "intent": "attack",
+    "damage": 28,
+    "weight": 25,
+    "maxConsecutive": 1,
+    "delay": {
+      "turns": 1,
+      "whileCharging": {
+        "block": 5
+      }
+    },
+    "id": "funeralChord",
+    "enemyId": "marrowOrganist"
+  },
+  "marrowOrganist:quietRefrain": {
+    "intent": "buff",
+    "weight": 15,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 7
+      }
+    ],
+    "id": "quietRefrain",
+    "enemyId": "marrowOrganist"
+  },
+  "marrowOrganist:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "marrowOrganist"
+  },
+  "ashRevenant:cinderSlash": {
+    "intent": "attack",
+    "damage": 12,
+    "weight": 55,
+    "maxConsecutive": 2,
+    "id": "cinderSlash",
+    "enemyId": "ashRevenant"
+  },
+  "ashRevenant:reform": {
+    "intent": "buff",
+    "weight": 45,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 6
+      },
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 6
+      }
+    ],
+    "id": "reform",
+    "enemyId": "ashRevenant"
+  },
+  "ashRevenant:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "ashRevenant"
+  },
+  "emberStarvedPilgrim:desperateClaw": {
+    "intent": "attack",
+    "damage": 9,
+    "weight": 60,
+    "id": "desperateClaw",
+    "enemyId": "emberStarvedPilgrim"
+  },
+  "emberStarvedPilgrim:wail": {
+    "intent": "debuff",
+    "weight": 40,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "weak",
+        "stacks": 1
+      },
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "frail",
+        "stacks": 1
+      },
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "insanity",
+        "stacks": 3
+      }
+    ],
+    "id": "wail",
+    "enemyId": "emberStarvedPilgrim"
+  },
+  "emberStarvedPilgrim:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "emberStarvedPilgrim"
+  },
+  "valkyrieShade:spiralLance": {
+    "intent": "attack",
+    "damage": 5,
+    "hits": 2,
+    "weight": 50,
+    "id": "spiralLance",
+    "enemyId": "valkyrieShade"
+  },
+  "valkyrieShade:bloodFeather": {
+    "intent": "attack",
+    "damage": 5,
+    "weight": 50,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "bleed",
+        "stacks": 3
+      }
+    ],
+    "id": "bloodFeather",
+    "enemyId": "valkyrieShade"
+  },
+  "valkyrieShade:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "valkyrieShade"
+  },
+  "charredColossus:smash": {
+    "intent": "attack",
+    "damage": 16,
+    "weight": 50,
+    "maxConsecutive": 2,
+    "id": "smash",
+    "enemyId": "charredColossus"
+  },
+  "charredColossus:ashCloud": {
+    "intent": "debuff",
+    "weight": 25,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "weak",
+        "stacks": 2
+      }
+    ],
+    "id": "ashCloud",
+    "enemyId": "charredColossus"
+  },
+  "charredColossus:harden": {
+    "intent": "block",
+    "block": 14,
+    "weight": 25,
+    "maxConsecutive": 1,
+    "id": "harden",
+    "enemyId": "charredColossus"
+  },
+  "charredColossus:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "charredColossus"
+  },
+  "wyrmLord:consecration": {
+    "intent": "buff",
+    "weight": 10,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 4
+      }
+    ],
+    "id": "consecration",
+    "enemyId": "wyrmLord"
+  },
+  "wyrmLord:halberdReign": {
+    "intent": "attack",
+    "damage": 15,
+    "weight": 45,
+    "maxConsecutive": 2,
+    "id": "halberdReign",
+    "enemyId": "wyrmLord"
+  },
+  "wyrmLord:tailSweep": {
+    "intent": "attack",
+    "damage": 8,
+    "weight": 30,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "weak",
+        "stacks": 1
+      }
+    ],
+    "id": "tailSweep",
+    "enemyId": "wyrmLord"
+  },
+  "wyrmLord:goldenBulwark": {
+    "intent": "block",
+    "block": 16,
+    "weight": 25,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 6
+      }
+    ],
+    "id": "goldenBulwark",
+    "enemyId": "wyrmLord"
+  },
+  "wyrmLord:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "wyrmLord"
+  },
+  "blightedValkyrie:spiralThrust": {
+    "intent": "attack",
+    "damage": 12,
+    "weight": 35,
+    "maxConsecutive": 2,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "bleed",
+        "stacks": 2
+      }
+    ],
+    "id": "spiralThrust",
+    "enemyId": "blightedValkyrie"
+  },
+  "blightedValkyrie:whirlwind": {
+    "intent": "attack",
+    "damage": 4,
+    "hits": 5,
+    "weight": 30,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "bleed",
+        "stacks": 2
+      }
+    ],
+    "id": "whirlwind",
+    "enemyId": "blightedValkyrie"
+  },
+  "blightedValkyrie:rotWings": {
+    "intent": "block",
+    "block": 10,
+    "weight": 20,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "crimsonBlight",
+        "stacks": 3
+      }
+    ],
+    "id": "rotWings",
+    "enemyId": "blightedValkyrie"
+  },
+  "blightedValkyrie:scarletDance": {
+    "intent": "attack",
+    "damage": 5,
+    "hits": 5,
+    "weight": 35,
+    "locked": true,
+    "id": "scarletDance",
+    "enemyId": "blightedValkyrie"
+  },
+  "blightedValkyrie:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "blightedValkyrie"
+  },
+  "cinderMantis:scythePair": {
+    "intent": "attack",
+    "damage": 5,
+    "weight": 55,
+    "hits": 2,
+    "id": "scythePair",
+    "enemyId": "cinderMantis"
+  },
+  "cinderMantis:emberPounce": {
+    "intent": "attack",
+    "damage": 18,
+    "weight": 30,
+    "maxConsecutive": 1,
+    "delay": {
+      "turns": 1,
+      "whileCharging": {
+        "block": 2
+      }
+    },
+    "id": "emberPounce",
+    "enemyId": "cinderMantis"
+  },
+  "cinderMantis:foldedBlades": {
+    "intent": "block",
+    "counterDamage": 6,
+    "block": 8,
+    "weight": 15,
+    "maxConsecutive": 1,
+    "id": "foldedBlades",
+    "enemyId": "cinderMantis"
+  },
+  "cinderMantis:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "cinderMantis"
+  },
+  "eclipseCantor:darkHymn": {
+    "intent": "debuff",
+    "weight": 30,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "insanity",
+        "stacks": 3
+      }
+    ],
+    "id": "darkHymn",
+    "enemyId": "eclipseCantor"
+  },
+  "eclipseCantor:lunarRay": {
+    "intent": "attack",
+    "damage": 11,
+    "weight": 50,
+    "id": "lunarRay",
+    "enemyId": "eclipseCantor"
+  },
+  "eclipseCantor:fadingEcho": {
+    "intent": "attack",
+    "damage": 6,
+    "weight": 20,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "addCard",
+        "card": "dazed",
+        "pile": "discard"
+      }
+    ],
+    "id": "fadingEcho",
+    "enemyId": "eclipseCantor"
+  },
+  "eclipseCantor:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "eclipseCantor"
+  },
+  "furnaceSaint:openFurnace": {
+    "intent": "attack",
+    "damage": 32,
+    "weight": 30,
+    "maxConsecutive": 1,
+    "delay": {
+      "turns": 1,
+      "whileCharging": {
+        "block": 10
+      }
+    },
+    "id": "openFurnace",
+    "enemyId": "furnaceSaint"
+  },
+  "furnaceSaint:censerSweep": {
+    "intent": "attack",
+    "damage": 22,
+    "weight": 45,
+    "maxConsecutive": 2,
+    "id": "censerSweep",
+    "enemyId": "furnaceSaint"
+  },
+  "furnaceSaint:coolingAsh": {
+    "intent": "block",
+    "block": 14,
+    "weight": 25,
+    "maxConsecutive": 1,
+    "id": "coolingAsh",
+    "enemyId": "furnaceSaint"
+  },
+  "furnaceSaint:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "furnaceSaint"
+  },
+  "hollowAstronomer:starChart": {
+    "intent": "debuff",
+    "weight": 20,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "addCard",
+        "card": "dazed",
+        "pile": "discard"
+      }
+    ],
+    "id": "starChart",
+    "enemyId": "hollowAstronomer"
+  },
+  "hollowAstronomer:orbitalShards": {
+    "intent": "attack",
+    "damage": 8,
+    "weight": 45,
+    "hits": 4,
+    "maxConsecutive": 2,
+    "id": "orbitalShards",
+    "enemyId": "hollowAstronomer"
+  },
+  "hollowAstronomer:totalEclipse": {
+    "intent": "attack",
+    "damage": 30,
+    "weight": 35,
+    "maxConsecutive": 1,
+    "delay": {
+      "turns": 1,
+      "whileCharging": {
+        "block": 6
+      }
+    },
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "player",
+        "status": "insanity",
+        "stacks": 3
+      }
+    ],
+    "id": "totalEclipse",
+    "enemyId": "hollowAstronomer"
+  },
+  "hollowAstronomer:fallingHeavens": {
+    "intent": "attack",
+    "damage": 10,
+    "weight": 30,
+    "hits": 3,
+    "locked": true,
+    "maxConsecutive": 1,
+    "id": "fallingHeavens",
+    "enemyId": "hollowAstronomer"
+  },
+  "hollowAstronomer:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "hollowAstronomer"
+  },
+  "ashheartDragon:obsidianClaws": {
+    "intent": "attack",
+    "damage": 12,
+    "weight": 45,
+    "hits": 2,
+    "maxConsecutive": 2,
+    "id": "obsidianClaws",
+    "enemyId": "ashheartDragon"
+  },
+  "ashheartDragon:tailBastion": {
+    "intent": "block",
+    "block": 12,
+    "weight": 25,
+    "maxConsecutive": 1,
+    "id": "tailBastion",
+    "enemyId": "ashheartDragon"
+  },
+  "ashheartDragon:heartRumble": {
+    "intent": "buff",
+    "weight": 15,
+    "maxConsecutive": 1,
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 1
+      }
+    ],
+    "id": "heartRumble",
+    "enemyId": "ashheartDragon"
+  },
+  "ashheartDragon:ashBreath": {
+    "intent": "attack",
+    "damage": 9,
+    "weight": 35,
+    "maxConsecutive": 1,
+    "delay": {
+      "turns": 1,
+      "whileCharging": {
+        "block": 5
+      }
+    },
+    "hits": 4,
+    "locked": true,
+    "id": "ashBreath",
+    "enemyId": "ashheartDragon"
+  },
+  "ashheartDragon:advance": {
+    "intent": "buff",
+    "sp": 1,
+    "weight": 0,
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "id": "advance",
+    "enemyId": "ashheartDragon"
+  }
+}

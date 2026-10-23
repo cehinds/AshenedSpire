@@ -1,0 +1,41 @@
+{
+  "$id": "profile/bundle/progressionModuleOwnership.json",
+  "type": "object",
+  "properties": {
+    "card": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "feat": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "relic": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "progression-cinderbound-crown",
+          "progression-cracked-war-anvil",
+          "progression-ember-alms-bowl",
+          "progression-emberjaw-token",
+          "progression-fragment-of-the-third-sky",
+          "progression-moonwell-lens",
+          "progression-nightglass-rosary",
+          "progression-ossuary-prayer-wheel",
+          "progression-purse-of-borrowed-shadows",
+          "progression-whisperglass-die"
+        ]
+      }
+    }
+  },
+  "required": [
+    "card",
+    "feat",
+    "relic"
+  ]
+}

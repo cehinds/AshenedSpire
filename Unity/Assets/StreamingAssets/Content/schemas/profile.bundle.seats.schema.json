@@ -1,0 +1,28 @@
+{
+  "$id": "profile/bundle/seats.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "baseTier": {
+        "type": "integer"
+      },
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "regionId": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "baseTier",
+      "id",
+      "name",
+      "regionId"
+    ]
+  }
+}

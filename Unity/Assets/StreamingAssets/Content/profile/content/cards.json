@@ -1,0 +1,6308 @@
+{
+  "core.strike": {
+    "id": "core.strike",
+    "name": "Strike",
+    "class": "colorless",
+    "rarity": "starter",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "flavor": "Core adapter fixture. Values are provisional and authored in cards.json.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "core.defend": {
+    "id": "core.defend",
+    "name": "Defend",
+    "class": "colorless",
+    "rarity": "starter",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "shield",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 10
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": " Gain {block} Block.",
+    "flavor": "Core adapter fixture. Values are provisional and authored in cards.json."
+  },
+  "core.counter": {
+    "id": "core.counter",
+    "name": "Counter",
+    "class": "colorless",
+    "rarity": "starter",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 5
+      },
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 4
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:counter",
+      "classification.attack",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block. Prepare Melee Counter: return {damage} damage.",
+    "flavor": "Core adapter fixture. Values are provisional and authored in cards.json.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "core.smash": {
+    "id": "core.smash",
+    "name": "Smash",
+    "class": "colorless",
+    "rarity": "starter",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 12
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "flavor": "Core adapter fixture. Values are provisional and authored in cards.json.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "core.sweep": {
+    "id": "core.sweep",
+    "name": "Sweep",
+    "class": "colorless",
+    "rarity": "starter",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "allEnemies",
+        "amount": 4
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:sweep",
+      "classification.attack",
+      "targeting:area"
+    ],
+    "textTemplate": "Deal {damage} damage to ALL enemies.",
+    "flavor": "Core adapter fixture. Values are provisional and authored in cards.json.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "core.reaverSpecial": {
+    "id": "core.reaverSpecial",
+    "name": "Sundering Art",
+    "class": "reaver",
+    "rarity": "starter",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 36
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack",
+      "extractable"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "flavor": "Core adapter fixture. Values are provisional and authored in cards.json.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "core.starseerSpecial": {
+    "id": "core.starseerSpecial",
+    "name": "Star Spark",
+    "class": "starseer",
+    "rarity": "starter",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 9
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "vulnerable",
+        "stacks": 2
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Apply {vulnerable} Vulnerable.",
+    "flavor": "Core adapter fixture. Values are provisional and authored in cards.json.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "core.rogueSpecial": {
+    "id": "core.rogueSpecial",
+    "name": "Quick Guard",
+    "class": "rogue",
+    "rarity": "starter",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "shield",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 7
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:casting",
+      "classification.skill"
+    ],
+    "textTemplate": " Gain {block} Block.",
+    "flavor": "Core adapter fixture. Values are provisional and authored in cards.json."
+  },
+  "core.heraldSpecial": {
+    "id": "core.heraldSpecial",
+    "name": "Lasting Resolve",
+    "class": "herald",
+    "rarity": "starter",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "shield",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 4
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": " Gain {block} Block.",
+    "flavor": "Core adapter fixture. Values are provisional and authored in cards.json."
+  },
+  "core.evade": {
+    "id": "core.evade",
+    "name": "Evade",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 3,
+    "staminaCost": 3,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "next",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "evade",
+        "stacks": {
+          "f": "metric",
+          "metric": "evadeStackGain",
+          "of": "self"
+        }
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill"
+    ],
+    "stanceTrigger": {
+      "stance": "evade"
+    },
+    "textTemplate": "Gain {evade} Evade.",
+    "flavor": "Core adapter fixture. Evade is available in rewards, never starter."
+  },
+  "core.cantrip": {
+    "id": "core.cantrip",
+    "name": "Arcane Spark",
+    "class": "colorless",
+    "rarity": "starter",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "mirrors": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "source:spell",
+      "maneuver:casting",
+      "classification.attack",
+      "rank.cantrip"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "flavor": "Core adapter fixture. Values are provisional and authored in cards.json.",
+    "damageSchool": "magic",
+    "exposureBuildupPerHit": 0
+  },
+  "core.manaSurge": {
+    "id": "core.manaSurge",
+    "name": "Mana Surge",
+    "class": "colorless",
+    "rarity": "starter",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "restoreMana",
+        "target": "self",
+        "amount": 2
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.skill"
+    ],
+    "textTemplate": "Gain {restoreMana} Mana.",
+    "flavor": "Core adapter fixture. Values are provisional and authored in cards.json."
+  },
+  "core.advance": {
+    "id": "core.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "core.closingDodge": {
+    "id": "core.closingDodge",
+    "name": "Closing Dodge",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 4,
+    "staminaCost": 4,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "evade",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "evade",
+        "stacks": {
+          "f": "metric",
+          "metric": "evadeStackGain",
+          "of": "self"
+        }
+      },
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "stanceTrigger": {
+      "stance": "evade"
+    },
+    "textTemplate": "Gain {evade} Evade.\nClose one band."
+  },
+  "core.backstep": {
+    "id": "core.backstep",
+    "name": "Backstep",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 4,
+    "staminaCost": 4,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "evade",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "evade",
+        "stacks": {
+          "f": "metric",
+          "metric": "evadeStackGain",
+          "of": "self"
+        }
+      },
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": 1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "stanceTrigger": {
+      "stance": "evade"
+    },
+    "textTemplate": "Gain {evade} Evade.\nRetreat one band."
+  },
+  "base.weak": {
+    "id": "base.weak",
+    "name": "Weaken",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "base.weak",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Apply Weak {base.weak}.",
+    "icon": "skill",
+    "flavor": "A loosening charm once laid upon dangerous beasts.\n\nWardens used these small workings to bring wounded animals home without further harm. After the Burning, the same gestures were taught at the gate. It was easier to carry a prisoner who could no longer struggle.\n\nThe hand remembers its gentler purpose.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:illusion"
+    ]
+  },
+  "base.charm": {
+    "id": "base.charm",
+    "name": "Charm",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "base.charm",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Apply Charm {base.charm}.",
+    "icon": "skill",
+    "flavor": "A courtly working carried beyond the frozen bridges.\n\nPetitioners learned to soften the attention of armed doorwardens before presenting their claims. The words lost their courtesy as the queues grew hungry. Their cadence still causes a raised weapon to hesitate before its appointed stroke.\n\nAn audience can be won without consent.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:illusion"
+    ]
+  },
+  "base.bind": {
+    "id": "base.bind",
+    "name": "Bind",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "base.bind",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Apply Bind {base.bind}.",
+    "icon": "skill",
+    "flavor": "Restraint of the Bastion's old holding rooms.\n\nThe Wardens preferred a knot that checked the striking arm and left its bearer able to eat. Several survived on the empty cells after the keys were lost. Their pattern needs no rope when traced in ash.\n\nMercy had a shape before a name.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:frost"
+    ]
+  },
+  "base.restrained": {
+    "id": "base.restrained",
+    "name": "Restrain",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "base.restrained",
+        "stacks": 1
+      },
+      {
+        "op": "addBurden",
+        "target": "enemy",
+        "card": "base.restrained-status-card",
+        "count": 1,
+        "pile": "hand"
+      }
+    ],
+    "textTemplate": "Apply Restrained {base.restrained}. Add a Restrained burden to the enemy hand.",
+    "icon": "skill",
+    "flavor": "A burdening seal of the Court's prisoners.\n\nThose brought over the bridges wore weighted cords beneath their sleeves. They could walk to judgment, but every movement reminded them of the escort. The cords rotted in the river vaults; the imposed weight remained in their knots.\n\nThe sentence travels lighter than its iron.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:frost"
+    ]
+  },
+  "base.foresight": {
+    "id": "base.foresight",
+    "name": "Foresight",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.foresight",
+        "stacks": 3
+      },
+      {
+        "op": "draw",
+        "amount": 2
+      }
+    ],
+    "textTemplate": "Gain {base.foresight} Foresight and draw {draw} cards.",
+    "icon": "skill",
+    "flavor": "An exercise of the Observatory's night students.\n\nApprentices watched a candle's reflection through a bowl of dark water before they were allowed near the lenses. The practice taught them to notice a movement before seeking its cause. Few saw farther than the next breath.\n\nThat breath was sometimes sufficient.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:illusion"
+    ]
+  },
+  "base.evade": {
+    "id": "base.evade",
+    "name": "Evade",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.evade",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Gain Evade {base.evade}.",
+    "icon": "shield",
+    "flavor": "Footwork of the weald's narrow river crossings.\n\nBridge keepers taught travelers to turn sideways when a laden cart passed. During the fighting, the movement became a way to let steel pass just as closely. It requires little ground, and leaves little room for doubt.\n\nThe river took those who stepped twice.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:defend"
+    ]
+  },
+  "base.intangible": {
+    "id": "base.intangible",
+    "name": "Intangible",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 2,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.intangible",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Gain Intangible {base.intangible}.",
+    "icon": "skill",
+    "flavor": "A thinning learned among the Observatory's cold rooms.\n\nStudents were told to stand where the lens cast no image and listen for their own footsteps. Those who mastered the lesson could cross a door without stirring its hanging cloth. They returned colder than the stone.\n\nThe cloth never marked their passage.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:illusion"
+    ]
+  },
+  "base.mirrors": {
+    "id": "base.mirrors",
+    "name": "Mirrors",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 2,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.mirrors",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Gain Mirrors {base.mirrors}.",
+    "icon": "skill",
+    "flavor": "A fractured defense of the river city's salons.\n\nThe old houses hung polished plates beside their doors to multiply a guest's arrival. After the bridges froze, household magicians learned to give those reflections a brief weight. Intruders struck the nearest figure and heard glass break.\n\nThe remaining guest need not be real.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:illusion"
+    ]
+  },
+  "base.shuffle-hand": {
+    "id": "base.shuffle-hand",
+    "name": "Hand Shuffle",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveCards",
+        "amount": 3,
+        "from": "hand",
+        "to": "draw",
+        "selection": "random",
+        "position": "random"
+      },
+      {
+        "op": "draw",
+        "amount": 3
+      }
+    ],
+    "textTemplate": "Shuffle up to {draw} random hand cards into draw. Draw 3.",
+    "icon": "shield",
+    "flavor": "A road lesson taught with a traveler's worn cards.\n\nCaravan guards changed their watches whenever the same sequence grew familiar. A dangerous habit could be broken by putting every expected duty aside and taking another. The method survived on roads where there were no caravans left.\n\nFamiliarity is a route an enemy learns.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.shuffle-deck": {
+    "id": "base.shuffle-deck",
+    "name": "Deck Shuffle",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 0,
+    "costRule": "fixed",
+    "staminaCost": 0,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveCards",
+        "amount": 100,
+        "from": "draw",
+        "to": "draw",
+        "selection": "random",
+        "position": "random"
+      }
+    ],
+    "textTemplate": "Shuffle the entire draw pile.",
+    "icon": "shield",
+    "flavor": "An ordering exercise of the Observatory's apprentices.\n\nThe students sorted loose charts until each could name their place by touch. Their teachers then scattered the stack and ordered them to begin again. The exercise continued after the charts ceased to describe the sky outside.\n\nNo arrangement was permitted to become certain.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.draw": {
+    "id": "base.draw",
+    "name": "Draw",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "draw",
+        "amount": 2
+      }
+    ],
+    "textTemplate": "Draw {draw} cards.",
+    "icon": "shield",
+    "flavor": "A preparation shared by the ring road's survivors.\n\nTravelers kept a useful thing within reach and another beneath it, wrapped against the wet. Those who returned from the towers made the same small preparations before sleeping. A ready hand mattered more than a crowded pack.\n\nThe next necessity rarely announces itself.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.scout": {
+    "id": "base.scout",
+    "name": "Scout",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveCards",
+        "amount": 3,
+        "from": "draw",
+        "to": "draw",
+        "selection": "choose",
+        "position": "top",
+        "look": 3
+      }
+    ],
+    "textTemplate": "Look at the top 3 cards. Choose their order.",
+    "icon": "shield",
+    "flavor": "A pathfinder's method on the old viaducts.\n\nThe first travelers after the Burning tested each arch with a weighted cord before bringing the others forward. They marked the sound stones in an order the wind could not erase. Later parties sometimes found the marks rearranged.\n\nA known road must still be examined.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.reveal-opponent-hand": {
+    "id": "base.reveal-opponent-hand",
+    "name": "Read Intent",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.read-intent",
+        "stacks": 1
+      },
+      {
+        "op": "revealIntent",
+        "target": "enemy",
+        "amount": 1
+      }
+    ],
+    "textTemplate": "Gain {base.read-intent}. Reveal the selected enemy's intent and burden hand for 1 turn.",
+    "icon": "skill",
+    "flavor": "A watcher's discipline of the Citadel bridges.\n\nDoorwardens learned to read a visitor's hands before accepting any spoken purpose. The habit became more exact when the river froze and armed supplicants arrived together. A pause at the wrist could reveal more than a drawn blade.\n\nIntent leaves a mark before iron moves.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:illusion"
+    ]
+  },
+  "base.recall-choose": {
+    "id": "base.recall-choose",
+    "name": "Recall",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveCards",
+        "amount": 1,
+        "from": "discard",
+        "to": "hand",
+        "selection": "choose",
+        "position": "top"
+      }
+    ],
+    "textTemplate": "Choose a discarded card to return to hand.",
+    "icon": "shield",
+    "flavor": "A recovery drill of the Bastion's shield yard.\n\nNovices were made to repeat a failed movement after every other student had taken a turn. The delay stripped away haste and left the motion clear. Veterans carried the drill into fights that offered no patient teacher.\n\nWhat was abandoned need not be lost.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.recover-exile": {
+    "id": "base.recover-exile",
+    "name": "Exile Recovery",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveCards",
+        "amount": 1,
+        "from": "exhaust",
+        "to": "hand",
+        "selection": "choose",
+        "position": "top"
+      }
+    ],
+    "textTemplate": "Choose an exhausted card to return to hand.",
+    "icon": "shield",
+    "flavor": "An old retrieval practiced at the Observatory's refuse stair.\n\nBroken instruments were cast into a pit beneath the workshops. Poor apprentices climbed down for pieces the masters considered spent. Sometimes a discarded lens revealed a star the great glass had missed for an entire season.\n\nThe refuse retained its own small light.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.exhaust-choose": {
+    "id": "base.exhaust-choose",
+    "name": "Chosen Exhaust",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 0,
+    "costRule": "fixed",
+    "staminaCost": 0,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveCards",
+        "amount": 1,
+        "from": "hand",
+        "to": "exhaust",
+        "selection": "choose",
+        "position": "top"
+      }
+    ],
+    "textTemplate": "Choose a hand card to exhaust.",
+    "icon": "shield",
+    "flavor": "A deliberate sacrifice of the road's traveling schools.\n\nA climber cannot carry every lesson into every chamber. Teachers made their pupils lay one practiced movement aside before opening a difficult door. The empty place left room for attention, though the surrendered habit sometimes proved hard to recover.\n\nReadiness has always required a leaving behind.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.transform": {
+    "id": "base.transform",
+    "name": "Transform",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveCards",
+        "amount": 1,
+        "from": "hand",
+        "to": "hand",
+        "selection": "choose",
+        "position": "top",
+        "transformTo": "base.strike"
+      }
+    ],
+    "textTemplate": "Transform a chosen hand card into Strike for this combat.",
+    "icon": "skill",
+    "flavor": "A simplifying art of the Bastion's oldest instructors.\n\nThe instructors stripped elaborate exercises back to the first straight blow whenever a pupil grew confused. Finer details could be learned again after the hands stopped trembling. In the towers, that patient correction became a swift and necessary spell.\n\nA beginning can still serve an ending.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:alteration"
+    ]
+  },
+  "base.status-card-stagger": {
+    "id": "base.status-card-stagger",
+    "name": "Staggering Burden",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "addBurden",
+        "target": "enemy",
+        "card": "base.stagger-status-card",
+        "count": 2
+      }
+    ],
+    "textTemplate": "Add 2 Stagger burdens to the enemy deck.",
+    "icon": "skill",
+    "flavor": "A stumbling curse carried in the Court's broken bells.\n\nThe bridge bells once kept the procession moving at a measured pace. When their towers fell, the sound arrived in uneven fragments. Those who caught its rhythm faltered in midstride, as though the next stone had been taken away.\n\nThe missing beat leaves a place for steel.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:force"
+    ]
+  },
+  "base.status-card-paralyze": {
+    "id": "base.status-card-paralyze",
+    "name": "Paralyzing Burden",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "addBurden",
+        "target": "enemy",
+        "card": "base.paralysis-status-card",
+        "count": 2
+      }
+    ],
+    "textTemplate": "Add 2 Paralysis burdens to the enemy deck.",
+    "icon": "skill",
+    "flavor": "A locking curse of the river city's empty cells.\n\nThe gaolers kept certain prisoners still without tightening their chains. Its pattern was scratched into the doorframes for a replacement watch to learn. The cells are open now, but the old instruction can still seize a living limb.\n\nAn open door does not release everything.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:lightning"
+    ]
+  },
+  "base.exhaust": {
+    "id": "base.exhaust",
+    "name": "Exhaust",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [
+      "exhaust"
+    ],
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 8
+      }
+    ],
+    "textTemplate": "Heal {heal} HP. Exhaust.",
+    "icon": "shield",
+    "flavor": "A final reserve of the road's exhausted climbers.\n\nThose who reached a landing wounded sometimes bound their last clean cloth around their chest and stood. There would be no second dressing at the next stair. The resolve of that moment became a working taught without ceremony.\n\nThe cloth is spent before the climb is.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.ethereal": {
+    "id": "base.ethereal",
+    "name": "Ethereal",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [
+      "ethereal"
+    ],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 10
+      }
+    ],
+    "textTemplate": "Gain {block} Block. Ethereal.",
+    "icon": "shield",
+    "flavor": "A brief shelter drawn from the Observatory's fading glass.\n\nThe outer windows once softened the heat that gathered beneath the great lens. Shards carried away after the Burning could still hold a pale screen for an instant. In an unwatched hand, they crumbled before the next breath.\n\nThe shelter lasts only while it is needed.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.stat-buff": {
+    "id": "base.stat-buff",
+    "name": "Empower",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 2
+      }
+    ],
+    "textTemplate": "Gain {strength} Strength for this combat.",
+    "icon": "shield",
+    "flavor": "A strengthening rite of the Bastion's stone carriers.\n\nLaborers pressed both palms against the first block before beginning the morning's lift. The gesture steadied tired arms through a day on the ridge. Their descendants found the same borrowed resolve useful beneath a weapon's weight.\n\nStone taught the hand before steel did.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.drain-allies": {
+    "id": "base.drain-allies",
+    "name": "Shared Sacrifice",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "loseHp",
+        "target": "allAllies",
+        "amount": 3
+      },
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 12
+      }
+    ],
+    "textTemplate": "All allies lose {loseHp} HP. Gain {block} Block.",
+    "icon": "shield",
+    "flavor": "A shared defense of the ring road's last escorts.\n\nAn escort sometimes closed ranks around the weakest traveler and bore the blows together. A harsher working drew the price from every companion before any enemy struck. The traveler it saved was left to remember each willing face.\n\nShelter can leave wounds on either side.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.scale-negative-status": {
+    "id": "base.scale-negative-status",
+    "name": "Affliction Scaling",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": {
+          "f": "add",
+          "args": [
+            6,
+            {
+              "f": "metric",
+              "metric": "negativeStatusTypes",
+              "of": "target",
+              "statuses": [
+                "weak",
+                "vulnerable",
+                "burn",
+                "venom",
+                "base.weak",
+                "base.charm",
+                "base.bind",
+                "base.restrained",
+                "base.poison",
+                "base.blight",
+                "base.greased"
+              ],
+              "per": 2
+            }
+          ]
+        }
+      }
+    ],
+    "textTemplate": "Deal {damage} damage, scaling with distinct negative statuses.",
+    "icon": "attack",
+    "flavor": "A cruel calculation of the river city's interrogators.\n\nThe interrogators kept separate marks for cold, hunger, and the smaller pains inflicted between questions. Each new mark narrowed a prisoner's remaining resistance. Their successors learned to strike where several afflictions had already begun their work.\n\nThe ledger counted injuries as opportunities.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "tags": [
+      "classification.attack",
+      "camp:physical",
+      "maneuver:attack",
+      "source:weapon"
+    ]
+  },
+  "base.scale-damage-taken": {
+    "id": "base.scale-damage-taken",
+    "name": "Reprisal Growth",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": {
+          "f": "add",
+          "args": [
+            6,
+            {
+              "f": "metric",
+              "metric": "damageTakenThisTurn",
+              "of": "self",
+              "per": 0.5
+            }
+          ]
+        }
+      }
+    ],
+    "textTemplate": "Deal {damage} damage, scaling with HP lost this turn.",
+    "icon": "attack",
+    "flavor": "A reprisal taught among the Bastion's battered gate guards.\n\nRelief seldom came before the second assault. The guards learned to turn the force that drove them backward into the next blow forward. Those who survived could tell the cost of a watch by its last strike.\n\nThe gate remembered every attempt to break it.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "tags": [
+      "classification.attack",
+      "camp:physical",
+      "maneuver:attack",
+      "source:weapon"
+    ]
+  },
+  "base.growth-per-type": {
+    "id": "base.growth-per-type",
+    "name": "Discipline Growth",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": {
+          "f": "add",
+          "args": [
+            4,
+            {
+              "f": "metric",
+              "metric": "distinctTypes",
+              "of": "self",
+              "per": 2
+            }
+          ]
+        }
+      }
+    ],
+    "textTemplate": "Gain {block} Block, scaling with distinct types played this turn.",
+    "icon": "shield",
+    "flavor": "A defense assembled from the ring road's scattered schools.\n\nThe towers once demanded separate loyalties from their fighters. On the roads between them, survivors exchanged the movements that had kept them alive. A guard became stronger when it could answer more than one kind of danger.\n\nNo ruined school could afford its old pride.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.cost-per-use": {
+    "id": "base.cost-per-use",
+    "name": "Shifting Cost",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 8
+      }
+    ],
+    "textTemplate": "Deal {damage} damage. Costs +1 SP per prior play this combat (maximum +3).",
+    "icon": "attack",
+    "flavor": "An exacting stroke of the Citadel's formal duels.\n\nA duelist was expected to end the matter before fatigue spoiled the prescribed line. Those forced to repeat it found the weapon heavier on each return. The body paid for an elegance that the watching Court rarely questioned.\n\nA perfect motion does not become easier.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "costGrowth": {
+      "stamina": 1,
+      "mana": 0,
+      "perUse": 1,
+      "max": 3
+    },
+    "tags": [
+      "classification.attack",
+      "camp:physical",
+      "maneuver:attack",
+      "source:weapon"
+    ]
+  },
+  "base.damage-per-use": {
+    "id": "base.damage-per-use",
+    "name": "Rising Damage",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": {
+          "f": "add",
+          "args": [
+            6,
+            {
+              "f": "metric",
+              "metric": "sameCardPlays",
+              "of": "self",
+              "per": 3
+            }
+          ]
+        }
+      }
+    ],
+    "textTemplate": "Deal {damage} damage, increasing each time this card is played.",
+    "icon": "attack",
+    "flavor": "A relentless exercise of the Bastion's quarry fighters.\n\nStone breakers struck along one line until the hidden fault yielded. Their children brought the practice into the shield yard, refusing to change a stroke that had not yet found its depth. Each return carried the weight of the last.\n\nThe fracture arrives before the stone admits it.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "tags": [
+      "classification.attack",
+      "camp:physical",
+      "maneuver:attack",
+      "source:weapon"
+    ]
+  },
+  "base.pay-x-effect": {
+    "id": "base.pay-x-effect",
+    "name": "Channel X",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": "X",
+    "costRule": "fixed",
+    "staminaCost": 0,
+    "manaCost": 1,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": {
+          "f": "energySpent",
+          "per": 6
+        }
+      }
+    ],
+    "textTemplate": "Spend all remaining SP. Deal {damage} damage.",
+    "icon": "skill",
+    "flavor": "An undivided exertion of the road's solitary climbers.\n\nA locked stair offers no promise of another attempt. Some climbers learned to gather every remaining measure of effort into one committed motion. What followed depended on whether the obstruction or the climber gave way first.\n\nNothing was kept for the next landing.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "tags": [
+      "classification.attack",
+      "camp:spell",
+      "maneuver:casting",
+      "school:force",
+      "source:spell"
+    ]
+  },
+  "base.pay-x-targets": {
+    "id": "base.pay-x-targets",
+    "name": "Spread X",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": "X",
+    "costRule": "fixed",
+    "staminaCost": 0,
+    "manaCost": 1,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "allEnemies",
+        "amount": 8
+      }
+    ],
+    "textTemplate": "Spend all remaining SP. Deal {damage} damage to up to X enemies.",
+    "icon": "skill",
+    "flavor": "A widening assault of the Bastion's crowded breach drills.\n\nThe instructors packed the yard with wooden figures when recruits grew too certain of a single opponent. A fighter learned to carry one movement across as many openings as their strength allowed. The yard left no place to rest.\n\nA breach seldom admits only one enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "targetLimit": {
+      "f": "energySpent",
+      "per": 1
+    },
+    "tags": [
+      "classification.attack",
+      "camp:spell",
+      "maneuver:casting",
+      "school:force",
+      "source:spell"
+    ]
+  },
+  "base.hide-cards": {
+    "id": "base.hide-cards",
+    "name": "Conceal",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.conceal",
+        "stacks": 2
+      },
+      {
+        "op": "modifyCards",
+        "from": "hand",
+        "amount": {
+          "f": "stacks",
+          "status": "base.conceal",
+          "of": "self"
+        },
+        "selection": "choose",
+        "changes": {
+          "hideTurns": {
+            "f": "stacks",
+            "status": "base.conceal",
+            "of": "self"
+          }
+        }
+      }
+    ],
+    "textTemplate": "Gain {base.conceal} Conceal. Hide X hand cards for X turns, where X is your Conceal stacks.",
+    "icon": "skill",
+    "flavor": "A concealment practiced by the river city's couriers.\n\nMessages were sewn inside an empty fold rather than beneath a conspicuous seal. Some couriers learned to put the fold itself beyond a searcher's touch. What they hid returned later, sometimes after its appointed recipient was gone.\n\nAn absent thing can still keep its appointment.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:illusion"
+    ]
+  },
+  "base.force-stance": {
+    "id": "base.force-stance",
+    "name": "Force Stance",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "enterStance",
+        "target": "enemy",
+        "maneuver": "defend"
+      }
+    ],
+    "textTemplate": "Force the enemy into Defend.",
+    "icon": "skill",
+    "flavor": "A coercive feint of the Citadel's shield masters.\n\nThe masters taught a threatening step that made an opponent cover before choosing to do so. In practice the wooden blade stopped short. Beyond the yard, the same step could close a fighter inside a defense they had not intended.\n\nA guard can become its own confinement.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:force"
+    ]
+  },
+  "base.multi-stance": {
+    "id": "base.multi-stance",
+    "name": "Many Forms",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.many-forms",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Gain {base.many-forms} Many Forms: hold up to 2 stances until next turn.",
+    "icon": "shield",
+    "flavor": "A divided discipline of the road's wandering instructors.\n\nNo tower trained a pupil to hold two answers at once. The travelers who taught between the seats had fewer certainties and more scars. They learned to keep one motion ready while the body seemed committed to another.\n\nThe road required room for a second lesson.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.current-stance-variant": {
+    "id": "base.current-stance-variant",
+    "name": "Stance Echo",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      }
+    ],
+    "textTemplate": "Smash: deal 12 damage. Otherwise gain {damage} Block.",
+    "icon": "attack",
+    "flavor": "An answering form of the Bastion's shield yard.\n\nThe same turn of the shoulder served different purposes under different weights. With a raised weapon it drove forward; behind a settled guard it closed the opening. Instructors judged the footing before they corrected the hands.\n\nThe body gives a motion its meaning.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "effectVariants": [
+      {
+        "if": {
+          "p": "inStance",
+          "stance": "smash"
+        },
+        "effects": [
+          {
+            "op": "damage",
+            "target": "enemy",
+            "amount": 12
+          }
+        ],
+        "textTemplate": "Deal {damage} damage."
+      },
+      {
+        "if": {
+          "p": "all",
+          "preds": []
+        },
+        "effects": [
+          {
+            "op": "block",
+            "target": "self",
+            "amount": 6
+          }
+        ],
+        "textTemplate": "Gain {block} Block."
+      }
+    ],
+    "tags": [
+      "classification.attack",
+      "camp:physical",
+      "maneuver:attack",
+      "source:weapon"
+    ]
+  },
+  "base.paid-resource-variant": {
+    "id": "base.paid-resource-variant",
+    "name": "Resource Echo",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 12
+      }
+    ],
+    "textTemplate": "If MP was paid, deal {damage} damage; otherwise gain 8 Block.",
+    "icon": "skill",
+    "flavor": "A borrowed cadence of the Observatory's armed attendants.\n\nSome attendants could kindle a spell along the motion of a blade. Others repeated the same motion without its light and found it settled into a serviceable guard. Both remained in the drills after the teachers stopped distinguishing them.\n\nThe hand remembers whether it carried fire.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "effectVariants": [
+      {
+        "if": {
+          "p": "resourcePaid",
+          "resource": "mana",
+          "amount": 1
+        },
+        "effects": [
+          {
+            "op": "damage",
+            "target": "enemy",
+            "amount": 12
+          }
+        ],
+        "textTemplate": "Deal {damage} damage."
+      },
+      {
+        "if": {
+          "p": "all",
+          "preds": []
+        },
+        "effects": [
+          {
+            "op": "block",
+            "target": "self",
+            "amount": 8
+          }
+        ],
+        "textTemplate": "Gain {block} Block."
+      }
+    ],
+    "tags": [
+      "classification.attack",
+      "camp:spell",
+      "maneuver:casting",
+      "school:force",
+      "source:spell"
+    ]
+  },
+  "base.attack-then-defend": {
+    "id": "base.attack-then-defend",
+    "name": "Strike and Settle",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 8
+      },
+      {
+        "op": "enterStance",
+        "choose": "maneuver"
+      }
+    ],
+    "textTemplate": "Deal {damage} damage, then choose a maneuver stance.",
+    "icon": "attack",
+    "flavor": "A returning stroke of the Bastion's gate watches.\n\nThe first instruction was never to leave the weapon where the blow ended. Guards practiced finding a new footing while the edge was still returning. Those who forgot were corrected by a wooden staff across the unprotected ribs.\n\nA strike ends only when its bearer is ready.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "tags": [
+      "classification.attack",
+      "camp:physical",
+      "maneuver:attack",
+      "source:weapon"
+    ]
+  },
+  "base.modify-card-stance": {
+    "id": "base.modify-card-stance",
+    "name": "Reframe",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "modifyCards",
+        "amount": 1,
+        "from": "hand",
+        "selection": "choose",
+        "changes": {
+          "maneuver": "smash"
+        }
+      }
+    ],
+    "textTemplate": "Choose a hand card. Change its maneuver to Smash this combat.",
+    "icon": "shield",
+    "flavor": "A forceful correction of the Citadel's dueling schools.\n\nInstructors sometimes placed a heavier practice blade into a pupil's hands without warning. A familiar technique then required a different commitment of shoulder and hip. The lesson was carried into battle by fighters who could no longer choose their tools.\n\nThe old motion accepted a different weight.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.modify-card-range": {
+    "id": "base.modify-card-range",
+    "name": "Extend",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "modifyCards",
+        "amount": 1,
+        "from": "hand",
+        "selection": "choose",
+        "changes": {
+          "range": "reach"
+        }
+      }
+    ],
+    "textTemplate": "Choose a hand card. Change its range to Reach this combat.",
+    "icon": "shield",
+    "flavor": "An extending art of the weald's polearm keepers.\n\nThe keepers borrowed the motions of shorter weapons when the bridge left no room for a proper swing. A loosened grip and a careful step gave the remembered stroke another span. Its origin remained visible only to a patient teacher.\n\nDistance changes the reach of an old lesson.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.extra-weapon": {
+    "id": "base.extra-weapon",
+    "name": "Extra Weapon",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.extra-weapon",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Gain {base.extra-weapon} extra weapon action this turn.",
+    "icon": "shield",
+    "flavor": "A second opening of the Bastion's veteran guards.\n\nThe newest recruits counted attacks as separate exertions. Veterans learned to keep the weapon moving while the first opponent still recoiled, finding another opening before the line closed. The extra stroke depended on preparation made before either enemy moved.\n\nThe interval belonged to the ready hand.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.extra-shield": {
+    "id": "base.extra-shield",
+    "name": "Extra Shield",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.extra-shield",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Gain {base.extra-shield} extra shield action this turn.",
+    "icon": "shield",
+    "flavor": "A returning defense of the Citadel's bridge watches.\n\nTwo guards once shared each narrow post, turning their shields in a practiced sequence. After the watches thinned, a survivor had to answer both parts alone. Their descendants learned the second turn without ever seeing the partner it replaced.\n\nThe empty post still has its appointed movement.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.auto-counter": {
+    "id": "base.auto-counter",
+    "name": "Automatic Counter",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.auto-counter",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Prepare one automatic counterattack. base.auto-counter: {base.auto-counter}.",
+    "icon": "shield",
+    "flavor": "A waiting answer of the Bastion's shield masters.\n\nPupils stood behind a raised board while the instructor struck it without a count. They were forbidden to pursue the staff and taught instead to answer its contact. Years later, some could begin the reply before knowing they had been attacked.\n\nThe lesson waited in the arm.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.auto-sweep": {
+    "id": "base.auto-sweep",
+    "name": "Automatic Sweep",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.auto-sweep",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Prepare one automatic sweep. base.auto-sweep: {base.auto-sweep}.",
+    "icon": "shield",
+    "flavor": "A prepared circle of the ring road's caravan guards.\n\nAn escort surrounded by thieves could not watch every approach. Guards planted their feet and learned to turn at the first touch of a blade. The motion cleared space for the travelers, even when its bearer never saw the attacker.\n\nThe road was measured by the weapon's return.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.reflect": {
+    "id": "base.reflect",
+    "name": "Reflect",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.reflect",
+        "stacks": 1
+      }
+    ],
+    "textTemplate": "Reflect eligible incoming damage for {base.reflect} turn.",
+    "icon": "skill",
+    "flavor": "A returning ward of the Observatory's polished chambers.\n\nThe lens workers fitted their masks with silvered plates against sudden flares. A few plates sent more than light back toward its origin. The attendants preserved the pattern after the workshops emptied, though the reflected pain had no brightness.\n\nWhat strikes the surface finds its way home.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:alteration"
+    ]
+  },
+  "base.transmute": {
+    "id": "base.transmute",
+    "name": "Transmute",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveCards",
+        "amount": 1,
+        "from": "hand",
+        "to": "exhaust",
+        "selection": "choose",
+        "position": "top"
+      },
+      {
+        "op": "addCinders",
+        "amount": 10
+      }
+    ],
+    "textTemplate": "Exhaust a chosen hand card. Gain {addCinders} cinders.",
+    "icon": "shield",
+    "flavor": "A frugal working of the Cinder Reach's traveling smiths.\n\nBroken tools were weighed before they entered the furnace, and nothing useful was thrown away whole. Some smiths learned to draw cinders from a spent working with the same care. The recovered warmth bought another small necessity along the road.\n\nWhat is surrendered leaves something in the palm.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.one-use-scroll": {
+    "id": "base.one-use-scroll",
+    "name": "Spell Scroll",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [
+      "exhaust"
+    ],
+    "effects": [
+      {
+        "op": "castLinkedSpell",
+        "card": "base.foresight"
+      }
+    ],
+    "textTemplate": "Cast Foresight. One play per combat; exhaust this scroll.",
+    "icon": "skill",
+    "flavor": "A foresight exercise copied by an Observatory apprentice.\n\nThe student traced each curve slowly enough to remember the next before the ink dried. A traveler could later borrow that moment of clarity by opening the sheet. Its careful lines blackened as soon as they were read.\n\nThe lesson survived for one more pupil.",
+    "playLimit": 1,
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:illusion"
+    ]
+  },
+  "base.gain-resource": {
+    "id": "base.gain-resource",
+    "name": "Resource Gain",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "restoreStamina",
+        "target": "self",
+        "amount": 3
+      }
+    ],
+    "textTemplate": "Restore {restoreStamina} SP.",
+    "icon": "skill",
+    "flavor": "A measured recovery of the weald's ridge workers.\n\nWorkers rested at marked stones on the climb to the Bastion, setting their loads down before their knees failed. The short interval was counted in steady breaths. Fighters learned to find the same recovery without leaving their place in the line.\n\nRest need not wait for a safe road.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:alteration"
+    ]
+  },
+  "base.buff-ally": {
+    "id": "base.buff-ally",
+    "name": "Ally Empowerment",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "ally",
+        "status": "strength",
+        "stacks": 2
+      }
+    ],
+    "textTemplate": "Give an ally {strength} Strength for this combat.",
+    "icon": "shield",
+    "flavor": "An encouragement kept by the Bastion's shared watches.\n\nThe guards touched a companion's shoulder before exchanging places at the gate. A small working grew around the gesture, lending tired arms some of the giver's resolve. It passed between survivors long after the gate ceased to stand.\n\nThe hand is withdrawn; the steadiness remains.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.break-poise": {
+    "id": "base.break-poise",
+    "name": "Poise Break",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "poiseDamage",
+        "target": "enemy",
+        "amount": 8
+      }
+    ],
+    "textTemplate": "Deal {poiseDamage} Poise damage.",
+    "icon": "shield",
+    "flavor": "A staggering blow of the Bastion's quarry crews.\n\nQuarry workers drove wedges where the weight of a block already strained its bed. A short stroke could unsettle stone too large to break outright. Their fighting descendants sought the same yielding place beneath armor and planted feet.\n\nWhat cannot be broken can still be moved.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.generate-smash": {
+    "id": "base.generate-smash",
+    "name": "Smash Creation",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "addCard",
+        "card": "base.smash",
+        "pile": "hand",
+        "count": 1
+      }
+    ],
+    "textTemplate": "Add a temporary Smash to hand.",
+    "icon": "shield",
+    "flavor": "A recalled stroke of the Citadel's heavy weapon drills.\n\nA recruit carried a wooden mallet before being trusted with the armory's iron. Instructors made its simple downward path the last exercise of every watch. Even an empty hand could remember the weight when no suitable weapon remained.\n\nThe practiced burden waits for another shape.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.conditional-damage-bonus": {
+    "id": "base.conditional-damage-bonus",
+    "name": "Conditional Strike",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      },
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6,
+        "if": {
+          "p": "inStance",
+          "stance": "smash"
+        }
+      }
+    ],
+    "textTemplate": "Deal {damage} damage. In Smash stance, deal {damage.2} more.",
+    "icon": "attack",
+    "flavor": "A committed strike of the Bastion's breach fighters.\n\nThe guards held their heavier blows until their footing could carry the whole body forward. Striking from an unsettled guard wasted the opening and often the weapon. The old drill made patience part of an apparently reckless motion.\n\nThe strength was waiting beneath the stance.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "tags": [
+      "classification.attack",
+      "camp:physical",
+      "maneuver:attack",
+      "source:weapon"
+    ]
+  },
+  "base.perception-untargetable": {
+    "id": "base.perception-untargetable",
+    "name": "Veil",
+    "class": "colorless",
+    "rarity": "uncommon",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 1,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.veil",
+        "stacks": 2
+      }
+    ],
+    "textTemplate": "Become untargetable without a perception check for {base.veil} turns.",
+    "icon": "skill",
+    "flavor": "A veiling art of the river city's hidden messengers.\n\nCouriers crossed occupied bridges by moving where a watcher's attention had just departed. A small working deepened that omission until a searching gaze passed over them. Those with a practiced eye could still find the disturbance in the crowd.\n\nA missing figure leaves an occupied space.",
+    "tags": [
+      "classification.skill",
+      "camp:spell",
+      "maneuver:casting",
+      "school:illusion"
+    ]
+  },
+  "base.retain-block": {
+    "id": "base.retain-block",
+    "name": "Hold Block",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "base.retain-block",
+        "stacks": 1
+      },
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 6
+      }
+    ],
+    "textTemplate": "Gain {block} Block. Retain Block for {base.retain-block} turn.",
+    "icon": "shield",
+    "flavor": "A settled guard of the Citadel's long watches.\n\nThe bridge guards learned to hold their shields through the quiet between assaults without letting the shoulders slacken. Their stance preserved work already done instead of demanding it anew. The practice remained useful when the bridges became a frozen road.\n\nThe pause does not belong to the attacker.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.immediate-stance-transition": {
+    "id": "base.immediate-stance-transition",
+    "name": "Flowing Transition",
+    "class": "colorless",
+    "rarity": "common",
+    "cost": 0,
+    "costRule": "fixed",
+    "staminaCost": 0,
+    "manaCost": 0,
+    "type": "skill",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "enterStance",
+        "choose": "maneuver"
+      }
+    ],
+    "textTemplate": "Immediately choose a maneuver stance.",
+    "icon": "shield",
+    "flavor": "A passing form of the road's traveling duelists.\n\nA lesson borrowed in one city rarely answered every danger in the next. Travelers practiced changing their footing between breaths rather than between engagements. Those who managed it could leave an old commitment before an enemy found its opening.\n\nThe road did not wait for a formal beginning.",
+    "tags": [
+      "classification.skill",
+      "camp:physical",
+      "maneuver:casting"
+    ]
+  },
+  "base.stagger-status-card": {
+    "id": "base.stagger-status-card",
+    "name": "Stagger",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 0,
+    "costRule": "fixed",
+    "staminaCost": 0,
+    "manaCost": 0,
+    "type": "status",
+    "keywords": [
+      "ethereal",
+      "unplayable"
+    ],
+    "effects": [],
+    "textTemplate": "Skip your next action when drawn. Ethereal.",
+    "icon": "shield",
+    "flavor": "An interruption carried by a broken bell's cadence.\n\nThe body seeks the missing beat and finds no footing. By the time its balance returns, the opening has already passed.\n\nThe next step belongs to someone else.",
+    "burden": {
+      "skipActions": 1,
+      "staminaTax": 0,
+      "manaTax": 0,
+      "status": "base.stagger"
+    },
+    "tags": [
+      "classification.statusCard"
+    ]
+  },
+  "base.paralysis-status-card": {
+    "id": "base.paralysis-status-card",
+    "name": "Paralysis",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 0,
+    "costRule": "fixed",
+    "staminaCost": 0,
+    "manaCost": 0,
+    "type": "status",
+    "keywords": [
+      "ethereal",
+      "unplayable"
+    ],
+    "effects": [],
+    "textTemplate": "Skip your next action when drawn. Ethereal.",
+    "icon": "shield",
+    "flavor": "A lingering command of the river city's gaolers.\n\nThe fingers close without taking hold of anything. The old restraint needs neither a chain nor a prisoner who remembers the charge.\n\nRelease comes after the moment it was needed.",
+    "burden": {
+      "skipActions": 1,
+      "staminaTax": 0,
+      "manaTax": 0,
+      "status": "base.paralysis"
+    },
+    "tags": [
+      "classification.statusCard"
+    ]
+  },
+  "base.restrained-status-card": {
+    "id": "base.restrained-status-card",
+    "name": "Restrained",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "status",
+    "keywords": [
+      "ethereal",
+      "unplayable"
+    ],
+    "effects": [],
+    "textTemplate": "Your actions cost +1 SP while this burden is held. Ethereal.",
+    "icon": "shield",
+    "flavor": "A remembered weight from the Court's holding rooms.\n\nThe cord is gone, but each movement still pays its toll. Prisoners learned to make fewer gestures while waiting for a door to open.\n\nThe burden has outlived its fastening.",
+    "burden": {
+      "skipActions": 0,
+      "staminaTax": 1,
+      "manaTax": 0,
+      "ranges": [
+        "melee",
+        "reach"
+      ],
+      "cardTypes": [
+        "attack"
+      ],
+      "status": "base.restrained-burden"
+    },
+    "tags": [
+      "classification.statusCard"
+    ]
+  },
+  "base.strike": {
+    "id": "base.strike",
+    "name": "Strike",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "costRule": "fixed",
+    "staminaCost": 1,
+    "manaCost": 0,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      }
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "icon": "attack",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "flavor": "A plain stroke shared by the ring road's survivors.\n\nEach tower claimed a finer school, and each school began by teaching the hand to carry an edge straight toward its mark. Travelers kept that first lesson when the schools and their quarrels were left behind.\n\nThe simplest instruction still has work to do.",
+    "tags": [
+      "camp:physical",
+      "classification.attack",
+      "maneuver:attack",
+      "source:weapon"
+    ]
+  },
+  "base.smash": {
+    "id": "base.smash",
+    "name": "Smash",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "costRule": "fixed",
+    "staminaCost": 2,
+    "manaCost": 0,
+    "type": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 12
+      }
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "icon": "attack",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "flavor": "A heavy stroke remembered from the Bastion's stone yards.\n\nA block that resisted the first careful blow sometimes needed the whole weight of the worker behind the next. The motion passed from mallet to weapon without losing its patient preparation or its unkind finish.\n\nThe arm follows where the body has committed.",
+    "tags": [
+      "camp:physical",
+      "classification.attack",
+      "maneuver:smash",
+      "source:weapon"
+    ]
+  },
+  "wanderingSoldier.slash": {
+    "id": "wanderingSoldier.slash",
+    "name": "Slash",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 8
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "wanderingSoldier.guard": {
+    "id": "wanderingSoldier.guard",
+    "name": "Guard",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 6
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block."
+  },
+  "wanderingSoldier.warcry": {
+    "id": "wanderingSoldier.warcry",
+    "name": "Warcry",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 2
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {strength} Strength to yourself."
+  },
+  "blightHound.bite": {
+    "id": "blightHound.bite",
+    "name": "Bite",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "blightHound.lunge": {
+    "id": "blightHound.lunge",
+    "name": "Lunge",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 3,
+        "hits": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "huskBrute.club": {
+    "id": "huskBrute.club",
+    "name": "Club",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 15
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "huskBrute.bellow": {
+    "id": "huskBrute.bellow",
+    "name": "Bellow",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "frail",
+        "stacks": 1
+      },
+      {
+        "op": "addCard",
+        "target": "enemy",
+        "card": "slimed",
+        "pile": "discard"
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {frail} Frail to the enemy. Shuffle Slimed into the enemy's discard."
+  },
+  "huskBrute.brace": {
+    "id": "huskBrute.brace",
+    "name": "Brace",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 8
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block."
+  },
+  "graveWisp.curse": {
+    "id": "graveWisp.curse",
+    "name": "Curse",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "addCard",
+        "card": "dazed",
+        "pile": "draw",
+        "position": "random",
+        "target": "enemy"
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Shuffle Dazed into the enemy's draw."
+  },
+  "graveWisp.drain": {
+    "id": "graveWisp.drain",
+    "name": "Drain",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [
+      "exhaust"
+    ],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 8
+      },
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack",
+      "fx:heal",
+      "lifecycle.exhaust"
+    ],
+    "textTemplate": "Deal {damage} damage. Heal {heal} HP.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "wyrmAspirant.consecrate": {
+    "id": "wyrmAspirant.consecrate",
+    "name": "Consecrate",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 3
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {strength} Strength to yourself."
+  },
+  "wyrmAspirant.halberdSweep": {
+    "id": "wyrmAspirant.halberdSweep",
+    "name": "Halberd_Sweep",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 17
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "wyrmAspirant.tailSlam": {
+    "id": "wyrmAspirant.tailSlam",
+    "name": "Tail_Slam",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 11
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "weak",
+        "stacks": 1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Apply {weak} Weak to the enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "wyrmAspirant.goldenGuard": {
+    "id": "wyrmAspirant.goldenGuard",
+    "name": "Golden_Guard",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 3,
+    "staminaCost": 3,
+    "manaCost": 2,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 12
+      },
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 4
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction",
+      "fx:heal"
+    ],
+    "textTemplate": "Gain {block} Block. Heal {heal} HP."
+  },
+  "fellWarden.caneStrike": {
+    "id": "fellWarden.caneStrike",
+    "name": "Cane_Strike",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 8
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "fellWarden.hammerToss": {
+    "id": "fellWarden.hammerToss",
+    "name": "Hammer_Toss",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 5,
+        "hits": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "fellWarden.heldBlade": {
+    "id": "fellWarden.heldBlade",
+    "name": "Held_Blade",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "smash",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 14
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Charges for 1 turn.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "fellWarden.twinDaggers": {
+    "id": "fellWarden.twinDaggers",
+    "name": "Twin_Daggers",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 3,
+    "staminaCost": 3,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 3,
+        "hits": 4
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "lanternMoth.lanternDust": {
+    "id": "lanternMoth.lanternDust",
+    "name": "Lantern_Dust",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "weak",
+        "stacks": 1
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {weak} Weak to the enemy."
+  },
+  "lanternMoth.wingSparks": {
+    "id": "lanternMoth.wingSparks",
+    "name": "Wing_Sparks",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 3,
+        "hits": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "briarHermit.rootShelter": {
+    "id": "briarHermit.rootShelter",
+    "name": "Root_Shelter",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 7
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block."
+  },
+  "briarHermit.briarCast": {
+    "id": "briarHermit.briarCast",
+    "name": "Briar_Cast",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 16
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "bleed",
+        "stacks": 1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Apply {bleed} Bleed to the enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "briarHermit.sapMend": {
+    "id": "briarHermit.sapMend",
+    "name": "Sap_Mend",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [
+      "exhaust"
+    ],
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 5
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power",
+      "fx:heal",
+      "lifecycle.exhaust"
+    ],
+    "textTemplate": "Heal {heal} HP."
+  },
+  "chainScavenger.hookCast": {
+    "id": "chainScavenger.hookCast",
+    "name": "Hook_Cast",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 20
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "range": "reach"
+  },
+  "chainScavenger.chainSnare": {
+    "id": "chainScavenger.chainSnare",
+    "name": "Chain_Snare",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "counter",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "frail",
+        "stacks": 1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:counter",
+      "classification.attack",
+      "trait:reaction"
+    ],
+    "textTemplate": "Prepare Counter: return {damage} damage. Apply {frail} Frail to the enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "range": "reach"
+  },
+  "chainScavenger.draggingBlow": {
+    "id": "chainScavenger.draggingBlow",
+    "name": "Dragging_Blow",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "smash",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 41
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Charges for 1 turn.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0,
+    "range": "reach"
+  },
+  "bellKeeper.bronzeToll": {
+    "id": "bellKeeper.bronzeToll",
+    "name": "Bronze_Toll",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "smash",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 19
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Charges for 1 turn.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "bellKeeper.clapperSwing": {
+    "id": "bellKeeper.clapperSwing",
+    "name": "Clapper_Swing",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 9
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "bellKeeper.muffledPrayer": {
+    "id": "bellKeeper.muffledPrayer",
+    "name": "Muffled_Prayer",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 9
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block."
+  },
+  "bellKeeper.crackedPeal": {
+    "id": "bellKeeper.crackedPeal",
+    "name": "Cracked_Peal",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6,
+        "hits": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "thornMatriarch.rootCrown": {
+    "id": "thornMatriarch.rootCrown",
+    "name": "Root_Crown",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 8
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block."
+  },
+  "thornMatriarch.thornNeedles": {
+    "id": "thornMatriarch.thornNeedles",
+    "name": "Thorn_Needles",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 4,
+        "hits": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "thornMatriarch.entwiningRoots": {
+    "id": "thornMatriarch.entwiningRoots",
+    "name": "Entwining_Roots",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "smash",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 15
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "bleed",
+        "stacks": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Apply {bleed} Bleed to the enemy. Charges for 1 turn.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "gildedKnight.thrust": {
+    "id": "gildedKnight.thrust",
+    "name": "Thrust",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 11
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "gildedKnight.parry": {
+    "id": "gildedKnight.parry",
+    "name": "Parry",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "counter",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 9
+      },
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:counter",
+      "classification.attack",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block. Prepare Counter: return {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "gildedKnight.rally": {
+    "id": "gildedKnight.rally",
+    "name": "Rally",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 2
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {strength} Strength to yourself."
+  },
+  "gildedKnight.gildedGuard": {
+    "id": "gildedKnight.gildedGuard",
+    "name": "Gilded_Guard",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 6
+      },
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Gain {block} Block. Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "courtSurgeon.scalpel": {
+    "id": "courtSurgeon.scalpel",
+    "name": "Scalpel",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 7
+      },
+      {
+        "op": "addCard",
+        "target": "enemy",
+        "card": "wound",
+        "pile": "discard"
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Shuffle Wound into the enemy's discard.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "courtSurgeon.sedate": {
+    "id": "courtSurgeon.sedate",
+    "name": "Sedate",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "weak",
+        "stacks": 1
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "frail",
+        "stacks": 1
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {weak} Weak to the enemy. Apply {frail} Frail to the enemy."
+  },
+  "courtSurgeon.stitch": {
+    "id": "courtSurgeon.stitch",
+    "name": "Stitch",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [
+      "exhaust"
+    ],
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 3
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power",
+      "fx:heal",
+      "lifecycle.exhaust"
+    ],
+    "textTemplate": "Heal {heal} HP."
+  },
+  "stitchedHound.maul": {
+    "id": "stitchedHound.maul",
+    "name": "Maul",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 4,
+        "hits": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "stitchedHound.rend": {
+    "id": "stitchedHound.rend",
+    "name": "Rend",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "bleed",
+        "stacks": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Apply {bleed} Bleed to the enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "courtMarionette.dart": {
+    "id": "courtMarionette.dart",
+    "name": "Dart",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 4,
+        "hits": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "courtMarionette.blowdart": {
+    "id": "courtMarionette.blowdart",
+    "name": "Blowdart",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 3
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "crimsonBlight",
+        "stacks": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Apply {crimsonBlight} Crimson Blight to the enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "livingArmor.slam": {
+    "id": "livingArmor.slam",
+    "name": "Slam",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 10
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "livingArmor.fortify": {
+    "id": "livingArmor.fortify",
+    "name": "Fortify",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 12
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block."
+  },
+  "livingArmor.crush": {
+    "id": "livingArmor.crush",
+    "name": "Crush",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 14
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "livingArmor.rimeCrush": {
+    "id": "livingArmor.rimeCrush",
+    "name": "Rime_Crush",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 8
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "frost",
+        "stacks": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Apply {frost} Frost to the enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "courtDuelist.enGarde": {
+    "id": "courtDuelist.enGarde",
+    "name": "En_Garde",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 3
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {strength} Strength to yourself."
+  },
+  "courtDuelist.flurry": {
+    "id": "courtDuelist.flurry",
+    "name": "Flurry",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 5,
+        "hits": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "courtDuelist.lunge": {
+    "id": "courtDuelist.lunge",
+    "name": "Lunge",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 14
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "courtDuelist.riposte": {
+    "id": "courtDuelist.riposte",
+    "name": "Riposte",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "counter",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 10
+      },
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:counter",
+      "classification.attack",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block. Prepare Counter: return {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "courtDuelist.bindingRiposte": {
+    "id": "courtDuelist.bindingRiposte",
+    "name": "Binding_Riposte",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 4
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "stitchedKing.scepterBlow": {
+    "id": "stitchedKing.scepterBlow",
+    "name": "Scepter_Blow",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 11
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "stitchedKing.graspingHands": {
+    "id": "stitchedKing.graspingHands",
+    "name": "Grasping_Hands",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 5,
+        "hits": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "stitchedKing.courtlyDecree": {
+    "id": "stitchedKing.courtlyDecree",
+    "name": "Courtly_Decree",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 15
+      },
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block. Apply {strength} Strength to yourself."
+  },
+  "stitchedKing.thousandHands": {
+    "id": "stitchedKing.thousandHands",
+    "name": "Thousand_Hands",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 3,
+        "hits": 6
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "mirrorScribe.silverScript": {
+    "id": "mirrorScribe.silverScript",
+    "name": "Silver_Script",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "addCard",
+        "card": "dazed",
+        "pile": "discard",
+        "target": "enemy"
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Shuffle Dazed into the enemy's discard."
+  },
+  "mirrorScribe.shardVolley": {
+    "id": "mirrorScribe.shardVolley",
+    "name": "Shard_Volley",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 3,
+        "hits": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "mirrorScribe.polishedWard": {
+    "id": "mirrorScribe.polishedWard",
+    "name": "Polished_Ward",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "counter",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 6
+      },
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:counter",
+      "classification.attack",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block. Prepare Counter: return {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "stitchCrab.shellFold": {
+    "id": "stitchCrab.shellFold",
+    "name": "Shell_Fold",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 11
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block."
+  },
+  "stitchCrab.seamShears": {
+    "id": "stitchCrab.seamShears",
+    "name": "Seam_Shears",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 4,
+        "hits": 2
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "bleed",
+        "stacks": 1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times. Apply {bleed} Bleed to the enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "stitchCrab.scuttleRush": {
+    "id": "stitchCrab.scuttleRush",
+    "name": "Scuttle_Rush",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 13
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "glassRegent.prismGuard": {
+    "id": "glassRegent.prismGuard",
+    "name": "Prism_Guard",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 16
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block."
+  },
+  "glassRegent.crystalRapier": {
+    "id": "glassRegent.crystalRapier",
+    "name": "Crystal_Rapier",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 15
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "glassRegent.splinterRain": {
+    "id": "glassRegent.splinterRain",
+    "name": "Splinter_Rain",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6,
+        "hits": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "glassRegent.shatteredCourt": {
+    "id": "glassRegent.shatteredCourt",
+    "name": "Shattered_Court",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "smash",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 7,
+        "hits": 5
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times. Charges for 1 turn.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "marrowOrganist.bonePrelude": {
+    "id": "marrowOrganist.bonePrelude",
+    "name": "Bone_Prelude",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "weak",
+        "stacks": 1
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {weak} Weak to the enemy."
+  },
+  "marrowOrganist.ivoryKeys": {
+    "id": "marrowOrganist.ivoryKeys",
+    "name": "Ivory_Keys",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 8,
+        "hits": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "marrowOrganist.funeralChord": {
+    "id": "marrowOrganist.funeralChord",
+    "name": "Funeral_Chord",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "smash",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 28
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Charges for 1 turn.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "marrowOrganist.quietRefrain": {
+    "id": "marrowOrganist.quietRefrain",
+    "name": "Quiet_Refrain",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 3,
+    "staminaCost": 3,
+    "manaCost": 2,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 12
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power",
+      "fx:heal"
+    ],
+    "textTemplate": "Heal {heal} HP."
+  },
+  "ashRevenant.cinderSlash": {
+    "id": "ashRevenant.cinderSlash",
+    "name": "Cinder_Slash",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 12
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "ashRevenant.reform": {
+    "id": "ashRevenant.reform",
+    "name": "Reform",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [
+      "exhaust"
+    ],
+    "effects": [
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 10
+      },
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 6
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power",
+      "fx:heal",
+      "lifecycle.exhaust"
+    ],
+    "textTemplate": "Heal {heal} HP. Gain {block} Block."
+  },
+  "emberStarvedPilgrim.desperateClaw": {
+    "id": "emberStarvedPilgrim.desperateClaw",
+    "name": "Desperate_Claw",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 9
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "emberStarvedPilgrim.wail": {
+    "id": "emberStarvedPilgrim.wail",
+    "name": "Wail",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "weak",
+        "stacks": 1
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "frail",
+        "stacks": 1
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "insanity",
+        "stacks": 3
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {weak} Weak to the enemy. Apply {frail} Frail to the enemy. Apply {insanity} Insanity to the enemy."
+  },
+  "valkyrieShade.spiralLance": {
+    "id": "valkyrieShade.spiralLance",
+    "name": "Spiral_Lance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 5,
+        "hits": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "valkyrieShade.bloodFeather": {
+    "id": "valkyrieShade.bloodFeather",
+    "name": "Blood_Feather",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 5
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "bleed",
+        "stacks": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Apply {bleed} Bleed to the enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "charredColossus.smash": {
+    "id": "charredColossus.smash",
+    "name": "Smash",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 16
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "charredColossus.ashCloud": {
+    "id": "charredColossus.ashCloud",
+    "name": "Ash_Cloud",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "weak",
+        "stacks": 2
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {weak} Weak to the enemy."
+  },
+  "charredColossus.harden": {
+    "id": "charredColossus.harden",
+    "name": "Harden",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 14
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block."
+  },
+  "wyrmLord.consecration": {
+    "id": "wyrmLord.consecration",
+    "name": "Consecration",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 4
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {strength} Strength to yourself."
+  },
+  "wyrmLord.halberdReign": {
+    "id": "wyrmLord.halberdReign",
+    "name": "Halberd_Reign",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 15
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "wyrmLord.tailSweep": {
+    "id": "wyrmLord.tailSweep",
+    "name": "Tail_Sweep",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 8
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "weak",
+        "stacks": 1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Apply {weak} Weak to the enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "wyrmLord.goldenBulwark": {
+    "id": "wyrmLord.goldenBulwark",
+    "name": "Golden_Bulwark",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 3,
+    "staminaCost": 3,
+    "manaCost": 2,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 16
+      },
+      {
+        "op": "heal",
+        "target": "self",
+        "amount": 17
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction",
+      "fx:heal"
+    ],
+    "textTemplate": "Gain {block} Block. Heal {heal} HP."
+  },
+  "blightedValkyrie.spiralThrust": {
+    "id": "blightedValkyrie.spiralThrust",
+    "name": "Spiral_Thrust",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 12
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "bleed",
+        "stacks": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Apply {bleed} Bleed to the enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "blightedValkyrie.whirlwind": {
+    "id": "blightedValkyrie.whirlwind",
+    "name": "Whirlwind",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 4,
+        "hits": 5
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "bleed",
+        "stacks": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times. Apply {bleed} Bleed to the enemy.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "blightedValkyrie.rotWings": {
+    "id": "blightedValkyrie.rotWings",
+    "name": "Rot_Wings",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 10
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "crimsonBlight",
+        "stacks": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block. Apply {crimsonBlight} Crimson Blight to the enemy."
+  },
+  "blightedValkyrie.scarletDance": {
+    "id": "blightedValkyrie.scarletDance",
+    "name": "Scarlet_Dance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 5,
+        "hits": 5
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "cinderMantis.scythePair": {
+    "id": "cinderMantis.scythePair",
+    "name": "Scythe_Pair",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 5,
+        "hits": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "cinderMantis.emberPounce": {
+    "id": "cinderMantis.emberPounce",
+    "name": "Ember_Pounce",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "smash",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 18
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Charges for 1 turn.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "cinderMantis.foldedBlades": {
+    "id": "cinderMantis.foldedBlades",
+    "name": "Folded_Blades",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "counter",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 8
+      },
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:counter",
+      "classification.attack",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block. Prepare Counter: return {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "eclipseCantor.darkHymn": {
+    "id": "eclipseCantor.darkHymn",
+    "name": "Dark_Hymn",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "insanity",
+        "stacks": 3
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {insanity} Insanity to the enemy."
+  },
+  "eclipseCantor.lunarRay": {
+    "id": "eclipseCantor.lunarRay",
+    "name": "Lunar_Ray",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 11
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "eclipseCantor.fadingEcho": {
+    "id": "eclipseCantor.fadingEcho",
+    "name": "Fading_Echo",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 6
+      },
+      {
+        "op": "addCard",
+        "card": "dazed",
+        "pile": "discard",
+        "target": "enemy"
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Shuffle Dazed into the enemy's discard.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "furnaceSaint.openFurnace": {
+    "id": "furnaceSaint.openFurnace",
+    "name": "Open_Furnace",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "smash",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 32
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Charges for 1 turn.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "furnaceSaint.censerSweep": {
+    "id": "furnaceSaint.censerSweep",
+    "name": "Censer_Sweep",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 22
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "furnaceSaint.coolingAsh": {
+    "id": "furnaceSaint.coolingAsh",
+    "name": "Cooling_Ash",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 14
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block."
+  },
+  "hollowAstronomer.starChart": {
+    "id": "hollowAstronomer.starChart",
+    "name": "Star_Chart",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "addCard",
+        "card": "dazed",
+        "pile": "discard",
+        "target": "enemy"
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Shuffle Dazed into the enemy's discard."
+  },
+  "hollowAstronomer.orbitalShards": {
+    "id": "hollowAstronomer.orbitalShards",
+    "name": "Orbital_Shards",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 8,
+        "hits": 4
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "hollowAstronomer.totalEclipse": {
+    "id": "hollowAstronomer.totalEclipse",
+    "name": "Total_Eclipse",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "smash",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 30
+      },
+      {
+        "op": "applyStatus",
+        "target": "enemy",
+        "status": "insanity",
+        "stacks": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage. Apply {insanity} Insanity to the enemy. Charges for 1 turn.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "hollowAstronomer.fallingHeavens": {
+    "id": "hollowAstronomer.fallingHeavens",
+    "name": "Falling_Heavens",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 10,
+        "hits": 3
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "ashheartDragon.obsidianClaws": {
+    "id": "ashheartDragon.obsidianClaws",
+    "name": "Obsidian_Claws",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "attack",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 12,
+        "hits": 2
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:attack",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "ashheartDragon.tailBastion": {
+    "id": "ashheartDragon.tailBastion",
+    "name": "Tail_Bastion",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "defend",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "block",
+        "target": "self",
+        "amount": 12
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:defend",
+      "classification.skill",
+      "trait:reaction"
+    ],
+    "textTemplate": "Gain {block} Block."
+  },
+  "ashheartDragon.heartRumble": {
+    "id": "ashheartDragon.heartRumble",
+    "name": "Heart_Rumble",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 1,
+    "costRule": "fixed",
+    "type": "power",
+    "icon": "casting",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "applyStatus",
+        "target": "self",
+        "status": "strength",
+        "stacks": 1
+      }
+    ],
+    "tags": [
+      "camp:spell",
+      "maneuver:casting",
+      "classification.power"
+    ],
+    "textTemplate": "Apply {strength} Strength to yourself."
+  },
+  "ashheartDragon.ashBreath": {
+    "id": "ashheartDragon.ashBreath",
+    "name": "Ash_Breath",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 2,
+    "staminaCost": 2,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "attack",
+    "icon": "smash",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "damage",
+        "target": "enemy",
+        "amount": 9,
+        "hits": 4
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "maneuver:smash",
+      "classification.attack"
+    ],
+    "textTemplate": "Deal {damage} damage {hits} times. Charges for 1 turn.",
+    "damageSchool": "physical",
+    "exposureBuildupPerHit": 0
+  },
+  "wanderingSoldier.advance": {
+    "id": "wanderingSoldier.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "blightHound.advance": {
+    "id": "blightHound.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "huskBrute.advance": {
+    "id": "huskBrute.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "graveWisp.advance": {
+    "id": "graveWisp.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "wyrmAspirant.advance": {
+    "id": "wyrmAspirant.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "fellWarden.advance": {
+    "id": "fellWarden.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "lanternMoth.advance": {
+    "id": "lanternMoth.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "briarHermit.advance": {
+    "id": "briarHermit.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "chainScavenger.advance": {
+    "id": "chainScavenger.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "bellKeeper.advance": {
+    "id": "bellKeeper.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "thornMatriarch.advance": {
+    "id": "thornMatriarch.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "gildedKnight.advance": {
+    "id": "gildedKnight.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "courtSurgeon.advance": {
+    "id": "courtSurgeon.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "stitchedHound.advance": {
+    "id": "stitchedHound.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "courtMarionette.advance": {
+    "id": "courtMarionette.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "livingArmor.advance": {
+    "id": "livingArmor.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "courtDuelist.advance": {
+    "id": "courtDuelist.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "stitchedKing.advance": {
+    "id": "stitchedKing.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "mirrorScribe.advance": {
+    "id": "mirrorScribe.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "stitchCrab.advance": {
+    "id": "stitchCrab.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "glassRegent.advance": {
+    "id": "glassRegent.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "marrowOrganist.advance": {
+    "id": "marrowOrganist.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "ashRevenant.advance": {
+    "id": "ashRevenant.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "emberStarvedPilgrim.advance": {
+    "id": "emberStarvedPilgrim.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "valkyrieShade.advance": {
+    "id": "valkyrieShade.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "charredColossus.advance": {
+    "id": "charredColossus.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "wyrmLord.advance": {
+    "id": "wyrmLord.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "blightedValkyrie.advance": {
+    "id": "blightedValkyrie.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "cinderMantis.advance": {
+    "id": "cinderMantis.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "eclipseCantor.advance": {
+    "id": "eclipseCantor.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "furnaceSaint.advance": {
+    "id": "furnaceSaint.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "hollowAstronomer.advance": {
+    "id": "hollowAstronomer.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  },
+  "ashheartDragon.advance": {
+    "id": "ashheartDragon.advance",
+    "name": "Advance",
+    "class": "colorless",
+    "rarity": "special",
+    "cost": 1,
+    "staminaCost": 1,
+    "manaCost": 0,
+    "costRule": "fixed",
+    "type": "skill",
+    "icon": "move",
+    "keywords": [],
+    "effects": [
+      {
+        "op": "moveEngagement",
+        "target": "enemy",
+        "bands": -1
+      }
+    ],
+    "tags": [
+      "camp:physical",
+      "classification.skill"
+    ],
+    "textTemplate": "Close one band."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "comment": "Core 2 vocabularies with no data home in the web's content, read from its code at the pinned sha (Tools/export/sources.json core2.webSha b8cfe4fac). Codegen turns each list into an enum (Tools/codegen.d/core2-enums.json). camps: tags camp:physical and camp:spell (engine/mechanics/camp_*; docs/STANCE-COMBAT-RULES.md). reactionWindows: src/model/schemas.js enum for reaction on and src/engine/combatReactions.js openEnemyWindow. intentTypes: the switch in dispatch(), src/engine/combat.js, minus the legacy-only basicAttack and pass, which do not exist while the cards module is on.",
+  "camps": [
+    "physical",
+    "spell"
+  ],
+  "reactionWindows": [
+    "playerAction",
+    "playerReaction"
+  ],
+  "intentTypes": [
+    "playCard",
+    "unqueueCard",
+    "endTurn",
+    "useFlask",
+    "setReactions",
+    "chooseReaction",
+    "predictIntent",
+    "recoverControl",
+    "chooseCards",
+    "chooseDiscard",
+    "moveCharacter",
+    "chooseBlightFeat",
+    "swapArmament",
+    "changeEquipment"
+  ]
+}
