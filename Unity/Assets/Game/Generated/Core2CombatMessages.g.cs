@@ -13,7 +13,7 @@ namespace Ashen.Generated
         public const string LegacyDecayNotPorted = "Core 2 combat: status decay without FixCore is not part of a Core 2 run";
         public const string LegacyKnowledgeNotPorted = "Core 2 combat: legacy enemy knowledge is not part of a Core 2 run";
         public const string MissingResourceVariant = "Card {0} has no variant for the profile resources";
-        public const string OpcodeNotPorted = "Core 2 combat: opcode {0} is ported with a later work package (the engagement and the legacy break meter)";
+        public const string OpcodeNotPorted = "Core 2 combat: opcode {0} is ported with a later work package (the arcane buildup)";
         public const string ScriptNotPorted = "Core 2 combat: script effects are not ported (only the flask scripts use them)";
         public const string SyntheticBlockNotPorted = "Core 2 combat: synthetic Block is ported with WP-8";
         public const string UnknownTag = "Core 2 combat: unknown tag {0}";

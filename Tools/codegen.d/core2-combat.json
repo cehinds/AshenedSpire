@@ -616,7 +616,7 @@
         "LegacyDecayNotPorted": "Core 2 combat: status decay without FixCore is not part of a Core 2 run",
         "LegacyKnowledgeNotPorted": "Core 2 combat: legacy enemy knowledge is not part of a Core 2 run",
         "MissingResourceVariant": "Card {0} has no variant for the profile resources",
-        "OpcodeNotPorted": "Core 2 combat: opcode {0} is ported with a later work package (the engagement and the legacy break meter)",
+        "OpcodeNotPorted": "Core 2 combat: opcode {0} is ported with a later work package (the arcane buildup)",
         "ScriptNotPorted": "Core 2 combat: script effects are not ported (only the flask scripts use them)",
         "SyntheticBlockNotPorted": "Core 2 combat: synthetic Block is ported with WP-8",
         "UnknownTag": "Core 2 combat: unknown tag {0}"
