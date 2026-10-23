@@ -63,6 +63,8 @@ namespace Ashen.Tests
                 var intent = (JObject)step["intent"];
                 var at = $"{label} step {n++} {intent.Value<string>("type")}";
                 var mark = c.EventLog.Count;
+                try
+                {
                 switch (intent.Value<string>("type"))
                 {
                     case "endTurn":
@@ -90,6 +92,11 @@ namespace Ashen.Tests
                     default:
                         Assert.Fail(at + " an intent the port does not play");
                         break;
+                }
+                }
+                catch (Exception e) when (!(e is AssertionException))
+                {
+                    throw new InvalidOperationException(at + " " + intent.ToString(Newtonsoft.Json.Formatting.None) + ": " + e.GetType().Name + " " + e.Message, e);
                 }
                 want = Core2CombatStartParityTests.Apply(want, step["delta"]);
                 Core2CombatStartParityTests.Same(at, want, Core2CombatStartParityTests.Project(c));

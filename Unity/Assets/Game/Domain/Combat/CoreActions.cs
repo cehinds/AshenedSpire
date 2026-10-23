@@ -240,7 +240,8 @@ namespace Ashen.Domain.Combat
                 foreach (var t in targets)
                 {
                     if (!t.Is(K.Alive)) continue;
-                    var baseAmount = Actions.EvalNum(c, action, eff[CK.Amount], 0, t);
+                    var first = h == 0 && t == targets[0];
+                    var baseAmount = Actions.EvalNum(c, action, eff[CK.Amount], 0, t) + (action.Meta.Charge?.Or0(Ashen.Generated.Core2StatusKeys.DamageEffect) ?? 0) + (first ? action.Meta.Charge?.Or0(K.Damage) ?? 0 : 0);
                     var effectCarrier = CoreExpansion.EffectCarrier(c, action.Card, eff);
                     var carrier = Js.Spread(effectCarrier);
                     if (eff.Is(K.Attack)) carrier[K.Attack] = eff[K.Attack].DeepClone();
@@ -267,6 +268,9 @@ namespace Ashen.Domain.Combat
                     if (action.Source.Obj(CK.CritRules)?.Count > 0 && planned == null) throw new NotSupportedException(DM.CritNotPorted);
                     if (planned == null && action.Meta.InheritedContact != null) contact = action.Meta.InheritedContact;
                     CoreImpact.ApplyAttackDamage(c, action.Source, t, baseAmount, carrier, contact, CoreRange.HitContact(c, action.Source, t, carrier), null, action.Meta.ProposalTargetDecisions ??= new JObject());
+                    // The charge's Poise break lands once, on the first target of the first hit.
+                    if (first && t.Is(K.Alive) && action.Meta.Charge != null && Js.Truthy(action.Meta.Charge[Ashen.Generated.Core2StatusValues.Break]))
+                        CoreImpact.DealPoiseDamage(c, t, action.Meta.Charge.Num(Ashen.Generated.Core2StatusValues.Break));
                 }
             }
         }

@@ -343,20 +343,23 @@ namespace Ashen.Domain.Combat
             return false;
         }
 
-        /// <summary>preparedPlayCosts(combat, inst, def): the price as the play pays it, after the card's cardPreparing triggers (none may listen yet).</summary>
-        private static JObject PreparedPlayCosts(CombatState c, JObject def)
+        /// <summary>
+        /// preparedPlayCosts(combat, inst, def): the price as the play pays it, after the card's cardPreparing triggers. With nothing listening the price is the direct one; with a listener
+        /// (a discount or a surcharge) a detached copy of the fight prepares the card and the price is read from it (<see cref="CorePreparing"/>). Combat Rounds is refused by name.
+        /// </summary>
+        private static JObject PreparedPlayCosts(CombatState c, JObject instance, JObject def, string targetId)
         {
             if (Js.Truthy(c.Fields[CC.CombatRounds])) throw new NotSupportedException(CCM.CombatRoundsNotPorted);
             var tags = TagsOf(def) != null ? Js.Items(TagsOf(def)).Select(t => Js.IsStr(t) ? Js.Str(t) : Js.Str(Js.Get(t, K.Id))).ToList() : new List<string>();
-            if (ListensForPreparing(c, tags)) throw new NotSupportedException(CCM.PreparingNotPorted);
-            return PlayCosts(c, def);
+            if (!ListensForPreparing(c, tags)) return PlayCosts(c, def);
+            return PlayCosts(CorePreparing.Preview(c, instance, def, targetId), def);
         }
 
         /// <summary>cardPlayCosts(combat, cardInstanceId): { energy, mana, stamina } for a card in hand.</summary>
         public static JObject CardPlayCosts(CombatState c, string instanceId)
         {
             var instance = Instance(c, instanceId, false);
-            return PreparedPlayCosts(c, Resolve(c, instance));
+            return PreparedPlayCosts(c, instance, Resolve(c, instance), null);
         }
 
         /// <summary>The cost part of previewCard(combat, id): the Stamina and Mana as the face shows them, and the Precision a stance entry would grant (the range quote adds its Advance price on top, <see cref="CoreRangePreview"/>).</summary>
@@ -364,7 +367,7 @@ namespace Ashen.Domain.Combat
         {
             var instance = Instance(c, instanceId, true);
             var def = Resolve(c, instance);
-            var paid = PreparedPlayCosts(c, def);
+            var paid = PreparedPlayCosts(c, instance, def, null);
             var isX = def.Str(K.Cost) == CCV.CostX;
             var preview = new JObject
             {
@@ -384,13 +387,13 @@ namespace Ashen.Domain.Combat
         // ------------------------------------------------------------------ the gates
 
         /// <summary>The first reason the cost gates of doPlayCard refuse a card: the status that restricts it, an unplayable card, too little Stamina or Mana. Null when none does.</summary>
-        public static string PlayRefusal(CombatState c, string instanceId) => PlayRefusalFor(c, instanceId)?.Message;
+        public static string PlayRefusal(CombatState c, string instanceId, string targetId = null) => PlayRefusalFor(c, instanceId, targetId)?.Message;
 
         /// <summary>
         /// The refusal of the cost gates as the web raises it (F.playRefusal): its message, the reason a reaction offer reports (controlled, unplayable, cost)
         /// and, for a price, the resource and what it needed and had. Null when the card can be played.
         /// </summary>
-        public static PlayRefusalException PlayRefusalFor(CombatState c, string instanceId)
+        public static PlayRefusalException PlayRefusalFor(CombatState c, string instanceId, string targetId = null, bool direct = false)
         {
             if (c.Phase != V.PhasePlayer && !c.ReactionPlaying) return new PlayRefusalException(CCM.PlayerTurnOnly, null);
             var instance = Instance(c, instanceId, false);
@@ -401,7 +404,7 @@ namespace Ashen.Domain.Combat
             if (!plan.Is(CC.Allowed)) return new PlayRefusalException(plan.Str(CC.Refusal), RV.ReasonControlled);
             if (!CoreStatusControl.Gate(c, c.Player, def).Is(Ashen.Generated.Core2DamageKeys.Allowed)) return new PlayRefusalException(SM.RecoverFirst, RV.ReasonControlled);
             if (Js.Includes(def[K.Keywords], CCV.KeywordUnplayable)) return new PlayRefusalException(string.Format(CultureInfo.InvariantCulture, CCM.Unplayable, def.Str(K.Name)), RV.ReasonUnplayable);
-            var paid = PreparedPlayCosts(c, def);
+            var paid = direct ? PlayCosts(c, def) : PreparedPlayCosts(c, instance, def, targetId);
             if (c.Player.Num(K.Stamina) < paid.Num(K.Energy)) return new PlayRefusalException(CCM.NotEnough, RV.ReasonCost, ShortOf(RV.ResourceStamina, paid.Num(K.Energy), c.Player.Num(K.Stamina)));
             if (c.Player.Num(K.Mana) < paid.Num(K.Mana)) return new PlayRefusalException(CCM.NotEnough, RV.ReasonCost, ShortOf(RV.ResourceMana, paid.Num(K.Mana), c.Player.Num(K.Mana)));
             return null;

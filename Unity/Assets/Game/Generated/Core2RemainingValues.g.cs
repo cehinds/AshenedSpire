@@ -4,6 +4,7 @@ namespace Ashen.Generated
     /// <summary>Values of the remaining-features package.</summary>
     public static class Core2RemainingValues
     {
+        public const string ConfiguredDeck = "configured-deck";
         public const string IntentChooseBlightFeat = "chooseBlightFeat";
         public const string IntentUnqueueCard = "unqueueCard";
         public const string NotANumber = "NaN";

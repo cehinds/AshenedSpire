@@ -4,7 +4,25 @@ namespace Ashen.Generated
     /// <summary>Keys the remaining-features package reads and writes.</summary>
     public static class Core2RemainingKeys
     {
+        public const string ArmamentRows = "armaments";
+        public const string ArmorClass = "armorClass";
+        public const string ArmorClassLight = "light";
+        public const string ArmourRows = "armour";
+        public const string CombatExpansionRow = "combatExpansion";
+        public const string CombatTraits = "combatTraits";
+        public const string DamageResistPercent = "damageResistPercent";
+        public const string DamageResistanceFlat = "damageResistanceFlat";
+        public const string DamageWeaknessPercent = "damageWeaknessPercent";
+        public const string ResistanceCap = "resistanceCap";
+        public const string RowFlat = "flat";
+        public const string RowResist = "resist";
+        public const string RowTraits = "traits";
+        public const string RowWeak = "weak";
+        public const string SharedArmourRows = "sharedArmour";
         public const string Count = "count";
+        public const string DrawStat = "drawStat";
+        public const string Equipment = "equipment";
+        public const string PoolStats = "poolStats";
         public const string Kind = "kind";
         public const string ExcludeScripted = "excludeScripted";
         public const string Milestones = "milestones";

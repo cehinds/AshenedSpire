@@ -394,7 +394,7 @@ namespace Ashen.Domain.Combat
         /// payload), a Counter with no Poise of its own gets the stance rules' fallback Poise, the Counter is armed on its owner, and only the card's
         /// support effects (Block, Barrier) go on to be played now. Returns those effects.
         /// </summary>
-        public static List<JObject> PrepareCounter(CombatState c, JObject source, JObject target, JObject carrier, IReadOnlyList<JObject> effects, ActionMeta meta)
+        public static List<JObject> PrepareCounter(CombatState c, JObject source, JObject target, JObject carrier, IReadOnlyList<JObject> effects, ActionMeta meta, double damageBonus = 0, double poiseBonus = 0)
         {
             double damage = 0, poiseDamage = 0, wardDamage = 0;
             var listedPoise = false;
@@ -418,6 +418,11 @@ namespace Ashen.Domain.Combat
                 if (impactKey == CK.Ward) { if (!listedWard) wardDamage = impact; }
                 else if (!listedPoise) poiseDamage = impact;
             }
+            // A charge another card left adds to the reply's damage and Poise.
+            damageBonus = Math.Max(0, damageBonus);
+            poiseBonus = Math.Max(0, poiseBonus);
+            damage += damageBonus;
+            poiseDamage += poiseBonus;
             var payload = new JObject { [K.Hp] = Js.N(damage), [CK.Poise] = Js.N(poiseDamage), [CK.Ward] = Js.N(wardDamage) };
             var strike = c.CoreData.ReactionVersion == DN.ReactionStackVersion && Js.Truthy(carrier.Obj(DK.TraitValues)?[DK.Counterstrike]);
             var authored = profile?.Obj(CK.CounterPayload);
@@ -437,6 +442,8 @@ namespace Ashen.Domain.Combat
                     if (strike && key == K.Hp) { payload[CK.HpBase] = Js.N(baseAmount); payload[CK.HpRating] = Js.N(rating); }
                     if (strike && key == CK.Poise) payload[CK.PoiseBase] = Js.N(baseAmount);
                 }
+                if (authored[K.Hp] != null) payload.Put(K.Hp, payload.Num(K.Hp) + damageBonus);
+                if (authored[CK.Poise] != null) payload.Put(CK.Poise, payload.Num(CK.Poise) + poiseBonus);
                 if (authored[CK.HpAgainstNonCaster] != null) payload[CK.HpAgainstNonCaster] = authored[CK.HpAgainstNonCaster].DeepClone();
             }
             else if (strike)
@@ -450,7 +457,7 @@ namespace Ashen.Domain.Combat
                     payload[CK.HpBase] = Js.N(baseAmount);
                     payload[CK.HpRating] = Js.N(damaging[0].preview.Value.value - baseAmount);
                 }
-                payload[CK.PoiseBase] = Js.N(Math.Max(0, poiseDamage));
+                payload[CK.PoiseBase] = Js.N(Math.Max(0, poiseDamage - poiseBonus));
             }
             // A Counter with no authored Poise impact receives the shared fallback once.
             if (!(payload.Num(CK.Poise) > 0) && !effects.Any(effect => effect.Str(K.Op) == Op.PoiseDamage))

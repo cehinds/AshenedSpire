@@ -153,6 +153,13 @@ namespace Ashen.Domain.Random
             return d;
         }
 
+        /// <summary>Puts every counter back to what <paramref name="other"/> (a clone of this stream set taken earlier) holds: a refused dispatch leaves the draws it made undone.</summary>
+        public void RestoreCounters(Rng other)
+        {
+            Array.Copy(other._counters, _counters, _counters.Length);
+            Array.Copy(other._coreCounters, _coreCounters, _coreCounters.Length);
+        }
+
         /// <summary>A copy with identical seed and counters (used by previews so they never advance the real streams).</summary>
         public Rng Clone() => new Rng(Seed, Counters(), CoreCounters());
 

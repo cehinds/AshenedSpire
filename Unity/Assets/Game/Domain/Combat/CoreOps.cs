@@ -80,6 +80,10 @@ namespace Ashen.Domain.Combat
                     var living = Living(c);
                     return living.Count > 0 ? new List<JObject> { c.Rng.Pick(RngStream.Misc, living) } : list;
                 }
+                case DV.TargetAllAllies:
+                    // Solo, the allies are the living player alone.
+                    if (c.Player != null && c.Player.Is(K.Alive)) list.Add(c.Player);
+                    return list;
                 case V.TargetAlly:
                 {
                     var t = action.Target;

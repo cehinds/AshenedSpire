@@ -55,6 +55,7 @@ namespace Ashen.Tests
             var spec = fight["spec"] as JObject ?? new JObject();
             if (spec["deck"] is JArray deck)
                 run["deck"] = new JArray(deck.Select((t, n) => new JObject { ["instanceId"] = "rm" + (n + 1), ["cardId"] = t.Value<string>(), ["upgraded"] = false }));
+            foreach (var piece in (spec["storage"] as JArray ?? new JArray())) ((JArray)run["loadout"]["storage"]).Add(piece.DeepClone());
             foreach (var set in (spec["sets"] as JObject ?? new JObject()).Properties())
                 for (var n = 0; n < ((JArray)set.Value).Count; n++) run["loadout"]["sets"][set.Name][n] = set.Value[n].DeepClone();
             var i = 0;
@@ -76,6 +77,61 @@ namespace Ashen.Tests
             Assert.That(index.Value<string>("profileHash"), Is.EqualTo(Core2DamageParityTests.Data.Run.ProfileHash), "the oracle ran the profile that is loaded");
             Assert.That(index["tally"].Value<int>("fights"), Is.GreaterThan(100));
             Assert.That(((JObject)index["tally"]["rejections"]).Count, Is.EqualTo(0), "the oracle leaves nothing out: no step is rejected by a filter");
+        }
+
+        // ------------------------------------------------------------------ the units: a mount that listens for a card being prepared
+
+        public static IEnumerable<TestCaseData> Units()
+        {
+            if (!File.Exists(Path.Combine(Dir, "units.json"))) yield break;
+            var units = (JArray)Read("units.json")["units"];
+            for (var i = 0; i < units.Count; i++)
+                yield return new TestCaseData(i).SetName("Core2RemainingUnit_" + units[i].Value<string>("kind") + "_" + units[i]["rule"].Value<string>("name") + "_" + units[i].Value<string>("classId") + "_" + i);
+        }
+
+        /// <summary>The fight the unit names with the mount the oracle injected (a relic whose rule listens for a card being prepared).</summary>
+        private static CombatState OpenUnit(JObject unit)
+        {
+            var c = Open(new JObject { ["seed"] = unit["seed"], ["classId"] = unit["classId"], ["encounterId"] = unit["encounterId"], ["spec"] = new JObject { ["maxHp"] = 300 } });
+            var rule = (JObject)unit["rule"];
+            var mounts = c.PropertyMounts["player"];
+            mounts["relic:unitPreparing"] = new PropertyMount
+            {
+                Kind = "relic", Id = "unitPreparing", InstanceId = "unitPreparing", ScopeTags = new List<string>(),
+                Rules = new List<JObject> { new JObject { ["tag"] = rule.Value<string>("name"), ["requires"] = new JArray(), ["excludes"] = new JArray(), ["textTemplate"] = "", ["triggers"] = rule["triggers"].DeepClone() } },
+            };
+            return c;
+        }
+
+        [TestCaseSource(nameof(Units))]
+        public void AMountThatListensForPreparingPricesAndPlaysAsTheWebDoes(int index)
+        {
+            var unit = (JObject)((JArray)Read("units.json")["units"])[index];
+            var c = OpenUnit(unit);
+            var label = "unit " + index + " " + unit["rule"].Value<string>("name") + " " + unit.Value<string>("classId") + " " + unit.Value<string>("encounterId");
+            JToken want = unit["start"]["state"].DeepClone();
+            Core2CombatStartParityTests.Same(label + " start", want, Core2CombatStartParityTests.Project(c));
+            var n = 0;
+            foreach (var step in ((JArray)unit["steps"]).OfType<JObject>())
+            {
+                var at = label + " step " + n++;
+                foreach (var row in ((JArray)step["hand"]).OfType<JObject>())
+                {
+                    var costs = row["costs"] as JObject;
+                    if (costs != null && costs["error"] == null)
+                        Core2CombatStartParityTests.Same(at + " costs of " + row.Value<string>("cardId"), costs, CoreCosts.CardPlayCosts(c, row.Value<string>("instanceId")));
+                    if (row["needsTarget"] is JValue needs && needs.Type == JTokenType.Boolean)
+                        Assert.That(CoreTargets.CardNeedsEnemyTargetNow(c, row.Value<string>("instanceId")), Is.EqualTo(needs.Value<bool>()), at + " needs a target: " + row.Value<string>("cardId"));
+                }
+                Core2CombatStartParityTests.Same(at + " a price query moves nothing", want, Core2CombatStartParityTests.Project(c));
+                var mark = c.EventLog.Count;
+                var intent = (JObject)step["intent"];
+                if (step["error"] != null) Assert.Throws(Is.InstanceOf<Exception>(), () => CoreDispatch.Dispatch(c, intent), at + " refused as the web refused it");
+                else CoreDispatch.Dispatch(c, intent);
+                want = Core2CombatStartParityTests.Apply(want, step["delta"]);
+                Core2CombatStartParityTests.Same(at + " after " + intent.Value<string>("type"), want, Core2CombatStartParityTests.Project(c));
+                Assert.That(Core2CombatStartParityTests.Events(c, mark), Is.EqualTo(step["events"].Select(t => t.Value<string>()).ToList()), at + " events");
+            }
         }
 
         [TestCaseSource(nameof(Fights))]

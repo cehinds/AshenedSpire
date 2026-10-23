@@ -480,6 +480,24 @@
         "weak"
       ]
     },
+    "equipment": {
+      "type": "object",
+      "properties": {
+        "drawStat": {
+          "type": "string"
+        },
+        "poolStats": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "drawStat",
+        "poolStats"
+      ]
+    },
     "formation": {
       "type": "object",
       "properties": {
@@ -1125,6 +1143,7 @@
     "damage",
     "enemies",
     "enemyPressure",
+    "equipment",
     "formation",
     "hand",
     "hit",
