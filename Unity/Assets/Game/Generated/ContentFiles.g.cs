@@ -57,6 +57,7 @@ namespace Ashen.Generated
         public const string ProfileBundleAttributes = "profile/bundle/attributes.json";
         public const string ProfileBundleBalance = "profile/bundle/balance.json";
         public const string ProfileBundleBasicCardProfiles = "profile/bundle/basicCardProfiles.json";
+        public const string ProfileBundleBossDestinations = "profile/bundle/bossDestinations.json";
         public const string ProfileBundleCardExposure = "profile/bundle/cardExposure.json";
         public const string ProfileBundleCardTagging = "profile/bundle/cardTagging.json";
         public const string ProfileBundleCards = "profile/bundle/cards.json";
@@ -226,6 +227,7 @@ namespace Ashen.Generated
         public const string SchemasProfileBundleAttributesSchema = "schemas/profile.bundle.attributes.schema.json";
         public const string SchemasProfileBundleBalanceSchema = "schemas/profile.bundle.balance.schema.json";
         public const string SchemasProfileBundleBasicCardProfilesSchema = "schemas/profile.bundle.basicCardProfiles.schema.json";
+        public const string SchemasProfileBundleBossDestinationsSchema = "schemas/profile.bundle.bossDestinations.schema.json";
         public const string SchemasProfileBundleCardExposureSchema = "schemas/profile.bundle.cardExposure.schema.json";
         public const string SchemasProfileBundleCardTaggingSchema = "schemas/profile.bundle.cardTagging.schema.json";
         public const string SchemasProfileBundleCardsSchema = "schemas/profile.bundle.cards.schema.json";

@@ -97,6 +97,12 @@ namespace Ashen.Content
                 Rules(ContentFiles.RulesReactionRules), Rules(ContentFiles.RulesCombatExpansionRules));
         }
 
+        /// <summary>What the map port reads (WP-14): encounters, events, enemies and seats in registry order, the quest gates, the boss destinations and the map engine rules.</summary>
+        public Ashen.Domain.Map.MapData ToMapData(JObject mapEngine) => Registries.ToMapData(mapEngine);
+
+        /// <summary>The routes the Core 2 map builder reads: profile/content/routes.json, the routes module and the profile hash (shipped verbatim, never recomputed).</summary>
+        public Ashen.Domain.Map.CoreRoutesConfig RoutesConfig => new Ashen.Domain.Map.CoreRoutesConfig(Routes as JObject, Profile.Module(Core2ModuleIds.Routes), Profile.Hash);
+
         /// <summary>The moves of one enemy, keyed by move id, in the order the enemy row lists them.</summary>
         public JObject MovesOf(string enemyId) => Row(RegistryKeys.Enemies, enemyId)?[Core2MoveKeys.Moves] as JObject ?? new JObject();
     }
