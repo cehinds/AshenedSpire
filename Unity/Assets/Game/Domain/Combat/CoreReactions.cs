@@ -49,7 +49,7 @@ namespace Ashen.Domain.Combat
         private static bool EnemyReactionsActive(CombatState c) => Stacked(c) && c.Fields.Obj(CK.ReactionRules)?.Is(DK.EnemyReactions) == true;
 
         /// <summary>reactionMovesOf(ctx, enemy, window): the enemy's reaction moves that list the window, in authored order (a locked move once it is unlocked).</summary>
-        private static List<KeyValuePair<string, JObject>> ReactionMovesOf(CombatState c, JObject enemy, string window)
+        public static List<KeyValuePair<string, JObject>> ReactionMovesOf(CombatState c, JObject enemy, string window)
         {
             var moves = c.Data.Enemies.Get(enemy.Str(K.EnemyId)).Obj(K.Moves);
             var unlocked = enemy.Arr(RK.UnlockedMoves);

@@ -1,0 +1,16 @@
+{
+  "comment": "Keys, values, messages and numbers of the Core 2 enemy package (WP-11, docs/design/11): the enemy's move preview, delayed moves, the reaction moves and their stack entries, the intent read, what the player predicts and the knowledge ledger.",
+  "keySets": [
+    {
+      "name": "Core2EnemyKeys",
+      "doc": "Keys the enemy package reads and writes: the move preview, the committed plan of an enemy's reaction, the knowledge feedback and the ledger.",
+      "keys": {
+        "ActionEffects": "actionEffects",
+        "ChargingEffects": "chargingEffects",
+        "ConditionMet": "conditionMet",
+        "ConditionUncertain": "conditionUncertain",
+        "DelayTurns": "delayTurns"
+      }
+    }
+  ]
+}

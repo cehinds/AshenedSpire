@@ -635,7 +635,7 @@ namespace Ashen.Domain.Run
         /// combat key, the Core version stamps and the run fields the fight consumes. Journeys, legacy dungeons, Custom Climb and
         /// boss tier scaling are not part of a Core 2 run's first act and are not read.
         /// </summary>
-        public static JObject CombatArgs(CoreRunData d, JObject run, string encounterId, JObject settings = null)
+        public static JObject CombatArgs(CoreRunData d, JObject run, string encounterId, JObject settings = null, IReadOnlyList<string> enemyIds = null)
         {
             settings = settings ?? new JObject();
             var data = d.Run;
@@ -646,11 +646,12 @@ namespace Ashen.Domain.Run
                 var act = run.Num(RK.ActNumber);
                 hpMult *= Creation.SeatTierHpMult(data, Creation.SeatAtTier(seatOrder, act), act);
             }
-            var mapNode = Js.Truthy(run[RK.MapNodeId]) ? Js.Str(run[RK.MapNodeId]) : string.Join(V.ListSeparator, Js.Items(encounter[K.Enemies]).Select(Js.Str));
+            var enemyList = enemyIds != null ? new JArray(enemyIds) : encounter[K.Enemies];
+            var mapNode = Js.Truthy(run[RK.MapNodeId]) ? Js.Str(run[RK.MapNodeId]) : string.Join(V.ListSeparator, Js.Items(enemyList).Select(Js.Str));
             var args = new JObject
             {
                 [CK.EncounterId] = encounter[K.Id]?.DeepClone(),
-                [K.EnemyIds] = encounter[K.Enemies]?.DeepClone(),
+                [K.EnemyIds] = enemyList?.DeepClone(),
                 [CK.Pool] = encounter[CK.Pool]?.DeepClone(),
                 [CK.Settings] = settings.DeepClone(),
                 [K.HpMult] = Js.N(hpMult),

@@ -128,9 +128,9 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>createRunCombat({registries, rng, run, enemyIds, encounter, settings}) for a configured run.</summary>
-        public static CombatState Create(CoreCombatData d, Rng rng, JObject run, string encounterId, JObject settings = null)
+        public static CombatState Create(CoreCombatData d, Rng rng, JObject run, string encounterId, JObject settings = null, IReadOnlyList<string> enemyIds = null)
         {
-            var args = CoreRunRules.CombatArgs(d.Run, run, encounterId, settings);
+            var args = CoreRunRules.CombatArgs(d.Run, run, encounterId, settings, enemyIds);
             var player = args.Obj(K.Player);
             var receipt = RatingReceipt(d, run);
             player[CC.Ratings] = receipt[CK.Totals].DeepClone();

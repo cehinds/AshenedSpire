@@ -176,8 +176,9 @@ namespace Ashen.Domain.Combat
             if (delay?.Obj(CK.WhileCharging) != null)
             {
                 var charging = Js.Spread(delay.Obj(CK.WhileCharging));
-                charging[K.Tags] = move[K.Tags]?.DeepClone();
-                charging[CK.CardTags] = move[CK.CardTags]?.DeepClone();
+                // { ...whileCharging, tags: move.tags, cardTags: move.cardTags }: an undefined value is no key.
+                if (move[K.Tags] != null) charging[K.Tags] = move[K.Tags].DeepClone(); else charging.Remove(K.Tags);
+                if (move[CK.CardTags] != null) charging[CK.CardTags] = move[CK.CardTags].DeepClone(); else charging.Remove(CK.CardTags);
                 var next = Js.Spread(delay);
                 next[CK.WhileCharging] = Expanded(c, enemy, charging, moveId);
                 result[K.Delay] = next;
@@ -327,7 +328,7 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>takePlannedMove(combat, enemy, def, {isFirstTurn, pick}): tops the plan up and takes its head.</summary>
-        private static string TakePlannedMove(CombatState c, JObject enemy, JObject def, bool isFirstTurn)
+        public static string TakePlannedMove(CombatState c, JObject enemy, JObject def, bool isFirstTurn)
         {
             if (!(enemy[CK.PlannedMoves] is JArray plan))
             {
