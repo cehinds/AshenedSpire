@@ -49,6 +49,40 @@ namespace Ashen.Domain.Combat
         public double? AmountMult;
         public JObject Event;
 
+        /// <summary>A status rule's own follow-up (a reflect, a spent protection): it earns no rating bonus and no second round of rules.</summary>
+        public bool ProposalReactive;
+
+        /// <summary>Whether the follow-up is a direct hit (the web's <c>direct</c>); unset reads as direct.</summary>
+        public bool? Direct;
+
+        /// <summary>The committed action this effect belongs to (web meta.expansionGroup).</summary>
+        public ExpansionGroup Group;
+
+        /// <summary>The contacts and targets the group planned for this effect, one batch per repeat and hit (meta.expansionContacts, meta.expansionTargets).</summary>
+        public List<List<ContactRef>> ExpansionContacts;
+        public List<List<string>> ExpansionTargets;
+        public int ExpansionCursor;
+        public int StatusTargetCursor;
+
+        /// <summary>The per-hit contact sequence this unit belongs to (meta.contactIndex, contactEffectIndex, contactEffectFirst, contactCompletion).</summary>
+        public int? ContactIndex;
+        public int ContactEffectIndex;
+        public bool? ContactEffectFirst;
+        public bool ContactCompletion;
+
+        /// <summary>The planner's target batches (meta.rangeTargetBatches).</summary>
+        public List<List<string>> RangeTargetBatches;
+
+        /// <summary>The effect's ordinal in its card (meta.abilityEffectIndex).</summary>
+        public int? AbilityEffectIndex;
+
+        public double? EnergySpentValue => EnergySpent;
+
+        /// <summary>The per-target proposal decisions of the hit (meta.proposalTargetDecisions).</summary>
+        public JObject ProposalTargetDecisions;
+
+        public ActionMeta Clone() => (ActionMeta)MemberwiseClone();
+
         public static ActionMeta Empty() => new ActionMeta();
     }
 
@@ -129,6 +163,12 @@ namespace Ashen.Domain.Combat
         public bool RecordSkillXp = true;
 
         public bool IsCore => CoreData != null;
+
+        /// <summary>The action the queue is executing (web ctx._abilityAction): the events it causes say so.</summary>
+        public CombatAction CurrentAction;
+
+        /// <summary>The card whose play has not finished (web combat.pendingAbilityPlay): the fight does not end under it.</summary>
+        public JObject PendingAbilityPlay;
 
         /// <summary>The run-level door's heal scale (engine/actions.js createRunContext healMult: a rest's custom mod × restHealMult); a fight never sets it and reads 1.</summary>
         public double HealMult = 1;

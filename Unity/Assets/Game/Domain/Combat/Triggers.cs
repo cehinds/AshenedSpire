@@ -30,10 +30,13 @@ namespace Ashen.Domain.Combat
     {
         public static JObject EmitEvent(CombatState c, string type, JObject payload)
         {
+            if (c.IsCore) payload = CoreEvents.Decorate(c, type, payload);
             var ev = new JObject { [K.Type] = type };
             if (payload != null) foreach (var p in payload.Properties().ToList()) ev[p.Name] = p.Value;
             c.EventLog.Add(ev);
+            if (c.IsCore) CoreEvents.RecordAbility(c, type, ev);
             c.Buffer?.Add(ev);
+            if (c.IsCore) CoreEvents.RecordKnowledge(c, ev);
             c.EmitDepth += 1;
             if (c.EmitDepth > c.Data.Rule(K.Limits, K.MaxEmitDepth))
             {

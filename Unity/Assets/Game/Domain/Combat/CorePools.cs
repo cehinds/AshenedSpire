@@ -212,23 +212,157 @@ namespace Ashen.Domain.Combat
             s.Put(CK.ResolveActive, false);
         }
 
-        /// <summary>restorePersistentPoise(ctx, entity, nominal, {source, overflow}): Block cards and the like refill the Poise pool.</summary>
-        public static void RestorePoise(CombatState c, JObject entity, double nominal, string source, bool overflowToBlock)
+        private static JObject StatusRules(CombatState c) => c.Fields.Obj(CK.CombatExpansionRules)?.Obj(CK.Statuses);
+
+        /// <summary>
+        /// beforeStatusAction(ctx, target, profile, { connected }): a fire hit thaws a frozen, chilled or frosting target. Thawing is the status
+        /// control package's (WP-9): a target that holds one is refused by name.
+        /// </summary>
+        public static void BeforeStatusAction(CombatState c, JObject target, JObject profile, bool connected)
         {
-            if (!Expanded(c) || !entity.Is(K.Alive) || entity.Obj(CK.PersistentPoise) == null) return;
+            if (!Expanded(c) || !connected) return;
+            var cfg = StatusRules(c)?.Obj(Ashen.Generated.Core2DamageKeys.Interactions);
+            if (cfg == null || !(profile.Is(Ashen.Generated.Core2DamageKeys.ContainsFire) || profile.Str(CK.School) == Ashen.Generated.Core2DamageValues.SchoolFire || profile.Str(CK.DamageType) == Ashen.Generated.Core2DamageValues.SchoolFire)) return;
+            var gauge = target.Obj(CK.StatusControl)?.Obj(CK.Gauges)?.Obj(cfg.Str(Ashen.Generated.Core2DamageKeys.FrostGauge) ?? string.Empty);
+            if (gauge != null || Stacks(target, cfg.Str(Ashen.Generated.Core2DamageKeys.Frozen)) > 0 || Stacks(target, cfg.Str(Ashen.Generated.Core2DamageKeys.Chilled)) > 0)
+                throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.StatusControlNotPorted);
+        }
+
+        /// <summary>
+        /// completeStatusAction(ctx, target, profile, { connected, actionKey, damaging }): the action's finalization is recorded once per key; it
+        /// wakes a sleeper, shatters a frozen or chilled target and reveals a decoy, which the status control package owns (WP-9).
+        /// </summary>
+        public static void CompleteStatusAction(CombatState c, JObject target, JObject profile, bool connected, string actionKey, bool damaging)
+        {
+            if (!Expanded(c) || !connected || !damaging) return;
+            if (actionKey == null) throw new InvalidOperationException(Ashen.Generated.Core2DamageMessages.ActionKeyRequired);
+            var s = State(target);
+            var completed = s.Obj(CK.CompletedActions);
+            if (completed.Is(actionKey)) return;
+            completed[actionKey] = true;
+            var rules = StatusRules(c);
+            var interactions = rules?.Obj(Ashen.Generated.Core2DamageKeys.Interactions);
+            if (rules == null || interactions == null) return;
+            var woken = !s.Is(CK.ResolveActive) && Stacks(target, rules.Obj(CK.Sleep)?.Str(CK.Status)) > 0;
+            var blunt = profile.Is(Ashen.Generated.Core2DamageKeys.ContainsBlunt) || profile.Str(CK.DamageType) == Ashen.Generated.Core2DamageValues.DamageBlunt;
+            var shattered = blunt && (Stacks(target, interactions.Str(Ashen.Generated.Core2DamageKeys.Frozen)) > 0 || Stacks(target, interactions.Str(Ashen.Generated.Core2DamageKeys.Chilled)) > 0);
+            var reveals = profile.Is(Ashen.Generated.Core2DamageKeys.ContainsReveal) || profile.Str(CK.Maneuver) == CV.StanceSweep || CoreSets.RevealTypes.Contains(profile.Str(CK.DamageType));
+            var revealed = reveals && (Stacks(target, interactions.Str(Ashen.Generated.Core2DamageKeys.Decoy)) > 0 || Stacks(target, interactions.Str(Ashen.Generated.Core2DamageKeys.Concealment)) > 0);
+            if (woken || shattered || revealed) throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.StatusControlNotPorted);
+        }
+
+        private static JObject Emit(CombatState c, string type, JObject entity, JObject payload)
+        {
+            var body = new JObject { [K.TargetId] = entity[K.Id]?.DeepClone() };
+            foreach (var p in payload.Properties()) body[p.Name] = p.Value;
+            return c.Emit(type, body);
+        }
+
+        private static double Finite(JToken t) => Js.IsFinite(t) ? Js.D(t) : 0;
+
+        /// <summary>
+        /// restorePersistentWard(ctx, entity, nominal, { source, modifierPercent, cap, onceKey }): Ward refills against its missing amount; a card's
+        /// surplus becomes Barrier. Returns what the pool gained, the missing debt it paid down, the Barrier and the credit.
+        /// </summary>
+        public static JObject RestoreWard(CombatState c, JObject entity, double nominal, string source = null, double? modifierPercent = null, double? cap = null, string onceKey = null)
+        {
+            var none = Js.Obj(Ashen.Generated.Core2DamageKeys.Restored, 0, Ashen.Generated.Core2DamageKeys.Credited, 0);
+            if (!Expanded(c) || !entity.Is(K.Alive) || entity.Obj(CK.PersistentWard) == null) return none;
+            var s = State(entity);
+            var ward = entity.Obj(CK.PersistentWard);
+            source = source ?? Ashen.Generated.Core2DamageValues.SourceEffect;
+            var sleep = source == Ashen.Generated.Core2DamageValues.SourceSleep;
+            if (sleep) throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.StatusControlNotPorted);
+            if (onceKey != null && s.Obj(CK.WardAllowances)?[onceKey] != null && Js.Truthy(s.Obj(CK.WardAllowances)[onceKey])) return none;
+            if (!(nominal > 0)) return none;
+            var percent = modifierPercent ?? 0;
+            var overflow = source == Ashen.Generated.Core2DamageValues.SourceCard;
+            if (ward.Num(K.Value) >= ward.Num(CK.Max) && !overflow)
+            {
+                s.Put(CK.WardRestoreCarry, 0);
+                return none;
+            }
+            if (onceKey != null) s.Obj(CK.WardAllowances)[onceKey] = true;
+            var credit = Math.Max(0, nominal * (1 + percent / Ashen.Generated.CombatMath.Percent));
+            if (cap != null) credit = Math.Min(credit, Math.Max(0, cap.Value));
+            var missingMode = ward[CK.Missing] != null;
+            var valueBefore = ward.Num(K.Value);
+            var room = missingMode ? Math.Max(0, ward.Num(CK.Missing)) : ward.Num(CK.Max) - ward.Num(K.Value);
+            var exact = overflow ? credit + s.Num(CK.WardRestoreCarry) : Math.Min(room, credit + s.Num(CK.WardRestoreCarry));
+            var whole = Math.Floor(exact + Ashen.Generated.CombatMath.Epsilon);
+            var restored = Math.Min(room, whole);
+            var barrier = overflow ? whole - restored : 0;
+            if (missingMode)
+            {
+                var missingAfter = room - restored;
+                ward.Put(K.Value, Math.Max(0, Math.Min(ward.Num(CK.Max), ward.Num(CK.Max) - missingAfter)));
+                if (missingAfter <= ward.Num(CK.Max)) ward.Remove(CK.Missing); else ward.Put(CK.Missing, missingAfter);
+            }
+            else
+            {
+                ward.Put(K.Value, ward.Num(K.Value) + restored);
+                if (ward.Num(K.Value) > 0) ward.Remove(CK.Missing);
+            }
+            s.Put(CK.WardRestoreCarry, overflow || ward.Num(K.Value) < ward.Num(CK.Max) ? Math.Max(0, exact - whole) : 0);
+            var increase = ward.Num(K.Value) - valueBefore;
+            var missingRecovered = restored - increase;
+            Emit(c, CK.PersistentWardChanged, entity, Js.Obj(Ashen.Generated.Core2DamageKeys.Restored, increase, Ashen.Generated.Core2DamageKeys.MissingRecovered, missingRecovered, Ashen.Generated.Core2DamageKeys.Credited, credit,
+                K.Value, ward[K.Value], CK.Max, ward[CK.Max], CK.Source, source));
+            if (barrier > 0)
+            {
+                entity.Put(CK.Barrier, entity.Or0(CK.Barrier) + barrier);
+                Emit(c, Ashen.Generated.Core2DamageKeys.BarrierGained, entity, Js.Obj(K.Amount, barrier, Ashen.Generated.Core2DamageKeys.Total, entity[CK.Barrier]));
+            }
+            return Js.Obj(Ashen.Generated.Core2DamageKeys.Restored, increase, Ashen.Generated.Core2DamageKeys.MissingRecovered, missingRecovered, Ashen.Generated.Core2DamageKeys.Barrier, barrier,
+                Ashen.Generated.Core2DamageKeys.Credited, credit, Ashen.Generated.Core2DamageKeys.Carry, s[CK.WardRestoreCarry]);
+        }
+
+        /// <summary>
+        /// restorePersistentPoise(ctx, entity, nominal, { source, onceKey, cap, modifierPercent }): the physical twin of Ward. A card's surplus becomes
+        /// Block (under the entity's block cap); any other source stops at the pool.
+        /// </summary>
+        public static JObject RestorePoise(CombatState c, JObject entity, double nominal, string source = null, double? modifierPercent = null, double? cap = null, string onceKey = null)
+        {
+            var none = Js.Obj(Ashen.Generated.Core2DamageKeys.Restored, 0, Ashen.Generated.Core2DamageKeys.Credited, 0);
+            if (!Expanded(c) || !entity.Is(K.Alive) || entity.Obj(CK.PersistentPoise) == null) return none;
+            var s = State(entity);
             var poise = entity.Obj(CK.PersistentPoise);
-            if (!(nominal > 0)) return;
+            var key = onceKey != null ? Ashen.Generated.Core2DamageValues.OncePoisePrefix + onceKey : null;
+            if (key != null && Js.Truthy(s.Obj(CK.WardAllowances)?[key])) return none;
+            if (!(nominal > 0)) return none;
             var missingMode = poise[CK.Missing] != null;
-            var overflow = overflowToBlock;
-            if (!missingMode && poise.Num(K.Value) >= poise.Num(CK.Max) && !overflow) return;
-            var credit = Math.Max(0, nominal);
+            var overflow = source == Ashen.Generated.Core2DamageValues.SourceCard;
+            if (!missingMode && poise.Num(K.Value) >= poise.Num(CK.Max) && !overflow) return none;
+            if (key != null) s.Obj(CK.WardAllowances)[key] = true;
+            var credit = Math.Max(0, nominal * (1 + (modifierPercent ?? 0) / Ashen.Generated.CombatMath.Percent));
+            if (cap != null) credit = Math.Min(credit, Math.Max(0, cap.Value));
+            var valueBefore = poise.Num(K.Value);
             var room = missingMode ? Math.Max(0, poise.Num(CK.Missing)) : poise.Num(CK.Max) - poise.Num(K.Value);
             var whole = Math.Floor(credit + Ashen.Generated.CombatMath.Epsilon);
             var restored = Math.Min(room, whole);
-            if (overflow && whole - restored > 0) throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.PoiseOverflowNotPorted);
-            if (missingMode) throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.PoiseOverflowNotPorted);
-            poise.Put(K.Value, poise.Num(K.Value) + restored);
-            if (restored > 0) c.Emit(CK.PersistentPoiseChanged, Js.Obj(K.TargetId, entity[K.Id], K.Value, poise[K.Value], CK.Max, poise[CK.Max], CK.Source, source));
+            var block = overflow ? whole - restored : 0;
+            if (block > 0)
+            {
+                var blockCap = CoreActions.StatusCap(c, entity, K.BlockCap);
+                if (blockCap != null) block = Math.Min(block, Math.Max(0, blockCap.Value - entity.Or0(K.Block)));
+            }
+            if (missingMode)
+            {
+                var missingAfter = room - restored;
+                poise.Put(K.Value, Math.Max(0, Math.Min(poise.Num(CK.Max), poise.Num(CK.Max) - missingAfter)));
+                if (missingAfter <= poise.Num(CK.Max)) poise.Remove(CK.Missing); else poise.Put(CK.Missing, missingAfter);
+            }
+            else poise.Put(K.Value, poise.Num(K.Value) + restored);
+            var increase = poise.Num(K.Value) - valueBefore;
+            var missingRecovered = restored - increase;
+            Emit(c, CK.PersistentPoiseChanged, entity, Js.Obj(Ashen.Generated.Core2DamageKeys.Restored, increase, Ashen.Generated.Core2DamageKeys.MissingRecovered, missingRecovered, Ashen.Generated.Core2DamageKeys.Credited, credit,
+                K.Value, poise[K.Value], CK.Max, poise[CK.Max], CK.Source, source ?? Ashen.Generated.Core2DamageValues.SourceCard));
+            if (block > 0)
+            {
+                entity.Put(K.Block, entity.Or0(K.Block) + block);
+                Emit(c, E.BlockGained, entity, Js.Obj(K.Amount, block, Ashen.Generated.Core2DamageKeys.Total, entity[K.Block], CK.Source, Ashen.Generated.Core2DamageValues.SourcePoise));
+            }
+            return Js.Obj(Ashen.Generated.Core2DamageKeys.Restored, increase, Ashen.Generated.Core2DamageKeys.MissingRecovered, missingRecovered, K.Block, block, Ashen.Generated.Core2DamageKeys.Credited, credit);
         }
     }
 }

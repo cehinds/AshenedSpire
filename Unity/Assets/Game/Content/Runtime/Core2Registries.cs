@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Ashen.Domain.Run;
 using Ashen.Generated;
+using DK = Ashen.Generated.Core2DamageKeys;
 using Newtonsoft.Json.Linq;
 
 namespace Ashen.Content
@@ -109,7 +110,10 @@ namespace Ashen.Content
             return new Ashen.Domain.Combat.CoreCombatData(run, Rules(ContentFiles.RulesFixCoreSnapshot), Rules(ContentFiles.RulesActionCosts),
                 (JObject)Rules(ContentFiles.RulesStanceRules)[Core2CombatKeys.StanceRules], Rules(ContentFiles.RulesCore2Combat),
                 Rules(ContentFiles.RulesEnemyKnowledgeRules), (JObject)Rules(ContentFiles.RulesCore2HandRules)[Core2CombatKeys.HandRulesDefaults],
-                Object(Core2BundleKeys.ProposalStatusRules) as JObject);
+                Object(Core2BundleKeys.ProposalStatusRules) as JObject,
+                (JObject)Rules(ContentFiles.RulesCore2CombatRules)[DK.CombatRules],
+                (JObject)Rules(ContentFiles.RulesCore2Mechanics)[DK.Mechanics],
+                (JObject)Rules(ContentFiles.RulesRuntime)[DK.Ops]);
         }
 
         /// <summary>

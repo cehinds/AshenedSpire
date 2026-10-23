@@ -164,6 +164,7 @@ namespace Ashen.Domain.Combat
         /// <summary>configuredStance(carrier): the stance id a carrier plays under a configured profile ('prepared' for a cast).</summary>
         public static string ConfiguredStance(CombatState c, JObject carrier)
         {
+            if (carrier == null) return CV.StanceNeutral;
             var mirrored = MirroredManeuver(c, carrier);
             if (mirrored != null) return mirrored;
             if (PreparationCategory(c, carrier) != null) return CV.StancePrepared;

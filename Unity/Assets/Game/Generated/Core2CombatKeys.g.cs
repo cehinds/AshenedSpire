@@ -462,7 +462,7 @@ namespace Ashen.Generated
         public const string WardPool = "wardPool";
         public const string WardRestoreCarry = "wardRestoreCarry";
         public const string WasAbsent = "wasAbsent";
-        public const string WeakArMultiplier = "weakArMultiplier";
+        public const string WeakArMultiplier = "weakARMultiplier";
         public const string WeaponArPerTier = "weaponARPerTier";
         public const string WeaponTier = "weaponTier";
         public const string Weight = "weight";

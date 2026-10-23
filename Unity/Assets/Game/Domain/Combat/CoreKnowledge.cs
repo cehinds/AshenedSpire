@@ -33,7 +33,7 @@ namespace Ashen.Domain.Combat
             };
             c.Fields[CK.EnemyKnowledge] = state;
             var skills = c.Skills;
-            if (skills[CK.PerceptionSkill] == null) skills[CK.PerceptionSkill] = Js.Obj(CK.Xp, 0, K.Level, 0, CK.PendingDrafts, 0);
+            if (skills[CK.PerceptionSkill] == null) skills[CK.PerceptionSkill] = Js.Obj(Ashen.Generated.Core2DamageKeys.Xp, 0, K.Level, 0, CK.PendingDrafts, 0);
             state.Obj(CK.Owners)[V.Player] = new JObject
             {
                 [CK.Knowledge] = Empty(),
@@ -116,6 +116,59 @@ namespace Ashen.Domain.Combat
                 read[CK.Resolved] = true;
                 read[CK.Correct] = Js.Null();
             }
+            return true;
+        }
+
+        /// <summary>resolveKnowledgeAction(combat, enemy): the telegraphed action starts; every read resolves, a correct prediction pays Perception (WP-11).</summary>
+        public static void Resolve(CombatState c, JObject enemy)
+        {
+            var action = enemy?.Obj(CK.KnowledgeAction);
+            if (c.Fields[CK.EnemyKnowledge] == null || action == null || action.Is(CK.Executed) || action.Is(CK.Cancelled) || !enemy.Is(K.Alive)) return;
+            if (enemy.Obj(K.Intent)?.Str(K.Kind) == V.IntentStaggered) { Cancel(c, enemy); return; }
+            action[CK.Executed] = true;
+            foreach (var pair in action.Obj(CK.Reads).Properties().ToList())
+            {
+                var read = (JObject)pair.Value;
+                read[CK.Resolved] = true;
+                var predicted = !Js.Nullish(read[CK.Prediction]);
+                read[CK.Correct] = predicted ? (JToken)(read.Str(CK.Prediction) == action.Str(CK.Category)) : Js.Null();
+                if (read.Is(CK.Correct)) PayPerception(c, enemy, pair.Name, Ashen.Generated.Core2DamageValues.ReasonPrediction);
+            }
+        }
+
+        /// <summary>xpStepCost(curve, step): what one step of the Perception curve costs.</summary>
+        private static double StepCost(JObject curve, double step)
+        {
+            var linear = curve.Is(Ashen.Generated.Core2DamageKeys.Linear) && curve[Ashen.Generated.Core2DamageKeys.Linear].Type == JTokenType.Boolean;
+            var baseCost = curve.Num(Ashen.Generated.Core2DamageKeys.Base);
+            var raw = linear ? baseCost + step * baseCost * curve.Num(Ashen.Generated.Core2DamageKeys.MultScaler) : baseCost * Math.Pow(curve.Num(Ashen.Generated.Core2DamageKeys.Growth), step);
+            var roundTo = curve.Num(Ashen.Generated.Core2DamageKeys.RoundTo);
+            var unit = Js.IsInt(curve[Ashen.Generated.Core2DamageKeys.RoundTo]) && roundTo > 0 ? roundTo : 1;
+            return Math.Max(unit, Math.Floor(raw / unit + Ashen.Generated.CombatMath.Epsilon + Ashen.Generated.CombatMath.Half) * unit);
+        }
+
+        /// <summary>payPerception(combat, enemy, ownerId, reason): a player who failed the read is paid Perception once for the action it answered.</summary>
+        public static bool PayPerception(CombatState c, JObject enemy, string ownerId, string reason)
+        {
+            var state = c.Fields.Obj(CK.EnemyKnowledge);
+            var read = enemy.Obj(CK.KnowledgeAction)?.Obj(CK.Reads)?.Obj(ownerId);
+            var owner = state?.Obj(Ashen.Generated.Core2DamageKeys.Owners)?.Obj(ownerId);
+            if (read == null || read.Str(CK.Visibility) != CV.VisibilityUnknown || read.Is(CK.Credited) || c.Skills == null || owner == null) return false;
+            read[CK.Credited] = true;
+            var skill = c.Skills.Obj(Ashen.Generated.Core2DamageKeys.Perception);
+            if (skill == null) c.Skills[Ashen.Generated.Core2DamageKeys.Perception] = skill = new JObject { [Ashen.Generated.Core2DamageKeys.Xp] = 0, [Ashen.Generated.Core2DamageKeys.Level] = 0, [Ashen.Generated.Core2DamageKeys.PendingDrafts] = 0 };
+            var rules = state.Obj(CK.Rules).Obj(Ashen.Generated.Core2DamageKeys.Perception);
+            var amount = rules.Num(Ashen.Generated.Core2DamageKeys.CorrectPredictionXp);
+            var before = skill.Num(Ashen.Generated.Core2DamageKeys.Level);
+            skill.Put(Ashen.Generated.Core2DamageKeys.Xp, skill.Num(Ashen.Generated.Core2DamageKeys.Xp) + amount);
+            while (skill.Num(Ashen.Generated.Core2DamageKeys.Level) < rules.Num(Ashen.Generated.Core2DamageKeys.MaxLevel) && skill.Num(Ashen.Generated.Core2DamageKeys.Xp) >= StepCost(rules, skill.Num(Ashen.Generated.Core2DamageKeys.Level)))
+            {
+                skill.Put(Ashen.Generated.Core2DamageKeys.Xp, skill.Num(Ashen.Generated.Core2DamageKeys.Xp) - StepCost(rules, skill.Num(Ashen.Generated.Core2DamageKeys.Level)));
+                skill.Put(Ashen.Generated.Core2DamageKeys.Level, skill.Num(Ashen.Generated.Core2DamageKeys.Level) + 1);
+            }
+            owner.Put(Ashen.Generated.Core2DamageKeys.EarnedXp, owner.Num(Ashen.Generated.Core2DamageKeys.EarnedXp) + amount);
+            c.Emit(Ashen.Generated.Core2DamageKeys.PerceptionGained, Js.Obj(Ashen.Generated.Core2DamageKeys.OwnerId, ownerId, Ashen.Generated.Core2DamageKeys.EnemyInstanceId, enemy[K.Id], Ashen.Generated.Core2DamageKeys.ActionSerial, enemy.Obj(CK.KnowledgeAction)[CK.Serial],
+                K.Reason, reason, Ashen.Generated.Core2DamageKeys.SkillId, Ashen.Generated.Core2DamageValues.SkillPerception, Ashen.Generated.Core2DamageKeys.Before, before, Ashen.Generated.Core2DamageKeys.After, skill[Ashen.Generated.Core2DamageKeys.Level], Ashen.Generated.Core2DamageKeys.LevelUps, skill.Num(Ashen.Generated.Core2DamageKeys.Level) - before, Ashen.Generated.Core2DamageKeys.Gained, amount));
             return true;
         }
     }

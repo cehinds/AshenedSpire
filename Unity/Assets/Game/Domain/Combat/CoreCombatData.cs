@@ -12,7 +12,7 @@ namespace Ashen.Domain.Combat
     /// </summary>
     public sealed class CoreCombatData
     {
-        public CoreCombatData(CoreRunData run, JObject fixCore, JObject actionCosts, JObject stanceRules, JObject rules, JObject enemyKnowledgeRules, JObject handDefaults, JObject proposalStatusRules = null)
+        public CoreCombatData(CoreRunData run, JObject fixCore, JObject actionCosts, JObject stanceRules, JObject rules, JObject enemyKnowledgeRules, JObject handDefaults, JObject proposalStatusRules = null, JObject combatRules = null, JObject mechanics = null, JObject mechanicOps = null)
         {
             Run = run ?? throw new ArgumentNullException(nameof(run));
             FixCore = fixCore ?? throw new ArgumentNullException(nameof(fixCore));
@@ -22,9 +22,27 @@ namespace Ashen.Domain.Combat
             EnemyKnowledgeRules = enemyKnowledgeRules ?? throw new ArgumentNullException(nameof(enemyKnowledgeRules));
             HandDefaults = handDefaults ?? throw new ArgumentNullException(nameof(handDefaults));
             ProposalStatusRules = proposalStatusRules ?? new JObject();
+            CombatRules = combatRules ?? new JObject();
+            Mechanics = mechanics ?? new JObject();
+            MechanicOps = mechanicOps ?? new JObject();
         }
 
         public CoreRunData Run { get; }
+
+        /// <summary>The damage-type, school and magic-split rules of <c>rules/core2CombatRules.json</c> (the web's content/combatRules.js): the share of a hit that is magic.</summary>
+        public JObject CombatRules { get; }
+
+        /// <summary>The mechanic folders of <c>rules/core2Mechanics.json</c> by slug (manifest, model schema, interface, service, cases).</summary>
+        public JObject Mechanics { get; }
+
+        /// <summary>The op catalog of <c>rules/runtime.json</c> (<c>engine/runtime/ops.json</c>) the mechanic cases run against.</summary>
+        public JObject MechanicOps { get; }
+
+        /// <summary>The compiled-binding cache of the mechanics kernel (a pure function of its inputs, so a repeat call returns the one list).</summary>
+        public readonly System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<MechanicBinding>> BindingCache = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<MechanicBinding>>(StringComparer.Ordinal);
+
+        /// <summary>The mechanics a fight registers (<c>rules/core2Combat.json</c> mechanics.registered), cached.</summary>
+        public JObject RegisteredMechanics { get; set; }
 
         /// <summary>The registries the combat engine reads (cards, relics, statuses, enemies, classes, balance, equipment).</summary>
         public CombatData Combat => Run.Run.Combat;

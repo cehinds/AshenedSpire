@@ -79,7 +79,7 @@ namespace Ashen.Tests
 
         private static readonly string[] Statics = { "fixCoreRules", "combatExpansionRules", "reactionRules", "combatMatchupRules", "combatIntentRules" };
 
-        private static CombatState Open(JObject fight, out JObject run)
+        internal static CombatState Open(JObject fight, out JObject run)
         {
             var seed = (uint)fight["seed"].Value<long>();
             run = CoreRunRules.Create(Data.Run, seed, fight.Value<string>("classId"), CoreRunOptions.FromJson(null, Unlocked));
@@ -87,7 +87,7 @@ namespace Ashen.Tests
         }
 
         /// <summary>The combat as the oracle projects it (Tools/oracle-core2-start.mjs projectFull): every field the fight carries but its rule snapshots and registries.</summary>
-        private static JObject Project(CombatState c)
+        internal static JObject Project(CombatState c)
         {
             var o = new JObject();
             foreach (var p in c.Fields.Properties())
@@ -157,10 +157,10 @@ namespace Ashen.Tests
             return o;
         }
 
-        private static List<string> Events(CombatState c, int mark) => c.EventLog.Skip(mark).Select(e => e.Value<string>("type")).ToList();
+        internal static List<string> Events(CombatState c, int mark) => c.EventLog.Skip(mark).Select(e => e.Value<string>("type")).ToList();
 
         /// <summary>The oracle's delta encoding, applied: objects key by key, equal-length arrays by index, anything else replaced.</summary>
-        private static JToken Apply(JToken previous, JToken delta)
+        internal static JToken Apply(JToken previous, JToken delta)
         {
             if (!(delta is JObject d)) return delta.DeepClone();
             if (d.Property("$") != null) return d["$"].DeepClone();
@@ -179,7 +179,7 @@ namespace Ashen.Tests
             return result;
         }
 
-        private static void Same(string label, JToken want, JToken got)
+        internal static void Same(string label, JToken want, JToken got)
         {
             var diff = RunParityTests.FirstDifference(want, got, "$");
             if (diff != null) Assert.Fail($"{label}: first difference at {diff}");

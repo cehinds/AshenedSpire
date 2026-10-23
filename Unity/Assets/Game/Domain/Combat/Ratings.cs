@@ -57,7 +57,7 @@ namespace Ashen.Domain.Combat
         public static bool IsMagicalAttack(CombatState c, JObject carrier)
         {
             var cardId = carrier?.Str(K.CardId);
-            var def = !string.IsNullOrEmpty(cardId) ? c.Data.Cards.Get(cardId) : null;
+            var def = !string.IsNullOrEmpty(cardId) && c.Data.Cards.Has(cardId) ? c.Data.Cards.Get(cardId) : null;
             JToken Field(string key) => carrier != null && carrier[key] != null ? carrier[key] : def?[key];
             var school = Js.Truthy(carrier?[K.DamageSchool]) ? carrier[K.DamageSchool] : def?[K.DamageSchool];
             var face = new JObject();

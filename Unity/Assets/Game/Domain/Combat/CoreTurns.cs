@@ -6,6 +6,8 @@ using Newtonsoft.Json.Linq;
 using CK = Ashen.Generated.Core2CombatKeys;
 using CM = Ashen.Generated.Core2CombatMessages;
 using CV = Ashen.Generated.Core2CombatValues;
+using DK = Ashen.Generated.Core2DamageKeys;
+using DV = Ashen.Generated.Core2DamageValues;
 using E = Ashen.Generated.CombatEvents;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
@@ -258,11 +260,37 @@ namespace Ashen.Domain.Combat
                     enemy.Put(K.SkipNextTurn, false);
                     enemy.Put(CK.PlanDue, false);
                 }
-                else if (Js.Truthy(enemy[K.PendingMove]) || (Js.Truthy(enemy[K.Intent]) && Js.Truthy(enemy.Obj(K.Intent)[K.MoveId])))
-                    throw new NotSupportedException(CM.EnemyActionNotPorted);
+                else if (Js.Truthy(enemy[K.PendingMove])) throw new NotSupportedException(CM.DelayedMoveNotPorted);
+                else if (Js.Truthy(enemy[K.Intent]) && Js.Truthy(enemy.Obj(K.Intent)[K.MoveId]))
+                {
+                    var def = c.Data.Enemies.Get(enemy.Str(K.EnemyId));
+                    var moveId = enemy.Obj(K.Intent).Str(K.MoveId);
+                    var move = CoreIntents.Expanded(c, enemy, def.Obj(K.Moves).Obj(moveId), moveId);
+                    if (Js.Truthy(move[K.Delay])) throw new NotSupportedException(CM.DelayedMoveNotPorted);
+                    CoreEnemyMoves.Execute(c, enemy, move, moveId);
+                }
                 CoreActions.Drain(c);
                 if (c.Result != null) return;
-                if (enemy.Is(K.Alive) && enemy.Is(CK.PlanDue) && !Js.Truthy(enemy[K.PendingMove]) && enemy.Arr(CK.PlannedMoves)?.Count > 0) throw new NotSupportedException(CM.EnemyActionNotPorted);
+                while (enemy.Is(K.Alive) && enemy.Is(CK.PlanDue) && !Js.Truthy(enemy[K.PendingMove]) && enemy.Arr(CK.PlannedMoves)?.Count > 0)
+                {
+                    if (CoreEnemyMoves.Halted(c, enemy)) { enemy.Put(CK.PlanDue, false); break; }
+                    var plan = enemy.Arr(CK.PlannedMoves);
+                    var next = (JObject)plan[0];
+                    plan.RemoveAt(0);
+                    var def = c.Data.Enemies.Get(enemy.Str(K.EnemyId));
+                    CoreIntents.Present(c, enemy, def, next.Str(K.MoveId));
+                    var traced = new JObject { [DK.Read] = CoreEnemyMoves.PerceptionRead(c, enemy), [DK.Outcome] = DV.OutcomePlayed };
+                    var trace = c.Fields.Obj(CK.FollowTrace);
+                    if (trace == null) c.Fields[CK.FollowTrace] = trace = new JObject();
+                    var rows = trace.Arr(enemy.Str(K.Id));
+                    if (rows == null) trace[enemy.Str(K.Id)] = rows = new JArray();
+                    rows.Add(traced);
+                    var move = CoreIntents.Expanded(c, enemy, def.Obj(K.Moves).Obj(next.Str(K.MoveId)), next.Str(K.MoveId));
+                    if (Js.Truthy(move[K.Delay])) throw new NotSupportedException(CM.DelayedMoveNotPorted);
+                    traced[DK.Outcome] = CoreEnemyMoves.Execute(c, enemy, move, next.Str(K.MoveId)) ?? DV.OutcomePlayed;
+                    CoreActions.Drain(c);
+                    if (c.Result != null) return;
+                }
                 if (enemy.Arr(CK.PlannedMoves)?.Count == 0) enemy.Put(CK.PlanDue, false);
                 if (enemy.Is(K.Alive))
                 {
@@ -281,6 +309,7 @@ namespace Ashen.Domain.Combat
         public static void EndTurn(CombatState c, IReadOnlyList<string> discardIds)
         {
             if (c.Phase != V.PhasePlayer) throw new InvalidOperationException(M.NotPlayerTurn);
+            c.RecordSkillXp = true;
             CoreHand.ValidateDiscardChoice(c, discardIds);
             EndPlayerTurn(c, discardIds);
             if (c.Result != null) return;

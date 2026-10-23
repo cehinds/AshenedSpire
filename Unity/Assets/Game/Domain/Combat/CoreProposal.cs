@@ -5,6 +5,8 @@ using Newtonsoft.Json.Linq;
 using CK = Ashen.Generated.Core2CombatKeys;
 using CV = Ashen.Generated.Core2CombatValues;
 using HK = Ashen.Generated.Core2HitKeys;
+using DK = Ashen.Generated.Core2DamageKeys;
+using DV = Ashen.Generated.Core2DamageValues;
 using HV = Ashen.Generated.Core2HitValues;
 using K = Ashen.Generated.CombatKeys;
 using V = Ashen.Generated.CombatValues;
@@ -131,8 +133,218 @@ namespace Ashen.Domain.Combat
             return TargetRules(actor, target, data, rules, capabilities);
         }
 
+        // ------------------------------------------------------------------ the plans a hit executes (web model/proposalStatusRules.js)
+
+        private static double Rounded(JToken value) => Math.Max(0, Math.Floor(Js.IsFinite(value) ? Js.D(value) : 0));
+
+        private static string TextOf(JToken id) => Js.IsStr(id) ? Js.Str(id) : id?.ToString();
+
+        private static JObject Change(JObject actor, string status, double delta) => Js.Obj(HK.ActorId, IdOf(actor), K.Status, status, HK.Delta, delta);
+
+        private static JObject Effect(JObject actor, JObject target, JObject data)
+        {
+            var result = Js.Spread(data);
+            result[K.SourceId] = IdOf(actor);
+            result[HK.TargetId] = IdOf(target);
+            return result;
+        }
+
+        private static bool HasAnyTag(JObject card, JToken required)
+        {
+            if (!(required is JArray list) || list.Count == 0) return true;
+            var tags = TagsOf(card);
+            return list.Any(tag => tags.Contains(Js.Str(tag)));
+        }
+
+        /// <summary>proposalActor/proposalAllies: the living combatants of the actor's side.</summary>
+        public static List<JObject> Allies(CombatState c, JObject actor) =>
+            new[] { c.Player }.Concat(c.Enemies).Where(row => row != null && row.Str(K.Kind) == actor?.Str(K.Kind) && row.Is(K.Alive)).ToList();
+
+        /// <summary>
+        /// proposalHitPlan(ctx, source, target, amount, card): the amount a hit deals after the outgoing and incoming status rules (Weak, Mirrors, Intangible,
+        /// a fire-greased target, necrotic healing, a guard), with the effects and status changes it asks for. <paramref name="roundDamage"/> false keeps full
+        /// precision (a configured receipt floors once, where it is applied).
+        /// </summary>
+        public static JObject HitPlan(CombatState c, JObject actor, JObject target, double amount, JObject card, bool roundDamage = true)
+        {
+            card = card ?? new JObject();
+            var rules = Rules(c);
+            var capabilities = Capabilities(c);
+            var reactive = card.Is(DK.ProposalReactive);
+            var direct = !reactive;
+            var damageType = CoreDamage.ProposalDamageType(c, card);
+            var camp = Js.Truthy(card.Obj(CK.CombatProfile)?[CK.Camp]) ? card.Obj(CK.CombatProfile).Str(CK.Camp) : CV.CampPhysical;
+            double Quantity(double value) => roundDamage ? Rounded(Js.N(value)) : Math.Max(0, double.IsNaN(value) ? 0 : value);
+            var original = Quantity(amount);
+            var result = new JObject { [DK.Amount] = Js.N(original), [DK.Healing] = 0, [HK.Unavoidable] = false, [CK.Effects] = new JArray(), [HK.StatusChanges] = new JArray(), [DK.Redirect] = Js.Null() };
+            var effects = (JArray)result[CK.Effects];
+            var changes = (JArray)result[HK.StatusChanges];
+            double outgoing = 1;
+            foreach (var a in ActiveBehaviors(actor, rules, capabilities))
+            {
+                var b = a.Behavior;
+                var kind = b.Str(K.Kind);
+                if (!reactive && kind == DV.KindOutgoingMultiplier && (!b.Is(DK.DirectOnly) || direct)) outgoing *= b.Num(CK.Multiplier);
+                if (kind == DV.KindWeaponBonus && direct && !reactive && HasAnyTag(card, b[DK.RequiredTags]))
+                    effects.Add(Effect(actor, target, Js.Obj(K.Op, CV.OpDamage, K.Amount, b[K.Amount], CK.DamageType, b[CK.DamageType], CK.Camp, b[CK.Camp], DK.ProposalReactive, true)));
+            }
+            var outAmount = Quantity(result.Num(DK.Amount) * outgoing);
+            var incomingCap = double.PositiveInfinity;
+            double? healingMultiplier = null;
+            foreach (var a in ActiveBehaviors(target, rules, capabilities))
+            {
+                var b = a.Behavior;
+                var kind = b.Str(K.Kind);
+                if (kind == HV.KindGreaseFire && Matches(b[HK.DamageTypes], damageType))
+                {
+                    result[HK.Unavoidable] = true;
+                    outAmount = Quantity(outAmount * b.Num(CK.Multiplier));
+                    effects.Add(Effect(actor, target, Js.Obj(K.Op, Ashen.Generated.CombatOps.ApplyStatus, K.Status, b[DK.BurnStatus], K.Stacks, b[DK.BurnStacks])));
+                    if (!reactive)
+                        foreach (var ally in Allies(c, target).Where(row => TextOf(IdOf(row)) != TextOf(IdOf(target)) && row.Num(K.Hp) > 0))
+                            effects.Add(Effect(actor, ally, Js.Obj(K.Op, CV.OpDamage, K.Amount, Rounded(Js.N(original * b.Num(DK.SplashMultiplier))), CK.DamageType, damageType, CK.Camp, camp, DK.ProposalReactive, true)));
+                    changes.Add(Change(target, a.Status, -Math.Min(a.Stacks, b.Num(DK.ConsumeStacks))));
+                }
+                if (kind == DV.KindIncomingCap && (!b.Is(DK.DirectOnly) || direct)) incomingCap = Math.Min(incomingCap, b.Num(HK.Maximum));
+                if (kind == DV.KindDamageToHealing && Matches(b[HK.DamageTypes], damageType)) healingMultiplier = b.Num(CK.Multiplier);
+            }
+            if (healingMultiplier != null)
+            {
+                result[DK.Healing] = Js.N(Rounded(Js.N(outAmount * healingMultiplier.Value)));
+                outAmount = 0;
+            }
+            else outAmount = Math.Min(outAmount, incomingCap);
+            if (direct && !reactive && outAmount > 0)
+            {
+                var guards = Allies(c, target).Where(row => TextOf(IdOf(row)) != TextOf(IdOf(target)) && row.Num(K.Hp) > 0).OrderBy(row => TextOf(IdOf(row)), StringComparer.Ordinal).ToList();
+                foreach (var guard in guards)
+                {
+                    var found = false;
+                    foreach (var a in ActiveBehaviors(guard, rules, capabilities))
+                    {
+                        var b = a.Behavior;
+                        if (b.Str(K.Kind) != DV.KindGuard) continue;
+                        var intercepted = Math.Min(outAmount, a.Stacks * b.Num(HK.AmountPerStack));
+                        result[DK.Redirect] = Js.Obj(HK.TargetId, IdOf(guard), K.Amount, intercepted);
+                        outAmount -= intercepted;
+                        effects.Add(Effect(actor, guard, Js.Obj(K.Op, CV.OpDamage, K.Amount, intercepted, CK.DamageType, damageType, CK.Camp, camp, DK.ProposalReactive, true)));
+                        changes.Add(Change(guard, a.Status, -Math.Min(a.Stacks, b.Num(DK.ConsumeStacks))));
+                        found = true;
+                        break;
+                    }
+                    if (found) break;
+                }
+            }
+            result[DK.Amount] = Js.N(outAmount);
+            return result;
+        }
+
+        /// <summary>
+        /// proposalAfterHit(ctx, source, target, amount, hpDamage, card): what a hit that connected leaves behind: protection a persistent status spends, a
+        /// reflect, an automatic reaction. The effects are queued by <see cref="ApplyPlan"/>.
+        /// </summary>
+        public static JObject AfterHitPlan(CombatState c, JObject actor, JObject target, double incomingDamage, double hpDamage, JObject card)
+        {
+            card = card ?? new JObject();
+            var rules = Rules(c);
+            var capabilities = Capabilities(c);
+            var reactive = card.Is(DK.ProposalReactive);
+            var direct = !reactive;
+            var damageType = CoreDamage.ProposalDamageType(c, card);
+            var camp = Js.Truthy(card.Obj(CK.CombatProfile)?[CK.Camp]) ? card.Obj(CK.CombatProfile).Str(CK.Camp) : CV.CampPhysical;
+            var range = Js.Truthy(card[CK.Range]) ? card.Str(CK.Range) : card.Obj(CK.CombatProfile)?.Str(CK.Range);
+            var result = new JObject { [CK.Effects] = new JArray(), [HK.StatusChanges] = new JArray() };
+            var effects = (JArray)result[CK.Effects];
+            var changes = (JArray)result[HK.StatusChanges];
+            foreach (var a in ActiveBehaviors(target, rules, capabilities))
+            {
+                var b = a.Behavior;
+                var kind = b.Str(K.Kind);
+                if (kind == DV.KindPersistentProtection && direct && camp == b.Str(CK.Camp) && incomingDamage >= b.Num(DK.MinimumIncomingDamage))
+                    changes.Add(Change(target, a.Status, -Math.Min(a.Stacks, 1)));
+                if (!direct || reactive || TextOf(IdOf(actor)) == TextOf(IdOf(target))) continue;
+                if (kind == DV.KindReflect && hpDamage > 0)
+                    effects.Add(Effect(target, actor, Js.Obj(K.Op, CV.OpDamage, K.Amount, Rounded(Js.N(hpDamage * b.Num(CK.Multiplier))), CK.DamageType, damageType, CK.Camp, camp, DK.ProposalReactive, true)));
+                if (kind == DV.KindAutoReaction && incomingDamage > 0 && Matches(b[CK.Ranges], range))
+                {
+                    var opponents = b.Str(CK.Mode) == DV.ModeSweepReaction ? Allies(c, actor).Where(row => row.Num(K.Hp) > 0).ToList() : new List<JObject> { actor };
+                    foreach (var opponent in opponents)
+                        effects.Add(Effect(target, opponent, Js.Obj(K.Op, CV.OpDamage, K.Amount, b[K.Amount], CK.DamageType, b[CK.DamageType], CK.Camp, b[CK.Camp], DK.ProposalReactive, true)));
+                    changes.Add(Change(target, a.Status, -Math.Min(a.Stacks, b.Num(DK.ConsumeStacks))));
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// applyProposalPlan(ctx, plan, source, target, card): the plan's status changes and effects become queued actions (a negative change removes
+        /// stacks, a positive one applies them), owned by the entity they name.
+        /// </summary>
+        public static void ApplyPlan(CombatState c, JObject plan, JObject source, JObject target, JObject card)
+        {
+            var actors = new[] { c.Player }.Concat(c.Enemies).Where(a => a != null).ToList();
+            JObject Find(JToken id) => actors.FirstOrDefault(a => TextOf(a[K.Id]) == TextOf(id)) ?? target ?? source;
+            foreach (var change in Js.Items(plan?[HK.StatusChanges]).OfType<JObject>())
+            {
+                var entity = Find(change[HK.ActorId]);
+                var delta = change.Num(HK.Delta);
+                var effect = delta < 0
+                    ? Js.Obj(K.Op, Ashen.Generated.CombatOps.RemoveStatus, K.Status, change[K.Status], K.Amount, -delta)
+                    : Js.Obj(K.Op, Ashen.Generated.CombatOps.ApplyStatus, K.Status, change[K.Status], K.Stacks, delta);
+                c.Enqueue(new CombatAction { Effect = effect, Source = entity, Owner = entity, Target = entity, Meta = new ActionMeta { ProposalReactive = true } });
+            }
+            foreach (var job in Js.Items(plan?[CK.Effects]).OfType<JObject>())
+            {
+                var effect = Js.Spread(job);
+                foreach (var key in new[] { K.SourceId, HK.TargetId, DK.ProposalReactive, CK.DamageType, CK.Camp, DK.Direct }) effect.Remove(key);
+                var actor = Find(job[K.SourceId]);
+                var recipient = Find(job[HK.TargetId]);
+                var reactive = job.Is(DK.ProposalReactive);
+                var carrier = Js.Spread(card);
+                carrier[DK.ProposalReactive] = reactive;
+                carrier[CK.DamageType] = job[CK.DamageType]?.DeepClone() ?? Js.Null();
+                carrier[CK.DamageSchool] = Js.Truthy(job[CK.DamageType]) ? job[CK.DamageType].DeepClone() : card?[CK.DamageSchool]?.DeepClone() ?? Js.Null();
+                var profile = Js.Spread(card?.Obj(CK.CombatProfile));
+                profile[CK.Camp] = Js.Truthy(job[CK.Camp]) ? job[CK.Camp].DeepClone() : Js.Truthy(card?.Obj(CK.CombatProfile)?[CK.Camp]) ? card.Obj(CK.CombatProfile)[CK.Camp].DeepClone() : Js.S(CV.CampPhysical);
+                carrier[CK.CombatProfile] = profile;
+                carrier[DK.SkipRatingBonus] = reactive || card.Is(DK.SkipRatingBonus);
+                c.Enqueue(new CombatAction { Effect = effect, Source = actor, Owner = actor, Target = recipient, Card = carrier, Meta = new ActionMeta { ProposalReactive = reactive, Direct = job[DK.Direct] == null || job.Is(DK.Direct) } });
+            }
+        }
+
+        /// <summary>
+        /// proposalTargetPlan(ctx, actor, target, card, { resolve: true }): the preview, then the rolls it asks for (0..99 on the misc stream: the Veil's
+        /// perception check, then the Evade chance), applied to the plan.
+        /// </summary>
+        public static JObject ResolveTargetPlan(CombatState c, JObject actor, JObject target, JObject card)
+        {
+            var preview = TargetPlan(c, actor, target, card, CoreDamage.ProposalDamageType(c, card));
+            if (Js.Nullish(preview[HK.PerceptionChance]) && !(preview.Num(HK.EvadeChance) > 0)) return preview;
+            double? perception = null, evade = null;
+            if (!Js.Nullish(preview[HK.PerceptionChance])) perception = Math.Floor(c.Rng.Float(Ashen.Generated.RngStream.Misc) * Ashen.Generated.CombatMath.Percent);
+            if (preview.Num(HK.EvadeChance) > 0) evade = Math.Floor(c.Rng.Float(Ashen.Generated.RngStream.Misc) * Ashen.Generated.CombatMath.Percent);
+            var data = Js.Spread(card);
+            var profile = card?.Obj(CK.CombatProfile);
+            var range = Js.Truthy(card?[CK.Range]) ? card[CK.Range] : profile?[CK.Range];
+            if (range != null) data[CK.Range] = range.DeepClone(); else data.Remove(CK.Range);
+            if (profile?[CK.Camp] != null) data[CK.Camp] = profile[CK.Camp].DeepClone(); else data.Remove(CK.Camp);
+            var damageType = CoreDamage.ProposalDamageType(c, card);
+            data[CK.DamageType] = damageType != null ? Js.S(damageType) : Js.Null();
+            return TargetRules(actor, target, data, Rules(c), Capabilities(c), perception, evade);
+        }
+
+        /// <summary>proposalThreshold(ctx, actor): a lethal-threshold status whose stacks reach the actor's HP loses it that much HP.</summary>
+        public static JObject ThresholdPlan(CombatState c, JObject actor)
+        {
+            var effects = new JArray();
+            foreach (var a in ActiveBehaviors(actor, Rules(c), Capabilities(c)))
+                if (a.Behavior.Str(K.Kind) == DV.KindLethalThreshold && actor.Num(K.Hp) > 0 && a.Stacks >= actor.Num(K.Hp))
+                    effects.Add(Effect(actor, actor, Js.Obj(K.Op, DV.OpLoseHp, K.Amount, actor[K.Hp], CK.DamageType, a.Behavior[CK.DamageType], DK.ProposalReactive, true)));
+            return new JObject { [CK.Effects] = effects };
+        }
+
         /// <summary>proposalTargetRules({actor, target, card, rules, capabilities}) without the optional rolls: the rules a hit reads before anything is drawn.</summary>
-        public static JObject TargetRules(JObject actor, JObject target, JObject card, JObject rules, JObject capabilities)
+        public static JObject TargetRules(JObject actor, JObject target, JObject card, JObject rules, JObject capabilities, double? perceptionRoll = null, double? evadeRoll = null)
         {
             var allowed = true;
             var unavoidable = false;
@@ -159,8 +371,11 @@ namespace Ashen.Domain.Combat
                         b.Num(HK.BaseChance) + (Perception(actor, rules, capabilities) - Perception(target, rules, capabilities)) * b.Num(HK.PerceptionScale) - a.Stacks * b.Num(HK.PenaltyPerStack)));
                     perceptionChance = Js.N(chance);
                     checks.Add(Js.Obj(K.Kind, HV.KindPerception, HK.Chance, chance, K.Status, a.Status, HK.ActorId, IdOf(actor), HK.TargetId, IdOf(target)));
+                    if (perceptionRoll != null && !(perceptionRoll.Value < chance)) allowed = false;
                 }
             }
+            var avoided = false;
+            var statusChanges = new JArray();
             if (allowed && !unavoidable)
                 foreach (var a in ActiveBehaviors(target, rules, capabilities))
                 {
@@ -169,18 +384,23 @@ namespace Ashen.Domain.Combat
                     {
                         evadeChance = Math.Max(evadeChance, b.Num(HK.Chance));
                         checks.Add(Js.Obj(K.Kind, HV.KindEvade, HK.Chance, b.Num(HK.Chance), K.Status, a.Status, HK.ActorId, IdOf(target)));
+                        if (evadeRoll != null)
+                        {
+                            avoided |= evadeRoll.Value < b.Num(HK.Chance);
+                            statusChanges.Add(Js.Obj(HK.ActorId, IdOf(target), K.Status, a.Status, HK.Delta, -Math.Min(a.Stacks, b.Num(DK.ConsumeStacks))));
+                        }
                     }
                 }
             return new JObject
             {
                 [HK.Allowed] = allowed,
-                [HK.Avoided] = false,
+                [HK.Avoided] = avoided,
                 [HK.AccuracyDelta] = Js.N(accuracyDelta),
                 [HK.Unavoidable] = unavoidable,
                 [HK.PerceptionChance] = perceptionChance,
                 [HK.EvadeChance] = Js.N(evadeChance),
                 [HK.Checks] = checks,
-                [HK.StatusChanges] = new JArray(),
+                [HK.StatusChanges] = statusChanges,
             };
         }
     }
