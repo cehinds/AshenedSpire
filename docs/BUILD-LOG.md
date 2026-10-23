@@ -44,6 +44,7 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 - **Preset coupling as data:** `presets` on `combatPacingPreset` (mobile-fast = 250 ms and 195 ms) and `resetsPreset` on the two values; `SettingsSession.Set` applies them. Schema and codegen keys added.
 - **`CombatPacing` (`Application/Settings`):** reads the dials (effective speed, scaled stage gap and animation step) for presentation; none reaches the engine.
 - **Web config:** keys use the web names, so `settings.<key>` import and export take them with no `webKeyMap.json` change (D-164 untouched; the check is green).
+- **Import coupling (fix):** `WebConfig.Apply` stores imported `settings.*` through `SettingsSession.StoreImported`, the same preset coupling as `Set`; an explicit bundled value wins over an imported preset, which stays only if every imported bundled value matches it, else returns to `custom`. The web has no import path for this, so the rule is ours.
 - **Profile pinning (D-167):** the run record gains `profileId` and `profileHash` from `profile/core.json`.
 
 **Tests:** five new in `MetaViewTests` (Core 2 defaults and one-tap off, auto speed and bounds, preset round trip, web import and export of the new keys, profile pin); the gates listed in the task are green.

@@ -266,7 +266,7 @@ namespace Ashen.Tests
             var result = WebConfig.Import(web, TestContent.Source, Default.PresetId, SettingsDefs.From(Default.Snapshot.Content));
             Assert.That(result.PlayerSettings.Count, Is.EqualTo(7), "every Core 2 player setting is taken");
             Assert.That(result.Reported, Is.Empty);
-            WebConfig.Apply(ProfileStore.Load(_saves), result, Default.ContentHash);
+            WebConfig.Apply(ProfileStore.Load(_saves), result, Default.ContentHash, SettingsDefs.From(Default.Snapshot.Content));
             var settings = new SettingsSession(Default, ProfileStore.Load(_saves));
             var pacing = CombatPacing.Read(settings);
             Assert.That(pacing.AutoCombat && pacing.OneTapPlay && !pacing.ScreenShake, Is.True);
@@ -275,6 +275,52 @@ namespace Ashen.Tests
             var exported = WebConfig.Export(ProfileStore.Load(_saves).Doc, WebConfig.SettingsPrefix(TestContent.Source));
             Assert.That(exported["overrides"]["settings.autoCombatSpeed"].Value<double>(), Is.EqualTo(2.5), "exported again");
             Assert.That(exported["overrides"]["settings.oneTapPlay"].Value<bool>(), Is.True);
+        }
+
+        private SettingsSession ImportSettings(JObject overrides, bool startMobileFast = false)
+        {
+            var defs = SettingsDefs.From(Default.Snapshot.Content);
+            if (startMobileFast) Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Set(SettingIds.CombatPacingPreset, "mobile-fast"), Is.Null);
+            var web = new JObject { ["schemaVersion"] = 1, ["overrides"] = overrides };
+            var result = WebConfig.Import(web, TestContent.Source, Default.PresetId, defs);
+            Assert.That(result.Reported, Is.Empty);
+            WebConfig.Apply(ProfileStore.Load(_saves), result, Default.ContentHash, defs);
+            return new SettingsSession(Default, ProfileStore.Load(_saves));
+        }
+
+        [Test]
+        public void ImportingAPresetAloneAppliesItsBundledValues()
+        {
+            var settings = ImportSettings(new JObject { ["settings.combatPacingPreset"] = "mobile-fast" });
+            var bundle = (JObject)settings.Defs.Find(SettingIds.CombatPacingPreset).Presets["mobile-fast"];
+            Assert.That(settings.Text(SettingIds.CombatPacingPreset), Is.EqualTo("mobile-fast"));
+            foreach (var p in bundle.Properties()) Assert.That(settings.Value(p.Name), Is.EqualTo(p.Value), p.Name);
+        }
+
+        [Test]
+        public void ImportingABundledValueAloneLeavesThePresetCustom()
+        {
+            var settings = ImportSettings(new JObject { ["settings.combatStepPause"] = 300 }, startMobileFast: true);
+            Assert.That(settings.Number(SettingIds.CombatStepPause), Is.EqualTo(300));
+            Assert.That(settings.Text(SettingIds.CombatPacingPreset), Is.EqualTo("custom"));
+            Assert.That(settings.Number(SettingIds.AnimationStepDuration), Is.EqualTo(195), "the other bundled value stays");
+        }
+
+        [Test]
+        public void ImportingAPresetWithItsOwnBundledValuesKeepsThem()
+        {
+            var bundle = (JObject)SettingsDefs.From(Default.Snapshot.Content).Find(SettingIds.CombatPacingPreset).Presets["mobile-fast"];
+            var overrides = new JObject { ["settings.combatPacingPreset"] = "mobile-fast" };
+            foreach (var p in bundle.Properties()) overrides["settings." + p.Name] = p.Value;
+            Assert.That(ImportSettings(overrides).Text(SettingIds.CombatPacingPreset), Is.EqualTo("mobile-fast"));
+        }
+
+        [Test]
+        public void ImportingAPresetWithDifferingBundledValuesKeepsTheExplicitValuesAndCustom()
+        {
+            var settings = ImportSettings(new JObject { ["settings.combatPacingPreset"] = "mobile-fast", ["settings.combatStepPause"] = 1000 });
+            Assert.That(settings.Number(SettingIds.CombatStepPause), Is.EqualTo(1000), "explicit values win");
+            Assert.That(settings.Text(SettingIds.CombatPacingPreset), Is.EqualTo("custom"));
         }
 
         [Test]
@@ -928,7 +974,7 @@ namespace Ashen.Tests
             Assert.That(result.GameConfig.Properties().Select(p => p.Name), Is.EqualTo(new[] { "gameConfig.balance.startingCinders" }));
 
             var store = ProfileStore.Load(_saves);
-            WebConfig.Apply(store, result, Default.ContentHash);
+            WebConfig.Apply(store, result, Default.ContentHash, defs);
             var profile = ProfileStore.Load(_saves).Doc;
             Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Text(SettingIds.MapMode), Is.EqualTo("fog"));
             var content = WebConfig.ContentFor(TestContent.Source, profile);
