@@ -1,5 +1,5 @@
 {
-  "contentHash": "1fdfc0abd5b7aac347e426500de2cafbab61e15e3ea28603e414823b0ed828f6",
+  "contentHash": "35f627926c65d521cc94e95e9257d1fc81fde128ddfa57248d948d84db8f4b0a",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -798,6 +798,11 @@
       "bytes": 6766,
       "generated": false,
       "sha256": "ba12224a1b511bbad32e4bc00a8b5a2675080819e4849f182311d36ebcf905cb"
+    },
+    "rules/core2Deck.json": {
+      "bytes": 1771,
+      "generated": false,
+      "sha256": "51f1a68f4eb6b9b5f6664e7196b6fc2ef2caa09c57071df58e51d3c76a642887"
     },
     "rules/core2HandRules.json": {
       "bytes": 235,
@@ -1663,6 +1668,11 @@
       "bytes": 14260,
       "generated": false,
       "sha256": "6bb8cda989d5df017fd2a4d2a89c9cefb2bd25dcf162f2f604b0ffc546c083b1"
+    },
+    "schemas/rules.core2Deck.schema.json": {
+      "bytes": 2142,
+      "generated": false,
+      "sha256": "315179ed62fd57a665e25441b4ae0b6f87cf851726f7a5d88e92d732381ea863"
     },
     "schemas/rules.core2HandRules.schema.json": {
       "bytes": 925,

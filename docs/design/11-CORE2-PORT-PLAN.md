@@ -70,9 +70,9 @@ The 405 "current" profile isn't a tuning of Core 2. It is a different rules engi
 
 The owner's reference config (`docs/design/reference/ashen-spire-game-config.json`) targets Advanced keys, and a configured run ignores those (`isConfiguredRun` skips `configuredContentBundle`).
 
-Proposal (to record as a decision; the owner confirms or refuses):
-- Tag the last 405 content commit as `content-405`.
-- Delete the `reference` preset, and shrink `settings/webKeyMap.json` to the player `settings.*` keys.
+**Owner ruling 2026-10-23 (D-164): accepted.** Core 2 replaces the 405 content. The plan:
+- Keep the last pre-port tree: branch `archive/content-405` (`e99920c`; tag writes were refused by the session's GitHub access).
+- In WP-21: delete the `reference` preset, shrink `settings/webKeyMap.json` to the player `settings.*` keys, and move the settings defaults held back for the 405 tests (`mapMode`, `walkedFade`, `shrineMultiUse`, `useRestorativeFlasksOutsideCombat`, `showPlayedCard`) to the web's values.
 - Make Core 2 the only content.
 
 The legacy oracles (`Tools/oracle-*.mjs`, `Unity/Assets/Tests/Oracle/*`) are retired one WP at a time as each domain is replaced. `Domain.Tests` stays green throughout, because each WP swaps a fixture set and its parity test together.

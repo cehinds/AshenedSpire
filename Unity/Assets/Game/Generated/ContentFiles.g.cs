@@ -145,6 +145,7 @@ namespace Ashen.Generated
         public const string RulesCombatRules = "rules/combatRules.json";
         public const string RulesCombatStatusRules = "rules/combatStatusRules.json";
         public const string RulesCore2Combat = "rules/core2Combat.json";
+        public const string RulesCore2Deck = "rules/core2Deck.json";
         public const string RulesCore2HandRules = "rules/core2HandRules.json";
         public const string RulesCore2Mechanics = "rules/core2Mechanics.json";
         public const string RulesCore2Run = "rules/core2Run.json";
@@ -318,6 +319,7 @@ namespace Ashen.Generated
         public const string SchemasRulesCombatRulesSchema = "schemas/rules.combatRules.schema.json";
         public const string SchemasRulesCombatStatusRulesSchema = "schemas/rules.combatStatusRules.schema.json";
         public const string SchemasRulesCore2CombatSchema = "schemas/rules.core2Combat.schema.json";
+        public const string SchemasRulesCore2DeckSchema = "schemas/rules.core2Deck.schema.json";
         public const string SchemasRulesCore2HandRulesSchema = "schemas/rules.core2HandRules.schema.json";
         public const string SchemasRulesCore2MechanicsSchema = "schemas/rules.core2Mechanics.schema.json";
         public const string SchemasRulesCore2RunSchema = "schemas/rules.core2Run.schema.json";

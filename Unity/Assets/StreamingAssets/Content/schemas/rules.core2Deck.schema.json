@@ -1,0 +1,52 @@
+{
+  "$id": "rules/core2Deck.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "deckEditing": { "type": "boolean" },
+        "deckEditingWhere": { "type": "string" },
+        "deckMinSize": { "type": "integer" },
+        "deckMinUnlimited": { "type": "boolean" },
+        "deckMaxSize": { "type": "integer" },
+        "deckMaxUnlimited": { "type": "boolean" },
+        "playInDeckOrder": { "type": "boolean" },
+        "classSpellPowerCopies": { "type": "integer" }
+      },
+      "required": ["deckEditing", "deckEditingWhere", "deckMinSize", "deckMinUnlimited", "deckMaxSize", "deckMaxUnlimited", "playInDeckOrder", "classSpellPowerCopies"]
+    },
+    "singleCopy": {
+      "type": "object",
+      "properties": {
+        "types": { "type": "array", "items": { "type": "string" } },
+        "tags": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["types", "tags"]
+    },
+    "where": { "type": "array", "items": { "type": "string" } },
+    "unlimitedCardIds": { "type": "array", "items": { "type": "string" } },
+    "equipmentEligibility": {
+      "type": "object",
+      "properties": {
+        "universalTags": { "type": "array", "items": { "type": "string" } },
+        "weaponTags": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["universalTags", "weaponTags"]
+    },
+    "editState": { "type": "array", "items": { "type": "string" } },
+    "movement": {
+      "type": "object",
+      "properties": { "op": { "type": "string" } },
+      "required": ["op"]
+    },
+    "cardDomain": { "type": "string" },
+    "colorlessClass": { "type": "string" },
+    "classTagPrefix": { "type": "string" },
+    "typeGroup": { "type": "string" },
+    "unlimitedMode": { "type": "string" },
+    "inventedFields": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["defaults", "singleCopy", "where", "unlimitedCardIds", "equipmentEligibility", "editState", "movement", "cardDomain", "colorlessClass", "classTagPrefix", "typeGroup", "unlimitedMode", "inventedFields"]
+}

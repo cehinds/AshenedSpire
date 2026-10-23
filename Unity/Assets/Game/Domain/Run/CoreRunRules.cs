@@ -387,7 +387,7 @@ namespace Ashen.Domain.Run
         /// configuredGearGrantInstances(registries, run): the item-owned cards the worn Core gear lends (its <c>grantedCards</c>),
         /// with the ids and shape of a weapon package grant.
         /// </summary>
-        private static List<JObject> GearGrantInstances(CoreRunData d, JObject run)
+        public static List<JObject> GearGrantInstances(CoreRunData d, JObject run)
         {
             var subject = d.SubjectOf(run);
             if (!CoreRunData.IsConfigured(subject) || !CoreRunData.ModuleConfigured(subject, MI.Cards) || !(CoreRunData.Content(subject, PC.Gear) is JArray catalog) || run.Obj(K.Loadout) == null)

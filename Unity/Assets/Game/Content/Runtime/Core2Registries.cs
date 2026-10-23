@@ -111,6 +111,19 @@ namespace Ashen.Content
                 Rules(ContentFiles.RulesEnemyKnowledgeRules), (JObject)Rules(ContentFiles.RulesCore2HandRules)[Core2CombatKeys.HandRulesDefaults]);
         }
 
+        /// <summary>
+        /// What the Core 2 deck rules read (WP-18): the run data of <see cref="ToCoreRunData"/>, <c>rules/core2Deck.json</c> and the ids of the
+        /// card-domain tags (the card schools the equipment gate compares with the worn gear's tags).
+        /// </summary>
+        public CoreDeckData ToCoreDeckData(ContentSet content)
+        {
+            var rules = (JObject)content.Get(ContentFiles.RulesCore2Deck);
+            var domain = rules.Value<string>(Core2DeckKeys.CardDomain);
+            var tags = JsValues.Items(Object(RegistryKeys.TagRegistry)).OfType<JObject>()
+                .Where(t => JsValues.Str(t[TagKeys.Domain]) == domain).Select(t => JsValues.Text(t[RegistryKeys.Id]));
+            return new CoreDeckData(ToCoreRunData(content), rules, tags);
+        }
+
         /// <summary>What the map port reads (WP-14): encounters, events, enemies and seats in registry order, the quest gates, the boss destinations and the map engine rules.</summary>
         public Ashen.Domain.Map.MapData ToMapData(JObject mapEngine) => Registries.ToMapData(mapEngine);
 
