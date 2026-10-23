@@ -12,6 +12,10 @@
   "combatContactPrepared",
   "combatEnd",
   "combatGuardBroken",
+  "combatReactionChosen",
+  "combatReactionFizzled",
+  "combatReactionOffered",
+  "combatReactionStacked",
   "combatReactionUnavailable",
   "combatStanceChanged",
   "damageDealt",
@@ -45,19 +49,19 @@
  "fights": {
   "herald": {
    "fights": 32,
-   "steps": 368
+   "steps": 336
   },
   "reaver": {
    "fights": 32,
-   "steps": 380
+   "steps": 510
   },
   "rogue": {
    "fights": 32,
-   "steps": 364
+   "steps": 498
   },
   "starseer": {
    "fights": 32,
-   "steps": 404
+   "steps": 372
   }
  },
  "files": [
@@ -82,32 +86,32 @@
    "file": "receipts-3.json"
   },
   {
-   "bytes": 1290105,
+   "bytes": 1677236,
    "classId": "reaver",
    "fights": 32,
    "file": "fights-reaver.json",
-   "steps": 380
+   "steps": 510
   },
   {
-   "bytes": 1435684,
+   "bytes": 1432004,
    "classId": "starseer",
    "fights": 32,
    "file": "fights-starseer.json",
-   "steps": 404
+   "steps": 372
   },
   {
-   "bytes": 1294821,
+   "bytes": 1684366,
    "classId": "rogue",
    "fights": 32,
    "file": "fights-rogue.json",
-   "steps": 364
+   "steps": 498
   },
   {
-   "bytes": 1367504,
+   "bytes": 1363824,
    "classId": "herald",
    "fights": 32,
    "file": "fights-herald.json",
-   "steps": 368
+   "steps": 336
   }
  ],
  "mechanics": {

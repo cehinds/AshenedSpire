@@ -18,18 +18,20 @@
 //                        gives, the stance pressure grid, the Counter's Accuracy check, the Guard break, the round-start decay.
 //
 // THE FILTER (what a recorded sequence avoids; the C# port refuses these by name and the test asserts it never has to): a step is recorded only
-// when its dry run on a detached copy (a) throws nothing, (b) emits only event types in COVERED_EVENTS, (c) leaves no pending reaction or card
-// choice, and (d) every card it plays has only effects in COVERED_OPS (the card traits are WP-9's and are played). An enemy whose move would break (b)
-// or (c) is marked staggered for that end turn, as the WP-7 oracle does. The player's reactions are switched off before the first step.
+// when its dry run on a detached copy (a) throws nothing, (b) emits only event types in COVERED_EVENTS, (c) leaves no card choice, and (d) every
+// card it plays has only effects in COVERED_OPS (the card traits are WP-9's and are played). An enemy whose move would break (b) or (c) is marked
+// staggered for that end turn, as the WP-7 oracle does. The fights leave the player's reactions on (WP-10) and answer every offer with the bot's LCG,
+// one recorded step each; the exchanges switch them off to isolate the Counter.
 // The filter helpers are the WP-7 oracle's (Tools/oracle-core2-damage.mjs), widened for the matchups.
 import { writeFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, botLcg, detach, projectFull, delta, typesSince } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, botLcg, detach, projectFull, delta, typesSince, answerer, dispatchAnswering, reactionFilter, REACTION_EVENTS } from './oracle-core2.mjs';
 
 const OUT = join(ORACLE_DIR, 'matchups');
 const FIGHTS = Number(arg('--fights', '6'));
 const w = await loadWeb();
+await reactionFilter(w);
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const matchups = await load('src/engine/combatMatchups.js');
 const counterRule = await load('src/engine/counterRule.js');
@@ -46,7 +48,7 @@ const classes = classIds(w);
 // The filter
 // ---------------------------------------------------------------------------------------------------------------
 const COUNTER_EVENTS = ['combatCounterArmed', 'combatCounterConsumed', 'combatCounterTriggered', 'combatGuardBroken', 'combatRangeReturnUnavailable'];
-const COVERED_EVENTS = new Set(['playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared', 'combatReactionUnavailable',
+const COVERED_EVENTS = new Set([...REACTION_EVENTS, 'playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared', 'combatReactionUnavailable',
   'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
   'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
   'energySpent', 'staminaSpent', 'manaSpent', 'enemyDied', 'combatEnd', 'perceptionGained', 'combatHitStarted', ...COUNTER_EVENTS]);
@@ -89,7 +91,19 @@ function enemyFits(combat, enemy) {
   return !enemy.pendingMove;
 }
 
+// The fights leave the player's reactions on: an offer a hit opens is answered by the bot (half the time it plays the first option, half the time it goes
+// Back, from its own LCG) and a dry run answers with a copy of that LCG (ANSWERS, set by `record` for the fight it records). The exchanges switch them off.
+let ANSWERS = null;
 function dryRun(combat, intent) {
+  if (ANSWERS) {
+    const r = dispatchAnswering(w, combat, intent, ANSWERS);
+    if (r.error) return { ok: false, why: `throws: ${r.error}` };
+    if (r.why) return { ok: false, why: r.why };
+    const bad = typesSince(r.copy, r.mark).find((t) => !COVERED_EVENTS.has(t));
+    if (bad) return { ok: false, why: `event ${bad}` };
+    if (r.copy.pendingCardChoice || r.copy.pendingAbilityDiscard) return { ok: false, why: 'pending choice' };
+    return { ok: true };
+  }
   const copy = detach(w, combat);
   const mark = copy.eventLog.length;
   try { w.combat.dispatch(copy, structuredClone(intent)); } catch (e) { return { ok: false, why: `throws: ${e.message}` }; }
@@ -155,12 +169,12 @@ function open(spec) {
   return combat;
 }
 
-function record(spec, drive) {
+function record(spec, drive, answers = null) {
   const combat = open(spec);
   let last = projectFull(combat);
   const start = { events: typesSince(combat, 0), state: last };
   const steps = [];
-  const step = (intent, extra = {}) => {
+  const one = (intent, extra = {}) => {
     const mark = combat.eventLog.length;
     let error = null;
     try { w.combat.dispatch(combat, structuredClone(intent)); } catch (e) { error = e.message; }
@@ -169,8 +183,19 @@ function record(spec, drive) {
     last = state;
     return !error;
   };
-  step({ type: 'setReactions', enabled: false });
-  drive(combat, step);
+  // With answers the player's reactions stay on and every offer a step opens is answered at once, one step each.
+  const step = (intent, extra = {}) => {
+    if (!one(intent, extra)) return false;
+    for (let n = 0; answers && combat.pendingReaction && !combat.result; n++) {
+      if (n > 60) return false;
+      const answer = answers.next(combat);
+      if (!one(answer, { answer: answer.optionId === null ? 'back' : 'play' })) return false;
+    }
+    return true;
+  };
+  if (!answers) step({ type: 'setReactions', enabled: false });
+  ANSWERS = answers;
+  try { drive(combat, step); } finally { ANSWERS = null; }
   return { ...spec, start, steps };
 }
 
@@ -183,11 +208,7 @@ function endTurn(combat, step) {
     for (const enemy of combat.enemies.filter((e) => e.alive)) {
       const probe = detach(w, combat);
       for (const other of probe.enemies) if (other.id !== enemy.id) other.skipNextTurn = true;
-      const mark = probe.eventLog.length;
-      let ok = true;
-      try { w.combat.dispatch(probe, structuredClone(intent)); } catch { ok = false; }
-      if (ok) ok = typesSince(probe, mark).every((t) => COVERED_EVENTS.has(t)) && !probe.pendingReaction && !probe.pendingCardChoice;
-      if (!ok && !staggered.includes(enemy.id)) staggered.push(enemy.id);
+      if (!dryRun(probe, intent).ok && !staggered.includes(enemy.id)) staggered.push(enemy.id);
     }
     for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = true;
     if (!dryRun(combat, intent).ok) { for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = false; return false; }
@@ -234,7 +255,7 @@ function fight(seed, classId, encounter, steps) {
       if (intent) { if (!step(intent)) break; continue; }
       if (!endTurn(combat, step)) break;
     }
-  });
+  }, answerer(seed ^ 0x5a17c3e1));
 }
 
 // ---------------------------------------------------------------------------------------------------------------

@@ -12,8 +12,9 @@ namespace Ashen.Tests
     /// WP-7 (D-220): the damage chain live in real fights. Every sequence recorded by Tools/oracle-core2-damage.mjs (4 classes, the enemies
     /// taking their turn and the player playing attack and Block cards) is played again on the C# port from the same seed and must equal the
     /// web after every step: the whole combat as a delta (every field), the event types in order and every RNG counter. The oracle records
-    /// only steps that stay inside what this package ports (its dry-run filter, documented at the top of the oracle): no reaction offer, no
-    /// Counter, no status proc, no move that has to close the distance. Suite: Parity.
+    /// only steps that stay inside what the packages port (its dry-run filter, documented at the top of the oracle): no Counter, no status proc, no
+    /// move that has to close the distance. The player's reactions are on (WP-10): each offer a hit opens is recorded with its answer, one step each, and
+    /// played through <see cref="CoreDispatch"/>. Suite: Parity.
     /// </summary>
     [TestFixture, Category("Parity")]
     public class Core2FightParityTests

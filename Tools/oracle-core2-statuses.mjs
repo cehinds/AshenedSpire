@@ -22,12 +22,13 @@
 import { writeFileSync, readFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, projectFull, delta, botLcg, detach, SOURCES } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, projectFull, delta, botLcg, detach, SOURCES, answerer, dispatchAnswering, reactionFilter } from './oracle-core2.mjs';
 
 const OUT = join(ORACLE_DIR, 'statuses');
 const PER_FILE = 60;
 const FIGHTS = Number(arg('--fights', '3'));
 const w = await loadWeb();
+await reactionFilter(w);
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const S = await load('src/engine/statuses.js');
 const Control = await load('src/engine/combatStatusControl.js');
@@ -366,14 +367,15 @@ function wardGrid() {
 // ---------------------------------------------------------------------------------------------------------------
 // Fights
 // ---------------------------------------------------------------------------------------------------------------
-// THE FILTER. A step is recorded when its dry run on a detached copy throws nothing, opens no reaction window and emits no event of the packages
-// that are not ported yet (reactions and Counters, the engagement and the range, Burdens, flasks); a card is played when none of its faces (its
+// THE FILTER. A step is recorded when its dry run on a detached copy throws nothing and emits no event of the packages that are not ported yet
+// (Counters, enemy reactions, the engagement and the range, Burdens, flasks); the player's reactions are ON (WP-10) and every offer a hit opens is
+// answered by the bot (half the first option, half Back, from its own LCG, one recorded step each), the dry run answering with a copy of that LCG; a card is played when none of its faces (its
 // variants included) carries an op of a later package (the move of the engagement, a Burden, arcane buildup, a script, a legacy stance), a Counter,
 // an Ashen Blight cost, a cardPreparing listener or a hostile hook. An enemy takes its turn when it stands in melee range and every move it can
 // play stays within ENEMY_OPS; the others are held (the flag a Poise break sets). Statuses are laid on the fighters by `applyStatus` steps first,
 // so the hooks, the clocks, the controls and the procs run on real turns.
 const DEFERRED_OPS = new Set(['moveEngagement', 'addBurden', 'arcaneBuildup']);
-const FORBIDDEN_EVENT = /reaction|counter|engagement|range|burden|flask|swap|formation|characterMoved/i;
+const FORBIDDEN_EVENT = /counter|engagement|range|burden|flask|swap|formation|characterMoved|enemyReaction/i;
 const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'applyStatus', 'block', 'gainBarrier', 'buildup', 'heal', 'wardDamage', 'loseHp', 'removeStatus']);
 const HOSTILE_OPS = new Set(['damage', 'applyStatus', 'buildup', 'poiseDamage', 'wardDamage', 'loseHp', 'stagger', 'arcaneBuildup']);
 const FRIENDLY_TARGETS = new Set(['self', 'owner', 'player', 'ally', 'allAllies']);
@@ -412,13 +414,15 @@ function enemyFits(combat, enemy) {
   return !enemy.pendingMove;
 }
 
+// The player's reactions are on in the fights. An offer a hit opens is answered by the bot (half the time it plays the first option, half the time it goes
+// Back, from its own LCG), and a dry run answers with a copy of that LCG (ANSWERS, set by `fight`).
+let ANSWERS = null;
 function dryRun(combat, intent) {
-  const copy = detach(w, combat);
-  const mark = copy.eventLog.length;
-  try { w.combat.dispatch(copy, structuredClone(intent)); } catch (e) { return { ok: false, why: `throws: ${e.message}` }; }
-  const bad = typesSince(copy, mark).find((t) => FORBIDDEN_EVENT.test(t));
+  const r = dispatchAnswering(w, combat, intent, ANSWERS);
+  if (r.error) return { ok: false, why: `throws: ${r.error}` };
+  if (r.why) return { ok: false, why: r.why };
+  const bad = typesSince(r.copy, r.mark).find((t) => FORBIDDEN_EVENT.test(t));
   if (bad) return { ok: false, why: `event ${bad}` };
-  if (copy.pendingReaction) return { ok: false, why: 'reaction' };
   return { ok: true };
 }
 
@@ -441,10 +445,12 @@ function fight(seed, classId, encounter, bot, steps) {
   const run = createRun(w, seed, classId);
   const { combat } = createFight(w, run, encounter);
   const pick = botLcg(seed ^ 0x51ed270b);
+  const answers = answerer(seed ^ 0x5a17c3e1);
+  ANSWERS = answers;
   let last = projectFull(combat);
   const start = { events: typesSince(combat, 0), state: last };
   const record = [];
-  const step = (intent, extra = {}) => {
+  const one = (intent, extra = {}) => {
     const mark = combat.eventLog.length;
     let error = null;
     try {
@@ -458,7 +464,16 @@ function fight(seed, classId, encounter, bot, steps) {
     last = state;
     return !error;
   };
-  step({ type: 'setReactions', enabled: false });
+  // A step that opens a reaction offer is followed by the bot's answers, one step each.
+  const step = (intent, extra = {}) => {
+    if (!one(intent, extra)) return false;
+    for (let n = 0; combat.pendingReaction && !combat.result; n++) {
+      if (n > 60) return false;
+      const answer = answers.next(combat);
+      if (!one(answer, { answer: answer.optionId === null ? 'back' : 'play' })) return false;
+    }
+    return true;
+  };
   // the opening statuses: a few on each side, chosen from those whose hooks stay inside the filter
   const pool = statusIds.filter((id) => !RESTING.has(id) && safeStatus(combat, id));
   const openers = bot === 'statuses' ? 5 : 2;
@@ -522,11 +537,7 @@ function fight(seed, classId, encounter, bot, steps) {
         for (const enemy of combat.enemies.filter((e) => e.alive)) {
           const probe = detach(w, combat);
           for (const other of probe.enemies) if (other.id !== enemy.id) other.skipNextTurn = true;
-          const mark = probe.eventLog.length;
-          let ok = true;
-          try { w.combat.dispatch(probe, structuredClone(intent)); } catch { ok = false; }
-          if (ok) ok = typesSince(probe, mark).every((t) => !FORBIDDEN_EVENT.test(t)) && !probe.pendingReaction;
-          if (!ok) staggered.push(enemy.id);
+          if (!dryRun(probe, intent).ok) staggered.push(enemy.id);
         }
         for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = true;
         if (!dryRun(combat, intent).ok) { for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = false; break; }

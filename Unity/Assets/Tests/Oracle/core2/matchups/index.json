@@ -24,6 +24,10 @@
   "combatGuardBroken",
   "combatHitStarted",
   "combatRangeReturnUnavailable",
+  "combatReactionChosen",
+  "combatReactionFizzled",
+  "combatReactionOffered",
+  "combatReactionStacked",
   "combatReactionUnavailable",
   "combatStanceChanged",
   "damageDealt",
@@ -84,57 +88,57 @@
  "fights": {
   "herald": {
    "fights": 6,
-   "steps": 123
+   "steps": 116
   },
   "reaver": {
    "fights": 6,
-   "steps": 93
+   "steps": 144
   },
   "rogue": {
    "fights": 6,
-   "steps": 59
+   "steps": 62
   },
   "starseer": {
    "fights": 6,
-   "steps": 113
+   "steps": 118
   }
  },
  "files": [
   {
-   "bytes": 259449,
+   "bytes": 387637,
    "classId": "reaver",
    "fights": 6,
    "file": "fights-reaver.json",
-   "steps": 93
+   "steps": 144
   },
   {
-   "bytes": 382465,
+   "bytes": 418954,
    "classId": "starseer",
    "fights": 6,
    "file": "fights-starseer.json",
-   "steps": 113
+   "steps": 118
   },
   {
-   "bytes": 197592,
+   "bytes": 209906,
    "classId": "rogue",
    "fights": 6,
    "file": "fights-rogue.json",
-   "steps": 59
+   "steps": 62
   },
   {
-   "bytes": 380743,
+   "bytes": 376581,
    "classId": "herald",
    "fights": 6,
    "file": "fights-herald.json",
-   "steps": 123
+   "steps": 116
   }
  ],
  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
  "profileId": "core",
  "seen": {
-  "counterArmed": 62,
-  "counterConsumed": 35,
-  "counterTriggered": 35,
+  "counterArmed": 63,
+  "counterConsumed": 37,
+  "counterTriggered": 37,
   "guardBroken": 0,
   "rangeReturnUnavailable": 0
  },

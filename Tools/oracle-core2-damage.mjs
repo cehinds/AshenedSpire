@@ -23,14 +23,15 @@
 //                       projection as a delta, the event types and every RNG counter.
 //
 // THE FILTER (what a recorded sequence avoids; the C# port refuses these by name and the test asserts it never has to): a step is recorded only
-// when its dry run on a detached copy (a) throws nothing, (b) emits only event types in COVERED_EVENTS, (c) leaves no pending reaction or
-// card choice, and (d) every card it plays has only effects in COVERED_OPS. An enemy whose move would break (b) or (c) is marked staggered
-// for that end turn (the flag a Poise break sets, as the start oracle does), so the others still act. The player's reactions are switched
-// off before the first step (the web's own switch: a window that finds it off emits combatReactionUnavailable and goes on).
+// when its dry run on a detached copy (a) throws nothing, (b) emits only event types in COVERED_EVENTS, (c) leaves no card choice, and (d) every
+// card it plays has only effects in COVERED_OPS. An enemy whose move would break (b) or (c) is marked staggered for that end turn (the flag a Poise
+// break sets, as the start oracle does), so the others still act. The player's reactions are ON (WP-10): the offers the enemies' hits open are
+// answered by the bot (half the time it plays the first option, half the time it goes Back, from its own LCG), each answer one recorded step,
+// and a dry run answers with a copy of that LCG. An offer outside what the port covers (oracle-core2.mjs reactionFilter) ends the sequence there.
 import { writeFileSync, readFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, botLcg, detach, projectFull, delta, typesSince, statics, SOURCES } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, botLcg, detach, projectFull, delta, typesSince, statics, SOURCES, answerer, dispatchAnswering, reactionFilter, REACTION_EVENTS } from './oracle-core2.mjs';
 
 const OUT = join(ORACLE_DIR, 'damage');
 const CASES = Number(arg('--cases', '600'));
@@ -38,6 +39,7 @@ const UNITS = Number(arg('--units', '160'));
 const FIGHTS = Number(arg('--fights', '4'));
 const PER_FILE = 150;
 const w = await loadWeb();
+await reactionFilter(w);
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const actions = await load('src/engine/actions.js');
 const gpc = await load('src/engine/gameProfileCombat.js');
@@ -435,7 +437,7 @@ function mechanicCases() {
 // ---------------------------------------------------------------------------------------------------------------
 // The event types a recorded step may emit, and the effect ops a played card may carry (see THE FILTER at the top). Anything else is a later
 // work package's: reactions and Counters (WP-8, WP-10), status procs, control and card traits (WP-9), enemy AI, range moves (WP-11, WP-12).
-const COVERED_EVENTS = new Set(['playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared', 'combatReactionUnavailable',
+const COVERED_EVENTS = new Set([...REACTION_EVENTS, 'playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared',
   'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
   'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
   'energySpent', 'staminaSpent', 'manaSpent', 'enemyDied', 'combatEnd', 'combatGuardBroken', 'perceptionGained']);
@@ -462,14 +464,16 @@ function enemyFits(combat, enemy) {
   return !enemy.pendingMove;
 }
 
-function dryRun(combat, intent) {
-  const copy = detach(w, combat);
-  const mark = copy.eventLog.length;
-  try { w.combat.dispatch(copy, structuredClone(intent)); } catch (e) { return { ok: false, why: `throws: ${e.message}` }; }
-  const types = typesSince(copy, mark);
+// The player's reactions are on. An offer a hit opens is answered by the bot (half the time it plays the first option, half the time it goes Back, from its
+// own LCG); a dry run answers with a copy of that LCG, so it takes the same road the real run will.
+function dryRun(combat, intent, answers) {
+  const r = dispatchAnswering(w, combat, intent, answers);
+  if (r.error) return { ok: false, why: `throws: ${r.error}` };
+  if (r.why) return { ok: false, why: r.why };
+  const types = typesSince(r.copy, r.mark);
   const bad = types.find((t) => !COVERED_EVENTS.has(t));
   if (bad) return { ok: false, why: `event ${bad}` };
-  if (copy.pendingReaction || copy.pendingCardChoice || copy.pendingAbilityDiscard) return { ok: false, why: 'pending choice' };
+  if (r.copy.pendingCardChoice || r.copy.pendingAbilityDiscard) return { ok: false, why: 'pending choice' };
   return { ok: true };
 }
 
@@ -513,6 +517,7 @@ function fight(seed, classId, encounter, bot, steps) {
   const run = createRun(w, seed, classId);
   const { combat } = createFight(w, run, encounter);
   const pick = botLcg(seed ^ 0x2f6b9d35);
+  const answers = answerer(seed ^ 0x5a17c3e1);
   let last = projectFull(combat);
   const start = { events: typesSince(combat, 0), state: last };
   const record = [];
@@ -525,7 +530,15 @@ function fight(seed, classId, encounter, bot, steps) {
     last = state;
     return !error;
   };
-  step({ type: 'setReactions', enabled: false });
+  // Answers the offers a step left open, one step each, until the fight is no longer paused.
+  const settle = () => {
+    for (let n = 0; combat.pendingReaction && !combat.result; n++) {
+      if (n > 60) return false;
+      const answer = answers.next(combat);
+      if (!step(answer, { answer: answer.optionId === null ? 'back' : 'play' })) return false;
+    }
+    return true;
+  };
   for (let i = 0; i < steps && !combat.result; i++) {
     if (combat.phase !== 'player') break;
     const options = [];
@@ -538,7 +551,7 @@ function fight(seed, classId, encounter, bot, steps) {
         const aimed = def.effects.some((e) => e.op === 'damage');
         for (const targetId of aimed ? targets : [undefined]) {
           const intent = { type: 'playCard', cardInstanceId: card.instanceId, ...(targetId ? { targetId } : {}) };
-          if (dryRun(combat, intent).ok) options.push(intent);
+          if (dryRun(combat, intent, answers).ok) options.push(intent);
         }
       }
     }
@@ -549,23 +562,19 @@ function fight(seed, classId, encounter, bot, steps) {
       // The enemies that cannot act inside the filter are staggered for this end turn; the rest take their turn.
       let staggered = [];
       for (const enemy of combat.enemies.filter((e) => e.alive && !e.skipNextTurn)) if (!enemyFits(combat, enemy)) { enemy.skipNextTurn = true; staggered.push(enemy.id); }
-      if (!dryRun(combat, intent).ok) {
+      if (!dryRun(combat, intent, answers).ok) {
         for (const enemy of combat.enemies.filter((e) => e.alive)) {
           const probe = detach(w, combat);
           for (const other of probe.enemies) if (other.id !== enemy.id) other.skipNextTurn = true;
-          const mark = probe.eventLog.length;
-          let ok = true;
-          try { w.combat.dispatch(probe, structuredClone(intent)); } catch { ok = false; }
-          if (ok) ok = typesSince(probe, mark).every((t) => COVERED_EVENTS.has(t)) && !probe.pendingReaction && !probe.pendingCardChoice;
-          if (!ok) staggered.push(enemy.id);
+          if (!dryRun(probe, intent, answers).ok) staggered.push(enemy.id);
         }
         for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = true;
-        if (!dryRun(combat, intent).ok) { for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = false; break; }
+        if (!dryRun(combat, intent, answers).ok) { for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = false; break; }
       }
-      if (!step(intent, { staggered })) break;
+      if (!step(intent, { staggered }) || !settle()) break;
       continue;
     }
-    if (!step(intent)) break;
+    if (!step(intent) || !settle()) break;
   }
   return { seed, classId, encounterId: encounter.id, bot, start, steps: record, ...(bot === 'acts' ? { statics: statics(combat) } : {}) };
 }
