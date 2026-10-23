@@ -1,0 +1,172 @@
+{
+ "counterEvents": [
+  "combatCounterArmed",
+  "combatCounterConsumed",
+  "combatCounterTriggered",
+  "combatGuardBroken",
+  "combatRangeReturnUnavailable"
+ ],
+ "coveredEvents": [
+  "attackHit",
+  "attackMissed",
+  "blockBroken",
+  "blockGained",
+  "cardDrawn",
+  "cardExhausted",
+  "cardPlayed",
+  "cardPreparing",
+  "cardResolved",
+  "combatContactPrepared",
+  "combatCounterArmed",
+  "combatCounterConsumed",
+  "combatCounterTriggered",
+  "combatEnd",
+  "combatGuardBroken",
+  "combatHitStarted",
+  "combatRangeReturnUnavailable",
+  "combatReactionUnavailable",
+  "combatStanceChanged",
+  "damageDealt",
+  "deckShuffled",
+  "enemyActorTurnStarted",
+  "enemyDied",
+  "enemyMoveStarted",
+  "enemyMoveUnavailable",
+  "enemyStaggered",
+  "enemyTurnEnd",
+  "enemyTurnStart",
+  "energySpent",
+  "hpLost",
+  "manaSpent",
+  "perceptionGained",
+  "persistentPoiseChanged",
+  "playerStaggered",
+  "playerTurnEnd",
+  "playerTurnStart",
+  "poiseBroken",
+  "staminaSpent",
+  "statusApplied",
+  "statusExpired",
+  "statusRemoved"
+ ],
+ "coveredOps": [
+  "block",
+  "damage",
+  "gainBarrier",
+  "poiseDamage",
+  "wardDamage"
+ ],
+ "deckPool": [
+  "core.counter",
+  "core.counter",
+  "core.smash",
+  "base.smash",
+  "core.reaverSpecial",
+  "core.sweep",
+  "core.strike",
+  "core.defend"
+ ],
+ "exchanges": {
+  "bytes": 759830,
+  "count": 41,
+  "file": "exchanges.json",
+  "kinds": [
+   "playerCounter",
+   "enemyCounter",
+   "poiseBreak",
+   "poiseBreakPlayer",
+   "twoAttackers",
+   "smashVsSpell",
+   "smashIntoSpell"
+  ],
+  "steps": 139
+ },
+ "fights": {
+  "herald": {
+   "fights": 6,
+   "steps": 123
+  },
+  "reaver": {
+   "fights": 6,
+   "steps": 93
+  },
+  "rogue": {
+   "fights": 6,
+   "steps": 59
+  },
+  "starseer": {
+   "fights": 6,
+   "steps": 113
+  }
+ },
+ "files": [
+  {
+   "bytes": 259449,
+   "classId": "reaver",
+   "fights": 6,
+   "file": "fights-reaver.json",
+   "steps": 93
+  },
+  {
+   "bytes": 382465,
+   "classId": "starseer",
+   "fights": 6,
+   "file": "fights-starseer.json",
+   "steps": 113
+  },
+  {
+   "bytes": 197592,
+   "classId": "rogue",
+   "fights": 6,
+   "file": "fights-rogue.json",
+   "steps": 59
+  },
+  {
+   "bytes": 380743,
+   "classId": "herald",
+   "fights": 6,
+   "file": "fights-herald.json",
+   "steps": 123
+  }
+ ],
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "seen": {
+  "counterArmed": 62,
+  "counterConsumed": 35,
+  "counterTriggered": 35,
+  "guardBroken": 0,
+  "rangeReturnUnavailable": 0
+ },
+ "units": {
+  "bytes": 1331326,
+  "count": 952,
+  "errors": [
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input"
+  ],
+  "file": "units.json",
+  "kinds": [
+   "counterReturn",
+   "receiptReturn",
+   "blockGrant",
+   "spentPaid",
+   "coverage",
+   "counterCard",
+   "prepare",
+   "preview",
+   "stancePressure",
+   "counterAttack",
+   "guardBreak",
+   "decay",
+   "authorize",
+   "wardDamage"
+  ]
+ },
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}
