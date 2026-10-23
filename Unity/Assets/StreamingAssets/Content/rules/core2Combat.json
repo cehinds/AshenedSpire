@@ -336,5 +336,66 @@
     "reactionDefaults": {
       "handCostDiscount": 1
     }
+  },
+  "mechanics": {
+    "registered": [
+      "combat.accuracy",
+      "combat.actionCosts",
+      "combat.perception",
+      "combat.stance",
+      "combat.statuses",
+      "defense.poiseProtection",
+      "defense.wardProtection"
+    ],
+    "families": [
+      "stance",
+      "accuracy",
+      "perception",
+      "statuses",
+      "actionCosts"
+    ],
+    "familyPrefix": "combat.",
+    "familyTagPrefix": "combat:",
+    "protectionPrefix": "defense.",
+    "rulesOwner": "rules",
+    "wardTag": "defense:wardProtection",
+    "actionCostsFamily": "actionCosts",
+    "actionCostsKey": "enemyHealBlockCost",
+    "mountKinds": {
+      "armour": "gear",
+      "armament": "gear",
+      "sigil": "gear",
+      "class": "character",
+      "feat": "character",
+      "companion": "entity"
+    }
+  },
+  "damage": {
+    "smashVsDefensive": {
+      "damageMultiplier": 2,
+      "blockFraction": 0.25,
+      "poiseFraction": 0.5
+    },
+    "staggered": {
+      "stance": true,
+      "staminaLoss": 1,
+      "vulnerableStacks": 1,
+      "extendOnly": true
+    },
+    "staggerLimit": 1,
+    "meleeReaches": [
+      "contact",
+      "melee"
+    ],
+    "damageTypeAliases": {
+      "pierce": "piercing",
+      "slash": "slashing",
+      "cold": "frost",
+      "force": "arcane",
+      "holy": "sacred",
+      "necrotic": "decay"
+    },
+    "physicalSchool": "physical",
+    "schoolTagPrefix": "school:"
   }
 }

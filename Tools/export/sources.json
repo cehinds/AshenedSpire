@@ -15,6 +15,7 @@
       "src/content/actionCosts.js",
       "src/content/stanceRules.js",
       "src/content/handRules.js",
+      "src/content/combatRules.js",
       "src/content/enemyKnowledge.js",
       "src/content/ashenBlight.js",
       "src/content/bossDestinations.js"

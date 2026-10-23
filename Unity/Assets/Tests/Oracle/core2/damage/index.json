@@ -1,0 +1,145 @@
+{
+ "coveredEvents": [
+  "attackHit",
+  "attackMissed",
+  "blockBroken",
+  "blockGained",
+  "cardDrawn",
+  "cardExhausted",
+  "cardPlayed",
+  "cardPreparing",
+  "cardResolved",
+  "combatContactPrepared",
+  "combatEnd",
+  "combatGuardBroken",
+  "combatReactionUnavailable",
+  "combatStanceChanged",
+  "damageDealt",
+  "deckShuffled",
+  "enemyActorTurnStarted",
+  "enemyDied",
+  "enemyMoveStarted",
+  "enemyMoveUnavailable",
+  "enemyStaggered",
+  "enemyTurnEnd",
+  "enemyTurnStart",
+  "energySpent",
+  "hpLost",
+  "manaSpent",
+  "perceptionGained",
+  "persistentPoiseChanged",
+  "playerStaggered",
+  "playerTurnEnd",
+  "playerTurnStart",
+  "poiseBroken",
+  "staminaSpent",
+  "statusApplied",
+  "statusExpired",
+  "statusRemoved"
+ ],
+ "coveredOps": [
+  "block",
+  "damage",
+  "gainBarrier"
+ ],
+ "fights": {
+  "herald": {
+   "fights": 32,
+   "steps": 368
+  },
+  "reaver": {
+   "fights": 32,
+   "steps": 380
+  },
+  "rogue": {
+   "fights": 32,
+   "steps": 364
+  },
+  "starseer": {
+   "fights": 32,
+   "steps": 404
+  }
+ },
+ "files": [
+  {
+   "bytes": 1431526,
+   "cases": 150,
+   "file": "receipts-0.json"
+  },
+  {
+   "bytes": 1432152,
+   "cases": 150,
+   "file": "receipts-1.json"
+  },
+  {
+   "bytes": 1443534,
+   "cases": 150,
+   "file": "receipts-2.json"
+  },
+  {
+   "bytes": 1398751,
+   "cases": 145,
+   "file": "receipts-3.json"
+  },
+  {
+   "bytes": 1290105,
+   "classId": "reaver",
+   "fights": 32,
+   "file": "fights-reaver.json",
+   "steps": 380
+  },
+  {
+   "bytes": 1435684,
+   "classId": "starseer",
+   "fights": 32,
+   "file": "fights-starseer.json",
+   "steps": 404
+  },
+  {
+   "bytes": 1294821,
+   "classId": "rogue",
+   "fights": 32,
+   "file": "fights-rogue.json",
+   "steps": 364
+  },
+  {
+   "bytes": 1367504,
+   "classId": "herald",
+   "fights": 32,
+   "file": "fights-herald.json",
+   "steps": 368
+  }
+ ],
+ "mechanics": {
+  "bytes": 16907,
+  "cases": 56,
+  "file": "mechanics.json",
+  "mechanics": [
+   "combat.accuracy",
+   "combat.actionCosts",
+   "combat.perception",
+   "combat.stance",
+   "combat.statuses",
+   "defense.poiseProtection",
+   "defense.wardProtection",
+   "fx_heal",
+   "lifecycle.exhaust",
+   "mechanic.stagger",
+   "status.bleed",
+   "status.frail",
+   "status.strength",
+   "status.vulnerable",
+   "status.weak"
+  ]
+ },
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "refused": 5,
+ "units": {
+  "bytes": 271256,
+  "file": "units.json",
+  "kernel": 27,
+  "units": 160
+ },
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

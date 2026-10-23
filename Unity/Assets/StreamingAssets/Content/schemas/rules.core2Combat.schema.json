@@ -213,6 +213,83 @@
         "targeting"
       ]
     },
+    "damage": {
+      "type": "object",
+      "properties": {
+        "smashVsDefensive": {
+          "type": "object",
+          "properties": {
+            "damageMultiplier": {
+              "type": "number"
+            },
+            "blockFraction": {
+              "type": "number"
+            },
+            "poiseFraction": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "blockFraction",
+            "damageMultiplier",
+            "poiseFraction"
+          ]
+        },
+        "staggered": {
+          "type": "object",
+          "properties": {
+            "stance": {
+              "type": "boolean"
+            },
+            "staminaLoss": {
+              "type": "integer"
+            },
+            "vulnerableStacks": {
+              "type": "integer"
+            },
+            "extendOnly": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "extendOnly",
+            "staminaLoss",
+            "stance",
+            "vulnerableStacks"
+          ]
+        },
+        "staggerLimit": {
+          "type": "integer"
+        },
+        "meleeReaches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "damageTypeAliases": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "physicalSchool": {
+          "type": "string"
+        },
+        "schoolTagPrefix": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "damageTypeAliases",
+        "meleeReaches",
+        "physicalSchool",
+        "schoolTagPrefix",
+        "smashVsDefensive",
+        "staggerLimit",
+        "staggered"
+      ]
+    },
     "enemies": {
       "type": "object",
       "properties": {
@@ -471,6 +548,62 @@
         "naturalMiss",
         "percent",
         "proposalAccuracyDivisor"
+      ]
+    },
+    "mechanics": {
+      "type": "object",
+      "properties": {
+        "registered": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "families": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "familyPrefix": {
+          "type": "string"
+        },
+        "familyTagPrefix": {
+          "type": "string"
+        },
+        "protectionPrefix": {
+          "type": "string"
+        },
+        "rulesOwner": {
+          "type": "string"
+        },
+        "wardTag": {
+          "type": "string"
+        },
+        "actionCostsFamily": {
+          "type": "string"
+        },
+        "actionCostsKey": {
+          "type": "string"
+        },
+        "mountKinds": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "actionCostsFamily",
+        "actionCostsKey",
+        "families",
+        "familyPrefix",
+        "familyTagPrefix",
+        "mountKinds",
+        "protectionPrefix",
+        "registered",
+        "rulesOwner",
+        "wardTag"
       ]
     },
     "perception": {
@@ -733,11 +866,13 @@
     "costs",
     "counter",
     "counterCoverage",
+    "damage",
     "enemies",
     "enemyPressure",
     "formation",
     "hand",
     "hit",
+    "mechanics",
     "perception",
     "plan",
     "range",
