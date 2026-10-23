@@ -25,7 +25,6 @@ namespace Ashen.Generated
         public const string DuplicateBinding = "duplicate binding {0}";
         public const string DuplicateModifier = "duplicate modifier {0}";
         public const string DuplicateTag = "duplicate behavior tag {0}";
-        public const string EnemyReactionsNotPorted = "Core 2 combat: enemy reactions are ported with WP-11";
         public const string EngagementMissing = "Missing engagement pair";
         public const string EventsExpected = "events: expected '{0}' in order, got [{1}]";
         public const string ExpectedArray = "expected array";
@@ -50,7 +49,6 @@ namespace Ashen.Generated
         public const string InvalidTarget = "Invalid {0} target '{1}'";
         public const string InvalidTargetId = "Invalid target '{0}'";
         public const string InvertedBounds = "inverted parameter bounds";
-        public const string KnowledgeCreditNotPorted = "Core 2 combat: banking an enemy's knowledge is ported with WP-11";
         public const string LegacyOp = "legacy op {0} is not portable";
         public const string MechanicParametersPath = "mechanics.{0}.parameters";
         public const string MechanicTagPath = "mechanics.{0}.tag";

@@ -4,8 +4,8 @@ using Newtonsoft.Json.Linq;
 using CK = Ashen.Generated.Core2CombatKeys;
 using CV = Ashen.Generated.Core2CombatValues;
 using DK = Ashen.Generated.Core2DamageKeys;
-using DM = Ashen.Generated.Core2DamageMessages;
 using DV = Ashen.Generated.Core2DamageValues;
+using EV = Ashen.Generated.Core2EnemyValues;
 using E = Ashen.Generated.CombatEvents;
 using HK = Ashen.Generated.Core2HitKeys;
 using HV = Ashen.Generated.Core2HitValues;
@@ -89,31 +89,18 @@ namespace Ashen.Domain.Combat
             }
         }
 
-        /// <summary>
-        /// creditKnowledgeResponse for an evade: a player who failed to read the telegraph is paid Perception when its Evade answers that action, and a
-        /// bankable encounter keeps the counter, which is the run's (WP-11) and refused by name.
-        /// </summary>
-        private static void CreditResponse(CombatState c, JObject ev)
-        {
-            var state = c.Fields.Obj(CK.EnemyKnowledge);
-            var ownerId = V.Player;
-            var enemy = c.Enemies.FirstOrDefault(e => e.Str(K.Id) == ev.Str(K.SourceId));
-            var owner = state?.Obj(DK.Owners)?.Obj(ownerId);
-            var action = enemy?.Obj(CK.KnowledgeAction);
-            var read = action?.Obj(CK.Reads)?.Obj(ownerId);
-            if (read == null || owner == null || action.Is(CK.Cancelled) || !JToken.DeepEquals(ev[HK.EnemyActionSerial] ?? JValue.CreateNull(), action[CK.Serial] ?? JValue.CreateNull())) return;
-            CoreKnowledge.PayPerception(c, enemy, ownerId, DV.ReasonResponse);
-            if (state.Is(DK.Bankable) && state.Is(DK.Encounter) && !Js.Includes(owner[DK.CounterEnemyIds], enemy.Str(K.EnemyId))) throw new NotSupportedException(DM.KnowledgeCreditNotPorted);
-        }
-
-        /// <summary>recordKnowledgeEvent(combat, event): the announced move starts, or the enemy that announced it is gone.</summary>
+        /// <summary>recordKnowledgeEvent(combat, event): the announced move starts, an Evade turns an attack, or the enemy that announced it is gone.</summary>
         public static void RecordKnowledge(CombatState c, JObject ev)
         {
             if (c.Fields[CK.EnemyKnowledge] == null) return;
             var type = ev.Str(K.Type);
+            // A reaction move is not the telegraphed intent; it leaves the pending knowledge action unresolved.
             if (type == E.EnemyMoveStarted && !ev.Is(DK.Reaction)) CoreKnowledge.Resolve(c, c.Enemies.FirstOrDefault(e => e.Str(K.Id) == ev.Str(K.SourceId)));
-            if (type == HV.EventAttackMissed && ev.Str(HK.MissReason) == HV.MissAccuracy && (ev.Is(DK.EvadeActive) || ev.Num(DK.EvadeStacks) > 0) && ev.Str(K.TargetId) == c.Player.Str(K.Id))
-                CreditResponse(c, ev);
+            if (type == HV.EventAttackMissed && ev.Str(HK.MissReason) == HV.MissAccuracy && (ev.Is(DK.EvadeActive) || ev.Num(DK.EvadeStacks) > 0))
+                CoreKnowledge.CreditResponse(c, V.Player, ev.Str(K.SourceId), EV.KindEvade, 1, ev[HK.EnemyActionSerial]);
+            if (type == E.AttackEvaded) CoreKnowledge.CreditResponse(c, V.Player, ev.Str(K.SourceId), EV.KindEvade, 1, ev[HK.EnemyActionSerial]);
+            if (type == HV.EventCombatAvoidanceResolved && ev.Is(HK.Avoided) && (ev.Obj(CK.Evade)?.Is(K.Success) == true || ev.Is(HK.Prevention)))
+                CoreKnowledge.CreditResponse(c, V.Player, ev.Str(K.SourceId), EV.KindEvade, 1, ev[HK.EnemyActionSerial]);
             if (type == E.EnemyDied || type == E.EnemyStaggered)
             {
                 var id = ev.Str(K.TargetId) ?? ev.Str(DK.EnemyInstanceId) ?? ev.Str(K.EnemyId);

@@ -354,6 +354,17 @@ function mounts(combat) {
   return out;
 }
 
+// The stack's enemy entries hold their committed plan (the group with its contacts, the planned actions): the record keeps a compact view of it, which is
+// what the port can hold the same way (the contacts' numbers and the actions' effects and references).
+function compactPlan(plan) {
+  const group = plan.group || {};
+  return {
+    kind: group.kind ?? null, key: group.key ?? null, sourceId: group.sourceId ?? null,
+    targets: Object.fromEntries(Object.entries(group.targets || {}).map(([id, row]) => [id, (row.contacts || []).map((c) => ({ amount: c.amount ?? null, pressure: c.pressure ?? null, effect: c.effect ?? null }))])),
+    actions: (plan.actions || []).map((a) => ({ effect: a.effect, sourceRef: a.sourceRef ?? null, ownerRef: a.ownerRef ?? null, targetRef: a.targetRef ?? null, moveId: a.meta?.moveId ?? null })),
+  };
+}
+
 export function projectFull(combat) {
   const out = {};
   for (const [key, value] of Object.entries(combat)) if (!SKIPPED.has(key) && typeof value !== 'function') out[key] = value;
@@ -363,6 +374,12 @@ export function projectFull(combat) {
     out.pendingReaction = { ...offer, options: offer.options.map(({ range, ...option }) => option) };
   }
   if (out.reactionResume) out.reactionResume = { queue: out.reactionResume.queue.length, foundation: out.reactionResume.foundation ?? null };
+  // The card whose play is held (pendingAbilityPlay, reactionRootPlay) holds its instance, carrier and snapshot by reference in the web: the record keeps what identifies it.
+  for (const key of ['pendingAbilityPlay', 'reactionRootPlay']) {
+    const play = out[key];
+    if (play?.instance) out[key] = canon({ instanceId: play.instance.instanceId, cardId: play.instance.cardId, kind: play.kind, printedManaCost: play.printedManaCost, targetId: play.targetId, ...(play.deferredRoot ? { deferredRoot: true } : {}) });
+  }
+  if (out.reactionStack?.entries) out.reactionStack = { ...out.reactionStack, entries: out.reactionStack.entries.map((entry) => (entry.side === 'enemy' ? { ...entry, plan: canon(compactPlan(entry.plan)) } : entry)) };
   const knowledge = combat.enemyKnowledge ? { ...combat.enemyKnowledge } : null;
   if (knowledge) delete knowledge.rules;
   return canon({
@@ -403,7 +420,7 @@ export function delta(prev, next) {
 // ---------------------------------------------------------------------------------------------------------------
 // Reactions (WP-10). The player's reaction offers are answered by the fight oracles' bots, and every offer must stay inside what the port covers.
 // ---------------------------------------------------------------------------------------------------------------
-export const REACTION_EVENTS = ['combatReactionOffered', 'combatReactionChosen', 'combatReactionStacked', 'combatReactionUnavailable', 'combatReactionFizzled'];
+export const REACTION_EVENTS = ['combatReactionOffered', 'combatReactionChosen', 'combatReactionStacked', 'combatReactionUnavailable', 'combatReactionFizzled', 'combatEnemyReactionStacked'];
 
 /**
  * The bot's answers to the offers the enemies' hits open: half the time it plays the first option of the offer, half the time it goes Back, from its
@@ -485,7 +502,6 @@ export function dispatchAnswering(w, combat, intent, answers) {
   if (!filter) throw new Error('oracle-core2: await reactionFilter(w) before dispatchAnswering');
   const copy = detach(w, combat);
   const mark = copy.eventLog.length;
-  const draws = combat.rng.getCounters().enemyReaction || 0;
   const mine = answers.clone();
   try {
     w.combat.dispatch(copy, structuredClone(intent));
@@ -498,6 +514,5 @@ export function dispatchAnswering(w, combat, intent, answers) {
   } catch (e) { return { copy, mark, error: e.message }; }
   const advance = filter.eventsOutside(copy.eventLog.slice(mark).map((e) => e.type));
   if (advance) return { copy, mark, why: advance };
-  if ((copy.rng.getCounters().enemyReaction || 0) !== draws) return { copy, mark, why: 'enemy reaction draw' };
   return { copy, mark };
 }

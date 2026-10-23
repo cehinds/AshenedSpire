@@ -1,22 +1,22 @@
 {
  "files": [
   {
-   "bytes": 825466,
+   "bytes": 826516,
    "cases": 90,
    "file": "hit-0.json"
   },
   {
-   "bytes": 821495,
+   "bytes": 822020,
    "cases": 90,
    "file": "hit-1.json"
   },
   {
-   "bytes": 829604,
+   "bytes": 831529,
    "cases": 90,
    "file": "hit-2.json"
   },
   {
-   "bytes": 827990,
+   "bytes": 831665,
    "cases": 90,
    "file": "hit-3.json"
   }
@@ -25,7 +25,7 @@
  "profileId": "core",
  "scripts": 2160,
  "seq": {
-  "bytes": 1469133,
+  "bytes": 1469483,
   "file": "seq.json",
   "sequences": 60,
   "steps": 577
@@ -33,7 +33,7 @@
  "skipped": 0,
  "units": {
   "avoidance": 48,
-  "bytes": 433984,
+  "bytes": 434160,
   "cardPreview": 90,
   "evasion": 70,
   "file": "units.json",

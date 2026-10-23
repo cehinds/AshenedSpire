@@ -61,8 +61,15 @@ namespace Ashen.Domain.Combat
         /// </summary>
         public static ExpansionGroup Enqueue(CombatState c, List<CombatAction> actions, JObject source, JObject target, JObject carrier, ActionMeta completionMeta = null)
         {
-            // A Counter's reply is the one reaction carrier a fight queues itself; the carrier of an enemy's reaction move is the enemy package's (WP-11).
-            if (carrier.Is(DK.CombatReaction) && !carrier.Is(DK.CounterReturnAttack)) throw new NotSupportedException(DM.EnemyReactionsNotPorted);
+            // An enemy's reaction move is planned as an attack of its own: the group holds a carrier whose maneuver is attack, and its actions carry that carrier.
+            if (carrier.Is(DK.CombatReaction) && !carrier.Is(DK.CounterReturnAttack))
+            {
+                carrier = Js.Spread(carrier);
+                var reactionProfile = Js.Spread(carrier.Obj(CK.CombatProfile));
+                reactionProfile[CK.Maneuver] = CV.StanceAttack;
+                carrier[CK.CombatProfile] = reactionProfile;
+                foreach (var reactionAction in actions) reactionAction.Card = carrier;
+            }
             if (carrier.Is(DK.ComboHook)) throw new NotSupportedException(DM.ComboNotPorted);
             var serial = Js.Or0(c.Fields[DK.ExpansionActionSerial]) + 1;
             c.Fields[DK.ExpansionActionSerial] = Js.N(serial);

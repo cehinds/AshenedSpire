@@ -234,7 +234,7 @@ namespace Ashen.Domain.Combat
                 card[Ashen.Generated.Core2HitKeys.CounterRequiredRange] = reach;
                 card[DK.ReactionDepth] = Js.N(depth);
                 if (effect.Str(K.Op) == DV.OpWardDamage) card[MK.CombatWardEdgeApplied] = true;
-                queue.Add(new CombatAction { Effect = effect, Source = target, Owner = target, Target = source, Card = card, Meta = new ActionMeta { CombatCounterReaction = true } });
+                queue.Add(new CombatAction { Effect = effect, Source = target, Owner = target, Target = source, Card = card, Meta = new ActionMeta { CombatCounterReaction = true, EnemyKnowledgeActionSerial = source.Obj(Ashen.Generated.Core2CombatKeys.KnowledgeAction)?[Ashen.Generated.Core2CombatKeys.Serial]?.DeepClone() } });
             }
             if (hp > 0) Enqueue(new JObject { [K.Op] = Op.Damage, [CK.Amount] = Js.N(hp) });
             if (poise > 0) Enqueue(new JObject { [K.Op] = Op.PoiseDamage, [CK.Amount] = Js.N(poise) });

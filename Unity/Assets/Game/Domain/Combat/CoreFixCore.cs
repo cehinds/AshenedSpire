@@ -98,7 +98,7 @@ namespace Ashen.Domain.Combat
                     {
                         [DK.OwnerId] = ownerId, [DK.SourceInstanceId] = mount.Key,
                         [DK.Kind] = kinds?[mount.Value.Kind] != null ? kinds[mount.Value.Kind].DeepClone() : Js.S(mount.Value.Kind),
-                        [DK.Tags] = new JArray(mount.Value.ScopeTags), [DK.MechanicBindings] = new JArray(),
+                        [DK.Tags] = mount.Value.MechanicTags.DeepClone(), [DK.MechanicBindings] = mount.Value.MechanicBindings.DeepClone(),
                     });
                 }
             var statuses = entity.Obj(K.Statuses);

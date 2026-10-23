@@ -284,9 +284,8 @@ namespace Ashen.Domain.Combat
                 {
                     var drained = CoreImpact.DrainPoise(c, action.Source, t, amount);
                     CoreCardTraits.TrackOwnPressure(c, action, t, SK.PoiseDealt, drained);
-                    // creditKnowledgeImpact: a reply the player's Counter makes that drains an enemy's Poise pays the Perception of the action it answered (WP-11).
-                    if (drained > 0 && action.Meta?.CombatCounterReaction == true && action.Source?.Str(K.Kind) == V.Player && t.Str(K.Kind) == V.Enemy && c.Fields[CK.EnemyKnowledge] != null)
-                        throw new NotSupportedException(DM.KnowledgeCreditNotPorted);
+                    // creditKnowledgeImpact: a reply the player's Counter makes that drains an enemy's Poise pays the Perception of the action it answered.
+                    CoreKnowledge.CreditImpact(c, t, drained);
                     continue;
                 }
                 var spent = CoreStatusControl.SpendWard(c, t, amount, Js.Obj(K.SourceId, action.Source?[K.Id]));

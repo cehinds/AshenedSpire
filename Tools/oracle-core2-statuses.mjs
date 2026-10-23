@@ -375,7 +375,7 @@ function wardGrid() {
 // play stays within ENEMY_OPS; the others are held (the flag a Poise break sets). Statuses are laid on the fighters by `applyStatus` steps first,
 // so the hooks, the clocks, the controls and the procs run on real turns.
 const DEFERRED_OPS = new Set(['moveEngagement', 'addBurden', 'arcaneBuildup']);
-const FORBIDDEN_EVENT = /counter|engagement|range|burden|flask|swap|formation|characterMoved|enemyReaction/i;
+const FORBIDDEN_EVENT = /counter|engagement|range|burden|flask|swap|formation|characterMoved/i;
 const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'applyStatus', 'block', 'gainBarrier', 'buildup', 'heal', 'wardDamage', 'loseHp', 'removeStatus']);
 const HOSTILE_OPS = new Set(['damage', 'applyStatus', 'buildup', 'poiseDamage', 'wardDamage', 'loseHp', 'stagger', 'arcaneBuildup']);
 const FRIENDLY_TARGETS = new Set(['self', 'owner', 'player', 'ally', 'allAllies']);
@@ -398,20 +398,18 @@ function hasHostileHooks(combat, owner, effects = []) {
   return rows.some(({ trigger }) => (trigger.do || []).some((effect) => HOSTILE_OPS.has(effect.op) && !FRIENDLY_TARGETS.has(effect.target)));
 }
 
-const fightReacts = (combat) => combat.enemies.some((e) => Object.values(combat.registries.enemies.get(e.enemyId).moves || {}).some((m) => m.reaction?.on?.length));
-
 function enemyFits(combat, enemy) {
   if (bandOf(combat, enemy) !== 0) return false;
   const def = combat.registries.enemies.get(enemy.enemyId);
-  const ids = [enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
+  const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
   for (const id of ids) {
     const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
-    if (move.delay) return false;
+    if ((move.delay?.whileCharging?.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
     if (tactics.enemyMoveCarrier(enemy, def.moves[id], id, combat).combatProfile.maneuver === 'counter') return false;
     if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
     if (hasHostileHooks(combat, enemy, move.effects || [])) return false;
   }
-  return !enemy.pendingMove;
+  return true;
 }
 
 // The player's reactions are on in the fights. An offer a hit opens is answered by the bot (half the time it plays the first option, half the time it goes
@@ -500,7 +498,7 @@ function fight(seed, classId, encounter, bot, steps) {
       continue;
     }
     const options = [];
-    if (!fightReacts(combat)) {
+    {
       const targets = combat.enemies.filter((e) => e.alive && bandOf(combat, e) === 0).map((e) => e.id);
       const alive = combat.enemies.filter((e) => e.alive).map((e) => e.id);
       for (const card of combat.piles.hand) {

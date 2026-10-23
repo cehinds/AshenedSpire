@@ -350,6 +350,8 @@ namespace Ashen.Domain.Combat
                 DK.CardInstanceId, instanceId, K.CardId, inst[K.CardId], DK.CardType, kind, DK.CardTags, cardRef[K.Tags] ?? new JArray(), DK.DerivedTags, cardRef[DK.DerivedTags], K.TargetId, target?[K.Id] ?? Js.Null(),
                 DK.OrdinalThisTurn, meta.OrdinalThisTurn, DK.OrdinalThisCombat, meta.OrdinalThisCombat, DK.EnergySpent, cost, DK.ManaSpent, paid[K.Mana], DK.StaminaSpent, staminaCost), before));
             CoreActions.Drain(c);
+            // An enemy reaction window on this card's own root: it resolves when the root resumes.
+            if (CoreReactions.DeferRootPlay(c)) return;
             FinishPlay(c);
         }
 

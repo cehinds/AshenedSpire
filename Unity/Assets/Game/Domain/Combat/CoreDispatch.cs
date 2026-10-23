@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using EV = Ashen.Generated.Core2EnemyValues;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
 using RK = Ashen.Generated.Core2ReactionKeys;
@@ -47,6 +48,9 @@ namespace Ashen.Domain.Combat
                 case RV.IntentChooseDiscard:
                     CoreCardPlay.ChooseDiscard(c, Ids(intent[RK.CardInstanceIds]));
                     if (CoreReactions.RestoreReactionQueue(c) || c.Fields[Ashen.Generated.Core2DamageKeys.ReactionCursor] != null) CoreTurns.Resume(c);
+                    break;
+                case EV.IntentPredictIntent:
+                    CoreKnowledge.Predict(c, Ashen.Generated.CombatValues.Player, intent.Str(Ashen.Generated.Core2DamageKeys.EnemyInstanceId), intent[Ashen.Generated.Core2DamageKeys.ActionSerial], intent.Str(Ashen.Generated.Core2CombatKeys.Maneuver));
                     break;
                 case RV.IntentPlayCard:
                     CoreCardPlay.Play(c, intent.Str(RK.CardInstanceId), intent.Str(RK.TargetId), intent[RK.Choice], intent.Str(RK.RangeRoute));

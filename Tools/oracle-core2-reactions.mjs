@@ -22,7 +22,7 @@
 // its dry run on a detached copy (a) throws nothing, (b) emits only event types in COVERED_EVENTS, (c) leaves no card choice, and (d) every card it
 // plays has only effects in COVERED_OPS. An end turn is dry-run to its end: the same bot answers every offer it opens, from a copy of its LCG.
 // An enemy whose move would break (a) to (c) is marked staggered for that end turn (the flag a Poise break sets), as the WP-7 oracle does. Enemy
-// reactions (WP-11) keep a card out of the record: a fight with a reaction move in it plays no card.
+// reactions, delayed moves and the draws on the enemyReaction stream (WP-11) are inside the filter.
 //
 // What the record leaves out: `intentPreview` of an offer and `range` of an option (the previews the UI reads; no rule reads them), and the queue
 // a paused card holds (`reactionResume.queue` is recorded as its length).
@@ -48,7 +48,7 @@ const classes = classIds(w);
 // ---------------------------------------------------------------------------------------------------------------
 // The filter
 // ---------------------------------------------------------------------------------------------------------------
-const REACTION_EVENTS = ['combatReactionOffered', 'combatReactionChosen', 'combatReactionStacked', 'combatReactionUnavailable', 'combatReactionFizzled'];
+const REACTION_EVENTS = ['combatReactionOffered', 'combatReactionChosen', 'combatReactionStacked', 'combatReactionUnavailable', 'combatReactionFizzled', 'combatEnemyReactionStacked'];
 const COUNTER_EVENTS = ['combatCounterArmed', 'combatCounterConsumed', 'combatCounterTriggered', 'combatGuardBroken', 'combatRangeReturnUnavailable'];
 const COVERED_EVENTS = new Set(['playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared',
   'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
@@ -105,17 +105,17 @@ function enemyFits(combat, enemy) {
   const band = bandOf(combat, enemy);
   if (band === undefined || band > 2) return false;
   const def = combat.registries.enemies.get(enemy.enemyId);
-  const ids = [enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
+  const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
   for (const id of ids) {
     const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
-    if (move.delay) return false;
+    if ((move.delay?.whileCharging?.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
     if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
     if (hasHostileHooks(combat, enemy, move.effects || [])) return false;
     const hostile = move.damage != null || (move.effects || []).some((effect) => HOSTILE_OPS.has(effect.op));
     const range = tactics.enemyMoveCarrier(enemy, def.moves[id], id, combat).combatProfile.range || 'melee';
     if (hostile && RANGES.indexOf(range) < band) return false;
   }
-  return !enemy.pendingMove;
+  return true;
 }
 
 // model/combatCardEffects.js immediateCardEffects: a Counter plans its target by the support that resolves now, not by the reply it defers.
@@ -134,10 +134,6 @@ function playable(combat, card) {
   if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
   return !needsLineage(combat, card);
 }
-
-// Enemy reactions (a reaction move in any enemy's definition) open windows around every card the player plays (WP-11): a fight with one in it
-// records no card play.
-const fightReacts = (combat) => combat.enemies.some((e) => Object.values(combat.registries.enemies.get(e.enemyId).moves || {}).some((m) => m.reaction?.on?.length));
 
 // ---------------------------------------------------------------------------------------------------------------
 // The bot's LCG (own state, never the engine's; cloneable so an end turn can be dry-run with the answers it will give)
@@ -234,14 +230,12 @@ function offerOutside(combat) {
 
 /**
  * The intent played to its end on a detached copy with the answers the bot will give (from a copy of its LCG): nothing outside the filter happens.
- * At every offer the player holds no hostile hook (the range lineage of the candidates that are played to build it, WP-12), and no enemy reaction
- * draws on its stream (WP-11).
+ * At every offer the player holds no hostile hook (the range lineage of the candidates that are played to build it, WP-12).
  */
 function dry(combat, intent, chooser) {
   const copy = detach(w, combat);
   const answers = chooser.clone();
   const mark = copy.eventLog.length;
-  const draws = combat.rng.getCounters().enemyReaction || 0;
   try {
     w.combat.dispatch(copy, structuredClone(intent));
     for (let n = 0; copy.pendingReaction; n++) {
@@ -256,7 +250,6 @@ function dry(combat, intent, chooser) {
   if (bad) return why(`event ${bad}`);
   // A reply that must close the distance on its own Stamina pays to advance (WP-12): a payment that follows a Counter's trigger and no card.
   if (types.some((t, i) => (t === 'energySpent' || t === 'staminaSpent') && types.slice(0, i).reverse().find((x) => ['cardPreparing', 'combatCounterTriggered', 'enemyMoveStarted'].includes(x)) === 'combatCounterTriggered')) return why('a reply pays to advance');
-  if ((copy.rng.getCounters().enemyReaction || 0) !== draws) return why('enemy reaction draw');
   if (copy.pendingCardChoice || copy.pendingAbilityDiscard) return why('pending choice');
   return { ok: true };
 }
@@ -313,7 +306,6 @@ function settle(combat, step, lcg) {
 /** The play intents the filter lets through for the current hand, each with the targets it can have. */
 function options(combat, lcg) {
   const out = [];
-  if (fightReacts(combat)) return out;
   const targets = combat.enemies.filter((e) => e.alive && bandOf(combat, e) === 0).map((e) => e.id);
   for (const card of combat.piles.hand) {
     if (!playable(combat, card)) continue;

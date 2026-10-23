@@ -30,6 +30,12 @@ namespace Ashen.Domain.Combat
         public JObject StashedPlayRef;
         public JObject StashedPlayBefore;
 
+        /// <summary>web <c>ctx.enqueue</c> swapped for a sink while an enemy's reaction is planned: what the planner queues is kept as the plan instead of being run.</summary>
+        public List<CombatAction> EnqueueSink;
+
+        /// <summary>The committed plans of the enemy entries on the reaction stack, by <c>ownerId:groupKey</c> (the state holds a compact view of each).</summary>
+        public Dictionary<string, EnemyPlan> EnemyPlans = new Dictionary<string, EnemyPlan>();
+
         /// <summary>web <c>ctx._rangeContext</c>: the incoming attack's quote a reply nested in it prices its reach against.</summary>
         public JObject RangeContext;
 
@@ -90,6 +96,7 @@ namespace Ashen.Domain.Combat
                 RangeContext = Copy(RangeContext),
                 RangeIncoming = Copy(RangeIncoming),
             };
+            foreach (var plan in EnemyPlans) copy.EnemyPlans[plan.Key] = plan.Value.CloneDeep();
             copy.Piles.Draw = Piles.Draw.Select(card => Copy(card)).ToList();
             copy.Piles.Hand = Piles.Hand.Select(card => Copy(card)).ToList();
             copy.Piles.Discard = Piles.Discard.Select(card => Copy(card)).ToList();
@@ -102,7 +109,8 @@ namespace Ashen.Domain.Combat
                 {
                     var sources = new OrderedMap<PropertyMount>();
                     foreach (var source in owner.Value.Entries())
-                        sources[source.Key] = new PropertyMount { Kind = source.Value.Kind, Id = source.Value.Id, InstanceId = source.Value.InstanceId, Rules = source.Value.Rules.Select(rule => Copy(rule)).ToList(), ScopeTags = source.Value.ScopeTags?.ToList() };
+                        sources[source.Key] = new PropertyMount { Kind = source.Value.Kind, Id = source.Value.Id, InstanceId = source.Value.InstanceId, Rules = source.Value.Rules.Select(rule => Copy(rule)).ToList(), ScopeTags = source.Value.ScopeTags?.ToList(),
+                            MechanicTags = (JArray)source.Value.MechanicTags.DeepClone(), MechanicBindings = (JArray)source.Value.MechanicBindings.DeepClone(), ConfiguredEnemy = source.Value.ConfiguredEnemy };
                     copy.PropertyMounts[owner.Key] = sources;
                 }
             }

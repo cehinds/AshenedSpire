@@ -4,6 +4,7 @@ namespace Ashen.Generated
     /// <summary>Numbers of the enemy package: the knowledge ledger bounds and the stage shares.</summary>
     public static class Core2EnemyNumbers
     {
+        public const double FeedbackMax = 12;
         public const double GrowthMax = 10;
         public const double KeyLengthMax = 256;
         public const double MasteryTargetMax = 50;

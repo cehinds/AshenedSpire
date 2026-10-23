@@ -11,6 +11,9 @@ namespace Ashen.Domain.Combat
         /// <summary>meta.killReceipt: what a kill by a damage-over-time effect is credited with (the statuses the target held before, the source).</summary>
         public JObject KillReceipt;
 
+        /// <summary>meta.enemyKnowledgeActionSerial: the serial of the telegraphed action a Counter's reply answers (the attacker's knowledge action).</summary>
+        public JToken EnemyKnowledgeActionSerial;
+
         /// <summary>meta.choice: the pick a played card was paid with (a chosen stance or maneuver).</summary>
         public JToken Choice;
 

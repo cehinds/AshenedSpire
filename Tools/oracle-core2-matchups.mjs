@@ -82,14 +82,14 @@ const maneuverOfMove = (combat, enemy, id) => tactics.enemyMoveCarrier(enemy, co
 function enemyFits(combat, enemy) {
   if (bandOf(combat, enemy) !== 0) return false;
   const def = combat.registries.enemies.get(enemy.enemyId);
-  const ids = [enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
+  const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
   for (const id of ids) {
     const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
-    if (move.delay) return false;
+    if ((move.delay?.whileCharging?.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
     if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
     if (hasHostileHooks(combat, enemy, move.effects || [])) return false;
   }
-  return !enemy.pendingMove;
+  return true;
 }
 
 // The fights leave the player's reactions on: an offer a hit opens is answered by the bot (half the time it plays the first option, half the time it goes
@@ -132,10 +132,6 @@ function playable(combat, card) {
   if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
   return !hasHostileHooks(combat, combat.player, def.effects);
 }
-
-// Enemy reactions (a reaction move in any enemy's definition) open windows around every card the player plays (WP-11): a fight with one in it
-// records no card play.
-const fightReacts = (combat) => combat.enemies.some((e) => Object.values(combat.registries.enemies.get(e.enemyId).moves || {}).some((m) => m.reaction?.on?.length));
 
 // ---------------------------------------------------------------------------------------------------------------
 // Overlay and recording
@@ -220,7 +216,6 @@ function endTurn(combat, step) {
 /** The play intents the filter lets through for the current hand, each with the targets it can have. */
 function options(combat) {
   const out = [];
-  if (fightReacts(combat)) return out;
   const targets = combat.enemies.filter((e) => e.alive && bandOf(combat, e) === 0).map((e) => e.id);
   for (const card of combat.piles.hand) {
     if (!playable(combat, card)) continue;
@@ -274,7 +269,6 @@ function search({ base, count, classIds: wanted = classes, pool = all, hand, pat
     const spec = { seed: seedAt(n), classId, encounterId: encounter.id, ...(hand ? { hand } : {}), ...(patch ? { patch } : {}) };
     let combat;
     try { combat = open(spec); } catch { continue; }
-    if (fightReacts(combat)) continue;
     if (need.some((cardId) => { const card = combat.piles.hand.find((c) => c.cardId === cardId); return !card || !playable(combat, card); })) continue;
     const why = want(combat);
     if (why) found.push({ spec, why });

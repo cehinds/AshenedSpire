@@ -30,6 +30,13 @@ namespace Ashen.Domain.Combat
         public string InstanceId;
         public List<JObject> Rules;
         public List<string> ScopeTags;
+
+        /// <summary>mount.mechanicTags and mechanicBindings: the mechanics the carrier attaches (an enemy's pinned gear and relics), empty for a carrier that attaches none.</summary>
+        public JArray MechanicTags = new JArray();
+        public JArray MechanicBindings = new JArray();
+
+        /// <summary>mount.configuredEnemy: the carrier is one of an enemy's pinned slots (it is re-synced from the profile row).</summary>
+        public bool ConfiguredEnemy;
     }
 
     /// <summary>What caused a queued action (shipped action.meta).</summary>
@@ -190,7 +197,11 @@ namespace Ashen.Domain.Combat
             return ev;
         }
 
-        public void Enqueue(CombatAction action) => Queue.AddLast(action);
+        public void Enqueue(CombatAction action)
+        {
+            if (EnqueueSink != null) EnqueueSink.Add(action);
+            else Queue.AddLast(action);
+        }
 
         public string NextInstanceId()
         {

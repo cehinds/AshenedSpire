@@ -41,12 +41,19 @@ namespace Ashen.Tests
         // ------------------------------------------------------------------ opening a fight
 
         /// <summary>The fight a record names: the run (patched), the cards laid over it, a solo encounter of the fight's own, the knowledge ledger, the patch merged over the fighters.</summary>
-        internal static CombatState Open(JObject spec)
+        internal static CombatState Open(JObject spec) => Open(spec, out _);
+
+        internal static CombatState Open(JObject spec, out JObject run)
         {
             var data = Core2DamageParityTests.Data;
             var seed = (uint)spec["seed"].Value<long>();
-            var run = CoreRunRules.Create(data.Run, seed, spec.Value<string>("classId"), CoreRunOptions.FromJson(null, Core2DamageParityTests.Unlocked));
+            run = CoreRunRules.Create(data.Run, seed, spec.Value<string>("classId"), CoreRunOptions.FromJson(null, Core2DamageParityTests.Unlocked));
             if (spec["runPatch"] is JObject runPatch) Core2DamageParityTests.Merge(run, runPatch);
+            if (spec["knowledge"] is JObject knowledge)
+            {
+                run["enemyKnowledgeRules"] = data.EnemyKnowledgeRules.DeepClone();
+                CoreKnowledgeLedger.OpenRun(run, knowledge.Value<string>("receiptId"), knowledge.Value<bool?>("bankable") != false);
+            }
             if (spec["deckRemove"] is JArray remove)
             {
                 var ids = remove.Select(t => t.Value<string>()).ToList();
@@ -389,6 +396,169 @@ namespace Ashen.Tests
                     ["rng"] = Counters(c),
                 };
                 Core2DamageParityTests.Same("read " + unit["spec"].Value<string>("encounterId") + " roll " + n++, want, got);
+            }
+        }
+
+        // ------------------------------------------------------------------ units: the gear an enemy is pinned to
+
+        public static IEnumerable<TestCaseData> MountCases()
+        {
+            if (!File.Exists(Path.Combine(Dir, "units.json"))) yield break;
+            var rows = Rows("units.json", "mounts");
+            for (var i = 0; i < rows.Count; i++) yield return new TestCaseData(i).SetName("Core2EnemyMount_" + rows[i].Value<string>("enemyId"));
+        }
+
+        private static JObject MountSummary(CombatState c, JObject enemy, string label)
+        {
+            var mounts = new JObject();
+            if (c.PropertyMounts != null && c.PropertyMounts.TryGetValue(enemy.Value<string>("id"), out var owned))
+                foreach (var pair in owned.Entries())
+                    mounts[pair.Key] = new JObject
+                    {
+                        ["kind"] = pair.Value.Kind, ["id"] = pair.Value.Id, ["instanceId"] = pair.Value.InstanceId, ["scopeTags"] = new JArray(pair.Value.ScopeTags),
+                        ["mechanicTags"] = pair.Value.MechanicTags.DeepClone(), ["mechanicBindings"] = pair.Value.MechanicBindings.DeepClone(), ["configuredEnemy"] = pair.Value.ConfiguredEnemy, ["rules"] = pair.Value.Rules.Count,
+                    };
+            return new JObject { ["label"] = label, ["mounts"] = mounts, ["attachments"] = new JArray(CoreFixCore.Attachments(c, enemy)) };
+        }
+
+        /// <summary>No gear of the profile attaches a mechanic, so a row of the fight's own profile is laid with one, synced, synced again and taken off.</summary>
+        [TestCaseSource(nameof(MountCases))]
+        public void ThePinnedGearMountsWhatItAttaches(int index)
+        {
+            var unit = (JObject)Rows("units.json", "mounts")[index];
+            var c = Open((JObject)unit["spec"]);
+            var enemy = c.Enemies[0];
+            var gear = Ashen.Generated.Core2ProfileContentKeys.Gear;
+            var row = ((JArray)c.CoreData.Content(gear)).OfType<JObject>().First(r => r.Value<string>("id") == unit.Value<string>("gearId"));
+            var steps = ((JArray)unit["steps"]).OfType<JObject>().ToList();
+            try
+            {
+                Core2DamageParityTests.Same("mount start", steps[0], MountSummary(c, enemy, "start"));
+                row["mechanicTags"] = new JArray("defense:poiseProtection");
+                CoreEnemies.SyncConfiguredProperties(c);
+                Core2DamageParityTests.Same("mount mounted", steps[1], MountSummary(c, enemy, "mounted"));
+                CoreEnemies.SyncConfiguredProperties(c);
+                Core2DamageParityTests.Same("mount again", steps[2], MountSummary(c, enemy, "again"));
+                row["mechanicTags"] = new JArray();
+                CoreEnemies.SyncConfiguredProperties(c);
+                Core2DamageParityTests.Same("mount removed", steps[3], MountSummary(c, enemy, "removed"));
+            }
+            finally { row.Remove("mechanicTags"); }
+        }
+
+        // ------------------------------------------------------------------ fights and exchanges
+
+        public static IEnumerable<string> FightFiles() =>
+            Directory.Exists(Dir) ? Directory.GetFiles(Dir, "fights-*.json").Select(Path.GetFileName).OrderBy(f => f, StringComparer.Ordinal) : Enumerable.Empty<string>();
+
+        public static IEnumerable<TestCaseData> Fights()
+        {
+            foreach (var file in FightFiles())
+            {
+                var fights = (JArray)Read(file)["fights"];
+                for (var i = 0; i < fights.Count; i++)
+                    yield return new TestCaseData(file, i).SetName("Core2EnemyFight_" + Path.GetFileNameWithoutExtension(file).Replace("fights-", string.Empty) + "_" + i);
+            }
+        }
+
+        public static IEnumerable<TestCaseData> Exchanges()
+        {
+            if (!File.Exists(Path.Combine(Dir, "exchanges.json"))) yield break;
+            var rows = Rows("exchanges.json", "exchanges");
+            for (var i = 0; i < rows.Count; i++) yield return new TestCaseData(i).SetName("Core2EnemyExchange_" + rows[i].Value<string>("kind") + "_" + i);
+        }
+
+        [TestCaseSource(nameof(Fights))]
+        public void TheFightPlaysAsTheWebPlaysIt(string file, int index) => Replay((JObject)((JArray)Read(file)["fights"])[index], file + "[" + index + "]");
+
+        [TestCaseSource(nameof(Exchanges))]
+        public void TheExchangePlaysAsTheWebPlaysIt(int index)
+        {
+            var exchange = (JObject)Rows("exchanges.json", "exchanges")[index];
+            Replay(exchange, exchange.Value<string>("kind") + "[" + index + "] " + exchange.Value<string>("label"));
+        }
+
+        private static readonly HashSet<string> PayloadTypes = new HashSet<string>
+        {
+            "combatReactionOffered", "combatReactionChosen", "combatReactionStacked", "combatReactionUnavailable", "combatReactionFizzled", "combatEnemyReactionStacked",
+            "combatCounterArmed", "combatCounterConsumed", "combatCounterTriggered", "combatGuardBroken", "combatRangeReturnUnavailable",
+            "perceptionGained", "intentPredictionAccepted", "enemyMoveStarted", "combatHitStarted", "enemyActorTurnStarted",
+        };
+
+        private static readonly string[] Decoration = { "abilityBefore", "abilityEntities", "cardTargetsAllEnemies", "intentPreview", "actionPreview", "intent" };
+
+        private static JToken Sorted(JToken token)
+        {
+            if (token is JObject o) return new JObject(o.Properties().OrderBy(p => p.Name, StringComparer.Ordinal).Select(p => new JProperty(p.Name, Sorted(p.Value))));
+            if (token is JArray a) return new JArray(a.Select(Sorted));
+            return token.DeepClone();
+        }
+
+        /// <summary>The events of a step whose payload the port builds too: the reactions', the Counter's, the moves' and the knowledge events, and the Block a Counter adds.</summary>
+        private static JArray Payloads(CombatState c, int mark) => new JArray(c.EventLog.Skip(mark)
+            .Where(e => PayloadTypes.Contains(e.Value<string>("type")) || (e.Value<string>("type") == "blockGained" && e.Value<string>("source") == "counter"))
+            .Select(e =>
+            {
+                // The web leaves these four undefined where the port holds null (see CoreMatchups.EventCarrier).
+                var copy = (JObject)Sorted(e);
+                foreach (var key in new[] { "cardId", "cardInstanceId", "cardType", "abilityKind" }) if (copy[key]?.Type == JTokenType.Null && e.Value<string>("type") != "combatReactionChosen") copy.Remove(key);
+                foreach (var key in Decoration) copy.Remove(key);
+                return copy;
+            }));
+
+        /// <summary>The offer the fight is paused on, as the oracle records it (offerOf): null when it is not paused on one.</summary>
+        private static JToken Offer(CombatState c)
+        {
+            var pending = c.Fields["pendingReaction"] as JObject;
+            if (pending == null) return JValue.CreateNull();
+            return Sorted(new JObject
+            {
+                ["id"] = pending["id"].DeepClone(), ["groupKey"] = pending["groupKey"].DeepClone(), ["ownerId"] = pending["ownerId"].DeepClone(), ["sourceId"] = pending["sourceId"].DeepClone(),
+                ["options"] = new JArray(((JArray)pending["options"]).OfType<JObject>().Select(o =>
+                {
+                    var row = new JObject
+                    {
+                        ["id"] = o["id"].DeepClone(), ["cardId"] = o["cardId"].DeepClone(), ["name"] = o["name"].DeepClone(), ["staminaCost"] = o["staminaCost"].DeepClone(), ["manaCost"] = o["manaCost"].DeepClone(),
+                        ["choiceName"] = o["choiceName"].DeepClone(), ["play"] = o["play"].DeepClone(),
+                    };
+                    if (o["incoming"] != null) row["incoming"] = o["incoming"].DeepClone();
+                    if (o["sourceId"] != null) row["sourceId"] = o["sourceId"].DeepClone();
+                    return row;
+                })),
+            });
+        }
+
+        /// <summary>Plays one recorded fight or exchange on the port and holds it to the web after every step.</summary>
+        internal static void Replay(JObject record, string label)
+        {
+            var c = Open(record, out var run);
+            JToken want = record["start"]["state"].DeepClone();
+            Core2CombatStartParityTests.Same(label + " start", want, Core2CombatStartParityTests.Project(c));
+            Assert.That(Core2CombatStartParityTests.Events(c, 0), Is.EqualTo(record["start"]["events"].Select(t => t.Value<string>()).ToList()), label + " start events");
+            var n = 0;
+            foreach (var step in ((JArray)record["steps"]).OfType<JObject>())
+            {
+                var intent = (JObject)step["intent"];
+                var at = $"{label} step {n++} {intent.Value<string>("type")}";
+                var mark = c.EventLog.Count;
+                foreach (var id in (step["staggered"] as JArray ?? new JArray()).Select(t => t.Value<string>()))
+                    c.Enemies.First(e => e.Value<string>("id") == id)["skipNextTurn"] = true;
+                if (step["error"] != null)
+                {
+                    Assert.Throws<InvalidOperationException>(() => CoreDispatch.Dispatch(c, intent), at + " the web refused this intent: " + step["error"]);
+                    continue;
+                }
+                CoreDispatch.Dispatch(c, intent);
+                want = Core2CombatStartParityTests.Apply(want, step["delta"]);
+                Assert.That(string.Join(" ", Core2CombatStartParityTests.Events(c, mark)), Is.EqualTo(string.Join(" ", step["events"].Select(t => t.Value<string>()))), at + " events");
+                Core2CombatStartParityTests.Same(at, want, Core2CombatStartParityTests.Project(c));
+                Core2DamageParityTests.Same(at + " payloads", step["payloads"], Payloads(c, mark));
+                Core2DamageParityTests.Same(at + " offer", step["offer"], Offer(c));
+            }
+            if (record["ledger"] is JObject ledger)
+            {
+                CoreKnowledge.Reconcile(run, c);
+                Core2DamageParityTests.Same(label + " ledger", ledger, new JObject { ["state"] = run["enemyKnowledgeState"].DeepClone(), ["perception"] = run["skills"]["perception"].DeepClone() });
             }
         }
     }

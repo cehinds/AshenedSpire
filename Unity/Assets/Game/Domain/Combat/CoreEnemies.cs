@@ -7,6 +7,8 @@ using Newtonsoft.Json.Linq;
 using CK = Ashen.Generated.Core2CombatKeys;
 using CM = Ashen.Generated.Core2CombatMessages;
 using CV = Ashen.Generated.Core2CombatValues;
+using EK = Ashen.Generated.Core2EnemyKeys;
+using EV = Ashen.Generated.Core2EnemyValues;
 using PC = Ashen.Generated.Core2ProfileContentKeys;
 using RC = Ashen.Generated.Core2RunKeys;
 using K = Ashen.Generated.CombatKeys;
@@ -260,7 +262,7 @@ namespace Ashen.Domain.Combat
             };
         }
 
-        /// <summary>syncConfiguredEnemyProperties(ctx): an enemy's pinned gear and relics mount their property rules; none of the profile's carry mechanics yet, so a row that does is refused by name.</summary>
+        /// <summary>syncConfiguredEnemyProperties(ctx): an enemy holds exactly its pinned gear and relic slots; those that attach mechanics mount them.</summary>
         public static void SyncConfiguredProperties(CombatState c)
         {
             if (!CoreFixCore.Enabled(c)) return;
@@ -268,13 +270,16 @@ namespace Ashen.Domain.Combat
             {
                 var row = EnemyRow(c, enemy.Str(K.EnemyId));
                 if (row == null) continue;
-                foreach (var (field, catalog) in new[] { (CK.DefaultGear, PC.Gear), (CK.DefaultRelics, PC.EnemyRelics) })
+                var carriers = new List<(string Kind, string Id, string InstanceId, List<string> Tags, JArray MechanicTags, JArray MechanicBindings)>();
+                foreach (var (field, catalog, relic) in new[] { (CK.DefaultGear, PC.Gear, false), (CK.DefaultRelics, PC.EnemyRelics, true) })
                     foreach (var slot in Js.Items(row[field]).OfType<JObject>())
                     {
                         var source = Js.Items(c.CoreData.Content(catalog)).OfType<JObject>().FirstOrDefault(r => r.Str(K.Id) == slot.Str(K.Id));
-                        if (source != null && (Js.Items(source[CK.MechanicTags]).Any() || Js.Items(source[CK.MechanicBindings]).Any()))
-                            throw new NotSupportedException(CM.EnemyMechanicsNotPorted);
+                        if (source == null || !(Js.Items(source[CK.MechanicTags]).Any() || Js.Items(source[CK.MechanicBindings]).Any())) continue;
+                        carriers.Add((relic ? V.RelicKind : source.Str(K.Kind) == V.Armor ? V.ArmourKind : V.ArmamentRefPrefix, source.Str(K.Id), source.Str(K.Id) + EV.SlotSeparator + slot.Str(EK.SlotKey),
+                            Js.Items(source[K.PropertyTags]).Select(Js.Str).ToList(), new JArray(Js.Items(source[CK.MechanicTags]).Select(t => t.DeepClone())), (JArray)(source[CK.MechanicBindings]?.DeepClone() ?? new JArray())));
                     }
+                Properties.SyncConfiguredEnemy(c, enemy, carriers);
             }
         }
     }

@@ -7,6 +7,8 @@ using Newtonsoft.Json.Linq;
 using CC = Ashen.Generated.Core2CombatKeys;
 using CK = Ashen.Generated.Core2RunKeys;
 using CV = Ashen.Generated.Core2CombatValues;
+using EK = Ashen.Generated.Core2EnemyKeys;
+using EV = Ashen.Generated.Core2EnemyValues;
 using K = Ashen.Generated.CombatKeys;
 using MI = Ashen.Generated.Core2ModuleIds;
 using RK = Ashen.Generated.RunKeys;
@@ -141,10 +143,28 @@ namespace Ashen.Domain.Run
             args[K.HandRules] = HandRules(d, run);
             args[CC.ReactionRules] = run[SK.ReactionRules]?.DeepClone();
             args[CC.CombatExpansionRules] = run[SK.CombatExpansionRules]?.DeepClone();
+            // A run that carries enemy knowledge (a ruleset that opens it, never a configured run's) accepts the fight as an encounter of its ledger.
+            JObject knowledgeRun = null;
+            if (run.Obj(EK.EnemyKnowledgeState) != null)
+            {
+                knowledgeRun = Js.Spread(run);
+                var profile = Ashen.Domain.Combat.CoreKnowledgeLedger.Empty();
+                var enemies = Js.Items(args[K.EnemyIds]).Select(Js.Str).ToList();
+                var encounter = Ashen.Domain.Combat.CoreKnowledgeLedger.OpenEncounter(knowledgeRun, Js.Truthy(run[RK.MapNodeId]) ? Js.Str(run[RK.MapNodeId]) : EV.KnowledgeNodeDefault,
+                    Js.Truthy(args[CK.EncounterId]) ? Js.Str(args[CK.EncounterId]) : string.Join(Ashen.Generated.CombatValues.ListSeparator, enemies), enemies, profile);
+                var state = knowledgeRun.Obj(EK.EnemyKnowledgeState);
+                args[CC.Knowledge] = new JObject
+                {
+                    [CC.Rules] = run[EK.EnemyKnowledgeRules].DeepClone(), [CC.Encounter] = encounter.DeepClone(), [CC.Bankable] = state[EK.Bankable].DeepClone(),
+                    [EK.Profiles] = new JObject { [Ashen.Generated.CombatValues.Player] = Ashen.Domain.Combat.CoreKnowledgeLedger.Merge(state.Obj(EK.Pending), profile) },
+                };
+            }
             var statuses = new JArray(Js.Items(args[K.PlayerStatuses]).Select(s => s.DeepClone()));
             foreach (var s in Js.Items(args[CC.StartStatuses])) statuses.Add(s.DeepClone());
             args[K.PlayerStatuses] = statuses;
-            return CoreCombatStart.Create(d, rng, args);
+            var combat = CoreCombatStart.Create(d, rng, args);
+            if (knowledgeRun != null) run[EK.EnemyKnowledgeState] = knowledgeRun[EK.EnemyKnowledgeState].DeepClone();
+            return combat;
         }
     }
 }

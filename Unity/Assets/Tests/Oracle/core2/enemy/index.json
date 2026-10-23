@@ -57,6 +57,7 @@
   "statusApplied",
   "statusExpired",
   "statusGaugeFilled",
+  "statusPoiseBreak",
   "statusPressure",
   "statusRecoveryRolled",
   "statusRemoved"
@@ -85,7 +86,68 @@
   "moves": 138,
   "picks": 33000
  },
- "files": [],
+ "exchanges": {
+  "bytes": 2563991,
+  "count": 91,
+  "file": "exchanges.json",
+  "kinds": [
+   "predict",
+   "predictRefused",
+   "credit",
+   "duelist",
+   "knight",
+   "delayed"
+  ],
+  "steps": 576
+ },
+ "fights": {
+  "herald": {
+   "fights": 6,
+   "steps": 102
+  },
+  "reaver": {
+   "fights": 6,
+   "steps": 160
+  },
+  "rogue": {
+   "fights": 6,
+   "steps": 111
+  },
+  "starseer": {
+   "fights": 6,
+   "steps": 150
+  }
+ },
+ "files": [
+  {
+   "bytes": 419355,
+   "classId": "reaver",
+   "fights": 6,
+   "file": "fights-reaver.json",
+   "steps": 160
+  },
+  {
+   "bytes": 474058,
+   "classId": "starseer",
+   "fights": 6,
+   "file": "fights-starseer.json",
+   "steps": 150
+  },
+  {
+   "bytes": 318798,
+   "classId": "rogue",
+   "fights": 6,
+   "file": "fights-rogue.json",
+   "steps": 111
+  },
+  {
+   "bytes": 356090,
+   "classId": "herald",
+   "fights": 6,
+   "file": "fights-herald.json",
+   "steps": 102
+  }
+ ],
  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
  "profileId": "core",
  "seen": {
@@ -102,10 +164,11 @@
   "unavailable": 0
  },
  "units": {
-  "bytes": 1202184,
+  "bytes": 1208221,
   "decisions": 384,
   "file": "units.json",
   "ledger": 246,
+  "mounts": 4,
   "reactions": 24,
   "reads": 35
  },

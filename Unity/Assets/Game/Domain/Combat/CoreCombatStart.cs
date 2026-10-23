@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using CK = Ashen.Generated.Core2CombatKeys;
 using CM = Ashen.Generated.Core2CombatMessages;
 using CV = Ashen.Generated.Core2CombatValues;
+using EK = Ashen.Generated.Core2EnemyKeys;
 using E = Ashen.Generated.CombatEvents;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
@@ -242,7 +243,9 @@ namespace Ashen.Domain.Combat
             }
             CoreRange.InitializeFormation(c);
             CoreRange.InitializeRange(c, args.Obj(CK.RangePolicy));
-            CoreKnowledge.Initialize(c, d.EnemyKnowledgeRules);
+            var knowledge = args.Obj(EK.Knowledge);
+            if (knowledge != null) CoreKnowledge.Initialize(c, knowledge.Obj(CK.Rules), knowledge.Obj(CK.Encounter), knowledge.Is(CK.Bankable), knowledge.Obj(EK.Profiles));
+            else CoreKnowledge.Initialize(c, d.EnemyKnowledgeRules);
 
             // The configured ratings: the player's from the run's receipt, each enemy's from its pinned profile row.
             c.Player[CK.Ratings] = Js.Spread(new JObject { [CK.RatingAr] = 0, [CK.RatingDr] = 0, [CK.RatingPr] = 0, [CK.RatingWard] = 0, [CK.RatingPoise] = Js.N(poiseMax) }, player.Obj(CK.Ratings));

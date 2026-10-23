@@ -8,6 +8,7 @@ using CM = Ashen.Generated.Core2CombatMessages;
 using CV = Ashen.Generated.Core2CombatValues;
 using DK = Ashen.Generated.Core2DamageKeys;
 using DV = Ashen.Generated.Core2DamageValues;
+using EV = Ashen.Generated.Core2EnemyValues;
 using E = Ashen.Generated.CombatEvents;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
@@ -292,14 +293,32 @@ namespace Ashen.Domain.Combat
                         enemy.Put(K.SkipNextTurn, false);
                         enemy.Put(CK.PlanDue, false);
                     }
-                    else if (Js.Truthy(enemy[K.PendingMove])) throw new NotSupportedException(CM.DelayedMoveNotPorted);
+                    else if (Js.Truthy(enemy[K.PendingMove]))
+                    {
+                        // A delayed move resolving: the committed attack lands regardless of newly rolled intents.
+                        enemy.Put(CK.PlanDue, false);
+                        if (c.Turn >= enemy.Obj(K.PendingMove).Num(K.ResolveOnTurn))
+                        {
+                            var def = c.Data.Enemies.Get(enemy.Str(K.EnemyId));
+                            var moveId = enemy.Obj(K.PendingMove).Str(K.MoveId);
+                            enemy[K.PendingMove] = Js.Null();
+                            CoreEnemyMoves.Execute(c, enemy, def.Obj(K.Moves).Obj(moveId), moveId);
+                        }
+                        // else: still charging (delay.turns > 1): the enemy does nothing.
+                    }
                     else if (Js.Truthy(enemy[K.Intent]) && Js.Truthy(enemy.Obj(K.Intent)[K.MoveId]))
                     {
                         var def = c.Data.Enemies.Get(enemy.Str(K.EnemyId));
                         var moveId = enemy.Obj(K.Intent).Str(K.MoveId);
                         var move = CoreIntents.Expanded(c, enemy, def.Obj(K.Moves).Obj(moveId), moveId);
-                        if (Js.Truthy(move[K.Delay])) throw new NotSupportedException(CM.DelayedMoveNotPorted);
-                        CoreEnemyMoves.Execute(c, enemy, move, moveId);
+                        if (Js.Truthy(move[K.Delay]))
+                        {
+                            // A charging move takes the enemy's turn: its planned follow-ups do not play this turn.
+                            enemy.Put(CK.PlanDue, false);
+                            enemy[CK.PlannedMoves] = new JArray();
+                            CoreEnemyMoves.StartDelayed(c, enemy, move, moveId);
+                        }
+                        else CoreEnemyMoves.Execute(c, enemy, move, moveId);
                     }
                 }
                 CoreActions.Drain(c);
@@ -321,8 +340,13 @@ namespace Ashen.Domain.Combat
                     if (rows == null) trace[enemy.Str(K.Id)] = rows = new JArray();
                     rows.Add(traced);
                     var move = CoreIntents.Expanded(c, enemy, def.Obj(K.Moves).Obj(next.Str(K.MoveId)), next.Str(K.MoveId));
-                    if (Js.Truthy(move[K.Delay])) throw new NotSupportedException(CM.DelayedMoveNotPorted);
-                    traced[DK.Outcome] = CoreEnemyMoves.Execute(c, enemy, move, next.Str(K.MoveId)) ?? DV.OutcomePlayed;
+                    if (Js.Truthy(move[K.Delay]))
+                    {
+                        enemy[CK.PlannedMoves] = new JArray();
+                        traced[DK.Outcome] = EV.OutcomeCharging;
+                        CoreEnemyMoves.StartDelayed(c, enemy, move, next.Str(K.MoveId));
+                    }
+                    else traced[DK.Outcome] = CoreEnemyMoves.Execute(c, enemy, move, next.Str(K.MoveId)) ?? DV.OutcomePlayed;
                     CoreActions.Drain(c);
                     if (CoreReactions.Paused(c)) return;
                     if (c.Result != null) return;

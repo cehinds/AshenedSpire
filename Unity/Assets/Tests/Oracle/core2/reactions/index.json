@@ -14,6 +14,7 @@
   "combatCounterConsumed",
   "combatCounterTriggered",
   "combatEnd",
+  "combatEnemyReactionStacked",
   "combatGuardBroken",
   "combatHitStarted",
   "combatRangeReturnUnavailable",
@@ -73,8 +74,8 @@
   "core.defend"
  ],
  "exchanges": {
-  "bytes": 1740274,
-  "count": 95,
+  "bytes": 1879330,
+  "count": 99,
   "file": "exchanges.json",
   "kinds": [
    "defend",
@@ -91,16 +92,16 @@
    "stack",
    "distant"
   ],
-  "steps": 273
+  "steps": 306
  },
  "fights": {
   "herald": {
    "fights": 8,
-   "steps": 135
+   "steps": 152
   },
   "reaver": {
    "fights": 8,
-   "steps": 198
+   "steps": 181
   },
   "rogue": {
    "fights": 8,
@@ -108,23 +109,23 @@
   },
   "starseer": {
    "fights": 8,
-   "steps": 187
+   "steps": 181
   }
  },
  "files": [
   {
-   "bytes": 508825,
+   "bytes": 478480,
    "classId": "reaver",
    "fights": 8,
    "file": "fights-reaver.json",
-   "steps": 198
+   "steps": 181
   },
   {
-   "bytes": 597176,
+   "bytes": 582382,
    "classId": "starseer",
    "fights": 8,
    "file": "fights-starseer.json",
-   "steps": 187
+   "steps": 181
   },
   {
    "bytes": 579899,
@@ -134,22 +135,22 @@
    "steps": 213
   },
   {
-   "bytes": 461183,
+   "bytes": 497905,
    "classId": "herald",
    "fights": 8,
    "file": "fights-herald.json",
-   "steps": 135
+   "steps": 152
   }
  ],
  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
  "profileId": "core",
  "seen": {
-  "back": 132,
+  "back": 147,
   "fizzled": 0,
-  "offers": 246,
-  "played": 114,
-  "stacked": 114,
-  "unavailable": 86
+  "offers": 269,
+  "played": 122,
+  "stacked": 122,
+  "unavailable": 94
  },
  "units": {
   "bytes": 183349,

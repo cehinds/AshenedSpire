@@ -162,7 +162,7 @@ namespace Ashen.Tests
         };
 
         // The events a hit owns (the oracle's OWN_EVENTS): a miss against Evade also credits Perception (WP-7 pays it on the bus), a receipt the oracle does not record.
-        private static readonly HashSet<string> OwnEvents = new HashSet<string> { "attackHit", "attackMissed", "statusRemoved", "statusExpired", "combatAvoidanceResolved" };
+        private static readonly HashSet<string> OwnEvents = new HashSet<string> { "attackHit", "attackMissed", "statusRemoved", "statusExpired", "combatAvoidanceResolved", "perceptionGained" };
 
         private static JArray Events(CombatState c, int mark) => new JArray(c.EventLog.Skip(mark).Where(e => OwnEvents.Contains(e.Value<string>("type"))).Select(e => e.DeepClone()));
 

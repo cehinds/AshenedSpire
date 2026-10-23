@@ -85,8 +85,8 @@ function build(spec) {
 
 const mark = (combat) => combat.eventLog.length;
 // The events a hit owns. A miss against Evade or a prevented hit also credits the defender's enemy knowledge (a perceptionGained receipt from
-// engine/enemyKnowledge.js recordKnowledgeEvent): that crediting is the knowledge port's hook (WP-11), so the receipt is not recorded here.
-const OWN_EVENTS = new Set(['attackHit', 'attackMissed', 'statusRemoved', 'statusExpired', 'combatAvoidanceResolved']);
+// engine/enemyKnowledge.js recordKnowledgeEvent, WP-11): the receipt is recorded with them.
+const OWN_EVENTS = new Set(['attackHit', 'attackMissed', 'statusRemoved', 'statusExpired', 'combatAvoidanceResolved', 'perceptionGained']);
 const eventsSince = (combat, m) => canon(combat.eventLog.slice(m).filter((e) => OWN_EVENTS.has(e.type)));
 const after = (entity) => canon({ statuses: entity.statuses, nextEvadeMode: entity.nextEvadeMode ?? null, combatEvade: entity.combatEvade ?? null });
 
@@ -437,10 +437,11 @@ function unitAvoidance() {
     const spec = { seed: g.seed, classId: g.classId, encounterId: g.encounterId, direction, fields: g.fields, rules: null, patch, range: { mode: 'keep' }, carrier: {} };
     const built = build(spec);
     if (g.pick(5) === 0) built.source.knowledgeAction = { serial: 3, reads: {} };
+    const knowledgeAction = structuredClone(built.source.knowledgeAction ?? null);
     const m = mark(built.combat);
     const before = built.combat.rng.getCounters();
     const value = avoid.resolveAvoidance(built.combat, built.source, built.target, profile, damage, options, saved);
-    out.push(canon({ ...spec, knowledgeAction: built.source.knowledgeAction ?? null, profile, damage, options, saved, value, targetAfter: after(built.target),
+    out.push(canon({ ...spec, knowledgeAction, profile, damage, options, saved, value, targetAfter: after(built.target),
       events: eventsSince(built.combat, m), counters: built.combat.rng.getCounters(), countersBefore: before }));
   }
   return out;

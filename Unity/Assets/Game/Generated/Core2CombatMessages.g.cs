@@ -7,8 +7,6 @@ namespace Ashen.Generated
         public const string AshenBlightNotPorted = "Core 2 combat: Ashen Blight milestones are not part of a Core 2 run (WP-21)";
         public const string CarriersNotPorted = "Core 2 combat: feats, companions and sigils are not part of a Core 2 run";
         public const string ConflictingTags = "Core 2 combat: card tags conflict ({0}: {1}, {2})";
-        public const string DelayedMoveNotPorted = "Core 2 combat: a delayed enemy move is ported with WP-11";
-        public const string EnemyMechanicsNotPorted = "Core 2 combat: enemy gear mechanics are ported with WP-11";
         public const string FormationFull = "Formation capacity exceeded";
         public const string HandRefreshNotPorted = "Core 2 combat: only the entire-deck round refresh is ported";
         public const string LegacyBlockNotPorted = "Core 2 combat: Block without FixCore is not part of a Core 2 run";

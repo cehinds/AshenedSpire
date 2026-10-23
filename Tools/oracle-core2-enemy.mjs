@@ -41,6 +41,8 @@ const OUT = join(ORACLE_DIR, 'enemy');
 const FIGHTS = Number(arg('--fights', '6'));
 const ONLY = arg('--only', null);
 const wants = (part) => !ONLY || ONLY === part;
+const KINDS = arg('--kinds', null);
+const kind = (name) => !KINDS || KINDS.split(',').includes(name);
 const w = await loadWeb();
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const triggers = await load('src/engine/triggers.js');
@@ -57,6 +59,8 @@ const knowledgeProfile = await load('src/model/enemyKnowledgeProfile.js');
 const knowledgeRules = await load('src/model/enemyKnowledgeRules.js');
 const stateMod = await load('src/model/state.js');
 const intentKnowledge = await load('src/model/enemyIntentKnowledge.js');
+const properties = await load('src/engine/properties.js');
+const fixCore = await load('src/model/fixCoreMechanics.js');
 const visibility = await load('src/model/combatIntentVisibility.js');
 const X = w.combat; // the combat module with the appended exports
 const all = encounters(w);
@@ -73,7 +77,7 @@ const COVERED_EVENTS = new Set(['playerTurnEnd', 'playerTurnStart', 'enemyTurnSt
   'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
   'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
   'energySpent', 'staminaSpent', 'manaSpent', 'enemyDied', 'combatEnd', 'combatHitStarted', 'controlRecovered', 'controlResolveScheduled', 'energyGained', 'healed',
-  'manaRestored', 'relicTriggered', 'statusGaugeFilled', 'statusPressure', 'statusRecoveryRolled', 'combatAvoidanceResolved', 'cardAdded', 'barrierGained', 'barrierBroken',
+  'manaRestored', 'relicTriggered', 'statusGaugeFilled', 'statusPressure', 'statusRecoveryRolled', 'combatAvoidanceResolved', 'cardAdded', 'barrierGained', 'barrierBroken', 'statusPoiseBreak',
   ...REACTION_EVENTS, ...COUNTER_EVENTS, ...KNOWLEDGE_EVENTS]);
 const COVERED_OPS = new Set(['damage', 'block', 'gainBarrier', 'poiseDamage', 'wardDamage']);
 const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'wardDamage', 'applyStatus', 'block', 'gainBarrier', 'heal', 'addCard', 'buildup']);
@@ -127,6 +131,8 @@ function enemyFits(combat, enemy) {
     const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
     const effects = [...(move.effects || []), ...(move.delay?.whileCharging?.effects || [])];
     if (effects.some((effect) => !ENEMY_OPS.has(effect.op))) return false;
+    // A burden the move adds from the 405 registry (dazed, slimed, wound) is not a card of the profile: the port refuses to resolve it (WP-5), so the enemy that adds one sits out.
+    if (effects.some((effect) => effect.op === 'addCard' && !w.profile.content.cards.some((card) => card.id === effect.card))) return false;
     if (hasHostileHooks(combat, enemy, effects)) return false;
     const hostile = move.damage != null || effects.some((effect) => HOSTILE_OPS.has(effect.op));
     const range = tactics.enemyMoveCarrier(enemy, def.moves[id], id, combat).combatProfile.range || 'melee';
@@ -183,23 +189,8 @@ const PAYLOAD_EVENTS = new Set([...REACTION_EVENTS, ...COUNTER_EVENTS, ...KNOWLE
 const payloadEvents = (combat, mark) => combat.eventLog.slice(mark).filter((e) => PAYLOAD_EVENTS.has(e.type) || (e.type === 'blockGained' && e.source === 'counter'))
   .map((e) => Object.fromEntries(Object.entries(e).filter(([key]) => !DECORATION.includes(key) && key !== 'intent')));
 
-// The stack's enemy entries hold their committed plan (the group with its contacts, the planned actions): the record keeps a compact view of it, which is
-// what the port can hold the same way (the contacts' numbers and the actions' effects and references).
-function compactPlan(plan) {
-  const group = plan.group || {};
-  return {
-    kind: group.kind ?? null, key: group.key ?? null, sourceId: group.sourceId ?? null,
-    targets: Object.fromEntries(Object.entries(group.targets || {}).map(([id, row]) => [id, (row.contacts || []).map((c) => ({ amount: c.amount ?? null, pressure: c.pressure ?? null, effect: c.effect ?? null }))])),
-    actions: (plan.actions || []).map((a) => ({ effect: a.effect, sourceRef: a.sourceRef ?? null, ownerRef: a.ownerRef ?? null, targetRef: a.targetRef ?? null, moveId: a.meta?.moveId ?? null })),
-  };
-}
-
-/** The combat as the port projects it (the offer without its previews, the paused card's queue as its length, the enemy entries' plans compact). */
-function view(combat) {
-  const state = projectFull(combat);
-  if (state.reactionStack?.entries) state.reactionStack = { ...state.reactionStack, entries: state.reactionStack.entries.map((entry) => (entry.side === 'enemy' ? { ...entry, plan: canon(compactPlan(entry.plan)) } : entry)) };
-  return state;
-}
+/** The combat as the port projects it (see projectFull: the offer without its previews, the paused card's queue as its length, held plays and the enemy entries' plans compact). */
+const view = projectFull;
 
 /** The offer the fight is paused on, as the test checks it. */
 const offerOf = (combat) => (combat.pendingReaction ? canon({
@@ -224,7 +215,7 @@ function open(spec) {
   if (spec.fields) merge(combat, spec.fields);
   if (spec.patch?.player) merge(combat.player, spec.patch.player);
   for (const [index, patch] of Object.entries(spec.patch?.enemies || {})) if (combat.enemies[Number(index)]) merge(combat.enemies[Number(index)], patch);
-  combat.__run = run;
+  Object.defineProperty(combat, '__run', { value: run, enumerable: false });
   return combat;
 }
 
@@ -591,6 +582,36 @@ const readUnits = [];
   }
 }
 
+
+// An enemy's pinned gear and relics mount what they attach (syncConfiguredEnemyProperties): no gear of the profile attaches a mechanic, so the units lay one on
+// a row of the fight's own profile copy, sync, sync again and take it off.
+const mountUnits = [];
+{
+  let n = 0;
+  for (const enemyId of ['gildedKnight', 'courtDuelist', 'wanderingSoldier', 'huskBrute']) {
+    const spec = soloSpec(sweep(99100 + n++), enemyId);
+    const c = open(spec);
+    c.gameProfile = structuredClone(c.gameProfile); // the pinned profile is frozen: the unit lays its mechanic on a copy
+    const enemy = c.enemies[0];
+    const row = c.gameProfile.content.enemies.find((e) => e.id === enemyId);
+    const slot = row.defaultGear?.[0];
+    const gear = c.gameProfile.content.gear.find((g) => g.id === slot?.id);
+    if (!gear) continue;
+    const summary = (label) => canon({ label, mounts: Object.fromEntries(Object.entries(c.propertyMounts?.[enemy.id] || {}).map(([k, m]) => [k, { kind: m.kind, id: m.id, instanceId: m.instanceId, scopeTags: m.scopeTags,
+      mechanicTags: m.mechanicTags, mechanicBindings: m.mechanicBindings, configuredEnemy: m.configuredEnemy ?? false, rules: m.rules.length }])), attachments: fixCore.fixCoreAttachments(c, enemy) });
+    const steps = [summary('start')];
+    gear.mechanicTags = ['defense:poiseProtection'];
+    properties.syncConfiguredEnemyProperties(c);
+    steps.push(summary('mounted'));
+    properties.syncConfiguredEnemyProperties(c);
+    steps.push(summary('again'));
+    gear.mechanicTags = [];
+    properties.syncConfiguredEnemyProperties(c);
+    steps.push(summary('removed'));
+    mountUnits.push(canon({ spec, enemyId, slot, gearId: gear.id, steps }));
+  }
+}
+
 // ---------------------------------------------------------------------------------------------------------------
 // Exchanges
 // ---------------------------------------------------------------------------------------------------------------
@@ -611,6 +632,7 @@ function search({ base, count, classIds: wanted = classes, pool = all, enemyIds 
     const verdict = want(combat);
     if (verdict) found.push({ spec, why: verdict });
   }
+  if (process.argv.includes('--progress')) console.error(`search ${base}: ${found.length}/${count}`);
   return found;
 }
 
@@ -622,6 +644,7 @@ const addExchange = (kind, label, spec, drive) => {
   try {
     const exchange = { kind, label, ...record(spec, (combat, step) => drive(combat, step, makeLcg(spec.seed ^ 0x7a31c5e9))) };
     if (exchange.steps.length) exchanges.push(exchange);
+    if (process.argv.includes('--progress')) console.error(`exchange ${kind} ${label}: ${exchange.steps.length} steps`);
   } catch (e) { throw new Error(`exchange ${kind} ${label}: ${e.stack}`); }
 };
 /** Ends the turn and answers every offer with the given answers in turn (`play` / `back`), the last one repeating. */
@@ -667,6 +690,7 @@ function predictAll(combat, step, right) {
 const sturdy = { player: { hp: 900, maxHp: 900 } };
 
 function buildExchanges() {
+if (kind('delayed')) {
 // (a) Every delayed move charges (its Block while it charges), then resolves on the next turn: the turns are played with the offers answered, in a solo
 // fight against its enemy, until the move has resolved or the steps are spent.
 const delayed = [];
@@ -701,8 +725,10 @@ for (const { enemyId, moveId } of delayed) for (const answer of ['back', 'play']
     }
   });
 }
+}
 function scriptChooserLcg(answer) { const lcg = () => (answer === 'play' ? 0 : 1); lcg.clone = () => lcg; return lcg; }
 
+if (kind('knight')) {
 // (b) The gilded knight reacts to a heavy card (a playerAction window, incoming 8 or more): its Block and strike are stacked, the player's own Defend may
 // be offered against the strike, and the stack resolves before the card does.
 for (const [i, card] of ['core.smash', 'core.reaverSpecial', 'core.strike'].entries()) for (const answers of [['play'], ['back']]) {
@@ -715,14 +741,35 @@ for (const [i, card] of ['core.smash', 'core.reaverSpecial', 'core.strike'].entr
   });
 }
 
+}
+// The knight is staggered after it reacted and before its entry resolves (a Poise break of its own turn would do it): the entry fizzles (enemyHalted).
+if (kind('knight')) {
+  const hits = search({ base: 104400, count: 3, pool: all.filter((e) => e.enemies.includes('gildedKnight')), hand: ['core.smash', 'core.defend', 'core.defend', 'core.strike'], need: ['core.smash'], patch: sturdy,
+    want: (combat) => (combat.enemies.some((e) => e.alive && e.enemyId === 'gildedKnight' && bandOf(combat, e) === 0) ? 'knight' : null) });
+  for (const { spec } of hits) addExchange('knight', 'a gilded knight staggered before its reaction resolves', spec, (combat, step) => {
+    const knight = combat.enemies.find((e) => e.alive && e.enemyId === 'gildedKnight' && bandOf(combat, e) === 0);
+    const card = combat.piles.hand.find((c) => c.cardId === 'core.smash');
+    if (!card || !playable(combat, card) || !dryRun(combat, { type: 'playCard', cardInstanceId: card.instanceId, targetId: knight.id }, scriptChooser(['play'])).ok) return;
+    if (!step({ type: 'playCard', cardInstanceId: card.instanceId, targetId: knight.id })) return;
+    for (let n = 0; combat.pendingReaction && !combat.result && n < 20; n++) {
+      knight.skipNextTurn = true;
+      const answer = scriptChooser(['play']).next(combat);
+      if (!step(answer, { answer: answer.optionId === null ? 'back' : 'play', staggered: [knight.id] })) return;
+    }
+  });
+}
+
+if (kind('duelist')) {
 // (c) The duelist's riposte: the player pushes a Defend against an attack (a playerReaction window, minIncoming 0, one draw on the enemyReaction stream), and the
 // duelist answers or does not. Several seeds, so both outcomes are seen.
 for (const answers of [['play', 'back'], ['play', 'play'], ['play']]) {
   const hits = search({ base: 105000 + answers.length * 400, count: 6, pool: all.filter((e) => e.enemies.includes('courtDuelist')), hand: ['core.defend', 'core.defend', 'core.defend', 'core.counter', 'core.strike'], patch: sturdy,
-    want: (combat) => (combat.enemies.some((e) => fitsNow(combat, e) && e.enemyId === 'courtDuelist' && ['attack', 'smash', 'sweep'].includes(intentManeuver(combat, e))) ? 'duelist' : null) });
+    want: (combat) => (combat.enemies.some((e) => fitsNow(combat, e) && e.enemyId === 'courtDuelist') ? 'duelist' : null) });
   for (const { spec } of hits) addExchange('duelist', `a Defend against the duelist, ${answers.join(' then ')}`, spec, (combat, step) => { for (let t = 0; t < 3 && !combat.result; t++) if (!scripted(combat, step, answers)) break; });
 }
 
+}
+if (kind('predict')) {
 // (d) Predictions: the telegraphs the player could not read (its Wisdom is lowered so most reads fail), predicted right and wrong, then the enemies act.
 for (const right of [true, false]) {
   const hits = search({ base: 107000 + (right ? 0 : 400), count: 8, runPatch: { attributes: { wisdom: 0, intelligence: 0 } }, patch: sturdy,
@@ -731,6 +778,8 @@ for (const right of [true, false]) {
     for (let t = 0; t < 4 && !combat.result; t++) { predictAll(combat, step, right); if (!scripted(combat, step, ['back'])) break; }
   });
 }
+}
+if (kind('predictRefused')) {
 // A prediction the port must refuse (a read that was exact, an action already predicted, a staggered enemy, an unknown serial): the web's refusals.
 {
   const hits = search({ base: 108000, count: 4, patch: sturdy, want: (combat) => (combat.enemies.some((e) => e.alive && e.knowledgeAction?.reads?.player?.visibility === 'exact') ? 'exact' : null) });
@@ -743,6 +792,8 @@ for (const right of [true, false]) {
   });
 }
 
+}
+if (kind('credit')) {
 // (e) Perception paid for a response: a Counter whose reply lands on an action the player could not read, a Ward reply (a spell Counter drains the caster's
 // Poise: Ward is off), an Evade that turns the hit; and the bankable fight that keeps the enemy for the encounter's ledger.
 for (const bankable of [false, true]) for (const [i, card] of ['core.counter', 'core.starseerSpecial', 'core.rogueSpecial', 'core.defend'].entries()) {
@@ -756,6 +807,7 @@ for (const bankable of [false, true]) for (const [i, card] of ['core.counter', '
   });
 }
 
+}
 }
 if (wants('exchanges')) buildExchanges();
 
@@ -776,9 +828,9 @@ if (wants('statics')) {
   index.enemies = { file: 'enemies.json', count: enemies.length, moves: enemies.reduce((s, e) => s + e.moves.length, 0), picks: enemies.reduce((s, e) => s + e.picks.reduce((t, p) => t + p.rolls.length, 0), 0), bytes };
 }
 if (wants('units')) {
-  const bytes = write('units.json', { reactions: reactionUnits, ledger: ledgerUnits, reads: readUnits });
+  const bytes = write('units.json', { reactions: reactionUnits, ledger: ledgerUnits, reads: readUnits, mounts: mountUnits });
   total += bytes;
-  index.units = { file: 'units.json', reactions: reactionUnits.length, decisions: reactionUnits.reduce((s, u) => s + u.calls.length, 0), ledger: ledgerUnits.length, reads: readUnits.length, bytes };
+  index.units = { file: 'units.json', reactions: reactionUnits.length, decisions: reactionUnits.reduce((s, u) => s + u.calls.length, 0), ledger: ledgerUnits.length, reads: readUnits.length, mounts: mountUnits.length, bytes };
 }
 
 const seen = { offers: 0, played: 0, back: 0, unavailable: 0, stacked: 0, fizzled: 0, enemyStacked: 0, enemyFizzled: 0, predicted: 0, perception: 0, charged: 0 };
@@ -818,6 +870,12 @@ if (wants('fights')) {
   index.fights = fightCount;
 }
 if (wants('exchanges')) {
+  // A partial run (--kinds) replaces only the kinds it regenerated.
+  if (KINDS && existsSync(join(OUT, 'exchanges.json'))) {
+    const regenerated = new Set(KINDS.split(','));
+    const kept = JSON.parse(readFileSync(join(OUT, 'exchanges.json'), 'utf8')).exchanges.filter((e) => !regenerated.has(e.kind));
+    exchanges.unshift(...kept);
+  }
   for (const e of exchanges) tally(e.steps);
   const bytes = write('exchanges.json', { exchanges });
   total += bytes;

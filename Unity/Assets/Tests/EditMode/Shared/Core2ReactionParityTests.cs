@@ -102,7 +102,7 @@ namespace Ashen.Tests
 
         private static readonly HashSet<string> PayloadTypes = new HashSet<string>
         {
-            "combatReactionOffered", "combatReactionChosen", "combatReactionStacked", "combatReactionUnavailable", "combatReactionFizzled",
+            "combatReactionOffered", "combatReactionChosen", "combatReactionStacked", "combatReactionUnavailable", "combatReactionFizzled", "combatEnemyReactionStacked",
             "combatCounterArmed", "combatCounterConsumed", "combatCounterTriggered", "combatGuardBroken", "combatRangeReturnUnavailable",
         };
 

@@ -436,7 +436,7 @@ function mechanicCases() {
 // Fights
 // ---------------------------------------------------------------------------------------------------------------
 // The event types a recorded step may emit, and the effect ops a played card may carry (see THE FILTER at the top). Anything else is a later
-// work package's: status procs, control and card traits (WP-9), enemy reactions and AI (WP-11), range moves (WP-12). The player's reactions (WP-10) are covered.
+// work package's: status procs, control and card traits (WP-9), range moves (WP-12). The player's reactions (WP-10) and the enemies' (WP-11) are covered.
 const COVERED_EVENTS = new Set([...REACTION_EVENTS, 'playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared',
   'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
   'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
@@ -453,15 +453,15 @@ const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringif
 function enemyFits(combat, enemy) {
   if (bandOf(combat, enemy) !== 0) return false;
   const def = combat.registries.enemies.get(enemy.enemyId);
-  const ids = [enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
+  const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
   for (const id of ids) {
     const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
-    if (move.delay) return false;
+    if ((move.delay?.whileCharging?.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
     if (tactics.enemyMoveCarrier(enemy, def.moves[id], id, combat).combatProfile.maneuver === 'counter') return false;
     if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
     if (hasHostileHooks(combat, enemy, move.effects || [])) return false;
   }
-  return !enemy.pendingMove;
+  return true;
 }
 
 // The player's reactions are on. An offer a hit opens is answered by the bot (half the time it plays the first option, half the time it goes Back, from its
@@ -509,10 +509,6 @@ function playable(combat, card) {
   return !hasHostileHooks(combat, combat.player, def.effects);
 }
 
-// Enemy reactions (a reaction move in any enemy's definition) open windows around every card the player plays (WP-11): a fight with one in it
-// records no card play. Nor does a fight whose attacker would have to advance.
-const fightReacts = (combat) => combat.enemies.some((e) => Object.values(combat.registries.enemies.get(e.enemyId).moves || {}).some((m) => m.reaction?.on?.length));
-
 function fight(seed, classId, encounter, bot, steps) {
   const run = createRun(w, seed, classId);
   const { combat } = createFight(w, run, encounter);
@@ -542,7 +538,7 @@ function fight(seed, classId, encounter, bot, steps) {
   for (let i = 0; i < steps && !combat.result; i++) {
     if (combat.phase !== 'player') break;
     const options = [];
-    if (bot === 'attacks' && !fightReacts(combat)) {
+    if (bot === 'attacks') {
       const targets = combat.enemies.filter((e) => e.alive && bandOf(combat, e) === 0).map((e) => e.id);
       for (const card of combat.piles.hand) {
         if (!playable(combat, card)) continue;

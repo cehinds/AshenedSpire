@@ -8,6 +8,7 @@ namespace Ashen.Generated
         public const string CurrentEncounter = "run current enemy learning encounter is invalid";
         public const string EncounterIdLength = "Enemy encounter receipt is too long";
         public const string EncounterRequired = "Enemy learning requires an accepted encounter and enemy definition IDs";
+        public const string LearningMismatch = "Combat learning does not match its run encounter";
         public const string LedgerBounds = "enemyKnowledge.{0} has an empty or unbounded encounter ledger";
         public const string LedgerReceipt = "enemyKnowledge.{0} has an invalid encounter receipt";
         public const string LedgerRow = "enemyKnowledge.{0} requires a known enemy, mastery target 20–50 and encounter receipts";
@@ -19,6 +20,7 @@ namespace Ashen.Generated
         public const string PerceptionOverflow = "Perception XP exceeds the safe integer range";
         public const string PerceptionRow = "Perception requires valid XP, level and zero pending drafts";
         public const string PerceptionUnclaimed = "Perception has an unclaimed automatic level";
+        public const string PredictionUnavailable = "Prediction is unavailable for this observer and action";
         public const string ProblemSeparator = "; ";
         public const string ReadCoefficient = "enemyKnowledge.reads.{0} must be a probability coefficient from 0 to 1";
         public const string ReadMinimumAbove = "enemyKnowledge.reads minimum{0} exceeds maximum{1}";

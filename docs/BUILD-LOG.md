@@ -2,6 +2,30 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-11: enemy AI, enemy reactions and enemy knowledge in C# with oracle parity (dev, 2026-10-23)
+
+**Landed**
+- **Oracle first (`Tools/oracle-core2-enemy.mjs`, `Tools/oracle-core2-hook.mjs`, D-260):** the hook is a Node `module.register` loader that appends `__weightedMovePick`, `__rollIntents`, `__presentIntent`, `__buildIntent`, `__startDelayedMove`, `__executeMovePayload` and `__enemyPhase` to the source of the web's `engine/combat.js` at load time (the checkout on disk is never touched). Files under `Tests/Oracle/core2/enemy/`: `enemies.json` (all 33 enemies: the move table after projection, the plannedMoves pool, the SP of every move plain, Silenced and per stance, the expanded move, carrier, intent, `previewEnemyAction`, reaction rows, and 5 seeds x 200 weighted picks = 33,000 picks), `units.json` (reaction decisions, the knowledge ledger, intent reads, enemy gear mounts), `fights-<class>.json` (4 classes x 6 fights where enemies react and the player predicts) and `exchanges.json` (delayed, knight, duelist, predict, predictRefused, credit). Every step records the intent, the event types and payloads, the offer, the delta of the full state and every RNG counter; the run is deterministic.
+- **The pick and the pool:** `CoreIntents.TakePlannedMove` is public and the weighted pick with the SP budget (stance costs, `maxConsecutive`, the plannedMoves pool) is held to the web draw for draw; the `intent.reads: 'exact'` branch is in `Present` and does not draw (D-265).
+- **Delayed moves (D-261):** `CoreEnemyMoves.StartDelayed`, `pendingMove`, the resolving turn in `CoreTurns` (`EV.OutcomeCharging`), `whileCharging` effects and tags, ten shipped delayed moves (six are in a recorded fight; four close with `advance` and wait for WP-12).
+- **Enemy reactions (D-262):** `CoreEnemyReactions` (`PlanAction`, `EnemyPlan`, `Push`, `Relink`, `Halt`, `Run`, `View`), `CoreReactions.DecideEnemyReaction` (public), `OpenEnemyWindow` with its cap, enemy entries in `OptionsFor`, `Resolve` (run, fizzle when the seat left), `Finish` clearing the plans, `DeferRootPlay` under an enemy window, `combatEnemyReactionStacked`. The two shipped reaction moves, `gildedKnight.gildedGuard` and `courtDuelist.bindingRiposte`, are both covered by exchanges including the staggered-fizzle case.
+- **Enemy knowledge (D-263, D-264):** `CoreKnowledge` (`Initialize` from the snapshot, `Feedback`, `Predict` with the Perception DC and roll, `CreditResponse` / `CreditBenefit` / `CreditImpact`, `Reconcile`), `CoreKnowledgeLedger` (the Bestiary ledger and banking from a Ward reply, held by units), the `predictIntent` dispatch case, `meta.enemyKnowledgeActionSerial` on a Counter reply. The Ward-reply credit throw in `CoreMatchups` is gone.
+- **Previews and mounts (D-266):** `CoreEnemyPreview` ports `previewEnemyAction` for every move (formulas evaluated, uncertain conditions, charging effects, `delayTurns`); enemy gear mounts through the property mounts (`MechanicTags`, `MechanicBindings`, `ConfiguredEnemy`).
+- **Guards removed:** the four WP-11 message constants (enemy reactions, delayed moves, the enemyReaction stream, the Ward-reply credit); `deferRootPlay` / `restoreRootPlay` under an enemy window work.
+- **Fight oracles widened (D-267):** hit, damage, matchups, statuses and reactions leave the delayed moves, enemy reactions and the `enemyReaction` draws inside the filter; `perceptionGained` is a hit event; `projectFull` records a held play by what identifies it and an enemy entry's plan compact. All five were regenerated.
+
+**Parity mismatches found, all fixed:** the preview profile key (`profile`, not `combatProfile`); `whileCharging.cardTags` null versus absent; oracle value references mutated by later steps (the ledger log: `structuredClone` in `guarded`); `combat.__run` leaking into the projection (now non-enumerable); the held-play shape (`reactionRootPlay`, normalised); a frozen gear row in the mount unit (a clone of the profile); the hit oracle's avoidance unit recorded the knowledge action after the call instead of before; the reaction exchanges now carry `combatEnemyReactionStacked`, which the payload filter of `Core2ReactionParityTests` had not listed.
+
+**Tests:** `Core2EnemyParityTests` (statics for 33 enemies, 33,000 weighted picks, reaction, ledger, read and mount units, 24 fights, the exchanges including 21 knight exchanges with enemy fizzles), plus the widened `Core2HitParityTests`, `Core2DamageParityTests`, `Core2MatchupParityTests`, `Core2StatusFightParityTests` and `Core2ReactionParityTests` (532 cases).
+
+**Not verified / deferred (D-268)**
+- Burden cards that enemy moves add (`dazed`, `slimed`, `wound`) are legacy-registry cards outside the profile: `CoreCosts.Resolve` refuses them (WP-5), so the enemies that add them are held by statics and not by a fight.
+- Four delayed enemies close with `advance` (`moveEngagement`, `RangeAdvanceNotPorted`): WP-12.
+- A configured run has no run-level knowledge ledger; the ledger is only unit-held.
+- Snapshots of a paused fight with enemy entries: WP-13.
+
+**Next:** WP-12 (range and engagement: `advance`, `moveEngagement`, the range lineage).
+
 ## Core 2 WP-10: the player's reaction stack in C# with oracle parity (dev, 2026-10-23)
 
 **Landed**
@@ -189,6 +213,23 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 - **Codegen:** `Tools/map-keys/messages.json` (13 route messages), `node Tools/map-keys.mjs` then `node Tools/codegen.mjs` (MapKeys 114, MapMessages 65).
 
 **Tests:** `Core2MapParityTests` (16): the shared suite compares every recorded map by canonical JSON, node insertion order and all RNG counters, plus histories, variants and refusals, the seat order draw, the fog rule and the hash stamp. No parity mismatches. dotnet Domain.Tests (`Category!=Bot`) 2959/2959 (2943 + 16). `transform-content --check`, `codegen --check`, `refresh-manifest --check`, `check-content`, `check-docs`, `web-key-map --check` green. EnforcementTests green (no literals in Game code). `rules.mapEngine.schema.json` gained the `routes` section and `profile.bundle.bossDestinations.schema.json` is new.
+
+**Not verified / deferred**
+- Unity (no editor): the new files are in `Ashen.Domain` and `Ashen.Content`, compiled under dotnet only.
+- `ClimbViews` still reads `col` as an int; a Core 2 rest node on an even lane count has a half column (the shipped content has 3 lanes, column 1). WP-19 (run loop glue) wires the Core 2 map into the UI.
+- `buildGameProfileActivities` (foundation launcher) and the Custom Climb shape are not ported for Core 2; the `default` profile configures routes.
+
+**Next:** WP-3 (run creation) can call `CoreRoutes.BuildActMap` with the run RNG; WP-19 routes the nodes.
+
+## Core 2 WP-14: the Core 2 act map in C# with oracle parity (dev, 2026-10-23)
+
+**Landed**
+- **`Tools/oracle-core2-map.mjs`** (over `Tools/oracle-core2.mjs`, so the drift guard applies) -> `Unity/Assets/Tests/Oracle/core2/map/`, 2.8 MB: 9 `maps-<seat>-<tier>.json` (3 acts x 3 seats x 40 seeds), `history.json` (252), `variants.json` (49 routes variants, 735 cases, 365 refusals with the web's messages), `seats.json`, `refusals.json`, `index.json`; 1347 maps in all. Sorted keys plus `nodeOrder`; counters for all 24 streams. Byte-identical on rerun (SHA-256 over the folder equal).
+- **`CoreRoutes`** (`Domain/Map`, D-175): `buildGameProfileActMap` as a data-driven builder over `CoreRoutesConfig` (routes content, module, profile hash verbatim) and `CoreRoutesVocabulary` (`rules/mapEngine.json` `routes`). `ActMapGraph`/`MapNode` gain the optional Core 2 fields `actualType`, `label`, `gameProfileHash`; `Col` is a double. `MapEncounters.ResolveUnknownNode` has an overload over explicit odds. `Core2Registries.ToMapData` / `RoutesConfig` feed it.
+- **Boss destinations** (D-177): `profile/bundle/bossDestinations.json` from the web module `bossDestinations.js` (new `core2.modules` row and transform row).
+- **Codegen:** `Tools/map-keys/messages.json` (13 route messages), `node Tools/map-keys.mjs` then `node Tools/codegen.mjs` (MapKeys 114, MapMessages 65).
+
+**Tests:** `Core2MapParityTests` (16): the shared suite compares every recorded map by canonical JSON, node insertion order and all RNG counters, plus histories, variants and refusals, the seat order draw, the fog rule and the hash stamp. No mismatches. Full `Category!=Bot` run and the node checks are recorded in the commit message of this entry's commit.
 
 **Not verified / deferred**
 - Unity (no editor): the new files are in `Ashen.Domain` and `Ashen.Content`, compiled under dotnet only.

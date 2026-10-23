@@ -9,6 +9,8 @@ using DK = Ashen.Generated.Core2DamageKeys;
 using DM = Ashen.Generated.Core2DamageMessages;
 using DN = Ashen.Generated.Core2DamageNumbers;
 using DV = Ashen.Generated.Core2DamageValues;
+using EK = Ashen.Generated.Core2EnemyKeys;
+using EV = Ashen.Generated.Core2EnemyValues;
 using E = Ashen.Generated.CombatEvents;
 using K = Ashen.Generated.CombatKeys;
 using RK = Ashen.Generated.Core2ReactionKeys;
@@ -123,7 +125,7 @@ namespace Ashen.Domain.Combat
         private static bool SeatPresent(CombatState c) => c.Player.Is(K.Alive);
 
         /// <summary>seatGone(ctx, playerId): the seat is dead (or at 0 Health before the end check marks it).</summary>
-        private static bool SeatGone(CombatState c) => !c.Player.Is(K.Alive) || c.Player.Num(K.Hp) <= 0;
+        public static bool SeatGone(CombatState c) => !c.Player.Is(K.Alive) || c.Player.Num(K.Hp) <= 0;
 
         /// <summary>playerRootSeat(ctx, group): the acting seat of a player-card root ("player" in a solo fight), else null.</summary>
         public static string PlayerRootSeat(CombatState c, ExpansionGroup group) =>
@@ -289,13 +291,13 @@ namespace Ashen.Domain.Combat
             }
             // Version 2: stacked instances are not offered again, and a seat holding a Counter entry is offered no further Counter.
             var entries = EntriesOf(StackOf(c, group)).OfType<JObject>().ToList();
-            if (entries.Any(entry => !IsPlayerEntry(entry))) throw new NotSupportedException(DM.EnemyReactionsNotPorted);
-            var counterStacked = entries.Any(entry => entry.Str(RK.Maneuver) == CV.StanceCounter);
+            var counterStacked = entries.Any(entry => IsPlayerEntry(entry) && entry.Str(DK.OwnerId) == V.Player && entry.Str(RK.Maneuver) == CV.StanceCounter);
+            // Enemy entries on the stack: the seat answers each one's plan (and an enemy root's own row); an enemy-targeted card gets one option per answered
+            // enemy, top of the stack first.
+            var enemyEntries = entries.Any(entry => !IsPlayerEntry(entry));
+            var threats = ThreatsFor(c, row, group, entries);
             // A pushed card's contacts against each enemy decide the playerReaction window.
             var captureIncoming = FightReacts(c, RV.WindowPlayerReaction);
-            // The rows the seat answers on this root: the root's own row against its attacker.
-            var threats = new List<(string enemyId, TargetRow row)>();
-            if (row != null && PlayerRootSeat(c, group) == null) threats.Add((group.SourceId, row));
             foreach (var card in c.Piles.Hand.ToList())
             {
                 inst = card;
@@ -342,18 +344,21 @@ namespace Ashen.Domain.Combat
                                 foreach (var entry in Enumerable.Reverse(entries))
                                 {
                                     if (RootEnded(candidate, group)) break;
+                                    // An enemy entry runs its committed plan; one that fizzles is a valid outcome.
+                                    if (!IsPlayerEntry(entry)) { CoreEnemyReactions.Run(candidate, entry, CoreEnemyReactions.PlanOf(candidate, entry, StackOf(c, group).Str(RK.GroupKey))); continue; }
                                     var start = candidate.EventLog.Count;
                                     var stacked = entry.Obj(RK.Play);
                                     CoreCardPlay.Play(candidate, stacked.Str(RK.CardInstanceId), stacked.Str(RK.TargetId), stacked[RK.Choice], stacked.Str(RK.RangeRoute));
                                     if (!candidate.EventLog.Skip(start).Any(e => e.Str(K.Type) == DK.CardPlayed)) throw new InvalidOperationException(RM.StackedNotPlayed);
                                 }
-                                var id = string.Join(DV.KeySeparator, inst.Str(K.InstanceId), 0.ToString(CultureInfo.InvariantCulture), choice ?? RV.ChoiceDefault) + (rangeRoute == DV.RouteThrow ? DV.KeySeparator + RV.ThrowSuffix : string.Empty);
+                                var id = string.Join(DV.KeySeparator, inst.Str(K.InstanceId), 0.ToString(CultureInfo.InvariantCulture), choice ?? RV.ChoiceDefault) + (rangeRoute == DV.RouteThrow ? DV.KeySeparator + RV.ThrowSuffix : string.Empty) + (aimed && enemyEntries ? DV.KeySeparator + aim : string.Empty);
                                 var option = new JObject
                                 {
                                     [K.Id] = id, [K.Name] = def[K.Name]?.DeepClone() ?? Js.Null(), [K.CardId] = inst[K.CardId].DeepClone(), [RK.Play] = play,
                                     [RK.StaminaCost] = Js.N(!Js.Nullish(paid[DK.StaminaSpent]) ? paid.Num(DK.StaminaSpent) : paid.Or0(DK.EnergySpent)),
                                     [RK.ManaCost] = Js.N(paid.Or0(DK.ManaSpent)), [RK.ChoiceName] = choice == null ? Js.Null() : (JToken)Capitalized(choice),
                                 };
+                                if (enemyEntries) option[K.SourceId] = aim;
                                 if (captureIncoming)
                                 {
                                     var incoming = new JObject();
@@ -376,6 +381,29 @@ namespace Ashen.Domain.Combat
                         }
             }
             return options;
+        }
+
+        /// <summary>planRowFor(ctx, entry, seat): the row an enemy entry's committed plan has against the seat.</summary>
+        private static TargetRow PlanRowFor(CombatState c, JObject entry, string groupKey)
+        {
+            var plan = CoreEnemyReactions.PlanOf(c, entry, groupKey);
+            foreach (var pair in plan.Group.Targets.Entries()) if (pair.Value.Id == c.Player.Str(K.Id)) return pair.Value;
+            return null;
+        }
+
+        /// <summary>threatsFor(ctx, row, group, entries, seat): the rows a seat answers on this root, top of the stack first, then the root's own row on an enemy root.</summary>
+        private static List<(string enemyId, TargetRow row)> ThreatsFor(CombatState c, TargetRow row, ExpansionGroup group, List<JObject> entries)
+        {
+            var threats = new List<(string enemyId, TargetRow row)>();
+            var groupKey = StackOf(c, group)?.Str(RK.GroupKey);
+            foreach (var entry in Enumerable.Reverse(entries))
+            {
+                if (IsPlayerEntry(entry) || entry.Str(EK.TargetPlayerId) != V.Player) continue;
+                var planRow = PlanRowFor(c, entry, groupKey);
+                if (planRow != null && planRow.Contacts.Any(Positive)) threats.Add((entry.Str(DK.OwnerId), planRow));
+            }
+            if (row != null && PlayerRootSeat(c, group) == null && (threats.Count == 0 || row.Contacts.Any(Positive))) threats.Add((group.SourceId, row));
+            return threats;
         }
 
         /// <summary>beforeReactionAction(ctx, action): true while the action must wait for a choice.</summary>
@@ -463,14 +491,18 @@ namespace Ashen.Domain.Combat
             if (!FightReacts(c, window) || group.CounterReturn != null || group.Carrier.Is(DK.CombatReaction) || group.Carrier.Is(DK.ReactionDepth)) return;
             var index = group.EnemyWindows ?? 0;
             group.EnemyWindows = index + 1;
-            if (window == RV.WindowPlayerAction ? PlayerRootSeat(c, group) == null : pushed == null) return;
+            var targetPlayerId = window == RV.WindowPlayerAction ? PlayerRootSeat(c, group) : pushed?.Str(DK.OwnerId);
+            if (targetPlayerId == null) return;
+            var limit = c.CoreData.Configured(CK.ReactionsModule)?[RK.ChainLimit];
+            var cap = Js.IsFinite(limit) ? Js.D(limit) : c.Fields.Obj(CK.ReactionRules).Obj(RK.Stack).Num(RK.MaxDepth);
             foreach (var enemy in c.Enemies)
             {
+                if (EntriesOf(StackOf(c, group)).OfType<JObject>().Count(entry => !IsPlayerEntry(entry)) >= cap) break;
                 var incoming = window == RV.WindowPlayerAction ? IncomingAgainst(group, enemy.Str(K.Id)) : pushed.Obj(RK.Incoming)?.Or0(enemy.Str(K.Id)) ?? 0;
                 // The window opens for enemies the root card targets, or (playerReaction) that own the root or that the root card targets.
                 if (window == RV.WindowPlayerAction ? !(incoming > 0) : group.SourceId != enemy.Str(K.Id) && !(IncomingAgainst(group, enemy.Str(K.Id)) > 0)) continue;
                 var moveId = DecideEnemyReaction(c, enemy, window, group.Key, index, incoming);
-                if (moveId != null) throw new NotSupportedException(DM.EnemyReactionsNotPorted);
+                if (moveId != null) CoreEnemyReactions.Push(c, group, enemy, moveId, targetPlayerId);
             }
         }
 
@@ -496,7 +528,8 @@ namespace Ashen.Domain.Combat
             group.ReactionAnswered ??= new List<string>();
             var id = V.Player;
             var row = playerRoot ? null : PlayerRow(c, group);
-            var skip = (row == null || !row.Contacts.Any(Positive)) || group.ReactionAnswered.Contains(id);
+            var enemyRows = entries.Where(entry => !IsPlayerEntry(entry) && entry.Str(EK.TargetPlayerId) == id && PlanRowFor(c, entry, stack.Str(RK.GroupKey))?.Contacts.Any(Positive) == true).ToList();
+            var skip = ((row == null || !row.Contacts.Any(Positive)) && enemyRows.Count == 0) || group.ReactionAnswered.Contains(id);
             if (!skip)
             {
                 var depth = entries.Count(IsPlayerEntry);
@@ -523,11 +556,13 @@ namespace Ashen.Domain.Combat
                     else
                     {
                         var offerId = string.Join(DV.KeySeparator, group.Key, id, depth.ToString(CultureInfo.InvariantCulture));
+                        // A player-card root has no enemy attacker; the offer names the top enemy entry.
+                        var sourceId = playerRoot ? enemyRows.Last().Str(DK.OwnerId) : group.SourceId;
                         c.Fields[DK.PendingReaction] = new JObject
                         {
-                            [K.Id] = offerId, [RK.GroupKey] = group.Key, [DK.OwnerId] = id, [K.SourceId] = group.SourceId, [RK.Options] = new JArray(options),
+                            [K.Id] = offerId, [RK.GroupKey] = group.Key, [DK.OwnerId] = id, [K.SourceId] = sourceId, [RK.Options] = new JArray(options),
                         };
-                        c.Emit(RV.EventCombatReactionOffered, Js.Obj(RK.OfferId, offerId, DK.OwnerId, id, K.SourceId, group.SourceId));
+                        c.Emit(RV.EventCombatReactionOffered, Js.Obj(RK.OfferId, offerId, DK.OwnerId, id, K.SourceId, sourceId));
                         return true;
                     }
                 }
@@ -558,7 +593,7 @@ namespace Ashen.Domain.Combat
                     {
                         var dead = (JObject)entries[entries.Count - 1];
                         entries.RemoveAt(entries.Count - 1);
-                        if (!IsPlayerEntry(dead)) throw new NotSupportedException(DM.EnemyReactionsNotPorted);
+                        if (!IsPlayerEntry(dead)) { c.Emit(RV.EventCombatReactionFizzled, EnemyFizzle(dead, RV.ReasonRootEnded)); continue; }
                         c.Emit(RV.EventCombatReactionFizzled, Js.Obj(DK.OwnerId, dead[DK.OwnerId], RK.CardInstanceId, dead.Obj(RK.Play)[RK.CardInstanceId], K.Reason, RV.ReasonRootEnded));
                     }
                     c.Fields.Remove(DK.ReactionStack);
@@ -567,7 +602,14 @@ namespace Ashen.Domain.Combat
                 }
                 var entry = (JObject)entries[entries.Count - 1];
                 entries.RemoveAt(entries.Count - 1);
-                if (!IsPlayerEntry(entry)) throw new NotSupportedException(DM.EnemyReactionsNotPorted);
+                if (!IsPlayerEntry(entry))
+                {
+                    // Its committed plan, exactly as committed; it pays nothing and fizzles when its enemy is halted or its target seat is gone.
+                    var halted = CoreEnemyReactions.Run(c, entry, CoreEnemyReactions.PlanOf(c, entry, stack.Str(RK.GroupKey)));
+                    if (halted != null) c.Emit(RV.EventCombatReactionFizzled, EnemyFizzle(entry, halted));
+                    if (c.Result != null) { c.Fields.Remove(DK.ReactionStack); return false; }
+                    continue;
+                }
                 if (PlayStackEntry(c, group, entry))
                 {
                     if (entries.Count == 0) c.Fields.Remove(DK.ReactionStack);
@@ -578,6 +620,9 @@ namespace Ashen.Domain.Combat
             CancelEndedPlayerRoot(c, group);
             return false;
         }
+
+        private static JObject EnemyFizzle(JObject entry, string reason) => Js.Obj(RK.Side, EV.SideEnemy, DK.OwnerId, entry[DK.OwnerId], K.EnemyId, entry[K.EnemyId], K.MoveId, entry[K.MoveId],
+            EK.TargetPlayerId, entry[EK.TargetPlayerId], K.Reason, reason);
 
         /// <summary>The queue the reaction interrupts is held aside (reactionResume) while the card plays on an empty one.</summary>
         private static void HoldQueue(CombatState c)
@@ -644,7 +689,14 @@ namespace Ashen.Domain.Combat
                 return false;
             }
             var counter = c.Player.Obj(CK.CombatCounter);
-            if (counter != null && instanceId == counter.Obj(CK.Carrier)?.Str(K.InstanceId)) (group.ManualCounterSerials ??= new Dictionary<string, double>(StringComparer.Ordinal))[ownerId] = counter.Num(CK.Serial);
+            if (counter != null && instanceId == counter.Obj(CK.Carrier)?.Str(K.InstanceId))
+            {
+                (group.ManualCounterSerials ??= new Dictionary<string, double>(StringComparer.Ordinal))[ownerId] = counter.Num(CK.Serial);
+                // A stacked Counter also answers the enemy entries still beneath it.
+                var below = c.Fields.Obj(DK.ReactionStack);
+                foreach (var other in EntriesOf(below).OfType<JObject>().Where(row => !IsPlayerEntry(row) && row.Str(EK.TargetPlayerId) == ownerId))
+                    (CoreEnemyReactions.PlanOf(c, other, below.Str(RK.GroupKey)).Group.ManualCounterSerials ??= new Dictionary<string, double>(StringComparer.Ordinal))[ownerId] = counter.Num(CK.Serial);
+            }
             ReportRestOfRoot(c, group);
             return !RestoreQueue(c);
         }
@@ -656,6 +708,7 @@ namespace Ashen.Domain.Combat
         {
             foreach (var field in new[] { DK.ReactionCursor, DK.PendingReaction, DK.ReactionResume, CK.ReactionHandCleanup, DK.ReactionStack, DK.ReactionRootPlay }) c.Fields.Remove(field);
             c.ReactionResumeQueue = null;
+            c.EnemyPlans.Clear();
             c.Fields[DK.PendingExpansionActions] = 0;
             c.Queue.Clear();
         }
@@ -693,6 +746,7 @@ namespace Ashen.Domain.Combat
                     [RK.Side] = V.Player, [DK.OwnerId] = ownerId, [RK.OptionId] = option[K.Id].DeepClone(), [RK.Play] = play.DeepClone(), [K.CardId] = option[K.CardId].DeepClone(),
                     [RK.CardInstanceId] = play[RK.CardInstanceId].DeepClone(), [RK.Maneuver] = TagsOf(def).Contains(CV.TagManeuver + CV.StanceCounter) ? (JToken)CV.StanceCounter : Js.Null(),
                 };
+                if (Js.Truthy(option[K.SourceId])) entry[K.SourceId] = option[K.SourceId].DeepClone();
                 if (option.Has(RK.Incoming)) entry[RK.Incoming] = option[RK.Incoming].DeepClone();
                 stack.Arr(CK.Entries).Add(entry);
                 if (c.Fields.Obj(CK.ReactionRules)?.Str(DK.ContactPolicy) == DV.PolicyPerHit) group.ReactionAnswered.Add(ownerId);

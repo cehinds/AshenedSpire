@@ -55,6 +55,26 @@ namespace Ashen.Domain.Combat
             return actions;
         }
 
+        /// <summary>
+        /// startDelayedMove(combat, enemy, move, moveId): the commit turn of a delayed move. The telegraph stays and what the move does while it charges
+        /// (Block, Barrier, effects) happens now; the real payload resolves on a later enemy turn.
+        /// </summary>
+        public static void StartDelayed(CombatState c, JObject enemy, JObject move, string moveId)
+        {
+            var charging = move.Obj(K.Delay)?.Obj(CK.WhileCharging) ?? new JObject();
+            var carrier = CoreIntents.Carrier(c, enemy, move, moveId);
+            if (!Js.Nullish(charging[K.Block]))
+                c.Enqueue(new CombatAction { Effect = Js.Obj(K.Op, Op.Block, K.Target, V.TargetSelf, CK.Amount, charging[K.Block].DeepClone()), Source = enemy, Owner = enemy, Target = c.Player, Card = carrier, Meta = new ActionMeta { Preparing = true } });
+            if (!Js.Nullish(charging[CK.Barrier]))
+                c.Enqueue(new CombatAction { Effect = Js.Obj(K.Op, CV.OpGainBarrier, K.Target, V.TargetSelf, CK.Amount, charging[CK.Barrier].DeepClone()), Source = enemy, Owner = enemy, Target = enemy, Card = carrier, Meta = new ActionMeta { MoveId = moveId, Preparing = true } });
+            var actions = Js.Items(charging[K.Effects]).OfType<JObject>()
+                .Select(effect => new CombatAction { Effect = effect, Source = enemy, Owner = enemy, Target = c.Player, Card = carrier, Meta = new ActionMeta { MoveId = moveId, Preparing = true } }).ToList();
+            // Keep charging damage, statuses and generated pressure on one hit receipt.
+            if (actions.Count > 0) CoreExpansion.Enqueue(c, actions, enemy, c.Player, carrier);
+            enemy[K.PendingMove] = Js.Obj(K.MoveId, moveId, K.ResolveOnTurn, c.Turn + (!Js.Nullish(move.Obj(K.Delay)[K.Turns]) ? move.Obj(K.Delay).Num(K.Turns) : 1));
+            if (enemy.Obj(K.Intent)?.Str(K.MoveId) == moveId) { var intent = Js.Spread(enemy.Obj(K.Intent)); intent[K.Pending] = true; enemy[K.Intent] = intent; }
+        }
+
         /// <summary>executeMovePayload(combat, enemy, move, moveId): the move is paid for and planned as one committed action. Returns "refused" when the enemy cannot afford it.</summary>
         public static string Execute(CombatState c, JObject enemy, JObject move, string moveId)
         {
@@ -80,7 +100,7 @@ namespace Ashen.Domain.Combat
             }
             if (!CoreBurdens.AllowMove(c, enemy, spCost, move)) return K.Blocked;
             var start = Js.Obj(K.SourceId, enemy[K.Id], K.EnemyId, enemy[K.EnemyId], K.MoveId, moveId, K.Kind, move[K.Intent],
-                DK.ActionPreview, Js.Obj(K.MoveId, moveId, DK.Profile, carrier[CK.CombatProfile], K.Tags, carrier[K.Tags], DK.SpCost, spCost, DK.TotalSp, totalSp));
+                DK.ActionPreview, Js.Spread(CoreEnemyPreview.Preview(c, enemy, moveId), Js.Obj(DK.SpCost, spCost, DK.TotalSp, totalSp)));
             carrier[DK.RangeQuotedPlan] = rangeQuote;
             carrier[DK.RangeBaseCosts] = new JObject { [K.Energy] = Js.N(spCost), [K.Stamina] = Js.N(spCost), [K.Mana] = 0 };
             var group = CoreExpansion.Enqueue(c, actions, enemy, c.Player, carrier);
