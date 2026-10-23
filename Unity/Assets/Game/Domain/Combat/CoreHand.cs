@@ -11,6 +11,7 @@ using K = Ashen.Generated.CombatKeys;
 using PC = Ashen.Generated.Core2ProfileContentKeys;
 using V = Ashen.Generated.CombatValues;
 using RngStream = Ashen.Generated.RngStream;
+using SK = Ashen.Generated.Core2StatusKeys;
 
 namespace Ashen.Domain.Combat
 {
@@ -79,7 +80,8 @@ namespace Ashen.Domain.Combat
         /// <summary>endTurnCardFate(ctx, card): a configured hand keeps nothing; Ethereal exhausts, the rest is discarded.</summary>
         public static string EndTurnFate(CombatState c, JObject card)
         {
-            if (Js.Includes(c.Player[CK.CombatRetainedCards], card.Str(K.InstanceId))) return V.Keep;
+            var changes = card.Obj(Ashen.Generated.Core2CostKeys.ProposalChanges);
+            if ((changes != null && Js.Truthy(changes[K.Retain]) && Js.Coalesce(changes[SK.RetainUntilTurn], c.Turn) >= c.Turn) || Js.Includes(c.Player[CK.CombatRetainedCards], card.Str(K.InstanceId))) return V.Keep;
             var keywords = CoreCards.Keywords(c, card);
             return keywords.Contains(CV.KeywordEthereal) ? V.Exhaust : V.Discard;
         }

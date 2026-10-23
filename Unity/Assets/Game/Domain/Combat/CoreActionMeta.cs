@@ -29,6 +29,11 @@ namespace Ashen.Domain.Combat
         /// <summary>meta.expansionExecutionRepeat: which repeat of its effect the action is on (the plan's target batch it reads).</summary>
         public int? ExpansionExecutionRepeat;
 
+        /// <summary>meta.cardInstanceId, cardId and trigger: the card whose turn-end-in-hand effect this is.</summary>
+        public string CardInstanceId;
+        public string CardId;
+        public string Trigger;
+
         /// <summary>meta.triggeredBy: the status, stance, property or relic whose trigger enqueued the effect (<c>{ kind, id, ownerId }</c>), for the combat log.</summary>
         public JObject TriggeredBy;
 

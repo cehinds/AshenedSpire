@@ -12,6 +12,7 @@ using E = Ashen.Generated.CombatEvents;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
 using V = Ashen.Generated.CombatValues;
+using SV = Ashen.Generated.Core2StatusValues;
 
 namespace Ashen.Domain.Combat
 {
@@ -70,6 +71,7 @@ namespace Ashen.Domain.Combat
         public static void StartPlayerTurn(CombatState c)
         {
             c.Turn += 1;
+            CoreCardZones.ReturnHidden(c);
             c.Phase = V.PhasePlayer;
             c.Fields.Remove(CK.EnemyReactionRolls);
             var p = c.Player;
@@ -80,7 +82,7 @@ namespace Ashen.Domain.Combat
             var eq = c.Data.Balance.Obj(K.Equipment) ?? new JObject();
             c.SwapsLeft = eq.Str(K.SwapCostKind) == V.SwapAllowance ? eq.Or0(K.SwapAllowancePerTurn) : 0;
 
-            if (!CoreStatuses.Flag(c, p, K.RetainBlock)) p.Put(K.Block, Math.Min(p.Num(K.Block), PassiveMax(c, p, CK.RetainBlockUpTo)));
+            if (!CoreStatuses.Flag(c, p, K.RetainBlock)) p.Put(K.Block, Math.Min(p.Num(K.Block), Math.Max(CoreProposal.Retained(c, p), PassiveMax(c, p, CK.RetainBlockUpTo))));
             else
             {
                 var cap = CoreActionsCap(c, p);
@@ -108,6 +110,7 @@ namespace Ashen.Domain.Combat
             CoreHand.Draw(c, Math.Max(1, CoreHand.TurnDrawCount(c) - (c.Turn == 1 ? penalty : 0)));
 
             c.Emit(E.PlayerTurnStart, Js.Obj(K.Turn, c.Turn));
+            CoreProposal.Turn(c, p, SV.Start);
             FireOwnerHooks(c, p, E.OwnerTurnStart);
             CoreActions.Drain(c);
             if (Expanded(c) && c.Result == null)
@@ -176,11 +179,25 @@ namespace Ashen.Domain.Combat
             var p = c.Player;
             var preserveLockedHand = CoreControl.Locked(c, p);
             c.Emit(E.PlayerTurnEnd, Js.Obj(K.Turn, c.Turn));
+            CoreProposal.Turn(c, p, SV.End);
             FireOwnerHooks(c, p, E.OwnerTurnEnd);
             CoreActions.Drain(c);
             if (c.Result != null) return;
-            foreach (var card in c.Piles.Hand)
-                if (Js.Items(CoreCards.Project(c, card)?[CK.OnTurnEndInHand]).Any()) throw new NotSupportedException(CM.TurnEndInHandNotPorted);
+            // Each card still in hand fires its authored turn-end effects (a Curse's Health loss) before the hand is dealt with.
+            var firedInHand = false;
+            foreach (var card in c.Piles.Hand.ToList())
+            {
+                var hook = CoreCosts.Resolve(c, card).Arr(CK.OnTurnEndInHand);
+                if (hook == null || hook.Count == 0) continue;
+                foreach (var eff in hook.OfType<JObject>())
+                    c.Enqueue(new CombatAction { Effect = eff, Source = p, Owner = p, Target = p, Meta = new ActionMeta { CardInstanceId = card.Str(K.InstanceId), CardId = card.Str(K.CardId), Trigger = SV.TurnEndInHand } });
+                firedInHand = true;
+            }
+            if (firedInHand)
+            {
+                CoreActions.Drain(c);
+                if (c.Result != null) return;
+            }
             CoreStatuses.DecayAtTurnEnd(c, p);
             p.Obj(K.Counters).Put(K.StaminaSpentThisTurn, 0);
             CoreHand.ApplyDiscardChoice(c, discardIds);
@@ -222,6 +239,7 @@ namespace Ashen.Domain.Combat
             if (enemy[CK.BurdenPiles] != null) throw new NotSupportedException(CM.BurdensNotPorted);
             enemy.Put(CK.ActorIntentRevealed, true);
             c.Emit(CV.EventEnemyActorTurnStarted, Js.Obj(K.SourceId, enemy[K.Id], K.EnemyId, enemy[K.EnemyId], K.MoveId, Js.Truthy(enemy.Obj(K.PendingMove)?[K.MoveId]) ? enemy.Obj(K.PendingMove)[K.MoveId] : enemy.Obj(K.Intent)?[K.MoveId]));
+            CoreProposal.Turn(c, enemy, SV.Start);
             FireOwnerHooks(c, enemy, E.OwnerTurnStart);
             CoreActions.Drain(c);
             if (c.Result != null || !enemy.Is(K.Alive)) return;
@@ -287,6 +305,7 @@ namespace Ashen.Domain.Combat
                 if (enemy.Arr(CK.PlannedMoves)?.Count == 0) enemy.Put(CK.PlanDue, false);
                 if (enemy.Is(K.Alive))
                 {
+                    CoreProposal.Turn(c, enemy, SV.End);
                     FireOwnerHooks(c, enemy, E.OwnerTurnEnd);
                     CoreActions.Drain(c);
                     if (c.Result != null) return;

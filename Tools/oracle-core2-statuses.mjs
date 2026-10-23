@@ -249,6 +249,109 @@ function eventGrid() {
 }
 
 // ---------------------------------------------------------------------------------------------------------------
+// Status control: the build-up gauges, the recovery rolls, Sleep, the locks and the persistent Ward and Poise
+// ---------------------------------------------------------------------------------------------------------------
+const controlRules = createFight(w, createRun(w, 1, classes[0]), all[0]).combat.combatExpansionRules.statuses;
+const GAUGES = Object.keys(controlRules.statuses);
+
+function controlGrid() {
+  for (const gauge of GAUGES) {
+    const row = controlRules.statuses[gauge];
+    for (const who of ['p', 'e0']) {
+      const from = who === 'p' ? 'e0' : 'p';
+      const reads = [{ op: 'read', who, read: 'restrictions' }, { op: 'read', who, read: 'controls' }, { op: 'read', who, read: 'chance', status: gauge }, { op: 'read', who, read: 'mods' }];
+      // a ladder of pressure: below the first threshold, across it, to the cap and beyond
+      let s = scenario(`pressure ${gauge} ${who}`);
+      for (const units of [row.initialThreshold - 1, 1, row.activeThreshold, row.activeThreshold * 3, 40]) s.steps.push({ op: 'pressure', who, status: gauge, units, from }, { op: 'drain' });
+      s.steps.push(...reads);
+      // the recovery rolls of the owner's next turns
+      for (let cycle = 2; cycle <= 7; cycle++) s.steps.push({ op: 'turn' }, { op: 'decayStart', who }, { op: 'recover', who, options: { cycle } }, { op: 'drain' }, { op: 'endControl', who }, { op: 'decayEnd', who });
+      s.steps.push(...reads);
+      // each application option: a camp, a resistance, advantage and disadvantage on the recovery
+      for (const [label, options] of [['spell', { camp: 'spell' }], ['physical', { camp: 'physical' }], ['resist', { resistancePercent: 50 }], ['immune', { traits: { immuneStatuses: [gauge] } }], ['profile', { recoveryProfile: 'mental' }]]) {
+        s = scenario(`pressure ${gauge} ${who} ${label}`);
+        s.steps.push({ op: 'pressure', who, status: gauge, units: row.initialThreshold + 2, from, options }, { op: 'drain' }, { op: 'pressure', who, status: gauge, units: row.activeThreshold, from, options }, { op: 'drain' }, ...reads);
+        s.steps.push({ op: 'turn' }, { op: 'recover', who, options: { cycle: 2, advantage: true } }, { op: 'recover', who, options: { cycle: 3, disadvantage: true } }, { op: 'drain' });
+      }
+      // Ward answers a Spell fill; Poise strain answers a physical one
+      for (const [label, patch, options] of [['ward', { persistentWard: { max: 4, value: 4 } }, { camp: 'spell' }], ['poise', { poiseMeter: { max: 2, value: 0 } }, { camp: 'physical' }]]) {
+        s = scenario(`pressure ${gauge} ${who} ${label}`, { patch: { [who]: patch } });
+        for (let n = 0; n < 4; n++) s.steps.push({ op: 'pressure', who, status: gauge, units: row.initialThreshold, from, options }, { op: 'drain' });
+        s.steps.push(...reads);
+      }
+      // the owner's traits: a recovery bonus and a recovery advantage
+      s = scenario(`recover ${gauge} ${who} traits`, { patch: { [who]: { combatTraits: { recoveryBonus: { [row.profile]: 15 }, recoveryAdvantage: [row.profile], recoveryDisadvantage: ['mental'] } } } });
+      s.steps.push({ op: 'pressure', who, status: gauge, units: row.initialThreshold * 2, from }, { op: 'drain' });
+      for (let cycle = 2; cycle <= 6; cycle++) s.steps.push({ op: 'recover', who, options: { cycle } }, { op: 'drain' }, { op: 'endControl', who });
+    }
+    // an active status applied straight (a card that names it), then recovered by hand
+    if (row.lock) {
+      for (const who of ['p', 'e0']) {
+        const s = scenario(`lock ${gauge} ${who}`, { patch: { [who]: who === 'p' ? { stamina: 6, energy: 6 } : { stamina: 6 } } });
+        s.steps.push({ op: 'apply', who, status: row.activeStatus, stacks: 2, from: who === 'p' ? 'e0' : 'p' }, { op: 'drain' }, { op: 'read', who, read: 'restrictions' }, { op: 'read', who, read: 'controls' },
+          { op: 'read', who, read: 'gate', card: {} }, { op: 'read', who, read: 'gate', card: { usableWhile: [row.activeStatus] } }, { op: 'read', who, read: 'gate', card: { builtinRecovery: true } },
+          { op: 'manual', who, selections: [] }, { op: 'manual', who, selections: [{ status: row.activeStatus, stacks: 5 }] }, { op: 'manual', who, selections: [{ status: row.activeStatus, stacks: 1 }] }, { op: 'drain' },
+          { op: 'read', who, read: 'restrictions' }, { op: 'endControl', who, selected: row.activeStatus }, { op: 'turn' }, { op: 'recover', who, options: { cycle: 2 } }, { op: 'sleep', who }, { op: 'actionLoss', who },
+          { op: 'endControl', who }, { op: 'turn' }, { op: 'recover', who, options: { cycle: 3 } }, { op: 'actionLoss', who }, { op: 'read', who, read: 'restrictions' });
+      }
+    }
+  }
+}
+
+function controlInteractions() {
+  const i = controlRules.interactions;
+  for (const who of ['p', 'e0']) {
+    const from = who === 'p' ? 'e0' : 'p';
+    // Sleep: the damage it invites, the Health and Ward it restores, waking when hit
+    let s = scenario(`sleep ${who}`, { patch: { [who]: { hp: 20 } } });
+    s.steps.push({ op: 'apply', who, status: 'sleep', stacks: 3, from }, { op: 'drain' }, { op: 'read', who, read: 'incoming', profile: {} }, { op: 'sleep', who }, { op: 'sleep', who },
+      { op: 'complete', who, profile: {}, actionKey: 'a1' }, { op: 'complete', who, profile: {}, actionKey: 'a1' }, { op: 'apply', who, status: 'sleep', stacks: 2, from }, { op: 'turn' }, { op: 'recover', who, options: { cycle: 2 } },
+      { op: 'sleep', who, options: { modifierPercent: 50 } }, { op: 'complete', who, profile: {}, actionKey: 'a2' }, { op: 'read', who, read: 'incoming', profile: {} });
+    // Prone: melee and ranged hits, Reach and Ranged evade, area and projectile
+    s = scenario(`prone ${who}`);
+    s.steps.push({ op: 'apply', who, status: 'prone', stacks: 1, from }, { op: 'drain' });
+    for (const profile of [{ range: 'melee' }, { range: 'reach', camp: 'physical' }, { range: 'ranged', camp: 'physical' }, { range: 'ranged', camp: 'spell', targeting: 'area' }, { range: 'ranged', camp: 'physical', targeting: 'area', projectile: true }, { range: 'melee', damageType: 'blunt' }])
+      s.steps.push({ op: 'read', who, read: 'incoming', profile });
+    s.steps.push({ op: 'read', who, read: 'controls' });
+    // Frozen, Chilled, fire and blunt: thawing, shattering
+    s = scenario(`frozen ${who}`);
+    s.steps.push({ op: 'apply', who, status: 'frozen', stacks: 2, from }, { op: 'apply', who, status: 'chilled', stacks: 2, from }, { op: 'drain' }, { op: 'read', who, read: 'incoming', profile: { damageType: 'blunt' } },
+      { op: 'actionLoss', who }, { op: 'actionLoss', who }, { op: 'before', who, profile: { damageType: 'blunt' } }, { op: 'complete', who, profile: { damageType: 'blunt' }, actionKey: 'b1' },
+      { op: 'complete', who, profile: { damageType: 'blunt' }, actionKey: 'b2' }, { op: 'before', who, profile: { damageType: 'fire' }, connected: false }, { op: 'before', who, profile: { damageType: 'fire' } }, { op: 'read', who, read: 'restrictions' });
+    s = scenario(`frost gauge ${who}`);
+    s.steps.push({ op: 'pressure', who, status: 'frost', units: 8, from }, { op: 'drain' }, { op: 'before', who, profile: { containsFire: true } }, { op: 'before', who, profile: { school: 'fire' } }, { op: 'read', who, read: 'mods' });
+    // Reveal: Decoy and Concealed
+    s = scenario(`reveal ${who}`);
+    s.steps.push({ op: 'apply', who, status: 'decoy', stacks: 2, from }, { op: 'apply', who, status: 'concealed', stacks: 1, from }, { op: 'drain' }, { op: 'complete', who, profile: { maneuver: 'sweep' }, actionKey: 'r1' },
+      { op: 'apply', who, status: 'concealed', stacks: 1, from }, { op: 'complete', who, profile: { damageType: 'sacred' }, actionKey: 'r2' }, { op: 'apply', who, status: 'decoy', stacks: 1, from }, { op: 'complete', who, profile: { containsReveal: true }, actionKey: 'r3', damaging: false },
+      { op: 'complete', who, profile: { containsReveal: true }, actionKey: 'r4' });
+    // Grounded and the electrical traits
+    s = scenario(`grounded ${who}`, { patch: { [who]: { combatTraits: { conductive: true } } } });
+    s.steps.push({ op: 'read', who, read: 'electrical' }, { op: 'pressure', who, status: 'paralysis', units: 8, from }, { op: 'drain' }, { op: 'apply', who, status: 'grounded', stacks: 1, from }, { op: 'drain' }, { op: 'read', who, read: 'electrical' },
+      { op: 'ground', who }, { op: 'apply', who, status: 'paralysis', stacks: 1, from }, { op: 'ground', who, clear: true }, { op: 'read', who, read: 'restrictions' }, { op: 'turn' }, { op: 'recover', who, options: { cycle: 2 } }, { op: 'drain' });
+    // an Insulated owner and a Resolve turn
+    s = scenario(`resolve ${who}`, { patch: { [who]: { combatTraits: { insulated: true } } } });
+    s.steps.push({ op: 'read', who, read: 'electrical' }, { op: 'apply', who, status: 'dazed', stacks: 1, from }, { op: 'drain' }, { op: 'endControl', who }, { op: 'turn' }, { op: 'recover', who, options: { cycle: 2 } }, { op: 'read', who, read: 'restrictions' },
+      { op: 'actionLoss', who }, { op: 'endControl', who }, { op: 'read', who, read: 'restrictions' });
+  }
+}
+
+function wardGrid() {
+  for (const who of ['p', 'e0']) {
+    const from = who === 'p' ? 'e0' : 'p';
+    let s = scenario(`ward spend ${who}`, { patch: { [who]: { persistentWard: { max: 6, value: 6 } } } });
+    for (const amount of [1, 2, 4, 9]) s.steps.push({ op: 'spendWard', who, amount, meta: { status: 'frost', sourceId: from } }, { op: 'drain' });
+    s.steps.push({ op: 'restoreWard', who, nominal: 3, options: { source: 'block-card', modifierPercent: 0 } }, { op: 'restoreWard', who, nominal: 5, options: { source: 'spell', modifierPercent: 50, cap: 2, onceKey: 'k1' } },
+      { op: 'restoreWard', who, nominal: 5, options: { source: 'spell', onceKey: 'k1' } }, { op: 'breakWard', who, meta: {} }, { op: 'drain' });
+    s = scenario(`ward break ${who}`, { patch: { [who]: { persistentWard: { max: 5, value: 5 } } } });
+    s.steps.push({ op: 'breakWard', who, meta: { sourceId: from, cause: 'attack' } }, { op: 'drain' }, { op: 'restoreWard', who, nominal: 4, options: { source: 'sleep' } }, { op: 'drain' });
+    s = scenario(`poise restore ${who}`, { patch: { [who]: { persistentPoise: { max: 8, value: 2 } } } });
+    for (const nominal of [3, 8, 2]) s.steps.push({ op: 'restorePoise', who, nominal, options: { source: 'block-card' } });
+    s.steps.push({ op: 'restorePoise', who, nominal: 4, options: { source: 'stance', modifierPercent: 25, cap: 3, onceKey: 'p1' } }, { op: 'restorePoise', who, nominal: 4, options: { source: 'stance', onceKey: 'p1' } });
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
 // Write
 // ---------------------------------------------------------------------------------------------------------------
 mkdirSync(OUT, { recursive: true });
@@ -262,6 +365,9 @@ total += bytes; index.defs = { file: 'defs.json', statuses: statusIds.length, by
 
 applyGrid();
 eventGrid();
+controlGrid();
+controlInteractions();
+wardGrid();
 const recorded = [];
 for (const spec of scenarios) {
   const played = play(spec);

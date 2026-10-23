@@ -11,6 +11,8 @@ using CM = Ashen.Generated.Core2CombatMessages;
 using CV = Ashen.Generated.Core2CombatValues;
 using K = Ashen.Generated.CombatKeys;
 using V = Ashen.Generated.CombatValues;
+using SK = Ashen.Generated.Core2StatusKeys;
+using SM = Ashen.Generated.Core2StatusMessages;
 
 namespace Ashen.Domain.Combat
 {
@@ -51,7 +53,34 @@ namespace Ashen.Domain.Combat
                     result[K.Keywords] = new JArray(keywords);
                 }
             }
-            if (Js.Truthy(instance[CC.ProposalChanges])) throw new NotSupportedException(CCM.ProposalChangesNotPorted);
+            if (instance.Obj(CC.ProposalChanges) is JObject changes)
+            {
+                // Changes a card effect wrote on the instance: a new range or maneuver on the face, and a retain that lasts until a turn.
+                var original = result;
+                result = Js.Spread(original);
+                var range = changes[CK.Range];
+                var maneuver = changes[CK.Maneuver];
+                if (Js.Truthy(range))
+                {
+                    result[CK.Range] = range.DeepClone();
+                    var profile = Js.Spread(original.Obj(CK.CombatProfile));
+                    profile[CK.Range] = range.DeepClone();
+                    result[CK.CombatProfile] = profile;
+                }
+                if (Js.Truthy(maneuver))
+                {
+                    var profile = Js.Spread(original.Obj(CK.CombatProfile));
+                    profile[CK.Maneuver] = maneuver.DeepClone();
+                    if (Js.Truthy(range)) profile[CK.Range] = range.DeepClone();
+                    result[CK.CombatProfile] = profile;
+                }
+                if (Js.Truthy(changes[K.Retain]) && Js.Coalesce(changes[SK.RetainUntilTurn], c.Turn) >= c.Turn)
+                {
+                    var keywords = Js.Items(result[K.Keywords]).Select(Js.Str).ToList();
+                    if (!keywords.Contains(K.Retain)) keywords.Add(K.Retain);
+                    result[K.Keywords] = new JArray(keywords);
+                }
+            }
             if (Js.Truthy(def[CC.CostGrowth]))
             {
                 var growth = def.Obj(CC.CostGrowth);
@@ -129,7 +158,7 @@ namespace Ashen.Domain.Combat
         /// <summary>proposalCardRules({ actor, card }): the refusal, the flat Stamina and Mana tax and the extra stance capacity the actor's statuses give a card.</summary>
         public static JObject ProposalCardPlan(CombatState c, JObject actor, JObject card)
         {
-            var result = new JObject { [CC.Allowed] = true, [CC.Refusal] = Js.Null(), [CC.StaminaTax] = 0, [CC.ManaTax] = 0, [CC.AdditionalStanceCapacity] = 0 };
+            var result = new JObject { [CC.Allowed] = true, [CC.Refusal] = Js.Null(), [CC.StaminaTax] = 0, [CC.ManaTax] = 0, [CC.AdditionalStanceCapacity] = 0, [CK.Effects] = new JArray(), [Ashen.Generated.Core2HitKeys.StatusChanges] = new JArray() };
             var rules = c.CoreData.ProposalStatusRules;
             var capabilities = Capabilities(c);
             double staminaTax = 0, manaTax = 0, capacity = 0;
@@ -156,8 +185,16 @@ namespace Ashen.Domain.Combat
                     var tags = Js.Items(TagsOf(card)).Select(Js.Str).ToList();
                     var tagged = !(required is JArray list && list.Count > 0) || Js.Items(required).Any(tag => tags.Contains(Js.Str(tag)));
                     if (!tagged) continue;
-                    if ((kind == CCV.KindExtraWeapon && card?.Str(K.Type) == CCV.TypeAttack) || kind == CCV.KindExtraShield)
-                        throw new NotSupportedException(CCM.ExtraPlayNotPorted);
+                    if (kind == CCV.KindExtraWeapon && card?.Str(K.Type) == CCV.TypeAttack)
+                    {
+                        ((JArray)result[CK.Effects]).Add(CoreProposal.ExtraWeapon(actor, card, behavior));
+                        ((JArray)result[Ashen.Generated.Core2HitKeys.StatusChanges]).Add(CoreProposal.StatusChange(actor, status.Name, -Math.Min(stacks, behavior.Num(Ashen.Generated.Core2DamageKeys.ConsumeStacks))));
+                    }
+                    if (kind == CCV.KindExtraShield)
+                    {
+                        ((JArray)result[CK.Effects]).Add(CoreProposal.ExtraShield(actor, card, behavior));
+                        ((JArray)result[Ashen.Generated.Core2HitKeys.StatusChanges]).Add(CoreProposal.StatusChange(actor, status.Name, -Math.Min(stacks, behavior.Num(Ashen.Generated.Core2DamageKeys.ConsumeStacks))));
+                    }
                 }
             }
             result[CC.StaminaTax] = Js.N(staminaTax);
@@ -352,6 +389,7 @@ namespace Ashen.Domain.Combat
             var def = Resolve(c, instance);
             var plan = ProposalCardPlan(c, c.Player, def);
             if (!plan.Is(CC.Allowed)) return plan.Str(CC.Refusal);
+            if (!CoreStatusControl.Gate(c, c.Player, def).Is(Ashen.Generated.Core2DamageKeys.Allowed)) return SM.RecoverFirst;
             if (Js.Includes(def[K.Keywords], CCV.KeywordUnplayable)) return string.Format(CultureInfo.InvariantCulture, CCM.Unplayable, def.Str(K.Name));
             var paid = PreparedPlayCosts(c, def);
             if (c.Player.Num(K.Stamina) < paid.Num(K.Energy) || c.Player.Num(K.Mana) < paid.Num(K.Mana)) return CCM.NotEnough;

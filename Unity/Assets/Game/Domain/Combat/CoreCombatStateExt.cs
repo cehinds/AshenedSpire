@@ -2,13 +2,16 @@ using Newtonsoft.Json.Linq;
 
 namespace Ashen.Domain.Combat
 {
-    /// <summary>The runtime fields the Core 2 statuses and effect ops add to a fight (never saved; the fight's saved fields live in <see cref="CombatState.Fields"/>).</summary>
+    /// <summary>The runtime fields the card being played keeps while a choice is pending (never saved; web <c>pendingAbilityPlay</c> holds them by reference).</summary>
     public sealed partial class CombatState
     {
-        /// <summary>
-        /// The snapshot (<c>abilityBefore</c>, <c>abilityEntities</c>, <c>cardTargetsAllEnemies</c>) taken before the card being played: the web carries
-        /// it on the payload of the card's own events and on the actions' metadata; the rider predicates read it from here while the play runs.
-        /// </summary>
-        public JObject EventBefore;
+        /// <summary>The instance the card play resolves (the hand's own object, which then goes to its pile).</summary>
+        public JObject PendingPlayInstance;
+
+        /// <summary>The carrier the card was played with (its tags, ability kind and the armament it used).</summary>
+        public JObject PendingPlayRef;
+
+        /// <summary>The snapshot taken before the play (<c>abilityBefore</c>, <c>abilityEntities</c>, <c>cardTargetsAllEnemies</c>), which the card's own events carry.</summary>
+        public JObject PendingPlayBefore;
     }
 }

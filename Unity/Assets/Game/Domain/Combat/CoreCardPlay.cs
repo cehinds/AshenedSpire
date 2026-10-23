@@ -4,6 +4,9 @@ using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using CC = Ashen.Generated.Core2CostKeys;
+using SK = Ashen.Generated.Core2StatusKeys;
+using SV = Ashen.Generated.Core2StatusValues;
+using SM = Ashen.Generated.Core2StatusMessages;
 using DK = Ashen.Generated.Core2DamageKeys;
 using DM = Ashen.Generated.Core2DamageMessages;
 using DN = Ashen.Generated.Core2DamageNumbers;
@@ -203,25 +206,28 @@ namespace Ashen.Domain.Combat
         /// <summary>
         /// doPlayCard(combat, intent): a card in the hand is played. The gates, then cardPreparing, the price, the stance, and the card's effects as one
         /// committed action: every damage contact is planned against its target, resolved hit by hit (the d20, the receipt, Block and Poise) and
-        /// settled when the last effect has run; then the card is told played, resolved and put where it goes. A card with an effect the packages
-        /// after this one own (a choice, a Counter, a trait, a charge, an opcode beyond damage and Block) is refused before anything changes.
+        /// settled when the last effect has run; then the card is told played, resolved and put where it goes. The card's choice (a stance it offers),
+        /// its variant, the charges it consumes and the riders they attach, its Health payments and the status plan travel with it. A card with an
+        /// effect a later package owns (a move of the engagement, a Counter, a legacy stance) is refused before anything changes.
         /// </summary>
-        public static void Play(CombatState c, string instanceId, string targetId)
+        public static void Play(CombatState c, string instanceId, string targetId, JToken choice = null)
         {
             c.RecordSkillXp = true;
             var player = c.Player;
+            if (CoreCardZones.HasChoice(c)) throw new InvalidOperationException(SM.ChooseBeforeAction);
             var refusal = CoreCosts.PlayRefusal(c, instanceId);
             if (refusal != null) throw new InvalidOperationException(refusal);
             var inst = c.Piles.Hand.First(card => card.Str(K.InstanceId) == instanceId);
-            var def = CoreCosts.Resolve(c, inst);
-            if (CoreControl.Locked(c, player)) throw new NotSupportedException(CM.StatusControlNotPorted);
-            if (def.Arr(DK.EffectVariants)?.Count > 0) throw new NotSupportedException(DM.CardVariantsNotPorted);
+            var printed = CoreCosts.Resolve(c, inst);
+            var statusPlan = CoreCosts.ProposalCardPlan(c, player, printed);
+            var chosen = AssertChoice(ChoiceOptions(printed), choice);
+            if (printed.Num(DK.AshenBlightCost) > 0) throw new NotSupportedException(CM.AshenBlightNotPorted);
+            var variantTarget = targetId != null ? Triggers.FindEntity(c, targetId) : null;
+            var def = CoreVariants.Select(c, printed, CoreCosts.PlayCosts(c, printed), variantTarget);
             var effects = Js.Items(def[K.Effects]).OfType<JObject>().ToList();
             foreach (var effect in effects)
-                if (!CoreSets.CardOps.Contains(effect.Str(K.Op)) || effect.Is(K.If) || effect.Is(CK.Script) || effect.Is(CK.OncePerTurn) || effect.Is(DK.Choose))
+                if (CoreSets.DeferredOps.Contains(effect.Str(K.Op)) || effect.Is(CK.Script) || (effect.Str(K.Op) == Op.EnterStance && (Js.Truthy(effect[CK.Stance]) || effect.Str(DK.Choose) == SV.ClassStance)))
                     throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, CM.OpcodeNotPorted, effect.Str(K.Op)));
-            if (def.Num(DK.AshenBlightCost) > 0) throw new NotSupportedException(CM.AshenBlightNotPorted);
-            if (CoreEvents.RidersOf(player).Obj(DK.Charges)?.Count > 0) throw new NotSupportedException(DM.ChargesNotPorted);
             var limit = CardCommandLimit(c);
             if (Js.Or0(c.Fields[CK.GameProfileCommands]) >= limit) throw new InvalidOperationException(DM.TurnWorkBudget);
             // The target: what the card names, else the first living enemy a single-target card needs.
@@ -242,9 +248,22 @@ namespace Ashen.Domain.Combat
             var kind = Cards.Kind(c.Data, def);
             var probe = Carrier(c, inst, def);
             var maneuver = probe.Obj(CK.CombatProfile)?.Str(CK.Maneuver);
-            if (maneuver == CV.StanceCounter || probe.Obj(DK.TraitValues)?.Is(DK.Counterstrike) == true || probe.Obj(DK.TraitValues)?.Num(DK.Impact) > 0 || probe.Obj(DK.TraitValues)?.Num(DK.Flux) > 0) throw new NotSupportedException(DM.TraitsNotPorted);
-            c.Emit(DK.CardPreparing, Js.Obj(DK.CardInstanceId, instanceId, K.CardId, inst[K.CardId], DK.CardType, kind, DK.CardTags, probe[DK.AuthoredTags], DK.AbilityKind, probe[DK.AbilityKind], K.SourceId, player[K.Id], K.TargetId, target?[K.Id] ?? Js.Null()));
+            if (maneuver == CV.StanceCounter) throw new NotSupportedException(DM.TraitsNotPorted);
+            // What the play changes is measured from here: the books and the combatants before it, for the predicates that ask.
+            var before = CoreRiders.Before(c, player);
+            before[SV.CardTargetsAllEnemies] = CoreRiders.TargetsAllEnemies(def);
+            PreflightHealth(c, def, player, target, before);
+            c.Emit(DK.CardPreparing, Spread(Js.Obj(DK.CardInstanceId, instanceId, K.CardId, inst[K.CardId], DK.CardType, kind, DK.CardTags, probe[DK.AuthoredTags], DK.AbilityKind, probe[DK.AbilityKind], K.SourceId, player[K.Id], K.TargetId, target?[K.Id] ?? Js.Null()), before));
             CoreActions.Drain(c);
+            // A charge another card holds for this one is taken now, riders and all.
+            var enemyAvailable = c.Enemies.Any(e => e.Is(K.Alive));
+            var charges = CoreRiders.Matching(player, probe, enemyAvailable);
+            var chargedEffects = CoreRiders.ChargedEffects(c, effects, charges, enemyAvailable);
+            if (!ReferenceEquals(chargedEffects, effects))
+            {
+                if (target != null && target.Str(K.Kind) != V.Enemy) throw new InvalidOperationException(SM.BuildupNeedsEnemy);
+                target ??= c.Enemies.FirstOrDefault(e => e.Is(K.Alive));
+            }
             var entry = Enter(c, instanceId);
             var cardRef = entry.Carrier;
             var paid = entry.Paid;
@@ -253,6 +272,9 @@ namespace Ashen.Domain.Combat
             CoreStances.SetProfileStance(c, player, cardRef);
             var counters = player.Obj(K.Counters);
             RecordAbilityCard(player, cardRef, paid.Num(K.Mana));
+            var chargeKeys = Js.Items(charges[SK.Keys]).Select(Js.Str).ToList();
+            CoreRiders.Consume(player, chargeKeys);
+            if (chargeKeys.Count > 0) c.Emit(SV.CardChargeConsumed, Js.Obj(SK.Keys, new JArray(chargeKeys), K.CardId, inst[K.CardId], K.SourceId, player[K.Id]));
             var snapshots = CoreRange.CardSourceSnapshots(c, def, player, cardRef);
             if (snapshots != null && (snapshots.Count > 0 || effects.Any(e => e.Str(K.Op) == Op.Damage)))
             {
@@ -262,22 +284,29 @@ namespace Ashen.Domain.Combat
             var committed = (JObject)inst.DeepClone();
             if (cardRef.Has(DK.UsedArmamentId)) committed[DK.UsedArmamentId] = cardRef[DK.UsedArmamentId].DeepClone();
             cardRef[DK.CommittedInstance] = committed;
-            c.PendingAbilityPlay = new JObject { [K.InstanceId] = instanceId };
-            cardRef[DK.AppliedStatusEffects] = new JArray();
-            cardRef[DK.AppliedStatuses] = new JArray();
-            cardRef[DK.AppliedBuildupStatuses] = new JArray();
+            c.PendingAbilityPlay = new JObject { [K.InstanceId] = instanceId, [K.CardId] = inst[K.CardId], [K.Kind] = kind, [DK.PrintedManaCost] = Js.Or0(def[K.ManaCost]), [K.TargetId] = target?[K.Id] ?? Js.Null() };
+            c.PendingPlayInstance = inst;
+            c.PendingPlayRef = cardRef;
+            c.PendingPlayBefore = before;
             var meta = new ActionMeta
             {
                 EnergySpent = paid.Num(K.Energy), ManaSpent = paid.Num(K.Mana), StaminaSpent = paid.Num(K.Stamina),
                 OrdinalThisTurn = counters.Num(CC.CardsPlayedThisTurn), OrdinalThisCombat = counters.Num(CC.CardsPlayedThisCombat),
                 AttackOrdinal = kind == CV.TypeAttack ? counters.Num(CC.AttacksPlayedThisCombat) : (double?)null,
-                ProposalTargetDecisions = new JObject(),
+                ProposalTargetDecisions = new JObject(), Before = before, Choice = chosen,
             };
+            // prepareTacticalCard: the effects the play really runs (a charge's buildup, a Counterstrike's retort) and the statuses they apply.
+            var tactical = CoreCardTraits.CounterstrikeEffects(c, player, target, cardRef, chargedEffects, true);
+            var applied = tactical.Where(e => e.Str(K.Op) == Op.ApplyStatus).ToList();
+            cardRef[DK.AppliedStatusEffects] = new JArray(applied.Select(e => e.DeepClone()));
+            cardRef[DK.AppliedStatuses] = new JArray(applied.Select(e => e[K.Status]?.DeepClone()));
+            cardRef[DK.AppliedBuildupStatuses] = new JArray(tactical.Where(e => e.Str(K.Op) == CV.OpBuildup).Select(e => e[K.Status]?.DeepClone()));
             var actions = new List<CombatAction>();
             var damageOrdinal = 0;
-            for (var index = 0; index < effects.Count; index++)
+            var chargeApplied = new HashSet<string>(StringComparer.Ordinal);
+            for (var index = 0; index < tactical.Count; index++)
             {
-                var effect = effects[index];
+                var effect = tactical[index];
                 JObject card = cardRef;
                 if (effect.Str(K.Op) == Op.Damage)
                 {
@@ -287,7 +316,9 @@ namespace Ashen.Domain.Combat
                 }
                 var actionMeta = meta.Clone();
                 actionMeta.AbilityEffectIndex = index;
-                actions.Add(new CombatAction { Effect = effect, Source = player, Owner = player, Target = target, Card = card, Meta = actionMeta });
+                var action = new CombatAction { Effect = effect, Source = player, Owner = player, Target = target, Card = card, Meta = actionMeta };
+                CoreRiders.Attach(c, action, charges, chargeApplied);
+                actions.Add(action);
             }
             cardRef[DK.RangeRoute] = DV.RouteAdvance;
             cardRef[DK.RangeBaseCosts] = new JObject { [K.Energy] = paid[K.Energy].DeepClone(), [K.Stamina] = paid[K.Stamina].DeepClone(), [K.Mana] = paid[K.Mana].DeepClone() };
@@ -295,28 +326,118 @@ namespace Ashen.Domain.Combat
             var cost = paid.Num(K.Energy);
             var staminaCost = paid.Num(K.Stamina);
             if (group?.Carrier.Obj(DK.RangePlan) != null) { var extra = group.Carrier.Obj(DK.RangePlan).Num(DK.AdvanceSp); cost += extra; staminaCost += extra; }
-            CoreProposal.ApplyPlan(c, CoreCosts.ProposalCardPlan(c, player, def), player, target, cardRef);
-            c.Emit(DK.CardPlayed, Js.Obj(DK.AbilityKind, cardRef[DK.AbilityKind], DK.PrintedManaCost, Js.Or0(def[K.ManaCost]), K.SourceId, player[K.Id], DK.CardInstance, cardRef[DK.CommittedInstance],
+            CoreProposal.ApplyPlan(c, statusPlan, player, target, cardRef);
+            c.Emit(DK.CardPlayed, Spread(Js.Obj(DK.AbilityKind, cardRef[DK.AbilityKind], DK.PrintedManaCost, Js.Or0(def[K.ManaCost]), K.SourceId, player[K.Id], DK.CardInstance, cardRef[DK.CommittedInstance],
                 DK.CardInstanceId, instanceId, K.CardId, inst[K.CardId], DK.CardType, kind, DK.CardTags, cardRef[K.Tags] ?? new JArray(), DK.DerivedTags, cardRef[DK.DerivedTags], K.TargetId, target?[K.Id] ?? Js.Null(),
-                DK.OrdinalThisTurn, meta.OrdinalThisTurn, DK.OrdinalThisCombat, meta.OrdinalThisCombat, DK.EnergySpent, cost, DK.ManaSpent, paid[K.Mana], DK.StaminaSpent, staminaCost));
+                DK.OrdinalThisTurn, meta.OrdinalThisTurn, DK.OrdinalThisCombat, meta.OrdinalThisCombat, DK.EnergySpent, cost, DK.ManaSpent, paid[K.Mana], DK.StaminaSpent, staminaCost), before));
             CoreActions.Drain(c);
-            FinishPlay(c, inst, def, cardRef, kind, target);
+            FinishPlay(c);
+        }
+
+        /// <summary>The payload with the snapshot taken before the play laid under it (web <c>{ ...before, ...payload }</c>).</summary>
+        private static JObject Spread(JObject payload, JObject before)
+        {
+            var result = new JObject();
+            foreach (var p in before.Properties()) result[p.Name] = p.Value.DeepClone();
+            foreach (var p in payload.Properties()) result[p.Name] = p.Value;
+            return result;
+        }
+
+        // ------------------------------------------------------------------ choices
+
+        /// <summary>cardChoice(registries, def, classId): the stances a card asks the player to pick from, or null when it plays without a choice.</summary>
+        public static List<string> ChoiceOptions(JObject def)
+        {
+            var effect = Js.Items(def[K.Effects]).OfType<JObject>().FirstOrDefault(e => e.Str(K.Op) == Op.EnterStance && Js.Truthy(e[DK.Choose]));
+            if (effect == null) return null;
+            if (effect.Str(DK.Choose) == CK.Maneuver) return new List<string> { K.Attack, CV.StanceSmash, CV.StanceDefend, CV.StanceSweep, CK.Counter, CV.ManeuverCasting, CK.Evade };
+            throw new NotSupportedException(SM.LegacyStanceNotPorted);
+        }
+
+        /// <summary>assertCardChoice(plan, choice): a card that offers no choice takes none; one that does takes one of its options.</summary>
+        public static JToken AssertChoice(List<string> options, JToken choice)
+        {
+            if (options == null)
+            {
+                if (!Js.Nullish(choice)) throw new InvalidOperationException(SM.NoChoiceOffered);
+                return null;
+            }
+            if (!Js.IsStr(choice) || !options.Contains(Js.Str(choice))) throw new InvalidOperationException(SM.ChooseStance + string.Join(V.ListSeparator, options));
+            return choice;
+        }
+
+        /// <summary>preflightCardHp(ctx, def, source, target, meta): every authored Health payment is checked before the card, a resource, the queue or a roll changes.</summary>
+        private static void PreflightHealth(CombatState c, JObject def, JObject source, JObject target, JObject before)
+        {
+            var remaining = new Dictionary<string, double>(StringComparer.Ordinal);
+            foreach (var effect in Js.Items(def[K.Effects]).OfType<JObject>())
+            {
+                if (effect.Str(K.Op) != Op.LoseHp) continue;
+                var action = new CombatAction { Effect = effect, Source = source, Owner = source, Target = target, Card = def, Meta = new ActionMeta { Before = before } };
+                if (Js.Truthy(effect[K.If]) && !Triggers.EvalPredicate(c, effect.Obj(K.If), new PredicateContext { Owner = source, Source = source, Target = target, Card = def, Meta = action.Meta })) continue;
+                foreach (var entity in Actions.ResolveTargets(c, action, effect.Str(K.Target)))
+                {
+                    var amount = Math.Max(0, Actions.EvalNum(c, action, effect[K.Amount], 0, entity)) * Math.Max(0, Actions.EvalNum(c, action, effect[CK.Repeat], 1));
+                    var hp = remaining.TryGetValue(entity.Str(K.Id), out var left) ? left : entity.Num(K.Hp);
+                    if (effect.Is(DK.Nonlethal) && amount >= hp) throw new InvalidOperationException(SM.NonlethalOffering);
+                    remaining[entity.Str(K.Id)] = Math.Max(0, hp - amount);
+                }
+            }
+        }
+
+        // ------------------------------------------------------------------ choices made after the play
+
+        /// <summary>chooseCards: the cards a pending zone choice (look, pick, transform) asks for; the play then goes on.</summary>
+        public static void ChooseCards(CombatState c, IReadOnlyList<string> ids)
+        {
+            c.RecordSkillXp = true;
+            CoreCardZones.Choose(c, ids);
+            CoreActions.Drain(c);
+            FinishPlay(c);
+        }
+
+        /// <summary>chooseDiscard: the cards a chosen discard asks for; the play then goes on.</summary>
+        public static void ChooseDiscard(CombatState c, IReadOnlyList<string> ids)
+        {
+            c.RecordSkillXp = true;
+            CoreCardZones.ChooseDiscard(c, ids);
+            CoreActions.Drain(c);
+            FinishPlay(c);
+        }
+
+        /// <summary>recoverControl: the player spends their turn's recoveries on the control statuses they name.</summary>
+        public static void RecoverControl(CombatState c, JArray selections)
+        {
+            c.RecordSkillXp = true;
+            if (c.Phase != V.PhasePlayer) throw new InvalidOperationException(SM.RecoveryNeedsTurn);
+            if (CoreCardZones.HasChoice(c)) throw new InvalidOperationException(SM.ChooseBeforeAction);
+            var result = CoreStatusControl.ManualRecovery(c, c.Player, selections);
+            if (!result.Is(Ashen.Generated.ShopKeys.Ok)) throw new InvalidOperationException(result.Str(K.Reason));
+            CoreActions.Drain(c);
         }
 
         private static double CardCommandLimit(CombatState c) => Js.Coalesce(c.CoreData.Configured(CK.CardsModule)?[DK.FreeCommandLimit], DN.FreeCommandLimit);
 
-        /// <summary>finishAbilityPlay(combat): the play is resolved, and the card goes to the discard pile, the exhaust pile or out of play.</summary>
-        private static void FinishPlay(CombatState c, JObject inst, JObject def, JObject cardRef, string kind, JObject target)
+        /// <summary>finishAbilityPlay(combat): the play is resolved (when nothing is left to choose), and the card goes to the discard pile, the exhaust pile or out of play.</summary>
+        public static void FinishPlay(CombatState c)
         {
-            if (c.PendingAbilityPlay == null) return;
+            if (c.PendingAbilityPlay == null || CoreCardZones.HasChoice(c)) return;
+            var pending = c.PendingAbilityPlay;
+            var inst = c.PendingPlayInstance;
+            var cardRef = c.PendingPlayRef;
+            var before = c.PendingPlayBefore;
             c.PendingAbilityPlay = null;
-            var resolved = Js.Obj(DK.CardInstanceId, inst[K.InstanceId], K.CardId, inst[K.CardId], DK.CardType, kind, DK.CardTags, cardRef[DK.AuthoredTags] ?? cardRef[K.Tags] ?? new JArray(), DK.AbilityKind, cardRef[DK.AbilityKind],
-                DK.PrintedManaCost, Js.Or0(def[K.ManaCost]), K.TargetId, target?[K.Id] ?? Js.Null(), K.SourceId, c.Player[K.Id], DK.MagicalResolved, cardRef.Str(DK.AbilityKind) == CV.TypeSpell);
+            c.PendingPlayInstance = null;
+            c.PendingPlayRef = null;
+            c.PendingPlayBefore = null;
+            var resolved = Spread(Js.Obj(DK.CardInstanceId, inst[K.InstanceId], K.CardId, inst[K.CardId], DK.CardType, pending[K.Kind], DK.CardTags, cardRef[DK.AuthoredTags] ?? cardRef[K.Tags] ?? new JArray(), DK.AbilityKind, cardRef[DK.AbilityKind],
+                DK.PrintedManaCost, pending[DK.PrintedManaCost], K.TargetId, pending[K.TargetId], K.SourceId, c.Player[K.Id], DK.MagicalResolved, cardRef.Str(DK.AbilityKind) == CV.TypeSpell), before);
             if (cardRef.Has(DK.UsedArmamentId)) resolved[DK.UsedArmamentId] = cardRef[DK.UsedArmamentId].DeepClone();
             if (Js.Truthy(cardRef[K.GrantedBy])) resolved[K.GrantedBy] = cardRef[K.GrantedBy].DeepClone();
             if (Js.Truthy(cardRef[K.SourceHand])) resolved[K.SourceHand] = cardRef[K.SourceHand].DeepClone();
             c.Emit(DK.CardResolved, resolved);
             if (c.Result != null) return;
+            var def = CoreCosts.Resolve(c, inst);
             var destination = Js.Includes(def[K.Keywords], DV.KeywordExhaust) ? DV.DestinationExhaust : def.Str(K.Type) == CV.TypePower ? DV.DestinationRemoved : DV.DestinationDiscard;
             if (destination == DV.DestinationExhaust)
             {

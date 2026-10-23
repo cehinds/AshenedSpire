@@ -143,6 +143,29 @@ namespace Ashen.Domain.Combat
 
         private static JObject Change(JObject actor, string status, double delta) => Js.Obj(HK.ActorId, IdOf(actor), K.Status, status, HK.Delta, delta);
 
+        /// <summary>change(actor, status, delta) of the proposal rules: the status the actor loses (or gains) when the plan is applied.</summary>
+        public static JObject StatusChange(JObject actor, string status, double delta) => Change(actor, status, delta);
+
+        /// <summary>The extra blow an Extra Weapon status adds to an attack: the card's own first damage effect, else the status's fallback damage.</summary>
+        public static JObject ExtraWeapon(JObject actor, JObject card, JObject behavior)
+        {
+            var hit = Js.Items(card?[K.Effects]).OfType<JObject>().FirstOrDefault(row => row.Str(K.Op) == CV.OpDamage);
+            var result = Js.Spread(hit);
+            result[K.Op] = CV.OpDamage;
+            result[K.Amount] = !Js.Nullish(hit?[K.Amount]) ? hit[K.Amount].DeepClone() : behavior[SK.FallbackDamage]?.DeepClone();
+            result[K.Target] = !Js.Nullish(hit?[K.Target]) ? hit[K.Target].DeepClone() : Js.S(V.Enemy);
+            result[K.SourceId] = IdOf(actor);
+            result[DK.ProposalReactive] = true;
+            return result;
+        }
+
+        /// <summary>The extra protection an Extra Shield status adds to a defending card: the card's own block (or Barrier), else the status's fallback.</summary>
+        public static JObject ExtraShield(JObject actor, JObject card, JObject behavior)
+        {
+            var protection = Js.Items(card?[K.Effects]).OfType<JObject>().FirstOrDefault(row => row.Str(K.Op) == Ashen.Generated.CombatOps.Block || row.Str(K.Op) == CV.OpGainBarrier);
+            return Effect(actor, actor, Js.Obj(K.Op, protection != null ? protection[K.Op] : Js.S(Ashen.Generated.CombatOps.Block), K.Amount, !Js.Nullish(protection?[K.Amount]) ? protection[K.Amount] : behavior[SK.FallbackBlock], DK.ProposalReactive, true));
+        }
+
         private static JObject Effect(JObject actor, JObject target, JObject data)
         {
             var result = Js.Spread(data);

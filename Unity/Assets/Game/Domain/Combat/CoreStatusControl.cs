@@ -208,7 +208,7 @@ namespace Ashen.Domain.Combat
             gauge[SK.RecoveryProfile] = recoveryProfile?.DeepClone();
             gauge.Put(K.Value, gauge.Num(K.Value) + accepted);
             var iterations = 0;
-            double activeAdded = 0, wardSpent = 0;
+            double activeAdded = 0, wardSpent = 0, poiseStrain = 0;
             var active = row.Str(CK.ActiveStatus);
             while (gauge.Num(K.Value) >= (Stacks(target, active) > 0 ? row.Num(SK.ActiveThreshold) : row.Num(SK.InitialThreshold)))
             {
@@ -223,6 +223,29 @@ namespace Ashen.Domain.Combat
                     var spent = SpendWard(c, target, 1, Js.Obj(K.Status, id, SK.ActionKey, options[SK.ActionKey], K.SourceId, source?[K.Id]));
                     wardSpent += spent.Num(Ashen.Generated.Core2DamageKeys.Spent);
                     admitted = ward.Num(K.Value) == 0;
+                }
+                else if (camp == CV.CampPhysical && target.Obj(K.PoiseMeter)?.Num(K.Max) > 0)
+                {
+                    // A physical fill strains the Poise meter: one point each, and a full meter is what lets the status through (and Staggers).
+                    var meter = target.Obj(K.PoiseMeter);
+                    meter.Put(K.Value, meter.Num(K.Value) + 1);
+                    poiseStrain += 1;
+                    admitted = meter.Num(K.Value) >= meter.Num(K.Max);
+                    if (admitted)
+                    {
+                        meter.Put(K.Value, meter.Num(K.Value) % meter.Num(K.Max));
+                        Emit(c, SV.StatusPoiseBreak, target, Js.Obj(K.Status, id, SK.ActionKey, options[SK.ActionKey]));
+                        if (target.Str(K.Kind) == V.Enemy)
+                        {
+                            c.Emit(E.MeterFilled, Js.Obj(K.TargetId, target[K.Id], K.Meter, K.Poise, K.Threshold, meter[K.Max]));
+                            CoreImpact.StaggerEnemy(c, target);
+                        }
+                        else
+                        {
+                            StaggerPlayer(c, target);
+                        }
+                        Actions.GrowPoiseMeter(c, target);
+                    }
                 }
                 if (admitted)
                 {
@@ -241,11 +264,29 @@ namespace Ashen.Domain.Combat
             receipt[SK.ActiveAdded] = Js.N(activeAdded);
             receipt[SK.Resisted] = Js.N(resisted);
             receipt[SK.WardSpent] = Js.N(wardSpent);
+            receipt[SK.PoiseStrain] = Js.N(poiseStrain);
             receipt[SK.FullyResisted] = activeAdded == 0 && acceptedBuildup == 0;
             var payload = Js.Obj(K.Status, id, K.SourceId, source != null ? source[K.Id] : Js.Null(), CK.Camp, camp, SK.ActionKey, options[SK.ActionKey], K.Value, gauge[K.Value]);
             foreach (var p in receipt.Properties()) payload[p.Name] = p.Value.DeepClone();
             Emit(c, SV.StatusPressure, target, payload);
             return receipt;
+        }
+
+        /// <summary>staggerPlayer(ctx, player): the player's Poise meter filled; the next turn opens with fewer actions, and each status the balance row names is applied.</summary>
+        public static void StaggerPlayer(CombatState c, JObject player)
+        {
+            CoreCounters.Clear(player, c);
+            var cfg = c.Data.Balance.Obj(K.Stagger)?.Obj(K.Player) ?? new JObject();
+            var actionLoss = Js.IsInt(cfg[K.ActionLoss]) ? cfg.Num(K.ActionLoss) : 0;
+            var applied = new JObject();
+            foreach (var p in (cfg.Obj(K.Statuses) ?? new JObject()).Properties())
+            {
+                if (!(Js.D(p.Value) > 0)) continue;
+                CoreStatuses.Apply(c, player, p.Name, Js.D(p.Value), null);
+                applied[p.Name] = p.Value.DeepClone();
+            }
+            player.Put(K.PendingActionLoss, player.Or0(K.PendingActionLoss) + actionLoss);
+            c.Emit(E.PlayerStaggered, Js.Obj(K.TargetId, player[K.Id], K.ActionLoss, actionLoss, K.Statuses, applied));
         }
 
         // ------------------------------------------------------------------ the locks

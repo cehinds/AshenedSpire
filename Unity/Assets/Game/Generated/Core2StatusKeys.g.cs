@@ -9,6 +9,7 @@ namespace Ashen.Generated
         public const string AcceptedBuildup = "acceptedBuildup";
         public const string ActionKey = "actionKey";
         public const string ActiveAdded = "activeAdded";
+        public const string ActiveEffectVariant = "activeEffectVariant";
         public const string ActiveThreshold = "activeThreshold";
         public const string Admitted = "admitted";
         public const string Advantaged = "advantaged";
@@ -48,6 +49,8 @@ namespace Ashen.Generated
         public const string EvadeBonus = "evadeBonus";
         public const string EvadeDisabled = "evadeDisabled";
         public const string Explicit = "explicit";
+        public const string FallbackBlock = "fallbackBlock";
+        public const string FallbackDamage = "fallbackDamage";
         public const string FallbackStrikeDamage = "fallbackStrikeDamage";
         public const string FluxDamageTypes = "fluxDamageTypes";
         public const string FluxTier2 = "fluxTier2";

@@ -12,6 +12,7 @@ using HV = Ashen.Generated.Core2HitValues;
 using K = Ashen.Generated.CombatKeys;
 using V = Ashen.Generated.CombatValues;
 using SK = Ashen.Generated.Core2StatusKeys;
+using SV = Ashen.Generated.Core2StatusValues;
 
 namespace Ashen.Domain.Combat
 {
@@ -36,6 +37,10 @@ namespace Ashen.Domain.Combat
                 Put(result, DK.CardType, card[K.Type]);
                 result[DK.CardTags] = (card[DK.AuthoredTags] is JToken authored && Js.Truthy(authored) ? authored : card[K.Tags] is JArray ? card[K.Tags] : new JArray()).DeepClone();
                 Put(result, DK.AbilityKind, card[DK.AbilityKind]);
+                var before = action.Meta?.Before;
+                Put(result, SK.AbilityBefore, before?[SK.AbilityBefore]);
+                Put(result, SK.AbilityEntities, before?[SK.AbilityEntities]);
+                Put(result, SV.CardTargetsAllEnemies, before?[SV.CardTargetsAllEnemies]);
                 Put(result, K.SourceId, action.Source?[K.Id]);
                 Put(result, DK.SourceKind, action.Source?[K.Kind]);
             }

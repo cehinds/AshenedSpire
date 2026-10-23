@@ -5,6 +5,7 @@ namespace Ashen.Generated
     public static class Core2StatusValues
     {
         public const string ActionDenied = "actionDenied";
+        public const string AddBurden = "addBurden";
         public const string Bodily = "bodily";
         public const string Break = "break";
         public const string BuildupPrefix = "buildup:";
@@ -15,6 +16,7 @@ namespace Ashen.Generated
         public const string CardTargetsAllEnemies = "cardTargetsAllEnemies";
         public const string CastLinkedSpell = "castLinkedSpell";
         public const string ChargeAvailable = "chargeAvailable";
+        public const string ClassStance = "classStance";
         public const string CombatCounterstrikeApplied = "combatCounterstrikeApplied";
         public const string CombatFluxApplied = "combatFluxApplied";
         public const string CombatImpactApplied = "combatImpactApplied";
@@ -23,6 +25,7 @@ namespace Ashen.Generated
         public const string DamageTakenThisTurn = "damageTakenThisTurn";
         public const string Dazed = "dazed";
         public const string DistinctTypes = "distinctTypes";
+        public const string End = "end";
         public const string EnemyKilledWithStatus = "enemyKilledWithStatus";
         public const string EnemyNegativeStatusNew = "enemyNegativeStatusNew";
         public const string EvadeStackGain = "evadeStackGain";
@@ -37,6 +40,7 @@ namespace Ashen.Generated
         public const string MeterGuardGained = "meterGuardGained";
         public const string ModifyCards = "modifyCards";
         public const string MoveCards = "moveCards";
+        public const string MoveEngagement = "moveEngagement";
         public const string NegativeStatusStacks = "negativeStatusStacks";
         public const string NegativeStatusTypes = "negativeStatusTypes";
         public const string Piercing = "piercing";
@@ -52,12 +56,14 @@ namespace Ashen.Generated
         public const string Start = "start";
         public const string StatusGaugeFilled = "statusGaugeFilled";
         public const string StatusImmune = "statusImmune";
+        public const string StatusPoiseBreak = "statusPoiseBreak";
         public const string StatusPressure = "statusPressure";
         public const string StatusRecoveryRolled = "statusRecoveryRolled";
         public const string Thawed = "thawed";
         public const string TraitBonus = "traitBonus";
         public const string TurnChance = "turnChance";
         public const string TurnDamage = "turnDamage";
+        public const string TurnEndInHand = "turnEndInHand";
         public const string TurnMetric = "turnMetric";
         public const string Wait = "wait";
         public const string WardBreak = "wardBreak";

@@ -35,7 +35,12 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>The snapshot the rider predicates read: the action's, else the card being played's (the events of its own play).</summary>
-        private static JObject Before(CombatState c, PredicateContext pctx) => pctx.Meta?.Before ?? (pctx.Event != null ? c.EventBefore : null);
+        private static JObject Before(CombatState c, PredicateContext pctx)
+        {
+            if (pctx.Meta?.Before != null) return pctx.Meta.Before;
+            var ev = pctx.Event;
+            return ev != null && Present(ev[SK.AbilityBefore]) ? Js.Obj(SK.AbilityBefore, ev[SK.AbilityBefore], SK.AbilityEntities, ev[SK.AbilityEntities]) : null;
+        }
 
         private static JObject Prior(CombatState c, JObject entity, PredicateContext pctx)
         {
@@ -88,7 +93,7 @@ namespace Ashen.Domain.Combat
                 case SV.CardTargetsAllEnemies:
                 {
                     if (Present(pctx.Card?[SK.TargetsAllEnemies])) { value = pctx.Card.Is(SK.TargetsAllEnemies); return true; }
-                    var carried = Before(c, pctx)?[SV.CardTargetsAllEnemies];
+                    var carried = ev?[SV.CardTargetsAllEnemies];
                     if (Present(carried)) { value = Js.Truthy(carried); return true; }
                     var id = Js.Truthy(pctx.Card?[K.CardId]) ? pctx.Card.Str(K.CardId) : ev?.Str(K.CardId);
                     value = id != null && CoreRiders.TargetsAllEnemies(c.Data.Cards.Get(id));

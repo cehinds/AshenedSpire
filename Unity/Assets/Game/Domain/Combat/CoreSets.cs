@@ -5,6 +5,7 @@ using CV = Ashen.Generated.Core2CombatValues;
 using DV = Ashen.Generated.Core2DamageValues;
 using Op = Ashen.Generated.CombatOps;
 using V = Ashen.Generated.CombatValues;
+using SV = Ashen.Generated.Core2StatusValues;
 
 namespace Ashen.Domain.Combat
 {
@@ -31,8 +32,8 @@ namespace Ashen.Domain.Combat
         /// <summary>The discard reasons that count toward the ability riders.</summary>
         public static readonly HashSet<string> DiscardReasons = Of(DV.ReasonEffect, DV.ReasonChosen, DV.ReasonRandom);
 
-        /// <summary>The ops a played card may carry (the damage and the Block of this package).</summary>
-        public static readonly HashSet<string> CardOps = Of(Op.Damage, Op.Block, CV.OpGainBarrier);
+        /// <summary>The ops a played card may not carry yet: the move of the engagement (WP-12), the Burdens an enemy lays in the deck and the arcane buildup.</summary>
+        public static readonly HashSet<string> DeferredOps = Of(SV.MoveEngagement, SV.AddBurden, Op.ArcaneBuildup);
 
         /// <summary>The target selectors that name a hostile creature.</summary>
         public static readonly HashSet<string> HostileSpecs = Of(DV.TargetEnemy, DV.TargetAllEnemies, V.TargetRandomEnemy, DV.TargetOtherEnemies);

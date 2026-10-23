@@ -91,13 +91,38 @@
    "scenarios": 60
   },
   {
-   "bytes": 64724,
+   "bytes": 249765,
    "file": "scenarios-17.json",
-   "scenarios": 24
+   "scenarios": 60
+  },
+  {
+   "bytes": 323885,
+   "file": "scenarios-18.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 322166,
+   "file": "scenarios-19.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 296885,
+   "file": "scenarios-20.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 265523,
+   "file": "scenarios-21.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 3010,
+   "file": "scenarios-22.json",
+   "scenarios": 2
   }
  ],
  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
  "profileId": "core",
- "scenarios": 1044,
+ "scenarios": 1322,
  "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
 }
