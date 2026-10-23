@@ -11,6 +11,7 @@ using HK = Ashen.Generated.Core2HitKeys;
 using HV = Ashen.Generated.Core2HitValues;
 using K = Ashen.Generated.CombatKeys;
 using V = Ashen.Generated.CombatValues;
+using SK = Ashen.Generated.Core2StatusKeys;
 
 namespace Ashen.Domain.Combat
 {
@@ -41,6 +42,7 @@ namespace Ashen.Domain.Combat
             foreach (var p in (payload ?? new JObject()).Properties()) result[p.Name] = p.Value;
             if (action.Meta?.Preparing == true) { if (result[DK.Preparing] == null) result[DK.Preparing] = true; }
             else if (Js.Truthy(action.Meta?.MoveId) && result[K.MoveId] == null) result[K.MoveId] = action.Meta.MoveId;
+            if (action.Meta?.TriggeredBy != null && result[SK.TriggeredBy] == null) result[SK.TriggeredBy] = action.Meta.TriggeredBy.DeepClone();
             return result;
         }
 

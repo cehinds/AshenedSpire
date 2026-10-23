@@ -167,89 +167,23 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>recoverStatusesAtOwnerStart(ctx, entity, {cycle}): the owner's cycle opens; a chance recovery rolls for each held status.</summary>
-        public static void RecoverAtOwnerStart(CombatState c, JObject entity, double cycle)
-        {
-            if (!Expanded(c) || !entity.Is(K.Alive)) return;
-            var s = State(entity);
-            if (s.Num(CK.LastRecoveryCycle) == cycle) return;
-            s.Put(CK.OwnerCycle, cycle);
-            s.Put(CK.LastRecoveryCycle, cycle);
-            s.Put(CK.ResolveActive, s.Is(CK.ResolveNextTurn));
-            s.Put(CK.ResolveNextTurn, false);
-            s[CK.CompletedActions] = new JObject();
-            foreach (var row in CoreStatuses.ControlRows(c))
-            {
-                if (CoreFixCore.Enabled(c) && CoreFixCore.Rules(c).Obj(CK.Statuses)?.Obj(CK.Overrides)?[row.Str(CK.ActiveStatus) ?? string.Empty] != null) continue;
-                var gauge = s.Obj(CK.Gauges)?.Obj(row.Str(K.Id) ?? string.Empty);
-                if (!Js.Truthy(row[CK.ChanceRecovery]) || (Stacks(entity, row.Str(CK.ActiveStatus)) == 0 && !(gauge != null && gauge.Num(K.Value) > 0))) continue;
-                throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.StatusControlNotPorted);
-            }
-        }
+        public static void RecoverAtOwnerStart(CombatState c, JObject entity, double cycle) => CoreStatusControl.RecoverAtOwnerStart(c, entity, cycle);
 
         /// <summary>sleepRestoration(ctx, entity): Sleep heals and refills Ward at the owner's start; nothing to do without the status.</summary>
-        public static void SleepRestoration(CombatState c, JObject entity)
-        {
-            if (!Expanded(c) || !entity.Is(K.Alive) || entity.Obj(CK.StatusControl)?.Is(CK.ResolveActive) == true) return;
-            var sleep = c.Fields.Obj(CK.CombatExpansionRules)?.Obj(CK.Statuses)?.Obj(CK.Sleep);
-            if (sleep != null && Stacks(entity, sleep.Str(CK.Status)) > 0) throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.StatusControlNotPorted);
-        }
+        public static void SleepRestoration(CombatState c, JObject entity) => CoreStatusControl.SleepRestoration(c, entity);
 
-        /// <summary>consumeControlActionLoss(ctx, entity): a Frozen owner loses actions; none without the status.</summary>
-        public static double ConsumeActionLoss(CombatState c, JObject entity)
-        {
-            if (!Expanded(c) || entity.Obj(CK.StatusControl)?.Is(CK.ResolveActive) == true) return 0;
-            var frozen = c.Fields.Obj(CK.CombatExpansionRules)?.Obj(CK.Statuses)?.Obj(CK.Frozen);
-            if (frozen != null && Stacks(entity, frozen.Str(CK.Status)) > 0) throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.StatusControlNotPorted);
-            return 0;
-        }
+        /// <summary>consumeControlActionLoss(ctx, entity): a Frozen owner loses an action; none without the status.</summary>
+        public static double ConsumeActionLoss(CombatState c, JObject entity) => CoreStatusControl.ConsumeActionLoss(c, entity);
 
-        /// <summary>endControlTurn(ctx, entity): a locked owner spends a stack waiting; a free one only ends its resolve turn.</summary>
-        public static void EndTurn(CombatState c, JObject entity)
-        {
-            if (!Expanded(c)) return;
-            var s = State(entity);
-            if (Locked(c, entity)) throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.StatusControlNotPorted);
-            s.Put(CK.ResolveActive, false);
-        }
+        /// <summary>endControlTurn(ctx, entity, selectedId): a locked owner spends a stack waiting; a free one only ends its resolve turn.</summary>
+        public static void EndTurn(CombatState c, JObject entity, string selectedId = null) => CoreStatusControl.EndTurn(c, entity, selectedId);
 
-        private static JObject StatusRules(CombatState c) => c.Fields.Obj(CK.CombatExpansionRules)?.Obj(CK.Statuses);
+        /// <summary>beforeStatusAction(ctx, target, profile, { connected }): a fire hit thaws a frozen, chilled or frosting target.</summary>
+        public static void BeforeStatusAction(CombatState c, JObject target, JObject profile, bool connected) => CoreStatusControl.BeforeAction(c, target, profile, connected);
 
-        /// <summary>
-        /// beforeStatusAction(ctx, target, profile, { connected }): a fire hit thaws a frozen, chilled or frosting target. Thawing is the status
-        /// control package's (WP-9): a target that holds one is refused by name.
-        /// </summary>
-        public static void BeforeStatusAction(CombatState c, JObject target, JObject profile, bool connected)
-        {
-            if (!Expanded(c) || !connected) return;
-            var cfg = StatusRules(c)?.Obj(Ashen.Generated.Core2DamageKeys.Interactions);
-            if (cfg == null || !(profile.Is(Ashen.Generated.Core2DamageKeys.ContainsFire) || profile.Str(CK.School) == Ashen.Generated.Core2DamageValues.SchoolFire || profile.Str(CK.DamageType) == Ashen.Generated.Core2DamageValues.SchoolFire)) return;
-            var gauge = target.Obj(CK.StatusControl)?.Obj(CK.Gauges)?.Obj(cfg.Str(Ashen.Generated.Core2DamageKeys.FrostGauge) ?? string.Empty);
-            if (gauge != null || Stacks(target, cfg.Str(Ashen.Generated.Core2DamageKeys.Frozen)) > 0 || Stacks(target, cfg.Str(Ashen.Generated.Core2DamageKeys.Chilled)) > 0)
-                throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.StatusControlNotPorted);
-        }
-
-        /// <summary>
-        /// completeStatusAction(ctx, target, profile, { connected, actionKey, damaging }): the action's finalization is recorded once per key; it
-        /// wakes a sleeper, shatters a frozen or chilled target and reveals a decoy, which the status control package owns (WP-9).
-        /// </summary>
-        public static void CompleteStatusAction(CombatState c, JObject target, JObject profile, bool connected, string actionKey, bool damaging)
-        {
-            if (!Expanded(c) || !connected || !damaging) return;
-            if (actionKey == null) throw new InvalidOperationException(Ashen.Generated.Core2DamageMessages.ActionKeyRequired);
-            var s = State(target);
-            var completed = s.Obj(CK.CompletedActions);
-            if (completed.Is(actionKey)) return;
-            completed[actionKey] = true;
-            var rules = StatusRules(c);
-            var interactions = rules?.Obj(Ashen.Generated.Core2DamageKeys.Interactions);
-            if (rules == null || interactions == null) return;
-            var woken = !s.Is(CK.ResolveActive) && Stacks(target, rules.Obj(CK.Sleep)?.Str(CK.Status)) > 0;
-            var blunt = profile.Is(Ashen.Generated.Core2DamageKeys.ContainsBlunt) || profile.Str(CK.DamageType) == Ashen.Generated.Core2DamageValues.DamageBlunt;
-            var shattered = blunt && (Stacks(target, interactions.Str(Ashen.Generated.Core2DamageKeys.Frozen)) > 0 || Stacks(target, interactions.Str(Ashen.Generated.Core2DamageKeys.Chilled)) > 0);
-            var reveals = profile.Is(Ashen.Generated.Core2DamageKeys.ContainsReveal) || profile.Str(CK.Maneuver) == CV.StanceSweep || CoreSets.RevealTypes.Contains(profile.Str(CK.DamageType));
-            var revealed = reveals && (Stacks(target, interactions.Str(Ashen.Generated.Core2DamageKeys.Decoy)) > 0 || Stacks(target, interactions.Str(Ashen.Generated.Core2DamageKeys.Concealment)) > 0);
-            if (woken || shattered || revealed) throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.StatusControlNotPorted);
-        }
+        /// <summary>completeStatusAction(ctx, target, profile, { connected, actionKey, damaging }): the action's finalization wakes a sleeper, shatters a frozen or chilled target and reveals a decoy.</summary>
+        public static void CompleteStatusAction(CombatState c, JObject target, JObject profile, bool connected, string actionKey, bool damaging) =>
+            CoreStatusControl.CompleteAction(c, target, profile, connected, actionKey, damaging);
 
         private static JObject Emit(CombatState c, string type, JObject entity, JObject payload)
         {
@@ -272,19 +206,21 @@ namespace Ashen.Domain.Combat
             var ward = entity.Obj(CK.PersistentWard);
             source = source ?? Ashen.Generated.Core2DamageValues.SourceEffect;
             var sleep = source == Ashen.Generated.Core2DamageValues.SourceSleep;
-            if (sleep) throw new NotSupportedException(Ashen.Generated.Core2CombatMessages.StatusControlNotPorted);
-            if (onceKey != null && s.Obj(CK.WardAllowances)?[onceKey] != null && Js.Truthy(s.Obj(CK.WardAllowances)[onceKey])) return none;
+            if ((sleep && s.Is(CK.SleepWardGranted)) || (onceKey != null && s.Obj(CK.WardAllowances)?[onceKey] != null && Js.Truthy(s.Obj(CK.WardAllowances)[onceKey]))) return none;
             if (!(nominal > 0)) return none;
-            var percent = modifierPercent ?? 0;
+            var percent = modifierPercent ?? CoreStatusControl.RestorationPercent(c, entity);
             var overflow = source == Ashen.Generated.Core2DamageValues.SourceCard;
             if (ward.Num(K.Value) >= ward.Num(CK.Max) && !overflow)
             {
                 s.Put(CK.WardRestoreCarry, 0);
                 return none;
             }
+            if (sleep) s.Put(CK.SleepWardGranted, true);
             if (onceKey != null) s.Obj(CK.WardAllowances)[onceKey] = true;
             var credit = Math.Max(0, nominal * (1 + percent / Ashen.Generated.CombatMath.Percent));
+            if (sleep) credit = Math.Min(credit, Math.Max(0, CoreStatusControl.SleepWardCap(c) - s.Num(CK.SleepWardContribution)));
             if (cap != null) credit = Math.Min(credit, Math.Max(0, cap.Value));
+            if (sleep) s.Put(CK.SleepWardContribution, s.Num(CK.SleepWardContribution) + credit);
             var missingMode = ward[CK.Missing] != null;
             var valueBefore = ward.Num(K.Value);
             var room = missingMode ? Math.Max(0, ward.Num(CK.Missing)) : ward.Num(CK.Max) - ward.Num(K.Value);

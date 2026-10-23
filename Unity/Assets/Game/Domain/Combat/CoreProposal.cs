@@ -10,6 +10,8 @@ using DV = Ashen.Generated.Core2DamageValues;
 using HV = Ashen.Generated.Core2HitValues;
 using K = Ashen.Generated.CombatKeys;
 using V = Ashen.Generated.CombatValues;
+using SV = Ashen.Generated.Core2StatusValues;
+using SK = Ashen.Generated.Core2StatusKeys;
 
 namespace Ashen.Domain.Combat
 {
@@ -341,6 +343,77 @@ namespace Ashen.Domain.Combat
                 if (a.Behavior.Str(K.Kind) == DV.KindLethalThreshold && actor.Num(K.Hp) > 0 && a.Stacks >= actor.Num(K.Hp))
                     effects.Add(Effect(actor, actor, Js.Obj(K.Op, DV.OpLoseHp, K.Amount, actor[K.Hp], CK.DamageType, a.Behavior[CK.DamageType], DK.ProposalReactive, true)));
             return new JObject { [CK.Effects] = effects };
+        }
+
+        private static double RoundedAmount(JToken value) => Math.Max(0, Math.Floor(Js.IsFinite(value) ? Js.D(value) : 0));
+
+        /// <summary>
+        /// proposalTurnRules({ actor, phase, roll }): what the actor's base-card statuses do as its turn starts or ends: a persistent protection refilled,
+        /// damage over time, a chance of a status, and the decay of a status that ends with the phase. <paramref name="roll"/> draws a 0..99 roll.
+        /// </summary>
+        public static JObject TurnPlan(CombatState c, JObject actor, string phase, Func<double> roll)
+        {
+            var effects = new JArray();
+            var statusChanges = new JArray();
+            var checks = new JArray();
+            var rules = Rules(c);
+            var capabilities = Capabilities(c);
+            foreach (var a in ActiveBehaviors(actor, rules, capabilities))
+            {
+                var b = a.Behavior;
+                var kind = b.Str(K.Kind);
+                if (phase == SV.Start && kind == DV.KindPersistentProtection)
+                {
+                    var amount = Math.Max(0, a.Stacks - RoundedAmount(actor[b.Str(Ashen.Generated.Core2DeckKeys.Pool) ?? string.Empty]));
+                    if (amount != 0) effects.Add(Effect(actor, actor, Js.Obj(K.Op, b.Str(Ashen.Generated.Core2DeckKeys.Pool) == CK.Barrier ? CV.OpGainBarrier : Ashen.Generated.CombatOps.Block, K.Amount, amount)));
+                }
+                if (kind == SV.TurnDamage && b.Str(K.Phase) == phase)
+                    effects.Add(Effect(actor, actor, Js.Obj(K.Op, CV.OpDamage, K.Amount, RoundedAmount(Js.N(a.Stacks * b.Num(HK.AmountPerStack))), CK.DamageType, b[CK.DamageType], CK.Camp, b[CK.Camp], DK.Direct, false, DK.ProposalReactive, true)));
+                if (kind == SV.TurnChance && b.Str(K.Phase) == phase)
+                {
+                    checks.Add(Js.Obj(HK.ActorId, IdOf(actor), K.Status, a.Status, HK.Chance, b[HK.Chance], K.Kind, K.Status));
+                    if (roll != null && roll() < b.Num(HK.Chance)) effects.Add(Effect(actor, actor, Js.Obj(K.Op, Ashen.Generated.CombatOps.ApplyStatus, K.Status, b[K.Status], K.Stacks, b[K.Stacks])));
+                }
+            }
+            foreach (var entry in (actor?.Obj(K.Statuses) ?? new JObject()).Properties())
+            {
+                var rule = rules.Obj(entry.Name);
+                var decay = rule?.Obj(K.Decay);
+                if (StackCount(entry.Value) > 0 && Enabled(rule, capabilities) && decay?.Str(K.Phase) == phase)
+                    statusChanges.Add(Change(actor, entry.Name, -Math.Min(StackCount(entry.Value), decay.Num(K.Stacks))));
+            }
+            return new JObject { [CK.Effects] = effects, [HK.StatusChanges] = statusChanges, [HK.Checks] = checks };
+        }
+
+        /// <summary>proposalTurn(ctx, actor, phase): the turn plan, its chance rolls on the <c>misc</c> stream, queued as the actor's own reactive effects.</summary>
+        public static void Turn(CombatState c, JObject actor, string phase)
+        {
+            var plan = TurnPlan(c, actor, phase, () => Math.Floor(c.Rng.Float(Ashen.Generated.RngStream.Misc) * Ashen.Generated.CombatMath.Percent));
+            ApplyPlan(c, plan, actor, actor, new JObject { [DK.SkipRatingBonus] = true, [SK.ProposalProtectionFloor] = true });
+        }
+
+        /// <summary>proposalRetainProtection(ctx, actor, pool): the Block (or Barrier) a retaining status keeps through the owner's turn start.</summary>
+        public static double Retained(CombatState c, JObject actor, string pool = null)
+        {
+            pool ??= Ashen.Generated.CombatOps.Block;
+            double retain = 0;
+            foreach (var a in ActiveBehaviors(actor, Rules(c), Capabilities(c)))
+                if (a.Behavior.Str(K.Kind) == SV.RetainProtection && a.Behavior.Str(Ashen.Generated.Core2DeckKeys.Pool) == pool) retain += a.Stacks * a.Behavior.Num(HK.AmountPerStack);
+            return Math.Min(RoundedAmount(actor?[pool]), retain);
+        }
+
+        /// <summary>proposalHealingRules({ target, amount, damageType }): a target a healing status turns into damage takes the converted amount instead of healing.</summary>
+        public static JObject HealingPlan(CombatState c, JObject target, double amount, string damageType)
+        {
+            var result = Js.Obj(DK.Healing, RoundedAmount(Js.N(amount)), K.Damage, 0, CK.DamageType, damageType);
+            foreach (var a in ActiveBehaviors(target, Rules(c), Capabilities(c)))
+                if (a.Behavior.Str(K.Kind) == SV.HealingToDamage && Matches(a.Behavior[HK.DamageTypes], damageType))
+                {
+                    result[K.Damage] = Js.N(RoundedAmount(Js.N(result.Num(DK.Healing) * a.Behavior.Num(CK.Multiplier))));
+                    result[DK.Healing] = 0;
+                    result[CK.DamageType] = a.Behavior[CK.DamageType]?.DeepClone() ?? Js.Null();
+                }
+            return result;
         }
 
         /// <summary>proposalTargetRules({actor, target, card, rules, capabilities}) without the optional rolls: the rules a hit reads before anything is drawn.</summary>

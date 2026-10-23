@@ -319,6 +319,7 @@ namespace Ashen.Domain.Combat
 
         public static List<JObject> ResolveTargets(CombatState c, CombatAction action, string spec)
         {
+            if (c.IsCore) return CoreOps.Targets(c, action, spec);
             var list = new List<JObject>();
             switch (spec)
             {
@@ -381,6 +382,7 @@ namespace Ashen.Domain.Combat
             ctx.AllEnemies = LivingEnemies(c);
             ctx.EnergySpent = action.Meta?.EnergySpent ?? 0;
             ctx.CardsPlayedThisTurn = c.Player != null ? c.Player.Obj(K.Counters).Num(K.CardsPlayedThisTurn) : 0;
+            if (c.IsCore) CoreFormulas.Extend(c, action, ctx);
             return ctx;
         }
 

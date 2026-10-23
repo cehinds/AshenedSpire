@@ -71,6 +71,7 @@ namespace Ashen.Domain.Combat
                 SourceId = source?.Str(K.Id), Carrier = carrier,
             };
             CoreRange.Accept(c, source, actions, carrier, group.Key);
+            var plannedOnce = new HashSet<string>(StringComparer.Ordinal);
             for (var rangeEffectIndex = 0; rangeEffectIndex < actions.Count; rangeEffectIndex++)
             {
                 var action = actions[rangeEffectIndex];
@@ -80,8 +81,21 @@ namespace Ashen.Domain.Combat
                 var op = eff.Str(K.Op);
                 var targeted = CoreSets.TargetedSpecs.Contains(eff.Str(K.Target)) || CoreSets.TargetedOps.Contains(op);
                 if (!targeted && !CoreSets.PlannedOps.Contains(op)) continue;
-                if (eff.Is(CK.OncePerTurn)) throw new NotSupportedException(CM.OncePerTurnNotPorted);
-                var repeat = Math.Max(0, Actions.EvalNum(c, action, eff[CK.Repeat], 1, action.Target));
+                if (eff.Is(CK.OncePerTurn))
+                {
+                    // The plan reads a detached copy: nothing is marked now, and an effect of the same family and marker planned earlier counts as spent.
+                    var owner = action.Owner ?? action.Source ?? c.Player;
+                    var index = action.Meta.AbilityEffectIndex != null ? Js.N(action.Meta.AbilityEffectIndex.Value) : eff[K.Op];
+                    var skipped = eff.Is(K.If) && !Triggers.EvalPredicate(c, eff.Obj(K.If), Ctx(action, action.Target));
+                    if (!skipped) skipped = !CoreRiders.IsFree(owner, eff[CK.OncePerTurn], action.Card, index) || !plannedOnce.Add(owner.Str(K.Id) + CoreRiders.OnceKey(eff[CK.OncePerTurn], action.Card, index));
+                    if (skipped)
+                    {
+                        action.Meta.ExpansionContacts = new List<List<ContactRef>>();
+                        action.Meta.ExpansionTargets = new List<List<string>>();
+                        continue;
+                    }
+                }
+                var repeat =Math.Max(0, Actions.EvalNum(c, action, eff[CK.Repeat], 1, action.Target));
                 var hits = op == Op.Damage ? Math.Max(0, Actions.EvalNum(c, action, eff[K.Hits], 1, action.Target)) : 1;
                 action.Meta.ExpansionContacts = new List<List<ContactRef>>();
                 action.Meta.ExpansionTargets = new List<List<string>>();
@@ -337,15 +351,8 @@ namespace Ashen.Domain.Combat
                 if (group.ContactSequence == null) CoreTactical.Complete(c, action.Source, target, Js.Spread(group.Carrier), receipt);
                 CoreControl.CompleteStatusAction(c, target, row.Interactions ?? receipt.Obj(DK.Profile) ?? new JObject(), receipt.Is(DK.Connected), group.Key, receipt.Num(CK.Amount) > 0);
             }
-            ApplyTraitImpact(c, group);
+            CoreCardTraits.ApplyImpact(c, action, group);
             AddPending(c, -1);
-        }
-
-        private static void ApplyTraitImpact(CombatState c, ExpansionGroup group)
-        {
-            if (c.CoreData.ReactionVersion != DN.ReactionStackVersion || group.Carrier.Is(DK.CombatReaction)) return;
-            var values = group.Carrier.Obj(DK.TraitValues);
-            if (values != null && (values.Num(DK.Impact) > 0 || values.Num(DK.Flux) > 0)) throw new NotSupportedException(DM.TraitsNotPorted);
         }
     }
 }

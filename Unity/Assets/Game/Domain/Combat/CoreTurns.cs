@@ -61,15 +61,8 @@ namespace Ashen.Domain.Combat
             if (stance?[CK.ExpiresOnOwnerCycle] != null && entity.Num(CK.CombatOwnerCycle) >= stance.Num(CK.ExpiresOnOwnerCycle)) entity.Remove(CK.CombatStance);
         }
 
-        /// <summary>fireOwnerHooks: status and stance hooks of the owner's turn; a status that drains Ward every turn (flux) arrives with WP-9.</summary>
-        private static void FireOwnerHooks(CombatState c, JObject entity, string hook)
-        {
-            if (!entity.Is(K.Alive)) return;
-            if (hook == E.OwnerTurnStart && Js.D(c.Fields[CK.ReactionRulesVersion]) == c.CoreData.ReactionVersion)
-                foreach (var id in entity.Obj(K.Statuses).Properties().Select(p => p.Name))
-                    if (Js.D(c.Data.Statuses.Get(id)[CK.FluxPerTurn]) > 0 && entity.Obj(K.Statuses).Obj(id).Num(K.Stacks) > 0) throw new NotSupportedException(CM.FluxNotPorted);
-            Triggers.FireOwnerHooks(c, entity, hook);
-        }
+        /// <summary>fireOwnerHooks: status and stance hooks of the owner's turn; a status that drains Ward every turn (flux) spends it first.</summary>
+        private static void FireOwnerHooks(CombatState c, JObject entity, string hook) => CoreStatusHooks.FireOwner(c, entity, hook);
 
         // ------------------------------------------------------------------ the player's turn
 

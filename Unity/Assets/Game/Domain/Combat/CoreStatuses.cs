@@ -8,62 +8,61 @@ using CM = Ashen.Generated.Core2CombatMessages;
 using CV = Ashen.Generated.Core2CombatValues;
 using E = Ashen.Generated.CombatEvents;
 using K = Ashen.Generated.CombatKeys;
+using Op = Ashen.Generated.CombatOps;
 using V = Ashen.Generated.CombatValues;
+using SM = Ashen.Generated.Core2StatusMessages;
+using SK = Ashen.Generated.Core2StatusKeys;
 
 namespace Ashen.Domain.Combat
 {
     /// <summary>
-    /// A Core 2 fight's statuses (web engine/statuses.js and the status-control entry points of engine/combatStatusControl.js): the
-    /// definition with its FixCore override, applying, removing and the two decay clocks (start and end of the owner's turn). The
-    /// build-up meters and thresholds of the expanded statuses (a meter filling, a proc bursting) arrive with WP-9 and are refused
-    /// by name here rather than half run.
+    /// A Core 2 fight's statuses (web engine/statuses.js and the status-control entry points of engine/combatStatusControl.js): the definition
+    /// with its FixCore override and the facts laid over it, applying (stack modes, durations, the threshold procs and build-up meters, the active
+    /// statuses of the control rows), removing, the two decay clocks (start and end of the owner's turn) and the modifier reads (multipliers, adders,
+    /// flags and caps) that the damage, Block and turn math consult. It never names a status id: statuses are content.
     /// </summary>
     public static class CoreStatuses
     {
-        /// <summary>statusDefinition(ctx, id): the registry row with the FixCore override over it.</summary>
-        public static JObject Definition(CombatState c, string id) => CoreFixCore.StatusDefinition(c, id, c.Data.Statuses.Get(id));
+        // ------------------------------------------------------------------ the definition
+
+        /// <summary>statusDefinition(ctx, id, holder): the registry row with the FixCore override over it and the facts of the rules in its text.</summary>
+        public static JObject Definition(CombatState c, string id, JObject holder = null)
+        {
+            var baseDefinition = c.Data.Statuses.Get(id);
+            if (!CoreFixCore.Enabled(c)) return baseDefinition;
+            var rules = CoreFixCore.Rules(c, holder);
+            var statuses = rules.Obj(K.Statuses);
+            var overrides = statuses?.Obj(CK.Overrides)?.Obj(id);
+            var row = overrides != null ? Js.Spread(baseDefinition, overrides) : Js.Spread(baseDefinition);
+            var staggered = CoreFixCore.StaggeredRules(c);
+            string Number(JToken t) => Js.D(t).ToString(CultureInfo.InvariantCulture);
+            string Fact()
+            {
+                if (id == CV.StatusWeak) return string.Format(CultureInfo.InvariantCulture, SM.StatusFactWeak, Number(statuses?[CK.WeakArMultiplier]));
+                if (id == Ashen.Generated.Core2DamageValues.SourceVulnerable) return string.Format(CultureInfo.InvariantCulture, SM.StatusFactVulnerable, Number(statuses?[Ashen.Generated.Core2DamageKeys.VulnerabilityMultiplier]));
+                if (id == V.IntentStaggered) return string.Format(CultureInfo.InvariantCulture, SM.StatusFactStaggered, Number(staggered[Ashen.Generated.Core2DamageKeys.StaminaLoss]), Number(staggered[Ashen.Generated.Core2DamageKeys.VulnerableStacks]));
+                if (id == CK.Evade) return string.Format(CultureInfo.InvariantCulture, SM.StatusFactEvade, Number(rules.Obj(CK.Accuracy)?[Ashen.Generated.Core2FixCoreKeys.BaseAC]));
+                if (id == CK.Precision) return SM.StatusFactPrecision;
+                return null;
+            }
+            var fact = Fact();
+            if (fact == null) return row;
+            string text;
+            if (id == CK.Precision) text = string.Format(CultureInfo.InvariantCulture, SM.StatusTailPrecision, fact);
+            else if (id == V.IntentStaggered) text = fact;
+            else text = string.Format(CultureInfo.InvariantCulture, SM.StatusTailDecay, fact, Number(statuses?[CK.DecayAmount]));
+            row[Ashen.Generated.UiKeys.Tooltip] = text;
+            row[Ashen.Generated.Core2DamageKeys.Description] = text;
+            return row;
+        }
 
         private static double Whole(JToken value) => Math.Max(0, Math.Floor(Js.IsFinite(value) ? Js.D(value) : 0));
 
-        private static double ActiveStacks(JObject entity, string id) => Whole(entity?.Obj(K.Statuses)?.Obj(id)?[K.Stacks]);
-
         private static bool IsDurationDecay(JToken decay) => decay is JObject o && Js.IsNum(o[K.Duration]);
-
-        // ------------------------------------------------------------------ active statuses (the rule rows of combatStatusRules)
 
         /// <summary>The status-control rule rows the fight carries (<c>combatExpansionRules.statuses.statuses</c>).</summary>
         public static IEnumerable<JObject> ControlRows(CombatState c) =>
             (c.Fields.Obj(CK.CombatExpansionRules)?.Obj(CK.Statuses)?.Obj(CK.Statuses) ?? new JObject()).Properties().Select(p => p.Value).OfType<JObject>();
-
-        private static JObject ActiveRow(CombatState c, string id) => ControlRows(c).FirstOrDefault(row => row.Str(CK.ActiveStatus) == id);
-
-        /// <summary>applyExpansionActiveStatus: a control status (an "active" status of the rule rows) is capped and never a meter.</summary>
-        private static bool ApplyActive(CombatState c, JObject target, string id, double amount, JObject source)
-        {
-            var row = ActiveRow(c, id);
-            if (row == null) return false;
-            if (target == null || !target.Is(K.Alive) || !(amount > 0)) return true;
-            var before = ActiveStacks(target, id);
-            var add = Math.Min(Math.Max(0, Math.Floor(amount)), Math.Max(0, row.Num(CK.Cap) - before));
-            if (add == 0) return true;
-            var statuses = target.Obj(K.Statuses);
-            var inst = statuses.Obj(id);
-            if (inst == null) { statuses[id] = Js.Obj(K.Stacks, 0); inst = statuses.Obj(id); }
-            inst.Put(K.Stacks, before + add);
-            inst.Remove(K.Meter);
-            CorePools.SyncBoth(c, target);
-            var def = c.Data.Statuses.Has(id) ? c.Data.Statuses.Get(id) : null;
-            if (Js.Truthy(def?.Obj(K.Decay)?[K.Duration])) inst[K.Duration] = def.Obj(K.Decay)[K.Duration].DeepClone();
-            c.Emit(E.StatusApplied, EventFor(target, Js.Obj(K.SourceId, source != null ? source[K.Id] : Js.Null(), CK.SourceKind, source?[K.Kind], CK.TargetKind, target[K.Kind],
-                K.Status, id, K.Stacks, add, K.Total, inst[K.Stacks], CK.WasAbsent, before == 0)));
-            return true;
-        }
-
-        private static JObject EventFor(JObject entity, JObject payload)
-        {
-            payload[K.TargetId] = entity[K.Id].DeepClone();
-            return payload;
-        }
 
         // ------------------------------------------------------------------ apply
 
@@ -84,15 +83,36 @@ namespace Ashen.Domain.Combat
         private static void ApplyRaw(CombatState c, JObject target, string statusId, double stacks, JObject source)
         {
             var overridden = CoreFixCore.Enabled(c) && CoreFixCore.Rules(c, target).Obj(CK.Statuses)?.Obj(CK.Overrides)?[statusId] != null;
-            if (!overridden && ApplyActive(c, target, statusId, stacks, source)) return;
+            if (!overridden && CoreStatusControl.ApplyActive(c, target, statusId, stacks, source)) return;
             var def = Definition(c, statusId);
             if (target == null || !target.Is(K.Alive)) return;
             var wasAbsent = Statuses.Stacks(target, statusId) <= 0;
             var amount = Math.Floor(stacks);
             if (amount <= 0 && def.Str(K.StackMode) != V.StackUnique) return;
-            if (def.Obj(K.Proc) != null) throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, CM.StatusProcNotPorted, statusId));
-
             var statuses = target.Obj(K.Statuses);
+            var proc = def.Obj(K.Proc);
+
+            // Threshold-proc resistance (#61): a carried resist status blocks part of every incoming application of the status it names.
+            if (proc != null)
+            {
+                double blocked = 0;
+                foreach (var p in statuses.Properties().ToList())
+                {
+                    if (!(p.Value is JObject otherInst) || Statuses.LiveValue(otherInst) <= 0) continue;
+                    var otherDef = c.Data.Statuses.Has(p.Name) ? c.Data.Statuses.Get(p.Name) : null;
+                    var resists = otherDef?.Obj(K.Resists);
+                    if (resists != null && resists.Str(K.Status) == statusId)
+                        blocked += Math.Ceiling(amount * resists.Num(K.Percent) / Ashen.Generated.CombatMath.Percent);
+                }
+                if (blocked > 0)
+                {
+                    blocked = Math.Min(blocked, amount);
+                    amount -= blocked;
+                    c.Emit(E.ProcResisted, Js.Obj(K.TargetId, target[K.Id], K.Status, statusId, K.Blocked, blocked, K.Applied, amount));
+                    if (amount <= 0) return;
+                }
+            }
+
             var inst = statuses.Obj(statusId);
             if (inst == null)
             {
@@ -100,6 +120,7 @@ namespace Ashen.Domain.Combat
                 inst = statuses.Obj(statusId);
                 var meterDef = def.Obj(K.Meter);
                 if (meterDef != null) inst[K.Meter] = Js.Obj(K.Value, 0, K.Max, meterDef[K.Max]);
+                else if (proc != null) inst[K.Meter] = Js.Obj(K.Value, 0, K.Max, proc[K.Threshold]);
             }
             var meter = inst.Obj(K.Meter);
             switch (def.Str(K.StackMode))
@@ -119,11 +140,63 @@ namespace Ashen.Domain.Combat
                 default:
                     throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, Ashen.Generated.CombatMessages.UnknownStackMode, def.Str(K.StackMode), statusId));
             }
+            // Re-applying a duration status adds stacks (above) AND refreshes the duration.
             if (IsDurationDecay(def[K.Decay])) inst[K.Duration] = def.Obj(K.Decay)[K.Duration].DeepClone();
 
             c.Emit(E.StatusApplied, Js.Obj(CK.SourceKind, source?[K.Kind], CK.TargetKind, target[K.Kind], CK.WasAbsent, wasAbsent, K.TargetId, target[K.Id],
                 K.SourceId, source != null ? source[K.Id] : Js.Null(), K.Status, statusId, K.Stacks, amount, K.Total, Statuses.Stacks(target, statusId)));
-            if (meter != null && meter.Num(K.Value) >= meter.Num(K.Max)) throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, CM.StatusMeterNotPorted, statusId));
+
+            if (proc != null) CheckProcFill(c, target, statusId, def, inst, source);
+            else if (meter != null) CheckMeterFill(c, target, statusId, def, inst);
+            CoreStatusControl.AfterStatusGrant(c, target, statusId);
+        }
+
+        /// <summary>
+        /// checkProcFill: the threshold reached, the build-up resets to zero (overflow dropped, the threshold constant) and the burst is its own damage
+        /// record: a loss of Health, Poise damage and a stagger for an enemy, the proc's own effects, and the post-proc resistance of a tagged creature.
+        /// </summary>
+        private static void CheckProcFill(CombatState c, JObject entity, string statusId, JObject def, JObject inst, JObject source)
+        {
+            var meter = inst.Obj(K.Meter);
+            if (meter.Num(K.Value) < meter.Num(K.Max)) return;
+            var killReceipt = Js.Obj(SK.TargetStatusesBefore, entity.Obj(K.Statuses).DeepClone(), K.SourceId, source?[K.Id]);
+            var p = def.Obj(K.Proc);
+            meter.Put(K.Value, 0);
+            var pct = Math.Floor(entity.Num(K.MaxHp) * p.Num(K.BurstPercent) / Ashen.Generated.CombatMath.Percent);
+            var burst = Math.Max(p.Num(K.BurstMin), Math.Min(p.Num(K.BurstMax), pct));
+            c.Emit(E.ProcBurst, Js.Obj(K.TargetId, entity[K.Id], K.Status, statusId, K.Amount, burst, K.Threshold, meter[K.Max], K.PoiseDamage, p.Or0(K.PoiseDamage), K.Stagger, p.Is(K.Stagger)));
+            void Enq(JObject effect) => c.Enqueue(new CombatAction { Effect = effect, Source = entity, Owner = entity, Target = entity, Meta = new ActionMeta { KillReceipt = killReceipt } });
+            Enq(Js.Obj(K.Op, Op.LoseHp, K.Target, V.TargetSelf, K.Amount, burst, K.Cause, V.ProcCausePrefix + statusId));
+            var isEnemy = entity.Str(K.Kind) == V.Enemy;
+            if (p.Num(K.PoiseDamage) > 0 && isEnemy) Enq(Js.Obj(K.Op, Op.PoiseDamage, K.Amount, p[K.PoiseDamage]));
+            if (p.Is(K.Stagger) && isEnemy) Enq(Js.Obj(K.Op, Op.Stagger));
+            foreach (var eff in Js.Items(p[K.Effects]).OfType<JObject>()) Enq(eff);
+            var resistance = p.Obj(K.Resistance);
+            if (resistance != null)
+            {
+                var enemyDef = isEnemy ? c.Data.Enemies.Get(entity.Str(K.EnemyId)) : null;
+                var tags = enemyDef?[K.Tags];
+                if (Js.Items(Js.Truthy(tags) ? tags : null).Any(t => Js.Includes(resistance[K.Tags], Js.Str(t))))
+                    Enq(Js.Obj(K.Op, Op.ApplyStatus, K.Target, V.TargetSelf, K.Status, resistance[K.Status], K.Stacks, 1));
+            }
+        }
+
+        /// <summary>checkMeterFill: the meter filled, its overflow carries, its threshold grows by the definition's growth unless a combatant disables the growth.</summary>
+        private static void CheckMeterFill(CombatState c, JObject entity, string statusId, JObject def, JObject inst)
+        {
+            var meter = inst.Obj(K.Meter);
+            var meterDef = def.Obj(K.Meter);
+            var guard = 0;
+            while (meter.Num(K.Value) >= meter.Num(K.Max))
+            {
+                if (++guard > c.Data.Rule(K.Limits, K.FillLoopGuard)) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, Ashen.Generated.CombatMessages.MeterLoop, statusId));
+                meter.Put(K.Value, meter.Num(K.Value) - meter.Num(K.Max));
+                c.Emit(E.MeterFilled, Js.Obj(K.TargetId, entity[K.Id], K.Status, statusId, K.Threshold, meter[K.Max]));
+                var growth = Js.Coalesce(meterDef[K.GrowthMult], 1);
+                if (growth != 1 && !AnyCombatantFlag(c, K.MeterMaxGrowthDisabled)) meter.Put(K.Max, Math.Ceiling(meter.Num(K.Max) * growth));
+                foreach (var eff in Js.Items(meterDef[K.OnFill]).OfType<JObject>())
+                    c.Enqueue(new CombatAction { Effect = eff, Source = entity, Owner = entity, Target = entity, Meta = ActionMeta.Empty() });
+            }
         }
 
         // ------------------------------------------------------------------ remove
@@ -194,22 +267,75 @@ namespace Ashen.Domain.Combat
 
         // ------------------------------------------------------------------ modifiers
 
-        /// <summary>getFlag(ctx, entity, key): any status on the entity sets the boolean modifier (FixCore overrides included).</summary>
-        public static bool Flag(CombatState c, JObject entity, string key)
+        /// <summary>modifierSources(ctx, entity): the modifiers of each status the entity holds (with its stacks) and, for the player, of its stance.</summary>
+        private static IEnumerable<KeyValuePair<JObject, double>> ModifierSources(CombatState c, JObject entity)
         {
             var statuses = entity.Obj(K.Statuses);
             if (statuses != null)
-                foreach (var id in statuses.Properties().Select(p => p.Name).ToList())
+                foreach (var statusId in statuses.Properties().Select(p => p.Name).ToList())
                 {
-                    var mods = Definition(c, id).Obj(K.Modifiers);
-                    if (mods?[key] != null && mods[key].Type == JTokenType.Boolean && mods[key].Value<bool>()) return true;
+                    var mods = Definition(c, statusId).Obj(K.Modifiers);
+                    if (mods != null) yield return new KeyValuePair<JObject, double>(mods, Statuses.Stacks(entity, statusId));
                 }
             if (entity.Str(K.Kind) == V.Player && Js.Truthy(entity[K.StanceId]))
             {
                 var mods = c.Data.Stances.Get(entity.Str(K.StanceId)).Obj(K.Modifiers);
-                if (mods?[key] != null && mods[key].Type == JTokenType.Boolean && mods[key].Value<bool>()) return true;
+                if (mods != null) yield return new KeyValuePair<JObject, double>(mods, 1);
             }
+        }
+
+        /// <summary>getMult(ctx, entity, key): the product of the flat multipliers (not scaled by stacks).</summary>
+        public static double Mult(CombatState c, JObject entity, string key)
+        {
+            double m = 1;
+            foreach (var src in ModifierSources(c, entity)) if (Js.IsNum(src.Key[key])) m *= src.Key.Num(key);
+            return m;
+        }
+
+        /// <summary>getAdd(ctx, entity, key): the sum of the per-stack adders.</summary>
+        public static double Add(CombatState c, JObject entity, string key)
+        {
+            double a = 0;
+            foreach (var src in ModifierSources(c, entity)) if (Js.IsNum(src.Key[key])) a += src.Key.Num(key) * src.Value;
+            return a;
+        }
+
+        /// <summary>getFlag(ctx, entity, key): any status on the entity (or the player's stance) sets the boolean modifier, FixCore overrides included.</summary>
+        public static bool Flag(CombatState c, JObject entity, string key)
+        {
+            foreach (var src in ModifierSources(c, entity))
+                if (src.Key[key] != null && src.Key[key].Type == JTokenType.Boolean && src.Key[key].Value<bool>()) return true;
             return false;
+        }
+
+        /// <summary>getCap(ctx, entity, key): the largest declared value (the most generous cap wins), or null when none is declared.</summary>
+        public static double? Cap(CombatState c, JObject entity, string key)
+        {
+            double? cap = null;
+            foreach (var src in ModifierSources(c, entity))
+                if (Js.IsNum(src.Key[key])) cap = cap == null ? src.Key.Num(key) : Math.Max(cap.Value, src.Key.Num(key));
+            return cap;
+        }
+
+        /// <summary>anyCombatantFlag(ctx, key): any living combatant carries the boolean modifier.</summary>
+        public static bool AnyCombatantFlag(CombatState c, string key)
+        {
+            if (c.Player != null && c.Player.Is(K.Alive) && Flag(c, c.Player, key)) return true;
+            foreach (var e in c.Enemies) if (e.Is(K.Alive) && Flag(c, e, key)) return true;
+            return false;
+        }
+
+        // ------------------------------------------------------------------ the Staggered stance as a status
+
+        /// <summary>isStaggered(ctx, entity): FixCore is on and a stance the entity holds is the Staggered one.</summary>
+        public static bool IsStaggered(CombatState c, JObject entity) =>
+            entity != null && CoreFixCore.Enabled(c) && CoreDamage.ActiveCombatStances(c, entity).Any(row => row?.Str(CK.Maneuver) == V.IntentStaggered);
+
+        /// <summary>statusStacksWithStance(ctx, entity, id): status stacks, counting the Staggered stance as one <c>staggered</c> stack.</summary>
+        public static double StacksWithStance(CombatState c, JObject entity, string statusId)
+        {
+            var stacks = Statuses.Stacks(entity, statusId);
+            return stacks > 0 || statusId != V.IntentStaggered || !IsStaggered(c, entity) ? stacks : 1;
         }
     }
 }

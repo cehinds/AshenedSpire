@@ -38,6 +38,7 @@ namespace Ashen.Domain.Combat
                 c.Queue.RemoveFirst();
                 CoreReactions.StartQueuedEnemy(c, action);
                 Execute(c, action);
+                if (CoreCardZones.HasChoice(c)) return;
                 EndCheck(c);
                 if (c.Result != null)
                 {
@@ -101,7 +102,8 @@ namespace Ashen.Domain.Combat
                 var pctx = new PredicateContext { Owner = action.Owner ?? action.Source, Source = action.Source, Target = action.Target, Card = action.Card, Meta = action.Meta };
                 if (!Triggers.EvalPredicate(c, eff.Obj(K.If), pctx)) return;
             }
-            if (Js.Truthy(eff[CK.OncePerTurn])) throw new NotSupportedException(CM.OncePerTurnNotPorted);
+            if (Js.Truthy(eff[CK.OncePerTurn]) && !CoreRiders.AllowOnce(action.Owner ?? action.Source ?? c.Player, eff[CK.OncePerTurn], action.Card,
+                    action.Meta?.AbilityEffectIndex != null ? Js.N(action.Meta.AbilityEffectIndex.Value) : eff[K.Op])) return;
             if (sequence != null && action.Meta.ContactEffectFirst == true) sequence.Gates[action.Meta.ContactEffectIndex] = true;
             var repeat = Actions.EvalNum(c, action, eff[CK.Repeat], 1);
             var previous = c.CurrentAction;
@@ -110,9 +112,10 @@ namespace Ashen.Domain.Combat
             {
                 for (var r = 0; r < repeat; r++)
                 {
+                    if (action.Meta != null) action.Meta.ExpansionExecutionRepeat = r;
                     RunOpcode(c, action, eff);
                     SpendSilenced(c, action, eff);
-                    if (c.Result != null) return;
+                    if (c.Result != null || CoreCardZones.HasChoice(c)) return;
                 }
             }
             finally { c.CurrentAction = previous; }
@@ -122,11 +125,20 @@ namespace Ashen.Domain.Combat
         private static void SpendSilenced(CombatState c, CombatAction action, JObject eff)
         {
             var op = eff.Str(K.Op);
-            if (action.Card == null || action.Meta?.StanceEntry == true || op == Op.Damage || op == DV.OpCompleteCombatAction || eff.Str(K.Target) == V.TargetRandomEnemy) return;
+            if (action.Card == null || action.Meta?.StanceEntry == true || action.Meta?.StanceRestore == true || op == Op.Damage || op == DV.OpCompleteCombatAction || eff.Str(K.Target) == V.TargetRandomEnemy) return;
             if (!CoreDamage.IsForceHit(c, action.Card.Obj(CK.CombatProfile) ?? CoreStances.ProfileFor(c, action.Card))) return;
             var targets = Js.Nullish(eff[K.Target]) && CoreSets.OwnerOps.Contains(op) ? new List<JObject> { action.Owner ?? action.Source } : Actions.ResolveTargets(c, action, eff.Str(K.Target));
             foreach (var t in targets)
-                if (t.Obj(K.Statuses)?.Obj(CV.StatusSilenced)?.Num(K.Stacks) > 0) throw new NotSupportedException(CM.StatusControlNotPorted);
+            {
+                if (action.Meta?.Group != null && action.Meta.Group.Targets.TryGetValue(t.Str(K.Id), out var row) && row.Receipt?.Is(DK.Avoided) == true) continue;
+                SpendSilencedStack(c, t);
+            }
+        }
+
+        /// <summary>spendSilencedStack(ctx, target): a Force contact spends one Silenced stack; the log shows it as consumed.</summary>
+        public static void SpendSilencedStack(CombatState c, JObject target)
+        {
+            if (target.Obj(K.Statuses)?.Obj(CV.StatusSilenced)?.Num(K.Stacks) > 0) CoreStatuses.Remove(c, target, CV.StatusSilenced, CV.ReasonConsumed, 1);
         }
 
         private static void RunOpcode(CombatState c, CombatAction action, JObject eff)
@@ -137,18 +149,21 @@ namespace Ashen.Domain.Combat
                     foreach (var t in PlannedStatusTargets(c, action, eff))
                     {
                         var authored = Actions.EvalNum(c, action, eff[K.Stacks], 1, t);
-                        var stacks = authored + SpellAuthoredStatusBonus(c, action, authored);
+                        var stacks = authored + SpellAuthoredStatusBonus(c, action, authored) + (action.Meta?.Charge?.Or0(CV.OpBuildup) ?? 0);
                         var tags = Js.Items(eff[K.Tags]).Select(Js.Str).Concat(action.Card != null ? CoreStances.TagIds(action.Card) ?? new List<string>() : new List<string>()).ToList();
                         CoreStatuses.Apply(c, t, eff.Str(K.Status), stacks, action.Source, tags);
                         CoreImpact.ProposalThreshold(c, t);
                         if (action.Meta?.Group != null && action.Meta.Group.Targets.TryGetValue(t.Str(K.Id), out var statusRow) && statusRow.Receipt != null)
                             statusRow.Receipt[DK.StatusAccepted] = Js.N(statusRow.Receipt.Or0(DK.StatusAccepted) + stacks);
-                        if (eff.Str(K.Status) == CV.StatusGrounded) throw new NotSupportedException(CM.StatusControlNotPorted);
+                        if (eff.Str(K.Status) == CV.StatusGrounded) CoreStatusControl.Ground(c, t);
                     }
                     break;
                 case Op.RemoveStatus:
                     foreach (var t in Actions.ResolveTargets(c, action, eff.Str(K.Target)))
+                    {
                         CoreStatuses.Remove(c, t, eff.Str(K.Status), CV.ReasonConsumed, eff[K.Amount] != null ? Math.Max(0, Actions.EvalNum(c, action, eff[K.Amount], 0, t)) : (double?)null);
+                        CoreOps.TrimStances(c, t);
+                    }
                     break;
                 case Op.Draw:
                     CoreHand.Draw(c, Math.Max(0, Actions.EvalNum(c, action, eff[K.Amount], 1)));
@@ -172,10 +187,10 @@ namespace Ashen.Domain.Combat
                     break;
                 case Op.Block:
                 case CV.OpGainBarrier:
-                    foreach (var t in Actions.ResolveTargets(c, action, eff.Str(K.Target)))
-                        GainBlock(c, t, Actions.EvalNum(c, action, eff[K.Amount], 0, t), action.Card);
+                    CoreOps.Protection(c, action, eff);
                     break;
                 default:
+                    if (CoreOps.Run(c, action, eff)) break;
                     throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, CM.OpcodeNotPorted, eff.Str(K.Op)));
             }
         }
@@ -310,7 +325,8 @@ namespace Ashen.Domain.Combat
             var fixCore = CoreFixCore.Enabled(c);
             if (!fixCore) throw new NotSupportedException(CM.LegacyBlockNotPorted);
             var synthetic = card != null && card.Is(CK.SyntheticDefense);
-            if (synthetic || card == null || !(Js.Truthy(card[K.CardId]) || Js.Truthy(card[K.MoveId]))) throw new NotSupportedException(CM.SyntheticBlockNotPorted);
+            // A guard no card raised (a status, a stance's turn-start protection) is the amount whole and lays down no Ward or Poise.
+            if (synthetic || card == null || !(Js.Truthy(card[K.CardId]) || Js.Truthy(card[K.MoveId]))) return CoreOps.GainBlockAmount(c, entity, ComputeBlockGain(c, entity, baseAmount, card), card);
             var amt = ComputeBlockGain(c, entity, baseAmount, card);
             var cap = StatusCap(c, entity, K.BlockCap);
             if (cap != null && entity.Num(K.Block) + amt > cap.Value) amt = Math.Max(0, cap.Value - entity.Num(K.Block));

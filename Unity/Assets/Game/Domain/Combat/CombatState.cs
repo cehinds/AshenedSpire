@@ -33,7 +33,7 @@ namespace Ashen.Domain.Combat
     }
 
     /// <summary>What caused a queued action (shipped action.meta).</summary>
-    public sealed class ActionMeta
+    public sealed partial class ActionMeta
     {
         public double? EnergySpent;
         public double? ManaSpent;
@@ -102,7 +102,7 @@ namespace Ashen.Domain.Combat
     /// documents in the shipped snapshot format (D-037); the queue, trigger gates and property mounts are runtime
     /// structures, re-derived on restore exactly as the shipped engine re-derives them.
     /// </summary>
-    public sealed class CombatState
+    public sealed partial class CombatState
     {
         public CombatData Data;
         public Rng Rng;

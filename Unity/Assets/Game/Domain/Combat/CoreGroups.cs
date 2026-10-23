@@ -38,7 +38,7 @@ namespace Ashen.Domain.Combat
     /// A committed card or move (web engine/combatExpansionActions.js group): one receipt per defender across all its contacts. It is runtime
     /// state, never saved; a fight in progress holds it on the queued actions that name it.
     /// </summary>
-    public sealed class ExpansionGroup
+    public sealed partial class ExpansionGroup
     {
         public string Key;
         public string SourceId;

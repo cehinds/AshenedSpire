@@ -76,7 +76,7 @@ namespace Ashen.Domain.Combat
                 {
                     var trig = (JObject)hooks[i];
                     if (trig.Str(K.On) != type) continue;
-                    MaybeFire(c, GateKey(V.StanceGate, pKey, stanceId, Index(i)), trig, player, ev);
+                    MaybeFire(c, GateKey(V.StanceGate, pKey, stanceId, Index(i)), trig, player, ev, K.Stance, stanceId);
                 }
             }
 
@@ -93,7 +93,7 @@ namespace Ashen.Domain.Combat
                         {
                             var i = index++;
                             if (trig.Str(K.On) != type) continue;
-                            if (MaybeFire(c, GateKey(V.PropertyGate, pKey, sourceKey, Index(i)), trig, player, ev) && announce)
+                            if (MaybeFire(c, GateKey(V.PropertyGate, pKey, sourceKey, Index(i)), trig, player, ev, mount.Kind ?? V.PropertyGate, mount.Id ?? sourceKey) && announce)
                                 EmitEvent(c, E.RelicTriggered, Js.Obj(K.RelicId, relicId));
                         }
                 }
@@ -110,7 +110,7 @@ namespace Ashen.Domain.Combat
                     {
                         var trig = (JObject)hooks[i];
                         if (trig.Str(K.On) != type) continue;
-                        MaybeFire(c, GateKey(V.StatusGate, OwnerKey(entity), statusId, Index(i)), trig, entity, ev);
+                        MaybeFire(c, GateKey(V.StatusGate, OwnerKey(entity), statusId, Index(i)), trig, entity, ev, K.Status, statusId);
                     }
                 }
             }
@@ -142,7 +142,7 @@ namespace Ashen.Domain.Combat
                 {
                     var trig = (JObject)hooks[i];
                     if (trig.Str(K.On) != hookName) continue;
-                    MaybeFire(c, GateKey(V.StatusGate, oKey, statusId, Index(i), hookName), trig, entity, synthetic);
+                    MaybeFire(c, GateKey(V.StatusGate, oKey, statusId, Index(i), hookName), trig, entity, synthetic, K.Status, statusId);
                 }
             }
             if (entity.Str(K.Kind) == V.Player && Js.Truthy(entity[K.StanceId]))
@@ -153,7 +153,7 @@ namespace Ashen.Domain.Combat
                 {
                     var trig = (JObject)hooks[i];
                     if (trig.Str(K.On) != hookName) continue;
-                    MaybeFire(c, GateKey(V.StanceGate, oKey, stanceId, Index(i), hookName), trig, entity, synthetic);
+                    MaybeFire(c, GateKey(V.StanceGate, oKey, stanceId, Index(i), hookName), trig, entity, synthetic, K.Stance, stanceId);
                 }
             }
         }
@@ -168,7 +168,7 @@ namespace Ashen.Domain.Combat
             return st;
         }
 
-        private static bool MaybeFire(CombatState c, string key, JObject trigger, JObject owner, JObject ev)
+        private static bool MaybeFire(CombatState c, string key, JObject trigger, JObject owner, JObject ev, string originKind = null, string originId = null)
         {
             var st = Gate(c, key);
             if (trigger.Is(K.Once) && st.Fires > 0) return false;
@@ -196,7 +196,7 @@ namespace Ashen.Domain.Combat
                         }
             }
             foreach (var eff in Js.Items(trigger[K.Do]).OfType<JObject>())
-                c.Enqueue(new CombatAction { Effect = eff, Source = owner, Owner = owner, Target = target, Card = ratingCard, Meta = new ActionMeta { Event = ev } });
+                c.Enqueue(new CombatAction { Effect = eff, Source = owner, Owner = owner, Target = target, Card = ratingCard, Meta = new ActionMeta { Event = ev, TriggeredBy = originKind == null ? null : Js.Obj(K.Kind, originKind, K.Id, originId, K.OwnerId, owner?[K.Id]) } });
             return true;
         }
 
@@ -250,6 +250,7 @@ namespace Ashen.Domain.Combat
         public static bool EvalPredicate(CombatState c, JObject pred, PredicateContext pctx)
         {
             pctx ??= new PredicateContext();
+            if (c.IsCore && CoreTriggers.Eval(c, pred, pctx, out var coreValue)) return coreValue;
             var meta = pctx.Meta ?? ActionMeta.Empty();
             var ev = pctx.Event;
             switch (pred.Str(K.P))
