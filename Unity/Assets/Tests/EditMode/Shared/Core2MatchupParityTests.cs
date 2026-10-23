@@ -91,6 +91,7 @@ namespace Ashen.Tests
                 // The web leaves these four undefined where the port holds null (see CoreMatchups.EventCarrier).
                 var copy = (JObject)Sorted(e);
                 foreach (var key in new[] { "cardId", "cardInstanceId", "cardType", "abilityKind" }) if (copy[key]?.Type == JTokenType.Null) copy.Remove(key);
+                foreach (var key in Decoration) copy.Remove(key);
                 return copy;
             }));
 
@@ -228,8 +229,6 @@ namespace Ashen.Tests
                 {
                     if (unit["error"].Type != JTokenType.Null) break;
                     var def = (JObject)unit["def"];
-                    // Counterstrike scales the reply's base (WP-9): a card that carries it is refused at the play.
-                    if (def.Obj("traitValues")?["counterstrike"] != null && def.Obj("traitValues").Value<bool>("counterstrike")) break;
                     var instance = new JObject { ["instanceId"] = "mxx", ["cardId"] = def["id"].DeepClone(), ["upgraded"] = false };
                     var carrier = CoreCardPlay.Carrier(c, instance, def);
                     b.Target.Obj("counters")["cardsPlayedThisCombat"] = 1;

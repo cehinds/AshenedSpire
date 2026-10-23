@@ -19,7 +19,7 @@
 //
 // THE FILTER (what a recorded sequence avoids; the C# port refuses these by name and the test asserts it never has to): a step is recorded only
 // when its dry run on a detached copy (a) throws nothing, (b) emits only event types in COVERED_EVENTS, (c) leaves no pending reaction or card
-// choice, and (d) every card it plays has only effects in COVERED_OPS and none of the card traits (WP-9). An enemy whose move would break (b)
+// choice, and (d) every card it plays has only effects in COVERED_OPS (the card traits are WP-9's and are played). An enemy whose move would break (b)
 // or (c) is marked staggered for that end turn, as the WP-7 oracle does. The player's reactions are switched off before the first step.
 // The filter helpers are the WP-7 oracle's (Tools/oracle-core2-damage.mjs), widened for the matchups.
 import { writeFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
@@ -53,7 +53,6 @@ const COVERED_EVENTS = new Set(['playerTurnEnd', 'playerTurnStart', 'enemyTurnSt
 // The ops a played card may carry: the damage, Block and Barrier of WP-7, and the Poise and Ward a Smash, a Sweep or a Counter deals.
 const COVERED_OPS = new Set(['damage', 'block', 'gainBarrier', 'poiseDamage', 'wardDamage']);
 const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'wardDamage', 'applyStatus', 'block', 'gainBarrier']);
-const TRAIT = /^trait:(counterstrike|impact|flux)$/;
 const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
 
 const HOSTILE_OPS = new Set(['damage', 'applyStatus', 'buildup', 'poiseDamage', 'wardDamage', 'loseHp', 'stagger', 'arcaneBuildup']);
@@ -106,14 +105,14 @@ const immediate = (def) => (maneuverOfCard(def) === 'counter' ? def.effects.filt
 const maneuverOfCard = (def) => (def.cardTags || def.tags || []).map((t) => (typeof t === 'string' ? t : t.id)).find((t) => t.startsWith('maneuver:'))?.slice(9) ?? null;
 
 // A card is played inside the filter when its resolved face carries only the ops of COVERED_OPS (no gate, repeat or random target), no choice, no
-// variant, no card trait or Ashen Blight cost, nothing listens for it being prepared and the player holds no hostile hook.
+// variant, no Ashen Blight cost, nothing listens for it being prepared and the player holds no hostile hook.
 function playable(combat, card) {
   const def = expansion.resolveCombatCard(combat, card);
   const ops = (def?.effects || []).map((e) => e.op);
   const tags = (def.cardTags || def.tags || []).map((t) => (typeof t === 'string' ? t : t.id));
   if (!ops.length || !ops.every((op) => COVERED_OPS.has(op))) return false;
   if (def.effects.some((e) => e.if || e.script || e.oncePerTurn || e.repeat !== undefined || e.choose || e.target === 'randomEnemy')) return false;
-  if (def.effectVariants?.length || tags.some((t) => TRAIT.test(t)) || def.ashenBlightCost > 0) return false;
+  if (def.effectVariants?.length || def.ashenBlightCost > 0) return false;
   if (Object.keys(combat.player.abilityRiders?.charges || {}).length) return false;
   if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
   return !hasHostileHooks(combat, combat.player, def.effects);
@@ -217,7 +216,7 @@ function options(combat) {
 // ---------------------------------------------------------------------------------------------------------------
 // Fights: the cards bot
 // ---------------------------------------------------------------------------------------------------------------
-// Cards given to the deck: attack, Smash, Sweep and Counter, none of them carrying a card trait (the traits are WP-9).
+// Cards given to the deck: attack, Smash, Sweep and Counter, the traits they carry (Counterstrike, Impact, Flux: WP-9) play as the web plays them.
 const DECK_POOL = ['core.counter', 'core.counter', 'core.smash', 'base.smash', 'core.reaverSpecial', 'core.sweep', 'core.strike', 'core.defend'];
 
 function fight(seed, classId, encounter, steps) {

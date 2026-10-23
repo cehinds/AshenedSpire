@@ -183,7 +183,7 @@ namespace Ashen.Domain.Combat
             }
             // Reaction rules version 2: Counterstrike, Impact and Flux are card traits (WP-9).
             var trait = c.CoreData.ReactionVersion == DN.ReactionStackVersion ? held?.Obj(DK.TraitValues) ?? new JObject() : new JObject();
-            if (trait.Is(DK.Counterstrike) || trait.Num(DK.Flux) > 0 || trait.Num(DK.Impact) > 0) throw new NotSupportedException(DM.TraitsNotPorted);
+            double? strike = trait.Is(DK.Counterstrike) ? CoreCardTraits.CounterstrikePct(c, CV.StanceCounter, CoreCardTraits.ManeuverOf(source, receipt.Obj(DK.Profile)?.Str(CK.Maneuver))) : (double?)null;
             var covered = receipt.Arr(DK.Covered) ?? new JArray();
             bool Covered(int index) => index < covered.Count && Js.Truthy(covered[index]);
             // Core 2 (SPEC 17): the return is a fraction of the damage that hit, not the card's printed numbers; a spell Counter returns Health and Poise only.
@@ -191,6 +191,8 @@ namespace Ashen.Domain.Combat
             var hp = core.Hp;
             var poise = core.Poise;
             var ward = CoreMatchups.IsSpellCounter(held) ? 0 : Js.IsFinite(counter.Obj(CK.Payload)?[CK.Ward]) ? Math.Max(0, Js.D(counter.Obj(CK.Payload)[CK.Ward])) : 0;
+            // Counterstrike scales the authored Ward first (the Core rule fixes Health and Poise); Flux doubles the final Ward, or gives N when it has none.
+            if (strike != null) ward = Js.D(CoreCardTraits.CounterstrikeAmount(Js.N(ward), strike.Value));
             var heldProfile = held?.Obj(CK.CombatProfile);
             var magical = heldProfile != null && CoreSets.SpellCamps.Contains(heldProfile.Str(CK.Camp));
             var edges = profiles.Where((p, index) => Covered(index)).Select(profile => SchoolReturnMultiplier(c, counter, profile)).ToList();
@@ -198,6 +200,7 @@ namespace Ashen.Domain.Combat
             var pierceWard = magical && heldProfile.Str(CK.DamageType) == MV.DamagePiercing;
             var wardEdge = counter.Str(MK.SchoolEffect) == CK.Ward && schoolEdge != 1 ? schoolEdge : pierceWard ? MN.PiercingWardEdge : 1;
             ward *= wardEdge;
+            if (!CoreMatchups.IsSpellCounter(held) && trait.Num(DK.Flux) > 0) ward = ward > 0 ? 2 * ward : trait.Num(DK.Flux);
             var body = CoreMatchups.EventCarrier(target, held);
             body[K.SourceId] = target[K.Id].DeepClone();
             body[K.TargetId] = source[K.Id].DeepClone();
@@ -360,6 +363,7 @@ namespace Ashen.Domain.Combat
                 else if (!listedPoise) poiseDamage = impact;
             }
             var payload = new JObject { [K.Hp] = Js.N(damage), [CK.Poise] = Js.N(poiseDamage), [CK.Ward] = Js.N(wardDamage) };
+            var strike = c.CoreData.ReactionVersion == DN.ReactionStackVersion && Js.Truthy(carrier.Obj(DK.TraitValues)?[DK.Counterstrike]);
             var authored = profile?.Obj(CK.CounterPayload);
             if (authored != null)
             {
@@ -373,8 +377,24 @@ namespace Ashen.Domain.Combat
                     var rating = key == K.Hp && baseAmount > 0 && !(authored[MK.HpRating] != null && authored[MK.HpRating].Type == JTokenType.Boolean && !authored.Is(MK.HpRating))
                         ? Ratings.CardBonus(c, source, noRating, Op.Damage, baseAmount) : 0;
                     payload[key] = Js.N(baseAmount + rating);
+                    // Counterstrike scales the authored base and re-derives the rating from it; only the authored Poise is scaled.
+                    if (strike && key == K.Hp) { payload[CK.HpBase] = Js.N(baseAmount); payload[CK.HpRating] = Js.N(rating); }
+                    if (strike && key == CK.Poise) payload[CK.PoiseBase] = Js.N(baseAmount);
                 }
                 if (authored[CK.HpAgainstNonCaster] != null) payload[CK.HpAgainstNonCaster] = authored[CK.HpAgainstNonCaster].DeepClone();
+            }
+            else if (strike)
+            {
+                // A reply derived from the card's own damage effect: its base and rating are recorded so Counterstrike scales the base (one single-hit damage effect).
+                var damaging = effects.Select(effect => (effect, preview: effect.Str(K.Op) == Op.Damage ? EffectPreview(c, source, target, carrier, effect, meta) : null)).Where(row => row.preview != null).ToList();
+                if (damaging.Count == 1 && damaging[0].preview.Value.hits == 1)
+                {
+                    var probe = new CombatAction { Source = source, Owner = source, Target = target, Card = carrier, Meta = meta, Effect = new JObject() };
+                    var baseAmount = Whole0(c, probe, damaging[0].effect[CK.Amount] ?? Js.N(0), 0);
+                    payload[CK.HpBase] = Js.N(baseAmount);
+                    payload[CK.HpRating] = Js.N(damaging[0].preview.Value.value - baseAmount);
+                }
+                payload[CK.PoiseBase] = Js.N(Math.Max(0, poiseDamage));
             }
             // A Counter with no authored Poise impact receives the shared fallback once.
             if (!(payload.Num(CK.Poise) > 0) && !effects.Any(effect => effect.Str(K.Op) == Op.PoiseDamage))

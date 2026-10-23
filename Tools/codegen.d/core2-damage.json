@@ -785,7 +785,6 @@
         "StackingMismatch": "stacking mode does not match operation",
         "StackingRequired": "explicit group and supported mode required",
         "ThenUnknownKey": "then has unknown key {0}",
-        "TraitsNotPorted": "Core 2 combat: the Counter maneuver and its trait guards are ported with the Counter work package",
         "TurnWorkBudget": "Turn work budget reached; End Turn remains available",
         "UnknownBindingField": "unknown binding field",
         "UnknownBindingQuery": "unknown binding query",

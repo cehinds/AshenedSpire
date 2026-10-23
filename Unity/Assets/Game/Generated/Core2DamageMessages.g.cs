@@ -89,7 +89,6 @@ namespace Ashen.Generated
         public const string StackingMismatch = "stacking mode does not match operation";
         public const string StackingRequired = "explicit group and supported mode required";
         public const string ThenUnknownKey = "then has unknown key {0}";
-        public const string TraitsNotPorted = "Core 2 combat: the Counter maneuver and its trait guards are ported with the Counter work package";
         public const string TurnWorkBudget = "Turn work budget reached; End Turn remains available";
         public const string UnknownBindingField = "unknown binding field";
         public const string UnknownBindingQuery = "unknown binding query";
