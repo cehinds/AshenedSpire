@@ -12,7 +12,7 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 - **Traits (`CoreCardTraits`, `CoreFormulas`, D-244):** the projection, Counterstrike scaling, Impact and Flux on a completed card, the `metric` and `traitBonus` formulas. Shipped Core 2 cards carry no trait values (the configured projection skips the projection), so execution is covered by the math tables and the guard scenarios.
 - **Fixes the oracle forced (D-245):** a status rule's follow-up inherits the hit's contact (no second roll), `triggeredBy` on events, a cardless guard is whole Block, a physical fill strains the Poise meter, `attackHitPreview` answers nothing for a creature acting on its own side before it reads the engagement.
 
-**Tests:** see the test counts below; `Core2StatusParityTests` (definitions, scenarios, traits) and `Core2StatusFightParityTests` (fights) are the new suites; the Core 2 fight, damage and cost parity suites stay green.
+**Tests:** the Domain suite (`Category!=Bot`) runs 9,292 tests, all green after the magic-number fix (zone caps moved to `Core2StatusNumbers.ZoneCountMax` / `TurnsMax`); `Core2StatusParityTests` (definitions, scenarios, traits) and `Core2StatusFightParityTests` (fights) are the new suites; the Core 2 fight, damage and cost parity suites stay green.
 
 **Guards that remain:** `moveEngagement`, `arcaneBuildup`, `script` (flasks), legacy stances (`stance:` ids and `classStance` choices), Counter / Smash (WP-8), reactions (WP-10), range lineage and closing moves (WP-12), Ashen Blight milestones.
 

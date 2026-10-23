@@ -289,7 +289,7 @@
         "SweepStrikeTier": "4",
         "TierCap": "5",
         "TierPerStep": "2",
-        "TurnsMax": "10"
+        "TurnsMax": "10", "ZoneCountMax": "100"
       }
     }
   ]

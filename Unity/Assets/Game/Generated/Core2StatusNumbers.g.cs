@@ -17,5 +17,6 @@ namespace Ashen.Generated
         public const double TierCap = 5;
         public const double TierPerStep = 2;
         public const double TurnsMax = 10;
+        public const double ZoneCountMax = 100;
     }
 }

@@ -10,6 +10,7 @@ using E = Ashen.Generated.CombatEvents;
 using K = Ashen.Generated.CombatKeys;
 using RngStream = Ashen.Generated.RngStream;
 using V = Ashen.Generated.CombatValues;
+using SN = Ashen.Generated.Core2StatusNumbers;
 using SK = Ashen.Generated.Core2StatusKeys;
 using SM = Ashen.Generated.Core2StatusMessages;
 using SV = Ashen.Generated.Core2StatusValues;
@@ -74,7 +75,7 @@ namespace Ashen.Domain.Combat
             var allowed = new HashSet<string> { K.Op, Ashen.Generated.EventKeys.From, Ashen.Generated.EventKeys.To, K.Amount, DK.Selection, K.Position, SK.Look, SK.TransformTo, Ashen.Generated.ShopKeys.Changes, K.Target, K.If, K.Repeat, CK.OncePerTurn };
             if (effect.Properties().Any(p => !allowed.Contains(p.Name))) throw new InvalidOperationException(SM.UnknownZoneField);
             var amount = effect[K.Amount];
-            var bad = Js.IsNum(amount) ? !Js.IsFinite(amount) || Js.D(amount) < 0 || Js.D(amount) > 100
+            var bad = Js.IsNum(amount) ? !Js.IsFinite(amount) || Js.D(amount) < 0 || Js.D(amount) > SN.ZoneCountMax
                 : !(amount is JObject f) || !Js.IsStr(f[K.F]);
             if (bad) throw new InvalidOperationException(SM.BadZoneCount);
             if (effect[SK.TransformTo] != null && (!Js.IsStr(effect[SK.TransformTo]) || string.IsNullOrEmpty(effect.Str(SK.TransformTo)))) throw new InvalidOperationException(SM.BadTransform);
@@ -88,9 +89,9 @@ namespace Ashen.Domain.Combat
                 var changeKeys = new HashSet<string> { K.Retain, SK.RetainTurns, SK.HideTurns, CK.Maneuver, CK.Range };
                 if (changes.Properties().Any(p => !changeKeys.Contains(p.Name))) throw new InvalidOperationException(SM.UnknownChange);
                 if (changes[K.Retain] != null && changes[K.Retain].Type != JTokenType.Boolean) throw new InvalidOperationException(SM.BadRetain);
-                if (changes[SK.RetainTurns] != null && (!Safe(changes[SK.RetainTurns]) || changes.Num(SK.RetainTurns) < 1 || changes.Num(SK.RetainTurns) > 10)) throw new InvalidOperationException(SM.BadRetainTurns);
+                if (changes[SK.RetainTurns] != null && (!Safe(changes[SK.RetainTurns]) || changes.Num(SK.RetainTurns) < 1 || changes.Num(SK.RetainTurns) > SN.TurnsMax)) throw new InvalidOperationException(SM.BadRetainTurns);
                 var hide = changes[SK.HideTurns];
-                if (hide != null && !(hide is JObject hf && Js.IsStr(hf[K.F])) && (!Safe(hide) || Js.D(hide) < 1 || Js.D(hide) > 10)) throw new InvalidOperationException(SM.BadHideTurns);
+                if (hide != null && !(hide is JObject hf && Js.IsStr(hf[K.F])) && (!Safe(hide) || Js.D(hide) < 1 || Js.D(hide) > SN.TurnsMax)) throw new InvalidOperationException(SM.BadHideTurns);
                 var maneuvers = new[] { K.Attack, Ashen.Generated.Core2CombatValues.StanceSmash, Ashen.Generated.Core2CombatValues.StanceDefend, Ashen.Generated.Core2CombatValues.StanceSweep, CK.Counter, Ashen.Generated.Core2CombatValues.ManeuverCasting, CK.Evade };
                 if (Js.Truthy(changes[CK.Maneuver]) && !maneuvers.Contains(changes.Str(CK.Maneuver))) throw new InvalidOperationException(SM.UnknownManeuver);
                 var ranges = new[] { Ashen.Generated.Core2CombatValues.RangeMelee, CK.Reach, Ashen.Generated.Core2CombatValues.ManeuverRanged };
@@ -98,7 +99,7 @@ namespace Ashen.Domain.Combat
             }
             var position = Js.Truthy(effect[K.Position]) ? effect.Str(K.Position) : V.PositionBottom;
             if (position != V.PositionTop && position != V.PositionBottom && position != K.Random) throw new InvalidOperationException(SM.UnknownPosition);
-            if (effect[SK.Look] != null && (!Safe(effect[SK.Look]) || effect.Num(SK.Look) < 1 || effect.Num(SK.Look) > 100)) throw new InvalidOperationException(SM.BadLook);
+            if (effect[SK.Look] != null && (!Safe(effect[SK.Look]) || effect.Num(SK.Look) < 1 || effect.Num(SK.Look) > SN.ZoneCountMax)) throw new InvalidOperationException(SM.BadLook);
         }
 
         private static void ApplyMove(CombatState c, JObject effect, IReadOnlyList<string> ids)
@@ -163,7 +164,7 @@ namespace Ashen.Domain.Combat
             Validate(effect);
             if (Js.Truthy(effect[SK.TransformTo])) c.Data.Cards.Get(effect.Str(SK.TransformTo));
             var candidates = Candidates(c, effect);
-            var count = (int)Math.Min(candidates.Count, Math.Min(100, Math.Max(0, Math.Floor(amount))));
+            var count = (int)Math.Min(candidates.Count, Math.Min(SN.ZoneCountMax, Math.Max(0, Math.Floor(amount))));
             if (count == 0) return;
             if (effect.Str(DK.Selection) == DK.Choose)
             {
