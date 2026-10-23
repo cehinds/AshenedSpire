@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.37.9] — 2026-10-23
+
+- Core 2 combat start, hand and resources in C# with oracle parity (WP-4)
+
 ## [0.1.37.8] — 2026-10-23
 
 - Core 2 run creation (WP-3)
