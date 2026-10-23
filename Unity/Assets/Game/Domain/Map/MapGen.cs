@@ -300,7 +300,7 @@ namespace Ashen.Domain.Map
             for (var index = 0; index < destinations.Count; index++)
             {
                 var destination = destinations[index];
-                var col = destinations.Count == 1 ? original.Col : firstColumn + index;
+                var col = destinations.Count == 1 ? (int)original.Col : firstColumn + index;
                 var id = rules.NodeId(original.Floor, col);
                 map.Nodes[id] = new MapNode(id, original.Floor, col)
                 {

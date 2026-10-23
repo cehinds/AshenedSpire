@@ -14,7 +14,8 @@
       "src/content/combatCardTraits.js",
       "src/content/actionCosts.js",
       "src/content/enemyKnowledge.js",
-      "src/content/ashenBlight.js"
+      "src/content/ashenBlight.js",
+      "src/content/bossDestinations.js"
     ],
     "json": [
       "content/source/fixCoreMechanics.json",

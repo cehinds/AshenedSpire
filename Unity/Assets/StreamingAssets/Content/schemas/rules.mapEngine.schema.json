@@ -129,6 +129,90 @@
         "treasure"
       ]
     },
+    "routes": {
+      "type": "object",
+      "properties": {
+        "bossNodeId": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "displayTypes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "laneCentre": {
+          "type": "number"
+        },
+        "lanes": {
+          "type": "object",
+          "properties": {
+            "max": {
+              "type": "integer"
+            },
+            "min": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "max",
+            "min"
+          ]
+        },
+        "resolvedKinds": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "roles": {
+          "type": "object",
+          "properties": {
+            "boss": {
+              "type": "string"
+            },
+            "elite": {
+              "type": "string"
+            },
+            "event": {
+              "type": "string"
+            },
+            "rest": {
+              "type": "string"
+            },
+            "shop": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "boss",
+            "elite",
+            "event",
+            "rest",
+            "shop"
+          ]
+        },
+        "unknownWeights": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "bossNodeId",
+        "comment",
+        "displayTypes",
+        "laneCentre",
+        "lanes",
+        "resolvedKinds",
+        "roles",
+        "unknownWeights"
+      ]
+    },
     "runShapeKeys": {
       "type": "array",
       "items": {

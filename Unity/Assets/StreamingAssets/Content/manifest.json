@@ -1,5 +1,5 @@
 {
-  "contentHash": "222271877eea840ae309549816ad76b366d29be0f03803d99c10b87a64d646d3",
+  "contentHash": "b335d056ad8a969f69d9cb88cf790c3021465b294ed4c814eda2eb9296b9a84a",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -358,6 +358,11 @@
       "bytes": 10817,
       "generated": true,
       "sha256": "5a19eb2e746c2824b463c17db4e68bb64b5e8bfe3242f6b025906f87162b7208"
+    },
+    "profile/bundle/bossDestinations.json": {
+      "bytes": 428,
+      "generated": true,
+      "sha256": "1a4112f278c45960104c893003e00fb0d519dffa4aa6f98bbc17cbb781bdbc58"
     },
     "profile/bundle/cardExposure.json": {
       "bytes": 26631,
@@ -845,9 +850,9 @@
       "sha256": "c3de457edb589ac63e8d5788290a5dc1992fc128b834322effe67fa410a67270"
     },
     "rules/mapEngine.json": {
-      "bytes": 1333,
+      "bytes": 2443,
       "generated": false,
-      "sha256": "c12c0ea705d0e2c0fa41b2676d06807a9887a57f1a888d7e19fbd3217cd4c3a9"
+      "sha256": "d9a6abd83f09bb5ad65612ecd2aaa03be0ac4232068ed061e7570790dfe365c1"
     },
     "rules/mechanics.json": {
       "bytes": 3606,
@@ -1198,6 +1203,11 @@
       "bytes": 1814,
       "generated": false,
       "sha256": "7aa2ad55b5b308ac99dffac61972d9e784d845de92af97a97df4b116453815c4"
+    },
+    "schemas/profile.bundle.bossDestinations.schema.json": {
+      "bytes": 952,
+      "generated": false,
+      "sha256": "7ad3b63bab4a40bb2667211e0e876aad8ddae7a6a2481a0e74511fcfb69044bc"
     },
     "schemas/profile.bundle.cardExposure.schema.json": {
       "bytes": 708,
@@ -1685,9 +1695,9 @@
       "sha256": "20ec0d03b2ef9f6a28acc1d25454fb474bd3045315ca687d16358be51c1452f7"
     },
     "schemas/rules.mapEngine.schema.json": {
-      "bytes": 3698,
+      "bytes": 5466,
       "generated": false,
-      "sha256": "7d39a1287887626c68d96151850128b507c0910afd0cd576d640fa7c0e77a5a7"
+      "sha256": "5d32774f5c1df8ff7991cd3a55fd6423edeec8f95c87e25ca52536fb42d38a94"
     },
     "schemas/rules.mechanics.schema.json": {
       "bytes": 4206,

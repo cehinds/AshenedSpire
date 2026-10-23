@@ -2,6 +2,23 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-14: the Core 2 act map in C# with oracle parity (dev, 2026-10-23)
+
+**Landed**
+- **`Tools/oracle-core2-map.mjs`** (over `Tools/oracle-core2.mjs`, so the drift guard applies) -> `Unity/Assets/Tests/Oracle/core2/map/`, 2.8 MB: 9 `maps-<seat>-<tier>.json` (3 acts x 3 seats x 40 seeds), `history.json` (252), `variants.json` (49 routes variants, 735 cases, 365 refusals with the web's messages), `seats.json`, `refusals.json`, `index.json`; 1347 maps in all. Sorted keys plus `nodeOrder`; counters for all 24 streams. Byte-identical on rerun (SHA-256 over the folder equal).
+- **`CoreRoutes`** (`Domain/Map`, D-175): `buildGameProfileActMap` as a data-driven builder over `CoreRoutesConfig` (routes content, module, profile hash verbatim) and `CoreRoutesVocabulary` (`rules/mapEngine.json` `routes`). `ActMapGraph`/`MapNode` gain the optional Core 2 fields `actualType`, `label`, `gameProfileHash`; `Col` is a double. `MapEncounters.ResolveUnknownNode` has an overload over explicit odds. `Core2Registries.ToMapData` / `RoutesConfig` feed it.
+- **Boss destinations** (D-177): `profile/bundle/bossDestinations.json` from the web module `bossDestinations.js` (new `core2.modules` row and transform row).
+- **Codegen:** `Tools/map-keys/messages.json` (13 route messages), `node Tools/map-keys.mjs` then `node Tools/codegen.mjs` (MapKeys 114, MapMessages 65).
+
+**Tests:** `Core2MapParityTests` (16): the shared suite compares every recorded map by canonical JSON, node insertion order and all RNG counters, plus histories, variants and refusals, the seat order draw, the fog rule and the hash stamp. No parity mismatches. dotnet Domain.Tests (`Category!=Bot`) 2959/2959 (2943 + 16). `transform-content --check`, `codegen --check`, `refresh-manifest --check`, `check-content`, `check-docs`, `web-key-map --check` green. EnforcementTests green (no literals in Game code). `rules.mapEngine.schema.json` gained the `routes` section and `profile.bundle.bossDestinations.schema.json` is new.
+
+**Not verified / deferred**
+- Unity (no editor): the new files are in `Ashen.Domain` and `Ashen.Content`, compiled under dotnet only.
+- `ClimbViews` still reads `col` as an int; a Core 2 rest node on an even lane count has a half column (the shipped content has 3 lanes, column 1). WP-19 (run loop glue) wires the Core 2 map into the UI.
+- `buildGameProfileActivities` (foundation launcher) and the Custom Climb shape are not ported for Core 2; the `default` profile configures routes.
+
+**Next:** WP-3 (run creation) can call `CoreRoutes.BuildActMap` with the run RNG; WP-19 routes the nodes.
+
 ## Core 2 WP-2: profile loading and the Core 2 registries in C# (dev, 2026-10-23)
 
 **Landed**

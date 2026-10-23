@@ -1,0 +1,48 @@
+{
+  "$id": "profile/bundle/bossDestinations.json",
+  "type": "object",
+  "properties": {
+    "a2_bossGlassRegent": {
+      "type": "string"
+    },
+    "a2_bossMarrowOrganist": {
+      "type": "string"
+    },
+    "a2_bossStitchedKing": {
+      "type": "string"
+    },
+    "a3_bossAshheartDragon": {
+      "type": "string"
+    },
+    "a3_bossFurnaceSaint": {
+      "type": "string"
+    },
+    "a3_bossHollowAstronomer": {
+      "type": "string"
+    },
+    "a3_bossRotValkyrie": {
+      "type": "string"
+    },
+    "bossBellKeeper": {
+      "type": "string"
+    },
+    "bossOmen": {
+      "type": "string"
+    },
+    "bossThornMatriarch": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "a2_bossGlassRegent",
+    "a2_bossMarrowOrganist",
+    "a2_bossStitchedKing",
+    "a3_bossAshheartDragon",
+    "a3_bossFurnaceSaint",
+    "a3_bossHollowAstronomer",
+    "a3_bossRotValkyrie",
+    "bossBellKeeper",
+    "bossOmen",
+    "bossThornMatriarch"
+  ]
+}
