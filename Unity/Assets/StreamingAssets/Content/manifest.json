@@ -1,5 +1,5 @@
 {
-  "contentHash": "222271877eea840ae309549816ad76b366d29be0f03803d99c10b87a64d646d3",
+  "contentHash": "d68c3d954e1d9771bee355d3ec262d5bd8fab1bf0ffe96a8b248ffe67ddcb001",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -794,6 +794,11 @@
       "generated": true,
       "sha256": "eac45b2bee37ab9e4833e1f03c26dd9588c0be8cc83252c6d087bb6da61704ff"
     },
+    "rules/core2Run.json": {
+      "bytes": 3979,
+      "generated": false,
+      "sha256": "5032b6e5ac84d231917b6b496f430870e620c81c90609f0d0fcf91bef486eb88"
+    },
     "rules/core2Vocabulary.json": {
       "bytes": 1019,
       "generated": false,
@@ -890,9 +895,9 @@
       "sha256": "c55c606629f3be2dae1c2aaca03631cfcd46b4fcd51e81bed2801446bbd4fabc"
     },
     "rules/runEngine.json": {
-      "bytes": 3618,
+      "bytes": 3632,
       "generated": false,
-      "sha256": "52cc58b6c3d768a243ed82ba783ea2dc54783e4e88dc860138dae75591834747"
+      "sha256": "0ee3532b9f7df2ca3ef92199aff217c4eb6387cf68428e98a97d738b1f3c3568"
     },
     "rules/runFlow.json": {
       "bytes": 2761,
@@ -1633,6 +1638,11 @@
       "bytes": 1611,
       "generated": false,
       "sha256": "42e436836e7b457355e13889ee2fe84f5804472f981aa7cc162bd4fe14fdb50a"
+    },
+    "schemas/rules.core2Run.schema.json": {
+      "bytes": 3349,
+      "generated": false,
+      "sha256": "a88cd7ae5280224944bb5b6e26e81fd47b0eac6a8f258937f6f1d03dd42157fb"
     },
     "schemas/rules.core2Vocabulary.schema.json": {
       "bytes": 391,

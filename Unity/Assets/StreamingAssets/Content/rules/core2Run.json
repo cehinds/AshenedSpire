@@ -1,0 +1,141 @@
+{
+  "comment": "Core 2 run creation constants that the web (model/state.js createRunState, advancedConfig.js, ashenBlight.js, combatEngagement.js, gameProfileGear.js and engine/kernel/gameConfig.js at the pinned sha b8cfe4fac) keeps as literals in code (docs/design/11 WP-3). template: the fields a new run starts with that no content decides; createRunState writes the rest. advancedConfig: advancedConfigSnapshot's version stamps (breakMeterVersion comes from rules/versions.json). fixedMode: the creation scale a fixed-attribute class is judged on. rangeSettingKeys: the profile settings that override rules/rangePolicy.json. gear: the resolveGearItem vocabulary. ashenBlight: the family to attribute map ashenBlightBonuses reads. derived: the stat-row formula's snapshot envelope version, the epsilon its floors take, and the row fields that are not attribute weights (derivedStats.js). statOptions: gameProfileStatOptions' pool aliases (stats.json spells mana and stamina mp and sp) and the hand rows the profile's handBase prices. combat: the framework mechanic mechanics.stamina.combatStartRefill ('full' at the pinned sha; the framework mechanics file is not exported for Core 2 yet, WP-4).",
+  "template": {
+    "streamCounters": {},
+    "levelUps": 0,
+    "level": {
+      "xp": 0,
+      "level": 1,
+      "unspentPoints": 0
+    },
+    "skills": {},
+    "classMilestones": {},
+    "classRewardLevels": {},
+    "coreTags": [],
+    "feats": [],
+    "levelPoints": 0,
+    "floor": 0,
+    "actNumber": 1,
+    "mapNodeId": null,
+    "maxHpAdjustment": 0,
+    "smithingStones": 0,
+    "smithingStonesRefined": 0,
+    "itemUpgradeLevels": {},
+    "smithingRewardClaims": [],
+    "sideboard": [],
+    "sigils": [],
+    "sigilSlots": {},
+    "trainingPool": 0,
+    "attunedSigils": [],
+    "consumables": {},
+    "companions": [],
+    "flasks": [],
+    "seedString": null,
+    "mapGraph": null,
+    "combatEntered": null,
+    "history": [],
+    "modifiers": [],
+    "progressionRulesVersion": 1,
+    "ashenBlight": {
+      "schemaVersion": 1,
+      "value": 0,
+      "thresholdOutcome": null,
+      "convertedAtCombat": null,
+      "milestones": [],
+      "payments": [],
+      "entries": []
+    }
+  },
+  "advancedConfig": {
+    "schemaVersion": 1,
+    "ratingsVersion": 1,
+    "classMasteryVersion": 1,
+    "xpCurveVersion": 1,
+    "overrides": {}
+  },
+  "fixedMode": {
+    "baseline": 1,
+    "minimum": 1
+  },
+  "rangeSettingKeys": {
+    "enabled": "rangeMechanics",
+    "advanceSpPerBand": "rangeAdvanceSpPerBand",
+    "reachPrecisionBonus": "rangeReachPrecisionBonus",
+    "throwPrecisionPenalty": "rangeThrowPrecisionPenalty"
+  },
+  "gear": {
+    "ratings": [
+      "ar",
+      "dr",
+      "poise",
+      "hp",
+      "mp",
+      "sp",
+      "ward",
+      "evasion",
+      "precision"
+    ],
+    "attributes": [
+      "strength",
+      "dexterity",
+      "constitution",
+      "wisdom",
+      "intelligence"
+    ],
+    "armorKind": "armor",
+    "shieldKind": "shield",
+    "fillNone": "none",
+    "fillMin": "min",
+    "poolsMerged": "merged",
+    "rankStat": "dr",
+    "poolStats": {
+      "maxHp": "hp",
+      "maxMana": "mp",
+      "maxStamina": "sp"
+    }
+  },
+  "ashenBlight": {
+    "pathAttributes": {
+      "martial": "strength",
+      "spell": "intelligence",
+      "survivor": "constitution"
+    },
+    "staminaPenaltyPath": "spell"
+  },
+  "derived": {
+    "snapshotVersion": 3,
+    "epsilon": 1e-09,
+    "nonWeightFields": [
+      "base",
+      "sourceStat",
+      "pointsPerTier",
+      "gainPerTier",
+      "rounding",
+      "cap",
+      "perLevel",
+      "min",
+      "max",
+      "attributeBaseline",
+      "byClass",
+      "pointsPerIncrease",
+      "gain",
+      "perLevelEvery",
+      "pointsBaseline",
+      "multiplier"
+    ]
+  },
+  "statOptions": {
+    "aliases": {
+      "mp": "mana",
+      "sp": "stamina"
+    },
+    "handRows": [
+      "openingHand",
+      "draw"
+    ],
+    "handBaseline": 0
+  },
+  "combat": {
+    "staminaRefillsToFull": true
+  }
+}

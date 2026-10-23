@@ -144,6 +144,7 @@ namespace Ashen.Generated
         public const string RulesCombatRules = "rules/combatRules.json";
         public const string RulesCombatStatusRules = "rules/combatStatusRules.json";
         public const string RulesCore2Mechanics = "rules/core2Mechanics.json";
+        public const string RulesCore2Run = "rules/core2Run.json";
         public const string RulesCore2Vocabulary = "rules/core2Vocabulary.json";
         public const string RulesDerivedStatRules = "rules/derivedStatRules.json";
         public const string RulesEffectOps = "rules/effectOps.json";
@@ -312,6 +313,7 @@ namespace Ashen.Generated
         public const string SchemasRulesCombatRulesSchema = "schemas/rules.combatRules.schema.json";
         public const string SchemasRulesCombatStatusRulesSchema = "schemas/rules.combatStatusRules.schema.json";
         public const string SchemasRulesCore2MechanicsSchema = "schemas/rules.core2Mechanics.schema.json";
+        public const string SchemasRulesCore2RunSchema = "schemas/rules.core2Run.schema.json";
         public const string SchemasRulesCore2VocabularySchema = "schemas/rules.core2Vocabulary.schema.json";
         public const string SchemasRulesDerivedStatRulesSchema = "schemas/rules.derivedStatRules.schema.json";
         public const string SchemasRulesEffectOpsSchema = "schemas/rules.effectOps.schema.json";

@@ -133,7 +133,7 @@ namespace Ashen.Domain.Run
                 if (v == null) continue;
                 rule[key] = Js.Str(v) == string.Empty ? Js.Null() : v.DeepClone();
             }
-            foreach (var key in d.RuleList(K.Loadout, RK.ProfileCarrierFields)) if (profile[key] != null) rule[key] = profile[key].DeepClone();
+            foreach (var key in d.RuleList(K.Loadout, RK.ProfileCarrierFields)) if (profile[key] != null) rule[key] = Js.IsStr(profile[key]) && Js.Str(profile[key]) == string.Empty ? Js.Null() : profile[key].DeepClone();
             if (profile[RK.Compatibility] != null) rule[RK.Compatibility] = profile[RK.Compatibility].DeepClone();
             return rule;
         }
@@ -224,6 +224,10 @@ namespace Ashen.Domain.Run
                 if (rule.Str(RK.Compatibility) != compatibility) throw new InvalidOperationException(RunJs.Fmt(RM.ProfileCompatibilityMismatch, id, RunJs.Show(rule[RK.Compatibility]), compatibility));
                 if (rule[K.DamageSchool] == null) Cards.SetOrRemove(rule, K.DamageSchool, profile[K.DamageSchool]);
                 if (rule[K.ExposureBuildupPerHit] == null) Cards.SetOrRemove(rule, K.ExposureBuildupPerHit, profile[K.ExposureBuildupPerHit]);
+                // A blank magic share is the card's damage type default (null); older snapshots adopt the live row once.
+                if (rule[RK.MagicShare] == null && profile[RK.MagicShare] != null) rule[RK.MagicShare] = Js.IsStr(profile[RK.MagicShare]) && Js.Str(profile[RK.MagicShare]) == string.Empty ? Js.Null() : profile[RK.MagicShare].DeepClone();
+                if (rule[RK.MagicShare] != null && rule[RK.MagicShare].Type != JTokenType.Null && !(Js.IsFinite(rule[RK.MagicShare]) && rule.Num(RK.MagicShare) >= 0 && rule.Num(RK.MagicShare) <= 1))
+                    throw new InvalidOperationException(RunJs.Fmt(RM.ProfileMagicShareInvalid, id));
                 if (!schools.Contains(rule.Str(K.DamageSchool))) throw new InvalidOperationException(RunJs.Fmt(RM.ProfileSchoolUnknown, id, RunJs.Show(rule[K.DamageSchool])));
                 if (!Js.IsInt(rule[K.ExposureBuildupPerHit]) || rule.Num(K.ExposureBuildupPerHit) < 0) throw new InvalidOperationException(RunJs.Fmt(RM.ProfileBuildupInvalid, id));
                 foreach (var key in rule.Properties()) if (!legal.Contains(key.Name)) throw new InvalidOperationException(RunJs.Fmt(RM.ProfileFieldUnknown, id, key.Name));

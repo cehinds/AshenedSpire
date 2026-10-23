@@ -2,6 +2,27 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-3: run creation for the configured profile in C# with oracle parity (dev, 2026-10-23)
+
+**Landed**
+- **Oracle first (`Tools/oracle-core2-run.mjs`, D-173):** 96 run documents from the web's `createRunState` at `b8cfe4fac` (4 classes x 12 seeds x the modes `lean` and `assign`, every class unlocked through the meta), each with the `createRunCombat` arguments `enterCombat` builds for two act-1 encounters; `unlocks.json` (the class gate at every completed-run count, a fresh meta, another profile's ledger); four refusals. `runId` is left out, the 640 KB `gameProfile` is kept as id and hash. Two runs are byte-identical (SHA-256 over the folder).
+- **`CoreRunRules.Create`** (`Domain/Run`, D-170): class availability (`classUnlocks`: Reaver first, one more per completed run in the profile's ledger), fixed class attributes and the fixed-attribute mode snapshot, the profile's `stats` as the explicit override layer (hand rows 4 + INT, pool bases), the ruleset 7 stat-row table and run snapshot with the relic fold (`CoreDerivedStats`), worn gear resolved by the armor budget (`CoreGear`: pool bonuses, effective attributes), the equipment profile snapshot, starter deck from `starterDeck` (`gp1...`), the gear-granted cards (Bone Sceptre lends Mana Surge to Starseer and Herald), cinders from the balance, flask charges and growth, zones, and the stamps: `gameProfile` (the pinned snapshot), `rangePolicy`, `reactionRules`, `combatExpansionRules`, `ashenBlight`, `advancedConfigSnapshot`, `progressionRuleSnapshot`, schema and content versions. `CoreRunRules.CombatArgs` builds the fight arguments. `Core2Registries.ToCoreRunData(ContentSet)` hands the Domain what it reads (`CoreRunData`).
+- **Data:** hand-written `rules/core2Run.json` (+ schema) holds the web's literals; codegen fragment `core2-run.json` (`Core2RunKeys`, `Core2RunValues`, `Core2RunMessages`, `Core2RunNumbers`). The 405 reader gained the additive `magicShare` profile carrier.
+- **D-167 resolved (D-171):** the web does not refuse an old run under a new profile hash; it resumes under the profile the run pinned (the whole snapshot rides in the run). The load door refuses only a registry with another hash than the pin, recoverably (slot kept). `CoreRunRules.PinOf` and `MatchesProfile` are in, with tests.
+- **Streams (D-172):** creation draws nothing; the `RngStream` enum is not merged with `core2Streams` yet (the 405 documents record every counter).
+
+**Parity mismatches found:** one. The first run differed only in `equipmentProfileRuleSnapshot.profiles.*.magicShare` (the web carries a blank magic share as `null`; the 405 reader had no such carrier). Fixed in `Loadout.ProfileRule` / `RestoreProfileSnapshot`, guarded so the 405 content (which has no `magicShare`) is unchanged. All 96 runs, 192 fight argument sets, 32 gate cases and 4 refusals then matched on the first full run.
+
+**Tests:** dotnet Domain.Tests (`Category!=Bot`) 3275/3275 (baseline 2943; Core2RunParityTests are 328 of them, the others arrived with the dev commits merged during the work). `Core2RunParityTests`: run equals oracle field for field (96), no RNG drawn and stream names known (96), fight arguments (96), refusals (4), gate (32), gate order, pin and profile guard, determinism and no shared state. `transform-content --check`, `codegen --check`, `refresh-manifest --check`, `check-content`, `check-docs`, `web-key-map --check` green. EnforcementTests green.
+
+**Not verified / deferred**
+- Unity (no editor): everything is in `Ashen.Domain`, `Ashen.Content` and `Ashen.Generated`, compiled under dotnet only.
+- Not ported: the `derivedStats.js` row validators and the restore door for a ruleset 7 snapshot (WP-13, with the save); class mastery's `creationReferenceOpen` (open for a meta without `classMastery`); starting-hand, kit and ability options other than the baseline (a configured class has fixed loadout); the 405's creation variants. The fight's ratings receipt, hand rows and enemy levels are WP-4.
+- `rules/mechanics.json` is still the 405 file; `combatStartRefill` lives in `rules/core2Run.json` until WP-4 exports the framework mechanics.
+- Nothing consumes `CoreRunRules` yet (no `RunSession`); the run loop is WP-19.
+
+**Next:** WP-4 (combat start and hand: `CombatArgs` is its input), WP-14 and WP-18 can start (WP-2 and WP-3 exist).
+
 ## Core 2 WP-2: profile loading and the Core 2 registries in C# (dev, 2026-10-23)
 
 **Landed**

@@ -243,7 +243,8 @@
         "WornSlotIds": "wornSlotIds",
         "WornZoneSlots": "wornZoneSlots",
         "Z": "z",
-        "Zones": "zones"
+        "Zones": "zones",
+        "MagicShare": "magicShare"
       }
     },
     {
@@ -508,7 +509,8 @@
         "UnknownField": "unknown field",
         "UnknownMountKind": "{0}: unknown mount kind (known: {1})",
         "UnknownMountKindShort": "{0}: unknown mount kind",
-        "ZeroWeaponPlan": "zero-weapon plan"
+        "ZeroWeaponPlan": "zero-weapon plan",
+        "ProfileMagicShareInvalid": "{0}.magicShare must be null or 0..1"
       }
     },
     {

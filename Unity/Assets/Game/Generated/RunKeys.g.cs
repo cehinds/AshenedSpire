@@ -243,5 +243,6 @@ namespace Ashen.Generated
         public const string WornZoneSlots = "wornZoneSlots";
         public const string Z = "z";
         public const string Zones = "zones";
+        public const string MagicShare = "magicShare";
     }
 }

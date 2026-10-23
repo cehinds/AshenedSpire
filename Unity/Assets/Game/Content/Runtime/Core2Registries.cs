@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Ashen.Domain.Run;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 
@@ -75,6 +76,26 @@ namespace Ashen.Content
         public JToken StartingHands => Profile.Content(Core2ProfileContentKeys.StartingHands);
         public JToken ClassAttributes => Profile.Content(Core2ProfileContentKeys.ClassAttributes);
         public JToken ResourceVariants => Profile.Content(Core2ProfileContentKeys.ResourceVariants);
+
+        /// <summary>
+        /// The data Core 2 run creation reads (WP-3): the run port's view of these registries (the creation tables the profile's bundle
+        /// holds), the resolved profile as one document (<c>profile/core.json</c> with its content keys under <c>content</c>), the version
+        /// scalars, the creation constants and the rule snapshots a run is stamped with. <paramref name="content"/> is the set this was loaded from.
+        /// </summary>
+        public CoreRunData ToCoreRunData(ContentSet content)
+        {
+            if (content == null) throw new ArgumentNullException(nameof(content));
+            JObject Rules(string file) => (JObject)content.Get(file);
+            var versions = Rules(ContentFiles.RulesVersions);
+            var run = Registries.ToRunData(Rules(ContentFiles.RulesMechanics), Rules(ContentFiles.RulesCombatEngine), Rules(ContentFiles.RulesHandRules),
+                Rules(ContentFiles.RulesRunEngine), JsValues.Str(versions[Core2VersionKeys.WebContentVersion]));
+            var profile = Profile.Core;
+            var body = new JObject();
+            foreach (var key in Profile.ContentKeys) body[key] = Profile.Content(key);
+            profile[Core2RunKeys.Content] = body;
+            return new CoreRunData(run, profile, versions, Rules(ContentFiles.RulesCore2Run), Rules(ContentFiles.RulesRangePolicy),
+                Rules(ContentFiles.RulesReactionRules), Rules(ContentFiles.RulesCombatExpansionRules));
+        }
 
         /// <summary>The moves of one enemy, keyed by move id, in the order the enemy row lists them.</summary>
         public JObject MovesOf(string enemyId) => Row(RegistryKeys.Enemies, enemyId)?[Core2MoveKeys.Moves] as JObject ?? new JObject();
