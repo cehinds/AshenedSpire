@@ -20,6 +20,8 @@ namespace Ashen.Generated
         public const string HelpKey = "helpKey";
         public const string OptionKey = "optionKey";
         public const string UnitKey = "unitKey";
+        public const string Presets = "presets";
+        public const string ResetsPreset = "resetsPreset";
         public const string Settings = "settings";
     }
 }

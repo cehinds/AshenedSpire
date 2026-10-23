@@ -329,6 +329,12 @@ namespace Ashen.App.Run
             if (!(end.Result?.Is(MetaKeys.Abandoned) ?? false) && LastOutcome != null && EncounterId != null && Content.Data.Encounters.Has(EncounterId))
                 extra[MetaKeys.Killer] = new JArray(Js.Items(Content.Data.Encounters.Get(EncounterId)[K.Enemies]).Select(t => t.DeepClone()));
             extra[MetaKeys.Duration] = PlaytimeSeconds;
+            // The ruleset the run was played under (docs/design/11 WP-20): the profile's id and content hash, as shipped.
+            if (Content.Snapshot.Content.Get(ContentFiles.ProfileCore) is JObject profile)
+            {
+                extra[MetaKeys.ProfileId] = profile[Core2ProfileKeys.Id]?.DeepClone();
+                extra[MetaKeys.ProfileHash] = profile[Core2ProfileKeys.Hash]?.DeepClone();
+            }
             extra[MetaKeys.Deck] = new JArray(Js.Items(_run?[K.Deck]).OfType<JObject>()
                 .Select(c => Js.Obj(MetaKeys.CardId, c[K.CardId]?.DeepClone(), MetaKeys.Upgraded, c.Is(K.Upgraded))));
             if (Profile.Doc[LK.Results] is JArray results && results.Count > 0 && results[results.Count - 1] is JObject newest)

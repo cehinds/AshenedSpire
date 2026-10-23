@@ -13,7 +13,9 @@
         "Desc": "desc",
         "Icon": "icon",
         "Order": "order",
-        "Abandoned": "abandoned"
+        "Abandoned": "abandoned",
+        "ProfileId": "profileId",
+        "ProfileHash": "profileHash"
       }
     },
     {
@@ -95,6 +97,8 @@
         "HelpKey": "helpKey",
         "OptionKey": "optionKey",
         "UnitKey": "unitKey",
+        "Presets": "presets",
+        "ResetsPreset": "resetsPreset",
         "Settings": "settings"
       }
     },
@@ -127,7 +131,18 @@
         "MapPath": "path",
         "MapFog": "fog",
         "HoldConfirm": "holdConfirm",
-        "HoldOff": "off"
+        "HoldOff": "off",
+        "AutoCombat": "autoCombat",
+        "CombatSpeed": "combatSpeed",
+        "AutoCombatSpeed": "autoCombatSpeed",
+        "CombatStepPause": "combatStepPause",
+        "AnimationStepDuration": "animationStepDuration",
+        "CombatPacingPreset": "combatPacingPreset",
+        "AnimSpeed": "animSpeed",
+        "AskToUpcastAfterTarget": "askToUpcastAfterTarget",
+        "ScreenShake": "screenShake",
+        "OneTapPlay": "oneTapPlay",
+        "ReduceFlashes": "reduceFlashes"
       }
     },
     {

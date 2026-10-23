@@ -193,6 +193,102 @@ namespace Ashen.Tests
             Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).View(Ui, "gameplay").Controls.All(c => c.AppliesNextRun == null), Is.True);
         }
 
+        // ------------------------------------------------------------------ Core 2 player settings (WP-20)
+
+        [Test]
+        public void TheCore2PacingAndAutomationDefaultsAreTheWebDevBuildsAndOneTapIsOff()
+        {
+            var pacing = CombatPacing.Read(new SettingsSession(Default, ProfileStore.Load(_saves)));
+            Assert.That(pacing.AutoCombat, Is.False);
+            Assert.That(pacing.Speed, Is.EqualTo(1));
+            Assert.That(pacing.AutoSpeed, Is.EqualTo(1.5), "FIXCORE D11: auto combat runs at x1.5");
+            Assert.That(pacing.StageGapMs, Is.EqualTo(500), "the web dev build's pause between steps (actionPacing.motion.stageGapMs)");
+            Assert.That(pacing.AnimationStepMs, Is.EqualTo(390));
+            Assert.That(pacing.AnimSpeed, Is.EqualTo("auto"));
+            Assert.That(pacing.OneTapPlay, Is.False, "one-tap play is an opt-in");
+            Assert.That(pacing.AskToUpcastAfterTarget, Is.False);
+            Assert.That(pacing.ScreenShake, Is.True);
+            Assert.That(pacing.ReduceFlashes, Is.False);
+            Assert.That(pacing.EffectiveSpeed, Is.EqualTo(1));
+            Assert.That(pacing.StageGapScaledMs, Is.EqualTo(500));
+        }
+
+        [Test]
+        public void AutoCombatUsesItsOwnSpeedAndTheBoundsHold()
+        {
+            var settings = new SettingsSession(Default, ProfileStore.Load(_saves));
+            Assert.That(settings.Set(SettingIds.AutoCombat, true), Is.Null);
+            var pacing = CombatPacing.Read(settings);
+            Assert.That(pacing.EffectiveSpeed, Is.EqualTo(1.5));
+            Assert.That(pacing.StageGapScaledMs, Is.EqualTo(500 / 1.5).Within(1e-9));
+            Assert.That(settings.Set(SettingIds.AutoCombatSpeed, 0.75), Is.EqualTo(MetaStringKeys.SettingsRefusalRange), "auto speed is x1 to x3");
+            Assert.That(settings.Set(SettingIds.AutoCombatSpeed, 3.5), Is.EqualTo(MetaStringKeys.SettingsRefusalRange));
+            Assert.That(settings.Set(SettingIds.AutoCombatSpeed, 2), Is.Null);
+            Assert.That(settings.Set(SettingIds.CombatStepPause, 2500), Is.EqualTo(MetaStringKeys.SettingsRefusalRange), "0 to 2000 ms");
+            Assert.That(settings.Set(SettingIds.CombatStepPause, 0), Is.Null, "0 turns the pauses off");
+            Assert.That(settings.Set(SettingIds.CombatSpeed, 9), Is.EqualTo(MetaStringKeys.SettingsRefusalRange));
+            Assert.That(settings.Set(SettingIds.AnimSpeed, "ludicrous"), Is.EqualTo(MetaStringKeys.SettingsRefusalOption));
+        }
+
+        [Test]
+        public void TheMobileFastPresetSetsTheBundleAndEditingAValueReturnsToCustom()
+        {
+            var settings = new SettingsSession(Default, ProfileStore.Load(_saves));
+            Assert.That(settings.Set(SettingIds.CombatPacingPreset, "mobile-fast"), Is.Null);
+            Assert.That(settings.Number(SettingIds.CombatStepPause), Is.EqualTo(250));
+            Assert.That(settings.Number(SettingIds.AnimationStepDuration), Is.EqualTo(195));
+            Assert.That(settings.Text(SettingIds.CombatPacingPreset), Is.EqualTo("mobile-fast"));
+            Assert.That(settings.Set(SettingIds.CombatStepPause, 300), Is.Null);
+            Assert.That(settings.Text(SettingIds.CombatPacingPreset), Is.EqualTo("custom"), "a hand edit leaves the preset");
+            Assert.That(settings.Number(SettingIds.AnimationStepDuration), Is.EqualTo(195), "the other value stays");
+            Assert.That(settings.Set(SettingIds.CombatPacingPreset, "custom"), Is.Null);
+            Assert.That(settings.Number(SettingIds.CombatStepPause), Is.EqualTo(300), "choosing Custom changes no value");
+            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Number(SettingIds.CombatStepPause), Is.EqualTo(300), "saved");
+        }
+
+        [Test]
+        public void TheCore2SettingsRoundTripThroughTheWebConfigFormat()
+        {
+            var web = new JObject
+            {
+                ["schemaVersion"] = 1,
+                ["overrides"] = new JObject
+                {
+                    ["settings.autoCombat"] = true,
+                    ["settings.autoCombatSpeed"] = 2.5,
+                    ["settings.combatStepPause"] = 1000,
+                    ["settings.animationStepDuration"] = 250,
+                    ["settings.oneTapPlay"] = true,
+                    ["settings.combatPacingPreset"] = "custom",
+                    ["settings.screenShake"] = false,
+                },
+            };
+            var result = WebConfig.Import(web, TestContent.Source, Default.PresetId, SettingsDefs.From(Default.Snapshot.Content));
+            Assert.That(result.PlayerSettings.Count, Is.EqualTo(7), "every Core 2 player setting is taken");
+            Assert.That(result.Reported, Is.Empty);
+            WebConfig.Apply(ProfileStore.Load(_saves), result, Default.ContentHash);
+            var settings = new SettingsSession(Default, ProfileStore.Load(_saves));
+            var pacing = CombatPacing.Read(settings);
+            Assert.That(pacing.AutoCombat && pacing.OneTapPlay && !pacing.ScreenShake, Is.True);
+            Assert.That(pacing.EffectiveSpeed, Is.EqualTo(2.5));
+            Assert.That(pacing.StageGapMs, Is.EqualTo(1000));
+            var exported = WebConfig.Export(ProfileStore.Load(_saves).Doc, WebConfig.SettingsPrefix(TestContent.Source));
+            Assert.That(exported["overrides"]["settings.autoCombatSpeed"].Value<double>(), Is.EqualTo(2.5), "exported again");
+            Assert.That(exported["overrides"]["settings.oneTapPlay"].Value<bool>(), Is.True);
+        }
+
+        [Test]
+        public void ARunRecordPinsTheProfileItWasPlayedUnder()
+        {
+            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
+            session.Abandon();
+            var record = (JObject)((JArray)ProfileStore.Load(_saves).Doc["results"]).Last();
+            var core = (JObject)Default.Snapshot.Content.Get(ContentFiles.ProfileCore);
+            Assert.That(record[MetaKeys.ProfileId].Value<string>(), Is.EqualTo("core"));
+            Assert.That(record[MetaKeys.ProfileHash].Value<string>(), Is.EqualTo(core["hash"].Value<string>()));
+            Assert.That(record[MetaKeys.ProfileHash].Value<string>(), Does.StartWith("sha256:"));
+        }
+
         // ------------------------------------------------------------------ W-06 reveal modes (US-4.2, D-151)
 
         [Test]
