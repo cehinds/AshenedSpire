@@ -17,5 +17,16 @@ namespace Ashen.Generated
         public const string MapFog = "fog";
         public const string HoldConfirm = "holdConfirm";
         public const string HoldOff = "off";
+        public const string AutoCombat = "autoCombat";
+        public const string CombatSpeed = "combatSpeed";
+        public const string AutoCombatSpeed = "autoCombatSpeed";
+        public const string CombatStepPause = "combatStepPause";
+        public const string AnimationStepDuration = "animationStepDuration";
+        public const string CombatPacingPreset = "combatPacingPreset";
+        public const string AnimSpeed = "animSpeed";
+        public const string AskToUpcastAfterTarget = "askToUpcastAfterTarget";
+        public const string ScreenShake = "screenShake";
+        public const string OneTapPlay = "oneTapPlay";
+        public const string ReduceFlashes = "reduceFlashes";
     }
 }

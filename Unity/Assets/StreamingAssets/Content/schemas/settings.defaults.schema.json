@@ -31,7 +31,9 @@
           "labelKey": { "type": "string" },
           "helpKey": { "type": "string" },
           "optionKey": { "type": "string" },
-          "unitKey": { "type": "string" }
+          "unitKey": { "type": "string" },
+          "presets": { "type": "object", "additionalProperties": { "type": "object" } },
+          "resetsPreset": { "type": "string" }
         },
         "required": ["key", "category", "type", "scope", "def", "labelKey"]
       }

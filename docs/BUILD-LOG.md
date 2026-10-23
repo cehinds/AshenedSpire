@@ -21,6 +21,23 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 **Next:** WP-2 (registries and rules in C#) consumes `core2/registries`; WP-3 adds `oracle-core2-run`.
 
+## Core 2 WP-20: Core 2 player settings, pacing dials and profile pinning (dev, 2026-10-23)
+
+**Landed**
+- **Controls (`settings/defaults.json`):** a Combat category (`autoCombat`, `combatSpeed`, `autoCombatSpeed`, `combatStepPause`, `animationStepDuration`, `combatPacingPreset`, `animSpeed`, `askToUpcastAfterTarget`, `screenShake`) and, under Accessibility, `oneTapPlay` (off) and `reduceFlashes`. Defaults, ranges and wording come from the web at `b8cfe4fac` (`actionPacing.json`, `screens/settings.js`). Auto combat runs at x1.5 (D11); the web's shipped pause is 500 ms, not the 1 s D11 asked for (D-166).
+- **Preset coupling as data:** `presets` on `combatPacingPreset` (mobile-fast = 250 ms and 195 ms) and `resetsPreset` on the two values; `SettingsSession.Set` applies them. Schema and codegen keys added.
+- **`CombatPacing` (`Application/Settings`):** reads the dials (effective speed, scaled stage gap and animation step) for presentation; none reaches the engine.
+- **Web config:** keys use the web names, so `settings.<key>` import and export take them with no `webKeyMap.json` change (D-164 untouched; the check is green).
+- **Profile pinning (D-167):** the run record gains `profileId` and `profileHash` from `profile/core.json`.
+
+**Tests:** five new in `MetaViewTests` (Core 2 defaults and one-tap off, auto speed and bounds, preset round trip, web import and export of the new keys, profile pin); the gates listed in the task are green.
+
+**Not verified / deferred**
+- Unity (no editor). No screen reads `CombatPacing` yet (Presentation untouched); the Combat category appears in the generated settings screen only.
+- Defaults of older controls that differ from the web (`mapMode` fog, `walkedFade` has `subtle`/`half`, `shrineMultiUse`, `useRestorativeFlasksOutsideCombat`, `showPlayedCard`) are unchanged pending D-164.
+- `animSpeed` auto resolves by render quality in the web; here it is stored only.
+- WP-3: whether a live run refuses to resume under another profile hash.
+
 ## Core 2 WP-0: content pipeline regenerated for the `default` profile at web `b8cfe4fac` (dev, 2026-10-23)
 
 **Landed**
