@@ -1,0 +1,7 @@
+{"table":"speakers","count":5,"ids":["theNameless","keeperOfTheNameless","roadWarden","swordSaint","starReader"],"rows":[
+{"id":"theNameless","name":"The Nameless","portraitKey":"graveWisp"},
+{"id":"keeperOfTheNameless","name":"The Keeper of the Nameless","portraitKey":"emberStarvedPilgrim"},
+{"id":"roadWarden","name":"The Road Warden","portraitKey":"roadWarden"},
+{"id":"swordSaint","name":"The Sword Saint","portraitKey":""},
+{"id":"starReader","name":"The Star Reader","portraitKey":""}
+]}

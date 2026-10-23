@@ -1,0 +1,1376 @@
+[
+ {
+  "classId": "reaver",
+  "level": 1,
+  "kind": "feat",
+  "ref": "reaverIronFooting"
+ },
+ {
+  "classId": "reaver",
+  "level": 1,
+  "kind": "feat",
+  "ref": "reaverKeenBlade"
+ },
+ {
+  "classId": "reaver",
+  "level": 1,
+  "kind": "feat",
+  "ref": "reaverBloodDiscipline"
+ },
+ {
+  "classId": "reaver",
+  "level": 2,
+  "kind": "cards",
+  "ref": "enterGorefire"
+ },
+ {
+  "classId": "reaver",
+  "level": 4,
+  "kind": "cards",
+  "ref": "enterBulwark"
+ },
+ {
+  "classId": "reaver",
+  "level": 5,
+  "kind": "relic",
+  "ref": "whetstoneFragment"
+ },
+ {
+  "classId": "reaver",
+  "level": 8,
+  "kind": "feat",
+  "ref": "reaverMasteryFocus"
+ },
+ {
+  "classId": "reaver",
+  "level": 10,
+  "kind": "cards",
+  "ref": "warSurgeon"
+ },
+ {
+  "classId": "reaver",
+  "level": 11,
+  "kind": "relic",
+  "ref": "warhorn"
+ },
+ {
+  "classId": "reaver",
+  "level": 12,
+  "kind": "cards",
+  "ref": "hemorrhage"
+ },
+ {
+  "classId": "reaver",
+  "level": 14,
+  "kind": "cards",
+  "ref": "warcry"
+ },
+ {
+  "classId": "reaver",
+  "level": 16,
+  "kind": "feat",
+  "ref": "reaverMasteryResolve"
+ },
+ {
+  "classId": "reaver",
+  "level": 16,
+  "kind": "cards",
+  "ref": "sunderplate"
+ },
+ {
+  "classId": "reaver",
+  "level": 16,
+  "kind": "cards",
+  "ref": "goreblood"
+ },
+ {
+  "classId": "reaver",
+  "level": 17,
+  "kind": "relic",
+  "ref": "vowOfVengeance"
+ },
+ {
+  "classId": "reaver",
+  "level": 18,
+  "kind": "cards",
+  "ref": "warriorsVow"
+ },
+ {
+  "classId": "reaver",
+  "level": 18,
+  "kind": "cards",
+  "ref": "sanguinePactCard"
+ },
+ {
+  "classId": "reaver",
+  "level": 20,
+  "kind": "cards",
+  "ref": "bloodTithe"
+ },
+ {
+  "classId": "reaver",
+  "level": 20,
+  "kind": "cards",
+  "ref": "poiseBreaker"
+ },
+ {
+  "classId": "starseer",
+  "level": 1,
+  "kind": "feat",
+  "ref": "starseerAshShelter"
+ },
+ {
+  "classId": "starseer",
+  "level": 1,
+  "kind": "feat",
+  "ref": "starseerClearSky"
+ },
+ {
+  "classId": "starseer",
+  "level": 1,
+  "kind": "feat",
+  "ref": "starseerRitualPrecision"
+ },
+ {
+  "classId": "starseer",
+  "level": 2,
+  "kind": "cards",
+  "ref": "frostVeil"
+ },
+ {
+  "classId": "starseer",
+  "level": 5,
+  "kind": "relic",
+  "ref": "azureSigil"
+ },
+ {
+  "classId": "starseer",
+  "level": 6,
+  "kind": "cards",
+  "ref": "starlance"
+ },
+ {
+  "classId": "starseer",
+  "level": 8,
+  "kind": "feat",
+  "ref": "starseerMasteryFocus"
+ },
+ {
+  "classId": "starseer",
+  "level": 10,
+  "kind": "cards",
+  "ref": "meteorSwarm"
+ },
+ {
+  "classId": "starseer",
+  "level": 11,
+  "kind": "relic",
+  "ref": "pearlOfSagacity"
+ },
+ {
+  "classId": "starseer",
+  "level": 12,
+  "kind": "cards",
+  "ref": "azureCoilCard"
+ },
+ {
+  "classId": "starseer",
+  "level": 12,
+  "kind": "cards",
+  "ref": "astralCleave"
+ },
+ {
+  "classId": "starseer",
+  "level": 14,
+  "kind": "cards",
+  "ref": "radiantSpray"
+ },
+ {
+  "classId": "starseer",
+  "level": 14,
+  "kind": "cards",
+  "ref": "starPath"
+ },
+ {
+  "classId": "starseer",
+  "level": 16,
+  "kind": "feat",
+  "ref": "starseerMasteryResolve"
+ },
+ {
+  "classId": "starseer",
+  "level": 16,
+  "kind": "cards",
+  "ref": "moonlitShieldCard"
+ },
+ {
+  "classId": "starseer",
+  "level": 16,
+  "kind": "cards",
+  "ref": "astralInsight"
+ },
+ {
+  "classId": "starseer",
+  "level": 17,
+  "kind": "relic",
+  "ref": "prismaticThorn"
+ },
+ {
+  "classId": "starseer",
+  "level": 18,
+  "kind": "cards",
+  "ref": "umbralWard"
+ },
+ {
+  "classId": "starseer",
+  "level": 18,
+  "kind": "cards",
+  "ref": "waxingMoonCard"
+ },
+ {
+  "classId": "starseer",
+  "level": 20,
+  "kind": "cards",
+  "ref": "celestialLance"
+ },
+ {
+  "classId": "starseer",
+  "level": 20,
+  "kind": "cards",
+  "ref": "astromancerCard"
+ },
+ {
+  "classId": "rogue",
+  "level": 1,
+  "kind": "feat",
+  "ref": "rogueQuietGuard"
+ },
+ {
+  "classId": "rogue",
+  "level": 1,
+  "kind": "feat",
+  "ref": "rogueMeasuredPoint"
+ },
+ {
+  "classId": "rogue",
+  "level": 1,
+  "kind": "feat",
+  "ref": "rogueKnifeWork"
+ },
+ {
+  "classId": "rogue",
+  "level": 2,
+  "kind": "cards",
+  "ref": "feint"
+ },
+ {
+  "classId": "rogue",
+  "level": 5,
+  "kind": "relic",
+  "ref": "feralEye"
+ },
+ {
+  "classId": "rogue",
+  "level": 8,
+  "kind": "feat",
+  "ref": "rogueMasteryFocus"
+ },
+ {
+  "classId": "rogue",
+  "level": 8,
+  "kind": "cards",
+  "ref": "vanish"
+ },
+ {
+  "classId": "rogue",
+  "level": 10,
+  "kind": "cards",
+  "ref": "garrote"
+ },
+ {
+  "classId": "rogue",
+  "level": 11,
+  "kind": "relic",
+  "ref": "carrionTalon"
+ },
+ {
+  "classId": "rogue",
+  "level": 12,
+  "kind": "cards",
+  "ref": "setupRogue"
+ },
+ {
+  "classId": "rogue",
+  "level": 14,
+  "kind": "cards",
+  "ref": "sap"
+ },
+ {
+  "classId": "rogue",
+  "level": 16,
+  "kind": "feat",
+  "ref": "rogueMasteryResolve"
+ },
+ {
+  "classId": "rogue",
+  "level": 16,
+  "kind": "cards",
+  "ref": "bloodletterRogue"
+ },
+ {
+  "classId": "rogue",
+  "level": 16,
+  "kind": "cards",
+  "ref": "venomcoat"
+ },
+ {
+  "classId": "rogue",
+  "level": 17,
+  "kind": "relic",
+  "ref": "paupersDiadem"
+ },
+ {
+  "classId": "rogue",
+  "level": 18,
+  "kind": "cards",
+  "ref": "opportunistCard"
+ },
+ {
+  "classId": "rogue",
+  "level": 18,
+  "kind": "cards",
+  "ref": "envenomCard"
+ },
+ {
+  "classId": "rogue",
+  "level": 20,
+  "kind": "cards",
+  "ref": "smokeBomb"
+ },
+ {
+  "classId": "rogue",
+  "level": 20,
+  "kind": "cards",
+  "ref": "perfectHeist"
+ },
+ {
+  "classId": "herald",
+  "level": 1,
+  "kind": "feat",
+  "ref": "heraldRiteShelter"
+ },
+ {
+  "classId": "herald",
+  "level": 1,
+  "kind": "feat",
+  "ref": "heraldBlightPrecision"
+ },
+ {
+  "classId": "herald",
+  "level": 1,
+  "kind": "feat",
+  "ref": "heraldOathEdge"
+ },
+ {
+  "classId": "herald",
+  "level": 2,
+  "kind": "cards",
+  "ref": "contagion"
+ },
+ {
+  "classId": "herald",
+  "level": 5,
+  "kind": "relic",
+  "ref": "blessedDew"
+ },
+ {
+  "classId": "herald",
+  "level": 6,
+  "kind": "cards",
+  "ref": "scourge"
+ },
+ {
+  "classId": "herald",
+  "level": 8,
+  "kind": "feat",
+  "ref": "heraldMasteryFocus"
+ },
+ {
+  "classId": "herald",
+  "level": 8,
+  "kind": "cards",
+  "ref": "emberTideCard"
+ },
+ {
+  "classId": "herald",
+  "level": 10,
+  "kind": "cards",
+  "ref": "harbingerOfBlightCard"
+ },
+ {
+  "classId": "herald",
+  "level": 11,
+  "kind": "relic",
+  "ref": "flayersCenser"
+ },
+ {
+  "classId": "herald",
+  "level": 12,
+  "kind": "cards",
+  "ref": "stigmataCard"
+ },
+ {
+  "classId": "herald",
+  "level": 14,
+  "kind": "cards",
+  "ref": "reclamation"
+ },
+ {
+  "classId": "herald",
+  "level": 16,
+  "kind": "feat",
+  "ref": "heraldMasteryResolve"
+ },
+ {
+  "classId": "herald",
+  "level": 16,
+  "kind": "cards",
+  "ref": "desperateRite"
+ },
+ {
+  "classId": "herald",
+  "level": 17,
+  "kind": "relic",
+  "ref": "blightTouchedIdol"
+ },
+ {
+  "classId": "herald",
+  "level": 18,
+  "kind": "cards",
+  "ref": "lastMercy"
+ },
+ {
+  "classId": "herald",
+  "level": 20,
+  "kind": "cards",
+  "ref": "bloodOfferingRite"
+ },
+ {
+  "classId": "reaver",
+  "level": 3,
+  "ref": "armor/reaver/vigil",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 9,
+  "ref": "armament/warhammer",
+  "kind": "weapon"
+ },
+ {
+  "classId": "reaver",
+  "level": 12,
+  "ref": "armament/towerShield",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 18,
+  "ref": "armament/battleaxe",
+  "kind": "weapon"
+ },
+ {
+  "classId": "reaver",
+  "level": 18,
+  "ref": "armor/reaver/bastion",
+  "kind": "armament"
+ },
+ {
+  "classId": "starseer",
+  "level": 3,
+  "ref": "armor/starseer/eclipse",
+  "kind": "armament"
+ },
+ {
+  "classId": "starseer",
+  "level": 9,
+  "ref": "armament/frostSpear",
+  "kind": "weapon"
+ },
+ {
+  "classId": "starseer",
+  "level": 12,
+  "ref": "armament/duskChime",
+  "kind": "armament"
+ },
+ {
+  "classId": "starseer",
+  "level": 18,
+  "ref": "armament/halberd",
+  "kind": "weapon"
+ },
+ {
+  "classId": "starseer",
+  "level": 18,
+  "ref": "armor/starseer/rimeweave",
+  "kind": "armament"
+ },
+ {
+  "classId": "rogue",
+  "level": 3,
+  "ref": "armor/rogue/nightveil",
+  "kind": "armament"
+ },
+ {
+  "classId": "rogue",
+  "level": 9,
+  "ref": "armament/katana",
+  "kind": "weapon"
+ },
+ {
+  "classId": "rogue",
+  "level": 12,
+  "ref": "armament/spikedShield",
+  "kind": "armament"
+ },
+ {
+  "classId": "rogue",
+  "level": 18,
+  "ref": "armament/twinblade",
+  "kind": "weapon"
+ },
+ {
+  "classId": "rogue",
+  "level": 18,
+  "ref": "armor/rogue/waywatcher",
+  "kind": "armament"
+ },
+ {
+  "classId": "herald",
+  "level": 3,
+  "ref": "armor/herald/ossuary",
+  "kind": "armament"
+ },
+ {
+  "classId": "herald",
+  "level": 9,
+  "ref": "armament/cinderAxe",
+  "kind": "weapon"
+ },
+ {
+  "classId": "herald",
+  "level": 12,
+  "ref": "armament/goldboughBranch",
+  "kind": "armament"
+ },
+ {
+  "classId": "herald",
+  "level": 18,
+  "ref": "armament/greatsword",
+  "kind": "weapon"
+ },
+ {
+  "classId": "herald",
+  "level": 18,
+  "ref": "armor/herald/emberhabit",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 3,
+  "ref": "armament/kiteShield",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 12,
+  "ref": "armament/gorefireBrand",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 15,
+  "ref": "armament/wyrmhornStaff",
+  "kind": "armament"
+ },
+ {
+  "classId": "starseer",
+  "level": 3,
+  "ref": "armament/starstoneStaff",
+  "kind": "armament"
+ },
+ {
+  "classId": "starseer",
+  "level": 15,
+  "ref": "armament/lantern",
+  "kind": "armament"
+ },
+ {
+  "classId": "rogue",
+  "level": 3,
+  "ref": "armament/parryDagger",
+  "kind": "armament"
+ },
+ {
+  "classId": "rogue",
+  "level": 9,
+  "ref": "armament/shortbow",
+  "kind": "weapon"
+ },
+ {
+  "classId": "rogue",
+  "level": 15,
+  "ref": "armament/torch",
+  "kind": "armament"
+ },
+ {
+  "classId": "herald",
+  "level": 3,
+  "ref": "armament/emberlightSceptre",
+  "kind": "armament"
+ },
+ {
+  "classId": "herald",
+  "level": 12,
+  "ref": "armament/blightRod",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 6,
+  "ref": "armor/reaver/warden",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 18,
+  "ref": "armor/reaver/oathsworn",
+  "kind": "armament"
+ },
+ {
+  "classId": "starseer",
+  "level": 6,
+  "ref": "armor/starseer/starlit",
+  "kind": "armament"
+ },
+ {
+  "classId": "starseer",
+  "level": 18,
+  "ref": "armor/starseer/astral",
+  "kind": "armament"
+ },
+ {
+  "classId": "rogue",
+  "level": 6,
+  "ref": "armor/rogue/duelist",
+  "kind": "armament"
+ },
+ {
+  "classId": "rogue",
+  "level": 18,
+  "ref": "armor/rogue/shadow",
+  "kind": "armament"
+ },
+ {
+  "classId": "herald",
+  "level": 6,
+  "ref": "armor/herald/pilgrim",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 3,
+  "ref": "armor/reaver/wayfarerPlate",
+  "kind": "armament"
+ },
+ {
+  "classId": "starseer",
+  "level": 15,
+  "ref": "armor/starseer/wayfarerPlate",
+  "kind": "armament"
+ },
+ {
+  "classId": "herald",
+  "level": 15,
+  "ref": "armor/herald/wayfarerPlate",
+  "kind": "armament"
+ },
+ {
+  "classId": "rogue",
+  "level": 15,
+  "ref": "armor/rogue/wayfarerPlate",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 12,
+  "ref": "armor/reaver/nightweave",
+  "kind": "armament"
+ },
+ {
+  "classId": "starseer",
+  "level": 3,
+  "ref": "armor/starseer/nightweave",
+  "kind": "armament"
+ },
+ {
+  "classId": "herald",
+  "level": 12,
+  "ref": "armor/herald/nightweave",
+  "kind": "armament"
+ },
+ {
+  "classId": "rogue",
+  "level": 6,
+  "ref": "armor/rogue/nightweave",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 15,
+  "ref": "armor/reaver/riteVestments",
+  "kind": "armament"
+ },
+ {
+  "classId": "starseer",
+  "level": 12,
+  "ref": "armor/starseer/riteVestments",
+  "kind": "armament"
+ },
+ {
+  "classId": "herald",
+  "level": 3,
+  "ref": "armor/herald/riteVestments",
+  "kind": "armament"
+ },
+ {
+  "classId": "rogue",
+  "level": 12,
+  "ref": "armor/rogue/riteVestments",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 6,
+  "ref": "armor/reaver/gutterLeathers",
+  "kind": "armament"
+ },
+ {
+  "classId": "starseer",
+  "level": 6,
+  "ref": "armor/starseer/gutterLeathers",
+  "kind": "armament"
+ },
+ {
+  "classId": "herald",
+  "level": 6,
+  "ref": "armor/herald/gutterLeathers",
+  "kind": "armament"
+ },
+ {
+  "classId": "rogue",
+  "level": 3,
+  "ref": "armor/rogue/gutterLeathers",
+  "kind": "armament"
+ },
+ {
+  "classId": "reaver",
+  "level": 2,
+  "kind": "cards",
+  "ref": "progression-ember-hew"
+ },
+ {
+  "classId": "reaver",
+  "level": 4,
+  "kind": "cards",
+  "ref": "progression-cinder-guard"
+ },
+ {
+  "classId": "reaver",
+  "level": 6,
+  "kind": "cards",
+  "ref": "progression-bloodstep"
+ },
+ {
+  "classId": "reaver",
+  "level": 8,
+  "kind": "cards",
+  "ref": "progression-breaker-s-toll"
+ },
+ {
+  "classId": "reaver",
+  "level": 10,
+  "kind": "cards",
+  "ref": "progression-furnace-advance"
+ },
+ {
+  "classId": "reaver",
+  "level": 12,
+  "kind": "cards",
+  "ref": "progression-crimson-reprisal"
+ },
+ {
+  "classId": "reaver",
+  "level": 14,
+  "kind": "cards",
+  "ref": "progression-warbound-defiance"
+ },
+ {
+  "classId": "reaver",
+  "level": 16,
+  "kind": "cards",
+  "ref": "progression-red-standard"
+ },
+ {
+  "classId": "reaver",
+  "level": 18,
+  "kind": "cards",
+  "ref": "progression-ashen-cleaver"
+ },
+ {
+  "classId": "reaver",
+  "level": 20,
+  "kind": "cards",
+  "ref": "progression-crown-of-cinders"
+ },
+ {
+  "classId": "starseer",
+  "level": 2,
+  "kind": "cards",
+  "ref": "progression-cinder-orbit"
+ },
+ {
+  "classId": "starseer",
+  "level": 4,
+  "kind": "cards",
+  "ref": "progression-lunar-aegis"
+ },
+ {
+  "classId": "starseer",
+  "level": 6,
+  "kind": "cards",
+  "ref": "progression-comet-needle"
+ },
+ {
+  "classId": "starseer",
+  "level": 8,
+  "kind": "cards",
+  "ref": "progression-rime-mirror"
+ },
+ {
+  "classId": "starseer",
+  "level": 10,
+  "kind": "cards",
+  "ref": "progression-falling-constellation"
+ },
+ {
+  "classId": "starseer",
+  "level": 12,
+  "kind": "cards",
+  "ref": "progression-wellspring-sigil"
+ },
+ {
+  "classId": "starseer",
+  "level": 14,
+  "kind": "cards",
+  "ref": "progression-gravitic-knot"
+ },
+ {
+  "classId": "starseer",
+  "level": 16,
+  "kind": "cards",
+  "ref": "progression-nightglass-reading"
+ },
+ {
+  "classId": "starseer",
+  "level": 18,
+  "kind": "cards",
+  "ref": "progression-eclipse-lance"
+ },
+ {
+  "classId": "starseer",
+  "level": 20,
+  "kind": "cards",
+  "ref": "progression-firmament-ward"
+ },
+ {
+  "classId": "rogue",
+  "level": 2,
+  "kind": "cards",
+  "ref": "progression-shiv-of-ash"
+ },
+ {
+  "classId": "rogue",
+  "level": 4,
+  "kind": "cards",
+  "ref": "progression-pocket-coil"
+ },
+ {
+  "classId": "rogue",
+  "level": 6,
+  "kind": "cards",
+  "ref": "progression-needle-feint"
+ },
+ {
+  "classId": "rogue",
+  "level": 8,
+  "kind": "cards",
+  "ref": "progression-back-alley-cut"
+ },
+ {
+  "classId": "rogue",
+  "level": 10,
+  "kind": "cards",
+  "ref": "progression-silent-exchange"
+ },
+ {
+  "classId": "rogue",
+  "level": 12,
+  "kind": "cards",
+  "ref": "progression-wire-snare"
+ },
+ {
+  "classId": "rogue",
+  "level": 14,
+  "kind": "cards",
+  "ref": "progression-nightstep"
+ },
+ {
+  "classId": "rogue",
+  "level": 16,
+  "kind": "cards",
+  "ref": "progression-carrion-cut"
+ },
+ {
+  "classId": "rogue",
+  "level": 18,
+  "kind": "cards",
+  "ref": "progression-twinshade"
+ },
+ {
+  "classId": "rogue",
+  "level": 20,
+  "kind": "cards",
+  "ref": "progression-last-laugh"
+ },
+ {
+  "classId": "herald",
+  "level": 2,
+  "kind": "cards",
+  "ref": "progression-ash-benediction"
+ },
+ {
+  "classId": "herald",
+  "level": 4,
+  "kind": "cards",
+  "ref": "progression-blood-censer"
+ },
+ {
+  "classId": "herald",
+  "level": 6,
+  "kind": "cards",
+  "ref": "progression-blight-litany"
+ },
+ {
+  "classId": "herald",
+  "level": 8,
+  "kind": "cards",
+  "ref": "progression-pallbearer-s-ward"
+ },
+ {
+  "classId": "herald",
+  "level": 10,
+  "kind": "cards",
+  "ref": "progression-ember-tithe"
+ },
+ {
+  "classId": "herald",
+  "level": 12,
+  "kind": "cards",
+  "ref": "progression-ossuary-cant"
+ },
+ {
+  "classId": "herald",
+  "level": 14,
+  "kind": "cards",
+  "ref": "progression-requiem-brand"
+ },
+ {
+  "classId": "herald",
+  "level": 16,
+  "kind": "cards",
+  "ref": "progression-pilgrim-s-shelter"
+ },
+ {
+  "classId": "herald",
+  "level": 18,
+  "kind": "cards",
+  "ref": "progression-crown-of-scars"
+ },
+ {
+  "classId": "herald",
+  "level": 20,
+  "kind": "cards",
+  "ref": "progression-dawn-after-ash"
+ },
+ {
+  "classId": "reaver",
+  "level": 1,
+  "kind": "feat",
+  "ref": "progression-coal-on-steel"
+ },
+ {
+  "classId": "reaver",
+  "level": 1,
+  "kind": "feat",
+  "ref": "progression-brace-and-bite"
+ },
+ {
+  "classId": "reaver",
+  "level": 1,
+  "kind": "feat",
+  "ref": "progression-red-footwork"
+ },
+ {
+  "classId": "reaver",
+  "level": 4,
+  "kind": "feat",
+  "ref": "progression-anvil-discipline"
+ },
+ {
+  "classId": "reaver",
+  "level": 4,
+  "kind": "feat",
+  "ref": "progression-forge-momentum"
+ },
+ {
+  "classId": "reaver",
+  "level": 8,
+  "kind": "feat",
+  "ref": "progression-paid-in-blood"
+ },
+ {
+  "classId": "reaver",
+  "level": 8,
+  "kind": "feat",
+  "ref": "progression-last-rampart"
+ },
+ {
+  "classId": "reaver",
+  "level": 12,
+  "kind": "feat",
+  "ref": "progression-war-cadence"
+ },
+ {
+  "classId": "reaver",
+  "level": 12,
+  "kind": "feat",
+  "ref": "progression-broad-sentence"
+ },
+ {
+  "classId": "reaver",
+  "level": 16,
+  "kind": "feat",
+  "ref": "progression-ember-sovereign"
+ },
+ {
+  "classId": "reaver",
+  "level": 16,
+  "kind": "feat",
+  "ref": "progression-dread-of-the-hammer"
+ },
+ {
+  "classId": "reaver",
+  "level": 20,
+  "kind": "feat",
+  "ref": "progression-scarred-oath"
+ },
+ {
+  "classId": "reaver",
+  "level": 20,
+  "kind": "feat",
+  "ref": "progression-harvest-the-wound"
+ },
+ {
+  "classId": "starseer",
+  "level": 1,
+  "kind": "feat",
+  "ref": "progression-orbit-keeper"
+ },
+ {
+  "classId": "starseer",
+  "level": 1,
+  "kind": "feat",
+  "ref": "progression-moonward-scholar"
+ },
+ {
+  "classId": "starseer",
+  "level": 1,
+  "kind": "feat",
+  "ref": "progression-comet-reader"
+ },
+ {
+  "classId": "starseer",
+  "level": 4,
+  "kind": "feat",
+  "ref": "progression-mirror-of-rime"
+ },
+ {
+  "classId": "starseer",
+  "level": 4,
+  "kind": "feat",
+  "ref": "progression-constellation-keeper"
+ },
+ {
+  "classId": "starseer",
+  "level": 8,
+  "kind": "feat",
+  "ref": "progression-patient-wellspring"
+ },
+ {
+  "classId": "starseer",
+  "level": 8,
+  "kind": "feat",
+  "ref": "progression-weight-of-the-void"
+ },
+ {
+  "classId": "starseer",
+  "level": 12,
+  "kind": "feat",
+  "ref": "progression-nightglass-scholar"
+ },
+ {
+  "classId": "starseer",
+  "level": 12,
+  "kind": "feat",
+  "ref": "progression-eclipse-hunter"
+ },
+ {
+  "classId": "starseer",
+  "level": 16,
+  "kind": "feat",
+  "ref": "progression-firmament-keeper"
+ },
+ {
+  "classId": "starseer",
+  "level": 16,
+  "kind": "feat",
+  "ref": "progression-celestial-refrain"
+ },
+ {
+  "classId": "starseer",
+  "level": 20,
+  "kind": "feat",
+  "ref": "progression-memory-of-winter"
+ },
+ {
+  "classId": "starseer",
+  "level": 20,
+  "kind": "feat",
+  "ref": "progression-threefold-sky"
+ },
+ {
+  "classId": "rogue",
+  "level": 1,
+  "kind": "feat",
+  "ref": "progression-first-knife"
+ },
+ {
+  "classId": "rogue",
+  "level": 1,
+  "kind": "feat",
+  "ref": "progression-pocket-method"
+ },
+ {
+  "classId": "rogue",
+  "level": 4,
+  "kind": "feat",
+  "ref": "progression-crooked-measure"
+ },
+ {
+  "classId": "rogue",
+  "level": 4,
+  "kind": "feat",
+  "ref": "progression-open-flank"
+ },
+ {
+  "classId": "rogue",
+  "level": 8,
+  "kind": "feat",
+  "ref": "progression-hidden-palm"
+ },
+ {
+  "classId": "rogue",
+  "level": 8,
+  "kind": "feat",
+  "ref": "progression-tighten-the-wire"
+ },
+ {
+  "classId": "rogue",
+  "level": 12,
+  "kind": "feat",
+  "ref": "progression-smoke-dancer"
+ },
+ {
+  "classId": "rogue",
+  "level": 12,
+  "kind": "feat",
+  "ref": "progression-carrion-measure"
+ },
+ {
+  "classId": "rogue",
+  "level": 16,
+  "kind": "feat",
+  "ref": "progression-two-quiet-knives"
+ },
+ {
+  "classId": "rogue",
+  "level": 16,
+  "kind": "feat",
+  "ref": "progression-trapdoor-smile"
+ },
+ {
+  "classId": "rogue",
+  "level": 20,
+  "kind": "feat",
+  "ref": "progression-clean-exit"
+ },
+ {
+  "classId": "rogue",
+  "level": 20,
+  "kind": "feat",
+  "ref": "progression-razor-ledger"
+ },
+ {
+  "classId": "herald",
+  "level": 1,
+  "kind": "feat",
+  "ref": "progression-ashen-mercy"
+ },
+ {
+  "classId": "herald",
+  "level": 1,
+  "kind": "feat",
+  "ref": "progression-censer-keeper"
+ },
+ {
+  "classId": "herald",
+  "level": 4,
+  "kind": "feat",
+  "ref": "progression-sower-of-blight"
+ },
+ {
+  "classId": "herald",
+  "level": 4,
+  "kind": "feat",
+  "ref": "progression-funeral-watch"
+ },
+ {
+  "classId": "herald",
+  "level": 8,
+  "kind": "feat",
+  "ref": "progression-ember-almoner"
+ },
+ {
+  "classId": "herald",
+  "level": 8,
+  "kind": "feat",
+  "ref": "progression-choir-of-bone"
+ },
+ {
+  "classId": "herald",
+  "level": 12,
+  "kind": "feat",
+  "ref": "progression-requiem-reader"
+ },
+ {
+  "classId": "herald",
+  "level": 12,
+  "kind": "feat",
+  "ref": "progression-pilgrim-of-scars"
+ },
+ {
+  "classId": "herald",
+  "level": 16,
+  "kind": "feat",
+  "ref": "progression-crowned-offering"
+ },
+ {
+  "classId": "herald",
+  "level": 16,
+  "kind": "feat",
+  "ref": "progression-dawn-cantor"
+ },
+ {
+  "classId": "herald",
+  "level": 20,
+  "kind": "feat",
+  "ref": "progression-bearer-of-burdens"
+ },
+ {
+  "classId": "herald",
+  "level": 20,
+  "kind": "feat",
+  "ref": "progression-sepulchral-promise"
+ },
+ {
+  "classId": "reaver",
+  "level": 8,
+  "kind": "relic",
+  "ref": "progression-emberjaw-token"
+ },
+ {
+  "classId": "reaver",
+  "level": 14,
+  "kind": "relic",
+  "ref": "progression-cracked-war-anvil"
+ },
+ {
+  "classId": "reaver",
+  "level": 20,
+  "kind": "relic",
+  "ref": "progression-cinderbound-crown"
+ },
+ {
+  "classId": "starseer",
+  "level": 8,
+  "kind": "relic",
+  "ref": "progression-moonwell-lens"
+ },
+ {
+  "classId": "starseer",
+  "level": 14,
+  "kind": "relic",
+  "ref": "progression-nightglass-rosary"
+ },
+ {
+  "classId": "starseer",
+  "level": 20,
+  "kind": "relic",
+  "ref": "progression-fragment-of-the-third-sky"
+ },
+ {
+  "classId": "rogue",
+  "level": 8,
+  "kind": "relic",
+  "ref": "progression-whisperglass-die"
+ },
+ {
+  "classId": "rogue",
+  "level": 14,
+  "kind": "relic",
+  "ref": "progression-purse-of-borrowed-shadows"
+ },
+ {
+  "classId": "herald",
+  "level": 8,
+  "kind": "relic",
+  "ref": "progression-ember-alms-bowl"
+ },
+ {
+  "classId": "herald",
+  "level": 14,
+  "kind": "relic",
+  "ref": "progression-ossuary-prayer-wheel"
+ }
+]

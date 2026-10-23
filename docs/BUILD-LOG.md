@@ -2,6 +2,25 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-1: the oracle harness over the web at `b8cfe4fac` (dev, 2026-10-23)
+
+**Landed**
+- **`Tools/oracle-core2.mjs`** (shared library, imports run nothing): the drift guard (web HEAD must equal `core2.webSha` in `Tools/export/sources.json` and tracked files must be clean, `--allow-dirty` as the exporter); `loadWeb` (`applyGameProfileToContent` -> `createRegistries` -> `bindGameProfileRegistries` for `default`); `createRun` (all four classes unlocked through `profileMeta`); `createFight` (the run RNG at `run.streamCounters`, as `main.js enterCombat` does for a Core 2 run); `legalIntents`; a bot on its own LCG; `project`; `capturePreviews`; `runCombatFixture`.
+- **Legal intents** are the ones a `dispatch` on a detached copy (`candidateState`) accepts: `playCard` (targets x stance choices x extra `rangeRoute`s read from `previewCard`), `endTurn`, `useFlask`, `setReactions`, `chooseReaction` (only while an offer is pending, with the decline), `chooseCards` / `chooseDiscard` (only while a choice is pending), `predictIntent` (only for an `unknown` read), `moveCharacter` (formation movement is off in `default`, so none is ever legal), `recoverControl`. `swapArmament`, `changeEquipment`, `basicAttack`, `pass` are not enumerated (refused under Core).
+- **Projection** (sorted keys): turn, phase, result; player and enemies with hp, stamina, mana, energy, `persistentPoise`, `poiseMeter`, `persistentWard`, block, barrier, `combatStance`, `combatCounter`, statuses (full rows), ratings, cell, intent, planned and pending moves, knowledge reads; hand, draw, discard and exhaust as `instanceId:cardId`; `rangeState.engagements`; `pendingReaction` offers; the reaction stack; pending card choices; `rng.getCounters()`.
+- **Previews** after every step: `cardPlayCosts`, `cardNeedsEnemyTargetNow`, `cardChoicePlan`, `previewCard` and `previewCardHit` (the hit preview is `attackHitPreview` plus the range quote) for every card in hand against the first living enemy, `previewIntent` and `previewEnemyAction` for every enemy. The range quote is flattened to one row per route and `resolvedDefinition` is dropped (the registry dump holds it): full output was 20 KB a step. `capturePreviews` throws if a preview moves the projection or any RNG counter. `counterAttackPreview` and `resolvedCardPlayCosts` are not captured (they need a carrier or a resolved def that the engine does not export).
+- **`Tools/oracle-core2-registries.mjs`** -> `Unity/Assets/Tests/Oracle/core2/registries/`: 81 files, 2.9 MB, largest `tables/cards.json` 641 KB. `tables/<name>.json` (19 id-keyed registries as `{table, count, ids, rows[]}` in registry order), `objects/<name>.json` (the 34 object registries, key order kept), `profile/core.json` and `profile/content/<key>.json` (26), `index.json` (webSha, profile hash, bytes). Not dumped: `legacyProgressionSource` (939 KB, 405 only), the `gameProfile` copy, the `mapConfig` function.
+- **`Tools/oracle-core2-combat.mjs`** -> `.../core2/combat/`: `--bot endTurnOnly|cards|all`, 4 classes x 3 seeds x 2 bots = 24 fixtures (first-act normal and elite encounters, rotated), 294 steps, 4.5 MB, largest 433 KB. The cards bot plays a card 70% of the time and another legal intent 30%; endTurnOnly ends the turn and takes the first answer to any pending choice. Steps cover `playCard`, `endTurn`, `useFlask`, `setReactions`, `chooseReaction`, `predictIntent`; 9 victories, 14 defeats, 1 unfinished; no refused intent. Runtime about 90 s.
+- Fixtures take `.meta` files from `Tools/refresh-manifest.mjs` (it already walks `Unity/Assets/Tests`): 113 written; the manifest is unchanged. D-165.
+
+**Determinism:** both oracles re-run to the same bytes (SHA-256 over all `core2/**/*.json` equal before and after a re-run, including a per-bot partial run that merges `index.json`).
+
+**Tests:** `codegen --check`, `refresh-manifest --check`, `check-content`, `check-docs`, `web-key-map --check` green; dotnet Domain.Tests (Category!=Bot) unchanged (no C#).
+
+**Web entry points that are not headless:** none of the combat ones. `main.js` still owns the run loop (WP-14/15/19 mirror it). `createRunCombat` needs the run RNG object and an `encounter` row (the oracle passes the registry's); `enemyKnowledgeProfile` defaults to empty (a fresh profile).
+
+**Next:** WP-2 (registries and rules in C#) consumes `core2/registries`; WP-3 adds `oracle-core2-run`.
+
 ## Core 2 WP-0: content pipeline regenerated for the `default` profile at web `b8cfe4fac` (dev, 2026-10-23)
 
 **Landed**

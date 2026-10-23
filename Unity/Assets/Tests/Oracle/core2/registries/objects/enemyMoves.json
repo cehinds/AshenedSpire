@@ -1,0 +1,2872 @@
+[
+ {
+  "intent": "attack",
+  "damage": 8,
+  "weight": 45,
+  "maxConsecutive": 2,
+  "id": "slash",
+  "enemyId": "wanderingSoldier",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 6,
+  "weight": 30,
+  "maxConsecutive": 1,
+  "id": "guard",
+  "enemyId": "wanderingSoldier",
+  "tags": [
+   "camp:physical",
+   "maneuver:defend"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "weight": 25,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "self",
+    "status": "strength",
+    "stacks": 2
+   }
+  ],
+  "id": "warcry",
+  "enemyId": "wanderingSoldier",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "wanderingSoldier",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 6,
+  "weight": 60,
+  "id": "bite",
+  "enemyId": "blightHound",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 3,
+  "hits": 2,
+  "weight": 40,
+  "id": "lunge",
+  "enemyId": "blightHound",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "blightHound",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 15,
+  "weight": 50,
+  "id": "club",
+  "enemyId": "huskBrute",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "debuff",
+  "weight": 25,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "frail",
+    "stacks": 1
+   },
+   {
+    "op": "addCard",
+    "target": "player",
+    "card": "slimed",
+    "pile": "discard"
+   }
+  ],
+  "id": "bellow",
+  "enemyId": "huskBrute",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 8,
+  "weight": 25,
+  "maxConsecutive": 1,
+  "id": "brace",
+  "enemyId": "huskBrute",
+  "tags": [
+   "camp:physical",
+   "maneuver:defend"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "huskBrute",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "debuff",
+  "weight": 50,
+  "maxConsecutive": 2,
+  "effects": [
+   {
+    "op": "addCard",
+    "card": "dazed",
+    "pile": "draw",
+    "position": "random"
+   }
+  ],
+  "id": "curse",
+  "enemyId": "graveWisp",
+  "tags": [
+   "camp:spell",
+   "school:illusion"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 8,
+  "weight": 50,
+  "effects": [
+   {
+    "op": "heal",
+    "target": "self",
+    "amount": 4
+   }
+  ],
+  "id": "drain",
+  "enemyId": "graveWisp",
+  "tags": [
+   "camp:spell",
+   "school:decay",
+   "damage:decay",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "graveWisp",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "weight": 10,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "self",
+    "status": "strength",
+    "stacks": 3
+   }
+  ],
+  "id": "consecrate",
+  "enemyId": "wyrmAspirant",
+  "tags": [
+   "camp:spell",
+   "school:divine"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 17,
+  "weight": 50,
+  "maxConsecutive": 2,
+  "id": "halberdSweep",
+  "enemyId": "wyrmAspirant",
+  "tags": [
+   "camp:physical",
+   "maneuver:sweep",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:area"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 11,
+  "weight": 30,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "weak",
+    "stacks": 1
+   }
+  ],
+  "id": "tailSlam",
+  "enemyId": "wyrmAspirant",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 12,
+  "weight": 20,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "heal",
+    "target": "self",
+    "amount": 4
+   }
+  ],
+  "id": "goldenGuard",
+  "enemyId": "wyrmAspirant",
+  "tags": [
+   "camp:physical",
+   "maneuver:defend"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "wyrmAspirant",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "sp": 1,
+  "intent": "attack",
+  "damage": 8,
+  "weight": 40,
+  "maxConsecutive": 2,
+  "id": "caneStrike",
+  "enemyId": "fellWarden",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "sp": 1,
+  "intent": "attack",
+  "damage": 5,
+  "hits": 2,
+  "weight": 30,
+  "maxConsecutive": 2,
+  "id": "hammerToss",
+  "enemyId": "fellWarden",
+  "tags": [
+   "camp:physical",
+   "maneuver:ranged",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "sp": 1,
+  "intent": "attack",
+  "damage": 14,
+  "weight": 30,
+  "maxConsecutive": 1,
+  "delay": {
+   "turns": 1,
+   "whileCharging": {
+    "block": 8
+   }
+  },
+  "id": "heldBlade",
+  "enemyId": "fellWarden",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "sp": 3,
+  "intent": "attack",
+  "damage": 3,
+  "hits": 4,
+  "weight": 35,
+  "locked": true,
+  "id": "twinDaggers",
+  "enemyId": "fellWarden",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "fellWarden",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "debuff",
+  "weight": 35,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "weak",
+    "stacks": 1
+   }
+  ],
+  "id": "lanternDust",
+  "enemyId": "lanternMoth",
+  "tags": [
+   "camp:spell",
+   "school:illusion"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "sp": 1,
+  "damage": 3,
+  "weight": 65,
+  "hits": 3,
+  "id": "wingSparks",
+  "enemyId": "lanternMoth",
+  "tags": [
+   "camp:spell",
+   "school:lightning",
+   "damage:lightning",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "lanternMoth",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 7,
+  "weight": 30,
+  "maxConsecutive": 1,
+  "id": "rootShelter",
+  "enemyId": "briarHermit",
+  "tags": [
+   "camp:spell",
+   "maneuver:defend",
+   "school:alteration"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "sp": 1,
+  "damage": 16,
+  "weight": 45,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "bleed",
+    "stacks": 1
+   }
+  ],
+  "id": "briarCast",
+  "enemyId": "briarHermit",
+  "tags": [
+   "camp:spell",
+   "school:alteration",
+   "damage:piercing",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "weight": 25,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "heal",
+    "target": "self",
+    "amount": 4
+   }
+  ],
+  "id": "sapMend",
+  "enemyId": "briarHermit",
+  "tags": [
+   "camp:spell",
+   "school:divine"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "briarHermit",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 20,
+  "weight": 60,
+  "id": "hookCast",
+  "enemyId": "chainScavenger",
+  "tags": [
+   "camp:physical",
+   "maneuver:ranged",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:projectile",
+   "range:reach"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "debuff",
+  "counterDamage": 6,
+  "weight": 20,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "frail",
+    "stacks": 1
+   }
+  ],
+  "id": "chainSnare",
+  "enemyId": "chainScavenger",
+  "tags": [
+   "camp:physical",
+   "maneuver:counter",
+   "counter:ranged",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:projectile",
+   "range:reach"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 41,
+  "weight": 20,
+  "maxConsecutive": 1,
+  "delay": {
+   "turns": 1,
+   "whileCharging": {
+    "block": 3
+   }
+  },
+  "id": "draggingBlow",
+  "enemyId": "chainScavenger",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:melee",
+   "range:reach"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "chainScavenger",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "sp": 1,
+  "intent": "attack",
+  "damage": 19,
+  "weight": 35,
+  "maxConsecutive": 1,
+  "delay": {
+   "turns": 1,
+   "whileCharging": {
+    "block": 6
+   }
+  },
+  "id": "bronzeToll",
+  "enemyId": "bellKeeper",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "sp": 1,
+  "intent": "attack",
+  "damage": 9,
+  "weight": 45,
+  "maxConsecutive": 2,
+  "id": "clapperSwing",
+  "enemyId": "bellKeeper",
+  "tags": [
+   "camp:physical",
+   "maneuver:sweep",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:area"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "sp": 1,
+  "intent": "block",
+  "block": 9,
+  "weight": 20,
+  "maxConsecutive": 1,
+  "id": "muffledPrayer",
+  "enemyId": "bellKeeper",
+  "tags": [
+   "camp:spell",
+   "maneuver:defend",
+   "school:divine"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "sp": 1,
+  "intent": "attack",
+  "damage": 6,
+  "weight": 25,
+  "hits": 3,
+  "locked": true,
+  "maxConsecutive": 1,
+  "id": "crackedPeal",
+  "enemyId": "bellKeeper",
+  "tags": [
+   "camp:spell",
+   "school:force",
+   "damage:arcane",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "bellKeeper",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "sp": 1,
+  "intent": "block",
+  "block": 8,
+  "weight": 25,
+  "maxConsecutive": 1,
+  "id": "rootCrown",
+  "enemyId": "thornMatriarch",
+  "tags": [
+   "camp:spell",
+   "maneuver:defend",
+   "school:alteration"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "sp": 1,
+  "intent": "attack",
+  "damage": 4,
+  "weight": 45,
+  "hits": 3,
+  "maxConsecutive": 2,
+  "id": "thornNeedles",
+  "enemyId": "thornMatriarch",
+  "tags": [
+   "camp:spell",
+   "school:alteration",
+   "damage:piercing",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "sp": 2,
+  "intent": "attack",
+  "damage": 15,
+  "weight": 30,
+  "maxConsecutive": 1,
+  "delay": {
+   "turns": 1,
+   "whileCharging": {
+    "block": 4
+   }
+  },
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "bleed",
+    "stacks": 2
+   }
+  ],
+  "id": "entwiningRoots",
+  "enemyId": "thornMatriarch",
+  "tags": [
+   "camp:spell",
+   "school:alteration",
+   "damage:blunt",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "thornMatriarch",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 11,
+  "weight": 50,
+  "maxConsecutive": 2,
+  "id": "thrust",
+  "enemyId": "gildedKnight",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "counterDamage": 6,
+  "block": 9,
+  "weight": 30,
+  "maxConsecutive": 1,
+  "id": "parry",
+  "enemyId": "gildedKnight",
+  "tags": [
+   "camp:physical",
+   "maneuver:counter",
+   "counter:melee",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "weight": 20,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "self",
+    "status": "strength",
+    "stacks": 2
+   }
+  ],
+  "id": "rally",
+  "enemyId": "gildedKnight",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "block": 6,
+  "damage": 3,
+  "reaction": {
+   "on": [
+    "playerAction"
+   ],
+   "minIncoming": 8
+  },
+  "id": "gildedGuard",
+  "enemyId": "gildedKnight",
+  "tags": [
+   "camp:physical",
+   "maneuver:defend",
+   "range:melee",
+   "targeting:single",
+   "damage:piercing",
+   "source:weapon",
+   "trait:reaction"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "gildedKnight",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 7,
+  "weight": 40,
+  "effects": [
+   {
+    "op": "addCard",
+    "target": "player",
+    "card": "wound",
+    "pile": "discard"
+   }
+  ],
+  "id": "scalpel",
+  "enemyId": "courtSurgeon",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "debuff",
+  "weight": 30,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "weak",
+    "stacks": 1
+   },
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "frail",
+    "stacks": 1
+   }
+  ],
+  "id": "sedate",
+  "enemyId": "courtSurgeon",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "weight": 30,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "heal",
+    "target": "self",
+    "amount": 8
+   }
+  ],
+  "id": "stitch",
+  "enemyId": "courtSurgeon",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "courtSurgeon",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 4,
+  "hits": 2,
+  "weight": 60,
+  "id": "maul",
+  "enemyId": "stitchedHound",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 6,
+  "weight": 40,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "bleed",
+    "stacks": 2
+   }
+  ],
+  "id": "rend",
+  "enemyId": "stitchedHound",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "stitchedHound",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 4,
+  "hits": 2,
+  "weight": 50,
+  "id": "dart",
+  "enemyId": "courtMarionette",
+  "tags": [
+   "camp:physical",
+   "maneuver:ranged",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 3,
+  "weight": 50,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "crimsonBlight",
+    "stacks": 2
+   }
+  ],
+  "id": "blowdart",
+  "enemyId": "courtMarionette",
+  "tags": [
+   "camp:physical",
+   "maneuver:ranged",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "courtMarionette",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 10,
+  "weight": 30,
+  "id": "slam",
+  "enemyId": "livingArmor",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 12,
+  "weight": 25,
+  "maxConsecutive": 1,
+  "id": "fortify",
+  "enemyId": "livingArmor",
+  "tags": [
+   "camp:physical",
+   "maneuver:defend"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 14,
+  "weight": 20,
+  "maxConsecutive": 1,
+  "id": "crush",
+  "enemyId": "livingArmor",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 8,
+  "weight": 25,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "frost",
+    "stacks": 3
+   }
+  ],
+  "id": "rimeCrush",
+  "enemyId": "livingArmor",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "livingArmor",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "weight": 10,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "self",
+    "status": "strength",
+    "stacks": 3
+   }
+  ],
+  "id": "enGarde",
+  "enemyId": "courtDuelist",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 5,
+  "hits": 3,
+  "weight": 40,
+  "maxConsecutive": 2,
+  "id": "flurry",
+  "enemyId": "courtDuelist",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 14,
+  "weight": 30,
+  "maxConsecutive": 1,
+  "id": "lunge",
+  "enemyId": "courtDuelist",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "counterDamage": 6,
+  "block": 10,
+  "weight": 20,
+  "maxConsecutive": 1,
+  "id": "riposte",
+  "enemyId": "courtDuelist",
+  "tags": [
+   "camp:physical",
+   "maneuver:counter",
+   "counter:melee",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 4,
+  "reaction": {
+   "on": [
+    "playerReaction"
+   ],
+   "minIncoming": 0,
+   "chance": 0.5
+  },
+  "id": "bindingRiposte",
+  "enemyId": "courtDuelist",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "range:melee",
+   "targeting:single",
+   "damage:slashing",
+   "source:weapon",
+   "trait:reaction"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "courtDuelist",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 11,
+  "weight": 40,
+  "maxConsecutive": 2,
+  "id": "scepterBlow",
+  "enemyId": "stitchedKing",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 5,
+  "hits": 3,
+  "weight": 30,
+  "maxConsecutive": 2,
+  "id": "graspingHands",
+  "enemyId": "stitchedKing",
+  "tags": [
+   "camp:physical",
+   "maneuver:sweep",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:area"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 15,
+  "weight": 30,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "self",
+    "status": "strength",
+    "stacks": 2
+   }
+  ],
+  "id": "courtlyDecree",
+  "enemyId": "stitchedKing",
+  "tags": [
+   "camp:physical",
+   "maneuver:defend"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 3,
+  "hits": 6,
+  "weight": 40,
+  "locked": true,
+  "id": "thousandHands",
+  "enemyId": "stitchedKing",
+  "tags": [
+   "camp:physical",
+   "maneuver:sweep",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:area"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "stitchedKing",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "debuff",
+  "weight": 30,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "addCard",
+    "card": "dazed",
+    "pile": "discard"
+   }
+  ],
+  "id": "silverScript",
+  "enemyId": "mirrorScribe",
+  "tags": [
+   "camp:spell",
+   "school:illusion"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 3,
+  "weight": 50,
+  "hits": 3,
+  "id": "shardVolley",
+  "enemyId": "mirrorScribe",
+  "tags": [
+   "camp:spell",
+   "school:force",
+   "damage:arcane",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "counterDamage": 6,
+  "block": 6,
+  "weight": 20,
+  "maxConsecutive": 1,
+  "id": "polishedWard",
+  "enemyId": "mirrorScribe",
+  "tags": [
+   "camp:spell",
+   "maneuver:counter",
+   "school:alteration",
+   "counter:spell",
+   "damage:arcane",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "mirrorScribe",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 11,
+  "weight": 30,
+  "maxConsecutive": 1,
+  "id": "shellFold",
+  "enemyId": "stitchCrab",
+  "tags": [
+   "camp:physical",
+   "maneuver:defend"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 4,
+  "weight": 45,
+  "hits": 2,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "bleed",
+    "stacks": 1
+   }
+  ],
+  "id": "seamShears",
+  "enemyId": "stitchCrab",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 13,
+  "weight": 25,
+  "maxConsecutive": 1,
+  "id": "scuttleRush",
+  "enemyId": "stitchCrab",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "stitchCrab",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 16,
+  "weight": 25,
+  "maxConsecutive": 1,
+  "id": "prismGuard",
+  "enemyId": "glassRegent",
+  "tags": [
+   "camp:spell",
+   "maneuver:defend",
+   "school:alteration"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 15,
+  "weight": 45,
+  "maxConsecutive": 2,
+  "id": "crystalRapier",
+  "enemyId": "glassRegent",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 6,
+  "weight": 30,
+  "hits": 3,
+  "maxConsecutive": 1,
+  "id": "splinterRain",
+  "enemyId": "glassRegent",
+  "tags": [
+   "camp:physical",
+   "maneuver:ranged",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 7,
+  "weight": 35,
+  "maxConsecutive": 1,
+  "delay": {
+   "turns": 1,
+   "whileCharging": {
+    "block": 0
+   }
+  },
+  "hits": 5,
+  "locked": true,
+  "id": "shatteredCourt",
+  "enemyId": "glassRegent",
+  "tags": [
+   "camp:spell",
+   "school:force",
+   "damage:arcane",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "glassRegent",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "debuff",
+  "weight": 20,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "weak",
+    "stacks": 1
+   }
+  ],
+  "id": "bonePrelude",
+  "enemyId": "marrowOrganist",
+  "tags": [
+   "camp:spell",
+   "school:illusion"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 8,
+  "weight": 40,
+  "hits": 3,
+  "maxConsecutive": 2,
+  "id": "ivoryKeys",
+  "enemyId": "marrowOrganist",
+  "tags": [
+   "camp:spell",
+   "school:decay",
+   "damage:decay",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 28,
+  "weight": 25,
+  "maxConsecutive": 1,
+  "delay": {
+   "turns": 1,
+   "whileCharging": {
+    "block": 5
+   }
+  },
+  "id": "funeralChord",
+  "enemyId": "marrowOrganist",
+  "tags": [
+   "camp:spell",
+   "school:decay",
+   "damage:decay",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "weight": 15,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "heal",
+    "target": "self",
+    "amount": 7
+   }
+  ],
+  "id": "quietRefrain",
+  "enemyId": "marrowOrganist",
+  "tags": [
+   "camp:spell",
+   "school:divine"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "marrowOrganist",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 12,
+  "weight": 55,
+  "maxConsecutive": 2,
+  "id": "cinderSlash",
+  "enemyId": "ashRevenant",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "weight": 45,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "heal",
+    "target": "self",
+    "amount": 6
+   },
+   {
+    "op": "block",
+    "target": "self",
+    "amount": 6
+   }
+  ],
+  "id": "reform",
+  "enemyId": "ashRevenant",
+  "tags": [
+   "camp:spell",
+   "maneuver:defend",
+   "school:alteration"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "ashRevenant",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 9,
+  "weight": 60,
+  "id": "desperateClaw",
+  "enemyId": "emberStarvedPilgrim",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "debuff",
+  "weight": 40,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "weak",
+    "stacks": 1
+   },
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "frail",
+    "stacks": 1
+   },
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "insanity",
+    "stacks": 3
+   }
+  ],
+  "id": "wail",
+  "enemyId": "emberStarvedPilgrim",
+  "tags": [
+   "camp:spell",
+   "school:illusion"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "emberStarvedPilgrim",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 5,
+  "hits": 2,
+  "weight": 50,
+  "id": "spiralLance",
+  "enemyId": "valkyrieShade",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 5,
+  "weight": 50,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "bleed",
+    "stacks": 3
+   }
+  ],
+  "id": "bloodFeather",
+  "enemyId": "valkyrieShade",
+  "tags": [
+   "camp:physical",
+   "maneuver:ranged",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "valkyrieShade",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 16,
+  "weight": 50,
+  "maxConsecutive": 2,
+  "id": "smash",
+  "enemyId": "charredColossus",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "debuff",
+  "weight": 25,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "weak",
+    "stacks": 2
+   }
+  ],
+  "id": "ashCloud",
+  "enemyId": "charredColossus",
+  "tags": [
+   "camp:spell",
+   "school:illusion"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 14,
+  "weight": 25,
+  "maxConsecutive": 1,
+  "id": "harden",
+  "enemyId": "charredColossus",
+  "tags": [
+   "camp:physical",
+   "maneuver:defend"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "charredColossus",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "weight": 10,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "self",
+    "status": "strength",
+    "stacks": 4
+   }
+  ],
+  "id": "consecration",
+  "enemyId": "wyrmLord",
+  "tags": [
+   "camp:spell",
+   "school:divine"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 15,
+  "weight": 45,
+  "maxConsecutive": 2,
+  "id": "halberdReign",
+  "enemyId": "wyrmLord",
+  "tags": [
+   "camp:physical",
+   "maneuver:sweep",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:area"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 8,
+  "weight": 30,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "weak",
+    "stacks": 1
+   }
+  ],
+  "id": "tailSweep",
+  "enemyId": "wyrmLord",
+  "tags": [
+   "camp:physical",
+   "maneuver:sweep",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:area"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 16,
+  "weight": 25,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "heal",
+    "target": "self",
+    "amount": 6
+   }
+  ],
+  "id": "goldenBulwark",
+  "enemyId": "wyrmLord",
+  "tags": [
+   "camp:physical",
+   "maneuver:defend"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "wyrmLord",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 12,
+  "weight": 35,
+  "maxConsecutive": 2,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "bleed",
+    "stacks": 2
+   }
+  ],
+  "id": "spiralThrust",
+  "enemyId": "blightedValkyrie",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:piercing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 4,
+  "hits": 5,
+  "weight": 30,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "bleed",
+    "stacks": 2
+   }
+  ],
+  "id": "whirlwind",
+  "enemyId": "blightedValkyrie",
+  "tags": [
+   "camp:physical",
+   "maneuver:sweep",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:area"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 10,
+  "weight": 20,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "crimsonBlight",
+    "stacks": 3
+   }
+  ],
+  "id": "rotWings",
+  "enemyId": "blightedValkyrie",
+  "tags": [
+   "camp:spell",
+   "maneuver:defend",
+   "school:decay"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 5,
+  "hits": 5,
+  "weight": 35,
+  "locked": true,
+  "id": "scarletDance",
+  "enemyId": "blightedValkyrie",
+  "tags": [
+   "camp:physical",
+   "maneuver:sweep",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:area"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "blightedValkyrie",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 5,
+  "weight": 55,
+  "hits": 2,
+  "id": "scythePair",
+  "enemyId": "cinderMantis",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 18,
+  "weight": 30,
+  "maxConsecutive": 1,
+  "delay": {
+   "turns": 1,
+   "whileCharging": {
+    "block": 2
+   }
+  },
+  "id": "emberPounce",
+  "enemyId": "cinderMantis",
+  "tags": [
+   "camp:physical",
+   "maneuver:smash",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "counterDamage": 6,
+  "block": 8,
+  "weight": 15,
+  "maxConsecutive": 1,
+  "id": "foldedBlades",
+  "enemyId": "cinderMantis",
+  "tags": [
+   "camp:physical",
+   "maneuver:counter",
+   "counter:melee",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "cinderMantis",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "debuff",
+  "weight": 30,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "insanity",
+    "stacks": 3
+   }
+  ],
+  "id": "darkHymn",
+  "enemyId": "eclipseCantor",
+  "tags": [
+   "camp:spell",
+   "school:illusion"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 11,
+  "weight": 50,
+  "id": "lunarRay",
+  "enemyId": "eclipseCantor",
+  "tags": [
+   "camp:spell",
+   "school:force",
+   "damage:arcane",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 6,
+  "weight": 20,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "addCard",
+    "card": "dazed",
+    "pile": "discard"
+   }
+  ],
+  "id": "fadingEcho",
+  "enemyId": "eclipseCantor",
+  "tags": [
+   "camp:spell",
+   "school:illusion",
+   "damage:arcane",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "eclipseCantor",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 32,
+  "weight": 30,
+  "maxConsecutive": 1,
+  "delay": {
+   "turns": 1,
+   "whileCharging": {
+    "block": 10
+   }
+  },
+  "id": "openFurnace",
+  "enemyId": "furnaceSaint",
+  "tags": [
+   "camp:spell",
+   "school:fire",
+   "damage:fire",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 22,
+  "weight": 45,
+  "maxConsecutive": 2,
+  "id": "censerSweep",
+  "enemyId": "furnaceSaint",
+  "tags": [
+   "camp:physical",
+   "maneuver:sweep",
+   "damage:blunt",
+   "source:weapon",
+   "delivery:area"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 14,
+  "weight": 25,
+  "maxConsecutive": 1,
+  "id": "coolingAsh",
+  "enemyId": "furnaceSaint",
+  "tags": [
+   "camp:spell",
+   "maneuver:defend",
+   "school:alteration"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "furnaceSaint",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "debuff",
+  "weight": 20,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "addCard",
+    "card": "dazed",
+    "pile": "discard"
+   }
+  ],
+  "id": "starChart",
+  "enemyId": "hollowAstronomer",
+  "tags": [
+   "camp:spell",
+   "school:illusion"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 8,
+  "weight": 45,
+  "hits": 4,
+  "maxConsecutive": 2,
+  "id": "orbitalShards",
+  "enemyId": "hollowAstronomer",
+  "tags": [
+   "camp:spell",
+   "school:force",
+   "damage:arcane",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 30,
+  "weight": 35,
+  "maxConsecutive": 1,
+  "delay": {
+   "turns": 1,
+   "whileCharging": {
+    "block": 6
+   }
+  },
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "player",
+    "status": "insanity",
+    "stacks": 3
+   }
+  ],
+  "id": "totalEclipse",
+  "enemyId": "hollowAstronomer",
+  "tags": [
+   "camp:spell",
+   "school:illusion",
+   "damage:arcane",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 10,
+  "weight": 30,
+  "hits": 3,
+  "locked": true,
+  "maxConsecutive": 1,
+  "id": "fallingHeavens",
+  "enemyId": "hollowAstronomer",
+  "tags": [
+   "camp:spell",
+   "school:force",
+   "damage:arcane",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "hollowAstronomer",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 12,
+  "weight": 45,
+  "hits": 2,
+  "maxConsecutive": 2,
+  "id": "obsidianClaws",
+  "enemyId": "ashheartDragon",
+  "tags": [
+   "camp:physical",
+   "maneuver:attack",
+   "damage:slashing",
+   "source:weapon",
+   "delivery:melee"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "block",
+  "block": 12,
+  "weight": 25,
+  "maxConsecutive": 1,
+  "id": "tailBastion",
+  "enemyId": "ashheartDragon",
+  "tags": [
+   "camp:physical",
+   "maneuver:defend"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "weight": 15,
+  "maxConsecutive": 1,
+  "effects": [
+   {
+    "op": "applyStatus",
+    "target": "self",
+    "status": "strength",
+    "stacks": 1
+   }
+  ],
+  "id": "heartRumble",
+  "enemyId": "ashheartDragon",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "attack",
+  "damage": 9,
+  "weight": 35,
+  "maxConsecutive": 1,
+  "delay": {
+   "turns": 1,
+   "whileCharging": {
+    "block": 5
+   }
+  },
+  "hits": 4,
+  "locked": true,
+  "id": "ashBreath",
+  "enemyId": "ashheartDragon",
+  "tags": [
+   "camp:spell",
+   "school:fire",
+   "damage:fire",
+   "source:spell",
+   "delivery:projectile"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ },
+ {
+  "intent": "buff",
+  "sp": 1,
+  "weight": 0,
+  "effects": [
+   {
+    "op": "moveEngagement",
+    "target": "enemy",
+    "bands": -1
+   }
+  ],
+  "id": "advance",
+  "enemyId": "ashheartDragon",
+  "tags": [
+   "camp:physical"
+  ],
+  "kindIds": [
+   "classification.enemyMove"
+  ]
+ }
+]

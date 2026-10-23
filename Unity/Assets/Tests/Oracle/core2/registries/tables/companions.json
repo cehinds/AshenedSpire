@@ -1,0 +1,4 @@
+{"table":"companions","count":2,"ids":["hollowSquire","emberHound"],"rows":[
+{"id":"hollowSquire","name":"Hollow Squire","blurb":"A squire without a knight. It raises a shield before you at the start of each fight.","cost":220,"combats":3,"tags":[],"propertyTags":["hollowSquire"],"kindIds":["classification.companion"]},
+{"id":"emberHound","name":"Ember Hound","blurb":"A hound of banked coals. It bites at your foes as each of your turns begins.","cost":260,"combats":3,"tags":[],"propertyTags":["emberHound"],"kindIds":["classification.companion"]}
+]}
