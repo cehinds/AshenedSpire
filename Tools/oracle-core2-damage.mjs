@@ -436,7 +436,7 @@ function mechanicCases() {
 // Fights
 // ---------------------------------------------------------------------------------------------------------------
 // The event types a recorded step may emit, and the effect ops a played card may carry (see THE FILTER at the top). Anything else is a later
-// work package's: reactions and Counters (WP-8, WP-10), status procs, control and card traits (WP-9), enemy AI, range moves (WP-11, WP-12).
+// work package's: status procs, control and card traits (WP-9), enemy reactions and AI (WP-11), range moves (WP-12). The player's reactions (WP-10) are covered.
 const COVERED_EVENTS = new Set([...REACTION_EVENTS, 'playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared',
   'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
   'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
