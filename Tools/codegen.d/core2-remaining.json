@@ -43,7 +43,9 @@
       "doc": "Values of the remaining-features package.",
       "keys": {
         "ConfiguredDeck": "configured-deck",
+        "IntentBasicAttack": "basicAttack",
         "IntentChooseBlightFeat": "chooseBlightFeat",
+        "IntentPass": "pass",
         "IntentUnqueueCard": "unqueueCard",
         "NotANumber": "NaN",
         "OutcomeLost": "lost",
@@ -56,6 +58,7 @@
       "name": "Core2RemainingMessages",
       "doc": "Messages of the remaining-features package: the web's own words where the web refuses, the port's where it does not carry a feature yet.",
       "keys": {
+        "BasicAttackUnavailable": "Basic attack fallback is unavailable",
         "BlightEarlierFirst": "Choose the earlier Blight milestone first",
         "BlightLossNoChoice": "Blight loss grants no milestone choice",
         "BlightNotPending": "This Blight milestone is not pending",

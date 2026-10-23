@@ -17,7 +17,7 @@ import { writeFileSync, readFileSync, mkdirSync, rmSync, readdirSync, existsSync
 import { spawn } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadWeb, ORACLE_DIR, arg, canon, classIds, encounters, createRun, createFight, botLcg, projectFull, delta, typesSince } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, arg, canon, classIds, encounters, createRun, createFight, botLcg, projectFull, delta, typesSince, detach } from './oracle-core2.mjs';
 
 const OUT = join(ORACLE_DIR, 'remaining');
 const WHY = process.argv.includes('--why');
@@ -107,6 +107,7 @@ function candidates(w, combat, pick) {
     for (const targetId of def.targeted ? targets : [undefined]) out.push({ intent: { type: 'useFlask', slot, ...(targetId ? { targetId } : {}) }, kind: 'flask' });
   });
   for (const kind of ['hp', 'mana']) if ((p.flaskCharges?.[`${kind}Current`] || 0) > 0 || pick(100) < 4) out.push({ intent: { type: 'useFlask', chargeKind: kind }, kind: 'flask' });
+  if (pick(100) < 3) out.push({ intent: { type: 'pass' }, kind: 'other' });
   if (pick(100) < 12) out.push({ intent: { type: 'setReactions', enabled: p.reactionsEnabled === false }, kind: 'other' });
   for (const enemy of living(combat)) {
     const a = enemy.knowledgeAction;
@@ -276,6 +277,54 @@ function preparingUnit(w, seed, classId, encounter, rule) {
   return { kind: 'preparing', seed, classId, encounterId: encounter.id, rule, start, steps };
 }
 
+// The intents a default Core fight refuses, in the web's own words: tried on a fresh fight (a run that holds one flask, a second weapon set and a carried piece), each one
+// either refused with a message or accepted (and then replayed by the fights).
+export const REFUSED_INTENTS = [
+  { type: 'swapArmament', slotId: 'rightHand', setIndex: 2 },
+  { type: 'swapArmament', slotId: 'armor', setIndex: 0 },
+  { type: 'swapArmament', slotId: 'nowhere', setIndex: 0 },
+  { type: 'changeEquipment', slotId: 'rightHand', setIndex: 9, pieceId: 'dagger' },
+  { type: 'changeEquipment', slotId: 'rightHand', setIndex: 1, pieceId: 'nonexistent' },
+  { type: 'changeEquipment', slotId: 'leftHand', setIndex: 0, pieceId: 'greatsword' },
+  { type: 'basicAttack', targetId: 'e1' },
+  { type: 'unqueueCard', cardInstanceId: 'gp1' },
+  { type: 'chooseBlightFeat', threshold: 25, path: 'martial' },
+  { type: 'chooseBlightFeat', threshold: 26, path: 'martial' },
+  { type: 'chooseBlightFeat', threshold: 25, path: 'nonsense' },
+  { type: 'useFlask', slot: 5 },
+  { type: 'useFlask', slot: -1 },
+  { type: 'useFlask', chargeKind: 'bogus' },
+  { type: 'useFlask', slot: 0, targetId: 'nobody' },
+  { type: 'playCard', cardInstanceId: 'nope' },
+  { type: 'playCard', cardInstanceId: 'gp1', targetId: 'nobody' },
+  { type: 'chooseCards', cardInstanceIds: [] },
+  { type: 'chooseDiscard', cardInstanceIds: [] },
+  { type: 'chooseReaction', offerId: 'x', optionId: null },
+  { type: 'predictIntent', enemyInstanceId: 'e1', actionSerial: 99, maneuver: 'attack' },
+  { type: 'recoverControl', selections: [] },
+  { type: 'moveCharacter', cell: 'A1' },
+  { type: 'nonsense' },
+];
+
+function refusalProbes(w) {
+  const out = [];
+  classIds(w).forEach((classId, ci) => {
+    const encounter = encounters(w)[ci * 2];
+    const spec = { flasks: ['blightCoating'], storage: ['dagger'], sets: { rightHand: [classId === 'reaver' ? 'greatsword' : classId === 'rogue' ? 'dagger' : 'boneSceptre', 'dagger'] } };
+    const seed = w.rngMod.sweepSeed(240000 + ci);
+    const run = applySpec(createRun(w, seed, classId), spec);
+    const { combat } = createFight(w, run, encounter);
+    const results = REFUSED_INTENTS.map((intent) => {
+      const copy = detach(w, combat);
+      try { w.combat.dispatch(copy, structuredClone(intent)); } catch (e) { return { intent, error: e.message }; }
+      // An intent the web accepts is a step of the fights; the port must accept it too, here on a copy of the same fight.
+      return { intent, accepted: true };
+    });
+    out.push({ seed, classId, encounterId: encounter.id, spec, results });
+  });
+  return out;
+}
+
 function writeUnits() {
   return (async () => {
     const w = await loadWeb();
@@ -285,7 +334,7 @@ function writeUnits() {
       for (let n = 0; n < 2; n++) units.push(preparingUnit(w, w.rngMod.sweepSeed(210000 + ci * 100 + ri * 10 + n), classId, all[(ci * 3 + ri * 5 + n) % all.length], rule));
     }));
     mkdirSync(OUT, { recursive: true });
-    const text = `${JSON.stringify(canon({ units }))}\n`;
+    const text = `${JSON.stringify(canon({ units, refusals: refusalProbes(w) }))}\n`;
     writeFileSync(join(OUT, 'units.json'), text);
     console.log(`oracle-core2-remaining: ${units.length} units, ${units.reduce((s, u) => s + u.steps.length, 0)} steps, ${(text.length / 1024).toFixed(0)} KB -> units.json`);
   })();

@@ -63,7 +63,7 @@ namespace Ashen.Tests
         }));
 
         /// <summary>The range quote of every card of the hand against every target, before the step, as the web showed it.</summary>
-        private static void CheckPreviews(CombatState c, JObject step, string at)
+        internal static void CheckPreviews(CombatState c, JObject step, string at)
         {
             if (!(step["previews"] is JObject previews)) return;
             foreach (var card in previews.Properties())

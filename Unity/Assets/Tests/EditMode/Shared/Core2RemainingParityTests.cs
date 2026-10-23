@@ -134,6 +134,36 @@ namespace Ashen.Tests
             }
         }
 
+        // ------------------------------------------------------------------ the refusals
+
+        public static IEnumerable<TestCaseData> Refusals()
+        {
+            if (!File.Exists(Path.Combine(Dir, "units.json"))) yield break;
+            var probes = (JArray)Read("units.json")["refusals"];
+            for (var i = 0; i < probes.Count; i++) yield return new TestCaseData(i).SetName("Core2RemainingRefusals_" + probes[i].Value<string>("classId") + "_" + i);
+        }
+
+        [TestCaseSource(nameof(Refusals))]
+        public void AnIntentThePlayerCannotSendIsRefusedInTheWebsWords(int index)
+        {
+            var probe = (JObject)((JArray)Read("units.json")["refusals"])[index];
+            var fight = new JObject { ["seed"] = probe["seed"], ["classId"] = probe["classId"], ["encounterId"] = probe["encounterId"], ["spec"] = probe["spec"] };
+            var c = Open(fight);
+            var n = 0;
+            foreach (var result in ((JArray)probe["results"]).OfType<JObject>())
+            {
+                var intent = (JObject)result["intent"];
+                var at = "probe " + index + "." + n++ + " " + intent.ToString(Newtonsoft.Json.Formatting.None);
+                var copy = c.Detach();
+                if (result["error"] == null) Assert.DoesNotThrow(() => CoreDispatch.Dispatch(copy, intent), at + " is accepted by the web");
+                else
+                {
+                    var thrown = Assert.Catch<Exception>(() => CoreDispatch.Dispatch(copy, intent), at + " is refused by the web");
+                    Assert.That(thrown.Message, Is.EqualTo(result.Value<string>("error")), at);
+                }
+            }
+        }
+
         [TestCaseSource(nameof(Fights))]
         public void TheFightPlaysAsTheWebPlaysIt(string file, int index) =>
             Core2FightParityTests.Replay((JObject)((JArray)Read(file)["fights"])[index], file + "[" + index + "]", Open);

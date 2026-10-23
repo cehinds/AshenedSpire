@@ -43,7 +43,8 @@ namespace Ashen.Domain.Combat
         public static JObject Card(CombatState live, string instanceId, string targetId, string route = null)
         {
             if (live.Fields.Obj(CK.RangeState) == null) return null;
-            var c = live.Detach();
+            // previewCard plans on the fight as the player sees it: an enemy not read shows no stance, Counter or pending move.
+            var c = CoreVisibility.VisibleCopy(live);
             var player = c.Player;
             var inst = c.Piles.Hand.First(card => card.Str(K.InstanceId) == instanceId);
             var printed = CoreCosts.Resolve(c, inst);

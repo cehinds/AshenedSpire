@@ -4,6 +4,7 @@ namespace Ashen.Generated
     /// <summary>Messages of the remaining-features package: the web's own words where the web refuses, the port's where it does not carry a feature yet.</summary>
     public static class Core2RemainingMessages
     {
+        public const string BasicAttackUnavailable = "Basic attack fallback is unavailable";
         public const string BlightEarlierFirst = "Choose the earlier Blight milestone first";
         public const string BlightLossNoChoice = "Blight loss grants no milestone choice";
         public const string BlightNotPending = "This Blight milestone is not pending";

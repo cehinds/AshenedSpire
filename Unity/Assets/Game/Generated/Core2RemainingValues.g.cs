@@ -5,7 +5,9 @@ namespace Ashen.Generated
     public static class Core2RemainingValues
     {
         public const string ConfiguredDeck = "configured-deck";
+        public const string IntentBasicAttack = "basicAttack";
         public const string IntentChooseBlightFeat = "chooseBlightFeat";
+        public const string IntentPass = "pass";
         public const string IntentUnqueueCard = "unqueueCard";
         public const string NotANumber = "NaN";
         public const string OutcomeLost = "lost";

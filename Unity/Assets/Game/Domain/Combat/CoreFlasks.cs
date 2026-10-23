@@ -38,7 +38,7 @@ namespace Ashen.Domain.Combat
             else
             {
                 var held = Js.IsNum(slot) && flasks != null && Js.D(slot) >= 0 && Js.D(slot) < flasks.Count && Js.D(slot) == Math.Floor(Js.D(slot)) ? flasks[(int)Js.D(slot)] as JObject : null;
-                flaskId = held?.Str(K.FlaskId) ?? throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.NoFlaskInSlot, Js.IsNum(slot) ? Js.Str(slot) : RV.Undefined));
+                flaskId = held?.Str(K.FlaskId) ?? throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.NoFlaskInSlot, Js.IsNum(slot) ? Ashen.Domain.Run.RunJs.NumStr(Js.D(slot)) : RV.Undefined));
             }
             var def = c.Data.Flasks.Get(flaskId);
             JObject target = null;

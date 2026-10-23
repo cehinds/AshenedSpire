@@ -77,6 +77,12 @@ namespace Ashen.Domain.Combat
                 case V.CommandChangeEquipment:
                     CoreEquipment.Change(c, intent.Str(K.SlotId), (int)intent.Num(K.SetIndex), intent.Str(K.PieceId));
                     break;
+                case RV2.IntentPass:
+                    CoreTurns.EndTurn(c, new string[0]);
+                    break;
+                case RV2.IntentBasicAttack:
+                    // A Core 2 fight plays cards: the fallback attack is for a profile without them.
+                    throw new InvalidOperationException(Ashen.Generated.Core2RemainingMessages.BasicAttackUnavailable);
                 case RV2.IntentUnqueueCard:
                     CoreRefusals.UnqueueCard(c);
                     break;

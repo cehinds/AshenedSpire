@@ -63,6 +63,7 @@ namespace Ashen.Tests
                 var intent = (JObject)step["intent"];
                 var at = $"{label} step {n++} {intent.Value<string>("type")}";
                 var mark = c.EventLog.Count;
+                if (step["previews"] != null) Core2RangeParityTests.CheckPreviews(c, step, at);
                 try
                 {
                 switch (intent.Value<string>("type"))
