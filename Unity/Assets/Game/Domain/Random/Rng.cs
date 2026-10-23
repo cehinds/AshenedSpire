@@ -13,10 +13,17 @@ namespace Ashen.Domain.Random
     public sealed class Rng
     {
         private static readonly RngStream[] Streams = (RngStream[])Enum.GetValues(typeof(RngStream));
+        private static readonly Core2RngStream[] CoreStreams = (Core2RngStream[])Enum.GetValues(typeof(Core2RngStream));
         private readonly uint[] _bases;
         private readonly uint[] _counters;
+        private readonly uint[] _coreBases;
+        private readonly uint[] _coreCounters;
 
-        public Rng(uint seed, IReadOnlyDictionary<RngStream, uint> counters = null)
+        /// <summary>
+        /// <paramref name="coreCounters"/> are the Core 2 streams (rules/rng.json core2Streams, D-172): a second set beside the 405 one, so
+        /// <see cref="Counters"/> and every 405 document keep recording the same fourteen streams.
+        /// </summary>
+        public Rng(uint seed, IReadOnlyDictionary<RngStream, uint> counters = null, IReadOnlyDictionary<Core2RngStream, uint> coreCounters = null)
         {
             Seed = seed;
             _bases = new uint[Streams.Length];
@@ -26,6 +33,14 @@ namespace Ashen.Domain.Random
                 if (s == RngStream.None) continue;
                 _bases[(int)s] = seed ^ Fnv1a(RngStreamNames.ToWire(s));
                 if (counters != null && counters.TryGetValue(s, out var c)) _counters[(int)s] = c;
+            }
+            _coreBases = new uint[CoreStreams.Length];
+            _coreCounters = new uint[CoreStreams.Length];
+            foreach (var s in CoreStreams)
+            {
+                if (s == Core2RngStream.None) continue;
+                _coreBases[(int)s] = seed ^ Fnv1a(Core2RngStreamNames.ToWire(s));
+                if (coreCounters != null && coreCounters.TryGetValue(s, out var c)) _coreCounters[(int)s] = c;
             }
         }
 
@@ -89,6 +104,48 @@ namespace Ashen.Domain.Random
 
         public uint Counter(RngStream stream) => _counters[Index(stream)];
 
+        // ------------------------------------------------------------------ the Core 2 streams
+
+        /// <summary>Next raw 32-bit draw on a Core 2 stream (same generator, the stream's own name-derived base).</summary>
+        public uint NextUInt(Core2RngStream stream)
+        {
+            var i = Index(stream);
+            _coreCounters[i] = unchecked(_coreCounters[i] + 1);
+            return ValueAt(_coreBases[i], _coreCounters[i]);
+        }
+
+        public double Float(Core2RngStream stream) => NextUInt(stream) / ((double)uint.MaxValue + 1d);
+
+        public int Below(Core2RngStream stream, int n)
+        {
+            if (n <= 0) throw new ArgumentOutOfRangeException(nameof(n));
+            return (int)(((ulong)NextUInt(stream) * (ulong)n) >> (int)RngAlgorithm.FractionBits);
+        }
+
+        public int Int(Core2RngStream stream, int min, int max)
+        {
+            if (max < min) throw new ArgumentOutOfRangeException(nameof(max));
+            return min + Below(stream, max - min + 1);
+        }
+
+        public uint Counter(Core2RngStream stream) => _coreCounters[Index(stream)];
+
+        public Dictionary<Core2RngStream, uint> CoreCounters()
+        {
+            var d = new Dictionary<Core2RngStream, uint>();
+            foreach (var s in CoreStreams) if (s != Core2RngStream.None) d[s] = _coreCounters[(int)s];
+            return d;
+        }
+
+        /// <summary>Every stream's counter by wire name, the 405 set then the Core 2 set (the web's getCounters()).</summary>
+        public Dictionary<string, uint> AllCounters()
+        {
+            var d = new Dictionary<string, uint>(StringComparer.Ordinal);
+            foreach (var s in Streams) if (s != RngStream.None) d[RngStreamNames.ToWire(s)] = _counters[(int)s];
+            foreach (var s in CoreStreams) if (s != Core2RngStream.None) d[Core2RngStreamNames.ToWire(s)] = _coreCounters[(int)s];
+            return d;
+        }
+
         public Dictionary<RngStream, uint> Counters()
         {
             var d = new Dictionary<RngStream, uint>();
@@ -97,11 +154,17 @@ namespace Ashen.Domain.Random
         }
 
         /// <summary>A copy with identical seed and counters (used by previews so they never advance the real streams).</summary>
-        public Rng Clone() => new Rng(Seed, Counters());
+        public Rng Clone() => new Rng(Seed, Counters(), CoreCounters());
 
         private static int Index(RngStream stream)
         {
             if (stream == RngStream.None) throw new ArgumentException(nameof(stream));
+            return (int)stream;
+        }
+
+        private static int Index(Core2RngStream stream)
+        {
+            if (stream == Core2RngStream.None) throw new ArgumentException(nameof(stream));
             return (int)stream;
         }
 

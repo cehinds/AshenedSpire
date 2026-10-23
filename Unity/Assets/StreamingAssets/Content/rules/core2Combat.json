@@ -1,0 +1,321 @@
+{
+  "comment": "Core 2 combat constants that the web (model/combatCardProfile.js, model/cardClassification.js, model/profileStance.js, model/stanceRules.js, model/formationLayout.js, model/formationOccupancy.js, engine/combatCardTactics.js, engine/combatRoundsAdapter.js, engine/kernel/gameConfig.js, model/actionCosts.js, engine/combat.js at the pinned sha b8cfe4fac) keeps as literals in code (docs/design/11 WP-4). vocabulary: the identity sets combatProfileFor and stanceOf read. classification: what cardPreparationCategory leaves out and counts as a card kind. resistance: the share of the Ward and Poise ratings that opens a fight as a pool. perception: the die an enemy's intent read rolls. enemies: the enemy attribute fill and the seeded variance hash. formation: the perspective grid. range: the hands a primary weapon is looked for in. plan: the enemy plan constants. actionStances: how an enemy move is priced as a stance. enemyPressure: the buildup an enemy status becomes. counter: the version of the record an armed Counter keeps. counterCoverage: the lanes an authored-less enemy Counter covers. hand: the hand size when the profile names none and the three hand rows a fight is dealt by. ratingIds: the ratings a receipt totals.",
+  "vocabulary": {
+    "camps": [
+      "physical",
+      "spell"
+    ],
+    "maneuvers": [
+      "attack",
+      "defend",
+      "counter",
+      "sweep",
+      "ranged",
+      "smash",
+      "casting"
+    ],
+    "schools": [
+      "frost",
+      "fire",
+      "lightning",
+      "force",
+      "alteration",
+      "illusion",
+      "divine",
+      "decay",
+      "earth"
+    ],
+    "counterModes": [
+      "melee",
+      "ranged",
+      "spell"
+    ],
+    "ranges": [
+      "melee",
+      "reach",
+      "ranged"
+    ],
+    "targetings": [
+      "single",
+      "area"
+    ],
+    "legacyRanges": {
+      "contact": "melee",
+      "near": "reach",
+      "far": "ranged"
+    },
+    "profileFields": [
+      "range",
+      "defenseRange",
+      "targeting",
+      "traits",
+      "projectile",
+      "counterCoverage",
+      "counterPayload",
+      "evade",
+      "upcast",
+      "stanceTrigger",
+      "mirrors",
+      "stanceExpiry",
+      "schoolEffect",
+      "caster",
+      "breakPoiseBonus",
+      "pronePoiseBonus",
+      "traitValues"
+    ],
+    "spellCamps": [
+      "spell",
+      "spells",
+      "magic",
+      "magical"
+    ],
+    "mirroredTypes": [
+      "attack",
+      "smash",
+      "sweep",
+      "defend",
+      "counter"
+    ],
+    "offensiveManeuvers": [
+      "attack",
+      "smash",
+      "sweep",
+      "counter",
+      "casting"
+    ],
+    "defensiveManeuvers": [
+      "defend",
+      "counter",
+      "evade"
+    ],
+    "maneuverAliases": {
+      "casting": "prepared",
+      "cast": "prepared",
+      "spell": "prepared",
+      "ranged": "attack"
+    },
+    "martialStances": {
+      "smash": "smash",
+      "attack": "attack",
+      "sweep": "sweep",
+      "counter": "counter",
+      "defend": "defense"
+    }
+  },
+  "classification": {
+    "nonPreparingTypes": [
+      "consumable",
+      "status",
+      "curse"
+    ],
+    "nonPreparingKinds": [
+      "skillBook",
+      "revive",
+      "CONSUMABLE"
+    ],
+    "cardKindTypes": [
+      "attack",
+      "skill",
+      "power",
+      "spell"
+    ],
+    "cardKindClassifications": [
+      "classification.attack",
+      "classification.skill",
+      "classification.power"
+    ]
+  },
+  "resistance": {
+    "wardPool": 1,
+    "poisePool": 1
+  },
+  "perception": {
+    "die": 20
+  },
+  "enemies": {
+    "fillGuard": 10,
+    "varianceAmong": 2,
+    "poolMods": [
+      "sp",
+      "mp",
+      "hp"
+    ],
+    "modifierPrefix": "self.",
+    "modifierEquals": "=",
+    "hash": {
+      "seed": 7,
+      "multiplier": 31,
+      "lcgMultiplier": 1103515245,
+      "lcgIncrement": 12345,
+      "shift": 3
+    },
+    "modifierSigns": "+-"
+  },
+  "formation": {
+    "rows": "ABCDEF",
+    "lanes": 3,
+    "maxRows": 6,
+    "playerColumn": 1,
+    "enemyBackColumn": 4,
+    "enemyFrontColumn": 3,
+    "extraColumn": 5,
+    "enemiesPerLane": 2,
+    "enemiesPerLaneExtra": 3
+  },
+  "range": {
+    "hands": [
+      "right",
+      "left"
+    ]
+  },
+  "plan": {
+    "queueMax": 16,
+    "moveSpFallback": 1,
+    "breakPoiseBonus": 3,
+    "pressureScale": 4,
+    "carrierFields": [
+      "targetLimit",
+      "range",
+      "defenseRange",
+      "targeting",
+      "traits",
+      "projectile",
+      "counterCoverage",
+      "counterPayload",
+      "evade",
+      "upcast",
+      "stanceTrigger",
+      "mirrors",
+      "stanceExpiry",
+      "schoolEffect",
+      "caster",
+      "breakPoiseBonus",
+      "pronePoiseBonus",
+      "comboHook",
+      "traitValues",
+      "mechanicTags",
+      "mechanicBindings"
+    ]
+  },
+  "actionStances": {
+    "byTag": [
+      {
+        "tags": [
+          "camp:spell",
+          "maneuver:casting"
+        ],
+        "stance": "cast"
+      },
+      {
+        "tags": [
+          "maneuver:smash"
+        ],
+        "stance": "smash"
+      },
+      {
+        "tags": [
+          "maneuver:sweep"
+        ],
+        "stance": "sweep"
+      },
+      {
+        "tags": [
+          "maneuver:counter"
+        ],
+        "stance": "counter"
+      },
+      {
+        "tags": [
+          "maneuver:defend"
+        ],
+        "stance": "block"
+      },
+      {
+        "tags": [
+          "maneuver:attack",
+          "maneuver:ranged"
+        ],
+        "stance": "attack"
+      }
+    ],
+    "byKind": {
+      "attack": "attack",
+      "guard": "block",
+      "evade": "evade",
+      "counter": "counter"
+    }
+  },
+  "enemyPressure": {
+    "frail": {
+      "status": "vulnerable",
+      "recoveryProfile": "bodily"
+    },
+    "weak": {
+      "status": "weak",
+      "recoveryProfile": "bodily"
+    },
+    "bleed": {
+      "status": "bleed",
+      "recoveryProfile": "bodily"
+    },
+    "crimsonBlight": {
+      "status": "crimsonBlight",
+      "recoveryProfile": "curse"
+    },
+    "frost": {
+      "status": "frost",
+      "recoveryProfile": "elemental"
+    },
+    "insanity": {
+      "status": "dazed",
+      "recoveryProfile": "mental"
+    }
+  },
+  "counterCoverage": {
+    "spellRanges": [
+      "melee",
+      "reach",
+      "ranged"
+    ],
+    "rangedRanges": [
+      "reach",
+      "ranged"
+    ],
+    "meleeRanges": [
+      "melee"
+    ],
+    "targeting": [
+      "single"
+    ],
+    "spellEffects": [
+      "damage",
+      "status"
+    ],
+    "physicalEffects": [
+      "damage"
+    ],
+    "meleeManeuvers": [
+      "attack",
+      "smash"
+    ]
+  },
+  "hand": {
+    "defaultBase": 4,
+    "defaultAttribute": "intelligence",
+    "rowIds": [
+      "openingHand",
+      "draw",
+      "handSize"
+    ]
+  },
+  "ratingIds": [
+    "ar",
+    "dr",
+    "pr",
+    "ward",
+    "poise"
+  ],
+  "counter": {
+    "version": 2
+  }
+}

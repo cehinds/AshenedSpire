@@ -2,6 +2,27 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-4: combat start, hand and resources in C# with oracle parity (dev, 2026-10-23)
+
+**Landed**
+- **Oracle first (`Tools/oracle-core2-start.mjs`, D-182):** 140 fights (4 classes x all 35 encounters, `sweepSeed(7000 + ...)`) from the web's `createRunCombat` at `b8cfe4fac`: the whole combat object when the fight opens (Stamina full, hand drawn, first intents rolled, event types, every RNG counter), then 468 end-turn steps with every enemy staggered (the enemy phase runs in full without an action; two encounters per class run 9 turns, the rest 3), stored as deltas (2.9 MB); `hand.json` has 47 scenarios on the hand functions; the rule snapshots are recorded once per class. Two runs are byte-identical.
+- **`CoreRunCombat.Create` / `CoreCombatStart.Create`** (D-180): ratings with `ratingSources`, effective attributes, `baseEvasionBonus` and `basePrecisionBonus`, persistent Poise (Ward is off), Barrier, full Stamina as the shared Actions pool (`energy` is the pool), hand 4 + INT (`CoreHand`), draw rows from the run's own stat rows, nothing retained, the entire-deck round shuffle on the `shuffle` stream, the discard reshuffle, Innate cards first, the Poise vessel from the Poise row, armour and relics, the perspective formation grid (`CoreRange`), the engagement bands from the starting weapon, enemy HP on `enemyHP`, enemy level, attributes (seeded hash variance), SP and MP pools and ratings from the profile row (`CoreEnemies`), the property mounts, the first plan and intent (`CoreIntents`: SP-pool plan on `enemyAI`, the weighted pick, Counter priming), the d20 intent read on `enemyIntentVisibility` and `enemyIntentClue` (`CoreKnowledge`), the stance and its Precision grant (`CoreStances`), and the end-turn loop (`CoreTurns`: owner-cycle status control, decay, the skipped enemy turn, the hand cleanup and the next turn's draw).
+- **RNG (D-181):** `Rng` gained the Core 2 stream set beside the 405 counters; no 405 fixture moved (the 405 suite is unchanged).
+- **Data:** hand-written `rules/core2Combat.json` (+ schema, D-183), exported `rules/stanceRules.json` and `rules/core2HandRules.json`, codegen fragment `core2-combat.json` (`Core2CombatKeys`, `Core2CombatValues`, `Core2CombatMessages`), `Core2Registries.ToCoreCombatData`.
+- **WP-3 gap closed (D-185):** `CoreGear.ResolveItem` also returns `modifiers` and `pools`, which the fight's `ratingSources` carry.
+
+**Parity mismatches found, all fixed:** the first full run failed 327 of 328 cases, almost all from a few wiring slips. The ones worth keeping: `rules/actionCosts.json` keeps its keys in upper snake case; the module ids are kebab case; the enemy Precision grant read the stance rules one level too deep (so every enemy stance entry granted none); the knowledge label is `?`; `resolved` lacked the gear `modifiers` and `pools` (WP-3); `perception` is the skill key; `weaponARPerTier` and `armorDRPerTier` are cased as the web does; `Js.Truthy` threw on a null `string` (shared helper, the 405 is unaffected); an unset optional deck field must be absent, not null.
+
+**Tests:** `Core2CombatStartParityTests` 328 (the oracle is present, 140 fights open as the web opens them, 140 end-turn loops of 468 steps equal field for field with the event types and RNG counters, 47 hand scenarios). Domain.Tests (`Category!=Bot`) 3619/3619 (baseline 3291 + the 328 of this package). `transform-content --check`, `codegen --check`, `refresh-manifest --check`, `check-content`, `check-docs`, `web-key-map --check` green. EnforcementTests green.
+
+**Not verified / deferred**
+- Unity (no editor): everything is in `Ashen.Domain`, `Ashen.Content` and `Ashen.Generated`, compiled under dotnet only.
+- Refused by name until their work package (messages in `Core2CombatMessages`): card play and the player's card costs, script and once-per-turn effects, every opcode but applyStatus, removeStatus, draw, restoreStamina, restoreMana, block and gainBarrier (WP-5 to WP-9), status procs, meters and control (WP-9), Ward restore and Poise overflow, an enemy that acts (WP-6, WP-11: the loop staggers every enemy), planned follow-up moves, Flux, Ashen Blight milestones and burdens (WP-10), turn-end-in-hand hooks, the mechanics kernel (WP-7), enemy gear with mechanics, feats, companions and sigils, and a hand refresh other than the entire-deck shuffle.
+- `resolveEnemyLevel` is dead for a configured fight (D-184). `combatStartRefill` stays in `rules/core2Run.json` (D-183).
+- Nothing consumes `CoreRunCombat` yet (no `CombatSession` over a Core 2 fight); that is WP-19.
+
+**Next:** WP-5 (stances and costs) and WP-6 (d20 hit resolution) can start in parallel: `CoreStances.SetProfileStance`, `CoreActions.Execute` and the NotSupported guards are their hooks.
+
 ## Core 2 WP-3: run creation for the configured profile in C# with oracle parity (dev, 2026-10-23)
 
 **Landed**

@@ -97,6 +97,20 @@ namespace Ashen.Content
                 Rules(ContentFiles.RulesReactionRules), Rules(ContentFiles.RulesCombatExpansionRules));
         }
 
+        /// <summary>
+        /// What a Core 2 fight reads beyond the run's data (WP-4): the FixCore rules it snapshots, the action-cost table, the stance defaults,
+        /// the combat literals (<c>rules/core2Combat.json</c>), the enemy knowledge rules and the hand rule defaults.
+        /// </summary>
+        public Ashen.Domain.Combat.CoreCombatData ToCoreCombatData(ContentSet content, CoreRunData run)
+        {
+            if (content == null) throw new ArgumentNullException(nameof(content));
+            if (run == null) throw new ArgumentNullException(nameof(run));
+            JObject Rules(string file) => (JObject)content.Get(file);
+            return new Ashen.Domain.Combat.CoreCombatData(run, Rules(ContentFiles.RulesFixCoreSnapshot), Rules(ContentFiles.RulesActionCosts),
+                (JObject)Rules(ContentFiles.RulesStanceRules)[Core2CombatKeys.StanceRules], Rules(ContentFiles.RulesCore2Combat),
+                Rules(ContentFiles.RulesEnemyKnowledgeRules), (JObject)Rules(ContentFiles.RulesCore2HandRules)[Core2CombatKeys.HandRulesDefaults]);
+        }
+
         /// <summary>What the map port reads (WP-14): encounters, events, enemies and seats in registry order, the quest gates, the boss destinations and the map engine rules.</summary>
         public Ashen.Domain.Map.MapData ToMapData(JObject mapEngine) => Registries.ToMapData(mapEngine);
 

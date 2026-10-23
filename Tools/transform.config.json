@@ -169,6 +169,8 @@
       { "out": "rules/rangePolicy.json", "from": "core2.rules.rangePolicy" },
       { "out": "rules/versions.json", "from": "core2.rules.versions" },
       { "out": "rules/actionCosts.json", "from": "core2.extras.actionCosts" },
+      { "out": "rules/stanceRules.json", "from": "core2.extras.stanceRules" },
+      { "out": "rules/core2HandRules.json", "from": "core2.extras.handRules" },
       { "out": "rules/combatMatchups.json", "from": "core2.extras.combatMatchups" },
       { "out": "rules/combatStatusRules.json", "from": "core2.extras.combatStatusRules" },
       { "out": "rules/combatExpansionEquipment.json", "from": "core2.extras.combatExpansionEquipment" },

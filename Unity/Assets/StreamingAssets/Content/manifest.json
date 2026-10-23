@@ -1,5 +1,5 @@
 {
-  "contentHash": "8aeea88dbe371fe022ce768b47ac2dcd107e4910f82d8ceb3830855b5afa798e",
+  "contentHash": "1fdfc0abd5b7aac347e426500de2cafbab61e15e3ea28603e414823b0ed828f6",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -794,6 +794,16 @@
       "generated": true,
       "sha256": "e8a2d8799e70ded4d80ade5db2ad57c35a82ff3f2d9e1b8190f17fa42efd3873"
     },
+    "rules/core2Combat.json": {
+      "bytes": 6766,
+      "generated": false,
+      "sha256": "ba12224a1b511bbad32e4bc00a8b5a2675080819e4849f182311d36ebcf905cb"
+    },
+    "rules/core2HandRules.json": {
+      "bytes": 235,
+      "generated": true,
+      "sha256": "7b99d97d21d67454beb980f6a09d13f70a508360e8b3fa27f9cd0c20ed66156c"
+    },
     "rules/core2Mechanics.json": {
       "bytes": 457434,
       "generated": true,
@@ -923,6 +933,11 @@
       "bytes": 1907,
       "generated": false,
       "sha256": "c503de1fb9dfafa26a8cb86f28d5319467ce313ef397f1842752a07f89f90245"
+    },
+    "rules/stanceRules.json": {
+      "bytes": 762,
+      "generated": true,
+      "sha256": "6b5624da354513669472cac41572cc88a043f6a2d9bcaf25c5ea2d343ea05eb8"
     },
     "rules/stringKeys.json": {
       "bytes": 3664,
@@ -1644,6 +1659,16 @@
       "generated": false,
       "sha256": "318fd79e4a732497a6f564b7c26257e1e993125535ee89b2e8e464a344550b49"
     },
+    "schemas/rules.core2Combat.schema.json": {
+      "bytes": 14260,
+      "generated": false,
+      "sha256": "6bb8cda989d5df017fd2a4d2a89c9cefb2bd25dcf162f2f604b0ffc546c083b1"
+    },
+    "schemas/rules.core2HandRules.schema.json": {
+      "bytes": 925,
+      "generated": false,
+      "sha256": "4336363345e9cc9ce68442fe97999818812c2c8f68b761c899361cdd9c75c0ba"
+    },
     "schemas/rules.core2Mechanics.schema.json": {
       "bytes": 1611,
       "generated": false,
@@ -1773,6 +1798,11 @@
       "bytes": 4781,
       "generated": false,
       "sha256": "4fc74399eece51428307b96f0522687a009e9857d6092bd662fb71730c39595e"
+    },
+    "schemas/rules.stanceRules.schema.json": {
+      "bytes": 2998,
+      "generated": false,
+      "sha256": "fa151c6553fd9afb8cd80626c2540d27c0f7da1ca1636b132e6ab5a913be6fbb"
     },
     "schemas/rules.stringKeys.schema.json": {
       "bytes": 14917,

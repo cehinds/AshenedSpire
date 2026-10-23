@@ -20,16 +20,16 @@ namespace Ashen.Domain.Run
     /// </summary>
     public static class CoreGear
     {
-        private static List<string> Ratings(CoreRunData d) => RunJs.Strs(d.RuleSection(CK.Gear)[CK.Ratings]);
+        internal static List<string> Ratings(CoreRunData d) => RunJs.Strs(d.RuleSection(CK.Gear)[CK.Ratings]);
 
-        private static List<string> Attributes(CoreRunData d) => RunJs.Strs(d.RuleSection(CK.Gear)[CK.Attributes]);
+        internal static List<string> Attributes(CoreRunData d) => RunJs.Strs(d.RuleSection(CK.Gear)[CK.Attributes]);
 
-        private static List<string> AllKeys(CoreRunData d) => Ratings(d).Concat(Attributes(d)).ToList();
+        internal static List<string> AllKeys(CoreRunData d) => Ratings(d).Concat(Attributes(d)).ToList();
 
         private static double Pos(JToken value) => Js.Truthy(value) ? Js.D(value) : 0;
 
         /// <summary>gearSplit(total, weights): largest remainder over the positive weights, ties by key order.</summary>
-        private static JObject Split(double total, JObject weights)
+        internal static JObject Split(double total, JObject weights)
         {
             var keys = weights.Properties().Where(p => Js.D(p.Value) > 0).Select(p => p.Name).ToList();
             var output = new JObject();
@@ -176,7 +176,19 @@ namespace Ashen.Domain.Run
                 [CK.Points] = points,
                 [CK.Values] = values,
                 [K.Tags] = new JArray(Js.Items(item[K.Tags]).Select(t => t.DeepClone())),
+                [Ashen.Generated.Core2CombatKeys.Modifiers] = new JArray(Js.Items(item[K.Tags]).Select(t => settings.Obj(CK.Tags)?.Obj(Js.Str(t)))
+                    .Where(row => row != null && Js.Truthy(row[Ashen.Generated.Core2CombatKeys.Modifier]))
+                    .Select(row => Js.S(row.Str(Ashen.Generated.Core2CombatKeys.Modifier) + Ashen.Generated.Core2CombatValues.ModifierEquals
+                        + (row.Num(Ashen.Generated.Core2CombatKeys.Amount) >= 0 ? Ashen.Generated.Core2CombatValues.ModifierPlus : string.Empty)
+                        + RunJs.Show(row[Ashen.Generated.Core2CombatKeys.Amount])))),
                 [CK.TagCost] = Js.N(tagCost),
+                [CK.Pools] = new JObject
+                {
+                    [CK.Ratings] = SizeOf(settings, CK.Ratings, item),
+                    [CK.Bonus] = SizeOf(settings, CK.Bonus, item),
+                    [Ashen.Generated.Core2CombatKeys.Merged] = settings.Obj(CK.PoolSizes)?.Obj(gear.Str(CK.PoolsMerged))?.Obj(item.Str(CK.Rarity))?.DeepClone() ?? Js.Null(),
+                    [CK.Mode] = settings[CK.Pools]?.DeepClone() ?? Js.Null(),
+                },
             };
         }
 

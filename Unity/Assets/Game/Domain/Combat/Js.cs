@@ -28,7 +28,7 @@ namespace Ashen.Domain.Combat
                     var d = D(t);
                     return d != 0 && !double.IsNaN(d);
                 case JTokenType.String:
-                    return t.Value<string>().Length > 0;
+                    return (t.Value<string>() ?? string.Empty).Length > 0;
                 default:
                     return true;
             }

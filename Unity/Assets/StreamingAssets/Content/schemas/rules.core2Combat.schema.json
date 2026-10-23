@@ -1,0 +1,681 @@
+{
+  "$id": "rules/core2Combat.json",
+  "type": "object",
+  "properties": {
+    "actionStances": {
+      "type": "object",
+      "properties": {
+        "byKind": {
+          "type": "object",
+          "properties": {
+            "attack": {
+              "type": "string"
+            },
+            "counter": {
+              "type": "string"
+            },
+            "evade": {
+              "type": "string"
+            },
+            "guard": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "attack",
+            "counter",
+            "evade",
+            "guard"
+          ]
+        },
+        "byTag": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stance": {
+                "type": "string",
+                "enum": [
+                  "attack",
+                  "block",
+                  "cast",
+                  "counter",
+                  "smash",
+                  "sweep"
+                ]
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "camp:spell",
+                    "maneuver:attack",
+                    "maneuver:casting",
+                    "maneuver:counter",
+                    "maneuver:defend",
+                    "maneuver:ranged",
+                    "maneuver:smash",
+                    "maneuver:sweep"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "stance",
+              "tags"
+            ]
+          }
+        }
+      },
+      "required": [
+        "byKind",
+        "byTag"
+      ]
+    },
+    "classification": {
+      "type": "object",
+      "properties": {
+        "cardKindClassifications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cardKindTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nonPreparingKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nonPreparingTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "cardKindClassifications",
+        "cardKindTypes",
+        "nonPreparingKinds",
+        "nonPreparingTypes"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "counter": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version"
+      ]
+    },
+    "counterCoverage": {
+      "type": "object",
+      "properties": {
+        "meleeManeuvers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meleeRanges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "physicalEffects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rangedRanges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "spellEffects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "spellRanges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "targeting": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meleeManeuvers",
+        "meleeRanges",
+        "physicalEffects",
+        "rangedRanges",
+        "spellEffects",
+        "spellRanges",
+        "targeting"
+      ]
+    },
+    "enemies": {
+      "type": "object",
+      "properties": {
+        "fillGuard": {
+          "type": "integer"
+        },
+        "hash": {
+          "type": "object",
+          "properties": {
+            "lcgIncrement": {
+              "type": "integer"
+            },
+            "lcgMultiplier": {
+              "type": "integer"
+            },
+            "multiplier": {
+              "type": "integer"
+            },
+            "seed": {
+              "type": "integer"
+            },
+            "shift": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "lcgIncrement",
+            "lcgMultiplier",
+            "multiplier",
+            "seed",
+            "shift"
+          ]
+        },
+        "modifierEquals": {
+          "type": "string"
+        },
+        "modifierPrefix": {
+          "type": "string"
+        },
+        "modifierSigns": {
+          "type": "string"
+        },
+        "poolMods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "varianceAmong": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "fillGuard",
+        "hash",
+        "modifierEquals",
+        "modifierPrefix",
+        "modifierSigns",
+        "poolMods",
+        "varianceAmong"
+      ]
+    },
+    "enemyPressure": {
+      "type": "object",
+      "properties": {
+        "bleed": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        },
+        "crimsonBlight": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        },
+        "frail": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        },
+        "frost": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        },
+        "insanity": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        },
+        "weak": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        }
+      },
+      "required": [
+        "bleed",
+        "crimsonBlight",
+        "frail",
+        "frost",
+        "insanity",
+        "weak"
+      ]
+    },
+    "formation": {
+      "type": "object",
+      "properties": {
+        "enemiesPerLane": {
+          "type": "integer"
+        },
+        "enemiesPerLaneExtra": {
+          "type": "integer"
+        },
+        "enemyBackColumn": {
+          "type": "integer"
+        },
+        "enemyFrontColumn": {
+          "type": "integer"
+        },
+        "extraColumn": {
+          "type": "integer"
+        },
+        "lanes": {
+          "type": "integer"
+        },
+        "maxRows": {
+          "type": "integer"
+        },
+        "playerColumn": {
+          "type": "integer"
+        },
+        "rows": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "enemiesPerLane",
+        "enemiesPerLaneExtra",
+        "enemyBackColumn",
+        "enemyFrontColumn",
+        "extraColumn",
+        "lanes",
+        "maxRows",
+        "playerColumn",
+        "rows"
+      ]
+    },
+    "hand": {
+      "type": "object",
+      "properties": {
+        "defaultAttribute": {
+          "type": "string"
+        },
+        "defaultBase": {
+          "type": "integer"
+        },
+        "rowIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "defaultAttribute",
+        "defaultBase",
+        "rowIds"
+      ]
+    },
+    "perception": {
+      "type": "object",
+      "properties": {
+        "die": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "die"
+      ]
+    },
+    "plan": {
+      "type": "object",
+      "properties": {
+        "breakPoiseBonus": {
+          "type": "integer"
+        },
+        "carrierFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "moveSpFallback": {
+          "type": "integer"
+        },
+        "pressureScale": {
+          "type": "integer"
+        },
+        "queueMax": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "breakPoiseBonus",
+        "carrierFields",
+        "moveSpFallback",
+        "pressureScale",
+        "queueMax"
+      ]
+    },
+    "range": {
+      "type": "object",
+      "properties": {
+        "hands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "hands"
+      ]
+    },
+    "ratingIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "resistance": {
+      "type": "object",
+      "properties": {
+        "poisePool": {
+          "type": "integer"
+        },
+        "wardPool": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "poisePool",
+        "wardPool"
+      ]
+    },
+    "vocabulary": {
+      "type": "object",
+      "properties": {
+        "camps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "counterModes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defensiveManeuvers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "legacyRanges": {
+          "type": "object",
+          "properties": {
+            "contact": {
+              "type": "string"
+            },
+            "far": {
+              "type": "string"
+            },
+            "near": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "contact",
+            "far",
+            "near"
+          ]
+        },
+        "maneuverAliases": {
+          "type": "object",
+          "properties": {
+            "cast": {
+              "type": "string"
+            },
+            "casting": {
+              "type": "string"
+            },
+            "ranged": {
+              "type": "string"
+            },
+            "spell": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "cast",
+            "casting",
+            "ranged",
+            "spell"
+          ]
+        },
+        "maneuvers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "attack",
+              "casting",
+              "counter",
+              "defend",
+              "ranged",
+              "smash",
+              "sweep"
+            ]
+          }
+        },
+        "martialStances": {
+          "type": "object",
+          "properties": {
+            "attack": {
+              "type": "string"
+            },
+            "counter": {
+              "type": "string"
+            },
+            "defend": {
+              "type": "string"
+            },
+            "smash": {
+              "type": "string"
+            },
+            "sweep": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "attack",
+            "counter",
+            "defend",
+            "smash",
+            "sweep"
+          ]
+        },
+        "mirroredTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "offensiveManeuvers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profileFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ranges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "schools": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "alteration",
+              "decay",
+              "divine",
+              "earth",
+              "fire",
+              "force",
+              "frost",
+              "illusion",
+              "lightning"
+            ]
+          }
+        },
+        "spellCamps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "targetings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "camps",
+        "counterModes",
+        "defensiveManeuvers",
+        "legacyRanges",
+        "maneuverAliases",
+        "maneuvers",
+        "martialStances",
+        "mirroredTypes",
+        "offensiveManeuvers",
+        "profileFields",
+        "ranges",
+        "schools",
+        "spellCamps",
+        "targetings"
+      ]
+    }
+  },
+  "required": [
+    "actionStances",
+    "classification",
+    "comment",
+    "counter",
+    "counterCoverage",
+    "enemies",
+    "enemyPressure",
+    "formation",
+    "hand",
+    "perception",
+    "plan",
+    "range",
+    "ratingIds",
+    "resistance",
+    "vocabulary"
+  ]
+}

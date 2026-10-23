@@ -42,6 +42,10 @@ namespace Ashen.Domain.Combat
         public double? OrdinalThisCombat;
         public double? AttackOrdinal;
         public string MoveId;
+        public bool Preparing;
+        public bool StanceEntry;
+        public bool CombatCounterReaction;
+        public bool CombatCounterInterrupted;
         public double? AmountMult;
         public JObject Event;
 
@@ -110,6 +114,22 @@ namespace Ashen.Domain.Combat
         public JObject SkillXp = new JObject();
         public JArray CoreTags = new JArray();
 
+        /// <summary>
+        /// The Core 2 data this fight reads (WP-4, docs/design/11); null for a 405 fight, which no Core 2 branch touches.
+        /// </summary>
+        public CoreCombatData CoreData;
+
+        /// <summary>
+        /// The plain combat-level fields a Core 2 fight carries, by the web's own names (combatKey, the rule snapshots, rangeState,
+        /// enemyKnowledge, formationPolicy, ...). A 405 fight leaves it empty.
+        /// </summary>
+        public JObject Fields = new JObject();
+
+        /// <summary>Whether the bus pays the skill tracks (a 405 fight always does; a Core 2 fight until the first XP-bearing event is ported).</summary>
+        public bool RecordSkillXp = true;
+
+        public bool IsCore => CoreData != null;
+
         /// <summary>The run-level door's heal scale (engine/actions.js createRunContext healMult: a rest's custom mod × restHealMult); a fight never sets it and reads 1.</summary>
         public double HealMult = 1;
 
@@ -126,7 +146,7 @@ namespace Ashen.Domain.Combat
         public JObject Emit(string type, JObject payload = null)
         {
             var ev = Triggers.EmitEvent(this, type, payload);
-            Ashen.Domain.Combat.SkillXp.Record(this, ev);
+            if (RecordSkillXp) Ashen.Domain.Combat.SkillXp.Record(this, ev);
             return ev;
         }
 
