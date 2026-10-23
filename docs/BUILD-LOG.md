@@ -2,6 +2,23 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-18: the deck editor and its rules in C# with oracle parity (dev, 2026-10-23)
+
+**Landed**
+- **Oracle first (`Tools/oracle-core2-deck.mjs`, D-194):** the web's `model/deckRules.js` at `b8cfe4fac` on WP-3 style runs, under `Tests/Oracle/core2/deck/` (3.4 MB, byte-identical on rerun): 12 settings variants x refusals for deck sizes 0..45, 4 class probes (every one of 529 registry cards: equipment eligibility with range on and off, copy limit, basic classification, the class-string limit), 24 bot sessions (4 classes x 6 seeds x 90 steps: moves in both directions incl. 1,000+ refused or accepted answers, rewards into either pile, begin/cancel, 423 commits of valid and corrupt drafts, settings and range-policy switches) and 16 draw-pile cases (`orderedDrawPile`, `orderedReturn`).
+- **`DeckRules`** (`Domain/Run`, D-190..D-193): bounds, settings problems and refusals, the doors, basics (`BasicCardIds`, `UnlimitedCardIds`, `IsBasicCard`, `IsUnlimitedBasic`, `IsSetAsideBasic`), the configured copy limit (`ConfiguredCopyLimit`, with the pool/gear resolution of `resolveCharacterDeck`) and the class-string limit, the equipment gate (`CardEquipmentEligible`), `MoveToSideboard` / `MoveFromSideboard` (restamp = `ReconcilePools` + `ReconcileGearGrants`), `UnusedInstanceId`, `BeginEdit` / `CancelEdit` / `CommitDraft`, `OrderedDrawPile` / `OrderedReturn`. `CoreDeckData` (+ `Core2Registries.ToCoreDeckData`) hands it `rules/core2Deck.json` and the card-domain tag ids. `CoreRunRules.GearGrantInstances` is public.
+- **Data:** hand-written `rules/core2Deck.json` (+ schema), codegen fragment `core2-deck.json` (`Core2DeckKeys`, `Core2DeckValues`, `Core2DeckMessages`), `transform-content` HAND_WRITTEN row.
+
+**Parity mismatches found:** none in the port. Two test-side points: the web's commit compares an owned card with its draft by `JSON.stringify`, so key order is part of the case (the oracle stores the draft as text and a reward is built `{ instanceId, cardId, upgraded }` in the test); and the oracle refs use the last `:` because granted instance ids contain colons. The 405 `Armoury` is untouched (the 405 has no deck editor).
+
+**Tests:** dotnet Domain.Tests (`Category!=Bot`) 3350/3350, 59 of them `Core2DeckParityTests`: oracle present, settings (12), per-class probes (4), editing sessions (24, every step: answer, editor state, limits, sideboard eligibility, refusal, and the run document at the end), draw pile (16), cancel restores the exact run, refused moves change nothing. `transform-content --check`, `codegen --check`, `refresh-manifest --check`, `check-content`, `check-docs`, `web-key-map --check` green. EnforcementTests green.
+
+**Not verified / deferred**
+- Unity (no editor): everything is in `Ashen.Domain`, `Ashen.Content` and `Ashen.Generated`, compiled under dotnet only.
+- Not ported: `addBasicCard` and the 405 slot-true basics (a Core 2 run has none; D-193), the Settings/lobby/DeckEditorModel UI, `deckEditorDoors`, `armouryRules.editingLocked` (the door gating outside combat is main.js/UI glue, WP-19/UI). The commit door's copy-limit refusal is unreachable under Core 2 (D-194).
+- Nothing consumes `DeckRules` yet: combat start (WP-4) calls `OrderedDrawPile` when `PlayInDeckOrder` is on; the run loop (WP-19) opens the editor.
+
+**Next:** WP-4 reads `DeckRules.PlayInDeckOrder` / `OrderedDrawPile` at combat start (no `shuffle` draw when on); WP-19 gates the editor with `EditingOn` / `EditingWhere`.
 ## Core 2 WP-3: run creation for the configured profile in C# with oracle parity (dev, 2026-10-23)
 
 **Landed**

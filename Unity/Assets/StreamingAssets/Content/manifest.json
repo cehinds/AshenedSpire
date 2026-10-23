@@ -1,5 +1,5 @@
 {
-  "contentHash": "8aeea88dbe371fe022ce768b47ac2dcd107e4910f82d8ceb3830855b5afa798e",
+  "contentHash": "02fc1e272ced0dad679c082589b7ade10b4cc8c8519f2c0b4174a210820d1024",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -793,6 +793,11 @@
       "bytes": 9966,
       "generated": true,
       "sha256": "e8a2d8799e70ded4d80ade5db2ad57c35a82ff3f2d9e1b8190f17fa42efd3873"
+    },
+    "rules/core2Deck.json": {
+      "bytes": 1771,
+      "generated": false,
+      "sha256": "51f1a68f4eb6b9b5f6664e7196b6fc2ef2caa09c57071df58e51d3c76a642887"
     },
     "rules/core2Mechanics.json": {
       "bytes": 457434,
@@ -1643,6 +1648,11 @@
       "bytes": 25375,
       "generated": false,
       "sha256": "318fd79e4a732497a6f564b7c26257e1e993125535ee89b2e8e464a344550b49"
+    },
+    "schemas/rules.core2Deck.schema.json": {
+      "bytes": 2142,
+      "generated": false,
+      "sha256": "315179ed62fd57a665e25441b4ae0b6f87cf851726f7a5d88e92d732381ea863"
     },
     "schemas/rules.core2Mechanics.schema.json": {
       "bytes": 1611,
