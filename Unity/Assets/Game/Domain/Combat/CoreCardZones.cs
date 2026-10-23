@@ -49,9 +49,8 @@ namespace Ashen.Domain.Combat
         /// <summary>The instances a reaction stack has committed for this seat; they wait to resolve and are not offered as card fodder.</summary>
         private static HashSet<string> Stacked(CombatState c)
         {
-            var entries = c.Fields.Obj(DK.ReactionStack)?.Arr(CK.Entries);
-            if (entries != null && entries.Count > 0) throw new NotSupportedException(Ashen.Generated.Core2DamageMessages.ReactionsNotPorted);
-            return new HashSet<string>(StringComparer.Ordinal);
+            var entries = c.Fields.Obj(DK.ReactionStack)?.Arr(CK.Entries) ?? new JArray();
+            return new HashSet<string>(entries.OfType<JObject>().Where(entry => entry.Str(Ashen.Generated.Core2ReactionKeys.Side) == V.Player).Select(entry => entry.Obj(Ashen.Generated.Core2ReactionKeys.Play)?.Str(Ashen.Generated.Core2ReactionKeys.CardInstanceId)), StringComparer.Ordinal);
         }
 
         /// <summary>zoneCandidates(ctx, effect): the cards of the source zone the effect may look at, the first <c>look</c> of them.</summary>

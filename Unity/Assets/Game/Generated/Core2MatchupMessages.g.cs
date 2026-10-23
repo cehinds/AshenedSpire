@@ -6,7 +6,6 @@ namespace Ashen.Generated
     {
         public const string AllocationNeedsWeight = "allocation requires positive total weight";
         public const string LegacyCounterNotPorted = "Core 2 combat: the legacy Counter return is not part of a Core 2 run";
-        public const string PaidCounterNotPorted = "Core 2 combat: a Counter reply paid by the player is ported with WP-10";
         public const string WardNotPorted = "Core 2 combat: Ward is off in a Core 2 run";
     }
 }

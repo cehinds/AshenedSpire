@@ -15,6 +15,9 @@ using MM = Ashen.Generated.Core2MatchupMessages;
 using MN = Ashen.Generated.Core2MatchupNumbers;
 using MV = Ashen.Generated.Core2MatchupValues;
 using Op = Ashen.Generated.CombatOps;
+using RK = Ashen.Generated.Core2ReactionKeys;
+using RM = Ashen.Generated.Core2ReactionMessages;
+using RV = Ashen.Generated.Core2ReactionValues;
 using V = Ashen.Generated.CombatValues;
 
 namespace Ashen.Domain.Combat
@@ -247,7 +250,7 @@ namespace Ashen.Domain.Combat
         // ------------------------------------------------------------------ the reach of the reply
 
         /// <summary>quoteCounterReturn(ctx, source, target, carrier, options): the range quote of a reply, priced as the Counter's own damage, Poise and (for a physical Counter that carries Ward) Ward.</summary>
-        private static JObject QuoteReturn(CombatState c, JObject source, JObject target, JObject carrier, JObject context, bool preview)
+        public static JObject QuoteReturn(CombatState c, JObject source, JObject target, JObject carrier, JObject context, bool preview, string route = null)
         {
             var card = Js.Spread(carrier);
             card[DK.CounterReturnAttack] = true;
@@ -260,14 +263,15 @@ namespace Ashen.Domain.Combat
             {
                 Source = source, Owner = source, Target = target, Card = card, Effect = new JObject { [K.Op] = op, [CK.Amount] = 1 }, Meta = ActionMeta.Empty(),
             }).ToList();
-            return CoreRange.Quote(c, source, actions, DV.RouteAdvance, preview, context);
+            return CoreRange.Quote(c, source, actions, route ?? DV.RouteAdvance, preview, context);
         }
 
         /// <summary>authorizedReturnCarrier(carrier, authorization): the Counter's carrier with the quote that prices its reply and the source it is dealt with, frozen.</summary>
-        private static JObject AuthorizedCarrier(CombatState c, JObject carrier, JObject plan)
+        private static JObject AuthorizedCarrier(CombatState c, JObject carrier, JObject authorization)
         {
+            var plan = authorization.Obj(MK.RangeReturnPlan);
             var next = Js.Spread(carrier);
-            next[DK.RangeReturnAuthorization] = new JObject { [MK.RangeReturnPlan] = plan, [MK.Lineage] = Js.Null() };
+            next[DK.RangeReturnAuthorization] = authorization;
             foreach (var key in new[] { DK.RangePlan, MK.RangeLineagePlan, MK.RangeLineage, DK.RangeCounterReservation }) next.Remove(key);
             var frozen = plan.Arr(DK.Targets)?.FirstOrDefault() as JObject;
             if (frozen != null)
@@ -293,12 +297,22 @@ namespace Ashen.Domain.Combat
         public static JObject AuthorizeRange(CombatState c, JObject defender, JObject attacker, JObject counterCarrier, JObject incomingCarrier)
         {
             if (c.Fields.Obj(CK.RangeState) == null) return counterCarrier;
-            if (counterCarrier.Is(DK.RangeCounterReservation)) throw new NotSupportedException(MM.PaidCounterNotPorted);
             var incomingPlan = incomingCarrier?.Obj(DK.RangePlan);
             var rows = (incomingPlan?.Arr(DK.Targets) ?? new JArray()).OfType<JObject>().ToList();
             var contact = rows.FirstOrDefault(row => Js.Truthy(incomingCarrier[DK.RangeContactId]) && row.Str(DK.ContactId) == incomingCarrier.Str(DK.RangeContactId))
                 ?? rows.FirstOrDefault(row => row.Str(DK.TargetKey) == CoreRange.ActorKey(c, defender));
             var context = contact != null ? new JObject { [DK.SourceKey] = incomingPlan[DK.SourceKey].DeepClone(), [DK.Targets] = new JArray(contact.DeepClone()) } : null;
+            // A reply the player paid for when it played the Counter as a reaction was priced then: it is accepted as quoted, once, for the hit it answered.
+            var reservation = counterCarrier.Obj(DK.RangeCounterReservation);
+            if (reservation != null && !reservation.Is(RK.Consumed) && reservation.Str(RK.IncomingRootId) == incomingPlan?.Str(DK.RootId) && reservation.Str(RK.ContactId) == contact?.Str(DK.ContactId)
+                && reservation.Str(DK.SourceKey) == CoreRange.ActorKey(c, defender) && reservation.Str(DK.TargetKey) == CoreRange.ActorKey(c, attacker))
+            {
+                var accepted = (JObject)reservation.Obj(RK.RangePlan).DeepClone();
+                counterCarrier.Remove(DK.RangeCounterReservation);
+                var authorization = new JObject { [MK.RangeReturnPlan] = accepted, [DK.Paid] = accepted[DK.Paid]?.DeepClone() };
+                if (reservation.Has(MK.RangeLineagePlan)) authorization[MK.Lineage] = reservation[MK.RangeLineagePlan].DeepClone();
+                return AuthorizedCarrier(c, counterCarrier, authorization);
+            }
             var plan = QuoteReturn(c, defender, attacker, counterCarrier, context, true);
             var available = defender.Str(K.Kind) == V.Enemy
                 ? (!Js.Nullish(defender[CK.FixCoreStaminaRemaining]) ? defender.Num(CK.FixCoreStaminaRemaining) : !Js.Nullish(defender[K.Stamina]) ? defender.Num(K.Stamina) : !Js.Nullish(defender[K.MaxStamina]) ? defender.Num(K.MaxStamina) : 0)
@@ -313,7 +327,45 @@ namespace Ashen.Domain.Combat
                 return null;
             }
             plan = QuoteReturn(c, defender, attacker, counterCarrier, context, false);
-            return AuthorizedCarrier(c, counterCarrier, plan);
+            return AuthorizedCarrier(c, counterCarrier, new JObject { [MK.RangeReturnPlan] = plan, [MK.Lineage] = Js.Null() });
+        }
+
+        /// <summary>
+        /// paidCounterRange(ctx, source, carrier, baseCosts, route): a Counter played as a reaction pays for its reply's reach when it is played. The
+        /// reply is quoted against the incoming attacker (from the incoming hit's own distance), the Counter's price grows by the Stamina to advance and
+        /// the quote is reserved on the Counter for that one hit. Null when the card is not a Counter played against an incoming attack.
+        /// </summary>
+        public static JObject PaidRange(CombatState c, JObject source, JObject carrier, JObject baseCosts, string route)
+        {
+            if (c.Fields.Obj(CK.RangeState) == null || c.RangeIncoming == null || !c.ReactionPlaying || carrier.Obj(CK.CombatProfile)?.Str(CK.Maneuver) != CV.StanceCounter) return null;
+            var incoming = c.RangeIncoming;
+            var target = c.Enemies.Concat(new[] { c.Player }).FirstOrDefault(entity => CoreRange.ActorKey(c, entity) == incoming.Str(DK.SourceKey));
+            if (target == null) throw new PlayRefusalException(RM.IncomingAttackerUnavailable, RV.ReasonRange);
+            var plan = QuoteReturn(c, source, target, carrier, c.RangeContext, false, route);
+            if (!plan.Is(DK.Available)) throw new PlayRefusalException(RM.CounterReturnUnreachable, RV.ReasonRange);
+            var costs = CoreRange.AddCosts(baseCosts, plan);
+            var rootId = string.Join(DV.KeySeparator, incoming.Str(DK.RootId), RV.SegmentReturn, incoming.Str(RK.ContactId), Js.Truthy(carrier[K.InstanceId]) ? carrier.Str(K.InstanceId) : carrier.Str(K.CardId));
+            var reserved = Js.Spread(plan);
+            reserved[DK.RootId] = rootId;
+            reserved[DK.Paid] = costs;
+            var reservation = new JObject
+            {
+                [RK.Version] = 1, [DK.SourceKey] = plan[DK.SourceKey].DeepClone(), [DK.TargetKey] = incoming[DK.SourceKey].DeepClone(), [RK.IncomingRootId] = incoming[DK.RootId].DeepClone(),
+                [RK.ContactId] = incoming[RK.ContactId].DeepClone(), [RK.RangePlan] = reserved, [RK.Consumed] = false,
+            };
+            return new JObject { [RK.Costs] = costs, [RK.Reservation] = reservation };
+        }
+
+        /// <summary>discardCounterRangeReservation(group, target, row): the hit a reserved reply was priced for has settled; what was not used is not kept.</summary>
+        public static void DiscardReservation(ExpansionGroup group, JObject target, TargetRow row)
+        {
+            var rootId = group.Carrier?.Obj(DK.RangePlan)?.Str(DK.RootId);
+            var contactIds = new HashSet<string>(row.Contacts.Select(contact => contact.Str(DK.RangeContactId)), StringComparer.Ordinal);
+            foreach (var carrier in new[] { target?.Obj(CK.CombatCounter)?.Obj(CK.Carrier), row.Receipt?.Obj(CK.Counter)?.Obj(CK.Carrier) })
+            {
+                var reservation = carrier?.Obj(DK.RangeCounterReservation);
+                if (reservation != null && reservation.Str(RK.IncomingRootId) == rootId && contactIds.Contains(reservation.Str(RK.ContactId))) carrier.Remove(DK.RangeCounterReservation);
+            }
         }
 
         // ------------------------------------------------------------------ arming from a card

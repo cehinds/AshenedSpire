@@ -11,6 +11,8 @@ using CM = Ashen.Generated.Core2CombatMessages;
 using CV = Ashen.Generated.Core2CombatValues;
 using K = Ashen.Generated.CombatKeys;
 using V = Ashen.Generated.CombatValues;
+using RK = Ashen.Generated.Core2ReactionKeys;
+using RV = Ashen.Generated.Core2ReactionValues;
 using SK = Ashen.Generated.Core2StatusKeys;
 using SM = Ashen.Generated.Core2StatusMessages;
 
@@ -382,18 +384,43 @@ namespace Ashen.Domain.Combat
         // ------------------------------------------------------------------ the gates
 
         /// <summary>The first reason the cost gates of doPlayCard refuse a card: the status that restricts it, an unplayable card, too little Stamina or Mana. Null when none does.</summary>
-        public static string PlayRefusal(CombatState c, string instanceId)
+        public static string PlayRefusal(CombatState c, string instanceId) => PlayRefusalFor(c, instanceId)?.Message;
+
+        /// <summary>
+        /// The refusal of the cost gates as the web raises it (F.playRefusal): its message, the reason a reaction offer reports (controlled, unplayable, cost)
+        /// and, for a price, the resource and what it needed and had. Null when the card can be played.
+        /// </summary>
+        public static PlayRefusalException PlayRefusalFor(CombatState c, string instanceId)
         {
-            if (c.Phase != V.PhasePlayer) return CCM.PlayerTurnOnly;
+            if (c.Phase != V.PhasePlayer && !c.ReactionPlaying) return new PlayRefusalException(CCM.PlayerTurnOnly, null);
             var instance = Instance(c, instanceId, false);
             var def = Resolve(c, instance);
             var plan = ProposalCardPlan(c, c.Player, def);
-            if (!plan.Is(CC.Allowed)) return plan.Str(CC.Refusal);
-            if (!CoreStatusControl.Gate(c, c.Player, def).Is(Ashen.Generated.Core2DamageKeys.Allowed)) return SM.RecoverFirst;
-            if (Js.Includes(def[K.Keywords], CCV.KeywordUnplayable)) return string.Format(CultureInfo.InvariantCulture, CCM.Unplayable, def.Str(K.Name));
+            if (!plan.Is(CC.Allowed)) return new PlayRefusalException(plan.Str(CC.Refusal), RV.ReasonControlled);
+            if (!CoreStatusControl.Gate(c, c.Player, def).Is(Ashen.Generated.Core2DamageKeys.Allowed)) return new PlayRefusalException(SM.RecoverFirst, RV.ReasonControlled);
+            if (Js.Includes(def[K.Keywords], CCV.KeywordUnplayable)) return new PlayRefusalException(string.Format(CultureInfo.InvariantCulture, CCM.Unplayable, def.Str(K.Name)), RV.ReasonUnplayable);
             var paid = PreparedPlayCosts(c, def);
-            if (c.Player.Num(K.Stamina) < paid.Num(K.Energy) || c.Player.Num(K.Mana) < paid.Num(K.Mana)) return CCM.NotEnough;
+            if (c.Player.Num(K.Stamina) < paid.Num(K.Energy)) return new PlayRefusalException(CCM.NotEnough, RV.ReasonCost, ShortOf(RV.ResourceStamina, paid.Num(K.Energy), c.Player.Num(K.Stamina)));
+            if (c.Player.Num(K.Mana) < paid.Num(K.Mana)) return new PlayRefusalException(CCM.NotEnough, RV.ReasonCost, ShortOf(RV.ResourceMana, paid.Num(K.Mana), c.Player.Num(K.Mana)));
             return null;
         }
+
+        /// <summary>What a price refusal reports: the resource, what the card needed and what the player had.</summary>
+        public static JObject ShortOf(string resource, double need, double have) =>
+            new JObject { [RK.Resource] = resource, [RK.Need] = Js.N(need), [RK.Have] = Js.N(have) };
+    }
+
+    /// <summary>web F.playRefusal: a play the rules refuse, with the reason a reaction offer names it by (controlled, unplayable, cost, range) and what it adds (the resource and the amounts).</summary>
+    public sealed class PlayRefusalException : InvalidOperationException
+    {
+        public PlayRefusalException(string message, string reason, JObject extra = null) : base(message)
+        {
+            Reason = reason;
+            Extra = extra;
+        }
+
+        public string Reason { get; }
+
+        public JObject Extra { get; }
     }
 }

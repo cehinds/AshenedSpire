@@ -64,25 +64,18 @@ namespace Ashen.Tests
                 var mark = c.EventLog.Count;
                 switch (intent.Value<string>("type"))
                 {
-                    case "setReactions":
-                        c.Player["reactionsEnabled"] = intent.Value<bool>("enabled");
-                        break;
                     case "endTurn":
                         foreach (var id in (step["staggered"] as JArray ?? new JArray()).Select(t => t.Value<string>()))
                             c.Enemies.First(e => e.Value<string>("id") == id)["skipNextTurn"] = true;
-                        CoreTurns.EndTurn(c, intent["discardIds"].Select(t => t.Value<string>()).ToList());
+                        CoreDispatch.Dispatch(c, intent);
                         break;
+                    case "setReactions":
                     case "playCard":
-                        CoreCardPlay.Play(c, intent.Value<string>("cardInstanceId"), intent["targetId"]?.Value<string>(), intent["choice"]);
-                        break;
+                    case "chooseReaction":
                     case "chooseCards":
-                        CoreCardPlay.ChooseCards(c, intent["cardInstanceIds"].Select(t => t.Value<string>()).ToList());
-                        break;
                     case "chooseDiscard":
-                        CoreCardPlay.ChooseDiscard(c, intent["cardInstanceIds"].Select(t => t.Value<string>()).ToList());
-                        break;
                     case "recoverControl":
-                        CoreCardPlay.RecoverControl(c, (JArray)intent["selections"]);
+                        CoreDispatch.Dispatch(c, intent);
                         break;
                     case "applyStatus":
                         CoreStatuses.Apply(c, Core2StatusParityTests.Entity(c, intent.Value<string>("who")), intent.Value<string>("status"), intent.Value<double>("stacks"), Core2StatusParityTests.Entity(c, intent.Value<string>("from")));

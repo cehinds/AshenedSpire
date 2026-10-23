@@ -5,7 +5,7 @@ namespace Ashen.Generated
     public static class Core2CostMessages
     {
         public const string CardOutsideProfile = "Core 2 combat: card {0} is not a card of the profile (registry cards are not part of a Core 2 run)";
-        public const string CombatRoundsNotPorted = "Core 2 combat: Combat Rounds queues are ported with WP-10";
+        public const string CombatRoundsNotPorted = "Core 2 combat: Combat Rounds are not part of a Core 2 run (a configured fight forces them off, WP-21)";
         public const string DisabledResource = "Card {0} requires an authored disabled-resource variant";
         public const string NotEnough = "Not enough Stamina or Mana";
         public const string NotInHand = "Card '{0}' is not in hand";

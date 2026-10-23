@@ -357,6 +357,12 @@ function mounts(combat) {
 export function projectFull(combat) {
   const out = {};
   for (const [key, value] of Object.entries(combat)) if (!SKIPPED.has(key) && typeof value !== 'function') out[key] = value;
+  // The offer without the previews the UI reads (the intent preview, an option's range quote); the queue a reaction card interrupted as its length.
+  if (out.pendingReaction) {
+    const { intentPreview, ...offer } = out.pendingReaction;
+    out.pendingReaction = { ...offer, options: offer.options.map(({ range, ...option }) => option) };
+  }
+  if (out.reactionResume) out.reactionResume = { queue: out.reactionResume.queue.length, foundation: out.reactionResume.foundation ?? null };
   const knowledge = combat.enemyKnowledge ? { ...combat.enemyKnowledge } : null;
   if (knowledge) delete knowledge.rules;
   return canon({
@@ -393,3 +399,105 @@ export function delta(prev, next) {
   return JSON.stringify(prev) === JSON.stringify(next) ? undefined : { $: next };
 }
 
+
+// ---------------------------------------------------------------------------------------------------------------
+// Reactions (WP-10). The player's reaction offers are answered by the fight oracles' bots, and every offer must stay inside what the port covers.
+// ---------------------------------------------------------------------------------------------------------------
+export const REACTION_EVENTS = ['combatReactionOffered', 'combatReactionChosen', 'combatReactionStacked', 'combatReactionUnavailable', 'combatReactionFizzled'];
+
+/**
+ * The bot's answers to the offers the enemies' hits open: half the time it plays the first option of the offer, half the time it goes Back, from its
+ * own LCG (never the engine's). Cloneable, so a dry run answers exactly as the real run will.
+ */
+export function answerer(seed) {
+  let s = (seed >>> 0) || 1;
+  const draw = () => { s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return (s >>> 8) % 2; };
+  return {
+    clone: () => answerer(s),
+    /** The chooseReaction intent for the offer the fight is paused on. */
+    next(combat) {
+      const pending = combat.pendingReaction;
+      const play = draw() === 0 && pending.options.length > 0;
+      return { type: 'chooseReaction', offerId: pending.id, optionId: play ? pending.options[0].id : null };
+    },
+  };
+}
+
+let reactionModules = null;
+/** The web modules the offer filter reads (loaded once). */
+async function reactionTools(w) {
+  if (reactionModules) return reactionModules;
+  const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
+  const [expansion, triggers, lineage] = await Promise.all([load('src/engine/combatExpansion.js'), load('src/engine/triggers.js'), load('src/engine/combatRangeLineage.js')]);
+  reactionModules = { expansion, triggers, lineage };
+  return reactionModules;
+}
+
+let filter = null;
+/**
+ * Loads the offer filter (once): why an offer the fight is paused on is outside what the port covers. The port plays every reaction card of the hand
+ * on a copy of the fight to build the offer; it refuses a card that listens for being prepared (WP-9 leaves it) and a card whose play needs a range
+ * lineage (WP-12: an owned hook that strikes, listening for an event the card or its Counter's reply can cause).
+ */
+export async function reactionFilter(w) {
+  if (filter) return filter;
+  const { expansion, triggers, lineage } = await reactionTools(w);
+  const tagsOf = (def) => (def.cardTags || def.tags || []).map((t) => (typeof t === 'string' ? t : t.id));
+  function needsLineage(combat, card) {
+    const def = expansion.resolveCombatCard(combat, card);
+    const tags = tagsOf(def);
+    const counter = tags.includes('maneuver:counter');
+    const carrier = { instanceId: card.instanceId, cardId: card.cardId, tags, authoredTags: tags };
+    const enemy = combat.enemies.find((e) => e.alive) || combat.player;
+    const row = (effect, target, held) => ({ source: combat.player, owner: combat.player, target, card: held, effect, meta: {} });
+    const own = (def.effects || []).filter((e) => !(counter && ['damage', 'poiseDamage'].includes(e.op))).map((e) => row(e, ['enemy', 'allEnemies'].includes(e.target) ? enemy : combat.player, carrier));
+    const reply = counter ? ['damage', 'poiseDamage'].map((op) => row({ op, amount: 1, target: 'enemy' }, enemy, { ...carrier, counterReturnAttack: true })) : [];
+    try {
+      return [own, reply].some((actions) => actions.length && lineage.extendRangeEnvelope(combat, combat.player, actions, [], { preview: true, carrier: actions[0].card }));
+    } catch { return true; }
+  }
+  filter = {
+    needsLineage,
+    offerOutside(combat) {
+      for (const card of combat.piles.hand) {
+        const def = expansion.resolveCombatCard(combat, card);
+        const tags = tagsOf(def);
+        if (!tags.includes('trait:reaction')) continue;
+        if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return 'cardPreparing listener at an offer';
+        if (needsLineage(combat, card)) return 'range lineage at an offer';
+      }
+      return null;
+    },
+    /** The reaction-related reasons the events of a step are outside the filter, else null (a Counter's reply that pays to advance, WP-12). */
+    eventsOutside(types) {
+      return types.some((t, i) => (t === 'energySpent' || t === 'staminaSpent') && types.slice(0, i).reverse().find((x) => ['cardPreparing', 'combatCounterTriggered', 'enemyMoveStarted'].includes(x)) === 'combatCounterTriggered')
+        ? 'a reply pays to advance' : null;
+    },
+  };
+  return filter;
+}
+
+/**
+ * Dispatches the intent on a detached copy and answers every offer it opens with a copy of the bot's answers. Returns { copy, error, why }: `why` names
+ * the first thing outside the filter (an offer the port cannot build, an enemy reaction that draws on its stream, a reply that pays to advance).
+ */
+export function dispatchAnswering(w, combat, intent, answers) {
+  if (!filter) throw new Error('oracle-core2: await reactionFilter(w) before dispatchAnswering');
+  const copy = detach(w, combat);
+  const mark = copy.eventLog.length;
+  const draws = combat.rng.getCounters().enemyReaction || 0;
+  const mine = answers.clone();
+  try {
+    w.combat.dispatch(copy, structuredClone(intent));
+    for (let n = 0; copy.pendingReaction; n++) {
+      if (n > 60) return { copy, mark, why: 'too many offers' };
+      const outside = filter.offerOutside(copy);
+      if (outside) return { copy, mark, why: outside };
+      w.combat.dispatch(copy, mine.next(copy));
+    }
+  } catch (e) { return { copy, mark, error: e.message }; }
+  const advance = filter.eventsOutside(copy.eventLog.slice(mark).map((e) => e.type));
+  if (advance) return { copy, mark, why: advance };
+  if ((copy.rng.getCounters().enemyReaction || 0) !== draws) return { copy, mark, why: 'enemy reaction draw' };
+  return { copy, mark };
+}

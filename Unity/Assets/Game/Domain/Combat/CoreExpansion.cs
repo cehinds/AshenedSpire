@@ -61,8 +61,8 @@ namespace Ashen.Domain.Combat
         /// </summary>
         public static ExpansionGroup Enqueue(CombatState c, List<CombatAction> actions, JObject source, JObject target, JObject carrier, ActionMeta completionMeta = null)
         {
-            // A Counter's reply is the one reaction a Core 2 fight plays before the reaction package (WP-10): it is marked a reaction and a reply.
-            if (carrier.Is(DK.CombatReaction) && !carrier.Is(DK.CounterReturnAttack)) throw new NotSupportedException(DM.ReactionsNotPorted);
+            // A Counter's reply is the one reaction carrier a fight queues itself; the carrier of an enemy's reaction move is the enemy package's (WP-11).
+            if (carrier.Is(DK.CombatReaction) && !carrier.Is(DK.CounterReturnAttack)) throw new NotSupportedException(DM.EnemyReactionsNotPorted);
             if (carrier.Is(DK.ComboHook)) throw new NotSupportedException(DM.ComboNotPorted);
             var serial = Js.Or0(c.Fields[DK.ExpansionActionSerial]) + 1;
             c.Fields[DK.ExpansionActionSerial] = Js.N(serial);
@@ -157,6 +157,8 @@ namespace Ashen.Domain.Combat
             var completion = (completionMeta ?? ActionMeta.Empty()).Clone();
             completion.Group = group;
             c.Enqueue(new CombatAction { Effect = Js.Obj(K.Op, DV.OpCompleteCombatAction), Source = source, Owner = source, Target = target, Card = carrier, Meta = completion });
+            // A reaction offer check reads the planned contacts of the card it tries (enemy reactions).
+            c.GroupSink?.Add(group);
             return group;
         }
 
@@ -255,6 +257,8 @@ namespace Ashen.Domain.Combat
             group.PayloadStarted = false;
             group.ReactionAnswered = null;
             group.ReactionNoticed = null;
+            group.ManualCounterSerials = null;
+            group.EnemyWindows = null;
             group.ContactTelegraphed = false;
         }
 
@@ -275,6 +279,7 @@ namespace Ashen.Domain.Combat
                 carrier[CK.CombatProfile] = Js.Spread(group.Carrier.Obj(CK.CombatProfile), profile);
                 if (Js.Truthy(profile[DK.RangeContactId])) carrier[DK.RangeContactId] = profile[DK.RangeContactId].DeepClone();
                 carrier[DK.AdditionalTargets] = Math.Max(0, group.Targets.Count - 1);
+                SetManualSerial(group, carrier, row);
                 row.Receipt = CoreTactical.Begin(c, source, target, carrier, row.Contacts);
                 row.Interactions = Js.Spread(profile);
                 row.Interactions[DK.ContainsFire] = row.Contacts.Any(contact => contact.Num(CK.Amount) > 0 && (contact.Str(CK.School) == DV.SchoolFire || contact.Str(CK.DamageType) == DV.SchoolFire));
@@ -282,6 +287,12 @@ namespace Ashen.Domain.Combat
                 row.Interactions[DK.ContainsReveal] = row.Contacts.Any(contact => contact.Num(CK.Amount) > 0 && (contact.Str(CK.Maneuver) == CV.StanceSweep || CoreSets.RevealTypes.Contains(contact.Str(CK.DamageType))));
                 CoreControl.BeforeStatusAction(c, target, row.Interactions, row.Receipt.Is(DK.Connected));
             }
+        }
+
+        /// <summary>The Counter serial a seat paid a reaction for on this root rides the carrier its hits are met with (web group.manualCounterSerials).</summary>
+        public static void SetManualSerial(ExpansionGroup group, JObject carrier, TargetRow row)
+        {
+            if (group.ManualCounterSerials != null && group.ManualCounterSerials.TryGetValue(V.Player, out var serial) && serial > 0) carrier[Ashen.Generated.Core2MatchupKeys.ManualCounterSerial] = Js.N(serial);
         }
 
         private static TargetRow RootRow(ExpansionGroup group, string key) => group.ContactSequence.RootTargets[key];
@@ -295,10 +306,12 @@ namespace Ashen.Domain.Combat
                 var row = pair.Value;
                 var target = EntityOf(c, row.Id);
                 var receipt = row.Receipt;
-                if (target == null || receipt == null || !Present(target)) continue;
+                if (target == null || receipt == null || !Present(target)) { CoreCounterReturn.DiscardReservation(group, target, row); continue; }
                 var incoming = Js.Spread(group.Carrier);
                 if (Js.Truthy(row.Contacts.FirstOrDefault()?[DK.RangeContactId])) incoming[DK.RangeContactId] = row.Contacts[0][DK.RangeContactId].DeepClone();
+                SetManualSerial(group, incoming, row);
                 CoreTactical.Complete(c, action.Source, target, incoming, receipt);
+                CoreCounterReturn.DiscardReservation(group, target, row);
                 var root = RootRow(group, key);
                 root.Receipt ??= new JObject { [DK.Connected] = false, [DK.StatusAccepted] = 0, [CK.Amount] = 0 };
                 root.Receipt[DK.Connected] = root.Receipt.Is(DK.Connected) || receipt.Is(DK.Connected);
@@ -357,9 +370,15 @@ namespace Ashen.Domain.Combat
                 if (target == null || receipt == null) continue;
                 // A Smash that killed the target still broke its Guard; a dead target takes no bonus Poise.
                 if (!target.Is(K.Alive)) { CoreMatchups.CompleteGuardBreak(c, action.Source, target, group.Carrier, receipt); continue; }
-                if (group.ContactSequence == null) CoreTactical.Complete(c, action.Source, target, Js.Spread(group.Carrier), receipt);
+                if (group.ContactSequence == null)
+                {
+                    var settled = Js.Spread(group.Carrier);
+                    SetManualSerial(group, settled, row);
+                    CoreTactical.Complete(c, action.Source, target, settled, receipt);
+                }
                 CoreControl.CompleteStatusAction(c, target, row.Interactions ?? receipt.Obj(DK.Profile) ?? new JObject(), receipt.Is(DK.Connected), group.Key, receipt.Num(CK.Amount) > 0);
             }
+            foreach (var pair in group.Targets.Entries()) CoreCounterReturn.DiscardReservation(group, EntityOf(c, pair.Value.Id), pair.Value);
             CoreCardTraits.ApplyImpact(c, action, group);
             AddPending(c, -1);
         }

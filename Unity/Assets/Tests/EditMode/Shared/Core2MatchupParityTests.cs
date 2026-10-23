@@ -116,16 +116,15 @@ namespace Ashen.Tests
                 var mark = c.EventLog.Count;
                 switch (intent.Value<string>("type"))
                 {
-                    case "setReactions":
-                        c.Player["reactionsEnabled"] = intent.Value<bool>("enabled");
-                        break;
                     case "endTurn":
                         foreach (var id in (step["staggered"] as JArray ?? new JArray()).Select(t => t.Value<string>()))
                             c.Enemies.First(e => e.Value<string>("id") == id)["skipNextTurn"] = true;
-                        CoreTurns.EndTurn(c, intent["discardIds"].Select(t => t.Value<string>()).ToList());
+                        CoreDispatch.Dispatch(c, intent);
                         break;
+                    case "setReactions":
                     case "playCard":
-                        CoreCardPlay.Play(c, intent.Value<string>("cardInstanceId"), intent["targetId"]?.Value<string>());
+                    case "chooseReaction":
+                        CoreDispatch.Dispatch(c, intent);
                         break;
                     default:
                         Assert.Fail(at + " an intent the port does not play");

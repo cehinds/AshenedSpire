@@ -53,6 +53,12 @@ namespace Ashen.Domain.Combat
         public List<string> ReactionAnswered;
         public List<string> ReactionNoticed;
 
+        /// <summary>The Counter serial each seat paid a reaction for on this root (web group.manualCounterSerials): that Counter, and only that one, answers the hits of a reaction.</summary>
+        public Dictionary<string, double> ManualCounterSerials;
+
+        /// <summary>How many enemy reaction windows this root has opened (web group.enemyWindows): each opens once per push; undefined until the first.</summary>
+        public int? EnemyWindows;
+
         /// <summary>The event of the Counter reply this group plays (web group.counterReturn); it stands in for the move's start when the reply is announced.</summary>
         public JObject CounterReturn;
 

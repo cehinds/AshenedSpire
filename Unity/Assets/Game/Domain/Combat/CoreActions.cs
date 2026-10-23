@@ -61,9 +61,7 @@ namespace Ashen.Domain.Combat
         {
             c.Result = result;
             c.Phase = V.PhaseEnded;
-            foreach (var field in new[] { DK.ReactionCursor, DK.PendingReaction, DK.ReactionResume, CK.ReactionHandCleanup, DK.ReactionStack, DK.ReactionRootPlay }) c.Fields.Remove(field);
-            c.Fields[DK.PendingExpansionActions] = 0;
-            c.Queue.Clear();
+            CoreReactions.Finish(c);
             c.Emit(E.CombatEnd, Js.Obj(K.Victory, result == V.Victory));
             c.Queue.Clear();
         }
@@ -250,6 +248,7 @@ namespace Ashen.Domain.Combat
                     {
                         var planRef = planned.First(r => r.Id == t.Str(K.Id));
                         contact = new CoreImpact.Contact { Receipt = action.Meta.Group.Targets[planRef.Key].Receipt, Index = planRef.Index };
+                        CoreExpansion.SetManualSerial(action.Meta.Group, carrier, null);
                         if (planRef.Crit != null) throw new NotSupportedException(DM.CritNotPorted);
                     }
                     if (c.RatingsRules != null && action.Source.Str(K.Kind) == V.Enemy)

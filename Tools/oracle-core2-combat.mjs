@@ -5,12 +5,21 @@
 //
 //   node Tools/oracle-core2-combat.mjs [--bot endTurnOnly|cards|all] [--seeds 3] [--steps 40] [--end-turn-steps 24]
 //                                      [--classes reaver,starseer,rogue,herald] [--no-previews] [--source <web checkout>]
+//   node Tools/oracle-core2-combat.mjs --bot reactions [--fights 8]    the reaction stack (WP-10): runs Tools/oracle-core2-reactions.mjs
 //
 // Refuses to run unless the web HEAD is core2.webSha. Writes Unity/Assets/Tests/Oracle/core2/combat/<bot>-<class>-<n>.json
 // plus index.json. The bot uses its own LCG, never the engine RNG; two runs are byte-identical.
 import { writeFileSync, readFileSync, mkdirSync, rmSync, existsSync, readdirSync } from 'node:fs';
-import { join } from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { loadWeb, ORACLE_DIR, arg, BOTS, classIds, encounters, runCombatFixture, canon } from './oracle-core2.mjs';
+
+// The reaction bot answers the offers a fight opens and records them with the full state: it has its own oracle and its own files.
+if (arg('--bot', null) === 'reactions') {
+  const run = spawnSync(process.execPath, [join(dirname(fileURLToPath(import.meta.url)), 'oracle-core2-reactions.mjs'), ...process.argv.slice(2)], { stdio: 'inherit' });
+  process.exit(run.status ?? 1);
+}
 
 const OUT = join(ORACLE_DIR, 'combat');
 const botArg = arg('--bot', 'all');

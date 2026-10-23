@@ -775,7 +775,6 @@
         "RangeAdvanceNotPorted": "Core 2 combat: paying Stamina to advance is ported with WP-12",
         "RangeLineageNotPorted": "Core 2 combat: the range lineage of a hostile hook is ported with WP-12",
         "RangeRouteUnreachable": "The selected range route cannot reach every target",
-        "ReactionsNotPorted": "Core 2 combat: reactions are ported with WP-10",
         "RecursionDepth": "Recursion depth exceeds {0}",
         "RequiredParameter": "required parameter",
         "RequiredString": "required nonempty string",

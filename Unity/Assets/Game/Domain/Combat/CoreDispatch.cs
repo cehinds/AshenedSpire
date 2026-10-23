@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using Newtonsoft.Json.Linq;
+using K = Ashen.Generated.CombatKeys;
+using M = Ashen.Generated.CombatMessages;
+using RK = Ashen.Generated.Core2ReactionKeys;
+using RV = Ashen.Generated.Core2ReactionValues;
+using RM = Ashen.Generated.Core2ReactionMessages;
+using SM = Ashen.Generated.Core2StatusMessages;
+
+namespace Ashen.Domain.Combat
+{
+    /// <summary>
+    /// The intents of a Core 2 fight (web engine/combat.js dispatch): the player's cards, their reaction answers, the switch, the end of the turn and the
+    /// choices a card leaves open. Every intent is the one door the web has: a fight paused on a reaction takes only its answer; a card choice pending
+    /// takes only its answer; an answer resumes the enemy phase where it paused.
+    /// </summary>
+    public static class CoreDispatch
+    {
+        private static IReadOnlyList<string> Ids(JToken token) => Js.Items(token).Select(Js.Str).ToList();
+
+        /// <summary>dispatch(combat, intent): the intent is applied and the queue drained before this returns, or the fight is paused on a reaction offer.</summary>
+        public static void Dispatch(CombatState c, JObject intent)
+        {
+            if (c.Result != null) throw new InvalidOperationException(M.CombatOver);
+            var type = intent.Str(K.Type);
+            if (c.Fields[Ashen.Generated.Core2DamageKeys.PendingReaction] != null && type != RV.IntentChooseReaction) throw new InvalidOperationException(RM.AnswerPendingFirst);
+            if (type != RV.IntentChooseDiscard && type != RV.IntentChooseCards && CoreCardZones.HasChoice(c)) throw new InvalidOperationException(SM.ChooseBeforeAction);
+            switch (type)
+            {
+                case RV.IntentSetReactions:
+                    CoreReactions.SetReactions(c, intent[RK.Enabled]);
+                    break;
+                case RV.IntentChooseReaction:
+                    CoreReactions.Answer(c, intent.Str(RK.OfferId), intent.Str(RK.OptionId));
+                    CoreTurns.Resume(c);
+                    break;
+                case RV.IntentRecoverControl:
+                    CoreCardPlay.RecoverControl(c, intent.Arr(RK.Selections));
+                    break;
+                case RV.IntentChooseCards:
+                    CoreCardPlay.ChooseCards(c, Ids(intent[RK.CardInstanceIds]));
+                    if (CoreReactions.RestoreReactionQueue(c) || c.Fields[Ashen.Generated.Core2DamageKeys.ReactionCursor] != null) CoreTurns.Resume(c);
+                    break;
+                case RV.IntentChooseDiscard:
+                    CoreCardPlay.ChooseDiscard(c, Ids(intent[RK.CardInstanceIds]));
+                    if (CoreReactions.RestoreReactionQueue(c) || c.Fields[Ashen.Generated.Core2DamageKeys.ReactionCursor] != null) CoreTurns.Resume(c);
+                    break;
+                case RV.IntentPlayCard:
+                    CoreCardPlay.Play(c, intent.Str(RK.CardInstanceId), intent.Str(RK.TargetId), intent[RK.Choice], intent.Str(RK.RangeRoute));
+                    break;
+                case RV.IntentEndTurn:
+                    CoreTurns.EndTurn(c, Ids(intent[RK.DiscardIds]));
+                    break;
+                default:
+                    throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UnknownIntent, type));
+            }
+        }
+    }
+}

@@ -79,7 +79,6 @@ namespace Ashen.Generated
         public const string RangeAdvanceNotPorted = "Core 2 combat: paying Stamina to advance is ported with WP-12";
         public const string RangeLineageNotPorted = "Core 2 combat: the range lineage of a hostile hook is ported with WP-12";
         public const string RangeRouteUnreachable = "The selected range route cannot reach every target";
-        public const string ReactionsNotPorted = "Core 2 combat: reactions are ported with WP-10";
         public const string RecursionDepth = "Recursion depth exceeds {0}";
         public const string RequiredParameter = "required parameter";
         public const string RequiredString = "required nonempty string";

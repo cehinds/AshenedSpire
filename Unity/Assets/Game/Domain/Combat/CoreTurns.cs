@@ -12,6 +12,8 @@ using E = Ashen.Generated.CombatEvents;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
 using V = Ashen.Generated.CombatValues;
+using RK = Ashen.Generated.Core2ReactionKeys;
+using RV = Ashen.Generated.Core2ReactionValues;
 using SV = Ashen.Generated.Core2StatusValues;
 
 namespace Ashen.Domain.Combat
@@ -250,38 +252,60 @@ namespace Ashen.Domain.Combat
             }
         }
 
-        /// <summary>enemyPhase(combat): each enemy's turn; only the held (skipping) enemy is ported here.</summary>
+        /// <summary>
+        /// enemyPhase(combat): each enemy's turn. A reaction offer pauses the phase where it stands: the cursor (which enemy, which stage of its turn)
+        /// is kept in the state, and the phase is entered again from it once the offer is answered.
+        /// </summary>
         private static void EnemyPhase(CombatState c)
         {
-            c.Phase = V.PhaseEnemy;
-            c.Fields.Remove(CK.FollowTrace);
-            EnemyTurnStart(c);
-            if (c.Result != null) return;
-            for (var index = 0; index < c.Enemies.Count; index++)
+            var cursor = c.Fields.Obj(DK.ReactionCursor);
+            if (cursor == null)
             {
-                var enemy = c.Enemies[index];
+                c.Phase = V.PhaseEnemy;
+                c.Fields.Remove(CK.FollowTrace);
+                EnemyTurnStart(c);
+                if (c.Result != null) return;
+            }
+            if (cursor == null)
+            {
+                cursor = new JObject { [RK.Index] = 0, [RK.Stage] = RV.StageStart };
+                if (CoreReactions.Active(c)) c.Fields[DK.ReactionCursor] = cursor;
+            }
+            for (; cursor.Num(RK.Index) < c.Enemies.Count; cursor[RK.Index] = Js.N(cursor.Num(RK.Index) + 1), cursor[RK.Stage] = RV.StageStart)
+            {
+                var enemy = c.Enemies[(int)cursor.Num(RK.Index)];
                 if (c.Result != null) return;
                 if (!enemy.Is(K.Alive)) continue;
-                EnemyOwnerTurnStart(c, enemy);
-                if (c.Result != null) return;
-                if (!enemy.Is(K.Alive)) continue;
-                if (enemy.Is(K.SkipNextTurn) || CoreStatuses.Flag(c, enemy, K.SkipTurn) || CoreControl.Locked(c, enemy) || CoreControl.ConsumeActionLoss(c, enemy) > 0)
+                if (cursor.Str(RK.Stage) == RV.StageStart)
                 {
-                    if (!Js.Truthy(enemy[K.PendingMove])) CoreKnowledge.Cancel(c, enemy);
-                    enemy.Put(K.SkipNextTurn, false);
-                    enemy.Put(CK.PlanDue, false);
+                    EnemyOwnerTurnStart(c, enemy);
+                    if (c.Result != null) return;
+                    if (!enemy.Is(K.Alive)) continue;
+                    cursor[RK.Stage] = RV.StagePayload;
                 }
-                else if (Js.Truthy(enemy[K.PendingMove])) throw new NotSupportedException(CM.DelayedMoveNotPorted);
-                else if (Js.Truthy(enemy[K.Intent]) && Js.Truthy(enemy.Obj(K.Intent)[K.MoveId]))
+                if (cursor.Str(RK.Stage) == RV.StagePayload)
                 {
-                    var def = c.Data.Enemies.Get(enemy.Str(K.EnemyId));
-                    var moveId = enemy.Obj(K.Intent).Str(K.MoveId);
-                    var move = CoreIntents.Expanded(c, enemy, def.Obj(K.Moves).Obj(moveId), moveId);
-                    if (Js.Truthy(move[K.Delay])) throw new NotSupportedException(CM.DelayedMoveNotPorted);
-                    CoreEnemyMoves.Execute(c, enemy, move, moveId);
+                    cursor[RK.Stage] = RV.StageDrain;
+                    if (enemy.Is(K.SkipNextTurn) || CoreStatuses.Flag(c, enemy, K.SkipTurn) || CoreControl.Locked(c, enemy) || CoreControl.ConsumeActionLoss(c, enemy) > 0)
+                    {
+                        if (!Js.Truthy(enemy[K.PendingMove])) CoreKnowledge.Cancel(c, enemy);
+                        enemy.Put(K.SkipNextTurn, false);
+                        enemy.Put(CK.PlanDue, false);
+                    }
+                    else if (Js.Truthy(enemy[K.PendingMove])) throw new NotSupportedException(CM.DelayedMoveNotPorted);
+                    else if (Js.Truthy(enemy[K.Intent]) && Js.Truthy(enemy.Obj(K.Intent)[K.MoveId]))
+                    {
+                        var def = c.Data.Enemies.Get(enemy.Str(K.EnemyId));
+                        var moveId = enemy.Obj(K.Intent).Str(K.MoveId);
+                        var move = CoreIntents.Expanded(c, enemy, def.Obj(K.Moves).Obj(moveId), moveId);
+                        if (Js.Truthy(move[K.Delay])) throw new NotSupportedException(CM.DelayedMoveNotPorted);
+                        CoreEnemyMoves.Execute(c, enemy, move, moveId);
+                    }
                 }
                 CoreActions.Drain(c);
+                if (CoreReactions.Paused(c)) return;
                 if (c.Result != null) return;
+                // Each move leaves the plan before it runs, so a reaction pause resumes at the next planned move.
                 while (enemy.Is(K.Alive) && enemy.Is(CK.PlanDue) && !Js.Truthy(enemy[K.PendingMove]) && enemy.Arr(CK.PlannedMoves)?.Count > 0)
                 {
                     if (CoreEnemyMoves.Halted(c, enemy)) { enemy.Put(CK.PlanDue, false); break; }
@@ -300,6 +324,7 @@ namespace Ashen.Domain.Combat
                     if (Js.Truthy(move[K.Delay])) throw new NotSupportedException(CM.DelayedMoveNotPorted);
                     traced[DK.Outcome] = CoreEnemyMoves.Execute(c, enemy, move, next.Str(K.MoveId)) ?? DV.OutcomePlayed;
                     CoreActions.Drain(c);
+                    if (CoreReactions.Paused(c)) return;
                     if (c.Result != null) return;
                 }
                 if (enemy.Arr(CK.PlannedMoves)?.Count == 0) enemy.Put(CK.PlanDue, false);
@@ -316,9 +341,10 @@ namespace Ashen.Domain.Combat
             }
             c.Emit(E.EnemyTurnEnd, Js.Obj(K.Turn, c.Turn));
             CoreActions.Drain(c);
+            c.Fields.Remove(DK.ReactionCursor);
         }
 
-        /// <summary>doEndTurn(combat, discardIds): the player's turn ends, the enemies take theirs, the next turn begins.</summary>
+        /// <summary>doEndTurn(combat, discardIds): the player's turn ends, the enemies take theirs, the next turn begins (unless a reaction offer pauses the enemy phase).</summary>
         public static void EndTurn(CombatState c, IReadOnlyList<string> discardIds)
         {
             if (c.Phase != V.PhasePlayer) throw new InvalidOperationException(M.NotPlayerTurn);
@@ -327,7 +353,32 @@ namespace Ashen.Domain.Combat
             EndPlayerTurn(c, discardIds);
             if (c.Result != null) return;
             EnemyPhase(c);
+            if (CoreReactions.Paused(c)) return;
             if (c.Result != null) return;
+            FinishReactionPhase(c);
+        }
+
+        /// <summary>
+        /// resumeEnemyTurn(combat): the offer was answered (or a card choice made); the fight goes on from where it paused: the queue is drained, and
+        /// the enemy phase resumed from its cursor, then the player's hand and turn.
+        /// </summary>
+        public static void Resume(CombatState c)
+        {
+            if (CoreCardZones.HasChoice(c) || c.Fields[DK.ReactionResume] != null) return;
+            if (c.Fields[DK.ReactionCursor] == null)
+            {
+                CoreActions.Drain(c);
+                CoreCardPlay.FinishPlay(c);
+                return;
+            }
+            EnemyPhase(c);
+            if (c.Result != null || CoreReactions.Paused(c)) return;
+            FinishReactionPhase(c);
+        }
+
+        /// <summary>finishReactionPhase(combat): the player's hand is dealt with after the enemies, new intents are rolled and the next turn begins.</summary>
+        private static void FinishReactionPhase(CombatState c)
+        {
             var cleanup = c.Fields.Obj(CK.ReactionHandCleanup);
             if (cleanup != null)
             {

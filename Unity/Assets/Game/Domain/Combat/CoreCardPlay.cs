@@ -16,6 +16,8 @@ using CCV = Ashen.Generated.Core2CostValues;
 using CM = Ashen.Generated.Core2CombatMessages;
 using CK = Ashen.Generated.Core2CombatKeys;
 using CV = Ashen.Generated.Core2CombatValues;
+using RK = Ashen.Generated.Core2ReactionKeys;
+using RM = Ashen.Generated.Core2ReactionMessages;
 using E = Ashen.Generated.CombatEvents;
 using K = Ashen.Generated.CombatKeys;
 using Op = Ashen.Generated.CombatOps;
@@ -148,16 +150,27 @@ namespace Ashen.Domain.Combat
         /// Plays the front half of a card: refuses (before any change) a card whose gates refuse, pays the price, takes it out of the hand, counts it
         /// and enters its stance with the entry grants and the matching-stance multiplier. The effects stay unplayed (WP-6, WP-7).
         /// </summary>
-        public static Entry Enter(CombatState c, string instanceId)
+        public static Entry Enter(CombatState c, string instanceId, string rangeRoute = null)
         {
-            var refusal = CoreCosts.PlayRefusal(c, instanceId);
-            if (refusal != null) throw new InvalidOperationException(refusal);
+            var refusal = CoreCosts.PlayRefusalFor(c, instanceId);
+            if (refusal != null) throw refusal;
             var player = c.Player;
             var index = c.Piles.Hand.FindIndex(card => card.Str(K.InstanceId) == instanceId);
             var instance = c.Piles.Hand[index];
             var def = CoreCosts.Resolve(c, instance);
             var paid = CoreCosts.CardPlayCosts(c, instanceId);
             var isX = def.Str(K.Cost) == CCV.CostX;
+            var carrier = Carrier(c, instance, def);
+            if (c.ReactionPlaying) carrier[DK.ReactionDepth] = 1;
+            // A Counter played as a reaction pays for its reply's reach now: the price grows by the Stamina to advance, and the quote is reserved on the card.
+            var counterRange = CoreCounterReturn.PaidRange(c, player, carrier, paid, rangeRoute ?? DV.RouteAdvance);
+            if (counterRange != null)
+            {
+                paid = counterRange.Obj(RK.Costs);
+                carrier[DK.RangeCounterReservation] = counterRange.Obj(RK.Reservation);
+                if (player.Num(K.Stamina) < paid.Num(K.Energy)) throw new PlayRefusalException(RM.NotEnoughStamina, Ashen.Generated.Core2ReactionValues.ReasonCost, CoreCosts.ShortOf(Ashen.Generated.Core2ReactionValues.ResourceStamina, paid.Num(K.Energy), player.Num(K.Stamina)));
+                if (player.Num(K.Mana) < paid.Num(K.Mana)) throw new PlayRefusalException(RM.NotEnoughMana, Ashen.Generated.Core2ReactionValues.ReasonCost, CoreCosts.ShortOf(Ashen.Generated.Core2ReactionValues.ResourceMana, paid.Num(K.Mana), player.Num(K.Mana)));
+            }
             // Stamina is the Actions pool; the receipts follow the payment as the web emits them.
             player.Put(K.Stamina, player.Num(K.Stamina) - paid.Num(K.Energy));
             if (paid.Num(K.Energy) > 0 || isX) c.Emit(E.EnergySpent, Js.Obj(K.Amount, paid[K.Energy]));
@@ -172,7 +185,6 @@ namespace Ashen.Domain.Combat
             c.Piles.Hand.RemoveAt(index);
             counters.Put(CC.CardsPlayedThisTurn, counters.Num(CC.CardsPlayedThisTurn) + 1);
             counters.Put(CC.CardsPlayedThisCombat, counters.Num(CC.CardsPlayedThisCombat) + 1);
-            var carrier = Carrier(c, instance, def);
             if (carrier.Str(K.Type) == CV.TypeAttack) counters.Put(CC.AttacksPlayedThisCombat, counters.Num(CC.AttacksPlayedThisCombat) + 1);
             CoreStances.SetProfileStance(c, player, carrier);
             return new Entry { Paid = paid, Carrier = carrier, CardId = instance.Str(K.CardId) };
@@ -211,13 +223,13 @@ namespace Ashen.Domain.Combat
         /// reply instead of dealing it (<see cref="CoreCounterReturn.PrepareCounter"/>) and plays only its support. A card with an effect a later
         /// package owns (a move of the engagement, a legacy stance) is refused before anything changes.
         /// </summary>
-        public static void Play(CombatState c, string instanceId, string targetId, JToken choice = null)
+        public static void Play(CombatState c, string instanceId, string targetId, JToken choice = null, string rangeRoute = null)
         {
             c.RecordSkillXp = true;
             var player = c.Player;
             if (CoreCardZones.HasChoice(c)) throw new InvalidOperationException(SM.ChooseBeforeAction);
-            var refusal = CoreCosts.PlayRefusal(c, instanceId);
-            if (refusal != null) throw new InvalidOperationException(refusal);
+            var refusal = CoreCosts.PlayRefusalFor(c, instanceId);
+            if (refusal != null) throw refusal;
             var inst = c.Piles.Hand.First(card => card.Str(K.InstanceId) == instanceId);
             var printed = CoreCosts.Resolve(c, inst);
             var statusPlan = CoreCosts.ProposalCardPlan(c, player, printed);
@@ -266,7 +278,7 @@ namespace Ashen.Domain.Combat
                 if (target != null && target.Str(K.Kind) != V.Enemy) throw new InvalidOperationException(SM.BuildupNeedsEnemy);
                 target ??= c.Enemies.FirstOrDefault(e => e.Is(K.Alive));
             }
-            var entry = Enter(c, instanceId);
+            var entry = Enter(c, instanceId, rangeRoute);
             var cardRef = entry.Carrier;
             var paid = entry.Paid;
             c.Fields[CK.GameProfileCommands] = Js.N(Js.Or0(c.Fields[CK.GameProfileCommands]) + 1);
@@ -299,7 +311,7 @@ namespace Ashen.Domain.Combat
                 ProposalTargetDecisions = new JObject(), Before = before, Choice = chosen,
             };
             // prepareTacticalCard: the effects the play really runs (a charge's buildup, a Counterstrike's retort) and the statuses they apply.
-            var tactical = CoreCardTraits.CounterstrikeEffects(c, player, target, cardRef, chargedEffects, true);
+            var tactical = CoreCardTraits.CounterstrikeEffects(c, player, target, cardRef, CoreReactions.SweepReactionEffects(c, target, cardRef, chargedEffects), true);
             var applied = tactical.Where(e => e.Str(K.Op) == Op.ApplyStatus).ToList();
             cardRef[DK.AppliedStatusEffects] = new JArray(applied.Select(e => e.DeepClone()));
             cardRef[DK.AppliedStatuses] = new JArray(applied.Select(e => e[K.Status]?.DeepClone()));
@@ -327,7 +339,7 @@ namespace Ashen.Domain.Combat
                 CoreRiders.Attach(c, action, charges, chargeApplied);
                 actions.Add(action);
             }
-            cardRef[DK.RangeRoute] = DV.RouteAdvance;
+            cardRef[DK.RangeRoute] = rangeRoute ?? DV.RouteAdvance;
             cardRef[DK.RangeBaseCosts] = new JObject { [K.Energy] = paid[K.Energy].DeepClone(), [K.Stamina] = paid[K.Stamina].DeepClone(), [K.Mana] = paid[K.Mana].DeepClone() };
             var group = CoreExpansion.Enqueue(c, actions, player, target, cardRef);
             var cost = paid.Num(K.Energy);
