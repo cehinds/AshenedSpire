@@ -229,6 +229,9 @@ if (PROFILE !== 'none') {
     console.error('export: the web checkout has uncommitted changes under src, content, engine or games, so the export would not match the pinned sha. Clean it, or pass --allow-dirty.');
     process.exit(1);
   }
+  // Start from an empty tree: summary.json is written last, so an export that fails part way leaves no summary
+  // and transform-content refuses the half-written files instead of attributing them to the pin.
+  rmSync(C2_OUT, { recursive: true, force: true });
   mkdirSync(join(C2_OUT, 'rules'), { recursive: true });
   const c2Gaps = [];
   const put = (rel, value) => writeFileSync(join(C2_OUT, rel), JSON.stringify(value, null, 1));
