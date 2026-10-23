@@ -18,18 +18,18 @@
 //                        the offer of a hit that kills, Back after Back. Same record as a fight, plus the `hand` laid over the opening hand and the
 //                        `patch` merged over the fighters.
 //
-// THE FILTER (what a recorded sequence avoids; the C# port refuses these by name and the test asserts it never has to): a step is recorded only when
-// its dry run on a detached copy (a) throws nothing, (b) emits only event types in COVERED_EVENTS, (c) leaves no card choice, and (d) every card it
-// plays has only effects in COVERED_OPS. An end turn is dry-run to its end: the same bot answers every offer it opens, from a copy of its LCG.
-// An enemy whose move would break (a) to (c) is marked staggered for that end turn (the flag a Poise break sets), as the WP-7 oracle does. Enemy
-// reactions, delayed moves and the draws on the enemyReaction stream (WP-11) are inside the filter.
+// THE FILTER (WP-C0: none for the content a default run reaches): a step is recorded when the web accepts it, tried on a detached copy first. An end turn is
+// dry-run to its end: the same bot answers every offer it opens, from a copy of its LCG; a card choice or a discard takes the first cards offered. Every
+// card (variants, scripts, charges, choices, Counters, Ashen Blight costs, cardPreparing listeners) and every enemy move is inside it. Enemy reactions, delayed
+// moves and the draws on the enemyReaction stream (WP-11) are inside it too. What the web refuses is tallied in `rejections` (`--why`).
 //
 // What the record leaves out: `intentPreview` of an offer and `range` of an option (the previews the UI reads; no rule reads them), and the queue
 // a paused card holds (`reactionResume.queue` is recorded as its length).
 import { writeFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, detach, projectFull, delta, typesSince } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, detach, projectFull, delta, typesSince, pendingAny, choiceAnswer } from './oracle-core2.mjs';
+import { whyTally } from './oracle-core2-why.mjs';
 
 const BOT = arg('--bot', 'reactions');
 if (!['reactions', 'range'].includes(BOT)) { console.error(`oracle-core2-reactions: unknown --bot '${BOT}' (reactions, range)`); process.exit(1); }
@@ -37,6 +37,7 @@ const RANGE = BOT === 'range';
 const OUT = join(ORACLE_DIR, RANGE ? 'range' : 'reactions');
 const FIGHTS = Number(arg('--fights', '8'));
 const w = await loadWeb();
+const REJ = whyTally('reactions');
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const triggers = await load('src/engine/triggers.js');
 const expansion = await load('src/engine/combatExpansion.js');
@@ -50,48 +51,20 @@ const classes = classIds(w);
 // ---------------------------------------------------------------------------------------------------------------
 const REACTION_EVENTS = ['combatReactionOffered', 'combatReactionChosen', 'combatReactionStacked', 'combatReactionUnavailable', 'combatReactionFizzled', 'combatEnemyReactionStacked'];
 const COUNTER_EVENTS = ['combatCounterArmed', 'combatCounterConsumed', 'combatCounterTriggered', 'combatGuardBroken', 'combatRangeReturnUnavailable'];
-const COVERED_EVENTS = new Set(['playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared',
-  'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
-  'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
-  'energySpent', 'staminaSpent', 'manaSpent', 'enemyDied', 'combatEnd', 'perceptionGained', 'combatHitStarted', 'controlRecovered', 'controlResolveScheduled', 'energyGained', 'healed',
-  'manaRestored', 'relicTriggered', 'statusGaugeFilled', 'statusPressure', 'statusRecoveryRolled', 'combatEngagementMoved', 'combatRangeActionUnavailable', 'characterMoved',
-  'cardAdded', 'barrierGained', 'barrierBroken', 'statusPoiseBreak', ...REACTION_EVENTS, ...COUNTER_EVENTS]);
-const COVERED_OPS = new Set(['damage', 'block', 'gainBarrier', 'poiseDamage', 'wardDamage', 'moveEngagement', 'applyStatus']);
-const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'wardDamage', 'applyStatus', 'block', 'gainBarrier', 'moveEngagement', 'addCard']);
+/** The label a recorded answer carries. */
+const answerLabel = (a) => (a.type !== 'chooseReaction' ? 'choose' : a.optionId === null ? 'back' : 'play');
 const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
 
 const tagsOf = (def) => (def.cardTags || def.tags || []).map((t) => (typeof t === 'string' ? t : t.id));
 const maneuverOfMove = (combat, enemy, id) => tactics.enemyMoveCarrier(enemy, combat.registries.enemies.get(enemy.enemyId).moves[id], id, combat).combatProfile.maneuver;
 
-// An enemy takes its turn inside the filter when every move it can play this turn (its intent, its planned follow-ups and the move that charges) stays within
-// ENEMY_OPS. Closing the distance (Stamina to advance, the closing move) and the hooks that strike are inside it.
-function enemyFits(combat, enemy) {
-  const def = combat.registries.enemies.get(enemy.enemyId);
-  const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId), def.rangeClosingMove].filter(Boolean);
-  for (const id of ids) {
-    const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
-    if ((move.delay?.whileCharging?.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-    if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-  }
-  return true;
-}
+// Every enemy takes its turn and every card is played (WP-C0); only a refusal of the web keeps a step out of the record.
+const enemyFits = () => true;
 
 // model/combatCardEffects.js immediateCardEffects: a Counter plans its target by the support that resolves now, not by the reply it defers.
 const immediate = (def) => (tagsOf(def).includes('maneuver:counter') ? def.effects.filter((e) => !['damage', 'poiseDamage'].includes(e.op)) : def.effects);
 
-// A card is played inside the filter when its resolved face carries only the ops of COVERED_OPS (no gate, repeat or random target), no choice, no
-// variant, no Ashen Blight cost, nothing listens for it being prepared and the player holds no hostile hook.
-function playable(combat, card) {
-  const def = expansion.resolveCombatCard(combat, card);
-  const ops = (def?.effects || []).map((e) => e.op);
-  const tags = tagsOf(def);
-  if (!ops.length || !ops.every((op) => COVERED_OPS.has(op))) return false;
-  if (def.effects.some((e) => e.if || e.script || e.oncePerTurn || e.repeat !== undefined || e.choose || e.target === 'randomEnemy')) return false;
-  if (def.effectVariants?.length || def.ashenBlightCost > 0) return false;
-  if (Object.keys(combat.player.abilityRiders?.charges || {}).length) return false;
-  if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
-  return true;
-}
+const playable = () => true;
 
 // ---------------------------------------------------------------------------------------------------------------
 // The bot's LCG (own state, never the engine's; cloneable so an end turn can be dry-run with the answers it will give)
@@ -195,19 +168,7 @@ function record(spec, drive) {
 // ---------------------------------------------------------------------------------------------------------------
 // The dry runs
 // ---------------------------------------------------------------------------------------------------------------
-const rejected = {};
-const why = (reason) => { const key = reason.replace(/[0-9]+/g, 'N').slice(0, 90); rejected[key] = (rejected[key] || 0) + 1; return { ok: false, why: reason }; };
-
-/** Why the offer the fight is paused on is outside the filter: a reaction card of the hand the port could not play to build it (cardPreparing), else null. */
-function offerOutside(combat) {
-  for (const card of combat.piles.hand) {
-    const def = expansion.resolveCombatCard(combat, card);
-    const tags = tagsOf(def);
-    if (!tags.includes('trait:reaction')) continue;
-    if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return 'cardPreparing listener at an offer';
-  }
-  return null;
-}
+const why = (reason) => REJ.why(reason);
 
 /**
  * The intent played to its end on a detached copy with the answers the bot will give (from a copy of its LCG): nothing outside the filter happens.
@@ -218,23 +179,19 @@ function dry(combat, intent, chooser) {
   const mark = copy.eventLog.length;
   try {
     w.combat.dispatch(copy, structuredClone(intent));
-    for (let n = 0; copy.pendingReaction; n++) {
+    for (let n = 0; pendingAny(copy); n++) {
       if (n > 60) return why('too many offers');
-      const outside = offerOutside(copy);
-      if (outside) return why(outside);
       w.combat.dispatch(copy, answers.next(copy));
     }
   } catch (e) { return why(`throws: ${e.message}`); }
-  const types = typesSince(copy, mark);
-  const bad = types.find((t) => !COVERED_EVENTS.has(t));
-  if (bad) return why(`event ${bad}`);
-  if (copy.pendingCardChoice || copy.pendingAbilityDiscard) return why('pending choice');
+  void mark;
   return { ok: true };
 }
 
 /** The bot's answers: half Play the first option, half Back, from its LCG. */
 function lcgChooser(lcg) {
   return { clone: () => lcgChooser(lcg.clone()), next(combat) {
+    if (!combat.pendingReaction) return choiceAnswer(combat);
     const pending = combat.pendingReaction;
     const play = lcg(2) === 0 && pending.options.length > 0;
     return { type: 'chooseReaction', offerId: pending.id, optionId: play ? pending.options[0].id : null };
@@ -244,6 +201,7 @@ function lcgChooser(lcg) {
 function scriptChooser(answers, at = 0) {
   let n = at;
   return { clone: () => scriptChooser(answers, n), next(combat) {
+    if (!combat.pendingReaction) return choiceAnswer(combat);
     const pending = combat.pendingReaction;
     const answer = answers[Math.min(n++, answers.length - 1)];
     return { type: 'chooseReaction', offerId: pending.id, optionId: answer === 'play' && pending.options.length ? pending.options[0].id : null };
@@ -256,27 +214,17 @@ const dryTurn = (combat, chooser) => dry(combat, { type: 'endTurn', discardIds: 
 /** Ends the turn inside the filter: the enemies that cannot act in it are staggered for it, the rest take their turn, and every offer is answered. */
 function endTurn(combat, step, lcg) {
   const intent = { type: 'endTurn', discardIds: [] };
-  const staggered = [];
-  for (const enemy of combat.enemies.filter((e) => e.alive && !e.skipNextTurn)) if (!enemyFits(combat, enemy)) { enemy.skipNextTurn = true; staggered.push(enemy.id); }
-  if (!dryTurn(combat, lcgChooser(lcg)).ok) {
-    for (const enemy of combat.enemies.filter((e) => e.alive)) {
-      const probe = detach(w, combat);
-      for (const other of probe.enemies) if (other.id !== enemy.id) other.skipNextTurn = true;
-      if (!dryTurn(probe, lcgChooser(lcg)).ok && !staggered.includes(enemy.id)) staggered.push(enemy.id);
-    }
-    for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = true;
-    if (!dryTurn(combat, lcgChooser(lcg)).ok) { for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = false; return false; }
-  }
-  if (!step(intent, { staggered })) return false;
+  if (!dryTurn(combat, lcgChooser(lcg)).ok) return false;
+  if (!step(intent)) return false;
   return settle(combat, step, lcg);
 }
 
 /** Answers the offers a step left open, one step each, until the fight is no longer paused. */
 function settle(combat, step, lcg) {
-  for (let n = 0; combat.pendingReaction && !combat.result; n++) {
+  for (let n = 0; pendingAny(combat) && !combat.result; n++) {
     if (n > 60) return false;
     const intent = lcgChooser(lcg).next(combat);
-    if (!step(intent, { answer: intent.optionId === null ? 'back' : 'play' })) return false;
+    if (!step(intent, { answer: answerLabel(intent) })) return false;
   }
   return true;
 }
@@ -321,7 +269,7 @@ function fight(seed, classId, encounter, steps, fields) {
   const deckAdd = Array.from({ length: 6 }, (_, i) => ({ instanceId: `mx${i + 1}`, cardId: pool[lcg(pool.length)] }));
   return record({ seed, classId, encounterId: encounter.id, ...(deckRemove ? { deckRemove } : {}), ...(fields ? { fields } : {}), deckAdd }, (combat, step) => {
     for (let i = 0; i < steps && !combat.result; i++) {
-      if (combat.pendingReaction) { if (!settle(combat, step, lcg)) break; continue; }
+      if (pendingAny(combat)) { if (!settle(combat, step, lcg)) break; continue; }
       if (combat.phase !== 'player') break;
       const choices = options(combat, lcg);
       // The reaction cards are kept for the enemies' hits most of the time; the others are played on the turn.
@@ -373,15 +321,13 @@ const addExchange = (kind, label, spec, drive) => {
 /** Ends the turn and answers every offer with the given answers in turn (`play` / `back`), the last one repeating. */
 function scripted(combat, step, answers) {
   const intent = { type: 'endTurn', discardIds: [] };
-  const staggered = [];
-  for (const enemy of combat.enemies.filter((e) => e.alive && !e.skipNextTurn)) if (!enemyFits(combat, enemy)) { enemy.skipNextTurn = true; staggered.push(enemy.id); }
-  if (!dryRun(combat, intent, scriptChooser(answers)).ok) { for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = false; return false; }
-  if (!step(intent, { staggered })) return false;
+  if (!dryRun(combat, intent, scriptChooser(answers)).ok) return false;
+  if (!step(intent)) return false;
   const chooser = scriptChooser(answers);
-  for (let n = 0; combat.pendingReaction && !combat.result; n++) {
+  for (let n = 0; pendingAny(combat) && !combat.result; n++) {
     if (n > 60) return false;
     const answer = chooser.next(combat);
-    if (!step(answer, { answer: answer.optionId === null ? 'back' : 'play' })) return false;
+    if (!step(answer, { answer: answerLabel(answer) })) return false;
   }
   return true;
 }
@@ -470,10 +416,10 @@ function playAnswer(combat, step, cardId, targetId, answers) {
   const intent = { type: 'playCard', cardInstanceId: card.instanceId, ...(targetId ? { targetId } : {}) };
   if (!dryRun(combat, intent, scriptChooser(answers)).ok || !step(intent)) return false;
   const chooser = scriptChooser(answers);
-  for (let n = 0; combat.pendingReaction && !combat.result; n++) {
+  for (let n = 0; pendingAny(combat) && !combat.result; n++) {
     if (n > 60) return false;
     const answer = chooser.next(combat);
-    if (!step(answer, { answer: answer.optionId === null ? 'back' : 'play' })) return false;
+    if (!step(answer, { answer: answerLabel(answer) })) return false;
   }
   return true;
 }
@@ -523,10 +469,10 @@ if (RANGE) {
     const intent = { type: 'playCard', cardInstanceId: card.instanceId, ...(aimed ? { targetId: enemy.id } : {}), ...(route && route !== 'advance' ? { rangeRoute: route } : {}) };
     if (!dryRun(combat, intent, scriptChooser(answers)).ok || !step(intent)) return false;
     const chooser = scriptChooser(answers);
-    for (let n = 0; combat.pendingReaction && !combat.result; n++) {
+    for (let n = 0; pendingAny(combat) && !combat.result; n++) {
       if (n > 60) return false;
       const answer = chooser.next(combat);
-      if (!step(answer, { answer: answer.optionId === null ? 'back' : 'play' })) return false;
+      if (!step(answer, { answer: answerLabel(answer) })) return false;
     }
     return true;
   };
@@ -658,7 +604,7 @@ const units = [];
 mkdirSync(OUT, { recursive: true });
 for (const f of readdirSync(OUT)) if (f.endsWith('.json') && f !== 'quotes.json') rmSync(join(OUT, f));
 const write = (file, data) => { const text = `${JSON.stringify(canon(data))}\n`; writeFileSync(join(OUT, file), text); return Buffer.byteLength(text); };
-const index = { webSha: w.head, profileId: w.profile.id, profileHash: w.profile.hash, coveredEvents: [...COVERED_EVENTS].sort(), coveredOps: [...COVERED_OPS].sort(), deckPool: DECK_POOL, files: [] };
+const index = { webSha: w.head, profileId: w.profile.id, profileHash: w.profile.hash, deckPool: DECK_POOL, files: [] };
 let total = 0;
 
 const fightCount = {};
@@ -700,6 +646,7 @@ if (!RANGE) {
   total += unitBytes;
   index.units = { file: 'units.json', count: units.length, chosen: units.filter((u) => u.chosen).length, bytes: unitBytes };
 }
+index.rejections = REJ.finish();
 writeFileSync(join(OUT, 'index.json'), `${JSON.stringify(canon(index), null, 1)}\n`);
 console.log(`oracle-core2-reactions: ${Object.values(fightCount).reduce((s, f) => s + f.fights, 0)} fights / ${Object.values(fightCount).reduce((s, f) => s + f.steps, 0)} steps, ${exchanges.length} exchanges / ${index.exchanges.steps} steps, ${JSON.stringify(seen)}, ${(total / 1024).toFixed(0)} KB -> Unity/Assets/Tests/Oracle/core2/${RANGE ? 'range' : 'reactions'}`);
-if (process.argv.includes('--why')) console.log(JSON.stringify(rejected, null, 1));
+REJ.finish();

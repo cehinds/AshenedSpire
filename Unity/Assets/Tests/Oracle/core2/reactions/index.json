@@ -1,77 +1,4 @@
 {
- "coveredEvents": [
-  "attackHit",
-  "attackMissed",
-  "barrierBroken",
-  "barrierGained",
-  "blockBroken",
-  "blockGained",
-  "cardAdded",
-  "cardDrawn",
-  "cardExhausted",
-  "cardPlayed",
-  "cardPreparing",
-  "cardResolved",
-  "characterMoved",
-  "combatContactPrepared",
-  "combatCounterArmed",
-  "combatCounterConsumed",
-  "combatCounterTriggered",
-  "combatEnd",
-  "combatEnemyReactionStacked",
-  "combatEngagementMoved",
-  "combatGuardBroken",
-  "combatHitStarted",
-  "combatRangeActionUnavailable",
-  "combatRangeReturnUnavailable",
-  "combatReactionChosen",
-  "combatReactionFizzled",
-  "combatReactionOffered",
-  "combatReactionStacked",
-  "combatReactionUnavailable",
-  "combatStanceChanged",
-  "controlRecovered",
-  "controlResolveScheduled",
-  "damageDealt",
-  "deckShuffled",
-  "enemyActorTurnStarted",
-  "enemyDied",
-  "enemyMoveStarted",
-  "enemyMoveUnavailable",
-  "enemyStaggered",
-  "enemyTurnEnd",
-  "enemyTurnStart",
-  "energyGained",
-  "energySpent",
-  "healed",
-  "hpLost",
-  "manaRestored",
-  "manaSpent",
-  "perceptionGained",
-  "persistentPoiseChanged",
-  "playerStaggered",
-  "playerTurnEnd",
-  "playerTurnStart",
-  "poiseBroken",
-  "relicTriggered",
-  "staminaSpent",
-  "statusApplied",
-  "statusExpired",
-  "statusGaugeFilled",
-  "statusPoiseBreak",
-  "statusPressure",
-  "statusRecoveryRolled",
-  "statusRemoved"
- ],
- "coveredOps": [
-  "applyStatus",
-  "block",
-  "damage",
-  "gainBarrier",
-  "moveEngagement",
-  "poiseDamage",
-  "wardDamage"
- ],
  "deckPool": [
   "core.defend",
   "core.defend",
@@ -83,7 +10,7 @@
   "core.defend"
  ],
  "exchanges": {
-  "bytes": 2318867,
+  "bytes": 2394293,
   "count": 120,
   "file": "exchanges.json",
   "kinds": [
@@ -101,65 +28,71 @@
    "stack",
    "distant"
   ],
-  "steps": 356
+  "steps": 375
  },
  "fights": {
   "herald": {
    "fights": 8,
-   "steps": 126
+   "steps": 76
   },
   "reaver": {
    "fights": 8,
-   "steps": 137
+   "steps": 94
   },
   "rogue": {
    "fights": 8,
-   "steps": 118
+   "steps": 68
   },
   "starseer": {
    "fights": 8,
-   "steps": 94
+   "steps": 93
   }
  },
  "files": [
   {
-   "bytes": 468586,
+   "bytes": 342548,
    "classId": "reaver",
    "fights": 8,
    "file": "fights-reaver.json",
-   "steps": 137
-  },
-  {
-   "bytes": 358869,
-   "classId": "starseer",
-   "fights": 8,
-   "file": "fights-starseer.json",
    "steps": 94
   },
   {
-   "bytes": 374060,
+   "bytes": 349847,
+   "classId": "starseer",
+   "fights": 8,
+   "file": "fights-starseer.json",
+   "steps": 93
+  },
+  {
+   "bytes": 268301,
    "classId": "rogue",
    "fights": 8,
    "file": "fights-rogue.json",
-   "steps": 118
+   "steps": 68
   },
   {
-   "bytes": 432442,
+   "bytes": 295896,
    "classId": "herald",
    "fights": 8,
    "file": "fights-herald.json",
-   "steps": 126
+   "steps": 76
   }
  ],
  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
  "profileId": "core",
+ "rejections": {
+  "throws: 'Dazed' is unplayable": 5,
+  "throws: 'Wound' is unplayable": 7,
+  "throws: Not enough Stamina or Mana": 212,
+  "throws: Not enough Stamina to Advance": 12
+ },
  "seen": {
-  "back": 153,
+  "back": 176,
   "fizzled": 0,
-  "offers": 307,
-  "played": 154,
-  "stacked": 154,
-  "unavailable": 112
+  "offers": 324,
+  "played": 148,
+  "stacked": 148,
+  "unavailable": 131
  },
  "units": {
   "bytes": 183349,
