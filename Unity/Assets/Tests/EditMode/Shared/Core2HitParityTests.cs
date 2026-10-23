@@ -142,7 +142,7 @@ namespace Ashen.Tests
             if (spec["options"] is JObject o && o.Value<bool?>("evadeDisabled") == true) options.EvadeDisabled = true;
             if (inputs != null)
             {
-                options.RangeContact = inputs["rangeContact"] as JObject;
+                options.RangeContact = null;
                 options.DamageType = inputs["damageType"]?.Type == JTokenType.String ? inputs.Value<string>("damageType") : null;
             }
             return new Built { C = c, Source = source, Target = target, Carrier = spec["carrier"] as JObject, Options = options };
@@ -258,8 +258,8 @@ namespace Ashen.Tests
             foreach (var step in ((JArray)spec["steps"]).OfType<JObject>())
             {
                 var label = $"seq[{index}] step {n++}";
-                // The contact the web read for this step (the engagement planner is WP-12) and the damage type of the proposal rules.
-                b.Options.RangeContact = step["inputs"]["rangeContact"] as JObject;
+                // The damage type of the proposal rules; the range contact is the port's own (the engagement planner).
+                b.Options.RangeContact = null;
                 b.Options.DamageType = step["inputs"]["damageType"]?.Type == JTokenType.String ? step["inputs"].Value<string>("damageType") : null;
                 var preview = CoreHitRoll.Preview(b.C, b.Source, b.Target, b.Carrier, b.Options);
                 Same(label + " preview", step["preview"], preview);

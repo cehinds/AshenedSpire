@@ -104,6 +104,7 @@ namespace Ashen.Tests
         {
             "combatReactionOffered", "combatReactionChosen", "combatReactionStacked", "combatReactionUnavailable", "combatReactionFizzled", "combatEnemyReactionStacked",
             "combatCounterArmed", "combatCounterConsumed", "combatCounterTriggered", "combatGuardBroken", "combatRangeReturnUnavailable",
+            "combatEngagementMoved", "combatRangeActionUnavailable", "characterMoved",
         };
 
         private static readonly string[] Decoration = { "abilityBefore", "abilityEntities", "cardTargetsAllEnemies", "intentPreview", "actionPreview" };
@@ -177,7 +178,7 @@ namespace Ashen.Tests
         }
 
         /// <summary>Plays one recorded fight or exchange on the port and holds it to the web after every step.</summary>
-        internal static void Replay(JObject record, string label)
+        internal static void Replay(JObject record, string label, Action<CombatState, JObject, string> before = null)
         {
             var c = Open(record);
             JToken want = record["start"]["state"].DeepClone();
@@ -189,11 +190,12 @@ namespace Ashen.Tests
                 var intent = (JObject)step["intent"];
                 var at = $"{label} step {n++} {intent.Value<string>("type")}";
                 var mark = c.EventLog.Count;
+                before?.Invoke(c, step, at);
                 foreach (var id in (step["staggered"] as JArray ?? new JArray()).Select(t => t.Value<string>()))
                     c.Enemies.First(e => e.Value<string>("id") == id)["skipNextTurn"] = true;
                 if (step["error"] != null)
                 {
-                    Assert.Throws<InvalidOperationException>(() => CoreDispatch.Dispatch(c, intent), at + " the web refused this intent: " + step["error"]);
+                    Assert.Catch<InvalidOperationException>(() => CoreDispatch.Dispatch(c, intent), at + " the web refused this intent: " + step["error"]);
                     continue;
                 }
                 CoreDispatch.Dispatch(c, intent);

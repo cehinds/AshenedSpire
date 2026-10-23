@@ -80,7 +80,7 @@ const COVERED_EVENTS = new Set(['playerTurnEnd', 'playerTurnStart', 'enemyTurnSt
   'manaRestored', 'relicTriggered', 'statusGaugeFilled', 'statusPressure', 'statusRecoveryRolled', 'combatAvoidanceResolved', 'cardAdded', 'barrierGained', 'barrierBroken', 'statusPoiseBreak',
   ...REACTION_EVENTS, ...COUNTER_EVENTS, ...KNOWLEDGE_EVENTS]);
 const COVERED_OPS = new Set(['damage', 'block', 'gainBarrier', 'poiseDamage', 'wardDamage']);
-const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'wardDamage', 'applyStatus', 'block', 'gainBarrier', 'heal', 'addCard', 'buildup']);
+const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'wardDamage', 'applyStatus', 'block', 'gainBarrier', 'heal', 'addCard', 'buildup', 'moveEngagement']);
 const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
 const HOSTILE_OPS = new Set(['damage', 'applyStatus', 'buildup', 'poiseDamage', 'wardDamage', 'loseHp', 'stagger', 'arcaneBuildup']);
 const FRIENDLY_TARGETS = new Set(['self', 'owner', 'player', 'ally', 'allAllies']);
@@ -131,9 +131,6 @@ function enemyFits(combat, enemy) {
     const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
     const effects = [...(move.effects || []), ...(move.delay?.whileCharging?.effects || [])];
     if (effects.some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-    // A burden the move adds from the 405 registry (dazed, slimed, wound) is not a card of the profile: the port refuses to resolve it (WP-5), so the enemy that adds one sits out.
-    if (effects.some((effect) => effect.op === 'addCard' && !w.profile.content.cards.some((card) => card.id === effect.card))) return false;
-    if (hasHostileHooks(combat, enemy, effects)) return false;
     const hostile = move.damage != null || effects.some((effect) => HOSTILE_OPS.has(effect.op));
     const range = tactics.enemyMoveCarrier(enemy, def.moves[id], id, combat).combatProfile.range || 'melee';
     if (hostile && RANGES.indexOf(range) < band) return false;

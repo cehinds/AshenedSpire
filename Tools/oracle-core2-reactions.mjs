@@ -119,7 +119,8 @@ function merge(target, patch) {
 // The web decorates every event with the ability riders and the previews the UI and the card predicates read (abilityBefore, abilityEntities,
 // cardTargetsAllEnemies, intentPreview, actionPreview): the port builds none of them (no state or rule reads them), so the record leaves them out.
 const DECORATION = ['abilityBefore', 'abilityEntities', 'cardTargetsAllEnemies', 'intentPreview', 'actionPreview'];
-const PAYLOAD_EVENTS = new Set([...REACTION_EVENTS, ...COUNTER_EVENTS]);
+const RANGE_EVENTS = ['combatEngagementMoved', 'combatRangeActionUnavailable', 'characterMoved'];
+const PAYLOAD_EVENTS = new Set([...REACTION_EVENTS, ...COUNTER_EVENTS, ...RANGE_EVENTS]);
 const payloadEvents = (combat, mark) => combat.eventLog.slice(mark).filter((e) => PAYLOAD_EVENTS.has(e.type) || (e.type === 'blockGained' && e.source === 'counter'))
   .map((e) => Object.fromEntries(Object.entries(e).filter(([key]) => !DECORATION.includes(key))));
 
@@ -146,6 +147,28 @@ function open(spec) {
   return combat;
 }
 
+// The range quote the card face shows, one flat row per route (the numbers a UI shows and the port must match): previewCard and previewCardHit of every card in
+// the hand against every target. The range bot records them before each decision of the player's turn.
+const routeRows = (range) => (range ? range.routes.map((r) => ({
+  id: r.id, available: r.available, affordable: r.affordable, reason: r.reason ?? null, advanceSp: r.advanceSp, precisionDelta: r.precisionDelta, costs: r.costs,
+  targets: (r.targets || []).map((t) => ({ targetId: t.targetId, band: t.band, inRange: t.inRange, hitChance: t.hitChance, hitChances: t.hitChances, currentHitChance: t.currentHitChance, conditional: t.conditional })),
+})) : null);
+function previewsOf(combat) {
+  const out = {};
+  const living = combat.enemies.filter((e) => e.alive);
+  for (const card of combat.piles.hand) {
+    const row = { card: {}, hit: {} };
+    for (const target of [undefined, ...living.map((e) => e.id)]) {
+      try { row.card[String(target)] = routeRows(w.combat.previewCard(combat, card.instanceId, target).range); } catch (e) { row.card[String(target)] = { error: e.message }; }
+    }
+    for (const enemy of living) {
+      try { row.hit[enemy.id] = routeRows(w.combat.previewCardHit(combat, card.instanceId, enemy.id).range); } catch (e) { row.hit[enemy.id] = { error: e.message }; }
+    }
+    out[card.instanceId] = row;
+  }
+  return canon(out);
+}
+
 const wiredCounters = {};
 function record(spec, drive) {
   const combat = open(spec);
@@ -153,13 +176,14 @@ function record(spec, drive) {
   const start = { events: typesSince(combat, 0), state: last };
   const steps = [];
   const step = (intent, extra = {}) => {
+    const previews = RANGE && combat.phase === 'player' && !combat.result && !combat.pendingReaction && !combat.pendingCardChoice && ['playCard', 'moveCharacter', 'endTurn'].includes(intent.type) ? previewsOf(combat) : undefined;
     const mark = combat.eventLog.length;
     let error = null;
     try { w.combat.dispatch(combat, structuredClone(intent)); } catch (e) { error = e.message; }
     const state = view(combat);
     const events = typesSince(combat, mark);
     for (const t of events) wiredCounters[t] = (wiredCounters[t] || 0) + 1;
-    steps.push({ intent, ...extra, ...(error ? { error } : {}), events, payloads: canon(payloadEvents(combat, mark)), offer: offerOf(combat), delta: delta(last, state) ?? {} });
+    steps.push({ intent, ...extra, ...(previews ? { previews } : {}), ...(error ? { error } : {}), events, payloads: canon(payloadEvents(combat, mark)), offer: offerOf(combat), delta: delta(last, state) ?? {} });
     last = state;
     return !error;
   };
@@ -480,6 +504,136 @@ for (const answers of [['play'], ['back']]) {
 }
 
 // ---------------------------------------------------------------------------------------------------------------
+// Range exchanges (WP-12): the approach and its price by each route, the cards that move the engagement, the enemies that close the distance, the burdens
+// they add, and the step across the player's side of the field.
+// ---------------------------------------------------------------------------------------------------------------
+if (RANGE) {
+  const bandSpec = (spec, band) => {
+    const probe = open(spec);
+    const engagements = {};
+    for (const e of probe.enemies) engagements[JSON.stringify([`enemy:${e.id}`, 'player:player'].sort())] = band;
+    return { ...spec, fields: { ...(spec.fields || {}), rangeState: { ...(spec.fields?.rangeState || {}), engagements } } };
+  };
+  /** Plays a card of the hand by a route, answering the offers it opens; false when the play is outside the filter. */
+  const playRoute = (combat, step, cardId, route, answers = ['back']) => {
+    const card = combat.piles.hand.find((c) => c.cardId === cardId);
+    const enemy = combat.enemies.find((e) => e.alive);
+    if (!card || !enemy || combat.result || combat.phase !== 'player' || !playable(combat, card)) return false;
+    const def = expansion.resolveCombatCard(combat, card);
+    const aimed = immediate(def).some((e) => e.target === 'enemy');
+    const intent = { type: 'playCard', cardInstanceId: card.instanceId, ...(aimed ? { targetId: enemy.id } : {}), ...(route && route !== 'advance' ? { rangeRoute: route } : {}) };
+    if (!dryRun(combat, intent, scriptChooser(answers)).ok || !step(intent)) return false;
+    const chooser = scriptChooser(answers);
+    for (let n = 0; combat.pendingReaction && !combat.result; n++) {
+      if (n > 60) return false;
+      const answer = chooser.next(combat);
+      if (!step(answer, { answer: answer.optionId === null ? 'back' : 'play' })) return false;
+    }
+    return true;
+  };
+  const rangeSeed = seeds(90000);
+  let k = 0;
+  // (r1) A card played from a distance pays the Stamina to advance; the throw route costs Precision instead of Stamina when the piece can be thrown.
+  for (const band of [1, 2]) for (const route of ['advance', 'throw']) for (const classId of classes) for (let rep = 0; rep < 2; rep++) {
+    const encounter = all[(k * 5 + band + rep * 11) % all.length];
+    const spec = bandSpec({ seed: rangeSeed(k++), classId, encounterId: encounter.id, hand: ['core.strike', 'core.smash', 'core.strike', 'core.defend'] }, band);
+    addExchange('approach', `a Strike from band ${band} by ${route}`, spec, (combat, step) => {
+      playRoute(combat, step, 'core.strike', route);
+      playRoute(combat, step, 'core.smash', 'advance');
+      scripted(combat, step, ['back']);
+    });
+  }
+  // (r2) The cards that move the engagement: Advance twice, then a Strike; Backstep and Closing Dodge as the answers to a hit.
+  for (const classId of classes) for (let rep = 0; rep < 3; rep++) {
+    const encounter = all[(k * 7 + rep * 5) % all.length];
+    const spec = bandSpec({ seed: rangeSeed(k++), classId, encounterId: encounter.id, hand: ['core.advance', 'core.advance', 'core.strike', 'core.backstep'] }, 2);
+    addExchange('advanceCard', 'Advance twice, then a Strike', spec, (combat, step) => {
+      playRoute(combat, step, 'core.advance', 'advance');
+      playRoute(combat, step, 'core.advance', 'advance');
+      playRoute(combat, step, 'core.strike', 'advance');
+      scripted(combat, step, ['back']);
+    });
+  }
+  for (const answers of [['play'], ['play', 'play'], ['back']]) for (const classId of classes) {
+    const hits = search({ base: 91000 + answers.length * 40 + (answers[0] === 'back' ? 20 : 0) + classes.indexOf(classId) * 3, count: 2, classIds: [classId], hand: ['core.closingDodge', 'core.backstep', 'core.defend', 'core.strike'],
+      want: (combat) => (combat.enemies.some((e) => e.alive && fitsNow(combat, e) && ['attack', 'smash', 'sweep'].includes(intentManeuver(combat, e))) ? 'attacked' : null) });
+    for (const { spec } of hits) addExchange('dodge', `Closing Dodge and Backstep offered against a hit, ${answers.join(' then ')}`, spec, (combat, step) => { scripted(combat, step, answers); });
+  }
+  // (r3) Enemies that start at a distance close it on their own Stamina, or play their closing move when they cannot pay for both.
+  for (const band of [1, 2]) for (const classId of classes) for (let rep = 0; rep < 3; rep++) {
+    const encounter = all[(k * 3 + rep * 13 + band) % all.length];
+    const patch = rep === 2 ? { enemies: Object.fromEntries([0, 1, 2].map((i) => [i, { fixCoreStaminaRemaining: 1, stamina: 1, maxStamina: 1 }])) } : undefined;
+    const spec = { ...bandSpec({ seed: rangeSeed(k++), classId, encounterId: encounter.id, hand: ['core.defend', 'core.strike'] }, band), ...(patch ? { patch } : {}) };
+    addExchange('close', `enemies at band ${band} take their turn${patch ? ' on one Stamina' : ''}`, spec, (combat, step) => {
+      scripted(combat, step, ['back']);
+      scripted(combat, step, ['play', 'back']);
+      scripted(combat, step, ['back']);
+    });
+  }
+  // (r4) The enemies that add a burden to the deck: Slimed, Dazed (into the draw pile at random, or the discard) and Wound.
+  for (const encounterId of ['bruiser', 'packHunt', 'a2_surgery', 'a2_vault', 'a2_mirrorArchive', 'a3_eclipseChapel', 'a3_bossHollowAstronomer']) for (const classId of classes) {
+    const spec = { seed: rangeSeed(k++), classId, encounterId, hand: ['core.defend', 'core.strike', 'core.defend', 'core.strike'] };
+    addExchange('burden', `${encounterId} takes its turns`, spec, (combat, step) => {
+      for (let t = 0; t < 4 && !combat.result; t++) { if (!scripted(combat, step, ['back', 'play'])) break; }
+    });
+  }
+  // (r5) The step across the player's side of the field: off by default, on by the setting, free or paid, on the perspective grid and the classic one.
+  const variants = [
+    { label: 'off by default', settings: {}, cells: ['A1', 'B1'] },
+    { label: 'on, an action each', settings: MOVE_SETTINGS, cells: ['A1', 'B1', 'C1', 'B1', 'Z9', 'A2'] },
+    { label: 'on, free', settings: { ...MOVE_SETTINGS, 'gameConfig.presentation.movementCostsAction': false }, cells: ['A1', 'B1', 'C1'] },
+    { label: 'classic grid', settings: { ...MOVE_SETTINGS, classicAppearance: true }, cells: ['A1', 'B2', 'A2', 'C1'] },
+  ];
+  for (const variant of variants) for (const classId of classes.slice(0, 2)) {
+    const spec = { seed: rangeSeed(k++), classId, encounterId: all[(k * 4) % all.length].id };
+    addExchange('formation', `a step across the field, ${variant.label}`, spec, (combat, step) => {
+      for (const cell of variant.cells) step({ type: 'moveCharacter', cell, settings: variant.settings });
+      scripted(combat, step, ['back']);
+    });
+  }
+  // (r7) Hooks the player owns that strike: a turn hook is an action of its own (quoted, paid and told when it cannot be paid for), a hook on a hit follows the
+  // card's lineage, a random target is drawn once and kept. The price of an approach is raised to 5 per band in half of them so that the payment fails.
+  for (const status of ['waxingMoon', 'thornHalo', 'zealotry', 'bloodUnction', 'envenom', 'constellation']) for (const band of [0, 2]) for (const price of [1, 5]) for (const classId of classes.slice(0, 2)) {
+    const encounter = all[(k * 3 + 1) % all.length];
+    const base = bandSpec({ seed: rangeSeed(k++), classId, encounterId: encounter.id, hand: ['core.strike', 'core.strike', 'core.defend', 'core.smash'], patch: { player: { statuses: { [status]: { stacks: 2 } } } } }, band);
+    const spec = { ...base, fields: { ...base.fields, rangeState: { ...base.fields.rangeState, policy: { advanceSpPerBand: price } } } };
+    addExchange('hook', `${status} at band ${band}, ${price} per band`, spec, (combat, step) => {
+      playRoute(combat, step, 'core.strike', 'advance');
+      scripted(combat, step, ['back']);
+      playRoute(combat, step, 'core.smash', 'advance');
+      scripted(combat, step, ['play', 'back']);
+    });
+  }
+  // (r8) A Counter armed on the player's turn whose reply cannot pay to reach its attacker keeps its defence and replies with nothing.
+  for (const classId of classes) {
+    const hits = search({ base: 93000 + classes.indexOf(classId) * 3, count: 3, classIds: [classId], hand: ['core.counter', 'core.defend', 'core.strike'], fields: { rangeState: { policy: { advanceSpPerBand: 5 } } },
+      pool: all.filter((e) => /packHunt|bruiser|lanternFlight|chainAmbush|eclipseChapel|loneSoldier|patrol/i.test(e.id)),
+      want: (combat) => (combat.enemies.some((e) => fitsNow(combat, e) && e.intent?.moveId && ['attack', 'smash', 'sweep', 'ranged'].includes(intentManeuver(combat, e))) ? 'attacker' : null) });
+    for (const { spec: found } of hits) addExchange('counterUnavailable', 'a Counter armed whose reply cannot pay to advance', bandSpec(found, 1), (combat, step) => {
+      playRoute(combat, step, 'core.counter', 'advance');
+      scripted(combat, step, ['back']);
+    });
+  }
+  // (r9) Playing a burden: a Slimed costs a Stamina and exhausts, a Wound and a Dazed cannot be played.
+  for (const classId of classes) {
+    const spec = { seed: rangeSeed(k++), classId, encounterId: all[(k * 3) % all.length].id, hand: ['slimed', 'wound', 'dazed', 'core.strike'] };
+    addExchange('burdenPlay', 'a Slimed, a Wound and a Dazed in the hand', spec, (combat, step) => {
+      for (const cardId of ['slimed', 'wound', 'dazed']) {
+        const card = combat.piles.hand.find((c) => c.cardId === cardId);
+        if (card) step({ type: 'playCard', cardInstanceId: card.instanceId });
+      }
+      scripted(combat, step, ['back']);
+    });
+  }
+  // (r6) A Counter played against an attacker at a distance: the reply pays to reach it, by each route.
+  for (const route of ['advance', 'throw']) for (const classId of classes) {
+    const hits = search({ base: 92000 + (route === 'throw' ? 40 : 0) + classes.indexOf(classId) * 3, count: 2, classIds: [classId], hand: ['core.counter', 'core.defend', 'core.strike'], pool: all.filter((e) => /packHunt|bruiser|lanternFlight|chainAmbush|eclipseChapel/i.test(e.id)),
+      want: (combat) => (combat.enemies.some((e) => fitsNow(combat, e) && bandOf(combat, e) > 0 && e.intent?.moveId) ? 'distant' : null) });
+    for (const { spec } of hits) addExchange('counterReach', `a Counter against an attacker at a distance, ${route}`, spec, (combat, step) => { scripted(combat, step, ['play']); });
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------
 // Units: auto-combat's reaction chooser (model/autoCombatPolicy.js, owner ruling D12). Pure: the cases are drawn from its own LCG.
 // ---------------------------------------------------------------------------------------------------------------
 const units = [];
@@ -518,10 +672,12 @@ const tally = (steps) => {
     for (const t of s.events) { if (t === 'combatReactionUnavailable') seen.unavailable++; if (t === 'combatReactionStacked') seen.stacked++; if (t === 'combatReactionFizzled') seen.fizzled++; }
   }
 };
+// The range bot meets, first, the encounters that start at a distance and the enemies that add a burden to the deck; then the rest in turn.
+const FIRST = ['packHunt', 'bruiser', 'a2_surgery', 'a2_vault', 'a2_mirrorArchive', 'a3_eclipseChapel', 'a3_bossHollowAstronomer', 'lanternFlight', 'chainAmbush', 'a3_bossRotValkyrie', 'a3_bossAshheartDragon'];
 classes.forEach((classId, ci) => {
   const fights = [];
   for (let n = 0; n < FIGHTS; n++) {
-    const encounter = all[(ci * 5 + n * 7 + 1) % all.length];
+    const encounter = RANGE && n < FIRST.length ? all.find((e) => e.id === FIRST[(n + ci * 3) % FIRST.length]) : all[(ci * 5 + n * 7 + 1) % all.length];
     // Every fourth fight has no per-hit policy: the whole move is one root, the player may stack cards and the stack is seen at rest.
     const f = fight(w.rngMod.sweepSeed(81000 + ci * 100 + n), classId, encounter, 40, n % 4 === 3 ? { reactionRules: { contactPolicy: null } } : undefined);
     tally(f.steps);

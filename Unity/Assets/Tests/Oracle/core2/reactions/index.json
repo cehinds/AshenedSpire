@@ -2,21 +2,27 @@
  "coveredEvents": [
   "attackHit",
   "attackMissed",
+  "barrierBroken",
+  "barrierGained",
   "blockBroken",
   "blockGained",
+  "cardAdded",
   "cardDrawn",
   "cardExhausted",
   "cardPlayed",
   "cardPreparing",
   "cardResolved",
+  "characterMoved",
   "combatContactPrepared",
   "combatCounterArmed",
   "combatCounterConsumed",
   "combatCounterTriggered",
   "combatEnd",
   "combatEnemyReactionStacked",
+  "combatEngagementMoved",
   "combatGuardBroken",
   "combatHitStarted",
+  "combatRangeActionUnavailable",
   "combatRangeReturnUnavailable",
   "combatReactionChosen",
   "combatReactionFizzled",
@@ -52,14 +58,17 @@
   "statusApplied",
   "statusExpired",
   "statusGaugeFilled",
+  "statusPoiseBreak",
   "statusPressure",
   "statusRecoveryRolled",
   "statusRemoved"
  ],
  "coveredOps": [
+  "applyStatus",
   "block",
   "damage",
   "gainBarrier",
+  "moveEngagement",
   "poiseDamage",
   "wardDamage"
  ],
@@ -74,8 +83,8 @@
   "core.defend"
  ],
  "exchanges": {
-  "bytes": 1879330,
-  "count": 99,
+  "bytes": 2318867,
+  "count": 120,
   "file": "exchanges.json",
   "kinds": [
    "defend",
@@ -92,65 +101,65 @@
    "stack",
    "distant"
   ],
-  "steps": 306
+  "steps": 356
  },
  "fights": {
   "herald": {
    "fights": 8,
-   "steps": 152
+   "steps": 126
   },
   "reaver": {
    "fights": 8,
-   "steps": 181
+   "steps": 137
   },
   "rogue": {
    "fights": 8,
-   "steps": 213
+   "steps": 118
   },
   "starseer": {
    "fights": 8,
-   "steps": 181
+   "steps": 94
   }
  },
  "files": [
   {
-   "bytes": 478480,
+   "bytes": 468417,
    "classId": "reaver",
    "fights": 8,
    "file": "fights-reaver.json",
-   "steps": 181
+   "steps": 137
   },
   {
-   "bytes": 582382,
+   "bytes": 358531,
    "classId": "starseer",
    "fights": 8,
    "file": "fights-starseer.json",
-   "steps": 181
+   "steps": 94
   },
   {
-   "bytes": 579899,
+   "bytes": 374060,
    "classId": "rogue",
    "fights": 8,
    "file": "fights-rogue.json",
-   "steps": 213
+   "steps": 118
   },
   {
-   "bytes": 497905,
+   "bytes": 431767,
    "classId": "herald",
    "fights": 8,
    "file": "fights-herald.json",
-   "steps": 152
+   "steps": 126
   }
  ],
  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
  "profileId": "core",
  "seen": {
-  "back": 147,
+  "back": 153,
   "fizzled": 0,
-  "offers": 269,
-  "played": 122,
-  "stacked": 122,
-  "unavailable": 94
+  "offers": 307,
+  "played": 154,
+  "stacked": 154,
+  "unavailable": 112
  },
  "units": {
   "bytes": 183349,

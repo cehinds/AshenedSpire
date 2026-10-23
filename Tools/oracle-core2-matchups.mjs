@@ -52,42 +52,23 @@ const COUNTER_EVENTS = ['combatCounterArmed', 'combatCounterConsumed', 'combatCo
 const COVERED_EVENTS = new Set([...REACTION_EVENTS, 'playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared', 'combatReactionUnavailable',
   'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
   'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
-  'energySpent', 'staminaSpent', 'manaSpent', 'enemyDied', 'combatEnd', 'perceptionGained', 'combatHitStarted', ...COUNTER_EVENTS]);
+  'energySpent', 'staminaSpent', 'manaSpent', 'enemyDied', 'combatEnd', 'perceptionGained', 'combatHitStarted', 'combatEngagementMoved', 'combatRangeActionUnavailable', ...COUNTER_EVENTS]);
 // The ops a played card may carry: the damage, Block and Barrier of WP-7, and the Poise and Ward a Smash, a Sweep or a Counter deals.
 const COVERED_OPS = new Set(['damage', 'block', 'gainBarrier', 'poiseDamage', 'wardDamage']);
-const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'wardDamage', 'applyStatus', 'block', 'gainBarrier']);
+const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'wardDamage', 'applyStatus', 'block', 'gainBarrier', 'moveEngagement']);
 const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
-
-const HOSTILE_OPS = new Set(['damage', 'applyStatus', 'buildup', 'poiseDamage', 'wardDamage', 'loseHp', 'stagger', 'arcaneBuildup']);
-const FRIENDLY_TARGETS = new Set(['self', 'owner', 'player', 'ally', 'allAllies']);
-// engine/combatRangeLineage.js: an owned hook that strikes another creature makes the quote follow its lineage (WP-12); the port refuses on the same test.
-function hasHostileHooks(combat, owner, effects = []) {
-  const ids = new Set(Object.keys(owner.statuses || {}));
-  for (const effect of effects) if (effect.op === 'applyStatus' && ['self', 'owner'].includes(effect.target)) ids.add(effect.status);
-  let rows;
-  for (;;) {
-    rows = triggers.rangeHookSources(combat, owner, [...ids]);
-    let changed = false;
-    for (const { trigger } of rows) for (const effect of trigger.do || [])
-      if (effect.op === 'applyStatus' && ['self', 'owner'].includes(effect.target) && !ids.has(effect.status)) { ids.add(effect.status); changed = true; }
-    if (!changed) break;
-  }
-  return rows.some(({ trigger }) => (trigger.do || []).some((effect) => HOSTILE_OPS.has(effect.op) && !FRIENDLY_TARGETS.has(effect.target)));
-}
 
 const maneuverOfMove = (combat, enemy, id) => tactics.enemyMoveCarrier(enemy, combat.registries.enemies.get(enemy.enemyId).moves[id], id, combat).combatProfile.maneuver;
 
 // An enemy takes its turn inside the filter when every move it can play this turn (its intent and its planned follow-ups) stays within ENEMY_OPS,
 // none charges, and it already stands in melee range of the player (no Stamina to advance, no closing move).
 function enemyFits(combat, enemy) {
-  if (bandOf(combat, enemy) !== 0) return false;
   const def = combat.registries.enemies.get(enemy.enemyId);
   const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
   for (const id of ids) {
     const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
     if ((move.delay?.whileCharging?.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
     if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-    if (hasHostileHooks(combat, enemy, move.effects || [])) return false;
   }
   return true;
 }
@@ -130,7 +111,7 @@ function playable(combat, card) {
   if (def.effectVariants?.length || def.ashenBlightCost > 0) return false;
   if (Object.keys(combat.player.abilityRiders?.charges || {}).length) return false;
   if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
-  return !hasHostileHooks(combat, combat.player, def.effects);
+  return true;
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -216,11 +197,10 @@ function endTurn(combat, step) {
 /** The play intents the filter lets through for the current hand, each with the targets it can have. */
 function options(combat) {
   const out = [];
-  const targets = combat.enemies.filter((e) => e.alive && bandOf(combat, e) === 0).map((e) => e.id);
+  const targets = combat.enemies.filter((e) => e.alive).map((e) => e.id);
   for (const card of combat.piles.hand) {
     if (!playable(combat, card)) continue;
     const def = expansion.resolveCombatCard(combat, card);
-    if (def.effects.some((e) => e.op === 'damage' && e.target !== 'enemy') && combat.enemies.some((e) => e.alive && bandOf(combat, e) !== 0)) continue;
     const aimed = immediate(def).some((e) => e.target === 'enemy');
     for (const targetId of aimed ? targets : [undefined]) {
       const intent = { type: 'playCard', cardInstanceId: card.instanceId, ...(targetId ? { targetId } : {}) };

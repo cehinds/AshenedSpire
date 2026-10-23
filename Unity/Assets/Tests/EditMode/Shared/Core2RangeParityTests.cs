@@ -50,6 +50,39 @@ namespace Ashen.Tests
             for (var i = 0; i < rows.Count; i++) yield return new TestCaseData(i).SetName("Core2RangeExchange_" + rows[i].Value<string>("kind") + "_" + i);
         }
 
+        /// <summary>The route rows the oracle records (routeRows): one flat row per route with its price and the odds of every target.</summary>
+        private static JToken Rows(JObject range) => range == null ? JValue.CreateNull() : new JArray(range.Arr("routes").OfType<JObject>().Select(r => new JObject
+        {
+            ["id"] = r["id"].DeepClone(), ["available"] = r["available"].DeepClone(), ["affordable"] = r["affordable"].DeepClone(), ["reason"] = r["reason"].DeepClone(), ["advanceSp"] = r["advanceSp"].DeepClone(),
+            ["precisionDelta"] = r["precisionDelta"].DeepClone(), ["costs"] = r["costs"].DeepClone(),
+            ["targets"] = new JArray(r.Arr("targets").OfType<JObject>().Select(t => new JObject
+            {
+                ["targetId"] = t["targetId"].DeepClone(), ["band"] = t["band"].DeepClone(), ["inRange"] = t["inRange"].DeepClone(), ["hitChance"] = t["hitChance"].DeepClone(),
+                ["hitChances"] = t["hitChances"].DeepClone(), ["currentHitChance"] = t["currentHitChance"].DeepClone(), ["conditional"] = t["conditional"].DeepClone(),
+            })),
+        }));
+
+        /// <summary>The range quote of every card of the hand against every target, before the step, as the web showed it.</summary>
+        private static void CheckPreviews(CombatState c, JObject step, string at)
+        {
+            if (!(step["previews"] is JObject previews)) return;
+            foreach (var card in previews.Properties())
+            {
+                var row = (JObject)card.Value;
+                foreach (var target in ((JObject)row["card"]).Properties())
+                {
+                    if (target.Value is JObject failed && failed["error"] != null) continue;
+                    var got = CoreRangePreview.Card(c, card.Name, target.Name == "undefined" ? null : target.Name);
+                    Core2DamageParityTests.Same(at + " previewCard " + card.Name + " -> " + target.Name, target.Value, Rows(got));
+                }
+                foreach (var target in ((JObject)row["hit"]).Properties())
+                {
+                    if (target.Value is JObject failed && failed["error"] != null) continue;
+                    Core2DamageParityTests.Same(at + " previewCardHit " + card.Name + " -> " + target.Name, target.Value, Rows(CoreRangePreview.Hit(c, card.Name, target.Name)));
+                }
+            }
+        }
+
         [Test]
         public void TheOracleIsPresent()
         {
@@ -59,13 +92,13 @@ namespace Ashen.Tests
         }
 
         [TestCaseSource(nameof(Fights))]
-        public void TheFightPlaysAsTheWebPlaysIt(string file, int index) => Core2ReactionParityTests.Replay((JObject)((JArray)Read(file)["fights"])[index], file + "[" + index + "]");
+        public void TheFightPlaysAsTheWebPlaysIt(string file, int index) => Core2ReactionParityTests.Replay((JObject)((JArray)Read(file)["fights"])[index], file + "[" + index + "]", CheckPreviews);
 
         [TestCaseSource(nameof(Exchanges))]
         public void TheExchangePlaysAsTheWebPlaysIt(int index)
         {
             var exchange = (JObject)((JArray)Read("exchanges.json")["exchanges"])[index];
-            Core2ReactionParityTests.Replay(exchange, exchange.Value<string>("kind") + "[" + index + "] " + exchange.Value<string>("label"));
+            Core2ReactionParityTests.Replay(exchange, exchange.Value<string>("kind") + "[" + index + "] " + exchange.Value<string>("label"), CheckPreviews);
         }
     }
 }

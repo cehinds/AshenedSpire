@@ -175,7 +175,8 @@ namespace Ashen.Tests
             var inputs = (JObject)spec["inputs"];
             var damageType = CoreDamage.ProposalDamageType(b.C, b.Carrier);
             Assert.That(damageType, Is.EqualTo(inputs["damageType"].Type == JTokenType.String ? inputs.Value<string>("damageType") : null), label + " damage type");
-            var receipt = CoreDamage.ProfileDamageReceipt(b.C, b.Source, b.Target, web.Value<double>("base"), b.Carrier, inputs["rangeContact"] as JObject, web.Value<bool>("proposal"));
+            var contact = Contact(b, inputs, file + "[" + index + "]");
+            var receipt = CoreDamage.ProfileDamageReceipt(b.C, b.Source, b.Target, web.Value<double>("base"), b.Carrier, contact, web.Value<bool>("proposal"));
             Same(label + " receipt", spec["receipt"], receipt);
         }
 
@@ -196,10 +197,8 @@ namespace Ashen.Tests
                 var drawn = 0;
                 Func<int, int, int> draw = (low, high) => dice[drawn++];
                 var mark = b.C.EventLog.Count;
-                var returned = CoreImpact.ApplyAttackDamage(b.C, b.Source, b.Target, web.Value<double>("base"), b.Carrier, null, spec["inputs"]["rangeContact"] as JObject, draw);
+                var returned = CoreImpact.ApplyAttackDamage(b.C, b.Source, b.Target, web.Value<double>("base"), b.Carrier, null, Contact(b, (JObject)spec["inputs"], file + "[" + index + "]"), draw);
                 Assert.That(returned, Is.EqualTo(want.Value<double>("returned")), name + " returned");
-                // A trigger that asks for a hostile action is quoted and paid for through the range lineage (WP-12): what it does is not compared.
-                if (want.Value<bool>("lineage")) continue;
                 Assert.That(drawn, Is.EqualTo(want.Value<int>("draws")), name + " draws");
                 Same(name + " source", want["source"], Looks(b.Source));
                 Same(name + " target", want["target"], Looks(b.Target));
@@ -207,6 +206,14 @@ namespace Ashen.Tests
                 Same(name + " queue", want["queue"], Queue(b.C));
                 Same(name + " interrupts", want["interrupts"], b.C.Fields["gameProfileInterrupts"] ?? JValue.CreateNull());
             }
+        }
+
+        /// <summary>rangeHitContact: the engagement planner reads the contact of this hit itself, and it is the one the web read.</summary>
+        private static JObject Contact(Built b, JObject inputs, string name)
+        {
+            var contact = CoreRange.HitContact(b.C, b.Source, b.Target, b.Carrier);
+            Same(name + " range contact", inputs["rangeContact"] ?? JValue.CreateNull(), (JToken)contact ?? JValue.CreateNull());
+            return contact;
         }
 
         // ------------------------------------------------------------------ units

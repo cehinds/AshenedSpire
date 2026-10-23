@@ -63,7 +63,7 @@ function build(spec) {
   const run = createRun(w, spec.seed, spec.classId);
   const encounter = all.find((e) => e.id === spec.encounterId);
   const { combat } = createFight(w, run, encounter);
-  delete combat.rangeState; // range lineage (WP-12) is not part of the statuses oracle
+  delete combat.rangeState; // a scenario isolates the status from the engagement
   if (spec.fields) merge(combat, spec.fields);
   if (spec.rules) merge(combat.fixCoreRules, spec.rules);
   if (spec.statusRules) merge(combat.combatExpansionRules.statuses, spec.statusRules);
@@ -371,35 +371,18 @@ function wardGrid() {
 // (Counters, enemy reactions, the engagement and the range, Burdens, flasks); the player's reactions are ON (WP-10) and every offer a hit opens is
 // answered by the bot (half the first option, half Back, from its own LCG, one recorded step each), the dry run answering with a copy of that LCG; a card is played when none of its faces (its
 // variants included) carries an op of a later package (the move of the engagement, a Burden, arcane buildup, a script, a legacy stance), a Counter,
-// an Ashen Blight cost, a cardPreparing listener or a hostile hook. An enemy takes its turn when it stands in melee range and every move it can
+// an Ashen Blight cost or a cardPreparing listener. An enemy takes its turn when every move it can
 // play stays within ENEMY_OPS; the others are held (the flag a Poise break sets). Statuses are laid on the fighters by `applyStatus` steps first,
 // so the hooks, the clocks, the controls and the procs run on real turns.
-const DEFERRED_OPS = new Set(['moveEngagement', 'addBurden', 'arcaneBuildup']);
-const FORBIDDEN_EVENT = /counter|engagement|range|burden|flask|swap|formation|characterMoved/i;
+const DEFERRED_OPS = new Set(['addBurden', 'arcaneBuildup']);
+const FORBIDDEN_EVENT = /counter|burden|flask|swap/i;
 const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'applyStatus', 'block', 'gainBarrier', 'buildup', 'heal', 'wardDamage', 'loseHp', 'removeStatus']);
-const HOSTILE_OPS = new Set(['damage', 'applyStatus', 'buildup', 'poiseDamage', 'wardDamage', 'loseHp', 'stagger', 'arcaneBuildup']);
-const FRIENDLY_TARGETS = new Set(['self', 'owner', 'player', 'ally', 'allAllies']);
 const expansion = await load('src/engine/combatExpansion.js');
 const tactics = await load('src/engine/combatCardTactics.js');
 const typesSince = (c, mark) => c.eventLog.slice(mark).map((e) => e.type);
 const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
 
-function hasHostileHooks(combat, owner, effects = []) {
-  const ids = new Set(Object.keys(owner.statuses || {}));
-  for (const effect of effects) if (effect.op === 'applyStatus' && ['self', 'owner'].includes(effect.target)) ids.add(effect.status);
-  let rows;
-  for (;;) {
-    rows = triggers.rangeHookSources(combat, owner, [...ids]);
-    let changed = false;
-    for (const { trigger } of rows) for (const effect of trigger.do || [])
-      if (effect.op === 'applyStatus' && ['self', 'owner'].includes(effect.target) && !ids.has(effect.status)) { ids.add(effect.status); changed = true; }
-    if (!changed) break;
-  }
-  return rows.some(({ trigger }) => (trigger.do || []).some((effect) => HOSTILE_OPS.has(effect.op) && !FRIENDLY_TARGETS.has(effect.target)));
-}
-
 function enemyFits(combat, enemy) {
-  if (bandOf(combat, enemy) !== 0) return false;
   const def = combat.registries.enemies.get(enemy.enemyId);
   const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
   for (const id of ids) {
@@ -407,7 +390,6 @@ function enemyFits(combat, enemy) {
     if ((move.delay?.whileCharging?.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
     if (tactics.enemyMoveCarrier(enemy, def.moves[id], id, combat).combatProfile.maneuver === 'counter') return false;
     if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-    if (hasHostileHooks(combat, enemy, move.effects || [])) return false;
   }
   return true;
 }
@@ -433,10 +415,10 @@ function playable(combat, card) {
   if (faces.some((e) => DEFERRED_OPS.has(e.op) || e.script || (e.op === 'enterStance' && (e.stance || e.choose === 'classStance')))) return false;
   if (tags.includes('maneuver:counter') || def.ashenBlightCost > 0) return false;
   if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
-  return !hasHostileHooks(combat, combat.player, faces);
+  return true;
 }
 
-const safeStatus = (combat, id) => !hasHostileHooks(combat, { statuses: { [id]: { stacks: 1 } } });
+const safeStatus = () => true;
 const RESTING = new Set(['staggered', 'base.stagger']);
 
 function fight(seed, classId, encounter, bot, steps) {
@@ -499,7 +481,7 @@ function fight(seed, classId, encounter, bot, steps) {
     }
     const options = [];
     {
-      const targets = combat.enemies.filter((e) => e.alive && bandOf(combat, e) === 0).map((e) => e.id);
+      const targets = combat.enemies.filter((e) => e.alive).map((e) => e.id);
       const alive = combat.enemies.filter((e) => e.alive).map((e) => e.id);
       for (const card of combat.piles.hand) {
         if (!playable(combat, card)) continue;
