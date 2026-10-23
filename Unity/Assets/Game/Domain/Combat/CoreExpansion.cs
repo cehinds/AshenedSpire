@@ -71,8 +71,7 @@ namespace Ashen.Domain.Combat
                 foreach (var reactionAction in actions) reactionAction.Card = carrier;
             }
             if (carrier.Is(DK.ComboHook)) throw new NotSupportedException(DM.ComboNotPorted);
-            var serial = Js.Or0(c.Fields[DK.ExpansionActionSerial]) + 1;
-            c.Fields[DK.ExpansionActionSerial] = Js.N(serial);
+            var serial = CoreSerial.NextGroup(c);
             var group = new ExpansionGroup
             {
                 Key = (Js.Truthy(c.Fields[CK.CombatKey]) ? c.Fields.Str(CK.CombatKey) : DV.CombatKeyDefault) + DV.KeySeparator + serial.ToString(CultureInfo.InvariantCulture),

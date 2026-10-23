@@ -6,6 +6,7 @@ namespace Ashen.Generated
     {
         public const string IntentChooseBlightFeat = "chooseBlightFeat";
         public const string IntentUnqueueCard = "unqueueCard";
+        public const string NotANumber = "NaN";
         public const string OutcomeLost = "lost";
         public const string RegistryFlasks = "flasks";
         public const string Undefined = "undefined";

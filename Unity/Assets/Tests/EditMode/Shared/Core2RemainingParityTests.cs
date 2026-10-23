@@ -53,6 +53,10 @@ namespace Ashen.Tests
             var data = Core2DamageParityTests.Data;
             var run = CoreRunRules.Create(data.Run, seed, fight.Value<string>("classId"), CoreRunOptions.FromJson(null, Core2DamageParityTests.Unlocked));
             var spec = fight["spec"] as JObject ?? new JObject();
+            if (spec["deck"] is JArray deck)
+                run["deck"] = new JArray(deck.Select((t, n) => new JObject { ["instanceId"] = "rm" + (n + 1), ["cardId"] = t.Value<string>(), ["upgraded"] = false }));
+            foreach (var set in (spec["sets"] as JObject ?? new JObject()).Properties())
+                for (var n = 0; n < ((JArray)set.Value).Count; n++) run["loadout"]["sets"][set.Name][n] = set.Value[n].DeepClone();
             var i = 0;
             foreach (var cardId in (spec["deckAdd"] as JArray ?? new JArray()).Select(t => t.Value<string>()))
                 ((JArray)run["deck"]).Add(new JObject { ["instanceId"] = "rm" + (++i), ["cardId"] = cardId, ["upgraded"] = false });
@@ -60,7 +64,7 @@ namespace Ashen.Tests
                 ((JArray)run["flasks"]).Add(new JObject { ["flaskId"] = flaskId });
             foreach (var id in (spec["relics"] as JArray ?? new JArray()).Select(t => t.Value<string>()))
                 if (!((JArray)run["relics"]).Any(t => t.Value<string>() == id)) ((JArray)run["relics"]).Add(id);
-            if (spec["hp"] != null) run["hp"] = spec["hp"].DeepClone();
+            if (spec["maxHp"] != null) { run["maxHp"] = spec["maxHp"].DeepClone(); run["hp"] = spec["maxHp"].DeepClone(); }
             return CoreRunCombat.Create(data, new Rng(seed), run, fight.Value<string>("encounterId"));
         }
 

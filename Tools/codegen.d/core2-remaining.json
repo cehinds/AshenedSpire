@@ -26,6 +26,7 @@
       "keys": {
         "IntentChooseBlightFeat": "chooseBlightFeat",
         "IntentUnqueueCard": "unqueueCard",
+        "NotANumber": "NaN",
         "OutcomeLost": "lost",
         "RegistryFlasks": "flasks",
         "Undefined": "undefined",

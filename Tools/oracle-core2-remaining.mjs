@@ -24,6 +24,8 @@ const WHY = process.argv.includes('--why');
 const SEEDS = Number(arg('--seeds', '1'));
 const STEPS = Number(arg('--steps', '40'));
 const ONLY = arg('--only', null);
+const CARD_GROUP = Number(arg('--group', '7'));
+const CARD_STEPS = Number(arg('--card-steps', '60'));
 const ENCOUNTERS = Number(arg('--encounters', '1000'));
 const HERE = dirname(fileURLToPath(import.meta.url));
 
@@ -31,10 +33,12 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 // The specs: a run is created from (seed, class) and handed what the spec names before the fight opens.
 // ---------------------------------------------------------------------------------------------------------------
 export function applySpec(run, spec) {
+  if (spec.deck) run.deck = spec.deck.map((cardId, i) => ({ instanceId: `rm${i + 1}`, cardId, upgraded: false }));
   for (const [i, cardId] of (spec.deckAdd || []).entries()) run.deck.push({ instanceId: `rm${i + 1}`, cardId, upgraded: false });
+  for (const [slot, ids] of Object.entries(spec.sets || {})) ids.forEach((id, index) => { run.loadout.sets[slot][index] = id; });
   for (const flaskId of spec.flasks || []) run.flasks.push({ flaskId });
   for (const id of spec.relics || []) if (!run.relics.includes(id)) run.relics.push(id);
-  if (spec.hp !== undefined) run.hp = spec.hp;
+  if (spec.maxHp !== undefined) run.maxHp = run.hp = spec.maxHp;
   return run;
 }
 
@@ -45,7 +49,7 @@ export const FEATURED = [
   { name: 'wondrous', spec: { flasks: ['wondrousDraught', 'wondrousDraught', 'crimsonFlask'] } },
 ];
 
-const tally = { fights: 0, steps: 0, intents: {}, events: {}, refused: {}, rejections: {}, attempts: 0 };
+const tally = { fights: 0, steps: 0, intents: {}, events: {}, refused: {}, rejections: {}, attempts: 0, cards: {}, moves: {}, statuses: {}, flasks: {}, relics: {} };
 const count = (map, key, n = 1) => { map[key] = (map[key] || 0) + n; };
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -87,6 +91,10 @@ function candidates(w, combat, pick) {
     const choices = plan?.options?.length ? plan.options.map((o) => o.id) : [undefined];
     let aimed = true;
     try { aimed = w.combat.cardNeedsEnemyTargetNow(combat, card.instanceId); } catch { /* try every target */ }
+    // A card the player cannot pay for is offered now and then (the web's refusal is part of the record's tally), otherwise the bot spends what it has.
+    let affordable = true;
+    try { const costs = w.combat.cardPlayCosts(combat, card.instanceId); affordable = combat.player.energy >= costs.energy && combat.player.mana >= costs.mana; } catch { /* offer it */ }
+    if (!affordable && pick(100) >= 4) continue;
     for (const choice of choices) for (const targetId of aimed ? targets : [undefined]) {
       out.push({ intent: { type: 'playCard', cardInstanceId: card.instanceId, ...(targetId ? { targetId } : {}), ...(choice !== undefined ? { choice } : {}) }, kind: 'card' });
     }
@@ -96,8 +104,8 @@ function candidates(w, combat, pick) {
     const def = w.registries.flasks.get(flask.flaskId);
     for (const targetId of def.targeted ? targets : [undefined]) out.push({ intent: { type: 'useFlask', slot, ...(targetId ? { targetId } : {}) }, kind: 'flask' });
   });
-  for (const kind of ['hp', 'mana']) out.push({ intent: { type: 'useFlask', chargeKind: kind }, kind: 'flask' });
-  out.push({ intent: { type: 'setReactions', enabled: p.reactionsEnabled === false }, kind: 'other' });
+  for (const kind of ['hp', 'mana']) if ((p.flaskCharges?.[`${kind}Current`] || 0) > 0 || pick(100) < 4) out.push({ intent: { type: 'useFlask', chargeKind: kind }, kind: 'flask' });
+  if (pick(100) < 12) out.push({ intent: { type: 'setReactions', enabled: p.reactionsEnabled === false }, kind: 'other' });
   for (const enemy of living(combat)) {
     const a = enemy.knowledgeAction;
     const read = a?.reads?.player;
@@ -119,10 +127,10 @@ function choose(list, pick) {
   const roll = pick(100);
   const cards = by('card'), flasks = by('flask'), others = by('other'), swaps = by('swap'), answers = by('answer');
   if (answers.length) return answers[pick(answers.length)];
-  if (cards.length && roll < 66) return cards[pick(cards.length)];
-  if (flasks.length && roll < 78) return flasks[pick(flasks.length)];
-  if (swaps.length && roll < 84) return swaps[pick(swaps.length)];
-  if (others.length && roll < 90) return others[pick(others.length)];
+  if (cards.length && roll < 80) return cards[pick(cards.length)];
+  if (flasks.length && roll < 88) return flasks[pick(flasks.length)];
+  if (swaps.length && roll < 92) return swaps[pick(swaps.length)];
+  if (others.length && roll < 96) return others[pick(others.length)];
   return null;
 }
 
@@ -137,6 +145,7 @@ function fight(w, seed, classId, encounter, spec, steps) {
   const offer = (intent) => {
     const mark = combat.eventLog.length;
     count(tally, 'attempts');
+    const played = intent.type === 'playCard' ? combat.piles.hand.find((x) => x.instanceId === intent.cardInstanceId)?.cardId : null;
     try { w.combat.dispatch(combat, structuredClone(intent)); } catch (e) {
       // A refusal leaves the fight as it was: the oracle holds the web to it.
       const now = projectFull(combat);
@@ -148,7 +157,13 @@ function fight(w, seed, classId, encounter, spec, steps) {
     const events = typesSince(combat, mark);
     record.push({ intent, events, delta: delta(last, state) ?? {} });
     count(tally.intents, intent.type);
+    if (played) count(tally.cards, played);
     for (const e of events) count(tally.events, e);
+    for (const e of combat.eventLog.slice(mark)) {
+      if (e.type === 'enemyMoveStarted') count(tally.moves, `${e.enemyId ?? e.sourceId}:${e.moveId}`);
+      if (e.type === 'statusApplied') count(tally.statuses, e.status);
+      if (e.type === 'flaskUsed') count(tally.flasks, e.flaskId);
+    }
     last = state;
     return true;
   };
@@ -180,14 +195,33 @@ async function runClass(classId, ci) {
   if (!ONLY || ONLY === 'plain') {
     for (let n = 0; n < SEEDS; n++) all.forEach((encounter, ei) => fights.push(fight(w, w.rngMod.sweepSeed(60000 + ci * 1000 + n * 100 + ei), classId, encounter, {}, STEPS)));
   }
-  FEATURED.forEach((feature, fi) => {
-    if (ONLY && ONLY !== feature.name) return;
-    for (let n = 0; n < 6; n++) {
-      const encounter = all[(ci * 5 + n * 3 + fi) % Math.min(12, all.length)];
-      const fx = fight(w, w.rngMod.sweepSeed(90000 + ci * 1000 + fi * 100 + n), classId, encounter, feature.spec, STEPS);
-      fx.feature = feature.name;
+  const act1 = all.slice(0, Math.min(12, all.length));
+  const featured = (name, seed, encounter, spec, steps = STEPS) => {
+    if (ONLY && ONLY !== name) return;
+    try {
+      const fx = fight(w, seed, classId, encounter, spec, steps);
+      fx.feature = name;
       fights.push(fx);
+    } catch (e) {
+      // A run the web itself cannot open (its own refusal) is not a fight to record.
+      if (!/oracle-core2-remaining/.test(e.message)) { count(tally.refused, `start ${name}: ${e.message}`); return; }
+      throw e;
     }
+  };
+  FEATURED.forEach((feature, fi) => {
+    for (let n = 0; n < 6; n++) featured(feature.name, w.rngMod.sweepSeed(90000 + ci * 1000 + fi * 100 + n), act1[(ci * 5 + n * 3 + fi) % act1.length], feature.spec);
+  });
+  // Every card of the profile, in groups: the deck is the group twice, so each card is drawn in the first turns (this class plays the groups g = class index mod 4).
+  const cardIds = w.gp.gameContent(w.profile, 'cards').map((c) => c.id).sort();
+  for (let g = 0; g * CARD_GROUP < cardIds.length; g++) {
+    if (g % 4 !== ci) continue;
+    const group = cardIds.slice(g * CARD_GROUP, (g + 1) * CARD_GROUP);
+    featured('cards', w.rngMod.sweepSeed(120000 + g * 10 + ci), act1[(g * 7) % act1.length], { deck: [...group, ...group], maxHp: 300 }, CARD_STEPS);
+  }
+  // Every relic of the registry alone, so each passive and each rule it mounts is met in a fight.
+  w.registries.relics.all().forEach((relic, r) => {
+    if (r % 4 !== ci) return;
+    featured('relics', w.rngMod.sweepSeed(150000 + r * 10 + ci), act1[(r * 5) % act1.length], { relics: [relic.id], maxHp: 300 }, CARD_STEPS);
   });
   mkdirSync(OUT, { recursive: true });
   const text = `${JSON.stringify(canon({ classId, fights }))}\n`;
@@ -210,18 +244,18 @@ if (classArg) {
     const child = spawn(process.execPath, [join(HERE, 'oracle-core2-remaining.mjs'), ...passthrough, '--classes', classId], { stdio: ['ignore', 'ignore', 'inherit'] });
     child.on('exit', (code) => (code === 0 ? resolve() : reject(new Error(`${classId} exited ${code}`))));
   })));
-  const merged = { fights: 0, steps: 0, intents: {}, events: {}, refused: {}, rejections: {}, attempts: 0 };
+  const merged = { fights: 0, steps: 0, intents: {}, events: {}, refused: {}, rejections: {}, attempts: 0, cards: {}, moves: {}, statuses: {}, flasks: {}, relics: {} };
   const files = [];
   for (const classId of all) {
     const part = JSON.parse(readFileSync(join(OUT, `tally-${classId}.tmp`), 'utf8'));
     rmSync(join(OUT, `tally-${classId}.tmp`));
     files.push({ file: part.file, classId, fights: part.fights, steps: part.steps, bytes: part.bytes });
     for (const key of ['fights', 'steps', 'attempts']) merged[key] += part.tally[key];
-    for (const key of ['intents', 'events', 'refused', 'rejections']) for (const [name, n] of Object.entries(part.tally[key])) count(merged[key], name, n);
+    for (const key of ['intents', 'events', 'refused', 'rejections', 'cards', 'moves', 'statuses', 'flasks', 'relics']) for (const [name, n] of Object.entries(part.tally[key])) count(merged[key], name, n);
   }
   const index = { webSha: w.head, profileId: w.profile.id, profileHash: w.profile.hash, files, tally: merged };
   writeFileSync(join(OUT, 'index.json'), `${JSON.stringify(canon(index), null, 1)}\n`);
   const rejected = Object.values(merged.rejections).reduce((s, n) => s + n, 0);
-  if (WHY) console.log('web refusals', merged.refused, '\nintents', merged.intents);
+  if (WHY) console.log('web refusals', merged.refused, '\nintents', merged.intents, `\ncards played ${Object.keys(merged.cards).length}, enemy moves ${Object.keys(merged.moves).length}, statuses applied ${Object.keys(merged.statuses).length}, flasks ${JSON.stringify(merged.flasks)}`);
   console.log(`oracle-core2-remaining: ${merged.fights} fights / ${merged.steps} steps (${merged.attempts} offered), rejections by the oracle: ${rejected}, ${(files.reduce((s, f) => s + f.bytes, 0) / 1024).toFixed(0)} KB -> Unity/Assets/Tests/Oracle/core2/remaining`);
 }

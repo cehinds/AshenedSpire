@@ -108,6 +108,7 @@ namespace Ashen.Tests
             }
             o["itemUpgradeLevels"] = c.ItemUpgradeLevels.DeepClone();
             o["phase"] = c.Phase;
+            if (c.PendingAbilityPlay != null) o["pendingAbilityPlay"] = c.PendingAbilityPlay.DeepClone();
             o["piles"] = new JObject
             {
                 ["draw"] = new JArray(c.Piles.Draw.Select(x => x.DeepClone())),
