@@ -4,5 +4,18 @@ namespace Ashen.Generated
     /// <summary>Numbers of the Core 2 statuses, status control, card traits and effect ops.</summary>
     public static class Core2StatusNumbers
     {
+        public const double AttackFluxTier = 3;
+        public const double AttackImpactTier = 3;
+        public const double BurdensMaxPerAdd = 20;
+        public const double DefendImpactTier = 4;
+        public const double FluxListedTier = 2;
+        public const double LinkedSpellDepthLimit = 8;
+        public const double PowerFluxTier = 4;
+        public const double SweepImpactTier = 2;
+        public const double SweepReactionRank = 2;
+        public const double SweepStrikeTier = 4;
+        public const double TierCap = 5;
+        public const double TierPerStep = 2;
+        public const double TurnsMax = 10;
     }
 }

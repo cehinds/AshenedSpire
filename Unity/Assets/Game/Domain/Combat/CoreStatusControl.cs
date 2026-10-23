@@ -1,4 +1,5 @@
 using System;
+using Ashen.Generated;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -196,7 +197,7 @@ namespace Ashen.Domain.Combat
                 Emit(c, SV.StatusImmune, target, Js.Obj(K.Status, id, SK.Units, units));
                 return receipt;
             }
-            var percent = Math.Min(100, Math.Max(0, Finite(!Js.Nullish(options[SK.ResistancePercent]) ? options[SK.ResistancePercent] : traits.Obj(SK.BuildupResistance)?[id])));
+            var percent = Math.Min(CombatMath.Percent, Math.Max(0, Finite(!Js.Nullish(options[SK.ResistancePercent]) ? options[SK.ResistancePercent] : traits.Obj(SK.BuildupResistance)?[id])));
             var accepted = Math.Max(0, units * (1 - percent / Ashen.Generated.CombatMath.Percent));
             var resisted = units - accepted;
             var gauges = s.Obj(CK.Gauges);
@@ -212,7 +213,7 @@ namespace Ashen.Domain.Combat
             var active = row.Str(CK.ActiveStatus);
             while (gauge.Num(K.Value) >= (Stacks(target, active) > 0 ? row.Num(SK.ActiveThreshold) : row.Num(SK.InitialThreshold)))
             {
-                if (++iterations > c.Data.Rule(K.Limits, K.FillLoopGuard) * 100) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, SM.UnboundedBuildup, id));
+                if (++iterations > c.Data.Rule(K.Limits, K.FillLoopGuard) * CombatMath.Percent) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, SM.UnboundedBuildup, id));
                 if (Stacks(target, active) >= row.Num(CK.Cap)) break;
                 var threshold = Stacks(target, active) > 0 ? row.Num(SK.ActiveThreshold) : row.Num(SK.InitialThreshold);
                 gauge.Put(K.Value, gauge.Num(K.Value) - threshold);
@@ -391,9 +392,9 @@ namespace Ashen.Domain.Combat
         /// <summary>rollStatusChance(ctx, chance, options): a d100 on the named stream (two with advantage or disadvantage); the roll succeeds at or under the chance.</summary>
         public static JObject RollChance(CombatState c, double chance, bool advantage, bool disadvantage, Ashen.Generated.Core2RngStream stream)
         {
-            var first = c.Rng.Int(stream, 1, 100);
+            var first = c.Rng.Int(stream, 1, (int)CombatMath.Percent);
             var rolls = new List<int> { first };
-            if (advantage != disadvantage) rolls.Add(c.Rng.Int(stream, 1, 100));
+            if (advantage != disadvantage) rolls.Add(c.Rng.Int(stream, 1, (int)CombatMath.Percent));
             var roll = advantage == disadvantage ? first : advantage ? rolls.Min() : rolls.Max();
             return Js.Obj(Ashen.Generated.RewardsKeys.Rolls, new JArray(rolls.Select(r => (JToken)r)), K.Roll, roll, Ashen.Generated.Core2DamageKeys.Chance, chance, SK.EffectiveChance, EffectiveChance(chance, advantage, disadvantage), K.Success, roll <= chance);
         }

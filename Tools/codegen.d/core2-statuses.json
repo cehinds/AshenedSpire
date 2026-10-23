@@ -259,6 +259,16 @@
         "UnknownZoneOp": "Unknown card-zone opcode",
         "UnsupportedRollMode": "Unsupported next-roll mode"
       }
+    },
+    {
+      "name": "Core2StatusSuffixes",
+      "doc": "The plural endings of a registry name and what makes its singular (the shipped registry words its messages in the singular).",
+      "keys": {
+        "Ies": "ies",
+        "Uses": "uses",
+        "S": "s",
+        "Y": "y"
+      }
     }
   ],
   "numberSets": [
@@ -266,7 +276,21 @@
       "name": "Core2StatusNumbers",
       "type": "double",
       "doc": "Numbers of the Core 2 statuses, status control, card traits and effect ops.",
-      "values": {}
+      "values": {
+        "AttackFluxTier": "3",
+        "AttackImpactTier": "3",
+        "BurdensMaxPerAdd": "20",
+        "DefendImpactTier": "4",
+        "FluxListedTier": "2",
+        "LinkedSpellDepthLimit": "8",
+        "PowerFluxTier": "4",
+        "SweepImpactTier": "2",
+        "SweepReactionRank": "2",
+        "SweepStrikeTier": "4",
+        "TierCap": "5",
+        "TierPerStep": "2",
+        "TurnsMax": "10"
+      }
     }
   ]
 }

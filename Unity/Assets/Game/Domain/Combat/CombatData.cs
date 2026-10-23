@@ -5,6 +5,7 @@ using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
+using SX = Ashen.Generated.Core2StatusSuffixes;
 
 namespace Ashen.Domain.Combat
 {
@@ -33,9 +34,9 @@ namespace Ashen.Domain.Combat
 
         /// <summary>The shipped registry names its type in the singular ('card', 'status', 'enemy') in its messages.</summary>
         private static string Singular(string plural) =>
-            plural.EndsWith("ies", StringComparison.Ordinal) ? plural.Substring(0, plural.Length - 3) + "y"
-            : plural.EndsWith("uses", StringComparison.Ordinal) ? plural.Substring(0, plural.Length - 2)
-            : plural.EndsWith("s", StringComparison.Ordinal) ? plural.Substring(0, plural.Length - 1) : plural;
+            plural.EndsWith(SX.Ies, StringComparison.Ordinal) ? plural.Substring(0, plural.Length - SX.Ies.Length) + SX.Y
+            : plural.EndsWith(SX.Uses, StringComparison.Ordinal) ? plural.Substring(0, plural.Length - SX.S.Length - 1)
+            : plural.EndsWith(SX.S, StringComparison.Ordinal) ? plural.Substring(0, plural.Length - SX.S.Length) : plural;
 
         public IReadOnlyList<JObject> All => _all;
 

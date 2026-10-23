@@ -1,4 +1,5 @@
 using System;
+using Ashen.Generated;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -63,7 +64,7 @@ namespace Ashen.Domain.Combat
             return cards.Take(Math.Max(0, look)).ToList();
         }
 
-        private static bool Safe(JToken t) => Js.IsInt(t) && Math.Abs(Js.D(t)) <= 9007199254740991d;
+        private static bool Safe(JToken t) => Js.IsInt(t) && Math.Abs(Js.D(t)) <= Math.Pow(CombatMath.Two, CombatMath.SafeIntegerBits) - 1;
 
         /// <summary>validateZoneEffect(effect): the shape of a moveCards or modifyCards effect.</summary>
         public static void Validate(JObject effect)

@@ -1,4 +1,5 @@
 using System;
+using Ashen.Generated;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
@@ -200,7 +201,7 @@ namespace Ashen.Domain.Combat
             var pierceWard = magical && heldProfile.Str(CK.DamageType) == MV.DamagePiercing;
             var wardEdge = counter.Str(MK.SchoolEffect) == CK.Ward && schoolEdge != 1 ? schoolEdge : pierceWard ? MN.PiercingWardEdge : 1;
             ward *= wardEdge;
-            if (!CoreMatchups.IsSpellCounter(held) && trait.Num(DK.Flux) > 0) ward = ward > 0 ? 2 * ward : trait.Num(DK.Flux);
+            if (!CoreMatchups.IsSpellCounter(held) && trait.Num(DK.Flux) > 0) ward = ward > 0 ? CombatMath.Two * ward : trait.Num(DK.Flux);
             var body = CoreMatchups.EventCarrier(target, held);
             body[K.SourceId] = target[K.Id].DeepClone();
             body[K.TargetId] = source[K.Id].DeepClone();

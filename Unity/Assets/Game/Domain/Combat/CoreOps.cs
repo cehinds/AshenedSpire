@@ -16,7 +16,9 @@ using RngStream = Ashen.Generated.RngStream;
 using V = Ashen.Generated.CombatValues;
 using SV = Ashen.Generated.Core2StatusValues;
 using SM = Ashen.Generated.Core2StatusMessages;
+using MN = Ashen.Generated.Core2MatchupNumbers;
 using SK = Ashen.Generated.Core2StatusKeys;
+using SN = Ashen.Generated.Core2StatusNumbers;
 
 namespace Ashen.Domain.Combat
 {
@@ -231,7 +233,7 @@ namespace Ashen.Domain.Combat
             !(action.Card?.Is(SK.CombatWardEdgeApplied) == true) && action.Card?.Obj(CK.CombatProfile)?.Str(CK.Camp) == CV.CampSpell && action.Card.Obj(CK.CombatProfile).Str(CK.DamageType) == SV.Piercing
                 ? c_WardEdge : 1;
 
-        private const double c_WardEdge = 1.25;
+        private const double c_WardEdge = MN.PiercingWardEdge;
 
         // ------------------------------------------------------------------ riders and linked spells
 
@@ -249,7 +251,7 @@ namespace Ashen.Domain.Combat
         private static void CastLinkedSpell(CombatState c, CombatAction action, JObject eff)
         {
             var depth = action.Meta?.LinkedDepth ?? 0;
-            if (depth >= 8) throw new InvalidOperationException(SM.LinkedDepth);
+            if (depth >= SN.LinkedSpellDepthLimit) throw new InvalidOperationException(SM.LinkedDepth);
             var linked = c.Data.Cards.Get(eff.Str(K.Card));
             foreach (var effect in Js.Items(linked[K.Effects]).OfType<JObject>())
             {
@@ -266,7 +268,7 @@ namespace Ashen.Domain.Combat
             foreach (var enemy in Targets(c, action, eff.Str(K.Target)))
             {
                 if (enemy.Str(K.Kind) != V.Enemy) continue;
-                var until = c.Turn + Math.Max(1, Math.Min(10, Eval(c, action, eff[K.Amount], 1)));
+                var until = c.Turn + Math.Max(1, Math.Min(SN.TurnsMax, Eval(c, action, eff[K.Amount], 1)));
                 var owner = action.Owner ?? action.Source;
                 var ownerId = owner?.Str(K.Id);
                 if (ownerId == null) throw new InvalidOperationException(SM.RevealNeedsOwner);
@@ -285,7 +287,7 @@ namespace Ashen.Domain.Combat
             if (changes != null && changes[SK.HideTurns] is JObject)
             {
                 var effect = (JObject)eff.DeepClone();
-                effect.Obj(Ashen.Generated.ShopKeys.Changes)[SK.HideTurns] = Js.N(Math.Min(10, Math.Max(1, Eval(c, action, changes[SK.HideTurns], 1))));
+                effect.Obj(Ashen.Generated.ShopKeys.Changes)[SK.HideTurns] = Js.N(Math.Min(SN.TurnsMax, Math.Max(1, Eval(c, action, changes[SK.HideTurns], 1))));
                 resolved = new CombatAction { Effect = effect, Source = action.Source, Owner = action.Owner, Target = action.Target, Card = action.Card, Meta = action.Meta };
             }
             CoreCardZones.Move(c, resolved, Eval(c, action, eff[K.Amount], 1));

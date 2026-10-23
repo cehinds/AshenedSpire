@@ -11,6 +11,7 @@ using K = Ashen.Generated.CombatKeys;
 using Op = Ashen.Generated.CombatOps;
 using V = Ashen.Generated.CombatValues;
 using SK = Ashen.Generated.Core2StatusKeys;
+using SN = Ashen.Generated.Core2StatusNumbers;
 using SV = Ashen.Generated.Core2StatusValues;
 
 namespace Ashen.Domain.Combat
@@ -65,7 +66,7 @@ namespace Ashen.Domain.Combat
         {
             if (def[Ashen.Generated.Core2CostKeys.GradeProfiles] is JArray) return Js.IsInt(def[CK.AbilityRank]) ? def.Num(CK.AbilityRank) : 0;
             var rank = Js.IsInt(def[DK.Rank]) ? def.Num(DK.Rank) : 0;
-            return Math.Min(5, Math.Floor(rank / 2));
+            return Math.Min(SN.TierCap, Math.Floor(rank / SN.TierPerStep));
         }
 
         private static bool Listed(JObject sets, string key, string id) => Js.Includes(sets[key], id);
@@ -87,33 +88,33 @@ namespace Ashen.Domain.Combat
             var rank = ActualRank(def);
             var found = new JObject();
             if (maneuver == CV.StanceCounter || def[CK.Evade] != null) found[CK.Reaction] = true;
-            if (maneuver == CV.StanceSweep && rank >= 2) found[CK.Reaction] = true;
+            if (maneuver == CV.StanceSweep && rank >= SN.SweepReactionRank) found[CK.Reaction] = true;
             if (maneuver == CV.StanceDefend && rank >= 1) found[CK.Reaction] = true;
             if (maneuver == CV.StanceCounter && !Listed(sets, SK.CounterNoStrike, id)) found[DK.Counterstrike] = true;
-            if (Listed(sets, SK.SweepStrikeTier4, id) && tier >= 4) found[DK.Counterstrike] = true;
+            if (Listed(sets, SK.SweepStrikeTier4, id) && tier >= SN.SweepStrikeTier) found[DK.Counterstrike] = true;
             var impactBase = false;
             if (maneuver == CV.StanceSmash) impactBase = true;
             else if (maneuver == CV.StanceCounter && camp == CV.CampPhysical && !Listed(sets, SK.CounterImpactExcluded, id)) impactBase = true;
             else if (Listed(sets, SK.CounterImpactSpell, id)) impactBase = true;
-            else if (maneuver == CV.StanceAttack && camp == CV.CampPhysical && tier >= 3) impactBase = true;
-            else if (maneuver == CV.StanceSweep && tier >= 2) impactBase = true;
+            else if (maneuver == CV.StanceAttack && camp == CV.CampPhysical && tier >= SN.AttackImpactTier) impactBase = true;
+            else if (maneuver == CV.StanceSweep && tier >= SN.SweepImpactTier) impactBase = true;
             else if (maneuver == CV.StanceDefend && camp == CV.CampSpell && HasEffect(def, Js.Items(sets[SK.DefendBarrierEffects]).Select(Js.Str))) impactBase = true;
-            else if (maneuver == CV.StanceDefend && Listed(sets, SK.DefendImpactTier4, id) && tier >= 4) impactBase = true;
+            else if (maneuver == CV.StanceDefend && Listed(sets, SK.DefendImpactTier4, id) && tier >= SN.DefendImpactTier) impactBase = true;
             if (impactBase)
             {
                 var impact = rules.Obj(K.Impact);
-                found[K.Impact] = Js.N(impact.Obj(K.Base).Num(maneuver == CV.StanceSmash ? CV.StanceSmash : CK.Default) + Math.Floor(tier / 2) * impact.Num(Ashen.Generated.Core2ReactionRuleKeys.PerTwoTiers));
+                found[K.Impact] = Js.N(impact.Obj(K.Base).Num(maneuver == CV.StanceSmash ? CV.StanceSmash : CK.Default) + Math.Floor(tier / SN.TierPerStep) * impact.Num(Ashen.Generated.Core2ReactionRuleKeys.PerTwoTiers));
             }
             var flux = false;
             if (camp == CV.CampSpell && HasEffect(def, new[] { Op.Damage }, Js.Items(sets[SK.EnemyDamageTargets]).Select(Js.Str))) flux = true;
             if (Listed(sets, SK.CounterFluxWard, id)) flux = true;
-            if (Listed(sets, SK.FluxTier2, id) && tier >= 2) flux = true;
-            if (maneuver == CV.StanceAttack && camp == CV.CampPhysical && tier >= 3 && Js.Includes(sets[SK.FluxDamageTypes], profile.Str(CK.DamageType))) flux = true;
-            if (camp == CV.CampSpell && type == CV.TypePower && tier >= 4) flux = true;
+            if (Listed(sets, SK.FluxTier2, id) && tier >= SN.FluxListedTier) flux = true;
+            if (maneuver == CV.StanceAttack && camp == CV.CampPhysical && tier >= SN.AttackFluxTier && Js.Includes(sets[SK.FluxDamageTypes], profile.Str(CK.DamageType))) flux = true;
+            if (camp == CV.CampSpell && type == CV.TypePower && tier >= SN.PowerFluxTier) flux = true;
             if (flux)
             {
                 var fluxRules = rules.Obj(DK.Flux);
-                found[DK.Flux] = Js.N(fluxRules.Num(K.Base) + Math.Floor(tier / 2) * fluxRules.Num(Ashen.Generated.Core2ReactionRuleKeys.PerTwoTiers));
+                found[DK.Flux] = Js.N(fluxRules.Num(K.Base) + Math.Floor(tier / SN.TierPerStep) * fluxRules.Num(Ashen.Generated.Core2ReactionRuleKeys.PerTwoTiers));
             }
             return found;
         }

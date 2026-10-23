@@ -10,6 +10,7 @@ using K = Ashen.Generated.CombatKeys;
 using Op = Ashen.Generated.CombatOps;
 using RngStream = Ashen.Generated.RngStream;
 using SK = Ashen.Generated.Core2StatusKeys;
+using SN = Ashen.Generated.Core2StatusNumbers;
 using SM = Ashen.Generated.Core2StatusMessages;
 using SV = Ashen.Generated.Core2StatusValues;
 using V = Ashen.Generated.CombatValues;
@@ -38,7 +39,7 @@ namespace Ashen.Domain.Combat
                 foreach (var zone in Zones) piles[zone] = new JArray();
                 enemy[CK.BurdenPiles] = piles;
             }
-            var n = (int)Math.Min(20, Math.Max(0, Math.Floor(count)));
+            var n = (int)Math.Min(SN.BurdensMaxPerAdd, Math.Max(0, Math.Floor(count)));
             for (var i = 0; i < n; i++) piles.Arr(pile).Add(Js.Obj(K.InstanceId, c.NextInstanceId(), K.CardId, cardId, K.Upgraded, false));
             c.Emit(SV.EnemyBurdenAdded, Js.Obj(K.TargetId, enemy[K.Id], K.CardId, cardId, K.Count, count));
         }
