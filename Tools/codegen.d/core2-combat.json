@@ -541,7 +541,7 @@
         "ReasonConsumed": "consumed",
         "ReasonOwnerTurnEnd": "ownerTurnEnd",
         "ReasonOwnerTurnStart": "ownerTurnStart",
-        "ReasonRoundRefresh": "roundRefresh",
+        "ReasonRoundRefresh": "configuredRoundRefresh",
         "RoundNearest": "nearest",
         "RoundUp": "up",
         "SeedJoin": "/",

@@ -178,7 +178,7 @@ namespace Ashen.Tests
         }
 
         /// <summary>Plays one recorded fight or exchange on the port and holds it to the web after every step.</summary>
-        internal static void Replay(JObject record, string label, Action<CombatState, JObject, string> before = null)
+        internal static void Replay(JObject record, string label, Action<CombatState, JObject, string> before = null, Func<CombatState, CombatState> between = null)
         {
             var c = Open(record);
             JToken want = record["start"]["state"].DeepClone();
@@ -204,6 +204,7 @@ namespace Ashen.Tests
                 Core2CombatStartParityTests.Same(at, want, Core2CombatStartParityTests.Project(c));
                 Core2DamageParityTests.Same(at + " payloads", step["payloads"], Payloads(c, mark));
                 Core2DamageParityTests.Same(at + " offer", step["offer"], Offer(c));
+                if (between != null) { c = between(c); if (ReferenceEquals(step, ((JArray)record["steps"]).Last())) Core2CombatStartParityTests.Same(at + " restored", want, Core2CombatStartParityTests.Project(c)); if (ReferenceEquals(step, ((JArray)record["steps"]).Last())) Core2DamageParityTests.Same(at + " restored offer", step["offer"], Offer(c)); }
             }
         }
     }

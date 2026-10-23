@@ -49,7 +49,7 @@ namespace Ashen.Tests
         public void TheFightPlaysAsTheWebPlaysIt(string file, int index) => Replay((JObject)((JArray)Read(file)["fights"])[index], file + "[" + index + "]");
 
         /// <summary>Plays one recorded fight on the port and holds it to the web after every step (the whole combat as a delta, the event types in order).</summary>
-        internal static void Replay(JObject fight, string where, Func<JObject, CombatState> open = null)
+        internal static void Replay(JObject fight, string where, Func<JObject, CombatState> open = null, Func<CombatState, CombatState> between = null)
         {
 
             var c = open != null ? open(fight) : Core2CombatStartParityTests.Open(fight, out _);
@@ -102,6 +102,7 @@ namespace Ashen.Tests
                 want = Core2CombatStartParityTests.Apply(want, step["delta"]);
                 Core2CombatStartParityTests.Same(at, want, Core2CombatStartParityTests.Project(c));
                 Assert.That(Core2CombatStartParityTests.Events(c, mark), Is.EqualTo(step["events"].Select(t => t.Value<string>()).ToList()), at + " events");
+                if (between != null) { c = between(c); if (ReferenceEquals(step, ((JArray)fight["steps"]).Last())) Core2CombatStartParityTests.Same(at + " restored", want, Core2CombatStartParityTests.Project(c)); }
             }
         }
     }

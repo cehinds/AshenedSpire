@@ -102,7 +102,7 @@ namespace Ashen.Tests
             return token.DeepClone();
         }
 
-        internal static void Replay(JObject record, string label)
+        internal static void Replay(JObject record, string label, Func<CombatState, CombatState> between = null)
         {
             var c = Open(record);
             JToken want = record["start"]["state"].DeepClone();
@@ -136,6 +136,7 @@ namespace Ashen.Tests
                 Assert.That(string.Join(" ", Core2CombatStartParityTests.Events(c, mark)), Is.EqualTo(string.Join(" ", step["events"].Select(t => t.Value<string>()))), at + " events");
                 Core2CombatStartParityTests.Same(at, want, Core2CombatStartParityTests.Project(c));
                 Core2DamageParityTests.Same(at + " counter events", step["payloads"], Payloads(c, mark));
+                if (between != null) { c = between(c); if (ReferenceEquals(step, ((JArray)record["steps"]).Last())) Core2CombatStartParityTests.Same(at + " restored", want, Core2CombatStartParityTests.Project(c)); }
             }
         }
 
