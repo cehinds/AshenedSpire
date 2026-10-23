@@ -408,6 +408,36 @@
         "rowIds"
       ]
     },
+    "hit": {
+      "type": "object",
+      "properties": {
+        "decoyRanges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "die": {
+          "type": "integer"
+        },
+        "naturalMiss": {
+          "type": "integer"
+        },
+        "percent": {
+          "type": "integer"
+        },
+        "proposalAccuracyDivisor": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "decoyRanges",
+        "die",
+        "naturalMiss",
+        "percent",
+        "proposalAccuracyDivisor"
+      ]
+    },
     "perception": {
       "type": "object",
       "properties": {
@@ -671,6 +701,7 @@
     "enemyPressure",
     "formation",
     "hand",
+    "hit",
     "perception",
     "plan",
     "range",

@@ -1,0 +1,45 @@
+{
+ "files": [
+  {
+   "bytes": 825466,
+   "cases": 90,
+   "file": "hit-0.json"
+  },
+  {
+   "bytes": 821495,
+   "cases": 90,
+   "file": "hit-1.json"
+  },
+  {
+   "bytes": 829604,
+   "cases": 90,
+   "file": "hit-2.json"
+  },
+  {
+   "bytes": 827990,
+   "cases": 90,
+   "file": "hit-3.json"
+  }
+ ],
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "scripts": 2160,
+ "seq": {
+  "bytes": 1469133,
+  "file": "seq.json",
+  "sequences": 60,
+  "steps": 577
+ },
+ "skipped": 0,
+ "units": {
+  "avoidance": 48,
+  "bytes": 433984,
+  "cardPreview": 90,
+  "evasion": 70,
+  "file": "units.json",
+  "gain": 40,
+  "mix": 60,
+  "proposal": 60
+ },
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}
