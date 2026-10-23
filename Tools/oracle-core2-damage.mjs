@@ -22,16 +22,15 @@
 //                       does not cover) and `attacks` (the player plays attack and Block cards, then ends the turn). Per step the full combat
 //                       projection as a delta, the event types and every RNG counter.
 //
-// THE FILTER (what a recorded sequence avoids; the C# port refuses these by name and the test asserts it never has to): a step is recorded only
-// when its dry run on a detached copy (a) throws nothing, (b) emits only event types in COVERED_EVENTS, (c) leaves no card choice, and (d) every
-// card it plays has only effects in COVERED_OPS. An enemy whose move would break (b) or (c) is marked staggered for that end turn (the flag a Poise
-// break sets, as the start oracle does), so the others still act. The player's reactions are ON (WP-10): the offers the enemies' hits open are
-// answered by the bot (half the time it plays the first option, half the time it goes Back, from its own LCG), each answer one recorded step,
-// and a dry run answers with a copy of that LCG. An offer outside what the port covers (oracle-core2.mjs reactionFilter) ends the sequence there.
+// THE FILTER (WP-C0: there is none for the content a default run reaches): a step is recorded when the web accepts it, on a detached copy first. The
+// player's reactions are ON: the offers the enemies' hits open are answered by the bot (half the time it plays the first option, half the time it goes
+// Back, from its own LCG), a card choice or a discard takes the first cards offered, each answer one recorded step; a dry run answers with a copy of that
+// LCG. What the web refuses to run is counted in `rejections` (`--why` prints it); the C# test asserts the replay never meets a guard.
 import { writeFileSync, readFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, botLcg, detach, projectFull, delta, typesSince, statics, SOURCES, answerer, dispatchAnswering, reactionFilter, REACTION_EVENTS } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, botLcg, detach, projectFull, delta, typesSince, statics, SOURCES, answerer, dispatchAnswering, reactionFilter, pendingAny } from './oracle-core2.mjs';
+import { whyTally } from './oracle-core2-why.mjs';
 
 const OUT = join(ORACLE_DIR, 'damage');
 const CASES = Number(arg('--cases', '600'));
@@ -39,6 +38,7 @@ const UNITS = Number(arg('--units', '160'));
 const FIGHTS = Number(arg('--fights', '4'));
 const PER_FILE = 150;
 const w = await loadWeb();
+const REJ = whyTally('damage');
 await reactionFilter(w);
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const actions = await load('src/engine/actions.js');
@@ -435,58 +435,15 @@ function mechanicCases() {
 // ---------------------------------------------------------------------------------------------------------------
 // Fights
 // ---------------------------------------------------------------------------------------------------------------
-// The event types a recorded step may emit, and the effect ops a played card may carry (see THE FILTER at the top). Anything else is a later
-// work package's: status procs, control and card traits (WP-9), The player's reactions (WP-10) and the enemies' (WP-11) are covered.
-const COVERED_EVENTS = new Set([...REACTION_EVENTS, 'playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared',
-  'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
-  'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
-  'energySpent', 'staminaSpent', 'manaSpent', 'enemyDied', 'combatEnd', 'combatGuardBroken', 'perceptionGained', 'combatEngagementMoved', 'combatRangeActionUnavailable']);
-const COVERED_OPS = new Set(['damage', 'block', 'gainBarrier']);
-// The ops an enemy's move may carry once it is expanded (a pressure status becomes a `buildup`, a charge a `delay`): the damage, Block and Barrier of
-// the move itself, Poise damage and a status it puts on a creature. A Counter, a delayed move, a heal, a card it adds or a closing move is a later
-// package's.
-const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'applyStatus', 'block', 'gainBarrier', 'moveEngagement']);
 const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
-
-// An enemy takes its turn inside the filter when every move it can play this turn (its intent and its planned follow-ups) stays within ENEMY_OPS,
-// and none charges or counters.
-function enemyFits(combat, enemy) {
-  const def = combat.registries.enemies.get(enemy.enemyId);
-  const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
-  for (const id of ids) {
-    const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
-    if ((move.delay?.whileCharging?.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-    if (tactics.enemyMoveCarrier(enemy, def.moves[id], id, combat).combatProfile.maneuver === 'counter') return false;
-    if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-  }
-  return true;
-}
 
 // The player's reactions are on. An offer a hit opens is answered by the bot (half the time it plays the first option, half the time it goes Back, from its
 // own LCG); a dry run answers with a copy of that LCG, so it takes the same road the real run will.
 function dryRun(combat, intent, answers) {
   const r = dispatchAnswering(w, combat, intent, answers);
   if (r.error) return { ok: false, why: `throws: ${r.error}` };
-  if (r.why) return { ok: false, why: r.why };
-  const types = typesSince(r.copy, r.mark);
-  const bad = types.find((t) => !COVERED_EVENTS.has(t));
-  if (bad) return { ok: false, why: `event ${bad}` };
-  if (r.copy.pendingCardChoice || r.copy.pendingAbilityDiscard) return { ok: false, why: 'pending choice' };
+  if (r.why) return REJ.why(r.why);
   return { ok: true };
-}
-
-// A card is played inside the filter when its resolved face carries only the ops of COVERED_OPS (no gate, repeat or random target), no choice,
-// no variant, no Counter, trait, charge or Ashen Blight cost, nothing listens for it being prepared and the player holds no hostile hook.
-function playable(combat, card) {
-  const def = expansion.resolveCombatCard(combat, card);
-  const ops = (def?.effects || []).map((e) => e.op);
-  const tags = def.cardTags || def.tags || [];
-  if (!ops.length || !ops.every((op) => COVERED_OPS.has(op))) return false;
-  if (def.effects.some((e) => e.if || e.script || e.oncePerTurn || e.repeat !== undefined || e.choose || e.target === 'randomEnemy')) return false;
-  if (def.effectVariants?.length || tags.includes('maneuver:counter') || tags.some((t) => /^trait:(counterstrike|impact|flux)$/.test(t)) || def.ashenBlightCost > 0) return false;
-  if (Object.keys(combat.player.abilityRiders?.charges || {}).length) return false;
-  if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
-  return true;
 }
 
 function fight(seed, classId, encounter, bot, steps) {
@@ -508,10 +465,10 @@ function fight(seed, classId, encounter, bot, steps) {
   };
   // Answers the offers a step left open, one step each, until the fight is no longer paused.
   const settle = () => {
-    for (let n = 0; combat.pendingReaction && !combat.result; n++) {
+    for (let n = 0; pendingAny(combat) && !combat.result; n++) {
       if (n > 60) return false;
       const answer = answers.next(combat);
-      if (!step(answer, { answer: answer.optionId === null ? 'back' : 'play' })) return false;
+      if (!step(answer, { answer: answer.type === 'chooseReaction' ? (answer.optionId === null ? 'back' : 'play') : 'choose' })) return false;
     }
     return true;
   };
@@ -521,7 +478,6 @@ function fight(seed, classId, encounter, bot, steps) {
     if (bot === 'attacks') {
       const targets = combat.enemies.filter((e) => e.alive).map((e) => e.id);
       for (const card of combat.piles.hand) {
-        if (!playable(combat, card)) continue;
         const def = expansion.resolveCombatCard(combat, card);
         const aimed = def.effects.some((e) => e.op === 'damage');
         for (const targetId of aimed ? targets : [undefined]) {
@@ -534,19 +490,8 @@ function fight(seed, classId, encounter, bot, steps) {
     if (options.length && pick(10) < 8) intent = options[pick(options.length)];
     else {
       intent = { type: 'endTurn', discardIds: [] };
-      // The enemies that cannot act inside the filter are staggered for this end turn; the rest take their turn.
-      let staggered = [];
-      for (const enemy of combat.enemies.filter((e) => e.alive && !e.skipNextTurn)) if (!enemyFits(combat, enemy)) { enemy.skipNextTurn = true; staggered.push(enemy.id); }
-      if (!dryRun(combat, intent, answers).ok) {
-        for (const enemy of combat.enemies.filter((e) => e.alive)) {
-          const probe = detach(w, combat);
-          for (const other of probe.enemies) if (other.id !== enemy.id) other.skipNextTurn = true;
-          if (!dryRun(probe, intent, answers).ok) staggered.push(enemy.id);
-        }
-        for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = true;
-        if (!dryRun(combat, intent, answers).ok) { for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = false; break; }
-      }
-      if (!step(intent, { staggered }) || !settle()) break;
+      if (!dryRun(combat, intent, answers).ok) break;
+      if (!step(intent) || !settle()) break;
       continue;
     }
     if (!step(intent) || !settle()) break;
@@ -560,7 +505,7 @@ function fight(seed, classId, encounter, bot, steps) {
 mkdirSync(OUT, { recursive: true });
 for (const f of readdirSync(OUT)) if (f.endsWith('.json')) rmSync(join(OUT, f));
 const write = (file, data) => { const text = `${JSON.stringify(canon(data))}\n`; writeFileSync(join(OUT, file), text); return Buffer.byteLength(text); };
-const index = { webSha: w.head, profileId: w.profile.id, profileHash: w.profile.hash, coveredEvents: [...COVERED_EVENTS].sort(), coveredOps: [...COVERED_OPS].sort(), files: [] };
+const index = { webSha: w.head, profileId: w.profile.id, profileHash: w.profile.hash, files: [] };
 let total = 0;
 
 // (a) the receipt grid
@@ -611,6 +556,7 @@ classes.forEach((classId, ci) => {
   index.files.push({ file, classId, fights: fights.length, steps, bytes: bytes2 });
 });
 index.fights = fightCount;
+index.rejections = REJ.finish();
 writeFileSync(join(OUT, 'index.json'), `${JSON.stringify(canon(index), null, 1)}\n`);
 console.log(`oracle-core2-damage: ${cases.length} receipt cases (${refused} refused by the web), ${units.length} units, ${kernelUnits.length} kernel units, ${rows.length} mechanic cases, `
   + `${Object.values(fightCount).reduce((s, f) => s + f.fights, 0)} fights / ${Object.values(fightCount).reduce((s, f) => s + f.steps, 0)} steps, ${(total / 1024).toFixed(0)} KB -> Unity/Assets/Tests/Oracle/core2/damage`);

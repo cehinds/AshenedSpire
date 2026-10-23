@@ -42,7 +42,7 @@ namespace Ashen.Tests
             var index = Read("index.json");
             Assert.That(FightFiles().Count(), Is.GreaterThanOrEqualTo(4));
             Assert.That(index.Value<string>("profileHash"), Is.EqualTo(Core2DamageParityTests.Data.Run.ProfileHash), "the oracle ran the profile that is loaded");
-            Assert.That(((JArray)index["coveredEvents"]).Count, Is.GreaterThan(0));
+            Assert.That(index["rejections"], Is.Not.Null, "the oracle tallies what the web refused");
         }
 
         [TestCaseSource(nameof(Fights))]
