@@ -26,16 +26,17 @@
 //                       reacting to a heavy card and a Defend offered against its reaction, the duelist's riposte (reacted, not reacted), predictions (right,
 //                       wrong), Perception paid for an Evade, a Counter reply and a Ward reply, the encounter ledger of a bankable fight.
 //
-// THE FILTER (what a recorded sequence avoids; the C# port refuses these by name and the test asserts it never has to): a step is recorded only when its dry
-// run on a detached copy (a) throws nothing, (b) emits only event types in COVERED_EVENTS, (c) leaves no card choice, and (d) every card it plays has only
-// effects in COVERED_OPS. Delayed moves, enemy reactions and enemy reaction draws are INSIDE it (WP-11). The range work (WP-12) and the burdens an enemy's move adds are INSIDE it too; an enemy whose move is outside COVERED_OPS or ENEMY_OPS is
-// marked staggered for that end turn (the flag a Poise break sets).
+// THE FILTER (WP-C0: none for the content a default run reaches): a step is recorded when the web accepts it, tried on a detached copy first. Delayed moves,
+// enemy reactions, enemy reaction draws, the range work, the burdens an enemy's move adds, heals, statuses and every card (variants, scripts, charges, choices,
+// Counters, Ashen Blight costs, cardPreparing listeners) are INSIDE it; a card choice or a discard takes the first cards offered. What the web refuses is tallied
+// in `rejections` (`--why`).
 import { writeFileSync, readFileSync, existsSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { register } from 'node:module';
 register('./oracle-core2-hook.mjs', import.meta.url);
-const { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, detach, projectFull, delta, typesSince } = await import('./oracle-core2.mjs');
+const { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, detach, projectFull, delta, typesSince, pendingAny, choiceAnswer } = await import('./oracle-core2.mjs');
+const { whyTally } = await import('./oracle-core2-why.mjs');
 
 const OUT = join(ORACLE_DIR, 'enemy');
 const FIGHTS = Number(arg('--fights', '6'));
@@ -44,6 +45,7 @@ const wants = (part) => !ONLY || ONLY === part;
 const KINDS = arg('--kinds', null);
 const kind = (name) => !KINDS || KINDS.split(',').includes(name);
 const w = await loadWeb();
+const REJ = whyTally('enemy');
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const triggers = await load('src/engine/triggers.js');
 const expansion = await load('src/engine/combatExpansion.js');
@@ -72,50 +74,20 @@ const sweep = (n) => w.rngMod.sweepSeed(n);
 const REACTION_EVENTS = ['combatReactionOffered', 'combatReactionChosen', 'combatReactionStacked', 'combatReactionUnavailable', 'combatReactionFizzled', 'combatEnemyReactionStacked'];
 const COUNTER_EVENTS = ['combatCounterArmed', 'combatCounterConsumed', 'combatCounterTriggered', 'combatGuardBroken', 'combatRangeReturnUnavailable'];
 const KNOWLEDGE_EVENTS = ['perceptionGained', 'intentPredictionAccepted'];
-const COVERED_EVENTS = new Set(['playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared',
-  'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
-  'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
-  'energySpent', 'staminaSpent', 'manaSpent', 'enemyDied', 'combatEnd', 'combatHitStarted', 'controlRecovered', 'controlResolveScheduled', 'energyGained', 'healed',
-  'manaRestored', 'relicTriggered', 'statusGaugeFilled', 'statusPressure', 'statusRecoveryRolled', 'combatAvoidanceResolved', 'cardAdded', 'barrierGained', 'barrierBroken', 'statusPoiseBreak', 'combatEngagementMoved', 'combatRangeActionUnavailable',
-  ...REACTION_EVENTS, ...COUNTER_EVENTS, ...KNOWLEDGE_EVENTS]);
-const COVERED_OPS = new Set(['damage', 'block', 'gainBarrier', 'poiseDamage', 'wardDamage']);
-const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'wardDamage', 'applyStatus', 'block', 'gainBarrier', 'heal', 'addCard', 'buildup', 'moveEngagement']);
+/** The label a recorded answer carries. */
+const answerLabel = (a) => (a.type !== 'chooseReaction' ? 'choose' : a.optionId === null ? 'back' : 'play');
 const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
-const HOSTILE_OPS = new Set(['damage', 'applyStatus', 'buildup', 'poiseDamage', 'wardDamage', 'loseHp', 'stagger', 'arcaneBuildup']);
-const FRIENDLY_TARGETS = new Set(['self', 'owner', 'player', 'ally', 'allAllies']);
 
 const tagsOf = (def) => (def.cardTags || def.tags || []).map((t) => (typeof t === 'string' ? t : t.id));
 const maneuverOfMove = (combat, enemy, id) => tactics.enemyMoveCarrier(enemy, combat.registries.enemies.get(enemy.enemyId).moves[id], id, combat).combatProfile.maneuver;
 
-// An enemy takes its turn inside the filter when every move it can play this turn (the move it resolves, its intent, its planned follow-ups and the move that
-// closes the distance) stays within ENEMY_OPS. Closing the distance, the hooks that strike and the burdens a move addsare inside it.
-function enemyFits(combat, enemy) {
-  const def = combat.registries.enemies.get(enemy.enemyId);
-  const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId), def.rangeClosingMove].filter(Boolean);
-  for (const id of ids) {
-    const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
-    const effects = [...(move.effects || []), ...(move.delay?.whileCharging?.effects || [])];
-    if (effects.some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-  }
-  return true;
-}
+// Every enemy takes its turn and every card is played (WP-C0); only a refusal of the web keeps a step out of the record.
+const enemyFits = () => true;
 
 // model/combatCardEffects.js immediateCardEffects: a Counter plans its target by the support that resolves now, not by the reply it defers.
 const immediate = (def) => (tagsOf(def).includes('maneuver:counter') ? def.effects.filter((e) => !['damage', 'poiseDamage'].includes(e.op)) : def.effects);
 
-// A card is played inside the filter when its resolved face carries only the ops of COVERED_OPS (no gate, repeat or random target), no choice, no
-// variant, no Ashen Blight cost, nothing listens for it being prepared and the player holds no hostile hook.
-function playable(combat, card) {
-  const def = expansion.resolveCombatCard(combat, card);
-  const ops = (def?.effects || []).map((e) => e.op);
-  const tags = tagsOf(def);
-  if (!ops.length || !ops.every((op) => COVERED_OPS.has(op))) return false;
-  if (def.effects.some((e) => e.if || e.script || e.oncePerTurn || e.repeat !== undefined || e.choose || e.target === 'randomEnemy')) return false;
-  if (def.effectVariants?.length || def.ashenBlightCost > 0) return false;
-  if (Object.keys(combat.player.abilityRiders?.charges || {}).length) return false;
-  if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
-  return true;
-}
+const playable = () => true;
 
 // ---------------------------------------------------------------------------------------------------------------
 // The bot's LCG (own state, never the engine's; cloneable so an end turn can be dry-run with the answers it will give)
@@ -214,19 +186,7 @@ function record(spec, drive) {
 // ---------------------------------------------------------------------------------------------------------------
 // The dry runs
 // ---------------------------------------------------------------------------------------------------------------
-const rejected = {};
-const why = (reason) => { const key = reason.replace(/[0-9]+/g, 'N').slice(0, 90); rejected[key] = (rejected[key] || 0) + 1; return { ok: false, why: reason }; };
-
-/** Why the offer the fight is paused on is outside the filter: a reaction card of the hand the port could not play to build it (cardPreparing), else null. */
-function offerOutside(combat) {
-  for (const card of combat.piles.hand) {
-    const def = expansion.resolveCombatCard(combat, card);
-    const tags = tagsOf(def);
-    if (!tags.includes('trait:reaction')) continue;
-    if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return 'cardPreparing listener at an offer';
-  }
-  return null;
-}
+const why = (reason) => REJ.why(reason);
 
 /** The intent played to its end on a detached copy with the answers the bot will give (from a copy of its LCG): nothing outside the filter happens. */
 function dry(combat, intent, chooser) {
@@ -235,23 +195,19 @@ function dry(combat, intent, chooser) {
   const mark = copy.eventLog.length;
   try {
     w.combat.dispatch(copy, structuredClone(intent));
-    for (let n = 0; copy.pendingReaction; n++) {
+    for (let n = 0; pendingAny(copy); n++) {
       if (n > 60) return why('too many offers');
-      const outside = offerOutside(copy);
-      if (outside) return why(outside);
       w.combat.dispatch(copy, answers.next(copy));
     }
   } catch (e) { return why(`throws: ${e.message}`); }
-  const types = typesSince(copy, mark);
-  const bad = types.find((t) => !COVERED_EVENTS.has(t));
-  if (bad) return why(`event ${bad}`);
-  if (copy.pendingCardChoice || copy.pendingAbilityDiscard) return why('pending choice');
+  void mark;
   return { ok: true };
 }
 
 /** The bot's answers: half Play the first option, half Back, from its LCG. */
 function lcgChooser(lcg) {
   return { clone: () => lcgChooser(lcg.clone()), next(combat) {
+    if (!combat.pendingReaction) return choiceAnswer(combat);
     const pending = combat.pendingReaction;
     const play = lcg(2) === 0 && pending.options.length > 0;
     return { type: 'chooseReaction', offerId: pending.id, optionId: play ? pending.options[0].id : null };
@@ -261,6 +217,7 @@ function lcgChooser(lcg) {
 function scriptChooser(answers, at = 0) {
   let n = at;
   return { clone: () => scriptChooser(answers, n), next(combat) {
+    if (!combat.pendingReaction) return choiceAnswer(combat);
     const pending = combat.pendingReaction;
     const answer = answers[Math.min(n++, answers.length - 1)];
     return { type: 'chooseReaction', offerId: pending.id, optionId: answer === 'play' && pending.options.length ? pending.options[0].id : null };
@@ -273,27 +230,17 @@ const dryTurn = (combat, chooser) => dry(combat, { type: 'endTurn', discardIds: 
 /** Ends the turn inside the filter: the enemies that cannot act in it are staggered for it, the rest take their turn, and every offer is answered. */
 function endTurn(combat, step, lcg) {
   const intent = { type: 'endTurn', discardIds: [] };
-  const staggered = [];
-  for (const enemy of combat.enemies.filter((e) => e.alive && !e.skipNextTurn)) if (!enemyFits(combat, enemy)) { enemy.skipNextTurn = true; staggered.push(enemy.id); }
-  if (!dryTurn(combat, lcgChooser(lcg)).ok) {
-    for (const enemy of combat.enemies.filter((e) => e.alive)) {
-      const probe = detach(w, combat);
-      for (const other of probe.enemies) if (other.id !== enemy.id) other.skipNextTurn = true;
-      if (!dryTurn(probe, lcgChooser(lcg)).ok && !staggered.includes(enemy.id)) staggered.push(enemy.id);
-    }
-    for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = true;
-    if (!dryTurn(combat, lcgChooser(lcg)).ok) { for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = false; return false; }
-  }
-  if (!step(intent, { staggered })) return false;
+  if (!dryTurn(combat, lcgChooser(lcg)).ok) return false;
+  if (!step(intent)) return false;
   return settle(combat, step, lcg);
 }
 
 /** Answers the offers a step left open, one step each, until the fight is no longer paused. */
 function settle(combat, step, lcg) {
-  for (let n = 0; combat.pendingReaction && !combat.result; n++) {
+  for (let n = 0; pendingAny(combat) && !combat.result; n++) {
     if (n > 60) return false;
     const intent = lcgChooser(lcg).next(combat);
-    if (!step(intent, { answer: intent.optionId === null ? 'back' : 'play' })) return false;
+    if (!step(intent, { answer: answerLabel(intent) })) return false;
   }
   return true;
 }
@@ -342,7 +289,7 @@ function fight(seed, classId, encounter, steps, fields, extra = {}) {
   const deckAdd = Array.from({ length: 6 }, (_, i) => ({ instanceId: `mx${i + 1}`, cardId: pool[lcg(pool.length)] }));
   return record({ seed, classId, encounterId: encounter.id, ...(fields ? { fields } : {}), ...extra, deckAdd }, (combat, step) => {
     for (let i = 0; i < steps && !combat.result; i++) {
-      if (combat.pendingReaction) { if (!settle(combat, step, lcg)) break; continue; }
+      if (pendingAny(combat)) { if (!settle(combat, step, lcg)) break; continue; }
       if (combat.phase !== 'player') break;
       const predicting = predictions(combat, lcg);
       if (predicting.length && lcg(10) < 7) { if (!step(predicting[lcg(predicting.length)])) break; continue; }
@@ -602,15 +549,13 @@ const addExchange = (kind, label, spec, drive) => {
 /** Ends the turn and answers every offer with the given answers in turn (`play` / `back`), the last one repeating. */
 function scripted(combat, step, answers) {
   const intent = { type: 'endTurn', discardIds: [] };
-  const staggered = [];
-  for (const enemy of combat.enemies.filter((e) => e.alive && !e.skipNextTurn)) if (!enemyFits(combat, enemy)) { enemy.skipNextTurn = true; staggered.push(enemy.id); }
-  if (!dryRun(combat, intent, scriptChooser(answers)).ok) { for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = false; return false; }
-  if (!step(intent, { staggered })) return false;
+  if (!dryRun(combat, intent, scriptChooser(answers)).ok) return false;
+  if (!step(intent)) return false;
   const chooser = scriptChooser(answers);
-  for (let n = 0; combat.pendingReaction && !combat.result; n++) {
+  for (let n = 0; pendingAny(combat) && !combat.result; n++) {
     if (n > 60) return false;
     const answer = chooser.next(combat);
-    if (!step(answer, { answer: answer.optionId === null ? 'back' : 'play' })) return false;
+    if (!step(answer, { answer: answerLabel(answer) })) return false;
   }
   return true;
 }
@@ -621,10 +566,10 @@ function playAnswer(combat, step, cardId, targetId, answers) {
   const intent = { type: 'playCard', cardInstanceId: card.instanceId, ...(targetId ? { targetId } : {}) };
   if (!dryRun(combat, intent, scriptChooser(answers)).ok || !step(intent)) return false;
   const chooser = scriptChooser(answers);
-  for (let n = 0; combat.pendingReaction && !combat.result; n++) {
+  for (let n = 0; pendingAny(combat) && !combat.result; n++) {
     if (n > 60) return false;
     const answer = chooser.next(combat);
-    if (!step(answer, { answer: answer.optionId === null ? 'back' : 'play' })) return false;
+    if (!step(answer, { answer: answerLabel(answer) })) return false;
   }
   return true;
 }
@@ -661,7 +606,7 @@ for (const { enemyId, moveId } of delayed) for (const answer of ['back', 'play']
         const verdict = dry(copy, { type: 'endTurn', discardIds: [] }, scriptChooser([answer]));
         if (!verdict.ok) return null;
         w.combat.dispatch(copy, { type: 'endTurn', discardIds: [] });
-        for (let n = 0; copy.pendingReaction && n < 40; n++) w.combat.dispatch(copy, scriptChooser([answer]).next(copy));
+        for (let n = 0; pendingAny(copy) && n < 40; n++) w.combat.dispatch(copy, scriptChooser([answer]).next(copy));
         if (copy.enemies[0].pendingMove?.moveId === moveId) charged = true;
         else if (charged && copy.eventLog.slice(mark).some((ev) => ev.type === 'enemyMoveStarted' && ev.moveId === moveId)) { resolved = true; break; }
         void lcg;
@@ -670,7 +615,7 @@ for (const { enemyId, moveId } of delayed) for (const answer of ['back', 'play']
     } });
   for (const { spec } of hits) addExchange('delayed', `${enemyId}.${moveId} charges and resolves, answers ${answer}`, spec, (combat, step) => {
     for (let t = 0; t < 14 && !combat.result; t++) {
-      if (combat.pendingReaction) { if (!settle(combat, step, scriptChooserLcg(answer))) break; continue; }
+      if (pendingAny(combat)) { if (!settle(combat, step, scriptChooserLcg(answer))) break; continue; }
       const had = combat.enemies[0].pendingMove?.moveId;
       if (!scripted(combat, step, [answer])) break;
       if (had === moveId && !combat.enemies[0].pendingMove) break;
@@ -703,10 +648,10 @@ if (kind('knight')) {
     const card = combat.piles.hand.find((c) => c.cardId === 'core.smash');
     if (!card || !playable(combat, card) || !dryRun(combat, { type: 'playCard', cardInstanceId: card.instanceId, targetId: knight.id }, scriptChooser(['play'])).ok) return;
     if (!step({ type: 'playCard', cardInstanceId: card.instanceId, targetId: knight.id })) return;
-    for (let n = 0; combat.pendingReaction && !combat.result && n < 20; n++) {
+    for (let n = 0; pendingAny(combat) && !combat.result && n < 20; n++) {
       knight.skipNextTurn = true;
       const answer = scriptChooser(['play']).next(combat);
-      if (!step(answer, { answer: answer.optionId === null ? 'back' : 'play', staggered: [knight.id] })) return;
+      if (!step(answer, { answer: answerLabel(answer), staggered: [knight.id] })) return;
     }
   });
 }
@@ -770,7 +715,7 @@ mkdirSync(OUT, { recursive: true });
 const keepOther = ONLY !== null;
 if (!keepOther) for (const f of readdirSync(OUT)) if (f.endsWith('.json')) rmSync(join(OUT, f));
 const write = (file, data) => { const text = `${JSON.stringify(canon(data))}\n`; writeFileSync(join(OUT, file), text); return Buffer.byteLength(text); };
-const index = { webSha: w.head, profileId: w.profile.id, profileHash: w.profile.hash, coveredEvents: [...COVERED_EVENTS].sort(), coveredOps: [...COVERED_OPS].sort(), deckPool: DECK_POOL, files: [] };
+const index = { webSha: w.head, profileId: w.profile.id, profileHash: w.profile.hash, deckPool: DECK_POOL, files: [] };
 let total = 0;
 
 if (wants('statics')) {
@@ -841,5 +786,5 @@ index.seen = seen;
   writeFileSync(join(OUT, 'index.json'), `${JSON.stringify(canon(merged), null, 1)}\n`);
 }
 console.log(`oracle-core2-enemy: ${JSON.stringify(index.enemies ?? {})} ${JSON.stringify(index.units ?? {})} fights ${JSON.stringify(index.fights ?? {})} exchanges ${index.exchanges?.count ?? 0}/${index.exchanges?.steps ?? 0} ${JSON.stringify(seen)}, ${(total / 1024).toFixed(0)} KB -> Unity/Assets/Tests/Oracle/core2/enemy`);
-if (process.argv.includes('--why')) console.log(JSON.stringify(rejected, null, 1));
+REJ.finish();
 void visibility; void WEB;

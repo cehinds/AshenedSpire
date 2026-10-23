@@ -1,76 +1,4 @@
 {
- "coveredEvents": [
-  "attackHit",
-  "attackMissed",
-  "barrierBroken",
-  "barrierGained",
-  "blockBroken",
-  "blockGained",
-  "cardAdded",
-  "cardDrawn",
-  "cardExhausted",
-  "cardPlayed",
-  "cardPreparing",
-  "cardResolved",
-  "combatAvoidanceResolved",
-  "combatContactPrepared",
-  "combatCounterArmed",
-  "combatCounterConsumed",
-  "combatCounterTriggered",
-  "combatEnd",
-  "combatEnemyReactionStacked",
-  "combatEngagementMoved",
-  "combatGuardBroken",
-  "combatHitStarted",
-  "combatRangeActionUnavailable",
-  "combatRangeReturnUnavailable",
-  "combatReactionChosen",
-  "combatReactionFizzled",
-  "combatReactionOffered",
-  "combatReactionStacked",
-  "combatReactionUnavailable",
-  "combatStanceChanged",
-  "controlRecovered",
-  "controlResolveScheduled",
-  "damageDealt",
-  "deckShuffled",
-  "enemyActorTurnStarted",
-  "enemyDied",
-  "enemyMoveStarted",
-  "enemyMoveUnavailable",
-  "enemyStaggered",
-  "enemyTurnEnd",
-  "enemyTurnStart",
-  "energyGained",
-  "energySpent",
-  "healed",
-  "hpLost",
-  "intentPredictionAccepted",
-  "manaRestored",
-  "manaSpent",
-  "perceptionGained",
-  "persistentPoiseChanged",
-  "playerStaggered",
-  "playerTurnEnd",
-  "playerTurnStart",
-  "poiseBroken",
-  "relicTriggered",
-  "staminaSpent",
-  "statusApplied",
-  "statusExpired",
-  "statusGaugeFilled",
-  "statusPoiseBreak",
-  "statusPressure",
-  "statusRecoveryRolled",
-  "statusRemoved"
- ],
- "coveredOps": [
-  "block",
-  "damage",
-  "gainBarrier",
-  "poiseDamage",
-  "wardDamage"
- ],
  "deckPool": [
   "core.defend",
   "core.defend",
@@ -89,7 +17,7 @@
   "picks": 33000
  },
  "exchanges": {
-  "bytes": 4517534,
+  "bytes": 4530113,
   "count": 118,
   "file": "exchanges.json",
   "kinds": [
@@ -100,12 +28,12 @@
    "predictRefused",
    "credit"
   ],
-  "steps": 1032
+  "steps": 1038
  },
  "fights": {
   "herald": {
    "fights": 6,
-   "steps": 73
+   "steps": 55
   },
   "reaver": {
    "fights": 6,
@@ -113,57 +41,57 @@
   },
   "rogue": {
    "fights": 6,
-   "steps": 65
+   "steps": 49
   },
   "starseer": {
    "fights": 6,
-   "steps": 99
+   "steps": 87
   }
  },
  "files": [
   {
-   "bytes": 266992,
+   "bytes": 266677,
    "classId": "reaver",
    "fights": 6,
    "file": "fights-reaver.json",
    "steps": 72
   },
   {
-   "bytes": 344436,
+   "bytes": 307631,
    "classId": "starseer",
    "fights": 6,
    "file": "fights-starseer.json",
-   "steps": 99
+   "steps": 87
   },
   {
-   "bytes": 245700,
+   "bytes": 202568,
    "classId": "rogue",
    "fights": 6,
    "file": "fights-rogue.json",
-   "steps": 65
+   "steps": 49
   },
   {
-   "bytes": 304237,
+   "bytes": 240756,
    "classId": "herald",
    "fights": 6,
    "file": "fights-herald.json",
-   "steps": 73
+   "steps": 55
   }
  ],
  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
  "profileId": "core",
  "seen": {
-  "back": 304,
+  "back": 301,
   "charged": 0,
   "enemyFizzled": 3,
-  "enemyStacked": 67,
+  "enemyStacked": 68,
   "fizzled": 4,
-  "offers": 681,
-  "perception": 26,
-  "played": 377,
-  "predicted": 55,
-  "stacked": 377,
-  "unavailable": 130
+  "offers": 673,
+  "perception": 25,
+  "played": 372,
+  "predicted": 54,
+  "stacked": 372,
+  "unavailable": 127
  },
  "units": {
   "bytes": 1208221,
