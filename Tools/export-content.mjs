@@ -52,7 +52,18 @@ const loadFrom = (dir) => (rel) => import(pathToFileURL(join(dir, rel)).href);
 // The legacy tree: --legacy-source, else `git archive <legacy.sha>` of the web repo unpacked under .cache/ (read-only on the web repo).
 function legacyTree() {
   const given = argValue('--legacy-source');
-  if (given) return given;
+  if (given) {
+    // A supplied tree must be a clean git checkout of legacy.sha, or the summary would claim a provenance it lacks.
+    const git = (...a) => { try { return execFileSync('git', ['-C', given, ...a], { encoding: 'utf8' }).trim(); } catch { return null; } };
+    const head = git('rev-parse', 'HEAD');
+    const dirty = git('status', '--porcelain', '--', 'src', 'content');
+    const verified = head !== null && head.startsWith(SOURCES.legacy.sha) && dirty === '';
+    if (!verified && !process.argv.includes('--allow-sha-drift')) {
+      console.error(`export: --legacy-source ${given} is not a clean git checkout of legacy.sha ${SOURCES.legacy.sha}. Check it out, or pass --allow-sha-drift.`);
+      process.exit(1);
+    }
+    return given;
+  }
   const sha = SOURCES.legacy.sha;
   const dir = join(ROOT, '.cache', 'web-legacy', sha);
   // Re-extracted on every run into a fresh directory and swapped in only when tar succeeds, so an edited or
