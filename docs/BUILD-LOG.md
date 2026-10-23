@@ -2,6 +2,54 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-C0: the remaining combat features, so a default Core 2 fight never meets a guard (dev, 2026-10-23)
+
+**Inventory (`node Tools/core2-reachability.mjs [--check]`, profile `default` at web b8cfe4fac).** Every `NotSupported` / `DeferredOps` site of `Domain/Combat/Core*.cs`, whether a default run reaches it, and what was done:
+| Guard | Reachable in a default run? | Outcome |
+|---|---|---|
+| `useFlask` (intent), flask `script` (`wondrousDraught`) | yes (7 flasks, 1 scripted) | **ported** (`CoreFlasks`, script as data in `core2Combat.json`, D-296) |
+| `swapArmament`, `changeEquipment` | yes: rightHand and leftHand have 3 sets; the web does NOT refuse them in a Core fight (the task assumed it did) | **ported** (`CoreEquipment`, D-292) |
+| card charges (damage, damageEffect, break), card choices | yes (`oathKept` on all 4 classes grants charges; 31 `grantCardCharge` rules) | **ported** (D-297); choices answered in every oracle |
+| `cardPreparing` listeners and the preparing price guard | no profile card or relic is listened to (0 cards in 672 fights: every class x relic x weapon), but a rule can mount one | **ported** (`CorePreparing`, D-293); unit-tested by injecting a listener mount |
+| `previewCard` hiding an unread enemy's stance, Counter and charging move | yes | **ported** (`CoreVisibility`, D-295) |
+| `pass`, `basicAttack`, `unqueueCard`, `chooseBlightFeat` intents | `pass` yes; the others no | `pass` ported; the rest **refused in the web's words** (D-298) |
+| `arcaneBuildup` (`DeferredOps`) | no: only the `resonance` orb rule uses it and the profile has no orb | refused, documented |
+| Ashen Blight cost and milestones (`AshenBlightNotPorted` x3) | no: no profile card pays it (3 `blighted*` cards sit outside the profile) | refused |
+| upcast reaction cards (`UpcastNotPorted`) | no: no card ships `upcast` | refused |
+| Combat Rounds (`CombatRoundsNotPorted`) | no: a setting no profile module turns on | refused |
+| crit rules, combo hooks | no profile card carries `critRules` / `comboHook` | refused |
+| revive token (`ReviveNotPorted`) | no: a run gains a consumable only off a market shelf and the profile's shops lay out none | refused |
+| skill feats / companions / sigils (`CarriersNotPorted`) | no source in the profile | refused |
+| legacy branches (block, avoidance, hit, knowledge, decay, break, stance, counter, ward), `HandRefreshNotPorted`, `ReactionRulesVersionOne` | no: fixCore 1, Ward off, `roundShuffle: entireDeck` | refused |
+| `CardOutsideProfile` (card with no projection) | no | refused |
+
+**Landed**
+- **Oracle first (D-290):** `Tools/oracle-core2-remaining.mjs` is a free bot (no filter): any card with any target / choice / route, flasks (charge pools and slots), second weapon sets and carried pieces, swaps, `pass`, `setReactions`, every offer and choice; groups of cards, every relic alone, 4 classes x every encounter (about 340 fights, 6,800 steps). It also records the preparing units and the refusal probes. `Core2RemainingParityTests` replays it.
+- **Ported:** `CoreFlasks`, `CoreEquipment`, `CorePreparing`, `CoreTargets`, `CoreVisibility`, `CoreSerial` (the JS NaN serial, D-291), `CoreTransaction` (the web's candidate-copy dispatch, D-294), `CoreRefusals`, the charge damage/break in the contact plan, the damage op and the Counter payload (D-297), `allAllies`, and the cost/price door `PlayRefusalFor` (price from the preview).
+- **Fight oracles widened (D-299):** damage, matchups, statuses, enemy, reactions and range lost their event/op/card/enemy filters and the enemy staggering; a card choice or discard takes the first cards offered; `--why` tallies (`Tools/oracle-core2-why.mjs`), `rejections` in each index. All regenerated.
+
+**Rejection tally (candidates the oracle turned away), before -> after:**
+| Oracle | Before | After | What is left |
+|---|---|---|---|
+| damage | 2,683 (enemy ops 298; card gates 2,385) | 0 | |
+| matchups | 660 | 6 | web refusals: combat over, an enemy already dead |
+| statuses | 577 | 0 | |
+| enemy | 449 (252+86 card gates) | 177 | web refusals: Stamina or Mana, Stamina to Advance, an unplayable Wound |
+| reactions | 1,544 | 236 | web refusals: costs, Advance, unplayable Dazed / Wound |
+| range | 4,152 | 1,974 | web refusals: costs, a tile already taken or on the wrong side, a control status, an unreachable route |
+| remaining (free bot) | n/a | 0 feature rejections; the web's refusals are replayed as errors | |
+Zero rejections are for a feature the port lacks; every remaining one is a refusal the web gives and the C# replays as the same error.
+
+**Parity mismatches found, all fixed:** the web's `pendingAbilityPlay` was missing from the projection; the expansion serial is NaN in the web where C# said 1 (D-291); a friendly variant of a card whose printed face wants an enemy needs a target (D-293); `allAllies` had no target resolver; a deep refusal (Stamina to Advance mid-play) left C# half-mutated (D-294); charge damage/break were not added to the first hit or the Counter payload, `cardChargeConsumed` came after the stance; equipment: the Stamina charge precedes the pool move, the Poise vessel max, and a configured deck must not restamp a duplicate weapon plan (Rogue daggers threw).
+
+**Tests:** `Core2RemainingParityTests` (fights, previews, preparing units, refusal probes), the widened `Core2FightParityTests`, `Core2MatchupParityTests`, `Core2StatusFightParityTests`, `Core2EnemyParityTests`, `Core2ReactionParityTests`, `Core2RangeParityTests`, and WP-13's `Core2SnapshotParityTests` now also replays the `remaining` fights from their own snapshots (340 cases; no `CoreSnapshot` change was needed: the new state lives in the combat fields it already carries). RESULTS_PLACEHOLDER
+
+**Not verified / deferred**
+- Unity (no editor): everything is in `Ashen.Domain`, `Ashen.Content` and `Ashen.Generated`, compiled under dotnet only.
+- The refused features above stay refused until a profile can reach them: reachability is asserted by `Tools/core2-reachability.mjs --check`.
+
+**Next:** WP-14 onward (the combat UI / run integration); a profile that turns on Combat Rounds, Ashen Blight cards, an orb or market shelves must first port the matching row of the table.
+
 ## Core 2 WP-13: the snapshot and the session of a Core 2 fight, proven by playing every recorded fight from its own snapshots (dev, 2026-10-23)
 
 **Landed**
