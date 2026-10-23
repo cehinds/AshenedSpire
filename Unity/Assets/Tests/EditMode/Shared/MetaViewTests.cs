@@ -324,15 +324,25 @@ namespace Ashen.Tests
         }
 
         [Test]
-        public void ARunRecordPinsTheProfileItWasPlayedUnder()
+        public void ARunRecordNamesNoProfileForARunWithoutAPin()
         {
+            // The 405 run carries no gameProfile pin, so its record must not claim the shipped Core 2 profile.
             var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
             session.Abandon();
             var record = (JObject)((JArray)ProfileStore.Load(_saves).Doc["results"]).Last();
+            Assert.That(record[MetaKeys.ProfileId], Is.Null);
+            Assert.That(record[MetaKeys.ProfileHash], Is.Null);
+        }
+
+        [Test]
+        public void APinnedRunStatesItsPin()
+        {
             var core = (JObject)Default.Snapshot.Content.Get(ContentFiles.ProfileCore);
-            Assert.That(record[MetaKeys.ProfileId].Value<string>(), Is.EqualTo("core"));
-            Assert.That(record[MetaKeys.ProfileHash].Value<string>(), Is.EqualTo(core["hash"].Value<string>()));
-            Assert.That(record[MetaKeys.ProfileHash].Value<string>(), Does.StartWith("sha256:"));
+            var run = new JObject { ["gameProfile"] = new JObject { ["id"] = core["id"], ["hash"] = core["hash"], ["content"] = new JObject() } };
+            var pin = Ashen.Domain.Run.CoreRunRules.PinOf(run);
+            Assert.That(pin["id"].Value<string>(), Is.EqualTo("core"));
+            Assert.That(pin["hash"].Value<string>(), Does.StartWith("sha256:"));
+            Assert.That(pin["content"], Is.Null, "the pin is the id and hash only");
         }
 
         // ------------------------------------------------------------------ W-06 reveal modes (US-4.2, D-151)
