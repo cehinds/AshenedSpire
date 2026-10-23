@@ -11,5 +11,6 @@ namespace Ashen.Generated
         public const double FormationRowsDefault = 2;
         public const double FormationRowsMin = 1;
         public const double FormationRowsMax = 6;
+        public const double DefenseRulesVersion = 2;
     }
 }

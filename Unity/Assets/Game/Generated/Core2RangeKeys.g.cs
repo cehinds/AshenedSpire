@@ -18,6 +18,7 @@ namespace Ashen.Generated
         public const string CurrentHitChance = "currentHitChance";
         public const string CurrentHitChances = "currentHitChances";
         public const string CurrentInRange = "currentInRange";
+        public const string DefenseRulesVersion = "defenseRulesVersion";
         public const string Delivery = "delivery";
         public const string EdgeId = "edgeId";
         public const string Edges = "edges";

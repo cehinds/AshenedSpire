@@ -19,6 +19,7 @@
         "CurrentHitChance": "currentHitChance",
         "CurrentHitChances": "currentHitChances",
         "CurrentInRange": "currentInRange",
+        "DefenseRulesVersion": "defenseRulesVersion",
         "Delivery": "delivery",
         "EdgeId": "edgeId",
         "Edges": "edges",
@@ -71,7 +72,8 @@
         "SitePrefix": "s",
         "SpawnRow": "F",
         "TagRange": "range:",
-        "TargetPendingAttacker": "pendingAttacker"
+        "TargetPendingAttacker": "pendingAttacker",
+        "TypeStatus": "status"
       }
     },
     {
@@ -109,7 +111,8 @@
         "FormationColumnsMax": "3",
         "FormationRowsDefault": "2",
         "FormationRowsMin": "1",
-        "FormationRowsMax": "6"
+        "FormationRowsMax": "6",
+        "DefenseRulesVersion": "2"
       }
     }
   ]

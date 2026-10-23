@@ -27,5 +27,6 @@ namespace Ashen.Generated
         public const string SpawnRow = "F";
         public const string TagRange = "range:";
         public const string TargetPendingAttacker = "pendingAttacker";
+        public const string TypeStatus = "status";
     }
 }

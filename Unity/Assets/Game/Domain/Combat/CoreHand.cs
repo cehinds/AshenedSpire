@@ -11,6 +11,9 @@ using K = Ashen.Generated.CombatKeys;
 using PC = Ashen.Generated.Core2ProfileContentKeys;
 using V = Ashen.Generated.CombatValues;
 using RngStream = Ashen.Generated.RngStream;
+using NK = Ashen.Generated.Core2RangeKeys;
+using NN = Ashen.Generated.Core2RangeNumbers;
+using NV = Ashen.Generated.Core2RangeValues;
 using SK = Ashen.Generated.Core2StatusKeys;
 
 namespace Ashen.Domain.Combat
@@ -28,7 +31,7 @@ namespace Ashen.Domain.Combat
             if (cardsModule == null || cardsModule.Str(K.Mode) == CV.ModeLegacy) return null;
             var id = Js.Truthy(instance[K.CardId]) ? instance.Str(K.CardId) : instance.Str(K.Id);
             var def = Js.Items(c.CoreData.Content(PC.Cards)).OfType<JObject>().FirstOrDefault(card => card.Str(K.Id) == id);
-            if (def == null) return null;
+            if (def == null) return Burden(c, instance, id);
             var enabled = Js.Items(c.CoreData.Module(CK.ResourcesModule)?[CK.Include]).Select(Js.Str).ToList();
             var variants = (c.CoreData.Content(PC.ResourceVariants) as JObject)?.Obj(id);
             var key = string.Join(CV.ListJoin, new[] { CV.PoolSpShort, CV.PoolMpShort }.Where(pool => enabled.Contains(pool)));
@@ -39,6 +42,30 @@ namespace Ashen.Domain.Combat
             chosen[CK.KindIds] = new JArray(CV.KindClassificationPrefix + chosen.Str(K.Type));
             chosen[CK.ResourceCosts] = new JObject { [CV.PoolSpShort] = Js.Or0(chosen[CK.StaminaCost]), [CV.PoolMpShort] = Js.Or0(chosen[CK.ManaCost]) };
             return chosen;
+        }
+
+        /// <summary>
+        /// resolveCombatCard(ctx, instance) for a card outside the profile: a burden an enemy's move added (its registry row, a status card) is resolved by
+        /// the registries the fight is configured with, then given the melee, single-target face every support card has. Null for any other card.
+        /// </summary>
+        private static JObject Burden(CombatState c, JObject instance, string id)
+        {
+            if (!c.Data.Cards.Has(id)) return null;
+            var row = Cards.Resolve(c.Data, instance);
+            if (Cards.Kind(c.Data, row) != NV.TypeStatus) return null;
+            var tags = new JArray(Js.Items(!Js.Nullish(row[CK.CardTags]) ? row[CK.CardTags] : row[K.Tags]).Where(t => !(Js.Str(t) ?? string.Empty).StartsWith(CV.TagRange, StringComparison.Ordinal)
+                && !(Js.Str(t) ?? string.Empty).StartsWith(CV.TagTargeting, StringComparison.Ordinal)).Select(t => t.DeepClone()))
+            {
+                CV.TagRange + CV.RangeMelee, CV.TagTargeting + CV.TargetingSingle,
+            };
+            var projected = Js.Spread(row);
+            projected[K.Tags] = tags;
+            projected[CK.CardTags] = tags.DeepClone();
+            projected[CK.Range] = CV.RangeMelee;
+            projected[CK.Targeting] = CV.TargetingSingle;
+            projected[CK.StanceTrigger] = false;
+            projected[NK.DefenseRulesVersion] = NN.DefenseRulesVersion;
+            return projected;
         }
 
         /// <summary>The keywords a card carries in this fight (Innate, Ethereal, Retain, Unplayable ...).</summary>
