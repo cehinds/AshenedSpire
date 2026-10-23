@@ -64,6 +64,13 @@ namespace Ashen.Domain.Combat
             return CV.CategoryPreparing;
         }
 
+        /// <summary>broadIntentLabel(category): the clue a partial read shows.</summary>
+        public static string BroadLabel(string category)
+        {
+            if (category == CV.CategoryAttack || category == CV.CategorySmash || category == CV.CategorySweep || category == CV.CategoryRanged) return Ashen.Generated.Core2EnemyValues.LabelAttackish;
+            return category == CV.CategorySpell ? Ashen.Generated.Core2EnemyValues.LabelMagic : Ashen.Generated.Core2EnemyValues.LabelPreparing;
+        }
+
         /// <summary>rollKnowledgeRead (FixCore branch): the d20 perception check against one enemy's action.</summary>
         private static JObject Read(CombatState c, JObject target)
         {
@@ -137,7 +144,7 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>xpStepCost(curve, step): what one step of the Perception curve costs.</summary>
-        private static double StepCost(JObject curve, double step)
+        public static double StepCost(JObject curve, double step)
         {
             var linear = curve.Is(Ashen.Generated.Core2DamageKeys.Linear) && curve[Ashen.Generated.Core2DamageKeys.Linear].Type == JTokenType.Boolean;
             var baseCost = curve.Num(Ashen.Generated.Core2DamageKeys.Base);

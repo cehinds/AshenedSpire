@@ -186,5 +186,210 @@ namespace Ashen.Tests
             Assert.That(enemy.Arr("movesHistory").Count, Is.EqualTo(pick.Value<int>("history")), id + " history");
             Assert.That(c.Rng.AllCounters().TryGetValue("enemyAI", out var after) ? after : 0u, Is.EqualTo(pick.Value<uint>("enemyAI")), id + " enemyAI after");
         }
+
+        // ------------------------------------------------------------------ units: the reaction decision
+
+        public static IEnumerable<TestCaseData> ReactionUnitCases()
+        {
+            if (!File.Exists(Path.Combine(Dir, "units.json"))) yield break;
+            var rows = Rows("units.json", "reactions");
+            for (var i = 0; i < rows.Count; i++) yield return new TestCaseData(i).SetName("Core2EnemyReaction_" + rows[i].Value<string>("enemyId") + "_" + rows[i].Value<string>("variant"));
+        }
+
+        private static JToken RollsOf(CombatState c) => c.Fields[Ashen.Generated.Core2CombatKeys.EnemyReactionRolls]?.DeepClone() ?? JValue.CreateNull();
+
+        private static uint Counter(CombatState c, string stream) => c.Rng.AllCounters().TryGetValue(stream, out var n) ? n : 0u;
+
+        /// <summary>decideEnemyReaction on every window and incoming amount, in sequence on one fight: the move, the draws on the enemyReaction stream and the memo.</summary>
+        [TestCaseSource(nameof(ReactionUnitCases))]
+        public void TheReactionDecisionIsTheWebs(int index)
+        {
+            var unit = (JObject)Rows("units.json", "reactions")[index];
+            var c = Open((JObject)unit["spec"]);
+            var enemy = c.Enemies[0];
+            Core2DamageParityTests.Merge(enemy, (JObject)unit["patch"]);
+            var n = 0;
+            foreach (var call in ((JArray)unit["calls"]).OfType<JObject>())
+            {
+                var at = $"{unit.Value<string>("enemyId")} {unit.Value<string>("variant")} call {n++} {call.Value<string>("window")} incoming {call.Value<int>("incoming")}";
+                c.ReactionPlaying = call.Value<bool?>("playing") == true;
+                var result = CoreReactions.DecideEnemyReaction(c, enemy, call.Value<string>("window"), call.Value<string>("groupKey"), call.Value<double>("windowIndex"), call.Value<double>("incoming"));
+                c.ReactionPlaying = false;
+                Assert.That(result, Is.EqualTo(call.Value<string>("result")), at + " move");
+                Assert.That(Counter(c, "enemyReaction"), Is.EqualTo(call.Value<uint>("enemyReaction")), at + " enemyReaction draws");
+                Core2DamageParityTests.Same(at + " memo", call["rolls"], RollsOf(c));
+            }
+            var reacts = (JObject)unit["fightReacts"];
+            Assert.That(CoreReactions.FightReacts(c), Is.EqualTo(reacts.Value<bool>("any")), "fightReacts");
+            Assert.That(CoreReactions.FightReacts(c, "playerAction"), Is.EqualTo(reacts.Value<bool>("playerAction")), "fightReacts playerAction");
+            Assert.That(CoreReactions.FightReacts(c, "playerReaction"), Is.EqualTo(reacts.Value<bool>("playerReaction")), "fightReacts playerReaction");
+        }
+
+        // ------------------------------------------------------------------ units: the knowledge ledger
+
+        public static IEnumerable<TestCaseData> LedgerUnitCases()
+        {
+            if (!File.Exists(Path.Combine(Dir, "units.json"))) yield break;
+            var rows = Rows("units.json", "ledger");
+            for (var i = 0; i < rows.Count; i++) yield return new TestCaseData(i).SetName("Core2KnowledgeLedger_" + i + "_" + rows[i].Value<string>("kind"));
+        }
+
+        private static JToken Outcome(Func<JToken> fn)
+        {
+            try { return new JObject { ["value"] = fn() ?? JValue.CreateNull() }; }
+            catch (InvalidOperationException e) { return new JObject { ["error"] = e.Message }; }
+        }
+
+        private static JObject Snap(JObject run) => new JObject { ["state"] = run["enemyKnowledgeState"]?.DeepClone(), ["skills"] = run["skills"]?.DeepClone() };
+
+        [TestCaseSource(nameof(LedgerUnitCases))]
+        public void TheKnowledgeLedgerIsTheWebs(int index)
+        {
+            var unit = (JObject)Rows("units.json", "ledger")[index];
+            var kind = unit.Value<string>("kind");
+            var rules = Core2DamageParityTests.Data.EnemyKnowledgeRules;
+            var label = "ledger[" + index + "] " + kind;
+            switch (kind)
+            {
+                case "target":
+                    Assert.That(CoreKnowledgeLedger.MasteryTarget(rules, unit.Value<string>("enemyId")), Is.EqualTo(unit.Value<double>("value")), label);
+                    break;
+                case "category":
+                {
+                    var intent = new JObject { ["kind"] = unit.Value<string>("intentKind") };
+                    Assert.That(CoreKnowledge.Category(intent, (JObject)unit["profile"], unit.Value<bool>("charging")), Is.EqualTo(unit.Value<string>("value")), label + " " + intent["kind"] + " " + unit["profile"]);
+                    break;
+                }
+                case "label":
+                    Assert.That(CoreKnowledge.BroadLabel(unit.Value<string>("category")), Is.EqualTo(unit.Value<string>("value")), label);
+                    break;
+                case "merge":
+                {
+                    var incoming = (JObject)unit["incoming"];
+                    var current = (JObject)unit["current"];
+                    var outcome = Outcome(() => CoreKnowledgeLedger.Merge(incoming, current));
+                    var want = new JObject();
+                    if (unit["value"] != null) want["value"] = unit["value"];
+                    if (unit["error"] != null) want["error"] = unit["error"];
+                    Core2DamageParityTests.Same(label, want, outcome);
+                    if (unit["points"] is JObject points)
+                        foreach (var pair in current.Value<JObject>("enemies").Properties())
+                        {
+                            Assert.That(CoreKnowledgeLedger.Points((JObject)pair.Value), Is.EqualTo(points.Value<double>(pair.Name)), label + " points " + pair.Name);
+                            Core2DamageParityTests.Same(label + " progress " + pair.Name, unit["progress"][pair.Name], CoreKnowledgeLedger.Progress((JObject)pair.Value, rules.Obj("bestiary").Num("encountersToMaster")));
+                        }
+                    break;
+                }
+                case "open":
+                {
+                    var run = new JObject { ["enemyKnowledgeRules"] = unit["rules"] is JObject r ? r.DeepClone() : rules.DeepClone() };
+                    var outcome = Outcome(() => CoreKnowledgeLedger.OpenRun(run, unit.Value<string>("receiptId") ?? (unit["receiptId"] == null ? "x" : null), unit.Value<bool?>("bankable") ?? true));
+                    var want = new JObject();
+                    if (unit["value"] != null) want["value"] = unit["value"];
+                    if (unit["error"] != null) want["error"] = unit["error"];
+                    Core2DamageParityTests.Same(label, want, outcome);
+                    break;
+                }
+                case "run":
+                    ReplayRun(unit, rules, label);
+                    break;
+                default:
+                    Assert.Fail("unknown ledger unit " + kind);
+                    break;
+            }
+        }
+
+        private static void ReplayRun(JObject unit, JObject rules, string label)
+        {
+            var run = new JObject { ["enemyKnowledgeRules"] = rules.DeepClone(), ["skills"] = new JObject() };
+            var opened = CoreKnowledgeLedger.OpenRun(run, unit.Value<string>("receiptId"), unit.Value<bool>("bankable"));
+            Assert.That(opened, Is.EqualTo(unit.Value<bool>("opened")), label + " opened");
+            var n = 0;
+            foreach (var entry in ((JArray)unit["log"]).OfType<JObject>())
+            {
+                var op = entry.Value<string>("op");
+                var at = label + " step " + n++ + " " + op;
+                var args = (JObject)entry["args"];
+                Core2DamageParityTests.Same(at + " before", entry["before"], Snap(run));
+                JToken outcome;
+                switch (op)
+                {
+                    case "open":
+                        outcome = Outcome(() => CoreKnowledgeLedger.OpenEncounter(run, args.Value<string>("nodeId"), args.Value<string>("encounterId"), args["enemyIds"].Select(t => t.Value<string>()).ToList(), (JObject)args["profile"]));
+                        break;
+                    case "bonus":
+                        outcome = Outcome(() =>
+                        {
+                            var bonus = CoreKnowledgeLedger.AddCounterBonus(run["enemyKnowledgeState"].Value<JObject>("pending"), (JObject)args["encounter"], args.Value<string>("enemyId"), args.Value<double>("target"), (JObject)args["current"]);
+                            run["enemyKnowledgeState"]["pending"] = bonus;
+                            return bonus;
+                        });
+                        break;
+                    case "reconcile":
+                        outcome = Outcome(() => CoreKnowledgeLedger.ReconcilePerception(run, args.Value<string>("encounterId"), args.Value<double>("earnedXp")));
+                        break;
+                    case "bank":
+                        outcome = Outcome(() => CoreKnowledgeLedger.Bank(new JObject { ["id"] = "meta" }, (JObject)args["receipts"]));
+                        break;
+                    case "acknowledge":
+                        outcome = Outcome(() =>
+                        {
+                            CoreKnowledgeLedger.AcknowledgeBank(run, (JObject)args["captured"]);
+                            return run["enemyKnowledgeState"]["pending"];
+                        });
+                        break;
+                    default:
+                        Assert.Fail("unknown ledger op " + op);
+                        return;
+                }
+                var want = new JObject();
+                if (entry["value"] != null) want["value"] = entry["value"];
+                if (entry["error"] != null) want["error"] = entry["error"];
+                Core2DamageParityTests.Same(at, want, outcome);
+                Core2DamageParityTests.Same(at + " after", entry["after"], Snap(run));
+            }
+            Core2DamageParityTests.Same(label + " problems", unit["problems"], new JArray(CoreKnowledgeLedger.RunProblems(run).Select(p => (JToken)p)));
+        }
+
+        // ------------------------------------------------------------------ units: the intent read without a knowledge state
+
+        public static IEnumerable<TestCaseData> ReadUnitCases()
+        {
+            if (!File.Exists(Path.Combine(Dir, "units.json"))) yield break;
+            var rows = Rows("units.json", "reads");
+            for (var i = 0; i < rows.Count; i++) yield return new TestCaseData(i).SetName("Core2IntentRead_" + rows[i]["spec"].Value<string>("encounterId"));
+        }
+
+        private static JObject Counters(CombatState c)
+        {
+            var o = new JObject();
+            foreach (var pair in c.Rng.AllCounters())
+                if (pair.Key != "combatRounds" || pair.Value != 0) o[pair.Key] = pair.Value;
+            return o;
+        }
+
+        /// <summary>A profile whose intent module reads `exact` shows every intent and draws nothing on enemyIntentVisibility.</summary>
+        [TestCaseSource(nameof(ReadUnitCases))]
+        public void TheIntentReadWithoutKnowledgeIsTheWebs(int index)
+        {
+            var unit = (JObject)Rows("units.json", "reads")[index];
+            var c = Open((JObject)unit["spec"]);
+            Assert.That(c.Fields["enemyKnowledge"], Is.Null, "the fight has no knowledge state");
+            var n = 0;
+            foreach (var want in ((JArray)unit["rolled"]).OfType<JObject>())
+            {
+                CoreIntents.Roll(c, false);
+                var got = new JObject
+                {
+                    ["enemies"] = new JArray(c.Enemies.Select(e => new JObject
+                    {
+                        ["id"] = e["id"], ["intent"] = e.Obj("intent")?["moveId"] ?? JValue.CreateNull(), ["kind"] = e.Obj("intent")?["kind"] ?? JValue.CreateNull(),
+                        ["intentRevealed"] = e["intentRevealed"] ?? JValue.CreateNull(), ["plan"] = new JArray((e["plannedMoves"] as JArray ?? new JArray()).Select(m => m["moveId"])),
+                    })),
+                    ["rng"] = Counters(c),
+                };
+                Core2DamageParityTests.Same("read " + unit["spec"].Value<string>("encounterId") + " roll " + n++, want, got);
+            }
+        }
     }
 }

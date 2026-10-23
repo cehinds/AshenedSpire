@@ -515,40 +515,48 @@ const ledgerUnits = [];
   const rules = knowledgeRules.snapshotEnemyKnowledgeRules(w.registries);
   const lcg = makeLcg(0x11e0);
   const enemyIds = ['wanderingSoldier', 'blightHound', 'gildedKnight', 'courtDuelist', 'huskBrute'];
-  const guarded = (fn) => { try { return { value: fn() }; } catch (e) { return { error: e.message }; } };
-  const newRun = (bankable) => { const run = { enemyKnowledgeRules: structuredClone(rules), skills: {} }; knowledgeRun.openRunEnemyKnowledge(run, { receiptId: bankable ? `receipt-${lcg(1000)}` : null, bankable }); return run; };
+  const guarded = (fn) => { try { const value = fn(); return { value: value === undefined ? undefined : structuredClone(value) }; } catch (e) { return { error: e.message }; } };
   // targets
   for (const id of [...enemyIds, 'unknown']) ledgerUnits.push(canon({ kind: 'target', enemyId: id, value: knowledgeRules.enemyMasteryTarget(rules, id) }));
-  // runs: open encounters, bank counter bonuses, reconcile Perception, acknowledge a bank
+  // runs: open encounters, bank counter bonuses, reconcile Perception, acknowledge a bank. Every operation records its whole arguments, so the port replays it
+  // mechanically: `before` and `after` are the run's learning state and Perception, `value` what the function returned, `error` what it threw.
   for (let r = 0; r < 24; r++) {
     const bankable = r % 4 !== 3;
-    const run = newRun(bankable);
+    const receiptId = bankable ? `receipt-${lcg(1000)}` : null;
+    const run = { enemyKnowledgeRules: structuredClone(rules), skills: {} };
+    const opened = knowledgeRun.openRunEnemyKnowledge(run, { receiptId, bankable });
     const log = [];
     let profile = knowledgeProfile.emptyEnemyKnowledge();
-    const rec = (op, args, fn) => { const before = structuredClone({ state: run.enemyKnowledgeState, skills: run.skills }); const out = guarded(fn); log.push({ op, args, ...out, after: structuredClone({ state: run.enemyKnowledgeState, skills: run.skills }), before }); return out; };
+    const snap = () => structuredClone({ state: run.enemyKnowledgeState, skills: run.skills });
+    const rec = (op, args, fn) => { const before = snap(); const out = guarded(fn); log.push({ op, args: structuredClone(args), ...out, before, after: snap() }); return out; };
     for (let k = 0; k < 5; k++) {
       const ids = enemyIds.filter(() => lcg(2) === 0);
       const group = ids.length ? ids : [enemyIds[lcg(enemyIds.length)]];
-      const enc = rec('open', { nodeId: `n${k}`, encounterId: `e${lcg(3)}`, enemyIds: group }, () => knowledgeRun.openKnowledgeEncounter(run, `n${k}`, `e${lcg(3)}`, group, profile));
+      const encounterId = `e${lcg(3)}`;
+      const enc = rec('open', { nodeId: `n${k}`, encounterId, enemyIds: group, profile }, () => knowledgeRun.openKnowledgeEncounter(run, `n${k}`, encounterId, group, profile));
       if (enc.value) {
         const target = group[lcg(group.length)];
-        rec('bonus', { enemyId: target }, () => {
+        rec('bonus', { enemyId: target, encounter: enc.value, target: knowledgeRules.enemyMasteryTarget(rules, target), current: profile }, () => {
           const bonus = knowledgeRun.addKnowledgeCounterBonus(run.enemyKnowledgeState.pending, enc.value, target, knowledgeRules.enemyMasteryTarget(rules, target), profile);
           run.enemyKnowledgeState.pending = bonus;
           return bonus;
         });
         const earned = lcg(40);
         rec('reconcile', { encounterId: enc.value.id, earnedXp: earned }, () => knowledgeRun.reconcilePerception(run, enc.value.id, earned));
-        if (lcg(3) === 0) rec('reconcile', { encounterId: enc.value.id, earnedXp: earned + lcg(20) }, () => knowledgeRun.reconcilePerception(run, enc.value.id, earned + 5));
+        if (lcg(3) === 0) rec('reconcile', { encounterId: enc.value.id, earnedXp: earned + 5 }, () => knowledgeRun.reconcilePerception(run, enc.value.id, earned + 5));
         if (lcg(2) === 0) {
           const captured = structuredClone(run.enemyKnowledgeState.pending);
-          rec('bank', {}, () => { const banked = knowledgeProfile.bankEnemyKnowledgeProfile({ id: 'meta' }, captured); profile = banked.meta.enemyKnowledge; return banked; });
-          rec('acknowledge', {}, () => { knowledgeRun.acknowledgeKnowledgeBank(run, captured); return run.enemyKnowledgeState.pending; });
+          rec('bank', { receipts: captured }, () => { const banked = knowledgeProfile.bankEnemyKnowledgeProfile({ id: 'meta' }, captured); profile = banked.meta.enemyKnowledge; return banked; });
+          rec('acknowledge', { captured }, () => { knowledgeRun.acknowledgeKnowledgeBank(run, captured); return run.enemyKnowledgeState.pending; });
         }
       }
     }
-    ledgerUnits.push(canon({ kind: 'run', bankable, log, problems: knowledgeRun.enemyKnowledgeRunProblems(run) }));
+    ledgerUnits.push(canon({ kind: 'run', bankable, receiptId, opened, log, problems: knowledgeRun.enemyKnowledgeRunProblems(run) }));
   }
+  // a run whose rules are not version 1 opens nothing; a bankable run with no receipt refuses
+  ledgerUnits.push(canon({ kind: 'open', rules: { version: 2 }, ...guarded(() => knowledgeRun.openRunEnemyKnowledge({ enemyKnowledgeRules: { version: 2 } }, { receiptId: 'x', bankable: true })) }));
+  ledgerUnits.push(canon({ kind: 'open', rules: rules.version, receiptId: null, bankable: true, ...guarded(() => knowledgeRun.openRunEnemyKnowledge({ enemyKnowledgeRules: structuredClone(rules) }, { receiptId: null, bankable: true })) }));
+  ledgerUnits.push(canon({ kind: 'open', rules: rules.version, receiptId: 'r'.repeat(129), bankable: true, ...guarded(() => knowledgeRun.openRunEnemyKnowledge({ enemyKnowledgeRules: structuredClone(rules) }, { receiptId: 'r'.repeat(129), bankable: true })) }));
   // merges on their own, including the refusals
   const sample = (ids) => ({ version: 1, enemies: Object.fromEntries(ids.map((id) => [id, { target: 20 + lcg(31), receipts: Object.fromEntries(Array.from({ length: 1 + lcg(5) }, (_, i) => [`r${lcg(8)}`, { bonus: lcg(2) === 0 }])) }])) });
   for (let m = 0; m < 40; m++) {

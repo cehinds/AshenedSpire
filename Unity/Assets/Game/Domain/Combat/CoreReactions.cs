@@ -46,7 +46,7 @@ namespace Ashen.Domain.Combat
         public static bool Paused(CombatState c) => c.Fields[DK.PendingReaction] != null || c.Fields[DK.ReactionResume] != null || CoreCardZones.HasChoice(c);
 
         /// <summary>enemyReactionsActive(ctx): version 2 with the flag.</summary>
-        private static bool EnemyReactionsActive(CombatState c) => Stacked(c) && c.Fields.Obj(CK.ReactionRules)?.Is(DK.EnemyReactions) == true;
+        public static bool EnemyReactionsActive(CombatState c) => Stacked(c) && c.Fields.Obj(CK.ReactionRules)?.Is(DK.EnemyReactions) == true;
 
         /// <summary>reactionMovesOf(ctx, enemy, window): the enemy's reaction moves that list the window, in authored order (a locked move once it is unlocked).</summary>
         public static List<KeyValuePair<string, JObject>> ReactionMovesOf(CombatState c, JObject enemy, string window)
@@ -83,27 +83,37 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>
-        /// decideEnemyReaction(ctx, enemy, window, ...): whether the enemy answers with a reaction move for this window. An enemy that would react, or
-        /// whose chance is drawn on the enemyReaction stream, is the enemy package's (WP-11): refused by name. Every other outcome (no move that
-        /// qualifies, an enemy that cannot act) is "no reaction" and draws nothing.
+        /// decideEnemyReaction(ctx, enemy, window, { groupKey, windowIndex, incoming }): the reaction move this enemy takes for one window, or null.
+        /// Eligibility first (alive, not staggered, not control-locked, one reaction per combat turn). Then each reaction move in authored order: it
+        /// qualifies when the incoming damage against this enemy is positive and at least minIncoming (default 1). minIncoming 0 needs no incoming damage.
+        /// A chance of 1 is taken and 0 is not, without a draw; otherwise one draw on the enemyReaction stream decides it, memoised per window in the
+        /// fight's enemyReactionRolls. A candidate state (a reaction being played to build an offer) reads the memo only: an unmemoised roll there is
+        /// "does not react" and never draws.
         /// </summary>
-        private static void DecideEnemyReaction(CombatState c, JObject enemy, string window, double incoming)
+        public static string DecideEnemyReaction(CombatState c, JObject enemy, string window, string groupKey, double windowIndex, double incoming)
         {
-            if (!EnemyReactionsActive(c) || !enemy.Is(K.Alive) || enemy.Is(K.SkipNextTurn)) return;
-            if (Js.IsNum(enemy[RK.CombatReactionTurn]) && enemy.Num(RK.CombatReactionTurn) == c.Turn) return;
-            if (CoreControl.Locked(c, enemy)) return;
+            if (!EnemyReactionsActive(c) || !enemy.Is(K.Alive) || enemy.Is(K.SkipNextTurn)) return null;
+            if (Js.IsNum(enemy[RK.CombatReactionTurn]) && enemy.Num(RK.CombatReactionTurn) == c.Turn) return null;
+            if (CoreControl.Locked(c, enemy)) return null;
             foreach (var row in ReactionMovesOf(c, enemy, window))
             {
                 var reaction = row.Value.Obj(DK.Reaction);
-                var minIncoming = Js.IsNum(reaction[RK.MinIncoming]) ? reaction.Num(RK.MinIncoming) : 1;
-                var chance = Js.IsNum(reaction[RK.Chance]) ? reaction.Num(RK.Chance) : 1;
+                var minIncoming = reaction[RK.MinIncoming] != null ? reaction.Num(RK.MinIncoming) : 1;
+                var chance = reaction[RK.Chance] != null ? reaction.Num(RK.Chance) : 1;
                 if (minIncoming != 0 && !(incoming > 0 && incoming >= minIncoming)) continue;
-                if (chance >= 1) throw new NotSupportedException(DM.EnemyReactionsNotPorted);
+                if (chance >= 1) return row.Key;
                 if (chance <= 0) continue;
-                // A candidate state reads the memo only: an unmemoised roll there is "does not react" and never draws.
-                if (c.ReactionPlaying) continue;
-                throw new NotSupportedException(DM.EnemyReactionsNotPorted);
+                var key = string.Join(DV.KeySeparator, groupKey, windowIndex.ToString(CultureInfo.InvariantCulture), enemy.Str(K.Id), row.Key);
+                var rolls = c.Fields.Obj(CK.EnemyReactionRolls);
+                if (rolls == null) c.Fields[CK.EnemyReactionRolls] = rolls = new JObject();
+                if (rolls[key] == null)
+                {
+                    if (c.ReactionPlaying) continue;
+                    rolls[key] = c.Rng.Float(Ashen.Generated.Core2RngStream.EnemyReaction) < chance;
+                }
+                if (rolls.Is(key)) return row.Key;
             }
+            return null;
         }
 
         /// <summary>haltReason(ctx, source): why an attacker cannot go on with its action, if it cannot.</summary>
@@ -459,7 +469,8 @@ namespace Ashen.Domain.Combat
                 var incoming = window == RV.WindowPlayerAction ? IncomingAgainst(group, enemy.Str(K.Id)) : pushed.Obj(RK.Incoming)?.Or0(enemy.Str(K.Id)) ?? 0;
                 // The window opens for enemies the root card targets, or (playerReaction) that own the root or that the root card targets.
                 if (window == RV.WindowPlayerAction ? !(incoming > 0) : group.SourceId != enemy.Str(K.Id) && !(IncomingAgainst(group, enemy.Str(K.Id)) > 0)) continue;
-                DecideEnemyReaction(c, enemy, window, incoming);
+                var moveId = DecideEnemyReaction(c, enemy, window, group.Key, index, incoming);
+                if (moveId != null) throw new NotSupportedException(DM.EnemyReactionsNotPorted);
             }
         }
 

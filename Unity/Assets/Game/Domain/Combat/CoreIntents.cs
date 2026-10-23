@@ -6,6 +6,9 @@ using Newtonsoft.Json.Linq;
 using CK = Ashen.Generated.Core2CombatKeys;
 using CM = Ashen.Generated.Core2CombatMessages;
 using CV = Ashen.Generated.Core2CombatValues;
+using EK = Ashen.Generated.Core2EnemyKeys;
+using MI = Ashen.Generated.Core2ModuleIds;
+using Core2RngStream = Ashen.Generated.Core2RngStream;
 using E = Ashen.Generated.CombatEvents;
 using K = Ashen.Generated.CombatKeys;
 using Op = Ashen.Generated.CombatOps;
@@ -390,7 +393,22 @@ namespace Ashen.Domain.Combat
                 CoreKnowledge.Roll(c, enemy, Js.Truthy(move[K.Delay]));
                 enemy.Remove(CK.IntentRevealed);
             }
+            else if (Js.Truthy(enemy.Obj(K.Intent).Obj(CK.CombatProfile)?[CK.Camp]))
+            {
+                // A configured profile whose intent module reads `exact` shows every intent and skips the hidden-intent roll: enemyIntentVisibility is its own
+                // stream, so not drawing it moves no other roll.
+                enemy[CK.IntentRevealed] = c.CoreData.Configured(MI.Intent)?.Str(CK.Reads) == CV.VisibilityExact
+                    || c.Rng.Float(Core2RngStream.EnemyIntentVisibility) >= HiddenIntentChance(c.Attributes ?? new JObject(), c.Fields.Obj(CK.CombatIntentRules) ?? new JObject());
+            }
+            else enemy.Remove(CK.IntentRevealed);
             Prime(c, enemy, move, moveId);
+        }
+
+        /// <summary>hiddenIntentChance(attributes, rules): the chance an intent stays hidden, lowered by the observer's Wisdom and Intelligence and held between the rules' bounds.</summary>
+        public static double HiddenIntentChance(JObject attributes, JObject rules)
+        {
+            var chance = rules.Num(EK.BaseHiddenChance) - Js.Or0(attributes[CK.AttrWisdom]) * rules.Num(EK.WisdomReduction) - Js.Or0(attributes[CK.AttrIntelligence]) * rules.Num(EK.IntelligenceReduction);
+            return Math.Max(rules.Num(EK.MinimumHiddenChance), Math.Min(rules.Num(EK.MaximumHiddenChance), chance));
         }
 
         /// <summary>primeEnemyCounter(ctx, enemy, move, moveId): the stance the telegraph puts the enemy in; a Counter move arms its reply and guards.</summary>

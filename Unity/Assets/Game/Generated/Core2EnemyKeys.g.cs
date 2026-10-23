@@ -5,9 +5,43 @@ namespace Ashen.Generated
     public static class Core2EnemyKeys
     {
         public const string ActionEffects = "actionEffects";
+        public const string AppliedXp = "appliedXp";
+        public const string Bankable = "bankable";
+        public const string BaseHiddenChance = "baseHiddenChance";
+        public const string Bestiary = "bestiary";
+        public const string Bonus = "bonus";
+        public const string Changed = "changed";
         public const string ChargingEffects = "chargingEffects";
         public const string ConditionMet = "conditionMet";
         public const string ConditionUncertain = "conditionUncertain";
+        public const string CurrentEncounter = "currentEncounter";
         public const string DelayTurns = "delayTurns";
+        public const string EncounterId = "encounterId";
+        public const string EncountersToMaster = "encountersToMaster";
+        public const string Enemies = "enemies";
+        public const string EnemyIds = "enemyIds";
+        public const string EnemyKnowledge = "enemyKnowledge";
+        public const string EnemyKnowledgeRules = "enemyKnowledgeRules";
+        public const string EnemyKnowledgeState = "enemyKnowledgeState";
+        public const string IntelligenceReduction = "intelligenceReduction";
+        public const string Label = "label";
+        public const string MaximumHiddenChance = "maximumHiddenChance";
+        public const string Meta = "meta";
+        public const string MinimumHiddenChance = "minimumHiddenChance";
+        public const string NextStage = "nextStage";
+        public const string NodeId = "nodeId";
+        public const string Pending = "pending";
+        public const string PerEnemy = "perEnemy";
+        public const string Points = "points";
+        public const string Reads = "reads";
+        public const string ReceiptId = "receiptId";
+        public const string Receipts = "receipts";
+        public const string RecoveryTargets = "recoveryTargets";
+        public const string Stage = "stage";
+        public const string Target = "target";
+        public const string Version = "version";
+        public const string Visit = "visit";
+        public const string VisitOrdinal = "visitOrdinal";
+        public const string WisdomReduction = "wisdomReduction";
     }
 }
