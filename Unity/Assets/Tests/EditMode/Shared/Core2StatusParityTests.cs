@@ -60,7 +60,7 @@ namespace Ashen.Tests
             var seed = (uint)spec["seed"].Value<long>();
             var run = CoreRunRules.Create(data.Run, seed, spec.Value<string>("classId"), CoreRunOptions.FromJson(null, Core2DamageParityTests.Unlocked));
             var c = CoreRunCombat.Create(data, new Rng(seed), run, spec.Value<string>("encounterId"));
-            c.Fields.Remove("rangeState"); // range lineage (WP-12) is not part of the statuses oracle
+            c.Fields.Remove("rangeState"); // a scenario isolates the status from the engagement
             if (spec["fields"] is JObject fields)
             {
                 var copy = (JObject)fields.DeepClone();

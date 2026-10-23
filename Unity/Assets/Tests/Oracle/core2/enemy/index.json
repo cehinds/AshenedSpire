@@ -19,8 +19,10 @@
   "combatCounterTriggered",
   "combatEnd",
   "combatEnemyReactionStacked",
+  "combatEngagementMoved",
   "combatGuardBroken",
   "combatHitStarted",
+  "combatRangeActionUnavailable",
   "combatRangeReturnUnavailable",
   "combatReactionChosen",
   "combatReactionFizzled",
@@ -87,81 +89,81 @@
   "picks": 33000
  },
  "exchanges": {
-  "bytes": 2563991,
-  "count": 91,
+  "bytes": 4517534,
+  "count": 118,
   "file": "exchanges.json",
   "kinds": [
+   "delayed",
+   "knight",
+   "duelist",
    "predict",
    "predictRefused",
-   "credit",
-   "duelist",
-   "knight",
-   "delayed"
+   "credit"
   ],
-  "steps": 576
+  "steps": 1032
  },
  "fights": {
   "herald": {
    "fights": 6,
-   "steps": 102
+   "steps": 73
   },
   "reaver": {
    "fights": 6,
-   "steps": 160
+   "steps": 72
   },
   "rogue": {
    "fights": 6,
-   "steps": 111
+   "steps": 65
   },
   "starseer": {
    "fights": 6,
-   "steps": 150
+   "steps": 99
   }
  },
  "files": [
   {
-   "bytes": 419355,
+   "bytes": 266992,
    "classId": "reaver",
    "fights": 6,
    "file": "fights-reaver.json",
-   "steps": 160
+   "steps": 72
   },
   {
-   "bytes": 474058,
+   "bytes": 344436,
    "classId": "starseer",
    "fights": 6,
    "file": "fights-starseer.json",
-   "steps": 150
+   "steps": 99
   },
   {
-   "bytes": 318798,
+   "bytes": 245700,
    "classId": "rogue",
    "fights": 6,
    "file": "fights-rogue.json",
-   "steps": 111
+   "steps": 65
   },
   {
-   "bytes": 356090,
+   "bytes": 304237,
    "classId": "herald",
    "fights": 6,
    "file": "fights-herald.json",
-   "steps": 102
+   "steps": 73
   }
  ],
  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
  "profileId": "core",
  "seen": {
-  "back": 0,
+  "back": 304,
   "charged": 0,
-  "enemyFizzled": 0,
-  "enemyStacked": 0,
-  "fizzled": 0,
-  "offers": 0,
-  "perception": 0,
-  "played": 0,
-  "predicted": 0,
-  "stacked": 0,
-  "unavailable": 0
+  "enemyFizzled": 3,
+  "enemyStacked": 67,
+  "fizzled": 4,
+  "offers": 681,
+  "perception": 26,
+  "played": 377,
+  "predicted": 55,
+  "stacked": 377,
+  "unavailable": 130
  },
  "units": {
   "bytes": 1208221,

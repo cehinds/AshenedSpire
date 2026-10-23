@@ -292,7 +292,7 @@ namespace Ashen.Domain.Combat
         /// <summary>
         /// authorizeCounterRange(ctx, defender, attacker, counterCarrier, incomingCarrier): price an automatic reply before any offensive work. Its
         /// defensive interception has already happened and is never restored: a Counter that cannot pay to reach its attacker keeps its defence and
-        /// replies with nothing (and says so). A reply that needs the Counter's owner to advance is the range package's (WP-12).
+        /// replies with nothing (and says so). A reply that needs the Counter's owner to advance pays the Stamina when its plan is accepted.
         /// </summary>
         public static JObject AuthorizeRange(CombatState c, JObject defender, JObject attacker, JObject counterCarrier, JObject incomingCarrier)
         {

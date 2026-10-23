@@ -445,50 +445,30 @@ let reactionModules = null;
 async function reactionTools(w) {
   if (reactionModules) return reactionModules;
   const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
-  const [expansion, triggers, lineage] = await Promise.all([load('src/engine/combatExpansion.js'), load('src/engine/triggers.js'), load('src/engine/combatRangeLineage.js')]);
-  reactionModules = { expansion, triggers, lineage };
+  const [expansion, triggers] = await Promise.all([load('src/engine/combatExpansion.js'), load('src/engine/triggers.js')]);
+  reactionModules = { expansion, triggers };
   return reactionModules;
 }
 
 let filter = null;
 /**
  * Loads the offer filter (once): why an offer the fight is paused on is outside what the port covers. The port plays every reaction card of the hand
- * on a copy of the fight to build the offer; it refuses a card that listens for being prepared (WP-9 leaves it) and a card whose play needs a range
- * lineage (WP-12: an owned hook that strikes, listening for an event the card or its Counter's reply can cause).
+ * on a copy of the fight to build the offer; it refuses a card that listens for being prepared (WP-9 leaves it). Range, lineage and a reply that pays
+ * to advance are inside (WP-12).
  */
 export async function reactionFilter(w) {
   if (filter) return filter;
-  const { expansion, triggers, lineage } = await reactionTools(w);
+  const { expansion, triggers } = await reactionTools(w);
   const tagsOf = (def) => (def.cardTags || def.tags || []).map((t) => (typeof t === 'string' ? t : t.id));
-  function needsLineage(combat, card) {
-    const def = expansion.resolveCombatCard(combat, card);
-    const tags = tagsOf(def);
-    const counter = tags.includes('maneuver:counter');
-    const carrier = { instanceId: card.instanceId, cardId: card.cardId, tags, authoredTags: tags };
-    const enemy = combat.enemies.find((e) => e.alive) || combat.player;
-    const row = (effect, target, held) => ({ source: combat.player, owner: combat.player, target, card: held, effect, meta: {} });
-    const own = (def.effects || []).filter((e) => !(counter && ['damage', 'poiseDamage'].includes(e.op))).map((e) => row(e, ['enemy', 'allEnemies'].includes(e.target) ? enemy : combat.player, carrier));
-    const reply = counter ? ['damage', 'poiseDamage'].map((op) => row({ op, amount: 1, target: 'enemy' }, enemy, { ...carrier, counterReturnAttack: true })) : [];
-    try {
-      return [own, reply].some((actions) => actions.length && lineage.extendRangeEnvelope(combat, combat.player, actions, [], { preview: true, carrier: actions[0].card }));
-    } catch { return true; }
-  }
   filter = {
-    needsLineage,
     offerOutside(combat) {
       for (const card of combat.piles.hand) {
         const def = expansion.resolveCombatCard(combat, card);
         const tags = tagsOf(def);
         if (!tags.includes('trait:reaction')) continue;
         if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return 'cardPreparing listener at an offer';
-        if (needsLineage(combat, card)) return 'range lineage at an offer';
       }
       return null;
-    },
-    /** The reaction-related reasons the events of a step are outside the filter, else null (a Counter's reply that pays to advance, WP-12). */
-    eventsOutside(types) {
-      return types.some((t, i) => (t === 'energySpent' || t === 'staminaSpent') && types.slice(0, i).reverse().find((x) => ['cardPreparing', 'combatCounterTriggered', 'enemyMoveStarted'].includes(x)) === 'combatCounterTriggered')
-        ? 'a reply pays to advance' : null;
     },
   };
   return filter;
@@ -496,7 +476,7 @@ export async function reactionFilter(w) {
 
 /**
  * Dispatches the intent on a detached copy and answers every offer it opens with a copy of the bot's answers. Returns { copy, error, why }: `why` names
- * the first thing outside the filter (an offer the port cannot build, an enemy reaction that draws on its stream, a reply that pays to advance).
+ * the first thing outside the filter (an offer the port cannot build).
  */
 export function dispatchAnswering(w, combat, intent, answers) {
   if (!filter) throw new Error('oracle-core2: await reactionFilter(w) before dispatchAnswering');
@@ -512,7 +492,5 @@ export function dispatchAnswering(w, combat, intent, answers) {
       w.combat.dispatch(copy, mine.next(copy));
     }
   } catch (e) { return { copy, mark, error: e.message }; }
-  const advance = filter.eventsOutside(copy.eventLog.slice(mark).map((e) => e.type));
-  if (advance) return { copy, mark, why: advance };
   return { copy, mark };
 }

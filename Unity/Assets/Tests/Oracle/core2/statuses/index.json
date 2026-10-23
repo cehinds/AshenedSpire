@@ -6,50 +6,50 @@
  },
  "fightFiles": [
   {
-   "bytes": 2051540,
+   "bytes": 936142,
    "classId": "reaver",
    "fights": 24,
    "file": "fights-reaver.json",
-   "steps": 856
+   "steps": 410
   },
   {
-   "bytes": 1622280,
+   "bytes": 838619,
    "classId": "starseer",
    "fights": 24,
    "file": "fights-starseer.json",
-   "steps": 689
+   "steps": 309
   },
   {
-   "bytes": 2140286,
+   "bytes": 1151769,
    "classId": "rogue",
    "fights": 24,
    "file": "fights-rogue.json",
-   "steps": 850
+   "steps": 480
   },
   {
-   "bytes": 1551681,
+   "bytes": 817436,
    "classId": "herald",
    "fights": 24,
    "file": "fights-herald.json",
-   "steps": 657
+   "steps": 311
   }
  ],
  "fights": {
   "herald": {
    "fights": 24,
-   "steps": 657
+   "steps": 311
   },
   "reaver": {
    "fights": 24,
-   "steps": 856
+   "steps": 410
   },
   "rogue": {
    "fights": 24,
-   "steps": 850
+   "steps": 480
   },
   "starseer": {
    "fights": 24,
-   "steps": 689
+   "steps": 309
   }
  },
  "files": [

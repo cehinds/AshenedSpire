@@ -123,14 +123,14 @@
  },
  "files": [
   {
-   "bytes": 468417,
+   "bytes": 468586,
    "classId": "reaver",
    "fights": 8,
    "file": "fights-reaver.json",
    "steps": 137
   },
   {
-   "bytes": 358531,
+   "bytes": 358869,
    "classId": "starseer",
    "fights": 8,
    "file": "fights-starseer.json",
@@ -144,7 +144,7 @@
    "steps": 118
   },
   {
-   "bytes": 431767,
+   "bytes": 432442,
    "classId": "herald",
    "fights": 8,
    "file": "fights-herald.json",

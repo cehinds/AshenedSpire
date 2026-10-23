@@ -90,7 +90,7 @@ const OWN_EVENTS = new Set(['attackHit', 'attackMissed', 'statusRemoved', 'statu
 const eventsSince = (combat, m) => canon(combat.eventLog.slice(m).filter((e) => OWN_EVENTS.has(e.type)));
 const after = (entity) => canon({ statuses: entity.statuses, nextEvadeMode: entity.nextEvadeMode ?? null, combatEvade: entity.combatEvade ?? null });
 
-/** What the preview takes from later work packages: the range contact (WP-12) and the proposal plan (statuses). */
+/** What the preview takes from later work packages: the proposal plan; the port reads the range contact itself and the test asserts it equals the web's (statuses). */
 function inputsOf(combat, source, target, carrier, options) {
   const contact = combat.rangeState ? w.engagement.rangeHitContact(combat, source, target, carrier) : null;
   return {

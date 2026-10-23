@@ -64,7 +64,7 @@ const tagsOf = (def) => (def.cardTags || def.tags || []).map((t) => (typeof t ==
 const maneuverOfMove = (combat, enemy, id) => tactics.enemyMoveCarrier(enemy, combat.registries.enemies.get(enemy.enemyId).moves[id], id, combat).combatProfile.maneuver;
 
 // An enemy takes its turn inside the filter when every move it can play this turn (its intent, its planned follow-ups and the move that charges) stays within
-// ENEMY_OPS. Closing the distance (Stamina to advance, the closing move) and the hooks that strike are inside it (WP-12).
+// ENEMY_OPS. Closing the distance (Stamina to advance, the closing move) and the hooks that strike are inside it.
 function enemyFits(combat, enemy) {
   const def = combat.registries.enemies.get(enemy.enemyId);
   const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId), def.rangeClosingMove].filter(Boolean);
@@ -198,7 +198,7 @@ function record(spec, drive) {
 const rejected = {};
 const why = (reason) => { const key = reason.replace(/[0-9]+/g, 'N').slice(0, 90); rejected[key] = (rejected[key] || 0) + 1; return { ok: false, why: reason }; };
 
-/** Why the offer the fight is paused on is outside the filter: a reaction card of the hand the port could not play to build it (WP-12, cardPreparing), else null. */
+/** Why the offer the fight is paused on is outside the filter: a reaction card of the hand the port could not play to build it (cardPreparing), else null. */
 function offerOutside(combat) {
   for (const card of combat.piles.hand) {
     const def = expansion.resolveCombatCard(combat, card);
@@ -211,7 +211,6 @@ function offerOutside(combat) {
 
 /**
  * The intent played to its end on a detached copy with the answers the bot will give (from a copy of its LCG): nothing outside the filter happens.
- * At every offer the player holds no hostile hook (the range lineage of the candidates that are played to build it, WP-12).
  */
 function dry(combat, intent, chooser) {
   const copy = detach(w, combat);
@@ -657,7 +656,7 @@ const units = [];
 // Write
 // ---------------------------------------------------------------------------------------------------------------
 mkdirSync(OUT, { recursive: true });
-for (const f of readdirSync(OUT)) if (f.endsWith('.json')) rmSync(join(OUT, f));
+for (const f of readdirSync(OUT)) if (f.endsWith('.json') && f !== 'quotes.json') rmSync(join(OUT, f));
 const write = (file, data) => { const text = `${JSON.stringify(canon(data))}\n`; writeFileSync(join(OUT, file), text); return Buffer.byteLength(text); };
 const index = { webSha: w.head, profileId: w.profile.id, profileHash: w.profile.hash, coveredEvents: [...COVERED_EVENTS].sort(), coveredOps: [...COVERED_OPS].sort(), deckPool: DECK_POOL, files: [] };
 let total = 0;
@@ -696,9 +695,11 @@ const bytes = write('exchanges.json', { exchanges });
 total += bytes;
 index.exchanges = { file: 'exchanges.json', count: exchanges.length, steps: exchanges.reduce((s, e) => s + e.steps.length, 0), kinds: [...new Set(exchanges.map((e) => e.kind))], bytes };
 index.seen = seen;
-const unitBytes = write('units.json', { units });
-total += unitBytes;
-index.units = { file: 'units.json', count: units.length, chosen: units.filter((u) => u.chosen).length, bytes: unitBytes };
+if (!RANGE) {
+  const unitBytes = write('units.json', { units });
+  total += unitBytes;
+  index.units = { file: 'units.json', count: units.length, chosen: units.filter((u) => u.chosen).length, bytes: unitBytes };
+}
 writeFileSync(join(OUT, 'index.json'), `${JSON.stringify(canon(index), null, 1)}\n`);
-console.log(`oracle-core2-reactions: ${Object.values(fightCount).reduce((s, f) => s + f.fights, 0)} fights / ${Object.values(fightCount).reduce((s, f) => s + f.steps, 0)} steps, ${exchanges.length} exchanges / ${index.exchanges.steps} steps, ${JSON.stringify(seen)}, ${(total / 1024).toFixed(0)} KB -> Unity/Assets/Tests/Oracle/core2/reactions`);
+console.log(`oracle-core2-reactions: ${Object.values(fightCount).reduce((s, f) => s + f.fights, 0)} fights / ${Object.values(fightCount).reduce((s, f) => s + f.steps, 0)} steps, ${exchanges.length} exchanges / ${index.exchanges.steps} steps, ${JSON.stringify(seen)}, ${(total / 1024).toFixed(0)} KB -> Unity/Assets/Tests/Oracle/core2/${RANGE ? 'range' : 'reactions'}`);
 if (process.argv.includes('--why')) console.log(JSON.stringify(rejected, null, 1));

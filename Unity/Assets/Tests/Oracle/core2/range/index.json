@@ -173,11 +173,5 @@
   "stacked": 246,
   "unavailable": 272
  },
- "units": {
-  "bytes": 183349,
-  "chosen": 163,
-  "count": 400,
-  "file": "units.json"
- },
  "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
 }

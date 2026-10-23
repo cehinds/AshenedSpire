@@ -10,7 +10,7 @@
 // Files (Unity/Assets/Tests/Oracle/core2/damage/, sorted keys, two runs are byte-identical):
 //   receipts-<n>.json   the receipt grid. Each case: the fight (seed, class, encounter), the overlay (`patch` on source/target, `fields` on the
 //                       combat, `rules` on the fixCoreRules snapshot), the carrier, the base, the web's own INPUTS to the receipt (the range
-//                       contact, owned by WP-12), the `receipt` (profileDamageReceipt: every field, the `sources[]` lines included) and
+//                       contact, which the port's planner reads itself), the `receipt` (profileDamageReceipt: every field, the `sources[]` lines included) and
 //                       `applied`: the same attack through applyAttackDamage on scripted dice (a hit and a miss): what it returned, both
 //                       fighters after, the events (type and payload), the actions it queued.
 //   units.json          protectionReceipt, stanceMitigation and fixCoreRules (with entity mechanic attachments), the Poise drain, the
@@ -250,7 +250,7 @@ function runApplied(spec, dice) {
   const m = b.combat.eventLog.length;
   const returned = actions.applyAttackDamage(b.combat, b.source, b.target, spec.base, attackTags(b.carrier), b.carrier);
   // A mounted trigger that asks for a hostile action (the Reaver's Medallion, the Rogue's Coin) is quoted and paid for through the range lineage
-  // (engine/combatRangeLineage.js acceptIndependentTrigger), which is WP-12's: the case is kept, marked, and the port skips what follows the trigger.
+  // (engine/combatRangeLineage.js acceptIndependentTrigger): the case is kept, marked, and the port plays it all.
   const lineage = eventsSince(b.combat, m).some((e) => ['energySpent', 'staminaSpent', 'combatRangeActionUnavailable'].includes(e.type));
   return canon({ lineage, dice, draws: calls.length, returned, source: looks(b.source), target: looks(b.target), events: eventsSince(b.combat, m),
     queue: b.combat.queue.map((a) => ({ effect: a.effect, source: a.source?.id ?? null, target: a.target?.id ?? null })), interrupts: b.combat.gameProfileInterrupts ?? null });
@@ -436,7 +436,7 @@ function mechanicCases() {
 // Fights
 // ---------------------------------------------------------------------------------------------------------------
 // The event types a recorded step may emit, and the effect ops a played card may carry (see THE FILTER at the top). Anything else is a later
-// work package's: status procs, control and card traits (WP-9), range moves (WP-12). The player's reactions (WP-10) and the enemies' (WP-11) are covered.
+// work package's: status procs, control and card traits (WP-9), The player's reactions (WP-10) and the enemies' (WP-11) are covered.
 const COVERED_EVENTS = new Set([...REACTION_EVENTS, 'playerTurnEnd', 'playerTurnStart', 'enemyTurnStart', 'enemyTurnEnd', 'enemyActorTurnStarted', 'combatContactPrepared',
   'enemyMoveStarted', 'enemyMoveUnavailable', 'attackHit', 'attackMissed', 'damageDealt', 'hpLost', 'blockGained', 'blockBroken', 'persistentPoiseChanged', 'poiseBroken', 'playerStaggered',
   'enemyStaggered', 'combatStanceChanged', 'statusApplied', 'statusExpired', 'statusRemoved', 'deckShuffled', 'cardDrawn', 'cardPreparing', 'cardPlayed', 'cardResolved', 'cardExhausted',
@@ -449,7 +449,7 @@ const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'applyStatus', 'block', 'gai
 const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
 
 // An enemy takes its turn inside the filter when every move it can play this turn (its intent and its planned follow-ups) stays within ENEMY_OPS,
-// and none charges or counters. Closing the distance and the hooks that strike are inside it (WP-12).
+// and none charges or counters.
 function enemyFits(combat, enemy) {
   const def = combat.registries.enemies.get(enemy.enemyId);
   const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);

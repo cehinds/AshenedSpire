@@ -24,8 +24,8 @@ namespace Ashen.Domain.Combat
     /// engine/combatExpansion.js resolveCombatCard and engine/cardBehavior.js projectCardBehavior for a configured fight; model/proposalStatusRules.js
     /// proposalCardRules and engine/concurrentStances.js stanceCapacity). The price is the profile card's own: the authored Stamina and Mana, the
     /// Mana discount of a matching stance (<see cref="CoreStances.ManaCost"/>), the enemy-phase discount of a reaction card in its stance
-    /// (<see cref="CoreStances.StaminaCost"/>), and the flat tax of a status such as Restrained. Combat Rounds queues (not part of a Core 2 run, WP-21), the cardPreparing
-    /// preview of a fight that has a listener, and the range quote that needs a lineage are refused by name until their work packages (WP-9, WP-12).
+    /// (<see cref="CoreStances.StaminaCost"/>), and the flat tax of a status such as Restrained. Combat Rounds queues (not part of a Core 2 run, WP-21) and the cardPreparing
+    /// preview of a fight that has a listener are refused by name.
     /// </summary>
     public static class CoreCosts
     {
@@ -359,7 +359,7 @@ namespace Ashen.Domain.Combat
             return PreparedPlayCosts(c, Resolve(c, instance));
         }
 
-        /// <summary>The cost part of previewCard(combat, id): the Stamina and Mana as the face shows them, and the Precision a stance entry would grant (the range quote adds its Advance price on top, WP-12).</summary>
+        /// <summary>The cost part of previewCard(combat, id): the Stamina and Mana as the face shows them, and the Precision a stance entry would grant (the range quote adds its Advance price on top, <see cref="CoreRangePreview"/>).</summary>
         public static JObject PreviewCosts(CombatState c, string instanceId)
         {
             var instance = Instance(c, instanceId, true);

@@ -291,7 +291,7 @@ namespace Ashen.Domain.Combat
 
         /// <summary>
         /// profileDamageReceipt(ctx, source, target, base, carrier, { roll: null, proposal }): the whole chain. <paramref name="rangeContact"/> is the engagement
-        /// contact the hit preview reads (null for a fight with no range state); the web computes it from the engagement planner (WP-12).
+        /// contact the hit preview reads (null for a fight with no range state); the engagement planner (<see cref="CoreRange.HitContact"/>) computes it.
         /// </summary>
         public static JObject ProfileDamageReceipt(CombatState c, JObject source, JObject target, double baseAmount, JObject carrier, JObject rangeContact = null, bool proposal = true) =>
             Receipt(c, source, target, baseAmount, carrier ?? new JObject(), rangeContact, proposal);
