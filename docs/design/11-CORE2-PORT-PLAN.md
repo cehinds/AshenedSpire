@@ -136,19 +136,19 @@ Every WP pins the same web sha. Size is approximate lines of port.
 | WP-12 Range and engagement | Starting bands, Advance and throw quotes, routes, `moveCharacter`, enemy closing moves | new `Engagement.cs` | `--bot range` | 900 | 11 |
 | WP-13 Snapshot and session | All Core fields serialized; `CombatSession` on the run RNG; saveFormat 3 | `CombatSnapshot.cs`, `CombatSession.cs`, `SaveService.cs` | clone-and-continue in every fixture | 700 | 12 |
 | WP-14 Map | `buildGameProfileActMap`, fog, `shopShare`, boss pick, profile hash | `Domain/Map/*` | `oracle-core2-map` (3 acts × 3 seats × 40 seeds) | 500 | 2; ∥ 3–13 |
-| WP-15 Rewards and combat end | Offer groups 60/10/30, stance reserve, `lowerRankChance`, claims, Add-to-deck refusals; cinders, skill XP, boss outcome | `Domain/Rewards/*`, `Loop/RewardDoor.cs` | `oracle-core2-rewards` | 1,300 | 13; ∥ 14, 16, 17 |
-| WP-16 Rest | Arrival heal, free smith (one tier), level up, refusals | `Domain/Loop/Rest.cs`, `ItemSmithing.cs`, `RunSession.Rest.cs` | `oracle-core2-rest` | 700 | 15 |
+| WP-15 Rewards and combat end | Offer groups 60/10/30, stance reserve, `lowerRankChance`, claims, Add-to-deck refusals; cinders, skill XP, boss outcome | `Domain/Rewards/*`, `Loop/RewardDoor.cs` | `oracle-core2-rewards` | 1,300 | 13; ∥ 14 |
+| WP-16 Rest | Arrival heal, free smith (one tier), level up, refusals | `Domain/Loop/Rest.cs`, `ItemSmithing.cs`, `RunSession.Rest.cs` | `oracle-core2-rest` | 700 | 15; ∥ 17 |
 | WP-17 Shop | 3 per category, price 10, persisted stock | `Domain/Shop/*` (legacy merchant deleted) | `oracle-core2-shop` | 400 | 15 |
 | WP-18 Deck editor and rules | Bounds, copy limits, sideboard, draft commit, play in deck order | new `Domain/Run/DeckRules.cs`, `Armoury.cs` | `oracle-core2-deck` | 800 | 3; ∥ 4–17 |
 | WP-19 Run loop glue | `enterNode` for Core node kinds, combat-end routing, act advance, class unlock ledger, `finishRun` | `Domain/Loop/*`, `Application/Run/*`, `ProfileStore.cs` | `oracle-core2-loop` (mirrors `main.js`) | 1,200 | 14–18 |
 | WP-20 Settings and key map | `webKeyMap.json` for the player `settings.*` rows; profile pinning; D11/D12 pacing dials | `Tools/web-key-map.mjs`, `Content/settings`, `Application/Settings` | — | 400 | 0; ∥ all |
 | WP-21 De-scope | Record that class mastery, market, sigils, companions, combat rounds and Ashen Blight feats are not part of a Core 2 run; delete the 405 merchant, smith, buy-back and class-tree code after WP-19 | docs | — | 100 | 19 |
 
-**Critical path:** 0 → 1 → 2 → 3 → 4 → {5 ∥ 6} → 7 → {8 ∥ 9} → 10 → 11 → 12 → 13 → 15 → 19.
+**Critical path:** 0 → 1 → 2 → 3 → 4 → {5 ∥ 6} → 7 → {8 ∥ 9} → 10 → 11 → 12 → 13 → 15 → {16 ∥ 17} → 19.
 
 **Parallel lanes:**
 - 14, 18 and 20 once WP-2 and WP-3 exist;
-- 15, 16 and 17 together once WP-13 exists.
+- 16 and 17 together once WP-15 exists (WP-14 alongside).
 
 **Estimate:** about 21k lines of C# and 4k lines of oracle JS.
 
