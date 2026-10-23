@@ -2,7 +2,7 @@
 // Export the shipped web game's content as raw JSON (docs/design/09 §4 steps 1 and 6; PF-10).
 // Read-only against the old repo. Writes Tools/export/raw/*.json (gitignored; reproducible).
 //
-//   node Tools/export-content.mjs [--source D:/repos/AshenSpire] [--profile default|none] [--no-legacy] [--legacy-source <dir>] [--allow-sha-drift]
+//   node Tools/export-content.mjs [--source D:/repos/AshenSpire] [--profile default|none] [--no-legacy] [--legacy-source <dir>] [--allow-sha-drift] [--allow-dirty]
 //
 // Two exports, from two pinned web commits (Tools/export/sources.json):
 //   legacy  the 405-era "current" profile, read from `git archive <legacy.sha>` of the web repo (read-only; unpacked under
@@ -208,7 +208,10 @@ if (PROFILE !== 'none') {
     process.exit(1);
   }
   const dirty = gitOut('status', '--porcelain', '--', 'src', 'content', 'engine', 'games').length > 0;
-  if (dirty) console.warn('export: warning: the web checkout has uncommitted changes under src, content, engine or games');
+  if (dirty && !process.argv.includes('--allow-dirty')) {
+    console.error('export: the web checkout has uncommitted changes under src, content, engine or games, so the export would not match the pinned sha. Clean it, or pass --allow-dirty.');
+    process.exit(1);
+  }
   mkdirSync(join(C2_OUT, 'rules'), { recursive: true });
   const c2Gaps = [];
   const put = (rel, value) => writeFileSync(join(C2_OUT, rel), JSON.stringify(value, null, 1));

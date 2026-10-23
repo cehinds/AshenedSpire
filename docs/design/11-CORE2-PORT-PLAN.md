@@ -93,7 +93,7 @@ The legacy oracles (`Tools/oracle-*.mjs`, `Unity/Assets/Tests/Oracle/*`) are ret
    - **Optional key parts:** `scope` becomes optional in the `tagging` key, which fixes the 255 scope-less rows.
    - **Counts:** move `expectedCounts` to the HEAD values, taken from the first clean export and then frozen.
    - **New tables:** add mappings for `shops`, `sigils`, `consumables`, `companions`, `enemyMoves`, `classMastery`, `classSkillFeats`, `proposalStatusRules`, `legacyProgression` and `progressionModuleOwnership`, plus the version scalars in `rules/versions.json`.
-   - **New outputs:** `profile/core.json`, `profile/content/*.json` and the `rules/*.json` files above, plus `rules/actionCosts.json`, `rules/cardTraits.json` and `rules/combatMatchups.json`.
+   - **New outputs:** `profile/core.json`, `profile/content/*.json` and the `rules/*.json` files above, plus `rules/actionCosts.json` and `rules/combatMatchups.json`. The card-trait rules (`CARD_TRAIT_RULES`) are canonical in `rules/reactionRules.json`; no separate `rules/cardTraits.json` is shipped (D-164).
 3. **Schemas and streams.**
    - Run `Tools/infer-schemas.mjs` for the changed shapes:
      - enemies: `attributes`, `equipmentPower`, `blighted`, `levelProfile`;
