@@ -2,6 +2,22 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-2: profile loading and the Core 2 registries in C# (dev, 2026-10-23)
+
+**Landed**
+- **`CoreProfile`** (`Content/Runtime`): `profile/core.json` (id, hash verbatim, foundation, modules) plus the 26 `profile/content` keys; list-shaped files (characters, cards, enemyCards, enemyRelics, gear, enemies, classes) are rows in registry order (`rules/rowOrder.json`), the rest as shipped. `Validate()` returns a `ValidationReport`: missing id, foundation, module (every `Core2ModuleIds`), content key (every `Core2ProfileContentKeys`), or a hash that is not `sha256:` + 64 hex. New codegen keys: `Core2Layout`, `Core2ProfileRules`, `Core2ProfileMessages`, `Core2ProfileValues`, `Core2MoveKeys`.
+- **`Core2Registries`** (the seam, D-168): `Load(ContentSet)` validates, then `RuntimeRegistries.BuildCore2`. `RegistryBundle.LoadCore2` reads each source from its `profile/bundle/` twin and turns every other file in that folder into a top-level bundle key; the same projection, tag stamp and equipment steps as the 405 build then run. Core 2 adds the enemy-move merge (enemy rows take their `moves` from the stamped flat rows) and the `resources`, `sigils`, `consumables`, `companions` tables. Thin accessors: `Cards`, `Statuses`, `Relics`, `Enemies`, `Stances`, `Classes`, `Resources`, `EnemyMoves`, `MovesOf`, `Characters`, `ProfileCards`, `EnemyCards`, `EnemyRelics`, `Gear`, `Stats`, `Routes`, `Rests`, `Rewards`, `Shops`, `ClassUnlocks`, `CardPools`, `StarterDeck`, `StartingHands`, `ClassAttributes`, `ResourceVariants`, `Table(name)`, `Row`, `Object(name)`. Reads are deep clones. The 405 path (`Build`, `Load`) is unchanged.
+- **One parity mismatch found and fixed (D-169):** `cards/hewingArc.upgrade.effects[0].amount` was 9, the dump has 8. The web at `b8cfe4fac` prices a `costRule: fixed` upgrade at the base face's cost (`priceFace`); the C# port of `attackCardDamage.js` was from the 405 pin. 21 Core 2 cards are affected; the 405 has none, so its fixtures did not move.
+
+**Tests:** dotnet Domain.Tests (`Category!=Bot`) 2943/2943 (2865 + 78). `Core2RegistryParityTests`: 19 tables (ids in order, each row by value and key order), 25 data registries, profile document and hash, 26 content keys, typed accessors, copies on read, validation findings (missing module, content key, hash, foundation; no profile), legacy registries untouched. `transform-content --check`, `codegen --check`, `refresh-manifest --check` (8 `.meta` written), `check-content`, `check-docs`, `web-key-map --check` green. EnforcementTests green (no literals in Game code; new keys generated).
+
+**Not verified / deferred**
+- Unity (no editor): the new files are in `Ashen.Content` (engine-free) and `Ashen.Generated`; compiled under dotnet only.
+- Not rebuilt (the web computes them from code, not content): `contentVersion`, `eventHistoryRequirements`, `eventSpeakers`, `questChains`, `scripts`, `statDomains`, `tree`, `framework`, `frameworkTerms`. `equipment` is compared without its top-level section order.
+- `CombatData` for Core 2 (`ToCombatData` over these registries) is WP-3/4; nothing consumes `Core2Registries` yet. No run is created from the profile (WP-3), so D-167's resume pin is still open.
+
+**Next:** WP-3 (`oracle-core2-run`, run creation from `Core2Registries`) and the rules loaders over `rules/*.json`.
+
 ## Core 2 WP-1: the oracle harness over the web at `b8cfe4fac` (dev, 2026-10-23)
 
 **Landed**

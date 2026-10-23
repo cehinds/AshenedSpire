@@ -68,14 +68,16 @@ namespace Ashen.Content
         };
 
         private readonly ContentSet _content;
+        private readonly bool _core2;
         private readonly JObject _strings;
         private readonly JObject _rowOrder;
         private readonly JObject _stringKeys;
         private readonly JObject _textAnchors;
 
-        private RegistryBundle(ContentSet content, JObject strings)
+        private RegistryBundle(ContentSet content, JObject strings, bool core2)
         {
             _content = content;
+            _core2 = core2;
             _strings = strings ?? new JObject();
             _rowOrder = content.Get(ContentFiles.RulesRowOrder) as JObject ?? new JObject();
             _stringKeys = content.Get(ContentFiles.RulesStringKeys) as JObject ?? new JObject();
@@ -83,27 +85,65 @@ namespace Ashen.Content
         }
 
         /// <summary>The bundle object: { cards: [...], equipment: { armaments: [...], ... }, balance: {...}, tagging: [...], ... }.</summary>
-        public static JObject Load(ContentSet content, JObject strings)
+        public static JObject Load(ContentSet content, JObject strings) => Load(content, strings, false);
+
+        /// <summary>
+        /// The Core 2 bundle (WP-2): the same sources read from profile/bundle/ (the bundle the web projects through
+        /// applyGameProfileToContent), in their projection order. Display text is already inline in those rows.
+        /// </summary>
+        public static JObject LoadCore2(ContentSet content) => Load(content, null, true);
+
+        /// <summary>The content file a source is read from: its catalog/rules/tags path, or its profile/bundle twin for Core 2.</summary>
+        public static string FileFor(string file, bool core2) =>
+            core2 ? Core2Layout.BundleFolder + file.Substring(file.LastIndexOf(ContentLayout.PathSeparator, StringComparison.Ordinal) + 1) : file;
+
+        private static JObject Load(ContentSet content, JObject strings, bool core2)
         {
-            var loader = new RegistryBundle(content, strings);
+            var loader = new RegistryBundle(content, strings, core2);
             var bundle = new JObject();
+            var read = new HashSet<string>(StringComparer.Ordinal);
             foreach (var source in Sources)
             {
-                if (!content.Contains(source.File)) continue;
+                var file = FileFor(source.File, core2);
+                if (!content.Contains(file)) continue;
+                read.Add(file);
                 SetPath(bundle, source.Path, loader.Read(source));
             }
+            if (core2) loader.ReadRemaining(bundle, read);
             return bundle;
+        }
+
+        /// <summary>
+        /// The rest of profile/bundle/ (enemyMoves, resources, sigils, shops, nodeEffects, ...) as top-level bundle keys named
+        /// after the file: an id-keyed file listed in rules/rowOrder.json becomes its rows in that order, a <c>{ rows }</c> list
+        /// its rows, anything else the document itself.
+        /// </summary>
+        private void ReadRemaining(JObject bundle, HashSet<string> read)
+        {
+            foreach (var file in _content.Paths.Where(p => p.StartsWith(Core2Layout.BundleFolder, StringComparison.Ordinal) && !read.Contains(p)))
+            {
+                var key = file.Substring(Core2Layout.BundleFolder.Length);
+                if (!key.EndsWith(ContentLayout.JsonSuffix, StringComparison.Ordinal)) continue;
+                key = key.Substring(0, key.Length - ContentLayout.JsonSuffix.Length);
+                var doc = _content.Get(file);
+                if (doc is JObject obj && _rowOrder[file] is JArray)
+                    bundle[key] = Keyed(file, obj);
+                else if (doc is JObject list && list.Count == 1 && list[ContentLayout.ListRows] is JArray rows)
+                    bundle[key] = rows;
+                else bundle[key] = doc;
+            }
         }
 
         private JToken Read(Source source)
         {
-            var doc = _content.Get(source.File);
+            var file = FileFor(source.File, _core2);
+            var doc = _content.Get(file);
             switch (source.Shape)
             {
                 case Shape.List:
                     return (doc as JObject)?[ContentLayout.ListRows] as JArray ?? new JArray();
                 case Shape.Keyed:
-                    return Keyed(source.File, doc as JObject ?? new JObject());
+                    return Keyed(file, doc as JObject ?? new JObject());
                 default:
                     return doc;
             }
@@ -163,12 +203,15 @@ namespace Ashen.Content
             return result;
         }
 
-        private List<string> OrderedKeys(string file, JObject doc)
+        private List<string> OrderedKeys(string file, JObject doc) => OrderedKeys(_rowOrder, file, doc);
+
+        /// <summary>Row keys of an id-keyed file in authoring order (rules/rowOrder.json), then unlisted keys in ordinal order.</summary>
+        internal static List<string> OrderedKeys(JObject rowOrder, string file, JObject doc)
         {
             var present = new HashSet<string>(doc.Properties().Select(p => p.Name), StringComparer.Ordinal);
             var seen = new HashSet<string>(StringComparer.Ordinal);
             var keys = new List<string>();
-            foreach (var key in (_rowOrder[file] as JArray ?? new JArray()).Select(t => (string)t))
+            foreach (var key in (rowOrder[file] as JArray ?? new JArray()).Select(t => (string)t))
                 if (key != null && present.Contains(key) && seen.Add(key)) keys.Add(key);
             keys.AddRange(present.Where(k => !seen.Contains(k)).OrderBy(k => k, StringComparer.Ordinal));
             return keys;

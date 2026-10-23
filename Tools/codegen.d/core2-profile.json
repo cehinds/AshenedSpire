@@ -97,7 +97,7 @@
     },
     {
       "name": "Core2BundleKeys",
-      "doc": "Bundle tables that are new at the Core 2 pin (no 405 counterpart), as files under profile/bundle/.",
+      "doc": "Bundle tables the C# registries did not read before the Core 2 pin, as files under profile/bundle/.",
       "keys": {
         "Shops": "shops",
         "Sigils": "sigils",
@@ -108,7 +108,56 @@
         "ClassSkillFeats": "classSkillFeats",
         "ProposalStatusRules": "proposalStatusRules",
         "LegacyProgression": "legacyProgression",
-        "ProgressionModuleOwnership": "progressionModuleOwnership"
+        "ProgressionModuleOwnership": "progressionModuleOwnership",
+        "Resources": "resources",
+        "Unlocks": "unlocks"
+      }
+    },
+    {
+      "name": "Core2Layout",
+      "doc": "Where the Core 2 profile lives in the content folder (WP-2).",
+      "keys": {
+        "BundleFolder": "profile/bundle/",
+        "ContentFolder": "profile/content/"
+      }
+    },
+    {
+      "name": "Core2ProfileRules",
+      "doc": "Rule ids reported by CoreProfile.Validate.",
+      "keys": {
+        "MissingModule": "core2MissingModule",
+        "MissingContent": "core2MissingContent",
+        "BadHash": "core2BadHash",
+        "BadId": "core2BadId",
+        "MissingFoundation": "core2MissingFoundation"
+      }
+    },
+    {
+      "name": "Core2ProfileMessages",
+      "doc": "Developer-facing CoreProfile validation templates (string.Format placeholders).",
+      "keys": {
+        "MissingModule": "profile has no module '{0}'",
+        "MissingContent": "profile has no content key '{0}'",
+        "BadHash": "profile hash '{0}' is not a sha256 digest",
+        "BadId": "profile has no id",
+        "MissingFoundation": "profile has no foundation",
+        "NoProfile": "content set has no profile/core.json",
+        "Invalid": "Core 2 profile is invalid:\n{0}"
+      }
+    },
+    {
+      "name": "Core2ProfileValues",
+      "doc": "Values CoreProfile checks.",
+      "keys": {
+        "HashPattern": "^sha256:[0-9a-f]{64}$"
+      }
+    },
+    {
+      "name": "Core2MoveKeys",
+      "doc": "Keys of enemy rows and the flat enemy move rows.",
+      "keys": {
+        "EnemyId": "enemyId",
+        "Moves": "moves"
       }
     }
   ]
