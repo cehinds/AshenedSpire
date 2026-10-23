@@ -1,5 +1,5 @@
 {
-  "comment": "Core 2 combat constants that the web (model/combatCardProfile.js, model/cardClassification.js, model/profileStance.js, model/stanceRules.js, model/formationLayout.js, model/formationOccupancy.js, engine/combatCardTactics.js, engine/combatRoundsAdapter.js, engine/kernel/gameConfig.js, model/actionCosts.js, engine/combat.js at the pinned sha b8cfe4fac) keeps as literals in code (docs/design/11 WP-4). vocabulary: the identity sets combatProfileFor and stanceOf read. classification: what cardPreparationCategory leaves out and counts as a card kind. resistance: the share of the Ward and Poise ratings that opens a fight as a pool. perception: the die an enemy's intent read rolls. enemies: the enemy attribute fill and the seeded variance hash. formation: the perspective grid. range: the hands a primary weapon is looked for in. plan: the enemy plan constants. actionStances: how an enemy move is priced as a stance. enemyPressure: the buildup an enemy status becomes. counter: the version of the record an armed Counter keeps. counterCoverage: the lanes an authored-less enemy Counter covers. hand: the hand size when the profile names none and the three hand rows a fight is dealt by. ratingIds: the ratings a receipt totals. costs: the card price literals (the face's Poise line a smash gains, the cost growth cap, the derived SP from which effect amounts scale, the stances a Many Forms status allows and the reaction discount when the FixCore rules carry none). traits: the card ids and effect sets the trait projection (content/traitProjection.js, combatCardTactics.js COUNTERSTRIKE_AMOUNT_OPS, model/cardBehavior.js weaponDamageBasis) keeps in code (WP-9).",
+  "comment": "Core 2 combat constants that the web (model/combatCardProfile.js, model/cardClassification.js, model/profileStance.js, model/stanceRules.js, model/formationLayout.js, model/formationOccupancy.js, engine/combatCardTactics.js, engine/combatRoundsAdapter.js, engine/kernel/gameConfig.js, model/actionCosts.js, engine/combat.js at the pinned sha b8cfe4fac) keeps as literals in code (docs/design/11 WP-4). vocabulary: the identity sets combatProfileFor and stanceOf read. classification: what cardPreparationCategory leaves out and counts as a card kind. resistance: the share of the Ward and Poise ratings that opens a fight as a pool. perception: the die an enemy's intent read rolls. enemies: the enemy attribute fill and the seeded variance hash. formation: the perspective grid. range: the hands a primary weapon is looked for in. plan: the enemy plan constants. actionStances: how an enemy move is priced as a stance. enemyPressure: the buildup an enemy status becomes. counter: the version of the record an armed Counter keeps. counterCoverage: the lanes an authored-less enemy Counter covers. hand: the hand size when the profile names none and the three hand rows a fight is dealt by. ratingIds: the ratings a receipt totals. costs: the card price literals (the face's Poise line a smash gains, the cost growth cap, the derived SP from which effect amounts scale, the stances a Many Forms status allows and the reaction discount when the FixCore rules carry none). traits: the card ids and effect sets the trait projection (content/traitProjection.js, combatCardTactics.js COUNTERSTRIKE_AMOUNT_OPS, model/cardBehavior.js weaponDamageBasis) keeps in code (WP-9). scripts (WP-C0): the named behaviours the web's content/scripts.js keeps in code, as data: a `randomRowEffects` script replays the effects of `count` distinct rows drawn on `stream` from a registry (rows that run a script themselves are left out when `excludeScripted`).",
   "vocabulary": {
     "camps": [
       "physical",
@@ -485,5 +485,14 @@
     ],
     "strikeCardId": "core.strike",
     "fallbackStrikeDamage": 6
+  },
+  "scripts": {
+    "wondrousDraught": {
+      "kind": "randomRowEffects",
+      "registry": "flasks",
+      "stream": "misc",
+      "count": 2,
+      "excludeScripted": true
+    }
   }
 }

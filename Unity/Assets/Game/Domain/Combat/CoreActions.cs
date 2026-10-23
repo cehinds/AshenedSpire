@@ -95,7 +95,12 @@ namespace Ashen.Domain.Combat
                 eff.Remove(K.If);
                 eff.Remove(CK.OncePerTurn);
             }
-            if (Js.Truthy(eff[CK.Script])) throw new NotSupportedException(CM.ScriptNotPorted);
+            if (Js.IsStr(eff[CK.Script]))
+            {
+                if (action.Target != null && action.Target.Str(K.Kind) != action.Source?.Str(K.Kind) && group != null && group.Targets.TryGetValue(action.Target.Str(K.Id), out var scripted) && scripted.Receipt?.Is(DK.Avoided) == true) return;
+                CoreFlasks.RunScript(c, action, eff.Str(CK.Script));
+                return;
+            }
             if (Js.Truthy(eff[K.If]))
             {
                 var pctx = new PredicateContext { Owner = action.Owner ?? action.Source, Source = action.Source, Target = action.Target, Card = action.Card, Meta = action.Meta };

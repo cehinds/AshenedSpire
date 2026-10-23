@@ -9,7 +9,9 @@ using M = Ashen.Generated.CombatMessages;
 using RK = Ashen.Generated.Core2ReactionKeys;
 using RV = Ashen.Generated.Core2ReactionValues;
 using RM = Ashen.Generated.Core2ReactionMessages;
+using RV2 = Ashen.Generated.Core2RemainingValues;
 using SM = Ashen.Generated.Core2StatusMessages;
+using V = Ashen.Generated.CombatValues;
 
 namespace Ashen.Domain.Combat
 {
@@ -57,6 +59,15 @@ namespace Ashen.Domain.Combat
                     break;
                 case Ashen.Generated.Core2RangeValues.IntentMoveCharacter:
                     CoreFormation.Move(c, intent.Str(Ashen.Generated.Core2RangeKeys.Cell), intent.Obj(Ashen.Generated.Core2RangeKeys.Settings));
+                    break;
+                case V.CommandUseFlask:
+                    CoreFlasks.Use(c, intent);
+                    break;
+                case RV2.IntentUnqueueCard:
+                    CoreRefusals.UnqueueCard(c);
+                    break;
+                case RV2.IntentChooseBlightFeat:
+                    CoreRefusals.ChooseBlightFeat(c, intent);
                     break;
                 case RV.IntentEndTurn:
                     CoreTurns.EndTurn(c, Ids(intent[RK.DiscardIds]));

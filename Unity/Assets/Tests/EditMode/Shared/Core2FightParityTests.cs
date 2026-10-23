@@ -49,10 +49,10 @@ namespace Ashen.Tests
         public void TheFightPlaysAsTheWebPlaysIt(string file, int index) => Replay((JObject)((JArray)Read(file)["fights"])[index], file + "[" + index + "]");
 
         /// <summary>Plays one recorded fight on the port and holds it to the web after every step (the whole combat as a delta, the event types in order).</summary>
-        internal static void Replay(JObject fight, string where)
+        internal static void Replay(JObject fight, string where, Func<JObject, CombatState> open = null)
         {
 
-            var c = Core2CombatStartParityTests.Open(fight, out _);
+            var c = open != null ? open(fight) : Core2CombatStartParityTests.Open(fight, out _);
             var label = $"{where} {fight.Value<string>("bot")} {fight.Value<string>("encounterId")}";
             JToken want = fight["start"]["state"].DeepClone();
             Core2CombatStartParityTests.Same(label + " start", want, Core2CombatStartParityTests.Project(c));
@@ -76,6 +76,11 @@ namespace Ashen.Tests
                     case "chooseCards":
                     case "chooseDiscard":
                     case "recoverControl":
+                    case "useFlask":
+                    case "predictIntent":
+                    case "moveCharacter":
+                    case "swapArmament":
+                    case "changeEquipment":
                         CoreDispatch.Dispatch(c, intent);
                         break;
                     case "applyStatus":

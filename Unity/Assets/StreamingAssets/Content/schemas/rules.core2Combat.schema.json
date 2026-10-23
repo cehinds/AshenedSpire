@@ -776,6 +776,36 @@
         "wardPool"
       ]
     },
+    "scripts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "excludeScripted": {
+            "type": "boolean"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "registry": {
+            "type": "string"
+          },
+          "stream": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "count",
+          "excludeScripted",
+          "kind",
+          "registry",
+          "stream"
+        ]
+      }
+    },
     "traits": {
       "type": "object",
       "properties": {
@@ -1105,6 +1135,7 @@
     "range",
     "ratingIds",
     "resistance",
+    "scripts",
     "traits",
     "vocabulary"
   ]

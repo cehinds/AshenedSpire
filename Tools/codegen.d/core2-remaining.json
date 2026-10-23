@@ -1,0 +1,51 @@
+{
+  "comment": "Keys, values and messages of the remaining Core 2 combat features (WP-C0, docs/design/11): the flask intent and its scripts, the intents a default Core fight refuses, the preparing preview and the equipment swap.",
+  "keySets": [
+    {
+      "name": "Core2RemainingKeys",
+      "doc": "Keys the remaining-features package reads and writes.",
+      "keys": {
+        "Count": "count",
+        "Kind": "kind",
+        "ExcludeScripted": "excludeScripted",
+        "Milestones": "milestones",
+        "Path": "path",
+        "PathAttributes": "pathAttributes",
+        "Registry": "registry",
+        "Scripts": "scripts",
+        "Stream": "stream",
+        "Threshold": "threshold",
+        "ThresholdOutcome": "thresholdOutcome",
+        "Entries": "entries",
+        "Outcome": "outcome"
+      }
+    },
+    {
+      "name": "Core2RemainingValues",
+      "doc": "Values of the remaining-features package.",
+      "keys": {
+        "IntentChooseBlightFeat": "chooseBlightFeat",
+        "IntentUnqueueCard": "unqueueCard",
+        "OutcomeLost": "lost",
+        "RegistryFlasks": "flasks",
+        "Undefined": "undefined",
+        "ScriptRandomRowEffects": "randomRowEffects"
+      }
+    },
+    {
+      "name": "Core2RemainingMessages",
+      "doc": "Messages of the remaining-features package: the web's own words where the web refuses, the port's where it does not carry a feature yet.",
+      "keys": {
+        "BlightEarlierFirst": "Choose the earlier Blight milestone first",
+        "BlightLossNoChoice": "Blight loss grants no milestone choice",
+        "BlightNotPending": "This Blight milestone is not pending",
+        "BlightNotPorted": "Core 2 combat: an Ashen Blight feat choice is not ported (no Core 2 content pays Ashen Blight, so no milestone is ever pending)",
+        "BlightNeedsExpansion": "Ashen Blight feats require expansion version 2",
+        "BlightUnknownFeat": "Unknown Ashen Blight milestone/path",
+        "NoRoundsPreview": "combat rounds preview is not on",
+        "UnknownScript": "Unknown script '{0}'",
+        "ScriptKindUnknown": "Core 2 combat: script '{0}' names a kind this build does not run ('{1}')"
+      }
+    }
+  ]
+}
