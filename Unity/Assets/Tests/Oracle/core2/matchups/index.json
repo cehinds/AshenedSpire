@@ -143,8 +143,8 @@
   "rangeReturnUnavailable": 0
  },
  "units": {
-  "bytes": 1331326,
-  "count": 952,
+  "bytes": 1491796,
+  "count": 1006,
   "errors": [
    "counterAttack: Invalid engagement plan input",
    "counterAttack: Invalid engagement plan input",
@@ -169,6 +169,7 @@
    "guardBreak",
    "decay",
    "authorize",
+   "paidAuthorize",
    "wardDamage"
   ]
  },

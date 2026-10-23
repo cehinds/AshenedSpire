@@ -270,6 +270,33 @@ namespace Ashen.Tests
                     Same(label + " events", unit["events"], EventRows(c, mark));
                     break;
                 }
+                case "paidAuthorize":
+                {
+                    foreach (var engagement in c.Fields.Obj("rangeState").Obj("engagements").Properties().ToList()) engagement.Value = unit["band"].DeepClone();
+                    var incoming = (JObject)unit["incoming"].DeepClone();
+                    var plan = (JObject)incoming["rangePlan"];
+                    var contact = ((JArray)plan["targets"]).OfType<JObject>().First(row => row.Value<string>("contactId") == incoming.Value<string>("rangeContactId"));
+                    c.ReactionPlaying = true;
+                    c.RangeContext = new JObject { ["sourceKey"] = plan["sourceKey"].DeepClone(), ["targets"] = new JArray(contact.DeepClone()) };
+                    c.RangeIncoming = new JObject { ["rootId"] = plan["rootId"].DeepClone(), ["contactId"] = contact["contactId"].DeepClone(), ["sourceKey"] = plan["sourceKey"].DeepClone(), ["targetKey"] = CoreRange.ActorKey(c, b.Target) };
+                    JObject paid = null;
+                    string paidError = null;
+                    try { paid = CoreCounterReturn.PaidRange(c, b.Target, (JObject)unit["counterCarrier"].DeepClone(), new JObject { ["energy"] = 1, ["stamina"] = 1, ["mana"] = 0 }, unit.Value<string>("route")); }
+                    catch (PlayRefusalException e) { paidError = e.Message; }
+                    c.ReactionPlaying = false;
+                    c.RangeContext = null;
+                    c.RangeIncoming = null;
+                    Assert.That(paidError, Is.EqualTo(unit["paidError"].Type == JTokenType.Null ? null : unit.Value<string>("paidError")), label + " paid error");
+                    Same(label + " paid", unit["paid"], (JToken)paid ?? JValue.CreateNull());
+                    if (paid == null) break;
+                    var mark = c.EventLog.Count;
+                    var carrier = (JObject)unit["counterCarrier"].DeepClone();
+                    carrier["rangeCounterReservation"] = paid["reservation"].DeepClone();
+                    var result = CoreCounterReturn.AuthorizeRange(c, b.Target, b.Source, carrier, incoming);
+                    Same(label + " carrier", unit["result"], (JToken)result ?? JValue.CreateNull());
+                    Same(label + " events", unit["events"], EventRows(c, mark));
+                    break;
+                }
                 case "guardBreak":
                 {
                     var receipt = (JObject)unit["receipt"];

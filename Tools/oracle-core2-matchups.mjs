@@ -15,7 +15,8 @@
 //                        two attackers against one Counter, a Smash against a spell stance. Same record as a fight, plus the `hand` laid over the
 //                        opening hand and the `patch` merged over the fighters.
 //   units.json           the pure pieces on their own: the Counter arithmetic, the coverage filter, the prepared Counter and the receipt it
-//                        gives, the stance pressure grid, the Counter's Accuracy check, the Guard break, the round-start decay.
+//                        gives, the stance pressure grid, the Counter's Accuracy check, the Guard break, the round-start decay, and the reply a
+//                        Counter played as a reaction pays for (WP-10: paidCounterRange and the reservation authorizeCounterRange accepts).
 //
 // THE FILTER (what a recorded sequence avoids; the C# port refuses these by name and the test asserts it never has to): a step is recorded only
 // when its dry run on a detached copy (a) throws nothing, (b) emits only event types in COVERED_EVENTS, (c) leaves no card choice, and (d) every
@@ -374,6 +375,7 @@ for (const maneuver of ['attack', 'smash']) {
 const actionsModule = await load('src/engine/actions.js');
 const stanceRulesModule = await load('src/model/stanceRules.js');
 const engagementModule = await load('src/engine/combatEngagement.js');
+const engagementModel = await load('src/model/combatEngagement.js');
 const units = [];
 const unitErrors = [];
 
@@ -638,6 +640,37 @@ for (let i = 0; i < 12; i++) {
       let result, error = null;
       try { result = engagementModule.authorizeCounterRange(combat, target, source, structuredClone(counterCarrier), structuredClone(incoming)); } catch (e) { error = e.message; }
       return { band, stamina, ward, reach, counterCarrier, incoming, error, result: result ? canon(result) : null, events: eventsSince(combat, m) };
+    });
+  }
+}
+
+// (11c) paidCounterRange and the reservation it leaves (WP-10): a Counter played as a reaction pays for its reply's reach when it is played, and the reply is
+// accepted as quoted. The incoming hit is the context the reply is priced against (incomingRangeScope sets it for the play).
+{
+  for (const band of [0, 1, 2]) for (const stamina of [0, 1, 5]) for (const reach of [null, 1, 2]) for (const route of ['advance', 'throw']) {
+    const unitSpec = spec({ direction: 'enemyToPlayer', patch: { target: { energy: stamina, stamina, fixCoreStaminaRemaining: stamina } }, classId: 'starseer' });
+    unit('paidAuthorize', unitSpec, ({ combat, source, target }) => {
+      for (const key of Object.keys(combat.rangeState.engagements)) combat.rangeState.engagements[key] = band;
+      const cardCarrier = (id, owner) => canon(tactics.tacticalCarrier(resolvedDef(combat, id), { cardId: id, instanceId: `mx-${id}`, type: 'attack' }, combat, owner));
+      const counterCarrier = cardCarrier('core.counter', target);
+      const attackerCarrier = cardCarrier('core.strike', source);
+      const plan = engagementModule.quoteRangeActions(combat, source, [{ source, owner: source, target, card: structuredClone(attackerCarrier), effect: { op: 'damage', amount: 5 }, meta: {} }], { route: 'advance' });
+      const incoming = canon({ ...attackerCarrier, rangePlan: { ...plan, rootId: 'root', paid: { energy: 0, stamina: 0, mana: 0 } }, rangeContactId: plan.targets[0].contactId });
+      if (reach !== null) for (const row of incoming.rangePlan.targets) row.effectiveBand = reach;
+      const contact = incoming.rangePlan.targets.find((row) => row.contactId === incoming.rangeContactId);
+      combat._reactionPlaying = true;
+      combat._rangeContext = { sourceKey: incoming.rangePlan.sourceKey, targets: [structuredClone(contact)] };
+      combat._rangeIncoming = { rootId: incoming.rangePlan.rootId, contactId: contact.contactId, sourceKey: incoming.rangePlan.sourceKey, targetKey: engagementModel.actorRangeKey(combat, target) };
+      let paid = null, paidError = null;
+      try { paid = engagementModule.paidCounterRange(combat, target, structuredClone(counterCarrier), { energy: 1, stamina: 1, mana: 0 }, route); } catch (e) { paidError = e.message; }
+      delete combat._reactionPlaying; delete combat._rangeContext; delete combat._rangeIncoming;
+      const m = combat.eventLog.length;
+      let result = null, error = null;
+      if (paid) {
+        const carrier = { ...structuredClone(counterCarrier), rangeCounterReservation: structuredClone(paid.reservation) };
+        try { result = engagementModule.authorizeCounterRange(combat, target, source, carrier, structuredClone(incoming)); } catch (e) { error = e.message; }
+      }
+      return { band, stamina, reach, route, counterCarrier, incoming, paid: paid ? canon(paid) : null, paidError, error, result: result ? canon(result) : null, events: eventsSince(combat, m) };
     });
   }
 }
