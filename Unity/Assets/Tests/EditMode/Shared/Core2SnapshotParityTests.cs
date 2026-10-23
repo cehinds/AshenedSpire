@@ -215,5 +215,26 @@ namespace Ashen.Tests
                 Assert.Fail($"{row.Value<string>("set")}/{row.Value<string>("file")}[{row.Value<int>("index")}] step {step}: first difference at {diff}{context}");
             }
         }
+
+        /// <summary>
+        /// The web's own snapshot restores, and the fight it restores writes the same snapshot back: the queued contacts, the stack with its enemy entries and
+        /// their plans, the plays that wait, read from the shape the web wrote them in (not only from the shape the port wrote).
+        /// </summary>
+        [TestCaseSource(nameof(Shapes))]
+        public void TheWebsOwnSnapshotRestoresAndIsWrittenBackAsItWas(int n)
+        {
+            var row = (JObject)((JArray)Recorded["snapshots"])[n];
+            var web = (JObject)row["snapshot"].DeepClone();
+            var restored = CoreSnapshot.Restore(Core2DamageParityTests.Data, new Ashen.Domain.Random.Rng((uint)row["snapshot"]["combatKey"].ToString().GetHashCode()), CoreSnapshot.Doubles(web));
+            var again = CoreSnapshot.Serialize(restored);
+            again.Remove("followTrace");
+            again.Remove("recordSkillXp");
+            var want = (JObject)row["snapshot"].DeepClone();
+            if (want["followTrace"] != null) again["followTrace"] = want["followTrace"].DeepClone();
+            Alike(want);
+            Alike(again);
+            var diff = RunParityTests.FirstDifference(Sorted(want), Sorted(again), "$");
+            if (diff != null) Assert.Fail($"{row.Value<string>("set")}/{row.Value<string>("file")}[{row.Value<int>("index")}] step {row.Value<int>("step")}: written back differently at {diff}");
+        }
     }
 }

@@ -12,6 +12,8 @@ using Ashen.Domain.Run;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using CK = Ashen.Generated.Core2CombatKeys;
+using CV = Ashen.Generated.Core2CombatValues;
+using EV = Ashen.Generated.Core2EnemyValues;
 using DK = Ashen.Generated.Core2DamageKeys;
 using NK = Ashen.Generated.Core2SnapshotKeys;
 using NM = Ashen.Generated.Core2SnapshotMessages;
@@ -258,10 +260,27 @@ namespace Ashen.App.Combat
             }
             var end = Intent(RV.IntentEndTurn, RK.DiscardIds, new JArray());
             if (Accepts(end)) legal.Add(end);
+            foreach (var enemy in State.Enemies.Where(e => e.Is(Ashen.Generated.CombatKeys.Alive)))
+            {
+                var action = enemy.Obj(CK.KnowledgeAction);
+                var read = action?.Obj(CK.Reads)?.Obj(Ashen.Generated.CombatValues.Player);
+                if (read == null || read.Str(CK.Visibility) != CV.VisibilityUnknown || read[CK.Prediction]?.Type != JTokenType.Null) continue;
+                foreach (var maneuver in PredictionChoices)
+                {
+                    var predict = Intent(EV.IntentPredictIntent, DK.EnemyInstanceId, enemy[Ashen.Generated.CombatKeys.Id], DK.ActionSerial, action[CK.Serial], CK.Maneuver, maneuver);
+                    if (Accepts(predict)) legal.Add(predict);
+                }
+            }
             var reactions = Intent(RV.IntentSetReactions, RK.Enabled, State.Player[NK.ReactionsEnabled] != null && !State.Player.Is(NK.ReactionsEnabled));
             if (Accepts(reactions)) legal.Add(reactions);
             return legal;
         }
+
+        /// <summary>What a telegraph the player could not read can be predicted to be (the web's PREDICTION_CHOICES).</summary>
+        public static readonly IReadOnlyList<string> PredictionChoices = new[]
+        {
+            CV.CategoryAttack, CV.CategorySmash, CV.CategorySweep, CV.CategoryRanged, CV.CategoryDefend, CV.CategoryCounter, CV.CategorySpell, CV.CategoryCasting, CV.CategoryPreparing,
+        };
 
         private static JObject Intent(string type, params object[] pairs)
         {
@@ -303,6 +322,8 @@ namespace Ashen.App.Combat
         /// <summary>Commit a payload that carries this fight's checkpoint as a new save generation; later intents append to that generation's log.</summary>
         public void Commit(SaveService saves, string slot, JToken payload, string contentHash)
         {
+            // A finished fight is not a resume point: restoring it mounts a battlefield with nothing left to kill, and no dispatch reaches the end of the combat.
+            if (IsOver) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, NM.EndedFight, State.Result));
             _gen = saves.Checkpoint(slot, payload, contentHash, StateHash());
             _seq = 0;
         }

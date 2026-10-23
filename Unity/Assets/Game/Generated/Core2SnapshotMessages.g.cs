@@ -25,6 +25,7 @@ namespace Ashen.Generated
         public const string CursorOutsidePhase = "Enemy reaction cursor is outside its phase";
         public const string DuplicateCard = "card instance '{0}' appears in more than one pile position";
         public const string DuplicateHidden = "duplicate hidden card";
+        public const string EndedFight = "Cannot save a combat that has already ended ('{0}')";
         public const string EngagementNeedsCore = "Engagement state requires Core combat";
         public const string FormatMismatch = "The save in {0} holds format {1}; this build reads the Core 2 format {2}";
         public const string MissingCell = "Missing saved formation cell";

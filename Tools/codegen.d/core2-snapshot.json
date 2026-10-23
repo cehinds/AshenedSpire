@@ -194,6 +194,7 @@
         "CursorOutsidePhase": "Enemy reaction cursor is outside its phase",
         "DuplicateCard": "card instance '{0}' appears in more than one pile position",
         "DuplicateHidden": "duplicate hidden card",
+        "EndedFight": "Cannot save a combat that has already ended ('{0}')",
         "EngagementNeedsCore": "Engagement state requires Core combat",
         "FormatMismatch": "The save in {0} holds format {1}; this build reads the Core 2 format {2}",
         "MissingCell": "Missing saved formation cell",

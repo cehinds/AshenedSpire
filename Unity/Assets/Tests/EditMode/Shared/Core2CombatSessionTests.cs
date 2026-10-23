@@ -247,6 +247,7 @@ namespace Ashen.Tests
             Assert.That(session.PlayRefusal(instanceId), Is.Null, "a legal play has no refusal");
             var enemy = session.State.Enemies.First();
             Assert.That(session.PreviewEnemy(enemy.Value<string>("id")), Is.Not.Null);
+            foreach (var predict in legal.Where(i => i.Value<string>("type") == "predictIntent")) Assert.That(session.Execute(predict).Accepted, Is.True, "a predicted telegraph is accepted");
             // Probing the legal intents drew nothing from the live streams.
             var hash = session.StateHash();
             session.LegalIntents();
@@ -279,6 +280,9 @@ namespace Ashen.Tests
             Assert.That(session.State.Result, Is.EqualTo("victory").Or.EqualTo("defeat"));
             Assert.That(session.Execute(Intent("endTurn", "discardIds", new string[0])).Accepted, Is.False);
             Assert.That(session.LegalIntents(), Is.Empty);
+            // A finished fight is not a resume point.
+            Assert.Throws<InvalidOperationException>(() => session.Save(_saves, "slot4", "content-hash"));
+            Assert.That(_saves.Exists("slot4"), Is.False);
         }
     }
 }
