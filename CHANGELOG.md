@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.37.8] — 2026-10-23
+
+- Core 2 run creation (WP-3)
+
 ## [0.1.37.7] — 2026-10-23
 
 - Core 2 WP-2: profile loading and registries in C# (CoreProfile, Core2Registries) with oracle parity
