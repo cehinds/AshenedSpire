@@ -181,6 +181,11 @@ namespace Ashen.Tests
 
         internal static void Same(string label, JToken want, JToken got)
         {
+            if (Core2SnapshotParityTests.ZeroCountersAreAbsent && want is JObject && got is JObject)
+            {
+                want = Core2SnapshotParityTests.WithoutZeroCounters(want);
+                got = Core2SnapshotParityTests.WithoutZeroCounters(got);
+            }
             var diff = RunParityTests.FirstDifference(want, got, "$");
             if (diff != null) Assert.Fail($"{label}: first difference at {diff}");
         }

@@ -62,7 +62,7 @@ namespace Ashen.Generated
         public const string ReasonConsumed = "consumed";
         public const string ReasonOwnerTurnEnd = "ownerTurnEnd";
         public const string ReasonOwnerTurnStart = "ownerTurnStart";
-        public const string ReasonRoundRefresh = "roundRefresh";
+        public const string ReasonRoundRefresh = "configuredRoundRefresh";
         public const string RoundNearest = "nearest";
         public const string RoundUp = "up";
         public const string SeedJoin = "/";
