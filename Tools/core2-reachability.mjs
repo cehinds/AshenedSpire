@@ -81,6 +81,9 @@ fact('cards a cardPreparing listener asks about (profile deck x every class x ev
 // 5. Consumables (revive tokens) and the equipment swap.
 fact('Core 2 shop and reward categories', JSON.stringify(w.profile.content.rewards.categories));
 fact('revive consumables', R.consumables.all().filter((c) => c.kind === 'revive').map((c) => c.id).join(' '));
+// A run only ever gains a consumable by buying it off a market shelf (marketAdditions.commitConsumablePurchase); the profile's shops lay out no such shelf.
+const marketShelves = ((w.profile.content.shops || {}).market?.offerings || []).filter((row) => row && row.enabled === true).map((row) => row.id);
+fact('shops of the profile', `${JSON.stringify(w.profile.content.shops)}; enabled market shelves: ${marketShelves.join(' ') || 'none'}`);
 fact('equipment slots that swap in a fight', (R.equipment.slots || []).filter((s) => s.swap === 'combat').map((s) => `${s.id}(${s.sets} sets)`).join(' '));
 fact('registry cards outside the profile that pay Ashen Blight', R.cards.all().filter((c) => c.ashenBlightCost && !cards.find((x) => x.id === c.id)).map((c) => c.id).join(' '));
 fact('fixCore version of the profile', w.profile.modules.effects?.fixCoreVersion);
@@ -93,8 +96,8 @@ if (process.argv.includes('--check')) {
   // A card, flask or enemy op outside the lists the port runs is a content row the guards would meet.
   const known = new Set(['damage', 'block', 'applyStatus', 'restoreMana', 'moveEngagement', 'addBurden', 'draw', 'moveCards', 'revealIntent', 'heal', 'loseHp', 'modifyCards', 'enterStance', 'addCinders', 'castLinkedSpell', 'restoreStamina', 'poiseDamage', 'addCard']);
   const stray = Object.keys(cardOps).filter((op) => !known.has(op));
-  if (stray.length || flagged.arcaneBuildup || flagged.upcast || flagged.ashenBlightCost || flagged.critRules || flagged.comboHook || listened) {
-    console.error(`core2-reachability: the profile reaches a guarded feature: ${JSON.stringify({ stray, flagged: Object.keys(flagged), listened })}`);
+  if (stray.length || flagged.arcaneBuildup || flagged.upcast || flagged.ashenBlightCost || flagged.critRules || flagged.comboHook || listened || marketShelves.includes('reviveTokens')) {
+    console.error(`core2-reachability: the profile reaches a guarded feature: ${JSON.stringify({ stray, flagged: Object.keys(flagged), listened, marketShelves })}`);
     process.exit(1);
   }
 }
