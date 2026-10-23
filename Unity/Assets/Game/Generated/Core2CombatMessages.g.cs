@@ -23,7 +23,7 @@ namespace Ashen.Generated
         public const string StatusControlNotPorted = "Core 2 combat: status control is ported with WP-9";
         public const string StatusMeterNotPorted = "Core 2 combat: status meters are ported with WP-9";
         public const string StatusProcNotPorted = "Core 2 combat: status procs are ported with WP-9";
-        public const string SyntheticBlockNotPorted = "Core 2 combat: synthetic Block is ported with WP-8";
+        public const string SyntheticBlockNotPorted = "Core 2 combat: synthetic Block (the status rules' protection floor) is ported with WP-9";
         public const string TurnEndInHandNotPorted = "Core 2 combat: turn-end-in-hand hooks are ported with WP-9";
         public const string UnknownTag = "Core 2 combat: unknown tag {0}";
     }

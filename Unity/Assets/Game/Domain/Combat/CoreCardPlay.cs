@@ -204,7 +204,8 @@ namespace Ashen.Domain.Combat
         /// doPlayCard(combat, intent): a card in the hand is played. The gates, then cardPreparing, the price, the stance, and the card's effects as one
         /// committed action: every damage contact is planned against its target, resolved hit by hit (the d20, the receipt, Block and Poise) and
         /// settled when the last effect has run; then the card is told played, resolved and put where it goes. A card with an effect the packages
-        /// after this one own (a choice, a Counter, a trait, a charge, an opcode beyond damage and Block) is refused before anything changes.
+        /// after this one own (a choice, a trait, a charge, an opcode beyond damage, Block, Barrier, Poise and Ward) is refused before anything changes. A
+        /// Counter arms its reply instead of dealing it (<see cref="CoreCounterReturn.PrepareCounter"/>) and plays only its support.
         /// </summary>
         public static void Play(CombatState c, string instanceId, string targetId)
         {
@@ -224,8 +225,10 @@ namespace Ashen.Domain.Combat
             if (CoreEvents.RidersOf(player).Obj(DK.Charges)?.Count > 0) throw new NotSupportedException(DM.ChargesNotPorted);
             var limit = CardCommandLimit(c);
             if (Js.Or0(c.Fields[CK.GameProfileCommands]) >= limit) throw new InvalidOperationException(DM.TurnWorkBudget);
-            // The target: what the card names, else the first living enemy a single-target card needs.
-            var hostile = effects.Any(e => CoreSets.HostileSpecs.Contains(e.Str(K.Target)));
+            // The target: what the card names, else the first living enemy a single-target card needs. A Counter plans its target by the support that
+            // resolves now, not by the reply it defers (immediateCardEffects).
+            var immediate = CoreStances.ProfileFor(c, def).Str(CK.Maneuver) == CV.StanceCounter ? effects.Where(e => e.Str(K.Op) != Op.Damage && e.Str(K.Op) != Op.PoiseDamage).ToList() : effects;
+            var hostile = immediate.Any(e => CoreSets.HostileSpecs.Contains(e.Str(K.Target)));
             var legal = hostile ? c.Enemies.Where(e => e.Is(K.Alive)).Select(e => e.Str(K.Id)).ToList() : new List<string> { player.Str(K.Id) };
             if (targetId != null && !legal.Contains(targetId)) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, DM.InvalidTarget, hostile ? DV.ModeEnemy : DV.ModeFriendly, targetId));
             JObject target = null;
@@ -234,7 +237,7 @@ namespace Ashen.Domain.Combat
                 target = Triggers.FindEntity(c, targetId);
                 if (target == null || !target.Is(K.Alive)) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, DM.InvalidTargetId, targetId));
             }
-            else if (effects.Any(e => e.Str(K.Target) == DV.TargetEnemy))
+            else if (immediate.Any(e => e.Str(K.Target) == DV.TargetEnemy))
             {
                 target = c.Enemies.FirstOrDefault(e => e.Is(K.Alive));
                 if (target == null) throw new InvalidOperationException(DM.NoLivingEnemy);
@@ -242,15 +245,13 @@ namespace Ashen.Domain.Combat
             var kind = Cards.Kind(c.Data, def);
             var probe = Carrier(c, inst, def);
             var maneuver = probe.Obj(CK.CombatProfile)?.Str(CK.Maneuver);
-            if (maneuver == CV.StanceCounter || probe.Obj(DK.TraitValues)?.Is(DK.Counterstrike) == true || probe.Obj(DK.TraitValues)?.Num(DK.Impact) > 0 || probe.Obj(DK.TraitValues)?.Num(DK.Flux) > 0) throw new NotSupportedException(DM.TraitsNotPorted);
+            if (probe.Obj(DK.TraitValues)?.Is(DK.Counterstrike) == true || probe.Obj(DK.TraitValues)?.Num(DK.Impact) > 0 || probe.Obj(DK.TraitValues)?.Num(DK.Flux) > 0) throw new NotSupportedException(DM.TraitsNotPorted);
             c.Emit(DK.CardPreparing, Js.Obj(DK.CardInstanceId, instanceId, K.CardId, inst[K.CardId], DK.CardType, kind, DK.CardTags, probe[DK.AuthoredTags], DK.AbilityKind, probe[DK.AbilityKind], K.SourceId, player[K.Id], K.TargetId, target?[K.Id] ?? Js.Null()));
             CoreActions.Drain(c);
             var entry = Enter(c, instanceId);
             var cardRef = entry.Carrier;
             var paid = entry.Paid;
             c.Fields[CK.GameProfileCommands] = Js.N(Js.Or0(c.Fields[CK.GameProfileCommands]) + 1);
-            // doPlayCard enters the stance twice: prepareTacticalCard accepts it, then the configured profile sets it again.
-            CoreStances.SetProfileStance(c, player, cardRef);
             var counters = player.Obj(K.Counters);
             RecordAbilityCard(player, cardRef, paid.Num(K.Mana));
             var snapshots = CoreRange.CardSourceSnapshots(c, def, player, cardRef);
@@ -259,6 +260,9 @@ namespace Ashen.Domain.Combat
                 var captured = snapshots.Count > 0 ? snapshots[0] : null;
                 if (captured != null) cardRef[DK.UsedArmamentId] = captured[DK.UsedArmamentId].DeepClone();
             }
+            // A Counter has no damage effect to carry the source it is dealt with, so its carrier takes the first snapshot whole.
+            if (maneuver == CV.StanceCounter && snapshots != null && snapshots.Count > 0)
+                foreach (var p in snapshots[0].Properties()) cardRef[p.Name] = p.Value.DeepClone();
             var committed = (JObject)inst.DeepClone();
             if (cardRef.Has(DK.UsedArmamentId)) committed[DK.UsedArmamentId] = cardRef[DK.UsedArmamentId].DeepClone();
             cardRef[DK.CommittedInstance] = committed;
@@ -273,11 +277,15 @@ namespace Ashen.Domain.Combat
                 AttackOrdinal = kind == CV.TypeAttack ? counters.Num(CC.AttacksPlayedThisCombat) : (double?)null,
                 ProposalTargetDecisions = new JObject(),
             };
+            // prepareTacticalCard: a Counter arms its reply from the card's damage, Poise and Ward and plays only its support effects now.
+            var played = maneuver == CV.StanceCounter ? CoreCounterReturn.PrepareCounter(c, player, target, cardRef, effects, meta) : effects;
+            // doPlayCard enters the stance twice: prepareTacticalCard accepts it, then the configured profile sets it again.
+            CoreStances.SetProfileStance(c, player, cardRef);
             var actions = new List<CombatAction>();
             var damageOrdinal = 0;
-            for (var index = 0; index < effects.Count; index++)
+            for (var index = 0; index < played.Count; index++)
             {
-                var effect = effects[index];
+                var effect = played[index];
                 JObject card = cardRef;
                 if (effect.Str(K.Op) == Op.Damage)
                 {

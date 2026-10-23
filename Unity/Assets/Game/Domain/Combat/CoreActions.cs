@@ -88,7 +88,8 @@ namespace Ashen.Domain.Combat
             if (sequence != null && action.Meta.ContactEffectFirst == false && !(sequence.Gates.TryGetValue(action.Meta.ContactEffectIndex, out var open) && open)) return;
             if (group != null && group.Cancelled) return;
             if (group != null) CoreExpansion.Begin(c, group, action.Source);
-            if (action.Meta?.CombatCounterReaction == true) throw new NotSupportedException(DM.CounterNotPorted);
+            // A reply spends its charge when it is queued; interruption (a Poise break of its owner, a new turn) cancels the reply, not the hit that provoked it.
+            if (action.Meta?.CombatCounterReaction == true && (!action.Source.Is(K.Alive) || action.Meta.CombatCounterInterrupted)) return;
             if (sequence != null && action.Meta.ContactEffectFirst == false)
             {
                 eff = Js.Spread(eff);
@@ -169,6 +170,9 @@ namespace Ashen.Domain.Combat
                     break;
                 case Op.PoiseDamage:
                     RunPoiseDamage(c, action, eff);
+                    break;
+                case DV.OpWardDamage:
+                    CoreMatchups.RunWardDamage(c, action, eff);
                     break;
                 case Op.Block:
                 case CV.OpGainBarrier:
@@ -252,7 +256,7 @@ namespace Ashen.Domain.Combat
                 TargetRow row = null;
                 action.Meta?.Group?.Targets.TryGetValue(t.Str(K.Id), out row);
                 if (row?.Receipt?.Is(DK.Avoided) == true) continue;
-                if (SplitSmashPressure(action, t, row)) throw new NotSupportedException(DM.SmashNotPorted);
+                if (CoreMatchups.SplitSmashPressure(c, action, t, row)) continue;
                 var multiplier = CoreTactical.MatchupPoiseMultiplier(c, action.Source, t, action.Card);
                 var authored = Actions.EvalNum(c, action, eff[CK.Amount], 0, t);
                 var amount = action.Card?.Is(DK.CounterReturnAttack) == true ? Math.Max(0, Math.Floor(authored))
@@ -260,9 +264,6 @@ namespace Ashen.Domain.Combat
                 CoreImpact.DealPoiseDamage(c, t, amount);
             }
         }
-
-        private static bool SplitSmashPressure(CombatAction action, JObject target, TargetRow row) =>
-            action.Card?.Obj(CK.CombatProfile)?.Str(CK.Maneuver) == CV.StanceSmash && CoreSets.CastingManeuvers.Contains(target.Obj(CK.CombatStance)?.Str(CK.Maneuver)) && row != null;
 
         private static void RestoreMana(CombatState c, CombatAction action, JObject eff)
         {

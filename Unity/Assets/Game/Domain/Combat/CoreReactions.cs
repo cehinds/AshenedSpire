@@ -110,7 +110,7 @@ namespace Ashen.Domain.Combat
             if (c.Fields.Obj(CK.ReactionRules)?.Str(DK.ContactPolicy) == DV.PolicyPerHit && !group.ContactTelegraphed && action.Source.Is(K.Alive) && HaltReason(c, action.Source) == null && ContactTargetPresent(c, group))
             {
                 group.ContactTelegraphed = true;
-                var payload = Js.Spread(group.EnemyMoveStart);
+                var payload = Js.Spread(group.EnemyMoveStart ?? group.CounterReturn);
                 payload[K.SourceId] = action.Source[K.Id].DeepClone();
                 payload[DK.ContactKey] = group.Key;
                 payload[K.Kind] = DV.KindAttack;
@@ -146,7 +146,7 @@ namespace Ashen.Domain.Combat
             var group = action.Meta?.Group;
             if (group == null) return;
             if (group.ContactSequence != null && (!action.Source.Is(K.Alive) || HaltReason(c, action.Source) != null)) group.Cancelled = true;
-            if (group.EnemyMoveStart == null) return;
+            if (group.EnemyMoveStart == null && group.CounterReturn == null) return;
             if (group.Cancelled || group.PayloadStarted) return;
             group.PayloadStarted = true;
             var enemy = action.Source;
@@ -154,6 +154,8 @@ namespace Ashen.Domain.Combat
             if (group.Cancelled) return;
             if (group.ContactSequence != null && !ContactTargetPresent(c, group)) return;
             var prepared = group.ContactTelegraphed ? new JObject { [DK.ContactPrepared] = true, [DK.ContactKey] = group.Key } : new JObject();
+            // A Counter's reply is announced as the Counter triggering, once, where a move announces itself.
+            if (group.CounterReturn != null) { c.Emit(Ashen.Generated.Core2MatchupValues.EventCombatCounterTriggered, Js.Spread(group.CounterReturn, prepared)); return; }
             if (group.ContactSequence != null && group.ContactSequence.Index > 0)
             {
                 var hit = Js.Spread(group.EnemyMoveStart, prepared);

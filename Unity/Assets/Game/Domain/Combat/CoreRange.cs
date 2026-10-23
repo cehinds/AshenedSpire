@@ -134,7 +134,7 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>rangeActionPlan(state, sourceKey, contacts, { route }): the distance every contact must close, the Stamina to advance and the precision it costs.</summary>
-        public static JObject ActionPlan(CombatState c, string sourceKey, IReadOnlyList<JObject> contacts, string route)
+        public static JObject ActionPlan(CombatState c, string sourceKey, IReadOnlyList<JObject> contacts, string route, JObject context = null)
         {
             var state = State(c);
             var policy = state.Obj(CK.Policy);
@@ -150,8 +150,10 @@ namespace Ashen.Domain.Combat
                 var throwCapable = contact.Is(DK.ThrowCapable);
                 var bypass = contact.Is(DK.Bypass);
                 var coverage = RangeBand(c, !Js.Nullish(contact[DK.Coverage]) ? contact[DK.Coverage] : Js.S(CV.RangeMelee));
-                var actual = EngagementBand(c, sourceKey, targetKey);
-                var distance = actual;
+                // An incoming root's context supplies the temporary distance to a reply nested in it (the reply of a Counter).
+                var inherited = Js.Items(context?[DK.Targets]).OfType<JObject>().FirstOrDefault(row => PairKey(context.Str(DK.SourceKey), row.Str(DK.TargetKey)) == PairKey(sourceKey, targetKey));
+                var actual = inherited != null && Js.IsNum(inherited[DK.ActualBand]) ? inherited.Num(DK.ActualBand) : EngagementBand(c, sourceKey, targetKey);
+                var distance = inherited != null ? inherited.Num(DK.EffectiveBand) : actual;
                 var missing = enabled && !bypass ? Math.Max(0, distance - coverage) : 0;
                 var extended = route == DV.RouteThrow && missing > 0;
                 if (extended && (!throwCapable || missing > 1)) available = false;
@@ -290,7 +292,7 @@ namespace Ashen.Domain.Combat
         private static string OwnerKey(JObject owner) => owner.Str(K.Id);
 
         /// <summary>quoteRangeActions(ctx, source, actions, { route, preview }): the plan a committed action's hostile effects need. A preview changes nothing.</summary>
-        public static JObject Quote(CombatState c, JObject source, List<CombatAction> actions, string route = null, bool preview = false)
+        public static JObject Quote(CombatState c, JObject source, List<CombatAction> actions, string route = null, bool preview = false, JObject context = null)
         {
             if (State(c) == null) return null;
             route ??= DV.RouteAdvance;
@@ -334,7 +336,7 @@ namespace Ashen.Domain.Combat
                 }
             }
             if (HasHostileHooks(c, source, actions)) throw new NotSupportedException(DM.RangeLineageNotPorted);
-            return ActionPlan(c, ActorKey(c, source), contacts, route);
+            return ActionPlan(c, ActorKey(c, source), contacts, route, context);
         }
 
         /// <summary>addRangeCosts(costs, plan): the base costs plus the Stamina the advance takes.</summary>
@@ -354,12 +356,13 @@ namespace Ashen.Domain.Combat
         public static JObject Accept(CombatState c, JObject source, List<CombatAction> actions, JObject carrier, string rootId)
         {
             if (State(c) == null) return null;
-            if (carrier.Is(DK.RangeReturnAuthorization)) throw new NotSupportedException(DM.CounterNotPorted);
-            var plan = carrier.Obj(DK.RangePlan) ?? Quote(c, source, actions, carrier.Is(DK.RangeRoute) ? carrier.Str(DK.RangeRoute) : DV.RouteAdvance);
+            // A Counter's reply carries the quote that priced it (authorizeCounterRange); it is accepted, not requoted.
+            var authorization = carrier.Obj(DK.RangeReturnAuthorization);
+            var plan = authorization?.Obj(Ashen.Generated.Core2MatchupKeys.RangeReturnPlan) ?? carrier.Obj(DK.RangePlan) ?? Quote(c, source, actions, carrier.Is(DK.RangeRoute) ? carrier.Str(DK.RangeRoute) : DV.RouteAdvance);
             if (!plan.Is(DK.Available)) throw new InvalidOperationException(DM.RangeRouteUnreachable);
             var extra = plan.Num(DK.AdvanceSp);
-            if (!carrier.Is(DK.RangePlan) && extra > 0) throw new NotSupportedException(DM.RangeAdvanceNotPorted);
-            var paid = carrier.Obj(DK.RangePlan)?.Obj(DK.Paid) ?? AddCosts(carrier.Obj(DK.RangeBaseCosts) ?? new JObject { [K.Energy] = 0, [K.Stamina] = 0, [K.Mana] = 0 }, plan);
+            if (!carrier.Is(DK.RangePlan) && !Js.Truthy(authorization?[DK.Paid]) && extra > 0) throw new NotSupportedException(DM.RangeAdvanceNotPorted);
+            var paid = carrier.Obj(DK.RangePlan)?.Obj(DK.Paid) ?? authorization?.Obj(DK.Paid) ?? AddCosts(carrier.Obj(DK.RangeBaseCosts) ?? new JObject { [K.Energy] = 0, [K.Stamina] = 0, [K.Mana] = 0 }, plan);
             var accepted = Js.Spread(plan);
             accepted[DK.RootId] = rootId;
             accepted[DK.Paid] = paid;

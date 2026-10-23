@@ -20,7 +20,6 @@ namespace Ashen.Generated
         public const string ConflictingAttachments = "Conflicting {0} rule attachments";
         public const string ConflictingExclusive = "conflicting exclusive modifiers";
         public const string ConflictingPolicy = "conflicting stacking policy";
-        public const string CounterNotPorted = "Core 2 combat: a hit on a target holding a prepared Counter is ported with WP-8 (Counter arm and return)";
         public const string CritNotPorted = "Core 2 combat: critical hits are not part of a Core 2 run";
         public const string DependencyCycle = "dependency cycle";
         public const string DependencyCycleAt = "dependency cycle at {0}";
@@ -89,7 +88,6 @@ namespace Ashen.Generated
         public const string RequiresDisabled = "requires disabled mechanic {0}";
         public const string RequiresUnknown = "requires unknown mechanic {0}";
         public const string ReviveNotPorted = "Core 2 combat: a revive token is ported with the run loop (WP-19)";
-        public const string SmashNotPorted = "Core 2 combat: a Smash against a spell stance is ported with WP-8";
         public const string StackingMismatch = "stacking mode does not match operation";
         public const string StackingRequired = "explicit group and supported mode required";
         public const string ThenUnknownKey = "then has unknown key {0}";

@@ -328,6 +328,15 @@
   "counter": {
     "version": 2
   },
+  "matchups": {
+    "counterDefaults": {
+      "returnFraction": 0.5,
+      "poiseFraction": 0.2,
+      "advantageIncomingFraction": 0.25,
+      "advantagePoiseFraction": 0.5,
+      "advantageBlockFraction": 0.25
+    }
+  },
   "costs": {
     "poiseLine": " Deal {poiseDamage} Poise damage.",
     "growthMax": 3,

@@ -17,7 +17,7 @@ namespace Ashen.Domain.Combat
     /// The tactical receipt of a committed action against one defender (web engine/combatMatchups.js previewTacticalAction, beginTacticalAction,
     /// completeTacticalAction, normalizedProfile, preparedCounter), for the configured Core 2 profile: the contacts' damage is already planned,
     /// the action's one d20 gates every contact, and the damage provider (<see cref="CoreDamage"/>) owns stance, Block and Poise. A prepared
-    /// Counter, a Smash against a Guard and the Counter return are Matchups (WP-8): a defender holding a Counter is refused by name.
+    /// Counter, the Guard break of a Smash and the Counter return are <see cref="CoreMatchups"/> and <see cref="CoreCounterReturn"/> (WP-8).
     /// </summary>
     public static class CoreTactical
     {
@@ -25,7 +25,7 @@ namespace Ashen.Domain.Combat
 
         private static bool IsSpell(JObject profile) => profile != null && CoreSets.SpellCamps.Contains(profile.Str(CK.Camp));
 
-        private static bool HasTrait(JObject profile, string name) =>
+        internal static bool HasTrait(JObject profile, string name) =>
             Js.Includes(profile?[CK.Traits], name) || profile?.Obj(CK.CombatTraits)?[name]?.Type == JTokenType.Boolean && profile.Obj(CK.CombatTraits).Is(name)
             || Js.Includes(profile?[CK.CombatTraits], name) || Js.Includes(profile?[K.Tags], DV.TraitTagPrefix + name) || profile?[name]?.Type == JTokenType.Boolean && profile.Is(name);
 
@@ -45,25 +45,18 @@ namespace Ashen.Domain.Combat
             return profile;
         }
 
-        /// <summary>preparedCounter's reach in a configured fight: a defender with an armed Counter is the Matchups package's (WP-8).</summary>
-        private static void RefuseCounter(CombatState c, JObject target)
-        {
-            var counter = target?.Obj(CK.CombatCounter);
-            if (counter != null && counter.Or0(CK.Charges) > 0 && target.Or0(CK.CombatOwnerCycle) < counter.Or0(CK.ExpiresOnOwnerCycle)) throw new NotSupportedException(DM.CounterNotPorted);
-        }
-
         /// <summary>previewTacticalAction for a configured fight: the planned amounts, nothing resolved.</summary>
         public static JObject Preview(CombatState c, JObject source, JObject target, JObject carrier, IReadOnlyList<JObject> contacts)
         {
-            RefuseCounter(c, target);
             var profiles = contacts.Select(contact => NormalizedProfile(carrier, contact)).ToList();
+            var cover = CoreMatchups.CoverContacts(c, target, carrier, profiles, contacts);
             var amounts = contacts.Select(contact => contact.Is(DK.Effect) ? 0 : Number0(contact[CK.Amount])).ToList();
             return new JObject
             {
                 [CK.Version] = DN.ReceiptVersion, [DK.TargetKey] = target?[K.Id]?.DeepClone(), [DK.Profile] = NormalizedProfile(carrier),
                 [DK.Profiles] = new JArray(profiles), [CK.Amount] = Js.N(amounts.Sum()), [DK.Amounts] = new JArray(amounts.Select(a => Js.N(a))),
-                [DK.CounterEligible] = false, [CK.Counter] = Js.Null(), [DK.Covered] = new JArray(contacts.Select(_ => (object)false).Select(Js.Token)),
-                [DK.CounterDisabledAtStart] = false, [DK.Avoidance] = new JObject { [DK.Chance] = 0 },
+                [DK.CounterEligible] = cover.Eligible, [CK.Counter] = (JToken)cover.Counter ?? Js.Null(), [DK.Covered] = new JArray(cover.Covered.Select(Js.B)),
+                [DK.CounterDisabledAtStart] = cover.DisabledAtStart, [DK.Avoidance] = new JObject { [DK.Chance] = 0 },
                 [DK.HpLoss] = 0, [K.Blocked] = 0, [DK.WardResisted] = 0, [DK.StatusAccepted] = 0, [DK.StatusResisted] = 0,
                 [DK.Avoided] = false, [DK.Connected] = true, [DK.Completed] = false,
             };
@@ -81,17 +74,18 @@ namespace Ashen.Domain.Combat
                 receipt[DK.Avoided] = hit != null && !hit.Is(DK.Hit);
                 receipt[DK.Connected] = !receipt.Is(DK.Avoided);
             }
+            CoreMatchups.ConsumeCounter(c, source, target, receipt);
             return receipt;
         }
 
-        /// <summary>completeTacticalAction(ctx, source, target, carrier, receipt): the root finalizes; without a prepared Counter it returns nothing.</summary>
+        /// <summary>completeTacticalAction(ctx, source, target, carrier, receipt): the root finalizes: a Smash that broke the last Guard says so, and a Counter the action met answers it.</summary>
         public static void Complete(CombatState c, JObject source, JObject target, JObject carrier, JObject receipt)
         {
             if (receipt == null || receipt.Is(DK.Completed)) return;
             receipt[DK.Completed] = true;
             if (target?.Is(CK.CombatTraitGuard) == true && c.CoreData.ReactionVersion == DN.ReactionStackVersion) throw new NotSupportedException(DM.TraitsNotPorted);
-            if (receipt.Is(DK.SmashGuard)) throw new NotSupportedException(DM.CounterNotPorted);
-            if (target != null) target.Remove(DK.CombatCounterStaggered);
+            CoreMatchups.CompleteGuardBreak(c, source, target, carrier, receipt);
+            CoreCounterReturn.Complete(c, source, target, carrier, receipt);
         }
 
         /// <summary>matchupPoiseMultiplier(ctx, source, target, carrier): a plain physical attack on a target that is preparing a Smash or a spell does more Poise.</summary>

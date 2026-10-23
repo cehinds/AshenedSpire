@@ -11,7 +11,7 @@ namespace Ashen.Domain.Combat
     /// <summary>
     /// An armed Counter (web engine/combatMatchups.js armCombatCounter, armExpansionCounter, clearCombatCounter): a prepared reply that
     /// waits on its owner, with the coverage it answers and the payload it returns. An enemy arms one when it telegraphs a Counter move;
-    /// the reply itself (WP-8) reads the structure laid down here.
+    /// the reply itself (<see cref="CoreCounterReturn"/>) reads the structure laid down here.
     /// </summary>
     public static class CoreCounters
     {
@@ -76,7 +76,10 @@ namespace Ashen.Domain.Combat
             if (Js.Truthy(profile[CK.SchoolEffect])) counter[CK.SchoolEffect] = profile[CK.SchoolEffect].DeepClone();
             counter[CK.Carrier] = carrier.DeepClone();
             entity[CK.CombatCounter] = counter;
-            c.Emit(CV.EventCombatCounterArmed, Js.Obj(K.SourceId, entity[K.Id], CK.Mode, mode));
+            var body = CoreMatchups.EventCarrier(entity, carrier);
+            body[K.SourceId] = entity[K.Id].DeepClone();
+            body[CK.Mode] = mode;
+            c.Emit(CV.EventCombatCounterArmed, body);
             return counter;
         }
     }
