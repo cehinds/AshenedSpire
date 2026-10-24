@@ -10,5 +10,6 @@ namespace Ashen.Generated
         public const string TierPrefix = "tier.";
         public const string IdSeparator = "_";
         public const string InnateKeyword = "innate";
+        public const string NoncombatEditor = "noncombat";
     }
 }

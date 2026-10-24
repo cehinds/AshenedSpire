@@ -82,7 +82,9 @@
         "Attributes": "attributes",
         "Editor": "editor",
         "UnlimitedBasicCards": "unlimitedBasicCards",
-        "EditMintCounter": "editMintCounter"
+        "EditMintCounter": "editMintCounter",
+        "EditorWhere": "editorWhere",
+        "EditorEnabled": "editorEnabled"
       }
     },
     {
@@ -94,7 +96,8 @@
         "EnemyRole": "enemy",
         "TierPrefix": "tier.",
         "IdSeparator": "_",
-        "InnateKeyword": "innate"
+        "InnateKeyword": "innate",
+        "NoncombatEditor": "noncombat"
       }
     },
     {
@@ -117,7 +120,86 @@
         "CannotInvent": "Deck editing cannot invent a limited or enhanced card",
         "CannotDelete": "Deck editing cannot delete an owned limited card",
         "CopyLimitExceeded": "Deck editing exceeds the card copy limit",
-        "NeedsConfigured": "The deck editor's equipment gate reads a configured game profile"
+        "NeedsConfigured": "The deck editor's equipment gate reads a configured game profile",
+        "UnknownCollectionKey": "openDeckEdit.add: unknown collection key '{0}'",
+        "ClosedSession": "openDeckEdit: this editor session is already closed",
+        "NotUnlimited": "'{0}' is not an unlimited card id ({1})"
+      }
+    },
+    {
+      "name": "Core2DeckEditorValues",
+      "doc": "Vocabulary of the deck editor's projection (web ui/models/DeckEditorModel.js): cost buckets, card sources, sorts, panes, the collection key kinds and the tags that classify a source.",
+      "keys": {
+        "Bucket0": "0",
+        "Bucket1": "1",
+        "Bucket2": "2",
+        "Bucket3": "3",
+        "Bucket4": "4",
+        "Bucket5Plus": "5+",
+        "BucketX": "X",
+        "SourceBasic": "basic",
+        "SourceArt": "art",
+        "SourceTechnique": "technique",
+        "SourceReward": "reward",
+        "SourceItem": "item",
+        "SortCost": "cost",
+        "SortName": "name",
+        "SortType": "type",
+        "SortSource": "source",
+        "PaneCollection": "collection",
+        "PaneDeck": "deck",
+        "KindBasic": "basic",
+        "KindKept": "kept",
+        "KindCard": "card",
+        "KeySeparator": ":",
+        "VariantSeparator": "~",
+        "ArtTag": "extractable",
+        "TechniqueTagPrefix": "technique:",
+        "Innate": "innate",
+        "DoorFree": "free",
+        "DoorRestOnly": "restOnly",
+        "EditIdPrefix": "edit:",
+        "RoleAttack": "attack",
+        "RoleGuard": "guard",
+        "RankMark": "~r",
+        "UpgradedMark": "u",
+        "ModsSeparator": ","
+      }
+    },
+    {
+      "name": "Core2DeckText",
+      "doc": "String-table keys (strings/app.en.json) and argument names of the deck editor's sentences; the web's ui strings of the same ids.",
+      "keys": {
+        "Counter": "deckEditor.counter",
+        "Unlimited": "deckEditor.unlimited",
+        "Count": "deckEditor.count",
+        "TileBasic": "deckEditor.tile.basic",
+        "TileOwned": "deckEditor.tile.owned",
+        "TileKept": "deckEditor.tile.kept",
+        "TileKeptUpgraded": "deckEditor.tile.keptUpgraded",
+        "RefuseCopyLimit": "deckEditor.refuse.copyLimit",
+        "RefuseAllInDeck": "deckEditor.refuse.allInDeck",
+        "RefuseEquipment": "deckEditor.refuse.equipment",
+        "FilterCost": "deckEditor.filter.cost",
+        "FilterUpgraded": "deckEditor.filter.upgraded",
+        "TypeOther": "deckEditor.type.other",
+        "ArgCount": "count",
+        "ArgMin": "min",
+        "ArgMax": "max",
+        "ArgInDeck": "inDeck",
+        "ArgOwned": "owned",
+        "ArgName": "name",
+        "ArgLimit": "limit",
+        "ArgCost": "cost"
+      }
+    },
+    {
+      "name": "Core2DeckTextFormats",
+      "doc": "Key templates of the deck editor's labels ({0} = the type, source or sort id).",
+      "keys": {
+        "TypeKey": "deckEditor.type.{0}",
+        "SourceKey": "deckEditor.source.{0}",
+        "SortKey": "deckEditor.sort.{0}"
       }
     }
   ]

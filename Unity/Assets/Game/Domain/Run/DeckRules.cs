@@ -461,6 +461,53 @@ namespace Ashen.Domain.Run
             return true;
         }
 
+        private static string MintId(JObject run)
+        {
+            var next = (Js.IsInt(run[DK.EditMintCounter]) ? run.Num(DK.EditMintCounter) : 0) + 1;
+            run.Put(DK.EditMintCounter, next);
+            return Ashen.Generated.Core2DeckEditorValues.EditIdPrefix + RunJs.NumStr(next);
+        }
+
+        /// <summary>
+        /// addBasicCard(registries, run, role, { plain, freshOnly }) for a run whose cards are configured (the plain basics, by card id): a kept copy
+        /// returns from the sideboard (a set-aside variant only when <paramref name="freshOnly"/> is off), else a new one is minted.
+        /// Under Core 2 no card id is unlimited (ownedOnlyCollection), so this is refused with the web's sentence; a slot-true (equipped) run is not a Core 2 run.
+        /// </summary>
+        public static JObject AddBasicCard(CoreDeckData d, JObject run, string role, bool freshOnly)
+        {
+            if (IsEquippedRun(run)) throw new InvalidOperationException(DM.NeedsConfigured);
+            var unlimited = UnlimitedCardIds(d, run);
+            if (!unlimited.Contains(role)) throw new InvalidOperationException(RunJs.Fmt(DM.NotUnlimited, role, string.Join(", ", unlimited)));
+            var kept = Sideboard(run).OfType<JObject>().FirstOrDefault(c => !Js.Truthy(c[DK.EquipmentRole]) && !Js.Truthy(c[DK.GrantedBy]) && c.Str(DK.CardId) == role
+                && (!freshOnly || !IsSetAsideBasic(d, c, run)));
+            if (kept != null)
+            {
+                MoveFromSideboard(d, run, kept.Str(DK.InstanceId));
+                return kept;
+            }
+            var card = new JObject { [DK.InstanceId] = MintId(run), [DK.CardId] = role, [DK.Upgraded] = false };
+            run.Arr(DK.Deck).Add(card);
+            return card;
+        }
+
+        // ------------------------------------------------------------------ where the editor opens (model/armouryRules.js)
+
+        /// <summary>noncombatEditing(run): the cards module carries <c>editorWhere: "noncombat"</c> (Core 2 edits deck and equipment outside combat only).</summary>
+        public static bool NoncombatEditing(JObject run) => CoreRunData.Module(Subject(run), MI.Cards)?.Str(DK.EditorWhere) == DV.NoncombatEditor;
+
+        /// <summary>editingLocked(run, combat): true while Core forbids deck and equipment changes, any fight that has not resolved (a pending reaction is still a fight).</summary>
+        public static bool EditingLocked(JObject run, bool fightUnresolved) => NoncombatEditing(run) && fightUnresolved;
+
+        /// <summary>profileOpensDeckEditor(run): Core opens the editor from the Armoury at will, unless the cards module disables manual editing.</summary>
+        public static bool ProfileOpensEditor(JObject run)
+        {
+            var enabled = CoreRunData.Module(Subject(run), MI.Cards)?[DK.EditorEnabled];
+            return NoncombatEditing(run) && !(enabled is JValue v && v.Type == JTokenType.Boolean && !v.Value<bool>());
+        }
+
+        /// <summary>armouryOpensDeckEditor(run, settings): the profile allows it and the player's Deck editing setting is on.</summary>
+        public static bool ArmouryOpensEditor(CoreDeckData d, JObject run, JObject settings) => ProfileOpensEditor(run) && EditingOn(d, settings);
+
         /// <summary>unusedInstanceId(run, prefix, cardId): the smallest n at least the deck's length that no owned card holds.</summary>
         public static string UnusedInstanceId(JObject run, string prefix, string cardId)
         {

@@ -82,5 +82,7 @@ namespace Ashen.Generated
         public const string Editor = "editor";
         public const string UnlimitedBasicCards = "unlimitedBasicCards";
         public const string EditMintCounter = "editMintCounter";
+        public const string EditorWhere = "editorWhere";
+        public const string EditorEnabled = "editorEnabled";
     }
 }

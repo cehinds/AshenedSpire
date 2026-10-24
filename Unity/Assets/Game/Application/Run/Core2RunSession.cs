@@ -395,6 +395,51 @@ namespace Ashen.App.Run
             Saves.Delete(Slot);
         }
 
+        // ------------------------------------------------------------------ the deck editor (WP-18)
+
+        /// <summary>
+        /// The reason the deck editor stays shut, as a string key, or null when it may open (model/armouryRules.js armouryOpensDeckEditor, editingLocked): the climb is over,
+        /// a fight has not resolved (Core edits deck and equipment outside combat only), or the profile or the player's Deck editing setting turns manual editing off.
+        /// </summary>
+        public string DeckEditorRefusal()
+        {
+            if (RunOver) return StringKeys.Core2DeckRunOver;
+            if (Ashen.Domain.Run.DeckRules.EditingLocked(_run, IsInCombat)) return StringKeys.Core2DeckLocked;
+            if (!Ashen.Domain.Run.DeckRules.ArmouryOpensEditor(Core.Deck, _run, Profile.Settings)) return StringKeys.Core2DeckDisabled;
+            return null;
+        }
+
+        /// <summary>Opens the deck editor over the live run (main.js showDeckEditor): its words come from <paramref name="strings"/>; a refusal names the key to say.</summary>
+        public Core2DeckOpen OpenDeckEditor(Ashen.App.Ui.StringTable strings)
+        {
+            var refusal = DeckEditorRefusal();
+            if (refusal != null) return new Core2DeckOpen { Refusal = refusal };
+            var session = Ashen.Domain.Run.DeckEditor.Open(Core.Deck, new DeckEditorText(strings), _run, Profile.Settings);
+            return new Core2DeckOpen { Editor = new Core2DeckEditor(this, session) };
+        }
+
+        /// <summary>
+        /// The draft door (main.js showCombatDeckEditor, commitDeckEditDraft): an editor that worked on a copy of the run (<see cref="Run"/>) commits its deck and sideboard
+        /// here. The rules check the whole draft (bounds, identities, known cards, range, no modified, invented or deleted owned card, copy limits) and write it atomically;
+        /// a refusal carries the web's sentence and leaves the run as it was. A committed draft is saved.
+        /// </summary>
+        public Core2DeckCommit CommitDeckDraft(JObject draft)
+        {
+            var refusal = DeckEditorRefusal();
+            if (refusal != null) return new Core2DeckCommit { Ok = false, Message = refusal };
+            try
+            {
+                // The rules write the draft only after every check passed, so a refusal leaves the run (and the editors holding it) untouched.
+                var size = Ashen.Domain.Run.DeckRules.CommitDraft(Core.Deck, _run, draft, Profile.Settings);
+                Save();
+                return new Core2DeckCommit { Ok = true, DeckSize = size };
+            }
+            catch (InvalidOperationException e)
+            {
+                return new Core2DeckCommit { Ok = false, Message = e.Message };
+            }
+        }
+
         /// <summary>Review and test hook (smoke tests, screen captures): edits the live run document in place. Never called by the game.</summary>
         public void EditRunForReview(Action<JObject> edit) => edit?.Invoke(_run);
 
