@@ -643,12 +643,14 @@ namespace Ashen.App.Combat
                 if (damage != null && carrier != null)
                 {
                     var pricedEnemy = priced.Enemies.First(e => e.Str(K.Id) == target);
-                    var receipt = Try(() => CoreDamage.ProfileDamageReceipt(priced, priced.Player, pricedEnemy, damage.Num(K.Amount), carrier));
-                    if (receipt != null)
+                    // previewDamageHits: every hit of the card in turn, each leaving its effect on the previewed target for the next.
+                    var hitsCount = Js.IsNum(damage[K.Hits]) ? damage.Num(K.Hits) : 1;
+                    var receipts = Try(() => CoreDamage.PreviewHits(priced, priced.Player, pricedEnemy, damage.Num(K.Amount), carrier, hitsCount));
+                    if (receipts != null && receipts.Count > 0)
                     {
-                        hv.Damage = receipt.Num(K.Amount);
-                        hv.HitsCount = Js.IsNum(damage[K.Hits]) ? damage.Num(K.Hits) : 1;
-                        hv.Receipt = receipt.Obj(DK.DamageReceipt)?.DeepClone() as JObject;
+                        hv.Damage = receipts[0].Num(K.Amount);
+                        hv.HitsCount = hitsCount;
+                        hv.Receipt = CoreDamage.CombinedReceipt(pricedEnemy, receipts);
                     }
                 }
                 card.Hits[target] = hv;

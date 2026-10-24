@@ -296,6 +296,57 @@ namespace Ashen.Domain.Combat
         public static JObject ProfileDamageReceipt(CombatState c, JObject source, JObject target, double baseAmount, JObject carrier, JObject rangeContact = null, bool proposal = true) =>
             Receipt(c, source, target, baseAmount, carrier ?? new JObject(), rangeContact, proposal);
 
+        /// <summary>
+        /// previewDamageHits(ctx, source, target, base, tags, carrier, hits) for a configured fight (web combatDamagePreview.js): every hit is priced in turn on the previewed
+        /// target and leaves its effect there (applyReceiptToPreviewTarget: Block, Barrier, Ward, Poise, and the Staggered stance and Vulnerable a Poise break brings), so a
+        /// later hit sees what an earlier one spent. <paramref name="target"/> is a detached copy; it is changed. Returns one receipt per hit.
+        /// </summary>
+        public static List<JObject> PreviewHits(CombatState c, JObject source, JObject target, double baseAmount, JObject carrier, double hits)
+        {
+            var receipts = new List<JObject>();
+            for (var hit = 0; hit < Math.Max(0, Math.Floor(hits)); hit++)
+            {
+                var receipt = ProfileDamageReceipt(c, source, target, baseAmount, carrier);
+                receipts.Add(receipt);
+                ApplyReceiptToPreviewTarget(c, target, receipt);
+            }
+            return receipts;
+        }
+
+        /// <summary>applyReceiptToPreviewTarget(ctx, defender, receipt): one resolved hit's effect on the previewed target, carried to its next hit.</summary>
+        public static void ApplyReceiptToPreviewTarget(CombatState c, JObject target, JObject receipt)
+        {
+            target.Put(K.Block, receipt.Num(K.BlockRemaining));
+            if (!CoreFixCore.Enabled(c)) return;
+            target.Put(CK.Barrier, Math.Max(0, target.Or0(CK.Barrier) - receipt.Num(DK.BarrierMitigated)));
+            var ward = target.Obj(CK.PersistentWard);
+            if (ward != null) ward.Put(K.Value, Math.Max(0, ward.Num(K.Value) - receipt.Num(DK.WardMitigated)));
+            var poise = target.Obj(CK.PersistentPoise);
+            if (poise == null) return;
+            var before = poise.Num(K.Value);
+            poise.Put(K.Value, Math.Max(0, before - receipt.Num(DK.PoiseMitigated) - receipt.Or0(DK.PoiseDrain)));
+            if (before > 0 && poise.Num(K.Value) == 0) PreviewPoiseBreak(c, target);
+        }
+
+        /// <summary>previewPoiseBreak(ctx, defender): a Poise break staggers the previewed target as live play does (the stance, the Vulnerable), and nothing else.</summary>
+        private static void PreviewPoiseBreak(CombatState c, JObject target)
+        {
+            var rules = CoreFixCore.StaggeredRules(c);
+            if (rules.Is(CK.Stance)) target[CK.CombatStance] = CoreImpact.StaggeredStance(target, rules);
+            var stacks = rules.Num(DK.VulnerableStacks);
+            if (!(stacks > 0)) return;
+            var statuses = target.Obj(K.Statuses) ?? (JObject)(target[K.Statuses] = new JObject());
+            var vulnerable = statuses.Obj(DV.StatusVulnerable) ?? (JObject)(statuses[DV.StatusVulnerable] = new JObject());
+            vulnerable.Put(K.Stacks, vulnerable.Or0(K.Stacks) + stacks);
+        }
+
+        /// <summary>damageReceipt(targetId, hits): the receipts of a card's hits as the one damage receipt the card shows, its total the sum of what every hit takes from HP.</summary>
+        public static JObject CombinedReceipt(JObject target, IReadOnlyList<JObject> receipts)
+        {
+            var hits = new JArray(receipts.SelectMany(r => Js.Items(r.Obj(DK.DamageReceipt)?[DK.Hits])).Select(h => h.DeepClone()));
+            return new JObject { [DK.Version] = 1, [DK.TargetId] = target?[K.Id]?.DeepClone(), [DK.Hits] = hits, [DK.TotalDamage] = Js.N(receipts.Sum(r => r.Num(DK.HpLoss))) };
+        }
+
         private static JObject Receipt(CombatState c, JObject source, JObject target, double baseAmount, JObject carrier, JObject rangeContact, bool proposal)
         {
             var effects = c.CoreData.Configured(CK.EffectsModule);

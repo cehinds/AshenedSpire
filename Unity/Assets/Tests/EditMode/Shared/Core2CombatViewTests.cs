@@ -263,6 +263,63 @@ namespace Ashen.Tests
             Assert.That(covered, Is.GreaterThan(0), "some unread enemy was priced");
         }
 
+        /// <summary>
+        /// The web's previewCard runs every hit of a multi-hit card through previewDamageHits (combatDamagePreview.js:83): each hit is priced after the one before, so Block spent by an
+        /// early hit is not there for a later one, and the card's damage receipt holds every hit with the total the sum of what they take from HP. The shown target HP is that sum.
+        /// </summary>
+        [Test]
+        public void AMultiHitCardsShownDamageIsEveryHitPricedInTurn()
+        {
+            // The starting hands hold no multi-hit card: two of the monsters' multi-hit cards are dealt in, as the other parity tests deal cards.
+            var covered = 0;
+            var sequenced = 0;
+            foreach (var classId in new[] { "reaver", "rogue", "herald", "starseer" })
+                for (var seed = 1u; seed <= 6; seed++)
+                {
+                    var run = CoreRunRules.Create(Data.Run, seed, classId, CoreRunOptions.FromJson(null, Core2DamageParityTests.Unlocked));
+                    var session = Ashen.App.Combat.Core2CombatSession.Start(Data, new Rng(seed), run, "loneSoldier");
+                    var added = 0;
+                    foreach (var cardId in new[] { "courtDuelist.flurry", "stitchedKing.thousandHands" })
+                        session.State.Piles.Hand.Add(new JObject { ["instanceId"] = "mh" + (++added), ["cardId"] = cardId, ["upgraded"] = false });
+                    foreach (var enemy in session.State.Enemies)
+                    {
+                        enemy["block"] = 10;
+                        enemy["barrier"] = 0;
+                        enemy.Remove("persistentPoise");
+                        enemy.Remove("persistentWard");
+                    }
+                    var view = Core2CombatView.Build(session);
+                    foreach (var card in view.Hand)
+                        foreach (var pair in card.Hits.Where(h => h.Value.Damage != null && h.Value.HitsCount > 1))
+                        {
+                            var at = classId + " " + seed + " " + card.CardId + " on " + pair.Key;
+                            var priced = CoreVisibility.Project(CoreTransaction.DetachPaused(session.State));
+                            var inst = priced.Piles.Hand.First(h => h.Str("instanceId") == card.InstanceId);
+                            var def = CoreCosts.Resolve(priced, inst);
+                            var damage = (def["effects"] as JArray).OfType<JObject>().First(e => e.Str("op") == "damage" && e["amount"]?.Type != JTokenType.String);
+                            var carrier = CoreCardPlay.Enter(priced, card.InstanceId).Carrier;
+                            var enemy = priced.Enemies.First(e => e.Str("id") == pair.Key);
+                            var lost = new List<double>();
+                            for (var hit = 0; hit < pair.Value.HitsCount; hit++)
+                            {
+                                var receipt = CoreDamage.ProfileDamageReceipt(priced, priced.Player, enemy, damage.Num("amount"), carrier);
+                                lost.Add(receipt.Num("hpLoss"));
+                                enemy["block"] = receipt.Num("blockRemaining");
+                            }
+                            var hits = (pair.Value.Receipt["hits"] as JArray).OfType<JObject>().Select(h => h.Num("hpLoss")).ToList();
+                            Assert.That(hits, Is.EqualTo(lost), at);
+                            Assert.That(pair.Value.Receipt.Num("totalDamage"), Is.EqualTo(lost.Sum()), at);
+                            var live = session.State.Enemies.First(e => e.Str("id") == pair.Key);
+                            var shown = Core2CombatText.Preview(new StringTable(TestContent.ContentJson("strings/app.en.json")), view.Enemies.First(e => e.Id == pair.Key), pair.Value);
+                            Assert.That(shown, Does.EndWith(CombatText.Number(Math.Max(0, live.Num("hp") - lost.Sum()))), at);
+                            covered++;
+                            if (lost.Sum() != lost[0] * lost.Count) sequenced++;
+                        }
+                }
+            Assert.That(covered, Is.GreaterThan(0), "a multi-hit card was priced");
+            Assert.That(sequenced, Is.GreaterThan(0), "Block spent by an early hit changes a later one, so the case is covered");
+        }
+
         [Test]
         public void TheEquipmentAndTheRearmOptionsAreJudgedByTheRules()
         {

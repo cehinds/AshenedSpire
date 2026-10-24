@@ -110,12 +110,15 @@ namespace Ashen.App.Combat
 
         private static JObject FirstHit(Core2HitView hit) => hit?.Receipt != null ? Js.Items(hit.Receipt[DK.Hits]).OfType<JObject>().FirstOrDefault() : null;
 
+        /// <summary>What a card's hits take from the target, summed: the receipt holds every hit, each priced after the one before (the web's previewDamageHits hpLoss).</summary>
+        private static double Total(Core2HitView hit, string key) => hit?.Receipt == null ? 0 : Js.Items(hit.Receipt[DK.Hits]).OfType<JObject>().Sum(h => h.Num(key));
+
         /// <summary>The ghost HP of a target: "HP 30 → 18" from the engine's receipt (Block absorbing first), or null when the card does no damage.</summary>
         public static string Preview(StringTable strings, Core2FighterView enemy, Core2HitView hit)
         {
             var first = FirstHit(hit);
             if (first == null || enemy == null) return null;
-            var after = Math.Max(0, enemy.Hp - first.Num(DK.HpLoss));
+            var after = Math.Max(0, enemy.Hp - Total(hit, DK.HpLoss));
             return strings.Format(StringKeys.CombatTargetPreview, Args().Add(UiPlaceholders.Before, Num(enemy.Hp)).Add(UiPlaceholders.After, Num(after)));
         }
 
@@ -133,9 +136,9 @@ namespace Ashen.App.Combat
                 parts.Add(strings.Format(parts.Count > 0 && amount > 0 ? StringKeys.Core2ReceiptGain : StringKeys.Core2ReceiptLine,
                     Args().Add(UiPlaceholders.Label, line.Str(DK.Label) ?? string.Empty).Add(UiPlaceholders.Value, Num(amount))));
             }
-            var blocked = first.Num(K.Blocked);
+            var blocked = Total(hit, K.Blocked);
             if (blocked > 0) parts.Add(strings.Format(StringKeys.Core2ReceiptBlocked, Args().Add(UiPlaceholders.Value, Num(blocked))));
-            parts.Add(strings.Format(StringKeys.Core2ReceiptLoss, Args().Add(UiPlaceholders.Value, Num(first.Num(DK.HpLoss)))));
+            parts.Add(strings.Format(StringKeys.Core2ReceiptLoss, Args().Add(UiPlaceholders.Value, Num(Total(hit, DK.HpLoss)))));
             return string.Join(strings.Get(StringKeys.Core2ReceiptJoin), parts);
         }
 
