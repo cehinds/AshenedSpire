@@ -1,28 +1,28 @@
 {
  "files": [
   {
-   "bytes": 557749,
+   "bytes": 558012,
    "classId": "reaver",
    "fights": 35,
    "file": "start-reaver.json",
    "steps": 117
   },
   {
-   "bytes": 605183,
+   "bytes": 605443,
    "classId": "starseer",
    "fights": 35,
    "file": "start-starseer.json",
    "steps": 117
   },
   {
-   "bytes": 600353,
+   "bytes": 600613,
    "classId": "rogue",
    "fights": 35,
    "file": "start-rogue.json",
    "steps": 117
   },
   {
-   "bytes": 599344,
+   "bytes": 599607,
    "classId": "herald",
    "fights": 35,
    "file": "start-herald.json",
@@ -30,7 +30,7 @@
   }
  ],
  "hand": {
-  "bytes": 583663,
+  "bytes": 584038,
   "file": "hand.json",
   "scenarios": 47
  },

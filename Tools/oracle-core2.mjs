@@ -66,18 +66,18 @@ export async function loadWeb() {
   if (cached) return cached;
   const head = guardWebSha(WEB);
   const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
-  const [content, regs, gp, state, rngMod, runCombat, combat, snapshot, enemyPreview, stanceHit, engagement, formation, rules, knowledge] = await Promise.all([
+  const [content, regs, gp, state, rngMod, runCombat, combat, snapshot, enemyPreview, stanceHit, engagement, formation, rules, knowledge, seats] = await Promise.all([
     load('src/content/index.js'), load('src/model/registries.js'), load('src/model/gameProfile.js'), load('src/model/state.js'),
     load('src/engine/rng.js'), load('src/engine/runCombat.js'), load('src/engine/combat.js'), load('src/engine/combatSnapshot.js'),
     load('src/engine/enemyActionPreview.js'), load('src/engine/stanceHit.js'), load('src/engine/combatEngagement.js'),
-    load('src/model/formationMovement.js'), load('src/engine/combatRules.js'), load('src/model/enemyIntentKnowledge.js'),
+    load('src/model/formationMovement.js'), load('src/engine/combatRules.js'), load('src/model/enemyIntentKnowledge.js'), load('src/model/seats.js'),
   ]);
   const profile = gp.resolveGameProfile(PROFILE_ID);
   // The pipeline of plan 1.1: applyGameProfileToContent -> createRegistries -> bindGameProfileRegistries.
   const projected = gp.applyGameProfileToContent(content.contentBundle, PROFILE_ID);
   const registries = gp.bindGameProfileRegistries(regs.createRegistries(projected), profile);
   cached = { head, content, gp, state, rngMod, runCombat, combat, snapshot, enemyPreview, stanceHit, engagement, formation, rules,
-    predictionChoices: knowledge.PREDICTION_CHOICES, profile, projected, registries, createRng: rngMod.createRng };
+    predictionChoices: knowledge.PREDICTION_CHOICES, seats, profile, projected, registries, createRng: rngMod.createRng };
   return cached;
 }
 
@@ -95,12 +95,27 @@ export function createRun(w, seed, classId) {
 }
 
 /**
+ * main.js combatMods (2880-2914) for a Core 2 run with a seat order and no Custom Climb: a boss is scaled by the tier it is met at
+ * (bossTierScale: its seat's tier ratio times that tier's boss row, on HP and move damage), any other fight by its seat's tier ratio on HP.
+ */
+export function combatMods(w, run, encounter) {
+  let hpMult = 1, damageMult = 1;
+  if (Array.isArray(run.seatOrder)) {
+    const boss = w.seats.bossTierScale(w.registries, { encounter, tier: run.actNumber });
+    hpMult *= boss ? boss.hp : w.seats.seatTierHpMult(w.registries, w.seats.seatAtTier(run.seatOrder, run.actNumber), run.actNumber);
+    if (boss) damageMult = boss.damage;
+  }
+  return { hpMult, damageMult };
+}
+
+/**
  * Builds the fight for an encounter the way main.js enterCombat does for a Core 2 run: one run RNG at the run's own
  * counters, default settings, the encounter's enemies. Returns { run, rng, combat, encounter }.
  */
 export function createFight(w, run, encounter, { settings = {} } = {}) {
   const rng = w.createRng(run.seed, run.streamCounters || {});
-  const combat = w.runCombat.createRunCombat({ registries: w.registries, rng, run, enemyIds: encounter.enemies, encounter, settings });
+  const { hpMult, damageMult } = combatMods(w, run, encounter);
+  const combat = w.runCombat.createRunCombat({ registries: w.registries, rng, run, enemyIds: encounter.enemies, encounter, settings, hpMult, enemyDamageMult: damageMult });
   return { run, rng, combat, encounter };
 }
 

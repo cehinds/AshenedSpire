@@ -190,6 +190,8 @@ The rules half of WP-18 (D-190 to D-194) was already in; this finishes the work 
 
 **Tests:** `Core2RewardsParityTests` (71: 6 unit tests incl. the door's steps for every kind of door, 32 claim scenarios, 32 climbs, the oracle check), `Core2RewardsSessionTests` (9), `Core2RunSessionTests` updated for the door (10), `Core2DeckParityTests` + `Core2RunParityTests` (388), `Core2ScreensTests`, `Core2CombatFlowTests`, `EnforcementTests` all green; `codegen --check`, `transform-content --check`, `refresh-manifest --check`, `ci/check-content`, `ci/check-docs` ok. The full suite was not run (80 minutes; the shared memory limit kills the host when workers overlap, D-323).
 
+**Oracle fix (D-324):** the shared `createFight` passed no `combatMods` to `createRunCombat`, so the start and session fixtures held unscaled bosses (start: 120 HP, Unity 96 after D-321). The oracle now applies main.js `combatMods` like `enterCombat`; `start` and `session` regenerated, only boss fights differ (checked structurally). Core2CombatStart 328/328, Core2SessionParity green.
+
 **Not done / deferred**
 - The spoils screen (Take, Add to deck, Continue and the level-notice modal on `Core2RewardsView`); `ActMapScreen` shows the planned-door notice and leaving it leaves the spoils untaken. Not compiled or looked at in the editor.
 - Shop stock (`itemsPerCategory`, `shop` stream): WP-17 extends `Core2Rewards.MakeOffer`.
