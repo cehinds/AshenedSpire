@@ -27,7 +27,6 @@ namespace Ashen.Tests
         private static string Dir => Path.Combine(TestContent.OracleRoot, "core2", "hit");
 
         private static CoreCombatData _data;
-        private static readonly Dictionary<string, JObject> Files = new Dictionary<string, JObject>();
 
         private static CoreCombatData Data
         {
@@ -40,14 +39,7 @@ namespace Ashen.Tests
             }
         }
 
-        private static JObject Read(string name)
-        {
-            lock (Files)
-            {
-                if (!Files.TryGetValue(name, out var doc)) Files[name] = doc = (JObject)JsonContent.Parse(File.ReadAllText(Path.Combine(Dir, name)));
-                return doc;
-            }
-        }
+        private static JObject Read(string name) => OracleDocuments.Read(Path.Combine(Dir, name));
 
         private static JObject Unlocked => new JObject
         {

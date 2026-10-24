@@ -204,14 +204,13 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>deckCopyLimit(cardId, row, content, settings, gearSettings, owned) of engine/kernel/gameConfig.js.</summary>
-        private static double ConfiguredLimit(CoreDeckData d, string cardId, JObject row, JObject content, JObject rules, JObject gearModule, JObject poolRules, Dictionary<string, int> owned)
+        private static double ConfiguredLimit(CoreDeckData d, string cardId, JObject row, JObject content, JObject rules, JObject gearModule, JObject poolRules, Dictionary<string, int> owned, Dictionary<string, HashSet<string>> cache)
         {
             var have = owned.TryGetValue(cardId ?? string.Empty, out var n) ? n : 0;
             var card = Js.Items(content[PC.Cards]).OfType<JObject>().FirstOrDefault(c => Js.Str(c[DK.Id]) == cardId);
             if (rules == null || card == null) return have;
             var tags = Js.Items(card[DK.Tags]).Select(Js.Str).ToList();
             var charTags = CharacterTags(row);
-            var cache = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
             HashSet<string> FromPools(JToken pools)
             {
                 var key = RunJs.Json(pools);
@@ -237,23 +236,87 @@ namespace Ashen.Domain.Run
             return Js.Str(rules[DK.Default]) == d.Rules.Str(DK.UnlimitedMode) ? double.PositiveInfinity : have;
         }
 
-        /// <summary>configuredDeckCopyLimit(run, cardId): the profile's copy limit, or null when the run's profile does not configure deck training.</summary>
-        public static double? ConfiguredCopyLimit(CoreDeckData d, JObject run, string cardId)
+        /// <summary>The profile side of a configured copy limit: the character's row, the content and the modules the limit reads.</summary>
+        private sealed class LimitScope
         {
-            var profile = Subject(run);
+            public JObject Row;
+            public JObject Content;
+            public JObject Training;
+            public JObject Gear;
+            public JObject Pools;
+            /// <summary>The cards each pool list gives this character: the same whichever card is asked about, so it is worked out once per scope.</summary>
+            public readonly Dictionary<string, HashSet<string>> PoolCards = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
+        }
+
+        /// <summary>
+        /// What a run's pinned profile alone decides (its limit scope and the basics it classifies), kept while one operation reads the run many
+        /// times. Neither depends on the cards the run holds, so a projection or an edit may share them; it never outlives the operation.
+        /// </summary>
+        private sealed class ProfileReading : IDisposable
+        {
+            private readonly ProfileReading _outer;
+            public readonly JObject Run;
+            public bool HasScope;
+            public LimitScope Scope;
+            public List<string> BasicIds;
+
+            public ProfileReading(JObject run)
+            {
+                _outer = _reading;
+                Run = run;
+                _reading = this;
+            }
+
+            public void Dispose() => _reading = _outer;
+        }
+
+        [ThreadStatic]
+        private static ProfileReading _reading;
+
+        /// <summary>Open a reading of the run's profile for the duration of one operation (a projection, an edit); dispose it to end it.</summary>
+        public static IDisposable ReadingProfileOf(JObject run) => new ProfileReading(run);
+
+        private static ProfileReading ReadingOf(JObject run) => _reading != null && ReferenceEquals(_reading.Run, run) ? _reading : null;
+
+        private static LimitScope LimitScopeOf(JObject run)
+        {
+            var reading = ReadingOf(run);
+            if (reading == null) return BuildLimitScope(run);
+            if (!reading.HasScope)
+            {
+                reading.Scope = BuildLimitScope(run);
+                reading.HasScope = true;
+            }
+            return reading.Scope;
+        }
+
+        private static LimitScope BuildLimitScope(JObject run)
+        {
             if (!TrainingConfigured(run)) return null;
+            var profile = Subject(run);
             var content = profile.Obj(CK.Content) ?? new JObject();
             var classId = run.Str(DK.Class);
             var row = Js.Items(content[PC.Characters]).OfType<JObject>().FirstOrDefault(r => Js.Str(r[DK.Id]) == classId)
                 ?? Js.Obj(DK.Id, classId, DK.Tags, new JArray());
+            // The web hands modules['deck-training'] as settings.deckEditing and modules['card-pools'] as cardPoolRules.
+            return new LimitScope { Row = row, Content = content, Training = CoreRunData.Module(profile, MI.DeckTraining), Gear = CoreRunData.Module(profile, MI.Gear), Pools = CoreRunData.Module(profile, MI.CardPools) };
+        }
+
+        private static double LimitIn(CoreDeckData d, LimitScope scope, string cardId, Dictionary<string, int> owned) =>
+            ConfiguredLimit(d, cardId, scope.Row, scope.Content, scope.Training, scope.Gear, scope.Pools, owned, scope.PoolCards);
+
+        /// <summary>configuredDeckCopyLimit(run, cardId): the profile's copy limit, or null when the run's profile does not configure deck training.</summary>
+        public static double? ConfiguredCopyLimit(CoreDeckData d, JObject run, string cardId)
+        {
+            var scope = LimitScopeOf(run);
+            if (scope == null) return null;
             var owned = new Dictionary<string, int>(StringComparer.Ordinal);
             foreach (var card in Js.Items(run[DK.Deck]).Concat(Js.Items(run[DK.Sideboard])).OfType<JObject>())
             {
                 var id = RunJs.Key(card[DK.CardId]);
                 owned[id] = (owned.TryGetValue(id, out var n) ? n : 0) + 1;
             }
-            // The web hands modules['deck-training'] as settings.deckEditing and modules['card-pools'] as cardPoolRules.
-            return ConfiguredLimit(d, cardId, row, content, CoreRunData.Module(profile, MI.DeckTraining), CoreRunData.Module(profile, MI.Gear), CoreRunData.Module(profile, MI.CardPools), owned);
+            return LimitIn(d, scope, cardId, owned);
         }
 
         /// <summary>
@@ -295,12 +358,25 @@ namespace Ashen.Domain.Run
         /// </summary>
         public static List<string> BasicCardIds(CoreDeckData d, JObject run)
         {
+            var reading = ReadingOf(run);
+            if (reading == null) return ClassifiedBasicCardIds(d, run);
+            if (reading.BasicIds == null) reading.BasicIds = ClassifiedBasicCardIds(d, run);
+            return new List<string>(reading.BasicIds);
+        }
+
+        private static List<string> ClassifiedBasicCardIds(CoreDeckData d, JObject run)
+        {
             if (CardsConfigured(run))
             {
                 if (TrainingConfigured(run))
+                {
+                    // Only whether a limit is unbounded counts here, and that never depends on what the run holds, so no copies are counted.
+                    var scope = LimitScopeOf(run);
+                    var none = new Dictionary<string, int>(StringComparer.Ordinal);
                     return Js.Items(Subject(run).Obj(CK.Content)?[PC.Cards]).OfType<JObject>()
-                        .Where(card => double.IsPositiveInfinity(ConfiguredCopyLimit(d, run, Js.Str(card[DK.Id])) ?? 0))
+                        .Where(card => double.IsPositiveInfinity(LimitIn(d, scope, Js.Str(card[DK.Id]), none)))
                         .Select(card => Js.Str(card[DK.Id])).ToList();
+                }
                 return Js.Items(Subject(run).Obj(CK.Content)?.Obj(DK.Editor)?[DK.UnlimitedBasicCards]).Select(Js.Str).ToList();
             }
             return Js.Items(d.Rules[DK.UnlimitedCardIds]).Select(Js.Str).ToList();

@@ -22,16 +22,8 @@ namespace Ashen.Tests
     {
         private static string Dir => Path.Combine(TestContent.OracleRoot, "core2", "remaining");
 
-        private static readonly Dictionary<string, JObject> Files = new Dictionary<string, JObject>();
 
-        internal static JObject Read(string name)
-        {
-            lock (Files)
-            {
-                if (!Files.TryGetValue(name, out var doc)) Files[name] = doc = (JObject)Ashen.Content.JsonContent.Parse(File.ReadAllText(Path.Combine(Dir, name)));
-                return doc;
-            }
-        }
+        internal static JObject Read(string name) => OracleDocuments.Read(Path.Combine(Dir, name));
 
         public static IEnumerable<string> FightFiles() =>
             Directory.Exists(Dir) ? Directory.GetFiles(Dir, "fights-*.json").Select(Path.GetFileName).OrderBy(f => f, StringComparer.Ordinal) : Enumerable.Empty<string>();
