@@ -266,3 +266,27 @@
 .band-compact .combatant.fighter .combatant-art {
     height: var(--size-board-art-h-compact);
 }
+
+/* ---- the figure and its pose frames (VP-5, D-750): the recoil, lunge and wobble move .fighter-figure; a state or attack frame is the .fighter-pose child, bottom-aligned at its own height ---- */
+
+.fighter-figure {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-size: contain;
+    background-position-x: center;
+    background-position-y: bottom;
+    transform-origin: var(--size-half-width) var(--size-full-width);
+}
+
+.fighter-pose {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: contain;
+    background-position-x: center;
+    background-position-y: bottom;
+}

@@ -173,6 +173,7 @@
     "lifeMs": 600,
     "jitterPx": 13,
     "topShare": 0.25,
+    "spawnShare": 0.4,
     "clampPad": 6,
     "popDefault": 1.3,
     "popPct20": 1.6,

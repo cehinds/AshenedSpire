@@ -1,0 +1,307 @@
+/* Combat feedback (VP-5, D-750): the web's floating numbers, on-character words, banners, impact marks and effect frames (styles/combat.css:414-502, 644-685; the colours,
+   sizes and tracks are tokens.json group fx* and ui/feedback.json). Everything here is placed and animated by Kit/FxLayer; the sheet only styles it. */
+
+.fx-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* ---- floating numbers (styles/combat.css:414-445) ---- */
+
+.fx-float {
+    position: absolute;
+    translate: var(--size-fx-neg-half) 0;
+}
+
+.fx-float-text {
+    font-size: var(--font-fx-num);
+    -unity-font-style: bold;
+    color: var(--color-parchment);
+    white-space: nowrap;
+    transform-origin: var(--size-half-width) var(--size-full-width);
+    -unity-text-outline-width: var(--size-fx-outline);
+    -unity-text-outline-color: var(--color-text-ink);
+}
+
+.fx-num--damage { color: var(--color-fx-damage); }
+.fx-num--damage-small { color: var(--color-fx-damage); font-size: var(--font-fx-num-small); }
+.fx-num--damage-heavy { color: var(--color-fx-damage); font-size: var(--font-fx-num-heavy); }
+.fx-num--damage-crit { color: var(--color-fx-damage); font-size: var(--font-fx-num-crit); }
+.fx-num--damage-pct20 { color: var(--color-fx-damage); font-size: var(--font-fx-num-pct20); }
+.fx-num--damage-pct35 { color: var(--color-fx-damage); font-size: var(--font-fx-num-pct35); }
+.fx-num--barrier { color: var(--color-fx-barrier); font-size: var(--font-fx-num-small); }
+.fx-num--ward { color: var(--color-fx-ward); font-size: var(--font-fx-num-small); }
+.fx-num--poise { color: var(--color-fx-poise); font-size: var(--font-fx-num-small); }
+.fx-num--immune { color: var(--color-fx-immune); font-size: var(--font-fx-num-small); }
+.fx-num--guard { color: var(--color-fx-block); }
+.fx-num--guard-small { color: var(--color-fx-block); font-size: var(--font-fx-num-small); }
+.fx-num--heal { color: var(--color-green); }
+.fx-num--burst { color: var(--color-ember); font-size: var(--font-fx-num-burst); }
+
+/* ---- on-character words (styles/combat.css:451-495): centred over the fighter, their bottom edge on the line the layer places them at ---- */
+
+.fx-callout {
+    position: absolute;
+    translate: var(--size-fx-neg-half) var(--size-fx-neg-full);
+}
+
+.fx-callout-text {
+    font-size: var(--font-fx-callout);
+    -unity-font-style: bold;
+    letter-spacing: var(--size-fx-callout-track);
+    color: var(--color-gold);
+    white-space: nowrap;
+    transform-origin: var(--size-half-width) var(--size-full-width);
+    -unity-text-outline-width: var(--size-fx-outline);
+    -unity-text-outline-color: var(--color-text-ink);
+}
+
+.fx-callout--action .fx-callout-text {
+    white-space: normal;
+    max-width: var(--size-fx-callout-max-w);
+    font-size: var(--font-fx-action);
+    letter-spacing: var(--size-fx-action-track);
+    -unity-text-align: middle-center;
+    color: var(--color-fx-white);
+}
+
+.fx-tone--white { color: var(--color-fx-white); }
+.fx-tone--gold { color: var(--color-gold); }
+.fx-tone--red { color: var(--color-ember); }
+.fx-tone--ward { color: var(--color-fx-ward); }
+.fx-tone--barrier { color: var(--color-fx-barrier); }
+.fx-tone--block { color: var(--color-fx-block); }
+.fx-tone--immune { color: var(--color-fx-immune); }
+.fx-tone--interrupt { color: var(--color-fx-interrupt); }
+
+/* ---- banners (styles/combat.css:496-502): the turn change and a proc burst, a third of the way down the field ---- */
+
+.fx-banner {
+    position: absolute;
+    left: var(--size-half-width);
+    top: var(--size-fx-banner-top);
+    translate: var(--size-fx-neg-half) var(--size-fx-neg-half);
+}
+
+.fx-banner-text {
+    font-size: var(--font-fx-banner);
+    letter-spacing: var(--size-fx-banner-track);
+    color: var(--color-gold);
+    white-space: nowrap;
+    text-shadow: 0 0 var(--size-fx-banner-glow-blur) var(--color-fx-banner-glow);
+}
+
+.fx-banner--turn .fx-banner-text {
+    font-size: var(--font-fx-banner-turn);
+    letter-spacing: var(--size-fx-banner-turn-track);
+    color: var(--color-parchment);
+    text-shadow: 0 0 var(--size-fx-banner-turn-glow-blur) var(--color-fx-banner-turn-glow);
+}
+
+.fx-banner--blood .fx-banner-text {
+    color: var(--color-ember);
+}
+
+/* ---- impact marks (styles/combat.css:468-478, 644-685): all centred on the point the layer puts them at ---- */
+
+.fx-slash {
+    position: absolute;
+    width: var(--size-fx-slash);
+    height: var(--size-fx-slash);
+    translate: var(--size-fx-neg-half) var(--size-fx-neg-half);
+    border-top-width: var(--size-fx-slash-border);
+    border-top-color: var(--color-parchment);
+    border-radius: var(--radius-round);
+}
+
+.fx-spark {
+    position: absolute;
+    translate: var(--size-fx-neg-half) var(--size-fx-neg-half);
+    font-size: var(--font-fx-spark);
+    color: var(--color-frost);
+    -unity-font-style: bold;
+}
+
+.fx-glyph {
+    position: absolute;
+    translate: var(--size-fx-neg-half) var(--size-fx-neg-half);
+    font-size: var(--font-fx-glyph);
+    color: var(--color-grace);
+    -unity-font-style: bold;
+}
+
+.fx-shatter {
+    position: absolute;
+    width: var(--size-fx-shatter);
+    height: var(--size-fx-shatter);
+    translate: var(--size-fx-neg-half) var(--size-fx-neg-half);
+    border-width: var(--size-fx-shatter-border);
+    border-radius: var(--radius-round);
+    border-color: var(--color-fx-white);
+}
+
+.fx-ring--block { border-color: var(--color-fx-block); }
+.fx-ring--barrier { border-color: var(--color-fx-barrier); }
+.fx-ring--ward { border-color: var(--color-fx-ward); }
+.fx-ring--gold { border-color: var(--color-fx-poise); }
+.fx-ring--interrupt { border-color: var(--color-fx-interrupt); }
+
+.fx-streak {
+    position: absolute;
+    width: var(--size-fx-streak-w);
+    height: var(--size-fx-streak-h);
+    translate: var(--size-fx-neg-half) var(--size-fx-neg-half);
+    border-radius: var(--radius-tight);
+    background-color: var(--color-fx-white);
+}
+
+.fx-effect {
+    position: absolute;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* ---- a played card's flight (combat.js flyCard): translate, shrink, turn and fade over 220 ms, the end state set the frame after ---- */
+
+.fx-flight {
+    position: absolute;
+    opacity: var(--ratio-fx-fly-opacity);
+    transition-property: translate, scale, rotate, opacity;
+    transition-duration: var(--duration-fx-card-fly);
+    transition-timing-function: ease-out;
+}
+
+.fx-flight--go {
+    scale: var(--ratio-fx-fly-scale);
+    rotate: var(--ratio-fx-fly-turn);
+    opacity: 0;
+}
+
+/* ---- the boss splash (components/intro.js; styles/combat.css:1010-1017, kit.css:3218-3229): a veil, the act, the name, a rule; each rises in on a transition ---- */
+
+.boss-intro {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-fx-boss-veil);
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: var(--duration-fx-boss-veil);
+    transition-timing-function: ease-out;
+}
+
+.boss-intro.fx-in {
+    opacity: 1;
+}
+
+.boss-intro.fx-out {
+    opacity: 0;
+    transition-duration: var(--duration-fx-boss-out);
+    transition-timing-function: ease-in;
+}
+
+.bi-stack {
+    align-items: center;
+    max-width: var(--size-fx-boss-max-w);
+    opacity: 0;
+    translate: 0 var(--size-fx-boss-rise-y);
+    scale: var(--ratio-fx-boss-rise-scale);
+    transition-property: opacity, translate, scale;
+    transition-duration: var(--duration-fx-boss-rise);
+    transition-timing-function: ease-out-cubic;
+}
+
+.fx-in .bi-stack {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+}
+
+.bi-tag {
+    margin-bottom: var(--size-fx-boss-gap);
+    font-size: var(--font-fx-boss-tag);
+    letter-spacing: var(--size-fx-boss-tag-track);
+    color: var(--color-muted);
+}
+
+.bi-name {
+    margin-bottom: var(--size-fx-boss-gap);
+    font-size: var(--font-fx-boss-name);
+    letter-spacing: var(--size-fx-boss-track);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    color: var(--color-gold);
+    white-space: normal;
+    text-shadow: 0 var(--size-text-shadow-y) var(--size-fx-banner-glow-blur) var(--color-fx-boss-glow);
+}
+
+.bi-rule {
+    flex-direction: row;
+    align-items: center;
+    width: var(--size-fx-boss-rule-w);
+    scale: var(--ratio-fx-boss-rule-from) 1;
+    opacity: 0;
+    transition-property: scale, opacity;
+    transition-duration: var(--duration-fx-boss-rule);
+    transition-timing-function: ease-out;
+}
+
+.fx-in .bi-rule {
+    scale: 1 1;
+    opacity: 1;
+}
+
+.bi-line {
+    flex-grow: 1;
+    height: var(--border-hairline);
+    background-color: var(--color-line-soft);
+}
+
+.bi-mark {
+    margin-left: var(--size-fx-boss-rule-gap);
+    margin-right: var(--size-fx-boss-rule-gap);
+    font-size: var(--font-fx-boss-rule);
+    color: var(--color-gold);
+}
+
+/* ---- the victory beat (components/victoryBeat.js; styles/combat.css:1379-1397): the fight's title as a ribbon across the field, then the spoils ---- */
+
+.victory-beat {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-fx-victory-veil);
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: var(--duration-fx-victory-fade);
+    transition-timing-function: ease;
+}
+
+.victory-beat.fx-in {
+    opacity: 1;
+}
+
+.victory-title {
+    width: var(--size-full-width);
+    padding: var(--size-fx-victory-pad-y) var(--size-fx-victory-pad-x);
+    font-size: var(--font-fx-victory);
+    letter-spacing: var(--size-fx-victory-track);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    color: var(--color-fx-ribbon-ink);
+    background-color: var(--color-fx-ribbon-fill);
+    border-top-width: var(--border-hairline);
+    border-bottom-width: var(--border-hairline);
+    border-top-color: var(--color-fx-ribbon-line);
+    border-bottom-color: var(--color-fx-ribbon-line);
+}

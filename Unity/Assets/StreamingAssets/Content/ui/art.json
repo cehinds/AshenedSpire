@@ -1,9 +1,10 @@
 {
-  "comment": "How the UI finds art by name (VP-2, D-552/D-553). 'groups' split the art-release textures into lazily loaded catalogs (a group's Resources path is built by Cli.BuildUiArt from its include list, same rule as ui/components.json art.include) so the card paintings are not in memory until a card is shown; the textures in ui/components.json art.include stay in the always-loaded catalog. 'lookup' names each kind of art by template ({name}, {id}, ...) over assets/registry.json ids. 'iconAlias' maps a content icon name that has no art of its own to one that has. 'card' is the Core 2 card art rule, a port of the web's simpleCardArt (src/ui/cardArtComposition.js): a card's own painting (card.{id}) wins, then the equipment-profile painting, then the library painting for its camp, maneuver and variant (a hash of the card id for physical cards, the element's variant for magical ones); a card with no library maneuver (a skill, a status card) takes the stated placeholder for its category until the card face composes the cutout layers (VP-3).",
+  "comment": "How the UI finds art by name (VP-2, D-552/D-553; VP-5 adds the fx group: the enemy pose and state frames, the defeated figures and the vfx/posefx effect frames of the combat feedback, D-750). 'groups' split the art-release textures into lazily loaded catalogs (a group's Resources path is built by Cli.BuildUiArt from its include list, same rule as ui/components.json art.include) so the card paintings are not in memory until a card is shown; the textures in ui/components.json art.include stay in the always-loaded catalog. 'lookup' names each kind of art by template ({name}, {id}, ...) over assets/registry.json ids. 'iconAlias' maps a content icon name that has no art of its own to one that has. 'card' is the Core 2 card art rule, a port of the web's simpleCardArt (src/ui/cardArtComposition.js): a card's own painting (card.{id}) wins, then the equipment-profile painting, then the library painting for its camp, maneuver and variant (a hash of the card id for physical cards, the element's variant for magical ones); a card with no library maneuver (a skill, a status card) takes the stated placeholder for its category until the card face composes the cutout layers (VP-3).",
   "groups": [
     { "id": "cards", "resource": "UI/UiCardArtCatalog", "include": ["card.*.art512", "cardlib.*.art512", "cardprofile.*.art512", "cardcut."] },
     { "id": "icons", "resource": "UI/UiIconArtCatalog", "include": ["icon.", "uikit.", "cardframe.", "uicomp.", "orb.", "footer.", "creation.", "shop."] },
-    { "id": "scenes", "resource": "UI/UiSceneArtCatalog", "include": ["scene.", "illus.", "event.", "portrait.", "prologue.", "mapdetail."] }
+    { "id": "scenes", "resource": "UI/UiSceneArtCatalog", "include": ["scene.", "illus.", "event.", "portrait.", "prologue.", "mapdetail."] },
+    { "id": "fx", "resource": "UI/UiFxArtCatalog", "include": ["vfx.", "posefx.", "defeated.", "enemy.*.pose.idle", "enemy.*.pose.attack", "enemy.*.state.afflicted", "enemy.*.state.buff", "enemy.*.state.guard", "enemy.*.state.guardHit", "enemy.*.state.hurt", "enemy.*.state.projectile", "enemy.*.state.wounded"] }
   ],
   "lookup": {
     "icon": "icon.{name}",
@@ -20,7 +21,12 @@
     "illustration": "illus.{name}",
     "portrait": "portrait.{id}",
     "prologue": "prologue.{name}",
-    "mapDetail": "mapdetail.{map}.l{level}.t{x}x{y}"
+    "mapDetail": "mapdetail.{map}.l{level}.t{x}x{y}",
+    "vfx": "vfx.{kind}.{frame}",
+    "posefx": "posefx.{kind}.{frame}",
+    "enemyPose": "enemy.{id}.pose.{name}",
+    "enemyState": "enemy.{id}.state.{name}",
+    "defeated": "defeated.{id}"
   },
   "iconAlias": {
     "defend": "shield",

@@ -13,5 +13,6 @@ namespace Ashen.Generated
         public const string StatusKey = "core2.fx.status.{0}";
         public const string ToneClass = "fx-tone--{0}";
         public const string RingToneClass = "fx-ring--{0}";
+        public const string EffectEase = "easeOut";
     }
 }

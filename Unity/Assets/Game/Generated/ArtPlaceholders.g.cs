@@ -14,5 +14,7 @@ namespace Ashen.Generated
         public const string Level = "level";
         public const string X = "x";
         public const string Y = "y";
+        public const string Kind = "kind";
+        public const string Frame = "frame";
     }
 }

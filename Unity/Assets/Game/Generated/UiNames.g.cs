@@ -363,5 +363,11 @@ namespace Ashen.Generated
         public const string GroupDiscardArt = "GROUP_DISCARD_ART";
         public const string GroupDiscardCaption = "GROUP_DISCARD_CAPTION";
         public const string GroupPotionsArt = "GROUP_POTIONS_ART";
+        public const string FxLayer = "FX_LAYER";
+        public const string BossIntro = "BOSS_INTRO";
+        public const string BossTag = "BOSS_TAG";
+        public const string BossName = "BOSS_NAME";
+        public const string VictoryBeat = "VICTORY_BEAT";
+        public const string VictoryTitle = "VICTORY_TITLE";
     }
 }

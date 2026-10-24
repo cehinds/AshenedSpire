@@ -161,6 +161,7 @@ namespace Ashen.Generated
         public const string Core2FxGuardedWard = "core2.fx.guardedWard";
         public const string Core2FxImmuneNumber = "core2.fx.immuneNumber";
         public const string Core2FxLoss = "core2.fx.loss";
+        public const string Core2FxOrnament = "core2.fx.ornament";
         public const string Core2FxPoiseAbsorbed = "core2.fx.poiseAbsorbed";
         public const string Core2FxResisted = "core2.fx.resisted";
         public const string Core2FxStatusBleed = "core2.fx.status.bleed";

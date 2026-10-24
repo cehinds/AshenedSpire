@@ -57,7 +57,12 @@
         "Illustration": "illustration",
         "Portrait": "portrait",
         "Prologue": "prologue",
-        "MapDetail": "mapDetail"
+        "MapDetail": "mapDetail",
+    "Vfx": "vfx",
+    "PoseFx": "posefx",
+    "EnemyPose": "enemyPose",
+    "EnemyState": "enemyState",
+    "Defeated": "defeated"
       }
     },
     {
@@ -73,7 +78,9 @@
         "Map": "map",
         "Level": "level",
         "X": "x",
-        "Y": "y"
+        "Y": "y",
+    "Kind": "kind",
+    "Frame": "frame"
       }
     },
     {

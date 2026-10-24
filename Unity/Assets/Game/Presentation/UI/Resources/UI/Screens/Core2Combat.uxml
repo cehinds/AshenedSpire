@@ -2,6 +2,7 @@
     <ui:Style src="Screens.uss" />
     <ui:Style src="Combat.uss" />
     <ui:Style src="Core2Combat.uss" />
+    <ui:Style src="Fx.uss" />
     <ui:VisualElement name="COMBAT_BACKGROUND" class="combat-background" picking-mode="Ignore" />
     <ui:VisualElement name="COMBAT_PAGE" class="page combat-page board-page">
         <ui:VisualElement name="STAGE_GRID" class="stage-grid" picking-mode="Ignore" />
@@ -70,6 +71,20 @@
                 <Ashen.Presentation.UI.LocButton name="END_SUMMARY" class="kit-button--primary kit-button--ready end-button is-hidden" string-key="combat.end.summary" />
                 <ui:VisualElement class="footer-gap" />
                 <Ashen.Presentation.UI.LocButton name="END_TO_TITLE" class="end-button" string-key="combat.end.toTitle" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="VICTORY_BEAT" class="victory-beat is-hidden" picking-mode="Ignore">
+        <Ashen.Presentation.UI.LocLabel name="VICTORY_TITLE" class="victory-title kit-text-header" picking-mode="Ignore" />
+    </ui:VisualElement>
+    <ui:VisualElement name="BOSS_INTRO" class="boss-intro is-hidden">
+        <ui:VisualElement class="bi-stack" picking-mode="Ignore">
+            <Ashen.Presentation.UI.LocLabel name="BOSS_TAG" class="bi-tag kit-text-value kit-upper" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.LocLabel name="BOSS_NAME" class="bi-name kit-text-header" picking-mode="Ignore" />
+            <ui:VisualElement class="bi-rule" picking-mode="Ignore">
+                <ui:VisualElement class="bi-line" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="bi-mark kit-text-header" string-key="core2.fx.ornament" picking-mode="Ignore" />
+                <ui:VisualElement class="bi-line" picking-mode="Ignore" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

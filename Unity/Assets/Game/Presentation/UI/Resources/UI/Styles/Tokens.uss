@@ -477,11 +477,6 @@
     --size-fx-boss-rule-gap: 10.5px;
     --size-fx-boss-max-w: 80%;
     --size-fx-boss-rise-y: 16px;
-    --size-fx-boss-rise-scale: 0.97px;
-    --size-fx-boss-rule-from: 0.2px;
-    --size-fx-fly-scale: 0.35px;
-    --size-fx-fly-turn: 6px;
-    --size-fx-fly-opacity: 0.85px;
     --border-hairline: 1px;
     --border-control: 2px;
     --border-focus: 2px;
@@ -663,4 +658,9 @@
     --face-footer-back: rgba(16, 13, 9, 0.38);
     --face-info-back: #15110f;
     --face-info-line: #c9a227;
+    --ratio-fx-boss-rise-scale: 0.97;
+    --ratio-fx-boss-rule-from: 0.2;
+    --ratio-fx-fly-scale: 0.35;
+    --ratio-fx-fly-turn: 6deg;
+    --ratio-fx-fly-opacity: 0.85;
 }

@@ -164,16 +164,29 @@
     font-size: var(--font-board-ribbon);
     letter-spacing: var(--size-track-label);
     -unity-text-align: middle-center;
-    color: var(--color-parchment);
-    background-color: var(--color-shade);
-    border-color: var(--color-gold-soft);
-    border-width: var(--border-hairline);
-    border-radius: var(--radius-tight);
+    color: var(--color-fx-ribbon-ink);
+    background-color: var(--color-fx-ribbon-fill);
+    border-top-color: var(--color-fx-ribbon-line);
+    border-bottom-color: var(--color-fx-ribbon-line);
+    border-top-width: var(--border-hairline);
+    border-bottom-width: var(--border-hairline);
 }
 
+/* The enemy's turn: the same ribbon in the web's rust tint (styles/combat.css:1398, [data-turn='enemy']). */
 .turn-ribbon.ribbon--enemy {
-    color: var(--color-danger);
-    border-color: var(--color-danger-line);
+    color: var(--color-fx-ribbon-enemy-ink);
+    background-color: var(--color-fx-ribbon-enemy-fill);
+    border-top-color: var(--color-fx-ribbon-enemy-line);
+    border-bottom-color: var(--color-fx-ribbon-enemy-line);
+}
+
+/* The end of the fight: a won fight's title in gold, a lost one's in the web's perished orange (docs/qa/web-screens/run-end-defeat-1920x1080.jpg). */
+.combat-end--victory .end-title {
+    color: var(--color-gold);
+}
+
+.combat-end--defeat .end-title {
+    color: var(--color-danger-line);
 }
 
 .hud-side {

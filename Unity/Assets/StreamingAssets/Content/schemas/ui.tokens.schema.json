@@ -77,6 +77,15 @@
         ]
       }
     },
+    "ratio": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    },
     "radius": {
       "type": "object",
       "additionalProperties": {

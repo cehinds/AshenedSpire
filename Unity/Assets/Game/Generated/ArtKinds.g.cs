@@ -19,5 +19,10 @@ namespace Ashen.Generated
         public const string Portrait = "portrait";
         public const string Prologue = "prologue";
         public const string MapDetail = "mapDetail";
+        public const string Vfx = "vfx";
+        public const string PoseFx = "posefx";
+        public const string EnemyPose = "enemyPose";
+        public const string EnemyState = "enemyState";
+        public const string Defeated = "defeated";
     }
 }

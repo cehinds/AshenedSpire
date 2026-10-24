@@ -1,8 +1,20 @@
 {
   "comment": "VP-5 combat feedback (D-750): the names the feedback code reads. FxEvents and FxKeys are the engine event types and payload fields of the receipts it plays (the web's fx.js reads the same); FxCallout and FxTrack are enums over the keys of ui/feedback.json callout.kinds and tracks, so a word or an animation cannot be named in code without being in the data. Names of UXML regions and classes the feedback layer draws are in the second half.",
   "enums": [
-    { "name": "FxCallout", "from": "ui/feedback.json", "path": "callout.kinds", "keys": true, "doc": "The words over a fighter (ui/feedback.json callout.kinds; the web's CALLOUT_KINDS)." },
-    { "name": "FxTrack", "from": "ui/feedback.json", "path": "tracks", "keys": true, "doc": "The animation tracks of ui/feedback.json (the web's keyframes)." }
+    {
+      "name": "FxCallout",
+      "from": "ui/feedback.json",
+      "path": "callout.kinds",
+      "keys": true,
+      "doc": "The words over a fighter (ui/feedback.json callout.kinds; the web's CALLOUT_KINDS)."
+    },
+    {
+      "name": "FxTrack",
+      "from": "ui/feedback.json",
+      "path": "tracks",
+      "keys": true,
+      "doc": "The animation tracks of ui/feedback.json (the web's keyframes)."
+    }
   ],
   "keySets": [
     {
@@ -127,7 +139,8 @@
         "CalloutKey": "core2.fx.callout.{0}",
         "StatusKey": "core2.fx.status.{0}",
         "ToneClass": "fx-tone--{0}",
-        "RingToneClass": "fx-ring--{0}"
+        "RingToneClass": "fx-ring--{0}",
+        "EffectEase": "easeOut"
       }
     },
     {
@@ -155,13 +168,22 @@
       "name": "FxMath",
       "type": "double",
       "doc": "Identities of the animation maths (a cubic-bezier's coefficients, its bisection tolerance, a half), not tuning.",
-      "values": { "Two": 2, "Three": 3, "Half": 0.5, "Epsilon": 0.0001 }
+      "values": {
+        "Two": 2,
+        "Three": 3,
+        "Half": 0.5,
+        "Epsilon": 0.0001
+      }
     },
     {
       "name": "FxIndex",
       "type": "int",
       "doc": "The shape of a cubic-bezier: four numbers (x1, y1, x2, y2).",
-      "values": { "BezierPoints": 4, "IndexX2": 2, "IndexY2": 3 }
+      "values": {
+        "BezierPoints": 4,
+        "IndexX2": 2,
+        "IndexY2": 3
+      }
     }
   ]
 }

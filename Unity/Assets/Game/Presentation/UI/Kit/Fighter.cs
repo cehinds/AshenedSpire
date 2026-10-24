@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ashen.App.Ui;
 using Ashen.Generated;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -20,6 +21,10 @@ namespace Ashen.Presentation.UI.Kit
         public string Id;
         public string Name;
         public Texture2D Art;
+
+        /// <summary>The figure's rest frame when it is not the base art (an enemy's state pose: guard, afflicted, wounded, defeated; VP-5), and the share of the figure box it fills (the web's per-enemy state scale).</summary>
+        public Texture2D RestArt;
+        public double RestScale = 1;
         public bool Player;
         public bool Alive = true;
         public int Hp;
@@ -84,8 +89,16 @@ namespace Ashen.Presentation.UI.Kit
         private readonly LocLabel _stance;
         private readonly VisualElement _stacks;
         private readonly VisualElement _statuses;
+        private readonly VisualElement _figure;
+        private readonly VisualElement _pose;
         private string _intentClass;
         private string _order;
+        private FxRun _motion;
+        private IVisualElementScheduledItem _settle;
+        private Texture2D _baseArt;
+        private Texture2D _restArt;
+        private double _restScale = 1;
+        private bool _posing;
 
         public Fighter()
         {
@@ -97,6 +110,14 @@ namespace Ashen.Presentation.UI.Kit
             _intentIcon = this.Q(UiNames.FighterIntentIcon);
             _predict = this.Q<LocButton>(UiNames.FighterPredict);
             _art = this.Q(UiNames.FighterArt);
+            // The figure and its pose frame sit under the hit chance and badge: the recoil, the lunge and the stagger wobble move this one element, as the web moves .sprite's first child.
+            _figure = new VisualElement { pickingMode = PickingMode.Ignore };
+            _figure.AddToClassList(UiClasses.FighterFigure);
+            _pose = new VisualElement { pickingMode = PickingMode.Ignore };
+            _pose.AddToClassList(UiClasses.FighterPose);
+            _pose.AddToClassList(UiClasses.Hidden);
+            _figure.Add(_pose);
+            _art?.Insert(0, _figure);
             _hit = this.Q<LocLabel>(UiNames.FighterHit);
             _badge = this.Q<LocLabel>(UiNames.FighterBadge);
             _name = this.Q<LocLabel>(UiNames.FighterName);
@@ -161,7 +182,11 @@ namespace Ashen.Presentation.UI.Kit
                 UiDom.Show(_predict, d.CanPredict);
                 _predict.focusable = d.CanPredict;
             }
-            if (_art != null) _art.style.backgroundImage = d.Art != null ? new StyleBackground(d.Art) : new StyleBackground(StyleKeyword.None);
+            _baseArt = d.Art;
+            _restArt = d.RestArt;
+            _restScale = d.RestScale;
+            if (_posing) _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
+            else ShowRest();
             Text(_hit, d.HitText);
             Text(_badge, d.BadgeText);
             _name?.SetResolved(d.Name);
@@ -177,6 +202,104 @@ namespace Ashen.Presentation.UI.Kit
             Chips(_ratings, d.RatingChips);
             Chips(_stacks, d.StackChips);
             Chips(_statuses, d.StatusChips);
+        }
+
+        // ------------------------------------------------------------------ feedback (VP-5, D-750): pose swaps, recoil, lunge, wobble
+
+        /// <summary>The figure's box: the anchor the floating numbers, the words and the effect frames are placed from (the web's .sprite).</summary>
+        public VisualElement ArtBox => _art ?? (VisualElement)this;
+
+        /// <summary>The overhead block (intent, HP bar, chips) the words keep clear of.</summary>
+        public VisualElement OverheadBox => this.Q(UiNames.FighterOverhead);
+
+        private void ShowRest()
+        {
+            if (_restArt != null) ShowFrame(_restArt, _restScale);
+            else HideFrame();
+        }
+
+        private void ShowFrame(Texture2D frame, double scale)
+        {
+            _pose.style.backgroundImage = new StyleBackground(frame);
+            _pose.style.height = Length.Percent((float)(scale * UiMath.Percent));
+            _pose.RemoveFromClassList(UiClasses.Hidden);
+            _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
+        }
+
+        private void HideFrame()
+        {
+            _pose.AddToClassList(UiClasses.Hidden);
+            _figure.style.backgroundImage = _baseArt != null ? new StyleBackground(_baseArt) : new StyleBackground(StyleKeyword.None);
+        }
+
+        /// <summary>
+        /// Shows another frame of the figure for <paramref name="ms"/>, then returns to its rest frame (enemyPoseStage.js play): the attack pose while it swings, the hurt frame while it recoils.
+        /// A figure with no such art (the player's poses are not imported) stays as it is.
+        /// </summary>
+        public bool PlayPose(Texture2D frame, double scale, double ms)
+        {
+            if (frame == null) return false;
+            _settle?.Pause();
+            _posing = true;
+            ShowFrame(frame, scale);
+            _settle = schedule.Execute(Settle).StartingIn((long)ms);
+            return true;
+        }
+
+        /// <summary>Extends the pose being held (the hit-stop).</summary>
+        public void HoldPose(double ms)
+        {
+            if (!_posing || _settle == null) return;
+            _settle.Pause();
+            _settle = schedule.Execute(Settle).StartingIn((long)ms);
+        }
+
+        /// <summary>Back to the rest frame (the base art, or the state pose the fighter's Block, statuses and HP call for).</summary>
+        public void Settle()
+        {
+            _settle?.Pause();
+            _settle = null;
+            _posing = false;
+            ShowRest();
+        }
+
+        /// <summary>The red tint of a hit, on whichever frame shows (the web's stepped filter on the figure).</summary>
+        private void Tint(Color? color)
+        {
+            var value = color.HasValue ? new StyleColor(color.Value) : new StyleColor(StyleKeyword.Null);
+            _pose.style.unityBackgroundImageTintColor = value;
+            _figure.style.unityBackgroundImageTintColor = value;
+        }
+
+        /// <summary>Plays a motion track on the figure: recoil and lunge slide it, the wobble turns it; <paramref name="tinted"/> also reddens it while the track says so.</summary>
+        public void Play(FxMotion motion, TrackDef track, double ms, bool tinted, double holdMs = 0, Action done = null)
+        {
+            _motion?.Stop();
+            _motion = motion.Play(this, track, ms, pose =>
+            {
+                FxMotion.Apply(_figure, pose);
+                if (tinted) Tint(pose.Tinted ? motion.HitTint : (Color?)null);
+            }, () =>
+            {
+                Rest();
+                done?.Invoke();
+            }, holdMs: holdMs);
+        }
+
+        /// <summary>Ends the motion in progress and puts the figure back (a skip, or a new fight).</summary>
+        public void Rest()
+        {
+            _motion?.Stop();
+            _motion = null;
+            FxMotion.Reset(_figure);
+            Tint(null);
+        }
+
+        /// <summary>Drops every held pose and motion at once (the web's click-skip settles the figures).</summary>
+        public void Calm()
+        {
+            Rest();
+            Settle();
         }
 
         /// <summary>Puts the break meters (Poise, Ward) in the order the data names (each id once; the other ratings are chips and the HP bar has its own place).</summary>

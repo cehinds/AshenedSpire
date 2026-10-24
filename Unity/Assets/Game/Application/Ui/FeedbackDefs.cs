@@ -113,6 +113,7 @@ namespace Ashen.App.Ui
         public double LifeMs;
         public double JitterPx;
         public double TopShare;
+        public double SpawnShare;
         public double ClampPad;
         public double PopDefault;
         public double PopPct20;
