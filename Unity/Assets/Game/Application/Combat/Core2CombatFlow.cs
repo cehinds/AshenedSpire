@@ -335,31 +335,7 @@ namespace Ashen.App.Combat
             var routes = Js.Items(quote?[HK.Routes]).OfType<JObject>().ToList();
             if (routes.Count == 0) return;
             Armed.Routes.Clear();
-            foreach (var route in routes)
-            {
-                var costs = route.Obj(HK.Costs);
-                var view = new Core2RouteView
-                {
-                    Id = route.Str(Ashen.Generated.Core2RangeKeys.Id),
-                    Available = route.Is(HK.Available),
-                    Affordable = route.Is(HK.Affordable),
-                    Reason = Js.Truthy(route[K.Reason]) ? route.Str(K.Reason) : null,
-                    AdvanceSp = route.Num(HK.AdvanceSp),
-                    PrecisionDelta = route.Num(HK.PrecisionDelta),
-                    Energy = costs?.Num(K.Energy) ?? 0,
-                    Mana = costs?.Num(K.Mana) ?? 0,
-                };
-                foreach (var t in Js.Items(route[HK.Targets]).OfType<JObject>())
-                    view.Targets.Add(new Core2RouteTargetView
-                    {
-                        TargetId = t.Str(K.TargetId),
-                        Band = t.Num(HK.Band),
-                        InRange = t.Is(HK.InRange),
-                        HitChance = Js.IsNum(t[HK.HitChance]) ? t.Num(HK.HitChance) : (double?)null,
-                        CurrentHitChance = Js.IsNum(t[HK.CurrentHitChance]) ? t.Num(HK.CurrentHitChance) : (double?)null,
-                    });
-                Armed.Routes.Add(view);
-            }
+            foreach (var route in routes) Armed.Routes.Add(Core2CombatView.Route(route));
         }
 
         private Core2Prompt RoutePrompt(List<JObject> plays)
