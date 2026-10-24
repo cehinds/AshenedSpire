@@ -91,6 +91,12 @@ namespace Ashen.Generated
         public const string GameProfilePendingReward = "gameProfilePendingReward";
         public const string OfferId = "offerId";
         public const string MaxLevel = "maxLevel";
+        public const string SkillId = "skillId";
+        public const string Before = "before";
+        public const string Pool = "pool";
+        public const string Seat = "seat";
+        public const string BossTiers = "bossTiers";
+        public const string Damage = "damage";
         public const string ProgressionRulesVersion = "progressionRulesVersion";
         public const string ExpandedProgressionVersion = "expandedProgressionVersion";
         public const string CantripTag = "cantripTag";

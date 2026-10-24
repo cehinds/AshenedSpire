@@ -92,6 +92,12 @@
         "GameProfilePendingReward": "gameProfilePendingReward",
         "OfferId": "offerId",
         "MaxLevel": "maxLevel",
+        "SkillId": "skillId",
+        "Before": "before",
+        "Pool": "pool",
+        "Seat": "seat",
+        "BossTiers": "bossTiers",
+        "Damage": "damage",
         "ProgressionRulesVersion": "progressionRulesVersion",
         "ExpandedProgressionVersion": "expandedProgressionVersion",
         "CantripTag": "cantripTag",
@@ -136,6 +142,7 @@
         "NextDoor": "door",
         "AfterMap": "map",
         "AfterAdvanceAct": "advanceAct",
+        "BossPool": "boss",
         "AfterVictory": "victory",
         "AfterDefeat": "defeat",
         "LevelSegment": "level"
@@ -180,6 +187,7 @@
         "NotASkillKind": "xpToNext: '{0}' is not a skill kind ({1})",
         "NotASkillTrack": "awardSkillXp: '{0}' is not a skill track",
         "PerceptionNeedsKnowledge": "Perception XP requires an accepted enemy knowledge success",
+        "BossTierMissing": "bossTiers/seatTiers have no row for a boss at tier {0} (baseline {1})",
         "NoNotices": "The reward door has no level notice to read",
         "NoDoor": "There is no reward door open"
       }

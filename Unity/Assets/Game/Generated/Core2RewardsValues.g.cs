@@ -35,6 +35,7 @@ namespace Ashen.Generated
         public const string NextDoor = "door";
         public const string AfterMap = "map";
         public const string AfterAdvanceAct = "advanceAct";
+        public const string BossPool = "boss";
         public const string AfterVictory = "victory";
         public const string AfterDefeat = "defeat";
         public const string LevelSegment = "level";

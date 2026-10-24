@@ -21,7 +21,7 @@
 import { writeFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, botLcg, legalIntents, pickIntent } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, botLcg, legalIntents, pickIntent, projectFull } from './oracle-core2.mjs';
 
 const OUT = join(ORACLE_DIR, 'rewards');
 const CLAIMS = Number(arg('--claims', '8'));
@@ -318,10 +318,23 @@ function pickGreedy(legal, pick) {
   return pickIntent('cards', legal, pick);
 }
 
+/** main.js combatMods (2880-2914) for a run with a seat order and no Custom Climb: the seat-tier HP ratio, or a boss's tier row for HP and damage. */
+function combatMods(run, encounter) {
+  let hpMult = 1, damageMult = 1;
+  if (Array.isArray(run.seatOrder)) {
+    const boss = seatsMod.bossTierScale(reg, { encounter, tier: run.actNumber });
+    hpMult *= boss ? boss.hp : seatsMod.seatTierHpMult(reg, seatNow(run), run.actNumber);
+    if (boss) damageMult = boss.damage;
+  }
+  return { hpMult, damageMult };
+}
+
 function playFight(run, rng, encounter, weaken) {
-  const combat = w.runCombat.createRunCombat({ registries: reg, rng, run, enemyIds: encounter.enemies, encounter, settings: {} });
+  const cm = combatMods(run, encounter);
+  const combat = w.runCombat.createRunCombat({ registries: reg, rng, run, enemyIds: encounter.enemies, encounter, settings: {}, hpMult: cm.hpMult, enemyDamageMult: cm.damageMult });
   // A test edit of the fight before its first decision: every enemy at most `weaken` Hit Points (the C# test makes the same edit).
   if (weaken) for (const enemy of combat.enemies) enemy.hp = Math.min(enemy.hp, weaken);
+  const start = process.argv.includes('--with-start') ? projectFull(combat) : undefined;
   const pick = botLcg(run.seed ^ 0x2c1b3c6d ^ (run.stats.fightsWon * 977 + run.actNumber));
   const intents = [];
   for (let i = 0; i < 400 && !combat.result; i++) {
@@ -331,7 +344,7 @@ function playFight(run, rng, encounter, weaken) {
     w.combat.dispatch(combat, structuredClone(intent));
     intents.push(intent);
   }
-  return { combat, intents };
+  return { combat, intents, start };
 }
 
 function climbScenario(classId, ci, index) {
@@ -374,9 +387,9 @@ function climbScenario(classId, ci, index) {
     let fought = null;
     const before = snapshot(run);
     const outcome = call(() => {
-      const { combat, intents } = playFight(run, rng, encounter, weaken);
+      const { combat, intents, start } = playFight(run, rng, encounter, weaken);
       if (!combat.result) throw new Error('fight unfinished');
-      fought = { intents: intents.map((i) => JSON.stringify(i)) };
+      fought = { intents: intents.map((i) => JSON.stringify(i)), ...(start ? { start } : {}) };
       return onCombatEnd(run, rng, combat, encounter);
     });
     if (outcome.error) throw new Error(`oracle-core2-rewards: ${classId}/${seed} ${encounter.id}: ${outcome.error}`);
@@ -394,8 +407,8 @@ function climbScenario(classId, ci, index) {
       }
       const offerId = pending.offerId;
       const offerNow = run.gameProfileRewardOffers[offerId];
-      const settings = DECK_SETTINGS[settingsIndex];
       if (pick(5) === 0) { settingsIndex = pick(DECK_SETTINGS.length); steps.push({ op: 'settings', settings: DECK_SETTINGS[settingsIndex], counters: counters(rng) }); }
+      const settings = DECK_SETTINGS[settingsIndex];
       steps.push(canon({ op: 'refusals', offerId, settings, refusals: offerNow.options.map((_, i) => refusalOf(run, offerId, i, settings)), counters: counters(rng) }));
       const roll = pick(10);
       const index = pick(offerNow.options.length);

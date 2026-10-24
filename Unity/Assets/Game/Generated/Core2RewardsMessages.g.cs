@@ -39,6 +39,7 @@ namespace Ashen.Generated
         public const string NotASkillKind = "xpToNext: '{0}' is not a skill kind ({1})";
         public const string NotASkillTrack = "awardSkillXp: '{0}' is not a skill track";
         public const string PerceptionNeedsKnowledge = "Perception XP requires an accepted enemy knowledge success";
+        public const string BossTierMissing = "bossTiers/seatTiers have no row for a boss at tier {0} (baseline {1})";
         public const string NoNotices = "The reward door has no level notice to read";
         public const string NoDoor = "There is no reward door open";
     }
