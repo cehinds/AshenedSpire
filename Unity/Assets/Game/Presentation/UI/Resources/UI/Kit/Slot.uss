@@ -6,9 +6,11 @@
     margin-bottom: var(--space-sm);
     padding: var(--space-sm) var(--space-md);
     background-color: var(--color-panel);
-    border-color: var(--color-line);
-    border-width: var(--border-control);
-    border-radius: var(--radius-chip);
+    background-image: url("../Frames/panel-frame.png");
+    -unity-slice-scale: var(--size-slice-frame);
+    border-color: var(--color-transparent);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
 }
 
 .slotrow:hover {
