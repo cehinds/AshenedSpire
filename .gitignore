@@ -14,6 +14,7 @@
 /Unity/.vsconfig
 # Generated PNGs from the old repo are rebuilt by Tools/import-assets (D-018); their .meta files ARE committed
 /Unity/Assets/Art/Imported/**/*.png
+/Unity/Assets/Art/Imported/**/*.jpg
 # Build outputs are never committed (LFS budget exhausted)
 /Build/
 /Builds/
