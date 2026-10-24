@@ -24,7 +24,7 @@ namespace Ashen.Tests
     {
         private static string Root => Path.Combine(TestContent.OracleRoot, "core2");
 
-        private static readonly string[] Sets = { "reactions", "range", "damage", "matchups", "statuses", "enemy" };
+        private static readonly string[] Sets = { "reactions", "range", "damage", "matchups", "statuses", "enemy", "remaining" };
 
         private static readonly Dictionary<string, JObject> Files = new Dictionary<string, JObject>();
 
@@ -92,8 +92,11 @@ namespace Ashen.Tests
                 case "enemy":
                     Core2EnemyParityTests.Replay(record, label, between);
                     break;
+                case "remaining":
+                    Core2FightParityTests.Replay(record, label, Core2RemainingParityTests.Open, between);
+                    break;
                 default:
-                    Core2FightParityTests.Replay(record, label, between);
+                    Core2FightParityTests.Replay(record, label, between: between);
                     break;
             }
         }

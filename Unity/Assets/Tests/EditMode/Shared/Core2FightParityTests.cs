@@ -42,17 +42,17 @@ namespace Ashen.Tests
             var index = Read("index.json");
             Assert.That(FightFiles().Count(), Is.GreaterThanOrEqualTo(4));
             Assert.That(index.Value<string>("profileHash"), Is.EqualTo(Core2DamageParityTests.Data.Run.ProfileHash), "the oracle ran the profile that is loaded");
-            Assert.That(((JArray)index["coveredEvents"]).Count, Is.GreaterThan(0));
+            Assert.That(index["rejections"], Is.Not.Null, "the oracle tallies what the web refused");
         }
 
         [TestCaseSource(nameof(Fights))]
         public void TheFightPlaysAsTheWebPlaysIt(string file, int index) => Replay((JObject)((JArray)Read(file)["fights"])[index], file + "[" + index + "]");
 
         /// <summary>Plays one recorded fight on the port and holds it to the web after every step (the whole combat as a delta, the event types in order).</summary>
-        internal static void Replay(JObject fight, string where, Func<CombatState, CombatState> between = null)
+        internal static void Replay(JObject fight, string where, Func<JObject, CombatState> open = null, Func<CombatState, CombatState> between = null)
         {
 
-            var c = Core2CombatStartParityTests.Open(fight, out _);
+            var c = open != null ? open(fight) : Core2CombatStartParityTests.Open(fight, out _);
             var label = $"{where} {fight.Value<string>("bot")} {fight.Value<string>("encounterId")}";
             JToken want = fight["start"]["state"].DeepClone();
             Core2CombatStartParityTests.Same(label + " start", want, Core2CombatStartParityTests.Project(c));
@@ -63,6 +63,9 @@ namespace Ashen.Tests
                 var intent = (JObject)step["intent"];
                 var at = $"{label} step {n++} {intent.Value<string>("type")}";
                 var mark = c.EventLog.Count;
+                if (step["previews"] != null) Core2RangeParityTests.CheckPreviews(c, step, at);
+                try
+                {
                 switch (intent.Value<string>("type"))
                 {
                     case "endTurn":
@@ -76,6 +79,11 @@ namespace Ashen.Tests
                     case "chooseCards":
                     case "chooseDiscard":
                     case "recoverControl":
+                    case "useFlask":
+                    case "predictIntent":
+                    case "moveCharacter":
+                    case "swapArmament":
+                    case "changeEquipment":
                         CoreDispatch.Dispatch(c, intent);
                         break;
                     case "applyStatus":
@@ -85,6 +93,11 @@ namespace Ashen.Tests
                     default:
                         Assert.Fail(at + " an intent the port does not play");
                         break;
+                }
+                }
+                catch (Exception e) when (!(e is AssertionException))
+                {
+                    throw new InvalidOperationException(at + " " + intent.ToString(Newtonsoft.Json.Formatting.None) + ": " + e.GetType().Name + " " + e.Message, e);
                 }
                 want = Core2CombatStartParityTests.Apply(want, step["delta"]);
                 Core2CombatStartParityTests.Same(at, want, Core2CombatStartParityTests.Project(c));

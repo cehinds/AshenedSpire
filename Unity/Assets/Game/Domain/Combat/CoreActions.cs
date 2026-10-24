@@ -95,7 +95,12 @@ namespace Ashen.Domain.Combat
                 eff.Remove(K.If);
                 eff.Remove(CK.OncePerTurn);
             }
-            if (Js.Truthy(eff[CK.Script])) throw new NotSupportedException(CM.ScriptNotPorted);
+            if (Js.IsStr(eff[CK.Script]))
+            {
+                if (action.Target != null && action.Target.Str(K.Kind) != action.Source?.Str(K.Kind) && group != null && group.Targets.TryGetValue(action.Target.Str(K.Id), out var scripted) && scripted.Receipt?.Is(DK.Avoided) == true) return;
+                CoreFlasks.RunScript(c, action, eff.Str(CK.Script));
+                return;
+            }
             if (Js.Truthy(eff[K.If]))
             {
                 var pctx = new PredicateContext { Owner = action.Owner ?? action.Source, Source = action.Source, Target = action.Target, Card = action.Card, Meta = action.Meta };
@@ -235,7 +240,8 @@ namespace Ashen.Domain.Combat
                 foreach (var t in targets)
                 {
                     if (!t.Is(K.Alive)) continue;
-                    var baseAmount = Actions.EvalNum(c, action, eff[CK.Amount], 0, t);
+                    var first = h == 0 && t == targets[0];
+                    var baseAmount = Actions.EvalNum(c, action, eff[CK.Amount], 0, t) + (action.Meta.Charge?.Or0(Ashen.Generated.Core2StatusKeys.DamageEffect) ?? 0) + (first ? action.Meta.Charge?.Or0(K.Damage) ?? 0 : 0);
                     var effectCarrier = CoreExpansion.EffectCarrier(c, action.Card, eff);
                     var carrier = Js.Spread(effectCarrier);
                     if (eff.Is(K.Attack)) carrier[K.Attack] = eff[K.Attack].DeepClone();
@@ -262,6 +268,9 @@ namespace Ashen.Domain.Combat
                     if (action.Source.Obj(CK.CritRules)?.Count > 0 && planned == null) throw new NotSupportedException(DM.CritNotPorted);
                     if (planned == null && action.Meta.InheritedContact != null) contact = action.Meta.InheritedContact;
                     CoreImpact.ApplyAttackDamage(c, action.Source, t, baseAmount, carrier, contact, CoreRange.HitContact(c, action.Source, t, carrier), null, action.Meta.ProposalTargetDecisions ??= new JObject());
+                    // The charge's Poise break lands once, on the first target of the first hit.
+                    if (first && t.Is(K.Alive) && action.Meta.Charge != null && Js.Truthy(action.Meta.Charge[Ashen.Generated.Core2StatusValues.Break]))
+                        CoreImpact.DealPoiseDamage(c, t, action.Meta.Charge.Num(Ashen.Generated.Core2StatusValues.Break));
                 }
             }
         }

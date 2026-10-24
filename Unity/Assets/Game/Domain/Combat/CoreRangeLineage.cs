@@ -511,9 +511,7 @@ namespace Ashen.Domain.Combat
                     action.Meta.Event.Remove(NK.RangeOrigin);
                 }
             var carrier = actions[0].Card;
-            var serial = Js.Or0(c.Fields[DK.ExpansionActionSerial]) + 1;
-            c.Fields[DK.ExpansionActionSerial] = Js.N(serial);
-            var rootId = (Js.Truthy(c.Fields[CK.CombatKey]) ? c.Fields.Str(CK.CombatKey) : DV.CombatKeyDefault) + DV.KeySeparator + NV.SegmentTrigger + DV.KeySeparator + serial.ToString(CultureInfo.InvariantCulture);
+            var rootId = (Js.Truthy(c.Fields[CK.CombatKey]) ? c.Fields.Str(CK.CombatKey) : DV.CombatKeyDefault) + DV.KeySeparator + NV.SegmentTrigger + DV.KeySeparator + CoreSerial.NextTrigger(c);
             var prior = c.RangeContext;
             c.RangeContext = null;
             try { CoreRange.Accept(c, source, actions, carrier, rootId); }

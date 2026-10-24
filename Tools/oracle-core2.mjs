@@ -422,6 +422,19 @@ export function delta(prev, next) {
 // ---------------------------------------------------------------------------------------------------------------
 export const REACTION_EVENTS = ['combatReactionOffered', 'combatReactionChosen', 'combatReactionStacked', 'combatReactionUnavailable', 'combatReactionFizzled', 'combatEnemyReactionStacked'];
 
+/** True while the fight is paused on an offer, a card choice or a discard. */
+export const pendingAny = (combat) => Boolean(combat.pendingReaction || combat.pendingCardChoice || combat.pendingAbilityDiscard);
+
+/** The chooseCards / chooseDiscard intent that answers the pause the fight is on (the first cards it offers). */
+export function choiceAnswer(combat) {
+  if (combat.pendingCardChoice) {
+    const c = combat.pendingCardChoice;
+    return { type: 'chooseCards', cardInstanceIds: c.candidateIds.slice(0, c.count) };
+  }
+  const c = combat.pendingAbilityDiscard;
+  return { type: 'chooseDiscard', cardInstanceIds: combat.piles.hand.map((x) => x.instanceId).slice(0, c.count) };
+}
+
 /**
  * The bot's answers to the offers the enemies' hits open: half the time it plays the first option of the offer, half the time it goes Back, from its
  * own LCG (never the engine's). Cloneable, so a dry run answers exactly as the real run will.
@@ -433,6 +446,8 @@ export function answerer(seed) {
     clone: () => answerer(s),
     /** The chooseReaction intent for the offer the fight is paused on. */
     next(combat) {
+      // A card choice or a discard the fight is paused on is answered with the first cards it offers (WP-C0: no fight is dropped for holding one).
+      if (!combat.pendingReaction) return choiceAnswer(combat);
       const pending = combat.pendingReaction;
       const play = draw() === 0 && pending.options.length > 0;
       return { type: 'chooseReaction', offerId: pending.id, optionId: play ? pending.options[0].id : null };
@@ -462,12 +477,7 @@ export async function reactionFilter(w) {
   const tagsOf = (def) => (def.cardTags || def.tags || []).map((t) => (typeof t === 'string' ? t : t.id));
   filter = {
     offerOutside(combat) {
-      for (const card of combat.piles.hand) {
-        const def = expansion.resolveCombatCard(combat, card);
-        const tags = tagsOf(def);
-        if (!tags.includes('trait:reaction')) continue;
-        if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return 'cardPreparing listener at an offer';
-      }
+      // A card that listens for being prepared prices an offer through the preview now (WP-C0), so no offer is outside the port.
       return null;
     },
   };
@@ -485,7 +495,7 @@ export function dispatchAnswering(w, combat, intent, answers) {
   const mine = answers.clone();
   try {
     w.combat.dispatch(copy, structuredClone(intent));
-    for (let n = 0; copy.pendingReaction; n++) {
+    for (let n = 0; pendingAny(copy); n++) {
       if (n > 60) return { copy, mark, why: 'too many offers' };
       const outside = filter.offerOutside(copy);
       if (outside) return { copy, mark, why: outside };

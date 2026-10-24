@@ -71,8 +71,7 @@ namespace Ashen.Domain.Combat
                 foreach (var reactionAction in actions) reactionAction.Card = carrier;
             }
             if (carrier.Is(DK.ComboHook)) throw new NotSupportedException(DM.ComboNotPorted);
-            var serial = Js.Or0(c.Fields[DK.ExpansionActionSerial]) + 1;
-            c.Fields[DK.ExpansionActionSerial] = Js.N(serial);
+            var serial = CoreSerial.NextGroup(c);
             var group = new ExpansionGroup
             {
                 Key = (Js.Truthy(c.Fields[CK.CombatKey]) ? c.Fields.Str(CK.CombatKey) : DV.CombatKeyDefault) + DV.KeySeparator + serial.ToString(CultureInfo.InvariantCulture),
@@ -129,7 +128,8 @@ namespace Ashen.Domain.Combat
                             var baseToken = !Js.Nullish(eff[CK.Amount]) ? eff[CK.Amount] : !Js.Nullish(eff[K.Stacks]) ? eff[K.Stacks] : Js.N(1);
                             var baseAmount = Actions.EvalNum(c, action, baseToken, 1, entity);
                             if (op == Op.Damage && source.Obj(CK.CritRules)?.Count > 0 && !carrier.Is(DK.CombatReaction)) throw new NotSupportedException(DM.CritNotPorted);
-                            var abilityBase = baseAmount;
+                            // A card charge another card left adds to the damage (the effect's share to every hit, the plain share to the first).
+                            var abilityBase = baseAmount + (action.Meta?.Charge?.Or0(Ashen.Generated.Core2StatusKeys.DamageEffect) ?? 0) + (h == 0 ? action.Meta?.Charge?.Or0(K.Damage) ?? 0 : 0);
                             double amount = 0;
                             JObject split = new JObject();
                             if (op == Op.Damage)
@@ -219,6 +219,13 @@ namespace Ashen.Domain.Combat
                     meta.ExpansionContacts = new List<List<ContactRef>> { refs };
                     meta.ExpansionTargets = new List<List<string>> { action.Meta.ExpansionTargets[index] };
                     meta.ExpansionCursor = 0;
+                    if (index > 0 && meta.Charge != null)
+                    {
+                        // Only the first contact carries the charge's plain damage and Poise break.
+                        meta.Charge = (JObject)meta.Charge.DeepClone();
+                        meta.Charge[K.Damage] = 0;
+                        meta.Charge[Ashen.Generated.Core2StatusValues.Break] = 0;
+                    }
                     meta.RangeSiteBatches = action.Meta.RangeSiteBatches != null ? new JArray { index < action.Meta.RangeSiteBatches.Count ? action.Meta.RangeSiteBatches[index].DeepClone() : new JArray() } : null;
                     var effect = Js.Spread(action.Effect);
                     effect[K.Hits] = 1;

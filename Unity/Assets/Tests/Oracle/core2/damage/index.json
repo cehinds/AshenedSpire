@@ -1,70 +1,20 @@
 {
- "coveredEvents": [
-  "attackHit",
-  "attackMissed",
-  "blockBroken",
-  "blockGained",
-  "cardDrawn",
-  "cardExhausted",
-  "cardPlayed",
-  "cardPreparing",
-  "cardResolved",
-  "combatContactPrepared",
-  "combatEnd",
-  "combatEnemyReactionStacked",
-  "combatEngagementMoved",
-  "combatGuardBroken",
-  "combatRangeActionUnavailable",
-  "combatReactionChosen",
-  "combatReactionFizzled",
-  "combatReactionOffered",
-  "combatReactionStacked",
-  "combatReactionUnavailable",
-  "combatStanceChanged",
-  "damageDealt",
-  "deckShuffled",
-  "enemyActorTurnStarted",
-  "enemyDied",
-  "enemyMoveStarted",
-  "enemyMoveUnavailable",
-  "enemyStaggered",
-  "enemyTurnEnd",
-  "enemyTurnStart",
-  "energySpent",
-  "hpLost",
-  "manaSpent",
-  "perceptionGained",
-  "persistentPoiseChanged",
-  "playerStaggered",
-  "playerTurnEnd",
-  "playerTurnStart",
-  "poiseBroken",
-  "staminaSpent",
-  "statusApplied",
-  "statusExpired",
-  "statusRemoved"
- ],
- "coveredOps": [
-  "block",
-  "damage",
-  "gainBarrier"
- ],
  "fights": {
   "herald": {
    "fights": 32,
-   "steps": 252
+   "steps": 187
   },
   "reaver": {
    "fights": 32,
-   "steps": 504
+   "steps": 388
   },
   "rogue": {
    "fights": 32,
-   "steps": 488
+   "steps": 382
   },
   "starseer": {
    "fights": 32,
-   "steps": 280
+   "steps": 246
   }
  },
  "files": [
@@ -89,32 +39,32 @@
    "file": "receipts-3.json"
   },
   {
-   "bytes": 1576593,
+   "bytes": 1393635,
    "classId": "reaver",
    "fights": 32,
    "file": "fights-reaver.json",
-   "steps": 504
+   "steps": 388
   },
   {
-   "bytes": 1252709,
+   "bytes": 1203480,
    "classId": "starseer",
    "fights": 32,
    "file": "fights-starseer.json",
-   "steps": 280
+   "steps": 246
   },
   {
-   "bytes": 1598188,
+   "bytes": 1455532,
    "classId": "rogue",
    "fights": 32,
    "file": "fights-rogue.json",
-   "steps": 488
+   "steps": 382
   },
   {
-   "bytes": 1174223,
+   "bytes": 1045789,
    "classId": "herald",
    "fights": 32,
    "file": "fights-herald.json",
-   "steps": 252
+   "steps": 187
   }
  ],
  "mechanics": {
@@ -142,6 +92,7 @@
  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
  "profileId": "core",
  "refused": 5,
+ "rejections": {},
  "units": {
   "bytes": 271256,
   "file": "units.json",

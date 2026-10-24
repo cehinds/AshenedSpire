@@ -150,15 +150,15 @@ namespace Ashen.Domain.Combat
         /// Plays the front half of a card: refuses (before any change) a card whose gates refuse, pays the price, takes it out of the hand, counts it
         /// and enters its stance with the entry grants and the matching-stance multiplier. The effects stay unplayed (WP-6, WP-7).
         /// </summary>
-        public static Entry Enter(CombatState c, string instanceId, string rangeRoute = null)
+        public static Entry Enter(CombatState c, string instanceId, string rangeRoute = null, Action<JObject, JObject> beforeStance = null)
         {
-            var refusal = CoreCosts.PlayRefusalFor(c, instanceId);
+            var refusal = CoreCosts.PlayRefusalFor(c, instanceId, null, true);
             if (refusal != null) throw refusal;
             var player = c.Player;
             var index = c.Piles.Hand.FindIndex(card => card.Str(K.InstanceId) == instanceId);
             var instance = c.Piles.Hand[index];
             var def = CoreCosts.Resolve(c, instance);
-            var paid = CoreCosts.CardPlayCosts(c, instanceId);
+            var paid = CoreCosts.PlayCosts(c, def);
             var isX = def.Str(K.Cost) == CCV.CostX;
             var carrier = Carrier(c, instance, def);
             if (c.ReactionPlaying) carrier[DK.ReactionDepth] = 1;
@@ -186,6 +186,8 @@ namespace Ashen.Domain.Combat
             counters.Put(CC.CardsPlayedThisTurn, counters.Num(CC.CardsPlayedThisTurn) + 1);
             counters.Put(CC.CardsPlayedThisCombat, counters.Num(CC.CardsPlayedThisCombat) + 1);
             if (carrier.Str(K.Type) == CV.TypeAttack) counters.Put(CC.AttacksPlayedThisCombat, counters.Num(CC.AttacksPlayedThisCombat) + 1);
+            // The charges the card takes are told before the stance is entered (the web consumes them ahead of prepareTacticalCard).
+            beforeStance?.Invoke(carrier, paid);
             CoreStances.SetProfileStance(c, player, carrier);
             return new Entry { Paid = paid, Carrier = carrier, CardId = instance.Str(K.CardId) };
         }
@@ -228,7 +230,7 @@ namespace Ashen.Domain.Combat
             c.RecordSkillXp = true;
             var player = c.Player;
             if (CoreCardZones.HasChoice(c)) throw new InvalidOperationException(SM.ChooseBeforeAction);
-            var refusal = CoreCosts.PlayRefusalFor(c, instanceId);
+            var refusal = CoreCosts.PlayRefusalFor(c, instanceId, targetId);
             if (refusal != null) throw refusal;
             var inst = c.Piles.Hand.First(card => card.Str(K.InstanceId) == instanceId);
             var printed = CoreCosts.Resolve(c, inst);
@@ -239,7 +241,7 @@ namespace Ashen.Domain.Combat
             var def = CoreVariants.Select(c, printed, CoreCosts.PlayCosts(c, printed), variantTarget);
             var effects = Js.Items(def[K.Effects]).OfType<JObject>().ToList();
             foreach (var effect in effects)
-                if (CoreSets.DeferredOps.Contains(effect.Str(K.Op)) || effect.Is(CK.Script) || (effect.Str(K.Op) == Op.EnterStance && (Js.Truthy(effect[CK.Stance]) || effect.Str(DK.Choose) == SV.ClassStance)))
+                if (CoreSets.DeferredOps.Contains(effect.Str(K.Op)) || (effect.Str(K.Op) == Op.EnterStance && (Js.Truthy(effect[CK.Stance]) || effect.Str(DK.Choose) == SV.ClassStance)))
                     throw new NotSupportedException(string.Format(CultureInfo.InvariantCulture, CM.OpcodeNotPorted, effect.Str(K.Op)));
             var limit = CardCommandLimit(c);
             if (Js.Or0(c.Fields[CK.GameProfileCommands]) >= limit) throw new InvalidOperationException(DM.TurnWorkBudget);
@@ -247,6 +249,9 @@ namespace Ashen.Domain.Combat
             // resolves now, not by the reply it defers (immediateCardEffects).
             var immediate = CoreStances.ProfileFor(c, def).Str(CK.Maneuver) == CV.StanceCounter ? effects.Where(e => e.Str(K.Op) != Op.Damage && e.Str(K.Op) != Op.PoiseDamage).ToList() : effects;
             var hostile = immediate.Any(e => CoreSets.HostileSpecs.Contains(e.Str(K.Target)));
+            // A friendly face is aimed at an enemy all the same when the printed face still wants one (cardNeedsEnemyTargetNow: a variant, or a charge's buildup).
+            var chargedEnemyTarget = !hostile && CoreTargets.CardNeedsEnemyTargetNow(c, instanceId);
+            hostile |= chargedEnemyTarget;
             var legal = hostile ? c.Enemies.Where(e => e.Is(K.Alive)).Select(e => e.Str(K.Id)).ToList() : new List<string> { player.Str(K.Id) };
             if (targetId != null && !legal.Contains(targetId)) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, DM.InvalidTarget, hostile ? DV.ModeEnemy : DV.ModeFriendly, targetId));
             JObject target = null;
@@ -255,7 +260,7 @@ namespace Ashen.Domain.Combat
                 target = Triggers.FindEntity(c, targetId);
                 if (target == null || !target.Is(K.Alive)) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, DM.InvalidTargetId, targetId));
             }
-            else if (immediate.Any(e => e.Str(K.Target) == DV.TargetEnemy))
+            else if (chargedEnemyTarget || immediate.Any(e => e.Str(K.Target) == DV.TargetEnemy))
             {
                 target = c.Enemies.FirstOrDefault(e => e.Is(K.Alive));
                 if (target == null) throw new InvalidOperationException(DM.NoLivingEnemy);
@@ -278,15 +283,17 @@ namespace Ashen.Domain.Combat
                 if (target != null && target.Str(K.Kind) != V.Enemy) throw new InvalidOperationException(SM.BuildupNeedsEnemy);
                 target ??= c.Enemies.FirstOrDefault(e => e.Is(K.Alive));
             }
-            var entry = Enter(c, instanceId, rangeRoute);
+            var chargeKeys = Js.Items(charges[SK.Keys]).Select(Js.Str).ToList();
+            var entry = Enter(c, instanceId, rangeRoute, (carrier, paid0) =>
+            {
+                RecordAbilityCard(player, carrier, paid0.Num(K.Mana));
+                CoreRiders.Consume(player, chargeKeys);
+                if (chargeKeys.Count > 0) c.Emit(SV.CardChargeConsumed, Js.Obj(SK.Keys, new JArray(chargeKeys), K.CardId, inst[K.CardId], K.SourceId, player[K.Id]));
+            });
             var cardRef = entry.Carrier;
             var paid = entry.Paid;
             c.Fields[CK.GameProfileCommands] = Js.N(Js.Or0(c.Fields[CK.GameProfileCommands]) + 1);
             var counters = player.Obj(K.Counters);
-            RecordAbilityCard(player, cardRef, paid.Num(K.Mana));
-            var chargeKeys = Js.Items(charges[SK.Keys]).Select(Js.Str).ToList();
-            CoreRiders.Consume(player, chargeKeys);
-            if (chargeKeys.Count > 0) c.Emit(SV.CardChargeConsumed, Js.Obj(SK.Keys, new JArray(chargeKeys), K.CardId, inst[K.CardId], K.SourceId, player[K.Id]));
             var snapshots = CoreRange.CardSourceSnapshots(c, def, player, cardRef);
             if (snapshots != null && (snapshots.Count > 0 || effects.Any(e => e.Str(K.Op) == Op.Damage)))
             {
@@ -317,7 +324,7 @@ namespace Ashen.Domain.Combat
             cardRef[DK.AppliedStatuses] = new JArray(applied.Select(e => e[K.Status]?.DeepClone()));
             cardRef[DK.AppliedBuildupStatuses] = new JArray(tactical.Where(e => e.Str(K.Op) == CV.OpBuildup).Select(e => e[K.Status]?.DeepClone()));
             // prepareTacticalCard: a Counter arms its reply from the card's damage, Poise and Ward and plays only its support effects now.
-            var played = maneuver == CV.StanceCounter ? CoreCounterReturn.PrepareCounter(c, player, target, cardRef, tactical, meta) : tactical;
+            var played = maneuver == CV.StanceCounter ? CoreCounterReturn.PrepareCounter(c, player, target, cardRef, tactical, meta, charges.Or0(K.Damage) + charges.Or0(SK.DamageEffect), charges.Or0(SV.Break)) : tactical;
             // doPlayCard enters the stance twice: prepareTacticalCard accepts it, then the configured profile sets it again.
             CoreStances.SetProfileStance(c, player, cardRef);
             var actions = new List<CombatAction>();

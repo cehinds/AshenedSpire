@@ -109,7 +109,7 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>The player's Poise vessel (playerPoiseThresholdReceipt without combat ratings): the Poise row on the attributes, the worn armour and the relics.</summary>
-        private static double PoiseVessel(CombatState c, JObject player)
+        internal static double PoiseVessel(CombatState c, JObject player)
         {
             var d = c.CoreData;
             var run = d.Run;

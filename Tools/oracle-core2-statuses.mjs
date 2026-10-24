@@ -23,11 +23,13 @@ import { writeFileSync, readFileSync, mkdirSync, rmSync, readdirSync } from 'nod
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, encounters, createRun, createFight, projectFull, delta, botLcg, detach, SOURCES, answerer, dispatchAnswering, reactionFilter } from './oracle-core2.mjs';
+import { whyTally } from './oracle-core2-why.mjs';
 
 const OUT = join(ORACLE_DIR, 'statuses');
 const PER_FILE = 60;
 const FIGHTS = Number(arg('--fights', '3'));
 const w = await loadWeb();
+const REJ = whyTally('statuses');
 await reactionFilter(w);
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const S = await load('src/engine/statuses.js');
@@ -367,32 +369,15 @@ function wardGrid() {
 // ---------------------------------------------------------------------------------------------------------------
 // Fights
 // ---------------------------------------------------------------------------------------------------------------
-// THE FILTER. A step is recorded when its dry run on a detached copy throws nothing and emits no event of the packages that are not ported yet
-// (Counters, enemy reactions, the engagement and the range, Burdens, flasks); the player's reactions are ON (WP-10) and every offer a hit opens is
-// answered by the bot (half the first option, half Back, from its own LCG, one recorded step each), the dry run answering with a copy of that LCG; a card is played when none of its faces (its
-// variants included) carries an op of a later package (the move of the engagement, a Burden, arcane buildup, a script, a legacy stance), a Counter,
-// an Ashen Blight cost or a cardPreparing listener. An enemy takes its turn when every move it can
-// play stays within ENEMY_OPS; the others are held (the flag a Poise break sets). Statuses are laid on the fighters by `applyStatus` steps first,
-// so the hooks, the clocks, the controls and the procs run on real turns.
-const DEFERRED_OPS = new Set(['addBurden', 'arcaneBuildup']);
-const FORBIDDEN_EVENT = /counter|burden|flask|swap/i;
-const ENEMY_OPS = new Set(['damage', 'poiseDamage', 'applyStatus', 'block', 'gainBarrier', 'buildup', 'heal', 'wardDamage', 'loseHp', 'removeStatus']);
+// THE FILTER (WP-C0: none for the content a default run reaches). A step is recorded when the web accepts it, tried on a detached copy first; the player's
+// reactions are ON (WP-10) and every offer a hit opens is answered by the bot (half the first option, half Back, from its own LCG, one recorded step each),
+// the dry run answering with a copy of that LCG. Every card is played, its variants, scripts, stances, Counters, Burdens, Ashen Blight costs and
+// cardPreparing listeners included; every enemy takes its turn. What the web refuses is tallied in `rejections` (`--why`). Statuses are laid on the
+// fighters by `applyStatus` steps first, so the hooks, the clocks, the controls and the procs run on real turns.
 const expansion = await load('src/engine/combatExpansion.js');
 const tactics = await load('src/engine/combatCardTactics.js');
 const typesSince = (c, mark) => c.eventLog.slice(mark).map((e) => e.type);
 const bandOf = (combat, enemy) => combat.rangeState?.engagements?.[JSON.stringify([`enemy:${enemy.id}`, 'player:player'].sort())];
-
-function enemyFits(combat, enemy) {
-  const def = combat.registries.enemies.get(enemy.enemyId);
-  const ids = [enemy.pendingMove?.moveId, enemy.intent?.moveId, ...(enemy.plannedMoves || []).map((m) => m.moveId)].filter(Boolean);
-  for (const id of ids) {
-    const move = tactics.expandedEnemyMove(enemy, def.moves[id], id, combat);
-    if ((move.delay?.whileCharging?.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-    if (tactics.enemyMoveCarrier(enemy, def.moves[id], id, combat).combatProfile.maneuver === 'counter') return false;
-    if ((move.effects || []).some((effect) => !ENEMY_OPS.has(effect.op))) return false;
-  }
-  return true;
-}
 
 // The player's reactions are on in the fights. An offer a hit opens is answered by the bot (half the time it plays the first option, half the time it goes
 // Back, from its own LCG), and a dry run answers with a copy of that LCG (ANSWERS, set by `fight`).
@@ -400,24 +385,11 @@ let ANSWERS = null;
 function dryRun(combat, intent) {
   const r = dispatchAnswering(w, combat, intent, ANSWERS);
   if (r.error) return { ok: false, why: `throws: ${r.error}` };
-  if (r.why) return { ok: false, why: r.why };
-  const bad = typesSince(r.copy, r.mark).find((t) => FORBIDDEN_EVENT.test(t));
-  if (bad) return { ok: false, why: `event ${bad}` };
+  if (r.why) return REJ.why(r.why);
   return { ok: true };
 }
 
 const facesOf = (def) => [def.effects || [], ...(def.effectVariants || []).map((v) => v.effects || [])];
-function playable(combat, card) {
-  const def = expansion.resolveCombatCard(combat, card);
-  const faces = facesOf(def).flat();
-  const tags = def.cardTags || def.tags || [];
-  if (!faces.length) return false;
-  if (faces.some((e) => DEFERRED_OPS.has(e.op) || e.script || (e.op === 'enterStance' && (e.stance || e.choose === 'classStance')))) return false;
-  if (tags.includes('maneuver:counter') || def.ashenBlightCost > 0) return false;
-  if (triggers.hasEventTriggers(combat, 'cardPreparing', { cardTags: tags })) return false;
-  return true;
-}
-
 const safeStatus = () => true;
 const RESTING = new Set(['staggered', 'base.stagger']);
 
@@ -484,7 +456,6 @@ function fight(seed, classId, encounter, bot, steps) {
       const targets = combat.enemies.filter((e) => e.alive).map((e) => e.id);
       const alive = combat.enemies.filter((e) => e.alive).map((e) => e.id);
       for (const card of combat.piles.hand) {
-        if (!playable(combat, card)) continue;
         const def = expansion.resolveCombatCard(combat, card);
         const faces = facesOf(def).flat();
         const strikes = faces.some((e) => ['damage', 'poiseDamage', 'wardDamage'].includes(e.op) && e.target !== 'self');
@@ -511,18 +482,8 @@ function fight(seed, classId, encounter, bot, steps) {
     }
     else {
       intent = { type: 'endTurn', discardIds: [] };
-      const staggered = [];
-      for (const enemy of combat.enemies.filter((e) => e.alive && !e.skipNextTurn)) if (!enemyFits(combat, enemy)) { enemy.skipNextTurn = true; staggered.push(enemy.id); }
-      if (!dryRun(combat, intent).ok) {
-        for (const enemy of combat.enemies.filter((e) => e.alive)) {
-          const probe = detach(w, combat);
-          for (const other of probe.enemies) if (other.id !== enemy.id) other.skipNextTurn = true;
-          if (!dryRun(probe, intent).ok) staggered.push(enemy.id);
-        }
-        for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = true;
-        if (!dryRun(combat, intent).ok) { for (const id of staggered) combat.enemies.find((e) => e.id === id).skipNextTurn = false; break; }
-      }
-      if (!step(intent, { staggered })) break;
+      if (!dryRun(combat, intent).ok) break;
+      if (!step(intent)) break;
       continue;
     }
     const played = intent.type === 'playCard' ? combat.piles.hand.find((card) => card.instanceId === intent.cardInstanceId) : null;
@@ -755,5 +716,6 @@ for (const { classId, fights } of fightFiles()) {
   index.fightFiles = [...(index.fightFiles || []), { file, classId, fights: fights.length, steps: stepCount, bytes: bytes2 }];
 }
 index.fights = fightCount;
+index.rejections = REJ.finish();
 writeFileSync(join(OUT, 'index.json'), `${JSON.stringify(canon(index), null, 1)}\n`);
 console.log(`oracle-core2-statuses: ${statusIds.length} statuses, ${recorded.length} scenarios, ${(total / 1024).toFixed(0)} KB -> Unity/Assets/Tests/Oracle/core2/statuses`);

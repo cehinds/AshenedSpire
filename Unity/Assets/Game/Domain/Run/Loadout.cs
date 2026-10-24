@@ -37,6 +37,8 @@ namespace Ashen.Domain.Run
     {
         public readonly List<KeyValuePair<string, double>> Pools = new List<KeyValuePair<string, double>>();
         public double SwapCostDelta;
+        /// <summary>The Draw per turn the worn gear's attributes give (a Core 2 fight's pool projection; null for the 405).</summary>
+        public double? DrawPerTurn;
         public JArray StartStatuses = new JArray();
 
         public double Pool(string field) => Pools.First(p => p.Key == field).Value;

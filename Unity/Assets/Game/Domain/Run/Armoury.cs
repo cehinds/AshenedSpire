@@ -51,6 +51,9 @@ namespace Ashen.Domain.Run
         public string ItemId;
         public JObject Attributes;
         public JObject ItemUpgradeLevels;
+
+        /// <summary>True in a Core 2 fight: the deck is explicit, so no weapon card plan is projected.</summary>
+        public bool ConfiguredDeck;
     }
 
     /// <summary>
@@ -223,7 +226,7 @@ namespace Ashen.Domain.Run
         /// <paramref name="index"/> active. False when the index, the slot, the swap rule, the ladder or the deck plan
         /// says no (the active index is then unchanged).
         /// </summary>
-        public static bool CycleSet(RunData d, JObject loadout, string slotId, int index, bool inCombat, string classId, Action<JObject> onEquipmentChanged)
+        public static bool CycleSet(RunData d, JObject loadout, string slotId, int index, bool inCombat, string classId, Action<JObject> onEquipmentChanged, bool configuredDeck = false)
         {
             var ids = Cells(loadout, slotId);
             if (ids == null || index < 0 || index >= ids.Count) return false;
@@ -236,7 +239,7 @@ namespace Ashen.Domain.Run
             active.Put(slotId, index);
             try
             {
-                WeaponCards.BuildPlan(d, loadout, string.IsNullOrEmpty(classId) ? null : classId, null, null);
+                WeaponCards.BuildPlan(d, loadout, string.IsNullOrEmpty(classId) ? null : classId, null, null, configuredDeck);
             }
             catch (Exception)
             {
@@ -370,7 +373,7 @@ namespace Ashen.Domain.Run
             if (!ApplyEquipTransition(d, next, slotId, setIndex, itemId)) return false;
             try
             {
-                WeaponCards.BuildPlan(d, next, string.IsNullOrEmpty(ctx.ClassId) ? null : ctx.ClassId, null, null);
+                WeaponCards.BuildPlan(d, next, string.IsNullOrEmpty(ctx.ClassId) ? null : ctx.ClassId, null, null, ctx.ConfiguredDeck);
             }
             catch (Exception)
             {
