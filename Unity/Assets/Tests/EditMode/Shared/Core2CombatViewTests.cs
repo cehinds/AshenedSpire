@@ -443,11 +443,18 @@ namespace Ashen.Tests
             var session = Ashen.App.Combat.Core2CombatSession.Start(Data, new Rng(1), run, "loneSoldier");
             var ids = Js.Items(session.State.CoreData.Content(Ashen.Generated.Core2ProfileContentKeys.Cards)).OfType<JObject>().Select(card => card.Str("id")).Where(id => id != null).ToList();
             Assert.That(ids, Is.Not.Empty);
+            // A hand of ten at a time, as play holds: the view prices each card on its own copy of the fight, so one hand of every card would cost the square of its size.
             var added = 0;
-            foreach (var id in ids)
-                session.State.Piles.Hand.Add(new JObject { ["instanceId"] = "all" + (++added), ["cardId"] = id, ["upgraded"] = false });
-            var view = Core2CombatView.Build(session);
-            var unfilled = view.Hand.Where(h => h.Text != null && h.Text.Contains("{")).Select(h => h.CardId + ": " + h.Text).ToList();
+            var unfilled = new List<string>();
+            foreach (var batch in ids.Select((id, i) => (id, i)).GroupBy(p => p.i / 10, p => p.id))
+            {
+                session.State.Piles.Hand.Clear();
+                foreach (var id in batch)
+                    session.State.Piles.Hand.Add(new JObject { ["instanceId"] = "all" + (++added), ["cardId"] = id, ["upgraded"] = false });
+                var view = Core2CombatView.Build(session);
+                unfilled.AddRange(view.Hand.Where(h => h.Text != null && h.Text.Contains("{")).Select(h => h.CardId + ": " + h.Text));
+            }
+            Assert.That(added, Is.EqualTo(ids.Count));
             Assert.That(unfilled, Is.Empty);
         }
 
