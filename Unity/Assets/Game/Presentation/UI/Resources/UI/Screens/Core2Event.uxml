@@ -1,0 +1,48 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Map.uss" />
+    <ui:Style src="Core2Event.uss" />
+    <ui:Style src="../Kit/CombatModal.uss" />
+    <ui:VisualElement name="EVENT_PAGE" class="page c2event-page">
+        <ui:VisualElement name="CEVENT_BACKGROUND" class="c2event-bg" picking-mode="Ignore" />
+        <ui:VisualElement name="CEVENT_BAND" class="c2event-band" picking-mode="Ignore">
+            <ui:VisualElement name="CEVENT_SCENE" class="c2event-scene" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="CEVENT_STAGE" class="c2event-stage" picking-mode="Ignore">
+            <ui:VisualElement class="c2event-stage-side" picking-mode="Ignore">
+                <ui:VisualElement name="CEVENT_PLAYER" class="c2event-figure" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel name="CEVENT_PLAYER_NAME" class="c2event-plate kit-text-value" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement class="c2event-stage-side" picking-mode="Ignore">
+                <ui:VisualElement name="CEVENT_NPC" class="c2event-figure" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel name="CEVENT_NPC_NAME" class="c2event-plate kit-text-value" picking-mode="Ignore" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <Ashen.Presentation.UI.Kit.CombatModal name="CEVENT_DOOR" size="event" class="c2event-door" />
+        <ui:VisualElement name="CEVENT_CONTEXT" class="c2event-context kit-frame">
+            <Ashen.Presentation.UI.LocLabel name="CEVENT_TITLE" class="c2event-context-title kit-text-header" />
+            <ui:ScrollView name="CEVENT_CONTEXT_SCROLL" class="c2event-context-scroll" horizontal-scroller-visibility="Hidden">
+                <Ashen.Presentation.UI.LocLabel name="CEVENT_CAPTION" class="c2event-caption kit-text-value" />
+                <ui:VisualElement name="CEVENT_RESPONSES" class="c2event-responses" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+        <ui:VisualElement name="CEVENT_FOOT" class="c2event-foot">
+            <Ashen.Presentation.UI.LocButton name="CEVENT_BACK" class="c2event-foot-button" />
+            <Ashen.Presentation.UI.LocButton name="CEVENT_SKIP" class="c2event-foot-button" />
+            <Ashen.Presentation.UI.LocButton name="CEVENT_CONTINUE" class="c2event-foot-button" />
+            <Ashen.Presentation.UI.LocLabel name="CEVENT_REASON" class="c2event-reason kit-text-value" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="RUN_HUD" class="board-hud map-hud">
+            <ui:VisualElement name="HUD_HEART" class="hud-heart" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.Kit.Meter name="HUD_HP" class="hud-hp" kind="hp" picking-mode="Ignore" />
+            <ui:VisualElement name="HUD_PIPS" class="hud-pips" picking-mode="Ignore" />
+            <ui:VisualElement name="HUD_SIDE" class="hud-side" picking-mode="Ignore">
+                <ui:VisualElement class="hud-buttons" picking-mode="Ignore">
+                    <Ashen.Presentation.UI.LocButton name="TOOL_ARMAMENTS" class="hud-icon-button" string-key="core2.tools.armaments" />
+                    <Ashen.Presentation.UI.LocButton name="HUD_MENU" class="hud-icon-button" string-key="combat.menu" />
+                </ui:VisualElement>
+                <Ashen.Presentation.UI.LocLabel name="HUD_CINDERS" class="hud-cinders kit-text-header kit-upper" picking-mode="Ignore" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

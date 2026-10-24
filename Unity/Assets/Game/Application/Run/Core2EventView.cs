@@ -36,6 +36,9 @@ namespace Ashen.App.Run
         public bool Priced;
 
         public bool Binding;
+
+        /// <summary>The response's own result sentence (the web's review door shows it under the question; the result step shows it once the response is taken).</summary>
+        public string ResultText = string.Empty;
     }
 
     /// <summary>The event (or a quest chain's dialogue step) as the screen draws it before and after a response.</summary>
@@ -126,6 +129,7 @@ namespace Ashen.App.Run
                 {
                     ChoiceId = row.Str(MK.ChoiceId), Index = (int)row.Num(RK.Index), Label = row.Str(K.Label), Affordable = affordable,
                     Tag = affordable ? string.Empty : strings.Get(SN.Core2EventCannotAfford), Priced = row.Is(EK.Priced), Binding = row.Is(EK.Binding),
+                    ResultText = row.Str(EK.ResultText) ?? string.Empty,
                 });
             }
             state.Responses = responses;

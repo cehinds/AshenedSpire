@@ -1,0 +1,125 @@
+{
+  "comment": "VP-9 event screen and VP-12 run end (D-960..D-966): the run tally's keys (the web's run.stats damageDealt/damageTaken/lastHit, tallied by the session because the configured run's own stats stay as the web's oracle holds them), the USS classes, the art names and the values of Screens/Core2EventScreen.cs and Screens/Core2RunEndScreen.cs. The UXML names (CEVENT_*, CEND_*) and the screen ids are in ui.json (UiNames, ScreenIds).",
+  "keySets": [
+    {
+      "name": "Core2TallyKeys",
+      "doc": "Keys of the run tally a Core 2 save keeps beside the run (combat.js trackStats: run.stats.damageDealt, damageTaken, lastHit).",
+      "keys": {
+        "Tally": "tally",
+        "DamageDealt": "damageDealt",
+        "DamageTaken": "damageTaken",
+        "LastHit": "lastHit",
+        "SourceName": "sourceName",
+        "Move": "move",
+        "Amount": "amount"
+      }
+    },
+    {
+      "name": "Core2TallyValues",
+      "doc": "Values of the run tally (combat.js trackStats): the cause prefix of a proc, the causes that name a striker or none.",
+      "keys": {
+        "ProcPrefix": "proc:",
+        "CauseAttack": "attack",
+        "CauseEffect": "effect"
+      }
+    },
+    {
+      "name": "EventClasses",
+      "doc": "USS classes of the Core 2 event screen (Screens/Core2Event.uss).",
+      "keys": {
+        "Page": "c2event-page",
+        "PageDialogue": "c2event-page--dialogue",
+        "Columns": "c2event-columns",
+        "Narrative": "c2event-narrative",
+        "ArtWell": "c2event-artwell",
+        "ArtGlyph": "c2event-artglyph",
+        "Prose": "c2event-prose",
+        "Responses": "c2event-responses",
+        "Response": "c2event-response",
+        "ResponseOff": "c2event-response--off",
+        "ResponseTexts": "c2event-response-texts",
+        "ResponseLabel": "c2event-response-label",
+        "ResponseTag": "c2event-response-tag",
+        "ResponseHold": "c2event-response-hold",
+        "Result": "c2event-result",
+        "Continue": "c2event-continue",
+        "Off": "c2event-off",
+        "ContinueReason": "c2event-reason",
+        "StageSide": "c2event-stage-side",
+        "StageSideListening": "c2event-stage-side--listening",
+        "Figure": "c2event-figure",
+        "Plate": "c2event-plate",
+        "Caption": "c2event-caption",
+        "CaptionPlayer": "c2event-caption--player",
+        "ContextTitle": "c2event-context-title",
+        "FootButton": "c2event-foot-button"
+      }
+    },
+    {
+      "name": "EventArt",
+      "doc": "Art names (ui/art.json lookup 'scene') of the event's painting band.",
+      "keys": {
+        "Scene": "grave-dialogue-master"
+      }
+    },
+    {
+      "name": "RunEndClasses",
+      "doc": "USS classes of the Core 2 run end screen (Screens/Core2RunEnd.uss).",
+      "keys": {
+        "Heading": "c2end-heading",
+        "HeadingLoss": "c2end-heading--loss",
+        "Divider": "c2end-divider",
+        "Identity": "c2end-identity",
+        "Eyebrow": "c2end-eyebrow",
+        "Name": "c2end-name",
+        "Line": "c2end-line",
+        "Meta": "c2end-meta",
+        "Cause": "c2end-cause",
+        "Strip": "c2end-strip",
+        "Chip": "c2end-chip",
+        "ChipKey": "c2end-chip-key",
+        "ChipValue": "c2end-chip-value",
+        "Earned": "c2end-earned",
+        "EarnedLine": "c2end-earned-line",
+        "EarnedKind": "c2end-earned-kind",
+        "DeckHead": "c2end-deck-head",
+        "DeckTitle": "c2end-deck-title",
+        "Deck": "c2end-deck",
+        "DeckCard": "c2end-deck-card",
+        "DeckCardUpgraded": "c2end-deck-card--upgraded",
+        "Actions": "c2end-actions",
+        "Action": "c2end-action"
+      }
+    },
+    {
+      "name": "RunEndArt",
+      "doc": "Art names (ui/art.json lookup 'scene') of the run end's painting.",
+      "keys": {
+        "Scene": "spire-vista-desktop"
+      }
+    },
+    {
+      "name": "EndPlaceholders",
+      "doc": "Placeholders of the run end's strings that the shared UiPlaceholders lack.",
+      "keys": {
+        "Move": "move",
+        "Fights": "fights",
+        "Floors": "floors"
+      }
+    },
+    {
+      "name": "EventScreenValues",
+      "doc": "Values of the event and run end screens: the width rungs of their doors.",
+      "keys": {
+        "SizeEvent": "event",
+        "SizeEnd": "end",
+        "BeatBreakPattern": "\\n[ \\t]*\\n",
+        "WhitespacePattern": "\\s+",
+        "Space": " ",
+        "CamelPattern": "([a-z0-9])([A-Z])",
+        "CamelReplacement": "$1 $2",
+        "SeparatorPattern": "[_-]+"
+      }
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "contentHash": "527b9402270ea79dc7124bbb2836a5b521e8b0b8a1efc94e26312b179c285c6c",
+  "contentHash": "f8574403ccb4070bdebdfba77c93632debc21195cbaea09040c65daba6f45d7e",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -935,9 +935,9 @@
       "sha256": "0ee3532b9f7df2ca3ef92199aff217c4eb6387cf68428e98a97d738b1f3c3568"
     },
     "rules/runFlow.json": {
-      "bytes": 4125,
+      "bytes": 4292,
       "generated": false,
-      "sha256": "654901367f8ad0124ec9f806d5871302c9c256d772e491e6945454219fdd1241"
+      "sha256": "332df1e728f763d7a9a38c0c17beeae5613e2e88039e056c1464ac9d87491513"
     },
     "rules/runtime.json": {
       "bytes": 30534,
@@ -1820,9 +1820,9 @@
       "sha256": "f0b908a4cb2212d7c249c6430d7b9ce0cbc398ce47a2da50c4d092229a1a8f2b"
     },
     "schemas/rules.runFlow.schema.json": {
-      "bytes": 5197,
+      "bytes": 5254,
       "generated": false,
-      "sha256": "6f739d4b06d9475433f71f0386865d89a843a0ad48707afae4a39a0e5820e85a"
+      "sha256": "1a65de93d951fea51aa0bcd8b3618fbb4c75e37e84123bd80d927ffd3e62edd5"
     },
     "schemas/rules.runtime.schema.json": {
       "bytes": 1065,
@@ -2070,9 +2070,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 42260,
+      "bytes": 43651,
       "generated": false,
-      "sha256": "cbc4a029b470f4ea8245c091d94b768c453729b994c6978d33ef31319599ab00"
+      "sha256": "2a639a648bce38ef26fa66a4abfde1a341ed28f3e99f809abe12a8b17d8759d8"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2220,9 +2220,9 @@
       "sha256": "1ca95429d719c46c8d712ea5506b72c8422b8a0ca04b4580f6a4b00ae2130d2b"
     },
     "ui/screens.json": {
-      "bytes": 9607,
+      "bytes": 9995,
       "generated": false,
-      "sha256": "a44afd28f6c5829df311ba60dbdde9778fe81dad6f3999b97488070797f41afd"
+      "sha256": "c3ebe056a501af7670d545c2ebcd221a765c4aa4e4d6b9fceca1c297a1a31bb3"
     },
     "ui/terms.json": {
       "bytes": 12076,
@@ -2235,9 +2235,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 33078,
+      "bytes": 35625,
       "generated": false,
-      "sha256": "a254229ff197a510c64939ea378b0952b962fa7d9dd4feaee4c64ca782275220"
+      "sha256": "3444b7c0bd654f6e5a8eef572019a96bf25347e133f87a154e8d60f360f5ab5b"
     }
   },
   "schemaVersion": 1,

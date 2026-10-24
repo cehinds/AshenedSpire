@@ -169,6 +169,9 @@ namespace Ashen.App.Run
 
         public bool RunOver { get; private set; }
 
+        /// <summary>The damage the player dealt and took and the blow that last cost hit points (the web's run.stats tallies, which the run end shows; D-962).</summary>
+        public Core2RunTally Tally { get; private set; } = new Core2RunTally();
+
         /// <summary>The run's close-out (its result record and what was newly earned), once it is over.</summary>
         public RunEndReceipt End { get; private set; }
 
@@ -176,11 +179,10 @@ namespace Ashen.App.Run
         public IReadOnlyList<string> ClassesUnlocked { get; private set; } = Array.Empty<string>();
 
         /// <summary>
-        /// The kind of node the run stands at whose door has no screen yet ('event' while it is open, or a 'rest' place of a profile without the rest module), until the player moves on; or null.
-        /// The rest site and the shop have screens (VP-8, VP-9) and report <see cref="Location"/> instead. Every node's rules are part of the build (WP-19): the act map's notice
-        /// (<see cref="DismissPort"/> takes the stand-in action) is the placeholder until the event screen is registered.
+        /// The kind of node the run stands at whose door has no screen, until the player moves on; or null. Every door has one now (the event is the event screen, VP-9; D-960): only a
+        /// 'rest' place of a profile without the rest module keeps the act map's notice (<see cref="DismissPort"/> takes its action).
         /// </summary>
-        public string PendingPort => _eventId != null ? HV.DoorEvent : _pendingPort;
+        public string PendingPort => _pendingPort;
 
         /// <summary>Where the run stands and a save resumes: 'combat', 'map', or 'runEnd' once the run is over (never saved: the slot is cleared).</summary>
         public string Location
@@ -346,6 +348,7 @@ namespace Ashen.App.Run
             EncounterId = door.EncounterId;
             _run[RK.CombatEntered] = new JObject { [HK.NodeId] = door.NodeId, [RunSaveKeys.EncounterId] = door.EncounterId };
             Combat = Core2CombatSession.Start(Core.Combat, _rng, _run, door.EncounterId, Profile.Settings);
+            Tally.BeginFight();
             FightFinished = false;
             LastEnd = null;
             if (Combat.IsOver) FinishCombat();
@@ -372,6 +375,7 @@ namespace Ashen.App.Run
             var flow = Content.Flow;
             var outcome = flow.AfterCommand == RunFlowValues.AutosaveAppend ? Combat.ExecuteAndLog(Saves, Slot, intent) : Combat.Execute(intent);
             if (!outcome.Accepted) return outcome;
+            Tally.Observe(outcome.Events, Combat.State.Enemies);
             if (Combat.IsOver) FinishCombat();
             else if (flow.AfterCommand == RunFlowValues.AutosaveCheckpoint || flow.CheckpointOn.Contains(intent.Str(K.Type))) Save();
             CommandCommitted?.Invoke(outcome);
@@ -616,12 +620,13 @@ namespace Ashen.App.Run
             public string EventId;
             public bool EventDone;
             public Core2EventResult EventResult;
+            public JObject Tally;
         }
 
         private SessionSnapshot Snapshot() => new SessionSnapshot
         {
             Run = (JObject)_run.DeepClone(), Profile = Profile.Snapshot(), Rng = _rng?.Clone(), Location = _location, EncounterId = EncounterId, Combat = Combat,
-            FightFinished = FightFinished, LastEnd = LastEnd, PendingPort = _pendingPort, EventId = _eventId, EventDone = _eventDone, EventResult = _eventResult,
+            FightFinished = FightFinished, LastEnd = LastEnd, PendingPort = _pendingPort, EventId = _eventId, EventDone = _eventDone, EventResult = _eventResult, Tally = Tally.ToJson(),
         };
 
         private void Restore(SessionSnapshot s)
@@ -638,6 +643,7 @@ namespace Ashen.App.Run
             _eventId = s.EventId;
             _eventDone = s.EventDone;
             _eventResult = s.EventResult;
+            Tally = Core2RunTally.FromJson(s.Tally);
         }
 
         // ------------------------------------------------------------------ save
@@ -664,6 +670,7 @@ namespace Ashen.App.Run
                 [RunSaveKeys.Portrait] = Portrait,
                 [RunSaveKeys.Playtime] = PlaytimeSeconds,
                 [RunSaveKeys.Run] = _run.DeepClone(),
+                [Core2TallyKeys.Tally] = Tally.ToJson(),
             };
             // An event is not kept by a save (the web persists at the node and resumes at the map): the save stands at the map.
             if (Location != null) payload[RunSaveKeys.Location] = Location == RunFlowValues.LocationEvent ? RunFlowValues.LocationMap : Location;
@@ -766,6 +773,7 @@ namespace Ashen.App.Run
                 EncounterId = (string)payload[RunSaveKeys.EncounterId],
                 _location = (string)payload[RunSaveKeys.Location] is string saved && saved != RunFlowValues.LocationRewards && saved != RunFlowValues.LocationMerchant && saved != RunFlowValues.LocationRest ? saved : RunFlowValues.LocationMap,
                 _pendingPort = (string)payload[HK.PendingPort],
+                Tally = Core2RunTally.FromJson(payload[Core2TallyKeys.Tally]),
             };
             var warned = false;
             try

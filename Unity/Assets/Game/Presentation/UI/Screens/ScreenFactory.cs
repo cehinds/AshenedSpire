@@ -22,6 +22,8 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.Core2Rewards: return new Core2RewardsScreen();
                 case ScreenIds.Core2Rest: return new Core2RestScreen();
                 case ScreenIds.Core2Shop: return new Core2ShopScreen();
+                case ScreenIds.Core2Event: return new Core2EventScreen();
+                case ScreenIds.Core2RunEnd: return new Core2RunEndScreen();
                 case ScreenIds.Pause: return new PauseScreen();
                 case ScreenIds.Armoury: return new ArmouryScreen();
                 case ScreenIds.Rewards: return new RewardsScreen();

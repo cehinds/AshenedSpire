@@ -128,6 +128,20 @@
       "back": null,
       "transitions": {}
     },
+    "core2Event": {
+      "uxml": "UI/Screens/Core2Event",
+      "layer": "screen",
+      "focusOrder": ["CEVENT_DOOR", "CEVENT_CONTEXT", "CEVENT_FOOT", "RUN_HUD"],
+      "back": null,
+      "transitions": {}
+    },
+    "core2RunEnd": {
+      "uxml": "UI/Screens/Core2RunEnd",
+      "layer": "screen",
+      "focusOrder": ["CEND_DOOR"],
+      "back": null,
+      "transitions": {}
+    },
     "pause": {
       "uxml": "UI/Screens/Pause",
       "layer": "modal",
