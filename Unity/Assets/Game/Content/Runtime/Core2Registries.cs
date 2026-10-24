@@ -120,13 +120,27 @@ namespace Ashen.Content
         /// What the Core 2 deck rules read (WP-18): the run data of <see cref="ToCoreRunData"/>, <c>rules/core2Deck.json</c> and the ids of the
         /// card-domain tags (the card schools the equipment gate compares with the worn gear's tags).
         /// </summary>
-        public CoreDeckData ToCoreDeckData(ContentSet content)
+        public CoreDeckData ToCoreDeckData(ContentSet content, CoreRunData run = null)
         {
             var rules = (JObject)content.Get(ContentFiles.RulesCore2Deck);
             var domain = rules.Value<string>(Core2DeckKeys.CardDomain);
             var tags = JsValues.Items(Object(RegistryKeys.TagRegistry)).OfType<JObject>()
                 .Where(t => JsValues.Str(t[TagKeys.Domain]) == domain).Select(t => JsValues.Text(t[RegistryKeys.Id]));
-            return new CoreDeckData(ToCoreRunData(content), rules, tags);
+            return new CoreDeckData(run ?? ToCoreRunData(content), rules, tags);
+        }
+
+        /// <summary>
+        /// What Core 2 rewards and the combat end read (WP-15): the deck rules, the post-combat data of these registries (the balance rows, the tag tree the skill
+        /// tracks are derived from, rules/rewardsEngine.json), the fight's data and <c>rules/core2Rewards.json</c>.
+        /// </summary>
+        public Ashen.Domain.Rewards.Core2RewardsData ToCoreRewardsData(ContentSet content, CoreDeckData deck, Ashen.Domain.Combat.CoreCombatData combat)
+        {
+            JObject Rules(string file) => (JObject)content.Get(file);
+            var versions = Rules(ContentFiles.RulesVersions);
+            var rewards = Registries.ToRewardsData(Rules(ContentFiles.RulesMechanics), Rules(ContentFiles.RulesCombatEngine), Rules(ContentFiles.RulesHandRules),
+                Rules(ContentFiles.RulesRunEngine), JsValues.Str(versions[Core2VersionKeys.WebContentVersion]),
+                (JArray)Rules(ContentFiles.BalanceCustomRun)[RunFlowKeys.AscensionOrder], Rules(ContentFiles.RulesRewardsEngine));
+            return new Ashen.Domain.Rewards.Core2RewardsData(deck, rewards, combat, Rules(ContentFiles.RulesCore2Rewards));
         }
 
         /// <summary>What the map port reads (WP-14): encounters, events, enemies and seats in registry order, the quest gates, the boss destinations and the map engine rules.</summary>

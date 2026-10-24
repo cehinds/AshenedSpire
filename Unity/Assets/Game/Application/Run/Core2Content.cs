@@ -15,17 +15,22 @@ namespace Ashen.App.Run
     /// </summary>
     public sealed class Core2Content
     {
-        private Core2Content(Core2Registries registries, CoreCombatData combat, Core2LoopData loop, string contentHash)
+        private Core2Content(Core2Registries registries, CoreCombatData combat, Core2LoopData loop, Ashen.Domain.Rewards.Core2RewardsData rewards, string contentHash)
         {
             Registries = registries;
             Combat = combat;
             Loop = loop;
+            Rewards = rewards;
             ContentHash = contentHash;
         }
 
         public Core2Registries Registries { get; }
         public CoreCombatData Combat { get; }
         public Core2LoopData Loop { get; }
+
+        /// <summary>What rewards and the combat end read (WP-15).</summary>
+        public Ashen.Domain.Rewards.Core2RewardsData Rewards { get; }
+
         public string ContentHash { get; }
 
         public string ProfileId => Combat.Run.ProfileId;
@@ -42,7 +47,8 @@ namespace Ashen.App.Run
             var run = registries.ToCoreRunData(content);
             var combat = registries.ToCoreCombatData(content, run);
             var map = registries.ToMapData((JObject)content.Get(ContentFiles.RulesMapEngine));
-            return new Core2Content(registries, combat, new Core2LoopData(combat, map, registries.RoutesConfig, (JObject)content.Get(ContentFiles.RulesLoopEngine)), snapshot.Hash);
+            var rewards = registries.ToCoreRewardsData(content, registries.ToCoreDeckData(content, run), combat);
+            return new Core2Content(registries, combat, new Core2LoopData(combat, map, registries.RoutesConfig, (JObject)content.Get(ContentFiles.RulesLoopEngine)), rewards, snapshot.Hash);
         }
     }
 }

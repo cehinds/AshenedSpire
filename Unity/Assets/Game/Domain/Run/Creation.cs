@@ -314,7 +314,11 @@ namespace Ashen.Domain.Run
             var hands = new JObject();
             foreach (var p in d.RuleObj(RK.Zones, RK.HandSlotIds).Properties()) hands[p.Name] = ActiveIn(loadout, Js.Str(p.Value));
             JArray Strings(JToken t) => new JArray(Js.Items(t).Where(x => Js.IsStr(x) && Js.Str(x).Length > 0).Select(x => x.DeepClone()));
-            collection = run?[K.Deck] is JArray deck ? new JArray(deck.Where(Js.Truthy).Select(c => c.DeepClone())) : new JArray();
+            // Owned means deck and sideboard (SPEC §14.1) in a Core 2 run, whose zones.js is the pinned HEAD's; the 405 snapshot's collection is the deck alone.
+            var core = run?[Ashen.Generated.Core2RunSnapshotKeys.GameProfile] != null;
+            collection = new JArray((run?[K.Deck] is JArray deck ? deck.AsEnumerable() : Enumerable.Empty<JToken>())
+                .Concat(core && run[Ashen.Generated.Core2DeckKeys.Sideboard] is JArray pile ? pile.AsEnumerable() : Enumerable.Empty<JToken>())
+                .Where(Js.Truthy).Select(c => c.DeepClone()));
             return Js.Obj(RK.Core, IdOrNull(run?[RK.Class]), K.CoreTags, Strings(run?[K.CoreTags]), RK.Worn, worn, RK.Hands, hands, RK.Passive, Strings(run?[K.Relics]));
         }
 

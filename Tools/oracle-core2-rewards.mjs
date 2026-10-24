@@ -194,7 +194,7 @@ function claimScenario(classId, ci, index) {
   const rng = w.createRng(seed, run.streamCounters || {});
   const pick = botLcg(seed ^ 0x51ed2701);
   let settingsIndex = index % DECK_SETTINGS.length;
-  const steps = [];
+  const steps = [canon({ op: 'settings', settings: DECK_SETTINGS[settingsIndex], counters: counters(rng) })];
   const record = (op, fn, extra = {}) => {
     const before = snapshot(run);
     const result = call(fn);
@@ -342,6 +342,7 @@ function climbScenario(classId, ci, index) {
   const byPool = (pool) => all.filter((e) => e.pool === pool);
   const steps = [];
   let settingsIndex = 0;
+  steps.push(canon({ op: 'settings', settings: DECK_SETTINGS[settingsIndex], counters: counters(rng) }));
   const record = (op, fn, extra = {}) => {
     const before = snapshot(run);
     const result = call(fn);
