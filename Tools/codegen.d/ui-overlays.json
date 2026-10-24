@@ -1,0 +1,35 @@
+{
+  "comment": "VP-6 combat overlays (D-800): the pile ids of the pile viewer, the flask art key and prefix, the keyword and rating string-key templates the readings use, and one word separator. Names of UXML regions, classes and resources are in ui.json (UiNames, UiClasses, UiResources).",
+  "keySets": [
+    {
+      "name": "OverlayKeys",
+      "doc": "Keys of the content the overlays read that the combat keys do not name.",
+      "keys": {
+        "FlaskArtKey": "artKey"
+      }
+    },
+    {
+      "name": "OverlayValues",
+      "doc": "Values of the combat overlays: the pile ids, the flask art key prefix (catalog/flasks.json artKey 'flask-crimson' -> art 'flask.crimson'), the rating ids of a combatant reading, the tag prefix of a card trait and the separator of two words.",
+      "keys": {
+        "PileDraw": "draw",
+        "PileDiscard": "discard",
+        "PileExhaust": "exhaust",
+        "FlaskArtPrefix": "flask-",
+        "Poise": "poise",
+        "Ward": "ward",
+        "TraitPrefix": "trait:",
+        "WordJoin": " "
+      }
+    },
+    {
+      "name": "OverlayFormats",
+      "doc": "String-key templates of the overlays (strings/en.json keyword and resource names).",
+      "keys": {
+        "KeywordNameKey": "keyword.{0}.name",
+        "KeywordTipKey": "keyword.{0}.tooltip",
+        "RatingKey": "resource.{0}.name"
+      }
+    }
+  ]
+}

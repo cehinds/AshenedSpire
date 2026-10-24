@@ -28,12 +28,15 @@ namespace Ashen.Presentation.UI.Screens
     public sealed class Core2CombatScreen : ScreenView
     {
         private readonly Dictionary<string, Fighter> _enemies = new Dictionary<string, Fighter>(StringComparer.Ordinal);
-        private readonly List<LocButton> _options = new List<LocButton>();
+        private readonly List<Button> _options = new List<Button>();
         private readonly List<string> _handIds = new List<string>();
         private Core2RunSession _run;
         private Core2CombatFlow _flow;
         private Fighter _player;
         private HandFan _hand;
+        private Core2Overlays _overlays;
+        private Core2PromptRows _promptRows;
+        private Core2TargetInspector _targets;
         private FooterGroup _footer;
         private IVisualElementScheduledItem _timeline;
         private IVisualElementScheduledItem _bannerHide;
@@ -52,7 +55,7 @@ namespace Ashen.Presentation.UI.Screens
         public Core2CombatViewState View => _flow?.View;
 
         /// <summary>The focus mode in force (a ui/screens.json focusModes key, or null for normal play).</summary>
-        public string Mode => _busy ? UiValues.FocusEnemyTurn : _flow?.Mode;
+        public string Mode => _overlays != null && _overlays.IsOpen ? Core2UiValues.FocusOverlay : _busy ? UiValues.FocusEnemyTurn : _flow?.Mode;
 
         public override string FocusMode => Mode;
 
@@ -64,7 +67,7 @@ namespace Ashen.Presentation.UI.Screens
         public FooterGroup Footer => _footer;
 
         /// <summary>The buttons of the open prompt, in order.</summary>
-        public IReadOnlyList<LocButton> PromptOptions => _options;
+        public IReadOnlyList<Button> PromptOptions => _options;
 
         private StringTable Strings => Ui.Data.Strings;
 
@@ -81,13 +84,20 @@ namespace Ashen.Presentation.UI.Screens
             _flow = new Core2CombatFlow(_run, Strings);
             _hand = Root.Q<HandFan>(UiNames.Hand);
             _footer = Root.Q<FooterGroup>(UiNames.FooterGroup);
+            _overlays = new Core2Overlays(Context, _run, _flow, CardData);
+            _overlays.Closed += () => Render();
+            _promptRows = new Core2PromptRows(Ui, _run, _flow);
+            _targets = new Core2TargetInspector(Root, () => _overlays.IsOpen || ShowingPrompt, () => _flow.Targeting, _overlays.OpenDetail, Ui.Data.Tokens.Duration(TokenKeys.TargetHide));
             _footer.EndTurn += OnEndTurn;
             _footer.Potions += () => Handle(_flow.OpenFlasks(), _footer.PotionsButton);
-            _footer.Piles += anchor => RunFlow.Refuse(Context, anchor, StringKeys.CombatPilesLater);
-            Root.Q<LocButton>(UiNames.HudMenu).clicked += OpenPause;
+            _footer.Piles += anchor => _overlays.OpenPiles(anchor == _footer.DrawButton ? OverlayValues.PileDraw : OverlayValues.PileDiscard, anchor);
+            var menu = Root.Q<LocButton>(UiNames.HudMenu);
+            menu.clicked += () => OpenQuickMenu(menu);
             Root.Q<LocButton>(UiNames.PromptBack).clicked += OnPromptBack;
+            Root.Q<LocButton>(UiNames.PromptClose).clicked += OnPromptBack;
             var confirm = Root.Q<LocButton>(UiNames.PromptConfirm);
-            confirm.clicked += () => Handle(_flow.ConfirmPicks(), confirm);
+            confirm.clicked += () => OnPromptConfirm(confirm);
+            _promptRows.PickChanged += RenderPromptConfirm;
             var reactions = Root.Q<LocButton>(UiNames.ToolReactions);
             reactions.clicked += () => Handle(_flow.ToggleReactions(), reactions);
             var armaments = Root.Q<LocButton>(UiNames.ToolArmaments);
@@ -118,6 +128,7 @@ namespace Ashen.Presentation.UI.Screens
             ApplyBoardArt();
             _player = new Fighter { focusable = false };
             Root.Q(UiNames.AllyRow).Add(_player);
+            _targets.Attach(_player);
             Render();
             if ((args as Core2RunArgs)?.ResumeWarning == true) ShowNotice(StringKeys.CombatResumeWarning);
             if (_flow.Ended) EnterEnded();
@@ -147,6 +158,7 @@ namespace Ashen.Presentation.UI.Screens
             RenderTools();
             RenderLog();
             RestoreFocus(keep);
+            _targets?.Refresh();
             var prompt = ShowingPrompt;
             if (prompt && !_wasPrompt) FocusSoon(_options.FirstOrDefault(o => o.enabledSelf) ?? (VisualElement)Root.Q(UiNames.PromptBack));
             else if (_flow.Targeting && !_wasTargeting) FocusSoon(FirstTarget());
@@ -223,6 +235,7 @@ namespace Ashen.Presentation.UI.Screens
                     element = new Fighter();
                     element.Activated += OnFighter;
                     element.PredictPressed += OnPredict;
+                    _targets.Attach(element);
                     row.Add(element);
                     _enemies[enemy.Id] = element;
                 }
@@ -343,6 +356,8 @@ namespace Ashen.Presentation.UI.Screens
                 });
                 view.EnableInClassList(UiClasses.CardArmed, _flow.Armed != null && _flow.Armed.InstanceId == card.InstanceId);
                 view.focusable = Mode == null;
+                view.ShowInspect = true;
+                view.Inspect += _ => _overlays.OpenInspect(card, view);
                 if (!card.Playable && Mode == null && !string.IsNullOrEmpty(card.Refusal))
                     Tooltip.AttachResolved(view, Context.Overlay, components.CardRefusalTooltip, card.Name, card.Refusal, tipDelay);
             }
@@ -442,39 +457,64 @@ namespace Ashen.Presentation.UI.Screens
             UiDom.Show(panel, prompt != null);
             _options.Clear();
             var list = Root.Q<ScrollView>(UiNames.PromptList);
-            list.Clear();
             var back = Root.Q<LocButton>(UiNames.PromptBack);
             var confirm = Root.Q<LocButton>(UiNames.PromptConfirm);
             if (prompt == null)
             {
+                list.Clear();
                 UiDom.Show(confirm, false);
                 return;
             }
-            Root.Q<LocLabel>(UiNames.PromptTitle)?.SetResolved(PromptTitle(prompt));
-            foreach (var option in prompt.Options)
-            {
-                var button = new LocButton();
-                button.AddToClassList(UiClasses.PromptOption);
-                button.SetResolved(OptionText(prompt, option));
-                button.EnableInClassList(UiClasses.PromptOptionSelected, option.Selected);
-                button.EnableInClassList(UiClasses.PromptOptionDisabled, !option.Enabled);
-                var captured = option;
-                button.clicked += () => Handle(_flow.Choose(captured), button);
-                list.Add(button);
-                _options.Add(button);
-            }
-            // A reaction offer is declined with its own Back; a card choice cannot be left; every other prompt closes with Back.
             var offer = prompt.Kind == Core2UiValues.PromptOffer;
             var cards = prompt.Kind == Core2UiValues.PromptCards;
+            Root.Q<LocLabel>(UiNames.PromptTitle)?.SetResolved(offer ? Strings.Get(StringKeys.CombatModalReactionTitle) : PromptTitle(prompt));
+            var eyebrow = Root.Q<LocLabel>(UiNames.PromptEyebrow);
+            eyebrow?.SetResolved(offer ? Strings.Get(StringKeys.CombatModalReactionEyebrow) : string.Empty);
+            UiDom.Show(eyebrow, offer);
+            _options.AddRange(_promptRows.Fill(list.contentContainer, prompt, option => OptionText(prompt, option), (option, anchor) => Handle(_flow.Choose(option), anchor), Refuse));
+            // The web closes a reaction offer from its X, Back or Escape (all decline it); a card choice cannot be left; every other prompt closes with Back.
+            UiDom.Show(Root.Q(UiNames.PromptClose), !cards);
             UiDom.Show(back, !cards);
-            back.SetResolved(Strings.Get(offer ? StringKeys.Core2OfferBack : StringKeys.Core2PromptBack));
-            UiDom.Show(confirm, cards);
+            back.SetResolved(Strings.Get(offer ? StringKeys.CombatModalReactionBack : StringKeys.Core2PromptBack));
+            UiDom.Show(confirm, cards || offer);
             if (cards)
             {
                 var picked = _flow.PickedCards.Count;
                 confirm.SetResolved(Strings.Format(StringKeys.Core2PromptConfirm, new StringArgs().Add(UiPlaceholders.Selected, picked).Add(UiPlaceholders.Count, prompt.Count)));
                 confirm.EnableInClassList(UiClasses.ButtonReady, picked == prompt.Count);
             }
+            else if (offer) RenderPromptConfirm();
+        }
+
+        /// <summary>The reaction offer's Play: dim until a card is picked, then the primary action (the web's Play).</summary>
+        private void RenderPromptConfirm()
+        {
+            if (_flow.Prompt?.Kind != Core2UiValues.PromptOffer) return;
+            var confirm = Root.Q<LocButton>(UiNames.PromptConfirm);
+            confirm.SetResolved(Strings.Get(StringKeys.CombatModalReactionPlay));
+            var ready = _promptRows.PickedOffer != null;
+            confirm.EnableInClassList(UiClasses.ButtonReady, ready);
+            confirm.EnableInClassList(UiClasses.PromptOptionDisabled, !ready);
+        }
+
+        /// <summary>Confirm in the prompt panel: answer a card choice with the cards picked, or play the picked reaction.</summary>
+        private void OnPromptConfirm(LocButton confirm)
+        {
+            if (_flow.Prompt?.Kind == Core2UiValues.PromptOffer)
+            {
+                if (_promptRows.PickedOffer != null) Handle(_flow.Choose(_promptRows.PickedOffer), confirm);
+                return;
+            }
+            Handle(_flow.ConfirmPicks(), confirm);
+        }
+
+        /// <summary>The menu button: the quick menu under it (the pause list as a dropdown); pad Start still opens the pause screen.</summary>
+        private void OpenQuickMenu(VisualElement anchor)
+        {
+            if (_busy) Skip();
+            if (_flow.Ended || _flow.Prompt != null) return;
+            _targets.Hide();
+            _overlays.OpenQuick(anchor);
         }
 
         private string PromptTitle(Core2Prompt prompt)
@@ -623,7 +663,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             var card = anchor as KitCard;
             var c = card == null ? -1 : _hand.Cards.ToList().IndexOf(card);
-            return (c >= 0 && c < _handIds.Count ? _handIds[c] : null, anchor is LocButton b ? _options.IndexOf(b) : -1);
+            return (c >= 0 && c < _handIds.Count ? _handIds[c] : null, anchor is Button b ? _options.IndexOf(b) : -1);
         }
 
         /// <summary>The control a redraw left in place of the pressed one (same card, same option), else its stable parent, so a refusal and focus never land on a detached element.</summary>
@@ -816,10 +856,16 @@ namespace Ashen.Presentation.UI.Screens
 
         public override bool HandleBack()
         {
+            if (_overlays != null && _overlays.HandleBack()) return true;
+            if (_targets != null && _targets.IsPinned) { _targets.Hide(); return true; }
             if (_logOpen) { SetLog(false); return true; }
             if (_busy) { Skip(); return true; }
             if (_flow.Ended) return true;
-            if (_flow.Prompt?.Kind == Core2UiValues.PromptOffer) return true;
+            if (_flow.Prompt?.Kind == Core2UiValues.PromptOffer)
+            {
+                OnPromptBack();
+                return true;
+            }
             if (_flow.Back())
             {
                 Render();

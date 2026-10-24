@@ -57,7 +57,8 @@
         "Illustration": "illustration",
         "Portrait": "portrait",
         "Prologue": "prologue",
-        "MapDetail": "mapDetail"
+        "MapDetail": "mapDetail",
+        "Flask": "flask"
       }
     },
     {

@@ -1,0 +1,74 @@
+/* The in-combat quick menu (web quicknav.js, combat-quick-menu-*.jpg): a dropdown under the menu button, a muted caption, then the menu rows with hairlines between the bands. */
+.quickmenu {
+    position: absolute;
+    top: var(--size-quick-top);
+    right: var(--size-quick-right);
+    width: var(--size-quick-w);
+    max-width: var(--size-full-width);
+    background-color: var(--color-bg-raise);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-button);
+}
+
+.quick-caption {
+    height: var(--size-quick-caption-h);
+    padding-left: var(--space-lg);
+    -unity-text-align: middle-left;
+    font-size: var(--font-quick-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line);
+}
+
+.quick-rows {
+    flex-direction: column;
+}
+
+.quick-row.unity-button {
+    height: var(--size-quick-row-h);
+    min-height: 0;
+    margin: 0;
+    padding: 0 var(--space-lg) 0 var(--size-quick-indent);
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.quick-row--band.unity-button {
+    border-top-width: var(--border-hairline);
+    border-top-color: var(--color-line);
+}
+
+.quick-row.unity-button:hover,
+.quick-row.unity-button:focus {
+    background-color: var(--color-quick-hover);
+}
+
+.quick-row-label {
+    font-size: var(--font-quick-row);
+    color: var(--color-parchment);
+}
+
+.quick-row.unity-button:hover .quick-row-label,
+.quick-row.unity-button:focus .quick-row-label {
+    color: var(--color-ember);
+}
+
+.quick-row--danger .quick-row-label {
+    color: var(--color-danger-line);
+}
+
+.quick-row--disabled.unity-button {
+    opacity: var(--opacity-disabled);
+}
+
+.quick-row-note {
+    font-size: var(--font-cmodal-status);
+    color: var(--color-muted);
+}

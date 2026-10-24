@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="TargetCard.uss" />
+    <ui:VisualElement class="shadow-plate shadow-plate--tooltip" picking-mode="Ignore" />
+    <Ashen.Presentation.UI.LocLabel name="TARGET_NAME" class="target-name" picking-mode="Ignore" />
+    <Ashen.Presentation.UI.Kit.Meter name="TARGET_HP" class="target-hp" kind="hp" picking-mode="Ignore" />
+    <ui:VisualElement name="TARGET_CHIPS" class="target-chips" picking-mode="Ignore" />
+    <ui:VisualElement name="TARGET_INTENT_ROW" class="target-intent-row" picking-mode="Ignore">
+        <ui:VisualElement name="TARGET_INTENT_ICON" class="target-intent-icon" picking-mode="Ignore" />
+        <Ashen.Presentation.UI.LocLabel name="TARGET_INTENT" class="target-intent" picking-mode="Ignore" />
+    </ui:VisualElement>
+    <Ashen.Presentation.UI.LocButton name="TARGET_INFO" class="target-info" string-key="combatModal.target.info" />
+</ui:UXML>

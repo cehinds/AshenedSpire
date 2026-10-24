@@ -28,5 +28,8 @@ namespace Ashen.Generated
         public const string FocusPlanned = "planned";
         public const string FocusLegend = "legend";
         public const string FocusPane = "pane";
+        public const string ModalSizeMd = "md";
+        public const string ModalSizeLg = "lg";
+        public const string ModalSizeXl = "xl";
     }
 }

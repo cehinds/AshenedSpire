@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="CombatModal.uss" />
+    <ui:VisualElement class="shadow-plate" picking-mode="Ignore" />
+    <ui:VisualElement name="MODAL_HEAD" class="cmodal-head">
+        <ui:VisualElement class="cmodal-identity" picking-mode="Ignore">
+            <Ashen.Presentation.UI.LocLabel name="MODAL_EYEBROW" class="cmodal-eyebrow kit-upper" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.LocLabel name="MODAL_TITLE" class="cmodal-title kit-text-header" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <Ashen.Presentation.UI.LocLabel name="MODAL_STATUS" class="cmodal-status" picking-mode="Ignore" />
+        <Ashen.Presentation.UI.LocButton name="MODAL_CLOSE" class="cmodal-close" string-key="glyph.close" />
+    </ui:VisualElement>
+    <ui:ScrollView name="MODAL_BODY" class="cmodal-body" />
+    <ui:VisualElement name="MODAL_FOOT" class="cmodal-foot" />
+</ui:UXML>

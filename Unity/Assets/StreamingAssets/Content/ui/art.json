@@ -20,7 +20,8 @@
     "illustration": "illus.{name}",
     "portrait": "portrait.{id}",
     "prologue": "prologue.{name}",
-    "mapDetail": "mapdetail.{map}.l{level}.t{x}x{y}"
+    "mapDetail": "mapdetail.{map}.l{level}.t{x}x{y}",
+    "flask": "flask.{name}"
   },
   "iconAlias": {
     "defend": "shield",

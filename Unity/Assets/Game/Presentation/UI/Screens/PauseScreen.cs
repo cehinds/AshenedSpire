@@ -67,65 +67,13 @@ namespace Ashen.Presentation.UI.Screens
             }
         }
 
-        private void Activate(MenuEntryDef def, LocButton button)
-        {
-            switch (def.Action)
-            {
-                case MenuActions.Confirm when def.Confirm == ConfirmIds.SaveQuit:
-                    ConfirmRequest.Open(Nav, new ConfirmRequest
-                    {
-                        ConfirmId = ConfirmIds.SaveQuit,
-                        Target = _session == null ? null : RunFlow.SlotFacts(Ui, SlotSummaries.ReadOne(Ui.Saves, _session.SlotIndex)),
-                        OnConfirm = SaveAndQuit,
-                    });
-                    break;
-                case MenuActions.Confirm when def.Confirm == ConfirmIds.Abandon:
-                    ConfirmRequest.Open(Nav, new ConfirmRequest
-                    {
-                        ConfirmId = ConfirmIds.Abandon,
-                        Target = _session == null ? null : RunFlow.SlotFacts(Ui, SlotSummaries.ReadOne(Ui.Saves, _session.SlotIndex)),
-                        OnConfirm = Abandon,
-                    });
-                    break;
-                case MenuActions.Open:
-                    Nav.Go(def.Target);
-                    break;
-            }
-        }
+        private void Activate(MenuEntryDef def, LocButton button) => PauseActions.Activate(Context, _session, def);
 
         /// <summary>Checkpoint, then the title; a failure opens W1r with Retry and leaves the pause open.</summary>
-        public void SaveAndQuit()
-        {
-            try
-            {
-                _session?.Save();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.SaveFailed, e.Message));
-                ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, OnConfirm = SaveAndQuit });
-                return;
-            }
-            Ui.ClearRun();
-            Nav.Go(ScreenIds.Title, null, true);
-        }
+        public void SaveAndQuit() => PauseActions.SaveAndQuit(Context, _session);
 
         /// <summary>Abandon run (D-134): the run ends as abandoned and W-15 shows its summary; a save failure opens W1r with Retry.</summary>
-        public void Abandon()
-        {
-            if (_session == null) return;
-            try
-            {
-                _session.Abandon();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.SaveFailed, e.Message));
-                ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, OnConfirm = Abandon });
-                return;
-            }
-            RunFlow.ShowClimb(Context, _session);
-        }
+        public void Abandon() => PauseActions.Abandon(Context, _session);
 
         public void Resume() => Nav.Close(Context.Instance);
 

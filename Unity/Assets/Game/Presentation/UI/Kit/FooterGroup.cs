@@ -67,6 +67,8 @@ namespace Ashen.Presentation.UI.Kit
 
         public LocButton EndTurnButton => _endTurn;
         public LocButton PotionsButton => _potions;
+        public LocButton DrawButton => _draw;
+        public LocButton DiscardButton => _discard;
         public Orb Orb => _orb;
 
         /// <summary>Narrow layout: the pile and potion buttons use their short labels so End Turn keeps its words (04 W-07 narrow).</summary>
