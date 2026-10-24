@@ -1,0 +1,395 @@
+{
+  "$id": "rules/fixCoreMechanics.json",
+  "type": "object",
+  "properties": {
+    "accuracy": {
+      "type": "object",
+      "properties": {
+        "baseAC": {
+          "type": "integer"
+        },
+        "evadeStackBase": {
+          "type": "integer"
+        },
+        "evadeStackDex": {
+          "type": "integer"
+        },
+        "evasionBase": {
+          "type": "integer"
+        },
+        "evasionVersion": {
+          "type": "integer"
+        },
+        "maneuverPrecision": {
+          "type": "object",
+          "properties": {
+            "smash": {
+              "type": "integer"
+            },
+            "sweep": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "smash",
+            "sweep"
+          ]
+        },
+        "precisionBase": {
+          "type": "integer"
+        },
+        "precisionWeights": {
+          "type": "object",
+          "properties": {
+            "dex": {
+              "type": "number"
+            },
+            "int": {
+              "type": "number"
+            },
+            "level": {
+              "type": "integer"
+            },
+            "str": {
+              "type": "number"
+            },
+            "wis": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "dex",
+            "int",
+            "level",
+            "str",
+            "wis"
+          ]
+        },
+        "stanceAdvantageBonus": {
+          "type": "number"
+        },
+        "stanceMaximum": {
+          "type": "number"
+        },
+        "stanceMinimum": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "baseAC",
+        "evadeStackBase",
+        "evadeStackDex",
+        "evasionBase",
+        "evasionVersion",
+        "maneuverPrecision",
+        "precisionBase",
+        "precisionWeights",
+        "stanceAdvantageBonus",
+        "stanceMaximum",
+        "stanceMinimum"
+      ]
+    },
+    "counter": {
+      "type": "object",
+      "properties": {
+        "advantageBlockFraction": {
+          "type": "number"
+        },
+        "advantageIncomingFraction": {
+          "type": "number"
+        },
+        "advantagePoiseFraction": {
+          "type": "number"
+        },
+        "poiseFraction": {
+          "type": "number"
+        },
+        "returnFraction": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "advantageBlockFraction",
+        "advantageIncomingFraction",
+        "advantagePoiseFraction",
+        "poiseFraction",
+        "returnFraction"
+      ]
+    },
+    "defaultTags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "enemyHealBlockCost": {
+      "type": "integer"
+    },
+    "perception": {
+      "type": "object",
+      "properties": {
+        "baseDC": {
+          "type": "integer"
+        },
+        "bonuses": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "baseDC",
+        "bonuses"
+      ]
+    },
+    "poise": {
+      "type": "object",
+      "properties": {
+        "drain": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "drain"
+      ]
+    },
+    "protectionParameters": {
+      "type": "object",
+      "properties": {}
+    },
+    "range": {
+      "type": "object",
+      "properties": {
+        "advanceSpPerBand": {
+          "type": "integer"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "reachPrecisionBonus": {
+          "type": "integer"
+        },
+        "throwPrecisionPenalty": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "advanceSpPerBand",
+        "enabled",
+        "reachPrecisionBonus",
+        "throwPrecisionPenalty",
+        "version"
+      ]
+    },
+    "reaction": {
+      "type": "object",
+      "properties": {
+        "handCostDiscount": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "handCostDiscount"
+      ]
+    },
+    "smashVsDefensive": {
+      "type": "object",
+      "properties": {
+        "blockFraction": {
+          "type": "number"
+        },
+        "damageMultiplier": {
+          "type": "integer"
+        },
+        "poiseFraction": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "blockFraction",
+        "damageMultiplier",
+        "poiseFraction"
+      ]
+    },
+    "staggered": {
+      "type": "object",
+      "properties": {
+        "extendOnly": {
+          "type": "boolean"
+        },
+        "staminaLoss": {
+          "type": "integer"
+        },
+        "stance": {
+          "type": "boolean"
+        },
+        "vulnerableStacks": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "extendOnly",
+        "staminaLoss",
+        "stance",
+        "vulnerableStacks"
+      ]
+    },
+    "stance": {
+      "type": "object",
+      "properties": {
+        "discount": {
+          "type": "integer"
+        },
+        "effectivenessMultiplier": {
+          "type": "number"
+        },
+        "minimumCost": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "discount",
+        "effectivenessMultiplier",
+        "minimumCost"
+      ]
+    },
+    "statuses": {
+      "type": "object",
+      "properties": {
+        "decayAmount": {
+          "type": "integer"
+        },
+        "overrides": {
+          "type": "object",
+          "properties": {
+            "staggered": {
+              "type": "object",
+              "properties": {
+                "modifiers": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "stackMode": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "modifiers",
+                "stackMode"
+              ]
+            },
+            "vulnerable": {
+              "type": "object",
+              "properties": {
+                "modifiers": {
+                  "type": "object",
+                  "properties": {
+                    "damageTakenMult": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "damageTakenMult"
+                  ]
+                },
+                "stackMode": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "modifiers",
+                "stackMode"
+              ]
+            },
+            "weak": {
+              "type": "object",
+              "properties": {
+                "modifiers": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "stackMode": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "modifiers",
+                "stackMode"
+              ]
+            }
+          },
+          "required": [
+            "staggered",
+            "vulnerable",
+            "weak"
+          ]
+        },
+        "staggerRiders": {
+          "type": "object",
+          "properties": {
+            "vulnerable": {
+              "type": "integer"
+            },
+            "weak": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "vulnerable",
+            "weak"
+          ]
+        },
+        "vulnerabilityMultiplier": {
+          "type": "number"
+        },
+        "weakARMultiplier": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "decayAmount",
+        "overrides",
+        "staggerRiders",
+        "vulnerabilityMultiplier",
+        "weakARMultiplier"
+      ]
+    },
+    "version": {
+      "type": "integer"
+    },
+    "ward": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled"
+      ]
+    }
+  },
+  "required": [
+    "accuracy",
+    "counter",
+    "defaultTags",
+    "enabled",
+    "enemyHealBlockCost",
+    "perception",
+    "poise",
+    "protectionParameters",
+    "range",
+    "reaction",
+    "smashVsDefensive",
+    "staggered",
+    "stance",
+    "statuses",
+    "version",
+    "ward"
+  ]
+}

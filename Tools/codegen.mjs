@@ -56,7 +56,9 @@ function enumFile(name, docText, values) {
 const files = {};
 for (const e of CONFIG.enums) {
   const data = JSON.parse(readFileSync(join(CONTENT, e.from), 'utf8'));
-  files[`${e.name}.g.cs`] = enumFile(e.name, e.doc, e.path.split('.').reduce((o, k) => o[k], data));
+  // `keys: true` takes the keys of the object at `path` (an enum over a map's ids, such as a table of weights) instead of an array of values.
+  const at = e.path.split('.').reduce((o, k) => o[k], data);
+  files[`${e.name}.g.cs`] = enumFile(e.name, e.doc, e.keys ? Object.keys(at) : at);
 }
 for (const k of CONFIG.keySets) files[`${k.name}.g.cs`] = keySet(k.name, k.doc, Object.entries(k.keys));
 for (const n of CONFIG.numberSets || []) {

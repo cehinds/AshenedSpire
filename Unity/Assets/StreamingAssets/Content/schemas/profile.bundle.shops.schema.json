@@ -1,0 +1,375 @@
+{
+  "$id": "profile/bundle/shops.json",
+  "type": "object",
+  "properties": {
+    "blacksmith": {
+      "type": "object",
+      "properties": {
+        "guaranteedMinimum": {
+          "type": "integer"
+        },
+        "offerings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "chance": {
+                "type": "integer"
+              },
+              "conditional": {
+                "type": "boolean"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "id": {
+                "type": "string",
+                "enum": [
+                  "armaments",
+                  "extractArt",
+                  "installArt",
+                  "refineStones",
+                  "sigilSlots",
+                  "sigils",
+                  "smithStones",
+                  "stackCopy",
+                  "upgrade",
+                  "upgradeArt"
+                ]
+              },
+              "perVisit": {
+                "type": "integer"
+              },
+              "price": {
+                "type": "integer"
+              },
+              "refine": {
+                "type": "object",
+                "properties": {
+                  "cinders": {
+                    "type": "integer"
+                  },
+                  "from": {
+                    "type": "integer"
+                  },
+                  "value": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "cinders",
+                  "from",
+                  "value"
+                ]
+              },
+              "sigilSlots": {
+                "type": "object",
+                "properties": {
+                  "base": {
+                    "type": "integer"
+                  },
+                  "cinders": {
+                    "type": "integer"
+                  },
+                  "max": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "base",
+                  "cinders",
+                  "max"
+                ]
+              },
+              "stack": {
+                "type": "object",
+                "properties": {
+                  "cinders": {
+                    "type": "integer"
+                  },
+                  "stepPerOwned": {
+                    "type": "integer"
+                  },
+                  "stones": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "cinders",
+                  "stepPerOwned",
+                  "stones"
+                ]
+              },
+              "stock": {
+                "type": "integer"
+              },
+              "stockKey": {
+                "type": "string"
+              },
+              "stones": {
+                "type": "integer"
+              },
+              "weight": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "chance",
+              "conditional",
+              "enabled",
+              "id",
+              "weight"
+            ]
+          }
+        }
+      },
+      "required": [
+        "guaranteedMinimum",
+        "offerings"
+      ]
+    },
+    "kindWeights": {
+      "type": "object",
+      "properties": {
+        "blacksmith": {
+          "type": "integer"
+        },
+        "market": {
+          "type": "integer"
+        },
+        "master": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "blacksmith",
+        "market",
+        "master"
+      ]
+    },
+    "market": {
+      "type": "object",
+      "properties": {
+        "guaranteedMinimum": {
+          "type": "integer"
+        },
+        "offerings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "chance": {
+                "type": "integer"
+              },
+              "conditional": {
+                "type": "boolean"
+              },
+              "cost": {
+                "type": "object",
+                "properties": {
+                  "max": {
+                    "type": "integer"
+                  },
+                  "min": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "max",
+                  "min"
+                ]
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "id": {
+                "type": "string"
+              },
+              "includeLocked": {
+                "type": "boolean"
+              },
+              "perVisit": {
+                "type": "integer"
+              },
+              "price": {
+                "type": "integer"
+              },
+              "pricePct": {
+                "type": "integer"
+              },
+              "stock": {
+                "type": "integer"
+              },
+              "stockKey": {
+                "type": "string"
+              },
+              "weight": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "chance",
+              "conditional",
+              "enabled",
+              "id",
+              "weight"
+            ]
+          }
+        }
+      },
+      "required": [
+        "guaranteedMinimum",
+        "offerings"
+      ]
+    },
+    "master": {
+      "type": "object",
+      "properties": {
+        "guaranteedMinimum": {
+          "type": "integer"
+        },
+        "offerings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "chance": {
+                "type": "integer"
+              },
+              "cinders": {
+                "type": "integer"
+              },
+              "conditional": {
+                "type": "boolean"
+              },
+              "enabled": {
+                "type": "boolean"
+              },
+              "id": {
+                "type": "string",
+                "enum": [
+                  "appraisal",
+                  "armaments",
+                  "lesson",
+                  "redistribute",
+                  "respec",
+                  "skillBooks",
+                  "training",
+                  "weaponArts"
+                ]
+              },
+              "respec": {
+                "type": "object",
+                "properties": {
+                  "cost": {
+                    "type": "object",
+                    "properties": {
+                      "base": {
+                        "type": "integer"
+                      },
+                      "perLevel": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "base",
+                      "perLevel"
+                    ]
+                  }
+                },
+                "required": [
+                  "cost"
+                ]
+              },
+              "stock": {
+                "type": "integer"
+              },
+              "stockKey": {
+                "type": "string"
+              },
+              "training": {
+                "type": "object",
+                "properties": {
+                  "cinders": {
+                    "type": "integer"
+                  },
+                  "perVisit": {
+                    "type": "integer"
+                  },
+                  "xp": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "cinders",
+                  "perVisit",
+                  "xp"
+                ]
+              },
+              "weight": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "chance",
+              "conditional",
+              "enabled",
+              "id",
+              "weight"
+            ]
+          }
+        },
+        "respecRefundPct": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "guaranteedMinimum",
+        "offerings",
+        "respecRefundPct"
+      ]
+    },
+    "masters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "skills": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "dualWield",
+                "item:blade",
+                "item:magic-focus",
+                "item:shield"
+              ]
+            }
+          },
+          "speakerId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "skills",
+          "speakerId"
+        ]
+      }
+    }
+  },
+  "required": [
+    "blacksmith",
+    "kindWeights",
+    "market",
+    "master",
+    "masters"
+  ]
+}

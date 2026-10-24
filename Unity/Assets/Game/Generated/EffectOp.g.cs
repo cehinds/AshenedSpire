@@ -31,6 +31,22 @@ namespace Ashen.Generated
         SwapClass = 24,
         UpgradeCard = 25,
         AddFlaskCapacity = 26,
+        GainPoise = 27,
+        GainWard = 28,
+        Buildup = 29,
+        GainBarrier = 30,
+        GrantRollMode = 31,
+        Retain = 32,
+        ModifyCards = 33,
+        WardDamage = 34,
+        GrantCardCharge = 35,
+        MoveEngagement = 36,
+        AddBurden = 37,
+        MoveCards = 38,
+        RevealIntent = 39,
+        CastLinkedSpell = 40,
+        Exhaust = 41,
+        Stagger = 42,
     }
 
     /// <summary>Wire names for EffectOp (the strings used in content).</summary>
@@ -64,6 +80,22 @@ namespace Ashen.Generated
             "swapClass",
             "upgradeCard",
             "addFlaskCapacity",
+            "gainPoise",
+            "gainWard",
+            "buildup",
+            "gainBarrier",
+            "grantRollMode",
+            "retain",
+            "modifyCards",
+            "wardDamage",
+            "grantCardCharge",
+            "moveEngagement",
+            "addBurden",
+            "moveCards",
+            "revealIntent",
+            "castLinkedSpell",
+            "exhaust",
+            "stagger",
         };
 
         public static EffectOp Parse(string wire)
@@ -96,6 +128,22 @@ namespace Ashen.Generated
                 case "swapClass": return EffectOp.SwapClass;
                 case "upgradeCard": return EffectOp.UpgradeCard;
                 case "addFlaskCapacity": return EffectOp.AddFlaskCapacity;
+                case "gainPoise": return EffectOp.GainPoise;
+                case "gainWard": return EffectOp.GainWard;
+                case "buildup": return EffectOp.Buildup;
+                case "gainBarrier": return EffectOp.GainBarrier;
+                case "grantRollMode": return EffectOp.GrantRollMode;
+                case "retain": return EffectOp.Retain;
+                case "modifyCards": return EffectOp.ModifyCards;
+                case "wardDamage": return EffectOp.WardDamage;
+                case "grantCardCharge": return EffectOp.GrantCardCharge;
+                case "moveEngagement": return EffectOp.MoveEngagement;
+                case "addBurden": return EffectOp.AddBurden;
+                case "moveCards": return EffectOp.MoveCards;
+                case "revealIntent": return EffectOp.RevealIntent;
+                case "castLinkedSpell": return EffectOp.CastLinkedSpell;
+                case "exhaust": return EffectOp.Exhaust;
+                case "stagger": return EffectOp.Stagger;
                 default: return EffectOp.None;
             }
         }
@@ -130,6 +178,22 @@ namespace Ashen.Generated
                 case EffectOp.SwapClass: return "swapClass";
                 case EffectOp.UpgradeCard: return "upgradeCard";
                 case EffectOp.AddFlaskCapacity: return "addFlaskCapacity";
+                case EffectOp.GainPoise: return "gainPoise";
+                case EffectOp.GainWard: return "gainWard";
+                case EffectOp.Buildup: return "buildup";
+                case EffectOp.GainBarrier: return "gainBarrier";
+                case EffectOp.GrantRollMode: return "grantRollMode";
+                case EffectOp.Retain: return "retain";
+                case EffectOp.ModifyCards: return "modifyCards";
+                case EffectOp.WardDamage: return "wardDamage";
+                case EffectOp.GrantCardCharge: return "grantCardCharge";
+                case EffectOp.MoveEngagement: return "moveEngagement";
+                case EffectOp.AddBurden: return "addBurden";
+                case EffectOp.MoveCards: return "moveCards";
+                case EffectOp.RevealIntent: return "revealIntent";
+                case EffectOp.CastLinkedSpell: return "castLinkedSpell";
+                case EffectOp.Exhaust: return "exhaust";
+                case EffectOp.Stagger: return "stagger";
                 default: return null;
             }
         }

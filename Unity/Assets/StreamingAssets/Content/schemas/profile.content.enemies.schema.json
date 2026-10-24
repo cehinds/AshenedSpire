@@ -1,0 +1,415 @@
+{
+  "$id": "profile/content/enemies.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "arcaneExposure": {
+        "type": "object",
+        "properties": {
+          "buildupMultiplier": {
+            "type": "integer"
+          },
+          "lockPolicy": {
+            "type": "string"
+          },
+          "mode": {
+            "type": "string"
+          },
+          "onBreak": {
+            "type": "object",
+            "properties": {
+              "duration": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              },
+              "value": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "duration",
+              "status",
+              "value"
+            ]
+          },
+          "overflowPolicy": {
+            "type": "string"
+          },
+          "resetMode": {
+            "type": "string"
+          },
+          "threshold": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      },
+      "art": {
+        "type": "string"
+      },
+      "artFaces": {
+        "type": "string",
+        "enum": [
+          "left"
+        ]
+      },
+      "attributePriority": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "constitution",
+            "dexterity",
+            "intelligence",
+            "strength",
+            "wisdom"
+          ]
+        }
+      },
+      "attributes": {
+        "type": "object",
+        "properties": {
+          "wisdom": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "wisdom"
+        ]
+      },
+      "blighted": {
+        "type": "boolean"
+      },
+      "cardHints": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "aiWeight": {
+              "type": "integer"
+            },
+            "costSource": {
+              "type": "string",
+              "enum": [
+                "authored",
+                "healRules",
+                "stance"
+              ]
+            },
+            "delay": {
+              "type": "object",
+              "properties": {
+                "turns": {
+                  "type": "integer"
+                },
+                "whileCharging": {
+                  "type": "object",
+                  "properties": {
+                    "block": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "block"
+                  ]
+                }
+              },
+              "required": [
+                "turns",
+                "whileCharging"
+              ]
+            },
+            "legacyMove": {
+              "type": "string"
+            },
+            "maxConsecutive": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "aiWeight",
+            "costSource",
+            "legacyMove"
+          ]
+        }
+      },
+      "defaultDeck": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "defaultGear": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "armor.gutterLeathers",
+                "armor.nightweave",
+                "armor.wayfarerPlate",
+                "ashStaff",
+                "battleaxe",
+                "cinderAxe",
+                "dagger",
+                "greatsword",
+                "halberd",
+                "parryDagger",
+                "towerShield"
+              ]
+            },
+            "key": {
+              "type": "string",
+              "enum": [
+                "armor",
+                "mainHand",
+                "offHand"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "key"
+          ]
+        }
+      },
+      "defaultRelics": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "enum": [
+                "enemy.relic.ashenBlightCore",
+                "enemy.relic.ashenCore",
+                "enemy.relic.graveSeal",
+                "enemy.relic.titanHeart"
+              ]
+            },
+            "key": {
+              "type": "string",
+              "enum": [
+                "relic1"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "key"
+          ]
+        }
+      },
+      "firstCard": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "levelProfile": {
+        "type": "object",
+        "properties": {
+          "max": {
+            "type": "integer"
+          },
+          "min": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "max",
+          "min"
+        ]
+      },
+      "name": {
+        "type": "string"
+      },
+      "phases": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "do": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "op": {
+                    "type": "string",
+                    "enum": [
+                      "applyStatus",
+                      "heal"
+                    ]
+                  },
+                  "rule": {
+                    "type": "string"
+                  },
+                  "stacks": {
+                    "type": "integer"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "crimsonBlight",
+                      "frail",
+                      "strength",
+                      "weak"
+                    ]
+                  },
+                  "target": {
+                    "type": "string",
+                    "enum": [
+                      "enemy",
+                      "self"
+                    ]
+                  }
+                },
+                "required": [
+                  "op",
+                  "target"
+                ]
+              }
+            },
+            "if": {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "p"
+              ]
+            },
+            "on": {
+              "type": "string",
+              "enum": [
+                "damageDealt",
+                "hpBelowPct"
+              ]
+            },
+            "once": {
+              "type": "boolean"
+            },
+            "pct": {
+              "type": "integer"
+            },
+            "unlockCards": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "ashheartDragon.ashBreath",
+                  "bellKeeper.crackedPeal",
+                  "blightedValkyrie.scarletDance",
+                  "fellWarden.twinDaggers",
+                  "glassRegent.shatteredCourt",
+                  "hollowAstronomer.fallingHeavens",
+                  "stitchedKing.thousandHands"
+                ]
+              }
+            }
+          },
+          "required": [
+            "do",
+            "on"
+          ]
+        }
+      },
+      "poiseMax": {
+        "type": "integer"
+      },
+      "rangeClosingMove": {
+        "type": "string",
+        "enum": [
+          "advance"
+        ]
+      },
+      "rangeRoutePolicy": {
+        "type": "string",
+        "enum": [
+          "advance"
+        ]
+      },
+      "size": {
+        "type": "string",
+        "enum": [
+          "large",
+          "medium",
+          "small"
+        ]
+      },
+      "startingRange": {
+        "type": "string",
+        "enum": [
+          "melee",
+          "reach"
+        ]
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "character.enemy",
+            "tier.boss",
+            "tier.elite",
+            "tier.minion"
+          ]
+        }
+      },
+      "tier": {
+        "type": "string",
+        "enum": [
+          "boss",
+          "elite",
+          "minion"
+        ]
+      },
+      "tint": {
+        "type": "string"
+      },
+      "unlockCards": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "ashheartDragon.ashBreath",
+            "bellKeeper.crackedPeal",
+            "blightedValkyrie.scarletDance",
+            "fellWarden.twinDaggers",
+            "glassRegent.shatteredCourt",
+            "hollowAstronomer.fallingHeavens",
+            "stitchedKing.thousandHands"
+          ]
+        }
+      }
+    },
+    "required": [
+      "art",
+      "attributePriority",
+      "cardHints",
+      "defaultDeck",
+      "defaultGear",
+      "defaultRelics",
+      "id",
+      "levelProfile",
+      "name",
+      "poiseMax",
+      "rangeClosingMove",
+      "rangeRoutePolicy",
+      "size",
+      "startingRange",
+      "tags",
+      "tier"
+    ]
+  }
+}

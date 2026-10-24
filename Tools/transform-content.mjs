@@ -14,8 +14,8 @@ const RAW = join(ROOT, 'Tools', 'export', 'raw');
 const CONTENT = join(ROOT, 'Unity', 'Assets', 'StreamingAssets', 'Content');
 const CONFIG = JSON.parse(readFileSync(join(ROOT, 'Tools', 'transform.config.json'), 'utf8'));
 const CHECK = process.argv.includes('--check');
-const GENERATED_DIRS = ['catalog', 'balance', 'rules', 'tags', 'strings', 'settings/presets', 'audio', 'ui'];
-const HAND_WRITTEN = new Set(['ui/screens.json', 'ui/menus.json', 'ui/layout.json', 'ui/tokens.json', 'ui/components.json', 'audio/contexts.json', 'settings/defaults.json', 'about.json', 'rules/effectOps.json', 'rules/validation.json', 'rules/rng.json', 'rules/saves.json', 'assets/registry.json', 'strings/app.en.json', 'audio/synth.json', 'rules/combatEngine.json', 'strings/combat.en.json', 'rules/runEngine.json', 'rules/mapEngine.json', 'rules/rewardsEngine.json', 'rules/runFlow.json', 'rules/shopEngine.json', 'strings/shop.en.json', 'rules/eventsEngine.json', 'strings/events.en.json', 'rules/loopEngine.json', 'ui/nodes.json', 'strings/nodes.en.json', 'strings/meta.en.json', 'ui/meta.json', 'ui/prologue.json', 'audio/beds.json', 'settings/webKeyMap.json']);
+const GENERATED_DIRS = ['catalog', 'balance', 'rules', 'tags', 'strings', 'settings/presets', 'audio', 'ui', 'profile', 'profile/bundle', 'profile/content'];
+const HAND_WRITTEN = new Set(['ui/screens.json', 'ui/menus.json', 'ui/layout.json', 'ui/tokens.json', 'ui/components.json', 'audio/contexts.json', 'settings/defaults.json', 'about.json', 'rules/effectOps.json', 'rules/validation.json', 'rules/rng.json', 'rules/saves.json', 'assets/registry.json', 'strings/app.en.json', 'audio/synth.json', 'rules/combatEngine.json', 'strings/combat.en.json', 'rules/runEngine.json', 'rules/mapEngine.json', 'rules/rewardsEngine.json', 'rules/runFlow.json', 'rules/shopEngine.json', 'strings/shop.en.json', 'rules/eventsEngine.json', 'strings/events.en.json', 'rules/loopEngine.json', 'ui/nodes.json', 'strings/nodes.en.json', 'strings/meta.en.json', 'ui/meta.json', 'ui/prologue.json', 'ui/art.json', 'audio/beds.json', 'settings/webKeyMap.json', 'rules/core2Vocabulary.json', 'rules/core2Run.json', 'rules/core2Combat.json', 'rules/core2Deck.json']);
 
 const fail = (m) => { console.error(`transform: ${m}`); process.exit(1); };
 const readRaw = (name) => {
@@ -48,6 +48,11 @@ function at(roots, path) {
   for (const seg of rest) { if (cur == null) return undefined; cur = cur[seg]; }
   return cur;
 }
+// A key part ending in '?' is optional: a row without it contributes an empty part (so rows with and without it stay distinct).
+function rowKey(t, row) {
+  const parts = t.key.map(k => (k.endsWith('?') ? row[k.slice(0, -1)] ?? '' : row[k]));
+  return parts.some(p => p == null) ? '' : parts.join(':');
+}
 function deepClone(v) { return v === undefined ? undefined : JSON.parse(JSON.stringify(v)); }
 
 // ---------- build one content set from a bundle ----------
@@ -70,8 +75,8 @@ function build(bundle, extras) {
     const order = [];
     for (const src of rows) {
       const row = deepClone(src);
-      const key = t.key.map(k => row[k]).join(':');
-      if (!key || t.key.some(k => row[k] == null)) fail(`${t.out}: row without key ${t.key.join('+')}`);
+      const key = rowKey(t, row);
+      if (!key) fail(`${t.out}: row without key ${t.key.join('+')}`);
       if (key in table) fail(`${t.out}: duplicate key "${key}"`);
       const keys = Object.keys(row);
       const anchors = {};
@@ -110,6 +115,56 @@ function build(bundle, extras) {
   for (const row of us) for (const f of CONFIG.uiStrings.fields) if (typeof row[f] === 'string') strings[`${CONFIG.uiStrings.prefix}.${row.id}.${f}`] = row[f];
   files['strings/en.json'] = strings;
   return { files, counts };
+}
+
+// ---------- the Core 2 profile (docs/design/11 2.2): tables and documents under profile/ and rules/ ----------
+// Same row semantics as build(), over the root 'core2' (Tools/export/raw/core2). No text is extracted: rows keep their
+// display fields until the work package that shows them moves them into the string tables.
+function buildCore2(core2) {
+  const roots = { core2 };
+  const files = {}, counts = {}, rowOrder = {};
+  for (const t of CONFIG.core2.tables) {
+    const rows = at(roots, t.from);
+    if (!Array.isArray(rows)) fail(`${t.from} is not an array`);
+    if (t.list) { files[t.out] = { rows: deepClone(rows) }; counts[t.out] = rows.length; continue; }
+    const table = {}, order = [];
+    for (const src of rows) {
+      const row = deepClone(src);
+      const key = rowKey(t, row);
+      if (!key) fail(`${t.out}: row without key ${t.key.join('+')}`);
+      if (key in table) fail(`${t.out}: duplicate key "${key}"`);
+      table[key] = row;
+      order.push(key);
+    }
+    files[t.out] = table;
+    rowOrder[t.out] = order; // D-040: an array, because integer-like keys would reorder an object's keys
+    counts[t.out] = Object.keys(table).length;
+  }
+  for (const o of CONFIG.core2.objects) {
+    let v = deepClone(at(roots, o.from));
+    if (v == null) fail(`${o.from} not found`);
+    if (o.pick) v = Object.fromEntries(o.pick.map(k => [k, v[k]]));
+    if (o.omit) for (const k of o.omit) delete v[k];
+    files[o.out] = v;
+  }
+  return { files, counts, rowOrder };
+}
+// Raw Core 2 export -> the 'core2' root: { bundle, profile, extras, rules: { <name>: ... } }.
+function readCore2() {
+  const dir = join(RAW, 'core2');
+  if (!existsSync(join(dir, 'summary.json'))) fail('missing Tools/export/raw/core2 — run node Tools/export-content.mjs first (it exports the Core 2 profile by default)');
+  const summary = JSON.parse(readFileSync(join(dir, 'summary.json'), 'utf8'));
+  const sources = JSON.parse(readFileSync(join(ROOT, 'Tools', 'export', 'sources.json'), 'utf8'));
+  if (!summary.webSha.startsWith(sources.core2.webSha)) fail(`raw/core2 was exported from ${summary.webShaShort}, but sources.json pins ${sources.core2.webSha} — re-run the export`);
+  const rules = {};
+  for (const f of readdirSync(join(dir, 'rules')).filter(f => f.endsWith('.json'))) rules[f.replace(/\.json$/, '')] = JSON.parse(readFileSync(join(dir, 'rules', f), 'utf8'));
+  // combatCardTraits.CARD_TRAIT_RULES and reactionRulesSnapshot() are one table; only the snapshot is shipped (rules/reactionRules.json).
+  const extras = JSON.parse(readFileSync(join(dir, 'extras.json'), 'utf8'));
+  if (JSON.stringify(extras.combatCardTraits?.CARD_TRAIT_RULES) !== JSON.stringify(rules.reactionRules)) fail('combatCardTraits.CARD_TRAIT_RULES differs from the reaction rules snapshot');
+  return {
+    summary, sources,
+    core2: { bundle: JSON.parse(readFileSync(join(dir, 'bundle.shipped.json'), 'utf8')), profile: JSON.parse(readFileSync(join(dir, 'profile.json'), 'utf8')), extras, rules },
+  };
 }
 
 // ---------- RFC 7386 merge-patch diff ----------
@@ -160,10 +215,27 @@ const outOfRange = existsSync(join(RAW, 'reference.outOfRange.json')) ? readRaw(
 
 const base = build(shipped, extras);
 const ref = build(reference, extras);
+const c2 = readCore2();
+const core2 = buildCore2(c2.core2);
+Object.assign(base.files, core2.files);
+Object.assign(base.counts, core2.counts);
+Object.assign(base.files['rules/rowOrder.json'], core2.rowOrder);
+Object.assign(ref.files, core2.files); // the reference preset patches the legacy tables only
+Object.assign(ref.files['rules/rowOrder.json'], core2.rowOrder);
 
-// Count gate (docs/design/09 §4 step 3)
+// Count gate (docs/design/09 §4 step 3): the legacy tables stay at the 405 export; the Core 2 tables are frozen from the first clean export at the pin
 const countErrors = Object.entries(CONFIG.expectedCounts).filter(([f, n]) => base.counts[f] !== n).map(([f, n]) => `${f}: expected ${n}, got ${base.counts[f]}`);
 if (countErrors.length) fail(`count gate failed:\n  ${countErrors.join('\n  ')}`);
+
+// rules/rng.json is hand-written: `streams` is the 405 list (the run, combat and map documents record every stream's counter), and
+// `core2Streams` carries the rest of the web's list in the web's order (a stream's values come from its name, not its position).
+const rngPath = join(CONTENT, 'rules', 'rng.json');
+if (existsSync(rngPath)) {
+  const rng = JSON.parse(readFileSync(rngPath, 'utf8'));
+  const have = [...rng.streams, ...(rng.core2Streams || [])];
+  const web = c2.core2.rules.rng.streams;
+  if (JSON.stringify(have) !== JSON.stringify(web)) fail(`rules/rng.json streams + core2Streams must equal the web's STREAM_NAMES at ${c2.summary.webShaShort}:\n  ${web.join(', ')}`);
+}
 
 // Presets
 const refFiles = {};
@@ -197,7 +269,8 @@ for (const rel of handWritten) {
 }
 for (const path of Object.keys(rendered).sort()) manifestFiles[path] = { sha256: sha256(rendered[path]), bytes: Buffer.byteLength(rendered[path]), generated: !handWritten.has(path) };
 const contentHash = sha256(Object.keys(manifestFiles).sort().map(p => `${p}:${manifestFiles[p].sha256}`).join('\n'));
-const manifest = { schemaVersion: 1, contentVersion: CONFIG.contentVersion, contentHash, counts: base.counts, files: manifestFiles };
+const webSources = { legacy: c2.sources.legacy.sha, core2: c2.summary.webShaShort, profileId: c2.summary.profileId, profileHash: c2.summary.profileHash };
+const manifest = { schemaVersion: 1, contentVersion: CONFIG.contentVersion, contentHash, counts: base.counts, webSources, files: manifestFiles };
 rendered['manifest.json'] = sortedCanonical(manifest);
 
 if (CHECK) {

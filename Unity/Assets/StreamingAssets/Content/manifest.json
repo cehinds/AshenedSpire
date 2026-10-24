@@ -1,5 +1,5 @@
 {
-  "contentHash": "9a86bffdbe43c4874fb0b3db5c6dc8566f490545db5c43fa113c348817e27fac",
+  "contentHash": "68269c6ab8b9c42880cde1176eb9dbd1414c6798b8ca761706e954022e5deec1",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -29,6 +29,57 @@
     "catalog/statuses.json": 50,
     "catalog/unlocks.json": 18,
     "catalog/weaponCardPackages.json": 28,
+    "profile/bundle/armaments.json": 28,
+    "profile/bundle/armour.json": 35,
+    "profile/bundle/atlasQuests.json": 6,
+    "profile/bundle/attributes.json": 5,
+    "profile/bundle/basicCardProfiles.json": 17,
+    "profile/bundle/cardExposure.json": 230,
+    "profile/bundle/cardTagging.json": 304,
+    "profile/bundle/cards.json": 529,
+    "profile/bundle/classMastery.json": 229,
+    "profile/bundle/classSkillFeats.json": 70,
+    "profile/bundle/classTree.json": 40,
+    "profile/bundle/classes.json": 4,
+    "profile/bundle/companions.json": 2,
+    "profile/bundle/consumables.json": 11,
+    "profile/bundle/creationModes.json": 6,
+    "profile/bundle/encounters.json": 35,
+    "profile/bundle/enemies.json": 33,
+    "profile/bundle/enemyMoves.json": 138,
+    "profile/bundle/equipmentRequirements.json": 0,
+    "profile/bundle/events.json": 25,
+    "profile/bundle/familyNodes.json": 130,
+    "profile/bundle/flasks.json": 7,
+    "profile/bundle/itemUpgradeChanges.json": 152,
+    "profile/bundle/keywords.json": 5,
+    "profile/bundle/nodeRelations.json": 27,
+    "profile/bundle/nodeTerms.json": 172,
+    "profile/bundle/nodeVariables.json": 197,
+    "profile/bundle/nodes.json": 464,
+    "profile/bundle/propertyRules.json": 182,
+    "profile/bundle/relics.json": 73,
+    "profile/bundle/resources.json": 3,
+    "profile/bundle/seats.json": 3,
+    "profile/bundle/sigils.json": 7,
+    "profile/bundle/speakers.json": 5,
+    "profile/bundle/stances.json": 3,
+    "profile/bundle/startingKits.json": 8,
+    "profile/bundle/statuses.json": 101,
+    "profile/bundle/tagDomains.json": 28,
+    "profile/bundle/tagFamilies.json": 21,
+    "profile/bundle/tagFamilyDomains.json": 130,
+    "profile/bundle/tagging.json": 4708,
+    "profile/bundle/tags.json": 436,
+    "profile/bundle/unlocks.json": 18,
+    "profile/bundle/variableBindings.json": 197,
+    "profile/content/cards.json": 211,
+    "profile/content/characters.json": 37,
+    "profile/content/classes.json": 4,
+    "profile/content/enemies.json": 33,
+    "profile/content/enemyCards.json": 138,
+    "profile/content/enemyRelics.json": 6,
+    "profile/content/gear.json": 47,
     "tags/familyNodes.json": 90,
     "tags/nodeRelations.json": 27,
     "tags/nodeTerms.json": 82,
@@ -49,9 +100,9 @@
       "sha256": "5d663083f183f94bfbe6bdb4be634f791e64ad52754c505e3bb53f920cf81267"
     },
     "assets/registry.json": {
-      "bytes": 1895183,
+      "bytes": 2337901,
       "generated": false,
-      "sha256": "7b306db8a3177f91793d8911881bb6d36bd44c2d0f21b10420e159333d6a9214"
+      "sha256": "4ec4d727fdda0c7e32316521a4c06dd6dcced01ca9cac0e7aa8579471bf04175"
     },
     "audio/beds.json": {
       "bytes": 1990,
@@ -273,20 +324,510 @@
       "generated": true,
       "sha256": "28a3e5bc115c897eabfd655d493c575b292bcba4ec9385041fe22e24a468ae34"
     },
+    "profile/bundle/armaments.json": {
+      "bytes": 31699,
+      "generated": true,
+      "sha256": "523c966e81213a09b7eee97d3bec23f986e8ae30e45b56276c59ca16fc54a552"
+    },
+    "profile/bundle/armour.json": {
+      "bytes": 19758,
+      "generated": true,
+      "sha256": "4eb8f191aab8cd27e483638940bd5c2dff5fa64e5f060356bac2886f06b5c993"
+    },
+    "profile/bundle/atlasQuests.json": {
+      "bytes": 1864,
+      "generated": true,
+      "sha256": "0e486e3b31d7617a4c8795507ecd5be92c2a2cdca2ceb16901b2fc88af120276"
+    },
+    "profile/bundle/attributeRules.json": {
+      "bytes": 3847,
+      "generated": true,
+      "sha256": "1947e367cd5865d33f309fb90eab83b2878555599ae04ce34f1282aa6544597a"
+    },
+    "profile/bundle/attributes.json": {
+      "bytes": 1030,
+      "generated": true,
+      "sha256": "7c2f32bd24d04dc3a8273c5d91861b2579612990dd8968c9074431bf995734a1"
+    },
+    "profile/bundle/balance.json": {
+      "bytes": 53733,
+      "generated": true,
+      "sha256": "71b6aa43e54073ac57b4b7fa2074cf7ec4bfbed2bc557424d07387d028a89811"
+    },
+    "profile/bundle/basicCardProfiles.json": {
+      "bytes": 10817,
+      "generated": true,
+      "sha256": "5a19eb2e746c2824b463c17db4e68bb64b5e8bfe3242f6b025906f87162b7208"
+    },
+    "profile/bundle/bossDestinations.json": {
+      "bytes": 428,
+      "generated": true,
+      "sha256": "1a4112f278c45960104c893003e00fb0d519dffa4aa6f98bbc17cbb781bdbc58"
+    },
+    "profile/bundle/cardExposure.json": {
+      "bytes": 26631,
+      "generated": true,
+      "sha256": "aee50b5ca2b6734ce728853659fa93a8497bcc1ac636d275dd3079c3e93ff2cc"
+    },
+    "profile/bundle/cardTagging.json": {
+      "bytes": 72130,
+      "generated": true,
+      "sha256": "b51a02f42083191ed8df9865089903093203e6e28f89fb9625a5cd015ab26dcc"
+    },
+    "profile/bundle/cards.json": {
+      "bytes": 903292,
+      "generated": true,
+      "sha256": "b0ec5ca6a924e13963f54d6f353fbe6502bbc5d6b434efd26cd4d8fd5a9d10b2"
+    },
+    "profile/bundle/characterCreation.json": {
+      "bytes": 3539,
+      "generated": true,
+      "sha256": "ada825215dd2ccb089184e7f09c699aec51f64ab28f40b666ca1bf33a37b7a9c"
+    },
+    "profile/bundle/classMastery.json": {
+      "bytes": 33871,
+      "generated": true,
+      "sha256": "f8e4dd1f70714d8b4f076ad4492026e81439e1c606d4890ddd0ff26ae72b263c"
+    },
+    "profile/bundle/classSkillFeats.json": {
+      "bytes": 19979,
+      "generated": true,
+      "sha256": "fb01cc4213222d57978f94312c35c4b57d3157400f2dfbdac9149492168ca2e9"
+    },
+    "profile/bundle/classTree.json": {
+      "bytes": 3903,
+      "generated": true,
+      "sha256": "660cad8c33a2fbe640e6530df0dd42ead62ee9466e1bfb32bb1c468b651b1b72"
+    },
+    "profile/bundle/classes.json": {
+      "bytes": 14806,
+      "generated": true,
+      "sha256": "69f8ea7f18d3ae98834ca4f94e5675c15169f41811e868f491bdd98f0acdfcc9"
+    },
+    "profile/bundle/companions.json": {
+      "bytes": 419,
+      "generated": true,
+      "sha256": "7904dd59acdbab3c7597a9ae29259445c97035553e8be05221223b9a84c02fb3"
+    },
+    "profile/bundle/consumables.json": {
+      "bytes": 4928,
+      "generated": true,
+      "sha256": "a0710f776662f2bd23a2110a1395290b6f4831d3b8ae3d17bb17a4418728af08"
+    },
+    "profile/bundle/creationModes.json": {
+      "bytes": 1296,
+      "generated": true,
+      "sha256": "82ca671a19fbf926d0c08375c44801e9ac0ab65d4e6c69b040d7b8efdb15b262"
+    },
+    "profile/bundle/derivedStatRules.json": {
+      "bytes": 3742,
+      "generated": true,
+      "sha256": "e4cd73b8e5e4f0d491d45c21516a41da26c422c4cb137f9698838fcabda85f71"
+    },
+    "profile/bundle/encounters.json": {
+      "bytes": 9903,
+      "generated": true,
+      "sha256": "b8af428f8e64dc6dff4fef476c86c3e31ac8fec6fe114725783ec31f43bf141b"
+    },
+    "profile/bundle/enemies.json": {
+      "bytes": 52437,
+      "generated": true,
+      "sha256": "cb2b73e2624f7117475df6c7d10d12c8dfe2478fc96420600b714ff41922166c"
+    },
+    "profile/bundle/enemyMoves.json": {
+      "bytes": 33509,
+      "generated": true,
+      "sha256": "c46ed96bea3de1d59bb9334341079ea2750fa6cab669e3f23929a6f157ab1434"
+    },
+    "profile/bundle/equipmentMeta.json": {
+      "bytes": 9472,
+      "generated": true,
+      "sha256": "ef3e987dea0f11bfdf4369da33386bd0566310a48d9fd1a39d62e4e92c17f4ca"
+    },
+    "profile/bundle/equipmentRequirements.json": {
+      "bytes": 17,
+      "generated": true,
+      "sha256": "fb2989323b717f2e869a06272d8ee4b35b4e516d6a555f4ce3d19f9ee3606ff0"
+    },
+    "profile/bundle/equipmentSlots.json": {
+      "bytes": 2339,
+      "generated": true,
+      "sha256": "d3e5c91217ea22827cc6f985f1873ca491b76fedc9591df2225ec4bc9dec8cfa"
+    },
+    "profile/bundle/eventMeta.json": {
+      "bytes": 4050,
+      "generated": true,
+      "sha256": "39e6955bfdc83c2f97c6204e7ba876141376a9b968662349ccd61aec5577e108"
+    },
+    "profile/bundle/events.json": {
+      "bytes": 31732,
+      "generated": true,
+      "sha256": "ef47f40c6229d8f018d7cebdbd1b4eac24cf4769d3b6677cce8474aa55975ae1"
+    },
+    "profile/bundle/familyNodes.json": {
+      "bytes": 10441,
+      "generated": true,
+      "sha256": "59f584063601114227a9cfdf06c9aba731817cb3edb56168dcccc827d9f54a9b"
+    },
+    "profile/bundle/flasks.json": {
+      "bytes": 3003,
+      "generated": true,
+      "sha256": "de79377a3cf4dcfedc717575891c3572c93bd77d80dbd1a540c0e92690f968b3"
+    },
+    "profile/bundle/itemUpgradeChanges.json": {
+      "bytes": 20395,
+      "generated": true,
+      "sha256": "7d5d9d1a539ec595b0b8e61de5a7a1796b0586361dcfc9ed7f207cbc771fa44e"
+    },
+    "profile/bundle/keywords.json": {
+      "bytes": 669,
+      "generated": true,
+      "sha256": "78fe0f23c0213dfd69b0f073f45e77eeda5c66e0af40f855a4f192a56ac7d95e"
+    },
+    "profile/bundle/legacyProgression.json": {
+      "bytes": 686989,
+      "generated": true,
+      "sha256": "7ecf9b0ec8dc400947a8b549b7688727e6d5aa7853979008e50eeb3cbac9a7c5"
+    },
+    "profile/bundle/mapConfigs.json": {
+      "bytes": 2511,
+      "generated": true,
+      "sha256": "ace3b7ed4bf54c118927e0df5e38b3c1e35123be86cb7194657d00d3e60de7c3"
+    },
+    "profile/bundle/nodeEffects.json": {
+      "bytes": 97145,
+      "generated": true,
+      "sha256": "c572eca78ebe8cdd84679e87ed3b3a705e29ed7807e6d4410fb6ce29a6e877a7"
+    },
+    "profile/bundle/nodeRelations.json": {
+      "bytes": 3996,
+      "generated": true,
+      "sha256": "23727512c5b3793686e607cf98c005cc6c2af35004227b352fb00dcc2e1c7dff"
+    },
+    "profile/bundle/nodeTerms.json": {
+      "bytes": 31689,
+      "generated": true,
+      "sha256": "a41c70e17ec022133ad507c1b5ff8424ce7f855c7b1e971b0dd077f33af3bab4"
+    },
+    "profile/bundle/nodeVariables.json": {
+      "bytes": 19578,
+      "generated": true,
+      "sha256": "9b7584c440d75f58eff692b08100a6e7079213f9a37e7c40d4780c512624105a"
+    },
+    "profile/bundle/nodes.json": {
+      "bytes": 141761,
+      "generated": true,
+      "sha256": "f3aa9d42f7c7c6ed1a1e2b41beb77d132698e20ac5886477f7b234dca64fb83c"
+    },
+    "profile/bundle/progressionModuleOwnership.json": {
+      "bytes": 3466,
+      "generated": true,
+      "sha256": "20bbb70487ab1f7b3d1435fc1e1d6d408d5faca10f705a7098c32bd258ea4b23"
+    },
+    "profile/bundle/propertyRules.json": {
+      "bytes": 120409,
+      "generated": true,
+      "sha256": "d28bab537ea95b9c7252a7ae66da5c30adf522ddf20bad7e402cbb3ffc2d855d"
+    },
+    "profile/bundle/proposalStatusRules.json": {
+      "bytes": 10730,
+      "generated": true,
+      "sha256": "cdf3161d58edf04a1f7c5bb186fe3b4f75cece31eba70bcc4d3d9ae45e6964df"
+    },
+    "profile/bundle/relics.json": {
+      "bytes": 22644,
+      "generated": true,
+      "sha256": "755f692af2df60589e75378bc268dcce136a8b926688823384ffebc9a4221909"
+    },
+    "profile/bundle/resources.json": {
+      "bytes": 666,
+      "generated": true,
+      "sha256": "7c0abd7844284c684cfbb16e7053a0bf67e4862f1bfdcdd69d38ffe172cdfe6b"
+    },
+    "profile/bundle/seats.json": {
+      "bytes": 364,
+      "generated": true,
+      "sha256": "8ce5665d055a9509a918a740a993b511331cfc8dcc255e63265a5123be7c40a4"
+    },
+    "profile/bundle/shops.json": {
+      "bytes": 6504,
+      "generated": true,
+      "sha256": "d5a530f5faab4055fefcf6c21620877da102ae6a65931fdc22710ec714ae4785"
+    },
+    "profile/bundle/sigils.json": {
+      "bytes": 1422,
+      "generated": true,
+      "sha256": "61234ccb838df64c16b173e1ccb4c36f5e54856b13ce34f91ced68e6e44094c4"
+    },
+    "profile/bundle/speakers.json": {
+      "bytes": 569,
+      "generated": true,
+      "sha256": "e0ff0ded324f4a015db0925da9f2f4c6272ae2ebbce62f0bd02071ad9ed1d212"
+    },
+    "profile/bundle/stances.json": {
+      "bytes": 1938,
+      "generated": true,
+      "sha256": "233649f73902aa0a598043946cfd4ce34a94db9f2061eae31dd39aa2d312e829"
+    },
+    "profile/bundle/startingKits.json": {
+      "bytes": 1526,
+      "generated": true,
+      "sha256": "cf497ac5e0c8921c139d906125982221f2b0190bac04f71ed7befdcb3afa9d9e"
+    },
+    "profile/bundle/statuses.json": {
+      "bytes": 44830,
+      "generated": true,
+      "sha256": "894abe3353b1132eec8f93a8b059efcb3604f4a6e34302c91571a8dd7603389d"
+    },
+    "profile/bundle/tagDomains.json": {
+      "bytes": 4678,
+      "generated": true,
+      "sha256": "c7a11da67486391c6e4c83554fc225cefa8c7ba9f85a8269a22c3747ec5ae793"
+    },
+    "profile/bundle/tagFamilies.json": {
+      "bytes": 4296,
+      "generated": true,
+      "sha256": "b3fd06c20fd618ed7de42fd93f5591093f86b9a7a98852042dd882a9f369ed7e"
+    },
+    "profile/bundle/tagFamilyDomains.json": {
+      "bytes": 10441,
+      "generated": true,
+      "sha256": "5cd38212ae8f2bdb17bc57f051f1a02898b523fde3e2a651e3fc4be58885a78b"
+    },
+    "profile/bundle/tagging.json": {
+      "bytes": 726238,
+      "generated": true,
+      "sha256": "67f1b83df0e9263507b04bcb142bc9ba0d7319c6831f139f968276df8eba038c"
+    },
+    "profile/bundle/tags.json": {
+      "bytes": 109009,
+      "generated": true,
+      "sha256": "9a3441692bf7cbf4fa959d6289543ccc1407ef8075f364c6ddb7578a2b988ef7"
+    },
+    "profile/bundle/unlocks.json": {
+      "bytes": 4313,
+      "generated": true,
+      "sha256": "da8c8869adca6b5f6bd3a9bd286e1ffb30881f6d956175aa66232177e180d145"
+    },
+    "profile/bundle/variableBindings.json": {
+      "bytes": 35226,
+      "generated": true,
+      "sha256": "f0f2413eeae32900dae7b50be15f36b412fdbc0ee35772827c3906e7d70a2676"
+    },
+    "profile/content/baseCardAdmission.json": {
+      "bytes": 2883,
+      "generated": true,
+      "sha256": "b058db1246c484b8a7450ed305e0d62a8d7d734c9c21953a1bfd97dc3c4d1d2d"
+    },
+    "profile/content/baseCardGroups.json": {
+      "bytes": 3726,
+      "generated": true,
+      "sha256": "06a4c167b6839366827b9bef04d150433d1ae71f1669b1692474eab42754335e"
+    },
+    "profile/content/baseCardSourceManifest.json": {
+      "bytes": 10889,
+      "generated": true,
+      "sha256": "9efd6459d25589defbc233a9dd8f1a7ab0dee876e2496dee5c4f85044f036384"
+    },
+    "profile/content/baseCardStatusSource.json": {
+      "bytes": 20939,
+      "generated": true,
+      "sha256": "ef5cce0114259ffb2cb1d8bd3e0265d7ae08cf56c09f5413c67cebc48162d1a9"
+    },
+    "profile/content/baseCardVariants.json": {
+      "bytes": 26864,
+      "generated": true,
+      "sha256": "e7681442ff875bec24f3c11e2dd1059f56479ebc24c49237aec5fdca0d014cc3"
+    },
+    "profile/content/baseCards.json": {
+      "bytes": 309358,
+      "generated": true,
+      "sha256": "f941012798ecad458dc66ae4d7b3d2c9d62d48ed3304a5155f4050192b476f36"
+    },
+    "profile/content/cardPools.json": {
+      "bytes": 1122,
+      "generated": true,
+      "sha256": "a653b0558daa4ce59eefe8998ca4cefcadb7f71a416359f4d70b8c8773258d9f"
+    },
+    "profile/content/cards.json": {
+      "bytes": 156782,
+      "generated": true,
+      "sha256": "2ce4e35e49178ddcc2387bc9c6c3614fca626f90e911b2a45a5568357157cfa8"
+    },
+    "profile/content/characters.json": {
+      "bytes": 69761,
+      "generated": true,
+      "sha256": "6ce457e07280435fbf6a801a9194e65098a7bdccd951d5d9709b45a1b75c3e72"
+    },
+    "profile/content/classAttributes.json": {
+      "bytes": 484,
+      "generated": true,
+      "sha256": "68640ea3a9896773d828dafc8fefc61cde5f579667ff6546476e7db33bcda88f"
+    },
+    "profile/content/classUnlocks.json": {
+      "bytes": 158,
+      "generated": true,
+      "sha256": "6bf334db586e45c292b8a68aaa02b57bd2c655f38717721ff636d1b4bf309724"
+    },
+    "profile/content/classes.json": {
+      "bytes": 2734,
+      "generated": true,
+      "sha256": "a486598991f8c46055da227a5a8055f253f2a42b55f089b3a9e678def61ec175"
+    },
+    "profile/content/enemies.json": {
+      "bytes": 60749,
+      "generated": true,
+      "sha256": "52f30e99f6dbe1ede723886eb52efc14fd1ba4b4de504f367a7f7846c8a0f463"
+    },
+    "profile/content/enemyCards.json": {
+      "bytes": 85815,
+      "generated": true,
+      "sha256": "65a2622a3dd4cdd94f8a692424c9b4af78a8c3b3efd5a0553ce22ae46417aca7"
+    },
+    "profile/content/enemyCardsMerged.json": {
+      "bytes": 5,
+      "generated": true,
+      "sha256": "a17fcf0a2f50e2d495e4f90ce263410edc183add6c62699a2facbccf60410f74"
+    },
+    "profile/content/enemyRelics.json": {
+      "bytes": 1319,
+      "generated": true,
+      "sha256": "f10d536c0b13d0bfed9b723c586e357908767d2024fa85156b051d16b98728d2"
+    },
+    "profile/content/gear.json": {
+      "bytes": 16860,
+      "generated": true,
+      "sha256": "46e4da63d4a2310070ea13a889e61ce3ce4da9fc964cdc90395f80710daadbb2"
+    },
+    "profile/content/provisionalPolicies.json": {
+      "bytes": 2765,
+      "generated": true,
+      "sha256": "1c86fe782a27bf8902acf8c7f1922c21b440f95cc6302d38d4424207c6c56c52"
+    },
+    "profile/content/resourceVariants.json": {
+      "bytes": 81681,
+      "generated": true,
+      "sha256": "22902f1715d0ad817474d4710165d8bdb35a557695994157006155d4d15046cf"
+    },
+    "profile/content/rests.json": {
+      "bytes": 268,
+      "generated": true,
+      "sha256": "685106a3036fff4e608320b17c105a17e6b548607403acfe822be6a655cd6283"
+    },
+    "profile/content/rewards.json": {
+      "bytes": 4008,
+      "generated": true,
+      "sha256": "bb9b1bbf1fcd8b1695c70188b17e87449c3b5fccad521ce2626a2601e0d8bd2a"
+    },
+    "profile/content/routes.json": {
+      "bytes": 398,
+      "generated": true,
+      "sha256": "22e1bd7beaf3d57ead227a2b1685a2a1a8ac16f3f70f50d4c32f30f036bb5e6d"
+    },
+    "profile/content/shops.json": {
+      "bytes": 62,
+      "generated": true,
+      "sha256": "296ce9582a6ac786d5a3f2ccaf07e50a5f1949d5d44359ddda1817563fa6b9e8"
+    },
+    "profile/content/starterDeck.json": {
+      "bytes": 1885,
+      "generated": true,
+      "sha256": "13166efdf943a8d6c60f20aaa0233e7a42a374e94b5171ed0ab65221e5c93864"
+    },
+    "profile/content/startingHands.json": {
+      "bytes": 64,
+      "generated": true,
+      "sha256": "c1029625f16663913af3f2e646f51e786a500185eb0f30bc5387c8a7b14ace77"
+    },
+    "profile/content/stats.json": {
+      "bytes": 432,
+      "generated": true,
+      "sha256": "2d8c87488a0385a8dc1a5d8c4ff5b89865eeae42284d32858cc22443e068641e"
+    },
+    "profile/core.json": {
+      "bytes": 125413,
+      "generated": true,
+      "sha256": "b87db0b2346f36a82a9840fb76cc9016cc71d22a021f4cd5ef3ef5a55f834aca"
+    },
+    "rules/actionCosts.json": {
+      "bytes": 9005,
+      "generated": true,
+      "sha256": "77f51c5f9be52d8a903ac9b5d74a6b615fcecac48702e9766f4edc6cce2f4842"
+    },
+    "rules/ashenBlight.json": {
+      "bytes": 3726,
+      "generated": true,
+      "sha256": "304d23018693297306c9427b3881bbad7ca0e06456e834c44fbfd6f4c20034f7"
+    },
     "rules/attributeRules.json": {
       "bytes": 3232,
       "generated": true,
       "sha256": "902b7036c88ae1194fabab4bc9072f5763e99332bb9801f1b7aa94082773e582"
     },
     "rules/combatEngine.json": {
-      "bytes": 3484,
+      "bytes": 3609,
       "generated": false,
-      "sha256": "e4578d2feca78ebd6746f9c937506ee62e76dc6055c7d28ffae654a77f4b0be7"
+      "sha256": "d5f5a8a7efe0d9d99dc6dcf5895fc67467d579302f1058d97581f3de30817c94"
+    },
+    "rules/combatExpansionEquipment.json": {
+      "bytes": 14911,
+      "generated": true,
+      "sha256": "3d5e2fff87a94dba74b733e988f189a8f8e109912e9906d3f5f05976275376fc"
+    },
+    "rules/combatExpansionRules.json": {
+      "bytes": 25063,
+      "generated": true,
+      "sha256": "fd64539410d700a130ac4a20d30e1efc3fe8d4b976ebba3cac021d7ab300952b"
+    },
+    "rules/combatMatchups.json": {
+      "bytes": 7443,
+      "generated": true,
+      "sha256": "bc8d6b75aaf4eedc8ca3edc0bbcbe4dbcb39702a2e4503779b034907de8be1db"
     },
     "rules/combatRules.json": {
       "bytes": 2049,
       "generated": true,
       "sha256": "23bb3e60573cc039bf7018baba780d472c46e43af0ea885895ac2bc9d1736368"
+    },
+    "rules/combatStatusRules.json": {
+      "bytes": 9966,
+      "generated": true,
+      "sha256": "e8a2d8799e70ded4d80ade5db2ad57c35a82ff3f2d9e1b8190f17fa42efd3873"
+    },
+    "rules/core2Combat.json": {
+      "bytes": 11561,
+      "generated": false,
+      "sha256": "665c0f55ea6aaf0efbd4b81039cf331a149ba7346c34782573c68ea02e72fa0f"
+    },
+    "rules/core2CombatRules.json": {
+      "bytes": 3704,
+      "generated": true,
+      "sha256": "7ab1ef5d99413389529f66399e7880a1dabc26200a62f702fd54241c7f2285a6"
+    },
+    "rules/core2Deck.json": {
+      "bytes": 1771,
+      "generated": false,
+      "sha256": "51f1a68f4eb6b9b5f6664e7196b6fc2ef2caa09c57071df58e51d3c76a642887"
+    },
+    "rules/core2HandRules.json": {
+      "bytes": 235,
+      "generated": true,
+      "sha256": "7b99d97d21d67454beb980f6a09d13f70a508360e8b3fa27f9cd0c20ed66156c"
+    },
+    "rules/core2Mechanics.json": {
+      "bytes": 457434,
+      "generated": true,
+      "sha256": "eac45b2bee37ab9e4833e1f03c26dd9588c0be8cc83252c6d087bb6da61704ff"
+    },
+    "rules/core2Run.json": {
+      "bytes": 3979,
+      "generated": false,
+      "sha256": "5032b6e5ac84d231917b6b496f430870e620c81c90609f0d0fcf91bef486eb88"
+    },
+    "rules/core2Vocabulary.json": {
+      "bytes": 1019,
+      "generated": false,
+      "sha256": "0f631b2ac0c049d1ee8e3918ed3fd176e52708d8ed1d2d9a104133736bbb166a"
     },
     "rules/derivedStatRules.json": {
       "bytes": 2286,
@@ -294,14 +835,34 @@
       "sha256": "95026121724a1447ec20bf96e398eb1bfaa2012d29ff475b10850de74ebd7804"
     },
     "rules/effectOps.json": {
-      "bytes": 932,
+      "bytes": 1465,
       "generated": false,
-      "sha256": "0d955c905f65a08ef8bfb55cc44987e87909440228f7663a6e72b8a88a87c60c"
+      "sha256": "8d574a5b1c75a38daac67456716716ab11437f737e438fc09c51871b03c62723"
+    },
+    "rules/enemyKnowledge.json": {
+      "bytes": 1321,
+      "generated": true,
+      "sha256": "4ecf16c6abdef821cf39320f47cfeebc62692e45dc79a77c7fbdcd44d54b069e"
+    },
+    "rules/enemyKnowledgeRules.json": {
+      "bytes": 586,
+      "generated": true,
+      "sha256": "587fdb5cd85975c4e3aa30de7fb64e564cd0b9a5566f6c5afaeeab75c1350907"
     },
     "rules/eventsEngine.json": {
       "bytes": 1189,
       "generated": false,
       "sha256": "9eb7bbba848957c5a7e7541318d7a6108791814e5612f881396a7a6f03cb8456"
+    },
+    "rules/fixCoreMechanics.json": {
+      "bytes": 1930,
+      "generated": true,
+      "sha256": "d9bb86d35210cda76b2276617af44ce43abfb65d6ff343de2f5846129d5cb0cb"
+    },
+    "rules/fixCoreSnapshot.json": {
+      "bytes": 2061,
+      "generated": true,
+      "sha256": "f25807ecd7fe607cd4af8d6cd58fd33434a21598549ed091e1712666578d3c55"
     },
     "rules/handRules.json": {
       "bytes": 671,
@@ -314,9 +875,9 @@
       "sha256": "c3de457edb589ac63e8d5788290a5dc1992fc128b834322effe67fa410a67270"
     },
     "rules/mapEngine.json": {
-      "bytes": 1333,
+      "bytes": 2443,
       "generated": false,
-      "sha256": "c12c0ea705d0e2c0fa41b2676d06807a9887a57f1a888d7e19fbd3217cd4c3a9"
+      "sha256": "d9a6abd83f09bb5ad65612ecd2aaa03be0ac4232068ed061e7570790dfe365c1"
     },
     "rules/mechanics.json": {
       "bytes": 3606,
@@ -333,30 +894,45 @@
       "generated": true,
       "sha256": "50f980d3b4648e459320acd5ce34192147d66e0a572789756dde9a06e515d16d"
     },
+    "rules/rangePolicy.json": {
+      "bytes": 121,
+      "generated": true,
+      "sha256": "23cbb48cca7e84a88783b65cd8ed9e5b17197d25e114d6050449f92449b3ba7a"
+    },
+    "rules/reactionRules.json": {
+      "bytes": 615,
+      "generated": true,
+      "sha256": "ef1520e5257cf9730e8ce2e32a25d664d373874b14a32d0dc1b3572257bad737"
+    },
     "rules/rewardsEngine.json": {
       "bytes": 1332,
       "generated": false,
       "sha256": "23a00f2670efcea8b9d87d37a65c676c7b7b521db196737fda7c7d1a26322eb1"
     },
     "rules/rng.json": {
-      "bytes": 659,
+      "bytes": 1354,
       "generated": false,
-      "sha256": "d6929c4ea9532ef2ae2923cd0817417ef8f305e8cfd2cf81e0028bcf9e8d4077"
+      "sha256": "9e4f164709f5c482d40b98ab992a8d8a3848d8dd8c8c08fa47292bc21ce1dc59"
     },
     "rules/rowOrder.json": {
-      "bytes": 102330,
+      "bytes": 399904,
       "generated": true,
-      "sha256": "7773cb4e25f485d70d085ee18e24a57d88f5cd249a1facd0beebcd6f7c0dcad9"
+      "sha256": "c55c606629f3be2dae1c2aaca03631cfcd46b4fcd51e81bed2801446bbd4fabc"
     },
     "rules/runEngine.json": {
-      "bytes": 3618,
+      "bytes": 3632,
       "generated": false,
-      "sha256": "52cc58b6c3d768a243ed82ba783ea2dc54783e4e88dc860138dae75591834747"
+      "sha256": "0ee3532b9f7df2ca3ef92199aff217c4eb6387cf68428e98a97d738b1f3c3568"
     },
     "rules/runFlow.json": {
-      "bytes": 2761,
+      "bytes": 3853,
       "generated": false,
-      "sha256": "07748a438a0ac92bf3e31076207fe719b431fc7ae364ef87ff60761c2da3a260"
+      "sha256": "01712774e251900a17d35a213f3155815f8467b0736ac3caae690968b4664f04"
+    },
+    "rules/runtime.json": {
+      "bytes": 30534,
+      "generated": true,
+      "sha256": "1f79658ad620f5f329110873dd47c9e5380c362a2fcdb399494e68946f60e414"
     },
     "rules/saves.json": {
       "bytes": 371,
@@ -367,6 +943,11 @@
       "bytes": 1907,
       "generated": false,
       "sha256": "c503de1fb9dfafa26a8cb86f28d5319467ce313ef397f1842752a07f89f90245"
+    },
+    "rules/stanceRules.json": {
+      "bytes": 762,
+      "generated": true,
+      "sha256": "6b5624da354513669472cac41572cc88a043f6a2d9bcaf25c5ea2d343ea05eb8"
     },
     "rules/stringKeys.json": {
       "bytes": 3664,
@@ -383,15 +964,20 @@
       "generated": false,
       "sha256": "414dd661f53883f134f39aeb8c6948b19005b1664284fd158b99e8f8f2fa3c8a"
     },
+    "rules/versions.json": {
+      "bytes": 349,
+      "generated": true,
+      "sha256": "22b102bc277c4b46bf4c2a4afc8de08df8d6f42aa37bbed79d3268ace9bc7c8e"
+    },
     "schemas/about.schema.json": {
       "bytes": 1249,
       "generated": false,
       "sha256": "7e3f866eca3c79321aa3552b5cc57deda1c01a912161d7b526dcfff54a9d934b"
     },
     "schemas/assets.registry.schema.json": {
-      "bytes": 929,
+      "bytes": 1114,
       "generated": false,
-      "sha256": "57cf4bae50afa2771c9a32928074869ac3446d08f98bf2d0872ee13ffe464db2"
+      "sha256": "ab958f0d9426f690268ee25d662b0c7998d177a2108e21483fe464beb451ceb4"
     },
     "schemas/audio.beds.schema.json": {
       "bytes": 2427,
@@ -613,20 +1199,510 @@
       "generated": false,
       "sha256": "7c819888e8ca103de3571d0b3d535451b8e5d94b793c88150a55768d1d81c6c1"
     },
+    "schemas/profile.bundle.armaments.schema.json": {
+      "bytes": 1917,
+      "generated": false,
+      "sha256": "584d4f0dba2e428ddcb59aa3e9c6b0689875409f6f4997de494e339c3a1f2bdf"
+    },
+    "schemas/profile.bundle.armour.schema.json": {
+      "bytes": 2557,
+      "generated": false,
+      "sha256": "8082bfa1972c8be41a3bb4d2af9a0f407efabfac6d26d04d36160b327df4dc1c"
+    },
+    "schemas/profile.bundle.atlasQuests.schema.json": {
+      "bytes": 1163,
+      "generated": false,
+      "sha256": "aad0735a4765766f65c409f302cf2ae90cc8c3504c10bef18e4cf06004c380ab"
+    },
+    "schemas/profile.bundle.attributeRules.schema.json": {
+      "bytes": 19676,
+      "generated": false,
+      "sha256": "1a3c929fa3211ea2be8d049c96115427f80c436acc9a8a9676466060b85c941d"
+    },
+    "schemas/profile.bundle.attributes.schema.json": {
+      "bytes": 600,
+      "generated": false,
+      "sha256": "e5be325ecb1c57ec5ca1d9ab5b32ff2e4b3a4d37dce44e4f64d757edead46803"
+    },
+    "schemas/profile.bundle.balance.schema.json": {
+      "bytes": 4591,
+      "generated": false,
+      "sha256": "9209847f2d66be22fbe95af4ba9f73da63fb12bb566fe2b1e296f122d758ce98"
+    },
+    "schemas/profile.bundle.basicCardProfiles.schema.json": {
+      "bytes": 1814,
+      "generated": false,
+      "sha256": "7aa2ad55b5b308ac99dffac61972d9e784d845de92af97a97df4b116453815c4"
+    },
+    "schemas/profile.bundle.bossDestinations.schema.json": {
+      "bytes": 952,
+      "generated": false,
+      "sha256": "7ad3b63bab4a40bb2667211e0e876aad8ddae7a6a2481a0e74511fcfb69044bc"
+    },
+    "schemas/profile.bundle.cardExposure.schema.json": {
+      "bytes": 708,
+      "generated": false,
+      "sha256": "61ce75e8407c9300a68d116df852143773f3dd4c287a4a1fc6cc75e4f903aac1"
+    },
+    "schemas/profile.bundle.cardTagging.schema.json": {
+      "bytes": 513,
+      "generated": false,
+      "sha256": "5d4b9497d131d834c70a006ca8023e9e35299315994a95efaf9d1417c66462c6"
+    },
+    "schemas/profile.bundle.cards.schema.json": {
+      "bytes": 26554,
+      "generated": false,
+      "sha256": "35dd896c3906c4474855401fdfa1780f9c19bb4f9802961738748e4f7f0a8056"
+    },
+    "schemas/profile.bundle.characterCreation.schema.json": {
+      "bytes": 8263,
+      "generated": false,
+      "sha256": "7ff9de3b64e0f21d06b1fb2b89cf4c56777c411d797844df5891bf2899cd8ed3"
+    },
+    "schemas/profile.bundle.classMastery.schema.json": {
+      "bytes": 689,
+      "generated": false,
+      "sha256": "10d2f53ee1bd1891e8693b33a032dd050f514851d6d29cc4082094265489555a"
+    },
+    "schemas/profile.bundle.classSkillFeats.schema.json": {
+      "bytes": 2185,
+      "generated": false,
+      "sha256": "12235449a75d28db9ef682dbc682955d177c82dd3a7794c43278fe29f6387ac1"
+    },
+    "schemas/profile.bundle.classTree.schema.json": {
+      "bytes": 439,
+      "generated": false,
+      "sha256": "3a9c027112cc20851c4595d0a571474228dcb23e2fba709893d6b8f9e69c5354"
+    },
+    "schemas/profile.bundle.classes.schema.json": {
+      "bytes": 2041,
+      "generated": false,
+      "sha256": "43aed85d87f64855ef925b4f5fee6baaad51568cef78f78ccf4555df70261f47"
+    },
+    "schemas/profile.bundle.companions.schema.json": {
+      "bytes": 515,
+      "generated": false,
+      "sha256": "2100e8284896a937e17ac61862c987dbc19e4f0f272c74e490d6fcdec302d17f"
+    },
+    "schemas/profile.bundle.consumables.schema.json": {
+      "bytes": 1785,
+      "generated": false,
+      "sha256": "5056aa35569ea646567ea731a05fb92b47f92f256e5db8828daeddfe0fe67b25"
+    },
+    "schemas/profile.bundle.creationModes.schema.json": {
+      "bytes": 1095,
+      "generated": false,
+      "sha256": "b3acb0dd9ed3e653f3018e7ca849e4789ec204f4ff9a5005c655ef414d7e4f31"
+    },
+    "schemas/profile.bundle.derivedStatRules.schema.json": {
+      "bytes": 15416,
+      "generated": false,
+      "sha256": "11ca7d0bc222e97837393fc869598df351f8897249830aee78ada1777f152f81"
+    },
+    "schemas/profile.bundle.encounters.schema.json": {
+      "bytes": 1391,
+      "generated": false,
+      "sha256": "c484bb5d938246593f6ac31b552e1d629d2aa97b11c1147e867dc2681c4f7483"
+    },
+    "schemas/profile.bundle.enemies.schema.json": {
+      "bytes": 9872,
+      "generated": false,
+      "sha256": "e455ff146944dfa40f52f7b06047f99f352dfb3bbff299887cfdc5b5e82c1733"
+    },
+    "schemas/profile.bundle.enemyMoves.schema.json": {
+      "bytes": 3211,
+      "generated": false,
+      "sha256": "4c97fbcfdfe0add024663a25df8e0c4ced5a8db8affbfde1e09c1be6c98105a8"
+    },
+    "schemas/profile.bundle.equipmentMeta.schema.json": {
+      "bytes": 33599,
+      "generated": false,
+      "sha256": "61ade8b4797583a0470fc95aee89da004e9a3051a4a7d963c968a2184ea95829"
+    },
+    "schemas/profile.bundle.equipmentRequirements.schema.json": {
+      "bytes": 193,
+      "generated": false,
+      "sha256": "fdf42e0d2962c902f7510d12d06b7cef9b4d62f1faa951cef38d5e43b9c86bb8"
+    },
+    "schemas/profile.bundle.equipmentSlots.schema.json": {
+      "bytes": 1881,
+      "generated": false,
+      "sha256": "bf241bb91f9c78ccc5dd57a8a4f586c1ced7bd2a501ceab3de5c8c13066ed980"
+    },
+    "schemas/profile.bundle.eventMeta.schema.json": {
+      "bytes": 4817,
+      "generated": false,
+      "sha256": "27c436f010bc656fb494b90961ad5e8dcdda26226b9fc2ff19a3c3da5772c0e1"
+    },
+    "schemas/profile.bundle.events.schema.json": {
+      "bytes": 4030,
+      "generated": false,
+      "sha256": "b112c5130da4b03cdbb0f0a9a80a9fc1540a1473e81a8a6e7369ff8e6bb1f9ef"
+    },
+    "schemas/profile.bundle.familyNodes.schema.json": {
+      "bytes": 326,
+      "generated": false,
+      "sha256": "1601d0409b79903b6b3e2c88f6241562236ae98f44347a52a9126a28146533c4"
+    },
+    "schemas/profile.bundle.flasks.schema.json": {
+      "bytes": 2322,
+      "generated": false,
+      "sha256": "e015dfdb38868767ff4136d4bdc0a0212fff1dd142f1dc14943102d9d63f16e3"
+    },
+    "schemas/profile.bundle.itemUpgradeChanges.schema.json": {
+      "bytes": 1018,
+      "generated": false,
+      "sha256": "47e57009f63d0ba03689298dd359c165a1852e8532a77fb2d84f20342c25289a"
+    },
+    "schemas/profile.bundle.keywords.schema.json": {
+      "bytes": 381,
+      "generated": false,
+      "sha256": "f5014d23792849ba702425157e22035260d069cc2aeb71daac8db2d303c96503"
+    },
+    "schemas/profile.bundle.legacyProgression.schema.json": {
+      "bytes": 81768,
+      "generated": false,
+      "sha256": "b1a9d67246d1a708fc466f20fb571b844caf3e19a34e5be25e3e3173aec66ff6"
+    },
+    "schemas/profile.bundle.mapConfigs.schema.json": {
+      "bytes": 11250,
+      "generated": false,
+      "sha256": "afbf72a701e78ef4e6689d0a5815a22e94e4aab30d67fac08ab6aabf16c2c7e1"
+    },
+    "schemas/profile.bundle.nodeEffects.schema.json": {
+      "bytes": 17214,
+      "generated": false,
+      "sha256": "bdcddfb11cd873c743c9e9ab439063def47da64dc4aee9959db3b9cdf874f4c0"
+    },
+    "schemas/profile.bundle.nodeRelations.schema.json": {
+      "bytes": 813,
+      "generated": false,
+      "sha256": "79e77c50394758112362316130a3af2e989de11002627d3a82896d38b58eea52"
+    },
+    "schemas/profile.bundle.nodeTerms.schema.json": {
+      "bytes": 645,
+      "generated": false,
+      "sha256": "b2dee90ecc646d732cc50182d7a35ce57e703527ae4b5d774846e5295fd21845"
+    },
+    "schemas/profile.bundle.nodeVariables.schema.json": {
+      "bytes": 535,
+      "generated": false,
+      "sha256": "ab129ae834cee7bb676c13604eaf86cdd8a2610ae064f6de41ce0e63d847ea4c"
+    },
+    "schemas/profile.bundle.nodes.schema.json": {
+      "bytes": 1370,
+      "generated": false,
+      "sha256": "0b62f6178d209ec6237fd9739e358b2410e1b0a9bff072209655a8f33ab81173"
+    },
+    "schemas/profile.bundle.progressionModuleOwnership.schema.json": {
+      "bytes": 911,
+      "generated": false,
+      "sha256": "2c8f892d31bae563c04ab0aff903c2826e976a357ba1055bdfe1cb4d92f68c32"
+    },
+    "schemas/profile.bundle.propertyRules.schema.json": {
+      "bytes": 11899,
+      "generated": false,
+      "sha256": "ceb500fc86f23133346564bd682cf0499728ba6e8aab6596e9587188a9ac58ab"
+    },
+    "schemas/profile.bundle.proposalStatusRules.schema.json": {
+      "bytes": 1940,
+      "generated": false,
+      "sha256": "1d843c225cedba14bcac34eab0c195d547a1417ffbc5608f042e370f0391a258"
+    },
+    "schemas/profile.bundle.relics.schema.json": {
+      "bytes": 2169,
+      "generated": false,
+      "sha256": "86ccaaccf07bfa4a6bed8d0511d28338611848ce1a914bd54e90b8fef54f6453"
+    },
+    "schemas/profile.bundle.resources.schema.json": {
+      "bytes": 829,
+      "generated": false,
+      "sha256": "321d6845d337a6aa80ec4f9b215514d5753cafe7bd5694570098b8068bbcbf80"
+    },
+    "schemas/profile.bundle.seats.schema.json": {
+      "bytes": 453,
+      "generated": false,
+      "sha256": "fb732a5e08d190e9f42b87c97fdbde37f655132ccb9ea79b40b449aefa1fc755"
+    },
+    "schemas/profile.bundle.shops.schema.json": {
+      "bytes": 9071,
+      "generated": false,
+      "sha256": "a276ea3c4c939345c2f81bd240ebedf2bf37651fd116ef01ef4df62840f0f2f8"
+    },
+    "schemas/profile.bundle.sigils.schema.json": {
+      "bytes": 805,
+      "generated": false,
+      "sha256": "eb92b7bb494c8d9cceb8860b4843e4b1622c5572073f93c2d63433dfc655b542"
+    },
+    "schemas/profile.bundle.speakers.schema.json": {
+      "bytes": 389,
+      "generated": false,
+      "sha256": "dac758b0d8a55059a0bc031e48ff219b71ccf016e345a13cf7a9721ed861f7f2"
+    },
+    "schemas/profile.bundle.stances.schema.json": {
+      "bytes": 2937,
+      "generated": false,
+      "sha256": "028866601589beea16fbafb2bae8f3a959aa48c597fafaa9733bb34ef2abe35f"
+    },
+    "schemas/profile.bundle.startingKits.schema.json": {
+      "bytes": 1008,
+      "generated": false,
+      "sha256": "e7ad1fe61c54254907a0c0628ee144d32fd101ab157a7883fe13991cc25e9959"
+    },
+    "schemas/profile.bundle.statuses.schema.json": {
+      "bytes": 13130,
+      "generated": false,
+      "sha256": "5aad6fb22f0ae3cd4b4b65fd4bc8543b1499cb235490b1babbe7100f44c7def6"
+    },
+    "schemas/profile.bundle.tagDomains.schema.json": {
+      "bytes": 448,
+      "generated": false,
+      "sha256": "f385b8985f340b504c59ea604deec4087a4f5d5db7892cad896d1cb3cae6fc36"
+    },
+    "schemas/profile.bundle.tagFamilies.schema.json": {
+      "bytes": 618,
+      "generated": false,
+      "sha256": "d04f5bf458356c40b0ddb815a5eb368730ea04006bd03a35ba1fd8cbd1af60bb"
+    },
+    "schemas/profile.bundle.tagFamilyDomains.schema.json": {
+      "bytes": 331,
+      "generated": false,
+      "sha256": "bfc7b7c8471da107507449613dc714ad94ec61f912c28b4d4f39443e4e03732c"
+    },
+    "schemas/profile.bundle.tagging.schema.json": {
+      "bytes": 443,
+      "generated": false,
+      "sha256": "2444b0d0bdf2383042796675b2536a58a34587d8cd2fbb342283583bd55e9404"
+    },
+    "schemas/profile.bundle.tags.schema.json": {
+      "bytes": 802,
+      "generated": false,
+      "sha256": "ceba518cd1f1eeb1e2108943182dc234f402e5146692dbca25ac8e32afe0ae5a"
+    },
+    "schemas/profile.bundle.unlocks.schema.json": {
+      "bytes": 1476,
+      "generated": false,
+      "sha256": "af35bb0373d70082871b3efcbbcc304814216a6a068cf9fd22a2edfd8083c83b"
+    },
+    "schemas/profile.bundle.variableBindings.schema.json": {
+      "bytes": 835,
+      "generated": false,
+      "sha256": "112486da6affc04ac68813108693ecc29e93f88ddaee44343b3c80fa752068af"
+    },
+    "schemas/profile.content.baseCardAdmission.schema.json": {
+      "bytes": 907,
+      "generated": false,
+      "sha256": "f975009417344855ab47675b1be64bc491d231a3054616bf4c9fe5b706540afa"
+    },
+    "schemas/profile.content.baseCardGroups.schema.json": {
+      "bytes": 1259,
+      "generated": false,
+      "sha256": "16ee0cd7f285ac75399bf751d55efd3c85527d30eb15adea33c3e669ce5f628b"
+    },
+    "schemas/profile.content.baseCardSourceManifest.schema.json": {
+      "bytes": 1607,
+      "generated": false,
+      "sha256": "b0f7fd7651a90963db21d1b7c2532cb762d0717feb6f3a313046ceec994f98de"
+    },
+    "schemas/profile.content.baseCardStatusSource.schema.json": {
+      "bytes": 4183,
+      "generated": false,
+      "sha256": "9f94e1cabb144b58edf40ada3c94be3450585e047583777eadf1135b07bebc25"
+    },
+    "schemas/profile.content.baseCardVariants.schema.json": {
+      "bytes": 4285,
+      "generated": false,
+      "sha256": "66f3e8c66dd5fe4deaf39d54942a8016e0a1acbe35b763b0b8ebc224581d049f"
+    },
+    "schemas/profile.content.baseCards.schema.json": {
+      "bytes": 34420,
+      "generated": false,
+      "sha256": "1edfbe1ecf0665e39d5bc173c3c42204ee43d0ed8b6a1f53812b154fa91cdb85"
+    },
+    "schemas/profile.content.cardPools.schema.json": {
+      "bytes": 5172,
+      "generated": false,
+      "sha256": "ebd9aedeebc2a52bf600425fe05db0a8a014a78aba000a60e4324fd8c7dc43a1"
+    },
+    "schemas/profile.content.cards.schema.json": {
+      "bytes": 7849,
+      "generated": false,
+      "sha256": "da56e6da034e961603892b2a0e89bcf191f05b2309b38be185166dbe65d08b11"
+    },
+    "schemas/profile.content.characters.schema.json": {
+      "bytes": 11993,
+      "generated": false,
+      "sha256": "22feb8ea0f8d09fed795c94455abe518b82da836290664ddfff4fa6b060ac728"
+    },
+    "schemas/profile.content.classAttributes.schema.json": {
+      "bytes": 2264,
+      "generated": false,
+      "sha256": "5fc90112f83dd6a0955e15b05858206829ab673fa3d176e8cdccf7a2871e3a6f"
+    },
+    "schemas/profile.content.classUnlocks.schema.json": {
+      "bytes": 471,
+      "generated": false,
+      "sha256": "e3e1e20ca3f604d4047f523fe58f663e30f3fd4810b4c1328268c7ac0aeaf374"
+    },
+    "schemas/profile.content.classes.schema.json": {
+      "bytes": 1993,
+      "generated": false,
+      "sha256": "1e46447e84c94e7ae23a27c0003ab141875fadb805680fada34d2179ed9194d1"
+    },
+    "schemas/profile.content.enemies.schema.json": {
+      "bytes": 9408,
+      "generated": false,
+      "sha256": "4604f7dfd1387438c863c7bebf88438c222614cfb0d18a8117ad4b47de99845a"
+    },
+    "schemas/profile.content.enemyCards.schema.json": {
+      "bytes": 3146,
+      "generated": false,
+      "sha256": "2e59a8ba2abcbe4b1eb94371e51035515cd834fdff8cd45439a619556caebd71"
+    },
+    "schemas/profile.content.enemyCardsMerged.schema.json": {
+      "bytes": 74,
+      "generated": false,
+      "sha256": "b7b342d4802e1013fdb05aa79a49ff0407749ac3d9edbe1eb35172146de63fd0"
+    },
+    "schemas/profile.content.enemyRelics.schema.json": {
+      "bytes": 1077,
+      "generated": false,
+      "sha256": "9962becebec5e210778ffe7166a550386c45980dfc7155c5ed104ba0776b5f48"
+    },
+    "schemas/profile.content.gear.schema.json": {
+      "bytes": 2565,
+      "generated": false,
+      "sha256": "0e6f5714ba702f89aa639ecac39696dbdd01c14d71f93d53fdb72058a6b00aaf"
+    },
+    "schemas/profile.content.provisionalPolicies.schema.json": {
+      "bytes": 290,
+      "generated": false,
+      "sha256": "d5a27d27f90cf486aedd09b18bd21d645d3d5a3a75edcd8dab6532e2b64355fd"
+    },
+    "schemas/profile.content.resourceVariants.schema.json": {
+      "bytes": 4285,
+      "generated": false,
+      "sha256": "82222b5c7ede3c38e3463524f8d8850961e48a3ef1544ea0c5912cf0a8a6a869"
+    },
+    "schemas/profile.content.rests.schema.json": {
+      "bytes": 1078,
+      "generated": false,
+      "sha256": "18f5e13a6b300b2fcd2928fc4a54b061c528a45df1108f3e9f8351f711396ebb"
+    },
+    "schemas/profile.content.rewards.schema.json": {
+      "bytes": 11414,
+      "generated": false,
+      "sha256": "e87f190c6fdf18a0a7306a5621f9f2e6b5fe010e3d642fd353cfc0325b29694c"
+    },
+    "schemas/profile.content.routes.schema.json": {
+      "bytes": 1169,
+      "generated": false,
+      "sha256": "b5e97bef568016f39899adf2d72a242f46ea11ecf885b49f14a66e4a17d85441"
+    },
+    "schemas/profile.content.shops.schema.json": {
+      "bytes": 313,
+      "generated": false,
+      "sha256": "c6e30a90b0918ceaa5a41e15820c403248f9b0363a54e846dbffea65b54dd1d7"
+    },
+    "schemas/profile.content.starterDeck.schema.json": {
+      "bytes": 3225,
+      "generated": false,
+      "sha256": "216874a9879d4884156dc940d30a867bf5e4524f514c699a93528c144215c910"
+    },
+    "schemas/profile.content.startingHands.schema.json": {
+      "bytes": 358,
+      "generated": false,
+      "sha256": "4aa6c189bee0b1ef0fa26e24ee3bf520334deb47ec7fe71de664714d87b3c9bc"
+    },
+    "schemas/profile.content.stats.schema.json": {
+      "bytes": 2208,
+      "generated": false,
+      "sha256": "3a85cef0d5251687e9cdc7b54f04673be6576b7a2d6e3236b6af0c15192872ac"
+    },
+    "schemas/profile.core.schema.json": {
+      "bytes": 55981,
+      "generated": false,
+      "sha256": "6a65126b54a328c8435a3f227eb19044d90db29f174bde0adcf5a878f5df7b2a"
+    },
+    "schemas/rules.actionCosts.schema.json": {
+      "bytes": 7579,
+      "generated": false,
+      "sha256": "2a05735d5da6425d588d396d21128f579cd538e50044273841bf29ea193b4897"
+    },
+    "schemas/rules.ashenBlight.schema.json": {
+      "bytes": 3017,
+      "generated": false,
+      "sha256": "ff9d9b480d17832d44aa828783aad594d72e9bd65b8f9ad1621efde7f8eed943"
+    },
     "schemas/rules.attributeRules.schema.json": {
       "bytes": 16471,
       "generated": false,
       "sha256": "91c0dccf147ff515759b763316fe696f9a37bc2a7a4e801203fcd60a5d573173"
     },
     "schemas/rules.combatEngine.schema.json": {
-      "bytes": 10152,
+      "bytes": 10319,
       "generated": false,
-      "sha256": "89e0e64a8343037f61a7c04e151b42e0708d522ef9596de8f7fc87ecb827e0f4"
+      "sha256": "58c625c92afd167dea94ce16ffc6be79b5415a603c2d184269d756c295877363"
+    },
+    "schemas/rules.combatExpansionEquipment.schema.json": {
+      "bytes": 30227,
+      "generated": false,
+      "sha256": "4674aba157f812895d3d7d87ab1b4eaa734976648405ea49b5ffe5211797d694"
+    },
+    "schemas/rules.combatExpansionRules.schema.json": {
+      "bytes": 74251,
+      "generated": false,
+      "sha256": "dffc56d6eb08bad78e8e19afe8891b9b3b91f8acf6197fdbb9bf78ccc2688825"
+    },
+    "schemas/rules.combatMatchups.schema.json": {
+      "bytes": 32130,
+      "generated": false,
+      "sha256": "3c96fe92c0e92651c7402faf40c64d0d33b730ea316538eb230e8441377d7e4d"
     },
     "schemas/rules.combatRules.schema.json": {
       "bytes": 9025,
       "generated": false,
       "sha256": "d29d3b917cb8d3d6d6db247a83c8ea920555e9dda903589ad89bac16c837b21f"
+    },
+    "schemas/rules.combatStatusRules.schema.json": {
+      "bytes": 25375,
+      "generated": false,
+      "sha256": "318fd79e4a732497a6f564b7c26257e1e993125535ee89b2e8e464a344550b49"
+    },
+    "schemas/rules.core2Combat.schema.json": {
+      "bytes": 25027,
+      "generated": false,
+      "sha256": "1c7e3a090cf8260ae7acdf6bd23403530f00959dfc1c8a36433c6ca1406a4d2e"
+    },
+    "schemas/rules.core2CombatRules.schema.json": {
+      "bytes": 17693,
+      "generated": false,
+      "sha256": "85548c1f4085e406397d685f6a21081032cf855298f6addf91cf6ed0ea318591"
+    },
+    "schemas/rules.core2Deck.schema.json": {
+      "bytes": 2142,
+      "generated": false,
+      "sha256": "315179ed62fd57a665e25441b4ae0b6f87cf851726f7a5d88e92d732381ea863"
+    },
+    "schemas/rules.core2HandRules.schema.json": {
+      "bytes": 925,
+      "generated": false,
+      "sha256": "4336363345e9cc9ce68442fe97999818812c2c8f68b761c899361cdd9c75c0ba"
+    },
+    "schemas/rules.core2Mechanics.schema.json": {
+      "bytes": 1611,
+      "generated": false,
+      "sha256": "42e436836e7b457355e13889ee2fe84f5804472f981aa7cc162bd4fe14fdb50a"
+    },
+    "schemas/rules.core2Run.schema.json": {
+      "bytes": 3349,
+      "generated": false,
+      "sha256": "a88cd7ae5280224944bb5b6e26e81fd47b0eac6a8f258937f6f1d03dd42157fb"
+    },
+    "schemas/rules.core2Vocabulary.schema.json": {
+      "bytes": 391,
+      "generated": false,
+      "sha256": "928c714b25bd35a5cdbbb77a7aeacaeda9e55f7a06a4f3110f308b0d722d81ea"
     },
     "schemas/rules.derivedStatRules.schema.json": {
       "bytes": 9301,
@@ -638,10 +1714,30 @@
       "generated": false,
       "sha256": "b404be67874cde45f86d63e2b99c9b6645075aca9ca060347c177a07e5599037"
     },
+    "schemas/rules.enemyKnowledge.schema.json": {
+      "bytes": 5760,
+      "generated": false,
+      "sha256": "31117dcd9602357cc3dddc8f34f1ac89a3eb96a68470293598057caf65ef25c5"
+    },
+    "schemas/rules.enemyKnowledgeRules.schema.json": {
+      "bytes": 2637,
+      "generated": false,
+      "sha256": "9b5edc134670f869d151090617b65bc2d694dfdda9734a5718d9c83b04935238"
+    },
     "schemas/rules.eventsEngine.schema.json": {
       "bytes": 1907,
       "generated": false,
       "sha256": "e24280afeea41c86c468c965cbaf22e0da9703af5735ed1052990ead86ad8aef"
+    },
+    "schemas/rules.fixCoreMechanics.schema.json": {
+      "bytes": 8330,
+      "generated": false,
+      "sha256": "99c2a9339ae7589a170f2b7b8d7b1c98f4fdcfca9a7373fd0201290ce70f4165"
+    },
+    "schemas/rules.fixCoreSnapshot.schema.json": {
+      "bytes": 8929,
+      "generated": false,
+      "sha256": "5891dbd9b5bcd67939bda0bfafabee225558ffd1a34022f94e578b9441e6e10b"
     },
     "schemas/rules.handRules.schema.json": {
       "bytes": 3796,
@@ -654,9 +1750,9 @@
       "sha256": "20ec0d03b2ef9f6a28acc1d25454fb474bd3045315ca687d16358be51c1452f7"
     },
     "schemas/rules.mapEngine.schema.json": {
-      "bytes": 3698,
+      "bytes": 5466,
       "generated": false,
-      "sha256": "7d39a1287887626c68d96151850128b507c0910afd0cd576d640fa7c0e77a5a7"
+      "sha256": "5d32774f5c1df8ff7991cd3a55fd6423edeec8f95c87e25ca52536fb42d38a94"
     },
     "schemas/rules.mechanics.schema.json": {
       "bytes": 4206,
@@ -673,15 +1769,25 @@
       "generated": false,
       "sha256": "d4c07284354e421cfc9035b01866110521284645fa4076dfcca7c8e828177fef"
     },
+    "schemas/rules.rangePolicy.schema.json": {
+      "bytes": 485,
+      "generated": false,
+      "sha256": "c1b3832f5f7a87186c637bc8b1ad1614dd7f4ee4eeca10e8088a07e497ff210c"
+    },
+    "schemas/rules.reactionRules.schema.json": {
+      "bytes": 1593,
+      "generated": false,
+      "sha256": "8dc5392e069d5fde9c8cb5c2e676a916b45fbac1ec694cfee112baa9c343ee73"
+    },
     "schemas/rules.rewardsEngine.schema.json": {
       "bytes": 3222,
       "generated": false,
       "sha256": "43409b81310fa0a7839586058077581119ca15c93206bdca56ebb4327ac5e651"
     },
     "schemas/rules.rng.schema.json": {
-      "bytes": 757,
+      "bytes": 859,
       "generated": false,
-      "sha256": "27bb6e185997c5a3652d13c1290d14f6fdb46255f04cc2fb44aea64fb170d692"
+      "sha256": "d519efac49a1374a74362312c29bf7128add45cbe6282b6a3e6f0028472b21eb"
     },
     "schemas/rules.rowOrder.schema.json": {
       "bytes": 153,
@@ -694,9 +1800,14 @@
       "sha256": "f0b908a4cb2212d7c249c6430d7b9ce0cbc398ce47a2da50c4d092229a1a8f2b"
     },
     "schemas/rules.runFlow.schema.json": {
-      "bytes": 4517,
+      "bytes": 5022,
       "generated": false,
-      "sha256": "560ed5f1ff4a589926ea46223945f32f7e0739ed87895ccbe681a27c30408dfc"
+      "sha256": "8ed833d74c2289c8077fbe409cad5d7cc4defd69d5b49d54e9e5048ecfc522dd"
+    },
+    "schemas/rules.runtime.schema.json": {
+      "bytes": 1065,
+      "generated": false,
+      "sha256": "da6124b65e8460681554c63661ba55863e67043a7ca39349c1edae97806b7a30"
     },
     "schemas/rules.saves.schema.json": {
       "bytes": 532,
@@ -707,6 +1818,11 @@
       "bytes": 4781,
       "generated": false,
       "sha256": "4fc74399eece51428307b96f0522687a009e9857d6092bd662fb71730c39595e"
+    },
+    "schemas/rules.stanceRules.schema.json": {
+      "bytes": 2998,
+      "generated": false,
+      "sha256": "fa151c6553fd9afb8cd80626c2540d27c0f7da1ca1636b132e6ab5a913be6fbb"
     },
     "schemas/rules.stringKeys.schema.json": {
       "bytes": 14917,
@@ -723,10 +1839,15 @@
       "generated": false,
       "sha256": "69827ab65db63ea47edf2f653dd275bb1bfd1d0a12380ed10d2c872bf1aae0ed"
     },
-    "schemas/settings.defaults.schema.json": {
-      "bytes": 1154,
+    "schemas/rules.versions.schema.json": {
+      "bytes": 915,
       "generated": false,
-      "sha256": "b4c6620ffda5d3a3cc25c98132836d3ca19f96e986efd22ef966bbad9730a34a"
+      "sha256": "cb31633a816eab3c6bb1c479a3cb9c6781500b1e9747d930f2425c1d45bc93af"
+    },
+    "schemas/settings.defaults.schema.json": {
+      "bytes": 1291,
+      "generated": false,
+      "sha256": "6a577b12310614a429856d9802c01f468832b771e16c69c67571193cc6679225"
     },
     "schemas/settings.presets.reference.schema.json": {
       "bytes": 20862,
@@ -749,9 +1870,9 @@
       "sha256": "a37f32af9ef4c8dc820ef8a125552bff206348c234cd673ebc5f807419678bce"
     },
     "schemas/strings.combat.en.schema.json": {
-      "bytes": 3646,
+      "bytes": 5862,
       "generated": false,
-      "sha256": "b497a034654bd651a83389d5be13aadcb5fc1979c5e3e0673b6a67255e3a210b"
+      "sha256": "9310b6d5bd19e69433edaa31deeb6f7fd87b25cba48202d95a5c4fa2bb7b095e"
     },
     "schemas/strings.events.en.schema.json": {
       "bytes": 388,
@@ -833,10 +1954,15 @@
       "generated": false,
       "sha256": "b737b74ae845e045c72f49a06586301dd739bf3a52236d55dd9c919acc888103"
     },
-    "schemas/ui.components.schema.json": {
-      "bytes": 4633,
+    "schemas/ui.art.schema.json": {
+      "bytes": 2186,
       "generated": false,
-      "sha256": "fa24f2047cb186d992de2eb7ffc872576a60e784861902df73ef864d489c4e70"
+      "sha256": "3af105c94763728307b39d6e27895a06d143e181316b177c91938703b5969610"
+    },
+    "schemas/ui.components.schema.json": {
+      "bytes": 5106,
+      "generated": false,
+      "sha256": "70dbc161a3ec42522554c73da7194990362079cdf3e437c7f7000132958c6e26"
     },
     "schemas/ui.confirmationPolicies.schema.json": {
       "bytes": 2064,
@@ -889,14 +2015,14 @@
       "sha256": "32a1c3a5c840792bc91d71a1312558e924fdc91db29a79d285470822bf5a873e"
     },
     "schemas/ui.tokens.schema.json": {
-      "bytes": 1848,
+      "bytes": 1963,
       "generated": false,
-      "sha256": "a42873f655cd32a51c8fec8b331df0be513833550ad1b44bbf170788f387a649"
+      "sha256": "d0476233f7be3e4aa0388a50aa1f2c8f1d67ad0a88d84ea99134a8a9ecd89a61"
     },
     "settings/defaults.json": {
-      "bytes": 5757,
+      "bytes": 8491,
       "generated": false,
-      "sha256": "63921cdf9ff1d0cb21530f5bcd47aae941dcca49a0889070d4d85c65dd1de556"
+      "sha256": "7a98813cfd57dc2cfc0450f468c4f5b2c2da75e995499769c8e1f3c3db29d5ac"
     },
     "settings/presets/reference.json": {
       "bytes": 4585,
@@ -914,14 +2040,14 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 19795,
+      "bytes": 23709,
       "generated": false,
-      "sha256": "7fdeb2f61e9d980e8a739ff34f236d516f66312b29e098ca7a0559f7ac2d7bd7"
+      "sha256": "830d406194d48699f1efb7958735dbcca2d484b59bdb4aa56d9fd273cee2d3e8"
     },
     "strings/combat.en.json": {
-      "bytes": 2247,
+      "bytes": 3600,
       "generated": false,
-      "sha256": "229ae65d82ee3467b03bfd1570ddaa2582b5a567dc6e76ff40d0354375310f4b"
+      "sha256": "10473bc36b5418a99a31fe7c20d8564e6cc03a824191e9b1e9c18f308887b75a"
     },
     "strings/en.json": {
       "bytes": 204265,
@@ -934,9 +2060,9 @@
       "sha256": "a9fcfcd2fa31bd0f98983762267ad9c5220649ba685d002700016d684325d957"
     },
     "strings/meta.en.json": {
-      "bytes": 11404,
+      "bytes": 14047,
       "generated": false,
-      "sha256": "727443bd8badb20e549e3969718860d912d7ca7d8768647ff57626d218560368"
+      "sha256": "1bf3e563e394b136d4c00623be7ca17f706d2040a86d6fdf3f3145dccfaa81e4"
     },
     "strings/nodes.en.json": {
       "bytes": 7121,
@@ -1008,10 +2134,15 @@
       "generated": true,
       "sha256": "800f85c25beaa464dee1ad55f25b838ca54e8cb72b0fa8ed44b0b40a9f5efbe0"
     },
-    "ui/components.json": {
-      "bytes": 3699,
+    "ui/art.json": {
+      "bytes": 3393,
       "generated": false,
-      "sha256": "356c9b68994452b0d613dd7e116ee6c1492f90177459f1483b8c9f239dff98ec"
+      "sha256": "d0ce1791099b8f6924fd99283533b0c430e3a7ebaac396879cd8f571ef4bd766"
+    },
+    "ui/components.json": {
+      "bytes": 4121,
+      "generated": false,
+      "sha256": "617d1bead1191646215a1601f2fe58f32251bdec245a39b166773abeca15e983"
     },
     "ui/confirmationPolicies.json": {
       "bytes": 3228,
@@ -1049,9 +2180,9 @@
       "sha256": "1ca95429d719c46c8d712ea5506b72c8422b8a0ca04b4580f6a4b00ae2130d2b"
     },
     "ui/screens.json": {
-      "bytes": 7430,
+      "bytes": 8206,
       "generated": false,
-      "sha256": "c51de1c83cc6451f81ecef312993a631384ecf37ebe32739525a9456d93c24c0"
+      "sha256": "5720be77710b76539e89ac4a49d457e9844b5c11a3a78de4820354f117ad1f6b"
     },
     "ui/terms.json": {
       "bytes": 12076,
@@ -1064,10 +2195,16 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 7494,
+      "bytes": 11381,
       "generated": false,
-      "sha256": "a07be73e7ecd37304513ba0980b52b2543e48dccf8c906293a5d05ca005b288c"
+      "sha256": "dab0f6d5c82d74068265f6f3a03d86cee0ef5f7f99e598062cf0723e4acc6512"
     }
   },
-  "schemaVersion": 1
+  "schemaVersion": 1,
+  "webSources": {
+    "core2": "b8cfe4fac",
+    "legacy": "0adaae515",
+    "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+    "profileId": "core"
+  }
 }

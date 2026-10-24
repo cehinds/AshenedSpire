@@ -32,6 +32,12 @@ namespace Ashen.App.Settings
         public string OptionKey;
         public string UnitKey;
 
+        /// <summary>An enum's named bundles: choosing an option sets these other settings with it (the web's combat pacing preset).</summary>
+        public JObject Presets;
+
+        /// <summary>The enum whose choice returns to its first option when this setting is edited by hand.</summary>
+        public string ResetsPreset;
+
         public bool IsToggle => Type == SV.Toggle;
         public bool IsEnum => Type == SV.Enum;
         public bool IsSlider => Type == SV.Slider;
@@ -90,6 +96,8 @@ namespace Ashen.App.Settings
                     HelpKey = c.Str(SK.HelpKey),
                     OptionKey = c.Str(SK.OptionKey),
                     UnitKey = c.Str(SK.UnitKey),
+                    Presets = c[SK.Presets] as JObject,
+                    ResetsPreset = c.Str(SK.ResetsPreset),
                 });
             }
             return defs;
@@ -198,10 +206,43 @@ namespace Ashen.App.Settings
             var refusal = def.Refusal(value);
             if (refusal != null) return refusal;
             if (!(_profile.Doc[SK.Settings] is JObject stored)) _profile.Doc[SK.Settings] = stored = new JObject();
-            stored[key] = value.DeepClone();
+            Store(stored, Defs, def, value);
             _profile.Save(_content.ContentHash);
             Changed?.Invoke(this, key);
             return null;
+        }
+
+        /// <summary>
+        /// Writes one validated value with its preset coupling: a preset writes its bundle with it; a hand edit of a bundled
+        /// value returns the preset to its first option. The one rule for a settings edit and a web-config import.
+        /// </summary>
+        public static void Store(JObject stored, SettingsDefs defs, SettingDef def, JToken value)
+        {
+            stored[def.Key] = value.DeepClone();
+            if (def.Presets != null && def.Presets[(string)value] is JObject bundle)
+                foreach (var p in bundle.Properties()) stored[p.Name] = p.Value.DeepClone();
+            else if (def.ResetsPreset != null && defs.Find(def.ResetsPreset) is SettingDef preset && preset.Options.Count > 0)
+                stored[def.ResetsPreset] = preset.Options[0];
+        }
+
+        /// <summary>
+        /// Stores imported (already validated) settings through <see cref="Store"/>, in import order. Where the import names
+        /// both a preset and values it bundles, the explicit values win and the imported preset stays only if every
+        /// imported bundled value matches its bundle; otherwise it returns to its first option. Independent of order.
+        /// </summary>
+        public static void StoreImported(JObject stored, SettingsDefs defs, JObject imported)
+        {
+            foreach (var p in imported.Properties())
+                if (defs.Find(p.Name) is SettingDef def) Store(stored, defs, def, p.Value);
+            foreach (var p in imported.Properties())
+                if (defs.Find(p.Name) is SettingDef def && def.Presets == null) stored[p.Name] = p.Value.DeepClone();
+            foreach (var p in imported.Properties())
+            {
+                if (!(defs.Find(p.Name) is SettingDef def) || def.Presets == null || def.Options.Count == 0) continue;
+                var bundle = def.Presets[(string)p.Value] as JObject;
+                var consistent = bundle == null || bundle.Properties().All(b => imported[b.Name] == null || JToken.DeepEquals(imported[b.Name], b.Value));
+                stored[p.Name] = consistent ? p.Value.DeepClone() : (JToken)def.Options[0];
+            }
         }
 
         /// <summary>[Reset category ⟲]: every stored value of the category is cleared (the preset's or the def show again).</summary>

@@ -1,0 +1,104 @@
+{
+ "deckPool": [
+  "core.defend",
+  "core.defend",
+  "core.counter",
+  "core.counter",
+  "core.strike",
+  "core.smash",
+  "core.sweep",
+  "core.defend"
+ ],
+ "exchanges": {
+  "bytes": 2394293,
+  "count": 120,
+  "file": "exchanges.json",
+  "kinds": [
+   "defend",
+   "counter",
+   "multiHit",
+   "switch",
+   "noStamina",
+   "noCandidate",
+   "controlled",
+   "poise",
+   "twoAttackers",
+   "lethal",
+   "counterReturn",
+   "stack",
+   "distant"
+  ],
+  "steps": 375
+ },
+ "fights": {
+  "herald": {
+   "fights": 8,
+   "steps": 76
+  },
+  "reaver": {
+   "fights": 8,
+   "steps": 94
+  },
+  "rogue": {
+   "fights": 8,
+   "steps": 68
+  },
+  "starseer": {
+   "fights": 8,
+   "steps": 93
+  }
+ },
+ "files": [
+  {
+   "bytes": 342548,
+   "classId": "reaver",
+   "fights": 8,
+   "file": "fights-reaver.json",
+   "steps": 94
+  },
+  {
+   "bytes": 349847,
+   "classId": "starseer",
+   "fights": 8,
+   "file": "fights-starseer.json",
+   "steps": 93
+  },
+  {
+   "bytes": 268301,
+   "classId": "rogue",
+   "fights": 8,
+   "file": "fights-rogue.json",
+   "steps": 68
+  },
+  {
+   "bytes": 295896,
+   "classId": "herald",
+   "fights": 8,
+   "file": "fights-herald.json",
+   "steps": 76
+  }
+ ],
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "rejections": {
+  "throws: 'Dazed' is unplayable": 5,
+  "throws: 'Wound' is unplayable": 7,
+  "throws: Not enough Stamina or Mana": 212,
+  "throws: Not enough Stamina to Advance": 12
+ },
+ "seen": {
+  "back": 176,
+  "fizzled": 0,
+  "offers": 324,
+  "played": 148,
+  "stacked": 148,
+  "unavailable": 131
+ },
+ "units": {
+  "bytes": 183349,
+  "chosen": 163,
+  "count": 400,
+  "file": "units.json"
+ },
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

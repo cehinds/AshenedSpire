@@ -1,0 +1,8 @@
+{
+  "name": "ashen-tools",
+  "private": true,
+  "description": "Only the art-release importer needs a package (sharp, VP-2 D-550); every other tool is dependency-free. npm install here, then node Tools/scan-assets.mjs --release ... --import.",
+  "dependencies": {
+    "sharp": "0.35.5"
+  }
+}

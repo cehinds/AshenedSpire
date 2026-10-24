@@ -34,7 +34,7 @@ namespace Ashen.Domain.Map
     /// <summary>One map node (the shipped <c>{ id, floor, col, type, next }</c>, plus resolved / boss destination fields).</summary>
     public sealed class MapNode
     {
-        public MapNode(string id, int floor, int col)
+        public MapNode(string id, int floor, double col)
         {
             Id = id;
             Floor = floor;
@@ -43,7 +43,9 @@ namespace Ashen.Domain.Map
 
         public string Id { get; set; }
         public int Floor { get; }
-        public int Col { get; set; }
+
+        /// <summary>The lane. A whole number on the 405 maps; a Core 2 rest node sits at the middle of the lanes, (columns - 1) / 2, which is half a lane on an even width.</summary>
+        public double Col { get; set; }
 
         /// <summary>The node type, or null while untyped (typing resets rollable nodes to null each attempt).</summary>
         public string Type { get; set; }
@@ -59,32 +61,42 @@ namespace Ashen.Domain.Map
 
         public string DestinationLabel { get; set; }
 
-        /// <summary>The node JSON in the shipped key order: id, floor, col, type, next, then resolved or encounterId/destinationLabel.</summary>
+        /// <summary>Core 2 only: a boss terminal's destination label, under the web's Core 2 key `label` (the 405 graph calls it destinationLabel).</summary>
+        public string Label { get; set; }
+
+        /// <summary>Core 2 only: what the node really is when the fog shows it as another type (null on a 405 node).</summary>
+        public string ActualType { get; set; }
+
+        /// <summary>The node JSON in the shipped key order: id, floor, col, type, next, then resolved or encounterId/destinationLabel (and actualType on a Core 2 node).</summary>
         public JObject ToJson()
         {
             var o = new JObject
             {
                 [K.Id] = Id,
                 [MK.Floor] = Floor,
-                [MK.Col] = Col,
+                [MK.Col] = Js.N(Col),
                 [K.Type] = Type == null ? JValue.CreateNull() : new JValue(Type),
                 [MK.Next] = new JArray(Next.Select(n => (object)n).ToArray()),
             };
             if (Resolved != null) o[MK.Resolved] = Resolved.ToJson();
             if (EncounterId != null) o[MK.EncounterId] = EncounterId;
             if (DestinationLabel != null) o[MK.DestinationLabel] = DestinationLabel;
+            if (Label != null) o[K.Label] = Label;
+            if (ActualType != null) o[MK.ActualType] = ActualType;
             return o;
         }
 
         public static MapNode FromJson(JObject o)
         {
-            var node = new MapNode(o.Str(K.Id), (int)o.Num(MK.Floor), (int)o.Num(MK.Col))
+            var node = new MapNode(o.Str(K.Id), (int)o.Num(MK.Floor), o.Num(MK.Col))
             {
                 Type = o.Str(K.Type),
                 Next = Js.Items(o[MK.Next]).Select(Js.Str).ToList(),
                 Resolved = ResolvedNode.FromJson(o.Obj(MK.Resolved)),
                 EncounterId = o.Str(MK.EncounterId),
                 DestinationLabel = o.Str(MK.DestinationLabel),
+                Label = o.Str(K.Label),
+                ActualType = o.Str(MK.ActualType),
             };
             return node;
         }
@@ -113,6 +125,9 @@ namespace Ashen.Domain.Map
         /// <summary>Every boss terminal, or null on a legacy singular graph.</summary>
         public List<string> BossIds { get; set; }
 
+        /// <summary>Core 2 only: the hash of the profile the map was built under, stamped verbatim (null on a 405 map).</summary>
+        public string GameProfileHash { get; set; }
+
         /// <summary><c>Object.values(nodes)</c>: a snapshot in insertion order.</summary>
         public List<MapNode> AllNodes() => Nodes.Entries().Select(e => e.Value).ToList();
 
@@ -133,6 +148,7 @@ namespace Ashen.Domain.Map
                 [MK.Columns] = Columns,
             };
             if (BossIds != null) o[MK.BossIds] = new JArray(BossIds.Select(s => (object)s).ToArray());
+            if (GameProfileHash != null) o[MK.GameProfileHash] = GameProfileHash;
             return o;
         }
 
@@ -147,6 +163,7 @@ namespace Ashen.Domain.Map
                 Floors = (int)Js.Coalesce(o[MK.Floors], 0),
                 Columns = (int)Js.Coalesce(o[MK.Columns], 0),
                 BossIds = o[MK.BossIds] is JArray ids ? ids.Select(Js.Str).ToList() : null,
+                GameProfileHash = o.Str(MK.GameProfileHash),
             };
             if (o.Obj(MK.Nodes) is JObject nodes)
                 foreach (var p in nodes.Properties())

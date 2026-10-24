@@ -1,0 +1,94 @@
+{
+  "$id": "profile/bundle/consumables.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "blurb": {
+        "type": "string"
+      },
+      "combatCardChance": {
+        "type": "integer"
+      },
+      "cost": {
+        "type": "integer"
+      },
+      "featChance": {
+        "type": "integer"
+      },
+      "hpPct": {
+        "type": "integer"
+      },
+      "id": {
+        "type": "string",
+        "enum": [
+          "bladeManual",
+          "emberToken",
+          "focusTreatise",
+          "heraldClassBook",
+          "pairedStepsPrimer",
+          "reaverClassBook",
+          "rogueClassBook",
+          "shieldManual",
+          "spellbook",
+          "starseerClassBook",
+          "universalTome"
+        ]
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "revive",
+          "skillBook"
+        ]
+      },
+      "learnAny": {
+        "type": "boolean"
+      },
+      "learnClass": {
+        "type": "string"
+      },
+      "learnTags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "masteryBlurb": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "sellValue": {
+        "type": "integer"
+      },
+      "skill": {
+        "type": "string",
+        "enum": [
+          "*",
+          "class:herald",
+          "class:reaver",
+          "class:rogue",
+          "class:starseer",
+          "dualWield",
+          "item:blade",
+          "item:magic-focus",
+          "item:shield"
+        ]
+      },
+      "xp": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "blurb",
+      "cost",
+      "id",
+      "kind",
+      "name",
+      "sellValue"
+    ]
+  }
+}

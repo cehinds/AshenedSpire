@@ -1,0 +1,46 @@
+{
+  "$id": "profile/bundle/sigils.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "blurb": {
+        "type": "string"
+      },
+      "cost": {
+        "type": "integer"
+      },
+      "id": {
+        "type": "string",
+        "enum": [
+          "emberSigil",
+          "gravelightSigil",
+          "hearthSigil",
+          "pyreSigil",
+          "thornSigil",
+          "tideSigil",
+          "vigilSigil"
+        ]
+      },
+      "name": {
+        "type": "string"
+      },
+      "rarity": {
+        "type": "string",
+        "enum": [
+          "common",
+          "legendary",
+          "rare",
+          "uncommon"
+        ]
+      }
+    },
+    "required": [
+      "blurb",
+      "id",
+      "name",
+      "rarity"
+    ]
+  }
+}

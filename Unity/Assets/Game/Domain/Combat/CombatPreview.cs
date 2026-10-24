@@ -36,8 +36,15 @@ namespace Ashen.Domain.Combat
                 if (!(token is JObject eff) || !Js.IsStr(eff[K.Op])) continue;
                 var op = eff.Str(K.Op);
                 if (!Js.Includes(tokenizable, op)) continue;
+                if (op == Ashen.Generated.Core2DamageValues.OpGrantCardCharge)
+                {
+                    // grantCardCharge binds each rider it grants under chargeDamage, chargeBlock...: the figure a charge adds to the next card.
+                    foreach (var rider in new[] { K.Damage, Ashen.Generated.Core2StatusValues.ManaDiscount, K.Block, Op.Heal, Ashen.Generated.Core2StatusValues.Break, Ashen.Generated.Core2CombatValues.OpBuildup })
+                        if (eff[rider] != null && eff[rider].Type != JTokenType.Undefined) Push(V.TokenChargePrefix + char.ToUpperInvariant(rider[0]) + rider.Substring(1), i, rider);
+                    continue;
+                }
                 var field = ValueField(op);
-                var baseName = op == Op.ApplyStatus ? eff.Str(K.Status) : op;
+                var baseName = op == Op.ApplyStatus || op == Ashen.Generated.Core2CombatValues.OpBuildup ? eff.Str(K.Status) : op;
                 if (baseName == null) continue;
                 Push(baseName, i, field);
                 if (op == Op.Damage && !Js.Nullish(eff[K.Hits])) Push(K.Hits, i, K.Hits);
@@ -49,14 +56,16 @@ namespace Ashen.Domain.Combat
 
         private static string BindingKey(int index, string field) => index.ToString(CultureInfo.InvariantCulture) + V.KeySeparator + field;
 
-        private static double EvalPreview(CombatState c, CombatAction action, JToken value, JObject target)
+        /// <summary>evalPreview: the exact evaluator execution uses, floored, for a preview of an effect value against a target (combat.js:2879).</summary>
+        public static double EvalPreview(CombatState c, CombatAction action, JToken value, JObject target)
         {
             if (Js.Nullish(value)) return 0;
             if (Js.IsNum(value)) return Math.Floor(Js.D(value));
             return Formulas.Evaluate(value, Actions.FormulaCtxFor(c, action, target));
         }
 
-        private static JObject FirstResolvedTarget(CombatState c, CombatAction action, JObject eff)
+        /// <summary>firstResolvedTarget: the first target an effect would resolve against, or null (combat.js:2864).</summary>
+        public static JObject FirstResolvedTarget(CombatState c, CombatAction action, JObject eff)
         {
             try
             {

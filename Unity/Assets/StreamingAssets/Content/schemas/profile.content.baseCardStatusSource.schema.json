@@ -1,0 +1,189 @@
+{
+  "$id": "profile/content/baseCardStatusSource.json",
+  "type": "object",
+  "properties": {
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "appliedStacks": {
+          "type": "integer"
+        },
+        "beneficialDecayPhase": {
+          "type": "string"
+        },
+        "coreElements": {
+          "type": "array",
+          "items": {}
+        },
+        "decayStacks": {
+          "type": "integer"
+        },
+        "harmfulDecayPhase": {
+          "type": "string"
+        },
+        "proneStatus": {
+          "type": "string"
+        },
+        "randomRollDomain": {
+          "type": "string"
+        },
+        "reactiveDamageNeverRecurses": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "appliedStacks",
+        "beneficialDecayPhase",
+        "coreElements",
+        "decayStacks",
+        "harmfulDecayPhase",
+        "proneStatus",
+        "randomRollDomain",
+        "reactiveDamageNeverRecurses"
+      ]
+    },
+    "rules": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "behaviors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "type": [
+                  "array",
+                  "boolean",
+                  "number",
+                  "string"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "decay": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "phase": {
+                "type": "string",
+                "enum": [
+                  "end",
+                  "start"
+                ]
+              },
+              "stacks": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "phase",
+              "stacks"
+            ]
+          },
+          "requires": {
+            "type": "object",
+            "properties": {
+              "elements": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "decay",
+                    "fire",
+                    "sacred"
+                  ]
+                }
+              },
+              "modules": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "defenses",
+                    "equipment",
+                    "intent",
+                    "multiplayer",
+                    "reactions",
+                    "stances",
+                    "stats",
+                    "statuses"
+                  ]
+                }
+              },
+              "protections": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "elements",
+              "modules"
+            ]
+          }
+        },
+        "required": [
+          "behaviors",
+          "decay",
+          "requires"
+        ]
+      }
+    },
+    "schemaVersion": {
+      "type": "integer"
+    },
+    "statuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "decay": {
+            "type": "string",
+            "enum": [
+              "none"
+            ]
+          },
+          "icon": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "stackMode": {
+            "type": "string",
+            "enum": [
+              "add"
+            ]
+          },
+          "tooltip": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "decay",
+          "icon",
+          "id",
+          "name",
+          "stackMode",
+          "tooltip"
+        ]
+      }
+    }
+  },
+  "required": [
+    "defaults",
+    "rules",
+    "schemaVersion",
+    "statuses"
+  ]
+}

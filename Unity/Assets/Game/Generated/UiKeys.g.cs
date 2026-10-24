@@ -108,5 +108,9 @@ namespace Ashen.Generated
         public const string EdgeWidth = "edgeWidth";
         public const string DotSpacing = "dotSpacing";
         public const string RowTouchRatio = "rowTouchRatio";
+        public const string Fighter = "fighter";
+        public const string Ratings = "ratings";
+        public const string StackStatuses = "stackStatuses";
+        public const string LogLines = "logLines";
     }
 }

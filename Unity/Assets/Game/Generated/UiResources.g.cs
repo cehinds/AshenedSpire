@@ -21,5 +21,6 @@ namespace Ashen.Generated
         public const string SavesFolder = "saves";
         public const string KitCombatant = "UI/Kit/Combatant";
         public const string KitRunHud = "UI/Kit/RunHud";
+        public const string KitFighter = "UI/Kit/Fighter";
     }
 }

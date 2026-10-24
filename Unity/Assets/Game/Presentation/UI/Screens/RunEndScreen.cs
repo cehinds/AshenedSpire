@@ -16,16 +16,16 @@ namespace Ashen.Presentation.UI.Screens
     /// </summary>
     public sealed class RunEndScreen : ScreenView
     {
-        private RunSession _session;
+        private IClimb _session;
         private Shell _shell;
 
-        public RunSession Session => _session;
+        public IClimb Session => _session;
         public RunEndViewState View { get; private set; }
         public LocButton TitleButton => _shell?.PrimaryButton;
 
         protected override void OnBind(object args)
         {
-            _session = (args as RunScreenArgs)?.Session ?? Ui.Session;
+            _session = (IClimb)(args as RunScreenArgs)?.Session ?? (IClimb)(args as Core2RunArgs)?.Session ?? Ui.Climb;
             if (_session == null || !_session.RunOver)
             {
                 Debug.LogError(UiMessages.NoRun);
@@ -84,7 +84,7 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>Return to title: the run is over and its slot already clear.</summary>
         public void ToTitle()
         {
-            Ui.Session = null;
+            Ui.ClearRun();
             Nav.Go(ScreenIds.Title, null, true);
         }
 

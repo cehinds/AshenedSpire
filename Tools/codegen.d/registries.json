@@ -75,6 +75,8 @@
       "doc": "Attack-card damage projection (shipped model/attackCardDamage.js): balance.damage formula configs, card/effect fields, ops and the magic-school words.",
       "keys": {
         "Damage": "damage",
+        "CostRule": "costRule",
+        "CostRuleFixed": "fixed",
         "AttackCards": "attackCards",
         "DefenseCards": "defenseCards",
         "PotencyCards": "potencyCards",

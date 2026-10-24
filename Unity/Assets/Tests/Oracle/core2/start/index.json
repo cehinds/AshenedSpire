@@ -1,0 +1,42 @@
+{
+ "files": [
+  {
+   "bytes": 557749,
+   "classId": "reaver",
+   "fights": 35,
+   "file": "start-reaver.json",
+   "steps": 117
+  },
+  {
+   "bytes": 605183,
+   "classId": "starseer",
+   "fights": 35,
+   "file": "start-starseer.json",
+   "steps": 117
+  },
+  {
+   "bytes": 600353,
+   "classId": "rogue",
+   "fights": 35,
+   "file": "start-rogue.json",
+   "steps": 117
+  },
+  {
+   "bytes": 599344,
+   "classId": "herald",
+   "fights": 35,
+   "file": "start-herald.json",
+   "steps": 117
+  }
+ ],
+ "hand": {
+  "bytes": 583663,
+  "file": "hand.json",
+  "scenarios": 47
+ },
+ "longTurns": 9,
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "turns": 3,
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

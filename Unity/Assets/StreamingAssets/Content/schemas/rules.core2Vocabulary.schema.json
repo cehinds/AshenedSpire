@@ -1,0 +1,11 @@
+{
+  "$id": "rules/core2Vocabulary.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "camps": { "type": "array", "items": { "type": "string" } },
+    "reactionWindows": { "type": "array", "items": { "type": "string" } },
+    "intentTypes": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": ["camps", "reactionWindows", "intentTypes"]
+}

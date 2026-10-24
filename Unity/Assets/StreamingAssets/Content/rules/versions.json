@@ -1,0 +1,12 @@
+{
+  "webContentVersion": "0.7.1",
+  "runSchemaVersion": 25,
+  "metaSchemaVersion": 4,
+  "combatExpansionVersion": 2,
+  "reactionRulesVersion": 2,
+  "breakMeterVersion": 2,
+  "profileFormatVersion": 1,
+  "foundationVersion": "1.0.0",
+  "profileId": "core",
+  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27"
+}

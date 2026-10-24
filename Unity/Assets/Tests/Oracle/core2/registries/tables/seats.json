@@ -1,0 +1,5 @@
+{"table":"seats","count":3,"ids":["weald","marches","reach"],"rows":[
+{"id":"weald","regionId":"hollow-weald","name":"The Hollow Weald","baseTier":1},
+{"id":"marches","regionId":"pale-marches","name":"The Pale Marches","baseTier":2},
+{"id":"reach","regionId":"cinder-reach","name":"The Cinder Reach","baseTier":3}
+]}

@@ -1,0 +1,33 @@
+{
+  "comment": "The deck editor's rules for Core 2 (docs/design/11 WP-18), as the web keeps them in src/content/deckRules.js and src/model/deckRules.js at the pinned sha b8cfe4fac. defaults: every value is a default; a profile's stored settings override them (deckEditBounds and friends). singleCopy / where / unlimitedCardIds / equipmentEligibility: the class-string copy limit, the doors the editor opens from, the plain basics a run with no equipment may add, and the equipment gate. editState: everything an editor session can change (cancel puts all of it back). movement: the effect op of a card whose only effect is movement (a range-off run cannot add it). cardDomain: the tag domain whose ids are the card schools. colorlessClass, classTagPrefix, typeGroup, unlimitedMode: the vocabulary the copy limit reads from the profile. inventedFields: the only fields a card the editor adds may carry.",
+  "defaults": {
+    "deckEditing": true,
+    "deckEditingWhere": "free",
+    "deckMinSize": 10,
+    "deckMinUnlimited": false,
+    "deckMaxSize": 40,
+    "deckMaxUnlimited": true,
+    "playInDeckOrder": false,
+    "classSpellPowerCopies": 1
+  },
+  "singleCopy": {
+    "types": ["power"],
+    "tags": ["source:spell"]
+  },
+  "where": ["free", "restOnly"],
+  "unlimitedCardIds": ["strike", "defend"],
+  "equipmentEligibility": {
+    "universalTags": ["basic"],
+    "weaponTags": ["blade", "bow", "ranged"]
+  },
+  "editState": ["deck", "sideboard", "equipmentAttackSlotCount", "removedAttackSlotIds", "editMintCounter"],
+  "movement": {
+    "op": "moveEngagement"
+  },
+  "cardDomain": "card",
+  "colorlessClass": "colorless",
+  "classTagPrefix": "class.",
+  "typeGroup": "type",
+  "unlimitedMode": "unlimited",
+  "inventedFields": ["instanceId", "cardId", "upgraded"]
+}

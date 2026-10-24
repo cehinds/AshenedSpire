@@ -1,0 +1,87 @@
+{
+  "comment": "VP-2: the names of ui/art.json (how the UI finds art by name), the registry-id placeholders and the lookup kinds.",
+  "keySets": [
+    {
+      "name": "ArtKeys",
+      "doc": "Keys of ui/art.json (VP-2; D-552).",
+      "keys": {
+        "Groups": "groups",
+        "Id": "id",
+        "Resource": "resource",
+        "Include": "include",
+        "Lookup": "lookup",
+        "IconAlias": "iconAlias",
+        "Card": "card",
+        "Painting": "painting",
+        "Profile": "profile",
+        "Library": "library",
+        "Tags": "tags",
+        "CampCategory": "campCategory",
+        "ManeuverAlias": "maneuverAlias",
+        "LibraryManeuvers": "libraryManeuvers",
+        "AttackType": "attackType",
+        "SkillManeuver": "skillManeuver",
+        "VariantCount": "variantCount",
+        "VariantFormat": "variantFormat",
+        "Hash": "hash",
+        "Offset": "offset",
+        "Prime": "prime",
+        "Separator": "separator",
+        "ElementVariant": "elementVariant",
+        "ElementAlias": "elementAlias",
+        "DefaultElement": "defaultElement",
+        "DefaultCategory": "defaultCategory",
+        "MagicalCategory": "magicalCategory",
+        "Placeholder": "placeholder",
+        "Camp": "camp",
+        "Maneuver": "maneuver",
+        "Element": "element",
+        "School": "school"
+      }
+    },
+    {
+      "name": "ArtKinds",
+      "doc": "The kinds of art ArtLookup finds by name (the keys of ui/art.json lookup).",
+      "keys": {
+        "Icon": "icon",
+        "Kit": "kit",
+        "Frame": "frame",
+        "Component": "component",
+        "Orb": "orb",
+        "Footer": "footer",
+        "Creation": "creation",
+        "Shop": "shop",
+        "Cutout": "cutout",
+        "Event": "event",
+        "Scene": "scene",
+        "Illustration": "illustration",
+        "Portrait": "portrait",
+        "Prologue": "prologue",
+        "MapDetail": "mapDetail"
+      }
+    },
+    {
+      "name": "ArtPlaceholders",
+      "doc": "Placeholders of the ui/art.json templates.",
+      "keys": {
+        "Name": "name",
+        "Id": "id",
+        "Category": "category",
+        "Maneuver": "maneuver",
+        "Variant": "variant",
+        "Map": "map",
+        "Level": "level",
+        "X": "x",
+        "Y": "y"
+      }
+    },
+    {
+      "name": "ArtRegistryKeys",
+      "doc": "Fields of assets/registry.json an art lookup reads.",
+      "keys": {
+        "UnityPath": "unityPath",
+        "Release": "release"
+      }
+    }
+  ]
+}

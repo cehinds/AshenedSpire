@@ -1,0 +1,41 @@
+{
+  "mana": {
+    "id": "mana",
+    "name": "MP",
+    "glyph": "mana",
+    "tint": "#315c9b",
+    "weight": "normal",
+    "order": 20,
+    "surfaces": [
+      "main"
+    ],
+    "source": "mana",
+    "domainMax": 20
+  },
+  "hp": {
+    "id": "hp",
+    "name": "HP",
+    "glyph": "health",
+    "tint": "var(--res-hp)",
+    "weight": "normal",
+    "order": 10,
+    "surfaces": [
+      "main",
+      "model"
+    ],
+    "source": "hp",
+    "domainMax": 200
+  },
+  "poise": {
+    "id": "poise",
+    "name": "POISE",
+    "glyph": "poise",
+    "tint": "var(--gold)",
+    "weight": "skinny",
+    "order": 90,
+    "surfaces": [
+      "model"
+    ],
+    "source": "poise"
+  }
+}

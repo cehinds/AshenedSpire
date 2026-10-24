@@ -1,6 +1,15 @@
 {
   "comment": "Cross-table references for schema bootstrap (Tools/infer-schemas.mjs) and the validator. 'path' is a regex over the inference path (<file-as-dots>.<field>[.<field>…], arrays add []). An empty string value counts as 'no reference'.",
   "refs": [
+    { "path": "^profile\\.bundle\\.encounters\\.enemies\\[\\]$", "table": "profile/bundle/enemies.json" },
+    { "path": "^profile\\.bundle\\.encounters\\.seat$", "table": "profile/bundle/seats.json" },
+    { "path": "^profile\\.bundle\\.classes\\.(abilityCard|startingSignatureCard)$", "table": "profile/bundle/cards.json" },
+    { "path": "^profile\\.bundle\\.classes\\.cardPool\\[\\]$", "table": "profile/bundle/cards.json" },
+    { "path": "^profile\\.bundle\\.classes\\.(startingRelic|kitRelic)$", "table": "profile/bundle/relics.json" },
+    { "path": "^profile\\.bundle\\.startingKits\\.(rightHand|leftHand)$", "table": "profile/bundle/armaments.json" },
+    { "path": "^profile\\.bundle\\.(startingKits|armour|classTree)\\.classId$", "table": "profile/bundle/classes.json" },
+    { "path": "^profile\\.(bundle|content)\\..*\\.effects\\[\\]\\.status$", "table": "profile/bundle/statuses.json" },
+    { "path": "^profile\\.(bundle|content)\\..*\\.effects\\[\\]\\.stance$", "table": "profile/bundle/stances.json" },
     { "path": "^catalog\\.encounters\\.enemies\\[\\]$", "table": "catalog/enemies.json" },
     { "path": "^catalog\\.encounters\\.seat$", "table": "catalog/seats.json" },
     { "path": "^catalog\\.classes\\.(abilityCard|startingSignatureCard)$", "table": "catalog/cards.json" },
@@ -13,6 +22,10 @@
     { "path": "\\.effects\\[\\]\\.stance$", "table": "catalog/stances.json" }
   ],
   "mapPaths": [
+    "profile.bundle.enemies.moves",
+    "profile.bundle.eventMeta.eventChoiceIds",
+    "profile.bundle.balance.combatRatings.enemyAttackType",
+    "profile.bundle.balance.combatRatings.itemRatings",
     "catalog.enemies.moves",
     "rules.rewardsEngine.flasks.legacyChargeKindById",
     "catalog.bossDestinations",

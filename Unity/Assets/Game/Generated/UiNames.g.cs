@@ -295,5 +295,36 @@ namespace Ashen.Generated
         public const string SceneNote = "SCENE_NOTE";
         public const string SceneMap = "SCENE_MAP";
         public const string MapDots = "MAP_DOTS";
+        public const string FighterIntent = "FIGHTER_INTENT";
+        public const string FighterPredict = "FIGHTER_PREDICT";
+        public const string FighterArt = "FIGHTER_ART";
+        public const string FighterHit = "FIGHTER_HIT";
+        public const string FighterBadge = "FIGHTER_BADGE";
+        public const string FighterName = "FIGHTER_NAME";
+        public const string FighterPreview = "FIGHTER_PREVIEW";
+        public const string FighterReceipt = "FIGHTER_RECEIPT";
+        public const string FighterRatings = "FIGHTER_RATINGS";
+        public const string FighterEvade = "FIGHTER_EVADE";
+        public const string FighterPoise = "FIGHTER_POISE";
+        public const string FighterWard = "FIGHTER_WARD";
+        public const string FighterBlock = "FIGHTER_BLOCK";
+        public const string FighterHp = "FIGHTER_HP";
+        public const string FighterStance = "FIGHTER_STANCE";
+        public const string FighterStacks = "FIGHTER_STACKS";
+        public const string FighterStatuses = "FIGHTER_STATUSES";
+        public const string PromptPanel = "PROMPT_PANEL";
+        public const string PromptTitle = "PROMPT_TITLE";
+        public const string PromptList = "PROMPT_LIST";
+        public const string PromptFooter = "PROMPT_FOOTER";
+        public const string PromptBack = "PROMPT_BACK";
+        public const string PromptConfirm = "PROMPT_CONFIRM";
+        public const string FooterTools = "FOOTER_TOOLS";
+        public const string ToolReactions = "TOOL_REACTIONS";
+        public const string ToolArmaments = "TOOL_ARMAMENTS";
+        public const string CombatLog = "COMBAT_LOG";
+        public const string LogTitle = "LOG_TITLE";
+        public const string LogLines = "LOG_LINES";
+        public const string EndContinue = "END_CONTINUE";
+        public const string ToolRecover = "TOOL_RECOVER";
     }
 }

@@ -1,0 +1,41 @@
+{
+  "$id": "profile/bundle/classMastery.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "classId": {
+        "type": "string",
+        "enum": [
+          "herald",
+          "reaver",
+          "rogue",
+          "starseer"
+        ]
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "armament",
+          "cards",
+          "feat",
+          "relic",
+          "weapon"
+        ]
+      },
+      "level": {
+        "type": "integer"
+      },
+      "ref": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "classId",
+      "kind",
+      "level",
+      "ref"
+    ]
+  }
+}

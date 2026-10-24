@@ -17,6 +17,13 @@ namespace Ashen.Presentation.UI.Screens
         public bool ResumeWarning;
     }
 
+    /// <summary>What a screen of a Core 2 run is opened with: the run, and whether its resume skipped or diverged from the log.</summary>
+    public sealed class Core2RunArgs
+    {
+        public Core2RunSession Session;
+        public bool ResumeWarning;
+    }
+
     /// <summary>
     /// W-06 act map (W4b; AF-04, US-4.1 to US-4.4): the RUN_HUD band, the act, seat and floor header, the board (every node
     /// and edge from the map port; where the run stands; the travelled trail; the reachable row lit, rimmed and cued with ›;
@@ -31,6 +38,8 @@ namespace Ashen.Presentation.UI.Screens
     public sealed class ActMapScreen : ScreenView
     {
         private RunSession _session;
+        private Core2RunSession _core2;
+        private IClimb _climb;
         private ActMapViewState _view;
         private MapBoard _board;
         private ScrollView _viewport;
@@ -45,13 +54,20 @@ namespace Ashen.Presentation.UI.Screens
         private bool _centred;
 
         public RunSession Session => _session;
+
+        /// <summary>The Core 2 run this map shows (null on a 405 run).</summary>
+        public Core2RunSession Core2 => _core2;
+
+        /// <summary>The run, whichever ruleset plays it.</summary>
+        public IClimb Climb => _climb;
+
         public ActMapViewState View => _view;
         public MapBoard Board => _board;
         public string Selected => _selected;
         public bool TrayOpen => _tray;
         public bool LegendOpen => _legend;
 
-        /// <summary>The planned door is open (the run stands at a merchant, an event or a legacy dungeon whose screen is planned).</summary>
+        /// <summary>The planned door is open (the run stands at a merchant, an event or a legacy dungeon whose screen is planned; on a Core 2 run, at a place whose rules are a later work package).</summary>
         public bool PlannedOpen => _door != null;
 
         public PlannedDoorState Door => _door;
@@ -64,13 +80,16 @@ namespace Ashen.Presentation.UI.Screens
 
         protected override void OnBind(object args)
         {
-            _session = (args as RunScreenArgs)?.Session ?? Ui.Session;
-            if (_session == null)
+            _core2 = (args as Core2RunArgs)?.Session ?? (args == null ? Ui.Core2Session : null);
+            _session = _core2 != null ? null : (args as RunScreenArgs)?.Session ?? Ui.Session;
+            _climb = (IClimb)_session ?? _core2;
+            if (_climb == null)
             {
                 Debug.LogError(UiMessages.NoRun);
                 return;
             }
             Ui.Session = _session;
+            Ui.Core2Session = _core2;
             _hud = Root.Q<RunHud>(UiNames.RunHud);
             if (_hud != null) _hud.Menu += OpenPause;
             _board = Root.Q<MapBoard>(UiNames.MapNodes);
@@ -115,7 +134,7 @@ namespace Ashen.Presentation.UI.Screens
             var element = Root.Q(UiNames.MapBackground);
             if (element == null) return;
             var climb = Ui.Data.Components.Climb;
-            var id = StringTable.Fill(climb.MapBackground, new StringArgs().Add(UiPlaceholders.Region, _session.Region));
+            var id = StringTable.Fill(climb.MapBackground, new StringArgs().Add(UiPlaceholders.Region, _climb.Region));
             Ui.ApplyBackground(element, Ui.Art != null && Ui.Art.Get(id) != null ? id : Ui.Data.Components.CombatFallbackBackground);
         }
 
@@ -123,9 +142,9 @@ namespace Ashen.Presentation.UI.Screens
 
         public void Render()
         {
-            _view = ActMapView.Build(_session, Ui.Data);
-            _hud?.Bind(RunHudView.Build(_session, Ui.Data));
-            if (_hud?.Portrait != null) Ui.ApplyBackground(_hud.Portrait, _session.Portrait);
+            _view = ActMapView.Build(_climb, Ui.Data);
+            _hud?.Bind(RunHudView.Build(_climb, Ui.Data));
+            if (_hud?.Portrait != null) Ui.ApplyBackground(_hud.Portrait, _climb.Portrait);
             Root.Q<LocLabel>(UiNames.MapTitle)?.SetResolved(_view.Title);
             Root.Q<LocLabel>(UiNames.MapSeat)?.SetResolved(_view.SeatText);
             Root.Q<LocLabel>(UiNames.MapFloor)?.SetResolved(_view.FloorText);
@@ -189,9 +208,13 @@ namespace Ashen.Presentation.UI.Screens
 
         private void RenderPlanned()
         {
-            var location = _session.Location;
-            var planned = location == RunFlowValues.LocationMerchant || location == RunFlowValues.LocationEvent || location == RunFlowValues.LocationDungeon;
-            _door = planned ? PlannedDoorView.Build(_session, Ui.Data) : null;
+            if (_core2 != null) _door = _core2.PendingPort != null ? Core2PortView.Build(_core2, Ui.Data) : null;
+            else
+            {
+                var location = _session.Location;
+                var planned = location == RunFlowValues.LocationMerchant || location == RunFlowValues.LocationEvent || location == RunFlowValues.LocationDungeon;
+                _door = planned ? PlannedDoorView.Build(_session, Ui.Data) : null;
+            }
             UiDom.Show(Root.Q(UiNames.PlannedDoor), _door != null);
             if (_door == null) return;
             Root.Q<LocLabel>(UiNames.PlannedTitle)?.SetResolved(_door.Title);
@@ -255,6 +278,11 @@ namespace Ashen.Presentation.UI.Screens
         public void Travel(string id, VisualElement anchor)
         {
             if (id == null) return;
+            if (_core2 != null)
+            {
+                TravelCore2(id, anchor);
+                return;
+            }
             TravelResult result;
             try { result = _session.Travel(id); }
             catch (Exception e)
@@ -270,10 +298,52 @@ namespace Ashen.Presentation.UI.Screens
             RunFlow.Show(Context, _session);
         }
 
+        /// <summary>Core 2: a fight opens its screen; a place whose rules are a later work package stays on the map behind its notice (the run stands at the node and goes on from it).</summary>
+        private void TravelCore2(string id, VisualElement anchor)
+        {
+            Core2TravelResult result;
+            try { result = _core2.Travel(id); }
+            catch (Exception e)
+            {
+                SaveFailed(e, () => TravelCore2(id, anchor));
+                return;
+            }
+            if (!result.Travelled)
+            {
+                RunFlow.Refuse(Context, anchor, string.Format(CultureInfo.InvariantCulture, UiFormats.MapRefusalKey, result.Refusal));
+                return;
+            }
+            if (result.NotYetPorted)
+            {
+                _selected = null;
+                _tray = false;
+                Render();
+                FocusSoon(PlannedAction);
+                return;
+            }
+            RunFlow.Show(Context, _core2);
+        }
+
         /// <summary>The planned door's one action: the merchant's Leave; the event's first open choice, then Continue; the dungeon's next step.</summary>
         private void OnPlanned(VisualElement anchor)
         {
             if (_door == null) return;
+            if (_core2 != null)
+            {
+                try
+                {
+                    _core2.DismissPort();
+                    _core2.Save();
+                }
+                catch (Exception e)
+                {
+                    SaveFailed(e, () => OnPlanned(anchor));
+                    return;
+                }
+                Render();
+                FocusSoon(FirstReachable());
+                return;
+            }
             try
             {
                 switch (_door.Location)
@@ -355,7 +425,7 @@ namespace Ashen.Presentation.UI.Screens
             ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, OnConfirm = () => retry() });
         }
 
-        private void OpenPause() => Nav.OpenModal(ScreenIds.Pause, new PauseArgs { Session = _session });
+        private void OpenPause() => Nav.OpenModal(ScreenIds.Pause, new PauseArgs { Session = _climb });
 
         public override bool HandleBack()
         {
@@ -381,7 +451,7 @@ namespace Ashen.Presentation.UI.Screens
 
         public override void OnReturned()
         {
-            if (_session != null && !_session.RunOver) Render();
+            if (_climb != null && !_climb.RunOver) Render();
         }
 
         public override void Unbind() => _trayShow?.Pause();

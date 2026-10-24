@@ -1,0 +1,109 @@
+{
+  "$id": "profile/bundle/classSkillFeats.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "crit": {
+        "type": "object",
+        "properties": {
+          "base": {
+            "type": "number"
+          },
+          "cap": {
+            "type": "number"
+          },
+          "divisor": {
+            "type": "integer"
+          },
+          "multiplier": {
+            "type": "number"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "blade",
+                "blight",
+                "blood",
+                "flourish",
+                "heavy",
+                "oath",
+                "pierce",
+                "ritual",
+                "starstone"
+              ]
+            }
+          },
+          "weights": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        "required": [
+          "base",
+          "cap",
+          "divisor",
+          "multiplier",
+          "tags",
+          "weights"
+        ]
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "minLevel": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "string"
+      },
+      "passive": {
+        "type": "object",
+        "properties": {
+          "block": {
+            "type": "integer"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "flourish",
+                "guard",
+                "oath",
+                "ritual",
+                "starstone"
+              ]
+            }
+          }
+        },
+        "required": [
+          "block",
+          "tags"
+        ]
+      },
+      "skillId": {
+        "type": "string",
+        "enum": [
+          "class:herald",
+          "class:reaver",
+          "class:rogue",
+          "class:starseer"
+        ]
+      }
+    },
+    "required": [
+      "description",
+      "id",
+      "minLevel",
+      "name",
+      "skillId"
+    ]
+  }
+}

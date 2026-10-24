@@ -5,6 +5,8 @@ namespace Ashen.Generated
     public static class CardDamageKeys
     {
         public const string Damage = "damage";
+        public const string CostRule = "costRule";
+        public const string CostRuleFixed = "fixed";
         public const string AttackCards = "attackCards";
         public const string DefenseCards = "defenseCards";
         public const string PotencyCards = "potencyCards";

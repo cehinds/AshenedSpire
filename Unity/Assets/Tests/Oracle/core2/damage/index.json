@@ -1,0 +1,103 @@
+{
+ "fights": {
+  "herald": {
+   "fights": 32,
+   "steps": 187
+  },
+  "reaver": {
+   "fights": 32,
+   "steps": 388
+  },
+  "rogue": {
+   "fights": 32,
+   "steps": 382
+  },
+  "starseer": {
+   "fights": 32,
+   "steps": 246
+  }
+ },
+ "files": [
+  {
+   "bytes": 1431526,
+   "cases": 150,
+   "file": "receipts-0.json"
+  },
+  {
+   "bytes": 1432152,
+   "cases": 150,
+   "file": "receipts-1.json"
+  },
+  {
+   "bytes": 1443534,
+   "cases": 150,
+   "file": "receipts-2.json"
+  },
+  {
+   "bytes": 1398751,
+   "cases": 145,
+   "file": "receipts-3.json"
+  },
+  {
+   "bytes": 1393635,
+   "classId": "reaver",
+   "fights": 32,
+   "file": "fights-reaver.json",
+   "steps": 388
+  },
+  {
+   "bytes": 1203480,
+   "classId": "starseer",
+   "fights": 32,
+   "file": "fights-starseer.json",
+   "steps": 246
+  },
+  {
+   "bytes": 1455532,
+   "classId": "rogue",
+   "fights": 32,
+   "file": "fights-rogue.json",
+   "steps": 382
+  },
+  {
+   "bytes": 1045789,
+   "classId": "herald",
+   "fights": 32,
+   "file": "fights-herald.json",
+   "steps": 187
+  }
+ ],
+ "mechanics": {
+  "bytes": 16907,
+  "cases": 56,
+  "file": "mechanics.json",
+  "mechanics": [
+   "combat.accuracy",
+   "combat.actionCosts",
+   "combat.perception",
+   "combat.stance",
+   "combat.statuses",
+   "defense.poiseProtection",
+   "defense.wardProtection",
+   "fx_heal",
+   "lifecycle.exhaust",
+   "mechanic.stagger",
+   "status.bleed",
+   "status.frail",
+   "status.strength",
+   "status.vulnerable",
+   "status.weak"
+  ]
+ },
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "refused": 5,
+ "rejections": {},
+ "units": {
+  "bytes": 271256,
+  "file": "units.json",
+  "kernel": 27,
+  "units": 160
+ },
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

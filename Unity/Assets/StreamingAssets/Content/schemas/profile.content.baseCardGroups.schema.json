@@ -1,0 +1,68 @@
+{
+  "$id": "profile/content/baseCardGroups.json",
+  "type": "object",
+  "properties": {
+    "base.core-rewards": {
+      "type": "object",
+      "properties": {
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "members"
+      ]
+    },
+    "base.current-rewards": {
+      "type": "object",
+      "properties": {
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "members"
+      ]
+    },
+    "base.generated-burdens": {
+      "type": "object",
+      "properties": {
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "members"
+      ]
+    },
+    "base.generated-helpers": {
+      "type": "object",
+      "properties": {
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "members"
+      ]
+    }
+  },
+  "required": [
+    "base.core-rewards",
+    "base.current-rewards",
+    "base.generated-burdens",
+    "base.generated-helpers"
+  ]
+}

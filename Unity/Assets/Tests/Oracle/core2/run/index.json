@@ -1,0 +1,868 @@
+{
+ "modes": [
+  "lean",
+  "assign"
+ ],
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "refused": [
+  {
+   "classId": "reaver",
+   "error": "Configured creation uses fixed attributes",
+   "label": "other-attributes",
+   "options": {
+    "attributes": {
+     "constitution": 1,
+     "dexterity": 1,
+     "intelligence": 1,
+     "strength": 3,
+     "wisdom": 1
+    }
+   },
+   "seed": 3123788157
+  },
+  {
+   "classId": "reaver",
+   "error": "Unknown attribute creation mode 'epic'",
+   "label": "unknown-mode",
+   "options": {
+    "attributeMode": "epic"
+   },
+   "seed": 1483256622
+  },
+  {
+   "classId": "starseer",
+   "error": "Class 'starseer' is locked in this profile",
+   "label": "locked-class",
+   "options": {},
+   "seed": 4137692383
+  },
+  {
+   "classId": "wizard",
+   "error": "Class 'wizard' is locked in this profile",
+   "label": "unknown-class",
+   "options": {},
+   "seed": 2497160848
+  }
+ ],
+ "runs": [
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed00.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 2946379905
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed01.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 1305848370
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed02.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 3960284131
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed03.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 2319752596
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed04.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 679221061
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed05.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 3333656822
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed06.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 1693125287
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed07.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 52593752
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed08.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 2707029513
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed09.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 1066497978
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed10.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 3720933739
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-lean-seed11.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 2080402204
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed00.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2946379905
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed01.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1305848370
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed02.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 3960284131
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed03.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2319752596
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed04.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 679221061
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed05.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 3333656822
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed06.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1693125287
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed07.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 52593752
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed08.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2707029513
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed09.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1066497978
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed10.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 3720933739
+  },
+  {
+   "classId": "reaver",
+   "file": "run-reaver-assign-seed11.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2080402204
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed00.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 2101983653
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed01.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 461452118
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed02.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 3115887879
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed03.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 1475356344
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed04.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 4129792105
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed05.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 2489260570
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed06.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 848729035
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed07.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 3503164796
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed08.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 1862633261
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed09.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 222101726
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed10.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 2876537487
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-lean-seed11.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 1236005952
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed00.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2101983653
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed01.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 461452118
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed02.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 3115887879
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed03.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1475356344
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed04.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 4129792105
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed05.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2489260570
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed06.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 848729035
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed07.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 3503164796
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed08.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1862633261
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed09.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 222101726
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed10.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2876537487
+  },
+  {
+   "classId": "starseer",
+   "file": "run-starseer-assign-seed11.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1236005952
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed00.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 1257587401
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed01.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 3912023162
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed02.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 2271491627
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed03.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 630960092
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed04.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 3285395853
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed05.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 1644864318
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed06.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 4332783
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed07.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 2658768544
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed08.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 1018237009
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed09.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 3672672770
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed10.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 2032141235
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-lean-seed11.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 391609700
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed00.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1257587401
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed01.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 3912023162
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed02.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2271491627
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed03.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 630960092
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed04.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 3285395853
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed05.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1644864318
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed06.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 4332783
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed07.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2658768544
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed08.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1018237009
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed09.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 3672672770
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed10.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2032141235
+  },
+  {
+   "classId": "rogue",
+   "file": "run-rogue-assign-seed11.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 391609700
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed00.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 413191149
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed01.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 3067626910
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed02.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 1427095375
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed03.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 4081531136
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed04.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 2440999601
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed05.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 800468066
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed06.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 3454903827
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed07.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 1814372292
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed08.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 173840757
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed09.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 2828276518
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed10.json",
+   "mode": "lean",
+   "options": {},
+   "seed": 1187744983
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-lean-seed11.json",
+   "mode": "lean",
+   "options": {
+    "attributeMode": "lean"
+   },
+   "seed": 3842180744
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed00.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 413191149
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed01.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 3067626910
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed02.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1427095375
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed03.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 4081531136
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed04.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2440999601
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed05.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 800468066
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed06.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 3454903827
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed07.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1814372292
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed08.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 173840757
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed09.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 2828276518
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed10.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 1187744983
+  },
+  {
+   "classId": "herald",
+   "file": "run-herald-assign-seed11.json",
+   "mode": "assign",
+   "options": {
+    "attributeMode": "assign"
+   },
+   "seed": 3842180744
+  }
+ ],
+ "source": "model/state.js createRunState (configured, profile default) + main.js enterCombat -> createRunCombat arguments",
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

@@ -1,0 +1,1160 @@
+{
+  "$id": "profile/content/baseCards.json",
+  "type": "object",
+  "properties": {
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "authorDefaults": {
+            "type": "object",
+            "properties": {
+              "chosenRules": {
+                "type": "string"
+              },
+              "costs": {
+                "type": "object",
+                "properties": {
+                  "mana": {
+                    "type": "integer"
+                  },
+                  "rationale": {
+                    "type": "string",
+                    "enum": [
+                      "One-SP utility baseline; mana-priced spells and arts pay at least one base MP. Large defensive or multiplier spells pay two MP."
+                    ]
+                  },
+                  "stamina": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "mana",
+                  "rationale",
+                  "stamina"
+                ]
+              },
+              "parameterSource": {
+                "type": "string",
+                "enum": [
+                  "definition.effects and optional definition.effectVariants/costGrowth/targetLimit; each numeric field there is an editable author default."
+                ]
+              },
+              "rationale": {
+                "type": "string",
+                "enum": [
+                  "One drawn burden skips one action and then exhausts. Recycling a skip burden through the enemy overlay would deny every future action; finite exhaustion is the authored lifecycle default.",
+                  "Resolve unassigned source parameters into concrete executable values; original clauses and open questions remain unchanged in provenance. Status-specific triggers, coefficients, decay and polarity are independently authored in statuses.json."
+                ]
+              },
+              "state": {
+                "type": "string",
+                "enum": [
+                  "editable-author-defaults"
+                ]
+              }
+            },
+            "required": [
+              "chosenRules",
+              "costs",
+              "parameterSource",
+              "rationale",
+              "state"
+            ]
+          },
+          "authoring": {
+            "type": "object",
+            "properties": {
+              "balance": {
+                "type": "string",
+                "enum": [
+                  "SP/MP are selected author defaults. Every mana-priced spell/art has at least 1 base MP."
+                ]
+              },
+              "canonicalSpellId": {
+                "type": "string"
+              },
+              "coreExclusionReasons": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "damage-groups",
+                    "element-fire",
+                    "element-necrotic",
+                    "element-sacred",
+                    "hand-retention",
+                    "ward-channel"
+                  ]
+                }
+              },
+              "lifecycle": {
+                "type": "string"
+              },
+              "statusDefaults": {
+                "type": "string",
+                "enum": [
+                  "Status timing, magnitude, triggers and removal are authored in statuses.json; original unresolved wording remains in provenance."
+                ]
+              }
+            },
+            "required": [
+              "balance",
+              "coreExclusionReasons",
+              "statusDefaults"
+            ]
+          },
+          "definition": {
+            "type": "object",
+            "properties": {
+              "burden": {
+                "type": "object",
+                "properties": {
+                  "cardTypes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "manaTax": {
+                    "type": "integer"
+                  },
+                  "ranges": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "skipActions": {
+                    "type": "integer"
+                  },
+                  "staminaTax": {
+                    "type": "integer"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "manaTax",
+                  "skipActions",
+                  "staminaTax",
+                  "status"
+                ]
+              },
+              "class": {
+                "type": "string",
+                "enum": [
+                  "colorless"
+                ]
+              },
+              "cost": {
+                "type": [
+                  "integer",
+                  "string"
+                ]
+              },
+              "costGrowth": {
+                "type": "object",
+                "properties": {
+                  "mana": {
+                    "type": "integer"
+                  },
+                  "max": {
+                    "type": "integer"
+                  },
+                  "perUse": {
+                    "type": "integer"
+                  },
+                  "stamina": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "mana",
+                  "max",
+                  "perUse",
+                  "stamina"
+                ]
+              },
+              "costRule": {
+                "type": "string",
+                "enum": [
+                  "fixed"
+                ]
+              },
+              "damageSchool": {
+                "type": "string",
+                "enum": [
+                  "fire",
+                  "holy",
+                  "magic",
+                  "physical"
+                ]
+              },
+              "effectVariants": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "amount": {
+                            "type": "integer"
+                          },
+                          "op": {
+                            "type": "string"
+                          },
+                          "target": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "amount",
+                          "op",
+                          "target"
+                        ]
+                      }
+                    },
+                    "if": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "integer"
+                        },
+                        "p": {
+                          "type": "string"
+                        },
+                        "preds": {
+                          "type": "array",
+                          "items": {}
+                        },
+                        "resource": {
+                          "type": "string"
+                        },
+                        "stance": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "p"
+                      ]
+                    },
+                    "textTemplate": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "effects",
+                    "if",
+                    "textTemplate"
+                  ]
+                }
+              },
+              "effects": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "amount": {
+                      "type": [
+                        "integer",
+                        "object"
+                      ],
+                      "properties": {
+                        "args": {
+                          "type": "array",
+                          "items": {
+                            "type": [
+                              "integer",
+                              "object"
+                            ],
+                            "properties": {
+                              "f": {
+                                "type": "string"
+                              },
+                              "metric": {
+                                "type": "string"
+                              },
+                              "of": {
+                                "type": "string"
+                              },
+                              "per": {
+                                "type": "number"
+                              },
+                              "statuses": {
+                                "type": "array"
+                              }
+                            },
+                            "required": [
+                              "f",
+                              "metric",
+                              "of",
+                              "per"
+                            ]
+                          }
+                        },
+                        "f": {
+                          "type": "string",
+                          "enum": [
+                            "add",
+                            "energySpent",
+                            "metric",
+                            "stacks"
+                          ]
+                        },
+                        "metric": {
+                          "type": "string"
+                        },
+                        "of": {
+                          "type": "string"
+                        },
+                        "per": {
+                          "type": "integer"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "f"
+                      ]
+                    },
+                    "attack": {
+                      "type": "object",
+                      "properties": {
+                        "damageType": {
+                          "type": "string"
+                        },
+                        "source": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "source"
+                      ]
+                    },
+                    "card": {
+                      "type": "string"
+                    },
+                    "changes": {
+                      "type": "object",
+                      "properties": {
+                        "hideTurns": {
+                          "type": "object",
+                          "properties": {
+                            "f": {
+                              "type": "string"
+                            },
+                            "of": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "f",
+                            "of",
+                            "status"
+                          ]
+                        },
+                        "maneuver": {
+                          "type": "string"
+                        },
+                        "range": {
+                          "type": "string"
+                        },
+                        "retain": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "choose": {
+                      "type": "string"
+                    },
+                    "count": {
+                      "type": "integer"
+                    },
+                    "from": {
+                      "type": "string",
+                      "enum": [
+                        "discard",
+                        "draw",
+                        "exhaust",
+                        "hand"
+                      ]
+                    },
+                    "hits": {
+                      "type": "integer"
+                    },
+                    "if": {
+                      "type": "object",
+                      "properties": {
+                        "p": {
+                          "type": "string"
+                        },
+                        "stance": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "p",
+                        "stance"
+                      ]
+                    },
+                    "look": {
+                      "type": "integer"
+                    },
+                    "maneuver": {
+                      "type": "string"
+                    },
+                    "op": {
+                      "type": "string"
+                    },
+                    "pile": {
+                      "type": "string"
+                    },
+                    "position": {
+                      "type": "string",
+                      "enum": [
+                        "random",
+                        "top"
+                      ]
+                    },
+                    "selection": {
+                      "type": "string",
+                      "enum": [
+                        "choose",
+                        "random"
+                      ]
+                    },
+                    "stacks": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string",
+                      "x-ref": "profile/bundle/statuses.json"
+                    },
+                    "tags": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "target": {
+                      "type": "string",
+                      "enum": [
+                        "allAllies",
+                        "allEnemies",
+                        "ally",
+                        "enemy",
+                        "self"
+                      ]
+                    },
+                    "to": {
+                      "type": "string",
+                      "enum": [
+                        "draw",
+                        "exhaust",
+                        "hand"
+                      ]
+                    },
+                    "transformTo": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "op"
+                  ]
+                }
+              },
+              "exposureBuildupPerHit": {
+                "type": "integer"
+              },
+              "flavor": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "keywords": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "ethereal",
+                    "exhaust",
+                    "unplayable"
+                  ]
+                }
+              },
+              "manaCost": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "playLimit": {
+                "type": "integer"
+              },
+              "rarity": {
+                "type": "string",
+                "enum": [
+                  "common",
+                  "special",
+                  "uncommon"
+                ]
+              },
+              "staminaCost": {
+                "type": "integer"
+              },
+              "targetLimit": {
+                "type": "object",
+                "properties": {
+                  "f": {
+                    "type": "string"
+                  },
+                  "per": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "f",
+                  "per"
+                ]
+              },
+              "textTemplate": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "attack",
+                  "skill",
+                  "status"
+                ]
+              },
+              "wardOffTextTemplate": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "class",
+              "cost",
+              "costRule",
+              "effects",
+              "flavor",
+              "icon",
+              "id",
+              "keywords",
+              "manaCost",
+              "name",
+              "rarity",
+              "staminaCost",
+              "textTemplate",
+              "type"
+            ]
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "base.core-rewards",
+                "base.current-rewards",
+                "base.generated-burdens"
+              ]
+            }
+          },
+          "presentation": {
+            "type": "object",
+            "properties": {
+              "canonicalCardRef": {
+                "type": "string",
+                "enum": [
+                  "dodgeRoll",
+                  "fieldDressing",
+                  "greatswordSunderingHew",
+                  "honedEdge",
+                  "ironSkin",
+                  "strike",
+                  "technique",
+                  "twinFang"
+                ]
+              },
+              "faceLines": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sourceFaceLines": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "canonicalCardRef",
+              "faceLines",
+              "sourceFaceLines"
+            ]
+          },
+          "provenance": {
+            "type": "object",
+            "properties": {
+              "sourceBranch": {
+                "type": "string",
+                "enum": [
+                  "Feature/updateCharacterCreation"
+                ]
+              },
+              "sourceCommit": {
+                "type": "string",
+                "enum": [
+                  "fbee6162589ec2374664c19c4c78ee2795691d7e"
+                ]
+              },
+              "sourceProposal": {
+                "type": "object",
+                "properties": {
+                  "balanceUndecided": {
+                    "type": "boolean"
+                  },
+                  "cost": {
+                    "type": "object",
+                    "properties": {
+                      "mp": {
+                        "type": "null"
+                      },
+                      "sp": {
+                        "type": "null"
+                      }
+                    },
+                    "required": [
+                      "mp",
+                      "sp"
+                    ]
+                  },
+                  "entityKind": {
+                    "type": "string",
+                    "enum": [
+                      "combatCard",
+                      "statusCard"
+                    ]
+                  },
+                  "face": {
+                    "type": "object",
+                    "properties": {
+                      "iconTags": {
+                        "type": "array",
+                        "items": {}
+                      },
+                      "lines": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "maxClauses": {
+                        "type": "integer"
+                      },
+                      "maxPhysicalLines": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "iconTags",
+                      "lines",
+                      "maxClauses",
+                      "maxPhysicalLines"
+                    ]
+                  },
+                  "generatedByCandidateIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "inspection": {
+                    "type": "object",
+                    "properties": {
+                      "activeVariant": {
+                        "type": "null"
+                      },
+                      "canonicalSpellId": {
+                        "type": "null"
+                      },
+                      "fullRules": {
+                        "type": "string"
+                      },
+                      "generatedCardIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "lifecycleAlternatives": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "openQuestionIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "parameters": {
+                        "type": [
+                          "null",
+                          "object"
+                        ],
+                        "additionalProperties": {
+                          "type": [
+                            "boolean",
+                            "integer",
+                            "null",
+                            "string"
+                          ]
+                        }
+                      },
+                      "variants": {
+                        "type": "array",
+                        "items": {}
+                      }
+                    },
+                    "required": [
+                      "activeVariant",
+                      "canonicalSpellId",
+                      "fullRules",
+                      "openQuestionIds",
+                      "parameters",
+                      "variants"
+                    ]
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "namesProvisional": {
+                    "type": "boolean"
+                  },
+                  "provenance": {
+                    "type": "object",
+                    "properties": {
+                      "nameSource": {
+                        "type": "string",
+                        "enum": [
+                          "AI-suggested-working-label",
+                          "user-explicit",
+                          "user-request-term"
+                        ]
+                      },
+                      "source": {
+                        "type": "string",
+                        "enum": [
+                          "user-request"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "nameSource",
+                      "source"
+                    ]
+                  },
+                  "school": {
+                    "type": "null"
+                  },
+                  "schoolGrouping": {
+                    "type": "string",
+                    "enum": [
+                      "unspecified"
+                    ]
+                  },
+                  "stance": {
+                    "type": "null"
+                  },
+                  "state": {
+                    "type": "string",
+                    "enum": [
+                      "proposed"
+                    ]
+                  },
+                  "tagAlternatives": {
+                    "type": "object",
+                    "properties": {
+                      "operator": {
+                        "type": "string"
+                      },
+                      "selected": {
+                        "type": "null"
+                      },
+                      "tagIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "operator",
+                      "selected",
+                      "tagIds"
+                    ]
+                  },
+                  "tagIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "wireframeIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": [
+                        "proposed:wireframe:compact",
+                        "proposed:wireframe:expanded-inspection"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "balanceUndecided",
+                  "cost",
+                  "entityKind",
+                  "face",
+                  "id",
+                  "inspection",
+                  "name",
+                  "namesProvisional",
+                  "provenance",
+                  "school",
+                  "schoolGrouping",
+                  "stance",
+                  "state",
+                  "tagIds",
+                  "wireframeIds"
+                ]
+              }
+            },
+            "required": [
+              "sourceBranch",
+              "sourceCommit",
+              "sourceProposal"
+            ]
+          },
+          "requirements": {
+            "type": "object",
+            "properties": {
+              "elements": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "fire",
+                    "necrotic",
+                    "sacred"
+                  ]
+                }
+              },
+              "features": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "damage-groups",
+                    "element-fire",
+                    "element-necrotic",
+                    "element-sacred",
+                    "hand-retention",
+                    "ward-channel"
+                  ]
+                }
+              },
+              "modules": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "defenses",
+                    "equipment",
+                    "stances",
+                    "statuses"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "elements",
+              "features",
+              "modules"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "authorDefaults",
+          "authoring",
+          "definition",
+          "groups",
+          "presentation",
+          "provenance",
+          "requirements",
+          "tags"
+        ]
+      }
+    },
+    "helpers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "authorDefaults": {
+            "type": "object",
+            "properties": {
+              "chosenRules": {
+                "type": "string"
+              },
+              "costs": {
+                "type": "object",
+                "properties": {
+                  "mana": {
+                    "type": "integer"
+                  },
+                  "rationale": {
+                    "type": "string"
+                  },
+                  "stamina": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "mana",
+                  "rationale",
+                  "stamina"
+                ]
+              },
+              "parameterSource": {
+                "type": "string"
+              },
+              "rationale": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "chosenRules",
+              "costs",
+              "parameterSource",
+              "rationale",
+              "state"
+            ]
+          },
+          "definition": {
+            "type": "object",
+            "properties": {
+              "class": {
+                "type": "string"
+              },
+              "cost": {
+                "type": "integer"
+              },
+              "costRule": {
+                "type": "string"
+              },
+              "damageSchool": {
+                "type": "string"
+              },
+              "effects": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "amount": {
+                      "type": "integer"
+                    },
+                    "op": {
+                      "type": "string"
+                    },
+                    "target": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "amount",
+                    "op",
+                    "target"
+                  ]
+                }
+              },
+              "exposureBuildupPerHit": {
+                "type": "integer"
+              },
+              "flavor": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "keywords": {
+                "type": "array",
+                "items": {}
+              },
+              "manaCost": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "rarity": {
+                "type": "string"
+              },
+              "staminaCost": {
+                "type": "integer"
+              },
+              "textTemplate": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "class",
+              "cost",
+              "costRule",
+              "damageSchool",
+              "effects",
+              "exposureBuildupPerHit",
+              "flavor",
+              "icon",
+              "id",
+              "keywords",
+              "manaCost",
+              "name",
+              "rarity",
+              "staminaCost",
+              "textTemplate",
+              "type"
+            ]
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "presentation": {
+            "type": "object",
+            "properties": {
+              "canonicalCardRef": {
+                "type": "string"
+              },
+              "faceLines": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "canonicalCardRef",
+              "faceLines"
+            ]
+          },
+          "provenance": {
+            "type": "object",
+            "properties": {
+              "reason": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "reason",
+              "source"
+            ]
+          },
+          "requirements": {
+            "type": "object",
+            "properties": {
+              "elements": {
+                "type": "array",
+                "items": {}
+              },
+              "features": {
+                "type": "array",
+                "items": {}
+              },
+              "modules": {
+                "type": "array",
+                "items": {}
+              }
+            },
+            "required": [
+              "elements",
+              "features",
+              "modules"
+            ]
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "camp:physical",
+                "classification.attack",
+                "maneuver:attack",
+                "maneuver:smash",
+                "source:weapon"
+              ]
+            }
+          }
+        },
+        "required": [
+          "authorDefaults",
+          "definition",
+          "groups",
+          "presentation",
+          "provenance",
+          "requirements",
+          "tags"
+        ]
+      }
+    },
+    "schemaVersion": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "cards",
+    "helpers",
+    "schemaVersion"
+  ]
+}

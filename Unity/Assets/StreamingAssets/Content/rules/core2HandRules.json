@@ -1,0 +1,12 @@
+{
+  "handRulesDefaults": {
+    "retain": false,
+    "shuffleHand": true,
+    "promptDiscard": false,
+    "discardLimit": 10,
+    "replaceDiscards": false,
+    "overflow": "discard",
+    "reshuffle": true,
+    "drawMode": "fixed"
+  }
+}

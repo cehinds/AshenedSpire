@@ -29,7 +29,14 @@ namespace Ashen.Content
         /// <summary>The further tables the combat engine reads (attributes by id, property rules by tag).</summary>
         public static readonly IReadOnlyList<string> CombatTableNames = new[] { RegistryKeys.Attributes, RegistryKeys.PropertyRules };
 
+        /// <summary>The Core 2 id-keyed tables beyond <see cref="TableNames"/> (the web registries the 405 build did not read).</summary>
+        public static readonly IReadOnlyList<string> Core2Tables = new[]
+        {
+            Core2BundleKeys.Resources, Core2BundleKeys.Sigils, Core2BundleKeys.Consumables, Core2BundleKeys.Companions,
+        };
+
         private readonly Dictionary<string, JObject> _tables;
+        private readonly JObject _objects;
         private readonly JArray _classTree;
         private readonly JObject _equipment;
         private readonly JObject _balance;
@@ -41,8 +48,9 @@ namespace Ashen.Content
         private readonly JArray _unlocks;
 
         private RuntimeRegistries(Dictionary<string, JObject> tables, JArray classTree, JObject equipment, JObject balance, JObject map, JObject run, JObject events,
-            JArray tagging, JObject legacyDungeons, JArray unlocks)
+            JArray tagging, JObject legacyDungeons, JArray unlocks, JObject objects)
         {
+            _objects = objects;
             _run = run;
             _events = events;
             _tagging = tagging;
@@ -56,16 +64,33 @@ namespace Ashen.Content
         }
 
         /// <summary>Builds the registries from an effective content set (e.g. <c>RunSnapshot.Content</c>) and its display strings.</summary>
-        public static RuntimeRegistries Build(ContentSet content, JObject stringsEn)
+        public static RuntimeRegistries Build(ContentSet content, JObject stringsEn) => Build(content, RegistryBundle.Load(content, stringsEn), false);
+
+        /// <summary>
+        /// Builds the Core 2 registries (WP-2, D-168) from the projected bundle under profile/bundle/, through the same
+        /// createRegistries steps as <see cref="Build"/>. The 405 content is not read.
+        /// </summary>
+        public static RuntimeRegistries BuildCore2(ContentSet content)
         {
             if (content == null) throw new ArgumentNullException(nameof(content));
-            var bundle = AttackCardDamage.ProjectBundle(RegistryBundle.Load(content, stringsEn));
+            return Build(content, RegistryBundle.LoadCore2(content), true);
+        }
+
+        private static RuntimeRegistries Build(ContentSet content, JObject loaded, bool core2)
+        {
+            if (content == null) throw new ArgumentNullException(nameof(content));
+            var bundle = AttackCardDamage.ProjectBundle(loaded);
             var stamped = TagStamp.Stamp(bundle);
             JArray Collection(string source) =>
                 stamped.Where(kv => kv.Key == source).Select(kv => kv.Value).FirstOrDefault() ?? bundle[source] as JArray ?? new JArray();
 
             var tables = new Dictionary<string, JObject>(StringComparer.Ordinal);
-            foreach (var name in TableNames) tables[name] = MakeRegistry(name, Collection(name));
+            foreach (var name in TableNames)
+                tables[name] = MakeRegistry(name, core2 && name == RegistryKeys.Enemies && bundle[Core2BundleKeys.EnemyMoves] is JArray
+                    ? WithMoveRows(Collection(name), Collection(Core2BundleKeys.EnemyMoves))
+                    : Collection(name));
+            if (core2)
+                foreach (var name in Core2Tables) tables[name] = MakeRegistry(name, Collection(name));
             tables[RegistryKeys.Attributes] = MakeRegistry(RegistryKeys.Attributes, Collection(RegistryKeys.Attributes));
             tables[RegistryKeys.PropertyRules] = MakeRegistry(RegistryKeys.PropertyRules, Collection(RegistryKeys.PropertyRules), CombatKeys.Tag);
             tables[MK.Seats] = MakeRegistry(MK.Seats, Collection(MK.Seats));
@@ -88,11 +113,72 @@ namespace Ashen.Content
 
             var balance = JsValues.Spread(bundle[RegistryKeys.Balance] as JObject);
             var tagging = (bundle[RegistryKeys.Tagging] as JArray)?.DeepClone() as JArray ?? new JArray();
-            var legacyDungeons = content.Contains(ContentFiles.CatalogLegacyDungeons) ? content.Get(ContentFiles.CatalogLegacyDungeons).DeepClone() as JObject : null;
-            var unlockTable = content.Contains(ContentFiles.CatalogUnlocks) ? content.Get(ContentFiles.CatalogUnlocks) as JObject : null;
+            var legacyDungeonsFile = RegistryBundle.FileFor(ContentFiles.CatalogLegacyDungeons, core2);
+            var unlocksFile = RegistryBundle.FileFor(ContentFiles.CatalogUnlocks, core2);
+            var legacyDungeons = content.Contains(legacyDungeonsFile) ? content.Get(legacyDungeonsFile).DeepClone() as JObject : null;
+            var unlockTable = content.Contains(unlocksFile) ? content.Get(unlocksFile) as JObject : null;
             var unlocks = new JArray((unlockTable ?? new JObject()).Properties().Select(p => p.Value.DeepClone()));
-            return new RuntimeRegistries(tables, classTree, equipment, balance, MapDocuments(content), RunDocuments(bundle, stamped), EventDocuments(content),
-                tagging, legacyDungeons ?? new JObject(), unlocks);
+            return new RuntimeRegistries(tables, classTree, equipment, balance, MapDocuments(content, core2), RunDocuments(bundle, stamped), EventDocuments(content, core2),
+                tagging, legacyDungeons ?? new JObject(), unlocks, Objects(bundle, stamped, equipment, balance, core2));
+        }
+
+        /// <summary>
+        /// The web registries that are plain data rather than id-keyed tables (Core 2 only): every bundle key, a tagged
+        /// collection stamped, plus the finished equipment and balance. Key order is the bundle's.
+        /// </summary>
+        private static JObject Objects(JObject bundle, List<KeyValuePair<string, JArray>> stamped, JObject equipment, JObject balance, bool core2)
+        {
+            var objects = new JObject();
+            if (!core2) return objects;
+            foreach (var p in bundle.Properties()) objects[p.Name] = p.Value.DeepClone();
+            foreach (var kv in stamped)
+                if (kv.Key.IndexOf(RegistryKeys.PathSeparator, StringComparison.Ordinal) < 0) objects[kv.Key] = kv.Value.DeepClone();
+            objects[RegistryKeys.Equipment] = equipment.DeepClone();
+            objects[RegistryKeys.Balance] = balance.DeepClone();
+            var creation = bundle[RunKeys.CharacterCreation] as JObject;
+            var keepsakesPath = string.Join(RegistryKeys.PathSeparator, RunKeys.CharacterCreation, RegistryKeys.Keepsakes);
+            var keepsakes = stamped.Where(kv => kv.Key == keepsakesPath).Select(kv => kv.Value).FirstOrDefault();
+            if (creation != null)
+            {
+                var spread = JsValues.Spread(creation);
+                if (keepsakes != null) spread[RegistryKeys.Keepsakes] = keepsakes.DeepClone();
+                objects[RunKeys.CharacterCreation] = spread;
+            }
+            return objects;
+        }
+
+        /// <summary>The Core 2 data registry <paramref name="name"/> (e.g. <c>nodes</c>, <c>enemyMoves</c>, <c>shops</c>), or null.</summary>
+        public JToken Object(string name) => name != null && _objects[name] != null ? _objects[name].DeepClone() : null;
+
+        /// <summary>Names of the registries <see cref="Object"/> answers, in bundle order.</summary>
+        public IEnumerable<string> ObjectNames => _objects.Properties().Select(p => p.Name);
+
+        /// <summary>
+        /// registries.js: each enemy's nested moves are replaced by the stamped flat move row with the same enemy and move id
+        /// (the move table carries the tags), keeping the nested key order; a move with no row stays as authored.
+        /// </summary>
+        private static JArray WithMoveRows(JArray enemies, JArray moves)
+        {
+            var byEnemy = new Dictionary<string, Dictionary<string, JToken>>(StringComparer.Ordinal);
+            foreach (var move in moves.OfType<JObject>())
+            {
+                var enemyId = JsValues.Text(move[Core2MoveKeys.EnemyId]);
+                if (!byEnemy.TryGetValue(enemyId, out var perEnemy)) byEnemy[enemyId] = perEnemy = new Dictionary<string, JToken>(StringComparer.Ordinal);
+                perEnemy[JsValues.Text(move[RegistryKeys.Id])] = move;
+            }
+            var result = new JArray();
+            foreach (var token in enemies)
+            {
+                if (!(token is JObject enemy)) { result.Add(token); continue; }
+                var copy = JsValues.Spread(enemy);
+                var nested = new JObject();
+                var id = JsValues.Text(enemy[RegistryKeys.Id]);
+                foreach (var m in (enemy[Core2MoveKeys.Moves] as JObject ?? new JObject()).Properties())
+                    nested[m.Name] = (byEnemy.TryGetValue(id, out var per) && per.TryGetValue(m.Name, out var row) ? row : m.Value).DeepClone();
+                copy[Core2MoveKeys.Moves] = nested;
+                result.Add(copy);
+            }
+            return result;
         }
 
         /// <summary>An id-keyed registry table ("cards", "relics", ...), or null for a name that is not one.</summary>
@@ -194,9 +280,9 @@ namespace Ashen.Content
                 (JObject)_events[EventKeys.EventMeta].DeepClone(), (JObject)_events[EventKeys.ChoiceRequirements].DeepClone(), eventsEngine);
 
         /// <summary>The event documents: catalog/eventMeta.json and catalog/eventChoiceRequirements.json (empty objects when absent).</summary>
-        private static JObject EventDocuments(ContentSet content)
+        private static JObject EventDocuments(ContentSet content, bool core2)
         {
-            JObject Get(string file) => content.Contains(file) && content.Get(file) is JObject o ? (JObject)o.DeepClone() : new JObject();
+            JObject Get(string file) => content.Contains(RegistryBundle.FileFor(file, core2)) && content.Get(RegistryBundle.FileFor(file, core2)) is JObject o ? (JObject)o.DeepClone() : new JObject();
             return new JObject
             {
                 [EventKeys.EventMeta] = Get(ContentFiles.CatalogEventMeta),
@@ -215,9 +301,9 @@ namespace Ashen.Content
                 ToMapData(mapEngine), (JArray)_tagging.DeepClone(), (JObject)_legacyDungeons.DeepClone(), (JArray)_unlocks.DeepClone(), loopEngine);
 
         /// <summary>The map documents, in content key order: balance/mapConfigs.json, eventMeta's gates, boss locations, mapShape limits and legacy bosses.</summary>
-        private static JObject MapDocuments(ContentSet content)
+        private static JObject MapDocuments(ContentSet content, bool core2)
         {
-            JToken Get(string file) => content.Contains(file) ? content.Get(file) : null;
+            JToken Get(string file) => content.Contains(RegistryBundle.FileFor(file, core2)) ? content.Get(RegistryBundle.FileFor(file, core2)) : null;
             var shape = Get(ContentFiles.BalanceMapShape) as JObject;
             return new JObject
             {

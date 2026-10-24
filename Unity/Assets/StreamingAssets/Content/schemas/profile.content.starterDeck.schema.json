@@ -1,0 +1,155 @@
+{
+  "$id": "profile/content/starterDeck.json",
+  "type": "object",
+  "properties": {
+    "classDecks": {
+      "type": "object",
+      "properties": {
+        "herald": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "card": {
+                "type": "string"
+              },
+              "copies": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "card",
+              "copies"
+            ]
+          }
+        },
+        "reaver": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "card": {
+                "type": "string"
+              },
+              "copies": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "card",
+              "copies"
+            ]
+          }
+        },
+        "rogue": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "card": {
+                "type": "string",
+                "enum": [
+                  "base.draw",
+                  "core.counter",
+                  "core.defend",
+                  "core.evade",
+                  "core.rogueSpecial",
+                  "core.strike"
+                ]
+              },
+              "copies": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "card",
+              "copies"
+            ]
+          }
+        },
+        "starseer": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "card": {
+                "type": "string"
+              },
+              "copies": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "card",
+              "copies"
+            ]
+          }
+        }
+      },
+      "required": [
+        "herald",
+        "reaver",
+        "rogue",
+        "starseer"
+      ]
+    },
+    "classSpecials": {
+      "type": "object",
+      "properties": {
+        "herald": {
+          "type": "string"
+        },
+        "reaver": {
+          "type": "string"
+        },
+        "rogue": {
+          "type": "string"
+        },
+        "starseer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "herald",
+        "reaver",
+        "rogue",
+        "starseer"
+      ]
+    },
+    "classSpecificCopies": {
+      "type": "integer"
+    },
+    "shared": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "card": {
+            "type": "string",
+            "enum": [
+              "base.draw",
+              "core.counter",
+              "core.defend",
+              "core.smash",
+              "core.strike",
+              "core.sweep"
+            ]
+          },
+          "copies": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "card",
+          "copies"
+        ]
+      }
+    }
+  },
+  "required": [
+    "classDecks",
+    "classSpecials",
+    "classSpecificCopies",
+    "shared"
+  ]
+}

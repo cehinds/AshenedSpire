@@ -1,0 +1,77 @@
+{
+  "$id": "rules/core2Mechanics.json",
+  "type": "object",
+  "properties": {
+    "format": {
+      "type": "string"
+    },
+    "mechanics": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "tag": {
+                "type": "string"
+              },
+              "family": {
+                "type": "string"
+              },
+              "portability": {
+                "type": "string"
+              },
+              "modules": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "family",
+              "id",
+              "modules",
+              "portability",
+              "tag"
+            ]
+          },
+          "mechanic": {
+            "type": "object"
+          },
+          "modelSchema": {
+            "type": "object"
+          },
+          "interface": {
+            "type": "object"
+          },
+          "service": {
+            "type": "object"
+          },
+          "cases": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "required": [
+          "cases",
+          "index",
+          "interface",
+          "mechanic",
+          "modelSchema",
+          "service"
+        ]
+      }
+    }
+  },
+  "required": [
+    "format",
+    "mechanics"
+  ]
+}

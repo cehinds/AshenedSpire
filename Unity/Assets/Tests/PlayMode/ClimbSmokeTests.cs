@@ -46,6 +46,7 @@ namespace Ashen.Tests.Play
             _saves = Path.Combine(Path.GetTempPath(), "ashen-climb-smoke-" + Guid.NewGuid().ToString("N"));
             AshenBoot.SaveDirectoryOverride = _saves;
             TitleScreen.ResetSession();
+            RunFlow.RulesetOverride = RunFlowValues.RulesetLegacy;
             _background = InputSystem.settings.backgroundBehavior;
             _editorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
             InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
@@ -64,6 +65,7 @@ namespace Ashen.Tests.Play
             AshenBoot.SaveDirectoryOverride = null;
             RunFlow.SeedOverride = null;
             RunFlow.CustomOverride = null;
+            RunFlow.RulesetOverride = null;
             RunSession.ReviewEnemyHpScale = null;
             if (Directory.Exists(_saves)) Directory.Delete(_saves, true);
         }

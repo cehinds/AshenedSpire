@@ -1,0 +1,106 @@
+{
+ "deckPool": [
+  "core.defend",
+  "core.defend",
+  "core.counter",
+  "core.counter",
+  "core.strike",
+  "core.smash",
+  "core.sweep",
+  "core.defend"
+ ],
+ "enemies": {
+  "bytes": 3293745,
+  "count": 33,
+  "file": "enemies.json",
+  "moves": 138,
+  "picks": 33000
+ },
+ "exchanges": {
+  "bytes": 4530113,
+  "count": 118,
+  "file": "exchanges.json",
+  "kinds": [
+   "delayed",
+   "knight",
+   "duelist",
+   "predict",
+   "predictRefused",
+   "credit"
+  ],
+  "steps": 1038
+ },
+ "fights": {
+  "herald": {
+   "fights": 6,
+   "steps": 55
+  },
+  "reaver": {
+   "fights": 6,
+   "steps": 72
+  },
+  "rogue": {
+   "fights": 6,
+   "steps": 49
+  },
+  "starseer": {
+   "fights": 6,
+   "steps": 87
+  }
+ },
+ "files": [
+  {
+   "bytes": 266677,
+   "classId": "reaver",
+   "fights": 6,
+   "file": "fights-reaver.json",
+   "steps": 72
+  },
+  {
+   "bytes": 307631,
+   "classId": "starseer",
+   "fights": 6,
+   "file": "fights-starseer.json",
+   "steps": 87
+  },
+  {
+   "bytes": 202568,
+   "classId": "rogue",
+   "fights": 6,
+   "file": "fights-rogue.json",
+   "steps": 49
+  },
+  {
+   "bytes": 240756,
+   "classId": "herald",
+   "fights": 6,
+   "file": "fights-herald.json",
+   "steps": 55
+  }
+ ],
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "seen": {
+  "back": 301,
+  "charged": 0,
+  "enemyFizzled": 3,
+  "enemyStacked": 68,
+  "fizzled": 4,
+  "offers": 673,
+  "perception": 25,
+  "played": 372,
+  "predicted": 54,
+  "stacked": 372,
+  "unavailable": 127
+ },
+ "units": {
+  "bytes": 1208221,
+  "decisions": 384,
+  "file": "units.json",
+  "ledger": 246,
+  "mounts": 4,
+  "reactions": 24,
+  "reads": 35
+ },
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

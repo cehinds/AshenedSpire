@@ -29,7 +29,7 @@
     "profileSnapshotVersion": 2,
     "legacyProfileSnapshotVersion": 1,
     "profilePatchFields": ["baseValue", "ratingId", "cap"],
-    "profileCarrierFields": ["damageSchool", "exposureBuildupPerHit"],
+    "profileCarrierFields": ["damageSchool", "exposureBuildupPerHit", "magicShare"],
     "compatibilitySuffix": "-v1",
     "packageCompatibility": "attack-v1",
     "roles": ["attack", "guard", "technique"],

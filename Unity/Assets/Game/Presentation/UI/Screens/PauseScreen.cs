@@ -13,7 +13,7 @@ namespace Ashen.Presentation.UI.Screens
 {
     public sealed class PauseArgs
     {
-        public RunSession Session;
+        public IClimb Session;
     }
 
     /// <summary>
@@ -26,7 +26,7 @@ namespace Ashen.Presentation.UI.Screens
     public sealed class PauseScreen : ScreenView
     {
         private readonly List<LocButton> _rows = new List<LocButton>();
-        private RunSession _session;
+        private IClimb _session;
         private Shell _shell;
 
         public IReadOnlyList<LocButton> Rows => _rows;
@@ -34,7 +34,7 @@ namespace Ashen.Presentation.UI.Screens
 
         protected override void OnBind(object args)
         {
-            _session = (args as PauseArgs)?.Session ?? Ui.Session;
+            _session = (args as PauseArgs)?.Session ?? Ui.Climb;
             var strings = Ui.Data.Strings;
             _shell = Root.Q<Shell>(UiNames.Shell);
             _shell.SetFooter(null, StringKeys.PauseResume);
@@ -106,7 +106,7 @@ namespace Ashen.Presentation.UI.Screens
                 ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, OnConfirm = SaveAndQuit });
                 return;
             }
-            Ui.Session = null;
+            Ui.ClearRun();
             Nav.Go(ScreenIds.Title, null, true);
         }
 
@@ -124,7 +124,7 @@ namespace Ashen.Presentation.UI.Screens
                 ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, OnConfirm = Abandon });
                 return;
             }
-            RunFlow.Show(Context, _session);
+            RunFlow.ShowClimb(Context, _session);
         }
 
         public void Resume() => Nav.Close(Context.Instance);

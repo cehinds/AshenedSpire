@@ -1,0 +1,77 @@
+{
+  "$id": "profile/bundle/unlocks.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "condition": {
+        "type": "string",
+        "enum": [
+          "beatBoss",
+          "reachAct",
+          "winAsClass",
+          "winRuns"
+        ]
+      },
+      "hint": {
+        "type": "string",
+        "enum": [
+          "",
+          "Defeat the Blighted Valkyrie.",
+          "Defeat the Fell Warden.",
+          "Defeat the Stitched King.",
+          "Reach the Ashen Crown.",
+          "Reach the Stitched Court.",
+          "Win a run as the Reaver.",
+          "Win a run as the Rogue.",
+          "Win a run as the Starseer.",
+          "Win a run.",
+          "Win three runs.",
+          "Win two runs."
+        ]
+      },
+      "id": {
+        "type": "string"
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "character",
+          "outfit",
+          "slot"
+        ]
+      },
+      "name": {
+        "type": "string"
+      },
+      "param": {
+        "type": [
+          "integer",
+          "string"
+        ]
+      },
+      "ref": {
+        "type": "string"
+      },
+      "reveal": {
+        "type": "string",
+        "enum": [
+          "hidden",
+          "listed",
+          "teased"
+        ]
+      }
+    },
+    "required": [
+      "condition",
+      "hint",
+      "id",
+      "kind",
+      "name",
+      "param",
+      "ref",
+      "reveal"
+    ]
+  }
+}

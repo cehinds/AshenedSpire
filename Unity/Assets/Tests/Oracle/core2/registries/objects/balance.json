@@ -1,0 +1,3400 @@
+{
+ "combatMatchups": {
+  "counter": {
+   "incomingMultiplier": 0.5,
+   "retaliationMultiplier": 1.5,
+   "retaliationFlat": 5,
+   "poiseMultiplier": 1.5,
+   "guard": 4,
+   "ward": 2,
+   "defaultDamage": 6,
+   "meleeBypassDamageTypes": [
+    "force",
+    "piercing"
+   ],
+   "meleeIncomingManeuvers": [
+    "attack",
+    "smash"
+   ]
+  },
+  "smash": {
+   "guardedMultiplier": 1.5,
+   "guardBreakPoiseBonus": 3
+  },
+  "attack": {
+   "preparedPoiseMultiplier": 1.5
+  },
+  "damageRiders": {
+   "blunt": {
+    "poise": 2
+   },
+   "piercing": {
+    "guardBypass": 2
+   },
+   "slashing": {
+    "status": "bleed",
+    "stacks": 1,
+    "requiresHpLoss": true
+   },
+   "cold": {
+    "status": "frost",
+    "stacks": 1,
+    "requiresHpLoss": true
+   },
+   "fire": {
+    "status": "burn",
+    "stacks": 1,
+    "requiresHpLoss": true
+   },
+   "lightning": {
+    "status": "weak",
+    "stacks": 1,
+    "requiresHpLoss": true
+   },
+   "force": {
+    "wardDrain": 2
+   },
+   "necrotic": {
+    "status": "crimsonBlight",
+    "stacks": 1,
+    "requiresHpLoss": true
+   },
+   "holy": {
+    "cleanse": 1,
+    "requiresHpLoss": true
+   },
+   "poison": {
+    "status": "venom",
+    "stacks": 1,
+    "requiresHpLoss": true
+   },
+   "psychic": {
+    "status": "confused",
+    "stacks": 1,
+    "requiresHpLoss": true
+   },
+   "earth": {
+    "status": "slowed",
+    "stacks": 1,
+    "requiresHpLoss": true
+   }
+  },
+  "damageAliases": {
+   "frost": "cold",
+   "arcane": "force",
+   "sacred": "holy",
+   "decay": "necrotic",
+   "pierce": "piercing",
+   "bludgeoning": "blunt"
+  },
+  "tagRiders": {
+   "precision": {
+    "guardBypass": 4
+   },
+   "gorefire": {
+    "status": "burn",
+    "stacks": 1,
+    "requiresHpLoss": true
+   }
+  },
+  "cleanseStatuses": [
+   "weak",
+   "frail",
+   "vulnerable",
+   "crimsonBlight",
+   "burn"
+  ]
+ },
+ "combatIntent": {
+  "baseHiddenChance": 0.7,
+  "wisdomReduction": 0.02,
+  "intelligenceReduction": 0.01,
+  "minimumHiddenChance": 0,
+  "maximumHiddenChance": 0.95
+ },
+ "enemyKnowledge": {
+  "reads": {
+   "baseExact": 0.3,
+   "wisdomExact": 0.01,
+   "intelligenceExact": 0.01,
+   "levelExact": 0.005,
+   "perceptionExact": 0.03,
+   "minimumExact": 0,
+   "maximumExact": 0.9,
+   "baseClue": 0.5,
+   "wisdomClue": 0.005,
+   "intelligenceClue": 0.005,
+   "levelClue": 0.0025,
+   "perceptionClue": 0.02,
+   "minimumClue": 0,
+   "maximumClue": 0.9
+  },
+  "perception": {
+   "base": 3,
+   "growth": 1.5,
+   "roundTo": 1,
+   "maxLevel": 10,
+   "correctPredictionXp": 1
+  },
+  "bestiary": {
+   "encountersToMaster": 30,
+   "perEnemy": {}
+  }
+ },
+ "progression": {
+  "version": 1,
+  "gearRequirements": [
+   {
+    "classId": "reaver",
+    "level": 3,
+    "ref": "armor/reaver/vigil",
+    "requiredExistingUnlock": "beatStitchedKing"
+   },
+   {
+    "classId": "reaver",
+    "level": 9,
+    "ref": "armament/warhammer",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "reaver",
+    "level": 12,
+    "ref": "armament/towerShield",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "reaver",
+    "level": 18,
+    "ref": "armament/battleaxe",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "reaver",
+    "level": 18,
+    "ref": "armor/reaver/bastion",
+    "requiredExistingUnlock": "reachStitchedCourt"
+   },
+   {
+    "classId": "starseer",
+    "level": 3,
+    "ref": "armor/starseer/eclipse",
+    "requiredExistingUnlock": "winAsStarseer"
+   },
+   {
+    "classId": "starseer",
+    "level": 9,
+    "ref": "armament/frostSpear",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "starseer",
+    "level": 12,
+    "ref": "armament/duskChime",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "starseer",
+    "level": 18,
+    "ref": "armament/halberd",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "starseer",
+    "level": 18,
+    "ref": "armor/starseer/rimeweave",
+    "requiredExistingUnlock": "beatFellWarden"
+   },
+   {
+    "classId": "rogue",
+    "level": 3,
+    "ref": "armor/rogue/nightveil",
+    "requiredExistingUnlock": "rogueBeatWarden"
+   },
+   {
+    "classId": "rogue",
+    "level": 9,
+    "ref": "armament/katana",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "rogue",
+    "level": 12,
+    "ref": "armament/spikedShield",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "rogue",
+    "level": 18,
+    "ref": "armament/twinblade",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "rogue",
+    "level": 18,
+    "ref": "armor/rogue/waywatcher",
+    "requiredExistingUnlock": "rogueBeatWarden"
+   },
+   {
+    "classId": "herald",
+    "level": 3,
+    "ref": "armor/herald/ossuary",
+    "requiredExistingUnlock": "beatBlightedValkyrie"
+   },
+   {
+    "classId": "herald",
+    "level": 9,
+    "ref": "armament/cinderAxe",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "herald",
+    "level": 12,
+    "ref": "armament/goldboughBranch",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "herald",
+    "level": 18,
+    "ref": "armament/greatsword",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "herald",
+    "level": 18,
+    "ref": "armor/herald/emberhabit",
+    "requiredExistingUnlock": "beatKingAsHerald"
+   },
+   {
+    "classId": "reaver",
+    "level": 3,
+    "ref": "armament/kiteShield",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "reaver",
+    "level": 12,
+    "ref": "armament/gorefireBrand",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "reaver",
+    "level": 15,
+    "ref": "armament/wyrmhornStaff",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "starseer",
+    "level": 3,
+    "ref": "armament/starstoneStaff",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "starseer",
+    "level": 15,
+    "ref": "armament/lantern",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "rogue",
+    "level": 3,
+    "ref": "armament/parryDagger",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "rogue",
+    "level": 9,
+    "ref": "armament/shortbow",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "rogue",
+    "level": 15,
+    "ref": "armament/torch",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "herald",
+    "level": 3,
+    "ref": "armament/emberlightSceptre",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "herald",
+    "level": 12,
+    "ref": "armament/blightRod",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "reaver",
+    "level": 6,
+    "ref": "armor/reaver/warden",
+    "requiredExistingUnlock": "reachAshenCrown"
+   },
+   {
+    "classId": "reaver",
+    "level": 18,
+    "ref": "armor/reaver/oathsworn",
+    "requiredExistingUnlock": "winAsReaver"
+   },
+   {
+    "classId": "starseer",
+    "level": 6,
+    "ref": "armor/starseer/starlit",
+    "requiredExistingUnlock": "beatFellWarden"
+   },
+   {
+    "classId": "starseer",
+    "level": 18,
+    "ref": "armor/starseer/astral",
+    "requiredExistingUnlock": "winTwice"
+   },
+   {
+    "classId": "rogue",
+    "level": 6,
+    "ref": "armor/rogue/duelist",
+    "requiredExistingUnlock": "winAsRogue"
+   },
+   {
+    "classId": "rogue",
+    "level": 18,
+    "ref": "armor/rogue/shadow",
+    "requiredExistingUnlock": "rogueReachCrown"
+   },
+   {
+    "classId": "herald",
+    "level": 6,
+    "ref": "armor/herald/pilgrim",
+    "requiredExistingUnlock": "reachStitchedCourt"
+   },
+   {
+    "classId": "reaver",
+    "level": 0,
+    "ref": "armor/reaver/default",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "starseer",
+    "level": 0,
+    "ref": "armor/starseer/default",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "herald",
+    "level": 0,
+    "ref": "armor/herald/default",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "rogue",
+    "level": 0,
+    "ref": "armor/rogue/default",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "reaver",
+    "level": 3,
+    "ref": "armor/reaver/wayfarerPlate",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "starseer",
+    "level": 15,
+    "ref": "armor/starseer/wayfarerPlate",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "herald",
+    "level": 15,
+    "ref": "armor/herald/wayfarerPlate",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "rogue",
+    "level": 15,
+    "ref": "armor/rogue/wayfarerPlate",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "reaver",
+    "level": 12,
+    "ref": "armor/reaver/nightweave",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "starseer",
+    "level": 3,
+    "ref": "armor/starseer/nightweave",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "herald",
+    "level": 12,
+    "ref": "armor/herald/nightweave",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "rogue",
+    "level": 6,
+    "ref": "armor/rogue/nightweave",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "reaver",
+    "level": 15,
+    "ref": "armor/reaver/riteVestments",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "starseer",
+    "level": 12,
+    "ref": "armor/starseer/riteVestments",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "herald",
+    "level": 3,
+    "ref": "armor/herald/riteVestments",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "rogue",
+    "level": 12,
+    "ref": "armor/rogue/riteVestments",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "reaver",
+    "level": 6,
+    "ref": "armor/reaver/gutterLeathers",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "starseer",
+    "level": 6,
+    "ref": "armor/starseer/gutterLeathers",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "herald",
+    "level": 6,
+    "ref": "armor/herald/gutterLeathers",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": "rogue",
+    "level": 3,
+    "ref": "armor/rogue/gutterLeathers",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": null,
+    "level": 0,
+    "ref": "armament/roundShield",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": null,
+    "level": 0,
+    "ref": "armament/dagger",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": null,
+    "level": 0,
+    "ref": "armament/ashStaff",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": null,
+    "level": 0,
+    "ref": "armament/boneSceptre",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": null,
+    "level": 0,
+    "ref": "armament/buckler",
+    "requiredExistingUnlock": ""
+   },
+   {
+    "classId": null,
+    "level": 0,
+    "ref": "armament/straightSword",
+    "requiredExistingUnlock": ""
+   }
+  ],
+  "cadence": {
+   "cards": [
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16,
+    18,
+    20
+   ],
+   "feat": [
+    1,
+    4,
+    8,
+    12,
+    16,
+    20
+   ],
+   "armory": [
+    3,
+    6,
+    9,
+    12,
+    15,
+    18
+   ],
+   "relic": [
+    5,
+    8,
+    11,
+    14,
+    17,
+    20
+   ],
+   "attribute": [
+    5,
+    10,
+    15,
+    20
+   ]
+  },
+  "skillBonusXp": 25,
+  "ability": {
+   "base": 100,
+   "growthPerLevel": 50,
+   "maxLevel": 10,
+   "ranksAt": [
+    1,
+    2,
+    4,
+    6,
+    8,
+    10
+   ],
+   "xp": {
+    "magical": 2,
+    "spell": 3,
+    "manaSpell": 1,
+    "technique": 2,
+    "maneuver": 5
+   },
+   "draftSize": 3,
+   "intelligenceChance": 0.05,
+   "bonusRankDepth": 3
+  },
+  "classSkills": {
+   "reaver": [
+    "combatManeuvers",
+    "item:blade",
+    "item:shield",
+    "armour:heavy"
+   ],
+   "starseer": [
+    "item:magic-focus",
+    "item:blade",
+    "armour:light",
+    "armour:medium"
+   ],
+   "rogue": [
+    "combatManeuvers",
+    "item:blade",
+    "dualWield",
+    "armour:light"
+   ],
+   "herald": [
+    "item:magic-focus",
+    "item:blade",
+    "item:shield",
+    "armour:medium"
+   ]
+  },
+  "classAttributes": {
+   "reaver": [
+    "strength",
+    "constitution",
+    "dexterity"
+   ],
+   "starseer": [
+    "intelligence",
+    "wisdom",
+    "dexterity"
+   ],
+   "rogue": [
+    "dexterity",
+    "strength",
+    "wisdom"
+   ],
+   "herald": [
+    "wisdom",
+    "constitution",
+    "intelligence"
+   ]
+  },
+  "lessons": {
+   "item:magic-focus": [
+    "cometFragment",
+    "crystalBarrier",
+    "scholarsInsight",
+    "ashenMote",
+    "emberVigil",
+    "readTheAsh",
+    "cinderSigil",
+    "starstoneArc",
+    "blightTouch",
+    "penance"
+   ],
+   "combatManeuvers": [
+    "crimsonCleave",
+    "shieldBash",
+    "quickstep",
+    "guardCounter",
+    "riposte",
+    "rend",
+    "quickCut",
+    "backstep",
+    "stomp",
+    "lowBlow"
+   ]
+  },
+  "respec": {
+   "enabled": true,
+   "cost": null
+  }
+ },
+ "progressionRelics": {
+  "progression-emberjaw-token": {
+   "bleed": 2
+  },
+  "progression-cracked-war-anvil": {
+   "poiseDamage": 1
+  },
+  "progression-cinderbound-crown": {
+   "heal": 4
+  },
+  "progression-moonwell-lens": {
+   "block": 2
+  },
+  "progression-nightglass-rosary": {
+   "restoreMana": 1
+  },
+  "progression-fragment-of-the-third-sky": {
+   "block": 5
+  },
+  "progression-whisperglass-die": {
+   "chargeDamage": 5
+  },
+  "progression-purse-of-borrowed-shadows": {
+   "block": 2
+  },
+  "progression-ember-alms-bowl": {
+   "block": 2
+  },
+  "progression-ossuary-prayer-wheel": {
+   "restoreMana": 1
+  }
+ },
+ "damage": {
+  "attackCards": {
+   "globalMultiplier": 1,
+   "actionCostMultiplier": 1,
+   "manaCostMultiplier": 2,
+   "staminaCostMultiplier": 1,
+   "statusEffectReductionMultiplier": 1,
+   "cardBonuses": {
+    "strike": 5,
+    "gorefireSlash": 4,
+    "crimsonCleave": 3,
+    "shieldBash": 6,
+    "guardCounter": 2,
+    "serratedBlade": 7,
+    "riposte": 3,
+    "rend": 2,
+    "cleavingBlow": 5,
+    "stomp": 6,
+    "twinbladeFlurry": 2,
+    "kickOff": 7,
+    "impale": 8,
+    "executioner": 8,
+    "stitchedArms": 5,
+    "ruinousBlow": 17,
+    "bloodhuntersStrike": 5,
+    "goreslash": 6,
+    "flameToBlade": 6,
+    "bloodTithe": 5,
+    "poiseBreaker": 6,
+    "sunderplate": 4,
+    "hewingArc": 5,
+    "sunderingChop": 7,
+    "ambush": 3,
+    "rogueShiv": 4,
+    "quickCut": 1,
+    "twinPrick": 2,
+    "hamstringRogue": 6,
+    "serratedShiv": 5,
+    "ricochet": 3,
+    "lowBlow": 2,
+    "cheapShot": 8,
+    "aspDart": 5,
+    "viperStrike": 5,
+    "bladeDanceRogue": 2,
+    "garrote": 5,
+    "fanOfKnives": 4,
+    "coupDeGrace": 8,
+    "sap": 4,
+    "septicBlade": 7,
+    "assassinate": 12,
+    "thousandCutsRogue": 0,
+    "deathblow": 21,
+    "pinningShot": 6,
+    "arrowVolley": 2,
+    "aimedShot": 9,
+    "barbedArrow": 5,
+    "whirlingGuard": 2,
+    "katanaDrawCut": 8,
+    "greatswordSunderingHew": 33,
+    "twinFang": 3,
+    "bashingBlow": 6,
+    "sweepingBlow": 5,
+    "colossusSmash": 17,
+    "spikedReprisal": 4,
+    "rimeThrust": 5,
+    "kilnCleave": 9,
+    "crawlingShot": 3,
+    "base.divine-strike": 0,
+    "base.multi-hit": 0,
+    "progression-ember-hew": 3,
+    "progression-breaker-s-toll": 9,
+    "progression-furnace-advance": 3,
+    "progression-crimson-reprisal": 3,
+    "progression-ashen-cleaver": 6,
+    "progression-shiv-of-ash": 3,
+    "progression-needle-feint": 3,
+    "progression-back-alley-cut": 4,
+    "progression-wire-snare": 5,
+    "progression-carrion-cut": 7,
+    "progression-twinshade": 0,
+    "progression-last-laugh": 11,
+    "core.strike": 4,
+    "core.counter": 2,
+    "core.smash": 8,
+    "core.sweep": 2,
+    "core.reaverSpecial": 30,
+    "core.starseerSpecial": 6,
+    "base.cost-per-use": 6,
+    "base.pay-x-targets": 5,
+    "base.current-stance-variant": 4,
+    "base.paid-resource-variant": 8,
+    "base.attack-then-defend": 6,
+    "base.conditional-damage-bonus": 4,
+    "base.strike": 4,
+    "base.smash": 8,
+    "wanderingSoldier.slash": 6,
+    "blightHound.bite": 4,
+    "blightHound.lunge": 1,
+    "huskBrute.club": 13,
+    "graveWisp.drain": 4,
+    "wyrmAspirant.halberdSweep": 15,
+    "wyrmAspirant.tailSlam": 10,
+    "fellWarden.caneStrike": 6,
+    "fellWarden.hammerToss": 3,
+    "fellWarden.heldBlade": 12,
+    "fellWarden.twinDaggers": -3,
+    "lanternMoth.wingSparks": 1,
+    "briarHermit.briarCast": 15,
+    "chainScavenger.hookCast": 18,
+    "chainScavenger.chainSnare": 3,
+    "chainScavenger.draggingBlow": 37,
+    "bellKeeper.bronzeToll": 17,
+    "bellKeeper.clapperSwing": 7,
+    "bellKeeper.crackedPeal": 4,
+    "thornMatriarch.thornNeedles": 2,
+    "thornMatriarch.entwiningRoots": 12,
+    "gildedKnight.thrust": 9,
+    "gildedKnight.parry": 2,
+    "gildedKnight.gildedGuard": 1,
+    "courtSurgeon.scalpel": 5,
+    "stitchedHound.maul": 2,
+    "stitchedHound.rend": 5,
+    "courtMarionette.dart": 2,
+    "courtMarionette.blowdart": 2,
+    "livingArmor.slam": 8,
+    "livingArmor.crush": 12,
+    "livingArmor.rimeCrush": 7,
+    "courtDuelist.flurry": 3,
+    "courtDuelist.lunge": 12,
+    "courtDuelist.riposte": 2,
+    "courtDuelist.bindingRiposte": 2,
+    "stitchedKing.scepterBlow": 9,
+    "stitchedKing.graspingHands": 3,
+    "stitchedKing.thousandHands": 1,
+    "mirrorScribe.shardVolley": 1,
+    "mirrorScribe.polishedWard": 2,
+    "stitchCrab.seamShears": 3,
+    "stitchCrab.scuttleRush": 11,
+    "glassRegent.crystalRapier": 13,
+    "glassRegent.splinterRain": 4,
+    "glassRegent.shatteredCourt": 3,
+    "marrowOrganist.ivoryKeys": 6,
+    "marrowOrganist.funeralChord": 24,
+    "ashRevenant.cinderSlash": 10,
+    "emberStarvedPilgrim.desperateClaw": 7,
+    "valkyrieShade.spiralLance": 3,
+    "valkyrieShade.bloodFeather": 4,
+    "charredColossus.smash": 14,
+    "wyrmLord.halberdReign": 13,
+    "wyrmLord.tailSweep": 7,
+    "blightedValkyrie.spiralThrust": 11,
+    "blightedValkyrie.whirlwind": 3,
+    "blightedValkyrie.scarletDance": 3,
+    "cinderMantis.scythePair": 3,
+    "cinderMantis.emberPounce": 14,
+    "cinderMantis.foldedBlades": 2,
+    "eclipseCantor.lunarRay": 9,
+    "eclipseCantor.fadingEcho": 4,
+    "furnaceSaint.openFurnace": 28,
+    "furnaceSaint.censerSweep": 20,
+    "hollowAstronomer.orbitalShards": 6,
+    "hollowAstronomer.totalEclipse": 27,
+    "hollowAstronomer.fallingHeavens": 8,
+    "ashheartDragon.obsidianClaws": 10,
+    "ashheartDragon.ashBreath": 5
+   },
+   "statusMultipliers": {
+    "precision": 1,
+    "evade": 1,
+    "strength": 1,
+    "dexterity": 1,
+    "weak": 1,
+    "vulnerable": 1,
+    "frail": 1,
+    "bleed": 1,
+    "frost": 1,
+    "insanity": 1,
+    "bleedResist": 1,
+    "frostResist": 1,
+    "insanityResist": 1,
+    "frostExposed": 1,
+    "insanityExposed": 1,
+    "crimsonBlight": 1,
+    "necroticBlight": 1,
+    "burn": 1,
+    "regen": 1,
+    "madness": 1,
+    "staggered": 1,
+    "rallyingStandard": 1,
+    "rallyingStandardUp": 1,
+    "unbreakable": 1,
+    "unbreakableUp": 1,
+    "goreblood": 1,
+    "sanguinePact": 1,
+    "starstoneCharge": 1,
+    "stargazer": 1,
+    "astralArmor": 1,
+    "constellation": 1,
+    "azureCoil": 1,
+    "waxingMoon": 1,
+    "moonlitShield": 1,
+    "astromancer": 1,
+    "thornHalo": 1,
+    "communion": 1,
+    "lifeTithe": 1,
+    "stigmata": 1,
+    "zealotry": 1,
+    "emberTide": 1,
+    "harbingerOfBlight": 1,
+    "bloodUnction": 1,
+    "ironVow": 1,
+    "bulwarkEcho": 1,
+    "prepared": 1,
+    "venom": 1,
+    "afterimage": 1,
+    "deadlyTempo": 1,
+    "opportunist": 1,
+    "envenom": 1,
+    "glassCannon": 1,
+    "magicVulnerable": 1,
+    "stanceShifted": 1,
+    "silenced": 1,
+    "stoneskin": 1,
+    "bleeding": 1,
+    "frozen": 1,
+    "chilled": 1,
+    "sleep": 1,
+    "paralysis": 1,
+    "dazed": 1,
+    "offBalance": 1,
+    "prone": 1,
+    "grounded": 1,
+    "invulnerability": 1,
+    "decoy": 1,
+    "concealed": 1,
+    "confused": 1,
+    "slowed": 1,
+    "entombed": 1,
+    "base.persistent-block": 0,
+    "base.persistent-barrier": 0,
+    "base.greased": 0,
+    "base.poison": 0,
+    "base.blight": 0,
+    "base.weak": 0,
+    "base.charm": 0,
+    "base.bind": 0,
+    "base.restrained": 0,
+    "base.foresight": 0,
+    "base.evade": 0,
+    "base.intangible": 0,
+    "base.mirrors": 0,
+    "base.elemental-weapon": 0,
+    "base.necrotic-healing": 0,
+    "base.divine-harm": 0,
+    "base.extra-weapon": 0,
+    "base.extra-shield": 0,
+    "base.auto-counter": 0,
+    "base.auto-sweep": 0,
+    "base.reflect": 0,
+    "base.guard-allies": 0,
+    "base.veil": 0,
+    "base.retain-block": 0,
+    "base.read-intent": 0,
+    "base.stagger": 0,
+    "base.paralysis": 0,
+    "base.restrained-burden": 0,
+    "base.many-forms": 0,
+    "base.conceal": 0
+   }
+  },
+  "defenseCards": {
+   "globalMultiplier": 1,
+   "actionCostMultiplier": 1,
+   "manaCostMultiplier": 2,
+   "staminaCostMultiplier": 1,
+   "statusEffectReductionMultiplier": 1,
+   "cardBonuses": {
+    "defend": 4,
+    "technique": 2,
+    "evasiveGuard": 0,
+    "dodgeRoll": 2,
+    "quickstep": 7,
+    "ironResolve": 4,
+    "enterBulwark": 2,
+    "shieldwall": 11,
+    "wardingLunge": 7,
+    "rondelParry": 4,
+    "brace": 2,
+    "setTheShield": 6,
+    "aegisOfEmbers": 13,
+    "shieldCrash": 6,
+    "smokePellet": 4,
+    "backstep": 3,
+    "smokeVeil": 5,
+    "acrobaticsRogue": 6,
+    "shadowstep": 5,
+    "misdirect": 7,
+    "bindingParry": 9,
+    "whirlingGuard": 6,
+    "ironSkin": 6,
+    "quickGuard": 4,
+    "stoneskin": 6,
+    "rallyingBanner": 9,
+    "shieldGuardian": 4,
+    "guardianBulwark": 2,
+    "shieldBastion": 12,
+    "spikedReprisal": 4,
+    "lowGuardRiposte": 4,
+    "base.guard-allies": 6,
+    "progression-cinder-guard": 3,
+    "progression-ashen-cleaver": -8,
+    "progression-pocket-coil": 2,
+    "progression-twinshade": -9,
+    "progression-last-laugh": -11,
+    "core.defend": 8,
+    "core.counter": 3,
+    "core.rogueSpecial": 5,
+    "core.heraldSpecial": 2,
+    "base.ethereal": 8,
+    "base.drain-allies": 10,
+    "base.retain-block": 4,
+    "wanderingSoldier.guard": 4,
+    "huskBrute.brace": 6,
+    "briarHermit.rootShelter": 5,
+    "bellKeeper.muffledPrayer": 7,
+    "thornMatriarch.rootCrown": 6,
+    "gildedKnight.parry": 5,
+    "gildedKnight.gildedGuard": 4,
+    "livingArmor.fortify": 10,
+    "courtDuelist.riposte": 6,
+    "stitchedKing.courtlyDecree": 14,
+    "mirrorScribe.polishedWard": 2,
+    "stitchCrab.shellFold": 9,
+    "glassRegent.prismGuard": 14,
+    "charredColossus.harden": 12,
+    "blightedValkyrie.rotWings": 9,
+    "cinderMantis.foldedBlades": 4,
+    "furnaceSaint.coolingAsh": 12,
+    "ashheartDragon.tailBastion": 10
+   },
+   "statusMultipliers": {
+    "precision": 1,
+    "evade": 1,
+    "strength": 1,
+    "dexterity": 1,
+    "weak": 1,
+    "vulnerable": 1,
+    "frail": 1,
+    "bleed": 1,
+    "frost": 1,
+    "insanity": 1,
+    "bleedResist": 1,
+    "frostResist": 1,
+    "insanityResist": 1,
+    "frostExposed": 1,
+    "insanityExposed": 1,
+    "crimsonBlight": 1,
+    "necroticBlight": 1,
+    "burn": 1,
+    "regen": 1,
+    "madness": 1,
+    "staggered": 1,
+    "rallyingStandard": 1,
+    "rallyingStandardUp": 1,
+    "unbreakable": 1,
+    "unbreakableUp": 1,
+    "goreblood": 1,
+    "sanguinePact": 1,
+    "starstoneCharge": 1,
+    "stargazer": 1,
+    "astralArmor": 1,
+    "constellation": 1,
+    "azureCoil": 1,
+    "waxingMoon": 1,
+    "moonlitShield": 1,
+    "astromancer": 1,
+    "thornHalo": 1,
+    "communion": 1,
+    "lifeTithe": 1,
+    "stigmata": 1,
+    "zealotry": 1,
+    "emberTide": 1,
+    "harbingerOfBlight": 1,
+    "bloodUnction": 1,
+    "ironVow": 1,
+    "bulwarkEcho": 1,
+    "prepared": 1,
+    "venom": 1,
+    "afterimage": 1,
+    "deadlyTempo": 1,
+    "opportunist": 1,
+    "envenom": 1,
+    "glassCannon": 1,
+    "magicVulnerable": 1,
+    "stanceShifted": 1,
+    "silenced": 1,
+    "stoneskin": 1,
+    "bleeding": 1,
+    "frozen": 1,
+    "chilled": 1,
+    "sleep": 1,
+    "paralysis": 1,
+    "dazed": 1,
+    "offBalance": 1,
+    "prone": 1,
+    "grounded": 1,
+    "invulnerability": 1,
+    "decoy": 1,
+    "concealed": 1,
+    "confused": 1,
+    "slowed": 1,
+    "entombed": 1,
+    "base.persistent-block": 0,
+    "base.persistent-barrier": 0,
+    "base.greased": 0,
+    "base.poison": 0,
+    "base.blight": 0,
+    "base.weak": 0,
+    "base.charm": 0,
+    "base.bind": 0,
+    "base.restrained": 0,
+    "base.foresight": 0,
+    "base.evade": 0,
+    "base.intangible": 0,
+    "base.mirrors": 0,
+    "base.elemental-weapon": 0,
+    "base.necrotic-healing": 0,
+    "base.divine-harm": 0,
+    "base.extra-weapon": 0,
+    "base.extra-shield": 0,
+    "base.auto-counter": 0,
+    "base.auto-sweep": 0,
+    "base.reflect": 0,
+    "base.guard-allies": 0,
+    "base.veil": 0,
+    "base.retain-block": 0,
+    "base.read-intent": 0,
+    "base.stagger": 0,
+    "base.paralysis": 0,
+    "base.restrained-burden": 0,
+    "base.many-forms": 0,
+    "base.conceal": 0
+   }
+  },
+  "potencyCards": {
+   "globalMultiplier": 1,
+   "actionCostMultiplier": 1,
+   "manaCostMultiplier": 2,
+   "staminaCostMultiplier": 1,
+   "statusEffectReductionMultiplier": 1,
+   "cardBonuses": {
+    "strike": 5,
+    "defend": 4,
+    "technique": 2,
+    "bracingStance": 2,
+    "starstonePebble": 6,
+    "cometFragment": 7,
+    "starbladePhalanx": 0,
+    "crystalBarrier": 2,
+    "starShower": -2,
+    "frostVeil": 5,
+    "starSlicer": 3,
+    "starstoneWard": 5,
+    "starlance": 8,
+    "frostNova": 1,
+    "starstoneArc": 3,
+    "moonrendCut": 5,
+    "meteorite": 14,
+    "meteorSwarm": 2,
+    "astralCleave": 7,
+    "radiantSpray": 1,
+    "supernova": 6,
+    "starstoneKris": 3,
+    "starfallBeam": 8,
+    "starcaller": 4,
+    "umbralWard": 13,
+    "shootingShard": 5,
+    "wardingStar": 6,
+    "celestialLance": 7,
+    "starSpark": 6,
+    "astralInsight": 3,
+    "cinderSigil": 5,
+    "ashenMote": 7,
+    "emberVigil": 7,
+    "pyreOfCharts": 4,
+    "ashCircle": 7,
+    "cinderLance": 12,
+    "ashfallRite": 3,
+    "phoenixChart": 6,
+    "pyreLight": 12,
+    "blightTouch": 7,
+    "flagellation": 8,
+    "penance": 7,
+    "graveOffering": 3,
+    "bloodletting": 8,
+    "cullTheWeak": 5,
+    "blightward": 2,
+    "sacredHarvest": 3,
+    "plagueBearer": 3,
+    "exsanguinate": 11,
+    "scourge": 2,
+    "crimsonRite": 2,
+    "bloodHarvest": 1,
+    "painOffering": 7,
+    "witheringTouch": 2,
+    "desperateRite": 1,
+    "bloodOfferingRite": 17,
+    "blightwardLash": 6,
+    "lastMercy": -1,
+    "warmLitany": 2,
+    "pocketSand": 0,
+    "vanish": 4,
+    "smokeBomb": 4,
+    "mindSpike": 4,
+    "mindFracture": 5,
+    "wakingNightmare": 10,
+    "stoneSling": 5,
+    "rockfall": 4,
+    "entomb": 11,
+    "vesperWard": 7,
+    "rimeNeedle": 5,
+    "emberDart": 4,
+    "staticNeedle": 5,
+    "forceNudge": 7,
+    "drowsingMote": 4,
+    "holySpark": 7,
+    "rotMote": 5,
+    "base.fire-cleanse": -2,
+    "progression-bloodstep": 2,
+    "progression-warbound-defiance": 6,
+    "progression-red-standard": 6,
+    "progression-crown-of-cinders": 11,
+    "progression-cinder-orbit": 7,
+    "progression-lunar-aegis": 7,
+    "progression-comet-needle": 5,
+    "progression-rime-mirror": 5,
+    "progression-falling-constellation": 2,
+    "progression-wellspring-sigil": 0,
+    "progression-gravitic-knot": 7,
+    "progression-nightglass-reading": 0,
+    "progression-eclipse-lance": 6,
+    "progression-firmament-ward": 13,
+    "progression-silent-exchange": -2,
+    "progression-nightstep": 6,
+    "progression-ash-benediction": 7,
+    "progression-blood-censer": 7,
+    "progression-blight-litany": 3,
+    "progression-pallbearer-s-ward": 5,
+    "progression-ember-tithe": 6,
+    "progression-ossuary-cant": 3,
+    "progression-requiem-brand": 9,
+    "progression-pilgrim-s-shelter": 8,
+    "progression-crown-of-scars": 6,
+    "progression-dawn-after-ash": 12,
+    "core.cantrip": 4,
+    "wyrmAspirant.goldenGuard": 2,
+    "ashRevenant.reform": 2,
+    "wyrmLord.goldenBulwark": 6
+   },
+   "statusMultipliers": {
+    "precision": 1,
+    "evade": 1,
+    "strength": 1,
+    "dexterity": 1,
+    "weak": 1,
+    "vulnerable": 1,
+    "frail": 1,
+    "bleed": 1,
+    "frost": 1,
+    "insanity": 1,
+    "bleedResist": 1,
+    "frostResist": 1,
+    "insanityResist": 1,
+    "frostExposed": 1,
+    "insanityExposed": 1,
+    "crimsonBlight": 1,
+    "necroticBlight": 1,
+    "burn": 1,
+    "regen": 1,
+    "madness": 1,
+    "staggered": 1,
+    "rallyingStandard": 1,
+    "rallyingStandardUp": 1,
+    "unbreakable": 1,
+    "unbreakableUp": 1,
+    "goreblood": 1,
+    "sanguinePact": 1,
+    "starstoneCharge": 1,
+    "stargazer": 1,
+    "astralArmor": 1,
+    "constellation": 1,
+    "azureCoil": 1,
+    "waxingMoon": 1,
+    "moonlitShield": 1,
+    "astromancer": 1,
+    "thornHalo": 1,
+    "communion": 1,
+    "lifeTithe": 1,
+    "stigmata": 1,
+    "zealotry": 1,
+    "emberTide": 1,
+    "harbingerOfBlight": 1,
+    "bloodUnction": 1,
+    "ironVow": 1,
+    "bulwarkEcho": 1,
+    "prepared": 1,
+    "venom": 1,
+    "afterimage": 1,
+    "deadlyTempo": 1,
+    "opportunist": 1,
+    "envenom": 1,
+    "glassCannon": 1,
+    "magicVulnerable": 1,
+    "stanceShifted": 1,
+    "silenced": 1,
+    "stoneskin": 1,
+    "bleeding": 1,
+    "frozen": 1,
+    "chilled": 1,
+    "sleep": 1,
+    "paralysis": 1,
+    "dazed": 1,
+    "offBalance": 1,
+    "prone": 1,
+    "grounded": 1,
+    "invulnerability": 1,
+    "decoy": 1,
+    "concealed": 1,
+    "confused": 1,
+    "slowed": 1,
+    "entombed": 1,
+    "base.persistent-block": 0,
+    "base.persistent-barrier": 0,
+    "base.greased": 0,
+    "base.poison": 0,
+    "base.blight": 0,
+    "base.weak": 0,
+    "base.charm": 0,
+    "base.bind": 0,
+    "base.restrained": 0,
+    "base.foresight": 0,
+    "base.evade": 0,
+    "base.intangible": 0,
+    "base.mirrors": 0,
+    "base.elemental-weapon": 0,
+    "base.necrotic-healing": 0,
+    "base.divine-harm": 0,
+    "base.extra-weapon": 0,
+    "base.extra-shield": 0,
+    "base.auto-counter": 0,
+    "base.auto-sweep": 0,
+    "base.reflect": 0,
+    "base.guard-allies": 0,
+    "base.veil": 0,
+    "base.retain-block": 0,
+    "base.read-intent": 0,
+    "base.stagger": 0,
+    "base.paralysis": 0,
+    "base.restrained-burden": 0,
+    "base.many-forms": 0,
+    "base.conceal": 0
+   }
+  },
+  "poiseCards": {
+   "globalMultiplier": 1,
+   "actionCostMultiplier": 1,
+   "manaCostMultiplier": 2,
+   "staminaCostMultiplier": 1,
+   "statusEffectReductionMultiplier": 1,
+   "cardBonuses": {
+    "strike": 0,
+    "gorefireSlash": 0,
+    "crimsonCleave": 0,
+    "shieldBash": 1,
+    "guardCounter": 0,
+    "serratedBlade": 0,
+    "riposte": 0,
+    "rend": 0,
+    "cleavingBlow": 1,
+    "stomp": 0,
+    "twinbladeFlurry": 0,
+    "kickOff": 1,
+    "impale": 0,
+    "executioner": 0,
+    "stitchedArms": 0,
+    "ruinousBlow": 9,
+    "bloodhuntersStrike": 0,
+    "goreslash": 0,
+    "flameToBlade": 0,
+    "bloodTithe": 0,
+    "poiseBreaker": 2,
+    "sunderplate": 5,
+    "hewingArc": 0,
+    "sunderingChop": 5,
+    "shieldCrash": 0,
+    "ambush": 0,
+    "rogueShiv": 0,
+    "quickCut": 0,
+    "twinPrick": 0,
+    "hamstringRogue": 0,
+    "serratedShiv": 0,
+    "ricochet": 0,
+    "lowBlow": 0,
+    "cheapShot": 0,
+    "aspDart": 0,
+    "viperStrike": 0,
+    "bladeDanceRogue": 0,
+    "garrote": 0,
+    "fanOfKnives": 0,
+    "coupDeGrace": 0,
+    "sap": 4,
+    "septicBlade": 0,
+    "assassinate": 0,
+    "thousandCutsRogue": 0,
+    "deathblow": 0,
+    "lethalDose": 0,
+    "pinningShot": 0,
+    "arrowVolley": 0,
+    "aimedShot": 0,
+    "barbedArrow": 0,
+    "whirlingGuard": 0,
+    "katanaDrawCut": 0,
+    "greatswordSunderingHew": 2,
+    "twinFang": 0,
+    "bashingBlow": 3,
+    "sweepingBlow": 0,
+    "colossusSmash": 0,
+    "spikedReprisal": 0,
+    "rimeThrust": 0,
+    "kilnCleave": 2,
+    "crawlingShot": 0,
+    "base.divine-strike": 0,
+    "base.multi-hit": -1,
+    "progression-ember-hew": 0,
+    "progression-breaker-s-toll": 1,
+    "progression-furnace-advance": 0,
+    "progression-crimson-reprisal": 0,
+    "progression-ashen-cleaver": 0,
+    "progression-shiv-of-ash": 0,
+    "progression-needle-feint": 0,
+    "progression-back-alley-cut": 0,
+    "progression-wire-snare": 0,
+    "progression-carrion-cut": 0,
+    "progression-twinshade": 0,
+    "progression-last-laugh": 0,
+    "core.strike": 0,
+    "core.counter": 0,
+    "core.smash": 0,
+    "core.sweep": 0,
+    "core.reaverSpecial": 0,
+    "core.starseerSpecial": 0,
+    "base.scale-negative-status": 0,
+    "base.scale-damage-taken": 0,
+    "base.cost-per-use": 0,
+    "base.damage-per-use": 0,
+    "base.pay-x-effect": 0,
+    "base.pay-x-targets": 0,
+    "base.current-stance-variant": 0,
+    "base.paid-resource-variant": 0,
+    "base.attack-then-defend": 0,
+    "base.conditional-damage-bonus": 0,
+    "base.strike": 0,
+    "base.smash": 0,
+    "wanderingSoldier.slash": 0,
+    "blightHound.bite": 0,
+    "blightHound.lunge": 0,
+    "huskBrute.club": 0,
+    "graveWisp.drain": 0,
+    "wyrmAspirant.halberdSweep": 0,
+    "wyrmAspirant.tailSlam": 0,
+    "fellWarden.caneStrike": 0,
+    "fellWarden.hammerToss": 0,
+    "fellWarden.heldBlade": 0,
+    "fellWarden.twinDaggers": 0,
+    "lanternMoth.wingSparks": 0,
+    "briarHermit.briarCast": 0,
+    "chainScavenger.hookCast": 0,
+    "chainScavenger.chainSnare": 0,
+    "chainScavenger.draggingBlow": 0,
+    "bellKeeper.bronzeToll": 0,
+    "bellKeeper.clapperSwing": 0,
+    "bellKeeper.crackedPeal": 0,
+    "thornMatriarch.thornNeedles": 0,
+    "thornMatriarch.entwiningRoots": 0,
+    "gildedKnight.thrust": 0,
+    "gildedKnight.parry": 0,
+    "gildedKnight.gildedGuard": 0,
+    "courtSurgeon.scalpel": 0,
+    "stitchedHound.maul": 0,
+    "stitchedHound.rend": 0,
+    "courtMarionette.dart": 0,
+    "courtMarionette.blowdart": 0,
+    "livingArmor.slam": 0,
+    "livingArmor.crush": 0,
+    "livingArmor.rimeCrush": 0,
+    "courtDuelist.flurry": 0,
+    "courtDuelist.lunge": 0,
+    "courtDuelist.riposte": 0,
+    "courtDuelist.bindingRiposte": 0,
+    "stitchedKing.scepterBlow": 0,
+    "stitchedKing.graspingHands": 0,
+    "stitchedKing.thousandHands": 0,
+    "mirrorScribe.shardVolley": 0,
+    "mirrorScribe.polishedWard": 0,
+    "stitchCrab.seamShears": 0,
+    "stitchCrab.scuttleRush": 0,
+    "glassRegent.crystalRapier": 0,
+    "glassRegent.splinterRain": 0,
+    "glassRegent.shatteredCourt": 0,
+    "marrowOrganist.ivoryKeys": 0,
+    "marrowOrganist.funeralChord": 0,
+    "ashRevenant.cinderSlash": 0,
+    "emberStarvedPilgrim.desperateClaw": 0,
+    "valkyrieShade.spiralLance": 0,
+    "valkyrieShade.bloodFeather": 0,
+    "charredColossus.smash": 0,
+    "wyrmLord.halberdReign": 0,
+    "wyrmLord.tailSweep": 0,
+    "blightedValkyrie.spiralThrust": 0,
+    "blightedValkyrie.whirlwind": 0,
+    "blightedValkyrie.scarletDance": 0,
+    "cinderMantis.scythePair": 0,
+    "cinderMantis.emberPounce": 0,
+    "cinderMantis.foldedBlades": 0,
+    "eclipseCantor.lunarRay": 0,
+    "eclipseCantor.fadingEcho": 0,
+    "furnaceSaint.openFurnace": 0,
+    "furnaceSaint.censerSweep": 0,
+    "hollowAstronomer.orbitalShards": 0,
+    "hollowAstronomer.totalEclipse": 0,
+    "hollowAstronomer.fallingHeavens": 0,
+    "ashheartDragon.obsidianClaws": 0,
+    "ashheartDragon.ashBreath": 0
+   },
+   "statusMultipliers": {
+    "precision": 1,
+    "evade": 1,
+    "strength": 1,
+    "dexterity": 1,
+    "weak": 1,
+    "vulnerable": 1,
+    "frail": 1,
+    "bleed": 1,
+    "frost": 1,
+    "insanity": 1,
+    "bleedResist": 1,
+    "frostResist": 1,
+    "insanityResist": 1,
+    "frostExposed": 1,
+    "insanityExposed": 1,
+    "crimsonBlight": 1,
+    "necroticBlight": 1,
+    "burn": 1,
+    "regen": 1,
+    "madness": 1,
+    "staggered": 1,
+    "rallyingStandard": 1,
+    "rallyingStandardUp": 1,
+    "unbreakable": 1,
+    "unbreakableUp": 1,
+    "goreblood": 1,
+    "sanguinePact": 1,
+    "starstoneCharge": 1,
+    "stargazer": 1,
+    "astralArmor": 1,
+    "constellation": 1,
+    "azureCoil": 1,
+    "waxingMoon": 1,
+    "moonlitShield": 1,
+    "astromancer": 1,
+    "thornHalo": 1,
+    "communion": 1,
+    "lifeTithe": 1,
+    "stigmata": 1,
+    "zealotry": 1,
+    "emberTide": 1,
+    "harbingerOfBlight": 1,
+    "bloodUnction": 1,
+    "ironVow": 1,
+    "bulwarkEcho": 1,
+    "prepared": 1,
+    "venom": 1,
+    "afterimage": 1,
+    "deadlyTempo": 1,
+    "opportunist": 1,
+    "envenom": 1,
+    "glassCannon": 1,
+    "magicVulnerable": 1,
+    "stanceShifted": 1,
+    "silenced": 1,
+    "stoneskin": 1,
+    "bleeding": 1,
+    "frozen": 1,
+    "chilled": 1,
+    "sleep": 1,
+    "paralysis": 1,
+    "dazed": 1,
+    "offBalance": 1,
+    "prone": 1,
+    "grounded": 1,
+    "invulnerability": 1,
+    "decoy": 1,
+    "concealed": 1,
+    "confused": 1,
+    "slowed": 1,
+    "entombed": 1,
+    "base.persistent-block": 0,
+    "base.persistent-barrier": 0,
+    "base.greased": 0,
+    "base.poison": 0,
+    "base.blight": 0,
+    "base.weak": 0,
+    "base.charm": 0,
+    "base.bind": 0,
+    "base.restrained": 0,
+    "base.foresight": 0,
+    "base.evade": 0,
+    "base.intangible": 0,
+    "base.mirrors": 0,
+    "base.elemental-weapon": 0,
+    "base.necrotic-healing": 0,
+    "base.divine-harm": 0,
+    "base.extra-weapon": 0,
+    "base.extra-shield": 0,
+    "base.auto-counter": 0,
+    "base.auto-sweep": 0,
+    "base.reflect": 0,
+    "base.guard-allies": 0,
+    "base.veil": 0,
+    "base.retain-block": 0,
+    "base.read-intent": 0,
+    "base.stagger": 0,
+    "base.paralysis": 0,
+    "base.restrained-burden": 0,
+    "base.many-forms": 0,
+    "base.conceal": 0
+   }
+  },
+  "wardCards": {
+   "globalMultiplier": 1,
+   "actionCostMultiplier": 1,
+   "manaCostMultiplier": 2,
+   "staminaCostMultiplier": 1,
+   "statusEffectReductionMultiplier": 1,
+   "cardBonuses": {
+    "strike": 0,
+    "starstonePebble": 0,
+    "cometFragment": 0,
+    "starbladePhalanx": 0,
+    "starShower": 0,
+    "starSlicer": 0,
+    "starlance": 0,
+    "frostNova": 0,
+    "starstoneArc": 0,
+    "moonrendCut": 3,
+    "meteorite": 0,
+    "meteorSwarm": 0,
+    "astralCleave": 5,
+    "radiantSpray": 0,
+    "supernova": 0,
+    "starstoneKris": 0,
+    "starfallBeam": 0,
+    "starcaller": 0,
+    "shootingShard": 0,
+    "celestialLance": 0,
+    "starSpark": 0,
+    "cinderSigil": 0,
+    "ashenMote": 0,
+    "pyreOfCharts": 0,
+    "cinderLance": 0,
+    "ashfallRite": 0,
+    "pyreLight": 0,
+    "blightTouch": 0,
+    "flagellation": 0,
+    "graveOffering": 0,
+    "cullTheWeak": 0,
+    "sacredHarvest": 0,
+    "plagueBearer": 0,
+    "exsanguinate": 0,
+    "scourge": 0,
+    "crimsonRite": 0,
+    "blightNova": 0,
+    "bloodHarvest": 0,
+    "painOffering": 0,
+    "witheringTouch": 0,
+    "desperateRite": 0,
+    "bloodOfferingRite": 0,
+    "blightwardLash": 0,
+    "mindSpike": 0,
+    "mindFracture": 3,
+    "wakingNightmare": 0,
+    "stoneSling": 0,
+    "rockfall": 0,
+    "entomb": 0,
+    "rimeNeedle": 0,
+    "emberDart": 0,
+    "staticNeedle": 0,
+    "forceNudge": 0,
+    "drowsingMote": 0,
+    "holySpark": 0,
+    "rotMote": 0,
+    "progression-cinder-orbit": 0,
+    "progression-comet-needle": 0,
+    "progression-falling-constellation": 0,
+    "progression-gravitic-knot": 0,
+    "progression-eclipse-lance": 0,
+    "progression-blood-censer": 0,
+    "progression-blight-litany": 0,
+    "progression-ember-tithe": 0,
+    "progression-requiem-brand": 0,
+    "progression-crown-of-scars": 0,
+    "core.cantrip": 0
+   },
+   "statusMultipliers": {
+    "precision": 1,
+    "evade": 1,
+    "strength": 1,
+    "dexterity": 1,
+    "weak": 1,
+    "vulnerable": 1,
+    "frail": 1,
+    "bleed": 1,
+    "frost": 1,
+    "insanity": 1,
+    "bleedResist": 1,
+    "frostResist": 1,
+    "insanityResist": 1,
+    "frostExposed": 1,
+    "insanityExposed": 1,
+    "crimsonBlight": 1,
+    "necroticBlight": 1,
+    "burn": 1,
+    "regen": 1,
+    "madness": 1,
+    "staggered": 1,
+    "rallyingStandard": 1,
+    "rallyingStandardUp": 1,
+    "unbreakable": 1,
+    "unbreakableUp": 1,
+    "goreblood": 1,
+    "sanguinePact": 1,
+    "starstoneCharge": 1,
+    "stargazer": 1,
+    "astralArmor": 1,
+    "constellation": 1,
+    "azureCoil": 1,
+    "waxingMoon": 1,
+    "moonlitShield": 1,
+    "astromancer": 1,
+    "thornHalo": 1,
+    "communion": 1,
+    "lifeTithe": 1,
+    "stigmata": 1,
+    "zealotry": 1,
+    "emberTide": 1,
+    "harbingerOfBlight": 1,
+    "bloodUnction": 1,
+    "ironVow": 1,
+    "bulwarkEcho": 1,
+    "prepared": 1,
+    "venom": 1,
+    "afterimage": 1,
+    "deadlyTempo": 1,
+    "opportunist": 1,
+    "envenom": 1,
+    "glassCannon": 1,
+    "magicVulnerable": 1,
+    "stanceShifted": 1,
+    "silenced": 1,
+    "stoneskin": 1,
+    "bleeding": 1,
+    "frozen": 1,
+    "chilled": 1,
+    "sleep": 1,
+    "paralysis": 1,
+    "dazed": 1,
+    "offBalance": 1,
+    "prone": 1,
+    "grounded": 1,
+    "invulnerability": 1,
+    "decoy": 1,
+    "concealed": 1,
+    "confused": 1,
+    "slowed": 1,
+    "entombed": 1,
+    "base.persistent-block": 0,
+    "base.persistent-barrier": 0,
+    "base.greased": 0,
+    "base.poison": 0,
+    "base.blight": 0,
+    "base.weak": 0,
+    "base.charm": 0,
+    "base.bind": 0,
+    "base.restrained": 0,
+    "base.foresight": 0,
+    "base.evade": 0,
+    "base.intangible": 0,
+    "base.mirrors": 0,
+    "base.elemental-weapon": 0,
+    "base.necrotic-healing": 0,
+    "base.divine-harm": 0,
+    "base.extra-weapon": 0,
+    "base.extra-shield": 0,
+    "base.auto-counter": 0,
+    "base.auto-sweep": 0,
+    "base.reflect": 0,
+    "base.guard-allies": 0,
+    "base.veil": 0,
+    "base.retain-block": 0,
+    "base.read-intent": 0,
+    "base.stagger": 0,
+    "base.paralysis": 0,
+    "base.restrained-burden": 0,
+    "base.many-forms": 0,
+    "base.conceal": 0
+   }
+  }
+ },
+ "arcaneExposure": {
+  "label": "Arcane Exposure",
+  "schoolBuildupMultipliers": {
+   "magic": 1,
+   "arcane": 1
+  }
+ },
+ "exposure": {
+  "foldScale": 0.5,
+  "staggerBreakImpact": 2,
+  "defaultPayoff": {
+   "status": "magicVulnerable",
+   "value": 25,
+   "duration": 2
+  },
+  "siphonRefund": 1,
+  "siphonRefundMastered": 2,
+  "siphonMasteryLevel": 7,
+  "overchargeBuildupMult": 1.5,
+  "staggerBreakPoise": 6,
+  "resonanceSpreadPct": 50,
+  "buildupPerManaSpell": 5
+ },
+ "energy": 3,
+ "draw": 5,
+ "flaskCapacity": 3,
+ "flaskGrowth": [
+  {
+   "source": "relic",
+   "id": "goldenSprout",
+   "kind": "hp",
+   "amount": 1
+  }
+ ],
+ "flaskSlots": 3,
+ "startingCinders": 20,
+ "startingDeckSize": 11,
+ "poise": {
+  "growthMult": 1.25,
+  "onFill": [
+   {
+    "op": "applyStatus",
+    "target": "self",
+    "status": "staggered",
+    "stacks": 2
+   }
+  ],
+  "playerImpactPerHit": 2
+ },
+ "stagger": {
+  "player": {
+   "actionLoss": 1,
+   "statuses": {
+    "vulnerable": 2,
+    "weak": 2
+   }
+  }
+ },
+ "mana": {
+  "minActionCost": 1,
+  "minStaminaCost": 0
+ },
+ "deck": {
+  "minimum": 8,
+  "minimumStepLevels": 2,
+  "minimumPerStep": 1
+ },
+ "classMastery": {
+  "xp": {
+   "base": 50,
+   "growth": 1.25,
+   "roundTo": 5,
+   "maxLevel": 20
+  },
+  "pay": {
+   "perWin": 10,
+   "perElite": 25,
+   "perBoss": 50,
+   "perQuest": 10
+  },
+  "cycle": [
+   "cards",
+   "armament",
+   "cards",
+   "relic",
+   "cards",
+   "feat",
+   "cards",
+   "weapon"
+  ],
+  "corePoolShare": 0.6
+ },
+ "skill": {
+  "xp": {
+   "base": 100,
+   "linear": false,
+   "multScaler": 1.3,
+   "growth": 1.995,
+   "roundTo": 5,
+   "maxLevel": 10,
+   "perHit": 5,
+   "perWinEquipped": 5,
+   "killMult": 1.5,
+   "impactPerXp": 5,
+   "evadeXp": 5,
+   "buildupPerXp": 5
+  },
+  "class": {
+   "xp": {
+    "base": 400,
+    "linear": false,
+    "multScaler": 1.3,
+    "growth": 1.224,
+    "roundTo": 5,
+    "maxLevel": 20,
+    "perWin": 5,
+    "bossKill": 10,
+    "perQuest": 5
+   },
+   "tierAt": [
+    1,
+    3,
+    5
+   ]
+  },
+  "rarityUnlock": {
+   "common": 1,
+   "uncommon": 4,
+   "rare": 7
+  },
+  "draftSize": 3,
+  "draftsPerCombat": 1,
+  "rankMax": 10,
+  "flatEvery": 5,
+  "attributeEvery": 4,
+  "featEvery": 2,
+  "linkedAttributes": {
+   "item:blade": [
+    "strength",
+    "dexterity"
+   ],
+   "item:shield": [
+    "strength",
+    "dexterity",
+    "constitution",
+    "wisdom"
+   ],
+   "item:magic-focus": [
+    "dexterity",
+    "constitution",
+    "wisdom",
+    "intelligence"
+   ]
+  },
+  "favoredXpMult": 1.25
+ },
+ "tagMechanics": {
+  "oath": {
+   "block": 2
+  }
+ },
+ "rewards": {
+  "sourceBonuses": {
+   "combatFeatChancePct": 5,
+   "classFeatChancePct": 100,
+   "classCardChancePct": 25
+  },
+  "cardChoices": 3,
+  "bossRelicChoices": 3,
+  "cinders": {
+   "normal": [
+    45,
+    75
+   ],
+   "elite": [
+    105,
+    150
+   ],
+   "boss": [
+    225,
+    270
+   ]
+  },
+  "rarityWeights": {
+   "normal": {
+    "common": 60,
+    "uncommon": 35,
+    "rare": 5
+   },
+   "elite": {
+    "common": 45,
+    "uncommon": 40,
+    "rare": 15
+   },
+   "boss": {
+    "common": 45,
+    "uncommon": 40,
+    "rare": 15
+   }
+  },
+  "rarityWeightsByClass": {
+   "starseer": {
+    "normal": {
+     "common": 35,
+     "uncommon": 50,
+     "rare": 15
+    },
+    "elite": {
+     "common": 25,
+     "uncommon": 50,
+     "rare": 25
+    },
+    "boss": {
+     "common": 20,
+     "uncommon": 45,
+     "rare": 35
+    }
+   },
+   "herald": {
+    "normal": {
+     "common": 35,
+     "uncommon": 50,
+     "rare": 15
+    },
+    "elite": {
+     "common": 25,
+     "uncommon": 50,
+     "rare": 25
+    },
+    "boss": {
+     "common": 20,
+     "uncommon": 45,
+     "rare": 35
+    }
+   }
+  },
+  "elementAffinity": {
+   "classes": {
+    "herald": [
+     "psychic",
+     "earth"
+    ],
+    "starseer": [
+     "psychic",
+     "earth"
+    ]
+   },
+   "offerWeightMult": 2,
+   "startingChoice": {
+    "maxPicks": 1,
+    "source": "spell",
+    "rarities": [
+     "common",
+     "uncommon"
+    ]
+   }
+  },
+  "flaskDropBasePct": 35,
+  "flaskDropStepPct": 10,
+  "cardRewards": {
+   "afterCombat": {
+    "normal": true,
+    "elite": true,
+    "boss": true
+   },
+   "chancePct": {
+    "normal": 10,
+    "elite": 10,
+    "boss": 10
+   },
+   "onLevelUp": true,
+   "onLevelUpMaxPerFight": 1
+  }
+ },
+ "shop": {
+  "cardStock": 5,
+  "relicStock": 2,
+  "flaskStock": 2,
+  "armamentStock": 3,
+  "weaponArtStock": 2,
+  "armamentCost": {
+   "common": [
+    240,
+    300
+   ],
+   "uncommon": [
+    360,
+    450
+   ],
+   "rare": [
+    600,
+    720
+   ]
+  },
+  "weaponArtCost": [
+   270,
+   360
+  ],
+  "cardCost": {
+   "common": [
+    135,
+    165
+   ],
+   "uncommon": [
+    204,
+    246
+   ],
+   "rare": [
+    405,
+    480
+   ]
+  },
+  "relicCost": {
+   "common": [
+    420,
+    480
+   ],
+   "uncommon": [
+    600,
+    690
+   ],
+   "rare": [
+    810,
+    900
+   ]
+  },
+  "flaskCost": [
+   150,
+   240
+  ],
+  "removeBase": 225,
+  "removeStep": 75,
+  "sellFraction": 0.5
+ },
+ "rest": {
+  "hpSmallPct": 25,
+  "hpPartialPct": 35,
+  "mana": {
+   "mode": "floorOrFull",
+   "flat": 3,
+   "floorPct": 50
+  }
+ },
+ "atlas": {
+  "townsPerActMax": 1
+ },
+ "smithing": {
+  "rewardByPool": {
+   "normal": 0,
+   "elite": 1,
+   "boss": 1,
+   "treasure": 0
+  },
+  "rewardChancePct": {
+   "normal": 100,
+   "elite": 100,
+   "boss": 100,
+   "treasure": 100
+  },
+  "refinedRewardByPool": {
+   "normal": 0,
+   "elite": 0,
+   "boss": 0,
+   "treasure": 0
+  },
+  "services": {
+   "offeredAt": {
+    "shrine": {
+     "chance": 100,
+     "services": [
+      "upgrade",
+      "extract",
+      "install"
+     ]
+    },
+    "merchant": {
+     "chance": 25,
+     "services": [
+      "upgrade",
+      "extract",
+      "install"
+     ]
+    }
+   },
+   "extract": {
+    "cost": 0
+   },
+   "install": {
+    "cost": 0
+   }
+  }
+ },
+ "levels": {
+  "playerStartingLevel": 1,
+  "enemyScaling": {
+   "hp": {
+    "perLevel": 2,
+    "rounding": "round",
+    "min": 1,
+    "max": 9999
+   },
+   "damage": {
+    "perLevel": 0.5,
+    "rounding": "round",
+    "min": 0,
+    "max": 999
+   },
+   "block": {
+    "perLevel": 0.5,
+    "rounding": "round",
+    "min": 0,
+    "max": 999
+   },
+   "poise": {
+    "perLevel": 1,
+    "rounding": "round",
+    "min": 0,
+    "max": 999
+   }
+  }
+ },
+ "level": {
+  "xp": {
+   "base": 200,
+   "linear": false,
+   "multScaler": 1.3,
+   "growth": 1.303,
+   "roundTo": 10
+  },
+  "maxLevelsPerFight": 0
+ },
+ "xp": {
+  "combatWin": 25,
+  "kill": {
+   "normal": 10,
+   "elite": 10,
+   "boss": 10
+  },
+  "killLevelMultiplier": 0.2,
+  "combatPowerMultiplier": 0.2,
+  "quest": 125
+ },
+ "levelUp": {
+  "pointsPerLevel": 1,
+  "maxLevels": 20,
+  "pointsPerLevelMin": 1,
+  "pointsPerLevelMax": 20
+ },
+ "graceRefill": [],
+ "graceRefillAtRunStart": true,
+ "gauntlet": {
+  "healPct": 15,
+  "rewardChoices": 3,
+  "rarityWeights": {
+   "common": 60,
+   "uncommon": 35,
+   "rare": 5
+  }
+ },
+ "coop": {
+  "headcountHpFactor": 0.6,
+  "mendHealPct": 30,
+  "reviveHp": 1
+ },
+ "endless": {
+  "hpPerLoop": 0.35,
+  "strPerLoop": 1,
+  "actsPerCycle": 3
+ },
+ "seatTiers": {
+  "1": 1,
+  "2": 1.5,
+  "3": 1.9
+ },
+ "bossTiers": {
+  "1": {
+   "hp": 0.8,
+   "damage": 0.8
+  },
+  "2": {
+   "hp": 2.2,
+   "damage": 1.5
+  },
+  "3": {
+   "hp": 2.2,
+   "damage": 1.5
+  }
+ },
+ "customMods": {
+  "toughElitesHpMult": 1.3,
+  "bigBossesHpMult": 1.5,
+  "hoarderCinders": 250,
+  "expensiveShopsMult": 1.5,
+  "hoarderShopMult": 2,
+  "lessHealingMult": 0.5
+ },
+ "ui": {
+  "imageHints": {
+   "decoding": "async",
+   "lazy": true
+  },
+  "touchFlick": {
+   "enabled": true,
+   "distance": {
+    "min": 32,
+    "max": 160,
+    "def": 64
+   },
+   "minVelocity": 300,
+   "velocityWindowMs": 120
+  },
+  "hudBars": {
+   "main": {
+    "scaleByMax": true,
+    "maxViewportPct": 40,
+    "availableWidthPct": 82
+   },
+   "model": {
+    "scaleByMax": false
+   }
+  },
+  "hudPresentation": {
+   "componentBackgroundOpacityPct": 0,
+   "metadataFontPx": 11,
+   "beltItemGapPx": 2,
+   "portraitScale": 0.58,
+   "primaryRowGapPx": 4,
+   "controlGapPx": 0,
+   "resourceRowGapPx": 3,
+   "panelPadPx": 0,
+   "mobilePanelPadPx": 0,
+   "mobileControlGapPx": 1,
+   "mobileOuterPadPx": 4,
+   "mobileRowGapPx": 3,
+   "cindersMaxWidthPct": 30,
+   "metadataMaxWidthPct": 30,
+   "metadataShowTotals": false
+  },
+  "hudQuickSettings": {
+   "places": [
+    "title",
+    "map",
+    "combat"
+   ],
+   "edgeGapPx": 4,
+   "stackGapPx": 0,
+   "cardSizePx": 40,
+   "glyphSizePx": 28,
+   "stateDotPx": 6,
+   "activeTintPct": 14,
+   "showCardBackground": true,
+   "showLabels": false
+  },
+  "combatantStage": {
+   "hudClearanceViewportPct": 3,
+   "actionClearanceViewportPct": 3,
+   "intentGapPx": 6,
+   "centerPct": 50
+  },
+  "equipmentCard": {
+   "frameWidthPx": 350,
+   "frameHeightPx": 490,
+   "paddingPx": 19,
+   "gapPx": 3,
+   "regions": {
+    "art": {
+     "minPx": 270,
+     "priority": 7,
+     "grow": 0
+    },
+    "type": {
+     "minPx": 22,
+     "priority": 5,
+     "grow": 0
+    },
+    "facts": {
+     "minPx": 40,
+     "priority": 6,
+     "grow": 0
+    },
+    "tags": {
+     "minPx": 18,
+     "priority": 4,
+     "grow": 0
+    },
+    "effects": {
+     "minPx": 54,
+     "priority": 7,
+     "grow": 2
+    },
+    "flavor": {
+     "minPx": 18,
+     "priority": 1,
+     "grow": 0
+    },
+    "footer": {
+     "minPx": 16,
+     "priority": 2,
+     "grow": 0
+    }
+   },
+   "text": {
+    "name": {
+     "minPx": 13,
+     "idealCh": 5.2,
+     "maxPx": 20,
+     "floorPx": 15
+    },
+    "type": {
+     "minPx": 9,
+     "idealCh": 2.9,
+     "maxPx": 11,
+     "floorPx": 10
+    },
+    "fact": {
+     "minPx": 9,
+     "idealCh": 2.7,
+     "maxPx": 10,
+     "floorPx": 10
+    },
+    "factValue": {
+     "minPx": 13,
+     "idealCh": 4.2,
+     "maxPx": 16,
+     "floorPx": 15
+    },
+    "tag": {
+     "minPx": 9,
+     "idealCh": 2.6,
+     "maxPx": 10,
+     "floorPx": 10
+    },
+    "heading": {
+     "minPx": 9,
+     "idealCh": 2.6,
+     "maxPx": 10,
+     "floorPx": 10
+    },
+    "bonus": {
+     "minPx": 11,
+     "idealCh": 3.4,
+     "maxPx": 13,
+     "floorPx": 13
+    },
+    "flavor": {
+     "minPx": 10,
+     "idealCh": 3.1,
+     "maxPx": 12,
+     "floorPx": 11
+    },
+    "footer": {
+     "minPx": 9,
+     "idealCh": 2.6,
+     "maxPx": 10,
+     "floorPx": 10
+    }
+   },
+   "bonusMaxLines": 2,
+   "info": {
+    "fadeMs": 120,
+    "insetPx": 6
+   }
+  },
+  "tooltipPlacement": {
+   "hoverDelayMs": 1000,
+   "autoFadeMs": 5000,
+   "topBandViewportPct": 25,
+   "sideBandViewportPct": 30
+  },
+  "combatantInspector": {
+   "widthRem": 20,
+   "mobileWidthViewportPct": 62
+  },
+  "shrinePresentation": {
+   "optionLayout": "list",
+   "foldedCardWidthViewportPct": 88,
+   "foldedCardMaxWidthRem": 44,
+   "foldedCardHeightViewportPct": 10,
+   "foldedCardMaxHeightRem": 6.5
+  },
+  "accents": {
+   "gold": {
+    "hex": "#c9a227",
+    "rgb": "201, 162, 39"
+   },
+   "crimson": {
+    "hex": "#c1453a",
+    "rgb": "193, 69, 58"
+   },
+   "frost": {
+    "hex": "#7fa8c9",
+    "rgb": "127, 168, 201"
+   },
+   "verdant": {
+    "hex": "#8bae54",
+    "rgb": "139, 174, 84"
+   },
+   "violet": {
+    "hex": "#a06cc8",
+    "rgb": "160, 108, 200"
+   }
+  },
+  "uiScale": {
+   "named": {
+    "s": 0.85,
+    "m": 1,
+    "l": 1.2,
+    "xl": 1.45
+   },
+   "designW": 1200,
+   "designH": 730,
+   "min": 0.62,
+   "max": 1.7,
+   "narrowW": 430,
+   "narrowH": 780,
+   "narrowMax": 520,
+   "shortWideMinH": 340,
+   "gateBelowH": 465,
+   "formFactor": {
+    "widescreenMinAspect": 2,
+    "widescreenAspectMinWidth": 1600,
+    "widescreenMinWidth": 2400,
+    "mobileMaxWidth": 600,
+    "tabletMaxWidth": 1100
+   }
+  },
+  "textSize": {
+   "S": "56.25%",
+   "M": "62.5%",
+   "L": "68.75%",
+   "XL": "75%"
+  },
+  "tapSize": {
+   "def": 44,
+   "sizes": [
+    44,
+    36,
+    30,
+    24
+   ],
+   "missRate": {
+    "24": "1 tap in 7",
+    "44": "1 in 30"
+   }
+  },
+  "victoryBeat": {
+   "ms": 600
+  },
+  "holdConfirm": {
+   "def": "normal",
+   "steps": {
+    "off": 0,
+    "short": 350,
+    "normal": 600,
+    "long": 1000
+   },
+   "dragSettleMs": 1000,
+   "settleSlopPx": 8
+  },
+  "titleLoadHold": {
+   "ms": 600
+  },
+  "holdBeat": {
+   "at": [
+    0,
+    0.42,
+    0.78
+   ]
+  },
+  "inspectHold": {
+   "ms": 400
+  },
+  "rewardCollect": {
+   "def": "manual",
+   "modes": [
+    "auto",
+    "manual"
+   ]
+  },
+  "handLayout": "paging",
+  "handLayoutModes": [
+   "paging",
+   "overlap"
+  ],
+  "spriteTiers": {
+   "small": {
+    "w": 92,
+    "h": 128,
+    "font": 44
+   },
+   "medium": {
+    "w": 132,
+    "h": 168,
+    "font": 58
+   },
+   "large": {
+    "w": 194,
+    "h": 206,
+    "font": 78
+   }
+  },
+  "backdropActs": 3,
+  "parchmentActs": 3,
+  "cardTypes": {
+   "stance": {
+    "label": "STANCE",
+    "color": "#c9502e",
+    "radius": 3,
+    "art": 0
+   },
+   "consumable": {
+    "label": "CONSUMABLE",
+    "color": "#7fa8c9",
+    "radius": 10,
+    "art": 6
+   },
+   "attack": {
+    "label": "ATTACK",
+    "color": "#c9502e",
+    "radius": 3,
+    "art": 0
+   },
+   "skill": {
+    "label": "SKILL",
+    "color": "#7fa8c9",
+    "radius": 10,
+    "art": 6
+   },
+   "power": {
+    "label": "POWER",
+    "color": "#c9a227",
+    "radius": 20,
+    "art": 16
+   },
+   "curse": {
+    "label": "CURSE",
+    "color": "#6a3a7a",
+    "radius": 10,
+    "art": 6
+   },
+   "status": {
+    "label": "STATUS",
+    "color": "#7a6f5a",
+    "radius": 10,
+    "art": 6
+   }
+  },
+  "cardMotif": "wash",
+  "cardMotifModes": [
+   "off",
+   "wash",
+   "accent",
+   "band"
+  ],
+  "cardMotifStrength": {
+   "subtle": 0.06,
+   "normal": 0.1,
+   "strong": 0.17
+  },
+  "audio": {
+   "musicEnabled": true,
+   "musicVolume": 50,
+   "sfxVolume": 75
+  }
+ },
+ "costs": {
+  "action": 1,
+  "stamina": 1,
+  "mana": 1
+ },
+ "classTree": {
+  "ironFooting": {
+   "block": 3
+  },
+  "bloodTempo": {
+   "draw": 1
+  },
+  "ashenReserve": {
+   "restoreStamina": 1
+  },
+  "grimHarvest": {
+   "heal": 3
+  },
+  "warlord": {
+   "strength": 2
+  },
+  "bulwarkKing": {
+   "block": 3
+  },
+  "attunedMind": {
+   "draw": 1
+  },
+  "starlitFocus": {
+   "starstoneCharge": 1
+  },
+  "lodestarCap": {
+   "restoreMana": 1
+  },
+  "arcaneDraw": {
+   "draw": 2
+  },
+  "conduit": {
+   "restoreStamina": 1
+  },
+  "reservoir": {
+   "restoreMana": 1
+  },
+  "warmth": {
+   "block": 2
+  },
+  "vigil": {
+   "heal": 1
+  },
+  "sealOfPlenty": {
+   "restoreMana": 1
+  },
+  "wakingRot": {
+   "crimsonBlight": 1
+  },
+  "martyr": {
+   "block": 2
+  },
+  "saint": {
+   "heal": 5
+  },
+  "quickHands": {
+   "prepared": 1
+  },
+  "secondWind": {
+   "draw": 1
+  },
+  "honedEdge": {
+   "bleed": 1
+  },
+  "poisonedPouch": {
+   "venom": 1
+  },
+  "assassin": {
+   "prepared": 1,
+   "draw": 1
+  },
+  "shadow": {
+   "block": 3
+  },
+  "partingBlow": {
+   "damage": 3
+  },
+  "ironRebuke": {
+   "damage": 3
+  },
+  "cinderGrip": {
+   "bleed": 2
+  },
+  "mendingGrip": {
+   "heal": 2
+  },
+  "spentStars": {
+   "restoreMana": 1
+  },
+  "fallingStar": {
+   "damage": 3
+  },
+  "lodestarPull": {
+   "vulnerable": 1
+  },
+  "shardHunger": {
+   "restoreMana": 1
+  },
+  "burningGrace": {
+   "damage": 2
+  },
+  "dazzlingLight": {
+   "weak": 1
+  },
+  "anointedBlade": {
+   "strength": 1
+  },
+  "unsealedScroll": {
+   "draw": 2
+  },
+  "lowProfile": {
+   "block": 3
+  },
+  "feint": {
+   "poiseDamage": 4
+  },
+  "spareWhetstone": {
+   "gainEnergy": 1
+  },
+  "whettedGuard": {
+   "block": 1
+  }
+ },
+ "powers": {
+  "forsakenMedallion": {
+   "poiseDamage": 4
+  },
+  "starstoneShard": {
+   "starstoneCharge": 1,
+   "restoreMana": 1
+  },
+  "cutpursesCoin": {
+   "prepared": 1,
+   "venom": 2
+  },
+  "goldFigurine": {
+   "block": 2
+  },
+  "goldenSprout": {
+   "heal": 3
+  },
+  "whetstoneFragment": {
+   "damage": 4
+  },
+  "kindlingCharm": {
+   "draw": 1
+  },
+  "goldleafCharm": {
+   "block": 4
+  },
+  "crackedLantern": {
+   "gainEnergy": 1
+  },
+  "sacrificialKnife": {
+   "bleed": 2
+  },
+  "curedHide": {
+   "block": 5
+  },
+  "ivoryComb": {
+   "draw": 1,
+   "n": 8
+  },
+  "fellWardenBrand": {
+   "draw": 2
+  },
+  "bloodiedTalisman": {
+   "loseHp": 5
+  },
+  "twinnedArmor": {
+   "block": 6,
+   "n": 10
+  },
+  "blightTouchedIdol": {
+   "crimsonBlight": 3
+  },
+  "warhorn": {
+   "strength": 1
+  },
+  "vowOfVengeance": {
+   "strength": 2
+  },
+  "pearlOfSagacity": {
+   "gainEnergy": 1,
+   "n": 6
+  },
+  "blessedDew": {
+   "heal": 2
+  },
+  "azureSigil": {
+   "gainEnergy": 1
+  },
+  "bloodstainedChalice": {
+   "block": 2
+  },
+  "goldboughSapling": {
+   "block": 4
+  },
+  "wyrmHeart": {
+   "gainEnergy": 1
+  },
+  "titansCinder": {
+   "strength": 1
+  },
+  "radiantAegis": {
+   "block": 4
+  },
+  "flayersCenser": {
+   "crimsonBlight": 1
+  },
+  "vigilantHalo": {
+   "heal": 6
+  },
+  "carrionTalon": {
+   "damage": 6
+  },
+  "emberIdol": {
+   "damage": 3
+  },
+  "crownOfStitches": {
+   "strength": 2,
+   "frail": 1
+  },
+  "wardenHorn": {
+   "draw": 1,
+   "loseHp": 2
+  },
+  "ashOfRemembrance": {
+   "gainEnergy": 1,
+   "madness": 1
+  },
+  "cinderOfTheFallen": {
+   "madness": 1,
+   "gainEnergy": 1
+  },
+  "crimsonCovenant": {
+   "loseHp": 5,
+   "bleed": 2
+  },
+  "travelersWhetstone": {
+   "strength": 1
+  },
+  "moonlitVial": {
+   "block": 3
+  },
+  "wardensLantern": {
+   "draw": 1
+  },
+  "hollowedHorn": {
+   "vulnerable": 1
+  },
+  "gildedTear": {
+   "heal": 3
+  },
+  "watchmansBadge": {
+   "strength": 1
+  },
+  "howlingStandard": {
+   "strength": 1
+  },
+  "emberwickCharm": {
+   "gainEnergy": 1
+  },
+  "carrionMorsel": {
+   "heal": 2
+  },
+  "gravetendersBell": {
+   "draw": 1
+  },
+  "sentinelsOath": {
+   "strength": 1,
+   "n": 12
+  },
+  "forsakenWarflag": {
+   "weak": 1
+  },
+  "wrathCoil": {
+   "damage": 3
+  },
+  "ashenGrip": {
+   "restoreStamina": 1
+  },
+  "lodestarShard": {
+   "restoreMana": 1
+  },
+  "waxenSeal": {
+   "heal": 3
+  },
+  "whetstonePouch": {
+   "bleed": 2
+  },
+  "hollowSquire": {
+   "block": 5
+  },
+  "emberHound": {
+   "damage": 3
+  }
+ },
+ "sigils": {
+  "emberSigil": {
+   "block": 4
+  },
+  "thornSigil": {
+   "bleed": 2
+  },
+  "tideSigil": {
+   "n": 5,
+   "draw": 1
+  },
+  "hearthSigil": {
+   "block": 3
+  },
+  "vigilSigil": {
+   "pct": 50,
+   "block": 12
+  },
+  "pyreSigil": {
+   "block": 3
+  },
+  "gravelightSigil": {
+   "pct": 50,
+   "heal": 6
+  },
+  "attuneMax": 1,
+  "dropChancePct": {
+   "normal": 0,
+   "elite": 0,
+   "boss": 0,
+   "treasure": 0
+  }
+ },
+ "equipment": {
+  "startingKitDiscovery": {
+   "undiscoveredPresentation": "hidden",
+   "receiptLimit": 64
+  },
+  "roleCopies": {
+   "attack": 4,
+   "guard": 4,
+   "technique": 1,
+   "signature": 1,
+   "ability": 1
+  },
+  "startingDeck": {
+   "enabled": true,
+   "global": {
+    "grants": []
+   },
+   "sourceOrder": [
+    "from:global",
+    "from:relic",
+    "from:armor",
+    "from:weapon",
+    "from:class"
+   ],
+   "sources": {
+    "global": "from:global",
+    "armor": "from:armor",
+    "weapon": "from:weapon",
+    "class": "from:class"
+   },
+   "oddFillerGoesTo": "attack",
+   "defaultStrikeBias": 0.5,
+   "classes": {
+    "reaver": {
+     "strikeBias": 0.5
+    },
+    "starseer": {
+     "strikeBias": 0.5
+    }
+   }
+  },
+  "rarityBonuses": {
+   "common": {
+    "attack": 0,
+    "guard": 0
+   },
+   "uncommon": {
+    "attack": 1,
+    "guard": 1
+   },
+   "rare": {
+    "attack": 2,
+    "guard": 2
+   }
+  },
+  "roleSources": {
+   "attack": [
+    {
+     "slot": "rightHand"
+    }
+   ],
+   "guard": [
+    {
+     "slot": "leftHand"
+    },
+    {
+     "slot": "rightHand"
+    }
+   ],
+   "technique": [
+    {
+     "slot": "rightHand"
+    },
+    {
+     "slot": "leftHand"
+    }
+   ]
+  },
+  "unarmedProfiles": {
+   "attack": "unarmedAttack",
+   "guard": "unarmedGuard",
+   "technique": "unarmedTechnique"
+  },
+  "cardMounts": {
+   "extractableTag": "extractable",
+   "kinds": {
+    "weaponArt": {
+     "accepts": [
+      "extractable"
+     ],
+     "fallback": {
+      "unarmedProfile": "technique"
+     }
+    },
+    "granted": {
+     "accepts": [
+      "extractable"
+     ],
+     "fallback": null
+    }
+   },
+   "fallbackByItem": {},
+   "extraMounts": {
+    "enabled": false,
+    "perItem": 1,
+    "kind": "granted"
+   }
+  },
+  "enabled": true,
+  "persistence": "perRun",
+  "basicTag": "",
+  "swapCostKind": "energy",
+  "swapCost": 2,
+  "swapAllowancePerTurn": 1,
+  "swapEndsTurn": false,
+  "allowChangesInCombat": true,
+  "swapCostRule": "flat",
+  "swapCostRules": [
+   {
+    "id": "flat",
+    "label": "Flat",
+    "base": "default",
+    "gear": false
+   },
+   {
+    "id": "gear",
+    "label": "Talisman & relic",
+    "base": "default",
+    "gear": true
+   },
+   {
+    "id": "category",
+    "label": "Weapon category",
+    "base": "category",
+    "gear": false
+   }
+  ],
+  "swapCostByCategory": [
+   {
+    "tag": "heavy",
+    "cost": 3
+   },
+   {
+    "tag": "flourish",
+    "cost": 1
+   }
+  ],
+  "restampHand": true,
+  "storageSlots": 8,
+  "defaultView": "hybrid",
+  "narrowDefaultView": "rack",
+  "views": [
+   {
+    "id": "grid",
+    "figure": true,
+    "slots": "flank"
+   },
+   {
+    "id": "rack",
+    "figure": false,
+    "slots": "list"
+   },
+   {
+    "id": "hybrid",
+    "figure": false,
+    "slots": "list"
+   },
+   {
+    "id": "cards",
+    "figure": false,
+    "slots": "list"
+   }
+  ],
+  "subject": "slots",
+  "spriteReacts": "full",
+  "limits": {
+   "minCost": 0,
+   "minDamage": 0,
+   "minBlock": 0,
+   "maxHits": 6
+  },
+  "drops": {
+   "enabled": true,
+   "requireFound": true,
+   "permanentOnFind": true,
+   "reveal": "teased",
+   "chance": {
+    "normal": 0,
+    "treasure": 60,
+    "elite": 30,
+    "boss": 100,
+    "shop": 0
+   },
+   "rarityWeights": {
+    "normal": {
+     "common": 40,
+     "uncommon": 45,
+     "rare": 15
+    },
+    "treasure": {
+     "common": 55,
+     "uncommon": 35,
+     "rare": 10
+    },
+    "elite": {
+     "common": 40,
+     "uncommon": 45,
+     "rare": 15
+    },
+    "boss": {
+     "common": 15,
+     "uncommon": 45,
+     "rare": 40
+    }
+   },
+   "preferUnfound": true,
+   "consolationCinders": 40
+  }
+ },
+ "progressionFeats": {
+  "coal-on-steel": {
+   "bleed": 1
+  },
+  "brace-and-bite": {
+   "damage": 3
+  },
+  "red-footwork": {
+   "draw": 1
+  },
+  "anvil-discipline": {
+   "break": 2
+  },
+  "forge-momentum": {
+   "damage": 4
+  },
+  "paid-in-blood": {
+   "damage": 4
+  },
+  "last-rampart": {
+   "block": 4,
+   "hpPct": 50
+  },
+  "war-cadence": {
+   "block": 4
+  },
+  "broad-sentence": {
+   "damage": 2
+  },
+  "ember-sovereign": {
+   "damage": 2
+  },
+  "nightglass-scholar": {
+   "damage": 2
+  },
+  "smoke-dancer": {
+   "damage": 2
+  },
+  "dread-of-the-hammer": {
+   "damage": 4
+  },
+  "scarred-oath": {
+   "block": 3
+  },
+  "harvest-the-wound": {
+   "heal": 3
+  },
+  "sepulchral-promise": {
+   "heal": 3
+  },
+  "orbit-keeper": {
+   "damage": 3
+  },
+  "moonward-scholar": {
+   "block": 3,
+   "manaSpent": 2
+  },
+  "comet-reader": {
+   "vulnerable": 1
+  },
+  "weight-of-the-void": {
+   "weak": 1
+  },
+  "crooked-measure": {
+   "weak": 1
+  },
+  "mirror-of-rime": {
+   "buildup": 2
+  },
+  "constellation-keeper": {
+   "damage": 3
+  },
+  "patient-wellspring": {
+   "block": 3
+  },
+  "eclipse-hunter": {
+   "damage": 4
+  },
+  "firmament-keeper": {
+   "block": 4
+  },
+  "celestial-refrain": {
+   "block": 4
+  },
+  "memory-of-winter": {
+   "retainBlockUpTo": 4
+  },
+  "threefold-sky": {
+   "draw": 1
+  },
+  "first-knife": {
+   "damage": 3
+  },
+  "pocket-method": {
+   "block": 3
+  },
+  "open-flank": {
+   "damage": 3
+  },
+  "hidden-palm": {
+   "block": 3
+  },
+  "tighten-the-wire": {
+   "damage": 3
+  },
+  "carrion-measure": {
+   "damage": 4,
+   "hpPct": 50
+  },
+  "two-quiet-knives": {
+   "damage": 1
+  },
+  "trapdoor-smile": {
+   "damage": 4
+  },
+  "clean-exit": {
+   "restoreStamina": 1
+  },
+  "razor-ledger": {
+   "damage": 3
+  },
+  "ashen-mercy": {
+   "heal": 2
+  },
+  "censer-keeper": {
+   "block": 3
+  },
+  "sower-of-blight": {
+   "buildup": 2
+  },
+  "funeral-watch": {
+   "block": 3,
+   "hpPct": 50
+  },
+  "ember-almoner": {
+   "regen": 1
+  },
+  "choir-of-bone": {
+   "restoreStamina": 1
+  },
+  "requiem-reader": {
+   "damage": 3
+  },
+  "pilgrim-of-scars": {
+   "heal": 3,
+   "hpPct": 50
+  },
+  "crowned-offering": {
+   "damage": 4
+  },
+  "dawn-cantor": {
+   "block": 3
+  },
+  "bearer-of-burdens": {
+   "restoreMana": 1
+  }
+ }
+}

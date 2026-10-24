@@ -1,0 +1,36 @@
+{
+  "$id": "profile/bundle/attributes.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "disclosure": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "label": {
+        "type": "string"
+      },
+      "order": {
+        "type": "integer"
+      },
+      "sense": {
+        "type": "string"
+      },
+      "shortLabel": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "disclosure",
+      "id",
+      "label",
+      "order",
+      "sense",
+      "shortLabel"
+    ]
+  }
+}

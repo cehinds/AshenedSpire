@@ -231,7 +231,7 @@ namespace Ashen.Content
                 effect[K.Amount] = JsValues.Number(AddToAmount(adjustedBase, JsValues.ToDouble(effect[K.Amount]) - authoredBase));
         }
 
-        private static JArray ProjectEffects(JObject face, JObject configs, Dictionary<string, double?> references)
+        private static JArray ProjectEffects(JObject face, JObject configs, Dictionary<string, double?> references, JObject priceFace)
         {
             var effects = new JArray(JsValues.Items(face[K.Effects]).Select(e => e is JObject o ? JsValues.Spread(o) : e?.DeepClone()));
             var magical = CardIsMagical(face);
@@ -239,19 +239,30 @@ namespace Ashen.Content
             if (attack)
             {
                 var name = magical ? K.PotencyCards : K.AttackCards;
-                ProjectOperation(face, effects, K.OpDamage, BaseValue(face, (JObject)configs[name]), references[name]);
+                ProjectOperation(face, effects, K.OpDamage, BaseValue(priceFace, (JObject)configs[name]), references[name]);
             }
             if (effects.Any(e => JsValues.Str(JsValues.Get(e, K.Op)) == K.OpBlock))
             {
                 var name = magical ? K.PotencyCards : K.DefenseCards;
-                ProjectOperation(face, effects, K.OpBlock, BaseValue(face, (JObject)configs[name]), references[name]);
+                ProjectOperation(face, effects, K.OpBlock, BaseValue(priceFace, (JObject)configs[name]), references[name]);
             }
             if (attack && effects.Any(e => JsValues.Str(JsValues.Get(e, K.Op)) == K.OpPoiseDamage))
             {
                 var name = magical ? K.WardCards : K.PoiseCards;
-                ProjectOperation(face, effects, K.OpPoiseDamage, BaseValue(face, (JObject)configs[name]), references[name]);
+                ProjectOperation(face, effects, K.OpPoiseDamage, BaseValue(priceFace, (JObject)configs[name]), references[name]);
             }
             return effects;
+        }
+
+        private static JObject PricedAtBase(JObject source, JObject baseFace)
+        {
+            var priced = JsValues.Spread(source);
+            foreach (var key in new[] { K.Cost, K.ManaCost, K.StaminaCost })
+            {
+                if (baseFace[key] != null) priced[key] = baseFace[key].DeepClone();
+                else priced.Remove(key);
+            }
+            return priced;
         }
 
         private static JObject RatingValues(JObject face, JObject configs)
@@ -300,7 +311,10 @@ namespace Ashen.Content
             }
             JObject Face(JObject source)
             {
-                var face = new JObject { [K.Effects] = ProjectEffects(source, configs, references) };
+                // Fixed upgrades author their value delta explicitly: their higher payment must not add a second upgrade bonus,
+                // so the formulas price them at the base face's cost (model/attackCardDamage.js priceFace, Core 2).
+                var price = source == upgradedFace && JsValues.Str(JsValues.Get(source, K.CostRule)) == K.CostRuleFixed ? PricedAtBase(source, baseFace) : source;
+                var face = new JObject { [K.Effects] = ProjectEffects(source, configs, references, price) };
                 var values = RatingValues(source, configs);
                 if (values != null) face[K.CardRatingValues] = values;
                 return face;

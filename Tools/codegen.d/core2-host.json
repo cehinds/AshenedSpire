@@ -1,0 +1,54 @@
+{
+  "comment": "Keys, values and messages of the Core 2 run host and the combat screen's view (WP-C1a, docs/design/11): the run a Core 2 climb keeps, the save document of a Core 2 run, the not-yet-ported outcomes and the combat view model.",
+  "keySets": [
+    {
+      "name": "Core2HostKeys",
+      "doc": "Keys the Core 2 run host reads and writes.",
+      "keys": {
+        "CombatsLeft": "combatsLeft",
+        "QualifyingOutcomes": "qualifyingOutcomes",
+        "PendingPort": "pendingPort",
+        "NodeId": "nodeId",
+        "HitChance": "hitChance",
+        "InRange": "inRange",
+        "Available": "available",
+        "Affordable": "affordable",
+        "AdvanceSp": "advanceSp",
+        "PrecisionDelta": "precisionDelta",
+        "Costs": "costs",
+        "Band": "band",
+        "CurrentHitChance": "currentHitChance",
+        "Targets": "targets",
+        "CurrentInRange": "currentInRange",
+        "Routes": "routes"
+      }
+    },
+    {
+      "name": "Core2HostValues",
+      "doc": "Values of the Core 2 run host.",
+      "keys": {
+        "DoorFight": "fight",
+        "DoorRest": "rest",
+        "DoorShop": "shop",
+        "DoorTreasure": "treasure",
+        "DoorEvent": "event",
+        "PortRewards": "rewards",
+        "LogKeyPrefix": "combat.log.",
+        "ArgSource": "source",
+        "ArgTarget": "target",
+        "ArgAmount": "amount",
+        "ArgDetail": "detail"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "Core2HostNumbers",
+      "type": "double",
+      "doc": "Numbers of the Core 2 combat view.",
+      "values": {
+        "LogLines": "60"
+      }
+    }
+  ]
+}

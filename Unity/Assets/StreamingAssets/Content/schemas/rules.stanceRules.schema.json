@@ -1,0 +1,132 @@
+{
+  "$id": "rules/stanceRules.json",
+  "type": "object",
+  "properties": {
+    "stanceRules": {
+      "type": "object",
+      "properties": {
+        "counterMultiplier": {
+          "type": "number"
+        },
+        "defenseRestore": {
+          "type": "integer"
+        },
+        "defensiveRating": {
+          "type": "integer"
+        },
+        "entryProtection": {
+          "type": "integer"
+        },
+        "evadeStacks": {
+          "type": "integer"
+        },
+        "evasionPerStack": {
+          "type": "integer"
+        },
+        "fallbackPoise": {
+          "type": "integer"
+        },
+        "magicalMinimumSp": {
+          "type": "integer"
+        },
+        "offensivePrecision": {
+          "type": "integer"
+        },
+        "offensiveRating": {
+          "type": "integer"
+        },
+        "physicalMinimumSp": {
+          "type": "integer"
+        },
+        "roundStartDecay": {
+          "type": "object",
+          "properties": {
+            "evade": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "evade"
+          ]
+        },
+        "sameStanceDiscount": {
+          "type": "integer"
+        },
+        "schoolBlockShares": {
+          "type": "object",
+          "properties": {
+            "alteration": {
+              "type": "number"
+            },
+            "force": {
+              "type": "number"
+            },
+            "frost": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "alteration",
+            "force",
+            "frost"
+          ]
+        },
+        "smashMultiplier": {
+          "type": "number"
+        },
+        "spellBlockShare": {
+          "type": "number"
+        },
+        "spellSmashWardShare": {
+          "type": "number"
+        },
+        "spellStatusStacks": {
+          "type": "integer"
+        },
+        "sweepCounterMultiplier": {
+          "type": "integer"
+        },
+        "sweepPerAdditionalTarget": {
+          "type": "integer"
+        },
+        "sweepPrecisionBase": {
+          "type": "integer"
+        },
+        "sweepReactionPoise": {
+          "type": "integer"
+        },
+        "sweepReactionWard": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "counterMultiplier",
+        "defenseRestore",
+        "defensiveRating",
+        "entryProtection",
+        "evadeStacks",
+        "evasionPerStack",
+        "fallbackPoise",
+        "magicalMinimumSp",
+        "offensivePrecision",
+        "offensiveRating",
+        "physicalMinimumSp",
+        "roundStartDecay",
+        "sameStanceDiscount",
+        "schoolBlockShares",
+        "smashMultiplier",
+        "spellBlockShare",
+        "spellSmashWardShare",
+        "spellStatusStacks",
+        "sweepCounterMultiplier",
+        "sweepPerAdditionalTarget",
+        "sweepPrecisionBase",
+        "sweepReactionPoise",
+        "sweepReactionWard"
+      ]
+    }
+  },
+  "required": [
+    "stanceRules"
+  ]
+}

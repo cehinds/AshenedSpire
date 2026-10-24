@@ -48,10 +48,18 @@ namespace Ashen.Domain.Map
         /// </summary>
         public static ResolvedNode ResolveUnknownNode(MapData data, Rng rng, IReadOnlyCollection<string> seenEvents, int tier, JArray history)
         {
-            var rules = data.Rules;
-            var cfg = data.MapConfig(tier);
-            var odds = cfg.Obj(MK.UnknownWeights);
+            var odds = data.MapConfig(tier).Obj(MK.UnknownWeights);
             if (odds == null) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, MM.UnknownNoWeights, tier));
+            return ResolveUnknownNode(data, rng, seenEvents, odds, history);
+        }
+
+        /// <summary>
+        /// The same roll over explicit odds. The Core 2 route builder passes its own (rules/mapEngine.json routes.unknownWeights:
+        /// an event, drawn once on the events stream) instead of the tier's, as the web does with its mapConfig override.
+        /// </summary>
+        public static ResolvedNode ResolveUnknownNode(MapData data, Rng rng, IReadOnlyCollection<string> seenEvents, JObject odds, JArray history)
+        {
+            var rules = data.Rules;
             var total = 0d;
             foreach (var p in odds.Properties()) total = total + Js.D(p.Value);
             var r = rng.Float(RngStream.Events) * total;

@@ -18,10 +18,21 @@ namespace Ashen.Generated
         public const string Touch = "kit-touch";
         public const string ValueText = "kit-text-value";
         public const string HeaderText = "kit-text-header";
+        public const string Upper = "kit-upper";
         public const string Button = "kit-button";
         public const string ButtonPrimary = "kit-button--primary";
         public const string ButtonBack = "kit-button--back";
         public const string ButtonReady = "kit-button--ready";
+        public const string ButtonDanger = "kit-button--danger";
+        public const string ButtonPlate = "kit-button--plate";
+        public const string Chip = "kit-chip";
+        public const string ChipOn = "kit-chip--on";
+        public const string ChipRound = "kit-chip--round";
+        public const string Frame = "kit-frame";
+        public const string FrameModal = "kit-frame--modal";
+        public const string Divider = "kit-divider";
+        public const string ShadowPlate = "shadow-plate";
+        public const string ShadowPlateTooltip = "shadow-plate--tooltip";
         public const string ToneDestructive = "tone-destructive";
         public const string MenuItem = "menu-item";
         public const string HasSave = "has-save";
@@ -118,5 +129,10 @@ namespace Ashen.Generated
         public const string RunEndStat = "runend-stat";
         public const string RunEndCard = "runend-card-name";
         public const string RunEndUnlock = "runend-unlock";
+        public const string PromptOption = "prompt-option";
+        public const string PromptOptionSelected = "prompt-option--selected";
+        public const string PromptOptionDisabled = "prompt-option--disabled";
+        public const string LogLine = "log-line";
+        public const string LogLineNewest = "log-line--newest";
     }
 }

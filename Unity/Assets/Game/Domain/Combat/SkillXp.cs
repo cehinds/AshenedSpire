@@ -68,6 +68,12 @@ namespace Ashen.Domain.Combat
         /// <summary>The group a card belongs to: the piece that lent it (by hand, else by its grantedBy item ref).</summary>
         private static string GroupOfCard(CombatState c, JObject ev)
         {
+            // A configured profile's source committed with the action wins over today's hand contents.
+            if (c.IsCore && ev.Has(Ashen.Generated.Core2DamageKeys.UsedArmamentId))
+            {
+                var usedId = ev.Str(Ashen.Generated.Core2DamageKeys.UsedArmamentId);
+                return GroupOfPiece(c, usedId == null ? null : Js.Items(c.Data.Equipment[K.Armaments]).OfType<JObject>().FirstOrDefault(a => a.Str(K.Id) == usedId));
+            }
             var hand = ev.Str(K.SourceHand);
             if (hand == V.Right || hand == V.Left) return GroupOfPiece(c, PieceInHand(c, hand));
             var by = ev.Str(K.GrantedBy);
@@ -95,11 +101,79 @@ namespace Ashen.Domain.Combat
 
         private static string ArmourSkill(CombatState c, string weightClass) => Rules(c).Str(K.ArmourSkillPrefix) + weightClass;
 
+        /// <summary>Display-only: the armament a card was dealt with joins the receipt (rememberUsedArmament).</summary>
+        private static void RememberUsedArmament(CombatState c, JObject ev, JObject receipt)
+        {
+            string id;
+            if (ev.Has(Ashen.Generated.Core2DamageKeys.UsedArmamentId)) id = ev.Str(Ashen.Generated.Core2DamageKeys.UsedArmamentId);
+            else
+            {
+                var by = ev.Str(K.GrantedBy);
+                var prefix = V.ArmamentRefPrefix + V.ItemRefSeparator;
+                var itemRef = string.IsNullOrEmpty(by) ? null : by.Contains(V.ItemRefSeparator) ? by : prefix + by;
+                var hand = ev.Str(K.SourceHand);
+                id = itemRef != null && itemRef.StartsWith(prefix, StringComparison.Ordinal) ? itemRef.Substring(prefix.Length)
+                    : hand == V.Right || hand == V.Left ? PieceInHand(c, hand)?.Str(K.Id) : null;
+            }
+            if (string.IsNullOrEmpty(id)) return;
+            var used = receipt.Arr(Ashen.Generated.Core2DamageKeys.UsedArmaments);
+            if (used == null) receipt[Ashen.Generated.Core2DamageKeys.UsedArmaments] = used = new JArray();
+            if (!used.Any(t => Js.Str(t) == id)) used.Add(id);
+        }
+
+        /// <summary>The Core 2 profile's skill progression (recordSkillXp, core branch): a card, a hit or a Block credits the group of the piece that lent it; a victory pays each group it used.</summary>
+        private static void RecordCore(CombatState c, JObject ev, JObject rows)
+        {
+            var type = ev.Str(K.Type);
+            switch (type)
+            {
+                case Ashen.Generated.Core2DamageKeys.CardResolved:
+                {
+                    var group = GroupOfCard(c, ev);
+                    if (group == null) return;
+                    var receipt = ReceiptFor(c, V.Player);
+                    var xp = receipt.Obj(K.Xp);
+                    if (!xp.Has(group)) xp.Put(group, 0);
+                    RememberUsedArmament(c, ev, receipt);
+                    return;
+                }
+                case E.DamageDealt:
+                case E.BlockGained:
+                {
+                    var owner = V.Player;
+                    if (type == E.DamageDealt && (OwnerKeyOf(ev.Str(K.SourceId)) == null || ev.Str(K.TargetId) == V.Player || !(ev.Num(K.Amount) > 0))) return;
+                    if (type == E.BlockGained && (OwnerKeyOf(ev.Str(K.TargetId)) == null || !(ev.Num(K.Amount) > 0))) return;
+                    var group = GroupOfCard(c, ev);
+                    if (group == null) return;
+                    var receipt = ReceiptFor(c, owner);
+                    var xp = receipt.Obj(K.Xp);
+                    if (!xp.Has(group)) xp.Put(group, 0);
+                    RememberUsedArmament(c, ev, receipt);
+                    Pay(receipt, group, rows.Num(K.PerHit), FavoredMult(c, owner, group));
+                    if (type == E.DamageDealt)
+                    {
+                        var target = c.Enemies.FirstOrDefault(e => e.Str(K.Id) == ev.Str(K.TargetId));
+                        if (target != null && (target.Num(K.Hp) <= 0 || !target.Is(K.Alive))) receipt[K.KillGroup] = group;
+                    }
+                    return;
+                }
+                case E.CombatEnd:
+                {
+                    if (!ev.Is(K.Victory)) return;
+                    var receipt = ReceiptFor(c, V.Player);
+                    foreach (var group in receipt.Obj(K.Xp).Properties().Select(p => p.Name).ToList())
+                        Pay(receipt, group, rows.Num(K.PerWinEquipped) * (receipt.Str(K.KillGroup) == group ? rows.Num(K.KillMult) : 1), FavoredMult(c, V.Player, group));
+                    return;
+                }
+            }
+        }
+
         /// <summary>recordSkillXp(combat, event): called by the bus after every event the engine emits.</summary>
         public static void Record(CombatState c, JObject ev)
         {
             var rows = c.Data.Balance.Obj(K.Skill)?.Obj(K.Xp);
             if (rows == null || c.Player == null) return;
+            if (c.IsCore) { RecordCore(c, ev, rows); return; }
             var rules = Rules(c);
             var dual = rules.Str(K.DualWieldSkill);
             switch (ev.Str(K.Type))

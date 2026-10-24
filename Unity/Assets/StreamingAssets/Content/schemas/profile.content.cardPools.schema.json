@@ -1,0 +1,263 @@
+{
+  "$id": "profile/content/cardPools.json",
+  "type": "object",
+  "properties": {
+    "counter": {
+      "type": "object",
+      "properties": {
+        "byClass": {
+          "type": "object",
+          "properties": {}
+        },
+        "byTag": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "default"
+          ]
+        },
+        "slot": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "byClass",
+        "byTag",
+        "slot"
+      ]
+    },
+    "defend": {
+      "type": "object",
+      "properties": {
+        "byClass": {
+          "type": "object",
+          "properties": {}
+        },
+        "byTag": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "default"
+          ]
+        },
+        "fallbackSlot": {
+          "type": "string"
+        },
+        "slot": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "byClass",
+        "byTag",
+        "fallbackSlot",
+        "slot"
+      ]
+    },
+    "evade": {
+      "type": "object",
+      "properties": {
+        "byClass": {
+          "type": "object",
+          "properties": {}
+        },
+        "byTag": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "default"
+          ]
+        },
+        "fallbackSlot": {
+          "type": "string"
+        },
+        "slot": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "byClass",
+        "byTag",
+        "fallbackSlot",
+        "slot"
+      ]
+    },
+    "smash": {
+      "type": "object",
+      "properties": {
+        "byClass": {
+          "type": "object",
+          "properties": {}
+        },
+        "byTag": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "default"
+          ]
+        },
+        "slot": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "byClass",
+        "byTag",
+        "slot"
+      ]
+    },
+    "special": {
+      "type": "object",
+      "properties": {
+        "byClass": {
+          "type": "object",
+          "properties": {
+            "class.herald": {
+              "type": "object",
+              "properties": {
+                "default": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "default"
+              ]
+            },
+            "class.reaver": {
+              "type": "object",
+              "properties": {
+                "default": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "default"
+              ]
+            },
+            "class.rogue": {
+              "type": "object",
+              "properties": {
+                "default": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "default"
+              ]
+            },
+            "class.starseer": {
+              "type": "object",
+              "properties": {
+                "default": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "default"
+              ]
+            }
+          },
+          "required": [
+            "class.herald",
+            "class.reaver",
+            "class.rogue",
+            "class.starseer"
+          ]
+        },
+        "byTag": {
+          "type": "object",
+          "properties": {}
+        },
+        "slot": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "byClass",
+        "byTag",
+        "slot"
+      ]
+    },
+    "strike": {
+      "type": "object",
+      "properties": {
+        "byClass": {
+          "type": "object",
+          "properties": {}
+        },
+        "byTag": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "default"
+          ]
+        },
+        "slot": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "byClass",
+        "byTag",
+        "slot"
+      ]
+    },
+    "sweep": {
+      "type": "object",
+      "properties": {
+        "byClass": {
+          "type": "object",
+          "properties": {}
+        },
+        "byTag": {
+          "type": "object",
+          "properties": {
+            "default": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "default"
+          ]
+        },
+        "slot": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "byClass",
+        "byTag",
+        "slot"
+      ]
+    }
+  },
+  "required": [
+    "counter",
+    "defend",
+    "evade",
+    "smash",
+    "special",
+    "strike",
+    "sweep"
+  ]
+}

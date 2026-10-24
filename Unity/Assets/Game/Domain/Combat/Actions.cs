@@ -228,6 +228,18 @@ namespace Ashen.Domain.Combat
             c.Emit(E.PlayerStaggered, Js.Obj(K.TargetId, player[K.Id], K.ActionLoss, actionLoss, K.Statuses, applied));
         }
 
+        /// <summary>growPoiseMeter(ctx, entity): after a full Poise fill the meter's max grows by the balance's multiplier (unless a combatant disables growth).</summary>
+        public static void GrowPoiseMeter(CombatState c, JObject entity)
+        {
+            var cfg = c.Data.Balance.Obj(K.Poise) ?? new JObject();
+            var growth = Js.Coalesce(cfg[K.GrowthMult], c.Data.Rule(K.Defaults, K.PoiseGrowthMult));
+            if (growth == 1 || Statuses.AnyCombatantFlag(c, K.MeterMaxGrowthDisabled)) return;
+            var meter = entity.Obj(K.PoiseMeter);
+            meter.Put(K.Max, Math.Ceiling(meter.Num(K.Max) * growth));
+            meter.Put(K.Growths, meter.Or0(K.Growths) + 1);
+            meter.Put(K.GrowthMult, growth);
+        }
+
         public static void DealPoiseDamage(CombatState c, JObject entity, double amount)
         {
             if (c.RatingsRules != null)
@@ -319,6 +331,7 @@ namespace Ashen.Domain.Combat
 
         public static List<JObject> ResolveTargets(CombatState c, CombatAction action, string spec)
         {
+            if (c.IsCore) return CoreOps.Targets(c, action, spec);
             var list = new List<JObject>();
             switch (spec)
             {
@@ -381,6 +394,7 @@ namespace Ashen.Domain.Combat
             ctx.AllEnemies = LivingEnemies(c);
             ctx.EnergySpent = action.Meta?.EnergySpent ?? 0;
             ctx.CardsPlayedThisTurn = c.Player != null ? c.Player.Obj(K.Counters).Num(K.CardsPlayedThisTurn) : 0;
+            if (c.IsCore) CoreFormulas.Extend(c, action, ctx);
             return ctx;
         }
 

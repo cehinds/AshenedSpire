@@ -1,0 +1,136 @@
+{
+  "$id": "profile/bundle/stances.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "class": {
+        "type": "string"
+      },
+      "hooks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "do": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "integer"
+                  },
+                  "op": {
+                    "type": "string"
+                  },
+                  "stacks": {
+                    "type": "integer"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "target": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "op"
+                ]
+              }
+            },
+            "if": {
+              "type": "object",
+              "properties": {
+                "p": {
+                  "type": "string"
+                },
+                "preds": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "p": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "p"
+                    ]
+                  }
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "p"
+              ]
+            },
+            "on": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "do",
+            "on"
+          ]
+        }
+      },
+      "icon": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "modifiers": {
+        "type": "object",
+        "properties": {
+          "damageTakenMult": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "damageTakenMult"
+        ]
+      },
+      "name": {
+        "type": "string"
+      },
+      "onEnter": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "integer"
+            },
+            "op": {
+              "type": "string"
+            },
+            "target": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "amount",
+            "op",
+            "target"
+          ]
+        }
+      },
+      "tooltip": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "class",
+      "hooks",
+      "icon",
+      "id",
+      "name",
+      "onEnter",
+      "tooltip"
+    ]
+  }
+}

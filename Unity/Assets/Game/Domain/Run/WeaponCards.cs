@@ -185,8 +185,10 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>buildEquippedWeaponCardPlan(registries, loadout, classId, { attackSlotCount, removedAttackSlotIds }).</summary>
-        public static WeaponCardPlan BuildPlan(RunData d, JObject loadout, string classId, double? attackSlotCount, JToken removedAttackSlotIds)
+        public static WeaponCardPlan BuildPlan(RunData d, JObject loadout, string classId, double? attackSlotCount, JToken removedAttackSlotIds, bool configuredDeck = false)
         {
+            // A configured deck (a Core 2 fight) owns its explicit cards: it has no attack slots to project.
+            if (configuredDeck) return new WeaponCardPlan { AttackSlotCount = 0, Fingerprint = Ashen.Generated.Core2RemainingValues.ConfiguredDeck };
             var composed = !string.IsNullOrEmpty(classId) && StartingDeck.Config(d) != null ? StartingDeck.Plan(d, loadout, classId) : null;
             var configured = composed != null ? composed.AttackCount : RunJs.Number(d.EquipmentBalance.Obj(RK.RoleCopies)?[RV.RoleAttack]);
             var count = attackSlotCount ?? configured;

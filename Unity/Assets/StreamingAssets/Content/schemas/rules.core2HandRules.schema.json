@@ -1,0 +1,48 @@
+{
+  "$id": "rules/core2HandRules.json",
+  "type": "object",
+  "properties": {
+    "handRulesDefaults": {
+      "type": "object",
+      "properties": {
+        "discardLimit": {
+          "type": "integer"
+        },
+        "drawMode": {
+          "type": "string"
+        },
+        "overflow": {
+          "type": "string"
+        },
+        "promptDiscard": {
+          "type": "boolean"
+        },
+        "replaceDiscards": {
+          "type": "boolean"
+        },
+        "reshuffle": {
+          "type": "boolean"
+        },
+        "retain": {
+          "type": "boolean"
+        },
+        "shuffleHand": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "discardLimit",
+        "drawMode",
+        "overflow",
+        "promptDiscard",
+        "replaceDiscards",
+        "reshuffle",
+        "retain",
+        "shuffleHand"
+      ]
+    }
+  },
+  "required": [
+    "handRulesDefaults"
+  ]
+}

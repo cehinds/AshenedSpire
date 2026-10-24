@@ -18,6 +18,7 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.KitGallery: return new KitGalleryScreen();
                 case ScreenIds.Creation: return new CreationScreen();
                 case ScreenIds.Combat: return new CombatScreen();
+                case ScreenIds.Core2Combat: return new Core2CombatScreen();
                 case ScreenIds.Pause: return new PauseScreen();
                 case ScreenIds.Rewards: return new RewardsScreen();
                 case ScreenIds.ActMap: return new ActMapScreen();

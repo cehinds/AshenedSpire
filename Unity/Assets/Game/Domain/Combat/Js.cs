@@ -28,7 +28,7 @@ namespace Ashen.Domain.Combat
                     var d = D(t);
                     return d != 0 && !double.IsNaN(d);
                 case JTokenType.String:
-                    return t.Value<string>().Length > 0;
+                    return (t.Value<string>() ?? string.Empty).Length > 0;
                 default:
                     return true;
             }
@@ -48,6 +48,9 @@ namespace Ashen.Domain.Combat
 
         /// <summary><c>Number.isInteger(t)</c>.</summary>
         public static bool IsInt(JToken t) => IsFinite(t) && Math.Floor(D(t)) == D(t);
+
+        /// <summary><c>Number.isSafeInteger(t)</c>.</summary>
+        public static bool IsSafeInteger(JToken t) => IsInt(t) && Math.Abs(D(t)) < Limits.SafeInteger;
 
         /// <summary>The string a token holds, or null when it is not one (so <c>x === 'lit'</c> is <c>Str(x) == lit</c>).</summary>
         public static string Str(JToken t) => IsStr(t) ? t.Value<string>() : null;

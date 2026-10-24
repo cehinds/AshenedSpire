@@ -188,5 +188,6 @@ namespace Ashen.Generated
         public const string UnknownMountKind = "{0}: unknown mount kind (known: {1})";
         public const string UnknownMountKindShort = "{0}: unknown mount kind";
         public const string ZeroWeaponPlan = "zero-weapon plan";
+        public const string ProfileMagicShareInvalid = "{0}.magicShare must be null or 0..1";
     }
 }

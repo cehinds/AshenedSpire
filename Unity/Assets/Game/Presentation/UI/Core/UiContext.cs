@@ -22,12 +22,26 @@ namespace Ashen.Presentation.UI
 
         private RunContent _runContent;
         private readonly HashSet<string> _missingArt = new HashSet<string>(StringComparer.Ordinal);
+        private readonly Dictionary<string, UiArtCatalog> _groupCatalogs = new Dictionary<string, UiArtCatalog>(StringComparer.Ordinal);
 
         /// <summary>The effective run content (default preset), built on first use (W-04 needs it; the title does not).</summary>
         public RunContent RunContent => _runContent ??= RunContent.Load(Source);
 
-        /// <summary>The run being played (set by W-04 Begin or a resume; the combat screen reads it).</summary>
+        /// <summary>The 405 run being played (set by W-04 Begin or a resume; the combat screen reads it).</summary>
         public RunSession Session;
+
+        /// <summary>The Core 2 run being played (WP-C1b); at most one of <see cref="Session"/> and this is set.</summary>
+        public Core2RunSession Core2Session;
+
+        /// <summary>The run being played, whichever ruleset plays it, or null.</summary>
+        public IClimb Climb => (IClimb)Session ?? Core2Session;
+
+        /// <summary>Forgets the run (the title, the run end).</summary>
+        public void ClearRun()
+        {
+            Session = null;
+            Core2Session = null;
+        }
 
         /// <summary>Quits the game (Application.Quit in a player; tests replace it).</summary>
         public Action Quit = UnityEngine.Application.Quit;
@@ -50,9 +64,26 @@ namespace Ashen.Presentation.UI
         {
             if (string.IsNullOrEmpty(assetId)) return null;
             var t = Art != null ? Art.Get(assetId) : null;
+            if (t == null) t = GroupCatalog(assetId)?.Get(assetId);
             if (t == null && _missingArt.Add(assetId)) Debug.LogWarning(string.Format(System.Globalization.CultureInfo.InvariantCulture, UiMessages.MissingArt, assetId));
             return t;
         }
+
+        /// <summary>The lazily loaded catalog (ui/art.json groups: cards, icons, scenes) that holds an id, or null when the id is in the always-loaded catalog.</summary>
+        private UiArtCatalog GroupCatalog(string assetId)
+        {
+            var group = Data?.Art?.Config.GroupOf(assetId);
+            if (group == null) return null;
+            if (!_groupCatalogs.TryGetValue(group.Id, out var catalog))
+                _groupCatalogs[group.Id] = catalog = Resources.Load<UiArtCatalog>(group.Resource);
+            return catalog;
+        }
+
+        /// <summary>The icon texture of a content icon name (white glyph: tint it with -unity-background-image-tint-color), or null.</summary>
+        public Texture2D Icon(string name) => Texture(Data.Art.Icon(name));
+
+        /// <summary>The art of a card by id, type and tag ids (ui/art.json card rule; falls back to the category placeholder).</summary>
+        public Texture2D CardArt(string cardId, string type, IEnumerable<string> tags, string profileId = null) => Texture(Data.Art.Card(cardId, type, tags, profileId).AssetId);
 
         /// <summary>Sets an element's background from a registry id; leaves the grey box when the art is missing.</summary>
         public void ApplyBackground(VisualElement element, string assetId)

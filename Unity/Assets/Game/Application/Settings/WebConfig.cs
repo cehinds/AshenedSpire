@@ -183,13 +183,13 @@ namespace Ashen.App.Settings
             return Build((gameConfig ?? new JObject()).Properties().ToList(), KeyMap.From(source), baseContent).Patch;
         }
 
-        /// <summary>Stores an import on the profile: the game keys as the advanced config (new runs), the settings as the player's. Saved once.</summary>
-        public static void Apply(ProfileStore profile, WebImportResult result, string contentHash)
+        /// <summary>Stores an import on the profile: the game keys as the advanced config (new runs), the settings as the player's, through the same preset coupling as a settings edit (SettingsSession.StoreImported). Saved once.</summary>
+        public static void Apply(ProfileStore profile, WebImportResult result, string contentHash, SettingsDefs defs)
         {
             if (!result.Recognised) return;
             profile.Doc[W.AdvancedConfig] = new JObject { [W.SchemaVersion] = 1, [W.Overrides] = result.GameConfig.DeepClone() };
             if (!(profile.Doc[SettingsKeys.Settings] is JObject stored)) profile.Doc[SettingsKeys.Settings] = stored = new JObject();
-            foreach (var p in result.PlayerSettings.Properties()) stored[p.Name] = p.Value.DeepClone();
+            SettingsSession.StoreImported(stored, defs, result.PlayerSettings);
             profile.Save(contentHash);
         }
 

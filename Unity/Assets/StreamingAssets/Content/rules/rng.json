@@ -1,5 +1,5 @@
 {
-  "comment": "Named RNG streams and seed vocabulary (docs/design/08, PF-07; ported from the shipped engine/rng.js). Each stream is derived from (seed XOR fnv1a(streamName)); ORDER DOES NOT AFFECT VALUES. Codegen emits the RngStream enum from 'streams' in order — append new streams at the end.",
+  "comment": "Named RNG streams and seed vocabulary (docs/design/08, PF-07; ported from the shipped engine/rng.js). Each stream is derived from (seed XOR fnv1a(streamName)); ORDER DOES NOT AFFECT VALUES. Codegen emits the RngStream enum from 'streams' in order — append new streams at the end. 'core2Streams' are the web's src/engine/rng.js STREAM_NAMES after these at b8cfe4fac (Core 2, docs/design/11 WP-0): kept apart so the 405 run, combat and map documents, which record every stream's counter, stay as the oracle fixtures have them. Tools/transform-content.mjs fails unless streams followed by core2Streams equals the web's list; Core2RngStream is the enum over core2Streams. WP-3 merges the two when the run switches to Core 2.",
   "streams": [
     "map",
     "shuffle",
@@ -15,6 +15,19 @@
     "smith",
     "combatProcs",
     "seats"
+  ],
+  "core2Streams": [
+    "rewardRolls",
+    "shopOffers",
+    "sigils",
+    "enemyIntentVisibility",
+    "combatAvoidance",
+    "statusRecovery",
+    "statusPressure",
+    "ashenBlight",
+    "enemyIntentClue",
+    "enemyReaction",
+    "combatRounds"
   ],
   "seed": {
     "alphabet": "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ",

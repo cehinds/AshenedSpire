@@ -1,0 +1,27 @@
+{
+  "theNameless": {
+    "id": "theNameless",
+    "name": "The Nameless",
+    "portraitKey": "graveWisp"
+  },
+  "keeperOfTheNameless": {
+    "id": "keeperOfTheNameless",
+    "name": "The Keeper of the Nameless",
+    "portraitKey": "emberStarvedPilgrim"
+  },
+  "roadWarden": {
+    "id": "roadWarden",
+    "name": "The Road Warden",
+    "portraitKey": "roadWarden"
+  },
+  "swordSaint": {
+    "id": "swordSaint",
+    "name": "The Sword Saint",
+    "portraitKey": ""
+  },
+  "starReader": {
+    "id": "starReader",
+    "name": "The Star Reader",
+    "portraitKey": ""
+  }
+}

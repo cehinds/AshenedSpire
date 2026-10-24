@@ -1,0 +1,48 @@
+{
+  "$id": "rules/versions.json",
+  "type": "object",
+  "properties": {
+    "webContentVersion": {
+      "type": "string"
+    },
+    "runSchemaVersion": {
+      "type": "integer"
+    },
+    "metaSchemaVersion": {
+      "type": "integer"
+    },
+    "combatExpansionVersion": {
+      "type": "integer"
+    },
+    "reactionRulesVersion": {
+      "type": "integer"
+    },
+    "breakMeterVersion": {
+      "type": "integer"
+    },
+    "profileFormatVersion": {
+      "type": "integer"
+    },
+    "foundationVersion": {
+      "type": "string"
+    },
+    "profileId": {
+      "type": "string"
+    },
+    "profileHash": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "breakMeterVersion",
+    "combatExpansionVersion",
+    "foundationVersion",
+    "metaSchemaVersion",
+    "profileFormatVersion",
+    "profileHash",
+    "profileId",
+    "reactionRulesVersion",
+    "runSchemaVersion",
+    "webContentVersion"
+  ]
+}

@@ -1,0 +1,149 @@
+{
+ "group": "base.core-rewards",
+ "admitted": [
+  "base.weak",
+  "base.charm",
+  "base.bind",
+  "base.restrained",
+  "base.foresight",
+  "base.evade",
+  "base.intangible",
+  "base.mirrors",
+  "base.shuffle-hand",
+  "base.shuffle-deck",
+  "base.draw",
+  "base.scout",
+  "base.reveal-opponent-hand",
+  "base.recall-choose",
+  "base.recover-exile",
+  "base.exhaust-choose",
+  "base.transform",
+  "base.status-card-stagger",
+  "base.status-card-paralyze",
+  "base.exhaust",
+  "base.ethereal",
+  "base.stat-buff",
+  "base.drain-allies",
+  "base.scale-negative-status",
+  "base.scale-damage-taken",
+  "base.growth-per-type",
+  "base.cost-per-use",
+  "base.damage-per-use",
+  "base.pay-x-effect",
+  "base.pay-x-targets",
+  "base.hide-cards",
+  "base.force-stance",
+  "base.multi-stance",
+  "base.current-stance-variant",
+  "base.paid-resource-variant",
+  "base.attack-then-defend",
+  "base.modify-card-stance",
+  "base.modify-card-range",
+  "base.extra-weapon",
+  "base.extra-shield",
+  "base.auto-counter",
+  "base.auto-sweep",
+  "base.reflect",
+  "base.transmute",
+  "base.one-use-scroll",
+  "base.gain-resource",
+  "base.buff-ally",
+  "base.break-poise",
+  "base.generate-smash",
+  "base.conditional-damage-bonus",
+  "base.perception-untargetable",
+  "base.retain-block",
+  "base.immediate-stance-transition",
+  "base.stagger-status-card",
+  "base.paralysis-status-card",
+  "base.restrained-status-card",
+  "base.strike",
+  "base.smash"
+ ],
+ "unavailable": [
+  {
+   "id": "base.persistent-protection",
+   "reasons": [
+    "protection:barrier"
+   ]
+  },
+  {
+   "id": "base.greased",
+   "reasons": [
+    "elements"
+   ]
+  },
+  {
+   "id": "base.divine-strike",
+   "reasons": [
+    "elements"
+   ]
+  },
+  {
+   "id": "base.poison",
+   "reasons": [
+    "elements"
+   ]
+  },
+  {
+   "id": "base.blight",
+   "reasons": [
+    "elements"
+   ]
+  },
+  {
+   "id": "base.elemental-weapon",
+   "reasons": [
+    "elements"
+   ]
+  },
+  {
+   "id": "base.fire-cleanse",
+   "reasons": [
+    "elements"
+   ]
+  },
+  {
+   "id": "base.divine-cleanse",
+   "reasons": [
+    "elements"
+   ]
+  },
+  {
+   "id": "base.necrotic-heal",
+   "reasons": [
+    "elements"
+   ]
+  },
+  {
+   "id": "base.divine-harm",
+   "reasons": [
+    "elements"
+   ]
+  },
+  {
+   "id": "base.retain",
+   "reasons": [
+    "hand-retention"
+   ]
+  },
+  {
+   "id": "base.guard-allies",
+   "reasons": [
+    "multiplayer"
+   ]
+  },
+  {
+   "id": "base.break-ward",
+   "reasons": [
+    "ward-channel"
+   ]
+  },
+  {
+   "id": "base.multi-hit",
+   "reasons": [
+    "ward-channel"
+   ]
+  }
+ ]
+}
