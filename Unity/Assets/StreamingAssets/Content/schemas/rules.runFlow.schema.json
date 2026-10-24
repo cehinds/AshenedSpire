@@ -239,6 +239,9 @@
         },
         "runEnd": {
           "type": "string"
+        },
+        "rewards": {
+          "type": "string"
         }
       },
       "required": [
