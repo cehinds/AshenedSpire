@@ -2,6 +2,31 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-6: combat overlays (worktree branch, 2026-10-24)
+
+**Landed (D-800..D-804)**
+- **Modal shell (`Kit/CombatModal`, D-800):** the web's modal (framed panel, shadow, eyebrow/title/status/close head, scrolling body, foot of buttons, veil) as one kit element; the flow's prompt panel is the same modal (`PROMPT_PANEL` is the scrim), so every prompt wears it.
+- **Reaction offer (D-801):** eyebrow "Defensive reaction", title "Respond to the incoming action", the incoming action and help line, card tiles (name, the card's text, SP/MP pills) that select, then Play; X, Back and Escape decline. The web has no timer and no skip beyond Back.
+- **Potions (D-802):** the web's list (flask art, gold name, effect and charges, count, Use HOLD) from the flask definitions; refused flasks stay dimmed and say why.
+- **Piles (D-803):** Draw pile grid (sorted), Card piles with a Discard/Exhaust rail, faces and the reading of the selected card; `Core2CombatView.Pile` builds the cards on demand.
+- **Card inspector (D-803):** `CardView.ShowInspect` on for the hand (the "i" on the hovered/focused card), a large face beside name, type, cost, text and keywords.
+- **Target card and quick menu (D-804):** hover/focus/tap card with name, HP, chips and intent, the "i" reading; the menu button opens the dropdown (pause rows, red exit row) and runs the pause actions (now `PauseActions`).
+- **Data/API:** `Core2FlaskView.Text/ArtKey`, `Core2CombatView.Pile`, `FooterGroup.DrawButton/DiscardButton`, `OverlayKeys/Values/Formats`, art lookup kind `flask`, 43 `combatModal.*` strings, tokens (`size.cmodal*`, `option*`, `potion*`, `pile*`, `inspect*`, `quick*`, `target*`, `font.tile*`, `color.veil`, `duration.targetHide`), screens.json `overlay` focus mode and `PROMPT_CLOSE`.
+
+**Tests run (small filters):** `EnforcementTests` + `UiDataTests` 16/16, `Core2ScreensTests` + `Core2CombatFlowTests` + `CodegenTests` 25/25, new `Core2OverlayTests` 4/4 (each pile lists exactly its cards; the draw pile is sorted; every flask has text and art that resolves; the quick menu is the pause list in a fight and the overlay focus mode is registered); `ui-tokens`, `codegen`, `refresh-manifest --check`, `ci/check-content`, `ci/check-docs`, `ui-stage --check`, `card-face --check` ok. Presentation compiles against the Unity 2021.3 module DLLs with the D-314 stubs.
+
+**Not verified (Unity was not run):** every USS rule of the new overlays, the 9-slice modal frame at the three widths, the scroll view inside the modal, `Button` tiles with child labels, the flask art textures (the `flask.*` ids are not in a lazy art group, so they must be in the always-loaded catalog that `BuildUiArt` writes), hold buttons inside a scroll view, the hover card placement near the screen edge, and the 390x844 layout of every overlay.
+
+**Owner: check in the editor (play a Core 2 fight at 1920x1080, then 390x844)**
+- Reaction offer (enemy turn with a defensive card in hand, reactions on): compare `combat-defeat-reaction-offer-1920x1080.jpg`; Play dim until a tile is picked; X, Back and Escape skip; the pad reaches X, tiles, Back and Play.
+- Potions button: compare `combat-potions-1920x1080.jpg`; Use must be held (HOLD fill), a refused flask shows its words, an aimed flask then asks for its enemy.
+- Draw button (`combat-draw-pile-*`) and Discard button (rail and reading); Escape closes and focus returns to the button.
+- Hover a hand card: the round "i" above it opens the inspector; Escape closes.
+- Hover an enemy and the player: the target card (`combat-target-hover-*`, `combat-intent-tooltip-*`); a tap pins it; "i" opens the reading.
+- Menu button: the dropdown (`combat-quick-menu-*`); Save & quit and Abandon open their doors; pad Start still opens the pause screen.
+
+**Next:** VP-9 and VP-10 can reuse `CombatModal` and `OptionTile` for their modals; the web's stance/counter rule hints on the inspector, status tooltips in the combatant reading and the Fullscreen/Music rows of the quick menu need data the view does not carry.
+
 ## VP-4: Core 2 combat board (worktree branch, 2026-10-24)
 
 **Landed (D-700..D-703)**

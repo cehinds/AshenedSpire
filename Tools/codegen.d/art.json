@@ -62,7 +62,8 @@
     "PoseFx": "posefx",
     "EnemyPose": "enemyPose",
     "EnemyState": "enemyState",
-    "Defeated": "defeated"
+    "Defeated": "defeated",
+        "Flask": "flask"
       }
     },
     {

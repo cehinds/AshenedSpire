@@ -269,6 +269,12 @@ namespace Ashen.App.Combat
         public string ChargeKind;
         public string FlaskId;
         public string Name;
+
+        /// <summary>The flask's own words ("Heal 25% of your max HP."), from its definition's text template; empty when it has none.</summary>
+        public string Text;
+
+        /// <summary>The key of the flask's art ("flask-crimson"); the screen looks the picture up from it.</summary>
+        public string ArtKey;
         public double Current;
         public double Max;
         public bool Targeted;
@@ -611,6 +617,47 @@ namespace Ashen.App.Combat
             return view;
         }
 
+        // ------------------------------------------------------------------ the piles
+
+        /// <summary>
+        /// The cards of one pile (<see cref="Ashen.Generated.OverlayValues"/> PileDraw, PileDiscard, PileExhaust) as the pile viewer lists them, each priced like a hand card. The discard and exhaust piles
+        /// keep the order the cards reached them (the web's spent-pile view); the draw pile is listed by name, rank then instance, which reveals nothing of its order (the web shuffles it for display with
+        /// Math.random, piles.js:24-29; a sorted list is the same promise without randomness in the view).
+        /// </summary>
+        public static List<Core2CardView> Pile(Core2CombatSession session, string pile)
+        {
+            var piles = session.State.Piles;
+            var source = pile == Ashen.Generated.OverlayValues.PileDraw ? piles.Draw : pile == Ashen.Generated.OverlayValues.PileDiscard ? piles.Discard : pile == Ashen.Generated.OverlayValues.PileExhaust ? piles.Exhaust : new List<JObject>();
+            var cards = source.Select(inst => PileCard(session, inst)).ToList();
+            if (pile != Ashen.Generated.OverlayValues.PileDraw) return cards;
+            return cards.OrderBy(card => card.Name, StringComparer.Ordinal).ThenBy(card => card.Rank ?? 0).ThenBy(card => card.InstanceId, StringComparer.Ordinal).ToList();
+        }
+
+        /// <summary>A card of a pile as its face prints it: name, type, rank, what it costs now and its text with the authored numbers (a pile card is not in play, so nothing is priced against a target).</summary>
+        private static Core2CardView PileCard(Core2CombatSession session, JObject inst)
+        {
+            var c = session.State;
+            var id = inst.Str(K.InstanceId);
+            var def = Try(() => CoreCosts.Resolve(c, inst)) ?? new JObject();
+            var costs = Try(() => CoreCosts.PreviewCosts(c, id));
+            var card = new Core2CardView
+            {
+                InstanceId = id,
+                CardId = inst.Str(K.CardId),
+                Name = def.Str(K.Name) ?? CardName(c, inst.Str(K.CardId)),
+                Type = def.Str(K.Type),
+                Rank = Js.IsNum(def[CK.Rank]) ? def.Num(CK.Rank) : (double?)null,
+                Upgraded = inst.Is(K.Upgraded),
+                Stamina = costs?.Num(CK.StaminaCost) ?? 0,
+                Mana = costs?.Num(K.ManaCost) ?? 0,
+                CostIsX = Js.IsStr(def[K.Cost]) && def.Str(K.Cost) == V.XCost,
+            };
+            foreach (var tag in Js.Items(def[CK.CardTags] ?? def[K.Tags])) card.Tags.Add(Js.IsStr(tag) ? Js.Str(tag) : Js.Str(Js.Get(tag, K.Id)));
+            CardFaceQuery.CollectEffects(def[K.Effects], card.Effects);
+            card.Text = Text(c, def, card, new Dictionary<string, double>(), Js.Items(def[K.Effects]).OfType<JObject>().ToList());
+            return card;
+        }
+
         // ------------------------------------------------------------------ the hand
 
         private static Core2CardView Card(Core2CombatSession session, JObject inst, IReadOnlyList<JObject> legal)
@@ -891,7 +938,7 @@ namespace Ashen.App.Combat
                 var use = Intent(V.CommandUseFlask, K.ChargeKind, kind);
                 list.Add(new Core2FlaskView
                 {
-                    ChargeKind = kind, FlaskId = flaskId, Name = def.Str(K.Name), Current = charges.Num(kind + V.CurrentSuffix), Max = charges.Num(kind), Targeted = def.Is(K.Targeted),
+                    ChargeKind = kind, FlaskId = flaskId, Name = def.Str(K.Name), Text = def.Str(K.TextTemplate), ArtKey = def.Str(Ashen.Generated.OverlayKeys.FlaskArtKey), Current = charges.Num(kind + V.CurrentSuffix), Max = charges.Num(kind), Targeted = def.Is(K.Targeted),
                     Refusal = session.Why(Uses(use, def.Is(K.Targeted)).First()), Uses = Uses(use, def.Is(K.Targeted)),
                 });
             }
@@ -904,7 +951,7 @@ namespace Ashen.App.Combat
                 var uses = Uses(use, def.Is(K.Targeted));
                 list.Add(new Core2FlaskView
                 {
-                    Slot = i, FlaskId = slot.Str(K.FlaskId), Name = def.Str(K.Name), Current = 1, Max = 1, Targeted = def.Is(K.Targeted),
+                    Slot = i, FlaskId = slot.Str(K.FlaskId), Name = def.Str(K.Name), Text = def.Str(K.TextTemplate), ArtKey = def.Str(Ashen.Generated.OverlayKeys.FlaskArtKey), Current = 1, Max = 1, Targeted = def.Is(K.Targeted),
                     Refusal = uses.Count == 0 ? Ashen.Generated.CombatMessages.CombatOver : session.Why(uses[0]), Uses = uses,
                 });
             }

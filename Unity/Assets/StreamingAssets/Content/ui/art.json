@@ -4,7 +4,7 @@
     { "id": "cards", "resource": "UI/UiCardArtCatalog", "include": ["card.*.art512", "cardlib.*.art512", "cardprofile.*.art512", "cardcut."] },
     { "id": "icons", "resource": "UI/UiIconArtCatalog", "include": ["icon.", "uikit.", "cardframe.", "uicomp.", "orb.", "footer.", "creation.", "shop."] },
     { "id": "scenes", "resource": "UI/UiSceneArtCatalog", "include": ["scene.", "illus.", "event.", "portrait.", "prologue.", "mapdetail."] },
-    { "id": "fx", "resource": "UI/UiFxArtCatalog", "include": ["vfx.", "posefx.", "defeated.", "enemy.*.pose.idle", "enemy.*.pose.attack", "enemy.*.state.afflicted", "enemy.*.state.buff", "enemy.*.state.guard", "enemy.*.state.guardHit", "enemy.*.state.hurt", "enemy.*.state.projectile", "enemy.*.state.wounded"] }
+    { "id": "fx", "resource": "UI/UiFxArtCatalog", "include": ["vfx.", "defeated.", "enemy.*.pose.idle", "enemy.*.pose.attack", "enemy.*.state.afflicted", "enemy.*.state.buff", "enemy.*.state.guard", "enemy.*.state.guardHit", "enemy.*.state.hurt", "enemy.*.state.projectile", "enemy.*.state.wounded"] }
   ],
   "lookup": {
     "icon": "icon.{name}",
@@ -26,7 +26,8 @@
     "posefx": "posefx.{kind}.{frame}",
     "enemyPose": "enemy.{id}.pose.{name}",
     "enemyState": "enemy.{id}.state.{name}",
-    "defeated": "defeated.{id}"
+    "defeated": "defeated.{id}",
+    "flask": "flask.{name}"
   },
   "iconAlias": {
     "defend": "shield",
