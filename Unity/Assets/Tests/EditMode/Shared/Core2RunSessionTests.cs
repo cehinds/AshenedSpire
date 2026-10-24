@@ -302,8 +302,9 @@ namespace Ashen.Tests
         [Test]
         public void TheTitleDoorStartsTheRulesetTheDataNamesAndReadsASlotByItsFormat()
         {
-            Assert.That(RunHost.Ruleset(Content), Is.EqualTo(RunFlowValues.RulesetLegacy), "the data switch stays on the 405 run until the Core 2 nodes land");
-            var legacy = RunHost.Start(Content, _saves, 1, 7u, Content.DefaultClass(), "Old", () => Epoch);
+            Assert.That(RunHost.Ruleset(Content), Is.EqualTo(RunFlowValues.RulesetCore2), "the data's New Game is the Core 2 run (owner ruling D-164; WP-C1b flipped the switch)");
+            Assert.That(RunHost.Start(Content, _saves, 5, 7u, "reaver", "Data", () => Epoch).IsCore2, Is.True, "a New Game starts the ruleset the data names");
+            var legacy = RunHost.Start(Content, _saves, 1, 7u, Content.DefaultClass(), "Old", () => Epoch, ruleset: RunFlowValues.RulesetLegacy);
             Assert.That(legacy.Legacy, Is.Not.Null);
             Assert.That(legacy.IsCore2, Is.False);
 
@@ -315,8 +316,8 @@ namespace Ashen.Tests
             var before = flow.NewRunRuleset;
             try
             {
-                flow.NewRunRuleset = RunFlowValues.RulesetCore2;
-                Assert.That(RunHost.Start(Content, _saves, 3, 9u, "reaver", "Flip", () => Epoch).IsCore2, Is.True, "flipping the data starts a Core 2 run");
+                flow.NewRunRuleset = RunFlowValues.RulesetLegacy;
+                Assert.That(RunHost.Start(Content, _saves, 3, 9u, Content.DefaultClass(), "Flip", () => Epoch).IsCore2, Is.False, "flipping the data back starts a 405 run");
             }
             finally { flow.NewRunRuleset = before; }
             Assert.Throws<ArgumentException>(() => RunHost.Start(Content, _saves, 4, 1u, "reaver", "X", () => Epoch, ruleset: "nonsense"));

@@ -47,6 +47,7 @@ namespace Ashen.Tests.Play
             _saves = Path.Combine(Path.GetTempPath(), "ashen-first-fight-" + Guid.NewGuid().ToString("N"));
             AshenBoot.SaveDirectoryOverride = _saves;
             RunFlow.SeedOverride = WinningSeed;
+            RunFlow.RulesetOverride = RunFlowValues.RulesetLegacy;
             TitleScreen.ResetSession();
             _background = InputSystem.settings.backgroundBehavior;
             _editorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
@@ -65,6 +66,7 @@ namespace Ashen.Tests.Play
             InputSystem.settings.editorInputBehaviorInPlayMode = _editorInput;
             AshenBoot.SaveDirectoryOverride = null;
             RunFlow.SeedOverride = null;
+            RunFlow.RulesetOverride = null;
             if (Directory.Exists(_saves)) Directory.Delete(_saves, true);
         }
 
