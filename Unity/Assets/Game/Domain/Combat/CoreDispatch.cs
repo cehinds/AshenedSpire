@@ -25,8 +25,19 @@ namespace Ashen.Domain.Combat
         private static IReadOnlyList<string> Ids(JToken token) => Js.Items(token).Select(Js.Str).ToList();
 
         /// <summary>dispatch(combat, intent): the intent is applied and the queue drained before this returns, or the fight is paused on a reaction offer.</summary>
-        public static void Dispatch(CombatState c, JObject intent)
+        public static void Dispatch(CombatState c, JObject intent) => Dispatch(c, intent, true);
+
+        /// <summary>
+        /// <paramref name="guarded"/> false runs the intent on a fight the caller means to throw away (a probe on a detached copy): a refusal leaves it half done,
+        /// which no one reads, and the copy of the fight a transaction takes is not paid for.
+        /// </summary>
+        public static void Dispatch(CombatState c, JObject intent, bool guarded)
         {
+            if (!guarded)
+            {
+                Run(c, intent);
+                return;
+            }
             // The web runs a Core fight's intent on a candidate copy and adopts it when it succeeded: a refusal, however deep, leaves the fight as it was.
             var transaction = CoreTransaction.Take(c);
             try { Run(c, intent); }

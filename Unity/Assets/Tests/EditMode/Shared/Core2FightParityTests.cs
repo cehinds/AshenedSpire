@@ -84,6 +84,7 @@ namespace Ashen.Tests
                     case "moveCharacter":
                     case "swapArmament":
                     case "changeEquipment":
+                    case "pass":
                         CoreDispatch.Dispatch(c, intent);
                         break;
                     case "applyStatus":

@@ -211,6 +211,9 @@ namespace Ashen.Domain.Combat
 
         // ------------------------------------------------------------------ preparing
 
+        /// <summary>combatRules.triggers.maxEvents / maxDepth: the bound on a range-trigger envelope, from the Core 2 combat rules (the 405 engine file holds no such section, which read as no bound at all).</summary>
+        private static double TriggerLimit(CombatState c, string key) => Js.D(c.CoreData.CombatRules.Obj(K.Triggers)?[key]);
+
         /// <summary>assertPreparingRangeSupported(ctx, source, def): a hostile hook that fires while a card is prepared needs a separately quoted action first.</summary>
         public static void AssertPreparingSupported(CombatState c, JObject source, JObject def)
         {
@@ -218,7 +221,7 @@ namespace Ashen.Domain.Combat
             var carrier = new JObject { [DK.AuthoredTags] = (def[CK.CardTags] ?? def[K.Tags] ?? new JArray()).DeepClone() };
             var hooks = Hooks(c, source, SourceStatuses(c, source, new List<CombatAction>()));
             var visited = new HashSet<string>(StringComparer.Ordinal);
-            var limit = c.Data.Rule(K.Triggers, NK.MaxDepth);
+            var limit = TriggerLimit(c, NK.MaxDepth);
             void Walk(Ev ev, string targetKey, int depth)
             {
                 if (depth > limit) throw Refuse(NM.UnboundedPreparation, RV.ReasonRange);
@@ -253,8 +256,8 @@ namespace Ashen.Domain.Combat
             var edges = new List<JObject>();
             var hooks = Hooks(c, source, SourceStatuses(c, source, actions));
             if (!hooks.Any(row => Strikes(row.Trigger))) return null;
-            var maxEvents = c.Data.Rule(K.Triggers, NK.MaxEvents);
-            var maxDepth = c.Data.Rule(K.Triggers, NK.MaxDepth);
+            var maxEvents = TriggerLimit(c, NK.MaxEvents);
+            var maxDepth = TriggerLimit(c, NK.MaxDepth);
 
             void Visit(JObject site, JObject card, List<string> path)
             {

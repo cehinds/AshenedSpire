@@ -286,6 +286,17 @@ namespace Ashen.Tests
             Assert.That(Core2RunSession.Load(Content, _saves, 5, () => Epoch).Status, Is.EqualTo(Core2RunLoadStatus.Empty));
         }
 
+        [Test]
+        public void TheGamesDefaultPresetHostsACore2RunToo()
+        {
+            var content = RunContent.Load(TestContent.Source);
+            Assert.That(content.PresetId, Is.Not.EqualTo(Content.PresetId), "this is the tuning the game ships, not the neutral one the other tests use");
+            var session = Core2RunSession.New(content, _saves, 1, 5u, "reaver", "Preset", () => Epoch);
+            Assert.That(session.Travel(session.ReachableNodes()[0]).Door.IsFight, Is.True);
+            Assert.That(session.Combat.State.Player.Value<string>("classId"), Is.EqualTo("reaver"));
+            Assert.That(Core2RunSession.Load(content, _saves, 1, () => Epoch).Status, Is.EqualTo(Core2RunLoadStatus.Resumed));
+        }
+
         // ------------------------------------------------------------------ the title door
 
         [Test]

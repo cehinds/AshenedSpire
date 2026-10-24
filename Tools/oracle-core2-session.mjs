@@ -13,18 +13,12 @@ import { writeFileSync, readFileSync, mkdirSync, rmSync, readdirSync } from 'nod
 import { spawn } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadWeb, ORACLE_DIR, arg, canon, classIds, encounters, createRun, createFight, botLcg, legalIntents, pickIntent, projectFull, delta, typesSince } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, arg, canon, classIds, encounters, createRun, createFight, botLcg, legalIntents, pickIntent, projectFull, delta, typesSince, intentKey } from './oracle-core2.mjs';
 
 const OUT = join(ORACLE_DIR, 'session');
 const SEEDS = Number(arg('--seeds', '2'));
 const STEPS = Number(arg('--steps', '400'));
 const HERE = dirname(fileURLToPath(import.meta.url));
-
-/** A compact, unambiguous key of an intent: its type, then every other field by name order (null is -, an array is [a,b], an object {k=v}). The C# test builds the same text. */
-export function intentKey(intent) {
-  const show = (v) => (v === null ? '-' : Array.isArray(v) ? `[${v.map(show).join(',')}]` : typeof v === 'object' ? `{${Object.keys(v).sort().map((k) => `${k}=${show(v[k])}`).join(',')}}` : String(v));
-  return [intent.type, ...Object.keys(intent).filter((k) => k !== 'type').sort().map((k) => `${k}=${show(intent[k])}`)].join(' ');
-}
 
 function fight(w, seed, classId, encounter) {
   const run = createRun(w, seed, classId);

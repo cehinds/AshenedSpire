@@ -46,8 +46,8 @@ namespace Ashen.Tests
             }
         }
 
-        /// <summary>The fight a record names: the run, handed what the spec names (the oracle's applySpec), then the encounter.</summary>
-        internal static CombatState Open(JObject fight)
+        /// <summary>The run a record names: created from the seed and class, then handed what the spec names (the oracle's applySpec).</summary>
+        internal static JObject OpenRun(JObject fight)
         {
             var seed = (uint)fight["seed"].Value<long>();
             var data = Core2DamageParityTests.Data;
@@ -66,8 +66,12 @@ namespace Ashen.Tests
             foreach (var id in (spec["relics"] as JArray ?? new JArray()).Select(t => t.Value<string>()))
                 if (!((JArray)run["relics"]).Any(t => t.Value<string>() == id)) ((JArray)run["relics"]).Add(id);
             if (spec["maxHp"] != null) { run["maxHp"] = spec["maxHp"].DeepClone(); run["hp"] = spec["maxHp"].DeepClone(); }
-            return CoreRunCombat.Create(data, new Rng(seed), run, fight.Value<string>("encounterId"));
+            return run;
         }
+
+        /// <summary>The fight a record names: the run, then the encounter.</summary>
+        internal static CombatState Open(JObject fight) =>
+            CoreRunCombat.Create(Core2DamageParityTests.Data, new Rng((uint)fight["seed"].Value<long>()), OpenRun(fight), fight.Value<string>("encounterId"));
 
         [Test]
         public void TheOracleIsPresent()
@@ -161,6 +165,35 @@ namespace Ashen.Tests
                     var thrown = Assert.Catch<Exception>(() => CoreDispatch.Dispatch(copy, intent), at + " is refused by the web");
                     Assert.That(thrown.Message, Is.EqualTo(result.Value<string>("error")), at);
                 }
+            }
+        }
+
+        /// <summary>The decisions whose legal list is held to the web: the opening of the fights that hold what the start does not (flasks in the slots, a second weapon set) and a sample of the rest.</summary>
+        private static bool Sampled(string feature, int step) =>
+            feature == "flasks" || feature == "flasks2" || feature == "wondrous" || feature == "equipment" ? step < 6 || step % 8 == 0 : step % 15 == 0;
+
+        public static IEnumerable<TestCaseData> LegalFights() =>
+            Fights().Select(c => new TestCaseData(c.Arguments).SetName(c.TestName.Replace("Core2Remaining_", "Core2RemainingLegal_")));
+
+        [TestCaseSource(nameof(LegalFights))]
+        public void TheLegalIntentsAreTheWebsAtTheSampledDecisions(string file, int index)
+        {
+            var fight = (JObject)((JArray)Read(file)["fights"])[index];
+            var keys = ((JArray)fight["keys"]).Select(t => t.Value<string>()).ToList();
+            var run = OpenRun(fight);
+            var seed = (uint)fight["seed"].Value<long>();
+            var session = Ashen.App.Combat.Core2CombatSession.Start(Core2DamageParityTests.Data, new Rng(seed), run, fight.Value<string>("encounterId"));
+            var feature = fight.Value<string>("feature") ?? "plain";
+            var n = 0;
+            foreach (var step in ((JArray)fight["steps"]).OfType<JObject>())
+            {
+                var at = file + "[" + index + "] " + feature + " " + fight.Value<string>("encounterId") + " decision " + n;
+                if (Sampled(feature, n))
+                    Assert.That(session.LegalIntents().Select(Core2SessionParityTests.Key).ToList(), Is.EqualTo(((JArray)step["legal"]).Select(t => keys[t.Value<int>()]).ToList()), at + " the legal intents are the web's list, in order");
+                var outcome = session.Execute((JObject)step["intent"]);
+                Assert.That(outcome.Accepted, Is.True, at + " " + step["intent"].ToString(Newtonsoft.Json.Formatting.None) + " " + outcome.Refusal?.Message);
+                Assert.That(outcome.Events.Select(e => e.Value<string>("type")).ToList(), Is.EqualTo(step["events"].Select(t => t.Value<string>()).ToList()), at + " events");
+                n++;
             }
         }
 

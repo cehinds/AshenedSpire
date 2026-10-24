@@ -125,6 +125,12 @@ function selections(idList, count) {
   return [idList.slice(0, count), idList.slice(-count)];
 }
 
+/** A compact, unambiguous key of an intent: its type, then every other field by name order (null is -, an array is [a,b], an object {k=v}). The C# test builds the same text. */
+export function intentKey(intent) {
+  const show = (v) => (v === null ? '-' : Array.isArray(v) ? `[${v.map(show).join(',')}]` : typeof v === 'object' ? `{${Object.keys(v).sort().map((k) => `${k}=${show(v[k])}`).join(',')}}` : String(v));
+  return [intent.type, ...Object.keys(intent).filter((k) => k !== 'type').sort().map((k) => `${k}=${show(intent[k])}`)].join(' ');
+}
+
 /**
  * Every legal Core intent for the current state, in a stable order. Kinds: chooseReaction (while an offer is pending),
  * chooseCards / chooseDiscard (while a card choice is pending), otherwise playCard (targets x stance choices x

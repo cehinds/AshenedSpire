@@ -383,7 +383,7 @@ namespace Ashen.App.Combat
             var copy = CoreTransaction.DetachPaused(State);
             try
             {
-                CoreDispatch.Dispatch(copy, (JObject)intent.DeepClone());
+                CoreDispatch.Dispatch(copy, (JObject)intent.DeepClone(), false);
                 return null;
             }
             catch (InvalidOperationException e) { return e.Message; }

@@ -17,7 +17,7 @@ import { writeFileSync, readFileSync, mkdirSync, rmSync, readdirSync, existsSync
 import { spawn } from 'node:child_process';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { loadWeb, ORACLE_DIR, arg, canon, classIds, encounters, createRun, createFight, botLcg, projectFull, delta, typesSince, detach } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, arg, canon, classIds, encounters, createRun, createFight, botLcg, projectFull, delta, typesSince, detach, legalIntents, intentKey } from './oracle-core2.mjs';
 
 const OUT = join(ORACLE_DIR, 'remaining');
 const WHY = process.argv.includes('--why');
@@ -171,6 +171,11 @@ function fight(w, seed, classId, encounter, spec, steps) {
   let last = projectFull(combat);
   const start = { events: typesSince(combat, 0), state: last };
   const record = [];
+  // The legal list the player had before each step (the keys once per fight, an index per step): what the port's LegalIntents must offer, flasks of the slots,
+  // charges, choices, second weapon sets and relics included. A step the bot took that is not a legal intent of the list (swapArmament, changeEquipment, pass) is not in it.
+  const keys = [], keyIndex = new Map();
+  let legalNow = null;
+  const keyId = (intent) => { const k = intentKey(intent); if (!keyIndex.has(k)) { keyIndex.set(k, keys.length); keys.push(k); } return keyIndex.get(k); };
   const offer = (intent) => {
     // The quotes the player saw before this decision (the first few of a fight, while it is the player's turn and nothing waits on an answer).
     const previews = record.length < PREVIEW_STEPS && combat.phase === 'player' && !combat.result && !combat.pendingReaction && !combat.pendingCardChoice && !combat.pendingAbilityDiscard && intent.type === 'playCard'
@@ -187,7 +192,7 @@ function fight(w, seed, classId, encounter, spec, steps) {
     }
     const state = projectFull(combat);
     const events = typesSince(combat, mark);
-    record.push({ intent, events, delta: delta(last, state) ?? {}, ...(previews ? { previews } : {}) });
+    record.push({ intent, events, delta: delta(last, state) ?? {}, legal: legalNow, ...(previews ? { previews } : {}) });
     count(tally.intents, intent.type);
     if (played) count(tally.cards, played);
     for (const e of events) count(tally.events, e);
@@ -200,6 +205,7 @@ function fight(w, seed, classId, encounter, spec, steps) {
     return true;
   };
   for (let i = 0; i < steps && !combat.result; i++) {
+    legalNow = legalIntents(w, combat, { full: true }).map(keyId);
     const list = candidates(w, combat, pick);
     let done = false;
     for (let tries = 0; tries < 6 && !done; tries++) {
@@ -214,7 +220,7 @@ function fight(w, seed, classId, encounter, spec, steps) {
     }
   }
   tally.fights++; tally.steps += record.length;
-  return { seed, classId, encounterId: encounter.id, bot: 'free', spec, start, steps: record };
+  return { seed, classId, encounterId: encounter.id, bot: 'free', spec, keys, start, steps: record };
 }
 
 // ---------------------------------------------------------------------------------------------------------------
