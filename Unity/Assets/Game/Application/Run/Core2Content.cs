@@ -16,12 +16,13 @@ namespace Ashen.App.Run
     /// </summary>
     public sealed class Core2Content
     {
-        private Core2Content(Core2Registries registries, CoreCombatData combat, Core2LoopData loop, CoreDeckData deck, string contentHash)
+        private Core2Content(Core2Registries registries, CoreCombatData combat, Core2LoopData loop, CoreDeckData deck, Ashen.Domain.Rewards.Core2RewardsData rewards, string contentHash)
         {
             Deck = deck;
             Registries = registries;
             Combat = combat;
             Loop = loop;
+            Rewards = rewards;
             ContentHash = contentHash;
         }
 
@@ -31,6 +32,10 @@ namespace Ashen.App.Run
 
         /// <summary>What the deck editor's rules read (WP-18): rules/core2Deck.json over the same run data the fights use.</summary>
         public CoreDeckData Deck { get; }
+
+        /// <summary>What rewards and the combat end read (WP-15).</summary>
+        public Ashen.Domain.Rewards.Core2RewardsData Rewards { get; }
+
         public string ContentHash { get; }
 
         public string ProfileId => Combat.Run.ProfileId;
@@ -47,7 +52,9 @@ namespace Ashen.App.Run
             var run = registries.ToCoreRunData(content);
             var combat = registries.ToCoreCombatData(content, run);
             var map = registries.ToMapData((JObject)content.Get(ContentFiles.RulesMapEngine));
-            return new Core2Content(registries, combat, new Core2LoopData(combat, map, registries.RoutesConfig, (JObject)content.Get(ContentFiles.RulesLoopEngine)), registries.ToCoreDeckData(content, run), snapshot.Hash);
+            var deck = registries.ToCoreDeckData(content, run);
+            var rewards = registries.ToCoreRewardsData(content, deck, combat);
+            return new Core2Content(registries, combat, new Core2LoopData(combat, map, registries.RoutesConfig, (JObject)content.Get(ContentFiles.RulesLoopEngine)), deck, rewards, snapshot.Hash);
         }
     }
 }

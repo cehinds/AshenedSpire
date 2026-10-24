@@ -655,19 +655,25 @@ namespace Ashen.Domain.Run
         /// <summary>
         /// The arguments main.js enterCombat hands createRunCombat to enter <paramref name="encounterId"/> from a fresh run (the call's
         /// arguments only, JSON-plain): the encounter, the seat-tier HP ratio, the run's own start statuses, the swap price rule, the
-        /// combat key, the Core version stamps and the run fields the fight consumes. Journeys, legacy dungeons, Custom Climb and
-        /// boss tier scaling are not part of a Core 2 run's first act and are not read.
+        /// combat key, the Core version stamps and the run fields the fight consumes. Journeys, legacy dungeons and
+        /// Custom Climb are not part of a Core 2 run and are not read; a boss is scaled by the tier it is met at.
         /// </summary>
         public static JObject CombatArgs(CoreRunData d, JObject run, string encounterId, JObject settings = null, IReadOnlyList<string> enemyIds = null)
         {
             settings = settings ?? new JObject();
             var data = d.Run;
             var encounter = data.Encounters.Get(encounterId);
-            double hpMult = 1;
+            double hpMult = 1, damageMult = 1;
             if (run[RK.SeatOrder] is JArray seatOrder)
             {
                 var act = run.Num(RK.ActNumber);
-                hpMult *= Creation.SeatTierHpMult(data, Creation.SeatAtTier(seatOrder, act), act);
+                // A BOSS is scaled by the tier it is met at: its seat's tier ratio on HP and move damage times that tier's boss row (main.js combatMods).
+                if (Creation.BossTierScale(data, encounter, act, out var bossHp, out var bossDamage))
+                {
+                    hpMult *= bossHp;
+                    damageMult = bossDamage;
+                }
+                else hpMult *= Creation.SeatTierHpMult(data, Creation.SeatAtTier(seatOrder, act), act);
             }
             var enemyList = enemyIds != null ? new JArray(enemyIds) : encounter[K.Enemies];
             var mapNode = Js.Truthy(run[RK.MapNodeId]) ? Js.Str(run[RK.MapNodeId]) : string.Join(V.ListSeparator, Js.Items(enemyList).Select(Js.Str));
@@ -678,7 +684,7 @@ namespace Ashen.Domain.Run
                 [CK.Pool] = encounter[CK.Pool]?.DeepClone(),
                 [CK.Settings] = settings.DeepClone(),
                 [K.HpMult] = Js.N(hpMult),
-                [CK.EnemyDamageMult] = 1,
+                [CK.EnemyDamageMult] = Js.N(damageMult),
                 [K.EnemyStatuses] = new JArray(),
                 [K.PlayerStatuses] = new JArray(),
                 [CK.StartStatuses] = RunMods(d, run.Obj(K.Loadout), run.Str(RK.Class), run).StartStatuses.DeepClone(),
