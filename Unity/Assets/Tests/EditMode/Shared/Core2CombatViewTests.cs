@@ -190,6 +190,42 @@ namespace Ashen.Tests
                 Assert.That(line.Text != null, Is.EqualTo(strings.Has("combat.log." + line.Type)), at + " log line " + line.Type);
         }
 
+        /// <summary>
+        /// The web's previewCard prices a card after its stance entry (combat.js setCombatStance on the detached preview): the receipt the view shows is the one a play of the card deals,
+        /// the entry's rating bonus included, not the one the current stance would give.
+        /// </summary>
+        [Test]
+        public void TheDamageShownIsThePriceAfterTheCardsStanceEntry()
+        {
+            var seen = 0;
+            var differs = 0;
+            foreach (var classId in new[] { "reaver", "rogue", "herald", "starseer" })
+                for (var seed = 1u; seed <= 25; seed++)
+                {
+                    var run = CoreRunRules.Create(Data.Run, seed, classId, CoreRunOptions.FromJson(null, Core2DamageParityTests.Unlocked));
+                    var session = Ashen.App.Combat.Core2CombatSession.Start(Data, new Rng(seed), run, "loneSoldier");
+                    var view = Core2CombatView.Build(session);
+                    foreach (var card in view.Hand.Where(h => h.NeedsTarget && h.Playable))
+                        foreach (var target in card.Targets)
+                        {
+                            var shown = card.Hits[target].Damage;
+                            if (shown == null) continue;
+                            var played = CoreTransaction.DetachPaused(session.State);
+                            var inst = played.Piles.Hand.First(h => h.Str("instanceId") == card.InstanceId);
+                            var def = CoreCosts.Resolve(played, inst);
+                            var damage = (def["effects"] as JArray).OfType<JObject>().First(e => e.Str("op") == "damage" && e["amount"]?.Type != JTokenType.String);
+                            var before = CoreDamage.ProfileDamageReceipt(played, played.Player, played.Enemies.First(e => e.Str("id") == target), damage.Num("amount"), CoreCardPlay.Carrier(played, inst, def));
+                            var entry = CoreCardPlay.Enter(played, card.InstanceId);
+                            var after = CoreDamage.ProfileDamageReceipt(played, played.Player, played.Enemies.First(e => e.Str("id") == target), damage.Num("amount"), entry.Carrier);
+                            Assert.That(shown, Is.EqualTo(after.Num("amount")), classId + " " + seed + " " + card.CardId + " on " + target);
+                            seen++;
+                            if (before.Num("amount") != after.Num("amount")) differs++;
+                        }
+                }
+            Assert.That(seen, Is.GreaterThan(0));
+            Assert.That(differs, Is.GreaterThan(0), "some card's stance entry changes what it deals, so the case is covered");
+        }
+
         [Test]
         public void TheEquipmentAndTheRearmOptionsAreJudgedByTheRules()
         {

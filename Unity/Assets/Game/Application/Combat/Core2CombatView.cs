@@ -623,7 +623,11 @@ namespace Ashen.App.Combat
 
             // The damage the card's first damaging effect would do to each target, and the odds, as the engine's own receipt and hit preview say.
             var damage = Js.Items(def[K.Effects]).OfType<JObject>().FirstOrDefault(e => e.Str(K.Op) == Ashen.Generated.CombatOps.Damage && Js.IsNum(e[K.Amount]));
-            var carrier = damage == null ? null : Try(() => CoreCardPlay.Carrier(c, inst, def));
+            // The web's previewCard prices a card on a detached copy that has already entered the card's stance (combat.js setCombatStance), as
+            // CoreCardPlay.Enter does: the entry's grants and rating bonus count, and the matching-stance flag is read before the entry.
+            var priced = damage == null ? null : Try(() => CoreTransaction.DetachPaused(c));
+            var carrier = priced == null ? null : Try(() => CoreCardPlay.Carrier(priced, inst, def));
+            if (carrier != null) Try(() => { CoreStances.SetProfileStance(priced, priced.Player, carrier); return carrier; });
             foreach (var target in living)
             {
                 if (!needsTarget) break;
@@ -638,7 +642,8 @@ namespace Ashen.App.Combat
                 };
                 if (damage != null && carrier != null)
                 {
-                    var receipt = Try(() => CoreDamage.ProfileDamageReceipt(c, c.Player, enemy, damage.Num(K.Amount), carrier));
+                    var pricedEnemy = priced.Enemies.First(e => e.Str(K.Id) == target);
+                    var receipt = Try(() => CoreDamage.ProfileDamageReceipt(priced, priced.Player, pricedEnemy, damage.Num(K.Amount), carrier));
                     if (receipt != null)
                     {
                         hv.Damage = receipt.Num(K.Amount);
