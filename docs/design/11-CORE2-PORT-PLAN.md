@@ -153,6 +153,8 @@ Every WP pins the same web sha. Size is approximate lines of port.
 
 **Status 2026-10-24 (WP-17):** the shop is ported (`Core2Shop`, `Core2RunSession.Shop`, `Core2ShopView`; D-330 to D-333; oracle `oracle-core2-shop`): a merchant node opens a persisted stock of three per kind at ten cinders on the `shop` stream, bought from with the web's refusals; the shop screen is a seam (`Core2ShopView`).
 
+**Status 2026-10-24 (WP-16):** the rest site is ported (`Core2Rest`, `Core2Smith`, `Core2RunSession.Rest`, `Core2RestView`; D-334 to D-340; oracle `oracle-core2-rest`): a rest node heals on arrival, offers the free Smith (one tier, with the live card rows) and Level Up (unreachable in Core, ported), each once; Continue leaves and the site stays enterable until the run travels elsewhere. The rest screen is a seam (`Core2RestView`). The treasure and event nodes are still answered "not yet ported" (WP-19).
+
 **Critical path:** 0 → 1 → 2 → 3 → 4 → {5 ∥ 6} → 7 → {8 ∥ 9} → 10 → 11 → 12 → 13 → 15 → {16 ∥ 17} → 19.
 
 **Parallel lanes:**
