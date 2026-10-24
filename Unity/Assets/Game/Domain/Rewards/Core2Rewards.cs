@@ -28,7 +28,7 @@ namespace Ashen.Domain.Rewards
     /// Persisted mixed reward offers of a Core 2 run (web model/gameProfileRewards.js, WP-15): an offer is drawn once from the pools the character's
     /// eligibility leaves, stored on the run under its stable id, and claimed without ever editing the active deck; a won card may go straight into the
     /// deck, which then obeys the deck rules. Offers draw on the <c>cardRewards</c> stream. Claims run on a draft of the run, so a refusal leaves the
-    /// run and the offer untouched. Engine-free. The shop's stock (WP-17) shares <c>makeOffer</c> in the web; it joins this class when that package lands.
+    /// run and the offer untouched. Engine-free. The shop's stock (WP-17, <see cref="Core2Shop"/>) shares <c>makeOffer</c> with it.
     /// </summary>
     public static class Core2Rewards
     {
@@ -165,8 +165,14 @@ namespace Ashen.Domain.Rewards
 
         private static JObject OfferOf(JObject run, string offerId) => (Offers(run) as JObject)?[offerId ?? string.Empty] as JObject;
 
-        private static JObject MakeOffer(Core2RewardsData d, JObject run, Rng rng, string offerId, string source, double count, double takeCount, IReadOnlyList<string> categories, JToken groups)
+        /// <summary>
+        /// makeOffer: the stored offer under <paramref name="offerId"/>, or a new one drawn now. A shop (<paramref name="itemsPerCategory"/> set, WP-17) fills each shelf
+        /// on its own <c>shop</c> stream, the categories in their authored order, no stance reserve and no weighted group; every other offer draws on <c>cardRewards</c>.
+        /// </summary>
+        internal static JObject MakeOffer(Core2RewardsData d, JObject run, Rng rng, string offerId, string source, double count, double takeCount, IReadOnlyList<string> categories, JToken groups, int? itemsPerCategory = null)
         {
+            var stream = source == RV.SourceShop && itemsPerCategory != null ? RngStream.Shop : RngStream.CardRewards;
+            var shelfCounts = new Dictionary<string, int>(StringComparer.Ordinal);
             if (string.IsNullOrEmpty(offerId)) throw new InvalidOperationException(RM.OfferIdRequired);
             if (OfferOf(run, offerId) is JObject stored) return stored;
             var available = PoolsOf(d, run);
@@ -189,9 +195,9 @@ namespace Ashen.Domain.Rewards
             var rule = (d.Content(run, RW.Rewards) as JObject)?.Obj(RW.Eligibility)?.Obj(RW.CombatCards);
             while (options.Count < count)
             {
-                var kinds = categories.Where(kind => (available.Of(kind)?.Count ?? 0) > 0).ToList();
+                var kinds = categories.Where(kind => (available.Of(kind)?.Count ?? 0) > 0 && (itemsPerCategory == null || (shelfCounts.TryGetValue(kind, out var shelf) ? shelf : 0) < itemsPerCategory)).ToList();
                 if (kinds.Count == 0) break;
-                var kind = Core2RewardPolicy.PickCategory(rng, kinds, groups);
+                var kind = itemsPerCategory == null ? Core2RewardPolicy.PickCategory(rng, kinds, groups) : kinds[0];
                 if (kind == null) break;
                 var ids = available.Of(kind);
                 // Most card rewards are rank 1+; a small authored chance lets a lower-rank card through.
@@ -202,7 +208,7 @@ namespace Ashen.Domain.Rewards
                     var lowIds = ids.Where(low.Contains).ToList();
                     // The chance is honored even when no rank 1+ card is left: a failed (or zero) roll drops the category.
                     var scale = (int)d.Rules.Num(RW.LowerRankScale);
-                    var allowLow = lowIds.Count > 0 && rng.Pick(RngStream.CardRewards, Enumerable.Range(0, scale).ToList()) < RunJs.Round(Js.Coalesce(rule[RW.LowerRankChance], 0) * scale);
+                    var allowLow = lowIds.Count > 0 && rng.Pick(stream, Enumerable.Range(0, scale).ToList()) < RunJs.Round(Js.Coalesce(rule[RW.LowerRankChance], 0) * scale);
                     if (!allowLow && high.Count == 0)
                     {
                         available.Set(kind, new List<string>());
@@ -210,9 +216,10 @@ namespace Ashen.Domain.Rewards
                     }
                     ids = allowLow ? lowIds : high;
                 }
-                var chosen = rng.Pick(RngStream.CardRewards, ids);
+                var chosen = rng.Pick(stream, ids);
                 available.Set(kind, available.Of(kind).Where(value => value != chosen).ToList());
                 options.Add(Option(kind, chosen));
+                shelfCounts[kind] = (shelfCounts.TryGetValue(kind, out var had) ? had : 0) + 1;
             }
             var offer = new JObject
             {
@@ -291,6 +298,9 @@ namespace Ashen.Domain.Rewards
             var ok = run[K.Flasks] is JArray flasks && flasks.Count < Js.D(cap);
             return new FlaskPlan { Ok = ok, Amount = 1, Reason = ok ? null : RM.PotionSlotsFull };
         }
+
+        /// <summary>flaskAcquisitionPlan(...).ok: a flask can be picked up (a free slot, or a valid charge ledger for a capacity flask).</summary>
+        public static bool CanAcquireFlask(Core2RewardsData d, JObject run, string flaskId) => PlanFlask(d, run, flaskId).Ok;
 
         private static FlaskPlan AcquireFlask(Core2RewardsData d, JObject run, string flaskId)
         {
