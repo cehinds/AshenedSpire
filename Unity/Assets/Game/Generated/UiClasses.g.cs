@@ -18,6 +18,7 @@ namespace Ashen.Generated
         public const string Touch = "kit-touch";
         public const string ValueText = "kit-text-value";
         public const string HeaderText = "kit-text-header";
+        public const string Upper = "kit-upper";
         public const string Button = "kit-button";
         public const string ButtonPrimary = "kit-button--primary";
         public const string ButtonBack = "kit-button--back";

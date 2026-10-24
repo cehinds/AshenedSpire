@@ -24,9 +24,70 @@
     display: none;
 }
 
+/* ---- fonts (VP-1, D-500): Inter is the body face, Cinzel the display face, IM Fell English the card-lore face
+        (web styles/base.css:183-184, kit.css:4376-4399). Only weight 400 and italic exist, so -unity-font-style: bold is
+        synthesised, as the web's browser does. The font files are SIL OFL 1.1 (Fonts/OFL.txt). ---- */
+
+:root {
+    -unity-font-definition: url("../Fonts/Inter-Regular.ttf");
+}
+
 .unity-text-element {
     color: var(--color-parchment);
     font-size: var(--font-body);
+    -unity-font-definition: url("../Fonts/Inter-Regular.ttf");
+}
+
+.font-body {
+    -unity-font-definition: url("../Fonts/Inter-Regular.ttf");
+}
+
+.font-body-italic {
+    -unity-font-definition: url("../Fonts/Inter-Italic.ttf");
+}
+
+.font-display,
+.wordmark,
+.eyebrow,
+.kit-text-header,
+.kit-button {
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+}
+
+.font-lore {
+    -unity-font-definition: url("../Fonts/IMFellEnglish-Regular.ttf");
+}
+
+.font-lore-italic {
+    -unity-font-definition: url("../Fonts/IMFellEnglish-Italic.ttf");
+}
+
+/* ---- type roles (web kit.css:34-37, 250, 385, 403). Uppercase comes from the kit-upper class (LocLabel, LocButton):
+        USS has no text-transform. ---- */
+
+.kit-label {
+    font-size: var(--font-label);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-muted);
+}
+
+.kit-title {
+    font-size: var(--font-title);
+    letter-spacing: var(--size-track-title);
+    color: var(--color-parchment);
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+}
+
+.kit-heading {
+    font-size: var(--font-heading);
+    letter-spacing: var(--size-track-heading);
+    color: var(--color-gold);
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+}
+
+/* The web's text-shadow on HUD text (hud-layout.generated.css:27). */
+.text-shadowed {
+    text-shadow: 0 var(--size-text-shadow-y) var(--size-text-shadow-blur) var(--color-text-ink);
 }
 
 .wordmark {
@@ -35,6 +96,7 @@
     -unity-font-style: bold;
     letter-spacing: var(--size-wordmark-letter);
     -unity-text-align: middle-center;
+    text-shadow: 0 0 var(--size-wordmark-glow-blur) var(--color-wordmark-glow);
 }
 
 .band-compact .wordmark {
@@ -53,6 +115,7 @@
 
 .eyebrow {
     font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
     color: var(--color-gold);
     -unity-font-style: bold;
 }
@@ -69,8 +132,9 @@
     border-color: var(--color-neutral-line);
     border-width: var(--border-control);
     border-radius: var(--radius-button);
-    color: var(--color-parchment);
+    color: var(--color-gold);
     font-size: var(--font-button);
+    letter-spacing: var(--size-track-button);
     -unity-text-align: middle-center;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -89,7 +153,7 @@
     background-color: var(--color-panel-raise);
     border-color: var(--color-gold);
     border-width: var(--border-glow);
-    color: var(--color-gold);
+    color: var(--color-parchment);
 }
 
 .kit-button:active {
@@ -112,7 +176,7 @@
 .kit-button--ready:focus {
     background-color: var(--color-ready);
     border-color: var(--color-ready-line);
-    color: var(--color-parchment);
+    color: var(--color-ready-text);
 }
 
 .tone-destructive .kit-button--primary,

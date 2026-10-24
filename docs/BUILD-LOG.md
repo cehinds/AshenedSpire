@@ -2,6 +2,24 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-1: fonts, tokens and the web palette (worktree branch, 2026-10-24)
+
+**Landed**
+- **Fonts (D-500):** Cinzel, Inter (+ italic), IM Fell English (+ italic) from `hd-assets-v23` as TTF in `Resources/UI/Fonts` with `OFL.txt` and committed `.meta` files (new GUIDs, `TrueTypeFontImporter`); 397 KB. `Base.uss` sets Inter on `:root` and `.unity-text-element`, Cinzel on wordmark, eyebrow, header text and buttons, plus `.font-body/-italic/-display/-lore/-lore-italic`. Bold is synthesised.
+- **Tokens:** `ui/tokens.json` takes the web hi-contrast palette, ready green `#255c39`, the gold/panel base button, new rot/frost/grace/ember/readyText/textInk/modalShadow/modalTopLine/wordmarkGlow colours, radii 3/6/8/12/pill/round, focus ring 2 px, the web type scale (body 14, button 15, heading 18, title 25.5, label/chip 9.3, caption 10, wordmark 46) and tracking/shadow lengths. `webSource` records the web file:line of each. `Tokens.uss` regenerated.
+- **Type roles:** `.kit-label`, `.kit-title`, `.kit-heading`, `.text-shadowed` (USS `text-shadow`), wordmark glow, tracked eyebrow/button. `kit-upper` + `Loc.Display` upper-case `LocLabel`/`LocButton` text (USS has no text-transform); `UiClasses.Upper` generated.
+
+**Tests:** Enforcement|Token|Ui filter 49 passed; `ui-tokens --check`, `codegen --check`, `refresh-manifest --check`, `check-content`, `check-docs` ok. Unity not run; `Loc.cs` not compiled (no editor).
+
+**Owner: check in the editor**
+- The five TTFs import as fonts and `-unity-font-definition: url("../Fonts/...ttf")` resolves from `Styles/Base.uss` (else make FontAssets: Create > UI Toolkit > Font Asset, dynamic, and point the USS at them).
+- Cinzel/Inter/Fell appear on title, buttons and body; synthesised bold looks acceptable on Cinzel.
+- `text-shadow` blur renders (wordmark glow, 60 px blur); if too heavy lower `size.wordmarkGlowBlur`.
+- Text is now ~0.8x its old size (body 17 to 14, button 19 to 15): re-check clipping and row heights at 1280x720, 1920x1080 and 390x844. Card/intent/map font tokens were left alone for VP-3/4/10.
+- Focus state: border is 2 px now (was 6) with parchment text on gold.
+
+**Not done:** the other five lore faces, bevel/inset button shading and the modal drop shadow (9-slice, VP-11), uppercase classes applied to specific UXML (add `kit-upper` per screen), card face (VP-3).
+
 ## Core 2 WP-C1b: the Unity screens play Core 2 fights (dev, 2026-10-24)
 
 **Landed**

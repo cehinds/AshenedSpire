@@ -378,6 +378,7 @@
         "Touch": "kit-touch",
         "ValueText": "kit-text-value",
         "HeaderText": "kit-text-header",
+        "Upper": "kit-upper",
         "Button": "kit-button",
         "ButtonPrimary": "kit-button--primary",
         "ButtonBack": "kit-button--back",
