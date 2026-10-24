@@ -32,6 +32,10 @@ out.keySets.push({ name: 'CombatPatterns', doc: 'Patterns the combat port parses
   CardMod: String.raw`^(?<prefix>[A-Za-z]\w*)\.(?<field>[A-Za-z]\w*)=(?<sign>[+-]?)(?<num>\d+(?:\.\d+)?)$`,
   TextToken: String.raw`\{(?<token>[A-Za-z][\w.-]*)\}`,
   LegacyRelicGate: String.raw`^relic:(?<owner>.+):(?<relic>[^:]+):(?<index>\d+)$`,
+  DamageSequence: String.raw`\{(?<amount>[A-Za-z][\w.-]*)\}(?<between>[^{}]*?)\{(?<hits>[A-Za-z][\w.-]*)\}\s+times`,
+  SequenceJoin: ' + ',
+  SequenceTotal: '({0} total across {1} hits)',
+  TokenFormat: '{{{0}}}',
 } });
 out.numberSets.push({ name: 'CombatMath', type: 'double', doc: 'Arithmetic constants of the combat rules (definitions, not tuning): percent scale, the float-floor epsilon, JS safe-integer bits.', values: { Percent: '100', Epsilon: '1e-9', Two: '2', Half: '0.5', SafeIntegerBits: '53' } });
 writeFileSync('Tools/codegen.d/combat.json', JSON.stringify(out, null, 2) + '\n');

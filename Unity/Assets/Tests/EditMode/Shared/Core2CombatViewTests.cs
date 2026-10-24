@@ -424,7 +424,8 @@ namespace Ashen.Tests
                             var lost = before - played.Enemies.First(e => e.Str("id") == pair.Key).Num("hp");
                             if (lost <= 0) continue; // a miss deals nothing; the odds are shown beside the damage
                             Assert.That(pair.Value.Receipt.Num("totalDamage"), Is.EqualTo(lost), at + " on " + pair.Key);
-                            Assert.That(card.Text, Does.Contain(CombatText.Number(pair.Value.Damage.Value) + " damage"), at + " text states the damage shown");
+                            // The hand's face is the un-aimed amount before defense and matchups (combat.js:2792), so a Vulnerable target does not move it.
+                            Assert.That(card.Text, Does.Not.Contain(CombatText.Number(pair.Value.Damage.Value) + " damage"), at + " text is the face, not the aimed hit");
                             covered++;
                             if (lost != 6) scaled++;
                         }
@@ -448,6 +449,107 @@ namespace Ashen.Tests
             var view = Core2CombatView.Build(session);
             var unfilled = view.Hand.Where(h => h.Text != null && h.Text.Contains("{")).Select(h => h.CardId + ": " + h.Text).ToList();
             Assert.That(unfilled, Is.Empty);
+        }
+
+        /// <summary>
+        /// Every numeric token the view prints for a card, shipped Core 2 content and class cards alike, is what playing that card on the same projected copy produces (web previewCard, combat.js:2465-2885):
+        /// the Block and Barrier the play grants (Defense, the matching stance, a held charge), the HP it heals (the rating bonus, the charge and the stance's effectiveness, combat.js:2751), the Poise guard,
+        /// the damage face (the un-aimed amount before defense, charge included, combat.js:2792) and the figure a card charge grants.
+        /// </summary>
+        [TestCase(false)]
+        [TestCase(true)]
+        public void EveryNumberTheViewShowsIsWhatPlayingTheCardProduces(bool held)
+        {
+            var seen = new Dictionary<string, int>();
+            var shifted = new Dictionary<string, int>();
+            void Check(string token, double shown, double made, string at)
+            {
+                Assert.That(shown, Is.EqualTo(made), at + " " + token);
+                seen[token] = seen.TryGetValue(token, out var n) ? n + 1 : 1;
+            }
+            foreach (var classId in new[] { "reaver", "rogue", "herald", "starseer" })
+                for (var seed = 1u; seed <= 2; seed++)
+                {
+                    var run = CoreRunRules.Create(Data.Run, seed, classId, CoreRunOptions.FromJson(null, Core2DamageParityTests.Unlocked));
+                    var session = Ashen.App.Combat.Core2CombatSession.Start(Data, new Rng(seed), run, "loneSoldier");
+                    session.State.Player.Obj("ratings")["dr"] = 3;
+                    session.State.Player.Obj("ratings")["pr"] = 4;
+                    session.State.Player.Obj("ratings")["ar"] = 5;
+                    session.State.Player["hp"] = session.State.Player.Num("maxHp") - 30;
+                    foreach (var enemy in session.State.Enemies)
+                    {
+                        enemy["block"] = 0;
+                        enemy["barrier"] = 0;
+                        enemy.Remove("persistentPoise");
+                        enemy.Remove("persistentWard");
+                        enemy.Remove("combatStance");
+                    }
+                    if (held) CoreRiders.Grant(session.State.Player, new JObject { ["key"] = "held", ["damage"] = 3, ["block"] = 2, ["heal"] = 2 });
+                    var ids = session.State.Data.Cards.All.Select(card => card.Str("id")).Where(id => id != null).Concat(Js.Items(session.State.CoreData.Content(Ashen.Generated.Core2ProfileContentKeys.Cards)).OfType<JObject>().Select(card => card.Str("id"))).Distinct().ToList();
+                    var added = 0;
+                    foreach (var id in ids)
+                        session.State.Piles.Hand.Add(new JObject { ["instanceId"] = "all" + (++added), ["cardId"] = id, ["upgraded"] = false });
+                    var view = Core2CombatView.Build(session);
+                    foreach (var card in view.Hand.Where(h => h.Playable && h.Choices.Count == 0))
+                    {
+                        var at = classId + " " + seed + " " + card.CardId + (held ? " held" : string.Empty);
+                        var inst = session.State.Piles.Hand.First(h => h.Str("instanceId") == card.InstanceId);
+                        var def = CoreCosts.Resolve(session.State, inst);
+                        var effects = (def["effects"] as JArray)?.OfType<JObject>().ToList() ?? new List<JObject>();
+                        if (effects.Any(e => e["if"] != null || e["oncePerTurn"] != null) || card.Text.Contains("Counter")) continue;
+                        var play = (JObject)card.Plays[0].DeepClone();
+                        if (play["targetId"] == null && card.Targets.Count > 0) play["targetId"] = card.Targets[0];
+                        // The stance the card enters grants its own Block and Poise (CoreCardPlay.Enter); the card's figure is what comes on top of that.
+                        var before = CoreVisibility.Project(CoreTransaction.DetachPaused(session.State));
+                        try { CoreCardPlay.Enter(before, card.InstanceId); } catch (Exception) { continue; }
+                        var played = CoreVisibility.Project(CoreTransaction.DetachPaused(session.State));
+                        var logged = played.EventLog.Count;
+                        try { CoreDispatch.Dispatch(played, (JObject)play.DeepClone()); }
+                        catch (Exception) { continue; }
+                        if (played.Piles.Hand.Any(h => h.Str("instanceId") == card.InstanceId)) continue; // the play was refused
+                        int Count(string op) => effects.Count(e => e.Str("op") == op);
+                        bool Plain(string op) => effects.Where(e => e.Str("op") == op).All(e => e["amount"] != null && (e["amount"].Type == JTokenType.Integer || e["amount"].Type == JTokenType.Float));
+                        if (Count("block") == 1 && Plain("block") && Count("gainBarrier") == 0 && card.Tokens.ContainsKey("block"))
+                            Check("block", card.Tokens["block"], played.EventLog.Skip(logged).Where(e => e.Str("type") == "blockGained" && e.Str("cardInstanceId") == card.InstanceId).Sum(e => e.Num("amount")), at);
+                        if (Count("gainBarrier") == 1 && Plain("gainBarrier") && Count("block") == 0 && card.Tokens.ContainsKey("gainBarrier"))
+                            Check("gainBarrier", card.Tokens["gainBarrier"], played.Player.Num("barrier") - before.Player.Num("barrier"), at);
+                        if (Count("gainPoise") == 1 && Plain("gainPoise") && card.Tokens.ContainsKey("gainPoise"))
+                            Check("gainPoise", card.Tokens["gainPoise"], played.Player.Num("gameProfilePoise") - before.Player.Num("gameProfilePoise"), at);
+                        // The web's preview leaves an Ashen Blight restoration cut out of the heal (combat.js:2751).
+                        if (Count("heal") == 1 && Plain("heal") && card.Tokens.ContainsKey("heal") && CoreStatusControl.RestorationPercent(before, before.Player) == 0)
+                        {
+                            var healed = played.EventLog.Skip(logged).FirstOrDefault(e => e.Str("type") == "healed" && e.Str("targetId") == played.Player.Str("id"));
+                            if (healed != null)
+                            {
+                                Check("heal", card.Tokens["heal"], healed.Num("requested"), at);
+                                if (healed.Num("requested") != effects.First(e => e.Str("op") == "heal").Num("amount")) shifted["heal"] = shifted.GetValueOrDefault("heal") + 1;
+                            }
+                        }
+                        foreach (var grant in effects.Where(e => e.Str("op") == "grantCardCharge"))
+                        {
+                            var made = CoreEvents.RidersOf(played.Player).Obj("charges")?.Obj(grant.Str("key"));
+                            foreach (var field in new[] { "damage", "block", "heal", "break" })
+                                if (grant[field] != null && grant[field].Type != JTokenType.Object && made != null && card.Tokens.TryGetValue("charge" + char.ToUpperInvariant(field[0]) + field.Substring(1), out var shown))
+                                    Check("charge" + field, shown, made.Num(field), at);
+                        }
+                        if (Count("damage") == 1 && Plain("damage") && card.Tokens.ContainsKey("damage") && !card.Text.Contains("times") && !effects.Any(e => e["hits"] != null))
+                        {
+                            var target = played.Enemies.FirstOrDefault(e => e.Str("id") == play.Str("targetId"));
+                            var prior = session.State.Enemies.FirstOrDefault(e => e.Str("id") == play.Str("targetId"));
+                            if (target == null || prior == null) { continue; }
+                            var lost = prior.Num("hp") - target.Num("hp");
+                            if (lost <= 0) seen["missed"] = seen.GetValueOrDefault("missed") + 1;
+                            if (lost <= 0 || !target.Is("alive")) continue; // a kill is capped by the hit points left; a miss deals nothing; the odds are shown beside the damage
+                            Check("damage", card.Tokens["damage"], lost, at);
+                            if (lost != Math.Floor(effects.First(e => e.Str("op") == "damage").Num("amount"))) shifted["damage"] = shifted.GetValueOrDefault("damage") + 1;
+                        }
+                    }
+                }
+            foreach (var token in new[] { "block", "heal", "damage" })
+                Assert.That(seen.GetValueOrDefault(token), Is.GreaterThan(0), token + " was compared against a play: " + string.Join(", ", seen.Select(kv => kv.Key + "=" + kv.Value)));
+            Assert.That(shifted.GetValueOrDefault("damage"), Is.GreaterThan(0), "the attack rating or a charge moves a damage face off its printed amount");
+            if (held) Assert.That(shifted.GetValueOrDefault("heal"), Is.GreaterThan(0), "a held charge moves a heal off its printed amount, so the case is covered");
+            TestContext.WriteLine(string.Join(", ", seen.Select(kv => kv.Key + "=" + kv.Value)));
         }
     }
 }

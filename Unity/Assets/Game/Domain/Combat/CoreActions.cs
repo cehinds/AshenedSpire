@@ -331,6 +331,10 @@ namespace Ashen.Domain.Combat
             return Math.Max(0, Math.Floor((baseAmount + dr * weight) * StanceEffectiveness(c, entity, card)));
         }
 
+        /// <summary>computeMeterGuardGain(ctx, entity, base, card): the Poise or Ward guard a gainPoise / gainWard effect grants, its base plus the rating bonus the card's Block reads, floored, never below 0 (no Block modifiers: a guard is not Block).</summary>
+        public static double ComputeMeterGuardGain(CombatState c, JObject entity, double baseAmount, JObject card) =>
+            Math.Max(0, Math.Floor(baseAmount + Ratings.CardBonus(c, entity, card, V.BonusBlock, baseAmount)));
+
         /// <summary>gainBlock(ctx, entity, base, card): a configured fight's Block (Barrier included), capped by blockCap, refilling Poise.</summary>
         public static double GainBlock(CombatState c, JObject entity, double baseAmount, JObject card)
         {
