@@ -408,8 +408,15 @@
 .tool-pill.kit-button:hover,
 .tool-pill.kit-button:focus,
 .unity-button.tool-pill.kit-button:focus:enabled {
+    background-color: var(--color-danger-fill-hover);
     border-width: var(--border-control);
     border-color: var(--color-gold);
+}
+
+.tool-pill.kit-button.tool--on:hover,
+.tool-pill.kit-button.tool--on:focus,
+.unity-button.tool-pill.kit-button.tool--on:focus:enabled {
+    background-color: var(--color-ready);
 }
 
 .tool-pill.kit-button:disabled,

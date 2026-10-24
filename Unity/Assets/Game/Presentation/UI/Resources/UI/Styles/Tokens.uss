@@ -402,13 +402,13 @@
     --size-board-hand-side: 19%;
     --size-board-hand-bottom: 60px;
     --size-board-hand-h: 232px;
-    --size-board-hand-top: 12px;
+    --size-board-hand-top: 24px;
     --size-board-card-w: 136px;
     --size-board-card-h: 204px;
     --size-board-hand-overlap: -39px;
     --size-board-hand-pad: 39px;
     --size-board-hand-bottom-narrow: 158px;
-    --size-board-hand-hnarrow: 200px;
+    --size-board-hand-hnarrow: 210px;
     --size-board-card-wnarrow: 120px;
     --size-board-card-hnarrow: 180px;
     --size-board-hand-overlap-narrow: -56px;

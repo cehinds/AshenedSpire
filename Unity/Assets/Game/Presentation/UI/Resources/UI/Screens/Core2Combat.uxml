@@ -12,13 +12,13 @@
             <Ashen.Presentation.UI.LocLabel name="NOTICE" class="combat-notice kit-text-value is-hidden" />
         </ui:VisualElement>
         <Ashen.Presentation.UI.LocLabel name="TARGET_PROMPT" class="board-prompt kit-text-value is-hidden" />
-        <ui:VisualElement name="RUN_HUD" class="board-hud">
+        <ui:VisualElement name="RUN_HUD" class="board-hud" picking-mode="Ignore">
             <ui:VisualElement name="HUD_HEART" class="hud-heart" picking-mode="Ignore" />
             <Ashen.Presentation.UI.Kit.Meter name="HUD_HP" class="hud-hp" kind="hp" picking-mode="Ignore" />
             <ui:VisualElement name="HUD_PIPS" class="hud-pips" picking-mode="Ignore" />
             <Ashen.Presentation.UI.LocLabel name="TURN_RIBBON" class="turn-ribbon kit-text-header kit-upper" picking-mode="Ignore" />
-            <ui:VisualElement name="HUD_SIDE" class="hud-side">
-                <ui:VisualElement class="hud-buttons">
+            <ui:VisualElement name="HUD_SIDE" class="hud-side" picking-mode="Ignore">
+                <ui:VisualElement class="hud-buttons" picking-mode="Ignore">
                     <Ashen.Presentation.UI.LocButton name="TOOL_ARMAMENTS" class="hud-icon-button" string-key="core2.tools.armaments" />
                     <Ashen.Presentation.UI.LocButton name="HUD_MENU" class="hud-icon-button" string-key="combat.menu" />
                 </ui:VisualElement>

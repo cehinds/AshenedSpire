@@ -2,6 +2,29 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-4: Core 2 combat board (worktree branch, 2026-10-24)
+
+**Landed (D-700..D-703)**
+- **Board composition:** `Core2Combat.uxml/.uss` are rebuilt as absolutely placed layers from the web's 1920x1080 and 390x844 shots (tokens `size.board*`, cited in `tokens.json#webSource.board`): environment art `cover`-fit above a 107 px dark footer, the sheared ground grid (`Tools/ui-stage.mjs`, D-701), the ally slot at the left and the enemy lane (three to a row, the fourth wraps) at the right, the 3 px HP line with heart, relic pips, Player/Enemy Turn ribbon, armoury and menu icon buttons and `CINDERS n` at the top, the hand centred over the footer's top edge (136x204 cards, 97 px step; 120x180 on the phone), the log as a framed panel.
+- **Fighters (D-702):** overhead with intent range and icon, a slot-wide HP bar with the value under it, thin Poise/Ward bars and icon chips (Evade, Block, Precision, Barrier, Counter, statuses with `icon.<id>`); ground shadow; name, ghost HP and receipt below the shadow on hover/focus/target; the white hit chance over the figure.
+- **Footer:** new `Orb` kit element (orb, harness, SP number, mana diamonds on a 30-degree ring), `FooterGroup` re-skinned (draw/discard/potion art with counts and captions, End Turn on `footer.plate`), tools row with Combat log, Grid check and the Reaction pill (D-703). Behaviour and bindings in `Core2CombatScreen` are unchanged; the screen only sets art by name, builds chips from the view's own statuses and toggles the log, grid and pill classes.
+- **Data:** tokens, 9 strings (`core2.board.*`), codegen (`UiNames`, `UiClasses`, `UiResources.KitOrb`, new `BoardArt`, `BoardIcons`, `BoardMath` in `codegen.d/ui-board.json`), `COMBAT_LOG` added to the combat focus order, manifest refreshed.
+
+**Tests run (small filters, the test host is OOM-killed intermittently with other workers running; each passed when it ran to completion):** `EnforcementTests` 7/7 (no magic strings or numbers), `UiDataTests` 9/9 (generated names in UXML, string keys, USS tokens only), `UiRulesTests` 21/21, `CodegenTests` 2/2, `Core2ScreensTests` 7/7; `ui-tokens --check`, `codegen --check`, `refresh-manifest --check`, `ci/check-content`, `ci/check-docs`, `ui-stage --check`. Presentation compiles against the Unity 2021.3 module DLLs with the D-314 stubs (a copy of the harness in the scratchpad plus a `GetValueOrDefault` stub for net48).
+
+**Not verified (Unity was not run):** every USS rule, the Painter-free grid sprite, the `Rotate`d diamond ring, the 9-slice log panel, the hand padding maths, the background `cover` crop (the imported `env.*-combat` art is a legacy Blender render that the release import does not carry, so the fallback `bg.bg_act1` shows until it is), and the phone layout at 390x844.
+
+**Owner: check in the editor (play a Core 2 fight at 1920x1080, then 390x844 in the Device Simulator)**
+- Compare with `docs/qa/web-screens/combat-card-selected-*`, `combat-three-enemies-*`, `combat-four-enemies-390x844`, `combat-enemy-turn-*`: HP line and ribbon at the top, grid under the feet, three equal long HP bars over three enemies, the player bar over the player at the left, footer art row.
+- Select a card: legal targets lift, show their name plate and the `95%` hit chance; the card stays in the fan above the footer (cards must not be clipped at the top when hovered: `size.boardHandTop`).
+- Orb: the stamina number sits in the harness; one diamond per Mana point at the top, spent ones greyed; the number updates as cards are played.
+- Footer: Draw/Discard art with counts under them, Potions tray, End Turn plate tints (rest, hover, green-ish text when stamina is spent, red while the enemy acts).
+- Combat log opens as a framed panel, Close and Escape close it; Grid hides the lattice; the Reaction pill flips green/red with the knob side.
+- Pad: Down from the hand still reaches End Turn; `COMBAT_LOG` joins the order when open.
+- Select `Resources/UI/Stage/grid-wide.png` in the editor: Sprite, no border. Frames, Stage and imported art import settings are the same as `Resources/UI/Frames`.
+
+**Next:** VP-5 feedback hooks (hit flash, floating numbers: the fighter art and the `FIGHTER_HIT` label are the anchors), VP-6 modals for the log (web is a full-screen modal), piles and potions; the target HUD card; Auto toggle if auto-play ever lands in Core 2; relic pip tooltips.
+
 ## VP-2: art release import, asset lookup by name (worktree branch, 2026-10-24)
 
 **Landed**
