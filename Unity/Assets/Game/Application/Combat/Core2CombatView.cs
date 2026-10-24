@@ -367,6 +367,9 @@ namespace Ashen.App.Combat
     /// </summary>
     public static class Core2CombatView
     {
+        /// <summary>An amount the preview can price: a number or a formula the engine's evaluator reads.</summary>
+        private static bool Priceable(JToken amount) => Js.IsNum(amount) || Formulas.IsFormula(amount);
+
         private static T Try<T>(Func<T> read) where T : class
         {
             try { return read(); }
@@ -622,27 +625,52 @@ namespace Ashen.App.Combat
             card.Playable = card.Plays.Count > 0;
 
             // The damage the card's first damaging effect would do to each target, and the odds, as the engine's own receipt and hit preview say.
-            var damage = Js.Items(def[K.Effects]).OfType<JObject>().FirstOrDefault(e => e.Str(K.Op) == Ashen.Generated.CombatOps.Damage && Js.IsNum(e[K.Amount]));
+            var damage = Js.Items(def[K.Effects]).OfType<JObject>().FirstOrDefault(e => e.Str(K.Op) == Ashen.Generated.CombatOps.Damage && Priceable(e[K.Amount]));
+            var protects = Js.Items(def[K.Effects]).Select((e, i) => (e: e as JObject, i)).Where(x => x.e != null && (x.e.Str(K.Op) == Ashen.Generated.CombatOps.Block || x.e.Str(K.Op) == Ashen.Generated.Core2CombatValues.OpGainBarrier) && Priceable(x.e[K.Amount])).ToList();
+            var bindings = CombatPreview.TokenBindings(c.Data, def[K.Effects]);
+            var effectList = Js.Items(def[K.Effects]).ToList();
+            var tokenFormulas = bindings.Keys.Where(key => { var at = key.Split(V.KeySeparator[0]); return Formulas.IsFormula(effectList[int.Parse(at[0], CultureInfo.InvariantCulture)][at[1]]); }).ToList();
             // The web's previewCard prices a card on a detached copy of the fight as the player sees it (an unread enemy shows no stance, combat.js:2465-2476), that has already entered the card's stance (combat.js setCombatStance), as
             // CoreCardPlay.Enter does: the entry's grants and rating bonus count, and the matching-stance flag is read before the entry.
-            var priced = damage == null ? null : Try(() => CoreVisibility.Project(CoreTransaction.DetachPaused(c)));
+            var priced = damage == null && protects.Count == 0 && tokenFormulas.Count == 0 ? null : Try(() => CoreVisibility.Project(CoreTransaction.DetachPaused(c)));
             var carrier = priced == null ? null : Try(() => CoreCardPlay.Carrier(priced, inst, def));
             if (carrier != null) Try(() => { CoreStances.SetProfileStance(priced, priced.Player, carrier); return carrier; });
+            // previewCard's action (combat.js:2511-2540): the formulas resolve as execution's do, against the card's aimed (or first living) enemy, with the resources the play pays (energySpent is the Stamina paid, combat.js:2540).
+            var action = priced == null || carrier == null ? null : new CombatAction
+            {
+                Source = priced.Player,
+                Owner = priced.Player,
+                Target = first == null ? null : priced.Enemies.FirstOrDefault(e => e.Str(K.Id) == first),
+                Card = carrier,
+                Meta = new ActionMeta { EnergySpent = costs?.Num(K.Stamina) ?? 0, ManaSpent = costs?.Num(K.Mana) ?? 0, StaminaSpent = costs?.Num(K.Stamina) ?? 0 },
+            };
+            double? Price(JToken value, JObject on)
+            {
+                if (action == null) return null;
+                if (Js.IsNum(value)) return Math.Floor(Js.D(value));
+                var read = Try(() => (JToken)Js.N(CombatPreview.EvalPreview(priced, action, value, on)));
+                return read?.Value<double>();
+            }
+            // Every formula-valued token, evaluated before any preview hit leaves its mark on the copy.
+            var evaluated = new Dictionary<string, double>();
+            foreach (var key in tokenFormulas)
+            {
+                var split = key.Split(V.KeySeparator[0]);
+                var effect = (JObject)effectList[int.Parse(split[0], CultureInfo.InvariantCulture)];
+                var value = Price(effect[split[1]], Try(() => CombatPreview.FirstResolvedTarget(priced, action, effect)));
+                if (value.HasValue) evaluated[key] = value.Value;
+            }
             // previewCard's block entries: computeBlockGain on the same stance-entered copy, so the Defense contribution and the matching-stance effectiveness are in the number the text shows.
             var blocks = new Dictionary<int, double>();
-            var protects = Js.Items(def[K.Effects]).Select((e, i) => (e: e as JObject, i)).Where(x => x.e != null && (x.e.Str(K.Op) == Ashen.Generated.CombatOps.Block || x.e.Str(K.Op) == Ashen.Generated.Core2CombatValues.OpGainBarrier) && Js.IsNum(x.e[K.Amount])).ToList();
-            if (protects.Count > 0)
-            {
-                var blockPriced = priced ?? Try(() => CoreVisibility.Project(CoreTransaction.DetachPaused(c)));
-                var blockCarrier = carrier ?? (blockPriced == null ? null : Try(() => CoreCardPlay.Carrier(blockPriced, inst, def)));
-                if (carrier == null && blockCarrier != null) Try(() => { CoreStances.SetProfileStance(blockPriced, blockPriced.Player, blockCarrier); return blockCarrier; });
-                if (blockPriced != null && blockCarrier != null)
-                    foreach (var (effect, index) in protects)
-                    {
-                        var gain = Try(() => (JToken)Js.N(CoreActions.ComputeBlockGain(blockPriced, blockPriced.Player, Math.Floor(effect.Num(K.Amount)), blockCarrier)));
-                        if (gain != null) blocks[index] = gain.Value<double>();
-                    }
-            }
+            if (protects.Count > 0 && action != null)
+                foreach (var (effect, index) in protects)
+                {
+                    var amount = Price(effect[K.Amount], Try(() => CombatPreview.FirstResolvedTarget(priced, action, effect)));
+                    if (amount == null) continue;
+                    var gain = Try(() => (JToken)Js.N(CoreActions.ComputeBlockGain(priced, priced.Player, amount.Value, carrier)));
+                    if (gain != null) blocks[index] = gain.Value<double>();
+                }
+            var damageHits = damage == null ? null : Price(Js.Nullish(damage[K.Hits]) ? Js.N(1) : damage[K.Hits], Try(() => CombatPreview.FirstResolvedTarget(priced, action, damage)));
             foreach (var target in living)
             {
                 if (!needsTarget) break;
@@ -655,12 +683,13 @@ namespace Ashen.App.Combat
                     HitChance = Js.IsNum(row?[HK.CurrentHitChance]) ? row.Num(HK.CurrentHitChance) : Js.IsNum(row?[HK.HitChance]) ? row.Num(HK.HitChance) : (double?)null,
                     InRange = row == null || !(row[HK.CurrentInRange]?.Type == JTokenType.Boolean) || row.Is(HK.CurrentInRange),
                 };
-                if (damage != null && carrier != null)
+                if (damage != null && carrier != null && damageHits.HasValue)
                 {
                     var pricedEnemy = priced.Enemies.First(e => e.Str(K.Id) == target);
-                    // previewDamageHits: every hit of the card in turn, each leaving its effect on the previewed target for the next.
-                    var hitsCount = Js.IsNum(damage[K.Hits]) ? damage.Num(K.Hits) : 1;
-                    var receipts = Try(() => CoreDamage.PreviewHits(priced, priced.Player, pricedEnemy, damage.Num(K.Amount), carrier, hitsCount));
+                    // previewDamageHits: every hit of the card in turn, each leaving its effect on the previewed target for the next; the amount is the formula as this target reads it (combat.js:2678).
+                    var hitsCount = damageHits.Value;
+                    var amount = Price(damage[K.Amount], pricedEnemy);
+                    var receipts = amount == null ? null : Try(() => CoreDamage.PreviewHits(priced, priced.Player, pricedEnemy, amount.Value, carrier, hitsCount));
                     if (receipts != null && receipts.Count > 0)
                     {
                         hv.Damage = receipts[0].Num(K.Amount);
@@ -671,12 +700,12 @@ namespace Ashen.App.Combat
                 card.Hits[target] = hv;
             }
             foreach (var route in Js.Items(range?[HK.Routes]).OfType<JObject>()) card.Routes.Add(Route(route));
-            card.Text = Text(c, def, card, blocks);
+            card.Text = Text(c, def, card, blocks, evaluated);
             return card;
         }
 
         /// <summary>The card's text template with its numbers: each tokenizable value as authored, the damage token as the first target's receipt says and each Block token as the play grants it.</summary>
-        private static string Text(CombatState c, JObject def, Core2CardView card, Dictionary<int, double> blocks)
+        private static string Text(CombatState c, JObject def, Core2CardView card, Dictionary<int, double> blocks, Dictionary<string, double> evaluated)
         {
             var tokens = new JObject();
             var effects = Js.Items(def[K.Effects]).ToList();
@@ -685,7 +714,9 @@ namespace Ashen.App.Combat
                 var split = binding.Key.Split(V.KeySeparator[0]);
                 var index = int.Parse(split[0], CultureInfo.InvariantCulture);
                 var value = (effects[index] as JObject)?[split[1]];
-                if (Js.IsNum(value)) tokens[binding.Value] = blocks.TryGetValue(index, out var gain) && split[1] == K.Amount ? Js.N(gain) : value.DeepClone();
+                if (blocks.TryGetValue(index, out var gain) && split[1] == K.Amount) tokens[binding.Value] = Js.N(gain);
+                else if (Js.IsNum(value)) tokens[binding.Value] = value.DeepClone();
+                else if (evaluated.TryGetValue(binding.Key, out var worked)) tokens[binding.Value] = Js.N(worked);
             }
             var shown = card.Hits.Values.FirstOrDefault(h => h.Damage.HasValue);
             if (shown != null && tokens[Ashen.Generated.CombatOps.Damage] != null) tokens[Ashen.Generated.CombatOps.Damage] = Js.N(shown.Damage.Value);

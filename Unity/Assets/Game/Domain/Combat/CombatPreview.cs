@@ -49,14 +49,16 @@ namespace Ashen.Domain.Combat
 
         private static string BindingKey(int index, string field) => index.ToString(CultureInfo.InvariantCulture) + V.KeySeparator + field;
 
-        private static double EvalPreview(CombatState c, CombatAction action, JToken value, JObject target)
+        /// <summary>evalPreview: the exact evaluator execution uses, floored, for a preview of an effect value against a target (combat.js:2879).</summary>
+        public static double EvalPreview(CombatState c, CombatAction action, JToken value, JObject target)
         {
             if (Js.Nullish(value)) return 0;
             if (Js.IsNum(value)) return Math.Floor(Js.D(value));
             return Formulas.Evaluate(value, Actions.FormulaCtxFor(c, action, target));
         }
 
-        private static JObject FirstResolvedTarget(CombatState c, CombatAction action, JObject eff)
+        /// <summary>firstResolvedTarget: the first target an effect would resolve against, or null (combat.js:2864).</summary>
+        public static JObject FirstResolvedTarget(CombatState c, CombatAction action, JObject eff)
         {
             try
             {

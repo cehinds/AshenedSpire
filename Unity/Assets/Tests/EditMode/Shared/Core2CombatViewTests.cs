@@ -378,5 +378,76 @@ namespace Ashen.Tests
             Assert.That(seen, Is.GreaterThan(0));
             Assert.That(differs, Is.GreaterThan(0), "Defense or a matching stance changes what some card grants, so the case is covered");
         }
+
+        private static readonly string[] FormulaCards = { "base.pay-x-effect", "base.scale-negative-status", "base.scale-damage-taken", "base.damage-per-use" };
+
+        /// <summary>
+        /// The web's previewCard evaluates a formula amount with the execution evaluator (combat.js:2879) against the aimed target and the Stamina the play pays (2511-2540), and feeds it to previewDamageHits
+        /// (2677-2679) and the damage token (2803): Channel X, Affliction Scaling, Reprisal Growth and Rising Damage show what a play deals, not the literal placeholder.
+        /// </summary>
+        [Test]
+        public void AFormulaAmountIsEvaluatedForTheTextAndTheDamageShown()
+        {
+            var covered = 0;
+            var scaled = 0;
+            foreach (var classId in new[] { "reaver", "rogue", "herald", "starseer" })
+                for (var seed = 1u; seed <= 6; seed++)
+                {
+                    var run = CoreRunRules.Create(Data.Run, seed, classId, CoreRunOptions.FromJson(null, Core2DamageParityTests.Unlocked));
+                    var session = Ashen.App.Combat.Core2CombatSession.Start(Data, new Rng(seed), run, "loneSoldier");
+                    var added = 0;
+                    foreach (var cardId in FormulaCards)
+                        session.State.Piles.Hand.Add(new JObject { ["instanceId"] = "fm" + (++added), ["cardId"] = cardId, ["upgraded"] = false });
+                    session.State.Player.Obj("abilityRiders")["hpLostSinceTurnStart"] = 8;
+                    foreach (var enemy in session.State.Enemies)
+                    {
+                        enemy["block"] = 0;
+                        enemy["barrier"] = 0;
+                        enemy.Remove("persistentPoise");
+                        enemy.Remove("persistentWard");
+                        enemy.Obj("statuses")["weak"] = new JObject { ["stacks"] = 2 };
+                        enemy.Obj("statuses")["vulnerable"] = new JObject { ["stacks"] = 2 };
+                    }
+                    var view = Core2CombatView.Build(session);
+                    foreach (var card in view.Hand.Where(h => FormulaCards.Contains(h.CardId)))
+                    {
+                        var at = classId + " " + seed + " " + card.CardId;
+                        Assert.That(card.Text, Does.Not.Contain("{"), at + " text");
+                        foreach (var pair in card.Hits.Where(h => h.Value.Damage != null))
+                        {
+                            // The player sees the fight through what he has read: an unread enemy's hidden stance is not in the price (combat.js:2465-2476), so the play is run on the same view of it.
+                            var played = CoreVisibility.Project(CoreTransaction.DetachPaused(session.State));
+                            var before = played.Enemies.First(e => e.Str("id") == pair.Key).Num("hp");
+                            var play = card.Plays.FirstOrDefault(l => l.Str("targetId") == pair.Key);
+                            if (play == null) continue;
+                            CoreDispatch.Dispatch(played, (JObject)play.DeepClone());
+                            var lost = before - played.Enemies.First(e => e.Str("id") == pair.Key).Num("hp");
+                            if (lost <= 0) continue; // a miss deals nothing; the odds are shown beside the damage
+                            Assert.That(pair.Value.Receipt.Num("totalDamage"), Is.EqualTo(lost), at + " on " + pair.Key);
+                            Assert.That(card.Text, Does.Contain(CombatText.Number(pair.Value.Damage.Value) + " damage"), at + " text states the damage shown");
+                            covered++;
+                            if (lost != 6) scaled++;
+                        }
+                    }
+                }
+            Assert.That(covered, Is.GreaterThan(0), "a formula card was priced against a target");
+            Assert.That(scaled, Is.GreaterThan(0), "the formula moves the damage off the printed base, so the case is covered");
+        }
+
+        /// <summary>No shipped Core 2 card, dealt into a hand, shows an unfilled {token} placeholder: every value the web's previewCard binds is filled (combat.js:2803).</summary>
+        [Test]
+        public void NoShippedCardShowsAnUnfilledToken()
+        {
+            var run = CoreRunRules.Create(Data.Run, 1, "reaver", CoreRunOptions.FromJson(null, Core2DamageParityTests.Unlocked));
+            var session = Ashen.App.Combat.Core2CombatSession.Start(Data, new Rng(1), run, "loneSoldier");
+            var ids = Js.Items(session.State.CoreData.Content(Ashen.Generated.Core2ProfileContentKeys.Cards)).OfType<JObject>().Select(card => card.Str("id")).Where(id => id != null).ToList();
+            Assert.That(ids, Is.Not.Empty);
+            var added = 0;
+            foreach (var id in ids)
+                session.State.Piles.Hand.Add(new JObject { ["instanceId"] = "all" + (++added), ["cardId"] = id, ["upgraded"] = false });
+            var view = Core2CombatView.Build(session);
+            var unfilled = view.Hand.Where(h => h.Text != null && h.Text.Contains("{")).Select(h => h.CardId + ": " + h.Text).ToList();
+            Assert.That(unfilled, Is.Empty);
+        }
     }
 }

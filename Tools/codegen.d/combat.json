@@ -807,7 +807,7 @@
       "doc": "Patterns the combat port parses (shipped parseMod, tokens.js TOKEN_PATTERN, the legacy relic gate key).",
       "keys": {
         "CardMod": "^(?<prefix>[A-Za-z]\\w*)\\.(?<field>[A-Za-z]\\w*)=(?<sign>[+-]?)(?<num>\\d+(?:\\.\\d+)?)$",
-        "TextToken": "\\{(?<token>[A-Za-z][\\w.]*)\\}",
+        "TextToken": "\\{(?<token>[A-Za-z][\\w.-]*)\\}",
         "LegacyRelicGate": "^relic:(?<owner>.+):(?<relic>[^:]+):(?<index>\\d+)$"
       }
     }
