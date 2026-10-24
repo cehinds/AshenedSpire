@@ -33,9 +33,11 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>previewCard's visible copy: a detached fight (the fight itself when it keeps no enemy knowledge) where every enemy the player has not read shows an unknown intent and no stance, Counter or pending move.</summary>
-        public static CombatState VisibleCopy(CombatState live)
+        public static CombatState VisibleCopy(CombatState live) => Project(live.Detach());
+
+        /// <summary>previewCard's projection of a detached copy (candidateState, then the unread enemies stripped), in place.</summary>
+        public static CombatState Project(CombatState visible)
         {
-            var visible = live.Detach();
             if (visible.Fields.Obj(CK.EnemyKnowledge) == null) return visible;
             foreach (var enemy in visible.Enemies.Where(e => !IntentExact(visible, e)))
             {

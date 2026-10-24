@@ -623,9 +623,9 @@ namespace Ashen.App.Combat
 
             // The damage the card's first damaging effect would do to each target, and the odds, as the engine's own receipt and hit preview say.
             var damage = Js.Items(def[K.Effects]).OfType<JObject>().FirstOrDefault(e => e.Str(K.Op) == Ashen.Generated.CombatOps.Damage && Js.IsNum(e[K.Amount]));
-            // The web's previewCard prices a card on a detached copy that has already entered the card's stance (combat.js setCombatStance), as
+            // The web's previewCard prices a card on a detached copy of the fight as the player sees it (an unread enemy shows no stance, combat.js:2465-2476), that has already entered the card's stance (combat.js setCombatStance), as
             // CoreCardPlay.Enter does: the entry's grants and rating bonus count, and the matching-stance flag is read before the entry.
-            var priced = damage == null ? null : Try(() => CoreTransaction.DetachPaused(c));
+            var priced = damage == null ? null : Try(() => CoreVisibility.Project(CoreTransaction.DetachPaused(c)));
             var carrier = priced == null ? null : Try(() => CoreCardPlay.Carrier(priced, inst, def));
             if (carrier != null) Try(() => { CoreStances.SetProfileStance(priced, priced.Player, carrier); return carrier; });
             foreach (var target in living)

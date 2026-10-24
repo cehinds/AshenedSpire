@@ -226,6 +226,43 @@ namespace Ashen.Tests
             Assert.That(differs, Is.GreaterThan(0), "some card's stance entry changes what it deals, so the case is covered");
         }
 
+        /// <summary>
+        /// The web's previewCard prices a card on the fight as the player sees it (combat.js:2465-2476, F.candidateState with the unread enemies stripped of stance, Counter and
+        /// pending move): what the card is shown to deal to an enemy whose move is unread is the same whatever stance that enemy is hidden in, so the receipt never leaks the move.
+        /// </summary>
+        [Test]
+        public void AnUnreadEnemysHiddenStanceDoesNotChangeTheDamageShown()
+        {
+            var covered = 0;
+            foreach (var classId in new[] { "reaver", "rogue", "herald", "starseer" })
+                for (var seed = 1u; seed <= 12; seed++)
+                {
+                    var run = CoreRunRules.Create(Data.Run, seed, classId, CoreRunOptions.FromJson(null, Core2DamageParityTests.Unlocked));
+                    var session = Ashen.App.Combat.Core2CombatSession.Start(Data, new Rng(seed), run, "loneSoldier");
+                    var c = session.State;
+                    foreach (var enemy in c.Enemies.Where(e => e.Is("alive") && !CoreVisibility.IntentExact(c, e)).ToList())
+                    {
+                        enemy.Remove("combatStance");
+                        var baseline = Core2CombatView.Build(session);
+                        foreach (var maneuver in new[] { "block", "evade", "smash", "attack", "counter" })
+                        {
+                            enemy["combatStance"] = new JObject { ["maneuver"] = maneuver, ["camp"] = "physical", ["range"] = "melee" };
+                            var view = Core2CombatView.Build(session);
+                            for (var i = 0; i < baseline.Hand.Count; i++)
+                                foreach (var pair in baseline.Hand[i].Hits.Where(h => h.Key == enemy.Str("id") && h.Value.Damage != null))
+                                {
+                                    var shown = view.Hand[i].Hits[pair.Key];
+                                    Assert.That(shown.Damage, Is.EqualTo(pair.Value.Damage), classId + " " + seed + " " + baseline.Hand[i].CardId + " vs hidden " + maneuver);
+                                    Assert.That(shown.Receipt?.ToString(), Is.EqualTo(pair.Value.Receipt?.ToString()), classId + " " + seed + " " + baseline.Hand[i].CardId + " receipt vs hidden " + maneuver);
+                                    covered++;
+                                }
+                        }
+                        enemy.Remove("combatStance");
+                    }
+                }
+            Assert.That(covered, Is.GreaterThan(0), "some unread enemy was priced");
+        }
+
         [Test]
         public void TheEquipmentAndTheRearmOptionsAreJudgedByTheRules()
         {
