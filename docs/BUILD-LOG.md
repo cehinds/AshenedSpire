@@ -2,6 +2,20 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-2: art release import, asset lookup by name (worktree branch, 2026-10-24)
+
+**Landed**
+- **Pipeline (D-550):** `scan-assets.mjs --release` + `Tools/lib/{assets-lib,release-art}.mjs` add the `hd-assets-v23` art additively (1,083 ids; 631 imported), downscale/rasterise with sharp, write PNG/JPG and deterministic `.meta`s (images gitignored per D-018). Registry schema allows `png`, `release`, `unityWidth/unityHeight`. Provenance and CREDITS refreshed. Run: `cd Tools && npm install`, fetch the release with the web's `tools/fetch-art.mjs` (high + common packs) into a scratch copy, then `node Tools/scan-assets.mjs --release <cache>/hd-assets-v23 --web <web repo> --import`.
+- **What (D-551):** card paintings (237), card library (60), cutouts (44), card frame layers (7), 79 white icons + 10 UI components, stamina orb (5), footer art (5), flasks (5), events (20), scenes/illustrations (17), shop (51), prologue (32), creation (16), map-detail tiles (40). Generated size 74.6 MB (card 20.5, prologue 9.8, cutouts 12.8, illus 8.7, creation 3.6, mapdetail 2.6, shop 2.5, scene 2.4, rest under 2.2 each); committed: metas, registry (+1,059 ids), code.
+- **Lookup (D-552, D-553):** `ui/art.json`, `ArtLookup`/`ArtConfig`/`ArtRegistry` (Application/Ui), `UiData.Art`, `UiContext.Icon/CardArt/Texture` with lazy group catalogs, `Cli.BuildUiArt` builds them; import rules for the new folders.
+- **Tests:** `ArtLookupTests` (12): groups cover every imported release id, every Core 2 card/enemy/icon/event resolves (explicit event list), web hash parity. `AssetRegistryTests` scans `.jpg` metas too.
+
+**Not verified:** Unity was not run: the `.meta` files are hand-written (Unity rewrites them on first import), `UiContext`/`UiTools` changes are uncompiled, the group `.asset` catalogs do not exist until `BuildUiArt` runs. The full Domain.Tests run aborts with a test-host crash in `BotRunTests`; filtered runs pass.
+
+**Card frame layout (web `CARD_COMPONENTS.template`, 360x540):** base 0,0,360x540; art 10,40,340x336; panel 24,346,312x147; flag -20,-23,97x233; energy icon -37,147,130x113; mana icon -24,60,104x91; stamina icon -9,-20,78x80; title text 67,20,260x50; rules 57,383,246x84; tags 61,490,250x40. VP-3 uses these.
+
+**Next:** VP-3 card face (frame layers, cutout composition), icons into the kit (replace glyph characters), event/shop/prologue/map screens read `ArtLookup`.
+
 ## VP-1: fonts, tokens and the web palette (worktree branch, 2026-10-24)
 
 **Landed**

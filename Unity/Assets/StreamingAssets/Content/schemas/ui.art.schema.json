@@ -1,0 +1,50 @@
+{
+  "$id": "ui/art.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "resource": { "type": "string" },
+          "include": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["id", "resource", "include"]
+      }
+    },
+    "lookup": { "type": "object", "additionalProperties": { "type": "string" } },
+    "iconAlias": { "type": "object", "additionalProperties": { "type": "string" } },
+    "card": {
+      "type": "object",
+      "properties": {
+        "painting": { "type": "string" },
+        "profile": { "type": "string" },
+        "library": { "type": "string" },
+        "tags": { "type": "object", "additionalProperties": { "type": "string" } },
+        "campCategory": { "type": "object", "additionalProperties": { "type": "string" } },
+        "maneuverAlias": { "type": "object", "additionalProperties": { "type": "string" } },
+        "libraryManeuvers": { "type": "array", "items": { "type": "string" } },
+        "attackType": { "type": "string" },
+        "skillManeuver": { "type": "string" },
+        "variantCount": { "type": "integer" },
+        "variantFormat": { "type": "string" },
+        "hash": {
+          "type": "object",
+          "properties": { "offset": { "type": "integer" }, "prime": { "type": "integer" }, "separator": { "type": "string" } },
+          "required": ["offset", "prime", "separator"]
+        },
+        "elementVariant": { "type": "object", "additionalProperties": { "type": "integer" } },
+        "elementAlias": { "type": "object", "additionalProperties": { "type": "string" } },
+        "defaultElement": { "type": "string" },
+        "defaultCategory": { "type": "string" },
+        "magicalCategory": { "type": "string" },
+        "placeholder": { "type": "object", "additionalProperties": { "type": "string" } }
+      },
+      "required": ["painting", "profile", "library", "tags", "campCategory", "libraryManeuvers", "variantCount", "hash", "placeholder"]
+    }
+  },
+  "required": ["groups", "lookup", "card"]
+}

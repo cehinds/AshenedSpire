@@ -3,6 +3,14 @@
   "rules": [
     { "prefix": "Assets/Art/Imported/bg/", "maxSize": 4096, "compression": "highQuality", "pixelsPerUnit": 100 },
     { "prefix": "Assets/Art/Imported/env/", "maxSize": 4096, "compression": "highQuality", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Imported/card/", "maxSize": 1024, "compression": "highQuality", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Imported/cardlib/", "maxSize": 1024, "compression": "highQuality", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Imported/cardprofile/", "maxSize": 1024, "compression": "highQuality", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Imported/cardframe/", "maxSize": 1024, "compression": "highQuality", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Imported/scene/", "maxSize": 2048, "compression": "highQuality", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Imported/prologue/", "maxSize": 2048, "compression": "highQuality", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Imported/mapdetail/", "maxSize": 1024, "compression": "highQuality", "pixelsPerUnit": 100 },
+    { "prefix": "Assets/Art/Imported/icon/", "maxSize": 128, "compression": "highQuality", "pixelsPerUnit": 100 },
     { "prefix": "Assets/Art/Imported/vfx/", "maxSize": 1024, "compression": "normal", "pixelsPerUnit": 100 },
     { "prefix": "Assets/Art/Imported/", "maxSize": 2048, "compression": "normal", "pixelsPerUnit": 100 },
     { "prefix": "Assets/Art/Generated/", "maxSize": 2048, "compression": "normal", "pixelsPerUnit": 100 }

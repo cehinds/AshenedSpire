@@ -22,6 +22,9 @@ namespace Ashen.App.Ui
         /// <summary>ui/meta.json: the meta lane's presentation data (the act map's reveal modes).</summary>
         public JObject Meta;
 
+        /// <summary>ui/art.json over the asset registry (VP-2): finds a card's art, an icon or a scene by name.</summary>
+        public ArtLookup Art;
+
         public static UiData Load(IContentSource source)
         {
             JObject Read(string path) => (JObject)JsonContent.Parse(source.ReadText(path));
@@ -37,6 +40,7 @@ namespace Ashen.App.Ui
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
                 Meta = Read(ContentFiles.UiMeta),
+                Art = new ArtLookup(ArtConfig.From(Read(ContentFiles.UiArt)), ArtRegistry.From(Read(ContentFiles.AssetsRegistry))),
             };
         }
 
