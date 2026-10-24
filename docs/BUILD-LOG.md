@@ -2,6 +2,27 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-18: the deck editor session, its projection and Play in deck order (dev, 2026-10-24)
+
+The rules half of WP-18 (D-190 to D-194) was already in; this finishes the work package: the engine-facing half of the web's `DeckEditorModel.js`, the Application door on `Core2RunSession`, and Play in deck order reaching the fight.
+
+**Landed**
+- **Play in deck order (D-400):** `createRunCombat`'s `orderedDraw` for a Core 2 fight: the deck as listed (Innate first), no `shuffle` value consumed, the order on the fight, the discard returned in deck order by `Actions.DrawCards`; the round refresh still shuffles, as in the web. Oracle: 72 fights x 24 steps (plays, drains, draws, end turns).
+- **`DeckEditor` (D-401):** `openDeckEdit` (add by collection key, remove, place, undo, confirm, cancel), `deckEditorModel` (counter, Done, cost curve, deck rows, collection tiles with their refusals, filter chips, sorts), `deckEditorDoors`; refusals carry the sentence and the string key behind it; `LocaleCompare` stands in for the browser's collation. The web's `deckEditor.*` sentences are in `strings/app.en.json` (96 added).
+- **`Core2RunSession` (D-402):** `DeckEditorRefusal()`, `OpenDeckEditor(strings)` (`Core2DeckEditor`: Confirm saves the slot, Cancel writes nothing), `CommitDeckDraft(draft)` (atomic, the web's sentences). New codegen sets: `Core2DeckEditorValues`, `Core2DeckText`, `Core2DeckTextFormats`, `Core2DeckEditorNumbers`.
+- **Oracle (D-403):** `Tools/oracle-core2-deck.mjs` now also writes 12 editor sessions (4 classes x 3 seeds x 55 steps), the collation cases and the ordered fights.
+- **No screen (D-404):** nothing to extend (the 405 has none either); the seam and what a Core 2 screen needs are in the decision.
+
+**Tests** (targeted, with `Enforcement`): `Core2DeckParityTests` 59, `Core2DeckOrderParityTests` 74, `Core2DeckEditorParityTests` 14 (12 sessions, collation, presence), `Core2DeckEditorSessionTests` 8; with `Core2CombatStart*` and `Enforcement` 490/490. `codegen --check`, `refresh-manifest --check`, `check-content` and `check-docs` green. The full suite was not run.
+
+**Not verified / open**
+- `transform-content.mjs --check` needs `Tools/export/raw` (absent in this container); nothing it reads changed (`strings/app.en.json` and `rules/core2Deck.json` are hand-written).
+- No Unity editor: nothing in Presentation changed.
+- A host crash of `dotnet test --no-build` seen after incremental builds (not reproduced on a clean build or with `--blame`); not a test failure.
+- Deferred: the row's `cardCategory`, `nextFilterPreset`, `rankZeroLabelId`; the Armoury's equipment editing; a player control for the deck rows (WP-20); a screen (D-404).
+
+**Next:** WP-19 (run loop glue) can call `DeckEditorRefusal()` for the Armoury door; WP-20 puts the deck settings behind `settings/webKeyMap.json`.
+
 ## Core 2 WP-C1b: the Unity screens play Core 2 fights (dev, 2026-10-24)
 
 **Landed**
