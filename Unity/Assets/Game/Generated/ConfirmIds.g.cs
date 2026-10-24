@@ -23,5 +23,6 @@ namespace Ashen.Generated
         public const string EventChoose = "eventChoose";
         public const string EventChooseBinding = "eventChooseBinding";
         public const string DungeonLeave = "dungeonLeave";
+        public const string DeckDiscard = "deckDiscard";
     }
 }

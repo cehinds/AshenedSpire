@@ -1,5 +1,5 @@
 {
-  "contentHash": "fb74e516dc893d1b73c5fa5162a5d2e957c778c7f033a8c097c0e84b045391fb",
+  "contentHash": "e98b282f5487d255bdd1023914413c2c77d0524574751fe9859dff7c408a52ba",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -2060,9 +2060,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 35309,
+      "bytes": 37397,
       "generated": false,
-      "sha256": "e584ed37189699cab8a39221d321d5ced4690a2961843f145f41e5ab9a7c5a4d"
+      "sha256": "b4d873122dcc4d86361a517bc1d984596fb493742fe93ccafc2f87f9f1082716"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2190,9 +2190,9 @@
       "sha256": "330892274c3cc8c87947d2662b07dccbd95f7c3275dc2922a80e3d30a546d178"
     },
     "ui/menus.json": {
-      "bytes": 8038,
+      "bytes": 8283,
       "generated": false,
-      "sha256": "22fa58432a459cab7decfa121a7e77f126b6948da8e116ff35ce082cb8002ef5"
+      "sha256": "e5415048522209aefe6ef47885de66ac712e4b681f6628e44f54a41a804a0b39"
     },
     "ui/meta.json": {
       "bytes": 890,
@@ -2210,9 +2210,9 @@
       "sha256": "1ca95429d719c46c8d712ea5506b72c8422b8a0ca04b4580f6a4b00ae2130d2b"
     },
     "ui/screens.json": {
-      "bytes": 8723,
+      "bytes": 8798,
       "generated": false,
-      "sha256": "cfa1c1d7d008f70bde7486d7658dc98c004ad201eaefd96e480bcbb502ba5182"
+      "sha256": "536db3e3117b541ae3274665ce242467398ea7014f04aaab0c3cbf70fb92c671"
     },
     "ui/terms.json": {
       "bytes": 12076,
@@ -2225,9 +2225,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 29231,
+      "bytes": 30386,
       "generated": false,
-      "sha256": "d58116a700f242aa35f7a07fc4696c48db90ea1e61e8d806b114fd9407606c4f"
+      "sha256": "ac8a4d65ed30a67d8e3cefff2e4b856189f310b7c3b617f1325b0f174178c360"
     }
   },
   "schemaVersion": 1,

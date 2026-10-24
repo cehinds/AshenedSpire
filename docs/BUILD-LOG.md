@@ -2,6 +2,24 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-10: the act map, the Armoury modal and the deck editor (worktree branch, 2026-10-24)
+
+**Landed (D-900..D-905)**
+- **Map:** the web's act map in UI Toolkit: parchment ground (a generated repeating texture), the painted atlas of the seed's world revealed around the fog's lights (a textured mesh with per-vertex alpha), the walked route as an outlined line, 87 px node discs with the kind's icon (unknown places in a dashed ring, the walked ones faded, the current one filled, the reachable ones haloed), the progress strip with a slot per floor, the zoom bar, the Potions disc, the legend popover, the tray (floor, kind, blurb, Back and Enter) and the Deck / Equipment / Stats / Menu key bar with its keys. A Core 2 run's fog is pinned by its profile (`routes.mapMode`), so it draws the web's lit set whatever the setting says; the 405 run keeps D-151.
+- **Armoury modal:** Character (class, level, XP, sheet, relics), Armory > Cards (the deck as card faces), Armory > Equipment (equipped positions, locked sets with their unlock hints, an inspector), and the Edit Deck tab, the deck editor over `Core2DeckEditor` (rows, tiles, counter, cost curve, filter and sort chips, inspector, Undo / Done / Cancel with the discard door, refusals at the control). Doors: the map's keys, the HUD button, the pause row.
+- **Tests (small filters, one at a time):** `MapAtlas` (15), `Core2Screens` (16, five new for the Armoury views and the deck editor door), `Enforcement`, `UiData`, `Core2DeckEditorSession` all pass; node: `ui-tokens`, `codegen`, `refresh-manifest`, `transform-content`, `ci/check-content`, `ci/check-docs`, `ui-stage`, `card-face` `--check` pass; the D-314 Presentation compile passes.
+- Merged `dev` (VP-7 spoils): conflicts were additive (tokens.json webSource, manifest).
+
+**Not verified (Unity was not run):** every USS rule and the layout of both screens; `Allocate` / `SetNextVertex` mesh drawing and the uv orientation of the atlas tiles (v up assumed); the parchment's `background-repeat` over a Texture2D; the dashed ring's tint and the vignette stretch; `KeyDownEvent` hotkeys reaching the screen root; the nested scrolling of the editor panes (the whole body scrolls); the Armoury over the pause menu; focus restore after a re-render (by `userData` keys).
+
+**Owner: check in the editor (Core 2 run at 1920x1080; compare `docs/qa/web-screens/map-start`, `map-trail`, `map-trail-selected`, `map-midclimb`, `map-legend`, `map-deck`, `map-equipment`, `map-stats`)**
+- New game: the map shows the entrance: three monster discs on parchment with the painting revealed around them only, the strip with 7 empty slots, the key bar; the boss is lit at the top (scroll up) with its own reveal. Pick a node: tray with FLOOR n, the kind, its blurb, Back and a green Enter; Enter travels. After a fight the walked node is cream, the route line is drawn to it, its split is lit and revealed, and the strip slot shows its icon with the current ring.
+- Keys D, R, T, M and the four buttons; the HUD armoury button; pause > Armoury. Deck: a grid of card faces and Edit deck. Equipment: BODY and MH1 with their pieces, MH2 and OH2 locked with "Reach the ..." hints, OH1 Empty and Active. Stats: the class, level 1 and its XP bar, HP SP MP Draw, relics.
+- Edit Deck: add and remove copies (refusals show over the pressed control), Undo, Done saves, Cancel with changes asks to discard; Escape does the same. During a fight the door refuses ("The deck cannot be changed during a fight").
+- Settings: Map reveal does not change a Core 2 run (pinned); a 405 run still follows it.
+
+**Next:** the spoils review's Edit deck action (needs the pending reward and the editor reconciled); Combat Power and the derived ratings on the Character pane; Replace / Unequip and Inventory; Potions outside a fight; phone compositions (VP-14).
+
 ## VP-7: the Core 2 spoils screen (worktree branch, 2026-10-24)
 
 **Landed (D-850, D-851)**

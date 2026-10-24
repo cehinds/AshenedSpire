@@ -57,5 +57,9 @@ namespace Ashen.Generated
         public const string Number = "number";
         public const string Target = "target";
         public const string Selected = "selected";
+        public const string Names = "names";
+        public const string Code = "code";
+        public const string Rarity = "rarity";
+        public const string Bucket = "bucket";
     }
 }

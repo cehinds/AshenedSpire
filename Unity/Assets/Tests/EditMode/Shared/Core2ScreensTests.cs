@@ -133,6 +133,78 @@ namespace Ashen.Tests
             Assert.That(view.Legend.Select(l => l.Kind).Distinct().Count(), Is.EqualTo(view.Legend.Count));
         }
 
+        // ------------------------------------------------------------------ the Armoury (D-903)
+
+        [Test]
+        public void TheCharacterPaneNamesTheClassItsLevelAndItsPools()
+        {
+            var session = New();
+            var view = ArmouryPanes.Character(session, Ui);
+            Assert.That(view.ClassName, Is.Not.Empty);
+            Assert.That(view.Eyebrow, Does.Contain(view.ClassName).And.Contain("1"));
+            Assert.That(view.Description, Is.Not.Empty);
+            Assert.That(view.Sheet.Select(c => c.Label), Is.EqualTo(new[] { "HP", "SP", "MP", "Draw" }));
+            Assert.That(view.Sheet[0].Value, Is.EqualTo(((int)session.Run.Value<double>("maxHp")).ToString()));
+            Assert.That(view.XpFraction, Is.InRange(0d, 1d));
+            Assert.That(view.RelicsSummary, Is.Not.Empty);
+        }
+
+        [Test]
+        public void TheEquipmentPaneListsTheBodyAndTheHandsAndLocksTheSetsTheProfileHasNotOpened()
+        {
+            var positions = ArmouryPanes.Equipment(New(), Ui);
+            Assert.That(positions.Select(p => p.Code), Does.Contain("BODY").And.Contain("MH1").And.Contain("OH1"));
+            var body = positions.First(p => p.Code == "BODY");
+            Assert.That(body.Item, Is.Not.Null, "the class starts in its armour");
+            Assert.That(body.Item.Name, Is.Not.Empty);
+            var locked = positions.Where(p => p.Locked).ToList();
+            Assert.That(locked, Is.Not.Empty, "the second and third sets are not open at the start");
+            Assert.That(locked.All(p => p.Item == null), Is.True);
+            Assert.That(locked.Any(p => p.Hint.Length > 0), Is.True, "a locked position says how to open it");
+            Assert.That(positions.Where(p => !p.Locked && p.Item != null).Select(p => p.Name), Is.All.Not.Empty);
+        }
+
+        [Test]
+        public void EveryCardOfTheDeckHasAFaceOutsideAFight()
+        {
+            var session = New();
+            var data = session.CombatData;
+            var deck = session.Run.Arr("deck").OfType<JObject>().ToList();
+            Assert.That(deck, Is.Not.Empty);
+            foreach (var instance in deck)
+            {
+                var card = Core2DeckCards.View(data, instance);
+                Assert.That(card.Name, Is.Not.Empty, instance.Value<string>("cardId"));
+                Assert.That(card.Text, Is.Not.Empty.And.Not.Contain("{"), card.Name + " reads with its numbers");
+                Assert.That(card.Face.CardId, Is.EqualTo(instance.Value<string>("cardId")));
+            }
+        }
+
+        [Test]
+        public void TheDeckEditorDoorOpensForAFreshRunAndTheScreenReadsItsModel()
+        {
+            var session = New();
+            Assert.That(session.DeckEditorRefusal(), Is.Null);
+            var open = session.OpenDeckEditor(Ui.Strings);
+            Assert.That(open.Opened, Is.True);
+            var model = open.Editor.Model();
+            Assert.That(model.Counter.Text, Is.Not.Empty);
+            Assert.That(model.Deck, Is.Not.Empty);
+            Assert.That(model.Curve, Is.Not.Empty);
+            Assert.That(model.Sorts, Is.Not.Empty);
+            foreach (var row in model.Deck) Assert.That(Core2DeckCards.View(session.CombatData, row.Ref).Name, Is.EqualTo(row.Name));
+            open.Editor.Cancel();
+        }
+
+        [Test]
+        public void TheArmouryAndItsConfirmAreRoutedAndBuilt()
+        {
+            Assert.That(Ui.Screens.IsBuilt(ScreenIds.Armoury), Is.True);
+            Assert.That(Ui.Screens.Get(ScreenIds.Armoury).IsModal, Is.True);
+            Assert.That(Ui.Menus.Confirm(ConfirmIds.DeckDiscard), Is.Not.Null);
+            Assert.That(Ui.Menus.Pause.Any(e => e.Target == ScreenIds.Armoury), Is.True, "the pause menu's Armoury row opens it");
+        }
+
         [Test]
         public void TheRunHudOfACore2RunNamesTheCharacterAndTheirPools()
         {

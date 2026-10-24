@@ -178,6 +178,8 @@
     --font-map-tray-body: 14px;
     --font-map-legend: 13px;
     --font-map-tool: 14px;
+    --font-armoury-tab: 15px;
+    --font-armoury-name: 20px;
     --size-button-h: 44px;
     --size-button-tall-h: 56px;
     --size-button-double-h: 88px;
@@ -582,6 +584,18 @@
     --size-map-legend-left: 3px;
     --size-map-legend-bottom: 47px;
     --size-parchment-tile: 171px;
+    --size-armoury-rail-w: 144px;
+    --size-armoury-xp-h: 8px;
+    --size-armoury-portrait-w: 290px;
+    --size-armoury-portrait-h: 200px;
+    --size-armoury-card-w: 147px;
+    --size-armoury-card-h: 221px;
+    --size-armoury-thumb: 54px;
+    --size-armoury-inspect-w: 210px;
+    --size-armoury-curve-h: 40px;
+    --size-armoury-curve-bar-w: 26px;
+    --size-armoury-curve-fill-w: 14px;
+    --size-armoury-step: 26px;
     --border-hairline: 1px;
     --border-control: 2px;
     --border-focus: 2px;

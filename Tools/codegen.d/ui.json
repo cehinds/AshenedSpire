@@ -438,7 +438,10 @@
         "MapKeyStats": "MAP_KEY_STATS",
         "MapKeyMenu": "MAP_KEY_MENU",
         "TrayFloor": "TRAY_FLOOR",
-        "MapTools": "MAP_TOOLS"
+        "MapTools": "MAP_TOOLS",
+        "MapRailEnd": "MAP_RAIL_END",
+        "ArmouryScrim": "ARMOURY_SCRIM",
+        "ArmouryModal": "ARMOURY_MODAL"
       }
     },
     {
@@ -874,7 +877,8 @@
         "MerchantSmith": "merchantSmith",
         "EventChoose": "eventChoose",
         "EventChooseBinding": "eventChooseBinding",
-        "DungeonLeave": "dungeonLeave"
+        "DungeonLeave": "dungeonLeave",
+        "DeckDiscard": "deckDiscard"
       }
     },
     {
@@ -945,7 +949,11 @@
         "Cost": "cost",
         "Number": "number",
         "Target": "target",
-        "Selected": "selected"
+        "Selected": "selected",
+        "Names": "names",
+        "Code": "code",
+        "Rarity": "rarity",
+        "Bucket": "bucket"
       }
     },
     {

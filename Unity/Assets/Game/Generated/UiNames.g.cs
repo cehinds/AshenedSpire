@@ -406,5 +406,8 @@ namespace Ashen.Generated
         public const string MapKeyMenu = "MAP_KEY_MENU";
         public const string TrayFloor = "TRAY_FLOOR";
         public const string MapTools = "MAP_TOOLS";
+        public const string MapRailEnd = "MAP_RAIL_END";
+        public const string ArmouryScrim = "ARMOURY_SCRIM";
+        public const string ArmouryModal = "ARMOURY_MODAL";
     }
 }

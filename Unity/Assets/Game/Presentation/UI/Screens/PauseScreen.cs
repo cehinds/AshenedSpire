@@ -67,7 +67,7 @@ namespace Ashen.Presentation.UI.Screens
             }
         }
 
-        private void Activate(MenuEntryDef def, LocButton button) => PauseActions.Activate(Context, _session, def);
+        private void Activate(MenuEntryDef def, LocButton button) => PauseActions.Activate(Context, _session, def, button);
 
         /// <summary>Checkpoint, then the title; a failure opens W1r with Retry and leaves the pause open.</summary>
         public void SaveAndQuit() => PauseActions.SaveAndQuit(Context, _session);

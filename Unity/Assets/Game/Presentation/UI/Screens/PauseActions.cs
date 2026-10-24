@@ -4,6 +4,7 @@ using Ashen.App.Run;
 using Ashen.App.Ui;
 using Ashen.Generated;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Ashen.Presentation.UI.Screens
 {
@@ -12,7 +13,7 @@ namespace Ashen.Presentation.UI.Screens
     /// </summary>
     internal static class PauseActions
     {
-        public static void Activate(ScreenContext context, IClimb session, MenuEntryDef def)
+        public static void Activate(ScreenContext context, IClimb session, MenuEntryDef def, VisualElement anchor = null)
         {
             var ui = context.Ui;
             var nav = context.Navigator;
@@ -33,6 +34,10 @@ namespace Ashen.Presentation.UI.Screens
                         Target = session == null ? null : RunFlow.SlotFacts(ui, SlotSummaries.ReadOne(ui.Saves, session.SlotIndex)),
                         OnConfirm = () => Abandon(context, session),
                     });
+                    break;
+                case MenuActions.Open when def.Target == ScreenIds.Armoury:
+                    // The Armoury opens over the pause menu on a Core 2 run; any other run says it arrives later at the row that asked.
+                    if (!ArmouryDoor.Open(context, session, ArmouryValues.TabEquipment)) RunFlow.Refuse(context, anchor, StringKeys.MapRefusalArmoury);
                     break;
                 case MenuActions.Open:
                     nav.Go(def.Target);

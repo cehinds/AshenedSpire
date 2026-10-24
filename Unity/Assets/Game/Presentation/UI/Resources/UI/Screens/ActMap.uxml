@@ -1,39 +1,74 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Screens.uss" />
     <ui:Style src="Climb.uss" />
-    <ui:VisualElement name="MAP_BACKGROUND" class="map-background" picking-mode="Ignore" />
+    <ui:Style src="Map.uss" />
     <ui:VisualElement name="MAP_PAGE" class="page map-page">
-        <Ashen.Presentation.UI.Kit.RunHud name="RUN_HUD" />
-        <ui:VisualElement name="MAP_HEAD" class="map-head">
-            <Ashen.Presentation.UI.LocLabel name="MAP_TITLE" class="map-title kit-text-header" />
-            <Ashen.Presentation.UI.LocLabel name="MAP_SEAT" class="map-seat kit-text-value" />
-            <Ashen.Presentation.UI.LocLabel name="MAP_FLOOR" class="map-floor kit-text-value" />
+        <ui:VisualElement name="RUN_HUD" class="board-hud map-hud">
+            <ui:VisualElement name="HUD_HEART" class="hud-heart" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.Kit.Meter name="HUD_HP" class="hud-hp" kind="hp" picking-mode="Ignore" />
+            <ui:VisualElement name="HUD_PIPS" class="hud-pips" picking-mode="Ignore" />
+            <ui:VisualElement name="HUD_SIDE" class="hud-side" picking-mode="Ignore">
+                <ui:VisualElement class="hud-buttons" picking-mode="Ignore">
+                    <Ashen.Presentation.UI.LocButton name="TOOL_ARMAMENTS" class="hud-icon-button" string-key="core2.tools.armaments" />
+                    <Ashen.Presentation.UI.LocButton name="HUD_MENU" class="hud-icon-button" string-key="combat.menu" />
+                </ui:VisualElement>
+                <Ashen.Presentation.UI.LocLabel name="HUD_CINDERS" class="hud-cinders kit-text-header kit-upper" picking-mode="Ignore" />
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:ScrollView name="MAP_VIEWPORT" class="map-viewport" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Auto">
-            <Ashen.Presentation.UI.Kit.MapBoard name="MAP_NODES" />
-        </ui:ScrollView>
-        <ui:VisualElement name="MAP_FOOTER" class="map-footer">
-            <Ashen.Presentation.UI.LocButton name="MAP_ZOOM_OUT" class="map-tool" string-key="map.zoom.out" />
-            <Ashen.Presentation.UI.LocButton name="MAP_ZOOM_IN" class="map-tool" string-key="map.zoom.in" />
-            <Ashen.Presentation.UI.LocButton name="MAP_CENTER" class="map-tool" string-key="map.zoom.center" />
-            <Ashen.Presentation.UI.LocButton name="MAP_LEGEND_TOGGLE" class="map-tool" string-key="map.legend.toggle" />
-            <Ashen.Presentation.UI.LocLabel name="MAP_HINT" class="map-hint kit-text-value" string-key="map.hint" />
-            <Ashen.Presentation.UI.LocButton name="MAP_POTIONS" class="map-potions" string-key="map.potions" />
+        <ui:VisualElement name="MAP_STRIP" class="map-strip">
+            <Ashen.Presentation.UI.LocLabel name="MAP_TITLE" class="map-title kit-upper" />
+            <Ashen.Presentation.UI.LocLabel class="map-rail-start kit-upper" string-key="map.strip.entrance" />
+            <ui:VisualElement name="MAP_RAIL" class="map-rail" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.LocLabel class="map-rail-arrow" string-key="map.reachableCue" />
+            <Ashen.Presentation.UI.LocLabel name="MAP_RAIL_END" class="map-rail-end kit-upper" string-key="map.strip.boss" />
         </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="NODE_TRAY" class="node-tray is-hidden">
-        <Ashen.Presentation.UI.LocLabel name="TRAY_KIND" class="tray-kind kit-text-header" />
-        <Ashen.Presentation.UI.LocLabel name="TRAY_HINT" class="tray-hint kit-text-value" />
-        <Ashen.Presentation.UI.LocLabel name="TRAY_BOSS" class="tray-boss kit-text-value" />
-        <ui:VisualElement class="tray-footer">
-            <Ashen.Presentation.UI.LocButton name="TRAY_BACK" class="kit-button--back tray-button" string-key="map.tray.back" />
-            <Ashen.Presentation.UI.LocButton name="TRAY_ENTER" class="kit-button--primary kit-button--ready tray-button" />
+        <ui:VisualElement name="MAP_STAGE" class="map-stage">
+            <ui:ScrollView name="MAP_VIEWPORT" class="map-viewport" horizontal-scroller-visibility="Auto" vertical-scroller-visibility="Auto">
+                <Ashen.Presentation.UI.Kit.MapBoard name="MAP_NODES" />
+            </ui:ScrollView>
+            <ui:VisualElement name="MAP_VIGNETTE" class="map-vignette" picking-mode="Ignore" />
+            <ui:VisualElement name="MAP_FOOTER" class="map-footer" picking-mode="Ignore">
+                <ui:VisualElement name="MAP_TOOLS" class="map-tools" picking-mode="Ignore">
+                    <Ashen.Presentation.UI.LocButton name="MAP_ZOOM_OUT" class="map-tool" string-key="map.zoom.out" />
+                    <Ashen.Presentation.UI.LocButton name="MAP_CENTER" class="map-tool" string-key="map.zoom.center" />
+                    <Ashen.Presentation.UI.LocButton name="MAP_ZOOM_IN" class="map-tool" string-key="map.zoom.in" />
+                    <Ashen.Presentation.UI.LocButton name="MAP_LEGEND_TOGGLE" class="map-tool" string-key="map.legend.toggle" />
+                </ui:VisualElement>
+                <ui:VisualElement name="MAP_LEGEND" class="map-legend is-hidden">
+                    <Ashen.Presentation.UI.LocLabel class="map-legend-title kit-upper" string-key="map.legend.title" />
+                    <ui:VisualElement name="LEGEND_ROWS" class="legend-rows" />
+                </ui:VisualElement>
+                <Ashen.Presentation.UI.LocButton name="MAP_POTIONS" class="map-potions" string-key="map.potions" />
+            </ui:VisualElement>
+            <ui:VisualElement name="NODE_TRAY" class="node-tray is-hidden">
+                <Ashen.Presentation.UI.LocLabel name="TRAY_FLOOR" class="tray-floor kit-upper" />
+                <Ashen.Presentation.UI.LocLabel name="TRAY_KIND" class="tray-kind kit-text-header" />
+                <Ashen.Presentation.UI.LocLabel name="TRAY_HINT" class="tray-hint kit-text-value" />
+                <Ashen.Presentation.UI.LocLabel name="TRAY_BOSS" class="tray-boss kit-text-value" />
+                <ui:VisualElement class="tray-footer">
+                    <Ashen.Presentation.UI.LocButton name="TRAY_BACK" class="kit-button--back tray-button" string-key="map.tray.back" />
+                    <Ashen.Presentation.UI.LocButton name="TRAY_ENTER" class="kit-button--primary kit-button--ready tray-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="MAP_LEGEND" class="map-legend is-hidden">
-        <Ashen.Presentation.UI.LocLabel class="map-legend-title kit-text-header" string-key="map.legend.title" />
-        <ui:VisualElement name="LEGEND_ROWS" class="legend-rows" />
-        <Ashen.Presentation.UI.LocButton name="LEGEND_CLOSE" class="kit-button--back legend-close" string-key="map.tray.back" />
+        <ui:VisualElement name="MAP_KEYS" class="map-keys">
+            <Ashen.Presentation.UI.LocButton name="MAP_KEY_DECK" class="map-key">
+                <Ashen.Presentation.UI.LocLabel class="map-key-chip" string-key="map.keys.deck.key" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-label" string-key="map.keys.deck" picking-mode="Ignore" />
+            </Ashen.Presentation.UI.LocButton>
+            <Ashen.Presentation.UI.LocButton name="MAP_KEY_EQUIPMENT" class="map-key">
+                <Ashen.Presentation.UI.LocLabel class="map-key-chip" string-key="map.keys.equipment.key" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-label" string-key="map.keys.equipment" picking-mode="Ignore" />
+            </Ashen.Presentation.UI.LocButton>
+            <Ashen.Presentation.UI.LocButton name="MAP_KEY_STATS" class="map-key">
+                <Ashen.Presentation.UI.LocLabel class="map-key-chip" string-key="map.keys.stats.key" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-label" string-key="map.keys.stats" picking-mode="Ignore" />
+            </Ashen.Presentation.UI.LocButton>
+            <Ashen.Presentation.UI.LocButton name="MAP_KEY_MENU" class="map-key">
+                <Ashen.Presentation.UI.LocLabel class="map-key-chip" string-key="map.keys.menu.key" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-label" string-key="map.keys.menu" picking-mode="Ignore" />
+            </Ashen.Presentation.UI.LocButton>
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="PLANNED_DOOR" class="page page--center scrim planned-door is-hidden">
         <ui:VisualElement class="planned-panel">
