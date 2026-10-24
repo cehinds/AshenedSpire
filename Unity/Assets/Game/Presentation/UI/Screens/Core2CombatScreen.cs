@@ -703,6 +703,12 @@ namespace Ashen.Presentation.UI.Screens
 
         private void ShowEnded()
         {
+            // A won fight leads to its spoils (the reward door the session opened): the victory beat has been, the next thing is the screen that holds them (VP-7).
+            if (View.Result == CombatValues.Victory && _run.HasPendingReward && !_run.RunOver)
+            {
+                RunFlow.Show(Context, _run);
+                return;
+            }
             Render();
             UiDom.Show(Root.Q(UiNames.PhaseBanner), false);
             var victory = View.Result == CombatValues.Victory;

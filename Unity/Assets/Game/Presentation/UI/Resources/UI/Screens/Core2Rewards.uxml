@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Climb.uss" />
+    <ui:Style src="Spoils.uss" />
+    <ui:Style src="../Kit/CombatModal.uss" />
+    <ui:VisualElement name="MAP_BACKGROUND" class="map-background" picking-mode="Ignore" />
+    <ui:VisualElement name="SPOILS_PAGE" class="page spoils-page">
+        <Ashen.Presentation.UI.Kit.RunHud name="RUN_HUD" />
+    </ui:VisualElement>
+    <ui:VisualElement name="SPOILS_SCRIM" class="overlay-scrim">
+        <Ashen.Presentation.UI.Kit.CombatModal name="SPOILS_MODAL" size="md" />
+    </ui:VisualElement>
+</ui:UXML>
