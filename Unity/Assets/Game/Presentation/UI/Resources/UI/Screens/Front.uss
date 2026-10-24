@@ -1,0 +1,399 @@
+/* The front-of-house screens (VP-12, VP-13; D-1000..): creation, prologue, settings and the meta screens. Values come only from Tokens.uss variables.
+   The title and the slot door are in Screens.uss (the first of the pack). Web sources are named at each section and in tokens.json#webSource. */
+
+/* ---- W-04 creation (D-1003): the class cards and the Review pane (src/ui/screens/creation; docs/qa/web-screens/flow-05, flow-06) ---- */
+
+.creation-workspace {
+    flex-grow: 1;
+}
+
+.class-pane {
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.class-toolbar {
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: var(--space-sm);
+}
+
+.class-view {
+    margin: 0;
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+    min-height: var(--size-button-h);
+    border-radius: 0;
+}
+
+.class-scroll {
+    flex-grow: 1;
+}
+
+.class-list {
+    flex-direction: column;
+}
+
+.class-list--grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.kit-button.class-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: var(--size-class-card-h);
+    margin: 0 0 var(--size-class-card-gap) 0;
+    padding: var(--space-md) var(--space-lg);
+    background-color: var(--color-class-card-fill);
+    background-image: url("../Frames/panel-frame.png");
+    -unity-slice-scale: var(--size-slice-frame);
+    border-color: var(--color-transparent);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
+    white-space: normal;
+    overflow: hidden;
+}
+
+.kit-button.class-card:hover {
+    border-color: var(--color-gold-soft);
+}
+
+.kit-button.class-card:focus {
+    border-color: var(--color-gold);
+}
+
+.kit-button.class-card.is-selected {
+    border-color: var(--color-class-selected);
+    border-width: var(--border-glow);
+}
+
+.kit-button.class-card--grid {
+    width: var(--size-class-grid-card-w);
+}
+
+.class-card-figure {
+    flex-shrink: 0;
+    width: var(--size-class-figure-w);
+    height: var(--size-class-figure-h);
+    margin-right: var(--space-xl);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.class-card-texts {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    align-items: flex-start;
+}
+
+.class-card-name {
+    font-size: var(--font-class-card-name);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.class-card.is-selected .class-card-name {
+    color: var(--color-class-selected);
+}
+
+.class-card-summary {
+    margin-top: var(--space-xs);
+    font-size: var(--font-class-card-summary);
+    color: var(--color-parchment);
+    white-space: normal;
+    -unity-text-align: upper-left;
+}
+
+.class-card-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-sm);
+}
+
+.class-card-stat {
+    flex-direction: row;
+    align-items: flex-end;
+    margin-right: var(--size-class-stat-gap);
+}
+
+.class-card-stat-label {
+    margin-right: var(--space-xs);
+    font-size: var(--font-label);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-muted);
+}
+
+.class-card-stat-value {
+    font-size: var(--font-class-stat-value);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.class-card-relic {
+    flex-direction: row;
+    align-items: center;
+    margin-top: var(--space-sm);
+    font-size: var(--font-class-card-summary);
+    color: var(--color-parchment);
+}
+
+.class-card-relic .class-card-chevron {
+    margin-right: var(--space-xs);
+}
+
+.class-card-problem {
+    margin-top: var(--space-xs);
+    font-size: var(--font-caption);
+    color: var(--color-danger);
+}
+
+.class-card--locked .class-card-figure,
+.class-card--locked .class-card-texts {
+    opacity: var(--opacity-muted);
+}
+
+.class-card-lock {
+    flex-shrink: 0;
+    width: var(--size-class-lock-icon);
+    height: var(--size-class-lock-icon);
+    margin-right: var(--space-lg);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.class-card-note {
+    flex-shrink: 0;
+    margin-right: var(--space-md);
+}
+
+.class-card-chevron {
+    flex-shrink: 0;
+    width: var(--size-class-chevron);
+    height: var(--size-class-chevron);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-muted);
+}
+
+/* ---- the Review pane ---- */
+
+.review-pane {
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+.review-scroll {
+    flex-grow: 1;
+}
+
+.review-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--size-review-row-pad) 0;
+    border-bottom-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.review-row-texts {
+    flex-grow: 1;
+    flex-shrink: 1;
+    align-items: flex-start;
+}
+
+.review-row-title {
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+}
+
+.review-row-hint {
+    margin-top: var(--space-xxs);
+    font-size: var(--font-label);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.review-value {
+    font-size: var(--font-heading);
+    color: var(--color-muted);
+}
+
+.review-seed {
+    width: var(--size-review-seed-w);
+    margin: 0;
+}
+
+.review-seed .unity-base-text-field__input {
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg);
+    border-color: var(--color-gold);
+    border-width: var(--border-glow);
+    border-radius: var(--radius-button);
+    color: var(--color-parchment);
+    font-size: var(--font-heading);
+}
+
+.review-seed-bad .unity-base-text-field__input {
+    border-color: var(--color-danger-line);
+}
+
+.review-heading {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+    font-size: var(--font-review-heading);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.review-pieces {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.review-piece-column {
+    margin-right: var(--space-lg);
+}
+
+.review-piece {
+    width: var(--size-review-piece-w);
+    min-height: var(--size-review-piece-h);
+    padding: var(--space-sm);
+    background-color: var(--color-class-card-fill);
+    background-image: url("../Frames/panel-frame.png");
+    -unity-slice-scale: var(--size-slice-frame);
+    border-color: var(--color-transparent);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
+}
+
+.review-piece-name {
+    font-size: var(--font-review-piece-name);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.review-piece-art {
+    align-self: center;
+    width: var(--size-review-piece-art);
+    height: var(--size-review-piece-art);
+    margin: var(--space-sm) 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.review-piece-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.review-piece-stat {
+    margin-right: var(--space-sm);
+    font-size: var(--font-review-piece-stat);
+    color: var(--color-muted);
+}
+
+.review-piece-text {
+    margin-top: var(--space-xs);
+    font-size: var(--font-review-piece-stat);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.review-piece-kind {
+    margin-top: var(--space-xs);
+    font-size: var(--font-review-piece-stat);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-gold-soft);
+}
+
+.review-char {
+    border-color: var(--color-gold-soft);
+}
+
+.review-char-eyebrow {
+    font-size: var(--font-review-heading);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.review-char-name {
+    margin-bottom: var(--space-sm);
+    font-size: var(--font-review-epithet);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.review-char-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.review-char-cell {
+    width: var(--size-review-stat-cell-w);
+    flex-direction: row;
+    justify-content: space-between;
+    padding-right: var(--space-sm);
+}
+
+.review-char-label {
+    font-size: var(--font-review-piece-stat);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-muted);
+}
+
+.review-char-value {
+    font-size: var(--font-class-card-name);
+    color: var(--color-parchment);
+}
+
+.review-char-rule {
+    height: var(--border-hairline);
+    margin: var(--space-xs) 0;
+    background-color: var(--color-line);
+}
+
+.review-deck {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.review-deck-item {
+    margin: 0 var(--space-md) var(--space-md) 0;
+}
+
+.review-deck-card {
+    width: var(--size-review-card-w);
+    height: var(--size-review-card-h);
+}
+
+.review-deck-count {
+    font-size: var(--font-label);
+    color: var(--color-parchment);
+}
+
+.layout-narrow .kit-button.class-card--grid {
+    width: var(--size-full-width);
+}
+
+.layout-narrow .class-card-figure {
+    width: var(--size-class-figure-narrow);
+    height: var(--size-class-figure-narrow);
+    margin-right: var(--space-md);
+}
+
+.layout-narrow .review-row {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.layout-narrow .review-seed {
+    width: var(--size-full-width);
+    margin-top: var(--space-sm);
+}
+
+.layout-narrow .review-piece {
+    width: var(--size-review-piece-w);
+}

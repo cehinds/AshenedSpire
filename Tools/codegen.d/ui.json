@@ -459,7 +459,14 @@
         "TitleArtDoor": "TITLE_ART_DOOR",
         "TitleArtDoorPhone": "TITLE_ART_DOOR_PHONE",
         "TitleArtGate": "TITLE_ART_GATE",
-        "Tagline": "TAGLINE"
+        "Tagline": "TAGLINE",
+        "ClassViewList": "CLASS_VIEW_LIST",
+        "ClassViewGrid": "CLASS_VIEW_GRID",
+        "ReviewPane": "REVIEW_PANE",
+        "ReviewScroll": "REVIEW_SCROLL",
+        "SeedField": "SEED_FIELD",
+        "ReviewBody": "REVIEW_BODY",
+        "ClassScroll": "CLASS_SCROLL"
       }
     },
     {
@@ -973,7 +980,8 @@
         "Names": "names",
         "Code": "code",
         "Rarity": "rarity",
-        "Bucket": "bucket"
+        "Bucket": "bucket",
+        "N": "n"
       }
     },
     {

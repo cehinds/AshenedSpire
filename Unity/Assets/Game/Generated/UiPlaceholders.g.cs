@@ -61,5 +61,6 @@ namespace Ashen.Generated
         public const string Code = "code";
         public const string Rarity = "rarity";
         public const string Bucket = "bucket";
+        public const string N = "n";
     }
 }

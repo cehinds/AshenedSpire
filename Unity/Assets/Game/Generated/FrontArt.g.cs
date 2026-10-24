@@ -8,5 +8,9 @@ namespace Ashen.Generated
         public const string BackgroundDoorPhone = "tower-entrance-hall-phone";
         public const string BackgroundGate = "tower-city-background-unlit";
         public const string IconNext = "next";
+        public const string IconLock = "lock";
+        public const string IconArmour = "armour";
+        public const string IconSword = "sword";
+        public const string IconRelic = "relic";
     }
 }

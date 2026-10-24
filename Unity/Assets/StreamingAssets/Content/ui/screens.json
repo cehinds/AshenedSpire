@@ -68,7 +68,8 @@
       "uxml": "UI/Screens/Creation",
       "layer": "screen",
       "background": "bg.tower-city-background-unlit",
-      "focusOrder": ["WORKSPACE_NAV", "CLASS_LIST", "FOOTER_PRIMARY", "FOOTER_BACK", "SHELL_EXIT"],
+      "focusOrder": ["WORKSPACE_NAV", "CLASS_PANE", "FOOTER_PRIMARY", "FOOTER_BACK", "SHELL_EXIT"],
+      "focusModes": { "review": ["WORKSPACE_NAV", "REVIEW_PANE", "FOOTER_PRIMARY", "FOOTER_BACK", "SHELL_EXIT"] },
       "back": "pop",
       "transitions": { "begin": { "to": "actMap", "mode": "replace" } }
     },

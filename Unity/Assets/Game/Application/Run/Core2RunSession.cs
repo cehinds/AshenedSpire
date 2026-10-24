@@ -207,6 +207,19 @@ namespace Ashen.App.Run
         /// </summary>
         public static Core2RunSession New(RunContent content, SaveService saves, int slotIndex, uint seed, string classId, string name, Func<DateTime> clock = null, CreationChoices choices = null)
         {
+            var session = Create(content, saves, slotIndex, seed, classId, name, clock, choices);
+            session.Save();
+            return session;
+        }
+
+        /// <summary>
+        /// The run a class would start (W-04's Review pane): made exactly as <see cref="New"/> makes it, but never saved and never given a slot's file, so the player's slots and profile are untouched.
+        /// </summary>
+        public static Core2RunSession Preview(RunContent content, SaveService saves, uint seed, string classId, string name, CreationChoices choices = null) =>
+            Create(content, saves, 1, seed, classId, name, null, choices);
+
+        private static Core2RunSession Create(RunContent content, SaveService saves, int slotIndex, uint seed, string classId, string name, Func<DateTime> clock, CreationChoices choices)
+        {
             if (content == null) throw new ArgumentNullException(nameof(content));
             var core = content.Core2;
             if (classId == null || !core.Combat.Run.Run.Classes.Has(classId))
@@ -225,7 +238,6 @@ namespace Ashen.App.Run
             session._run = run;
             session._rng = rng;
             session._location = RunFlowValues.LocationMap;
-            session.Save();
             return session;
         }
 

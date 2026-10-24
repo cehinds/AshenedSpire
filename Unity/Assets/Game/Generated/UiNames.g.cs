@@ -425,5 +425,12 @@ namespace Ashen.Generated
         public const string TitleArtDoorPhone = "TITLE_ART_DOOR_PHONE";
         public const string TitleArtGate = "TITLE_ART_GATE";
         public const string Tagline = "TAGLINE";
+        public const string ClassViewList = "CLASS_VIEW_LIST";
+        public const string ClassViewGrid = "CLASS_VIEW_GRID";
+        public const string ReviewPane = "REVIEW_PANE";
+        public const string ReviewScroll = "REVIEW_SCROLL";
+        public const string SeedField = "SEED_FIELD";
+        public const string ReviewBody = "REVIEW_BODY";
+        public const string ClassScroll = "CLASS_SCROLL";
     }
 }

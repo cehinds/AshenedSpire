@@ -334,26 +334,7 @@ namespace Ashen.Presentation.UI.Screens
         private VisualElement _focusAnchor;
 
         /// <summary>A deck card's face data: the cost pips in the components' order (Stamina always, Mana when it costs), its type line, rank and traits; a deck card is never dimmed.</summary>
-        private CardViewData CardData(Core2CardView card)
-        {
-            var costs = new List<CardCostData>();
-            foreach (var kind in Ui.Data.Components.CostKinds)
-            {
-                if (kind == Core2UiValues.CostStamina) costs.Add(new CardCostData { Kind = kind, Text = card.CostIsX ? Strings.Get(StringKeys.CombatCostX) : CombatText.Number(card.Stamina) });
-                else if (kind == Core2UiValues.CostMana && card.Mana > 0) costs.Add(new CardCostData { Kind = kind, Text = CombatText.Number(card.Mana) });
-            }
-            return new CardViewData
-            {
-                Name = card.Name,
-                TypeLine = Core2CombatText.TypeLine(Strings, card),
-                Face = card.Face,
-                Rank = Core2CombatText.Rank(Strings, card),
-                Text = card.Text,
-                Keywords = Core2CombatText.Traits(Strings, card),
-                Upgraded = card.Upgraded,
-                Costs = costs,
-            };
-        }
+        private CardViewData CardData(Core2CardView card) => ItemFaces.DeckCard(Ui.Data, card);
 
         // ------------------------------------------------------------------ Equipment (map-equipment)
 
