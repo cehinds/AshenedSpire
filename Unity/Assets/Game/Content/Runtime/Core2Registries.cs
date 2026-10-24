@@ -95,7 +95,7 @@ namespace Ashen.Content
             foreach (var key in Profile.ContentKeys) body[key] = Profile.Content(key);
             profile[Core2RunKeys.Content] = body;
             return new CoreRunData(run, profile, versions, Rules(ContentFiles.RulesCore2Run), Rules(ContentFiles.RulesRangePolicy),
-                Rules(ContentFiles.RulesReactionRules), Rules(ContentFiles.RulesCombatExpansionRules));
+                Rules(ContentFiles.RulesReactionRules), Rules(ContentFiles.RulesCombatExpansionRules), Rules(ContentFiles.RulesCore2Deck));
         }
 
         /// <summary>
@@ -120,13 +120,16 @@ namespace Ashen.Content
         /// What the Core 2 deck rules read (WP-18): the run data of <see cref="ToCoreRunData"/>, <c>rules/core2Deck.json</c> and the ids of the
         /// card-domain tags (the card schools the equipment gate compares with the worn gear's tags).
         /// </summary>
-        public CoreDeckData ToCoreDeckData(ContentSet content)
+        public CoreDeckData ToCoreDeckData(ContentSet content) => ToCoreDeckData(content, ToCoreRunData(content));
+
+        /// <summary>The deck rules over run data the caller already built (the application shares one <see cref="CoreRunData"/> between the fight and the editor).</summary>
+        public CoreDeckData ToCoreDeckData(ContentSet content, CoreRunData run)
         {
             var rules = (JObject)content.Get(ContentFiles.RulesCore2Deck);
             var domain = rules.Value<string>(Core2DeckKeys.CardDomain);
             var tags = JsValues.Items(Object(RegistryKeys.TagRegistry)).OfType<JObject>()
                 .Where(t => JsValues.Str(t[TagKeys.Domain]) == domain).Select(t => JsValues.Text(t[RegistryKeys.Id]));
-            return new CoreDeckData(ToCoreRunData(content), rules, tags);
+            return new CoreDeckData(run, rules, tags);
         }
 
         /// <summary>What the map port reads (WP-14): encounters, events, enemies and seats in registry order, the quest gates, the boss destinations and the map engine rules.</summary>

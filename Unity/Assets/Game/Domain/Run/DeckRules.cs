@@ -152,6 +152,13 @@ namespace Ashen.Domain.Run
 
         public static bool PlayInDeckOrder(CoreDeckData d, JObject settings) => Js.Truthy(Setting(d, settings, DK.PlayInDeckOrder));
 
+        /// <summary>playInDeckOrder(settings) for a fight that has the run data but no editor: the setting, else the rules file's default.</summary>
+        public static bool PlayInDeckOrder(CoreRunData d, JObject settings)
+        {
+            var value = settings?[DK.PlayInDeckOrder];
+            return Js.Truthy(Js.Nullish(value) ? d.DeckRules?.Obj(DK.Defaults)?[DK.PlayInDeckOrder] : value);
+        }
+
         // ------------------------------------------------------------------ the run's profile
 
         private static JObject Subject(JObject run) => run?.Obj(SK.GameProfile);

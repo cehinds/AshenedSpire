@@ -15,7 +15,7 @@ namespace Ashen.Domain.Run
     /// </summary>
     public sealed class CoreRunData
     {
-        public CoreRunData(RunData run, JObject profile, JObject versions, JObject rules, JObject rangePolicy, JObject reactionRules, JObject combatExpansionRules)
+        public CoreRunData(RunData run, JObject profile, JObject versions, JObject rules, JObject rangePolicy, JObject reactionRules, JObject combatExpansionRules, JObject deckRules = null)
         {
             Run = run ?? throw new ArgumentNullException(nameof(run));
             Profile = profile ?? throw new ArgumentNullException(nameof(profile));
@@ -24,6 +24,7 @@ namespace Ashen.Domain.Run
             RangePolicy = rangePolicy ?? throw new ArgumentNullException(nameof(rangePolicy));
             ReactionRules = reactionRules ?? throw new ArgumentNullException(nameof(reactionRules));
             CombatExpansionRules = combatExpansionRules ?? throw new ArgumentNullException(nameof(combatExpansionRules));
+            DeckRules = deckRules;
         }
 
         public RunData Run { get; }
@@ -40,6 +41,9 @@ namespace Ashen.Domain.Run
         public JObject RangePolicy { get; }
         public JObject ReactionRules { get; }
         public JObject CombatExpansionRules { get; }
+
+        /// <summary>rules/core2Deck.json (the deck editor's defaults, among them Play in deck order), or null when a caller builds the data without it.</summary>
+        public JObject DeckRules { get; }
 
         public string ProfileId => Js.Str(Profile[PK.Id]);
 

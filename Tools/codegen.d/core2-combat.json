@@ -288,6 +288,7 @@
         "OnTurnEndInHand": "onTurnEndInHand",
         "Once": "once",
         "OncePerTurn": "oncePerTurn",
+        "Ordered": "ordered",
         "OrderedDraw": "orderedDraw",
         "Overrides": "overrides",
         "OwnerCycle": "ownerCycle",

@@ -18,7 +18,7 @@
 import { writeFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, botLcg } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, botLcg, encounters, createRun, createFight, projectFull, delta, typesSince } from './oracle-core2.mjs';
 
 const OUT = join(ORACLE_DIR, 'deck');
 const SEEDS = Number(arg('--seeds', '6'));
@@ -29,6 +29,7 @@ const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const dr = await load('src/model/deckRules.js');
 const { resolveCard } = await load('src/model/registries.js');
 const { pureEngagementMovement } = await load('src/model/rangeCardAvailability.js');
+const actions = await load('src/engine/actions.js');
 
 const classes = classIds(w);
 const UNLOCKED = { gameProfileUnlocks: { [w.profile.id]: { completedRunIds: classes.map((_, i) => `r${i}`) } } };
@@ -241,6 +242,62 @@ function orderCases() {
 }
 
 // ---------------------------------------------------------------------------------------------------------------
+// Fights under Play in deck order (createRunCombat with settings.playInDeckOrder): the opening draw pile is the deck as listed
+// (Innate first) and consumes no `shuffle` value; an empty draw pile takes the discard back in deck order (returnDiscardInOrder);
+// the Core round refresh still shuffles (refreshProfileRound). The bot plays cards by moving them to the discard, drains the draw
+// pile into the discard and draws, so the ordered return is reached; every step records the full projection's delta.
+// ---------------------------------------------------------------------------------------------------------------
+function orderedFight(seed, classId, encounter, ops) {
+  const run = createRun(w, seed, classId);
+  const { combat } = createFight(w, run, encounter, { settings: { playInDeckOrder: true } });
+  const pick = botLcg(seed ^ 0x2f6b1d93);
+  let last = projectFull(combat);
+  const start = { events: typesSince(combat, 0), state: last, draw: combat.piles.draw.map((c) => c.instanceId), order: combat.orderedDraw ? combat.orderedDraw.order : null };
+  const steps = [];
+  for (let i = 0; i < ops && !combat.result; i++) {
+    const mark = combat.eventLog.length;
+    const roll = pick(10);
+    let step;
+    if (roll < 3 && combat.piles.hand.length) {
+      const picks = [];
+      const n = 1 + pick(combat.piles.hand.length);
+      for (let k = 0; k < n && combat.piles.hand.length; k++) { const at = pick(combat.piles.hand.length); picks.push(at); combat.piles.discard.push(combat.piles.hand.splice(at, 1)[0]); }
+      step = { op: 'play', picks };
+    } else if (roll < 5) {
+      const n = Math.min(combat.piles.draw.length, 1 + pick(6));
+      for (let k = 0; k < n; k++) combat.piles.discard.push(combat.piles.draw.shift());
+      step = { op: 'drain', n };
+    } else if (roll < 9) {
+      const n = 1 + pick(6);
+      actions.drawCards(combat, n);
+      step = { op: 'draw', n };
+    } else {
+      for (const enemy of combat.enemies) if (enemy.alive) enemy.skipNextTurn = true;
+      let error = null;
+      try { w.combat.dispatch(combat, { type: 'endTurn', discardIds: [] }); } catch (e) { error = e.message; }
+      step = { op: 'endTurn', staggered: combat.enemies.filter((e) => e.alive).length, ...(error ? { error } : {}) };
+      if (error || combat.pendingReaction) { steps.push(step); break; }
+    }
+    const state = projectFull(combat);
+    steps.push({ ...step, events: typesSince(combat, mark), delta: delta(last, state) ?? {}, draw: combat.piles.draw.map((c) => c.instanceId) });
+    last = state;
+  }
+  return { seed, classId, encounterId: encounter.id, start, steps };
+}
+
+function orderedFights() {
+  const all = encounters(w);
+  const fights = [];
+  classes.forEach((classId, ci) => {
+    for (let i = 0; i < SEEDS * 3; i++) {
+      const encounter = all[(ci * 5 + i * 7) % all.length];
+      fights.push(orderedFight(w.rngMod.sweepSeed(9500 + ci * 100 + i), classId, encounter, 24));
+    }
+  });
+  return fights;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
 mkdirSync(OUT, { recursive: true });
 for (const f of readdirSync(OUT)) if (f.endsWith('.json')) rmSync(join(OUT, f));
 let bytes = 0;
@@ -259,5 +316,8 @@ for (const classId of classes) {
   }
 }
 write('order.json', { cases: orderCases() });
+const ordered = orderedFights();
+write('ordered-fights.json', { fights: ordered });
+index.orderedFights = ordered.length;
 write('index.json', index);
 console.log(`oracle-core2-deck: ${settingsCases.length} settings variants, ${classes.length} probes (${allCards.length} cards), ${index.edits.length} edit scenarios x ${STEPS} steps, ${(bytes / 1024 / 1024).toFixed(1)} MB -> Unity/Assets/Tests/Oracle/core2/deck`);
