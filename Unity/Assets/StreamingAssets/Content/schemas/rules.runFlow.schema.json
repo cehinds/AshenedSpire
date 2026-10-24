@@ -124,12 +124,20 @@
         },
         "prologue": {
           "type": "boolean"
+        },
+        "ruleset": {
+          "type": "string",
+          "enum": [
+            "legacy",
+            "core2"
+          ]
         }
       },
       "required": [
         "customization",
         "advancedConfigSnapshot",
-        "prologue"
+        "prologue",
+        "ruleset"
       ]
     },
     "settings": {

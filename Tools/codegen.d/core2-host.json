@@ -5,7 +5,22 @@
       "name": "Core2HostKeys",
       "doc": "Keys the Core 2 run host reads and writes.",
       "keys": {
-        "CombatsLeft": "combatsLeft"
+        "CombatsLeft": "combatsLeft",
+        "QualifyingOutcomes": "qualifyingOutcomes",
+        "PendingPort": "pendingPort",
+        "NodeId": "nodeId",
+        "HitChance": "hitChance",
+        "InRange": "inRange",
+        "Available": "available",
+        "Affordable": "affordable",
+        "AdvanceSp": "advanceSp",
+        "PrecisionDelta": "precisionDelta",
+        "Costs": "costs",
+        "Band": "band",
+        "CurrentHitChance": "currentHitChance",
+        "Targets": "targets",
+        "CurrentInRange": "currentInRange",
+        "Routes": "routes"
       }
     },
     {
@@ -16,7 +31,23 @@
         "DoorRest": "rest",
         "DoorShop": "shop",
         "DoorTreasure": "treasure",
-        "DoorEvent": "event"
+        "DoorEvent": "event",
+        "PortRewards": "rewards",
+        "LogKeyPrefix": "combat.log.",
+        "ArgSource": "source",
+        "ArgTarget": "target",
+        "ArgAmount": "amount",
+        "ArgDetail": "detail"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "Core2HostNumbers",
+      "type": "double",
+      "doc": "Numbers of the Core 2 combat view.",
+      "values": {
+        "LogLines": "60"
       }
     }
   ]

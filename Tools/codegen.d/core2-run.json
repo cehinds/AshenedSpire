@@ -155,7 +155,8 @@
         "PointsPerIncreaseInvalid": "pointsPerIncrease must be a finite number > 0",
         "AttributeNotFinite": "attribute '{0}' is not a finite number",
         "RelicTierCannotFold": "Relic {0} attribute tier {1}/{2} cannot fold into the host rule",
-        "MovePoolNeedsFinite": "moveEquipmentPool requires finite {0}/{1}"
+        "MovePoolNeedsFinite": "moveEquipmentPool requires finite {0}/{1}",
+        "CompletionNeedsFinishId": "Configured completion requires a durable finishId"
       }
     }
   ],

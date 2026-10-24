@@ -5,6 +5,7 @@ using System.Linq;
 using Ashen.Domain.Combat;
 using Newtonsoft.Json.Linq;
 using CK = Ashen.Generated.Core2RunKeys;
+using HK = Ashen.Generated.Core2HostKeys;
 using CM = Ashen.Generated.Core2RunMessages;
 using CV = Ashen.Generated.Core2RunValues;
 using K = Ashen.Generated.CombatKeys;
@@ -73,6 +74,27 @@ namespace Ashen.Domain.Run
             var completed = ledger?[CK.CompletedRunIds] is JArray ids ? ids.Count : 0;
             var open = Js.Items(rules[CK.Initial]).Select(Js.Str).Concat(Js.Items(rules[CK.Sequence]).Take(completed).Select(Js.Str));
             return open.Contains(classId);
+        }
+
+        /// <summary>
+        /// gameProfileCompletedRunMeta(subject, meta, { finishId, victory }): a finished run joins the profile's ledger once (by its finish id) when its outcome qualifies
+        /// (<c>classUnlocks.qualifyingOutcomes</c>), which opens the next class of the sequence. Returns the class ids it unlocked; <paramref name="profileMeta"/> is written in place.
+        /// </summary>
+        public static List<string> CompletedRun(CoreRunData d, JObject profileMeta, bool victory, string finishId)
+        {
+            var none = new List<string>();
+            var rules = CoreRunData.Content(d.Profile, PC.ClassUnlocks) as JObject;
+            if (!CoreRunData.IsConfigured(d.Profile) || rules == null) return none;
+            if (string.IsNullOrEmpty(finishId)) throw new InvalidOperationException(CM.CompletionNeedsFinishId);
+            var unlocks = profileMeta.Obj(CK.GameProfileUnlocks) ?? (JObject)(profileMeta[CK.GameProfileUnlocks] = new JObject());
+            var ledger = unlocks.Obj(d.ProfileId) ?? (JObject)(unlocks[d.ProfileId] = new JObject { [CK.CompletedRunIds] = new JArray() });
+            var done = ledger.Arr(CK.CompletedRunIds) ?? (JArray)(ledger[CK.CompletedRunIds] = new JArray());
+            if (Js.Includes(done, finishId)) return none;
+            if (!Js.Includes(rules[HK.QualifyingOutcomes], victory ? V.Victory : V.Defeat)) return none;
+            var count = done.Count;
+            done.Add(finishId);
+            var sequence = Js.Items(rules[CK.Sequence]).ToList();
+            return count < sequence.Count && Js.Truthy(sequence[count]) ? new List<string> { Js.Str(sequence[count]) } : none;
         }
 
         /// <summary>The ids of the classes available at a number of completed runs, in profile order.</summary>

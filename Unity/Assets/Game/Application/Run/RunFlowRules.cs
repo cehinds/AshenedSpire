@@ -46,6 +46,9 @@ namespace Ashen.App.Run
         /// <summary>newRun.prologue: shouldPlayPrologue (false while the prologue screen is planned).</summary>
         public bool Prologue;
 
+        /// <summary>newRun.ruleset: the ruleset a New Game starts, 'legacy' (the 405 <see cref="RunSession"/>) or 'core2' (<see cref="Core2RunSession"/>); see <see cref="RunHost"/>.</summary>
+        public string NewRunRuleset;
+
         public FlowSetting MultiUse = new FlowSetting();
         public FlowSetting ShopSell = new FlowSetting();
         public FlowSetting HoldConfirm = new FlowSetting();
@@ -80,6 +83,7 @@ namespace Ashen.App.Run
                 Customization = newRun[RunFlowKeys.Customization] as JObject ?? new JObject(),
                 AdvancedConfigSnapshot = newRun[RunFlowKeys.AdvancedConfigSnapshot] as JObject ?? new JObject(),
                 Prologue = newRun[RunFlowKeys.Prologue]?.Type == JTokenType.Boolean && (bool)newRun[RunFlowKeys.Prologue],
+                NewRunRuleset = (string)newRun[RunFlowKeys.Ruleset] ?? RunFlowValues.RulesetLegacy,
                 MultiUse = FlowSetting.From(settings[RunFlowKeys.MultiUse]),
                 ShopSell = FlowSetting.From(settings[RunFlowKeys.ShopSell]),
                 HoldConfirm = FlowSetting.From(settings[RunFlowKeys.HoldConfirm]),

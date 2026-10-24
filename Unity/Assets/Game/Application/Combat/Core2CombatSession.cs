@@ -371,16 +371,23 @@ namespace Ashen.App.Combat
             return o;
         }
 
-        private bool Accepts(JObject intent)
+        private bool Accepts(JObject intent) => Why(intent) == null;
+
+        /// <summary>
+        /// Why the rules would refuse an intent now, in their words, or null when they would take it. The intent is tried on a private copy of the fight (the work a pause
+        /// suspended is carried over), so it draws nothing from the live streams and changes nothing.
+        /// </summary>
+        public string Why(JObject intent)
         {
+            if (IsOver) return Ashen.Generated.CombatMessages.CombatOver;
             var copy = CoreTransaction.DetachPaused(State);
             try
             {
                 CoreDispatch.Dispatch(copy, (JObject)intent.DeepClone());
-                return true;
+                return null;
             }
-            catch (InvalidOperationException) { return false; }
-            catch (NotSupportedException) { return false; }
+            catch (InvalidOperationException e) { return e.Message; }
+            catch (NotSupportedException e) { return e.Message; }
         }
 
         // ------------------------------------------------------------------ saves

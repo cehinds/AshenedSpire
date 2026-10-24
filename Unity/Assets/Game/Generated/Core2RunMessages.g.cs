@@ -19,5 +19,6 @@ namespace Ashen.Generated
         public const string AttributeNotFinite = "attribute '{0}' is not a finite number";
         public const string RelicTierCannotFold = "Relic {0} attribute tier {1}/{2} cannot fold into the host rule";
         public const string MovePoolNeedsFinite = "moveEquipmentPool requires finite {0}/{1}";
+        public const string CompletionNeedsFinishId = "Configured completion requires a durable finishId";
     }
 }

@@ -9,5 +9,11 @@ namespace Ashen.Generated
         public const string DoorShop = "shop";
         public const string DoorTreasure = "treasure";
         public const string DoorEvent = "event";
+        public const string PortRewards = "rewards";
+        public const string LogKeyPrefix = "combat.log.";
+        public const string ArgSource = "source";
+        public const string ArgTarget = "target";
+        public const string ArgAmount = "amount";
+        public const string ArgDetail = "detail";
     }
 }

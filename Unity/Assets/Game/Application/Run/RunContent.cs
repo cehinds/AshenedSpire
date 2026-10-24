@@ -41,6 +41,11 @@ namespace Ashen.App.Run
         public RunFlowRules Flow { get; private set; }
         public SeedCodec Seeds { get; private set; }
 
+        private Core2Content _core2;
+
+        /// <summary>The Core 2 ruleset's data (the profile, its registries, the fight, map and loop data), built from this snapshot on first use.</summary>
+        public Core2Content Core2 => _core2 ??= Core2Content.From(Snapshot);
+
         public CombatData Combat => Data.Combat;
         public string ContentVersion => Snapshot.ContentVersion;
         public string ContentHash => Snapshot.Hash;

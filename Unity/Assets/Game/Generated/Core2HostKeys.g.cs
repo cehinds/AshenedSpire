@@ -5,5 +5,20 @@ namespace Ashen.Generated
     public static class Core2HostKeys
     {
         public const string CombatsLeft = "combatsLeft";
+        public const string QualifyingOutcomes = "qualifyingOutcomes";
+        public const string PendingPort = "pendingPort";
+        public const string NodeId = "nodeId";
+        public const string HitChance = "hitChance";
+        public const string InRange = "inRange";
+        public const string Available = "available";
+        public const string Affordable = "affordable";
+        public const string AdvanceSp = "advanceSp";
+        public const string PrecisionDelta = "precisionDelta";
+        public const string Costs = "costs";
+        public const string Band = "band";
+        public const string CurrentHitChance = "currentHitChance";
+        public const string Targets = "targets";
+        public const string CurrentInRange = "currentInRange";
+        public const string Routes = "routes";
     }
 }
