@@ -232,6 +232,8 @@ namespace Ashen.App.Run
         // ------------------------------------------------------------------ the act map
 
         /// <summary>The node ids the run may travel to from where it stands (the map's start row before the first step), in graph order.</summary>
+        public string PinnedMapMode => Core.Loop.Routes.PinnedMapMode;
+
         public IReadOnlyList<string> ReachableNodes()
         {
             if (Location != RunFlowValues.LocationMap) return Array.Empty<string>();

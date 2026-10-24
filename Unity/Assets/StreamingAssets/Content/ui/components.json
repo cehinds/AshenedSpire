@@ -16,6 +16,15 @@
       "damage.school.flat": { "from": "school", "suffix": "DamageFlat", "value": "amount" }
     }
   },
-  "climb": { "mapBackground": "env.{region}-map", "rowHeight": 52, "zoomSteps": [0.8, 1, 1.35], "zoomDefault": 1, "edgeWidth": 2, "dotSpacing": 9, "rowTouchRatio": 1.15,
+  "climb": { "mapBackground": "env.{region}-map", "rowHeight": 155, "zoomSteps": [0.8, 1, 1.35], "zoomDefault": 1, "edgeWidth": 3, "dotSpacing": 9, "rowTouchRatio": 1.15,
+    "colPitch": 149, "boardPadX": 138, "boardPadTop": 60, "edgeOutlineWidth": 6,
+    "nodeIcons": { "monster": "attack", "elite": "madness", "boss": "boss", "shrine": "burn", "merchant": "compare", "treasure": "block", "event": "" },
+    "nodeTints": { "elite": "ember", "boss": "ember", "shrine": "gold", "merchant": "grace", "treasure": "gold" },
+    "tierNumerals": ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"],
+    "atlas": {
+      "worlds": ["the-fractured-realm-world", "the-shattered-gulf-world", "the-fivefold-frontier-world"], "worldSalt": ":world",
+      "hash": { "offset": 2166136261, "prime": 16777619 }, "level": 1024, "tileCols": 2, "tileRows": 2,
+      "revealRadius": 147, "revealCore": 0.56, "gridStep": 21
+    },
     "restBackground": "env.{region}-combat", "victoryBackground": "bg.river-citadel-lit" }
 }

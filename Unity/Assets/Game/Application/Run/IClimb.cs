@@ -53,6 +53,9 @@ namespace Ashen.App.Run
         /// <summary>The pool ('normal', 'elite', 'boss') of the encounter fought last or now, or null (the music follows it).</summary>
         string EncounterPool { get; }
 
+        /// <summary>The map reveal the run's rules pin (fog or path), or null when the player's Map reveal setting rules: a Core 2 profile with configured routes pins its own.</summary>
+        string PinnedMapMode { get; }
+
         IReadOnlyList<string> ReachableNodes();
 
         /// <summary>The names of the last fight's foes (the run end names the killer), empty when the run did not end in a fight.</summary>

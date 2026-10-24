@@ -372,6 +372,20 @@ namespace Ashen.App.Ui
         public double DotSpacing;
         public double RowTouchRatio = 1d;
 
+        /// <summary>The board's lane pitch, the distance from the outermost lane to the board's edge and the room above the boss row, in reference px; the outline width of a route line.</summary>
+        public double ColPitch;
+        public double BoardPadX;
+        public double BoardPadTop;
+        public double EdgeOutlineWidth;
+
+        /// <summary>The icon art name of each node kind (empty: the kind is drawn as a mark), the colour token of its tint where it has one, and the numerals of the acts.</summary>
+        public IReadOnlyDictionary<string, string> NodeIcons = new Dictionary<string, string>();
+        public IReadOnlyDictionary<string, string> NodeTints = new Dictionary<string, string>();
+        public IReadOnlyList<string> TierNumerals = Array.Empty<string>();
+
+        /// <summary>The painted atlas under the board: which world, its tiles and how the fog reveals it.</summary>
+        public AtlasDefaults Atlas = new AtlasDefaults();
+
         public static ClimbDefaults From(JObject json)
         {
             var steps = (json[UiKeys.ZoomSteps] as JArray)?.Select(t => (double)t).ToList();
@@ -386,6 +400,14 @@ namespace Ashen.App.Ui
                 EdgeWidth = (double?)json[UiKeys.EdgeWidth] ?? 1d,
                 DotSpacing = (double?)json[UiKeys.DotSpacing] ?? 1d,
                 RowTouchRatio = (double?)json[UiKeys.RowTouchRatio] ?? 1d,
+                ColPitch = (double?)json[AtlasKeys.ColPitch] ?? 0d,
+                BoardPadX = (double?)json[AtlasKeys.BoardPadX] ?? 0d,
+                BoardPadTop = (double?)json[AtlasKeys.BoardPadTop] ?? 0d,
+                EdgeOutlineWidth = (double?)json[AtlasKeys.EdgeOutlineWidth] ?? 0d,
+                NodeIcons = ArtConfig.Strings(json[AtlasKeys.NodeIcons]),
+                NodeTints = ArtConfig.Strings(json[AtlasKeys.NodeTints]),
+                TierNumerals = ScreenRegistry.Strings(json[AtlasKeys.TierNumerals]),
+                Atlas = AtlasDefaults.From(json[AtlasKeys.Atlas] as JObject),
             };
         }
     }

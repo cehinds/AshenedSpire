@@ -57,6 +57,9 @@ namespace Ashen.Presentation.UI.Kit
 
         public LocButton CloseButton => _close;
 
+        /// <summary>The head (eyebrow, title, status, close): a modal with tabs puts them in front of the status.</summary>
+        public VisualElement Head => this.Q(UiNames.ModalHead);
+
         /// <summary>The width rung (UiValues.ModalSizeMd, ModalSizeXl).</summary>
         [UxmlAttribute]
         public string size

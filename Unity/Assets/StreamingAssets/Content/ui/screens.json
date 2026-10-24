@@ -159,14 +159,20 @@
       "transitions": {}
     },
     "pileViewer": { "layer": "modal", "planned": true, "focusOrder": [], "back": "close", "transitions": {} },
-    "armoury": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
+    "armoury": {
+      "uxml": "UI/Screens/Armoury",
+      "layer": "modal",
+      "focusOrder": ["ARMOURY_MODAL"],
+      "back": "close",
+      "transitions": {}
+    },
     "actMap": {
       "uxml": "UI/Screens/ActMap",
       "layer": "screen",
-      "focusOrder": ["MAP_NODES", "NODE_TRAY", "MAP_FOOTER", "RUN_HUD"],
+      "focusOrder": ["MAP_NODES", "NODE_TRAY", "MAP_FOOTER", "MAP_KEYS", "RUN_HUD"],
       "focusModes": {
         "planned": ["PLANNED_DOOR"],
-        "legend": ["MAP_LEGEND"]
+        "legend": ["MAP_FOOTER"]
       },
       "back": null,
       "transitions": {}

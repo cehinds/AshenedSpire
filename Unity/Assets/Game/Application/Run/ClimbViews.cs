@@ -120,6 +120,13 @@ namespace Ashen.App.Run
 
         /// <summary>The accessible name: kind, floor and the non-colour reachable cue (›).</summary>
         public string AccessibleName;
+
+        /// <summary>The node is on the map at all: under a pinned fog a node the light has not reached is not drawn (the web never creates it).</summary>
+        public bool Drawn = true;
+
+        /// <summary>The art name of the kind's icon (empty: the kind is a mark, the "?" of an unknown place), and the colour token that tints it (null: the gold of the board).</summary>
+        public string IconName = string.Empty;
+        public string TintToken;
     }
 
     public sealed class MapEdgeView
@@ -130,6 +137,9 @@ namespace Ashen.App.Run
 
         /// <summary>Either end is dimmed (path and fog modes).</summary>
         public bool Dimmed;
+
+        /// <summary>Both ends are on the map.</summary>
+        public bool Drawn = true;
     }
 
     public sealed class MapLegendEntry
@@ -137,6 +147,18 @@ namespace Ashen.App.Run
         public string GlyphKey;
         public string Label;
         public string Kind;
+        public string IconName = string.Empty;
+        public string TintToken;
+    }
+
+    /// <summary>One position of the act's progress strip (web actRouteModel): a floor before the boss, the kind of the node walked on it (null: not yet) and whether the run stands there.</summary>
+    public sealed class MapRouteStep
+    {
+        public int Floor;
+        public string Kind;
+        public string IconName = string.Empty;
+        public string TintToken;
+        public bool Current;
     }
 
     /// <summary>
@@ -154,9 +176,21 @@ namespace Ashen.App.Run
         public int Columns;
         public string CurrentId;
         public string Mode;
+
+        /// <summary>The progress strip's title ("ACT I — THE CINDER REACH" before the case is applied), and the world the painted atlas under the board shows (null: none).</summary>
+        public string StripTitle;
+        public string World;
+
+        /// <summary>The rules pin a fog: only the nodes the light reaches are drawn (<see cref="MapNodeView.Drawn"/>) and the atlas is revealed around them.</summary>
+        public bool Fog;
+
         public readonly List<MapNodeView> Nodes = new List<MapNodeView>();
         public readonly List<MapEdgeView> Edges = new List<MapEdgeView>();
         public readonly List<MapLegendEntry> Legend = new List<MapLegendEntry>();
+
+        /// <summary>The progress strip: one step per floor before the boss, and whether the boss has been reached.</summary>
+        public readonly List<MapRouteStep> Route = new List<MapRouteStep>();
+        public bool BossVisited;
 
         public MapNodeView Node(string id) => Nodes.FirstOrDefault(n => n.Id == id);
     }
@@ -179,6 +213,8 @@ namespace Ashen.App.Run
                 CurrentId = at,
                 Columns = (int)Js.Or0(graph[MK.Columns]),
                 Title = strings.Format(StringKeys.MapTitle, new StringArgs().Add(UiPlaceholders.Act, session.Act).Add(UiPlaceholders.Region, RunHudView.SeatName(ui, seat))),
+                StripTitle = strings.Format(StringKeys.MapStripTitle, new StringArgs().Add(UiPlaceholders.Act, Numeral(ui, session.Act)).Add(UiPlaceholders.Region, RunHudView.SeatName(ui, seat))),
+                World = MapAtlas.World(ui.Components.Climb.Atlas, session.SeedText),
                 SeatText = strings.Format(StringKeys.MapSeat, new StringArgs().Add(UiPlaceholders.Count, seatOrder.IndexOf(seat) + 1).Add(UiPlaceholders.Total, seatOrder.Count)),
             };
             foreach (var p in nodes.Properties())
@@ -210,12 +246,79 @@ namespace Ashen.App.Run
                     view.Edges.Add(new MapEdgeView { From = p.Name, To = next, Travelled = i >= 0 && i + 1 < path.Count && path[i + 1] == next });
                 }
             }
-            Reveal(session, ui, view, nodes, reachable);
+            var pinned = session.PinnedMapMode;
+            if (pinned != null) PinnedReveal(view, graph, path, at, pinned);
+            else Reveal(session, ui, view, nodes, reachable);
+            var climb = ui.Components.Climb;
+            foreach (var n in view.Nodes) SetIcon(climb, n.Kind, out n.IconName, out n.TintToken);
             view.Floors = view.Nodes.Count == 0 ? 0 : view.Nodes.Max(n => n.Floor);
             view.FloorText = strings.Format(StringKeys.MapFloor, new StringArgs().Add(UiPlaceholders.Floor, session.Floor).Add(UiPlaceholders.Total, view.Floors));
-            foreach (var kind in view.Nodes.Select(n => n.Kind).Distinct())
-                view.Legend.Add(new MapLegendEntry { Kind = kind, GlyphKey = string.Format(CultureInfo.InvariantCulture, UiFormats.MapGlyphKey, kind), Label = Name(strings, UiFormats.MapNodeKey, kind) });
+            // The legend lists each kind once, in the order the icons are declared (the web's: monster, elite, boss, shrine, merchant, treasure, unknown); a kind the table does not name comes last.
+            var order = climb.NodeIcons.Keys.ToList();
+            foreach (var kind in view.Nodes.Select(n => n.Kind).Distinct().OrderBy(k => order.Contains(k) ? order.IndexOf(k) : order.Count))
+            {
+                var entry = new MapLegendEntry { Kind = kind, GlyphKey = string.Format(CultureInfo.InvariantCulture, UiFormats.MapGlyphKey, kind), Label = Name(strings, UiFormats.MapNodeKey, kind) };
+                SetIcon(climb, kind, out entry.IconName, out entry.TintToken);
+                view.Legend.Add(entry);
+            }
+            BuildRoute(view, graph, nodes, path, at, climb);
             return view;
+        }
+
+        /// <summary>The icon art name and the tint token of a node kind (ui/components.json climb.nodeIcons, nodeTints).</summary>
+        private static void SetIcon(ClimbDefaults climb, string kind, out string icon, out string tint)
+        {
+            icon = kind != null && climb.NodeIcons.TryGetValue(kind, out var name) ? name : string.Empty;
+            tint = kind != null && climb.NodeTints.TryGetValue(kind, out var token) ? token : null;
+        }
+
+        /// <summary>The act's numeral (I, II, III ...; the numerals cycle past the last, as the web's act titles do).</summary>
+        internal static string Numeral(UiData ui, int act)
+        {
+            var numerals = ui.Components.Climb.TierNumerals;
+            return numerals.Count == 0 ? act.ToString(CultureInfo.InvariantCulture) : numerals[((act - 1) % numerals.Count + numerals.Count) % numerals.Count];
+        }
+
+        /// <summary>
+        /// The progress strip (web actRouteModel): one step per floor before the boss, filled by the node the run walked on that floor (a committed visit only; looking at a node is not
+        /// travel), the step the run stands on marked, and whether the boss has been reached.
+        /// </summary>
+        private static void BuildRoute(ActMapViewState view, JObject graph, JObject nodes, List<string> path, string at, ClimbDefaults climb)
+        {
+            var bosses = new HashSet<string>(Js.Items(graph[MK.BossIds]).Select(Js.Str).Concat(new[] { Js.Str(graph[MK.BossId]) }).Where(id => id != null), StringComparer.Ordinal);
+            bool IsBoss(MapNodeView n) => bosses.Contains(n.Id) || n.Kind == MK.Boss;
+            var visited = new Dictionary<int, MapNodeView>();
+            foreach (var id in path.Concat(new[] { at }).Where(id => id != null))
+            {
+                var node = view.Node(id);
+                if (node != null && !IsBoss(node)) visited[node.Floor] = node;
+            }
+            foreach (var floor in view.Nodes.Where(n => !IsBoss(n)).Select(n => n.Floor).Distinct().OrderBy(f => f))
+            {
+                var step = new MapRouteStep { Floor = floor };
+                if (visited.TryGetValue(floor, out var walked))
+                {
+                    step.Kind = walked.Kind;
+                    step.Current = walked.Id == at;
+                    SetIcon(climb, walked.Kind, out step.IconName, out step.TintToken);
+                }
+                view.Route.Add(step);
+            }
+            view.BossVisited = path.Concat(new[] { at }).Any(id => id != null && (bosses.Contains(id) || view.Node(id)?.Kind == MK.Boss));
+        }
+
+        /// <summary>
+        /// The map reveal a configured profile pins (web resolveMapMode, mapKnowledge): under fog only the nodes the light reaches are drawn (litNodes, <see cref="MapFog"/>) and an edge needs both its ends;
+        /// under path nothing is hidden. The kinds are the graph's own display types (a hidden type is already an event there).
+        /// </summary>
+        private static void PinnedReveal(ActMapViewState view, JObject graph, List<string> path, string at, string mode)
+        {
+            view.Mode = mode;
+            view.Fog = mode == SettingIds.MapFog;
+            if (!view.Fog) return;
+            var lit = MapFog.Lit(graph, path, at);
+            foreach (var n in view.Nodes) n.Drawn = lit.Contains(n.Id);
+            foreach (var e in view.Edges) e.Drawn = lit.Contains(e.From) && lit.Contains(e.To);
         }
 
         internal static string Name(StringTable strings, string format, string id)

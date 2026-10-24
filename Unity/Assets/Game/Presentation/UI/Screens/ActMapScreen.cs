@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Ashen.App.Run;
 using Ashen.App.Ui;
 using Ashen.Generated;
 using Ashen.Presentation.UI.Kit;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -25,15 +27,12 @@ namespace Ashen.Presentation.UI.Screens
     }
 
     /// <summary>
-    /// W-06 act map (W4b; AF-04, US-4.1 to US-4.4): the RUN_HUD band, the act, seat and floor header, the board (every node
-    /// and edge from the map port; where the run stands; the travelled trail; the reachable row lit, rimmed and cued with ›;
-    /// boss destinations at the path ends), and the footer (zoom −/+, centre ⊙, the legend ?, the hint, Potions). Select,
-    /// then Enter: the first pick selects a node and the tray slides over the map foot after the tray delay (kind, hint,
-    /// the boss at the path's end; Back and Enter); picking it again after the repeat-pick delay, or Enter, travels. The
-    /// session routes the node's door (a fight to W-07, a rest to W-10, a treasure to W-08). A merchant, an event or a
-    /// legacy dungeon whose screen is not built yet opens the planned door over the map with the one action that keeps the
-    /// run moving (D-126, D-127). Fog is not ported: the whole act is drawn (D-128). Escape closes the legend or the
-    /// tray, else opens W-20; pad Start opens W-20.
+    /// W-06 act map (W4b; AF-04, US-4.1 to US-4.4; the web's, D-900..D-902): the board HUD, the progress strip, the parchment board (the painted atlas revealed around the fog's lights, the walked
+    /// route, a disc per drawn node; the reachable row lit, haloed and focusable; boss destinations at the path ends), the zoom bar, Potions and the legend over it, and the key bar (Deck, Equipment,
+    /// Stats, Menu). Select, then Enter: the first pick selects a node and the tray slides over the map foot after the tray delay (floor, kind, blurb, the boss at the path's end; Back and Enter);
+    /// picking it again after the repeat-pick delay, or Enter, travels. The session routes the node's door (a fight to W-07, a rest to W-10, a treasure to W-08). A merchant, an event or a legacy
+    /// dungeon whose screen is not built yet opens the planned door over the map with the one action that keeps the run moving (D-126, D-127). Deck, Equipment and Stats open the Armoury (D-903).
+    /// Escape closes the legend or the tray, else opens W-20; pad Start opens W-20.
     /// </summary>
     public sealed class ActMapScreen : ScreenView
     {
@@ -43,7 +42,8 @@ namespace Ashen.Presentation.UI.Screens
         private ActMapViewState _view;
         private MapBoard _board;
         private ScrollView _viewport;
-        private RunHud _hud;
+        private Meter _hudHp;
+        private readonly List<MapKey> _keys = new List<MapKey>();
         private string _selected;
         private float _selectedAt;
         private int _zoom;
@@ -90,17 +90,24 @@ namespace Ashen.Presentation.UI.Screens
             }
             Ui.Session = _session;
             Ui.Core2Session = _core2;
-            _hud = Root.Q<RunHud>(UiNames.RunHud);
-            if (_hud != null) _hud.Menu += OpenPause;
+            _hudHp = Root.Q<Meter>(UiNames.HudHp);
+            var menu = Root.Q<LocButton>(UiNames.HudMenu);
+            menu.clicked += OpenPause;
+            var armoury = Root.Q<LocButton>(UiNames.ToolArmaments);
+            armoury.clicked += () => OpenArmoury(ArmouryValues.TabEquipment, armoury);
             _board = Root.Q<MapBoard>(UiNames.MapNodes);
             _viewport = Root.Q<ScrollView>(UiNames.MapViewport);
             var climb = Ui.Data.Components.Climb;
-            _board.EdgeColor = Ui.TokenColor(TokenKeys.MapEdge);
-            _board.TrailColor = Ui.TokenColor(TokenKeys.MapTrail);
-            _board.WayColor = Ui.TokenColor(TokenKeys.MapWay);
+            _board.RouteColor = Ui.TokenColor(TokenKeys.MapRoute);
+            _board.RouteOutlineColor = Ui.TokenColor(TokenKeys.MapRouteOutline);
             _board.EdgeWidth = (float)climb.EdgeWidth;
-            _board.DotSpacing = (float)climb.DotSpacing;
+            _board.OutlineWidth = (float)climb.EdgeOutlineWidth;
+            _board.Atlas = climb.Atlas;
+            _board.IconTexture = Ui.Icon;
+            _board.TintColor = Ui.TokenColor;
+            _board.TileTexture = (x, y) => Ui.Texture(MapAtlas.TileId(Ui.Data.Art, climb.Atlas, _view?.World, x, y));
             _board.NodePicked += OnNode;
+            BindKeys();
             _zoom = Math.Max(0, Math.Min(climb.ZoomSteps.Count - 1, climb.ZoomDefault));
             Root.Q<LocButton>(UiNames.TrayBack).clicked += CloseTray;
             var enter = EnterButton;
@@ -109,12 +116,11 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocButton>(UiNames.MapZoomIn).clicked += () => Zoom(1);
             Root.Q<LocButton>(UiNames.MapCenter).clicked += CentreOnRun;
             Root.Q<LocButton>(UiNames.MapLegendToggle).clicked += () => ShowLegend(!_legend);
-            Root.Q<LocButton>(UiNames.LegendClose).clicked += () => ShowLegend(false);
             var potions = Root.Q<LocButton>(UiNames.MapPotions);
             potions.clicked += () => RunFlow.Refuse(Context, potions, StringKeys.MapRefusalFlasks);
             var action = PlannedAction;
             action.clicked += () => OnPlanned(action);
-            ApplyBackground();
+            ApplyHudArt();
             Render();
             Context.Instance.LastFocused = _door != null ? (VisualElement)action : FirstReachable();
             _viewport.contentViewport.RegisterCallback<GeometryChangedEvent>(OnViewportLaidOut);
@@ -129,13 +135,61 @@ namespace Ashen.Presentation.UI.Screens
             CentreOnRun();
         }
 
-        private void ApplyBackground()
+        /// <summary>The HUD's raster art, as the combat board wears it (art lookups by name, ui/art.json): the heart, the armoury and menu buttons.</summary>
+        private void ApplyHudArt()
         {
-            var element = Root.Q(UiNames.MapBackground);
+            SetImage(Root.Q(UiNames.HudHeart), Ui.Icon(BoardIcons.Health));
+            SetImage(Root.Q(UiNames.ToolArmaments), BoardTexture(BoardArt.ComponentArmoury));
+            SetImage(Root.Q(UiNames.HudMenu), BoardTexture(BoardArt.ComponentMenu));
+        }
+
+        private Texture2D BoardTexture(string name) => Ui.Texture(Ui.Data.Art?.Find(ArtKinds.Component, new StringArgs().Add(ArtPlaceholders.Name, name)));
+
+        private static void SetImage(VisualElement element, Texture2D texture)
+        {
             if (element == null) return;
-            var climb = Ui.Data.Components.Climb;
-            var id = StringTable.Fill(climb.MapBackground, new StringArgs().Add(UiPlaceholders.Region, _climb.Region));
-            Ui.ApplyBackground(element, Ui.Art != null && Ui.Art.Get(id) != null ? id : Ui.Data.Components.CombatFallbackBackground);
+            element.style.backgroundImage = texture != null ? new StyleBackground(texture) : new StyleBackground(StyleKeyword.None);
+        }
+
+        private sealed class MapKey
+        {
+            public KeyCode Code;
+            public Action Action;
+        }
+
+        /// <summary>The key bar: Deck, Equipment, Stats and Menu are buttons and their keys (the letters on the chips).</summary>
+        private void BindKeys()
+        {
+            void Bind(string name, string keyString, Action<VisualElement> action)
+            {
+                var button = Root.Q<LocButton>(name);
+                button.clicked += () => action(button);
+                if (Enum.TryParse(Strings.Get(keyString), true, out KeyCode code)) _keys.Add(new MapKey { Code = code, Action = () => action(button) });
+            }
+            Bind(UiNames.MapKeyDeck, StringKeys.MapKeysDeckKey, b => OpenArmoury(ArmouryValues.TabDeck, b));
+            Bind(UiNames.MapKeyEquipment, StringKeys.MapKeysEquipmentKey, b => OpenArmoury(ArmouryValues.TabEquipment, b));
+            Bind(UiNames.MapKeyStats, StringKeys.MapKeysStatsKey, b => OpenArmoury(ArmouryValues.TabStats, b));
+            Bind(UiNames.MapKeyMenu, StringKeys.MapKeysMenuKey, b => OpenPause());
+            Root.RegisterCallback<KeyDownEvent>(OnKey, TrickleDown.TrickleDown);
+        }
+
+        private void OnKey(KeyDownEvent evt)
+        {
+            if (_door != null || _legend) return;
+            foreach (var key in _keys)
+            {
+                if (evt.keyCode != key.Code) continue;
+                evt.StopPropagation();
+                key.Action();
+                return;
+            }
+        }
+
+        /// <summary>Opens the Armoury modal on a tab (the Deck, Equipment and Stats of the map); until it is built the press is refused where it was made.</summary>
+        private void OpenArmoury(string tab, VisualElement anchor)
+        {
+            if (_door != null) return;
+            if (!ArmouryDoor.Open(Context, _climb, tab)) RunFlow.Refuse(Context, anchor, StringKeys.MapRefusalArmoury);
         }
 
         // ------------------------------------------------------------------ render
@@ -143,21 +197,83 @@ namespace Ashen.Presentation.UI.Screens
         public void Render()
         {
             _view = ActMapView.Build(_climb, Ui.Data);
-            _hud?.Bind(RunHudView.Build(_climb, Ui.Data));
-            if (_hud?.Portrait != null) Ui.ApplyBackground(_hud.Portrait, _climb.Portrait);
-            Root.Q<LocLabel>(UiNames.MapTitle)?.SetResolved(_view.Title);
-            Root.Q<LocLabel>(UiNames.MapSeat)?.SetResolved(_view.SeatText);
-            Root.Q<LocLabel>(UiNames.MapFloor)?.SetResolved(_view.FloorText);
+            RenderHud();
+            Root.Q<LocLabel>(UiNames.MapTitle)?.SetResolved(_view.StripTitle);
+            RenderRoute();
             var climb = Ui.Data.Components.Climb;
+            var zoom = (float)climb.ZoomSteps[_zoom];
             var touch = Nav.Layout == null ? 0d : Nav.Layout.ReferenceMinimum(Ui.Data.Layout.MinPhysicalOf(UiKeys.Touch)) * climb.RowTouchRatio;
-            _board.RowHeight = (float)Math.Max(climb.RowHeight * climb.ZoomSteps[_zoom], touch);
+            _board.RowHeight = (float)Math.Max(climb.RowHeight * zoom, touch);
+            _board.ColPitch = (float)climb.ColPitch * zoom;
+            _board.PadX = (float)climb.BoardPadX * zoom;
+            _board.PadTop = (float)climb.BoardPadTop * zoom;
+            _board.Zoom = zoom;
             _board.Bind(_view);
             if (_selected != null && _view.Node(_selected)?.Reachable != true) _selected = null;
             _board.Select(_selected);
-            Root.Q<LocLabel>(UiNames.MapHint)?.SetResolved(Strings.Get(_selected != null ? StringKeys.MapHintSelected : StringKeys.MapHint));
+            UiDom.Show(Root.Q(UiNames.MapVignette), _view.Fog);
             RenderTray();
             RenderLegend();
             RenderPlanned();
+        }
+
+        /// <summary>The HUD band: the hit points, the relics as pips and the cinders (the combat board's, shared by every room of a run).</summary>
+        private void RenderHud()
+        {
+            var hud = RunHudView.Build(_climb, Ui.Data);
+            _hudHp?.Set(hud.Hp, hud.MaxHp);
+            var run = _climb.Run;
+            var cinders = (double?)run[RunKeys.Cinders] ?? 0d;
+            Root.Q<LocLabel>(UiNames.HudCinders)?.SetResolved(Strings.Format(StringKeys.Core2BoardCinders, new StringArgs().Add(UiPlaceholders.Amount, (int)Math.Floor(cinders))));
+            var pips = Root.Q(UiNames.HudPips);
+            if (pips == null) return;
+            pips.Clear();
+            if (!(run[CombatKeys.Relics] is JArray relics)) return;
+            foreach (var relic in relics)
+            {
+                var pip = new VisualElement { pickingMode = PickingMode.Ignore };
+                pip.AddToClassList(UiClasses.HudPip);
+                SetImage(pip, Ui.Texture(StringTable.Fill(Ui.Data.Components.RewardRelicArt, new StringArgs().Add(UiPlaceholders.Id, (string)relic))));
+                pips.Add(pip);
+            }
+        }
+
+        /// <summary>The progress strip's rail: a slot per floor before the boss, the walked ones showing their kind, the one the run stands on ringed; Boss turns gold once reached.</summary>
+        private void RenderRoute()
+        {
+            var rail = Root.Q(UiNames.MapRail);
+            if (rail == null) return;
+            rail.Clear();
+            foreach (var step in _view.Route)
+            {
+                var slot = new VisualElement { pickingMode = PickingMode.Ignore };
+                slot.AddToClassList(MapClasses.Slot);
+                var dot = new VisualElement { pickingMode = PickingMode.Ignore };
+                dot.AddToClassList(MapClasses.SlotDot);
+                dot.EnableInClassList(MapClasses.SlotWalked, step.Kind != null);
+                dot.EnableInClassList(MapClasses.SlotCurrent, step.Current);
+                if (step.Kind != null)
+                {
+                    var icon = string.IsNullOrEmpty(step.IconName) ? null : Ui.Icon(step.IconName);
+                    if (icon != null)
+                    {
+                        var face = new VisualElement { pickingMode = PickingMode.Ignore };
+                        face.AddToClassList(MapClasses.SlotIcon);
+                        face.style.backgroundImage = new StyleBackground(icon);
+                        if (step.TintToken != null) face.style.unityBackgroundImageTintColor = Ui.TokenColor(step.TintToken);
+                        dot.Add(face);
+                    }
+                    else
+                    {
+                        var mark = new LocLabel(string.Format(CultureInfo.InvariantCulture, UiFormats.MapGlyphKey, step.Kind)) { pickingMode = PickingMode.Ignore };
+                        mark.AddToClassList(MapClasses.SlotMark);
+                        dot.Add(mark);
+                    }
+                }
+                slot.Add(dot);
+                rail.Add(slot);
+            }
+            Root.Q(UiNames.MapRailEnd)?.EnableInClassList(MapClasses.RailEndReached, _view.BossVisited);
         }
 
         private VisualElement FirstReachable() =>
@@ -169,7 +285,8 @@ namespace Ashen.Presentation.UI.Screens
             var node = _selected != null ? _view.Node(_selected) : null;
             UiDom.Show(tray, _tray && node != null);
             if (node == null) return;
-            Root.Q<LocLabel>(UiNames.TrayKind)?.SetResolved(Strings.Format(StringKeys.MapTrayFloor, new StringArgs().Add(UiPlaceholders.Floor, node.Floor)) + Strings.Get(StringKeys.RestTagJoin) + node.Label);
+            Root.Q<LocLabel>(UiNames.TrayFloor)?.SetResolved(Strings.Format(StringKeys.MapTrayFloor, new StringArgs().Add(UiPlaceholders.Floor, node.Floor)));
+            Root.Q<LocLabel>(UiNames.TrayKind)?.SetResolved(node.Label);
             Root.Q<LocLabel>(UiNames.TrayHint)?.SetResolved(node.Hint);
             var boss = Root.Q<LocLabel>(UiNames.TrayBoss);
             boss?.SetResolved(string.IsNullOrEmpty(node.BossLabel) ? string.Empty : Strings.Format(StringKeys.MapTrayBoss, new StringArgs().Add(UiPlaceholders.Label, node.BossLabel)));
@@ -177,6 +294,7 @@ namespace Ashen.Presentation.UI.Screens
             EnterButton.SetResolved(Strings.Format(StringKeys.MapTrayEnter, new StringArgs().Add(UiPlaceholders.Kind, node.Label)));
         }
 
+        /// <summary>The legend popover: one row per kind, its icon in the kind's tint (the web's `?` for an unknown place).</summary>
         private void RenderLegend()
         {
             UiDom.Show(Root.Q(UiNames.MapLegend), _legend);
@@ -187,22 +305,26 @@ namespace Ashen.Presentation.UI.Screens
             {
                 var row = new VisualElement();
                 row.AddToClassList(UiClasses.LegendRow);
-                var glyph = new LocLabel(entry.GlyphKey);
-                glyph.AddToClassList(UiClasses.MapNodeGlyph);
-                glyph.AddToClassList(UiClasses.MapNodeKindPrefix + entry.Kind);
-                row.Add(glyph);
+                var icon = string.IsNullOrEmpty(entry.IconName) ? null : Ui.Icon(entry.IconName);
+                if (icon != null)
+                {
+                    var face = new VisualElement { pickingMode = PickingMode.Ignore };
+                    face.AddToClassList(MapClasses.LegendIcon);
+                    face.style.backgroundImage = new StyleBackground(icon);
+                    if (entry.TintToken != null) face.style.unityBackgroundImageTintColor = Ui.TokenColor(entry.TintToken);
+                    row.Add(face);
+                }
+                else
+                {
+                    var mark = new LocLabel(entry.GlyphKey) { pickingMode = PickingMode.Ignore };
+                    mark.AddToClassList(MapClasses.NodeMark);
+                    row.Add(mark);
+                }
                 var label = new LocLabel();
                 label.SetResolved(entry.Label);
                 label.AddToClassList(UiClasses.ValueText);
                 row.Add(label);
                 rows.Add(row);
-            }
-            foreach (var key in new[] { StringKeys.MapLegendCurrent, StringKeys.MapLegendReachable, StringKeys.MapLegendTravelled })
-            {
-                var cue = new LocLabel(key);
-                cue.AddToClassList(UiClasses.LegendCue);
-                cue.AddToClassList(UiClasses.ValueText);
-                rows.Add(cue);
             }
         }
 
@@ -253,7 +375,6 @@ namespace Ashen.Presentation.UI.Screens
             _selected = id;
             _selectedAt = Time.realtimeSinceStartup;
             _board.Select(id);
-            Root.Q<LocLabel>(UiNames.MapHint)?.SetResolved(Strings.Get(StringKeys.MapHintSelected));
             _trayShow?.Pause();
             _trayShow = Root.schedule.Execute(() =>
             {
@@ -270,7 +391,6 @@ namespace Ashen.Presentation.UI.Screens
             _selected = null;
             _board.Select(null);
             RenderTray();
-            Root.Q<LocLabel>(UiNames.MapHint)?.SetResolved(Strings.Get(StringKeys.MapHint));
             FocusSoon(_board.Node(id) ?? FirstReachable());
         }
 
@@ -415,7 +535,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             _legend = on;
             RenderLegend();
-            FocusSoon(on ? Root.Q(UiNames.LegendClose) : Root.Q(UiNames.MapLegendToggle));
+            FocusSoon(Root.Q(UiNames.MapLegendToggle));
         }
 
         private void FocusSoon(VisualElement element)

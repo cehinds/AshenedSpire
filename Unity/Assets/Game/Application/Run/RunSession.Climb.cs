@@ -72,6 +72,9 @@ namespace Ashen.App.Run
         }
 
         /// <summary>The node ids the run may travel to from where it stands (the map's start row before the first step), in graph order.</summary>
+        /// <summary>The 405 run follows the player's Map reveal setting.</summary>
+        public string PinnedMapMode => null;
+
         public IReadOnlyList<string> ReachableNodes()
         {
             if (Location != RunFlowValues.LocationMap || ProloguePending) return Array.Empty<string>();

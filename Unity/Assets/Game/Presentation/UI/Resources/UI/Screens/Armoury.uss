@@ -1,0 +1,440 @@
+/* The Armoury modal (web src/ui/screens/equipment.js, deckEditor.js; docs/qa/web-screens/map-{deck,equipment,stats}-1920x1080.jpg; D-903): tabs Character | Armory | Edit Deck in the
+   modal's head, a rail (Equipment, Cards) beside the Armory panes, and the deck editor in the Edit Deck tab. The frame is the combat modal's (Kit/CombatModal). Tokens only. */
+
+/* ---- the head: tabs take the place of the title ---- */
+
+.armoury-modal .cmodal-identity {
+    display: none;
+}
+
+.armoury-tabs {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.armoury-tab.unity-button {
+    min-height: 0;
+    min-width: 0;
+    margin: 0 var(--space-md) 0 0;
+    padding: var(--space-xs) var(--space-sm);
+    font-size: var(--font-armoury-tab);
+    color: var(--color-parchment);
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-width: 0;
+    border-bottom-width: var(--border-control);
+    border-bottom-color: var(--color-transparent);
+    border-radius: 0;
+}
+
+.armoury-tab.unity-button:hover,
+.armoury-tab.unity-button:focus {
+    color: var(--color-gold);
+}
+
+.armoury-tab--on.unity-button {
+    color: var(--color-green);
+    border-bottom-color: var(--color-green);
+}
+
+/* ---- body: a rail and a pane ---- */
+
+.armoury-body {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.armoury-rail {
+    flex-shrink: 0;
+    width: var(--size-armoury-rail-w);
+    margin-right: var(--size-cmodal-gap);
+}
+
+.armoury-rail-item.unity-button {
+    margin: 0 0 var(--space-xs) 0;
+    padding: var(--space-sm) var(--space-sm);
+    min-height: 0;
+    -unity-text-align: middle-left;
+    color: var(--color-parchment);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-rail-item--on.unity-button {
+    border-color: var(--color-green);
+    color: var(--color-green);
+}
+
+.armoury-pane {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.armoury-heading {
+    font-size: var(--font-heading);
+    letter-spacing: var(--size-track-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.armoury-line {
+    margin-top: var(--space-xs);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.armoury-muted {
+    color: var(--color-muted);
+}
+
+.armoury-eyebrow {
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+/* ---- Character ---- */
+
+.armoury-name {
+    font-size: var(--font-armoury-name);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.armoury-xp {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: var(--space-md);
+}
+
+.armoury-xp-bar {
+    height: var(--size-armoury-xp-h);
+    margin-top: var(--space-xs);
+    background-color: var(--color-track);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-pill);
+}
+
+.armoury-xp-fill {
+    height: var(--size-full-width);
+    background-color: var(--color-gold-soft);
+    border-radius: var(--radius-pill);
+}
+
+.armoury-sheet {
+    flex-direction: row;
+    margin-top: var(--space-md);
+}
+
+.armoury-portrait {
+    flex-shrink: 0;
+    width: var(--size-armoury-portrait-w);
+    height: var(--size-armoury-portrait-h);
+    margin-right: var(--size-cmodal-gap);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.armoury-info {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.armoury-card-box {
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-card-title {
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+}
+
+.armoury-chips {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-xs);
+}
+
+.armoury-chip {
+    margin: 0 var(--space-md) var(--space-xxs) 0;
+    color: var(--color-parchment);
+}
+
+.armoury-chip-value {
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+/* ---- Cards ---- */
+
+.armoury-cards-head {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.armoury-edit.unity-button {
+    margin: var(--space-sm) 0 var(--space-md) 0;
+    align-self: flex-start;
+}
+
+.armoury-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-sm);
+}
+
+.armoury-grid-card {
+    width: var(--size-armoury-card-w);
+    height: var(--size-armoury-card-h);
+    margin: 0 var(--space-md) var(--space-md) 0;
+}
+
+/* ---- Equipment ---- */
+
+.armoury-equipment {
+    flex-direction: row;
+}
+
+.armoury-positions {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-right: var(--size-cmodal-gap);
+}
+
+.armoury-position {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-position--locked {
+    opacity: var(--opacity-muted);
+}
+
+.armoury-position--selected {
+    border-color: var(--color-gold);
+}
+
+.armoury-thumb {
+    flex-shrink: 0;
+    width: var(--size-armoury-thumb);
+    height: var(--size-armoury-thumb);
+    margin-right: var(--space-md);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.armoury-position-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.armoury-code {
+    color: var(--color-gold-soft);
+}
+
+.armoury-position-name {
+    font-size: var(--font-heading);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.armoury-tag {
+    flex-shrink: 0;
+    margin-left: var(--space-sm);
+    padding: var(--space-xxs) var(--space-sm);
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-muted);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-inspect {
+    flex-shrink: 0;
+    width: var(--size-armoury-inspect-w);
+}
+
+/* ---- Edit Deck ---- */
+
+.deck-editor {
+    flex-grow: 1;
+}
+
+.deck-editor-head {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.deck-editor-counter {
+    font-size: var(--font-heading);
+    color: var(--color-parchment);
+}
+
+.deck-editor-counter--bad {
+    color: var(--color-danger);
+}
+
+.deck-editor-curve {
+    flex-direction: row;
+    align-items: flex-end;
+    height: var(--size-armoury-curve-h);
+}
+
+.deck-editor-curve-bar {
+    align-items: center;
+    justify-content: flex-end;
+    width: var(--size-armoury-curve-bar-w);
+    height: var(--size-full-width);
+    margin-left: var(--space-xs);
+}
+
+.deck-editor-curve-fill {
+    width: var(--size-armoury-curve-fill-w);
+    background-color: var(--color-gold-soft);
+}
+
+.deck-editor-curve-label {
+    font-size: var(--font-chip);
+    color: var(--color-muted);
+}
+
+.deck-editor-filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: var(--space-sm);
+}
+
+.deck-editor-chip.unity-button {
+    min-height: 0;
+    min-width: 0;
+    margin: 0 var(--space-xs) var(--space-xxs) 0;
+    padding: var(--space-xxs) var(--space-sm);
+    font-size: var(--font-caption);
+    color: var(--color-parchment);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-pill);
+}
+
+.deck-editor-chip--on.unity-button {
+    color: var(--color-gold);
+    border-color: var(--color-gold);
+}
+
+.deck-editor-chips-label {
+    margin-right: var(--space-sm);
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-muted);
+}
+
+.deck-editor-panes {
+    flex-direction: row;
+    flex-grow: 1;
+    margin-top: var(--space-md);
+}
+
+.deck-editor-pane {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-right: var(--size-cmodal-gap);
+}
+
+.deck-editor-pane--inspect {
+    flex-grow: 0;
+    flex-basis: auto;
+    width: var(--size-armoury-inspect-w);
+    margin-right: 0;
+}
+
+.deck-editor-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--space-xxs);
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.deck-editor-row--spent {
+    opacity: var(--opacity-muted);
+}
+
+.deck-editor-row--selected {
+    border-color: var(--color-gold);
+}
+
+.deck-editor-name.unity-button {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+    margin: 0;
+    padding: var(--space-xxs) var(--space-xs);
+    -unity-text-align: middle-left;
+    color: var(--color-parchment);
+    background-color: var(--color-transparent);
+    border-width: 0;
+}
+
+.deck-editor-meta {
+    flex-shrink: 0;
+    margin: 0 var(--space-sm);
+    font-size: var(--font-caption);
+    color: var(--color-muted);
+}
+
+.deck-editor-step.unity-button {
+    flex-shrink: 0;
+    width: var(--size-armoury-step);
+    min-width: 0;
+    min-height: 0;
+    margin: 0 0 0 var(--space-xxs);
+    padding: 0;
+    color: var(--color-parchment);
+    background-color: var(--color-panel-raise);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    border-radius: var(--radius-tight);
+}
+
+.deck-editor-step--off.unity-button {
+    opacity: var(--opacity-disabled);
+}
+
+.deck-editor-empty {
+    color: var(--color-muted);
+}
+
+.deck-editor-foot {
+    flex-direction: row;
+    align-items: center;
+}
+
+.deck-editor-refusal {
+    flex-grow: 1;
+    color: var(--color-danger);
+    white-space: normal;
+}

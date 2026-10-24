@@ -395,5 +395,19 @@ namespace Ashen.Generated
         public const string BossName = "BOSS_NAME";
         public const string VictoryBeat = "VICTORY_BEAT";
         public const string VictoryTitle = "VICTORY_TITLE";
+        public const string MapStrip = "MAP_STRIP";
+        public const string MapRail = "MAP_RAIL";
+        public const string MapStage = "MAP_STAGE";
+        public const string MapVignette = "MAP_VIGNETTE";
+        public const string MapKeys = "MAP_KEYS";
+        public const string MapKeyDeck = "MAP_KEY_DECK";
+        public const string MapKeyEquipment = "MAP_KEY_EQUIPMENT";
+        public const string MapKeyStats = "MAP_KEY_STATS";
+        public const string MapKeyMenu = "MAP_KEY_MENU";
+        public const string TrayFloor = "TRAY_FLOOR";
+        public const string MapTools = "MAP_TOOLS";
+        public const string MapRailEnd = "MAP_RAIL_END";
+        public const string ArmouryScrim = "ARMOURY_SCRIM";
+        public const string ArmouryModal = "ARMOURY_MODAL";
     }
 }
