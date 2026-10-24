@@ -112,6 +112,75 @@
     },
     "combat.refusal.unplayable": {
       "type": "string"
+    },
+    "combat.log.playerTurnStart": {
+      "type": "string"
+    },
+    "combat.log.enemyTurnStart": {
+      "type": "string"
+    },
+    "combat.log.cardPlayed": {
+      "type": "string"
+    },
+    "combat.log.damageDealt": {
+      "type": "string"
+    },
+    "combat.log.hpLost": {
+      "type": "string"
+    },
+    "combat.log.blockGained": {
+      "type": "string"
+    },
+    "combat.log.healed": {
+      "type": "string"
+    },
+    "combat.log.statusApplied": {
+      "type": "string"
+    },
+    "combat.log.statusExpired": {
+      "type": "string"
+    },
+    "combat.log.enemyMoveStarted": {
+      "type": "string"
+    },
+    "combat.log.attackMissed": {
+      "type": "string"
+    },
+    "combat.log.poiseBroken": {
+      "type": "string"
+    },
+    "combat.log.playerStaggered": {
+      "type": "string"
+    },
+    "combat.log.enemyStaggered": {
+      "type": "string"
+    },
+    "combat.log.enemyDied": {
+      "type": "string"
+    },
+    "combat.log.flaskUsed": {
+      "type": "string"
+    },
+    "combat.log.combatStanceChanged": {
+      "type": "string"
+    },
+    "combat.log.deckShuffled": {
+      "type": "string"
+    },
+    "combat.log.cardExhausted": {
+      "type": "string"
+    },
+    "combat.log.combatReactionOffered": {
+      "type": "string"
+    },
+    "combat.log.combatReactionChosen": {
+      "type": "string"
+    },
+    "combat.log.intentPredictionAccepted": {
+      "type": "string"
+    },
+    "combat.log.combatEnd": {
+      "type": "string"
     }
   },
   "required": [
@@ -151,6 +220,29 @@
     "combat.refusal.slotFastened",
     "combat.refusal.stamina",
     "combat.refusal.swapEnergy",
-    "combat.refusal.unplayable"
+    "combat.refusal.unplayable",
+    "combat.log.playerTurnStart",
+    "combat.log.enemyTurnStart",
+    "combat.log.cardPlayed",
+    "combat.log.damageDealt",
+    "combat.log.hpLost",
+    "combat.log.blockGained",
+    "combat.log.healed",
+    "combat.log.statusApplied",
+    "combat.log.statusExpired",
+    "combat.log.enemyMoveStarted",
+    "combat.log.attackMissed",
+    "combat.log.poiseBroken",
+    "combat.log.playerStaggered",
+    "combat.log.enemyStaggered",
+    "combat.log.enemyDied",
+    "combat.log.flaskUsed",
+    "combat.log.combatStanceChanged",
+    "combat.log.deckShuffled",
+    "combat.log.cardExhausted",
+    "combat.log.combatReactionOffered",
+    "combat.log.combatReactionChosen",
+    "combat.log.intentPredictionAccepted",
+    "combat.log.combatEnd"
   ]
 }

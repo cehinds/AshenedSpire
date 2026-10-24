@@ -144,6 +144,8 @@ Every WP pins the same web sha. Size is approximate lines of port.
 | WP-20 Settings and key map | `webKeyMap.json` for the player `settings.*` rows; profile pinning; D11/D12 pacing dials | `Tools/web-key-map.mjs`, `Content/settings`, `Application/Settings` | — | 400 | 0; ∥ all |
 | WP-21 De-scope | Record that class mastery, market, sigils, companions, combat rounds and Ashen Blight feats are not part of a Core 2 run; delete the 405 merchant, smith, buy-back and class-tree code after WP-19 | docs | — | 100 | 19 |
 
+**Status 2026-10-24 (WP-C1a):** a Core 2 run is hosted through the Application layer (`Core2RunSession`, `RunHost`, `Core2RunLoop`; D-302): new run, map, travel, fights on the run's streams, save and resume, run end. The rewards, rest, shop and event nodes are answered "not yet ported" until WP-15 to WP-19; `rules/runFlow.json` `newRun.ruleset` stays `legacy` until they land (D-303).
+
 **Critical path:** 0 → 1 → 2 → 3 → 4 → {5 ∥ 6} → 7 → {8 ∥ 9} → 10 → 11 → 12 → 13 → 15 → {16 ∥ 17} → 19.
 
 **Parallel lanes:**
