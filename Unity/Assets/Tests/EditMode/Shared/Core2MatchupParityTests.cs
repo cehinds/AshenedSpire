@@ -25,16 +25,8 @@ namespace Ashen.Tests
     {
         private static string Dir => Path.Combine(TestContent.OracleRoot, "core2", "matchups");
 
-        private static readonly Dictionary<string, JObject> Files = new Dictionary<string, JObject>();
 
-        internal static JObject Read(string name)
-        {
-            lock (Files)
-            {
-                if (!Files.TryGetValue(name, out var doc)) Files[name] = doc = (JObject)JsonContent.Parse(File.ReadAllText(Path.Combine(Dir, name)));
-                return doc;
-            }
-        }
+        internal static JObject Read(string name) => OracleDocuments.Read(Path.Combine(Dir, name));
 
         private static CoreCombatData Data => Core2DamageParityTests.Data;
 
