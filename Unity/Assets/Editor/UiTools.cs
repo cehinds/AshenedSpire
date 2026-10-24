@@ -35,7 +35,14 @@ namespace Ashen.EditorTools
             var source = new DirectoryContentSource(ContentRoot);
             var data = UiData.Load(source);
             var registry = (JObject)JsonContent.Parse(source.ReadText(ContentFiles.AssetsRegistry));
-            var path = PresentationResources + UiResources.ArtCatalog + ".asset";
+            BuildCatalog(registry, UiResources.ArtCatalog, data.Components.ArtIncludes);
+            // The art-release groups (ui/art.json: cards, icons, scenes) are separate catalogs, loaded on first use (VP-2).
+            foreach (var group in data.Art.Config.Groups) BuildCatalog(registry, group.Resource, group.Includes);
+        }
+
+        private static void BuildCatalog(JObject registry, string resource, Func<string, bool> includes)
+        {
+            var path = PresentationResources + resource + ".asset";
             var catalog = AssetDatabase.LoadAssetAtPath<UiArtCatalog>(path);
             if (catalog == null)
             {
@@ -45,15 +52,17 @@ namespace Ashen.EditorTools
             }
             catalog.entries.Clear();
             var missing = 0;
-            foreach (var p in registry.Properties().Where(p => data.Components.ArtIncludes(p.Name)))
+            foreach (var p in registry.Properties().Where(p => includes(p.Name)))
             {
-                var texture = AssetDatabase.LoadAssetAtPath<Texture2D>((string)p.Value[UnityPathKey]);
+                var unityPath = (string)p.Value[UnityPathKey];
+                if (unityPath == null) continue;
+                var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(unityPath);
                 if (texture == null) { missing++; continue; }
                 catalog.entries.Add(new UiArtCatalog.Entry { id = p.Name, texture = texture });
             }
             EditorUtility.SetDirty(catalog);
             AssetDatabase.SaveAssets();
-            Debug.Log("UI art catalog: " + catalog.entries.Count + " textures, " + missing + " registry ids without an imported texture");
+            Debug.Log("UI art catalog " + resource + ": " + catalog.entries.Count + " textures, " + missing + " registry ids without an imported texture");
         }
 
         [MenuItem("Ashen/UI/Create Boot Scene")]

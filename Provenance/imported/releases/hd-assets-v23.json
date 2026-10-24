@@ -1,0 +1,3183 @@
+{
+  "counts": {
+    "files": 3151,
+    "imported": 631,
+    "releaseIds": 1083,
+    "unused": 0
+  },
+  "imported": [
+    {
+      "id": "card.acrobaticsRogue.art512",
+      "sha256": "d75bd0553018b4455031cc188bf0fc064899b953f806a05f92f7e4bd98d98f43",
+      "source": "assets/cards/extended/card-acrobaticsRogue-512.webp"
+    },
+    {
+      "id": "card.aegisOfEmbers.art512",
+      "sha256": "e0600fa8a824a060c008a094e1f44f2e2411c628664a459500edfec0d760c4b2",
+      "source": "assets/cards/extended/card-aegisOfEmbers-512.webp"
+    },
+    {
+      "id": "card.afterimageCard.art512",
+      "sha256": "22cebf481774030137b3ec50f01cd6d4b33be08fa6bdd4f0ba7f062b562b5bbe",
+      "source": "assets/cards/extended/card-afterimageCard-512.webp"
+    },
+    {
+      "id": "card.aimedShot.art512",
+      "sha256": "c1d214549a78aa4d90a3c3b41a86d127ff47a9d03c0f88e7e5d98dd6d77a8ae9",
+      "source": "assets/cards/extended/card-aimedShot-512.webp"
+    },
+    {
+      "id": "card.ambush.art512",
+      "sha256": "b5c5a5138d0f0d0bbdfacec318aab494b7e80c786aaac71181ac0f4470f49d7a",
+      "source": "assets/cards/extended/card-ambush-512.webp"
+    },
+    {
+      "id": "card.arrowVolley.art512",
+      "sha256": "544d650b6718939e5d13917ef407d3646bde4d16c9037101b620e134e52c70c7",
+      "source": "assets/cards/extended/card-arrowVolley-512.webp"
+    },
+    {
+      "id": "card.ashCircle.art512",
+      "sha256": "313050f014bdcafda3f2eff61e3b3d684db6286badec4b3f072ec40cf3d7affe",
+      "source": "assets/cards/extended/card-ashCircle-512.webp"
+    },
+    {
+      "id": "card.ashOath.art512",
+      "sha256": "5d7227a5d5de8b0a76fe1e6e566f8e2f41ae6eb5b9c72029730eb0a0e76f7427",
+      "source": "assets/cards/extended/card-ashOath-512.webp"
+    },
+    {
+      "id": "card.ashenMote.art512",
+      "sha256": "f02b63a158ab3bea16e6c34151aba9fd6a46a23d26b1cdfdb777563c4ee15e60",
+      "source": "assets/cards/extended/card-ashenMote-512.webp"
+    },
+    {
+      "id": "card.ashfallRite.art512",
+      "sha256": "e940aa92f69f17796e8fac5f5aaea9fc7aae1512d5c30ba5e5304982178fdc88",
+      "source": "assets/cards/extended/card-ashfallRite-512.webp"
+    },
+    {
+      "id": "card.assassinate.art512",
+      "sha256": "90309c2463b15a9e57fe7dae6f6c617f2bf04ac96176a3731c5815cdbaf6c32c",
+      "source": "assets/cards/extended/card-assassinate-512.webp"
+    },
+    {
+      "id": "card.astralArmorCard.art512",
+      "sha256": "fe19fc3c62e50c0821ae090b9679c36a6d8fe8d8d49504f2961ab120e947c46e",
+      "source": "assets/cards/extended/card-astralArmorCard-512.webp"
+    },
+    {
+      "id": "card.astralCleave.art512",
+      "sha256": "2b5413d0e411e8de5a9d61a6b06786c198c069e4a189eb99f61e183b4cc61d89",
+      "source": "assets/cards/extended/card-astralCleave-512.webp"
+    },
+    {
+      "id": "card.astralInsight.art512",
+      "sha256": "4a7ec33201f5783eeb1f174d8e851e27f30ff1e7163151ce5da8fac85522352e",
+      "source": "assets/cards/extended/card-astralInsight-512.webp"
+    },
+    {
+      "id": "card.astromancerCard.art512",
+      "sha256": "f37a7b708b4c67a569b38fd62f394e8c6920ad7133bdcaff402f1f739ff30b33",
+      "source": "assets/cards/extended/card-astromancerCard-512.webp"
+    },
+    {
+      "id": "card.attune.art512",
+      "sha256": "fffe2933205a6595582363c79a9b8b1e6b9bdc5cea5e523930e3c53b9eb27425",
+      "source": "assets/cards/extended/card-attune-512.webp"
+    },
+    {
+      "id": "card.azureCoilCard.art512",
+      "sha256": "66dec385f25dd9ede35dbd74bdadf19ac9ce3f6872fac49df21f8412c2188c9b",
+      "source": "assets/cards/extended/card-azureCoilCard-512.webp"
+    },
+    {
+      "id": "card.backstep.art512",
+      "sha256": "73d74999add45810e4a7583b930a94a4226da1885443ac75ded7a93cfc37e63e",
+      "source": "assets/cards/extended/card-backstep-512.webp"
+    },
+    {
+      "id": "card.barbedArrow.art512",
+      "sha256": "e283c3a7acc1843eeed68684c3e0c9737aa406b8c4233acd0b213a59edb46bc0",
+      "source": "assets/cards/extended/card-barbedArrow-512.webp"
+    },
+    {
+      "id": "card.bashingBlow.art512",
+      "sha256": "6fcb8a4e550ac5086ca49d93ac44d9aa39f4ba63dce38acfca3bf85d3bd7e7e4",
+      "source": "assets/cards/extended/card-bashingBlow-512.webp"
+    },
+    {
+      "id": "card.bindingParry.art512",
+      "sha256": "c46d70e4ab19fa97d14d514005af57a1c1733b29d7b44c954aea16a30fc84a21",
+      "source": "assets/cards/extended/card-bindingParry-512.webp"
+    },
+    {
+      "id": "card.bladeDanceRogue.art512",
+      "sha256": "946591fd1e8b3bd4c83f87ddc43c02815af47a39e927c84e116f02303c32c2e6",
+      "source": "assets/cards/extended/card-bladeDanceRogue-512.webp"
+    },
+    {
+      "id": "card.blightBloom.art512",
+      "sha256": "3fe656114ba9da219183f377c6e67f412d83b277203a0c17064bcb3110605ab3",
+      "source": "assets/cards/extended/card-blightBloom-512.webp"
+    },
+    {
+      "id": "card.blightNova.art512",
+      "sha256": "413221f8ea446378e90bbe352359bce66eb66b73d4bcb29a7dd29420bffc7257",
+      "source": "assets/cards/extended/card-blightNova-512.webp"
+    },
+    {
+      "id": "card.blightTouch.art512",
+      "sha256": "15b8518f2358fa35c825b8a36eb30ac01c376638dd2134573f1eed4d86c43628",
+      "source": "assets/cards/extended/card-blightTouch-512.webp"
+    },
+    {
+      "id": "card.blightward.art512",
+      "sha256": "f3923178ed20d20f14651a72489227ef87250a06503f8d066cdc412e4ac0a61a",
+      "source": "assets/cards/extended/card-blightward-512.webp"
+    },
+    {
+      "id": "card.blightwardLash.art512",
+      "sha256": "bca38efe9b49939dab802f622bb085a590708f9b544c490cc05bc774847d945d",
+      "source": "assets/cards/extended/card-blightwardLash-512.webp"
+    },
+    {
+      "id": "card.blindingSand.art512",
+      "sha256": "ac30a074019d284e99ceb124a0801e218c35cb8d4d25909a35d5a9e7630aa987",
+      "source": "assets/cards/extended/card-blindingSand-512.webp"
+    },
+    {
+      "id": "card.bloodHarvest.art512",
+      "sha256": "6747594a02421ab73260a0fa994e6a65bb221e9e8301f142c9c74bca37c7148a",
+      "source": "assets/cards/extended/card-bloodHarvest-512.webp"
+    },
+    {
+      "id": "card.bloodOfferingRite.art512",
+      "sha256": "0a1b9870c93e07658d09bef4bbabad6013cd4cbf9a6fdce023176da029b0c743",
+      "source": "assets/cards/extended/card-bloodOfferingRite-512.webp"
+    },
+    {
+      "id": "card.bloodPact.art512",
+      "sha256": "cd5a83a83e283422abc05203a1fa9c91b8f083108ccc7466b6091cfb57667778",
+      "source": "assets/cards/extended/card-bloodPact-512.webp"
+    },
+    {
+      "id": "card.bloodTithe.art512",
+      "sha256": "1cab84a30f4779c48f108527d8e57ada02f13355a5c35f2f117331620d775967",
+      "source": "assets/cards/extended/card-bloodTithe-512.webp"
+    },
+    {
+      "id": "card.bloodhuntersStrike.art512",
+      "sha256": "17aaf0c67d61ec92d6de10e9d2f96982703999eda0127a7186189327b7c7e03f",
+      "source": "assets/cards/extended/card-bloodhuntersStrike-512.webp"
+    },
+    {
+      "id": "card.bloodletterRogue.art512",
+      "sha256": "7339be47c5689b6acb548d7942ffadbb2451923da789dcb9bad9cbe07c98920f",
+      "source": "assets/cards/extended/card-bloodletterRogue-512.webp"
+    },
+    {
+      "id": "card.bloodletting.art512",
+      "sha256": "61bab4aa2d2f2bb7350ce30feea99a99ee3fb04952b19940432602dd9d0b937e",
+      "source": "assets/cards/extended/card-bloodletting-512.webp"
+    },
+    {
+      "id": "card.brace.art512",
+      "sha256": "c384704addd6e62ab084e05d6a60fb28031e1730c61be73e936582a747e79057",
+      "source": "assets/cards/extended/card-brace-512.webp"
+    },
+    {
+      "id": "card.bracingStance.art512",
+      "sha256": "33ed2aa23b07f99647b590be38f4e225c6bae2772e7d47e1a8cb2f426544cdb7",
+      "source": "assets/cards/extended/card-bracingStance-512.webp"
+    },
+    {
+      "id": "card.butterflyPlague.art512",
+      "sha256": "3363bb27ea831512f3e50d96e9d5453bb9e41f48472e3064bfed51c4c639bd32",
+      "source": "assets/cards/extended/card-butterflyPlague-512.webp"
+    },
+    {
+      "id": "card.celestialLance.art512",
+      "sha256": "58e003256ae50ab542af9065a360cb179d1c013ee643f85ccbe3ba0cb84d74a6",
+      "source": "assets/cards/extended/card-celestialLance-512.webp"
+    },
+    {
+      "id": "card.cheapShot.art512",
+      "sha256": "95d8d24d68d614a0eb2e4240d82a1c3692c237d3abdadd9eee52fa55fecbef41",
+      "source": "assets/cards/extended/card-cheapShot-512.webp"
+    },
+    {
+      "id": "card.cinderLance.art512",
+      "sha256": "3e9a00af8c3eabf246534323eb870a042d7df0cd78bf0266d872b3b5e25a8569",
+      "source": "assets/cards/extended/card-cinderLance-512.webp"
+    },
+    {
+      "id": "card.cinderSigil.art512",
+      "sha256": "e6096058cefca1b35782908a70859a7a5d01e0daadd5ebadd9a5533934554c76",
+      "source": "assets/cards/extended/card-cinderSigil-512.webp"
+    },
+    {
+      "id": "card.cleavingBlow.art512",
+      "sha256": "af2a37142b53e8394d6b9403c9ea3c976a9aeac2f6eaea9f2ae8347b12bd556d",
+      "source": "assets/cards/extended/card-cleavingBlow-512.webp"
+    },
+    {
+      "id": "card.colossusSmash.art512",
+      "sha256": "8a1ee03cc18a316ff757a35f5cbbf92c3fe7502f4bd0db975c4ce098af16745e",
+      "source": "assets/cards/extended/card-colossusSmash-512.webp"
+    },
+    {
+      "id": "card.cometFragment.art512",
+      "sha256": "70799255890d5fff668a39982474333310c2963fbd6e6386f7afc9b2ed990e13",
+      "source": "assets/cards/extended/card-cometFragment-512.webp"
+    },
+    {
+      "id": "card.communionCard.art512",
+      "sha256": "73cc8146e43445a61af2c79fe39b0bdc490a660cfa2b90cb8fb96a6c96f34b6c",
+      "source": "assets/cards/extended/card-communionCard-512.webp"
+    },
+    {
+      "id": "card.constellationCard.art512",
+      "sha256": "bc547525972c553bbf2278390ab16709b22f7c7193bf8bfd8baf4eea87ed95cc",
+      "source": "assets/cards/extended/card-constellationCard-512.webp"
+    },
+    {
+      "id": "card.contagion.art512",
+      "sha256": "78b4bee811a871e60f35f6ece94ecdc766a01b0713b0454b93f09a6bef024aad",
+      "source": "assets/cards/extended/card-contagion-512.webp"
+    },
+    {
+      "id": "card.coupDeGrace.art512",
+      "sha256": "a3aa25fcbb98d8e3f7429b151ca473af25c6976c76807b5e2e28d65cc2e884c6",
+      "source": "assets/cards/extended/card-coupDeGrace-512.webp"
+    },
+    {
+      "id": "card.crimsonCleave.art512",
+      "sha256": "bebd2c4a6e4440467a8595d0d593ef51a4b16ec490f79e299f106305ebb871c7",
+      "source": "assets/cards/extended/card-crimsonCleave-512.webp"
+    },
+    {
+      "id": "card.crimsonRite.art512",
+      "sha256": "5833068d56286dd2ed7ded3fade9a8731f8c03599a693740100b86613214b5f3",
+      "source": "assets/cards/extended/card-crimsonRite-512.webp"
+    },
+    {
+      "id": "card.crystalBarrier.art512",
+      "sha256": "30b0adc918c0aeafa07e5d42fe17a8dd536a93bf82a17c8ec6c5bddc340300d5",
+      "source": "assets/cards/extended/card-crystalBarrier-512.webp"
+    },
+    {
+      "id": "card.cullTheWeak.art512",
+      "sha256": "f850c82134f670c99b1772fc885c6bcc362489c449e2741b4599a8e3f14bf746",
+      "source": "assets/cards/extended/card-cullTheWeak-512.webp"
+    },
+    {
+      "id": "card.dazed.art512",
+      "sha256": "6ca1c66f9740a6293ddc672288660281e1946a7af5925bc8cb2d9a6b361cabab",
+      "source": "assets/cards/extended/card-dazed-512.webp"
+    },
+    {
+      "id": "card.deadlyTempoCard.art512",
+      "sha256": "86bd10de3d302c4e6a375037de89de64d67e18d6bcea0cb188cba44a4593ca72",
+      "source": "assets/cards/extended/card-deadlyTempoCard-512.webp"
+    },
+    {
+      "id": "card.deathblow.art512",
+      "sha256": "c913470aa1c582f48a9e3cfabf30c9670aa86c2c7eb9cb2cb355c103d1d84558",
+      "source": "assets/cards/extended/card-deathblow-512.webp"
+    },
+    {
+      "id": "card.defend.art512",
+      "sha256": "30d0c6a9d766d9a46d6a9f2ab1e8bf81ad5f33f129064e5e63b3cb451d040d4f",
+      "source": "assets/cards/extended/card-defend-512.webp"
+    },
+    {
+      "id": "card.desperateRite.art512",
+      "sha256": "361acc835f26407c3fac2eea22e278c36abd8ef3db8bf46ec65a0e755effb384",
+      "source": "assets/cards/extended/card-desperateRite-512.webp"
+    },
+    {
+      "id": "card.disorient.art512",
+      "sha256": "2bedd4305a97915ec348cfa68cf2c479d2f9363d13f43451fb6b17d3a85d7dc2",
+      "source": "assets/cards/extended/card-disorient-512.webp"
+    },
+    {
+      "id": "card.dodgeRoll.art512",
+      "sha256": "320448db1513001bacdb9b7c9c922ca8e89ecf1c7aa5e55cfe8c8d8ddf2f4bdf",
+      "source": "assets/cards/extended/card-dodgeRoll-512.webp"
+    },
+    {
+      "id": "card.emberCommunion.art512",
+      "sha256": "9726d98e25b69f71bb61c8db571d303746d6951ce180e57aefce4e08bea46046",
+      "source": "assets/cards/extended/card-emberCommunion-512.webp"
+    },
+    {
+      "id": "card.emberTideCard.art512",
+      "sha256": "fa65f10f48c3a2e8e030e07ab9ecfff4c8a455d59008405d63fea888d6a459f4",
+      "source": "assets/cards/extended/card-emberTideCard-512.webp"
+    },
+    {
+      "id": "card.emberVigil.art512",
+      "sha256": "021315ab7f8f36dacc71a5c2fd123be0f38a69a3195fac141ed3b3d02ec4beb5",
+      "source": "assets/cards/extended/card-emberVigil-512.webp"
+    },
+    {
+      "id": "card.enfeeble.art512",
+      "sha256": "d9c2827a5e48e6c22326b289fd6f3b893513e76d62e46676930d3beb8df0b663",
+      "source": "assets/cards/extended/card-enfeeble-512.webp"
+    },
+    {
+      "id": "card.enterBulwark.art512",
+      "sha256": "f030f4c420865baec023d7a335de636f312c4c3caba2dc12e8f71f99c3c0168d",
+      "source": "assets/cards/extended/card-enterBulwark-512.webp"
+    },
+    {
+      "id": "card.enterGorefire.art512",
+      "sha256": "e5e04946cfa2682c696646f9ca8b86c7b541d5cdc4fb22a877a5ab8ba48348d9",
+      "source": "assets/cards/extended/card-enterGorefire-512.webp"
+    },
+    {
+      "id": "card.envenomCard.art512",
+      "sha256": "d877e0fbe3c5287fbd2d18eee357301ab17cc58c491088abca29b16abff5859e",
+      "source": "assets/cards/extended/card-envenomCard-512.webp"
+    },
+    {
+      "id": "card.evasiveGuard.art512",
+      "sha256": "78a4f190d0b0b0bf456d1b594d6e5cce0c1228817eafca89921593e5f9749c8b",
+      "source": "assets/cards/extended/card-evasiveGuard-512.webp"
+    },
+    {
+      "id": "card.executionWindow.art512",
+      "sha256": "ef8df78b2f71023b14ebf89c00d365d989df45f88cf2d6e13207f3f65300d05f",
+      "source": "assets/cards/extended/card-executionWindow-512.webp"
+    },
+    {
+      "id": "card.executioner.art512",
+      "sha256": "fd9e9fcf73ee6d313745c194ed628fb7c15b8fb20b778e7cbbcd2f437c9c92fc",
+      "source": "assets/cards/extended/card-executioner-512.webp"
+    },
+    {
+      "id": "card.exsanguinate.art512",
+      "sha256": "f4c2943e4194af931b7dcd84e959ec5a87db881c879d156f48a46164d659f954",
+      "source": "assets/cards/extended/card-exsanguinate-512.webp"
+    },
+    {
+      "id": "card.fanOfKnives.art512",
+      "sha256": "6eea45e5ea875a0c856a7bcb83bb6f642f38b75baa1b4836a0ed15def671f4e9",
+      "source": "assets/cards/extended/card-fanOfKnives-512.webp"
+    },
+    {
+      "id": "card.feint.art512",
+      "sha256": "c903c30d9b9a770b509baa410e16a66677154b6dd5673f95797b31f6447c06b3",
+      "source": "assets/cards/extended/card-feint-512.webp"
+    },
+    {
+      "id": "card.fieldDressing.art512",
+      "sha256": "f772a219f4c4cfb9598ba2c76802897fb674483e8f03268d22fc0cabca84d75d",
+      "source": "assets/cards/extended/card-fieldDressing-512.webp"
+    },
+    {
+      "id": "card.flagellation.art512",
+      "sha256": "aa7e8a5fa8b62a6c8397d938144a9bafe42d570240f38da9fafc1a8553477297",
+      "source": "assets/cards/extended/card-flagellation-512.webp"
+    },
+    {
+      "id": "card.flameToBlade.art512",
+      "sha256": "a38286a5d86908306a44f7e46533661b78ea9a0ae583690a309e0bdb6d8813f9",
+      "source": "assets/cards/extended/card-flameToBlade-512.webp"
+    },
+    {
+      "id": "card.frostNova.art512",
+      "sha256": "50b3830c808c4341aca9e67e372984be6dcde28c1fdbfbdea3231b94d8ddf89b",
+      "source": "assets/cards/extended/card-frostNova-512.webp"
+    },
+    {
+      "id": "card.frostVeil.art512",
+      "sha256": "1f83c106ea3095f826c992ef84fd1ac091b783a65f15525cfaab1872e2c0fe59",
+      "source": "assets/cards/extended/card-frostVeil-512.webp"
+    },
+    {
+      "id": "card.garrote.art512",
+      "sha256": "6eb245ec37157e25ae3a0ecf352026c03093d0dbca6a61ef6b82f75091ff665c",
+      "source": "assets/cards/extended/card-garrote-512.webp"
+    },
+    {
+      "id": "card.gildedOath.art512",
+      "sha256": "e0aa2c3677bd154578730ea9b56a72798ca29747a18fea62e89b59547697cf29",
+      "source": "assets/cards/extended/card-gildedOath-512.webp"
+    },
+    {
+      "id": "card.goreblood.art512",
+      "sha256": "39757aa39aa8e40e009a92349455b41f294d0ba906eb25e4995787bcf96d57a1",
+      "source": "assets/cards/extended/card-goreblood-512.webp"
+    },
+    {
+      "id": "card.gorefireSlash.art512",
+      "sha256": "1e2e043da1fa5e5d8db5093f74a3a129677c61983a572d962653200419a64677",
+      "source": "assets/cards/extended/card-gorefireSlash-512.webp"
+    },
+    {
+      "id": "card.goreslash.art512",
+      "sha256": "26131ca0ea5b4ad800a4bda594d79e00fd747b018eee5457f9d04fac196ab6e0",
+      "source": "assets/cards/extended/card-goreslash-512.webp"
+    },
+    {
+      "id": "card.graveOffering.art512",
+      "sha256": "dc3aad8b5b02e779dc532829d658692e79ce036a52aadc49d5c12214a72036d9",
+      "source": "assets/cards/extended/card-graveOffering-512.webp"
+    },
+    {
+      "id": "card.gravityWell.art512",
+      "sha256": "d6e9c7de41286bd6eabba188dcc44c77283a9c3a18affab44565efc1fa951601",
+      "source": "assets/cards/extended/card-gravityWell-512.webp"
+    },
+    {
+      "id": "card.greatswordSunderingHew.art512",
+      "sha256": "1f2835f073dfec2f09ba4eef7499d8dd3ce32f0862b1d9915054dc7ad945ac94",
+      "source": "assets/cards/extended/card-greatswordSunderingHew-512.webp"
+    },
+    {
+      "id": "card.guardCounter.art512",
+      "sha256": "f1c87b8970599c320197f744722d8422d007dd332aa758a4cb5e465ba1f2a928",
+      "source": "assets/cards/extended/card-guardCounter-512.webp"
+    },
+    {
+      "id": "card.guardianBulwark.art512",
+      "sha256": "ac0de208453748365fcb9e822f6dcfa6e4903f31e2886479df663776389f762c",
+      "source": "assets/cards/extended/card-guardianBulwark-512.webp"
+    },
+    {
+      "id": "card.guilt.art512",
+      "sha256": "fc72f154a491ad7195a12b75312447f0558491961747b66b13a3a9ba47bc4b2e",
+      "source": "assets/cards/extended/card-guilt-512.webp"
+    },
+    {
+      "id": "card.hamstring.art512",
+      "sha256": "738b8945e7c3e1240f732b3527d075f78cfe39cd688913ed0e7caf846e1431e5",
+      "source": "assets/cards/extended/card-hamstring-512.webp"
+    },
+    {
+      "id": "card.hamstringRogue.art512",
+      "sha256": "6460d94c4f983d7806bc156fb36938ed383cf83bf1b992abed135277e00bfbd8",
+      "source": "assets/cards/extended/card-hamstringRogue-512.webp"
+    },
+    {
+      "id": "card.harbingerOfBlightCard.art512",
+      "sha256": "35d2e993230e9320086dbd1b35095151aba772d2858af33e2e03e37adb9feff2",
+      "source": "assets/cards/extended/card-harbingerOfBlightCard-512.webp"
+    },
+    {
+      "id": "card.hemorrhage.art512",
+      "sha256": "083553309943c3b7855022ac6a54ef157d9638f78f5719af81f9bdc8e5745434",
+      "source": "assets/cards/extended/card-hemorrhage-512.webp"
+    },
+    {
+      "id": "card.hewingArc.art512",
+      "sha256": "5c90005ecf98d8323ae422b629a9c89a45282346684d45fe38df8ebdfb3d9555",
+      "source": "assets/cards/extended/card-hewingArc-512.webp"
+    },
+    {
+      "id": "card.hex.art512",
+      "sha256": "dc5adb006154cff910accb1db88ff900b077f3cd823cabb45c148227eb7b4158",
+      "source": "assets/cards/extended/card-hex-512.webp"
+    },
+    {
+      "id": "card.honedEdge.art512",
+      "sha256": "d41c56685a87a18780bc10a0c4c50f1ca623c75b33d023fbe4156c79cc76074a",
+      "source": "assets/cards/extended/card-honedEdge-512.webp"
+    },
+    {
+      "id": "card.impale.art512",
+      "sha256": "d815e22f173a8adf76ee166702cbca30a89d91337d139f5746f780d12b25bd80",
+      "source": "assets/cards/extended/card-impale-512.webp"
+    },
+    {
+      "id": "card.ironResolve.art512",
+      "sha256": "3e234f34bbf35e87237ae4ea082dbcf08d6ee354aba5147f9b1f928d9cf36ad6",
+      "source": "assets/cards/extended/card-ironResolve-512.webp"
+    },
+    {
+      "id": "card.ironSkin.art512",
+      "sha256": "e032dcf3a7864ab8f1a5d3bb6c1a705c0ecf2a81a06ed87e5831a11bd0031428",
+      "source": "assets/cards/extended/card-ironSkin-512.webp"
+    },
+    {
+      "id": "card.ironVowCard.art512",
+      "sha256": "029aa653138f12ba88188486f1aaaa62b2e24e4d3241cba0747aca8dd9f6e771",
+      "source": "assets/cards/extended/card-ironVowCard-512.webp"
+    },
+    {
+      "id": "card.katanaDrawCut.art512",
+      "sha256": "6e1d46d4371ae2c20b57760df238515773c19fededcf54701129945969aabdd1",
+      "source": "assets/cards/extended/card-katanaDrawCut-512.webp"
+    },
+    {
+      "id": "card.kickOff.art512",
+      "sha256": "713a5f579b94650b2545255b39893d4638fe950b4f5a5dd835cbcbcdadf4d072",
+      "source": "assets/cards/extended/card-kickOff-512.webp"
+    },
+    {
+      "id": "card.kilnCleave.art512",
+      "sha256": "fb14e4b2c900f81672254d991d9294329193c7d14c095c92ec33f2f68b3a3fa7",
+      "source": "assets/cards/extended/card-kilnCleave-512.webp"
+    },
+    {
+      "id": "card.kindledOmen.art512",
+      "sha256": "d71d7f27964a5f62ca2f8ccfcf81ab18a7ef9943f4e512462add0755744e2efc",
+      "source": "assets/cards/extended/card-kindledOmen-512.webp"
+    },
+    {
+      "id": "card.lastMercy.art512",
+      "sha256": "b03778209c324d6ef0e283e9dc5d87fbc1a502c158874c5064aa096c62a7cb2c",
+      "source": "assets/cards/extended/card-lastMercy-512.webp"
+    },
+    {
+      "id": "card.lastRites.art512",
+      "sha256": "40ef9cc744a0bfb1d08fc2e80e65945645e3609716c93f82150214cb05660864",
+      "source": "assets/cards/extended/card-lastRites-512.webp"
+    },
+    {
+      "id": "card.lastStand.art512",
+      "sha256": "b1e53b7f9d717c99e0c73eb21560d16bde9fdbae9e7cd5811b0caa90d5da9c4e",
+      "source": "assets/cards/extended/card-lastStand-512.webp"
+    },
+    {
+      "id": "card.lifeTitheCard.art512",
+      "sha256": "2bfdaa3339b457f3df8d457ebcb19bbdea0b3f9d385c0ed1122301c78fa032c1",
+      "source": "assets/cards/extended/card-lifeTitheCard-512.webp"
+    },
+    {
+      "id": "card.litany.art512",
+      "sha256": "d089f3f3aae7376297e163c86737255e4ff5ba9696605f96cbb5fa6f33479cc9",
+      "source": "assets/cards/extended/card-litany-512.webp"
+    },
+    {
+      "id": "card.lowBlow.art512",
+      "sha256": "f70fe6e9c0c857eea304bc865810ccde954a311ab4495c15b2d8713c6213a6ca",
+      "source": "assets/cards/extended/card-lowBlow-512.webp"
+    },
+    {
+      "id": "card.lucidity.art512",
+      "sha256": "d3d88d7045f8e940175cfe9f5d04f382559561a08324916f24745b8d705efce0",
+      "source": "assets/cards/extended/card-lucidity-512.webp"
+    },
+    {
+      "id": "card.martyrBlood.art512",
+      "sha256": "a314042c43f5010b91e333b76ad724fb3a96c38d756da9592240ef72b0ea0ae4",
+      "source": "assets/cards/extended/card-martyrBlood-512.webp"
+    },
+    {
+      "id": "card.masterOfStrategy.art512",
+      "sha256": "a3f4310ec8331d3e1ef48812fd832ed5898ed87697a568eec20b02b351a5face",
+      "source": "assets/cards/extended/card-masterOfStrategy-512.webp"
+    },
+    {
+      "id": "card.meteorSwarm.art512",
+      "sha256": "3d7aabb9d16a040682139d9c546aeeec5b4ed66662ad5442127cdcb160ece2de",
+      "source": "assets/cards/extended/card-meteorSwarm-512.webp"
+    },
+    {
+      "id": "card.meteorite.art512",
+      "sha256": "814be1cf4504a21bac5aff59009e4b3831c1737c85f8fb72c3d5f855562c9d66",
+      "source": "assets/cards/extended/card-meteorite-512.webp"
+    },
+    {
+      "id": "card.misdirect.art512",
+      "sha256": "3f3c795192e8415361414e830e0e1c0a6942fd9a12bae196cb4fd6f4e70748d7",
+      "source": "assets/cards/extended/card-misdirect-512.webp"
+    },
+    {
+      "id": "card.moonlitShieldCard.art512",
+      "sha256": "11d4b63f31db03162165c43142d66d2b6d8672f044f40a548de2146eec6d35c5",
+      "source": "assets/cards/extended/card-moonlitShieldCard-512.webp"
+    },
+    {
+      "id": "card.moonrendCut.art512",
+      "sha256": "86b0884a361cfc0500606fe5afd045d3fb232faf738545bb7eaac23618ee00d1",
+      "source": "assets/cards/extended/card-moonrendCut-512.webp"
+    },
+    {
+      "id": "card.nockAndWait.art512",
+      "sha256": "a8453ca656b78312d004f1cc39ac9598a6e2d4ba8f518789270d507b563a984a",
+      "source": "assets/cards/extended/card-nockAndWait-512.webp"
+    },
+    {
+      "id": "card.opportunistCard.art512",
+      "sha256": "b1bbad2503a9670b649facab1a52e4895c7066a7bbbe9129f66b15c20fb38dc3",
+      "source": "assets/cards/extended/card-opportunistCard-512.webp"
+    },
+    {
+      "id": "card.painOffering.art512",
+      "sha256": "2cd88759ceb2d7780b3acc3002de32595a3582d256dd0cf5840f630206d9f372",
+      "source": "assets/cards/extended/card-painOffering-512.webp"
+    },
+    {
+      "id": "card.penance.art512",
+      "sha256": "589481e77eb513bfebad6f9fc45cc2e54464a49c689266e549848e4740bef1a9",
+      "source": "assets/cards/extended/card-penance-512.webp"
+    },
+    {
+      "id": "card.perfectHeist.art512",
+      "sha256": "4575e7393e8e5fc6f76a4b8a1e439e5037629900a43754c9126e4ea4c860a29f",
+      "source": "assets/cards/extended/card-perfectHeist-512.webp"
+    },
+    {
+      "id": "card.phoenixChart.art512",
+      "sha256": "ce86ffa9f765cc6e4a61d3e53991670c1b63000844cfdec4f74d3516f0e523b3",
+      "source": "assets/cards/extended/card-phoenixChart-512.webp"
+    },
+    {
+      "id": "card.pilfer.art512",
+      "sha256": "5e5511b8bc3b2de6e46bee03a63675919381203add079bce480a382463d25fb6",
+      "source": "assets/cards/extended/card-pilfer-512.webp"
+    },
+    {
+      "id": "card.pinningShot.art512",
+      "sha256": "da36b2c119fbac8d3d2264f5d78c1bf14620bde07abece4e6e34146434d3d60d",
+      "source": "assets/cards/extended/card-pinningShot-512.webp"
+    },
+    {
+      "id": "card.plagueBearer.art512",
+      "sha256": "dd78445260c7c57cbf9a9949c4ae158506e866f0161a07616962b5239bc5ec40",
+      "source": "assets/cards/extended/card-plagueBearer-512.webp"
+    },
+    {
+      "id": "card.pocketSand.art512",
+      "sha256": "18d20c5c95265c101a23c929299c9e56bef25e5ce02b6802d3a3be4275600bf5",
+      "source": "assets/cards/extended/card-pocketSand-512.webp"
+    },
+    {
+      "id": "card.poiseBreaker.art512",
+      "sha256": "463149a604a2e9028d55c4036b37c1d769675740ab6e79c9d51a0eb8b6b52f2e",
+      "source": "assets/cards/extended/card-poiseBreaker-512.webp"
+    },
+    {
+      "id": "card.prepare.art512",
+      "sha256": "34e7f141552b23b4294a708e1a1672de3f621ac0bb8c033a72608b8bec1fec5a",
+      "source": "assets/cards/extended/card-prepare-512.webp"
+    },
+    {
+      "id": "card.pyreLight.art512",
+      "sha256": "e8278b94b02ddc65ba37112c7733c16eedd95fd800b22668e1f6271730225651",
+      "source": "assets/cards/extended/card-pyreLight-512.webp"
+    },
+    {
+      "id": "card.pyreOfCharts.art512",
+      "sha256": "5384d904861a6f0fd0e42777e6abb0e3340b290cb2c4961939837a9900f0e01c",
+      "source": "assets/cards/extended/card-pyreOfCharts-512.webp"
+    },
+    {
+      "id": "card.quickCut.art512",
+      "sha256": "82f2dbcb67e7f0dcfc32237ba8d2b8156f443674f5c313129d52c5b75d5130f6",
+      "source": "assets/cards/extended/card-quickCut-512.webp"
+    },
+    {
+      "id": "card.quickGuard.art512",
+      "sha256": "7ae1a1044effef103df1ebba2df2cae813773d5ceea2f01a194bdb8b60ee8831",
+      "source": "assets/cards/extended/card-quickGuard-512.webp"
+    },
+    {
+      "id": "card.quickstep.art512",
+      "sha256": "3aa69e51a3abf143c335a5af9b9c20f28dd9b866f1698d3771ee23b4aa9e62b6",
+      "source": "assets/cards/extended/card-quickstep-512.webp"
+    },
+    {
+      "id": "card.radiantSpray.art512",
+      "sha256": "bd9a8fe81dc850ebd46689d0d945691304a0343fe9fbf9bdb983129a306b5982",
+      "source": "assets/cards/extended/card-radiantSpray-512.webp"
+    },
+    {
+      "id": "card.rallyingBanner.art512",
+      "sha256": "ee08612db6596c032b16ae89284e56dc94da56fff15576598dcde0a5ae151273",
+      "source": "assets/cards/extended/card-rallyingBanner-512.webp"
+    },
+    {
+      "id": "card.rallyingStandard.art512",
+      "sha256": "646db0afdbe7ad7fc9cd4e992b319b1941c91ad0ee31bb06e46dccd873c52ad7",
+      "source": "assets/cards/extended/card-rallyingStandard-512.webp"
+    },
+    {
+      "id": "card.readTheAsh.art512",
+      "sha256": "c28f84463246501ad5408dce8282db61a9fc499c282813727d9d3bfadc05fa48",
+      "source": "assets/cards/extended/card-readTheAsh-512.webp"
+    },
+    {
+      "id": "card.reclamation.art512",
+      "sha256": "2f42cf1f0ab3758ce2a82226ab3340f5fe1c062d8e0fa5d045d4afe1a1e70e95",
+      "source": "assets/cards/extended/card-reclamation-512.webp"
+    },
+    {
+      "id": "card.rend.art512",
+      "sha256": "17a0e3eed1c2c8c550bef2cd78be6abbc4f529e92db4979ddaf2e411588c0de9",
+      "source": "assets/cards/extended/card-rend-512.webp"
+    },
+    {
+      "id": "card.ricochet.art512",
+      "sha256": "4b3ea40d28892737ff4d234eb10c5fd7ff396075e481795097236198ef50fcc4",
+      "source": "assets/cards/extended/card-ricochet-512.webp"
+    },
+    {
+      "id": "card.rimeThrust.art512",
+      "sha256": "f32fdad5255b943dd770d9e8c96d0a7091acc2b7951c198b76437da8ae9fcc03",
+      "source": "assets/cards/extended/card-rimeThrust-512.webp"
+    },
+    {
+      "id": "card.riposte.art512",
+      "sha256": "4208dd14da418f7c1dfbcc976e50f6d5b09a9d1a9397a4d60acc9901fb549ff6",
+      "source": "assets/cards/extended/card-riposte-512.webp"
+    },
+    {
+      "id": "card.riteOfCinders.art512",
+      "sha256": "279750c1938c52a90d2a3fd11c6107897d7afcdbce359c86d215a65a90f8363f",
+      "source": "assets/cards/extended/card-riteOfCinders-512.webp"
+    },
+    {
+      "id": "card.rogueShiv.art512",
+      "sha256": "c9a26c6ae73aed9c58db46abb0a9feb3a2885d531aca5bd5b1d0366a3bfb8fcc",
+      "source": "assets/cards/extended/card-rogueShiv-512.webp"
+    },
+    {
+      "id": "card.rondelParry.art512",
+      "sha256": "51c334b6bc9ff827285888d491049d7bfe834bf5c639129b27a24e31c28e7132",
+      "source": "assets/cards/extended/card-rondelParry-512.webp"
+    },
+    {
+      "id": "card.ruinousBlow.art512",
+      "sha256": "a22b61af5fbe035853d6f1c072b7f4d8975c7f5084e069cf624a04211588637f",
+      "source": "assets/cards/extended/card-ruinousBlow-512.webp"
+    },
+    {
+      "id": "card.sacredHarvest.art512",
+      "sha256": "4673a62c32a07d324b5ffe68baf0132abdca1107922565f64d01adedf2bfae88",
+      "source": "assets/cards/extended/card-sacredHarvest-512.webp"
+    },
+    {
+      "id": "card.sanguinePactCard.art512",
+      "sha256": "695a0cba1437cafbc7bbfd5f330a0a497abf1876e92079c2f9d32403bba55436",
+      "source": "assets/cards/extended/card-sanguinePactCard-512.webp"
+    },
+    {
+      "id": "card.sap.art512",
+      "sha256": "f18c82473d34841ddee47751aa9af3eb88624d7dc995fa4bef3bbb0dd5abf49e",
+      "source": "assets/cards/extended/card-sap-512.webp"
+    },
+    {
+      "id": "card.scholarsInsight.art512",
+      "sha256": "1c47695983b9b5b27fab0d0725c79e9e2d258e5b333d6d31bb3d126779edcce7",
+      "source": "assets/cards/extended/card-scholarsInsight-512.webp"
+    },
+    {
+      "id": "card.scourge.art512",
+      "sha256": "0c1e03b3751b38c78f86cef1f272482e826e85e2fb2c4d1a5cd694d4cbfe1e26",
+      "source": "assets/cards/extended/card-scourge-512.webp"
+    },
+    {
+      "id": "card.secondBloom.art512",
+      "sha256": "917798870b9d819df3b5067824ccd4a2f1465b95f3cc877db09f85ab80985b26",
+      "source": "assets/cards/extended/card-secondBloom-512.webp"
+    },
+    {
+      "id": "card.serratedBlade.art512",
+      "sha256": "5bae50a96ed05918764c0dac80952fe1911373902bdcda65826e732765afc90a",
+      "source": "assets/cards/extended/card-serratedBlade-512.webp"
+    },
+    {
+      "id": "card.serratedShiv.art512",
+      "sha256": "bde2b274a0b1f03dd169faa2016715b9b56a9f318ad7f6e42b9aa8baa0c5a5f8",
+      "source": "assets/cards/extended/card-serratedShiv-512.webp"
+    },
+    {
+      "id": "card.setTheShield.art512",
+      "sha256": "849d3333b58dedc113aeb26523eb1bb1f58740c479f759b4a31043e18bfe3b51",
+      "source": "assets/cards/extended/card-setTheShield-512.webp"
+    },
+    {
+      "id": "card.setupRogue.art512",
+      "sha256": "e53e1ed46fc87789d1c6c3ca2c7c624396689c7440bc2134a8cc4d1425ca5c1c",
+      "source": "assets/cards/extended/card-setupRogue-512.webp"
+    },
+    {
+      "id": "card.shadowstep.art512",
+      "sha256": "8ce5c69b9367f124f54cc88c8a7e25c5100571a907a3d95eb8b3fa4e2d10e349",
+      "source": "assets/cards/extended/card-shadowstep-512.webp"
+    },
+    {
+      "id": "card.sharedFlame.art512",
+      "sha256": "c5e1fb06b54a7ff4ca26f7372ead003d7e33ab24a6bfa4ae352670187bd800bb",
+      "source": "assets/cards/extended/card-sharedFlame-512.webp"
+    },
+    {
+      "id": "card.shieldBash.art512",
+      "sha256": "5930ce9236898ab9a6e709641021e9618b45ed7ac967a077eeccafc4f8f9821e",
+      "source": "assets/cards/extended/card-shieldBash-512.webp"
+    },
+    {
+      "id": "card.shieldBastion.art512",
+      "sha256": "2c8d8b85a76120412ce366fd096f82b652db40d598c490c0ef978d8b38d0a71e",
+      "source": "assets/cards/extended/card-shieldBastion-512.webp"
+    },
+    {
+      "id": "card.shieldCrash.art512",
+      "sha256": "c5dbc77166c0c43c1e47844c4bb4278d383cb53d6dc8a123c3032305dafe5a4d",
+      "source": "assets/cards/extended/card-shieldCrash-512.webp"
+    },
+    {
+      "id": "card.shieldGuardian.art512",
+      "sha256": "404de3b5b8806179f8da0377c7b8eb062725c68064b36d36d088879ef1ff9109",
+      "source": "assets/cards/extended/card-shieldGuardian-512.webp"
+    },
+    {
+      "id": "card.shieldwall.art512",
+      "sha256": "ddb0af8c51b6991ddffd9e31751d07cc5851cccbb410ba77b3fec00056cf6ee2",
+      "source": "assets/cards/extended/card-shieldwall-512.webp"
+    },
+    {
+      "id": "card.shootingShard.art512",
+      "sha256": "2d112eaafebbcaaa2609c15bce00de5775452e2b04f3db6567caf473671a6704",
+      "source": "assets/cards/extended/card-shootingShard-512.webp"
+    },
+    {
+      "id": "card.slimed.art512",
+      "sha256": "f9a207fdabdfad74b0045dd2c94dd86bec63fbc720fa51b6b2e314d9fce75de1",
+      "source": "assets/cards/extended/card-slimed-512.webp"
+    },
+    {
+      "id": "card.smokeBomb.art512",
+      "sha256": "ccc057f78dd03d1c1874c65e8627648366be234197e70d183d775b04d455f433",
+      "source": "assets/cards/extended/card-smokeBomb-512.webp"
+    },
+    {
+      "id": "card.smokePellet.art512",
+      "sha256": "e74b3d074f676aa97f7dd28384a59b2cd2ae92993e61d81c9f38e9bff82cb1a5",
+      "source": "assets/cards/extended/card-smokePellet-512.webp"
+    },
+    {
+      "id": "card.smokeVeil.art512",
+      "sha256": "d3cc86ed4ec0365a53e9f1f2aa35b9ac2254604888d8d17701a30abffacbef35",
+      "source": "assets/cards/extended/card-smokeVeil-512.webp"
+    },
+    {
+      "id": "card.spikedReprisal.art512",
+      "sha256": "83beb4e0a3f348ef8f74a5d2fc383c6093cee15783e38f661af65e7d8e85436f",
+      "source": "assets/cards/extended/card-spikedReprisal-512.webp"
+    },
+    {
+      "id": "card.starPath.art512",
+      "sha256": "6d25fcffd7352144bcb1144bf67952b092c139f61b1a60ecd77d1e430e455089",
+      "source": "assets/cards/extended/card-starPath-512.webp"
+    },
+    {
+      "id": "card.starShower.art512",
+      "sha256": "d2ee02845162f19d195abd2770af3352cca6552ed72b714e08a3eea3ec295f57",
+      "source": "assets/cards/extended/card-starShower-512.webp"
+    },
+    {
+      "id": "card.starSlicer.art512",
+      "sha256": "8f27cd7b3a8ec1a80df7cf256f8a6b547d9471f3ab107b146443a16ce7fe46c5",
+      "source": "assets/cards/extended/card-starSlicer-512.webp"
+    },
+    {
+      "id": "card.starSpark.art512",
+      "sha256": "25aa1a62986f062c7d5e21dbed8a5191035819a3c4a1f47324880216526f79f0",
+      "source": "assets/cards/extended/card-starSpark-512.webp"
+    },
+    {
+      "id": "card.starbladePhalanx.art512",
+      "sha256": "c3a8656176eb113e1dc9e129fe30a17f4cc92032aef5baf54d502665dc1d93cd",
+      "source": "assets/cards/extended/card-starbladePhalanx-512.webp"
+    },
+    {
+      "id": "card.starcaller.art512",
+      "sha256": "76effd2a6a69f952af498433e5ba5c8e0d7d4c529fe04266e556220939079321",
+      "source": "assets/cards/extended/card-starcaller-512.webp"
+    },
+    {
+      "id": "card.starfallBeam.art512",
+      "sha256": "e9a6578b679c15743b16ac5211c4913934367ae4f6baeac0702e917c531806ec",
+      "source": "assets/cards/extended/card-starfallBeam-512.webp"
+    },
+    {
+      "id": "card.stargazerCard.art512",
+      "sha256": "37afe637095a17846ca22cedb787678ac20a67a9ee0b6cba93b08cd57636c076",
+      "source": "assets/cards/extended/card-stargazerCard-512.webp"
+    },
+    {
+      "id": "card.starlance.art512",
+      "sha256": "761c2e0a4508118c2c583536679f8709db18c37e780d6cb350c16cabc32bd715",
+      "source": "assets/cards/extended/card-starlance-512.webp"
+    },
+    {
+      "id": "card.starstoneArc.art512",
+      "sha256": "cf09365d53e1c45bb0d671851183671dddb430043698d7375cf3104f32eacb36",
+      "source": "assets/cards/extended/card-starstoneArc-512.webp"
+    },
+    {
+      "id": "card.starstoneKris.art512",
+      "sha256": "a5af4e7241374518b9c61ad81995fb2ab52c40c38989ff8b9f6084899a522852",
+      "source": "assets/cards/extended/card-starstoneKris-512.webp"
+    },
+    {
+      "id": "card.starstonePebble.art512",
+      "sha256": "f6589f81e4426a8b02ec9ab2107748a3befcc36a41382c4386a1ef8fdde9ee75",
+      "source": "assets/cards/extended/card-starstonePebble-512.webp"
+    },
+    {
+      "id": "card.starstoneWard.art512",
+      "sha256": "5d300493b365ce6dfe68d0686a3a82268235f3809ff9ef17f033dd039a8732ed",
+      "source": "assets/cards/extended/card-starstoneWard-512.webp"
+    },
+    {
+      "id": "card.stigmataCard.art512",
+      "sha256": "8d8f69c36fbc79a50adc3bd3554ab92cfa109331daacba695dfe29b20e03196a",
+      "source": "assets/cards/extended/card-stigmataCard-512.webp"
+    },
+    {
+      "id": "card.stitchedArms.art512",
+      "sha256": "a2fc931803376099e00c28169c6aaaaad347606d1cbb713bf561fc97e7b616fb",
+      "source": "assets/cards/extended/card-stitchedArms-512.webp"
+    },
+    {
+      "id": "card.stomp.art512",
+      "sha256": "8464c0c1f7bcfb5ba1f67d7c43e7a790882146e54f298fc4a37ffa138f508aa4",
+      "source": "assets/cards/extended/card-stomp-512.webp"
+    },
+    {
+      "id": "card.strike.art512",
+      "sha256": "b8ccf9f0408d744c2cda5e78d35591b4bb3d64e257165180515e64840b642856",
+      "source": "assets/cards/extended/card-strike-512.webp"
+    },
+    {
+      "id": "card.sunderingChop.art512",
+      "sha256": "2b5866ebc1ae2f2f01fc3d9647de31f3d83c6010b7779a589bb181fe7d04fe2d",
+      "source": "assets/cards/extended/card-sunderingChop-512.webp"
+    },
+    {
+      "id": "card.sunderplate.art512",
+      "sha256": "a9c974e4e89908e16da273020d6d987eff7d2dc25dc0e0db149b4c33523840c7",
+      "source": "assets/cards/extended/card-sunderplate-512.webp"
+    },
+    {
+      "id": "card.supernova.art512",
+      "sha256": "f3fca15c5dfbd1be23cabce9386baa06fbc92abf8d7a2a8002e43a4f7050169a",
+      "source": "assets/cards/extended/card-supernova-512.webp"
+    },
+    {
+      "id": "card.sweepingBlow.art512",
+      "sha256": "99850ef27362a9f0190fe242566c4523ae6446fb4dceb469c592dcc6559445fa",
+      "source": "assets/cards/extended/card-sweepingBlow-512.webp"
+    },
+    {
+      "id": "card.technique.art512",
+      "sha256": "c36e0c71f8c0f713201bc13dc7d2c98941aab96243c215f6fea26e9978b237d3",
+      "source": "assets/cards/extended/card-technique-512.webp"
+    },
+    {
+      "id": "card.thornHaloCard.art512",
+      "sha256": "f3b9153ee4d4489640e6cd9dbc975f1719ba7d8401f4351a27217a2369ac5ecc",
+      "source": "assets/cards/extended/card-thornHaloCard-512.webp"
+    },
+    {
+      "id": "card.thousandCutsRogue.art512",
+      "sha256": "f4b70aa2eff0082122f621509abc3b879b7de0ffd55fdc864d3757108f2dfd69",
+      "source": "assets/cards/extended/card-thousandCutsRogue-512.webp"
+    },
+    {
+      "id": "card.timeDilation.art512",
+      "sha256": "3798f263531f1002263bb73269d2b483f9d7c9975d4e55f2edd4bb2f687f8d1f",
+      "source": "assets/cards/extended/card-timeDilation-512.webp"
+    },
+    {
+      "id": "card.toxicVolley.art512",
+      "sha256": "72cacf62ec85725f2bff65eedd88de4792c521b80c1f843f1d376ae69b2371e5",
+      "source": "assets/cards/extended/card-toxicVolley-512.webp"
+    },
+    {
+      "id": "card.transfusion.art512",
+      "sha256": "b1760b303e530ef173613b6f570339c01b7136ba74d8e7862a0e8948303500c9",
+      "source": "assets/cards/extended/card-transfusion-512.webp"
+    },
+    {
+      "id": "card.transmute.art512",
+      "sha256": "dbea62de5d94fe278d165d5020eeee2992774033c1bb633e4c6684c00f215146",
+      "source": "assets/cards/extended/card-transmute-512.webp"
+    },
+    {
+      "id": "card.twinFang.art512",
+      "sha256": "861f2a72a50186fadcf8c993d0866d3dd75185ca54cba8bc57beac36949267a1",
+      "source": "assets/cards/extended/card-twinFang-512.webp"
+    },
+    {
+      "id": "card.twinPrick.art512",
+      "sha256": "72fcb102a8d4f742e0a3a7d114299a065aaa8a50609631843c2ce553465e067c",
+      "source": "assets/cards/extended/card-twinPrick-512.webp"
+    },
+    {
+      "id": "card.twinbladeFlurry.art512",
+      "sha256": "cfff768ba9787fbc2b95b9f0792cc6fe8ea9dd6b3ba1f9be936cbd6bbc7cf293",
+      "source": "assets/cards/extended/card-twinbladeFlurry-512.webp"
+    },
+    {
+      "id": "card.twinkling.art512",
+      "sha256": "0b7d1fd385bcc4fb80748897ff800b6c3c8c20192240f3def71261182f881ec4",
+      "source": "assets/cards/extended/card-twinkling-512.webp"
+    },
+    {
+      "id": "card.umbralWard.art512",
+      "sha256": "4a4b99b6949166c2a2addcebf98ac9b6cc165cd818aa2c5d7f17dafcd4a39a4f",
+      "source": "assets/cards/extended/card-umbralWard-512.webp"
+    },
+    {
+      "id": "card.unbreakable.art512",
+      "sha256": "e9eac5dad6a974e30dd98f2ccd2258ca46fbc2eab95e601d0025899bab306abb",
+      "source": "assets/cards/extended/card-unbreakable-512.webp"
+    },
+    {
+      "id": "card.urgentHeal.art512",
+      "sha256": "6443085e3bfd2449e0763b31b897b81af2661ecc1f4c0c6d15973d5676bb8eae",
+      "source": "assets/cards/extended/card-urgentHeal-512.webp"
+    },
+    {
+      "id": "card.vanish.art512",
+      "sha256": "a4f94013cf93f09e76e7e1fe96e0fee399f0a545a401839ba8a693003562a881",
+      "source": "assets/cards/extended/card-vanish-512.webp"
+    },
+    {
+      "id": "card.venomcoat.art512",
+      "sha256": "8207de41155f13ca177eb2e5720b93b0fa44274e8848a28ea2642478e18afc7e",
+      "source": "assets/cards/extended/card-venomcoat-512.webp"
+    },
+    {
+      "id": "card.vesperWard.art512",
+      "sha256": "1708ae4bd88f8859d1a7b252b7dd8d106591be675b77fa94d4725d96f2ef4d92",
+      "source": "assets/cards/extended/card-vesperWard-512.webp"
+    },
+    {
+      "id": "card.warSurgeon.art512",
+      "sha256": "0f2318e84e8599e7fb4d9ddc410681aaafbd81e89daca4dd653259a73cf63244",
+      "source": "assets/cards/extended/card-warSurgeon-512.webp"
+    },
+    {
+      "id": "card.warcry.art512",
+      "sha256": "762fc24ef849b61eda869c8fe2bc5dd847b91679db8585d297149a219539b962",
+      "source": "assets/cards/extended/card-warcry-512.webp"
+    },
+    {
+      "id": "card.wardingLunge.art512",
+      "sha256": "a157d2e667dc58bf39ce5158054c9232934efca8d7f963883e05d238662ec9cb",
+      "source": "assets/cards/extended/card-wardingLunge-512.webp"
+    },
+    {
+      "id": "card.wardingStar.art512",
+      "sha256": "59ca8b2580637d631775509b2cac00e7ec5b7cb19cd56289318072ad98bfa731",
+      "source": "assets/cards/extended/card-wardingStar-512.webp"
+    },
+    {
+      "id": "card.warmLitany.art512",
+      "sha256": "8b3e9a4d32cb8629a5b11b93cbad66441ea2039624483e02eb033770c0fb6625",
+      "source": "assets/cards/extended/card-warmLitany-512.webp"
+    },
+    {
+      "id": "card.warriorsVow.art512",
+      "sha256": "32029ab8239c630aebb6879f3f81fc216f0a7fb5b4ca35a6b6395f1dc74ca632",
+      "source": "assets/cards/extended/card-warriorsVow-512.webp"
+    },
+    {
+      "id": "card.waxingMoonCard.art512",
+      "sha256": "179c6f76600d67caf1e340cd91582c5529cc601f416eeb8206d56297521b3560",
+      "source": "assets/cards/extended/card-waxingMoonCard-512.webp"
+    },
+    {
+      "id": "card.whirlingGuard.art512",
+      "sha256": "2ef75c97a1038891260523f53e3fabfafa6dec42afd697e3f7031b7a72e9d243",
+      "source": "assets/cards/extended/card-whirlingGuard-512.webp"
+    },
+    {
+      "id": "card.witheringTouch.art512",
+      "sha256": "8e990b8eb918904db462ec248d2db73b472d6203bdd629f235c859a2252155e3",
+      "source": "assets/cards/extended/card-witheringTouch-512.webp"
+    },
+    {
+      "id": "card.wound.art512",
+      "sha256": "1c4699058837691e867dacf8697d19fa8d9ccbb60b39445615a2cc0384eaea2f",
+      "source": "assets/cards/extended/card-wound-512.webp"
+    },
+    {
+      "id": "card.zealotryCard.art512",
+      "sha256": "a22ff1d93c4ad1ec2756f5e7e8e0014a7d79fb50f898477ed34e03f8bb5f0c6e",
+      "source": "assets/cards/extended/card-zealotryCard-512.webp"
+    },
+    {
+      "id": "cardcut.C.effect.0",
+      "sha256": "fa85be707708a0fb87249893f4007ea6f06c6664e79125556079d51bca242c0c",
+      "source": "assets-display/card-cutouts/C.effect.0.png"
+    },
+    {
+      "id": "cardcut.F.effect.0",
+      "sha256": "8e6f8a8f98f3248221754460e9021bd8c78d458974a854f46fb82ba5fcd72176",
+      "source": "assets-display/card-cutouts/F.effect.0.png"
+    },
+    {
+      "id": "cardcut.F.object.0",
+      "sha256": "bef7b8988579e2b45231bb9d14f1f2e106e894e43655aac4030040642b1822bb",
+      "source": "assets-display/card-cutouts/F.object.0.png"
+    },
+    {
+      "id": "cardcut.G.effect.0",
+      "sha256": "eecd6aec3a2e2217d1a2e1d770811b2300c8e26148cc02362cf9c83a803203ba",
+      "source": "assets-display/card-cutouts/G.effect.0.png"
+    },
+    {
+      "id": "cardcut.G.object.0",
+      "sha256": "dec269220020678f406189819199d64b889696c07c15af39cffd3bdc95c87c2e",
+      "source": "assets-display/card-cutouts/G.object.0.png"
+    },
+    {
+      "id": "cardcut.H.effect.0",
+      "sha256": "bc4ded4a37bdb5fbe88ddaa368feaef904669d5f3fda8f66ca720f09f70f3f0e",
+      "source": "assets-display/card-cutouts/H.effect.0.png"
+    },
+    {
+      "id": "cardcut.H.object.0",
+      "sha256": "99139899988d4f54b3774c508a48cf8b0924967cde7e9d2bf26b9c80da68fad5",
+      "source": "assets-display/card-cutouts/H.object.0.png"
+    },
+    {
+      "id": "cardcut.I.effect.0",
+      "sha256": "128a0decd4c1c09d84f4782895d73fb6a5e41aa1db3a114d25b8ec9f4ea77395",
+      "source": "assets-display/card-cutouts/I.effect.0.png"
+    },
+    {
+      "id": "cardcut.I.object.0",
+      "sha256": "9f2f5770c2de5d8a6f48089fc423790a49ae8cf059a44deeff3b018075e24fef",
+      "source": "assets-display/card-cutouts/I.object.0.png"
+    },
+    {
+      "id": "cardcut.L.object.4",
+      "sha256": "6914181c80ba9a59a7ca4f60ee267fe9cb919d199842ef7fc4430b97c2623fea",
+      "source": "assets-display/card-cutouts/L.object.4.png"
+    },
+    {
+      "id": "cardcut.O.background.0",
+      "sha256": "6587a66513fb44203e7bbdcf350230b45fe5f4cbded43ba027706836d9300b20",
+      "source": "assets-display/card-cutouts/O.background.0.png"
+    },
+    {
+      "id": "cardcut.O.background.1",
+      "sha256": "c2b027542e4451b1db32cfc2bd9bec9f0f5b331282ec2d64841a4d674122bcf4",
+      "source": "assets-display/card-cutouts/O.background.1.png"
+    },
+    {
+      "id": "cardcut.O.background.4",
+      "sha256": "c2fbaa66c46ae9aa74d8425414bfc5236e777a91dc26012447dafa33161e81ab",
+      "source": "assets-display/card-cutouts/O.background.4.png"
+    },
+    {
+      "id": "cardcut.O.effect.0",
+      "sha256": "8f6ca317697941eb0b56574cc13b787282c4cec719f87f4cf83e94d340195b9e",
+      "source": "assets-display/card-cutouts/O.effect.0.png"
+    },
+    {
+      "id": "cardcut.O.effect.1",
+      "sha256": "45add695315886c448d186c77a182a0e9467d4664defe86ff883b469dc1ff6f7",
+      "source": "assets-display/card-cutouts/O.effect.1.png"
+    },
+    {
+      "id": "cardcut.O.effect.4",
+      "sha256": "f55325152aa5ae83854b6f4a02e7482729a73b1bf2ecf1d50d97a0a6f177e995",
+      "source": "assets-display/card-cutouts/O.effect.4.png"
+    },
+    {
+      "id": "cardcut.O.object.0",
+      "sha256": "71b36ad4db7d946f02231c33594177a8950ca33e3ede94d9b42c16f4c6db4f88",
+      "source": "assets-display/card-cutouts/O.object.0.png"
+    },
+    {
+      "id": "cardcut.O.object.1",
+      "sha256": "a3ab159b0d2f66e17aa240eca11c75991f2f770841cae6b0009d5dc20349e583",
+      "source": "assets-display/card-cutouts/O.object.1.png"
+    },
+    {
+      "id": "cardcut.O.object.4",
+      "sha256": "0a81e8f4448f52d4607a9c881c213016a7dbc4848c26f869b9f54e0c93a688d4",
+      "source": "assets-display/card-cutouts/O.object.4.png"
+    },
+    {
+      "id": "cardcut.V.object.0",
+      "sha256": "366193081c9652316f189b8f60216911639dae58aa1c95b232ce34d2cb297bc6",
+      "source": "assets-display/card-cutouts/V.object.0.png"
+    },
+    {
+      "id": "cardcut.Y.effect.0",
+      "sha256": "6a8dd01223a7a4d7dabada8dacd2b1e696727e9d9fb7dd191ff19880dc812146",
+      "source": "assets-display/card-cutouts/Y.effect.0.png"
+    },
+    {
+      "id": "cardcut.Y.effect.1",
+      "sha256": "e566e4e1b1e688dcb4a8b5875cfac1895c651292f84211566e00985cf1ce6d89",
+      "source": "assets-display/card-cutouts/Y.effect.1.png"
+    },
+    {
+      "id": "cardcut.Y.effect.2",
+      "sha256": "52c831dfa5f633283e0b69a8feb8996cb2305ad80e2567f6c9760bd29f6abab4",
+      "source": "assets-display/card-cutouts/Y.effect.2.png"
+    },
+    {
+      "id": "cardcut.Y.effect.3",
+      "sha256": "963a1d2119b07e3299a5e22f2e16e7debf1b346edcb9cacaba1d6d66f0ed1666",
+      "source": "assets-display/card-cutouts/Y.effect.3.png"
+    },
+    {
+      "id": "cardcut.Y.effect.4",
+      "sha256": "34b31ab69d6bb9d8961c331b66125a72a30ca7c0f94e8750effce5517585f9e3",
+      "source": "assets-display/card-cutouts/Y.effect.4.png"
+    },
+    {
+      "id": "cardcut.Y.effect.5",
+      "sha256": "6bd3255e9565f4d92e882f6d593dc8dd734367e5f8e6e10b62dc0a2fc9d60047",
+      "source": "assets-display/card-cutouts/Y.effect.5.png"
+    },
+    {
+      "id": "cardcut.Y.effect.6",
+      "sha256": "8a131dd3c906fe6afbd10e00d8550c30a0dc129d84caf231f4a26ed4ad7c2c4e",
+      "source": "assets-display/card-cutouts/Y.effect.6.png"
+    },
+    {
+      "id": "cardcut.Y.effect.7",
+      "sha256": "29ea079d9aedd407988e44ee469da4936688f0d5eb6efff86e70dd8b25a13f34",
+      "source": "assets-display/card-cutouts/Y.effect.7.png"
+    },
+    {
+      "id": "cardcut.Y.effect.8",
+      "sha256": "169e958722d41f02eb4f19cf46cc364a4f10657b9e690a14f6e2eabca52f1518",
+      "source": "assets-display/card-cutouts/Y.effect.8.png"
+    },
+    {
+      "id": "cardcut.Y.effect.9",
+      "sha256": "0410469d53784f7de6b5a07d4e625135d8a913677810f102595c48059b79057d",
+      "source": "assets-display/card-cutouts/Y.effect.9.png"
+    },
+    {
+      "id": "cardcut.Z.effect.0",
+      "sha256": "feb9dbd239faaa30d32a270e8fc7a5d26fa17efc06e64b05ae3bd251d9e1e3d5",
+      "source": "assets-display/card-cutouts/Z.effect.0.png"
+    },
+    {
+      "id": "cardcut.Z.effect.1",
+      "sha256": "dd450cebf23e31b571b0fe2907e0f257a564ac9ee4d68b66d37d63063f4b1734",
+      "source": "assets-display/card-cutouts/Z.effect.1.png"
+    },
+    {
+      "id": "cardcut.Z.effect.2",
+      "sha256": "359a32aa1956e9a1a3ff6db8b0176c040c4a31b1eb7d8ea59f8754ef323d8586",
+      "source": "assets-display/card-cutouts/Z.effect.2.png"
+    },
+    {
+      "id": "cardcut.Z.effect.3",
+      "sha256": "caeba8a5a71af912ac16108db6d460e0827c0536a6a7d7c4259fd89b0b1279ac",
+      "source": "assets-display/card-cutouts/Z.effect.3.png"
+    },
+    {
+      "id": "cardcut.Z.effect.4",
+      "sha256": "4e1eec252a07ea227750def11e30102e1f5c1037627a66fda369fe1075a1c9bf",
+      "source": "assets-display/card-cutouts/Z.effect.4.png"
+    },
+    {
+      "id": "cardcut.Z.effect.5",
+      "sha256": "fed347c223237ed7ea926916f8dadf97494ce2ff21c30aa7c9ca790f96b09b02",
+      "source": "assets-display/card-cutouts/Z.effect.5.png"
+    },
+    {
+      "id": "cardcut.Z.effect.6",
+      "sha256": "ed11de9ac9639a0efe3136cda85854b5e819df7f881fb87284ef2fcd98ac1f0e",
+      "source": "assets-display/card-cutouts/Z.effect.6.png"
+    },
+    {
+      "id": "cardcut.Z.effect.7",
+      "sha256": "8141bf7def0f16efc007b015e20c05537a337dd29a0bfcedbc40078913ad2488",
+      "source": "assets-display/card-cutouts/Z.effect.7.png"
+    },
+    {
+      "id": "cardcut.Z.effect.8",
+      "sha256": "b096bb2542c8af7dca5cdf32b1635fade02936c3dbd4e4d5572e9dcd581c0337",
+      "source": "assets-display/card-cutouts/Z.effect.8.png"
+    },
+    {
+      "id": "cardcut.Z.effect.9",
+      "sha256": "cdd61dbf3244cd0a6bcecea191102b3c1ecfbe25c5911934aafa4d2517f6698c",
+      "source": "assets-display/card-cutouts/Z.effect.9.png"
+    },
+    {
+      "id": "cardcut.background.4",
+      "sha256": "3025e4459a2ca618779a93eb37ebb5fb4e49fd0bf42940b5e1792a6e457ad96b",
+      "source": "assets-display/card-cutouts/background.4.png"
+    },
+    {
+      "id": "cardcut.background.5",
+      "sha256": "7d7b21d8b1b4432cd1dd270692876e257366820779ca6738d4545941cfd95331",
+      "source": "assets-display/card-cutouts/background.5.png"
+    },
+    {
+      "id": "cardcut.background.6",
+      "sha256": "c58c33ae63b3300df58a15ef466e75cdd21c52443c0dee5bd9236babba5c7126",
+      "source": "assets-display/card-cutouts/background.6.png"
+    },
+    {
+      "id": "cardcut.background.9",
+      "sha256": "d40b59b89089152da07612c287593f9b4e9f21708e30d333ae3f2b7f2c8d16ba",
+      "source": "assets-display/card-cutouts/background.9.png"
+    },
+    {
+      "id": "cardframe.art",
+      "sha256": "15e5fc5959d9096fb2e32ef4645ffa300703050517558d8b46ee3e4c823bab6e",
+      "source": "assets/card-components/44646e73c749cce0fd78.webp"
+    },
+    {
+      "id": "cardframe.base",
+      "sha256": "53952607084d07847d1492abcd71215ee946ee31393ba312f10b7716170cf673",
+      "source": "assets/card-components/1fe4ba7f330c67fca0a6.webp"
+    },
+    {
+      "id": "cardframe.energy",
+      "sha256": "d92a94ad92a652c9b5d6fc5fe16bf0eea9152d9d241bd328cf59bf1f6297f2ca",
+      "source": "assets/card-components/3b925ecf740669106927.webp"
+    },
+    {
+      "id": "cardframe.flag",
+      "sha256": "a60070e1cfbedf623ddbc53ac0bf18299d2d3af5207554ce1062d72d287e589b",
+      "source": "assets/card-components/95887e9c269a4996cf95.webp"
+    },
+    {
+      "id": "cardframe.mana",
+      "sha256": "b387531a254dc1c23298789f47420dcff640261ea6da4bfff3715cb5eef60af3",
+      "source": "assets/card-components/36cda4cba048ed38b0c9.webp"
+    },
+    {
+      "id": "cardframe.panel",
+      "sha256": "aa39ccff684701177b1bf90fef520eecdc3ff0da158c4d90c79b09b801976e99",
+      "source": "assets/card-components/0949257201425783d7c8.webp"
+    },
+    {
+      "id": "cardframe.stamina",
+      "sha256": "6abe2d461710fb35a19676408c27b9e38a1f38c589f3bf23ec73e70648ff06de",
+      "source": "assets/card-components/f31ac0a1985194c9aa76.webp"
+    },
+    {
+      "id": "cardlib.magical-attack-01.art512",
+      "sha256": "49d902ad9f109e027956abf32aa1cb2825b5f1092a2d83c6af70022265a2d7d6",
+      "source": "assets/cards/library/magical-attack-01-512.webp"
+    },
+    {
+      "id": "cardlib.magical-attack-02.art512",
+      "sha256": "a7eab2528e29f7244573b29c36f5c19cfafbaa9b27f086664969e8413651ad57",
+      "source": "assets/cards/library/magical-attack-02-512.webp"
+    },
+    {
+      "id": "cardlib.magical-attack-03.art512",
+      "sha256": "d1ba092f42382b775117e7a07d74b01f3de79e1a18ac416095e2d5bbc625ee10",
+      "source": "assets/cards/library/magical-attack-03-512.webp"
+    },
+    {
+      "id": "cardlib.magical-attack-04.art512",
+      "sha256": "a292a7cd16d16f611bf4c7c98b62bfd51a69608d47f5a70c1b9053fa50e46fef",
+      "source": "assets/cards/library/magical-attack-04-512.webp"
+    },
+    {
+      "id": "cardlib.magical-attack-05.art512",
+      "sha256": "b6111cf8fd5b6762598d771de62c15addbfdb50507f86c71fb6c6f318f87d438",
+      "source": "assets/cards/library/magical-attack-05-512.webp"
+    },
+    {
+      "id": "cardlib.magical-counter-01.art512",
+      "sha256": "35a3903a593bf95a09bdc45df5b301cc0a88fa7173dfb427b13942f634c335b7",
+      "source": "assets/cards/library/magical-counter-01-512.webp"
+    },
+    {
+      "id": "cardlib.magical-counter-02.art512",
+      "sha256": "3f53e0941c1fe754269b7d40aa5cb31449ee6acd4ad678159ceb8f5982457fdd",
+      "source": "assets/cards/library/magical-counter-02-512.webp"
+    },
+    {
+      "id": "cardlib.magical-counter-03.art512",
+      "sha256": "a69de09e7c690c8d7e2cb078d5867b7b34e89c753dabd8e6740dc27f944435a1",
+      "source": "assets/cards/library/magical-counter-03-512.webp"
+    },
+    {
+      "id": "cardlib.magical-counter-04.art512",
+      "sha256": "042653b72feaae88a855d686c3e10c82e69806672fd09f82a92e6a0c8f148be3",
+      "source": "assets/cards/library/magical-counter-04-512.webp"
+    },
+    {
+      "id": "cardlib.magical-counter-05.art512",
+      "sha256": "00c2b06da8f5261b3d0f7a3547c1b7cebd0ee6f03da338dddf9f21f4b154df07",
+      "source": "assets/cards/library/magical-counter-05-512.webp"
+    },
+    {
+      "id": "cardlib.magical-defend-01.art512",
+      "sha256": "4e33b1aff9490b569d4a387b64c15fd5911646c3fa223e3f56e4131dc9e437d2",
+      "source": "assets/cards/library/magical-defend-01-512.webp"
+    },
+    {
+      "id": "cardlib.magical-defend-02.art512",
+      "sha256": "737caedb0e52d8c06b58759f0d99d95a6060294c9953b334db2fc890d1cbba75",
+      "source": "assets/cards/library/magical-defend-02-512.webp"
+    },
+    {
+      "id": "cardlib.magical-defend-03.art512",
+      "sha256": "fe9aa0f02e7d3311f5f650671b0dcfdf7d69a6cab48dd37b5d4a6bc61a6c6fb6",
+      "source": "assets/cards/library/magical-defend-03-512.webp"
+    },
+    {
+      "id": "cardlib.magical-defend-04.art512",
+      "sha256": "30ca642a19b340e125a3900b5e3d7f14bb1c39b4ee00bf163134a725180846ad",
+      "source": "assets/cards/library/magical-defend-04-512.webp"
+    },
+    {
+      "id": "cardlib.magical-defend-05.art512",
+      "sha256": "e2cd537e0d7c6b7a888515a761ba9106846a8ebbc81c10430bca1f3fd2926c88",
+      "source": "assets/cards/library/magical-defend-05-512.webp"
+    },
+    {
+      "id": "cardlib.magical-evade-01.art512",
+      "sha256": "facb3b7c4ee0b4222ecb07c228b258e6bfe856a9d7ec683ebc7498eafdd64969",
+      "source": "assets/cards/library/magical-evade-01-512.webp"
+    },
+    {
+      "id": "cardlib.magical-evade-02.art512",
+      "sha256": "9777e2292dbbcceee33afe083541b85e331de289c786321a01c1a4a8a3ee9985",
+      "source": "assets/cards/library/magical-evade-02-512.webp"
+    },
+    {
+      "id": "cardlib.magical-evade-03.art512",
+      "sha256": "daa4a3e07407c5c3e152c48eea47bf56ba3ef7ca128146ba67e2acd0a9c440ac",
+      "source": "assets/cards/library/magical-evade-03-512.webp"
+    },
+    {
+      "id": "cardlib.magical-evade-04.art512",
+      "sha256": "e1cdd4285a6b1685eb46372505f7f36385a1efc7c4e28c8774f5e302c2eaf59b",
+      "source": "assets/cards/library/magical-evade-04-512.webp"
+    },
+    {
+      "id": "cardlib.magical-evade-05.art512",
+      "sha256": "41b7c31d7fcc9be08738bd15a978c24f8376535be6aea06e34c76cfb4031cc53",
+      "source": "assets/cards/library/magical-evade-05-512.webp"
+    },
+    {
+      "id": "cardlib.magical-smash-01.art512",
+      "sha256": "ba05288b6670b988de2538f214723eb4385289abde3436fb77e6dbd4c3313c3a",
+      "source": "assets/cards/library/magical-smash-01-512.webp"
+    },
+    {
+      "id": "cardlib.magical-smash-02.art512",
+      "sha256": "2e92cdae0eed697ae784d3cbe0966c0c8f3d263a1bfd9df6973651ed10c7090f",
+      "source": "assets/cards/library/magical-smash-02-512.webp"
+    },
+    {
+      "id": "cardlib.magical-smash-03.art512",
+      "sha256": "9e7846011c25c9d5ade5916f9cc7154802e1d93b016a11d3539d8787cec7be3c",
+      "source": "assets/cards/library/magical-smash-03-512.webp"
+    },
+    {
+      "id": "cardlib.magical-smash-04.art512",
+      "sha256": "94c291121ee543034d1651d15a21bfbcd6d6b4f0ad343fdacd7bc5bef09b6e12",
+      "source": "assets/cards/library/magical-smash-04-512.webp"
+    },
+    {
+      "id": "cardlib.magical-smash-05.art512",
+      "sha256": "f3afca912275c7bc9b340115b7bc6236131b605ae8535ce4ea62ad3a12734fcf",
+      "source": "assets/cards/library/magical-smash-05-512.webp"
+    },
+    {
+      "id": "cardlib.magical-sweep-01.art512",
+      "sha256": "8c81b2a050dc1c75107aa287b77a61a9bad9f5516afa8542d349afa8f2a14cb8",
+      "source": "assets/cards/library/magical-sweep-01-512.webp"
+    },
+    {
+      "id": "cardlib.magical-sweep-02.art512",
+      "sha256": "162420b1b3fa9d9bc8a7b8fa56a531b22299f8cd4987c4098ac29d4f68f5d853",
+      "source": "assets/cards/library/magical-sweep-02-512.webp"
+    },
+    {
+      "id": "cardlib.magical-sweep-03.art512",
+      "sha256": "b466c18b8fb044eadd155ee64187ea864d600acb60cfe35b958a850b7705a682",
+      "source": "assets/cards/library/magical-sweep-03-512.webp"
+    },
+    {
+      "id": "cardlib.magical-sweep-04.art512",
+      "sha256": "86dfdcf887193bbda98fc59447a4f3356030f79ce02bc3d68bc4f5aa3e48bf8d",
+      "source": "assets/cards/library/magical-sweep-04-512.webp"
+    },
+    {
+      "id": "cardlib.magical-sweep-05.art512",
+      "sha256": "cf8f1ac8813cf51ad3c798b1df9f2580ca7d56160fa0ff3e3bf4d92309bca9c6",
+      "source": "assets/cards/library/magical-sweep-05-512.webp"
+    },
+    {
+      "id": "cardlib.physical-attack-01.art512",
+      "sha256": "b4fb7cee6b6af29fef4c54c46ee9f0e322760a1462811ac47115864fd78537bf",
+      "source": "assets/cards/library/physical-attack-01-512.webp"
+    },
+    {
+      "id": "cardlib.physical-attack-02.art512",
+      "sha256": "c5f7125b35bd46e16cec845c030da18a8a3b5e92448ea31e47def0db18a88d56",
+      "source": "assets/cards/library/physical-attack-02-512.webp"
+    },
+    {
+      "id": "cardlib.physical-attack-03.art512",
+      "sha256": "b61c278c526c7a31cdc19b9943e33b48bd9150a7e8fa874eadd963cf6c68b467",
+      "source": "assets/cards/library/physical-attack-03-512.webp"
+    },
+    {
+      "id": "cardlib.physical-attack-04.art512",
+      "sha256": "650d0703a84904caa57975d2e48d7ecdb0c60ddae550436f9fc5c6500bf24183",
+      "source": "assets/cards/library/physical-attack-04-512.webp"
+    },
+    {
+      "id": "cardlib.physical-attack-05.art512",
+      "sha256": "bce55435e660b8ee6a27f57e75883ccbaa5e91e9b705e02296d7b82214c78205",
+      "source": "assets/cards/library/physical-attack-05-512.webp"
+    },
+    {
+      "id": "cardlib.physical-counter-01.art512",
+      "sha256": "5a78bfbf7d6fd66aadd0cec19eba4f78b753699cfbbe0ff5a4795cc05bb59ccc",
+      "source": "assets/cards/library/physical-counter-01-512.webp"
+    },
+    {
+      "id": "cardlib.physical-counter-02.art512",
+      "sha256": "b94b67723752d288dd0059501e48853cef5ca84737c38da78aa69848c8f589fb",
+      "source": "assets/cards/library/physical-counter-02-512.webp"
+    },
+    {
+      "id": "cardlib.physical-counter-03.art512",
+      "sha256": "40900ca80565b90a9e7af7edcd97e9b13edacf40e4f6219d0bb4a58037925523",
+      "source": "assets/cards/library/physical-counter-03-512.webp"
+    },
+    {
+      "id": "cardlib.physical-counter-04.art512",
+      "sha256": "49648aa64b7c3cb028db2f090d59b075f949ca866e3ee241a0e49ae8e3db6d9e",
+      "source": "assets/cards/library/physical-counter-04-512.webp"
+    },
+    {
+      "id": "cardlib.physical-counter-05.art512",
+      "sha256": "73919e1481a76ceacb6390e94b07faf2ae3d6b0b21a958da9e7982949c684ab3",
+      "source": "assets/cards/library/physical-counter-05-512.webp"
+    },
+    {
+      "id": "cardlib.physical-defend-01.art512",
+      "sha256": "66aec829149c4c4cfcf89bf382551da3b98c545658b5862c4dd27c71781653f9",
+      "source": "assets/cards/library/physical-defend-01-512.webp"
+    },
+    {
+      "id": "cardlib.physical-defend-02.art512",
+      "sha256": "b6c339b208947cc2a947db3a34e85f90ba519213f163e035aba375b374d3997e",
+      "source": "assets/cards/library/physical-defend-02-512.webp"
+    },
+    {
+      "id": "cardlib.physical-defend-03.art512",
+      "sha256": "5a2ed02818c67a86c8f2db171526965befae606ff88875db2a3116ea67a7ef63",
+      "source": "assets/cards/library/physical-defend-03-512.webp"
+    },
+    {
+      "id": "cardlib.physical-defend-04.art512",
+      "sha256": "84b476b5fb29b091ad4c813eeb7824ad49b75289ac0f34f3c9d8909a84668bfd",
+      "source": "assets/cards/library/physical-defend-04-512.webp"
+    },
+    {
+      "id": "cardlib.physical-defend-05.art512",
+      "sha256": "ed7bd4a986f922c57d230dc1d65938c20067e163e34d8487debd9146d61a5f0e",
+      "source": "assets/cards/library/physical-defend-05-512.webp"
+    },
+    {
+      "id": "cardlib.physical-evade-01.art512",
+      "sha256": "b81ccdc6afa60e66fdff853b3eef8a99c839a4140ad9bcfa274f4ad5a513ded3",
+      "source": "assets/cards/library/physical-evade-01-512.webp"
+    },
+    {
+      "id": "cardlib.physical-evade-02.art512",
+      "sha256": "c2989333f346a6dbcfe69600cba5af0a8113ffd916aaf008817e1bd116fa403b",
+      "source": "assets/cards/library/physical-evade-02-512.webp"
+    },
+    {
+      "id": "cardlib.physical-evade-03.art512",
+      "sha256": "f39abb9fc22d21b1f4b17687a38a0ef1c287ef0bd120c8fa1de88b4cdfdb4f5a",
+      "source": "assets/cards/library/physical-evade-03-512.webp"
+    },
+    {
+      "id": "cardlib.physical-evade-04.art512",
+      "sha256": "e333275312ac8305a5a58a8a6afd13d9684a0c31976b4cc3440fd221eee38eca",
+      "source": "assets/cards/library/physical-evade-04-512.webp"
+    },
+    {
+      "id": "cardlib.physical-evade-05.art512",
+      "sha256": "36efb10805cc7c5cacabb0a7615a37a71c400f29c15e478a1d3b3b731f8e630c",
+      "source": "assets/cards/library/physical-evade-05-512.webp"
+    },
+    {
+      "id": "cardlib.physical-smash-01.art512",
+      "sha256": "52c836519d93df74ca0f7fbd5b24e727895db176167e191766f69614e6fb274d",
+      "source": "assets/cards/library/physical-smash-01-512.webp"
+    },
+    {
+      "id": "cardlib.physical-smash-02.art512",
+      "sha256": "c32bd3ead2e48b526100407cc64967ea7b191ee92457cc10bc2768a3e7bc9cc7",
+      "source": "assets/cards/library/physical-smash-02-512.webp"
+    },
+    {
+      "id": "cardlib.physical-smash-03.art512",
+      "sha256": "485b67a5827359b07f5937cf310a226a5586872134ed179dc4abd995548e3c30",
+      "source": "assets/cards/library/physical-smash-03-512.webp"
+    },
+    {
+      "id": "cardlib.physical-smash-04.art512",
+      "sha256": "4f5005a7cfd9cbafe3506973957800bf90b74a1e9c37d56b11521f1dc15472c2",
+      "source": "assets/cards/library/physical-smash-04-512.webp"
+    },
+    {
+      "id": "cardlib.physical-smash-05.art512",
+      "sha256": "2c6f70b46216144b1fa67b603ff214aaddef49d6ae1ba0ae056d5f6e5bf38b10",
+      "source": "assets/cards/library/physical-smash-05-512.webp"
+    },
+    {
+      "id": "cardlib.physical-sweep-01.art512",
+      "sha256": "62056cdc24f9d34f2b869bb0b8fa248764ba64422e5f5de8d44ab87a626b05ad",
+      "source": "assets/cards/library/physical-sweep-01-512.webp"
+    },
+    {
+      "id": "cardlib.physical-sweep-02.art512",
+      "sha256": "6084bfbed7a4219235a438171bcd4b61cfe7b2060c9cc5b036adacc656dce87d",
+      "source": "assets/cards/library/physical-sweep-02-512.webp"
+    },
+    {
+      "id": "cardlib.physical-sweep-03.art512",
+      "sha256": "d90dfd1f366b1423257040291ab88e28bbe180e19e9ed7095669e992a2ec8201",
+      "source": "assets/cards/library/physical-sweep-03-512.webp"
+    },
+    {
+      "id": "cardlib.physical-sweep-04.art512",
+      "sha256": "02e00ec440bd3e5ef0932342eed22dc5dce60e33e39d4078272bb3f799e973d5",
+      "source": "assets/cards/library/physical-sweep-04-512.webp"
+    },
+    {
+      "id": "cardlib.physical-sweep-05.art512",
+      "sha256": "def496c394c0521a832c5ed9feb0c1f9ab55bb1114904679c4d03ae806871d78",
+      "source": "assets/cards/library/physical-sweep-05-512.webp"
+    },
+    {
+      "id": "cardprofile.bladeAttack.art512",
+      "sha256": "1f54b1cb657f7fe8ab42cd59cf85703cf0241513a6e6c21bd70539acef33e9d6",
+      "source": "assets/cards/extended/profile-bladeAttack-512.webp"
+    },
+    {
+      "id": "cardprofile.bowPierceAttack.art512",
+      "sha256": "a1e2508af021b43f99591069f1eca39698f17d41b2b77e829e2030afb0688a79",
+      "source": "assets/cards/extended/profile-bowPierceAttack-512.webp"
+    },
+    {
+      "id": "cardprofile.bowTechnique.art512",
+      "sha256": "826f6fc3fe7f6d6d52695384732226d50bad89c28fff8e8788d72d4c65acd8ca",
+      "source": "assets/cards/extended/profile-bowTechnique-512.webp"
+    },
+    {
+      "id": "cardprofile.daggerPierceAttack.art512",
+      "sha256": "5061ff11763128f6908d5abb0190ff83d34764a110c50fb0ee62f2934347e53e",
+      "source": "assets/cards/extended/profile-daggerPierceAttack-512.webp"
+    },
+    {
+      "id": "cardprofile.sceptreArcaneAttack.art512",
+      "sha256": "1e2c9c6cd043b81c3bc09ffe1716109f6ca054ff27acc0ab0b676d11d0b841bd",
+      "source": "assets/cards/extended/profile-sceptreArcaneAttack-512.webp"
+    },
+    {
+      "id": "cardprofile.sceptreGuard.art512",
+      "sha256": "ae8d80338236f1b676249df9490f1bbe5b32983c0e05b31e3f2725e7c1e0efe7",
+      "source": "assets/cards/extended/profile-sceptreGuard-512.webp"
+    },
+    {
+      "id": "cardprofile.shieldAttack.art512",
+      "sha256": "4291ed3be1cb092fb0082fe68e6e340373cf8de3932d2986b77098d030861b24",
+      "source": "assets/cards/extended/profile-shieldAttack-512.webp"
+    },
+    {
+      "id": "cardprofile.shieldGuard.art512",
+      "sha256": "cc9a0045c263c13a6ebd1289c9c61a2dd985315cabf6359ad9e6e704699c6e8d",
+      "source": "assets/cards/extended/profile-shieldGuard-512.webp"
+    },
+    {
+      "id": "cardprofile.staffGuard.art512",
+      "sha256": "06bc8d743caccbd41cade8e0e343af125f13caf958160288ced0e60297608147",
+      "source": "assets/cards/extended/profile-staffGuard-512.webp"
+    },
+    {
+      "id": "cardprofile.staffMagicAttack.art512",
+      "sha256": "97c15abb8a80d8532589b6e3760bb3420038c32365f00983e066f14e320765ab",
+      "source": "assets/cards/extended/profile-staffMagicAttack-512.webp"
+    },
+    {
+      "id": "cardprofile.staffTechnique.art512",
+      "sha256": "554e2a6a0841e1a00902233e4bd121dc663453353785f93fc390ca28e487d1aa",
+      "source": "assets/cards/extended/profile-staffTechnique-512.webp"
+    },
+    {
+      "id": "cardprofile.twinbladeAttack.art512",
+      "sha256": "ee8e924264f11463a25e164ecdd8e019be3162fd1921ffef3e54b4ce0f520399",
+      "source": "assets/cards/extended/profile-twinbladeAttack-512.webp"
+    },
+    {
+      "id": "cardprofile.unarmedAttack.art512",
+      "sha256": "b8d8145d7656cef5a3f3e8d8a174dea53f524a43c54fc1633cd6d74c218272d1",
+      "source": "assets/cards/extended/profile-unarmedAttack-512.webp"
+    },
+    {
+      "id": "cardprofile.unarmedGuard.art512",
+      "sha256": "50d1fc4b4a3a7f97dffc1221ac4c9676cb55290dea4e0a6a90a989070e60a24d",
+      "source": "assets/cards/extended/profile-unarmedGuard-512.webp"
+    },
+    {
+      "id": "cardprofile.unarmedTechnique.art512",
+      "sha256": "b1d5aa7fdd31ea508b2c7ce6aee724202e677bd07b779cbe65c64739a542d33d",
+      "source": "assets/cards/extended/profile-unarmedTechnique-512.webp"
+    },
+    {
+      "id": "cardprofile.weaponGuard.art512",
+      "sha256": "ea251d74f8d2dbe4bb1a1f59e1e0221f0a43a76fb8f62aa66076cfa972c0f544",
+      "source": "assets/cards/extended/profile-weaponGuard-512.webp"
+    },
+    {
+      "id": "cardprofile.weaponTechnique.art512",
+      "sha256": "8f804c7fe3e6112b54b321580627afdf7997d38a038870eb5d640b0bdce7a557",
+      "source": "assets/cards/extended/profile-weaponTechnique-512.webp"
+    },
+    {
+      "id": "creation.feat-armourPractice",
+      "sha256": "ba458474692c6c01a793da92ba653642ee593a2dbf6280eb309018923cb10d69",
+      "source": "assets/player-polish/ui/creation/feat-armourPractice.webp"
+    },
+    {
+      "id": "creation.feat-classInsight",
+      "sha256": "8f0ba4ecd8bed0b9692ef2eb82c8f83cda0fcd128283351b65891ad0185e6108",
+      "source": "assets/player-polish/ui/creation/feat-classInsight.webp"
+    },
+    {
+      "id": "creation.feat-fieldStudy",
+      "sha256": "b98f0ea18a873b0a20ebaeb54edab0c51b8868127c1c5f4d0cfa42fd0a0c036e",
+      "source": "assets/player-polish/ui/creation/feat-fieldStudy.webp"
+    },
+    {
+      "id": "creation.feat-spoilsInstinct",
+      "sha256": "b4b3fc3651abb0303faea64daf6e2bfa1dc287e6d789adc3194522f6701ef261",
+      "source": "assets/player-polish/ui/creation/feat-spoilsInstinct.webp"
+    },
+    {
+      "id": "creation.feat-vitalRenewal",
+      "sha256": "2e17cc104d0a6802700d2c824bc66cd827ab723bfa9bcc696c7c4b2de81d80cf",
+      "source": "assets/player-polish/ui/creation/feat-vitalRenewal.webp"
+    },
+    {
+      "id": "creation.feat-weaponDrill",
+      "sha256": "53971162fdcc5171d22e07c7e667b206c147c3ead9808436c31299a24b480030",
+      "source": "assets/player-polish/ui/creation/feat-weaponDrill.webp"
+    },
+    {
+      "id": "creation.medallion-background",
+      "sha256": "415179008c51e2bfc3c456800b1e4a6e498ee5c1a80cbd0c33e10528bb5be4b3",
+      "source": "assets/player-polish/ui/creation/medallion-background.png"
+    },
+    {
+      "id": "creation.medallion-trim",
+      "sha256": "2b6753960bb9a22280846ed129794cf24ca5dea5576b4d675ad871fba8f999ba",
+      "source": "assets/player-polish/ui/creation/medallion-trim.png"
+    },
+    {
+      "id": "creation.prop-coins",
+      "sha256": "f627965eba940fadf5f46ae19bbac728b3c44d5d20576ca8a4232a1364ac7f9c",
+      "source": "assets/player-polish/ui/creation/prop-coins.png"
+    },
+    {
+      "id": "creation.prop-leaf",
+      "sha256": "80ebca7abd6937a70884d9fc35f127f10f1ed25325a814e638458f367839ee1f",
+      "source": "assets/player-polish/ui/creation/prop-leaf.png"
+    },
+    {
+      "id": "creation.symbol-book",
+      "sha256": "782ad17bdc2c64287b71a9360c77ae4169270cd2dac938b99dbc82475877a536",
+      "source": "assets/player-polish/ui/creation/symbol-book.png"
+    },
+    {
+      "id": "creation.symbol-helmet",
+      "sha256": "da051baefbab3890710dff80aa31e2fa1ed3ace17c72e39a17b2291261a7b1d2",
+      "source": "assets/player-polish/ui/creation/symbol-helmet.png"
+    },
+    {
+      "id": "creation.symbol-pouch",
+      "sha256": "b1e02b4076250a21cabb0bd73d9b7b012af41c04e7691918634340aeeeeae899",
+      "source": "assets/player-polish/ui/creation/symbol-pouch.png"
+    },
+    {
+      "id": "creation.symbol-star",
+      "sha256": "b7445fa587f31628ad44962d8f41a51de4dc4904de97254ca55b3abf8242f37c",
+      "source": "assets/player-polish/ui/creation/symbol-star.png"
+    },
+    {
+      "id": "creation.symbol-sun-rays",
+      "sha256": "e04482d1326378c6d8c3b2829ea41160584c6eeb48cf1bbb0571eb9c7c1c1b2f",
+      "source": "assets/player-polish/ui/creation/symbol-sun-rays.png"
+    },
+    {
+      "id": "creation.symbol-swords",
+      "sha256": "27c0c8bacf44c19ea74d6d540a828ae2d4716bfd810c52303979eab0fe22cd7f",
+      "source": "assets/player-polish/ui/creation/symbol-swords.png"
+    },
+    {
+      "id": "event.abandonedCart",
+      "sha256": "74bdae2a27e298c6816b10e436c05eac8635014f02c41fe80c5f42ed52244586",
+      "source": "assets/events/abandonedCart.webp"
+    },
+    {
+      "id": "event.ancientRuneStone",
+      "sha256": "07067a0b74880b4f68d2d4314f55a65ac0f93f7f239ba4abd94bc7f583a72c42",
+      "source": "assets/events/ancientRuneStone.webp"
+    },
+    {
+      "id": "event.bloodstainedAltar",
+      "sha256": "b868b66696d35fb29c9f8f52b77b9655a7c732342f6d1f34d3e24bf40d077478",
+      "source": "assets/events/bloodstainedAltar.webp"
+    },
+    {
+      "id": "event.cinderbearDen",
+      "sha256": "6f7022647b581b01d7b69ccc52379a317a04347f925ba648e54118f7b7a16a22",
+      "source": "assets/events/cinderbearDen.webp"
+    },
+    {
+      "id": "event.discardedReliquary",
+      "sha256": "61e11a5ea0ee66ca9900a89986815bce71f5dfeed2e494ba500df662872b4a31",
+      "source": "assets/events/discardedReliquary.webp"
+    },
+    {
+      "id": "event.fadedGrace",
+      "sha256": "101aa55e788ac9606ad72fe0d4c96786f4a0055a23b6b35d525f9f4a8d77ed40",
+      "source": "assets/events/fadedGrace.webp"
+    },
+    {
+      "id": "event.feralShrine",
+      "sha256": "6c8f1aeb39153f52dd2d8d8bc7d711779bd5d8f459727df5e3791960a2faf7ae",
+      "source": "assets/events/feralShrine.webp"
+    },
+    {
+      "id": "event.goldboughAvatar",
+      "sha256": "3937652c6860ce405e96bc528b73eefa8a0aec913198123129e1e563e0c54fdc",
+      "source": "assets/events/goldboughAvatar.webp"
+    },
+    {
+      "id": "event.goldenMoth",
+      "sha256": "6c89d68b19adf1fe9901238de0caa9fe1dbd386ad820f004036f30f58e101620",
+      "source": "assets/events/goldenMoth.webp"
+    },
+    {
+      "id": "event.handspiderNest",
+      "sha256": "14d665d013e53dcf0feb218920483b43dfb5ac06b69ce13e91ccbe1863322f79",
+      "source": "assets/events/handspiderNest.webp"
+    },
+    {
+      "id": "event.merchantsGhost",
+      "sha256": "17a066e75ed5d1396ff7743fdcb20597213e294b8233a9b76a8a47b1c57860bf",
+      "source": "assets/events/merchantsGhost.webp"
+    },
+    {
+      "id": "event.omensAltar",
+      "sha256": "3758f7c0f8d53a12756af092fb7f8540b4ddda5f9e0576591967e0f37472b6a8",
+      "source": "assets/events/omensAltar.webp"
+    },
+    {
+      "id": "event.rotPriestOffer",
+      "sha256": "dcb3bbd36a4d7dca608bc66d775c70ae8276077134544c4d4f6739742d8d6cd9",
+      "source": "assets/events/rotPriestOffer.webp"
+    },
+    {
+      "id": "event.sleepingSmith",
+      "sha256": "6850c707b71a8fb430151db3d54fcbcc660a7680c474ae3b34dfa323db756216",
+      "source": "assets/events/sleepingSmith.webp"
+    },
+    {
+      "id": "event.stakeOfTheMartyr",
+      "sha256": "8c15c2f28fac8f88ac13343c259e25c633b8071407e917297b4457593c4e9dd7",
+      "source": "assets/events/stakeOfTheMartyr.webp"
+    },
+    {
+      "id": "event.turncoatMirror",
+      "sha256": "449f173e400169b175065e36a3b3c33f554d3a27779f5adf9f46dcf55e9f7680",
+      "source": "assets/events/turncoatMirror.webp"
+    },
+    {
+      "id": "event.twoFingersRiddle",
+      "sha256": "bf63296b4b0ef1bcd78546e8164cf85a9c43fc5e4accb2b49e718d182344857d",
+      "source": "assets/events/twoFingersRiddle.webp"
+    },
+    {
+      "id": "event.wanderingPhysician",
+      "sha256": "d02339d21dff1a9bb78e2af69cb21785af10719115b77dc66b6381da3cdf75b8",
+      "source": "assets/events/wanderingPhysician.webp"
+    },
+    {
+      "id": "event.weepingPilgrim",
+      "sha256": "e3e04481c8c1043162c73149d5d79de29d0046ef95459bb682f9c90f8fe3b755",
+      "source": "assets/events/weepingPilgrim.webp"
+    },
+    {
+      "id": "event.wyrmTrial",
+      "sha256": "2cfb99742664496335a5098465f829f69c902203c19d414947103ae8fcc29f34",
+      "source": "assets/events/wyrmTrial.webp"
+    },
+    {
+      "id": "flask.blight",
+      "sha256": "d08762aaf99de4cea6433f34b27bb5b21447ee8bd6bc2bb2cec982af4b110d8f",
+      "source": "assets/ui/flasks/flask-blight.webp"
+    },
+    {
+      "id": "flask.blood",
+      "sha256": "83f2315316d0b5c97017bb3c978a0aca8b246935b9d57c4265bdb1412aa04a29",
+      "source": "assets/ui/flasks/flask-blood.webp"
+    },
+    {
+      "id": "flask.ferocity",
+      "sha256": "bebf5b6a07459bb3432b98dc3c9fc394a1e998b986294634d30df6d3016976dd",
+      "source": "assets/ui/flasks/flask-ferocity.webp"
+    },
+    {
+      "id": "flask.stone",
+      "sha256": "c93b9a67d4822aa201da670026b7aa3524f774436e43008d5a112dc363f89460",
+      "source": "assets/ui/flasks/flask-stone.webp"
+    },
+    {
+      "id": "flask.wondrous",
+      "sha256": "0c39e9e574caf1972c342977594ad11a3e83aa47f2ebf2ce89b6026553085dfb",
+      "source": "assets/ui/flasks/flask-wondrous.webp"
+    },
+    {
+      "id": "footer.connector",
+      "sha256": "009d2e1db6fe72306b2c13c96b833271ab2a8130026b22d53149120e6bc9fa4f",
+      "source": "assets/ui/footer/connector.webp"
+    },
+    {
+      "id": "footer.draw",
+      "sha256": "58552257cdbf38503bde765b6ebb496d79c8c7a995fdb196d5204151f07fff1e",
+      "source": "assets/ui/footer/draw.webp"
+    },
+    {
+      "id": "footer.plate",
+      "sha256": "226d9f5fb60bf6cad2c5733f1444c17d8933fd8dad6f2fa5b0d9e50d17c5a44d",
+      "source": "assets/ui/footer/plate.webp"
+    },
+    {
+      "id": "footer.potions",
+      "sha256": "2012afa28781d590dbdb5d4dedc4ead9d8f78e0c1b1350128ed733ce99e38463",
+      "source": "assets/ui/footer/potions.webp"
+    },
+    {
+      "id": "footer.spent-cards",
+      "sha256": "8335a5d85885c35b05c73a43125766c6e0912a895f53a158ae35845b66b395de",
+      "source": "assets/ui/footer/spent-cards.webp"
+    },
+    {
+      "id": "icon.accessibility",
+      "sha256": "cf7da9acd87a6a4d6c12feed31ac651731627ba0a4e06bac785afa95ec57b554",
+      "source": "assets/player-polish/ui/icons/accessibility.svg"
+    },
+    {
+      "id": "icon.actions",
+      "sha256": "d8b2da80c5f4b4e1f04af00c5e1b4a8e1a7218e5af4143d1d503343ddb75ff03",
+      "source": "assets/player-polish/ui/icons/actions.svg"
+    },
+    {
+      "id": "icon.armour",
+      "sha256": "4a1c73d184329cd343e042ae6fe9ee74313db6c77c1962c88f5189158ad5593f",
+      "source": "assets/player-polish/ui/icons/armour.svg"
+    },
+    {
+      "id": "icon.attack",
+      "sha256": "5a942fe1ad5f512fe01a37b34436c5b2efc6430cc1680d5a8c2516c17aeded84",
+      "source": "assets/player-polish/ui/icons/attack.svg"
+    },
+    {
+      "id": "icon.audio",
+      "sha256": "656388641e68c98033b90d71390c3e68578db19e3e74b5ed0eae9e8dd32393f7",
+      "source": "assets/player-polish/ui/icons/audio.svg"
+    },
+    {
+      "id": "icon.back",
+      "sha256": "3de92c8b5e74ece9ac0f14ac73f1e8a4a140f5f268223598f7073d27824fe102",
+      "source": "assets/player-polish/ui/icons/back.svg"
+    },
+    {
+      "id": "icon.bleed",
+      "sha256": "a3100a87944413abe6f349fd48d0202a0c0fe4b4e037c91214856eed3765e076",
+      "source": "assets/player-polish/ui/icons/bleed.svg"
+    },
+    {
+      "id": "icon.blight",
+      "sha256": "e60aa873bcc21b49780df1a3b4170a6afce6387bdfddc71925a7048b47ab7010",
+      "source": "assets/player-polish/ui/icons/blight.svg"
+    },
+    {
+      "id": "icon.block",
+      "sha256": "767f36eaf939de1ca78035a76234392a7f57ba73ef3f3e752856594153847a2c",
+      "source": "assets/player-polish/ui/icons/block.svg"
+    },
+    {
+      "id": "icon.boss",
+      "sha256": "34e62b8a2ba1aef301d2a75ee4558eceb5c911559f4fe9230817ead2858c204b",
+      "source": "assets/player-polish/ui/icons/boss.svg"
+    },
+    {
+      "id": "icon.burn",
+      "sha256": "67353bc7d4eea1b056c36aa31ccb97ecbf7ded11e311da18915503661c9baea3",
+      "source": "assets/player-polish/ui/icons/burn.svg"
+    },
+    {
+      "id": "icon.check",
+      "sha256": "f81b950e3b7e819a85162e6f02f370c30269ec09959a92aadc5c61e057be117e",
+      "source": "assets/player-polish/ui/icons/check.svg"
+    },
+    {
+      "id": "icon.cinders",
+      "sha256": "48f314012098e4521619477b91a7426c049554c43b6a46cdb663ba48a76ca988",
+      "source": "assets/player-polish/ui/icons/cinders.svg"
+    },
+    {
+      "id": "icon.close",
+      "sha256": "3df45d58185be94aced3115fd5895285086cf82be32d6758ac879abd36e81657",
+      "source": "assets/player-polish/ui/icons/close.svg"
+    },
+    {
+      "id": "icon.collapse",
+      "sha256": "a77edd5e77a1a24d17bc9c6d2ba691a566ab4ae765e93d988191b5071e7176f3",
+      "source": "assets/player-polish/ui/icons/collapse.svg"
+    },
+    {
+      "id": "icon.combat",
+      "sha256": "cb12940b1cf9064ff8d9dd4d783d1f198bb66648dc11822bd314ea652fb4f98b",
+      "source": "assets/player-polish/ui/icons/combat.svg"
+    },
+    {
+      "id": "icon.compare",
+      "sha256": "a5d8a236fb33d5c76a9703770e74599ba97b177dbde3b7b7af1b5c566fdc285c",
+      "source": "assets/player-polish/ui/icons/compare.svg"
+    },
+    {
+      "id": "icon.compendium",
+      "sha256": "b9a10322d04e3715eca6dc196c76ab4b426cf216ecd708f51cc4d23e43729e66",
+      "source": "assets/player-polish/ui/icons/compendium.svg"
+    },
+    {
+      "id": "icon.connected",
+      "sha256": "9ae45d289d24d4913b440fbea8537cdd856fc87bd59908633d26ad673799b78d",
+      "source": "assets/player-polish/ui/icons/connected.svg"
+    },
+    {
+      "id": "icon.contrast",
+      "sha256": "6c50c81f7916102429a519376e0856931bf55706784ebd58c8a9a9c5b8b344e4",
+      "source": "assets/player-polish/ui/icons/contrast.svg"
+    },
+    {
+      "id": "icon.controls",
+      "sha256": "d76a290b2329edc9631bd6bd21969b718b2b40c85c6e60705d95fa60fbb18938",
+      "source": "assets/player-polish/ui/icons/controls.svg"
+    },
+    {
+      "id": "icon.coop",
+      "sha256": "d45ed9d69b9f3a43e8845af9310ab1720d99840638467c1281294f80e4bbd3a0",
+      "source": "assets/player-polish/ui/icons/coop.svg"
+    },
+    {
+      "id": "icon.deck",
+      "sha256": "8097e6fc9c59497d600babb5dacb8a1fbde237ded189d79d8273a435dd1e8ed0",
+      "source": "assets/player-polish/ui/icons/deck.svg"
+    },
+    {
+      "id": "icon.dexterity",
+      "sha256": "9ca48c7d9ecca8ce4f19ed4c599e4eb6b24d90e906e0cc2d944b494840e4973d",
+      "source": "assets/player-polish/ui/icons/dexterity.svg"
+    },
+    {
+      "id": "icon.dialogue",
+      "sha256": "8870e1b7e11fe156dd500b6bdba67813e6a224457eab0bf3f887e93b0dd87acd",
+      "source": "assets/player-polish/ui/icons/dialogue.svg"
+    },
+    {
+      "id": "icon.discard",
+      "sha256": "2237786151bc20e73f84b24144bb4906c34f02b920abba979b1d182a339ce538",
+      "source": "assets/player-polish/ui/icons/discard.svg"
+    },
+    {
+      "id": "icon.disconnected",
+      "sha256": "318ce24ae518606c8516f6bfc3b22b64c2a1e64864a759d76e7d16b73b5fd9ea",
+      "source": "assets/player-polish/ui/icons/disconnected.svg"
+    },
+    {
+      "id": "icon.display",
+      "sha256": "d86b9eb6d1aa139783d4edde97859d3616996b9ab950eb146e91d4621a3732c1",
+      "source": "assets/player-polish/ui/icons/display.svg"
+    },
+    {
+      "id": "icon.draw",
+      "sha256": "493d0178b4f04a8da6d2d19e862e13c0e67244936feade18df8fb76cc9bb345d",
+      "source": "assets/player-polish/ui/icons/draw.svg"
+    },
+    {
+      "id": "icon.equipment",
+      "sha256": "b852a2ef8fa5840d9e0dacf296b58e13e99aa38b34cd5d389b631b532f9ca6a8",
+      "source": "assets/player-polish/ui/icons/equipment.svg"
+    },
+    {
+      "id": "icon.expand",
+      "sha256": "ddc11383446f9a018653c0f223a51697bf6135d11533e0926dee16e004839ebc",
+      "source": "assets/player-polish/ui/icons/expand.svg"
+    },
+    {
+      "id": "icon.flask-health",
+      "sha256": "c8e9c6507f96a7aac81ff88e4fbe8499085a6d546169b1fe99b8d4ccf4471edb",
+      "source": "assets/player-polish/ui/icons/flask-health.svg"
+    },
+    {
+      "id": "icon.flask-mana",
+      "sha256": "e568411548f6dc1f0e232448e76b1e7af84e3c06a4055501d3bb23e79cc16fce",
+      "source": "assets/player-polish/ui/icons/flask-mana.svg"
+    },
+    {
+      "id": "icon.frail",
+      "sha256": "d81bb419d932db486d3f07dfe4c5c82de5d29f858e8c1ca66c116126cc1c3c21",
+      "source": "assets/player-polish/ui/icons/frail.svg"
+    },
+    {
+      "id": "icon.frost",
+      "sha256": "da642a0b5628d4bc3664805c862a1dac7c255e8e289a422168d6e7b52a3b1e35",
+      "source": "assets/player-polish/ui/icons/frost.svg"
+    },
+    {
+      "id": "icon.health",
+      "sha256": "b54e961a7e345cc1d1d0dd4d77123ba03ca8b809a6881de18c3caf380e97aac4",
+      "source": "assets/player-polish/ui/icons/health.svg"
+    },
+    {
+      "id": "icon.history",
+      "sha256": "c4e5917a02fbce8d9c94df1e42eb586fac1d573e2018bf275dbd4e5221cdc4f2",
+      "source": "assets/player-polish/ui/icons/history.svg"
+    },
+    {
+      "id": "icon.info",
+      "sha256": "191ee5c0fe44c9349e43dae98c464e7fae3fa0cf2c254c2e3bb6d96dcc3f59fe",
+      "source": "assets/player-polish/ui/icons/info.svg"
+    },
+    {
+      "id": "icon.insanity",
+      "sha256": "990ecccba7bf7cb12bdf38ffa1fe1f39972e19d2bf2039bbaf4fedc517504142",
+      "source": "assets/player-polish/ui/icons/insanity.svg"
+    },
+    {
+      "id": "icon.inventory",
+      "sha256": "76d42bf7b92195c2d8237848086b6f0f360b13b087edc1e6803b74d1c837b2f8",
+      "source": "assets/player-polish/ui/icons/inventory.svg"
+    },
+    {
+      "id": "icon.journey",
+      "sha256": "b76c2cbc9ca54efd27f67fdf6fc02f22862ba6f4215b0f13bcf55e2b4f2589ca",
+      "source": "assets/player-polish/ui/icons/journey.svg"
+    },
+    {
+      "id": "icon.link",
+      "sha256": "1c636836f42bcf61d28c8e29aad24d969e9fd3ed8ef4dadc62531f2a046301c6",
+      "source": "assets/player-polish/ui/icons/link.svg"
+    },
+    {
+      "id": "icon.location",
+      "sha256": "468805ed04262158d86c359f7b4fd385f15045cb28081c4cf7d463df98cb89c5",
+      "source": "assets/player-polish/ui/icons/location.svg"
+    },
+    {
+      "id": "icon.lock",
+      "sha256": "7e993655d6f57ada13c5d99c29ee7d9087e279bce29526b6ff80c54d921e8ab7",
+      "source": "assets/player-polish/ui/icons/lock.svg"
+    },
+    {
+      "id": "icon.madness",
+      "sha256": "646ecd17bbc9b1d652df4516bbd63d367552c127ab99f2d64e8a89e58cdfcdac",
+      "source": "assets/player-polish/ui/icons/madness.svg"
+    },
+    {
+      "id": "icon.mana",
+      "sha256": "93cb98e2a9781df669d4721a48d6ff6ee073303bb55c20bf341760255b1e7c19",
+      "source": "assets/player-polish/ui/icons/mana.svg"
+    },
+    {
+      "id": "icon.map",
+      "sha256": "364d73489c2f81b2761c73ed00540a141595a1e519d3d0c0353a0c3013ddb450",
+      "source": "assets/player-polish/ui/icons/map.svg"
+    },
+    {
+      "id": "icon.menu",
+      "sha256": "81b33d6c4024594a5a962cee0168d1ced9dc620612703203510d6ffe0753fd0b",
+      "source": "assets/player-polish/ui/icons/menu.svg"
+    },
+    {
+      "id": "icon.merchant",
+      "sha256": "c014da552cd70a67ad7f6373925bbc9004a51d74d781cdbb6d9716a67aa40d27",
+      "source": "assets/player-polish/ui/icons/merchant.svg"
+    },
+    {
+      "id": "icon.motion",
+      "sha256": "5dd0e6dc30751922da96a9ba5f13d621261d96af135a9554ac31ceb9f85fefb2",
+      "source": "assets/player-polish/ui/icons/motion.svg"
+    },
+    {
+      "id": "icon.next",
+      "sha256": "4384b903876d02027b4d99c95189f1f8b0066563c7adb396de3df3496aa6914c",
+      "source": "assets/player-polish/ui/icons/next.svg"
+    },
+    {
+      "id": "icon.poise",
+      "sha256": "64e23f18906d20d319bc38fa08ca431c281e75409d007d07bb7ae09ca88608fb",
+      "source": "assets/player-polish/ui/icons/poise.svg"
+    },
+    {
+      "id": "icon.profile",
+      "sha256": "061583ae5381cd71d8d9e448024fa570bbd33ff129eb568e049320f8e650e2d2",
+      "source": "assets/player-polish/ui/icons/profile.svg"
+    },
+    {
+      "id": "icon.progression",
+      "sha256": "28461dfb0c4730aa3b2e4243fbff10f10443f97c9cf1e09782bc7d219631f22b",
+      "source": "assets/player-polish/ui/icons/progression.svg"
+    },
+    {
+      "id": "icon.quest",
+      "sha256": "2f9f87689305a6c5e0451a8f5a040f230edfc978055385e347b5632c29a98bd9",
+      "source": "assets/player-polish/ui/icons/quest.svg"
+    },
+    {
+      "id": "icon.regen",
+      "sha256": "0594d16a9914d42e890cedc3060e43eca968058371c9e6ddc0aa6be7e4f537b5",
+      "source": "assets/player-polish/ui/icons/regen.svg"
+    },
+    {
+      "id": "icon.relic",
+      "sha256": "eb389ef4223f6101334e91fd074103645a43fac98bc7a8e1f712ad8cf69fcaa2",
+      "source": "assets/player-polish/ui/icons/relic.svg"
+    },
+    {
+      "id": "icon.reset",
+      "sha256": "a17adf22dd00e6b98a9976a6887b1040110786e2bdd548ad06041b98cfc006e9",
+      "source": "assets/player-polish/ui/icons/reset.svg"
+    },
+    {
+      "id": "icon.rest",
+      "sha256": "15e13a26a5d7e43c3e62506cd5f99dbedb8c689eeb9e3287eb88b315a2cf2306",
+      "source": "assets/player-polish/ui/icons/rest.svg"
+    },
+    {
+      "id": "icon.reward",
+      "sha256": "daf17536bf46ea04bf040495ce5c2a16be1b0c4209ead640bc7e53e20c0457df",
+      "source": "assets/player-polish/ui/icons/reward.svg"
+    },
+    {
+      "id": "icon.save",
+      "sha256": "bc14e30fdf69caf8f43566d642d589d996c520b0371ab35f141159885ac2db98",
+      "source": "assets/player-polish/ui/icons/save.svg"
+    },
+    {
+      "id": "icon.search",
+      "sha256": "73c25a9c964ff36988f572529ddfc21f8e63aa2d2ae2e9ea189b7dae23ea6062",
+      "source": "assets/player-polish/ui/icons/search.svg"
+    },
+    {
+      "id": "icon.seed",
+      "sha256": "6f10564b3b489575c5ccc5e7b50cdb4e0c798bf540a270033cdcb34fe39c6eb9",
+      "source": "assets/player-polish/ui/icons/seed.svg"
+    },
+    {
+      "id": "icon.settings",
+      "sha256": "2867fad9be64d30471aa3a9639ed77e9af845df44effce3353b470a4490b823c",
+      "source": "assets/player-polish/ui/icons/settings.svg"
+    },
+    {
+      "id": "icon.shield",
+      "sha256": "cb79788ba87fbb934a8be18d491fb3c0fecc4d701a219de4a0e03888c2886026",
+      "source": "assets/player-polish/ui/icons/shield.svg"
+    },
+    {
+      "id": "icon.skill",
+      "sha256": "8a449efbc704887affd6dabc79408acf63250b64d9e1e7bf54e4eb886abb6925",
+      "source": "assets/player-polish/ui/icons/skill.svg"
+    },
+    {
+      "id": "icon.smith",
+      "sha256": "d843940055f18f1dbf81e0cbd346d1d6b63bfe1ca99a85e47177f88725a33a20",
+      "source": "assets/player-polish/ui/icons/smith.svg"
+    },
+    {
+      "id": "icon.staggered",
+      "sha256": "0dfecb502f809b95f87153e3bde4b22da1c1d3d7acec8001820cb6a7811d25fe",
+      "source": "assets/player-polish/ui/icons/staggered.svg"
+    },
+    {
+      "id": "icon.stamina",
+      "sha256": "b0968eda700d314d957fee539b3b6c2cdde1fe38d3cf7be710a09824767b6520",
+      "source": "assets/player-polish/ui/icons/stamina.svg"
+    },
+    {
+      "id": "icon.strength",
+      "sha256": "f771336312ae349adf6c8eb7b1fd87277a49abb96c56153a8f905b9987fc7253",
+      "source": "assets/player-polish/ui/icons/strength.svg"
+    },
+    {
+      "id": "icon.sword",
+      "sha256": "75f6e34694c19ab922beac5a1302cf812a2a2e119baef9043d75c64359e9e7f6",
+      "source": "assets/player-polish/ui/icons/sword.svg"
+    },
+    {
+      "id": "icon.target",
+      "sha256": "19b6c61f0f92b1b94d9f7e00f80da38dbac69e124456bdbd3e801a04968b30f9",
+      "source": "assets/player-polish/ui/icons/target.svg"
+    },
+    {
+      "id": "icon.touch",
+      "sha256": "e9d1e49c2d4e5968e06b3fafb910c483263f773c0d397526614174506f859707",
+      "source": "assets/player-polish/ui/icons/touch.svg"
+    },
+    {
+      "id": "icon.unknown",
+      "sha256": "cc9d5bba660d504797a5fa67acfec401b778b9450d51118cb5d84f2c6568e9a9",
+      "source": "assets/player-polish/ui/icons/unknown.svg"
+    },
+    {
+      "id": "icon.vulnerable",
+      "sha256": "74d685574fdf3c4738f92e8aa67172dd32a4618114639a37cf176ae53cda3463",
+      "source": "assets/player-polish/ui/icons/vulnerable.svg"
+    },
+    {
+      "id": "icon.warning",
+      "sha256": "56243301a71f7c083c19004a4cda5972aaaedd80771705abfcb032fdae759de9",
+      "source": "assets/player-polish/ui/icons/warning.svg"
+    },
+    {
+      "id": "icon.weak",
+      "sha256": "07aa2d3f15f5aca26a26832794b00178b8b1590ceec5447de74c435bb9915015",
+      "source": "assets/player-polish/ui/icons/weak.svg"
+    },
+    {
+      "id": "icon.weight",
+      "sha256": "7d8ced1ce62a45e664445cea8ad225971c0429565d8a2fd9d5bd4e80edbf0920",
+      "source": "assets/player-polish/ui/icons/weight.svg"
+    },
+    {
+      "id": "icon.world",
+      "sha256": "ee62d7afba0a92e64c0d728b7d2a4357b15b87c70a6672c2f6304ba3cdeb8e4f",
+      "source": "assets/player-polish/ui/icons/world.svg"
+    },
+    {
+      "id": "illus.card-attack-illustration",
+      "sha256": "c018cd1840ead264378e5e3ea8ecdc8e33e7df019fcaa9afba990698a9839cb8",
+      "source": "assets/player-polish/illustrations/card-attack-illustration.webp"
+    },
+    {
+      "id": "illus.card-ember-illustration",
+      "sha256": "361e5465a7863525e6dea6599e8729003911428f0b3c6cfbf0ea1188ce4f83fb",
+      "source": "assets/player-polish/illustrations/card-ember-illustration.webp"
+    },
+    {
+      "id": "illus.card-guard-illustration",
+      "sha256": "93b32937b5aa9b24936716091dfe8dfe507df1f15ec1ab6723988f315b68f465",
+      "source": "assets/player-polish/illustrations/card-guard-illustration.webp"
+    },
+    {
+      "id": "illus.merchant-portrait",
+      "sha256": "38b02849f0bba0ea8e9edb00130b5278d327925fbfd6bd3000947d925ea60049",
+      "source": "assets/player-polish/illustrations/merchant-portrait.webp"
+    },
+    {
+      "id": "illus.rest-traveler-fire",
+      "sha256": "3846828c575380f327fd88519449d25bbe474714b3c311293ced8bcf81ee74cc",
+      "source": "assets/player-polish/illustrations/rest-traveler-fire.webp"
+    },
+    {
+      "id": "illus.roadkeeper-portrait",
+      "sha256": "f1051c3ae85d3abac1933b765a3c0e5822fd800b79226d04d438f60dafce1dae",
+      "source": "assets/player-polish/illustrations/roadkeeper-portrait.webp"
+    },
+    {
+      "id": "illus.smith-portrait",
+      "sha256": "14357fe5c0fcf10cada635640b9d256bb007c4ad277ddcdd8d462d0043e89513",
+      "source": "assets/player-polish/illustrations/smith-portrait.webp"
+    },
+    {
+      "id": "illus.title-traveler",
+      "sha256": "9544e3a9fee606ca96de781e4237a529a56601076912121e032faa359cf9a30f",
+      "source": "assets/player-polish/illustrations/title-traveler.webp"
+    },
+    {
+      "id": "mapdetail.ashen-crown-map.l1024.t0x0",
+      "sha256": "c636600f61de89012ee781009a86c53ff6bc676b1b3d5d7c44491b7c649d23b8",
+      "source": "map-detail/79596a876f5e4542/1024/0-0.webp"
+    },
+    {
+      "id": "mapdetail.ashen-crown-map.l1024.t0x1",
+      "sha256": "610df623debc7d8abb14d75349bce1caa1f7df422cc504430498b2134677c551",
+      "source": "map-detail/79596a876f5e4542/1024/0-1.webp"
+    },
+    {
+      "id": "mapdetail.ashen-crown-map.l1024.t1x0",
+      "sha256": "927740887f7775d6180995e8e20f7173c1401614fafbcc96816f1fb542713fdf",
+      "source": "map-detail/79596a876f5e4542/1024/1-0.webp"
+    },
+    {
+      "id": "mapdetail.ashen-crown-map.l1024.t1x1",
+      "sha256": "a51088724c174ff8963fa7bddb9a01c36f25f18fbdddf21ff506c4c159050751",
+      "source": "map-detail/79596a876f5e4542/1024/1-1.webp"
+    },
+    {
+      "id": "mapdetail.cinder-reach-map.l1024.t0x0",
+      "sha256": "e452bdbd8a08ce6bed3b2376bb94beaefd7a66f4522533760dce14e553ea1e1c",
+      "source": "map-detail/ab38106f2796459a/1024/0-0.webp"
+    },
+    {
+      "id": "mapdetail.cinder-reach-map.l1024.t0x1",
+      "sha256": "4b8ad2f8e24b5379a1d0b0202596650561764a837d3b56c8d4e92b603e612d06",
+      "source": "map-detail/ab38106f2796459a/1024/0-1.webp"
+    },
+    {
+      "id": "mapdetail.cinder-reach-map.l1024.t1x0",
+      "sha256": "7cb3da70fed8ab4998742ab396354f42052a24dabae8dfab3f895a59684385c0",
+      "source": "map-detail/ab38106f2796459a/1024/1-0.webp"
+    },
+    {
+      "id": "mapdetail.cinder-reach-map.l1024.t1x1",
+      "sha256": "65932f685a570f3cb29da5d039744d08a5cef293f910c899a868e0f949663016",
+      "source": "map-detail/ab38106f2796459a/1024/1-1.webp"
+    },
+    {
+      "id": "mapdetail.crownfall-local.l1024.t0x0",
+      "sha256": "fe7ddb6891c7de286e59dfebcdf0d7eaed03978ec6b8ecccdeffbcc6ef5bb706",
+      "source": "map-detail/b70579a20d453cc2/1024/0-0.webp"
+    },
+    {
+      "id": "mapdetail.crownfall-local.l1024.t0x1",
+      "sha256": "640bfce95a82b5ebf6c1f41455c4cb12f3b489aed0a567bbc6fd6bb94b727f4a",
+      "source": "map-detail/b70579a20d453cc2/1024/0-1.webp"
+    },
+    {
+      "id": "mapdetail.crownfall-local.l1024.t1x0",
+      "sha256": "50190788f219fa05ef469ec0f16b272feac94162dd926b86320a9781c78f40a4",
+      "source": "map-detail/b70579a20d453cc2/1024/1-0.webp"
+    },
+    {
+      "id": "mapdetail.crownfall-local.l1024.t1x1",
+      "sha256": "1b99cd113973f919021faedfa9982a2cfcf87dc33eb22b1db16cd4176fcecd85",
+      "source": "map-detail/b70579a20d453cc2/1024/1-1.webp"
+    },
+    {
+      "id": "mapdetail.drowned-coast-map.l1024.t0x0",
+      "sha256": "30fb64514c1244face863d8c6d4fe3f4981df919e7746c4f10a2d17127230f7e",
+      "source": "map-detail/a5445ef5da3f35ac/1024/0-0.webp"
+    },
+    {
+      "id": "mapdetail.drowned-coast-map.l1024.t0x1",
+      "sha256": "77dc40dd41cf7836bfbced9293b8ad6e60927fe5cc2276b267c3aed2f0e8c142",
+      "source": "map-detail/a5445ef5da3f35ac/1024/0-1.webp"
+    },
+    {
+      "id": "mapdetail.drowned-coast-map.l1024.t1x0",
+      "sha256": "03d8b46a0ac1ed67f15f1463292f1fc7992202a01a2860215f088d75ea288158",
+      "source": "map-detail/a5445ef5da3f35ac/1024/1-0.webp"
+    },
+    {
+      "id": "mapdetail.drowned-coast-map.l1024.t1x1",
+      "sha256": "4160adaba9de120d56bbed1a1fad6bc8e4e1e543a1ff51f432ded8f886e237b9",
+      "source": "map-detail/a5445ef5da3f35ac/1024/1-1.webp"
+    },
+    {
+      "id": "mapdetail.fractured-realm-square.l1024.t0x0",
+      "sha256": "619d154a68c56f1f00167c60e473f8a25081963a633192dc50bcbb9b237ddaeb",
+      "source": "map-detail/86c695c4b0ca6fa1/1024/0-0.webp"
+    },
+    {
+      "id": "mapdetail.fractured-realm-square.l1024.t0x1",
+      "sha256": "801e1fb43ccbaf2b0c4f139993543459dc27df7fd5a10337882298b3c0b8f8ea",
+      "source": "map-detail/86c695c4b0ca6fa1/1024/0-1.webp"
+    },
+    {
+      "id": "mapdetail.fractured-realm-square.l1024.t1x0",
+      "sha256": "bebbb0b755181c2f42cd1126a978f25a2664a3c9414bc69178b0de5b592f39cc",
+      "source": "map-detail/86c695c4b0ca6fa1/1024/1-0.webp"
+    },
+    {
+      "id": "mapdetail.fractured-realm-square.l1024.t1x1",
+      "sha256": "3791cebe171028f27ad4186a1d83e4c94eac6352631540effd59dec36dbfd12f",
+      "source": "map-detail/86c695c4b0ca6fa1/1024/1-1.webp"
+    },
+    {
+      "id": "mapdetail.hollow-weald-map.l1024.t0x0",
+      "sha256": "b882ed75316920c9ba05a57d9719c9cc0a7446d49b27f51cc51149edaab3999d",
+      "source": "map-detail/5dbce360375623fc/1024/0-0.webp"
+    },
+    {
+      "id": "mapdetail.hollow-weald-map.l1024.t0x1",
+      "sha256": "8c5d74602d32010469d055b9733b36806e55d09ef2e2c15bd34818132ba4be8f",
+      "source": "map-detail/5dbce360375623fc/1024/0-1.webp"
+    },
+    {
+      "id": "mapdetail.hollow-weald-map.l1024.t1x0",
+      "sha256": "d199ed49f2aeba5ff799b1b6b618c56668a12c64ac56a0c6775e5e026743cb41",
+      "source": "map-detail/5dbce360375623fc/1024/1-0.webp"
+    },
+    {
+      "id": "mapdetail.hollow-weald-map.l1024.t1x1",
+      "sha256": "15050844bbff99726aa659838ec3ca0798150e2794d7b98906d94d65fde63ec2",
+      "source": "map-detail/5dbce360375623fc/1024/1-1.webp"
+    },
+    {
+      "id": "mapdetail.pale-marches-map.l1024.t0x0",
+      "sha256": "0787540ec1ffbf2c3de5976d0ccbefbdab61639083ea43b3414553b71bb19e42",
+      "source": "map-detail/2eab5c166d79e990/1024/0-0.webp"
+    },
+    {
+      "id": "mapdetail.pale-marches-map.l1024.t0x1",
+      "sha256": "6009a566ffb97b3fdd5faae4f3514d84e39bf2352704b512df0ac465981edc6a",
+      "source": "map-detail/2eab5c166d79e990/1024/0-1.webp"
+    },
+    {
+      "id": "mapdetail.pale-marches-map.l1024.t1x0",
+      "sha256": "2f5f73dfb3c9f6284f49affaf789a6b916db8d924903ae598b307e57010f2bb6",
+      "source": "map-detail/2eab5c166d79e990/1024/1-0.webp"
+    },
+    {
+      "id": "mapdetail.pale-marches-map.l1024.t1x1",
+      "sha256": "d0d424350747e5376fad8690512aa6fc5d14c06640bcbdb172779dff1ae9efd5",
+      "source": "map-detail/2eab5c166d79e990/1024/1-1.webp"
+    },
+    {
+      "id": "mapdetail.the-fivefold-frontier-world.l1024.t0x0",
+      "sha256": "819b0ac268c7f2d86bdd551d9b8e9fadc79a38c66930d527470cafc341f0b6a5",
+      "source": "map-detail/0e7e9348271b9404/1024/0-0.webp"
+    },
+    {
+      "id": "mapdetail.the-fivefold-frontier-world.l1024.t0x1",
+      "sha256": "98e023cc50583bca16591cb0c0734559b4690993df5372014a4e2dd4869fa11c",
+      "source": "map-detail/0e7e9348271b9404/1024/0-1.webp"
+    },
+    {
+      "id": "mapdetail.the-fivefold-frontier-world.l1024.t1x0",
+      "sha256": "797b649ffa5e1a7c27fbc3114b5386ec119e9c9f785c171d0d81703825b6f4f7",
+      "source": "map-detail/0e7e9348271b9404/1024/1-0.webp"
+    },
+    {
+      "id": "mapdetail.the-fivefold-frontier-world.l1024.t1x1",
+      "sha256": "d58fd828125db29b17c9f371a9c75bd72fa88df0c0b293f302186ba00f0e9117",
+      "source": "map-detail/0e7e9348271b9404/1024/1-1.webp"
+    },
+    {
+      "id": "mapdetail.the-fractured-realm-world.l1024.t0x0",
+      "sha256": "44c6fd2456ccaf88449124bc2165ece32e656e4e416132b9bdfdbc466f54c0f5",
+      "source": "map-detail/c0903c6d0ba56c76/1024/0-0.webp"
+    },
+    {
+      "id": "mapdetail.the-fractured-realm-world.l1024.t0x1",
+      "sha256": "26e6438c715aa9d0c334a3e656ce8e82f89dab7639694d6db17e64692b13bdf5",
+      "source": "map-detail/c0903c6d0ba56c76/1024/0-1.webp"
+    },
+    {
+      "id": "mapdetail.the-fractured-realm-world.l1024.t1x0",
+      "sha256": "034dd02411f08fb6ba77d0356ba6ac2f590036a82aefbccb87261d9a26bf870d",
+      "source": "map-detail/c0903c6d0ba56c76/1024/1-0.webp"
+    },
+    {
+      "id": "mapdetail.the-fractured-realm-world.l1024.t1x1",
+      "sha256": "e3eedc5edfc2569b3b3f8f3526b60dbe1e6e9032d3b4a356f09d2223a8b872ea",
+      "source": "map-detail/c0903c6d0ba56c76/1024/1-1.webp"
+    },
+    {
+      "id": "mapdetail.the-shattered-gulf-world.l1024.t0x0",
+      "sha256": "0b2beaf26cb2592ac72efbef4ddea8c6ee4b5ad31e06859c587fe9428539bce0",
+      "source": "map-detail/3517e178c334eab2/1024/0-0.webp"
+    },
+    {
+      "id": "mapdetail.the-shattered-gulf-world.l1024.t0x1",
+      "sha256": "99d8c48804505dba2106caf0bb4d54f2b0a6f12c1e40835ce306ec19a1214150",
+      "source": "map-detail/3517e178c334eab2/1024/0-1.webp"
+    },
+    {
+      "id": "mapdetail.the-shattered-gulf-world.l1024.t1x0",
+      "sha256": "89f17f97f83f52552ef7b8115928526a16ddf1920aa736be0323b52071b316c3",
+      "source": "map-detail/3517e178c334eab2/1024/1-0.webp"
+    },
+    {
+      "id": "mapdetail.the-shattered-gulf-world.l1024.t1x1",
+      "sha256": "7fc2c6add8f0357d43c714a0f432c9bd6f2b91c71adf22a56ad036434698e724",
+      "source": "map-detail/3517e178c334eab2/1024/1-1.webp"
+    },
+    {
+      "id": "orb.diamond",
+      "sha256": "c4c7cc1d09447032890692b5542949d92f9d71720db52de4d43f01e53ab9be81",
+      "source": "assets/ui/stamina-orb/diamond.webp"
+    },
+    {
+      "id": "orb.frame",
+      "sha256": "e51c2b0b21e6c4583daf5bd512c01fc53b9a196adda6e175a80098dc26f6a2b2",
+      "source": "assets/ui/stamina-orb/frame.webp"
+    },
+    {
+      "id": "orb.orb",
+      "sha256": "1d94d1b86fa88f624deba92b3a612ebda0b52cd3423a79275314e1052d465389",
+      "source": "assets/ui/stamina-orb/orb.webp"
+    },
+    {
+      "id": "orb.sigil",
+      "sha256": "192fa0160d14cdfd2253994aee9ed3126009609a2509b1dc056c21e62c65d75d",
+      "source": "assets/ui/stamina-orb/sigil.webp"
+    },
+    {
+      "id": "orb.spent",
+      "sha256": "bcd2254399d537cf8792b8b7fd2b92af49512899bd899cfbecc8b4ce7045c24e",
+      "source": "assets/ui/stamina-orb/spent.webp"
+    },
+    {
+      "id": "portrait.roadWarden",
+      "sha256": "4093dbd9052f3b1f6f35d6de2b546d20fcdd694f80da94310f253734f1ddefba",
+      "source": "assets/portraits/roadWarden.webp"
+    },
+    {
+      "id": "prologue.carry-desktop",
+      "sha256": "7e9f9e01b7956bd7348fa3fb7ed2158792f9458cdd1b83d620490a6ce1c32fcc",
+      "source": "assets/prologue/carry-desktop.webp"
+    },
+    {
+      "id": "prologue.carry-herald-desktop",
+      "sha256": "e5a854d02fb1400fcb73668dfa59f560c8d416eae8405dd40e409d6ad59f6c89",
+      "source": "assets/prologue/carry-herald-desktop.webp"
+    },
+    {
+      "id": "prologue.carry-herald-mobile",
+      "sha256": "e5c2b6b70912c740abc69a761daefc894b52a57e591fa0a1025d0bb40da62d63",
+      "source": "assets/prologue/carry-herald-mobile.webp"
+    },
+    {
+      "id": "prologue.carry-mobile",
+      "sha256": "b53cde8600d9965b41941f7421f59085a8d990fd4753662bc425bd0935cfe39f",
+      "source": "assets/prologue/carry-mobile.webp"
+    },
+    {
+      "id": "prologue.carry-reaver-desktop",
+      "sha256": "be5ecd5f7bfa3324f8eee6770b351ae86e567ad870f4acef420124fac96e9a31",
+      "source": "assets/prologue/carry-reaver-desktop.webp"
+    },
+    {
+      "id": "prologue.carry-reaver-mobile",
+      "sha256": "e9606c3e220edd98ff294c2fd360bf66d4d53d75a27841e230b86c45be93c4ca",
+      "source": "assets/prologue/carry-reaver-mobile.webp"
+    },
+    {
+      "id": "prologue.carry-rogue-desktop",
+      "sha256": "32793cefa3e0c255f2ede2022c9c44196448883b02f23c86ccb4a2d1c43e8d07",
+      "source": "assets/prologue/carry-rogue-desktop.webp"
+    },
+    {
+      "id": "prologue.carry-rogue-mobile",
+      "sha256": "cda5848c52cb8f8ddafe2e06a6991b2b466724c2958243b91e48ba7b1252b5f6",
+      "source": "assets/prologue/carry-rogue-mobile.webp"
+    },
+    {
+      "id": "prologue.carry-starseer-desktop",
+      "sha256": "3f6f597418241d8a130aee6e744ca75614e90165e030f3310f7621450b3b706d",
+      "source": "assets/prologue/carry-starseer-desktop.webp"
+    },
+    {
+      "id": "prologue.carry-starseer-mobile",
+      "sha256": "f4491f5a7abf9c018bcc48509c9a8ca890e6e1a7a96ea0de285a5a60e4571130",
+      "source": "assets/prologue/carry-starseer-mobile.webp"
+    },
+    {
+      "id": "prologue.herald",
+      "sha256": "07c436d46e70e06cadbdfa705e7d07ccf52dad7d43cebb7f542d1a6039d9a20d",
+      "source": "assets/prologue/herald.webp"
+    },
+    {
+      "id": "prologue.night-desktop",
+      "sha256": "7dad33d8d3482f5bdf35c4106c79cea7b885f4ff83113c52117d69597cd786cf",
+      "source": "assets/prologue/night-desktop.webp"
+    },
+    {
+      "id": "prologue.night-mobile",
+      "sha256": "345a754406458daafb7c875a357968908dfe84d05e509de48c4bef09f5fd2c43",
+      "source": "assets/prologue/night-mobile.webp"
+    },
+    {
+      "id": "prologue.reaver",
+      "sha256": "6d6353664412892e61d7468874f6b61741e2c81eb889895a5e4b22c20f803192",
+      "source": "assets/prologue/reaver.webp"
+    },
+    {
+      "id": "prologue.road-desktop",
+      "sha256": "e778df0d41ff7f7fa148dedf69327ae42d9c2b2db1316bfc2c6a67416a91fdc2",
+      "source": "assets/prologue/road-desktop.webp"
+    },
+    {
+      "id": "prologue.road-mobile",
+      "sha256": "55d10c85f4577ebfe1389e25cfbaee59f3ddc705480687e587b8e0606e2edaec",
+      "source": "assets/prologue/road-mobile.webp"
+    },
+    {
+      "id": "prologue.rogue",
+      "sha256": "d75183396a207908c3dcce591d8e74c8ee3d95096e2ec38e85496a675c004e2b",
+      "source": "assets/prologue/rogue.webp"
+    },
+    {
+      "id": "prologue.starseer",
+      "sha256": "c771533b31226fb4983738fd9d5cd9ba11bfdc95061bcfef05bd4ef3aa61242c",
+      "source": "assets/prologue/starseer.webp"
+    },
+    {
+      "id": "prologue.step-crownfall-desktop",
+      "sha256": "0243151034300f804b3a8bc57d71073164e9d99bc9d0141de63c4930e17a05d3",
+      "source": "assets/prologue/step-crownfall-desktop.webp"
+    },
+    {
+      "id": "prologue.step-crownfall-mobile",
+      "sha256": "e3250e516c28c7a424197f110270db8f65adf40d97e4e3967648958c66524a99",
+      "source": "assets/prologue/step-crownfall-mobile.webp"
+    },
+    {
+      "id": "prologue.step-desktop",
+      "sha256": "28dd2b0edec70a44e2bdb7c29bfdea4d635a3d52a1219aa970515c4ba90a648e",
+      "source": "assets/prologue/step-desktop.webp"
+    },
+    {
+      "id": "prologue.step-marches-desktop",
+      "sha256": "023f08605ce3ea5aa81d7a163793ea6efd362809ab24317904e114c1760a5b20",
+      "source": "assets/prologue/step-marches-desktop.webp"
+    },
+    {
+      "id": "prologue.step-marches-mobile",
+      "sha256": "39d3ab4c4d5d5b9c01b35f2ddf61a437f5df2f05b26c1313f4630724b545c770",
+      "source": "assets/prologue/step-marches-mobile.webp"
+    },
+    {
+      "id": "prologue.step-mobile",
+      "sha256": "f6c823ab75f095afa7f3a3b02285abfb5855fa49bcbc60993292462f9c6c8754",
+      "source": "assets/prologue/step-mobile.webp"
+    },
+    {
+      "id": "prologue.step-reach-desktop",
+      "sha256": "7fef2d3a6f21e4ee9fbccdd74d91f6ef9b3fb8897c20db022e46a8152d08e436",
+      "source": "assets/prologue/step-reach-desktop.webp"
+    },
+    {
+      "id": "prologue.step-reach-mobile",
+      "sha256": "c3ac9c98b37bfca0030595dcaa892d3e1ccd7010dce6084e7f4afb29798b044d",
+      "source": "assets/prologue/step-reach-mobile.webp"
+    },
+    {
+      "id": "prologue.step-weald-desktop",
+      "sha256": "15ac7f059c600abc14e87f6875cf866cbc7e35bb018cf42905e99dfe2f3b44f5",
+      "source": "assets/prologue/step-weald-desktop.webp"
+    },
+    {
+      "id": "prologue.step-weald-mobile",
+      "sha256": "f855a0efe0d98128090969393c20f2f2fa6de91e1901057cb8eff2c22a80f398",
+      "source": "assets/prologue/step-weald-mobile.webp"
+    },
+    {
+      "id": "prologue.warmth-desktop",
+      "sha256": "61189fa731ad59ab81d9a2afa48469282989f5a845171cd951ef0afe0987d045",
+      "source": "assets/prologue/warmth-desktop.webp"
+    },
+    {
+      "id": "prologue.warmth-mobile",
+      "sha256": "daefe83ef44a6e387080f4b59d877e68b2ac38c720f812f9da54a156e7f095fa",
+      "source": "assets/prologue/warmth-mobile.webp"
+    },
+    {
+      "id": "prologue.year-desktop",
+      "sha256": "4901506811c9288fecfe58d34e3776079d92c9107b16b3bc83607ba683a80928",
+      "source": "assets/prologue/year-desktop.webp"
+    },
+    {
+      "id": "prologue.year-mobile",
+      "sha256": "1d87955374a57aba8c21d2abcada60a4f688daabc60806486f488f5936f02ebb",
+      "source": "assets/prologue/year-mobile.webp"
+    },
+    {
+      "id": "scene.armoury-still-life-master",
+      "sha256": "b3ba12f65b3cdfca2f8382136459e159ade4eae17b6dfc4574cc005e07306aaa",
+      "source": "assets/player-polish/scenes/armoury-still-life-master.webp"
+    },
+    {
+      "id": "scene.chapel-rest-master",
+      "sha256": "2fea1b18bf4e19bf5912335f7475d0ca3f5905a5b029532da65ce675908c0205",
+      "source": "assets/player-polish/scenes/chapel-rest-master.webp"
+    },
+    {
+      "id": "scene.forge-desktop",
+      "sha256": "32c7141230f341e6d17015951524a70247cf66b0a36edb9ff9894063f80d13b3",
+      "source": "assets/player-polish/scenes/forge-desktop.webp"
+    },
+    {
+      "id": "scene.forge-mobile",
+      "sha256": "28e9810651b97b6eb853d0da223f32020b1ea4205fabe9f99238dc52b9a51cb1",
+      "source": "assets/player-polish/scenes/forge-mobile.webp"
+    },
+    {
+      "id": "scene.grave-dialogue-master",
+      "sha256": "4791f9197d30b0b462c4fc5e619fadba34b24b245a8ab181c7d9a7ba3af57f9b",
+      "source": "assets/player-polish/scenes/grave-dialogue-master.webp"
+    },
+    {
+      "id": "scene.merchant-desktop",
+      "sha256": "8523ce8a1182b3ef72b78e0b74d31f22c8d578a56a7cd8973df0911463d18ca1",
+      "source": "assets/player-polish/scenes/merchant-desktop.webp"
+    },
+    {
+      "id": "scene.merchant-mobile",
+      "sha256": "7a36a4d7f72d4593cfe128303e7f55ed0d2f11cbcf61673e315209b8765b7d12",
+      "source": "assets/player-polish/scenes/merchant-mobile.webp"
+    },
+    {
+      "id": "scene.spire-vista-desktop",
+      "sha256": "23d5a0c6024824a7a05287bb40a1b79c22cae0668a0a15f133aa14a01f721938",
+      "source": "assets/player-polish/scenes/spire-vista-desktop.webp"
+    },
+    {
+      "id": "scene.spire-vista-mobile",
+      "sha256": "5cb88b129ae6fced67527fcb3edac08a0b54f07af2c227ef27712e4157e9b41f",
+      "source": "assets/player-polish/scenes/spire-vista-mobile.webp"
+    },
+    {
+      "id": "shop.brass-button",
+      "sha256": "0b86f85717a63ed36ee8a35506fb4c4117f979a513d26e5c7df47001f5a8eb5f",
+      "source": "assets/shop/brass-button.webp"
+    },
+    {
+      "id": "shop.cover.classic",
+      "sha256": "08bc173cfe3da1ad6980ecd0e9c40176ced79fa53ea1033fea73657a3f98cabb",
+      "source": "assets/shop/layers/covers/classic.webp"
+    },
+    {
+      "id": "shop.cover.field",
+      "sha256": "09f32a9f7e1777de9d5c752608ef1dfa424474c358ea7777e19c9b6c09d7ba9d",
+      "source": "assets/shop/layers/covers/field.webp"
+    },
+    {
+      "id": "shop.cover.scholar",
+      "sha256": "8fc379a9dd8bbc3e93bb6ee91ceb25be6a289bb08b45ccd53ac4a99dde59bc0f",
+      "source": "assets/shop/layers/covers/scholar.webp"
+    },
+    {
+      "id": "shop.painted.covers.classic",
+      "sha256": "66f19884faee533e2bc2a01e3431fe8600e2d2f80c40e3a81a721e87d546e9ea",
+      "source": "assets/shop/painted/covers/classic.webp"
+    },
+    {
+      "id": "shop.painted.covers.field",
+      "sha256": "94ef1438da154fb9068528ffefb91f706b2a354e6b278de5b262f3da71e14015",
+      "source": "assets/shop/painted/covers/field.webp"
+    },
+    {
+      "id": "shop.painted.covers.scholar",
+      "sha256": "5f926ec7b0d147b3f7ae9f4eddc566b99f0f4182f0b37d370f76d984ba4d06a5",
+      "source": "assets/shop/painted/covers/scholar.webp"
+    },
+    {
+      "id": "shop.painted.symbols.blade",
+      "sha256": "61aa74b5495df1f0c1c501e0d4ef53eac078f17ff78574aa268b6f20a2f743d8",
+      "source": "assets/shop/painted/symbols/blade.webp"
+    },
+    {
+      "id": "shop.painted.symbols.feat",
+      "sha256": "73516fa32a70694809062c873704f7b4e1d4570a2229cad1021faffdd23eca1c",
+      "source": "assets/shop/painted/symbols/feat.webp"
+    },
+    {
+      "id": "shop.painted.symbols.focus",
+      "sha256": "ed8fee66deef48c3d6878df1a2002aebc8065d52bd827c2f17429278ba5c13af",
+      "source": "assets/shop/painted/symbols/focus.webp"
+    },
+    {
+      "id": "shop.painted.symbols.herald",
+      "sha256": "7dd9230e051de7026187238f2d3a23aa6b431dd5f7abccea3ef9da20996b76ce",
+      "source": "assets/shop/painted/symbols/herald.webp"
+    },
+    {
+      "id": "shop.painted.symbols.paired",
+      "sha256": "ce13a06d9f379ba6082fdb7e97e1531eac364dd2a5899aeb7eea3a111b92ec9f",
+      "source": "assets/shop/painted/symbols/paired.webp"
+    },
+    {
+      "id": "shop.painted.symbols.reaver",
+      "sha256": "fd0ef0f3a0c7697958ba26016a819a081e80ae78a52c721218415e0fd70da065",
+      "source": "assets/shop/painted/symbols/reaver.webp"
+    },
+    {
+      "id": "shop.painted.symbols.rogue",
+      "sha256": "3c8f1997a46cbdbce22edadaf3094e6aeb0ecb176355d4471e9c12816b2de6e5",
+      "source": "assets/shop/painted/symbols/rogue.webp"
+    },
+    {
+      "id": "shop.painted.symbols.shield",
+      "sha256": "7acdcd62f8ae70c7756d4a6cda3333c4813f90aee2d7ab32e798d8032a380286",
+      "source": "assets/shop/painted/symbols/shield.webp"
+    },
+    {
+      "id": "shop.painted.symbols.spell",
+      "sha256": "21759373bb355581ef6930c5dbe0e9ef03bf400494379b0c282995a90431f147",
+      "source": "assets/shop/painted/symbols/spell.webp"
+    },
+    {
+      "id": "shop.painted.symbols.starseer",
+      "sha256": "46f07ca42328c83b664bc704a8361f9663c5e97cabf37ba1813fc0146d8f9869",
+      "source": "assets/shop/painted/symbols/starseer.webp"
+    },
+    {
+      "id": "shop.painted.symbols.universal",
+      "sha256": "4eb5aaa8fa9d8504a9057d1cf5d0f4767b07af5ebd3c26031ff08439bb7a39d9",
+      "source": "assets/shop/painted/symbols/universal.webp"
+    },
+    {
+      "id": "shop.symbol.blade.line",
+      "sha256": "03be2ff2ab7aeea69d6ecf2ea0c4218e3a710818cde15748d25dd6e518a7ceda",
+      "source": "assets/shop/layers/symbols/blade-line.svg"
+    },
+    {
+      "id": "shop.symbol.blade.seal",
+      "sha256": "d7e8ff399aa93819691519fa3f8011ab698a5721f63a46c88d83c914461093c8",
+      "source": "assets/shop/layers/symbols/blade-seal.svg"
+    },
+    {
+      "id": "shop.symbol.blade.solid",
+      "sha256": "fb8acce0da243feab36564c3500569d11fbb9ead1e579d469c845e5ae0711cb5",
+      "source": "assets/shop/layers/symbols/blade-solid.svg"
+    },
+    {
+      "id": "shop.symbol.focus.line",
+      "sha256": "265c6e8bbb2770805ac52241bdb99a0601842be82caa19c827291fa919b68c54",
+      "source": "assets/shop/layers/symbols/focus-line.svg"
+    },
+    {
+      "id": "shop.symbol.focus.seal",
+      "sha256": "0aa9f531b2af8d38b28ec907d8a52b0d04137082e16ff9e0d09b5a83a10cff2f",
+      "source": "assets/shop/layers/symbols/focus-seal.svg"
+    },
+    {
+      "id": "shop.symbol.focus.solid",
+      "sha256": "0b1632ef495cbd1afc28080a3f6195dd58310184027c811496e6dc17d1f0ba69",
+      "source": "assets/shop/layers/symbols/focus-solid.svg"
+    },
+    {
+      "id": "shop.symbol.herald.line",
+      "sha256": "74e243b45ae2bf289f7f9474252915d7874d8cd8264943e04f8bffaa55215dc1",
+      "source": "assets/shop/layers/symbols/herald-line.svg"
+    },
+    {
+      "id": "shop.symbol.herald.seal",
+      "sha256": "c3e297acbf13660762e12d78fd0875a163c5146dd38545b67772031d7f36c77c",
+      "source": "assets/shop/layers/symbols/herald-seal.svg"
+    },
+    {
+      "id": "shop.symbol.herald.solid",
+      "sha256": "79eca035a36129403a0f4bfd30c36ce92e2cf939c2c5bd00b1c2ca5206055d97",
+      "source": "assets/shop/layers/symbols/herald-solid.svg"
+    },
+    {
+      "id": "shop.symbol.paired.line",
+      "sha256": "f7bbba8b00d839871f18092300338093dcd383eae85ba50656aad4530224611c",
+      "source": "assets/shop/layers/symbols/paired-line.svg"
+    },
+    {
+      "id": "shop.symbol.paired.seal",
+      "sha256": "94c366636710ff86bf9034c42fb7af763c8500c4fcdd7b06a6b399cab769f437",
+      "source": "assets/shop/layers/symbols/paired-seal.svg"
+    },
+    {
+      "id": "shop.symbol.paired.solid",
+      "sha256": "3462aedd873181cc7d214943b0e7292c8091a0bc6e667a940b5ca965e78e63d5",
+      "source": "assets/shop/layers/symbols/paired-solid.svg"
+    },
+    {
+      "id": "shop.symbol.reaver.line",
+      "sha256": "2ec4629883f6a68ad65166cc757fb3670b26638f9c404ea9bc615110668867f8",
+      "source": "assets/shop/layers/symbols/reaver-line.svg"
+    },
+    {
+      "id": "shop.symbol.reaver.seal",
+      "sha256": "27efcd7635a8581d91fc97295e5b1c511e00d7cdd40a66c600a52f2053d9bd45",
+      "source": "assets/shop/layers/symbols/reaver-seal.svg"
+    },
+    {
+      "id": "shop.symbol.reaver.solid",
+      "sha256": "a890e4ab5f5e1b9a1a6566154c0b19a2e5456e2a10274647120edffe4110570b",
+      "source": "assets/shop/layers/symbols/reaver-solid.svg"
+    },
+    {
+      "id": "shop.symbol.rogue.line",
+      "sha256": "48dec1bfcee6c30f94722511674fe2fb91210993f7df3bf9682d05bcc38600a6",
+      "source": "assets/shop/layers/symbols/rogue-line.svg"
+    },
+    {
+      "id": "shop.symbol.rogue.seal",
+      "sha256": "9facbbfd0331918ff3fb001b0aa94a7e235d66e836463fd0fea76e2c67a14819",
+      "source": "assets/shop/layers/symbols/rogue-seal.svg"
+    },
+    {
+      "id": "shop.symbol.rogue.solid",
+      "sha256": "e8ebfacddd0685af3fab6e5a7100d5f5892a5e26fb1ccab282370f75127436eb",
+      "source": "assets/shop/layers/symbols/rogue-solid.svg"
+    },
+    {
+      "id": "shop.symbol.shield.line",
+      "sha256": "e85dbd15c086e615475a86f3d402388fc2f2bda9a2a1856a4693e3a621bac7d8",
+      "source": "assets/shop/layers/symbols/shield-line.svg"
+    },
+    {
+      "id": "shop.symbol.shield.seal",
+      "sha256": "05fff46f476ad9cc55b917a125d9b0b321c8dfdea3d38f7e248d0d59de9522e9",
+      "source": "assets/shop/layers/symbols/shield-seal.svg"
+    },
+    {
+      "id": "shop.symbol.shield.solid",
+      "sha256": "890ee3b2a30c9c6df0bd0700e320d17bbd35a3e1d33ff68afcfce56bf6139f2d",
+      "source": "assets/shop/layers/symbols/shield-solid.svg"
+    },
+    {
+      "id": "shop.symbol.spell.line",
+      "sha256": "d24cf28b97fa03b0f5134ab5ba24e144bd83337e56934a4ea79a516e48cd03d9",
+      "source": "assets/shop/layers/symbols/spell-line.svg"
+    },
+    {
+      "id": "shop.symbol.spell.seal",
+      "sha256": "dfe09293f5935d57e130a65d348f7cd03212bf78cbe0ab89f3ffa8810e68999a",
+      "source": "assets/shop/layers/symbols/spell-seal.svg"
+    },
+    {
+      "id": "shop.symbol.spell.solid",
+      "sha256": "966a758f1b5c471710353f5aca845445fe086fa17f7b83d872b8b24d924ae3a6",
+      "source": "assets/shop/layers/symbols/spell-solid.svg"
+    },
+    {
+      "id": "shop.symbol.starseer.line",
+      "sha256": "632ef61c04057b30993d389da02b69be1b117b2284fff42b49f086c0c2a9d28f",
+      "source": "assets/shop/layers/symbols/starseer-line.svg"
+    },
+    {
+      "id": "shop.symbol.starseer.seal",
+      "sha256": "bd2e08117af7b72aa7a6130157a6cdce42f091b78f72aaa8a25346f5e6ab02d8",
+      "source": "assets/shop/layers/symbols/starseer-seal.svg"
+    },
+    {
+      "id": "shop.symbol.starseer.solid",
+      "sha256": "1c90d8c385b628741000c57b22c7e725458095ccd05d949a9231ab400fe19f3e",
+      "source": "assets/shop/layers/symbols/starseer-solid.svg"
+    },
+    {
+      "id": "shop.symbol.universal.line",
+      "sha256": "b41fd175fa51765d83143d48351bcf774784426c504f47a5b3f5b33f166787db",
+      "source": "assets/shop/layers/symbols/universal-line.svg"
+    },
+    {
+      "id": "shop.symbol.universal.seal",
+      "sha256": "c472d107b0795fd51b78b3d6e74c6823d2879892c15a4c2398ddb8e29bfe1664",
+      "source": "assets/shop/layers/symbols/universal-seal.svg"
+    },
+    {
+      "id": "shop.symbol.universal.solid",
+      "sha256": "da9c021e85089f51c052fcdbb10c4070bc1918af6f73f571b732f280a1cec23d",
+      "source": "assets/shop/layers/symbols/universal-solid.svg"
+    },
+    {
+      "id": "shop.trim.arcane",
+      "sha256": "f599adb1fc9f08ef7006996ccfc34e7f27428265282e2f189e6f03a1d64f2fb8",
+      "source": "assets/shop/layers/trims/arcane.svg"
+    },
+    {
+      "id": "shop.trim.corners",
+      "sha256": "92053d0199be3762b59dfea0380f38a7543a85b2931863ab27ce21c92c6fecc0",
+      "source": "assets/shop/layers/trims/corners.svg"
+    },
+    {
+      "id": "shop.trim.frame",
+      "sha256": "fc5411b6a7c98057b73274eb1f8c859e8680e89e8a81c3221a0c086ad9e1e743",
+      "source": "assets/shop/layers/trims/frame.svg"
+    },
+    {
+      "id": "uicomp.armoury",
+      "sha256": "8e5f109f7160e6612f0a919246338c3c3f28c15141c11856d077305b72627b23",
+      "source": "assets/ui-components/armoury.webp"
+    },
+    {
+      "id": "uicomp.menu",
+      "sha256": "35227850e0bff4ccc7629b25f3346221c4171aeed47e626a5c4a6ef8d2027cd4",
+      "source": "assets/ui-components/menu.webp"
+    },
+    {
+      "id": "uikit.button-neutral",
+      "sha256": "dd2843840aae1b5db7adb84c68cf4f160b2ac26095d63acc3612729fc8541452",
+      "source": "assets/player-polish/ui/components/button-neutral.svg"
+    },
+    {
+      "id": "uikit.button-primary-focus",
+      "sha256": "8fbcead3a88f3095b1e27adae87c16ad1fd4808af411f6aca13c68a76ff75402",
+      "source": "assets/player-polish/ui/components/button-primary-focus.svg"
+    },
+    {
+      "id": "uikit.button-primary-pressed",
+      "sha256": "4ba0f9fb967056b2ce7abef2d7e06305c401e777696e70bba6eecc7ec806b85d",
+      "source": "assets/player-polish/ui/components/button-primary-pressed.svg"
+    },
+    {
+      "id": "uikit.button-primary-ready",
+      "sha256": "771a03dad0ede80882dc0793c8f84ec2e36559076f86d1a660cfea1cd4a8ea50",
+      "source": "assets/player-polish/ui/components/button-primary-ready.svg"
+    },
+    {
+      "id": "uikit.cost-medallion",
+      "sha256": "63c92daaf76f159227cdd2a2ef8fb41078de9fbf1efa5f643982d8281320c46a",
+      "source": "assets/player-polish/ui/components/cost-medallion.svg"
+    },
+    {
+      "id": "uikit.divider-ornate",
+      "sha256": "63270677441b00066d716da11d1610431314640734bd29c64d56359581d1e39c",
+      "source": "assets/player-polish/ui/components/divider-ornate.svg"
+    },
+    {
+      "id": "uikit.item-slot",
+      "sha256": "9d41a392954aff808d4d8f0df8b7a4c0443e9a531657290c8888aadd81030737",
+      "source": "assets/player-polish/ui/components/item-slot.svg"
+    },
+    {
+      "id": "uikit.item-slot-selected",
+      "sha256": "f2b548c7c19f1c3b7cdb8d5cdb1b5a6357dcac8d422e99c4dc89637add5a2810",
+      "source": "assets/player-polish/ui/components/item-slot-selected.svg"
+    },
+    {
+      "id": "uikit.meter-track",
+      "sha256": "4b25bb378aebe86c0803b7e96e37cf7ab2698218fd107a033e5612e1f8c9db53",
+      "source": "assets/player-polish/ui/components/meter-track.svg"
+    },
+    {
+      "id": "uikit.panel-frame",
+      "sha256": "9918718c3af71c7ecac023208f395b0da1bd4ef254c18d80fedb968351219355",
+      "source": "assets/player-polish/ui/components/panel-frame.svg"
+    }
+  ],
+  "note": "Every id below the registry marks with release=<tag> was read from these pack zips (sha256 verified by the web tools/fetch-art.mjs before unpacking). Rights: CREDITS.md (first-party / project-owned AI-generated or authored; no third-party license claimed). No game-icons.net (CC BY 3.0) file is imported: the legacy outline card icons (cardoutline.*) and official v1 card paintings (cardofficial.*) are registered, not imported.",
+  "packs": {
+    "common": {
+      "sha256": "aac59d9e6f057d876033a823c4f6cc9e2616c01fca6797ec557fe4da58bc80e6",
+      "zip": "common-assets-v23.zip"
+    },
+    "high": {
+      "sha256": "9739aec653cf8f2db8aec26d2f40bb2315356330aecabba4279797c5b79a45fc",
+      "zip": "hd-assets-v23.zip"
+    },
+    "light": {
+      "sha256": "fcc45de4f47902ee40a3c1e4e18266217b0c965a405b0a9bc3d0d60e683780f0",
+      "zip": "light-assets-v23.zip"
+    }
+  },
+  "repo": "cehinds/AshenSpire-art",
+  "tag": "hd-assets-v23",
+  "webCommit": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

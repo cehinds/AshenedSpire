@@ -1,5 +1,5 @@
 {
-  "contentHash": "67ccdbb7806bb0720b1bee0a94295378d8ce460992720dfe2ddb853b7cf1a725",
+  "contentHash": "e56b6468285be37670be4c4392e2a4cb8e676a477824b15164ade232e3016f20",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -100,9 +100,9 @@
       "sha256": "5d663083f183f94bfbe6bdb4be634f791e64ad52754c505e3bb53f920cf81267"
     },
     "assets/registry.json": {
-      "bytes": 1895183,
+      "bytes": 2337901,
       "generated": false,
-      "sha256": "7b306db8a3177f91793d8911881bb6d36bd44c2d0f21b10420e159333d6a9214"
+      "sha256": "4ec4d727fdda0c7e32316521a4c06dd6dcced01ca9cac0e7aa8579471bf04175"
     },
     "audio/beds.json": {
       "bytes": 1990,
@@ -975,9 +975,9 @@
       "sha256": "7e3f866eca3c79321aa3552b5cc57deda1c01a912161d7b526dcfff54a9d934b"
     },
     "schemas/assets.registry.schema.json": {
-      "bytes": 929,
+      "bytes": 1114,
       "generated": false,
-      "sha256": "57cf4bae50afa2771c9a32928074869ac3446d08f98bf2d0872ee13ffe464db2"
+      "sha256": "ab958f0d9426f690268ee25d662b0c7998d177a2108e21483fe464beb451ceb4"
     },
     "schemas/audio.beds.schema.json": {
       "bytes": 2427,
@@ -1954,6 +1954,11 @@
       "generated": false,
       "sha256": "b737b74ae845e045c72f49a06586301dd739bf3a52236d55dd9c919acc888103"
     },
+    "schemas/ui.art.schema.json": {
+      "bytes": 2186,
+      "generated": false,
+      "sha256": "3af105c94763728307b39d6e27895a06d143e181316b177c91938703b5969610"
+    },
     "schemas/ui.components.schema.json": {
       "bytes": 5106,
       "generated": false,
@@ -2128,6 +2133,11 @@
       "bytes": 17514,
       "generated": true,
       "sha256": "800f85c25beaa464dee1ad55f25b838ca54e8cb72b0fa8ed44b0b40a9f5efbe0"
+    },
+    "ui/art.json": {
+      "bytes": 3393,
+      "generated": false,
+      "sha256": "d0ce1791099b8f6924fd99283533b0c430e3a7ebaac396879cd8f571ef4bd766"
     },
     "ui/components.json": {
       "bytes": 4121,

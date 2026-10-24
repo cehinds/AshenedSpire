@@ -50,7 +50,7 @@ namespace Ashen.Tests
             var artRoot = Path.Combine(UnityProject, "Assets", "Art");
             if (!Directory.Exists(artRoot)) Assert.Inconclusive("no Art folder");
             var strays = Directory.GetFiles(artRoot, "*.meta", SearchOption.AllDirectories)
-                .Where(m => Regex.IsMatch(m, @"\.(png|svg)\.meta$", RegexOptions.IgnoreCase))
+                .Where(m => Regex.IsMatch(m, @"\.(png|jpg|svg)\.meta$", RegexOptions.IgnoreCase))
                 .Where(m => !known.Contains(Path.GetFullPath(m)))
                 .ToList();
             Assert.That(strays, Is.Empty, "every shipped image must resolve through the registry:\n" + string.Join("\n", strays.Take(20)));

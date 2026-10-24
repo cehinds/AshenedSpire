@@ -376,6 +376,7 @@ namespace Ashen.Generated
         public const string SchemasTagsTaggingSchema = "schemas/tags.tagging.schema.json";
         public const string SchemasTagsTagsSchema = "schemas/tags.tags.schema.json";
         public const string SchemasTagsVariableBindingsSchema = "schemas/tags.variableBindings.schema.json";
+        public const string SchemasUiArtSchema = "schemas/ui.art.schema.json";
         public const string SchemasUiComponentsSchema = "schemas/ui.components.schema.json";
         public const string SchemasUiConfirmationPoliciesSchema = "schemas/ui.confirmationPolicies.schema.json";
         public const string SchemasUiLayoutSchema = "schemas/ui.layout.schema.json";
@@ -411,6 +412,7 @@ namespace Ashen.Generated
         public const string TagsTagging = "tags/tagging.json";
         public const string TagsTags = "tags/tags.json";
         public const string TagsVariableBindings = "tags/variableBindings.json";
+        public const string UiArt = "ui/art.json";
         public const string UiComponents = "ui/components.json";
         public const string UiConfirmationPolicies = "ui/confirmationPolicies.json";
         public const string UiLayout = "ui/layout.json";
