@@ -94,6 +94,12 @@
           "string"
         ]
       }
+    },
+    "webSource": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
     }
   },
   "required": [
