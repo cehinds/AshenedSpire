@@ -28,5 +28,6 @@ namespace Ashen.Generated
         public const string ScreenShake = "screenShake";
         public const string OneTapPlay = "oneTapPlay";
         public const string ReduceFlashes = "reduceFlashes";
+        public const string ShowPlayedCard = "showPlayedCard";
     }
 }

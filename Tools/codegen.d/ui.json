@@ -1020,7 +1020,8 @@
         "MapWay": "mapWay",
         "TrayDelay": "trayDelay",
         "RepeatPick": "repeatPick",
-        "TargetHide": "targetHide"
+        "TargetHide": "targetHide",
+        "FxHitTint": "fxHitTint"
       }
     },
     {

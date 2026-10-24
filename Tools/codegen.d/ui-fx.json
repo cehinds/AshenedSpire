@@ -104,7 +104,8 @@
         "ActionPreview": "actionPreview",
         "CombatProfile": "combatProfile",
         "DerivedTags": "derivedTags",
-        "CardTags": "cardTags"
+        "CardTags": "cardTags",
+        "CardInstanceId": "cardInstanceId"
       }
     },
     {
@@ -160,6 +161,20 @@
         "Dodge": "dodge",
         "Heal": "heal",
         "PhysicalGuard": "physicalGuard"
+      }
+    },
+    {
+      "name": "FxPoses",
+      "doc": "The pose names of an enemy figure (enemy.{id}.pose.{name} and enemy.{id}.state.{name}; the web enemyPoseStage.js).",
+      "keys": {
+        "Idle": "idle",
+        "Attack": "attack",
+        "Hurt": "hurt",
+        "Guard": "guard",
+        "GuardHit": "guardHit",
+        "Wounded": "wounded",
+        "Afflicted": "afflicted",
+        "Projectile": "projectile"
       }
     }
   ],

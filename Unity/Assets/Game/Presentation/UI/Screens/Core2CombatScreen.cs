@@ -25,7 +25,7 @@ namespace Ashen.Presentation.UI.Screens
     /// An enemy turn is walked step by step at the pace of the player's combat settings (<see cref="CombatPacing"/>); Skip fast-forwards it. States, each with its focus order in
     /// ui/screens.json: normal; targeting; prompt; the enemy turn; the end. Escape backs out of the innermost state, else opens W-20; pad Start opens W-20.
     /// </summary>
-    public sealed class Core2CombatScreen : ScreenView
+    public sealed partial class Core2CombatScreen : ScreenView
     {
         private readonly Dictionary<string, Fighter> _enemies = new Dictionary<string, Fighter>(StringComparer.Ordinal);
         private readonly List<Button> _options = new List<Button>();
@@ -38,10 +38,6 @@ namespace Ashen.Presentation.UI.Screens
         private Core2PromptRows _promptRows;
         private Core2TargetInspector _targets;
         private FooterGroup _footer;
-        private IVisualElementScheduledItem _timeline;
-        private IVisualElementScheduledItem _bannerHide;
-        private List<List<Core2LogLine>> _segments = new List<List<Core2LogLine>>();
-        private int _revealed;
         private int _hiddenLines;
         private bool _busy;
         private string _acting;
@@ -126,13 +122,18 @@ namespace Ashen.Presentation.UI.Screens
             };
             ApplyBackground();
             ApplyBoardArt();
+            SetupFx();
             _player = new Fighter { focusable = false };
             Root.Q(UiNames.AllyRow).Add(_player);
             _targets.Attach(_player);
             Render();
             if ((args as Core2RunArgs)?.ResumeWarning == true) ShowNotice(StringKeys.CombatResumeWarning);
             if (_flow.Ended) EnterEnded();
-            else Context.Instance.LastFocused = FirstPlayableCard();
+            else
+            {
+                Context.Instance.LastFocused = FirstPlayableCard();
+                if ((args as Core2RunArgs)?.ResumeWarning != true) ShowBossIntro();
+            }
         }
 
         // ------------------------------------------------------------------ render
@@ -264,7 +265,7 @@ namespace Ashen.Presentation.UI.Screens
                 Name = player ? Strings.Format(StringKeys.CombatIdentity, new StringArgs().Add(UiPlaceholders.Name, _run.Name).Add(UiPlaceholders.Class, RunFlow.ClassName(Ui, _run.ClassId))) : f.Name,
                 Art = Ui.Texture(player ? _run.Portrait : StringTable.Fill(Ui.Data.Components.EnemyArt, new StringArgs().Add(UiPlaceholders.Id, f.DefId))),
                 Player = player,
-                Alive = f.Alive,
+                Alive = f.Alive || _dying.Contains(f.Id),
                 Hp = Int(f.Hp),
                 MaxHp = Int(f.MaxHp),
                 ReferenceMaxHp = reference,
@@ -280,6 +281,7 @@ namespace Ashen.Presentation.UI.Screens
                 Statuses = Core2CombatText.Statuses(Strings, f, Math.Max(1, Ui.Data.Components.StatusChips), Ui.Data.Components.FighterStackStatuses),
             };
             AddChips(d, f);
+            if (!player) ApplyRestArt(d, f);
             if (f.Poise != null) { d.Poise = Int(f.Poise.Value); d.PoiseMax = Int(f.Poise.Max); }
             if (d.HasWard) { d.Ward = Int(f.Ward.Value); d.WardMax = Int(f.Ward.Max); }
             if (f.Alive && f.Intent != null)
@@ -600,12 +602,14 @@ namespace Ashen.Presentation.UI.Screens
         private void OnCard(int index, KitCard anchor)
         {
             if (_busy || _flow.Ended) return;
+            CaptureFlight(index < View.Hand.Count ? View.Hand[index].InstanceId : null, null);
             Handle(_flow.SelectCard(index), anchor);
         }
 
         private void OnFighter(Fighter fighter)
         {
             if (_busy || fighter?.Data == null || !_flow.Targeting) return;
+            CaptureFlight(_flow.Armed?.InstanceId, fighter.Data.Id);
             Handle(_flow.PickTarget(fighter.Data.Id), fighter);
         }
 
@@ -682,9 +686,7 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>Drops the enemy-turn lock and redraws from the flow's current view (each step guarded: a throwing redraw is logged, never left half done).</summary>
         private void Unlock()
         {
-            _timeline?.Pause();
-            _timeline = null;
-            _segments.Clear();
+            CancelFx();
             _hiddenLines = 0;
             _acting = null;
             _busy = false;
@@ -695,120 +697,11 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>Apply a result the flow produced outside the controls (the PlayMode smoke finishes a fight through the flow, then lets the screen catch up).</summary>
         public void Apply(Core2StepResult step) => Handle(step, _footer.EndTurnButton);
 
-        // ------------------------------------------------------------------ the enemy turn at the combat pace (D11)
-
-        /// <summary>The seconds one step takes: the animation step then the stage gap, both after the speed multiplier (auto combat has its own); reduced motion drops the animation.</summary>
-        private double StepMs()
-        {
-            var pacing = _flow.Pacing;
-            var reduced = _run.PlayerSettings.On(SettingIds.ReducedMotion);
-            var ms = pacing.StageGapScaledMs + (reduced ? 0d : pacing.AnimationStepScaledMs);
-            return Math.Max(1d, ms);
-        }
-
-        /// <summary>Splits the new log lines into steps, one per enemy that acted (the lines of its action stay with it), and walks them; with nothing to walk the screen simply catches up.</summary>
-        private void StartTimeline(Core2StepResult step)
-        {
-            // The animation speed 'instant' walks nothing: the screen catches up at once.
-            _segments = _flow.Pacing.AnimSpeed == Core2UiValues.AnimInstant ? new List<List<Core2LogLine>>() : Segments(step);
-            _revealed = 0;
-            var lines = step.Timeline.Count(l => !string.IsNullOrEmpty(l.Text));
-            if (_segments.Count == 0)
-            {
-                _hiddenLines = 0;
-                Render();
-                AfterStep();
-                return;
-            }
-            _busy = true;
-            _hiddenLines = lines;
-            _acting = null;
-            Render();
-            FocusSoon(_footer.EndTurnButton);
-            Banner(StringKeys.CombatEnemyTurn, null, 0);
-            var ms = (long)StepMs();
-            _timeline?.Pause();
-            _timeline = Root.schedule.Execute(StepTimeline).StartingIn(ms).Every(ms);
-        }
-
-        private static List<List<Core2LogLine>> Segments(Core2StepResult step)
-        {
-            var segments = new List<List<Core2LogLine>>();
-            var actors = new HashSet<string>(step.Actors, StringComparer.Ordinal);
-            if (actors.Count == 0) return segments;
-            string current = null;
-            foreach (var line in step.Timeline.Where(l => !string.IsNullOrEmpty(l.Text)))
-            {
-                var actor = line.SourceId != null && actors.Contains(line.SourceId) ? line.SourceId : null;
-                if (segments.Count == 0 || (actor != null && actor != current))
-                {
-                    segments.Add(new List<Core2LogLine>());
-                    current = actor ?? current;
-                }
-                segments[segments.Count - 1].Add(line);
-            }
-            return segments;
-        }
-
-        private void StepTimeline()
-        {
-            try
-            {
-                if (_revealed >= _segments.Count)
-                {
-                    FinishTimeline();
-                    return;
-                }
-                var segment = _segments[_revealed++];
-                _hiddenLines = Math.Max(0, _hiddenLines - segment.Count);
-                var lead = segment.FirstOrDefault(l => l.SourceId != null && _enemies.ContainsKey(l.SourceId));
-                _acting = lead?.SourceId;
-                Banner(StringKeys.CombatActing, lead?.SourceName, 0);
-                Render();
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.Core2StepFailed, e));
-                Unlock();
-            }
-        }
-
-        /// <summary>Skip ▶▶: end the timeline now.</summary>
-        public void Skip()
-        {
-            if (!_busy) return;
-            FinishTimeline();
-        }
-
-        private void FinishTimeline()
-        {
-            Unlock();
-            try { AfterStep(); }
-            catch (Exception e) { Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.Core2StepFailed, e)); }
-        }
-
-        /// <summary>After an intent and its walk: the end of the fight, or the player's turn again.</summary>
-        private void AfterStep()
-        {
-            if (_flow.Ended) { EnterEnded(); return; }
-            if (_flow.Prompt != null) return;
-            UiDom.Show(Root.Q(UiNames.PhaseBanner), false);
-            FocusSoon(_flow.Targeting ? FirstTarget() : FirstPlayableCard());
-        }
-
-        private void Banner(string key, string name, int hideAfterMs)
-        {
-            var banner = Root.Q<LocLabel>(UiNames.PhaseBanner);
-            if (banner == null) return;
-            banner.SetResolved(Strings.Format(key, new StringArgs().Add(UiPlaceholders.Name, name)));
-            UiDom.Show(banner, true);
-            _bannerHide?.Pause();
-            if (hideAfterMs > 0) _bannerHide = banner.schedule.Execute(() => UiDom.Show(banner, false)).StartingIn(hideAfterMs);
-        }
+        // The enemy turn and every other play's feedback run on the web's timeline: Core2CombatScreen.Fx.cs (StartTimeline, Skip, FinishTimeline, AfterStep).
 
         // ------------------------------------------------------------------ the end of the fight
 
-        private void EnterEnded()
+        private void ShowEnded()
         {
             Render();
             UiDom.Show(Root.Q(UiNames.PhaseBanner), false);
@@ -827,7 +720,10 @@ namespace Ashen.Presentation.UI.Screens
             UiDom.Show(next, !over);
             UiDom.Show(summary, over);
             UiDom.Show(toTitle, over && !Ui.Data.Screens.IsBuilt(ScreenIds.RunEnd));
-            UiDom.Show(Root.Q(UiNames.CombatEnd), true);
+            var end = Root.Q(UiNames.CombatEnd);
+            end.EnableInClassList(UiClasses.CombatEndVictory, victory);
+            end.EnableInClassList(UiClasses.CombatEndDefeat, !victory);
+            UiDom.Show(end, true);
             FocusSoon(over ? (summary.ClassListContains(UiClasses.Hidden) ? (VisualElement)toTitle : summary) : next);
         }
 
@@ -856,6 +752,7 @@ namespace Ashen.Presentation.UI.Screens
 
         public override bool HandleBack()
         {
+            if (_introOpen) { CloseIntro(); return true; }
             if (_overlays != null && _overlays.HandleBack()) return true;
             if (_targets != null && _targets.IsPinned) { _targets.Hide(); return true; }
             if (_logOpen) { SetLog(false); return true; }
@@ -892,8 +789,8 @@ namespace Ashen.Presentation.UI.Screens
 
         public override void Unbind()
         {
-            _timeline?.Pause();
-            _bannerHide?.Pause();
+            CancelFx();
+            _introTimer?.Pause();
         }
 
         // ------------------------------------------------------------------ helpers

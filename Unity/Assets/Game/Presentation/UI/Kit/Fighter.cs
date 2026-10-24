@@ -99,6 +99,7 @@ namespace Ashen.Presentation.UI.Kit
         private Texture2D _restArt;
         private double _restScale = 1;
         private bool _posing;
+        private double _poseScale = 1;
 
         public Fighter()
         {
@@ -118,6 +119,7 @@ namespace Ashen.Presentation.UI.Kit
             _pose.AddToClassList(UiClasses.Hidden);
             _figure.Add(_pose);
             _art?.Insert(0, _figure);
+            _art?.RegisterCallback<GeometryChangedEvent>(_ => FitPose());
             _hit = this.Q<LocLabel>(UiNames.FighterHit);
             _badge = this.Q<LocLabel>(UiNames.FighterBadge);
             _name = this.Q<LocLabel>(UiNames.FighterName);
@@ -221,9 +223,34 @@ namespace Ashen.Presentation.UI.Kit
         private void ShowFrame(Texture2D frame, double scale)
         {
             _pose.style.backgroundImage = new StyleBackground(frame);
-            _pose.style.height = Length.Percent((float)(scale * UiMath.Percent));
+            _poseScale = scale;
+            FitPose();
             _pose.RemoveFromClassList(UiClasses.Hidden);
             _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
+        }
+
+        /// <summary>A pose frame is a square canvas as tall as its share of the figure box (the web sets its height to the per-enemy scale and lets the width follow), centred on the box.</summary>
+        private void FitPose()
+        {
+            if (_art == null) return;
+            var h = _art.resolvedStyle.height;
+            var w = _art.resolvedStyle.width;
+            if (float.IsNaN(h) || float.IsNaN(w) || h <= 0) return;
+            var edge = h * (float)_poseScale;
+            _pose.style.width = edge;
+            _pose.style.height = edge;
+            _pose.style.left = (w - edge) * (float)UiMath.Half;
+        }
+
+        /// <summary>Makes a frame the figure's rest frame for good (a defeated enemy stays down).</summary>
+        public void Pin(Texture2D frame, double scale)
+        {
+            Rest();
+            _settle?.Pause();
+            _posing = false;
+            _restArt = frame;
+            _restScale = scale;
+            ShowRest();
         }
 
         private void HideFrame()

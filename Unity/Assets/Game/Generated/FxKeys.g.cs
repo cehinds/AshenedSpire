@@ -44,5 +44,6 @@ namespace Ashen.Generated
         public const string CombatProfile = "combatProfile";
         public const string DerivedTags = "derivedTags";
         public const string CardTags = "cardTags";
+        public const string CardInstanceId = "cardInstanceId";
     }
 }

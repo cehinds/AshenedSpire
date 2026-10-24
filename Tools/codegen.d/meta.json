@@ -142,7 +142,8 @@
         "AskToUpcastAfterTarget": "askToUpcastAfterTarget",
         "ScreenShake": "screenShake",
         "OneTapPlay": "oneTapPlay",
-        "ReduceFlashes": "reduceFlashes"
+        "ReduceFlashes": "reduceFlashes",
+        "ShowPlayedCard": "showPlayedCard"
       }
     },
     {
