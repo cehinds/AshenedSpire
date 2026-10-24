@@ -241,13 +241,13 @@ namespace Ashen.Presentation.UI
         private void OnMove(NavigationMoveEvent evt)
         {
             evt.StopImmediatePropagation();
-            _panel?.focusController?.IgnoreEvent(evt);
+            evt.PreventDefault();
         }
 
         private void OnCancel(NavigationCancelEvent evt)
         {
             evt.StopImmediatePropagation();
-            _panel?.focusController?.IgnoreEvent(evt);
+            evt.PreventDefault();
         }
 
         private void OnSubmit(NavigationSubmitEvent evt)
@@ -258,7 +258,7 @@ namespace Ashen.Presentation.UI
                 return;
             }
             evt.StopImmediatePropagation();
-            _panel?.focusController?.IgnoreEvent(evt);
+            evt.PreventDefault();
         }
 
         /// <summary>Router Menu (pad Start): the top screen handles it (combat opens pause, pause resumes); nothing happens otherwise.</summary>
