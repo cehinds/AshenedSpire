@@ -1,5 +1,5 @@
 {
-  "contentHash": "ef3cfbee499037003b1bc10feefeda5cf5fd08ec008fbfe1b4e8b7c86b01501d",
+  "contentHash": "8c45db51f83662306c0395ba55fa08473688194dd80b020daddf809a77b486cc",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -1959,6 +1959,11 @@
       "generated": false,
       "sha256": "3af105c94763728307b39d6e27895a06d143e181316b177c91938703b5969610"
     },
+    "schemas/ui.cardface.schema.json": {
+      "bytes": 6449,
+      "generated": false,
+      "sha256": "7358836352b0c40d62407b340787cc5223daf634f3847b28aea12e5392be2654"
+    },
     "schemas/ui.components.schema.json": {
       "bytes": 5106,
       "generated": false,
@@ -2015,9 +2020,9 @@
       "sha256": "32a1c3a5c840792bc91d71a1312558e924fdc91db29a79d285470822bf5a873e"
     },
     "schemas/ui.tokens.schema.json": {
-      "bytes": 1963,
+      "bytes": 2115,
       "generated": false,
-      "sha256": "d0476233f7be3e4aa0388a50aa1f2c8f1d67ad0a88d84ea99134a8a9ecd89a61"
+      "sha256": "e96be3e1cc6f05700b5e715f82aa7d2be2cbc80688a82c05a1c946baac3644f3"
     },
     "settings/defaults.json": {
       "bytes": 8491,
@@ -2040,9 +2045,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 28593,
+      "bytes": 29055,
       "generated": false,
-      "sha256": "99169def98ebc5251574bcdbc4a6d44d2c2ffedde0ad4cd38e5e076d5e61718b"
+      "sha256": "b813b56f8933ddc090ce482da77cef57660d39bd8a9bce8642a606dcbfb9255c"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2139,6 +2144,11 @@
       "generated": false,
       "sha256": "d0ce1791099b8f6924fd99283533b0c430e3a7ebaac396879cd8f571ef4bd766"
     },
+    "ui/cardface.json": {
+      "bytes": 26926,
+      "generated": false,
+      "sha256": "8d1e9daa4605315bc0aa1251c29ef5fc42891179d27704f1397a78c31ee55533"
+    },
     "ui/components.json": {
       "bytes": 4121,
       "generated": false,
@@ -2195,9 +2205,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 15934,
+      "bytes": 20262,
       "generated": false,
-      "sha256": "ceb9ba4152ac80a8de19827cebf5ae8768da11b3683e6e50c415b6913d0769dc"
+      "sha256": "1ff2f9faa6c5e73a16d342eb90384827db98aa895cee09c207e89f3f8dd943db"
     }
   },
   "schemaVersion": 1,

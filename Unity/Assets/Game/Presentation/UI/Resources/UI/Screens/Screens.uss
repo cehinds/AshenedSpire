@@ -782,10 +782,6 @@
     margin: var(--space-xs);
 }
 
-.band-compact .pick-card .card-art {
-    display: none;
-}
-
 .band-compact .claim-row {
     flex-direction: column;
 }

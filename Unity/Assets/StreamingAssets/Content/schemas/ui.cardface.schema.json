@@ -1,0 +1,153 @@
+{
+  "$id": "ui/cardface.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "design": {
+      "type": "object",
+      "properties": { "width": { "type": "integer" }, "height": { "type": "integer" } },
+      "required": ["width", "height"]
+    },
+    "stage": {
+      "type": "object",
+      "properties": { "width": { "type": "integer" }, "height": { "type": "integer" } },
+      "required": ["width", "height"]
+    },
+    "prefixes": { "type": "object", "additionalProperties": { "type": "string" } },
+    "cutouts": {
+      "type": "object",
+      "properties": {
+        "selection": {
+          "type": "object",
+          "properties": {
+            "physical": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": { "code": { "type": "string" }, "hideLayers": { "type": "array", "items": { "type": "string" } } },
+                "required": ["code"]
+              }
+            },
+            "melee": { "type": "object", "additionalProperties": { "type": "integer" } },
+            "meleePalettes": { "type": "object", "additionalProperties": { "type": "integer" } },
+            "mintElements": { "type": "array", "items": { "type": "string" } },
+            "projectiles": { "type": "object", "additionalProperties": { "type": "integer" } },
+            "projectileTags": { "type": "array", "items": { "type": "string" } },
+            "utility": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "code": { "type": "string" },
+                  "operations": { "type": "array", "items": { "type": "string" } },
+                  "tags": { "type": "array", "items": { "type": "string" } },
+                  "target": { "type": "string" }
+                },
+                "required": ["id", "code", "operations", "tags"]
+              }
+            },
+            "spellUtility": { "type": "object", "properties": { "code": { "type": "string" } }, "required": ["code"] },
+            "magicalCode": {
+              "type": "object",
+              "properties": { "melee": { "type": "string" }, "projectile": { "type": "string" } },
+              "required": ["melee", "projectile"]
+            }
+          },
+          "required": ["physical", "melee", "meleePalettes", "mintElements", "projectiles", "projectileTags", "utility", "spellUtility", "magicalCode"]
+        },
+        "background": { "type": "string" },
+        "compositions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "asset": { "type": "string" },
+                "x": { "type": "number" },
+                "y": { "type": "number" },
+                "w": { "type": "number" },
+                "h": { "type": "number" },
+                "opacity": { "type": "number" },
+                "rotation": { "type": "number" },
+                "scaleX": { "type": "number" },
+                "scaleY": { "type": "number" },
+                "blend": { "type": "string" }
+              },
+              "required": ["id", "asset", "x", "y", "w", "h", "opacity"]
+            }
+          }
+        }
+      },
+      "required": ["selection", "background", "compositions"]
+    },
+    "inspectIcon": { "type": "string" },
+    "cost": {
+      "type": "object",
+      "properties": {
+        "frame": { "type": "object", "additionalProperties": { "type": "string" } },
+        "overflow": { "type": "string" },
+        "secondary": { "type": "string" }
+      },
+      "required": ["frame", "overflow", "secondary"]
+    },
+    "fit": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "object",
+          "properties": { "max": { "type": "number" }, "min": { "type": "number" }, "lines": { "type": "integer" } },
+          "required": ["max", "min", "lines"]
+        },
+        "rules": {
+          "type": "object",
+          "properties": { "max": { "type": "number" }, "min": { "type": "number" }, "lines": { "type": "integer" } },
+          "required": ["max", "min", "lines"]
+        }
+      },
+      "required": ["title", "rules"]
+    },
+    "band": {
+      "type": "object",
+      "properties": {
+        "maneuver": { "type": "object", "additionalProperties": { "type": "string" } },
+        "attackManeuver": { "type": "object", "additionalProperties": { "type": "string" } },
+        "type": { "type": "object", "additionalProperties": { "type": "string" } },
+        "fallback": { "type": "string" }
+      },
+      "required": ["maneuver", "attackManeuver", "type", "fallback"]
+    },
+    "rail": {
+      "type": "object",
+      "properties": {
+        "max": { "type": "integer" },
+        "statusMax": { "type": "integer" },
+        "category": { "type": "object", "additionalProperties": { "type": "string" } },
+        "categoryExcludeCamp": { "type": "object", "additionalProperties": { "type": "string" } },
+        "camp": { "type": "object", "additionalProperties": { "type": "string" } },
+        "campWithDamage": { "type": "string" },
+        "maneuver": { "type": "object", "additionalProperties": { "type": "string" } },
+        "evadeManeuver": { "type": "string" },
+        "evadeOp": { "type": "string" },
+        "damageOp": { "type": "string" },
+        "statusOps": { "type": "array", "items": { "type": "string" } },
+        "traits": { "type": "array", "items": { "type": "string" } },
+        "alias": { "type": "object", "additionalProperties": { "type": "string" } },
+        "fallback": { "type": "string" },
+        "glyphs": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["max", "statusMax", "category", "categoryExcludeCamp", "camp", "campWithDamage", "maneuver", "evadeManeuver", "evadeOp", "damageOp", "statusOps", "traits", "alias", "fallback", "glyphs"]
+    },
+    "glyphs": {
+      "type": "object",
+      "properties": {
+        "sigil": { "type": "array", "items": { "type": "string" } },
+        "tag": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["sigil", "tag"]
+    }
+  },
+  "required": ["design", "stage", "prefixes", "cutouts", "inspectIcon", "cost", "fit", "band", "rail", "glyphs"]
+}

@@ -9,6 +9,7 @@ namespace Ashen.Generated
         public const string Category = "category";
         public const string Maneuver = "maneuver";
         public const string Variant = "variant";
+        public const string Digit = "digit";
         public const string Map = "map";
         public const string Level = "level";
         public const string X = "x";

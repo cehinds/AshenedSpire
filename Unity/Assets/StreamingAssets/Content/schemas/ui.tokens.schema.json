@@ -32,6 +32,15 @@
         ]
       }
     },
+    "face": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    },
     "font": {
       "type": "object",
       "additionalProperties": {

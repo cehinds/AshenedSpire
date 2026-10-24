@@ -72,6 +72,17 @@ namespace Ashen.Generated
         public const string CardKeywords = "CARD_KEYWORDS";
         public const string CardRefusal = "CARD_REFUSAL";
         public const string CardLent = "CARD_LENT";
+        public const string CardFace = "CARD_FACE";
+        public const string CardStage = "CARD_STAGE";
+        public const string CardBand = "CARD_BAND";
+        public const string CardSigil = "CARD_SIGIL";
+        public const string CardRail = "CARD_RAIL";
+        public const string CardRank = "CARD_RANK";
+        public const string CardRankText = "CARD_RANK_TEXT";
+        public const string CardInfo = "CARD_INFO";
+        public const string FrameBase = "base";
+        public const string FramePanel = "panel";
+        public const string FrameFlag = "flag";
         public const string HandCards = "HAND_CARDS";
         public const string FooterGroup = "FOOTER_GROUP";
         public const string GroupActions = "GROUP_ACTIONS";

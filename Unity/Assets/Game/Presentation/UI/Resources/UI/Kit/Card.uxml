@@ -1,11 +1,40 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Card.uss" />
-    <ui:VisualElement name="CARD_COSTS" class="card-costs" picking-mode="Ignore" />
-    <Ashen.Presentation.UI.LocLabel name="CARD_NAME" class="card-name kit-text-value" picking-mode="Ignore" />
-    <ui:VisualElement name="CARD_ART" class="card-art" picking-mode="Ignore" />
-    <Ashen.Presentation.UI.LocLabel name="CARD_TYPE" class="card-type kit-text-header" picking-mode="Ignore" />
-    <Ashen.Presentation.UI.LocLabel name="CARD_TEXT" class="card-text kit-text-value" picking-mode="Ignore" />
-    <Ashen.Presentation.UI.LocLabel name="CARD_KEYWORDS" class="card-keywords kit-text-header" picking-mode="Ignore" />
-    <Ashen.Presentation.UI.LocLabel name="CARD_LENT" class="card-lent kit-text-header" picking-mode="Ignore" />
-    <Ashen.Presentation.UI.LocLabel name="CARD_REFUSAL" class="card-refusal kit-text-header" picking-mode="Ignore" />
+    <!-- The face is laid out in the web's 360x540 design space (docs/DECISIONS.md D-650) and scaled to the card's box by CardView. The
+         elements named base, panel, flag are the frame layers: CardView gives each the texture cardframe.<name>. -->
+    <ui:VisualElement name="CARD_FACE" class="card-face" picking-mode="Ignore">
+        <ui:VisualElement class="card-glow" picking-mode="Ignore" />
+        <ui:VisualElement class="card-box card-box--base" picking-mode="Ignore">
+            <ui:VisualElement name="base" class="card-layer card-crop--base" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="CARD_ART" class="card-art" picking-mode="Ignore">
+            <ui:VisualElement name="CARD_STAGE" class="card-stage" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement class="card-fade" picking-mode="Ignore" />
+        <ui:VisualElement class="card-footer-back" picking-mode="Ignore" />
+        <ui:VisualElement class="card-footer-frame" picking-mode="Ignore" />
+        <ui:VisualElement class="card-box card-box--panel" picking-mode="Ignore">
+            <ui:VisualElement name="panel" class="card-layer card-crop--panel" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement class="card-ring" picking-mode="Ignore" />
+        <ui:VisualElement class="card-notes" picking-mode="Ignore">
+            <Ashen.Presentation.UI.LocLabel name="CARD_LENT" class="card-lent font-lore" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.LocLabel name="CARD_REFUSAL" class="card-refusal font-lore" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement class="card-box card-box--flag" picking-mode="Ignore">
+            <ui:VisualElement name="flag" class="card-layer card-crop--flag" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="CARD_COSTS" class="card-costs" picking-mode="Ignore" />
+        <Ashen.Presentation.UI.LocLabel name="CARD_NAME" class="card-name font-lore" picking-mode="Ignore" />
+        <Ashen.Presentation.UI.LocLabel name="CARD_TEXT" class="card-text font-lore" picking-mode="Ignore" />
+        <ui:VisualElement name="CARD_BAND" class="card-band" picking-mode="Ignore">
+            <ui:VisualElement name="CARD_SIGIL" class="card-sigil" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.LocLabel name="CARD_TYPE" class="card-type font-lore kit-upper" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="CARD_RAIL" class="card-rail" picking-mode="Ignore" />
+        <ui:VisualElement name="CARD_RANK" class="card-rank" picking-mode="Ignore">
+            <Ashen.Presentation.UI.LocLabel name="CARD_RANK_TEXT" class="card-rank-text font-lore" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="CARD_INFO" class="card-info" />
+    </ui:VisualElement>
 </ui:UXML>
