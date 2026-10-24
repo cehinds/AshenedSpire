@@ -235,7 +235,7 @@ namespace Ashen.Tests
                 var result = session.Travel(node);
                 if (!result.NotYetPorted) continue;
                 seen.Add(result.Door.Kind);
-                Assert.That(session.Location, Is.EqualTo(result.Door.Kind == "shop" ? "merchant" : "map"), "the run stands at the node and goes on");
+                Assert.That(session.Location, Is.EqualTo(result.Door.Kind == "shop" ? "merchant" : result.Door.Kind == "rest" ? "rest" : "map"), "the run stands at the node and goes on");
                 Assert.That(session.PendingPort, Is.EqualTo(result.Door.Kind));
                 Assert.That(session.Run.Value<string>("mapNodeId"), Is.EqualTo(node));
                 session.DismissPort();
