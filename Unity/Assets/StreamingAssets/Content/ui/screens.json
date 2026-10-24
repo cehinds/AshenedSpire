@@ -90,7 +90,7 @@
     "core2Combat": {
       "uxml": "UI/Screens/Core2Combat",
       "layer": "screen",
-      "focusOrder": ["HAND_CARDS", "ENEMY_ROW", "ALLY_ROW", "FOOTER_GROUP", "FOOTER_TOOLS", "RUN_HUD"],
+      "focusOrder": ["HAND_CARDS", "ENEMY_ROW", "ALLY_ROW", "FOOTER_GROUP", "FOOTER_TOOLS", "RUN_HUD", "COMBAT_LOG"],
       "focusModes": {
         "targeting": ["ENEMY_ROW", "ALLY_ROW"],
         "prompt": ["PROMPT_LIST", "PROMPT_FOOTER"],

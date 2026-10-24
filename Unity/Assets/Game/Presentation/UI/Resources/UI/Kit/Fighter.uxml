@@ -1,23 +1,32 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Combatant.uss" />
     <ui:Style src="Fighter.uss" />
-    <Ashen.Presentation.UI.LocLabel name="FIGHTER_INTENT" class="combatant-intent kit-text-value" picking-mode="Ignore" />
-    <Ashen.Presentation.UI.LocButton name="FIGHTER_PREDICT" class="fighter-predict" string-key="core2.predict.button" />
+    <ui:VisualElement name="FIGHTER_OVERHEAD" class="fighter-overhead" picking-mode="Ignore">
+        <ui:VisualElement name="FIGHTER_INTENT_ROW" class="fighter-intent-row" picking-mode="Ignore">
+            <Ashen.Presentation.UI.LocLabel name="FIGHTER_INTENT" class="combatant-intent kit-text-header" picking-mode="Ignore" />
+            <ui:VisualElement name="FIGHTER_INTENT_ICON" class="fighter-intent-icon" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.LocButton name="FIGHTER_PREDICT" class="fighter-predict" string-key="core2.predict.button" />
+        </ui:VisualElement>
+        <Ashen.Presentation.UI.Kit.Meter name="FIGHTER_HP" class="combatant-meter fighter-hp" kind="hp" picking-mode="Ignore" />
+        <ui:VisualElement name="FIGHTER_BREAK" class="fighter-break" picking-mode="Ignore">
+            <Ashen.Presentation.UI.Kit.Meter name="FIGHTER_POISE" class="combatant-meter combatant-meter--small" kind="poise" glyph-key="resource.poise.name" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.Kit.Meter name="FIGHTER_WARD" class="combatant-meter combatant-meter--small" kind="ward" glyph-key="resource.ward.name" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="FIGHTER_CHIPS" class="fighter-chips" picking-mode="Ignore">
+            <ui:VisualElement name="FIGHTER_RATINGS" class="combatant-statuses" picking-mode="Ignore" />
+            <ui:VisualElement name="FIGHTER_STACKS" class="combatant-statuses" picking-mode="Ignore" />
+            <ui:VisualElement name="FIGHTER_STATUSES" class="combatant-statuses" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <Ashen.Presentation.UI.LocLabel name="FIGHTER_STANCE" class="combatant-stance kit-text-value" picking-mode="Ignore" />
+    </ui:VisualElement>
     <ui:VisualElement name="FIGHTER_ART" class="combatant-art" picking-mode="Ignore">
-        <Ashen.Presentation.UI.LocLabel name="FIGHTER_HIT" class="fighter-hit kit-text-value" picking-mode="Ignore" />
+        <Ashen.Presentation.UI.LocLabel name="FIGHTER_HIT" class="fighter-hit kit-text-header text-shadowed" picking-mode="Ignore" />
         <Ashen.Presentation.UI.LocLabel name="FIGHTER_BADGE" class="combatant-badge kit-text-value" picking-mode="Ignore" />
     </ui:VisualElement>
-    <Ashen.Presentation.UI.LocLabel name="FIGHTER_NAME" class="combatant-name kit-text-value" picking-mode="Ignore" />
-    <Ashen.Presentation.UI.LocLabel name="FIGHTER_PREVIEW" class="combatant-preview kit-text-value" picking-mode="Ignore" />
-    <Ashen.Presentation.UI.LocLabel name="FIGHTER_RECEIPT" class="fighter-receipt kit-text-value" picking-mode="Ignore" />
-    <ui:VisualElement name="FIGHTER_RATINGS" class="fighter-ratings" picking-mode="Ignore">
-        <Ashen.Presentation.UI.LocLabel name="FIGHTER_EVADE" class="fighter-rating kit-text-value" picking-mode="Ignore" />
-        <Ashen.Presentation.UI.Kit.Meter name="FIGHTER_POISE" class="combatant-meter combatant-meter--small" kind="poise" glyph-key="resource.poise.name" picking-mode="Ignore" />
-        <Ashen.Presentation.UI.Kit.Meter name="FIGHTER_WARD" class="combatant-meter combatant-meter--small" kind="ward" glyph-key="resource.ward.name" picking-mode="Ignore" />
-        <Ashen.Presentation.UI.LocLabel name="FIGHTER_BLOCK" class="fighter-rating kit-text-value" picking-mode="Ignore" />
-        <Ashen.Presentation.UI.Kit.Meter name="FIGHTER_HP" class="combatant-meter" kind="hp" picking-mode="Ignore" />
+    <ui:VisualElement name="FIGHTER_SHADOW" class="fighter-shadow" picking-mode="Ignore" />
+    <ui:VisualElement name="FIGHTER_NOTES" class="fighter-notes" picking-mode="Ignore">
+        <Ashen.Presentation.UI.LocLabel name="FIGHTER_NAME" class="combatant-name kit-text-header kit-upper" picking-mode="Ignore" />
+        <Ashen.Presentation.UI.LocLabel name="FIGHTER_PREVIEW" class="combatant-preview kit-text-value" picking-mode="Ignore" />
+        <Ashen.Presentation.UI.LocLabel name="FIGHTER_RECEIPT" class="fighter-receipt kit-text-value" picking-mode="Ignore" />
     </ui:VisualElement>
-    <Ashen.Presentation.UI.LocLabel name="FIGHTER_STANCE" class="combatant-stance kit-text-value" picking-mode="Ignore" />
-    <ui:VisualElement name="FIGHTER_STACKS" class="combatant-statuses" picking-mode="Ignore" />
-    <ui:VisualElement name="FIGHTER_STATUSES" class="combatant-statuses" picking-mode="Ignore" />
 </ui:UXML>

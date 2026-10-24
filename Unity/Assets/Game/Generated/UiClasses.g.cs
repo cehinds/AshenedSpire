@@ -81,6 +81,15 @@ namespace Ashen.Generated
         public const string PauseRow = "pause-row";
         public const string PauseHint = "pause-hint";
         public const string GroupBusy = "group--busy";
+        public const string OrbDiamond = "orb-diamond";
+        public const string OrbDiamondArt = "orb-diamond-art";
+        public const string FighterChip = "fighter-chip";
+        public const string FighterChipIcon = "fighter-chip-icon";
+        public const string FighterChipText = "fighter-chip-text";
+        public const string FighterChipGold = "fighter-chip--gold";
+        public const string HudPip = "hud-pip";
+        public const string RibbonEnemy = "ribbon--enemy";
+        public const string ToolOn = "tool--on";
         public const string Busy = "is-busy";
         public const string RewardsStatus = "rewards-status";
         public const string RewardLine = "reward-line";

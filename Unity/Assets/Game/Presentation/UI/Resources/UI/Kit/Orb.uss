@@ -1,0 +1,72 @@
+/* Orb (VP-4, D-700): the stamina orb of the combat footer, layered as the web draws it (src/content/footerLayout.js, content/config/ui/presentation/footerLayout.json
+   group "sp"): the inner orb (128 of 192 units), the circular harness (192), the number and the SP label over it, and one mana diamond per Mana point on a
+   ring of 88 units (centres 30 degrees apart, the first at the top, the others counter-clockwise). The element is the harness square; the diamonds hang
+   outside it. Art by name (orb.*) is set by code. */
+
+.orb {
+    width: var(--size-board-orb);
+    height: var(--size-board-orb);
+    flex-shrink: 0;
+}
+
+.orb-ring,
+.orb-frame {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.orb-disc {
+    position: absolute;
+    left: var(--size-board-orb-inset);
+    top: var(--size-board-orb-inset);
+    right: var(--size-board-orb-inset);
+    bottom: var(--size-board-orb-inset);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.orb-frame {
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.orb-value {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding-bottom: var(--size-board-orb-lift);
+    font-size: var(--font-board-orb);
+    -unity-text-align: middle-center;
+    color: var(--color-footer-text);
+}
+
+.orb-label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--size-board-orb-label-bottom);
+    font-size: var(--font-board-orb-label);
+    -unity-text-align: middle-center;
+    color: var(--color-footer-text);
+}
+
+.orb-diamond {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.orb-diamond-art {
+    position: absolute;
+    left: var(--size-half-width);
+    top: var(--size-board-diamond-top);
+    width: var(--size-board-diamond-w);
+    height: var(--size-board-diamond-h);
+    margin-left: var(--size-board-diamond-pull);
+    -unity-background-scale-mode: scale-to-fit;
+}
