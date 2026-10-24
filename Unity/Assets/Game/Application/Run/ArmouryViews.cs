@@ -208,7 +208,7 @@ namespace Ashen.App.Run
             return strings.Has(key) ? strings.Get(key) : string.Empty;
         }
 
-        private static ArmouryItemView Item(Core2RunSession session, StringTable strings, string slotId, string id)
+        internal static ArmouryItemView Item(Core2RunSession session, StringTable strings, string slotId, string id)
         {
             var data = session.CombatData;
             JObject def = Js.Items(data.Equipment[K.Armaments]).OfType<JObject>().FirstOrDefault(a => a.Str(K.Id) == id)

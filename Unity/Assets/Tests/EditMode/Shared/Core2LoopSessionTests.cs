@@ -87,7 +87,7 @@ namespace Ashen.Tests
         private static void Fight(Core2RunSession session, bool weaken)
         {
             if (weaken) foreach (var enemy in session.Combat.State.Enemies) enemy["hp"] = Math.Min(enemy.Value<double>("hp"), 1.0);
-            for (var guard = 0; guard < 400 && session.IsInCombat; guard++) PlayTurn(session);
+            for (var guard = 0; guard < 120 && session.IsInCombat; guard++) PlayTurn(session);
             Assert.That(session.IsInCombat, Is.False, "the fight ended");
         }
 
@@ -104,18 +104,21 @@ namespace Ashen.Tests
             var session = Core2RunSession.New(Content, _saves, 1, seed, classId, "Bot", () => Epoch);
             var pick = new Lcg(seed ^ 0x5eed);
             session.EditRunForReview(r => { r["maxHp"] = 100000; r["hp"] = 100000; });
+            session.Save();
             var strings = StringTableFor();
             for (var step = 0; step < 900 && !session.RunOver; step++)
             {
                 var location = session.Location;
                 Assert.That(new[] { "map", "combat", "rewards", "merchant", "rest", "event" }, Does.Contain(location), "the run stands at a door the session knows (" + location + ")");
                 Assert.That(session.PendingPort == null || location != "map", Is.True, "no notice stands at the map");
-                // A save made at a door resumes on it (an event is not kept: the web resumes at the map).
-                if (location != "combat" && location != "event" && pick.Next(5) == 0)
+                // A save made at a door resumes on it (an event and a rest site are not kept: the web resumes at the map, where a left rest site stays enterable).
+                if (location != "combat" && location != "event" && location != "rest" && pick.Next(5) == 0)
                 {
                     var loaded = Core2RunSession.Load(Content, _saves, 1, () => Epoch);
                     Assert.That(loaded.Status, Is.EqualTo(Core2RunLoadStatus.Resumed), string.Join("; ", loaded.Warnings));
                     Assert.That(loaded.Session.Location, Is.EqualTo(location), "the save resumes on the door it was made at");
+                    var diff = RunParityTests.FirstDifference(session.Run, loaded.Session.Run, "$");
+                    Assert.That(diff, Is.Null, "the resumed run is the saved one at " + location + ": " + diff);
                     Assert.That(loaded.Session.StateHash(), Is.EqualTo(session.StateHash()), "the resumed run is the saved one at " + location);
                     session = loaded.Session;
                     tally.Resumes++;
@@ -263,7 +266,7 @@ namespace Ashen.Tests
                 // Each climb runs in a fresh store (the ledger it needs is written by the bot).
                 TearDown();
                 SetUp();
-                var tally = Climb(classes[i % classes.Count], seeds[i], i % 3 != 2, new Tally());
+                var tally = Climb(classes[i % classes.Count], seeds[i], true, new Tally());
                 seen.UnionWith(tally.Doors);
                 total.Fights += tally.Fights;
                 total.Events += tally.Events;

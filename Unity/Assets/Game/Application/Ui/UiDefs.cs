@@ -269,6 +269,10 @@ namespace Ashen.App.Ui
 
         public int Duration(string key) => (int?)_json[UiKeys.Duration]?[key] ?? 0;
         public string Color(string key) => (string)_json[UiKeys.Color]?[key];
+
+        /// <summary>A unitless token (the ratio group: shares of a box that USS cannot express).</summary>
+        public double Ratio(string key) => (double?)_json[UiKeys.Ratio]?[key] ?? 0d;
+
         public bool Has(string group, string key) => _json[group]?[key] != null;
     }
 

@@ -176,10 +176,11 @@ namespace Ashen.App.Run
         public IReadOnlyList<string> ClassesUnlocked { get; private set; } = Array.Empty<string>();
 
         /// <summary>
-        /// The kind of node the run stands at whose door has no screen yet ('rest', 'shop', 'event' while it is open), until the player moves on; or null. Every node's rules are part of the
-        /// build (WP-19): the act map's notice (<see cref="DismissPort"/> takes the stand-in action) is the placeholder until the screen of that door is registered.
+        /// The kind of node the run stands at whose door has no screen yet ('event' while it is open, or a 'rest' place of a profile without the rest module), until the player moves on; or null.
+        /// The rest site and the shop have screens (VP-8, VP-9) and report <see cref="Location"/> instead. Every node's rules are part of the build (WP-19): the act map's notice
+        /// (<see cref="DismissPort"/> takes the stand-in action) is the placeholder until the event screen is registered.
         /// </summary>
-        public string PendingPort => HasOpenShop ? HV.DoorShop : IsResting ? HV.DoorRest : _eventId != null ? HV.DoorEvent : _pendingPort;
+        public string PendingPort => _eventId != null ? HV.DoorEvent : _pendingPort;
 
         /// <summary>Where the run stands and a save resumes: 'combat', 'map', or 'runEnd' once the run is over (never saved: the slot is cleared).</summary>
         public string Location

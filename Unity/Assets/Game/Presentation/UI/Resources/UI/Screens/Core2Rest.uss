@@ -1,0 +1,423 @@
+/* The Core 2 rest screen (VP-8, D-950; web ui/components/gameProfileRest.js, restFrame.js, smithUpgradeModal.js, statAllocationCard.js; styles/player-polish.css:345-365, 547-563). A painted room
+   under the HUD band (the chapel and the traveler at the fire in a square stage whose size the screen computes), the door on the right (Kit/CombatModal: eyebrow, title, status, the lines, the
+   recovery table, one card per service, Continue) and the Smith and Level Up modals over it. Every number is a token (tokens.json size.rest*, ratio.restTraveler*). */
+
+.c2rest-scene {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--size-board-hud-h);
+    bottom: 0;
+    overflow: hidden;
+    background-color: var(--color-rest-scene);
+}
+
+.c2rest-stage {
+    position: absolute;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.c2rest-traveler {
+    position: absolute;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* ---- the door ---- */
+
+.c2rest-door.cmodal {
+    position: absolute;
+    right: var(--size-rest-door-right);
+    top: var(--size-rest-door-top);
+    bottom: var(--size-rest-door-bottom);
+    width: var(--size-rest-door-w);
+    max-height: none;
+}
+
+.c2rest-line {
+    margin: 0 0 var(--space-sm) 0;
+    font-size: var(--font-label);
+    -unity-font-style: italic;
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.c2rest-heading {
+    margin: var(--space-xs) 0 var(--space-xs) 0;
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.c2rest-rows {
+    flex-direction: column;
+    margin-bottom: var(--space-lg);
+}
+
+.c2rest-row {
+    flex-direction: row;
+    align-items: center;
+    height: var(--size-rest-row-h);
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line);
+}
+
+.c2rest-row-icon {
+    flex-shrink: 0;
+    width: var(--size-rest-icon);
+    height: var(--size-rest-icon);
+    margin-right: var(--space-sm);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-parchment);
+}
+
+.c2rest-row-label {
+    flex-grow: 1;
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-parchment);
+}
+
+.c2rest-row-change {
+    flex-direction: row;
+    align-items: center;
+    margin-right: var(--space-sm);
+}
+
+.c2rest-row-before {
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-muted);
+}
+
+.c2rest-row-arrow {
+    margin: 0 var(--space-xs);
+    font-size: var(--font-label);
+    color: var(--color-muted);
+}
+
+.c2rest-row-after {
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.c2rest-row-gain {
+    width: var(--size-rest-gain-w);
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-green);
+    -unity-text-align: middle-right;
+}
+
+/* ---- a service: a card that opens its modal (the web's class-pick) ---- */
+
+.c2rest-service.unity-button {
+    flex-direction: row;
+    align-items: flex-start;
+    min-height: var(--size-rest-card-min-h);
+    margin: 0 0 var(--space-sm) 0;
+    padding: var(--space-md);
+    background-color: var(--color-bg-raise);
+    background-image: none;
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-button);
+    white-space: normal;
+}
+
+.c2rest-service.unity-button:hover,
+.c2rest-service.unity-button:focus {
+    border-color: var(--color-gold);
+}
+
+.c2rest-service-icon {
+    flex-shrink: 0;
+    width: var(--size-rest-card-icon);
+    height: var(--size-rest-card-icon);
+    margin-right: var(--space-md);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.c2rest-service-body {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.c2rest-service-title {
+    margin: 0 0 var(--space-xs) 0;
+    font-size: var(--font-cmodal-status);
+    letter-spacing: var(--size-track-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.c2rest-service-text {
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.c2rest-service--locked.unity-button {
+    opacity: var(--opacity-disabled);
+}
+
+/* ---- the modals ---- */
+
+.cmodal--rest {
+    width: var(--size-rest-door-w);
+}
+
+.cmodal--smith {
+    width: var(--size-rest-modal-w);
+    height: var(--size-rest-modal-h);
+    max-width: var(--size-full-width);
+}
+
+.c2rest-modal .unity-scroll-view__content-container {
+    flex-grow: 1;
+    padding: 0;
+}
+
+.c2rest-modal--fit.cmodal {
+    height: auto;
+}
+
+.c2rest-split {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.c2rest-list {
+    width: var(--size-rest-list-w);
+    flex-shrink: 0;
+    border-right-width: var(--border-hairline);
+    border-right-color: var(--color-line);
+}
+
+.c2rest-list .unity-scroll-view__content-container {
+    padding: var(--size-cmodal-inset);
+}
+
+.c2rest-pane {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.c2rest-pane .unity-scroll-view__content-container {
+    flex-grow: 1;
+    padding: var(--size-cmodal-inset);
+}
+
+.c2rest-item.unity-button {
+    flex-direction: row;
+    align-items: center;
+    height: var(--size-rest-list-row-h);
+    margin: 0 0 var(--space-sm) 0;
+    padding: 0 var(--space-sm);
+    background-color: var(--color-bg-raise);
+    background-image: none;
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.c2rest-item.unity-button:hover,
+.c2rest-item.unity-button:focus,
+.c2rest-item--selected.unity-button {
+    border-color: var(--color-gold);
+}
+
+.c2rest-item-art {
+    flex-shrink: 0;
+    width: var(--size-rest-list-art);
+    height: var(--size-rest-list-art);
+    margin-right: var(--space-sm);
+    background-color: var(--color-bg);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.c2rest-item-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.c2rest-item-name {
+    margin: 0;
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.c2rest-item-tier {
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-muted);
+}
+
+.c2rest-item-count.kit-chip {
+    min-width: var(--size-rest-count);
+    height: var(--size-rest-count);
+}
+
+.c2rest-empty {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+
+.c2rest-empty-art {
+    width: var(--size-rest-pane-art);
+    height: var(--size-rest-pane-art);
+    margin-bottom: var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-card);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.c2rest-instruction {
+    margin: 0;
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+    -unity-text-align: upper-center;
+    white-space: normal;
+}
+
+.c2rest-note {
+    margin: var(--space-lg) 0 0 0;
+    font-size: var(--font-label);
+    -unity-font-style: italic;
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.c2rest-selected {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--space-md);
+}
+
+.c2rest-selected-texts {
+    flex-grow: 1;
+    margin-left: var(--space-md);
+}
+
+.c2rest-selected-name {
+    margin: 0;
+    font-size: var(--font-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.c2rest-selected-meta {
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-muted);
+}
+
+.c2rest-selected-art {
+    flex-shrink: 0;
+    width: var(--size-rest-pane-art);
+    height: var(--size-rest-pane-art);
+    background-color: var(--color-bg);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-card);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.c2rest-change {
+    flex-direction: row;
+    align-items: center;
+    padding: var(--space-xs) 0;
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line);
+}
+
+.c2rest-change-label {
+    flex-grow: 1;
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.c2rest-change-you {
+    margin: 0 var(--space-md) 0 0;
+    font-size: var(--font-label);
+    color: var(--color-muted);
+}
+
+.c2rest-change--unmet .c2rest-row-after {
+    color: var(--color-danger);
+}
+
+.c2rest-cost {
+    margin: var(--space-md) 0 var(--space-sm) 0;
+    font-size: var(--font-label);
+    color: var(--color-gold);
+}
+
+.c2rest-confirm.unity-button {
+    margin-top: var(--space-md);
+}
+
+.c2rest-confirm--off.unity-button {
+    opacity: var(--opacity-disabled);
+}
+
+.c2rest-attr.unity-button {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--size-rest-list-row-h);
+    margin: 0 0 var(--space-sm) 0;
+    padding: 0 var(--space-md);
+    background-color: var(--color-bg-raise);
+    background-image: none;
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.c2rest-attr.unity-button:hover,
+.c2rest-attr.unity-button:focus,
+.c2rest-attr--selected.unity-button {
+    border-color: var(--color-gold);
+}
+
+.c2rest-attr--locked.unity-button {
+    opacity: var(--opacity-disabled);
+}
+
+.c2rest-attr-name {
+    margin: 0;
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+}
+
+.layout-narrow .c2rest-door.cmodal {
+    left: var(--space-sm);
+    right: var(--space-sm);
+    width: auto;
+}
+
+.layout-narrow .c2rest-split {
+    flex-direction: column;
+}
+
+.layout-narrow .c2rest-list {
+    width: var(--size-full-width);
+    border-right-width: 0;
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line);
+}

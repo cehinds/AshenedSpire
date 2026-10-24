@@ -30,5 +30,7 @@ namespace Ashen.Generated
         public const string LegacyDungeon = "legacyDungeon";
         public const string Core2Combat = "core2Combat";
         public const string Core2Rewards = "core2Rewards";
+        public const string Core2Rest = "core2Rest";
+        public const string Core2Shop = "core2Shop";
     }
 }

@@ -71,7 +71,7 @@ namespace Ashen.Tests
             var session = AtTheRest(2024);
             Assert.That(session.IsResting, Is.True);
             Assert.That(session.Location, Is.EqualTo("rest"));
-            Assert.That(session.PendingPort, Is.EqualTo("rest"));
+            Assert.That(session.PendingPort, Is.Null, "the site is a screen of its own now (VP-8), not a map notice");
             var run = session.Run;
             Assert.That(run.Value<double>("hp"), Is.EqualTo(run.Value<double>("maxHp")));
             Assert.That(run["flaskCharges"].Value<double>("hpCurrent"), Is.EqualTo(run["flaskCharges"].Value<double>("hp")));

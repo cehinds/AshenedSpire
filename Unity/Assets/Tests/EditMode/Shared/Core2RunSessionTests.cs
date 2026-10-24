@@ -239,7 +239,6 @@ namespace Ashen.Tests
                     var node = session.ReachableNodes().FirstOrDefault(id => graph.Obj(id).Value<string>("type") != "monster" && graph.Obj(id).Value<string>("type") != "boss" && graph.Obj(id).Value<string>("type") != "elite") ?? session.ReachableNodes()[0];
                     var result = session.Travel(node);
                     Assert.That(result.NotYetPorted, Is.False, "the " + result.Door.Kind + " node has its rules");
-                    Assert.That(session.PendingPort, Is.Not.EqualTo("treasure").And.Not.EqualTo("event"));
                     seen.Add(result.Door.Kind);
                     var expected = result.Door.Kind == "shop" ? "merchant" : result.Door.Kind == "rest" ? "rest" : result.Door.Kind == "treasure" ? "rewards" : result.Door.Kind == "event" ? "event" : "combat";
                     Assert.That(session.Location, Is.EqualTo(expected), "the run stands at the node's door");

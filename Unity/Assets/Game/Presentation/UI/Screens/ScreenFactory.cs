@@ -20,6 +20,8 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.Combat: return new CombatScreen();
                 case ScreenIds.Core2Combat: return new Core2CombatScreen();
                 case ScreenIds.Core2Rewards: return new Core2RewardsScreen();
+                case ScreenIds.Core2Rest: return new Core2RestScreen();
+                case ScreenIds.Core2Shop: return new Core2ShopScreen();
                 case ScreenIds.Pause: return new PauseScreen();
                 case ScreenIds.Armoury: return new ArmouryScreen();
                 case ScreenIds.Rewards: return new RewardsScreen();

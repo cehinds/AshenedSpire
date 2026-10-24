@@ -62,7 +62,7 @@ namespace Ashen.Tests
             var session = AtTheShop(2024);
             Assert.That(session.HasOpenShop, Is.True);
             Assert.That(session.Location, Is.EqualTo("merchant"));
-            Assert.That(session.PendingPort, Is.EqualTo("shop"));
+            Assert.That(session.PendingPort, Is.Null, "the shop is a screen of its own now (VP-9), not a map notice");
             var stock = session.ShopStock;
             Assert.That(stock.Value<double>("price"), Is.EqualTo(10));
             Assert.That(stock.Value<string>("source"), Is.EqualTo("shop"));
