@@ -207,7 +207,7 @@ namespace Ashen.Tests
             for (var guard = 0; guard < 400 && !session.RunOver; guard++)
             {
                 if (session.IsInCombat) { FightToTheEnd(session); continue; }
-                if (session.HasPendingReward || session.HasOpenShop || session.IsResting) { session.DismissPort(); if (session.LastEnd?.ActAdvanced == true) acts.Add(session.Act); continue; }
+                if (session.HasPendingReward || session.HasOpenShop || session.IsResting || session.EventId != null) { session.DismissPort(); if (session.LastEnd?.ActAdvanced == true) acts.Add(session.Act); continue; }
                 var result = session.Travel(Pick(session, n => n.Value<string>("type") == "monster" || n.Value<string>("type") == "boss"));
                 Assert.That(result.Travelled, Is.True);
             }
@@ -226,30 +226,25 @@ namespace Ashen.Tests
         [Test]
         public void EveryKindOfNodeOpensItsDoorAndNoneIsAnsweredNotYetPorted()
         {
-            var seen = new HashSet<string>();
-            foreach (var seed in new uint[] { 99, 5, 17, 2026, 31337, 8 })
+            foreach (var kind in new[] { "treasure", "shrine", "merchant", "event" })
             {
-                var session = New(seed);
-                session.EditRunForReview(r => { r["maxHp"] = 100000; r["hp"] = 100000; });
-                for (var guard = 0; guard < 200 && !session.RunOver && seen.Count < 5; guard++)
+                var session = New(99);
+                var node = session.ReachableNodes()[0];
+                session.EditRunForReview(r =>
                 {
-                    if (session.IsInCombat) { FightToTheEnd(session); continue; }
-                    if (session.HasPendingReward) { session.DismissPort(); continue; }
-                    var graph = session.Run.Obj("mapGraph").Obj("nodes");
-                    var node = session.ReachableNodes().FirstOrDefault(id => graph.Obj(id).Value<string>("type") != "monster" && graph.Obj(id).Value<string>("type") != "boss" && graph.Obj(id).Value<string>("type") != "elite") ?? session.ReachableNodes()[0];
-                    var result = session.Travel(node);
-                    Assert.That(result.NotYetPorted, Is.False, "the " + result.Door.Kind + " node has its rules");
-                    seen.Add(result.Door.Kind);
-                    var expected = result.Door.Kind == "shop" ? "merchant" : result.Door.Kind == "rest" ? "rest" : result.Door.Kind == "treasure" ? "rewards" : result.Door.Kind == "event" ? "event" : "combat";
-                    Assert.That(session.Location, Is.EqualTo(expected), "the run stands at the node's door");
-                    Assert.That(session.Run.Value<string>("mapNodeId"), Is.EqualTo(node));
-                    session.DismissPort();
-                    Assert.That(session.PendingPort, Is.Null);
-                    if (session.IsInCombat) FightToTheEnd(session);
-                }
-                if (seen.Count == 5) break;
+                    r["mapGraph"]["nodes"][node]["type"] = kind;
+                    if (kind == "event") r["mapGraph"]["nodes"][node]["resolved"] = new JObject { ["kind"] = "event", ["eventId"] = "goldenMoth" };
+                });
+                var result = session.Travel(node);
+                Assert.That(result.Travelled, Is.True, kind);
+                Assert.That(result.NotYetPorted, Is.False, kind + " has its rules");
+                var expected = kind == "shrine" ? "rest" : kind == "merchant" ? "merchant" : kind == "treasure" ? "rewards" : "event";
+                Assert.That(session.Location, Is.EqualTo(expected), "the run stands at the node's door");
+                Assert.That(session.Run.Value<string>("mapNodeId"), Is.EqualTo(node));
+                session.DismissPort();
+                Assert.That(session.PendingPort, Is.Null);
+                Assert.That(session.Location, Is.EqualTo("map"), kind + " goes on to the map");
             }
-            Assert.That(seen, Is.SupersetOf(new[] { "rest", "shop", "treasure", "event" }), "a climb meets a rest, shop, treasure and event");
         }
 
         // ------------------------------------------------------------------ save and resume

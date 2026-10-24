@@ -71,7 +71,7 @@ namespace Ashen.App.Run
 
         public bool Travelled => Refusal == null;
 
-        /// <summary>Every node kind of a Core 2 map has its rules now (WP-19), so this is always false; kept for the screens written while the nodes were answered "not yet ported".</summary>
+        /// <summary>Every node kind of a Core 2 map has its rules (WP-19); this stays true only for a place the profile has no module for (a rest place of a profile without the rest module), whose notice with Continue stands in.</summary>
         public bool NotYetPorted;
     }
 
@@ -307,7 +307,7 @@ namespace Ashen.App.Run
                 else if (door.Kind == HV.DoorTreasure) EnterTreasure(door);
                 else if (door.Kind == HV.DoorEvent) EnterEvent(door);
                 Save();
-                return new Core2TravelResult { Door = door, Location = Location };
+                return new Core2TravelResult { Door = door, Location = Location, NotYetPorted = _pendingPort != null };
             }
             catch
             {
