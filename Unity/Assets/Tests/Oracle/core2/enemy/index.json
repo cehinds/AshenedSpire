@@ -17,7 +17,7 @@
   "picks": 33000
  },
  "exchanges": {
-  "bytes": 4530113,
+  "bytes": 4530049,
   "count": 118,
   "file": "exchanges.json",
   "kinds": [
@@ -37,38 +37,38 @@
   },
   "reaver": {
    "fights": 6,
-   "steps": 72
+   "steps": 75
   },
   "rogue": {
    "fights": 6,
-   "steps": 49
+   "steps": 59
   },
   "starseer": {
    "fights": 6,
-   "steps": 87
+   "steps": 95
   }
  },
  "files": [
   {
-   "bytes": 266677,
+   "bytes": 274341,
    "classId": "reaver",
    "fights": 6,
    "file": "fights-reaver.json",
-   "steps": 72
+   "steps": 75
   },
   {
-   "bytes": 307631,
+   "bytes": 332774,
    "classId": "starseer",
    "fights": 6,
    "file": "fights-starseer.json",
-   "steps": 87
+   "steps": 95
   },
   {
-   "bytes": 202568,
+   "bytes": 229636,
    "classId": "rogue",
    "fights": 6,
    "file": "fights-rogue.json",
-   "steps": 49
+   "steps": 59
   },
   {
    "bytes": 240756,
@@ -81,17 +81,17 @@
  "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
  "profileId": "core",
  "seen": {
-  "back": 301,
+  "back": 302,
   "charged": 0,
   "enemyFizzled": 3,
   "enemyStacked": 68,
   "fizzled": 4,
-  "offers": 673,
+  "offers": 676,
   "perception": 25,
-  "played": 372,
-  "predicted": 54,
-  "stacked": 372,
-  "unavailable": 127
+  "played": 374,
+  "predicted": 55,
+  "stacked": 374,
+  "unavailable": 134
  },
  "units": {
   "bytes": 1208221,

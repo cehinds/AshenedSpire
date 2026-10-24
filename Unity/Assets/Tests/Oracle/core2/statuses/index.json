@@ -6,50 +6,50 @@
  },
  "fightFiles": [
   {
-   "bytes": 938735,
+   "bytes": 966261,
    "classId": "reaver",
    "fights": 24,
    "file": "fights-reaver.json",
-   "steps": 412
+   "steps": 424
   },
   {
-   "bytes": 841197,
+   "bytes": 835344,
    "classId": "starseer",
    "fights": 24,
    "file": "fights-starseer.json",
-   "steps": 311
+   "steps": 309
   },
   {
-   "bytes": 1001415,
+   "bytes": 1048510,
    "classId": "rogue",
    "fights": 24,
    "file": "fights-rogue.json",
-   "steps": 412
+   "steps": 432
   },
   {
-   "bytes": 808268,
+   "bytes": 830107,
    "classId": "herald",
    "fights": 24,
    "file": "fights-herald.json",
-   "steps": 307
+   "steps": 314
   }
  ],
  "fights": {
   "herald": {
    "fights": 24,
-   "steps": 307
+   "steps": 314
   },
   "reaver": {
    "fights": 24,
-   "steps": 412
+   "steps": 424
   },
   "rogue": {
    "fights": 24,
-   "steps": 412
+   "steps": 432
   },
   "starseer": {
    "fights": 24,
-   "steps": 311
+   "steps": 309
   }
  },
  "files": [
@@ -69,12 +69,12 @@
    "scenarios": 60
   },
   {
-   "bytes": 184063,
+   "bytes": 184059,
    "file": "scenarios-3.json",
    "scenarios": 60
   },
   {
-   "bytes": 173837,
+   "bytes": 173835,
    "file": "scenarios-4.json",
    "scenarios": 60
   },
@@ -89,7 +89,7 @@
    "scenarios": 60
   },
   {
-   "bytes": 158836,
+   "bytes": 158834,
    "file": "scenarios-7.json",
    "scenarios": 60
   },
@@ -109,7 +109,7 @@
    "scenarios": 60
   },
   {
-   "bytes": 147530,
+   "bytes": 147528,
    "file": "scenarios-11.json",
    "scenarios": 60
   },
@@ -139,7 +139,7 @@
    "scenarios": 60
   },
   {
-   "bytes": 249765,
+   "bytes": 249762,
    "file": "scenarios-17.json",
    "scenarios": 60
   },
