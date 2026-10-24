@@ -6,5 +6,9 @@ namespace Ashen.Generated
     {
         public const string OfferPrefix = "shop:";
         public const string IdSeparator = ":";
+        public const string BarKeyFormat = "core2.shop.bar.{0}";
+        public const string PlaceholderCost = "cost";
+        public const string PlaceholderCinders = "cinders";
+        public const string PlaceholderLeft = "left";
     }
 }

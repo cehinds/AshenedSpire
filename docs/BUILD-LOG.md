@@ -2,6 +2,20 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## WP-17: Core 2 shop (worktree branch, 2026-10-24)
+
+**Landed (D-330..D-333)**
+- **Domain (`Domain/Shop/Core2Shop.cs`):** the web's `gameProfileShopStock` and `purchaseGameProfileShopOffer`, `Core2Rewards.MakeOffer` extended with `itemsPerCategory` (the `shop` stream, authored category order, no stance reserve). The legacy merchant is untouched.
+- **Application:** `Core2RunSession` is partial; `Core2RunSession.Shop.cs` enters the shop at a merchant node (a profile without shops goes on to the map), keeps `Location` `merchant` while `gameProfileOpenShop` is on the run (so a save resumes at the shop), `BuyFromShop`, `LeaveShop`; the placeholder Continue leaves it. `Core2ShopView` is the display data (shelves, prices, availability and reasons, the confirmation text) with the web's `shop.*` strings as `core2.shop.*`.
+- **Oracle:** `Tools/oracle-core2-shop.mjs` (32 scenarios, 3.7 MB under `Unity/Assets/Tests/Oracle/core2/shop`): stocks, buys with every refusal, remounts, tampered prices, other `shops` module settings.
+
+**Tests run (one filter at a time):** `Core2ShopParityTests` 33/33 (32 scenarios and the oracle's tallies), `Core2ShopSessionTests` 8/8, `Core2RunSessionTests`, `EnforcementTests` 7/7; `codegen --check`, `refresh-manifest`, `ci/check-content` ok.
+
+**Not verified:** no shop screen exists (the seam is `Core2ShopView`); Unity was not run.
+
+**Next:** WP-16 (rest) shares the door work in `Core2RunSession`; WP-19 routes the treasure and event nodes.
+
+
 ## VP-6: combat overlays (worktree branch, 2026-10-24)
 
 **Landed (D-800..D-804)**

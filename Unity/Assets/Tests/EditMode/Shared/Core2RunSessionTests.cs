@@ -207,7 +207,7 @@ namespace Ashen.Tests
             for (var guard = 0; guard < 400 && !session.RunOver; guard++)
             {
                 if (session.IsInCombat) { FightToTheEnd(session); continue; }
-                if (session.HasPendingReward) { session.DismissPort(); if (session.LastEnd?.ActAdvanced == true) acts.Add(session.Act); continue; }
+                if (session.HasPendingReward || session.HasOpenShop || session.IsResting) { session.DismissPort(); if (session.LastEnd?.ActAdvanced == true) acts.Add(session.Act); continue; }
                 var result = session.Travel(Pick(session, n => n.Value<string>("type") == "monster" || n.Value<string>("type") == "boss"));
                 Assert.That(result.Travelled, Is.True);
             }
@@ -235,7 +235,7 @@ namespace Ashen.Tests
                 var result = session.Travel(node);
                 if (!result.NotYetPorted) continue;
                 seen.Add(result.Door.Kind);
-                Assert.That(session.Location, Is.EqualTo("map"), "the run stands at the node and goes on");
+                Assert.That(session.Location, Is.EqualTo(result.Door.Kind == "shop" ? "merchant" : "map"), "the run stands at the node and goes on");
                 Assert.That(session.PendingPort, Is.EqualTo(result.Door.Kind));
                 Assert.That(session.Run.Value<string>("mapNodeId"), Is.EqualTo(node));
                 session.DismissPort();

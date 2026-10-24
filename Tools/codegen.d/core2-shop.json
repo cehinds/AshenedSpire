@@ -18,7 +18,11 @@
       "doc": "String values the Core 2 shop writes: the stock's offer id prefix and the shop id's separator.",
       "keys": {
         "OfferPrefix": "shop:",
-        "IdSeparator": ":"
+        "IdSeparator": ":",
+        "BarKeyFormat": "core2.shop.bar.{0}",
+        "PlaceholderCost": "cost",
+        "PlaceholderCinders": "cinders",
+        "PlaceholderLeft": "left"
       }
     },
     {

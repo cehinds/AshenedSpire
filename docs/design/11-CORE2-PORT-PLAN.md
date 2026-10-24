@@ -151,6 +151,8 @@ Every WP pins the same web sha. Size is approximate lines of port.
 **Status 2026-10-24 (WP-18):** done (D-190 to D-194 the rules, D-400 to D-404 the editor session, projection, Application door and Play in deck order). Left for presentation: a deck editor screen and the Armoury door over `Core2DeckEditor` (D-404).
 **Status 2026-10-24 (WP-15):** rewards and the combat end are ported (`Core2Rewards`, `Core2CombatEnd`, `Core2RewardDoor`, `Core2Skills`; D-316 to D-323; oracle `oracle-core2-rewards`). A won fight leads to a persisted offer on `Core2RunSession` (take, add to deck, leave); the spoils screen is a seam (`Core2RewardsView`). The shop stock is WP-17's.
 
+**Status 2026-10-24 (WP-17):** the shop is ported (`Core2Shop`, `Core2RunSession.Shop`, `Core2ShopView`; D-330 to D-333; oracle `oracle-core2-shop`): a merchant node opens a persisted stock of three per kind at ten cinders on the `shop` stream, bought from with the web's refusals; the shop screen is a seam (`Core2ShopView`).
+
 **Critical path:** 0 → 1 → 2 → 3 → 4 → {5 ∥ 6} → 7 → {8 ∥ 9} → 10 → 11 → 12 → 13 → 15 → {16 ∥ 17} → 19.
 
 **Parallel lanes:**
