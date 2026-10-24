@@ -662,9 +662,9 @@ namespace Ashen.Domain.Run
         {
             settings = settings ?? new JObject();
             var data = d.Run;
-            var encounter = data.Encounters.Get(encounterId);
+            var encounter = encounterId == null ? null : data.Encounters.Get(encounterId);
             double hpMult = 1, damageMult = 1;
-            if (run[RK.SeatOrder] is JArray seatOrder)
+            if (encounter != null && run[RK.SeatOrder] is JArray seatOrder)
             {
                 var act = run.Num(RK.ActNumber);
                 // A BOSS is scaled by the tier it is met at: its seat's tier ratio on HP and move damage times that tier's boss row (main.js combatMods).
@@ -679,9 +679,9 @@ namespace Ashen.Domain.Run
             var mapNode = Js.Truthy(run[RK.MapNodeId]) ? Js.Str(run[RK.MapNodeId]) : string.Join(V.ListSeparator, Js.Items(enemyList).Select(Js.Str));
             var args = new JObject
             {
-                [CK.EncounterId] = encounter[K.Id]?.DeepClone(),
+                [CK.EncounterId] = encounter?[K.Id]?.DeepClone(),
                 [K.EnemyIds] = enemyList?.DeepClone(),
-                [CK.Pool] = encounter[CK.Pool]?.DeepClone(),
+                [CK.Pool] = encounter?[CK.Pool]?.DeepClone(),
                 [CK.Settings] = settings.DeepClone(),
                 [K.HpMult] = Js.N(hpMult),
                 [CK.EnemyDamageMult] = Js.N(damageMult),

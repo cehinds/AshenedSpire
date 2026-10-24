@@ -239,7 +239,11 @@ namespace Ashen.App.Run
             if (graph == null) return Array.Empty<string>();
             var at = _run[MK.MapNodeId];
             var next = Js.Nullish(at) ? graph.Arr(MK.StartIds) : graph.Obj(MK.Nodes)?.Obj(Js.Str(at))?.Arr(MK.Next);
-            return Js.Items(next).Select(Js.Str).ToList();
+            var reachable = Js.Items(next).Select(Js.Str).ToList();
+            // A left rest site stays enterable until a new node is chosen (restRevisit.js, main.js showMap revisitId).
+            var revisit = Core2Rest.RevisitNodeId(_run);
+            if (revisit != null && !reachable.Contains(revisit)) reachable.Add(revisit);
+            return reachable;
         }
 
         /// <summary>The seat climbed at the current tier.</summary>
@@ -289,6 +293,7 @@ namespace Ashen.App.Run
                 _pendingPort = door.IsFight ? null : door.Kind;
                 if (door.IsFight) BeginFight(door);
                 else if (door.Kind == HV.DoorShop) EnterShop(door);
+                else if (door.Kind == HV.DoorRest) EnterRest(door);
                 Save();
                 return new Core2TravelResult { Door = door, Location = Location, NotYetPorted = !door.IsFight && PendingPort != null };
             }
@@ -307,6 +312,7 @@ namespace Ashen.App.Run
         {
             _pendingPort = null;
             if (HasOpenShop) LeaveShop();
+            if (IsResting) LeaveRest();
             // Every step reads the notices or spends a level offer, so the loop ends; a refusal ends it too.
             while (HasPendingReward)
             {

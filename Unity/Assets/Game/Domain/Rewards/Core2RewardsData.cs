@@ -13,13 +13,21 @@ namespace Ashen.Domain.Rewards
     /// </summary>
     public sealed class Core2RewardsData
     {
-        public Core2RewardsData(CoreDeckData deck, RewardsData rewards, CoreCombatData combat, JObject rules)
+        public Core2RewardsData(CoreDeckData deck, RewardsData rewards, CoreCombatData combat, JObject rules, Ashen.Domain.Shop.ShopData smith = null, JObject restRules = null)
         {
             Deck = deck ?? throw new ArgumentNullException(nameof(deck));
             Rewards = rewards ?? throw new ArgumentNullException(nameof(rewards));
             Combat = combat ?? throw new ArgumentNullException(nameof(combat));
             Rules = rules ?? throw new ArgumentNullException(nameof(rules));
+            Smith = smith;
+            RestRules = restRules ?? new JObject();
         }
+
+        /// <summary>What the Smith reads (the item upgrade tables, the smithing balance, rules/shopEngine.json), over the same registries; the rest site's Smith (WP-16).</summary>
+        public Ashen.Domain.Shop.ShopData Smith { get; }
+
+        /// <summary>rules/core2Rest.json: the literals of the rest site and its Smith.</summary>
+        public JObject RestRules { get; }
 
         public CoreDeckData Deck { get; }
 
