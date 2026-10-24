@@ -242,6 +242,12 @@
         },
         "rewards": {
           "type": "string"
+        },
+        "merchant": {
+          "type": "string"
+        },
+        "rest": {
+          "type": "string"
         }
       },
       "required": [

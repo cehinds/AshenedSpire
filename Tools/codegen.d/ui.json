@@ -30,7 +30,9 @@
         "Dialogue": "dialogue",
         "LegacyDungeon": "legacyDungeon",
         "Core2Combat": "core2Combat",
-        "Core2Rewards": "core2Rewards"
+        "Core2Rewards": "core2Rewards",
+        "Core2Rest": "core2Rest",
+        "Core2Shop": "core2Shop"
       }
     },
     {
@@ -383,6 +385,18 @@
         "SpoilsPage": "SPOILS_PAGE",
         "SpoilsScrim": "SPOILS_SCRIM",
         "SpoilsModal": "SPOILS_MODAL",
+        "CrestScene": "CREST_SCENE",
+        "CrestStage": "CREST_STAGE",
+        "CrestTraveler": "CREST_TRAVELER",
+        "CrestDoor": "CREST_DOOR",
+        "CrestScrim": "CREST_SCRIM",
+        "CrestModal": "CREST_MODAL",
+        "ShopPage": "SHOP_PAGE",
+        "CshopScene": "CSHOP_SCENE",
+        "CshopPortrait": "CSHOP_PORTRAIT",
+        "CshopFrame": "CSHOP_FRAME",
+        "CshopScrim": "CSHOP_SCRIM",
+        "CshopModal": "CSHOP_MODAL",
         "OverlayQuick": "OVERLAY_QUICK",
         "ModalHead": "MODAL_HEAD",
         "ModalEyebrow": "MODAL_EYEBROW",
@@ -753,6 +767,7 @@
         "Unit": "unit",
         "Duration": "duration",
         "Color": "color",
+        "Ratio": "ratio",
         "Art": "art",
         "Include": "include",
         "Meter": "meter",

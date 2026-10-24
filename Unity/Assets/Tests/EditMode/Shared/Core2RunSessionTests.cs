@@ -223,25 +223,35 @@ namespace Ashen.Tests
         [Test]
         public void ANodeWhoseRulesAreALaterPackageIsAnsweredNotYetPorted()
         {
-            var session = New(99);
-            var seen = new HashSet<string>();
-            session.EditRunForReview(r => { r["maxHp"] = 100000; r["hp"] = 100000; });
-            for (var guard = 0; guard < 200 && !session.RunOver && seen.Count < 2; guard++)
+            // The rest site and the shop have screens (VP-8, VP-9) and answer as places of their own; a treasure room is still a later package (an event node needs its resolution drawn at map birth; the event's own tests hold it).
+            foreach (var kind in new[] { "treasure" })
             {
-                if (session.IsInCombat) { FightToTheEnd(session); continue; }
-                if (session.HasPendingReward) { session.DismissPort(); continue; }
-                var graph = session.Run.Obj("mapGraph").Obj("nodes");
-                var node = session.ReachableNodes().FirstOrDefault(id => graph.Obj(id).Value<string>("type") != "monster" && graph.Obj(id).Value<string>("type") != "boss" && graph.Obj(id).Value<string>("type") != "elite") ?? session.ReachableNodes()[0];
+                var session = New(99);
+                var node = session.ReachableNodes()[0];
+                session.EditRunForReview(r => r["mapGraph"]["nodes"][node]["type"] = kind);
                 var result = session.Travel(node);
-                if (!result.NotYetPorted) continue;
-                seen.Add(result.Door.Kind);
-                Assert.That(session.Location, Is.EqualTo(result.Door.Kind == "shop" ? "merchant" : result.Door.Kind == "rest" ? "rest" : "map"), "the run stands at the node and goes on");
-                Assert.That(session.PendingPort, Is.EqualTo(result.Door.Kind));
+                Assert.That(result.Travelled, Is.True, kind);
+                Assert.That(result.NotYetPorted, Is.True, kind);
+                Assert.That(result.Door.Kind, Is.EqualTo(kind));
+                Assert.That(session.Location, Is.EqualTo("map"), "the run stands at the node and goes on");
+                Assert.That(session.PendingPort, Is.EqualTo(kind));
                 Assert.That(session.Run.Value<string>("mapNodeId"), Is.EqualTo(node));
                 session.DismissPort();
                 Assert.That(session.PendingPort, Is.Null);
             }
-            Assert.That(seen, Is.Not.Empty, "a climb meets a rest, shop, treasure or event");
+            foreach (var kind in new[] { "shrine", "merchant" })
+            {
+                var session = New(99);
+                var node = session.ReachableNodes()[0];
+                session.EditRunForReview(r => r["mapGraph"]["nodes"][node]["type"] = kind);
+                var result = session.Travel(node);
+                Assert.That(result.Travelled, Is.True, kind);
+                Assert.That(result.NotYetPorted, Is.False, kind + " is a screen of its own");
+                Assert.That(session.PendingPort, Is.Null, kind);
+                Assert.That(session.Location, Is.EqualTo(kind == "shrine" ? "rest" : "merchant"));
+                session.DismissPort();
+                Assert.That(session.Location, Is.EqualTo("map"));
+            }
         }
 
         // ------------------------------------------------------------------ save and resume

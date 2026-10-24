@@ -71,7 +71,7 @@ namespace Ashen.App.Run
 
         public bool Travelled => Refusal == null;
 
-        /// <summary>The node opened a place that has no screen yet (a rest place, shop, treasure room or event): the notice with Continue (<see cref="Core2RunSession.DismissPort"/>) stands in for it.</summary>
+        /// <summary>The node opened a place that has no screen yet (a treasure room or event): the notice with Continue (<see cref="Core2RunSession.DismissPort"/>) stands in for it.</summary>
         public bool NotYetPorted;
     }
 
@@ -175,8 +175,8 @@ namespace Ashen.App.Run
         /// <summary>The classes the run's close-out opened (the profile's class ledger), once it is over.</summary>
         public IReadOnlyList<string> ClassesUnlocked { get; private set; } = Array.Empty<string>();
 
-        /// <summary>The kind of node the run stands at whose rules are not part of this build ('rest', 'shop', 'treasure', 'event'), until the player moves on; or null.</summary>
-        public string PendingPort => HasOpenShop ? HV.DoorShop : IsResting ? HV.DoorRest : _pendingPort;
+        /// <summary>The kind of node the run stands at whose rules are not part of this build ('treasure', 'event', or a 'rest' place of a profile without the rest module), until the player moves on; or null. The rest site and the shop have screens (VP-8, VP-9) and report <see cref="Location"/> instead.</summary>
+        public string PendingPort => _pendingPort;
 
         /// <summary>Where the run stands and a save resumes: 'combat', 'map', or 'runEnd' once the run is over (never saved: the slot is cleared).</summary>
         public string Location

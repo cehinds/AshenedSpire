@@ -1,5 +1,5 @@
 {
-  "comment": "Screen registry (docs/design/08 §10, 06 PF-08, 04 W-*; 09 Appendix C ids). Each built screen names its UXML (a Resources path), its 'layer' (screen | modal), an optional registry 'background' (assets/registry.json id), and the REQUIRED 'focusOrder': UiNames regions walked in order, the focusable items inside a region in document order (04 §0 default: rail, pane, footer Primary, footer Back). 'initialFocus' names the element that takes focus first (Back on every confirmation). 'back' is what Escape / pad B does when nothing inner is open: 'pop' returns to the previous screen, 'close' closes a modal, null does nothing. 'transitions' map a trigger to a target screen and a mode (push | replace). 'input': 'none' marks a screen that takes no input (boot). 'gate' shows the press-any-input gate on first entry (US-1.2). 'planned' registers a screen that is not built yet: menu entries that target it are disabled. 'dev' marks review-only screens. ScreenIds (Tools/codegen.d/ui.json) must list exactly these keys (UiDataTests). 'core2Rewards' is the Core 2 spoils door (VP-7, D-850): the web's reward door modal over the map, its level notices, the offer's options and the review of the picked one (Core2RewardsScreen over Core2SpoilsFlow); Escape opens the pause screen. 'core2Combat' is W-07 for a Core 2 fight (WP-C1b): the Combat screen's bands bound to Core2CombatView, with a prompt panel (stance, route, reaction offer, card choice, flasks, equipment, prediction) as its 'prompt' focus mode; the act map, pause and run end are shared with the 405 run. 'focusModes' names alternative focus orders a screen switches to while one of its states is active (combat: targeting, discard chooser, flask panel, enemy turn, end state; rewards: the card or draft pick; actMap: the planned door and the legend; rest: a smith, card, flask or level pane); each is a list of regions like 'focusOrder'. The climb's screens are reached through rules/runFlow.json 'screens' (the location a run stands at → its screen); the merchant, event, dialogue (a quest chain step) and legacy-dungeon screens are built (merchant: the card pick of a burn or an install as a focus mode); the act map keeps its planned door as the fallback for a screen that is not built.",
+  "comment": "Screen registry (docs/design/08 §10, 06 PF-08, 04 W-*; 09 Appendix C ids). Each built screen names its UXML (a Resources path), its 'layer' (screen | modal), an optional registry 'background' (assets/registry.json id), and the REQUIRED 'focusOrder': UiNames regions walked in order, the focusable items inside a region in document order (04 §0 default: rail, pane, footer Primary, footer Back). 'initialFocus' names the element that takes focus first (Back on every confirmation). 'back' is what Escape / pad B does when nothing inner is open: 'pop' returns to the previous screen, 'close' closes a modal, null does nothing. 'transitions' map a trigger to a target screen and a mode (push | replace). 'input': 'none' marks a screen that takes no input (boot). 'gate' shows the press-any-input gate on first entry (US-1.2). 'planned' registers a screen that is not built yet: menu entries that target it are disabled. 'dev' marks review-only screens. ScreenIds (Tools/codegen.d/ui.json) must list exactly these keys (UiDataTests). 'core2Rewards' is the Core 2 spoils door (VP-7, D-850): the web's reward door modal over the map, its level notices, the offer's options and the review of the picked one (Core2RewardsScreen over Core2SpoilsFlow); Escape opens the pause screen. 'core2Rest' and 'core2Shop' are the Core 2 rest site and shop (VP-8, VP-9; D-950..D-953): a painted room under the board HUD with the door or frame on the right and their modals (the Smith, Level Up, Inspect, the question before spending) as the 'modal' focus mode; Escape closes the modal, else opens the pause screen. 'core2Combat' is W-07 for a Core 2 fight (WP-C1b): the Combat screen's bands bound to Core2CombatView, with a prompt panel (stance, route, reaction offer, card choice, flasks, equipment, prediction) as its 'prompt' focus mode; the act map, pause and run end are shared with the 405 run. 'focusModes' names alternative focus orders a screen switches to while one of its states is active (combat: targeting, discard chooser, flask panel, enemy turn, end state; rewards: the card or draft pick; actMap: the planned door and the legend; rest: a smith, card, flask or level pane); each is a list of regions like 'focusOrder'. The climb's screens are reached through rules/runFlow.json 'screens' (the location a run stands at → its screen); the merchant, event, dialogue (a quest chain step) and legacy-dungeon screens are built (merchant: the card pick of a burn or an install as a focus mode); the act map keeps its planned door as the fallback for a screen that is not built.",
   "initial": "boot",
   "screens": {
     "boot": {
@@ -105,6 +105,26 @@
       "uxml": "UI/Screens/Core2Rewards",
       "layer": "screen",
       "focusOrder": ["SPOILS_MODAL", "RUN_HUD"],
+      "back": null,
+      "transitions": {}
+    },
+    "core2Rest": {
+      "uxml": "UI/Screens/Core2Rest",
+      "layer": "screen",
+      "focusOrder": ["CREST_DOOR", "RUN_HUD"],
+      "focusModes": {
+        "modal": ["CREST_MODAL"]
+      },
+      "back": null,
+      "transitions": {}
+    },
+    "core2Shop": {
+      "uxml": "UI/Screens/Core2Shop",
+      "layer": "screen",
+      "focusOrder": ["CSHOP_FRAME", "RUN_HUD"],
+      "focusModes": {
+        "modal": ["CSHOP_MODAL"]
+      },
       "back": null,
       "transitions": {}
     },

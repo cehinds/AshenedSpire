@@ -1,0 +1,140 @@
+{
+  "comment": "VP-8 rest screen and VP-9 shop screen (D-950..D-953): the USS classes, art names and string-key templates of Screens/Core2RestScreen.cs and Screens/Core2ShopScreen.cs. The UXML names (CREST_*, CSHOP_*) and the screen ids are in ui.json (UiNames, ScreenIds).",
+  "keySets": [
+    {
+      "name": "RestClasses",
+      "doc": "USS classes of the Core 2 rest screen (Screens/Core2Rest.uss).",
+      "keys": {
+        "Line": "c2rest-line",
+        "Heading": "c2rest-heading",
+        "Rows": "c2rest-rows",
+        "Row": "c2rest-row",
+        "RowIcon": "c2rest-row-icon",
+        "RowLabel": "c2rest-row-label",
+        "RowChange": "c2rest-row-change",
+        "RowBefore": "c2rest-row-before",
+        "RowArrow": "c2rest-row-arrow",
+        "RowAfter": "c2rest-row-after",
+        "RowGain": "c2rest-row-gain",
+        "Service": "c2rest-service",
+        "ServiceLocked": "c2rest-service--locked",
+        "ServiceIcon": "c2rest-service-icon",
+        "ServiceBody": "c2rest-service-body",
+        "ServiceTitle": "c2rest-service-title",
+        "ServiceText": "c2rest-service-text",
+        "Modal": "c2rest-modal",
+        "ModalFit": "c2rest-modal--fit",
+        "Split": "c2rest-split",
+        "List": "c2rest-list",
+        "Pane": "c2rest-pane",
+        "Item": "c2rest-item",
+        "ItemSelected": "c2rest-item--selected",
+        "ItemArt": "c2rest-item-art",
+        "ItemText": "c2rest-item-text",
+        "ItemName": "c2rest-item-name",
+        "ItemTier": "c2rest-item-tier",
+        "ItemCount": "c2rest-item-count",
+        "Empty": "c2rest-empty",
+        "EmptyArt": "c2rest-empty-art",
+        "Instruction": "c2rest-instruction",
+        "Note": "c2rest-note",
+        "Selected": "c2rest-selected",
+        "SelectedTexts": "c2rest-selected-texts",
+        "SelectedName": "c2rest-selected-name",
+        "SelectedMeta": "c2rest-selected-meta",
+        "SelectedArt": "c2rest-selected-art",
+        "Change": "c2rest-change",
+        "ChangeLabel": "c2rest-change-label",
+        "ChangeYou": "c2rest-change-you",
+        "ChangeUnmet": "c2rest-change--unmet",
+        "Cost": "c2rest-cost",
+        "Confirm": "c2rest-confirm",
+        "ConfirmOff": "c2rest-confirm--off",
+        "Attribute": "c2rest-attr",
+        "AttributeSelected": "c2rest-attr--selected",
+        "AttributeLocked": "c2rest-attr--locked",
+        "AttributeName": "c2rest-attr-name"
+      }
+    },
+    {
+      "name": "ShopClasses",
+      "doc": "USS classes of the Core 2 shop screen (Screens/Core2Shop.uss).",
+      "keys": {
+        "Heading": "c2shop-heading",
+        "Empty": "c2shop-empty",
+        "Offer": "c2shop-offer",
+        "OfferTaken": "c2shop-offer--taken",
+        "Media": "c2shop-media",
+        "MediaArt": "c2shop-media-art",
+        "MediaCard": "c2shop-media-card",
+        "MediaCaption": "c2shop-media-caption",
+        "Details": "c2shop-details",
+        "Name": "c2shop-name",
+        "Text": "c2shop-text",
+        "Actions": "c2shop-actions",
+        "Buy": "c2shop-buy",
+        "BuyOff": "c2shop-buy--off",
+        "Price": "c2shop-price",
+        "Reason": "c2shop-reason",
+        "Dock": "c2shop-dock",
+        "Tab": "c2shop-tab",
+        "TabOn": "c2shop-tab--on",
+        "Leave": "c2shop-leave",
+        "Inspect": "c2shop-inspect",
+        "InspectCard": "c2shop-inspect-card",
+        "InspectArt": "c2shop-inspect-art",
+        "InspectText": "c2shop-inspect-text",
+        "Stats": "c2shop-stats",
+        "Stat": "c2shop-stat",
+        "StatValue": "c2shop-stat-value",
+        "StatLabel": "c2shop-stat-label",
+        "Package": "c2shop-package",
+        "PackageHeading": "c2shop-package-heading",
+        "PackageLine": "c2shop-package-line",
+        "Question": "c2shop-question"
+      }
+    },
+    {
+      "name": "RestShopArt",
+      "doc": "Art names (ui/art.json lookups 'scene' and 'illustration') of the rest room, its traveler and the merchant's tent, and the icon names of the services and the fallbacks.",
+      "keys": {
+        "RestScene": "chapel-rest-master",
+        "RestTraveler": "rest-traveler-fire",
+        "ShopScene": "merchant-desktop",
+        "ShopPortrait": "merchant-portrait",
+        "IconSmith": "smith",
+        "IconLevelUp": "progression",
+        "IconHeart": "health"
+      }
+    },
+    {
+      "name": "RatioKeys",
+      "doc": "Unitless tokens code reads (ui/tokens.json group ratio): the shares of a box that USS cannot express (UiTokens.Ratio).",
+      "keys": {
+        "RestTravelerLeft": "restTravelerLeft",
+        "RestTravelerW": "restTravelerW",
+        "RestTravelerAspect": "restTravelerAspect",
+        "RestTravelerBottom": "restTravelerBottom",
+        "ShopPortraitW": "shopPortraitW",
+        "ShopPortraitH": "shopPortraitH"
+      }
+    },
+    {
+      "name": "RestShopValues",
+      "doc": "Values of the rest and shop screens: the modal width rungs they add to the combat modal and the focus mode of their open modal.",
+      "keys": {
+        "SizeRest": "rest",
+        "SizeSmith": "smith",
+        "SizeShop": "shop",
+        "FocusModal": "modal"
+      }
+    },
+    {
+      "name": "RestShopFormats",
+      "doc": "String-key templates of the rest and shop screens (strings/app.en.json core2.rest.*, core2.shop.*).",
+      "keys": {
+        "SmithKindKey": "core2.rest.smith.kind.{0}"
+      }
+    }
+  ]
+}

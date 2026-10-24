@@ -252,46 +252,10 @@ namespace Ashen.App.Run
                 Chip = chip,
                 ChipText = chip == Core2SpoilsChip.Taken ? strings.Get(StringKeys.SpoilsChipTaken) : chip == Core2SpoilsChip.New ? strings.Get(StringKeys.SpoilsChipNew) : string.Empty,
             };
-            var data = _session.CombatData;
-            var components = _ui.Components;
-            try
-            {
-                switch (o.Kind)
-                {
-                    case RV.KindCombatCards:
-                    case RV.KindWeaponArts:
-                        view.Card = RewardsView.CardPick(data, strings, components.CostKinds, o.Id, false);
-                        view.Effect = view.Card.Text;
-                        break;
-                    case RV.KindRelics:
-                    {
-                        var def = data.Relics.Has(o.Id) ? data.Relics.Get(o.Id) : new JObject();
-                        view.Effect = RewardsView.Sentence(data, def.Str(K.TextTemplate), RewardsView.RelicTokens(data, def, components));
-                        view.ArtId = StringTable.Fill(components.RewardRelicArt, new StringArgs().Add(UiPlaceholders.Id, o.Id));
-                        break;
-                    }
-                    case RV.KindPotions:
-                    {
-                        var def = data.Flasks.Has(o.Id) ? data.Flasks.Get(o.Id) : new JObject();
-                        view.Effect = RewardsView.Sentence(data, def.Str(K.TextTemplate), RewardsView.EffectTokens(data, def[K.Effects]));
-                        view.ArtId = RewardsView.ArtFromKey(components.RewardFlaskArt, def.Str(RunFlowKeys.ArtKey), components.RewardFlaskArtPrefix);
-                        break;
-                    }
-                    case RV.KindWeapons:
-                    {
-                        var def = _session.Core.Rewards.RunData.EquipmentRows(DK.Armaments).FirstOrDefault(r => r.Str(DK.Id) == o.Id) ?? new JObject();
-                        view.Effect = def.Str(RunFlowKeys.Blurb);
-                        view.ArtId = RewardsView.ArtFromKey(components.RewardArmamentArt, def.Str(RunFlowKeys.ArtKey) ?? o.Id, null);
-                        break;
-                    }
-                }
-            }
-            catch (Exception e) when (e is InvalidOperationException || e is NullReferenceException || e is KeyNotFoundException || e is FormatException)
-            {
-                // A row the display helpers cannot read still shows its name: the claim is the rules' business, not the picture's.
-                view.Effect = view.Effect ?? string.Empty;
-            }
-            if (view.IsCard && view.Card == null) view.Card = new RewardPickView { Id = o.Id, Name = o.Name, Text = string.Empty };
+            var face = Core2ItemFaces.Build(_session, _ui, o.Kind, o.Id, o.Name);
+            view.Card = face.Card;
+            view.Effect = face.Effect;
+            view.ArtId = face.ArtId;
             return view;
         }
 

@@ -64,6 +64,7 @@ namespace Ashen.Generated
         public const string Unit = "unit";
         public const string Duration = "duration";
         public const string Color = "color";
+        public const string Ratio = "ratio";
         public const string Art = "art";
         public const string Include = "include";
         public const string Meter = "meter";

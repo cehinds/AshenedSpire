@@ -223,15 +223,15 @@ namespace Ashen.Tests
         public void APlaceNotYetPortedShowsAClearNoticeWithContinueAndTheRunGoesOn()
         {
             var session = New();
-            // Stand at a second-depth node: the rest depth is next.
+            // Stand at a second-depth node and make the next one a treasure room (the rest site and the shop have screens of their own: VP-8, VP-9).
             session.EditRunForReview(r => r["mapNodeId"] = "n2_1");
             var next = session.ReachableNodes();
-            var graph = session.Run.Obj("mapGraph").Obj("nodes");
-            var rest = next.First(id => graph.Obj(id).Value<string>("type") == "shrine");
-            var travel = session.Travel(rest);
+            var place = next.First();
+            session.EditRunForReview(r => r["mapGraph"]["nodes"][place]["type"] = "treasure");
+            var travel = session.Travel(place);
             Assert.That(travel.Travelled, Is.True);
             Assert.That(travel.NotYetPorted, Is.True);
-            Assert.That(session.PendingPort, Is.EqualTo("rest"));
+            Assert.That(session.PendingPort, Is.EqualTo("treasure"));
             var notice = Core2PortView.Build(session, Ui);
             Assert.That(notice.Title, Is.Not.Empty);
             Assert.That(notice.Body, Does.Contain("not yet available"), "a clear notice");
@@ -241,7 +241,7 @@ namespace Ashen.Tests
             session.Save();
             Assert.That(session.PendingPort, Is.Null);
             Assert.That(session.ReachableNodes(), Is.Not.Empty, "the climb goes on from the place");
-            foreach (var kind in new[] { Core2HostValues.DoorRest, Core2HostValues.DoorShop, Core2HostValues.DoorTreasure, Core2HostValues.DoorEvent })
+            foreach (var kind in new[] { Core2HostValues.DoorRest, Core2HostValues.DoorTreasure, Core2HostValues.DoorEvent })
             {
                 Assert.That(Ui.Strings.Has(string.Format(System.Globalization.CultureInfo.InvariantCulture, Core2UiFormats.PortTitleKey, kind)), Is.True, kind + " title");
                 Assert.That(Ui.Strings.Get(string.Format(System.Globalization.CultureInfo.InvariantCulture, Core2UiFormats.PortBodyKey, kind)), Does.Contain("not yet available"), kind + " body");
