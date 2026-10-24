@@ -287,6 +287,7 @@ namespace Ashen.Generated
         public const string OnTurnEndInHand = "onTurnEndInHand";
         public const string Once = "once";
         public const string OncePerTurn = "oncePerTurn";
+        public const string Ordered = "ordered";
         public const string OrderedDraw = "orderedDraw";
         public const string Overrides = "overrides";
         public const string OwnerCycle = "ownerCycle";

@@ -148,6 +148,8 @@ Every WP pins the same web sha. Size is approximate lines of port.
 
 **Status 2026-10-24 (WP-C1b):** the Unity screens play Core 2 fights (D-310 to D-315); `newRun.ruleset` is `core2` (D-313). Done from the list below: fighter HUD order, hit-% badge, stance and Staggered, Precision/Evade chips, reaction modal and switch, intent reveal with `?` labels and Perception, Advance/Throw choice, rank badges and trait chips, D11 pacing, the fog map (display types) and the class unlock order (locked tiles). Still to do: the deck editor and Armoury, the Core rest, shop and reward Take / Add to deck (WP-15 to WP-19).
 
+**Status 2026-10-24 (WP-18):** done (D-190 to D-194 the rules, D-400 to D-404 the editor session, projection, Application door and Play in deck order). Left for presentation: a deck editor screen and the Armoury door over `Core2DeckEditor` (D-404).
+
 **Critical path:** 0 → 1 → 2 → 3 → 4 → {5 ∥ 6} → 7 → {8 ∥ 9} → 10 → 11 → 12 → 13 → 15 → {16 ∥ 17} → 19.
 
 **Parallel lanes:**

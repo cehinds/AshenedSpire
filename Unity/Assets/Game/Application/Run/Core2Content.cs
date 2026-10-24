@@ -3,6 +3,7 @@ using System.Linq;
 using Ashen.Content;
 using Ashen.Domain.Combat;
 using Ashen.Domain.Loop;
+using Ashen.Domain.Run;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 
@@ -15,8 +16,9 @@ namespace Ashen.App.Run
     /// </summary>
     public sealed class Core2Content
     {
-        private Core2Content(Core2Registries registries, CoreCombatData combat, Core2LoopData loop, string contentHash)
+        private Core2Content(Core2Registries registries, CoreCombatData combat, Core2LoopData loop, CoreDeckData deck, string contentHash)
         {
+            Deck = deck;
             Registries = registries;
             Combat = combat;
             Loop = loop;
@@ -26,6 +28,9 @@ namespace Ashen.App.Run
         public Core2Registries Registries { get; }
         public CoreCombatData Combat { get; }
         public Core2LoopData Loop { get; }
+
+        /// <summary>What the deck editor's rules read (WP-18): rules/core2Deck.json over the same run data the fights use.</summary>
+        public CoreDeckData Deck { get; }
         public string ContentHash { get; }
 
         public string ProfileId => Combat.Run.ProfileId;
@@ -42,7 +47,7 @@ namespace Ashen.App.Run
             var run = registries.ToCoreRunData(content);
             var combat = registries.ToCoreCombatData(content, run);
             var map = registries.ToMapData((JObject)content.Get(ContentFiles.RulesMapEngine));
-            return new Core2Content(registries, combat, new Core2LoopData(combat, map, registries.RoutesConfig, (JObject)content.Get(ContentFiles.RulesLoopEngine)), snapshot.Hash);
+            return new Core2Content(registries, combat, new Core2LoopData(combat, map, registries.RoutesConfig, (JObject)content.Get(ContentFiles.RulesLoopEngine)), registries.ToCoreDeckData(content, run), snapshot.Hash);
         }
     }
 }

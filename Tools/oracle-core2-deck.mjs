@@ -18,7 +18,7 @@
 import { writeFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, botLcg } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, WEB, arg, canon, classIds, botLcg, encounters, createRun, createFight, projectFull, delta, typesSince } from './oracle-core2.mjs';
 
 const OUT = join(ORACLE_DIR, 'deck');
 const SEEDS = Number(arg('--seeds', '6'));
@@ -29,6 +29,7 @@ const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const dr = await load('src/model/deckRules.js');
 const { resolveCard } = await load('src/model/registries.js');
 const { pureEngagementMovement } = await load('src/model/rangeCardAvailability.js');
+const actions = await load('src/engine/actions.js');
 
 const classes = classIds(w);
 const UNLOCKED = { gameProfileUnlocks: { [w.profile.id]: { completedRunIds: classes.map((_, i) => `r${i}`) } } };
@@ -241,6 +242,176 @@ function orderCases() {
 }
 
 // ---------------------------------------------------------------------------------------------------------------
+// The editor session and its projection (ui/models/DeckEditorModel.js): a bot opens editors, adds from the collection tiles (and
+// from keys no tile offers), removes, places, undoes, confirms and cancels, while rewards land and the settings and range policy
+// switch. Every step records the answer ({ ok, refusal } or the thrown message), the whole projection under a view with filters
+// and a sort, the run's piles and editor fields, and the session's flags.
+// ---------------------------------------------------------------------------------------------------------------
+const dem = await load('src/ui/models/DeckEditorModel.js');
+// A Core 2 run holds the profile's own cards (rewards and shops offer nothing else): the editor scenarios use those.
+const profileCardIds = w.profile.content.cards.map((c) => c.id);
+const ROW_DROP = ['ref', 'cardCategory'];
+const trim = (row) => Object.fromEntries(Object.entries(row).filter(([k]) => !ROW_DROP.includes(k)));
+const modelRecord = (m) => canon({
+  counter: m.counter, done: m.done, curve: m.curve, ordered: m.ordered, filters: m.filters, sorts: m.sorts, view: m.view,
+  deck: m.deck.map(trim), collection: m.collection.map(trim),
+});
+const VIEWS = [
+  {}, { sort: 'name' }, { sort: 'type' }, { sort: 'source' }, { sort: 'bogus' }, { filters: { upgraded: true } },
+  { filters: { cost: ['1', '2'] }, sort: 'name' }, { filters: { source: ['basic', 'reward'] } }, { filters: { source: ['item'] }, sort: 'type' },
+];
+const EDITOR_SETTINGS = [0, 10, 10, 1, 2, 3, 8, 11];
+const BOGUS_KEYS = ['card:no.such.card', 'basic:strike', 'basic:', 'kept:zz~~', 'junk', '', 'card:', 'card:core.strike~~'];
+
+function editorScenario(classId, seedIndex) {
+  const seed = w.rngMod.sweepSeed(8800 + classes.indexOf(classId) * 100 + seedIndex);
+  const run = create(seed, classId);
+  const pick = botLcg(seed ^ 0x6d2b79f5);
+  let settingsIndex = [0, 10, 1, 10, 2, 0][seedIndex % 6];
+  let session = null;
+  let view = {};
+  const steps = [];
+  const startDeck = run.deck.map(ref);
+  const EDITOR_STEPS = Number(arg('--editor-steps', '55'));
+  const piles = () => ({
+    deck: run.deck.map(ref), sideboard: (run.sideboard || []).map(ref),
+    keys: canon(Object.fromEntries(EDIT_KEYS.filter((k) => !['deck', 'sideboard'].includes(k)).map((k) => [k, run[k]]))),
+  });
+  const open = () => { session = dem.openDeckEdit(reg, run, SETTINGS[settingsIndex]); };
+  open();
+  for (let i = 0; i < EDITOR_STEPS; i++) {
+    // Before the step: a closed editor is usually opened again, and rewards land often (so the eligibility and limit gates see cards the starter deck lacks).
+    const pre = { reopened: false, rewards: [] };
+    if (session.closed && pick(3) > 0) { open(); pre.reopened = true; }
+    if (pick(4) === 0) {
+      const cardId = pick(3) === 0 && movers.length ? movers[pick(movers.length)] : profileCardIds[pick(profileCardIds.length)];
+      const card = { instanceId: dr.unusedInstanceId(run, 'rw', cardId), cardId, upgraded: pick(4) === 0 };
+      const to = pick(2) === 0 ? 'deck' : 'sideboard';
+      if (to === 'deck') run.deck.push(card); else (run.sideboard = run.sideboard || []).push(card);
+      pre.rewards.push({ card, to });
+    }
+    const settings = SETTINGS[settingsIndex];
+    const roll = pick(40);
+    let step;
+    if (roll < 12) {
+      const tiles = dem.deckEditorModel({ registries: reg, run, settings, view }).collection;
+      const key = tiles.length && pick(10) > 1 ? tiles[pick(tiles.length)].key : BOGUS_KEYS[pick(BOGUS_KEYS.length)];
+      step = { op: 'add', key, result: call(() => session.add(key)) };
+    } else if (roll < 20) {
+      const id = run.deck.length && pick(10) > 0 ? run.deck[pick(run.deck.length)].instanceId : 'missing';
+      step = { op: 'remove', id, result: call(() => session.remove(id)) };
+    } else if (roll < 25) {
+      const id = run.deck.length && pick(10) > 0 ? run.deck[pick(run.deck.length)].instanceId : 'missing';
+      const index = pick(run.deck.length + 3) - 1;
+      step = { op: 'moveTo', id, index, result: call(() => session.moveTo(id, index)) };
+    } else if (roll < 29) {
+      const id = run.deck.length && pick(10) > 0 ? run.deck[pick(run.deck.length)].instanceId : 'missing';
+      const delta = pick(2) === 0 ? -1 : 1;
+      step = { op: 'move', id, delta, result: call(() => session.move(id, delta)) };
+    } else if (roll < 31) {
+      step = { op: 'undo', result: call(() => session.undo()) };
+    } else if (roll < 33) {
+      step = { op: 'confirm', result: call(() => session.confirm()) };
+    } else if (roll < 34) {
+      step = { op: 'cancel', result: call(() => { session.cancel(); return { ok: true }; }) };
+    } else if (roll < 36) {
+      if (session.closed || pick(2) === 0) { open(); step = { op: 'open' }; } else step = { op: 'noop' };
+    } else if (roll < 37) {
+      const cardId = pick(3) === 0 && movers.length ? movers[pick(movers.length)] : rewardPool[pick(rewardPool.length)];
+      const card = { instanceId: dr.unusedInstanceId(run, 'rw', cardId), cardId, upgraded: pick(4) === 0 };
+      const to = pick(2) === 0 ? 'deck' : 'sideboard';
+      if (to === 'deck') run.deck.push(card); else (run.sideboard = run.sideboard || []).push(card);
+      step = { op: 'reward', card, to };
+    } else if (roll < 38) {
+      settingsIndex = EDITOR_SETTINGS[pick(EDITOR_SETTINGS.length)];
+      open();
+      step = { op: 'settings', index: settingsIndex };
+    } else if (roll < 39) {
+      run.rangePolicy = { ...run.rangePolicy, enabled: run.rangePolicy?.enabled === false };
+      step = { op: 'range', enabled: run.rangePolicy.enabled };
+    } else {
+      const model = dem.deckEditorModel({ registries: reg, run, settings, view });
+      const candidates = [...VIEWS, ...model.filters.type.slice(0, 2).map((c) => ({ filters: { type: [c.id] } }))];
+      view = candidates[pick(candidates.length)];
+      step = { op: 'view', view };
+    }
+    const now = SETTINGS[settingsIndex];
+    steps.push(canon({
+      ...step, pre, settingsIndex, view, canUndo: session.canUndo, closed: session.closed, after: piles(),
+      model: modelRecord(dem.deckEditorModel({ registries: reg, run, settings: now, view })),
+      doors: [dem.deckEditorDoors({ settings: now }), dem.deckEditorDoors({ settings: now, inCombat: true }), dem.deckEditorDoors({ settings: now, services: { deckEdit: true } })],
+    }));
+  }
+  return canon({ classId, seed, settings: SETTINGS, settingsStart: [0, 10, 1, 10, 2, 0][seedIndex % 6], start: startDeck, steps, run: runDocument(run) });
+}
+
+// Ordering of names by the browser's collation, for the C# stand-in of localeCompare.
+function collationCase() {
+  const names = [...new Set([...allCards.map((c) => c.name), 'Ash', 'ash', 'Ashen', 'Åsh', 'a b', 'a-b', 'ab', 'A1', 'a2', 'Strike', 'Strike+', 'strike', '10', '9', 'Éclair', 'Eclair', 'eclair'])];
+  const sorted = [...names].sort((a, b) => a.localeCompare(b));
+  const pairs = [];
+  const pick = botLcg(77);
+  for (let i = 0; i < 4000; i++) { const a = names[pick(names.length)], b = names[pick(names.length)]; pairs.push([a, b, Math.sign(a.localeCompare(b))]); }
+  return { names, sorted, pairs };
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Fights under Play in deck order (createRunCombat with settings.playInDeckOrder): the opening draw pile is the deck as listed
+// (Innate first) and consumes no `shuffle` value; an empty draw pile takes the discard back in deck order (returnDiscardInOrder);
+// the Core round refresh still shuffles (refreshProfileRound). The bot plays cards by moving them to the discard, drains the draw
+// pile into the discard and draws, so the ordered return is reached; every step records the full projection's delta.
+// ---------------------------------------------------------------------------------------------------------------
+function orderedFight(seed, classId, encounter, ops) {
+  const run = createRun(w, seed, classId);
+  const { combat } = createFight(w, run, encounter, { settings: { playInDeckOrder: true } });
+  const pick = botLcg(seed ^ 0x2f6b1d93);
+  let last = projectFull(combat);
+  const start = { events: typesSince(combat, 0), state: last, draw: combat.piles.draw.map((c) => c.instanceId), order: combat.orderedDraw ? combat.orderedDraw.order : null };
+  const steps = [];
+  for (let i = 0; i < ops && !combat.result; i++) {
+    const mark = combat.eventLog.length;
+    const roll = pick(10);
+    let step;
+    if (roll < 3 && combat.piles.hand.length) {
+      const picks = [];
+      const n = 1 + pick(combat.piles.hand.length);
+      for (let k = 0; k < n && combat.piles.hand.length; k++) { const at = pick(combat.piles.hand.length); picks.push(at); combat.piles.discard.push(combat.piles.hand.splice(at, 1)[0]); }
+      step = { op: 'play', picks };
+    } else if (roll < 5) {
+      const n = Math.min(combat.piles.draw.length, 1 + pick(6));
+      for (let k = 0; k < n; k++) combat.piles.discard.push(combat.piles.draw.shift());
+      step = { op: 'drain', n };
+    } else if (roll < 9) {
+      const n = 1 + pick(6);
+      actions.drawCards(combat, n);
+      step = { op: 'draw', n };
+    } else {
+      for (const enemy of combat.enemies) if (enemy.alive) enemy.skipNextTurn = true;
+      let error = null;
+      try { w.combat.dispatch(combat, { type: 'endTurn', discardIds: [] }); } catch (e) { error = e.message; }
+      step = { op: 'endTurn', staggered: combat.enemies.filter((e) => e.alive).length, ...(error ? { error } : {}) };
+      if (error || combat.pendingReaction) { steps.push(step); break; }
+    }
+    const state = projectFull(combat);
+    steps.push({ ...step, events: typesSince(combat, mark), delta: delta(last, state) ?? {}, draw: combat.piles.draw.map((c) => c.instanceId) });
+    last = state;
+  }
+  return { seed, classId, encounterId: encounter.id, start, steps };
+}
+
+function orderedFights() {
+  const all = encounters(w);
+  const fights = [];
+  classes.forEach((classId, ci) => {
+    for (let i = 0; i < SEEDS * 3; i++) {
+      const encounter = all[(ci * 5 + i * 7) % all.length];
+      fights.push(orderedFight(w.rngMod.sweepSeed(9500 + ci * 100 + i), classId, encounter, 24));
+    }
+  });
+  return fights;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
 mkdirSync(OUT, { recursive: true });
 for (const f of readdirSync(OUT)) if (f.endsWith('.json')) rmSync(join(OUT, f));
 let bytes = 0;
@@ -259,5 +430,18 @@ for (const classId of classes) {
   }
 }
 write('order.json', { cases: orderCases() });
+index.editors = [];
+for (const classId of classes) {
+  for (let i = 0; i < Math.max(2, Math.ceil(SEEDS / 2)); i++) {
+    const name = `editor-${classId}-seed${String(i).padStart(2, '0')}.json`;
+    const scenario = editorScenario(classId, i);
+    write(name, scenario);
+    index.editors.push({ file: name, classId, seed: scenario.seed });
+  }
+}
+write('collation.json', collationCase());
+const ordered = orderedFights();
+write('ordered-fights.json', { fights: ordered });
+index.orderedFights = ordered.length;
 write('index.json', index);
 console.log(`oracle-core2-deck: ${settingsCases.length} settings variants, ${classes.length} probes (${allCards.length} cards), ${index.edits.length} edit scenarios x ${STEPS} steps, ${(bytes / 1024 / 1024).toFixed(1)} MB -> Unity/Assets/Tests/Oracle/core2/deck`);

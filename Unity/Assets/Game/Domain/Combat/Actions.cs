@@ -5,6 +5,7 @@ using System.Linq;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using E = Ashen.Generated.CombatEvents;
+using CK = Ashen.Generated.Core2CombatKeys;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
 using Op = Ashen.Generated.CombatOps;
@@ -288,7 +289,9 @@ namespace Ashen.Domain.Combat
                 {
                     if (c.HandRules != null && c.HandRules[K.Reshuffle] != null && c.HandRules[K.Reshuffle].Type == JTokenType.Boolean && !c.HandRules[K.Reshuffle].Value<bool>()) return;
                     if (c.Piles.Discard.Count == 0) return;
-                    ReshuffleDiscardIntoDraw(c);
+                    // Play in deck order (SPEC 14.1) returns the discard in deck order and rolls nothing; the shuffleDiscardIntoDraw effect still shuffles.
+                    if (Js.Truthy(c.Fields[CK.OrderedDraw])) ReturnDiscardInOrder(c);
+                    else ReshuffleDiscardIntoDraw(c);
                 }
                 var card = c.Piles.Draw[0];
                 c.Piles.Draw.RemoveAt(0);
@@ -315,6 +318,15 @@ namespace Ashen.Domain.Combat
                 c.Piles.Discard.Add(card);
                 c.Emit(E.CardDiscarded, Js.Obj(K.CardInstanceId, card[K.InstanceId], K.CardId, card[K.CardId], K.Reason, V.ReasonEffect));
             }
+        }
+
+        /// <summary>returnDiscardInOrder(ctx): the discard goes back under the draw pile in deck order, then cards the deck never held in the order discarded.</summary>
+        public static void ReturnDiscardInOrder(CombatState c)
+        {
+            var order = c.Fields.Obj(CK.OrderedDraw).Arr(Ashen.Generated.Core2SnapshotKeys.Order).Select(Js.Str).ToList();
+            c.Piles.Draw.AddRange(Ashen.Domain.Run.DeckRules.OrderedReturn(c.Piles.Discard, order));
+            c.Piles.Discard.Clear();
+            c.Emit(E.DeckShuffled, Js.Obj(K.Size, c.Piles.Draw.Count, CK.Ordered, true));
         }
 
         public static void ReshuffleDiscardIntoDraw(CombatState c)

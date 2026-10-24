@@ -12,6 +12,7 @@ using E = Ashen.Generated.CombatEvents;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
 using Op = Ashen.Generated.CombatOps;
+using NK = Ashen.Generated.Core2SnapshotKeys;
 using PC = Ashen.Generated.Core2ProfileContentKeys;
 using RngStream = Ashen.Generated.RngStream;
 using V = Ashen.Generated.CombatValues;
@@ -285,7 +286,10 @@ namespace Ashen.Domain.Combat
             var cardsModule = d.Configured(CK.CardsModule);
             var source = cardsModule == null ? new List<JObject>() : Js.Items(player[K.Deck]).OfType<JObject>().ToList();
             var deck = source.Select(card => DeckInstance(c, card)).ToList();
-            var shuffled = rng.Shuffle(RngStream.Shuffle, deck);
+            // Play in deck order (SPEC 14.1, WP-18): the deck as listed, no `shuffle` draw consumed, the order kept on the fight for the discard's return.
+            var ordered = Js.Truthy(args[CK.OrderedDraw]);
+            if (ordered) c.Fields[CK.OrderedDraw] = new JObject { [NK.Order] = new JArray(deck.Select(card => card[K.InstanceId])) };
+            var shuffled = ordered ? deck : rng.Shuffle(RngStream.Shuffle, deck);
             var innate = shuffled.Where(card => CoreCards.Keywords(c, card).Contains(CV.KeywordInnate)).ToList();
             c.Piles.Draw = innate.Concat(shuffled.Where(card => !innate.Contains(card))).ToList();
 

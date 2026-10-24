@@ -21,5 +21,8 @@ namespace Ashen.Generated
         public const string CannotDelete = "Deck editing cannot delete an owned limited card";
         public const string CopyLimitExceeded = "Deck editing exceeds the card copy limit";
         public const string NeedsConfigured = "The deck editor's equipment gate reads a configured game profile";
+        public const string UnknownCollectionKey = "openDeckEdit.add: unknown collection key '{0}'";
+        public const string ClosedSession = "openDeckEdit: this editor session is already closed";
+        public const string NotUnlimited = "'{0}' is not an unlimited card id ({1})";
     }
 }

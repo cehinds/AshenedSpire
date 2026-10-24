@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Ashen.Domain.Combat;
 using Newtonsoft.Json.Linq;
+using CCK = Ashen.Generated.Core2CombatKeys;
 using CK = Ashen.Generated.Core2RunKeys;
 using HK = Ashen.Generated.Core2HostKeys;
 using CM = Ashen.Generated.Core2RunMessages;
@@ -689,6 +690,8 @@ namespace Ashen.Domain.Run
                 [SK.RangePolicy] = run[SK.RangePolicy]?.DeepClone() ?? Js.Null(),
                 [SK.GameProfile] = PinOf(run),
                 [K.Player] = CombatPlayer(d, run),
+                // Play in deck order (SPEC 14.1): read here, once, like the other rules.
+                [CCK.OrderedDraw] = DeckRules.PlayInDeckOrder(d, settings),
             };
             return args;
         }
