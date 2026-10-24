@@ -168,12 +168,12 @@ namespace Ashen.App.Combat
         public static string Traits(StringTable strings, Core2CardView card) =>
             card.Tags.Count == 0 ? null : string.Join(strings.Get(StringKeys.Core2TraitJoin), card.Tags);
 
-        /// <summary>A route option: "Advance · 75% · 1 Stamina" (the odds against the chosen target and what the route costs).</summary>
+        /// <summary>A route option: "Advance · 75% · 1 Stamina" (the odds against the chosen target once the route is taken, as the web's route row's "after" chance, and what the route costs).</summary>
         public static string Route(StringTable strings, Core2PromptOption option)
         {
             var name = strings.Get(string.Format(CultureInfo.InvariantCulture, UF.RouteKey, option.Id));
             var parts = new List<string> { name };
-            var odds = option.Odds?.CurrentHitChance ?? option.Odds?.HitChance;
+            var odds = option.Odds?.HitChance ?? option.Odds?.CurrentHitChance;
             if (odds.HasValue) parts.Add(strings.Format(StringKeys.Core2Hit, Args().Add(UiPlaceholders.Pct, Num(Math.Round(odds.Value)))));
             var stamina = option.Route != null ? option.Route.AdvanceSp : 0;
             if (stamina > 0) parts.Add(strings.Format(StringKeys.Core2RouteCost, Args().Add(UiPlaceholders.Value, Num(stamina))));

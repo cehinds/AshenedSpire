@@ -308,6 +308,19 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void ARouteOptionShowsTheOddsOnceTheRouteIsTaken()
+        {
+            // The range fixtures hold a reachable attack at 0% now and 95% after the advance: the route row shows what the route buys (the web's "after").
+            var strings = Strings;
+            var option = new Core2PromptOption { Id = "advance", Odds = new Core2RouteTargetView { CurrentHitChance = 0, HitChance = 95 } };
+            var text = Core2CombatText.Route(strings, option);
+            Assert.That(text, Does.Contain(strings.Format(StringKeys.Core2Hit, new StringArgs().Add(UiPlaceholders.Pct, "95"))));
+            Assert.That(text, Does.Not.Contain(strings.Format(StringKeys.Core2Hit, new StringArgs().Add(UiPlaceholders.Pct, "0"))));
+            option.Odds = new Core2RouteTargetView { CurrentHitChance = 40 };
+            Assert.That(Core2CombatText.Route(strings, option), Does.Contain(strings.Format(StringKeys.Core2Hit, new StringArgs().Add(UiPlaceholders.Pct, "40"))), "no after-route odds: the current ones");
+        }
+
+        [Test]
         public void AnIntentThatThrowsIsReportedAndTheViewIsRebuiltInsteadOfLeavingTheScreenFrozen()
         {
             var session = Core2RunSession.New(Content, _saves, 1, 12, "reaver", "Aldric", () => Epoch);
