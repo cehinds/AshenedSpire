@@ -10,6 +10,7 @@ using Ashen.Content;
 using Ashen.Domain.Combat;
 using Ashen.Domain.Loop;
 using Ashen.Domain.Random;
+using Ashen.Domain.Rewards;
 using Ashen.Domain.Run;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
@@ -21,6 +22,8 @@ using MK = Ashen.Generated.MapKeys;
 using NK = Ashen.Generated.Core2SnapshotKeys;
 using NM = Ashen.Generated.Core2SnapshotMessages;
 using NN = Ashen.Generated.Core2SnapshotNumbers;
+using RV = Ashen.Generated.Core2RewardsValues;
+using RW = Ashen.Generated.Core2RewardsKeys;
 using RK = Ashen.Generated.RunKeys;
 using V = Ashen.Generated.CombatValues;
 using WK = Ashen.Generated.RewardsKeys;
@@ -84,8 +87,29 @@ namespace Ashen.App.Run
         /// <summary>The act advanced (a boss that was not the last).</summary>
         public bool ActAdvanced;
 
-        /// <summary>What a won fight pays that this build does not roll yet (Core 2 rewards, WP-15).</summary>
+        /// <summary>What a fight paid and where the climb went from it (WP-15): the skill and class awards, the cinders, the level notices, the door.</summary>
+        public Core2CombatEndReceipt Receipt;
+
+        /// <summary>What a won fight pays that this build does not roll yet: nothing now that Core 2 rewards are ported (WP-15); kept for the screens that list it.</summary>
         public IReadOnlyList<string> NotYetPorted = Array.Empty<string>();
+    }
+
+    /// <summary>What a step of the reward door did: refused (the web's sentence, nothing changed), or the option it took and where the climb goes next.</summary>
+    public sealed class Core2RewardResult
+    {
+        /// <summary>The refusal's sentence, or null when the step was taken.</summary>
+        public string Refusal;
+
+        /// <summary>The add-to-deck refusal code (<c>notCard</c>, <c>full</c>, <c>limit</c>) when that is what refused.</summary>
+        public string Code;
+
+        /// <summary>The reward option taken (claim, add to deck), or null.</summary>
+        public JObject Option;
+
+        /// <summary>Where the door stands after the step.</summary>
+        public Core2RewardStep Step;
+
+        public bool Done => Refusal == null;
     }
 
     /// <summary>
@@ -152,7 +176,7 @@ namespace Ashen.App.Run
         public IReadOnlyList<string> ClassesUnlocked { get; private set; } = Array.Empty<string>();
 
         /// <summary>The kind of node the run stands at whose rules are not part of this build ('rest', 'shop', 'treasure', 'event'), until the player moves on; or null.</summary>
-        public string PendingPort => _pendingPort;
+        public string PendingPort => HasPendingReward ? HV.PortRewards : _pendingPort;
 
         /// <summary>Where the run stands and a save resumes: 'combat', 'map', or 'runEnd' once the run is over (never saved: the slot is cleared).</summary>
         public string Location
@@ -161,6 +185,7 @@ namespace Ashen.App.Run
             {
                 if (RunOver) return RunFlowValues.LocationRunEnd;
                 if (IsInCombat) return RunFlowValues.LocationCombat;
+                if (HasPendingReward) return RunFlowValues.LocationRewards;
                 return _location;
             }
         }
@@ -271,8 +296,20 @@ namespace Ashen.App.Run
             }
         }
 
-        /// <summary>The player moves past a node whose rules are not part of this build.</summary>
-        public void DismissPort() => _pendingPort = null;
+        /// <summary>
+        /// The player moves past a place whose rules are not part of this build, or past a reward door that has no screen yet (the seam of WP-15): the notices are read and
+        /// the offer is left as it stands (<see cref="LeaveRewards"/>).
+        /// </summary>
+        public void DismissPort()
+        {
+            _pendingPort = null;
+            // Every step reads the notices or spends a level offer, so the loop ends; a refusal ends it too.
+            while (HasPendingReward)
+            {
+                var step = ProgressionNotices.Count > 0 ? AcknowledgeProgression() : LeaveRewards();
+                if (!step.Done) break;
+            }
+        }
 
         // ------------------------------------------------------------------ the fight
 
@@ -314,45 +351,137 @@ namespace Ashen.App.Run
         }
 
         /// <summary>
-        /// The fight's end (main.js onCombatEnd for a configured run, as far as this build goes): the run takes the fight back (runCombatEnd), a death closes the run out, a won
-        /// fight is counted, a boss is recorded and either closes the run (the last act) or advances the act. The rewards, XP and the reward door are Core 2 rewards (WP-15) and
-        /// are reported as not yet ported. Otherwise the slot is checkpointed at the map.
+        /// The fight's end (main.js onCombatEnd for a configured run, WP-15): <see cref="Core2CombatEnd.Settle"/> writes the fight back to the run (runCombatEnd),
+        /// pays the skill and class tracks once (a death pays too), then a death ends the run, and a win pays its cinders, records a boss and either ends the run
+        /// (the last act's boss) or opens the reward door with a persisted offer. The climb goes on from the door (<see cref="LeaveRewards"/>): the map, or the next
+        /// act after a boss. A death or the summit with level notices still to be read waits for them first (<see cref="AcknowledgeProgression"/>).
         /// </summary>
         private void FinishCombat()
         {
             var state = Combat.State;
             _rng = state.Rng;
-            CoreRunCombat.End(Core.Combat, _run, state);
             FightFinished = true;
-            _run[RK.CombatEntered] = Js.Null();
-            var encounter = Core.Loop.Map.Encounters.Get(EncounterId);
-            if (state.Result != V.Victory)
+            var receipt = Core2CombatEnd.Settle(Core.Rewards, _run, _rng, state, Core.Loop.Map.Encounters.Get(EncounterId));
+            LastEnd = new Core2FightEnd { Outcome = receipt.Result, Receipt = receipt };
+            Continue(receipt.Next);
+        }
+
+        /// <summary>Goes where the reward door says the climb goes (<see cref="Core2RewardDoor"/>): the door stays open, the map, the next act, or the run's end.</summary>
+        private void Continue(string next)
+        {
+            switch (next)
             {
-                _run[K.Hp] = 0;
-                LastEnd = new Core2FightEnd { Outcome = V.Defeat, RunOver = true };
-                CloseOut(false);
-                return;
-            }
-            var stats = _run.Obj(WK.Stats);
-            stats.Put(WK.FightsWon, stats.Num(WK.FightsWon) + 1);
-            var end = new Core2FightEnd { Outcome = V.Victory, NotYetPorted = new[] { HV.PortRewards } };
-            if (encounter.Str(MK.Pool) == WV.Boss)
-            {
-                var beaten = _run.Arr(WK.BossesBeaten) ?? (JArray)(_run[WK.BossesBeaten] = new JArray());
-                foreach (var enemy in Js.Items(encounter[K.Enemies])) if (!Js.Includes(beaten, Js.Str(enemy))) beaten.Add(enemy.DeepClone());
-                if (Act >= Core.Loop.Acts)
-                {
-                    end.RunOver = true;
-                    LastEnd = end;
-                    CloseOut(true);
+                case Core2RewardDoor.NextDoor:
+                    _location = RunFlowValues.LocationRewards;
+                    Save();
                     return;
-                }
-                Core2RunLoop.AdvanceAct(Core.Loop, _run, _rng);
-                end.ActAdvanced = true;
+                case RV.AfterVictory:
+                case RV.AfterDefeat:
+                    if (LastEnd != null) LastEnd.RunOver = true;
+                    CloseOut(next == RV.AfterVictory);
+                    return;
+                case RV.AfterAdvanceAct:
+                    Core2RunLoop.AdvanceAct(Core.Loop, _run, _rng);
+                    if (LastEnd != null) LastEnd.ActAdvanced = true;
+                    break;
             }
-            LastEnd = end;
             _location = RunFlowValues.LocationMap;
             Save();
+        }
+
+        // ------------------------------------------------------------------ the reward door (WP-15)
+
+        /// <summary>A won fight's offer (or a death's level notices) is waiting: <c>gameProfilePendingReward</c> is on the run, and a save resumes at it.</summary>
+        public bool HasPendingReward => Core2RewardDoor.Pending(_run) != null;
+
+        /// <summary>The pending reward record (the offer's id and source, what comes after it, the notices still to be read), or null.</summary>
+        public JObject PendingReward => Core2RewardDoor.Pending(_run) is JObject pending ? (JObject)pending.DeepClone() : null;
+
+        /// <summary>The level notices the door still has to show (the skill and class levels the fight crossed), in order.</summary>
+        public IReadOnlyList<JObject> ProgressionNotices => Js.Items(Core2RewardDoor.Pending(_run)?[RW.Progression]).OfType<JObject>().Select(n => (JObject)n.DeepClone()).ToList();
+
+        /// <summary>The door has no offer, only notices: a death, or the last act's boss.</summary>
+        public bool NoticeOnlyDoor => Core2RewardDoor.Pending(_run)?.Is(RW.NoticeOnly) == true;
+
+        /// <summary>The offer the door shows (id, source, options, take count, taken, claimed), or null when there is none.</summary>
+        public JObject RewardOffer
+        {
+            get
+            {
+                var pending = Core2RewardDoor.Pending(_run);
+                return pending != null && _run.Obj(RW.GameProfileRewardOffers)?[pending.Str(RW.OfferId) ?? string.Empty] is JObject offer ? (JObject)offer.DeepClone() : null;
+            }
+        }
+
+        /// <summary>The settings the deck rules read for "Add to deck" (the player's deck bounds).</summary>
+        private JObject DeckSettings => Profile.Settings;
+
+        /// <summary>The refusal of "Add to deck" for an option: empty when legal, else <c>notCard</c>, <c>full</c> or <c>limit</c> (rewardDeckAddRefusal).</summary>
+        public string RewardDeckRefusal(int index)
+        {
+            var pending = Core2RewardDoor.Pending(_run) ?? throw new InvalidOperationException(Ashen.Generated.Core2RewardsMessages.NoDoor);
+            return Core2Rewards.DeckAddRefusal(Core.Rewards, _run, pending.Str(RW.OfferId), index, DeckSettings);
+        }
+
+        /// <summary>The progression modal's Continue: the notices are read once (a death or the summit then ends the climb).</summary>
+        public Core2RewardResult AcknowledgeProgression()
+        {
+            var snapshot = Snapshot();
+            try
+            {
+                var step = Core2RewardDoor.Acknowledge(_run);
+                Continue(step.Next);
+                return new Core2RewardResult { Step = step };
+            }
+            catch (InvalidOperationException e)
+            {
+                Restore(snapshot);
+                return new Core2RewardResult { Refusal = e.Message };
+            }
+            catch
+            {
+                Restore(snapshot);
+                throw;
+            }
+        }
+
+        /// <summary>Take the offered option at <paramref name="index"/> (claimGameProfileReward): a card lands in the sideboard, a weapon in storage, and so on. A refusal changes nothing.</summary>
+        public Core2RewardResult TakeReward(int index) => Reward(pending => Core2Rewards.Claim(Core.Rewards, _run, pending.Str(RW.OfferId), index));
+
+        /// <summary>Take the offered card and put it straight into the deck (claimGameProfileRewardToDeck), obeying the deck rules; a refusal changes nothing and carries its code.</summary>
+        public Core2RewardResult AddRewardToDeck(int index) => Reward(pending => Core2Rewards.ClaimToDeck(Core.Rewards, _run, pending.Str(RW.OfferId), index, DeckSettings));
+
+        // A claim is all-or-nothing in the domain (Core2Rewards restores the run it was handed when it refuses), so no copy of the run is kept here.
+        private Core2RewardResult Reward(Func<JObject, JObject> act)
+        {
+            var pending = Core2RewardDoor.Pending(_run);
+            if (pending == null) return new Core2RewardResult { Refusal = Ashen.Generated.Core2RewardsMessages.NoDoor };
+            try
+            {
+                var option = act(pending);
+                Save();
+                return new Core2RewardResult { Option = option };
+            }
+            catch (DeckAddRefusalException e) { return new Core2RewardResult { Refusal = e.Message, Code = e.Code }; }
+            catch (InvalidOperationException e) { return new Core2RewardResult { Refusal = e.Message }; }
+        }
+
+        /// <summary>The offer screen's Continue: the offer is left as it stands, a level offer still owed opens the door again, otherwise the climb goes on to the map or the next act.</summary>
+        public Core2RewardResult LeaveRewards()
+        {
+            var snapshot = Snapshot();
+            try
+            {
+                if (!HasPendingReward) return new Core2RewardResult { Refusal = Ashen.Generated.Core2RewardsMessages.NoDoor };
+                var step = Core2RewardDoor.Leave(Core.Rewards, _run, _rng);
+                Continue(step.Next);
+                return new Core2RewardResult { Step = step };
+            }
+            catch
+            {
+                Restore(snapshot);
+                throw;
+            }
         }
 
         /// <summary>The run is over (a death or the summit): the profile holds its record and the class ledger moved, the slot is cleared.</summary>
@@ -600,7 +729,7 @@ namespace Ashen.App.Run
                 Portrait = (string)payload[RunSaveKeys.Portrait],
                 _playtimeBase = (long?)payload[RunSaveKeys.Playtime] ?? 0L,
                 EncounterId = (string)payload[RunSaveKeys.EncounterId],
-                _location = (string)payload[RunSaveKeys.Location] ?? RunFlowValues.LocationMap,
+                _location = (string)payload[RunSaveKeys.Location] is string saved && saved != RunFlowValues.LocationRewards ? saved : RunFlowValues.LocationMap,
                 _pendingPort = (string)payload[HK.PendingPort],
             };
             var warned = false;

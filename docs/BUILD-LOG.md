@@ -2,6 +2,26 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-5: combat feedback and animation (worktree branch, 2026-10-24)
+
+**Landed (D-750, D-751)**
+- **Data:** `ui/feedback.json` (+ schema), tokens `fx*` and the unitless group `ratio`, strings `core2.fx.*` (the web's words), the `fx` art group and lookups, codegen fragment `ui-fx.json` (event and key names, enums over the data's callout kinds and tracks).
+- **Engine-free:** `FeedbackDefs`, `FxCurve`, `CombatPace`, `CalloutPlan`, `Core2Feedback`, `FxTimeline`; `CombatFeedbackTests` (22) pin the maths, the pace, each event rule and the stage order.
+- **Screen:** `FxLayer` (floats, words, banners, marks, effect frames, shake, card flight), `FxMotion` (keyframe tracks), `Fighter` (figure element, pose frames, recoil/lunge/wobble), `Core2CombatScreen.Fx.cs` (plan, schedule, cues, boss splash, victory beat), `Fx.uss`, UXML for the splash and the beat, the ribbon's web tints.
+- Merged VP-6 (combat modals) twice; conflicts were only additive (tokens, art lookups, UXML styles, the HAND_WRITTEN list).
+
+**Tests run:** `CombatFeedback` 22/22, `Enforcement`, `UiData`, `ArtLookup`, `AssetRegistry` pass (small filters; the test host aborts when several filters run in one process); `ui-tokens`, `codegen`, `refresh-manifest`, `ci/check-content`, `ci/check-docs`, `ui-stage`, `card-face` checks ok; Presentation builds with the D-314 harness.
+
+**Not verified (Unity was not run):** every USS rule, the scheduler-driven motion, `-unity-text-outline`, glyph rendering of the ribbon's `‹ ✧ ›` in Cinzel (move the glyphs to a fallback font if they show boxes), pose frames sized as squares over the figure box, hit tint multiply look, effect frames (art imported by the owner's pipeline; this checkout has no PNGs).
+
+**Owner: check in the editor (Core 2 fight at 1920x1080; compare `docs/qa/web-screens/combat-hit-feedback-*`, `combat-enemy-turn-*`, `boss-intro-*`, `combat-victory-card-pick-*`)**
+- Play Strike on an enemy: the card flies to it (220 ms), "Attack · Strike" rises over you, you lunge right, a slash arc and "Hit" appear, the enemy flashes red, recoils right 22 px and shows its hurt frame, the screen shakes, then a red `-12` pops (bigger tiers for a third of its HP) 500 ms apart per stage at the default pacing.
+- End Turn: "ENEMY TURN" pops, the ribbon turns rust, each enemy's action word, lunge/attack frame, `Missed`/`Dodged`/`BLOCKED` words, `-N` on you (recoil left 13 px), "YOUR TURN" at the end; the log lines appear with their numbers; Skip and a click end it. Change Settings: combat speed, step pause, animation step, animation speed (instant: no waits), reduced motion (plain fades, no lunge/shake/effects), reduce flashes, screen shake.
+- Block, Poise, statuses: gray `4` beside `-5`, "POISONED" in green, effect frames where imported; an enemy at 35% HP or with Block wears its wounded/guard frame; a kill shows `Defeated` and the defeated figure.
+- Boss fight: splash with "ACT 1 · BOSS" and the name for 2.3 s, any click closes it. Victory: the title ribbon for 0.6 s then the panel. Defeat: panel with the orange title.
+
+**Next:** `ui/feedback.json` hooks for player pose frames and card-cast effect plans once art is imported; HP bars that update after the numbers; VP-12 run-end restyle.
+
 ## VP-6: combat overlays (worktree branch, 2026-10-24)
 
 **Landed (D-800..D-804)**
@@ -136,6 +156,24 @@ The rules half of WP-18 (D-190 to D-194) was already in; this finishes the work 
 - Deferred: the row's `cardCategory`, `nextFilterPreset`, `rankZeroLabelId`; the Armoury's equipment editing; a player control for the deck rows (WP-20); a screen (D-404).
 
 **Next:** WP-19 (run loop glue) can call `DeckEditorRefusal()` for the Armoury door; WP-20 puts the deck settings behind `settings/webKeyMap.json`.
+## Core 2 WP-15: rewards and the combat end (dev, 2026-10-24)
+
+**Landed** (decisions D-316 to D-323)
+- **Rewards (D-316):** `Core2Rewards` is `model/gameProfileRewards.js`: the offer (pools from the character's eligibility, the stance reserve, the 60/10/30 groups, `lowerRankChance`, all on `cardRewards`), `Claim`, `ClaimToDeck` and the Add to deck refusals (`notCard`, `full`, `limit`) in the web's words; `Core2RewardPolicy` (`rewardGroupProblems`, `pickRewardCategory`) and `Core2StanceCoverage` (`reserveStanceCards`). A claim works on the run and restores it on a refusal instead of cloning the run (its pinned profile is megabytes).
+- **Skills and the combat end (D-318, D-319):** `Core2Skills` (tracks, curve with the level cap, awards without draft queues, the class award, ability tracks opening at level 1, level notices) and `Core2CombatEnd.Settle`, a line-for-line `onCombatEnd` for a configured run: the fight is written back, the skill and class tracks are paid once (a death pays too), cinders, a boss's record, the last boss, the persisted offer.
+- **The door (D-320):** `Core2RewardDoor` (`gameProfilePendingReward` beside the stored offers) and, on `Core2RunSession`, `AcknowledgeProgression`, `TakeReward`, `AddRewardToDeck`, `RewardDeckRefusal`, `LeaveRewards`; a won fight leads to `Location = rewards`, the door resumes from a save, the next act starts when a boss's spoils are left. `Core2RewardsView` is the display data a spoils screen reads. The map's planned-door notice and `DismissPort` are the seam until that screen exists (UXML/USS not written: nothing can be looked at without the editor).
+- **Found by the oracle:** a Core 2 run's `collection` is deck + sideboard (D-317); a boss's HP and damage are scaled by the tier it is met at (D-321); a first XP of Spellcraft/maneuvers opens the track at level 1 (D-318).
+- **Data:** `rules/core2Rewards.json` (+ schema), codegen fragment `core2-rewards.json` (`Core2RewardsKeys/Values/Messages`), `core2.port.rewards.*` strings, `Core2Registries.ToCoreRewardsData`, `Core2Content.Rewards`.
+
+**Oracle** `Tools/oracle-core2-rewards.mjs` (D-322): units, 32 claim scenarios (448 offers, 290 takes + 207 adds, 483 refusals), 32 climbs (130 fights: 106 won, 24 lost, 23 bosses, 20 elites, 25 with level notices, 14 acts advanced), 5.7 MB under `Tests/Oracle/core2/rewards`; two runs are byte-identical.
+
+**Tests:** `Core2RewardsParityTests` (71: 6 unit tests incl. the door's steps for every kind of door, 32 claim scenarios, 32 climbs, the oracle check), `Core2RewardsSessionTests` (9), `Core2RunSessionTests` updated for the door (10), `Core2DeckParityTests` + `Core2RunParityTests` (388), `Core2ScreensTests`, `Core2CombatFlowTests`, `EnforcementTests` all green; `codegen --check`, `transform-content --check`, `refresh-manifest --check`, `ci/check-content`, `ci/check-docs` ok. The full suite was not run (80 minutes; the shared memory limit kills the host when workers overlap, D-323).
+
+**Not done / deferred**
+- The spoils screen (Take, Add to deck, Continue and the level-notice modal on `Core2RewardsView`); `ActMapScreen` shows the planned-door notice and leaving it leaves the spoils untaken. Not compiled or looked at in the editor.
+- Shop stock (`itemsPerCategory`, `shop` stream): WP-17 extends `Core2Rewards.MakeOffer`.
+- After-combat recovery percentages and the profile bank of enemy knowledge (WP-20 / a Core run carries none).
+- The `limit` refusal of Add to deck is not reached in play (the deck oracle holds the copy limit).
 
 ## Core 2 WP-C1b: the Unity screens play Core 2 fights (dev, 2026-10-24)
 

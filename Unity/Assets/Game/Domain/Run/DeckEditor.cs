@@ -381,6 +381,12 @@ namespace Ashen.Domain.Run
         /// <summary>deckEditorModel({ registries, run, settings, view }).</summary>
         public static DeckEditorModelData Model(CoreDeckData d, IDeckEditorText t, JObject run, JObject settings, DeckEditorView view = null)
         {
+            // One projection reads the run's profile for every row and tile: it is read once, not once per card.
+            using (DeckRules.ReadingProfileOf(run)) return Project(d, t, run, settings, view);
+        }
+
+        private static DeckEditorModelData Project(CoreDeckData d, IDeckEditorText t, JObject run, JObject settings, DeckEditorView view)
+        {
             var state = (view ?? new DeckEditorView()).Normalized();
             var deck = Pile(run, DK.Deck);
             var sideboard = Pile(run, DK.Sideboard);

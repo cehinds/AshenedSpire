@@ -340,6 +340,12 @@ namespace Ashen.Presentation.UI.Screens
                     SaveFailed(e, () => OnPlanned(anchor));
                     return;
                 }
+                // Leaving the spoils may end the climb (a death or the last boss once its level notices are read): the run end is the next screen.
+                if (_core2.RunOver)
+                {
+                    RunFlow.Show(Context, _core2);
+                    return;
+                }
                 Render();
                 FocusSoon(FirstReachable());
                 return;

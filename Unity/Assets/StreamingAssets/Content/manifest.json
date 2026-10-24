@@ -1,5 +1,5 @@
 {
-  "contentHash": "b25fa804188d1c3569c3b2691617b135d9ee9775e1e551f18bc1a227fff8703e",
+  "contentHash": "0f15ac7e2ac415dd98cd3b30c138581274857cb19f698515596ee1681e9fb2c8",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -818,6 +818,11 @@
       "bytes": 457434,
       "generated": true,
       "sha256": "eac45b2bee37ab9e4833e1f03c26dd9588c0be8cc83252c6d087bb6da61704ff"
+    },
+    "rules/core2Rewards.json": {
+      "bytes": 1744,
+      "generated": false,
+      "sha256": "b201cc4682c879ac8e6f4c55de2749678c3ac7bbc224595f8426d2bb3bfe13df"
     },
     "rules/core2Run.json": {
       "bytes": 3979,
@@ -1694,6 +1699,11 @@
       "generated": false,
       "sha256": "42e436836e7b457355e13889ee2fe84f5804472f981aa7cc162bd4fe14fdb50a"
     },
+    "schemas/rules.core2Rewards.schema.json": {
+      "bytes": 1721,
+      "generated": false,
+      "sha256": "251c8dbd1d8d329181c7ecae5b572047c389db69efa3f7bcd1cae7e3dbe15db0"
+    },
     "schemas/rules.core2Run.schema.json": {
       "bytes": 3349,
       "generated": false,
@@ -2050,9 +2060,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 33904,
+      "bytes": 33911,
       "generated": false,
-      "sha256": "b402f96a316088c40e966a9d8fdfb240e35dcaf95b675df207e6dc25aa6eaab2"
+      "sha256": "891a4b070bce17c77e49e08be1fc1bc0e814e541734a8df604b501692693d454"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2217,7 +2227,7 @@
     "ui/tokens.json": {
       "bytes": 25788,
       "generated": false,
-      "sha256": "3b35a7da4362fede758d133464ec7d5b4785a15d6a599f990ba87946971a6216"
+      "sha256": "aec9963d3e57ba17b4a98e8ef02ece5dd7aac391321c06bb722bd08c39d0c053"
     }
   },
   "schemaVersion": 1,

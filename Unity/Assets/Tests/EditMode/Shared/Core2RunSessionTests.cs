@@ -131,7 +131,7 @@ namespace Ashen.Tests
         // ------------------------------------------------------------------ the fight's end
 
         [Test]
-        public void AWonFightIsWrittenBackToTheRunAndTheRunReturnsToTheMap()
+        public void AWonFightIsWrittenBackToTheRunAndOpensTheRewardDoorBeforeTheMap()
         {
             var session = New(777);
             session.Travel(session.ReachableNodes()[0]);
@@ -142,18 +142,32 @@ namespace Ashen.Tests
             Assert.That(session.Combat.State.Result, Is.EqualTo("victory"));
             Assert.That(session.FightFinished, Is.True);
             Assert.That(session.LastEnd.Outcome, Is.EqualTo("victory"));
-            Assert.That(session.LastEnd.NotYetPorted, Does.Contain("rewards"), "the reward door is a later work package");
-            Assert.That(session.Location, Is.EqualTo("map"));
+            Assert.That(session.LastEnd.NotYetPorted, Is.Empty, "the rewards are ported (WP-15)");
+            Assert.That(session.LastEnd.Receipt.Cinders, Is.GreaterThan(0));
+            Assert.That(session.Location, Is.EqualTo("rewards"), "the spoils come before the map");
+            Assert.That(session.HasPendingReward, Is.True);
+            Assert.That(session.RewardOffer["options"], Has.Count.EqualTo(3));
             Assert.That(session.RunOver, Is.False);
             var run = session.Run;
             Assert.That(run["stats"]["fightsWon"].Value<int>(), Is.EqualTo(1));
+            Assert.That(run["cinders"].Value<double>(), Is.EqualTo(20 + session.LastEnd.Receipt.Cinders), "the cinders are paid (a Core 2 run starts with 20)");
             Assert.That(run["combatEntered"].Type, Is.EqualTo(JTokenType.Null));
             Assert.That(run["hp"].Value<double>(), Is.EqualTo(session.Combat.State.Player.Value<double>("hp")), "the pools the fight left are the run's");
             Assert.That(run["streamCounters"]["enemyAI"].Value<double>(), Is.GreaterThan(0), "the run's counters moved with the fight");
+            Assert.That(run["streamCounters"]["cardRewards"].Value<double>(), Is.GreaterThan(0), "the offer was drawn on the cardRewards stream");
+            Assert.That(session.ReachableNodes(), Is.Empty, "no travel past an open door");
+            var atDoor = Core2RunSession.Load(Content, _saves, 1, () => Epoch);
+            Assert.That(atDoor.Status, Is.EqualTo(Core2RunLoadStatus.Resumed), string.Join("; ", atDoor.Warnings));
+            Assert.That(atDoor.Session.StateHash(), Is.EqualTo(session.StateHash()), "the reward door is saved with its offer");
+            Assert.That(atDoor.Session.Location, Is.EqualTo("rewards"));
+            Assert.That(atDoor.Session.RewardOffer.ToString(), Is.EqualTo(session.RewardOffer.ToString()));
+            Assert.That(session.LeaveRewards().Done, Is.True);
+            Assert.That(session.Location, Is.EqualTo("map"));
+            Assert.That(session.HasPendingReward, Is.False);
             Assert.That(session.ReachableNodes(), Is.Not.Empty, "the climb goes on");
             var resumed = Core2RunSession.Load(Content, _saves, 1, () => Epoch);
             Assert.That(resumed.Status, Is.EqualTo(Core2RunLoadStatus.Resumed), string.Join("; ", resumed.Warnings));
-            Assert.That(resumed.Session.StateHash(), Is.EqualTo(session.StateHash()), "the map after a fight is saved");
+            Assert.That(resumed.Session.StateHash(), Is.EqualTo(session.StateHash()), "the map after the spoils is saved");
         }
 
         [Test]
@@ -192,7 +206,8 @@ namespace Ashen.Tests
             var acts = new List<int>();
             for (var guard = 0; guard < 400 && !session.RunOver; guard++)
             {
-                if (session.IsInCombat) { FightToTheEnd(session); if (session.LastEnd.ActAdvanced) acts.Add(session.Act); continue; }
+                if (session.IsInCombat) { FightToTheEnd(session); continue; }
+                if (session.HasPendingReward) { session.DismissPort(); if (session.LastEnd?.ActAdvanced == true) acts.Add(session.Act); continue; }
                 var result = session.Travel(Pick(session, n => n.Value<string>("type") == "monster" || n.Value<string>("type") == "boss"));
                 Assert.That(result.Travelled, Is.True);
             }
@@ -214,6 +229,7 @@ namespace Ashen.Tests
             for (var guard = 0; guard < 200 && !session.RunOver && seen.Count < 2; guard++)
             {
                 if (session.IsInCombat) { FightToTheEnd(session); continue; }
+                if (session.HasPendingReward) { session.DismissPort(); continue; }
                 var graph = session.Run.Obj("mapGraph").Obj("nodes");
                 var node = session.ReachableNodes().FirstOrDefault(id => graph.Obj(id).Value<string>("type") != "monster" && graph.Obj(id).Value<string>("type") != "boss" && graph.Obj(id).Value<string>("type") != "elite") ?? session.ReachableNodes()[0];
                 var result = session.Travel(node);

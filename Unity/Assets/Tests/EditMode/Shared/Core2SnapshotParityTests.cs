@@ -26,17 +26,8 @@ namespace Ashen.Tests
 
         private static readonly string[] Sets = { "reactions", "range", "damage", "matchups", "statuses", "enemy", "remaining" };
 
-        private static readonly Dictionary<string, JObject> Files = new Dictionary<string, JObject>();
 
-        private static JObject Read(string set, string file)
-        {
-            lock (Files)
-            {
-                var key = set + "/" + file;
-                if (!Files.TryGetValue(key, out var doc)) Files[key] = doc = (JObject)JsonContent.Parse(File.ReadAllText(Path.Combine(Root, set, file)));
-                return doc;
-            }
-        }
+        private static JObject Read(string set, string file) => OracleDocuments.Read(Path.Combine(Root, set, file));
 
         private static string Collection(JObject doc) => doc["fights"] != null ? "fights" : "exchanges";
 
