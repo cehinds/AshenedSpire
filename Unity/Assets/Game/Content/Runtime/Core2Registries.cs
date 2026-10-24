@@ -146,6 +146,10 @@ namespace Ashen.Content
             return new Ashen.Domain.Rewards.Core2RewardsData(deck, rewards, combat, Rules(ContentFiles.RulesCore2Rewards), new Ashen.Domain.Shop.ShopData(rewards, Rules(ContentFiles.RulesShopEngine)), Rules(ContentFiles.RulesCore2Rest));
         }
 
+        /// <summary>What the event door reads on a Core 2 run (WP-19): the events and quest chains of the profile's registries, rules/eventsEngine.json and the Smith of the rewards data.</summary>
+        public Ashen.Domain.Events.EventsData ToCoreEventsData(ContentSet content, Ashen.Domain.Rewards.Core2RewardsData core) =>
+            Registries.ToCoreEventsData(core, (JObject)content.Get(ContentFiles.RulesEventsEngine));
+
         /// <summary>What the map port reads (WP-14): encounters, events, enemies and seats in registry order, the quest gates, the boss destinations and the map engine rules.</summary>
         public Ashen.Domain.Map.MapData ToMapData(JObject mapEngine) => Registries.ToMapData(mapEngine);
 

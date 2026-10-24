@@ -45,14 +45,15 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>
-        /// resolveCombatCard(ctx, instance) for a card outside the profile: a burden an enemy's move added (its registry row, a status card) is resolved by
+        /// resolveCombatCard(ctx, instance) for a card outside the profile: a burden an enemy's move added or an event handed over (its registry row: a status or a curse card) is resolved by
         /// the registries the fight is configured with, then given the melee, single-target face every support card has. Null for any other card.
         /// </summary>
         private static JObject Burden(CombatState c, JObject instance, string id)
         {
             if (!c.Data.Cards.Has(id)) return null;
             var row = Cards.Resolve(c.Data, instance);
-            if (Cards.Kind(c.Data, row) != NV.TypeStatus) return null;
+            var kind = Cards.Kind(c.Data, row);
+            if (kind != NV.TypeStatus && kind != NV.TypeCurse) return null;
             var tags = new JArray(Js.Items(!Js.Nullish(row[CK.CardTags]) ? row[CK.CardTags] : row[K.Tags]).Where(t => !(Js.Str(t) ?? string.Empty).StartsWith(CV.TagRange, StringComparison.Ordinal)
                 && !(Js.Str(t) ?? string.Empty).StartsWith(CV.TagTargeting, StringComparison.Ordinal)).Select(t => t.DeepClone()))
             {

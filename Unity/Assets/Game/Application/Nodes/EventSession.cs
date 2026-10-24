@@ -135,7 +135,7 @@ namespace Ashen.App.Nodes
                 EventId = session.EventId,
                 Title = def.Str(K.Name) ?? session.EventId,
                 Text = def.Str(EK.Text) ?? string.Empty,
-                ArtId = EventArt(d, ui, def, all),
+                ArtId = EventArt(d, ui.Nodes, def, all),
                 BackgroundId = NodeRules.Fill(ui.Nodes.EventBackground, NodePlaceholders.Region, regionId) ?? ui.Nodes.EventFallbackBackground,
                 Resolved = session.Resolved,
             };
@@ -203,16 +203,16 @@ namespace Ashen.App.Nodes
         }
 
         /// <summary>The narrative art: the data's entry for the event, else the first enemy of a fight it can start.</summary>
-        private static string EventArt(EventsData d, UiData ui, JObject def, List<JObject> choices)
+        internal static string EventArt(EventsData d, NodeRules nodes, JObject def, List<JObject> choices)
         {
             var id = def.Str(K.Id);
-            if (id != null && ui.Nodes.EventArt[id] != null) return (string)ui.Nodes.EventArt[id];
+            if (id != null && nodes.EventArt[id] != null) return (string)nodes.EventArt[id];
             foreach (var effect in choices.SelectMany(c => Js.Items(c[K.Effects]).OfType<JObject>()))
             {
                 if (effect.Str(K.Op) != EV.StartCombat) continue;
                 var enc = d.Run.Encounters.Has(effect.Str(MK.EncounterId)) ? d.Run.Encounters.Get(effect.Str(MK.EncounterId)) : null;
                 var enemy = Js.Str(Js.Items(enc?[K.Enemies]).FirstOrDefault());
-                if (enemy != null) return NodeRules.Fill(ui.Nodes.EventEnemyArt, NodePlaceholders.Id, enemy);
+                if (enemy != null) return NodeRules.Fill(nodes.EventEnemyArt, NodePlaceholders.Id, enemy);
             }
             return null;
         }

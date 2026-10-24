@@ -211,11 +211,23 @@ namespace Ashen.Domain.Events
             else if (op == EV.UpgradeCard)
             {
                 var named = Js.Truthy(eff[K.Card]) ? eff.Str(K.Card) : null;
-                var plan = ItemSmithing.Plan(d.Shop, run);
-                // (armament id, or the deck instance itself for an ordinary card — held by reference, never copied)
+                // A Core 2 run (the Smith has a Core pipeline): a candidate is an item whose worn numbers change a deck card, found by the live card rows (smithingCore.js).
+                var core = d.Core != null && Core2Smith.Active(d.Core, run) ? d.Core : null;
+                var plan = core != null ? Core2Smith.Plan(core, run, false) : ItemSmithing.Plan(d.Shop, run);
+                // (armament id or item ref, or the deck instance itself for an ordinary card — held by reference, never copied)
                 var candidates = new List<KeyValuePair<string, JObject>>();
                 foreach (var candidate in plan.Arr(SK.Candidates).OfType<JObject>())
                 {
+                    if (candidate.Is(Ashen.Generated.Core2RestKeys.Core))
+                    {
+                        if (candidate.Str(SK.ItemKind) == V.RelicKind) continue;
+                        var rows = Core2Smith.CardRows(core, run, candidate.Str(K.ItemRef), candidate.Num(SK.CurrentLevel), candidate.Num(SK.NextLevel));
+                        var cards = Core2Smith.AffectedCards(rows);
+                        if (cards.Count == 0) continue;
+                        if (named != null && !cards.OfType<JObject>().Any(card => card.Str(K.CardId) == named)) continue;
+                        candidates.Add(new KeyValuePair<string, JObject>(candidate.Str(K.ItemRef), null));
+                        continue;
+                    }
                     if (candidate.Str(SK.ItemKind) != V.ArmamentRefPrefix) continue;
                     var affected = candidate.Arr(SK.AffectedCards);
                     if (affected.Count == 0) continue;
@@ -233,7 +245,8 @@ namespace Ashen.Domain.Events
                 var chosen = Js.Truthy(eff[K.Random]) ? rng.Pick(RngStream.Misc, candidates) : candidates[0];
                 if (chosen.Value == null)
                 {
-                    var receipt = ItemSmithing.Commit(d.Shop, run, chosen.Key, true);
+                    // A configured run commits an equipment upgrade only inside a Smith service; this response is one (free).
+                    var receipt = core != null ? Core2Smith.Commit(core, run, chosen.Key, true, true) : ItemSmithing.Commit(d.Shop, run, chosen.Key, true);
                     c.Emit(EV.ArmamentSmithed, receipt);
                 }
                 else chosen.Value.Put(K.Upgraded, true);

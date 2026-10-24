@@ -215,33 +215,42 @@ namespace Ashen.Tests
             Assert.That(session.End.Victory, Is.True);
             Assert.That(acts, Is.EqualTo(Enumerable.Range(2, Content.Core2.Loop.Acts - 1).ToList()), "each act but the last advanced");
             Assert.That(session.Run["bossesBeaten"], Has.Count.EqualTo(Content.Core2.Loop.Acts));
-            Assert.That(ProfileStore.Load(_saves).Doc["progress"]["wins"].Value<int>(), Is.EqualTo(1));
+            // A configured run writes its record and the unlock ledger, and no progress tally (main.js finishRun, model/runCompletion.js completedRunMeta).
+            var doc = ProfileStore.Load(_saves).Doc;
+            Assert.That(((JArray)doc["results"]).Last["victory"].Value<bool>(), Is.True);
+            Assert.That(doc["progress"], Is.Null);
         }
 
-        // ------------------------------------------------------------------ the nodes later work packages own
+        // ------------------------------------------------------------------ every kind of node has its door
 
         [Test]
-        public void ANodeWhoseRulesAreALaterPackageIsAnsweredNotYetPorted()
+        public void EveryKindOfNodeOpensItsDoorAndNoneIsAnsweredNotYetPorted()
         {
-            var session = New(99);
             var seen = new HashSet<string>();
-            session.EditRunForReview(r => { r["maxHp"] = 100000; r["hp"] = 100000; });
-            for (var guard = 0; guard < 200 && !session.RunOver && seen.Count < 2; guard++)
+            foreach (var seed in new uint[] { 99, 5, 17, 2026, 31337, 8 })
             {
-                if (session.IsInCombat) { FightToTheEnd(session); continue; }
-                if (session.HasPendingReward) { session.DismissPort(); continue; }
-                var graph = session.Run.Obj("mapGraph").Obj("nodes");
-                var node = session.ReachableNodes().FirstOrDefault(id => graph.Obj(id).Value<string>("type") != "monster" && graph.Obj(id).Value<string>("type") != "boss" && graph.Obj(id).Value<string>("type") != "elite") ?? session.ReachableNodes()[0];
-                var result = session.Travel(node);
-                if (!result.NotYetPorted) continue;
-                seen.Add(result.Door.Kind);
-                Assert.That(session.Location, Is.EqualTo(result.Door.Kind == "shop" ? "merchant" : result.Door.Kind == "rest" ? "rest" : "map"), "the run stands at the node and goes on");
-                Assert.That(session.PendingPort, Is.EqualTo(result.Door.Kind));
-                Assert.That(session.Run.Value<string>("mapNodeId"), Is.EqualTo(node));
-                session.DismissPort();
-                Assert.That(session.PendingPort, Is.Null);
+                var session = New(seed);
+                session.EditRunForReview(r => { r["maxHp"] = 100000; r["hp"] = 100000; });
+                for (var guard = 0; guard < 200 && !session.RunOver && seen.Count < 5; guard++)
+                {
+                    if (session.IsInCombat) { FightToTheEnd(session); continue; }
+                    if (session.HasPendingReward) { session.DismissPort(); continue; }
+                    var graph = session.Run.Obj("mapGraph").Obj("nodes");
+                    var node = session.ReachableNodes().FirstOrDefault(id => graph.Obj(id).Value<string>("type") != "monster" && graph.Obj(id).Value<string>("type") != "boss" && graph.Obj(id).Value<string>("type") != "elite") ?? session.ReachableNodes()[0];
+                    var result = session.Travel(node);
+                    Assert.That(result.NotYetPorted, Is.False, "the " + result.Door.Kind + " node has its rules");
+                    Assert.That(session.PendingPort, Is.Not.EqualTo("treasure").And.Not.EqualTo("event"));
+                    seen.Add(result.Door.Kind);
+                    var expected = result.Door.Kind == "shop" ? "merchant" : result.Door.Kind == "rest" ? "rest" : result.Door.Kind == "treasure" ? "rewards" : result.Door.Kind == "event" ? "event" : "combat";
+                    Assert.That(session.Location, Is.EqualTo(expected), "the run stands at the node's door");
+                    Assert.That(session.Run.Value<string>("mapNodeId"), Is.EqualTo(node));
+                    session.DismissPort();
+                    Assert.That(session.PendingPort, Is.Null);
+                    if (session.IsInCombat) FightToTheEnd(session);
+                }
+                if (seen.Count == 5) break;
             }
-            Assert.That(seen, Is.Not.Empty, "a climb meets a rest, shop, treasure or event");
+            Assert.That(seen, Is.SupersetOf(new[] { "rest", "shop", "treasure", "event" }), "a climb meets a rest, shop, treasure and event");
         }
 
         // ------------------------------------------------------------------ save and resume

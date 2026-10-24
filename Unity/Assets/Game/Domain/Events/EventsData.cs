@@ -32,6 +32,13 @@ namespace Ashen.Domain.Events
         }
 
         public ShopData Shop { get; }
+
+        /// <summary>
+        /// What a Core 2 run's events read beyond the registries (WP-19): the Core 2 rewards data, whose Smith plans and commits an <c>upgradeCard</c> response on a configured
+        /// run (the web's <c>candidate.core</c> branch of runRunOpcode). Null for the 405 content, which keeps the legacy smith.
+        /// </summary>
+        public Core2RewardsData Core { get; set; }
+
         public RewardsData Rewards => Shop.Rewards;
         public RunData Run => Shop.Run;
         public CombatData Combat => Shop.Combat;

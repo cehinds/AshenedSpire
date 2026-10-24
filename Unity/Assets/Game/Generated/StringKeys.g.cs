@@ -219,6 +219,9 @@ namespace Ashen.Generated
         public const string Core2EquipmentEmpty = "core2.equipment.empty";
         public const string Core2EquipmentSet = "core2.equipment.set";
         public const string Core2ErrorUnexpected = "core2.error.unexpected";
+        public const string Core2EventCannotAfford = "core2.event.cannotAfford";
+        public const string Core2EventContinueReason = "core2.event.continueReason";
+        public const string Core2EventEyebrow = "core2.event.eyebrow";
         public const string Core2FxActionAttack = "core2.fx.action.attack";
         public const string Core2FxActionCounter = "core2.fx.action.counter";
         public const string Core2FxActionFlask = "core2.fx.action.flask";

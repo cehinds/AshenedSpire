@@ -1,0 +1,25 @@
+{
+  "comment": "Keys, values and messages of the Core 2 run loop (WP-19, docs/design/11): the web sentence of the class swap a configured profile refuses, the event door's own refusals, the finished run's record keys and the loop oracle's step vocabulary.",
+  "keySets": [
+    {
+      "name": "Core2LoopKeys",
+      "doc": "Keys of a finished Core 2 run's record (web model/runCompletion.js completedRunMeta): the finish id and the pinned profile's id and hash beside the record in the profile's history.",
+      "keys": {
+        "FinishId": "finishId",
+        "GameProfileId": "gameProfileId",
+        "GameProfileHash": "gameProfileHash"
+      }
+    },
+    {
+      "name": "Core2LoopMessages",
+      "doc": "The web's class-swap refusal under a configured profile (model/classSwap.js) and the event door's own refusals.",
+      "keys": {
+        "ConfiguredClassFixed": "Configured classes stay fixed for the run; choose an unlocked class when starting a new run",
+        "NoEventOpen": "There is no event open",
+        "EventAnswered": "The event has been answered",
+        "NoResponseTaken": "Choose a response first.",
+        "NoAffordableResponse": "Event '{0}' has no response the purse can pay"
+      }
+    }
+  ]
+}

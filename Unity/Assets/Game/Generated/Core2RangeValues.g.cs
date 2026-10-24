@@ -28,5 +28,6 @@ namespace Ashen.Generated
         public const string TagRange = "range:";
         public const string TargetPendingAttacker = "pendingAttacker";
         public const string TypeStatus = "status";
+        public const string TypeCurse = "curse";
     }
 }

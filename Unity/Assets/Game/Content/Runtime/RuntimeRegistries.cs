@@ -279,10 +279,24 @@ namespace Ashen.Content
                 DomainRegistry(RegistryKeys.Events), DomainRegistry(EventKeys.Speakers),
                 (JObject)_events[EventKeys.EventMeta].DeepClone(), (JObject)_events[EventKeys.ChoiceRequirements].DeepClone(), eventsEngine);
 
+        /// <summary>
+        /// The event door's view for a Core 2 run (WP-19): the events, speakers and per-choice requirements of these registries over the Core 2 rewards data's Smith (the web runs
+        /// the same event code on the profile's registries), with rules/eventsEngine.json.
+        /// </summary>
+        public Ashen.Domain.Events.EventsData ToCoreEventsData(Ashen.Domain.Rewards.Core2RewardsData core, JObject eventsEngine) =>
+            new Ashen.Domain.Events.EventsData(core.Smith, DomainRegistry(RegistryKeys.Events), DomainRegistry(EventKeys.Speakers),
+                (JObject)_events[EventKeys.EventMeta].DeepClone(), (JObject)_events[EventKeys.ChoiceRequirements].DeepClone(), eventsEngine) { Core = core };
+
         /// <summary>The event documents: catalog/eventMeta.json and catalog/eventChoiceRequirements.json (empty objects when absent).</summary>
         private static JObject EventDocuments(ContentSet content, bool core2)
         {
-            JObject Get(string file) => content.Contains(RegistryBundle.FileFor(file, core2)) && content.Get(RegistryBundle.FileFor(file, core2)) is JObject o ? (JObject)o.DeepClone() : new JObject();
+            // The profile bundle does not carry the per-choice history gates (content/events.js sidecar); the shared catalog file is the same document at the pinned web sha.
+            JObject Get(string file)
+            {
+                var path = RegistryBundle.FileFor(file, core2);
+                if (!content.Contains(path)) path = file;
+                return content.Contains(path) && content.Get(path) is JObject o ? (JObject)o.DeepClone() : new JObject();
+            }
             return new JObject
             {
                 [EventKeys.EventMeta] = Get(ContentFiles.CatalogEventMeta),

@@ -64,14 +64,14 @@ namespace Ashen.App.Run
     {
         public string Refusal;
 
-        /// <summary>The door: a fight (with its encounter), or a rest place, shop, treasure room or event whose screens are not part of this build yet.</summary>
+        /// <summary>The door: a fight (with its encounter), or a rest place, shop, treasure room or event.</summary>
         public Core2Door Door;
 
         public string Location;
 
         public bool Travelled => Refusal == null;
 
-        /// <summary>The node opened a place that has no screen yet (a rest place, shop, treasure room or event): the notice with Continue (<see cref="Core2RunSession.DismissPort"/>) stands in for it.</summary>
+        /// <summary>Every node kind of a Core 2 map has its rules now (WP-19), so this is always false; kept for the screens written while the nodes were answered "not yet ported".</summary>
         public bool NotYetPorted;
     }
 
@@ -116,7 +116,7 @@ namespace Ashen.App.Run
     /// A Core 2 run as the application plays it (docs/design/11 WP-C1a, D-302; the pattern of <see cref="RunSession"/>, which stays the 405 path): <see cref="New"/> makes the
     /// run through the Core 2 profile (<see cref="CoreRunRules.Create"/>, the seat order, the first act's map by <see cref="CoreRoutes"/>) and commits it at the act map. From the map the
     /// player travels to a reachable node (<see cref="Travel"/>, main.js enterNode): a fight rolls its encounter and starts a <see cref="Core2CombatSession"/> on the run's own
-    /// random streams; a rest place, shop, treasure room or event is answered "not yet ported" (the run stands there and goes on). Every combat intent goes through the session
+    /// random streams; a rest place, shop, treasure room or event opens its door (WP-16 to WP-19). Every combat intent goes through the session
     /// (legality first, rollback on failure) and is autosaved as rules/runFlow.json says; the intent that ends the fight writes it back to the run (runCombatEnd) and returns to
     /// the map, a death or the last act's boss closes the run out into the profile and clears the slot. The save is the Core 2 document (format 3, the profile pinned): it
     /// resumes at the map or in the middle of a fight, under the profile it pinned. Engine-free.
@@ -175,8 +175,11 @@ namespace Ashen.App.Run
         /// <summary>The classes the run's close-out opened (the profile's class ledger), once it is over.</summary>
         public IReadOnlyList<string> ClassesUnlocked { get; private set; } = Array.Empty<string>();
 
-        /// <summary>The kind of node the run stands at whose rules are not part of this build ('rest', 'shop', 'treasure', 'event'), until the player moves on; or null.</summary>
-        public string PendingPort => HasOpenShop ? HV.DoorShop : IsResting ? HV.DoorRest : _pendingPort;
+        /// <summary>
+        /// The kind of node the run stands at whose door has no screen yet ('rest', 'shop', 'event' while it is open), until the player moves on; or null. Every node's rules are part of the
+        /// build (WP-19): the act map's notice (<see cref="DismissPort"/> takes the stand-in action) is the placeholder until the screen of that door is registered.
+        /// </summary>
+        public string PendingPort => HasOpenShop ? HV.DoorShop : IsResting ? HV.DoorRest : _eventId != null ? HV.DoorEvent : _pendingPort;
 
         /// <summary>Where the run stands and a save resumes: 'combat', 'map', or 'runEnd' once the run is over (never saved: the slot is cleared).</summary>
         public string Location
@@ -188,11 +191,15 @@ namespace Ashen.App.Run
                 if (HasPendingReward) return RunFlowValues.LocationRewards;
                 if (HasOpenShop) return RunFlowValues.LocationMerchant;
                 if (IsResting) return RunFlowValues.LocationRest;
+                if (_eventId != null) return RunFlowValues.LocationEvent;
                 return _location;
             }
         }
 
         public JObject Run => (JObject)_run.DeepClone();
+
+        /// <summary>The run's random streams as they stand now, by name (a fight in progress draws on its own state's generator): what the oracle's <c>counters</c> hold.</summary>
+        public IReadOnlyDictionary<string, uint> StreamCounters => (IsInCombat ? Combat.State.Rng : _rng).AllCounters();
 
         public ProfileStore Profile => _profile ??= ProfileStore.Load(Saves);
 
@@ -281,8 +288,8 @@ namespace Ashen.App.Run
         }
 
         /// <summary>
-        /// Travel to a reachable node (main.js enterNode): the path bookkeeping, then the node's door — a fight rolls its encounter and starts on the run's streams; any other
-        /// node is "not yet ported" (the run stands at it). Saved at once; a failure restores the run and rethrows.
+        /// Travel to a reachable node (main.js enterNode): the path bookkeeping, then the node's door — a fight rolls its encounter and starts on the run's streams; a rest place, shop, treasure room
+        /// or event opens its own door (the run stands at it). Saved at once; a failure restores the run and rethrows.
         /// </summary>
         public Core2TravelResult Travel(string nodeId)
         {
@@ -296,8 +303,10 @@ namespace Ashen.App.Run
                 if (door.IsFight) BeginFight(door);
                 else if (door.Kind == HV.DoorShop) EnterShop(door);
                 else if (door.Kind == HV.DoorRest) EnterRest(door);
+                else if (door.Kind == HV.DoorTreasure) EnterTreasure(door);
+                else if (door.Kind == HV.DoorEvent) EnterEvent(door);
                 Save();
-                return new Core2TravelResult { Door = door, Location = Location, NotYetPorted = !door.IsFight && PendingPort != null };
+                return new Core2TravelResult { Door = door, Location = Location };
             }
             catch
             {
@@ -315,6 +324,12 @@ namespace Ashen.App.Run
             _pendingPort = null;
             if (HasOpenShop) LeaveShop();
             if (IsResting) LeaveRest();
+            if (_eventId != null)
+            {
+                // A player with no event screen takes the first response the purse can pay and goes on (a fight it starts is entered).
+                if (!_eventDone) ChooseEvent(EventStandInChoice());
+                FinishEvent();
+            }
             // Every step reads the notices or spends a level offer, so the loop ends; a refusal ends it too.
             while (HasPendingReward)
             {
@@ -499,10 +514,10 @@ namespace Ashen.App.Run
         /// <summary>The run is over (a death or the summit): the profile holds its record and the class ledger moved, the slot is cleared.</summary>
         private void CloseOut(bool victory)
         {
-            var ctx = new LoopContext(Content.Loop, _run, _rng, Profile.Doc);
-            var end = RunEnd.Finish(ctx, victory);
-            ClassesUnlocked = CoreRunRules.CompletedRun(Core.Combat.Run, Profile.Doc, victory, _run.Str(Ashen.Generated.Core2RunKeys.RunId));
-            FinishRun(end);
+            // finishRun: the run's record and the profile's unlock ledger, as a configured run writes them (Core2RunEnd).
+            var closed = Core2RunEnd.Finish(Core.Rewards, Core.Loop, _run, Profile.Doc, victory);
+            ClassesUnlocked = closed.ClassesUnlocked;
+            FinishRun(closed.Receipt, closed.Recorded);
         }
 
         /// <summary>W-20 Abandon run: the run ends here, recorded as abandoned (it counts as a run, earns no unlock), the profile is saved and the slot cleared.</summary>
@@ -510,13 +525,13 @@ namespace Ashen.App.Run
         {
             if (RunOver) return End;
             var end = RunEnd.Abandon(new LoopContext(Content.Loop, _run, _rng, Profile.Doc));
-            FinishRun(end);
+            FinishRun(end, true);
             return end;
         }
 
         public bool Abandoned => End?.Result?.Is(MetaKeys.Abandoned) == true;
 
-        private void FinishRun(RunEndReceipt end)
+        private void FinishRun(RunEndReceipt end, bool recorded)
         {
             var extra = new JObject();
             if (!(end.Result?.Is(MetaKeys.Abandoned) ?? false) && EncounterId != null && Core.Loop.Map.Encounters.Has(EncounterId))
@@ -528,7 +543,7 @@ namespace Ashen.App.Run
                 extra[MetaKeys.ProfileHash] = pin[Core2ProfileKeys.Hash]?.DeepClone();
             }
             extra[MetaKeys.Deck] = new JArray(Js.Items(_run[K.Deck]).OfType<JObject>().Select(c => Js.Obj(MetaKeys.CardId, c[K.CardId]?.DeepClone(), MetaKeys.Upgraded, c.Is(K.Upgraded))));
-            if (Profile.Doc[LK.Results] is JArray results && results.Count > 0 && results[results.Count - 1] is JObject newest) newest.Merge(extra);
+            if (recorded && Profile.Doc[LK.Results] is JArray results && results.Count > 0 && results[results.Count - 1] is JObject newest) newest.Merge(extra);
             end.Result?.Merge(extra);
             End = end;
             RunOver = true;
@@ -597,12 +612,15 @@ namespace Ashen.App.Run
             public bool FightFinished;
             public Core2FightEnd LastEnd;
             public string PendingPort;
+            public string EventId;
+            public bool EventDone;
+            public Core2EventResult EventResult;
         }
 
         private SessionSnapshot Snapshot() => new SessionSnapshot
         {
             Run = (JObject)_run.DeepClone(), Profile = Profile.Snapshot(), Rng = _rng?.Clone(), Location = _location, EncounterId = EncounterId, Combat = Combat,
-            FightFinished = FightFinished, LastEnd = LastEnd, PendingPort = _pendingPort,
+            FightFinished = FightFinished, LastEnd = LastEnd, PendingPort = _pendingPort, EventId = _eventId, EventDone = _eventDone, EventResult = _eventResult,
         };
 
         private void Restore(SessionSnapshot s)
@@ -616,6 +634,9 @@ namespace Ashen.App.Run
             FightFinished = s.FightFinished;
             LastEnd = s.LastEnd;
             _pendingPort = s.PendingPort;
+            _eventId = s.EventId;
+            _eventDone = s.EventDone;
+            _eventResult = s.EventResult;
         }
 
         // ------------------------------------------------------------------ save
@@ -643,7 +664,8 @@ namespace Ashen.App.Run
                 [RunSaveKeys.Playtime] = PlaytimeSeconds,
                 [RunSaveKeys.Run] = _run.DeepClone(),
             };
-            if (Location != null) payload[RunSaveKeys.Location] = Location;
+            // An event is not kept by a save (the web persists at the node and resumes at the map): the save stands at the map.
+            if (Location != null) payload[RunSaveKeys.Location] = Location == RunFlowValues.LocationEvent ? RunFlowValues.LocationMap : Location;
             if (EncounterId != null) payload[RunSaveKeys.EncounterId] = EncounterId;
             if (_pendingPort != null) payload[HK.PendingPort] = _pendingPort;
             if (IsInCombat) payload[RunSaveKeys.Combat] = Combat.Checkpoint();
