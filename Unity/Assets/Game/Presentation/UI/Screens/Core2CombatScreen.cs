@@ -28,6 +28,7 @@ namespace Ashen.Presentation.UI.Screens
     {
         private readonly Dictionary<string, Fighter> _enemies = new Dictionary<string, Fighter>(StringComparer.Ordinal);
         private readonly List<LocButton> _options = new List<LocButton>();
+        private readonly List<string> _handIds = new List<string>();
         private Core2RunSession _run;
         private Core2CombatFlow _flow;
         private Fighter _player;
@@ -229,6 +230,8 @@ namespace Ashen.Presentation.UI.Screens
             var components = Ui.Data.Components;
             var cards = View.Hand.Select(CardData).ToList();
             _hand.SetCards(cards, components.DegreesPerCard, components.MaxSpread, components.ScrollAfter);
+            _handIds.Clear();
+            _handIds.AddRange(View.Hand.Select(c => c.InstanceId));
             var tipDelay = Ui.Data.Tokens.Duration(TokenKeys.TooltipDelay);
             for (var i = 0; i < _hand.Cards.Count; i++)
             {
@@ -482,7 +485,9 @@ namespace Ashen.Presentation.UI.Screens
                 if (step.Error != null) Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.Core2StepFailed, step.Error));
                 if (step.Refusal != null)
                 {
+                    var slot = SlotOf(anchor);
                     Render();
+                    anchor = Live(anchor, slot);
                     Refuse(anchor, step.Refusal);
                     return;
                 }
@@ -500,6 +505,27 @@ namespace Ashen.Presentation.UI.Screens
                 Unlock();
                 Refuse(anchor, Strings.Get(StringKeys.Core2ErrorUnexpected));
             }
+        }
+
+        /// <summary>Where a pressed control sits before a redraw replaces it: its card's instance id in the hand, or its position in the prompt's options.</summary>
+        private (string Card, int Option) SlotOf(VisualElement anchor)
+        {
+            var card = anchor as KitCard;
+            var c = card == null ? -1 : _hand.Cards.ToList().IndexOf(card);
+            return (c >= 0 && c < _handIds.Count ? _handIds[c] : null, anchor is LocButton b ? _options.IndexOf(b) : -1);
+        }
+
+        /// <summary>The control a redraw left in place of the pressed one (same card, same option), else its stable parent, so a refusal and focus never land on a detached element.</summary>
+        private VisualElement Live(VisualElement anchor, (string Card, int Option) slot)
+        {
+            if (anchor == null || anchor.panel != null) return anchor;
+            if (slot.Card != null)
+            {
+                var i = View.Hand.FindIndex(c => c.InstanceId == slot.Card);
+                return i >= 0 && i < _hand.Cards.Count ? _hand.Cards[i] : _hand;
+            }
+            if (slot.Option >= 0) return slot.Option < _options.Count ? _options[slot.Option] : Root.Q(UiNames.PromptList);
+            return Root.Q(UiNames.PromptList);
         }
 
         /// <summary>Drops the enemy-turn lock and redraws from the flow's current view (each step guarded: a throwing redraw is logged, never left half done).</summary>

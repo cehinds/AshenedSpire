@@ -484,6 +484,15 @@ namespace Ashen.App.Combat
                 ReactionsEnabled = player && !(entity[Ashen.Generated.Core2SnapshotKeys.ReactionsEnabled] != null && !entity.Is(Ashen.Generated.Core2SnapshotKeys.ReactionsEnabled)),
             };
             if (!player && f.Alive) f.Intent = ReadIntent(c, entity);
+            // An enemy whose move the player has not read keeps its stance and armed Counter private: they would give the move away (the web shows only the broad family).
+            if (f.Intent != null && !f.Intent.Known)
+            {
+                f.StanceManeuver = null;
+                f.StanceName = null;
+                f.StanceCamp = null;
+                f.StanceRange = null;
+                f.Counter = null;
+            }
             return f;
         }
 

@@ -104,7 +104,8 @@ namespace Ashen.Tests
                 Assert.That(v.Block, Is.EqualTo(e.Value<double>("block")), at + " " + v.Id + " block");
                 Assert.That(v.Poise.Value, Is.EqualTo(e["persistentPoise"]["value"].Value<double>()), at + " " + v.Id + " poise");
                 Assert.That(v.Evade, Is.EqualTo(Stacks(e["statuses"], "evade")), at + " " + v.Id + " evade");
-                Assert.That(v.StanceManeuver, Is.EqualTo(e["combatStance"]?["maneuver"]?.Value<string>()), at + " " + v.Id + " stance");
+                if (v.Intent == null || v.Intent.Known) Assert.That(v.StanceManeuver, Is.EqualTo(e["combatStance"]?["maneuver"]?.Value<string>()), at + " " + v.Id + " stance");
+                else { Assert.That(v.StanceManeuver, Is.Null, at + " an unread enemy shows no stance"); Assert.That(v.StanceName, Is.Null); Assert.That(v.StanceCamp, Is.Null); Assert.That(v.StanceRange, Is.Null); Assert.That(v.Counter, Is.Null, at + " nor a counter"); }
                 Assert.That(v.Staggered, Is.EqualTo(e["combatStance"]?["staggered"]?.Value<bool>() ?? false), at + " " + v.Id + " staggered");
                 Assert.That(v.Name, Is.Not.Empty);
                 if (!v.Alive) { Assert.That(v.Intent, Is.Null, at + " the dead show no intent"); continue; }
