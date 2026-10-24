@@ -118,5 +118,10 @@ namespace Ashen.Generated
         public const string RunEndStat = "runend-stat";
         public const string RunEndCard = "runend-card-name";
         public const string RunEndUnlock = "runend-unlock";
+        public const string PromptOption = "prompt-option";
+        public const string PromptOptionSelected = "prompt-option--selected";
+        public const string PromptOptionDisabled = "prompt-option--disabled";
+        public const string LogLine = "log-line";
+        public const string LogLineNewest = "log-line--newest";
     }
 }

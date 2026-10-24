@@ -68,18 +68,12 @@ namespace Ashen.Presentation.Audio
         {
             if (_host == null || _director == null) return;
             var ui = _host.Context;
-            var session = ui.Session;
+            var session = ui.Climb;
             string context;
             if (session == null || _host.Navigator.CurrentId == ScreenIds.Title) context = _director.ContextFor(MK.Title);
             else if (session.RunOver) context = _director.RunEndContext(session.End?.Victory ?? false);
             else if (session.ProloguePending) context = _director.ContextFor(MK.Prologue);
-            else
-            {
-                string pool = null;
-                if (session.EncounterId != null && session.Content.Data.Encounters.Has(session.EncounterId))
-                    pool = session.Content.Data.Encounters.Get(session.EncounterId).Str(MK.Pool);
-                context = _director.ContextFor(session.Location, pool);
-            }
+            else context = _director.ContextFor(session.Location, session.EncounterPool);
             var choice = _director.Choose(context, session?.Act ?? 0);
             if (choice.SameAs(_playing)) return;
             _playing = choice;

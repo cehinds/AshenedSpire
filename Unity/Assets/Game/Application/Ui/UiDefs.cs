@@ -289,6 +289,13 @@ namespace Ashen.App.Ui
         public string CardRefusalTooltip;
         public int StatusChips;
 
+        /// <summary>ui/components.json combat.logLines: the lines of the combat log the Core 2 screen shows.</summary>
+        public int LogLines;
+
+        /// <summary>ui/components.json fighter: the rating rows of a Core 2 fighter top to bottom (Evade, Poise, Ward, Block, HP) and the statuses its stack chips already show.</summary>
+        public IReadOnlyList<string> FighterRatings = Array.Empty<string>();
+        public IReadOnlyList<string> FighterStackStatuses = Array.Empty<string>();
+
         /// <summary>W-08 row icons (ui/components.json rewards): relic ({id}), armament and flask ({art}) registry-id templates, and the flask artKey prefix removed first.</summary>
         public string RewardRelicArt;
         public string RewardArmamentArt;
@@ -334,6 +341,9 @@ namespace Ashen.App.Ui
                 EnemyArt = (string)combat[UiKeys.Enemy],
                 CardRefusalTooltip = (string)json[UiKeys.Card]?[UiKeys.RefusalTooltip],
                 StatusChips = (int?)json[UiKeys.Combatant]?[UiKeys.StatusChips] ?? 0,
+                LogLines = (int?)combat[UiKeys.LogLines] ?? 0,
+                FighterRatings = ScreenRegistry.Strings(json[UiKeys.Fighter]?[UiKeys.Ratings]),
+                FighterStackStatuses = ScreenRegistry.Strings(json[UiKeys.Fighter]?[UiKeys.StackStatuses]),
                 ArtInclude = ScreenRegistry.Strings(json[UiKeys.Art]?[UiKeys.Include]),
                 MeterKinds = ScreenRegistry.Strings(json[UiKeys.Meter]?[UiKeys.Kinds]),
                 TooltipSizes = ScreenRegistry.Strings(json[UiKeys.Tooltip]?[UiKeys.Sizes]),

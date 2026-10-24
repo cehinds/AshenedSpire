@@ -150,6 +150,10 @@
     --size-card-narrow-w: 112px;
     --size-card-narrow-h: 180px;
     --size-flask-panel-w: 320px;
+    --size-prompt-w: 440px;
+    --size-prompt-list-h: 320px;
+    --size-log-w: 300px;
+    --size-log-h: 150px;
     --size-end-panel-w: 50%;
     --size-end-panel-narrow-w: 92%;
     --size-end-panel-min-h: 260px;

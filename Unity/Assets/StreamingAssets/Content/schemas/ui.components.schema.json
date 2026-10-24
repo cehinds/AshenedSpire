@@ -47,6 +47,27 @@
     "comment": {
       "type": "string"
     },
+    "fighter": {
+      "type": "object",
+      "properties": {
+        "ratings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stackStatuses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "ratings",
+        "stackStatuses"
+      ]
+    },
     "handFan": {
       "type": "object",
       "properties": {
@@ -116,6 +137,9 @@
         },
         "enemy": {
           "type": "string"
+        },
+        "logLines": {
+          "type": "integer"
         }
       },
       "required": [
@@ -235,6 +259,7 @@
     "combat",
     "combatant",
     "comment",
+    "fighter",
     "handFan",
     "meter",
     "rewards",

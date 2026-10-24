@@ -180,6 +180,9 @@ namespace Ashen.App.Combat
         /// <summary>The stance choices the card offers (empty when it has none).</summary>
         public List<string> Choices = new List<string>();
 
+        /// <summary>The name of each stance choice (its stance row's name, else the choice itself).</summary>
+        public Dictionary<string, string> ChoiceNames = new Dictionary<string, string>();
+
         /// <summary>Why the card cannot be played now (the rules' words), or null.</summary>
         public string Refusal;
 
@@ -605,6 +608,7 @@ namespace Ashen.App.Combat
             };
             foreach (var tag in Js.Items(def[CK.CardTags] ?? def[K.Tags])) card.Tags.Add(Js.IsStr(tag) ? Js.Str(tag) : Js.Str(Js.Get(tag, K.Id)));
             card.Choices = Try(() => CoreCardPlay.ChoiceOptions(def)) ?? new List<string>();
+            foreach (var choice in card.Choices) card.ChoiceNames[choice] = c.Data.Stances.Has(choice) ? c.Data.Stances.Get(choice).Str(K.Name) ?? choice : choice;
             card.Plays = legal.Where(l => l.Str(RK.CardInstanceId) == id && l.Str(K.Type) == RV.IntentPlayCard).ToList();
             card.Playable = card.Plays.Count > 0;
 

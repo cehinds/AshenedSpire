@@ -19,5 +19,6 @@ namespace Ashen.Generated
         public const string RestResumeDrift = "run: the rest place re-opened on other stream counters than the save holds; it resumed on the saved counters";
         public const string NoEventChoice = "run: event '{0}' offers no open choice";
         public const string UnknownRuleset = "run: unknown ruleset '{0}'";
+        public const string ClassLocked = "run: class '{0}' is still locked in the profile";
     }
 }

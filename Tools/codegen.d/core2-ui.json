@@ -1,0 +1,40 @@
+{
+  "comment": "Names the Core 2 combat and map screens keep in code (WP-C1b, docs/design/11): the prompt kinds of the combat flow, the focus mode and option ids of ui/screens.json, and the string-key templates of the Core 2 view texts.",
+  "keySets": [
+    {
+      "name": "Core2UiValues",
+      "doc": "Values of the Core 2 combat flow and screens (ui/screens.json focus modes, prompt kinds).",
+      "keys": {
+        "PromptChoice": "choice",
+        "PromptRoute": "route",
+        "PromptOffer": "offer",
+        "PromptCards": "cards",
+        "PromptFlasks": "flasks",
+        "PromptEquipment": "equipment",
+        "PromptChange": "change",
+        "PromptPredict": "predict",
+        "FocusPrompt": "prompt",
+        "OptionChange": "change",
+        "OptionEmptyHand": "empty",
+        "IntentUnknown": "unknown",
+        "RatingEvade": "evade",
+        "RatingPoise": "poise",
+        "RatingWard": "ward",
+        "RatingBlock": "block",
+        "RatingHp": "hp",
+        "CostStamina": "stamina",
+        "CostMana": "mana"
+      }
+    },
+    {
+      "name": "Core2UiFormats",
+      "doc": "String-key templates of the Core 2 screens (strings/app.en.json).",
+      "keys": {
+        "ManeuverKey": "core2.maneuver.{0}",
+        "RouteKey": "core2.route.{0}",
+        "PortTitleKey": "core2.port.{0}.title",
+        "PortBodyKey": "core2.port.{0}.body"
+      }
+    }
+  ]
+}

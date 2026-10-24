@@ -35,6 +35,7 @@ namespace Ashen.Presentation.UI.Screens
         private readonly List<LocButton> _tiles = new List<LocButton>();
         private IReadOnlyList<string> _classes = new string[0];
         private RunContent _content;
+        private CreationClasses _rules;
         private Shell _shell;
         private Workspace _workspace;
         private int _slot = 1;
@@ -47,7 +48,8 @@ namespace Ashen.Presentation.UI.Screens
         {
             _slot = (args as CreationArgs)?.SlotIndex ?? _slot;
             _content = Ui.RunContent;
-            _classes = _content.ClassIds;
+            _rules = CreationClasses.For(_content, RunFlow.NewRuleset(Ui), ProfileStore.Load(Ui.Saves).Doc);
+            _classes = _rules.Ids;
             _shell = Root.Q<Shell>(UiNames.Shell);
             _shell.SetFooter(StringKeys.CreationBack, StringKeys.CreationBegin);
             _shell.Exit += () => Nav.Pop();
@@ -64,13 +66,13 @@ namespace Ashen.Presentation.UI.Screens
                 portrait.AddToClassList(UiClasses.ClassTilePortrait);
                 Ui.ApplyBackground(portrait, _content.Portrait(id));
                 tile.Insert(0, portrait);
-                tile.EnableInClassList(UiClasses.ClassTileProblem, _content.ClassProblem(id) != null);
+                tile.EnableInClassList(UiClasses.ClassTileProblem, _rules.Problem(id) != null);
                 var captured = id;
                 tile.clicked += () => ViewModel.Selected = captured;
                 list.Add(tile);
                 _tiles.Add(tile);
             }
-            ViewModel.Selected = _content.DefaultClass();
+            ViewModel.Selected = _rules.Default();
             ViewModel.Observe(Render);
             var index = _classes.ToList().IndexOf(ViewModel.Selected);
             Context.Instance.LastFocused = index >= 0 ? (VisualElement)_tiles[index] : _shell.PrimaryButton;
@@ -86,8 +88,8 @@ namespace Ashen.Presentation.UI.Screens
             {
                 var on = _classes[i] == selected;
                 _tiles[i].EnableInClassList(UiClasses.Selected, on);
-                _tiles[i].SetResolved(strings.Format(StringKeys.CreationTile, new StringArgs()
-                    .Add(UiPlaceholders.Mark, strings.Get(on ? StringKeys.GlyphRadioOn : StringKeys.GlyphRadioOff)).Add(UiPlaceholders.Name, ClassName(_classes[i]))));
+                var mark = new StringArgs().Add(UiPlaceholders.Mark, strings.Get(on ? StringKeys.GlyphRadioOn : StringKeys.GlyphRadioOff)).Add(UiPlaceholders.Name, ClassName(_classes[i]));
+                _tiles[i].SetResolved(strings.Format(_rules.Locked(_classes[i]) ? StringKeys.Core2CreationTileLocked : StringKeys.CreationTile, mark));
             }
             _workspace?.SetCategories(Ui.Data.Menus.CreationPanes.Select(p => new CategoryItem
             {
@@ -101,7 +103,7 @@ namespace Ashen.Presentation.UI.Screens
             if (figure != null) Ui.ApplyBackground(figure, selected != null ? _content.Portrait(selected) : null);
             Root.Q<LocLabel>(UiNames.ClassName)?.SetResolved(ClassName(selected));
             Root.Q<LocLabel>(UiNames.ClassSummary)?.SetResolved(selected == null ? string.Empty : strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.ClassDescriptionKey, selected)));
-            var preview = selected != null ? _content.Preview(selected) : null;
+            var preview = selected != null ? _rules.Preview(selected) : null;
             var stats = preview == null ? string.Empty : string.Join(strings.Get(StringKeys.CreationStatJoin), preview.Attributes.Select(a => strings.Format(StringKeys.CreationStat, new StringArgs()
                 .Add(UiPlaceholders.Name, strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.AttributeShortKey, a.Key))).Add(UiPlaceholders.Value, (int)a.Value))));
             Line(UiNames.ClassStats, stats);
@@ -109,7 +111,7 @@ namespace Ashen.Presentation.UI.Screens
                 .Add(UiPlaceholders.Hp, (int)preview.MaxHp).Add(UiPlaceholders.Mp, (int)preview.MaxMana).Add(UiPlaceholders.Sp, (int)preview.MaxStamina).Add(UiPlaceholders.Actions, (int)preview.Actions)));
             Line(UiNames.ClassFlasks, preview == null ? string.Empty : strings.Format(StringKeys.CreationFlasks, new StringArgs()
                 .Add(UiPlaceholders.Hp, (int)preview.HpFlasks).Add(UiPlaceholders.Mp, (int)preview.ManaFlasks)));
-            var problem = selected == null || _content.ClassProblem(selected) != null;
+            var problem = selected == null || _rules.Problem(selected) != null;
             UiDom.Show(Root.Q(UiNames.ClassProblem), selected != null && problem);
             _shell.PrimaryButton?.EnableInClassList(UiClasses.ButtonReady, !problem);
         }
@@ -126,11 +128,11 @@ namespace Ashen.Presentation.UI.Screens
         {
             var selected = ViewModel.Selected;
             if (selected == null) { RunFlow.Refuse(Context, anchor, StringKeys.CreationRefusalNoClass); return; }
-            var problem = _content.ClassProblem(selected);
+            var problem = _rules.Problem(selected);
             if (problem != null)
             {
                 Debug.LogWarning(string.Format(CultureInfo.InvariantCulture, UiMessages.ClassRefused, selected, problem));
-                RunFlow.Refuse(Context, anchor, StringKeys.CreationProblem);
+                RunFlow.Refuse(Context, anchor, _rules.Locked(selected) ? StringKeys.Core2CreationLocked : StringKeys.CreationProblem);
                 return;
             }
             var slot = SlotSummaries.ReadOne(Ui.Saves, _slot);
@@ -150,9 +152,10 @@ namespace Ashen.Presentation.UI.Screens
 
         private void StartRun()
         {
-            var session = RunSession.New(_content, Ui.Saves, _slot, RunFlow.NewSeed(), ViewModel.Selected, Ui.Data.Strings.Get(_content.Flow.NameKey), null, RunFlow.CustomOverride);
-            Ui.Session = session;
-            Nav.Fire(ScreenTriggers.Begin, new RunScreenArgs { Session = session });
+            var hosted = RunHost.Start(_content, Ui.Saves, _slot, RunFlow.NewSeed(), ViewModel.Selected, Ui.Data.Strings.Get(_content.Flow.NameKey), null, null, RunFlow.CustomOverride, RunFlow.NewRuleset(Ui));
+            Ui.Session = hosted.Legacy;
+            Ui.Core2Session = hosted.Core2;
+            Nav.Fire(ScreenTriggers.Begin, hosted.IsCore2 ? (object)new Core2RunArgs { Session = hosted.Core2 } : new RunScreenArgs { Session = hosted.Legacy });
         }
     }
 }

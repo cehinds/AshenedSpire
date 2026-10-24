@@ -97,7 +97,7 @@ namespace Ashen.App.Run
     /// the map, a death or the last act's boss closes the run out into the profile and clears the slot. The save is the Core 2 document (format 3, the profile pinned): it
     /// resumes at the map or in the middle of a fight, under the profile it pinned. Engine-free.
     /// </summary>
-    public sealed class Core2RunSession
+    public sealed class Core2RunSession : IClimb
     {
         private readonly Func<DateTime> _clock;
         private JObject _run;
@@ -217,6 +217,35 @@ namespace Ashen.App.Run
 
         /// <summary>The seat climbed at the current tier.</summary>
         public string SeatId => Core2RunLoop.CurrentSeat(_run);
+
+        /// <summary>The region of the current seat (backgrounds are chosen by region), or null.</summary>
+        public string Region => RegionOfSeat(SeatId);
+
+        /// <summary>The region of the seat an encounter is fought in (the fight's background), or null.</summary>
+        public string RegionOfEncounter(string encounterId) =>
+            encounterId != null && Core.Loop.Map.Encounters.Has(encounterId) ? RegionOfSeat(Core.Loop.Map.Encounters.Get(encounterId).Str(MK.Seat)) : null;
+
+        private string RegionOfSeat(string seat) => seat != null && Content.Data.Seats.Has(seat) ? Content.Data.Seats.Get(seat).Str(RunFlowKeys.RegionId) : null;
+
+        private Ashen.App.Settings.SettingsSession _playerSettings;
+
+        /// <summary>The settings over this session's profile (settings/defaults.json): the combat pacing, the map mode, reduced motion.</summary>
+        public Ashen.App.Settings.SettingsSession PlayerSettings => _playerSettings ??= new Ashen.App.Settings.SettingsSession(Content, Profile, true);
+
+        public Ashen.Domain.Combat.CombatData CombatData => Core.Combat.Combat;
+
+        public bool ProloguePending => false;
+
+        public string EncounterPool => EncounterId != null && Core.Loop.Map.Encounters.Has(EncounterId) ? Core.Loop.Map.Encounters.Get(EncounterId).Str(MK.Pool) : null;
+
+        /// <summary>The names of the last fight's foes, empty when the run did not end in a fight.</summary>
+        public IReadOnlyList<string> LastFoes()
+        {
+            if (EncounterId == null || Combat == null || !Core.Loop.Map.Encounters.Has(EncounterId)) return Array.Empty<string>();
+            var enemies = Core.Combat.Combat.Enemies;
+            return Js.Items(Core.Loop.Map.Encounters.Get(EncounterId)[K.Enemies]).Select(Js.Str)
+                .Select(id => enemies.Has(id) ? enemies.Get(id).Str(K.Name) ?? id : id).Distinct().ToList();
+        }
 
         /// <summary>
         /// Travel to a reachable node (main.js enterNode): the path bookkeeping, then the node's door — a fight rolls its encounter and starts on the run's streams; any other

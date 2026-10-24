@@ -59,5 +59,6 @@ namespace Ashen.Generated
         public const string Steps = "steps";
         public const string Ref = "ref";
         public const string Ruleset = "ruleset";
+        public const string Core2Screens = "core2Screens";
     }
 }

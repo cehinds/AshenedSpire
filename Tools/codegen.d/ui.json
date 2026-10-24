@@ -28,7 +28,8 @@
         "Merchant": "merchant",
         "Event": "event",
         "Dialogue": "dialogue",
-        "LegacyDungeon": "legacyDungeon"
+        "LegacyDungeon": "legacyDungeon",
+        "Core2Combat": "core2Combat"
       }
     },
     {
@@ -325,7 +326,37 @@
         "TrayActions": "TRAY_ACTIONS",
         "SceneNote": "SCENE_NOTE",
         "SceneMap": "SCENE_MAP",
-        "MapDots": "MAP_DOTS"
+        "MapDots": "MAP_DOTS",
+        "FighterIntent": "FIGHTER_INTENT",
+        "FighterPredict": "FIGHTER_PREDICT",
+        "FighterArt": "FIGHTER_ART",
+        "FighterHit": "FIGHTER_HIT",
+        "FighterBadge": "FIGHTER_BADGE",
+        "FighterName": "FIGHTER_NAME",
+        "FighterPreview": "FIGHTER_PREVIEW",
+        "FighterReceipt": "FIGHTER_RECEIPT",
+        "FighterRatings": "FIGHTER_RATINGS",
+        "FighterEvade": "FIGHTER_EVADE",
+        "FighterPoise": "FIGHTER_POISE",
+        "FighterWard": "FIGHTER_WARD",
+        "FighterBlock": "FIGHTER_BLOCK",
+        "FighterHp": "FIGHTER_HP",
+        "FighterStance": "FIGHTER_STANCE",
+        "FighterStacks": "FIGHTER_STACKS",
+        "FighterStatuses": "FIGHTER_STATUSES",
+        "PromptPanel": "PROMPT_PANEL",
+        "PromptTitle": "PROMPT_TITLE",
+        "PromptList": "PROMPT_LIST",
+        "PromptFooter": "PROMPT_FOOTER",
+        "PromptBack": "PROMPT_BACK",
+        "PromptConfirm": "PROMPT_CONFIRM",
+        "FooterTools": "FOOTER_TOOLS",
+        "ToolReactions": "TOOL_REACTIONS",
+        "ToolArmaments": "TOOL_ARMAMENTS",
+        "CombatLog": "COMBAT_LOG",
+        "LogTitle": "LOG_TITLE",
+        "LogLines": "LOG_LINES",
+        "EndContinue": "END_CONTINUE"
       }
     },
     {
@@ -445,7 +476,12 @@
         "RunEndDefeat": "runend-defeat",
         "RunEndStat": "runend-stat",
         "RunEndCard": "runend-card-name",
-        "RunEndUnlock": "runend-unlock"
+        "RunEndUnlock": "runend-unlock",
+        "PromptOption": "prompt-option",
+        "PromptOptionSelected": "prompt-option--selected",
+        "PromptOptionDisabled": "prompt-option--disabled",
+        "LogLine": "log-line",
+        "LogLineNewest": "log-line--newest"
       }
     },
     {
@@ -555,7 +591,11 @@
         "RowHeight": "rowHeight",
         "EdgeWidth": "edgeWidth",
         "DotSpacing": "dotSpacing",
-        "RowTouchRatio": "rowTouchRatio"
+        "RowTouchRatio": "rowTouchRatio",
+        "Fighter": "fighter",
+        "Ratings": "ratings",
+        "StackStatuses": "stackStatuses",
+        "LogLines": "logLines"
       }
     },
     {
@@ -696,7 +736,11 @@
         "Round": "round",
         "Rounds": "rounds",
         "Art": "art",
-        "Heal": "heal"
+        "Heal": "heal",
+        "Cost": "cost",
+        "Number": "number",
+        "Target": "target",
+        "Selected": "selected"
       }
     },
     {
@@ -736,7 +780,8 @@
         "Duration": "h\\:mm\\:ss",
         "StepLessSuffix": "_LESS",
         "StepMoreSuffix": "_MORE",
-        "DecimalPoint": "."
+        "DecimalPoint": ".",
+        "ListJoin": ","
       }
     },
     {
@@ -803,7 +848,8 @@
         "KitSlot": "UI/Kit/Slot",
         "SavesFolder": "saves",
         "KitCombatant": "UI/Kit/Combatant",
-        "KitRunHud": "UI/Kit/RunHud"
+        "KitRunHud": "UI/Kit/RunHud",
+        "KitFighter": "UI/Kit/Fighter"
       }
     },
     {
@@ -822,7 +868,8 @@
         "CombatCommandFailed": "ui: combat command rolled back: {0}",
         "NoFight": "ui: the combat screen opened without a fight",
         "NoReward": "ui: the rewards screen opened without a pending reward",
-        "NoRun": "ui: a climb screen opened without a run in the right place"
+        "NoRun": "ui: a climb screen opened without a run in the right place",
+        "NoCore2Fight": "ui: the Core 2 combat screen opened without a fight"
       }
     }
   ],

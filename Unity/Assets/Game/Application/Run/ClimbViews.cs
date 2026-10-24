@@ -43,7 +43,7 @@ namespace Ashen.App.Run
     {
         private static int Int(double v) => (int)Math.Floor(v);
 
-        public static RunHudState Build(RunSession session, UiData ui)
+        public static RunHudState Build(IClimb session, UiData ui)
         {
             var strings = ui.Strings;
             var run = session.Run;
@@ -94,7 +94,9 @@ namespace Ashen.App.Run
     {
         public string Id;
         public int Floor;
-        public int Col;
+
+        /// <summary>The lane. A Core 2 rest depth is one shared node at the middle of the lanes, which is half a lane on an even width.</summary>
+        public double Col;
 
         /// <summary>The node's authored type (monster, elite, boss, event, shrine, merchant, treasure); an Unknown stays 'event' (path mode).</summary>
         public string Kind;
@@ -161,7 +163,7 @@ namespace Ashen.App.Run
 
     public static class ActMapView
     {
-        public static ActMapViewState Build(RunSession session, UiData ui)
+        public static ActMapViewState Build(IClimb session, UiData ui)
         {
             var strings = ui.Strings;
             var run = session.Run;
@@ -189,7 +191,7 @@ namespace Ashen.App.Run
                 {
                     Id = p.Name,
                     Floor = floor,
-                    Col = (int)Js.Or0(n[MK.Col]),
+                    Col = Js.Or0(n[MK.Col]),
                     Kind = kind,
                     GlyphKey = string.Format(CultureInfo.InvariantCulture, UiFormats.MapGlyphKey, kind),
                     Label = label,
@@ -223,7 +225,7 @@ namespace Ashen.App.Run
         }
 
         /// <summary>The mapMode reveal (D-151): dim what is behind or beside the run's way on; in fog, hide the far floors.</summary>
-        private static void Reveal(RunSession session, UiData ui, ActMapViewState view, JObject nodes, HashSet<string> reachable)
+        private static void Reveal(IClimb session, UiData ui, ActMapViewState view, JObject nodes, HashSet<string> reachable)
         {
             view.Mode = session.PlayerSettings.Text(SettingIds.MapMode) ?? SettingIds.MapFull;
             if (view.Mode == SettingIds.MapFull) return;
@@ -356,13 +358,13 @@ namespace Ashen.App.Run
 
     public static class RunEndView
     {
-        public static RunEndViewState Build(RunSession session, UiData ui)
+        public static RunEndViewState Build(IClimb session, UiData ui)
         {
             var strings = ui.Strings;
             var run = session.Run;
             var result = session.End?.Result ?? new JObject();
             var victory = session.End?.Victory ?? false;
-            var data = session.Content.Combat;
+            var data = session.CombatData;
             var view = new RunEndViewState
             {
                 Victory = victory,
@@ -397,18 +399,47 @@ namespace Ashen.App.Run
                 view.Unlocks.Add(strings.Format(StringKeys.RunEndUnlock, new StringArgs().Add(UiPlaceholders.Kind, ActMapView.Name(strings, UiFormats.UnlockKindKey, unlock.Str(K.Kind)))
                     .Add(UiPlaceholders.Name, name)));
             }
+            foreach (var id in session.ClassesUnlocked)
+                view.Unlocks.Add(strings.Format(StringKeys.RunEndUnlock, new StringArgs().Add(UiPlaceholders.Kind, ActMapView.Name(strings, UiFormats.UnlockKindKey, V.ClassKind))
+                    .Add(UiPlaceholders.Name, RunHudView.ClassName(ui, id))));
             return view;
         }
 
-        /// <summary>The last fight's foes by name (the enemies of its encounter), or null when the run did not end in a fight.</summary>
-        private static string Killer(RunSession session)
+        /// <summary>The last fight's foes by name, or null when the run did not end in a fight.</summary>
+        private static string Killer(IClimb session)
         {
-            if (session.LastOutcome == null || session.EncounterId == null) return null;
-            var data = session.Content.Data;
-            if (!data.Encounters.Has(session.EncounterId)) return null;
-            var names = Js.Items(data.Encounters.Get(session.EncounterId)[K.Enemies]).Select(Js.Str)
-                .Select(id => session.Content.Combat.Enemies.Has(id) ? session.Content.Combat.Enemies.Get(id).Str(K.Name) ?? id : id).Distinct().ToList();
+            var names = session.LastFoes();
             return names.Count == 0 ? null : string.Join(session.Content.Loop.Map.Rules.EnemySeparator, names);
+        }
+    }
+
+    /// <summary>
+    /// The act map's notice for a place of a Core 2 run whose rules are a later work package (the rest place, shop, treasure room and event; WP-16 to WP-19): a clear
+    /// "not yet available in this build" with the one action that keeps the run moving, Continue (<see cref="Core2RunSession.DismissPort"/>).
+    /// </summary>
+    public static class Core2PortView
+    {
+        public static PlannedDoorState Build(Core2RunSession session, UiData ui)
+        {
+            var strings = ui.Strings;
+            var kind = session.PendingPort;
+            return new PlannedDoorState
+            {
+                Location = kind,
+                Title = strings.Get(string.Format(CultureInfo.InvariantCulture, Core2UiFormats.PortTitleKey, kind)),
+                Body = strings.Get(string.Format(CultureInfo.InvariantCulture, Core2UiFormats.PortBodyKey, kind)),
+                ActionText = strings.Get(StringKeys.Core2PortContinue),
+            };
+        }
+
+        /// <summary>The notice a won fight shows for what it pays that this build does not roll yet (cinders, XP, the reward door), or null.</summary>
+        public static string FightNotice(Core2RunSession session, UiData ui)
+        {
+            var end = session.LastEnd;
+            if (end == null || end.NotYetPorted.Count == 0) return null;
+            var strings = ui.Strings;
+            var what = string.Join(strings.Get(StringKeys.Core2OptionJoin), end.NotYetPorted.Select(kind => strings.Get(string.Format(CultureInfo.InvariantCulture, Core2UiFormats.PortTitleKey, kind))));
+            return strings.Format(StringKeys.Core2EndNotYet, new StringArgs().Add(UiPlaceholders.Label, what));
         }
     }
 }

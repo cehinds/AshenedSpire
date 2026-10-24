@@ -38,5 +38,6 @@ namespace Ashen.Generated
         public const string StepLessSuffix = "_LESS";
         public const string StepMoreSuffix = "_MORE";
         public const string DecimalPoint = ".";
+        public const string ListJoin = ",";
     }
 }

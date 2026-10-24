@@ -1,0 +1,51 @@
+/* Fighter (docs/design/04 §1, W-07 for a Core 2 fight): the Combatant's figure and chips plus the rating rows in the HUD order Evade, Poise, Ward, Block, HP,
+   the hit-chance badge, the damage receipt and the Perception predict control. The shared rules live in Combatant.uss. */
+.fighter-ratings {
+    width: var(--size-full-width);
+}
+
+.fighter-rating {
+    font-size: var(--font-chip);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    color: var(--color-parchment);
+    background-color: var(--color-panel);
+    border-radius: var(--radius-chip);
+    margin-bottom: var(--space-xxs);
+}
+
+.fighter-hit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: var(--space-xxs) var(--space-xs);
+    font-size: var(--font-chip);
+    -unity-font-style: bold;
+    color: var(--color-bg);
+    background-color: var(--color-target-line);
+    border-radius: var(--radius-chip);
+}
+
+.fighter-receipt {
+    font-size: var(--font-status-chip);
+    white-space: normal;
+    -unity-text-align: middle-center;
+    color: var(--color-muted);
+}
+
+.fighter-predict {
+    min-height: 0;
+    padding: var(--space-xxs) var(--space-sm);
+    margin-bottom: var(--space-xs);
+    font-size: var(--font-chip);
+    color: var(--color-gold);
+    border-color: var(--color-gold-soft);
+}
+
+.fighter-predict:focus {
+    border-color: var(--color-gold);
+}
+
+.fighter--hidden-rating {
+    display: none;
+}

@@ -1,0 +1,124 @@
+/* W-07 for a Core 2 fight: the Combat screen's bands plus the combat log, the prompt panel (stance, route, reaction offer, card choice, flasks, equipment,
+   prediction), the footer tools and the end panel's notice. Tokens only. */
+
+.combat-log {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-lg);
+    width: var(--size-log-w);
+    max-height: var(--size-log-h);
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--color-scrim-soft);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-chip);
+    overflow: hidden;
+}
+
+.log-title {
+    font-size: var(--font-chip);
+    color: var(--color-muted);
+}
+
+.log-lines {
+    flex-direction: column-reverse;
+}
+
+.log-line {
+    font-size: var(--font-chip);
+    white-space: normal;
+    color: var(--color-parchment);
+}
+
+.log-line--newest {
+    color: var(--color-gold);
+}
+
+.core2-footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-tools {
+    position: absolute;
+    left: var(--space-lg);
+    top: 0;
+    bottom: 0;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tool-button {
+    margin-right: var(--space-sm);
+    font-size: var(--font-caption);
+}
+
+.prompt-panel {
+    position: absolute;
+    right: var(--space-lg);
+    bottom: var(--size-footer-group-h);
+    width: var(--size-prompt-w);
+    max-height: var(--size-combat-field);
+    padding: var(--space-md);
+    background-color: var(--color-bg-raise);
+    border-color: var(--color-gold-soft);
+    border-width: var(--border-control);
+    border-radius: var(--radius-card);
+}
+
+.prompt-title {
+    font-size: var(--font-heading);
+    color: var(--color-gold);
+    white-space: normal;
+    margin-bottom: var(--space-sm);
+}
+
+.prompt-list {
+    flex-shrink: 1;
+    max-height: var(--size-prompt-list-h);
+}
+
+.prompt-option {
+    margin-bottom: var(--space-xs);
+    white-space: normal;
+    -unity-text-align: middle-left;
+}
+
+.prompt-option--selected {
+    border-color: var(--color-target-line);
+    background-color: var(--color-panel-raise);
+}
+
+.prompt-option--disabled {
+    opacity: var(--opacity-disabled);
+}
+
+.prompt-footer {
+    flex-direction: row;
+    align-items: center;
+    margin-top: var(--space-sm);
+}
+
+.prompt-button {
+    min-width: var(--size-button-min-w);
+}
+
+.combat--prompt .hand-band {
+    opacity: var(--opacity-muted);
+}
+
+.layout-narrow .prompt-panel {
+    left: var(--space-sm);
+    right: var(--space-sm);
+    width: auto;
+}
+
+.layout-narrow .combat-log {
+    display: none;
+}
+
+.layout-narrow .footer-tools {
+    position: relative;
+    left: 0;
+}

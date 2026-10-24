@@ -26,8 +26,21 @@ namespace Ashen.Presentation.UI
         /// <summary>The effective run content (default preset), built on first use (W-04 needs it; the title does not).</summary>
         public RunContent RunContent => _runContent ??= RunContent.Load(Source);
 
-        /// <summary>The run being played (set by W-04 Begin or a resume; the combat screen reads it).</summary>
+        /// <summary>The 405 run being played (set by W-04 Begin or a resume; the combat screen reads it).</summary>
         public RunSession Session;
+
+        /// <summary>The Core 2 run being played (WP-C1b); at most one of <see cref="Session"/> and this is set.</summary>
+        public Core2RunSession Core2Session;
+
+        /// <summary>The run being played, whichever ruleset plays it, or null.</summary>
+        public IClimb Climb => (IClimb)Session ?? Core2Session;
+
+        /// <summary>Forgets the run (the title, the run end).</summary>
+        public void ClearRun()
+        {
+            Session = null;
+            Core2Session = null;
+        }
 
         /// <summary>Quits the game (Application.Quit in a player; tests replace it).</summary>
         public Action Quit = UnityEngine.Application.Quit;

@@ -28,5 +28,6 @@ namespace Ashen.Generated
         public const string Event = "event";
         public const string Dialogue = "dialogue";
         public const string LegacyDungeon = "legacyDungeon";
+        public const string Core2Combat = "core2Combat";
     }
 }

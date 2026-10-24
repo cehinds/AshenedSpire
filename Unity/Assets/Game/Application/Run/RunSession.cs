@@ -92,7 +92,7 @@ namespace Ashen.App.Run
         public string Glyph;
     }
 
-    public sealed partial class RunSession
+    public sealed partial class RunSession : IClimb
     {
         private readonly Func<DateTime> _clock;
         private JObject _run;
