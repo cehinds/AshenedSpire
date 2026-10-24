@@ -2,7 +2,6 @@ using System;
 using Ashen.Domain.Combat;
 using Ashen.Domain.Run;
 using Newtonsoft.Json.Linq;
-using RW = Ashen.Generated.Core2RewardsKeys;
 
 namespace Ashen.Domain.Rewards
 {

@@ -7,7 +7,8 @@
 //   which the oracle mirrors line for line (main.js is not headless); a won fight leads to a persisted offer, the player takes one,
 //   adds a card to the deck or leaves, and the climb goes on (advanceAct after a boss, the run's end after the last one).
 //
-//   node Tools/oracle-core2-rewards.mjs [--claims 8] [--climbs 8] [--fights 6] [--source <web checkout>] [--allow-dirty]
+//   node Tools/oracle-core2-rewards.mjs [--claims 8] [--climbs 8] [--fights 6] [--source <web checkout>] [--allow-dirty] [--with-start]
+//   (--with-start adds each climb fight's opening projection, to find where a diverging fight began; the shipped fixtures do not carry it.)
 //
 // Files (Unity/Assets/Tests/Oracle/core2/rewards/, sorted keys; two runs are byte-identical):
 //   units.json                      the pure policy: rewardGroupProblems, pickRewardCategory draws, the skill tracks and curve, awardSkillXp /
@@ -17,6 +18,9 @@
 //   climb-<class>-seedNN.json       a bot plays fights on a Core 2 climb (the host oracle's run: seats and map drawn, one RNG), settles each fight as
 //                                   onCombatEnd does, and works the reward door; every step records the run's changed top-level keys and the RNG counters
 //   index.json                      the sha, the profile hash and the tallies
+// Test edits, recorded as steps and made the same way by the C# test: heal (Hit Points to the maximum), prime (a skill track a few XP short of its next level),
+// node (the map node and floor the next fight is at), drop (cards out of the deck), range (the range policy switch), settings (the deck-size setting), and a
+// fight's `weaken` (every enemy at most N Hit Points, so that bosses and elites are won as well as lost).
 // A step's `changes` is { set: { key: value }, del: [key] } over the run document's top-level keys (the streamCounters aside), values canonical.
 import { writeFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
@@ -183,6 +187,35 @@ function leave(run, rng) {
     return { next: 'door', offerId };
   }
   return { next: pending.after === 'advanceAct' ? 'advanceAct' : 'map' };
+}
+
+
+/** The reward door's own steps (begin, read the notices, leave -- with level offers owed) for every kind of door, on a fresh run of each class. */
+function doorUnits() {
+  const variants = [
+    { variant: 'levels', after: 'advanceAct', levelOffers: 2, noticeOnly: false, notices: true },
+    { variant: 'plain', after: 'map', levelOffers: 0, noticeOnly: false, notices: false },
+    { variant: 'noticeOnlyVictory', after: 'victory', levelOffers: 0, noticeOnly: true, notices: true },
+    { variant: 'noticeOnlyDefeat', after: 'defeat', levelOffers: 0, noticeOnly: true, notices: false },
+  ];
+  const out = [];
+  classes.forEach((classId, ci) => variants.forEach((spec, vi) => {
+    const seed = w.rngMod.sweepSeed(33000 + ci * 10 + vi);
+    const run = create(seed, classId);
+    const rng = w.createRng(seed, run.streamCounters || {});
+    run.actNumber = 1 + vi;
+    run.mapNodeId = `n${vi}_0`;
+    const notices = spec.notices ? [{ skillId: `class:${classId}`, label: classId, before: 0, after: 1 }] : [];
+    const steps = [];
+    const log = (op, result) => steps.push(canon({ op, result, pending: run.gameProfilePendingReward ?? null, offers: Object.keys(run.gameProfileRewardOffers || {}), counters: counters(rng) }));
+    log('begin', beginReward(run, rng, { source: 'combat', after: spec.after, levelOffers: spec.levelOffers, progression: notices, noticeOnly: spec.noticeOnly }));
+    for (let guard = 0; guard < 8 && run.gameProfilePendingReward; guard++) {
+      if (run.gameProfilePendingReward.progression?.length) log('ack', acknowledge(run));
+      else log('leave', leave(run, rng));
+    }
+    out.push({ classId, variant: spec.variant, seed, actNumber: run.actNumber, spec, steps });
+  }));
+  return out;
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -432,7 +465,7 @@ for (const f of readdirSync(OUT)) if (f.endsWith('.json')) rmSync(join(OUT, f));
 let bytes = 0;
 const write = (name, data) => { const text = `${JSON.stringify(canon(data))}\n`; writeFileSync(join(OUT, name), text); bytes += Buffer.byteLength(text); };
 
-const units = { groups: groupUnits(), picks: pickUnits(), skills: skillUnits(), runes: runeUnits() };
+const units = { groups: groupUnits(), picks: pickUnits(), skills: skillUnits(), runes: runeUnits(), doors: doorUnits() };
 write('units.json', units);
 const index = { source: 'model/gameProfileRewards.js, main.js onCombatEnd (configured profile default)', webSha: w.head, profileId: w.profile.id, profileHash: w.profile.hash, routesActs: ROUTES_ACTS, claims: [], climbs: [],
   kinds: {}, refusals: {},

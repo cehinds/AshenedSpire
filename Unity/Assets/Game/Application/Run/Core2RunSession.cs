@@ -303,10 +303,11 @@ namespace Ashen.App.Run
         public void DismissPort()
         {
             _pendingPort = null;
-            for (var guard = 0; HasPendingReward && guard < 8; guard++)
+            // Every step reads the notices or spends a level offer, so the loop ends; a refusal ends it too.
+            while (HasPendingReward)
             {
-                if (ProgressionNotices.Count > 0) AcknowledgeProgression();
-                else LeaveRewards();
+                var step = ProgressionNotices.Count > 0 ? AcknowledgeProgression() : LeaveRewards();
+                if (!step.Done) break;
             }
         }
 

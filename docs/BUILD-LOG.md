@@ -2,6 +2,25 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-15: rewards and the combat end (dev, 2026-10-24)
+
+**Landed** (decisions D-316 to D-323)
+- **Rewards (D-316):** `Core2Rewards` is `model/gameProfileRewards.js`: the offer (pools from the character's eligibility, the stance reserve, the 60/10/30 groups, `lowerRankChance`, all on `cardRewards`), `Claim`, `ClaimToDeck` and the Add to deck refusals (`notCard`, `full`, `limit`) in the web's words; `Core2RewardPolicy` (`rewardGroupProblems`, `pickRewardCategory`) and `Core2StanceCoverage` (`reserveStanceCards`). A claim works on the run and restores it on a refusal instead of cloning the run (its pinned profile is megabytes).
+- **Skills and the combat end (D-318, D-319):** `Core2Skills` (tracks, curve with the level cap, awards without draft queues, the class award, ability tracks opening at level 1, level notices) and `Core2CombatEnd.Settle`, a line-for-line `onCombatEnd` for a configured run: the fight is written back, the skill and class tracks are paid once (a death pays too), cinders, a boss's record, the last boss, the persisted offer.
+- **The door (D-320):** `Core2RewardDoor` (`gameProfilePendingReward` beside the stored offers) and, on `Core2RunSession`, `AcknowledgeProgression`, `TakeReward`, `AddRewardToDeck`, `RewardDeckRefusal`, `LeaveRewards`; a won fight leads to `Location = rewards`, the door resumes from a save, the next act starts when a boss's spoils are left. `Core2RewardsView` is the display data a spoils screen reads. The map's planned-door notice and `DismissPort` are the seam until that screen exists (UXML/USS not written: nothing can be looked at without the editor).
+- **Found by the oracle:** a Core 2 run's `collection` is deck + sideboard (D-317); a boss's HP and damage are scaled by the tier it is met at (D-321); a first XP of Spellcraft/maneuvers opens the track at level 1 (D-318).
+- **Data:** `rules/core2Rewards.json` (+ schema), codegen fragment `core2-rewards.json` (`Core2RewardsKeys/Values/Messages`), `core2.port.rewards.*` strings, `Core2Registries.ToCoreRewardsData`, `Core2Content.Rewards`.
+
+**Oracle** `Tools/oracle-core2-rewards.mjs` (D-322): units, 32 claim scenarios (448 offers, 290 takes + 207 adds, 483 refusals), 32 climbs (130 fights: 106 won, 24 lost, 23 bosses, 20 elites, 25 with level notices, 14 acts advanced), 5.7 MB under `Tests/Oracle/core2/rewards`; two runs are byte-identical.
+
+**Tests:** `Core2RewardsParityTests` (71: 6 unit tests incl. the door's steps for every kind of door, 32 claim scenarios, 32 climbs, the oracle check), `Core2RewardsSessionTests` (9), `Core2RunSessionTests` updated for the door (10), `Core2DeckParityTests` + `Core2RunParityTests` (388), `Core2ScreensTests`, `Core2CombatFlowTests`, `EnforcementTests` all green; `codegen --check`, `transform-content --check`, `refresh-manifest --check`, `ci/check-content`, `ci/check-docs` ok. The full suite was not run (80 minutes; the shared memory limit kills the host when workers overlap, D-323).
+
+**Not done / deferred**
+- The spoils screen (Take, Add to deck, Continue and the level-notice modal on `Core2RewardsView`); `ActMapScreen` shows the planned-door notice and leaving it leaves the spoils untaken. Not compiled or looked at in the editor.
+- Shop stock (`itemsPerCategory`, `shop` stream): WP-17 extends `Core2Rewards.MakeOffer`.
+- After-combat recovery percentages and the profile bank of enemy knowledge (WP-20 / a Core run carries none).
+- The `limit` refusal of Add to deck is not reached in play (the deck oracle holds the copy limit).
+
 ## Core 2 WP-C1b: the Unity screens play Core 2 fights (dev, 2026-10-24)
 
 **Landed**

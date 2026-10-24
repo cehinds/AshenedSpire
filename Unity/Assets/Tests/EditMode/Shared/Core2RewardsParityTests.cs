@@ -179,6 +179,38 @@ namespace Ashen.Tests
             }
         }
 
+        [Test]
+        public void TheDoorStepsAreTheWebs()
+        {
+            foreach (var c in ((JArray)Read("units.json")["doors"]).OfType<JObject>())
+            {
+                var seed = (uint)c.Value<long>("seed");
+                var run = CoreRunRules.Create(Core.Combat.Run, seed, c.Value<string>("classId"), CoreRunOptions.FromJson(null, Unlocked));
+                var rng = CoreSnapshot.RngFromJson(seed, run.Obj("streamCounters"));
+                var spec = (JObject)c["spec"];
+                run["actNumber"] = c["actNumber"].DeepClone();
+                run["mapNodeId"] = "n" + (c.Value<int>("actNumber") - 1) + "_0";
+                var n = 0;
+                foreach (var step in ((JArray)c["steps"]).OfType<JObject>())
+                {
+                    var op = step.Value<string>("op");
+                    var at = "door " + c.Value<string>("classId") + " " + c.Value<string>("variant") + " step " + n++ + " " + op;
+                    Core2RewardStep result;
+                    if (op == "begin")
+                    {
+                        var notices = spec.Value<bool>("notices") ? new JArray(new JObject { ["skillId"] = "class:" + c.Value<string>("classId"), ["label"] = c.Value<string>("classId"), ["before"] = 0, ["after"] = 1 }) : new JArray();
+                        result = Core2RewardDoor.Begin(Data, run, rng, "combat", spec.Value<string>("after"), spec.Value<int>("levelOffers"), notices, spec.Value<bool>("noticeOnly"));
+                    }
+                    else result = op == "ack" ? Core2RewardDoor.Acknowledge(run) : Core2RewardDoor.Leave(Data, run, rng);
+                    Assert.That(result.Next, Is.EqualTo(step["result"].Value<string>("next")), at + " next");
+                    if (step["result"]["offerId"] != null) Assert.That(result.OfferId, Is.EqualTo(step["result"].Value<string>("offerId")), at + " offer");
+                    Same(at + " pending", step["pending"], (JToken)Core2RewardDoor.Pending(run) ?? JValue.CreateNull());
+                    Same(at + " offers", step["offers"], new JArray((run.Obj("gameProfileRewardOffers")?.Properties() ?? Enumerable.Empty<JProperty>()).Select(p => p.Name)));
+                    Counters(at, step, rng);
+                }
+            }
+        }
+
         // ------------------------------------------------------------------ the run's changes
 
         // The pinned profile is megabytes and no operation edits it: the changes of a step never look at it.
