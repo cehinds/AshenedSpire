@@ -2,6 +2,27 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-7: the Core 2 spoils screen (worktree branch, 2026-10-24)
+
+**Landed (D-850, D-851)**
+- **Screen:** `core2Rewards` (`Screens/Core2Rewards.uxml`, `Spoils.uss`, `Core2RewardsScreen`): the web's reward-door modal (`Kit/CombatModal`, md) over the act map's background and the run HUD. Level notices first ("Level Up" / "Level up", one "label . Level a -> b" sentence per crossing, Continue), then the offer: the cinders row with TAKEN, the note, a column per option (card = VP-3 `CardView`; relic, flask, armament, armour = collectible face from `Kit/SpoilsOption`) with NEW/TAKEN chip and its name as the radio, a status line, Skip and Confirm. Confirm reviews the pick: a card gets Add to deck, Keep in collection and Back, anything else Continue and Back.
+- **Refusals (the Refusal pattern):** Add to deck at the deck limit shows the web's "Your deck is full (N cards). Edit your deck to make room." at the control and in the status line (button dimmed, still pressable); nothing picked says "Select one first."; a taken option says "Already taken."; claim refusals are the domain's sentences. A failed save asks to retry (the shared door).
+- **Routing:** `runFlow.json core2Screens.rewards`; after the victory beat the fight goes to the spoils (a defeat keeps its panel); a save made at the door resumes on it (Continue on the title); leaving goes where `Core2RunSession` says (map, next act after a boss, run end). The act map's spoils notice (`PendingPort == rewards`, `core2.port.rewards.*`) is removed.
+- **Engine-free:** `Core2SpoilsFlow` (+ `Core2SpoilsOption`, `Core2SpoilsNotice`, stages and chips) owns every field and press; `Core2RewardsFlowTests` (12) hold it over a real won fight. Data: tokens `size.spoils*`, strings `spoils.*`, codegen `ui-spoils.json`, screen registry entry.
+- **PlayMode smoke** `Core2FightSmokeTests` now expects the spoils screen after a win (notices read by Continue, Skip back to the map); not run (no Unity here).
+
+**Tests run (small filters, one at a time, lean project):** `Core2RewardsFlow` 12/12, `Core2Screens` + `Enforcement` + `UiData` 24/24, `Core2RewardsSession` 9/9; node checks `ui-tokens`, `codegen`, `refresh-manifest`, `ui-stage`, `card-face`, `ci/check-content`, `ci/check-docs` ok (`transform-content --check` needs `Tools/export/raw/bundle.shipped.json`, absent here, as before). Presentation compiled with the D-314 harness.
+
+**Not verified (Unity was not run):** every USS rule of `Spoils.uss`, the three card faces sharing the 560 modal (168 x 252 each), `CardView` inside a column with a chip child, collectible art (relic and flask icons, armament icons) and the icon fallback, `-unity-background-image-tint-color` on the cinders icon, focus order (options, Skip, Confirm; Confirm after a pick), the dimmed Confirm, Refusal placement at a pick button, the map background under the veil, narrow layout (`layout-narrow` sizes), the PlayMode smoke change.
+
+**Owner: check in the editor (win a Core 2 fight at 1920x1080, then 390x844; compare `docs/qa/web-screens/reward-*`, `combat-victory-card-pick-*`)**
+- After the victory ribbon the map appears dimmed with the modal: eyebrow "CLAIM YOUR SPOILS", gold "VICTORY", "0 of 1 claimed", a dimmed cinders row ("32 cinders / Granted . 52 total / TAKEN"), the note, three columns (card faces or collectible faces) each with a NEW chip and its name as a button under it.
+- Pick one: the face and name wear the gold edge; Confirm with nothing picked shows "Select one first." at the button. Confirm: only that option, Back / Keep in collection / Add to deck (a non-card: Back / Continue). Fill the deck (Settings deck max) to see the full-deck words and the dimmed Add to deck.
+- Win a fight that crosses a level (class or weapon track): the notices modal comes first ("Level Up"), then the offer. Quit with Save & quit at the door and Continue from the title: the same door returns. Skip, Add to deck and Continue go to the map; a boss goes to the next act's map.
+- Pad: options, then Skip, then Confirm; B/Escape goes Back under review, else opens the pause screen.
+
+**Next:** Edit deck / Equip now once the deck editor and armoury screens exist; the full-game door's Progression column and Continue HOLD if the owner wants the shot's look rather than the Core door's strip; VP-8 rest.
+
 ## VP-5: combat feedback and animation (worktree branch, 2026-10-24)
 
 **Landed (D-750, D-751)**

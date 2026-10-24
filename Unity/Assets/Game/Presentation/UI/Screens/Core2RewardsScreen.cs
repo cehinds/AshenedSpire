@@ -30,6 +30,7 @@ namespace Ashen.Presentation.UI.Screens
         private LocButton _back;
         private LocButton _keep;
         private LocLabel _status;
+        private bool _bound;
 
         public Core2RunSession Run => _run;
 
@@ -62,6 +63,7 @@ namespace Ashen.Presentation.UI.Screens
             UiDom.Show(_modal.CloseButton, false);
             ApplyBackground();
             Render();
+            _bound = true;
         }
 
         private void ApplyBackground()
@@ -112,7 +114,9 @@ namespace Ashen.Presentation.UI.Screens
                 }
             }
             _confirm.EnableInClassList(SpoilsClasses.ConfirmOff, _flow.ConfirmRefusal.Length > 0);
-            FocusSoon(focus);
+            // While the screen is being bound the navigator focuses the remembered control itself; later draws move focus to where the player goes next.
+            if (_bound) FocusSoon(focus);
+            else Context.Instance.LastFocused = focus;
         }
 
         private void RenderNotices(VisualElement body)
