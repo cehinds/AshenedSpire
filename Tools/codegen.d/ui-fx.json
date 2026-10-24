@@ -1,0 +1,167 @@
+{
+  "comment": "VP-5 combat feedback (D-750): the names the feedback code reads. FxEvents and FxKeys are the engine event types and payload fields of the receipts it plays (the web's fx.js reads the same); FxCallout and FxTrack are enums over the keys of ui/feedback.json callout.kinds and tracks, so a word or an animation cannot be named in code without being in the data. Names of UXML regions and classes the feedback layer draws are in the second half.",
+  "enums": [
+    { "name": "FxCallout", "from": "ui/feedback.json", "path": "callout.kinds", "keys": true, "doc": "The words over a fighter (ui/feedback.json callout.kinds; the web's CALLOUT_KINDS)." },
+    { "name": "FxTrack", "from": "ui/feedback.json", "path": "tracks", "keys": true, "doc": "The animation tracks of ui/feedback.json (the web's keyframes)." }
+  ],
+  "keySets": [
+    {
+      "name": "FxEvents",
+      "doc": "Combat event types the feedback planner reads (the web's receipts, src/ui/fx.js).",
+      "keys": {
+        "CardPlayed": "cardPlayed",
+        "FlaskUsed": "flaskUsed",
+        "EnemyMoveStarted": "enemyMoveStarted",
+        "CombatHitStarted": "combatHitStarted",
+        "CombatContactPrepared": "combatContactPrepared",
+        "EnemyActorTurnStarted": "enemyActorTurnStarted",
+        "CombatCounterTriggered": "combatCounterTriggered",
+        "EnemyTurnStart": "enemyTurnStart",
+        "PlayerTurnStart": "playerTurnStart",
+        "CardDrawn": "cardDrawn",
+        "EnemyDied": "enemyDied",
+        "PlayerDied": "playerDied",
+        "CombatEnd": "combatEnd",
+        "DamageDealt": "damageDealt",
+        "AttackHit": "attackHit",
+        "AttackMissed": "attackMissed",
+        "AttackEvaded": "attackEvaded",
+        "CombatAvoidanceResolved": "combatAvoidanceResolved",
+        "StatusApplied": "statusApplied",
+        "StatusImmune": "statusImmune",
+        "EnemyStaggered": "enemyStaggered",
+        "PlayerStaggered": "playerStaggered",
+        "EnemyInterrupted": "enemyInterrupted",
+        "BlockBroken": "blockBroken",
+        "RatingImpact": "ratingImpact",
+        "CritHit": "critHit",
+        "CombatGuardBroken": "combatGuardBroken",
+        "WardBroken": "wardBroken",
+        "BarrierBroken": "barrierBroken",
+        "PoiseBroken": "poiseBroken",
+        "BlockGained": "blockGained",
+        "HpLost": "hpLost",
+        "Healed": "healed",
+        "ProcBurst": "procBurst",
+        "ProcResisted": "procResisted",
+        "MeterGuardGained": "meterGuardGained",
+        "StanceEntered": "stanceEntered",
+        "DodgeRolled": "dodgeRolled"
+      }
+    },
+    {
+      "name": "FxKeys",
+      "doc": "Fields of a combat event the feedback planner reads.",
+      "keys": {
+        "SourcePlayerId": "sourcePlayerId",
+        "PlayerId": "playerId",
+        "CardType": "cardType",
+        "SourceId": "sourceId",
+        "TargetId": "targetId",
+        "Kind": "kind",
+        "ContactPrepared": "contactPrepared",
+        "Amount": "amount",
+        "Blocked": "blocked",
+        "BarrierAbsorbed": "barrierAbsorbed",
+        "WardAbsorbed": "wardAbsorbed",
+        "PoiseAbsorbed": "poiseAbsorbed",
+        "ForceImmune": "forceImmune",
+        "Immune": "immune",
+        "BarrierRemaining": "barrierRemaining",
+        "Stacks": "stacks",
+        "Status": "status",
+        "EvadeActive": "evadeActive",
+        "Bypass": "bypass",
+        "Cause": "cause",
+        "Smash": "smash",
+        "Breaks": "breaks",
+        "Label": "label",
+        "Avoided": "avoided",
+        "HitCheck": "hitCheck",
+        "MissReason": "missReason",
+        "Reason": "reason",
+        "Evade": "evade",
+        "Success": "success",
+        "Guarded": "guarded",
+        "Meter": "meter",
+        "Stance": "stance",
+        "Dodge": "dodge",
+        "MoveId": "moveId",
+        "Maneuver": "maneuver",
+        "Profile": "profile",
+        "ActionPreview": "actionPreview",
+        "CombatProfile": "combatProfile",
+        "DerivedTags": "derivedTags",
+        "CardTags": "cardTags"
+      }
+    },
+    {
+      "name": "FxValues",
+      "doc": "Wire values the feedback planner compares (event kinds, miss reasons, meters, break-ring tones).",
+      "keys": {
+        "Attack": "attack",
+        "Counter": "counter",
+        "Range": "range",
+        "Accuracy": "accuracy",
+        "Effect": "effect",
+        "Blood": "blood",
+        "Ward": "ward",
+        "Poise": "poise",
+        "Disruption": "Disruption",
+        "ToneBlock": "block",
+        "ToneBarrier": "barrier",
+        "ToneWard": "ward",
+        "ToneGold": "gold",
+        "ToneInterrupt": "interrupt"
+      }
+    },
+    {
+      "name": "FxFormats",
+      "doc": "Joins and prefixes of the feedback words (src/ui/fx.js: the status and action callout kinds, the proc cause, the maneuver tag).",
+      "keys": {
+        "Space": " ",
+        "WordJoin": " · ",
+        "StatusPrefix": "status:",
+        "ProcPrefix": "proc:",
+        "ManeuverTag": "maneuver:",
+        "CalloutKey": "core2.fx.callout.{0}",
+        "StatusKey": "core2.fx.status.{0}",
+        "ToneClass": "fx-tone--{0}",
+        "RingToneClass": "fx-ring--{0}"
+      }
+    },
+    {
+      "name": "FxPriority",
+      "doc": "The two callout priorities that are not a kind of their own (ui/feedback.json callout.priority).",
+      "keys": {
+        "Status": "status",
+        "Other": "other"
+      }
+    },
+    {
+      "name": "FxEffects",
+      "doc": "Effect kinds the planner names itself (the vfx.{kind}.{frame} art of the web's combatEffectEvents.js).",
+      "keys": {
+        "StaggerBreak": "staggerBreak",
+        "Resist": "resist",
+        "Dodge": "dodge",
+        "Heal": "heal",
+        "PhysicalGuard": "physicalGuard"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "FxMath",
+      "type": "double",
+      "doc": "Identities of the animation maths (a cubic-bezier's coefficients, its bisection tolerance, a half), not tuning.",
+      "values": { "Two": 2, "Three": 3, "Half": 0.5, "Epsilon": 0.0001 }
+    },
+    {
+      "name": "FxIndex",
+      "type": "int",
+      "doc": "The shape of a cubic-bezier: four numbers (x1, y1, x2, y2).",
+      "values": { "BezierPoints": 4, "IndexX2": 2, "IndexY2": 3 }
+    }
+  ]
+}

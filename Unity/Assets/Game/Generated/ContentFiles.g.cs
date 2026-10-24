@@ -380,6 +380,7 @@ namespace Ashen.Generated
         public const string SchemasUiCardfaceSchema = "schemas/ui.cardface.schema.json";
         public const string SchemasUiComponentsSchema = "schemas/ui.components.schema.json";
         public const string SchemasUiConfirmationPoliciesSchema = "schemas/ui.confirmationPolicies.schema.json";
+        public const string SchemasUiFeedbackSchema = "schemas/ui.feedback.schema.json";
         public const string SchemasUiLayoutSchema = "schemas/ui.layout.schema.json";
         public const string SchemasUiLocationPresentationSchema = "schemas/ui.locationPresentation.schema.json";
         public const string SchemasUiMenusSchema = "schemas/ui.menus.schema.json";
@@ -417,6 +418,7 @@ namespace Ashen.Generated
         public const string UiCardface = "ui/cardface.json";
         public const string UiComponents = "ui/components.json";
         public const string UiConfirmationPolicies = "ui/confirmationPolicies.json";
+        public const string UiFeedback = "ui/feedback.json";
         public const string UiLayout = "ui/layout.json";
         public const string UiLocationPresentation = "ui/locationPresentation.json";
         public const string UiMenus = "ui/menus.json";

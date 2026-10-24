@@ -28,6 +28,9 @@ namespace Ashen.App.Ui
         /// <summary>ui/cardface.json over the art lookup (VP-3): what a card's face draws besides its text.</summary>
         public CardFaceLookup CardFace;
 
+        /// <summary>ui/feedback.json (VP-5): the numbers the combat feedback plays with.</summary>
+        public FeedbackDefs Feedback;
+
         public static UiData Load(IContentSource source)
         {
             JObject Read(string path) => (JObject)JsonContent.Parse(source.ReadText(path));
@@ -46,6 +49,7 @@ namespace Ashen.App.Ui
                 Meta = Read(ContentFiles.UiMeta),
                 Art = art,
                 CardFace = new CardFaceLookup(CardFaceConfig.From(Read(ContentFiles.UiCardface)), art),
+                Feedback = FeedbackDefs.From(Read(ContentFiles.UiFeedback)),
             };
         }
 

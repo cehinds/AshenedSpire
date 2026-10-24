@@ -1,0 +1,309 @@
+{
+  "comment": "VP-5 combat feedback (D-750): the numbers the web's combat presentation plays with, read off cehinds/ashenspire b8cfe4fac and nothing else. Every length is a CSS px, which is a Unity reference px (the web runs 1280x720 at zoom 1.5, tokens.json webSource.unityScale); every time is ms. Tracks are the web's @keyframes as stops (t is the share of the duration; a property a stop omits is interpolated between the stops that name it, as CSS does; ease names a cubic-bezier in 'easings'). 'pace' is src/ui/animationPace.js, 'feel' src/content/combatFeel.js, 'float' src/ui/fx.js floatNum and styles/combat.css, 'callout' src/ui/fx.js callout, 'effects' src/ui/combatEffectSprites.js with content/config/ui/presentation/combatEffectPlayback.json and combatEffectPresentation.json, src/content/combatDefenseEffects.js; 'poses' src/ui/enemyStates.js, src/content/enemyStateArt.js, defeatedArt.js. Read through FeedbackDefs (Application/Ui); the colours and sizes the USS draws are in ui/tokens.json (group fx*).",
+  "webSource": {
+    "pace": "src/ui/animationPace.js:6-11 (ANIM_SPEEDS), :15-22 (COMBAT_TIMING), :26-28 (turnBannerHoldMs), :65-82 (actionPacing); content/config/ui/presentation/actionPacing.json motion; setAnimSpeed falls back to normal (animationPace.js:31-33), so the setting 'auto' plays at normal",
+    "feel": "src/content/combatFeel.js:23-43 (shake steps, hit-stop), src/ui/fx.js:715-732 (shake 200 ms, the stagger's fixed 4 px)",
+    "float": "src/ui/fx.js:364-416 floatNum (centre + x + jitter +-13, top = box top + 0.25 x height + y, clamp pad 6, removed after 600 ms), :646-655 dmgClass, :1869-1930 the offsets of the damageDealt numbers",
+    "callout": "src/ui/fx.js:421-610 (kinds and tones, 900/500 ms, three lanes 150 ms apart, 34 px slots, 26 px rise)",
+    "tracks": "styles/combat.css: num-pop :738-744, float-up :736, callout-rise :487-493, callout-fade :494, banner-pop :745, shake :747, hit-enemy/hit-player(-heavy) :621-647, lunge-left/right :537-544, wobble :687-695, spark-pop :679-685, glyph-pop :667-673, slash-sweep :655-659, fx-shatter-ring :475, fx-miss-swish :478",
+    "effects": "src/ui/combatEffectSprites.js:60-82 (frames over effect ms, scale/opacity track, sizes), src/model/combatEffectEvents.js:30-45 (which event plays which kind)",
+    "poses": "src/ui/enemyPoseStage.js:57-71 (play: hit shows hurt, attack shows attack, then settles; defeated stays), src/ui/enemyStates.js:3, :17-24 (rest pose from Block, negative statuses, 35% HP)",
+    "intro": "src/ui/components/intro.js:40-45 (auto close 2300 ms, removed 480 ms), src/ui/components/victoryBeat.js, src/content/balance.js:1517 (victoryBeat 600 ms), src/main.js:3219-3237 (the titles)"
+  },
+  "pace": {
+    "speeds": {
+      "slow": { "beatMs": 420, "stepMs": 105, "lungeMs": 255, "impactCapMs": 317, "reactionMs": 315, "stanceLeadMs": 175 },
+      "normal": { "beatMs": 240, "stepMs": 68, "lungeMs": 195, "impactCapMs": 186, "reactionMs": 180, "stanceLeadMs": 100 },
+      "fast": { "beatMs": 108, "stepMs": 34, "lungeMs": 121, "impactCapMs": 108, "reactionMs": 81, "stanceLeadMs": 45 }
+    },
+    "reference": "normal",
+    "windupFraction": 0.55,
+    "turnBannerFloorMs": 156,
+    "instantStepMs": 80,
+    "fightEndDelayMs": 210,
+    "spritePlaybackRate": 0.5,
+    "referenceAnimationStepMs": 390,
+    "actionMs": 280,
+    "tickMs": 16
+  },
+  "feel": {
+    "bigHitShare": 0.2,
+    "hugeHitShare": 0.35,
+    "critAmount": 25,
+    "heavyAmount": 15,
+    "smallBelow": 6,
+    "shakeMs": 200,
+    "shakeFloorPx": 1,
+    "shakeMaxPx": 10,
+    "staggerShakePx": 4,
+    "shakeSteps": [
+      { "minShare": 0.02, "px": 2 },
+      { "minShare": 0.08, "px": 4 },
+      { "minShare": 0.2, "px": 7 },
+      { "minShare": 0.35, "px": 10 }
+    ],
+    "shakeStepsHp": [
+      { "minHp": 1, "px": 1 },
+      { "minHp": 6, "px": 2 },
+      { "minHp": 10, "px": 3 },
+      { "minHp": 15, "px": 4 }
+    ],
+    "hitStop": { "minHp": 6, "ms": 60, "hugeShare": 0.35, "hugeMs": 120 },
+    "hitFlashMs": 220,
+    "hitFlashHeavyMs": 380,
+    "wobbleMs": 600,
+    "burstMs": 420,
+    "sparkMs": 320,
+    "slashMs": 300,
+    "glyphMs": 450,
+    "streakMs": 380,
+    "cardFlyMs": 220,
+    "cardFlyKeep": 40,
+    "poseHoldMs": 220,
+    "poseHurtMs": 300
+  },
+  "easings": {
+    "linear": [0, 0, 1, 1],
+    "ease": [0.25, 0.1, 0.25, 1],
+    "easeOut": [0, 0, 0.58, 1],
+    "easeIn": [0.42, 0, 1, 1],
+    "easeInOut": [0.42, 0, 0.58, 1],
+    "pop": [0.16, 1, 0.3, 1]
+  },
+  "tracks": {
+    "numPop": {
+      "ms": 480, "ease": "pop",
+      "stops": [
+        { "t": 0, "opacity": 0, "y": 8, "scale": 0.4 },
+        { "t": 0.14, "opacity": 1, "y": 0, "popScale": true },
+        { "t": 0.3, "y": -3, "scale": 1 },
+        { "t": 0.72, "opacity": 1 },
+        { "t": 1, "opacity": 0, "y": -52, "scale": 1 }
+      ]
+    },
+    "floatUp": {
+      "ms": 260, "ease": "easeOut",
+      "stops": [ { "t": 0, "opacity": 1, "y": 0 }, { "t": 1, "opacity": 0, "y": -42 } ]
+    },
+    "calloutRise": {
+      "ms": 900, "ease": "easeOut",
+      "stops": [
+        { "t": 0, "opacity": 0, "y": 8, "scale": 0.85 },
+        { "t": 0.14, "opacity": 1, "y": 0, "scale": 1.06 },
+        { "t": 0.26, "y": -2, "scale": 1 },
+        { "t": 0.75, "opacity": 1 },
+        { "t": 1, "opacity": 0, "y": -26, "scale": 1 }
+      ]
+    },
+    "calloutFade": {
+      "ms": 900, "ease": "easeOut",
+      "stops": [ { "t": 0, "opacity": 0 }, { "t": 0.12, "opacity": 1 }, { "t": 0.75, "opacity": 1 }, { "t": 1, "opacity": 0 } ]
+    },
+    "bannerPop": {
+      "ms": 320, "ease": "easeOut",
+      "stops": [
+        { "t": 0, "opacity": 0, "track": 0.6 },
+        { "t": 0.3, "opacity": 1 },
+        { "t": 1, "opacity": 0, "track": 0.25 }
+      ]
+    },
+    "hitEnemy": {
+      "ms": 220, "ease": "linear", "tintUntil": 0.45,
+      "stops": [ { "t": 0, "x": 0 }, { "t": 0.2, "x": 22 }, { "t": 0.45, "x": 22 }, { "t": 1, "x": 0 } ]
+    },
+    "hitEnemyHeavy": {
+      "ms": 380, "ease": "linear", "tintUntil": 0.45,
+      "stops": [ { "t": 0, "x": 0 }, { "t": 0.2, "x": 34 }, { "t": 0.45, "x": 34 }, { "t": 1, "x": 0 } ]
+    },
+    "hitPlayer": {
+      "ms": 220, "ease": "linear", "tintUntil": 0.45,
+      "stops": [ { "t": 0, "x": 0 }, { "t": 0.3, "x": -13 }, { "t": 1, "x": 0 } ]
+    },
+    "hitPlayerHeavy": {
+      "ms": 380, "ease": "linear", "tintUntil": 0.45,
+      "stops": [ { "t": 0, "x": 0 }, { "t": 0.3, "x": -26 }, { "t": 1, "x": 0 } ]
+    },
+    "lungeEnemy": {
+      "ms": 280, "ease": "easeOut",
+      "stops": [ { "t": 0, "x": 0 }, { "t": 0.35, "x": -26 }, { "t": 1, "x": 0 } ]
+    },
+    "lungePlayer": {
+      "ms": 280, "ease": "easeOut",
+      "stops": [ { "t": 0, "x": 0 }, { "t": 0.35, "x": 26 }, { "t": 1, "x": 0 } ]
+    },
+    "wobble": {
+      "ms": 550, "ease": "easeInOut",
+      "stops": [
+        { "t": 0, "rotate": 0 }, { "t": 0.2, "rotate": 6 }, { "t": 0.4, "rotate": -5 },
+        { "t": 0.6, "rotate": 3 }, { "t": 0.8, "rotate": -2 }, { "t": 1, "rotate": 0 }
+      ]
+    },
+    "shake": {
+      "ms": 200, "ease": "ease", "ampScaled": true,
+      "stops": [
+        { "t": 0, "x": 0, "y": 0 },
+        { "t": 0.25, "x": 1, "y": -0.75 },
+        { "t": 0.5, "x": -1, "y": 0.5 },
+        { "t": 0.75, "x": 0.75, "y": 0.75 },
+        { "t": 1, "x": 0, "y": 0 }
+      ]
+    },
+    "spark": {
+      "ms": 300, "ease": "easeOut",
+      "stops": [ { "t": 0, "opacity": 0, "scale": 0.5 }, { "t": 0.4, "opacity": 1 }, { "t": 1, "opacity": 0, "scale": 1.5 } ]
+    },
+    "glyph": {
+      "ms": 430, "ease": "easeOut",
+      "stops": [ { "t": 0, "opacity": 0, "scale": 0.4, "y": 0 }, { "t": 0.3, "opacity": 1 }, { "t": 1, "opacity": 0, "scale": 1.6, "y": -14 } ]
+    },
+    "slash": {
+      "ms": 260, "ease": "easeOut", "rotateJitter": 25,
+      "stops": [ { "t": 0, "opacity": 0, "rotate": -90, "scale": 0.55 }, { "t": 0.25, "opacity": 1 }, { "t": 1, "opacity": 0, "rotate": 70, "scale": 1.2 } ]
+    },
+    "shatter": {
+      "ms": 420, "ease": "easeOut",
+      "stops": [ { "t": 0, "opacity": 1, "scale": 0.3, "rotate": 0 }, { "t": 1, "opacity": 0, "scale": 1.9, "rotate": 20 } ]
+    },
+    "streak": {
+      "ms": 380, "ease": "easeOut",
+      "stops": [ { "t": 0, "opacity": 0, "x": -30, "scaleX": 0.4 }, { "t": 0.4, "opacity": 1 }, { "t": 1, "opacity": 0, "x": 30, "scaleX": 1.2 } ]
+    }
+  },
+  "float": {
+    "lifeMs": 600,
+    "jitterPx": 13,
+    "topShare": 0.25,
+    "clampPad": 6,
+    "popDefault": 1.3,
+    "popPct20": 1.6,
+    "popPct35": 1.9,
+    "barrier": { "x": -52, "y": -34 },
+    "wardAlone": { "x": -26, "y": -34 },
+    "ward": { "x": 0, "y": -34 },
+    "poise": { "x": 26, "y": -34 },
+    "immune": { "x": 0, "y": -62 },
+    "guardPaired": { "x": -26, "y": 0 },
+    "damagePaired": { "x": 26, "y": 0 }
+  },
+  "callout": {
+    "lifeMs": 900,
+    "instantMs": 500,
+    "lanes": 3,
+    "stepMs": 150,
+    "slotPx": 34,
+    "risePx": 26,
+    "clampPad": 6,
+    "topInset": 4,
+    "floorGap": 2,
+    "defaultHeight": 30,
+    "reach": 16,
+    "kinds": {
+      "hit": { "tone": "white", "word": "hit" },
+      "evadeFailed": { "tone": "white", "word": "evadeFailed" },
+      "missed": { "tone": "white", "word": "missed" },
+      "outOfRange": { "tone": "white", "word": "outOfRange" },
+      "dodged": { "tone": "white", "word": "dodged" },
+      "staggered": { "tone": "gold", "word": "staggered" },
+      "disrupted": { "tone": "gold", "word": "disrupted" },
+      "countered": { "tone": "red", "word": "countered" },
+      "evaded": { "tone": "white", "word": "evaded" },
+      "critical": { "tone": "red", "word": "critical" },
+      "guardBreak": { "tone": "red", "word": "guardBreak" },
+      "wardBreak": { "tone": "ward", "word": "wardBreak" },
+      "barrierBreak": { "tone": "barrier", "word": "barrierBreak" },
+      "blockBreak": { "tone": "block", "word": "blockBreak" },
+      "interrupted": { "tone": "interrupt", "word": "interrupted" },
+      "poiseBreak": { "tone": "gold", "word": "poiseBreak" },
+      "resisted": { "tone": "barrier", "word": "resisted" },
+      "wardResisted": { "tone": "ward", "word": "resisted" },
+      "blocked": { "tone": "block", "word": "blocked" },
+      "immune": { "tone": "immune", "word": "immune" }
+    },
+    "priority": { "status": 6, "evaded": 5, "immune": 4, "blocked": 2, "resisted": 1, "wardResisted": 1, "other": 3 }
+  },
+  "statusColours": {
+    "venom": "#6fd36f",
+    "burn": "#e46a44",
+    "bleed": "#e46a44",
+    "bleeding": "#e0334a",
+    "frost": "#7fa8c9",
+    "frozen": "#9fe3ff",
+    "chilled": "#9fe3ff",
+    "paralysis": "#ffe14d",
+    "sleep": "#c7b3ff",
+    "weak": "#a89571",
+    "vulnerable": "#9fc3e8",
+    "magicVulnerable": "#8b7cd6",
+    "frail": "#a89571",
+    "dazed": "#ffe14d",
+    "offBalance": "#d9c9a3",
+    "prone": "#d9c9a3",
+    "grounded": "#d9c9a3",
+    "insanity": "#a06bd0",
+    "madness": "#a06bd0",
+    "crimsonBlight": "#b5541c",
+    "frostExposed": "#7fa8c9",
+    "insanityExposed": "#a06bd0"
+  },
+  "effects": {
+    "stance": { "bulwark": "bulwarkStance", "gorefire": "berserkStance" },
+    "status": {
+      "bleed": "bloodAura", "frost": "frostAura", "venom": "poisoned", "prepared": "duelistStance",
+      "starstoneCharge": "channelStance", "crimsonBlight": "crimsonBlight", "necroticBlight": "crimsonBlight",
+      "weak": "weak", "silenced": "weak", "vulnerable": "vulnerable", "frail": "frail", "strength": "strength", "dexterity": "dexterity"
+    },
+    "proc": { "bleed": "bloodLoss", "frost": "frostbite", "insanity": "insanity" },
+    "auraKinds": ["bloodAura", "frostAura", "poisonAura", "sacredAura"],
+    "subtleKinds": ["steelGlint", "dustStep", "focusMotes", "guardPulse", "weak", "frail", "resist", "strength", "dexterity"],
+    "treatments": {
+      "aura": { "sizeScale": 1, "opacity": 0.55, "startScale": 0.92, "endScale": 1.04 },
+      "subtle": { "sizeScale": 0.72, "opacity": 0.55, "startScale": 0.9, "endScale": 1.04 },
+      "full": { "sizeScale": 1, "opacity": 1, "startScale": 0.65, "endScale": 0.9 }
+    },
+    "layeredOpacity": 0.72,
+    "layeredKinds": ["slash", "shieldBash", "starbolt", "bloodSlash"],
+    "playback": {
+      "effectMs": 260,
+      "frames": 6,
+      "minFrameMs": 16,
+      "eventSize": 190,
+      "defaultSize": 140,
+      "entryOpacityFraction": 0.3,
+      "travelMidOffset": 0.6
+    }
+  },
+  "poses": {
+    "woundedShare": 0.35,
+    "projectileScale": 1.05,
+    "negative": ["weak", "vulnerable", "frail", "frostExposed", "insanityExposed", "crimsonBlight", "necroticBlight", "burn", "madness", "staggered", "venom", "magicVulnerable", "silenced"],
+    "stateScale": {
+      "wanderingSoldier": 1.02705, "blightHound": 0.91107, "huskBrute": 1.27303, "graveWisp": 1.15405, "wyrmAspirant": 1.17698,
+      "fellWarden": 1.19561, "lanternMoth": 1.16557, "briarHermit": 1.27662, "chainScavenger": 1.28814, "bellKeeper": 1.45777,
+      "thornMatriarch": 1.3968, "gildedKnight": 1.33888, "courtSurgeon": 1.08377, "stitchedHound": 1.1103, "courtMarionette": 0.93892,
+      "livingArmor": 1.06653, "courtDuelist": 1.12993, "stitchedKing": 1.1954, "mirrorScribe": 1.28156, "stitchCrab": 1.13299,
+      "glassRegent": 1.20488, "marrowOrganist": 1.25633, "ashRevenant": 0.93658, "emberStarvedPilgrim": 0.86741, "valkyrieShade": 1.41737,
+      "charredColossus": 1.26886, "wyrmLord": 1.13643, "blightedValkyrie": 1.2113, "cinderMantis": 1.27156, "eclipseCantor": 1.36776,
+      "furnaceSaint": 1.33506, "hollowAstronomer": 1.2727, "ashheartDragon": 1.16611
+    },
+    "defeatedScale": {
+      "wanderingSoldier": 0.86789, "blightHound": 0.86856, "huskBrute": 1.16348, "graveWisp": 1.09707,
+      "wyrmAspirant": 1.13946, "fellWarden": 1.07709, "lanternMoth": 1.03552, "briarHermit": 1.03793,
+      "chainScavenger": 1.05153, "bellKeeper": 1.21785, "thornMatriarch": 1.19148, "gildedKnight": 1.04122,
+      "courtSurgeon": 0.96394, "stitchedHound": 1.07999, "courtMarionette": 0.86694, "livingArmor": 0.97985,
+      "courtDuelist": 0.96715, "stitchedKing": 1.17311, "mirrorScribe": 1.24893, "stitchCrab": 1.09689,
+      "glassRegent": 0.98044, "marrowOrganist": 1.05822, "ashRevenant": 0.83798, "emberStarvedPilgrim": 0.76926,
+      "valkyrieShade": 1.07914, "charredColossus": 1.12272, "wyrmLord": 1.07311, "blightedValkyrie": 0.96368,
+      "cinderMantis": 1.1045, "eclipseCantor": 1.03995, "furnaceSaint": 1.14425, "hollowAstronomer": 1.25846,
+      "ashheartDragon": 1.15261, "rogue": 1.33257, "rogue-nightveil": 1.46589, "rogue-duelist": 1.32377,
+      "rogue-shadow": 1.32521, "reaver": 1.27361, "reaver-vigil": 1.20992, "reaver-oathsworn": 1.35957,
+      "reaver-warden": 1.22382, "starseer": 1.21853, "starseer-eclipse": 1.28384, "starseer-starlit": 1.44026,
+      "starseer-astral": 1.14803, "herald": 1.11628, "herald-ossuary": 1.19487, "herald-emberhabit": 1.25846,
+      "herald-pilgrim": 1.11628
+    }
+  },
+  "intro": {
+    "bossHoldMs": 2300,
+    "removeMs": 480,
+    "victoryBeatMs": 600
+  }
+}
