@@ -24,6 +24,7 @@ const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
 const { seatAtTier, seatTierHpMult } = await load('src/model/seats.js');
 const { runMods, resolveSwapCostRule } = await load('src/model/loadout.js');
 const { gameProfileClassAvailable } = await load('src/model/gameProfileRun.js');
+const { playInDeckOrder } = await load('src/model/deckRules.js');
 
 const classes = classIds(w);
 const pool = encounters(w).filter((e) => (e.pool === 'normal' || e.pool === 'elite') && !/^a[23]_/.test(e.id));
@@ -51,6 +52,7 @@ function combatArgs(run, encounter, settings = {}) {
     settings,
     hpMult,
     enemyDamageMult: 1,
+    orderedDraw: playInDeckOrder(settings), // runCombat.js:156
     enemyStatuses: [],
     playerStatuses: [],
     startStatuses: runMods(w.registries, run.loadout, run.class).startStatuses,
