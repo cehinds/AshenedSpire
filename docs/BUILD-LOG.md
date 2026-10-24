@@ -2,6 +2,28 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## Core 2 WP-C1b: the Unity screens play Core 2 fights (dev, 2026-10-24)
+
+**Landed**
+- **Run screens over `IClimb` (D-310):** the act map, run HUD, run end, pause, music and sfx read either ruleset; `MapNodeView.Col` is a double; a place not yet ported shows a "not yet available in this build" notice with Continue (`Core2PortView`); a Core 2 death/victory reaches W-15 with the class it opened.
+- **`Core2CombatFlow` + `Core2CombatText` (D-311):** the W-07 logic and words, engine-free. Stance, target (hit %, ghost HP, receipt), route (odds) asked only when the legal plays differ; reaction offer and card choice as required prompts; flasks, equipment swap/change, Perception predict, recover, reactions switch, End Turn refusal; pacing from `CombatPacing`. A throwing intent is caught, reported to the screen (logged) and the view rebuilt; the enemy-turn lock is dropped in `Unlock()` (manager note on the web freeze).
+- **Screens:** `Fighter` kit element (D-315), `core2Combat` (UXML/USS, `Core2CombatScreen`), `ActMapScreen` shared, W-04 classes per ruleset (`CreationClasses`, D-312), Continue/Load through `RunHost.Load` (formats 2 and 3), New Game through `RunHost.Start`.
+- **Data:** `newRun.ruleset` is `core2` (D-313; 405 saves still load; `RunFlow.RulesetOverride` pins `legacy` in the 405 PlayMode smokes); `core2Screens`, `ui/screens.json` `core2Combat` (built), `ui/components.json` `fighter`/`combat.logLines`, tokens, `core2.*` strings, codegen fragment `core2-ui.json`.
+- **Tests:** `Core2CombatFlowTests` (13: 8 bot fights through the controls, texts, refusals, stance step by step, reaction offer, illegal target, throwing intent), `Core2ScreensTests` (9), PlayMode `Core2FightSmokeTests` (keyboard/pad Core 2 fight, save-and-quit resume, defeat to W-15).
+
+**Compiled (D-314):** Presentation, Platform and the PlayMode tests were compiled for real with `csc` (C# 9, net48) against the `UnityEngine.Modules` 2021.3.33 reference assemblies from NuGet plus stubs for Unity 6-only types (`UxmlElement`, `UxmlAttribute`, `Painter2D`, `Unity.Properties`) and the Input System; zero errors. It found and fixed `FocusController.IgnoreEvent` (not an API). **Not run:** nothing in Unity (UXML/USS parsing, layout, focus walking, UxmlElement generation, the PlayMode smokes).
+
+**Tests** (`Category!=Bot`): 14065 passed, 0 failed (1 h 13 m); all node checks ok
+
+**Owner: check in the editor**
+- Core 2 New Game end to end (title, slot, W-04 with three locked classes, map, fight); Continue mid-fight and at the map.
+- W-07 layout at 1920x1080, compact and narrow: Fighter rating rows, prompt panel overlap with the hand, combat log, footer tools.
+- Focus/keyboard: arrows over hand/enemies/tools; prompt panel options; Predict buttons; ScrollView option list focus.
+- View build cost per press on Mono/IL2CPP (the legal list is 0.2-0.8 s on desktop .NET 8); enemy-turn pacing (stage gap + animation step).
+- `Core2FightSmokeTests` and the 405 smokes (now pinned to `legacy`).
+
+**Not done / deferred:** formation moves, an auto-combat bot, pile viewer, deck editor and Armoury (planned screens), rewards/rest/shop/event (WP-15 to WP-19), a Core 2 capture fixture.
+
 ## Core 2 WP-C1a: whole-fight parity through the session, a hosted Core 2 run, and the combat view (dev, 2026-10-24)
 
 **Landed**
