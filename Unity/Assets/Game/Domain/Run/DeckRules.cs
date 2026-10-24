@@ -477,7 +477,7 @@ namespace Ashen.Domain.Run
         {
             if (IsEquippedRun(run)) throw new InvalidOperationException(DM.NeedsConfigured);
             var unlimited = UnlimitedCardIds(d, run);
-            if (!unlimited.Contains(role)) throw new InvalidOperationException(RunJs.Fmt(DM.NotUnlimited, role, string.Join(", ", unlimited)));
+            if (!unlimited.Contains(role)) throw new InvalidOperationException(RunJs.Fmt(DM.NotUnlimited, role, string.Join(DV.ListJoin, unlimited)));
             var kept = Sideboard(run).OfType<JObject>().FirstOrDefault(c => !Js.Truthy(c[DK.EquipmentRole]) && !Js.Truthy(c[DK.GrantedBy]) && c.Str(DK.CardId) == role
                 && (!freshOnly || !IsSetAsideBasic(d, c, run)));
             if (kept != null)

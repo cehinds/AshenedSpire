@@ -97,6 +97,7 @@
         "TierPrefix": "tier.",
         "IdSeparator": "_",
         "InnateKeyword": "innate",
+        "ListJoin": ", ",
         "NoncombatEditor": "noncombat"
       }
     },
@@ -200,6 +201,19 @@
         "TypeKey": "deckEditor.type.{0}",
         "SourceKey": "deckEditor.source.{0}",
         "SortKey": "deckEditor.sort.{0}"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "Core2DeckEditorNumbers",
+      "type": "double",
+      "doc": "Numbers of the deck editor's projection: the cost bucket cap (a cost at or above it reads 5+) and the collation groups of the name sort.",
+      "values": {
+        "CostCap": "5",
+        "GroupDigit": "2",
+        "GroupLetter": "3",
+        "KeyShift": "65536"
       }
     }
   ]

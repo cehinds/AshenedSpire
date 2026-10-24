@@ -7,9 +7,11 @@ using Ashen.Domain.Combat;
 using Newtonsoft.Json.Linq;
 using DK = Ashen.Generated.Core2DeckKeys;
 using DM = Ashen.Generated.Core2DeckMessages;
+using EN = Ashen.Generated.Core2DeckEditorNumbers;
 using EV = Ashen.Generated.Core2DeckEditorValues;
 using K = Ashen.Generated.CombatKeys;
 using TF = Ashen.Generated.Core2DeckTextFormats;
+using V = Ashen.Generated.CombatValues;
 using TX = Ashen.Generated.Core2DeckText;
 
 namespace Ashen.Domain.Run
@@ -221,7 +223,7 @@ namespace Ashen.Domain.Run
         private static string CostBucket(double cost)
         {
             if (double.IsNaN(cost) || double.IsInfinity(cost) || cost < 0) return EV.BucketX;
-            return cost >= 5 ? EV.Bucket5Plus : RunJs.NumStr(cost);
+            return cost >= EN.CostCap ? EV.Bucket5Plus : RunJs.NumStr(cost);
         }
 
         private static string SourceOf(CoreDeckData d, JObject card, JObject def, JObject run)
@@ -274,7 +276,7 @@ namespace Ashen.Domain.Run
                 case EV.SortName:
                     return (a, b) => { var n = LocaleCompare(a.Name, b.Name); return n != 0 ? n : Bucket(a) - Bucket(b); };
                 case EV.SortType:
-                    return (a, b) => { var n = LocaleCompare(a.Type ?? "undefined", b.Type ?? "undefined"); return n != 0 ? n : LocaleCompare(a.Name, b.Name); };
+                    return (a, b) => { var n = LocaleCompare(a.Type ?? V.Undefined, b.Type ?? V.Undefined); return n != 0 ? n : LocaleCompare(a.Name, b.Name); };
                 case EV.SortSource:
                     return (a, b) => { var n = Sources.ToList().IndexOf(a.Source) - Sources.ToList().IndexOf(b.Source); return n != 0 ? n : LocaleCompare(a.Name, b.Name); };
                 default:
@@ -319,8 +321,8 @@ namespace Ashen.Domain.Run
                 var category = CharUnicodeInfo.GetUnicodeCategory(ch);
                 if (category == UnicodeCategory.NonSpacingMark) continue;
                 var lower = char.ToLowerInvariant(ch);
-                var group = char.IsWhiteSpace(ch) ? 0 : char.IsLetter(ch) ? 3 : char.IsDigit(ch) ? 2 : 1;
-                keys.Add(group * 0x10000 + lower);
+                var group = char.IsWhiteSpace(ch) ? 0 : char.IsLetter(ch) ? (int)EN.GroupLetter : char.IsDigit(ch) ? (int)EN.GroupDigit : 1;
+                keys.Add(group * (int)EN.KeyShift + lower);
             }
             return keys;
         }
@@ -521,7 +523,7 @@ namespace Ashen.Domain.Run
             var collection = tiles.Where(tile => tile.Unlimited && Passes(tile, state)).ToList();
             collection.AddRange(SortBy(tiles.Where(tile => !tile.Unlimited && Passes(tile, state)), Sorter(state.Sort)));
 
-            var typesPresent = described.Select(x => x.row.Type).Concat(tiles.Select(x => x.Type)).Distinct().OrderBy(x => x ?? "undefined", StringComparer.Ordinal).ToList();
+            var typesPresent = described.Select(x => x.row.Type).Concat(tiles.Select(x => x.Type)).Distinct().OrderBy(x => x ?? V.Undefined, StringComparer.Ordinal).ToList();
             var bucketsPresent = CostBuckets.Where(b => b != EV.BucketX || described.Any(x => x.row.CostBucket == EV.BucketX) || tiles.Any(x => x.CostBucket == EV.BucketX)).ToList();
             string TypeLabel(string type)
             {
