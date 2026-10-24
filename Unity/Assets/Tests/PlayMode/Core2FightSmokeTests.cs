@@ -265,16 +265,21 @@ namespace Ashen.Tests.Play
                 yield return null;
             }
             Assert.That(combat.Flow.Ended, Is.True, "the fight ends");
-            yield return Until(() => combat.Ended && Focused != null, 10f, "the end state");
-            var end = Nav.Top.Root.Q(UiNames.CombatEnd);
-            Assert.That(end.ClassListContains(UiClasses.Hidden), Is.False, "the end state shows");
 
             if (!session.RunOver)
             {
-                // A won fight: the rewards are a later work package, so the end panel says so and Continue returns to the Core 2 map.
-                Assert.That(Nav.Top.Root.Q<LocLabel>(UiNames.EndPlanned).text, Is.Not.Empty, "the 'not yet available' notice");
-                var next = Nav.Top.Root.Q(UiNames.EndContinue);
-                yield return Until(() => Focused == next, 5f, "focus on Continue");
+                // A won fight: after the victory beat the spoils screen holds the reward door (VP-7); its level notices are read, then Skip leaves it for the Core 2 map.
+                yield return Until(() => Nav.CurrentId == ScreenIds.Core2Rewards && Focused != null, 10f, "the spoils screen after the fight");
+                var spoils = (Core2RewardsScreen)Nav.Top.View;
+                for (var guard = 0; guard < 4 && spoils.Flow.Stage == Core2SpoilsStage.Notices; guard++)
+                {
+                    yield return Until(() => Focused == spoils.ConfirmButton, 5f, "focus on Continue");
+                    yield return Press(Key.Enter);
+                    yield return null;
+                }
+                Assert.That(spoils.Flow.Stage, Is.EqualTo(Core2SpoilsStage.Offer), "the offer follows the notices");
+                Assert.That(spoils.Options, Is.Not.Empty, "the offer's options are drawn");
+                yield return PressUntil(Key.DownArrow, () => Focused == spoils.BackButton, 8, "focus on Skip");
                 yield return Press(Key.Enter);
                 yield return Until(() => Nav.CurrentId == ScreenIds.ActMap && Focused != null, 10f, "the Core 2 map after the fight");
                 var after = (ActMapScreen)Nav.Top.View;

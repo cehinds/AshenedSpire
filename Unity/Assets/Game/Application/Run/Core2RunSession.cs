@@ -176,7 +176,7 @@ namespace Ashen.App.Run
         public IReadOnlyList<string> ClassesUnlocked { get; private set; } = Array.Empty<string>();
 
         /// <summary>The kind of node the run stands at whose rules are not part of this build ('rest', 'shop', 'treasure', 'event'), until the player moves on; or null.</summary>
-        public string PendingPort => HasPendingReward ? HV.PortRewards : _pendingPort;
+        public string PendingPort => _pendingPort;
 
         /// <summary>Where the run stands and a save resumes: 'combat', 'map', or 'runEnd' once the run is over (never saved: the slot is cleared).</summary>
         public string Location
@@ -299,8 +299,8 @@ namespace Ashen.App.Run
         }
 
         /// <summary>
-        /// The player moves past a place whose rules are not part of this build, or past a reward door that has no screen yet (the seam of WP-15): the notices are read and
-        /// the offer is left as it stands (<see cref="LeaveRewards"/>).
+        /// The player moves past a place whose rules are not part of this build. A reward door still open (the spoils screen, VP-7, is where its offer is worked) is
+        /// left as it stands too, as a test or a bot that has no screen does: the notices are read and the offer is left (<see cref="LeaveRewards"/>).
         /// </summary>
         public void DismissPort()
         {

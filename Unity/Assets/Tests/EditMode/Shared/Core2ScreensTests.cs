@@ -169,7 +169,7 @@ namespace Ashen.Tests
             session.Save();
             Assert.That(session.PendingPort, Is.Null);
             Assert.That(session.ReachableNodes(), Is.Not.Empty, "the climb goes on from the place");
-            foreach (var kind in new[] { Core2HostValues.DoorRest, Core2HostValues.DoorShop, Core2HostValues.DoorTreasure, Core2HostValues.DoorEvent, Core2HostValues.PortRewards })
+            foreach (var kind in new[] { Core2HostValues.DoorRest, Core2HostValues.DoorShop, Core2HostValues.DoorTreasure, Core2HostValues.DoorEvent })
             {
                 Assert.That(Ui.Strings.Has(string.Format(System.Globalization.CultureInfo.InvariantCulture, Core2UiFormats.PortTitleKey, kind)), Is.True, kind + " title");
                 Assert.That(Ui.Strings.Get(string.Format(System.Globalization.CultureInfo.InvariantCulture, Core2UiFormats.PortBodyKey, kind)), Does.Contain("not yet available"), kind + " body");
@@ -238,7 +238,7 @@ namespace Ashen.Tests
         public void EveryPlaceOfACore2RunRoutesToABuiltScreen()
         {
             var flow = Content.Flow;
-            foreach (var location in new[] { RunFlowValues.LocationCombat, RunFlowValues.LocationMap, RunFlowValues.LocationRunEnd })
+            foreach (var location in new[] { RunFlowValues.LocationCombat, RunFlowValues.LocationMap, RunFlowValues.LocationRewards, RunFlowValues.LocationRunEnd })
             {
                 var id = flow.Core2ScreenFor(location);
                 Assert.That(id, Is.Not.Null, location);
@@ -246,6 +246,7 @@ namespace Ashen.Tests
                 Assert.That(Ui.Screens.IsBuilt(id), Is.True, id + " is built");
             }
             Assert.That(flow.Core2ScreenFor(RunFlowValues.LocationCombat), Is.EqualTo(ScreenIds.Core2Combat));
+            Assert.That(flow.Core2ScreenFor(RunFlowValues.LocationRewards), Is.EqualTo(ScreenIds.Core2Rewards), "a won fight's door is the spoils screen (VP-7)");
             Assert.That(flow.Core2ScreenFor("nowhere"), Is.Null);
             Assert.That(flow.NewRunRuleset, Is.EqualTo(RunFlowValues.RulesetCore2));
         }

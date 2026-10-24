@@ -202,7 +202,8 @@ namespace Ashen.Tests
         public void ADoorDismissedFromTheMapLeavesTheSpoils()
         {
             var session = AtTheDoor(777);
-            Assert.That(session.PendingPort, Is.EqualTo("rewards"));
+            Assert.That(session.PendingPort, Is.Null, "the door is a screen of its own now (VP-7), not a map notice");
+            Assert.That(session.Location, Is.EqualTo("rewards"));
             session.DismissPort();
             Assert.That(session.HasPendingReward, Is.False);
             Assert.That(session.Location, Is.EqualTo("map"));

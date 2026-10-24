@@ -29,7 +29,8 @@
         "Event": "event",
         "Dialogue": "dialogue",
         "LegacyDungeon": "legacyDungeon",
-        "Core2Combat": "core2Combat"
+        "Core2Combat": "core2Combat",
+        "Core2Rewards": "core2Rewards"
       }
     },
     {
@@ -379,6 +380,9 @@
         "LogClose": "LOG_CLOSE",
         "OverlayHost": "OVERLAY_HOST",
         "OverlayModal": "OVERLAY_MODAL",
+        "SpoilsPage": "SPOILS_PAGE",
+        "SpoilsScrim": "SPOILS_SCRIM",
+        "SpoilsModal": "SPOILS_MODAL",
         "OverlayQuick": "OVERLAY_QUICK",
         "ModalHead": "MODAL_HEAD",
         "ModalEyebrow": "MODAL_EYEBROW",

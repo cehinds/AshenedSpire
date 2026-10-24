@@ -32,7 +32,6 @@
         "DoorShop": "shop",
         "DoorTreasure": "treasure",
         "DoorEvent": "event",
-        "PortRewards": "rewards",
         "LogKeyPrefix": "combat.log.",
         "ArgSource": "source",
         "ArgTarget": "target",

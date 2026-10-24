@@ -528,6 +528,15 @@
     --size-inspect-card-wnarrow: 200px;
     --size-inspect-card-hnarrow: 300px;
     --size-inspect-text-w: 320px;
+    --size-spoils-face-w: 168px;
+    --size-spoils-face-h: 252px;
+    --size-spoils-face-wnarrow: 112px;
+    --size-spoils-face-hnarrow: 168px;
+    --size-spoils-gap: 10px;
+    --size-spoils-icon: 36px;
+    --size-spoils-art: 72px;
+    --size-spoils-cinders-h: 56px;
+    --size-spoils-notice-gap: 6px;
     --size-quick-w: 310px;
     --size-quick-indent: 41px;
     --size-quick-row-h: 33px;

@@ -347,6 +347,9 @@ namespace Ashen.Generated
         public const string LogClose = "LOG_CLOSE";
         public const string OverlayHost = "OVERLAY_HOST";
         public const string OverlayModal = "OVERLAY_MODAL";
+        public const string SpoilsPage = "SPOILS_PAGE";
+        public const string SpoilsScrim = "SPOILS_SCRIM";
+        public const string SpoilsModal = "SPOILS_MODAL";
         public const string OverlayQuick = "OVERLAY_QUICK";
         public const string ModalHead = "MODAL_HEAD";
         public const string ModalEyebrow = "MODAL_EYEBROW";
