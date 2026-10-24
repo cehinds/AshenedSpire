@@ -306,5 +306,28 @@ namespace Ashen.Tests
             Assert.That(flow.Targeting, Is.True, "the card stays armed");
             Assert.That(session.StateHash(), Is.EqualTo(hash));
         }
+
+        [Test]
+        public void AnIntentThatThrowsIsReportedAndTheViewIsRebuiltInsteadOfLeavingTheScreenFrozen()
+        {
+            var session = Core2RunSession.New(Content, _saves, 1, 12, "reaver", "Aldric", () => Epoch);
+            session.EditRunForReview(r => { r["maxHp"] = 5000; r["hp"] = 5000; });
+            session.Travel(session.ReachableNodes()[0]);
+            var strings = Strings;
+            var flow = new Core2CombatFlow(session, strings);
+            var endTurn = flow.View.EndTurn;
+            var tally = new Tally();
+            var pick = new Random(1);
+            for (var guard = 0; guard < 400 && !flow.Ended; guard++) Press(flow, tally, pick);
+            Assert.That(flow.Ended, Is.True);
+            // The fight is over: the session throws (it is not in combat). The flow answers with the error and a message, never an exception.
+            var step = flow.Execute(endTurn);
+            Assert.That(step.Error, Is.Not.Null, "the exception is handed to the screen to log");
+            Assert.That(step.Refusal, Is.EqualTo(strings.Get(StringKeys.Core2ErrorUnexpected)), "the player is told");
+            Assert.That(step.Accepted, Is.False);
+            Assert.That(flow.View, Is.Not.Null);
+            Assert.That(flow.Prompt, Is.Null);
+            Assert.That(flow.Ended, Is.True, "the view is rebuilt from the fight as it stands");
+        }
     }
 }

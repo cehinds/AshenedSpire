@@ -45,7 +45,3 @@
 .fighter-predict:focus {
     border-color: var(--color-gold);
 }
-
-.fighter--hidden-rating {
-    display: none;
-}

@@ -356,7 +356,8 @@
         "CombatLog": "COMBAT_LOG",
         "LogTitle": "LOG_TITLE",
         "LogLines": "LOG_LINES",
-        "EndContinue": "END_CONTINUE"
+        "EndContinue": "END_CONTINUE",
+        "ToolRecover": "TOOL_RECOVER"
       }
     },
     {
@@ -869,7 +870,8 @@
         "NoFight": "ui: the combat screen opened without a fight",
         "NoReward": "ui: the rewards screen opened without a pending reward",
         "NoRun": "ui: a climb screen opened without a run in the right place",
-        "NoCore2Fight": "ui: the Core 2 combat screen opened without a fight"
+        "NoCore2Fight": "ui: the Core 2 combat screen opened without a fight",
+        "Core2StepFailed": "ui: a Core 2 combat step threw: {0}"
       }
     }
   ],

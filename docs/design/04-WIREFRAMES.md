@@ -341,6 +341,17 @@ Every step shares this shell. The rail items show their current values.
 - If a combatant can't fit readably, the screen reports `unsupported` and shows the upright gate.
 - Focus: hand → targets → footer group → HUD. Pad shoulder buttons scroll the hand.
 
+### W-07 for a Core 2 fight (`screen:core2Combat`, WP-C1b)
+
+Same bands as above, bound to `Core2CombatView` (D-311, D-315):
+
+- **Fighter** (`Fighter` kit element): intent chip (`Attack 12×2`, or `?` / `Attack?` while the move is unread, with a **Predict** control that opens the nine maneuvers), figure with the **hit-% badge** (top-left) and the Staggered / defeated badge, name, then the ghost HP and one-line **damage receipt** on a legal target, then the rating rows in data order **Evade, Poise, Ward, Block, HP**, the stance, stack chips (Precision, Barrier, Counter armed) and status chips.
+- **Hand:** cards show Stamina (and Mana) cost, type and rank, trait chips and the rules' refusal when unplayable.
+- **Prompt panel** (bottom right, focus mode `prompt`): stance choice, **Advance / Throw** with odds and cost, the **reaction offer** (Play options, Back = take the hit), the card choice (pick n, Confirm), flasks, **Armaments** (swap, change) and prediction. Targeting stays on the battlefield (focus mode `targeting`).
+- **Footer tools:** Reactions on/off, Armaments, Recover (only while a hold can be shaken off); End Turn shows the rules' refusal at the button.
+- **Combat log** top right (newest `combat.logLines`); the enemy turn walks one step per acting enemy at the player's combat pace, Skip fast-forwards.
+- **End panel:** Victory / defeat; a won fight says which spoils are not yet available in this build; Continue returns to the map, a death goes to W-15.
+
 ## W-08 `screen:rewards` — W1t (US-11.x)
 
 ```

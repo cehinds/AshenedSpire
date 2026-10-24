@@ -100,6 +100,7 @@ namespace Ashen.Generated
         public const string Core2EquipmentChange = "core2.equipment.change";
         public const string Core2EquipmentEmpty = "core2.equipment.empty";
         public const string Core2EquipmentSet = "core2.equipment.set";
+        public const string Core2ErrorUnexpected = "core2.error.unexpected";
         public const string Core2Hit = "core2.hit";
         public const string Core2HitOutOfRange = "core2.hit.outOfRange";
         public const string Core2HudBarrier = "core2.hud.barrier";
@@ -144,6 +145,7 @@ namespace Ashen.Generated
         public const string Core2PromptConfirm = "core2.prompt.confirm";
         public const string Core2PromptEquipment = "core2.prompt.equipment";
         public const string Core2PromptOffer = "core2.prompt.offer";
+        public const string Core2PromptRecover = "core2.prompt.recover";
         public const string Core2PromptRoute = "core2.prompt.route";
         public const string Core2ReactionsOff = "core2.reactions.off";
         public const string Core2ReactionsOn = "core2.reactions.on";
@@ -152,9 +154,11 @@ namespace Ashen.Generated
         public const string Core2ReceiptJoin = "core2.receipt.join";
         public const string Core2ReceiptLine = "core2.receipt.line";
         public const string Core2ReceiptLoss = "core2.receipt.loss";
+        public const string Core2RecoverOption = "core2.recover.option";
         public const string Core2RefusalActiveSet = "core2.refusal.activeSet";
         public const string Core2RefusalNoEquipment = "core2.refusal.noEquipment";
         public const string Core2RefusalPredict = "core2.refusal.predict";
+        public const string Core2RefusalRecover = "core2.refusal.recover";
         public const string Core2RefusalTarget = "core2.refusal.target";
         public const string Core2RefusalUnavailable = "core2.refusal.unavailable";
         public const string Core2RefusalUnplayable = "core2.refusal.unplayable";
@@ -163,6 +167,7 @@ namespace Ashen.Generated
         public const string Core2RouteThrow = "core2.route.throw";
         public const string Core2Staggered = "core2.staggered";
         public const string Core2ToolsArmaments = "core2.tools.armaments";
+        public const string Core2ToolsRecover = "core2.tools.recover";
         public const string Core2TraitJoin = "core2.trait.join";
         public const string CreationBack = "creation.back";
         public const string CreationBegin = "creation.begin";

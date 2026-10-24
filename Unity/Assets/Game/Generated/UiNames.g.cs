@@ -325,5 +325,6 @@ namespace Ashen.Generated
         public const string LogTitle = "LOG_TITLE";
         public const string LogLines = "LOG_LINES";
         public const string EndContinue = "END_CONTINUE";
+        public const string ToolRecover = "TOOL_RECOVER";
     }
 }

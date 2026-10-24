@@ -204,6 +204,10 @@ namespace Ashen.App.Combat
             return change.Cost.HasValue ? name + strings.Get(StringKeys.Core2OptionJoin) + strings.Format(StringKeys.Core2CostStamina, Args().Add(UiPlaceholders.Value, Num(change.Cost.Value))) : name;
         }
 
+        /// <summary>A way to recover: "Recover from Stunned".</summary>
+        public static string Recover(StringTable strings, Core2PromptOption option) =>
+            strings.Format(StringKeys.Core2RecoverOption, Args().Add(UiPlaceholders.Name, option.Label ?? option.Id ?? string.Empty));
+
         /// <summary>The reactions switch caption ("Reactions: on").</summary>
         public static string Reactions(StringTable strings, bool on) => strings.Get(on ? StringKeys.Core2ReactionsOn : StringKeys.Core2ReactionsOff);
 

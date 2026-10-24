@@ -23,7 +23,9 @@
         "RatingBlock": "block",
         "RatingHp": "hp",
         "CostStamina": "stamina",
-        "CostMana": "mana"
+        "CostMana": "mana",
+        "PromptRecover": "recover",
+        "AnimInstant": "instant"
       }
     },
     {

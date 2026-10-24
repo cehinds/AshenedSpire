@@ -88,7 +88,12 @@ namespace Ashen.Presentation.UI.Screens
             reactions.clicked += () => Handle(_flow.ToggleReactions(), reactions);
             var armaments = Root.Q<LocButton>(UiNames.ToolArmaments);
             armaments.clicked += () => Handle(_flow.OpenEquipment(), armaments);
+            var recover = Root.Q<LocButton>(UiNames.ToolRecover);
+            recover.clicked += () => Handle(_flow.OpenRecover(), recover);
             var list = Root.Q<ScrollView>(UiNames.PromptList);
+            // The focus model walks the options; neither the scroll view nor its bars take focus themselves.
+            list.focusable = false;
+            list.contentViewport.focusable = false;
             list.horizontalScroller.slider.focusable = false;
             list.verticalScroller.slider.focusable = false;
             Root.Q<LocButton>(UiNames.EndContinue).clicked += OnContinue;
@@ -286,6 +291,8 @@ namespace Ashen.Presentation.UI.Screens
             var idle = !_busy && !_flow.Ended;
             reactions?.SetEnabled(idle);
             Root.Q<LocButton>(UiNames.ToolArmaments)?.SetEnabled(idle && View.Equipment != null && View.Equipment.Slots.Count > 0);
+            var recover = Root.Q<LocButton>(UiNames.ToolRecover);
+            UiDom.Show(recover, idle && _flow.CanRecover);
             var prompt = Root.Q<LocLabel>(UiNames.TargetPrompt);
             var armed = _flow.Armed?.Name ?? _flow.ArmedFlask?.Name;
             prompt?.SetResolved(armed == null ? string.Empty : Strings.Format(StringKeys.CombatTargetCard, new StringArgs().Add(UiPlaceholders.Name, armed)));
@@ -367,6 +374,7 @@ namespace Ashen.Presentation.UI.Screens
                 case Core2UiValues.PromptFlasks: return Strings.Get(StringKeys.CombatFlasksTitle);
                 case Core2UiValues.PromptEquipment: return Strings.Get(StringKeys.Core2PromptEquipment);
                 case Core2UiValues.PromptChange: return Strings.Format(StringKeys.Core2PromptChange, new StringArgs().Add(UiPlaceholders.Name, prompt.Set?.Name ?? Strings.Get(StringKeys.Core2EquipmentEmpty)));
+                case Core2UiValues.PromptRecover: return Strings.Get(StringKeys.Core2PromptRecover);
                 case Core2UiValues.PromptPredict: return Strings.Format(StringKeys.Core2PredictTitle, new StringArgs().Add(UiPlaceholders.Name, prompt.Enemy?.Name ?? string.Empty));
                 default: return string.Empty;
             }
@@ -380,6 +388,7 @@ namespace Ashen.Presentation.UI.Screens
                 case Core2UiValues.PromptOffer: return Core2CombatText.OfferOption(Strings, option.Offer);
                 case Core2UiValues.PromptPredict: return Core2CombatText.Maneuver(Strings, option.Id);
                 case Core2UiValues.PromptChange: return Core2CombatText.Change(Strings, option.Change);
+                case Core2UiValues.PromptRecover: return Core2CombatText.Recover(Strings, option);
                 case Core2UiValues.PromptEquipment:
                     return option.Id == Core2UiValues.OptionChange ? Strings.Get(StringKeys.Core2EquipmentChange) : Core2CombatText.Set(Strings, option.Slot, option.Set);
                 case Core2UiValues.PromptFlasks:
@@ -468,18 +477,42 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>The one place a press's result is shown: a refusal at the control, a step the flow opened, or an intent that ran (its log lines walked at the combat pace).</summary>
         private void Handle(Core2StepResult step, VisualElement anchor)
         {
-            if (step.Refusal != null)
+            try
             {
-                Render();
-                Refuse(anchor, step.Refusal);
-                return;
+                if (step.Error != null) Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.Core2StepFailed, step.Error));
+                if (step.Refusal != null)
+                {
+                    Render();
+                    Refuse(anchor, step.Refusal);
+                    return;
+                }
+                if (!step.Ran)
+                {
+                    Render();
+                    return;
+                }
+                StartTimeline(step);
             }
-            if (!step.Ran)
+            catch (Exception e)
             {
-                Render();
-                return;
+                // Never leave the screen locked or stale because a presenter step threw.
+                Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.Core2StepFailed, e));
+                Unlock();
+                Refuse(anchor, Strings.Get(StringKeys.Core2ErrorUnexpected));
             }
-            StartTimeline(step);
+        }
+
+        /// <summary>Drops the enemy-turn lock and redraws from the flow's current view (each step guarded: a throwing redraw is logged, never left half done).</summary>
+        private void Unlock()
+        {
+            _timeline?.Pause();
+            _timeline = null;
+            _segments.Clear();
+            _hiddenLines = 0;
+            _acting = null;
+            _busy = false;
+            try { _flow.Refresh(); Render(); }
+            catch (Exception e) { Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.Core2StepFailed, e)); }
         }
 
         /// <summary>Apply a result the flow produced outside the controls (the PlayMode smoke finishes a fight through the flow, then lets the screen catch up).</summary>
@@ -499,7 +532,8 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>Splits the new log lines into steps, one per enemy that acted (the lines of its action stay with it), and walks them; with nothing to walk the screen simply catches up.</summary>
         private void StartTimeline(Core2StepResult step)
         {
-            _segments = Segments(step);
+            // The animation speed 'instant' walks nothing: the screen catches up at once.
+            _segments = _flow.Pacing.AnimSpeed == Core2UiValues.AnimInstant ? new List<List<Core2LogLine>>() : Segments(step);
             _revealed = 0;
             var lines = step.Timeline.Count(l => !string.IsNullOrEmpty(l.Text));
             if (_segments.Count == 0)
@@ -541,17 +575,25 @@ namespace Ashen.Presentation.UI.Screens
 
         private void StepTimeline()
         {
-            if (_revealed >= _segments.Count)
+            try
             {
-                FinishTimeline();
-                return;
+                if (_revealed >= _segments.Count)
+                {
+                    FinishTimeline();
+                    return;
+                }
+                var segment = _segments[_revealed++];
+                _hiddenLines = Math.Max(0, _hiddenLines - segment.Count);
+                var lead = segment.FirstOrDefault(l => l.SourceId != null && _enemies.ContainsKey(l.SourceId));
+                _acting = lead?.SourceId;
+                Banner(StringKeys.CombatActing, lead?.SourceName, 0);
+                Render();
             }
-            var segment = _segments[_revealed++];
-            _hiddenLines = Math.Max(0, _hiddenLines - segment.Count);
-            var lead = segment.FirstOrDefault(l => l.SourceId != null && _enemies.ContainsKey(l.SourceId));
-            _acting = lead?.SourceId;
-            Banner(StringKeys.CombatActing, lead?.SourceName, 0);
-            Render();
+            catch (Exception e)
+            {
+                Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.Core2StepFailed, e));
+                Unlock();
+            }
         }
 
         /// <summary>Skip ▶▶: end the timeline now.</summary>
@@ -563,14 +605,9 @@ namespace Ashen.Presentation.UI.Screens
 
         private void FinishTimeline()
         {
-            _timeline?.Pause();
-            _timeline = null;
-            _segments.Clear();
-            _hiddenLines = 0;
-            _acting = null;
-            _busy = false;
-            Render();
-            AfterStep();
+            Unlock();
+            try { AfterStep(); }
+            catch (Exception e) { Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.Core2StepFailed, e)); }
         }
 
         /// <summary>After an intent and its walk: the end of the fight, or the player's turn again.</summary>

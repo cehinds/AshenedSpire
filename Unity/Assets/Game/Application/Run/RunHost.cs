@@ -33,7 +33,7 @@ namespace Ashen.App.Run
     /// <summary>
     /// The title-level door to a run (docs/design/11 WP-C1a, D-302): New Game starts the ruleset rules/runFlow.json <c>newRun.ruleset</c> names — the 405 <see cref="RunSession"/> or the
     /// Core 2 <see cref="Core2RunSession"/> — and Continue reads a slot by the save format it holds (2 = a 405 run, 3 = a Core 2 run), so one title screen serves both. The
-    /// ruleset is data: the switch stays 'legacy' until the Core 2 reward, rest, shop and event nodes land (WP-15 to WP-19).
+    /// ruleset is data: 'core2' since WP-C1b (D-313); the Core 2 reward, rest, shop and event nodes (WP-15 to WP-19) answer 'not yet available' meanwhile.
     /// </summary>
     public static class RunHost
     {

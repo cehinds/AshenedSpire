@@ -11,6 +11,7 @@ using DV = Ashen.Generated.Core2DamageValues;
 using EV = Ashen.Generated.Core2EnemyValues;
 using K = Ashen.Generated.CombatKeys;
 using RK = Ashen.Generated.Core2ReactionKeys;
+using RV = Ashen.Generated.Core2ReactionValues;
 using UV = Ashen.Generated.Core2UiValues;
 
 namespace Ashen.App.Combat
@@ -73,6 +74,9 @@ namespace Ashen.App.Combat
         public bool Ran;
 
         public Core2Outcome Outcome;
+
+        /// <summary>The exception an intent threw (the session or a save failed): the fight is as it was, <see cref="Refusal"/> says so and the screen logs this.</summary>
+        public Exception Error;
 
         /// <summary>The new log lines the intent produced, oldest first.</summary>
         public List<Core2LogLine> Timeline = new List<Core2LogLine>();
@@ -445,6 +449,27 @@ namespace Ashen.App.Combat
             return new Core2StepResult();
         }
 
+        /// <summary>The player holds a control status the rules would let them shake off now (a recoverControl intent is legal).</summary>
+        public bool CanRecover => !Ended && View.Legal.Any(l => l.Str(K.Type) == RV.IntentRecoverControl);
+
+        /// <summary>Open the ways to recover from a held control status (one option per recoverControl intent the rules take).</summary>
+        public Core2StepResult OpenRecover()
+        {
+            if (Ended || Prompt != null) return new Core2StepResult();
+            var prompt = new Core2Prompt { Kind = UV.PromptRecover };
+            foreach (var intent in View.Legal.Where(l => l.Str(K.Type) == RV.IntentRecoverControl))
+            {
+                var id = Js.Items(intent[RK.Selections]).OfType<JObject>().Select(x => x.Str(K.Status)).FirstOrDefault();
+                var status = View.Player.Statuses.FirstOrDefault(x => x.Id == id);
+                prompt.Options.Add(new Core2PromptOption { Id = id, Label = status?.Name ?? id, Intent = intent });
+            }
+            if (prompt.Options.Count == 0) return new Core2StepResult { Refusal = _strings?.Get(StringKeys.Core2RefusalRecover) };
+            Armed = null;
+            _wantsTarget = false;
+            Prompt = prompt;
+            return new Core2StepResult();
+        }
+
         /// <summary>Open the prediction choices of an enemy whose move the player has not read (Perception).</summary>
         public Core2StepResult OpenPredict(string enemyId)
         {
@@ -532,7 +557,15 @@ namespace Ashen.App.Combat
         /// <summary>Run an intent the view built through the run session (legality, autosave, the fight's end written back to the run), then rebuild the view.</summary>
         public Core2StepResult Execute(JObject intent)
         {
-            var outcome = _run.Execute(intent);
+            Core2Outcome outcome;
+            try { outcome = _run.Execute(intent); }
+            catch (Exception e)
+            {
+                // A throwing dispatch must not leave the screen stale or silent: say so and rebuild from the fight as it stands.
+                var failed = new Core2StepResult { Ran = true, Error = e, Refusal = _strings?.Get(StringKeys.Core2ErrorUnexpected) ?? e.Message };
+                try { Reset(); Refresh(); } catch (Exception) { /* the view is rebuilt on the next press */ }
+                return failed;
+            }
             var result = new Core2StepResult { Ran = true, Outcome = outcome };
             if (!outcome.Accepted)
             {

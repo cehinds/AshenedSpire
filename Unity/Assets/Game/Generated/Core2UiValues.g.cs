@@ -23,5 +23,7 @@ namespace Ashen.Generated
         public const string RatingHp = "hp";
         public const string CostStamina = "stamina";
         public const string CostMana = "mana";
+        public const string PromptRecover = "recover";
+        public const string AnimInstant = "instant";
     }
 }
