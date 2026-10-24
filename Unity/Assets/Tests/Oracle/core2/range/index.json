@@ -12,7 +12,7 @@
   "core.backstep"
  ],
  "exchanges": {
-  "bytes": 12367571,
+  "bytes": 12430686,
   "count": 328,
   "file": "exchanges.json",
   "kinds": [
@@ -40,7 +40,7 @@
    "burdenPlay",
    "counterReach"
   ],
-  "steps": 1360
+  "steps": 1368
  },
  "fights": {
   "herald": {
@@ -49,41 +49,41 @@
   },
   "reaver": {
    "fights": 8,
-   "steps": 123
+   "steps": 118
   },
   "rogue": {
    "fights": 8,
-   "steps": 66
+   "steps": 71
   },
   "starseer": {
    "fights": 8,
-   "steps": 73
+   "steps": 83
   }
  },
  "files": [
   {
-   "bytes": 1143029,
+   "bytes": 1103243,
    "classId": "reaver",
    "fights": 8,
    "file": "fights-reaver.json",
-   "steps": 123
+   "steps": 118
   },
   {
-   "bytes": 1173194,
+   "bytes": 1300807,
    "classId": "starseer",
    "fights": 8,
    "file": "fights-starseer.json",
-   "steps": 73
+   "steps": 83
   },
   {
-   "bytes": 705044,
+   "bytes": 743558,
    "classId": "rogue",
    "fights": 8,
    "file": "fights-rogue.json",
-   "steps": 66
+   "steps": 71
   },
   {
-   "bytes": 1296833,
+   "bytes": 1297762,
    "classId": "herald",
    "fights": 8,
    "file": "fights-herald.json",
@@ -95,22 +95,22 @@
  "rejections": {
   "throws: 'Dazed' is unplayable": 50,
   "throws: 'Wound' is unplayable": 30,
-  "throws: Already at that position.": 293,
-  "throws: Choose a tile on your side.": 293,
-  "throws: Combat is over": 8,
-  "throws: Not enough Stamina or Mana": 821,
-  "throws: Not enough Stamina to Advance": 81,
-  "throws: Not enough actions to move.": 84,
-  "throws: Recover from the active control statuses before playing cards": 300,
+  "throws: Already at that position.": 301,
+  "throws: Choose a tile on your side.": 301,
+  "throws: Combat is over": 7,
+  "throws: Not enough Stamina or Mana": 854,
+  "throws: Not enough Stamina to Advance": 80,
+  "throws: Not enough actions to move.": 86,
+  "throws: Recover from the active control statuses before playing cards": 260,
   "throws: The selected range route cannot reach every target": 14
  },
  "seen": {
-  "back": 444,
+  "back": 449,
   "fizzled": 0,
-  "offers": 728,
-  "played": 284,
-  "stacked": 284,
-  "unavailable": 318
+  "offers": 734,
+  "played": 285,
+  "stacked": 285,
+  "unavailable": 328
  },
  "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
 }

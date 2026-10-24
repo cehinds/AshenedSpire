@@ -10,7 +10,7 @@
   "core.defend"
  ],
  "exchanges": {
-  "bytes": 2394293,
+  "bytes": 2394398,
   "count": 120,
   "file": "exchanges.json",
   "kinds": [
@@ -37,38 +37,38 @@
   },
   "reaver": {
    "fights": 8,
-   "steps": 94
+   "steps": 110
   },
   "rogue": {
    "fights": 8,
-   "steps": 68
+   "steps": 88
   },
   "starseer": {
    "fights": 8,
-   "steps": 93
+   "steps": 107
   }
  },
  "files": [
   {
-   "bytes": 342548,
+   "bytes": 385312,
    "classId": "reaver",
    "fights": 8,
    "file": "fights-reaver.json",
-   "steps": 94
+   "steps": 110
   },
   {
-   "bytes": 349847,
+   "bytes": 392977,
    "classId": "starseer",
    "fights": 8,
    "file": "fights-starseer.json",
-   "steps": 93
+   "steps": 107
   },
   {
-   "bytes": 268301,
+   "bytes": 321947,
    "classId": "rogue",
    "fights": 8,
    "file": "fights-rogue.json",
-   "steps": 68
+   "steps": 88
   },
   {
    "bytes": 295896,
@@ -83,16 +83,16 @@
  "rejections": {
   "throws: 'Dazed' is unplayable": 5,
   "throws: 'Wound' is unplayable": 7,
-  "throws: Not enough Stamina or Mana": 212,
-  "throws: Not enough Stamina to Advance": 12
+  "throws: Not enough Stamina or Mana": 249,
+  "throws: Not enough Stamina to Advance": 14
  },
  "seen": {
-  "back": 176,
+  "back": 180,
   "fizzled": 0,
-  "offers": 324,
-  "played": 148,
-  "stacked": 148,
-  "unavailable": 131
+  "offers": 339,
+  "played": 159,
+  "stacked": 159,
+  "unavailable": 145
  },
  "units": {
   "bytes": 183349,

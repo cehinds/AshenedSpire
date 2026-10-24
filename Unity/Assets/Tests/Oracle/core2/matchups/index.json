@@ -17,7 +17,7 @@
   "core.defend"
  ],
  "exchanges": {
-  "bytes": 977863,
+  "bytes": 977893,
   "count": 51,
   "file": "exchanges.json",
   "kinds": [
@@ -38,38 +38,38 @@
   },
   "reaver": {
    "fights": 6,
-   "steps": 99
+   "steps": 118
   },
   "rogue": {
    "fights": 6,
-   "steps": 77
+   "steps": 95
   },
   "starseer": {
    "fights": 6,
-   "steps": 84
+   "steps": 86
   }
  },
  "files": [
   {
-   "bytes": 330863,
+   "bytes": 373795,
    "classId": "reaver",
    "fights": 6,
    "file": "fights-reaver.json",
-   "steps": 99
+   "steps": 118
   },
   {
-   "bytes": 320461,
+   "bytes": 326741,
    "classId": "starseer",
    "fights": 6,
    "file": "fights-starseer.json",
-   "steps": 84
+   "steps": 86
   },
   {
-   "bytes": 286861,
+   "bytes": 332071,
    "classId": "rogue",
    "fights": 6,
    "file": "fights-rogue.json",
-   "steps": 77
+   "steps": 95
   },
   {
    "bytes": 202421,
@@ -86,7 +86,7 @@
   "throws: Invalid enemy target 'eN'": 4
  },
  "seen": {
-  "counterArmed": 83,
+  "counterArmed": 88,
   "counterConsumed": 60,
   "counterTriggered": 60,
   "guardBroken": 0,

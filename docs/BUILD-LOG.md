@@ -36,6 +36,12 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 - Settings: Map reveal does not change a Core 2 run (pinned); a 405 run still follows it.
 
 **Next:** the spoils review's Edit deck action (needs the pending reward and the editor reconciled); Combat Power and the derived ratings on the Character pane; Replace / Unequip and Inventory; Potions outside a fight; phone compositions (VP-14).
+## Core 2 fight oracles regenerated with the boss tier scale (D-324 follow-up, 2026-10-24)
+
+**Landed:** every oracle that builds a fight through `createFight` was re-run on the pinned web (`b8cfe4fac`) after D-324: `combat`, `costs`, `damage`, `enemy`, `hit`, `matchups`, `range` (`oracle-core2-reactions.mjs --bot range` plus `oracle-core2-range.mjs`), `reactions`, `remaining`, `statuses`, `snapshot` (`start`, `session` and `deck` were done with D-324). `.meta` files untouched.
+- Unchanged (byte-identical, no boss in their fights): `combat`, `costs`, `hit`, `range/quotes.json`.
+- Changed, every changed fight record a boss encounter, all others identical: `damage` (fights 30 of 128; receipts and units: target / source `hp`, `maxHp`, `damageMult`), `enemy` (fights and exchanges 14 of 101), `matchups` (11 of 69), `range` (fights 9 of 32, exchanges 46 of 328), `reactions` (fights 10 of 32, exchanges 7 of 120), `remaining` (fights 89 of 340, units 12 of 48), `statuses` (fights 24 of 96, scenarios 11 changed), `snapshot` (5 enemies; 3,121 states considered becomes 3,120, still 42 snapshots). What changed inside a boss fight: enemy `hp` / `maxHp`, the new `damageMult`, move and intent damage, and what follows (events, turn counts, later steps and the deltas of a fight that ends sooner or later).
+- Checked with a JSON-aware per-record diff; `matchups` re-run twice gives identical bytes.
 
 ## VP-7: the Core 2 spoils screen (worktree branch, 2026-10-24)
 

@@ -2,69 +2,69 @@
  "fights": {
   "herald": {
    "fights": 32,
-   "steps": 187
+   "steps": 191
   },
   "reaver": {
    "fights": 32,
-   "steps": 388
+   "steps": 391
   },
   "rogue": {
    "fights": 32,
-   "steps": 382
+   "steps": 384
   },
   "starseer": {
    "fights": 32,
-   "steps": 246
+   "steps": 249
   }
  },
  "files": [
   {
-   "bytes": 1431526,
+   "bytes": 1433528,
    "cases": 150,
    "file": "receipts-0.json"
   },
   {
-   "bytes": 1432152,
+   "bytes": 1434195,
    "cases": 150,
    "file": "receipts-1.json"
   },
   {
-   "bytes": 1443534,
+   "bytes": 1446191,
    "cases": 150,
    "file": "receipts-2.json"
   },
   {
-   "bytes": 1398751,
+   "bytes": 1401688,
    "cases": 145,
    "file": "receipts-3.json"
   },
   {
-   "bytes": 1393635,
+   "bytes": 1398243,
    "classId": "reaver",
    "fights": 32,
    "file": "fights-reaver.json",
-   "steps": 388
+   "steps": 391
   },
   {
-   "bytes": 1203480,
+   "bytes": 1214467,
    "classId": "starseer",
    "fights": 32,
    "file": "fights-starseer.json",
-   "steps": 246
+   "steps": 249
   },
   {
-   "bytes": 1455532,
+   "bytes": 1462340,
    "classId": "rogue",
    "fights": 32,
    "file": "fights-rogue.json",
-   "steps": 382
+   "steps": 384
   },
   {
-   "bytes": 1045789,
+   "bytes": 1057111,
    "classId": "herald",
    "fights": 32,
    "file": "fights-herald.json",
-   "steps": 187
+   "steps": 191
   }
  ],
  "mechanics": {
@@ -94,7 +94,7 @@
  "refused": 5,
  "rejections": {},
  "units": {
-  "bytes": 271256,
+  "bytes": 271601,
   "file": "units.json",
   "kernel": 27,
   "units": 160
