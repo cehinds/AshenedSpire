@@ -1,35 +1,242 @@
-/* Combat footer group (docs/design/04 §1): packed and centred; label padding shrinks first in the compact band. */
+/* Combat footer group (docs/design/04 §1), VP-4 look (D-700): the web's footer art row (src/ui/components/footerArt.js, footerLayout.json): stamina orb with its
+   mana ring and the Draw pile on the left, the End Turn plate in the middle, the Discard/Exhaust pile and the Potions tray on the right. The art is raster
+   (footer.* / orb.*: set by code); the controls keep their buttons. The two outer zones share the spare width equally so the plate stays centred.
+   Web at 1920x1080: plate 252x78 centred, orb 92, draw art 60x67, discard art 62x72, potions art 107x53 (divide by 1.5 for reference px). */
+
 .footergroup {
-    min-height: var(--size-footer-group-h);
+    flex-grow: 1;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
     flex-wrap: nowrap;
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
 }
 
-.group-actions {
-    margin-right: var(--space-lg);
-    font-size: var(--font-heading);
-    color: var(--color-res-actions);
-    -unity-font-style: bold;
+.group-zone {
+    flex-grow: 1;
+    flex-basis: 0;
+    flex-direction: row;
+    align-items: center;
 }
 
-.group-button {
+.group-zone--left {
+    justify-content: flex-start;
+}
+
+.group-zone--center {
+    flex-grow: 0;
+    flex-basis: auto;
+    justify-content: center;
+}
+
+.group-zone--right {
+    justify-content: flex-end;
+}
+
+.group-orb {
+    margin-right: var(--size-board-group-gap);
+}
+
+.group-pile {
+    align-items: center;
+    margin-left: var(--size-board-group-gap);
+}
+
+.group-zone--left .group-pile {
+    margin-left: 0;
+}
+
+/* ---- pile and potion buttons: the art above, the count under it (the button's own text), a caption below ---- */
+
+.group-pile-button.kit-button {
+    width: var(--size-board-pile-w);
+    height: var(--size-board-pile-h);
+    min-height: 0;
+    margin: 0;
+    padding: var(--size-board-pile-art-h) 0 0 0;
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-color: var(--color-transparent);
+    border-width: var(--border-control);
+    border-radius: var(--radius-tight);
+    font-size: var(--font-board-count);
+    letter-spacing: 0;
+    color: var(--color-footer-text);
+    -unity-text-align: upper-center;
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+}
+
+.group-pile-button.kit-button:hover,
+.group-pile-button.kit-button:active {
+    background-color: var(--color-transparent);
+    border-color: var(--color-transparent);
+    color: var(--color-parchment);
+}
+
+.group-pile-button.kit-button:focus,
+.unity-button.group-pile-button.kit-button:focus:enabled {
+    background-color: var(--color-transparent);
+    border-color: var(--color-gold);
+    border-width: var(--border-control);
+    color: var(--color-parchment);
+}
+
+.group-pile-button.kit-button:disabled,
+.group-pile-button.kit-button:disabled:hover,
+.group-pile-button.kit-button:disabled:focus {
+    background-color: var(--color-transparent);
+    border-color: var(--color-transparent);
+    border-width: var(--border-control);
+    color: var(--color-muted);
+    opacity: var(--opacity-disabled);
+}
+
+.group-pile-button--wide.kit-button {
+    width: var(--size-board-pile-wide-w);
+}
+
+.group-pile-button--potions.kit-button {
+    width: var(--size-board-potions-w);
+    height: var(--size-board-potions-h);
+    padding-top: var(--size-board-potions-art-h);
+    font-size: var(--font-board-caption);
+}
+
+.group-pile-art {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: var(--size-board-pile-art-h);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.group-pile-art--potions {
+    height: var(--size-board-potions-art-h);
+}
+
+.group-pile-button.kit-button:hover .group-pile-art,
+.group-pile-button.kit-button:focus .group-pile-art {
+    -unity-background-image-tint-color: var(--color-target-line);
+}
+
+.group-pile-caption {
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-board-caption);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-footer-text);
+    -unity-text-align: upper-center;
+    white-space: nowrap;
+}
+
+/* ---- End Turn: the plate art (footer.plate, set by code) stretched over the control as the web does (preserveAspectRatio none) ---- */
+
+.group-end-turn.kit-button {
+    width: var(--size-board-end-w);
+    height: var(--size-board-end-h);
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-width: 0;
+    border-radius: 0;
+    font-size: var(--font-board-end);
+    letter-spacing: 0;
+    color: var(--color-footer-text);
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+    -unity-text-align: middle-center;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-background-image-tint-color: var(--color-plate-rest);
+}
+
+.group-end-turn.kit-button:hover,
+.group-end-turn.kit-button:active {
+    background-color: var(--color-transparent);
+    border-width: 0;
+    color: var(--color-parchment);
+    -unity-background-image-tint-color: var(--color-parchment);
+}
+
+.group-end-turn.kit-button:focus,
+.unity-button.group-end-turn.kit-button:focus:enabled {
+    background-color: var(--color-transparent);
+    border-width: 0;
+    color: var(--color-parchment);
+    -unity-background-image-tint-color: var(--color-target-line);
+}
+
+.group-end-turn.kit-button.end-turn--ready {
+    color: var(--color-ready-line);
+}
+
+.group--busy .group-end-turn.kit-button {
+    color: var(--color-danger);
+    -unity-background-image-tint-color: var(--color-danger);
+}
+
+.group-end-turn.kit-button:disabled,
+.group-end-turn.kit-button:disabled:hover,
+.group-end-turn.kit-button:disabled:focus {
+    background-color: var(--color-transparent);
+    border-width: 0;
+    color: var(--color-muted);
+    opacity: var(--opacity-disabled);
+}
+
+/* ---- narrow board (390 x 844): smaller art, a squarer plate, bigger type relative to the art ---- */
+
+.layout-narrow .group-pile-button.kit-button {
+    width: var(--size-board-pile-w-narrow);
+    height: var(--size-board-pile-h-narrow);
+    padding-top: var(--size-board-pile-art-h-narrow);
+    font-size: var(--font-board-count-narrow);
+}
+
+.layout-narrow .group-pile-button--wide.kit-button {
+    width: var(--size-board-pile-wide-w-narrow);
+}
+
+.layout-narrow .group-pile-button--potions.kit-button {
+    width: var(--size-board-potions-w-narrow);
+    height: var(--size-board-potions-h-narrow);
+    padding-top: var(--size-board-potions-art-h-narrow);
+    font-size: var(--font-board-caption-narrow);
+}
+
+.layout-narrow .group-pile-art {
+    height: var(--size-board-pile-art-h-narrow);
+}
+
+.layout-narrow .group-pile-art--potions {
+    height: var(--size-board-potions-art-h-narrow);
+}
+
+.layout-narrow .group-pile-caption {
+    font-size: var(--font-board-caption-narrow);
+}
+
+.layout-narrow .group-end-turn.kit-button {
+    width: var(--size-board-end-w-narrow);
+    height: var(--size-board-end-h-narrow);
+    font-size: var(--font-board-end-narrow);
+}
+
+.layout-narrow .group-pile {
     margin-left: var(--space-xs);
+}
+
+.layout-narrow .group-orb {
     margin-right: var(--space-xs);
-    min-width: var(--size-button-min-w);
 }
 
-.group-end-turn {
-    min-width: var(--size-menu-width);
-}
-
-.band-compact .group-button {
-    min-width: 0;
+.layout-narrow .footergroup {
     padding-left: var(--space-sm);
     padding-right: var(--space-sm);
 }
 
-.band-compact .group-end-turn {
-    min-width: var(--size-button-min-w);
+.band-compact .group-end-turn.kit-button {
+    width: var(--size-board-end-w-narrow);
 }

@@ -22,5 +22,6 @@ namespace Ashen.Generated
         public const string KitCombatant = "UI/Kit/Combatant";
         public const string KitRunHud = "UI/Kit/RunHud";
         public const string KitFighter = "UI/Kit/Fighter";
+        public const string KitOrb = "UI/Kit/Orb";
     }
 }

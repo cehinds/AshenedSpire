@@ -326,5 +326,31 @@ namespace Ashen.Generated
         public const string LogLines = "LOG_LINES";
         public const string EndContinue = "END_CONTINUE";
         public const string ToolRecover = "TOOL_RECOVER";
+        public const string StageGrid = "STAGE_GRID";
+        public const string HudHeart = "HUD_HEART";
+        public const string HudPips = "HUD_PIPS";
+        public const string HudSide = "HUD_SIDE";
+        public const string TurnRibbon = "TURN_RIBBON";
+        public const string ToolLog = "TOOL_LOG";
+        public const string ToolGrid = "TOOL_GRID";
+        public const string LogClose = "LOG_CLOSE";
+        public const string FighterOverhead = "FIGHTER_OVERHEAD";
+        public const string FighterIntentRow = "FIGHTER_INTENT_ROW";
+        public const string FighterIntentIcon = "FIGHTER_INTENT_ICON";
+        public const string FighterBreak = "FIGHTER_BREAK";
+        public const string FighterChips = "FIGHTER_CHIPS";
+        public const string FighterNotes = "FIGHTER_NOTES";
+        public const string FighterShadow = "FIGHTER_SHADOW";
+        public const string OrbRing = "ORB_RING";
+        public const string OrbDisc = "ORB_DISC";
+        public const string OrbFrame = "ORB_FRAME";
+        public const string OrbValue = "ORB_VALUE";
+        public const string OrbLabel = "ORB_LABEL";
+        public const string GroupOrb = "GROUP_ORB";
+        public const string GroupDrawArt = "GROUP_DRAW_ART";
+        public const string GroupDrawCaption = "GROUP_DRAW_CAPTION";
+        public const string GroupDiscardArt = "GROUP_DISCARD_ART";
+        public const string GroupDiscardCaption = "GROUP_DISCARD_CAPTION";
+        public const string GroupPotionsArt = "GROUP_POTIONS_ART";
     }
 }

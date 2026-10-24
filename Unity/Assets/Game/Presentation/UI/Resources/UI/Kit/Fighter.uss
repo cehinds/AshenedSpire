@@ -1,47 +1,268 @@
-/* Fighter (docs/design/04 §1, W-07 for a Core 2 fight): the Combatant's figure and chips plus the rating rows in the HUD order Evade, Poise, Ward, Block, HP,
-   the hit-chance badge, the damage receipt and the Perception predict control. The shared rules live in Combatant.uss. */
-.fighter-ratings {
+/* Fighter (docs/design/04 §1, W-07 for a Core 2 fight), VP-4 look (D-700): one slot of the formation, as the web draws a combatant
+   (docs/qa/web-screens/combat-three-enemies-1920x1080.jpg, combat-390x844.jpg; src/ui/components/combatantOverhead.js):
+   the overhead (intent range + icon, a long HP bar with its value under it, rating and status chips) hangs over the figure,
+   a ground shadow under it. The name, the ghost HP and the damage receipt hang below the shadow and show only for a legal
+   target, the hovered or the focused fighter. The shared rules live in Combatant.uss; the selectors here are doubled
+   (.combatant.fighter) so they win over it regardless of load order. */
+
+.combatant.fighter {
+    width: var(--size-board-slot-w);
+    padding: 0;
+    margin: 0 0 var(--size-board-row-pull) 0;
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-card);
+    align-items: center;
+}
+
+.combatant.fighter:hover {
+    background-color: var(--color-transparent);
+}
+
+.combatant.fighter:focus {
+    border-color: var(--color-gold);
+    background-color: var(--color-transparent);
+}
+
+/* ---- overhead ---- */
+
+.fighter-overhead {
     width: var(--size-full-width);
+    align-items: center;
 }
 
-.fighter-rating {
-    font-size: var(--font-chip);
-    -unity-font-style: bold;
-    -unity-text-align: middle-center;
-    color: var(--color-parchment);
-    background-color: var(--color-panel);
-    border-radius: var(--radius-chip);
-    margin-bottom: var(--space-xxs);
+.fighter-intent-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--size-board-intent-h);
 }
 
-.fighter-hit {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: var(--space-xxs) var(--space-xs);
-    font-size: var(--font-chip);
-    -unity-font-style: bold;
-    color: var(--color-bg);
-    background-color: var(--color-target-line);
-    border-radius: var(--radius-chip);
+.combatant.fighter .combatant-intent {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: var(--color-transparent);
+    font-size: var(--font-board-range);
+    letter-spacing: 0;
+    white-space: nowrap;
 }
 
-.fighter-receipt {
-    font-size: var(--font-status-chip);
-    white-space: normal;
-    -unity-text-align: middle-center;
-    color: var(--color-muted);
+.fighter-intent-icon {
+    width: var(--size-board-intent-icon);
+    height: var(--size-board-intent-icon);
+    margin-left: var(--space-xs);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-parchment);
 }
+
+.fighter-intent-icon.intent--attack { -unity-background-image-tint-color: var(--color-intent-attack); }
+.fighter-intent-icon.intent--block { -unity-background-image-tint-color: var(--color-intent-block); }
+.fighter-intent-icon.intent--buff { -unity-background-image-tint-color: var(--color-intent-buff); }
+.fighter-intent-icon.intent--debuff { -unity-background-image-tint-color: var(--color-intent-debuff); }
+.fighter-intent-icon.intent--staggered { -unity-background-image-tint-color: var(--color-staggered); }
 
 .fighter-predict {
     min-height: 0;
+    margin: 0 0 0 var(--space-xs);
     padding: var(--space-xxs) var(--space-sm);
-    margin-bottom: var(--space-xs);
-    font-size: var(--font-chip);
+    font-size: var(--font-board-chip);
     color: var(--color-gold);
     border-color: var(--color-gold-soft);
 }
 
 .fighter-predict:focus {
     border-color: var(--color-gold);
+}
+
+/* The long HP bar: the whole slot wide, the value under its right end (web combat-three-enemies: 356 px bar, "20/20" right). */
+.fighter-hp {
+    flex-direction: column;
+    align-items: stretch;
+    width: var(--size-full-width);
+    margin: 0;
+}
+
+.fighter-hp .meter-lane {
+    flex-grow: 0;
+}
+
+.fighter-hp .meter-track {
+    height: var(--size-board-bar-h);
+    border-color: var(--color-gold-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
+    background-color: var(--color-track);
+}
+
+.fighter-hp .meter-value {
+    align-self: flex-end;
+    margin: 0;
+    min-width: 0;
+    font-size: var(--font-board-chip);
+    -unity-text-align: middle-right;
+}
+
+.combatant--player .fighter-hp .meter-track {
+    border-color: var(--color-target-line);
+}
+
+.combatant--target .fighter-hp .meter-track {
+    border-color: var(--color-danger);
+}
+
+.fighter-break {
+    width: var(--size-full-width);
+}
+
+.fighter-break .combatant-meter--small .meter-track {
+    height: var(--size-board-break-h);
+}
+
+.fighter-break .meter {
+    margin-bottom: 0;
+}
+
+.fighter-chips {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: var(--size-full-width);
+    min-height: var(--size-board-chip-h);
+}
+
+.fighter-chips .combatant-statuses {
+    justify-content: flex-start;
+}
+
+.fighter-chip {
+    flex-direction: row;
+    align-items: center;
+    height: var(--size-board-chip-h);
+    margin: var(--space-xxs) var(--space-xs) 0 0;
+    padding: 0 var(--space-xs);
+    background-color: var(--color-panel);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
+}
+
+.fighter-chip--gold {
+    border-color: var(--color-gold);
+}
+
+.fighter-chip-icon {
+    width: var(--size-board-chip-icon);
+    height: var(--size-board-chip-icon);
+    margin-right: var(--space-xxs);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-parchment);
+}
+
+.fighter-chip-text {
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-board-chip);
+    -unity-font-style: bold;
+    color: var(--color-parchment);
+    white-space: nowrap;
+}
+
+.fighter .combatant-stance {
+    width: var(--size-full-width);
+}
+
+/* ---- the figure, its hit chance (the web's white 95% over the target), the ground shadow ---- */
+
+.combatant.fighter .combatant-art {
+    height: var(--size-board-art-h);
+}
+
+.combatant--player.fighter .combatant-art {
+    height: var(--size-board-ally-art-h);
+}
+
+.fighter-hit {
+    position: absolute;
+    top: var(--size-board-hit-top);
+    left: 0;
+    right: 0;
+    font-size: var(--font-board-hit);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    color: var(--color-parchment);
+}
+
+.fighter-shadow {
+    position: absolute;
+    bottom: var(--size-board-shadow-drop);
+    left: var(--size-board-shadow-side);
+    right: var(--size-board-shadow-side);
+    height: var(--size-board-shadow-h);
+    background-color: var(--color-ground-shadow);
+    border-radius: var(--radius-round);
+}
+
+.combatant--target .fighter-shadow {
+    background-color: var(--color-target-shadow);
+}
+
+.fighter-notes {
+    position: absolute;
+    top: var(--size-full-width);
+    left: 0;
+    right: 0;
+    align-items: center;
+}
+
+.fighter-notes .combatant-name {
+    display: none;
+    margin: 0;
+    padding: var(--space-xxs) var(--space-sm);
+    font-size: var(--font-board-chip);
+    letter-spacing: var(--size-track-label);
+    background-color: var(--color-shade);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
+}
+
+.fighter:hover .combatant-name,
+.fighter:focus .combatant-name,
+.combatant--target .combatant-name {
+    display: flex;
+}
+
+.fighter-receipt {
+    font-size: var(--font-board-chip);
+    white-space: normal;
+    -unity-text-align: middle-center;
+    color: var(--color-muted);
+}
+
+.combatant--dead .fighter-overhead {
+    opacity: var(--opacity-disabled);
+}
+
+/* ---- narrow board (390 x 844): slots a third of the width, smaller figures and overhead ---- */
+
+.layout-narrow .combatant.fighter {
+    width: var(--size-board-slot-w-narrow);
+    margin-bottom: var(--size-board-row-pull-narrow);
+}
+
+.layout-narrow .combatant.fighter .combatant-art {
+    height: var(--size-board-art-h-narrow);
+}
+
+.layout-narrow .combatant--player.fighter .combatant-art {
+    height: var(--size-board-ally-art-h-narrow);
+}
+
+.layout-narrow .combatant.fighter .combatant-intent {
+    font-size: var(--font-board-range-narrow);
+}
+
+.band-compact .combatant.fighter .combatant-art {
+    height: var(--size-board-art-h-compact);
 }

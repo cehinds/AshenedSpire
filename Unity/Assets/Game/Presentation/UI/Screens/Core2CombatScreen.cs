@@ -8,6 +8,7 @@ using Ashen.App.Settings;
 using Ashen.App.Ui;
 using Ashen.Generated;
 using Ashen.Presentation.UI.Kit;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using KitCard = Ashen.Presentation.UI.Kit.CardView;
@@ -43,6 +44,8 @@ namespace Ashen.Presentation.UI.Screens
         private string _acting;
         private bool _wasPrompt;
         private bool _wasTargeting;
+        private bool _logOpen;
+        private bool _gridOn = true;
 
         public Core2RunSession Run => _run;
         public Core2CombatFlow Flow => _flow;
@@ -89,6 +92,13 @@ namespace Ashen.Presentation.UI.Screens
             reactions.clicked += () => Handle(_flow.ToggleReactions(), reactions);
             var armaments = Root.Q<LocButton>(UiNames.ToolArmaments);
             armaments.clicked += () => Handle(_flow.OpenEquipment(), armaments);
+            Root.Q<LocButton>(UiNames.ToolLog).clicked += () => SetLog(!_logOpen);
+            Root.Q<LocButton>(UiNames.LogClose).clicked += () => SetLog(false);
+            Root.Q<LocButton>(UiNames.ToolGrid).clicked += () =>
+            {
+                _gridOn = !_gridOn;
+                RenderTools();
+            };
             var recover = Root.Q<LocButton>(UiNames.ToolRecover);
             recover.clicked += () => Handle(_flow.OpenRecover(), recover);
             var list = Root.Q<ScrollView>(UiNames.PromptList);
@@ -105,6 +115,7 @@ namespace Ashen.Presentation.UI.Screens
                 Nav.Fire(ScreenTriggers.Quit);
             };
             ApplyBackground();
+            ApplyBoardArt();
             _player = new Fighter { focusable = false };
             Root.Q(UiNames.AllyRow).Add(_player);
             Render();
@@ -148,15 +159,56 @@ namespace Ashen.Presentation.UI.Screens
         private void RenderHud()
         {
             var p = View.Player;
-            var portrait = Root.Q(UiNames.HudPortrait);
-            if (portrait != null) Ui.ApplyBackground(portrait, _run.Portrait);
-            Root.Q<LocLabel>(UiNames.HudName)?.SetResolved(Strings.Format(StringKeys.CombatIdentity, new StringArgs()
-                .Add(UiPlaceholders.Name, _run.Name).Add(UiPlaceholders.Class, RunFlow.ClassName(Ui, _run.ClassId))));
-            Root.Q<LocLabel>(UiNames.HudTrail)?.SetResolved(Strings.Format(StringKeys.CombatTrail, new StringArgs()
-                .Add(UiPlaceholders.Act, _run.Act).Add(UiPlaceholders.Region, RunHudView.SeatName(Ui.Data, _run.SeatId)).Add(UiPlaceholders.Turn, Int(View.Turn))));
             Root.Q<Meter>(UiNames.HudHp)?.Set(Int(p.Hp), Int(p.MaxHp));
-            Root.Q<Meter>(UiNames.HudMp)?.Set(Int(p.Mana), Int(p.MaxMana));
-            Root.Q<Meter>(UiNames.HudSp)?.Set(Int(p.Stamina), Int(p.MaxStamina));
+            var ribbon = Root.Q<LocLabel>(UiNames.TurnRibbon);
+            ribbon?.SetResolved(Strings.Get(_busy ? StringKeys.Core2BoardRibbonEnemy : StringKeys.Core2BoardRibbonPlayer));
+            ribbon?.EnableInClassList(UiClasses.RibbonEnemy, _busy);
+            var run = _run.Run;
+            var cinders = (double?)run[RunKeys.Cinders] ?? 0d;
+            Root.Q<LocLabel>(UiNames.HudCinders)?.SetResolved(Strings.Format(StringKeys.Core2BoardCinders, new StringArgs().Add(UiPlaceholders.Amount, Int(cinders))));
+            var pips = Root.Q(UiNames.HudPips);
+            if (pips == null) return;
+            pips.Clear();
+            if (!(run[CombatKeys.Relics] is JArray relics)) return;
+            foreach (var relic in relics)
+            {
+                var pip = new VisualElement { pickingMode = PickingMode.Ignore };
+                pip.AddToClassList(UiClasses.HudPip);
+                var art = Ui.Texture(StringTable.Fill(Ui.Data.Components.RewardRelicArt, new StringArgs().Add(UiPlaceholders.Id, (string)relic)));
+                pip.style.backgroundImage = art != null ? new StyleBackground(art) : new StyleBackground(StyleKeyword.None);
+                pips.Add(pip);
+            }
+        }
+
+        /// <summary>The raster art of the board (art lookups by name, ui/art.json): the footer's orb, plate, piles and potion tray, the HUD's heart and its armoury and menu buttons.</summary>
+        private void ApplyBoardArt()
+        {
+            _footer.SetArt(new FooterArt
+            {
+                Orb = new OrbArt
+                {
+                    Disc = BoardTexture(ArtKinds.Orb, BoardArt.OrbDisc),
+                    Frame = BoardTexture(ArtKinds.Orb, BoardArt.OrbFrame),
+                    Diamond = BoardTexture(ArtKinds.Orb, BoardArt.OrbDiamond),
+                    Spent = BoardTexture(ArtKinds.Orb, BoardArt.OrbSpent),
+                },
+                Plate = BoardTexture(ArtKinds.Footer, BoardArt.FooterPlate),
+                Draw = BoardTexture(ArtKinds.Footer, BoardArt.FooterDraw),
+                Spent = BoardTexture(ArtKinds.Footer, BoardArt.FooterSpent),
+                Potions = BoardTexture(ArtKinds.Footer, BoardArt.FooterPotions),
+            });
+            SetImage(Root.Q(UiNames.HudHeart), Ui.Icon(BoardIcons.Health));
+            SetImage(Root.Q(UiNames.ToolArmaments), BoardTexture(ArtKinds.Component, BoardArt.ComponentArmoury));
+            SetImage(Root.Q(UiNames.HudMenu), BoardTexture(ArtKinds.Component, BoardArt.ComponentMenu));
+        }
+
+        private Texture2D BoardTexture(string kind, string name) =>
+            Ui.Texture(Ui.Data.Art?.Find(kind, new StringArgs().Add(ArtPlaceholders.Name, name)));
+
+        private static void SetImage(VisualElement element, Texture2D texture)
+        {
+            if (element == null) return;
+            element.style.backgroundImage = texture != null ? new StyleBackground(texture) : new StyleBackground(StyleKeyword.None);
         }
 
         private void RenderFighters()
@@ -164,7 +216,6 @@ namespace Ashen.Presentation.UI.Screens
             var order = Ui.Data.Components.FighterRatings;
             _player.Bind(FighterData(View.Player, true, order, 0));
             var row = Root.Q(UiNames.EnemyRow);
-            var reference = View.Enemies.Count == 0 ? 0 : Int(View.Enemies.Max(e => e.MaxHp));
             foreach (var enemy in View.Enemies)
             {
                 if (!_enemies.TryGetValue(enemy.Id, out var element))
@@ -175,7 +226,7 @@ namespace Ashen.Presentation.UI.Screens
                     row.Add(element);
                     _enemies[enemy.Id] = element;
                 }
-                var data = FighterData(enemy, false, order, reference);
+                var data = FighterData(enemy, false, order, 0);
                 var legal = _flow.Targeting && _flow.LegalTargets.Contains(enemy.Id);
                 data.Target = legal;
                 data.Acting = enemy.Id == _acting;
@@ -215,15 +266,60 @@ namespace Ashen.Presentation.UI.Screens
                 Stacks = Core2CombatText.Stacks(Strings, f),
                 Statuses = Core2CombatText.Statuses(Strings, f, Math.Max(1, Ui.Data.Components.StatusChips), Ui.Data.Components.FighterStackStatuses),
             };
+            AddChips(d, f);
             if (f.Poise != null) { d.Poise = Int(f.Poise.Value); d.PoiseMax = Int(f.Poise.Max); }
             if (d.HasWard) { d.Ward = Int(f.Ward.Value); d.WardMax = Int(f.Ward.Max); }
             if (f.Alive && f.Intent != null)
             {
                 d.IntentText = Core2CombatText.Intent(Strings, f.Intent);
                 d.IntentKind = Core2CombatText.IntentKind(f.Intent);
+                d.IntentIcon = IntentIcon(d.IntentKind);
             }
             return d;
         }
+
+        /// <summary>The icon beside the intent text: the crossed swords for an attack, the shield for Block, the unknown mark for a move not read yet (none for the others).</summary>
+        private Texture2D IntentIcon(string kind)
+        {
+            if (kind == Core2UiValues.IntentUnknown) return Ui.Icon(BoardIcons.Unknown);
+            if (kind == Core2CombatValues.IntentBlock) return Ui.Icon(BoardIcons.Block);
+            if (kind == Core2CombatValues.IntentAttack || kind == Core2CombatValues.IntentAttackDebuff) return Ui.Icon(BoardIcons.Attack);
+            return null;
+        }
+
+        /// <summary>
+        /// The chips under the HP bar as the web draws them: Evade and Block (rating chips), Precision, Barrier and an armed Counter (stack chips), then the statuses with their
+        /// icon and number, capped with a "+N" tail. A chip whose icon is not imported shows its words instead.
+        /// </summary>
+        private void AddChips(FighterData d, Core2FighterView f)
+        {
+            if (f.Evade > 0) d.RatingChips.Add(Chip(Ui.Icon(BoardIcons.Evade), CombatText.Number(f.Evade), Core2CombatText.Evade(Strings, f)));
+            if (f.Block > 0) d.RatingChips.Add(Chip(Ui.Icon(BoardIcons.Block), CombatText.Number(f.Block), Core2CombatText.Block(Strings, f)));
+            if (f.Precision > 0)
+            {
+                var precision = Chip(Ui.Icon(BoardIcons.Precision), CombatText.Number(f.Precision), Strings.Format(StringKeys.Core2HudPrecision, new StringArgs().Add(UiPlaceholders.Value, CombatText.Number(f.Precision))));
+                precision.Gold = true;
+                d.StackChips.Add(precision);
+            }
+            if (f.Barrier > 0) d.StackChips.Add(Chip(null, null, Strings.Format(StringKeys.Core2HudBarrier, new StringArgs().Add(UiPlaceholders.Value, CombatText.Number(f.Barrier)))));
+            if (f.Counter != null) d.StackChips.Add(Chip(null, null, Strings.Get(StringKeys.Core2HudCounter)));
+            var shown = f.Statuses.Where(s => !Ui.Data.Components.FighterStackStatuses.Contains(s.Id)).ToList();
+            var limit = Math.Max(1, Ui.Data.Components.StatusChips);
+            var take = shown.Count > limit ? limit - 1 : shown.Count;
+            foreach (var status in shown.Take(take))
+            {
+                var number = CombatText.Number(status.MeterValue ?? status.Stacks);
+                var words = status.MeterValue.HasValue && status.MeterMax.HasValue
+                    ? Strings.Format(StringKeys.CombatStatusMeter, new StringArgs().Add(UiPlaceholders.Name, status.Name).Add(UiPlaceholders.Value, number).Add(UiPlaceholders.Max, CombatText.Number(status.MeterMax.Value)))
+                    : Strings.Format(StringKeys.CombatStatus, new StringArgs().Add(UiPlaceholders.Name, status.Name).Add(UiPlaceholders.Stacks, CombatText.Number(status.Stacks)));
+                d.StatusChips.Add(Chip(Ui.Icon(status.Id), number, words));
+            }
+            if (shown.Count > take) d.StatusChips.Add(Chip(null, null, Strings.Format(StringKeys.CombatStatusMore, new StringArgs().Add(UiPlaceholders.Count, shown.Count - take))));
+        }
+
+        /// <summary>A chip: the icon with its number when the art exists, else the words.</summary>
+        private static ChipData Chip(Texture2D icon, string number, string words) =>
+            icon != null && number != null ? new ChipData { Icon = icon, Text = number } : new ChipData { Text = words };
 
         private void RenderHand()
         {
@@ -283,6 +379,7 @@ namespace Ashen.Presentation.UI.Screens
             _footer.Compact = Nav.Layout?.Narrow ?? false;
             _footer.Set(Int(p.Stamina), Int(p.MaxStamina), View.DrawCount, View.DiscardCount, charges, ready);
             _footer.SetPiles(View.DiscardCount, View.ExhaustCount);
+            _footer.SetMana(Int(p.Mana), Int(p.MaxMana));
             _footer.SetBusy(_busy, _busy ? StringKeys.CombatSkip : StringKeys.KitFooterEndTurn);
             _footer.SetEnabled(!_flow.Ended || _busy);
         }
@@ -291,8 +388,12 @@ namespace Ashen.Presentation.UI.Screens
         {
             var reactions = Root.Q<LocButton>(UiNames.ToolReactions);
             reactions?.SetResolved(Core2CombatText.Reactions(Strings, View.ReactionsEnabled));
+            reactions?.EnableInClassList(UiClasses.ToolOn, View.ReactionsEnabled);
             var idle = !_busy && !_flow.Ended;
             reactions?.SetEnabled(idle);
+            Root.Q<LocButton>(UiNames.ToolGrid)?.EnableInClassList(UiClasses.ToolOn, _gridOn);
+            UiDom.Show(Root.Q(UiNames.StageGrid), _gridOn);
+            UiDom.Show(Root.Q(UiNames.CombatLog), _logOpen);
             Root.Q<LocButton>(UiNames.ToolArmaments)?.SetEnabled(idle && View.Equipment != null && View.Equipment.Slots.Count > 0);
             var recover = Root.Q<LocButton>(UiNames.ToolRecover);
             UiDom.Show(recover, idle && _flow.CanRecover);
@@ -300,6 +401,14 @@ namespace Ashen.Presentation.UI.Screens
             var armed = _flow.Armed?.Name ?? _flow.ArmedFlask?.Name;
             prompt?.SetResolved(armed == null ? string.Empty : Strings.Format(StringKeys.CombatTargetCard, new StringArgs().Add(UiPlaceholders.Name, armed)));
             UiDom.Show(prompt, _flow.Targeting && !_busy);
+        }
+
+        /// <summary>Opens or closes the combat log panel (a view-only toggle: the footer's Combat log control, its Close button and back).</summary>
+        private void SetLog(bool open)
+        {
+            _logOpen = open;
+            RenderTools();
+            FocusSoon(open ? Root.Q(UiNames.LogClose) : Root.Q(UiNames.ToolLog));
         }
 
         private void RenderLog()
@@ -705,6 +814,7 @@ namespace Ashen.Presentation.UI.Screens
 
         public override bool HandleBack()
         {
+            if (_logOpen) { SetLog(false); return true; }
             if (_busy) { Skip(); return true; }
             if (_flow.Ended) return true;
             if (_flow.Prompt?.Kind == Core2UiValues.PromptOffer) return true;

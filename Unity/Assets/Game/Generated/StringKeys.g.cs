@@ -88,6 +88,15 @@ namespace Ashen.Generated
         public const string ContentErrorRow = "contentError.row";
         public const string ContentErrorRowNoPath = "contentError.rowNoPath";
         public const string ContentErrorTitle = "contentError.title";
+        public const string Core2BoardCinders = "core2.board.cinders";
+        public const string Core2BoardDrawLabel = "core2.board.drawLabel";
+        public const string Core2BoardExhaust = "core2.board.exhaust";
+        public const string Core2BoardGrid = "core2.board.grid";
+        public const string Core2BoardLog = "core2.board.log";
+        public const string Core2BoardLogClose = "core2.board.logClose";
+        public const string Core2BoardPotions = "core2.board.potions";
+        public const string Core2BoardRibbonEnemy = "core2.board.ribbonEnemy";
+        public const string Core2BoardRibbonPlayer = "core2.board.ribbonPlayer";
         public const string Core2CardRank = "core2.card.rank";
         public const string Core2CostMana = "core2.cost.mana";
         public const string Core2CostStamina = "core2.cost.stamina";
