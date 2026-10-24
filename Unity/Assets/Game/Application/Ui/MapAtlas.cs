@@ -110,15 +110,16 @@ namespace Ashen.App.Ui
                 .Add(ArtPlaceholders.Map, world).Add(ArtPlaceholders.Level, d.Level).Add(ArtPlaceholders.X, x).Add(ArtPlaceholders.Y, y));
 
         /// <summary>How much of the painting the lights show at a point: 1 minus what no light covers, a light being full inside the core and fading linearly to nothing at its radius.</summary>
-        public static double Reveal(AtlasDefaults d, IReadOnlyList<AtlasLight> lights, double x, double y)
+        public static double Reveal(AtlasDefaults d, IReadOnlyList<AtlasLight> lights, double x, double y, double scale = 1d)
         {
             var uncovered = 1d;
-            var core = d.RevealRadius * d.RevealCore;
-            var fade = d.RevealRadius - core;
+            var radius = d.RevealRadius * scale;
+            var core = radius * d.RevealCore;
+            var fade = radius - core;
             foreach (var light in lights)
             {
                 var distance = Math.Sqrt((x - light.X) * (x - light.X) + (y - light.Y) * (y - light.Y));
-                var strength = distance <= core ? 1d : distance >= d.RevealRadius || fade <= 0d ? 0d : (d.RevealRadius - distance) / fade;
+                var strength = distance <= core ? 1d : distance >= radius || fade <= 0d ? 0d : (radius - distance) / fade;
                 uncovered *= 1d - strength;
             }
             return 1d - uncovered;
@@ -129,7 +130,7 @@ namespace Ashen.App.Ui
         /// columns and the heights of its rows in texels) is scaled to cover the board and centred, each tile is cut to the board and gridded, and each vertex carries the reveal
         /// of the lights there (everywhere when <paramref name="revealAll"/>). Tile (x, y) counts from the painting's top left.
         /// </summary>
-        public static IReadOnlyList<AtlasPatch> Patches(AtlasDefaults d, double canvasW, double canvasH, IReadOnlyList<double> columnWidths, IReadOnlyList<double> rowHeights, IReadOnlyList<AtlasLight> lights, bool revealAll)
+        public static IReadOnlyList<AtlasPatch> Patches(AtlasDefaults d, double canvasW, double canvasH, IReadOnlyList<double> columnWidths, IReadOnlyList<double> rowHeights, IReadOnlyList<AtlasLight> lights, bool revealAll, double lightScale = 1d)
         {
             var patches = new List<AtlasPatch>();
             var paintingW = columnWidths.Sum();
@@ -146,7 +147,7 @@ namespace Ashen.App.Ui
                 for (var x = 0; x < columnWidths.Count; x++)
                 {
                     var tileW = columnWidths[x] * scale;
-                    var patch = Patch(d, x, y, tileLeft, tileTop, tileW, tileH, canvasW, canvasH, lights, revealAll);
+                    var patch = Patch(d, x, y, tileLeft, tileTop, tileW, tileH, canvasW, canvasH, lights, revealAll, lightScale);
                     if (patch != null) patches.Add(patch);
                     tileLeft += tileW;
                 }
@@ -155,7 +156,7 @@ namespace Ashen.App.Ui
             return patches;
         }
 
-        private static AtlasPatch Patch(AtlasDefaults d, int tileX, int tileY, double left, double top, double width, double height, double canvasW, double canvasH, IReadOnlyList<AtlasLight> lights, bool revealAll)
+        private static AtlasPatch Patch(AtlasDefaults d, int tileX, int tileY, double left, double top, double width, double height, double canvasW, double canvasH, IReadOnlyList<AtlasLight> lights, bool revealAll, double lightScale)
         {
             var x0 = Math.Max(0d, left);
             var y0 = Math.Max(0d, top);
@@ -177,7 +178,7 @@ namespace Ashen.App.Ui
                         Y = (float)y,
                         U = (float)((x - left) / width),
                         V = (float)(1d - (y - top) / height),
-                        Alpha = (float)(revealAll ? 1d : Reveal(d, lights, x, y)),
+                        Alpha = (float)(revealAll ? 1d : Reveal(d, lights, x, y, lightScale)),
                     });
                 }
             }

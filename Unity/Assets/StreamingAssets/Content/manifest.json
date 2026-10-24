@@ -1,5 +1,5 @@
 {
-  "contentHash": "9cc33d0336a331c28024132b02c89075871a7fa41b11da46b308f79e933e1f2f",
+  "contentHash": "5b12fea73ed14a51ce427ee3d1663a3d201e745b90d9c22ebc91da29c4516ebe",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -2225,9 +2225,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 25788,
+      "bytes": 28364,
       "generated": false,
-      "sha256": "aec9963d3e57ba17b4a98e8ef02ece5dd7aac391321c06bb722bd08c39d0c053"
+      "sha256": "5449b4e952dc77e6c00a42f2ef2503e945b3095327f1196afe8938ff6ee18ec4"
     }
   },
   "schemaVersion": 1,

@@ -26,5 +26,7 @@ namespace Ashen.Generated
         public const string RepeatPick = "repeatPick";
         public const string TargetHide = "targetHide";
         public const string FxHitTint = "fxHitTint";
+        public const string MapRoute = "mapRoute";
+        public const string MapRouteOutline = "mapRouteOutline";
     }
 }

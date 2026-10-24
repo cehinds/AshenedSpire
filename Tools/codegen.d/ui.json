@@ -423,7 +423,18 @@
         "BossTag": "BOSS_TAG",
         "BossName": "BOSS_NAME",
         "VictoryBeat": "VICTORY_BEAT",
-        "VictoryTitle": "VICTORY_TITLE"
+        "VictoryTitle": "VICTORY_TITLE",
+        "MapStrip": "MAP_STRIP",
+        "MapRail": "MAP_RAIL",
+        "MapStage": "MAP_STAGE",
+        "MapVignette": "MAP_VIGNETTE",
+        "MapKeys": "MAP_KEYS",
+        "MapKeyDeck": "MAP_KEY_DECK",
+        "MapKeyEquipment": "MAP_KEY_EQUIPMENT",
+        "MapKeyStats": "MAP_KEY_STATS",
+        "MapKeyMenu": "MAP_KEY_MENU",
+        "TrayFloor": "TRAY_FLOOR",
+        "MapTools": "MAP_TOOLS"
       }
     },
     {
@@ -1021,7 +1032,9 @@
         "TrayDelay": "trayDelay",
         "RepeatPick": "repeatPick",
         "TargetHide": "targetHide",
-        "FxHitTint": "fxHitTint"
+        "FxHitTint": "fxHitTint",
+        "MapRoute": "mapRoute",
+        "MapRouteOutline": "mapRouteOutline"
       }
     },
     {
