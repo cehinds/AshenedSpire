@@ -14,6 +14,10 @@ namespace Ashen.Generated
         public const string Newline = "\n";
         public const string ArtWildcard = "*";
         public const string CardKindKey = "combat.cardKind.{0}";
+        public const string TagSeparator = ":";
+        public const string CardSigilKey = "card.sigil.{0}";
+        public const string CardSigilGlyph = "UI/CardFace/sigil-{0}";
+        public const string CardTagGlyph = "UI/CardFace/tag-{0}";
         public const string SeatNameKey = "seat.{0}.name";
         public const string ClassDescriptionKey = "class.{0}.description";
         public const string AttributeShortKey = "attribute.{0}.short";

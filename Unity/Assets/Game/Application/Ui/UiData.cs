@@ -25,9 +25,13 @@ namespace Ashen.App.Ui
         /// <summary>ui/art.json over the asset registry (VP-2): finds a card's art, an icon or a scene by name.</summary>
         public ArtLookup Art;
 
+        /// <summary>ui/cardface.json over the art lookup (VP-3): what a card's face draws besides its text.</summary>
+        public CardFaceLookup CardFace;
+
         public static UiData Load(IContentSource source)
         {
             JObject Read(string path) => (JObject)JsonContent.Parse(source.ReadText(path));
+            var art = new ArtLookup(ArtConfig.From(Read(ContentFiles.UiArt)), ArtRegistry.From(Read(ContentFiles.AssetsRegistry)));
             return new UiData
             {
                 Screens = ScreenRegistry.From(Read(ContentFiles.UiScreens)),
@@ -40,7 +44,8 @@ namespace Ashen.App.Ui
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
                 Meta = Read(ContentFiles.UiMeta),
-                Art = new ArtLookup(ArtConfig.From(Read(ContentFiles.UiArt)), ArtRegistry.From(Read(ContentFiles.AssetsRegistry))),
+                Art = art,
+                CardFace = new CardFaceLookup(CardFaceConfig.From(Read(ContentFiles.UiCardface)), art),
             };
         }
 

@@ -170,6 +170,12 @@ namespace Ashen.App.Combat
         public bool Upgraded;
         public List<string> Tags = new List<string>();
 
+        /// <summary>Every effect row of the card (nested rows too): what the card face's art and tag rail read (VP-3).</summary>
+        public List<CardEffectRef> Effects = new List<CardEffectRef>();
+
+        /// <summary>What the card's face is drawn from (its art, type band and tag rail).</summary>
+        public CardFaceQuery Face => new CardFaceQuery { CardId = CardId, Type = Type, Tags = Tags, Effects = Effects };
+
         public double Stamina;
         public double Mana;
         public bool CostIsX;
@@ -635,6 +641,7 @@ namespace Ashen.App.Combat
                 Refusal = Try(() => session.PlayRefusal(id)),
             };
             foreach (var tag in Js.Items(def[CK.CardTags] ?? def[K.Tags])) card.Tags.Add(Js.IsStr(tag) ? Js.Str(tag) : Js.Str(Js.Get(tag, K.Id)));
+            CardFaceQuery.CollectEffects(def[K.Effects], card.Effects);
             card.Choices = Try(() => CoreCardPlay.ChoiceOptions(def)) ?? new List<string>();
             foreach (var choice in card.Choices) card.ChoiceNames[choice] = c.Data.Stances.Has(choice) ? c.Data.Stances.Get(choice).Str(K.Name) ?? choice : choice;
             card.Plays = legal.Where(l => l.Str(RK.CardInstanceId) == id && l.Str(K.Type) == RV.IntentPlayCard).ToList();

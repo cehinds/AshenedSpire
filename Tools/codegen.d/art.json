@@ -69,6 +69,7 @@
         "Category": "category",
         "Maneuver": "maneuver",
         "Variant": "variant",
+        "Digit": "digit",
         "Map": "map",
         "Level": "level",
         "X": "x",

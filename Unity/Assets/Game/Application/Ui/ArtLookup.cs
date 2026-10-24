@@ -175,7 +175,7 @@ namespace Ashen.App.Ui
         }
 
         /// <summary>The library maneuver of a card: its maneuver tag (casting and ranged read as attack on an attack card), an attack with no tag is an attack, a casting skill or power has none (it takes the placeholder).</summary>
-        private static string Maneuver(JObject rules, string tagged, string type, bool hasManeuverTag)
+        internal static string Maneuver(JObject rules, string tagged, string type, bool hasManeuverTag)
         {
             var attack = rules.Value<string>(ArtKeys.AttackType);
             if (tagged == null) return !hasManeuverTag && type == attack ? attack : null;
