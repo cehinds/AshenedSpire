@@ -142,8 +142,8 @@ namespace Ashen.Tests
         [Test]
         public void TheCreationRailHasTheClassPaneBuiltAndTheRestPlanned()
         {
-            Assert.That(Ui.Menus.CreationPanes.Select(p => p.Id), Is.EqualTo(new[] { "class", "character", "equipment", "review" }), "04 W-04 rail order");
-            Assert.That(Ui.Menus.CreationPanes.Where(p => p.Built).Select(p => p.Id), Is.EqualTo(new[] { "class" }));
+            Assert.That(Ui.Menus.CreationPanes.Select(p => p.Id), Is.EqualTo(new[] { "class", "review" }), "the web creation rail order (Class, Review)");
+            Assert.That(Ui.Menus.CreationPanes.Where(p => p.Built).Select(p => p.Id), Is.EqualTo(new[] { "class", "review" }));
             foreach (var p in Ui.Menus.CreationPanes) Assert.That(Ui.Strings.Has(p.LabelKey), Is.True, p.LabelKey);
             Assert.That(Ui.Strings.Has(Content.Flow.NameKey), Is.True, "the default character name is a string");
         }

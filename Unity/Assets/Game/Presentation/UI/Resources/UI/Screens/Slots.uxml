@@ -1,7 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Screens.uss" />
     <ui:VisualElement class="page page--center">
-        <Ashen.Presentation.UI.Kit.Shell name="SHELL" title-key="slots.title.load">
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="slots-shell" title-key="slots.title.load">
+            <ui:VisualElement class="kit-divider slots-divider" picking-mode="Ignore" />
             <Ashen.Presentation.UI.LocLabel name="EMPTY_STATE" class="empty-state kit-text-value is-hidden" string-key="slots.emptyState" />
             <ui:ScrollView name="SLOT_LIST" class="slot-list" />
             <Ashen.Presentation.UI.LocLabel name="NOTICE" class="notice kit-text-value is-hidden" string-key="slots.newerBuildKept" />

@@ -108,23 +108,25 @@ namespace Ashen.Tests.Play
             var title = (TitleScreen)Nav.Top.View;
             Assert.That(title.GateActive, Is.True, "the press-any-input gate shows first (US-1.2)");
             Assert.That(Focused, Is.Null, "nothing is focused behind the gate");
-            Assert.That(title.Buttons.Count, Is.EqualTo(7), "Continue, Load, New, Journal, Custom Run, Settings, Quit");
+            Assert.That(title.Buttons.Count, Is.EqualTo(6), "Continue, New, Load, Journal, Settings, Quit (Custom Run is hidden)");
             Assert.That(title.Buttons[0].enabledSelf, Is.False, "Continue is disabled with no save");
 
             yield return Press(Key.Space);
             yield return Until(() => !title.GateActive, 5f, "the gate to lift");
             yield return Until(() => Focused != null, 5f, "focus after the gate");
-            AssertFocus(title.Buttons[1], "focus lands on the first enabled row (Load)");
+            AssertFocus(title.Buttons[1], "focus lands on the first enabled row (New Game)");
 
             yield return Press(Key.DownArrow);
-            AssertFocus(title.Buttons[2], "Down moves to New");
+            AssertFocus(title.Buttons[2], "Down moves to Load Game");
             yield return Press(Key.UpArrow);
-            AssertFocus(title.Buttons[1], "Up moves back to Load");
+            AssertFocus(title.Buttons[1], "Up moves back to New Game");
             yield return Press(Key.UpArrow);
             AssertFocus(Nav.Top.Root.Q(UiNames.AiDisclosure), "Up from the first enabled row wraps to the disclosure link");
             yield return Press(Key.DownArrow);
             AssertFocus(title.Buttons[1], "and Down wraps back past the disabled Continue");
 
+            yield return Press(Key.DownArrow);
+            AssertFocus(title.Buttons[2], "Down to Load Game");
             yield return new WaitForSecondsRealtime(0.3f);
             yield return Press(Key.Enter);
             yield return Until(() => Nav.CurrentId == ScreenIds.Slots, 5f, "W-03 slots");
@@ -134,10 +136,10 @@ namespace Ashen.Tests.Play
             yield return Press(Key.Escape);
             yield return Until(() => Nav.CurrentId == ScreenIds.Title, 5f, "back to the title");
             yield return Until(() => Focused != null, 5f, "focus back on the title");
-            AssertFocus(title.Buttons[1], "focus returns to Load");
+            AssertFocus(title.Buttons[2], "focus returns to Load Game");
 
             yield return Press(GamepadButton.DpadDown);
-            AssertFocus(title.Buttons[2], "the pad moves focus too");
+            AssertFocus(title.Buttons[3], "the pad moves focus too (Journal)");
         }
     }
 }

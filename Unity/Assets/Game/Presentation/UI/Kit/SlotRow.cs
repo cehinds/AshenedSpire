@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Ashen.Generated;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -74,7 +75,7 @@ namespace Ashen.Presentation.UI.Kit
         public void Bind(SlotRowData data)
         {
             Data = data;
-            _label?.SetResolved(data.Label);
+            _label?.SetResolved(data.Index.ToString(CultureInfo.InvariantCulture));
             _facts?.SetResolved(data.Facts);
             _saved?.SetResolved(data.Saved);
             UiDom.Show(_saved, !string.IsNullOrEmpty(data.Saved));

@@ -1,0 +1,39 @@
+{
+  "comment": "VP-12 and VP-13 (D-1000..): the names, classes, art names, values and string-key templates of the front-of-house screens (title, slots, creation, prologue, settings, journal, compendium, profile, about).",
+  "keySets": [
+    {
+      "name": "FrontClasses",
+      "doc": "USS classes of the front-of-house screens (Screens/Front.uss and Screens.uss).",
+      "keys": {
+        "TitleArt": "title-art",
+        "TitleArtDoor": "title-art--door",
+        "TitleArtPhone": "title-art--phone",
+        "TitleArtGate": "title-art--gate",
+        "TitleDivider": "title-divider",
+        "Tagline": "tagline",
+        "MenuItemContinue": "menu-item--continue",
+        "MenuItemReady": "menu-item--ready",
+        "MenuIcon": "menu-icon",
+        "MenuLabel": "menu-label",
+        "ContinueIcon": "continue-icon",
+        "ContinueTexts": "continue-texts",
+        "ContinueHead": "continue-head",
+        "ContinueName": "continue-name",
+        "ContinueFacts": "continue-facts",
+        "ContinueArrow": "continue-arrow",
+        "SlotsShell": "slots-shell",
+        "SlotsDivider": "slots-divider"
+      }
+    },
+    {
+      "name": "FrontArt",
+      "doc": "Art names of the front-of-house screens (ui/art.json lookups 'background', 'scene', 'icon', 'prologue' ...).",
+      "keys": {
+        "BackgroundDoor": "tower-entrance-hall",
+        "BackgroundDoorPhone": "tower-entrance-hall-phone",
+        "BackgroundGate": "tower-city-background-unlit",
+        "IconNext": "next"
+      }
+    }
+  ]
+}

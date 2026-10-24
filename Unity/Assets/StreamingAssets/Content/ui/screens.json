@@ -35,7 +35,6 @@
     "title": {
       "uxml": "UI/Screens/Title",
       "layer": "screen",
-      "background": "bg.title-city-tower",
       "gate": true,
       "focusOrder": ["MENU", "AI_DISCLOSURE"],
       "back": null,

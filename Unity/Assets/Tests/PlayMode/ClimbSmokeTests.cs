@@ -141,7 +141,7 @@ namespace Ashen.Tests.Play
             var title = (TitleScreen)Nav.Top.View;
             yield return Press(Key.Space);
             yield return Until(() => !title.GateActive && Focused != null, 5f, "the gate to lift");
-            yield return Walk(() => Focused == title.Buttons[2], 4, "focus on New");
+            yield return Walk(() => Focused == title.Buttons[1], 4, "focus on New");
             yield return new WaitForSecondsRealtime(0.3f);
             yield return Press(Key.Enter);
             yield return Until(() => Nav.CurrentId == ScreenIds.Slots && Focused != null, 5f, "W-03 New");

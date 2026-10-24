@@ -15,6 +15,7 @@ namespace Ashen.Generated
         public const string Cutout = "cutout";
         public const string Event = "event";
         public const string Scene = "scene";
+        public const string Background = "background";
         public const string Illustration = "illustration";
         public const string Portrait = "portrait";
         public const string Prologue = "prologue";

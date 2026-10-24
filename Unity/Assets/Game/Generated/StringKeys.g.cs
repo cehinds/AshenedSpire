@@ -847,6 +847,7 @@ namespace Ashen.Generated
         public const string SlotsCorrupt = "slots.corrupt";
         public const string SlotsDelete = "slots.delete";
         public const string SlotsEmpty = "slots.empty";
+        public const string SlotsEmptyHint = "slots.emptyHint";
         public const string SlotsEmptyState = "slots.emptyState";
         public const string SlotsFacts = "slots.facts";
         public const string SlotsLabel = "slots.label";
@@ -901,11 +902,13 @@ namespace Ashen.Generated
         public const string TitleMenuQuit = "title.menu.quit";
         public const string TitleMenuSettings = "title.menu.settings";
         public const string TitlePressAny = "title.pressAny";
+        public const string TitlePreviewClass = "title.preview.class";
         public const string TitlePreviewEyebrow = "title.preview.eyebrow";
         public const string TitlePreviewIdentity = "title.preview.identity";
         public const string TitlePreviewProgress = "title.preview.progress";
         public const string TitlePreviewSlot = "title.preview.slot";
         public const string TitleSubtitle = "title.subtitle";
+        public const string TitleTagline = "title.tagline";
         public const string TitleWordmark = "title.wordmark";
     }
 }
