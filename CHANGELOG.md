@@ -2,6 +2,8 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.37.18] — 2026-10-24
+
 ## [0.1.37.17] — 2026-10-23
 
 ## [0.1.37.16] — 2026-10-23
