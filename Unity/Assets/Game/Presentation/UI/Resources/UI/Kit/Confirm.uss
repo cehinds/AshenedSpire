@@ -3,10 +3,12 @@
     width: var(--size-confirm-width);
     min-height: var(--size-confirm-height);
     padding: var(--space-xl);
-    background-color: var(--color-panel);
-    border-color: var(--color-gold-soft);
-    border-width: var(--border-control);
-    border-radius: var(--radius-modal);
+    background-color: var(--color-bg-raise);
+    background-image: url("../Frames/modal-frame.png");
+    -unity-slice-scale: var(--size-slice-frame);
+    border-color: var(--color-transparent);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
 }
 
 .band-compact .confirm,

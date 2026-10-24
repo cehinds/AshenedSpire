@@ -2,6 +2,24 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-11: panel and button chrome (worktree branch, 2026-10-24)
+
+**Landed (D-600)**
+- **Sprites from the web's art:** `Tools/ui-frames.mjs` (Playwright Chromium, reproducible) writes 11 PNGs + `.meta` to `Resources/UI/Frames` (24 KB): modal/panel frame with corner brackets and gold top line, five ornate button plates, ornate divider, button bevel, modal and tooltip soft shadows. Sprite `spriteBorder` carries the 9-slice; USS slice scale comes from tokens `size.sliceFrame` (0.5 px) and `size.sliceSoft` (2 px).
+- **Shared USS:** new `Styles/Chrome.uss` (shadow plate, `kit-frame`, `kit-divider`, `kit-chip`, 8 px scroll bar) imported by the theme; `Base.uss` buttons follow the live web kit button (Inter, 1 px edge, bevel, primary/ready/danger/back/disabled states) plus `kit-button--plate`; Shell, Confirm, SlotRow, Tooltip, Hold restyled in place, shadow plates added to `Shell/Confirm/Tooltip.uxml`. No screen files touched.
+- **Data:** tokens (danger/primary fills, slice scales, shadow offsets, scroll bar, hold hint), `webSource` citations, codegen classes (`ButtonDanger`, `ButtonPlate`, `Chip*`, `Frame*`, `Divider`, `ShadowPlate*`).
+
+**Tests:** `ui-tokens --check`, `codegen --check`, `refresh-manifest --check`, `check-content`, `check-docs`, Domain filter (Enforcement|Token|Ui|Manifest|ContentValid) run in this worktree; Unity not run.
+
+**Owner: check in the editor**
+- The Frames PNGs import as Sprites with borders (select one: Sprite Editor shows the green 9-slice lines), and a USS `background-image` of a Sprite is sliced by its border with `-unity-slice-scale` honoured (frames should show 12 px corners, not 24).
+- Shell/Confirm show the brass frame with corner brackets, a soft shadow around the panel (not inside it), no 1 px double line at the edge.
+- Buttons: Inter text, thin edge, bevel subtle; focus shows a 2 px gold edge; plate class on a LocButton (`kit-button--plate`) looks like the title menu entries in `docs/qa/web-screens/title-1920x1080.jpg`.
+- Scroll bars are thin with no arrows; the hold tag reads HOLD TO CONFIRM in gold under the label.
+- `kit-button` text changed from Cinzel gold to Inter parchment (D-600 point 4); say if you want Cinzel back.
+
+**Not done:** End Turn raster plate and footer (VP-4), focus outline offset, tooltip arrow, modal head gradient and leather texture, hold diagonal stripe fill, applying `kit-chip`/`kit-frame`/`kit-divider` inside each screen (screen workers).
+
 ## VP-1: fonts, tokens and the web palette (worktree branch, 2026-10-24)
 
 **Landed**

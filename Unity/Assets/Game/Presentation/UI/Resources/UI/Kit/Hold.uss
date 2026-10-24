@@ -25,10 +25,13 @@
     background-color: var(--color-gold);
 }
 
+/* The web's hold hint (kit.css:2893): small, wide-tracked, gold at 75%. Upper-cased by kit-upper in Hold.uxml. */
 .hold-state {
-    font-size: var(--font-caption);
+    font-size: var(--font-hold-hint);
+    letter-spacing: var(--size-track-hold);
     -unity-text-align: middle-center;
-    color: var(--color-parchment);
+    color: var(--color-gold);
+    opacity: var(--opacity-muted);
 }
 
 .is-holding .hold-fill {

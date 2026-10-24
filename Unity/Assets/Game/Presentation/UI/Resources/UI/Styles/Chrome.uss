@@ -1,0 +1,106 @@
+/* Shared panel chrome (VP-11, D-600): 9-slice frames, soft shadows, divider, chips and scroll bars. The sprites in Frames/
+   are rendered from the web's own SVG/CSS by Tools/ui-frames.mjs; their 9-slice borders live in the sprite import (.meta).
+   Frames and plates are drawn at 2 texels per reference px (slice scale 0.5), the shadows at half density (slice scale 2).
+   Web: panel frame styles/player-polish.css:30, modal shell styles/kit.css:445-452, tooltip kit.css:684-696. */
+
+/* ---- soft drop shadow: an absolutely placed first child of the panel (USS has no box-shadow). The sprite has its middle
+        cut out, like CSS, so the panel's own fill is untouched. The offsets are the blur reach and y offset. ---- */
+
+.shadow-plate {
+    position: absolute;
+    left: var(--size-modal-shadow-side);
+    right: var(--size-modal-shadow-side);
+    top: var(--size-modal-shadow-top);
+    bottom: var(--size-modal-shadow-bottom);
+    background-image: url("../Frames/modal-shadow.png");
+    -unity-slice-scale: var(--size-slice-soft);
+}
+
+.shadow-plate--tooltip {
+    left: var(--size-tooltip-shadow-side);
+    right: var(--size-tooltip-shadow-side);
+    top: var(--size-tooltip-shadow-top);
+    bottom: var(--size-tooltip-shadow-bottom);
+    background-image: url("../Frames/tooltip-shadow.png");
+}
+
+/* ---- frames: brass hairline with corner brackets. The element keeps a transparent 1 px border for layout and
+        highlights (hover/focus recolour it); the sprite is the visible edge. ---- */
+
+.kit-frame {
+    border-width: var(--border-hairline);
+    border-color: var(--color-transparent);
+    border-radius: var(--radius-tight);
+    background-image: url("../Frames/panel-frame.png");
+    -unity-slice-scale: var(--size-slice-frame);
+}
+
+.kit-frame--modal {
+    background-image: url("../Frames/modal-frame.png");
+}
+
+/* ---- ornate divider (player-polish.css:41-43): 12 px high, stretched to the width ---- */
+
+.kit-divider {
+    height: var(--size-divider-h);
+    background-image: url("../Frames/divider-ornate.png");
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+/* ---- chips: the web's StatePill (kit.css:254-262): hairline, 3 px corner, small tracked muted caps; "on" is gold ---- */
+
+.kit-chip {
+    padding: var(--size-chip-pad-y) var(--size-chip-pad-x);
+    margin: 0;
+    border-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    border-radius: var(--radius-tight);
+    color: var(--color-muted);
+    font-size: var(--font-pill);
+    letter-spacing: var(--size-track-chip);
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+}
+
+.kit-chip--on {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
+.kit-chip--round {
+    border-radius: var(--radius-pill);
+}
+
+/* ---- scroll bars (kit.css:673-679): 8 px, thin line-soft thumb with a 4 px corner on a transparent track, no arrows ---- */
+
+.unity-scroll-view .unity-scroller {
+    background-color: var(--color-transparent);
+    border-width: 0;
+}
+
+.unity-scroll-view .unity-scroller--vertical {
+    width: var(--size-scrollbar-w);
+}
+
+.unity-scroll-view .unity-scroller--horizontal {
+    height: var(--size-scrollbar-w);
+}
+
+.unity-scroll-view .unity-scroller .unity-repeat-button {
+    display: none;
+}
+
+.unity-scroll-view .unity-scroller .unity-base-slider__tracker {
+    background-color: var(--color-transparent);
+    border-width: 0;
+}
+
+.unity-scroll-view .unity-scroller .unity-base-slider__dragger {
+    background-color: var(--color-line-soft);
+    border-width: 0;
+    border-radius: var(--radius-scroll-thumb);
+}
+
+.unity-scroll-view .unity-scroller .unity-base-slider__dragger:hover {
+    background-color: var(--color-gold-soft);
+}

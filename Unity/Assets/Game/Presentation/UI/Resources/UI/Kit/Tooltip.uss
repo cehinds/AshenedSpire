@@ -2,8 +2,8 @@
 .tooltip {
     position: absolute;
     padding: var(--space-sm) var(--space-md);
-    background-color: var(--color-bg-raise);
-    border-color: var(--color-gold-soft);
+    background-color: var(--color-panel);
+    border-color: var(--color-gold);
     border-width: var(--border-hairline);
     border-radius: var(--radius-chip);
     opacity: 0;

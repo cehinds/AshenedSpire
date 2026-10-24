@@ -5,9 +5,11 @@
     align-self: center;
     flex-direction: column;
     background-color: var(--color-shade);
-    border-color: var(--color-line-soft);
-    border-width: var(--border-control);
-    border-radius: var(--radius-modal);
+    background-image: url("../Frames/modal-frame.png");
+    -unity-slice-scale: var(--size-slice-frame);
+    border-color: var(--color-transparent);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
 }
 
 .shell-header {
@@ -19,7 +21,7 @@
     padding-left: var(--space-xl);
     padding-right: var(--space-md);
     border-bottom-width: var(--border-hairline);
-    border-color: var(--color-line);
+    border-color: var(--color-line-soft);
 }
 
 .shell-title {
@@ -52,7 +54,7 @@
     align-items: center;
     padding: var(--space-sm) var(--space-xl);
     border-top-width: var(--border-hairline);
-    border-color: var(--color-line);
+    border-color: var(--color-line-soft);
 }
 
 .shell-footer-gap {

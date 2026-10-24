@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Shell.uss" />
+    <ui:VisualElement class="shadow-plate" picking-mode="Ignore" />
     <ui:VisualElement name="SHELL_HEADER" class="shell-header">
         <Ashen.Presentation.UI.LocLabel name="SHELL_TITLE" class="shell-title kit-text-header" />
         <Ashen.Presentation.UI.LocButton name="SHELL_EXIT" class="kit-button--back shell-exit" string-key="glyph.close" />
