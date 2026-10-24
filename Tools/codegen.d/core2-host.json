@@ -1,0 +1,23 @@
+{
+  "comment": "Keys, values and messages of the Core 2 run host and the combat screen's view (WP-C1a, docs/design/11): the run a Core 2 climb keeps, the save document of a Core 2 run, the not-yet-ported outcomes and the combat view model.",
+  "keySets": [
+    {
+      "name": "Core2HostKeys",
+      "doc": "Keys the Core 2 run host reads and writes.",
+      "keys": {
+        "CombatsLeft": "combatsLeft"
+      }
+    },
+    {
+      "name": "Core2HostValues",
+      "doc": "Values of the Core 2 run host.",
+      "keys": {
+        "DoorFight": "fight",
+        "DoorRest": "rest",
+        "DoorShop": "shop",
+        "DoorTreasure": "treasure",
+        "DoorEvent": "event"
+      }
+    }
+  ]
+}

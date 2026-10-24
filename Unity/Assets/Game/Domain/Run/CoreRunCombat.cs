@@ -9,6 +9,7 @@ using CK = Ashen.Generated.Core2RunKeys;
 using CV = Ashen.Generated.Core2CombatValues;
 using EK = Ashen.Generated.Core2EnemyKeys;
 using EV = Ashen.Generated.Core2EnemyValues;
+using HK = Ashen.Generated.Core2HostKeys;
 using K = Ashen.Generated.CombatKeys;
 using MI = Ashen.Generated.Core2ModuleIds;
 using RK = Ashen.Generated.RunKeys;
@@ -127,6 +128,61 @@ namespace Ashen.Domain.Run
                 rows[id] = CoreDerivedStats.ResolvedRow(d.Run, table, id, run.Str(RK.Class));
             rules[CC.Rows] = rows;
             return rules;
+        }
+
+        /// <summary>
+        /// runCombatEnd(run, combat): the pools a fight leaves behind are written back to the run, so the next fight opens where this one ended — the proposal
+        /// cinders (once), what the player learned of the enemies, the equipment the fight left (a Core deck keeps its granted cards), the Ashen Blight pools,
+        /// the flasks that stay drunk and their charges, Hit Points, Mana and Stamina with their maxima, the equipment pool deficits, the consumables the fight
+        /// left and every companion one fight closer to leaving.
+        /// </summary>
+        public static void End(CoreCombatData d, JObject run, CombatState c)
+        {
+            var player = c.Player;
+            var rewards = c.Fields.Obj(Ashen.Generated.Core2StatusKeys.ProposalRewards);
+            if (rewards != null && !rewards.Is(Ashen.Generated.Core2SnapshotKeys.Settled))
+            {
+                run[RK.Cinders] = Js.N(run.Num(RK.Cinders) + Math.Max(0, rewards.Num(RK.Cinders)));
+                rewards[Ashen.Generated.Core2SnapshotKeys.Settled] = true;
+            }
+            CoreKnowledge.Reconcile(run, c);
+            var subject = d.Run.SubjectOf(run);
+            if (CoreRunData.IsConfigured(subject) && CoreRunData.ModuleConfigured(subject, MI.Cards))
+            {
+                run[K.Loadout] = c.Loadout.DeepClone();
+                run[K.DrawPerTurn] = (player[K.DrawPerTurn] ?? c.DrawPerTurn)?.DeepClone();
+                run[K.EnergyMax] = player[K.MaxStamina]?.DeepClone();
+                CoreRunRules.ReconcileGearGrants(d.Run, run);
+            }
+            if (Js.Truthy(c.Fields[CC.CombatExpansionVersion]) && Js.D(c.Fields[CC.CombatExpansionVersion]) == d.ExpandedVersion)
+            {
+                run[SK.AshenBlight] = player[SK.AshenBlight]?.DeepClone();
+                run[CK.AshenBlightBasePools] = player[CC.BaseResourceMaxima]?.DeepClone();
+            }
+            run[K.Flasks] = player[K.Flasks]?.DeepClone();
+            if (player[K.FlaskCharges] is JObject charges) run[K.FlaskCharges] = charges.DeepClone();
+            run[K.Hp] = player[K.Hp]?.DeepClone();
+            run[K.Mana] = player[K.Mana]?.DeepClone();
+            run[K.Stamina] = Js.N(Math.Min(player.Num(K.Stamina), player.Num(K.MaxStamina)));
+            foreach (var key in new[] { K.MaxHp, K.MaxMana, K.MaxStamina }) run[key] = player[key]?.DeepClone();
+            run[K.EquipmentPoolDeficits] = c.EquipmentPoolDeficits.DeepClone();
+            if (c.Fields[CC.Consumables] is JObject consumables)
+            {
+                var kept = new JObject();
+                foreach (var held in consumables.Properties()) if (Js.IsInt(held.Value) && Js.D(held.Value) >= 1) kept[held.Name] = held.Value.DeepClone();
+                run[CC.Consumables] = kept;
+            }
+            if (run[CK.Companions] is JArray companions)
+            {
+                var staying = new JArray();
+                foreach (var row in companions.OfType<JObject>())
+                {
+                    var next = (JObject)row.DeepClone();
+                    next[HK.CombatsLeft] = Js.N(row.Num(HK.CombatsLeft) - 1);
+                    if (next.Num(HK.CombatsLeft) >= 1) staying.Add(next);
+                }
+                run[CK.Companions] = staying;
+            }
         }
 
         /// <summary>createRunCombat({registries, rng, run, enemyIds, encounter, settings}) for a configured run.</summary>

@@ -11,6 +11,7 @@ using Ashen.Domain.Random;
 using Ashen.Domain.Run;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
+using V = Ashen.Generated.CombatValues;
 using CK = Ashen.Generated.Core2CombatKeys;
 using CV = Ashen.Generated.Core2CombatValues;
 using EV = Ashen.Generated.Core2EnemyValues;
@@ -157,24 +158,33 @@ namespace Ashen.App.Combat
             }
             catch (NotSupportedException e)
             {
-                State = Resume(_data, safe).State;
+                // CoreDispatch restored the fight (counters in place on the caller's generator): nothing is rebuilt.
                 var outcome = Refused(e);
                 outcome.Refusal.NotPorted = true;
                 return outcome;
             }
             catch (InvalidOperationException e)
             {
-                State = Resume(_data, safe).State;
                 return Refused(e);
             }
             catch (Exception)
             {
-                State = Resume(_data, safe).State;
+                RestoreKeepingGenerator(safe);
                 return new Core2Outcome { RolledBack = true, Refusal = new Core2Refusal { Message = CombatStringKeys.CombatErrorUnexpected } };
             }
             var done = new Core2Outcome { Events = State.EventLog.Skip(mark).Select(e => (JObject)e.DeepClone()).ToList(), Offer = PendingOffer() };
             Resolved?.Invoke(done);
             return done;
+        }
+
+        /// <summary>The last safe point, on the generator the fight already runs on (a session started on a run's shared generator keeps feeding it).</summary>
+        private void RestoreKeepingGenerator(JObject safe)
+        {
+            var generator = State.Rng;
+            var restored = Resume(_data, safe).State;
+            generator.RestoreCounters(restored.Rng);
+            restored.Rng = generator;
+            State = restored;
         }
 
         private static Core2Outcome Refused(Exception e) =>
@@ -215,32 +225,41 @@ namespace Ashen.App.Combat
         }
 
         /// <summary>
-        /// The intents that are legal now, in a stable order (the web's <c>legalIntents</c>): while an offer waits, its options and Back; while a card choice
-        /// waits, the first valid selection; otherwise every card with every target and stance choice the rules accept, ending the turn, the reaction switch
-        /// and the predictions an enemy's hidden move allows. A candidate is tried on a private copy of the fight, so it draws nothing from the live streams.
+        /// The intents that are legal now, in a stable order: the web player's list (<c>legalIntents</c> of Tools/oracle-core2.mjs with <c>full</c>, D-300). While an
+        /// offer waits, its accepted options and Back; while a card choice or discard waits, the selections the rules take; otherwise every card with every
+        /// target (when its printed face aims) and stance choice the rules accept, each with the range routes its own preview offers (a route is legal on its
+        /// own when the default advance is too dear, as the web's route buttons allow), ending the turn, every flask in the slots and the two charge pools,
+        /// the reaction switch, the predictions an enemy's hidden move allows, the formation steps the settings allow and the recovery of each held control
+        /// status. A candidate is tried on a private copy of the fight, so it draws nothing from the live streams.
         /// </summary>
-        public IReadOnlyList<JObject> LegalIntents()
+        /// <param name="presentation">The player settings the formation step reads (<c>gameConfig.presentation.movementEnabled</c> and its siblings); none means the step is off, as the web's default.</param>
+        public IReadOnlyList<JObject> LegalIntents(JObject presentation = null)
         {
             var legal = new List<JObject>();
             if (IsOver) return legal;
+            void Keep(JObject intent)
+            {
+                if (Accepts(intent)) legal.Add(intent);
+            }
             var offer = State.Fields.Obj(DK.PendingReaction);
             if (offer != null)
             {
-                foreach (var option in Js.Items(offer[RK.Options]).OfType<JObject>()) legal.Add(Intent(RV.IntentChooseReaction, RK.OfferId, offer[Ashen.Generated.CombatKeys.Id], RK.OptionId, option[Ashen.Generated.CombatKeys.Id]));
-                legal.Add(Intent(RV.IntentChooseReaction, RK.OfferId, offer[Ashen.Generated.CombatKeys.Id], RK.OptionId, Js.Null()));
+                foreach (var option in Js.Items(offer[RK.Options]).OfType<JObject>()) Keep(Intent(RV.IntentChooseReaction, RK.OfferId, offer[Ashen.Generated.CombatKeys.Id], RK.OptionId, option[Ashen.Generated.CombatKeys.Id]));
+                Keep(Intent(RV.IntentChooseReaction, RK.OfferId, offer[Ashen.Generated.CombatKeys.Id], RK.OptionId, Js.Null()));
                 return legal;
             }
             var cards = State.Fields.Obj(Core2StatusKeys.PendingCardChoice);
             if (cards != null)
             {
-                var ids = Js.Items(cards[Core2StatusKeys.CandidateIds]).Take((int)cards.Num(Ashen.Generated.CombatKeys.Count)).ToList();
-                legal.Add(Intent(RV.IntentChooseCards, RK.CardInstanceIds, new JArray(ids)));
+                var ids = Js.Items(cards[Core2StatusKeys.CandidateIds]).ToList();
+                foreach (var pick in Selections(ids, (int)cards.Num(Ashen.Generated.CombatKeys.Count))) Keep(Intent(RV.IntentChooseCards, RK.CardInstanceIds, new JArray(pick)));
                 return legal;
             }
             var discard = State.Fields.Obj(Core2StatusKeys.PendingAbilityDiscard);
             if (discard != null)
             {
-                legal.Add(Intent(RV.IntentChooseDiscard, RK.CardInstanceIds, new JArray(State.Piles.Hand.Take((int)discard.Num(Ashen.Generated.CombatKeys.Count)).Select(card => card[Ashen.Generated.CombatKeys.InstanceId]))));
+                var ids = State.Piles.Hand.Select(card => card[Ashen.Generated.CombatKeys.InstanceId]).ToList();
+                foreach (var pick in Selections(ids, (int)discard.Num(Ashen.Generated.CombatKeys.Count))) Keep(Intent(RV.IntentChooseDiscard, RK.CardInstanceIds, new JArray(pick)));
                 return legal;
             }
             var targets = State.Enemies.Where(e => e.Is(Ashen.Generated.CombatKeys.Alive)).Select(e => e.Str(Ashen.Generated.CombatKeys.Id)).ToList();
@@ -249,46 +268,84 @@ namespace Ashen.App.Combat
                 var instanceId = card.Str(Ashen.Generated.CombatKeys.InstanceId);
                 List<string> options;
                 try { options = CoreCardPlay.ChoiceOptions(CoreCosts.Resolve(State, card)) ?? new List<string>(); }
-                catch (NotSupportedException) { continue; }
+                catch (NotSupportedException) { options = new List<string>(); }
+                catch (InvalidOperationException) { options = new List<string>(); }
                 foreach (var choice in options.Count > 0 ? options.Select(o => (JToken)o).ToList() : new List<JToken> { null })
-                    foreach (var target in new string[] { null }.Concat(targets))
+                {
+                    var aimed = true;
+                    try { aimed = CoreTargets.CardNeedsEnemyTargetNow(State, instanceId); }
+                    catch (InvalidOperationException) { }
+                    catch (NotSupportedException) { }
+                    foreach (var target in aimed ? new string[] { null }.Concat(targets) : new string[] { null })
                     {
                         var intent = Intent(RV.IntentPlayCard, RK.CardInstanceId, instanceId);
                         if (target != null) intent[RK.TargetId] = target;
                         if (choice != null) intent[RK.Choice] = choice;
-                        if (Accepts(intent)) legal.Add(intent);
+                        Keep(intent);
                         // Routes beyond the default advance come from the card's own preview; a route is tried even when the advance is not playable.
                         foreach (var route in RoutesOf(instanceId, target))
                         {
                             var routed = (JObject)intent.DeepClone();
                             routed[RK.RangeRoute] = route;
-                            if (Accepts(routed)) legal.Add(routed);
+                            Keep(routed);
                         }
                     }
+                }
             }
-            var end = Intent(RV.IntentEndTurn, RK.DiscardIds, new JArray());
-            if (Accepts(end)) legal.Add(end);
+            Keep(Intent(RV.IntentEndTurn, RK.DiscardIds, new JArray()));
+            var held = State.Player.Arr(Ashen.Generated.CombatKeys.Flasks);
+            for (var slot = 0; held != null && slot < held.Count; slot++)
+            {
+                var aimedFlask = State.Data.Flasks.Has(Js.Str(Js.Get(held[slot], Ashen.Generated.CombatKeys.FlaskId))) && State.Data.Flasks.Get(Js.Str(Js.Get(held[slot], Ashen.Generated.CombatKeys.FlaskId))).Is(Ashen.Generated.CombatKeys.Targeted);
+                foreach (var target in aimedFlask ? targets : new List<string> { null })
+                {
+                    var use = Intent(V.CommandUseFlask, Ashen.Generated.CombatKeys.Slot, slot);
+                    if (target != null) use[RK.TargetId] = target;
+                    Keep(use);
+                }
+            }
+            var charges = State.Player.Obj(Ashen.Generated.CombatKeys.FlaskCharges);
+            foreach (var kind in Js.Items(State.Data.Engine.Obj(Ashen.Generated.CombatKeys.Flasks)?[Ashen.Generated.CombatKeys.ChargeKinds]).Select(Js.Str))
+                if (charges != null && charges.Num(kind + V.CurrentSuffix) > 0) Keep(Intent(V.CommandUseFlask, Ashen.Generated.CombatKeys.ChargeKind, kind));
+            Keep(Intent(RV.IntentSetReactions, RK.Enabled, State.Player[NK.ReactionsEnabled] != null && !State.Player.Is(NK.ReactionsEnabled)));
             foreach (var enemy in State.Enemies.Where(e => e.Is(Ashen.Generated.CombatKeys.Alive)))
             {
                 var action = enemy.Obj(CK.KnowledgeAction);
                 var read = action?.Obj(CK.Reads)?.Obj(Ashen.Generated.CombatValues.Player);
                 if (read == null || read.Str(CK.Visibility) != CV.VisibilityUnknown || read[CK.Prediction]?.Type != JTokenType.Null) continue;
                 foreach (var maneuver in PredictionChoices)
-                {
-                    var predict = Intent(EV.IntentPredictIntent, DK.EnemyInstanceId, enemy[Ashen.Generated.CombatKeys.Id], DK.ActionSerial, action[CK.Serial], CK.Maneuver, maneuver);
-                    if (Accepts(predict)) legal.Add(predict);
-                }
+                    Keep(Intent(EV.IntentPredictIntent, DK.EnemyInstanceId, enemy[Ashen.Generated.CombatKeys.Id], DK.ActionSerial, action[CK.Serial], CK.Maneuver, maneuver));
             }
-            var reactions = Intent(RV.IntentSetReactions, RK.Enabled, State.Player[NK.ReactionsEnabled] != null && !State.Player.Is(NK.ReactionsEnabled));
-            if (Accepts(reactions)) legal.Add(reactions);
+            // The formation step: every tile the settings allow (the plan says whether), carrying those settings as the intent does.
+            foreach (var row in Ashen.Generated.Core2RangeValues.FormationRows)
+                for (var column = 1; column <= (int)Ashen.Generated.Core2RangeNumbers.FormationRowsMax; column++)
+                {
+                    var cell = row.ToString() + column.ToString(CultureInfo.InvariantCulture);
+                    if (!CoreFormation.Plan(State, cell, presentation ?? new JObject()).Is(Ashen.Generated.Core2RangeKeys.Ok)) continue;
+                    var step = Intent(Ashen.Generated.Core2RangeValues.IntentMoveCharacter, Ashen.Generated.Core2RangeKeys.Cell, cell);
+                    if (presentation != null) step[Ashen.Generated.Core2RangeKeys.Settings] = presentation.DeepClone();
+                    Keep(step);
+                }
             // A control status the player holds is tried for recovery (one stack); the rules accept the ones that can be recovered and paid for.
             foreach (var status in State.Player.Obj(Ashen.Generated.CombatKeys.Statuses)?.Properties().ToList() ?? new List<JProperty>())
             {
-                if (!(status.Value is JObject held) || held.Num(Ashen.Generated.CombatKeys.Stacks) <= 0) continue;
-                var recover = Intent(RV.IntentRecoverControl, RK.Selections, new JArray(new JObject { [Ashen.Generated.CombatKeys.Status] = status.Name, [Ashen.Generated.CombatKeys.Stacks] = Js.N(NN.RecoverStacks) }));
-                if (Accepts(recover)) legal.Add(recover);
+                if (!(status.Value is JObject heldStatus) || heldStatus.Num(Ashen.Generated.CombatKeys.Stacks) <= 0) continue;
+                Keep(Intent(RV.IntentRecoverControl, RK.Selections, new JArray(new JObject { [Ashen.Generated.CombatKeys.Status] = status.Name, [Ashen.Generated.CombatKeys.Stacks] = Js.N(NN.RecoverStacks) })));
             }
             return legal;
+        }
+
+        /// <summary>The selections the web offers for a pause that wants <paramref name="count"/> cards: each card alone for one, otherwise the first and the last that many.</summary>
+        private static IEnumerable<List<JToken>> Selections(List<JToken> ids, int count)
+        {
+            if (count <= 0 || ids.Count < count) yield break;
+            if (count == 1)
+            {
+                foreach (var id in ids) yield return new List<JToken> { id };
+                yield break;
+            }
+            yield return ids.Take(count).ToList();
+            yield return ids.Skip(ids.Count - count).ToList();
         }
 
         /// <summary>The range routes other than advance the card's preview offers against a target, in the preview's order (none when it has no preview).</summary>
@@ -316,7 +373,7 @@ namespace Ashen.App.Combat
 
         private bool Accepts(JObject intent)
         {
-            var copy = State.Detach();
+            var copy = CoreTransaction.DetachPaused(State);
             try
             {
                 CoreDispatch.Dispatch(copy, (JObject)intent.DeepClone());
@@ -411,7 +468,7 @@ namespace Ashen.App.Combat
                     var outcome = session.Execute((JObject)CoreSnapshot.Doubles((JObject)record[SaveKeys.Cmd]));
                     if (!outcome.Accepted || session.StateHash() != (string)record[SaveKeys.StateHashAfter])
                     {
-                        session.State = Resume(data, safe).State;
+                        session.RestoreKeepingGenerator(safe);
                         result.LogDiverged = true;
                         break;
                     }

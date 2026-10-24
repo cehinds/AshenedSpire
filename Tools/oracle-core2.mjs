@@ -116,7 +116,8 @@ export function tryIntent(w, combat, intent) {
 }
 
 const livingEnemies = (combat) => combat.enemies.filter((e) => e.alive !== false && e.hp > 0);
-const FORMATION_CELLS = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3', 'D1', 'D2', 'E1', 'F1'];
+// Every tile of the widest grid (rows A to F, columns 1 to 6); formationMovePlan says which the settings allow (none under the default presentation settings).
+const FORMATION_CELLS = [...'ABCDEF'].flatMap((row) => [1, 2, 3, 4, 5, 6].map((column) => `${row}${column}`));
 
 function selections(idList, count) {
   if (!count || idList.length < count) return [];
@@ -129,7 +130,7 @@ function selections(idList, count) {
  * chooseCards / chooseDiscard (while a card choice is pending), otherwise playCard (targets x stance choices x
  * rangeRoutes), endTurn, useFlask, setReactions, predictIntent, moveCharacter, recoverControl.
  */
-export function legalIntents(w, combat, { only = null } = {}) {
+export function legalIntents(w, combat, { only = null, full = false } = {}) {
   const out = [];
   if (combat.result) return out;
   const keep = (intent) => { if (tryIntent(w, combat, intent).ok) { out.push(intent); return true; } return false; };
@@ -162,7 +163,10 @@ export function legalIntents(w, combat, { only = null } = {}) {
       try { aimed = w.combat.cardNeedsEnemyTargetNow(combat, card.instanceId); } catch { /* try every target */ }
       for (const targetId of aimed ? [undefined, ...targets] : [undefined]) {
         const base = { type: 'playCard', cardInstanceId: card.instanceId, ...(targetId ? { targetId } : {}), ...(choice !== undefined ? { choice } : {}) };
-        if (!keep(base)) continue;
+        // The bots' list (full: false) tries a route only after the default advance was accepted. The player's list (full: true) is the web UI's: the route
+        // buttons of the card's own preview are offered even when the default advance is too dear ("Choosing an affordable alternative must remain possible
+        // when the default is too expensive", CombatRangeActionModel.canChooseRangeRoute), so a throw is legal on its own.
+        if (!keep(base) && !full) continue;
         // Range routes beyond the default 'advance' come from the card's own preview.
         let routes = [];
         try { routes = (w.combat.previewCard(combat, card.instanceId, targetId, undefined, {}).range?.routes || []).map((r) => r.id); } catch { /* none */ }
@@ -172,7 +176,11 @@ export function legalIntents(w, combat, { only = null } = {}) {
   }
   keep({ type: 'endTurn', discardIds: [] });
   const p = combat.player;
-  (p.flasks || []).forEach((_, slot) => keep({ type: 'useFlask', slot }));
+  // The player's list aims a targeted flask at each living enemy, as the flask button does; the bots' list sends none.
+  (p.flasks || []).forEach((flask, slot) => {
+    const targeted = full && w.registries.flasks.get(flask.flaskId)?.targeted;
+    for (const targetId of targeted ? targets : [undefined]) keep({ type: 'useFlask', slot, ...(targetId ? { targetId } : {}) });
+  });
   for (const kind of ['hp', 'mana']) if (p.flaskCharges && p.flaskCharges[`${kind}Current`] > 0) keep({ type: 'useFlask', chargeKind: kind });
   keep({ type: 'setReactions', enabled: p.reactionsEnabled === false });
   for (const enemy of livingEnemies(combat)) {

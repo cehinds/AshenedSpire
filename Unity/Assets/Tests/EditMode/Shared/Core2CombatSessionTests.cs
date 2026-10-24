@@ -371,31 +371,83 @@ namespace Ashen.Tests
             Assert.That(session.Execute(plays[0]).Accepted, Is.True, "the throw is accepted");
         }
 
-        /// <summary>The recorded card-bot fights of the web's reference enumerator (<c>legalIntents</c> in Tools/oracle-core2.mjs), one case each.</summary>
-        public static System.Collections.Generic.IEnumerable<TestCaseData> RecordedCardFights() =>
-            Directory.GetFiles(Path.Combine(TestContent.OracleRoot, "core2", "combat"), "cards-*.json").Select(Path.GetFileName).OrderBy(f => f, StringComparer.Ordinal)
-                .Select(f => new TestCaseData(f).SetName("Core2LegalIntents_" + Path.GetFileNameWithoutExtension(f)));
+        // ------------------------------------------------------------------ a refusal costs nothing (review fixes 2 and 3)
 
-        /// <summary>
-        /// The fixtures record how many legal intents the web enumerated before each step. This build's dispatch has no flask yet, so the web's useFlask
-        /// candidates (at most the two charge kinds) are not enumerated: until a recorded flask is used, the lists differ by no more than those, and every other
-        /// kind (cards with their targets, choices and routes, end of turn, reactions, predictions, recoveries) counts the same at every step.
-        /// </summary>
-        [TestCaseSource(nameof(RecordedCardFights))]
-        public void TheLegalIntentsMatchTheWebsAtEveryRecordedStep(string file)
+        [Test]
+        public void ARefusedIntentLeavesTheRunsSharedGeneratorInTheFight()
         {
-            var record = (JObject)JsonContent.Parse(File.ReadAllText(Path.Combine(TestContent.OracleRoot, "core2", "combat", file)));
-            var session = Core2CombatSession.Start(Data, Run(record.Value<string>("classId"), (uint)record["seed"].Value<long>()), record.Value<string>("encounterId"));
-            const int flaskKinds = 2;
-            var checkedSteps = 0;
-            foreach (var step in ((JArray)record["steps"]).OfType<JObject>())
+            var seed = 1121046183u;
+            var shared = new Rng(seed);
+            var session = Core2CombatSession.Start(Data, shared, Run("reaver", seed), "loneSoldier");
+            Assert.That(ReferenceEquals(session.State.Rng, shared), Is.True);
+            var refused = session.Execute(Intent("playCard", "cardInstanceId", "no-such-card"));
+            Assert.That(refused.Accepted, Is.False);
+            Assert.That(ReferenceEquals(session.State.Rng, shared), Is.True, "the fight still draws from the run's generator");
+            var before = shared.AllCounters().Values.Sum(c => (double)c);
+            Assert.That(session.Execute(Intent("endTurn", "discardIds", new string[0])).Accepted, Is.True);
+            Assert.That(shared.AllCounters().Values.Sum(c => (double)c), Is.GreaterThan(before), "the caller's generator advanced with the accepted action");
+            Assert.That(session.State.Rng.AllCounters(), Is.EqualTo(shared.AllCounters()));
+        }
+
+        [Test]
+        public void ARefusedIntentWhileAnOfferWaitsKeepsTheWorkItSuspendedAndTheOfferAnswersAsRecorded()
+        {
+            var (record, pause) = PausedFight();
+            var steps = ((JArray)record["steps"]).OfType<JObject>().ToList();
+            var session = StartRecorded(record, out _);
+            JToken want = record["start"]["state"].DeepClone();
+            for (var i = 0; i <= pause; i++)
             {
-                var intent = (JObject)step["intent"];
-                if (intent.Value<string>("type") == "useFlask") break;
-                Assert.That(step.Value<int>("legalCount") - session.LegalIntents().Count, Is.InRange(0, flaskKinds), file + " step " + checkedSteps);
-                Assert.That(session.Execute(intent).Accepted, Is.EqualTo(step["error"] == null), file + " step " + checkedSteps);
-                checkedSteps++;
+                if (steps[i]["error"] != null) continue;
+                Assert.That(Play(session, steps[i]).Accepted, Is.True, "step " + i);
+                want = Core2CombatStartParityTests.Apply(want, steps[i]["delta"]);
             }
+            Assert.That(session.PendingOffer(), Is.Not.Null);
+            var queued = session.State.Queue.Count;
+            var hash = session.StateHash();
+            foreach (var bad in new[] { Intent("endTurn", "discardIds", new string[0]), Intent("playCard", "cardInstanceId", "no-such-card"), Intent("chooseReaction", "offerId", "no-such-offer", "optionId", null) })
+            {
+                Assert.That(session.Execute(bad).Accepted, Is.False);
+                Assert.That(session.State.Queue.Count, Is.EqualTo(queued), "the suspended work is still queued after a refusal");
+                Assert.That(session.StateHash(), Is.EqualTo(hash));
+            }
+            // The refusal also holds at the rules' own door, without the session's rebuild.
+            var direct = session.State;
+            Assert.Throws<InvalidOperationException>(() => CoreDispatch.Dispatch(direct, Intent("endTurn", "discardIds", new string[0])));
+            Assert.That(direct.Queue.Count, Is.EqualTo(queued));
+            Assert.That(session.StateHash(), Is.EqualTo(hash));
+            // Answering resumes exactly as the recorded web fight did.
+            for (var i = pause + 1; i < steps.Count; i++)
+            {
+                if (steps[i]["error"] != null) continue;
+                var outcome = Play(session, steps[i]);
+                Assert.That(outcome.Accepted, Is.True, "step " + i);
+                want = Core2CombatStartParityTests.Apply(want, steps[i]["delta"]);
+                Core2CombatStartParityTests.Same("step " + i, want, Core2CombatStartParityTests.Project(session.State));
+                Assert.That(string.Join(" ", outcome.Events.Select(e => e.Value<string>("type"))), Is.EqualTo(string.Join(" ", steps[i]["events"].Select(t => t.Value<string>()))), "events " + i);
+            }
+        }
+
+        [Test]
+        public void TheFlasksTheFormationStepAndTheSelectionsAreLegalIntents()
+        {
+            var session = ReaverFight();
+            var legal = session.LegalIntents();
+            var charges = legal.Where(i => i.Value<string>("type") == "useFlask").ToList();
+            Assert.That(charges.Select(i => i.Value<string>("chargeKind")), Is.EqualTo(new[] { "hp", "mana" }.Where(kind => session.State.Player.Obj("flaskCharges").Value<double>(kind + "Current") > 0)), "the charge pools with a charge left, hp then mana");
+            Assert.That(charges, Is.Not.Empty, "a reaver starts with a flask charge");
+            Assert.That(legal.Any(i => i.Value<string>("type") == "moveCharacter"), Is.False, "the formation step is off under the default presentation");
+            var enabled = new JObject { ["gameConfig.presentation.movementEnabled"] = true };
+            var moves = session.LegalIntents(enabled).Where(i => i.Value<string>("type") == "moveCharacter").ToList();
+            Assert.That(moves, Is.Not.Empty);
+            Assert.That(moves.All(m => m["settings"] != null), Is.True, "the step carries the settings it was legal under");
+            Assert.That(session.Execute(moves[0]).Accepted, Is.True);
+            // A slot flask is a candidate too (aimed at each enemy when it is targeted).
+            session = ReaverFight();
+            ((JArray)session.State.Player["flasks"]).Add(new JObject { ["flaskId"] = "blightCoating" });
+            ((JArray)session.State.Player["flasks"]).Add(new JObject { ["flaskId"] = "flaskOfStone" });
+            var slots = session.LegalIntents().Where(i => i["slot"] != null).ToList();
+            Assert.That(slots.Select(i => i.Value<string>("targetId")).ToList(), Is.EqualTo(session.State.Enemies.Select(e => e.Value<string>("id")).Concat(new string[] { null }).ToList()), "a targeted flask once per enemy, then the untargeted one");
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Ashen.Domain.Combat
     {
         private CombatState _copy;
         private int _events;
-        private List<CombatAction> _resume;
+        private List<JObject> _queue, _resume;
         private bool _reactionPlaying;
         private JObject _stashedInstance, _stashedRef, _stashedBefore;
 
@@ -21,12 +21,30 @@ namespace Ashen.Domain.Combat
         {
             _copy = c.Detach(),
             _events = c.EventLog.Count,
-            _resume = c.ReactionResumeQueue?.ToList(),
+            _queue = c.Queue.Select(a => CoreSnapshotActions.ActionToJson(a)).ToList(),
+            _resume = c.ReactionResumeQueue?.Select(a => CoreSnapshotActions.ActionToJson(a)).ToList(),
             _reactionPlaying = c.ReactionPlaying,
             _stashedInstance = (JObject)c.StashedPlayInstance?.DeepClone(),
             _stashedRef = (JObject)c.StashedPlayRef?.DeepClone(),
             _stashedBefore = (JObject)c.StashedPlayBefore?.DeepClone(),
         };
+
+        /// <summary>
+        /// A detached copy of a fight that is paused (on an offer or a choice) keeps the work the pause suspended — the queued actions and the reaction resume queue, against
+        /// the copy's own creatures — so an answer can be tried on it as on the fight itself (web <c>candidateState</c> carries the queue).
+        /// </summary>
+        public static CombatState DetachPaused(CombatState c)
+        {
+            var copy = c.Detach();
+            var groups = new Dictionary<string, ExpansionGroup>(System.StringComparer.Ordinal);
+            foreach (var action in c.Queue.Select(a => CoreSnapshotActions.ActionToJson(a)).ToList()) copy.Queue.AddLast(CoreSnapshotActions.ActionFromJson(copy, action, groups));
+            copy.ReactionResumeQueue = c.ReactionResumeQueue?.Select(a => CoreSnapshotActions.ActionFromJson(copy, CoreSnapshotActions.ActionToJson(a), groups)).ToList();
+            copy.ReactionPlaying = c.ReactionPlaying;
+            copy.StashedPlayInstance = (JObject)c.StashedPlayInstance?.DeepClone();
+            copy.StashedPlayRef = (JObject)c.StashedPlayRef?.DeepClone();
+            copy.StashedPlayBefore = (JObject)c.StashedPlayBefore?.DeepClone();
+            return copy;
+        }
 
         public void Restore(CombatState c)
         {
@@ -43,9 +61,12 @@ namespace Ashen.Domain.Combat
             c.HealMult = s.HealMult; c.RangeContext = s.RangeContext; c.RangeIncoming = s.RangeIncoming;
             c.Piles = s.Piles; c.TriggerState = s.TriggerState; c.PropertyMounts = s.PropertyMounts;
             c.EnemyPlans = s.EnemyPlans;
+            // The work a pause suspended (an incoming attack, the rest of a card's effects) is put back against the restored creatures, joined to its groups by key as a save joins them.
+            var groups = new Dictionary<string, ExpansionGroup>(System.StringComparer.Ordinal);
             c.Queue.Clear();
+            foreach (var action in _queue) c.Queue.AddLast(CoreSnapshotActions.ActionFromJson(c, action, groups));
             if (c.EventLog.Count > _events) c.EventLog.RemoveRange(_events, c.EventLog.Count - _events);
-            c.ReactionResumeQueue = _resume;
+            c.ReactionResumeQueue = _resume?.Select(a => CoreSnapshotActions.ActionFromJson(c, a, groups)).ToList();
             c.ReactionPlaying = _reactionPlaying;
             c.StashedPlayInstance = _stashedInstance; c.StashedPlayRef = _stashedRef; c.StashedPlayBefore = _stashedBefore;
             c.CurrentAction = null; c.EnqueueSink = null; c.GroupSink = null; c.RangeLifecycleCarrier = null; c.Buffer = null;
