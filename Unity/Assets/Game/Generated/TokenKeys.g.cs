@@ -24,5 +24,6 @@ namespace Ashen.Generated
         public const string MapWay = "mapWay";
         public const string TrayDelay = "trayDelay";
         public const string RepeatPick = "repeatPick";
+        public const string TargetHide = "targetHide";
     }
 }

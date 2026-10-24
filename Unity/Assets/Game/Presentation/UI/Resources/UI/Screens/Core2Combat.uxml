@@ -2,6 +2,7 @@
     <ui:Style src="Screens.uss" />
     <ui:Style src="Combat.uss" />
     <ui:Style src="Core2Combat.uss" />
+    <ui:Style src="../Kit/CombatModal.uss" />
     <ui:VisualElement name="COMBAT_BACKGROUND" class="combat-background" picking-mode="Ignore" />
     <ui:VisualElement name="COMBAT_PAGE" class="page combat-page board-page">
         <ui:VisualElement name="STAGE_GRID" class="stage-grid" picking-mode="Ignore" />
@@ -51,14 +52,26 @@
             <Ashen.Presentation.UI.LocButton name="LOG_CLOSE" class="log-close" string-key="core2.board.logClose" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="PROMPT_PANEL" class="prompt-panel is-hidden">
-        <Ashen.Presentation.UI.LocLabel name="PROMPT_TITLE" class="prompt-title kit-text-header" />
-        <ui:ScrollView name="PROMPT_LIST" class="prompt-list" />
-        <ui:VisualElement name="PROMPT_FOOTER" class="prompt-footer">
-            <Ashen.Presentation.UI.LocButton name="PROMPT_BACK" class="kit-button--back prompt-button" string-key="core2.prompt.back" />
-            <ui:VisualElement class="footer-gap" />
-            <Ashen.Presentation.UI.LocButton name="PROMPT_CONFIRM" class="kit-button--primary prompt-button is-hidden" />
+    <ui:VisualElement name="PROMPT_PANEL" class="overlay-scrim is-hidden">
+        <ui:VisualElement name="PROMPT_FRAME" class="cmodal cmodal--md kit-frame kit-frame--modal">
+            <ui:VisualElement class="shadow-plate" picking-mode="Ignore" />
+            <ui:VisualElement name="PROMPT_HEAD" class="cmodal-head">
+                <ui:VisualElement class="cmodal-identity" picking-mode="Ignore">
+                    <Ashen.Presentation.UI.LocLabel name="PROMPT_EYEBROW" class="cmodal-eyebrow kit-upper" picking-mode="Ignore" />
+                    <Ashen.Presentation.UI.LocLabel name="PROMPT_TITLE" class="cmodal-title kit-text-header" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <Ashen.Presentation.UI.LocButton name="PROMPT_CLOSE" class="cmodal-close" string-key="glyph.close" />
+            </ui:VisualElement>
+            <ui:ScrollView name="PROMPT_LIST" class="cmodal-body" />
+            <ui:VisualElement name="PROMPT_FOOTER" class="cmodal-foot">
+                <Ashen.Presentation.UI.LocButton name="PROMPT_BACK" class="kit-button--back" string-key="core2.prompt.back" />
+                <Ashen.Presentation.UI.LocButton name="PROMPT_CONFIRM" class="kit-button--primary is-hidden" />
+            </ui:VisualElement>
         </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="OVERLAY_HOST" class="overlay-scrim is-hidden">
+        <Ashen.Presentation.UI.Kit.CombatModal name="OVERLAY_MODAL" class="is-hidden" />
+        <Ashen.Presentation.UI.Kit.QuickMenu name="OVERLAY_QUICK" class="is-hidden" />
     </ui:VisualElement>
     <ui:VisualElement name="COMBAT_END" class="page page--center scrim combat-end is-hidden">
         <ui:VisualElement class="end-panel">

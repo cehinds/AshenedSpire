@@ -460,7 +460,7 @@
     color: var(--color-green);
 }
 
-/* the inspect button (web .card-info-button): a round "i" above the card, shown by the hand when it can open the inspector */
+/* the inspect button (web .card-info-button): a round "i" above the card, shown by the hand when it can open the inspector, on the hovered or focused card (VP-6) */
 .card-info {
     display: none;
     position: absolute;
@@ -476,6 +476,7 @@
     -unity-background-image-tint-color: var(--face-info-line);
 }
 
-.card--inspectable .card-info {
+.card--inspectable:hover .card-info,
+.card--inspectable:focus .card-info {
     display: flex;
 }

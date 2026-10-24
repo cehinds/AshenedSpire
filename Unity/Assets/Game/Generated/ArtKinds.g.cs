@@ -19,5 +19,6 @@ namespace Ashen.Generated
         public const string Portrait = "portrait";
         public const string Prologue = "prologue";
         public const string MapDetail = "mapDetail";
+        public const string Flask = "flask";
     }
 }

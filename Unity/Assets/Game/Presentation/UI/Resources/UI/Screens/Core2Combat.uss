@@ -482,64 +482,6 @@
     margin-top: var(--space-md);
 }
 
-/* ---- prompt panel (stance, route, reaction offer, card choice, flasks, equipment, prediction) ---- */
-
-.prompt-panel {
-    position: absolute;
-    right: var(--space-lg);
-    bottom: var(--size-board-footer-h);
-    width: var(--size-prompt-w);
-    max-height: var(--size-combat-field);
-    padding: var(--space-md);
-    background-color: var(--color-bg-raise);
-    border-color: var(--color-gold-soft);
-    border-width: var(--border-control);
-    border-radius: var(--radius-card);
-}
-
-.prompt-title {
-    font-size: var(--font-heading);
-    color: var(--color-gold);
-    white-space: normal;
-    margin-bottom: var(--space-sm);
-}
-
-.prompt-list {
-    flex-shrink: 1;
-    max-height: var(--size-prompt-list-h);
-}
-
-.prompt-option {
-    margin-bottom: var(--space-xs);
-    white-space: normal;
-    -unity-text-align: middle-left;
-}
-
-.prompt-option--selected {
-    border-color: var(--color-target-line);
-    background-color: var(--color-panel-raise);
-}
-
-.prompt-option--disabled {
-    opacity: var(--opacity-disabled);
-}
-
-.prompt-footer {
-    flex-direction: row;
-    align-items: center;
-    margin-top: var(--space-sm);
-}
-
-.prompt-button {
-    min-width: var(--size-button-min-w);
-}
-
-.layout-narrow .prompt-panel {
-    left: var(--space-sm);
-    right: var(--space-sm);
-    width: auto;
-}
-
 .layout-narrow .combat-log {
     width: var(--size-board-log-w-narrow);
     margin-left: var(--size-board-log-pull-narrow);
@@ -583,10 +525,6 @@
 
 .layout-narrow .combat-background,
 .layout-narrow .board-field {
-    bottom: var(--size-board-footer-h-narrow);
-}
-
-.layout-narrow .prompt-panel {
     bottom: var(--size-board-footer-h-narrow);
 }
 

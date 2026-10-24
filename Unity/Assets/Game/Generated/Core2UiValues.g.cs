@@ -13,6 +13,7 @@ namespace Ashen.Generated
         public const string PromptChange = "change";
         public const string PromptPredict = "predict";
         public const string FocusPrompt = "prompt";
+        public const string FocusOverlay = "overlay";
         public const string OptionChange = "change";
         public const string OptionEmptyHand = "empty";
         public const string IntentUnknown = "unknown";

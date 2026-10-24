@@ -93,7 +93,8 @@
       "focusOrder": ["HAND_CARDS", "ENEMY_ROW", "ALLY_ROW", "FOOTER_GROUP", "FOOTER_TOOLS", "RUN_HUD", "COMBAT_LOG"],
       "focusModes": {
         "targeting": ["ENEMY_ROW", "ALLY_ROW"],
-        "prompt": ["PROMPT_LIST", "PROMPT_FOOTER"],
+        "prompt": ["PROMPT_LIST", "PROMPT_FOOTER", "PROMPT_CLOSE"],
+        "overlay": ["OVERLAY_MODAL", "OVERLAY_QUICK"],
         "enemyTurn": ["FOOTER_GROUP"],
         "ended": ["COMBAT_END"]
       },

@@ -1,0 +1,60 @@
+/* The target card (web combat-target-hover / combat-intent-tooltip shots): a small panel beside a combatant with its name, HP bar, chips and intent; the round "i" opens the full reading. */
+.targetcard {
+    position: absolute;
+    width: var(--size-target-w);
+    max-width: var(--size-target-max-w);
+    padding: var(--size-target-pad);
+    background-color: var(--color-bg-raise);
+    border-color: var(--color-gold);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
+}
+
+.target-name {
+    font-size: var(--font-target-name);
+    color: var(--color-parchment);
+    white-space: nowrap;
+}
+
+.target-hp {
+    margin-top: var(--space-xxs);
+    height: var(--size-target-hp-h);
+}
+
+.target-chips {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-xxs);
+}
+
+.target-intent-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--space-xs);
+}
+
+.target-intent-icon {
+    width: var(--size-target-info);
+    height: var(--size-target-info);
+    margin-right: var(--space-xs);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.target-intent {
+    font-size: var(--font-target-name);
+    color: var(--color-parchment);
+    white-space: nowrap;
+}
+
+.target-info.kit-button {
+    position: absolute;
+    right: var(--space-xs);
+    top: var(--space-xs);
+    width: var(--size-target-info);
+    height: var(--size-target-info);
+    min-height: 0;
+    padding: 0;
+    border-radius: var(--radius-round);
+    font-size: var(--font-target-name);
+}

@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="QuickMenu.uss" />
+    <ui:VisualElement class="shadow-plate shadow-plate--tooltip" picking-mode="Ignore" />
+    <Ashen.Presentation.UI.LocLabel name="QUICK_CAPTION" class="quick-caption kit-upper" string-key="combatModal.quick.caption" picking-mode="Ignore" />
+    <ui:VisualElement name="QUICK_ROWS" class="quick-rows" />
+</ui:UXML>
