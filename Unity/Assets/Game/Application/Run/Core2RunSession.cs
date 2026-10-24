@@ -71,8 +71,8 @@ namespace Ashen.App.Run
 
         public bool Travelled => Refusal == null;
 
-        /// <summary>The node is one whose rules are later work packages (rest, shop, treasure, event): the run stands at it and goes on from the map.</summary>
-        public bool NotYetPorted => Door != null && !Door.IsFight;
+        /// <summary>The node opened a place that has no screen yet (a rest place, shop, treasure room or event): the notice with Continue (<see cref="Core2RunSession.DismissPort"/>) stands in for it.</summary>
+        public bool NotYetPorted;
     }
 
     /// <summary>How a Core 2 fight ended for the run.</summary>
@@ -121,7 +121,7 @@ namespace Ashen.App.Run
     /// the map, a death or the last act's boss closes the run out into the profile and clears the slot. The save is the Core 2 document (format 3, the profile pinned): it
     /// resumes at the map or in the middle of a fight, under the profile it pinned. Engine-free.
     /// </summary>
-    public sealed class Core2RunSession : IClimb
+    public sealed partial class Core2RunSession : IClimb
     {
         private readonly Func<DateTime> _clock;
         private JObject _run;
@@ -176,7 +176,7 @@ namespace Ashen.App.Run
         public IReadOnlyList<string> ClassesUnlocked { get; private set; } = Array.Empty<string>();
 
         /// <summary>The kind of node the run stands at whose rules are not part of this build ('rest', 'shop', 'treasure', 'event'), until the player moves on; or null.</summary>
-        public string PendingPort => _pendingPort;
+        public string PendingPort => HasOpenShop ? HV.DoorShop : IsResting ? HV.DoorRest : _pendingPort;
 
         /// <summary>Where the run stands and a save resumes: 'combat', 'map', or 'runEnd' once the run is over (never saved: the slot is cleared).</summary>
         public string Location
@@ -186,6 +186,8 @@ namespace Ashen.App.Run
                 if (RunOver) return RunFlowValues.LocationRunEnd;
                 if (IsInCombat) return RunFlowValues.LocationCombat;
                 if (HasPendingReward) return RunFlowValues.LocationRewards;
+                if (HasOpenShop) return RunFlowValues.LocationMerchant;
+                if (IsResting) return RunFlowValues.LocationRest;
                 return _location;
             }
         }
@@ -237,7 +239,11 @@ namespace Ashen.App.Run
             if (graph == null) return Array.Empty<string>();
             var at = _run[MK.MapNodeId];
             var next = Js.Nullish(at) ? graph.Arr(MK.StartIds) : graph.Obj(MK.Nodes)?.Obj(Js.Str(at))?.Arr(MK.Next);
-            return Js.Items(next).Select(Js.Str).ToList();
+            var reachable = Js.Items(next).Select(Js.Str).ToList();
+            // A left rest site stays enterable until a new node is chosen (restRevisit.js, main.js showMap revisitId).
+            var revisit = Core2Rest.RevisitNodeId(_run);
+            if (revisit != null && !reachable.Contains(revisit)) reachable.Add(revisit);
+            return reachable;
         }
 
         /// <summary>The seat climbed at the current tier.</summary>
@@ -286,8 +292,10 @@ namespace Ashen.App.Run
                 var door = Core2RunLoop.EnterNode(Core.Loop, _run, _rng, nodeId);
                 _pendingPort = door.IsFight ? null : door.Kind;
                 if (door.IsFight) BeginFight(door);
+                else if (door.Kind == HV.DoorShop) EnterShop(door);
+                else if (door.Kind == HV.DoorRest) EnterRest(door);
                 Save();
-                return new Core2TravelResult { Door = door, Location = Location };
+                return new Core2TravelResult { Door = door, Location = Location, NotYetPorted = !door.IsFight && PendingPort != null };
             }
             catch
             {
@@ -303,6 +311,8 @@ namespace Ashen.App.Run
         public void DismissPort()
         {
             _pendingPort = null;
+            if (HasOpenShop) LeaveShop();
+            if (IsResting) LeaveRest();
             // Every step reads the notices or spends a level offer, so the loop ends; a refusal ends it too.
             while (HasPendingReward)
             {
@@ -729,7 +739,7 @@ namespace Ashen.App.Run
                 Portrait = (string)payload[RunSaveKeys.Portrait],
                 _playtimeBase = (long?)payload[RunSaveKeys.Playtime] ?? 0L,
                 EncounterId = (string)payload[RunSaveKeys.EncounterId],
-                _location = (string)payload[RunSaveKeys.Location] is string saved && saved != RunFlowValues.LocationRewards ? saved : RunFlowValues.LocationMap,
+                _location = (string)payload[RunSaveKeys.Location] is string saved && saved != RunFlowValues.LocationRewards && saved != RunFlowValues.LocationMerchant && saved != RunFlowValues.LocationRest ? saved : RunFlowValues.LocationMap,
                 _pendingPort = (string)payload[HK.PendingPort],
             };
             var warned = false;

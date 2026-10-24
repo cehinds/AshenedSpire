@@ -54,7 +54,7 @@ namespace Ashen.Domain.Shop
         private static JObject ResolveUpgradedItem(ShopData d, string itemRef, double level) => Combat.Equipment.ResolveUpgradedItem(d.Combat, itemRef, level);
 
         /// <summary>itemUpgradeCost(rows): the tier's Smithing Stone cost row.</summary>
-        private static double UpgradeCost(ShopData d, List<JObject> rows)
+        internal static double UpgradeCost(ShopData d, List<JObject> rows)
         {
             var row = rows.FirstOrDefault(r => r.Str(K.Tag) == ItemUpgrades.CostTag(d.Combat)) ?? throw new InvalidOperationException(SM.TierMissingCost);
             return row.Num(K.Value);
@@ -227,7 +227,7 @@ namespace Ashen.Domain.Shop
             return rows;
         }
 
-        private static JArray RequirementPreview(ShopData d, JObject run, JObject piece, double currentLevel, double nextLevel)
+        internal static JArray RequirementPreview(ShopData d, JObject run, JObject piece, double currentLevel, double nextLevel)
         {
             var authored = piece.Obj(RK.Requirements)?.Obj(K.Attributes) ?? new JObject();
             var itemRef = ArmamentRef(piece.Str(K.Id));
@@ -263,7 +263,7 @@ namespace Ashen.Domain.Shop
         }
 
         /// <summary>itemUpgradeValueReceipts(registries, itemRef, currentLevel, nextLevel): the typed non-card changes of one tier.</summary>
-        private static JArray ValueReceipts(ShopData d, string itemRef, double currentLevel, double nextLevel)
+        internal static JArray ValueReceipts(ShopData d, string itemRef, double currentLevel, double nextLevel)
         {
             var identity = ItemUpgrades.Identity(itemRef) ?? throw new InvalidOperationException(RunJs.Fmt(SM.UnknownUpgradeItem, itemRef));
             if (identity.ItemKind == V.ArmamentRefPrefix) return new JArray();
@@ -287,7 +287,7 @@ namespace Ashen.Domain.Shop
             return receipts;
         }
 
-        private static string ActiveArmourRef(ShopData d, JObject run)
+        internal static string ActiveArmourRef(ShopData d, JObject run)
         {
             var slot = d.Run.EquipmentRows(K.Slots).FirstOrDefault(row => Js.Includes(row[K.Kinds], V.Armor));
             if (slot == null) return null;
@@ -299,7 +299,7 @@ namespace Ashen.Domain.Shop
             return ItemByRef(d, itemRef) != null ? itemRef : null;
         }
 
-        private static List<string> OwnedItemRefs(ShopData d, JObject run)
+        internal static List<string> OwnedItemRefs(ShopData d, JObject run)
         {
             var refs = new List<string>();
             void Add(string itemRef)

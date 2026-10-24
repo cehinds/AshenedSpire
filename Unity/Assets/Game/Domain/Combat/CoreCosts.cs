@@ -362,6 +362,13 @@ namespace Ashen.Domain.Combat
             return PreparedPlayCosts(c, instance, Resolve(c, instance), null);
         }
 
+        /// <summary>The cost previewCard(combat, id) prices a card at wherever it lies (the hand, the draw pile, the discard or the exhaust pile): { energy, mana, stamina }.</summary>
+        public static JObject PreviewPlayCosts(CombatState c, string instanceId)
+        {
+            var instance = Instance(c, instanceId, true);
+            return PreparedPlayCosts(c, instance, Resolve(c, instance), null);
+        }
+
         /// <summary>The cost part of previewCard(combat, id): the Stamina and Mana as the face shows them, and the Precision a stance entry would grant (the range quote adds its Advance price on top, <see cref="CoreRangePreview"/>).</summary>
         public static JObject PreviewCosts(CombatState c, string instanceId)
         {

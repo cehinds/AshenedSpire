@@ -100,6 +100,8 @@ namespace Ashen.Domain.Loop
         public static Core2Door EnterNode(Core2LoopData d, JObject run, Rng rng, string nodeId)
         {
             var node = run.Obj(RK.MapGraph)?.Obj(MK.Nodes)?.Obj(nodeId) ?? throw new InvalidOperationException(RunJs.Fmt(LM.UnknownMapNode, nodeId));
+            // Travelling to another node ends a left rest site's re-entry (restRevisit.js).
+            Core2Rest.ClearRevisitOnTravel(run, nodeId);
             run[MK.MapNodeId] = nodeId;
             var path = run.Arr(LK.Path) ?? throw new InvalidOperationException(LM.RunHasNoPath);
             if (!Js.Includes(path, nodeId)) path.Add(nodeId);

@@ -42,6 +42,34 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 - Boss fight: splash with "ACT 1 · BOSS" and the name for 2.3 s, any click closes it. Victory: the title ribbon for 0.6 s then the panel. Defeat: panel with the orange title.
 
 **Next:** `ui/feedback.json` hooks for player pose frames and card-cast effect plans once art is imported; HP bars that update after the numbers; VP-12 run-end restyle.
+## WP-16: Core 2 rest site (worktree branch, 2026-10-24)
+
+**Landed (D-334..D-340)**
+- **Domain (`Domain/Loop/Core2Rest.cs`, `Domain/Shop/Core2Smith.cs`, `Core2CardFace.cs`):** the web's `beginGameProfileRest` (the arrival heal, once), `commitGameProfileRest` (free Smith, Level Up, every refusal), `restRevisit` (the re-entry record), `rederivePools`, and the Smith's plan and commit for a Core 2 run with its live card rows (two throwaway fights, `createRng(17)`). The 405 smith is untouched but for four helpers made `internal`; `CoreRunRules.CombatArgs` accepts no encounter; `CoreCosts.PreviewPlayCosts` prices a card in any pile.
+- **Application:** `Core2RunSession` opens a rest node (`Location` `rest`, `PendingPort` `rest`, Continue leaves), `TakeRestService` / `UpgradeItem` / `SpendPoint` / `LeaveRest` / `SmithCardRows`; `ReachableNodes()` keeps a left site enterable; a reload lands on the map as the web's does. `Core2RestView` is the display data (services, reasons, recovery rows, Smith items, attributes, the modal lines) with the web's strings as `core2.rest.*`.
+- **Content:** `rules/core2Rest.json` + schema, `Tools/codegen.d/core2-rest.json`, `Core2RewardsData` carries the Smith's data (`ShopData` over the same registries) and the rest rules.
+- **Oracle:** `Tools/oracle-core2-rest.mjs` (units: 24 plans, 20 re-derivations, 4 door runs; 16 climbs of 8 visits, 4.0 MB under `Unity/Assets/Tests/Oracle/core2/rest`).
+
+**Tests run (one filter at a time):** `Core2RestParityTests` 20/20, `Core2RestSessionTests` 8/8, `Core2RunSessionTests` 10/10 (5 min), `Core2ScreensTests` + `Core2RewardsSessionTests` + `Core2ShopSessionTests` + `Core2DeckEditorSessionTests` 33/33, `Core2RewardsParityTests` 71/71, `Core2HostParityTests` + `Core2RunParityTests` 362/362, `EnforcementTests` 7/7; `codegen --check`, `refresh-manifest`, `ci/check-content`, `ci/check-docs` ok. `transform-content --check` cannot run without the raw export (`Tools/export/raw` is not in the tree).
+
+**Not verified:** no rest screen exists (the seam is `Core2RestView`); Unity was not run; Level Up is reachable only by a test edit; a card in a pile other than the opening hand is priced without the web's `preparingPreview` clone (no card of the shipped content listens for preparing).
+
+**Next:** WP-19 routes the treasure and event nodes and the class-unlock ledger; a rest and a shop screen over `Core2RestView` and `Core2ShopView`.
+
+
+## WP-17: Core 2 shop (worktree branch, 2026-10-24)
+
+**Landed (D-330..D-333)**
+- **Domain (`Domain/Shop/Core2Shop.cs`):** the web's `gameProfileShopStock` and `purchaseGameProfileShopOffer`, `Core2Rewards.MakeOffer` extended with `itemsPerCategory` (the `shop` stream, authored category order, no stance reserve). The legacy merchant is untouched.
+- **Application:** `Core2RunSession` is partial; `Core2RunSession.Shop.cs` enters the shop at a merchant node (a profile without shops goes on to the map), keeps `Location` `merchant` while `gameProfileOpenShop` is on the run (so a save resumes at the shop), `BuyFromShop`, `LeaveShop`; the placeholder Continue leaves it. `Core2ShopView` is the display data (shelves, prices, availability and reasons, the confirmation text) with the web's `shop.*` strings as `core2.shop.*`.
+- **Oracle:** `Tools/oracle-core2-shop.mjs` (32 scenarios, 3.7 MB under `Unity/Assets/Tests/Oracle/core2/shop`): stocks, buys with every refusal, remounts, tampered prices, other `shops` module settings.
+
+**Tests run (one filter at a time):** `Core2ShopParityTests` 33/33 (32 scenarios and the oracle's tallies), `Core2ShopSessionTests` 8/8, `Core2RunSessionTests`, `EnforcementTests` 7/7; `codegen --check`, `refresh-manifest`, `ci/check-content` ok.
+
+**Not verified:** no shop screen exists (the seam is `Core2ShopView`); Unity was not run.
+
+**Next:** WP-16 (rest) shares the door work in `Core2RunSession`; WP-19 routes the treasure and event nodes.
+
 
 ## VP-6: combat overlays (worktree branch, 2026-10-24)
 
