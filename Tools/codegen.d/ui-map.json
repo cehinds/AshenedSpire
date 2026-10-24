@@ -1,0 +1,38 @@
+{
+  "comment": "VP-10 act map, Armoury modal and deck editor screen (D-900..D-912): the climb atlas keys of ui/components.json, the keys the map pin reads, the USS class names code toggles on the map and the Armoury, and the numbers the geometry of the map needs. UXML names are in ui.json (UiNames).",
+  "keySets": [
+    {
+      "name": "AtlasKeys",
+      "doc": "Keys of ui/components.json climb that VP-10 added: the board's pitch and padding, the painted atlas, the node icon and tint maps and the act numerals.",
+      "keys": {
+        "ColPitch": "colPitch",
+        "BoardPadX": "boardPadX",
+        "BoardPadTop": "boardPadTop",
+        "EdgeOutlineWidth": "edgeOutlineWidth",
+        "NodeIcons": "nodeIcons",
+        "NodeTints": "nodeTints",
+        "TierNumerals": "tierNumerals",
+        "Atlas": "atlas",
+        "Worlds": "worlds",
+        "WorldSalt": "worldSalt",
+        "Hash": "hash",
+        "Offset": "offset",
+        "Prime": "prime",
+        "Level": "level",
+        "TileCols": "tileCols",
+        "TileRows": "tileRows",
+        "RevealRadius": "revealRadius",
+        "RevealCore": "revealCore",
+        "GridStep": "gridStep"
+      }
+    },
+    {
+      "name": "MapPinKeys",
+      "doc": "Keys of the profile's routes module that pin the map reveal (web resolveMapMode: configured routes pin their authored mapMode).",
+      "keys": {
+        "Mode": "mode",
+        "MapMode": "mapMode"
+      }
+    }
+  ]
+}

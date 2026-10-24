@@ -30,6 +30,20 @@ namespace Ashen.Domain.Map
         /// <summary>modules.routes.hideUnknownNodes: hidden node types are shown as events (the fog).</summary>
         public bool HideUnknownNodes => Js.Truthy(Module[MK.HideUnknownNodes]);
 
+        /// <summary>
+        /// The map reveal the profile pins, or null when the player's setting rules (web resolveMapMode): configured routes pin their authored mapMode (fog or path), and a value this
+        /// build cannot read is the shipping default, fog.
+        /// </summary>
+        public string PinnedMapMode
+        {
+            get
+            {
+                if (Js.Str(Module[Ashen.Generated.MapPinKeys.Mode]) != Ashen.Generated.Core2RunValues.Configured) return null;
+                var mode = Js.Str(Module[Ashen.Generated.MapPinKeys.MapMode]);
+                return mode == Ashen.Generated.SettingIds.MapPath ? mode : Ashen.Generated.SettingIds.MapFog;
+            }
+        }
+
         /// <summary>The route types the profile hides, in authored order (a missing list is empty).</summary>
         public List<string> HiddenTypes => Strings(MK.HiddenTypes);
 

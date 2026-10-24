@@ -237,6 +237,94 @@
         },
         "rowTouchRatio": {
           "type": "number"
+        },
+        "colPitch": {
+          "type": "number"
+        },
+        "boardPadX": {
+          "type": "number"
+        },
+        "boardPadTop": {
+          "type": "number"
+        },
+        "edgeOutlineWidth": {
+          "type": "number"
+        },
+        "atlas": {
+          "type": "object",
+          "properties": {
+            "worlds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "worldSalt": {
+              "type": "string"
+            },
+            "hash": {
+              "type": "object",
+              "properties": {
+                "offset": {
+                  "type": "integer"
+                },
+                "prime": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "offset",
+                "prime"
+              ]
+            },
+            "level": {
+              "type": "integer"
+            },
+            "tileCols": {
+              "type": "integer"
+            },
+            "tileRows": {
+              "type": "integer"
+            },
+            "revealRadius": {
+              "type": "number"
+            },
+            "revealCore": {
+              "type": "number"
+            },
+            "gridStep": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "worlds",
+            "worldSalt",
+            "hash",
+            "level",
+            "tileCols",
+            "tileRows",
+            "revealRadius",
+            "revealCore",
+            "gridStep"
+          ]
+        },
+        "nodeIcons": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "nodeTints": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "tierNumerals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -248,7 +336,15 @@
         "dotSpacing",
         "restBackground",
         "victoryBackground",
-        "rowTouchRatio"
+        "rowTouchRatio",
+        "colPitch",
+        "boardPadX",
+        "boardPadTop",
+        "edgeOutlineWidth",
+        "atlas",
+        "nodeIcons",
+        "nodeTints",
+        "tierNumerals"
       ]
     }
   },

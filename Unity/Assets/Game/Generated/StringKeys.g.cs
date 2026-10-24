@@ -475,6 +475,14 @@ namespace Ashen.Generated
         public const string MapFloor = "map.floor";
         public const string MapHint = "map.hint";
         public const string MapHintSelected = "map.hintSelected";
+        public const string MapKeysDeck = "map.keys.deck";
+        public const string MapKeysDeckKey = "map.keys.deck.key";
+        public const string MapKeysEquipment = "map.keys.equipment";
+        public const string MapKeysEquipmentKey = "map.keys.equipment.key";
+        public const string MapKeysMenu = "map.keys.menu";
+        public const string MapKeysMenuKey = "map.keys.menu.key";
+        public const string MapKeysStats = "map.keys.stats";
+        public const string MapKeysStatsKey = "map.keys.stats.key";
         public const string MapKindBoss = "map.kind.boss";
         public const string MapKindElite = "map.kind.elite";
         public const string MapKindEvent = "map.kind.event";
@@ -511,6 +519,9 @@ namespace Ashen.Generated
         public const string MapRefusalNotOnMap = "map.refusal.notOnMap";
         public const string MapRefusalNotReachable = "map.refusal.notReachable";
         public const string MapSeat = "map.seat";
+        public const string MapStripBoss = "map.strip.boss";
+        public const string MapStripEntrance = "map.strip.entrance";
+        public const string MapStripTitle = "map.strip.title";
         public const string MapTitle = "map.title";
         public const string MapTrayBack = "map.tray.back";
         public const string MapTrayBoss = "map.tray.boss";

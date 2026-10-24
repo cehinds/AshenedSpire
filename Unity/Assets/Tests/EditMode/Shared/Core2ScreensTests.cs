@@ -85,6 +85,55 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void TheProfilesFogPinsTheMapRevealAndDrawsOnlyWhatTheLightReaches()
+        {
+            var session = New();
+            Assert.That(session.PinnedMapMode, Is.EqualTo(SettingIds.MapFog), "the Core profile's configured routes pin their authored mapMode (web resolveMapMode)");
+            var view = ActMapView.Build(session, Ui);
+            Assert.That(view.Mode, Is.EqualTo(SettingIds.MapFog));
+            Assert.That(view.Fog, Is.True);
+            var graph = session.Run.Obj("mapGraph");
+            var drawn = view.Nodes.Where(n => n.Drawn).Select(n => n.Id).ToList();
+            Assert.That(drawn, Is.EquivalentTo(MapFog.Lit(graph, new string[0], null)), "the doors and the end, before the first step");
+            Assert.That(drawn, Is.SupersetOf(session.ReachableNodes()));
+            Assert.That(drawn.Count, Is.LessThan(view.Nodes.Count), "the rest of the act is not drawn");
+            Assert.That(view.Edges.All(e => e.Drawn == (view.Node(e.From).Drawn && view.Node(e.To).Drawn)), Is.True, "an edge needs both its ends");
+            Assert.That(view.World, Is.Not.Null, "a world is painted under the board");
+            Assert.That(view.StripTitle, Does.StartWith("ACT I — "));
+        }
+
+        [Test]
+        public void TheProgressStripHasAStepPerFloorBeforeTheBossAndFillsAsTheRunWalks()
+        {
+            var session = New();
+            var before = ActMapView.Build(session, Ui);
+            var floors = before.Nodes.Where(n => n.Kind != "boss").Select(n => n.Floor).Distinct().OrderBy(f => f).ToList();
+            Assert.That(before.Route.Select(s => s.Floor), Is.EqualTo(floors), "one step per floor before the boss");
+            Assert.That(before.Route.All(s => s.Kind == null && !s.Current), Is.True, "nothing walked yet");
+            Assert.That(before.BossVisited, Is.False);
+
+            var first = session.ReachableNodes()[0];
+            session.Travel(first);
+            var after = ActMapView.Build(session, Ui);
+            var step = after.Route.Single(s => s.Current);
+            Assert.That(step.Floor, Is.EqualTo(after.Node(first).Floor));
+            Assert.That(step.Kind, Is.EqualTo(after.Node(first).Kind), "the step shows the kind of the node walked on it");
+            Assert.That(after.Nodes.Count(n => n.Drawn), Is.GreaterThan(before.Nodes.Count(n => n.Drawn)), "standing on a node lights its split");
+        }
+
+        [Test]
+        public void EveryNodeKindHasAnIconOrIsTheUnknownMarkAndTheLegendFollowsTheWebsOrder()
+        {
+            var view = ActMapView.Build(New(), Ui);
+            var climb = Ui.Components.Climb;
+            foreach (var node in view.Nodes) Assert.That(climb.NodeIcons.ContainsKey(node.Kind), Is.True, node.Kind + " has an icon entry");
+            foreach (var icon in climb.NodeIcons.Values.Where(i => i.Length > 0)) Assert.That(Ui.Art.Icon(icon), Is.Not.Null, "icon." + icon + " is imported");
+            var order = climb.NodeIcons.Keys.ToList();
+            Assert.That(view.Legend.Select(l => order.IndexOf(l.Kind)), Is.Ordered, "monster, elite, boss, shrine, merchant, treasure, unknown");
+            Assert.That(view.Legend.Select(l => l.Kind).Distinct().Count(), Is.EqualTo(view.Legend.Count));
+        }
+
+        [Test]
         public void TheRunHudOfACore2RunNamesTheCharacterAndTheirPools()
         {
             var session = New();
