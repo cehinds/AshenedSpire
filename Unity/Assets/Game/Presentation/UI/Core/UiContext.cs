@@ -49,7 +49,7 @@ namespace Ashen.Presentation.UI
         public static UiContext Create(IContentSource source, UiData data, string saveDirectory)
         {
             var rules = SaveRules.From((Newtonsoft.Json.Linq.JObject)JsonContent.Parse(source.ReadText(ContentFiles.RulesSaves)));
-            return new UiContext
+            var context = new UiContext
             {
                 Data = data,
                 Source = source,
@@ -58,6 +58,9 @@ namespace Ashen.Presentation.UI
                 BuildVersion = UnityEngine.Application.version,
                 DevBuild = Debug.isDebugBuild,
             };
+            // The card face reads its art and glyphs through the context (the kit's CardView is built without one).
+            Kit.CardView.Source = context;
+            return context;
         }
 
         public Texture2D Texture(string assetId)

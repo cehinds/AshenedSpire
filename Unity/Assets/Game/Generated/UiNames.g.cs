@@ -80,6 +80,9 @@ namespace Ashen.Generated
         public const string CardRank = "CARD_RANK";
         public const string CardRankText = "CARD_RANK_TEXT";
         public const string CardInfo = "CARD_INFO";
+        public const string FrameBase = "base";
+        public const string FramePanel = "panel";
+        public const string FrameFlag = "flag";
         public const string HandCards = "HAND_CARDS";
         public const string FooterGroup = "FOOTER_GROUP";
         public const string GroupActions = "GROUP_ACTIONS";

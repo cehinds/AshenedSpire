@@ -83,6 +83,7 @@
       },
       "required": ["selection", "background", "compositions"]
     },
+    "inspectIcon": { "type": "string" },
     "cost": {
       "type": "object",
       "properties": {
@@ -148,5 +149,5 @@
       "required": ["sigil", "tag"]
     }
   },
-  "required": ["design", "stage", "prefixes", "cutouts", "cost", "fit", "band", "rail", "glyphs"]
+  "required": ["design", "stage", "prefixes", "cutouts", "inspectIcon", "cost", "fit", "band", "rail", "glyphs"]
 }

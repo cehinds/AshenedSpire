@@ -1,5 +1,5 @@
 {
-  "contentHash": "b93d267be77f0b1bcdc64c44e040f809a145d4317f5150177b315a73cbef88be",
+  "contentHash": "447f6f28a2653ba8c2f9ac9916a82b643cbae0fe0b0e7d84ba18d39f13bebb69",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -1960,9 +1960,9 @@
       "sha256": "3af105c94763728307b39d6e27895a06d143e181316b177c91938703b5969610"
     },
     "schemas/ui.cardface.schema.json": {
-      "bytes": 6393,
+      "bytes": 6449,
       "generated": false,
-      "sha256": "33aea2dddee810789b4a5ad3f2a3b3a49febc2d00a2a7352a276a05111b803b4"
+      "sha256": "7358836352b0c40d62407b340787cc5223daf634f3847b28aea12e5392be2654"
     },
     "schemas/ui.components.schema.json": {
       "bytes": 5106,
@@ -2020,9 +2020,9 @@
       "sha256": "32a1c3a5c840792bc91d71a1312558e924fdc91db29a79d285470822bf5a873e"
     },
     "schemas/ui.tokens.schema.json": {
-      "bytes": 1963,
+      "bytes": 2115,
       "generated": false,
-      "sha256": "d0476233f7be3e4aa0388a50aa1f2c8f1d67ad0a88d84ea99134a8a9ecd89a61"
+      "sha256": "e96be3e1cc6f05700b5e715f82aa7d2be2cbc80688a82c05a1c946baac3644f3"
     },
     "settings/defaults.json": {
       "bytes": 8491,
@@ -2145,9 +2145,9 @@
       "sha256": "d0ce1791099b8f6924fd99283533b0c430e3a7ebaac396879cd8f571ef4bd766"
     },
     "ui/cardface.json": {
-      "bytes": 26901,
+      "bytes": 26926,
       "generated": false,
-      "sha256": "4c9eb74a4fb53bf6a19e573feb68dc9315831ab5d5f0919f47fe162fecb87409"
+      "sha256": "8d1e9daa4605315bc0aa1251c29ef5fc42891179d27704f1397a78c31ee55533"
     },
     "ui/components.json": {
       "bytes": 4121,
@@ -2205,9 +2205,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 11381,
+      "bytes": 15709,
       "generated": false,
-      "sha256": "dab0f6d5c82d74068265f6f3a03d86cee0ef5f7f99e598062cf0723e4acc6512"
+      "sha256": "1f7351c75a7d12e8554a1cbf3be0c12dd10d011625c40b0815072caf59f652d5"
     }
   },
   "schemaVersion": 1,

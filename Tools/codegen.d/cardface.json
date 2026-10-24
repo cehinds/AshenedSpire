@@ -65,6 +65,7 @@
         "ScaleY": "scaleY",
         "Blend": "blend",
         "Cost": "cost",
+        "InspectIcon": "inspectIcon",
         "Frame": "frame",
         "Overflow": "overflow",
         "Secondary": "secondary",

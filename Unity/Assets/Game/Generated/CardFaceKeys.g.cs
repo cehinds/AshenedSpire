@@ -64,6 +64,7 @@ namespace Ashen.Generated
         public const string ScaleY = "scaleY";
         public const string Blend = "blend";
         public const string Cost = "cost";
+        public const string InspectIcon = "inspectIcon";
         public const string Frame = "frame";
         public const string Overflow = "overflow";
         public const string Secondary = "secondary";

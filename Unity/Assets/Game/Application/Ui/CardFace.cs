@@ -94,6 +94,19 @@ namespace Ashen.App.Ui
         public double DesignWidth => Json[CardFaceKeys.Design].Value<double>(CardFaceKeys.Width);
         public double DesignHeight => Json[CardFaceKeys.Design].Value<double>(CardFaceKeys.Height);
 
+        /// <summary>The icon name (ui/art.json icon) of the inspect button.</summary>
+        public string InspectIcon => Json.Value<string>(CardFaceKeys.InspectIcon);
+
+        /// <summary>The banner icon (cardframe.{name}) a cost kind takes; a kind the face does not know takes the overflow icon.</summary>
+        public string CostFrame(string kind) =>
+            ArtConfig.Strings(Json[CardFaceKeys.Cost][CardFaceKeys.Frame]).TryGetValue(kind ?? string.Empty, out var frame) ? frame : OverflowFrame;
+
+        /// <summary>The icon of a second cost of the same kind of icon (the web's energy symbol).</summary>
+        public string OverflowFrame => Json[CardFaceKeys.Cost].Value<string>(CardFaceKeys.Overflow);
+
+        /// <summary>The cost kind that wears the secondary (diamond) icon: Mana.</summary>
+        public string SecondaryKind => Json[CardFaceKeys.Cost].Value<string>(CardFaceKeys.Secondary);
+
         /// <summary>The fit of a text layer: its largest and smallest font (design px) and its line budget.</summary>
         public CardTextFit Fit(string key)
         {

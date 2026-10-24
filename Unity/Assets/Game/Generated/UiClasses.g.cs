@@ -80,12 +80,15 @@ namespace Ashen.Generated
         public const string CardLayer = "card-layer";
         public const string CardCostIcon = "card-cost-icon";
         public const string CardCostValue = "card-cost-value";
-        public const string CardCostSecond = "card-cost--second";
+        public const string CardSlotPrefix = "card-slot--";
+        public const string CardCropPrefix = "card-crop--";
         public const string CardFlagTall = "card-flag--tall";
         public const string CardRailMark = "card-rail-mark";
         public const string CardCut = "card-cut";
-        public const string CardFlat = "card--flat";
         public const string CardSized = "card--sized";
+        public const string FontLore = "font-lore";
+        public const string CardRanked = "card--ranked";
+        public const string CardInspectable = "card--inspectable";
         public const string FlaskChip = "flask-chip";
         public const string PauseRow = "pause-row";
         public const string PauseHint = "pause-hint";

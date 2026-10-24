@@ -8,6 +8,7 @@
 //   Unity/Assets/StreamingAssets/Content/ui/cardface.json     the cutout compositions + selection rules, the type band and tag rail rules
 //   Unity/Assets/Game/Presentation/UI/Resources/UI/CardFace/  sigil-*.png, tag-*.png (white 64 px marks, USS/C# tint them), title-fade,
 //                                                              footer-frame, rank-bar, glow (9-slice) and ring (the frame's bronze ring)
+//   Unity/Assets/StreamingAssets/Content/ui/tokens.json      the `face` group: the card face's geometry in design px (360x540) and its colours
 // `ring.png` is cut from the imported frame `Assets/Art/Imported/cardframe/base.png` (gitignored art, D-018); without that file the ring is
 // skipped with a warning. `--check` compares cardface.json and lists missing sprites without writing.
 //
@@ -100,6 +101,7 @@ async function build() {
       compositions,
     },
     // The cost icons of the banner (cardframe.<name>): a card cost kind takes the icon of its frame; a second non-mana cost takes the overflow one.
+    inspectIcon: 'info',
     cost: { frame: { actions: 'stamina', stamina: 'stamina', mana: 'mana' }, overflow: 'energy', secondary: 'mana' },
     // Text auto-fit (CARD_COMPONENTS.template title/rules layers): design px, the face shrinks the text from max toward min until it fits.
     fit: {
@@ -142,6 +144,80 @@ async function actionFrame() {
   const m = text.match(/const actionBaseFrame = `(<svg[\s\S]*?<\/svg>)`;/);
   if (!m) throw new Error('card-face: actionBaseFrame not found in illustratedCard.js');
   return m[1].replace('class="card-base-action-frame"', 'width="360" height="540"');
+}
+
+// ------------------------------------------------------------------ tokens (the face group of ui/tokens.json)
+
+const TOKENS = join(CONTENT, 'ui', 'tokens.json');
+const r2 = (n) => Math.round(n * 100) / 100;
+
+async function faceTokens() {
+  const { CARD_COMPONENTS } = await webImport('src/content/cardComponents.generated.js');
+  const doc = CARD_COMPONENTS.template;
+  const layer = (id) => doc.layers.find((l) => l.id === id);
+  const lift = doc.height * 0.061; // illustratedCardHtml: the action band raises the parchment, rules and art
+  const t = { w: doc.width, h: doc.height };
+  const box = (p, x, y, w, h) => { t[`${p}X`] = r2(x); t[`${p}Y`] = r2(y); t[`${p}W`] = r2(w); t[`${p}H`] = r2(h); };
+  // A trimmed image layer: the image is drawn bigger than its box and shifted so the trim rectangle fills it (illustratedCardHtml crop).
+  const crop = (p, l, w, h) => {
+    const [x, y, tw, th] = l.trim;
+    t[`${p}CropW`] = r2(w * l.imageWidth / tw); t[`${p}CropH`] = r2(h * l.imageHeight / th);
+    t[`${p}CropX`] = r2(-w * x / tw); t[`${p}CropY`] = r2(-h * y / th);
+  };
+  const text = (p, l, dy = 0) => { box(p, l.x, l.y + dy, l.w, l.h); t[`${p}Size`] = r2(l.fontSize); };
+
+  box('base', 0, 0, doc.width, doc.height); crop('base', layer('base'), doc.width, doc.height);
+  const art = layer('art');
+  box('art', art.x, art.y, art.w, art.h - lift);
+  // The cutout stage (cardArtLayers componentLayersHtml): min(100cqw,80cqh) by min(125cqw,100cqh) in the art window, centred.
+  t.stageW = r2(Math.min(art.w, (art.h - lift) * 0.8)); t.stageH = r2(Math.min(art.w * 1.25, art.h - lift));
+  const panel = layer('panel');
+  box('panel', panel.x, panel.y - lift, panel.w, panel.h); crop('panel', panel, panel.w, panel.h);
+  const flag = layer('flag');
+  const short = doc.costLayouts.staminaOnly.layers.flag, tall = doc.costLayouts.staminaMana.layers.flag;
+  box('flag', flag.x, flag.y, flag.w, short.h); crop('flag', flag, flag.w, short.h);
+  t.flagTallH = r2(tall.h);
+  t.flagTallCropH = r2(tall.h * flag.imageHeight / flag.trim[3]); t.flagTallCropY = r2(-tall.h * flag.trim[1] / flag.trim[3]);
+  for (const [name, iconId, valueId] of [['stamina', 'stamina-icon', 'stamina-value'], ['mana', 'mana-icon', 'mana-value'], ['energy', 'energy-icon', 'energy-value']]) {
+    const icon = layer(iconId);
+    box(`${name}Icon`, icon.x, icon.y, icon.w, icon.h); crop(`${name}Icon`, icon, icon.w, icon.h);
+    text(`${name}Value`, layer(valueId));
+  }
+  text('title', layer('title'));
+  text('rules', layer('rules'), -lift);
+  box('band', doc.width * 0.1, doc.height * 0.858, doc.width * 0.8, doc.height * 0.116);
+  const bar = doc.layouts[doc.defaultLayout]['rank-bar'], word = doc.layouts[doc.defaultLayout]['rank-text'];
+  box('rank', bar.x, bar.y, bar.w, bar.h);
+  t.rankTextX = r2(word.x - bar.x); t.rankTextY = r2(word.y - bar.y); t.rankTextW = r2(word.w); t.rankTextH = r2(word.h);
+  t.rankSize = r2(word.h / 1.15); // illustratedCardHtml: font-size r.h * text.h% / 1.15
+  const cqw = doc.width / 100; // the web sizes the face's own marks in container-query widths
+  Object.assign(t, {
+    bandIcon: r2(11.5 * cqw), bandGap: r2(4 * cqw), bandPadX: r2(3 * cqw), bandPadBottom: r2(0.6 * cqw), bandSize: r2(7 * cqw), bandTrack: r2(0.085 * 7 * cqw),
+    fadeX: r2(doc.width * 0.06), fadeY: r2(doc.height * 0.035), fadeW: r2(doc.width * 0.88), fadeH: r2(doc.height * 0.22), fadeRadius: r2(3 * cqw),
+    footerX: r2(doc.width * 0.06), footerY: r2(doc.height * 0.853), footerW: r2(doc.width * 0.88), footerH: r2(doc.height * 0.113),
+    railRight: r2(doc.width * 0.09), railTop: r2(doc.height * 0.16), railMark: r2(8 * cqw), railGap: r2(2 * cqw),
+    noteX: panel.x, noteW: panel.w, noteBottom: r2(doc.height - (panel.y - lift)), noteSize: 22, notePad: 6, noteGap: 4,
+    nameOutline: r2(0.65 * cqw / 2), nameShadowY: r2(0.6 * cqw), nameShadowBlur: r2(0.8 * cqw), costOutline: 1,
+    glowOut: -32, glowSlice: 1, infoSize: 28, infoX: r2((doc.width - 28) / 2), infoY: -42,
+    nameColor: layer('title').color, rulesColor: layer('rules').color, costColor: layer('stamina-value').color, costOutlineColor: layer('stamina-value').outline,
+    nameOutlineColor: '#100b06', bandColor: '#efd09a', rankColor: '#f3f6ff', railColor: '#e8bd78', inkColor: '#000000',
+    glowColor: '#c49b56', glowArmedColor: '#5b9dff', glowChosenColor: '#d4622e', dimColor: '#a6a6a6',
+    noteBack: 'rgba(21, 17, 15, 0.88)', footerBack: 'rgba(16, 13, 9, 0.38)', infoBack: '#15110f', infoLine: '#c9a227',
+  });
+  return t;
+}
+
+function tokensBlock(t) {
+  const body = Object.entries(t).map(([k, v]) => `    ${JSON.stringify(k)}: ${typeof v === 'number' ? v : JSON.stringify(v)}`).join(',\n');
+  return `,\n  "face": {\n${body}\n  }\n}\n`;
+}
+
+function spliceTokens(text, t) {
+  const block = tokensBlock(t);
+  const existing = /,\n  "face": \{[\s\S]*?\n  \}\n\}\n$/;
+  if (existing.test(text)) return text.replace(existing, () => block);
+  if (!/\n\}\n$/.test(text)) throw new Error('card-face: ui/tokens.json does not end with a closing brace');
+  return text.replace(/\n\}\n$/, () => block);
 }
 
 // ------------------------------------------------------------------ sprites
@@ -352,17 +428,20 @@ const files = (built) => [
 async function main() {
   if (!existsSync(join(WEB, 'src/content/layeredCardArt.generated.js'))) throw new Error(`web repo not found: ${WEB} (use --web <path>)`);
   const built = await build();
+  const tokensText = readFileSync(TOKENS, 'utf8');
+  const tokensNext = spliceTokens(tokensText, await faceTokens());
   const text = JSON.stringify(built.json, null, 2) + '\n';
   const target = join(CONTENT, 'ui', 'cardface.json');
   if (CHECK) {
-    const drift = !existsSync(target) || readFileSync(target, 'utf8') !== text;
+    const drift = !existsSync(target) || readFileSync(target, 'utf8') !== text || tokensNext !== tokensText;
     const missing = files(built).filter((f) => !existsSync(join(OUT, `${f}.png`)) && f !== 'ring');
-    if (drift || missing.length) { console.error(`card-face: ${drift ? 'cardface.json differs; ' : ''}${missing.length} sprites missing`); process.exit(1); }
+    if (drift || missing.length) { console.error(`card-face: ${drift ? 'cardface.json or the face tokens differ; ' : ''}${missing.length} sprites missing`); process.exit(1); }
     console.log('card-face: ok');
     return;
   }
   mkdirSync(OUT, { recursive: true });
   writeFileSync(target, text);
+  writeFileSync(TOKENS, tokensNext);
   console.log(`ui/cardface.json ${text.length} bytes, ${Object.keys(built.json.cutouts.compositions).length} compositions`);
   for (const line of await sprites(built)) console.log(line);
 }

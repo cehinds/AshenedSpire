@@ -379,6 +379,7 @@ namespace Ashen.Tests.Play
                 foreach (var v in ((JObject)c["vars"]).Properties()) args.Add(v.Name, (string)v.Value);
                 return new CardViewData
                 {
+                    Face = new CardFaceQuery { CardId = id },
                     Name = strings.Get("card." + id + ".name"),
                     Text = strings.Format("card." + id + ".text", args),
                     TypeLine = (string)c["typeLine"],

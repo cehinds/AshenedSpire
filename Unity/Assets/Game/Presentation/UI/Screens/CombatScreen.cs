@@ -277,6 +277,7 @@ namespace Ashen.Presentation.UI.Screens
             {
                 Name = card.Name,
                 TypeLine = CombatText.CardKind(Strings, card.Kind),
+                Face = new Ashen.App.Ui.CardFaceQuery { CardId = card.CardId, Type = card.Kind },
                 Text = card.Text,
                 Affordable = card.Playable,
                 Upgraded = card.Upgraded,

@@ -266,6 +266,8 @@ namespace Ashen.Presentation.UI.Screens
             {
                 Name = card.Name,
                 TypeLine = Core2CombatText.TypeLine(Strings, card),
+                Face = card.Face,
+                Rank = Core2CombatText.Rank(Strings, card),
                 Text = card.Text,
                 Keywords = Core2CombatText.Traits(Strings, card),
                 Affordable = card.Playable,

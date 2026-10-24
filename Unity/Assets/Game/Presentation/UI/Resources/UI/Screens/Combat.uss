@@ -151,10 +151,6 @@
     height: var(--size-card-combat-h);
 }
 
-.combat-hand .card-art {
-    height: var(--size-card-art-combat-h);
-}
-
 .combat-hand .hand-card {
     margin-left: var(--size-hand-combat-overlap);
 }
