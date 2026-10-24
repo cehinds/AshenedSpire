@@ -7,6 +7,7 @@ using Ashen.App.Run;
 using Ashen.App.Saves;
 using Ashen.App.Ui;
 using Ashen.Content;
+using Ashen.Domain.Combat;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -288,6 +289,60 @@ namespace Ashen.Tests
                 return;
             }
             Assert.Inconclusive("no reaction offer came up in the first fights");
+        }
+
+        private static bool ThrowIsLegal(Core2RunSession session, string instanceId, string targetId)
+        {
+            var routes = session.Combat.PreviewCard(instanceId, targetId)?["routes"];
+            return routes != null && routes.Any(r => (string)r["id"] == "throw" && (bool)r["available"]) && routes.Any(r => (string)r["id"] == "advance" && (double)r["advanceSp"] > 0);
+        }
+
+        [Test]
+        public void TheRouteOptionsOfAnArmedCardArePricedForThePickedEnemyNotTheFirst()
+        {
+            // web combat.js: previewCard(combat, id, targetId) quotes the picked enemy and combatRangeActionPlan filters its routes to that targetId.
+            // The Rogue's thrown weapon is the one that makes a throw legal a band away.
+            const string classId = "rogue";
+            for (uint seed = 1; seed < 12; seed++)
+            {
+                var session = Core2RunSession.New(Content, _saves, 1, seed, classId, "Aldric", () => Epoch);
+                session.EditRunForReview(r => { r["maxHp"] = 400; r["hp"] = 400; });
+                var door = session.Travel(session.ReachableNodes()[0]).Door;
+                if (!door.IsFight || session.Combat.State.Enemies.Count < 2) continue;
+                var enemies = session.Combat.State.Enemies;
+                var near = enemies[0].Str("id");
+                var far = enemies[1].Str("id");
+                // The first enemy is in melee reach, the second one band away: only an advance (or a throw) lands on it.
+                foreach (var engagement in session.Combat.State.Fields.Obj("rangeState").Obj("engagements").Properties().ToList())
+                    engagement.Value = engagement.Name.Contains(far) ? 1 : 0;
+                var flow = new Core2CombatFlow(session, Strings);
+                Assert.That(flow.Pacing.OneTapPlay, Is.False, "One Tap Play is off by default");
+                var i = flow.View.Hand.FindIndex(c => c.Playable && c.NeedsTarget && c.Choices.Count == 0 && ThrowIsLegal(session, c.InstanceId, far));
+                if (i < 0) continue;
+                var card = flow.View.Hand[i];
+                Assert.That(card.Routes.First(r => r.Id == "advance").AdvanceSp, Is.EqualTo(0), "the card's own routes are priced for the first enemy, already in reach");
+                flow.SelectCard(i);
+                Assert.That(flow.Targeting, Is.True);
+                var step = flow.PickTarget(far);
+                Assert.That(step.Ran, Is.False, "the far enemy needs a route chosen, not an auto-advance");
+                Assert.That(flow.Prompt?.Kind, Is.EqualTo(Core2UiValues.PromptRoute));
+                var quote = session.Combat.PreviewCard(card.InstanceId, far);
+                var advance = flow.Prompt.Options.First(o => o.Id == "advance");
+                Assert.That(advance.Route.AdvanceSp, Is.GreaterThan(0));
+                Assert.That(advance.Odds.TargetId, Is.EqualTo(far));
+                Assert.That(flow.Prompt.Options.First(o => o.Id == "throw").Enabled, Is.True);
+                foreach (var row in quote["routes"])
+                {
+                    var option = flow.Prompt.Options.First(o => o.Id == (string)row["id"]);
+                    Assert.That(option.Route.AdvanceSp, Is.EqualTo((double)row["advanceSp"]));
+                    Assert.That(option.Route.Energy, Is.EqualTo((double?)row["costs"]?["energy"] ?? 0));
+                    var target = row["targets"].First(x => (string)x["targetId"] == far);
+                    Assert.That(option.Odds.HitChance, Is.EqualTo((double?)target["hitChance"]));
+                }
+                Assert.That(near, Is.Not.EqualTo(far));
+                return;
+            }
+            Assert.Inconclusive("no two-enemy fight with a throwable targeted card in the first seeds");
         }
 
         [Test]
