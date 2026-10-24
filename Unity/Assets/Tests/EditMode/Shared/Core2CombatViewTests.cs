@@ -341,5 +341,42 @@ namespace Ashen.Tests
             Assert.That(session.Execute(other.Intent).Accepted, Is.True, "the view's swap is the intent the rules take");
             Assert.That(Core2CombatView.Build(session).Equipment.Slots.First(s => s.SlotId == "rightHand").Sets[other.SetIndex].Active, Is.True);
         }
+
+        /// <summary>
+        /// The web's previewCard fills a Block token with computeBlockGain on the stance-entered copy (combat.js:2727-2730, tokens at 2803), so Defense and the matching-stance multiplier are in
+        /// the number a defensive card shows: it reads what playing it grants, not the authored amount.
+        /// </summary>
+        [Test]
+        public void ADefensiveCardsShownBlockIsWhatPlayingItGrants()
+        {
+            var seen = 0;
+            var differs = 0;
+            foreach (var classId in new[] { "reaver", "rogue", "herald", "starseer" })
+                foreach (var defense in new[] { 0, 7 })
+                    for (var seed = 1u; seed <= 12; seed++)
+                    {
+                        var run = CoreRunRules.Create(Data.Run, seed, classId, CoreRunOptions.FromJson(null, Core2DamageParityTests.Unlocked));
+                        var session = Ashen.App.Combat.Core2CombatSession.Start(Data, new Rng(seed), run, "loneSoldier");
+                        session.State.Player.Obj("ratings")["dr"] = defense;
+                        var view = Core2CombatView.Build(session);
+                        foreach (var card in view.Hand.Where(h => h.Playable && !h.NeedsTarget && h.Choices.Count == 0))
+                        {
+                            var inst = session.State.Piles.Hand.First(h => h.Str("instanceId") == card.InstanceId);
+                            var def = CoreCosts.Resolve(session.State, inst);
+                            var block = (def["effects"] as JArray).OfType<JObject>().FirstOrDefault(e => e.Str("op") == "block" && e["amount"]?.Type != JTokenType.String);
+                            if (block == null || (def["effects"] as JArray).OfType<JObject>().Count(e => e.Str("op") == "block") != 1) continue;
+                            var entered = CoreTransaction.DetachPaused(session.State);
+                            CoreCardPlay.Enter(entered, card.InstanceId);
+                            var played = CoreTransaction.DetachPaused(session.State);
+                            CoreDispatch.Dispatch(played, (JObject)card.Plays[0].DeepClone());
+                            var granted = played.Player.Num("block") - entered.Player.Num("block");
+                            Assert.That(card.Text, Does.Contain(CombatText.Number(granted) + " Block"), classId + " dr " + defense + " " + seed + " " + card.CardId);
+                            seen++;
+                            if (granted != Math.Floor(block.Num("amount"))) differs++;
+                        }
+                    }
+            Assert.That(seen, Is.GreaterThan(0));
+            Assert.That(differs, Is.GreaterThan(0), "Defense or a matching stance changes what some card grants, so the case is covered");
+        }
     }
 }

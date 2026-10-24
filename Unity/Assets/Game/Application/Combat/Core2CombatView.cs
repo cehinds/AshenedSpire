@@ -628,6 +628,21 @@ namespace Ashen.App.Combat
             var priced = damage == null ? null : Try(() => CoreVisibility.Project(CoreTransaction.DetachPaused(c)));
             var carrier = priced == null ? null : Try(() => CoreCardPlay.Carrier(priced, inst, def));
             if (carrier != null) Try(() => { CoreStances.SetProfileStance(priced, priced.Player, carrier); return carrier; });
+            // previewCard's block entries: computeBlockGain on the same stance-entered copy, so the Defense contribution and the matching-stance effectiveness are in the number the text shows.
+            var blocks = new Dictionary<int, double>();
+            var protects = Js.Items(def[K.Effects]).Select((e, i) => (e: e as JObject, i)).Where(x => x.e != null && (x.e.Str(K.Op) == Ashen.Generated.CombatOps.Block || x.e.Str(K.Op) == Ashen.Generated.Core2CombatValues.OpGainBarrier) && Js.IsNum(x.e[K.Amount])).ToList();
+            if (protects.Count > 0)
+            {
+                var blockPriced = priced ?? Try(() => CoreVisibility.Project(CoreTransaction.DetachPaused(c)));
+                var blockCarrier = carrier ?? (blockPriced == null ? null : Try(() => CoreCardPlay.Carrier(blockPriced, inst, def)));
+                if (carrier == null && blockCarrier != null) Try(() => { CoreStances.SetProfileStance(blockPriced, blockPriced.Player, blockCarrier); return blockCarrier; });
+                if (blockPriced != null && blockCarrier != null)
+                    foreach (var (effect, index) in protects)
+                    {
+                        var gain = Try(() => (JToken)Js.N(CoreActions.ComputeBlockGain(blockPriced, blockPriced.Player, Math.Floor(effect.Num(K.Amount)), blockCarrier)));
+                        if (gain != null) blocks[index] = gain.Value<double>();
+                    }
+            }
             foreach (var target in living)
             {
                 if (!needsTarget) break;
@@ -656,12 +671,12 @@ namespace Ashen.App.Combat
                 card.Hits[target] = hv;
             }
             foreach (var route in Js.Items(range?[HK.Routes]).OfType<JObject>()) card.Routes.Add(Route(route));
-            card.Text = Text(c, def, card);
+            card.Text = Text(c, def, card, blocks);
             return card;
         }
 
-        /// <summary>The card's text template with its numbers: each tokenizable value as authored, the damage token as the first target's receipt says.</summary>
-        private static string Text(CombatState c, JObject def, Core2CardView card)
+        /// <summary>The card's text template with its numbers: each tokenizable value as authored, the damage token as the first target's receipt says and each Block token as the play grants it.</summary>
+        private static string Text(CombatState c, JObject def, Core2CardView card, Dictionary<int, double> blocks)
         {
             var tokens = new JObject();
             var effects = Js.Items(def[K.Effects]).ToList();
@@ -670,7 +685,7 @@ namespace Ashen.App.Combat
                 var split = binding.Key.Split(V.KeySeparator[0]);
                 var index = int.Parse(split[0], CultureInfo.InvariantCulture);
                 var value = (effects[index] as JObject)?[split[1]];
-                if (Js.IsNum(value)) tokens[binding.Value] = value.DeepClone();
+                if (Js.IsNum(value)) tokens[binding.Value] = blocks.TryGetValue(index, out var gain) && split[1] == K.Amount ? Js.N(gain) : value.DeepClone();
             }
             var shown = card.Hits.Values.FirstOrDefault(h => h.Damage.HasValue);
             if (shown != null && tokens[Ashen.Generated.CombatOps.Damage] != null) tokens[Ashen.Generated.CombatOps.Damage] = Js.N(shown.Damage.Value);
