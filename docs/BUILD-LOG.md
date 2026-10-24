@@ -19,6 +19,19 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 **Next:** the web's HOLD on Buy (the Unity hold dial) if the owner wants the shot's look rather than the question; the full-game blacksmith and master merchant doors; phone compositions (VP-14); the event screens (VP-9's other half) with WP-19.
 
+## WP-19: the Core 2 run loop, start to finish (worktree branch, 2026-10-24)
+
+**Landed (D-345..D-350)**
+- **Nodes:** treasure = the combat reward door at the node; event = `Core2RunSession.EventId/EventDomainView/ChooseEvent/FinishEvent` over `Core2Content.Events` (the 405 event code on the profile's registries; Core `upgradeCard` through `Core2Smith`, the configured `swapClass` refusal, history gates from the catalog sidecar); `Core2EventView` carries the web's words. Nothing is answered "not yet ported" any more (`NotYetPorted` is always false); `PendingPort` is `event` while one is open so the act map's stand-in keeps the run moving.
+- **Run end:** `Core2RunEnd` is the configured `completedRunMeta` (record with run id and profile pin, class unlock ledger, no progress tally).
+- **Defects found by the oracle:** rest drafts lost the sideboard from `collection` (draft shares the profile pin now); fights refused event curses (`guilt`).
+- **Oracle and tests:** `Tools/oracle-core2-loop.mjs` (32 whole runs), `Core2LoopParityTests` (33), `Core2LoopSessionTests` (5); `Core2RunSessionTests`/`Core2ScreensTests` updated (events are the remaining stand-in notice; treasure is the reward door); merged `dev` (VP-8/9).
+- Checks: codegen, refresh-manifest and the dev merge's tests run; Unity itself was not run.
+
+**Not verified (Unity was not run):** nothing of the event screen exists yet (Presentation); the stand-in notice's Continue picks the first response the purse can pay.
+
+**Next:** the event/dialogue screen over `Core2EventView`; the game-over screen over `ClassesUnlocked`; WP-21 de-scope.
+
 ## VP-10: the act map, the Armoury modal and the deck editor (worktree branch, 2026-10-24)
 
 **Landed (D-900..D-905)**
