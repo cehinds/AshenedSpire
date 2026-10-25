@@ -112,6 +112,7 @@ namespace Ashen.Presentation.UI.Kit
         public bool PlayStageAction(string action, double ms)
         {
             if (!HasStage || !_stageState.Play(action, ms, Now, Data.Stage.Reduced)) return false;
+            _stageState.CueContact(Data.Stage.Reduced);
             PaintStage();
             EnsureStageTick();
             return true;
@@ -137,6 +138,15 @@ namespace Ashen.Presentation.UI.Kit
 
         /// <summary>The figure can play the body reaction of a kind (the pilot's).</summary>
         public bool CanStageReact(string kind) => HasStage && _stageState.CanReact(kind);
+
+        /// <summary>The timeline reached the blow: the stage may play past its contact frame (activeActorAnimation.contact()).</summary>
+        public bool StageContact()
+        {
+            if (!HasStage || !_stageState.Contact(Now)) return false;
+            PaintStage();
+            EnsureStageTick();
+            return true;
+        }
 
         /// <summary>The hit-stop: the clock of what the stage is playing waits.</summary>
         public bool StageHold(double ms) => HasStage && _stageState.Hold(ms, Now);

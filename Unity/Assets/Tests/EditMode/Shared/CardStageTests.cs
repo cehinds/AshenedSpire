@@ -291,6 +291,25 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void AContactCuedClipWaitsAtItsBlowUntilTheTimelineSaysItLanded()
+        {
+            var state = new CardStageState(Stage, "reaver");
+            Assert.That(state.CueContact(false), Is.False, "nothing is playing to cue");
+            state.Play(StageActions.Smash, 200, 0, false);
+            Assert.That(state.CueContact(true), Is.False, "reduced motion plays no cue");
+            Assert.That(state.CueContact(false), Is.True, "a smash is contact-cued (alternativeCardStage.js contactCue)");
+            state.Tick(400, false);
+            Assert.That(state.Busy, Is.True, "a late timer does not let the follow-through play");
+            Assert.That(state.Draw(All, false, false).Pose, Is.EqualTo("pilot-smash-impact"), "it waits at the blow");
+            Assert.That(state.RemainingMs(400), Is.GreaterThan(0));
+            Assert.That(state.Contact(400), Is.True);
+            Assert.That(state.Contact(400), Is.False, "the cue is spent");
+            state.Tick(700, false);
+            Assert.That(state.Busy, Is.False, "released, the clip finishes");
+            Assert.That(state.RemainingMs(700), Is.EqualTo(0));
+        }
+
+        [Test]
         public void AHitDrawsTheHurtClipWithItsMaskAndKnocksTheBodyBack()
         {
             var state = new CardStageState(Stage, "rogue");

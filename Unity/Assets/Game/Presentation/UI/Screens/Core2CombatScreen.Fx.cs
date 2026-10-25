@@ -237,6 +237,9 @@ namespace Ashen.Presentation.UI.Screens
                 {
                     case FxItemKind.Cue: PlayCue(item.Cue); break;
                     case FxItemKind.Swing: Swing(item); break;
+                    case FxItemKind.Contact:
+                        if (AnchorOf(item.ActorId) is Fighter striker) striker.StageContact();
+                        break;
                     case FxItemKind.Hold:
                         if (AnchorOf(item.ActorId) is Fighter holder)
                         {

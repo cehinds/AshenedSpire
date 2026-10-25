@@ -37,6 +37,10 @@ namespace Ashen.App.Ui
             public string Action;
             public StageSequence Sequence;
             public double Duration;
+
+            /// <summary>contactCue: the clock waits at the contact frame (<see cref="ContactMs"/>) until the timeline says the blow has landed.</summary>
+            public bool AwaitContact;
+            public double ContactMs;
         }
 
         private sealed class Reaction
@@ -214,12 +218,38 @@ namespace Ashen.App.Ui
             return true;
         }
 
+        /// <summary>
+        /// contactCue: a clip with a contact frame (a pilot's attack and smash) waits at it until <see cref="Contact"/>, so a late timer never lets the follow-through play before the blow lands. False for a clip with
+        /// no such cue, for nothing playing and under reduced motion.
+        /// </summary>
+        public bool CueContact(bool reduced)
+        {
+            if (_playing == null || !_playing.Sequence.ContactCue || reduced) return false;
+            _playing.ContactMs = _playing.Sequence.ContactShare * _playing.Duration;
+            _playing.AwaitContact = true;
+            return true;
+        }
+
+        /// <summary>contact: the timeline reached the blow; the clock is released, and brought to the contact frame if it was behind. False when nothing waits (or the figure is down).</summary>
+        public bool Contact(double now)
+        {
+            if (_playing == null || !_playing.AwaitContact || Rest == StageNames.Defeated) return false;
+            _playing.AwaitContact = false;
+            _elapsed = Math.Max(_elapsed, _playing.ContactMs);
+            _last = now;
+            return true;
+        }
+
+        /// <summary>remainingMs: what is left of the clip and of the hit-stop held on it (0 when it is not the cued clip any more).</summary>
+        public double RemainingMs(double now) => _playing == null ? 0 : Math.Max(0, _playing.Duration - _elapsed) + Math.Max(0, _holdUntil - now);
+
         /// <summary>tick: advance the clocks to <paramref name="now"/> (the held time does not count). True while something is still running.</summary>
         public bool Tick(double now, bool reduced)
         {
             if (_playing != null)
             {
                 _elapsed = Math.Min(_playing.Duration, _elapsed + Math.Max(0, now - Math.Max(_last, _holdUntil)));
+                if (_playing.AwaitContact && !reduced) _elapsed = Math.Min(_elapsed, _playing.ContactMs);
                 if (_elapsed >= _playing.Duration || reduced)
                 {
                     _playing = null;
