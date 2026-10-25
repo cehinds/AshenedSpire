@@ -375,6 +375,29 @@ namespace Ashen.Tests
             Assert.That(resumed.Session.Tally.DamageTaken, Is.EqualTo(mid.Tally.DamageTaken));
         }
 
+        [Test]
+        public void TheTallyCountsTheIntentsAppendedAfterTheCheckpoint()
+        {
+            var mid = Core2RunSession.New(Content, _saves, 2, 99u, "reaver", "Aldric", () => Epoch);
+            mid.Travel(mid.ReachableNodes()[0]);
+            mid.EditRunForReview(r => { r["hp"] = 100000; r["maxHp"] = 100000; });
+            mid.StartEncounter(mid.EncounterId);
+            mid.Save();
+            var before = mid.Tally.DamageDealt;
+            var state = mid.Combat.State;
+            foreach (var card in state.Piles.Hand.ToList())
+            {
+                var intent = Intent("playCard", "cardInstanceId", card.Value<string>("instanceId"));
+                intent["targetId"] = state.Enemies.First(e => e.Value<bool>("alive")).Value<string>("id");
+                if (mid.Execute(intent).Accepted && mid.Tally.DamageDealt > before) break;
+            }
+            Assume.That(mid.IsInCombat && mid.Tally.DamageDealt > before, "a card dealt damage without ending the fight");
+            Assume.That(mid.Combat.LoggedCommands, Is.GreaterThan(0), "the shipped run flow appends intents to the checkpoint's log");
+            var resumed = Core2RunSession.Load(Content, _saves, 2, () => Epoch);
+            Assert.That(resumed.Status, Is.EqualTo(Core2RunLoadStatus.Resumed), string.Join("; ", resumed.Warnings));
+            Assert.That(resumed.Session.Tally.ToJson().ToString(), Is.EqualTo(mid.Tally.ToJson().ToString()), "the replayed intents are tallied once");
+        }
+
         // ------------------------------------------------------------------ the run end
 
         [Test]
