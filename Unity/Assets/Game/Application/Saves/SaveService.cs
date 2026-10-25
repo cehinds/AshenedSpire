@@ -133,8 +133,18 @@ namespace Ashen.App.Saves
             using (var fs = new FileStream(LogPath(slot, gen), FileMode.Append, FileAccess.Write, FileShare.Read))
             {
                 var bytes = Encoding.UTF8.GetBytes(record.ToString(Formatting.None) + ContentLayout.Lf);
-                fs.Write(bytes, 0, bytes.Length);
-                fs.Flush(true);
+                var before = fs.Length;
+                try
+                {
+                    fs.Write(bytes, 0, bytes.Length);
+                    fs.Flush(true);
+                }
+                catch
+                {
+                    // A write cut short (a full disk) must not leave a torn record that later appends would sit behind: cut the log back to where it was.
+                    try { fs.SetLength(before); fs.Flush(true); } catch (IOException) { }
+                    throw;
+                }
             }
         }
 
