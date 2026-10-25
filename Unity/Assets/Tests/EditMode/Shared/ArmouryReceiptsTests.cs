@@ -86,7 +86,8 @@ namespace Ashen.Tests
             var session = NewRun();
             var unequip = ArmouryReceipts.Candidate(session, Ui, "rightHand", 0, "greatsword");
             Assert.That(unequip, Is.Not.Null);
-            Assert.That(unequip.Roles, Is.Empty, "the same piece in the same hand changes nothing");
+            Assert.That(unequip.Roles.Count, Is.EqualTo(3), "the web lists every role of the comparison");
+            Assert.That(unequip.Roles.All(r => !r.Changed), Is.True, "the same piece in the same hand changes nothing");
             Assert.That(session.TrialLoadout("rightHand", 0, "nothingLikeThis"), Is.Null, "an item that does not exist cannot be tried");
             var elsewhere = session.TrialLoadout("leftHand", 0, "greatsword");
             Assert.That(elsewhere, Is.Not.Null.Or.Null, "moving the sword to the other hand is the rules' question, not the view's");

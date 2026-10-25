@@ -9,6 +9,7 @@ using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using K = Ashen.Generated.CombatKeys;
 using RK = Ashen.Generated.RunKeys;
+using RV = Ashen.Generated.RunValues;
 using V = Ashen.Generated.CombatValues;
 
 namespace Ashen.App.Run
@@ -99,12 +100,41 @@ namespace Ashen.App.Run
         public bool Changed => Math.Abs(Before - After) > double.Epsilon;
     }
 
-    /// <summary>The comparison of an item against what a position holds (web equipmentReceipts.js renderCandidateComparison): the card packages, the minimums, the effects it adds, Poise and load before and after.</summary>
+    /// <summary>One card package of the attack role before and after (web attackPackageChanges): the card, how many copies the plan holds each way and the hands that supply it.</summary>
+    public sealed class CandidateAttackPackage
+    {
+        public string CardId;
+        public string ProfileId;
+        public string Name;
+        public int BeforeCount;
+        public int AfterCount;
+        public readonly List<string> SourceHands = new List<string>();
+
+        /// <summary>"Right hand package" (the web's "{hands} hand package"), or empty when no hand supplies it.</summary>
+        public string Hint = string.Empty;
+    }
+
+    /// <summary>One resource a swap would change (web resourceChanges): the pool maximum, or a slot's swap price in Stamina, before and after, with the sentence a declined talisman or relic delta adds.</summary>
+    public sealed class CandidateResourceChange
+    {
+        public string Id;
+        public string Label;
+        public double Before;
+        public double After;
+        public string RuleId;
+        public string Note = string.Empty;
+    }
+
+    /// <summary>The comparison of an item against what a position holds (web equipmentReceipts.js renderCandidateComparison): the card packages, the minimums, the effects it adds, the resource changes, Poise and load before and after.</summary>
     public sealed class CandidateView
     {
+        public readonly List<CandidateAttackPackage> AttackPackages = new List<CandidateAttackPackage>();
+
+        /// <summary>Every role, changed or not (the web's candidate.roles lists the three).</summary>
         public readonly List<CandidateRoleChange> Roles = new List<CandidateRoleChange>();
         public ReceiptRequirement Requirement;
         public readonly List<string> AddedEffects = new List<string>();
+        public readonly List<CandidateResourceChange> Resources = new List<CandidateResourceChange>();
         public double PoiseBefore;
         public double PoiseAfter;
         public string PoiseNote;
@@ -126,12 +156,11 @@ namespace Ashen.App.Run
         private static string Num(double v) => RunJs.NumStr(v);
 
 
-        public static EquipmentReceiptView For(Core2RunSession session, UiData ui) => For(session, ui, null);
+        public static EquipmentReceiptView For(Core2RunSession session, UiData ui) => For(session, ui, session.Run, null);
 
-        /// <summary>The receipt of the worn kit, or of <paramref name="loadoutOverride"/> (a trial loadout) when given.</summary>
-        public static EquipmentReceiptView For(Core2RunSession session, UiData ui, JObject loadoutOverride)
+        /// <summary>The receipt of the worn kit, or of <paramref name="loadoutOverride"/> (a trial loadout) when given, over <paramref name="run"/> (a snapshot of the session's run).</summary>
+        public static EquipmentReceiptView For(Core2RunSession session, UiData ui, JObject run, JObject loadoutOverride)
         {
-            var run = session.Run;
             var loadout = loadoutOverride ?? run.Obj(K.Loadout);
             var view = new EquipmentReceiptView();
             if (loadout == null) return view;
@@ -146,11 +175,11 @@ namespace Ashen.App.Run
             var pieces = Equipment.EquippedPieces(session.CombatData, loadout, session.ClassId, run.Obj(K.ItemUpgradeLevels) ?? new JObject());
             foreach (var piece in pieces)
             {
-                var requirement = Requirement(session, ui, piece);
+                var requirement = Requirement(session, ui, run, piece);
                 if (requirement.Rows.Count > 0) view.Requirements.Add(requirement);
             }
-            view.Poise = Poise(session, ui, loadout, pieces);
-            view.Load = Load(session, ui, loadout, pieces);
+            view.Poise = Poise(session, ui, run, loadout, pieces);
+            view.Load = Load(session, ui, run, loadout, pieces);
             return view;
         }
 
@@ -173,11 +202,11 @@ namespace Ashen.App.Run
         }
 
         /// <summary>The attribute minimums of one piece against the character's attributes (equipmentRequirementReceipt with the attributes' short labels).</summary>
-        public static ReceiptRequirement Requirement(Core2RunSession session, UiData ui, JObject piece)
+        public static ReceiptRequirement Requirement(Core2RunSession session, UiData ui, JObject run, JObject piece)
         {
             var strings = ui.Strings;
             var result = new ReceiptRequirement { PieceName = piece.Str(K.Name) ?? piece.Str(K.Id) };
-            var receipt = Loadout.RequirementReceipt(session.Core.Deck.Run.Run, piece, session.Run.Obj(K.Attributes), session.Run.Obj(K.ItemUpgradeLevels) ?? new JObject());
+            var receipt = Loadout.RequirementReceipt(session.Core.Deck.Run.Run, piece, run.Obj(K.Attributes), run.Obj(K.ItemUpgradeLevels) ?? new JObject());
             foreach (var row in receipt.Rows)
             {
                 var id = row.Str(RK.AttributeId);
@@ -197,10 +226,9 @@ namespace Ashen.App.Run
 
         // ------------------------------------------------------------------ Poise
 
-        private static PoiseReceipt Poise(Core2RunSession session, UiData ui, JObject loadout, IReadOnlyList<JObject> pieces)
+        private static PoiseReceipt Poise(Core2RunSession session, UiData ui, JObject run, JObject loadout, IReadOnlyList<JObject> pieces)
         {
             var strings = ui.Strings;
-            var run = session.Run;
             var data = session.CombatData;
             var levels = run.Obj(K.ItemUpgradeLevels) ?? new JObject();
             var relics = run[K.Relics] as JArray ?? new JArray();
@@ -228,7 +256,7 @@ namespace Ashen.App.Run
             var total = attribute + items + relicTotal;
             receipt.Value = total;
             receipt.Total = Num(total);
-            if (attribute > 0) receipt.Sources.Add(new ReceiptSource { Id = AttributeNames(session), Value = Num(attribute) });
+            if (attribute > 0) receipt.Sources.Add(new ReceiptSource { Id = AttributeNames(session, run), Value = Num(attribute) });
             receipt.Sources.AddRange(sources);
             receipt.Sources.AddRange(relicSources);
             receipt.Pair = strings.Format(StringKeys.ArmouryReceiptPoisePair, new StringArgs().Add(UiPlaceholders.Items, Num(items)).Add(UiPlaceholders.Relics, Num(relicTotal)));
@@ -236,9 +264,8 @@ namespace Ashen.App.Run
         }
 
         /// <summary>The attributes the derived Poise row answers to, joined as the web names them ("constitution").</summary>
-        private static string AttributeNames(Core2RunSession session)
+        private static string AttributeNames(Core2RunSession session, JObject run)
         {
-            var run = session.Run;
             var d = session.Core.Combat.Run;
             var table = run.Obj(K.DerivedStatRuleSnapshot)?.Obj(K.Rules);
             var row = CoreDerivedStats.ResolvedRow(d, table, ArmouryKeys.PoiseRow, session.ClassId);
@@ -248,10 +275,9 @@ namespace Ashen.App.Run
 
         // ------------------------------------------------------------------ equip load
 
-        private static LoadReceipt Load(Core2RunSession session, UiData ui, JObject loadout, IReadOnlyList<JObject> pieces)
+        private static LoadReceipt Load(Core2RunSession session, UiData ui, JObject run, JObject loadout, IReadOnlyList<JObject> pieces)
         {
             var strings = ui.Strings;
-            var run = session.Run;
             var data = session.CombatData;
             var receipt = new LoadReceipt();
             double hands = 0, armour = 0;
@@ -292,42 +318,67 @@ namespace Ashen.App.Run
         // ------------------------------------------------------------------ the comparison
 
         /// <summary>
-        /// The comparison of putting <paramref name="itemId"/> into a position (candidateReceipt): the packages before and after, the minimums, the effects it adds, Poise and load before and after. Null when the
-        /// trial loadout cannot be made (the item does not fit, a gate refuses it).
+        /// The comparison of putting <paramref name="itemId"/> (or nothing, an unequip) into a position (candidateReceipt, equipmentPresentation.js): the roles, the attack package counts, the minimums, the effects it adds, the
+        /// resource changes and swap prices, Poise and load before and after. The loadout it is tried on is the equip transition alone, with none of the equip gates (the web compares what the seal refuses too).
+        /// Null when the web throws: the piece is unknown, the position does not exist, or a plan cannot be made of the trial loadout.
         /// </summary>
-        public static CandidateView Candidate(Core2RunSession session, UiData ui, string slotId, int setIndex, string itemId)
+        public static CandidateView Candidate(Core2RunSession session, UiData ui, string slotId, int setIndex, string itemId, string swapRuleId = null)
         {
-            var trial = session.TrialLoadout(slotId, setIndex, itemId);
-            if (trial == null) return null;
             var strings = ui.Strings;
-            var before = For(session, ui);
-            var after = For(session, ui, trial);
-            var view = new CandidateView { PoiseBefore = before.Poise.Value, PoiseAfter = after.Poise.Value, PoiseNote = after.Poise.Note, LoadBefore = before.Load, LoadAfter = after.Load, ChangesClass = before.Load.ClassId != after.Load.ClassId };
-            foreach (var b in before.Roles)
+            var run = session.Run;
+            var gear = session.Core.Deck.Run.Run;
+            var data = session.CombatData;
+            var loadout = run.Obj(K.Loadout);
+            var slot = gear.EquipmentRows(K.Slots).FirstOrDefault(s => s.Str(K.Id) == slotId);
+            if (loadout == null || slot == null || setIndex < 0 || !(loadout.Obj(K.Sets)?[slotId] is JArray cells) || setIndex >= cells.Count) return null;
+            var piece = string.IsNullOrEmpty(itemId) ? null : FindPiece(data, session.ClassId, slot, itemId);
+            if (!string.IsNullOrEmpty(itemId) && piece == null) return null;
+            var trial = (JObject)loadout.DeepClone();
+            try
             {
-                var a = after.Roles.FirstOrDefault(r => r.Role == b.Role);
-                if (a == null) continue;
-                var role = new CandidateRoleChange { Role = b.Role, BeforeName = b.Name, AfterName = a.Name, Hint = a.Hint, Before = b.Value, After = a.Value };
-                if (role.Changed || b.Name != a.Name) view.Roles.Add(role);
+                if (Armoury.ApplyEquipTransition(gear, trial, slotId, setIndex, itemId)) trial.Obj(K.Active).Put(slotId, setIndex);
             }
-            var piece = session.CombatData.Equipment == null ? null : Js.Items(session.CombatData.Equipment[K.Armaments]).OfType<JObject>().FirstOrDefault(p => p.Str(K.Id) == itemId)
-                ?? Js.Items(session.CombatData.Equipment[K.Armour]).OfType<JObject>().FirstOrDefault(p => p.Str(K.Id) == itemId && p.Str(K.ClassId) == session.ClassId);
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
+            EquipmentReceiptView before;
+            EquipmentReceiptView after;
+            List<CandidateAttackPackage> packages;
+            var view = new CandidateView();
+            try
+            {
+                before = For(session, ui, run, loadout);
+                after = For(session, ui, run, trial);
+                packages = AttackPackages(session, run, loadout, trial);
+                view.AddedEffects.AddRange(AddedEffects(data, Equipment.EquippedIn(data, loadout, session.ClassId, slotId), piece));
+                view.Resources.AddRange(ResourceChanges(session, ui, run, loadout, trial, slotId, setIndex, swapRuleId));
+            }
+            catch (InvalidOperationException)
+            {
+                return null;
+            }
+            view.PoiseBefore = before.Poise.Value;
+            view.PoiseAfter = after.Poise.Value;
+            view.PoiseNote = after.Poise.Note;
+            view.LoadBefore = before.Load;
+            view.LoadAfter = after.Load;
+            view.ChangesClass = before.Load.ClassId != after.Load.ClassId;
+            foreach (var package in packages)
+            {
+                if (package.SourceHands.Count > 0) package.Hint = strings.Format(StringKeys.ArmouryReceiptHandPackage, new StringArgs().Add(UiPlaceholders.Hands, string.Join(strings.Get(StringKeys.ArmouryReceiptHandJoin), package.SourceHands)));
+                view.AttackPackages.Add(package);
+            }
+            foreach (var a in after.Roles)
+            {
+                var b = before.Roles.FirstOrDefault(r => r.Role == a.Role);
+                if (b == null) continue;
+                view.Roles.Add(new CandidateRoleChange { Role = a.Role, BeforeName = b.Name, AfterName = a.Name, Hint = a.Hint, Before = b.Value, After = a.Value });
+            }
             if (piece != null)
             {
-                var requirement = Requirement(session, ui, piece);
+                var requirement = Requirement(session, ui, run, piece);
                 if (requirement.Rows.Count > 0) view.Requirement = requirement;
-                var worn = Js.Str((session.Run.Obj(K.Loadout)?.Obj(K.Sets)?.Arr(slotId))?[setIndex]);
-                var wornPiece = string.IsNullOrEmpty(worn) ? null : Js.Items(session.CombatData.Equipment[K.Armaments]).OfType<JObject>().FirstOrDefault(p => p.Str(K.Id) == worn)
-                    ?? Js.Items(session.CombatData.Equipment[K.Armour]).OfType<JObject>().FirstOrDefault(p => p.Str(K.Id) == worn && p.Str(K.ClassId) == session.ClassId);
-                var had = new HashSet<string>(Js.Items(wornPiece?[K.Mods]).Select(Js.Str), StringComparer.Ordinal);
-                var fields = session.CombatData.Equipment.Obj(K.ModFields) ?? new JObject();
-                foreach (var raw in Js.Items(piece[K.Mods]).Select(Js.Str).Where(m => m != null && !had.Contains(m)))
-                {
-                    var mod = Loadout.ParseMod(raw);
-                    var field = mod == null ? null : fields.Obj(mod.Field);
-                    if (field == null) continue;
-                    view.AddedEffects.Add(field.Str(K.Label) + ArmouryKeys.Space + (mod.Add && mod.Value >= 0 ? RunValues.Plus : string.Empty) + Num(mod.Value));
-                }
             }
             var load = after.Load;
             var beforeLoad = before.Load;
@@ -338,6 +389,129 @@ namespace Ashen.App.Run
                 .Add(UiPlaceholders.Word, view.ChangesClass ? strings.Format(StringKeys.ArmouryReceiptLoadCrossing, new StringArgs().Add(UiPlaceholders.Before, beforeLoad.Word).Add(UiPlaceholders.After, load.Word)) : load.Word));
             view.LoadNote = load.Note;
             return view;
+        }
+
+        /// <summary>pieceFor(registries, classId, pieceId, slot): an armour set of the class for an armour slot, else an armament; null when there is none.</summary>
+        private static JObject FindPiece(CombatData data, string classId, JObject slot, string id)
+        {
+            if (Js.Items(slot[K.Kinds]).Any(k => Js.Str(k) == V.Armor))
+                return Js.Items(data.Equipment[K.Armour]).OfType<JObject>().FirstOrDefault(p => p.Str(K.Id) == id && p.Str(K.ClassId) == classId);
+            return Js.Items(data.Equipment[K.Armaments]).OfType<JObject>().FirstOrDefault(p => p.Str(K.Id) == id);
+        }
+
+        /// <summary>attackPackageCounts(registries, run), the plan the run holds (its attack slot count and the slots it has retired), grouped by card and profile, in first-seen order. A configured deck owns its explicit cards, so its plan has no slots: the web's rows are empty there.</summary>
+        private static List<CandidateAttackPackage> AttackPackages(Core2RunSession session, JObject run, JObject beforeLoadout, JObject afterLoadout)
+        {
+            var gear = session.Core.Deck.Run.Run;
+            var data = session.CombatData;
+            double? count = Js.IsFinite(run[K.EquipmentAttackSlotCount]) ? run.Num(K.EquipmentAttackSlotCount) : (double?)null;
+            Dictionary<string, CandidateAttackPackage> Group(JObject loadout)
+            {
+                var plan = WeaponCards.BuildPlan(gear, loadout, session.ClassId, count, run[K.RemovedAttackSlotIds], true);
+                var groups = new Dictionary<string, CandidateAttackPackage>(StringComparer.Ordinal);
+                foreach (var planned in plan.Slots)
+                {
+                    var key = planned.Str(K.CardId) + ReceiptKeys.KeySeparator + planned.Str(K.ProfileId);
+                    if (!groups.TryGetValue(key, out var row))
+                    {
+                        var profile = Loadout.ProfileById(gear, planned[K.ProfileId]);
+                        var card = planned.Str(K.CardId);
+                        groups[key] = row = new CandidateAttackPackage
+                        {
+                            CardId = card,
+                            ProfileId = planned.Str(K.ProfileId),
+                            Name = profile != null && profile.Str(RK.BaseCardId) == card ? profile.Str(K.DisplayName) : data.Cards.Get(card).Str(K.Name),
+                        };
+                    }
+                    row.AfterCount++;
+                    var hand = planned.Str(K.SourceHand);
+                    if (!string.IsNullOrEmpty(hand) && !row.SourceHands.Contains(hand)) row.SourceHands.Add(hand);
+                }
+                return groups;
+            }
+            var was = Group(beforeLoadout);
+            var now = Group(afterLoadout);
+            var result = new List<CandidateAttackPackage>();
+            foreach (var key in was.Keys.Concat(now.Keys.Where(k => !was.ContainsKey(k))))
+            {
+                now.TryGetValue(key, out var live);
+                var row = live ?? was[key];
+                var package = new CandidateAttackPackage { CardId = row.CardId, ProfileId = row.ProfileId, Name = row.Name, BeforeCount = was.TryGetValue(key, out var old) ? old.AfterCount : 0, AfterCount = live?.AfterCount ?? 0 };
+                if (live != null) package.SourceHands.AddRange(live.SourceHands);
+                result.Add(package);
+            }
+            return result;
+        }
+
+        /// <summary>explicitEffects(registries, beforePiece, afterPiece): the mods the new piece carries that the worn one does not, worded "Max HP +10".</summary>
+        private static List<string> AddedEffects(CombatData data, JObject wornPiece, JObject piece)
+        {
+            var list = new List<string>();
+            if (piece == null) return list;
+            var had = new HashSet<string>(Js.Items(wornPiece?[K.Mods]).Select(Js.Str), StringComparer.Ordinal);
+            var fields = data.Equipment.Obj(K.ModFields) ?? new JObject();
+            foreach (var raw in Js.Items(piece[K.Mods]).Select(Js.Str).Where(m => m != null && !had.Contains(m)))
+            {
+                var mod = Loadout.ParseMod(raw);
+                var field = mod == null ? null : fields.Obj(mod.Field);
+                if (field == null) throw new InvalidOperationException(raw);
+                list.Add(field.Str(K.Label) + ArmouryKeys.Space + (mod.Add && mod.Value >= 0 ? RunValues.Plus : string.Empty) + Num(mod.Value));
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// The run's resource changes of a swap: each pool maximum the worn gear moves, then each combat-swappable slot's swap price in Actions (swapPriceChanges). Each slot is priced at the same set in both loadouts, the
+        /// candidate's own set for its own slot and the active one for the others; a row shows when the price moves or when the amount a gear-off rule declined moves.
+        /// </summary>
+        private static List<CandidateResourceChange> ResourceChanges(Core2RunSession session, UiData ui, JObject run, JObject beforeLoadout, JObject afterLoadout, string candidateSlot, int candidateSet, string swapRuleId)
+        {
+            var list = new List<CandidateResourceChange>();
+            var strings = ui.Strings;
+            var gear = session.Core.Deck.Run.Run;
+            var data = session.CombatData;
+            var d = session.Core.Combat.Run;
+            var beforeMods = CoreRunRules.RunMods(d, beforeLoadout, session.ClassId, null);
+            var afterMods = CoreRunRules.RunMods(d, afterLoadout, session.ClassId, null);
+            foreach (var field in Loadout.PoolFields(gear))
+            {
+                if (beforeMods.Pool(field) == afterMods.Pool(field)) continue;
+                var now = run.Num(field);
+                list.Add(new CandidateResourceChange
+                {
+                    Id = field,
+                    Label = strings.Get(string.Format(CultureInfo.InvariantCulture, ReceiptKeys.ResourceKey, field)),
+                    Before = now,
+                    After = now + afterMods.Pool(field) - beforeMods.Pool(field),
+                });
+            }
+            var rule = Equipment.ResolveSwapCostRule(data, swapRuleId == null ? Js.Null() : new JValue(swapRuleId));
+            var energy = gear.DerivedStatRules?.Obj(ReceiptKeys.Presentation)?.Obj(ReceiptKeys.EnergyRow);
+            var unit = energy?.Str(ReceiptKeys.FaceLabel) ?? energy?.Str(K.Label) ?? throw new InvalidOperationException(ReceiptKeys.NoEnergyRow);
+            var relicDelta = Cards.PassiveSum(data, run[K.Relics] as JArray ?? new JArray(), RK.SwapCostDelta, new JObject(), null);
+            foreach (var slot in gear.EquipmentRows(K.Slots).Where(s => s.Str(RK.Swap) == RV.SwapInCombat))
+            {
+                var id = slot.Str(K.Id);
+                var index = id == candidateSlot ? candidateSet : (int)Js.Or0(afterLoadout.Obj(K.Active)?[id]);
+                var was = Armoury.SwapCostFor(gear, rule, beforeLoadout, session.ClassId, id, index, relicDelta);
+                var now = Armoury.SwapCostFor(gear, rule, afterLoadout, session.ClassId, id, index, relicDelta);
+                var declined = now.Num(RK.GearIgnored) - was.Num(RK.GearIgnored);
+                if (was.Num(K.Cost) == now.Num(K.Cost) && declined == 0) continue;
+                var subject = Js.Truthy(rule) && Js.Truthy(Js.Get(rule, K.Label))
+                    ? strings.Format(StringKeys.ArmouryReceiptSwapSubject, new StringArgs().Add(UiPlaceholders.Rule, Js.Str(Js.Get(rule, K.Label))))
+                    : strings.Get(StringKeys.ArmouryReceiptSwapSubjectNone);
+                list.Add(new CandidateResourceChange
+                {
+                    Id = string.Format(CultureInfo.InvariantCulture, ReceiptKeys.SwapCostId, id),
+                    Label = strings.Format(StringKeys.ArmouryReceiptSwapLabel, new StringArgs().Add(UiPlaceholders.Slot, slot.Str(K.Label) ?? id).Add(ReceiptPlaceholders.Unit, unit)),
+                    Before = was.Num(K.Cost),
+                    After = now.Num(K.Cost),
+                    RuleId = now.Str(RK.RuleId),
+                    Note = declined == 0 ? string.Empty : strings.Format(StringKeys.ArmouryReceiptSwapNote, new StringArgs().Add(ReceiptPlaceholders.Subject, subject)
+                        .Add(UiPlaceholders.Amount, (declined > 0 ? RunValues.Plus : string.Empty) + Num(declined)).Add(ReceiptPlaceholders.Unit, unit)),
+                });
+            }
+            return list;
         }
     }
 }

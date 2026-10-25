@@ -1,0 +1,62 @@
+{
+  "comment": "The poker-style equipment card's geometry (web balance.ui.equipmentCard at b8cfe4fac, content/config/ui/components/card.json sizing): the frame is laid out at this design size and scaled into whatever box holds it. Each region has a floor (minPx), a priority that breaks ties when the frame is too short (the lowest gives up its slack first) and a share (grow) of whatever is spare; a region with nothing to say takes no floor (the tags row of a relic). 'text' are the type scale's ceilings in design px; 'footer' says where the rarity and the owned count go. 'art' names the card's picture by template: an armament's icon ({art}: its inventoryArtKey or id), or for an armour set the painted outfit's menu pose ({key}: the wearer's art class, then '-' and its art key; a set shared by every class is {class}-{id}), the web's equipmentCardArt over armamentIconAsset and armourMenuAsset.",
+  "frame": {
+    "width": 350,
+    "height": 490,
+    "padding": 19,
+    "gap": 3
+  },
+  "bonusMaxLines": 2,
+  "regions": [
+    {
+      "id": "art",
+      "minPx": 270,
+      "priority": 7,
+      "grow": 0
+    },
+    {
+      "id": "type",
+      "minPx": 22,
+      "priority": 5,
+      "grow": 0
+    },
+    {
+      "id": "facts",
+      "minPx": 40,
+      "priority": 6,
+      "grow": 0
+    },
+    {
+      "id": "tags",
+      "minPx": 18,
+      "priority": 4,
+      "grow": 0
+    },
+    {
+      "id": "effects",
+      "minPx": 54,
+      "priority": 7,
+      "grow": 2
+    },
+    {
+      "id": "flavor",
+      "minPx": 18,
+      "priority": 1,
+      "grow": 0
+    },
+    {
+      "id": "footer",
+      "minPx": 16,
+      "priority": 2,
+      "grow": 0
+    }
+  ],
+  "optional": [
+    "tags"
+  ],
+  "art": {
+    "icon": "equipment.icon.{art}",
+    "outfit": "outfit.{key}.menu",
+    "shared": "outfit.shared-{class}-{id}.menu"
+  }
+}

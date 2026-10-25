@@ -34,6 +34,9 @@ namespace Ashen.App.Ui
         /// <summary>The words and lists of a card's rules text (ui/cardText.json over strings/app.en.json cardtext.*): the card face generator (P-1).</summary>
         public Ashen.App.Combat.CardTextData CardText;
 
+        /// <summary>ui/equipmentCard.json (P-3a): the poker-style equipment card's frame and the rows its regions are solved into.</summary>
+        public EquipmentCardLayout EquipmentCard;
+
         /// <summary>ui/poses.json (P-1): the geometry of the player figure's pose frames and how long a pose is held.</summary>
         public PoseData Poses;
 
@@ -53,6 +56,7 @@ namespace Ashen.App.Ui
                 Strings = strings,
                 CardText = new Ashen.App.Combat.CardTextData(strings, Read(ContentFiles.UiCardText)),
                 Poses = new PoseData(Read(ContentFiles.UiPoses)),
+                EquipmentCard = EquipmentCardLayout.From(Read(ContentFiles.UiEquipmentCard)),
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
                 Meta = Read(ContentFiles.UiMeta),

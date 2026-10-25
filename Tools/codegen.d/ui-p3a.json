@@ -1,0 +1,94 @@
+{
+  "comment": "P-3a (D-1440..D-1489): the web features P-2 left open (Armoury candidate comparison, equipment card, class face, grid view; progression dialogs; settings groups; terms; profile archive). Key sets that the shared fragments lack.",
+  "keySets": [
+    {
+      "name": "ReceiptKeys",
+      "doc": "Armoury receipt vocabulary: the candidate comparison's group key, the pool and swap price rows (equipmentPresentation.js swapPriceChanges) and where the swap price's unit word is read from.",
+      "keys": {
+        "KeySeparator": "|",
+        "ResourceKey": "armoury.receipt.resource.{0}",
+        "Presentation": "presentation",
+        "EnergyRow": "energy",
+        "FaceLabel": "faceLabel",
+        "SwapCostId": "swapCost:{0}",
+        "NoEnergyRow": "swapPriceChanges requires derivedStatRules.presentation.energy"
+      }
+    },
+    {
+      "name": "ReceiptPlaceholders",
+      "doc": "Placeholders of the Armoury receipt and card strings that the shared UiPlaceholders lack.",
+      "keys": {
+        "Subject": "subject",
+        "Unit": "unit",
+        "Types": "types",
+        "Type": "type",
+        "List": "list",
+        "Tier": "tier",
+        "Rank": "rank",
+        "Budget": "budget",
+        "Verb": "verb",
+        "Where": "where",
+        "Blurb": "blurb",
+        "Key": "key"
+      }
+    },
+    {
+      "name": "ReceiptCardKeys",
+      "doc": "What the poker-style equipment card reads (equipmentCard.js, PossessionVariantModel.js): the piece's tier and the profile's upgrade bonuses, the fact ids, the kinds and mod prefixes, and the string key templates of a fact's label and a hand's name.",
+      "keys": {
+        "UpgradeLevel": "upgradeLevel",
+        "UpgradeBonuses": "upgradeBonuses",
+        "ArFact": "ar",
+        "DrFact": "dr",
+        "PoiseFact": "poise",
+        "AttackFact": "attack",
+        "DefenseFact": "defense",
+        "WeightFact": "weight",
+        "HandKey": "ui.possession.hand.{0}.short",
+        "FactKey": "armoury.card.fact.{0}",
+        "WeaponKind": "weapon",
+        "StaffKind": "staff",
+        "ShieldKind": "shield",
+        "SelfPrefix": "self",
+        "PowerPrefix": "power",
+        "DefendPrefix": "defend",
+        "BlockField": "block",
+        "PoiseField": "poise",
+        "StartStatusApply": "startStatus",
+        "ArmourItemType": "item:armor",
+        "AccentGold": "gold",
+        "AccentStaff": "staff",
+        "AccentBlade": "blade",
+        "BladeType": "Blade",
+        "DefaultKey": "default",
+        "OutfitJoin": "-",
+        "InventoryArtKey": "inventoryArtKey",
+        "ArtClassId": "artClassId"
+      }
+    },
+    {
+      "name": "CardLayoutKeys",
+      "doc": "Keys of ui/equipmentCard.json (the poker card's geometry).",
+      "keys": {
+        "Frame": "frame",
+        "Width": "width",
+        "Height": "height",
+        "Padding": "padding",
+        "Gap": "gap",
+        "BonusMaxLines": "bonusMaxLines",
+        "Regions": "regions",
+        "Id": "id",
+        "MinPx": "minPx",
+        "Priority": "priority",
+        "Grow": "grow",
+        "Optional": "optional",
+        "TagsRegion": "tags",
+        "EffectsRegion": "effects",
+        "Art": "art",
+        "Icon": "icon",
+        "Outfit": "outfit",
+        "Shared": "shared"
+      }
+    }
+  ]
+}
