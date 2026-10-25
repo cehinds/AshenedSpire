@@ -6,7 +6,8 @@ namespace Ashen.Generated
     {
         public const string BackgroundDoor = "tower-entrance-hall";
         public const string BackgroundDoorPhone = "tower-entrance-hall-phone";
-        public const string BackgroundGate = "tower-city-background-unlit";
+        public const string BackgroundGate = "river-citadel-unlit";
+        public const string BackgroundLit = "river-citadel-lit";
         public const string IconNext = "next";
         public const string IconLock = "lock";
         public const string IconArmour = "armour";

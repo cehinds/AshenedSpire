@@ -45,6 +45,10 @@ namespace Ashen.Presentation.UI.Kit
         public Color RouteColor { get; set; } = Color.yellow;
         public Color RouteOutlineColor { get; set; } = Color.black;
         public float EdgeWidth { get; set; } = 1f;
+
+        /// <summary>The lit walk to the nearest shrine (the player's Shrine path glow): its colour and line width.</summary>
+        public Color LaneColor { get; set; } = Color.white;
+        public float LaneWidth { get; set; } = 1f;
         public float OutlineWidth { get; set; } = 1f;
 
         /// <summary>The painted atlas: its numbers, and where a tile's texture comes from (tile x, y; null when it is not imported).</summary>
@@ -96,6 +100,7 @@ namespace Ashen.Presentation.UI.Kit
             button.EnableInClassList(UiClasses.MapNodeCurrent, node.Current);
             button.EnableInClassList(UiClasses.MapNodeTravelled, node.Travelled && !node.Current);
             button.EnableInClassList(UiClasses.MapNodeDimmed, node.Dimmed);
+            button.EnableInClassList(UiClasses.MapNodeLane, node.Lane);
             button.EnableInClassList(UiClasses.MapNodeHidden, node.Hidden);
             // An unknown place under the fog wears the dashed ring (web map.css .k-placed).
             var dashed = view.Fog && node.Kind == MapKeys.Event;
@@ -210,6 +215,8 @@ namespace Ashen.Presentation.UI.Kit
             // The web draws every outline, then every route over them.
             Strokes(painter, route, RouteOutlineColor, OutlineWidth);
             Strokes(painter, route, RouteColor, EdgeWidth);
+            // The shrine lane glows over the walked route where both its ends are drawn (mapboard.js laneEdge).
+            Strokes(painter, _view.Edges.Where(e => e.Lane && e.Drawn).ToList(), LaneColor, LaneWidth);
         }
 
         private void Strokes(Painter2D painter, List<MapEdgeView> edges, Color color, float width)

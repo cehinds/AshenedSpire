@@ -4,6 +4,7 @@
         <ui:VisualElement name="TITLE_ART_DOOR" class="title-art title-art--door" picking-mode="Ignore" />
         <ui:VisualElement name="TITLE_ART_DOOR_PHONE" class="title-art title-art--door title-art--phone" picking-mode="Ignore" />
         <ui:VisualElement name="TITLE_ART_GATE" class="title-art title-art--gate" picking-mode="Ignore" />
+        <ui:VisualElement name="TITLE_ART_LIT" class="title-art title-art--lit" picking-mode="Ignore" />
         <ui:VisualElement name="TITLE_HEAD" class="title-head">
             <Ashen.Presentation.UI.LocLabel name="WORDMARK" class="wordmark" string-key="title.wordmark" />
             <Ashen.Presentation.UI.LocLabel name="SUBTITLE" class="subtitle kit-text-value kit-upper" string-key="title.subtitle" />

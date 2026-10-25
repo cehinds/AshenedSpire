@@ -101,6 +101,8 @@ namespace Ashen.Presentation.UI.Screens
             _board.RouteColor = Ui.TokenColor(TokenKeys.MapRoute);
             _board.RouteOutlineColor = Ui.TokenColor(TokenKeys.MapRouteOutline);
             _board.EdgeWidth = (float)climb.EdgeWidth;
+            _board.LaneColor = Ui.TokenColor(TokenKeys.MapLane);
+            _board.LaneWidth = (float)(climb.EdgeWidth * climb.LaneEdgeRatio);
             _board.OutlineWidth = (float)climb.EdgeOutlineWidth;
             _board.Atlas = climb.Atlas;
             _board.IconTexture = Ui.Icon;
@@ -108,7 +110,8 @@ namespace Ashen.Presentation.UI.Screens
             _board.TileTexture = (x, y) => Ui.Texture(MapAtlas.TileId(Ui.Data.Art, climb.Atlas, _view?.World, x, y));
             _board.NodePicked += OnNode;
             BindKeys();
-            _zoom = Math.Max(0, Math.Min(climb.ZoomSteps.Count - 1, climb.ZoomDefault));
+            PulseLane();
+            _zoom = Math.Max(0, Math.Min(climb.ZoomSteps.Count - 1, StartingZoom(climb)));
             Root.Q<LocButton>(UiNames.TrayBack).clicked += CloseTray;
             var enter = EnterButton;
             enter.clicked += () => Travel(_selected, enter);
@@ -125,6 +128,27 @@ namespace Ashen.Presentation.UI.Screens
             Context.Instance.LastFocused = _door != null ? (VisualElement)action : FirstReachable();
             _viewport.contentViewport.RegisterCallback<GeometryChangedEvent>(OnViewportLaidOut);
             _board.RegisterCallback<GeometryChangedEvent>(OnViewportLaidOut);
+        }
+
+        /// <summary>The lane's glow breathes (map.css shrineLanePulse, 2.2 s alternate); Reduced motion keeps it lit and still.</summary>
+        private void PulseLane()
+        {
+            if (_climb.PlayerSettings.On(SettingIds.ReducedMotion)) return;
+            Root.schedule.Execute(() => _board.ToggleInClassList(UiClasses.MapLaneHigh)).Every(Ui.Data.Tokens.Duration(TokenKeys.MapLanePulse));
+        }
+
+        /// <summary>
+        /// The zoom the map opens at (the player's Map zoom, web mapZoom): Fit is the framed default, a percentage is that rung of the ladder (the choices after Fit, in order, are the rungs;
+        /// the ladder is the web's, scaled to this board).
+        /// </summary>
+        private int StartingZoom(ClimbDefaults climb)
+        {
+            var settings = _climb.PlayerSettings;
+            var choice = settings.Text(SettingIds.MapZoom);
+            if (choice == SettingsValues.ZoomFit) return climb.ZoomDefault;
+            var options = settings.Defs.Find(SettingIds.MapZoom).Options;
+            var rung = options.ToList().IndexOf(choice) - 1;
+            return rung < 0 ? climb.ZoomDefault : rung;
         }
 
         /// <summary>The first layout of the viewport and board scrolls the run's position into view (the start row at an act's start).</summary>

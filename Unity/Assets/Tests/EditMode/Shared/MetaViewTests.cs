@@ -119,6 +119,7 @@ namespace Ashen.Tests
             foreach (var def in settings.Defs.Controls)
             {
                 Assert.That(categories, Has.Member(def.Category), def.Key);
+                if (def.IsButton) continue;
                 Assert.That(def.Refusal(def.Def), Is.Null, def.Key + ": the def fits its control");
                 if (def.IsEnum) Assert.That(def.Options, Is.Not.Empty, def.Key + ": options resolve");
                 if (def.IsSlider) Assert.That(def.Max, Is.GreaterThan(def.Min), def.Key + ": the range resolves");
@@ -150,7 +151,7 @@ namespace Ashen.Tests
             Assert.That(Default.PresetId, Is.EqualTo("reference"));
             Assert.That(settings.On("shrineMultiUse"), Is.True, "the reference preset's player setting");
             Assert.That(settings.Text("holdConfirm"), Is.EqualTo("short"));
-            Assert.That(settings.Text(SettingIds.MapMode), Is.EqualTo("full"), "the control's def");
+            Assert.That(settings.Text(SettingIds.MapMode), Is.EqualTo("fog"), "the control's def (the web's reveal)");
             Assert.That(settings.Number("levelUpValue"), Is.EqualTo(1), "a def read from balance.levelUp");
 
             Assert.That(settings.Set("shrineMultiUse", false), Is.Null);
@@ -351,9 +352,8 @@ namespace Ashen.Tests
         public void TheMapRevealFollowsTheMapModeSetting()
         {
             var session = RunSession.New(Default, _saves, 1, 7, Default.DefaultClass(), "Aldric");
-            var full = ActMapView.Build(session, Ui);
-            Assert.That(full.Mode, Is.EqualTo(SettingIds.MapFull));
-            Assert.That(full.Nodes.Any(n => n.Dimmed || n.Hidden), Is.False, "full draws the whole act");
+            var fresh = ActMapView.Build(session, Ui);
+            Assert.That(fresh.Mode, Is.EqualTo(SettingIds.MapFog), "the web's default reveal is fog");
 
             // Step onto the map so some of the act falls behind the run.
             var first = session.ReachableNodes().First();

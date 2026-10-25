@@ -114,5 +114,20 @@ namespace Ashen.Generated
         public const string Ratings = "ratings";
         public const string StackStatuses = "stackStatuses";
         public const string LogLines = "logLines";
+        public const string Plain = "plain";
+        public const string UiScale = "uiScale";
+        public const string Named = "named";
+        public const string DesignW = "designW";
+        public const string DesignH = "designH";
+        public const string Placement = "placement";
+        public const string Gap = "gap";
+        public const string Pad = "pad";
+        public const string TopBandPct = "topBandPct";
+        public const string SideBandPct = "sideBandPct";
+        public const string EdgeEpsilon = "edgeEpsilon";
+        public const string ArrowW = "arrowW";
+        public const string ArrowInset = "arrowInset";
+        public const string FocusMs = "focusMs";
+        public const string LaneEdgeRatio = "laneEdgeRatio";
     }
 }

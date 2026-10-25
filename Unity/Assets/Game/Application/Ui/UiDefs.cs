@@ -213,6 +213,24 @@ namespace Ashen.App.Ui
         public double Hysteresis;
     }
 
+    /// <summary>The web's UI size (balance.ui.uiScale): a named size is a fixed zoom, clamped to what fits.</summary>
+    public sealed class UiScaleRules
+    {
+        public readonly Dictionary<string, double> Named = new Dictionary<string, double>(StringComparer.Ordinal);
+        public double DesignW = 1;
+        public double DesignH = 1;
+
+        public static UiScaleRules From(JObject json)
+        {
+            var rules = new UiScaleRules();
+            if (json == null) return rules;
+            foreach (var p in ((JObject)json[UiKeys.Named]).Properties()) rules.Named[p.Name] = (double)p.Value;
+            rules.DesignW = (double)json[UiKeys.DesignW];
+            rules.DesignH = (double)json[UiKeys.DesignH];
+            return rules;
+        }
+    }
+
     /// <summary>ui/layout.json (docs/design/04 §0; D-001, D-016).</summary>
     public sealed class LayoutRules
     {
@@ -223,6 +241,10 @@ namespace Ashen.App.Ui
         public int CompactMinHeight;
         public int GateBelowHeight;
         public CategoryNavRules CategoryNav;
+
+        /// <summary>UI size (the web's balance.ui.uiScale): the named zoom of S, M, L and XL against the design canvas.</summary>
+        public UiScaleRules UiScale = new UiScaleRules();
+
         public IReadOnlyDictionary<string, int> MinPhysical = new Dictionary<string, int>();
 
         public int MinPhysicalOf(string key) => MinPhysical.TryGetValue(key, out var v) ? v : 0;
@@ -243,6 +265,7 @@ namespace Ashen.App.Ui
                 CompactMinHeight = (int)bands[UiKeys.CompactMinHeight],
                 GateBelowHeight = (int)json[UiKeys.GateBelowHeight],
                 MinPhysical = min,
+                UiScale = UiScaleRules.From(json[UiKeys.UiScale] as JObject),
                 CategoryNav = new CategoryNavRules
                 {
                     RailWidth = (double)nav[UiKeys.RailWidth],
@@ -286,6 +309,12 @@ namespace Ashen.App.Ui
         public IReadOnlyList<string> ArtInclude = Array.Empty<string>();
         public IReadOnlyList<string> MeterKinds = Array.Empty<string>();
         public IReadOnlyList<string> TooltipSizes = Array.Empty<string>();
+
+        /// <summary>The tooltip size for plain words (a tab or a control that says what it does).</summary>
+        public string TooltipPlain;
+
+        /// <summary>Where a tooltip goes (the web's tooltipPlacement.json and fx.js placeAnchored).</summary>
+        public TooltipPlacementRules TooltipPlacement = new TooltipPlacementRules();
         public IReadOnlyList<string> CostKinds = Array.Empty<string>();
         public double DegreesPerCard;
         public double MaxSpread;
@@ -355,6 +384,8 @@ namespace Ashen.App.Ui
                 ArtInclude = ScreenRegistry.Strings(json[UiKeys.Art]?[UiKeys.Include]),
                 MeterKinds = ScreenRegistry.Strings(json[UiKeys.Meter]?[UiKeys.Kinds]),
                 TooltipSizes = ScreenRegistry.Strings(json[UiKeys.Tooltip]?[UiKeys.Sizes]),
+                TooltipPlain = (string)json[UiKeys.Tooltip]?[UiKeys.Plain],
+                TooltipPlacement = TooltipPlacementRules.From(json[UiKeys.Tooltip]?[UiKeys.Placement] as JObject),
                 CostKinds = ScreenRegistry.Strings(json[UiKeys.Card]?[UiKeys.CostKinds]),
                 DegreesPerCard = (double)fan[UiKeys.DegreesPerCard],
                 MaxSpread = (double)fan[UiKeys.MaxSpread],
@@ -376,6 +407,9 @@ namespace Ashen.App.Ui
         public double RowHeight;
         public IReadOnlyList<double> ZoomSteps = new double[] { 1d };
         public int ZoomDefault;
+
+        /// <summary>The shrine lane's line against the route's (the web's lane stroke 3.5 on the terrain, the route 3).</summary>
+        public double LaneEdgeRatio = 1d;
         public double EdgeWidth;
         public double DotSpacing;
         public double RowTouchRatio = 1d;
@@ -405,6 +439,7 @@ namespace Ashen.App.Ui
                 RowHeight = (double?)json[UiKeys.RowHeight] ?? 0d,
                 ZoomSteps = steps != null && steps.Count > 0 ? steps : (IReadOnlyList<double>)new double[] { 1d },
                 ZoomDefault = (int?)json[UiKeys.ZoomDefault] ?? 0,
+                LaneEdgeRatio = (double?)json[UiKeys.LaneEdgeRatio] ?? 1d,
                 EdgeWidth = (double?)json[UiKeys.EdgeWidth] ?? 1d,
                 DotSpacing = (double?)json[UiKeys.DotSpacing] ?? 1d,
                 RowTouchRatio = (double?)json[UiKeys.RowTouchRatio] ?? 1d,

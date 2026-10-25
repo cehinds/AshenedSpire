@@ -312,8 +312,17 @@ namespace Ashen.Presentation.UI
             Root.EnableInClassList(UiClasses.LayoutNarrow, state.Narrow);
             Root.EnableInClassList(UiClasses.LayoutWide, !state.Narrow);
             if (modeChanged) _host.UsePanel(state.Narrow);
+            _host.UseScale(state);
             ResetMinimumText();
             ApplyMinimums();
+        }
+
+        /// <summary>The player changed View mode or UI size: classify again, whatever the viewport was.</summary>
+        public void Relayout()
+        {
+            var size = (Layout?.ViewportWidth ?? _host.ViewportWidth, Layout?.ViewportHeight ?? _host.ViewportHeight);
+            Layout = null;
+            ApplyLayout(size.Item1, size.Item2);
         }
 
         /// <summary>layout.json#minPhysical after scaling: touch targets never below the physical minimum, value and header text never below theirs.</summary>

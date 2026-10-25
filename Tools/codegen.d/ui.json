@@ -555,7 +555,17 @@
         "ProfileScroll": "PROFILE_SCROLL",
         "ProfilePane": "PROFILE_PANE",
         "AboutScroll": "ABOUT_SCROLL",
-        "AboutBody": "ABOUT_BODY"
+        "AboutBody": "ABOUT_BODY",
+        "SettingsTipClose": "SETTINGS_TIP_CLOSE",
+        "SettingsMore": "SETTINGS_MORE",
+        "SettingsMenu": "SETTINGS_MENU",
+        "SettingsMenuGroup": "SETTINGS_MENU_GROUP",
+        "SettingsMenuAll": "SETTINGS_MENU_ALL",
+        "SettingsUndo": "SETTINGS_UNDO",
+        "SettingsUndoText": "SETTINGS_UNDO_TEXT",
+        "SettingsUndoButton": "SETTINGS_UNDO_BUTTON",
+        "SettingsTipRow": "SETTINGS_TIP_ROW",
+        "TitleArtLit": "TITLE_ART_LIT"
       }
     },
     {
@@ -809,7 +819,24 @@
         "FighterPose": "fighter-pose",
         "CombatEndVictory": "combat-end--victory",
         "CombatEndDefeat": "combat-end--defeat",
-        "TextShadowed": "text-shadowed"
+        "TextShadowed": "text-shadowed",
+        "TooltipArrowPrefix": "tooltip--arrow-",
+        "AccentPrefix": "accent-",
+        "PaletteSoft": "palette-soft",
+        "PaletteColourblind": "palette-cb",
+        "ReadableHeadings": "readable-headings",
+        "HudHideVitality": "hud-hide-vitality",
+        "HudHideRelics": "hud-hide-relics",
+        "HudHideCurrency": "hud-hide-currency",
+        "HudHidePosition": "hud-hide-position",
+        "HudHidePotions": "hud-hide-potions",
+        "KeysHidden": "keys-hidden",
+        "GateLighting": "gate-lighting",
+        "GateLeaving": "gate-leaving",
+        "GateLeavingOut": "gate-leaving--out",
+        "WalkedPrefix": "walked-",
+        "MapNodeLane": "map-node--lane",
+        "MapLaneHigh": "map-lane--high"
       }
     },
     {
@@ -925,7 +952,22 @@
         "Fighter": "fighter",
         "Ratings": "ratings",
         "StackStatuses": "stackStatuses",
-        "LogLines": "logLines"
+        "LogLines": "logLines",
+        "Plain": "plain",
+        "UiScale": "uiScale",
+        "Named": "named",
+        "DesignW": "designW",
+        "DesignH": "designH",
+        "Placement": "placement",
+        "Gap": "gap",
+        "Pad": "pad",
+        "TopBandPct": "topBandPct",
+        "SideBandPct": "sideBandPct",
+        "EdgeEpsilon": "edgeEpsilon",
+        "ArrowW": "arrowW",
+        "ArrowInset": "arrowInset",
+        "FocusMs": "focusMs",
+        "LaneEdgeRatio": "laneEdgeRatio"
       }
     },
     {
@@ -1003,7 +1045,8 @@
         "EventChoose": "eventChoose",
         "EventChooseBinding": "eventChooseBinding",
         "DungeonLeave": "dungeonLeave",
-        "DeckDiscard": "deckDiscard"
+        "DeckDiscard": "deckDiscard",
+        "ResetSettings": "resetSettings"
       }
     },
     {
@@ -1213,7 +1256,14 @@
         "SettingsCommit": "settingsCommit",
         "EventFigureFade": "eventFigureFade",
         "EventContextAt": "eventContextAt",
-        "EventContextFade": "eventContextFade"
+        "EventContextFade": "eventContextFade",
+        "SettingsUndo": "settingsUndo",
+        "TitleLockupAway": "titleLockupAway",
+        "TitleLightUp": "titleLightUp",
+        "TitleFade": "titleFade",
+        "TitleReducedFade": "titleReducedFade",
+        "MapLane": "mapLane",
+        "MapLanePulse": "mapLanePulse"
       }
     },
     {

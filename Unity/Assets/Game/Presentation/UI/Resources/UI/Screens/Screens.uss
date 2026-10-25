@@ -100,6 +100,42 @@
     display: flex;
 }
 
+/* The startup entrance (web startupGate.js, kit.css:4834-4890): a press lights the city (the lit painting fades in), the city is held, then it fades away over the hall. */
+.title-art--lit {
+    display: none;
+    opacity: 0;
+    -unity-background-image-tint-color: var(--color-title-gate-dim);
+    transition-property: opacity;
+    transition-duration: var(--duration-title-light-up);
+}
+
+.gate-active .title-art--lit {
+    display: flex;
+}
+
+.gate-lighting .title-art--lit {
+    opacity: 1;
+}
+
+.gate-lighting .gate {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: var(--duration-title-lockup-away);
+}
+
+.gate-leaving .title-art--gate,
+.gate-leaving .title-art--lit {
+    display: flex;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: var(--duration-title-fade);
+}
+
+.gate-leaving.gate-leaving--out .title-art--gate,
+.gate-leaving.gate-leaving--out .title-art--lit {
+    opacity: 0;
+}
+
 .gate-active .title-art--door {
     display: none;
 }

@@ -252,5 +252,22 @@ namespace Ashen.Generated
         public const string CombatEndVictory = "combat-end--victory";
         public const string CombatEndDefeat = "combat-end--defeat";
         public const string TextShadowed = "text-shadowed";
+        public const string TooltipArrowPrefix = "tooltip--arrow-";
+        public const string AccentPrefix = "accent-";
+        public const string PaletteSoft = "palette-soft";
+        public const string PaletteColourblind = "palette-cb";
+        public const string ReadableHeadings = "readable-headings";
+        public const string HudHideVitality = "hud-hide-vitality";
+        public const string HudHideRelics = "hud-hide-relics";
+        public const string HudHideCurrency = "hud-hide-currency";
+        public const string HudHidePosition = "hud-hide-position";
+        public const string HudHidePotions = "hud-hide-potions";
+        public const string KeysHidden = "keys-hidden";
+        public const string GateLighting = "gate-lighting";
+        public const string GateLeaving = "gate-leaving";
+        public const string GateLeavingOut = "gate-leaving--out";
+        public const string WalkedPrefix = "walked-";
+        public const string MapNodeLane = "map-node--lane";
+        public const string MapLaneHigh = "map-lane--high";
     }
 }

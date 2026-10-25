@@ -11,5 +11,18 @@ namespace Ashen.Generated
         public const string Run = "run";
         public const string RefSeparator = "#";
         public const string PathSeparator = ".";
+        public const string Button = "button";
+        public const string ActionResetAll = "resetAll";
+        public const string RowDeveloperSwitch = "developerSwitch";
+        public const string HelpStateMusic = "music";
+        public const string OpeningEvery = "every";
+        public const string OpeningOnce = "once";
+        public const string OpeningOff = "off";
+        public const string ViewAuto = "auto";
+        public const string ViewMobile = "mobile";
+        public const string ViewDesktop = "desktop";
+        public const string SizeAuto = "Auto";
+        public const string TabAdvanced = "advanced";
+        public const string ZoomFit = "Fit";
     }
 }

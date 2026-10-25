@@ -41,6 +41,7 @@
     "eventChoose": { "titleKey": "confirm.eventChoose.title", "bodyKey": "confirm.eventChoose.body", "primaryKey": "confirm.eventChoose.primary", "backKey": "confirm.back", "hold": false, "single": false },
     "eventChooseBinding": { "titleKey": "confirm.eventChoose.title", "bodyKey": "confirm.eventChoose.body", "primaryKey": "confirm.eventChoose.primary", "backKey": "confirm.back", "hold": true, "single": false },
     "deckDiscard": { "titleKey": "deckEditor.closeUnsaved.title", "bodyKey": "deckEditor.closeUnsaved.message", "primaryKey": "deckEditor.closeUnsaved.discard", "backKey": "deckEditor.closeUnsaved.keepEditing", "hold": false, "single": false },
-    "dungeonLeave": { "titleKey": "confirm.dungeonLeave.title", "bodyKey": "confirm.dungeonLeave.body", "primaryKey": "confirm.dungeonLeave.primary", "backKey": "confirm.back", "hold": false, "single": false }
+    "dungeonLeave": { "titleKey": "confirm.dungeonLeave.title", "bodyKey": "confirm.dungeonLeave.body", "primaryKey": "confirm.dungeonLeave.primary", "backKey": "confirm.back", "hold": false, "single": false },
+    "resetSettings": { "titleKey": "settings.resetAll.title", "bodyKey": "settings.resetAll.body", "primaryKey": "settings.resetAll.confirm", "backKey": "confirm.back", "hold": false, "single": false }
   }
 }

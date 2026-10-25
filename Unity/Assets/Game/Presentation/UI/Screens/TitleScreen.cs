@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Ashen.App.Ui;
+using Ashen.App.Settings;
 using Ashen.Generated;
 using Ashen.Presentation.UI.Kit;
 using UnityEngine;
@@ -58,6 +59,7 @@ namespace Ashen.Presentation.UI.Screens
     public sealed class TitleScreen : ScreenView
     {
         private static bool _gateLifted;
+        private bool _revealing;
 
         private readonly List<LocButton> _buttons = new List<LocButton>();
         private IDisposable _anyButton;
@@ -86,6 +88,7 @@ namespace Ashen.Presentation.UI.Screens
             SetArt(UiNames.TitleArtDoor, FrontArt.BackgroundDoor);
             SetArt(UiNames.TitleArtDoorPhone, FrontArt.BackgroundDoorPhone);
             SetArt(UiNames.TitleArtGate, FrontArt.BackgroundGate);
+            SetArt(UiNames.TitleArtLit, FrontArt.BackgroundLit);
             var disclosure = Root.Q<LocButton>(UiNames.AiDisclosure);
             if (disclosure != null) disclosure.clicked += () => ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.AiNotice });
 
@@ -191,24 +194,49 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocLabel>(UiNames.PreviewProgress)?.SetResolved(ViewModel.PreviewProgress);
         }
 
-        /// <summary>US-1.2: any input lifts the gate; the lifting press must not also press a row; focus goes to the first enabled row.</summary>
+        /// <summary>
+        /// US-1.2: any input lifts the gate; the lifting press must not also press a row; focus goes to the first enabled row. The lift is the web's entrance (startupGate.js finish): the city lights up
+        /// (titleLightUp), is held for the player's Lit city pause, then fades away over the hall (titleFade); Reduced motion skips it for a short cut (titleReducedFade).
+        /// </summary>
         public void LiftGate()
         {
-            if (!ViewModel.GateActive) return;
+            if (!ViewModel.GateActive || _revealing) return;
+            _revealing = true;
             _gateLifted = true;
             _anyButton?.Dispose();
             _anyButton = null;
             _pulse?.Pause();
             Root.RemoveFromClassList(UiClasses.GatePulse);
+            var settings = Ui.Climb?.PlayerSettings ?? new Ashen.App.Settings.SettingsSession(Ui.RunContent, Ashen.App.Run.ProfileStore.Load(Ui.Saves), core2: true);
+            var tokens = Ui.Data.Tokens;
+            var reduced = settings.On(SettingIds.ReducedMotion);
+            var light = reduced ? 0 : tokens.Duration(TokenKeys.TitleLightUp);
+            var hold = reduced ? 0 : TooltipPolicy.Millis(settings.Text(SettingIds.TitleCityHold), 0);
+            var fade = tokens.Duration(reduced ? TokenKeys.TitleReducedFade : TokenKeys.TitleFade);
+            Root.AddToClassList(UiClasses.GateLighting);
+            Root.schedule.Execute(() => Leave(fade)).StartingIn(light + hold);
+        }
+
+        private void Leave(int fadeMs)
+        {
+            Root.RemoveFromClassList(UiClasses.GateLighting);
+            Root.AddToClassList(UiClasses.GateLeaving);
             ViewModel.GateActive = false;
-            var settle = Ui.Data.Tokens.Duration(TokenKeys.GateSettle);
-            Nav.SuppressSubmit(settle / (float)UiMath.MillisPerSecond);
-            Nav.FocusTop(null, settle);
+            Root.schedule.Execute(() => Root.AddToClassList(UiClasses.GateLeavingOut)).StartingIn(1);
+            Root.schedule.Execute(() =>
+            {
+                Root.RemoveFromClassList(UiClasses.GateLeaving);
+                Root.RemoveFromClassList(UiClasses.GateLeavingOut);
+                _revealing = false;
+                var settle = Ui.Data.Tokens.Duration(TokenKeys.GateSettle);
+                Nav.SuppressSubmit(settle / (float)UiMath.MillisPerSecond);
+                Nav.FocusTop(null, settle);
+            }).StartingIn(fadeMs);
         }
 
         public bool GateActive => ViewModel.GateActive;
 
-        public override bool InputBlocked => ViewModel.GateActive;
+        public override bool InputBlocked => ViewModel.GateActive || _revealing;
 
         private void Activate(MenuEntryDef entry, LocButton button)
         {

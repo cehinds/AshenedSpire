@@ -186,5 +186,12 @@ namespace Ashen.Generated
         public const string AboutShell = "about-shell";
         public const string AboutScroll = "about-scroll";
         public const string AboutColumn = "about-column";
+        public const string SettingsTipText = "settings-tip-text";
+        public const string SettingsRowReset = "settings-row-reset";
+        public const string SettingsMoreDot = "settings-more-dot";
+        public const string SettingsMenu = "settings-menu";
+        public const string SettingsUndo = "settings-undo";
+        public const string SettingsButton = "settings-button";
+        public const string SettingsTopic = "settings-topic";
     }
 }

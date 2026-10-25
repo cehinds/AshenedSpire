@@ -119,6 +119,12 @@
           "items": {
             "type": "string"
           }
+        },
+        "plain": {
+          "type": "string"
+        },
+        "placement": {
+          "type": "object"
         }
       },
       "required": [
@@ -222,6 +228,9 @@
         },
         "zoomDefault": {
           "type": "integer"
+        },
+        "laneEdgeRatio": {
+          "type": "number"
         },
         "edgeWidth": {
           "type": "number"

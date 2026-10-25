@@ -49,14 +49,16 @@
           "labelKey": "settings.group.display",
           "categories": [
             "interface",
-            "map"
+            "titleScreen",
+            "map",
+            "hud"
           ]
         },
         {
           "id": "combat",
           "labelKey": "settings.group.combat",
           "categories": [
-            "combat"
+            "animation"
           ]
         },
         {
@@ -64,13 +66,6 @@
           "labelKey": "settings.group.audio",
           "categories": [
             "audio"
-          ]
-        },
-        {
-          "id": "rules",
-          "labelKey": "settings.group.rules",
-          "categories": [
-            "gameplay"
           ]
         }
       ]
@@ -83,7 +78,9 @@
           "id": "accessibility",
           "labelKey": "settings.group.accessibility",
           "categories": [
-            "accessibility"
+            "tooltips",
+            "readability",
+            "motion"
           ]
         }
       ]
@@ -96,7 +93,23 @@
           "id": "opening",
           "labelKey": "settings.group.opening",
           "categories": [
-            "opening"
+            "playback"
+          ],
+          "developer": true
+        },
+        {
+          "id": "deck",
+          "labelKey": "settings.group.deck",
+          "categories": [
+            "deck"
+          ]
+        },
+        {
+          "id": "interface",
+          "labelKey": "settings.group.interface",
+          "categories": [
+            "mapHud",
+            "controls"
           ]
         },
         {
@@ -114,5 +127,6 @@
       "shield",
       "staff"
     ]
-  }
+  },
+  "settingsTipNames": 3
 }

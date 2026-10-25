@@ -674,14 +674,83 @@
 }
 
 .settings-tip {
+    flex-direction: row;
+    align-items: center;
     margin: var(--space-sm) var(--space-md);
     padding: var(--space-sm) var(--space-md);
     background-color: var(--color-settings-tip);
     border-left-width: var(--size-settings-tip-bar);
     border-color: var(--color-gold);
+}
+
+.settings-tip-text {
+    flex-grow: 1;
+    flex-shrink: 1;
     font-size: var(--font-settings-tip);
     color: var(--color-parchment);
     white-space: normal;
+}
+
+/* The three dots of the header's more menu (settings.js set-options): the Reset this group and Reset all settings items drop from it. */
+.settings-more {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-more-dot {
+    width: var(--size-settings-more-dot);
+    height: var(--size-settings-more-dot);
+    margin: var(--size-settings-more-gap) 0 0 0;
+    border-radius: var(--radius-round);
+    background-color: var(--color-parchment);
+}
+
+.settings-menu {
+    position: absolute;
+    top: var(--size-settings-menu-top);
+    right: var(--size-settings-menu-right);
+    width: var(--size-settings-menu-w);
+    padding: var(--space-xs);
+    background-color: var(--color-bg-raise);
+}
+
+.settings-menu-item {
+    margin: var(--space-xxs) 0;
+}
+
+.settings-undo {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--size-settings-undo-h);
+    padding: 0 var(--space-md);
+    background-color: var(--color-settings-tip);
+    border-top-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+}
+
+.settings-undo-text {
+    flex-grow: 1;
+    color: var(--color-parchment);
+}
+
+.settings-row-reset {
+    min-height: var(--size-settings-row-reset-h);
+    height: var(--size-settings-row-reset-h);
+    margin: 0 0 0 var(--space-sm);
+    padding: 0 var(--space-sm);
+    font-size: var(--font-label);
+}
+
+.settings-button {
+    margin: 0;
+}
+
+.settings-topic {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 0 0 var(--space-xs) 0;
 }
 
 .settings-tabs {

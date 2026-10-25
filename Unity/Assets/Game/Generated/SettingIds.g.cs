@@ -31,5 +31,35 @@ namespace Ashen.Generated
         public const string ReduceFlashes = "reduceFlashes";
         public const string ShowPlayedCard = "showPlayedCard";
         public const string OpeningAutoAdvance = "openingAutoAdvance";
+        public const string Fullscreen = "fullscreen";
+        public const string Accent = "accent";
+        public const string ViewPreset = "viewPreset";
+        public const string UiScale = "uiScale";
+        public const string TitleCityHold = "titleCityHold";
+        public const string MapZoom = "mapZoom";
+        public const string ShrinePathGlow = "shrinePathGlow";
+        public const string HudShowVitality = "hudShowVitality";
+        public const string HudShowRelics = "hudShowRelics";
+        public const string HudShowCurrency = "hudShowCurrency";
+        public const string HudShowPosition = "hudShowPosition";
+        public const string HudShowPotions = "hudShowPotions";
+        public const string MusicEnabled = "musicEnabled";
+        public const string MuteAudio = "muteAudio";
+        public const string HoverTooltips = "hoverTooltips";
+        public const string TooltipDelay = "tooltipDelay";
+        public const string TooltipCloseDelay = "tooltipCloseDelay";
+        public const string HighContrast = "highContrast";
+        public const string TextSize = "textSize";
+        public const string ReadableHeadings = "readableHeadings";
+        public const string ColorblindSafe = "colorblindSafe";
+        public const string OpeningPlayback = "openingPlayback";
+        public const string OpeningSpeed = "openingSpeed";
+        public const string OpeningStill = "openingStill";
+        public const string PlayInDeckOrder = "playInDeckOrder";
+        public const string WalkedFade = "walkedFade";
+        public const string ControlHints = "controlHints";
+        public const string DeveloperTools = "developerTools";
+        public const string PrologueSeen = "prologueSeen";
+        public const string SettingsTipDismissed = "settingsTipDismissed";
     }
 }

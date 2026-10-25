@@ -52,7 +52,7 @@ namespace Ashen.Presentation.UI.Screens
             ViewModel.Single = def.Single;
             ViewModel.HoldMs = Ui.Data.Tokens.Duration(TokenKeys.HoldConfirm);
             // The door keeps its token duration (D-061); the player's 'off' turns the hold into a press (US-17.1, D-157).
-            var settings = Ui.Climb?.PlayerSettings ?? new SettingsSession(Ui.RunContent, ProfileStore.Load(Ui.Saves));
+            var settings = Ui.Climb?.PlayerSettings ?? new SettingsSession(Ui.RunContent, ProfileStore.Load(Ui.Saves), core2: true);
             ViewModel.HoldEnabled = settings.Text(SettingIds.HoldConfirm) != SettingIds.HoldOff;
             var confirm = Root.Q<Confirm>(UiNames.Confirm);
             confirm.Bind(ViewModel);

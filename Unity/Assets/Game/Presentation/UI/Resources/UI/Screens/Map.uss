@@ -419,6 +419,31 @@
     opacity: var(--opacity-gate-dim);
 }
 
+/* The lit walk to the nearest shrine (web map.css:307-345): the node's ring takes the lane colour and breathes between .72 and full. */
+.map-node--lane.unity-button {
+    border-color: var(--color-map-lane);
+    opacity: var(--opacity-map-lane-low);
+    transition-property: opacity;
+    transition-duration: var(--duration-map-lane-pulse);
+}
+
+.map-lane--high .map-node--lane.unity-button {
+    opacity: 1;
+}
+
+/* Walked nodes (the player's walkedFade; web styles/map.css:89-99): half is the web's default and the rule above; the other rungs are classes on the UI root. */
+.walked-off .map-node--travelled.unity-button {
+    opacity: var(--opacity-map-walked-off);
+}
+
+.walked-subtle .map-node--travelled.unity-button {
+    opacity: var(--opacity-map-walked-subtle);
+}
+
+.walked-strong .map-node--travelled.unity-button {
+    opacity: var(--opacity-map-walked-strong);
+}
+
 .map-node--reachable.unity-button {
     border-color: var(--color-gold);
 }
