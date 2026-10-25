@@ -84,6 +84,12 @@ namespace Ashen.Generated
         public const string CardCropPrefix = "card-crop--";
         public const string CardFlagTall = "card-flag--tall";
         public const string CardRailMark = "card-rail-mark";
+        public const string CardRailCount = "card-rail-count";
+        public const string CardMotif = "card-motif";
+        public const string CardWash = "card-wash";
+        public const string CardCostUp = "card-cost--up";
+        public const string CardBandMirrored = "card-band--mirrored";
+        public const string CardCostDown = "card-cost--down";
         public const string CardCut = "card-cut";
         public const string CardSized = "card--sized";
         public const string FontLore = "font-lore";
@@ -193,6 +199,9 @@ namespace Ashen.Generated
         public const string DetailTag = "detail-tag";
         public const string DetailTagName = "detail-tag-name";
         public const string DetailTagTip = "detail-tag-tip";
+        public const string DetailSigilRow = "detail-sigil-row";
+        public const string DetailSigil = "detail-sigil";
+        public const string DetailHint = "detail-hint";
         public const string InspectLayout = "inspect-layout";
         public const string InspectCard = "inspect-card";
         public const string InspectText = "inspect-text";

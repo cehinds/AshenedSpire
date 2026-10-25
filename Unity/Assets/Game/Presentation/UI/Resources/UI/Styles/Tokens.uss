@@ -108,6 +108,8 @@
     --color-comp-icon: #3a1c1a;
     --color-comp-icon-line: #5a2a24;
     --color-comp-card: rgba(23, 19, 16, 0.86);
+    --color-card-up: #205e2b;
+    --color-card-down: #8d2424;
     --space-xxs: 2px;
     --space-xs: 4px;
     --space-sm: 8px;
@@ -669,6 +671,8 @@
     --size-target-hp-h: 10px;
     --size-target-max-w: 180px;
     --size-detail-tag-pad-x: 6px;
+    --size-detail-sigil: 32px;
+    --size-detail-sigil-gap: 12px;
     --size-map-icon: 44px;
     --size-map-boss-icon: 58px;
     --size-map-halo-inset: -6px;
@@ -994,6 +998,16 @@
     --face-rank-color: #f3f6ff;
     --face-rail-color: #e8bd78;
     --face-ink-color: #000000;
+    --face-count-size: 21.6px;
+    --face-count-right: -5.76px;
+    --face-count-bottom: -5.76px;
+    --face-count-pad-x: 3.24px;
+    --face-count-radius: 10.8px;
+    --face-count-border: 1.26px;
+    --face-count-font: 18.72px;
+    --face-count-border-color: #e8bd78;
+    --face-count-back: #16110e;
+    --face-count-color: #fff0cc;
     --face-glow-color: #c49b56;
     --face-glow-armed-color: #5b9dff;
     --face-glow-chosen-color: #d4622e;

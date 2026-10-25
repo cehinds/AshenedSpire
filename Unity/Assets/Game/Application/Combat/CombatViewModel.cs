@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Ashen.App.Ui;
 using Ashen.Domain.Combat;
 using Newtonsoft.Json.Linq;
 using K = Ashen.Generated.CombatKeys;
@@ -334,6 +335,32 @@ namespace Ashen.App.Combat
                 });
             }
             return list;
+        }
+
+        /// <summary>
+        /// ResolveText that also says which numbers the preview moved off their printed value (the card face's up and down colours): a token whose
+        /// number is above its base is up, below is down. A token with no numeric base is left plain.
+        /// </summary>
+        public static string ResolveText(string template, JObject tokens, JObject baseTokens, List<TextShift> shifts)
+        {
+            if (string.IsNullOrEmpty(template)) return string.Empty;
+            var text = new System.Text.StringBuilder();
+            var last = 0;
+            foreach (Match m in Token.Matches(template))
+            {
+                text.Append(template, last, m.Index - last);
+                last = m.Index + m.Length;
+                var name = m.Groups[V.GroupToken].Value;
+                var value = tokens?[name];
+                if (!Js.IsNum(value)) { text.Append(m.Value); continue; }
+                var shown = Js.D(value).ToString(CultureInfo.InvariantCulture);
+                var printed = baseTokens?[name];
+                var direction = Js.IsNum(printed) ? System.Math.Sign(Js.D(value).CompareTo(Js.D(printed))) : 0;
+                if (direction != 0) shifts?.Add(new TextShift { Start = text.Length, Length = shown.Length, Direction = direction });
+                text.Append(shown);
+            }
+            text.Append(template, last, template.Length - last);
+            return text.ToString();
         }
 
         /// <summary>A text template with its {tokens} replaced by the preview's values; unknown tokens stay as written.</summary>

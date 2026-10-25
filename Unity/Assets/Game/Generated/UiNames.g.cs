@@ -76,6 +76,8 @@ namespace Ashen.Generated
         public const string CardStage = "CARD_STAGE";
         public const string CardBand = "CARD_BAND";
         public const string CardSigil = "CARD_SIGIL";
+        public const string CardMirror = "CARD_MIRROR";
+        public const string CardMotifs = "CARD_MOTIFS";
         public const string CardRail = "CARD_RAIL";
         public const string CardRank = "CARD_RANK";
         public const string CardRankText = "CARD_RANK_TEXT";

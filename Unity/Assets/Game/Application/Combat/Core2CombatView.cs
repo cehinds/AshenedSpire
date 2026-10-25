@@ -173,8 +173,30 @@ namespace Ashen.App.Combat
         /// <summary>Every effect row of the card (nested rows too): what the card face's art and tag rail read (VP-3).</summary>
         public List<CardEffectRef> Effects = new List<CardEffectRef>();
 
+        /// <summary>The basic card a Spell mirrors (the card's own or its profile's), or null: the type band shows both marks.</summary>
+        public string Mirrors;
+
+        /// <summary>The Precision and the Evade the card's stance entry would grant now (the counted tags of the rail), or null.</summary>
+        public double? EntryPrecision;
+        public double? EntryEvade;
+
+        /// <summary>The numbered traits the card authors (flux, impact).</summary>
+        public Dictionary<string, double> TraitValues = new Dictionary<string, double>();
+
+        /// <summary>What the definition says about the card's stance and counter (the inspector's hints).</summary>
+        public Core2CardRules Rules;
+
+        /// <summary>+1 when a rule made the printed Stamina price dearer, -1 when cheaper, else 0 (the face marks the number).</summary>
+        public int CostShift;
+
         /// <summary>What the card's face is drawn from (its art, type band and tag rail).</summary>
-        public CardFaceQuery Face => new CardFaceQuery { CardId = CardId, Type = Type, Tags = Tags, Effects = Effects };
+        public CardFaceQuery Face => new CardFaceQuery
+        {
+            CardId = CardId, Type = Type, Tags = Tags, Effects = Effects, Mirrors = Mirrors, EntryPrecision = EntryPrecision, EntryEvade = EntryEvade, TraitValues = TraitValues,
+        };
+
+        /// <summary>The figures of the text the preview moved off the printed number (up: more than printed, down: less), by place in <see cref="Text"/>.</summary>
+        public List<TextShift> TextShifts = new List<TextShift>();
 
         public double Stamina;
         public double Mana;
@@ -654,7 +676,8 @@ namespace Ashen.App.Combat
             };
             foreach (var tag in Js.Items(def[CK.CardTags] ?? def[K.Tags])) card.Tags.Add(Js.IsStr(tag) ? Js.Str(tag) : Js.Str(Js.Get(tag, K.Id)));
             CardFaceQuery.CollectEffects(def[K.Effects], card.Effects);
-            card.Text = Text(c, def, card, new Dictionary<string, double>(), Js.Items(def[K.Effects]).OfType<JObject>().ToList());
+            FaceExtras(c, def, card, costs);
+            card.Text = Text(c, def, card, new Dictionary<string, double>(), Js.Items(def[K.Effects]).OfType<JObject>().ToList(), false);
             return card;
         }
 
@@ -689,6 +712,7 @@ namespace Ashen.App.Combat
             };
             foreach (var tag in Js.Items(def[CK.CardTags] ?? def[K.Tags])) card.Tags.Add(Js.IsStr(tag) ? Js.Str(tag) : Js.Str(Js.Get(tag, K.Id)));
             CardFaceQuery.CollectEffects(def[K.Effects], card.Effects);
+            FaceExtras(c, def, card, Try(() => CoreCosts.PreviewCosts(c, id)));
             card.Choices = Try(() => CoreCardPlay.ChoiceOptions(def)) ?? new List<string>();
             foreach (var choice in card.Choices) card.ChoiceNames[choice] = c.Data.Stances.Has(choice) ? c.Data.Stances.Get(choice).Str(K.Name) ?? choice : choice;
             card.Plays = legal.Where(l => l.Str(RK.CardInstanceId) == id && l.Str(K.Type) == RV.IntentPlayCard).ToList();
@@ -844,14 +868,44 @@ namespace Ashen.App.Combat
             }
             foreach (var route in Js.Items(range?[HK.Routes]).OfType<JObject>()) card.Routes.Add(Route(route));
             card.Tokens = values;
-            card.Text = Text(c, def, card, values, authored);
+            // The live figure of each plain status grant, which the rail's count reads (web: preview.values[index]).
+            foreach (var effect in card.Effects.Where(e => e.Index >= 0 && e.Status != null))
+            {
+                var token = bindings.TryGetValue(effect.Index.ToString(CultureInfo.InvariantCulture) + V.KeySeparator + K.Stacks, out var stackToken) ? stackToken : null;
+                if (token != null && values.TryGetValue(token, out var stacks)) effect.Live = stacks;
+            }
+            card.Text = Text(c, def, card, values, authored, true);
             return card;
         }
 
         /// <summary>The card's text template with its numbers: each tokenizable value as authored, the damage token as the first target's receipt says and each Block token as the play grants it.</summary>
-        private static string Text(CombatState c, JObject def, Core2CardView card, Dictionary<string, double> values, List<JObject> authored)
+        /// <summary>What the card's face reads besides its text: the mirrored basic, the numbered traits, the entry grants (the stance entry's Precision as the preview quotes it, its Evade as the rules give it) and the price's shift.</summary>
+        private static void FaceExtras(CombatState c, JObject def, Core2CardView card, JObject costs)
+        {
+            card.Mirrors = def.Obj(CK.CombatProfile)?.Str(CK.Mirrors) ?? def.Str(CK.Mirrors);
+            card.Rules = new Core2CardRules
+            {
+                CounterCoverage = def.Obj(CK.CounterCoverage),
+                DefenseRange = def.Str(Ashen.Generated.CardFaceKeys.DefenseRange),
+                // The web's playingCardDefinition applies the combat expansion to every Core 2 card (defenseRulesVersion 2) unless the definition says otherwise.
+                DefenseRulesVersion = Js.IsNum(def[Ashen.Generated.Core2RangeKeys.DefenseRulesVersion]) ? def.Num(Ashen.Generated.Core2RangeKeys.DefenseRulesVersion) : Ashen.Generated.Core2RangeNumbers.DefenseRulesVersion,
+                DefensiveReaction = def.Is(Ashen.Generated.CardFaceKeys.DefensiveReaction),
+            };
+            foreach (var trait in def.Obj(DK.TraitValues)?.Properties() ?? Enumerable.Empty<JProperty>())
+                if (Js.IsNum(trait.Value)) card.TraitValues[trait.Name] = Js.D(trait.Value);
+            if (costs != null && Js.IsNum(costs[Ashen.Generated.Core2CostKeys.EntryPrecision])) card.EntryPrecision = costs.Num(Ashen.Generated.Core2CostKeys.EntryPrecision);
+            if (costs != null && Js.IsNum(costs[Ashen.Generated.Core2CostKeys.CostShift])) card.CostShift = (int)costs.Num(Ashen.Generated.Core2CostKeys.CostShift);
+            if (Try(() => (object)CoreFixCore.Enabled(c)) is bool core && core)
+            {
+                var evade = Try(() => (object)CoreStances.EntryBonuses(c, def).Num(CK.Evade));
+                if (evade is double grant && grant > 0d) card.EntryEvade = grant;
+            }
+        }
+
+        private static string Text(CombatState c, JObject def, Core2CardView card, Dictionary<string, double> values, List<JObject> authored, bool live)
         {
             var tokens = new JObject();
+            var printed = new JObject();
             var shown = card.Hits.Values.FirstOrDefault(h => h.Damage.HasValue);
             string amountToken = null, hitsToken = null;
             foreach (var binding in CombatPreview.TokenBindings(c.Data, def[K.Effects]))
@@ -866,6 +920,8 @@ namespace Ashen.App.Combat
                 // A Counter's reply is the hit the first target would take (previewCounter); its face keeps the printed amount when nothing is priced.
                 if (isDamage && split[1] == K.Amount && shown != null && binding.Value == Ashen.Generated.CombatOps.Damage && !values.ContainsKey(binding.Value)) tokens[binding.Value] = Js.N(shown.Damage.Value);
                 else if (tokens[binding.Value] == null && Js.IsNum(effect[split[1]])) tokens[binding.Value] = effect[split[1]].DeepClone();
+                // The printed number (web staticCardTokens): the effect's own figure when it is a number.
+                if (Js.IsNum(effect[split[1]])) printed[binding.Value] = effect[split[1]].DeepClone();
             }
             var template = def.Str(K.TextTemplate);
             // A card whose hits land unevenly (an earlier hit spends Block or Poise a later one meets) reads "{damage} ... {hits} times" as the hits in turn with their total (the card face's damageSequences).
@@ -882,7 +938,8 @@ namespace Ashen.App.Combat
                 });
                 template = template.Replace(string.Format(CultureInfo.InvariantCulture, Ashen.Generated.CombatPatterns.TokenFormat, amountToken), string.Join(Ashen.Generated.CombatPatterns.SequenceJoin, hitDamages));
             }
-            return CombatViewModel.ResolveText(template, tokens);
+            card.TextShifts = new List<TextShift>();
+            return CombatViewModel.ResolveText(template, tokens, live ? printed : null, card.TextShifts);
         }
 
         /// <summary>A route option as the card shows it (the engine's quote, display-ready); the flow reads it again for the picked target.</summary>

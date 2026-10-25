@@ -386,6 +386,32 @@
     white-space: normal;
 }
 
+/* combatSigilView.js sigilExplanationHtml (styles/illustrated-cards.css:48-50): each mark of the card with its word and meaning; card.js combat-rule-hint under them */
+.detail-sigil-row {
+    flex-direction: row;
+    align-items: center;
+    margin-top: var(--space-sm);
+}
+
+.detail-sigil {
+    flex-shrink: 0;
+    width: var(--size-detail-sigil);
+    height: var(--size-detail-sigil);
+    margin-right: var(--size-detail-sigil-gap);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.detail-hint {
+    margin-top: var(--space-sm);
+    padding: var(--size-chip-pad-y) var(--size-detail-tag-pad-x);
+    border-left-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    color: var(--color-muted);
+    font-size: var(--font-cmodal-status);
+    white-space: normal;
+}
+
 .inspect-layout {
     flex-direction: row;
     justify-content: center;

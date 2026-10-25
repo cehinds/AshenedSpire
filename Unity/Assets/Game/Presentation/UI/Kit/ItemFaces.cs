@@ -34,7 +34,7 @@ namespace Ashen.Presentation.UI.Kit
             var costs = new List<CardCostData>();
             foreach (var kind in ui.Components.CostKinds)
             {
-                if (kind == Core2UiValues.CostStamina) costs.Add(new CardCostData { Kind = kind, Text = card.CostIsX ? strings.Get(StringKeys.CombatCostX) : CombatText.Number(card.Stamina) });
+                if (kind == Core2UiValues.CostStamina) costs.Add(new CardCostData { Kind = kind, Text = card.CostIsX ? strings.Get(StringKeys.CombatCostX) : CombatText.Number(card.Stamina), Shift = card.CostIsX ? 0 : card.CostShift });
                 else if (kind == Core2UiValues.CostMana && card.Mana > 0) costs.Add(new CardCostData { Kind = kind, Text = CombatText.Number(card.Mana) });
             }
             return new CardViewData
@@ -44,6 +44,7 @@ namespace Ashen.Presentation.UI.Kit
                 Face = card.Face,
                 Rank = Core2CombatText.Rank(strings, card),
                 Text = card.Text,
+                Shifts = card.TextShifts,
                 Keywords = Core2CombatText.Traits(strings, card),
                 Upgraded = card.Upgraded,
                 Costs = costs,
