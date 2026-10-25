@@ -423,6 +423,8 @@ namespace Ashen.App.Run
             if (_levelAttribute == null) return new Core2RestStep { Refusal = _strings.Get(StringKeys.RewardsRefusalNoPick) };
             var result = _session.SpendPoint(_levelAttribute);
             if (!result.Done) return Refuse(result.Refusal);
+            // The Smith's card rows are fought with the run's attributes: a spent point changes them.
+            _cardRows.Clear();
             _levelAttribute = null;
             Modal = Core2RestModal.None;
             Refresh();
