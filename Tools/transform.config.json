@@ -162,6 +162,7 @@
       { "out": "rules/fixCoreMechanics.json", "from": "core2.rules.fixCoreMechanics" },
       { "out": "rules/fixCoreSnapshot.json", "from": "core2.rules.fixCoreSnapshot" },
       { "out": "rules/core2Mechanics.json", "from": "core2.rules.mechanics" },
+      { "out": "rules/frameworkMechanics.json", "from": "core2.rules.frameworkMechanics" },
       { "out": "rules/runtime.json", "from": "core2.rules.runtime" },
       { "out": "rules/reactionRules.json", "from": "core2.rules.reactionRules" },
       { "out": "rules/combatExpansionRules.json", "from": "core2.rules.combatExpansionRules" },

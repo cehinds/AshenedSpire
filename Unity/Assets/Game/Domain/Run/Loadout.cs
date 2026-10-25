@@ -294,12 +294,10 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>effectiveEquipmentRating(config, attributes, piece, profile, id): the attribute part plus the item's own rating.</summary>
-        public static JObject EffectiveEquipmentRating(RunData d, JObject config, JObject attributes, JObject piece, JObject profile, string id, Func<string, double?> attributePart = null)
+        public static JObject EffectiveEquipmentRating(RunData d, JObject config, JObject attributes, JObject piece, JObject profile, string id)
         {
             if (!RunJs.Strs(d.Combat.Engine.Obj(K.Ratings)?[K.Ids]).Contains(id)) throw new InvalidOperationException(RunJs.Fmt(RM.UnknownEquipmentRating, id));
-            // The web's rating rows are the run's own derived-stat rows (ratingsConfigFor(registries, run)); a caller that has the run hands each rating's attribute part here, as that row reads it.
-            var given = attributePart?.Invoke(id);
-            var attribute = given != null ? Js.Obj(K.Base, 0, K.Value, given.Value) : AttributeRatingReceipt(d, config, attributes, id);
+            var attribute = AttributeRatingReceipt(d, config, attributes, id);
             string itemKey = null;
             if (piece != null)
                 itemKey = piece.Str(K.Kind) == V.Armor
@@ -312,15 +310,17 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>roleAmountReceipt: card base + source-equipment rating + rarity, capped by the profile rule.</summary>
-        public static JObject RoleAmountReceipt(RunData d, KitRow row, JObject attributes, JObject snapshot, Func<string, double?> attributePart = null)
+        public static JObject RoleAmountReceipt(RunData d, KitRow row, JObject attributes, JObject snapshot)
         {
             var profile = row.Profile;
             var rule = snapshot?.Obj(RK.Profiles)?.Obj(profile?.Str(K.Id) ?? V.Undefined);
             if (rule == null) throw new InvalidOperationException(RunJs.Fmt(RM.ProfileSnapshotMissing, profile?.Str(K.Id)));
             var rarity = row.Piece == null ? Js.Null() : row.Piece[RK.Rarity];
             var rarityBonus = Js.Or0((snapshot.Obj(RK.RarityBonuses)?.Obj(RunJs.Key(rarity)))?[row.Role]);
+            // A configured (Core 2) run's registries carry no balance.combatRatings (main.js rebuildRegistries skips configuredContentBundle for it), so ratingsConfigFor finds none and the web prices the
+            // card by LEGACY_RATING_FORMULA (model/statRows.js:37, loadout.js roleAmountReceipt): rules/runEngine.json ratings.defaultFormula holds those rows.
             var ratingConfig = d.Balance.Obj(K.CombatRatings) is JObject cr && Js.Truthy(cr) ? cr : d.RuleObj(K.Ratings, RK.DefaultFormula);
-            var rating = EffectiveEquipmentRating(d, ratingConfig, attributes, row.Piece, rule, rule.Str(K.RatingId), attributePart);
+            var rating = EffectiveEquipmentRating(d, ratingConfig, attributes, row.Piece, rule, rule.Str(K.RatingId));
             rating[RK.SourceLabel] = row.Piece != null ? (row.Piece.Str(K.Kind) == RV.ShieldKind ? RV.ShieldKind : RV.WeaponLabel) : V.AttributeSource;
             var uncapped = rule.Num(RK.BaseValue) + rarityBonus;
             var capped = Js.IsFinite(rule[RK.Cap]);
@@ -334,11 +334,11 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>equipmentKitReceipt: the kit plan, each row priced from the (validated) run snapshot.</summary>
-        public static List<KitRow> KitReceipt(RunData d, JObject loadout, string classId, JObject attributes, JObject profileSnapshot, Func<string, double?> attributePart = null)
+        public static List<KitRow> KitReceipt(RunData d, JObject loadout, string classId, JObject attributes, JObject profileSnapshot)
         {
             var snapshot = RestoreProfileSnapshot(d, profileSnapshot);
             var rows = KitPlan(d, loadout, classId);
-            foreach (var row in rows) row.Receipt = RoleAmountReceipt(d, row, attributes, snapshot, attributePart);
+            foreach (var row in rows) row.Receipt = RoleAmountReceipt(d, row, attributes, snapshot);
             return rows;
         }
 

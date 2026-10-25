@@ -160,6 +160,7 @@ namespace Ashen.Generated
         public const string RulesEventsEngine = "rules/eventsEngine.json";
         public const string RulesFixCoreMechanics = "rules/fixCoreMechanics.json";
         public const string RulesFixCoreSnapshot = "rules/fixCoreSnapshot.json";
+        public const string RulesFrameworkMechanics = "rules/frameworkMechanics.json";
         public const string RulesHandRules = "rules/handRules.json";
         public const string RulesLoopEngine = "rules/loopEngine.json";
         public const string RulesMapEngine = "rules/mapEngine.json";
@@ -337,6 +338,7 @@ namespace Ashen.Generated
         public const string SchemasRulesEventsEngineSchema = "schemas/rules.eventsEngine.schema.json";
         public const string SchemasRulesFixCoreMechanicsSchema = "schemas/rules.fixCoreMechanics.schema.json";
         public const string SchemasRulesFixCoreSnapshotSchema = "schemas/rules.fixCoreSnapshot.schema.json";
+        public const string SchemasRulesFrameworkMechanicsSchema = "schemas/rules.frameworkMechanics.schema.json";
         public const string SchemasRulesHandRulesSchema = "schemas/rules.handRules.schema.json";
         public const string SchemasRulesLoopEngineSchema = "schemas/rules.loopEngine.schema.json";
         public const string SchemasRulesMapEngineSchema = "schemas/rules.mapEngine.schema.json";

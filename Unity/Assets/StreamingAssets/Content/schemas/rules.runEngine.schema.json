@@ -395,22 +395,22 @@
                   "type": "object",
                   "properties": {
                     "base": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "constitution": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "dexterity": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "intelligence": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "strength": {
                       "type": "number"
                     },
                     "wisdom": {
-                      "type": "integer"
+                      "type": "number"
                     }
                   },
                   "required": [
@@ -426,22 +426,22 @@
                   "type": "object",
                   "properties": {
                     "base": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "constitution": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "dexterity": {
                       "type": "number"
                     },
                     "intelligence": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "strength": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "wisdom": {
-                      "type": "integer"
+                      "type": "number"
                     }
                   },
                   "required": [
@@ -457,22 +457,22 @@
                   "type": "object",
                   "properties": {
                     "base": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "constitution": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "dexterity": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "intelligence": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "strength": {
                       "type": "number"
                     },
                     "wisdom": {
-                      "type": "integer"
+                      "type": "number"
                     }
                   },
                   "required": [
@@ -488,19 +488,19 @@
                   "type": "object",
                   "properties": {
                     "base": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "constitution": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "dexterity": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "intelligence": {
                       "type": "number"
                     },
                     "strength": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "wisdom": {
                       "type": "number"
@@ -519,22 +519,22 @@
                   "type": "object",
                   "properties": {
                     "base": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "constitution": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "dexterity": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "intelligence": {
                       "type": "number"
                     },
                     "strength": {
-                      "type": "integer"
+                      "type": "number"
                     },
                     "wisdom": {
-                      "type": "integer"
+                      "type": "number"
                     }
                   },
                   "required": [

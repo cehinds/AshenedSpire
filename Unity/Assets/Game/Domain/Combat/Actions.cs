@@ -510,7 +510,7 @@ namespace Ashen.Domain.Combat
                     var roll = c.Rng.Int(RngStream.Misc, 1, (int)c.Data.Mechanics.Obj(K.DodgeRoll).Num(K.Die));
                     var dexterity = c.Attributes != null && Js.Truthy(c.Attributes[K.Dexterity]) ? c.Attributes.Num(K.Dexterity) : c.Data.Rule(K.Defaults, K.Dexterity);
                     var stance = Equipment.PlayerWeightClass(c);
-                    var receipt = Equipment.DodgeRoll(c.Data, roll, dexterity, stance.WeightClass);
+                    var receipt = Equipment.DodgeRoll(c.Data, roll, dexterity, stance.WeightClass, c.Fields[CK.AttributeMode]?.Type == JTokenType.String ? c.Fields.Str(CK.AttributeMode) : null);
                     c.Emit(E.DodgeRolled, Js.Obj(K.SourceId, p[K.Id], K.Roll, (double)roll, K.Check, receipt.Check, K.Difficulty, receipt.Difficulty,
                         K.Success, receipt.Success, K.TemporaryGuard, receipt.TemporaryGuard, K.WeightClass, stance.WeightClass[K.Id]));
                     if (receipt.Success && receipt.TemporaryGuard > 0) GainBlock(c, p, receipt.TemporaryGuard, null);

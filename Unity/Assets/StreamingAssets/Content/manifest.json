@@ -1,5 +1,5 @@
 {
-  "contentHash": "470e90e96b76e4c1436cb23060820bed33c344017e5b7256751903e8c40c9ed7",
+  "contentHash": "a552596894d545fbd009062e1a23b0e4127d00515ced47c7a51dd377c189017f",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -874,6 +874,11 @@
       "generated": true,
       "sha256": "f25807ecd7fe607cd4af8d6cd58fd33434a21598549ed091e1712666578d3c55"
     },
+    "rules/frameworkMechanics.json": {
+      "bytes": 7357,
+      "generated": true,
+      "sha256": "2af9d4785a3bde5285b3f98d69d25e75180cbdcac67c6178eda9d9a3c524eace"
+    },
     "rules/handRules.json": {
       "bytes": 671,
       "generated": true,
@@ -930,9 +935,9 @@
       "sha256": "c55c606629f3be2dae1c2aaca03631cfcd46b4fcd51e81bed2801446bbd4fabc"
     },
     "rules/runEngine.json": {
-      "bytes": 3632,
+      "bytes": 3670,
       "generated": false,
-      "sha256": "0ee3532b9f7df2ca3ef92199aff217c4eb6387cf68428e98a97d738b1f3c3568"
+      "sha256": "cb3988e06f0ba6682c5ddce3c9fa83724a9f9f41ae563e931ab3e610e8c6bce2"
     },
     "rules/runFlow.json": {
       "bytes": 5530,
@@ -1759,6 +1764,11 @@
       "generated": false,
       "sha256": "5891dbd9b5bcd67939bda0bfafabee225558ffd1a34022f94e578b9441e6e10b"
     },
+    "schemas/rules.frameworkMechanics.schema.json": {
+      "bytes": 5344,
+      "generated": false,
+      "sha256": "a166002b6377e3a0fffc68ebcd32ede53e1867d7cab93680f509039e8a7fc1cd"
+    },
     "schemas/rules.handRules.schema.json": {
       "bytes": 3796,
       "generated": false,
@@ -1815,9 +1825,9 @@
       "sha256": "3413fd0d7c5754529f514ab1cf1fe3de8a00e78d287c6ab35474d024ba616979"
     },
     "schemas/rules.runEngine.schema.json": {
-      "bytes": 15754,
+      "bytes": 15730,
       "generated": false,
-      "sha256": "f0b908a4cb2212d7c249c6430d7b9ce0cbc398ce47a2da50c4d092229a1a8f2b"
+      "sha256": "b40c5117d45b8418916501c20c00467ec9c2c4eeb2ecb1558a4ded28b4af7f35"
     },
     "schemas/rules.runFlow.schema.json": {
       "bytes": 5314,
@@ -1990,9 +2000,9 @@
       "sha256": "7c7f4d1a2f293e79c8f12b9b131f1b388af3586a80e13888c398a4376a722ec8"
     },
     "schemas/ui.components.schema.json": {
-      "bytes": 8643,
+      "bytes": 8511,
       "generated": false,
-      "sha256": "3fc7254380a8ab70c929338d597c8b7e7cdeaa0f3c6a74e8b81d39d62ab93295"
+      "sha256": "9e02cd0cbdc8286f2d285992b9e8bef16c98bf0bc9bf68310aceb4293bdf36e9"
     },
     "schemas/ui.confirmationPolicies.schema.json": {
       "bytes": 2064,
@@ -2190,9 +2200,9 @@
       "sha256": "bb21030e16e957b39d492abcdf9129783be6bb8079a4933b1bc4b34694657e5d"
     },
     "ui/components.json": {
-      "bytes": 11624,
+      "bytes": 10967,
       "generated": false,
-      "sha256": "2a4f2c77d7dee516d975997b610c3ea08e82c1b9edf333ae07891469e7971ad5"
+      "sha256": "79b69f9a0df6f016cbdb42956a2006012f492c60949a8cbf823dc8c3b15ec3a0"
     },
     "ui/confirmationPolicies.json": {
       "bytes": 3228,

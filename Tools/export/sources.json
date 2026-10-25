@@ -26,6 +26,7 @@
       "engine/runtime/formulas.json",
       "engine/mechanics/index.json"
     ],
+    "frameworkMechanics": "content/framework/mechanics.json",
     "mechanicsDir": "engine/mechanics",
     "mechanicParts": {
       "mechanic": "mechanic.json",

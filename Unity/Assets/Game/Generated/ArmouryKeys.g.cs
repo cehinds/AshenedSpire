@@ -28,7 +28,6 @@ namespace Ashen.Generated
         public const string PoiseRow = "poise";
         public const string AttributesWord = "attributes";
         public const string Plus = "+";
-        public const string ItemWeightScale = "itemWeightScale";
         public const string WeightWordKey = "armoury.receipt.weight.{0}";
         public const string WeightClassPriced = "weightClassPriced";
         public const string DeckBalance = "deck";

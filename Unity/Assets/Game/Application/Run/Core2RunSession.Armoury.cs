@@ -100,25 +100,6 @@ namespace Ashen.App.Run
             return row?.Str(K.Name) ?? id;
         }
 
-        /// <summary>
-        /// Each rating's attribute part as the web's kit receipt reads it (ratingsConfigFor(registries, run) finds no combatRatings in the live balance, so effectiveEquipmentRating prices the character's own attributes by
-        /// LEGACY_RATING_FORMULA: the sum of each attribute times its weight, each term floored, plus the base).
-        /// </summary>
-        public Func<string, double?> RatingAttributePart(UiData ui)
-        {
-            var attributes = _run.Obj(K.Attributes);
-            var rows = ui.Components.LegacyRatings;
-            return id =>
-            {
-                var row = rows.Obj(id);
-                if (row == null) return null;
-                double weighted = 0;
-                foreach (var attribute in attributes.Properties())
-                    if (Js.IsFinite(row[attribute.Name])) weighted += Math.Floor(Js.D(attribute.Value) * Js.D(row[attribute.Name]) + Ashen.Generated.CombatMath.Epsilon);
-                return Js.D(row[K.Base]) + weighted;
-            };
-        }
-
         /// <summary>One derived-stat row (the run's own snapshot) at the run's attributes and level, or null when the run has no such row (the web's statRowValue for the Poise receipt).</summary>
         public double? DerivedStat(string statId, double? atLevel = null)
         {

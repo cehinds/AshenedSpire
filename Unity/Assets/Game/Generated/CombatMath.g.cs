@@ -5,6 +5,7 @@ namespace Ashen.Generated
     public static class CombatMath
     {
         public const double Percent = 100;
+        public const double Tenth = 10;
         public const double Epsilon = 1e-9;
         public const double Two = 2;
         public const double Half = 0.5;
