@@ -16,5 +16,12 @@ namespace Ashen.Generated
         public const string Where = "where";
         public const string Blurb = "blurb";
         public const string Key = "key";
+        public const string Requirements = "requirements";
+        public const string Attribute = "attribute";
+        public const string Required = "required";
+        public const string Actual = "actual";
+        public const string Reason = "reason";
+        public const string Action = "action";
+        public const string Category = "category";
     }
 }

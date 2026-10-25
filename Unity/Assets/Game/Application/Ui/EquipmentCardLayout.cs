@@ -27,6 +27,9 @@ namespace Ashen.App.Ui
         public double Padding;
         public double Gap;
         public int BonusMaxLines;
+
+        /// <summary>The height of one line of an effect in design px (13 px at 1.3), so a bonus can be cut at its lines.</summary>
+        public double BonusLineHeight;
         public IReadOnlyList<EquipmentCardRegion> Regions = Array.Empty<EquipmentCardRegion>();
 
         /// <summary>The ids of the regions that may be empty (the tags row).</summary>
@@ -34,6 +37,23 @@ namespace Ashen.App.Ui
 
         /// <summary>The registry id templates of the card's picture: an armament's icon ({art}), an armour set's painted outfit ({key}) and the outfit shared by every class ({class}, {id}).</summary>
         public string ArtIcon;
+
+        /// <summary>The slots the Armoury's list names first, in order (the layout's slotOrder).</summary>
+        public IReadOnlyList<string> SlotOrder = Array.Empty<string>();
+
+        /// <summary>How many parts a combat bonus line keeps.</summary>
+        public int BonusLines;
+
+        public double ThumbnailWidth;
+        public double PhoneThumbnailWidth;
+        public double InspectionWidth;
+        public int GridColumns;
+        public int PhoneGridColumns;
+
+        /// <summary>The view the equipment pane opens in, and the two it can be in.</summary>
+        public string DefaultView;
+
+        public IReadOnlyList<string> Views = Array.Empty<string>();
 
         public string ArtOutfit;
         public string ArtShared;
@@ -48,6 +68,7 @@ namespace Ashen.App.Ui
                 Padding = frame.Value<double>(CardLayoutKeys.Padding),
                 Gap = frame.Value<double>(CardLayoutKeys.Gap),
                 BonusMaxLines = json.Value<int>(CardLayoutKeys.BonusMaxLines),
+                BonusLineHeight = json.Value<double>(CardLayoutKeys.BonusLineHeight),
                 Regions = ((JArray)json[CardLayoutKeys.Regions]).OfType<JObject>().Select(r => new EquipmentCardRegion
                 {
                     Id = r.Value<string>(CardLayoutKeys.Id),
@@ -56,6 +77,15 @@ namespace Ashen.App.Ui
                     Grow = r.Value<double>(CardLayoutKeys.Grow),
                 }).ToList(),
                 Optional = ((JArray)json[CardLayoutKeys.Optional]).Select(t => (string)t).ToList(),
+                SlotOrder = ((JArray)json[CardLayoutKeys.Armoury][CardLayoutKeys.SlotOrder]).Select(v => (string)v).ToList(),
+                BonusLines = json[CardLayoutKeys.Armoury].Value<int>(CardLayoutKeys.BonusLines),
+                ThumbnailWidth = json[CardLayoutKeys.Armoury].Value<double>(CardLayoutKeys.ThumbnailWidth),
+                PhoneThumbnailWidth = json[CardLayoutKeys.Armoury].Value<double>(CardLayoutKeys.PhoneThumbnailWidth),
+                InspectionWidth = json[CardLayoutKeys.Armoury].Value<double>(CardLayoutKeys.InspectionWidth),
+                GridColumns = json[CardLayoutKeys.Armoury].Value<int>(CardLayoutKeys.GridColumns),
+                PhoneGridColumns = json[CardLayoutKeys.Armoury].Value<int>(CardLayoutKeys.PhoneGridColumns),
+                DefaultView = json[CardLayoutKeys.Armoury].Value<string>(CardLayoutKeys.DefaultView),
+                Views = ((JArray)json[CardLayoutKeys.Armoury][CardLayoutKeys.Views]).Select(v => (string)v).ToList(),
                 ArtIcon = json[CardLayoutKeys.Art].Value<string>(CardLayoutKeys.Icon),
                 ArtOutfit = json[CardLayoutKeys.Art].Value<string>(CardLayoutKeys.Outfit),
                 ArtShared = json[CardLayoutKeys.Art].Value<string>(CardLayoutKeys.Shared),
@@ -63,7 +93,7 @@ namespace Ashen.App.Ui
         }
 
         /// <summary>The height of each region, in the regions' order. <paramref name="collapse"/> names the regions the card has nothing to put in.</summary>
-        public IReadOnlyList<KeyValuePair<string, double>> Solve(ICollection<string> collapse)
+        public IReadOnlyList<KeyValuePair<string, double>> Solve(IEnumerable<string> collapse)
         {
             var regions = Regions.Select(r => collapse != null && collapse.Contains(r.Id) ? new EquipmentCardRegion { Id = r.Id, MinPx = 0, Priority = r.Priority, Grow = 0 } : r).ToList();
             var gaps = Gap * Math.Max(0, regions.Count - 1);

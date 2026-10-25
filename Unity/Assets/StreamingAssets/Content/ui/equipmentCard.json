@@ -1,5 +1,5 @@
 {
-  "comment": "The poker-style equipment card's geometry (web balance.ui.equipmentCard at b8cfe4fac, content/config/ui/components/card.json sizing): the frame is laid out at this design size and scaled into whatever box holds it. Each region has a floor (minPx), a priority that breaks ties when the frame is too short (the lowest gives up its slack first) and a share (grow) of whatever is spare; a region with nothing to say takes no floor (the tags row of a relic). 'text' are the type scale's ceilings in design px; 'footer' says where the rarity and the owned count go. 'art' names the card's picture by template: an armament's icon ({art}: its inventoryArtKey or id), or for an armour set the painted outfit's menu pose ({key}: the wearer's art class, then '-' and its art key; a set shared by every class is {class}-{id}), the web's equipmentCardArt over armamentIconAsset and armourMenuAsset.",
+  "comment": "The poker-style equipment card and the Armoury's equipment list (web balance.ui.equipmentCard, content/config/ui/presentation/armouryLayout.json equipment and content/config/ui/components/card.json at b8cfe4fac). 'frame' is the design size the card is laid out at and then scaled into its box; each of 'regions' has a floor (minPx), a priority that breaks ties when the frame is too short (the lowest gives up its slack first) and a share (grow) of whatever is spare; a region with nothing to say takes no floor (the tags row of a relic). 'art' names the card's picture by template: an armament's icon ({art}: its inventoryArtKey or id), or for an armour set the painted outfit's menu pose ({key}: the wearer's art class, then '-' and its art key; a set shared by every class is {class}-{id}); the web's equipmentCardArt over armamentIconAsset and armourMenuAsset. 'armoury' is the equipment list: the slots in the order the layout names them (the rest follow by their own order), the combat bonus line's length, the thumbnails' width and the inspection's width in design px, and the view the pane opens in.",
   "frame": {
     "width": 350,
     "height": 490,
@@ -58,5 +58,24 @@
     "icon": "equipment.icon.{art}",
     "outfit": "outfit.{key}.menu",
     "shared": "outfit.shared-{class}-{id}.menu"
-  }
+  },
+  "armoury": {
+    "slotOrder": [
+      "armor",
+      "rightHand",
+      "leftHand"
+    ],
+    "bonusLines": 2,
+    "thumbnailWidth": 82,
+    "phoneThumbnailWidth": 68,
+    "inspectionWidth": 264,
+    "gridColumns": 3,
+    "phoneGridColumns": 2,
+    "defaultView": "list",
+    "views": [
+      "list",
+      "grid"
+    ]
+  },
+  "bonusLineHeight": 16.9
 }

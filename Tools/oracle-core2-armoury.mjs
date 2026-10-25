@@ -25,9 +25,9 @@ const OUT = join(ORACLE_DIR, 'armoury');
 const w = await loadWeb();
 const reg = w.registries;
 const load = (rel) => import(pathToFileURL(join(WEB, rel)).href);
-const [presentation, cardModel, possession, loadout, upgrades, inventory] = await Promise.all([
+const [presentation, cardModel, possession, loadout, upgrades, inventory, workspace, picker] = await Promise.all([
   load('src/model/equipmentPresentation.js'), load('src/model/equipmentCard.js'), load('src/ui/models/PossessionVariantModel.js'),
-  load('src/model/loadout.js'), load('src/model/itemUpgrades.js'), load('src/model/inventoryPresentation.js'),
+  load('src/model/loadout.js'), load('src/model/itemUpgrades.js'), load('src/model/inventoryPresentation.js'), load('src/ui/models/ArmouryWorkspaceModel.js'), load('src/model/equipPickerTable.js'),
 ]);
 const eq = reg.equipment;
 const SEED = 779;
@@ -60,6 +60,32 @@ const slots = eq.slots.filter((s) => ['rightHand', 'leftHand', 'armor'].includes
 const tally = { candidates: 0, errors: 0, withPackages: 0, withResources: 0, withSwapPrice: 0, withEffects: 0, cards: 0, tiers: 0, swapPrices: {} };
 const errors = {};
 
+/** What the Inventory says of an item at a target (equipment.js selectionFacts over ArmouryWorkspaceModel.js inventoryComparison and inventoryEligibility); null when the web draws no action there. */
+const ROLE_LABELS = { attack: 'Strike', technique: 'Magic', guard: 'Defense' };
+function selectionFor(run, slot, setIndex, pieceId, candidate) {
+  const occupantId = (run.loadout.sets[slot.id] || [])[setIndex] || null;
+  const nameOf = (id) => (eq.armaments.find((x) => x.id === id) || eq.armour.find((x) => x.id === id && x.classId === run.class))?.name || id;
+  let kind;
+  let occupantName;
+  if (!pieceId) {
+    if (!occupantId) return null;
+    kind = 'unequip';
+    occupantName = nameOf(occupantId);
+  } else {
+    if (occupantId === pieceId) return null;
+    const elsewhere = Object.entries(run.loadout.sets).some(([slotId, ids]) => ids.some((id, i) => id === pieceId && (slotId !== slot.id || i !== setIndex)));
+    kind = elsewhere ? 'move' : 'equip';
+    occupantName = occupantId ? nameOf(occupantId) : null;
+  }
+  const target = { kind, slotLabel: `${slot.label} · ${setIndex + 1}` };
+  const compared = workspace.inventoryComparison({ candidate, target, occupantName, roleLabels: ROLE_LABELS });
+  const itemId = kind === 'unequip' ? null : pieceId;
+  const seal = loadout.canEquip(reg, slot.id, { inCombat: false, loadout: run.loadout, classId: run.class, setIndex, itemId, attributes: run.attributes, itemUpgradeLevels: run.itemUpgradeLevels, armamentLevels: run.armamentLevels });
+  const transition = loadout.equipTransitionReceipt(reg, run.loadout, slot.id, setIndex, itemId);
+  const eligibility = workspace.inventoryEligibility({ target, seal, transition, requirement: candidate.requirement });
+  return { kind, action: { kind, slotId: slot.id, setIndex, pieceId: itemId }, relation: compared?.relation ?? null, roles: compared?.roles ?? null, unchanged: compared?.unchanged ?? null, eligibility, seal, transition };
+}
+
 function candidatesFile() {
   const cases = [];
   for (const classId of classes) {
@@ -88,6 +114,7 @@ function candidatesFile() {
                 if (got.resourceChanges.some((r) => !r.id.startsWith('swapCost'))) tally.withResources++;
                 if (got.resourceChanges.some((r) => r.id.startsWith('swapCost'))) tally.withSwapPrice++;
                 if (got.addedEffects.length) tally.withEffects++;
+                record.selection = selectionFor(run, slot, setIndex, pieceId, got);
                 record.candidate = {
                   attackPackageChanges: got.attackPackageChanges, resourceChanges: got.resourceChanges, addedEffects: got.addedEffects,
                   roles: got.roles, requirement: got.requirement, poise: got.poise, load: got.load, pieceName: got.pieceName,
@@ -145,7 +172,17 @@ function classesFile() {
     };
     return { classId, key: row.key, name: row.name, category: row.category, count: row.count, equippedLabels: row.equippedLabels,
       glyph: row.item.icon, blurb: row.item.blurb, rarity: row.item.rarity ?? null, tags: row.item.tags ?? null, tint: def.cardTint ?? null,
-      inventory: { start: rowsOf('start'), rich: rowsOf('rich') } };
+      inventory: { start: rowsOf('start'), rich: rowsOf('rich') },
+      picker: Object.fromEntries(['start', 'rich'].map((variant) => {
+        const { run: shown } = runFor(classId, variant);
+        const rows = inventory.inventoryRows(reg, shown, {});
+        const sorts = [{ column: 'status', direction: 'asc' }, { column: 'name', direction: 'desc' }];
+        return [variant, slots.flatMap((slot) => shown.loadout.sets[slot.id].map((_, setIndex) => ({
+          slotId: slot.id, setIndex,
+          sorts: sorts.map((sort) => ({ ...sort, rows: picker.sortEquipPickerRows(picker.equipPickerTableRows(rows, slot, { setIndex, loadout: shown.loadout }), sort).map((r) => ({
+            id: r.id, key: r.key, status: r.status, fits: r.fits, reason: r.reason, elsewhere: r.elsewhere.map((e) => ({ slotId: e.slotId, setIndex: e.setIndex })) })) })),
+        })))];
+      })) };
   }) };
 }
 

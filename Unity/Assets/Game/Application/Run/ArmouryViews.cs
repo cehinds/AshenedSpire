@@ -8,6 +8,7 @@ using Ashen.Domain.Combat;
 using Ashen.Domain.Run;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
+using CombatGear = Ashen.Domain.Combat.Equipment;
 using CK = Ashen.Generated.Core2CombatKeys;
 using RK = Ashen.Generated.RunKeys;
 using K = Ashen.Generated.CombatKeys;
@@ -77,6 +78,10 @@ namespace Ashen.App.Run
     {
         public string SlotId;
         public int SetIndex;
+
+        /// <summary>The slot's own label ("Main Hand") and the position's ("Main Hand Slot 1").</summary>
+        public string SlotLabel;
+        public string Label;
         public string Code;
         public string Name;
         public bool Empty;
@@ -89,6 +94,23 @@ namespace Ashen.App.Run
         public string Hint = string.Empty;
 
         public ArmouryItemView Item;
+
+        /// <summary>The piece at its forged tier, and the tier; null for an empty or a locked position.</summary>
+        public JObject Piece;
+        public double Level;
+
+        /// <summary>The poker-style card of the piece, null for an empty or a locked position.</summary>
+        public EquipmentCardModel Card;
+
+        /// <summary>"Armour", "Weapon", "Shield" or "Staff"; the combat bonus line ("Strike 11 · Poise 8") and "Weight 1.6".</summary>
+        public string Category = string.Empty;
+        public string Bonus = string.Empty;
+        public string Weight = string.Empty;
+
+        /// <summary>The grid view's details: the fact rows (label, value), the piece's tags with their blurbs and its lore line.</summary>
+        public readonly List<KeyValuePair<string, string>> DetailFacts = new List<KeyValuePair<string, string>>();
+        public readonly List<EquipmentCardLine> TagRows = new List<EquipmentCardLine>();
+        public string Lore = string.Empty;
 
         /// <summary>"Replace" on an occupied position, "Choose item" on an empty one (web armament-replace); a locked position offers neither.</summary>
         public string ReplaceLabel = string.Empty;
@@ -244,7 +266,11 @@ namespace Ashen.App.Run
             view.EquipmentCardsSummary = string.Join(strings.Get(StringKeys.RestTagJoin), view.EquipmentCards);
         }
 
-        /// <summary>The equipped positions: the pieces outside the hands first (body), then each hand's sets in order; a set the profile has not opened is locked and says how to open it.</summary>
+        /// <summary>
+        /// The equipped positions in the web's order (equipment.js buildArmoury, armouryLayout.js orderArmourySlots and orderArmouryPositions): the slots the layout names first (Armour, Main Hand, Off Hand), then the others by
+        /// their authored order; within a slot the occupied and locked positions in set order, then the empty ones. A set the profile has not opened is locked and says how to open it; the sets beyond the one rung
+        /// ahead are not drawn at all.
+        /// </summary>
         public static IReadOnlyList<ArmouryPositionView> Equipment(Core2RunSession session, UiData ui)
         {
             var strings = ui.Strings;
@@ -253,45 +279,161 @@ namespace Ashen.App.Run
             var loadout = run.Obj(K.Loadout);
             var list = new List<ArmouryPositionView>();
             if (loadout == null) return list;
-            var slots = Js.Items(data.Equipment[K.Slots]).OfType<JObject>().ToList();
-            var ordered = slots.Where(s => !IsHand(s)).Concat(slots.Where(IsHand)).ToList();
-            foreach (var slot in ordered)
+            var gear = session.Core.Deck.Run.Run;
+            var levels = run.Obj(K.ItemUpgradeLevels) ?? new JObject();
+            var kit = Loadout.KitReceipt(gear, loadout, session.ClassId, run.Obj(K.Attributes), run.Obj(K.EquipmentProfileRuleSnapshot));
+            var roleLabels = RoleLabels(strings);
+            var order = ui.EquipmentCard.SlotOrder;
+            var slots = Js.Items(data.Equipment[K.Slots]).OfType<JObject>()
+                .OrderBy(s => { var at = order.ToList().IndexOf(s.Str(K.Id)); return at < 0 ? int.MaxValue : at; })
+                .ThenBy(s => Js.Or0(s[ReceiptCardKeys.OrderKey])).ThenBy(s => s.Str(K.Id), StringComparer.Ordinal).ToList();
+            foreach (var slot in slots)
             {
                 var slotId = slot.Str(K.Id);
                 var cells = loadout.Obj(K.Sets)?.Arr(slotId) ?? new JArray();
-                var hand = IsHand(slot);
-                var count = hand ? (int)Js.Or0(slot[K.Sets]) : cells.Count;
-                if (!hand && cells.Count == 0) continue;
-                var opened = Armoury.OpenedSets(session.Core.Deck.Run.Run, slot, loadout);
+                var earned = EarnedRungs(session, slotId);
+                var rungs = Rungs(session, slotId).Count;
+                var cap = Math.Max(1, (int)Js.Or0(slot[K.Sets]));
+                var opened = Math.Min(cap, Math.Max(1 + earned, HeldOpened(cells)));
+                var ceiling = Math.Min(cap, 1 + rungs);
+                var visible = opened < ceiling ? opened + 1 : opened;
                 var active = (int)Js.Or0(loadout.Obj(K.Active)?[slotId]);
-                for (var i = 0; i < Math.Max(count, 1); i++)
+                var group = new List<ArmouryPositionView>();
+                for (var i = 0; i < cells.Count && i < visible; i++)
                 {
-                    var id = i < cells.Count ? Js.Str(cells[i]) : null;
+                    var id = Js.Str(cells[i]);
+                    var locked = i >= opened;
                     var item = string.IsNullOrEmpty(id) ? null : Item(session, strings, slotId, id);
-                    if (!hand && i >= cells.Count) continue;
                     var position = new ArmouryPositionView
                     {
                         SlotId = slotId,
                         SetIndex = i,
+                        SlotLabel = slot.Str(K.Label) ?? slotId,
+                        Label = StringTable.Fill(slot.Str(ReceiptCardKeys.PositionLabel) ?? slotId, new StringArgs().Add(ArmouryKeys.PlaceholderN, i + 1)),
                         Code = StringTable.Fill(slot.Str(ArmouryKeys.PositionCode) ?? slotId, new StringArgs().Add(ArmouryKeys.PlaceholderN, i + 1)),
-                        Locked = i >= opened,
-                        Active = i == active,
+                        Locked = locked,
+                        Active = !locked && i == active,
                         Item = item,
                         Empty = item == null,
                         Name = item?.Name ?? strings.Get(StringKeys.ArmouryRowEmpty),
                     };
-                    if (position.Locked) position.Hint = UnlockHint(session, strings, slotId, i);
+                    if (locked) position.Hint = UnlockHint(session, strings, slotId, i);
                     else
                     {
                         position.ReplaceLabel = strings.Get(item == null ? StringKeys.ArmouryActionChoose : StringKeys.ArmouryActionReplace);
                         if (item != null) position.UnequipRefusal = session.EquipRefusal(strings, slotId, i, null) ?? string.Empty;
                         if (!position.Active) position.ActivateRefusal = session.ActivationRefusal(strings, slotId, i) ?? string.Empty;
+                        if (item != null) Summarise(session, ui, position, slot, id, levels, kit, roleLabels);
                     }
-                    list.Add(position);
+                    group.Add(position);
                 }
+                list.AddRange(group.Where(p => !(p.Empty && !p.Locked)).Concat(group.Where(p => p.Empty && !p.Locked)));
             }
             return list;
         }
+
+        private static int HeldOpened(JArray cells)
+        {
+            var opened = 1;
+            for (var i = 0; i < cells.Count; i++) if (Js.Truthy(cells[i])) opened = Math.Max(opened, i + 1);
+            return opened;
+        }
+
+        /// <summary>The ladder of a slot (slotRungs): the unlock rows that open its sets, in authored order.</summary>
+        private static List<JObject> Rungs(Core2RunSession session, string slotId) =>
+            Js.Items(session.Content.Loop.Unlocks).OfType<JObject>().Where(u => u.Str(K.Kind) == ArmouryKeys.KindSlot && u.Str(ArmouryKeys.UnlockRef) == slotId).ToList();
+
+        /// <summary>How many rungs of a slot's ladder the profile has earned (meta.unlocked).</summary>
+        public static int EarnedRungs(Core2RunSession session, string slotId)
+        {
+            var earned = new HashSet<string>(Js.Items(session.Profile.Doc[RK.Unlocked]).Select(Js.Str).Where(s => s != null), StringComparer.Ordinal);
+            return Rungs(session, slotId).Count(u => earned.Contains(u.Str(K.Id)));
+        }
+
+        /// <summary>
+        /// slotSummary(slot, setIndex) for the equipment list and the grid's details: what the piece is, its combat bonus line (the roles it supplies, its authored mods, its Poise), its weight and, for an armament,
+        /// the intrinsic facts; the card the web draws is the piece at its forged tier.
+        /// </summary>
+        private static void Summarise(Core2RunSession session, UiData ui, ArmouryPositionView position, JObject slot, string pieceId, JObject levels, List<KitRow> kit, IReadOnlyDictionary<string, string> roleLabels)
+        {
+            var strings = ui.Strings;
+            var data = session.CombatData;
+            var armour = Js.Items(slot[K.Kinds]).Any(k => Js.Str(k) == V.Armor);
+            var authored = armour
+                ? Js.Items(data.Equipment[K.Armour]).OfType<JObject>().FirstOrDefault(a => a.Str(K.Id) == pieceId && a.Str(K.ClassId) == session.ClassId)
+                : Js.Items(data.Equipment[K.Armaments]).OfType<JObject>().FirstOrDefault(a => a.Str(K.Id) == pieceId);
+            if (authored == null) return;
+            var itemRef = armour ? string.Join(V.ItemRefSeparator, V.ArmorRefPrefix, session.ClassId, pieceId) : string.Join(V.ItemRefSeparator, V.ArmamentRefPrefix, pieceId);
+            var level = Js.Or0(levels[itemRef]);
+            var item = CombatGear.ResolveUpgradedEquipment(data, itemRef, level);
+            position.Piece = item;
+            position.Level = level;
+            position.Card = EquipmentCards.For(session, ui, item, level);
+            position.Category = armour ? strings.Get(StringKeys.ArmouryInventoryArmour) : Named(strings, ArmouryKeys.KindStringKey, item.Str(K.Kind));
+            var bonuses = new List<string>();
+            if (position.Active)
+                foreach (var row in kit.Where(r => r.Piece?.Str(K.Id) == item.Str(K.Id) && Js.Or0(r.Receipt?[K.Value]) != 0))
+                    bonuses.Add((roleLabels.TryGetValue(row.Role, out var label) ? label : row.Role) + ArmouryKeys.Space + Num(row.Receipt.Num(K.Value)));
+            var mods = ModSummary(data, item);
+            bonuses.AddRange(mods);
+            if (Js.IsFinite(item[K.PoiseThreshold])) bonuses.Add(strings.Format(StringKeys.ArmourySummaryPoise, new StringArgs().Add(UiPlaceholders.Amount, Num(item.Num(K.PoiseThreshold)))));
+            position.Bonus = bonuses.Take(ui.EquipmentCard.BonusLines).Count() == 0 ? strings.Get(StringKeys.ArmourySummaryNoBonus)
+                : string.Join(strings.Get(StringKeys.RestTagJoin), bonuses.Take(ui.EquipmentCard.BonusLines));
+            position.Weight = strings.Format(StringKeys.ArmourySummaryWeight, new StringArgs().Add(UiPlaceholders.Amount, Num(CombatGear.PieceWeight(data, item))));
+            position.DetailFacts.Add(new KeyValuePair<string, string>(strings.Get(StringKeys.ArmouryDetailFactType),
+                strings.Format(StringKeys.ArmouryItemMeta, new StringArgs().Add(UiPlaceholders.Kind, position.Category).Add(UiPlaceholders.Rarity, item.Str(ArmouryKeys.Rarity) ?? strings.Get(StringKeys.ArmouryDetailStandard)))));
+            position.DetailFacts.Add(new KeyValuePair<string, string>(strings.Get(StringKeys.ArmouryDetailFactEffects),
+                mods.Count > 0 ? string.Join(strings.Get(StringKeys.ArmouryCardRequirementJoin), mods) : strings.Get(StringKeys.ArmouryDetailNoEffects)));
+            position.DetailFacts.Add(new KeyValuePair<string, string>(strings.Get(StringKeys.ArmouryDetailFactCombat), position.Bonus));
+            position.DetailFacts.Add(new KeyValuePair<string, string>(strings.Get(StringKeys.ArmouryDetailFactSmithing), Num(level)));
+            if (!armour)
+            {
+                position.DetailFacts.Add(new KeyValuePair<string, string>(strings.Get(StringKeys.ArmouryDetailFactAr), Num(Js.Or0(item[K.AttackRating]))));
+                position.DetailFacts.Add(new KeyValuePair<string, string>(strings.Get(StringKeys.ArmouryDetailFactDef), Num(Js.Or0(item[K.DefenseRating]))));
+                position.DetailFacts.Add(new KeyValuePair<string, string>(strings.Get(StringKeys.ArmouryDetailFactWeight), Num(CombatGear.PieceWeight(data, item))));
+                position.DetailFacts.Add(new KeyValuePair<string, string>(strings.Get(StringKeys.ArmouryDetailFactArtMana), Num(Js.Or0(item[ReceiptCardKeys.WeaponArtManaCost]))));
+                position.DetailFacts.Add(new KeyValuePair<string, string>(strings.Get(StringKeys.ArmouryDetailFactSkillStamina), Num(Js.Or0(item[ReceiptCardKeys.UniqueSkillStaminaCost]))));
+            }
+            var tagTable = session.Core.Registries.Object(RegistryKeys.TagRegistry);
+            foreach (var tag in Js.Items(item[TagKeys.Tags]).Select(Js.Str).Where(t => t != null))
+            {
+                var row = Js.Items(tagTable).OfType<JObject>().FirstOrDefault(r => Js.Str(r[RegistryKeys.Id]) == tag);
+                var blurb = row?.Str(ArmouryKeys.Blurb);
+                position.TagRows.Add(new EquipmentCardLine { Label = row?.Str(K.Label) ?? tag, Value = tag, Explanation = string.IsNullOrEmpty(blurb) ? strings.Get(StringKeys.ArmouryDetailTagDefault) : blurb });
+            }
+            position.Lore = string.IsNullOrEmpty(item.Str(ArmouryKeys.Blurb)) ? strings.Get(StringKeys.ArmouryDetailNoLore) : item.Str(ArmouryKeys.Blurb);
+        }
+
+        private static string Num(double v) => RunJs.NumStr(v);
+
+        private static string Named(StringTable strings, string format, string id)
+        {
+            if (string.IsNullOrEmpty(id)) return string.Empty;
+            var key = string.Format(CultureInfo.InvariantCulture, format, id);
+            return strings.Has(key) ? strings.Get(key) : id;
+        }
+
+        /// <summary>modSummary(registries, piece): the authored mods as a player reads them ("Class power potency +2", "Max HP +10"); a mod with no field row is skipped.</summary>
+        internal static List<string> ModSummary(CombatData data, JObject piece)
+        {
+            var fields = data.Equipment.Obj(K.ModFields) ?? new JObject();
+            var parts = new List<string>();
+            foreach (var raw in Js.Items(piece[K.Mods]).Select(Js.Str))
+            {
+                var mod = Loadout.ParseMod(raw);
+                var spec = mod == null ? null : fields.Obj(mod.Field);
+                if (spec == null) continue;
+                var where = mod.Prefix == ReceiptCardKeys.SelfPrefix ? string.Empty : mod.Prefix.Substring(0, 1).ToUpperInvariant() + mod.Prefix.Substring(1) + ArmouryKeys.Space;
+                var sign = mod.Add ? (mod.Value >= 0 ? RunValues.Plus : string.Empty) + Num(mod.Value) : ReceiptCardKeys.SetSign + Num(mod.Value);
+                parts.Add(where + spec.Str(K.Label) + ArmouryKeys.Space + sign);
+            }
+            return parts;
+        }
+
+        public static IReadOnlyDictionary<string, string> RoleLabelsOf(StringTable strings) => RoleLabels(strings);
+
+        private static IReadOnlyDictionary<string, string> RoleLabels(StringTable strings) =>
+            ArmouryKeys.PowerRoles.Split(UiFormats.ListJoin[0]).ToDictionary(role => role, role => strings.Get(string.Format(CultureInfo.InvariantCulture, ArmouryKeys.PowerLabelKey, role)));
 
         private static bool IsHand(JObject slot) => slot.Str(K.Hand) == V.Right || slot.Str(K.Hand) == V.Left;
 

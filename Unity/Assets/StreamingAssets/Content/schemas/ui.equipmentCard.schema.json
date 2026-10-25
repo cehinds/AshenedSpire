@@ -81,12 +81,66 @@
         "outfit",
         "shared"
       ]
+    },
+    "armoury": {
+      "type": "object",
+      "properties": {
+        "slotOrder": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bonusLines": {
+          "type": "integer"
+        },
+        "thumbnailWidth": {
+          "type": "number"
+        },
+        "phoneThumbnailWidth": {
+          "type": "number"
+        },
+        "inspectionWidth": {
+          "type": "number"
+        },
+        "gridColumns": {
+          "type": "integer"
+        },
+        "phoneGridColumns": {
+          "type": "integer"
+        },
+        "defaultView": {
+          "type": "string"
+        },
+        "views": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "slotOrder",
+        "bonusLines",
+        "thumbnailWidth",
+        "phoneThumbnailWidth",
+        "inspectionWidth",
+        "gridColumns",
+        "phoneGridColumns",
+        "defaultView",
+        "views"
+      ]
+    },
+    "bonusLineHeight": {
+      "type": "number"
     }
   },
   "required": [
     "frame",
     "regions",
     "optional",
-    "art"
+    "art",
+    "armoury",
+    "bonusLineHeight"
   ]
 }

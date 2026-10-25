@@ -120,6 +120,7 @@ namespace Ashen.Tests
             var session = Core2RunSession.New(Core2HostParityTests.Content, _saves, 1, entry.Value<uint>("seed"), classId, "Aldric", null);
             session.EditRunForReview(run => Edit(run, entry["edit"] as JObject));
             var compared = 0;
+            var snapshot = session.Run;
             foreach (var record in ((JArray)entry["results"]).OfType<JObject>())
             {
                 var at = classId + " " + variant + " " + record.Value<string>("slotId") + "." + record.Value<int>("setIndex") + " <- " + (record.Value<string>("pieceId") ?? "(unequip)");
@@ -127,7 +128,7 @@ namespace Ashen.Tests
                 var set = record.Value<int>("setIndex");
                 var piece = record.Value<string>("pieceId");
                 var candidate = (JObject)record["candidate"];
-                var view = ArmouryReceipts.Candidate(session, Ui, slot, set, piece);
+                var view = ArmouryReceipts.Candidate(session, Ui, snapshot, slot, set, piece, null);
                 Assert.That(view, Is.Not.Null, at + ": the web made a comparison");
                 Same(at + " roles", Want((JArray)candidate["roles"]), Roles(view));
                 Same(at + " attack packages", new JArray(((JArray)candidate["attackPackageChanges"]).OfType<JObject>().Select(p => new JObject
@@ -151,12 +152,89 @@ namespace Ashen.Tests
                 Assert.That(view.LoadNote, Is.EqualTo(load.Value<string>("note")), at + " load note");
                 foreach (var rule in new[] { "flat", "gear", "category" })
                 {
-                    var priced = ArmouryReceipts.Candidate(session, Ui, slot, set, piece, rule);
+                    var priced = ArmouryReceipts.Candidate(session, Ui, snapshot, slot, set, piece, rule);
                     Same(at + " resource changes under " + rule, Wanted((JArray)record["rules"][rule]["resourceChanges"]), Resources(priced));
                 }
+                if (record["selection"] is JObject selection) CheckSelection(session, at, slot, set, piece, selection);
                 compared++;
             }
             Assert.That(compared, Is.GreaterThan(100));
+        }
+
+        /// <summary>What the Inventory says of an item at a target (inventoryComparison and inventoryEligibility over the candidate): the action, the relation, the roles that move, the eligibility.</summary>
+        private void CheckSelection(Core2RunSession session, string at, string slot, int set, string piece, JObject web)
+        {
+            var strings = Ui.Strings;
+            var run = session.Run;
+            var occupant = (string)run["loadout"]["sets"][slot][set];
+            var id = piece ?? occupant;
+            var data = session.CombatData;
+            var def = data.Equipment["armaments"].OfType<JObject>().FirstOrDefault(p => p.Value<string>("id") == id)
+                ?? data.Equipment["armour"].OfType<JObject>().First(p => p.Value<string>("id") == id && p.Value<string>("classId") == session.ClassId);
+            var row = new ArmouryInventoryRow { Id = id, Name = def.Value<string>("name"), Equipable = true };
+            var got = ArmouryInventory.Select(session, Ui, row, slot, set);
+            var want = (JObject)web["action"];
+            Assert.That(got.Action.Kind.ToString().ToLowerInvariant(), Is.EqualTo(web.Value<string>("kind")), at + " action kind");
+            Assert.That(got.Action.PieceId, Is.EqualTo(want.Value<string>("pieceId")), at + " action piece");
+            var relation = (JObject)web["relation"];
+            var kind = relation.Value<string>("kind");
+            var args = new StringArgs().Add(UiPlaceholders.Slot, relation.Value<string>("slot"));
+            if (kind != "fills") args.Add(UiPlaceholders.Name, relation.Value<string>("name"));
+            Assert.That(got.Relation, Is.EqualTo(strings.Format(kind == "fills" ? ArmouryWebKeys.CompareFills : kind == "removes" ? ArmouryWebKeys.CompareRemoves : ArmouryWebKeys.CompareReplaces, args)), at + " relation");
+            var roles = ((JArray)web["roles"]).OfType<JObject>().Select(r => strings.Format(ArmouryWebKeys.CompareRole, new StringArgs().Add(UiPlaceholders.Label, r.Value<string>("label"))
+                .Add(UiPlaceholders.Before, r.Value<string>("before")).Add(UiPlaceholders.After, r.Value<string>("after")))).ToList();
+            Assert.That(got.RoleLines, Is.EqualTo(roles), at + " roles that move");
+            Assert.That(got.Unchanged, Is.EqualTo(web.Value<bool>("unchanged")), at + " unchanged");
+            var eligibility = (JObject)web["eligibility"];
+            Assert.That(got.Eligibility.ToString().ToLowerInvariant(), Is.EqualTo(eligibility.Value<string>("state")), at + " eligibility");
+            if (eligibility.Value<string>("state") == "blocked")
+                Assert.That(got.EligibilityText, Is.EqualTo(strings.Format(ArmouryWebKeys.EligibilityBlocked, new StringArgs().Add(ReceiptPlaceholders.Reason, eligibility.Value<string>("reason")))), at + " the reason");
+        }
+
+        public static System.Collections.Generic.IEnumerable<TestCaseData> InventoryCases() =>
+            ((JArray)OracleDocuments.Read(Path.Combine(Dir, "classes.json"))["rows"]).OfType<JObject>()
+                .SelectMany(c => new[] { "start", "rich" }.Select(v => new TestCaseData(c.Value<string>("classId"), v).SetName("ArmouryInventory_" + c.Value<string>("classId") + "_" + v)));
+
+        /// <summary>The Inventory's rows (inventoryRows: the class, the armour, the armaments, the relics) and the equip picker's table for every position (equipPickerTableRows, sortEquipPickerRows).</summary>
+        [TestCaseSource(nameof(InventoryCases))]
+        public void TheInventoryAndThePickerAreTheWebs(string classId, string variant)
+        {
+            var entry = ((JArray)OracleDocuments.Read(Path.Combine(Dir, "classes.json"))["rows"]).OfType<JObject>().First(c => c.Value<string>("classId") == classId);
+            var candidates = ((JArray)OracleDocuments.Read(Path.Combine(Dir, "candidates.json"))["cases"]).OfType<JObject>().First(c => c.Value<string>("classId") == classId && c.Value<string>("variant") == variant);
+            var session = Core2RunSession.New(Core2HostParityTests.Content, _saves, 1, 779u, classId, "Aldric", null);
+            session.EditRunForReview(run => Edit(run, candidates["edit"] as JObject));
+            var rows = ArmouryInventory.Rows(session, Ui);
+            var want = ((JArray)entry["inventory"][variant]).OfType<JObject>().Where(r => r.Value<string>("category") != "Potion").ToList();
+            Assert.That(rows.Where(r => r.Category != Ui.Strings.Get(StringKeys.ArmouryInventoryPotion)).Select(r => r.Id), Is.EqualTo(want.Select(r => r.Value<string>("id"))), classId + " " + variant + " the rows in the web's order");
+            var classRow = rows.First(r => r.IsClass);
+            Assert.That(classRow.Name, Is.EqualTo(entry.Value<string>("name")));
+            Assert.That(classRow.Glyph, Is.EqualTo(entry.Value<string>("glyph")));
+            Assert.That(classRow.Description, Is.EqualTo(entry.Value<string>("blurb")));
+            Assert.That(classRow.ClassTags, Is.EqualTo(((JArray)entry["tags"]).Select(t => (string)t)));
+            Assert.That(classRow.EquippedLabels, Is.EqualTo(((JArray)entry["equippedLabels"]).Select(t => (string)t)));
+            foreach (var wanted in want.Where(r => r.Value<string>("category") != "Class"))
+            {
+                var got = rows.First(r => r.Id == wanted.Value<string>("id") && (r.Category == Ui.Strings.Get(StringKeys.ArmouryInventoryArmour) || !r.IsClass));
+                Assert.That(got.EquippedLabels, Is.EquivalentTo(((JArray)wanted["equippedLabels"]).Select(t => (string)t)), wanted.Value<string>("id") + " where it is worn");
+            }
+            var picks = 0;
+            foreach (var position in ((JArray)entry["picker"][variant]).OfType<JObject>())
+                foreach (var sort in ((JArray)position["sorts"]).OfType<JObject>())
+                {
+                    var got = ArmouryInventory.PickerRows(session, rows, position.Value<string>("slotId"), position.Value<int>("setIndex"), sort.Value<string>("column") == "name", sort.Value<string>("direction") == "desc");
+                    var at = classId + " " + variant + " " + position.Value<string>("slotId") + "." + position.Value<int>("setIndex") + " by " + sort.Value<string>("column") + " " + sort.Value<string>("direction");
+                    var webRows = ((JArray)sort["rows"]).OfType<JObject>().ToList();
+                    Assert.That(got.Select(r => r.Row.Id), Is.EqualTo(webRows.Select(r => r.Value<string>("id"))), at + " order");
+                    for (var i = 0; i < got.Count; i++)
+                    {
+                        Assert.That(got[i].Status.ToString().ToLowerInvariant(), Is.EqualTo(webRows[i].Value<string>("status")), at + " status of " + got[i].Row.Id);
+                        Assert.That(got[i].Fits, Is.EqualTo(webRows[i].Value<bool>("fits")), at + " fits");
+                        Assert.That(got[i].Reason, Is.EqualTo(webRows[i].Value<string>("reason")), at + " reason");
+                        Assert.That(got[i].Elsewhere.Select(e => e.Key + ":" + e.Value), Is.EqualTo(((JArray)webRows[i]["elsewhere"]).Select(e => e.Value<string>("slotId") + ":" + e.Value<int>("setIndex"))), at + " elsewhere");
+                    }
+                    picks++;
+                }
+            Assert.That(picks, Is.GreaterThan(10));
         }
 
         private static JToken Wanted(JArray rows) => new JArray(rows.OfType<JObject>().Select(r =>

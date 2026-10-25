@@ -20,8 +20,10 @@ namespace Ashen.App.Run
     {
         public string Label;
 
-        /// <summary>The value as the face draws it (a fact's number), or empty.</summary>
+        /// <summary>The value as the face draws it (a fact's number), or empty; the fact's id ("dr", "ar", "poise") and its number.</summary>
         public string Value = string.Empty;
+        public string Id = string.Empty;
+        public double Number;
 
         public string Explanation;
     }
@@ -38,6 +40,9 @@ namespace Ashen.App.Run
         public string Type;
         public string TypeExplanation;
         public string Requirement;
+
+        /// <summary>The requirement is a minimum the character must meet ("Requires STR 5"), not a word on the piece ("Either hand", "Reaver outfit").</summary>
+        public bool HasMinimum;
         public string RequirementExplanation;
         public string Rarity;
         public string Flavor;
@@ -117,6 +122,7 @@ namespace Ashen.App.Run
             var requirements = (piece.Obj(RK.Requirements)?.Obj(K.Attributes) ?? new JObject()).Properties()
                 .Select(p => (data.Attributes.Has(p.Name) ? data.Attributes.Get(p.Name).Str(RK.ShortLabel) ?? p.Name : p.Name) + ArmouryKeys.Space + Num(Js.D(p.Value))).ToList();
             var requirementText = string.Join(strings.Get(StringKeys.ArmouryCardRequirementJoin), requirements);
+            view.HasMinimum = requirements.Count > 0;
             view.Requirement = requirements.Count > 0 ? Fill(strings, StringKeys.ArmouryCardRequires, (ReceiptPlaceholders.List, requirementText))
                 : armor ? Fill(strings, StringKeys.ArmouryCardOutfit, (UiPlaceholders.Class, className)) : strings.Get(StringKeys.ArmouryCardEitherHand);
             view.RequirementExplanation = requirements.Count > 0 ? Fill(strings, StringKeys.ArmouryCardRequiresExplanation, (ReceiptPlaceholders.List, requirementText))
@@ -149,6 +155,8 @@ namespace Ashen.App.Run
                     var label = Label(strings, id);
                     view.Facts.Add(new EquipmentCardLine
                     {
+                        Id = id,
+                        Number = value,
                         Label = label,
                         Value = Num(value),
                         Explanation = id == ReceiptCardKeys.ArFact && tierAr != 0
@@ -175,13 +183,13 @@ namespace Ashen.App.Run
                 if (armor)
                 {
                     var block = mods.Select(m => Loadout.ParseMod(m)).Where(IsArmourBlock).Sum(m => m.Value);
-                    view.Facts.Add(new EquipmentCardLine { Label = Label(strings, ReceiptCardKeys.DrFact), Value = Num(block), Explanation = strings.Get(StringKeys.ArmouryCardExplainDr) });
-                    view.Facts.Add(new EquipmentCardLine { Label = Label(strings, ReceiptCardKeys.PoiseFact), Value = Num(Js.Or0(piece[K.PoiseThreshold])), Explanation = strings.Get(StringKeys.ArmouryCardExplainPoise) });
+                    view.Facts.Add(new EquipmentCardLine { Id = ReceiptCardKeys.DrFact, Number = block, Label = Label(strings, ReceiptCardKeys.DrFact), Value = Num(block), Explanation = strings.Get(StringKeys.ArmouryCardExplainDr) });
+                    view.Facts.Add(new EquipmentCardLine { Id = ReceiptCardKeys.PoiseFact, Number = Js.Or0(piece[K.PoiseThreshold]), Label = Label(strings, ReceiptCardKeys.PoiseFact), Value = Num(Js.Or0(piece[K.PoiseThreshold])), Explanation = strings.Get(StringKeys.ArmouryCardExplainPoise) });
                 }
                 else
                 {
-                    view.Facts.Add(new EquipmentCardLine { Label = Label(strings, ReceiptCardKeys.AttackFact), Value = Num(Js.Or0(piece[K.AttackRating])), Explanation = strings.Get(StringKeys.ArmouryCardExplainAttack) });
-                    view.Facts.Add(new EquipmentCardLine { Label = Label(strings, ReceiptCardKeys.DefenseFact), Value = Num(Js.Or0(piece[K.DefenseRating])), Explanation = strings.Get(StringKeys.ArmouryCardExplainDefense) });
+                    view.Facts.Add(new EquipmentCardLine { Id = ReceiptCardKeys.AttackFact, Number = Js.Or0(piece[K.AttackRating]), Label = Label(strings, ReceiptCardKeys.AttackFact), Value = Num(Js.Or0(piece[K.AttackRating])), Explanation = strings.Get(StringKeys.ArmouryCardExplainAttack) });
+                    view.Facts.Add(new EquipmentCardLine { Id = ReceiptCardKeys.DefenseFact, Number = Js.Or0(piece[K.DefenseRating]), Label = Label(strings, ReceiptCardKeys.DefenseFact), Value = Num(Js.Or0(piece[K.DefenseRating])), Explanation = strings.Get(StringKeys.ArmouryCardExplainDefense) });
                     view.Facts.Add(new EquipmentCardLine { Label = Label(strings, ReceiptCardKeys.WeightFact), Value = Num(Equipment.PieceWeight(data, piece)), Explanation = strings.Get(StringKeys.ArmouryCardExplainWeight) });
                 }
                 foreach (var raw in mods)

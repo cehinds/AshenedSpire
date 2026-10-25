@@ -22,6 +22,9 @@ namespace Ashen.App.Run
 
         private Ashen.Domain.Run.RunData GearData => Core.Deck.Run.Run;
 
+        /// <summary>The weapon swap price rule the player chose in Settings (settings.swapCostRule), or null for the profile's own (the web's resolveSwapCostRule reads it from the profile's settings).</summary>
+        public string SwapRuleId => PlayerSettings.Text(ReceiptKeys.SwapRuleSetting);
+
         private EquipContext EquipmentContext(string itemId, int setIndex) => new EquipContext
         {
             InCombat = false,

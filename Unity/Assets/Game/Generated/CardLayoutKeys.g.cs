@@ -22,5 +22,21 @@ namespace Ashen.Generated
         public const string Icon = "icon";
         public const string Outfit = "outfit";
         public const string Shared = "shared";
+        public const string Armoury = "armoury";
+        public const string SlotOrder = "slotOrder";
+        public const string BonusLines = "bonusLines";
+        public const string ThumbnailWidth = "thumbnailWidth";
+        public const string PhoneThumbnailWidth = "phoneThumbnailWidth";
+        public const string InspectionWidth = "inspectionWidth";
+        public const string GridColumns = "gridColumns";
+        public const string PhoneGridColumns = "phoneGridColumns";
+        public const string DefaultView = "defaultView";
+        public const string Views = "views";
+        public const string BonusLineHeight = "bonusLineHeight";
+        public const string ArtRegion = "art";
+        public const string TypeRegion = "type";
+        public const string FactsRegion = "facts";
+        public const string FlavorRegion = "flavor";
+        public const string FooterRegion = "footer";
     }
 }

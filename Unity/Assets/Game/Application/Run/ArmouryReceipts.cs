@@ -32,6 +32,10 @@ namespace Ashen.App.Run
     /// <summary>One attribute minimum of a piece, with what the character has.</summary>
     public sealed class ReceiptRequirementRow
     {
+        public string AttributeId;
+
+        /// <summary>The attribute's full name ("Strength"); <see cref="Label"/> is its short one.</summary>
+        public string FullLabel;
         public string Label;
         public double? Actual;
         public double Required;
@@ -214,6 +218,8 @@ namespace Ashen.App.Run
                 var required = row.Num(RK.Required);
                 result.Rows.Add(new ReceiptRequirementRow
                 {
+                    AttributeId = id,
+                    FullLabel = session.CombatData.Attributes.Has(id) ? session.CombatData.Attributes.Get(id).Str(K.Label) ?? id : id,
                     Label = strings.Get(string.Format(CultureInfo.InvariantCulture, ArmouryKeys.AttributeShortKey, id)),
                     Actual = actual,
                     Required = required,
@@ -322,10 +328,13 @@ namespace Ashen.App.Run
         /// resource changes and swap prices, Poise and load before and after. The loadout it is tried on is the equip transition alone, with none of the equip gates (the web compares what the seal refuses too).
         /// Null when the web throws: the piece is unknown, the position does not exist, or a plan cannot be made of the trial loadout.
         /// </summary>
-        public static CandidateView Candidate(Core2RunSession session, UiData ui, string slotId, int setIndex, string itemId, string swapRuleId = null)
+        public static CandidateView Candidate(Core2RunSession session, UiData ui, string slotId, int setIndex, string itemId, string swapRuleId = null) =>
+            Candidate(session, ui, session.Run, slotId, setIndex, itemId, swapRuleId);
+
+        /// <summary>The comparison over a snapshot of the run (the session's document is copied each time <see cref="Core2RunSession.Run"/> is read).</summary>
+        internal static CandidateView Candidate(Core2RunSession session, UiData ui, JObject run, string slotId, int setIndex, string itemId, string swapRuleId)
         {
             var strings = ui.Strings;
-            var run = session.Run;
             var gear = session.Core.Deck.Run.Run;
             var data = session.CombatData;
             var loadout = run.Obj(K.Loadout);

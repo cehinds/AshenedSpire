@@ -247,6 +247,24 @@ namespace Ashen.App.Settings
             _profile.Save(_content.ContentHash);
         }
 
+        /// <summary>The view the Armoury's equipment list was left in (the web's settings.armouryArmamentView, kept beside the other settings): "list", "grid" or null when it was never chosen.</summary>
+        public string ArmouryArmamentView
+        {
+            get
+            {
+                var view = Js.Str(Stored?[ArmouryViewKeys.Stored]);
+                return view == ArmouryViewKeys.List || view == ArmouryViewKeys.Grid ? view : null;
+            }
+        }
+
+        public void SetArmouryArmamentView(string view)
+        {
+            if (ArmouryArmamentView == view) return;
+            if (!(_profile.Doc[SK.Settings] is JObject stored)) _profile.Doc[SK.Settings] = stored = new JObject();
+            stored[ArmouryViewKeys.Stored] = view;
+            _profile.Save(_content.ContentHash);
+        }
+
         /// <summary>The first-open tip banner was dismissed with Got it.</summary>
         public bool TipDismissed => Stored?[SettingIds.SettingsTipDismissed] is JValue v && v.Type == JTokenType.Boolean && (bool)v;
 

@@ -11,5 +11,7 @@ namespace Ashen.Generated
         public const string FaceLabel = "faceLabel";
         public const string SwapCostId = "swapCost:{0}";
         public const string NoEnergyRow = "swapPriceChanges requires derivedStatRules.presentation.energy";
+        public const string Dash = "—";
+        public const string SwapRuleSetting = "swapCostRule";
     }
 }

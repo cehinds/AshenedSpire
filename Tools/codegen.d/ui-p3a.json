@@ -11,7 +11,9 @@
         "EnergyRow": "energy",
         "FaceLabel": "faceLabel",
         "SwapCostId": "swapCost:{0}",
-        "NoEnergyRow": "swapPriceChanges requires derivedStatRules.presentation.energy"
+        "NoEnergyRow": "swapPriceChanges requires derivedStatRules.presentation.energy",
+        "Dash": "—",
+        "SwapRuleSetting": "swapCostRule"
       }
     },
     {
@@ -29,7 +31,14 @@
         "Verb": "verb",
         "Where": "where",
         "Blurb": "blurb",
-        "Key": "key"
+        "Key": "key",
+        "Requirements": "requirements",
+        "Attribute": "attribute",
+        "Required": "required",
+        "Actual": "actual",
+        "Reason": "reason",
+        "Action": "action",
+        "Category": "category"
       }
     },
     {
@@ -63,7 +72,18 @@
         "DefaultKey": "default",
         "OutfitJoin": "-",
         "InventoryArtKey": "inventoryArtKey",
-        "ArtClassId": "artClassId"
+        "ArtClassId": "artClassId",
+        "SetSign": "= ",
+        "WeaponArtManaCost": "weaponArtManaCost",
+        "UniqueSkillStaminaCost": "uniqueSkillStaminaCost",
+        "OrderKey": "order",
+        "PositionLabel": "positionLabel",
+        "ClassGlyph": "glyph",
+        "ClassDescription": "description",
+        "ClassTags": "tags",
+        "ClassCards": "classCards",
+        "ClassUnequipped": "classUnequipped",
+        "ClassRowKey": "class:{0}"
       }
     },
     {
@@ -87,7 +107,156 @@
         "Art": "art",
         "Icon": "icon",
         "Outfit": "outfit",
-        "Shared": "shared"
+        "Shared": "shared",
+        "Armoury": "armoury",
+        "SlotOrder": "slotOrder",
+        "BonusLines": "bonusLines",
+        "ThumbnailWidth": "thumbnailWidth",
+        "PhoneThumbnailWidth": "phoneThumbnailWidth",
+        "InspectionWidth": "inspectionWidth",
+        "GridColumns": "gridColumns",
+        "PhoneGridColumns": "phoneGridColumns",
+        "DefaultView": "defaultView",
+        "Views": "views",
+        "BonusLineHeight": "bonusLineHeight",
+        "ArtRegion": "art",
+        "TypeRegion": "type",
+        "FactsRegion": "facts",
+        "FlavorRegion": "flavor",
+        "FooterRegion": "footer"
+      }
+    },
+    {
+      "name": "ArmouryViewKeys",
+      "doc": "The Armoury's stored view choice (the web's settings.armouryArmamentView) and the words of its two values.",
+      "keys": {
+        "Stored": "armouryArmamentView",
+        "List": "list",
+        "Grid": "grid"
+      }
+    },
+    {
+      "name": "ArmouryWebKeys",
+      "doc": "The web's own Armoury sentences that strings/en.json already carries (ui.armoury.*.short): the comparison of a selected item with what is equipped, its eligibility line and the detail column's prompt.",
+      "keys": {
+        "CompareTitle": "ui.armoury.compare.title.short",
+        "CompareFills": "ui.armoury.compare.fills.short",
+        "CompareRemoves": "ui.armoury.compare.removes.short",
+        "CompareReplaces": "ui.armoury.compare.replaces.short",
+        "CompareRole": "ui.armoury.compare.role.short",
+        "CompareUnchanged": "ui.armoury.compare.unchanged.short",
+        "EligibilityReady": "ui.armoury.eligibility.ready.short",
+        "EligibilityBlocked": "ui.armoury.eligibility.blocked.short",
+        "EligibilityShort": "ui.armoury.eligibility.short.short",
+        "EligibilityRequirement": "ui.armoury.eligibility.requirement.short",
+        "DetailPrompt": "ui.armoury.detail.prompt.short",
+        "CardOwned": "ui.card.meta.owned.short"
+      }
+    },
+    {
+      "name": "PokerClasses",
+      "doc": "USS classes of the poker-style equipment card (Kit/PokerCard.uss).",
+      "keys": {
+        "Card": "pokercard",
+        "Frame": "pokercard-frame",
+        "Gold": "pokercard--gold",
+        "Staff": "pokercard--staff",
+        "Blade": "pokercard--blade",
+        "Name": "pokercard-name",
+        "Art": "pokercard-art",
+        "Type": "pokercard-type",
+        "TypeText": "pokercard-type-text",
+        "Requirement": "pokercard-requirement",
+        "Facts": "pokercard-facts",
+        "Fact": "pokercard-fact",
+        "FactValue": "pokercard-fact-value",
+        "FactLabel": "pokercard-fact-label",
+        "Tags": "pokercard-tags",
+        "Tag": "pokercard-tag",
+        "Effects": "pokercard-effects",
+        "Heading": "pokercard-heading",
+        "Bonus": "pokercard-bonus",
+        "Flavor": "pokercard-flavor",
+        "Footer": "pokercard-footer",
+        "FooterRarity": "pokercard-footer-rarity",
+        "FooterOwned": "pokercard-footer-owned",
+        "Lore": "font-lore"
+      }
+    },
+    {
+      "name": "PickerKeys",
+      "doc": "Picker table words (equipPickerTable.js): why a piece does not fit and the sort columns.",
+      "keys": {
+        "ReasonKind": "kind",
+        "ReasonHand": "hand",
+        "SortStatus": "status",
+        "SortName": "name"
+      }
+    },
+    {
+      "name": "ArmouryPaneClasses",
+      "doc": "USS classes of the Armoury's equipment and inventory panes (Armoury.uss, P-3a).",
+      "keys": {
+        "EquipCard": "armoury-equip-card",
+        "EquipHead": "armoury-equip-head",
+        "Count": "armoury-count",
+        "ViewToggle": "armoury-view-toggle",
+        "ListWorkspace": "armoury-list-workspace",
+        "PosList": "armoury-pos-list",
+        "Pos": "armoury-pos",
+        "PosLocked": "armoury-pos--locked",
+        "PosOccupied": "armoury-pos--occupied",
+        "PosActive": "armoury-pos--active",
+        "PosSelected": "armoury-pos--selected",
+        "PosThumb": "armoury-pos-thumb",
+        "PosBody": "armoury-pos-body",
+        "PosHeading": "armoury-pos-heading",
+        "ListInspect": "armoury-list-inspect",
+        "InspectionBox": "armoury-inspection",
+        "ChipRow": "armoury-chip-row",
+        "ChipTag": "armoury-chip-tag",
+        "FactRow": "armoury-fact-row",
+        "GridWorkspace": "armoury-grid-workspace",
+        "GridCollection": "armoury-grid-collection",
+        "GridGroup": "armoury-grid-group",
+        "GridTiles": "armoury-grid-tiles",
+        "GridDetail": "armoury-grid-detail",
+        "Tile": "armoury-tile",
+        "TileSelected": "armoury-tile--selected",
+        "TileLocked": "armoury-tile--locked",
+        "TileArt": "armoury-tile-art",
+        "InvSplit": "armoury-inv-split",
+        "InvCollection": "armoury-inv-collection",
+        "InvDetail": "armoury-inv-detail",
+        "Face": "armoury-face",
+        "FaceOn": "armoury-face--on",
+        "FacePoker": "armoury-face--poker",
+        "FaceArt": "armoury-face-art",
+        "FaceIcon": "armoury-face-art--icon",
+        "FaceTrail": "armoury-face-trail",
+        "TagOn": "armoury-tag--on",
+        "CompareBox": "armoury-compare-box",
+        "PlainDetail": "armoury-plain-detail",
+        "DetailArt": "armoury-detail-art",
+        "PickerTable": "armoury-picker",
+        "PickerHead": "armoury-picker-head",
+        "PickerSort": "armoury-picker-sort",
+        "PickerRow": "armoury-picker-row",
+        "PickerRowOpen": "armoury-picker-row--open",
+        "PickerRowShut": "armoury-picker-row--shut",
+        "PickerLine": "armoury-picker-line",
+        "PickerThumb": "armoury-picker-thumb",
+        "PickerReveal": "armoury-picker-reveal"
+      }
+    },
+    {
+      "name": "ArmouryPaneValues",
+      "doc": "Focus keys and icon names of the Armoury's equipment and inventory panes.",
+      "keys": {
+        "ViewToggle": "view-toggle",
+        "PickerFilter": "picker-filter",
+        "PickerSort": "picker-sort:",
+        "IconLock": "lock"
       }
     }
   ]

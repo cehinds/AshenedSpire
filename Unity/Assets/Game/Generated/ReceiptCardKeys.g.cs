@@ -32,5 +32,16 @@ namespace Ashen.Generated
         public const string OutfitJoin = "-";
         public const string InventoryArtKey = "inventoryArtKey";
         public const string ArtClassId = "artClassId";
+        public const string SetSign = "= ";
+        public const string WeaponArtManaCost = "weaponArtManaCost";
+        public const string UniqueSkillStaminaCost = "uniqueSkillStaminaCost";
+        public const string OrderKey = "order";
+        public const string PositionLabel = "positionLabel";
+        public const string ClassGlyph = "glyph";
+        public const string ClassDescription = "description";
+        public const string ClassTags = "tags";
+        public const string ClassCards = "classCards";
+        public const string ClassUnequipped = "classUnequipped";
+        public const string ClassRowKey = "class:{0}";
     }
 }

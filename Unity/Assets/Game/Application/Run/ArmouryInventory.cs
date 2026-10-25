@@ -6,6 +6,7 @@ using Ashen.App.Ui;
 using Ashen.Domain.Combat;
 using Ashen.Domain.Run;
 using Ashen.Generated;
+using RK = Ashen.Generated.RunKeys;
 using Newtonsoft.Json.Linq;
 using K = Ashen.Generated.CombatKeys;
 using V = Ashen.Generated.CombatValues;
@@ -70,6 +71,15 @@ namespace Ashen.App.Run
 
         /// <summary>The piece can be put into a position (armour and armaments).</summary>
         public bool Equipable;
+
+        /// <summary>The piece at its authored tier (armour and armaments), for its poker card.</summary>
+        public JObject Piece;
+
+        /// <summary>A class card (the web's class row): the class the run is, its glyph (an icon name), its description and its tags.</summary>
+        public bool IsClass;
+        public string Glyph;
+        public string Description;
+        public readonly List<string> ClassTags = new List<string>();
     }
 
     /// <summary>The Armoury's Inventory over a Core 2 run (D-1160): the rows, the positions each can go to, and the action a chosen position gives. Engine-free.</summary>
@@ -83,6 +93,25 @@ namespace Ashen.App.Run
             var gear = session.Core.Deck.Run.Run;
             var loadout = run.Obj(K.Loadout);
             var rows = new List<ArmouryInventoryRow>();
+            foreach (var classId in Js.Items(new JArray(new[] { (JToken)session.ClassId }.Concat(run.Obj(ReceiptCardKeys.ClassCards)?.Properties().Select(p => (JToken)p.Name) ?? Enumerable.Empty<JToken>()))).Select(Js.Str).Distinct())
+            {
+                if (!data.Classes.Has(classId)) continue;
+                var def = data.Classes.Get(classId);
+                var equipped = !Js.Truthy(run[ReceiptCardKeys.ClassUnequipped]) && session.ClassId == classId;
+                var classRow = new ArmouryInventoryRow
+                {
+                    Key = string.Format(CultureInfo.InvariantCulture, ReceiptCardKeys.ClassRowKey, classId),
+                    Id = classId,
+                    Name = def.Str(K.Name) ?? classId,
+                    Category = strings.Get(StringKeys.ArmouryInventoryClass),
+                    IsClass = true,
+                    Glyph = def.Str(ReceiptCardKeys.ClassGlyph),
+                    Description = def.Str(ReceiptCardKeys.ClassDescription),
+                };
+                if (equipped) classRow.EquippedLabels.Add(strings.Get(StringKeys.ArmouryInventoryCoreSlot));
+                classRow.ClassTags.AddRange(Js.Items(def[ReceiptCardKeys.ClassTags]).Select(Js.Str).Where(t => t != null));
+                rows.Add(classRow);
+            }
             var owned = Armoury.Ownership(gear, loadout);
             var locations = Locations(gear, loadout);
             foreach (var piece in Js.Items(data.Equipment[K.Armour]).OfType<JObject>().Where(p => p.Str(K.ClassId) == session.ClassId && owned(p)))
@@ -90,7 +119,11 @@ namespace Ashen.App.Run
             foreach (var piece in Js.Items(data.Equipment[K.Armaments]).OfType<JObject>().Where(owned))
                 rows.Add(Piece(session, strings, piece, Named(strings, ArmouryKeys.KindStringKey, piece.Str(K.Kind)), locations));
             foreach (var group in Js.Items(run[K.Relics]).Select(Js.Str).Where(id => id != null && data.Relics.Has(id)).GroupBy(id => id))
-                rows.Add(new ArmouryInventoryRow { Key = StringKeys.ArmouryInventoryRelic + group.Key, Id = group.Key, Name = data.Relics.Get(group.Key).Str(K.Name) ?? group.Key, Category = strings.Get(StringKeys.ArmouryInventoryRelic), Count = group.Count() });
+            {
+                var relic = new ArmouryInventoryRow { Key = StringKeys.ArmouryInventoryRelic + group.Key, Id = group.Key, Name = data.Relics.Get(group.Key).Str(K.Name) ?? group.Key, Category = strings.Get(StringKeys.ArmouryInventoryRelic), Count = group.Count() };
+                relic.EquippedLabels.Add(strings.Get(StringKeys.ArmouryInventoryEquipped));
+                rows.Add(relic);
+            }
             foreach (var group in Js.Items(run[K.Flasks]).OfType<JObject>().Select(f => f.Str(K.FlaskId)).Where(id => id != null && data.Flasks.Has(id)).GroupBy(id => id))
                 rows.Add(new ArmouryInventoryRow { Key = StringKeys.ArmouryInventoryPotion + group.Key, Id = group.Key, Name = data.Flasks.Get(group.Key).Str(K.Name) ?? group.Key, Category = strings.Get(StringKeys.ArmouryInventoryPotion), Count = group.Count() });
             return rows;
@@ -107,6 +140,7 @@ namespace Ashen.App.Run
                 Category = category,
                 Item = ArmouryPanes.Item(session, strings, null, id),
                 Equipable = true,
+                Piece = piece,
             };
             if (locations.TryGetValue(id, out var labels)) row.EquippedLabels.AddRange(labels);
             return row;
@@ -191,6 +225,153 @@ namespace Ashen.App.Run
             };
             action.Refusal = session.EquipRefusal(strings, slotId, setIndex, action.PieceId) ?? string.Empty;
             return action;
+        }
+
+        /// <summary>How an item stands towards a position (equipPickerTable.js): worn here, free, worn in another position, or not taken by this slot.</summary>
+        public enum PickerStatus
+        {
+            Here,
+            Free,
+            Elsewhere,
+            NoFit,
+        }
+
+        /// <summary>One row of the Armoury's equip picker table (Item, Status, Actions) for one position.</summary>
+        public sealed class PickerRow
+        {
+            public ArmouryInventoryRow Row;
+            public bool Fits;
+            public PickerStatus Status;
+
+            /// <summary>Why the slot does not take it: "kind" (its kind is not one of the slot's) or "hand" (it only fits the other hand); null when it fits.</summary>
+            public string Reason;
+
+            public readonly List<KeyValuePair<string, int>> Elsewhere = new List<KeyValuePair<string, int>>();
+        }
+
+        /// <summary>
+        /// equipPickerTableRows then sortEquipPickerRows: the equipable rows for one position with their status, sorted by status (here, free, elsewhere, not fitting) then name, or by name then status; the
+        /// direction flips the whole comparison. A stable sort, so ties keep the inventory's order.
+        /// </summary>
+        public static IReadOnlyList<PickerRow> PickerRows(Core2RunSession session, IReadOnlyList<ArmouryInventoryRow> rows, string slotId, int setIndex, bool byName, bool descending)
+        {
+            var gear = session.Core.Deck.Run.Run;
+            var loadout = session.Run.Obj(K.Loadout);
+            var slot = gear.EquipmentRows(K.Slots).First(s => s.Str(K.Id) == slotId);
+            var list = new List<PickerRow>();
+            foreach (var row in rows.Where(r => r.Equipable))
+            {
+                var piece = Piece(session, row.Id);
+                var fits = piece != null && Armoury.FitsSlot(gear, slot, piece);
+                var here = Js.Str(loadout?.Obj(K.Sets)?.Arr(slotId)?[setIndex]) == row.Id;
+                var entry = new PickerRow { Row = row, Fits = fits };
+                foreach (var held in (loadout?.Obj(K.Sets) ?? new JObject()).Properties())
+                {
+                    if (!(held.Value is JArray ids)) continue;
+                    for (var i = 0; i < ids.Count; i++)
+                        if (Js.Str(ids[i]) == row.Id && !(held.Name == slotId && i == setIndex)) entry.Elsewhere.Add(new KeyValuePair<string, int>(held.Name, i));
+                }
+                entry.Status = !fits ? PickerStatus.NoFit : here ? PickerStatus.Here : entry.Elsewhere.Count > 0 ? PickerStatus.Elsewhere : PickerStatus.Free;
+                entry.Reason = fits ? null : !Js.Items(slot[K.Kinds]).Any(k => Js.Str(k) == piece?.Str(K.Kind)) ? PickerKeys.ReasonKind : PickerKeys.ReasonHand;
+                list.Add(entry);
+            }
+            int ByStatus(PickerRow a, PickerRow b) => a.Status.CompareTo(b.Status);
+            int ByName(PickerRow a, PickerRow b) => string.Compare(a.Row.Name, b.Row.Name, StringComparison.OrdinalIgnoreCase);
+            Comparison<PickerRow> primary = byName ? (a, b) => { var c = ByName(a, b); return c != 0 ? c : ByStatus(a, b); } : (Comparison<PickerRow>)((a, b) => { var c = ByStatus(a, b); return c != 0 ? c : ByName(a, b); });
+            var sign = descending ? -1 : 1;
+            return list.Select((entry, index) => (entry, index)).OrderBy(x => x, Comparer<(PickerRow entry, int index)>.Create((x, y) => { var c = sign * primary(x.entry, y.entry); return c != 0 ? c : x.index.CompareTo(y.index); })).Select(x => x.entry).ToList();
+        }
+
+        /// <summary>The state of the eligibility line (inventoryEligibility): no position, the rules shut it, the attribute minima are not met, or it can be done.</summary>
+        public enum EligibilityState
+        {
+            None,
+            Blocked,
+            Short,
+            Ready,
+        }
+
+        /// <summary>What the Armoury says of a selected item (web equipment.js selectionFacts over ArmouryWorkspaceModel.js): the action its target gives, the comparison with what is equipped, whether it can go on.</summary>
+        public sealed class SelectionView
+        {
+            public ArmouryActionView Action;
+            public CandidateView Candidate;
+
+            /// <summary>"Replaces Greatsword in Main Hand · 1"; empty without a comparison.</summary>
+            public string Relation = string.Empty;
+
+            /// <summary>"Strike 11 → 4" for each role whose number moves; with none, <see cref="Unchanged"/> is set.</summary>
+            public readonly List<string> RoleLines = new List<string>();
+            public bool Unchanged;
+            public EligibilityState Eligibility;
+            public string EligibilityText = string.Empty;
+            public string Instruction = string.Empty;
+        }
+
+        /// <summary>
+        /// The selection of an inventory row: with a position picked, the action it gives there (equip, move or unequip); without, the unequip of the position it already holds; none for a piece worn nowhere (it asks for a
+        /// destination first). The comparison is the candidate receipt of that target.
+        /// </summary>
+        public static SelectionView Select(Core2RunSession session, UiData ui, ArmouryInventoryRow row, string pickSlot, int pickIndex)
+        {
+            var strings = ui.Strings;
+            var view = new SelectionView();
+            if (!row.Equipable) return view;
+            var gear = session.Core.Deck.Run.Run;
+            var loadout = session.Run.Obj(K.Loadout);
+            var piece = Piece(session, row.Id);
+            if (pickSlot != null) view.Action = Action(session, ui, row.Id, pickSlot, pickIndex);
+            else if (piece != null && loadout != null)
+            {
+                foreach (var slot in gear.EquipmentRows(K.Slots).Where(s => Armoury.FitsSlot(gear, s, piece)))
+                {
+                    var at = Js.Items(loadout.Obj(K.Sets)?[slot.Str(K.Id)]).Select(Js.Str).ToList().IndexOf(row.Id);
+                    if (at < 0) continue;
+                    view.Action = Action(session, ui, row.Id, slot.Str(K.Id), at);
+                    break;
+                }
+            }
+            view.Instruction = strings.Get(view.Action != null ? StringKeys.ArmouryDestinationReview : StringKeys.ArmouryDestinationChoose);
+            if (view.Action == null) return view;
+            var target = gear.EquipmentRows(K.Slots).First(s => s.Str(K.Id) == view.Action.SlotId);
+            view.Candidate = ArmouryReceipts.Candidate(session, ui, view.Action.SlotId, view.Action.SetIndex, view.Action.PieceId, session.SwapRuleId);
+            var where = Where(strings, target, view.Action.SetIndex);
+            if (view.Candidate != null)
+            {
+                var occupantId = Js.Str(loadout?.Obj(K.Sets)?.Arr(view.Action.SlotId)?[view.Action.SetIndex]);
+                var occupantName = view.Action.Kind == ArmouryActionKind.Unequip ? row.Name
+                    : !string.IsNullOrEmpty(occupantId) && occupantId != row.Id ? Piece(session, occupantId)?.Str(K.Name) ?? occupantId : null;
+                view.Relation = view.Action.Kind == ArmouryActionKind.Unequip ? strings.Format(ArmouryWebKeys.CompareRemoves, new StringArgs().Add(UiPlaceholders.Name, occupantName).Add(UiPlaceholders.Slot, where))
+                    : occupantName != null ? strings.Format(ArmouryWebKeys.CompareReplaces, new StringArgs().Add(UiPlaceholders.Name, occupantName).Add(UiPlaceholders.Slot, where))
+                    : strings.Format(ArmouryWebKeys.CompareFills, new StringArgs().Add(UiPlaceholders.Slot, where));
+                var labels = ArmouryPanes.RoleLabelsOf(strings);
+                foreach (var role in view.Candidate.Roles.Where(r => r.Before != r.After))
+                    view.RoleLines.Add(strings.Format(ArmouryWebKeys.CompareRole, new StringArgs().Add(UiPlaceholders.Label, labels.TryGetValue(role.Role, out var label) ? label : role.Role)
+                        .Add(UiPlaceholders.Before, RunJs.NumStr(role.Before)).Add(UiPlaceholders.After, RunJs.NumStr(role.After))));
+                view.Unchanged = view.RoleLines.Count == 0;
+            }
+            if (view.Action.Refusal.Length > 0)
+            {
+                view.Eligibility = EligibilityState.Blocked;
+                view.EligibilityText = strings.Format(ArmouryWebKeys.EligibilityBlocked, new StringArgs().Add(ReceiptPlaceholders.Reason, view.Action.Refusal));
+            }
+            else
+            {
+                var failures = view.Candidate?.Requirement?.Rows.Where(r => !r.Met).ToList() ?? new List<ReceiptRequirementRow>();
+                if (failures.Count > 0)
+                {
+                    view.Eligibility = EligibilityState.Short;
+                    view.EligibilityText = strings.Format(ArmouryWebKeys.EligibilityShort, new StringArgs().Add(ReceiptPlaceholders.Requirements, string.Join(strings.Get(StringKeys.ArmouryCardRequirementJoin),
+                        failures.Select(f => strings.Format(ArmouryWebKeys.EligibilityRequirement, new StringArgs().Add(ReceiptPlaceholders.Attribute, f.FullLabel)
+                            .Add(ReceiptPlaceholders.Required, RunJs.NumStr(f.Required)).Add(ReceiptPlaceholders.Actual, f.Actual.HasValue ? RunJs.NumStr(f.Actual.Value) : ReceiptKeys.Dash))))));
+                }
+                else
+                {
+                    view.Eligibility = EligibilityState.Ready;
+                    view.EligibilityText = strings.Format(ArmouryWebKeys.EligibilityReady, new StringArgs().Add(ReceiptPlaceholders.Action, view.Action.Label));
+                }
+            }
+            return view;
         }
 
         private static JObject Piece(Core2RunSession session, string id)
