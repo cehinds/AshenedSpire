@@ -105,6 +105,8 @@ namespace Ashen.App.Run
         private bool _reviewing;
         private double _cindersTotal;
         private bool _proceedPending;
+        // A spent offer whose claim saved but whose leaving did not: the screen's Retry repeats the press, which then only retries the leaving.
+        private bool _exitPending;
 
         public Core2SpoilsFlow(Core2RunSession session, UiData ui)
         {
@@ -326,6 +328,7 @@ namespace Ashen.App.Run
         /// <summary>Offer: Confirm opens the review of the picked option (nothing picked refuses). Review: Add to deck for a card (the deck rules may refuse), Continue for anything else.</summary>
         public Core2SpoilsResult Confirm()
         {
+            if (_exitPending) return RetryExit();
             switch (Stage)
             {
                 case Core2SpoilsStage.Notices:
@@ -350,6 +353,7 @@ namespace Ashen.App.Run
         /// <summary>Review of a card: take it into the collection without adding it to the deck.</summary>
         public Core2SpoilsResult Keep()
         {
+            if (_exitPending) return RetryExit();
             var option = SelectedOption;
             if (Stage != Core2SpoilsStage.Review || option == null || !option.IsCard) return new Core2SpoilsResult();
             return Claim(_session.TakeReward(option.Index));
@@ -392,6 +396,7 @@ namespace Ashen.App.Run
         /// <summary>The door a claim opened was left (the editor or the Armoury closed): a spent offer is left by itself, else the offer stands for the next pick (the web's proceed()).</summary>
         public Core2SpoilsResult Proceed()
         {
+            if (_exitPending) return RetryExit();
             if (!_proceedPending) return new Core2SpoilsResult { Left = !_session.HasPendingReward || _session.RunOver };
             _proceedPending = false;
             return Claim(new Core2RewardResult { Option = new JObject() });
@@ -425,8 +430,17 @@ namespace Ashen.App.Run
             _selected = null;
             var view = Core2RewardsView.Build(_session);
             var spent = view == null || view.Options.All(o => !o.Claimable) || view.TakenCount >= Math.Min(view.TakeCount, view.Options.Count);
-            if (spent && _session.HasPendingReward) return Settle(_session.LeaveRewards());
+            if (spent && _session.HasPendingReward) return RetryExit();
             return Settle(claim);
+        }
+
+        /// <summary>Leave the spent offer; a save that throws keeps the leaving pending for the screen's Retry (the claim itself is already saved).</summary>
+        private Core2SpoilsResult RetryExit()
+        {
+            _exitPending = true;
+            var result = Settle(_session.LeaveRewards());
+            _exitPending = false;
+            return result;
         }
 
         private Core2SpoilsResult Settle(Core2RewardResult step)
