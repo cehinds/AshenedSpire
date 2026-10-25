@@ -2,6 +2,24 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## WP-22: the run screens' remaining gaps (worktree branch, 2026-10-25)
+
+**Landed (D-1160..D-1165)**
+- **Spoils review:** Edit deck (claims the card, opens the deck editor with its tile selected, the offer leaves when the editor closes) and Equip now (claims the item, opens the Armoury on its equipment); the web's `noteArmoury` line.
+- **Armoury:** Replace / Choose item / Make active / Unequip on the equipment rows with the rules' refusals at the control (`Core2RunSession.Equip`, `Armoury.TransitionPlan`, `DeckRules.Restamp` public); the Inventory pane (owned armour and armaments, relics, potions, destinations and the filtered Replace list); the Character pane's Combat Power, AR / PR / DR / HandSize and foldable Relics and Equipment cards.
+- **Potions** outside a fight: the map's disc opens the web's list (Drink with the setting and a charge, Drop for a carried potion).
+- **Run history:** the record takes the session's damage tally (`FinishRun`); the loop parity test skips those two fields (D-962 text updated).
+- **Event:** a binding response is a hold button; the spoken step's entrance (figures 400 ms, context band rising at 400 ms).
+- **Shop:** Buy is a hold button (tap asks, hold buys); D-952's note was a gap, not an owner choice.
+
+**Tests run (small filters):** `Wp22RunScreens` (6 new), `Core2RewardsFlow`, `Core2Screens` (two expectations updated: the review's Edit deck, the sheet's chips), `Core2LoopParity`, `Core2EventEndFlow`, `Core2RestShop`, `Enforcement`, `UiData`, `UiRules`, `ContentValid`; node checks and the Presentation compile (see the final report).
+
+**Not verified (Unity was not run):** every new USS rule (`Armoury.uss` position actions, notice, Inventory, folds; `Core2Event.uss` dial and entrance transitions: `translate` and `transition-delay` in UI Toolkit, class removal one frame after bind); `HoldButton` as the event response and the shop Buy (the layout of its template label, bar and HOLD hint inside those controls, the click after a completed hold); the Potions modal's `PotionRow` without hold; focus after an equipment change.
+
+**Not done:** the Armoury's drag and drop, comparison tooltip, grid view, Sigils and the poise / load receipts; class cards, books and consumables in the Inventory; the hover potion tray and flask menu on the map; Character's Progression button.
+
+**Next:** the editor pass over these screens; the speech hook (`speechEnded`) and the figure crop of the spoken step.
+
 ## VP-16: chrome and phone residuals (worktree branch, 2026-10-25)
 
 **Landed (D-1200..D-1208)**

@@ -12,6 +12,7 @@ namespace Ashen.Generated
         public const string MusicVolume = "musicVolume";
         public const string SfxVolume = "sfxVolume";
         public const string CreationAutoAdvance = "creationAutoAdvance";
+        public const string UseRestorativeFlasksOutsideCombat = "useRestorativeFlasksOutsideCombat";
         public const string MapFull = "full";
         public const string MapPath = "path";
         public const string MapFog = "fog";

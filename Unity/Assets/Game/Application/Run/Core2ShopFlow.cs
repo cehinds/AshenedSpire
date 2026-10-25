@@ -198,6 +198,16 @@ namespace Ashen.App.Run
             return new Core2ShopStep();
         }
 
+        /// <summary>
+        /// Buy was held (the web's hold on the Buy button approves the same callback and skips the question): the offer is bought at once, with the refusals of both steps. Only from the shelf, as a tap is.
+        /// </summary>
+        public Core2ShopStep BuyNow(int index)
+        {
+            if (Stage != Core2ShopStage.Shelf) return new Core2ShopStep();
+            var ask = RequestBuy(index);
+            return ask.Done ? ConfirmBuy() : ask;
+        }
+
         /// <summary>The question's BUY IT: the price comes off and the item joins the run (saved at once); a refusal is the purchase's own sentence and nothing changes.</summary>
         public Core2ShopStep ConfirmBuy()
         {

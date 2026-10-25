@@ -553,6 +553,9 @@ namespace Ashen.App.Run
             var extra = new JObject();
             if (!(end.Result?.Is(MetaKeys.Abandoned) ?? false) && EncounterId != null && Core.Loop.Map.Encounters.Has(EncounterId))
                 extra[MetaKeys.Killer] = new JArray(Js.Items(Core.Loop.Map.Encounters.Get(EncounterId)[K.Enemies]).Select(t => t.DeepClone()));
+            // The web's record carries the damage trackStats tallied (run.stats.damageDealt/damageTaken); the session keeps the tally beside the run (D-962), so the record takes it here.
+            extra[LK.DamageDealt] = Tally.DamageDealt;
+            extra[LK.DamageTaken] = Tally.DamageTaken;
             extra[MetaKeys.Duration] = PlaytimeSeconds;
             if (CoreRunRules.PinOf(_run) is JObject pin)
             {

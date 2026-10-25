@@ -22,6 +22,7 @@ namespace Ashen.Generated
         public const string Rewards = "rewards";
         public const string PileViewer = "pileViewer";
         public const string Armoury = "armoury";
+        public const string Core2Potions = "core2Potions";
         public const string RunEnd = "runEnd";
         public const string Rest = "rest";
         public const string Merchant = "merchant";

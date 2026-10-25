@@ -659,6 +659,7 @@
     --size-event-stage-top: 10%;
     --size-event-stage-h: 40%;
     --size-event-figure-h: 300%;
+    --size-event-context-rise: 22px;
     --size-event-plate-h: 24px;
     --size-event-context-top: 50%;
     --size-event-context-h: 35%;
@@ -867,6 +868,9 @@
     --duration-prologue-fade: 600ms;
     --duration-prologue-tick: 40ms;
     --duration-settings-commit: 250ms;
+    --duration-event-figure-fade: 400ms;
+    --duration-event-context-at: 400ms;
+    --duration-event-context-fade: 300ms;
     --opacity-disabled: 0.45;
     --opacity-muted: 0.72;
     --opacity-gate-dim: 0.35;

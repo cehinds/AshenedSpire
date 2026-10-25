@@ -29,6 +29,7 @@
       "keys": {
         "Page": "c2event-page",
         "PageDialogue": "c2event-page--dialogue",
+        "PageEntering": "c2event-page--entering",
         "Columns": "c2event-columns",
         "Narrative": "c2event-narrative",
         "ArtWell": "c2event-artwell",
@@ -41,6 +42,7 @@
         "ResponseLabel": "c2event-response-label",
         "ResponseTag": "c2event-response-tag",
         "ResponseHold": "c2event-response-hold",
+        "ResponseDial": "c2event-response--dial",
         "Result": "c2event-result",
         "Continue": "c2event-continue",
         "Off": "c2event-off",

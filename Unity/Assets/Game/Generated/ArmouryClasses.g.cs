@@ -5,6 +5,26 @@ namespace Ashen.Generated
     public static class ArmouryClasses
     {
         public const string Modal = "armoury-modal";
+        public const string Notice = "armoury-notice";
+        public const string Actions = "armoury-actions";
+        public const string Reason = "armoury-reason";
+        public const string Selecting = "armoury-selecting";
+        public const string Fold = "armoury-fold";
+        public const string FoldOpen = "armoury-fold--open";
+        public const string FoldHead = "armoury-fold-head";
+        public const string FoldSummary = "armoury-fold-summary";
+        public const string FoldBody = "armoury-fold-body";
+        public const string Power = "armoury-power";
+        public const string PowerLabel = "armoury-power-label";
+        public const string PowerValue = "armoury-power-value";
+        public const string InvRow = "armoury-inv-row";
+        public const string InvRowOpen = "armoury-inv-row--open";
+        public const string InvText = "armoury-inv-text";
+        public const string InvDests = "armoury-inv-dests";
+        public const string InvDest = "armoury-inv-dest";
+        public const string InvDestOn = "armoury-inv-dest--on";
+        public const string InvDestShut = "armoury-inv-dest--shut";
+        public const string ActionOff = "armoury-action--off";
         public const string Tabs = "armoury-tabs";
         public const string Tab = "armoury-tab";
         public const string TabOn = "armoury-tab--on";

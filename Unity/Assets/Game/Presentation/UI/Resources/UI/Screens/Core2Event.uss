@@ -159,6 +159,22 @@
     color: var(--color-muted);
 }
 
+/* A binding response is a hold button: its own label is hidden (the texts stand in its place), the dial fills along the card's foot and the HOLD hint sits at the right. */
+.c2event-response--dial .hold-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    background-color: var(--color-transparent);
+}
+
+.c2event-response--dial .hold-state {
+    flex-shrink: 0;
+    margin: 0 0 0 var(--space-md);
+    color: var(--color-muted);
+}
+
 .c2event-response-hold {
     flex-shrink: 0;
     margin: 0 0 0 var(--space-md);
@@ -220,6 +236,27 @@
 
 .c2event-stage-side--listening .c2event-figure {
     opacity: var(--opacity-muted);
+}
+
+/* The spoken step's entrance (web content/config/ui/scenes/w4c-dialogue.json motion.entrance): the figures fade in over 400 ms, then the context band rises and fades in over 300 ms. */
+.c2event-page--dialogue .c2event-figure {
+    transition-property: opacity;
+    transition-duration: var(--duration-event-figure-fade);
+}
+
+.c2event-page--dialogue .c2event-context {
+    transition-property: opacity, translate;
+    transition-duration: var(--duration-event-context-fade);
+    transition-delay: var(--duration-event-context-at);
+}
+
+.c2event-page--entering .c2event-figure {
+    opacity: 0;
+}
+
+.c2event-page--entering .c2event-context {
+    opacity: 0;
+    translate: 0 var(--size-event-context-rise);
 }
 
 .c2event-plate {

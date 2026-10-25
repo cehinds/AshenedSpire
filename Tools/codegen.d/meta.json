@@ -127,6 +127,7 @@
         "MusicVolume": "musicVolume",
         "SfxVolume": "sfxVolume",
         "CreationAutoAdvance": "creationAutoAdvance",
+        "UseRestorativeFlasksOutsideCombat": "useRestorativeFlasksOutsideCombat",
         "MapFull": "full",
         "MapPath": "path",
         "MapFog": "fog",

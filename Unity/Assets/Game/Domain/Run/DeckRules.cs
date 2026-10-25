@@ -484,7 +484,8 @@ namespace Ashen.Domain.Run
             return ids.Aggregate(0d, (top, id) => Math.Max(top, RunJs.Number(Js.S(RunJs.Key(id).Substring(RV.AttackSlotPrefix.Length))) + 1));
         }
 
-        private static void Restamp(CoreDeckData d, JObject run)
+        /// <summary>stampDeck(registries, run) for a configured Core deck (an equipment change in the Armoury, a deck edit): the pools re-derived, then the gear's lent cards reconciled.</summary>
+        public static void Restamp(CoreDeckData d, JObject run)
         {
             if (!Js.Truthy(run[DK.Loadout]) || !Js.Truthy(run[DK.Attributes])) return;
             // stampDeck for a configured Core deck: the pools re-derived, then the gear's lent cards reconciled.

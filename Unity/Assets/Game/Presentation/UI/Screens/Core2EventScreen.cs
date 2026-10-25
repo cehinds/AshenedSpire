@@ -21,7 +21,7 @@ namespace Ashen.Presentation.UI.Screens
     /// </summary>
     public sealed class Core2EventScreen : ScreenView
     {
-        private readonly Dictionary<string, LocButton> _responses = new Dictionary<string, LocButton>();
+        private readonly Dictionary<string, Button> _responses = new Dictionary<string, Button>();
         private Core2RunSession _run;
         private Core2EventFlow _flow;
         private CombatModal _door;
@@ -35,7 +35,7 @@ namespace Ashen.Presentation.UI.Screens
 
         public Core2EventFlow Flow => _flow;
 
-        public IReadOnlyDictionary<string, LocButton> ResponseButtons => _responses;
+        public IReadOnlyDictionary<string, Button> ResponseButtons => _responses;
 
         public LocButton ContinueButton => _continue;
 
@@ -71,6 +71,28 @@ namespace Ashen.Presentation.UI.Screens
             BoardHud.SetImage(Root.Q(UiNames.CeventScene), Ui.Texture(_flow.SceneArtId));
             Render();
             _bound = true;
+            PlayEntrance();
+        }
+
+        /// <summary>
+        /// The spoken step's entrance (web dialogue.js playEntrance, dialogueEntrance): the figures fade in over their duration, the context band follows and rises; the controls open when the last step
+        /// has appeared. Reduced motion shows the step at once. Played once per screen, never again for the steps that follow.
+        /// </summary>
+        private void PlayEntrance()
+        {
+            if (!_flow.IsDialogue || _run.PlayerSettings.On(SettingIds.ReducedMotion)) return;
+            var tokens = Ui.Data.Tokens;
+            var page = Root.Q(UiNames.EventPage);
+            var controls = new[] { Root.Q(UiNames.CeventContext), Root.Q(UiNames.CeventFoot) };
+            page.AddToClassList(EventClasses.PageEntering);
+            foreach (var c in controls) c.SetEnabled(false);
+            page.schedule.Execute(() => page.RemoveFromClassList(EventClasses.PageEntering));
+            var ready = Math.Max(tokens.Duration(TokenKeys.EventFigureFade), tokens.Duration(TokenKeys.EventContextAt) + tokens.Duration(TokenKeys.EventContextFade));
+            page.schedule.Execute(() =>
+            {
+                foreach (var c in controls) c.SetEnabled(true);
+                if (_flow != null) Render();
+            }).ExecuteLater(ready);
         }
 
         // ------------------------------------------------------------------ render
@@ -151,16 +173,43 @@ namespace Ashen.Presentation.UI.Screens
 
         private VisualElement Response(Core2EventResponseView response)
         {
-            var row = new LocButton { userData = response.ChoiceId };
+            // A binding response is the web's hold button: a tap reviews it in the question, holding it chooses at once (the dial fills along the card; holdConfirm; with holds off a press reviews).
+            var holds = response.Binding && response.Affordable;
+            Button row = holds ? new HoldButton() : new LocButton();
+            row.userData = response.ChoiceId;
             row.AddToClassList(EventClasses.Response);
             row.EnableInClassList(EventClasses.ResponseOff, !response.Affordable);
+            if (holds)
+            {
+                var dial = (HoldButton)row;
+                dial.labelKey = null;
+                UiDom.Show(dial.Q(UiNames.HoldLabel), false);
+                dial.AddToClassList(EventClasses.ResponseDial);
+                dial.HoldMs = Ui.Data.Tokens.Duration(TokenKeys.HoldConfirm);
+                dial.HoldEnabled = _run.PlayerSettings.Text(SettingIds.HoldConfirm) != SettingIds.HoldOff;
+            }
             var texts = new VisualElement { pickingMode = PickingMode.Ignore };
             texts.AddToClassList(EventClasses.ResponseTexts);
             texts.Add(Text(response.Label, EventClasses.ResponseLabel));
             if (!string.IsNullOrEmpty(response.Tag)) texts.Add(Text(response.Tag, EventClasses.ResponseTag));
-            row.Add(texts);
-            if (response.Binding && response.Affordable) row.Add(Text(_flow.HoldLabel, EventClasses.ResponseHold, UiClasses.Upper));
-            row.clicked += () => PressResponse(response, row);
+            row.Insert(0, texts);
+            var held = false;
+            row.clicked += () =>
+            {
+                // The release that ends a completed hold also clicks: the response has been chosen, so it asks nothing.
+                if (held)
+                {
+                    held = false;
+                    return;
+                }
+                PressResponse(response, row);
+            };
+            if (holds && ((HoldButton)row).HoldEnabled)
+                ((HoldButton)row).Committed += () =>
+                {
+                    held = true;
+                    ChooseHeld(response, row);
+                };
             _responses[response.ChoiceId] = row;
             return row;
         }
@@ -182,6 +231,13 @@ namespace Ashen.Presentation.UI.Screens
                 });
                 return;
             }
+            Press(() => _flow.Choose(response.ChoiceId), anchor);
+        }
+
+        /// <summary>A binding response that was held: chosen at once, without its question (the web's hold approves the same callback and skips the review).</summary>
+        public void ChooseHeld(Core2EventResponseView response, VisualElement anchor)
+        {
+            if (_flow == null || response == null) return;
             Press(() => _flow.Choose(response.ChoiceId), anchor);
         }
 

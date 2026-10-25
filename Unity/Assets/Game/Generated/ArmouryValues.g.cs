@@ -8,6 +8,10 @@ namespace Ashen.Generated
         public const string TabEquipment = "equipment";
         public const string TabDeck = "deck";
         public const string TabEditor = "editor";
+        public const string TabInventory = "inventory";
+        public const string FoldPower = "power";
+        public const string FoldRelics = "relics";
+        public const string FoldCards = "cards";
         public const string StepAdd = "add";
         public const string StepRemove = "remove";
         public const string StepUp = "up";

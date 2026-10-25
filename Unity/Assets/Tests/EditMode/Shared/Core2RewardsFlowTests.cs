@@ -117,7 +117,7 @@ namespace Ashen.Tests
             Assert.That(flow.Eyebrow, Is.EqualTo("Claim your spoils"));
             Assert.That(flow.Title, Is.EqualTo("Victory"));
             Assert.That(flow.Status, Is.EqualTo("0 of 1 claimed"));
-            Assert.That(flow.Note, Is.EqualTo("Choose 1. Add the card to your deck or keep it in your collection."));
+            Assert.That(flow.Note, Is.EqualTo("Choose 1. Add the card to your deck or edit your deck now; the rest stays in your collection."));
             Assert.That(flow.Options, Has.Count.EqualTo(3));
             foreach (var option in flow.Options)
             {
@@ -168,7 +168,7 @@ namespace Ashen.Tests
             flow.Select(index);
             flow.Confirm();
             Assert.That(flow.ConfirmLabel, Is.EqualTo("Add to deck"));
-            Assert.That(flow.KeepLabel, Is.EqualTo("Keep in collection"));
+            Assert.That(flow.EditDeckLabel, Is.EqualTo("Edit deck"), "with the editor open, Edit deck stands where Keep in collection did (web gameProfileOffers.js)");
             Assert.That(flow.ConfirmRefusal, Is.Empty);
             var added = flow.Confirm();
             Assert.That(added.Done, Is.True, added.Refusal);

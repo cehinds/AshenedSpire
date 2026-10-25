@@ -486,3 +486,115 @@
 .layout-narrow .deck-editor-pane--inspect {
     width: var(--size-full-width);
 }
+
+/* ---- equipment changes: position actions, the notice, the Inventory (web equipment.js armament-position-actions, inventoryBlock; D-1160) ---- */
+
+.armoury-notice {
+    margin: var(--space-xs) 0 var(--space-sm) 0;
+    color: var(--color-gold-soft);
+    white-space: normal;
+}
+
+.armoury-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-xs);
+}
+
+.armoury-actions .unity-button {
+    margin: 0 var(--space-xs) var(--space-xxs) 0;
+}
+
+.armoury-action--off.unity-button {
+    opacity: var(--opacity-muted);
+}
+
+.armoury-selecting {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+}
+
+.armoury-inv-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-inv-row--open {
+    border-color: var(--color-gold);
+}
+
+.armoury-inv-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.armoury-inv-dests {
+    flex-direction: column;
+    margin-top: var(--space-xs);
+}
+
+.armoury-inv-dest.unity-button {
+    margin: 0 0 var(--space-xxs) 0;
+    -unity-text-align: middle-left;
+}
+
+.armoury-inv-dest--shut.unity-button {
+    opacity: var(--opacity-muted);
+}
+
+/* ---- the Character pane's information cards: Combat Power, Relics, Equipment cards ---- */
+
+.armoury-fold {
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-fold-head.unity-button {
+    margin: 0;
+    padding: 0;
+    min-height: 0;
+    font-size: var(--font-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-width: 0;
+}
+
+.armoury-fold-summary {
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.armoury-fold-body {
+    margin-top: var(--space-xs);
+}
+
+.armoury-power {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.armoury-power-label {
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.armoury-power-value {
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
