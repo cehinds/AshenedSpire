@@ -309,7 +309,7 @@ namespace Ashen.Tests
         public void TheGamesDefaultPresetHostsACore2RunToo()
         {
             var content = RunContent.Load(TestContent.Source);
-            Assert.That(content.PresetId, Is.Not.EqualTo(Content.PresetId), "this is the tuning the game ships, not the neutral one the other tests use");
+            Assert.That(content.PresetId, Is.EqualTo("shipped"), "the game's default preset is the shipped one since WP-21");
             var session = Core2RunSession.New(content, _saves, 1, 5u, "reaver", "Preset", () => Epoch);
             Assert.That(session.Travel(session.ReachableNodes()[0]).Door.IsFight, Is.True);
             Assert.That(session.Combat.State.Player.Value<string>("classId"), Is.EqualTo("reaver"));

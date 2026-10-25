@@ -259,8 +259,9 @@ namespace Ashen.Generated
         public const string SettingsUnitTimes = "settings.unit.times";
         public const string SettingsUseRestorativeFlasksOutsideCombat = "settings.useRestorativeFlasksOutsideCombat";
         public const string SettingsWalkedFade = "settings.walkedFade";
+        public const string SettingsWalkedFadeHalf = "settings.walkedFade.half";
         public const string SettingsWalkedFadeOff = "settings.walkedFade.off";
-        public const string SettingsWalkedFadeSoft = "settings.walkedFade.soft";
         public const string SettingsWalkedFadeStrong = "settings.walkedFade.strong";
+        public const string SettingsWalkedFadeSubtle = "settings.walkedFade.subtle";
     }
 }

@@ -19,7 +19,7 @@ namespace Ashen.Tests
     [TestFixture, Category("Parity")]
     public class RegistryParityTests
     {
-        private static readonly string[] Presets = { "shipped", "reference" };
+        private static readonly string[] Presets = { "shipped" };
         private static readonly Dictionary<string, RuntimeRegistries> Built = new Dictionary<string, RuntimeRegistries>(StringComparer.Ordinal);
 
         private static RuntimeRegistries Registries(string preset)
@@ -46,11 +46,11 @@ namespace Ashen.Tests
             AssertRowsEqual(preset + "/" + table, actual, Oracle(preset, table));
         }
 
-        [TestCase("shipped"), TestCase("reference")]
+        [TestCase("shipped")]
         public void EquipmentMatchesTheShippedRegistry(string preset) =>
             AssertRowsEqual(preset + "/equipment", Registries(preset).Equipment, Oracle(preset, "equipment"));
 
-        [TestCase("shipped"), TestCase("reference")]
+        [TestCase("shipped")]
         public void BalanceMatchesTheShippedRegistry(string preset) =>
             AssertRowsEqual(preset + "/balance", Registries(preset).Balance, Oracle(preset, "balance"));
 
@@ -67,12 +67,9 @@ namespace Ashen.Tests
         }
 
         [Test]
-        public void ProjectionActuallyChangesCardsAndPresetsDiffer()
+        public void ProjectionCoversEveryCard()
         {
-            // Guards against a vacuous pass: the reference preset retunes defense-card bonuses, so its Block values differ.
             var shipped = Registries("shipped").Table(RegistryKeys.Cards);
-            var reference = Registries("reference").Table(RegistryKeys.Cards);
-            Assert.That(JToken.DeepEquals(Canonical(shipped), Canonical(reference)), Is.False);
             Assert.That(shipped.Properties().Count(), Is.EqualTo(TestContent.ContentJson(ContentFiles.CatalogCards).Properties().Count()));
         }
 

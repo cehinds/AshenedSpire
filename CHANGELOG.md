@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.37.20] — 2026-10-25
+
+- The 405 run retired: Core 2 is the only ruleset; reference preset and web tuning import removed (WP-21)
+
 ## [0.1.37.19] — 2026-10-24
 
 ## [0.1.37.18] — 2026-10-24

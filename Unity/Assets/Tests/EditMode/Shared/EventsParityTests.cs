@@ -44,16 +44,25 @@ namespace Ashen.Tests
 
         private static JObject Index => OracleCompare.ReadJson(Path.Combine(EventsDir, "index.json"));
 
+        /// <summary>The recorded sessions of the presets this build still has (the reference preset's half left with the preset, WP-21: D-1301).</summary>
+        private static IEnumerable<JObject> KeptSessions() =>
+            File.Exists(Path.Combine(EventsDir, "index.json"))
+                ? ((JArray)Index["sessions"]).OfType<JObject>().Where(s => Presets().Contains(s.Value<string>("preset")))
+                : Enumerable.Empty<JObject>();
+
+        private static HashSet<string> KeptFiles() => new HashSet<string>(KeptSessions().Select(s => s.Value<string>("file")), StringComparer.Ordinal);
+
         public static IEnumerable<string> SessionFiles() =>
             Directory.Exists(EventsDir)
                 ? Directory.GetFiles(EventsDir, "*.json").Select(Path.GetFileName)
                     .Where(f => f.StartsWith("sweep-", StringComparison.Ordinal) || f.StartsWith("walk-", StringComparison.Ordinal))
+                    .Where(KeptFiles().Contains)
                     .OrderBy(f => f, StringComparer.Ordinal)
                 : Enumerable.Empty<string>();
 
         public static IEnumerable<string> EffectFiles() =>
             Directory.Exists(EventsDir)
-                ? Directory.GetFiles(EventsDir, "effects-*.json").Select(Path.GetFileName).OrderBy(f => f, StringComparer.Ordinal)
+                ? Directory.GetFiles(EventsDir, "effects-*.json").Select(Path.GetFileName).Where(KeptFiles().Contains).OrderBy(f => f, StringComparer.Ordinal)
                 : Enumerable.Empty<string>();
 
         private static void CheckCounters(string file, string label, JObject want, Rng rng)
@@ -65,7 +74,7 @@ namespace Ashen.Tests
         [Test]
         public void TheOracleIsPresent()
         {
-            var sessions = (JArray)Index["sessions"];
+            var sessions = KeptSessions().ToList();
             Assert.That(SessionFiles().Count() + EffectFiles().Count(), Is.EqualTo(sessions.Count));
             foreach (var family in new[] { "sweep", "walk", "effects" })
                 Assert.That(sessions.Count(s => s.Value<string>("family") == family), Is.GreaterThan(20), family);
@@ -89,7 +98,7 @@ namespace Ashen.Tests
                 Assert.That(strings.Value<string>((string)field.GetValue(null)), Is.Not.Null.And.Not.Empty, field.Name);
         }
 
-        public static IEnumerable<string> Presets() => new[] { "shipped", "reference" };
+        public static IEnumerable<string> Presets() => new[] { "shipped" };
 
         [TestCaseSource(nameof(Presets))]
         public void ContentEventTablesEqualTheShippedOnes(string preset)

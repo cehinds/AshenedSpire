@@ -93,8 +93,8 @@ namespace Ashen.Tests
                 if (def.IsEnum) Assert.That(def.Options, Is.Not.Empty, def.Key + ": options resolve");
                 if (def.IsSlider) Assert.That(def.Max, Is.GreaterThan(def.Min), def.Key + ": the range resolves");
             }
-            // Every preset's player setting is a known control and fits it (the reference preset's values are new-profile defaults).
-            foreach (var preset in new[] { "shipped", "reference" })
+            // Every preset's player setting is a known control and fits it.
+            foreach (var preset in new[] { "shipped" })
             {
                 var content = RunContent.Load(TestContent.Source, preset);
                 foreach (var p in content.Snapshot.PlayerSettings?.Properties() ?? Enumerable.Empty<JProperty>())
@@ -492,7 +492,7 @@ namespace Ashen.Tests
             JObject.Parse(File.ReadAllText(Path.Combine(TestContent.RepoRoot, "docs", "design", "reference", "ashen-spire-game-config.json")));
 
         [Test]
-        public void TheOwnersReferenceFileImportsOverTheShippedPresetAndReportsWhatItCannotPlace()
+        public void TheOwnersReferenceFileImportsItsSettingsAndReportsItsTuning()
         {
             var web = ReferenceWebConfig();
             var shipped = RunContent.Load(TestContent.Source, "shipped");
@@ -506,47 +506,9 @@ namespace Ashen.Tests
                 + string.Join(", ", result.Reported.GroupBy(r => r.Value).Select(g => g.Key + " " + g.Count())));
             Assert.That(result.PlayerSettings["holdConfirm"].Value<string>(), Is.EqualTo("short"));
             Assert.That(result.PlayerSettings.Count, Is.EqualTo(8), "the owner's eight player settings");
-            Assert.That(result.Reported.Where(r => r.Key.StartsWith("gameConfig.prologue.", StringComparison.Ordinal)).All(r => r.Value == WebConfigReasons.NoRoot), Is.True,
-                "the prologue's web staging has no content path here (ui/prologue.json is this build's)");
+            Assert.That(result.GameConfig.Properties(), Is.Empty, "the tuning keys tuned the 405 tables, which left the run (WP-21)");
+            Assert.That(result.Reported.Where(r => r.Key.StartsWith("gameConfig.", StringComparison.Ordinal)).All(r => r.Value == WebConfigReasons.NoRoot), Is.True);
             Assert.That(result.Reported.Any(r => r.Value == WebConfigReasons.Mirror), Is.True);
-            Assert.That(result.GameConfig["gameConfig.balance.startingCinders"].Value<double>(), Is.EqualTo(100));
-
-            // The patch over the shipped preset gives the values the reference preset carries.
-            var patched = RunContent.Load(TestContent.Source, "shipped", new[] { result.Patch });
-            var reference = RunContent.Load(TestContent.Source, "reference");
-            Assert.That(patched.Data.Balance["startingCinders"].Value<double>(), Is.EqualTo(reference.Data.Balance["startingCinders"].Value<double>()));
-            Assert.That(patched.Data.Classes.Get("reaver")["startingFlaskAllocation"]["hp"].Value<double>(),
-                Is.EqualTo(reference.Data.Classes.Get("reaver")["startingFlaskAllocation"]["hp"].Value<double>()));
-            Assert.That(patched.Data.Balance["combatRatings"]["ratings"]["ar"]["dexterity"].Value<double>(),
-                Is.EqualTo(reference.Data.Balance["combatRatings"]["ratings"]["ar"]["dexterity"].Value<double>()), "a renamed key lands where the shipped importer puts it");
-            Assert.That(JToken.DeepEquals(patched.Data.Balance["rewards"]["cinders"], reference.Data.Balance["rewards"]["cinders"]), Is.True, "array elements by index");
-            Assert.That(JToken.DeepEquals(patched.Data.Balance["skill"]["class"]["tierAt"], reference.Data.Balance["skill"]["class"]["tierAt"]), Is.True);
-            Assert.That(result.Reported.Count(r => r.Value == WebConfigReasons.UnknownPath), Is.LessThanOrEqualTo(8), "only the owner-only opening-hand model and one item rating have no place (D-029)");
-        }
-
-        // ------------------------------------------------------------------ SFX (US-16.2)
-
-
-        [Test]
-        public void AValueComesFromTheProfileThenThePresetThenTheDefault()
-        {
-            var settings = new SettingsSession(Default, ProfileStore.Load(_saves));
-            Assert.That(Default.PresetId, Is.EqualTo("reference"));
-            Assert.That(settings.On("shrineMultiUse"), Is.True, "the reference preset's player setting");
-            Assert.That(settings.Text("holdConfirm"), Is.EqualTo("short"));
-            Assert.That(settings.Text(SettingIds.MapMode), Is.EqualTo("full"), "the control's def");
-            Assert.That(settings.Number("levelUpValue"), Is.EqualTo(1), "a def read from balance.levelUp");
-
-            Assert.That(settings.Set("shrineMultiUse", false), Is.Null);
-            Assert.That(settings.Set(SettingIds.MapMode, "fog"), Is.Null);
-            var reread = new SettingsSession(Default, ProfileStore.Load(_saves));
-            Assert.That(reread.On("shrineMultiUse"), Is.False, "saved to the profile");
-            Assert.That(reread.Text(SettingIds.MapMode), Is.EqualTo("fog"));
-
-
-            reread.ResetCategory("gameplay");
-            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).On("shrineMultiUse"), Is.True, "reset shows the preset again");
-            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Text(SettingIds.MapMode), Is.EqualTo("fog"), "other categories keep their values");
         }
 
         [Test]
@@ -561,7 +523,7 @@ namespace Ashen.Tests
                     ["gameConfig.balance.shop.sellFraction"] = "lots",
                     ["gameConfig.balance.nope"] = 1,
                     ["gameConfig.noSuchRoot.x"] = 1,
-                    ["settings.mapMode"] = "fog",
+                    ["settings.mapMode"] = "path",
                     ["settings.textScale"] = 999,
                     ["settings.unknownThing"] = true,
                     ["somethingElse"] = 1,
@@ -570,26 +532,48 @@ namespace Ashen.Tests
             var defs = SettingsDefs.From(Default.Snapshot.Content);
             var result = WebConfig.Import(web, TestContent.Source, Default.PresetId, defs);
             var reported = result.Reported.ToDictionary(r => r.Key, r => r.Value);
-            Assert.That(reported["gameConfig.balance.shop.sellFraction"], Is.EqualTo(WebConfigReasons.WrongType), "a string where balance.json holds a number");
-            Assert.That(reported["gameConfig.balance.nope"], Is.EqualTo(WebConfigReasons.UnknownPath), "strict: no new values");
-            Assert.That(reported["gameConfig.noSuchRoot.x"], Is.EqualTo(WebConfigReasons.NoRoot));
+            foreach (var key in new[] { "gameConfig.balance.startingCinders", "gameConfig.balance.shop.sellFraction", "gameConfig.balance.nope", "gameConfig.noSuchRoot.x" })
+                Assert.That(reported[key], Is.EqualTo(WebConfigReasons.NoRoot), key + ": the web's tuning keys have no root since the 405 tables left the run (WP-21)");
             Assert.That(reported["settings.textScale"], Is.EqualTo(WebConfigReasons.SettingDoesNotFit));
             Assert.That(reported["settings.unknownThing"], Is.EqualTo(WebConfigReasons.UnknownSetting));
             Assert.That(reported["somethingElse"], Is.EqualTo(WebConfigReasons.NotAKey));
-            Assert.That(result.GameConfig.Properties().Select(p => p.Name), Is.EqualTo(new[] { "gameConfig.balance.startingCinders" }));
+            Assert.That(result.GameConfig.Properties(), Is.Empty);
 
             var store = ProfileStore.Load(_saves);
             WebConfig.Apply(store, result, Default.ContentHash, defs);
             var profile = ProfileStore.Load(_saves).Doc;
-            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Text(SettingIds.MapMode), Is.EqualTo("fog"));
-            var content = WebConfig.ContentFor(TestContent.Source, profile);
+            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Text(SettingIds.MapMode), Is.EqualTo("path"));
+            Assert.That(WebConfig.ContentFor(TestContent.Source, profile).ContentHash, Is.EqualTo(Default.ContentHash), "nothing tunes the content");
 
             var exported = WebConfig.Export(profile, WebConfig.SettingsPrefix(TestContent.Source));
-            Assert.That(exported["overrides"]["gameConfig.balance.startingCinders"].Value<double>(), Is.EqualTo(77));
-            Assert.That(exported["overrides"]["settings.mapMode"].Value<string>(), Is.EqualTo("fog"));
+            Assert.That(exported["overrides"]["settings.mapMode"].Value<string>(), Is.EqualTo("path"));
+            Assert.That(((JObject)exported["overrides"]).Properties().Any(p => p.Name.StartsWith("gameConfig.", StringComparison.Ordinal)), Is.False);
             var again = WebConfig.Import(exported, TestContent.Source, Default.PresetId, defs);
             Assert.That(again.Reported, Is.Empty, "the export imports cleanly");
-            Assert.That(JToken.DeepEquals(again.GameConfig, result.GameConfig), Is.True, "round trip");
+        }
+
+        // ------------------------------------------------------------------ W-18 settings layers (US-15.1)
+
+        [Test]
+        public void AValueComesFromTheProfileThenThePresetThenTheDefault()
+        {
+            var settings = new SettingsSession(Default, ProfileStore.Load(_saves));
+            Assert.That(Default.PresetId, Is.EqualTo("shipped"));
+            Assert.That(settings.On("shrineMultiUse"), Is.True, "the control's def, the web's (WP-21)");
+            Assert.That(settings.Text(SettingIds.MapMode), Is.EqualTo("fog"), "the control's def, the web's");
+            Assert.That(settings.On("showPlayedCard"), Is.False, "the web's def");
+            Assert.That(settings.Text("walkedFade"), Is.EqualTo("half"), "the web's def");
+            Assert.That(settings.Number("levelUpValue"), Is.EqualTo(1), "a def read from balance.levelUp");
+
+            Assert.That(settings.Set("shrineMultiUse", false), Is.Null);
+            Assert.That(settings.Set(SettingIds.MapMode, "path"), Is.Null);
+            var reread = new SettingsSession(Default, ProfileStore.Load(_saves));
+            Assert.That(reread.On("shrineMultiUse"), Is.False, "saved to the profile");
+            Assert.That(reread.Text(SettingIds.MapMode), Is.EqualTo("path"));
+
+            reread.ResetCategory("gameplay");
+            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).On("shrineMultiUse"), Is.True, "reset shows the default again");
+            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Text(SettingIds.MapMode), Is.EqualTo("path"), "other categories keep their values");
         }
 
         // ------------------------------------------------------------------ SFX (US-16.2)

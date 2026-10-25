@@ -396,7 +396,6 @@ namespace Ashen.Generated
         public const string SchemasUiThemeSchema = "schemas/ui.theme.schema.json";
         public const string SchemasUiTokensSchema = "schemas/ui.tokens.schema.json";
         public const string SettingsDefaults = "settings/defaults.json";
-        public const string SettingsPresetsReference = "settings/presets/reference.json";
         public const string SettingsPresetsShipped = "settings/presets/shipped.json";
         public const string SettingsWebKeyMap = "settings/webKeyMap.json";
         public const string StringsAppEn = "strings/app.en.json";

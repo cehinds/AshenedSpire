@@ -1,5 +1,5 @@
 {
-  "contentHash": "ed393044a12a42328969246c236230357d769fae83a1e56bfec979223e68b1bf",
+  "contentHash": "ee7a4033dc02c3fe5c7614a49228c4c4cd732721eedb5a9063fc744c4c7d8816",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -935,9 +935,9 @@
       "sha256": "0ee3532b9f7df2ca3ef92199aff217c4eb6387cf68428e98a97d738b1f3c3568"
     },
     "rules/runFlow.json": {
-      "bytes": 5315,
+      "bytes": 2923,
       "generated": false,
-      "sha256": "cc3e4d7da45a25496c5e5ccafbaac86cf1081a69596017df97308fe660edff89"
+      "sha256": "84b68c08e6400008833ec231f75c6d557d26c4543b2cf0b13ae5996f39706f6a"
     },
     "rules/runtime.json": {
       "bytes": 30534,
@@ -2050,24 +2050,19 @@
       "sha256": "069c0b2f370c7e0ffd90ea47a7eaf3eb271cb273ef030e8fbb496e7ec088ee06"
     },
     "settings/defaults.json": {
-      "bytes": 8730,
+      "bytes": 8738,
       "generated": false,
-      "sha256": "2b5c84ef810946c78c7e0b2ee3e191961850ebf3fe3376dd5bfe75bebdf04f4f"
-    },
-    "settings/presets/reference.json": {
-      "bytes": 4585,
-      "generated": true,
-      "sha256": "f0055036d6b7ac6528dcf9a2b4a999fefe88dc8c44af6db8ba76321f6fe326ac"
+      "sha256": "1785d8a14ec99d579d99fd2eae045ed8bb44ad73c2e1ff6221d6af937e0db1d8"
     },
     "settings/presets/shipped.json": {
-      "bytes": 154,
+      "bytes": 173,
       "generated": true,
-      "sha256": "39fe1a403dd55892dc6cc0451a94725b99b3a1ffb0138ea02ca10c28f4106fcc"
+      "sha256": "70102d5f45afe15589fd5c2e8b7bc93b2cbf5957668aba8196550fd4c555b4bc"
     },
     "settings/webKeyMap.json": {
-      "bytes": 4336,
+      "bytes": 473,
       "generated": false,
-      "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
+      "sha256": "b96fcf1bfefe65ad4d947a9831d268c13b57af95e31ba8d9f07dbbe622c020e0"
     },
     "strings/app.en.json": {
       "bytes": 48313,
@@ -2080,9 +2075,9 @@
       "sha256": "10473bc36b5418a99a31fe7c20d8564e6cc03a824191e9b1e9c18f308887b75a"
     },
     "strings/en.json": {
-      "bytes": 204265,
+      "bytes": 204210,
       "generated": true,
-      "sha256": "84d0bea47b859fddc18177c3068231ec3e1bd73d07686c6c11c0d5452bee32f7"
+      "sha256": "0718bdc87764b43ebe4016a12dde5ee6f3ef1186483757ea582dc4ecd6ed8490"
     },
     "strings/events.en.json": {
       "bytes": 225,
@@ -2090,9 +2085,9 @@
       "sha256": "a9fcfcd2fa31bd0f98983762267ad9c5220649ba685d002700016d684325d957"
     },
     "strings/meta.en.json": {
-      "bytes": 14645,
+      "bytes": 14687,
       "generated": false,
-      "sha256": "23e57f3fa24c217dc1c0c25bfbe827af704de384b1d851a859ca8a7ba8854612"
+      "sha256": "f3f6ed2c82382c61739dbf2ac2b713ad0f7538ef64ed47b85d1027584186fec0"
     },
     "strings/nodes.en.json": {
       "bytes": 7121,
