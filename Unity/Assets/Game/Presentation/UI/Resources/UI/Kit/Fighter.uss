@@ -307,5 +307,5 @@
 .fighter-stage-effect,
 .fighter-stage-mask {
     position: absolute;
-    background-size: 100% 100%;
+    background-size: var(--size-full-width) var(--size-full-width);
 }
