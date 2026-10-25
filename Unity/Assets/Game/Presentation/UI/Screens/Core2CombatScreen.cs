@@ -725,7 +725,7 @@ namespace Ashen.Presentation.UI.Screens
             var toTitle = Root.Q<LocButton>(UiNames.EndToTitle);
             UiDom.Show(next, !over);
             UiDom.Show(summary, over);
-            UiDom.Show(toTitle, over && !Ui.Data.Screens.IsBuilt(ScreenIds.RunEnd));
+            UiDom.Show(toTitle, over && !Ui.Data.Screens.IsBuilt(ScreenIds.Core2RunEnd));
             var end = Root.Q(UiNames.CombatEnd);
             end.EnableInClassList(UiClasses.CombatEndVictory, victory);
             end.EnableInClassList(UiClasses.CombatEndDefeat, !victory);
@@ -740,11 +740,11 @@ namespace Ashen.Presentation.UI.Screens
             RunFlow.Show(Context, _run);
         }
 
-        /// <summary>The run is over (a death, or the last act's boss felled): W-15 run end.</summary>
+        /// <summary>The run is over (a death, or the last act's boss felled): the run end the run's location routes to (VP-12).</summary>
         private void OpenRunEnd()
         {
             if (!_flow.Ended || !_run.RunOver) return;
-            Nav.Go(ScreenIds.RunEnd, new Core2RunArgs { Session = _run }, true);
+            RunFlow.Show(Context, _run);
         }
 
         // ------------------------------------------------------------------ pause and back

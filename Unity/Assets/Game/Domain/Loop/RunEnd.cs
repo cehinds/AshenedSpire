@@ -96,9 +96,11 @@ namespace Ashen.Domain.Loop
         internal static void SaveMeta(LoopData d, JObject meta) => meta[RK.SchemaVersion] = Js.N(d.RuleNum(LK.Profile, RK.SchemaVersion));
 
         /// <summary>runResult(victory): the run record — seed, class, act, floor, the fight tallies, the bosses felled and the class peak.</summary>
-        public static JObject Result(LoopContext ctx, bool victory)
+        public static JObject Result(LoopContext ctx, bool victory) => Result(ctx.Run, victory, ClassName(ctx.Data, ctx.Run));
+
+        /// <summary>runResult(victory) over a run and the name of its class identity (the 405 loop and a Core 2 run read the name from their own registries).</summary>
+        public static JObject Result(JObject run, bool victory, string className)
         {
-            var run = ctx.Run;
             var custom = run.Obj(RK.Custom);
             var stats = run.Obj(WK.Stats) ?? new JObject();
             var customization = run[LK.Customization];
@@ -106,7 +108,7 @@ namespace Ashen.Domain.Loop
                 V.Victory, victory,
                 RK.Seed, run[RK.SeedString]?.DeepClone(),
                 RK.Class, run[RK.Class]?.DeepClone(),
-                LK.ClassName, ClassName(ctx.Data, run),
+                LK.ClassName, className,
                 LK.Act, run[RK.ActNumber]?.DeepClone(),
                 MK.Floor, run[RK.Floor]?.DeepClone(),
                 WK.FightsWon, stats[WK.FightsWon]?.DeepClone(),
@@ -121,17 +123,20 @@ namespace Ashen.Domain.Loop
         }
 
         /// <summary>runClassIdentity(registries, run).name: the subclass once its top-tier node is picked, the class until then.</summary>
-        public static string ClassName(LoopData d, JObject run)
+        public static string ClassName(LoopData d, JObject run) => ClassName(d.Rewards, run);
+
+        /// <summary>runClassIdentity(registries, run).name over the post-combat data of any registries.</summary>
+        public static string ClassName(RewardsData rewards, JObject run)
         {
             var classId = run.Str(RK.Class);
-            if (!d.Combat.Classes.Has(classId)) return Js.Truthy(run[RK.Class]) ? RunJs.Key(run[RK.Class]) : string.Empty;
-            var def = d.Combat.Classes.Get(classId);
+            if (!rewards.Combat.Classes.Has(classId)) return Js.Truthy(run[RK.Class]) ? RunJs.Key(run[RK.Class]) : string.Empty;
+            var def = rewards.Combat.Classes.Get(classId);
             var picked = Js.Items(run[K.CoreTags]).Where(t => Js.IsStr(t) && Js.Str(t).Length > 0).Select(Js.Str).ToList();
-            var tree = ClassTree.Rows(d.Rewards, classId);
-            var ladder = d.Balance.Obj(K.Skill)?.Obj(RK.Class)?[WK.TierAt] as JArray;
+            var tree = ClassTree.Rows(rewards, classId);
+            var ladder = rewards.Balance.Obj(K.Skill)?.Obj(RK.Class)?[WK.TierAt] as JArray;
             var topTier = ladder != null && ladder.Count > 0 ? ladder.Count : Math.Max(0, tree.Select(r => r.Tier).DefaultIfEmpty(0).Max());
             var subclassId = picked.FirstOrDefault(id => tree.Any(r => r.NodeId == id && r.Tier == topTier && topTier > 0));
-            var subclass = subclassId != null ? d.Rewards.Nodes.OfType<JObject>().FirstOrDefault(n => n.Str(K.Id) == subclassId) : null;
+            var subclass = subclassId != null ? rewards.Nodes.OfType<JObject>().FirstOrDefault(n => n.Str(K.Id) == subclassId) : null;
             return subclass != null ? subclass.Str(K.Label) : def.Str(K.Name);
         }
 

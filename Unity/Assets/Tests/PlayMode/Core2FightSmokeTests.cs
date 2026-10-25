@@ -312,12 +312,13 @@ namespace Ashen.Tests.Play
             Assert.That(Nav.Top.Root.Q(UiNames.EndContinue).ClassListContains(UiClasses.Hidden), Is.True, "no Continue after a death");
             yield return Until(() => Focused != null && Focused.name == UiNames.EndSummary, 5f, "focus on Run summary");
             yield return Press(Key.Enter);
-            yield return Until(() => Nav.CurrentId == ScreenIds.RunEnd && Focused != null, 5f, "W-15 run end");
-            var runEnd = (RunEndScreen)Nav.Top.View;
-            Assert.That(runEnd.View.Victory, Is.False, "YOU PERISHED");
-            Assert.That(runEnd.View.Deck, Is.Not.Empty, "the final deck is listed");
-            Assert.That(runEnd.View.Unlocks, Is.Not.Empty, "the finished run opened the next class");
-            yield return Press(GamepadButton.South);
+            yield return Until(() => Nav.CurrentId == ScreenIds.Core2RunEnd && Focused != null, 5f, "the run end (VP-12)");
+            var runEnd = (Core2RunEndScreen)Nav.Top.View;
+            Assert.That(runEnd.Flow.Victory, Is.False, "You perished");
+            Assert.That(runEnd.Flow.Deck, Is.Not.Empty, "the final deck is listed");
+            Assert.That(runEnd.Flow.Earned, Is.Not.Empty, "the finished run opened the next class");
+            Assert.That(Focused, Is.SameAs(runEnd.AgainButton), "Run again is where focus lands, as the web's");
+            runEnd.ToTitle();
             yield return Until(() => Nav.CurrentId == ScreenIds.Title && Focused != null, 5f, "the title after the defeat");
         }
 

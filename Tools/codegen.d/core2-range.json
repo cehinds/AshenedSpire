@@ -73,7 +73,8 @@
         "SpawnRow": "F",
         "TagRange": "range:",
         "TargetPendingAttacker": "pendingAttacker",
-        "TypeStatus": "status"
+        "TypeStatus": "status",
+        "TypeCurse": "curse"
       }
     },
     {

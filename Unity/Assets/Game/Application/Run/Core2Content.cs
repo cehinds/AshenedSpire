@@ -16,8 +16,9 @@ namespace Ashen.App.Run
     /// </summary>
     public sealed class Core2Content
     {
-        private Core2Content(Core2Registries registries, CoreCombatData combat, Core2LoopData loop, CoreDeckData deck, Ashen.Domain.Rewards.Core2RewardsData rewards, string contentHash)
+        private Core2Content(Core2Registries registries, CoreCombatData combat, Core2LoopData loop, CoreDeckData deck, Ashen.Domain.Rewards.Core2RewardsData rewards, Ashen.Domain.Events.EventsData events, string contentHash)
         {
+            Events = events;
             Deck = deck;
             Registries = registries;
             Combat = combat;
@@ -35,6 +36,9 @@ namespace Ashen.App.Run
 
         /// <summary>What rewards and the combat end read (WP-15).</summary>
         public Ashen.Domain.Rewards.Core2RewardsData Rewards { get; }
+
+        /// <summary>What the event door reads (WP-19): the profile's events and quest chains, run by the 405 event code over the profile's registries as the web does.</summary>
+        public Ashen.Domain.Events.EventsData Events { get; }
 
         public string ContentHash { get; }
 
@@ -54,7 +58,8 @@ namespace Ashen.App.Run
             var map = registries.ToMapData((JObject)content.Get(ContentFiles.RulesMapEngine));
             var deck = registries.ToCoreDeckData(content, run);
             var rewards = registries.ToCoreRewardsData(content, deck, combat);
-            return new Core2Content(registries, combat, new Core2LoopData(combat, map, registries.RoutesConfig, (JObject)content.Get(ContentFiles.RulesLoopEngine)), deck, rewards, snapshot.Hash);
+            var events = registries.ToCoreEventsData(content, rewards);
+            return new Core2Content(registries, combat, new Core2LoopData(combat, map, registries.RoutesConfig, (JObject)content.Get(ContentFiles.RulesLoopEngine)), deck, rewards, events, snapshot.Hash);
         }
     }
 }

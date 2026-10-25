@@ -224,12 +224,15 @@ namespace Ashen.Domain.Loop
 
         // ------------------------------------------------------------------ the services
 
-        /// <summary>The run as a service works on it: every field but the pinned profile (megabytes, never edited), copied.</summary>
+        /// <summary>
+        /// The run as a service works on it: every field copied but the pinned profile (megabytes, never edited), which the draft shares by reference — the zones projection reads it to
+        /// know it stands in a Core 2 run (its collection holds the sideboard too).
+        /// </summary>
         private static JObject Draft(JObject run)
         {
             var draft = new JObject();
             foreach (var p in run.Properties())
-                if (p.Name != SK.GameProfile) draft[p.Name] = p.Value.DeepClone();
+                draft[p.Name] = p.Name == SK.GameProfile ? p.Value : p.Value.DeepClone();
             return draft;
         }
 

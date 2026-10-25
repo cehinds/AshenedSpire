@@ -155,6 +155,8 @@ Every WP pins the same web sha. Size is approximate lines of port.
 
 **Status 2026-10-24 (WP-16):** the rest site is ported (`Core2Rest`, `Core2Smith`, `Core2RunSession.Rest`, `Core2RestView`; D-334 to D-340; oracle `oracle-core2-rest`): a rest node heals on arrival, offers the free Smith (one tier, with the live card rows) and Level Up (unreachable in Core, ported), each once; Continue leaves and the site stays enterable until the run travels elsewhere. The rest screen is a seam (`Core2RestView`). The treasure and event nodes are still answered "not yet ported" (WP-19).
 
+**Status 2026-10-24 (WP-19):** done (D-345 to D-350; oracle `oracle-core2-loop`): a Core 2 run is playable from the new run to its end through `Core2RunSession` with no node unanswered. Treasure nodes open the combat reward door, event nodes run the shared event code over the profile (`Core2EventView`, the web's text), a boss advances the act or ends the run, and `Core2RunEnd` writes the record and the class unlock ledger as the web's configured `completedRunMeta` does. Left for presentation: the event screen (the act map's stand-in notice covers it) and the game-over screen's use of `ClassesUnlocked`.
+
 **Critical path:** 0 → 1 → 2 → 3 → 4 → {5 ∥ 6} → 7 → {8 ∥ 9} → 10 → 11 → 12 → 13 → 15 → {16 ∥ 17} → 19.
 
 **Parallel lanes:**

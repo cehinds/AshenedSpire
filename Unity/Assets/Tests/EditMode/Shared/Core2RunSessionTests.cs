@@ -207,7 +207,7 @@ namespace Ashen.Tests
             for (var guard = 0; guard < 400 && !session.RunOver; guard++)
             {
                 if (session.IsInCombat) { FightToTheEnd(session); continue; }
-                if (session.HasPendingReward || session.HasOpenShop || session.IsResting) { session.DismissPort(); if (session.LastEnd?.ActAdvanced == true) acts.Add(session.Act); continue; }
+                if (session.HasPendingReward || session.HasOpenShop || session.IsResting || session.EventId != null) { session.DismissPort(); if (session.LastEnd?.ActAdvanced == true) acts.Add(session.Act); continue; }
                 var result = session.Travel(Pick(session, n => n.Value<string>("type") == "monster" || n.Value<string>("type") == "boss"));
                 Assert.That(result.Travelled, Is.True);
             }
@@ -215,42 +215,35 @@ namespace Ashen.Tests
             Assert.That(session.End.Victory, Is.True);
             Assert.That(acts, Is.EqualTo(Enumerable.Range(2, Content.Core2.Loop.Acts - 1).ToList()), "each act but the last advanced");
             Assert.That(session.Run["bossesBeaten"], Has.Count.EqualTo(Content.Core2.Loop.Acts));
-            Assert.That(ProfileStore.Load(_saves).Doc["progress"]["wins"].Value<int>(), Is.EqualTo(1));
+            // A configured run writes its record and the unlock ledger, and no progress tally (main.js finishRun, model/runCompletion.js completedRunMeta).
+            var doc = ProfileStore.Load(_saves).Doc;
+            Assert.That(((JArray)doc["results"]).Last["victory"].Value<bool>(), Is.True);
+            Assert.That(doc["progress"], Is.Null);
         }
 
-        // ------------------------------------------------------------------ the nodes later work packages own
+        // ------------------------------------------------------------------ every kind of node has its door
 
         [Test]
-        public void ANodeWhoseRulesAreALaterPackageIsAnsweredNotYetPorted()
+        public void EveryKindOfNodeOpensItsDoorAndNoneIsAnsweredNotYetPorted()
         {
-            // The rest site and the shop have screens (VP-8, VP-9) and answer as places of their own; a treasure room is still a later package (an event node needs its resolution drawn at map birth; the event's own tests hold it).
-            foreach (var kind in new[] { "treasure" })
+            foreach (var kind in new[] { "treasure", "shrine", "merchant", "event" })
             {
                 var session = New(99);
                 var node = session.ReachableNodes()[0];
-                session.EditRunForReview(r => r["mapGraph"]["nodes"][node]["type"] = kind);
+                session.EditRunForReview(r =>
+                {
+                    r["mapGraph"]["nodes"][node]["type"] = kind;
+                    if (kind == "event") r["mapGraph"]["nodes"][node]["resolved"] = new JObject { ["kind"] = "event", ["eventId"] = "goldenMoth" };
+                });
                 var result = session.Travel(node);
                 Assert.That(result.Travelled, Is.True, kind);
-                Assert.That(result.NotYetPorted, Is.True, kind);
-                Assert.That(result.Door.Kind, Is.EqualTo(kind));
-                Assert.That(session.Location, Is.EqualTo("map"), "the run stands at the node and goes on");
-                Assert.That(session.PendingPort, Is.EqualTo(kind));
+                Assert.That(result.NotYetPorted, Is.False, kind + " has its rules");
+                var expected = kind == "shrine" ? "rest" : kind == "merchant" ? "merchant" : kind == "treasure" ? "rewards" : "event";
+                Assert.That(session.Location, Is.EqualTo(expected), "the run stands at the node's door");
                 Assert.That(session.Run.Value<string>("mapNodeId"), Is.EqualTo(node));
                 session.DismissPort();
                 Assert.That(session.PendingPort, Is.Null);
-            }
-            foreach (var kind in new[] { "shrine", "merchant" })
-            {
-                var session = New(99);
-                var node = session.ReachableNodes()[0];
-                session.EditRunForReview(r => r["mapGraph"]["nodes"][node]["type"] = kind);
-                var result = session.Travel(node);
-                Assert.That(result.Travelled, Is.True, kind);
-                Assert.That(result.NotYetPorted, Is.False, kind + " is a screen of its own");
-                Assert.That(session.PendingPort, Is.Null, kind);
-                Assert.That(session.Location, Is.EqualTo(kind == "shrine" ? "rest" : "merchant"));
-                session.DismissPort();
-                Assert.That(session.Location, Is.EqualTo("map"));
+                Assert.That(session.Location, Is.EqualTo("map"), kind + " goes on to the map");
             }
         }
 

@@ -220,32 +220,35 @@ namespace Ashen.Tests
         // ------------------------------------------------------------------ places whose rules are a later work package
 
         [Test]
-        public void APlaceNotYetPortedShowsAClearNoticeWithContinueAndTheRunGoesOn()
+        public void ARestPlaceOfAProfileWithoutTheRestModuleKeepsAClearNoticeWithContinueAndTheRunGoesOn()
         {
-            var session = New();
-            // Stand at a second-depth node and make the next one a treasure room (the rest site and the shop have screens of their own: VP-8, VP-9).
-            session.EditRunForReview(r => r["mapNodeId"] = "n2_1");
-            var next = session.ReachableNodes();
-            var place = next.First();
-            session.EditRunForReview(r => r["mapGraph"]["nodes"][place]["type"] = "treasure");
-            var travel = session.Travel(place);
-            Assert.That(travel.Travelled, Is.True);
-            Assert.That(travel.NotYetPorted, Is.True);
-            Assert.That(session.PendingPort, Is.EqualTo("treasure"));
-            var notice = Core2PortView.Build(session, Ui);
-            Assert.That(notice.Title, Is.Not.Empty);
-            Assert.That(notice.Body, Does.Contain("not yet available"), "a clear notice");
-            Assert.That(notice.ActionText, Is.Not.Empty);
-            Assert.That(notice.Title, Is.Not.EqualTo(notice.Body));
-            session.DismissPort();
-            session.Save();
-            Assert.That(session.PendingPort, Is.Null);
-            Assert.That(session.ReachableNodes(), Is.Not.Empty, "the climb goes on from the place");
-            foreach (var kind in new[] { Core2HostValues.DoorRest, Core2HostValues.DoorTreasure, Core2HostValues.DoorEvent })
+            Assert.That(Ui.Strings.Has(string.Format(System.Globalization.CultureInfo.InvariantCulture, Core2UiFormats.PortTitleKey, Core2HostValues.DoorRest)), Is.True, "the rest notice stays for a profile without the module");
+            foreach (var kind in new[] { Core2HostValues.DoorRest, Core2HostValues.DoorTreasure })
             {
                 Assert.That(Ui.Strings.Has(string.Format(System.Globalization.CultureInfo.InvariantCulture, Core2UiFormats.PortTitleKey, kind)), Is.True, kind + " title");
                 Assert.That(Ui.Strings.Get(string.Format(System.Globalization.CultureInfo.InvariantCulture, Core2UiFormats.PortBodyKey, kind)), Does.Contain("not yet available"), kind + " body");
             }
+            Assert.That(Ui.Strings.Has(string.Format(System.Globalization.CultureInfo.InvariantCulture, Core2UiFormats.PortTitleKey, Core2HostValues.DoorEvent)), Is.False, "the event is a screen of its own (VP-9)");
+        }
+
+        [Test]
+        public void AnEventIsNotAMapNoticeItsScreenIsRoutedAndTheStandInStillMovesABotOn()
+        {
+            var session = New();
+            // Stand at a second-depth node and make the next one an event.
+            session.EditRunForReview(r => r["mapNodeId"] = "n2_1");
+            var place = session.ReachableNodes().First();
+            session.EditRunForReview(r => { r["mapGraph"]["nodes"][place]["type"] = "event"; r["mapGraph"]["nodes"][place]["resolved"] = new JObject { ["kind"] = "event", ["eventId"] = "goldenMoth" }; });
+            var travel = session.Travel(place);
+            Assert.That(travel.Travelled, Is.True);
+            Assert.That(travel.NotYetPorted, Is.False);
+            Assert.That(session.PendingPort, Is.Null, "no notice at the map: the event has its screen");
+            Assert.That(session.Location, Is.EqualTo("event"));
+            Assert.That(Content.Flow.Core2ScreenFor(session.Location), Is.EqualTo("core2Event"));
+            session.DismissPort();
+            session.Save();
+            Assert.That(session.EventId, Is.Null, "a bot without the screen takes the first response the purse can pay and goes on");
+            Assert.That(session.ReachableNodes(), Is.Not.Empty, "the climb goes on from the place");
         }
 
         // ------------------------------------------------------------------ the run end

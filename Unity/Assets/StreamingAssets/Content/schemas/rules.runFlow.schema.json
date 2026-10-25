@@ -248,6 +248,9 @@
         },
         "rest": {
           "type": "string"
+        },
+        "event": {
+          "type": "string"
         }
       },
       "required": [

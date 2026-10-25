@@ -2,6 +2,25 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-9 (events) and VP-12 (run end): the Core 2 event screen and the web's game over (worktree branch, 2026-10-24)
+
+**Landed (D-960..D-966)**
+- **Event screen** (`core2Event`, `Core2EventScreen`, `Core2Event.uxml/.uss`): a one-off event is the web's choice body under the painting band (EVENT, the gold name, the status, the narrative with its art well beside the response cards, `Cannot afford` and the HOLD mark, a full-width Continue with `Choose a response first.` under it, the result in place of the responses, `Steel yourself` before a fight); a quest chain's step is the spoken frame (the player and the speaker over a context band: the beats, the responses on the last one, Back, Skip speech, Continue, `Choose a reply first.`). The responses refuse at the card (price, history, the Mirror's class swap in the web's words); a binding one is held to confirm; Continue is `FinishEvent`. `PendingPort` no longer reports an event: the act map's notice is left only for a rest place of a profile without the rest module.
+- **Run end** (`core2RunEnd`, `Core2RunEndScreen`, `Core2RunEnd.uxml/.uss`): the web's game over: THE CLIMB ENDS / Defeat (THE CLIMB / Victory) over the spire vista, `You perished` / `Ember restored`, the identity card with the blow that struck it, the four numbers, the Earned card (`ClassesUnlocked`), the final deck, Run again (a new climb, same class and name, new seed), Run history, Return to title.
+- **The run's tally** (`Core2RunTally`, D-962): damage dealt and taken and the last blow, kept by the session (saved with it) because the configured run's `stats` stay as the web oracle holds them.
+- **Logic engine-free and tested:** `Core2EventFlow`, `Core2RunEndFlow`, `Core2RunTally`, `Core2EventEndFlowTests` (15). Routing: `core2Screens.event/runEnd`, `ScreenFactory`, `ui/screens.json`, schema; tokens `size.event*`, `size.end*`; strings `core2.event.*`, `core2.end.*`; codegen fragment `ui-eventend.json`.
+
+**Tests run (small filters, one at a time):** `Core2EventEndFlow` 15/15, `Core2Screens` + `Enforcement` + `UiData` 33/33; `Core2RunSession` + `Core2RestShopFlow` + `Core2RewardsFlow` 34/34, `Core2LoopSession` 5/5 (the slow one, run once at the end); node checks `ui-tokens`, `codegen`, `refresh-manifest`, `transform-content`, `ci/check-content`, `ci/check-docs`, `ui-stage`, `card-face` ok; Presentation compiles against the UnityEngine reference assemblies (D-314 harness).
+
+**Not verified (Unity was not run):** every USS rule of `Core2Event.uss` and `Core2RunEnd.uss` and the layout of both screens; the door's two columns (`flex-wrap` with `flex-basis: 0` and a minimum width), the stage's figures (`height: 300%` from the top with `background-position-y: top` and `background-size: contain`, clipped by `overflow: hidden` of the side) and the plate on the reveal line, the context band's scroll over the footer's percentages, `LocButton`s holding children (response cards), a `kit-frame` card with a background colour over its sprite, the run end's wrapped chip strip and deck, `scale-and-crop` for the two paintings, the focus on Run again; the saved tally across a mid-turn resume.
+
+**Owner: check in the editor (Core 2 run at 1920x1080; compare `docs/qa/web-screens/event-pilgrim-choices`, `event-choices`, `event-dialogue`, `event-dialogue-2`, `event-result`, `run-end-defeat`, `run-end-victory`)**
+- Enter an Unknown node that resolves to a one-off (Wayward Pilgrim, Golden Moth): the painting band under the HUD, the door below it with EVENT, the gold name, the status at the right, the art well and the prose at the left, the response cards at the right (Give 50 cinders dimmed with `Cannot afford` and refusing when pressed with 20 cinders; Refuse with HOLD when it binds), a dimmed Continue with `Choose a response first.` under it. Take a response: the result sentence replaces the cards, the status reads Resolved, Continue is green; it returns to the map (`Steel yourself` and a fight when the response starts one, e.g. Wyrm Trial).
+- Enter the Grave of the Nameless (a quest step): the player left and the speaker right over a dark context band with `Grave of the Nameless` and the first line, Back disabled, Skip speech and Continue live; Continue reads the second line and shows the three responses (Continue closes with `Choose a reply first.`); a response shows its result in the caption and Continue leaves.
+- Die: THE CLIMB ENDS / Defeat, `You perished` in the loss colour, `Forsaken`, the name, `Floor 1 / 8 · 0 fights won`, the seed, `Slain by <enemy> · <move> for <n>`, the four numbers (`0 / <max>` final HP), the Earned card with the class the run opened, the final deck, Run again focused (green); Run again starts a new map; Return to title goes to the title. Win: THE CLIMB / Victory, `Ember restored`, no blow line, the run's hit points.
+
+**Next:** the web's inline hold dial on a binding response and the spoken step's entrance (D-966); phone compositions (VP-14); the run history screen; the tally in the record with the oracle's bot tallying (D-962); WP-21 de-scope.
+
 ## VP-8 and VP-9: the Core 2 rest site (with the Smith modal and Level Up) and the shop (worktree branch, 2026-10-24)
 
 **Landed (D-950..D-953)**
@@ -18,6 +37,19 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 - Enter a merchant: the tent with the merchant at left, the frame at right with the tabs CARDS, WEAPON ARTS, ARMAMENTS, ARMOUR, RELICS, FLASKS (stock order), three offers a shelf (the card shelf shows card faces), `10 cinders` under each Buy. Inspect shows the item; Buy asks the question with the purse before and after, BUY IT spends and the row reads taken and dimmed, `Unavailable` under its price; with too few cinders Buy refuses at the button with `Not enough cinders`. Leave (or the close glyph) goes to the map; Continue from the title returns to the same shop with the same stock.
 
 **Next:** the web's HOLD on Buy (the Unity hold dial) if the owner wants the shot's look rather than the question; the full-game blacksmith and master merchant doors; phone compositions (VP-14); the event screens (VP-9's other half) with WP-19.
+
+## WP-19: the Core 2 run loop, start to finish (worktree branch, 2026-10-24)
+
+**Landed (D-345..D-350)**
+- **Nodes:** treasure = the combat reward door at the node; event = `Core2RunSession.EventId/EventDomainView/ChooseEvent/FinishEvent` over `Core2Content.Events` (the 405 event code on the profile's registries; Core `upgradeCard` through `Core2Smith`, the configured `swapClass` refusal, history gates from the catalog sidecar); `Core2EventView` carries the web's words. Nothing is answered "not yet ported" any more (`NotYetPorted` is always false); `PendingPort` is `event` while one is open so the act map's stand-in keeps the run moving.
+- **Run end:** `Core2RunEnd` is the configured `completedRunMeta` (record with run id and profile pin, class unlock ledger, no progress tally).
+- **Defects found by the oracle:** rest drafts lost the sideboard from `collection` (draft shares the profile pin now); fights refused event curses (`guilt`).
+- **Oracle and tests:** `Tools/oracle-core2-loop.mjs` (32 whole runs), `Core2LoopParityTests` (33), `Core2LoopSessionTests` (5); `Core2RunSessionTests`/`Core2ScreensTests` updated (events are the remaining stand-in notice; treasure is the reward door); merged `dev` (VP-8/9).
+- Checks: codegen, refresh-manifest and the dev merge's tests run; Unity itself was not run.
+
+**Not verified (Unity was not run):** nothing of the event screen exists yet (Presentation); the stand-in notice's Continue picks the first response the purse can pay.
+
+**Next:** the event/dialogue screen over `Core2EventView`; the game-over screen over `ClassesUnlocked`; WP-21 de-scope.
 
 ## VP-10: the act map, the Armoury modal and the deck editor (worktree branch, 2026-10-24)
 

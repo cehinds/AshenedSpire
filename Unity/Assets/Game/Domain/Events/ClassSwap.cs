@@ -35,6 +35,9 @@ namespace Ashen.Domain.Events
         /// </summary>
         public static JObject Swap(EventsData d, JObject run, string classId)
         {
+            // A configured (Core) profile fixes the class for the run: the web refuses before it looks at the class.
+            if (CoreRunData.ModuleConfigured(run.Obj(Ashen.Generated.Core2RunSnapshotKeys.GameProfile), Ashen.Generated.Core2ModuleIds.ClassSelection))
+                throw new InvalidOperationException(Ashen.Generated.Core2LoopMessages.ConfiguredClassFixed);
             if (!d.Run.Classes.Has(classId)) throw new InvalidOperationException(RunJs.Fmt(EM.UnknownSwapClass, classId));
             var from = run.Str(RK.Class);
             var fromLevel = SkillLevel(run, Skills.ClassSkillId(from));
