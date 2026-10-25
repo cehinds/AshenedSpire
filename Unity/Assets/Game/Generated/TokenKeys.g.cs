@@ -29,5 +29,6 @@ namespace Ashen.Generated
         public const string MapRoute = "mapRoute";
         public const string MapRouteOutline = "mapRouteOutline";
         public const string PrologueTick = "prologueTick";
+        public const string SettingsCommit = "settingsCommit";
     }
 }

@@ -928,6 +928,7 @@ namespace Ashen.Generated
         public const string SettingsGroupOpening = "settings.group.opening";
         public const string SettingsGroupRules = "settings.group.rules";
         public const string SettingsPageChanged = "settings.page.changed";
+        public const string SettingsPageChangedCount = "settings.page.changedCount";
         public const string SettingsPageCount = "settings.page.count";
         public const string SettingsPageDone = "settings.page.done";
         public const string SettingsPageDot = "settings.page.dot";

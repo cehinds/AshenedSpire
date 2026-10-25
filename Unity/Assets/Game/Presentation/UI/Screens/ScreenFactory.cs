@@ -18,6 +18,11 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.KitGallery: return new KitGalleryScreen();
                 case ScreenIds.Creation: return new CreationScreen();
                 case ScreenIds.Prologue: return new PrologueScreen();
+                case ScreenIds.Settings: return new SettingsScreen();
+                case ScreenIds.Journal: return new JournalScreen();
+                case ScreenIds.Compendium: return new CompendiumScreen();
+                case ScreenIds.Profile: return new ProfileScreen();
+                case ScreenIds.About: return new AboutScreen();
                 case ScreenIds.Combat: return new CombatScreen();
                 case ScreenIds.Core2Combat: return new Core2CombatScreen();
                 case ScreenIds.Core2Rewards: return new Core2RewardsScreen();

@@ -923,6 +923,7 @@
   "settings.group.opening": "Opening sequence",
   "settings.group.rules": "Game rules",
   "settings.page.changed": "Changed",
+  "settings.page.changedCount": "Changed · {count}",
   "settings.page.count": "{count} settings",
   "settings.page.done": "Done and Save",
   "settings.page.dot": "●",

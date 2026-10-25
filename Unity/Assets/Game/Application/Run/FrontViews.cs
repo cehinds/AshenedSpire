@@ -21,6 +21,9 @@ namespace Ashen.App.Run
         public string Name;
         public string ArtKey;
 
+        /// <summary>The registry id of the armament's icon (equipment.icon.*), or null.</summary>
+        public string ArtId;
+
         /// <summary>"common · either hand".</summary>
         public string Meta;
 
@@ -78,6 +81,7 @@ namespace Ashen.App.Run
                         Kind = kind,
                         Rarity = rarity,
                         ArtKey = row.Str(ArmouryKeys.ArtKey),
+                        ArtId = RewardsView.ArtFromKey(ui.Components.RewardArmamentArt, row.Str(ArmouryKeys.ArtKey) ?? id, null),
                         Name = held ? Named(strings, id) : strings.Get(Key(FrontFormats.CompendiumUnknown, kind)),
                         Meta = strings.Format(StringKeys.CompendiumMeta, new StringArgs()
                             .Add(UiPlaceholders.Rarity, strings.Get(Key(FrontFormats.CompendiumRarity, rarity ?? string.Empty)))

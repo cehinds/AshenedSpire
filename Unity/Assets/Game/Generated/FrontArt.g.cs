@@ -12,5 +12,6 @@ namespace Ashen.Generated
         public const string IconArmour = "armour";
         public const string IconSword = "sword";
         public const string IconRelic = "relic";
+        public const string IconSearch = "search";
     }
 }

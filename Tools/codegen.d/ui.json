@@ -33,7 +33,10 @@
         "Core2Rewards": "core2Rewards",
         "Core2Rest": "core2Rest",
         "Core2Shop": "core2Shop",
-        "Prologue": "prologue"
+        "Prologue": "prologue",
+        "Compendium": "compendium",
+        "Profile": "profile",
+        "About": "about"
       }
     },
     {
@@ -480,7 +483,46 @@
         "ProloguePause": "PROLOGUE_PAUSE",
         "PrologueSettings": "PROLOGUE_SETTINGS",
         "PrologueSkip": "PROLOGUE_SKIP",
-        "PrologueContinue": "PROLOGUE_CONTINUE"
+        "PrologueContinue": "PROLOGUE_CONTINUE",
+        "SettingsFrame": "SETTINGS_FRAME",
+        "SettingsHead": "SETTINGS_HEAD",
+        "SettingsTitle": "SETTINGS_TITLE",
+        "SettingsReset": "SETTINGS_RESET",
+        "SettingsChanged": "SETTINGS_CHANGED",
+        "SettingsSearchBtn": "SETTINGS_SEARCH_BTN",
+        "SettingsClose": "SETTINGS_CLOSE",
+        "SettingsSearchRow": "SETTINGS_SEARCH_ROW",
+        "SettingsSearch": "SETTINGS_SEARCH",
+        "SettingsProfile": "SETTINGS_PROFILE",
+        "SettingsTip": "SETTINGS_TIP",
+        "SettingsTabs": "SETTINGS_TABS",
+        "SettingsGroups": "SETTINGS_GROUPS",
+        "SettingsScroll": "SETTINGS_SCROLL",
+        "SettingsRows": "SETTINGS_ROWS",
+        "SettingsDone": "SETTINGS_DONE",
+        "JournalColumn": "JOURNAL_COLUMN",
+        "JournalEyebrow": "JOURNAL_EYEBROW",
+        "JournalTitle": "JOURNAL_TITLE",
+        "JournalSummary": "JOURNAL_SUMMARY",
+        "JournalRule": "JOURNAL_RULE",
+        "JournalRecords": "JOURNAL_RECORDS",
+        "JournalRowsScroll": "JOURNAL_ROWS_SCROLL",
+        "JournalRows": "JOURNAL_ROWS",
+        "JournalEmpty": "JOURNAL_EMPTY",
+        "JournalActions": "JOURNAL_ACTIONS",
+        "JournalBack": "JOURNAL_BACK",
+        "JournalCompendium": "JOURNAL_COMPENDIUM",
+        "JournalProfile": "JOURNAL_PROFILE",
+        "JournalAbout": "JOURNAL_ABOUT",
+        "CompPane": "COMP_PANE",
+        "CompEyebrow": "COMP_EYEBROW",
+        "CompGridScroll": "COMP_GRID_SCROLL",
+        "CompGrid": "COMP_GRID",
+        "CompInspector": "COMP_INSPECTOR",
+        "ProfileScroll": "PROFILE_SCROLL",
+        "ProfilePane": "PROFILE_PANE",
+        "AboutScroll": "ABOUT_SCROLL",
+        "AboutBody": "ABOUT_BODY"
       }
     },
     {
@@ -1091,7 +1133,8 @@
         "FxHitTint": "fxHitTint",
         "MapRoute": "mapRoute",
         "MapRouteOutline": "mapRouteOutline",
-        "PrologueTick": "prologueTick"
+        "PrologueTick": "prologueTick",
+        "SettingsCommit": "settingsCommit"
       }
     },
     {

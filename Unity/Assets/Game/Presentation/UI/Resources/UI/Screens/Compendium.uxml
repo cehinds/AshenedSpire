@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Front.uss" />
+    <ui:VisualElement class="page page--center">
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="compendium-shell" title-key="compendium.title">
+            <Ashen.Presentation.UI.Kit.Workspace name="WORKSPACE" class="creation-workspace">
+                <ui:VisualElement name="COMP_PANE" class="comp-pane">
+                    <Ashen.Presentation.UI.LocLabel name="COMP_EYEBROW" class="comp-eyebrow kit-text-value kit-upper" />
+                    <ui:VisualElement class="comp-split">
+                        <ui:ScrollView name="COMP_GRID_SCROLL" class="comp-scroll">
+                            <ui:VisualElement name="COMP_GRID" class="comp-grid" />
+                        </ui:ScrollView>
+                        <ui:VisualElement name="COMP_INSPECTOR" class="comp-inspector" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </Ashen.Presentation.UI.Kit.Workspace>
+        </Ashen.Presentation.UI.Kit.Shell>
+    </ui:VisualElement>
+</ui:UXML>

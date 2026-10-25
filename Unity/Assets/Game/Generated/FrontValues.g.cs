@@ -7,5 +7,7 @@ namespace Ashen.Generated
         public const string PaneClass = "class";
         public const string PaneReview = "review";
         public const string FocusReview = "review";
+        public const string PaneProfile = "profile";
+        public const string PaneSaves = "saves";
     }
 }

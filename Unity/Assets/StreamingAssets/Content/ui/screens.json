@@ -223,9 +223,12 @@
       "back": null,
       "transitions": {}
     },
-    "journal": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
+    "journal": { "uxml": "UI/Screens/Journal", "layer": "screen", "background": "scene.spire-vista-desktop", "focusOrder": ["JOURNAL_ROWS", "JOURNAL_ACTIONS"], "initialFocus": "JOURNAL_BACK", "back": "pop", "transitions": {} },
+    "compendium": { "uxml": "UI/Screens/Compendium", "layer": "screen", "background": "bg.tower-entrance-hall", "focusOrder": ["WORKSPACE_NAV", "COMP_GRID", "FOOTER_PRIMARY", "SHELL_EXIT"], "back": "pop", "transitions": {} },
+    "profile": { "uxml": "UI/Screens/Profile", "layer": "screen", "background": "bg.tower-entrance-hall", "focusOrder": ["WORKSPACE_NAV", "PROFILE_PANE", "FOOTER_PRIMARY", "SHELL_EXIT"], "back": "pop", "transitions": {} },
+    "about": { "uxml": "UI/Screens/About", "layer": "screen", "background": "bg.tower-entrance-hall", "focusOrder": ["ABOUT_BODY", "FOOTER_PRIMARY", "SHELL_EXIT"], "back": "pop", "transitions": {} },
     "customRun": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
-    "settings": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
+    "settings": { "uxml": "UI/Screens/Settings", "layer": "screen", "background": "bg.tower-entrance-hall", "focusOrder": ["SETTINGS_HEAD", "SETTINGS_TABS", "SETTINGS_GROUPS", "SETTINGS_ROWS", "SETTINGS_DONE"], "back": "pop", "transitions": {} },
     "lobby": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} }
   }
 }
