@@ -2,6 +2,22 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## P-3a: the non-combat web features P-2 left open (worktree branch, 2026-10-25)
+
+Owner directive of 2026-10-25 holds: the Unity build looks and plays exactly like the JS version. Every item below is matched to the web at `b8cfe4fac` (read from its source and, where a screen is the question, from the running page), and oracle-tested where it computes numbers or words.
+
+**Landed (D-1440..D-1483)**
+- **Armoury (D-1440..D-1442):** the candidate comparison lists every role with the attack-package counts, the pool and swap-price resource changes and the declined-talisman sentence, and runs on the equip transition alone; the poker-style equipment card (`equipmentCardModel`, possession variant, the row solver) is the equipment list's thumbnail and inspection; the Grid view / List view toggle; the Inventory's faces with the class as the first, its detail card and the Item / Status / Actions picker table. Oracle `core2/armoury` (1470 candidates, 189 cards).
+- **Progression (D-1456, D-1457):** the Character Sheet (`progressionStats`: HP, SP, MP, AR, PR, DR, Hand size, Draw with the arithmetic behind each, and a card per attribute) and the attribute allocation dialog, whose Done spends nothing in the configured profile as the web's. Oracle `core2/progression` (12 cases, 72 allocation previews).
+- **Map HUD XP (D-1443):** `IClimb.XpToNext`; the Core 2 path reads `Core2Rest.XpToNext`.
+- **Settings (D-1450..D-1453):** the General groups (Display, Combat, Audio, Game rules) with their tips, the web's segmented choice, the Text & lore rows over `ui/lore.json` with a lore line and window in the Armoury's inspections, the Changelog group (`Tools/changelog.mjs`), Game rules (Ashen core and the two XP multipliers). The unused `SettingIds.TextSize` is removed. Oracle `core2/settings`.
+- **Terms (D-1455):** `ui/terms.json` is the web's, verbatim (119 terms: the eight missing and the six reworded); the tooltip glossary (`TermGlossary`) is built from it and shown on the Edit Deck inspector's Rules and keywords fold and the equipment inspection's effect lines. Oracle `core2/glossary` (876 card and piece texts).
+- **Profile archive (D-1480..D-1483):** the web's Profile screen (rail of Profiles and Runs, state line, drawer policy and notice, an entry card per set-aside copy with Save a copy to a file, Restore this profile behind its own question and Details for support) and the drawer behind it: `ArchiveDrawer` (`archive.json`, 180 days and 12 runs, 24 profiles, salvage to files and notices, dedupe with counts), `SaveService` (`ReadRaw`, `SetAsideRun`, `StartNewProfile`, `RestoreProfile`, `Drawer`), `ProfileStore.State` and set-aside of an unreadable profile, a damaged Core 2 run set aside with its slot cleared, Start fresh on the recovery screen keeping the old profile. Oracle `core2/archive` (the web's drawer driven through `loadMeta`, `startNewProfile` and `loadRun` over 51 steps; the screen's own helpers cut from `profileArchive.js` and run as written). The classic tally and save slots are hidden from the screen, not deleted.
+
+**Tests run (small filters, one at a time):** `ProfileArchive` 10/10; `ProgressionStatsParity|AttributeAllocation|SettingsPageParity|LoreType|TermGlossary|Armoury*Parity` (each when written); `Enforcement|UiData|UiRules|Core2Screens|ContentValid|FrontScreens|SaveService` 105/105; the node checks listed in the commit; Presentation compiles with the stub harness ("Build succeeded"). Unity was not run.
+
+**Not done:** the PLAYER DATA eyebrow over the Profile title (the shared shell has no eyebrow line, here or on the other meta screens); the Settings rows the web hides behind the developer build; the web's `older` profile state (the Unity save has no schema-version migration to refuse by name, so an unreadable profile is `corrupt`); a run's Restore (the web offers none; a run copy can only be saved to a file); the web's keyboard focus trap in the Profile door (the navigator's focus order applies; the pad cursor starts on Close); the file export on WebGL writes into the browser's file system (no download link); the recovery screen's Back action ('Restore copy') still only continues to the title (restore is on the Profile screen, listed there after the first read of a damaged profile); `Tools/oracle-core2-archive.mjs` fixes the zone to UTC and prints the narrow no-break space the browser uses as a plain space. The Settings Game rules select holds one ruleset, so Import JSON is not drawn (D-1451).
+
 ## P-2: the framework config the Core 2 export missed (worktree branch, 2026-10-25)
 
 **Landed (D-1420..D-1422)**
@@ -12,7 +28,7 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 **Tests run (small filters, one at a time):** `Core2FrameworkParity` 7/7; `Core2CombatFlow|Core2CostParity|Core2CombatSession|Core2FrameworkParity` 162/162 (the existing Core 2 combat oracles do not cross a weight ceiling, so they passed before and after); `Enforcement|UiData|UiRules|Core2Screens|ContentValid|Armoury|Core2RunSession`; node checks listed in the commit.
 
-**Not done:** `mechanics.stamina.combatStartRefill` is not read by name (the fight start's refill is the `core2Run` rule `combat.staminaRefillsToFull`, which already says full); the 405 profile still reads the legacy `rules/mechanics.json` (WP-21 retires it); `ui/terms.json` is eight terms behind the web's `terms.json` and unread by C#; `recoveryRules` Settings rows and percents are not on the Core 2 settings page.
+**Not done:** `mechanics.stamina.combatStartRefill` is not read by name (the fight start's refill is the `core2Run` rule `combat.staminaRefillsToFull`, which already says full); the 405 profile still reads the legacy `rules/mechanics.json` (WP-21 retires it); `ui/terms.json` is eight terms behind the web's `terms.json` and unread by C# (closed by P-3a, D-1455); `recoveryRules` Settings rows and percents are not on the Core 2 settings page.
 
 ## P-1: the combat screen to exact web parity (worktree branch, 2026-10-25)
 

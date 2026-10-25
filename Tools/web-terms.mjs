@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Tools/web-terms.mjs - ui/terms.json is the web's content/framework/terms.json at the pinned sha, verbatim (D-1450).
+// Tools/web-terms.mjs - ui/terms.json is the web's content/framework/terms.json at the pinned sha, verbatim (D-1455).
 //
 //   node Tools/web-terms.mjs --write [--source <web checkout>]   copy it from the pinned web
 //   node Tools/web-terms.mjs --check [--source <web checkout>]   refuse any drift between the two

@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -21,12 +22,16 @@ namespace Ashen.App.Run
     {
         private readonly SaveService _saves;
 
-        private ProfileStore(SaveService saves, JObject doc, bool writable)
+        private ProfileStore(SaveService saves, JObject doc, bool writable, string state = null)
         {
             _saves = saves;
             Doc = doc;
             Writable = writable;
+            State = state ?? (writable ? ArchiveKeys.StateOk : ArchiveKeys.StateCorrupt);
         }
+
+        /// <summary>What the load left (web profileStatus().state): ok, empty, migrated, recovered, corrupt or newer.</summary>
+        public string State { get; }
 
         /// <summary>The profile document; the run loop rewrites it in place (found, seen, results, progress, unlocks).</summary>
         public JObject Doc { get; private set; }
@@ -37,15 +42,24 @@ namespace Ashen.App.Run
         /// <summary>The player's stored settings (profile.settings), or an empty object.</summary>
         public JObject Settings => Doc.Obj(LK.Settings) ?? new JObject();
 
-        public static ProfileStore Load(SaveService saves)
+        public static ProfileStore Load(SaveService saves, bool setAside = true)
         {
             var slot = saves.Rules.ProfileSlot;
-            if (!saves.Exists(slot)) return new ProfileStore(saves, new JObject(), true);
+            if (!saves.Exists(slot)) return new ProfileStore(saves, new JObject(), true, ArchiveKeys.StateEmpty);
             LoadResult loaded;
             try { loaded = saves.Load(slot); }
-            catch (Exception) { return new ProfileStore(saves, new JObject(), false); }
-            if (loaded.Status != LoadStatus.Loaded || !(loaded.Payload is JObject doc)) return new ProfileStore(saves, new JObject(), loaded.Status == LoadStatus.Empty);
-            return new ProfileStore(saves, AsDoubles(doc), true);
+            catch (Exception e) { return Unreadable(saves, e.Message, setAside); }
+            if (loaded.Status == LoadStatus.RefusedNewer) return new ProfileStore(saves, new JObject(), false, ArchiveKeys.StateNewer);
+            if (loaded.Status == LoadStatus.Corrupt) return Unreadable(saves, loaded.Warnings.FirstOrDefault(), setAside);
+            if (loaded.Status != LoadStatus.Loaded || !(loaded.Payload is JObject doc)) return new ProfileStore(saves, new JObject(), loaded.Status == LoadStatus.Empty, loaded.Status == LoadStatus.Empty ? ArchiveKeys.StateEmpty : ArchiveKeys.StateCorrupt);
+            return new ProfileStore(saves, AsDoubles(doc), true, loaded.Recovered ? ArchiveKeys.StateRecovered : loaded.Migrated ? ArchiveKeys.StateMigrated : ArchiveKeys.StateOk);
+        }
+
+        /// <summary>A profile that cannot be read is set aside in the drawer (the bytes stay where they are: they are the evidence) and used empty. The Profile screen only looks, so it does not count another sighting.</summary>
+        private static ProfileStore Unreadable(SaveService saves, string why, bool setAside)
+        {
+            if (setAside) saves.ArchiveProfile(string.Format(CultureInfo.InvariantCulture, ArchiveKeys.ReasonUnreadable, why ?? ArchiveKeys.Corrupt));
+            return new ProfileStore(saves, new JObject(), false, ArchiveKeys.StateCorrupt);
         }
 
         /// <summary>Writes the profile as a new save generation (nothing when it is read-only).</summary>

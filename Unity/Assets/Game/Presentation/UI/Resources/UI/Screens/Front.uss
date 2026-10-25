@@ -1346,8 +1346,12 @@
 }
 
 .profile-pane {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.layout-narrow .profile-pane {
     flex-direction: column;
-    max-width: var(--size-profile-card-w);
 }
 
 .profile-eyebrow {
@@ -1576,4 +1580,90 @@
 
 .settings-rules-field {
     min-width: var(--size-settings-select-w);
+}
+
+/* ---- P-3a: the Profile's archive (web profileArchive.js W1g: the profile's identity beside the selected category's set-aside entries) ---- */
+
+.prof-identity,
+.prof-records {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    flex-direction: column;
+}
+
+.prof-identity {
+    margin-right: var(--space-lg);
+}
+
+.layout-narrow .prof-identity {
+    margin-right: 0;
+    margin-bottom: var(--space-lg);
+}
+
+.prof-entry,
+.prof-notice,
+.prof-confirm {
+    margin-top: var(--space-md);
+}
+
+.prof-entry-name {
+    font-size: var(--font-profile-status);
+    color: var(--color-gold);
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.prof-entry-line {
+    margin-top: var(--space-xs);
+    font-size: var(--font-profile-body);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.prof-notice-line {
+    margin-top: var(--space-xs);
+    font-size: var(--font-profile-body);
+    color: var(--color-muted);
+    -unity-font-style: italic;
+    white-space: normal;
+}
+
+.prof-entry-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-sm);
+}
+
+.prof-action {
+    flex-grow: 1;
+    margin-right: var(--space-sm);
+    margin-bottom: var(--space-xs);
+}
+
+.prof-support {
+    margin-top: var(--space-xs);
+    align-self: flex-start;
+}
+
+.prof-support-body {
+    margin-top: var(--space-xs);
+    font-size: var(--font-profile-body);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.prof-result {
+    margin-top: var(--space-md);
+    font-size: var(--font-profile-body);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.prof-empty {
+    font-size: var(--font-profile-body);
+    color: var(--color-muted);
+    -unity-font-style: italic;
+    white-space: normal;
 }
