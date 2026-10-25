@@ -66,6 +66,23 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void AnArrivalWhoseSaveFailsLeavesTheRunOnTheMap()
+        {
+            var session = Core2RunSession.New(Content, _saves, 1, 2024u, "reaver", "Aldric", () => Epoch);
+            var node = session.ReachableNodes()[0];
+            session.EditRunForReview(r => r["mapGraph"]["nodes"][node]["type"] = "shrine");
+            // The save's temp file is a directory: the write fails, as a full or read-only disk would.
+            var blocker = Path.Combine(_dir, session.Slot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            Assert.That(() => session.Travel(node), Throws.Exception);
+            Assert.That(session.IsResting, Is.False, "the failed arrival opened no rest site");
+            Assert.That(session.Location, Is.EqualTo("map"));
+            Directory.Delete(blocker);
+            Assert.That(session.Travel(node).Travelled, Is.True, "once the disk takes writes again, the same node can be entered");
+            Assert.That(session.IsResting, Is.True);
+        }
+
+        [Test]
         public void ArrivalHealsOnceAndTheVisitRemembersWhatItGave()
         {
             var session = AtTheRest(2024);

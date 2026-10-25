@@ -636,12 +636,13 @@ namespace Ashen.App.Run
             public bool EventDone;
             public Core2EventResult EventResult;
             public JObject Tally;
+            public bool Resting;
         }
 
         private SessionSnapshot Snapshot() => new SessionSnapshot
         {
             Run = (JObject)_run.DeepClone(), Profile = Profile.Snapshot(), Rng = _rng?.Clone(), Location = _location, EncounterId = EncounterId, Combat = Combat,
-            FightFinished = FightFinished, LastEnd = LastEnd, PendingPort = _pendingPort, EventId = _eventId, EventDone = _eventDone, EventResult = _eventResult, Tally = Tally.ToJson(),
+            FightFinished = FightFinished, LastEnd = LastEnd, PendingPort = _pendingPort, EventId = _eventId, EventDone = _eventDone, EventResult = _eventResult, Tally = Tally.ToJson(), Resting = _resting,
         };
 
         private void Restore(SessionSnapshot s)
@@ -659,6 +660,7 @@ namespace Ashen.App.Run
             _eventDone = s.EventDone;
             _eventResult = s.EventResult;
             Tally = Core2RunTally.FromJson(s.Tally);
+            _resting = s.Resting;
         }
 
         // ------------------------------------------------------------------ save
