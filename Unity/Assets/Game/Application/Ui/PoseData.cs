@@ -47,7 +47,7 @@ namespace Ashen.App.Ui
             foreach (var row in (JObject)json[PoseKeys.Frames])
             {
                 var v = ((JArray)row.Value).Select(t => t.Value<double>()).ToArray();
-                _frames[row.Key] = new PoseFrame { X = v[0], Y = v[1], W = v[2], H = v[3], Rx = v[4], Ry = v[5], G = v[6] };
+                _frames[row.Key] = new PoseFrame { X = v[0], Y = v[1], W = v[P1Count.FrameW], H = v[P1Count.FrameH], Rx = v[P1Count.FrameRx], Ry = v[P1Count.FrameRy], G = v[P1Count.FrameG] };
             }
         }
 
@@ -73,8 +73,8 @@ namespace Ashen.App.Ui
             var figureHeight = Math.Max(1, idle.G - idle.Y);
             var layerHeight = CanvasHeight / figureHeight;
             var layerTop = 1 - idle.G / figureHeight;
-            var layerWidth = layerHeight * CanvasWidth / CanvasHeight / Math.Max(1e-6, aspect);
-            var layerLeft = 0.5 - idle.Rx / CanvasWidth * layerWidth;
+            var layerWidth = layerHeight * CanvasWidth / CanvasHeight / Math.Max(P1Math.AspectFloor, aspect);
+            var layerLeft = P1Math.Half - idle.Rx / CanvasWidth * layerWidth;
             return (layerLeft + frame.X / CanvasWidth * layerWidth, layerTop + frame.Y / CanvasHeight * layerHeight, frame.W / CanvasWidth * layerWidth, frame.H / CanvasHeight * layerHeight);
         }
     }

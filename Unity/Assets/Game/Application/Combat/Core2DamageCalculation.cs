@@ -57,8 +57,8 @@ namespace Ashen.App.Combat
             foreach (var text in order)
                 foreach (var indices in groups[text].Where(r => r != null))
                     lines.Add(strings.Format(StringKeys.CombatReceiptGroupLine, Args().Add(IK.Label, strings.Get(indices.Count == 1 ? StringKeys.CombatReceiptHitLabel : StringKeys.CombatReceiptHitsLabel))
-                        .Add(IK.Indices, string.Join(", ", indices)).Add(IK.Text, text)));
-            return string.Join("; ", lines);
+                        .Add(IK.Indices, string.Join(IK.ListJoin, indices)).Add(IK.Text, text)));
+            return string.Join(IK.TopicJoin, lines);
         }
 
         private static string Unknown(StringTable strings) => strings.Get(StringKeys.CombatReceiptUnknownNumber);
@@ -100,7 +100,7 @@ namespace Ashen.App.Combat
                     return strings.Format(StringKeys.CombatReceiptSource, Args().Add(IK.Label, label).Add(IK.Operation, operation));
                 }).ToList();
                 // Sources are an ordered operation sequence: only complete matching sequences are shared, so repeated bonuses never move across intervening multipliers.
-                return rows.Count > 0 ? new List<string> { string.Join("; ", rows) } : new List<string>();
+                return rows.Count > 0 ? new List<string> { string.Join(IK.TopicJoin, rows) } : new List<string>();
             });
             var defenses = Grouped(strings, hits, hit =>
             {
@@ -122,7 +122,7 @@ namespace Ashen.App.Combat
             Topic(StringKeys.CombatReceiptHitsLabel, detail);
             Topic(StringKeys.CombatReceiptSourcesLabel, sources);
             Topic(StringKeys.CombatReceiptDefensesLabel, defenses);
-            return new Core2CombatText.Tip { Title = strings.Get(StringKeys.CombatReceiptTitle), Body = string.Join("\n", lines) };
+            return new Core2CombatText.Tip { Title = strings.Get(StringKeys.CombatReceiptTitle), Body = string.Join(UiFormats.Newline, lines) };
         }
     }
 }

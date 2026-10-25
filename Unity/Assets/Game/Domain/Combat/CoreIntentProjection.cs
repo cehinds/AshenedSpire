@@ -22,7 +22,7 @@ namespace Ashen.Domain.Combat
     /// </summary>
     public static class CoreIntentProjection
     {
-        private const double Epsilon = 1e-9;
+        private const double Epsilon = Ashen.Generated.IntentMath.Epsilon;
 
         /// <summary>combatIntentStance(intent, profile).</summary>
         public static string Stance(JObject intent, JObject profile)
@@ -165,8 +165,8 @@ namespace Ashen.Domain.Combat
             // Dynamic perception/charge consumption and reactive damage are not a deterministic HP promise; the attack-only projection reports a range.
             var refused = proposal[HK.Allowed] != null && proposal[HK.Allowed].Type == JTokenType.Boolean && !proposal.Is(HK.Allowed);
             var proposalChance = (refused ? 0 : 1)
-                * (Js.Nullish(proposal[HK.PerceptionChance]) ? 1 : proposal.Num(HK.PerceptionChance) / 100)
-                * (1 - proposal.Or0(HK.EvadeChance) / 100);
+                * (Js.Nullish(proposal[HK.PerceptionChance]) ? 1 : proposal.Num(HK.PerceptionChance) / Ashen.Generated.P1Math.Percent)
+                * (1 - proposal.Or0(HK.EvadeChance) / Ashen.Generated.P1Math.Percent);
             // A miss preserves the target's defenses for the next hit. The reachable target states are merged rather than all-landed damage multiplied by the hit chance;
             // a landed hit carries into the next one exactly as previewDamageHits does, so a Poise break ends a Smash's doubling.
             var states = new List<State> { new State { Target = player, Key = TargetKey(player), Loss = 0, Probability = 1 } };
@@ -177,7 +177,7 @@ namespace Ashen.Domain.Combat
                 void Add(State row)
                 {
                     if (!(row.Probability > 0)) return;
-                    var key = row.Key + ":" + Number(row.Loss);
+                    var key = row.Key + IK.KeySeparator + Number(row.Loss);
                     if (index.TryGetValue(key, out var previous)) previous.Probability += row.Probability;
                     else { index[key] = row; next.Add(row); }
                 }
@@ -205,7 +205,7 @@ namespace Ashen.Domain.Combat
         }
 
         /// <summary>String(number): a whole number without a fraction, otherwise the shortest text that reads back the same.</summary>
-        public static string Number(double value) => value.ToString("R", System.Globalization.CultureInfo.InvariantCulture);
+        public static string Number(double value) => value.ToString(IK.NumberFormat, System.Globalization.CultureInfo.InvariantCulture);
 
         /// <summary>
         /// projectCombatIntent(combat, enemyInstanceId) for a move the player has read: <see cref="Preview"/> and, for an attack with one damage effect, its
@@ -230,7 +230,7 @@ namespace Ashen.Domain.Combat
             if (Js.Items(move[K.Effects]).Count(e => Js.Str(Js.Get(e, K.Op)) == Op.Damage) > 1) { intent[IK.ProjectedDamage] = Unknown(IK.ReasonMultiple); return intent; }
             var baseAmount = Js.IsNum(live[K.Damage]) ? live.Num(K.Damage) : double.NaN;
             var hits = Math.Max(0, Math.Floor(Js.Coalesce(live[K.Hits], 1)));
-            if (double.IsNaN(baseAmount) || double.IsInfinity(baseAmount) || double.IsNaN(hits) || double.IsInfinity(hits) || hits > 100) { intent[IK.ProjectedDamage] = Unknown(IK.ReasonUnresolved); return intent; }
+            if (double.IsNaN(baseAmount) || double.IsInfinity(baseAmount) || double.IsNaN(hits) || double.IsInfinity(hits) || hits > Ashen.Generated.IntentMath.MaxHits) { intent[IK.ProjectedDamage] = Unknown(IK.ReasonUnresolved); return intent; }
             var actual = DamageBounds(c, enemy, authored, baseAmount, (int)hits, false);
             var baseline = DamageBounds(c, enemy, authored, baseAmount, (int)hits, true);
             var stanceReduced = actual.Expected < baseline.Expected - Epsilon;
@@ -280,11 +280,11 @@ namespace Ashen.Domain.Combat
             string label;
             if (hits.Count == 1 && projected != null) label = projected.Str(IK.Label);
             else if (same) label = Number(hits[0]) + (hits.Count > 1 ? IK.TimesMark + hits.Count : string.Empty);
-            else if (hits.Count <= 3) label = string.Join(IK.PlusMark, hits.Select(Number));
+            else if (hits.Count <= Ashen.Generated.P1Count.Triple) label = string.Join(IK.PlusMark, hits.Select(Number));
             else label = Number(hits.Min()) + IK.RangeDash + Number(hits.Max()) + IK.TimesMark + hits.Count;
             string amount;
             if (Js.Truthy(projected?[IK.Label])) amount = projected.Str(IK.Label);
-            else if (intent[DK.HpLossBounds] is JArray b && b.Count >= 2) amount = Js.D(b[0]) == Js.D(b[1]) ? Number(Js.D(b[1])) : Number(Js.D(b[0])) + IK.RangeDash + Number(Js.D(b[1]));
+            else if (intent[DK.HpLossBounds] is JArray b && b.Count >= Ashen.Generated.P1Count.Pair) amount = Js.D(b[0]) == Js.D(b[1]) ? Number(Js.D(b[1])) : Number(Js.D(b[0])) + IK.RangeDash + Number(Js.D(b[1]));
             else amount = !Js.Nullish(intent[DK.TotalDamage]) ? Number(intent.Num(DK.TotalDamage)) : Number(hits.Sum());
             var hp = projected?.Str(IK.Basis) == IK.BasisHp || intent.Str(IK.DamageBasis) == IK.BasisHp || intent[DK.HpLossBounds] != null;
             var read = new DamageRead { Label = label, Amount = amount, Hp = hp };

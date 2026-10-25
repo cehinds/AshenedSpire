@@ -28,6 +28,7 @@ namespace Ashen.Generated
         public const string DamageScope = "damageScope";
         public const string DisplayedReduction = "displayedReduction";
         public const string DodgeCharges = "dodgeCharges";
+        public const string Dot = ".";
         public const string EvadeCharges = "evadeCharges";
         public const string Expected = "expected";
         public const string Hidden = "hidden";
@@ -46,6 +47,7 @@ namespace Ashen.Generated
         public const string Incoming = "incoming";
         public const string Index = "index";
         public const string Indices = "indices";
+        public const string KeySeparator = ":";
         public const string Kind = "kind";
         public const string KindAttack = "attack";
         public const string KindAttackDebuff = "attackDebuff";
@@ -55,6 +57,7 @@ namespace Ashen.Generated
         public const string KnowledgeRead = "knowledgeRead";
         public const string Label = "label";
         public const string LabelStaggered = "Staggered";
+        public const string ListJoin = ", ";
         public const string Magical = "magical";
         public const string ManeuverAttack = "attack";
         public const string ManeuverCounter = "counter";
@@ -67,6 +70,7 @@ namespace Ashen.Generated
         public const string Min = "min";
         public const string Multiplier = "multiplier";
         public const string N = "n";
+        public const string NumberFormat = "R";
         public const string OpMultiply = "multiply";
         public const string OpSet = "set";
         public const string Operation = "operation";
@@ -112,6 +116,7 @@ namespace Ashen.Generated
         public const string Tone = "tone";
         public const string ToneGreen = "green";
         public const string ToneRed = "red";
+        public const string TopicJoin = "; ";
         public const string Total = "total";
         public const string UnknownMark = "?";
         public const string Value = "value";

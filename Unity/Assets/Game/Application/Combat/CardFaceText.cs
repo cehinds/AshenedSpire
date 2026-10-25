@@ -326,12 +326,12 @@ namespace Ashen.App.Combat
             }
             if (kind == T.Mul)
             {
-                if (!(f[T.Args] is JArray args) || args.Count != 2 || f.Properties().Any(p => !t.In(T.FormulaKeys, p.Name)) || !Bounds()) return null;
+                if (!(f[T.Args] is JArray args) || args.Count != Ashen.Generated.P1Count.Pair || f.Properties().Any(p => !t.In(T.FormulaKeys, p.Name)) || !Bounds()) return null;
                 var share = args[0];
                 var inner = args[1];
                 var per = Js.IsNum(share) && Js.D(share) > 0 ? 1 / Js.D(share) : double.NaN;
                 var described = DescribeFormula(env, inner);
-                if (double.IsNaN(per) || per != Math.Floor(per) || per < 2 || described == null) return null;
+                if (double.IsNaN(per) || per != Math.Floor(per) || per < Ashen.Generated.P1Count.Pair || described == null) return null;
                 return Limits(t.Say(S.CardtextPerGroups, CardTextData.Num(per), described), Fractional());
             }
             if (kind == T.Metric)
@@ -471,7 +471,7 @@ namespace Ashen.App.Combat
             _counter = _profile.Str(T.Maneuver) == T.Counter;
             // A counter is prepared, not dealt: name its mode ("Prepare Melee Counter: return ...").
             _counterMode = _counter ? CounterModeOf() : null;
-            if (_counter && _counterMode == null && !(Js.Truthy(_def[T.DefenseRulesVersion]) && _def.Num(T.DefenseRulesVersion) == 2)) return null;
+            if (_counter && _counterMode == null && !(Js.Truthy(_def[T.DefenseRulesVersion]) && _def.Num(T.DefenseRulesVersion) == Ashen.Generated.P1Count.Pair)) return null;
             var defenseVersionTwo = Js.IsNum(_def[T.DefenseRulesVersion]) && _def.Num(T.DefenseRulesVersion) == Ashen.Generated.CombatMath.Two;
             _damageVerb = _counter ? (defenseVersionTwo ? _t.Word(S.CardtextReturn) : _t.Say(S.CardtextPrepareCounterReturn, _t.Word(_counterMode == T.Melee ? S.CardtextModeMelee : _counterMode == T.Ranged ? S.CardtextModeRanged : S.CardtextModeSpell)))
                 : _t.Word(S.CardtextInflict);

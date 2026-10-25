@@ -58,13 +58,13 @@ namespace Ashen.App.Combat
         {
             switch (family)
             {
-                case "attacking": return strings.Get(StringKeys.CombatIntentTitleAttacking);
-                case "smashing": return strings.Get(StringKeys.CombatIntentTitleSmashing);
-                case "defending": return strings.Get(StringKeys.CombatIntentTitleDefending);
-                case "countering": return strings.Get(StringKeys.CombatIntentTitleCountering);
-                case "evading": return strings.Get(StringKeys.CombatIntentTitleEvading);
-                case "casting": return strings.Get(StringKeys.CombatIntentTitleCasting);
-                case "buffing": return strings.Get(StringKeys.CombatIntentTitleBuffing);
+                case IK.StanceAttacking: return strings.Get(StringKeys.CombatIntentTitleAttacking);
+                case IK.StanceSmashing: return strings.Get(StringKeys.CombatIntentTitleSmashing);
+                case IK.StanceDefending: return strings.Get(StringKeys.CombatIntentTitleDefending);
+                case IK.StanceCountering: return strings.Get(StringKeys.CombatIntentTitleCountering);
+                case IK.StanceEvading: return strings.Get(StringKeys.CombatIntentTitleEvading);
+                case IK.StanceCasting: return strings.Get(StringKeys.CombatIntentTitleCasting);
+                case IK.StanceBuffing: return strings.Get(StringKeys.CombatIntentTitleBuffing);
                 default: return strings.Get(StringKeys.CombatIntentTitlePreparing);
             }
         }

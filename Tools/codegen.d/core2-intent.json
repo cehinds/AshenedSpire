@@ -1,5 +1,16 @@
 {
   "comment": "P-1 (D-1320..): the names of an enemy's revealed intent and its projected damage (the web engine/combat.js previewIntent, ui/models/CombatIntentProjectionModel.js, CombatIntentModel.js).",
+  "numberSets": [
+    {
+      "name": "IntentMath",
+      "type": "double",
+      "doc": "Tolerance and cap of the intent projection (CombatIntentProjectionModel.js).",
+      "values": {
+        "Epsilon": 1e-9,
+        "MaxHits": 100
+      }
+    }
+  ],
   "keySets": [
     {
       "name": "IntentKeys",
@@ -29,6 +40,7 @@
         "DamageScope": "damageScope",
         "DisplayedReduction": "displayedReduction",
         "DodgeCharges": "dodgeCharges",
+        "Dot": ".",
         "EvadeCharges": "evadeCharges",
         "Expected": "expected",
         "Hidden": "hidden",
@@ -47,6 +59,7 @@
         "Incoming": "incoming",
         "Index": "index",
         "Indices": "indices",
+        "KeySeparator": ":",
         "Kind": "kind",
         "KindAttack": "attack",
         "KindAttackDebuff": "attackDebuff",
@@ -56,6 +69,7 @@
         "KnowledgeRead": "knowledgeRead",
         "Label": "label",
         "LabelStaggered": "Staggered",
+        "ListJoin": ", ",
         "Magical": "magical",
         "ManeuverAttack": "attack",
         "ManeuverCounter": "counter",
@@ -68,6 +82,7 @@
         "Min": "min",
         "Multiplier": "multiplier",
         "N": "n",
+        "NumberFormat": "R",
         "OpMultiply": "multiply",
         "OpSet": "set",
         "Operation": "operation",
@@ -113,6 +128,7 @@
         "Tone": "tone",
         "ToneGreen": "green",
         "ToneRed": "red",
+        "TopicJoin": "; ",
         "Total": "total",
         "UnknownMark": "?",
         "Value": "value",

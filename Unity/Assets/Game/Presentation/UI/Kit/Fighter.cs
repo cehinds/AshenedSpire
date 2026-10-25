@@ -316,10 +316,10 @@ namespace Ashen.Presentation.UI.Kit
             _placed = true;
             _stagePose = pose;
             _pose.style.backgroundImage = new StyleBackground(texture);
-            _pose.style.left = Length.Percent((float)(at.Left * 100));
-            _pose.style.top = Length.Percent((float)(at.Top * 100));
-            _pose.style.width = Length.Percent((float)(at.Width * 100));
-            _pose.style.height = Length.Percent((float)(at.Height * 100));
+            _pose.style.left = Length.Percent((float)(at.Left * Ashen.Generated.P1Math.Percent));
+            _pose.style.top = Length.Percent((float)(at.Top * Ashen.Generated.P1Math.Percent));
+            _pose.style.width = Length.Percent((float)(at.Width * Ashen.Generated.P1Math.Percent));
+            _pose.style.height = Length.Percent((float)(at.Height * Ashen.Generated.P1Math.Percent));
             _pose.style.bottom = StyleKeyword.Auto;
             _pose.RemoveFromClassList(UiClasses.Hidden);
             _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);

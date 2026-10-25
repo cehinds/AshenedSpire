@@ -535,9 +535,9 @@ namespace Ashen.App.Combat
         private static double? Absorbed(CombatState c, JObject entity, string kind)
         {
             var shadow = Js.Spread(entity);
-            shadow[CK.PersistentWard] = Js.Spread(entity.Obj(CK.PersistentWard), Js.Obj(K.Value, 1000));
-            shadow[CK.PersistentPoise] = Js.Spread(entity.Obj(CK.PersistentPoise), Js.Obj(K.Value, 1000));
-            try { return CoreFixCore.ProtectionReceipt(c, shadow, kind, 100).Num(DK.Reduced); }
+            shadow[CK.PersistentWard] = Js.Spread(entity.Obj(CK.PersistentWard), Js.Obj(K.Value, Ashen.Generated.P1Math.PoolDepth));
+            shadow[CK.PersistentPoise] = Js.Spread(entity.Obj(CK.PersistentPoise), Js.Obj(K.Value, Ashen.Generated.P1Math.PoolDepth));
+            try { return CoreFixCore.ProtectionReceipt(c, shadow, kind, Ashen.Generated.P1Math.Percent).Num(DK.Reduced); }
             catch (InvalidOperationException) { return null; }
             catch (NotSupportedException) { return null; }
         }

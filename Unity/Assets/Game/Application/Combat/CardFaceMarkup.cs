@@ -61,8 +61,8 @@ namespace Ashen.App.Combat
                     else if (skipping == 0) output.Append(closed.Key);
                     continue;
                 }
-                var classes = m.Groups[2].Value;
-                var attributes = m.Groups[3].Value;
+                var classes = m.Groups[Ashen.Generated.P1Count.Pair].Value;
+                var attributes = m.Groups[Ashen.Generated.P1Count.Triple].Value;
                 var isLine = HasClass(t, classes, S.CardtextFaceLineClass);
                 if (isLine)
                 {

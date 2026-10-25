@@ -2,6 +2,18 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## P-1: the combat screen to exact web parity (worktree branch, 2026-10-25)
+
+**Landed (D-1320..D-1324)**
+- **Card text:** the web's `cardFaceLines`, `renderCard` rules and `previewCard` ported (`CardFaceText`, `CardFaceRules`, `Core2FacePreview`, `CardFaceMarkup`, `CardWords`); the hand, inspector, piles, rewards, shop and deck say what the web says. Oracle `face/` (211 cards plain and upgraded, 4 classes of fights under 7 setups) with `Core2CardFaceParityTests` (63 tests) and `CardFaceMarkupTests`.
+- **Intent projection:** `CoreIntentProjection` and `Core2IntentBadge` (HP range `0-16`, `Total 0-16 HP`, green tone) on the board badge and the target card; oracle `intent/`, `Core2IntentParityTests` (17).
+- **Tooltips:** Block, Poise, Ward, Barrier and Counter; the damage calculation behind a previewed number (text checked against the web for every hand card).
+- **Player pose stage:** `ui/poses.json`, `PoseData`, `Fighter.PlayStage`; import rules for `pose.` and `posefx.`; `PoseDataTests`.
+
+**Tests:** Core2CardFaceParity, CardFaceMarkup, Core2IntentParity, PoseData and the filtered Enforcement/UiData/UiRules/Core2Screens/ContentValid suites; Presentation compiles with the harness. Unity was not run.
+
+**Not done:** no pose frame is imported (the release art cache is unreachable here; `Tools/scan-assets.mjs --import` with the web's art will fetch `pose.*` and `posefx.*`); armour-outfit poses, persistent rest guard, `anim.*` and `outfit.*`; dotted underline (solid), per-number hover (whole rules text); `computeSpellDefenseGain`; the warded-Block line; gradient masks and blend modes of card-cast layers need no approximation yet because no cast layer is drawn.
+
 ## WP-22: the run screens' remaining gaps (worktree branch, 2026-10-25)
 
 **Landed (D-1160..D-1165)**

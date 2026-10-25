@@ -1,5 +1,5 @@
 {
-  "contentHash": "2f239643ac1fcd0e7d2e7bae9bc2b37ba717908878d87834fca783d970da66d4",
+  "contentHash": "6c6153632c1d20ecf8f0d8b090923d1b6d04bd11c2e3d411d1d021f135579dec",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -1980,9 +1980,9 @@
       "sha256": "3af105c94763728307b39d6e27895a06d143e181316b177c91938703b5969610"
     },
     "schemas/ui.cardText.schema.json": {
-      "bytes": 695,
+      "bytes": 3089,
       "generated": false,
-      "sha256": "20f52eb62ce4d64af2dfa90dba36d90db810191b090872f3a82b8ad3f715e81c"
+      "sha256": "3c3ce5c2be3784c5b6613ff496c6eabf33ff8a7cc04affc95b1e9082acaae6b9"
     },
     "schemas/ui.cardface.schema.json": {
       "bytes": 10695,

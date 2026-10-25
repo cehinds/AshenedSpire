@@ -101,7 +101,7 @@ namespace Ashen.App.Combat
         {
             if (f.Ward == null) return null;
             var body = Protection(strings, f, true);
-            if (f.Barrier > 0) body += "\n" + strings.Get(StringKeys.CombatProtectionHelpBarrier);
+            if (f.Barrier > 0) body += UiFormats.Newline + strings.Get(StringKeys.CombatProtectionHelpBarrier);
             return new Tip { Title = Title(strings, StringKeys.CombatProtectionWard, f.Ward.Value + f.Barrier, f.Barrier), Body = body };
         }
 
@@ -156,7 +156,7 @@ namespace Ashen.App.Combat
             if (!intent.Known) return strings.Get(StringKeys.CombatTargetHudUnknown);
             var badge = IntentBadge(strings, intent);
             if (badge?.Summary == null) return null;
-            return badge.Summary + "\n" + strings.Get(StringKeys.CombatTargetHudDamageScope);
+            return badge.Summary + UiFormats.Newline + strings.Get(StringKeys.CombatTargetHudDamageScope);
         }
 
         /// <summary>The USS intent kind of a chip: the move's kind once read, the unknown kind while it is not.</summary>

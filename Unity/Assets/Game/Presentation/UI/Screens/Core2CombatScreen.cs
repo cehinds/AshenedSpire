@@ -270,7 +270,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             var poses = Ui.Data.Poses;
             var classId = _run.ClassId;
-            var tint = _run.Tint ?? _run.Portrait?.Split('.').LastOrDefault();
+            var tint = _run.Tint ?? (_run.Portrait == null ? null : _run.Portrait.Substring(_run.Portrait.LastIndexOf(Ashen.Generated.IntentKeys.Dot, StringComparison.Ordinal) + 1));
             if (poses == null || !poses.Has(classId, tint)) return;
             d.Poses = poses;
             d.PoseClass = classId;
