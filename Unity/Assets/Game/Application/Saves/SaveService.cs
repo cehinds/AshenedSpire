@@ -90,6 +90,9 @@ namespace Ashen.App.Saves
 
         public SaveRules Rules => _rules;
 
+        /// <summary>The folder the saves live in (the previous-save backup of an import is kept beside them).</summary>
+        public string Folder => _dir;
+
         public void RegisterMigration(int fromVersion, Migration migration) => _migrations[fromVersion] = migration;
 
         public bool Exists(string slot) => Candidates(slot).Any(File.Exists);
@@ -166,6 +169,18 @@ namespace Ashen.App.Saves
                 [ArchiveKeys.State] = state,
                 [ArchiveKeys.ProfileKey] = raw,
             }.ToString(Formatting.Indented);
+        }
+
+        /// <summary>
+        /// Make a slot hold exactly these stored bytes (null clears it): the copies and logs it had are removed, then the primary and the mirror are written the way a checkpoint writes them. The way a backup is imported
+        /// (web saveTransfer.js restore writes the stored text back). Nothing is checked here: the caller has read the bytes first.
+        /// </summary>
+        public void ReplaceRaw(string slot, string text)
+        {
+            Delete(slot);
+            if (text == null) return;
+            WriteAtomic(PathOf(SaveLayout.Temp, slot), PathOf(SaveLayout.Primary, slot), PathOf(SaveLayout.Backup, slot), text);
+            WriteAtomic(PathOf(SaveLayout.MirrorTemp, slot), PathOf(SaveLayout.Mirror, slot), PathOf(SaveLayout.MirrorBackup, slot), text);
         }
 
         /// <summary>Set the profile's stored bytes aside (archiveMeta): the same bytes seen again keep one entry. Null when there are none.</summary>

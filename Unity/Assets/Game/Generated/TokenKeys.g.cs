@@ -11,6 +11,7 @@ namespace Ashen.Generated
         public const string SavedLabel = "savedLabel";
         public const string FarewellClose = "farewellClose";
         public const string FarewellKept = "farewellKept";
+        public const string FilePoll = "filePoll";
         public const string GateFade = "gateFade";
         public const string GatePulse = "gatePulse";
         public const string BootMinimum = "bootMinimum";

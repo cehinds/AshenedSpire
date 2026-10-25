@@ -1611,6 +1611,34 @@
     flex-direction: column;
 }
 
+/* ---- P-6: Download & saves, Move your saves (web offlinePlay.js: h3, set-note, offline-actions, status) ---- */
+
+.transfer-heading {
+    font-size: var(--font-profile-status);
+    color: var(--color-gold);
+    white-space: normal;
+}
+
+.transfer-note {
+    margin-top: var(--space-xs);
+    font-size: var(--font-profile-body);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.transfer-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-md);
+}
+
+.transfer-status {
+    margin-top: var(--space-md);
+    font-size: var(--font-profile-body);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
 .farewell {
     flex-direction: column;
     align-items: center;

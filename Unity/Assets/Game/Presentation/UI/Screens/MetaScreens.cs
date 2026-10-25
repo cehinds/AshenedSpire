@@ -89,7 +89,7 @@ namespace Ashen.Presentation.UI.Screens
             tail.pickingMode = PickingMode.Ignore;
             MetaDom.Label(tail, run.WhereLine, FrontClasses.JournalRowWhere);
             Pill(tail, run.ResultPill, run.Victory);
-            if (run.Custom) Pill(tail, Ui.Data.Strings.Get(StringKeys.HistoryCustom), false);
+            if (run.Custom) Pill(tail, run.Pills.Count > 0 ? run.Pills[0] : Ui.Data.Strings.Get(StringKeys.HistoryCustom), false);
             var seed = MetaDom.Label(tail, run.Seed, FrontClasses.JournalSeed);
             seed.AddToClassList(UiClasses.Upper);
             seed.SetResolved(run.Seed);

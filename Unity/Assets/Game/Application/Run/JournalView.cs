@@ -91,9 +91,10 @@ namespace Ashen.App.Run
             // The win-rate strip: one entry per class with a recorded run, in the class table's order.
             foreach (var classId in content.ClassIds)
             {
-                var runs = results.Count(r => r.Str(RK.Class) == classId);
+                // The web counts STANDARD runs only: a custom climb is excluded so its modifiers cannot skew the numbers (history.js byClass).
+                var runs = results.Count(r => r.Str(RK.Class) == classId && !r.Is(RK.Custom));
                 if (runs == 0) continue;
-                var wins = results.Count(r => r.Str(RK.Class) == classId && r.Is(V.Victory));
+                var wins = results.Count(r => r.Str(RK.Class) == classId && !r.Is(RK.Custom) && r.Is(V.Victory));
                 view.WinRates.Add(strings.Format(S.JournalWinRate, new StringArgs().Add(P.Class, RunHudView.ClassName(ui, classId)).Add(P.Wins, wins).Add(P.Runs, runs)));
                 view.ClassRecords.Add(new KeyValuePair<string, string>(RunHudView.ClassName(ui, classId), strings.Format(StringKeys.HistoryRecord, new StringArgs().Add(P.Wins, wins).Add(P.Runs, runs))));
             }
@@ -129,19 +130,23 @@ namespace Ashen.App.Run
             {
                 Victory = victory,
                 Outcome = strings.Get(r.Is(MetaKeys.Abandoned) ? S.JournalHistoryAbandoned : victory ? S.JournalHistoryVictory : S.JournalHistoryDefeat),
-                Title = string.IsNullOrEmpty(name) ? className : strings.Format(S.JournalHistoryTitle, new StringArgs().Add(P.Name, name).Add(P.Class, className)),
+                Title = className,
                 Where = strings.Format(S.JournalHistoryWhere, new StringArgs().Add(P.Act, (int)Js.Or0(r[LK.Act])).Add(P.Floor, (int)Js.Or0(r[MK.Floor]))),
                 Seed = strings.Format(S.JournalDetailSeed, new StringArgs().Add(P.Seed, Js.Str(r[RK.Seed]) ?? string.Empty)),
             };
             row.Custom = r.Is(RK.Custom);
-            var fights = strings.Format(StringKeys.HistoryFights, new StringArgs().Add(P.Count, (int)Js.Or0(r[WK.FightsWon])));
-            row.WhereLine = victory
-                ? strings.Format(StringKeys.HistoryWhereCleared, new StringArgs().Add(P.Act, (int)Js.Or0(r[LK.Act]))) + strings.Get(StringKeys.HistorySummaryJoin) + fights
-                : row.Where + strings.Get(StringKeys.HistorySummaryJoin) + fights;
+            // history.js: "Act 3 cleared" or "Act 2 · Floor 7" (a missing act reads 3 for a win and 1 for a loss, a missing floor reads a dash), then " · 6 fights" when the run kept a count.
+            var act = (int)Js.Or0(r[LK.Act]);
+            var reached = victory
+                ? strings.Format(StringKeys.HistoryWhereCleared, new StringArgs().Add(P.Act, act > 0 ? act : MetaNumbers.WinAct))
+                : strings.Format(StringKeys.HistoryWhereFloor, new StringArgs().Add(P.Act, act > 0 ? act : 1).Add(P.Floor, r[MK.Floor] == null || r[MK.Floor].Type == JTokenType.Null ? strings.Get(StringKeys.HistoryNoFloor) : RunJs.NumStr(Js.D(r[MK.Floor]))));
+            var fightCount = r[WK.FightsWon];
+            row.WhereLine = fightCount == null || fightCount.Type == JTokenType.Null
+                ? reached
+                : reached + strings.Get(StringKeys.HistorySummaryJoin) + strings.Format((int)Js.D(fightCount) == 1 ? StringKeys.HistoryFightsOne : StringKeys.HistoryFightsMany, new StringArgs().Add(P.Count, (int)Js.D(fightCount)));
             row.ResultPill = strings.Get(r.Is(MetaKeys.Abandoned) ? StringKeys.HistoryOutcomeAbandoned : victory ? StringKeys.HistoryOutcomeVictory : StringKeys.HistoryOutcomeDefeat);
-            if (r.Is(RK.Custom)) row.Pills.Add(strings.Get(S.JournalHistoryCustom));
             var ascension = (int)Js.Or0(r[WK.Ascension]);
-            if (ascension > 0) row.Pills.Add(strings.Format(S.JournalHistoryAscension, new StringArgs().Add(P.N, ascension)));
+            if (r.Is(RK.Custom)) row.Pills.Add(ascension > 0 ? strings.Format(StringKeys.HistoryCustomAscension, new StringArgs().Add(P.N, ascension)) : strings.Get(S.JournalHistoryCustom));
 
             row.Detail.Add(row.Seed);
             var foes = Js.Items(r[MetaKeys.Killer]).Select(Js.Str).Where(s => s != null)

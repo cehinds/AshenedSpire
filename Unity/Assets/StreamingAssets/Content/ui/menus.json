@@ -32,6 +32,7 @@
     "recovery": { "titleKey": "recovery.confirm.title", "bodyKey": "recovery.confirm.body", "primaryKey": "recovery.confirm.go", "backKey": "recovery.confirm.back", "policy": "policy.deleteSave", "hold": false, "single": false },
     "replaceSlot": { "titleKey": "confirm.replace.title", "bodyKey": "confirm.replace.body", "primaryKey": "confirm.replace.primary", "backKey": "confirm.back", "policy": "policy.saveOverwrite", "hold": false, "single": false },
     "quitWithoutSaving": { "titleKey": "confirm.quitWithoutSaving.title", "bodyKey": "confirm.quitWithoutSaving.body", "primaryKey": "confirm.quitWithoutSaving.primary", "backKey": "confirm.back", "policy": "policy.discardUnsavedProgress", "hold": false, "single": false },
+    "importSaves": { "titleKey": "transfer.confirm.title", "bodyKey": "transfer.confirm.consequence", "primaryKey": "transfer.confirm.primary", "backKey": "confirm.back", "hold": false, "single": false },
     "saveQuit": { "titleKey": "confirm.saveQuit.title", "bodyKey": "confirm.saveQuit.body", "primaryKey": "confirm.saveQuit.primary", "backKey": "confirm.back", "hold": true, "single": false },
     "abandon": { "titleKey": "confirm.abandon.title", "bodyKey": "confirm.abandon.body", "primaryKey": "confirm.abandon.primary", "backKey": "confirm.back", "policy": "policy.deleteSave", "hold": true, "single": false },
     "saveFailed": { "titleKey": "confirm.saveFailed.title", "bodyKey": "confirm.saveFailed.body", "primaryKey": "confirm.saveFailed.primary", "backKey": "confirm.back", "hold": false, "single": false },

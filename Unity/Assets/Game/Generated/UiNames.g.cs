@@ -14,6 +14,15 @@ namespace Ashen.Generated
         public const string ShellEyebrow = "SHELL_EYEBROW";
         public const string RecoveryBody = "RECOVERY_BODY";
         public const string RecoveryScroll = "RECOVERY_SCROLL";
+        public const string TransferNote = "TRANSFER_NOTE";
+        public const string TransferStatus = "TRANSFER_STATUS";
+        public const string TransferImport = "TRANSFER_IMPORT";
+        public const string TransferExport = "TRANSFER_EXPORT";
+        public const string TransferRecovery = "TRANSFER_RECOVERY";
+        public const string TransferHeading = "TRANSFER_HEADING";
+        public const string TransferActions = "TRANSFER_ACTIONS";
+        public const string TransferBody = "TRANSFER_BODY";
+        public const string TransferScroll = "TRANSFER_SCROLL";
         public const string Farewell = "FAREWELL";
         public const string FarewellTitle = "FAREWELL_TITLE";
         public const string FarewellStatus = "FAREWELL_STATUS";

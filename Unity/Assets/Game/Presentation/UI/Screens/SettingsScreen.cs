@@ -57,7 +57,7 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocButton>(UiNames.SettingsReset).clicked += AskResetAll;
             Root.Q<LocButton>(UiNames.SettingsChanged).clicked += () => { _query.ChangedOnly = !_query.ChangedOnly; Render(); };
             Root.Q<LocButton>(UiNames.SettingsSearchBtn).clicked += ToggleSearch;
-            Root.Q<LocButton>(UiNames.SettingsProfile).clicked += OpenProfile;
+            Root.Q<LocButton>(UiNames.SettingsProfile).clicked += OpenTransfer;
             Root.Q<LocButton>(UiNames.SettingsMore).clicked += ToggleMenu;
             Root.Q<LocButton>(UiNames.SettingsMenuGroup).clicked += () => { CloseMenu(); ResetOpenTopic(); };
             Root.Q<LocButton>(UiNames.SettingsMenuAll).clicked += () => { CloseMenu(); AskResetAll(); };
@@ -66,7 +66,7 @@ namespace Ashen.Presentation.UI.Screens
             var search = Root.Q<TextField>(UiNames.SettingsSearch);
             search.RegisterValueChangedCallback(e => { _query.Search = e.newValue; Render(); });
             BoardHud.SetImage(Root.Q(UiNames.SettingsSearchBtn), Ui.Icon(FrontArt.IconSearch));
-            UiDom.Show(Root.Q(UiNames.SettingsProfile), Ui.Data.Screens.IsBuilt(ScreenIds.Profile));
+            UiDom.Show(Root.Q(UiNames.SettingsProfile), Ui.Data.Screens.IsBuilt(ScreenIds.Transfer));
             UiDom.Show(Root.Q(UiNames.SettingsTipRow), !_settings.TipDismissed);
             Render();
             Context.Instance.LastFocused = Root.Q(UiNames.SettingsTabs).Children().FirstOrDefault() ?? Root.Q(UiNames.SettingsDone);
@@ -424,10 +424,11 @@ namespace Ashen.Presentation.UI.Screens
             }
         }
 
-        private void OpenProfile()
+        /// <summary>The Settings header's Download &amp; saves (web settings.js: offlinePlay.title, onOffline), which opens Move your saves. The Profile screen has no door here: the web's Settings has none (D-1647).</summary>
+        private void OpenTransfer()
         {
             Flush();
-            if (Ui.Data.Screens.IsBuilt(ScreenIds.Profile)) Nav.Go(ScreenIds.Profile);
+            if (Ui.Data.Screens.IsBuilt(ScreenIds.Transfer)) Nav.Go(ScreenIds.Transfer);
         }
 
         private void Leave()

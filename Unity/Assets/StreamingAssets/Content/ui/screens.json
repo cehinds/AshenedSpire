@@ -31,6 +31,14 @@
       "back": null,
       "transitions": { "done": { "to": "title", "mode": "replace" } }
     },
+    "transfer": {
+      "uxml": "UI/Screens/Transfer",
+      "layer": "screen",
+      "background": "bg.tower-entrance-hall",
+      "focusOrder": ["TRANSFER_ACTIONS", "FOOTER_PRIMARY", "SHELL_EXIT"],
+      "back": "pop",
+      "transitions": {}
+    },
     "farewell": {
       "uxml": "UI/Screens/Farewell",
       "layer": "screen",

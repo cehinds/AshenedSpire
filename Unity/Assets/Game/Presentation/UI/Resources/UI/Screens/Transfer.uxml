@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Front.uss" />
+    <ui:VisualElement class="page page--center">
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="about-shell" title-key="transfer.title">
+            <ui:ScrollView name="TRANSFER_SCROLL" class="about-scroll">
+                <ui:VisualElement name="TRANSFER_BODY" class="about-column">
+                    <Ashen.Presentation.UI.LocLabel name="TRANSFER_HEADING" class="transfer-heading kit-text-header" string-key="transfer.heading" />
+                    <Ashen.Presentation.UI.LocLabel name="TRANSFER_NOTE" class="transfer-note kit-text-value" />
+                    <ui:VisualElement name="TRANSFER_ACTIONS" class="transfer-actions">
+                        <Ashen.Presentation.UI.LocButton name="TRANSFER_EXPORT" class="prof-action" string-key="transfer.export" />
+                        <Ashen.Presentation.UI.LocButton name="TRANSFER_IMPORT" class="prof-action" string-key="transfer.import" />
+                        <Ashen.Presentation.UI.LocButton name="TRANSFER_RECOVERY" class="prof-action" string-key="transfer.recovery" />
+                    </ui:VisualElement>
+                    <Ashen.Presentation.UI.LocLabel name="TRANSFER_STATUS" class="transfer-status kit-text-value is-hidden" />
+                </ui:VisualElement>
+            </ui:ScrollView>
+        </Ashen.Presentation.UI.Kit.Shell>
+    </ui:VisualElement>
+</ui:UXML>

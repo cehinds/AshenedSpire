@@ -969,6 +969,7 @@
     --duration-saved-label: 1500ms;
     --duration-farewell-close: 120ms;
     --duration-farewell-kept: 600ms;
+    --duration-file-poll: 150ms;
     --duration-map-lane-pulse: 2200ms;
     --duration-title-lockup-away: 380ms;
     --duration-title-light-up: 560ms;

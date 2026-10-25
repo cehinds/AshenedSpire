@@ -1245,11 +1245,14 @@ namespace Ashen.Generated
         public const string GlyphStone = "glyph.stone";
         public const string HistoryBack = "history.back";
         public const string HistoryCustom = "history.custom";
+        public const string HistoryCustomAscension = "history.customAscension";
         public const string HistoryEyebrow = "history.eyebrow";
-        public const string HistoryFights = "history.fights";
+        public const string HistoryFightsMany = "history.fights.many";
+        public const string HistoryFightsOne = "history.fights.one";
         public const string HistoryLinksAbout = "history.links.about";
         public const string HistoryLinksCompendium = "history.links.compendium";
         public const string HistoryLinksProfile = "history.links.profile";
+        public const string HistoryNoFloor = "history.noFloor";
         public const string HistoryOutcomeAbandoned = "history.outcome.abandoned";
         public const string HistoryOutcomeDefeat = "history.outcome.defeat";
         public const string HistoryOutcomeVictory = "history.outcome.victory";
@@ -1263,6 +1266,7 @@ namespace Ashen.Generated
         public const string HistorySummaryWon = "history.summary.won";
         public const string HistoryTitle = "history.title";
         public const string HistoryWhereCleared = "history.where.cleared";
+        public const string HistoryWhereFloor = "history.where.floor";
         public const string HoldHint = "hold.hint";
         public const string HoldProgress = "hold.progress";
         public const string HudCinders = "hud.cinders";
@@ -2077,5 +2081,31 @@ namespace Ashen.Generated
         public const string TitleSubtitle = "title.subtitle";
         public const string TitleTagline = "title.tagline";
         public const string TitleWordmark = "title.wordmark";
+        public const string TransferConfirmConsequence = "transfer.confirm.consequence";
+        public const string TransferConfirmNoProfile = "transfer.confirm.noProfile";
+        public const string TransferConfirmPrimary = "transfer.confirm.primary";
+        public const string TransferConfirmRunsMany = "transfer.confirm.runs.many";
+        public const string TransferConfirmRunsOne = "transfer.confirm.runs.one";
+        public const string TransferConfirmTitle = "transfer.confirm.title";
+        public const string TransferConfirmWithProfile = "transfer.confirm.withProfile";
+        public const string TransferDone = "transfer.done";
+        public const string TransferErrNoFile = "transfer.err.noFile";
+        public const string TransferErrProfile = "transfer.err.profile";
+        public const string TransferErrSaveFailed = "transfer.err.saveFailed";
+        public const string TransferErrSlot = "transfer.err.slot";
+        public const string TransferErrStopped = "transfer.err.stopped";
+        public const string TransferErrTitle = "transfer.err.title";
+        public const string TransferErrTooLarge = "transfer.err.tooLarge";
+        public const string TransferErrUnreadable = "transfer.err.unreadable";
+        public const string TransferErrUnsupported = "transfer.err.unsupported";
+        public const string TransferErrWrite = "transfer.err.write";
+        public const string TransferExport = "transfer.export";
+        public const string TransferExported = "transfer.exported";
+        public const string TransferHeading = "transfer.heading";
+        public const string TransferImport = "transfer.import";
+        public const string TransferImported = "transfer.imported";
+        public const string TransferNote = "transfer.note";
+        public const string TransferRecovery = "transfer.recovery";
+        public const string TransferTitle = "transfer.title";
     }
 }
