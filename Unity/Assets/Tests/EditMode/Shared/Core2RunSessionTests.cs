@@ -286,6 +286,73 @@ namespace Ashen.Tests
             Assert.That(resumed.Run.ToString(), Is.EqualTo(session.Run.ToString()), "the run after the fight");
         }
 
+        /// <summary>Plays the first card of the hand the rules accept; false when none is.</summary>
+        private static bool PlayOneCard(Core2RunSession session)
+        {
+            var state = session.Combat.State;
+            foreach (var card in state.Piles.Hand.ToList())
+            {
+                var id = card.Value<string>("instanceId");
+                if (session.Execute(Intent("playCard", "cardInstanceId", id, "targetId", state.Enemies[0].Value<string>("id"))).Accepted) return true;
+                if (session.Execute(Intent("playCard", "cardInstanceId", id)).Accepted) return true;
+            }
+            return false;
+        }
+
+        [Test]
+        public void ALogCutShortByACrashIsReplacedByAFreshCheckpointSoLaterCommandsSurviveAnotherReload()
+        {
+            var session = New(4242);
+            session.Travel(session.ReachableNodes()[0]);
+            var beforeLast = session.StateHash();
+            Assert.That(PlayOneCard(session), Is.True);
+            Assert.That(session.IsInCombat && session.Combat.LoggedCommands == 1, Is.True, "one logged command after the checkpoint");
+            // A crash mid-append: the last record is cut off.
+            var log = Directory.GetFiles(_dir, session.Slot + ".*.log").Single();
+            var text = File.ReadAllText(log).TrimEnd('\n');
+            File.WriteAllText(log, text.Substring(0, text.Length - 12));
+
+            var first = Core2RunSession.Load(Content, _saves, 1, () => Epoch);
+            Assert.That(first.Status, Is.EqualTo(Core2RunLoadStatus.ResumedWithWarning), string.Join("; ", first.Warnings));
+            var resumed = first.Session;
+            Assert.That(resumed.IsInCombat, Is.True);
+            Assert.That(resumed.StateHash(), Is.EqualTo(beforeLast), "the valid prefix is replayed");
+            Assert.That(PlayOneCard(resumed), Is.True);
+            var expected = resumed.StateHash();
+
+            var second = Core2RunSession.Load(Content, _saves, 1, () => Epoch);
+            Assert.That(second.Status, Is.EqualTo(Core2RunLoadStatus.Resumed), "the damaged log was left behind by a checkpoint: " + string.Join("; ", second.Warnings));
+            Assert.That(second.Session.StateHash(), Is.EqualTo(expected), "the command played after the recovery is not lost");
+        }
+
+        [Test]
+        public void AFightsEndWhoseCheckpointFailsStillOpensTheSpoilsAndTheSaveIsRetried()
+        {
+            var session = New(777);
+            session.Travel(session.ReachableNodes()[0]);
+            session.EditRunForReview(r => { r["maxHp"] = 5000; r["hp"] = 5000; });
+            session.StartEncounter(session.EncounterId);
+            // The finishing command reaches the log, then the disk refuses the checkpoint (the temp file's path is a directory).
+            var blocker = Path.Combine(_dir, session.Slot + ".json.tmp");
+            session.Combat.Resolved += _ => { if (session.Combat.IsOver) Directory.CreateDirectory(blocker); };
+            FightToTheEnd(session);
+            Assert.That(session.FightFinished, Is.True, "the accepted command completed its transition");
+            Assert.That(session.Location, Is.EqualTo("rewards"));
+            Assert.That(session.HasPendingReward, Is.True);
+            Assert.That(session.PendingSaveError, Is.Not.Null);
+            Directory.Delete(blocker);
+            var meanwhile = Core2RunSession.Load(Content, _saves, 1, () => Epoch);
+            Assert.That(meanwhile.Session?.Location, Is.EqualTo("rewards"), "a reload before the retry replays the log into the same end: " + string.Join("; ", meanwhile.Warnings));
+            Directory.CreateDirectory(blocker);
+            Assert.That(() => session.RetrySave(), Throws.Exception, "still refused while the disk is");
+            Directory.Delete(blocker);
+            session.RetrySave();
+            Assert.That(session.PendingSaveError, Is.Null);
+            var back = Core2RunSession.Load(Content, _saves, 1, () => Epoch);
+            Assert.That(back.Status, Is.EqualTo(Core2RunLoadStatus.Resumed), string.Join("; ", back.Warnings));
+            Assert.That(back.Session.StateHash(), Is.EqualTo(session.StateHash()));
+        }
+
         [Test]
         public void ASaveOfAnotherProfileOrAnotherRulesetIsRefusedAndKept()
         {

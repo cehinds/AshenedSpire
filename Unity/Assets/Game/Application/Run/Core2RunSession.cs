@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -388,10 +389,37 @@ namespace Ashen.App.Run
             var outcome = flow.AfterCommand == RunFlowValues.AutosaveAppend ? Combat.ExecuteAndLog(Saves, Slot, intent) : Combat.Execute(intent);
             if (!outcome.Accepted) return outcome;
             Tally.Observe(outcome.Events, Combat.State.Enemies);
-            if (Combat.IsOver) FinishCombat();
+            if (Combat.IsOver) FinishCombat(true);
             else if (flow.AfterCommand == RunFlowValues.AutosaveCheckpoint || flow.CheckpointOn.Contains(intent.Str(K.Type))) Save();
             CommandCommitted?.Invoke(outcome);
             return outcome;
+        }
+
+        /// <summary>
+        /// The save the fight's end could not write (a full or read-only disk), or null. The finishing command is already in the slot's log, so the fight is settled in memory and the climb goes on to
+        /// the spoils or the run's end; any later save (the next door's step) writes the checkpoint, and a reload meanwhile replays the log into the same end. <see cref="RetrySave"/> tries again at once.
+        /// </summary>
+        public Exception PendingSaveError { get; private set; }
+
+        /// <summary>Writes what the fight's end could not (the checkpoint at the spoils or the map, or the run's end into the profile). A failure keeps <see cref="PendingSaveError"/> and rethrows.</summary>
+        public void RetrySave()
+        {
+            if (PendingSaveError == null) return;
+            try
+            {
+                if (RunOver)
+                {
+                    Profile.Save(Content.ContentHash);
+                    Saves.Delete(Slot);
+                }
+                else Save();
+                PendingSaveError = null;
+            }
+            catch (Exception e)
+            {
+                PendingSaveError = e;
+                throw;
+            }
         }
 
         /// <summary>
@@ -400,14 +428,18 @@ namespace Ashen.App.Run
         /// (the last act's boss) or opens the reward door with a persisted offer. The climb goes on from the door (<see cref="LeaveRewards"/>): the map, or the next
         /// act after a boss. A death or the summit with level notices still to be read waits for them first (<see cref="AcknowledgeProgression"/>).
         /// </summary>
-        private void FinishCombat()
+        private void FinishCombat(bool deferSaveFailure = false)
         {
             var state = Combat.State;
             _rng = state.Rng;
             FightFinished = true;
             var receipt = Core2CombatEnd.Settle(Core.Rewards, _run, _rng, state, Core.Loop.Map.Encounters.Get(EncounterId));
             LastEnd = new Core2FightEnd { Outcome = receipt.Result, Receipt = receipt };
-            Continue(receipt.Next);
+            // The command that ended the fight is in the log by now and cannot be taken back: a failed checkpoint here must not strand the fight (Execute would refuse the player's every press
+            // while the screen never moved on). The fight stays settled, the climb goes on, and the save is kept to be retried.
+            if (!deferSaveFailure) { Continue(receipt.Next); return; }
+            try { Continue(receipt.Next); }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { PendingSaveError = e; }
         }
 
         /// <summary>Goes where the reward door says the climb goes (<see cref="Core2RewardDoor"/>): the door stays open, the map, the next act, or the run's end.</summary>
@@ -673,6 +705,7 @@ namespace Ashen.App.Run
             var payload = Payload();
             if (IsInCombat) Combat.Commit(Saves, Slot, payload, Content.ContentHash);
             else Saves.Checkpoint(Slot, payload, Content.ContentHash, StateHash());
+            PendingSaveError = null;
         }
 
         private JObject Payload()
@@ -818,6 +851,8 @@ namespace Ashen.App.Run
                         warned = true;
                         result.Warnings.Add(string.Format(CultureInfo.InvariantCulture, RunFlowMessages.LogDiverged, session.Combat.LoggedCommands));
                     }
+                    // A torn or checksum-invalid record ends the replay at the same place on every load: a fresh checkpoint (below) moves the fight to a clean log (its warning came with the load).
+                    else if (fight.LogTruncated) warned = true;
                     if (session.Combat.IsOver)
                     {
                         session.FinishCombat();

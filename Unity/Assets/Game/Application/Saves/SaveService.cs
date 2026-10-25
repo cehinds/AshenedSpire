@@ -50,6 +50,8 @@ namespace Ashen.App.Saves
         public string SnapshotHash;
         public JToken Payload;
         public readonly List<JObject> Commands = new List<JObject>();
+        /// <summary>The generation's log ends in a torn or checksum-invalid record: <see cref="Commands"/> is the valid prefix, and appending to this generation again would hide every later command behind the damage.</summary>
+        public bool LogTruncated;
         public readonly List<string> Warnings = new List<string>();
     }
 
@@ -194,10 +196,11 @@ namespace Ashen.App.Saves
                 if (lines[i].Length == 0) continue;
                 JObject record;
                 try { record = (JObject)JsonContent.Parse(lines[i]); }
-                catch (Exception) { result.Warnings.Add(Format(SaveMessages.TornLog, i)); return; }
+                catch (Exception) { result.LogTruncated = true; result.Warnings.Add(Format(SaveMessages.TornLog, i)); return; }
                 var cmd = record[SaveKeys.Cmd] as JObject;
                 if (cmd == null || (int?)record[SaveKeys.Gen] != result.Gen || (uint?)record[SaveKeys.Crc] != Crc32.Of(ContentSet.Canonical(cmd)))
                 {
+                    result.LogTruncated = true;
                     result.Warnings.Add(Format(SaveMessages.TornLog, i));
                     return;
                 }
