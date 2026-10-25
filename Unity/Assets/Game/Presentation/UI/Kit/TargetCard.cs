@@ -14,6 +14,7 @@ namespace Ashen.Presentation.UI.Kit
         private readonly LocLabel _name;
         private readonly Meter _hp;
         private readonly VisualElement _chips;
+        private readonly VisualElement _statuses;
         private readonly VisualElement _intentRow;
         private readonly VisualElement _intentIcon;
         private readonly LocLabel _intent;
@@ -26,6 +27,7 @@ namespace Ashen.Presentation.UI.Kit
             _name = this.Q<LocLabel>(UiNames.TargetName);
             _hp = this.Q<Meter>(UiNames.TargetHp);
             _chips = this.Q(UiNames.TargetChips);
+            _statuses = this.Q(UiNames.TargetStatuses);
             _intentRow = this.Q(UiNames.TargetIntentRow);
             _intentIcon = this.Q(UiNames.TargetIntentIcon);
             _intent = this.Q<LocLabel>(UiNames.TargetIntent);
@@ -44,10 +46,15 @@ namespace Ashen.Presentation.UI.Kit
             if (_chips != null)
             {
                 _chips.Clear();
-                foreach (var chip in d.RatingChips) AddChip(chip);
-                foreach (var chip in d.StackChips) AddChip(chip);
-                foreach (var chip in d.StatusChips) AddChip(chip);
+                foreach (var chip in d.RatingChips) AddChip(_chips, chip);
+                foreach (var chip in d.StackChips) AddChip(_chips, chip);
                 UiDom.Show(_chips, _chips.childCount > 0);
+            }
+            if (_statuses != null)
+            {
+                _statuses.Clear();
+                foreach (var chip in d.StatusChips) AddChip(_statuses, chip);
+                UiDom.Show(_statuses, _statuses.childCount > 0);
             }
             var hasIntent = !string.IsNullOrEmpty(d.IntentText);
             UiDom.Show(_intentRow, hasIntent);
@@ -59,7 +66,7 @@ namespace Ashen.Presentation.UI.Kit
             }
         }
 
-        private void AddChip(ChipData data)
+        private static void AddChip(VisualElement host, ChipData data)
         {
             var chip = new VisualElement { pickingMode = PickingMode.Ignore };
             chip.AddToClassList(UiClasses.FighterChip);
@@ -76,7 +83,8 @@ namespace Ashen.Presentation.UI.Kit
             text.AddToClassList(UiClasses.FighterChipText);
             text.AddToClassList(UiClasses.ValueText);
             chip.Add(text);
-            _chips.Add(chip);
+            ChipTips.Attach(chip, data.TipTitle, data.TipBody);
+            host.Add(chip);
         }
     }
 }

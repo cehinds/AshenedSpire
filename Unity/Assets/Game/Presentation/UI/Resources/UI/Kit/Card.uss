@@ -117,6 +117,25 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+/* cardArtLayersHtml: the element's colour wash and the line-art motifs, stretched over the whole art window above the cutouts */
+.card-motifs {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.card-motif,
+.card-wash {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
 /* illustrated-cards.css:20-27 the dark fade behind the title; :28 the footer backdrop; the SVG action frame (illustratedCard.js actionBaseFrame) */
 .card-fade {
     position: absolute;
@@ -346,6 +365,24 @@
     -unity-background-image-tint-color: var(--face-band-color);
 }
 
+/* a Spell that mirrors a basic card: its second mark follows the Spell mark, then the basic's word */
+.card-sigil--mirror {
+    display: none;
+}
+
+.card-band--mirrored .card-sigil--mirror {
+    display: flex;
+}
+
+/* illustrated-cards.css:101-105: a rule moved the printed price: lower reads green, higher red */
+.card-cost--down .card-cost-value {
+    color: var(--color-green);
+}
+
+.card-cost--up .card-cost-value {
+    color: var(--color-danger);
+}
+
 .cardview .card-type {
     margin: 0;
     padding: 0;
@@ -365,6 +402,25 @@
     top: var(--face-rail-top);
     flex-direction: column;
     align-items: flex-end;
+}
+
+.card-rail-count {
+    position: absolute;
+    right: var(--face-count-right);
+    bottom: var(--face-count-bottom);
+    min-width: var(--face-count-size);
+    height: var(--face-count-size);
+    margin: 0;
+    padding-left: var(--face-count-pad-x);
+    padding-right: var(--face-count-pad-x);
+    border-width: var(--face-count-border);
+    border-radius: var(--face-count-radius);
+    border-color: var(--face-count-border-color);
+    background-color: var(--face-count-back);
+    color: var(--face-count-color);
+    font-size: var(--face-count-font);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
 }
 
 .card-rail-mark {

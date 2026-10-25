@@ -27,6 +27,8 @@ namespace Ashen.Generated
         public const string TargetHide = "targetHide";
         public const string FxHitTint = "fxHitTint";
         public const string MapRoute = "mapRoute";
+        public const string CardUp = "cardUp";
+        public const string CardDown = "cardDown";
         public const string MapRouteOutline = "mapRouteOutline";
         public const string PrologueTick = "prologueTick";
         public const string SettingsCommit = "settingsCommit";

@@ -9,7 +9,10 @@
     "height": 640
   },
   "prefixes": {
-    "trait": "trait:"
+    "trait": "trait:",
+    "damage": "damage:",
+    "status": "status:",
+    "range": "range:"
   },
   "cutouts": {
     "selection": {
@@ -1088,17 +1091,49 @@
       "defend": "defense",
       "evade": "evade"
     },
-    "attackManeuver": {
-      "casting": "spell",
-      "ranged": "ranged"
-    },
     "type": {
       "attack": "attack",
       "skill": "skill",
       "power": "power",
       "status": "status"
     },
-    "fallback": "skill"
+    "fallback": "skill",
+    "power": {
+      "types": [
+        "power"
+      ],
+      "tags": [
+        "classification.power"
+      ]
+    },
+    "spell": {
+      "id": "spell",
+      "tags": [
+        "classification.spell",
+        "source:spell"
+      ],
+      "types": [
+        "spell"
+      ],
+      "campTypes": [
+        "attack",
+        "skill"
+      ],
+      "campTags": [
+        "classification.attack",
+        "classification.skill"
+      ]
+    },
+    "mirror": {
+      "exclude": [
+        "spell"
+      ],
+      "technique": {
+        "id": "technique",
+        "sigil": "skill",
+        "word": "technique"
+      }
+    }
   },
   "rail": {
     "max": 5,
@@ -1166,6 +1201,24 @@
       "concealed": "guile",
       "ash": "guile"
     },
+    "damageAlias": {
+      "physical": "guard",
+      "evasion": "evade",
+      "dodge": "evade",
+      "slashing": "attack",
+      "blade": "attack"
+    },
+    "benefit": {
+      "op": "applyStatus",
+      "target": "self",
+      "statuses": [
+        "precision",
+        "evade"
+      ],
+      "precision": "precision",
+      "evade": "evade"
+    },
+    "smashManeuver": "smash",
     "fallback": "skill",
     "glyphs": [
       "alteration",
@@ -1250,6 +1303,285 @@
       "slashing",
       "smash",
       "spell"
+    ],
+    "motif": [
+      "rings",
+      "embers",
+      "bolts",
+      "shards",
+      "crystals",
+      "ripples",
+      "orbits",
+      "rays",
+      "wisps",
+      "drops",
+      "fractures",
+      "stars",
+      "sprouts"
+    ],
+    "school": [
+      "frost",
+      "fire",
+      "lightning",
+      "force",
+      "alteration",
+      "illusion",
+      "divine",
+      "decay"
     ]
+  },
+  "hints": {
+    "counterManeuver": "counter",
+    "sweepManeuver": "sweep",
+    "defenseSigil": "defense",
+    "evadeSigil": "evade",
+    "sweepSigil": "sweep",
+    "sweepDefensiveRank": 2,
+    "returnRulesVersion": 2,
+    "reactionTag": "trait:reaction",
+    "stanceSigils": [
+      "attack",
+      "smash",
+      "sweep",
+      "counter",
+      "defense",
+      "evade"
+    ],
+    "ranges": [
+      "melee",
+      "reach",
+      "ranged"
+    ],
+    "schoolAlias": {
+      "earth": "alteration"
+    }
+  },
+  "motifs": {
+    "element": {
+      "opacity": 0.34,
+      "stroke": 0.55
+    },
+    "status": {
+      "opacity": 0.42,
+      "stroke": 0.8,
+      "offset": 7,
+      "offsetFrom": 2,
+      "max": 3
+    },
+    "elementAlias": {
+      "alternation": "alteration",
+      "illusion": "psychic",
+      "decay": "necrotic",
+      "cold": "frost",
+      "holy": "divine",
+      "sacred": "divine",
+      "arcane": "force"
+    },
+    "elements": {
+      "wind": {
+        "color": "#c8e3df",
+        "glow": "#81b5af",
+        "motif": "wisps"
+      },
+      "force": {
+        "color": "#b7baff",
+        "glow": "#777fe8",
+        "motif": "rings"
+      },
+      "fire": {
+        "color": "#ffc17e",
+        "glow": "#ee7237",
+        "motif": "embers"
+      },
+      "lightning": {
+        "color": "#fff0a2",
+        "glow": "#ddbb4e",
+        "motif": "bolts"
+      },
+      "earth": {
+        "color": "#d2b486",
+        "glow": "#a17e42",
+        "motif": "shards"
+      },
+      "frost": {
+        "color": "#c0edff",
+        "glow": "#72b7d7",
+        "motif": "crystals"
+      },
+      "psychic": {
+        "color": "#eebcfa",
+        "glow": "#c974d7",
+        "motif": "ripples"
+      },
+      "alteration": {
+        "color": "#b2e6cf",
+        "glow": "#60b59e",
+        "motif": "orbits"
+      },
+      "divine": {
+        "color": "#fff4d6",
+        "glow": "#dcc492",
+        "motif": "rays"
+      },
+      "necrotic": {
+        "color": "#c2d2a1",
+        "glow": "#779368",
+        "motif": "wisps"
+      }
+    },
+    "defaultElement": "force",
+    "statusMotif": {
+      "bleed": "drops",
+      "bleeding": "drops",
+      "burn": "embers",
+      "burning": "embers",
+      "frost": "crystals",
+      "frozen": "crystals",
+      "chilled": "crystals",
+      "weak": "fractures",
+      "vulnerable": "fractures",
+      "frail": "fractures",
+      "staggered": "fractures",
+      "offBalance": "fractures",
+      "prone": "fractures",
+      "paralysis": "bolts",
+      "grounded": "shards",
+      "sleep": "ripples",
+      "dazed": "stars",
+      "insanity": "ripples",
+      "madness": "ripples",
+      "venom": "wisps",
+      "blight": "wisps",
+      "crimsonBlight": "wisps",
+      "necroticBlight": "wisps",
+      "envenom": "wisps",
+      "regen": "sprouts",
+      "strength": "rays",
+      "dexterity": "orbits",
+      "invulnerability": "rings",
+      "decoy": "orbits",
+      "concealed": "wisps",
+      "afterimage": "orbits",
+      "prepared": "rings"
+    },
+    "statusDefault": "stars",
+    "statusColor": {
+      "drops": "#d87c85",
+      "embers": "#e8a06a",
+      "crystals": "#a9ddeb",
+      "fractures": "#c6ab90",
+      "bolts": "#e7d387",
+      "shards": "#b4ac82",
+      "ripples": "#cba5e3",
+      "stars": "#d9c8ec",
+      "wisps": "#a3be8e",
+      "sprouts": "#afcca0",
+      "rays": "#e6cea0",
+      "orbits": "#aac5dd",
+      "rings": "#c9d2dc"
+    },
+    "statuses": {
+      "afterimage": "",
+      "astralArmor": "",
+      "astromancer": "",
+      "azureCoil": "",
+      "base.auto-counter": "",
+      "base.auto-sweep": "",
+      "base.bind": "",
+      "base.blight": "",
+      "base.charm": "",
+      "base.conceal": "",
+      "base.divine-harm": "",
+      "base.elemental-weapon": "",
+      "base.evade": "",
+      "base.extra-shield": "",
+      "base.extra-weapon": "",
+      "base.foresight": "",
+      "base.greased": "",
+      "base.guard-allies": "",
+      "base.intangible": "",
+      "base.many-forms": "",
+      "base.mirrors": "",
+      "base.necrotic-healing": "",
+      "base.paralysis": "",
+      "base.persistent-barrier": "",
+      "base.persistent-block": "",
+      "base.poison": "",
+      "base.read-intent": "",
+      "base.reflect": "",
+      "base.restrained": "",
+      "base.restrained-burden": "",
+      "base.retain-block": "",
+      "base.stagger": "",
+      "base.veil": "",
+      "base.weak": "",
+      "bleed": "#e46a44",
+      "bleeding": "",
+      "bleedResist": "#8e826a",
+      "bloodUnction": "",
+      "bulwarkEcho": "",
+      "burn": "#e46a44",
+      "chilled": "",
+      "communion": "",
+      "concealed": "",
+      "confused": "#a06bd0",
+      "constellation": "",
+      "crimsonBlight": "#b5541c",
+      "dazed": "",
+      "deadlyTempo": "",
+      "decoy": "",
+      "dexterity": "",
+      "emberTide": "",
+      "entombed": "#9a8a6a",
+      "envenom": "",
+      "evade": "",
+      "frail": "#8e826a",
+      "frost": "#7fa8c9",
+      "frostExposed": "#7fa8c9",
+      "frostResist": "#8e826a",
+      "frozen": "",
+      "glassCannon": "",
+      "goreblood": "",
+      "grounded": "",
+      "harbingerOfBlight": "",
+      "insanity": "#a06bd0",
+      "insanityExposed": "#a06bd0",
+      "insanityResist": "#8e826a",
+      "invulnerability": "",
+      "ironVow": "",
+      "lifeTithe": "",
+      "madness": "",
+      "magicVulnerable": "#8b7cd6",
+      "moonlitShield": "",
+      "necroticBlight": "#b5541c",
+      "offBalance": "",
+      "opportunist": "",
+      "paralysis": "",
+      "precision": "",
+      "prepared": "",
+      "prone": "",
+      "rallyingStandard": "",
+      "rallyingStandardUp": "",
+      "regen": "#9fc3e8",
+      "sanguinePact": "",
+      "silenced": "#8b7cd6",
+      "sleep": "",
+      "slowed": "#8a7b5c",
+      "staggered": "#c9a227",
+      "stanceShifted": "",
+      "stargazer": "",
+      "starstoneCharge": "",
+      "stigmata": "",
+      "stoneskin": "#8a7b5c",
+      "strength": "#c9a227",
+      "thornHalo": "",
+      "unbreakable": "",
+      "unbreakableUp": "",
+      "venom": "",
+      "vulnerable": "#9fc3e8",
+      "waxingMoon": "",
+      "weak": "#8e826a",
+      "zealotry": ""
+    }
   }
 }

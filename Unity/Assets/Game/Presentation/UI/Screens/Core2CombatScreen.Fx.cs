@@ -36,6 +36,12 @@ namespace Ashen.Presentation.UI.Screens
         private readonly List<IVisualElementScheduledItem> _fxItems = new List<IVisualElementScheduledItem>();
         private readonly HashSet<string> _dying = new HashSet<string>(StringComparer.Ordinal);
         private IVisualElementScheduledItem _introTimer;
+
+        /// <summary>The hit points each fighter's bar still shows above (or, for a heal, below) the view's: the numbers have not landed yet (the web's onBeatApplied applies a beat's HP after its visuals).</summary>
+        private readonly Dictionary<string, double> _hpHeld = new Dictionary<string, double>(StringComparer.Ordinal);
+
+        /// <summary>The hit points each bar showed when it was last drawn.</summary>
+        private readonly Dictionary<string, double> _hpShown = new Dictionary<string, double>(StringComparer.Ordinal);
         private bool _introOpen;
         private bool _ending;
         private Flight _flight;
@@ -87,6 +93,7 @@ namespace Ashen.Presentation.UI.Screens
             _fx.Pace = _pace;
             var beats = Core2Feedback.Plan(step.Timeline, PlanContext());
             var schedule = FxTimeline.Build(beats, _pace, Defs.Pace.InstantStepMs);
+            HoldHp(schedule);
             var enemyTurn = !_pace.Instant && step.Actors.Count > 0;
             TakeFlight(step);
             if (schedule.Items.Count == 0 && !enemyTurn)
@@ -118,8 +125,41 @@ namespace Ashen.Presentation.UI.Screens
             FocusSoon(_flow.Targeting ? FirstTarget() : FirstPlayableCard());
         }
 
+        /// <summary>Keeps each bar at the hit points it showed before the step until the number that took them lands.</summary>
+        private void HoldHp(FxSchedule schedule)
+        {
+            _hpHeld.Clear();
+            var landing = new HashSet<string>(schedule.Items.Where(i => i.Kind == FxItemKind.Cue && i.Cue.Type == FxCueType.Float && i.Cue.Hp != 0d).Select(i => i.Cue.TargetId), StringComparer.Ordinal);
+            foreach (var fighter in new[] { View.Player }.Concat(View.Enemies))
+                if (landing.Contains(fighter.Id) && _hpShown.TryGetValue(fighter.Id, out var shown) && Math.Abs(shown - fighter.Hp) > 0d) _hpHeld[fighter.Id] = shown - fighter.Hp;
+        }
+
+        private double HeldHp(string id) => id != null && _hpHeld.TryGetValue(id, out var held) ? held : 0d;
+
+        /// <summary>A number has landed: the bar takes the hit points it carried.</summary>
+        private void LandHp(FxCue cue)
+        {
+            if (cue.TargetId == null || !_hpHeld.TryGetValue(cue.TargetId, out var held)) return;
+            held = held > 0d ? Math.Max(0d, held - cue.Hp) : Math.Min(0d, held - cue.Hp);
+            if (held == 0d) _hpHeld.Remove(cue.TargetId);
+            else _hpHeld[cue.TargetId] = held;
+            ShowHp(cue.TargetId);
+        }
+
+        /// <summary>Redraws the one bar (the figure's, and the HUD's for the player).</summary>
+        private void ShowHp(string id)
+        {
+            var f = id == View.Player.Id ? View.Player : View.Enemies.FirstOrDefault(e => e.Id == id);
+            if (f == null) return;
+            var shown = Int(f.Hp + HeldHp(id));
+            _hpShown[id] = shown;
+            AnchorOf(id)?.SetHp(shown, Int(f.MaxHp));
+            if (id == View.Player.Id) Root.Q<Meter>(UiNames.HudHp)?.Set(shown, Int(f.MaxHp));
+        }
+
         private void FinishPlay()
         {
+            _hpHeld.Clear();
             try
             {
                 if (_flow.Ended)
@@ -146,6 +186,7 @@ namespace Ashen.Presentation.UI.Screens
             foreach (var item in _fxItems) item?.Pause();
             _fxItems.Clear();
             _fx?.CancelAll();
+            _hpHeld.Clear();
             _player?.Calm();
             foreach (var enemy in _enemies.Values) enemy.Calm();
             _dying.Clear();
@@ -216,7 +257,10 @@ namespace Ashen.Presentation.UI.Screens
             var target = AnchorOf(cue.TargetId);
             switch (cue.Type)
             {
-                case FxCueType.Float: _fx.Float(target, cue); break;
+                case FxCueType.Float:
+                    _fx.Float(target, cue);
+                    if (cue.Hp != 0d) LandHp(cue);
+                    break;
                 case FxCueType.Callout: CalloutCue(cue, target); break;
                 case FxCueType.HitFlash: HitFlash(cue, target); break;
                 case FxCueType.GuardPose:

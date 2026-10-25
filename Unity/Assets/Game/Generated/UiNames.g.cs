@@ -76,6 +76,8 @@ namespace Ashen.Generated
         public const string CardStage = "CARD_STAGE";
         public const string CardBand = "CARD_BAND";
         public const string CardSigil = "CARD_SIGIL";
+        public const string CardMirror = "CARD_MIRROR";
+        public const string CardMotifs = "CARD_MOTIFS";
         public const string CardRail = "CARD_RAIL";
         public const string CardRank = "CARD_RANK";
         public const string CardRankText = "CARD_RANK_TEXT";
@@ -400,6 +402,7 @@ namespace Ashen.Generated
         public const string TargetName = "TARGET_NAME";
         public const string TargetHp = "TARGET_HP";
         public const string TargetChips = "TARGET_CHIPS";
+        public const string TargetStatuses = "TARGET_STATUSES";
         public const string TargetIntentRow = "TARGET_INTENT_ROW";
         public const string TargetIntentIcon = "TARGET_INTENT_ICON";
         public const string TargetIntent = "TARGET_INTENT";

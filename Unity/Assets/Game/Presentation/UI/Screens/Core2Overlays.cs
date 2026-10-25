@@ -261,6 +261,20 @@ namespace Ashen.Presentation.UI.Screens
             host.Add(Text(card.Name, UiClasses.DetailTitle));
             host.Add(Text(Core2CombatText.TypeLine(_strings, card), UiClasses.DetailMeta));
             host.Add(Text(CostLine(card), UiClasses.DetailMeta));
+            foreach (var row in Core2CardHints.Sigils(_strings, _ui.Data.CardFace, card))
+            {
+                var line = new VisualElement { pickingMode = PickingMode.Ignore };
+                line.AddToClassList(UiClasses.DetailSigilRow);
+                var mark = new VisualElement { pickingMode = PickingMode.Ignore };
+                mark.AddToClassList(UiClasses.DetailSigil);
+                var sprite = KitCard.Glyph(row.School ? UiFormats.CardSchoolGlyph : UiFormats.CardSigilGlyph, row.Id);
+                mark.style.backgroundImage = sprite != null ? new StyleBackground(sprite) : new StyleBackground(StyleKeyword.None);
+                line.Add(mark);
+                line.Add(Text(_strings.Format(StringKeys.CardSigilRow, new StringArgs().Add(UiPlaceholders.Label, row.Label).Add(UiPlaceholders.Help, row.Help)), UiClasses.DetailMeta));
+                host.Add(line);
+            }
+            foreach (var hint in Core2CardHints.Hints(_strings, _ui.Data.CardFace, card))
+                host.Add(Text(hint.Lead == null ? hint.Text : _strings.Format(StringKeys.CardHintRow, new StringArgs().Add(UiPlaceholders.Lead, hint.Lead).Add(UiPlaceholders.Text, hint.Text)), UiClasses.DetailHint));
             if (!string.IsNullOrEmpty(card.Text)) host.Add(Text(card.Text, UiClasses.DetailText));
             foreach (var tag in card.Tags)
             {

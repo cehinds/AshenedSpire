@@ -5,6 +5,15 @@ namespace Ashen.Generated
     public static class UiPlaceholders
     {
         public const string Done = "done";
+        public const string Coverage = "coverage";
+        public const string Help = "help";
+        public const string Schools = "schools";
+        public const string Groups = "groups";
+        public const string Range = "range";
+        public const string Covers = "covers";
+        public const string Duration = "duration";
+        public const string Lead = "lead";
+        public const string Text = "text";
         public const string Total = "total";
         public const string File = "file";
         public const string Path = "path";
