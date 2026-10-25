@@ -794,6 +794,7 @@
   "core2.deck.runOver": "This climb is over.",
   "core2.end.again": "Run again",
   "core2.end.againRefused": "A new climb cannot start from here.",
+  "core2.end.saveFailed": "This run's record could not be saved. Retry before starting again or leaving.",
   "core2.end.body": "The way ahead is clear.",
   "core2.end.cinders": "Cinders",
   "core2.end.continue": "Continue",

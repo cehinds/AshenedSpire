@@ -821,6 +821,7 @@ namespace Ashen.Generated
         public const string Core2EndLine = "core2.end.line";
         public const string Core2EndLineNoFloors = "core2.end.lineNoFloors";
         public const string Core2EndNotYet = "core2.end.notYet";
+        public const string Core2EndSaveFailed = "core2.end.saveFailed";
         public const string Core2EndSeed = "core2.end.seed";
         public const string Core2EndSlain = "core2.end.slain";
         public const string Core2EndSlainAmount = "core2.end.slainAmount";

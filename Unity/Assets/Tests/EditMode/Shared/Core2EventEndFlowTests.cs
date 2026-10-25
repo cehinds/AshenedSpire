@@ -478,6 +478,31 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void RunAgainWithTheCloseOutUnwrittenIsRefusedUntilTheRetrySucceeds()
+        {
+            var session = Core2RunSession.New(Content, _saves, 1, 31337, "reaver", "Aldric", () => Epoch);
+            session.Travel(session.ReachableNodes()[0]);
+            session.EditRunForReview(r => { r["hp"] = 1; r["maxHp"] = 1; });
+            session.StartEncounter(session.EncounterId);
+            var blocker = Path.Combine(_dir, _saves.Rules.ProfileSlot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            FightToTheEnd(session);
+            Assert.That(session.RunOver, Is.True);
+            Assert.That(session.PendingSaveError, Is.Not.Null, "the profile could not be written");
+            var flow = new Core2RunEndFlow(session, Ui);
+            Assert.That(flow.PendingSaveNotice, Is.Not.Null);
+            var refused = flow.RunAgain(Content, _saves, 777u);
+            Assert.That(refused.Done, Is.False);
+            Assert.That(refused.SaveFailed, Is.True);
+            Assert.That(_saves.Exists(session.Slot), Is.True, "the finished run's slot is not replaced");
+            Directory.Delete(blocker);
+            var again = flow.RunAgain(Content, _saves, 777u);
+            Assert.That(again.Done, Is.True, again.Refusal);
+            Assert.That(session.PendingSaveError, Is.Null);
+            Assert.That(((Newtonsoft.Json.Linq.JArray)ProfileStore.Load(_saves).Doc["results"]).Count, Is.EqualTo(1), "the first run's record was written before the new climb");
+        }
+
+        [Test]
         public void RunAgainBeginsANewClimbOfTheSameClassAndNameWithANewSeedInTheSameSlot()
         {
             var session = ADeath();
