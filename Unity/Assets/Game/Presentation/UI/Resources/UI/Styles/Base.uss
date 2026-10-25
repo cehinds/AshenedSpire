@@ -61,7 +61,7 @@
     -unity-font-definition: url("../Fonts/IMFellEnglish-Italic.ttf");
 }
 
-/* The other card-lore faces of the web's Typeface choice (kit.css:4376-4390; styles/base.css bundles all of them, SIL OFL 1.1, Fonts/OFL.txt). A lore line wears one of these classes
+/* The other card-lore faces of the web's Typeface choice (kit.css:4376-4390, SIL OFL 1.1, Fonts/OFL.txt). A lore line wears one of these classes
    (and the -italic one for a slanted line); the web's default is IM Fell English above. Cinzel and Inter are the display and body faces already. */
 .font-lore--garamond { -unity-font-definition: url("../Fonts/EBGaramond-Regular.ttf"); }
 .font-lore--garamond-italic { -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); }
