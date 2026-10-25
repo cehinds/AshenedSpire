@@ -23,6 +23,12 @@ namespace Ashen.Presentation.UI.Kit
         /// <summary>The art id of a frame of this enemy at the art tier the layout asks for (the light tier on a narrow layout).</summary>
         public Func<string, string> ArtOf;
 
+        /// <summary>The soft silhouette sprite of a frame of this enemy by the frame's name (the stand-in for the web's drop-shadow aura), or null when it is not imported.</summary>
+        public Func<string, Texture2D> Glow;
+
+        /// <summary>How opaque the aura of a buff theme is drawn (the web's drop-shadow is as strong as the blur lets it be at the silhouette's edge).</summary>
+        public float GlowOpacity;
+
         /// <summary>How often the stage is redrawn while it moves.</summary>
         public double TickMs;
 
@@ -138,6 +144,7 @@ namespace Ashen.Presentation.UI.Kit
                 return false;
             }
             var scale = (float)(h / feed.Data.Height);
+            PaintEnemyGlow(feed, draw, w, scale);
             PlaceFrame(_stageBody, feed.Texture(draw.Art), draw.Rect, w, scale);
             UiDom.Show(_stageEffect, false);
             UiDom.Show(_stageMask, false);
@@ -145,6 +152,30 @@ namespace Ashen.Presentation.UI.Kit
             _pose.AddToClassList(UiClasses.Hidden);
             _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
             return true;
+        }
+
+        /// <summary>
+        /// The aura behind the figure: the web gives each buff theme of the enemy a coloured drop-shadow of its silhouette (enemyAuraFilter: blur 3 px, 6 px, ... in the theme's colour). Each theme is
+        /// one tinted copy of the frame's soft silhouette sprite (an approximation: UI Toolkit draws no filters), grown by the extra blur of its place in the list.
+        /// </summary>
+        private void PaintEnemyGlow(EnemyFeed feed, EnemyDraw draw, float boxWidth, float scale)
+        {
+            var themes = draw.Themes;
+            var glow = themes != null && themes.Count > 0 && feed.Glow != null ? feed.Glow(draw.Frame) : null;
+            for (var i = 0; i < _stageGlows.Length; i++)
+            {
+                var layer = _stageGlows[i];
+                if (glow == null || i >= themes.Count || !feed.Data.AuraColors.TryGetValue(themes[i], out var hex) || !ColorUtility.TryParseHtmlString(hex, out var colour))
+                {
+                    UiDom.Show(layer, false);
+                    continue;
+                }
+                var grow = (feed.Data.AuraBlur(i) - feed.Data.BlurBase) * UiMath.Half;
+                var rect = new StageRect { Left = draw.Rect.Left - grow, Top = draw.Rect.Top - grow, Width = draw.Rect.Width + grow / UiMath.Half, Height = draw.Rect.Height + grow / UiMath.Half };
+                PlaceFrame(layer, glow, rect, boxWidth, scale);
+                layer.style.opacity = feed.GlowOpacity;
+                layer.style.unityBackgroundImageTintColor = colour;
+            }
         }
 
         /// <summary>A frame of the enemy stage at its rectangle: left of the figure box's centre, below the stage's top.</summary>

@@ -29,6 +29,7 @@ namespace Ashen.Generated
         public const string EnemyFrame = "enemyFrame";
         public const string EnemyLite = "enemyLite";
         public const string StageLite = "stageLite";
+        public const string Glow = "glow";
         public const string Flask = "flask";
     }
 }

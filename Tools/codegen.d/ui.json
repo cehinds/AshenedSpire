@@ -824,6 +824,7 @@
         "FighterPose": "fighter-pose",
         "FighterStage": "fighter-stage",
         "FighterStageBody": "fighter-stage-body",
+        "FighterStageGlow": "fighter-stage-glow",
         "FighterStageEffect": "fighter-stage-effect",
         "FighterStageMask": "fighter-stage-mask",
         "CombatEndVictory": "combat-end--victory",

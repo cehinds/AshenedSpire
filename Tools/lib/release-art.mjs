@@ -210,6 +210,27 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
     registry[id] = entry;
   }
 
+  // ----- derived images: the soft silhouette glows of the combat figures (P-4, D-1540..). Each is made from the frame it glows around, so it shares that frame's source and hash; the
+  // import writes it from the source at the size the registry records (config release.derive).
+  const glowOf = new Map();
+  const derives = (R.derive || []).map(d => ({ ...d, re: new RegExp(d.match) }));
+  for (const [id, base] of Object.entries(registry)) {
+    if (base.release !== R.tag || base.derived || !base.unityPath) continue;
+    for (const d of derives) {
+      const m = d.re.exec(id);
+      if (!m) continue;
+      const gid = applyTemplate(d.id, m);
+      const spec = converts.find(c => c.re.test(gid));
+      const entry = {
+        origin: 'imported', release: R.tag, derived: 'glow', source: base.source, sha256: base.sha256, bytes: base.bytes, format: base.format,
+        width: base.width, height: base.height, alpha: true, unityPath: unityPathFor(gid, spec),
+        unityWidth: Math.max(1, Math.round(base.unityWidth * d.glow.scale)), unityHeight: Math.max(1, Math.round(base.unityHeight * d.glow.scale)),
+      };
+      glowOf.set(gid, d.glow);
+      if (canonical(registry[gid]) !== canonical(entry)) { registry[gid] = entry; stats.added++; }
+    }
+  }
+
   const releaseIds = Object.entries(registry).filter(([, e]) => e.release === R.tag);
   const importedIds = releaseIds.filter(([, e]) => e.unityPath);
   const after = canonical(registry);
@@ -251,7 +272,14 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
           const src = srcOf(e);
           mkdirSync(dirname(dst), { recursive: true });
           let img;
-          if (e.format === 'svg') {
+          if (e.derived === 'glow') {
+            // The glow of a frame: its alpha, shrunk, blurred and gained so the halo reaches past the edge, as white with that alpha (UI Toolkit tints it).
+            const glow = glowOf.get(id);
+            const alpha = await sharp(src).ensureAlpha().extractChannel(3).resize(e.unityWidth, e.unityHeight, { fit: 'fill', kernel: 'lanczos3' })
+              .blur(glow.sigma).linear(glow.gain, 0).raw().toBuffer();
+            img = sharp({ create: { width: e.unityWidth, height: e.unityHeight, channels: 3, background: { r: 255, g: 255, b: 255 } } })
+              .joinChannel(alpha, { raw: { width: e.unityWidth, height: e.unityHeight, channels: 1 } });
+          } else if (e.format === 'svg') {
             let svg = readFileSync(src, 'utf8');
             if (spec.svgColor) svg = svg.replace(/currentColor/g, spec.svgColor).replace(/\scolor="[^"]*"/, '');
             const k = e.unityWidth / e.width;

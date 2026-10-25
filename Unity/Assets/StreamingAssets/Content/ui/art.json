@@ -7,7 +7,9 @@
     { "id": "fx", "resource": "UI/UiFxArtCatalog", "include": ["vfx.", "posefx.", "pose.", "defeated.", "enemy.*.pose.idle", "enemy.*.pose.attack", "enemy.*.state.afflicted", "enemy.*.state.buff", "enemy.*.state.guard", "enemy.*.state.guardHit", "enemy.*.state.hurt", "enemy.*.state.projectile", "enemy.*.state.wounded"] },
     { "id": "stage", "resource": "UI/UiStageArtCatalog", "include": ["alt.", "sweep.", "hurt."] },
     { "id": "enemies", "resource": "UI/UiEnemyArtCatalog", "include": ["exp."] },
-    { "id": "lite", "resource": "UI/UiLiteArtCatalog", "include": ["lite."] }
+    { "id": "lite", "resource": "UI/UiLiteArtCatalog", "include": ["lite."] },
+    { "id": "glowstage", "resource": "UI/UiGlowStageArtCatalog", "include": ["glow.alt.", "glow.sweep.", "glow.hurt."] },
+    { "id": "glowenemy", "resource": "UI/UiGlowEnemyArtCatalog", "include": ["glow.exp."] }
   ],
   "lookup": {
     "icon": "icon.{name}",
@@ -35,6 +37,7 @@
     "enemyFrame": "exp.{id}.{name}",
     "enemyLite": "lite.exp.{id}.{name}",
     "stageLite": "lite.{name}",
+    "glow": "glow.{name}",
     "flask": "flask.{name}"
   },
   "iconAlias": {

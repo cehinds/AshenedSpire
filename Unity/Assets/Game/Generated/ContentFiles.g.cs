@@ -387,6 +387,7 @@ namespace Ashen.Generated
         public const string SchemasUiCardStageSchema = "schemas/ui.cardStage.schema.json";
         public const string SchemasUiCardTextSchema = "schemas/ui.cardText.schema.json";
         public const string SchemasUiCardfaceSchema = "schemas/ui.cardface.schema.json";
+        public const string SchemasUiCombatAuraSchema = "schemas/ui.combatAura.schema.json";
         public const string SchemasUiComponentsSchema = "schemas/ui.components.schema.json";
         public const string SchemasUiConfirmationPoliciesSchema = "schemas/ui.confirmationPolicies.schema.json";
         public const string SchemasUiEnemyStageSchema = "schemas/ui.enemyStage.schema.json";
@@ -432,6 +433,7 @@ namespace Ashen.Generated
         public const string UiCardStage = "ui/cardStage.json";
         public const string UiCardText = "ui/cardText.json";
         public const string UiCardface = "ui/cardface.json";
+        public const string UiCombatAura = "ui/combatAura.json";
         public const string UiComponents = "ui/components.json";
         public const string UiConfirmationPolicies = "ui/confirmationPolicies.json";
         public const string UiEnemyStage = "ui/enemyStage.json";

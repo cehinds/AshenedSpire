@@ -59,12 +59,21 @@ namespace Ashen.Presentation.UI.Screens
                 Texture = art => Ui.Texture(art),
                 ArtOf = frame => EnemyArt(f.DefId, frame),
                 TickMs = Defs.Pace.TickMs,
+                Glow = frame => EnemyGlow(f.DefId, frame),
+                GlowOpacity = (float)Ui.Data.Tokens.Ratio(RatioKeys.EnemyGlowOpacity),
                 Ink = frame => Ui.Data.FigureInk.TryGet(Ui.Data.Art.Find(ArtKinds.EnemyFrame, new StringArgs().Add(ArtPlaceholders.Id, f.DefId).Add(ArtPlaceholders.Name, frame)), out var ink) ? ink : (FigureInkColumns?)null,
                 Reduced = ReducedMotion,
                 Rest = look.Rest,
                 Themes = look.Themes,
                 Category = HeldCategory(f),
             };
+        }
+
+        /// <summary>The soft silhouette sprite of a frame of an enemy (derived at import from the full frame, so the layout's art tier does not matter), or null when it is not imported.</summary>
+        private Texture2D EnemyGlow(string defId, string frame)
+        {
+            var art = Ui.Data.Art.Find(ArtKinds.EnemyFrame, new StringArgs().Add(ArtPlaceholders.Id, defId).Add(ArtPlaceholders.Name, frame));
+            return art == null ? null : Ui.Texture(Ui.Data.Art.Find(ArtKinds.Glow, new StringArgs().Add(ArtPlaceholders.Name, art)));
         }
 
         /// <summary>The art id of a frame of an enemy at the tier the layout asks for: the light frames on a narrow layout (the web's Auto art quality), else the full ones; the full ones when the light one is missing.</summary>

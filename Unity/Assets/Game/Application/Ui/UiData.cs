@@ -49,6 +49,9 @@ namespace Ashen.App.Ui
         /// <summary>ui/figureInk.json (P-4): the visible columns of each combat figure frame, which a floor shadow is as wide as.</summary>
         public FigureInk FigureInk;
 
+        /// <summary>ui/combatAura.json (P-4): the colours and strengths of the player figure's silhouette glow.</summary>
+        public CombatAuraData CombatAura;
+
         public static UiData Load(IContentSource source)
         {
             JObject Read(string path) => (JObject)JsonContent.Parse(source.ReadText(path));
@@ -69,6 +72,7 @@ namespace Ashen.App.Ui
                 EnemyStage = new EnemyStageData(Read(ContentFiles.UiEnemyStage)),
                 Battlefield = new BattlefieldData(Read(ContentFiles.UiBattlefield)),
                 FigureInk = new FigureInk(Read(ContentFiles.UiFigureInk)),
+                CombatAura = new CombatAuraData(Read(ContentFiles.UiCombatAura)),
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
                 Meta = Read(ContentFiles.UiMeta),

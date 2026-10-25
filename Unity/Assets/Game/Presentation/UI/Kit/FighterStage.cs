@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Ashen.App.Ui;
 using Ashen.Generated;
 using UnityEngine;
@@ -31,6 +33,14 @@ namespace Ashen.Presentation.UI.Kit
         public string Stance;
 
         public string Rest;
+
+        /// <summary>
+        /// The silhouette glow (P-4): the choices of the web's auraFilter and the soft sprite that stands for its drop-shadows, by the art id of the frame it surrounds (null when it is not imported).
+        /// The web draws no glow in its light quality, which a narrow layout takes (<see cref="Lite"/>).
+        /// </summary>
+        public CombatAuraData Aura;
+        public Func<string, Texture2D> Glow;
+        public bool Lite;
     }
 
     public partial class Fighter
@@ -38,6 +48,7 @@ namespace Ashen.Presentation.UI.Kit
         private CardStageState _stageState;
         private VisualElement _stageBox;
         private VisualElement _stageBody;
+        private VisualElement[] _stageGlows;
         private VisualElement _stageEffect;
         private VisualElement _stageMask;
         private IVisualElementScheduledItem _stageTick;
@@ -49,6 +60,8 @@ namespace Ashen.Presentation.UI.Kit
         {
             _stageBox = new VisualElement { pickingMode = PickingMode.Ignore };
             _stageBox.AddToClassList(UiClasses.FighterStage);
+            _stageGlows = Enumerable.Range(0, AuraCount.Layers).Select(_ => StageLayer(UiClasses.FighterStageGlow)).ToArray();
+            foreach (var glow in _stageGlows) _stageBox.Add(glow);
             _stageBody = StageLayer(UiClasses.FighterStageBody);
             _stageEffect = StageLayer(UiClasses.FighterStageEffect);
             _stageMask = StageLayer(UiClasses.FighterStageMask);
@@ -109,9 +122,9 @@ namespace Ashen.Presentation.UI.Kit
         }
 
         /// <summary>Plays a card action of the stage for <paramref name="ms"/> (play). False when the figure has no stage or no such action.</summary>
-        public bool PlayStageAction(string action, double ms)
+        public bool PlayStageAction(string action, double ms, IReadOnlyList<string> resources = null)
         {
-            if (!HasStage || !_stageState.Play(action, ms, Now, Data.Stage.Reduced)) return false;
+            if (!HasStage || !_stageState.Play(action, ms, Now, Data.Stage.Reduced, resources)) return false;
             _stageState.CueContact(Data.Stage.Reduced);
             PaintStage();
             EnsureStageTick();
@@ -209,6 +222,7 @@ namespace Ashen.Presentation.UI.Kit
                 return false;
             }
             var scale = (float)(h / feed.Data.Class(feed.ClassId).Unit);
+            PaintGlow(feed, draw, w, h, scale);
             Place(_stageBody, feed.Texture(draw.Art), draw.Rect, w, h, scale, 1);
             if (draw.EffectArt != null) Place(_stageEffect, feed.Texture(draw.EffectArt), draw.EffectRect, w, h, scale, 1);
             else UiDom.Show(_stageEffect, false);
@@ -222,6 +236,30 @@ namespace Ashen.Presentation.UI.Kit
             _pose.AddToClassList(UiClasses.Hidden);
             _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
             return true;
+        }
+
+        /// <summary>
+        /// The aura behind the body: one tinted copy of the frame's soft silhouette sprite for each colour the web strokes the figure with, grown by that colour's radius and as opaque as its strength.
+        /// An approximation of the drop-shadows (UI Toolkit draws no filters): the sprite is the frame's alpha shrunk, blurred and gained at import (Tools/scan-assets.mjs release.derive), the same
+        /// halo for every strength, so a faded outline and a power glow differ in opacity and reach but not in blur. The brightness a power frame adds to the body is not drawn.
+        /// </summary>
+        private void PaintGlow(StageFeed feed, StageDraw draw, float boxWidth, float boxHeight, float scale)
+        {
+            var layers = feed.Aura != null && feed.Glow != null ? feed.Aura.For(draw, _stageState.Rest, feed.Lite) : null;
+            var glow = layers != null && !layers.None ? feed.Glow(draw.Art) : null;
+            for (var i = 0; i < _stageGlows.Length; i++)
+            {
+                var layer = _stageGlows[i];
+                if (glow == null || i >= layers.Glows.Count)
+                {
+                    UiDom.Show(layer, false);
+                    continue;
+                }
+                var g = layers.Glows[i];
+                var grown = new StageRect { Left = draw.Rect.Left - g.Radius, Top = draw.Rect.Top - g.Radius, Width = draw.Rect.Width + g.Radius / UiMath.Half, Height = draw.Rect.Height + g.Radius / UiMath.Half };
+                Place(layer, glow, grown, boxWidth, boxHeight, scale, (float)g.Alpha);
+                layer.style.unityBackgroundImageTintColor = new Color((float)(g.R / UiMath.ByteMax), (float)(g.G / UiMath.ByteMax), (float)(g.B / UiMath.ByteMax));
+            }
         }
 
         private static void Place(VisualElement layer, Texture2D texture, StageRect rect, float boxWidth, float boxHeight, float scale, float opacity)

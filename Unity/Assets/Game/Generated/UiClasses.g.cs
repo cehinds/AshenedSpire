@@ -253,6 +253,7 @@ namespace Ashen.Generated
         public const string FighterPose = "fighter-pose";
         public const string FighterStage = "fighter-stage";
         public const string FighterStageBody = "fighter-stage-body";
+        public const string FighterStageGlow = "fighter-stage-glow";
         public const string FighterStageEffect = "fighter-stage-effect";
         public const string FighterStageMask = "fighter-stage-mask";
         public const string CombatEndVictory = "combat-end--victory";

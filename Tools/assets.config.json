@@ -117,7 +117,12 @@
       { "match": "^mapdetail\\..*\\.l1024\\.", "format": "jpg", "quality": 84, "flat": true },
       { "match": "^pose\\.", "format": "png" },
       { "match": "^posefx\\.", "format": "png" },
-      { "match": "^(alt|sweep|hurt|exp|lite)\\.", "format": "png", "flat": true }
+      { "match": "^(alt|sweep|hurt|exp|lite)\\.", "format": "png", "flat": true },
+      { "match": "^glow\\.", "format": "png", "flat": true }
+    ],
+    "derive": [
+      { "match": "^(alt|sweep|hurt)\\.(.+)$", "id": "glow.$1.$2", "glow": { "scale": 0.5, "sigma": 1.4, "gain": 2.2 } },
+      { "match": "^(exp)\\.(.+)$", "id": "glow.$1.$2", "glow": { "scale": 0.25, "sigma": 0.9, "gain": 2 } }
     ]
   },
   "provenance": {

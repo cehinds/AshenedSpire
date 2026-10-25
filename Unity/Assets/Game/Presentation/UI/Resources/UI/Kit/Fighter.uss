@@ -307,6 +307,7 @@
 }
 
 .fighter-stage-body,
+.fighter-stage-glow,
 .fighter-stage-effect,
 .fighter-stage-mask {
     position: absolute;

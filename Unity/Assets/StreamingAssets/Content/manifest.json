@@ -1,5 +1,5 @@
 {
-  "contentHash": "8f7c5c7290722a3b84d696e09638dd917a4029f8c1e33f49f7a3007a799849e6",
+  "contentHash": "6f44b7ce7bfd400b1d202d31feb13108f4bfa00664629a51db97255633d9d05c",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -100,9 +100,9 @@
       "sha256": "0a8e3b8e433e076b012b6897222ef3dffcbc5c69d159401fa68abae4d10f8d6e"
     },
     "assets/registry.json": {
-      "bytes": 3328214,
+      "bytes": 3836691,
       "generated": false,
-      "sha256": "4986bc9ff20398ce99d84100a26cbee9b3631067d1f64fb415e2dbffb1050641"
+      "sha256": "54161bf92dbe32f20bfc8578572120ea29be41efd2d33559edf7692b9a6fe53c"
     },
     "audio/beds.json": {
       "bytes": 1990,
@@ -990,9 +990,9 @@
       "sha256": "6679aed41f92d08bce5fb826d48a1168c31c4c5a8f481969ea6bfd9426cf624c"
     },
     "schemas/assets.registry.schema.json": {
-      "bytes": 1114,
+      "bytes": 1213,
       "generated": false,
-      "sha256": "ab958f0d9426f690268ee25d662b0c7998d177a2108e21483fe464beb451ceb4"
+      "sha256": "638fca6c6c1c81c04b79bb65003feefd67a1a8a13380da754b42cad16fa8bbf3"
     },
     "schemas/audio.beds.schema.json": {
       "bytes": 2427,
@@ -2009,6 +2009,11 @@
       "generated": false,
       "sha256": "7c7f4d1a2f293e79c8f12b9b131f1b388af3586a80e13888c398a4376a722ec8"
     },
+    "schemas/ui.combatAura.schema.json": {
+      "bytes": 4136,
+      "generated": false,
+      "sha256": "af623da1f0946eba27f60c65f12f7ff5666dcf8a6af267b6b08257736b10a314"
+    },
     "schemas/ui.components.schema.json": {
       "bytes": 8511,
       "generated": false,
@@ -2210,9 +2215,9 @@
       "sha256": "800f85c25beaa464dee1ad55f25b838ca54e8cb72b0fa8ed44b0b40a9f5efbe0"
     },
     "ui/art.json": {
-      "bytes": 4530,
+      "bytes": 4772,
       "generated": false,
-      "sha256": "3587f8c4fa75eb95cd79ea2895e0c70bc0c9fba9682021e9ea03e54d61c27b48"
+      "sha256": "c8cdac2c6969a8c03ad2bb607bc1bf72ed449f7b77b009bf464bbc68638d9ea8"
     },
     "ui/battlefield.json": {
       "bytes": 4877,
@@ -2233,6 +2238,11 @@
       "bytes": 34415,
       "generated": false,
       "sha256": "bb21030e16e957b39d492abcdf9129783be6bb8079a4933b1bc4b34694657e5d"
+    },
+    "ui/combatAura.json": {
+      "bytes": 1215,
+      "generated": false,
+      "sha256": "36ff7866380a020635d833714109fc952a440ba0e15b50b1ab7f2bdeefa4c53a"
     },
     "ui/components.json": {
       "bytes": 10967,
@@ -2315,9 +2325,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 50132,
+      "bytes": 50162,
       "generated": false,
-      "sha256": "f7f6086d4b2bd5f064d577d57bb3c703b4aad7a310e439efe8c07dd4ef3ffc07"
+      "sha256": "e390ad994f85eb21c58abfe29a5404673061b182be202ad9864bb6a19f45903f"
     }
   },
   "schemaVersion": 1,

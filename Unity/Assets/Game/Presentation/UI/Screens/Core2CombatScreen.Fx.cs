@@ -363,7 +363,7 @@ namespace Ashen.Presentation.UI.Screens
             if (actor.HasStage)
             {
                 var action = StageActionOf(item.Beat);
-                if (action != null) actor.PlayStageAction(action, item.Ms);
+                if (action != null) actor.PlayStageAction(action, item.Ms, StageResources(item.Beat));
                 return;
             }
             // An enemy's expansion stage plays the pose of its move over the action's length and travels as the move's family does (playFamilyAnimation).

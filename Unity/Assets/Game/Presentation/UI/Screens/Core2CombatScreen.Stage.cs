@@ -66,6 +66,22 @@ namespace Ashen.Presentation.UI.Screens
             return beat.Kind == FxBeatKind.Attack ? StageActions.Attack : StageNames.RestGuard;
         }
 
+        /// <summary>
+        /// resourceAura of the card a beat plays: what it paid, from its printed costs and the receipt of the play (stamina and mana spent on the cardPlayed event, the hit points the step took from the player by
+        /// the card's own cost: every hpLost on it that is not an attack's and not a proc's). The colour of the aura while its clip plays; null for a beat with no card.
+        /// </summary>
+        private IReadOnlyList<string> StageResources(FxBeat beat)
+        {
+            var played = beat?.Events.FirstOrDefault(l => l.Type == FxEvents.CardPlayed);
+            if (played?.Event == null || !_stagePlans.TryGetValue(played.Event.Str(FxKeys.CardInstanceId) ?? string.Empty, out var plan) || plan.Cost == null) return null;
+            var hpSpent = _stageBeats.SelectMany(b => b.Events)
+                .Where(l => l.Type == FxEvents.HpLost && l.Event != null && l.Event.Str(FxKeys.TargetId) == View.Player.Id)
+                .Where(l => l.Event.Str(FxKeys.Cause) != CombatValues.CauseAttack && !(l.Event.Str(FxKeys.Cause) ?? string.Empty).StartsWith(CombatValues.ProcCausePrefix, StringComparison.Ordinal))
+                .Sum(l => l.Event.Value<double?>(FxKeys.Amount) ?? 0);
+            double? Spent(string key) => played.Event[key] == null || played.Event[key].Type == JTokenType.Null ? (double?)null : played.Event.Value<double>(key);
+            return CombatAuraData.Resources(plan.Cost, Spent(CombatKeys.StaminaSpent), Spent(CombatKeys.ManaSpent), hpSpent);
+        }
+
         /// <summary>The authored length of the player's action in a beat and when its blow lands (stage.actionTiming): only a card's action or a counter's return has its own length.</summary>
         private StageTiming? AuthoredTiming(FxBeat beat)
         {

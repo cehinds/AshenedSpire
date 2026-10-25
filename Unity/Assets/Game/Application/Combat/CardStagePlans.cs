@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using Ashen.App.Ui;
 using Ashen.Domain.Combat;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using CK = Ashen.Generated.Core2CombatKeys;
 using CV = Ashen.Generated.Core2CombatValues;
 using IK = Ashen.Generated.IntentKeys;
+using V = Ashen.Generated.CombatValues;
 using K = Ashen.Generated.CombatKeys;
 
 namespace Ashen.App.Combat
@@ -33,6 +35,9 @@ namespace Ashen.App.Combat
 
         /// <summary>The authored maneuver of the card's profile (kindForCard), which names the intent glyph over the figure; null for a card with none.</summary>
         public string Maneuver;
+
+        /// <summary>What the card printed it pays (resourceAura): the colour of the aura while it plays.</summary>
+        public AuraCost Cost;
     }
 
     /// <summary>
@@ -64,8 +69,19 @@ namespace Ashen.App.Combat
                 PilotStance = PilotStance(profile, card, stance),
                 PilotCounter = PilotCounter(profile, tags),
                 Maneuver = profile.Str(CK.Maneuver),
+                Cost = CostOf(card),
             };
         }
+
+        /// <summary>resourceAura's reading of the card: its printed costs and whether one of its effects takes hit points from the player itself.</summary>
+        public static AuraCost CostOf(JObject card) => new AuraCost
+        {
+            StaminaCost = card.Or0(K.StaminaCost),
+            ManaCost = card.Or0(K.ManaCost),
+            HpCost = card.Or0(AuraKeys.HpCost),
+            SelfPayment = Js.Items(card[K.Effects]).Any(e => Js.Str(Js.Get(e, K.Op)) == Ashen.Generated.CombatOps.LoseHp && Js.Str(Js.Get(e, K.Target)) == V.TargetSelf
+                && (!Js.IsNum(Js.Get(e, K.Amount)) || Js.D(Js.Get(e, K.Amount)) > 0)),
+        };
 
         /// <summary>
         /// playerActionIntent (ui/components/combatantOverhead.js): the glyph of the figure's intent for a maneuver; a ranged card shows the attack, and spells, untyped cards and the resting mark

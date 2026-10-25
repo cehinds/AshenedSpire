@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Ashen.Generated;
 
@@ -22,6 +23,10 @@ namespace Ashen.App.Ui
 
         /// <summary>How strongly the red mask covers the body (0 for none).</summary>
         public double Flash;
+
+        /// <summary>What the aura reads (auraFilter): the clip playing (null for none) and the resources its card paid.</summary>
+        public string AuraAction;
+        public IReadOnlyList<string> AuraResources;
     }
 
     /// <summary>
@@ -37,6 +42,9 @@ namespace Ashen.App.Ui
             public string Action;
             public StageSequence Sequence;
             public double Duration;
+
+            /// <summary>The resources the card playing paid; they colour the aura while the clip plays.</summary>
+            public IReadOnlyList<string> Resources;
 
             /// <summary>contactCue: the clock waits at the contact frame (<see cref="ContactMs"/>) until the timeline says the blow has landed.</summary>
             public bool AwaitContact;
@@ -137,7 +145,7 @@ namespace Ashen.App.Ui
         public StageTiming Timing(string action, SpriteSpeed speed) => _data.Timing(SequenceFor(action), speed);
 
         /// <summary>play: start a card action for <paramref name="ms"/> (the clip is not played when it is not positive); hit and hurt start the hit reaction, defeated lays the figure down. False when the stage cannot play it.</summary>
-        public bool Play(string action, double ms, double now, bool reduced)
+        public bool Play(string action, double ms, double now, bool reduced, IReadOnlyList<string> resources = null)
         {
             if (Rest == StageNames.Defeated && action != StageNames.Defeated) return false;
             if (action == StageNames.Hit || action == StageNames.Hurt) return Hit(ms, now, reduced);
@@ -162,7 +170,7 @@ namespace Ashen.App.Ui
             }
             _elapsed = 0;
             _holdUntil = 0;
-            _playing = new Clip { Action = key, Sequence = sequence, Duration = ms };
+            _playing = new Clip { Action = key, Sequence = sequence, Duration = ms, Resources = resources };
             _last = now;
             return true;
         }
@@ -311,6 +319,8 @@ namespace Ashen.App.Ui
                 Art = clipping ? _class.Hurt.Art : frame.Art,
                 Hurt = clipping,
                 Rect = clipping ? _data.PlaceHurt(_class, bodyX) : _data.Place(_class, frame, bodyX, heldRegistration && _reaction == null),
+                AuraAction = _playing?.Action,
+                AuraResources = _playing?.Resources,
             };
             if (effect != null && !reduced && !reduceFlashes && _class.Effects.TryGetValue(effect, out var trail) && has(trail))
             {
