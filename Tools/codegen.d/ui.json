@@ -995,7 +995,9 @@
         "Code": "code",
         "Rarity": "rarity",
         "Bucket": "bucket",
-        "N": "n"
+        "N": "n",
+        "Hand": "hand",
+        "Found": "found"
       }
     },
     {

@@ -111,6 +111,30 @@
         "PaneReview": "review",
         "FocusReview": "review"
       }
+    },
+    {
+      "name": "SettingsPageKeys",
+      "doc": "Keys of the settingsTabs layout in ui/meta.json (Ashen.App.Settings.SettingsLayout).",
+      "keys": {
+        "SettingsTabs": "settingsTabs",
+        "Id": "id",
+        "LabelKey": "labelKey",
+        "Groups": "groups",
+        "Categories": "categories",
+        "About": "about",
+        "Compendium": "compendium",
+        "Kinds": "kinds"
+      }
+    },
+    {
+      "name": "FrontFormats",
+      "doc": "String-key templates of the front-of-house screens (strings/app.en.json compendium.*, history.*).",
+      "keys": {
+        "CompendiumTab": "compendium.tab.{0}",
+        "CompendiumUnknown": "compendium.unknown.{0}",
+        "CompendiumRarity": "compendium.rarity.{0}",
+        "CompendiumHand": "compendium.hand.{0}"
+      }
     }
   ]
 }

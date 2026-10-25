@@ -1,5 +1,5 @@
 {
-  "comment": "Presentation data of the meta lane (D-149): the act map's reveal modes (settings mapMode; US-4.2) and W-04's creation choices (name length, tints, sigils; US-2.2/2.3); the RUN_HUD XP strip flag (W-22, an open owner decision: off); the hand-rules worked example's turns and plays per turn (US-15.2).",
+  "comment": "Presentation data of the meta lane (D-149): the act map's reveal modes (settings mapMode; US-4.2) and W-04's creation choices (name length, tints, sigils; US-2.2/2.3); the RUN_HUD XP strip flag (W-22, an open owner decision: off); the hand-rules worked example's turns and plays per turn (US-15.2). 'settingsTabs' lay the W-18 controls out as the web's Settings does (VP-13, D-1005): three tabs (General, Accessibility, Advanced), each with groups that name the settings/defaults.json categories they show; a group with 'about' shows the About text instead of controls. 'compendium.kinds' are the armament kinds the Compendium's rail lists, in order (catalog/armaments.json 'kind').",
   "mapReveal": {
     "fogFloorsAhead": 1,
     "fogKeepsKinds": [
@@ -38,5 +38,81 @@
   "handExample": {
     "turns": 3,
     "playsPerTurn": 2
+  },
+  "settingsTabs": [
+    {
+      "id": "general",
+      "labelKey": "settings.tab.general",
+      "groups": [
+        {
+          "id": "display",
+          "labelKey": "settings.group.display",
+          "categories": [
+            "interface",
+            "map"
+          ]
+        },
+        {
+          "id": "combat",
+          "labelKey": "settings.group.combat",
+          "categories": [
+            "combat"
+          ]
+        },
+        {
+          "id": "audio",
+          "labelKey": "settings.group.audio",
+          "categories": [
+            "audio"
+          ]
+        },
+        {
+          "id": "rules",
+          "labelKey": "settings.group.rules",
+          "categories": [
+            "gameplay"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "accessibility",
+      "labelKey": "settings.tab.accessibility",
+      "groups": [
+        {
+          "id": "accessibility",
+          "labelKey": "settings.group.accessibility",
+          "categories": [
+            "accessibility"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced",
+      "labelKey": "settings.tab.advanced",
+      "groups": [
+        {
+          "id": "opening",
+          "labelKey": "settings.group.opening",
+          "categories": [
+            "opening"
+          ]
+        },
+        {
+          "id": "about",
+          "labelKey": "settings.group.about",
+          "categories": [],
+          "about": true
+        }
+      ]
+    }
+  ],
+  "compendium": {
+    "kinds": [
+      "weapon",
+      "shield",
+      "staff"
+    ]
   }
 }

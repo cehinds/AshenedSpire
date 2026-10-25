@@ -128,6 +128,10 @@ namespace Ashen.App.Settings
     {
         public string Key;
         public string Type;
+
+        /// <summary>The settings/defaults.json category the control is filed under.</summary>
+        public string Category;
+
         public string Label;
         public string Help;
         public JToken Value;
@@ -157,7 +161,7 @@ namespace Ashen.App.Settings
     /// playerSettings, else the control's def; a stored value that no longer fits the control is ignored. Each change is
     /// validated against its control and saved to the profile at once. Engine-free.
     /// </summary>
-    public sealed class SettingsSession
+    public sealed partial class SettingsSession
     {
         private readonly RunContent _content;
         private readonly ProfileStore _profile;
@@ -262,27 +266,32 @@ namespace Ashen.App.Settings
             category ??= Defs.Categories.Select(c => c.Key).FirstOrDefault();
             var view = new SettingsViewState { Title = strings.Get(S.SettingsTitle), Category = category, Reset = strings.Get(S.SettingsReset) };
             foreach (var c in Defs.Categories) view.Rail.Add(new KeyValuePair<string, string>(c.Key, strings.Get(c.Value)));
-            foreach (var def in Defs.Controls.Where(c => c.Category == category))
-            {
-                var value = Value(def.Key);
-                var control = new SettingControlView
-                {
-                    Key = def.Key,
-                    Type = def.Type,
-                    Label = strings.Get(def.LabelKey),
-                    Help = def.HelpKey != null ? strings.Get(def.HelpKey) : null,
-                    Value = value,
-                    Min = def.Min,
-                    Max = def.Max,
-                    Step = def.Step,
-                    IsDefault = JToken.DeepEquals(value, def.Def),
-                    AppliesNextRun = InRun && def.AppliesNextRun ? strings.Get(S.SettingsAppliesNextRun) : null,
-                };
-                foreach (var option in def.Options) control.Options.Add(new KeyValuePair<string, string>(option, OptionLabel(strings, def, option)));
-                control.ValueText = ValueText(strings, def, value);
-                view.Controls.Add(control);
-            }
+            foreach (var def in Defs.Controls.Where(c => c.Category == category)) view.Controls.Add(ControlOf(ui, def));
             return view;
+        }
+
+        /// <summary>One control as the screen draws it: its words, its effective value, its options and whether it still has its default.</summary>
+        public SettingControlView ControlOf(UiData ui, SettingDef def)
+        {
+            var strings = ui.Strings;
+            var value = Value(def.Key);
+            var control = new SettingControlView
+            {
+                Key = def.Key,
+                Type = def.Type,
+                Category = def.Category,
+                Label = strings.Get(def.LabelKey),
+                Help = def.HelpKey != null ? strings.Get(def.HelpKey) : null,
+                Value = value,
+                Min = def.Min,
+                Max = def.Max,
+                Step = def.Step,
+                IsDefault = JToken.DeepEquals(value, def.Def),
+                AppliesNextRun = InRun && def.AppliesNextRun ? strings.Get(S.SettingsAppliesNextRun) : null,
+            };
+            foreach (var option in def.Options) control.Options.Add(new KeyValuePair<string, string>(option, OptionLabel(strings, def, option)));
+            control.ValueText = ValueText(strings, def, value);
+            return control;
         }
 
         private static string OptionLabel(StringTable strings, SettingDef def, string option)

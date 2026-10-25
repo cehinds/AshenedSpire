@@ -33,6 +33,11 @@ namespace Ashen.App.Run
         public string Where;
         public readonly List<string> Pills = new List<string>();
         public string Seed;
+
+        /// <summary>The web's run-history row: "Act 2 · Floor 7 · 6 fights" (or "Act 3 cleared · 11 fights") and the result pill ("Perished", "Rune restored", "Abandoned").</summary>
+        public string WhereLine;
+        public string ResultPill;
+        public bool Custom;
         public readonly List<string> Detail = new List<string>();
         public string DeckTitle;
         public readonly List<string> Deck = new List<string>();
@@ -46,6 +51,13 @@ namespace Ashen.App.Run
         public readonly List<string> WinRates = new List<string>();
         public readonly List<JournalRunRow> History = new List<JournalRunRow>();
         public string HistoryEmpty;
+
+        /// <summary>The web's records line: "2 standard runs · 1 won · 50% win rate · 1 custom (not counted)"; empty with no runs.</summary>
+        public string Summary;
+
+        /// <summary>Each class with a recorded run and its record ("Reaver", "1/1"), in the class table's order.</summary>
+        public readonly List<KeyValuePair<string, string>> ClassRecords = new List<KeyValuePair<string, string>>();
+
         public readonly List<string> Profile = new List<string>();
         public readonly List<string> Bosses = new List<string>();
         public readonly List<string> Unlocks = new List<string>();
@@ -82,9 +94,11 @@ namespace Ashen.App.Run
                 if (runs == 0) continue;
                 var wins = results.Count(r => r.Str(RK.Class) == classId && r.Is(V.Victory));
                 view.WinRates.Add(strings.Format(S.JournalWinRate, new StringArgs().Add(P.Class, RunHudView.ClassName(ui, classId)).Add(P.Wins, wins).Add(P.Runs, runs)));
+                view.ClassRecords.Add(new KeyValuePair<string, string>(RunHudView.ClassName(ui, classId), strings.Format(StringKeys.HistoryRecord, new StringArgs().Add(P.Wins, wins).Add(P.Runs, runs))));
             }
 
             for (var i = results.Count - 1; i >= 0; i--) view.History.Add(Row(results[i], content, ui));
+            view.Summary = Summary(results, strings);
 
             var progress = profile.Obj(LK.Progress) ?? Ashen.Domain.Loop.RunEnd.EmptyProgress();
             view.Profile.Add(strings.Format(S.JournalProfileRuns, new StringArgs().Add(P.Count, (int)Js.Or0(progress[LK.Runs]))));
@@ -118,6 +132,12 @@ namespace Ashen.App.Run
                 Where = strings.Format(S.JournalHistoryWhere, new StringArgs().Add(P.Act, (int)Js.Or0(r[LK.Act])).Add(P.Floor, (int)Js.Or0(r[MK.Floor]))),
                 Seed = strings.Format(S.JournalDetailSeed, new StringArgs().Add(P.Seed, Js.Str(r[RK.Seed]) ?? string.Empty)),
             };
+            row.Custom = r.Is(RK.Custom);
+            var fights = strings.Format(StringKeys.HistoryFights, new StringArgs().Add(P.Count, (int)Js.Or0(r[WK.FightsWon])));
+            row.WhereLine = victory
+                ? strings.Format(StringKeys.HistoryWhereCleared, new StringArgs().Add(P.Act, (int)Js.Or0(r[LK.Act]))) + strings.Get(StringKeys.HistorySummaryJoin) + fights
+                : row.Where + strings.Get(StringKeys.HistorySummaryJoin) + fights;
+            row.ResultPill = strings.Get(r.Is(MetaKeys.Abandoned) ? StringKeys.HistoryOutcomeAbandoned : victory ? StringKeys.HistoryOutcomeVictory : StringKeys.HistoryOutcomeDefeat);
             if (r.Is(RK.Custom)) row.Pills.Add(strings.Get(S.JournalHistoryCustom));
             var ascension = (int)Js.Or0(r[WK.Ascension]);
             if (ascension > 0) row.Pills.Add(strings.Format(S.JournalHistoryAscension, new StringArgs().Add(P.N, ascension)));
@@ -146,6 +166,23 @@ namespace Ashen.App.Run
             }
             else row.DeckTitle = strings.Get(S.JournalDetailDeckUnknown);
             return row;
+        }
+
+        /// <summary>The records line: standard runs (a custom run is not counted), wins, the win rate and the custom runs set aside.</summary>
+        private static string Summary(List<JObject> results, StringTable strings)
+        {
+            if (results.Count == 0) return null;
+            var standard = results.Where(r => !r.Is(RK.Custom)).ToList();
+            var custom = results.Count - standard.Count;
+            var wins = standard.Count(r => r.Is(V.Victory));
+            var parts = new List<string>
+            {
+                strings.Format(standard.Count == 1 ? StringKeys.HistorySummaryRunsOne : StringKeys.HistorySummaryRunsMany, new StringArgs().Add(P.Count, standard.Count)),
+                strings.Format(StringKeys.HistorySummaryWon, new StringArgs().Add(P.Count, wins)),
+            };
+            if (standard.Count > 0) parts.Add(strings.Format(StringKeys.HistorySummaryRate, new StringArgs().Add(UiPlaceholders.Pct, (int)Math.Round(wins * UiMath.Percent / standard.Count))));
+            if (custom > 0) parts.Add(strings.Format(StringKeys.HistorySummaryCustom, new StringArgs().Add(P.Count, custom)));
+            return string.Join(strings.Get(StringKeys.HistorySummaryJoin), parts);
         }
 
         private static string Name(StringTable strings, string format, string id)
