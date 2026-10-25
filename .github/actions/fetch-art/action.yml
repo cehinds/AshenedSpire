@@ -32,6 +32,12 @@ runs:
           tools
           assets-display/card-cutouts
           assets-display/alternative
+          assets-mobile/enemy-poses/expansion
+          assets-mobile/animations/player-counter-sweep
+          assets-mobile/animations/greatsword-outfits/reaver
+          assets-mobile/animations/twin-sword-outfits/rogue
+          assets-mobile/animations/unarmed/herald
+          assets-mobile/animations/unarmed-magic/starseer
         sparse-checkout-cone-mode: true
     - uses: actions/cache@v4
       with:

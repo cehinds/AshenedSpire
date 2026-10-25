@@ -231,7 +231,7 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
   const legacyMissing = [];
   if (doImport) {
     const sharp = loadSharp(ROOT);
-    const packOf = (rel) => rel.startsWith('assets-display/') ? webDir : null;
+    const packOf = (rel) => /^assets-(display|mobile)\//.test(rel) ? webDir : null;
     const jobs = [];
     for (const [id, e] of importedIds) {
       const dst = join(ROOT, 'Unity', e.unityPath);

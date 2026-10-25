@@ -1,0 +1,25 @@
+{
+ "files": [
+  {
+   "bytes": 177200,
+   "file": "placement.json"
+  },
+  {
+   "bytes": 73236,
+   "file": "presentation.json"
+  },
+  {
+   "bytes": 94309,
+   "file": "stance.json"
+  },
+  {
+   "bytes": 33567,
+   "file": "actions.json"
+  },
+  {
+   "bytes": 15628,
+   "file": "clips.json"
+  }
+ ],
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

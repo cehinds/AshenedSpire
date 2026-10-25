@@ -26,6 +26,8 @@ namespace Ashen.Generated
         public const string PlayerPose = "playerPose";
         public const string EnemyState = "enemyState";
         public const string Defeated = "defeated";
+        public const string EnemyFrame = "enemyFrame";
+        public const string EnemyLite = "enemyLite";
         public const string Flask = "flask";
     }
 }

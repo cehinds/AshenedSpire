@@ -1,0 +1,5243 @@
+{
+ "cases": [
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "idle"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "strength"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "rallyingStandard"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "dexterity"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "unbreakable"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #79e89d)",
+   "result": {
+    "auraThemes": [
+     "healing"
+    ],
+    "buffs": [
+     "regen"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ee6473)",
+   "result": {
+    "auraThemes": [
+     "blood"
+    ],
+    "buffs": [
+     "goreblood"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3edff)",
+   "result": {
+    "auraThemes": [
+     "frost"
+    ],
+    "buffs": [
+     "frostResist"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #b393ff)",
+   "result": {
+    "auraThemes": [
+     "arcane"
+    ],
+    "buffs": [
+     "starstoneCharge"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3cd59)",
+   "result": {
+    "auraThemes": [
+     "nature"
+    ],
+    "buffs": [
+     "thornHalo"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ff9454)",
+   "result": {
+    "auraThemes": [
+     "fire"
+    ],
+    "buffs": [
+     "emberTide"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #d6e8f2)",
+   "result": {
+    "auraThemes": [
+     "evasion"
+    ],
+    "buffs": [
+     "afterimage"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "strength"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "rallyingStandard"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "dexterity"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "unbreakable"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #79e89d)",
+   "result": {
+    "auraThemes": [
+     "healing"
+    ],
+    "buffs": [
+     "regen"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ee6473)",
+   "result": {
+    "auraThemes": [
+     "blood"
+    ],
+    "buffs": [
+     "goreblood"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3edff)",
+   "result": {
+    "auraThemes": [
+     "frost"
+    ],
+    "buffs": [
+     "frostResist"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #b393ff)",
+   "result": {
+    "auraThemes": [
+     "arcane"
+    ],
+    "buffs": [
+     "starstoneCharge"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3cd59)",
+   "result": {
+    "auraThemes": [
+     "nature"
+    ],
+    "buffs": [
+     "thornHalo"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ff9454)",
+   "result": {
+    "auraThemes": [
+     "fire"
+    ],
+    "buffs": [
+     "emberTide"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #d6e8f2)",
+   "result": {
+    "auraThemes": [
+     "evasion"
+    ],
+    "buffs": [
+     "afterimage"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "wounded"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "strength"
+    ],
+    "rest": "wounded"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "rallyingStandard"
+    ],
+    "rest": "wounded"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "dexterity"
+    ],
+    "rest": "wounded"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "unbreakable"
+    ],
+    "rest": "wounded"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #79e89d)",
+   "result": {
+    "auraThemes": [
+     "healing"
+    ],
+    "buffs": [
+     "regen"
+    ],
+    "rest": "wounded"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ee6473)",
+   "result": {
+    "auraThemes": [
+     "blood"
+    ],
+    "buffs": [
+     "goreblood"
+    ],
+    "rest": "wounded"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3edff)",
+   "result": {
+    "auraThemes": [
+     "frost"
+    ],
+    "buffs": [
+     "frostResist"
+    ],
+    "rest": "wounded"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #b393ff)",
+   "result": {
+    "auraThemes": [
+     "arcane"
+    ],
+    "buffs": [
+     "starstoneCharge"
+    ],
+    "rest": "wounded"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3cd59)",
+   "result": {
+    "auraThemes": [
+     "nature"
+    ],
+    "buffs": [
+     "thornHalo"
+    ],
+    "rest": "wounded"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ff9454)",
+   "result": {
+    "auraThemes": [
+     "fire"
+    ],
+    "buffs": [
+     "emberTide"
+    ],
+    "rest": "wounded"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #d6e8f2)",
+   "result": {
+    "auraThemes": [
+     "evasion"
+    ],
+    "buffs": [
+     "afterimage"
+    ],
+    "rest": "wounded"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "strength"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "rallyingStandard"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "dexterity"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "unbreakable"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #79e89d)",
+   "result": {
+    "auraThemes": [
+     "healing"
+    ],
+    "buffs": [
+     "regen"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ee6473)",
+   "result": {
+    "auraThemes": [
+     "blood"
+    ],
+    "buffs": [
+     "goreblood"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3edff)",
+   "result": {
+    "auraThemes": [
+     "frost"
+    ],
+    "buffs": [
+     "frostResist"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #b393ff)",
+   "result": {
+    "auraThemes": [
+     "arcane"
+    ],
+    "buffs": [
+     "starstoneCharge"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3cd59)",
+   "result": {
+    "auraThemes": [
+     "nature"
+    ],
+    "buffs": [
+     "thornHalo"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ff9454)",
+   "result": {
+    "auraThemes": [
+     "fire"
+    ],
+    "buffs": [
+     "emberTide"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #d6e8f2)",
+   "result": {
+    "auraThemes": [
+     "evasion"
+    ],
+    "buffs": [
+     "afterimage"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 3,
+    "maxHp": 10,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "idle"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "strength"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "rallyingStandard"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "dexterity"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "unbreakable"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #79e89d)",
+   "result": {
+    "auraThemes": [
+     "healing"
+    ],
+    "buffs": [
+     "regen"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ee6473)",
+   "result": {
+    "auraThemes": [
+     "blood"
+    ],
+    "buffs": [
+     "goreblood"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3edff)",
+   "result": {
+    "auraThemes": [
+     "frost"
+    ],
+    "buffs": [
+     "frostResist"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #b393ff)",
+   "result": {
+    "auraThemes": [
+     "arcane"
+    ],
+    "buffs": [
+     "starstoneCharge"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3cd59)",
+   "result": {
+    "auraThemes": [
+     "nature"
+    ],
+    "buffs": [
+     "thornHalo"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ff9454)",
+   "result": {
+    "auraThemes": [
+     "fire"
+    ],
+    "buffs": [
+     "emberTide"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #d6e8f2)",
+   "result": {
+    "auraThemes": [
+     "evasion"
+    ],
+    "buffs": [
+     "afterimage"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "strength"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "rallyingStandard"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "dexterity"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "unbreakable"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #79e89d)",
+   "result": {
+    "auraThemes": [
+     "healing"
+    ],
+    "buffs": [
+     "regen"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ee6473)",
+   "result": {
+    "auraThemes": [
+     "blood"
+    ],
+    "buffs": [
+     "goreblood"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3edff)",
+   "result": {
+    "auraThemes": [
+     "frost"
+    ],
+    "buffs": [
+     "frostResist"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #b393ff)",
+   "result": {
+    "auraThemes": [
+     "arcane"
+    ],
+    "buffs": [
+     "starstoneCharge"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3cd59)",
+   "result": {
+    "auraThemes": [
+     "nature"
+    ],
+    "buffs": [
+     "thornHalo"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ff9454)",
+   "result": {
+    "auraThemes": [
+     "fire"
+    ],
+    "buffs": [
+     "emberTide"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #d6e8f2)",
+   "result": {
+    "auraThemes": [
+     "evasion"
+    ],
+    "buffs": [
+     "afterimage"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 4,
+    "maxHp": 10,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 0,
+    "maxHp": 10,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "idle"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "strength"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "rallyingStandard"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "dexterity"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "unbreakable"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #79e89d)",
+   "result": {
+    "auraThemes": [
+     "healing"
+    ],
+    "buffs": [
+     "regen"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ee6473)",
+   "result": {
+    "auraThemes": [
+     "blood"
+    ],
+    "buffs": [
+     "goreblood"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3edff)",
+   "result": {
+    "auraThemes": [
+     "frost"
+    ],
+    "buffs": [
+     "frostResist"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #b393ff)",
+   "result": {
+    "auraThemes": [
+     "arcane"
+    ],
+    "buffs": [
+     "starstoneCharge"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3cd59)",
+   "result": {
+    "auraThemes": [
+     "nature"
+    ],
+    "buffs": [
+     "thornHalo"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ff9454)",
+   "result": {
+    "auraThemes": [
+     "fire"
+    ],
+    "buffs": [
+     "emberTide"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #d6e8f2)",
+   "result": {
+    "auraThemes": [
+     "evasion"
+    ],
+    "buffs": [
+     "afterimage"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "strength"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "rallyingStandard"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "dexterity"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "unbreakable"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #79e89d)",
+   "result": {
+    "auraThemes": [
+     "healing"
+    ],
+    "buffs": [
+     "regen"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ee6473)",
+   "result": {
+    "auraThemes": [
+     "blood"
+    ],
+    "buffs": [
+     "goreblood"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3edff)",
+   "result": {
+    "auraThemes": [
+     "frost"
+    ],
+    "buffs": [
+     "frostResist"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #b393ff)",
+   "result": {
+    "auraThemes": [
+     "arcane"
+    ],
+    "buffs": [
+     "starstoneCharge"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3cd59)",
+   "result": {
+    "auraThemes": [
+     "nature"
+    ],
+    "buffs": [
+     "thornHalo"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ff9454)",
+   "result": {
+    "auraThemes": [
+     "fire"
+    ],
+    "buffs": [
+     "emberTide"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #d6e8f2)",
+   "result": {
+    "auraThemes": [
+     "evasion"
+    ],
+    "buffs": [
+     "afterimage"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 1,
+    "maxHp": 1,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "idle"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "strength"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "rallyingStandard"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "dexterity"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "unbreakable"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #79e89d)",
+   "result": {
+    "auraThemes": [
+     "healing"
+    ],
+    "buffs": [
+     "regen"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ee6473)",
+   "result": {
+    "auraThemes": [
+     "blood"
+    ],
+    "buffs": [
+     "goreblood"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3edff)",
+   "result": {
+    "auraThemes": [
+     "frost"
+    ],
+    "buffs": [
+     "frostResist"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #b393ff)",
+   "result": {
+    "auraThemes": [
+     "arcane"
+    ],
+    "buffs": [
+     "starstoneCharge"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3cd59)",
+   "result": {
+    "auraThemes": [
+     "nature"
+    ],
+    "buffs": [
+     "thornHalo"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ff9454)",
+   "result": {
+    "auraThemes": [
+     "fire"
+    ],
+    "buffs": [
+     "emberTide"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #d6e8f2)",
+   "result": {
+    "auraThemes": [
+     "evasion"
+    ],
+    "buffs": [
+     "afterimage"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 0,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "afflicted"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": []
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "strength": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "strength"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "rallyingStandard": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e)",
+   "result": {
+    "auraThemes": [
+     "strength"
+    ],
+    "buffs": [
+     "rallyingStandard"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "rallyingStandard"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "dexterity": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "dexterity"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "dexterity"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "unbreakable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #67b5ff)",
+   "result": {
+    "auraThemes": [
+     "defense"
+    ],
+    "buffs": [
+     "unbreakable"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "unbreakable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "regen": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #79e89d)",
+   "result": {
+    "auraThemes": [
+     "healing"
+    ],
+    "buffs": [
+     "regen"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "goreblood": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ee6473)",
+   "result": {
+    "auraThemes": [
+     "blood"
+    ],
+    "buffs": [
+     "goreblood"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "goreblood"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "frostResist": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3edff)",
+   "result": {
+    "auraThemes": [
+     "frost"
+    ],
+    "buffs": [
+     "frostResist"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "frostResist"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "starstoneCharge": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #b393ff)",
+   "result": {
+    "auraThemes": [
+     "arcane"
+    ],
+    "buffs": [
+     "starstoneCharge"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "starstoneCharge"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "thornHalo": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #a3cd59)",
+   "result": {
+    "auraThemes": [
+     "nature"
+    ],
+    "buffs": [
+     "thornHalo"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "thornHalo"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "emberTide": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #ff9454)",
+   "result": {
+    "auraThemes": [
+     "fire"
+    ],
+    "buffs": [
+     "emberTide"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "emberTide"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "afterimage": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #d6e8f2)",
+   "result": {
+    "auraThemes": [
+     "evasion"
+    ],
+    "buffs": [
+     "afterimage"
+    ],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "afterimage"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "weak": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "vulnerable": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "vulnerable"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "burn": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "burn"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "venom": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "venom"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "silenced": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "silenced"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "staggered": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "staggered"
+   ]
+  },
+  {
+   "entity": {
+    "block": 4,
+    "hp": 10,
+    "maxHp": 0,
+    "statuses": {
+     "madness": {
+      "stacks": 2
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "guard"
+   },
+   "statusOrder": [
+    "madness"
+   ]
+  },
+  {
+   "entity": {
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "dexterity": {
+      "stacks": 1
+     },
+     "regen": {
+      "stacks": 1
+     },
+     "strength": {
+      "stacks": 1
+     }
+    }
+   },
+   "filter": "drop-shadow(0 0 3px #efbb4e) drop-shadow(0 0 6px #67b5ff) drop-shadow(0 0 9px #79e89d)",
+   "result": {
+    "auraThemes": [
+     "strength",
+     "defense",
+     "healing"
+    ],
+    "buffs": [
+     "strength",
+     "dexterity",
+     "regen"
+    ],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "strength",
+    "dexterity",
+    "regen"
+   ]
+  },
+  {
+   "entity": {
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "strength": {
+      "stacks": 0
+     },
+     "weak": {
+      "stacks": 0
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "weak",
+    "strength"
+   ]
+  },
+  {
+   "entity": {
+    "hp": 10,
+    "maxHp": 10,
+    "statuses": {
+     "weak": {
+      "meter": true,
+      "stacks": 3
+     }
+    }
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "idle"
+   },
+   "statusOrder": [
+    "weak"
+   ]
+  },
+  {
+   "entity": {
+    "alive": false,
+    "hp": 10,
+    "maxHp": 10
+   },
+   "filter": "none",
+   "result": {
+    "auraThemes": [],
+    "buffs": [],
+    "rest": "defeated"
+   },
+   "statusOrder": []
+  }
+ ]
+}

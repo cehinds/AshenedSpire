@@ -1,5 +1,5 @@
 {
-  "contentHash": "6f195f09b6583567f4dab1547335eabdd36cd49c34e0fb05152ef30970d972b2",
+  "contentHash": "c6874b7e0079c9542c85e08330b4a0ce4ac0a46f71f6c189539e2ca2f7a93b3c",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -100,9 +100,9 @@
       "sha256": "0a8e3b8e433e076b012b6897222ef3dffcbc5c69d159401fa68abae4d10f8d6e"
     },
     "assets/registry.json": {
-      "bytes": 2514144,
+      "bytes": 3328214,
       "generated": false,
-      "sha256": "6e2b87fd5d47c12974fa6ed75432295385698b9dc8224a7cd07321ac54a0bafa"
+      "sha256": "4986bc9ff20398ce99d84100a26cbee9b3631067d1f64fb415e2dbffb1050641"
     },
     "audio/beds.json": {
       "bytes": 1990,
@@ -2014,6 +2014,11 @@
       "generated": false,
       "sha256": "bcfb76b5df5dbe3e2da9f0826aa435589234696921faf71040a6744f8b6da8d0"
     },
+    "schemas/ui.enemyStage.schema.json": {
+      "bytes": 24214,
+      "generated": false,
+      "sha256": "af32e67b9c85b07a55aec5aa9cb5dba569c5b6a34c4d94fed0d3706d72a155cf"
+    },
     "schemas/ui.feedback.schema.json": {
       "bytes": 2998,
       "generated": false,
@@ -2190,9 +2195,9 @@
       "sha256": "800f85c25beaa464dee1ad55f25b838ca54e8cb72b0fa8ed44b0b40a9f5efbe0"
     },
     "ui/art.json": {
-      "bytes": 4160,
+      "bytes": 4498,
       "generated": false,
-      "sha256": "77e4e8653a48529006eacd77ccf9d4c69998cfae753266dac671aea73e65f3c7"
+      "sha256": "f60c3e89d733af459052f03e37e8a843feec5deb88e65536fb9081237f4f9157"
     },
     "ui/cardStage.json": {
       "bytes": 50057,
@@ -2218,6 +2223,11 @@
       "bytes": 3228,
       "generated": true,
       "sha256": "81c39ab04d97e7a52e2f66ca82f59d9963b55949c81f6c91fc241e7b3dfbce97"
+    },
+    "ui/enemyStage.json": {
+      "bytes": 36254,
+      "generated": false,
+      "sha256": "cd457d05d78af452bc26aa3b78b38cee2b5caf49a276b6b7e9bce89490c15a93"
     },
     "ui/feedback.json": {
       "bytes": 14869,
