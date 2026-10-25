@@ -2,6 +2,31 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-12 and VP-13: the title, slots, creation, opening, settings and the meta screens (worktree branch, 2026-10-25)
+
+**Landed (D-1000..D-1007)**
+- **Title and gate** (web `title.js`, `kit.css:596-614`, `startup-*`, `title-*`): the door painting, the glowing wordmark, plate entries in the web's order (Continue as the journey card with the class and `ACT 1 . FLOOR 0 . 71/71 HP`, New Game in the ready green, Load Game, Journal, Settings with the gear, Exit), dividers, tagline, build stamp; the gate shows the head in parchment over the unlit city with the pulsing prompt. Custom Run is hidden.
+- **Slots** (`flow-03`): the narrow modal with number-first rows (`Empty slot` / `Start a new climb here`), Back and the green Create character.
+- **Creation** (`flow-05`, `flow-06`): the rail Class | Review, class cards (figure, name, sentence, HP SP MP HAND DRAW, the starting relic, the lock note) as a list or grid, Next, then Review: the seed field, the destination, the CHARACTER / ARMOUR / MAIN HAND / RELIC cards and the starting deck with `xN`. `Core2RunSession.Preview` reads the run a class would make without writing anything; `CoreRunRules.GamesToUnlock` words the lock.
+- **Opening** (`flow-07`): `PrologueScenes` / `PrologueFlow` (Core 2 in memory; the 405 run reads its saved row through the same scenes), `PrologueScreen` with the painting, caption (name, speaker, typewriter line) and the bar (n / N, Pause, Settings, Skip opening, Continue / Set forth); the web's lines; the new setting `openingAutoAdvance`; `newRun.opening` in `rules/runFlow.json`.
+- **Settings** (`settings-*`): `ui/meta.json settingsTabs` + `SettingsSession.Page` (tabs, groups, rows, search, Changed, reset) and `SettingsScreen` (switch, choices, slider with minus / plus, the header tools, Done and Save). Reached from the title, the pause menu and the opening.
+- **Run history, Compendium, Profile, About** (`run-history-*`, `compendium-*`, `profile-*`, the About group): `JournalView` (records line, class records, result pills), `CompendiumView` (28 armaments by kind), `ProfileView`, `AboutView` and their screens; the title's Journal row opens the history, which reaches the others.
+- Strings in `strings/app.en.json` (and the web's opening lines in `strings/meta.en.json`), tokens in `ui/tokens.json` (`webSource` for each), codegen fragment `Tools/codegen.d/ui-front.json`, rules in `Screens/Front.uss`.
+
+**Tests run (small filters, one at a time):** `FrontScreens` 19, `UiRules`, `UiData`, `FirstFightUi`, `Enforcement`, `MetaView`, `Settings` (121 together, after updating the title order, the creation rail and the pause settings row); node: `ui-tokens`, `codegen`, `refresh-manifest`, `transform-content` `--check`, `ci/check-content`, `ci/check-docs`, `ui-stage --check`, `card-face --check`, `web-key-map --check` pass; the D-314 Presentation compile passes. The PlayMode smokes were edited (title indices, Next then Begin, `OpeningOverride`) but not run.
+
+**Not verified (Unity was not run):** every USS rule and the layout of every screen above; the `Button` children of the plates and class cards (`.unity-button` text vs children); `-unity-background-scale-mode: scale-and-crop` for the title and journal paintings; the new art catalogs (`UiArtCatalog` must list `bg.tower-entrance-hall-phone`, `UiSceneArtCatalog` the `scene.spire-vista-desktop` and `prologue.*` ids: run `Cli.BuildUiArt`); `Slider` styling (`unity-base-slider__dragger`); `TextField` focus and typing on pad; `ScrollView.ScrollTo` on focus; the typewriter timer, the fade and the auto-advance; focus order and the `review` / `modal` focus modes; the phone compositions (VP-14).
+
+**Owner: check in the editor (1920x1080, then 390x844; compare `docs/qa/web-screens/`)**
+- `startup-*` and `title-*`: the gate shows ASHEN SPIRE in parchment over the dim city with PRESS ENTER OR SPACE pulsing; any key lifts it; the title shows the door vault, the gold wordmark with its glow, plates (New Game green, Settings with the gear), the Continue card only with a save, the tagline and the build stamp. Down from the gate lands on Continue (with a save) or New Game.
+- `flow-03`: New Game opens the narrow door; the chosen row has the gold edge; Load Game with no save shows the empty state.
+- `flow-05`, `flow-06`: class cards, the List | Grid switch, the locked class with its lock and note; Next, then Review: the seed field, Slot n, the four pieces and the deck with `x4`; Begin; a bad seed (punctuation) refuses.
+- `flow-07`: after Begin the opening plays five paintings with their captions; Pause holds the auto-advance, Skip opening goes straight to the map, Settings opens over it; Continue becomes Set forth on the last.
+- `settings-*`: the three tabs, the group chips, a switch, a choice row, a slider (drag, and the minus / plus), the dot beside a changed setting, Changed, the magnifier, Reset to defaults, About under Advanced; open it from the pause menu mid-run too.
+- `run-history-*`, `compendium-*`, `profile-*`: Journal on the title; a finished climb adds a row; the Compendium counts 0 of 28 and shows unknowns; the Profile says it is fine and lists the three slots.
+
+**Next:** the phone compositions (VP-14); the web's settings that need engine support (accent, high contrast, haptics ...); the profile archive (set-aside copies) if the owner wants it; music and staging per opening scene; Load settings / Download and saves once a file picker exists.
+
 ## VP-8 and VP-9: the Core 2 rest site (with the Smith modal and Level Up) and the shop (worktree branch, 2026-10-24)
 
 **Landed (D-950..D-953)**

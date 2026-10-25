@@ -193,7 +193,7 @@ namespace Ashen.Presentation.UI.Screens
             {
                 var stepped = SettingsSession.Stepped(control, e.newValue);
                 readout.SetResolved(SettingsSession.NumberText(stepped));
-                Defer(control.Key, new JValue(stepped));
+                Defer(control.Key, new JValue(stepped), slider);
             });
             wrap.Add(StepButton(StringKeys.SettingsPageMinus, control, slider, -1));
             wrap.Add(slider);
@@ -225,7 +225,7 @@ namespace Ashen.Presentation.UI.Screens
             var refusal = _settings.Set(key, value);
             if (refusal != null)
             {
-                RunFlow.Refuse(Context, anchor, _settings.RefusalText(Ui.Data, key, refusal));
+                if (anchor != null) Ashen.Presentation.UI.Kit.Refusal.Show(anchor, Context.Overlay, _settings.RefusalText(Ui.Data, key, refusal), Ui.Data.Tokens.Duration(TokenKeys.Refusal));
                 return;
             }
             _focusKey = anchor?.userData as string;
@@ -233,12 +233,12 @@ namespace Ashen.Presentation.UI.Screens
         }
 
         /// <summary>A slider's value is stored a moment after it stops moving.</summary>
-        private void Defer(string key, JToken value)
+        private void Defer(string key, JToken value, VisualElement anchor)
         {
             _pendingKey = key;
             _pendingValue = value;
             _commit?.Pause();
-            _commit = Root.schedule.Execute(() => Apply(_pendingKey, _pendingValue, Root.Q(UiNames.SettingsDone))).StartingIn(Ui.Data.Tokens.Duration(TokenKeys.SettingsCommit));
+            _commit = Root.schedule.Execute(() => Apply(_pendingKey, _pendingValue, anchor)).StartingIn(Ui.Data.Tokens.Duration(TokenKeys.SettingsCommit));
         }
 
         private void Flush()
