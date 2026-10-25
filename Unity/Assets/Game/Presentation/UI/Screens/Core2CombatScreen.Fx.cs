@@ -156,6 +156,8 @@ namespace Ashen.Presentation.UI.Screens
             if (_busy || _fxItems.Count == 0) return;
             CancelFx();
             RenderFighters();
+            // The cancelled cues may have held the fight's end (FinishPlay's beat before the spoils): skipping them ends the fight now.
+            if (_flow.Ended) EnterEnded();
         }
 
         /// <summary>Skip: end the timeline now.</summary>
