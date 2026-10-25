@@ -427,6 +427,13 @@ namespace Ashen.App.Run
             }
         }
 
+        /// <summary><see cref="RetrySave"/> for the screens: null when nothing is pending or the write went through, else the failure (kept in <see cref="PendingSaveError"/>).</summary>
+        public Exception TryRetrySave()
+        {
+            try { RetrySave(); return null; }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { return e; }
+        }
+
         /// <summary>
         /// The fight's end (main.js onCombatEnd for a configured run, WP-15): <see cref="Core2CombatEnd.Settle"/> writes the fight back to the run (runCombatEnd),
         /// pays the skill and class tracks once (a death pays too), then a death ends the run, and a win pays its cinders, records a boss and either ends the run
@@ -577,9 +584,19 @@ namespace Ashen.App.Run
         /// <summary>W-20 Abandon run: the run ends here, recorded as abandoned (it counts as a run, earns no unlock), the profile is saved and the slot cleared.</summary>
         public RunEndReceipt Abandon()
         {
-            if (RunOver) return End;
+            // A close-out whose profile save or slot clear failed has set RunOver already: the repeated call (the Retry of W1r) writes what is still owed before it reports success.
+            if (RunOver)
+            {
+                RetrySave();
+                return End;
+            }
             var end = RunEnd.Abandon(new LoopContext(Content.Loop, _run, _rng, Profile.Doc));
-            FinishRun(end, true);
+            try { FinishRun(end, true); }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException)
+            {
+                PendingSaveError = e;
+                throw;
+            }
             return end;
         }
 

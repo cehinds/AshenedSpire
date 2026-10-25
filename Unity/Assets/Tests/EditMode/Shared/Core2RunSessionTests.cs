@@ -354,6 +354,23 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void AnAbandonWhoseProfileSaveFailsKeepsTheCloseOutAndTheRetryWritesIt()
+        {
+            var session = New(31);
+            var blocker = Path.Combine(_dir, _saves.Rules.ProfileSlot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            Assert.That(() => session.Abandon(), Throws.Exception, "the disk refuses the profile");
+            Assert.That(session.PendingSaveError, Is.Not.Null);
+            Assert.That(_saves.Exists(session.Slot), Is.True, "the slot stays resumable while the record is unwritten");
+            Assert.That(() => session.Abandon(), Throws.Exception, "a retry on the same refusal reports it, not success");
+            Directory.Delete(blocker);
+            session.Abandon();
+            Assert.That(session.PendingSaveError, Is.Null);
+            Assert.That(((JArray)ProfileStore.Load(_saves).Doc["results"]).Count, Is.EqualTo(1), "the history record reached the profile");
+            Assert.That(_saves.Exists(session.Slot), Is.False, "the slot is cleared");
+        }
+
+        [Test]
         public void ASaveOfAnotherProfileOrAnotherRulesetIsRefusedAndKept()
         {
             var session = New(8);

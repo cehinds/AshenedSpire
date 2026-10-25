@@ -42,6 +42,9 @@ namespace Ashen.App.Run
         public Core2RunSession Session;
         public string Refusal;
 
+        /// <summary>True when the refusal is the run's close-out that could not be written: nothing was replaced, and the screen offers Retry.</summary>
+        public bool SaveFailed;
+
         public bool Done => Session != null;
     }
 
@@ -150,6 +153,12 @@ namespace Ashen.App.Run
 
         public string TitleLabel { get; }
 
+        /// <summary>The words for a close-out the disk refused (the run's record and unlocks are not yet in the profile), or null when everything is written.</summary>
+        public string PendingSaveNotice => _session.PendingSaveError == null ? null : _strings.Get(SN.Core2EndSaveFailed);
+
+        /// <summary>Writes the close-out still owed (<see cref="Core2RunSession.RetrySave"/>). False, with the failure kept, when the disk still refuses: nothing that replaces the session or its slot may go on.</summary>
+        public bool Settle() => _session.TryRetrySave() == null;
+
         private Core2EndChip Chip(string key, string value) => new Core2EndChip { Key = _strings.Get(key), Value = value };
 
         /// <summary>slainByLine(lastHit): the move part drops out when the blow had none, the amount when it is not a number; no striker named is "Unknown".</summary>
@@ -170,6 +179,7 @@ namespace Ashen.App.Run
         /// </summary>
         public Core2RunAgainResult RunAgain(RunContent content, SaveService saves, uint seed)
         {
+            if (!Settle()) return new Core2RunAgainResult { Refusal = _strings.Get(SN.Core2EndSaveFailed), SaveFailed = true };
             try
             {
                 var run = _session.Run;

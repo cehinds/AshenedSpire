@@ -118,11 +118,7 @@ namespace Ashen.Presentation.UI.Screens
             list.verticalScroller.slider.focusable = false;
             Root.Q<LocButton>(UiNames.EndContinue).clicked += OnContinue;
             Root.Q<LocButton>(UiNames.EndSummary).clicked += OpenRunEnd;
-            Root.Q<LocButton>(UiNames.EndToTitle).clicked += () =>
-            {
-                Ui.ClearRun();
-                Nav.Fire(ScreenTriggers.Quit);
-            };
+            Root.Q<LocButton>(UiNames.EndToTitle).clicked += ToTitle;
             ApplyBackground();
             ApplyBoardArt();
             SetupFx();
@@ -802,6 +798,7 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocLabel>(UiNames.EndBody)?.SetResolved(Strings.Format(over && !victory ? StringKeys.CombatEndDefeatBody : StringKeys.Core2EndBody,
                 new StringArgs().Add(UiPlaceholders.Slot, _run.SlotIndex)));
             var notice = victory ? Core2PortView.FightNotice(_run, Ui.Data) : null;
+            if (_run.PendingSaveError != null) notice = Strings.Get(StringKeys.Core2EndSaveFailed);
             var planned = Root.Q<LocLabel>(UiNames.EndPlanned);
             planned?.SetResolved(notice ?? string.Empty);
             UiDom.Show(planned, !string.IsNullOrEmpty(notice));
@@ -816,6 +813,19 @@ namespace Ashen.Presentation.UI.Screens
             end.EnableInClassList(UiClasses.CombatEndDefeat, !victory);
             UiDom.Show(end, true);
             FocusSoon(over ? (summary.ClassListContains(UiClasses.Hidden) ? (VisualElement)toTitle : summary) : next);
+        }
+
+        /// <summary>To the title from the fight's end: a close-out the disk refused is written first (W1r with Retry), never dropped with the session.</summary>
+        private void ToTitle()
+        {
+            if (_run.TryRetrySave() is Exception e)
+            {
+                Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.SaveFailed, e.Message));
+                ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, OnConfirm = ToTitle });
+                return;
+            }
+            Ui.ClearRun();
+            Nav.Fire(ScreenTriggers.Quit);
         }
 
         /// <summary>Continue after a won fight: back to the Core 2 act map (the run stands where the fight ended it).</summary>
