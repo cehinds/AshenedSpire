@@ -29,9 +29,11 @@ namespace Ashen.Tests
         public void ContinueIsDisabledWithoutAValidSlotAndFocusGoesToNew()
         {
             var states = MenuRules.Evaluate(Ui.Menus.Title, Ui.MenuContext(false));
-            Assert.That(states[0].Visible, Is.True, "Continue is shown");
+            Assert.That(states[0].Visible, Is.False, "the web's title has no Continue until a climb is saved (title.js menuHtml)");
             Assert.That(states[0].Enabled, Is.False, "Continue is disabled with no valid slot (AW:245)");
-            Assert.That(MenuRules.FirstEnabled(states), Is.EqualTo(1));
+            Assert.That(states.Single(s => s.Def.Id == "load").Visible, Is.False, "nor a Load Game");
+            Assert.That(states.Where(s => s.Visible).Select(s => s.Def.Id), Is.EqualTo(new[] { "new", "settings", "quit" }), "New Game, Settings, Exit (flow-02-title-no-save)");
+            Assert.That(MenuRules.FirstEnabled(states), Is.EqualTo(0), "focus goes to New");
         }
 
         [Test]
@@ -40,6 +42,7 @@ namespace Ashen.Tests
             var states = MenuRules.Evaluate(Ui.Menus.Title, Ui.MenuContext(true));
             Assert.That(states[0].Enabled, Is.True);
             Assert.That(MenuRules.FirstEnabled(states), Is.EqualTo(0));
+            Assert.That(states.Where(s => s.Visible).Select(s => s.Def.Id), Is.EqualTo(new[] { "continue", "new", "load", "settings", "quit" }), "Continue, New Game, Load Game, Settings, Exit (title-1920x1080); the Journal row is the build's own and stays out");
         }
 
         [Test]

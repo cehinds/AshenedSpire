@@ -30,6 +30,11 @@
         "Game": "game",
         "GameName": "Ashen Spire",
         "Archive": "archive",
+        "Note": "note",
+        "ProfileNote": "This is your profile exactly as it was stored.",
+        "State": "state",
+        "ProfileKey": "profile",
+        "ExportProfileFile": "ashen-spire-profile-{0}.json",
         "ExportFile": "ashen-spire-{0}.json",
         "IdMeta": "meta-{0}-{1}",
         "IdRun": "run-s{0}-{1}-{2}",
@@ -54,7 +59,9 @@
         "StateCorrupt": "corrupt",
         "StateOlder": "older",
         "StateNewer": "newer",
+        "NoCount": "—",
         "Progress": "progress",
+        "Unlocked": "unlocked",
         "Runs": "runs",
         "Wins": "wins",
         "Payload": "payload",
@@ -88,7 +95,9 @@
         "Empty": "prof-empty",
         "Support": "prof-support",
         "SupportBody": "prof-support-body",
-        "Count": "prof-count"
+        "Count": "prof-count",
+        "Recovery": "prof-recovery",
+        "Emphasis": "prof-emphasis"
       }
     },
     {
@@ -98,7 +107,8 @@
         "Runs": "runs",
         "Wins": "wins",
         "Was": "was",
-        "At": "at"
+        "At": "at",
+        "Unlocks": "unlocks"
       }
     }
   ],

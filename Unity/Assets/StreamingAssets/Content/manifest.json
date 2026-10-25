@@ -1,5 +1,5 @@
 {
-  "contentHash": "a6ad2f3d2c384972170f27c1647945be4980fc7e6584f45a72e37e8ab08132ad",
+  "contentHash": "df573b9173bacf9f5e852e7aa516abd31e2e370914accbcf95181654c3fd2f45",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -2070,9 +2070,9 @@
       "sha256": "2efed91b3d8455d75a032d71097de72f3176bfb0e568b583402dc1edf249f49c"
     },
     "schemas/ui.menus.schema.json": {
-      "bytes": 3888,
+      "bytes": 4210,
       "generated": false,
-      "sha256": "352b2bf11fa0a837300b5e13e7f576e72e3c4297604559569025d94e335a8be6"
+      "sha256": "25587d4a9291093c04f26abd299d89f00c8c99fff763651e375f126b2267cb51"
     },
     "schemas/ui.meta.schema.json": {
       "bytes": 3644,
@@ -2145,9 +2145,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 108461,
+      "bytes": 113460,
       "generated": false,
-      "sha256": "cf0a6bac93d8b080224a8cb019945a075b041b4969bba7629db91ed3a4d74ad2"
+      "sha256": "1d5876bea0daa0fc31c0d17996b88ab2fe8fd36dee9f44e35af9eacf9474ef4c"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2165,9 +2165,9 @@
       "sha256": "a9fcfcd2fa31bd0f98983762267ad9c5220649ba685d002700016d684325d957"
     },
     "strings/meta.en.json": {
-      "bytes": 11571,
+      "bytes": 11565,
       "generated": false,
-      "sha256": "916f41df69e8a90356c851b0161ad1bc7590c95e415c22b51c6fc48a5cec4a6b"
+      "sha256": "ed3a1bfd8437afa0b3fd580fe14d99b189a7e018930f4118197177c10a89511f"
     },
     "strings/nodes.en.json": {
       "bytes": 7121,
@@ -2325,9 +2325,9 @@
       "sha256": "97421a1f740349288d817a3e724e84f19fdf49e9a3134ea33ef97ade7ed9e388"
     },
     "ui/menus.json": {
-      "bytes": 8561,
+      "bytes": 9690,
       "generated": false,
-      "sha256": "171b93e9477c49b78349227cdc23732c6db3ab1d773a2f87c8f6786c4abf004b"
+      "sha256": "b021725bf089232d977b282eb3ed06ba180113c27ba024dc211aa14101452e52"
     },
     "ui/meta.json": {
       "bytes": 3825,
@@ -2360,9 +2360,9 @@
       "sha256": "0740478f33b9022e96abe89b6aca2bc67590c9d0775f4bc535588fdda8f151b5"
     },
     "ui/screens.json": {
-      "bytes": 11363,
+      "bytes": 11795,
       "generated": false,
-      "sha256": "039d317487c2d68dc3ac51f1426832743ea9c63bd0eb7091da8ebe0cc8a14c02"
+      "sha256": "91b617da89e3f53ce4f4e9f37d68dd8260d8b3f38c055ef711e95f382b80214d"
     },
     "ui/terms.json": {
       "bytes": 12931,
@@ -2375,9 +2375,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 51737,
+      "bytes": 51833,
       "generated": false,
-      "sha256": "04baa9c30ed5b99cd5ee1df1aa22f06ddf304f61ec246dddcf36feaeff66e374"
+      "sha256": "0dafb44edbaa507d4aea715b1ac0446847c4968f4717bc36f2740a4b49becfac"
     }
   },
   "schemaVersion": 1,

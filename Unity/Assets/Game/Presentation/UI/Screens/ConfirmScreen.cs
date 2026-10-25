@@ -46,7 +46,7 @@ namespace Ashen.Presentation.UI.Screens
             ViewModel.Target = _request.Target;
             ViewModel.Body = strings.Format(_request.Occupied && def.OccupiedBodyKey != null ? def.OccupiedBodyKey : def.BodyKey, _request.Args);
             ViewModel.Back = strings.Get(def.BackKey);
-            ViewModel.Primary = strings.Get(def.PrimaryKey);
+            ViewModel.Primary = strings.Get(_request.Occupied && def.OccupiedPrimaryKey != null ? def.OccupiedPrimaryKey : def.PrimaryKey);
             ViewModel.Destructive = Ui.Data.Policies.IsDestructive(def.Policy);
             ViewModel.Hold = def.Hold;
             ViewModel.Single = def.Single;

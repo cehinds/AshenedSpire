@@ -1,16 +1,13 @@
-using System;
-using System.IO;
 using Ashen.App.Run;
 using Ashen.App.Ui;
 using Ashen.Generated;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Ashen.Presentation.UI.Screens
 {
     /// <summary>
-    /// The About text (web src/ui/screens/about.js renderAboutSection): the lead in paragraphs, each section as an eyebrow over its heading and its paragraph, Save this to a file and the two build lines. Saving writes the
-    /// acknowledgement as plain text into the player's data folder (the web downloads it) and says where.
+    /// The About text (web src/ui/screens/about.js renderAboutSection): the lead in paragraphs, each section as an eyebrow over its heading and its paragraph, Save this to a file and the two build lines. Saving hands the
+    /// acknowledgement over as a plain text file (a browser download in a WebGL build, as the web's; the exports folder elsewhere) and says Saved.
     /// </summary>
     internal static class AboutPanel
     {
@@ -34,21 +31,8 @@ namespace Ashen.Presentation.UI.Screens
             Add(host, view.Provenance, FrontClasses.AboutBuild, false);
         }
 
-        private static string Save(AboutViewState view, StringTable strings)
-        {
-            try
-            {
-                var folder = Path.Combine(Application.persistentDataPath, UiResources.ExportsFolder);
-                Directory.CreateDirectory(folder);
-                var path = Path.Combine(folder, view.FileName);
-                File.WriteAllText(path, view.FileText);
-                return strings.Format(StringKeys.AboutSaved, new StringArgs().Add(UiPlaceholders.Path, path));
-            }
-            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException || e is NotSupportedException)
-            {
-                return strings.Get(StringKeys.AboutSaveFailed);
-            }
-        }
+        private static string Save(AboutViewState view, StringTable strings) =>
+            strings.Get(FileExport.Save(view.FileName, view.FileText, false) ? StringKeys.AboutSaved : StringKeys.AboutSaveFailed);
 
         private static LocLabel Add(VisualElement host, string text, string cls, bool upper)
         {

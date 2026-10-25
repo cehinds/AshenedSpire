@@ -441,14 +441,14 @@ namespace Ashen.Presentation.UI.Screens
             var sawConfirm = false;
             foreach (var state in MenuRules.Evaluate(_ui.Data.Menus.Pause, context).Where(s => s.Visible))
             {
-                var confirm = state.Def.Action == MenuActions.Confirm;
+                var confirm = state.Def.Action == MenuActions.Confirm || state.Def.Action == MenuActions.Save || state.Def.Action == MenuActions.SaveQuit;
                 rows.Add(new QuickRowData
                 {
                     Id = state.Def.Id,
                     Label = _strings.Get(state.Def.LabelKey),
                     Note = state.Enabled ? null : _strings.Get(StringKeys.PauseLater),
                     Enabled = state.Enabled,
-                    Danger = state.Def.Confirm == ConfirmIds.Abandon,
+                    Danger = state.Def.Confirm == ConfirmIds.Abandon || state.Def.Confirm == ConfirmIds.QuitWithoutSaving,
                     Band = confirm && !sawConfirm && rows.Count > 0,
                 });
                 sawConfirm |= confirm;

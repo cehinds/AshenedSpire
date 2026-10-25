@@ -27,10 +27,25 @@
       "uxml": "UI/Screens/ProfileRecovery",
       "layer": "screen",
       "background": "bg.tower-city-background-unlit",
-      "focusOrder": ["CONFIRM_FOOTER"],
-      "initialFocus": "CONFIRM_BACK",
+      "focusOrder": ["RECOVERY_BODY"],
       "back": null,
       "transitions": { "done": { "to": "title", "mode": "replace" } }
+    },
+    "transfer": {
+      "uxml": "UI/Screens/Transfer",
+      "layer": "screen",
+      "background": "bg.tower-entrance-hall",
+      "focusOrder": ["TRANSFER_ACTIONS", "FOOTER_PRIMARY", "SHELL_EXIT"],
+      "back": "pop",
+      "transitions": {}
+    },
+    "farewell": {
+      "uxml": "UI/Screens/Farewell",
+      "layer": "screen",
+      "background": "bg.tower-city-background-unlit",
+      "focusOrder": ["FAREWELL"],
+      "back": null,
+      "transitions": {}
     },
     "title": {
       "uxml": "UI/Screens/Title",

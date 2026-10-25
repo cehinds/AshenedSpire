@@ -69,10 +69,14 @@ namespace Ashen.Presentation.UI.Screens
             Context.Instance.LastFocused = Root.Q(UiNames.JournalBack);
         }
 
+        /// <summary>
+        /// The Compendium, Profile and About links are Unity's own: the web's run history has only Back (history.js: one ButtonRow with Back), reaches the Compendium and the Profile from no menu at the pin
+        /// (main.js showCompendium / showProfile are wired to nothing a player can press) and About from Settings. The buttons stay in the view, hidden, with their screens (P-6 D-1647).
+        /// </summary>
         private void Open(string name, string screen)
         {
             var button = Root.Q<LocButton>(name);
-            UiDom.Show(button, Ui.Data.Screens.IsBuilt(screen));
+            UiDom.Show(button, false);
             button.clicked += () => Nav.Go(screen);
         }
 
@@ -85,7 +89,7 @@ namespace Ashen.Presentation.UI.Screens
             tail.pickingMode = PickingMode.Ignore;
             MetaDom.Label(tail, run.WhereLine, FrontClasses.JournalRowWhere);
             Pill(tail, run.ResultPill, run.Victory);
-            if (run.Custom) Pill(tail, Ui.Data.Strings.Get(StringKeys.HistoryCustom), false);
+            if (run.Custom) Pill(tail, run.Pills.Count > 0 ? run.Pills[0] : Ui.Data.Strings.Get(StringKeys.HistoryCustom), false);
             var seed = MetaDom.Label(tail, run.Seed, FrontClasses.JournalSeed);
             seed.AddToClassList(UiClasses.Upper);
             seed.SetResolved(run.Seed);

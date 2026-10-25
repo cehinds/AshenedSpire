@@ -82,7 +82,7 @@ namespace Ashen.Tests
             Assert.That(view.History, Has.Count.EqualTo(1));
             var row = view.History[0];
             Assert.That(row.Victory, Is.False);
-            Assert.That(row.Title, Does.Contain("Aldric"));
+            Assert.That(row.Title, Is.EqualTo("Starseer"), "the row's name is the class, as the web's history row (history.js label)");
             Assert.That(row.Detail.Any(d => d.StartsWith("Slain by", StringComparison.Ordinal)), Is.True, "the killer is named");
             Assert.That(row.Detail.Any(d => d.StartsWith("Time", StringComparison.Ordinal)), Is.True);
             Assert.That(row.Deck, Has.Count.EqualTo(((JArray)record[MetaKeys.Deck]).Count));
@@ -99,7 +99,7 @@ namespace Ashen.Tests
             var view = JournalView.Build(profile, Default, Ui);
             var row = view.History.Single();
             Assert.That(row.Victory, Is.True);
-            Assert.That(row.Pills, Has.Count.EqualTo(2), "custom and ascension pills");
+            Assert.That(row.Pills, Is.EqualTo(new[] { "Custom A2" }), "one Custom tag carrying the ascension (history.js tagChip)");
             Assert.That(row.Detail, Has.Member("Unknown."));
             Assert.That(row.Deck, Is.Empty);
             Assert.That(view.Armaments, Is.EqualTo(new[] { "Dagger" }), "found armaments, once each, by name");

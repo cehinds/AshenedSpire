@@ -7,5 +7,8 @@ namespace Ashen.Generated
         public const string Internal = "__Internal";
         public const string FetchFailed = "Content fetch failed: {0} ({1})";
         public const string FetchDone = "Content loaded in memory: {0} files";
+        public const string MimeJson = "application/json";
+        public const string MimeText = "text/plain";
+        public const string JsonAccept = ".json,application/json";
     }
 }

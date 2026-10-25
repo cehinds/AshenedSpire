@@ -1,0 +1,41 @@
+{
+  "comment": "P-6 (D-1648): Move your saves (web src/engine/saveTransfer.js, ui/components/offlinePlay.js under Download & saves): the backup file's vocabulary and bounds, and the modal's names.",
+  "keySets": [
+    {
+      "name": "TransferKeys",
+      "doc": "The backup file (web saveTransfer.js snapshot: format, version, entries) and the file the last import keeps of what it replaced.",
+      "keys": {
+        "Format": "format",
+        "Version": "version",
+        "Entries": "entries",
+        "FormatName": "ashen-spire-unity-save-transfer",
+        "PreviousFile": "transfer-backup.json",
+        "ScratchFolder": "ashen-transfer-{0}",
+        "GuidFormat": "N",
+        "BackupFile": "AshenSpire-saves.json",
+        "PreviousBackupFile": "AshenSpire-previous-saves.json"
+      }
+    },
+    {
+      "name": "TransferClasses",
+      "doc": "USS classes of the Download & saves modal (web .offline-actions, .set-note).",
+      "keys": {
+        "Heading": "transfer-heading",
+        "Note": "transfer-note",
+        "Actions": "transfer-actions",
+        "Status": "transfer-status"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "TransferNumbers",
+      "type": "int",
+      "doc": "The backup format's version and its size limit (web content/offlinePlay.js saveVersion, maxSaveBytes 20 MB).",
+      "values": {
+        "Version": 1,
+        "MaxBytes": 20971520
+      }
+    }
+  ]
+}

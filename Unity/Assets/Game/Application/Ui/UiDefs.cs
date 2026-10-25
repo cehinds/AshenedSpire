@@ -108,6 +108,9 @@ namespace Ashen.App.Ui
         /// <summary>Hidden while a fight is on (the W-20 Armoury row).</summary>
         public bool HideInCombat;
 
+        /// <summary>Not shown at all while its rule keeps it disabled (the web's title has no Continue or Load Game until a climb is saved: title.js menuHtml).</summary>
+        public bool HideWhenDisabled;
+
         /// <summary>An ui/art.json icon name the row wears beside its label (the title's plates), or null.</summary>
         public string Icon;
     }
@@ -127,6 +130,7 @@ namespace Ashen.App.Ui
         public string TitleKey;
         public string BodyKey;
         public string OccupiedBodyKey;
+        public string OccupiedPrimaryKey;
         public string PrimaryKey;
         public string BackKey;
         public string Policy;
@@ -167,6 +171,7 @@ namespace Ashen.App.Ui
                     TitleKey = (string)r[UiKeys.TitleKey],
                     BodyKey = (string)r[UiKeys.BodyKey],
                     OccupiedBodyKey = (string)r[UiKeys.OccupiedBodyKey],
+                    OccupiedPrimaryKey = (string)r[UiKeys.OccupiedPrimaryKey],
                     PrimaryKey = (string)r[UiKeys.PrimaryKey],
                     BackKey = (string)r[UiKeys.BackKey],
                     Policy = (string)r[UiKeys.Policy],
@@ -189,6 +194,7 @@ namespace Ashen.App.Ui
                 EnabledWhen = (string)r[UiKeys.EnabledWhen],
                 Visible = (bool?)r[UiKeys.Visible] ?? true,
                 HideInCombat = (bool?)r[UiKeys.HideInCombat] ?? false,
+                HideWhenDisabled = (bool?)r[UiKeys.HideWhenDisabled] ?? false,
                 Icon = (string)r[UiKeys.Icon],
             }).ToList();
     }

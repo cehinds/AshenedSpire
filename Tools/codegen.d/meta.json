@@ -391,6 +391,16 @@
       }
     }
   ],
+  "numberSets": [
+    {
+      "name": "MetaNumbers",
+      "type": "int",
+      "doc": "The act a won run reads when its record names none (web ui/screens/history.js: r.act || 3).",
+      "values": {
+        "WinAct": 3
+      }
+    }
+  ],
   "stringTables": [
     {
       "name": "MetaStringKeys",

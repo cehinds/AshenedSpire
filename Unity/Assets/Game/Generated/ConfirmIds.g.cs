@@ -13,6 +13,9 @@ namespace Ashen.Generated
         public const string Recovery = "recovery";
         public const string ReplaceSlot = "replaceSlot";
         public const string SaveQuit = "saveQuit";
+        public const string QuitWithoutSaving = "quitWithoutSaving";
+        public const string ImportSaves = "importSaves";
+        public const string LoadEmpty = "loadEmpty";
         public const string SaveFailed = "saveFailed";
         public const string RewardLeaveAuto = "rewardLeaveAuto";
         public const string RewardLeaveManual = "rewardLeaveManual";

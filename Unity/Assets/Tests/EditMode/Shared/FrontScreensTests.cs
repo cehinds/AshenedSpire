@@ -397,13 +397,13 @@ namespace Ashen.Tests
                 "{\"class\":\"reaver\",\"victory\":false,\"act\":2,\"floor\":7,\"fightsWon\":6,\"seed\":\"ASHFALL\",\"name\":\"Aldric\",\"custom\":true}");
             var view = JournalView.Build(profile, Content, Ui);
             Assert.That(view.Summary, Is.EqualTo("2 standard runs · 1 won · 50% win rate · 1 custom (not counted)"));
-            Assert.That(view.ClassRecords.Select(r => r.Value), Is.EquivalentTo(new[] { "1/2", "0/1" }), "a record per class with a run");
+            Assert.That(view.ClassRecords.Select(r => r.Value), Is.EquivalentTo(new[] { "1/1", "0/1" }), "a record per class with a standard run: the custom climb is not counted (history.js byClass)");
             Assert.That(view.History.Select(r => r.ResultPill), Is.EqualTo(new[] { "Perished", "Perished", "Rune restored" }), "newest first");
             Assert.That(view.History[2].WhereLine, Is.EqualTo("Act 3 cleared · 11 fights"));
             Assert.That(view.History[0].WhereLine, Is.EqualTo("Act 2 · Floor 7 · 6 fights"));
             Assert.That(view.History[0].Custom, Is.True);
             Assert.That(view.History[0].Seed, Does.Contain("ASHFALL"));
-            Assert.That(JournalView.Build(new JObject(), Content, Ui).Summary, Is.Null, "no runs: no line");
+            Assert.That(JournalView.Build(new JObject(), Content, Ui).Summary, Is.EqualTo("No runs recorded yet"), "no runs: the web's own line (history.js)");
         }
 
         [Test]

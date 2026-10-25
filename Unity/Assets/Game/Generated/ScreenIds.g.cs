@@ -7,6 +7,8 @@ namespace Ashen.Generated
         public const string Boot = "boot";
         public const string ContentError = "contentError";
         public const string ProfileRecovery = "profileRecovery";
+        public const string Farewell = "farewell";
+        public const string Transfer = "transfer";
         public const string Title = "title";
         public const string Slots = "slots";
         public const string Confirm = "confirm";

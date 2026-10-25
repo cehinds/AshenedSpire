@@ -204,6 +204,7 @@
       "keys": {
         "FellBack": "primary save unreadable; loaded {0} (gen {1})",
         "Newer": "save version {0} is newer than this build ({1}); kept, not loaded",
+        "Older": "save version {0} is older than this build ({1}) and has no migration",
         "NoValidCopy": "no valid copy of {0}",
         "TornLog": "command log truncated at record {0} (bad checksum)",
         "Migrated": "migrated save from version {0} to {1}",

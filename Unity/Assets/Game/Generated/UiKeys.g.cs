@@ -31,6 +31,7 @@ namespace Ashen.Generated
         public const string TitleKey = "titleKey";
         public const string BodyKey = "bodyKey";
         public const string OccupiedBodyKey = "occupiedBodyKey";
+        public const string OccupiedPrimaryKey = "occupiedPrimaryKey";
         public const string PrimaryKey = "primaryKey";
         public const string BackKey = "backKey";
         public const string Policy = "policy";
@@ -84,6 +85,7 @@ namespace Ashen.Generated
         public const string Pause = "pause";
         public const string CreationPanes = "creationPanes";
         public const string HideInCombat = "hideInCombat";
+        public const string HideWhenDisabled = "hideWhenDisabled";
         public const string Icon = "icon";
         public const string Built = "built";
         public const string FocusModes = "focusModes";

@@ -8,8 +8,8 @@ namespace Ashen.Generated
         public const string PlaceholderClose = "}";
         public const string ClassNameKey = "class.{0}.name";
         public const string SavedAt = "yyyy-MM-dd HH:mm";
-        public const string TimeOfDay = "h:mm tt";
-        public const string Date = "yyyy-MM-dd";
+        public const string TimeOfDay = "hh:mm tt";
+        public const string Date = "MMM d, hh:mm tt";
         public const string Integer = "0";
         public const string Newline = "\n";
         public const string ArtWildcard = "*";

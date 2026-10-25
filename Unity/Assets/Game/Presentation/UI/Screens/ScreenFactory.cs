@@ -12,6 +12,8 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.Boot: return new BootScreen();
                 case ScreenIds.ContentError: return new ContentErrorScreen();
                 case ScreenIds.ProfileRecovery: return new ProfileRecoveryScreen();
+                case ScreenIds.Farewell: return new FarewellScreen();
+                case ScreenIds.Transfer: return new TransferScreen();
                 case ScreenIds.Title: return new TitleScreen();
                 case ScreenIds.Slots: return new SlotsScreen();
                 case ScreenIds.Confirm: return new ConfirmScreen();
