@@ -204,6 +204,14 @@ namespace Ashen.Generated
         public const string DetailSigilRow = "detail-sigil-row";
         public const string DetailSigil = "detail-sigil";
         public const string DetailHint = "detail-hint";
+        public const string InspectorLayout = "inspector-layout";
+        public const string InspectorPreview = "inspector-preview";
+        public const string InspectorArt = "inspector-art";
+        public const string InspectorFigure = "inspector-figure";
+        public const string InspectorStageFrame = "inspector-stage-frame";
+        public const string InspectorName = "inspector-name";
+        public const string InspectorMeters = "inspector-meters";
+        public const string InspectorDetails = "inspector-details";
         public const string InspectLayout = "inspect-layout";
         public const string InspectCard = "inspect-card";
         public const string InspectText = "inspect-text";

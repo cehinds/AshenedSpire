@@ -80,6 +80,13 @@ namespace Ashen.Presentation.UI.Kit
         public string Name;
         public Texture2D Art;
 
+        /// <summary>The player's portrait for the combatant door's preview (the painted outfit of its armour and hands, <see cref="Ashen.App.Ui.OutfitArtData"/>), or null when the class has none in that armour.</summary>
+        public Texture2D Portrait;
+
+        /// <summary>The player's Mana (the door's preview shows it with the Hit points, Poise and Ward); unused for an enemy.</summary>
+        public int Mana;
+        public int MaxMana;
+
         /// <summary>The figure's rest frame when it is not the base art (an enemy's state pose: guard, afflicted, wounded, defeated; VP-5), and the share of the figure box it fills (the web's per-enemy state scale).</summary>
         public Texture2D RestArt;
         public double RestScale = 1;

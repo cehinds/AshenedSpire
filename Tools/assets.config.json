@@ -38,7 +38,7 @@
       "common": { "dir": "common", "roots": ["map-detail"] }
     },
     "web": { "roots": ["assets-display/card-cutouts", "assets-display/alternative", "assets-mobile/enemy-poses/expansion", "assets-mobile/animations/player-counter-sweep", "assets-mobile/animations/greatsword-outfits/reaver", "assets-mobile/animations/twin-sword-outfits/rogue", "assets-mobile/animations/unarmed/herald", "assets-mobile/animations/unarmed-magic/starseer"] },
-    "ignore": ["\\.(json|md|mjs|py|txt)$", "^assets/(fonts|classes|components)/", "^assets/animations/(?!player-counter-sweep/|(?:greatsword-outfits/reaver|twin-sword-outfits/rogue|unarmed/herald|unarmed-magic/starseer)/HURT\\.webp$)", "^assets/enemy-poses/(?!expansion/)", "^assets-mobile/animations/(?!player-counter-sweep/|(?:greatsword-outfits/reaver|twin-sword-outfits/rogue|unarmed/herald|unarmed-magic/starseer)/HURT\\.webp$)"],
+    "ignore": ["\\.(json|md|mjs|py|txt)$", "^assets/(fonts|classes|components)/", "^assets/animations/(?!player-counter-sweep/|(?:greatsword-outfits/reaver|twin-sword-outfits/rogue|unarmed/herald|unarmed-magic/starseer)/HURT\\.webp$|[\\w-]+/[\\w-]+/(?!HURT\\.webp)[A-Za-z0-9-]+\\.webp$)", "^assets/enemy-poses/(?!expansion/)", "^assets-mobile/animations/(?!player-counter-sweep/|(?:greatsword-outfits/reaver|twin-sword-outfits/rogue|unarmed/herald|unarmed-magic/starseer)/HURT\\.webp$)"],
     "maps": {
       "c0903c6d0ba56c76": "the-fractured-realm-world", "3517e178c334eab2": "the-shattered-gulf-world", "0e7e9348271b9404": "the-fivefold-frontier-world",
       "86c695c4b0ca6fa1": "fractured-realm-square", "79596a876f5e4542": "ashen-crown-map", "ab38106f2796459a": "cinder-reach-map",
@@ -88,7 +88,12 @@
       { "match": "^assets/enemy-poses/expansion/(\\w+)/([\\w-]+)\\.webp$", "id": "exp.$1.$2" },
       { "match": "^assets-mobile/enemy-poses/expansion/(\\w+)/([\\w-]+)\\.webp$", "id": "lite.exp.$1.$2" },
       { "match": "^assets-mobile/animations/player-counter-sweep/(\\w+)/(counter|sweep)/([\\w-]+)\\.webp$", "id": "lite.sweep.$1.$2.$3" },
-      { "match": "^assets-mobile/animations/(?:greatsword-outfits|twin-sword-outfits|unarmed|unarmed-magic)/(reaver|rogue|herald|starseer)/HURT\\.webp$", "id": "lite.hurt.$1" }
+      { "match": "^assets-mobile/animations/(?:greatsword-outfits|twin-sword-outfits|unarmed|unarmed-magic)/(reaver|rogue|herald|starseer)/HURT\\.webp$", "id": "lite.hurt.$1" },
+      { "match": "^assets/painted-outfits/([\\w-]+)/(\\w+)\\.webp$", "id": "outfit.$1.$2" },
+      { "match": "^assets/animations/([\\w-]+)/([\\w-]+)/([A-Za-z0-9-]+)\\.webp$", "id": "anim.$1.$2.{lower:$3}" }
+    ],
+    "restrict": [
+      { "match": "^(outfit|anim)\\.", "ids": "Unity/Assets/StreamingAssets/Content/ui/outfitArt.json" }
     ],
     "convert": [
       { "match": "^card\\.\\w+\\.art512$", "format": "jpg", "quality": 86, "flat": true },
@@ -118,6 +123,7 @@
       { "match": "^pose\\.", "format": "png" },
       { "match": "^posefx\\.", "format": "png" },
       { "match": "^(alt|sweep|hurt|exp|lite)\\.", "format": "png", "flat": true },
+      { "match": "^(outfit|anim)\\.", "format": "png", "maxWidth": 320, "maxHeight": 400, "flat": true },
       { "match": "^glow\\.", "format": "png", "flat": true }
     ],
     "derive": [

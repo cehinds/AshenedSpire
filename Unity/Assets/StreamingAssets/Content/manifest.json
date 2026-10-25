@@ -1,5 +1,5 @@
 {
-  "contentHash": "3314986d1a769ca5e58a1cf82e5ecc50f83b02e1d1aca1de74405b689a4eb1c8",
+  "contentHash": "56c23ec9474a6362154557b6a2fba7daa3b1d21bbab9590e24f85afedec2c705",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -100,9 +100,9 @@
       "sha256": "0a8e3b8e433e076b012b6897222ef3dffcbc5c69d159401fa68abae4d10f8d6e"
     },
     "assets/registry.json": {
-      "bytes": 3836691,
+      "bytes": 3914991,
       "generated": false,
-      "sha256": "54161bf92dbe32f20bfc8578572120ea29be41efd2d33559edf7692b9a6fe53c"
+      "sha256": "4bb05f8d0c04a1a0b61313bb244e7f6eaa05070dc76bba7743e21e92fe2c9465"
     },
     "audio/beds.json": {
       "bytes": 1990,
@@ -2030,9 +2030,9 @@
       "sha256": "bcfb76b5df5dbe3e2da9f0826aa435589234696921faf71040a6744f8b6da8d0"
     },
     "schemas/ui.enemyStage.schema.json": {
-      "bytes": 26589,
+      "bytes": 36254,
       "generated": false,
-      "sha256": "ed8af530492910bf50731f41e6057c77d878a8528dd7833025d0d9ca9de2dadf"
+      "sha256": "3448afa21e6def18b0e0bd076d65dc9b91a3c8bed599c1ec1494dca9c508e379"
     },
     "schemas/ui.equipmentCard.schema.json": {
       "bytes": 2689,
@@ -2083,6 +2083,11 @@
       "bytes": 1965,
       "generated": false,
       "sha256": "cea54f440ad85c10aed84182b260ec25a1172199d0428b939926aa982d4ef035"
+    },
+    "schemas/ui.outfitArt.schema.json": {
+      "bytes": 1368,
+      "generated": false,
+      "sha256": "04aa6083c490967a1decd2f4d6cef980ae9589c858592b3df2923e7834ad6461"
     },
     "schemas/ui.poses.schema.json": {
       "bytes": 873,
@@ -2334,6 +2339,11 @@
       "generated": false,
       "sha256": "e6c5b73d52c764043690f50d9647244e894a84bfb063e93dd6828a3c9ef35316"
     },
+    "ui/outfitArt.json": {
+      "bytes": 280811,
+      "generated": false,
+      "sha256": "05052e3b6a6fb84bb1339d7668472887565e0a273e1008fdd05040088ca10bf4"
+    },
     "ui/poses.json": {
       "bytes": 54232,
       "generated": false,
@@ -2365,9 +2375,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 51610,
+      "bytes": 51737,
       "generated": false,
-      "sha256": "b5c4e712de45865e335b9df7a8383f481ae3dd80fd44b0b36bf391d3ccae0802"
+      "sha256": "04baa9c30ed5b99cd5ee1df1aa22f06ddf304f61ec246dddcf36feaeff66e374"
     }
   },
   "schemaVersion": 1,

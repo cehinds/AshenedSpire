@@ -2,6 +2,19 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## P-5: the combat leftovers go to the web (worktree branch, 2026-10-25)
+
+**Landed (D-1590..D-1595)**
+- **Rendering quality (D-1590):** the web's `performanceMode` row (label, note, auto/full/lite, default auto) sits after Combat pacing; `RenderingQuality` (tested) resolves it (lite, or auto on a touch device) and `CombatPacing.Lite` drives the player's aura glow instead of the narrow layout and makes Auto combat pacing play Fast in lite. The light ART tier stays on the narrow layout: in the web it is the separate Art quality row, whose Auto is exactly that.
+- **Enemy action filters and the hit-stop (D-1591):** `Tools/enemy-stage.mjs` reads the family keyframes' brightness, drop-shadow glow and opacity from the web's css; `EnemyStageData.ActionTrack` merges them with the travel; the figure paints a white veil of the silhouette sprite for brightness and a tinted silhouette behind it for the drop-shadow. The enemy's travel no longer stops under Reduce flashes (the web's css only stops it for reduced motion). The defender's hit-stop is not a feature of the web's default beat order (only the `impact` order has it, which nothing sets): closed.
+- **Damage calculation over its own number (D-1592):** `LinkTagEvents` finds `PointerOverLinkTagEvent` and `PointerOutLinkTagEvent` (names and `linkID` confirmed in the Unity 6000.6 manual) by reflection, so the branch compiles against any editor and falls back to the whole label; `Tooltip.AttachLinked`, `ChipTips.RetellLinked`, `CardView.Bind`; `Assets/link.xml` keeps the types.
+- **Contact cue recovery (D-1593):** the `Contact` item carries the planned recovery and, when the stage still has more to play, every later item and the end of the play are rescheduled (`DelayFx`).
+- **The door's preview pane and the player's painted outfit (D-1594, D-1595):** the combatant reading is the web's lg door with the preview (figure, name, meters) beside the details; the player's portrait is chosen by `Tools/outfit-art.mjs` -> `ui/outfitArt.json` over the web's own functions for every class, armour and pair of hands (35 outfits, 8680 pairs, 496 frames); an enemy shows its stage at rest. Art: `release.restrict` imports only those 496 frames (`outfit.*`, `anim.*`, 47.5 MB png, gitignored). The Armoury has no figure in the shipped Core 2 (both shots), so none was added; the conversation frames are imported for the dialogue screen.
+
+**Tests:** the filtered suite (`Enforcement|UiData|UiRules|Core2Screens|ContentValid|RenderingQuality|SettingsPageParity|EnemyStage|CardStageFeedback|CombatFeedback|OutfitArt`) passes; the compile harness prints Build succeeded; `node Tools/outfit-art.mjs --check`, `enemy-stage.mjs --check`, `ci/check-art.mjs` (5618 of 5618) clean. Unity was not run.
+
+**Not done / needs the editor:** (1) the link tag events firing on the card label at runtime and the reflective registration under IL2CPP/WebGL (D-1592), and the tooltip sits beside the whole label, not the number; (2) the veil and flash look of the enemy filters (D-1591); (3) the door at 1920x1080 and 390x844: the 3 : 4 box, the 150 x 190 portrait, the enemy stage frame placement, the meters; the details pane is still the Unity words-only reading, not the web's `combatantDetailBody`, and only the whole body scrolls; (4) the build size of the 496 outfit textures (D-1594); (5) the conversation view is imported but the dialogue screen does not draw it; (6) the door's enemy preview draws no buff aura; (7) the Armoury and creation `stand` frames are imported and unused; (8) the contact recovery wait is untested against a real frame drop (D-1593).
+
 ## P-4: the rest of the Core 2 combat board is the web's (worktree branch, 2026-10-25)
 
 **Landed (D-1540..D-1549)**

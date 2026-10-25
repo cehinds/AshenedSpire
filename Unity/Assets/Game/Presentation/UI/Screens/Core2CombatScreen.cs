@@ -325,7 +325,16 @@ namespace Ashen.Presentation.UI.Screens
                 Stacks = Core2CombatText.Stacks(Strings, f),
                 Statuses = Core2CombatText.Statuses(Strings, f, Math.Max(1, Ui.Data.Components.StatusChips), Ui.Data.Components.FighterStackStatuses),
             };
-            if (player) { AttachStage(d); d.IntentGlyph = Ui.IntentGlyph(PlayerGlyph()); }
+            if (player)
+            {
+                AttachStage(d);
+                d.IntentGlyph = Ui.IntentGlyph(PlayerGlyph());
+                var gear = _run.FigureGear();
+                var portrait = Ui.Data.OutfitArt.Frame(_run.ClassId, gear.Armour, gear.Right, gear.Left, OutfitViews.Portrait);
+                d.Portrait = portrait == null ? null : Ui.Texture(portrait);
+                d.Mana = Int(View.Player.Mana);
+                d.MaxMana = Int(View.Player.MaxMana);
+            }
             _hpShown[f.Id] = d.Hp;
             AddChips(d, f);
             if (!player) ApplyEnemy(d, f);

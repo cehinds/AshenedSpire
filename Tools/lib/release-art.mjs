@@ -168,6 +168,8 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
   const rules = R.rules.map(r => ({ re: new RegExp(r.match), id: r.id }));
   const legacyRules = CONFIG.rules.map(r => new RegExp(r.match));
   const converts = R.convert.map(c => ({ ...c, re: new RegExp(c.match) }));
+  // `restrict`: of the ids a pattern names, only those a generated list holds are registered and imported (the player's painted figure: 512 of the thousands of equipment animation frames, Tools/outfit-art.mjs).
+  const restricts = (R.restrict || []).map(r => ({ re: new RegExp(r.match), ids: new Set(JSON.parse(readFileSync(join(ROOT, r.ids), 'utf8')).ids) }));
 
   // ----- the files of each pack (and of the web repo's tracked roots) -----
   const files = [];
@@ -188,6 +190,7 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
     if (!rule) { if (legacyRules.some(re => re.test(f.rel))) stats.legacy++; else orphans.push(f.rel); continue; }
     const id = applyTemplate(rule.id, rule.re.exec(f.rel), { maps: R.maps });
     if (seen.has(id)) { console.error(`release: duplicate asset id ${id}: ${seen.get(id)} | ${f.rel}`); process.exit(1); }
+    if (restricts.some(r => r.re.test(id) && !r.ids.has(id))) { stats.restricted = (stats.restricted || 0) + 1; continue; }
     seen.set(id, f.rel);
     const buf = readFileSync(f.abs);
     const ext = extname(f.rel).toLowerCase();
@@ -209,6 +212,10 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
     if (old) stats.replaced++; else stats.added++;
     registry[id] = entry;
   }
+
+  // A restricted id this release registered earlier and the list no longer names leaves the registry (its image is no longer imported).
+  for (const [id, entry] of Object.entries(registry))
+    if (entry.release === R.tag && restricts.some(r => r.re.test(id) && !r.ids.has(id))) { delete registry[id]; stats.restricted = (stats.restricted || 0) + 1; }
 
   // ----- derived images: the soft silhouette glows of the combat figures (P-4, D-1540..). Each is made from the frame it glows around, so it shares that frame's source and hash; the
   // import writes it from the source at the size the registry records (config release.derive).

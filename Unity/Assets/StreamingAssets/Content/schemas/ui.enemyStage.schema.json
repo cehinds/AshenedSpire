@@ -616,6 +616,310 @@
             "easing": {
               "type": "string"
             },
+            "filters": {
+              "type": "object",
+              "properties": {
+                "brace": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "string"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "cast": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "string"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "impact": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "null"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "lunge": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "null"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "release": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "null"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "sidestep": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "null"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "opacity": {
+                            "type": "number"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "opacity",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "sweep": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "null"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                }
+              },
+              "required": [
+                "brace",
+                "cast",
+                "impact",
+                "lunge",
+                "release",
+                "sidestep",
+                "sweep"
+              ]
+            },
             "recoilPx": {
               "type": "integer"
             },
@@ -690,6 +994,7 @@
           "required": [
             "direction",
             "easing",
+            "filters",
             "recoilPx",
             "tracks",
             "travelPx"
