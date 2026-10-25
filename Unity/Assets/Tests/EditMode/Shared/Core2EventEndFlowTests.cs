@@ -362,7 +362,8 @@ namespace Ashen.Tests
             Assert.That(session.Tally.LastHit, Is.Not.Null);
             Assert.That(session.Tally.LastHit.SourceName, Is.Not.Empty);
             var record = (JObject)((JArray)ProfileStore.Load(_saves).Doc["results"]).Last;
-            Assert.That(record.Value<double>("damageDealt"), Is.EqualTo(0), "the configured run's own record keeps the web's tally of nothing (D-962)");
+            Assert.That(record.Value<double>("damageDealt"), Is.EqualTo(session.Tally.DamageDealt), "the history row carries the session's tally (D-1162)");
+            Assert.That(record.Value<double>("damageTaken"), Is.EqualTo(session.Tally.DamageTaken));
             var mid = Core2RunSession.New(Content, _saves, 2, 99u, "reaver", "Aldric", () => Epoch);
             mid.Travel(mid.ReachableNodes()[0]);
             mid.EditRunForReview(r => { r["hp"] = 100000; r["maxHp"] = 100000; });

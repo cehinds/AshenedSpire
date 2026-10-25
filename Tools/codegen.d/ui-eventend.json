@@ -29,6 +29,7 @@
       "keys": {
         "Page": "c2event-page",
         "PageDialogue": "c2event-page--dialogue",
+        "PageEntering": "c2event-page--entering",
         "Columns": "c2event-columns",
         "Narrative": "c2event-narrative",
         "ArtWell": "c2event-artwell",

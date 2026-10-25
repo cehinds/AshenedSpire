@@ -30,5 +30,8 @@ namespace Ashen.Generated
         public const string MapRouteOutline = "mapRouteOutline";
         public const string PrologueTick = "prologueTick";
         public const string SettingsCommit = "settingsCommit";
+        public const string EventFigureFade = "eventFigureFade";
+        public const string EventContextAt = "eventContextAt";
+        public const string EventContextFade = "eventContextFade";
     }
 }

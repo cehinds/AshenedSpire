@@ -1168,7 +1168,10 @@
         "MapRoute": "mapRoute",
         "MapRouteOutline": "mapRouteOutline",
         "PrologueTick": "prologueTick",
-        "SettingsCommit": "settingsCommit"
+        "SettingsCommit": "settingsCommit",
+        "EventFigureFade": "eventFigureFade",
+        "EventContextAt": "eventContextAt",
+        "EventContextFade": "eventContextFade"
       }
     },
     {

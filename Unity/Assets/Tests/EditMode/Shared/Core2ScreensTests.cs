@@ -143,7 +143,7 @@ namespace Ashen.Tests
             Assert.That(view.ClassName, Is.Not.Empty);
             Assert.That(view.Eyebrow, Does.Contain(view.ClassName).And.Contain("1"));
             Assert.That(view.Description, Is.Not.Empty);
-            Assert.That(view.Sheet.Select(c => c.Label), Is.EqualTo(new[] { "HP", "SP", "MP", "Draw" }));
+            Assert.That(view.Sheet.Select(c => c.Label), Is.EqualTo(new[] { "HP", "SP", "MP", "AR", "PR", "DR", "HandSize", "Draw" }));
             Assert.That(view.Sheet[0].Value, Is.EqualTo(((int)session.Run.Value<double>("maxHp")).ToString()));
             Assert.That(view.XpFraction, Is.InRange(0d, 1d));
             Assert.That(view.RelicsSummary, Is.Not.Empty);

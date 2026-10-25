@@ -265,7 +265,7 @@ namespace Ashen.App.Run
                 {
                     var id = i < cells.Count ? Js.Str(cells[i]) : null;
                     var item = string.IsNullOrEmpty(id) ? null : Item(session, strings, slotId, id);
-                    if (!hand && item == null) continue;
+                    if (!hand && i >= cells.Count) continue;
                     var position = new ArmouryPositionView
                     {
                         SlotId = slotId,

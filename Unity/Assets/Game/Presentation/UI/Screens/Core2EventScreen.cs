@@ -71,6 +71,28 @@ namespace Ashen.Presentation.UI.Screens
             BoardHud.SetImage(Root.Q(UiNames.CeventScene), Ui.Texture(_flow.SceneArtId));
             Render();
             _bound = true;
+            PlayEntrance();
+        }
+
+        /// <summary>
+        /// The spoken step's entrance (web dialogue.js playEntrance, dialogueEntrance): the figures fade in over their duration, the context band follows and rises; the controls open when the last step
+        /// has appeared. Reduced motion shows the step at once. Played once per screen, never again for the steps that follow.
+        /// </summary>
+        private void PlayEntrance()
+        {
+            if (!_flow.IsDialogue || _run.PlayerSettings.On(SettingIds.ReducedMotion)) return;
+            var tokens = Ui.Data.Tokens;
+            var page = Root.Q(UiNames.EventPage);
+            var controls = new[] { Root.Q(UiNames.CeventContext), Root.Q(UiNames.CeventFoot) };
+            page.AddToClassList(EventClasses.PageEntering);
+            foreach (var c in controls) c.SetEnabled(false);
+            page.schedule.Execute(() => page.RemoveFromClassList(EventClasses.PageEntering));
+            var ready = Math.Max(tokens.Duration(TokenKeys.EventFigureFade), tokens.Duration(TokenKeys.EventContextAt) + tokens.Duration(TokenKeys.EventContextFade));
+            page.schedule.Execute(() =>
+            {
+                foreach (var c in controls) c.SetEnabled(true);
+                if (_flow != null) Render();
+            }).ExecuteLater(ready);
         }
 
         // ------------------------------------------------------------------ render

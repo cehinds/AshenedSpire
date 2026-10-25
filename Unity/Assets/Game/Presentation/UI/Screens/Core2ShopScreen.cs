@@ -153,7 +153,7 @@ namespace Ashen.Presentation.UI.Screens
             if (_focusTab != null) return _tabs.FirstOrDefault(t => (string)t.userData == _focusTab) ?? (VisualElement)_leave;
             if (_opener >= 0)
             {
-                var dict = _openerBuy ? _buy : _media;
+                IReadOnlyDictionary<int, Button> dict = _openerBuy ? (IReadOnlyDictionary<int, Button>)_buy.ToDictionary(p => p.Key, p => (Button)p.Value) : _media.ToDictionary(p => p.Key, p => (Button)p.Value);
                 if (dict.TryGetValue(_opener, out var button)) return button;
             }
             return _flow.Items.Where(i => i.Available).Select(i => (VisualElement)_buy[i.Index]).FirstOrDefault() ?? (_tabs.FirstOrDefault(t => t.ClassListContains(ShopClasses.TabOn)) ?? _leave);
