@@ -92,6 +92,7 @@ namespace Ashen.Presentation.UI.Screens
             }
             _modal.size = UiValues.ModalSizeXl;
             _modal.CloseRequested += RequestClose;
+            BindDialog();
             BuildTabs();
             var openEditor = _tab == ArmouryValues.TabEditor;
             if (openEditor) _tab = ArmouryValues.TabDeck;
@@ -139,13 +140,15 @@ namespace Ashen.Presentation.UI.Screens
 
         public override bool HandleBack()
         {
-            RequestClose();
+            if (DialogOpen) CloseDialog();
+            else RequestClose();
             return true;
         }
 
         public override bool HandleMenu()
         {
-            RequestClose();
+            if (DialogOpen) CloseDialog();
+            else RequestClose();
             return true;
         }
 
@@ -365,7 +368,7 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>The Progression door (web characterSheet.js characterPane): the meter, the cadence, the attributes, the feats and the ladder, with a Back to the Character pane.</summary>
         private void ProgressionPane(VisualElement body)
         {
-            ProgressionPanel.Fill(body, CharacterProgression.For(_run, Ui.Data), Strings, Fold);
+            ProgressionPanel.Fill(body, CharacterProgression.For(_run, Ui.Data), Strings, Fold, AttributesCard, SheetButton);
             Button(body, StringKeys.ConfirmBack, UiClasses.ButtonBack, () =>
             {
                 _progression = false;

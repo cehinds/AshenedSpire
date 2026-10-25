@@ -1,0 +1,28 @@
+{
+  "comment": "P-3a: what the Progression hub's Character Sheet lists (web ui/models/ProgressionInspectionModel.js progressionStats, model/creationBrief.js attributeCardModels): the stat rows in the web's order with the string key of each face label, the rating rows an attribute card names as scaling, and the benefit each attribute's card puts on its face.",
+  "rows": [
+    { "id": "hp", "source": "derived", "faceKey": "progression.stat.face.hp" },
+    { "id": "stamina", "source": "derived", "faceKey": "progression.stat.face.sp" },
+    { "id": "mana", "source": "derived", "faceKey": "progression.stat.face.mp" },
+    { "id": "ar", "source": "rating", "faceKey": "progression.rating.ar" },
+    { "id": "pr", "source": "rating", "faceKey": "progression.rating.pr" },
+    { "id": "dr", "source": "rating", "faceKey": "progression.rating.dr" },
+    { "id": "handSize", "source": "handSize", "labelKey": "progression.stat.handSize", "faceKey": "progression.stat.face.handSize" },
+    { "id": "draw", "source": "draw", "labelKey": "progression.stat.draw", "faceKey": "progression.stat.face.draw" }
+  ],
+  "ratingRows": ["ar", "dr", "pr", "ward"],
+  "ratingLabels": {
+    "ar": "progression.rating.ar",
+    "dr": "progression.rating.dr",
+    "pr": "progression.rating.pr",
+    "ward": "progression.rating.ward"
+  },
+  "handRows": ["openingHand", "draw", "handSize"],
+  "mainBenefits": {
+    "strength": [{ "stat": "ar", "labelKey": "progression.main.ar" }],
+    "dexterity": [{ "stat": "dr", "labelKey": "progression.main.dr" }],
+    "constitution": [{ "stat": "hp", "labelKey": "progression.main.hp" }, { "stat": "poise", "labelKey": "progression.main.poise" }],
+    "wisdom": [{ "stat": "ward", "labelKey": "progression.main.ward" }],
+    "intelligence": [{ "stat": "pr", "labelKey": "progression.main.pr" }]
+  }
+}

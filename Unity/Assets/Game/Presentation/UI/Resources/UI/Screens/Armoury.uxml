@@ -6,4 +6,7 @@
     <ui:VisualElement name="ARMOURY_SCRIM" class="overlay-scrim">
         <Ashen.Presentation.UI.Kit.CombatModal name="ARMOURY_MODAL" class="armoury-modal" />
     </ui:VisualElement>
+    <ui:VisualElement name="ARMOURY_DIALOG_SCRIM" class="overlay-scrim is-hidden">
+        <Ashen.Presentation.UI.Kit.CombatModal name="ARMOURY_DIALOG" class="armoury-dialog" />
+    </ui:VisualElement>
 </ui:UXML>

@@ -1,5 +1,5 @@
 {
-  "contentHash": "b89fa62ccdfa3e0215bd4cc20d33a2a6899687b6754f0f6107b89123e6eb4cce",
+  "contentHash": "b93a8cf1eda645544ea51b82de17713627f629cba7b032bdfc3e6fa1dbb96d9f",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -2049,6 +2049,11 @@
       "generated": false,
       "sha256": "3600e9c931498e0589d43c9ba51ec020bb2ce5c01560cec74f7c4786c4d665b1"
     },
+    "schemas/ui.progression.schema.json": {
+      "bytes": 1161,
+      "generated": false,
+      "sha256": "165b1e124289a0ff4720c71a081f0f63a213c615d7fbc54e527e5ac35c469365"
+    },
     "schemas/ui.prologue.schema.json": {
       "bytes": 2359,
       "generated": false,
@@ -2095,9 +2100,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 96014,
+      "bytes": 100253,
       "generated": false,
-      "sha256": "67cf9b4710413bed545a7a8cd41e308f2dc1d4dd89bcdf3e1a5d0cb42bdd690f"
+      "sha256": "810888e1c022be354d0c68c58b196d956035c04855e1f427478b383b332823f7"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2254,6 +2259,11 @@
       "generated": false,
       "sha256": "1ff3cbdb23dc856f09b6552cc477839736e833d3fd2bb6c5a707ccaa5e004d28"
     },
+    "ui/progression.json": {
+      "bytes": 1818,
+      "generated": false,
+      "sha256": "cb706e2afdf1d025b9fcf0ba862801b4470cf45ea1367c29e2da1a58c971df1a"
+    },
     "ui/prologue.json": {
       "bytes": 2561,
       "generated": false,
@@ -2275,9 +2285,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 50708,
+      "bytes": 50829,
       "generated": false,
-      "sha256": "1c734ed9691cdc8ba467870e5d307c04f851e335228db5869c4c8acb6fa40975"
+      "sha256": "b4e45b54c324e6c97ac65c4757c0c0a36205b21de5e36f0517dd6540f0f6a4d5"
     }
   },
   "schemaVersion": 1,

@@ -173,6 +173,10 @@
     --color-epc-gold: #d0ac5d;
     --color-epc-steel: #87b5d0;
     --color-epc-blade: #aebdc6;
+    --color-points-text: #e0f2ff;
+    --color-points-fill: #16476c;
+    --color-points-fill-hover: #205e8e;
+    --color-points-line: #72c5ff;
     --space-xxs: 2px;
     --space-xs: 4px;
     --space-sm: 8px;

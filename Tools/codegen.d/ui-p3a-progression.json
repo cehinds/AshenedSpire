@@ -1,0 +1,116 @@
+{
+  "comment": "P-3a (D-1440..D-1489): the Progression hub's Character Sheet and attribute allocation dialog (web ui/models/ProgressionInspectionModel.js, model/creationBrief.js attributeCardModels, ui/components/progressionCards.js).",
+  "keySets": [
+    {
+      "name": "StatPlaceholders",
+      "doc": "Placeholders of the stat formula and attribute card strings that the shared UiPlaceholders lack.",
+      "keys": {
+        "Terms": "terms",
+        "Gear": "gear",
+        "Permanent": "permanent",
+        "Held": "held",
+        "Limits": "limits",
+        "Capped": "capped",
+        "Never": "never",
+        "Cadence": "cadence",
+        "Rate": "rate",
+        "Gain": "gain",
+        "Weight": "weight",
+        "Multiplier": "multiplier",
+        "Short": "short"
+      }
+    },
+    {
+      "name": "ProgressionKeys",
+      "doc": "Keys of ui/progression.json and of the registry rows the Character Sheet reads (the derived-stat presentation, the attribute rows, the armaments' attribute gates).",
+      "keys": {
+        "Rows": "rows",
+        "Source": "source",
+        "LabelKey": "labelKey",
+        "FaceKey": "faceKey",
+        "RatingRows": "ratingRows",
+        "RatingLabels": "ratingLabels",
+        "HandRows": "handRows",
+        "MainBenefits": "mainBenefits",
+        "Stat": "stat",
+        "SourceDerived": "derived",
+        "SourceRating": "rating",
+        "SourceHandSize": "handSize",
+        "SourceDraw": "draw",
+        "OpeningHandRow": "openingHand",
+        "Sense": "sense",
+        "RequirementAttributes": "attributes",
+        "Weights": "weights",
+        "FirstSentence": "^.*?[.!?](?:\\s|$)"
+      }
+    },
+    {
+      "name": "ProgressionClasses",
+      "doc": "USS classes of the Character Sheet button, the attributes banner and cards and the allocation dialog (Armoury.uss).",
+      "keys": {
+        "Banner": "armoury-prog-banner",
+        "Toggle": "armoury-prog-toggle",
+        "ToggleTitle": "armoury-prog-title",
+        "SummaryLine": "armoury-prog-summary",
+        "SummaryKey": "armoury-prog-summary-key",
+        "SummaryValue": "armoury-prog-summary-value",
+        "Points": "armoury-prog-points",
+        "PointsOn": "armoury-prog-points--available",
+        "Detail": "armoury-prog-detail",
+        "SheetButton": "armoury-prog-sheet",
+        "StatCard": "armoury-stat-card",
+        "StatFace": "armoury-stat-face",
+        "StatFaceOpen": "armoury-stat-face--open",
+        "StatName": "armoury-stat-name",
+        "StatHint": "armoury-stat-hint",
+        "StatValue": "armoury-stat-value",
+        "StatReveal": "armoury-stat-reveal",
+        "StatRevealName": "armoury-stat-reveal-name",
+        "StatRevealLine": "armoury-stat-reveal-line",
+        "StatTrail": "armoury-stat-trail",
+        "StatGrid": "armoury-stat-grid",
+        "StatChip": "armoury-stat-chip",
+        "StatChipKey": "armoury-stat-chip-key",
+        "StatChipValue": "armoury-stat-chip-value",
+        "Pool": "armoury-alloc-pool",
+        "Stepper": "armoury-stepper",
+        "StepperButton": "armoury-stepper-button",
+        "StepperOff": "armoury-stepper-button--off",
+        "StepperValue": "armoury-stepper-value",
+        "AllocRows": "armoury-alloc-rows",
+        "Dialog": "armoury-dialog",
+        "DialogNote": "armoury-dialog-note"
+      }
+    },
+    {
+      "name": "AttrCardValues",
+      "doc": "Identity keys of the attribute cards (the open card is remembered across redraws) and the dialogs.",
+      "keys": {
+        "CardKey": "attr:{0}",
+        "StepperKey": "step:{0}:{1}",
+        "StepUp": "up",
+        "StepDown": "down",
+        "PoolKey": "pool"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "StatMath",
+      "type": "double",
+      "doc": "The arithmetic of the attribute cards (web creationBrief.js): the tolerance of a whole-number test and the scale a displayed gain is rounded to (two decimals).",
+      "values": {
+        "CycleTolerance": 1e-09,
+        "RoundScale": 100
+      }
+    },
+    {
+      "name": "StatLimits",
+      "type": "int",
+      "doc": "How many points an attribute card looks ahead for the cycle in which every floor lands exactly (attributeCycle).",
+      "values": {
+        "CycleLimit": 100
+      }
+    }
+  ]
+}

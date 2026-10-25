@@ -53,6 +53,12 @@ namespace Ashen.App.Run
         public string Summary;
         public readonly List<ProgressionAttribute> Attributes = new List<ProgressionAttribute>();
         public readonly List<ProgressionRow> Rows = new List<ProgressionRow>();
+
+        /// <summary>The Character Sheet: the stat grid and the attribute cards (web progressionStats).</summary>
+        public ProgressionStatsView Stats;
+
+        /// <summary>The Character Sheet button's summary line: each stat's face label and its number.</summary>
+        public readonly List<KeyValuePair<string, string>> StatChips = new List<KeyValuePair<string, string>>();
     }
 
     public static class CharacterProgression
@@ -115,6 +121,9 @@ namespace Ashen.App.Run
                 parts.Add(row.Short + ArmouryKeys.Colon + ArmouryKeys.Space + row.Value);
             }
             view.Summary = string.Join(ArmouryKeys.Space, parts);
+
+            view.Stats = ProgressionStats.For(session, ui);
+            foreach (var stat in view.Stats.Rows) view.StatChips.Add(new KeyValuePair<string, string>(stat.FaceLabel, Num(stat.Value)));
 
             var deck = balance.Obj(ArmouryKeys.DeckBalance) ?? new JObject();
             var perLevel = Js.IsInt(levelUp[ArmouryKeys.PointsPerLevel]) && levelUp.Num(ArmouryKeys.PointsPerLevel) > 0 ? levelUp.Num(ArmouryKeys.PointsPerLevel) : 1;

@@ -1133,3 +1133,205 @@
 .layout-narrow .armoury-pos-thumb {
     width: var(--size-armoury-thumb-narrow-w);
 }
+
+/* ---- P-3a: the Character Sheet and the allocation dialog (web styles/kit.css .progression-*, .cc-attribute-card, .se-*; characterSheet.js, progressionCards.js, statAllocationCard.js) ---- */
+
+.armoury-prog-banner {
+    flex-direction: row;
+    align-items: center;
+    margin-top: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-prog-toggle {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.armoury-prog-title {
+    font-size: var(--font-heading);
+    color: var(--color-parchment);
+}
+
+.armoury-prog-summary {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-xs);
+}
+
+.armoury-prog-summary-key {
+    margin-right: var(--space-xs);
+    color: var(--color-parchment);
+}
+
+.armoury-prog-summary-value {
+    margin-right: var(--space-md);
+    color: var(--color-gold);
+}
+
+.armoury-prog-points {
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    color: var(--color-muted);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-prog-points--available {
+    color: var(--color-points-text);
+    background-color: var(--color-points-fill);
+    border-color: var(--color-points-line);
+}
+
+.armoury-prog-points--available:hover {
+    background-color: var(--color-points-fill-hover);
+}
+
+.armoury-prog-detail {
+    margin-top: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-prog-sheet {
+    margin-top: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-prog-toggle:hover,
+.armoury-prog-sheet:hover {
+    border-color: var(--color-gold);
+}
+
+.armoury-stat-card {
+    margin-top: var(--space-xs);
+}
+
+.armoury-stat-face {
+    flex-direction: row;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel-raise);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-stat-face--open {
+    border-color: var(--color-gold);
+}
+
+.armoury-stat-name {
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.armoury-stat-hint {
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.armoury-stat-value {
+    margin-left: var(--space-md);
+    color: var(--color-gold);
+}
+
+.armoury-stat-trail {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+}
+
+.armoury-stat-reveal {
+    margin-top: var(--space-xxs);
+    padding: var(--space-sm) var(--space-md);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-stat-reveal-name {
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.armoury-stat-reveal-line {
+    margin-top: var(--space-xxs);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.armoury-stat-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-sm);
+}
+
+.armoury-stat-chip {
+    flex-direction: row;
+    margin: 0 var(--space-sm) var(--space-sm) 0;
+    padding: var(--space-xs) var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-stat-chip-key {
+    margin-right: var(--space-sm);
+    color: var(--color-muted);
+}
+
+.armoury-stat-chip-value {
+    color: var(--color-gold);
+}
+
+.armoury-alloc-pool {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+}
+
+.armoury-dialog-note {
+    margin-bottom: var(--space-sm);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.armoury-stepper {
+    flex-direction: row;
+    align-items: center;
+}
+
+.armoury-stepper-button {
+    width: var(--size-armoury-step);
+    height: var(--size-armoury-step);
+    -unity-text-align: middle-center;
+    color: var(--color-gold);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-stepper-button--off {
+    opacity: var(--opacity-muted);
+}
+
+.armoury-stepper-value {
+    min-width: var(--size-armoury-step);
+    -unity-text-align: middle-center;
+    color: var(--color-parchment);
+}
