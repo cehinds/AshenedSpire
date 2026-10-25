@@ -383,6 +383,7 @@ namespace Ashen.Generated
         public const string SchemasTagsTagsSchema = "schemas/tags.tags.schema.json";
         public const string SchemasTagsVariableBindingsSchema = "schemas/tags.variableBindings.schema.json";
         public const string SchemasUiArtSchema = "schemas/ui.art.schema.json";
+        public const string SchemasUiBattlefieldSchema = "schemas/ui.battlefield.schema.json";
         public const string SchemasUiCardStageSchema = "schemas/ui.cardStage.schema.json";
         public const string SchemasUiCardTextSchema = "schemas/ui.cardText.schema.json";
         public const string SchemasUiCardfaceSchema = "schemas/ui.cardface.schema.json";
@@ -425,6 +426,7 @@ namespace Ashen.Generated
         public const string TagsTags = "tags/tags.json";
         public const string TagsVariableBindings = "tags/variableBindings.json";
         public const string UiArt = "ui/art.json";
+        public const string UiBattlefield = "ui/battlefield.json";
         public const string UiCardStage = "ui/cardStage.json";
         public const string UiCardText = "ui/cardText.json";
         public const string UiCardface = "ui/cardface.json";

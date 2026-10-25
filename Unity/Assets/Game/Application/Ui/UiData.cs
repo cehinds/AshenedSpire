@@ -43,6 +43,9 @@ namespace Ashen.App.Ui
         /// <summary>ui/enemyStage.json (P-4): the enemies' combat figure, the web's expansion stage: its frames, clips, stance frames and the rest and attack rules.</summary>
         public EnemyStageData EnemyStage;
 
+        /// <summary>ui/battlefield.json (P-4): the web's combat board layout: the perspective grid, the party's and the enemies' scale settings and the sprite fit's literals.</summary>
+        public BattlefieldData Battlefield;
+
         public static UiData Load(IContentSource source)
         {
             JObject Read(string path) => (JObject)JsonContent.Parse(source.ReadText(path));
@@ -61,6 +64,7 @@ namespace Ashen.App.Ui
                 Poses = new PoseData(Read(ContentFiles.UiPoses)),
                 CardStage = new CardStageData(Read(ContentFiles.UiCardStage)),
                 EnemyStage = new EnemyStageData(Read(ContentFiles.UiEnemyStage)),
+                Battlefield = new BattlefieldData(Read(ContentFiles.UiBattlefield)),
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
                 Meta = Read(ContentFiles.UiMeta),

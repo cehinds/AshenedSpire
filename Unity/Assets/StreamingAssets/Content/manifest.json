@@ -1,5 +1,5 @@
 {
-  "contentHash": "6c78703c3ded1db058d1c4ce941ef3d2964c804834a9679a3460908ef937c509",
+  "contentHash": "728667823dadd26144a675c5e0cbec55d4cfe1f7379b394a3512ce400f83b9a6",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -1989,6 +1989,11 @@
       "generated": false,
       "sha256": "3af105c94763728307b39d6e27895a06d143e181316b177c91938703b5969610"
     },
+    "schemas/ui.battlefield.schema.json": {
+      "bytes": 16054,
+      "generated": false,
+      "sha256": "96c6333197082868fb2276235b5fc6549bf4e9f8f1753a4172e617e59a8f7602"
+    },
     "schemas/ui.cardStage.schema.json": {
       "bytes": 7471,
       "generated": false,
@@ -2198,6 +2203,11 @@
       "bytes": 4498,
       "generated": false,
       "sha256": "f60c3e89d733af459052f03e37e8a843feec5deb88e65536fb9081237f4f9157"
+    },
+    "ui/battlefield.json": {
+      "bytes": 4877,
+      "generated": false,
+      "sha256": "ff17b114b19a9b114273c8a7e446104a016591c5871e422064ef18549d4a34a4"
     },
     "ui/cardStage.json": {
       "bytes": 50057,

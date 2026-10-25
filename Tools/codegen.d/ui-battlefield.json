@@ -1,0 +1,112 @@
+{
+  "comment": "P-4 (D-1540..): the names of ui/battlefield.json and the vocabulary of the combat board's formation (the web src/ui/models/AlternativeFormationModel.js, CombatCompositionModel.js, CombatSpriteScaleModel.js, ui/components/battlefieldStage.js).",
+  "keySets": [
+    {
+      "name": "BattlefieldKeys",
+      "doc": "Keys of ui/battlefield.json.",
+      "keys": {
+        "Rows": "rows",
+        "VisualBands": "visualBands",
+        "Grid": "grid",
+        "Presentation": "presentation",
+        "Fit": "fit",
+        "Stature": "stature",
+        "Low": "low",
+        "Wide": "wide",
+        "Narrow": "narrow",
+        "Short": "short",
+        "Profiles": "profiles",
+        "Left": "left",
+        "Right": "right",
+        "Top": "top",
+        "RowHeight": "rowHeight",
+        "Skew": "skew",
+        "Bands": "bands",
+        "Id": "id",
+        "Index": "index",
+        "Anchor": "anchor",
+        "X": "x",
+        "Y": "y",
+        "Depth": "depth",
+        "Layer": "layer",
+        "ShortBelowPx": "shortBelowPx",
+        "BodyWidthFraction": "bodyWidthFraction",
+        "BodyWidthMaxPx": "bodyWidthMaxPx",
+        "FootprintInsetPx": "footprintInsetPx",
+        "PlayerArtworkScale": "playerArtworkScale",
+        "SpaciousEnemyClassHeightFraction": "spaciousEnemyClassHeightFraction",
+        "MiniHudInsetPx": "miniHudInsetPx",
+        "MiniHudGroupHeightPx": "miniHudGroupHeightPx",
+        "MiniHudSpriteGapPx": "miniHudSpriteGapPx",
+        "PlayerSpriteScale": "playerSpriteScale",
+        "EnemySpriteScale": "enemySpriteScale",
+        "DisplayScale": "displayScale",
+        "RowScale": "rowScale",
+        "RowLayer": "rowLayer",
+        "FrontLayer": "frontLayer",
+        "BackLayer": "backLayer",
+        "Columns": "columns",
+        "Lanes": "lanes",
+        "PlayerSpawnRow": "playerSpawnRow",
+        "Requested": "requested",
+        "Enemy": "enemy",
+        "Player": "player",
+        "LowRatio": "lowRatio",
+        "RatioCap": "ratioCap",
+        "MultiplierCap": "multiplierCap",
+        "WidthMargin": "widthMargin",
+        "EdgeMargin": "edgeMargin",
+        "Headroom": "headroom",
+        "SpaciousMaxEnemies": "spaciousMaxEnemies",
+        "Leading": "leading",
+        "Cap": "cap",
+        "HeightShare": "heightShare",
+        "Gap": "gap",
+        "GapCompact": "gapCompact",
+        "ScreenMargin": "screenMargin",
+        "ShadowHeightShare": "shadowHeightShare",
+        "DefaultBoxHeight": "defaultBoxHeight",
+        "Ratio": "ratio",
+        "Large": "large",
+        "Huge": "huge",
+        "BossScale": "bossScale",
+        "Of": "of"
+      }
+    },
+    {
+      "name": "BattlefieldNames",
+      "doc": "The sides, form factors and statures of the board's formation.",
+      "keys": {
+        "SideEnemy": "enemy",
+        "SidePlayer": "player",
+        "FormFactorMobile": "mobile",
+        "FormFactorTablet": "tablet",
+        "FormFactorDesktop": "desktop",
+        "StatureNormal": "normal",
+        "StatureLarge": "large",
+        "StatureHuge": "huge"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "BattlefieldCount",
+      "type": "int",
+      "doc": "The counts of the board's formation: a pair of sides, the rank of the extra combatants.",
+      "values": {
+        "Pair": 2,
+        "ExtraRank": 2
+      }
+    },
+    {
+      "name": "BattlefieldMath",
+      "type": "double",
+      "doc": "The counts and shares of the board's formation arithmetic that the web writes inline (a pair of edges, the half of a width, the four bands the baseline is measured over, the tablet width).",
+      "values": {
+        "Pair": 2,
+        "Half": 0.5,
+        "TabletMaxWidth": 1024
+      }
+    }
+  ]
+}
