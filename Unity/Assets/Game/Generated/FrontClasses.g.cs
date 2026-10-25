@@ -106,6 +106,7 @@ namespace Ashen.Generated
         public const string SettingsScroll = "settings-scroll";
         public const string SettingsRows = "settings-rows";
         public const string SettingsRow = "settings-row";
+        public const string SettingsRowToggle = "settings-row--toggle";
         public const string SettingsRowTexts = "settings-row-texts";
         public const string SettingsRowHead = "settings-row-head";
         public const string SettingsRowLabel = "settings-row-label";

@@ -107,6 +107,7 @@
         "SettingsScroll": "settings-scroll",
         "SettingsRows": "settings-rows",
         "SettingsRow": "settings-row",
+        "SettingsRowToggle": "settings-row--toggle",
         "SettingsRowTexts": "settings-row-texts",
         "SettingsRowHead": "settings-row-head",
         "SettingsRowLabel": "settings-row-label",

@@ -276,9 +276,16 @@
     white-space: normal;
 }
 
+/* phone (shop-390x844.jpg): the frame runs from y 155 to 838 under the HUD, 8 px from each edge */
+.layout-narrow .c2shop-scene {
+    top: var(--size-board-hud-hnarrow);
+}
+
 .layout-narrow .c2shop-frame.cmodal {
     left: var(--space-sm);
     right: var(--space-sm);
+    top: var(--size-shop-top-narrow);
+    bottom: var(--size-shop-bottom-narrow);
     width: auto;
 }
 

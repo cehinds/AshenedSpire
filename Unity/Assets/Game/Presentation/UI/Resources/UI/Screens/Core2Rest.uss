@@ -405,10 +405,22 @@
     color: var(--color-parchment);
 }
 
+/* phone (rest-390x844.jpg; player-polish.css:562-571): the painting shows under the HUD band, the door runs from y 225 to 832 with a 12 px gutter */
+.layout-narrow .c2rest-scene {
+    top: var(--size-board-hud-hnarrow);
+}
+
 .layout-narrow .c2rest-door.cmodal {
-    left: var(--space-sm);
-    right: var(--space-sm);
+    left: var(--space-md);
+    right: var(--space-md);
+    top: var(--size-rest-door-top-narrow);
+    bottom: var(--size-rest-door-bottom-narrow);
     width: auto;
+}
+
+.layout-narrow .cmodal--smith {
+    width: var(--size-smith-narrow-w);
+    height: var(--size-smith-narrow-h);
 }
 
 .layout-narrow .c2rest-split {

@@ -138,6 +138,7 @@ namespace Ashen.Presentation.UI.Screens
             var host = new VisualElement();
             host.AddToClassList(FrontClasses.SettingsControl);
             row.Add(host);
+            row.EnableInClassList(FrontClasses.SettingsRowToggle, control.Type == SV.Toggle);
             switch (control.Type)
             {
                 case SV.Toggle: host.Add(Switch(control)); break;

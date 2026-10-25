@@ -378,20 +378,21 @@
     width: var(--size-full-width);
 }
 
+/* phone (flow-05-creation-class-390x844.jpg): the card is 145 high with a 30 x 48 figure, so the stats and the relic get the width */
+.layout-narrow .kit-button.class-card {
+    height: auto;
+    min-height: var(--size-class-card-narrow-min-h);
+}
+
 .layout-narrow .class-card-figure {
-    width: var(--size-class-figure-narrow);
-    height: var(--size-class-figure-narrow);
+    width: var(--size-class-figure-narrow-w);
+    height: var(--size-class-figure-narrow-h);
     margin-right: var(--space-md);
 }
 
-.layout-narrow .review-row {
-    flex-direction: column;
-    align-items: stretch;
-}
-
+/* phone (flow-06-creation-review-390x844.jpg): Seed and Destination keep the web's row: the words at the left, the field or the slot at the right */
 .layout-narrow .review-seed {
-    width: var(--size-full-width);
-    margin-top: var(--space-sm);
+    width: var(--size-review-seed-narrow-w);
 }
 
 .layout-narrow .review-piece {
@@ -488,15 +489,32 @@
     margin: 0 var(--space-xs);
 }
 
+/* phone (flow-07-prologue-390x844.jpg): the bar stacks as the web does: 1 / 5, Continue the full width, then Pause, Settings and Skip opening (the screen puts Continue behind the progress) */
 .layout-narrow .prologue-bar {
     flex-wrap: wrap;
     height: auto;
-    padding: var(--space-xs);
+    padding: var(--space-xs) var(--space-md) var(--space-sm) var(--space-md);
+}
+
+.layout-narrow .prologue-progress {
+    width: var(--size-full-width);
+    margin: 0 0 var(--space-xs) 0;
+    -unity-text-align: middle-center;
+}
+
+.layout-narrow .prologue-button {
+    height: var(--size-prologue-button-narrow-h);
+    margin: var(--space-xxs) var(--space-xs);
+}
+
+.layout-narrow .prologue-button.kit-button--ready {
+    width: var(--size-full-width);
+    margin: 0 0 var(--space-xs) 0;
 }
 
 .layout-narrow .prologue-caption {
     height: auto;
-    min-height: var(--size-prologue-caption-h);
+    min-height: var(--size-prologue-caption-narrow-h);
 }
 
 /* ---- W-18 settings (D-1005): the web's Settings modal (src/ui/screens/settings.js; docs/qa/web-screens/settings-*) ---- */
@@ -806,6 +824,17 @@
 .layout-narrow .settings-control {
     align-items: flex-start;
     margin-top: var(--space-sm);
+}
+
+/* phone (settings-general-390x844.jpg): a switch stays at the right of its words (Fullscreen, Developer tools); choices and sliders go under them */
+.layout-narrow .settings-row--toggle {
+    flex-direction: row;
+    align-items: center;
+}
+
+.layout-narrow .settings-row--toggle .settings-control {
+    align-items: flex-end;
+    margin-top: 0;
 }
 
 .layout-narrow .settings-slider {

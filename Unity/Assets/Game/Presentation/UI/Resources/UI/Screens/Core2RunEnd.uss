@@ -188,3 +188,13 @@
 .c2end-action.unity-button:first-child {
     margin-left: 0;
 }
+
+/* ---- phone (390 x 844, run-end-defeat-390x844.jpg): the door is 344 wide (88%), the three ways on are 44 high ---- */
+
+.layout-narrow .c2end-door.cmodal {
+    width: var(--size-end-door-narrow-w);
+}
+
+.layout-narrow .c2end-action.unity-button {
+    height: var(--size-end-action-narrow-h);
+}
