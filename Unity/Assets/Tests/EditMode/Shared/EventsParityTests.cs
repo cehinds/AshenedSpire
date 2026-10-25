@@ -42,7 +42,7 @@ namespace Ashen.Tests
                 (JObject)content.Get(ContentFiles.RulesEventsEngine));
         }
 
-        private static JObject Index => ShopParityTests.ReadJson(Path.Combine(EventsDir, "index.json"));
+        private static JObject Index => OracleCompare.ReadJson(Path.Combine(EventsDir, "index.json"));
 
         public static IEnumerable<string> SessionFiles() =>
             Directory.Exists(EventsDir)
@@ -94,7 +94,7 @@ namespace Ashen.Tests
         [TestCaseSource(nameof(Presets))]
         public void ContentEventTablesEqualTheShippedOnes(string preset)
         {
-            var want = (JObject)ShopParityTests.ReadJson(Path.Combine(EventsDir, "registries.json"))[preset];
+            var want = (JObject)OracleCompare.ReadJson(Path.Combine(EventsDir, "registries.json"))[preset];
             var d = Data(preset);
             Check(preset, "events", want["events"], new JArray(d.Events.All));
             Check(preset, "speakers", want["speakers"], new JArray(d.Speakers.All));
@@ -108,11 +108,11 @@ namespace Ashen.Tests
         [TestCaseSource(nameof(SessionFiles))]
         public void EventSessionMatchesTheShippedDoor(string file)
         {
-            var log = ShopParityTests.ReadJson(Path.Combine(EventsDir, file));
+            var log = OracleCompare.ReadJson(Path.Combine(EventsDir, file));
             var d = Data(log.Value<string>("preset"));
             var run = (JObject)log["run"].DeepClone();
             var expectedRun = (JObject)log["run"].DeepClone();
-            var rng = new Rng((uint)log["seed"].Value<long>(), ShopParityTests.Counters((JObject)log["rngBefore"]));
+            var rng = new Rng((uint)log["seed"].Value<long>(), OracleCompare.Counters((JObject)log["rngBefore"]));
             var visits = (JArray)log["visits"];
             for (var i = 0; i < visits.Count; i++)
             {
@@ -122,13 +122,13 @@ namespace Ashen.Tests
                 Check(file, label + " view", visit["view"], Events.Open(d, run, eventId));
                 var result = Events.Choose(d, run, eventId, visit.Value<string>("choiceId"), rng);
                 Check(file, label + " result", visit["result"], result.ToJson());
-                ShopParityTests.ApplyDelta(expectedRun, (JObject)visit["runDelta"]);
+                OracleCompare.ApplyDelta(expectedRun, (JObject)visit["runDelta"]);
                 Check(file, label + " run", expectedRun, run);
                 CheckCounters(file, label, (JObject)visit["rngAfter"], rng);
                 if (!(visit["finish"] is JObject finish)) continue;
                 var done = Events.Finish(run);
                 Check(file, label + " finish", finish["fight"], done["fight"]);
-                ShopParityTests.ApplyDelta(expectedRun, (JObject)finish["runDelta"]);
+                OracleCompare.ApplyDelta(expectedRun, (JObject)finish["runDelta"]);
                 Check(file, label + " run after finish", expectedRun, run);
             }
         }
@@ -136,10 +136,10 @@ namespace Ashen.Tests
         [TestCaseSource(nameof(EffectFiles))]
         public void RunEffectsMatchTheShippedDoor(string file)
         {
-            var log = ShopParityTests.ReadJson(Path.Combine(EventsDir, file));
+            var log = OracleCompare.ReadJson(Path.Combine(EventsDir, file));
             var d = Data(log.Value<string>("preset"));
             var run = (JObject)log["run"].DeepClone();
-            var rng = new Rng((uint)log["seed"].Value<long>(), ShopParityTests.Counters((JObject)log["rngBefore"]));
+            var rng = new Rng((uint)log["seed"].Value<long>(), OracleCompare.Counters((JObject)log["rngBefore"]));
             var expected = (JObject)log["expected"];
             if (expected["error"] != null)
             {
@@ -149,7 +149,7 @@ namespace Ashen.Tests
             var events = RunEffects.Execute(d, run, rng, (JArray)log["effects"].DeepClone());
             Check(file, "events", expected["events"], events);
             var expectedRun = (JObject)log["run"].DeepClone();
-            ShopParityTests.ApplyDelta(expectedRun, (JObject)expected["runDelta"]);
+            OracleCompare.ApplyDelta(expectedRun, (JObject)expected["runDelta"]);
             Check(file, "run", expectedRun, run);
             CheckCounters(file, "effects", (JObject)expected["rngAfter"], rng);
         }
@@ -158,9 +158,9 @@ namespace Ashen.Tests
         public void DeferredOpsThrowByName()
         {
             var file = EffectFiles().First();
-            var log = ShopParityTests.ReadJson(Path.Combine(EventsDir, file));
+            var log = OracleCompare.ReadJson(Path.Combine(EventsDir, file));
             var d = Data(log.Value<string>("preset"));
-            var rng = new Rng((uint)log["seed"].Value<long>(), ShopParityTests.Counters((JObject)log["rngBefore"]));
+            var rng = new Rng((uint)log["seed"].Value<long>(), OracleCompare.Counters((JObject)log["rngBefore"]));
             // refillFlasks runs since the run-level door was unified (D-100; recorded as effects-*-refill-*); only a run
             // without charge pools, whose legacy flask-slot refill is not ported (D-094), still throws by name.
             var legacy = (JObject)log["run"].DeepClone();
@@ -173,7 +173,7 @@ namespace Ashen.Tests
 
         private static void Check(string file, string label, JToken want, JToken got)
         {
-            var diff = RewardsParityTests.FirstDifference(want, got, "$");
+            var diff = OracleCompare.FirstDifferenceOrdered(want, got, "$");
             if (diff != null) Assert.Fail($"{file} {label}: first difference at {diff}");
         }
     }

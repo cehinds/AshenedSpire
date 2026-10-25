@@ -151,7 +151,7 @@ namespace Ashen.Tests
             var runBefore = (JObject)run.DeepClone();
             CoreRunCombat.End(Data, run, session.State);
             var wantRun = Core2CombatStartParityTests.Apply(runBefore, end["runDelta"]);
-            var diff = RunParityTests.FirstDifference(wantRun, run, "$");
+            var diff = OracleCompare.FirstDifference(wantRun, run, "$");
             if (diff != null) Assert.Fail(label + " the run after the fight: first difference at " + diff);
         }
     }

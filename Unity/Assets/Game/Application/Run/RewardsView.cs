@@ -41,113 +41,13 @@ namespace Ashen.App.Run
         public CardFaceQuery Face;
     }
 
-    /// <summary>One W-08 row: its claim state, what it says, its icon, and — for a choice — the picks it offers.</summary>
-    public sealed class RewardRowView
-    {
-        public string Key;
-        public string Kind;
-
-        /// <summary>taken | skipped | blocked | available (rewardClaimStatus).</summary>
-        public string State;
-
-        public string BlockedBy;
-        public bool Choice;
-        public string Title;
-        public string Body;
-        public string StateText;
-
-        /// <summary>The registry id of the row's icon (null when the kind has no art), and the glyph string key shown without it.</summary>
-        public string ArtId;
-
-        public string GlyphKey;
-
-        /// <summary>The picks a card offer or a draft opens (empty for the other kinds).</summary>
-        public List<RewardPickView> Picks = new List<RewardPickView>();
-
-        /// <summary>The chooser's heading (a draft's "Longsword draft · level 2"; the card offer's "Choose a card").</summary>
-        public string PickTitle;
-
-        public bool Resolved => State == WV.Taken || State == LV.Skipped;
-        public bool Blocked => State == RunFlowValues.StateBlocked;
-        public bool Pending => State == RunFlowValues.StateAvailable;
-    }
-
-    /// <summary>The whole W-08 door as the screen draws it.</summary>
-    public sealed class RewardsViewState
-    {
-        public string Title;
-        public string StatusText;
-        public int Claimed;
-        public int Total;
-        public bool AllResolved;
-        public string RequiredText;
-        public string HintText;
-        public string Mode;
-        public JObject Status;
-        public List<RewardRowView> Rows = new List<RewardRowView>();
-    }
-
     /// <summary>
-    /// W-08 rewards as display data (US-11.1 to US-11.3; shipped model/rewardplan.js rewardClaimStatus and reward.js
-    /// rowBody): the open door's rows with their states and sentences from strings/app.en.json, the head's
-    /// "{claimed} of {total} claimed", the one choice still waiting, and what Continue will do under the rewardCollect
-    /// dial. Also the refusals a claim can meet before or after the door is asked. Engine-free.
+    /// The reward faces' words and art (shipped reward.js rowBody): a card pick, the sentence of a relic's or flask's effect
+    /// from its template, and the art id of an offered item. The spoils door, the shop and the Armoury draw with them (the 405
+    /// reward door these served is gone, WP-21). Engine-free.
     /// </summary>
     public static class RewardsView
     {
-        // ------------------------------------------------------------------ claim status (rewardplan.js rewardClaimStatus)
-
-        /// <summary>A row's state: its claim state, else blocked, else available.</summary>
-        public static string StateOf(JObject row, JObject states) =>
-            Js.Str(states?[row.Str(LK.Key)]) ?? (Js.Truthy(row[LK.BlockedBy]) ? RunFlowValues.StateBlocked : RunFlowValues.StateAvailable);
-
-        /// <summary>
-        /// rewardClaimStatus(plan, states): per-row state, the counts the head prints (taken, skipped, blocked, available)
-        /// and the first choice still waiting, in row order.
-        /// </summary>
-        public static JObject Status(JArray rows, JObject states)
-        {
-            var list = rows.OfType<JObject>().ToList();
-            var entries = new JArray(list.Select(row => Js.Obj(K.Kind, row[K.Kind]?.DeepClone(), LK.Key, row[LK.Key]?.DeepClone(), RunFlowKeys.State, StateOf(row, states))));
-            double Count(string state) => entries.Count(e => ((JObject)e).Str(RunFlowKeys.State) == state);
-            var choice = list.FirstOrDefault(row => row.Is(LK.Choice) && !Js.Truthy(states?[row.Str(LK.Key)]));
-            return Js.Obj(K.Total, (double)entries.Count, RunFlowKeys.Claimed, Count(WV.Taken), RunFlowKeys.Skipped, Count(LV.Skipped),
-                K.Blocked, Count(RunFlowValues.StateBlocked), RunFlowKeys.Available, Count(RunFlowValues.StateAvailable),
-                RunFlowKeys.RequiredChoice, choice == null ? Js.Null() : Js.Obj(K.Kind, choice[K.Kind]?.DeepClone(), LK.Key, choice[LK.Key]?.DeepClone(), K.Count, (double)PickIds(choice).Count),
-                RunFlowKeys.Rows, entries);
-        }
-
-        /// <summary>A card offer and the two drafts open the chooser (select, then Confirm).</summary>
-        public static bool IsChoiceKind(string kind) => kind == K.Card || kind == LV.SkillDraft || kind == LV.ClassDraft;
-
-        /// <summary>pickIds(row): a class draft's nodes, else the row's cards.</summary>
-        public static List<string> PickIds(JObject row) =>
-            Js.Items(row?[WK.NodeIds] is JArray ? row[WK.NodeIds] : row?[WK.CardIds]).Select(Js.Str).Where(s => s != null).ToList();
-
-        // ------------------------------------------------------------------ refusals (the screen only offers what can land)
-
-        /// <summary>Why a claim is refused before the door is asked: no such row, resolved, blocked, or a choice without an offered pick.</summary>
-        public static string PreRefusal(JObject row, JObject states, string pickId)
-        {
-            if (row == null) return RunFlowValues.RefusalNoSuchRow;
-            if (Js.Truthy(states?[row.Str(LK.Key)])) return RunFlowValues.RefusalClaimed;
-            if (Js.Truthy(row[LK.BlockedBy])) return RunFlowValues.RefusalBlocked;
-            if (!IsChoiceKind(row.Str(K.Kind))) return pickId == null ? null : RunFlowValues.RefusalNotOffered;
-            if (pickId == null) return RunFlowValues.RefusalNoPick;
-            return PickIds(row).Contains(pickId) ? null : RunFlowValues.RefusalNotOffered;
-        }
-
-        /// <summary>Why a row the door was asked for landed nothing: a spent draft, a full or duplicate bag, else a plain refusal.</summary>
-        public static string ApplyRefusal(JObject row)
-        {
-            var kind = row?.Str(K.Kind);
-            if (kind == LV.SkillDraft || kind == LV.ClassDraft) return RunFlowValues.RefusalSpent;
-            if (kind == LV.ArmamentKind) return RunFlowValues.RefusalNoRoom;
-            return RunFlowValues.RefusalRefused;
-        }
-
-        // ------------------------------------------------------------------ the view
-
         /// <summary>A template-with-{art} registry id from an artKey (a flask's "flask-crimson" loses its prefix first), or null.</summary>
         internal static string ArtFromKey(string template, string artKey, string prefix)
         {

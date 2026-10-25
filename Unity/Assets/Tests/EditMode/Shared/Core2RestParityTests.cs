@@ -44,7 +44,7 @@ namespace Ashen.Tests
 
         private static void Same(string label, JToken want, JToken got)
         {
-            var diff = RunParityTests.FirstDifference(want, got, "$");
+            var diff = OracleCompare.FirstDifference(want, got, "$");
             if (diff != null) Assert.Fail(label + ": first difference at " + diff);
         }
 
@@ -76,7 +76,7 @@ namespace Ashen.Tests
             foreach (var p in run.Properties())
             {
                 if (Skipped(p.Name)) continue;
-                if (!before.TryGetValue(p.Name, out var was) || RunParityTests.FirstDifference(was, p.Value, "$") != null) set[p.Name] = p.Value.DeepClone();
+                if (!before.TryGetValue(p.Name, out var was) || OracleCompare.FirstDifference(was, p.Value, "$") != null) set[p.Name] = p.Value.DeepClone();
             }
             foreach (var name in before.Keys) if (run[name] == null) del.Add(name);
             return new JObject { ["set"] = set, ["del"] = del };

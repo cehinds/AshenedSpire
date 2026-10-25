@@ -117,7 +117,7 @@ namespace Ashen.Tests
                     var loaded = Core2RunSession.Load(Content, _saves, 1, () => Epoch);
                     Assert.That(loaded.Status, Is.EqualTo(Core2RunLoadStatus.Resumed), string.Join("; ", loaded.Warnings));
                     Assert.That(loaded.Session.Location, Is.EqualTo(location), "the save resumes on the door it was made at");
-                    var diff = RunParityTests.FirstDifference(session.Run, loaded.Session.Run, "$");
+                    var diff = OracleCompare.FirstDifference(session.Run, loaded.Session.Run, "$");
                     Assert.That(diff, Is.Null, "the resumed run is the saved one at " + location + ": " + diff);
                     Assert.That(loaded.Session.StateHash(), Is.EqualTo(session.StateHash()), "the resumed run is the saved one at " + location);
                     session = loaded.Session;

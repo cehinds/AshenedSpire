@@ -201,7 +201,7 @@ namespace Ashen.Tests
             if (want["recordSkillXp"] == null) got.Remove("recordSkillXp");
             Alike(want);
             Alike(got);
-            var diff = RunParityTests.FirstDifference(Sorted(want), Sorted(got), "$");
+            var diff = OracleCompare.FirstDifference(Sorted(want), Sorted(got), "$");
             if (diff != null)
             {
                 var at = System.Text.RegularExpressions.Regex.Match(diff, @"^\$\.eventLog\[(\d+)\]");
@@ -227,7 +227,7 @@ namespace Ashen.Tests
             if (want["followTrace"] != null) again["followTrace"] = want["followTrace"].DeepClone();
             Alike(want);
             Alike(again);
-            var diff = RunParityTests.FirstDifference(Sorted(want), Sorted(again), "$");
+            var diff = OracleCompare.FirstDifference(Sorted(want), Sorted(again), "$");
             if (diff != null) Assert.Fail($"{row.Value<string>("set")}/{row.Value<string>("file")}[{row.Value<int>("index")}] step {row.Value<int>("step")}: written back differently at {diff}");
         }
     }
