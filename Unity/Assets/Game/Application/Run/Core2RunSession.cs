@@ -693,12 +693,16 @@ namespace Ashen.App.Run
             public Core2EventResult EventResult;
             public JObject Tally;
             public bool Resting;
+            public bool RunOver;
+            public RunEndReceipt End;
+            public Exception PendingSaveError;
         }
 
         private SessionSnapshot Snapshot() => new SessionSnapshot
         {
             Run = (JObject)_run.DeepClone(), Profile = Profile.Snapshot(), Rng = _rng?.Clone(), Location = _location, EncounterId = EncounterId, Combat = Combat,
             FightFinished = FightFinished, LastEnd = LastEnd, PendingPort = _pendingPort, EventId = _eventId, EventDone = _eventDone, EventResult = _eventResult, Tally = Tally.ToJson(), Resting = _resting,
+            RunOver = RunOver, End = End, PendingSaveError = PendingSaveError,
         };
 
         /// <summary>Save, or put the session back as <paramref name="snapshot"/> left it and rethrow: a change a full disk refused is not kept half-done, so the screen's Retry takes it again.</summary>
@@ -728,6 +732,10 @@ namespace Ashen.App.Run
             _eventResult = s.EventResult;
             Tally = Core2RunTally.FromJson(s.Tally);
             _resting = s.Resting;
+            // A close-out a refused save rolled back is not over: the run end must not open, nor a new run replace this slot.
+            RunOver = s.RunOver;
+            End = s.End;
+            PendingSaveError = s.PendingSaveError;
         }
 
         // ------------------------------------------------------------------ save
