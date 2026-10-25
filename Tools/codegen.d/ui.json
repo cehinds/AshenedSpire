@@ -1009,8 +1009,6 @@
         "Top": "top",
         "CenterX": "centerX",
         "Armoury": "armoury",
-        "ItemWeightScale": "itemWeightScale",
-        "LegacyRatings": "legacyRatings",
         "DefaultMaxLevel": "defaultMaxLevel"
       }
     },

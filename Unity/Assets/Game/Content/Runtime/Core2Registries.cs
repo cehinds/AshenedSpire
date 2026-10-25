@@ -88,7 +88,7 @@ namespace Ashen.Content
             if (content == null) throw new ArgumentNullException(nameof(content));
             JObject Rules(string file) => (JObject)content.Get(file);
             var versions = Rules(ContentFiles.RulesVersions);
-            var run = Registries.ToRunData(Rules(ContentFiles.RulesMechanics), Rules(ContentFiles.RulesCombatEngine), Rules(ContentFiles.RulesHandRules),
+            var run = Registries.ToRunData(Rules(ContentFiles.RulesFrameworkMechanics), Rules(ContentFiles.RulesCombatEngine), Rules(ContentFiles.RulesHandRules),
                 Rules(ContentFiles.RulesRunEngine), JsValues.Str(versions[Core2VersionKeys.WebContentVersion]));
             var profile = Profile.Core;
             var body = new JObject();
@@ -148,7 +148,7 @@ namespace Ashen.Content
         {
             JObject Rules(string file) => (JObject)content.Get(file);
             var versions = Rules(ContentFiles.RulesVersions);
-            var rewards = Registries.ToRewardsData(Rules(ContentFiles.RulesMechanics), Rules(ContentFiles.RulesCombatEngine), Rules(ContentFiles.RulesHandRules),
+            var rewards = Registries.ToRewardsData(Rules(ContentFiles.RulesFrameworkMechanics), Rules(ContentFiles.RulesCombatEngine), Rules(ContentFiles.RulesHandRules),
                 Rules(ContentFiles.RulesRunEngine), JsValues.Str(versions[Core2VersionKeys.WebContentVersion]),
                 (JArray)Rules(ContentFiles.BalanceCustomRun)[RunFlowKeys.AscensionOrder], Rules(ContentFiles.RulesRewardsEngine));
             return new Ashen.Domain.Rewards.Core2RewardsData(deck, rewards, combat, Rules(ContentFiles.RulesCore2Rewards), new Ashen.Domain.Shop.ShopData(rewards, Rules(ContentFiles.RulesShopEngine)), Rules(ContentFiles.RulesCore2Rest));

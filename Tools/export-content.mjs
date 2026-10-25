@@ -21,7 +21,7 @@
 // Core 2 outputs (raw/core2/):
 //   bundle.shipped.json        applyGameProfileToContent(contentBundle, 'default'): the Core-projected bundle
 //   profile.json               resolveGameProfile('default') (modules and content); profile.content.<key>.json one per content key
-//   rules/*.json               fixCoreMechanics (verbatim), fixCoreSnapshot, mechanics (engine/mechanics/*), runtime (engine/runtime ops and
+//   rules/*.json               frameworkMechanics (content/framework/mechanics.json verbatim), fixCoreMechanics (verbatim), fixCoreSnapshot, mechanics (engine/mechanics/*), runtime (engine/runtime ops and
 //                              formulas), reactionRules, combatExpansionRules, enemyKnowledgeRules, rangePolicy, versions, rng
 //   extras.json                the core2.modules of sources.json (combatMatchups, actionCosts, ...)
 //   advancedRows.settings.json the player-setting subset of advancedConfigRows
@@ -277,6 +277,9 @@ if (PROFILE !== 'none') {
     mechanics[row.id] = entry;
   }
   put('rules/mechanics.json', { format: mechIndex.format, mechanics });
+  // content/framework/mechanics.json at the pinned sha: what src/framework/weight.js, resources.js and statProjection.pieceWeight read (itemWeightScale,
+  // the dodge costs and centre, combatStartRefill). The legacy sha's copy (rules/mechanics.json) predates these keys.
+  put('rules/frameworkMechanics.json', readJson(C2.frameworkMechanics));
   put('rules/runtime.json', { ops: readJson('engine/runtime/ops.json'), formulas: readJson('engine/runtime/formulas.json') });
 
   // RNG streams, in the web's order (rules/rng.json appends the ones Unity lacks).

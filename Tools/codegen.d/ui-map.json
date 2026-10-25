@@ -226,7 +226,6 @@
         "PoiseRow": "poise",
         "AttributesWord": "attributes",
         "Plus": "+",
-        "ItemWeightScale": "itemWeightScale",
         "WeightWordKey": "armoury.receipt.weight.{0}",
         "WeightClassPriced": "weightClassPriced",
         "DeckBalance": "deck",

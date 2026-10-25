@@ -125,8 +125,6 @@ namespace Ashen.App.Run
 
         private static string Num(double v) => RunJs.NumStr(v);
 
-        /// <summary>JS Math.round to a tenth: halves go up.</summary>
-        private static double Tenth(double v) => Math.Floor(v * UiMath.TenthScale + UiMath.Half) / UiMath.TenthScale;
 
         public static EquipmentReceiptView For(Core2RunSession session, UiData ui) => For(session, ui, null);
 
@@ -140,7 +138,7 @@ namespace Ashen.App.Run
             var strings = ui.Strings;
             var gear = session.Core.Deck.Run.Run;
             var held = Js.Items(run[K.Deck]).OfType<JObject>().Where(c => Js.Truthy(c[K.EquipmentRole])).GroupBy(c => c.Str(K.EquipmentRole)).ToDictionary(g => g.Key, g => g.Count());
-            foreach (var row in Loadout.KitReceipt(gear, loadout, session.ClassId, run.Obj(K.Attributes), run.Obj(K.EquipmentProfileRuleSnapshot), session.RatingAttributePart(ui)))
+            foreach (var row in Loadout.KitReceipt(gear, loadout, session.ClassId, run.Obj(K.Attributes), run.Obj(K.EquipmentProfileRuleSnapshot))) 
             {
                 held.TryGetValue(row.Role, out var copies);
                 view.Roles.Add(Role(strings, row, copies));
@@ -250,12 +248,6 @@ namespace Ashen.App.Run
 
         // ------------------------------------------------------------------ equip load
 
-        private static double PieceWeight(UiData ui, JObject piece)
-        {
-            var authored = piece.Str(K.Kind) == V.Armor ? piece.Or0(K.PoiseThreshold) : Js.IsInt(piece[K.Weight]) ? piece.Num(K.Weight) : 0d;
-            return Tenth(authored * ui.Components.ItemWeightScale);
-        }
-
         private static LoadReceipt Load(Core2RunSession session, UiData ui, JObject loadout, IReadOnlyList<JObject> pieces)
         {
             var strings = ui.Strings;
@@ -265,22 +257,19 @@ namespace Ashen.App.Run
             double hands = 0, armour = 0;
             foreach (var piece in pieces)
             {
-                var weight = PieceWeight(ui, piece);
+                var weight = Equipment.PieceWeight(data, piece);
                 receipt.Sources.Add(new ReceiptSource { Id = piece.Str(K.Id), Value = Num(weight) });
                 if (piece.Str(K.Kind) == V.Armor && !Js.Nullish(piece[K.ClassId])) armour += weight;
                 else hands += weight;
             }
-            hands = Tenth(hands);
-            armour = Tenth(armour);
-            var load = Tenth(hands + armour);
+            hands = Equipment.RoundToTenth(hands);
+            armour = Equipment.RoundToTenth(armour);
             var attributes = run.Obj(K.Attributes);
-            var w = data.Mechanics.Obj(K.Weight);
-            var capacity = w.Num(K.CapacityBase) + w.Num(K.CapacityPerConstitution) * (attributes?.Num(K.Constitution) ?? 0d) + w.Num(K.CapacityPerStrength) * (attributes?.Num(K.Strength) ?? 0d);
-            var percent = Math.Floor(UiMath.Percent * Math.Round(load * UiMath.TenthScale) / UiMath.TenthScale / Math.Max(1, capacity));
-            JObject cls = null;
-            foreach (var c in w.Arr(K.Classes).OfType<JObject>())
-                if (percent <= c.Num(K.MaxLoadPercent)) { cls = c; break; }
-            cls = cls ?? (JObject)w.Arr(K.Classes).Last;
+            var decided = Equipment.ComputeWeightClass(data, attributes?.Num(K.Constitution) ?? 0d, attributes?.Num(K.Strength) ?? 0d, 0, hands + armour);
+            var load = decided.Load;
+            var capacity = decided.Capacity;
+            var percent = decided.Percent;
+            var cls = decided.WeightClass;
             receipt.ClassId = cls.Str(K.Id);
             receipt.Word = strings.Get(string.Format(CultureInfo.InvariantCulture, ArmouryKeys.WeightWordKey, receipt.ClassId));
             receipt.Load = load;

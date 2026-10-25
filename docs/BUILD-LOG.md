@@ -2,6 +2,18 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## P-2: the framework config the Core 2 export missed (worktree branch, 2026-10-25)
+
+**Landed (D-1420..D-1422)**
+- **Two reports from the Armoury work, checked against the web at `b8cfe4fac`:** (1) confirmed and fixed: `rules/mechanics.json` came from the legacy sha, so a Core 2 fight lacked `weight.itemWeightScale` 0.2, the dodge's Dexterity centre by creation mode and the lower Medium/Heavy dodge prices; the opening kits stood in the wrong weight class (Starseer Heavy where the web says Light, Reaver 400% where the web says 80%). The exporter now writes `rules/frameworkMechanics.json` (`content/framework/mechanics.json` verbatim at the pinned sha) and Core 2 builds its `CombatData` from it; `Equipment` ports `pieceWeight`, the tenth-rounded loads and `attributeModifier(score, attributeMode)`. (2) refuted as stated, real gap one step over: Core 2 never reads `balance/balance.json combatRatings` (its balance has none, like the web's), but the kit fallback rows (`runEngine.json ratings.defaultFormula`) were the 405 rows, not `LEGACY_RATING_FORMULA`, which showed once attributes passed 2.
+- **One source of truth:** `ui/components.json armoury.itemWeightScale` and `armoury.legacyRatings`, their `UiData` fields, `Core2RunSession.RatingAttributePart` and the Armoury's own load maths are deleted; the Armoury calls `Equipment.PieceWeight` / `ComputeWeightClass` and `Loadout.KitReceipt`.
+- **Oracle:** `Tools/oracle-core2-parity.mjs` -> `Unity/Assets/Tests/Oracle/core2/parity/{weight,dodge,kit,index}.json` (4112 worn loadouts across the four classes crossing every weight ceiling, 756 dodge rolls over six creation modes, 20 kit receipts at attributes up to 12); `Core2FrameworkParityTests` (7 tests) fails on the old export (run with the two fixes reverted: 6 failures) and passes now.
+- **Audit (D-1422):** web config objects at the pin missing from the export, all inert in a Core 2 fight; listed there.
+
+**Tests run (small filters, one at a time):** `Core2FrameworkParity` 7/7; `Core2CombatFlow|Core2CostParity|Core2CombatSession|Core2FrameworkParity` 162/162 (the existing Core 2 combat oracles do not cross a weight ceiling, so they passed before and after); `Enforcement|UiData|UiRules|Core2Screens|ContentValid|Armoury|Core2RunSession`; node checks listed in the commit.
+
+**Not done:** `mechanics.stamina.combatStartRefill` is not read by name (the fight start's refill is the `core2Run` rule `combat.staminaRefillsToFull`, which already says full); the 405 profile still reads the legacy `rules/mechanics.json` (WP-21 retires it); `ui/terms.json` is eight terms behind the web's `terms.json` and unread by C#; `recoveryRules` Settings rows and percents are not on the Core 2 settings page.
+
 ## P-1: the combat screen to exact web parity (worktree branch, 2026-10-25)
 
 **Landed (D-1320..D-1324)**
@@ -55,7 +67,7 @@ Owner directive of 2026-10-25: the Unity build looks and plays exactly like the 
 - Profile: the set-aside archive (Save a copy to a file, Restore this profile, Details for support) needs `SaveService` archive plumbing.
 - Settings: the Game rules and Changelog groups, the text and lore Typeface rows (they restyle the combat inspector's identity line), and the combat-owned rows are not on the page. `SettingIds.TextSize` is still declared.
 - Map HUD XP (`ClimbViews`, over `IClimb`) still reads the classic XP curve; it is off by D-1373.
-- For the combat owner (Core2Combat*, not touched here): Unity's combat weight class ignores `mechanics.weight.itemWeightScale` 0.2 (the exported `rules/mechanics.json` predates it, so `Equipment.PieceWeight` is unscaled), and the static `balance/balance.json` still carries `combatRatings` that the pinned web does not (the web prices card ratings with `LEGACY_RATING_FORMULA`, `statRows.js:37`).
+- For the combat owner: resolved afterwards by D-1420 (the combat weight class now scales every piece by `itemWeightScale`) and D-1421 (the static `balance/balance.json` is the 405 profile's; Core 2 never reads it, the real gap was the kit fallback rows).
 - Next: run the editor on the `c2_*` fixtures and compare each against `docs/qa/web-screens`.
 
 ## WP-22: the run screens' remaining gaps (worktree branch, 2026-10-25)
