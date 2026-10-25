@@ -1,0 +1,13 @@
+{
+  "comment": "shop: the merchant with a purse of 400 cinders.",
+  "screen": "core2Shop",
+  "core2": {
+    "until": "shop",
+    "cinders": 400,
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

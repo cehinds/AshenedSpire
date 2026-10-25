@@ -1,0 +1,12 @@
+{
+  "comment": "flow-10-first-combat, combat: the first fight, turn 1, nothing played.",
+  "screen": "core2Combat",
+  "core2": {
+    "until": "combat",
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

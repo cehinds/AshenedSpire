@@ -1,0 +1,12 @@
+{
+  "comment": "rest: a shrine at full hit points.",
+  "screen": "core2Rest",
+  "core2": {
+    "until": "rest",
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

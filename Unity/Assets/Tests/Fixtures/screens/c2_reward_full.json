@@ -1,0 +1,12 @@
+{
+  "comment": "reward-full: the spoils door after a fight.",
+  "screen": "core2Rewards",
+  "core2": {
+    "until": "rewards",
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

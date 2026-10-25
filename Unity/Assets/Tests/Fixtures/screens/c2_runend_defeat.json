@@ -1,0 +1,12 @@
+{
+  "comment": "run-end-defeat: die on the first fight.",
+  "screen": "core2RunEnd",
+  "core2": {
+    "until": "runEnd",
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

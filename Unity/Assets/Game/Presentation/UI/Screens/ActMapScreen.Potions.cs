@@ -65,6 +65,9 @@ namespace Ashen.Presentation.UI.Screens
             _minis.RemoveFromClassList(UiClasses.PotionMinisShown);
         }
 
+        /// <summary>Review hook: the minis stand out as after a hover (screen captures have no pointer).</summary>
+        public void MinisForReview() => _minis?.AddToClassList(UiClasses.PotionMinisShown);
+
         private void RenderMinis()
         {
             if (_minis == null) return;

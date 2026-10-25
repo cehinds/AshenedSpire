@@ -1,0 +1,13 @@
+{
+  "comment": "event-dialogue: the Grave of the Nameless, the first line.",
+  "screen": "core2Event",
+  "core2": {
+    "until": "event",
+    "eventId": "graveOfTheNameless",
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}
