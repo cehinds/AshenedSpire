@@ -78,7 +78,9 @@
       { "match": "^assets/shop/layers/trims/(\\w+)\\.svg$", "id": "shop.trim.$1" },
       { "match": "^assets/shop/layers/cover-tint\\.svg$", "id": "shop.cover-tint" },
       { "match": "^assets/prologue/([\\w-]+)\\.webp$", "id": "prologue.$1" },
-      { "match": "^map-detail/([0-9a-f]+)/(\\d+)/(\\d+)-(\\d+)\\.webp$", "id": "mapdetail.{maps:$1}.l$2.t$3x$4" }
+      { "match": "^map-detail/([0-9a-f]+)/(\\d+)/(\\d+)-(\\d+)\\.webp$", "id": "mapdetail.{maps:$1}.l$2.t$3x$4" },
+      { "match": "^assets/poses/([\\w-]+)_(\\w+)_(ember|frost|gold|grace|rot)\\.webp$", "id": "pose.$1.$2.$3" },
+      { "match": "^assets/pose-effects/([A-Za-z]+)(\\d+)\\.webp$", "id": "posefx.$1.$2" }
     ],
     "convert": [
       { "match": "^card\\.\\w+\\.art512$", "format": "jpg", "quality": 86, "flat": true },
@@ -104,7 +106,9 @@
       { "match": "^shop\\.trim\\.", "format": "png" },
       { "match": "^prologue\\.(reaver|rogue|starseer|herald)$", "format": "png", "maxWidth": 700 },
       { "match": "^prologue\\.", "format": "jpg", "quality": 84, "maxWidth": 1600, "maxHeight": 1700 },
-      { "match": "^mapdetail\\..*\\.l1024\\.", "format": "jpg", "quality": 84, "flat": true }
+      { "match": "^mapdetail\\..*\\.l1024\\.", "format": "jpg", "quality": 84, "flat": true },
+      { "match": "^pose\\.", "format": "png" },
+      { "match": "^posefx\\.", "format": "png" }
     ]
   },
   "provenance": {

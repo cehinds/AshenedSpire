@@ -1,5 +1,5 @@
 {
-  "contentHash": "6c6153632c1d20ecf8f0d8b090923d1b6d04bd11c2e3d411d1d021f135579dec",
+  "contentHash": "e3a634f976e2acdda590681e5f5fa3b3286778ebd4ddcf63c6baf1b3cb1e4039",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -100,9 +100,9 @@
       "sha256": "5d663083f183f94bfbe6bdb4be634f791e64ad52754c505e3bb53f920cf81267"
     },
     "assets/registry.json": {
-      "bytes": 2337901,
+      "bytes": 2428513,
       "generated": false,
-      "sha256": "4ec4d727fdda0c7e32316521a4c06dd6dcced01ca9cac0e7aa8579471bf04175"
+      "sha256": "144940e286e87dde5697fd21c5e0f7d51444e35b7a2ece031509beacc83937fd"
     },
     "audio/beds.json": {
       "bytes": 1990,
