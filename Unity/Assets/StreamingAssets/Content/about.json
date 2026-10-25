@@ -1,5 +1,5 @@
 {
-  "comment": "About / disclosure configuration (US-0.10, US-1.5). The disclosure text lives in strings/app.en.json; 'modalities' must each be named in the full text (AiDisclosurePresent test). 'provenance' lists the manifests the About credits are generated from.",
+  "comment": "About / disclosure configuration (US-0.10, US-1.5). The disclosure text lives in strings/app.en.json; 'modalities' must each be named in the full text (AiDisclosurePresent test). 'provenance' lists the manifests the About credits are generated from. 'page' is Settings -> About (web src/ui/screens/about.js over src/content/aiDisclosure.js): the lead paragraphs and the six sections by string key, and the key of the date the wording last changed.",
   "aiDisclosure": {
     "fullKey": "about.aiDisclosure",
     "shortKey": "title.aiDisclosure",
@@ -7,7 +7,51 @@
     "noticeContinueKey": "notice.ai.continue",
     "showOnTitle": true,
     "showOnFirstLaunch": true,
-    "modalities": ["code", "art", "music", "sound", "text", "design"]
+    "modalities": [
+      "code",
+      "art",
+      "music",
+      "sound",
+      "text",
+      "design"
+    ]
   },
-  "provenance": ["Provenance/imported/manifest.json", "Provenance/generated/manifest.json"]
+  "provenance": [
+    "Provenance/imported/manifest.json",
+    "Provenance/generated/manifest.json"
+  ],
+  "page": {
+    "lead": [
+      "about.lead.1",
+      "about.lead.2",
+      "about.lead.3"
+    ],
+    "sections": [
+      {
+        "headingKey": "about.section.code.heading",
+        "bodyKey": "about.section.code.body"
+      },
+      {
+        "headingKey": "about.section.writing.heading",
+        "bodyKey": "about.section.writing.body"
+      },
+      {
+        "headingKey": "about.section.art.heading",
+        "bodyKey": "about.section.art.body"
+      },
+      {
+        "headingKey": "about.section.audio.heading",
+        "bodyKey": "about.section.audio.body"
+      },
+      {
+        "headingKey": "about.section.play.heading",
+        "bodyKey": "about.section.play.body"
+      },
+      {
+        "headingKey": "about.section.saves.heading",
+        "bodyKey": "about.section.saves.body"
+      }
+    ],
+    "updatedKey": "about.updated"
+  }
 }

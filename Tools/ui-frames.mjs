@@ -17,12 +17,20 @@ import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { tmpdir } from 'node:os';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'Unity', 'Assets', 'Game', 'Presentation', 'UI', 'Resources', 'UI', 'Frames');
 const webArg = process.argv.indexOf('--web');
 const WEB = webArg > 0 ? process.argv[webArg + 1] : '/home/user/cehinds/ashenspire';
 const COMPONENTS = join(WEB, 'assets-mobile', 'player-polish', 'ui', 'components');
+// WP-23 (D-1379): the leather under every modal fill (player-polish.css:30-31: the soot-leather material, `cover`, under a 91 % veil of the page colour). The
+// material is art-release art (hd-assets-v23 `assets/player-polish/materials/soot-leather-material.webp`), not a file of the web repo:
+//   node Tools/ui-frames.mjs --leather <path to soot-leather-material.webp> --only modal-leather
+const leatherArg = process.argv.indexOf('--leather');
+const LEATHER = leatherArg > 0 ? process.argv[leatherArg + 1] : null;
+const onlyArg = process.argv.indexOf('--only');
+const ONLY = onlyArg > 0 ? process.argv[onlyArg + 1].split(',') : null;
 
 const GOLD_TOP_LINE = 'rgba(201,162,39,0.09)'; // tokens color.modalTopLine
 
@@ -62,6 +70,11 @@ const jobs = [
     html: '<html><body style="margin:0;background:transparent"><div style="width:23px;height:23px;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.52) 0 8.1315px,rgba(0,0,0,0.58) 8.1315px 16.263px)"></div></body></html>',
     w: 23, h: 23, scale: 4, border: [0, 0, 0, 0], tile: true,
   },
+  ...(LEATHER ? [{
+    file: 'modal-leather',
+    html: `<html><body style="margin:0;background:transparent"><div style="width:256px;height:171px;background-image:linear-gradient(rgba(13,11,8,0.91),rgba(13,11,8,0.91)),url('file://${LEATHER}');background-size:cover"></div></body></html>`,
+    w: 256, h: 171, scale: 1, border: [0, 0, 0, 0], tile: true,
+  }] : []),
   shadow('modal-shadow', 72, 48, 96, '0 24px 72px rgba(0,0,0,0.69)'),
   shadow('tooltip-shadow', 22, 14, 30, '0 8px 22px rgba(0,0,0,0.55)'),
 ];
@@ -235,8 +248,15 @@ async function main() {
   const { chromium } = createRequire(import.meta.url)('playwright');
   const browser = await chromium.launch();
   for (const j of jobs) {
+    if (ONLY && !ONLY.includes(j.file)) continue;
     const page = await browser.newPage({ viewport: { width: Math.ceil(j.w), height: Math.ceil(j.h) }, deviceScaleFactor: j.scale });
-    await page.setContent(j.html);
+    if (j.html.includes('file://')) {
+      // A page set from a string cannot read local files; a page on disk can.
+      const tmp = join(tmpdir(), `ashen-ui-frame-${j.file}.html`);
+      writeFileSync(tmp, j.html);
+      await page.goto(`file://${tmp}`);
+      await page.waitForTimeout(300);
+    } else await page.setContent(j.html);
     const buf = await page.screenshot({ omitBackground: true, clip: { x: 0, y: 0, width: j.w, height: j.h } });
     await page.close();
     const png = join(OUT, `${j.file}.png`);

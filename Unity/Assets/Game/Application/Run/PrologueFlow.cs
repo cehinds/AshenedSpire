@@ -132,9 +132,16 @@ namespace Ashen.App.Run
         /// <summary>The opening to play for a new Core 2 climb, or null when it is switched off (the data or the player) or has no scene that plays for the class.</summary>
         public static PrologueFlow For(RunContent content, Ashen.App.Settings.SettingsSession settings, string classId, string name)
         {
-            if (!content.Flow.Opening || !settings.On(SettingIds.PlayPrologue)) return null;
+            if (!content.Flow.Opening || !PlaysFor(settings)) return null;
             var flow = new PrologueFlow(content, classId, name);
             return flow.Pending ? flow : null;
+        }
+
+        /// <summary>shouldPlayPrologue(settings, seen): every new game, or once per profile (web model/prologue.js).</summary>
+        public static bool PlaysFor(Ashen.App.Settings.SettingsSession settings)
+        {
+            var mode = settings.Text(SettingIds.OpeningPlayback);
+            return mode == Ashen.Generated.SettingsValues.OpeningEvery || (mode == Ashen.Generated.SettingsValues.OpeningOnce && !settings.PrologueSeen);
         }
 
         public bool Pending => _at >= 0;

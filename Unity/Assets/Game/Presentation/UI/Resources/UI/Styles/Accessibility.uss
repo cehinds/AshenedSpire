@@ -1,0 +1,124 @@
+/* Settings that change the look of every screen (WP-23, D-1370..): the accent colour, the soft palette (high contrast off), the colourblind palette, readable headings and the HUD parts the player hides.
+   Each is a class on the UI root made by SettingsApplier; a rule here overrides the Tokens.uss variables for everything under the root (web styles/base.css:188-221, main.js applyDisplaySettings). */
+
+.screen.accent-crimson {
+    --color-gold: var(--color-accent-crimson);
+    --color-gold-soft: var(--color-accent-crimson-soft);
+    --color-neutral-line: var(--color-accent-crimson);
+    --color-primary-fill: var(--color-accent-crimson-fill);
+    --color-primary-fill-hover: var(--color-accent-crimson-fill-hover);
+    --color-modal-top-line: var(--color-accent-crimson-top-line);
+    --color-wordmark-glow: var(--color-accent-crimson-glow);
+    --color-fx-banner-glow: var(--color-accent-crimson-banner-glow);
+    --color-fx-boss-glow: var(--color-accent-crimson-boss-glow);
+    --color-map-trail: var(--color-accent-crimson);
+    --color-res-actions: var(--color-accent-crimson);
+    --color-intent-buff: var(--color-accent-crimson);
+}
+
+.screen.accent-frost {
+    --color-gold: var(--color-accent-frost);
+    --color-gold-soft: var(--color-accent-frost-soft);
+    --color-neutral-line: var(--color-accent-frost);
+    --color-primary-fill: var(--color-accent-frost-fill);
+    --color-primary-fill-hover: var(--color-accent-frost-fill-hover);
+    --color-modal-top-line: var(--color-accent-frost-top-line);
+    --color-wordmark-glow: var(--color-accent-frost-glow);
+    --color-fx-banner-glow: var(--color-accent-frost-banner-glow);
+    --color-fx-boss-glow: var(--color-accent-frost-boss-glow);
+    --color-map-trail: var(--color-accent-frost);
+    --color-res-actions: var(--color-accent-frost);
+    --color-intent-buff: var(--color-accent-frost);
+}
+
+.screen.accent-verdant {
+    --color-gold: var(--color-accent-verdant);
+    --color-gold-soft: var(--color-accent-verdant-soft);
+    --color-neutral-line: var(--color-accent-verdant);
+    --color-primary-fill: var(--color-accent-verdant-fill);
+    --color-primary-fill-hover: var(--color-accent-verdant-fill-hover);
+    --color-modal-top-line: var(--color-accent-verdant-top-line);
+    --color-wordmark-glow: var(--color-accent-verdant-glow);
+    --color-fx-banner-glow: var(--color-accent-verdant-banner-glow);
+    --color-fx-boss-glow: var(--color-accent-verdant-boss-glow);
+    --color-map-trail: var(--color-accent-verdant);
+    --color-res-actions: var(--color-accent-verdant);
+    --color-intent-buff: var(--color-accent-verdant);
+}
+
+.screen.accent-violet {
+    --color-gold: var(--color-accent-violet);
+    --color-gold-soft: var(--color-accent-violet-soft);
+    --color-neutral-line: var(--color-accent-violet);
+    --color-primary-fill: var(--color-accent-violet-fill);
+    --color-primary-fill-hover: var(--color-accent-violet-fill-hover);
+    --color-modal-top-line: var(--color-accent-violet-top-line);
+    --color-wordmark-glow: var(--color-accent-violet-glow);
+    --color-fx-banner-glow: var(--color-accent-violet-banner-glow);
+    --color-fx-boss-glow: var(--color-accent-violet-boss-glow);
+    --color-map-trail: var(--color-accent-violet);
+    --color-res-actions: var(--color-accent-violet);
+    --color-intent-buff: var(--color-accent-violet);
+}
+
+/* High contrast off: the web's dimmer, more atmospheric palette (base.css:7-14, :188 swaps these four back). */
+.screen.palette-soft {
+    --color-parchment: var(--color-soft-parchment);
+    --color-muted: var(--color-soft-muted);
+    --color-line: var(--color-soft-line);
+    --color-line-soft: var(--color-soft-line-soft);
+    --color-map-node-line: var(--color-soft-map-node-line);
+}
+
+/* Colorblind-friendly: the Okabe-Ito remap of danger, heal, frost, blight and bleed (base.css:206-221). */
+.screen.palette-cb {
+    --color-blood: var(--color-cb-vermillion);
+    --color-res-hp: var(--color-cb-vermillion);
+    --color-ember: var(--color-cb-vermillion);
+    --color-danger-line: var(--color-cb-vermillion);
+    --color-green: var(--color-cb-green);
+    --color-frost: var(--color-cb-sky);
+    --color-grace: var(--color-cb-sky);
+    --color-rot: var(--color-cb-orange);
+}
+
+/* Readable headings: the plain UI face for titles instead of the decorative serif (base.css:224 --font-display: var(--font-body)). */
+.screen.readable-headings .font-display,
+.screen.readable-headings .wordmark,
+.screen.readable-headings .eyebrow,
+.screen.readable-headings .kit-text-header,
+.screen.readable-headings .kit-title,
+.screen.readable-headings .kit-heading,
+.screen.readable-headings .about-heading,
+.screen.readable-headings .about-credits-heading,
+.screen.readable-headings .profile-status,
+.screen.readable-headings .kit-button--plate {
+    -unity-font-definition: url("../Fonts/Inter-Regular.ttf");
+}
+
+/* The HUD parts the player hides (HudVisibilityModel: vitality, relics, cinders, journey position, potions). */
+.screen.hud-hide-vitality .hud-heart,
+.screen.hud-hide-vitality .hud-hp {
+    display: none;
+}
+
+.screen.hud-hide-relics .hud-pips {
+    display: none;
+}
+
+.screen.hud-hide-currency .hud-cinders {
+    display: none;
+}
+
+.screen.hud-hide-position .map-strip {
+    display: none;
+}
+
+.screen.hud-hide-potions .map-potions {
+    display: none;
+}
+
+/* Control hints off: the bar of keyboard shortcuts along the bottom of the map (settings controlHints). */
+.screen.keys-hidden .map-keys {
+    display: none;
+}

@@ -1,0 +1,13 @@
+{
+  "comment": "combat-next-player-turn: End Turn once, the enemy turn done.",
+  "screen": "core2Combat",
+  "core2": {
+    "until": "combat",
+    "endTurns": 1,
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

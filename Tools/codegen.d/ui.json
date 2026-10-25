@@ -556,7 +556,19 @@
         "ProfileScroll": "PROFILE_SCROLL",
         "ProfilePane": "PROFILE_PANE",
         "AboutScroll": "ABOUT_SCROLL",
-        "AboutBody": "ABOUT_BODY"
+        "AboutBody": "ABOUT_BODY",
+        "SettingsTipClose": "SETTINGS_TIP_CLOSE",
+        "SettingsMore": "SETTINGS_MORE",
+        "SettingsMenu": "SETTINGS_MENU",
+        "SettingsMenuGroup": "SETTINGS_MENU_GROUP",
+        "SettingsMenuAll": "SETTINGS_MENU_ALL",
+        "SettingsUndo": "SETTINGS_UNDO",
+        "SettingsUndoText": "SETTINGS_UNDO_TEXT",
+        "SettingsUndoButton": "SETTINGS_UNDO_BUTTON",
+        "SettingsTipRow": "SETTINGS_TIP_ROW",
+        "TitleArtLit": "TITLE_ART_LIT",
+        "MapPotionMinis": "MAP_POTION_MINIS",
+        "MapPotionsHost": "MAP_POTIONS_HOST"
       }
     },
     {
@@ -811,7 +823,42 @@
         "FighterPose": "fighter-pose",
         "CombatEndVictory": "combat-end--victory",
         "CombatEndDefeat": "combat-end--defeat",
-        "TextShadowed": "text-shadowed"
+        "TextShadowed": "text-shadowed",
+        "TooltipArrowPrefix": "tooltip--arrow-",
+        "AccentPrefix": "accent-",
+        "PaletteSoft": "palette-soft",
+        "PaletteColourblind": "palette-cb",
+        "ReadableHeadings": "readable-headings",
+        "HudHideVitality": "hud-hide-vitality",
+        "HudHideRelics": "hud-hide-relics",
+        "HudHideCurrency": "hud-hide-currency",
+        "HudHidePosition": "hud-hide-position",
+        "HudHidePotions": "hud-hide-potions",
+        "KeysHidden": "keys-hidden",
+        "GateLighting": "gate-lighting",
+        "GateLeaving": "gate-leaving",
+        "GateLeavingOut": "gate-leaving--out",
+        "WalkedPrefix": "walked-",
+        "MapNodeLane": "map-node--lane",
+        "MapLaneHigh": "map-lane--high",
+        "PotionMini": "potion-mini",
+        "PotionMiniArt": "potion-mini-art",
+        "PotionMiniCount": "potion-mini-count",
+        "PotionMiniMore": "potion-mini-more",
+        "PotionMinisShown": "minis-shown",
+        "FlaskMenu": "flask-menu",
+        "FlaskMenuCap": "flask-menu-cap",
+        "FlaskMenuTitle": "flask-menu-title",
+        "FlaskMenuDetail": "flask-menu-detail",
+        "FlaskInspectArt": "flask-inspect-art",
+        "FlaskInspectLine": "flask-inspect-line",
+        "FlaskInspectReason": "flask-inspect-reason",
+        "FlaskMenuRow": "flask-menu-row",
+        "FlaskMenuRowLabel": "flask-menu-row-label",
+        "FlaskMenuRowDisabled": "flask-menu-row--disabled",
+        "FlaskInspect": "flask-inspect",
+        "FlaskInspectText": "flask-inspect-text",
+        "PotionMiniSpent": "potion-mini--spent"
       }
     },
     {
@@ -927,7 +974,44 @@
         "Fighter": "fighter",
         "Ratings": "ratings",
         "StackStatuses": "stackStatuses",
-        "LogLines": "logLines"
+        "LogLines": "logLines",
+        "Plain": "plain",
+        "UiScale": "uiScale",
+        "Named": "named",
+        "DesignW": "designW",
+        "DesignH": "designH",
+        "Placement": "placement",
+        "Gap": "gap",
+        "Pad": "pad",
+        "TopBandPct": "topBandPct",
+        "SideBandPct": "sideBandPct",
+        "EdgeEpsilon": "edgeEpsilon",
+        "ArrowW": "arrowW",
+        "ArrowInset": "arrowInset",
+        "FocusMs": "focusMs",
+        "LaneEdgeRatio": "laneEdgeRatio",
+        "PotionMinis": "potionMinis",
+        "Dialogue": "dialogue",
+        "Slot": "slot",
+        "Portraits": "portraits",
+        "Figures": "figures",
+        "InsetVw": "insetVw",
+        "WidthVw": "widthVw",
+        "WidthCompactVw": "widthCompactVw",
+        "TopOffsetVh": "topOffsetVh",
+        "VisibleFraction": "visibleFraction",
+        "VisibleFractionCompact": "visibleFractionCompact",
+        "MinGapVw": "minGapVw",
+        "MinGapPx": "minGapPx",
+        "MaxOuterOverflowVw": "maxOuterOverflowVw",
+        "MinVisibleHeightVh": "minVisibleHeightVh",
+        "ListenerOpacity": "listenerOpacity",
+        "Top": "top",
+        "CenterX": "centerX",
+        "Armoury": "armoury",
+        "ItemWeightScale": "itemWeightScale",
+        "LegacyRatings": "legacyRatings",
+        "DefaultMaxLevel": "defaultMaxLevel"
       }
     },
     {
@@ -1005,7 +1089,8 @@
         "EventChoose": "eventChoose",
         "EventChooseBinding": "eventChooseBinding",
         "DungeonLeave": "dungeonLeave",
-        "DeckDiscard": "deckDiscard"
+        "DeckDiscard": "deckDiscard",
+        "ResetSettings": "resetSettings"
       }
     },
     {
@@ -1096,7 +1181,23 @@
         "Bucket": "bucket",
         "N": "n",
         "Hand": "hand",
-        "Found": "found"
+        "Found": "found",
+        "Date": "date",
+        "Items": "items",
+        "Relics": "relics",
+        "Hands": "hands",
+        "Armour": "armour",
+        "Load": "load",
+        "Capacity": "capacity",
+        "Percent": "percent",
+        "Word": "word",
+        "Tail": "tail",
+        "BeforePercent": "beforePercent",
+        "Formula": "formula",
+        "AfterPercent": "afterPercent",
+        "Remaining": "remaining",
+        "Next": "next",
+        "Points": "points"
       }
     },
     {
@@ -1215,7 +1316,14 @@
         "SettingsCommit": "settingsCommit",
         "EventFigureFade": "eventFigureFade",
         "EventContextAt": "eventContextAt",
-        "EventContextFade": "eventContextFade"
+        "EventContextFade": "eventContextFade",
+        "SettingsUndo": "settingsUndo",
+        "TitleLockupAway": "titleLockupAway",
+        "TitleLightUp": "titleLightUp",
+        "TitleFade": "titleFade",
+        "TitleReducedFade": "titleReducedFade",
+        "MapLane": "mapLane",
+        "MapLanePulse": "mapLanePulse"
       }
     },
     {
@@ -1237,6 +1345,7 @@
         "KitRefusal": "UI/Kit/Refusal",
         "KitSlot": "UI/Kit/Slot",
         "SavesFolder": "saves",
+        "ExportsFolder": "exports",
         "KitCombatant": "UI/Kit/Combatant",
         "KitRunHud": "UI/Kit/RunHud",
         "KitFighter": "UI/Kit/Fighter",
@@ -1279,7 +1388,8 @@
         "MillisPerSecond": 1000,
         "FullTurnDegrees": 360,
         "ByteMax": 255,
-        "RgbChannels": 3
+        "RgbChannels": 3,
+        "TenthScale": 10
       }
     }
   ]

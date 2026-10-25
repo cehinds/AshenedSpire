@@ -53,5 +53,6 @@ namespace Ashen.Generated
         public const string AttributeSelected = "c2rest-attr--selected";
         public const string AttributeLocked = "c2rest-attr--locked";
         public const string AttributeName = "c2rest-attr-name";
+        public const string ItemSelect = "c2rest-item-select";
     }
 }

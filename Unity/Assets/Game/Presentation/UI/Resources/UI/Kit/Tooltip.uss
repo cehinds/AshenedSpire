@@ -58,3 +58,16 @@
     height: var(--size-tooltip-arrow-h);
     background-image: url("../Frames/tooltip-arrow.png");
 }
+
+/* The arrow turns to the edge that faces the trigger (tooltip.js pointArrow): the sprite points up, which is the top edge (the tooltip under its trigger). */
+.tooltip--arrow-bottom {
+    rotate: var(--ratio-tooltip-turn-bottom);
+}
+
+.tooltip--arrow-left {
+    rotate: var(--ratio-tooltip-turn-left);
+}
+
+.tooltip--arrow-right {
+    rotate: var(--ratio-tooltip-turn-right);
+}

@@ -224,6 +224,12 @@
         "ShowOnFirstLaunch": "showOnFirstLaunch",
         "Modalities": "modalities",
         "Provenance": "provenance",
+        "Page": "page",
+        "Lead": "lead",
+        "Sections": "sections",
+        "HeadingKey": "headingKey",
+        "BodyKey": "bodyKey",
+        "Updated": "updatedKey",
         "AppStrings": "strings/app.en.json"
       }
     },

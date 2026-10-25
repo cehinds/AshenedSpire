@@ -52,11 +52,12 @@ namespace Ashen.Presentation.UI.Kit
         /// <summary>A choice was made (its value). The list closes first.</summary>
         public event Action<string> Picked;
 
-        public void SetOptions(IReadOnlyList<SelectOption> options, string current)
+        /// <summary>The words the face shows while nothing is chosen (the smith's 'Choose an item').</summary>
+        public void SetOptions(IReadOnlyList<SelectOption> options, string current, string placeholder = null)
         {
             _list.Clear();
             _options.Clear();
-            _value.SetResolved(string.Empty);
+            _value.SetResolved(placeholder ?? string.Empty);
             foreach (var option in options)
             {
                 var button = new LocButton();

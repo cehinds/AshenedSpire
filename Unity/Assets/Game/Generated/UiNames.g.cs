@@ -515,5 +515,17 @@ namespace Ashen.Generated
         public const string ProfilePane = "PROFILE_PANE";
         public const string AboutScroll = "ABOUT_SCROLL";
         public const string AboutBody = "ABOUT_BODY";
+        public const string SettingsTipClose = "SETTINGS_TIP_CLOSE";
+        public const string SettingsMore = "SETTINGS_MORE";
+        public const string SettingsMenu = "SETTINGS_MENU";
+        public const string SettingsMenuGroup = "SETTINGS_MENU_GROUP";
+        public const string SettingsMenuAll = "SETTINGS_MENU_ALL";
+        public const string SettingsUndo = "SETTINGS_UNDO";
+        public const string SettingsUndoText = "SETTINGS_UNDO_TEXT";
+        public const string SettingsUndoButton = "SETTINGS_UNDO_BUTTON";
+        public const string SettingsTipRow = "SETTINGS_TIP_ROW";
+        public const string TitleArtLit = "TITLE_ART_LIT";
+        public const string MapPotionMinis = "MAP_POTION_MINIS";
+        public const string MapPotionsHost = "MAP_POTIONS_HOST";
     }
 }

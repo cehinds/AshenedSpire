@@ -53,7 +53,8 @@
         "Attribute": "c2rest-attr",
         "AttributeSelected": "c2rest-attr--selected",
         "AttributeLocked": "c2rest-attr--locked",
-        "AttributeName": "c2rest-attr-name"
+        "AttributeName": "c2rest-attr-name",
+        "ItemSelect": "c2rest-item-select"
       }
     },
     {

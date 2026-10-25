@@ -35,5 +35,12 @@ namespace Ashen.Generated
         public const string EventFigureFade = "eventFigureFade";
         public const string EventContextAt = "eventContextAt";
         public const string EventContextFade = "eventContextFade";
+        public const string SettingsUndo = "settingsUndo";
+        public const string TitleLockupAway = "titleLockupAway";
+        public const string TitleLightUp = "titleLightUp";
+        public const string TitleFade = "titleFade";
+        public const string TitleReducedFade = "titleReducedFade";
+        public const string MapLane = "mapLane";
+        public const string MapLanePulse = "mapLanePulse";
     }
 }

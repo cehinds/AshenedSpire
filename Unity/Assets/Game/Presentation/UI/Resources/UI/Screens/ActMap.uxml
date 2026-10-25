@@ -38,7 +38,10 @@
                     <Ashen.Presentation.UI.LocLabel class="map-legend-title kit-upper" string-key="map.legend.title" />
                     <ui:VisualElement name="LEGEND_ROWS" class="legend-rows" />
                 </ui:VisualElement>
-                <Ashen.Presentation.UI.LocButton name="MAP_POTIONS" class="map-potions" string-key="map.potions" />
+                <ui:VisualElement name="MAP_POTIONS_HOST" class="map-potions-host">
+                    <Ashen.Presentation.UI.LocButton name="MAP_POTIONS" class="map-potions" string-key="map.potions" />
+                    <ui:VisualElement name="MAP_POTION_MINIS" class="potion-minis" />
+                </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="NODE_TRAY" class="node-tray is-hidden">
                 <Ashen.Presentation.UI.LocLabel name="TRAY_FLOOR" class="tray-floor kit-upper" />

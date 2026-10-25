@@ -1,0 +1,13 @@
+{
+  "comment": "flow-09-map-node-selected: a reachable node selected, the tray open.",
+  "screen": "actMap",
+  "core2": {
+    "until": "map",
+    "select": true,
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

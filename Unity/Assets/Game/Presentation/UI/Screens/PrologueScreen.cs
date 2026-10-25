@@ -44,7 +44,7 @@ namespace Ashen.Presentation.UI.Screens
 
         public bool Paused => _paused;
 
-        private SettingsSession Settings => _session?.PlayerSettings ?? new SettingsSession(Ui.RunContent, ProfileStore.Load(Ui.Saves));
+        private SettingsSession Settings => _session?.PlayerSettings ?? new SettingsSession(Ui.RunContent, ProfileStore.Load(Ui.Saves), core2: true);
 
         protected override void OnBind(object args)
         {
@@ -77,7 +77,9 @@ namespace Ashen.Presentation.UI.Screens
             var advance = Root.Q<LocButton>(UiNames.PrologueContinue);
             if (narrow) advance.PlaceInFront(Root.Q(UiNames.PrologueProgress));
             else advance.BringToFront();
-            art.schedule.Execute(() => art.AddToClassList(FrontClasses.PrologueArtIn));
+            // Still artwork (the web's presentation.reduceMotion, or the accessibility Reduced motion): no fade in.
+            if (Settings.On(SettingIds.OpeningStill) || Settings.On(SettingIds.ReducedMotion)) art.AddToClassList(FrontClasses.PrologueArtIn);
+            else art.schedule.Execute(() => art.AddToClassList(FrontClasses.PrologueArtIn));
             var item = Root.Q(UiNames.PrologueItem);
             Ui.ApplyBackground(item, _view.Item);
             UiDom.Show(item, _view.Item != null);
@@ -89,7 +91,7 @@ namespace Ashen.Presentation.UI.Screens
             UiDom.Show(Root.Q(UiNames.PrologueSkip), presentation.Is(PK.ShowSkip));
             SetPauseLabel();
             _line = _view.Line ?? string.Empty;
-            _perSecond = Js.Or0(presentation[PK.RevealCharsPerSecond]);
+            _perSecond = Js.Or0(presentation[PK.RevealCharsPerSecond]) * Speed;
             var typewriter = presentation.Str(PK.Reveal) == PV.RevealTypewriter && _perSecond > 0 && !Settings.On(SettingIds.ReducedMotion);
             _shown = typewriter ? 0 : _line.Length;
             ShowLine();
@@ -126,8 +128,11 @@ namespace Ashen.Presentation.UI.Screens
                 }).Every(tick);
                 return;
             }
-            if (Settings.On(SettingIds.OpeningAutoAdvance) && _view.HoldMs > 0) _advance = Root.schedule.Execute(Next).StartingIn((long)_view.HoldMs);
+            if (Settings.On(SettingIds.OpeningAutoAdvance) && _view.HoldMs > 0) _advance = Root.schedule.Execute(Next).StartingIn((long)(_view.HoldMs / Speed));
         }
+
+        /// <summary>Playback speed (the web's presentation.speed): the reveal goes faster and the hold between scenes shorter.</summary>
+        private double Speed => Math.Max(Settings.Number(SettingIds.OpeningSpeed), double.Epsilon);
 
         private void StopTimers()
         {
@@ -206,6 +211,7 @@ namespace Ashen.Presentation.UI.Screens
         private void Finish()
         {
             StopTimers();
+            Settings.MarkPrologueSeen();
             if (_session != null) RunFlow.ShowClimb(Context, _session);
         }
 

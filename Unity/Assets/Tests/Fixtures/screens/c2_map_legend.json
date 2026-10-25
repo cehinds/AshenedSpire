@@ -1,0 +1,13 @@
+{
+  "comment": "map-legend: the legend open.",
+  "screen": "actMap",
+  "core2": {
+    "until": "map",
+    "legend": true,
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

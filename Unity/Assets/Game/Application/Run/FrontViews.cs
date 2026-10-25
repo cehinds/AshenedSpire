@@ -179,15 +179,28 @@ namespace Ashen.App.Run
         }
     }
 
-    /// <summary>The About text (web settings → Advanced → About): how the game was made, its credits and the build.</summary>
-    public sealed class AboutViewState
+    /// <summary>One section of the About text (web about.js: an eyebrow, a heading and a paragraph).</summary>
+    public sealed class AboutSectionView
     {
         public string Eyebrow;
         public string Heading;
         public string Body;
-        public string CreditsHeading;
-        public readonly List<string> Credits = new List<string>();
+    }
+
+    /// <summary>The About text (web settings -> Advanced -> About, src/ui/screens/about.js over src/content/aiDisclosure.js): the lead in paragraphs, the sections, the one action and the build lines.</summary>
+    public sealed class AboutViewState
+    {
+        public readonly List<string> Lead = new List<string>();
+        public readonly List<AboutSectionView> Sections = new List<AboutSectionView>();
+        public string SaveLabel;
+
+        /// <summary>"Ashen Spire 0.7.1" and, under it, "installed build · acknowledgement last updated 2026-09-26".</summary>
         public string Build;
+        public string Provenance;
+
+        /// <summary>The acknowledgement as plain text, what Save this to a file writes (aiDisclosure.js disclosureAsText).</summary>
+        public string FileText;
+        public string FileName;
     }
 
     public static class AboutView
@@ -195,17 +208,27 @@ namespace Ashen.App.Run
         public static AboutViewState Build(UiData ui, string version)
         {
             var strings = ui.Strings;
-            var disclosure = ui.About.Obj(AboutKeys.AiDisclosure);
+            var page = ui.About.Obj(AboutKeys.Page);
             var view = new AboutViewState
             {
-                Eyebrow = strings.Get(StringKeys.AboutTitle),
-                Heading = strings.Get(disclosure.Str(AboutKeys.NoticeTitleKey)),
-                Body = strings.Get(disclosure.Str(AboutKeys.FullKey)),
-                CreditsHeading = strings.Get(StringKeys.AboutCreditsTitle),
-                Build = strings.Format(StringKeys.TitleBuild, new StringArgs().Add(UiPlaceholders.Version, version ?? string.Empty)),
+                SaveLabel = strings.Get(StringKeys.AboutSave),
+                Build = strings.Format(StringKeys.AboutBuild, new StringArgs().Add(UiPlaceholders.Version, version ?? string.Empty)),
+                Provenance = strings.Format(StringKeys.AboutProvenance, new StringArgs().Add(UiPlaceholders.Path, strings.Get(StringKeys.AboutRunPath)).Add(UiPlaceholders.Date, strings.Get(page.Str(AboutKeys.Updated)))),
+                FileName = strings.Get(StringKeys.AboutFileName),
             };
-            view.Credits.Add(strings.Get(StringKeys.AboutCreditsGenerated));
-            view.Credits.Add(strings.Get(StringKeys.AboutCreditsImported));
+            foreach (var key in page.Arr(AboutKeys.Lead)) view.Lead.Add(strings.Get((string)key));
+            foreach (var row in page.Arr(AboutKeys.Sections).OfType<JObject>())
+                view.Sections.Add(new AboutSectionView { Eyebrow = strings.Get(StringKeys.AboutTitle), Heading = strings.Get(row.Str(AboutKeys.HeadingKey)), Body = strings.Get(row.Str(AboutKeys.BodyKey)) });
+            // disclosureAsText: the title with the version, the lead, then each section as its heading over its paragraph.
+            var text = new List<string>
+            {
+                strings.Format(StringKeys.AboutFileTitle, new StringArgs().Add(UiPlaceholders.Version, version ?? string.Empty)),
+                string.Empty,
+                string.Join(ArmouryKeys.Space, view.Lead),
+                string.Empty,
+            };
+            foreach (var section in view.Sections) text.Add(section.Heading + UiFormats.Newline + section.Body + UiFormats.Newline);
+            view.FileText = string.Join(UiFormats.Newline, text);
             return view;
         }
     }

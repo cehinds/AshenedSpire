@@ -18,6 +18,23 @@ namespace Ashen.App.Run
         Drop,
     }
 
+    /// <summary>The ids of a flask's actions (web flaskActions.js FLASK_ACTION_IDS), in the order the menu lists them.</summary>
+    public enum Core2FlaskActionId
+    {
+        Use,
+        Inspect,
+        Drop,
+    }
+
+    /// <summary>One row of the flask action menu (web flaskActionPlan, context run): what it is called, whether it can be pressed and, when it cannot, why.</summary>
+    public sealed class Core2FlaskAction
+    {
+        public Core2FlaskActionId Id;
+        public string Label;
+        public bool Enabled;
+        public string Reason = string.Empty;
+    }
+
     /// <summary>One entry of the map's Potions list (web PotionContentsModel.js, runPotions.js openRunPotions): a charge pool or a carried kind, its words, its count and its verb with the reason it is shut.</summary>
     public sealed class Core2PotionRow
     {
@@ -42,6 +59,9 @@ namespace Ashen.App.Run
         public bool Enabled;
 
         public string Reason = string.Empty;
+
+        /// <summary>The flask action menu's rows (web runPotionPlan): Use, Inspect, Drop.</summary>
+        public IReadOnlyList<Core2FlaskAction> Actions = new List<Core2FlaskAction>();
 
         public bool IsCharge => ChargeKind != null;
     }
@@ -72,6 +92,7 @@ namespace Ashen.App.Run
                 row.VerbLabel = strings.Get(StringKeys.RunPotionsDrink);
                 row.Enabled = drinkOutside && count > 0;
                 row.Reason = row.Enabled ? string.Empty : strings.Get(count <= 0 ? StringKeys.RunPotionsEmpty : StringKeys.RunPotionsSetting);
+                row.Actions = Plan(strings, row.Enabled, row.Reason, false, strings.Get(StringKeys.RunPotionsKeep));
                 rows.Add(row);
             }
             var carried = new List<string>();
@@ -86,9 +107,28 @@ namespace Ashen.App.Run
                 row.Verb = Core2PotionVerb.Drop;
                 row.VerbLabel = strings.Get(StringKeys.RunPotionsDrop);
                 row.Enabled = true;
+                row.Actions = Plan(strings, false, strings.Get(StringKeys.RunPotionsCombatOnly), true, string.Empty);
                 rows.Add(row);
             }
             return rows;
+        }
+
+        /// <summary>flaskActionPlan({ context: 'run' }): Use, Inspect (always offered), Drop.</summary>
+        private static IReadOnlyList<Core2FlaskAction> Plan(StringTable strings, bool canUse, string useReason, bool canDrop, string dropReason) => new[]
+        {
+            new Core2FlaskAction { Id = Core2FlaskActionId.Use, Label = strings.Get(StringKeys.CombatModalPotionsUse), Enabled = canUse, Reason = canUse ? string.Empty : useReason },
+            new Core2FlaskAction { Id = Core2FlaskActionId.Inspect, Label = strings.Get(StringKeys.RunPotionsInspect), Enabled = true },
+            new Core2FlaskAction { Id = Core2FlaskActionId.Drop, Label = strings.Get(StringKeys.RunPotionsDrop), Enabled = canDrop, Reason = canDrop ? string.Empty : dropReason },
+        };
+
+        /// <summary>applyRunPotion: runs an enabled Use or Drop on the run; Inspect and a shut action change nothing. True when the run changed.</summary>
+        public static bool Apply(Core2RunSession session, Core2PotionRow row, Core2FlaskActionId id)
+        {
+            var action = row.Actions.FirstOrDefault(a => a.Id == id);
+            if (action == null || !action.Enabled) return false;
+            if (id == Core2FlaskActionId.Use && row.IsCharge) return session.DrinkPotion(row.ChargeKind);
+            if (id == Core2FlaskActionId.Drop && !row.IsCharge) return session.DropPotion(row.FlaskId);
+            return false;
         }
 
         private static Core2PotionRow Row(StringTable strings, JObject def, string chargeKind, int count)

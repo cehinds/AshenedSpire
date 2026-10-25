@@ -127,8 +127,8 @@ namespace Ashen.Generated
         public const string AboutEyebrow = "about-eyebrow";
         public const string AboutHeading = "about-heading";
         public const string AboutBody = "about-body";
-        public const string AboutCreditsHeading = "about-credits-heading";
-        public const string AboutCredit = "about-credit";
+        public const string AboutSave = "about-save";
+        public const string AboutResult = "about-result";
         public const string AboutBuild = "about-build";
         public const string JournalPage = "journal-page";
         public const string JournalColumn = "journal-column";
@@ -186,5 +186,13 @@ namespace Ashen.Generated
         public const string AboutShell = "about-shell";
         public const string AboutScroll = "about-scroll";
         public const string AboutColumn = "about-column";
+        public const string SettingsTipText = "settings-tip-text";
+        public const string SettingsRowReset = "settings-row-reset";
+        public const string SettingsMoreDot = "settings-more-dot";
+        public const string SettingsMenu = "settings-menu";
+        public const string SettingsUndo = "settings-undo";
+        public const string SettingsButton = "settings-button";
+        public const string SettingsTopic = "settings-topic";
+        public const string AboutBuildFirst = "about-build--first";
     }
 }

@@ -165,7 +165,7 @@ namespace Ashen.App.Run
                 LevelText = strings.Format(StringKeys.ArmouryCharacterLevel, new StringArgs().Add(UiPlaceholders.Level, level)),
             };
             var row = run.Obj(K.Level) ?? Ashen.Domain.Rewards.LevelUp.EmptyLevel();
-            var next = Ashen.Domain.Rewards.LevelUp.XpToNext(session.Content.Loop.Rewards, row[K.Level]);
+            var next = Ashen.Domain.Loop.Core2Rest.XpToNext(session.Core.Rewards, row.Num(K.Level));
             var capped = double.IsInfinity(next) || double.IsNaN(next) || next <= 0;
             view.XpText = capped ? strings.Get(StringKeys.ArmouryCharacterXpMax)
                 : strings.Format(StringKeys.ArmouryCharacterXp, new StringArgs().Add(UiPlaceholders.Amount, Int(row.Num(K.Xp))).Add(UiPlaceholders.Total, Int(next)));
@@ -216,7 +216,7 @@ namespace Ashen.App.Run
             var run = session.Run;
             var loadout = run.Obj(K.Loadout);
             if (loadout == null) return;
-            var rows = Loadout.KitReceipt(session.Core.Deck.Run.Run, loadout, session.ClassId, run.Obj(K.Attributes), run.Obj(K.EquipmentProfileRuleSnapshot));
+            var rows = Loadout.KitReceipt(session.Core.Deck.Run.Run, loadout, session.ClassId, run.Obj(K.Attributes), run.Obj(K.EquipmentProfileRuleSnapshot), session.RatingAttributePart(ui));
             var held = Js.Items(run[K.Deck]).OfType<JObject>().Where(c => Js.Truthy(c[K.EquipmentRole])).GroupBy(c => c.Str(K.EquipmentRole)).ToDictionary(g => g.Key, g => g.Count());
             foreach (var role in ArmouryKeys.PowerRoles.Split(UiFormats.ListJoin[0]))
             {

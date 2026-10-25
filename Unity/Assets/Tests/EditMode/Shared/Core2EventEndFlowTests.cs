@@ -301,6 +301,27 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void ASpeechThatEndsUnderTheCurrentGenerationReadsTheNextLineAndAStaleOneChangesNothing()
+        {
+            var session = AtTheEvent("graveOfTheNameless");
+            var flow = new Core2EventFlow(session, Ui);
+            var generation = flow.Generation;
+            Assert.That(flow.Back().Done, Is.True);
+            Assert.That(flow.Generation, Is.EqualTo(generation), "a Back that did nothing moves nothing");
+            flow.SpeechEnded(generation + 7);
+            Assert.That(flow.Beat, Is.EqualTo(0), "a generation the beat never had is stale");
+            flow.SpeechEnded(generation);
+            Assert.That(flow.Beat, Is.EqualTo(1), "the line it was started under ended: the next line is read");
+            Assert.That(flow.Generation, Is.EqualTo(generation + 1));
+            flow.SpeechEnded(generation);
+            flow.SpeechEnded(flow.Generation);
+            Assert.That(flow.Beat, Is.EqualTo(1), "a stale callback and the last line change nothing: a speech never picks a response");
+            Assert.That(flow.Resolved, Is.False);
+            flow.Back();
+            Assert.That(flow.Generation, Is.EqualTo(generation + 2), "reading backwards is a move too");
+        }
+
+        [Test]
         public void ASpokenResponseThatCannotBePaidRefusesAtThePressLikeTheOneOffs()
         {
             var session = AtTheEvent("lastLantern", 0);

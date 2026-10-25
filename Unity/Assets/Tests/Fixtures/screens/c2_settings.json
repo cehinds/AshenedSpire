@@ -1,0 +1,8 @@
+{
+  "comment": "settings-general: the Settings page from nowhere in particular (its tabs are pressed by hand for the other two).",
+  "screen": "settings",
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

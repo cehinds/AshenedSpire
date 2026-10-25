@@ -77,5 +77,21 @@ namespace Ashen.Generated
         public const string N = "n";
         public const string Hand = "hand";
         public const string Found = "found";
+        public const string Date = "date";
+        public const string Items = "items";
+        public const string Relics = "relics";
+        public const string Hands = "hands";
+        public const string Armour = "armour";
+        public const string Load = "load";
+        public const string Capacity = "capacity";
+        public const string Percent = "percent";
+        public const string Word = "word";
+        public const string Tail = "tail";
+        public const string BeforePercent = "beforePercent";
+        public const string Formula = "formula";
+        public const string AfterPercent = "afterPercent";
+        public const string Remaining = "remaining";
+        public const string Next = "next";
+        public const string Points = "points";
     }
 }

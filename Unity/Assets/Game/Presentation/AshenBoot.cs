@@ -56,6 +56,8 @@ namespace Ashen.Presentation
             var camera = Camera.main;
             if (camera != null) camera.backgroundColor = context.TokenColor(Ashen.Generated.TokenKeys.Bg);
             Host = UiHost.Create(gameObject, context);
+            Host.Applier = new SettingsApplier(Host);
+            Host.Applier.Apply(new Ashen.App.Settings.SettingsSession(context.RunContent, Ashen.App.Run.ProfileStore.Load(context.Saves), core2: true));
             gameObject.AddComponent<Audio.MusicPlayer>().Init(Host, source);
             gameObject.AddComponent<Audio.SfxPlayer>().Init(Host, source);
             Host.Navigator.Go(data.Screens.Initial);

@@ -23,6 +23,9 @@ namespace Ashen.Presentation.UI
         public UIDocument Document { get; private set; }
         public Navigator Navigator { get; private set; }
 
+        /// <summary>Dresses the UI in the player's settings (accent, palette, HUD parts, layout, tooltips); made by the boot.</summary>
+        public SettingsApplier Applier { get; set; }
+
         public int ViewportWidth => _target != null ? _target.width : Screen.width;
         public int ViewportHeight => _target != null ? _target.height : Screen.height;
 
@@ -50,6 +53,7 @@ namespace Ashen.Presentation.UI
             host.Navigator = new Navigator(host, root);
             host.Navigator.ApplyLayout(host.ViewportWidth, host.ViewportHeight);
             host._focusRing = new Kit.FocusRing(root);
+            Kit.Tooltip.Rules = context.Data.Components.TooltipPlacement;
             host._input = new InputRouter(context.Data.Tokens.Duration(TokenKeys.NavRepeatDelay), context.Data.Tokens.Duration(TokenKeys.NavRepeatInterval));
             host._input.Move += _ => host._focusRing.UseKeys();
             host._input.Submit += host._focusRing.UseKeys;
@@ -84,6 +88,20 @@ namespace Ashen.Presentation.UI
             if (Document != null && Document.panelSettings != wanted) Document.panelSettings = wanted;
         }
 
+        /// <summary>
+        /// The UI size the player asked for: a fixed size smaller than the window's fit shrinks the layout's scale, which is the reference resolution grown by the same factor
+        /// (Scale With Screen Size has no other dial).
+        /// </summary>
+        public void UseScale(LayoutState state)
+        {
+            var ps = state.Narrow ? _narrow : _wide;
+            if (ps == null) return;
+            var auto = LayoutClassifier.Scale(state.ViewportWidth, state.ViewportHeight, state.Panel);
+            var factor = state.Scale > 0 ? auto / state.Scale : 1;
+            var size = new Vector2Int(Mathf.RoundToInt((float)(state.Panel.Width * factor)), Mathf.RoundToInt((float)(state.Panel.Height * factor)));
+            if (ps.referenceResolution != size) ps.referenceResolution = size;
+        }
+
         /// <summary>Per-frame upkeep: follow viewport size changes.</summary>
         public void Tick()
         {
@@ -93,6 +111,8 @@ namespace Ashen.Presentation.UI
 
         public void Dispose()
         {
+            Applier?.Dispose();
+            Applier = null;
             _input?.Dispose();
             _input = null;
             if (Document != null) Document.panelSettings = null;

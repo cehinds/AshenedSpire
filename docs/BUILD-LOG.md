@@ -13,6 +13,50 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 **Tests:** Core2CardFaceParity, CardFaceMarkup, Core2IntentParity, PoseData and the filtered Enforcement/UiData/UiRules/Core2Screens/ContentValid suites; Presentation compiles with the harness. Unity was not run.
 
 **Not done:** no pose frame is imported (the release art cache is unreachable here; `Tools/scan-assets.mjs --import` with the web's art will fetch `pose.*` and `posefx.*`); armour-outfit poses, persistent rest guard, `anim.*` and `outfit.*`; dotted underline (solid), per-number hover (whole rules text); `computeSpellDefenseGain`; the warded-Block line; gradient masks and blend modes of card-cast layers need no approximation yet because no cast layer is drawn.
+## WP-23: everything outside combat matches the web (worktree branch, 2026-10-25)
+
+Owner directive of 2026-10-25: the Unity build looks and plays exactly like the JS version outside combat. Ground truth is the running web at the pin (`b8cfe4fac`, `?gameProfile=core&shot=...&shotSeed=ASHEN1`), read with Playwright and the web's own modules through `Tools/oracle-core2.mjs`.
+
+**Landed (D-1370..D-1386)**
+- **Owner decisions resolved toward the web (D-1370..D-1374):** the fonts (Cinzel and Inter plus the five lore faces, D-005 retired), the live button look (D-600 over D-500), the map reveal default (fog; the web has no 'full'), no XP strip on the run HUD, the Core 2 player settings take the web's defaults and not the reference preset's.
+- **Settings (D-1375, D-1376):** the Core 2 Settings page row for row, one applier for the accent, contrast, colour-blind, HUD, walked-node, view-mode, UI-size, tooltip and audio settings. The complete list of rows follows.
+- **Startup and tooltips (D-1377, D-1378):** the gate's lift with the Lit city pause; tooltip placement as `placeAnchored` (flip, clamp, arrow).
+- **Leather and selects (D-1379):** the soot-leather plate under every modal fill; the Smith's item list and the profile rail as selects on the narrow layout.
+- **Potions (D-1380):** the map's minis beside the Potions disc, the flask action menu (Use, Inspect, Drop), the flask door.
+- **Capture driver (D-1381):** `Core2Capture` for `ScreenCaptureTests.Show` and 21 `c2_*` fixtures; `docs/qa/screen-capture-list.md` rewritten.
+- **Event (D-1382, D-1383):** the per-speaker figure close-up (`FigureCrop`, 53 figure boxes from `Tools/figure-boxes.mjs`), the speech hook (`Core2EventFlow.Generation`, `SpeechEnded`); the rewards Progression column and Continue HOLD recorded as the classic door's.
+- **About (D-1384):** the web's acknowledgement text, sections, Save this to a file, build lines.
+- **Armoury receipts (D-1385):** the Equipment cards fold is the web's receipt (card packages with their calculation, minimums, Poise threshold, equip load) and a candidate Compare fold while picking a destination, over `ArmouryReceipts` and `Core2RunSession.TrialLoadout`.
+- **Progression (D-1386):** the Character pane's Progression door (meter, cadence, Attributes, Feats, the twenty-level ladder) checked against the web's ladder; the Armoury's XP now reads the Core 2 curve (200 XP to level 2, as the web).
+
+**The web's Core 2 Settings rows, as read (the page this build now draws, in the web's order, with defaults)**
+- General > Display > Interface: Fullscreen (toggle, default false); Accent color (enum, default "gold"); View mode (enum, default "auto"); UI size (enum, default "Auto"); Reset all settings (button, default null)
+- General > Display > Title screen: Lit city pause (enum, default "2s")
+- General > Display > Map: Map zoom (enum, default "Fit"); Shrine path glow (toggle, default true)
+- General > Display > HUD: HUD health and resources (toggle, default true); HUD relics (toggle, default true); HUD Cinders (toggle, default true); HUD journey position (toggle, default true); HUD potions (toggle, default true)
+- General > Combat > Animation & effects: Auto combat (toggle, default false); Combat speed × (slider, default 1); Auto combat speed × (slider, default 1.5); Pause between steps (ms) (slider, default 500); Animation step duration (ms) (slider, default 390); Combat pacing preset (enum, default "custom"); Combat pacing (enum, default "auto"); Screen shake (toggle, default true); Show played card animation (toggle, default false)
+- General > Audio > Audio: Music (toggle, default true); Audio (toggle, default false); Music volume (slider, default 50); Sound effects (slider, default 75)
+- Accessibility > Accessibility > Tooltips: Hover explanations (toggle, default true); Explanation delay (enum, default "1s"); Explanation close delay (enum, default "0.5s")
+- Accessibility > Accessibility > Readability: Tap a card to play it (toggle, default false); High contrast (toggle, default true); Readable headings (toggle, default false)
+- Accessibility > Accessibility > Motion & colour: Reduced motion (toggle, default false); Colorblind-friendly (toggle, default false); Reduce flashes (toggle, default false)
+- Advanced > Opening sequence > Playback: Show opening (enum, default "every"); Advance scenes automatically (toggle, default true); Playback speed (slider, default 1); Still artwork (toggle, default false); Developer tools (toggle, default false)
+- Advanced > Deck > Deck: Play in deck order (toggle, default false)
+- Advanced > Interface > Map & HUD: Walked nodes (enum, default "half")
+- Advanced > Interface > Controls: Control hints (toggle, default true); Hold to confirm (enum, default "balance/balance.json#ui.holdConfirm.def")
+- Advanced > About: the acknowledgement text, Save this to a file
+
+**Tests run (small filters, one at a time):** `Enforcement`, `UiData`, `UiRules`, `Core2Screens`, `ArmouryReceipts` 5/5, `CharacterProgression` 2/2, `Wp22RunScreens`, `Wp23`, `FrontScreens`, `MetaView`, `Core2EventEndFlow` and `ContentValid` pass in the final run (one filter set, 173 tests); node checks `ui-tokens`, `codegen`, `refresh-manifest`, `ci/check-content`, `ci/check-docs`, `ui-stage`, `card-face`, `web-key-map` ok; Presentation compiles against the UnityEngine reference assemblies (D-314 harness, "Build succeeded").
+
+**Not verified:** Unity was not run. No UI Toolkit layout, USS, font, tooltip arrow, modal leather, receipt or ladder rendering, entrance animation or capture fixture has been looked at in the editor; the PlayMode `Core2Capture` driver was validated only through a scratch test of its logic. Numbers (receipts, ladder, figure placements, tooltip positions) are asserted against what the web computes.
+
+**Not done:**
+- Armoury: drag and drop (the web wires it only in the both-panes layout; the default rail shows Equipment and Inventory apart, so it is unreachable there), the Equipment pane's Grid view toggle, the Sigils, books and consumables sections (nothing in the Core 2 profile grants them), the Inventory class face and its detail card, the poker-style equipment card, and the candidate comparison's attack-package counts, resource changes and swap prices.
+- Progression: the Skills and Class tabs, level-reward claim and respec (hidden in the web's configured profile), the attribute allocation dialog (points are spent at a shrine), the stat inspection modal.
+- Profile: the set-aside archive (Save a copy to a file, Restore this profile, Details for support) needs `SaveService` archive plumbing.
+- Settings: the Game rules and Changelog groups, the text and lore Typeface rows (they restyle the combat inspector's identity line), and the combat-owned rows are not on the page. `SettingIds.TextSize` is still declared.
+- Map HUD XP (`ClimbViews`, over `IClimb`) still reads the classic XP curve; it is off by D-1373.
+- For the combat owner (Core2Combat*, not touched here): Unity's combat weight class ignores `mechanics.weight.itemWeightScale` 0.2 (the exported `rules/mechanics.json` predates it, so `Equipment.PieceWeight` is unscaled), and the static `balance/balance.json` still carries `combatRatings` that the pinned web does not (the web prices card ratings with `LEGACY_RATING_FORMULA`, `statRows.js:37`).
+- Next: run the editor on the `c2_*` fixtures and compare each against `docs/qa/web-screens`.
 
 ## WP-22: the run screens' remaining gaps (worktree branch, 2026-10-25)
 

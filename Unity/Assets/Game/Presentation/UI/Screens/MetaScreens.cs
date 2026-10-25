@@ -265,7 +265,7 @@ namespace Ashen.Presentation.UI.Screens
             shell.SetFooter(null, StringKeys.HistoryBack);
             shell.Primary += () => Nav.Pop();
             shell.Exit += () => Nav.Pop();
-            AboutPanel.Fill(Root.Q(UiNames.AboutBody), AboutView.Build(Ui.Data, Ui.BuildVersion));
+            AboutPanel.Fill(Root.Q(UiNames.AboutBody), AboutView.Build(Ui.Data, Ui.BuildVersion), Ui.Data.Strings);
             Context.Instance.LastFocused = shell.PrimaryButton;
         }
     }

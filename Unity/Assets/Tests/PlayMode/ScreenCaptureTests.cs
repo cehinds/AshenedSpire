@@ -149,6 +149,11 @@ namespace Ashen.Tests.Play
         {
             var nav = host.Navigator;
             var screen = (string)fixture["screen"];
+            if (Core2Capture.Handles(fixture))
+            {
+                Core2Capture.Show(host, fixture);
+                return;
+            }
             switch (screen)
             {
                 case ScreenIds.Boot:
@@ -324,6 +329,7 @@ namespace Ashen.Tests.Play
         private static void AfterShow(UiHost host, JObject fixture)
         {
             NodeCapture.After(host, fixture);
+            Core2Capture.After(host, fixture);
             if (host.Navigator.Top?.View is CombatScreen combat)
             {
                 switch ((string)fixture["state"])

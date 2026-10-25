@@ -36,9 +36,16 @@ namespace Ashen.App.Ui
     /// <summary>Pure layout classification (US-17.1 responsive rules; ui/layout.json). No engine types.</summary>
     public static class LayoutClassifier
     {
+        /// <summary>The player's View mode (the web's viewPreset): auto follows the window; mobile is the narrow layout; desktop, widescreen and tablet the wide one.</summary>
+        public static string Preset = Ashen.Generated.SettingsValues.ViewAuto;
+
+        /// <summary>The player's UI size (the web's uiScale): Auto flexes with the window, S to XL asks for a fixed size and gets as much of it as fits (the wide layout only).</summary>
+        public static string Size = Ashen.Generated.SettingsValues.SizeAuto;
+
         public static LayoutState Classify(int width, int height, LayoutRules rules)
         {
-            var narrow = width <= rules.NarrowMaxWidth;
+            var narrow = Preset == Ashen.Generated.SettingsValues.ViewMobile
+                || (Preset == Ashen.Generated.SettingsValues.ViewAuto && width <= rules.NarrowMaxWidth);
             var panel = narrow ? rules.Narrow : rules.Wide;
             HeightBand band;
             if (height >= rules.StandardMinHeight) band = HeightBand.Standard;
@@ -51,8 +58,20 @@ namespace Ashen.App.Ui
                 Narrow = narrow,
                 Band = narrow ? HeightBand.Standard : band,
                 Panel = panel,
-                Scale = Scale(width, height, panel),
+                Scale = narrow ? Scale(width, height, panel) : SizedScale(width, height, panel, rules.UiScale),
             };
+        }
+
+        /// <summary>
+        /// The wide layout's scale under the player's UI size: Auto is Scale With Screen Size; S to XL is the web's fixed zoom (balance.ui.uiScale.named over the design canvas)
+        /// turned into reference pixels, never more than what fits the window.
+        /// </summary>
+        public static double SizedScale(int width, int height, PanelDef panel, UiScaleRules rules)
+        {
+            var auto = Scale(width, height, panel);
+            if (Size == Ashen.Generated.SettingsValues.SizeAuto || !rules.Named.TryGetValue(Size.ToLowerInvariant(), out var named)) return auto;
+            var referenceZoom = Math.Min(panel.Width / rules.DesignW, panel.Height / rules.DesignH);
+            return Math.Min(named / referenceZoom, auto);
         }
 
         /// <summary>

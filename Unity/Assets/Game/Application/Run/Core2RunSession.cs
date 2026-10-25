@@ -289,7 +289,7 @@ namespace Ashen.App.Run
         private Ashen.App.Settings.SettingsSession _playerSettings;
 
         /// <summary>The settings over this session's profile (settings/defaults.json): the combat pacing, the map mode, reduced motion.</summary>
-        public Ashen.App.Settings.SettingsSession PlayerSettings => _playerSettings ??= new Ashen.App.Settings.SettingsSession(Content, Profile, true);
+        public Ashen.App.Settings.SettingsSession PlayerSettings => _playerSettings ??= new Ashen.App.Settings.SettingsSession(Content, Profile, true, core2: true);
 
         public Ashen.Domain.Combat.CombatData CombatData => Core.Combat.Combat;
 

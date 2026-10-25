@@ -1,0 +1,14 @@
+{
+  "comment": "map-equipment: the Armoury, Equipment tab.",
+  "screen": "actMap",
+  "core2": {
+    "until": "map",
+    "modal": "armoury",
+    "tab": "equipment",
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}
