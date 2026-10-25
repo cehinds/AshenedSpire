@@ -48,6 +48,7 @@
     justify-content: space-between;
     flex-shrink: 0;
     padding: var(--size-cmodal-inset);
+    background-color: var(--color-modal-bar);
     border-bottom-width: var(--border-hairline);
     border-bottom-color: var(--color-line);
 }
@@ -101,6 +102,7 @@
     flex-direction: row;
     flex-shrink: 0;
     padding: var(--size-cmodal-inset);
+    background-color: var(--color-modal-bar);
     border-top-width: var(--border-hairline);
     border-top-color: var(--color-line);
 }

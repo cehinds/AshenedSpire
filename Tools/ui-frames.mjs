@@ -48,6 +48,20 @@ const jobs = [
     html: '<html><body style="margin:0;background:transparent"><div style="width:24px;height:24px;border-radius:8px;background-image:linear-gradient(#ffffff08,transparent 40%,#00000024)"></div></body></html>',
     w: 24, h: 24, scale: 2, border: [16, 16, 16, 16],
   },
+  // VP-16 (D-1200): the tooltip's arrow (kit.css:702-711: a 7.5 x 3.75 px gold triangle on the edge that faces the trigger) and the
+  // hold fill (kit.css:2883-2886: repeating-linear-gradient(135deg, white 52% 0 8px, black 58% 8px 16px)). The arrow points up (the
+  // tooltip sits under its trigger); the stripe is a seamless 23 px tile (a 45 degree stripe repeats every 23 px of x + y: 16 px along
+  // the gradient, 22.6 px across, so the period is set to 23 / sqrt 2 = 16.263 px) drawn at 4 texels per px and tiled by USS.
+  {
+    file: 'tooltip-arrow',
+    html: '<html><body style="margin:0;background:transparent"><div style="width:8px;height:4px;background:#c9a227;clip-path:polygon(50% 0,100% 100%,0 100%)"></div></body></html>',
+    w: 8, h: 4, scale: 2, border: [0, 0, 0, 0],
+  },
+  {
+    file: 'hold-stripe',
+    html: '<html><body style="margin:0;background:transparent"><div style="width:23px;height:23px;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,0.52) 0 8.1315px,rgba(0,0,0,0.58) 8.1315px 16.263px)"></div></body></html>',
+    w: 23, h: 23, scale: 4, border: [0, 0, 0, 0], tile: true,
+  },
   shadow('modal-shadow', 72, 48, 96, '0 24px 72px rgba(0,0,0,0.69)'),
   shadow('tooltip-shadow', 22, 14, 30, '0 8px 22px rgba(0,0,0,0.55)'),
 ];
@@ -200,6 +214,15 @@ TextureImporter:
 `;
 }
 
+// A repeating texture (not a sprite): wrap = repeat, no border. USS tiles it with background-repeat.
+function tileMeta(guid) {
+  return meta(guid, 'tile', 1, 1, [0, 0, 0, 0])
+    .replace(/internalIDToNameTable:[\s\S]*?  externalObjects: \{\}/, 'internalIDToNameTable: []\n  externalObjects: {}')
+    .replace('wrapU: 1', 'wrapU: 0').replace('wrapV: 1', 'wrapV: 0').replace('wrapW: 1', 'wrapW: 0')
+    .replace('spriteMode: 1', 'spriteMode: 0').replace('textureType: 8', 'textureType: 0')
+    .replace(/  spriteSheet:[\s\S]*?(?=  mipmapLimitGroupName)/, '  spriteSheet:\n    serializedVersion: 2\n    sprites: []\n    outline: []\n    customData:\n    physicsShape: []\n    bones: []\n    spriteID:\n    internalID: 0\n    vertices: []\n    indices:\n    edges: []\n    weights: []\n    secondaryTextures: []\n    spriteCustomMetadata:\n      entries: []\n    nameFileIdTable: {}\n');
+}
+
 import { createHash } from 'node:crypto';
 const hex = (s) => createHash('md5').update(`ashen-ui-frame:${s}`).digest('hex');
 const spriteGuid = (name) => hex(name).slice(0, 31) + '0';
@@ -222,7 +245,7 @@ async function main() {
     const height = j.h * j.scale;
     const metaPath = `${png}.meta`;
     const guid = existsSync(metaPath) ? readFileSync(metaPath, 'utf8').match(/^guid: (\w+)/m)[1] : hex(`file:${j.file}`);
-    writeFileSync(metaPath, meta(guid, j.file, width, height, j.border));
+    writeFileSync(metaPath, j.tile ? tileMeta(guid) : meta(guid, j.file, width, height, j.border));
     console.log(`${j.file}.png ${width}x${height} ${buf.length} bytes border ${j.border.join(',')}`);
   }
   await browser.close();

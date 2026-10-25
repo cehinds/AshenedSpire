@@ -93,6 +93,7 @@ namespace Ashen.Generated
         public const string TooltipGlyph = "TOOLTIP_GLYPH";
         public const string TooltipTitle = "TOOLTIP_TITLE";
         public const string TooltipBody = "TOOLTIP_BODY";
+        public const string TooltipArrow = "TOOLTIP_ARROW";
         public const string RefusalText = "REFUSAL_TEXT";
         public const string Workspace = "WORKSPACE";
         public const string WorkspaceNav = "WORKSPACE_NAV";
@@ -100,6 +101,7 @@ namespace Ashen.Generated
         public const string NavRail = "NAV_RAIL";
         public const string NavSelector = "NAV_SELECTOR";
         public const string NavSelectorList = "NAV_SELECTOR_LIST";
+        public const string NavStep = "NAV_STEP";
         public const string KitMeters = "KIT_METERS";
         public const string KitCards = "KIT_CARDS";
         public const string KitHand = "KIT_HAND";

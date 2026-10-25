@@ -17,6 +17,7 @@
     padding-top: var(--space-xs);
     padding-bottom: var(--space-xs);
     flex-direction: row;
+    background-color: var(--color-modal-bar);
     align-items: center;
     padding-left: var(--space-xl);
     padding-right: var(--space-md);
@@ -51,6 +52,7 @@
 .shell-footer {
     min-height: var(--size-shell-band);
     flex-direction: row;
+    background-color: var(--color-modal-bar);
     align-items: center;
     padding: var(--space-sm) var(--space-xl);
     border-top-width: var(--border-hairline);

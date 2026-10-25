@@ -82,17 +82,7 @@ namespace Ashen.Presentation.UI.Screens
             var groups = Root.Q(UiNames.SettingsGroups);
             groups.Clear();
             UiDom.Show(groups, !_page.Filtering && _page.Groups.Count > 1);
-            foreach (var group in _page.Groups)
-            {
-                var chip = new LocButton();
-                chip.AddToClassList(UiClasses.Chip);
-                chip.AddToClassList(FrontClasses.SettingsGroup);
-                chip.EnableInClassList(UiClasses.ChipOn, group.Active);
-                chip.SetResolved(group.Label);
-                var id = group.Id;
-                chip.clicked += () => { _query.Group = id; Render(); };
-                groups.Add(chip);
-            }
+            if (_page.Groups.Count > 1) groups.Add(GroupSelect());
             if (!_page.ShowAbout)
             {
                 var count = new LocLabel { pickingMode = PickingMode.Ignore };
@@ -163,23 +153,27 @@ namespace Ashen.Presentation.UI.Screens
             return button;
         }
 
+        /// <summary>The group picker: a select of the open tab's groups (settings.js renders it as a select on the wide screen and the phone).</summary>
+        private SelectField GroupSelect()
+        {
+            var select = new SelectField();
+            select.AddToClassList(FrontClasses.SettingsGroup);
+            select.Face.userData = UiNames.SettingsGroups;
+            select.SetOptions(_page.Groups.Select(g => new SelectOption { Value = g.Id, Label = g.Label }).ToList(), _page.Groups.FirstOrDefault(g => g.Active)?.Id);
+            select.Picked += id => { _focusKey = UiNames.SettingsGroups; _query.Group = id; Render(); };
+            return select;
+        }
+
+        /// <summary>An enum setting as the web's select: the chosen words with a chevron and the list of choices.</summary>
         private VisualElement Choices(SettingControlView control)
         {
-            var chips = new VisualElement();
-            chips.AddToClassList(FrontClasses.SettingsChips);
-            var current = Js.Str(control.Value);
-            foreach (var option in control.Options)
-            {
-                var chip = new LocButton { userData = control.Key + option.Key };
-                chip.AddToClassList(UiClasses.Chip);
-                chip.EnableInClassList(UiClasses.ChipOn, option.Key == current);
-                chip.SetResolved(option.Value);
-                var key = control.Key;
-                var value = option.Key;
-                chip.clicked += () => Apply(key, new JValue(value), chip);
-                chips.Add(chip);
-            }
-            return chips;
+            var select = new SelectField();
+            select.AddToClassList(FrontClasses.SettingsSelect);
+            select.Face.userData = control.Key;
+            select.SetOptions(control.Options.Select(o => new SelectOption { Value = o.Key, Label = o.Value }).ToList(), Js.Str(control.Value));
+            var key = control.Key;
+            select.Picked += value => Apply(key, new JValue(value), select.Face);
+            return select;
         }
 
         private VisualElement Slider(SettingControlView control)

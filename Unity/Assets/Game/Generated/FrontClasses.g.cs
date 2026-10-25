@@ -117,7 +117,7 @@ namespace Ashen.Generated
         public const string SettingsSwitch = "settings-switch";
         public const string SettingsSwitchOn = "settings-switch--on";
         public const string SettingsKnob = "settings-knob";
-        public const string SettingsChips = "settings-chips";
+        public const string SettingsSelect = "settings-select";
         public const string SettingsSlider = "settings-slider";
         public const string SettingsStep = "settings-step";
         public const string SettingsReadout = "settings-readout";

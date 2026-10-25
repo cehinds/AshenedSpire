@@ -2,6 +2,29 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-16: chrome and phone residuals (worktree branch, 2026-10-25)
+
+**Landed (D-1200..D-1208)**
+- **Chrome:** the hold fill is the web's diagonal light / dark stripe behind the label, growing across the whole control (`Frames/hold-stripe.png`, a repeating texture from `Tools/ui-frames.mjs`); the focus ring is a 2 px gold overlay 2 px outside the focused control for keys and pad (`Kit/FocusRing.cs`, made by `UiHost`); the tooltip has its arrow (`Frames/tooltip-arrow.png`, `Tooltip.PointAt`); the modal head and foot bands are the web's 94% bg (`color.modalBar` on the combat modal, the shell and the settings frame).
+- **Phone:** enum settings and the group picker are selects (`Kit/SelectField.cs`, the list opens in place); the creation header carries the class portrait, a menu button and, on a phone, the List | Grid switch; the shell's selector mode shows the green `1 of 2 · Class` step beside the gold `All steps` select (`CategoryNav.StepKey`). The map node size needs no rule (D-1202: measured, the wide tokens already give the phone shot).
+- **Uppercase / chips / frames:** audited every tracked-caps rule against its elements (D-1207); the pile caption and the 405 screens' eyebrows were the only ones missing `kit-upper`. Chips, frames and dividers were already on the screens the web shows them on.
+- **Capture list:** `docs/qa/screen-capture-list.md` (D-1208): the Core 2 screens cannot be driven by `ScreenCaptureTests.Show`, so the list says how to reach each web shot at 1920x1080 and 390x844.
+- `class-view--on` had no USS rule (the chosen List / Grid view never showed); it is gold now. `size.holdBarH` is gone with the bar.
+
+**Tests run (small filters, one at a time):** `Enforcement|UiData|UiRules|Core2Screens|ContentValid|FrontScreens|Settings` 101/101; node checks ui-tokens, codegen, refresh-manifest, check-content, check-docs, ui-stage, card-face, web-key-map ok; the Presentation compile check builds.
+
+**Not verified (Unity was not run):** `background-repeat: repeat` with `background-size` on the stripe texture (and that `hold-stripe.png` imports as a repeating Texture2D, not a sprite); `FocusRing` (the overlay's rect follows `worldBound` under the narrow panel's scaling, and `FocusInEvent` at the root with TrickleDown sees every focus change); the tooltip arrow's `resolvedStyle.left` read before the first layout; `SelectField` inside the settings' scroll view and the Navigator's `nav--open` Back handling; the creation header's insert before the shell's close, and the stepped CategoryNav row; every size against the shots. The capture list's states for the Core 2 screens are a hand route, not a fixture.
+
+**Owner: check in the editor (compare `docs/qa/web-screens/`)**
+- Hold a hold button (End Turn with hold on, `combat-end-turn-hold`; a Buy; Upgrade): the stripe grows from the left behind the label, the edge is gold while held; release empties it.
+- Press Tab / arrow keys or the pad on any screen: a gold ring 2 px outside the control; click with the mouse: no ring until a key is used.
+- Hover or focus a control with a tooltip: a gold triangle on the tooltip's top edge under the control's centre, clamped 5 px from the corners.
+- Settings (`settings-advanced`, `settings-general-390x844`): Show opening, the Display and Interface pickers and the group picker are dark selects with a chevron; pressing one opens its list under it, picking closes it and keeps the focus on the select; Back (Escape / pad B) closes an open list first.
+- Creation at 390x844 (`flow-05`, `flow-06`): the header shows the title, List | Grid, the portrait, the menu and the close; under it a green `1 of 2 · Class` and a gold `All steps ▾` (its list jumps to Review). At 1920x1080 the header has the portrait, menu and close after the title.
+- Modal heads and feet are a shade darker than the body (combat modals, Settings, the shell screens).
+
+**Not done:** the leather texture under modal fills; the tooltip's flip above the trigger and the side edges; the smith's item select and the profile's rail select as selects; the web's inline hold dial; a Core 2 driver for `ScreenCaptureTests.Show` and fixture files that use it; the editor pass.
+
 ## VP-14: the phone pass for the Core 2 screens (worktree branch, 2026-10-25)
 
 **Landed (D-1050..D-1053)**
