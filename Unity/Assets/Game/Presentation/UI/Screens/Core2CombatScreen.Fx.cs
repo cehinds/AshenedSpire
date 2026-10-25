@@ -34,6 +34,9 @@ namespace Ashen.Presentation.UI.Screens
         private FxMotion _motion;
         private CombatPace _pace;
         private readonly List<IVisualElementScheduledItem> _fxItems = new List<IVisualElementScheduledItem>();
+        private FxSchedule _fxPlan;
+        private double _fxStartedAt;
+        private double _fxShift;
         private readonly HashSet<string> _dying = new HashSet<string>(StringComparer.Ordinal);
         private IVisualElementScheduledItem _introTimer;
 
@@ -113,6 +116,9 @@ namespace Ashen.Presentation.UI.Screens
             _acting = null;
             Render();
             if (enemyTurn) FocusSoon(_footer.EndTurnButton);
+            _fxPlan = schedule;
+            _fxStartedAt = FxClock.Now();
+            _fxShift = 0;
             foreach (var item in schedule.Items)
             {
                 var captured = item;
@@ -159,6 +165,22 @@ namespace Ashen.Presentation.UI.Screens
             _hpShown[id] = shown;
             AnchorOf(id)?.SetHp(shown, Int(f.MaxHp));
             if (id == View.Player.Id) Root.Q<Meter>(UiNames.HudHp)?.Set(shown, Int(f.MaxHp));
+        }
+
+        /// <summary>The stage has more to play after the blow than the schedule planned: every item still to run, and the end of the play, waits for it.</summary>
+        private void DelayFx(FxItem from, double lateMs)
+        {
+            var plan = _fxPlan;
+            if (plan == null || lateMs <= 0 || _fxItems.Count != plan.Items.Count + 1) return;
+            var index = plan.Items.IndexOf(from);
+            if (index < 0) return;
+            _fxShift += lateMs;
+            var elapsed = FxClock.Now() - _fxStartedAt;
+            for (var j = index + 1; j < _fxItems.Count; j++)
+            {
+                var at = j < plan.Items.Count ? plan.Items[j].AtMs : plan.TotalMs;
+                _fxItems[j]?.ExecuteLater((long)Math.Max(0d, at + _fxShift - elapsed));
+            }
         }
 
         private void FinishPlay()
@@ -238,7 +260,12 @@ namespace Ashen.Presentation.UI.Screens
                     case FxItemKind.Cue: PlayCue(item.Cue); break;
                     case FxItemKind.Swing: Swing(item); break;
                     case FxItemKind.Contact:
-                        if (AnchorOf(item.ActorId) is Fighter striker) striker.StageContact();
+                        if (AnchorOf(item.ActorId) is Fighter striker)
+                        {
+                            striker.StageContact();
+                            // The recovery waits for the longer of the planned time and what the stage still has to play (actionTimeline.js: max(total - impact + hold, remainingMs())).
+                            DelayFx(item, striker.StageRemainingMs() - item.Ms);
+                        }
                         break;
                     case FxItemKind.Hold:
                         if (AnchorOf(item.ActorId) is Fighter holder)

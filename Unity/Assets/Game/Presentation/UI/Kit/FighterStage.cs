@@ -164,6 +164,9 @@ namespace Ashen.Presentation.UI.Kit
             return true;
         }
 
+        /// <summary>What the stage still has to play (its clip after the contact frame, and the hit-stop it holds): the web's remainingMs, which the recovery after the blow waits for.</summary>
+        public double StageRemainingMs() => HasStage ? _stageState.RemainingMs(Now) : 0;
+
         /// <summary>The hit-stop: the clock of what the stage is playing waits.</summary>
         public bool StageHold(double ms) => HasStage && _stageState.Hold(ms, Now);
 
