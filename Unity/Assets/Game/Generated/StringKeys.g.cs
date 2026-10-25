@@ -970,6 +970,7 @@ namespace Ashen.Generated
         public const string RestReviewStay = "rest.review.stay";
         public const string RestReviewStayHp = "rest.review.stayHp";
         public const string RestSmithChange = "rest.smith.change";
+        public const string RestSmithChoose = "rest.smith.choose";
         public const string RestSmithCost = "rest.smith.cost";
         public const string RestSmithEmpty = "rest.smith.empty";
         public const string RestSmithPurse = "rest.smith.purse";

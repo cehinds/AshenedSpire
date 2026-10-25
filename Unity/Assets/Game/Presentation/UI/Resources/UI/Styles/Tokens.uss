@@ -824,6 +824,7 @@
     --size-settings-row-pad: 9px;
     --size-settings-scroll-min: 120px;
     --size-settings-more-dot: 3px;
+    --size-frame-inset: 12px;
     --size-settings-more-gap: 3px;
     --size-settings-menu-w: 190px;
     --size-settings-menu-top: 46px;

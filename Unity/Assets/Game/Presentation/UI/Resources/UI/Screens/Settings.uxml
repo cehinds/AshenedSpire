@@ -4,6 +4,7 @@
     <ui:VisualElement name="SCRIM" class="page page--center scrim">
         <ui:VisualElement name="SETTINGS_FRAME" class="settings-frame kit-frame kit-frame--modal">
             <ui:VisualElement class="shadow-plate" picking-mode="Ignore" />
+            <ui:VisualElement class="leather-plate" picking-mode="Ignore" />
             <ui:VisualElement name="SETTINGS_HEAD" class="settings-head">
                 <Ashen.Presentation.UI.LocLabel name="SETTINGS_TITLE" class="settings-title kit-text-header" string-key="settings.page.title" />
                 <ui:VisualElement class="settings-tools">

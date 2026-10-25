@@ -40,7 +40,14 @@ namespace Ashen.Presentation.UI.Kit
             _selector = this.Q<LocButton>(UiNames.NavSelector);
             _step = this.Q<LocLabel>(UiNames.NavStep);
             _list = this.Q(UiNames.NavSelectorList);
-            if (_selector != null) _selector.clicked += () => ToggleInClassList(UiClasses.NavOpen);
+            if (_selector != null)
+            {
+                _selector.clicked += () => ToggleInClassList(UiClasses.NavOpen);
+                // The web's select (kit.css [Category ▾]): the words, and the chevron at the right edge of the face.
+                var chevron = new LocLabel(StringKeys.SelectChevron) { pickingMode = PickingMode.Ignore };
+                chevron.AddToClassList(ChromeClasses.NavChevron);
+                _selector.Add(chevron);
+            }
             SetMode(CategoryNavMode.Rail);
         }
 

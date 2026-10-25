@@ -26,6 +26,17 @@
 .nav-selector {
     width: var(--size-selector-width);
     -unity-text-align: middle-left;
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+    padding-right: var(--size-select-chevron-w);
+}
+
+.nav-chevron {
+    position: absolute;
+    right: var(--space-md);
+    top: 0;
+    bottom: 0;
+    -unity-text-align: middle-right;
 }
 
 .nav-selector-list {

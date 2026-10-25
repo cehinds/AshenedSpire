@@ -18,5 +18,6 @@ namespace Ashen.Generated
         public const string CreationHeadSegButton = "creation-head-seg-button";
         public const string CreationAvatar = "creation-avatar";
         public const string CreationMenu = "creation-menu";
+        public const string NavChevron = "nav-chevron";
     }
 }
