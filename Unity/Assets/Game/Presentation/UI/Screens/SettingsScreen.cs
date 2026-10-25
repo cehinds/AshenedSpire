@@ -111,7 +111,7 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocButton>(UiNames.SettingsReset).SetEnabled(_page.ChangedCount > 0);
             _rows.Clear();
             if (_page.DeveloperSwitch != null && !_page.Filtering) _rows.Add(Row(_page.DeveloperSwitch));
-            if (_page.ShowAbout) AboutPanel.Fill(_rows, AboutView.Build(Ui.Data, Ui.BuildVersion));
+            if (_page.ShowAbout) AboutPanel.Fill(_rows, AboutView.Build(Ui.Data, Ui.BuildVersion), Ui.Data.Strings);
             else if (_page.Empty != null) _rows.Add(Text(_page.Empty, FrontClasses.SettingsEmpty));
             else foreach (var row in _page.Rows) _rows.Add(Row(row));
             RestoreFocus();

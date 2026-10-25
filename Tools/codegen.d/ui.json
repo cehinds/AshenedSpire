@@ -1175,7 +1175,8 @@
         "Bucket": "bucket",
         "N": "n",
         "Hand": "hand",
-        "Found": "found"
+        "Found": "found",
+        "Date": "date"
       }
     },
     {
@@ -1323,6 +1324,7 @@
         "KitRefusal": "UI/Kit/Refusal",
         "KitSlot": "UI/Kit/Slot",
         "SavesFolder": "saves",
+        "ExportsFolder": "exports",
         "KitCombatant": "UI/Kit/Combatant",
         "KitRunHud": "UI/Kit/RunHud",
         "KitFighter": "UI/Kit/Fighter",

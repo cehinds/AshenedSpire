@@ -128,8 +128,8 @@
         "AboutEyebrow": "about-eyebrow",
         "AboutHeading": "about-heading",
         "AboutBody": "about-body",
-        "AboutCreditsHeading": "about-credits-heading",
-        "AboutCredit": "about-credit",
+        "AboutSave": "about-save",
+        "AboutResult": "about-result",
         "AboutBuild": "about-build",
         "JournalPage": "journal-page",
         "JournalColumn": "journal-column",
@@ -193,7 +193,8 @@
         "SettingsMenu": "settings-menu",
         "SettingsUndo": "settings-undo",
         "SettingsButton": "settings-button",
-        "SettingsTopic": "settings-topic"
+        "SettingsTopic": "settings-topic",
+        "AboutBuildFirst": "about-build--first"
       }
     },
     {

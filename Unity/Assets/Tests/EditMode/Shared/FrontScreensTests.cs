@@ -444,13 +444,20 @@ namespace Ashen.Tests
         }
 
         [Test]
-        public void TheAboutTextIsTheOwnersDisclosureAndTheCredits()
+        public void TheAboutTextIsTheWebsAcknowledgementInItsLeadAndSixSections()
         {
             var view = AboutView.Build(Ui, "9.9.9");
-            Assert.That(view.Body, Is.EqualTo(Ui.Strings.Get((string)Ui.About["aiDisclosure"]["fullKey"])));
-            Assert.That(view.Heading, Is.EqualTo("Made with generative AI"));
-            Assert.That(view.Credits, Has.Count.EqualTo(2));
-            Assert.That(view.Build, Does.Contain("9.9.9"));
+            Assert.That(view.Lead, Has.Count.EqualTo(3));
+            Assert.That(view.Lead[0], Does.StartWith("Ashen Spire was built by AI under human direction."));
+            Assert.That(view.Lead[2], Does.Contain("No AI runs while you play"));
+            Assert.That(view.Sections.Select(s => s.Heading), Is.EqualTo(new[] { "Code and design", "Writing", "Art", "Audio", "While you play", "Your saves" }));
+            Assert.That(view.Sections.All(s => s.Eyebrow == "About" && s.Body.Length > 0), Is.True);
+            Assert.That(view.SaveLabel, Is.EqualTo("Save this to a file"));
+            Assert.That(view.Build, Is.EqualTo("Ashen Spire 9.9.9"));
+            Assert.That(view.Provenance, Is.EqualTo("installed build · acknowledgement last updated 2026-09-26"));
+            Assert.That(view.FileText, Does.StartWith("Ashen Spire — AI use acknowledgement (9.9.9)"));
+            Assert.That(view.FileText, Does.Contain("While you play"));
+            Assert.That(view.FileName, Is.EqualTo("ashen-spire-ai-acknowledgement.txt"));
         }
     }
 }

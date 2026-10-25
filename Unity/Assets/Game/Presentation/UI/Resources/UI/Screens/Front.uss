@@ -1011,14 +1011,12 @@
     white-space: normal;
 }
 
-.about-credits-heading {
-    margin-top: var(--space-lg);
-    font-size: var(--font-heading);
-    color: var(--color-gold);
-    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+.about-save.unity-button {
+    margin: var(--space-lg) 0 0 0;
+    align-self: flex-start;
 }
 
-.about-credit {
+.about-result {
     margin-top: var(--space-xs);
     font-size: var(--font-settings-row-help);
     color: var(--color-muted);
@@ -1026,11 +1024,14 @@
 }
 
 .about-build {
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-md);
-    font-size: var(--font-label);
-    letter-spacing: var(--size-track-label);
+    margin-top: var(--space-xs);
+    font-size: var(--font-settings-row-help);
     color: var(--color-muted);
+    white-space: normal;
+}
+
+.about-build--first {
+    margin-top: var(--space-lg);
 }
 
 /* ---- W-16 run history, the Compendium, the Profile and About (D-1006): src/ui/screens/{history,compendium,profileArchive,about}.js ---- */

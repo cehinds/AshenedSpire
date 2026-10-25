@@ -14,6 +14,12 @@ namespace Ashen.Generated
         public const string ShowOnFirstLaunch = "showOnFirstLaunch";
         public const string Modalities = "modalities";
         public const string Provenance = "provenance";
+        public const string Page = "page";
+        public const string Lead = "lead";
+        public const string Sections = "sections";
+        public const string HeadingKey = "headingKey";
+        public const string BodyKey = "bodyKey";
+        public const string Updated = "updatedKey";
         public const string AppStrings = "strings/app.en.json";
     }
 }

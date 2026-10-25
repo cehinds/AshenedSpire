@@ -19,6 +19,7 @@ namespace Ashen.Generated
         public const string KitRefusal = "UI/Kit/Refusal";
         public const string KitSlot = "UI/Kit/Slot";
         public const string SavesFolder = "saves";
+        public const string ExportsFolder = "exports";
         public const string KitCombatant = "UI/Kit/Combatant";
         public const string KitRunHud = "UI/Kit/RunHud";
         public const string KitFighter = "UI/Kit/Fighter";

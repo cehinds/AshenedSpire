@@ -77,5 +77,6 @@ namespace Ashen.Generated
         public const string N = "n";
         public const string Hand = "hand";
         public const string Found = "found";
+        public const string Date = "date";
     }
 }
