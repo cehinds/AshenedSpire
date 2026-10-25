@@ -23,6 +23,7 @@ namespace Ashen.Generated
         public const string Vfx = "vfx";
         public const string PoseFx = "posefx";
         public const string EnemyPose = "enemyPose";
+        public const string PlayerPose = "playerPose";
         public const string EnemyState = "enemyState";
         public const string Defeated = "defeated";
         public const string Flask = "flask";

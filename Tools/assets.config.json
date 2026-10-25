@@ -29,7 +29,7 @@
     { "match": "^assets/prologue/([\\w-]+)\\.webp$", "id": "prologue.$1" },
     { "match": "^assets/framework/(missing)\\.svg$", "id": "framework.$1" }
   ],
-  "import": ["flask.", "class.", "enemy.", "vfx.", "bg.", "env.", "map.", "framework.", "relic.", "equipment.icon.", "defeated."],
+  "import": ["flask.", "class.", "enemy.", "vfx.", "bg.", "env.", "map.", "framework.", "relic.", "equipment.icon.", "defeated.", "pose.", "posefx."],
   "release": {
     "comment": "VP-2 art-release pass (node Tools/scan-assets.mjs --release <dir>; D-550..D-553). <dir> is the web's .art-cache/<tag> (high/ and common/, fetched by its tools/fetch-art.mjs) so the paths below are relative to each pack. Rules are first-match like the top-level ones, and only ADD ids (an id that already has a committed Unity import is kept). 'convert' decides what is imported into Unity (first match on the id): format png (alpha) or jpg (opaque, quality), maxWidth/maxHeight fit inside without enlarging, scale/svgSize rasterise an SVG (svgColor replaces currentColor so the glyph is white and USS tints it), flat puts the file straight under its domain folder. An id with no convert entry is registered but not imported (later phase). 'maps' names the map-detail hash folders (src/content/mapArt.generated.js). 'web' roots are tracked files of the web repo itself (--web).",
     "tag": "hd-assets-v23",

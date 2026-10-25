@@ -349,6 +349,13 @@ namespace Ashen.Presentation.UI.Screens
 
         private void Pose(Fighter f, string pose, double ms)
         {
+            if (f?.Data != null && f.Data.Player)
+            {
+                // The player figure is a pose stage of its own (PoseAnimator.js): a swing, a guard and a hit are frames of the class and tint.
+                var stage = pose == FxPoses.Attack ? PoseKeys.Attack : pose == FxPoses.Guard ? PoseKeys.Guard : PoseKeys.Hit;
+                f.PlayStage(stage, ms);
+                return;
+            }
             var frame = PoseFrame(DefOf(f), pose);
             if (frame.Frame != null) f.PlayPose(frame.Frame, frame.Scale, ms);
         }

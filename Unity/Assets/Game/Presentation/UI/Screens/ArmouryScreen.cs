@@ -404,12 +404,17 @@ namespace Ashen.Presentation.UI.Screens
             {
                 var card = new CardView { focusable = false, pickingMode = PickingMode.Ignore };
                 card.AddToClassList(ArmouryClasses.GridCard);
-                card.Bind(CardData(Core2DeckCards.View(_run.CombatData, instance)));
+                card.Bind(CardData(Core2DeckCards.View(_run.CombatData, instance, Words)));
                 grid.Add(card);
             }
         }
 
         private VisualElement _focusAnchor;
+
+        private CardWords _words;
+
+        /// <summary>The words of a deck card's face (P-1): the profile's card read with the run's rules.</summary>
+        private CardWords Words => _words ?? (_words = CardWords.Outside(_run.Core.Combat, Ui.Data.CardText));
 
         /// <summary>A deck card's face data: the cost pips in the components' order (Stamina always, Mana when it costs), its type line, rank and traits; a deck card is never dimmed.</summary>
         private CardViewData CardData(Core2CardView card) => ItemFaces.DeckCard(Ui.Data, card);
@@ -904,7 +909,7 @@ namespace Ashen.Presentation.UI.Screens
             }
             var card = new CardView { focusable = false, pickingMode = PickingMode.Ignore };
             card.AddToClassList(ArmouryClasses.GridCard);
-            card.Bind(CardData(Core2DeckCards.View(_run.CombatData, row.Ref)));
+            card.Bind(CardData(Core2DeckCards.View(_run.CombatData, row.Ref, Words)));
             pane.Add(card);
         }
 

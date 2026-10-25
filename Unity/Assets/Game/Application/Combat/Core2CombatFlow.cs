@@ -98,6 +98,7 @@ namespace Ashen.App.Combat
     {
         private readonly Core2RunSession _run;
         private readonly StringTable _strings;
+        private readonly CardTextData _text;
         private readonly HashSet<string> _picked = new HashSet<string>(StringComparer.Ordinal);
         private string _choice;
         private string _target;
@@ -105,10 +106,11 @@ namespace Ashen.App.Combat
         private bool _routeDecided;
         private bool _wantsTarget;
 
-        public Core2CombatFlow(Core2RunSession run, StringTable strings)
+        public Core2CombatFlow(Core2RunSession run, StringTable strings, CardTextData text = null)
         {
             _run = run ?? throw new ArgumentNullException(nameof(run));
             _strings = strings;
+            _text = text;
             Refresh();
         }
 
@@ -154,7 +156,7 @@ namespace Ashen.App.Combat
         public void Refresh()
         {
             Pacing = CombatPacing.Read(_run.PlayerSettings);
-            View = Core2CombatView.Build(_run.Combat, _strings);
+            View = Core2CombatView.Build(_run.Combat, _strings, text: _text);
             if (View.IsOver) { Reset(); return; }
             // The fight is paused: whatever the player had armed is moot, the offer or the choice comes first.
             if (View.Offer != null) { Reset(); Prompt = OfferPrompt(); return; }

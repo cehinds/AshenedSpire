@@ -73,6 +73,7 @@ namespace Ashen.Generated
         public const string CombatantActing = "combatant--acting";
         public const string CombatantStaggered = "combatant--staggered";
         public const string IntentPrefix = "intent--";
+        public const string IntentReduced = "intent--reduced";
         public const string StatusChip = "status-chip";
         public const string CombatModePrefix = "combat--";
         public const string CardChosen = "card--chosen";

@@ -1,4 +1,5 @@
 using System;
+using Ashen.App.Combat;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -69,6 +70,13 @@ namespace Ashen.App.Run
                     case RV.KindWeaponArts:
                         face.Card = RewardsView.CardPick(data, strings, components.CostKinds, id, false);
                         face.Effect = face.Card.Text;
+                        var words = CardWords.Outside(session.Core.Combat, ui.CardText).For(id, false);
+                        if (words != null)
+                        {
+                            face.Card.RulesHtml = words.Face;
+                            face.Card.InspectHtml = words.Inspect;
+                            face.Card.RulesOverflow = words.Lines != null && words.HandLines != null && words.Lines.Count > words.HandLines.Count;
+                        }
                         break;
                     case RV.KindRelics:
                     {

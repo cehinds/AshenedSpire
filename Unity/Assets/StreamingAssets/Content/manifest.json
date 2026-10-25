@@ -1,5 +1,5 @@
 {
-  "contentHash": "82b1f4dc58ff5eded83d5b6dd3ff07acf561504a01970842a1c5064f7c3fd121",
+  "contentHash": "6c6153632c1d20ecf8f0d8b090923d1b6d04bd11c2e3d411d1d021f135579dec",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -795,9 +795,9 @@
       "sha256": "e8a2d8799e70ded4d80ade5db2ad57c35a82ff3f2d9e1b8190f17fa42efd3873"
     },
     "rules/core2Combat.json": {
-      "bytes": 11561,
+      "bytes": 11702,
       "generated": false,
-      "sha256": "665c0f55ea6aaf0efbd4b81039cf331a149ba7346c34782573c68ea02e72fa0f"
+      "sha256": "86839f69bcfc83b9fff502c7c58b1d77acc63b2da02881bca814a21d62724eb2"
     },
     "rules/core2CombatRules.json": {
       "bytes": 3704,
@@ -1680,9 +1680,9 @@
       "sha256": "318fd79e4a732497a6f564b7c26257e1e993125535ee89b2e8e464a344550b49"
     },
     "schemas/rules.core2Combat.schema.json": {
-      "bytes": 25027,
+      "bytes": 25409,
       "generated": false,
-      "sha256": "1c7e3a090cf8260ae7acdf6bd23403530f00959dfc1c8a36433c6ca1406a4d2e"
+      "sha256": "0aa864c8fa01deb0feb1b2ef88950c958dc92b9892b5409716a484eb3bd3a2d2"
     },
     "schemas/rules.core2CombatRules.schema.json": {
       "bytes": 17693,
@@ -1979,6 +1979,11 @@
       "generated": false,
       "sha256": "3af105c94763728307b39d6e27895a06d143e181316b177c91938703b5969610"
     },
+    "schemas/ui.cardText.schema.json": {
+      "bytes": 3089,
+      "generated": false,
+      "sha256": "3c3ce5c2be3784c5b6613ff496c6eabf33ff8a7cc04affc95b1e9082acaae6b9"
+    },
     "schemas/ui.cardface.schema.json": {
       "bytes": 10695,
       "generated": false,
@@ -2023,6 +2028,11 @@
       "bytes": 1965,
       "generated": false,
       "sha256": "cea54f440ad85c10aed84182b260ec25a1172199d0428b939926aa982d4ef035"
+    },
+    "schemas/ui.poses.schema.json": {
+      "bytes": 873,
+      "generated": false,
+      "sha256": "3600e9c931498e0589d43c9ba51ec020bb2ce5c01560cec74f7c4786c4d665b1"
     },
     "schemas/ui.prologue.schema.json": {
       "bytes": 2359,
@@ -2070,9 +2080,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 55466,
+      "bytes": 69451,
       "generated": false,
-      "sha256": "82156740dcdfb68272355c7f7131a7fba91d558fbd97e147138194ca3d1f0ae9"
+      "sha256": "2b3ef77f110b9946a3dfcbf864b88c97580050b91fc6edc467cf02c6f19913d1"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2165,9 +2175,14 @@
       "sha256": "800f85c25beaa464dee1ad55f25b838ca54e8cb72b0fa8ed44b0b40a9f5efbe0"
     },
     "ui/art.json": {
-      "bytes": 4092,
+      "bytes": 4160,
       "generated": false,
-      "sha256": "85436f7a50394f61f323703bf7b411c027474d5e227b660e90fb26102e8b8318"
+      "sha256": "77e4e8653a48529006eacd77ccf9d4c69998cfae753266dac671aea73e65f3c7"
+    },
+    "ui/cardText.json": {
+      "bytes": 7772,
+      "generated": false,
+      "sha256": "ab20e2eda3740cfdba1da61388bf03da2d41f6a5ee1b04c3691bd07b1745e5a1"
     },
     "ui/cardface.json": {
       "bytes": 34415,
@@ -2214,6 +2229,11 @@
       "generated": false,
       "sha256": "e6c5b73d52c764043690f50d9647244e894a84bfb063e93dd6828a3c9ef35316"
     },
+    "ui/poses.json": {
+      "bytes": 54232,
+      "generated": false,
+      "sha256": "1ff3cbdb23dc856f09b6552cc477839736e833d3fd2bb6c5a707ccaa5e004d28"
+    },
     "ui/prologue.json": {
       "bytes": 2561,
       "generated": false,
@@ -2235,9 +2255,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 46878,
+      "bytes": 46956,
       "generated": false,
-      "sha256": "e87fbed17f91c89c1318aa1c4a2be54930f1b28fff87560b2615a4a45eb1b03b"
+      "sha256": "bd115b97faf1f26ac65715c47840ae628d54b10bc659ff7049c30eb602aa9a30"
     }
   },
   "schemaVersion": 1,

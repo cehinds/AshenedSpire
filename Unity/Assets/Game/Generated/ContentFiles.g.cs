@@ -381,6 +381,7 @@ namespace Ashen.Generated
         public const string SchemasTagsTagsSchema = "schemas/tags.tags.schema.json";
         public const string SchemasTagsVariableBindingsSchema = "schemas/tags.variableBindings.schema.json";
         public const string SchemasUiArtSchema = "schemas/ui.art.schema.json";
+        public const string SchemasUiCardTextSchema = "schemas/ui.cardText.schema.json";
         public const string SchemasUiCardfaceSchema = "schemas/ui.cardface.schema.json";
         public const string SchemasUiComponentsSchema = "schemas/ui.components.schema.json";
         public const string SchemasUiConfirmationPoliciesSchema = "schemas/ui.confirmationPolicies.schema.json";
@@ -390,6 +391,7 @@ namespace Ashen.Generated
         public const string SchemasUiMenusSchema = "schemas/ui.menus.schema.json";
         public const string SchemasUiMetaSchema = "schemas/ui.meta.schema.json";
         public const string SchemasUiNodesSchema = "schemas/ui.nodes.schema.json";
+        public const string SchemasUiPosesSchema = "schemas/ui.poses.schema.json";
         public const string SchemasUiPrologueSchema = "schemas/ui.prologue.schema.json";
         public const string SchemasUiScreensSchema = "schemas/ui.screens.schema.json";
         public const string SchemasUiTermsSchema = "schemas/ui.terms.schema.json";
@@ -419,6 +421,7 @@ namespace Ashen.Generated
         public const string TagsTags = "tags/tags.json";
         public const string TagsVariableBindings = "tags/variableBindings.json";
         public const string UiArt = "ui/art.json";
+        public const string UiCardText = "ui/cardText.json";
         public const string UiCardface = "ui/cardface.json";
         public const string UiComponents = "ui/components.json";
         public const string UiConfirmationPolicies = "ui/confirmationPolicies.json";
@@ -428,6 +431,7 @@ namespace Ashen.Generated
         public const string UiMenus = "ui/menus.json";
         public const string UiMeta = "ui/meta.json";
         public const string UiNodes = "ui/nodes.json";
+        public const string UiPoses = "ui/poses.json";
         public const string UiPrologue = "ui/prologue.json";
         public const string UiScreens = "ui/screens.json";
         public const string UiTerms = "ui/terms.json";

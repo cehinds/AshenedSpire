@@ -54,6 +54,7 @@
     --color-intent-block: #8fb3e0;
     --color-intent-buff: #c9a227;
     --color-intent-debuff: #b07ad9;
+    --color-intent-reduced: #8ad498;
     --color-map-node: #15110d;
     --color-map-node-line: #85714f;
     --color-map-edge: rgba(253, 246, 230, 0.28);
@@ -1011,6 +1012,8 @@
     --face-rules-color: #291f16;
     --face-cost-color: #fff5d2;
     --face-cost-outline-color: #101508;
+    --face-cue-size: 12px;
+    --face-cue-color: #654923;
     --face-name-outline-color: #100b06;
     --face-band-color: #efd09a;
     --face-rank-color: #f3f6ff;

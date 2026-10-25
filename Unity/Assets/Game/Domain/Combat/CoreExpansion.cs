@@ -169,7 +169,7 @@ namespace Ashen.Domain.Combat
             return group;
         }
 
-        private static string RatingPart(CombatState c, JObject carrier)
+        public static string RatingPart(CombatState c, JObject carrier)
         {
             var id = carrier.Str(CK.RatingId);
             if (id == CK.RatingPr) return DV.PartMagic;

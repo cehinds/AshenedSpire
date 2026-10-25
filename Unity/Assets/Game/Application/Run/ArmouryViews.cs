@@ -18,7 +18,7 @@ namespace Ashen.App.Run
     /// <summary>A card of the run's deck as the Armoury's Cards pane and the deck editor's inspector show it: the face's facts, priced at their printed cost and worded with the authored numbers (no fight, so nothing is priced against a target).</summary>
     public static class Core2DeckCards
     {
-        public static Core2CardView View(CombatData data, JObject instance)
+        public static Core2CardView View(CombatData data, JObject instance, CardWords words = null)
         {
             var def = Cards.Resolve(data, instance);
             var card = new Core2CardView
@@ -36,7 +36,10 @@ namespace Ashen.App.Run
             };
             foreach (var tag in Js.Items(def[CK.CardTags] ?? def[K.Tags])) card.Tags.Add(Js.IsStr(tag) ? Js.Str(tag) : Js.Str(Js.Get(tag, K.Id)));
             CardFaceQuery.CollectEffects(def[K.Effects], card.Effects);
+            card.Instance = instance;
+            card.FaceDef = def;
             card.Text = Text(data, def);
+            if (words != null) card.Words = words.For(card);
             return card;
         }
 

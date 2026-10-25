@@ -69,6 +69,7 @@ namespace Ashen.Generated
         public const string CardArt = "CARD_ART";
         public const string CardType = "CARD_TYPE";
         public const string CardText = "CARD_TEXT";
+        public const string CardCue = "CARD_CUE";
         public const string CardKeywords = "CARD_KEYWORDS";
         public const string CardRefusal = "CARD_REFUSAL";
         public const string CardLent = "CARD_LENT";

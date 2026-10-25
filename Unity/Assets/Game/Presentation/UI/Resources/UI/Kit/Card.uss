@@ -313,6 +313,24 @@
     overflow: hidden;
 }
 
+/* the cue that closes a face whose model has more lines than it shows (the web's .card-rules-inspect-cue): it sits at the foot of the rules box */
+.cardview .card-cue {
+    position: absolute;
+    left: var(--face-rules-x);
+    top: var(--face-rules-y);
+    width: var(--face-rules-w);
+    height: var(--face-rules-h);
+    margin: 0;
+    padding: 0;
+    font-size: var(--face-cue-size);
+    color: var(--face-cue-color);
+    -unity-font-style: bold;
+    -unity-text-align: lower-center;
+    white-space: normal;
+    overflow: hidden;
+    display: none;
+}
+
 /* lent-by and the refusal (the non-colour cue of an unplayable card) sit on the art, above the parchment */
 .card-notes {
     position: absolute;

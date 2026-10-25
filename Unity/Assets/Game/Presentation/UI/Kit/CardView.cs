@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Ashen.App.Combat;
 using Ashen.App.Ui;
 using Ashen.Generated;
 using UnityEngine;
@@ -44,6 +45,18 @@ namespace Ashen.Presentation.UI.Kit
 
         /// <summary>The numbers of <see cref="Text"/> the live preview moved off the printed value (tinted up or down), or null.</summary>
         public IReadOnlyList<TextShift> Shifts;
+
+        /// <summary>The rules as the web writes them (P-1: the html of model/cardFaceText.js, each number a val span); drawn instead of <see cref="Text"/> when set.</summary>
+        public string RulesHtml;
+
+        /// <summary>A damage calculation stands behind the damage numbers (they are underlined, and hovering one shows it): the web's [data-damage-receipt].</summary>
+        public string Receipt;
+
+        /// <summary>The title of that calculation ('Damage calculation').</summary>
+        public string ReceiptTitle;
+
+        /// <summary>The model holds more lines than the face shows: the inspect cue is lit (the web's data-rules-overflow).</summary>
+        public bool RulesOverflow;
     }
 
     /// <summary>
@@ -65,6 +78,8 @@ namespace Ashen.Presentation.UI.Kit
         private readonly VisualElement _stage;
         private readonly LocLabel _type;
         private readonly LocLabel _text;
+        private Tooltip _receiptTip;
+        private readonly LocLabel _cue;
         private readonly LocLabel _refusal;
         private readonly LocLabel _lent;
         private readonly VisualElement _sigil;
@@ -90,6 +105,7 @@ namespace Ashen.Presentation.UI.Kit
             _stage = this.Q(UiNames.CardStage);
             _type = this.Q<LocLabel>(UiNames.CardType);
             _text = this.Q<LocLabel>(UiNames.CardText);
+            _cue = this.Q<LocLabel>(UiNames.CardCue);
             _refusal = this.Q<LocLabel>(UiNames.CardRefusal);
             _lent = this.Q<LocLabel>(UiNames.CardLent);
             _sigil = this.Q(UiNames.CardSigil);
@@ -173,7 +189,11 @@ namespace Ashen.Presentation.UI.Kit
             var ui = Source;
             var plan = data.Face != null ? ui?.Data?.CardFace?.Plan(data.Face) : null;
             _name?.SetResolved(data.Name);
-            _text?.SetResolved(Tinted(data.Text, data.Shifts));
+            _text?.SetResolved(RulesText(data));
+            // The calculation behind the underlined damage numbers: shown on pointing at the rules (UI Toolkit cannot hover a run of a label, so the whole text speaks for its numbers).
+            ChipTips.Retell(_text, ref _receiptTip, data.ReceiptTitle, data.Receipt);
+            _cue?.SetResolved(Loc.Get(StringKeys.DeckEditorInspect));
+            UiDom.Show(_cue, data.RulesOverflow);
             _refusal?.SetResolved(data.RefusalText);
             UiDom.Show(_refusal, !data.Affordable && !string.IsNullOrEmpty(data.RefusalText));
             _lent?.SetResolved(data.LentText);
@@ -248,6 +268,36 @@ namespace Ashen.Presentation.UI.Kit
         }
 
         private static Color Hex(string value) => ColorUtility.TryParseHtmlString(value, out var color) ? color : Color.white;
+
+        private bool _selected;
+
+        /// <summary>The card is selected: the lines held back at rest (a chance, a restriction) are shown, as the web's .hand .illustrated-card.selected.</summary>
+        public bool Selected
+        {
+            get => _selected;
+            set
+            {
+                if (_selected == value) return;
+                _selected = value;
+                if (Data?.RulesHtml != null)
+                {
+                    _text?.SetResolved(RulesText(Data));
+                    _fitted = null;
+                    FitText();
+                }
+            }
+        }
+
+        /// <summary>The rules to draw: the web's html as rich text, else the template text with its shifted numbers tinted.</summary>
+        private string RulesText(CardViewData data)
+        {
+            var ui = Source?.Data;
+            if (data.RulesHtml == null || ui?.CardText == null) return Tinted(data.Text, data.Shifts);
+            return CardFaceMarkup.ToRich(ui.CardText, data.RulesHtml, new CardMarkupStyle
+            {
+                Up = ui.Tokens.Color(TokenKeys.CardUp), Down = ui.Tokens.Color(TokenKeys.CardDown), ShowExtra = _selected, Receipt = !string.IsNullOrEmpty(data.Receipt),
+            });
+        }
 
         /// <summary>The card's text with the numbers the preview moved off their printed value tinted (up green, down red) and bold, as the web's val up/down.</summary>
         private static string Tinted(string text, IReadOnlyList<TextShift> shifts)

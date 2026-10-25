@@ -77,6 +77,18 @@ namespace Ashen.App.Combat
 
         /// <summary>previewEnemyAction of the move (its effects and tags) when the move is known.</summary>
         public JObject Action;
+
+        /// <summary>
+        /// The web's projectCombatIntent of the move once read (P-1): the intent priced against the player hit by hit (damage, hitDamages, hpLossBounds, ...) with the HP range it can take
+        /// at the player's current defenses in <c>projectedDamage</c>; null while the move is unread or when it cannot be priced.
+        /// </summary>
+        public JObject Preview;
+
+        /// <summary>The HP the move can take as a range ('0–16', or '9' when certain), from <see cref="Preview"/>; null without one.</summary>
+        /// <summary>The player's stance lowers the HP range shown (the web's green damage tone).</summary>
+        public bool Reduced => Known && Preview?.Obj(Ashen.Generated.IntentKeys.ProjectedDamage)?.Str(Ashen.Generated.IntentKeys.Tone) == Ashen.Generated.IntentKeys.ToneGreen;
+
+        public string DamageRange => Preview?.Obj(Ashen.Generated.IntentKeys.ProjectedDamage)?.Str(Ashen.Generated.IntentKeys.Label);
     }
 
     /// <summary>One fighter as the HUD draws it: Evade, Poise, Ward, Block, HP, the stance (Staggered included) and the statuses with their stacks.</summary>
@@ -94,6 +106,14 @@ namespace Ashen.App.Combat
         public double Barrier;
         public Core2MeterView Poise;
         public Core2MeterView Ward;
+
+        /// <summary>
+        /// The share of a physical (Poise) and a magical (Ward) hit the pool takes off while it holds, in percent, as the web's fixCoreProtectionDescription reads it (a pool of 1000 so the
+        /// share is uncapped); null when the fight has no FixCore rules. <see cref="WardOff"/> is the data toggle that switches Ward off (Poise alone is described then).
+        /// </summary>
+        public double? PoiseAbsorb;
+        public double? WardAbsorb;
+        public bool WardOff;
 
         /// <summary>The Evade and Precision stacks (the statuses of those ids).</summary>
         public double Evade;
@@ -169,6 +189,12 @@ namespace Ashen.App.Combat
         public string CardId;
         public string Name;
         public string Text;
+
+        /// <summary>The card instance (id, upgraded) the face is made from, the definition it is read as and, for a card in the hand, the preview it prints its numbers from (P-1: <see cref="CardWords"/> words the face from them).</summary>
+        public JObject Instance;
+        public JObject FaceDef;
+        public JObject FacePreview;
+        public FaceRules Words;
         public string Type;
         public double? Rank;
         public bool Upgraded;
@@ -432,7 +458,7 @@ namespace Ashen.App.Combat
         }
 
         /// <summary>The view of the fight as it stands. <paramref name="strings"/> fills the log's sentences; <paramref name="logLines"/> keeps the newest lines.</summary>
-        public static Core2CombatViewState Build(Core2CombatSession session, StringTable strings = null, int logLines = (int)Ashen.Generated.Core2HostNumbers.LogLines, JObject presentation = null)
+        public static Core2CombatViewState Build(Core2CombatSession session, StringTable strings = null, int logLines = (int)Ashen.Generated.Core2HostNumbers.LogLines, JObject presentation = null, CardTextData text = null)
         {
             var c = session.State;
             var legal = session.IsOver ? new List<JObject>() : session.LegalIntents(presentation).ToList();
@@ -458,7 +484,7 @@ namespace Ashen.App.Combat
             view.EndTurnRefusal = session.Why(view.EndTurn);
             view.Offer = Offer(session, legal);
             view.Choice = Choice(session, legal);
-            foreach (var inst in c.Piles.Hand) view.Hand.Add(Card(session, inst, legal));
+            foreach (var inst in c.Piles.Hand) view.Hand.Add(Worded(Card(session, inst, legal), c, text));
             view.Flasks = Flasks(session, legal);
             view.Equipment = Equipment(session);
             view.Log = Log(session, strings, logLines);
@@ -505,6 +531,17 @@ namespace Ashen.App.Combat
             return m == null ? null : new Core2MeterView { Value = m.Num(K.Value), Max = m.Num(K.Max) };
         }
 
+        /// <summary>fixCoreProtectionDescription's share: protectionReceipt(shadow, kind, 100).reduced, the shadow holding 1000 in each pool.</summary>
+        private static double? Absorbed(CombatState c, JObject entity, string kind)
+        {
+            var shadow = Js.Spread(entity);
+            shadow[CK.PersistentWard] = Js.Spread(entity.Obj(CK.PersistentWard), Js.Obj(K.Value, Ashen.Generated.P1Math.PoolDepth));
+            shadow[CK.PersistentPoise] = Js.Spread(entity.Obj(CK.PersistentPoise), Js.Obj(K.Value, Ashen.Generated.P1Math.PoolDepth));
+            try { return CoreFixCore.ProtectionReceipt(c, shadow, kind, Ashen.Generated.P1Math.Percent).Num(DK.Reduced); }
+            catch (InvalidOperationException) { return null; }
+            catch (NotSupportedException) { return null; }
+        }
+
         private static Core2FighterView Fighter(CombatState c, JObject entity, bool player)
         {
             var defId = player ? entity.Str(K.ClassId) : entity.Str(K.EnemyId);
@@ -542,6 +579,12 @@ namespace Ashen.App.Combat
                 // An entity that never switched its reactions has none recorded: they are on (the web reads `reactionsEnabled !== false`).
                 ReactionsEnabled = player && !(entity[Ashen.Generated.Core2SnapshotKeys.ReactionsEnabled] != null && !entity.Is(Ashen.Generated.Core2SnapshotKeys.ReactionsEnabled)),
             };
+            if (CoreFixCore.Enabled(c))
+            {
+                f.WardOff = CoreFixCore.WardDisabled(c);
+                f.PoiseAbsorb = Absorbed(c, entity, Ashen.Generated.Core2DamageValues.KindPhysical);
+                f.WardAbsorb = Absorbed(c, entity, Ashen.Generated.Core2DamageValues.KindMagical);
+            }
             if (!player && f.Alive) f.Intent = ReadIntent(c, entity);
             // An enemy whose move the player has not read keeps its stance and armed Counter private: they would give the move away (the web shows only the broad family).
             if (f.Intent != null && !f.Intent.Known)
@@ -588,6 +631,7 @@ namespace Ashen.App.Combat
             view.Pending = enemy[K.PendingMove] != null && enemy[K.PendingMove].Type != JTokenType.Null;
             view.Delayed = intent.Is(K.Delayed);
             if (view.MoveId != null) view.Action = Try(() => CoreEnemyPreview.Preview(c, enemy, view.MoveId));
+            view.Preview = Try(() => CoreIntentProjection.Project(c, enemy));
             return view;
         }
 
@@ -652,16 +696,23 @@ namespace Ashen.App.Combat
         /// keep the order the cards reached them (the web's spent-pile view); the draw pile is listed by name, rank then instance, which reveals nothing of its order (the web shuffles it for display with
         /// Math.random, piles.js:24-29; a sorted list is the same promise without randomness in the view).
         /// </summary>
-        public static List<Core2CardView> Pile(Core2CombatSession session, string pile)
+        public static List<Core2CardView> Pile(Core2CombatSession session, string pile, CardTextData text = null)
         {
             var piles = session.State.Piles;
             var source = pile == Ashen.Generated.OverlayValues.PileDraw ? piles.Draw : pile == Ashen.Generated.OverlayValues.PileDiscard ? piles.Discard : pile == Ashen.Generated.OverlayValues.PileExhaust ? piles.Exhaust : new List<JObject>();
-            var cards = source.Select(inst => PileCard(session, inst)).ToList();
+            var cards = source.Select(inst => Worded(PileCard(session, inst), session.State, text)).ToList();
             if (pile != Ashen.Generated.OverlayValues.PileDraw) return cards;
             return cards.OrderBy(card => card.Name, StringComparer.Ordinal).ThenBy(card => card.Rank ?? 0).ThenBy(card => card.InstanceId, StringComparer.Ordinal).ToList();
         }
 
         /// <summary>A card of a pile as its face prints it: name, type, rank, what it costs now and its text with the authored numbers (a pile card is not in play, so nothing is priced against a target).</summary>
+        /// <summary>The card with the words of its face (P-1), when the caller has the card text.</summary>
+        private static Core2CardView Worded(Core2CardView card, CombatState c, CardTextData text)
+        {
+            if (text != null) card.Words = new CardWords(c, text).For(card);
+            return card;
+        }
+
         private static Core2CardView PileCard(Core2CombatSession session, JObject inst)
         {
             var c = session.State;
@@ -683,6 +734,8 @@ namespace Ashen.App.Combat
             foreach (var tag in Js.Items(def[CK.CardTags] ?? def[K.Tags])) card.Tags.Add(Js.IsStr(tag) ? Js.Str(tag) : Js.Str(Js.Get(tag, K.Id)));
             CardFaceQuery.CollectEffects(def[K.Effects], card.Effects);
             FaceExtras(c, def, card, costs);
+            card.Instance = inst;
+            card.FaceDef = def;
             card.Text = Text(c, def, card, new Dictionary<string, double>(), Js.Items(def[K.Effects]).OfType<JObject>().ToList(), false);
             return card;
         }
@@ -719,6 +772,9 @@ namespace Ashen.App.Combat
             foreach (var tag in Js.Items(def[CK.CardTags] ?? def[K.Tags])) card.Tags.Add(Js.IsStr(tag) ? Js.Str(tag) : Js.Str(Js.Get(tag, K.Id)));
             CardFaceQuery.CollectEffects(def[K.Effects], card.Effects);
             FaceExtras(c, def, card, Try(() => CoreCosts.PreviewCosts(c, id)));
+            card.Instance = inst;
+            card.FacePreview = Try(() => Core2FacePreview.Build(c, inst));
+            card.FaceDef = card.FacePreview?.Obj(Ashen.Generated.CardTextKeys.ResolvedDefinition) ?? def;
             card.Choices = Try(() => CoreCardPlay.ChoiceOptions(def)) ?? new List<string>();
             foreach (var choice in card.Choices) card.ChoiceNames[choice] = c.Data.Stances.Has(choice) ? c.Data.Stances.Get(choice).Str(K.Name) ?? choice : choice;
             card.Plays = legal.Where(l => l.Str(RK.CardInstanceId) == id && l.Str(K.Type) == RV.IntentPlayCard).ToList();
