@@ -240,6 +240,7 @@
     --font-map-tray-body: 14px;
     --font-map-legend: 13px;
     --font-map-tool: 14px;
+    --font-potion-mini-count: 11px;
     --font-armoury-tab: 15px;
     --font-armoury-name: 20px;
     --font-title-sub: 10.5px;
@@ -751,6 +752,11 @@
     --size-map-tool-bottom: 14px;
     --size-map-potions-d: 59px;
     --size-map-potions-right: 15px;
+    --size-potion-mini: 25px;
+    --size-flask-inspect-art: 120px;
+    --size-potion-mini-gap: 3px;
+    --size-potion-mini-lift: 11px;
+    --size-potion-mini-above: 8px;
     --size-map-tray-pad-x: 47px;
     --size-map-tray-pad-y: 12px;
     --size-map-tray-min-h: 117px;

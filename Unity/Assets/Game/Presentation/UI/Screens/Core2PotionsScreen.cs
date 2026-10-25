@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ashen.App.Run;
 using Ashen.App.Ui;
 using Ashen.Generated;
@@ -13,6 +14,9 @@ namespace Ashen.Presentation.UI.Screens
     public sealed class Core2PotionsArgs
     {
         public Core2RunSession Session;
+
+        /// <summary>A flask to read about (the flask menu's Inspect, web openFlaskInspectModal) instead of the list.</summary>
+        public Core2PotionRow Inspect;
     }
 
     /// <summary>
@@ -41,7 +45,54 @@ namespace Ashen.Presentation.UI.Screens
             }
             _modal.size = UiValues.ModalSizeMd;
             _modal.CloseRequested += Leave;
-            Render();
+            var inspect = (args as Core2PotionsArgs)?.Inspect;
+            if (inspect != null) RenderInspect(inspect);
+            else Render();
+        }
+
+        /// <summary>
+        /// Inspect is a door (flask.js openFlaskInspectModal): the flask's art at a size worth looking at beside what it does and its charges, why it cannot be used here when it cannot, and Use as the one footer action.
+        /// </summary>
+        private void RenderInspect(Core2PotionRow row)
+        {
+            _modal.Reset();
+            _modal.SetHead(Strings.Get(StringKeys.RunPotionsEyebrow), row.Name);
+            var layout = new VisualElement();
+            layout.AddToClassList(UiClasses.FlaskInspect);
+            var art = new VisualElement { pickingMode = PickingMode.Ignore };
+            art.AddToClassList(UiClasses.FlaskInspectArt);
+            var texture = FlaskArt(row);
+            if (texture != null) art.style.backgroundImage = new StyleBackground(texture);
+            layout.Add(art);
+            var text = new VisualElement();
+            text.AddToClassList(UiClasses.FlaskInspectText);
+            var line = new LocLabel { pickingMode = PickingMode.Ignore };
+            line.AddToClassList(UiClasses.FlaskInspectLine);
+            line.AddToClassList(UiClasses.ValueText);
+            line.SetResolved(row.Description ?? string.Empty);
+            text.Add(line);
+            var use = row.Actions.FirstOrDefault(a => a.Id == Core2FlaskActionId.Use);
+            if (use != null && !use.Enabled && !string.IsNullOrEmpty(use.Reason))
+            {
+                var reason = new LocLabel { pickingMode = PickingMode.Ignore };
+                reason.AddToClassList(UiClasses.FlaskInspectReason);
+                reason.AddToClassList(UiClasses.ValueText);
+                reason.SetResolved(use.Reason);
+                text.Add(reason);
+            }
+            layout.Add(text);
+            _modal.Body.Add(layout);
+            if (use == null) return;
+            var button = new LocButton();
+            button.AddToClassList(UiClasses.ButtonReady);
+            button.SetResolved(use.Label);
+            button.SetEnabled(use.Enabled);
+            button.clicked += () =>
+            {
+                if (Core2RunPotions.Apply(_run, row, Core2FlaskActionId.Use)) Nav.Close(Context.Instance);
+            };
+            _modal.Foot.Add(button);
+            Context.Instance.LastFocused = use.Enabled ? button : (VisualElement)_modal.CloseButton;
         }
 
         private void Render()

@@ -124,6 +124,33 @@ namespace Ashen.Presentation.UI.Kit
             return Hook(tip, target, overlay, delayMs);
         }
 
+        /// <summary>A tap is the question on a phone, where the hover clock never runs (web iconTray.js explain): the tooltip opens at once above the target. <see cref="Dismiss"/> takes it away.</summary>
+        public static Tooltip ShowNow(VisualElement target, VisualElement overlay, string sizeId, string title, string body)
+        {
+            var tip = new Tooltip { size = sizeId };
+            tip.SetText(title, body);
+            tip.style.visibility = Visibility.Hidden;
+            overlay.Add(tip);
+            EventCallback<GeometryChangedEvent> placed = null;
+            placed = _ =>
+            {
+                tip.UnregisterCallback(placed);
+                if (tip.parent == null) return;
+                tip.PlaceBeside(target, overlay, TV.AlignCenter);
+                tip.style.visibility = StyleKeyword.Null;
+                tip.AddToClassList(UiClasses.TooltipVisible);
+            };
+            tip.RegisterCallback(placed);
+            return tip;
+        }
+
+        /// <summary>Takes a tooltip made by <see cref="ShowNow"/> away.</summary>
+        public void Dismiss()
+        {
+            RemoveFromClassList(UiClasses.TooltipVisible);
+            RemoveFromHierarchy();
+        }
+
         private static Tooltip Hook(Tooltip tip, VisualElement target, VisualElement overlay, int delayMs)
         {
             IVisualElementScheduledItem pending = null;

@@ -524,5 +524,7 @@ namespace Ashen.Generated
         public const string SettingsUndoButton = "SETTINGS_UNDO_BUTTON";
         public const string SettingsTipRow = "SETTINGS_TIP_ROW";
         public const string TitleArtLit = "TITLE_ART_LIT";
+        public const string MapPotionMinis = "MAP_POTION_MINIS";
+        public const string MapPotionsHost = "MAP_POTIONS_HOST";
     }
 }

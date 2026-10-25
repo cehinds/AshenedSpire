@@ -565,7 +565,9 @@
         "SettingsUndoText": "SETTINGS_UNDO_TEXT",
         "SettingsUndoButton": "SETTINGS_UNDO_BUTTON",
         "SettingsTipRow": "SETTINGS_TIP_ROW",
-        "TitleArtLit": "TITLE_ART_LIT"
+        "TitleArtLit": "TITLE_ART_LIT",
+        "MapPotionMinis": "MAP_POTION_MINIS",
+        "MapPotionsHost": "MAP_POTIONS_HOST"
       }
     },
     {
@@ -836,7 +838,25 @@
         "GateLeavingOut": "gate-leaving--out",
         "WalkedPrefix": "walked-",
         "MapNodeLane": "map-node--lane",
-        "MapLaneHigh": "map-lane--high"
+        "MapLaneHigh": "map-lane--high",
+        "PotionMini": "potion-mini",
+        "PotionMiniArt": "potion-mini-art",
+        "PotionMiniCount": "potion-mini-count",
+        "PotionMiniMore": "potion-mini-more",
+        "PotionMinisShown": "minis-shown",
+        "FlaskMenu": "flask-menu",
+        "FlaskMenuCap": "flask-menu-cap",
+        "FlaskMenuTitle": "flask-menu-title",
+        "FlaskMenuDetail": "flask-menu-detail",
+        "FlaskInspectArt": "flask-inspect-art",
+        "FlaskInspectLine": "flask-inspect-line",
+        "FlaskInspectReason": "flask-inspect-reason",
+        "FlaskMenuRow": "flask-menu-row",
+        "FlaskMenuRowLabel": "flask-menu-row-label",
+        "FlaskMenuRowDisabled": "flask-menu-row--disabled",
+        "FlaskInspect": "flask-inspect",
+        "FlaskInspectText": "flask-inspect-text",
+        "PotionMiniSpent": "potion-mini--spent"
       }
     },
     {
@@ -967,7 +987,8 @@
         "ArrowW": "arrowW",
         "ArrowInset": "arrowInset",
         "FocusMs": "focusMs",
-        "LaneEdgeRatio": "laneEdgeRatio"
+        "LaneEdgeRatio": "laneEdgeRatio",
+        "PotionMinis": "potionMinis"
       }
     },
     {

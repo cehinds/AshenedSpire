@@ -269,5 +269,23 @@ namespace Ashen.Generated
         public const string WalkedPrefix = "walked-";
         public const string MapNodeLane = "map-node--lane";
         public const string MapLaneHigh = "map-lane--high";
+        public const string PotionMini = "potion-mini";
+        public const string PotionMiniArt = "potion-mini-art";
+        public const string PotionMiniCount = "potion-mini-count";
+        public const string PotionMiniMore = "potion-mini-more";
+        public const string PotionMinisShown = "minis-shown";
+        public const string FlaskMenu = "flask-menu";
+        public const string FlaskMenuCap = "flask-menu-cap";
+        public const string FlaskMenuTitle = "flask-menu-title";
+        public const string FlaskMenuDetail = "flask-menu-detail";
+        public const string FlaskInspectArt = "flask-inspect-art";
+        public const string FlaskInspectLine = "flask-inspect-line";
+        public const string FlaskInspectReason = "flask-inspect-reason";
+        public const string FlaskMenuRow = "flask-menu-row";
+        public const string FlaskMenuRowLabel = "flask-menu-row-label";
+        public const string FlaskMenuRowDisabled = "flask-menu-row--disabled";
+        public const string FlaskInspect = "flask-inspect";
+        public const string FlaskInspectText = "flask-inspect-text";
+        public const string PotionMiniSpent = "potion-mini--spent";
     }
 }

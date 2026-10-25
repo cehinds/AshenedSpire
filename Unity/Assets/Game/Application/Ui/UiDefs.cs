@@ -410,6 +410,9 @@ namespace Ashen.App.Ui
 
         /// <summary>The shrine lane's line against the route's (the web's lane stroke 3.5 on the terrain, the route 3).</summary>
         public double LaneEdgeRatio = 1d;
+
+        /// <summary>How many flask icons the map's Potions tray holds before its +N tile (web wireframeUi.iconTray.footerPotionIcons).</summary>
+        public int PotionMinis = 1;
         public double EdgeWidth;
         public double DotSpacing;
         public double RowTouchRatio = 1d;
@@ -440,6 +443,7 @@ namespace Ashen.App.Ui
                 ZoomSteps = steps != null && steps.Count > 0 ? steps : (IReadOnlyList<double>)new double[] { 1d },
                 ZoomDefault = (int?)json[UiKeys.ZoomDefault] ?? 0,
                 LaneEdgeRatio = (double?)json[UiKeys.LaneEdgeRatio] ?? 1d,
+                PotionMinis = Math.Max(1, (int?)json[UiKeys.PotionMinis] ?? 1),
                 EdgeWidth = (double?)json[UiKeys.EdgeWidth] ?? 1d,
                 DotSpacing = (double?)json[UiKeys.DotSpacing] ?? 1d,
                 RowTouchRatio = (double?)json[UiKeys.RowTouchRatio] ?? 1d,

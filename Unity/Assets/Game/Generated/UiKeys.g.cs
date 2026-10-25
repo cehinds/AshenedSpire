@@ -129,5 +129,6 @@ namespace Ashen.Generated
         public const string ArrowInset = "arrowInset";
         public const string FocusMs = "focusMs";
         public const string LaneEdgeRatio = "laneEdgeRatio";
+        public const string PotionMinis = "potionMinis";
     }
 }

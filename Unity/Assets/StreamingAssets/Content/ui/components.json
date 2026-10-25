@@ -16,7 +16,7 @@
       "damage.school.flat": { "from": "school", "suffix": "DamageFlat", "value": "amount" }
     }
   },
-  "climb": { "mapBackground": "env.{region}-map", "rowHeight": 155, "zoomSteps": [0.77, 0.89, 1, 1.15, 1.35, 1.54, 1.93], "zoomDefault": 2, "laneEdgeRatio": 1.1667, "edgeWidth": 3, "dotSpacing": 9, "rowTouchRatio": 1.15,
+  "climb": { "mapBackground": "env.{region}-map", "rowHeight": 155, "zoomSteps": [0.77, 0.89, 1, 1.15, 1.35, 1.54, 1.93], "zoomDefault": 2, "laneEdgeRatio": 1.1667, "potionMinis": 4, "edgeWidth": 3, "dotSpacing": 9, "rowTouchRatio": 1.15,
     "colPitch": 149, "boardPadX": 138, "boardPadTop": 60, "edgeOutlineWidth": 6,
     "nodeIcons": { "monster": "attack", "elite": "madness", "boss": "boss", "shrine": "burn", "merchant": "compare", "treasure": "block", "event": "" },
     "nodeTints": { "elite": "ember", "boss": "ember", "shrine": "gold", "merchant": "grace", "treasure": "gold" },

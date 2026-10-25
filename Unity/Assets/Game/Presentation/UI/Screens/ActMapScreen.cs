@@ -34,7 +34,7 @@ namespace Ashen.Presentation.UI.Screens
     /// dungeon whose screen is not built yet opens the planned door over the map with the one action that keeps the run moving (D-126, D-127). Deck, Equipment and Stats open the Armoury (D-903).
     /// Escape closes the legend or the tray, else opens W-20; pad Start opens W-20.
     /// </summary>
-    public sealed class ActMapScreen : ScreenView
+    public sealed partial class ActMapScreen : ScreenView
     {
         private RunSession _session;
         private Core2RunSession _core2;
@@ -121,6 +121,7 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocButton>(UiNames.MapLegendToggle).clicked += () => ShowLegend(!_legend);
             var potions = Root.Q<LocButton>(UiNames.MapPotions);
             potions.clicked += OpenPotions;
+            BindPotions();
             var action = PlannedAction;
             action.clicked += () => OnPlanned(action);
             ApplyHudArt();
@@ -239,6 +240,7 @@ namespace Ashen.Presentation.UI.Screens
             RenderTray();
             RenderLegend();
             RenderPlanned();
+            RenderMinis();
         }
 
         /// <summary>The HUD band: the hit points, the relics as pips and the cinders (the combat board's, shared by every room of a run).</summary>
@@ -579,6 +581,16 @@ namespace Ashen.Presentation.UI.Screens
 
         public override bool HandleBack()
         {
+            if (_flaskMenu != null)
+            {
+                CloseFlaskMenu();
+                return true;
+            }
+            if (_explainedFor != null)
+            {
+                ClearExplained();
+                return true;
+            }
             if (_legend)
             {
                 ShowLegend(false);
@@ -611,7 +623,13 @@ namespace Ashen.Presentation.UI.Screens
             if (_climb != null && !_climb.RunOver) Render();
         }
 
-        public override void Unbind() => _trayShow?.Pause();
+        public override void Unbind()
+        {
+            _trayShow?.Pause();
+            _miniReveal?.Pause();
+            ClearExplained();
+            CloseFlaskMenu();
+        }
 
         /// <summary>Opens the legend (review captures).</summary>
         public void LegendForReview() => ShowLegend(true);

@@ -138,6 +138,24 @@ namespace Ashen.Tests
             Assert.That(session.DrinkPotion("hp"), Is.False);
         }
 
+        [Test]
+        public void TheFlaskMenuOffersUseInspectAndDropWithTheRulesReasons()
+        {
+            var session = AtTheDoor(779);
+            var hp = Core2RunPotions.Rows(session, Ui.Strings).First(r => r.ChargeKind == "hp");
+            Assert.That(hp.Actions.Select(a => a.Id), Is.EqualTo(new[] { Core2FlaskActionId.Use, Core2FlaskActionId.Inspect, Core2FlaskActionId.Drop }));
+            Assert.That(hp.Actions.Select(a => a.Label), Is.EqualTo(new[] { "Use", "Inspect", "Drop" }));
+            var use = hp.Actions.First(a => a.Id == Core2FlaskActionId.Use);
+            Assert.That(use.Enabled, Is.False);
+            Assert.That(use.Reason, Does.Contain("Use flasks outside combat"));
+            Assert.That(hp.Actions.First(a => a.Id == Core2FlaskActionId.Inspect).Enabled, Is.True, "reading is always offered");
+            var drop = hp.Actions.First(a => a.Id == Core2FlaskActionId.Drop);
+            Assert.That(drop.Enabled, Is.False);
+            Assert.That(drop.Reason, Is.EqualTo("Charge flasks stay with the run"));
+            Assert.That(Core2RunPotions.Apply(session, hp, Core2FlaskActionId.Use), Is.False, "a shut action changes nothing");
+            Assert.That(Core2RunPotions.Apply(session, hp, Core2FlaskActionId.Inspect), Is.False, "reading changes nothing");
+        }
+
         // ------------------------------------------------------------------ the Armoury
 
         [Test]

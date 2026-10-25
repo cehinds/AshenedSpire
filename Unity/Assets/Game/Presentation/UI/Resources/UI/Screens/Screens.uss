@@ -831,3 +831,34 @@
 .layout-narrow .pick-button {
     width: var(--size-third-width);
 }
+
+/* ---- the flask door (flask.js openFlaskInspectModal): the art at a size worth looking at beside what the flask does ---- */
+
+.flask-inspect {
+    flex-direction: row;
+    align-items: center;
+}
+
+.flask-inspect-art {
+    flex-shrink: 0;
+    width: var(--size-flask-inspect-art);
+    height: var(--size-flask-inspect-art);
+    margin-right: var(--space-lg);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.flask-inspect-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.flask-inspect-line {
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.flask-inspect-reason {
+    margin-top: var(--space-sm);
+    color: var(--color-muted);
+    white-space: normal;
+}

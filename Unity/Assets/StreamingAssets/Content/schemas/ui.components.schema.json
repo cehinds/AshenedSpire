@@ -232,6 +232,9 @@
         "laneEdgeRatio": {
           "type": "number"
         },
+        "potionMinis": {
+          "type": "integer"
+        },
         "edgeWidth": {
           "type": "number"
         },

@@ -1074,7 +1074,10 @@ namespace Ashen.Generated
         public const string RunPotionsDrink = "runPotions.drink";
         public const string RunPotionsDrop = "runPotions.drop";
         public const string RunPotionsEmpty = "runPotions.empty";
+        public const string RunPotionsEyebrow = "runPotions.eyebrow";
+        public const string RunPotionsInspect = "runPotions.inspect";
         public const string RunPotionsKeep = "runPotions.keep";
+        public const string RunPotionsMore = "runPotions.more";
         public const string RunPotionsNone = "runPotions.none";
         public const string RunPotionsSetting = "runPotions.setting";
         public const string RunPotionsTitle = "runPotions.title";
