@@ -71,6 +71,110 @@
     border-radius: var(--radius-pill);
 }
 
+/* ---- the focus ring (base.css:376-389, kit.css:2533): 2 px gold, drawn outside the control, for a key or pad cursor only. FocusRing.cs
+        places the root over the focused control; the box reaches past it by the offset plus the stroke (size.focusRingReach, negative) ---- */
+
+.focus-ring {
+    position: absolute;
+}
+
+.focus-ring-box {
+    position: absolute;
+    left: var(--size-focus-ring-reach);
+    top: var(--size-focus-ring-reach);
+    right: var(--size-focus-ring-reach);
+    bottom: var(--size-focus-ring-reach);
+    border-width: var(--border-focus);
+    border-color: var(--color-gold);
+    border-radius: var(--radius-tight);
+}
+
+/* ---- the select (VP-16, D-1204): the web's native select as a dark face with the chosen words and a chevron; its list opens in place
+        (Kit/SelectField.cs) so the settings' scroll view cannot clip it and the options stay in the screen's focus order ---- */
+
+.kit-select {
+    flex-direction: column;
+    align-self: stretch;
+}
+
+.kit-select-face.kit-button {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--size-select-h);
+    padding: 0 var(--space-md);
+    background-color: var(--color-bg-raise);
+    background-image: none;
+    border-color: var(--color-line-soft);
+    border-radius: var(--radius-button);
+    -unity-text-align: middle-left;
+}
+
+.kit-select-face.kit-button:hover,
+.kit-select-face.kit-button:focus {
+    background-color: var(--color-bg-raise);
+}
+
+.kit-select-value {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 0;
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+    -unity-text-align: middle-left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.kit-select-chevron {
+    flex-shrink: 0;
+    width: var(--size-select-chevron-w);
+    margin: 0;
+    font-size: var(--font-body);
+    color: var(--color-muted);
+    -unity-text-align: middle-center;
+}
+
+.kit-select-list {
+    display: none;
+    flex-direction: column;
+    margin-top: var(--space-xxs);
+    padding: var(--space-xxs);
+    background-color: var(--color-bg-raise);
+    border-width: var(--border-hairline);
+    border-color: var(--color-gold-soft);
+    border-radius: var(--radius-button);
+}
+
+.kit-select.nav--open .kit-select-list {
+    display: flex;
+}
+
+.kit-select-option.kit-button {
+    min-height: var(--size-select-h);
+    margin: 0;
+    padding: 0 var(--space-md);
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-color: var(--color-transparent);
+    -unity-text-align: middle-left;
+}
+
+.kit-select-option.kit-button:hover,
+.kit-select-option.kit-button:focus {
+    background-color: var(--color-panel-raise);
+}
+
+.kit-select-option.is-selected {
+    color: var(--color-gold);
+}
+
+.layout-narrow .kit-select-face.kit-button,
+.layout-narrow .kit-select-option.kit-button {
+    min-height: var(--size-select-narrow-h);
+}
+
 /* ---- scroll bars (kit.css:673-679): 8 px, thin line-soft thumb with a 4 px corner on a transparent track, no arrows ---- */
 
 .unity-scroll-view .unity-scroller {

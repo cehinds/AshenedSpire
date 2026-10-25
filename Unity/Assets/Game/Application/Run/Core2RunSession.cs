@@ -801,7 +801,8 @@ namespace Ashen.App.Run
                         warned = true;
                         result.Warnings.Add(string.Format(CultureInfo.InvariantCulture, RunFlowMessages.ContentChanged, loaded.ContentHash, content.ContentHash));
                     }
-                    var fight = Core2CombatSession.Load(core.Combat, saves, slot);
+                    // The intents appended since the checkpoint are not in its tally: observe them as they replay, as Execute did when they ran.
+                    var fight = Core2CombatSession.Load(core.Combat, saves, slot, (outcome, combat) => session.Tally.Observe(outcome.Events, combat.State.Enemies));
                     if (fight.Status != Core2LoadStatus.Loaded)
                     {
                         result.Status = fight.Status == Core2LoadStatus.ProfileMismatch ? Core2RunLoadStatus.ProfileMismatch : Core2RunLoadStatus.Damaged;

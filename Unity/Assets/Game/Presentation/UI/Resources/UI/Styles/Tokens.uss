@@ -43,6 +43,7 @@
     --color-text-ink: #000000;
     --color-modal-shadow: rgba(0, 0, 0, 0.69);
     --color-modal-top-line: rgba(201, 162, 39, 0.09);
+    --color-modal-bar: rgba(13, 11, 8, 0.94);
     --color-wordmark-glow: rgba(201, 162, 39, 0.6);
     --color-transparent: rgba(0, 0, 0, 0);
     --color-enemy-turn-wash: rgba(90, 20, 20, 0.35);
@@ -278,7 +279,7 @@
     --size-tooltip-wt1: 200px;
     --size-tooltip-wt2: 280px;
     --size-tooltip-wt3: 380px;
-    --size-hold-bar-h: 4px;
+    --size-hold-stripe: 23px;
     --size-refusal-max-w: 340px;
     --size-report-max-h: 62%;
     --size-wordmark-letter: 10px;
@@ -402,6 +403,19 @@
     --size-tooltip-shadow-side: -22px;
     --size-tooltip-shadow-top: -14px;
     --size-tooltip-shadow-bottom: -30px;
+    --size-tooltip-arrow-w: 7.5px;
+    --size-tooltip-arrow-h: 3.75px;
+    --size-tooltip-arrow-top: -4.75px;
+    --size-tooltip-arrow-inset: 5px;
+    --size-focus-ring-reach: -4px;
+    --size-select-h: 30px;
+    --size-select-narrow-h: 46px;
+    --size-select-chevron-w: 18px;
+    --size-settings-select-w: 390px;
+    --size-nav-step-h: 53px;
+    --size-head-ctrl: 36px;
+    --size-head-ctrl-narrow: 53px;
+    --size-nav-all-steps-w: 175px;
     --size-scrollbar-w: 8px;
     --size-divider-h: 12px;
     --size-track-hold: 1.6px;

@@ -431,9 +431,9 @@ namespace Ashen.App.Combat
         /// <summary>
         /// Resume a slot: the verified envelope, this build's Core 2 format, the profile the fight is pinned to (D-171: another profile is recoverable, the slot
         /// is kept as it is), then the checkpoint with the log replayed while every after-state hash matches (the first mismatch stops at the last verified
-        /// state and reports it, D-017).
+        /// state and reports it, D-017). <paramref name="replayed"/> sees each verified replayed intent's outcome, as a live caller saw it when it ran.
         /// </summary>
-        public static Core2LoadResult Load(CoreCombatData data, SaveService saves, string slot)
+        public static Core2LoadResult Load(CoreCombatData data, SaveService saves, string slot, Action<Core2Outcome, Core2CombatSession> replayed = null)
         {
             var result = new Core2LoadResult();
             LoadResult loaded;
@@ -480,6 +480,7 @@ namespace Ashen.App.Combat
                         break;
                     }
                     session._seq++;
+                    replayed?.Invoke(outcome, session);
                 }
                 result.Session = session;
                 result.Run = payload[RunSaveKeys.Run] is JObject run ? CoreSnapshot.Doubles(run) : null;

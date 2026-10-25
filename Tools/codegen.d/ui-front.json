@@ -118,7 +118,7 @@
         "SettingsSwitch": "settings-switch",
         "SettingsSwitchOn": "settings-switch--on",
         "SettingsKnob": "settings-knob",
-        "SettingsChips": "settings-chips",
+        "SettingsSelect": "settings-select",
         "SettingsSlider": "settings-slider",
         "SettingsStep": "settings-step",
         "SettingsReadout": "settings-readout",

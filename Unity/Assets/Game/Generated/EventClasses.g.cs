@@ -18,6 +18,7 @@ namespace Ashen.Generated
         public const string ResponseLabel = "c2event-response-label";
         public const string ResponseTag = "c2event-response-tag";
         public const string ResponseHold = "c2event-response-hold";
+        public const string ResponseDial = "c2event-response--dial";
         public const string Result = "c2event-result";
         public const string Continue = "c2event-continue";
         public const string Off = "c2event-off";

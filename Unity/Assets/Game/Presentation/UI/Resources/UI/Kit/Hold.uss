@@ -1,4 +1,4 @@
-/* Hold-to-confirm (docs/design/04 §0): the label, a progress bar and its text equivalent. */
+/* Hold-to-confirm (docs/design/04 §0): the label, the stripe fill behind it and its text equivalent. */
 .holdbutton {
     flex-direction: column;
     justify-content: center;
@@ -13,16 +13,20 @@
     color: var(--color-parchment);
 }
 
-.hold-bar {
-    height: var(--size-hold-bar-h);
-    margin-top: var(--space-xxs);
-    background-color: var(--color-track);
-}
-
+/* The fill (kit.css:2883-2891): the web paints the hold as a light / dark diagonal stripe BEHIND the control's own label, growing from the
+   left to 100% of the control. It is the first child (drawn under the label), absolutely placed over the whole button, and HoldButton sets
+   its width in percent. The stripe is a seamless tile (Frames/hold-stripe.png, Tools/ui-frames.mjs). */
 .hold-fill {
-    height: var(--size-full-width);
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
     width: 0;
-    background-color: var(--color-gold);
+    background-image: url("../Frames/hold-stripe.png");
+    background-repeat: repeat;
+    background-size: var(--size-hold-stripe) var(--size-hold-stripe);
+    background-position-x: left;
+    background-position-y: top;
 }
 
 /* The web's hold hint (kit.css:2893): small, wide-tracked, gold at 75%. Upper-cased by kit-upper in Hold.uxml. */
@@ -34,6 +38,7 @@
     opacity: var(--opacity-muted);
 }
 
-.is-holding .hold-fill {
-    background-color: var(--color-danger);
+/* The control wears the gold edge while it is held (kit.css:2898). */
+.holdbutton.is-holding {
+    border-color: var(--color-gold);
 }

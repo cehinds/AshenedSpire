@@ -543,6 +543,7 @@ namespace Ashen.Generated
         public const string Core2ToolsArmaments = "core2.tools.armaments";
         public const string Core2ToolsRecover = "core2.tools.recover";
         public const string Core2TraitJoin = "core2.trait.join";
+        public const string CreationAllSteps = "creation.allSteps";
         public const string CreationBack = "creation.back";
         public const string CreationBegin = "creation.begin";
         public const string CreationDefaultName = "creation.defaultName";
@@ -582,6 +583,7 @@ namespace Ashen.Generated
         public const string CreationStatMp = "creation.stat.mp";
         public const string CreationStatSp = "creation.stat.sp";
         public const string CreationStatJoin = "creation.statJoin";
+        public const string CreationStep = "creation.step";
         public const string CreationTile = "creation.tile";
         public const string CreationTitle = "creation.title";
         public const string CreationUnlockMany = "creation.unlock.many";
@@ -1018,6 +1020,7 @@ namespace Ashen.Generated
         public const string RunPotionsNone = "runPotions.none";
         public const string RunPotionsSetting = "runPotions.setting";
         public const string RunPotionsTitle = "runPotions.title";
+        public const string SelectChevron = "select.chevron";
         public const string SettingsGroupAbout = "settings.group.about";
         public const string SettingsGroupAccessibility = "settings.group.accessibility";
         public const string SettingsGroupAudio = "settings.group.audio";

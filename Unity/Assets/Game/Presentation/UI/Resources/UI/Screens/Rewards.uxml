@@ -8,7 +8,7 @@
                     <ui:VisualElement name="REWARD_LIST" class="reward-list" />
                 </ui:ScrollView>
                 <ui:VisualElement name="CLAIM_STATUS" class="claim-status">
-                    <Ashen.Presentation.UI.LocLabel class="eyebrow kit-text-header" string-key="rewards.claim.heading" />
+                    <Ashen.Presentation.UI.LocLabel class="eyebrow kit-upper kit-text-header" string-key="rewards.claim.heading" />
                     <ui:VisualElement name="CLAIM_LIST" class="claim-list" />
                     <Ashen.Presentation.UI.LocLabel name="CLAIM_REQUIRED" class="claim-required kit-text-value" />
                     <Ashen.Presentation.UI.LocLabel name="REWARDS_HINT" class="rewards-hint kit-text-value" />
