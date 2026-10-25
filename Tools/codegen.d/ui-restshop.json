@@ -125,6 +125,7 @@
         "BoardFloorShadowDrop": "boardFloorShadowDrop",
         "BoardShadowCore": "boardShadowCore",
         "EnemyGlowOpacity": "enemyGlowOpacity",
+        "EnemyVeilGain": "enemyVeilGain",
         "BoardShadowMid": "boardShadowMid",
         "BoardShadowMidStop": "boardShadowMidStop",
         "BoardShadowEdge": "boardShadowEdge",

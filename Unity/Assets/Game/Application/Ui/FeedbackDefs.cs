@@ -88,6 +88,10 @@ namespace Ashen.App.Ui
         public double? Rotate;
         public double? Track;
         public bool PopScale;
+
+        /// <summary>The brightness() of the figure (1 is none) and the share of its drop-shadow glow (0 none, 1 the track's whole glow) at this stop: the filter of the web's action families.</summary>
+        public double? Brightness;
+        public double? Glow;
     }
 
     /// <summary>One of the web's @keyframes (ui/feedback.json tracks): duration, easing name and stops.</summary>
@@ -98,6 +102,10 @@ namespace Ashen.App.Ui
         public bool AmpScaled;
         public double RotateJitter;
         public double TintUntil;
+
+        /// <summary>The blur radius (px) and colour (#rrggbb) of the drop-shadow the stops' Glow scales; null colour for a track with no glow.</summary>
+        public double GlowBlur;
+        public string GlowColour;
         public List<FxStop> Stops = new List<FxStop>();
     }
 

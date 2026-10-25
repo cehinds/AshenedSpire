@@ -1,5 +1,5 @@
 {
-  "contentHash": "9827de527c637331618cedffbd90ebb7f14e0db1d0b3db86cbaa6658fe6ddad2",
+  "contentHash": "3314986d1a769ca5e58a1cf82e5ecc50f83b02e1d1aca1de74405b689a4eb1c8",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -2280,9 +2280,9 @@
       "sha256": "81c39ab04d97e7a52e2f66ca82f59d9963b55949c81f6c91fc241e7b3dfbce97"
     },
     "ui/enemyStage.json": {
-      "bytes": 37095,
+      "bytes": 39743,
       "generated": false,
-      "sha256": "aa7c231cde2f48faedc00673a54773deab9fe26980bd10c3b2f4554259e0534c"
+      "sha256": "290e9132696ef1c1726ece2b5e56774241c8bf108759ea540e1ba2050472d863"
     },
     "ui/equipmentCard.json": {
       "bytes": 2407,
@@ -2365,9 +2365,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 51584,
+      "bytes": 51610,
       "generated": false,
-      "sha256": "673ea539775473ec91e2cdac935e3fbff6a3d08c642ed532fc0a4de1470844fc"
+      "sha256": "b5c4e712de45865e335b9df7a8383f481ae3dd80fd44b0b36bf391d3ccae0802"
     }
   },
   "schemaVersion": 1,

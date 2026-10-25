@@ -1681,6 +1681,178 @@
       "at": "zero"
      }
     ]
+   },
+   "filters": {
+    "sweep": {
+     "keyframes": "family-slash",
+     "blur": 0,
+     "colour": null,
+     "stops": [
+      {
+       "t": 0,
+       "brightness": 1,
+       "glow": 0
+      },
+      {
+       "t": 0.55,
+       "brightness": 1.25,
+       "glow": 0
+      },
+      {
+       "t": 1,
+       "brightness": 1,
+       "glow": 0
+      }
+     ]
+    },
+    "lunge": {
+     "keyframes": "family-thrust",
+     "blur": 0,
+     "colour": null,
+     "stops": [
+      {
+       "t": 0,
+       "brightness": 1,
+       "glow": 0
+      },
+      {
+       "t": 0.55,
+       "brightness": 1.25,
+       "glow": 0
+      },
+      {
+       "t": 0.65,
+       "brightness": 1.25,
+       "glow": 0
+      },
+      {
+       "t": 1,
+       "brightness": 1,
+       "glow": 0
+      }
+     ]
+    },
+    "impact": {
+     "keyframes": "family-strike",
+     "blur": 0,
+     "colour": null,
+     "stops": [
+      {
+       "t": 0,
+       "brightness": 1,
+       "glow": 0
+      },
+      {
+       "t": 0.55,
+       "brightness": 1.4,
+       "glow": 0
+      },
+      {
+       "t": 1,
+       "brightness": 1,
+       "glow": 0
+      }
+     ]
+    },
+    "release": {
+     "keyframes": "family-projectile",
+     "blur": 0,
+     "colour": null,
+     "stops": [
+      {
+       "t": 0,
+       "brightness": 1,
+       "glow": 0
+      },
+      {
+       "t": 0.4,
+       "brightness": 1.25,
+       "glow": 0
+      },
+      {
+       "t": 0.55,
+       "brightness": 1.25,
+       "glow": 0
+      },
+      {
+       "t": 1,
+       "brightness": 1,
+       "glow": 0
+      }
+     ]
+    },
+    "cast": {
+     "keyframes": "family-spell",
+     "blur": 10,
+     "colour": "#c9a227",
+     "stops": [
+      {
+       "t": 0,
+       "brightness": 1,
+       "glow": 0
+      },
+      {
+       "t": 0.55,
+       "brightness": 1.4,
+       "glow": 1
+      },
+      {
+       "t": 1,
+       "brightness": 1,
+       "glow": 0
+      }
+     ]
+    },
+    "brace": {
+     "keyframes": "family-guard",
+     "blur": 5,
+     "colour": "#e8dcc0",
+     "stops": [
+      {
+       "t": 0,
+       "brightness": 1,
+       "glow": 0
+      },
+      {
+       "t": 0.35,
+       "brightness": 1.2,
+       "glow": 1
+      },
+      {
+       "t": 0.7,
+       "brightness": 1.2,
+       "glow": 1
+      },
+      {
+       "t": 1,
+       "brightness": 1,
+       "glow": 0
+      }
+     ]
+    },
+    "sidestep": {
+     "keyframes": "family-dodge",
+     "blur": 0,
+     "colour": null,
+     "stops": [
+      {
+       "t": 0,
+       "opacity": 1
+      },
+      {
+       "t": 0.4,
+       "opacity": 0.65
+      },
+      {
+       "t": 0.6,
+       "opacity": 0.65
+      },
+      {
+       "t": 1,
+       "opacity": 1
+      }
+     ]
+    }
    }
   },
   "motion": {

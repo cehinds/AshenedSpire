@@ -42,6 +42,13 @@ namespace Ashen.Generated
         public const string RecoilPx = "recoilPx";
         public const string Easing = "easing";
         public const string Tracks = "tracks";
+        public const string Filters = "filters";
+        public const string Stops = "stops";
+        public const string Blur = "blur";
+        public const string Colour = "colour";
+        public const string Brightness = "brightness";
+        public const string Glow = "glow";
+        public const string Opacity = "opacity";
         public const string T = "t";
         public const string At = "at";
     }

@@ -469,6 +469,7 @@ namespace Ashen.Presentation.UI.Kit
             {
                 FxMotion.Apply(_figure, pose);
                 if (tinted) Tint(pose.Tinted ? motion.HitTint : (Color?)null);
+                if (HasEnemyStage) SetEnemyFilter(pose, track);
             }, () =>
             {
                 Rest();
@@ -483,6 +484,7 @@ namespace Ashen.Presentation.UI.Kit
             _motion = null;
             FxMotion.Reset(_figure);
             Tint(null);
+            ClearEnemyFilter();
         }
 
         /// <summary>Drops every held pose and motion at once (the web's click-skip settles the figures).</summary>

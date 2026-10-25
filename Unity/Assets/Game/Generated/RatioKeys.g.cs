@@ -17,6 +17,7 @@ namespace Ashen.Generated
         public const string BoardFloorShadowDrop = "boardFloorShadowDrop";
         public const string BoardShadowCore = "boardShadowCore";
         public const string EnemyGlowOpacity = "enemyGlowOpacity";
+        public const string EnemyVeilGain = "enemyVeilGain";
         public const string BoardShadowMid = "boardShadowMid";
         public const string BoardShadowMidStop = "boardShadowMidStop";
         public const string BoardShadowEdge = "boardShadowEdge";

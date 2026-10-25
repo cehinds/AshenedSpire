@@ -29,6 +29,9 @@ namespace Ashen.Presentation.UI.Kit
         /// <summary>How opaque the aura of a buff theme is drawn (the web's drop-shadow is as strong as the blur lets it be at the silhouette's edge).</summary>
         public float GlowOpacity;
 
+        /// <summary>How much white the figure takes per unit of brightness above 1 (the web's brightness() filter brightens the colours it multiplies; a veil of the soft silhouette is what UI Toolkit can draw in its place).</summary>
+        public float VeilGain;
+
         /// <summary>How often the stage is redrawn while it moves.</summary>
         public double TickMs;
 
@@ -50,6 +53,11 @@ namespace Ashen.Presentation.UI.Kit
     {
         private EnemyStageState _enemyState;
         private IVisualElementScheduledItem _enemyTick;
+        private double _filterBrightness = 1;
+        private double _filterGlow;
+        private double _filterBlur;
+        private Color _filterColour;
+        private bool _filterHasColour;
 
         /// <summary>True when the figure is an enemy stage that has its art; otherwise it keeps its base art.</summary>
         public bool HasEnemyStage => _enemyState != null && Data?.Enemy != null;
@@ -147,7 +155,7 @@ namespace Ashen.Presentation.UI.Kit
             PaintEnemyGlow(feed, draw, w, scale);
             PlaceFrame(_stageBody, feed.Texture(draw.Art), draw.Rect, w, scale);
             UiDom.Show(_stageEffect, false);
-            UiDom.Show(_stageMask, false);
+            PaintEnemyFilter(feed, draw, w, scale);
             UiDom.Show(_stageBox, true);
             _pose.AddToClassList(UiClasses.Hidden);
             _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
@@ -176,6 +184,54 @@ namespace Ashen.Presentation.UI.Kit
                 layer.style.opacity = feed.GlowOpacity;
                 layer.style.unityBackgroundImageTintColor = colour;
             }
+        }
+
+        /// <summary>
+        /// The filter of the action's keyframes (styles/combat.css family-*): a sample of the action track names the brightness and the share of the drop-shadow glow in force. The figure paints them with the frame on
+        /// show (<see cref="PaintEnemyFilter"/>) as the clip ticks.
+        /// </summary>
+        private void SetEnemyFilter(FxPose pose, TrackDef track)
+        {
+            _filterBrightness = pose.Brightness ?? 1;
+            _filterGlow = pose.Glow ?? 0;
+            _filterBlur = track.GlowBlur;
+            _filterHasColour = !string.IsNullOrEmpty(track.GlowColour) && ColorUtility.TryParseHtmlString(track.GlowColour, out _filterColour);
+            if (!(_enemyState?.Busy ?? false)) PaintEnemy();
+        }
+
+        private void ClearEnemyFilter()
+        {
+            if (_filterBrightness == 1 && _filterGlow == 0) return;
+            _filterBrightness = 1;
+            _filterGlow = 0;
+            if (HasEnemyStage && !(_enemyState?.Busy ?? false)) PaintEnemy();
+            else if (_stageMask != null) UiDom.Show(_stageMask, false);
+            if (_stageFlash != null) UiDom.Show(_stageFlash, false);
+        }
+
+        /// <summary>
+        /// brightness(b) multiplies the figure's colours; UI Toolkit has no filter, so the body takes a white veil of its soft silhouette sprite over it (about (b - 1) of white for a mid-tone) and the drop-shadow is
+        /// a tinted copy of the silhouette behind it, grown by the blur and faded in with its share. Both follow the frame on show.
+        /// </summary>
+        private void PaintEnemyFilter(EnemyFeed feed, EnemyDraw draw, float boxWidth, float scale)
+        {
+            var silhouette = (_filterBrightness > 1 || _filterGlow > 0) && feed.Glow != null ? feed.Glow(draw.Frame) : null;
+            if (silhouette != null && _filterBrightness > 1)
+            {
+                PlaceFrame(_stageMask, silhouette, draw.Rect, boxWidth, scale);
+                _stageMask.style.unityBackgroundImageTintColor = Color.white;
+                _stageMask.style.opacity = Mathf.Clamp01((float)(_filterBrightness - 1) * feed.VeilGain);
+            }
+            else UiDom.Show(_stageMask, false);
+            if (silhouette != null && _filterGlow > 0 && _filterHasColour)
+            {
+                var grow = _filterBlur * _filterGlow * UiMath.Half;
+                var rect = new StageRect { Left = draw.Rect.Left - grow, Top = draw.Rect.Top - grow, Width = draw.Rect.Width + grow / UiMath.Half, Height = draw.Rect.Height + grow / UiMath.Half };
+                PlaceFrame(_stageFlash, silhouette, rect, boxWidth, scale);
+                _stageFlash.style.opacity = (float)(feed.GlowOpacity * _filterGlow);
+                _stageFlash.style.unityBackgroundImageTintColor = _filterColour;
+            }
+            else UiDom.Show(_stageFlash, false);
         }
 
         /// <summary>A frame of the enemy stage at its rectangle: left of the figure box's centre, below the stage's top.</summary>

@@ -43,6 +43,13 @@
         "RecoilPx": "recoilPx",
         "Easing": "easing",
         "Tracks": "tracks",
+        "Filters": "filters",
+        "Stops": "stops",
+        "Blur": "blur",
+        "Colour": "colour",
+        "Brightness": "brightness",
+        "Glow": "glow",
+        "Opacity": "opacity",
         "T": "t",
         "At": "at"
       }

@@ -1191,6 +1191,7 @@
     --ratio-board-floor-shadow-drop: 3;
     --ratio-board-shadow-core: 0.7;
     --ratio-enemy-glow-opacity: 0.55;
+    --ratio-enemy-veil-gain: 0.8;
     --ratio-board-shadow-mid: 0.28;
     --ratio-board-shadow-mid-stop: 0.45;
     --ratio-board-shadow-edge: 0.72;

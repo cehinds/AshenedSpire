@@ -49,6 +49,7 @@ namespace Ashen.Presentation.UI.Kit
         private VisualElement _stageBox;
         private VisualElement _stageBody;
         private VisualElement[] _stageGlows;
+        private VisualElement _stageFlash;
         private VisualElement _stageEffect;
         private VisualElement _stageMask;
         private IVisualElementScheduledItem _stageTick;
@@ -62,6 +63,8 @@ namespace Ashen.Presentation.UI.Kit
             _stageBox.AddToClassList(UiClasses.FighterStage);
             _stageGlows = Enumerable.Range(0, AuraCount.Layers).Select(_ => StageLayer(UiClasses.FighterStageGlow)).ToArray();
             foreach (var glow in _stageGlows) _stageBox.Add(glow);
+            _stageFlash = StageLayer(UiClasses.FighterStageGlow);
+            _stageBox.Add(_stageFlash);
             _stageBody = StageLayer(UiClasses.FighterStageBody);
             _stageEffect = StageLayer(UiClasses.FighterStageEffect);
             _stageMask = StageLayer(UiClasses.FighterStageMask);
