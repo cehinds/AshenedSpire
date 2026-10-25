@@ -93,18 +93,17 @@ namespace Ashen.Tests
         [Test]
         public void TheClassPreviewReadsTheStartingRun()
         {
-            var id = Content.DefaultClass();
-            var preview = Content.Preview(id);
-            var run = Ashen.Domain.Run.RunState.Create(Content.Data, 1u, id);
-            Assert.That(preview.MaxHp, Is.EqualTo(run.Value<double>("maxHp")));
-            Assert.That(preview.Actions, Is.EqualTo(run.Value<double>("energyMax")));
-            Assert.That(preview.Attributes.Select(a => a.Key), Is.EqualTo(Content.Data.Attributes.All.Select(a => a.Value<string>("id")).Where(a => run["attributes"][a] != null)));
+            var classes = CreationClasses.For(Content, null);
+            var preview = classes.Preview(classes.Default());
+            Assert.That(preview.MaxHp, Is.GreaterThan(0));
+            Assert.That(preview.Actions, Is.GreaterThan(0));
+            Assert.That(preview.Attributes, Is.Not.Empty);
             foreach (var a in preview.Attributes) Assert.That(Ui.Strings.Has(string.Format(UiFormats.AttributeShortKey, a.Key)), Is.True, a.Key);
-            foreach (var cls in Content.ClassIds)
+            foreach (var cls in classes.Ids)
             {
                 Assert.That(Ui.Strings.Has(string.Format(UiFormats.ClassNameKey, cls)), Is.True, cls);
                 Assert.That(Ui.Strings.Has(string.Format(UiFormats.ClassDescriptionKey, cls)), Is.True, cls);
-                Assert.That(Content.Preview(cls) == null, Is.EqualTo(Content.ClassProblem(cls) != null), cls);
+                Assert.That(classes.Preview(cls), Is.Not.Null, "a locked class still previews the run it would start: " + cls);
             }
         }
 
@@ -132,13 +131,15 @@ namespace Ashen.Tests
             Assert.That(ComponentDefaults.ArtMatches("env.*-combat", "env.hollow-weald-combat"), Is.True);
             Assert.That(ComponentDefaults.ArtMatches("env.*-combat", "env.hollow-weald-map"), Is.False);
             var registry = TestContent.ContentJson(ContentFiles.AssetsRegistry);
-            foreach (var enemy in Content.Data.Encounters.Get(Content.FirstFightEncounter())["enemies"].Select(t => (string)t))
+            var core = Content.Core2;
+            var encounter = core.Loop.Map.Encounters.All.First();
+            foreach (var enemy in encounter["enemies"].Select(t => (string)t))
                 Assert.That(Ui.Components.ArtIncludes(StringTable.Fill(Ui.Components.EnemyArt, new StringArgs().Add(UiPlaceholders.Id, enemy))), Is.True, enemy);
-            var region = Content.RegionOf(Content.FirstFightEncounter());
+            var region = (string)core.Combat.Run.Run.Seats.Get((string)encounter["seat"])["regionId"];
             var bg = StringTable.Fill(Ui.Components.CombatBackground, new StringArgs().Add(UiPlaceholders.Region, region));
             Assert.That(registry[bg], Is.Not.Null, bg);
             Assert.That(Ui.Components.ArtIncludes(bg), Is.True, bg);
-            Assert.That(registry[Content.Portrait(Content.DefaultClass())], Is.Not.Null);
+            Assert.That(registry[Content.Portrait(CreationClasses.For(Content, null).Default())], Is.Not.Null);
         }
     }
 

@@ -88,7 +88,7 @@ namespace Ashen.App.Run
             view.Rail.Add(new JournalRailItem { Id = MetaValues.JournalArmaments, Label = strings.Format(S.JournalRailArmaments, new StringArgs().Add(P.Count, armaments.Count)) });
 
             // The win-rate strip: one entry per class with a recorded run, in the class table's order.
-            foreach (var classId in content.ClassIds)
+            foreach (var classId in content.Core2.ClassIds)
             {
                 var runs = results.Count(r => r.Str(RK.Class) == classId);
                 if (runs == 0) continue;
@@ -119,6 +119,8 @@ namespace Ashen.App.Run
         private static JournalRunRow Row(JObject r, RunContent content, UiData ui)
         {
             var strings = ui.Strings;
+            var enemies = content.Core2.Combat.Combat.Enemies;
+            var cards = content.Core2.Combat.Combat.Cards;
             var victory = r.Is(V.Victory);
             var classId = r.Str(RK.Class);
             var className = r.Str(LK.ClassName);
@@ -144,10 +146,10 @@ namespace Ashen.App.Run
 
             row.Detail.Add(row.Seed);
             var foes = Js.Items(r[MetaKeys.Killer]).Select(Js.Str).Where(s => s != null)
-                .Select(id => content.Combat.Enemies.Has(id) ? content.Combat.Enemies.Get(id).Str(K.Name) ?? id : id).Distinct().ToList();
+                .Select(id => enemies.Has(id) ? enemies.Get(id).Str(K.Name) ?? id : id).Distinct().ToList();
             row.Detail.Add(foes.Count == 0
                 ? strings.Get(S.JournalDetailKillerUnknown)
-                : strings.Format(victory ? S.JournalDetailFelled : S.JournalDetailKiller, new StringArgs().Add(P.Name, string.Join(content.Loop.Map.Rules.EnemySeparator, foes))));
+                : strings.Format(victory ? S.JournalDetailFelled : S.JournalDetailKiller, new StringArgs().Add(P.Name, string.Join(content.Core2.Loop.Map.Rules.EnemySeparator, foes))));
             if (r[MetaKeys.Duration] != null)
                 row.Detail.Add(strings.Format(S.JournalDetailDuration, new StringArgs()
                     .Add(P.Time, TimeSpan.FromSeconds(Js.Or0(r[MetaKeys.Duration])).ToString(UiFormats.Duration, CultureInfo.InvariantCulture))));
@@ -159,7 +161,7 @@ namespace Ashen.App.Run
                 foreach (var card in deck.OfType<JObject>())
                 {
                     var id = card.Str(MetaKeys.CardId);
-                    var cardName = id != null && content.Combat.Cards.Has(id) ? content.Combat.Cards.Get(id).Str(K.Name) ?? id : id;
+                    var cardName = id != null && cards.Has(id) ? cards.Get(id).Str(K.Name) ?? id : id;
                     row.Deck.Add(strings.Format(card.Is(MetaKeys.Upgraded) ? S.JournalDetailCardUpgraded : S.JournalDetailCard, new StringArgs().Add(P.Name, cardName)));
                 }
                 row.DeckTitle = strings.Format(S.JournalDetailDeck, new StringArgs().Add(P.Count, row.Deck.Count));

@@ -130,7 +130,7 @@ namespace Ashen.App.Run
                 LevelText = strings.Format(StringKeys.ArmouryCharacterLevel, new StringArgs().Add(UiPlaceholders.Level, level)),
             };
             var row = run.Obj(K.Level) ?? Ashen.Domain.Rewards.LevelUp.EmptyLevel();
-            var next = Ashen.Domain.Rewards.LevelUp.XpToNext(session.Content.Loop.Rewards, row[K.Level]);
+            var next = Ashen.Domain.Rewards.LevelUp.XpToNext(session.Core.Rewards.Rewards, row[K.Level]);
             var capped = double.IsInfinity(next) || double.IsNaN(next) || next <= 0;
             view.XpText = capped ? strings.Get(StringKeys.ArmouryCharacterXpMax)
                 : strings.Format(StringKeys.ArmouryCharacterXp, new StringArgs().Add(UiPlaceholders.Amount, Int(row.Num(K.Xp))).Add(UiPlaceholders.Total, Int(next)));
@@ -202,7 +202,7 @@ namespace Ashen.App.Run
         /// </summary>
         private static string UnlockHint(Core2RunSession session, StringTable strings, string slotId, int setIndex)
         {
-            var rows = Js.Items(session.Content.Loop.Unlocks).OfType<JObject>().Where(u => u.Str(K.Kind) == ArmouryKeys.KindSlot && u.Str(ArmouryKeys.UnlockRef) == slotId).ToList();
+            var rows = Js.Items(session.Core.Registries.Registries.Unlocks).OfType<JObject>().Where(u => u.Str(K.Kind) == ArmouryKeys.KindSlot && u.Str(ArmouryKeys.UnlockRef) == slotId).ToList();
             if (setIndex < 1 || setIndex > rows.Count) return string.Empty;
             var key = string.Format(CultureInfo.InvariantCulture, ArmouryKeys.UnlockHintKey, rows[setIndex - 1].Str(K.Id));
             return strings.Has(key) ? strings.Get(key) : string.Empty;

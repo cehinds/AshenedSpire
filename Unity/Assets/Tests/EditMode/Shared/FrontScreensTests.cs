@@ -38,7 +38,7 @@ namespace Ashen.Tests
             if (Directory.Exists(_dir)) Directory.Delete(_dir, true);
         }
 
-        private CreationClasses Classes() => CreationClasses.For(Content, RunFlowValues.RulesetCore2, ProfileStore.Load(_saves).Doc);
+        private CreationClasses Classes() => CreationClasses.For(Content, ProfileStore.Load(_saves).Doc);
 
         // ------------------------------------------------------------------ the Review pane
 

@@ -199,6 +199,23 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void AnAbandonedRunJoinsTheHistoryButOpensNoClass()
+        {
+            var session = New();
+            session.Abandon();
+            Assert.That(session.RunOver, Is.True);
+            Assert.That(session.Abandoned, Is.True);
+            Assert.That(_saves.Exists(session.Slot), Is.False, "the slot is cleared");
+            var profile = ProfileStore.Load(_saves).Doc;
+            var record = (JObject)((JArray)profile["results"]).Single();
+            Assert.That(record["abandoned"].Value<bool>(), Is.True);
+            Assert.That(record["victory"].Value<bool>(), Is.False);
+            Assert.That(record["profileHash"].Value<string>(), Is.EqualTo(Content.Core2.ProfileHash));
+            Assert.That(profile["gameProfileUnlocks"]?[Content.Core2.ProfileId]?["completedRunIds"], Is.Null.Or.Empty, "abandoning leaves the unlock ledger alone");
+            Assert.That(session.ClassesUnlocked, Is.Empty);
+        }
+
+        [Test]
         public void TheLastBossesEndTheClimbWithAVictoryAndEarlierOnesAdvanceTheAct()
         {
             var session = New(2026);

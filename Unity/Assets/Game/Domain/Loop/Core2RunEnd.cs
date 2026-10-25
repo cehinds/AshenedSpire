@@ -40,7 +40,6 @@ namespace Ashen.Domain.Loop
             if (d == null) throw new ArgumentNullException(nameof(d));
             var record = RunEnd.Result(run, victory, RunEnd.ClassName(d.Rewards, run));
             var finishId = run.Str(CK.RunId);
-            var pin = CoreRunRules.PinOf(run);
             record[CK.RunId] = run[CK.RunId]?.DeepClone();
             record[RE.FinishId] = finishId;
             var ledger = profile.Obj(CK.GameProfileUnlocks)?.Obj(d.Run.ProfileId)?.Arr(CK.CompletedRunIds);
@@ -48,19 +47,37 @@ namespace Ashen.Domain.Loop
             var unlocked = CoreRunRules.CompletedRun(d.Run, profile, victory, finishId);
             var after = profile.Obj(CK.GameProfileUnlocks)?.Obj(d.Run.ProfileId)?.Arr(CK.CompletedRunIds)?.Count ?? 0;
             var recorded = after > before;
-            if (recorded)
-            {
-                // The history row is the record without the profile pin, with the pin's id and hash beside it (completedRunMeta).
-                var row = (JObject)record.DeepClone();
-                row[RE.GameProfileId] = pin?[Ashen.Generated.Core2ProfileKeys.Id]?.DeepClone();
-                row[RE.GameProfileHash] = pin?[Ashen.Generated.Core2ProfileKeys.Hash]?.DeepClone();
-                var results = profile[LK.Results] as JArray ?? (JArray)(profile[LK.Results] = new JArray());
-                results.Add(row);
-                var limit = (int)loop.Engine.Obj(LK.Profile).Num(LK.HistoryLimit);
-                while (results.Count > limit) results.RemoveAt(0);
-                profile[RK.SchemaVersion] = loop.Engine.Obj(LK.Profile)[RK.SchemaVersion]?.DeepClone();
-            }
+            if (recorded) AppendHistory(loop, run, profile, record);
             return new Core2RunEndReceipt { Receipt = new RunEndReceipt { Victory = victory, Result = record }, ClassesUnlocked = unlocked, Recorded = recorded };
+        }
+
+        /// <summary>
+        /// Abandon run (W-20, D-134; not in the web): the record, marked abandoned, joins the history like a finished run's, but the unlock ledger is not touched, so abandoning
+        /// opens no class.
+        /// </summary>
+        public static RunEndReceipt Abandon(Core2RewardsData d, Core2LoopData loop, JObject run, JObject profile)
+        {
+            if (d == null) throw new ArgumentNullException(nameof(d));
+            var record = RunEnd.Result(run, false, RunEnd.ClassName(d.Rewards, run));
+            record[Ashen.Generated.MetaKeys.Abandoned] = true;
+            record[CK.RunId] = run[CK.RunId]?.DeepClone();
+            record[RE.FinishId] = run.Str(CK.RunId);
+            AppendHistory(loop, run, profile, record);
+            return new RunEndReceipt { Victory = false, Result = record };
+        }
+
+        /// <summary>The history row is the record without the profile pin, with the pin's id and hash beside it (completedRunMeta); the newest <c>historyLimit</c> are kept.</summary>
+        private static void AppendHistory(Core2LoopData loop, JObject run, JObject profile, JObject record)
+        {
+            var pin = CoreRunRules.PinOf(run);
+            var row = (JObject)record.DeepClone();
+            row[RE.GameProfileId] = pin?[Ashen.Generated.Core2ProfileKeys.Id]?.DeepClone();
+            row[RE.GameProfileHash] = pin?[Ashen.Generated.Core2ProfileKeys.Hash]?.DeepClone();
+            var results = profile[LK.Results] as JArray ?? (JArray)(profile[LK.Results] = new JArray());
+            results.Add(row);
+            var limit = (int)loop.Engine.Obj(LK.Profile).Num(LK.HistoryLimit);
+            while (results.Count > limit) results.RemoveAt(0);
+            profile[RK.SchemaVersion] = loop.Engine.Obj(LK.Profile)[RK.SchemaVersion]?.DeepClone();
         }
     }
 }

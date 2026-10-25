@@ -280,7 +280,7 @@ namespace Ashen.App.Run
         public string RegionOfEncounter(string encounterId) =>
             encounterId != null && Core.Loop.Map.Encounters.Has(encounterId) ? RegionOfSeat(Core.Loop.Map.Encounters.Get(encounterId).Str(MK.Seat)) : null;
 
-        private string RegionOfSeat(string seat) => seat != null && Content.Data.Seats.Has(seat) ? Content.Data.Seats.Get(seat).Str(RunFlowKeys.RegionId) : null;
+        private string RegionOfSeat(string seat) => seat != null && Core.Combat.Run.Run.Seats.Has(seat) ? Core.Combat.Run.Run.Seats.Get(seat).Str(RunFlowKeys.RegionId) : null;
 
         private Ashen.App.Settings.SettingsSession _playerSettings;
 
@@ -541,7 +541,7 @@ namespace Ashen.App.Run
         public RunEndReceipt Abandon()
         {
             if (RunOver) return End;
-            var end = RunEnd.Abandon(new LoopContext(Content.Loop, _run, _rng, Profile.Doc));
+            var end = Core2RunEnd.Abandon(Core.Rewards, Core.Loop, _run, Profile.Doc);
             FinishRun(end, true);
             return end;
         }

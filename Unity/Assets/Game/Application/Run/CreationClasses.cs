@@ -10,7 +10,7 @@ using K = Ashen.Generated.CombatKeys;
 namespace Ashen.App.Run
 {
     /// <summary>
-    /// The classes W-04 offers a New Game under a ruleset (docs/design/11 WP-C1b, D-312): the 405 content's four classes, or the Core 2 profile's, where a class is open only once
+    /// The classes W-04 offers a New Game (docs/design/11 WP-C1b, D-312): the Core 2 profile's, where a class is open only once
     /// the profile's ledger says so (the first run opens the first class, every finished run opens the next; <see cref="CoreRunRules.ClassAvailable"/>). Previews are the run each class
     /// would start with, read from its own creation rules.
     /// </summary>
@@ -20,31 +20,26 @@ namespace Ashen.App.Run
         private readonly JObject _profile;
         private readonly Dictionary<string, ClassPreview> _previews = new Dictionary<string, ClassPreview>(StringComparer.Ordinal);
 
-        private CreationClasses(RunContent content, bool core2, JObject profile)
+        private CreationClasses(RunContent content, JObject profile)
         {
             _content = content;
-            IsCore2 = core2;
             _profile = profile ?? new JObject();
         }
 
-        public bool IsCore2 { get; }
+        /// <summary>The profile's classes in its own order.</summary>
+        public IReadOnlyList<string> Ids => _content.Core2.ClassIds;
 
-        /// <summary>The ruleset's classes in its own order.</summary>
-        public IReadOnlyList<string> Ids => IsCore2 ? _content.Core2.ClassIds : _content.ClassIds;
+        public static CreationClasses For(RunContent content, JObject profile) => new CreationClasses(content, profile);
 
-        public static CreationClasses For(RunContent content, string ruleset, JObject profile) =>
-            new CreationClasses(content, ruleset == RunFlowValues.RulesetCore2, profile);
-
-        /// <summary>A Core 2 class still locked in the profile's ledger (the 405 run has no gate).</summary>
-        public bool Locked(string classId) => IsCore2 && !CoreRunRules.ClassAvailable(_content.Core2.Combat.Run, _profile, classId);
+        /// <summary>A class still locked in the profile's ledger.</summary>
+        public bool Locked(string classId) => !CoreRunRules.ClassAvailable(_content.Core2.Combat.Run, _profile, classId);
 
         /// <summary>How many more finished runs open a locked class (the web's "Play 1 game to unlock."); 0 for an open class.</summary>
-        public int GamesToUnlock(string classId) => IsCore2 ? CoreRunRules.GamesToUnlock(_content.Core2.Combat.Run, _profile, classId) : 0;
+        public int GamesToUnlock(string classId) => CoreRunRules.GamesToUnlock(_content.Core2.Combat.Run, _profile, classId);
 
         /// <summary>Why a class cannot begin a run (null when it can): the rules' refusal of its creation, or its lock.</summary>
         public string Problem(string classId)
         {
-            if (!IsCore2) return _content.ClassProblem(classId);
             if (classId == null || !_content.Core2.Combat.Run.Run.Classes.Has(classId)) return string.Format(System.Globalization.CultureInfo.InvariantCulture, RunFlowMessages.UnknownClass, classId);
             if (Locked(classId)) return string.Format(System.Globalization.CultureInfo.InvariantCulture, RunFlowMessages.ClassLocked, classId);
             return Create(classId, out _);
@@ -57,7 +52,6 @@ namespace Ashen.App.Run
         /// <summary>The attributes, pools and flask split a class starts with, or null when its creation is refused.</summary>
         public ClassPreview Preview(string classId)
         {
-            if (!IsCore2) return _content.Preview(classId);
             if (_previews.TryGetValue(classId ?? string.Empty, out var known)) return known;
             ClassPreview preview = null;
             if (classId != null && Create(classId, out var run) == null)

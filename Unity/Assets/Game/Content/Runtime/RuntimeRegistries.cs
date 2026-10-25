@@ -329,6 +329,9 @@ namespace Ashen.Content
             };
         }
 
+        /// <summary>The unlock rows (unlocks.json, in table order).</summary>
+        public JArray Unlocks => (JArray)_unlocks.DeepClone();
+
         /// <summary>The balance constants, with balance.damage's statusMultipliers and cardBonuses materialized.</summary>
         public JObject Balance => (JObject)_balance.DeepClone();
 

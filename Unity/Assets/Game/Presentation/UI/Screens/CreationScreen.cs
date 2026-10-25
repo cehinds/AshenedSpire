@@ -53,7 +53,6 @@ namespace Ashen.Presentation.UI.Screens
         private LocButton _headGrid;
         private VisualElement _avatar;
         private int _slot = 1;
-        private bool _core2;
 
         public CreationViewModel ViewModel { get; } = new CreationViewModel();
         public IReadOnlyList<LocButton> Tiles => _tiles;
@@ -68,9 +67,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             _slot = (args as CreationArgs)?.SlotIndex ?? _slot;
             _content = Ui.RunContent;
-            var ruleset = RunHost.Ruleset(_content);
-            _core2 = ruleset == RunFlowValues.RulesetCore2;
-            _rules = CreationClasses.For(_content, ruleset, ProfileStore.Load(Ui.Saves).Doc);
+            _rules = CreationClasses.For(_content, ProfileStore.Load(Ui.Saves).Doc);
             _classes = _rules.Ids;
             _shell = Root.Q<Shell>(UiNames.Shell);
             _shell.Exit += () => Nav.Pop();
@@ -243,10 +240,10 @@ namespace Ashen.Presentation.UI.Screens
                 .Add(UiPlaceholders.Hp, (int)preview.MaxHp).Add(UiPlaceholders.Mp, (int)preview.MaxMana).Add(UiPlaceholders.Sp, (int)preview.MaxStamina).Add(UiPlaceholders.Actions, (int)preview.Actions))));
         }
 
-        /// <summary>The kit the class starts with (the run it would make), or null for a class that cannot begin, and for the 405 run.</summary>
+        /// <summary>The kit the class starts with (the run it would make), or null for a class that cannot begin.</summary>
         private CreationReviewView ReviewOf(string classId)
         {
-            if (!_core2 || classId == null || _rules.Problem(classId) != null) return null;
+            if (classId == null || _rules.Problem(classId) != null) return null;
             if (_reviews.TryGetValue(classId, out var known)) return known;
             CreationReviewView review = null;
             try
