@@ -26,6 +26,7 @@
   "confirms": {
     "quit": { "titleKey": "confirm.quit.title", "bodyKey": "confirm.quit.body", "primaryKey": "confirm.quit.primary", "backKey": "confirm.back", "hold": false, "single": false },
     "loadSlot": { "titleKey": "confirm.load.title", "bodyKey": "confirm.load.body", "primaryKey": "confirm.load.primary", "backKey": "confirm.load.back", "hold": false, "single": false },
+    "loadEmpty": { "titleKey": "confirm.loadEmpty.title", "bodyKey": "confirm.loadEmpty.body", "primaryKey": "confirm.loadEmpty.primary", "backKey": "confirm.load.back", "hold": false, "single": false },
     "startSlot": { "titleKey": "confirm.start.title", "bodyKey": "confirm.start.body", "occupiedBodyKey": "confirm.start.occupied", "primaryKey": "confirm.start.primary", "occupiedPrimaryKey": "confirm.start.occupiedPrimary", "backKey": "confirm.start.back", "hold": false, "single": false },
     "deleteSlot": { "titleKey": "confirm.delete.title", "bodyKey": "confirm.delete.body", "primaryKey": "confirm.delete.primary", "backKey": "confirm.back", "policy": "policy.deleteSave", "hold": true, "single": false },
     "aiNotice": { "titleKey": "notice.ai.title", "bodyKey": "about.aiDisclosure", "primaryKey": "notice.ai.continue", "backKey": "confirm.back", "hold": false, "single": true },

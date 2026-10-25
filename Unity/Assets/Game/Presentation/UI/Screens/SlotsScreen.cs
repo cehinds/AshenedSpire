@@ -89,7 +89,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             var strings = Ui.Data.Strings;
             var slotArgs = new StringArgs().Add(UiPlaceholders.Slot, s.Index);
-            var data = new SlotRowData { Index = s.Index, Label = strings.Format(StringKeys.SlotsLabel, slotArgs), DeleteName = strings.Get(StringKeys.SlotsDelete) };
+            var data = new SlotRowData { Index = s.Index, Label = strings.Format(StringKeys.SlotsLabel, slotArgs), DeleteName = strings.Get(DeleteArmed() ? StringKeys.SlotsDeleteHold : StringKeys.SlotsDelete) };
             switch (s.Status)
             {
                 case SlotStatus.Empty:
@@ -116,6 +116,13 @@ namespace Ashen.Presentation.UI.Screens
                     break;
             }
             return data;
+        }
+
+        /// <summary>The delete cross says what it will take: hold, unless the player turned holds off (web title.js:308 button.title).</summary>
+        private bool DeleteArmed()
+        {
+            var settings = Ui.Climb?.PlayerSettings ?? new Ashen.App.Settings.SettingsSession(Ui.RunContent, Ashen.App.Run.ProfileStore.Load(Ui.Saves, false), core2: true);
+            return Ui.Data.Menus.Confirm(ConfirmIds.DeleteSlot).Hold && settings.Text(SettingIds.HoldConfirm) != SettingIds.HoldOff;
         }
 
         private string ClassName(string classId) =>
@@ -170,7 +177,12 @@ namespace Ashen.Presentation.UI.Screens
             var target = RunFlow.SlotFacts(Ui, slot);
             if (ViewModel.IsLoad)
             {
-                if (slot.Status == SlotStatus.Empty) { Refuse(anchor, StringKeys.SlotsRefusalEmpty); return; }
+                if (slot.Status == SlotStatus.Empty)
+                {
+                    // The web's 'load:empty' door (saveSlotSelector.js:188): nothing is saved here, start a new climb in this slot?
+                    ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.LoadEmpty, Args = args, OnConfirm = () => Nav.Go(ScreenIds.Creation, new CreationArgs { SlotIndex = slot.Index }) });
+                    return;
+                }
                 if (!slot.IsReady) { Refuse(anchor, StringKeys.SlotsRefusalUnreadable); return; }
                 ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.LoadSlot, Args = args, Target = target, OnConfirm = () => RunFlow.Resume(Context, slot.Index, anchor) });
                 return;

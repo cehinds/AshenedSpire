@@ -9,7 +9,7 @@
 //
 // Files (Unity/Assets/Tests/Oracle/core2/archive/, sorted keys; two runs are byte-identical):
 //   drawer.json   { steps: [{ now, kind, save, reason, slot, listing, notices }], exports: [{ id, now, step, text }] }: each step puts bytes in the drawer at a moment the clock holds, with the drawer's listing and notices after it; the C# drawer replays the steps and the exports are what exportArchive said right after a step
-//   words.json    { times, sizes, reasons, describes, workspace }: what the screen's helpers say, with the space before AM/PM as V8 writes it (a plain space, as Chrome does; Firefox and Safari write U+202F, which Inter and Cinzel carry since P-6, D-1640)
+//   words.json    { times, sizes, reasons, describes, workspace }: what the screen's helpers say, with the space before AM/PM as V8 writes it (a plain space, as Chrome does; Firefox and Safari write U+202F, which Inter and Cinzel carry since P-6, D-1643)
 //   index.json    the sha, the profile hash and the tallies
 //
 // The zone is UTC, so the times the helpers print do not depend on the machine.

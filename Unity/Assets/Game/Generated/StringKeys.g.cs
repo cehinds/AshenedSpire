@@ -754,6 +754,9 @@ namespace Ashen.Generated
         public const string ConfirmLoadBody = "confirm.load.body";
         public const string ConfirmLoadPrimary = "confirm.load.primary";
         public const string ConfirmLoadTitle = "confirm.load.title";
+        public const string ConfirmLoadEmptyBody = "confirm.loadEmpty.body";
+        public const string ConfirmLoadEmptyPrimary = "confirm.loadEmpty.primary";
+        public const string ConfirmLoadEmptyTitle = "confirm.loadEmpty.title";
         public const string ConfirmQuitBody = "confirm.quit.body";
         public const string ConfirmQuitPrimary = "confirm.quit.primary";
         public const string ConfirmQuitTitle = "confirm.quit.title";
@@ -1997,6 +2000,7 @@ namespace Ashen.Generated
         public const string SlotsBack = "slots.back";
         public const string SlotsCorrupt = "slots.corrupt";
         public const string SlotsDelete = "slots.delete";
+        public const string SlotsDeleteHold = "slots.deleteHold";
         public const string SlotsEmpty = "slots.empty";
         public const string SlotsEmptyHint = "slots.emptyHint";
         public const string SlotsEmptyState = "slots.emptyState";

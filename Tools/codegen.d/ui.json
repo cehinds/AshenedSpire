@@ -1111,6 +1111,7 @@
         "SaveQuit": "saveQuit",
         "QuitWithoutSaving": "quitWithoutSaving",
         "ImportSaves": "importSaves",
+        "LoadEmpty": "loadEmpty",
         "SaveFailed": "saveFailed",
         "RewardLeaveAuto": "rewardLeaveAuto",
         "RewardLeaveManual": "rewardLeaveManual",
