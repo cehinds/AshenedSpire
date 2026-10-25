@@ -276,11 +276,21 @@ namespace Ashen.Presentation.UI.Screens
             d.Stage = MakeFeed(d.Alive);
         }
 
+        /// <summary>
+        /// The art of a stage frame at the tier the layout asks for (assetUrl under the Auto art quality): the light copy on a narrow layout where the web ships one (the sweep, counter and hurt clips; the
+        /// alternative card frames have none), else the full frame.
+        /// </summary>
+        private string StageArt(string art)
+        {
+            if (art == null || !(Nav.Layout?.Narrow ?? false)) return art;
+            return Ui.Data.Art.Find(ArtKinds.StageLite, new StringArgs().Add(ArtPlaceholders.Name, art)) ?? art;
+        }
+
         private StageFeed MakeFeed(bool alive) => new StageFeed
         {
             Data = Ui.Data.CardStage,
             ClassId = _run.ClassId,
-            Texture = art => Ui.Texture(art),
+            Texture = art => Ui.Texture(StageArt(art)),
             TickMs = Defs.Pace.TickMs,
             Reduced = ReducedMotion,
             ReduceFlashes = ReduceFlashes,

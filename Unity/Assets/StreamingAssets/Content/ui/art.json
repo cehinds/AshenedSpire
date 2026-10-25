@@ -34,6 +34,7 @@
     "defeated": "defeated.{id}",
     "enemyFrame": "exp.{id}.{name}",
     "enemyLite": "lite.exp.{id}.{name}",
+    "stageLite": "lite.{name}",
     "flask": "flask.{name}"
   },
   "iconAlias": {
