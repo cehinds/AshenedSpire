@@ -1,0 +1,32 @@
+{
+  "comment": "WebGL player (D-1250..D-1259): StreamingAssets cannot be read with System.IO in a browser, so the content files are fetched at boot into a MemoryContentSource; the IndexedDB-backed save folder is flushed through a jslib.",
+  "keySets": [
+    {
+      "name": "WebGlNames",
+      "doc": "Native plugin name and log formats of the WebGL boot (Ashen.Platform.WebContentLoader, WebFileSystem).",
+      "keys": {
+        "Internal": "__Internal",
+        "FetchFailed": "Content fetch failed: {0} ({1})",
+        "FetchDone": "Content loaded in memory: {0} files"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "WebGlLimits",
+      "type": "int",
+      "doc": "How many StreamingAssets files the WebGL boot requests at once.",
+      "values": {
+        "FetchParallel": "8"
+      }
+    },
+    {
+      "name": "WebGlTiming",
+      "type": "float",
+      "doc": "Seconds between IndexedDB flushes of the save folder while the page is running.",
+      "values": {
+        "SyncIntervalSeconds": "5f"
+      }
+    }
+  ]
+}

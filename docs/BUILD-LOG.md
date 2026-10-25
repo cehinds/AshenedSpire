@@ -2,6 +2,15 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## WebGL: Unity 6000.6.6f1 and the browser build (worktree branch, 2026-10-25)
+
+**Landed (D-1250..D-1254; D-008 amended)**
+- **Upgrade:** the pin is 6000.6.6f1 (`d20c9ac777da`) in `ProjectVersion.txt`, `ci.yml`, `Tools/unity.sh`, the README and the scope target line. Packages are untouched; the editor re-resolves the bundled ones on first open (commit `packages-lock.json` then).
+- **Build:** `Cli.BuildWebGL` sets the WebGL PlayerSettings in code (Brotli + decompression fallback, no threads, IndexedDB cache, 256 MB to 2 GB memory, stripping Low) and builds to `Builds/WebGL` or `-customBuildPath`. CI: `build-webgl` job in `ci.yml` and `pages-webgl.yml` (push to dev, GitHub Pages, `.nojekyll`). `docs/BUILD-WEBGL.md` has the local build, serve and owner steps.
+- **Browser runtime:** `MemoryContentSource` (engine-free, 4 Domain tests, including the whole shipped content validated and loaded from memory) behind `IContentSource`; `WebContentLoader` fetches the manifest and its files with `UnityWebRequest`; `AshenBoot` boots from it under `UNITY_WEBGL && !UNITY_EDITOR` (Windows and the editor keep `DirectoryContentSource`). Saves: `AshenFs.jslib` + `WebFileSystem` flush IndexedDB; `SaveService` replaces files by copy on WebGL. No thread use besides `Thread.Sleep` in the replace retry.
+
+**Not done:** no Unity editor ran, so nothing was built or run in a browser: the `CopyBufferRanges` UI Toolkit WebGL bug, the `PlayerSettings.WebGL` / `NamedBuildTarget.WebGL` calls in `Cli.cs`, the jslib flush, the copy-based save replace, download size and mobile input are for the first WebGL build. CI builds (Windows and WebGL) have no `Art/Imported` images (D-018): the owner decides where CI gets them. `BuildWindows` is still the F0 stub.
+
 ## VP-16: chrome and phone residuals (worktree branch, 2026-10-25)
 
 **Landed (D-1200..D-1208)**

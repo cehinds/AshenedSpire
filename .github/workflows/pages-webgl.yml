@@ -1,0 +1,74 @@
+# Builds the WebGL player on every push to dev and publishes it to GitHub Pages (D-1253, docs/BUILD-WEBGL.md).
+# Needs repo Settings > Pages > Source = GitHub Actions and the UNITY_LICENSE / UNITY_EMAIL / UNITY_PASSWORD secrets.
+name: pages-webgl
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  UNITY_VERSION: 6000.6.6f1
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+    outputs:
+      built: ${{ steps.lic.outputs.ok }}
+    steps:
+      - name: licence present?
+        id: lic
+        run: |
+          if [ -n "$UNITY_LICENSE" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "::notice::UNITY_LICENSE not set; WebGL build and Pages deploy skipped"; fi
+      - uses: actions/checkout@v4
+        if: steps.lic.outputs.ok == 'true'
+      - uses: actions/cache@v4
+        if: steps.lic.outputs.ok == 'true'
+        with:
+          path: Unity/Library
+          key: library-webgl-${{ env.UNITY_VERSION }}-${{ hashFiles('Unity/Packages/packages-lock.json') }}
+      - uses: game-ci/unity-builder@v4
+        if: steps.lic.outputs.ok == 'true'
+        with:
+          projectPath: Unity
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: WebGL
+          buildMethod: Ashen.EditorTools.Cli.BuildWebGL
+      - name: assemble the site
+        if: steps.lic.outputs.ok == 'true'
+        run: |
+          index="$(find build -name index.html | head -n 1)"
+          test -n "$index" || { echo "::error::no index.html in the WebGL build"; exit 1; }
+          mkdir -p site
+          cp -r "$(dirname "$index")"/. site/
+          touch site/.nojekyll
+          ls -la site
+      - uses: actions/upload-pages-artifact@v3
+        if: steps.lic.outputs.ok == 'true'
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.built == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

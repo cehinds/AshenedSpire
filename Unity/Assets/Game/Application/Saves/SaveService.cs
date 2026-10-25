@@ -237,7 +237,7 @@ namespace Ashen.App.Saves
             {
                 try
                 {
-                    if (File.Exists(dst)) File.Replace(tmp, dst, bak, true);
+                    if (File.Exists(dst)) ReplaceFile(tmp, dst, bak);
                     else File.Move(tmp, dst);
                     return;
                 }
@@ -246,6 +246,18 @@ namespace Ashen.App.Saves
                     Thread.Sleep(_rules.ReplaceRetryDelayMs * (attempt + 1));
                 }
             }
+        }
+
+        private static void ReplaceFile(string tmp, string dst, string bak)
+        {
+#if UNITY_WEBGL && !UNITY_EDITOR
+            // The browser's emscripten file system has no File.Replace (D-1252): keep the old copy as .bak, then overwrite.
+            File.Copy(dst, bak, true);
+            File.Copy(tmp, dst, true);
+            File.Delete(tmp);
+#else
+            File.Replace(tmp, dst, bak, true);
+#endif
         }
 
         private static string HashOf(JObject envelope)
