@@ -41,64 +41,7 @@ namespace Ashen.Domain.Loop
     /// </summary>
     public static class RunEnd
     {
-        /// <summary>finishRun(victory): record the run, advance the durable progress tally, and hand back what was newly earned.</summary>
-        public static RunEndReceipt Finish(LoopContext ctx, bool victory)
-        {
-            var d = ctx.Data;
-            var result = Result(ctx, victory);
-            var meta = ctx.Profile;
-            // saves.recordResult: append, keep the newest historyLimit.
-            if (!(meta[LK.Results] is JArray results) || !Js.Truthy(meta[LK.Results])) meta[LK.Results] = results = new JArray();
-            results.Add(result.DeepClone());
-            var limit = (int)d.RuleNum(LK.Profile, LK.HistoryLimit);
-            while (results.Count > limit) results.RemoveAt(0);
-            meta[LK.Progress] = RecordProgress(meta[LK.Progress] as JObject, result);
-            var fresh = EvaluateUnlocks(d, meta);
-            if (fresh.Count > 0)
-            {
-                var unlocked = new JArray(Js.Items(meta[RK.Unlocked]).Select(t => t.DeepClone()));
-                foreach (var id in fresh) unlocked.Add(id);
-                meta[RK.Unlocked] = unlocked;
-            }
-            SaveMeta(d, meta);
-            return new RunEndReceipt
-            {
-                Victory = victory,
-                Result = result,
-                Earned = fresh.Select(id => d.Unlocks.OfType<JObject>().FirstOrDefault(u => u.Str(K.Id) == id)).Where(u => u != null).ToList(),
-            };
-        }
-
-        /// <summary>
-        /// Abandon run (W-20, D-134; not in the shipped game): the run's record marked abandoned is appended to the
-        /// history like any end, and the durable tally advances as for a defeat (the run counts; acts reached and bosses
-        /// already felled stay theirs), but no unlock is evaluated at this door, so abandoning earns nothing new.
-        /// </summary>
-        public static RunEndReceipt Abandon(LoopContext ctx)
-        {
-            var d = ctx.Data;
-            var result = Result(ctx, false);
-            result[Ashen.Generated.MetaKeys.Abandoned] = true;
-            var meta = ctx.Profile;
-            if (!(meta[LK.Results] is JArray results) || !Js.Truthy(meta[LK.Results])) meta[LK.Results] = results = new JArray();
-            results.Add(result.DeepClone());
-            var limit = (int)d.RuleNum(LK.Profile, LK.HistoryLimit);
-            while (results.Count > limit) results.RemoveAt(0);
-            meta[LK.Progress] = RecordProgress(meta[LK.Progress] as JObject, result);
-            SaveMeta(d, meta);
-            return new RunEndReceipt { Victory = false, Result = result };
-        }
-
-        /// <summary>
-        /// saveMeta(meta): the stored profile is <c>{ ...meta, schemaVersion }</c> at the current profile schema. Only the last
-        /// write of a door is kept, so the loop applies it once, after the door's changes.
-        /// </summary>
-        internal static void SaveMeta(LoopData d, JObject meta) => meta[RK.SchemaVersion] = Js.N(d.RuleNum(LK.Profile, RK.SchemaVersion));
-
-        /// <summary>runResult(victory): the run record — seed, class, act, floor, the fight tallies, the bosses felled and the class peak.</summary>
-        public static JObject Result(LoopContext ctx, bool victory) => Result(ctx.Run, victory, ClassName(ctx.Data, ctx.Run));
-
-        /// <summary>runResult(victory) over a run and the name of its class identity (the 405 loop and a Core 2 run read the name from their own registries).</summary>
+        /// <summary>runResult(victory) over a run and the name of its class identity (read from the run's own registries).</summary>
         public static JObject Result(JObject run, bool victory, string className)
         {
             var custom = run.Obj(RK.Custom);
@@ -122,8 +65,6 @@ namespace Ashen.Domain.Loop
                 WK.BossGroups, run[WK.BossGroups] is JObject groups ? groups.DeepClone() : new JObject());
         }
 
-        /// <summary>runClassIdentity(registries, run).name: the subclass once its top-tier node is picked, the class until then.</summary>
-        public static string ClassName(LoopData d, JObject run) => ClassName(d.Rewards, run);
 
         /// <summary>runClassIdentity(registries, run).name over the post-combat data of any registries.</summary>
         public static string ClassName(RewardsData rewards, JObject run)
@@ -164,79 +105,10 @@ namespace Ashen.Domain.Loop
             return live.Concat(swapped).Aggregate(0.0, Math.Max);
         }
 
-        // ------------------------------------------------------------------ progress and unlocks (model/unlocks.js)
+        // ------------------------------------------------------------------ progress (model/unlocks.js)
 
         /// <summary>emptyProgress().</summary>
         public static JObject EmptyProgress() => Js.Obj(LK.Runs, 0.0, LK.Wins, 0.0, LK.MaxAct, 1.0, LK.Bosses, new JArray(), LK.WonClasses, new JArray(),
             LK.MaxClassLevel, 0.0, WK.BossGroups, new JObject());
-
-        private static void AddOnce(JArray list, string value)
-        {
-            if (!string.IsNullOrEmpty(value) && !Js.Includes(list, value)) list.Add(value);
-        }
-
-        /// <summary>recordProgress(progress, result): the durable tally, advanced in place by one run's record.</summary>
-        public static JObject RecordProgress(JObject progress, JObject result)
-        {
-            var p = progress ?? EmptyProgress();
-            foreach (var e in EmptyProgress().Properties()) if (p[e.Name] == null) p[e.Name] = e.Value.DeepClone();
-            p.Put(LK.Runs, p.Num(LK.Runs) + 1);
-            var act = RunJs.Number(result[LK.Act]);
-            p.Put(LK.MaxAct, Math.Max(p.Num(LK.MaxAct), double.IsNaN(act) || act == 0 ? 1 : act));
-            foreach (var id in Js.Items(result[LK.Bosses])) AddOnce(p.Arr(LK.Bosses), RunJs.Key(id));
-            var level = RunJs.Number(result[LK.MaxClassLevel]);
-            p.Put(LK.MaxClassLevel, Math.Max(p.Or0(LK.MaxClassLevel), double.IsNaN(level) ? 0 : level));
-            foreach (var entry in (result[WK.BossGroups] as JObject ?? new JObject()).Properties())
-            {
-                var groups = p.Obj(WK.BossGroups);
-                if (!Js.Truthy(groups[entry.Name])) groups[entry.Name] = new JArray();
-                foreach (var g in Js.Items(entry.Value)) AddOnce(groups.Arr(entry.Name), RunJs.Key(g));
-            }
-            if (Js.Truthy(result[V.Victory]))
-            {
-                p.Put(LK.Wins, p.Num(LK.Wins) + 1);
-                AddOnce(p.Arr(LK.WonClasses), RunJs.Key(result[RK.Class]));
-            }
-            return p;
-        }
-
-        /// <summary>evaluateUnlocks(unlocks, meta): the unlock ids newly met by the tally, in table order.</summary>
-        public static List<string> EvaluateUnlocks(LoopData d, JObject meta)
-        {
-            var progress = meta[LK.Progress] as JObject ?? EmptyProgress();
-            var earned = new HashSet<string>(Js.Items(meta[RK.Unlocked]).Select(Js.Str).Where(s => s != null), StringComparer.Ordinal);
-            var fresh = new List<string>();
-            foreach (var u in d.Unlocks.OfType<JObject>())
-            {
-                var id = u.Str(K.Id);
-                if (id != null && earned.Contains(id)) continue;
-                if (Met(u, progress)) fresh.Add(id);
-            }
-            return fresh;
-        }
-
-        /// <summary>UNLOCK_CONDITIONS[u.condition](u, progress); an unknown condition is never met.</summary>
-        private static bool Met(JObject u, JObject p)
-        {
-            var param = u[LK.Param];
-            var text = RunJs.Key(param);
-            var number = RunJs.Number(param);
-            switch (u.Str(LK.Condition))
-            {
-                case LV.WinAsClass: return Js.Includes(p[LK.WonClasses], text);
-                case LV.BeatBoss: return Js.Includes(p[LK.Bosses], text);
-                case LV.ReachAct: return Js.Or0(p[LK.MaxAct]) >= number;
-                case LV.ClassLevel: return Js.Or0(p[LK.MaxClassLevel]) >= number;
-                case LV.WinRuns: return Js.Or0(p[LK.Wins]) >= number;
-                case LV.BossWithGroup:
-                {
-                    var at = text.IndexOf(V.KeySeparator, StringComparison.Ordinal);
-                    var enemyId = at < 0 ? text : text.Substring(0, at);
-                    var group = at < 0 ? string.Empty : text.Substring(at + V.KeySeparator.Length);
-                    return Js.Includes(p[LK.Bosses], enemyId) && Js.Includes(Js.Get(p[WK.BossGroups], enemyId), group);
-                }
-                default: return false;
-            }
-        }
     }
 }

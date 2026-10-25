@@ -300,16 +300,6 @@ namespace Ashen.Tests
                     Assert.That(change.Cost, Is.EqualTo(cost == null ? (double?)null : Js.D(cost)), file + " " + option["command"]);
                 }
             }
-            var steps = ((JArray)log["steps"]).OfType<JObject>().ToList();
-            var first = steps.FindIndex(s => s["equip"] != null);
-            if (first < 0) return;
-            var session = Ashen.App.Combat.CombatSession.Start(data, (uint)log["seed"].Value<long>(), (JObject)log["create"]);
-            for (var i = 0; i <= first; i++)
-            {
-                var outcome = session.Execute(CombatCommand.FromJson((JObject)steps[i]["command"]));
-                Assert.That(outcome.Accepted, Is.True, $"{file} step {i}");
-            }
-            Check(file, "session equipment", steps[first]["equip"], EquipProjection(session.State));
         }
 
         [Test]

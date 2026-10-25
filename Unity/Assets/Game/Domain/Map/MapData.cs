@@ -68,22 +68,5 @@ namespace Ashen.Domain.Map
             return cfg;
         }
 
-        /// <summary>
-        /// The table dump layout written by Tools/oracle-map.mjs: encounters, events, enemies and seats as arrays of rows
-        /// in authoring order, plus mapConfigs, eventHistoryRequirements, endless, bossLocations, mapShapeLimits and
-        /// legacyActBosses.
-        /// </summary>
-        public static MapData FromTableDump(JObject dump, JObject engineRules)
-        {
-            if (dump == null) throw new ArgumentNullException(nameof(dump));
-            return new MapData(
-                new Registry(MK.Encounters, Js.Items(dump[MK.Encounters]), K.Id),
-                new Registry(MK.Events, Js.Items(dump[MK.Events]), K.Id),
-                new Registry(K.Enemies, Js.Items(dump[K.Enemies]), K.Id),
-                new Registry(MK.Seats, Js.Items(dump[MK.Seats]), K.Id),
-                dump.Obj(MK.MapConfigs), dump.Obj(MK.EventHistoryRequirements), dump.Obj(MK.BossLocations),
-                dump.Obj(MK.MapShapeLimits), dump.Obj(MK.LegacyActBosses), dump.Obj(MK.Endless),
-                new MapRules(engineRules));
-        }
     }
 }

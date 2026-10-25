@@ -71,26 +71,6 @@ namespace Ashen.Domain.Run
         public static JToken ResolveSwapCostRule(RunData d, JObject settings) => Equipment.ResolveSwapCostRule(d.Combat, settings?[K.SwapCostRule]);
 
         /// <summary>
-        /// The createCombat arguments main.js builds to enter <paramref name="encounterId"/> from <paramref name="run"/>
-        /// (without registries/rng, JSON-plain). Journeys, legacy dungeons and Custom Climb modifiers are not ported
-        /// yet and throw by name; for an ordinary run the only combat modifier is the seat-tier HP ratio.
-        /// </summary>
-        public static JObject CreateArgs(JObject run, string encounterId, RunData d, JObject settings = null)
-        {
-            if (Js.Truthy(run[RK.Journey]) || Js.Truthy(run[RK.LegacyDungeon])) throw new NotSupportedException(RM.JourneyCombatDeferred);
-            if (Js.Truthy(run[RK.Custom])) throw new NotSupportedException(RM.CustomClimbDeferred);
-            settings ??= new JObject();
-            var encounter = d.Encounters.Get(encounterId);
-            double hpMult = 1;
-            if (run[RK.SeatOrder] is JArray seatOrder)
-            {
-                var act = run.Num(RK.ActNumber);
-                hpMult *= Creation.SeatTierHpMult(d, Creation.SeatAtTier(seatOrder, act), act);
-            }
-            return Arguments(run, encounter, d, settings, hpMult, new JArray(), new JArray());
-        }
-
-        /// <summary>
         /// The createCombat arguments main.js enterCombat builds (without registries/rng, JSON-plain), for the combat
         /// modifiers the caller resolved (main.js combatMods: the HP ratio, the enemies' and the player's opening
         /// statuses); the run's own <c>self.*</c> start statuses follow the player's.
