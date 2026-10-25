@@ -33,6 +33,12 @@ namespace Ashen.App.Combat
 
         public double ImpactMs;
 
+        /// <summary>The pace's sprite speed (the web's actionPacing spriteSpeed: ANIM_SPEEDS scaled for the sprite): the lunge, the cap before which the blow lands and the reaction time.</summary>
+        public SpriteSpeed Sprite;
+
+        /// <summary>The speed row as it stands, unscaled (ANIM_SPEEDS[getAnimSpeed()]): the length a pilot body reaction plays for; none when the animation speed is instant.</summary>
+        public SpriteSpeed Raw;
+
         /// <summary>How long a callout lives (the web's CALLOUT_MS scaled, or the instant length).</summary>
         public double CalloutMs;
 
@@ -64,6 +70,8 @@ namespace Ashen.App.Combat
                 BannerMs = Math.Max(pace.TurnBannerFloorMs, row.BeatMs) * scale,
                 LungeMs = lunge,
                 ImpactMs = lunge * pace.WindupFraction,
+                Raw = animInstant ? default : new SpriteSpeed { LungeMs = row.LungeMs, ImpactCapMs = row.ImpactCapMs, ReactionMs = row.ReactionMs },
+                Sprite = new SpriteSpeed { LungeMs = lunge, ImpactCapMs = row.ImpactCapMs * spriteScale, ReactionMs = row.ReactionMs * spriteScale },
                 CalloutMs = animInstant ? defs.Callout.InstantMs : defs.Callout.LifeMs * (raw > 0 ? raw : 1),
                 FightEndMs = pace.FightEndDelayMs,
             };

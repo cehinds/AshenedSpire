@@ -231,6 +231,7 @@ namespace Ashen.Presentation.UI.Screens
 
         private void RenderFighters()
         {
+            RememberPlans();
             var order = Ui.Data.Components.FighterRatings;
             _player.Bind(FighterData(View.Player, true, order, 0));
             var row = Root.Q(UiNames.EnemyRow);
@@ -263,20 +264,29 @@ namespace Ashen.Presentation.UI.Screens
         }
 
         /// <summary>
-        /// The player's figure is the web's pose stage when its class and tint ship frames (assets/registry.json pose.*): idle, guard, the four swings and the hit, each placed on the shared
-        /// canvas. A frame that is not imported (the art is fetched at build) leaves the figure with its base art.
+        /// The player's figure is the web's card stage (alternativeCardStage.js): the class's card-action frames, the held stance frames and the clips of its actions, over the frames imported as
+        /// alt.*, sweep.*, hurt.* and defeated.* (D-1490). The screen holds the stance (the card armed, else the last one played) and the rest the figure keeps between actions, as combat.js does.
+        /// A class whose frames are not imported keeps its base art.
         /// </summary>
-        private void AttachPoses(FighterData d)
+        private void AttachStage(FighterData d)
         {
-            var poses = Ui.Data.Poses;
-            var classId = _run.ClassId;
-            var tint = _run.Tint ?? (_run.Portrait == null ? null : _run.Portrait.Substring(_run.Portrait.LastIndexOf(Ashen.Generated.IntentKeys.Dot, StringComparison.Ordinal) + 1));
-            if (poses == null || !poses.Has(classId, tint)) return;
-            d.Poses = poses;
-            d.PoseClass = classId;
-            d.PoseTint = tint;
-            d.PoseTexture = pose => Ui.Texture(Ui.Data.Art.Find(ArtKinds.PlayerPose, new StringArgs().Add(ArtPlaceholders.Class, classId).Add(ArtPlaceholders.Pose, pose).Add(ArtPlaceholders.Tint, tint)));
+            var data = Ui.Data.CardStage;
+            if (data == null || !data.Has(_run.ClassId)) return;
+            d.Stage = MakeFeed(d.Alive);
         }
+
+        private StageFeed MakeFeed(bool alive) => new StageFeed
+        {
+            Data = Ui.Data.CardStage,
+            ClassId = _run.ClassId,
+            Texture = art => Ui.Texture(art),
+            TickMs = Defs.Pace.TickMs,
+            Reduced = ReducedMotion,
+            ReduceFlashes = ReduceFlashes,
+            HitTint = _motion.HitTint,
+            Stance = PlayerStance(),
+            Rest = PlayerRest(alive),
+        };
 
         private FighterData FighterData(Core2FighterView f, bool player, IReadOnlyList<string> order, int reference)
         {
@@ -301,7 +311,7 @@ namespace Ashen.Presentation.UI.Screens
                 Stacks = Core2CombatText.Stacks(Strings, f),
                 Statuses = Core2CombatText.Statuses(Strings, f, Math.Max(1, Ui.Data.Components.StatusChips), Ui.Data.Components.FighterStackStatuses),
             };
-            if (player) AttachPoses(d);
+            if (player) AttachStage(d);
             _hpShown[f.Id] = d.Hp;
             AddChips(d, f);
             if (!player) ApplyRestArt(d, f);

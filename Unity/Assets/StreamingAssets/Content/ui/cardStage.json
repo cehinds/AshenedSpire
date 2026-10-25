@@ -17,7 +17,8 @@
   "playMs": 260,
   "reactMs": 280,
   "durationMs": 260,
-  "pilotUnits": 6
+  "pilotUnits": 6,
+  "staggerTintShare": 0.45
  },
  "aliases": {
   "idle": "ready",

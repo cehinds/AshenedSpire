@@ -127,6 +127,7 @@ namespace Ashen.App.Ui
         public readonly double ReactMs;
         public readonly double DurationMs;
         public readonly double PilotUnits;
+        public readonly double StaggerTintShare;
         public readonly IReadOnlyDictionary<string, string> Aliases;
         public readonly IReadOnlyList<string> ReactionKinds;
         public readonly IReadOnlyDictionary<string, StageSequence> Reactions;
@@ -151,6 +152,7 @@ namespace Ashen.App.Ui
             ReactMs = motion.Value<double>(StageKeys.ReactMs);
             DurationMs = motion.Value<double>(StageKeys.DurationMs);
             PilotUnits = motion.Value<double>(StageKeys.PilotUnits);
+            StaggerTintShare = motion.Value<double>(StageKeys.StaggerTintShare);
             Aliases = ((JObject)json[StageKeys.Aliases]).Properties().ToDictionary(p => p.Name, p => p.Value.Value<string>(), StringComparer.Ordinal);
             ReactionKinds = ((JArray)json[StageKeys.ReactionKinds]).Select(t => t.Value<string>()).ToList();
             Reactions = ((JObject)json[StageKeys.Reactions]).Properties().ToDictionary(p => p.Name, p => Sequence(p.Name, (JObject)p.Value), StringComparer.Ordinal);

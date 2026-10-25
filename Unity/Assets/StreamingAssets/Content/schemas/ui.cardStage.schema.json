@@ -64,6 +64,9 @@
         },
         "pilotUnits": {
           "type": "number"
+        },
+        "staggerTintShare": {
+          "type": "number"
         }
       },
       "required": [
@@ -76,7 +79,8 @@
         "playMs",
         "reactMs",
         "durationMs",
-        "pilotUnits"
+        "pilotUnits",
+        "staggerTintShare"
       ]
     },
     "aliases": {

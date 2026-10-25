@@ -292,3 +292,20 @@
     background-position-x: center;
     background-position-y: bottom;
 }
+
+/* ---- the player's card stage (P-3b, D-1490): the body, its effect trail and the red mask of a hit are laid out by the fighter in pixels from the stage's own units; the frames reach out past the figure box ---- */
+
+.fighter-stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.fighter-stage-body,
+.fighter-stage-effect,
+.fighter-stage-mask {
+    position: absolute;
+    background-size: 100% 100%;
+}

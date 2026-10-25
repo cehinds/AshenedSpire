@@ -213,6 +213,9 @@ namespace Ashen.App.Combat
         /// <summary>The numbered traits the card authors (flux, impact).</summary>
         public Dictionary<string, double> TraitValues = new Dictionary<string, double>();
 
+        /// <summary>What the player's card stage does for this card: its action, the rest it leaves the figure in and the stance that holds the figure while it is selected (P-3b); null for a card the stage cannot read.</summary>
+        public CardStagePlan Stage;
+
         /// <summary>What the definition says about the card's stance and counter (the inspector's hints).</summary>
         public Core2CardRules Rules;
 
@@ -773,6 +776,7 @@ namespace Ashen.App.Combat
             CardFaceQuery.CollectEffects(def[K.Effects], card.Effects);
             FaceExtras(c, def, card, Try(() => CoreCosts.PreviewCosts(c, id)));
             card.Instance = inst;
+            card.Stage = Try(() => CardStagePlans.For(c, printed));
             card.FacePreview = Try(() => Core2FacePreview.Build(c, inst));
             card.FaceDef = card.FacePreview?.Obj(Ashen.Generated.CardTextKeys.ResolvedDefinition) ?? def;
             card.Choices = Try(() => CoreCardPlay.ChoiceOptions(def)) ?? new List<string>();

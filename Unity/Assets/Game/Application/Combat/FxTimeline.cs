@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ashen.App.Ui;
 
 namespace Ashen.App.Combat
 {
@@ -22,6 +23,9 @@ namespace Ashen.App.Combat
 
         /// <summary>The beat is over: its terminal cues played.</summary>
         End,
+
+        /// <summary>The blow lands and the actor holds for <see cref="FxItem.Ms"/> (the hit-stop of a figure that draws its own action).</summary>
+        Hold,
     }
 
     /// <summary>One thing to do at a moment of the presentation.</summary>
@@ -54,7 +58,7 @@ namespace Ashen.App.Combat
     /// </summary>
     public static class FxTimeline
     {
-        public static FxSchedule Build(IReadOnlyList<FxBeat> beats, CombatPace pace, double instantStepMs)
+        public static FxSchedule Build(IReadOnlyList<FxBeat> beats, CombatPace pace, double instantStepMs, Func<FxBeat, StageTiming?> authored = null)
         {
             var schedule = new FxSchedule();
             var t = 0d;
@@ -101,10 +105,14 @@ namespace Ashen.App.Combat
                 t += beat.Prepared ? 0 : pace.GapMs;
                 var swing = !beat.Prepared && pace.Scale > 0;
                 var attack = beat.Kind == FxBeatKind.Attack || beat.Kind == FxBeatKind.Counter;
-                if (swing) At(t, FxItemKind.Swing, beat, actor: beat.ActorId, attack: attack, span: pace.LungeMs);
-                var impact = swing ? pace.ImpactMs : 0;
-                var total = swing ? pace.LungeMs : 0;
+                // A figure that draws its own action (the player's card stage) plays the clip of the card at its own length (animateActor's authored timing), the others a lunge.
+                var own = swing ? authored?.Invoke(beat) : null;
+                var length = own?.TotalMs ?? pace.LungeMs;
+                if (swing) At(t, FxItemKind.Swing, beat, actor: beat.ActorId, attack: attack, span: length);
+                var impact = swing ? own?.ImpactMs ?? pace.ImpactMs : 0;
+                var total = swing ? length : 0;
                 t += impact;
+                if (own != null && beat.HoldMs > 0) At(t, FxItemKind.Hold, beat, actor: beat.ActorId, span: beat.HoldMs);
                 Cues(t, beat, beat.Contact);
                 t += Math.Max(total - impact + beat.HoldMs, 0);
                 if (beat.Telegraph)
@@ -124,7 +132,9 @@ namespace Ashen.App.Combat
                     t += pace.GapMs;
                     Cues(t, beat, group.Numbers);
                     At(t, FxItemKind.Reveal, beat, lines: group.Lines);
-                    t += pace.GapMs;
+                    // The wait before the next group, or the end: a gap, longer when the longest reaction of the group outlasts its own gap (actionTimeline.js: rest).
+                    var life = group.Events.Count == 0 ? 0 : Math.Max(pace.Sprite.ReactionMs, group.BodyMs);
+                    t += Math.Max(pace.GapMs, life - pace.GapMs);
                 }
                 At(t, FxItemKind.Reveal, beat, lines: beat.Lines);
                 Cues(t, beat, beat.Resolution);

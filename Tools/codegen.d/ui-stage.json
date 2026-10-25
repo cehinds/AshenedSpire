@@ -22,6 +22,7 @@
         "ReactMs": "reactMs",
         "DurationMs": "durationMs",
         "PilotUnits": "pilotUnits",
+        "StaggerTintShare": "staggerTintShare",
         "Aliases": "aliases",
         "ReactionKinds": "reactionKinds",
         "Reactions": "reactions",
@@ -145,6 +146,22 @@
         "Op": "op",
         "TypeAttack": "attack",
         "TypeSpell": "spell"
+      }
+    },
+    {
+      "name": "StageEvents",
+      "doc": "The fields of the receipts of an enemy blow that the pilot body reactions read (model/selectedWeaponStances.js selectedWeaponReactionFor).",
+      "keys": {
+        "EvadeStacks": "evadeStacks",
+        "Prevention": "prevention",
+        "Invulnerability": "invulnerability",
+        "IsAttack": "isAttack",
+        "WardResisted": "wardResisted",
+        "Resisted": "resisted",
+        "Amount": "amount",
+        "SourceId": "sourceId",
+        "TargetId": "targetId",
+        "Accuracy": "accuracy"
       }
     }
   ]

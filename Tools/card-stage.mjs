@@ -56,6 +56,11 @@ const DEFAULT_SIZE = literal(/:\s*\[(512),512\];/, 'the default draw size');
 const ANCHOR_X = literal(/anchorX:leftPadding\+(384)\+bodyX/, 'the anchor x');
 const FLOOR_Y = literal(/bodyPlacement\(authored, landmarks, bodyHeight, (480)\+topPadding\)/, 'the floor y');
 
+// The tint of a stagger on the card stage (styles/combat.css rear-stagger-flash): red from the start to this share of the wobble, then none.
+const css = read('styles/combat.css');
+const stagger = /@keyframes rear-stagger-flash\s*\{\s*0%,\s*[\d.]+%\s*\{[^}]*\}\s*([\d.]+)%/.exec(css);
+if (!stagger) throw new Error('card-stage: rear-stagger-flash not found in styles/combat.css');
+const staggerTintShare = Number(stagger[1]) / 100;
 const reactionKinds = ['evade', 'guard-break', 'fully-defended', 'defend'];
 const classes = {};
 for (const classId of CLASSES) {
@@ -107,7 +112,7 @@ const built = {
   stage: { anchorX: ANCHOR_X, floorY: FLOOR_Y, frameTop: FRAME_TOP, defaultX: DEFAULT_OFFSET, defaultSize: DEFAULT_SIZE },
   motion: {
     hurtFrames: anim.HURT_CLIP_FRAMES, hurtRedOpacity: anim.HURT_RED_OPACITY, hurtMinMs: anim.HURT_CLIP_MIN_MS, recoilPx: anim.HIT_RECOIL_PX, recoilPeak: anim.HIT_RECOIL_PEAK,
-    hitMs: flashMs, playMs, reactMs, durationMs, pilotUnits,
+    hitMs: flashMs, playMs, reactMs, durationMs, pilotUnits, staggerTintShare,
   },
   aliases: family.CARD_ANIMATION_ALIASES,
   reactionKinds,

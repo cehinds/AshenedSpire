@@ -250,6 +250,10 @@ namespace Ashen.Generated
         public const string FxOut = "fx-out";
         public const string FighterFigure = "fighter-figure";
         public const string FighterPose = "fighter-pose";
+        public const string FighterStage = "fighter-stage";
+        public const string FighterStageBody = "fighter-stage-body";
+        public const string FighterStageEffect = "fighter-stage-effect";
+        public const string FighterStageMask = "fighter-stage-mask";
         public const string CombatEndVictory = "combat-end--victory";
         public const string CombatEndDefeat = "combat-end--defeat";
         public const string TextShadowed = "text-shadowed";

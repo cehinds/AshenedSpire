@@ -21,6 +21,7 @@ namespace Ashen.Generated
         public const string ReactMs = "reactMs";
         public const string DurationMs = "durationMs";
         public const string PilotUnits = "pilotUnits";
+        public const string StaggerTintShare = "staggerTintShare";
         public const string Aliases = "aliases";
         public const string ReactionKinds = "reactionKinds";
         public const string Reactions = "reactions";

@@ -95,6 +95,9 @@ namespace Ashen.Presentation.UI.Kit
         public string PoseClass;
         public string PoseTint;
         public Func<string, Texture2D> PoseTexture;
+
+        /// <summary>The player figure as the web's card stage (P-3b): its data, its textures, the stance that holds it and the rest it keeps. Null for an enemy and for a class with no stage; the figure keeps its base art then.</summary>
+        public StageFeed Stage;
         public string IntentTipTitle;
         public string IntentTipBody;
         public string PoiseTipTitle;
@@ -184,6 +187,7 @@ namespace Ashen.Presentation.UI.Kit
             _pose.AddToClassList(UiClasses.FighterPose);
             _pose.AddToClassList(UiClasses.Hidden);
             _figure.Add(_pose);
+            BuildStage();
             _art?.Insert(0, _figure);
             _art?.RegisterCallback<GeometryChangedEvent>(_ => FitPose());
             _hit = this.Q<LocLabel>(UiNames.FighterHit);
@@ -254,6 +258,7 @@ namespace Ashen.Presentation.UI.Kit
             _baseArt = d.Art;
             _restArt = d.RestArt;
             _restScale = d.RestScale;
+            BindStage(d);
             if (_posing) _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
             else ShowRest();
             Text(_hit, d.HitText);
@@ -293,6 +298,7 @@ namespace Ashen.Presentation.UI.Kit
 
         private void ShowRest()
         {
+            if (PaintStage()) return;
             if (_restArt != null) ShowFrame(_restArt, _restScale);
             else if (!ShowStage(PoseKeys.Idle)) HideFrame();
         }
@@ -365,6 +371,7 @@ namespace Ashen.Presentation.UI.Kit
         private void FitPose()
         {
             if (_art == null) return;
+            if (PaintStage()) return;
             if (_placed) { ShowStage(_stagePose); return; }
             var h = _art.resolvedStyle.height;
             var w = _art.resolvedStyle.width;
@@ -459,6 +466,7 @@ namespace Ashen.Presentation.UI.Kit
         public void Calm()
         {
             Rest();
+            StageSettle(true);
             Settle();
         }
 
