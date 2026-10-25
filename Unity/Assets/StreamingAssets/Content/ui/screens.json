@@ -73,20 +73,6 @@
       "back": "pop",
       "transitions": { "begin": { "to": "actMap", "mode": "replace" } }
     },
-    "combat": {
-      "uxml": "UI/Screens/Combat",
-      "layer": "screen",
-      "focusOrder": ["HAND_CARDS", "ENEMY_ROW", "ALLY_ROW", "FOOTER_GROUP", "RUN_HUD"],
-      "focusModes": {
-        "targeting": ["ENEMY_ROW", "ALLY_ROW"],
-        "discard": ["HAND_CARDS", "DISCARD_FOOTER"],
-        "flasks": ["FLASK_PANEL"],
-        "enemyTurn": ["FOOTER_GROUP"],
-        "ended": ["COMBAT_END"]
-      },
-      "back": null,
-      "transitions": { "quit": { "to": "title", "mode": "replace" } }
-    },
     "core2Combat": {
       "uxml": "UI/Screens/Core2Combat",
       "layer": "screen",
@@ -158,48 +144,6 @@
       "back": "close",
       "transitions": {}
     },
-    "rewards": {
-      "uxml": "UI/Screens/Rewards",
-      "layer": "screen",
-      "focusOrder": ["REWARD_LIST", "FOOTER_PRIMARY"],
-      "focusModes": {
-        "pick": ["PICK_CARDS", "PICK_FOOTER"]
-      },
-      "back": null,
-      "transitions": {}
-    },
-    "merchant": {
-      "uxml": "UI/Screens/Merchant",
-      "layer": "screen",
-      "background": "bg.tower-entrance-hall",
-      "focusOrder": ["WORKSPACE_NAV", "SHELF_LIST", "FOOTER_PRIMARY", "FOOTER_BACK", "SHELL_EXIT", "HUD_MENU"],
-      "focusModes": {
-        "pick": ["PICK_CARDS", "PICK_FOOTER"]
-      },
-      "back": null,
-      "transitions": {}
-    },
-    "event": {
-      "uxml": "UI/Screens/Event",
-      "layer": "screen",
-      "focusOrder": ["RESPONSE_LIST", "FOOTER_PRIMARY", "HUD_MENU"],
-      "back": null,
-      "transitions": {}
-    },
-    "dialogue": {
-      "uxml": "UI/Screens/Dialogue",
-      "layer": "screen",
-      "focusOrder": ["RESPONSE_LIST", "DIALOGUE_CONTINUE", "HUD_MENU"],
-      "back": null,
-      "transitions": {}
-    },
-    "legacyDungeon": {
-      "uxml": "UI/Screens/LegacyDungeon",
-      "layer": "screen",
-      "focusOrder": ["TRAY_ACTIONS", "HUD_MENU"],
-      "back": null,
-      "transitions": {}
-    },
     "pileViewer": { "layer": "modal", "planned": true, "focusOrder": [], "back": "close", "transitions": {} },
     "armoury": {
       "uxml": "UI/Screens/Armoury",
@@ -216,24 +160,6 @@
         "planned": ["PLANNED_DOOR"],
         "legend": ["MAP_FOOTER"]
       },
-      "back": null,
-      "transitions": {}
-    },
-    "rest": {
-      "uxml": "UI/Screens/Rest",
-      "layer": "screen",
-      "focusOrder": ["REST_OPTIONS", "FOOTER_PRIMARY", "RUN_HUD"],
-      "focusModes": {
-        "pane": ["PANE_ITEMS", "PANE_FOOTER"]
-      },
-      "back": null,
-      "transitions": {}
-    },
-    "runEnd": {
-      "uxml": "UI/Screens/RunEnd",
-      "layer": "screen",
-      "focusOrder": ["FOOTER_PRIMARY", "FOOTER_BACK"],
-      "initialFocus": "FOOTER_PRIMARY",
       "back": null,
       "transitions": {}
     },

@@ -68,7 +68,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             _slot = (args as CreationArgs)?.SlotIndex ?? _slot;
             _content = Ui.RunContent;
-            var ruleset = RunFlow.NewRuleset(Ui);
+            var ruleset = RunHost.Ruleset(_content);
             _core2 = ruleset == RunFlowValues.RulesetCore2;
             _rules = CreationClasses.For(_content, ruleset, ProfileStore.Load(Ui.Saves).Doc);
             _classes = _rules.Ids;
@@ -499,10 +499,9 @@ namespace Ashen.Presentation.UI.Screens
 
         private void StartRun(uint seed)
         {
-            var hosted = RunHost.Start(_content, Ui.Saves, _slot, seed, ViewModel.Selected, Ui.Data.Strings.Get(_content.Flow.NameKey), null, null, RunFlow.CustomOverride, RunFlow.NewRuleset(Ui));
-            Ui.Session = hosted.Legacy;
+            var hosted = RunHost.Start(_content, Ui.Saves, _slot, seed, ViewModel.Selected, Ui.Data.Strings.Get(_content.Flow.NameKey));
             Ui.Core2Session = hosted.Core2;
-            var opening = hosted.IsCore2 && RunFlow.OpeningOverride != false
+            var opening = RunFlow.OpeningOverride != false
                 ? PrologueFlow.For(_content, hosted.Core2.PlayerSettings, hosted.Core2.ClassId, hosted.Core2.Name)
                 : null;
             if (opening != null)
@@ -510,7 +509,7 @@ namespace Ashen.Presentation.UI.Screens
                 Nav.Go(ScreenIds.Prologue, new PrologueArgs { Session = hosted.Core2, Opening = opening }, true);
                 return;
             }
-            Nav.Fire(ScreenTriggers.Begin, hosted.IsCore2 ? (object)new Core2RunArgs { Session = hosted.Core2 } : new RunScreenArgs { Session = hosted.Legacy });
+            Nav.Fire(ScreenTriggers.Begin, new Core2RunArgs { Session = hosted.Core2 });
         }
     }
 }

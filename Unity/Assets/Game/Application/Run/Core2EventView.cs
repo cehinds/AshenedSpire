@@ -111,7 +111,7 @@ namespace Ashen.App.Run
             };
             if (nodes != null)
             {
-                state.ArtId = EventView.EventArt(d, nodes, def, all);
+                state.ArtId = EventArt(d, nodes, def, all);
                 state.BackgroundId = NodeRules.Fill(nodes.EventBackground, NodePlaceholders.Region, regionId) ?? nodes.EventFallbackBackground;
             }
             if (open[EK.Speaker] is JObject speaker)
@@ -149,6 +149,21 @@ namespace Ashen.App.Run
             state.ContinueText = strings.Get(state.StartsFight ? Ashen.Generated.NodeStringKeys.NodesEventSteel : Ashen.Generated.NodeStringKeys.NodesEventContinue);
             state.ContinueReason = state.Resolved ? string.Empty : strings.Get(SN.Core2EventContinueReason);
             return state;
+        }
+
+        /// <summary>The narrative art: the data's entry for the event, else the first enemy of a fight it can start.</summary>
+        private static string EventArt(EventsData d, NodeRules nodes, JObject def, List<JObject> choices)
+        {
+            var id = def.Str(K.Id);
+            if (id != null && nodes.EventArt[id] != null) return (string)nodes.EventArt[id];
+            foreach (var effect in choices.SelectMany(c => Js.Items(c[K.Effects]).OfType<JObject>()))
+            {
+                if (effect.Str(K.Op) != EV.StartCombat) continue;
+                var enc = d.Run.Encounters.Has(effect.Str(MK.EncounterId)) ? d.Run.Encounters.Get(effect.Str(MK.EncounterId)) : null;
+                var enemy = Js.Str(Js.Items(enc?[K.Enemies]).FirstOrDefault());
+                if (enemy != null) return NodeRules.Fill(nodes.EventEnemyArt, NodePlaceholders.Id, enemy);
+            }
+            return null;
         }
     }
 }

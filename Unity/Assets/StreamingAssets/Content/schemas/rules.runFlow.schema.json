@@ -192,45 +192,6 @@
         "holdConfirm"
       ]
     },
-    "screens": {
-      "type": "object",
-      "properties": {
-        "combat": {
-          "type": "string"
-        },
-        "rewards": {
-          "type": "string"
-        },
-        "map": {
-          "type": "string"
-        },
-        "rest": {
-          "type": "string"
-        },
-        "merchant": {
-          "type": "string"
-        },
-        "event": {
-          "type": "string"
-        },
-        "dungeon": {
-          "type": "string"
-        },
-        "runEnd": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "combat",
-        "rewards",
-        "map",
-        "rest",
-        "merchant",
-        "event",
-        "dungeon",
-        "runEnd"
-      ]
-    },
     "core2Screens": {
       "type": "object",
       "properties": {
@@ -271,7 +232,6 @@
     "firstFight",
     "newRun",
     "saveFormat",
-    "screens",
     "settings"
   ]
 }

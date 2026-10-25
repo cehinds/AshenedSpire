@@ -66,7 +66,6 @@ namespace Ashen.Presentation.UI.Screens
                 return;
             }
             Ui.Core2Session = _run;
-            Ui.Session = null;
             _flow = new Core2ShopFlow(_run, Ui.Data);
             _frame = Root.Q<CombatModal>(UiNames.CshopFrame);
             _modal = Root.Q<CombatModal>(UiNames.CshopModal);

@@ -64,7 +64,6 @@ namespace Ashen.Presentation.UI.Screens
                 return;
             }
             Ui.Core2Session = _run;
-            Ui.Session = null;
             _flow = new Core2RestFlow(_run, Ui.Data);
             _door = Root.Q<CombatModal>(UiNames.CrestDoor);
             _modal = Root.Q<CombatModal>(UiNames.CrestModal);

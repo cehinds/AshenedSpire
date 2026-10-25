@@ -45,16 +45,7 @@
       "key": "holdConfirm"
     }
   },
-  "screens": {
-    "combat": "combat",
-    "rewards": "rewards",
-    "map": "actMap",
-    "rest": "rest",
-    "merchant": "merchant",
-    "event": "event",
-    "dungeon": "legacyDungeon",
-    "runEnd": "runEnd"
-  },
+
   "core2Screens": {
     "combat": "core2Combat",
     "map": "actMap",

@@ -55,7 +55,6 @@ namespace Ashen.Presentation.UI.Screens
                 return;
             }
             Ui.Core2Session = _run;
-            Ui.Session = null;
             _flow = new Core2SpoilsFlow(_run, Ui.Data);
             _hud = Root.Q<RunHud>(UiNames.RunHud);
             if (_hud != null) _hud.Menu += OpenPause;

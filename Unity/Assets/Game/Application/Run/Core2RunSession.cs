@@ -43,7 +43,7 @@ namespace Ashen.App.Run
         /// <summary>No valid copy, or a payload this build cannot resume.</summary>
         Damaged,
 
-        /// <summary>The slot holds another kind of run (a 405 run, save format 2): the caller loads it with <see cref="RunSession"/>.</summary>
+        /// <summary>The slot holds another kind of run (a 405 run, save format 2), which this build no longer plays (WP-21): kept, never loaded.</summary>
         OtherRuleset,
 
         /// <summary>The run was made under another profile (D-171): the slot is kept as it is.</summary>

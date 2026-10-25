@@ -12,13 +12,6 @@ using UnityEngine.UIElements;
 
 namespace Ashen.Presentation.UI.Screens
 {
-    /// <summary>What a climb screen is opened with: the run, and whether its resume skipped or diverged from the log (D-017).</summary>
-    public sealed class RunScreenArgs
-    {
-        public RunSession Session;
-        public bool ResumeWarning;
-    }
-
     /// <summary>What a screen of a Core 2 run is opened with: the run, and whether its resume skipped or diverged from the log.</summary>
     public sealed class Core2RunArgs
     {
@@ -36,7 +29,6 @@ namespace Ashen.Presentation.UI.Screens
     /// </summary>
     public sealed class ActMapScreen : ScreenView
     {
-        private RunSession _session;
         private Core2RunSession _core2;
         private IClimb _climb;
         private ActMapViewState _view;
@@ -53,12 +45,10 @@ namespace Ashen.Presentation.UI.Screens
         private IVisualElementScheduledItem _trayShow;
         private bool _centred;
 
-        public RunSession Session => _session;
-
-        /// <summary>The Core 2 run this map shows (null on a 405 run).</summary>
+        /// <summary>The Core 2 run this map shows.</summary>
         public Core2RunSession Core2 => _core2;
 
-        /// <summary>The run, whichever ruleset plays it.</summary>
+        /// <summary>The run.</summary>
         public IClimb Climb => _climb;
 
         public ActMapViewState View => _view;
@@ -67,7 +57,7 @@ namespace Ashen.Presentation.UI.Screens
         public bool TrayOpen => _tray;
         public bool LegendOpen => _legend;
 
-        /// <summary>The planned door is open (the run stands at a merchant, an event or a legacy dungeon whose screen is planned; on a Core 2 run, at a place whose rules are a later work package).</summary>
+        /// <summary>The planned door is open (the run stands at a place whose screen is planned).</summary>
         public bool PlannedOpen => _door != null;
 
         public PlannedDoorState Door => _door;
@@ -80,15 +70,13 @@ namespace Ashen.Presentation.UI.Screens
 
         protected override void OnBind(object args)
         {
-            _core2 = (args as Core2RunArgs)?.Session ?? (args == null ? Ui.Core2Session : null);
-            _session = _core2 != null ? null : (args as RunScreenArgs)?.Session ?? Ui.Session;
-            _climb = (IClimb)_session ?? _core2;
+            _core2 = (args as Core2RunArgs)?.Session ?? Ui.Core2Session;
+            _climb = _core2;
             if (_climb == null)
             {
                 Debug.LogError(UiMessages.NoRun);
                 return;
             }
-            Ui.Session = _session;
             Ui.Core2Session = _core2;
             _hudHp = Root.Q<Meter>(UiNames.HudHp);
             var menu = Root.Q<LocButton>(UiNames.HudMenu);
@@ -330,13 +318,7 @@ namespace Ashen.Presentation.UI.Screens
 
         private void RenderPlanned()
         {
-            if (_core2 != null) _door = _core2.PendingPort != null ? Core2PortView.Build(_core2, Ui.Data) : null;
-            else
-            {
-                var location = _session.Location;
-                var planned = location == RunFlowValues.LocationMerchant || location == RunFlowValues.LocationEvent || location == RunFlowValues.LocationDungeon;
-                _door = planned ? PlannedDoorView.Build(_session, Ui.Data) : null;
-            }
+            _door = _core2.PendingPort != null ? Core2PortView.Build(_core2, Ui.Data) : null;
             UiDom.Show(Root.Q(UiNames.PlannedDoor), _door != null);
             if (_door == null) return;
             Root.Q<LocLabel>(UiNames.PlannedTitle)?.SetResolved(_door.Title);
@@ -398,24 +380,7 @@ namespace Ashen.Presentation.UI.Screens
         public void Travel(string id, VisualElement anchor)
         {
             if (id == null) return;
-            if (_core2 != null)
-            {
-                TravelCore2(id, anchor);
-                return;
-            }
-            TravelResult result;
-            try { result = _session.Travel(id); }
-            catch (Exception e)
-            {
-                SaveFailed(e, () => Travel(id, anchor));
-                return;
-            }
-            if (!result.Travelled)
-            {
-                RunFlow.Refuse(Context, anchor, string.Format(CultureInfo.InvariantCulture, UiFormats.MapRefusalKey, result.Refusal));
-                return;
-            }
-            RunFlow.Show(Context, _session);
+            TravelCore2(id, anchor);
         }
 
         /// <summary>Core 2: a fight opens its screen; a place whose rules are a later work package stays on the map behind its notice (the run stands at the node and goes on from it).</summary>
@@ -444,71 +409,28 @@ namespace Ashen.Presentation.UI.Screens
             RunFlow.Show(Context, _core2);
         }
 
-        /// <summary>The planned door's one action: the merchant's Leave; the event's first open choice, then Continue; the dungeon's next step.</summary>
+        /// <summary>The planned door's one action: Continue past the notice.</summary>
         private void OnPlanned(VisualElement anchor)
         {
             if (_door == null) return;
-            if (_core2 != null)
-            {
-                try
-                {
-                    _core2.DismissPort();
-                    _core2.Save();
-                }
-                catch (Exception e)
-                {
-                    SaveFailed(e, () => OnPlanned(anchor));
-                    return;
-                }
-                // Leaving the spoils may end the climb (a death or the last boss once its level notices are read): the run end is the next screen.
-                if (_core2.RunOver)
-                {
-                    RunFlow.Show(Context, _core2);
-                    return;
-                }
-                Render();
-                FocusSoon(FirstReachable());
-                return;
-            }
             try
             {
-                switch (_door.Location)
-                {
-                    case RunFlowValues.LocationMerchant:
-                        _session.LeaveMerchant();
-                        break;
-                    case RunFlowValues.LocationEvent:
-                        if (!_session.EventDone)
-                        {
-                            var chosen = _session.ChooseEvent(_session.EventStandInChoice());
-                            if (!chosen.Ok)
-                            {
-                                RunFlow.Refuse(Context, anchor, chosen.Refusal.Key);
-                                return;
-                            }
-                            Render();
-                            FocusSoon(PlannedAction);
-                            return;
-                        }
-                        _session.FinishEvent();
-                        break;
-                    case RunFlowValues.LocationDungeon:
-                        _session.AdvanceDungeon();
-                        if (_session.Location == RunFlowValues.LocationDungeon)
-                        {
-                            Render();
-                            FocusSoon(PlannedAction);
-                            return;
-                        }
-                        break;
-                }
+                _core2.DismissPort();
+                _core2.Save();
             }
             catch (Exception e)
             {
                 SaveFailed(e, () => OnPlanned(anchor));
                 return;
             }
-            RunFlow.Show(Context, _session);
+            // Leaving the spoils may end the climb (a death or the last boss once its level notices are read): the run end is the next screen.
+            if (_core2.RunOver)
+            {
+                RunFlow.Show(Context, _core2);
+                return;
+            }
+            Render();
+            FocusSoon(FirstReachable());
         }
 
         private void Zoom(int step)

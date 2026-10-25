@@ -170,19 +170,6 @@ namespace Ashen.Tests
             Assert.That(PrologueFlow.For(Content, settings, "reaver", "Aldric"), Is.Not.Null);
         }
 
-        [Test]
-        public void TheSavedOpeningOfThe405RunReadsThroughTheSameScenes()
-        {
-            var content = RunContent.Load(TestContent.Source, null, new[] { JObject.Parse("{\"files\":{\"rules/runFlow.json\":{\"newRun\":{\"prologue\":true}}}}") });
-            var session = RunSession.New(content, _saves, 1, 77u, content.DefaultClass(), "Aldric");
-            Assert.That(session.Opening.Pending, Is.True);
-            var view = session.Opening.View(Ui);
-            Assert.That(view.SceneId, Is.EqualTo("warmth"));
-            Assert.That(view.Title, Is.EqualTo("Remembered warmth"));
-            session.Opening.Skip();
-            Assert.That(session.ProloguePending, Is.False);
-        }
-
         // ------------------------------------------------------------------ Settings (W-18 laid out as the web's)
 
         private static System.Collections.Generic.IReadOnlyList<Ashen.App.Settings.SettingsTabDef> Layout => Ashen.App.Settings.SettingsLayout.From(Ui.Meta);

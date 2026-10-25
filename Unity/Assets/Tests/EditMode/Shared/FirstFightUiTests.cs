@@ -68,64 +68,6 @@ namespace Ashen.Tests
         }
 
         [Test]
-        public void TheFirstFightViewIsDisplayReadyWithFlasksAndIntents()
-        {
-            var session = RunSession.New(Content, Saves(), 1, 424242, Content.DefaultClass(), "Aldric");
-            session.StartEncounter();
-            var view = CombatViewModel.Build(session.Combat.State);
-            Assert.That(view.Enemies.Count, Is.GreaterThanOrEqualTo(2), "the patrol has a choice of targets");
-            Assert.That(view.Enemies.All(e => e.Intent != null), Is.True, "every living enemy telegraphs");
-            foreach (var e in view.Enemies) Assert.That(CombatText.Intent(Ui.Strings, e.Intent), Does.Not.Contain("{"), e.DefId);
-            Assert.That(view.Flasks.Where(f => f.IsCharge).Select(f => f.ChargeKind), Is.EquivalentTo(new[] { "hp", "mana" }));
-            var run = session.Run.Value<JObject>("flaskCharges");
-            foreach (var f in view.Flasks.Where(f => f.IsCharge))
-            {
-                Assert.That(f.Max, Is.EqualTo(run.Value<double>(f.ChargeKind)), f.ChargeKind);
-                Assert.That(f.Name, Is.Not.Empty, f.ChargeKind);
-                Assert.That(f.Usable, Is.EqualTo(f.Current > 0), f.ChargeKind);
-            }
-            foreach (var card in view.Hand)
-            {
-                Assert.That(CombatText.CardKind(Ui.Strings, card.Kind), Is.Not.Null, card.CardId);
-                if (!card.Playable) Assert.That(CombatText.Refusal(Ui.Strings, card.Refusal), Is.Not.Empty, card.CardId);
-            }
-        }
-
-        [Test]
-        public void DrinkingAChargeFlaskSpendsOneCharge()
-        {
-            var session = RunSession.New(Content, Saves(), 1, 99, Content.DefaultClass(), "Aldric");
-            session.StartEncounter();
-            var flask = CombatViewModel.Build(session.Combat.State).Flasks.First(f => f.IsCharge && f.Usable);
-            var outcome = session.Execute(CombatCommand.UseFlask(0, flask.ChargeKind, flask.Targeted ? session.Combat.State.Enemies[0].Value<string>("id") : null));
-            Assert.That(outcome.Accepted, Is.True, CombatText.Refusal(Ui.Strings, outcome.Refusal));
-            var after = CombatViewModel.Build(session.Combat.State).Flasks.First(f => f.ChargeKind == flask.ChargeKind);
-            Assert.That(after.Current, Is.EqualTo(flask.Current - 1));
-        }
-
-        [Test]
-        public void ThePromptedDiscardChooserRefusesTooManyAndAcceptsAChoice()
-        {
-            var patch = new JObject { ["files"] = new JObject { [ContentFiles.RulesHandRules] = new JObject { ["promptDiscard"] = true } } };
-            var content = RunContent.Load(TestContent.Source, null, new[] { patch });
-            var session = RunSession.New(content, Saves(), 1, 7, content.DefaultClass(), "Aldric");
-            session.StartEncounter();
-            var view = CombatViewModel.Build(session.Combat.State);
-            Assert.That(view.DiscardChoice, Is.True, "promptDiscard offers the chooser at turn end (US-5.2)");
-            var eligible = HandRules.Plan(session.Combat.State).Cards.Select(c => c.Value<string>("instanceId")).ToList();
-            var tooMany = eligible.Take((int)view.DiscardMaximum + 1).ToList();
-            if (tooMany.Count > view.DiscardMaximum)
-            {
-                var refused = session.Execute(CombatCommand.EndTurn(tooMany));
-                Assert.That(refused.Refusal?.Key, Is.EqualTo(CombatStringKeys.CombatRefusalDiscardSelection));
-            }
-            var handBefore = session.Combat.State.Piles.Hand.Count;
-            Assert.That(session.Execute(CombatCommand.EndTurn(eligible.Take(1))).Accepted, Is.True);
-            Assert.That(session.Combat.State.Piles.Discard.Any(c => c.Value<string>("instanceId") == eligible[0]), Is.True);
-            Assert.That(handBefore, Is.GreaterThan(0));
-        }
-
-        [Test]
         public void PauseRowsFollowTheirRulesInAFight()
         {
             var states = MenuRules.Evaluate(Ui.Menus.Pause, Ui.MenuContext(true, true));
@@ -170,21 +112,12 @@ namespace Ashen.Tests
         public void FocusModesNameRegionsThatExist()
         {
             var names = new HashSet<string>(typeof(UiNames).GetFields().Select(f => (string)f.GetRawConstantValue()));
-            var combat = Ui.Screens.Get(ScreenIds.Combat);
-            foreach (var mode in new[] { UiValues.FocusTargeting, UiValues.FocusDiscard, UiValues.FocusFlasks, UiValues.FocusEnemyTurn, UiValues.FocusEnded })
+            foreach (var id in new[] { ScreenIds.Core2Combat, ScreenIds.Core2Rewards, ScreenIds.ActMap, ScreenIds.Core2Rest, ScreenIds.Core2Shop, ScreenIds.Core2Event })
             {
-                Assert.That(combat.FocusModes.ContainsKey(mode), Is.True, mode);
-                foreach (var region in combat.FocusOrderFor(mode)) Assert.That(names, Does.Contain(region), mode + " " + region);
-            }
-            Assert.That(combat.FocusOrderFor(null), Is.EqualTo(combat.FocusOrder));
-            var rewards = Ui.Screens.Get(ScreenIds.Rewards);
-            Assert.That(Ui.Screens.IsBuilt(ScreenIds.Rewards), Is.True, "W-08 rewards is built (us-11.2)");
-            Assert.That(rewards.FocusModes.ContainsKey(UiValues.FocusPick), Is.True, "the pick sub-state has its own focus order");
-            foreach (var region in rewards.FocusOrderFor(UiValues.FocusPick).Concat(rewards.FocusOrder)) Assert.That(names, Does.Contain(region), "rewards " + region);
-            Assert.That(Ui.Screens.IsBuilt(ScreenIds.ActMap), Is.True, "the act map is built (us-4.2), so W-08 Continue goes on to the map");
-            foreach (var id in new[] { ScreenIds.ActMap, ScreenIds.Rest })
-            {
+                Assert.That(Ui.Screens.IsBuilt(id), Is.True, id);
                 var screen = Ui.Screens.Get(id);
+                Assert.That(screen.FocusOrderFor(null), Is.EqualTo(screen.FocusOrder), id);
+                foreach (var region in screen.FocusOrder) Assert.That(names, Does.Contain(region), id + " " + region);
                 foreach (var mode in screen.FocusModes.Keys)
                     foreach (var region in screen.FocusOrderFor(mode)) Assert.That(names, Does.Contain(region), id + " " + mode + " " + region);
             }

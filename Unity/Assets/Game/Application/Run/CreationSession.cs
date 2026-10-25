@@ -501,36 +501,6 @@ namespace Ashen.App.Run
             return preview;
         }
 
-        /// <summary>
-        /// Begin the Climb: every pane's checks, then the run through <see cref="RunSession.New"/> with these choices.
-        /// An occupied slot needs <paramref name="replaceConfirmed"/> (W2c Replace); without it nothing is written.
-        /// </summary>
-        public RunSession Begin(bool replaceConfirmed, out CreationRefusal refusal, Func<DateTime> clock = null, JObject custom = null)
-        {
-            refusal = null;
-            foreach (var pane in Panes)
-            {
-                refusal = PaneRefusal(pane);
-                if (refusal != null)
-                {
-                    PaneIndex = Panes.ToList().IndexOf(pane);
-                    return null;
-                }
-            }
-            if (SlotOccupied && !replaceConfirmed)
-            {
-                refusal = new CreationRefusal { Text = SlotNote, Pane = CV.PaneReview, Focus = SaveKeys.RunSlots };
-                return null;
-            }
-            return RunSession.New(_content, _saves, SlotIndex, Seed, ClassId, Name, clock, custom, new CreationChoices
-            {
-                Creation = Options(),
-                KeepsakeId = KeepsakeId,
-                Tint = Tint,
-                Glyph = Glyph,
-            });
-        }
-
         // ------------------------------------------------------------------ names
 
         private string ClassName(string classId) => RunHudView.ClassName(_ui, classId);

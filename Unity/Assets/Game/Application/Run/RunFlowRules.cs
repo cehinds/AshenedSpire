@@ -49,20 +49,14 @@ namespace Ashen.App.Run
         /// <summary>newRun.opening: a New Game plays the opening (W-05) before the climb's first step. It is the screen's, not the run's: the run itself stays headless (bots, tests); the 405 run's own prologue row is <see cref="Prologue"/>.</summary>
         public bool Opening;
 
-        /// <summary>newRun.ruleset: the ruleset a New Game starts, 'legacy' (the 405 <see cref="RunSession"/>) or 'core2' (<see cref="Core2RunSession"/>); see <see cref="RunHost"/>.</summary>
+        /// <summary>newRun.ruleset: the ruleset a New Game starts; 'core2' (<see cref="Core2RunSession"/>) is the only one since WP-21; see <see cref="RunHost"/>.</summary>
         public string NewRunRuleset;
 
         public FlowSetting MultiUse = new FlowSetting();
         public FlowSetting ShopSell = new FlowSetting();
         public FlowSetting HoldConfirm = new FlowSetting();
 
-        /// <summary>screens: RunSession.Location → the screen id that shows it.</summary>
-        public IReadOnlyDictionary<string, string> Screens = new Dictionary<string, string>(StringComparer.Ordinal);
-
-        /// <summary>The screen a location routes to, or null.</summary>
-        public string ScreenFor(string location) => location != null && Screens.TryGetValue(location, out var id) ? id : null;
-
-        /// <summary>core2Screens: Core2RunSession.Location → the screen that shows it (the Core 2 fight has its own screen; the map and the run end are shared).</summary>
+        /// <summary>core2Screens: Core2RunSession.Location → the screen that shows it.</summary>
         public IReadOnlyDictionary<string, string> Core2Screens = new Dictionary<string, string>(StringComparer.Ordinal);
 
         /// <summary>The screen a Core 2 run's location routes to, or null.</summary>
@@ -75,7 +69,6 @@ namespace Ashen.App.Run
             var autosave = (JObject)json[RunFlowKeys.Autosave];
             var newRun = json[RunFlowKeys.NewRun] as JObject ?? new JObject();
             var settings = json[RunFlowKeys.Settings] as JObject ?? new JObject();
-            var screens = json[RunFlowKeys.Screens] as JObject ?? new JObject();
             var core2Screens = json[RunFlowKeys.Core2Screens] as JObject ?? new JObject();
             return new RunFlowRules
             {
@@ -98,7 +91,6 @@ namespace Ashen.App.Run
                 MultiUse = FlowSetting.From(settings[RunFlowKeys.MultiUse]),
                 ShopSell = FlowSetting.From(settings[RunFlowKeys.ShopSell]),
                 HoldConfirm = FlowSetting.From(settings[RunFlowKeys.HoldConfirm]),
-                Screens = screens.Properties().ToDictionary(p => p.Name, p => (string)p.Value, StringComparer.Ordinal),
                 Core2Screens = core2Screens.Properties().ToDictionary(p => p.Name, p => (string)p.Value, StringComparer.Ordinal),
             };
         }
