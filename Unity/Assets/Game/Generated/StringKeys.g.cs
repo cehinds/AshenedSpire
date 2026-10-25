@@ -1199,6 +1199,13 @@ namespace Ashen.Generated
         public const string DeckEditorUndo = "deckEditor.undo";
         public const string DeckEditorUnlimited = "deckEditor.unlimited";
         public const string DeckEditorUp = "deckEditor.up";
+        public const string GlossaryBlockName = "glossary.blockName";
+        public const string GlossaryBlockText = "glossary.blockText";
+        public const string GlossaryEntry = "glossary.entry";
+        public const string GlossaryFold = "glossary.fold";
+        public const string GlossaryJoin = "glossary.join";
+        public const string GlossaryPoiseName = "glossary.poiseName";
+        public const string GlossaryPoiseText = "glossary.poiseText";
         public const string GlyphActions = "glyph.actions";
         public const string GlyphArmament = "glyph.armament";
         public const string GlyphCard = "glyph.card";

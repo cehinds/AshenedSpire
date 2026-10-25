@@ -46,6 +46,9 @@ namespace Ashen.App.Ui
         /// <summary>ui/changelog.json (P-3a): CHANGELOG.md as Settings > Advanced > Changelog lists it.</summary>
         public ChangelogData Changelog;
 
+        /// <summary>ui/terms.json (P-3a): the web's framework terms at the pin, the vocabulary the tooltip glossary explains.</summary>
+        public JObject Terms;
+
         /// <summary>ui/poses.json (P-1): the geometry of the player figure's pose frames and how long a pose is held.</summary>
         public PoseData Poses;
 
@@ -69,6 +72,7 @@ namespace Ashen.App.Ui
                 Progression = ProgressionLayout.From(Read(ContentFiles.UiProgression)),
                 Lore = LoreLayout.From(Read(ContentFiles.UiLore)),
                 Changelog = ChangelogData.From(Read(ContentFiles.UiChangelog)),
+                Terms = Read(ContentFiles.UiTerms),
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
                 Meta = Read(ContentFiles.UiMeta),

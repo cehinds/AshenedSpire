@@ -669,6 +669,18 @@ namespace Ashen.Presentation.UI.Screens
             pane.Add(card);
             var def = _run.CombatData.Cards.Has(row.Ref.Str(CombatKeys.CardId)) ? _run.CombatData.Cards.Get(row.Ref.Str(CombatKeys.CardId)) : null;
             Lore(pane, def?.Str(CombatKeys.Flavor), def?.Str(CombatKeys.Name));
+            var view = Core2DeckCards.View(_run.CombatData, row.Ref, Words);
+            var rules = CardFaceMarkup.Plain(Ui.Data.CardText, view.Words?.Reading ?? view.Text ?? string.Empty);
+            var entries = _run.Glossary(Ui.Data).Explain(rules);
+            if (entries.Count > 0)
+                Fold(pane, AttrCardValues.GlossaryFold, Strings.Get(StringKeys.GlossaryFold), string.Empty, open =>
+                {
+                    foreach (var entry in entries)
+                    {
+                        Label(open, entry.Name, ArmouryClasses.PositionName);
+                        Label(open, entry.Explanation, ArmouryClasses.Muted);
+                    }
+                });
         }
 
         private void TileRow(VisualElement list, DeckTile tile)

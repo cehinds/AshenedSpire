@@ -90,7 +90,8 @@
         "StepperKey": "step:{0}:{1}",
         "StepUp": "up",
         "StepDown": "down",
-        "PoolKey": "pool"
+        "PoolKey": "pool",
+        "GlossaryFold": "glossary"
       }
     },
     {
@@ -216,6 +217,55 @@
       "keys": {
         "ClassXp": "classXpMultiplier",
         "WeaponXp": "weaponXpMultiplier"
+      }
+    },
+    {
+      "name": "GlossaryKeys",
+      "doc": "The vocabulary the tooltip glossary reads (web ui/components/tooltipGlossary.js, ui/uiContent.js statusTooltipText): the framework terms' rows and the status and stance fields a tooltip's numbers come from.",
+      "keys": {
+        "Terms": "terms",
+        "Id": "id",
+        "CanonicalText": "canonicalText",
+        "PluralText": "pluralText",
+        "TooltipPrefix": "term.tooltip.",
+        "TermPrefix": "term.",
+        "Name": "name",
+        "Tooltip": "tooltip",
+        "Proc": "proc",
+        "Threshold": "threshold",
+        "BurstPercent": "burstPercent",
+        "BurstMin": "burstMin",
+        "BurstMax": "burstMax",
+        "PoiseDamage": "poiseDamage",
+        "Resists": "resists",
+        "Percent": "percent",
+        "TaggedVulnerability": "taggedVulnerability",
+        "Mult": "mult",
+        "Decay": "decay",
+        "Duration": "duration",
+        "OnEnter": "onEnter",
+        "Amount": "amount",
+        "Hooks": "hooks",
+        "Do": "do",
+        "TokenProcThreshold": "{proc.threshold}",
+        "TokenBurstPercent": "{proc.burstPercent}",
+        "TokenBurstMin": "{proc.burstMin}",
+        "TokenBurstMax": "{proc.burstMax}",
+        "TokenPoiseDamage": "{proc.poiseDamage}",
+        "TokenResists": "{resists.percent}",
+        "TokenTaggedVulnerability": "{tv.pct}",
+        "TokenDecay": "{decay.duration}",
+        "TokenOnEnter": "{onEnter.{0}.amount}",
+        "TokenHook": "{hooks.{0}.do.{1}.amount}",
+        "WordBoundary": "\\b(",
+        "WordBoundaryEnd": ")\\b",
+        "True": "true",
+        "False": "false",
+        "ArrayJoin": ",",
+        "ObjectText": "[object Object]",
+        "Alternation": "|",
+        "Arg0": "{0}",
+        "Arg1": "{1}"
       }
     }
   ],

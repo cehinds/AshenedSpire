@@ -324,8 +324,8 @@ namespace Ashen.Presentation.UI.Screens
                 foreach (var fact in model.Facts)
                     Chip(facts, Strings.Format(StringKeys.ArmouryCardFactChip, new StringArgs().Add(UiPlaceholders.Label, fact.Label).Add(UiPlaceholders.Value, fact.Value)), fact.Explanation);
             }
-            foreach (var effect in model.Effects) Label(wrap, effect.Label, ArmouryClasses.Line);
-            if (model.HasMinimum) Label(wrap, model.Requirement, ArmouryClasses.Line);
+            foreach (var effect in model.Effects) Glossed(Label(wrap, effect.Label, ArmouryClasses.Line), effect.Label);
+            if (model.HasMinimum) Glossed(Label(wrap, model.Requirement, ArmouryClasses.Line), model.Requirement);
             Lore(wrap, model.Flavor, model.Name);
         }
 

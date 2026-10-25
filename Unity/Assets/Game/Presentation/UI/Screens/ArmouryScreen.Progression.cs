@@ -230,6 +230,19 @@ namespace Ashen.Presentation.UI.Screens
             DialogButton(StringKeys.ConfirmBack, UiClasses.ButtonBack, CloseDialog);
         }
 
+        // ---- the tooltip glossary (tooltipGlossary.js decorateKeywords)
+
+        /// <summary>The words of a text the glossary explains, each on hover: a line that names a term, a status or Block says what it means (the web underlines the word and explains it where it stands).</summary>
+        private void Glossed(Label line, string text)
+        {
+            var entries = _run.Glossary(Ui.Data).Explain(text);
+            if (entries.Count == 0) return;
+            line.pickingMode = PickingMode.Position;
+            line.focusable = true;
+            var body = string.Join(Strings.Get(StringKeys.GlossaryJoin), entries.Select(e => entries.Count == 1 ? e.Explanation : Strings.Format(StringKeys.GlossaryEntry, new StringArgs().Add(UiPlaceholders.Name, e.Name).Add(UiPlaceholders.Text, e.Explanation))));
+            Tooltip.AttachResolved(line, Context.Overlay, Ui.Data.Components.TooltipPlain, entries.Count == 1 ? entries[0].Name : text, body, Ui.Data.Tokens.Duration(TokenKeys.TooltipDelay));
+        }
+
         // ---- the lore line and the lore window (loreLine.js)
 
         /// <summary>The lore line of an inspection: the identity line, and a Read cue that opens the window when the lore has more to say.</summary>
