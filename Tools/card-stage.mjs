@@ -34,7 +34,7 @@ const [family, anim, weapon, weaponPresentation, landmarks, hurtFrames, defeated
 const CLASSES = ['reaver', 'rogue', 'starseer', 'herald'];
 
 // The art id of a source file: the registry's own mapping (Tools/assets.config.json release.rules), never a second spelling of it.
-const artBySource = new Map(Object.entries(REGISTRY).map(([id, row]) => [row.source, id]));
+const artBySource = new Map(Object.entries(REGISTRY).filter(([, row]) => !row.derived).map(([id, row]) => [row.source, id]));
 const art = (path) => {
   const id = artBySource.get(path);
   if (!id || !REGISTRY[id].unityPath) throw new Error(`card-stage: ${path} is not an imported asset (run Tools/scan-assets.mjs --release ... --import)`);
