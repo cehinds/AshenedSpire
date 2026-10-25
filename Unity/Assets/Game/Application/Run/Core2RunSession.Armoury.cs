@@ -153,7 +153,7 @@ namespace Ashen.App.Run
             bool changed;
             try
             {
-                changed = Armoury.CycleSet(GearData, loadout, slotId, setIndex, false, ClassId, null, true);
+                changed = Armoury.CycleSet(GearData, loadout, slotId, setIndex, false, ClassId, null, true, ArmouryPanes.EarnedRungs(this, slotId));
                 if (changed) DeckRules.Restamp(Core.Deck, _run);
             }
             catch (InvalidOperationException)

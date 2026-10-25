@@ -73,7 +73,7 @@ namespace Ashen.App.Run
             if (ui.Meta?.Obj(MetaUiKeys.RunHud)?.Is(MetaUiKeys.ShowXp) == true)
             {
                 var row = run.Obj(K.Level) ?? Ashen.Domain.Rewards.LevelUp.EmptyLevel();
-                var next = Ashen.Domain.Rewards.LevelUp.XpToNext(session.Content.Loop.Rewards, row[K.Level]);
+                var next = session.XpToNext(row[K.Level]);
                 var capped = double.IsInfinity(next) || double.IsNaN(next) || next <= 0;
                 hud.Xp = capped ? strings.Get(MetaStringKeys.HudXpMax)
                     : strings.Format(MetaStringKeys.HudXp, new StringArgs().Add(MetaPlaceholders.Xp, Int(row.Num(K.Xp))).Add(MetaPlaceholders.Next, Int(next)));

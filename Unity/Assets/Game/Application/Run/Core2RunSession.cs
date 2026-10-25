@@ -182,6 +182,8 @@ namespace Ashen.App.Run
         /// <summary>The classes the run's close-out opened (the profile's class ledger), once it is over.</summary>
         public IReadOnlyList<string> ClassesUnlocked { get; private set; } = Array.Empty<string>();
 
+        public double XpToNext(Newtonsoft.Json.Linq.JToken level) => Ashen.Domain.Loop.Core2Rest.XpToNext(Core.Rewards, Js.D(level));
+
         /// <summary>
         /// The kind of node the run stands at whose door has no screen, until the player moves on; or null. Every door has one now (the event is the event screen, VP-9; D-960): only a
         /// 'rest' place of a profile without the rest module keeps the act map's notice (<see cref="DismissPort"/> takes its action).
