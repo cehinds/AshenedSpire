@@ -632,7 +632,7 @@
 /* ---- narrow board (390 x 844): taller HUD for 48 px buttons and the cinders under them, a 120 px footer ---- */
 
 .layout-narrow .board-hud {
-    height: var(--size-board-hud-h-narrow);
+    height: var(--size-board-hud-hnarrow);
 }
 
 .layout-narrow .hud-hp {

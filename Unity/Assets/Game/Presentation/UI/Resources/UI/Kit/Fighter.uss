@@ -247,16 +247,16 @@
 /* ---- narrow board (390 x 844): slots a third of the width, smaller figures and overhead ---- */
 
 .layout-narrow .combatant.fighter {
-    width: var(--size-board-slot-w-narrow);
+    width: var(--size-board-slot-wnarrow);
     margin-bottom: var(--size-board-row-pull-narrow);
 }
 
 .layout-narrow .combatant.fighter .combatant-art {
-    height: var(--size-board-art-h-narrow);
+    height: var(--size-board-art-hnarrow);
 }
 
 .layout-narrow .combatant--player.fighter .combatant-art {
-    height: var(--size-board-ally-art-h-narrow);
+    height: var(--size-board-ally-art-hnarrow);
 }
 
 .layout-narrow .combatant.fighter .combatant-intent {
@@ -264,7 +264,7 @@
 }
 
 .band-compact .combatant.fighter .combatant-art {
-    height: var(--size-board-art-h-compact);
+    height: var(--size-board-art-hcompact);
 }
 
 /* ---- the figure and its pose frames (VP-5, D-750): the recoil, lunge and wobble move .fighter-figure; a state or attack frame is the .fighter-pose child, bottom-aligned at its own height ---- */

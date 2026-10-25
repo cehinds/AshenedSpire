@@ -411,8 +411,8 @@
 }
 
 .layout-narrow .inspect-card {
-    width: var(--size-inspect-card-w-narrow);
-    height: var(--size-inspect-card-h-narrow);
+    width: var(--size-inspect-card-wnarrow);
+    height: var(--size-inspect-card-hnarrow);
     margin-right: 0;
     margin-bottom: var(--size-cmodal-inset);
 }

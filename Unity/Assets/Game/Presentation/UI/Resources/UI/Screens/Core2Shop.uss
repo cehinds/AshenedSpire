@@ -283,6 +283,6 @@
 }
 
 .layout-narrow .c2shop-inspect-card {
-    width: var(--size-shop-inspect-w-narrow);
-    height: var(--size-shop-inspect-h-narrow);
+    width: var(--size-shop-inspect-wnarrow);
+    height: var(--size-shop-inspect-hnarrow);
 }
