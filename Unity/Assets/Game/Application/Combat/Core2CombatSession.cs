@@ -66,6 +66,8 @@ namespace Ashen.App.Combat
         public Core2CombatSession Session;
         public JObject Run;
         public bool LogDiverged;
+        /// <summary>The log ended in a damaged record (a crash mid-append): the replay is the valid prefix, and the caller checkpoints before it appends again.</summary>
+        public bool LogTruncated;
         public readonly List<string> Warnings = new List<string>();
     }
 
@@ -493,6 +495,7 @@ namespace Ashen.App.Combat
                     session._seq++;
                     replayed?.Invoke(outcome, session);
                 }
+                result.LogTruncated = loaded.LogTruncated;
                 result.Session = session;
                 result.Run = payload[RunSaveKeys.Run] is JObject run ? CoreSnapshot.Doubles(run) : null;
                 result.Status = Core2LoadStatus.Loaded;
