@@ -314,7 +314,7 @@ namespace Ashen.Presentation.UI.Screens
             if (player) AttachStage(d);
             _hpShown[f.Id] = d.Hp;
             AddChips(d, f);
-            if (!player) ApplyRestArt(d, f);
+            if (!player) ApplyEnemy(d, f);
             if (f.Poise != null) { d.Poise = Int(f.Poise.Value); d.PoiseMax = Int(f.Poise.Max); }
             if (d.HasWard) { d.Ward = Int(f.Ward.Value); d.WardMax = Int(f.Ward.Max); }
             if (f.Alive && f.Intent != null)

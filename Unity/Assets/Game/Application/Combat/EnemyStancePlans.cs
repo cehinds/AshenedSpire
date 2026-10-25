@@ -2,6 +2,8 @@ using Ashen.App.Ui;
 using Ashen.Domain.Combat;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
+using CK = Ashen.Generated.Core2CombatKeys;
+using K = Ashen.Generated.CombatKeys;
 
 namespace Ashen.App.Combat
 {
@@ -40,6 +42,21 @@ namespace Ashen.App.Combat
             if (string.IsNullOrEmpty(intent.Str(EnemyIntentNames.Stance)) && (string.IsNullOrEmpty(kind) || kind == EnemyIntentNames.KindUnknown)
                 && string.IsNullOrEmpty(profile.Str(EnemyIntentNames.Camp)) && string.IsNullOrEmpty(profile.Str(EnemyIntentNames.Maneuver))) return null;
             return data.Category(Stance(intent, profile));
+        }
+
+        /// <summary>
+        /// The category a move announces once the enemy starts it (ui/screens/combat.js applyBeatToDisp, enemyMoveStarted): enemyStanceCategory of the move's kind and the combat profile of its carrier
+        /// (enemyMoveCarrier). Null for a move the enemy does not have.
+        /// </summary>
+        public static string ForMove(EnemyStageData data, CombatState c, JObject enemy, string moveId, string kind)
+        {
+            if (data == null || c == null || enemy == null || moveId == null) return null;
+            var def = c.Data.Enemies.Has(enemy.Str(K.EnemyId)) ? c.Data.Enemies.Get(enemy.Str(K.EnemyId)) : null;
+            var move = def?.Obj(K.Moves)?.Obj(moveId);
+            if (move == null) return null;
+            var carrier = CoreIntents.Carrier(c, enemy, move, moveId);
+            var intent = new JObject { [EnemyIntentNames.Kind] = !string.IsNullOrEmpty(kind) ? kind : move.Str(K.Intent), [EnemyIntentNames.CombatProfile] = carrier.Obj(CK.CombatProfile) };
+            return Category(data, intent);
         }
 
         private static bool Truthy(JToken token) => token != null && token.Type == JTokenType.Object;

@@ -69,6 +69,15 @@ namespace Ashen.App.Ui
         public readonly double BlurBase;
         public readonly double BlurStep;
         public readonly IReadOnlyDictionary<string, string> Motion;
+
+        /// <summary>The direction an enemy travels in (-1, toward the player) and the distances of its recoil and of its travel at a reach of 1, in pixels (ui/screens/combat.js playFamilyAnimation).</summary>
+        public readonly double TravelDirection;
+        public readonly double TravelPx;
+        public readonly double RecoilPx;
+        public readonly string TravelEasing;
+
+        /// <summary>The stops of the translate of each motion (sweep, lunge, impact), as the family-* keyframes of styles/combat.css name them.</summary>
+        public readonly IReadOnlyDictionary<string, IReadOnlyList<(double T, string At)>> Travel;
         private readonly Dictionary<string, EnemyFigure> _figures = new Dictionary<string, EnemyFigure>(StringComparer.Ordinal);
         private readonly Dictionary<string, EnemyActor> _actors = new Dictionary<string, EnemyActor>(StringComparer.Ordinal);
         private readonly Dictionary<string, EnemyMoveAction> _moves = new Dictionary<string, EnemyMoveAction>(StringComparer.Ordinal);
@@ -107,6 +116,13 @@ namespace Ashen.App.Ui
             BlurStep = aura.Value<double>(EnemyStageKeys.BlurStep);
             var animation = (JObject)json[EnemyStageKeys.Animation];
             Motion = ((JObject)animation[EnemyStageKeys.Motion]).Properties().ToDictionary(p => p.Name, p => p.Value.Value<string>(), StringComparer.Ordinal);
+            var travel = (JObject)animation[EnemyStageKeys.Travel];
+            TravelDirection = travel.Value<double>(EnemyStageKeys.Direction);
+            TravelPx = travel.Value<double>(EnemyStageKeys.TravelPx);
+            RecoilPx = travel.Value<double>(EnemyStageKeys.RecoilPx);
+            TravelEasing = travel.Value<string>(EnemyStageKeys.Easing);
+            Travel = ((JObject)travel[EnemyStageKeys.Tracks]).Properties().ToDictionary(p => p.Name,
+                p => (IReadOnlyList<(double, string)>)((JArray)p.Value).Select(t => (t.Value<double>(EnemyStageKeys.T), t.Value<string>(EnemyStageKeys.At))).ToList(), StringComparer.Ordinal);
             foreach (var a in (JObject)animation[EnemyStageKeys.Actors])
                 _actors[a.Key] = new EnemyActor { Tempo = a.Value.Value<double>(EnemyStageKeys.Tempo), Reach = a.Value.Value<double>(EnemyStageKeys.Reach) };
             foreach (var m in (JObject)animation[EnemyStageKeys.Moves])
@@ -181,6 +197,19 @@ namespace Ashen.App.Ui
             if (action.Family == EnemyFamilies.Projectile) return EnemyActions.Projectile;
             if (action.Family == EnemyFamilies.Sweep) return EnemyActions.Sweep;
             return EnemyActions.Attack;
+        }
+
+        /// <summary>
+        /// The translate an enemy's action animation plays while it acts (family-slash, family-thrust, family-strike at the actor's reach and the actor's length of <paramref name="ms"/>), as a track the figure
+        /// plays; null for a motion that does not travel (the release of a projectile, a cast, a brace and a sidestep are brightness and opacity only).
+        /// </summary>
+        public TrackDef TravelTrack(string motion, double reach, double ms)
+        {
+            if (motion == null || !Travel.TryGetValue(motion, out var stops)) return null;
+            var track = new TrackDef { Ms = ms, Ease = TravelEasing };
+            foreach (var stop in stops)
+                track.Stops.Add(new FxStop { T = stop.T, X = stop.At == EnemyTravel.Travel ? TravelDirection * TravelPx * reach : stop.At == EnemyTravel.Recoil ? -TravelDirection * RecoilPx * reach : 0 });
+            return track;
         }
 
         /// <summary>The css of the enemy's silhouette glow: the colour of each theme, drawn with the stage's blur (drop-shadow(0 0 base + i * step px colour)).</summary>

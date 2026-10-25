@@ -1,0 +1,726 @@
+{
+ "fights": [
+  {
+   "classId": "reaver",
+   "encounterId": "loneSoldier",
+   "enemies": {
+    "e1": {
+     "enemyId": "wanderingSoldier",
+     "moves": {
+      "advance": "preparing",
+      "guard": "defend",
+      "slash": "attack",
+      "warcry": "preparing"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "patrol",
+   "enemies": {
+    "e1": {
+     "enemyId": "wanderingSoldier",
+     "moves": {
+      "advance": "preparing",
+      "guard": "defend",
+      "slash": "attack",
+      "warcry": "preparing"
+     },
+     "start": "preparing"
+    },
+    "e2": {
+     "enemyId": "blightHound",
+     "moves": {
+      "advance": "preparing",
+      "bite": "attack",
+      "lunge": "smash"
+     },
+     "start": "smash"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "packHunt",
+   "enemies": {
+    "e1": {
+     "enemyId": "blightHound",
+     "moves": {
+      "advance": "preparing",
+      "bite": "attack",
+      "lunge": "smash"
+     },
+     "start": "smash"
+    },
+    "e2": {
+     "enemyId": "blightHound",
+     "moves": {
+      "advance": "preparing",
+      "bite": "attack",
+      "lunge": "smash"
+     },
+     "start": "smash"
+    },
+    "e3": {
+     "enemyId": "graveWisp",
+     "moves": {
+      "advance": "preparing",
+      "curse": "preparing",
+      "drain": "preparing"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "twinPatrol",
+   "enemies": {
+    "e1": {
+     "enemyId": "wanderingSoldier",
+     "moves": {
+      "advance": "preparing",
+      "guard": "defend",
+      "slash": "attack",
+      "warcry": "preparing"
+     },
+     "start": "preparing"
+    },
+    "e2": {
+     "enemyId": "wanderingSoldier",
+     "moves": {
+      "advance": "preparing",
+      "guard": "defend",
+      "slash": "attack",
+      "warcry": "preparing"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "bruiser",
+   "enemies": {
+    "e1": {
+     "enemyId": "huskBrute",
+     "moves": {
+      "advance": "preparing",
+      "bellow": "preparing",
+      "brace": "defend",
+      "club": "smash"
+     },
+     "start": "defend"
+    },
+    "e2": {
+     "enemyId": "graveWisp",
+     "moves": {
+      "advance": "preparing",
+      "curse": "preparing",
+      "drain": "preparing"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "eliteWyrm",
+   "enemies": {
+    "e1": {
+     "enemyId": "wyrmAspirant",
+     "moves": {
+      "advance": "preparing",
+      "consecrate": "preparing",
+      "goldenGuard": "defend",
+      "halberdSweep": "sweep",
+      "tailSlam": "smash"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "bossOmen",
+   "enemies": {
+    "e1": {
+     "enemyId": "fellWarden",
+     "moves": {
+      "advance": "preparing",
+      "caneStrike": "attack",
+      "hammerToss": "attack",
+      "heldBlade": "smash",
+      "twinDaggers": "attack"
+     },
+     "start": "attack"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "lanternFlight",
+   "enemies": {
+    "e1": {
+     "enemyId": "lanternMoth",
+     "moves": {
+      "advance": "preparing",
+      "lanternDust": "preparing",
+      "wingSparks": "preparing"
+     },
+     "start": "preparing"
+    },
+    "e2": {
+     "enemyId": "lanternMoth",
+     "moves": {
+      "advance": "preparing",
+      "lanternDust": "preparing",
+      "wingSparks": "preparing"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "briarRefuge",
+   "enemies": {
+    "e1": {
+     "enemyId": "briarHermit",
+     "moves": {
+      "advance": "preparing",
+      "briarCast": "preparing",
+      "rootShelter": "defend",
+      "sapMend": "preparing"
+     },
+     "start": "defend"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "chainAmbush",
+   "enemies": {
+    "e1": {
+     "enemyId": "chainScavenger",
+     "moves": {
+      "advance": "preparing",
+      "chainSnare": "counter",
+      "draggingBlow": "smash",
+      "hookCast": "attack"
+     },
+     "start": "smash"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "bossBellKeeper",
+   "enemies": {
+    "e1": {
+     "enemyId": "bellKeeper",
+     "moves": {
+      "advance": "preparing",
+      "bronzeToll": "smash",
+      "clapperSwing": "sweep",
+      "crackedPeal": "preparing",
+      "muffledPrayer": "defend"
+     },
+     "start": "smash"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "bossThornMatriarch",
+   "enemies": {
+    "e1": {
+     "enemyId": "thornMatriarch",
+     "moves": {
+      "advance": "preparing",
+      "entwiningRoots": "preparing",
+      "rootCrown": "defend",
+      "thornNeedles": "preparing"
+     },
+     "start": "defend"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a2_knight",
+   "enemies": {
+    "e1": {
+     "enemyId": "gildedKnight",
+     "moves": {
+      "advance": "preparing",
+      "gildedGuard": "defend",
+      "parry": "counter",
+      "rally": "preparing",
+      "thrust": "attack"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a2_surgery",
+   "enemies": {
+    "e1": {
+     "enemyId": "courtSurgeon",
+     "moves": {
+      "advance": "preparing",
+      "scalpel": "attack",
+      "sedate": "preparing",
+      "stitch": "preparing"
+     },
+     "start": "preparing"
+    },
+    "e2": {
+     "enemyId": "courtMarionette",
+     "moves": {
+      "advance": "preparing",
+      "blowdart": "attack",
+      "dart": "attack"
+     },
+     "start": "attack"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a2_kennel",
+   "enemies": {
+    "e1": {
+     "enemyId": "stitchedHound",
+     "moves": {
+      "advance": "preparing",
+      "maul": "attack",
+      "rend": "attack"
+     },
+     "start": "attack"
+    },
+    "e2": {
+     "enemyId": "stitchedHound",
+     "moves": {
+      "advance": "preparing",
+      "maul": "attack",
+      "rend": "attack"
+     },
+     "start": "attack"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a2_procession",
+   "enemies": {
+    "e1": {
+     "enemyId": "gildedKnight",
+     "moves": {
+      "advance": "preparing",
+      "gildedGuard": "defend",
+      "parry": "counter",
+      "rally": "preparing",
+      "thrust": "attack"
+     },
+     "start": "preparing"
+    },
+    "e2": {
+     "enemyId": "courtMarionette",
+     "moves": {
+      "advance": "preparing",
+      "blowdart": "attack",
+      "dart": "attack"
+     },
+     "start": "attack"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a2_vault",
+   "enemies": {
+    "e1": {
+     "enemyId": "livingArmor",
+     "moves": {
+      "advance": "preparing",
+      "crush": "smash",
+      "fortify": "defend",
+      "rimeCrush": "smash",
+      "slam": "smash"
+     },
+     "start": "smash"
+    },
+    "e2": {
+     "enemyId": "courtSurgeon",
+     "moves": {
+      "advance": "preparing",
+      "scalpel": "attack",
+      "sedate": "preparing",
+      "stitch": "preparing"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a2_eliteDuelist",
+   "enemies": {
+    "e1": {
+     "enemyId": "courtDuelist",
+     "moves": {
+      "advance": "preparing",
+      "bindingRiposte": "attack",
+      "enGarde": "preparing",
+      "flurry": "attack",
+      "lunge": "smash",
+      "riposte": "counter"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a2_bossStitchedKing",
+   "enemies": {
+    "e1": {
+     "enemyId": "stitchedKing",
+     "moves": {
+      "advance": "preparing",
+      "courtlyDecree": "defend",
+      "graspingHands": "sweep",
+      "scepterBlow": "smash",
+      "thousandHands": "sweep"
+     },
+     "start": "defend"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a2_mirrorArchive",
+   "enemies": {
+    "e1": {
+     "enemyId": "mirrorScribe",
+     "moves": {
+      "advance": "preparing",
+      "polishedWard": "counter",
+      "shardVolley": "preparing",
+      "silverScript": "preparing"
+     },
+     "start": "counter"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a2_stitchDrain",
+   "enemies": {
+    "e1": {
+     "enemyId": "stitchCrab",
+     "moves": {
+      "advance": "preparing",
+      "scuttleRush": "smash",
+      "seamShears": "attack",
+      "shellFold": "defend"
+     },
+     "start": "defend"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a2_bossGlassRegent",
+   "enemies": {
+    "e1": {
+     "enemyId": "glassRegent",
+     "moves": {
+      "advance": "preparing",
+      "crystalRapier": "attack",
+      "prismGuard": "defend",
+      "shatteredCourt": "preparing",
+      "splinterRain": "attack"
+     },
+     "start": "defend"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a2_bossMarrowOrganist",
+   "enemies": {
+    "e1": {
+     "enemyId": "marrowOrganist",
+     "moves": {
+      "advance": "preparing",
+      "bonePrelude": "preparing",
+      "funeralChord": "preparing",
+      "ivoryKeys": "preparing",
+      "quietRefrain": "preparing"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_revenant",
+   "enemies": {
+    "e1": {
+     "enemyId": "ashRevenant",
+     "moves": {
+      "advance": "preparing",
+      "cinderSlash": "attack",
+      "reform": "defend"
+     },
+     "start": "attack"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_pilgrims",
+   "enemies": {
+    "e1": {
+     "enemyId": "emberStarvedPilgrim",
+     "moves": {
+      "advance": "preparing",
+      "desperateClaw": "attack",
+      "wail": "preparing"
+     },
+     "start": "attack"
+    },
+    "e2": {
+     "enemyId": "emberStarvedPilgrim",
+     "moves": {
+      "advance": "preparing",
+      "desperateClaw": "attack",
+      "wail": "preparing"
+     },
+     "start": "attack"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_shades",
+   "enemies": {
+    "e1": {
+     "enemyId": "valkyrieShade",
+     "moves": {
+      "advance": "preparing",
+      "bloodFeather": "attack",
+      "spiralLance": "attack"
+     },
+     "start": "attack"
+    },
+    "e2": {
+     "enemyId": "emberStarvedPilgrim",
+     "moves": {
+      "advance": "preparing",
+      "desperateClaw": "attack",
+      "wail": "preparing"
+     },
+     "start": "attack"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_colossus",
+   "enemies": {
+    "e1": {
+     "enemyId": "charredColossus",
+     "moves": {
+      "advance": "preparing",
+      "ashCloud": "preparing",
+      "harden": "defend",
+      "smash": "smash"
+     },
+     "start": "defend"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_ashChoir",
+   "enemies": {
+    "e1": {
+     "enemyId": "ashRevenant",
+     "moves": {
+      "advance": "preparing",
+      "cinderSlash": "attack",
+      "reform": "defend"
+     },
+     "start": "attack"
+    },
+    "e2": {
+     "enemyId": "valkyrieShade",
+     "moves": {
+      "advance": "preparing",
+      "bloodFeather": "attack",
+      "spiralLance": "attack"
+     },
+     "start": "attack"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_eliteWyrmLord",
+   "enemies": {
+    "e1": {
+     "enemyId": "wyrmLord",
+     "moves": {
+      "advance": "preparing",
+      "consecration": "preparing",
+      "goldenBulwark": "defend",
+      "halberdReign": "sweep",
+      "tailSweep": "sweep"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_bossRotValkyrie",
+   "enemies": {
+    "e1": {
+     "enemyId": "blightedValkyrie",
+     "moves": {
+      "advance": "preparing",
+      "rotWings": "defend",
+      "scarletDance": "sweep",
+      "spiralThrust": "attack",
+      "whirlwind": "sweep"
+     },
+     "start": "attack"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_cinderNest",
+   "enemies": {
+    "e1": {
+     "enemyId": "cinderMantis",
+     "moves": {
+      "advance": "preparing",
+      "emberPounce": "smash",
+      "foldedBlades": "counter",
+      "scythePair": "attack"
+     },
+     "start": "smash"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_eclipseChapel",
+   "enemies": {
+    "e1": {
+     "enemyId": "eclipseCantor",
+     "moves": {
+      "advance": "preparing",
+      "darkHymn": "preparing",
+      "fadingEcho": "preparing",
+      "lunarRay": "preparing"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_bossFurnaceSaint",
+   "enemies": {
+    "e1": {
+     "enemyId": "furnaceSaint",
+     "moves": {
+      "advance": "preparing",
+      "censerSweep": "sweep",
+      "coolingAsh": "defend",
+      "openFurnace": "preparing"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_bossHollowAstronomer",
+   "enemies": {
+    "e1": {
+     "enemyId": "hollowAstronomer",
+     "moves": {
+      "advance": "preparing",
+      "fallingHeavens": "preparing",
+      "orbitalShards": "preparing",
+      "starChart": "preparing",
+      "totalEclipse": "preparing"
+     },
+     "start": "preparing"
+    }
+   },
+   "seed": 7
+  },
+  {
+   "classId": "reaver",
+   "encounterId": "a3_bossAshheartDragon",
+   "enemies": {
+    "e1": {
+     "enemyId": "ashheartDragon",
+     "moves": {
+      "advance": "preparing",
+      "ashBreath": "preparing",
+      "heartRumble": "preparing",
+      "obsidianClaws": "attack",
+      "tailBastion": "defend"
+     },
+     "start": "attack"
+    }
+   },
+   "seed": 7
+  }
+ ]
+}

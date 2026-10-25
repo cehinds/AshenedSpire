@@ -135,6 +135,12 @@ namespace Ashen.App.Combat
         /// <summary>The enemy's next move as the player may read it (null for the player and for the dead).</summary>
         public Core2IntentView Intent;
 
+        /// <summary>
+        /// The enemy's own intent (its kind and combat profile), whatever the player has read of it: the public action category its figure holds is chosen by it, never by the read
+        /// (src/ui/enemyExpansionStage.js: visibility, the move's identity and its numbers never select artwork). Null for the player and for the dead.
+        /// </summary>
+        public JObject IntentRaw;
+
         // The player's pools (Actions is Stamina, bound to the turn).
         public double Stamina;
         public double MaxStamina;
@@ -588,7 +594,11 @@ namespace Ashen.App.Combat
                 f.PoiseAbsorb = Absorbed(c, entity, Ashen.Generated.Core2DamageValues.KindPhysical);
                 f.WardAbsorb = Absorbed(c, entity, Ashen.Generated.Core2DamageValues.KindMagical);
             }
-            if (!player && f.Alive) f.Intent = ReadIntent(c, entity);
+            if (!player && f.Alive)
+            {
+                f.Intent = ReadIntent(c, entity);
+                f.IntentRaw = entity.Obj(K.Intent);
+            }
             // An enemy whose move the player has not read keeps its stance and armed Counter private: they would give the move away (the web shows only the broad family).
             if (f.Intent != null && !f.Intent.Known)
             {

@@ -36,5 +36,13 @@ namespace Ashen.Generated
         public const string Family = "family";
         public const string Casting = "casting";
         public const string MoveJoiner = ":";
+        public const string Travel = "travel";
+        public const string Direction = "direction";
+        public const string TravelPx = "travelPx";
+        public const string RecoilPx = "recoilPx";
+        public const string Easing = "easing";
+        public const string Tracks = "tracks";
+        public const string T = "t";
+        public const string At = "at";
     }
 }

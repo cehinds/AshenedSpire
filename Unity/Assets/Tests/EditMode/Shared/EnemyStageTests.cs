@@ -4,6 +4,10 @@ using System.IO;
 using System.Linq;
 using Ashen.App.Combat;
 using Ashen.App.Ui;
+using Ashen.Content;
+using Ashen.Domain.Combat;
+using Ashen.Domain.Random;
+using Ashen.Domain.Run;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -28,6 +32,33 @@ namespace Ashen.Tests
         private static JObject Read(string name) => OracleDocuments.Read(Path.Combine(TestContent.OracleRoot, "core2", "enemystage", name));
 
         private static string[] Enemies => ((JObject)Read("placement.json")["enemies"]).Properties().Select(p => p.Name).ToArray();
+
+        private static CoreCombatData _data;
+
+        private static CoreCombatData Data
+        {
+            get
+            {
+                if (_data != null) return _data;
+                var snapshot = new ConfigLayers(TestContent.Source).Build(new LayerSelection { PresetId = "shipped" });
+                var registries = Core2Registries.Load(snapshot.Content);
+                return _data = registries.ToCoreCombatData(snapshot.Content, registries.ToCoreRunData(snapshot.Content));
+            }
+        }
+
+        private static JObject Unlocked => new JObject
+        {
+            ["gameProfileUnlocks"] = new JObject { [Data.Run.ProfileId] = new JObject { ["completedRunIds"] = new JArray(Enumerable.Range(0, Data.Run.Run.Classes.Count).Select(i => "r" + i)) } },
+        };
+
+        private static CombatState Open(long seedValue, string classId, string encounterId)
+        {
+            var seed = (uint)seedValue;
+            var run = CoreRunRules.Create(Data.Run, seed, classId, CoreRunOptions.FromJson(null, Unlocked));
+            return CoreRunCombat.Create(Data, new Rng(seed), run, encounterId);
+        }
+
+        private static string[] Encounters => ((JArray)Read("fights.json")["fights"]).Select(f => f.Value<string>("encounterId")).ToArray();
 
         private static string Art(string frame) => "exp." + frame;
 
@@ -175,6 +206,68 @@ namespace Ashen.Tests
                 }
             Assert.That(problems, Is.Empty, string.Join("\n", problems.Take(10)));
             Assert.That(checkedRows, Is.GreaterThan(100));
+        }
+
+        [TestCaseSource(nameof(Encounters))]
+        public void EveryEnemyOfAFightHoldsTheCategoryTheWebHoldsAndEveryMoveAnnouncesTheirs(string encounterId)
+        {
+            var want = ((JArray)Read("fights.json")["fights"]).OfType<JObject>().First(f => f.Value<string>("encounterId") == encounterId);
+            var c = Open(want.Value<long>("seed"), want.Value<string>("classId"), encounterId);
+            var problems = new List<string>();
+            foreach (var row in ((JObject)want["enemies"]).Properties())
+            {
+                var enemy = c.Enemies.First(e => e.Str(CombatKeys.Id) == row.Name);
+                var o = (JObject)row.Value;
+                Assert.That(enemy.Str(CombatKeys.EnemyId), Is.EqualTo(o.Value<string>("enemyId")));
+                var start = EnemyStancePlans.Category(Stage, enemy.Obj(CombatKeys.Intent));
+                var wantStart = o["start"].Type == JTokenType.Null ? null : o.Value<string>("start");
+                if (start != wantStart) problems.Add(encounterId + " " + row.Name + " starts " + (start ?? "none") + " (web " + (wantStart ?? "none") + ")");
+                foreach (var move in ((JObject)o["moves"]).Properties())
+                {
+                    var wantMove = move.Value.Type == JTokenType.Null ? null : move.Value.Value<string>();
+                    var got = EnemyStancePlans.ForMove(Stage, c, enemy, move.Name, null);
+                    if (got != wantMove) problems.Add(encounterId + " " + row.Name + " " + move.Name + " announces " + (got ?? "none") + " (web " + (wantMove ?? "none") + ")");
+                }
+            }
+            Assert.That(problems, Is.Empty, string.Join("\n", problems.Take(10)));
+        }
+
+        [Test]
+        public void ABeatThatStartsAMoveIsPlayedAsTheWebPlaysIt()
+        {
+            JObject Event(string type, string move, string kind = null) => new JObject { ["type"] = type, ["moveId"] = move, ["kind"] = kind };
+            FxBeat Beat(params Core2LogLine[] lines) => new FxBeat { Events = lines.ToList() };
+            Core2LogLine Line(string type, string move, string kind = null) => new Core2LogLine { Type = type, Event = Event(type, move, kind) };
+            var spell = EnemyStagePlans.ActionOf(Stage, Beat(Line(FxEvents.EnemyMoveStarted, "warcry", "buff")), "wanderingSoldier");
+            Assert.That(spell.Pose, Is.EqualTo(EnemyActions.MagicAttack).Or.EqualTo(EnemyActions.Buff));
+            Assert.That(EnemyStagePlans.ActionOf(Stage, Beat(Line(FxEvents.EnemyMoveStarted, "slash", "attack")), "wanderingSoldier").Pose, Is.EqualTo(EnemyActions.Attack));
+            Assert.That(EnemyStagePlans.ActionOf(Stage, Beat(Line(FxEvents.EnemyMoveStarted, "guard", "block")), "wanderingSoldier").Pose, Is.EqualTo(EnemyActions.Guard));
+            Assert.That(EnemyStagePlans.ActionOf(Stage, Beat(Line(FxEvents.CombatHitStarted, "slash", "attack")), "wanderingSoldier").Motion, Is.EqualTo("sweep"));
+            Assert.That(EnemyStagePlans.ActionOf(Stage, Beat(Line(FxEvents.DamageDealt, null)), "wanderingSoldier"), Is.Null);
+            var counter = new Core2LogLine { Type = FxEvents.CombatCounterTriggered, Event = new JObject { ["sourceKind"] = "enemy", ["moveId"] = "slash" } };
+            Assert.That(EnemyStagePlans.ActionOf(Stage, Beat(counter), "wanderingSoldier").Pose, Is.EqualTo(EnemyActions.Attack));
+        }
+
+        [Test]
+        public void AnEnemyActionTakesThePacesLungeScaledByItsTempoAndLandsAtTheWindup()
+        {
+            var action = new EnemyAction { Tempo = 0.72, Reach = 1.25 };
+            var timing = EnemyStagePlans.Timing(action, 280, 0.55);
+            Assert.That(timing.TotalMs, Is.EqualTo(202));
+            Assert.That(timing.ImpactMs, Is.EqualTo(111));
+            Assert.That(EnemyStagePlans.Timing(null, 280, 0.55).TotalMs, Is.EqualTo(280));
+        }
+
+        [Test]
+        public void TheTravelOfAnActionFollowsTheFamilyKeyframesAtTheActorsReach()
+        {
+            var track = Stage.TravelTrack("sweep", 1.25, 300);
+            Assert.That(track, Is.Not.Null);
+            Assert.That(track.Ms, Is.EqualTo(300));
+            Assert.That(track.Stops.Select(s => s.T), Is.EqualTo(new[] { 0d, 0.22, 0.55, 1d }));
+            Assert.That(track.Stops.Select(s => s.X.Value), Is.EqualTo(new[] { 0d, 15d, -32.5, 0d }).Within(1e-9));
+            Assert.That(Stage.TravelTrack("release", 1, 300), Is.Null, "a projectile releases without travelling");
+            Assert.That(Stage.TravelTrack("lunge", 1, 300).Stops.Select(s => s.T), Is.EqualTo(new[] { 0d, 0.3, 0.55, 0.65, 1d }));
         }
 
         // ------------------------------------------------------------------ the clock

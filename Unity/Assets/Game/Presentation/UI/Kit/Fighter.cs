@@ -98,6 +98,9 @@ namespace Ashen.Presentation.UI.Kit
 
         /// <summary>The player figure as the web's card stage (P-3b): its data, its textures, the stance that holds it and the rest it keeps. Null for an enemy and for a class with no stage; the figure keeps its base art then.</summary>
         public StageFeed Stage;
+
+        /// <summary>The enemy figure as the web's expansion stage (P-4): its data, textures and the rest, themes and stance that hold it. Null for the player and for an enemy with no stage; the figure keeps its base art then.</summary>
+        public EnemyFeed Enemy;
         public string IntentTipTitle;
         public string IntentTipBody;
         public string PoiseTipTitle;
@@ -259,6 +262,7 @@ namespace Ashen.Presentation.UI.Kit
             _restArt = d.RestArt;
             _restScale = d.RestScale;
             BindStage(d);
+            BindEnemy(d);
             if (_posing) _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
             else ShowRest();
             Text(_hit, d.HitText);
@@ -298,7 +302,7 @@ namespace Ashen.Presentation.UI.Kit
 
         private void ShowRest()
         {
-            if (PaintStage()) return;
+            if (PaintStage() || PaintEnemy()) return;
             if (_restArt != null) ShowFrame(_restArt, _restScale);
             else if (!ShowStage(PoseKeys.Idle)) HideFrame();
         }
@@ -371,7 +375,7 @@ namespace Ashen.Presentation.UI.Kit
         private void FitPose()
         {
             if (_art == null) return;
-            if (PaintStage()) return;
+            if (PaintStage() || PaintEnemy()) return;
             if (_placed) { ShowStage(_stagePose); return; }
             var h = _art.resolvedStyle.height;
             var w = _art.resolvedStyle.width;
@@ -436,6 +440,7 @@ namespace Ashen.Presentation.UI.Kit
             var value = color.HasValue ? new StyleColor(color.Value) : new StyleColor(StyleKeyword.Null);
             _pose.style.unityBackgroundImageTintColor = value;
             _figure.style.unityBackgroundImageTintColor = value;
+            if (HasEnemyStage) _stageBody.style.unityBackgroundImageTintColor = value;
         }
 
         /// <summary>Plays a motion track on the figure: recoil and lunge slide it, the wobble turns it; <paramref name="tinted"/> also reddens it while the track says so.</summary>
@@ -467,6 +472,7 @@ namespace Ashen.Presentation.UI.Kit
         {
             Rest();
             StageSettle(true);
+            EnemySettle();
             Settle();
         }
 

@@ -1,5 +1,5 @@
 {
-  "contentHash": "c6874b7e0079c9542c85e08330b4a0ce4ac0a46f71f6c189539e2ca2f7a93b3c",
+  "contentHash": "6c78703c3ded1db058d1c4ce941ef3d2964c804834a9679a3460908ef937c509",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -2225,9 +2225,9 @@
       "sha256": "81c39ab04d97e7a52e2f66ca82f59d9963b55949c81f6c91fc241e7b3dfbce97"
     },
     "ui/enemyStage.json": {
-      "bytes": 36254,
+      "bytes": 37095,
       "generated": false,
-      "sha256": "cd457d05d78af452bc26aa3b78b38cee2b5caf49a276b6b7e9bce89490c15a93"
+      "sha256": "aa7c231cde2f48faedc00673a54773deab9fe26980bd10c3b2f4554259e0534c"
     },
     "ui/feedback.json": {
       "bytes": 14869,

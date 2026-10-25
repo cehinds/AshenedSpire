@@ -238,7 +238,11 @@ namespace Ashen.Presentation.UI.Screens
                     case FxItemKind.Cue: PlayCue(item.Cue); break;
                     case FxItemKind.Swing: Swing(item); break;
                     case FxItemKind.Hold:
-                        if (AnchorOf(item.ActorId) is Fighter holder && holder.HasStage) holder.StageHold(item.Ms);
+                        if (AnchorOf(item.ActorId) is Fighter holder)
+                        {
+                            if (holder.HasStage) holder.StageHold(item.Ms);
+                            else if (holder.HasEnemyStage) holder.HoldEnemy(item.Ms);
+                        }
                         break;
                     case FxItemKind.End: EndBeat(item.Beat); break;
                     case FxItemKind.Reveal:
@@ -359,6 +363,12 @@ namespace Ashen.Presentation.UI.Screens
                 if (action != null) actor.PlayStageAction(action, item.Ms);
                 return;
             }
+            // An enemy's expansion stage plays the pose of its move over the action's length and travels as the move's family does (playFamilyAnimation).
+            if (actor.HasEnemyStage)
+            {
+                SwingEnemy(actor, item);
+                return;
+            }
             var player = actor.Data.Player;
             if (!ReduceFlashes && !ReducedMotion)
             {
@@ -385,6 +395,12 @@ namespace Ashen.Presentation.UI.Screens
         private void Pose(Fighter f, string pose, double ms)
         {
             if (f?.Data != null && f.Data.Player) return;
+            // An enemy's expansion stage answers to the web's own names for the reaction poses (ui/fx.js playPoseOn: hit, guardHit).
+            if (f != null && f.HasEnemyStage)
+            {
+                if (!ReducedMotion) f.PlayEnemy(pose == FxPoses.Hurt ? EnemyActions.Hurt : pose == FxPoses.GuardHit ? EnemyActions.GuardHit : pose, ms);
+                return;
+            }
             var frame = PoseFrame(DefOf(f), pose);
             if (frame.Frame != null) f.PlayPose(frame.Frame, frame.Scale, ms);
         }

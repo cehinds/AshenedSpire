@@ -64,7 +64,8 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>The authored length of the player's action in a beat and when its blow lands (stage.actionTiming): only a card's action or a counter's return has its own length.</summary>
         private StageTiming? AuthoredTiming(FxBeat beat)
         {
-            if (_player == null || !_player.HasStage || beat.ActorId != View.Player.Id) return null;
+            if (beat.ActorId != View.Player.Id) return EnemyTiming(beat);
+            if (_player == null || !_player.HasStage) return null;
             var card = beat.Events.Any(l => l.Type == FxEvents.CardPlayed);
             if (!card && beat.Kind != FxBeatKind.Counter) return null;
             var action = StageActionOf(beat);
@@ -77,20 +78,27 @@ namespace Ashen.Presentation.UI.Screens
             _stageBeats = beats.ToList();
             _stagePending.Clear();
             for (var i = 0; i < beats.Count; i++)
-                foreach (var line in beats[i].Events.Where(l => l.Type == FxEvents.CardPlayed || l.Type == FxEvents.PlayerTurnStart))
+                foreach (var line in beats[i].Events.Where(l => l.Type == FxEvents.CardPlayed || l.Type == FxEvents.PlayerTurnStart || l.Type == FxEvents.EnemyMoveStarted || l.Type == FxEvents.EnemyActorTurnStarted))
                     _stagePending.Add((i, line));
+            _enemyLedger = _stagePending.Count > 0;
         }
 
         /// <summary>applyVisualEvents for the beats up to <paramref name="through"/> (all when negative): the last card played holds the figure, a guard leaves it braced, the player's turn start clears the rest.</summary>
         private void ApplyStage(int through)
         {
             var any = false;
+            var enemies = false;
             while (_stagePending.Count > 0 && (through < 0 || _stagePending[0].Beat <= through))
             {
                 var line = _stagePending[0].Line;
                 _stagePending.RemoveAt(0);
                 any = true;
-                if (line.Type == FxEvents.PlayerTurnStart) _playerRest = StageNames.Idle;
+                if (line.Type == FxEvents.PlayerTurnStart)
+                {
+                    _playerRest = StageNames.Idle;
+                    enemies |= ApplyEnemyEvent(line);
+                }
+                else if (line.Type == FxEvents.EnemyMoveStarted || line.Type == FxEvents.EnemyActorTurnStarted) enemies |= ApplyEnemyEvent(line);
                 else if (line.Event != null && _stagePlans.TryGetValue(line.Event.Str(FxKeys.CardInstanceId) ?? string.Empty, out var plan))
                 {
                     _stageHeld = plan;
@@ -98,6 +106,8 @@ namespace Ashen.Presentation.UI.Screens
                 }
             }
             if (any) RefreshStage();
+            if (_stagePending.Count == 0) _enemyLedger = false;
+            if (enemies) RefreshEnemies();
         }
 
         private void ApplyStage(FxBeat beat)

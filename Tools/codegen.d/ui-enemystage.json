@@ -36,7 +36,15 @@
         "Reach": "reach",
         "Family": "family",
         "Casting": "casting",
-        "MoveJoiner": ":"
+        "MoveJoiner": ":",
+        "Travel": "travel",
+        "Direction": "direction",
+        "TravelPx": "travelPx",
+        "RecoilPx": "recoilPx",
+        "Easing": "easing",
+        "Tracks": "tracks",
+        "T": "t",
+        "At": "at"
       }
     },
     {
@@ -110,6 +118,15 @@
         "StanceSmashing": "smashing",
         "StanceAttacking": "attacking",
         "StancePreparing": "preparing"
+      }
+    },
+    {
+      "name": "EnemyTravel",
+      "doc": "The values of a stop of an enemy's travel while it acts (styles/combat.css family-* keyframes).",
+      "keys": {
+        "Zero": "zero",
+        "Recoil": "recoil",
+        "Travel": "travel"
       }
     },
     {

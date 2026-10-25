@@ -1617,6 +1617,72 @@
   "blurStep": 3
  },
  "animation": {
+  "travel": {
+   "direction": -1,
+   "travelPx": 26,
+   "recoilPx": 12,
+   "easing": "easeOut",
+   "tracks": {
+    "sweep": [
+     {
+      "t": 0,
+      "at": "zero"
+     },
+     {
+      "t": 0.22,
+      "at": "recoil"
+     },
+     {
+      "t": 0.55,
+      "at": "travel"
+     },
+     {
+      "t": 1,
+      "at": "zero"
+     }
+    ],
+    "lunge": [
+     {
+      "t": 0,
+      "at": "zero"
+     },
+     {
+      "t": 0.3,
+      "at": "recoil"
+     },
+     {
+      "t": 0.55,
+      "at": "travel"
+     },
+     {
+      "t": 0.65,
+      "at": "travel"
+     },
+     {
+      "t": 1,
+      "at": "zero"
+     }
+    ],
+    "impact": [
+     {
+      "t": 0,
+      "at": "zero"
+     },
+     {
+      "t": 0.3,
+      "at": "recoil"
+     },
+     {
+      "t": 0.55,
+      "at": "travel"
+     },
+     {
+      "t": 1,
+      "at": "zero"
+     }
+    ]
+   }
+  },
   "motion": {
    "neutral": "settle",
    "slash": "sweep",

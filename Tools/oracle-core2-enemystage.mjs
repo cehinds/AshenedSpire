@@ -16,7 +16,7 @@ import { writeFileSync, mkdirSync, rmSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
-import { loadWeb, ORACLE_DIR, WEB, canon, arg } from './oracle-core2.mjs';
+import { loadWeb, ORACLE_DIR, WEB, canon, arg, createRun, createFight, encounters } from './oracle-core2.mjs';
 
 const OUT = join(ORACLE_DIR, 'enemystage');
 const BASE = arg('--base', 'http://localhost:8731/');
@@ -126,6 +126,28 @@ for (const def of w.registries.enemies.all()) for (const [moveId, move] of Objec
   actions[`${def.id}:${moveId}`] = { intent: move.intent, byKind: Object.fromEntries(kinds.map((kind) => [kind, pose.enemyActionPose(kind, resolved)])), family: resolved.family, casting: resolved.casting, tempo: resolved.tempo, reach: resolved.reach };
 }
 write('actions.json', { moves: actions });
+
+// The category each enemy of each encounter holds at the start of the fight and the one each of its moves announces once it starts it (ui/screens/combat.js applyBeatToDisp:
+// enemyStanceCategory of the move's kind and the combat profile of enemyMoveCarrier), on the fights the oracle builds.
+const tactics = await load('src/engine/combatCardTactics.js');
+const fights = [];
+for (const encounter of encounters(w)) {
+  const seed = 7;
+  const run = createRun(w, seed, 'reaver');
+  const { combat } = createFight(w, run, encounter);
+  const row = { encounterId: encounter.id, seed, classId: 'reaver', enemies: {} };
+  for (const enemy of combat.enemies) {
+    const def = w.registries.enemies.get(enemy.enemyId);
+    const moves = {};
+    for (const [moveId, move] of Object.entries(def.moves || {})) {
+      const carrier = tactics.enemyMoveCarrier(enemy, move, moveId, combat);
+      moves[moveId] = plan.enemyStanceCategory({ kind: move.intent, combatProfile: carrier.combatProfile }) ?? null;
+    }
+    row.enemies[enemy.id] = { enemyId: enemy.enemyId, start: plan.enemyStanceCategory(enemy.intent) ?? null, moves };
+  }
+  fights.push(row);
+}
+write('fights.json', { fights });
 
 // ---------------------------------------------------------------------------------------------------------------
 // clips: play()'s loop (enemyExpansionStage.js), evaluated at a few moments
