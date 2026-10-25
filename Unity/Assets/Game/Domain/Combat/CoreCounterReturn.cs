@@ -466,5 +466,88 @@ namespace Ashen.Domain.Combat
             CoreCounters.Arm(c, source, carrier, options);
             return effects.Where(effect => { var op = effect.Str(K.Op); return op != Op.Damage && op != Op.PoiseDamage && op != DV.OpWardDamage; }).ToList();
         }
+
+        // ------------------------------------------------------------------ the target preview
+
+        /// <summary>counterEffectPreview(ctx, source, target, carrier, effect, meta, { ignoreCondition }): one reply effect's value, hit count and total; null for an effect that is not part of the reply (or whose condition fails now).</summary>
+        public static (double value, double hits, double total)? ReplyPreview(CombatState c, JObject source, JObject target, JObject carrier, JObject effect, ActionMeta meta, bool ignoreCondition = false)
+        {
+            var op = effect.Str(K.Op);
+            if (op != Op.Damage && op != Op.PoiseDamage && op != DV.OpWardDamage) return null;
+            var probe = new CombatAction { Source = source, Owner = source, Target = target, Card = carrier, Meta = meta, Effect = effect };
+            if (!ignoreCondition && effect.Is(K.If) && !Triggers.EvalPredicate(c, effect.Obj(K.If), new PredicateContext { Owner = source, Source = source, Target = target, Card = carrier, Meta = meta })) return null;
+            var baseAmount = Whole0(c, probe, effect[CK.Amount], 0);
+            var hits = Whole0(c, probe, effect[K.Hits], 1) * Whole0(c, probe, effect[CK.Repeat], 1);
+            var value = op == Op.Damage ? baseAmount + Ratings.CardBonus(c, source, carrier, Op.Damage, baseAmount) : baseAmount;
+            return (value, hits, value * hits);
+        }
+
+        /// <summary>rememberCombatStance(ctx, entity, previous): Many Forms keeps the stance an entity leaves beside the one it enters.</summary>
+        private static void RememberStance(CombatState c, JObject entity, JToken previous)
+        {
+            var capacity = CoreCosts.StanceCapacity(c, entity);
+            if (capacity <= 1) { entity.Remove(CK.ConcurrentStances); return; }
+            var unique = new List<KeyValuePair<string, JObject>>();
+            foreach (var row in Js.Items(entity[CK.ConcurrentStances]).Concat(new[] { previous, entity[CK.CombatStance] }).OfType<JObject>().Where(r => r.Str(CK.Maneuver) != Ashen.Generated.Core2CostValues.StanceStaggered))
+            {
+                var key = row.Str(CK.Camp) + Ashen.Generated.Core2CostValues.StanceKeySeparator + row.Str(CK.Maneuver);
+                var at = unique.FindIndex(pair => pair.Key == key);
+                if (at >= 0) unique[at] = new KeyValuePair<string, JObject>(key, row); else unique.Add(new KeyValuePair<string, JObject>(key, row));
+            }
+            entity[CK.ConcurrentStances] = new JArray(unique.Skip(Math.Max(0, unique.Count - (int)capacity)).Select(pair => pair.Value));
+        }
+
+        /// <summary>
+        /// counterPreviewAgainst(ctx, enemy, intent, card, projected): what a Counter played now would return against the enemy's revealed attack,
+        /// { incoming, advantaged, hits, hp, poise, block } summed over the attack's hits; <c>{ uncovered: true }</c> when the attack is revealed and the Counter does not
+        /// answer it (or has already answered this cycle); null when no attack damage is public. <paramref name="card"/> is the Counter being played (null for the
+        /// board's own preview of the player's armed Counter); <paramref name="projected"/> is the player once the card's immediate defensive effects have resolved.
+        /// </summary>
+        public static JObject PreviewAgainst(CombatState c, JObject enemy, JObject card = null, JObject projected = null)
+        {
+            if (!RuleActive(c) || enemy == null || !enemy.Is(K.Alive)) return null;
+            var intent = enemy.Obj(K.Intent);
+            if (intent == null || Js.Nullish(intent[K.Damage]) || !CoreVisibility.IntentExact(c, enemy)) return null;
+            var profile = intent.Obj(CK.CombatProfile) ?? new JObject();
+            var maneuver = profile.Str(CK.Maneuver);
+            if (string.IsNullOrEmpty(maneuver)) return null;
+            var uncovered = new JObject { [Ashen.Generated.CardTextKeys.Uncovered] = true };
+            // Only an attack the played Counter covers is answered (the live predicate, not a copy).
+            if (card != null && !CoreMatchups.CounterCoversAttack(c, card, profile, MV.EffectDamage)) return uncovered;
+            // Live play arms the Counter only when armsAsCoreCounter says so: a Counter stance, or a spell Counter with coverage.
+            if (card != null && c.CoreData.Configured(CK.StancesModule) != null && !CoreMatchups.ArmsAsCoreCounter(c, card)) return uncovered;
+            // The owner already returned a Counter this cycle (two Counters, two enemies, one enemy phase): live returns nothing.
+            var perHit = c.Fields.Obj(CK.ReactionRules)?.Str(DK.ContactPolicy) == DV.PolicyPerHit;
+            if (Spent(c.Player) && !(perHit && c.Phase == V.PhaseEnemy && card != null)) return new JObject { [Ashen.Generated.CardTextKeys.Uncovered] = true, [Ashen.Generated.CardTextKeys.Spent] = true };
+            var moveId = intent.Str(K.MoveId);
+            var authored = c.Data.Enemies.Get(enemy.Str(K.EnemyId)).Obj(K.Moves)?.Obj(moveId ?? string.Empty) ?? new JObject();
+            var carrier = CoreIntents.Carrier(c, enemy, authored, moveId);
+            // The player once the card's immediate defensive effects resolved, else the player now.
+            var basePlayer = projected ?? c.Player;
+            var spell = card != null && CoreMatchups.IsSpellCounter(card);
+            var defender = (JObject)basePlayer.DeepClone();
+            defender[CK.CombatStance] = spell
+                ? new JObject { [CK.Maneuver] = CoreStances.ConfiguredStance(c, card), [CK.Camp] = CV.CampSpell, [CK.Range] = Js.Truthy(card.Obj(CK.CombatProfile)?[CK.Range]) ? card.Obj(CK.CombatProfile)[CK.Range].DeepClone() : Js.S(CV.RangeReach) }
+                : new JObject { [CK.Maneuver] = CV.StanceCounter, [CK.Camp] = CV.CampPhysical, [CK.Range] = CV.RangeMelee };
+            RememberStance(c, defender, basePlayer[CK.CombatStance]);
+            var hits = perHit ? 1 : Math.Max(1, Math.Floor(Js.Coalesce(intent[K.Hits], 1)));
+            var advantaged = Beats(c, maneuver);
+            var total = new Return();
+            double incoming = 0;
+            for (var hit = 0; hit < hits; hit++)
+            {
+                var receipt = CoreDamage.ProfileDamageReceipt(c, enemy, defender, intent.Num(K.Damage), carrier);
+                var seen = Js.Or0(receipt.Obj(DK.DamageReceipt)?.Arr(DK.Hits)?.FirstOrDefault()?[DK.Incoming]);
+                var row = Of(c, seen, advantaged);
+                var granted = BlockGrant(c, defender, row.Block);
+                defender.Put(K.Block, defender.Or0(K.Block) + granted);
+                CoreDamage.PreviewHits(c, enemy, defender, intent.Num(K.Damage), carrier, 1);
+                incoming += seen;
+                total.Hp += row.Hp;
+                total.Poise += row.Poise;
+                total.Block += granted;
+            }
+            return new JObject { [DK.Incoming] = Js.N(incoming), [Ashen.Generated.CardTextKeys.Advantaged] = advantaged, [K.Hits] = Js.N(hits), [K.Hp] = Js.N(total.Hp), [CK.Poise] = Js.N(total.Poise), [K.Block] = Js.N(total.Block) };
+        }
     }
 }

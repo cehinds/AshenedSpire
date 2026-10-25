@@ -502,5 +502,13 @@
       "maxStamina": "stamina"
     },
     "drawStat": "draw"
+  },
+  "spellDefense": {
+    "defaultWardShare": 0.7,
+    "schools": {
+      "frost": 0.5,
+      "alteration": 0.3,
+      "force": 0.3
+    }
   }
 }

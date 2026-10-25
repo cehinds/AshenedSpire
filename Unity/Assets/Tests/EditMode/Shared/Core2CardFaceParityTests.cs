@@ -1,0 +1,186 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Ashen.App.Combat;
+using Ashen.App.Ui;
+using Ashen.Content;
+using Ashen.Domain.Combat;
+using Ashen.Domain.Random;
+using Ashen.Domain.Run;
+using Newtonsoft.Json.Linq;
+using NUnit.Framework;
+
+namespace Ashen.Tests
+{
+    /// <summary>
+    /// P-1 (D-1320..): the words on a card's face are the web's. Tools/oracle-core2-face.mjs records, from the web's model/cardFaceText.js and ui/components/card.js, the lines of every
+    /// profile card (and its upgraded variant) with no fight, and of every card of an opening hand and of a hand of all of them under stance variants, with the preview the hand prints from;
+    /// the C# generator (CardFaceText, CardFaceRules) is compared with them line for line and with the rules html at the three levels (hand, face, inspect). Suite: Parity.
+    /// </summary>
+    [TestFixture, Category("Parity")]
+    public class Core2CardFaceParityTests
+    {
+        private static string Dir => Path.Combine(TestContent.OracleRoot, "core2", "face");
+
+        private static CoreCombatData _data;
+        private static UiData _ui;
+
+        private static CoreCombatData Data
+        {
+            get
+            {
+                if (_data != null) return _data;
+                var snapshot = new ConfigLayers(TestContent.Source).Build(new LayerSelection { PresetId = "shipped" });
+                var registries = Core2Registries.Load(snapshot.Content);
+                return _data = registries.ToCoreCombatData(snapshot.Content, registries.ToCoreRunData(snapshot.Content));
+            }
+        }
+
+        private static UiData Ui => _ui ?? (_ui = UiData.Load(TestContent.Source));
+
+        private static JObject Read(string name) => OracleDocuments.Read(Path.Combine(Dir, name));
+
+        private static JObject Unlocked => new JObject
+        {
+            ["gameProfileUnlocks"] = new JObject { [Data.Run.ProfileId] = new JObject { ["completedRunIds"] = new JArray(Enumerable.Range(0, Data.Run.Run.Classes.Count).Select(i => "r" + i)) } },
+        };
+
+        private static CombatState Open(long seedValue, string classId, string encounterId)
+        {
+            var seed = (uint)seedValue;
+            var run = CoreRunRules.Create(Data.Run, seed, classId, CoreRunOptions.FromJson(null, Unlocked));
+            return CoreRunCombat.Create(Data, new Rng(seed), run, encounterId);
+        }
+
+        private static string LinesText(IEnumerable<FaceLine> lines) =>
+            lines == null ? "null" : string.Join(" | ", lines.Select(l => l.Kind + ": " + l.Html));
+
+        private static string WantLines(JToken lines) =>
+            lines == null || lines.Type == JTokenType.Null ? "null" : string.Join(" | ", lines.Select(l => l.Value<string>("kind") + ": " + l.Value<string>("html")));
+
+        /// <summary>One card's recorded face against the generated one; the differences, empty when it matches.</summary>
+        private static List<string> Compare(string label, JObject want, FaceRules got)
+        {
+            var problems = new List<string>();
+            if (WantLines(want["lines"]) != LinesText(got.Lines)) problems.Add($"{label} lines\n   web: {WantLines(want["lines"])}\n  unity: {LinesText(got.Lines)}");
+            foreach (var level in new[] { "hand", "face", "inspect" })
+            {
+                var gotHtml = level == "hand" ? got.Hand : level == "face" ? got.Face : got.Inspect;
+                if (want.Value<string>(level) != gotHtml) problems.Add($"{label} {level}\n   web: {want.Value<string>(level)}\n  unity: {gotHtml}");
+            }
+            return problems;
+        }
+
+        [Test]
+        public void TheOracleIsPresent()
+        {
+            var index = Read("index.json");
+            Assert.That(index.Value<string>("profileHash"), Is.EqualTo(Data.Run.ProfileHash), "the oracle ran the profile that is loaded");
+            Assert.That(((JObject)Read("static.json")["cards"]).Count, Is.EqualTo(Data.Content("cards").Count()));
+        }
+
+        [Test]
+        public void EveryCardFaceWithoutAFightSaysWhatTheWebSays()
+        {
+            var bare = FaceEnv.Bare(Data);
+            var env = new FaceEnv(bare, Ui.CardText);
+            var problems = new List<string>();
+            var checkedFaces = 0;
+            foreach (var card in ((JObject)Read("static.json")["cards"]).Properties())
+                foreach (var variant in ((JObject)card.Value).Properties())
+                {
+                    var instance = new JObject { ["instanceId"] = "s:" + card.Name, ["cardId"] = card.Name, ["upgraded"] = variant.Name == "upgraded" };
+                    var def = CoreCards.Project(bare, instance);
+                    var got = CardFaceRules.Render(env, def, null);
+                    problems.AddRange(Compare(card.Name + " " + variant.Name, (JObject)variant.Value, got));
+                    checkedFaces++;
+                }
+            Assert.That(checkedFaces, Is.GreaterThan(400));
+            if (problems.Count > 0) Assert.Fail(problems.Count + " differences:\n" + string.Join("\n", problems.Take(8)));
+        }
+
+        // ------------------------------------------------------------------ the hand
+
+        private static CombatState Apply(CombatState c, JObject setup)
+        {
+            var p = c.Player;
+            if (setup.Value<string>("hand") == "all")
+                c.Piles.Hand = Data.Content("cards").Select((card, i) => new JObject { ["instanceId"] = "x" + (i + 1), ["cardId"] = card.Value<string>("id"), ["upgraded"] = false }).ToList();
+            if (setup.ContainsKey("stance"))
+            {
+                if (setup["stance"].Type == JTokenType.Null) p.Remove("combatStance"); else p["combatStance"] = setup["stance"].DeepClone();
+            }
+            if (setup["concurrent"] != null) p["concurrentStances"] = setup["concurrent"].DeepClone();
+            if (setup["statuses"] is JObject statuses)
+                foreach (var s in statuses.Properties()) ((JObject)p["statuses"])[s.Name] = new JObject { ["stacks"] = s.Value.DeepClone() };
+            if (setup["phase"] != null) c.Phase = setup.Value<string>("phase");
+            if (setup["stamina"] != null) p["stamina"] = setup["stamina"].DeepClone();
+            if (setup["mana"] != null) p["mana"] = setup["mana"].DeepClone();
+            return c;
+        }
+
+        public static IEnumerable<TestCaseData> HandCases()
+        {
+            if (!Directory.Exists(Dir)) yield break;
+            foreach (var file in Directory.GetFiles(Dir, "fights-*.json").Select(Path.GetFileName).OrderBy(f => f, StringComparer.Ordinal))
+            {
+                var fights = (JArray)Read(file)["fights"];
+                for (var i = 0; i < fights.Count; i++)
+                    foreach (var scenario in ((JObject)fights[i]["scenarios"]).Properties())
+                        yield return new TestCaseData(file, i, scenario.Name).SetName("Core2Face_" + Path.GetFileNameWithoutExtension(file) + "_" + i + "_" + scenario.Name);
+            }
+        }
+
+        [TestCaseSource(nameof(HandCases))]
+        public void TheHandSaysWhatTheWebSays(string file, int index, string scenarioName)
+        {
+            var fight = (JObject)Read(file)["fights"][index];
+            var scenario = (JObject)fight["scenarios"][scenarioName];
+            var c = Apply(Open(fight.Value<long>("seed"), fight.Value<string>("classId"), fight.Value<string>("encounterId")), (JObject)scenario["setup"]);
+            var env = new FaceEnv(c, Ui.CardText);
+            var problems = new List<string>();
+            foreach (var card in ((JObject)scenario["cards"]).Properties())
+            {
+                var want = (JObject)card.Value;
+                if (want["error"] != null) continue;
+                var instance = c.Piles.Hand.First(h => h.Value<string>("instanceId") == card.Name);
+                JObject preview;
+                try { preview = Core2FacePreview.Build(c, instance); }
+                catch (Exception e) when (e is InvalidOperationException || e is NotSupportedException) { problems.Add($"{card.Name} ({want.Value<string>("cardId")}) preview: {e.Message}"); continue; }
+                var diff = RunParityTests.FirstDifference(want["preview"], Summary(preview), "$");
+                if (diff != null) problems.Add($"{card.Name} ({want.Value<string>("cardId")}) preview differs at {diff}\n   web: {want["preview"].ToString(Newtonsoft.Json.Formatting.None)}\n  unity: {Summary(preview).ToString(Newtonsoft.Json.Formatting.None)}");
+                var got = CardFaceRules.Render(env, preview.Obj("resolvedDefinition"), preview);
+                problems.AddRange(Compare($"{card.Name} ({want.Value<string>("cardId")})", want, got));
+            }
+            if (problems.Count > 0) Assert.Fail(problems.Count + " differences:\n" + string.Join("\n", problems.Take(8)));
+        }
+
+        private static readonly string[] ValueFields = { "op", "value", "hits", "hitDamages", "totalDamage", "faceValue", "splitBase", "ratingBonus", "ratingPart", "physicalDamageType", "defenseSplit", "tags", "status", "token", "counterReturn" };
+
+        /// <summary>The oracle's summary of a preview (Tools/oracle-core2-face.mjs summary): the fields the face reads.</summary>
+        private static JObject Summary(JObject preview)
+        {
+            return new JObject
+            {
+                ["values"] = new JArray(Ashen.Domain.Combat.Js.Items(preview["values"]).OfType<JObject>().Select(row =>
+                {
+                    var copy = new JObject();
+                    foreach (var field in ValueFields.OrderBy(f => f, StringComparer.Ordinal)) if (row[field] != null) copy[field] = row[field].DeepClone();
+                    return copy;
+                })),
+                ["tokens"] = Sorted(preview["tokens"]), ["damageSequences"] = preview["damageSequences"].DeepClone(), ["counterReturn"] = preview["counterReturn"]?.DeepClone() ?? JValue.CreateNull(),
+                ["entryPrecision"] = preview["entryPrecision"]?.DeepClone() ?? JValue.CreateNull(), ["costShift"] = JValue.CreateNull(),
+                ["chargedEffects"] = ((JArray)preview["chargedEffects"]).Count, ["expansion"] = preview["combatExpansionVersion"].DeepClone(),
+            };
+        }
+
+        private static JToken Sorted(JToken token)
+        {
+            if (!(token is JObject o)) return token.DeepClone();
+            var copy = new JObject();
+            foreach (var p in o.Properties().OrderBy(p => p.Name, StringComparer.Ordinal)) copy[p.Name] = Sorted(p.Value);
+            return copy;
+        }
+    }
+}

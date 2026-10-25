@@ -1,5 +1,5 @@
 {
-  "contentHash": "82b1f4dc58ff5eded83d5b6dd3ff07acf561504a01970842a1c5064f7c3fd121",
+  "contentHash": "f59a14d5451d7991ac293cd985eff3b17f972d1d91389dc8a2eb19fa1cd307ac",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -795,9 +795,9 @@
       "sha256": "e8a2d8799e70ded4d80ade5db2ad57c35a82ff3f2d9e1b8190f17fa42efd3873"
     },
     "rules/core2Combat.json": {
-      "bytes": 11561,
+      "bytes": 11702,
       "generated": false,
-      "sha256": "665c0f55ea6aaf0efbd4b81039cf331a149ba7346c34782573c68ea02e72fa0f"
+      "sha256": "86839f69bcfc83b9fff502c7c58b1d77acc63b2da02881bca814a21d62724eb2"
     },
     "rules/core2CombatRules.json": {
       "bytes": 3704,
@@ -1680,9 +1680,9 @@
       "sha256": "318fd79e4a732497a6f564b7c26257e1e993125535ee89b2e8e464a344550b49"
     },
     "schemas/rules.core2Combat.schema.json": {
-      "bytes": 25027,
+      "bytes": 25409,
       "generated": false,
-      "sha256": "1c7e3a090cf8260ae7acdf6bd23403530f00959dfc1c8a36433c6ca1406a4d2e"
+      "sha256": "0aa864c8fa01deb0feb1b2ef88950c958dc92b9892b5409716a484eb3bd3a2d2"
     },
     "schemas/rules.core2CombatRules.schema.json": {
       "bytes": 17693,
@@ -1979,6 +1979,11 @@
       "generated": false,
       "sha256": "3af105c94763728307b39d6e27895a06d143e181316b177c91938703b5969610"
     },
+    "schemas/ui.cardText.schema.json": {
+      "bytes": 695,
+      "generated": false,
+      "sha256": "20f52eb62ce4d64af2dfa90dba36d90db810191b090872f3a82b8ad3f715e81c"
+    },
     "schemas/ui.cardface.schema.json": {
       "bytes": 10695,
       "generated": false,
@@ -2070,9 +2075,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 55466,
+      "bytes": 64246,
       "generated": false,
-      "sha256": "82156740dcdfb68272355c7f7131a7fba91d558fbd97e147138194ca3d1f0ae9"
+      "sha256": "d8b5655acdd04d84a866ceec7a6df0b43909855156ac0ff3ff7d6c716a85520b"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2168,6 +2173,11 @@
       "bytes": 4092,
       "generated": false,
       "sha256": "85436f7a50394f61f323703bf7b411c027474d5e227b660e90fb26102e8b8318"
+    },
+    "ui/cardText.json": {
+      "bytes": 7772,
+      "generated": false,
+      "sha256": "ab20e2eda3740cfdba1da61388bf03da2d41f6a5ee1b04c3691bd07b1745e5a1"
     },
     "ui/cardface.json": {
       "bytes": 34415,

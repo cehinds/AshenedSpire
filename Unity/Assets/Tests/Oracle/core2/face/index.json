@@ -1,0 +1,40 @@
+{
+ "files": [
+  {
+   "bytes": 260966,
+   "file": "static.json",
+   "kind": "static"
+  },
+  {
+   "bytes": 1643665,
+   "classId": "reaver",
+   "fights": 5,
+   "file": "fights-reaver.json",
+   "kind": "fights"
+  },
+  {
+   "bytes": 1654788,
+   "classId": "starseer",
+   "fights": 5,
+   "file": "fights-starseer.json",
+   "kind": "fights"
+  },
+  {
+   "bytes": 1565272,
+   "classId": "rogue",
+   "fights": 5,
+   "file": "fights-rogue.json",
+   "kind": "fights"
+  },
+  {
+   "bytes": 1627010,
+   "classId": "herald",
+   "fights": 5,
+   "file": "fights-herald.json",
+   "kind": "fights"
+  }
+ ],
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

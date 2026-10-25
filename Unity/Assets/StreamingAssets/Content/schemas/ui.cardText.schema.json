@@ -1,0 +1,14 @@
+{
+  "$id": "ui/cardText.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "lineOrder": { "type": "array", "items": { "type": "string" } },
+    "keywords": { "type": "array", "items": { "type": "string" } },
+    "baseCardIds": { "type": "array", "items": { "type": "string" } },
+    "compact": { "type": "array", "items": { "type": "array", "items": { "type": "string" } } },
+    "marks": { "type": "array", "items": { "type": "array", "items": { "type": "string" } } },
+    "escapes": { "type": "array", "items": { "type": "array", "items": { "type": "string" } } }
+  },
+  "required": ["lineOrder", "keywords", "baseCardIds", "compact", "marks", "escapes"]
+}

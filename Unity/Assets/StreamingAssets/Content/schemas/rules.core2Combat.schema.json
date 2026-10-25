@@ -824,6 +824,24 @@
         ]
       }
     },
+    "spellDefense": {
+      "type": "object",
+      "properties": {
+        "defaultWardShare": {
+          "type": "number"
+        },
+        "schools": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "defaultWardShare",
+        "schools"
+      ]
+    },
     "traits": {
       "type": "object",
       "properties": {
@@ -1155,6 +1173,7 @@
     "ratingIds",
     "resistance",
     "scripts",
+    "spellDefense",
     "traits",
     "vocabulary"
   ]

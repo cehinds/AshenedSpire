@@ -94,7 +94,8 @@ namespace Ashen.Domain.Combat
             return row != null && Js.IsFinite(row[DK.MagicShare]) ? Js.D(row[DK.MagicShare]) : 1;
         }
 
-        private static string PhysicalTypeOf(CombatState c, JObject profile)
+        /// <summary>physicalTypeOf(profile): the physical damage type of a hit (its own, its physical damage type, its school's).</summary>
+        public static string PhysicalTypeOf(CombatState c, JObject profile)
         {
             var type = CanonicalDamageType(c, Js.Str(profile?[CK.DamageType]));
             var school = SchoolOf(c, profile);
@@ -123,21 +124,42 @@ namespace Ashen.Domain.Combat
         private sealed class ComponentParts
         {
             public double MagicShare;
+            public List<KeyValuePair<string, double>> Magic = new List<KeyValuePair<string, double>>();
+            public List<KeyValuePair<string, double>> Physical = new List<KeyValuePair<string, double>>();
         }
 
         private static ComponentParts ComponentPartsOf(CombatState c, JObject profile)
         {
             if (!(profile?[CK.DamageComponents] is JArray list) || list.Count < Ashen.Generated.CombatMath.Two) return null;
             double magic = 0, physical = 0;
+            var parts = new ComponentParts();
             foreach (var component in list.OfType<JObject>())
             {
                 var weight = Math.Max(0, Num0(component[DK.Weight]));
                 var type = CanonicalDamageType(c, component.Str(DK.Type));
                 if (type == null) continue;
-                if (IsMagicDamageType(c, type)) magic += weight; else physical += weight;
+                if (IsMagicDamageType(c, type)) { magic += weight; parts.Magic.Add(new KeyValuePair<string, double>(type, weight)); }
+                else { physical += weight; parts.Physical.Add(new KeyValuePair<string, double>(type, weight)); }
             }
             var total = magic + physical;
-            return total > 0 ? new ComponentParts { MagicShare = magic / total } : null;
+            parts.MagicShare = total > 0 ? magic / total : 0;
+            return total > 0 ? parts : null;
+        }
+
+        private static string HeaviestType(List<KeyValuePair<string, double>> parts)
+        {
+            KeyValuePair<string, double>? best = null;
+            foreach (var part in parts) if (best == null || part.Value > best.Value.Value) best = part;
+            return best?.Key;
+        }
+
+        /// <summary>splitDamageTypesOf(profile): the magic and physical damage types of a split hit (the heaviest component of each part, else the profile's own).</summary>
+        public static (string Magic, string Physical) SplitDamageTypesOf(CombatState c, JObject profile)
+        {
+            var components = ComponentPartsOf(c, profile);
+            if (components != null)
+                return (HeaviestType(components.Magic) ?? MagicDamageTypeOf(c, profile) ?? DV.DamageArcane, HeaviestType(components.Physical) ?? PhysicalTypeOf(c, profile) ?? DV.DamageBlunt);
+            return (MagicDamageTypeOf(c, profile) ?? DV.DamageArcane, PhysicalTypeOf(c, profile) ?? DV.DamageBlunt);
         }
 
         /// <summary>magicShareOf(profile): the share of a hit that is magic (Barrier, then Ward) rather than physical (Block, then Poise), by the owner's precedence.</summary>
