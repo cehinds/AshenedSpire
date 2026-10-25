@@ -8,5 +8,6 @@ namespace Ashen.Generated
         public const string Wins = "wins";
         public const string Was = "was";
         public const string At = "at";
+        public const string Unlocks = "unlocks";
     }
 }

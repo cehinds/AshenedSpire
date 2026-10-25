@@ -1,11 +1,8 @@
-using System;
 using System.Globalization;
-using System.IO;
 using Ashen.App.Run;
 using Ashen.App.Ui;
 using Ashen.Generated;
 using Ashen.Presentation.UI.Kit;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Ashen.Presentation.UI.Screens
@@ -121,17 +118,8 @@ namespace Ashen.Presentation.UI.Screens
             var strings = Ui.Data.Strings;
             var text = Ui.Saves.Drawer.Export(id);
             if (text == null) { Say(strings.Get(StringKeys.ProfileArchGone)); return; }
-            try
-            {
-                var folder = Path.Combine(Application.persistentDataPath, UiResources.ExportsFolder);
-                Directory.CreateDirectory(folder);
-                File.WriteAllText(Path.Combine(folder, string.Format(CultureInfo.InvariantCulture, ArchiveKeys.ExportFile, id)), text);
-                Say(strings.Get(StringKeys.ProfileArchSaved));
-            }
-            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException || e is NotSupportedException)
-            {
-                Say(strings.Get(StringKeys.ProfileArchSaveFailed));
-            }
+            var saved = FileExport.Save(string.Format(CultureInfo.InvariantCulture, ArchiveKeys.ExportFile, id), text);
+            Say(strings.Get(saved ? StringKeys.ProfileArchSaved : StringKeys.ProfileArchSaveFailed));
         }
 
         /// <summary>The risk is stated BEFORE the click does anything, in the entry's own question: the profile in use is set aside in its place, and a copy that could not be read may not restore.</summary>

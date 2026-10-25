@@ -11,6 +11,10 @@ namespace Ashen.Generated
         public const string Shell = "SHELL";
         public const string ShellHeader = "SHELL_HEADER";
         public const string ShellTitle = "SHELL_TITLE";
+        public const string ShellEyebrow = "SHELL_EYEBROW";
+        public const string RecoveryBody = "RECOVERY_BODY";
+        public const string RecoveryScroll = "RECOVERY_SCROLL";
+        public const string ShellHeading = "SHELL_HEADING";
         public const string ShellExit = "SHELL_EXIT";
         public const string ShellBody = "SHELL_BODY";
         public const string ShellFooter = "SHELL_FOOTER";

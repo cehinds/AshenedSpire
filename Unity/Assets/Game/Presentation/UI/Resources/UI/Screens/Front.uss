@@ -1607,6 +1607,19 @@
     margin-top: var(--space-md);
 }
 
+.prof-recovery {
+    flex-direction: column;
+}
+
+.prof-emphasis {
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.prof-recovery .prof-entry {
+    margin-bottom: var(--space-md);
+}
+
 .prof-entry-name {
     font-size: var(--font-profile-status);
     color: var(--color-gold);

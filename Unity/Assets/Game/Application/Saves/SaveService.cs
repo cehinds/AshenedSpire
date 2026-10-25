@@ -53,6 +53,8 @@ namespace Ashen.App.Saves
         public bool Recovered;
         /// <summary>The save was written by an older version and has been brought forward (web state migrated).</summary>
         public bool Migrated;
+        /// <summary>The save is from an older version no migration reads (web profileStatus state older): the bytes are valid, this build cannot open them. <see cref="Status"/> is Corrupt.</summary>
+        public bool Older;
         public readonly List<JObject> Commands = new List<JObject>();
         /// <summary>The generation's log ends in a torn or checksum-invalid record: <see cref="Commands"/> is the valid prefix, and appending to this generation again would hide every later command behind the damage.</summary>
         public bool LogTruncated;
@@ -147,6 +149,23 @@ namespace Ashen.App.Saves
             if (path == null) return null;
             try { return File.ReadAllText(path, Encoding.UTF8); }
             catch (IOException) { return null; }
+        }
+
+        /// <summary>
+        /// exportProfile(): the live profile exactly as stored, in the web's wrapper (exportedAt, game, note, state, profile), for the state where nothing was set aside (a newer profile is left where it is). Null when there is no profile.
+        /// </summary>
+        public string ExportProfile(string state)
+        {
+            var raw = ReadRaw(_rules.ProfileSlot);
+            if (raw == null) return null;
+            return new JObject
+            {
+                [ArchiveKeys.ExportedAt] = Drawer.Stamp(),
+                [ArchiveKeys.Game] = ArchiveKeys.GameName,
+                [ArchiveKeys.Note] = ArchiveKeys.ProfileNote,
+                [ArchiveKeys.State] = state,
+                [ArchiveKeys.ProfileKey] = raw,
+            }.ToString(Formatting.Indented);
         }
 
         /// <summary>Set the profile's stored bytes aside (archiveMeta): the same bytes seen again keep one entry. Null when there are none.</summary>
@@ -249,8 +268,10 @@ namespace Ashen.App.Saves
             {
                 if (!_migrations.TryGetValue(version, out var step))
                 {
+                    // Refused BY NAME rather than guessing at a shape nobody wrote (web engine/save.js readMetaFrom: kind older).
                     result.Status = LoadStatus.Corrupt;
-                    result.Warnings.Add(Format(SaveMessages.NoValidCopy, slot));
+                    result.Older = true;
+                    result.Warnings.Add(Format(SaveMessages.Older, version, _rules.CurrentVersion));
                     return result;
                 }
                 best = step((JObject)best.DeepClone());

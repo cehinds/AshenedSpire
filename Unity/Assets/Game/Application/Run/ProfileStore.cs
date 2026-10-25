@@ -22,13 +22,21 @@ namespace Ashen.App.Run
     {
         private readonly SaveService _saves;
 
-        private ProfileStore(SaveService saves, JObject doc, bool writable, string state = null)
+        private ProfileStore(SaveService saves, JObject doc, bool writable, string state = null, string archiveId = null, string reason = null)
         {
             _saves = saves;
             Doc = doc;
             Writable = writable;
             State = state ?? (writable ? ArchiveKeys.StateOk : ArchiveKeys.StateCorrupt);
+            ArchiveId = archiveId;
+            Reason = reason;
         }
+
+        /// <summary>The drawer entry the unreadable profile was set aside as (web profileStatus().archiveId); null when nothing was set aside (a newer profile is left where it is).</summary>
+        public string ArchiveId { get; }
+
+        /// <summary>The engine's own words for why the profile did not read (web profileStatus().reason), for Details for support; null when it read.</summary>
+        public string Reason { get; }
 
         /// <summary>What the load left (web profileStatus().state): ok, empty, migrated, recovered, corrupt or newer.</summary>
         public string State { get; }
@@ -49,7 +57,8 @@ namespace Ashen.App.Run
             LoadResult loaded;
             try { loaded = saves.Load(slot); }
             catch (Exception e) { return Unreadable(saves, e.Message, setAside); }
-            if (loaded.Status == LoadStatus.RefusedNewer) return new ProfileStore(saves, new JObject(), false, ArchiveKeys.StateNewer);
+            if (loaded.Status == LoadStatus.RefusedNewer) return new ProfileStore(saves, new JObject(), false, ArchiveKeys.StateNewer, null, loaded.Warnings.LastOrDefault());
+            if (loaded.Status == LoadStatus.Corrupt && loaded.Older) return Older(saves, loaded.Warnings.FirstOrDefault(), setAside);
             if (loaded.Status == LoadStatus.Corrupt) return Unreadable(saves, loaded.Warnings.FirstOrDefault(), setAside);
             if (loaded.Status != LoadStatus.Loaded || !(loaded.Payload is JObject doc)) return new ProfileStore(saves, new JObject(), loaded.Status == LoadStatus.Empty, loaded.Status == LoadStatus.Empty ? ArchiveKeys.StateEmpty : ArchiveKeys.StateCorrupt);
             return new ProfileStore(saves, AsDoubles(doc), true, loaded.Recovered ? ArchiveKeys.StateRecovered : loaded.Migrated ? ArchiveKeys.StateMigrated : ArchiveKeys.StateOk);
@@ -58,8 +67,17 @@ namespace Ashen.App.Run
         /// <summary>A profile that cannot be read is set aside in the drawer (the bytes stay where they are: they are the evidence) and used empty. The Profile screen only looks, so it does not count another sighting.</summary>
         private static ProfileStore Unreadable(SaveService saves, string why, bool setAside)
         {
-            if (setAside) saves.ArchiveProfile(string.Format(CultureInfo.InvariantCulture, ArchiveKeys.ReasonUnreadable, why ?? ArchiveKeys.Corrupt));
-            return new ProfileStore(saves, new JObject(), false, ArchiveKeys.StateCorrupt);
+            var reason = string.Format(CultureInfo.InvariantCulture, ArchiveKeys.ReasonUnreadable, why ?? ArchiveKeys.Corrupt);
+            var id = setAside ? saves.ArchiveProfile(reason) : saves.Drawer.FindProfile(saves.ReadRaw(saves.Rules.ProfileSlot));
+            return new ProfileStore(saves, new JObject(), false, ArchiveKeys.StateCorrupt, id, reason);
+        }
+
+        /// <summary>A profile from an older version no migration reads: set aside with the engine's own reason (archiveMeta(primary.json, primary.error), no wrapper), used empty, and named older.</summary>
+        private static ProfileStore Older(SaveService saves, string why, bool setAside)
+        {
+            var reason = why ?? ArchiveKeys.Corrupt;
+            var id = setAside ? saves.ArchiveProfile(reason) : saves.Drawer.FindProfile(saves.ReadRaw(saves.Rules.ProfileSlot));
+            return new ProfileStore(saves, new JObject(), false, ArchiveKeys.StateOlder, id, reason);
         }
 
         /// <summary>Writes the profile as a new save generation (nothing when it is read-only).</summary>

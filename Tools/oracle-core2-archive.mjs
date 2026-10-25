@@ -9,7 +9,7 @@
 //
 // Files (Unity/Assets/Tests/Oracle/core2/archive/, sorted keys; two runs are byte-identical):
 //   drawer.json   { steps: [{ now, kind, save, reason, slot, listing, notices }], exports: [{ id, now, step, text }] }: each step puts bytes in the drawer at a moment the clock holds, with the drawer's listing and notices after it; the C# drawer replays the steps and the exports are what exportArchive said right after a step
-//   words.json    { times, sizes, reasons, describes, workspace }: what the screen's helpers say, with the U+202F the browser puts before AM/PM written as a plain space (the Unity fonts carry no narrow no-break space)
+//   words.json    { times, sizes, reasons, describes, workspace }: what the screen's helpers say, with the space before AM/PM as V8 writes it (a plain space, as Chrome does; Firefox and Safari write U+202F, which Inter and Cinzel carry since P-6, D-1640)
 //   index.json    the sha, the profile hash and the tallies
 //
 // The zone is UTC, so the times the helpers print do not depend on the machine.
@@ -102,11 +102,10 @@ const cut = (name) => {
   throw new Error(`oracle-core2-archive: function ${name} does not end`);
 };
 const helpers = new Function(`${cut('humanTime')}\n${cut('humanSize')}\n${cut('describe')}\n${cut('humanReason')}\nreturn { humanTime, humanSize, describe, humanReason };`)();
-const plainSpace = (s) => (typeof s === 'string' ? s.replace(/ /g, ' ') : s);
 const model = await load('src/ui/models/ProfileWorkspaceModel.js');
 
 const times = [null, '', 'not a time', '2026-10-24T16:38:00.123Z', '2026-10-24T00:05:00.000Z', '2026-10-24T12:00:00.000Z', '2026-10-24T23:59:59.000Z', '2027-01-02T09:07:00.000Z', '2026-03-31T13:30:00.000Z']
-  .map((iso) => ({ iso, text: plainSpace(helpers.humanTime(iso)) }));
+  .map((iso) => ({ iso, text: helpers.humanTime(iso) }));
 const sizes = [0, 1, 812, 1023, 1024, 1535, 1536, 4096, 4608, 20000].map((bytes) => ({ bytes, text: helpers.humanSize(bytes) }));
 const reasons = ['', 'Unexpected token } in JSON at position 41', 'profile could not be read: no valid copy of profile', 'run could not be read: no valid copy of run-1', 'profile schemaVersion 2 is older than this build (4) and has no migration',
   'content is from an older version', 'kept when you started a new profile', 'set aside when you restored meta-1-1', 'dangling id: card.x', 'something else entirely', 'Restored']

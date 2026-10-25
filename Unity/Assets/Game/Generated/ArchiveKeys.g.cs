@@ -29,6 +29,11 @@ namespace Ashen.Generated
         public const string Game = "game";
         public const string GameName = "Ashen Spire";
         public const string Archive = "archive";
+        public const string Note = "note";
+        public const string ProfileNote = "This is your profile exactly as it was stored.";
+        public const string State = "state";
+        public const string ProfileKey = "profile";
+        public const string ExportProfileFile = "ashen-spire-profile-{0}.json";
         public const string ExportFile = "ashen-spire-{0}.json";
         public const string IdMeta = "meta-{0}-{1}";
         public const string IdRun = "run-s{0}-{1}-{2}";
@@ -53,7 +58,9 @@ namespace Ashen.Generated
         public const string StateCorrupt = "corrupt";
         public const string StateOlder = "older";
         public const string StateNewer = "newer";
+        public const string NoCount = "—";
         public const string Progress = "progress";
+        public const string Unlocked = "unlocked";
         public const string Runs = "runs";
         public const string Wins = "wins";
         public const string Payload = "payload";

@@ -216,6 +216,9 @@ namespace Ashen.App.Saves
             return WriteEntry(new ArchiveEntry { Id = MakeId(ArchiveKeys.KindMeta, null), Kind = ArchiveKeys.KindMeta, Slot = null, Reason = reason, At = Iso(Now), Count = 1, Save = json });
         }
 
+        /// <summary>The id of the profile entry that already holds exactly these bytes, without counting another sighting (a screen that only looks); null when there is none.</summary>
+        public string FindProfile(string json) => string.IsNullOrEmpty(json) ? null : Read().Entries.FirstOrDefault(e => e.IsProfile && e.Save == json)?.Id;
+
         /// <summary>archive(json, reason, slot): set a run's bytes aside.</summary>
         public string ArchiveRun(string json, string reason, int slot) =>
             WriteEntry(new ArchiveEntry { Id = MakeId(ArchiveKeys.KindRun, slot), Kind = ArchiveKeys.KindRun, Slot = slot, Reason = reason, At = Iso(Now), Save = json });
@@ -230,6 +233,9 @@ namespace Ashen.App.Saves
 
         /// <summary>getArchive(id): the entry with its bytes, or null.</summary>
         public ArchiveEntry Get(string id) => Read().Entries.FirstOrDefault(e => e.Id == id);
+
+        /// <summary>Now as the drawer writes a time (the export's exportedAt).</summary>
+        public string Stamp() => Iso(Now);
 
         /// <summary>exportArchive(id): the text a player saves to a file (generated from the archive, never kept separately), or null.</summary>
         public string Export(string id)

@@ -27,8 +27,7 @@
       "uxml": "UI/Screens/ProfileRecovery",
       "layer": "screen",
       "background": "bg.tower-city-background-unlit",
-      "focusOrder": ["CONFIRM_FOOTER"],
-      "initialFocus": "CONFIRM_BACK",
+      "focusOrder": ["RECOVERY_BODY"],
       "back": null,
       "transitions": { "done": { "to": "title", "mode": "replace" } }
     },

@@ -7,7 +7,10 @@
       "keys": {
         "Internal": "__Internal",
         "FetchFailed": "Content fetch failed: {0} ({1})",
-        "FetchDone": "Content loaded in memory: {0} files"
+        "FetchDone": "Content loaded in memory: {0} files",
+        "MimeJson": "application/json",
+        "MimeText": "text/plain",
+        "JsonAccept": ".json,application/json"
       }
     }
   ],

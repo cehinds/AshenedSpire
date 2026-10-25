@@ -27,7 +27,7 @@
     "startSlot": { "titleKey": "confirm.start.title", "bodyKey": "confirm.start.body", "occupiedBodyKey": "confirm.start.occupied", "primaryKey": "confirm.start.primary", "backKey": "confirm.back", "hold": false, "single": false },
     "deleteSlot": { "titleKey": "confirm.delete.title", "bodyKey": "confirm.delete.body", "primaryKey": "confirm.delete.primary", "backKey": "confirm.back", "policy": "policy.deleteSave", "hold": true, "single": false },
     "aiNotice": { "titleKey": "notice.ai.title", "bodyKey": "about.aiDisclosure", "primaryKey": "notice.ai.continue", "backKey": "confirm.back", "hold": false, "single": true },
-    "recovery": { "titleKey": "recovery.title", "bodyKey": "recovery.body", "primaryKey": "recovery.restore", "backKey": "recovery.fresh", "hold": true, "single": false },
+    "recovery": { "titleKey": "recovery.confirm.title", "bodyKey": "recovery.confirm.body", "primaryKey": "recovery.confirm.go", "backKey": "recovery.confirm.back", "policy": "policy.deleteSave", "hold": false, "single": false },
     "replaceSlot": { "titleKey": "confirm.replace.title", "bodyKey": "confirm.replace.body", "primaryKey": "confirm.replace.primary", "backKey": "confirm.back", "policy": "policy.saveOverwrite", "hold": true, "single": false },
     "saveQuit": { "titleKey": "confirm.saveQuit.title", "bodyKey": "confirm.saveQuit.body", "primaryKey": "confirm.saveQuit.primary", "backKey": "confirm.back", "hold": true, "single": false },
     "abandon": { "titleKey": "confirm.abandon.title", "bodyKey": "confirm.abandon.body", "primaryKey": "confirm.abandon.primary", "backKey": "confirm.back", "policy": "policy.deleteSave", "hold": true, "single": false },

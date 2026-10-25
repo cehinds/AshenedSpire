@@ -25,5 +25,7 @@ namespace Ashen.Generated
         public const string Support = "prof-support";
         public const string SupportBody = "prof-support-body";
         public const string Count = "prof-count";
+        public const string Recovery = "prof-recovery";
+        public const string Emphasis = "prof-emphasis";
     }
 }
