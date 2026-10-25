@@ -46,3 +46,15 @@
     font-size: var(--font-caption);
     white-space: normal;
 }
+
+/* The arrow (kit.css:697-711): a 7.5 x 3.75 gold triangle on the edge that faces the trigger, pointing at its centre. The tooltip sits
+   under its trigger, so it is on the top edge; Tooltip.cs sets its left (this left is the inset from the corner). It lies outside the
+   panel: the top offset is its height plus the 1 px border. */
+.tooltip-arrow {
+    position: absolute;
+    left: var(--size-tooltip-arrow-inset);
+    top: var(--size-tooltip-arrow-top);
+    width: var(--size-tooltip-arrow-w);
+    height: var(--size-tooltip-arrow-h);
+    background-image: url("../Frames/tooltip-arrow.png");
+}

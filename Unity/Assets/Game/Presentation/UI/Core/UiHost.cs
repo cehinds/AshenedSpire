@@ -17,6 +17,7 @@ namespace Ashen.Presentation.UI
         private PanelSettings _narrow;
         private RenderTexture _target;
         private InputRouter _input;
+        private Kit.FocusRing _focusRing;
 
         public UiContext Context { get; private set; }
         public UIDocument Document { get; private set; }
@@ -48,7 +49,10 @@ namespace Ashen.Presentation.UI
             root.EnableInClassList(UiClasses.BuildPlayer, !context.DevBuild);
             host.Navigator = new Navigator(host, root);
             host.Navigator.ApplyLayout(host.ViewportWidth, host.ViewportHeight);
+            host._focusRing = new Kit.FocusRing(root);
             host._input = new InputRouter(context.Data.Tokens.Duration(TokenKeys.NavRepeatDelay), context.Data.Tokens.Duration(TokenKeys.NavRepeatInterval));
+            host._input.Move += _ => host._focusRing.UseKeys();
+            host._input.Submit += host._focusRing.UseKeys;
             host._input.Move += host.Navigator.MoveFocus;
             host._input.Submit += host.Navigator.Submit;
             host._input.Cancel += host.Navigator.Back;

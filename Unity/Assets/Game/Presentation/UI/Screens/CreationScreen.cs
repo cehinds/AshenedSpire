@@ -49,6 +49,9 @@ namespace Ashen.Presentation.UI.Screens
         private Shell _shell;
         private Workspace _workspace;
         private TextField _seedField;
+        private LocButton _headList;
+        private LocButton _headGrid;
+        private VisualElement _avatar;
         private int _slot = 1;
         private bool _core2;
 
@@ -78,7 +81,10 @@ namespace Ashen.Presentation.UI.Screens
             {
                 _workspace.Rules = Ui.Data.Layout.CategoryNav;
                 _workspace.Picked += OnPane;
+                _workspace.Nav.StepKey = StringKeys.CreationStep;
+                _workspace.Nav.SelectorKey = StringKeys.CreationAllSteps;
             }
+            BuildHeaderTools();
             Root.Q<LocButton>(UiNames.ClassViewList).clicked += () => ViewModel.Grid = false;
             Root.Q<LocButton>(UiNames.ClassViewGrid).clicked += () => ViewModel.Grid = true;
             var list = Root.Q(UiNames.ClassList);
@@ -100,6 +106,50 @@ namespace Ashen.Presentation.UI.Screens
         }
 
         private string ClassName(string id) => RunFlow.ClassName(Ui, id);
+
+        // ------------------------------------------------------------------ the header's cluster (flow-05 / flow-06, both sizes)
+
+        /// <summary>
+        /// The web's header (creation shots): after the title, the List | Grid switch (the phone only; the wide screen keeps it over the cards),
+        /// the chosen class's portrait, the menu button (the settings) and the close.
+        /// </summary>
+        private void BuildHeaderTools()
+        {
+            var header = Root.Q(UiNames.ShellHeader);
+            var exit = _shell.ExitButton;
+            if (header == null || exit == null) return;
+            var tools = new VisualElement { pickingMode = PickingMode.Ignore };
+            tools.AddToClassList(ChromeClasses.CreationHeadTools);
+            var seg = new VisualElement();
+            seg.AddToClassList(ChromeClasses.CreationHeadSeg);
+            _headList = HeadSegButton(StringKeys.CreationViewList, () => ViewModel.Grid = false);
+            _headGrid = HeadSegButton(StringKeys.CreationViewGrid, () => ViewModel.Grid = true);
+            seg.Add(_headList);
+            seg.Add(_headGrid);
+            tools.Add(seg);
+            _avatar = new VisualElement { pickingMode = PickingMode.Ignore };
+            _avatar.AddToClassList(ChromeClasses.CreationAvatar);
+            tools.Add(_avatar);
+            var menu = new LocButton { stringKey = StringKeys.CombatMenu };
+            menu.AddToClassList(ChromeClasses.CreationMenu);
+            BoardHud.SetImage(menu, BoardHud.Art(Ui, ArtKinds.Component, BoardArt.ComponentMenu));
+            menu.clicked += OpenSettings;
+            tools.Add(menu);
+            header.Insert(header.IndexOf(exit), tools);
+        }
+
+        private static LocButton HeadSegButton(string key, Action pressed)
+        {
+            var button = new LocButton { stringKey = key };
+            button.AddToClassList(ChromeClasses.CreationHeadSegButton);
+            button.clicked += pressed;
+            return button;
+        }
+
+        private void OpenSettings()
+        {
+            if (Ui.Data.Screens.IsBuilt(ScreenIds.Settings)) Nav.Go(ScreenIds.Settings);
+        }
 
         // ------------------------------------------------------------------ the class cards
 
@@ -224,6 +274,9 @@ namespace Ashen.Presentation.UI.Screens
                 _tiles[i].EnableInClassList(FrontClasses.ClassCardGrid, ViewModel.Grid);
             }
             Root.Q(UiNames.ClassList).EnableInClassList(FrontClasses.ClassListGrid, ViewModel.Grid);
+            _headList?.EnableInClassList(FrontClasses.ClassViewOn, !ViewModel.Grid);
+            _headGrid?.EnableInClassList(FrontClasses.ClassViewOn, ViewModel.Grid);
+            if (_avatar != null && selected != null) Ui.ApplyBackground(_avatar, _content.Portrait(selected));
             Root.Q(UiNames.ClassViewList).EnableInClassList(FrontClasses.ClassViewOn, !ViewModel.Grid);
             Root.Q(UiNames.ClassViewGrid).EnableInClassList(FrontClasses.ClassViewOn, ViewModel.Grid);
             _workspace?.SetCategories(Ui.Data.Menus.CreationPanes.Select(p => new CategoryItem

@@ -26,8 +26,85 @@
     border-radius: 0;
 }
 
+.class-view--on {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
 .class-scroll {
     flex-grow: 1;
+}
+
+/* ---- the creation header's cluster (flow-05 / flow-06, 1920 and 390 shots): the List | Grid switch (phone only), the chosen class's portrait in a gold ring, the menu button, then the shell's close ---- */
+
+.creation-head-tools {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: var(--space-sm);
+}
+
+.creation-head-seg {
+    display: none;
+    flex-direction: row;
+    margin-right: var(--space-sm);
+}
+
+.kit-button.creation-head-seg-button {
+    min-height: var(--size-head-ctrl);
+    height: var(--size-head-ctrl);
+    margin: 0;
+    padding: 0 var(--space-md);
+    border-radius: 0;
+    font-size: var(--font-body);
+}
+
+.creation-avatar {
+    width: var(--size-head-ctrl);
+    height: var(--size-head-ctrl);
+    margin-right: var(--space-sm);
+    border-width: var(--border-hairline);
+    border-color: var(--color-gold);
+    border-radius: var(--radius-round);
+    background-color: var(--color-bg-raise);
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.kit-button.creation-menu {
+    width: var(--size-head-ctrl);
+    height: var(--size-head-ctrl);
+    min-height: 0;
+    margin: 0 var(--space-sm) 0 0;
+    padding: 0;
+    color: var(--color-transparent);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.layout-narrow .creation-head-seg {
+    display: flex;
+}
+
+.layout-narrow .kit-button.creation-head-seg-button,
+.layout-narrow .creation-avatar,
+.layout-narrow .kit-button.creation-menu {
+    width: auto;
+    min-width: var(--size-head-ctrl-narrow);
+    height: var(--size-head-ctrl-narrow);
+}
+
+.layout-narrow .creation-avatar,
+.layout-narrow .kit-button.creation-menu {
+    width: var(--size-head-ctrl-narrow);
+}
+
+.layout-narrow .shell-exit {
+    width: var(--size-head-ctrl-narrow);
+    height: var(--size-head-ctrl-narrow);
+}
+
+/* the phone moves the switch into the header; the pane's own toolbar steps aside */
+.layout-narrow .class-toolbar {
+    display: none;
 }
 
 .class-list {
@@ -534,6 +611,7 @@
     justify-content: space-between;
     min-height: var(--size-settings-head-h);
     padding: 0 var(--space-md);
+    background-color: var(--color-modal-bar);
     border-bottom-width: var(--border-hairline);
     border-color: var(--color-line-soft);
 }
@@ -636,13 +714,14 @@
 }
 
 .settings-group {
-    margin: 0 var(--space-xs) var(--space-xs) 0;
-    padding: var(--space-xs) var(--space-md);
-    min-height: var(--size-settings-tool-h);
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 0 var(--space-sm) var(--space-xs) 0;
 }
 
 .settings-count {
-    flex-grow: 1;
+    flex-grow: 0;
+    flex-shrink: 0;
     font-size: var(--font-label);
     color: var(--color-muted);
     -unity-text-align: middle-right;
@@ -742,16 +821,13 @@
     background-color: var(--color-gold);
 }
 
-.settings-chips {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+/* An enum setting is the web's select (settings.js): 390 wide at the right of its words on the wide screen, the row's full width under them on the phone. */
+.settings-select {
+    width: var(--size-settings-select-w);
 }
 
-.settings-chips .kit-chip {
-    margin: 0 0 var(--space-xxs) var(--space-xs);
-    padding: var(--space-xs) var(--space-md);
-    font-size: var(--font-body);
+.layout-narrow .settings-select {
+    width: var(--size-full-width);
 }
 
 .settings-slider {
@@ -801,6 +877,7 @@
 
 .settings-foot {
     padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-modal-bar);
     border-top-width: var(--border-hairline);
     border-color: var(--color-line-soft);
 }

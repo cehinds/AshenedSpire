@@ -17,7 +17,7 @@
             <Ashen.Presentation.UI.LocButton name="GROUP_DISCARD" class="group-pile-button group-pile-button--wide">
                 <ui:VisualElement name="GROUP_DISCARD_ART" class="group-pile-art" picking-mode="Ignore" />
             </Ashen.Presentation.UI.LocButton>
-            <Ashen.Presentation.UI.LocLabel name="GROUP_DISCARD_CAPTION" class="group-pile-caption kit-text-header" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.LocLabel name="GROUP_DISCARD_CAPTION" class="group-pile-caption kit-text-header kit-upper" picking-mode="Ignore" />
         </ui:VisualElement>
         <ui:VisualElement class="group-pile" picking-mode="Ignore">
             <Ashen.Presentation.UI.LocButton name="GROUP_POTIONS" class="group-pile-button group-pile-button--potions">

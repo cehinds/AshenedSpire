@@ -1,4 +1,6 @@
+using Ashen.App.Ui;
 using Ashen.Generated;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Ashen.Presentation.UI.Kit
@@ -14,7 +16,10 @@ namespace Ashen.Presentation.UI.Kit
         private readonly LocLabel _glyph;
         private readonly LocLabel _title;
         private readonly LocLabel _body;
+        private readonly VisualElement _arrow;
         private string _size;
+        private float _anchorX = float.NaN;
+        private float _inset = float.NaN;
 
         public Tooltip()
         {
@@ -24,6 +29,30 @@ namespace Ashen.Presentation.UI.Kit
             _glyph = this.Q<LocLabel>(UiNames.TooltipGlyph);
             _title = this.Q<LocLabel>(UiNames.TooltipTitle);
             _body = this.Q<LocLabel>(UiNames.TooltipBody);
+            _arrow = this.Q(UiNames.TooltipArrow);
+            RegisterCallback<GeometryChangedEvent>(_ => PlaceArrow());
+        }
+
+        /// <summary>
+        /// WT0.ARROW (web tooltip.js pointArrow): the arrow sits on the edge that faces the trigger and points at its centre, kept the
+        /// inset (its USS left) clear of the corners. anchorX is the trigger's centre in the tooltip's parent's coordinates.
+        /// </summary>
+        public void PointAt(float anchorX)
+        {
+            _anchorX = anchorX;
+            PlaceArrow();
+        }
+
+        private void PlaceArrow()
+        {
+            if (_arrow == null || float.IsNaN(_anchorX)) return;
+            var width = resolvedStyle.width;
+            var arrowW = _arrow.resolvedStyle.width;
+            if (float.IsNaN(width) || float.IsNaN(arrowW)) return;
+            if (float.IsNaN(_inset)) _inset = _arrow.resolvedStyle.left;
+            var inset = _inset;
+            var left = _anchorX - resolvedStyle.left - arrowW * (float)UiMath.Half;
+            _arrow.style.left = Mathf.Clamp(left, inset, Mathf.Max(inset, width - inset - arrowW));
         }
 
         [UxmlAttribute]
@@ -69,6 +98,7 @@ namespace Ashen.Presentation.UI.Kit
                 var at = overlay.WorldToLocal(new UnityEngine.Vector2(target.worldBound.xMin, target.worldBound.yMax));
                 tip.style.left = at.x;
                 tip.style.top = at.y;
+                tip.PointAt(overlay.WorldToLocal(target.worldBound.center).x);
                 tip.AddToClassList(UiClasses.TooltipVisible);
             }
             void Arm() { pending?.Pause(); pending = target.schedule.Execute(Show).StartingIn(delayMs); }

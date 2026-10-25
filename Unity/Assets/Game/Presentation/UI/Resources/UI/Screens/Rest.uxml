@@ -14,7 +14,7 @@
                             <ui:VisualElement name="REST_OPTIONS" class="rest-options" />
                         </ui:ScrollView>
                         <ui:VisualElement name="REST_AVAILABILITY" class="rest-availability">
-                            <Ashen.Presentation.UI.LocLabel class="eyebrow kit-text-header" string-key="rest.availability" />
+                            <Ashen.Presentation.UI.LocLabel class="eyebrow kit-upper kit-text-header" string-key="rest.availability" />
                             <ui:VisualElement name="AVAILABILITY_LIST" class="availability-list" />
                         </ui:VisualElement>
                     </ui:VisualElement>
