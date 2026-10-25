@@ -1,0 +1,19 @@
+{
+  "comment": "The names of the UI Toolkit link tag events (Unity 6 text elements raise them for the pointer over a <link> run) that the damage calculation tooltip looks up by name, so the Presentation layer compiles whatever the editor version ships (P-5, D-1592).",
+  "keySets": [
+    {
+      "name": "LinkTagNames",
+      "doc": "Type, namespace and member names of the link tag events (UnityEngine.UIElements.PointerOverLinkTagEvent and PointerOutLinkTagEvent, member linkID).",
+      "keys": {
+        "OverEvent": "PointerOverLinkTagEvent",
+        "OutEvent": "PointerOutLinkTagEvent",
+        "LinkId": "linkID",
+        "Namespace": "UnityEngine.UIElements",
+        "ExperimentalNamespace": "UnityEngine.UIElements.Experimental",
+        "NamespaceJoin": ".",
+        "RegisterMethod": "RegisterCallback",
+        "BridgeMethod": "On"
+      }
+    }
+  ]
+}

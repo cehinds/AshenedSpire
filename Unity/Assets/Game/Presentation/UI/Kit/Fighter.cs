@@ -37,6 +37,22 @@ namespace Ashen.Presentation.UI.Kit
             Tooltip.AttachResolved(mark, Overlay, Size, title, body, DelayMs);
         }
 
+        /// <summary>As <see cref="Retell"/> for the run of a rich text label that carries <paramref name="linkId"/>: the tooltip opens over that run alone (D-1592).</summary>
+        public static void RetellLinked(VisualElement label, ref Tooltip tip, string title, string body, string linkId)
+        {
+            if (Overlay == null || label == null) return;
+            var speaks = !(string.IsNullOrEmpty(body) && string.IsNullOrEmpty(title));
+            if (tip == null)
+            {
+                if (!speaks) return;
+                label.pickingMode = PickingMode.Position;
+                tip = Tooltip.AttachLinked(label, Overlay, Size, title, body, DelayMs, linkId);
+                return;
+            }
+            if (speaks) tip.SetText(title, body);
+            tip.style.display = speaks ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
         /// <summary>
         /// Makes a mark that lives across redraws (a meter, the intent) explain itself, and changes what it says as the fight moves: the tooltip is attached once and its words replaced.
         /// No words detaches nothing but lets the pointer pass.

@@ -243,7 +243,7 @@ namespace Ashen.App.Ui
             track.GlowColour = filter.GlowColour;
             foreach (var stop in filter.Stops)
             {
-                var same = track.Stops.FirstOrDefault(s => Math.Abs(s.T - stop.T) < 1e-9);
+                var same = track.Stops.FirstOrDefault(s => s.T == stop.T);
                 if (same == null)
                 {
                     same = new FxStop { T = stop.T };
