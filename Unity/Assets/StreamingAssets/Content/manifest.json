@@ -1,5 +1,5 @@
 {
-  "contentHash": "a552596894d545fbd009062e1a23b0e4127d00515ced47c7a51dd377c189017f",
+  "contentHash": "d57d1e8109819034eeb14c2522967260db1c642896a80f3038100e963ec23599",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -100,9 +100,9 @@
       "sha256": "0a8e3b8e433e076b012b6897222ef3dffcbc5c69d159401fa68abae4d10f8d6e"
     },
     "assets/registry.json": {
-      "bytes": 2428513,
+      "bytes": 2514144,
       "generated": false,
-      "sha256": "144940e286e87dde5697fd21c5e0f7d51444e35b7a2ece031509beacc83937fd"
+      "sha256": "6e2b87fd5d47c12974fa6ed75432295385698b9dc8224a7cd07321ac54a0bafa"
     },
     "audio/beds.json": {
       "bytes": 1990,
@@ -1989,6 +1989,11 @@
       "generated": false,
       "sha256": "3af105c94763728307b39d6e27895a06d143e181316b177c91938703b5969610"
     },
+    "schemas/ui.cardStage.schema.json": {
+      "bytes": 7375,
+      "generated": false,
+      "sha256": "bd8ce26739e9099d45a13470eb26b0a63f14b8e7608c20457671175be4893388"
+    },
     "schemas/ui.cardText.schema.json": {
       "bytes": 3089,
       "generated": false,
@@ -2188,6 +2193,11 @@
       "bytes": 4160,
       "generated": false,
       "sha256": "77e4e8653a48529006eacd77ccf9d4c69998cfae753266dac671aea73e65f3c7"
+    },
+    "ui/cardStage.json": {
+      "bytes": 50029,
+      "generated": false,
+      "sha256": "86d8d0497ffa4981faaa74b5418415467978d6c7cd7732f0da66e9ee6d645d22"
     },
     "ui/cardText.json": {
       "bytes": 7772,

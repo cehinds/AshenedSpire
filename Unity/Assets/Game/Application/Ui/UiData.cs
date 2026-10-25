@@ -37,6 +37,9 @@ namespace Ashen.App.Ui
         /// <summary>ui/poses.json (P-1): the geometry of the player figure's pose frames and how long a pose is held.</summary>
         public PoseData Poses;
 
+        /// <summary>ui/cardStage.json (P-3b): the player's combat figure, the web's card stage: its frames, actions and the arithmetic of their clips.</summary>
+        public CardStageData CardStage;
+
         public static UiData Load(IContentSource source)
         {
             JObject Read(string path) => (JObject)JsonContent.Parse(source.ReadText(path));
@@ -53,6 +56,7 @@ namespace Ashen.App.Ui
                 Strings = strings,
                 CardText = new Ashen.App.Combat.CardTextData(strings, Read(ContentFiles.UiCardText)),
                 Poses = new PoseData(Read(ContentFiles.UiPoses)),
+                CardStage = new CardStageData(Read(ContentFiles.UiCardStage)),
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
                 Meta = Read(ContentFiles.UiMeta),

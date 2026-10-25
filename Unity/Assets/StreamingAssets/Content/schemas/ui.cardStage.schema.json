@@ -1,0 +1,337 @@
+{
+  "$id": "ui/cardStage.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "object",
+      "properties": {
+        "anchorX": {
+          "type": "number"
+        },
+        "floorY": {
+          "type": "number"
+        },
+        "frameTop": {
+          "type": "number"
+        },
+        "defaultX": {
+          "type": "number"
+        },
+        "defaultSize": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "anchorX",
+        "floorY",
+        "frameTop",
+        "defaultX",
+        "defaultSize"
+      ]
+    },
+    "motion": {
+      "type": "object",
+      "properties": {
+        "hurtFrames": {
+          "type": "integer"
+        },
+        "hurtRedOpacity": {
+          "type": "number"
+        },
+        "hurtMinMs": {
+          "type": "number"
+        },
+        "recoilPx": {
+          "type": "number"
+        },
+        "recoilPeak": {
+          "type": "number"
+        },
+        "hitMs": {
+          "type": "number"
+        },
+        "playMs": {
+          "type": "number"
+        },
+        "reactMs": {
+          "type": "number"
+        },
+        "durationMs": {
+          "type": "number"
+        },
+        "pilotUnits": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "hurtFrames",
+        "hurtRedOpacity",
+        "hurtMinMs",
+        "recoilPx",
+        "recoilPeak",
+        "hitMs",
+        "playMs",
+        "reactMs",
+        "durationMs",
+        "pilotUnits"
+      ]
+    },
+    "aliases": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "reactionKinds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reactions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "poses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "durations": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "travel": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "impact": {
+            "type": "integer"
+          },
+          "hold": {
+            "type": "boolean"
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "pilot": {
+            "type": "boolean"
+          },
+          "timingUnits": {
+            "type": "number"
+          },
+          "contactCue": {
+            "type": "boolean"
+          },
+          "reaction": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "poses",
+          "durations",
+          "travel",
+          "impact",
+          "hold"
+        ]
+      }
+    },
+    "classes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "unit": {
+            "type": "number"
+          },
+          "bodyHeight": {
+            "type": "number"
+          },
+          "pilot": {
+            "type": "boolean"
+          },
+          "classSmash": {
+            "type": "boolean"
+          },
+          "held": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "counterRest": {
+            "type": "string"
+          },
+          "hurt": {
+            "type": "object",
+            "properties": {
+              "art": {
+                "type": "string"
+              },
+              "dx": {
+                "type": "number"
+              },
+              "dy": {
+                "type": "number"
+              },
+              "scale": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "art",
+              "dx",
+              "dy",
+              "scale"
+            ]
+          },
+          "defeated": {
+            "type": "string"
+          },
+          "frames": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "art": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                },
+                "w": {
+                  "type": "number"
+                },
+                "h": {
+                  "type": "number"
+                },
+                "marks": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": "number"
+                  }
+                }
+              },
+              "required": [
+                "art",
+                "x",
+                "y",
+                "w",
+                "h",
+                "marks"
+              ]
+            }
+          },
+          "effects": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "sequences": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "poses": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "durations": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "travel": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "impact": {
+                  "type": "integer"
+                },
+                "hold": {
+                  "type": "boolean"
+                },
+                "effects": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "pilot": {
+                  "type": "boolean"
+                },
+                "timingUnits": {
+                  "type": "number"
+                },
+                "contactCue": {
+                  "type": "boolean"
+                },
+                "reaction": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "poses",
+                "durations",
+                "travel",
+                "impact",
+                "hold"
+              ]
+            }
+          }
+        },
+        "required": [
+          "unit",
+          "bodyHeight",
+          "pilot",
+          "classSmash",
+          "held",
+          "counterRest",
+          "hurt",
+          "defeated",
+          "frames",
+          "effects",
+          "sequences"
+        ]
+      }
+    }
+  },
+  "required": [
+    "stage",
+    "motion",
+    "aliases",
+    "reactionKinds",
+    "reactions",
+    "classes"
+  ]
+}
