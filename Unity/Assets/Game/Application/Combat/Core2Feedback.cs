@@ -30,6 +30,9 @@ namespace Ashen.App.Combat
         Effect,
         Banner,
         Defeated,
+
+        /// <summary>The pilot body reaction to a blow (<see cref="FxCue.Text"/> is the kind): evade, guard-break, defend or fully-defended.</summary>
+        Body,
     }
 
     /// <summary>The look of a floating number: its size tier and colour (the web's float-num classes, styles/combat.css:414-445).</summary>
@@ -107,6 +110,9 @@ namespace Ashen.App.Combat
         public List<FxCue> Reaction = new List<FxCue>();
         public List<FxCue> Numbers = new List<FxCue>();
         public int Lines;
+
+        /// <summary>How long the longest body reaction of the group receipts lasts (0 when none): the beat waits for it before the next group (actionTimeline.js reactionLife).</summary>
+        public double BodyMs;
     }
 
     /// <summary>One beat of the web's ordered presentation (fx.js groupBeats): a card play, a flask, an enemy move, a counter, a turn banner or a loose run of events.</summary>
@@ -143,6 +149,13 @@ namespace Ashen.App.Combat
         public string PlayerId;
         public string PlayerManeuver;
         public Func<string, double> MaxHp = _ => 0;
+
+        /// <summary>The card stage of the player when the player is its class pilot and its figure can play the reaction of a kind (P-3b); null for every other figure.</summary>
+        public CardStageData Stage;
+        public Func<string, bool> CanReact;
+
+        /// <summary>The receipts of the whole step, in order (a guard break after the blow that ended the player is not played).</summary>
+        public IReadOnlyList<Core2LogLine> Lines;
     }
 
     /// <summary>
@@ -156,6 +169,7 @@ namespace Ashen.App.Combat
 
         public static List<FxBeat> Plan(IReadOnlyList<Core2LogLine> lines, FxContext ctx)
         {
+            ctx.Lines = lines;
             var beats = Group(lines, ctx);
             foreach (var beat in beats) Build(beat, ctx);
             return beats;
@@ -273,12 +287,27 @@ namespace Ashen.App.Combat
                 {
                     group.Reaction.AddRange(parts[line].Reaction);
                 }
+                BodyCues(group, ctx);
                 ResultCues(group, ctx);
                 NumberCues(group, parts, ctx);
                 group.Lines = Texted(group.Events);
                 beat.Groups.Add(group);
             }
             AddResolution(beat, parts, ctx);
+        }
+
+        /// <summary>combat.js reactionForReceipt: the pilot body reaction beside the hurt reaction of each receipt that earns one, and how long the longest lasts at the pace.</summary>
+        private static void BodyCues(FxGroup group, FxContext ctx)
+        {
+            if (ctx.Stage == null || ctx.CanReact == null || ctx.Lines == null) return;
+            var playerDied = ctx.Lines.Any(l => l.Type == E.PlayerDied);
+            foreach (var line in group.Events)
+            {
+                var kind = CardStageReactions.KindFor(line, ctx.PlayerId);
+                if (kind == null || !ctx.CanReact(kind) || CardStageReactions.Defeated(kind, line, ctx.Lines, ctx.PlayerId, playerDied)) continue;
+                group.Reaction.Add(new FxCue { Type = FxCueType.Body, TargetId = ctx.PlayerId, Text = kind });
+                group.BodyMs = Math.Max(group.BodyMs, ctx.Stage.Timing(ctx.Stage.Reactions[kind], ctx.Pace.Sprite).TotalMs);
+            }
         }
 
         private static void AddResolution(FxBeat beat, Dictionary<Core2LogLine, EventParts> parts, FxContext ctx)

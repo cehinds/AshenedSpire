@@ -117,7 +117,21 @@
         "RestTravelerAspect": "restTravelerAspect",
         "RestTravelerBottom": "restTravelerBottom",
         "ShopPortraitW": "shopPortraitW",
-        "ShopPortraitH": "shopPortraitH"
+        "ShopPortraitH": "shopPortraitH",
+        "BoardScale": "boardScale",
+        "BoardScaleNarrow": "boardScaleNarrow",
+        "BoardGridLinePx": "boardGridLinePx",
+        "BoardFloorShadowH": "boardFloorShadowH",
+        "BoardFloorShadowDrop": "boardFloorShadowDrop",
+        "BoardShadowCore": "boardShadowCore",
+        "EnemyGlowOpacity": "enemyGlowOpacity",
+        "BoardShadowMid": "boardShadowMid",
+        "BoardShadowMidStop": "boardShadowMidStop",
+        "BoardShadowEdge": "boardShadowEdge",
+        "BoardShadowTexW": "boardShadowTexW",
+        "BoardShadowTexH": "boardShadowTexH",
+        "BoardShadowReach": "boardShadowReach",
+        "BoardShadowDefaultShare": "boardShadowDefaultShare"
       }
     },
     {

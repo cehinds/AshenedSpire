@@ -43,6 +43,7 @@ namespace Ashen.Generated
         public const string IconEvade = "evade";
         public const string IconPrepare = "prepare";
         public const string IconSmash = "smash";
+        public const string IconSweep = "sweep";
         public const string Id = "id";
         public const string Incoming = "incoming";
         public const string Index = "index";

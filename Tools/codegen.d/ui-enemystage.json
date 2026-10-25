@@ -1,0 +1,141 @@
+{
+  "comment": "P-4 (D-1540..): the names of ui/enemyStage.json and the vocabulary of the enemies' expansion stage (the web src/ui/enemyExpansionStage.js, ui/enemyStates.js, model/enemyActionPose.js, model/actionAnimation.js).",
+  "keySets": [
+    {
+      "name": "EnemyStageKeys",
+      "doc": "Keys of ui/enemyStage.json.",
+      "keys": {
+        "Stage": "stage",
+        "Height": "height",
+        "Canvas": "canvas",
+        "Floor": "floor",
+        "ClipMs": "clipMs",
+        "Aliases": "aliases",
+        "Poses": "poses",
+        "Actions": "actions",
+        "Durations": "durations",
+        "Families": "families",
+        "StanceOf": "stanceOf",
+        "Enemies": "enemies",
+        "IdleWidth": "idleWidth",
+        "IdleHeight": "idleHeight",
+        "Stances": "stances",
+        "Marks": "marks",
+        "Aura": "aura",
+        "Colors": "colors",
+        "Themes": "themes",
+        "Negative": "negative",
+        "WoundedShare": "woundedShare",
+        "BlurBase": "blurBase",
+        "BlurStep": "blurStep",
+        "Animation": "animation",
+        "Motion": "motion",
+        "Actors": "actors",
+        "Moves": "moves",
+        "Tempo": "tempo",
+        "Reach": "reach",
+        "Family": "family",
+        "Casting": "casting",
+        "MoveJoiner": ":",
+        "Travel": "travel",
+        "Direction": "direction",
+        "TravelPx": "travelPx",
+        "RecoilPx": "recoilPx",
+        "Easing": "easing",
+        "Tracks": "tracks",
+        "T": "t",
+        "At": "at"
+      }
+    },
+    {
+      "name": "EnemyRests",
+      "doc": "The rests and frames of an enemy figure (ui/enemyStates.js enemyPresentation, content/enemyExpansion.js).",
+      "keys": {
+        "Idle": "idle",
+        "Guard": "guard",
+        "Afflicted": "afflicted",
+        "Wounded": "wounded",
+        "Defeated": "defeated",
+        "Hit": "hit"
+      }
+    },
+    {
+      "name": "EnemyActions",
+      "doc": "The poses the combat asks an enemy stage to play (model/enemyActionPose.js, ui/fx.js playPoseOn).",
+      "keys": {
+        "Attack": "attack",
+        "MagicAttack": "magicAttack",
+        "Projectile": "projectile",
+        "Sweep": "sweep",
+        "Guard": "guard",
+        "Buff": "buff",
+        "GuardHit": "guardHit",
+        "Hurt": "hit",
+        "Defeated": "defeated"
+      }
+    },
+    {
+      "name": "EnemyFamilies",
+      "doc": "The action families an enemy's pose is chosen by (model/actionAnimation.js).",
+      "keys": {
+        "Guard": "guard",
+        "Spell": "spell",
+        "Projectile": "projectile",
+        "Sweep": "sweep"
+      }
+    },
+    {
+      "name": "EnemyIntentNames",
+      "doc": "The fields and values of an intent that name the action category its figure holds (model/enemyStancePose.js, model/combatIntentVisibility.js combatIntentStance).",
+      "keys": {
+        "Kind": "kind",
+        "Maneuver": "maneuver",
+        "Camp": "camp",
+        "Stance": "stance",
+        "CombatProfile": "combatProfile",
+        "Profile": "profile",
+        "KindStaggered": "staggered",
+        "KindBlock": "block",
+        "KindDefend": "defend",
+        "KindAttack": "attack",
+        "KindAttackDebuff": "attackDebuff",
+        "KindUnknown": "unknown",
+        "ManeuverCounter": "counter",
+        "ManeuverDefend": "defend",
+        "ManeuverSweep": "sweep",
+        "ManeuverRanged": "ranged",
+        "ManeuverSmash": "smash",
+        "ManeuverAttack": "attack",
+        "CampSpell": "spell",
+        "CampSpells": "spells",
+        "CampMagic": "magic",
+        "StanceStaggered": "staggered",
+        "StanceCountering": "countering",
+        "StanceDefending": "defending",
+        "StanceSweeping": "sweeping",
+        "StanceCasting": "casting",
+        "StanceRanged": "ranged",
+        "StanceSmashing": "smashing",
+        "StanceAttacking": "attacking",
+        "StancePreparing": "preparing"
+      }
+    },
+    {
+      "name": "EnemyTravel",
+      "doc": "The values of a stop of an enemy's travel while it acts (styles/combat.css family-* keyframes).",
+      "keys": {
+        "Zero": "zero",
+        "Recoil": "recoil",
+        "Travel": "travel"
+      }
+    },
+    {
+      "name": "EnemyKinds",
+      "doc": "The intent kinds enemyActionPose tells apart.",
+      "keys": {
+        "Attack": "attack",
+        "Block": "block"
+      }
+    }
+  ]
+}

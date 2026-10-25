@@ -10,5 +10,19 @@ namespace Ashen.Generated
         public const string RestTravelerBottom = "restTravelerBottom";
         public const string ShopPortraitW = "shopPortraitW";
         public const string ShopPortraitH = "shopPortraitH";
+        public const string BoardScale = "boardScale";
+        public const string BoardScaleNarrow = "boardScaleNarrow";
+        public const string BoardGridLinePx = "boardGridLinePx";
+        public const string BoardFloorShadowH = "boardFloorShadowH";
+        public const string BoardFloorShadowDrop = "boardFloorShadowDrop";
+        public const string BoardShadowCore = "boardShadowCore";
+        public const string EnemyGlowOpacity = "enemyGlowOpacity";
+        public const string BoardShadowMid = "boardShadowMid";
+        public const string BoardShadowMidStop = "boardShadowMidStop";
+        public const string BoardShadowEdge = "boardShadowEdge";
+        public const string BoardShadowTexW = "boardShadowTexW";
+        public const string BoardShadowTexH = "boardShadowTexH";
+        public const string BoardShadowReach = "boardShadowReach";
+        public const string BoardShadowDefaultShare = "boardShadowDefaultShare";
     }
 }

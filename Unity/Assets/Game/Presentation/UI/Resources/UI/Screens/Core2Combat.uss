@@ -13,27 +13,21 @@
     background-position-y: top;
 }
 
-/* ---- ground grid: the sheared 3 x 4 lattice (Tools/ui-stage.mjs) ---- */
+/* ---- the field: the perspective grid and the fighters stand on it (P-4, D-1540: src/ui/models/AlternativeFormationModel.js; Core2CombatScreen.Board.cs places every fighter and draws the lattice) ----
+   The two rows and the grid fill the field the web's formation is laid out in: the band between the HUD and the hand area (combat-1920x1080.jpg: y 108 to 637 at 1080p). */
 
 .stage-grid {
     position: absolute;
-    left: var(--size-board-grid-left);
-    top: var(--size-board-grid-top);
-    width: var(--size-board-grid-w);
-    height: var(--size-board-grid-h);
-    background-image: url("../Stage/grid-wide.png");
-    -unity-background-scale-mode: stretch-to-fill;
+    left: 0;
+    right: 0;
+    top: var(--size-board-field-top);
+    bottom: var(--size-board-hand-area-h);
 }
 
 .layout-narrow .stage-grid {
-    left: var(--size-board-grid-left-narrow);
-    top: var(--size-board-grid-top-narrow);
-    width: var(--size-board-grid-wnarrow);
-    height: var(--size-board-grid-hnarrow);
-    background-image: url("../Stage/grid-narrow.png");
+    top: var(--size-board-field-top-narrow);
+    bottom: var(--size-board-hand-area-hnarrow);
 }
-
-/* ---- the field: the ally slot at the left, the enemy slots filling the right, three to a row ---- */
 
 .board-field {
     position: absolute;
@@ -43,32 +37,23 @@
     bottom: var(--size-board-footer-h);
 }
 
-.board-field .ally-row {
-    position: absolute;
-    left: var(--size-board-ally-left);
-    top: var(--size-board-ally-top);
-}
-
+.board-field .ally-row,
 .board-field .enemy-row {
     position: absolute;
-    right: var(--size-board-lane-right);
-    top: var(--size-board-lane-top);
-    width: var(--size-board-lane-w);
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: flex-end;
+    left: 0;
+    right: 0;
+    top: var(--size-board-field-top);
+    bottom: var(--size-board-field-bottom);
 }
 
-.layout-narrow .board-field .ally-row {
-    left: var(--size-board-ally-left-narrow);
-    top: var(--size-board-ally-top-narrow);
+.layout-narrow .board-field {
+    bottom: var(--size-board-footer-hnarrow);
 }
 
+.layout-narrow .board-field .ally-row,
 .layout-narrow .board-field .enemy-row {
-    right: var(--size-board-lane-right-narrow);
-    top: var(--size-board-lane-top-narrow);
-    width: var(--size-board-lane-wnarrow);
+    top: var(--size-board-field-top-narrow);
+    bottom: var(--size-board-field-bottom-narrow);
 }
 
 .board-field .phase-banner {

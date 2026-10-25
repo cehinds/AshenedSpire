@@ -84,6 +84,9 @@ namespace Ashen.Presentation.UI.Kit
         public string IntentKind;
         public Texture2D IntentIcon;
 
+        /// <summary>The glyph of the action the figure holds, shown over the player without words (combatantOverhead.js playerActionIntent): the armed card's, the last card's, else the resting hourglass; null for none.</summary>
+        public Texture2D IntentGlyph;
+
         /// <summary>What pointing at the intent, the Poise meter or the Ward meter says (the web's combat target HUD and health-badge tooltips); null for nothing to say.</summary>
         public bool IntentReduced;
 
@@ -95,6 +98,12 @@ namespace Ashen.Presentation.UI.Kit
         public string PoseClass;
         public string PoseTint;
         public Func<string, Texture2D> PoseTexture;
+
+        /// <summary>The player figure as the web's card stage (P-3b): its data, its textures, the stance that holds it and the rest it keeps. Null for an enemy and for a class with no stage; the figure keeps its base art then.</summary>
+        public StageFeed Stage;
+
+        /// <summary>The enemy figure as the web's expansion stage (P-4): its data, textures and the rest, themes and stance that hold it. Null for the player and for an enemy with no stage; the figure keeps its base art then.</summary>
+        public EnemyFeed Enemy;
         public string IntentTipTitle;
         public string IntentTipBody;
         public string PoiseTipTitle;
@@ -184,6 +193,7 @@ namespace Ashen.Presentation.UI.Kit
             _pose.AddToClassList(UiClasses.FighterPose);
             _pose.AddToClassList(UiClasses.Hidden);
             _figure.Add(_pose);
+            BuildStage();
             _art?.Insert(0, _figure);
             _art?.RegisterCallback<GeometryChangedEvent>(_ => FitPose());
             _hit = this.Q<LocLabel>(UiNames.FighterHit);
@@ -217,6 +227,25 @@ namespace Ashen.Presentation.UI.Kit
 
         public event Action<Fighter> PredictPressed;
 
+        /// <summary>The icon beside the intent: the action glyph of the player (no words with it), else the icon of the intent text.</summary>
+        private void PaintIntentIcon(FighterData d)
+        {
+            if (_intentIcon == null) return;
+            var glyph = d.IntentGlyph != null;
+            var icon = glyph ? d.IntentGlyph : d.IntentIcon;
+            _intentIcon.EnableInClassList(UiClasses.FighterIntentGlyph, glyph);
+            _intentIcon.style.backgroundImage = icon != null ? new StyleBackground(icon) : new StyleBackground(StyleKeyword.None);
+            UiDom.Show(_intentIcon, icon != null && (glyph || !string.IsNullOrEmpty(d.IntentText)));
+        }
+
+        /// <summary>Swaps the action glyph over the figure without rebinding it (the card armed or played changed).</summary>
+        public void SetGlyph(Texture2D glyph)
+        {
+            if (Data == null || Data.IntentGlyph == glyph) return;
+            Data.IntentGlyph = glyph;
+            PaintIntentIcon(Data);
+        }
+
         public void Bind(FighterData d)
         {
             Data = d;
@@ -241,11 +270,7 @@ namespace Ashen.Presentation.UI.Kit
             _intent?.EnableInClassList(UiClasses.IntentReduced, d.IntentReduced);
             var hasIntent = !string.IsNullOrEmpty(d.IntentText);
             if (_intent != null) _intent.style.visibility = hasIntent ? Visibility.Visible : Visibility.Hidden;
-            if (_intentIcon != null)
-            {
-                _intentIcon.style.backgroundImage = d.IntentIcon != null ? new StyleBackground(d.IntentIcon) : new StyleBackground(StyleKeyword.None);
-                UiDom.Show(_intentIcon, hasIntent && d.IntentIcon != null);
-            }
+            PaintIntentIcon(d);
             if (_predict != null)
             {
                 UiDom.Show(_predict, d.CanPredict);
@@ -254,6 +279,8 @@ namespace Ashen.Presentation.UI.Kit
             _baseArt = d.Art;
             _restArt = d.RestArt;
             _restScale = d.RestScale;
+            BindStage(d);
+            BindEnemy(d);
             if (_posing) _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
             else ShowRest();
             Text(_hit, d.HitText);
@@ -293,6 +320,7 @@ namespace Ashen.Presentation.UI.Kit
 
         private void ShowRest()
         {
+            if (PaintStage() || PaintEnemy()) return;
             if (_restArt != null) ShowFrame(_restArt, _restScale);
             else if (!ShowStage(PoseKeys.Idle)) HideFrame();
         }
@@ -365,6 +393,7 @@ namespace Ashen.Presentation.UI.Kit
         private void FitPose()
         {
             if (_art == null) return;
+            if (PaintStage() || PaintEnemy()) return;
             if (_placed) { ShowStage(_stagePose); return; }
             var h = _art.resolvedStyle.height;
             var w = _art.resolvedStyle.width;
@@ -429,6 +458,7 @@ namespace Ashen.Presentation.UI.Kit
             var value = color.HasValue ? new StyleColor(color.Value) : new StyleColor(StyleKeyword.Null);
             _pose.style.unityBackgroundImageTintColor = value;
             _figure.style.unityBackgroundImageTintColor = value;
+            if (HasEnemyStage) _stageBody.style.unityBackgroundImageTintColor = value;
         }
 
         /// <summary>Plays a motion track on the figure: recoil and lunge slide it, the wobble turns it; <paramref name="tinted"/> also reddens it while the track says so.</summary>
@@ -459,6 +489,8 @@ namespace Ashen.Presentation.UI.Kit
         public void Calm()
         {
             Rest();
+            StageSettle(true);
+            EnemySettle();
             Settle();
         }
 

@@ -231,6 +231,7 @@ namespace Ashen.Presentation.UI.Screens
 
         private void RenderFighters()
         {
+            RememberPlans();
             var order = Ui.Data.Components.FighterRatings;
             _player.Bind(FighterData(View.Player, true, order, 0));
             var row = Root.Q(UiNames.EnemyRow);
@@ -260,23 +261,46 @@ namespace Ashen.Presentation.UI.Screens
                 element.Bind(data);
                 element.focusable = enemy.Alive && !_busy && (Mode == null || legal);
             }
+            LayoutBoard();
         }
 
         /// <summary>
-        /// The player's figure is the web's pose stage when its class and tint ship frames (assets/registry.json pose.*): idle, guard, the four swings and the hit, each placed on the shared
-        /// canvas. A frame that is not imported (the art is fetched at build) leaves the figure with its base art.
+        /// The player's figure is the web's card stage (alternativeCardStage.js): the class's card-action frames, the held stance frames and the clips of its actions, over the frames imported as
+        /// alt.*, sweep.*, hurt.* and defeated.* (D-1490). The screen holds the stance (the card armed, else the last one played) and the rest the figure keeps between actions, as combat.js does.
+        /// A class whose frames are not imported keeps its base art.
         /// </summary>
-        private void AttachPoses(FighterData d)
+        private void AttachStage(FighterData d)
         {
-            var poses = Ui.Data.Poses;
-            var classId = _run.ClassId;
-            var tint = _run.Tint ?? (_run.Portrait == null ? null : _run.Portrait.Substring(_run.Portrait.LastIndexOf(Ashen.Generated.IntentKeys.Dot, StringComparison.Ordinal) + 1));
-            if (poses == null || !poses.Has(classId, tint)) return;
-            d.Poses = poses;
-            d.PoseClass = classId;
-            d.PoseTint = tint;
-            d.PoseTexture = pose => Ui.Texture(Ui.Data.Art.Find(ArtKinds.PlayerPose, new StringArgs().Add(ArtPlaceholders.Class, classId).Add(ArtPlaceholders.Pose, pose).Add(ArtPlaceholders.Tint, tint)));
+            var data = Ui.Data.CardStage;
+            if (data == null || !data.Has(_run.ClassId)) return;
+            d.Stage = MakeFeed(d.Alive);
         }
+
+        /// <summary>
+        /// The art of a stage frame at the tier the layout asks for (assetUrl under the Auto art quality): the light copy on a narrow layout where the web ships one (the sweep, counter and hurt clips; the
+        /// alternative card frames have none), else the full frame.
+        /// </summary>
+        private string StageArt(string art)
+        {
+            if (art == null || !(Nav.Layout?.Narrow ?? false)) return art;
+            return Ui.Data.Art.Find(ArtKinds.StageLite, new StringArgs().Add(ArtPlaceholders.Name, art)) ?? art;
+        }
+
+        private StageFeed MakeFeed(bool alive) => new StageFeed
+        {
+            Data = Ui.Data.CardStage,
+            ClassId = _run.ClassId,
+            Texture = art => Ui.Texture(StageArt(art)),
+            Aura = Ui.Data.CombatAura,
+            Glow = art => Ui.Texture(Ui.Data.Art.Find(ArtKinds.Glow, new StringArgs().Add(ArtPlaceholders.Name, art))),
+            Lite = Nav.Layout?.Narrow ?? false,
+            TickMs = Defs.Pace.TickMs,
+            Reduced = ReducedMotion,
+            ReduceFlashes = ReduceFlashes,
+            HitTint = _motion.HitTint,
+            Stance = PlayerStance(),
+            Rest = PlayerRest(alive),
+        };
 
         private FighterData FighterData(Core2FighterView f, bool player, IReadOnlyList<string> order, int reference)
         {
@@ -301,10 +325,10 @@ namespace Ashen.Presentation.UI.Screens
                 Stacks = Core2CombatText.Stacks(Strings, f),
                 Statuses = Core2CombatText.Statuses(Strings, f, Math.Max(1, Ui.Data.Components.StatusChips), Ui.Data.Components.FighterStackStatuses),
             };
-            if (player) AttachPoses(d);
+            if (player) { AttachStage(d); d.IntentGlyph = Ui.IntentGlyph(PlayerGlyph()); }
             _hpShown[f.Id] = d.Hp;
             AddChips(d, f);
-            if (!player) ApplyRestArt(d, f);
+            if (!player) ApplyEnemy(d, f);
             if (f.Poise != null) { d.Poise = Int(f.Poise.Value); d.PoiseMax = Int(f.Poise.Max); }
             if (d.HasWard) { d.Ward = Int(f.Ward.Value); d.WardMax = Int(f.Ward.Max); }
             if (f.Alive && f.Intent != null)

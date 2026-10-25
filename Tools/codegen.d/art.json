@@ -65,6 +65,10 @@
     "PlayerPose": "playerPose",
     "EnemyState": "enemyState",
     "Defeated": "defeated",
+    "EnemyFrame": "enemyFrame",
+    "EnemyLite": "enemyLite",
+    "StageLite": "stageLite",
+    "Glow": "glow",
         "Flask": "flask"
       }
     },

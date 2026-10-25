@@ -51,6 +51,7 @@
     --color-staggered: #c98aff;
     --color-defeated-shade: rgba(13, 11, 8, 0.7);
     --color-intent-attack: #e08585;
+    --color-intent-glyph: #ffe7ab;
     --color-intent-block: #8fb3e0;
     --color-intent-buff: #c9a227;
     --color-intent-debuff: #b07ad9;
@@ -75,6 +76,8 @@
     --color-fx-white: #ffffff;
     --color-fx-interrupt: #ff9a3c;
     --color-fx-hit-tint: #ff4a3d;
+    --color-board-grid-line: rgba(238, 232, 220, 0.32);
+    --color-board-shadow: rgb(10, 8, 6);
     --color-fx-banner-glow: rgba(201, 162, 39, 0.7);
     --color-fx-banner-turn-glow: rgba(230, 220, 195, 0.5);
     --color-fx-ribbon-ink: #ead294;
@@ -532,6 +535,12 @@
     --size-board-side-right: 11px;
     --size-board-side-top: 18px;
     --size-board-side-top-narrow: 8px;
+    --size-board-field-top: 72.02px;
+    --size-board-field-bottom: 188.3px;
+    --size-board-field-top-narrow: 102.88px;
+    --size-board-field-bottom-narrow: 243.85px;
+    --size-board-hand-area-h: 295.3px;
+    --size-board-hand-area-hnarrow: 363.85px;
     --size-board-grid-left: 145px;
     --size-board-grid-top: 255px;
     --size-board-grid-w: 864px;
@@ -1119,4 +1128,18 @@
     --ratio-tooltip-turn-left: -90deg;
     --ratio-tooltip-turn-right: 90deg;
     --ratio-fx-fly-opacity: 0.85;
+    --ratio-board-scale: 1.5;
+    --ratio-board-scale-narrow: 0.906977;
+    --ratio-board-grid-line-px: 1;
+    --ratio-board-floor-shadow-h: 12;
+    --ratio-board-floor-shadow-drop: 3;
+    --ratio-board-shadow-core: 0.7;
+    --ratio-enemy-glow-opacity: 0.55;
+    --ratio-board-shadow-mid: 0.28;
+    --ratio-board-shadow-mid-stop: 0.45;
+    --ratio-board-shadow-edge: 0.72;
+    --ratio-board-shadow-tex-w: 64;
+    --ratio-board-shadow-tex-h: 16;
+    --ratio-board-shadow-reach: 1.41421356;
+    --ratio-board-shadow-default-share: 0.76;
 }

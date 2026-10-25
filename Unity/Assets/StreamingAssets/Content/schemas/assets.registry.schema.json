@@ -10,6 +10,12 @@
       "bytes": {
         "type": "integer"
       },
+      "derived": {
+        "type": "string",
+        "enum": [
+          "glow"
+        ]
+      },
       "format": {
         "type": "string",
         "enum": [

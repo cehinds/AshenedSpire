@@ -56,6 +56,9 @@
     -unity-background-image-tint-color: var(--color-parchment);
 }
 
+/* The player's action glyph (the web's .player-action-intent: #ffe7ab, 28 px). */
+.fighter-intent-icon.fighter-intent-glyph { -unity-background-image-tint-color: var(--color-intent-glyph); margin-left: 0; }
+
 .fighter-intent-icon.intent--attack { -unity-background-image-tint-color: var(--color-intent-attack); }
 .fighter-intent-icon.intent--block { -unity-background-image-tint-color: var(--color-intent-block); }
 .fighter-intent-icon.intent--buff { -unity-background-image-tint-color: var(--color-intent-buff); }
@@ -291,4 +294,22 @@
     background-size: contain;
     background-position-x: center;
     background-position-y: bottom;
+}
+
+/* ---- the player's card stage (P-3b, D-1490): the body, its effect trail and the red mask of a hit are laid out by the fighter in pixels from the stage's own units; the frames reach out past the figure box ---- */
+
+.fighter-stage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.fighter-stage-body,
+.fighter-stage-glow,
+.fighter-stage-effect,
+.fighter-stage-mask {
+    position: absolute;
+    background-size: var(--size-full-width) var(--size-full-width);
 }

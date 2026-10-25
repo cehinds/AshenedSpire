@@ -1,0 +1,46 @@
+{
+  "comment": "P-4 (D-1540..): the names of ui/combatAura.json and of the resources a card pays (the web src/ui/combatAura.js, ui/alternativeCardStage.js).",
+  "keySets": [
+    {
+      "name": "AuraKeys",
+      "doc": "Keys of ui/combatAura.json and the card field the aura reads.",
+      "keys": {
+        "Colors": "colors",
+        "PowerFrames": "powerFrames",
+        "GuardedRestPoses": "guardedRestPoses",
+        "DefaultPalette": "defaultPalette",
+        "GuardedPalette": "guardedPalette",
+        "Spread": "spread",
+        "Faded": "faded",
+        "Lit": "lit",
+        "SpellFrame": "spellFrame",
+        "GuardRest": "guardRest",
+        "Radius": "radius",
+        "Alpha": "alpha",
+        "Blur": "blur",
+        "Brightness": "brightness",
+        "HpCost": "hpCost"
+      }
+    },
+    {
+      "name": "AuraResources",
+      "doc": "The resources whose colour the aura takes while a card that paid them plays (combatAura.js resourceAura).",
+      "keys": {
+        "Stamina": "stamina",
+        "Mana": "mana",
+        "Hp": "hp"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "AuraCount",
+      "type": "int",
+      "doc": "The colours an aura layers (a card can pay stamina, mana and hit points) and the index of the blue channel of a colour of ui/combatAura.json.",
+      "values": {
+        "Layers": 3,
+        "Blue": 2
+      }
+    }
+  ]
+}

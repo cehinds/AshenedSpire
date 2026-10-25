@@ -81,6 +81,7 @@ namespace Ashen.Presentation.UI.Screens
         private FxContext PlanContext() => new FxContext
         {
             Defs = Defs, Strings = Strings, Pace = _pace, PlayerId = View.Player.Id, PlayerManeuver = View.Player.StanceManeuver, MaxHp = MaxHpOf,
+            Stage = PilotClass && _player != null && _player.HasStage ? Ui.Data.CardStage : null, CanReact = kind => _player != null && _player.CanStageReact(kind),
         };
 
         // ------------------------------------------------------------------ the timeline
@@ -92,7 +93,8 @@ namespace Ashen.Presentation.UI.Screens
             _pace = CombatPace.From(_flow.Pacing, Defs, ReducedMotion);
             _fx.Pace = _pace;
             var beats = Core2Feedback.Plan(step.Timeline, PlanContext());
-            var schedule = FxTimeline.Build(beats, _pace, Defs.Pace.InstantStepMs);
+            var schedule = FxTimeline.Build(beats, _pace, Defs.Pace.InstantStepMs, AuthoredTiming);
+            PlanStage(beats);
             HoldHp(schedule);
             var enemyTurn = !_pace.Instant && step.Actors.Count > 0;
             TakeFlight(step);
@@ -104,6 +106,8 @@ namespace Ashen.Presentation.UI.Screens
                 return;
             }
             foreach (var died in step.Timeline.Where(l => l.Type == FxEvents.EnemyDied && l.TargetId != null)) _dying.Add(died.TargetId);
+            // The player's own fall is shown when its beat is over (the web draws the downed figure from the HP the numbers have landed).
+            if (step.Timeline.Any(l => l.Type == FxEvents.PlayerDied)) _dying.Add(View.Player.Id);
             _busy = enemyTurn;
             _hiddenLines = enemyTurn ? step.Timeline.Count(l => !string.IsNullOrEmpty(l.Text)) : 0;
             _acting = null;
@@ -160,6 +164,7 @@ namespace Ashen.Presentation.UI.Screens
         private void FinishPlay()
         {
             _hpHeld.Clear();
+            ApplyStageAll();
             try
             {
                 if (_flow.Ended)
@@ -187,6 +192,7 @@ namespace Ashen.Presentation.UI.Screens
             _fxItems.Clear();
             _fx?.CancelAll();
             _hpHeld.Clear();
+            ApplyStageAll();
             _player?.Calm();
             foreach (var enemy in _enemies.Values) enemy.Calm();
             _dying.Clear();
@@ -231,6 +237,17 @@ namespace Ashen.Presentation.UI.Screens
                 {
                     case FxItemKind.Cue: PlayCue(item.Cue); break;
                     case FxItemKind.Swing: Swing(item); break;
+                    case FxItemKind.Contact:
+                        if (AnchorOf(item.ActorId) is Fighter striker) striker.StageContact();
+                        break;
+                    case FxItemKind.Hold:
+                        if (AnchorOf(item.ActorId) is Fighter holder)
+                        {
+                            if (holder.HasStage) holder.StageHold(item.Ms);
+                            else if (holder.HasEnemyStage) holder.HoldEnemy(item.Ms);
+                        }
+                        break;
+                    case FxItemKind.End: EndBeat(item.Beat); break;
                     case FxItemKind.Reveal:
                         if (_busy && item.Lines > 0)
                         {
@@ -267,10 +284,22 @@ namespace Ashen.Presentation.UI.Screens
                     if (target != null && !target.Data.Player && !ReducedMotion) Pose(target, FxPoses.GuardHit, cue.Amount);
                     break;
                 case FxCueType.Wobble:
-                    if (target != null && !ReduceFlashes && !ReducedMotion) target.Play(_motion, Defs.Track(FxTrack.Wobble), Defs.Track(FxTrack.Wobble).Ms, false);
+                    if (target == null || ReduceFlashes || ReducedMotion) break;
+                    // A card stage has no canvas reaction to a stagger: its root is tinted for a step and nothing moves (styles/combat.css rear-stagger-flash).
+                    if (target.HasStage) target.StageStagger(Defs.Track(FxTrack.Wobble).Ms, Ui.Data.CardStage.StaggerTintShare);
+                    else target.Play(_motion, Defs.Track(FxTrack.Wobble), Defs.Track(FxTrack.Wobble).Ms, false);
                     break;
                 case FxCueType.Shake:
                     if (_flow.Pacing.ScreenShake && !ReducedMotion) _fx.Shake(cue.Amount);
+                    break;
+                case FxCueType.Body:
+                    if (target != null && target.HasStage)
+                    {
+                        // combat.js reactionForReceipt: the reaction plays for the length the unscaled pace gives it, else the stage's default.
+                        var stage = Ui.Data.CardStage;
+                        var ms = stage.Timing(stage.Reactions[cue.Text], _pace.Raw).TotalMs;
+                        target.StageReact(cue.Text, ms > 0 ? ms : stage.ReactMs);
+                    }
                     break;
                 case FxCueType.Slash: _fx.Slash(target); break;
                 case FxCueType.Spark: _fx.Spark(target, cue.Text); break;
@@ -314,6 +343,12 @@ namespace Ashen.Presentation.UI.Screens
         private void HitFlash(FxCue cue, Fighter target)
         {
             if (target == null) return;
+            // The card stage draws its own hurt clip, red strobe and knock-back (styles/combat.css: its root takes no hit animation).
+            if (target.HasStage)
+            {
+                target.StageHit(cue.Amount);
+                return;
+            }
             var player = target.Data.Player;
             var id = player ? (cue.Heavy ? FxTrack.HitPlayerHeavy : FxTrack.HitPlayer) : (cue.Heavy ? FxTrack.HitEnemyHeavy : FxTrack.HitEnemy);
             if (!ReduceFlashes) target.Play(_motion, Defs.Track(id), cue.Amount, true);
@@ -324,6 +359,19 @@ namespace Ashen.Presentation.UI.Screens
         {
             var actor = AnchorOf(item.ActorId);
             if (actor == null) return;
+            // The card stage owns its motion: the action's clip carries the body's travel (a lunge class would move the figure a second time).
+            if (actor.HasStage)
+            {
+                var action = StageActionOf(item.Beat);
+                if (action != null) actor.PlayStageAction(action, item.Ms, StageResources(item.Beat));
+                return;
+            }
+            // An enemy's expansion stage plays the pose of its move over the action's length and travels as the move's family does (playFamilyAnimation).
+            if (actor.HasEnemyStage)
+            {
+                SwingEnemy(actor, item);
+                return;
+            }
             var player = actor.Data.Player;
             if (!ReduceFlashes && !ReducedMotion)
             {
@@ -349,11 +397,11 @@ namespace Ashen.Presentation.UI.Screens
 
         private void Pose(Fighter f, string pose, double ms)
         {
-            if (f?.Data != null && f.Data.Player)
+            if (f?.Data != null && f.Data.Player) return;
+            // An enemy's expansion stage answers to the web's own names for the reaction poses (ui/fx.js playPoseOn: hit, guardHit).
+            if (f != null && f.HasEnemyStage)
             {
-                // The player figure is a pose stage of its own (PoseAnimator.js): a swing, a guard and a hit are frames of the class and tint.
-                var stage = pose == FxPoses.Attack ? PoseKeys.Attack : pose == FxPoses.Guard ? PoseKeys.Guard : PoseKeys.Hit;
-                f.PlayStage(stage, ms);
+                if (!ReducedMotion) f.PlayEnemy(pose == FxPoses.Hurt ? EnemyActions.Hurt : pose == FxPoses.GuardHit ? EnemyActions.GuardHit : pose, ms);
                 return;
             }
             var frame = PoseFrame(DefOf(f), pose);
