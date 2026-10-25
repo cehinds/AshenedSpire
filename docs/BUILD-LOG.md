@@ -19,6 +19,23 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 **Not done:** the Armoury's drag and drop, comparison tooltip, grid view, Sigils and the poise / load receipts; class cards, books and consumables in the Inventory; the hover potion tray and flask menu on the map; Character's Progression button.
 
 **Next:** the editor pass over these screens; the speech hook (`speechEnded`) and the figure crop of the spoken step.
+## CI fetches the art (worktree branch, 2026-10-25)
+
+**Landed (D-1300, D-1301)**
+- **`.github/actions/fetch-art`** (composite) over **`Tools/ci/fetch-art.sh`**: sparse checkout of the pinned web commit (`Tools/ci/art-pin.json`), cached `.art-cache` by tag, the web's `tools/fetch-art.mjs`, `npm ci` in `Tools`, `scan-assets --release ... --import`, then `Tools/ci/check-art.mjs` (fails if any of the 1530 imported ids is missing). Wired into `build-windows`, `build-webgl` and `pages-webgl.yml` before the Unity build. `Cli.BuildWebGL` / `Cli.BuildWindows` run `BuildUiArt` first.
+- **Legacy images:** the release import covered 631 of 1530 ids; the rest were made from an old source tree only the author has. `Tools/lib/release-art.mjs --import` now rebuilds them from the same files in the packs (D-1301), so a clean machine gets all 1530.
+- **Tested locally:** network allowed it. Web `tools/` copied to a scratch dir, `fetch-art.mjs --pack high,common` downloaded and verified both packs (7348 + 146 files), the images were deleted, `Tools/ci/fetch-art.sh` rebuilt them (631 + 893, 0 failed, committed metas and registry unchanged), `check-art.mjs` reports 1530 of 1530 and exits 1 when one file is removed. YAML of the action and both workflows parses (js-yaml).
+
+**Not done:** the workflow itself never ran on GitHub (the sparse checkout, `actions/cache` path and the Windows runner are unverified); the web repo checkout needs `WEB_REPO_TOKEN` if cehinds/ashenspire is private; the editor was not run, so `BuildUiArt` after the import is untested. The 899 legacy PNGs are re-encoded from the packs, not the original Blender output (58 resized to the registered size).
+
+## WebGL: Unity 6000.6.6f1 and the browser build (worktree branch, 2026-10-25)
+
+**Landed (D-1250..D-1254; D-008 amended)**
+- **Upgrade:** the pin is 6000.6.6f1 (`d20c9ac777da`) in `ProjectVersion.txt`, `ci.yml`, `Tools/unity.sh`, the README and the scope target line. Packages are untouched; the editor re-resolves the bundled ones on first open (commit `packages-lock.json` then).
+- **Build:** `Cli.BuildWebGL` sets the WebGL PlayerSettings in code (Brotli + decompression fallback, no threads, IndexedDB cache, 256 MB to 2 GB memory, stripping Low) and builds to `Builds/WebGL` or `-customBuildPath`. CI: `build-webgl` job in `ci.yml` and `pages-webgl.yml` (push to dev, GitHub Pages, `.nojekyll`). `docs/BUILD-WEBGL.md` has the local build, serve and owner steps.
+- **Browser runtime:** `MemoryContentSource` (engine-free, 4 Domain tests, including the whole shipped content validated and loaded from memory) behind `IContentSource`; `WebContentLoader` fetches the manifest and its files with `UnityWebRequest`; `AshenBoot` boots from it under `UNITY_WEBGL && !UNITY_EDITOR` (Windows and the editor keep `DirectoryContentSource`). Saves: `AshenFs.jslib` + `WebFileSystem` flush IndexedDB; `SaveService` replaces files by copy on WebGL. No thread use besides `Thread.Sleep` in the replace retry.
+
+**Not done:** no Unity editor ran, so nothing was built or run in a browser: the `CopyBufferRanges` UI Toolkit WebGL bug, the `PlayerSettings.WebGL` / `NamedBuildTarget.WebGL` calls in `Cli.cs`, the jslib flush, the copy-based save replace, download size and mobile input are for the first WebGL build. CI builds (Windows and WebGL) have no `Art/Imported` images (D-018): the owner decides where CI gets them. `BuildWindows` is still the F0 stub.
 
 ## VP-16: chrome and phone residuals (worktree branch, 2026-10-25)
 

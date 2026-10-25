@@ -893,9 +893,11 @@ namespace Ashen.App.Combat
                 }
             }
             // The damage the card's damaging effect would do to each target, and the odds, as the engine's own receipt and hit preview say: the first damaging effect whose condition holds now.
-            var damage = damageEntries.Select(x => x.effect).Where(e => Priceable(e[K.Amount]))
-                .FirstOrDefault(e => !e.Is(K.If) || (action != null && Try(() => (object)Triggers.EvalPredicate(priced, e.Obj(K.If), new PredicateContext { Owner = priced.Player, Source = priced.Player, Target = action.Target, Card = carrier, Meta = action.Meta })) is bool open && open))
+            // Each target reads the condition for itself: an Executioner preview picks the Staggered branch only against a Staggered enemy.
+            JObject DamageAgainst(JObject against) => damageEntries.Select(x => x.effect).Where(e => Priceable(e[K.Amount]))
+                .FirstOrDefault(e => !e.Is(K.If) || (action != null && Try(() => (object)Triggers.EvalPredicate(priced, e.Obj(K.If), new PredicateContext { Owner = priced.Player, Source = priced.Player, Target = against, Card = carrier, Meta = action.Meta })) is bool open && open))
                 ?? damageEntries.Select(x => x.effect).FirstOrDefault(e => Priceable(e[K.Amount]));
+            var damage = DamageAgainst(action?.Target);
             if (action != null) action.Effect = damage;
             var damageHits = damage == null ? null : Price(Js.Nullish(damage[K.Hits]) ? Js.N(1) : damage[K.Hits], Try(() => CombatPreview.FirstResolvedTarget(priced, action, damage)));
             var damageCharge = damage == null || charges == null ? 0 : charges.Or0(K.Damage) + charges.Or0(Ashen.Generated.Core2StatusKeys.DamageEffect);
@@ -910,12 +912,14 @@ namespace Ashen.App.Combat
                     HitChance = Js.IsNum(row?[HK.CurrentHitChance]) ? row.Num(HK.CurrentHitChance) : Js.IsNum(row?[HK.HitChance]) ? row.Num(HK.HitChance) : (double?)null,
                     InRange = row == null || !(row[HK.CurrentInRange]?.Type == JTokenType.Boolean) || row.Is(HK.CurrentInRange),
                 };
-                if (damage != null && carrier != null && damageHits.HasValue)
+                var pricedEnemy = priced.Enemies.First(e => e.Str(K.Id) == target);
+                var targetDamage = DamageAgainst(pricedEnemy);
+                var targetHits = targetDamage == damage ? damageHits : targetDamage == null ? null : Price(Js.Nullish(targetDamage[K.Hits]) ? Js.N(1) : targetDamage[K.Hits], pricedEnemy);
+                if (targetDamage != null && carrier != null && targetHits.HasValue)
                 {
-                    var pricedEnemy = priced.Enemies.First(e => e.Str(K.Id) == target);
                     // previewDamageHits: every hit of the card in turn, each leaving its effect on the previewed target for the next; the amount is the formula as this target reads it (combat.js:2678).
-                    var hitsCount = damageHits.Value;
-                    var amount = Price(damage[K.Amount], pricedEnemy);
+                    var hitsCount = targetHits.Value;
+                    var amount = Price(targetDamage[K.Amount], pricedEnemy);
                     if (amount != null) amount += damageCharge + (counterCard ? Ratings.CardBonus(priced, priced.Player, carrier, Ashen.Generated.CombatOps.Damage, amount.Value) : 0);
                     var receipts = amount == null ? null : Try(() => CoreDamage.PreviewHits(priced, priced.Player, pricedEnemy, amount.Value, replyCarrier, hitsCount));
                     if (receipts != null && receipts.Count > 0)
