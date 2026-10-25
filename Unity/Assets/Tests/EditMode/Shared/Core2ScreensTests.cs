@@ -217,6 +217,14 @@ namespace Ashen.Tests
             Assert.That(hud.Trail, Is.Not.Empty);
         }
 
+        [Test]
+        public void TheClimbsXpCurveOfACore2RunIsTheProfileCurveNotTheClassicLadder()
+        {
+            var session = New();
+            var level = Newtonsoft.Json.Linq.JToken.FromObject(1);
+            Assert.That(((IClimb)session).XpToNext(level), Is.EqualTo(Ashen.Domain.Loop.Core2Rest.XpToNext(session.Core.Rewards, 1)));
+        }
+
         // ------------------------------------------------------------------ places whose rules are a later work package
 
         [Test]

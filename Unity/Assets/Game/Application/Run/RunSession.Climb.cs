@@ -61,6 +61,8 @@ namespace Ashen.App.Run
 
         public IReadOnlyList<string> ClassesUnlocked => Array.Empty<string>();
 
+        public double XpToNext(Newtonsoft.Json.Linq.JToken level) => Ashen.Domain.Rewards.LevelUp.XpToNext(Content.Loop.Rewards, level);
+
         public string EncounterPool => EncounterId != null && Content.Data.Encounters.Has(EncounterId) ? Content.Data.Encounters.Get(EncounterId).Str(MK.Pool) : null;
 
         /// <summary>The last fight's foes by name (the enemies of its encounter, once each), empty when the run did not end in a fight.</summary>

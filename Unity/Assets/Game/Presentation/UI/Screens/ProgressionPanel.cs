@@ -7,12 +7,13 @@ using UnityEngine.UIElements;
 namespace Ashen.Presentation.UI.Screens
 {
     /// <summary>
-    /// The Progression door drawn (web ui/screens/characterSheet.js characterPane): the XP meter, the cadence line, the Attributes card with its points, the Feats card and the Level progression ladder. Pure construction over
-    /// <see cref="CharacterProgressionView"/>; the folds are the Armoury's own (<paramref name="fold"/>), so they stay open across redraws.
+    /// The Progression door drawn (web ui/screens/characterSheet.js characterPane): the XP meter, the cadence line, the Attributes card with its points, the Character Sheet button, the Feats card and the Level progression ladder. Pure construction over
+    /// <see cref="CharacterProgressionView"/>; the folds are the Armoury's own (<paramref name="fold"/>), so they stay open across redraws, and the attributes card and the sheet button are the screen's (they open its dialogs).
     /// </summary>
     internal static class ProgressionPanel
     {
-        public static void Fill(VisualElement host, CharacterProgressionView view, StringTable strings, Action<VisualElement, string, string, string, Action<VisualElement>> fold)
+        public static void Fill(VisualElement host, CharacterProgressionView view, StringTable strings, Action<VisualElement, string, string, string, Action<VisualElement>> fold,
+            Action<VisualElement, CharacterProgressionView> attributes, Action<VisualElement, CharacterProgressionView> sheet)
         {
             Text(host, view.Label, ArmouryClasses.Eyebrow, true);
             Text(host, view.Value, ArmouryClasses.Line, false);
@@ -26,20 +27,8 @@ namespace Ashen.Presentation.UI.Screens
             Text(host, view.Sense, ArmouryClasses.Muted, false);
             Text(host, view.Cadence, ArmouryClasses.Muted, false);
 
-            fold(host, ArmouryValues.FoldAttributes, strings.Get(StringKeys.ProgressionAttributes), view.Summary, open =>
-            {
-                Text(open, strings.Get(StringKeys.ProgressionAttributesNote), ArmouryClasses.Muted, false);
-                foreach (var attribute in view.Attributes)
-                {
-                    var row = new VisualElement { pickingMode = PickingMode.Ignore };
-                    row.AddToClassList(ArmouryClasses.ReceiptPair);
-                    Text(row, attribute.Label, ArmouryClasses.ReceiptPairKey, false);
-                    Text(row, attribute.Value, ArmouryClasses.ReceiptPairValue, false);
-                    open.Add(row);
-                }
-            });
-            var points = Text(host, view.PointsLabel, ArmouryClasses.ProgressionPoints, false);
-            points.EnableInClassList(ArmouryClasses.ReceiptMet, view.Points > 0);
+            attributes(host, view);
+            sheet(host, view);
 
             var feats = new VisualElement { pickingMode = PickingMode.Ignore };
             feats.AddToClassList(ArmouryClasses.ProgressionCard);

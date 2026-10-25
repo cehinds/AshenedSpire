@@ -49,7 +49,6 @@ namespace Ashen.Generated
         public const string TooltipDelay = "tooltipDelay";
         public const string TooltipCloseDelay = "tooltipCloseDelay";
         public const string HighContrast = "highContrast";
-        public const string TextSize = "textSize";
         public const string ReadableHeadings = "readableHeadings";
         public const string ColorblindSafe = "colorblindSafe";
         public const string OpeningPlayback = "openingPlayback";

@@ -218,7 +218,7 @@ namespace Ashen.Tests
             Assert.That(page.Group, Is.EqualTo("display"), "the first group opens");
             Assert.That(page.Topic, Is.EqualTo("interface"), "and its first topic");
             Assert.That(page.Tabs.Select(t => t.Label), Is.EqualTo(new[] { "General", "Accessibility", "Advanced" }));
-            Assert.That(page.Groups.Select(g => g.Label), Is.EqualTo(new[] { "Display", "Combat", "Audio" }), "Game rules is the web's ruleset picker, which a Core 2-only build has no use for");
+            Assert.That(page.Groups.Select(g => g.Label), Is.EqualTo(new[] { "Display", "Combat", "Audio", "Game rules" }), "the web's four General groups (D-1450)");
             Assert.That(page.Topics.Select(t => t.Label), Is.EqualTo(new[] { "Interface", "Title screen", "Map", "HUD" }));
             Assert.That(page.Rows.Select(r => r.Key), Is.EqualTo(new[] { SettingIds.Fullscreen, SettingIds.Accent, SettingIds.ViewPreset, SettingIds.UiScale, "resetAllSettings" }));
             Assert.That(page.Count, Is.EqualTo(page.Rows.Count + " settings"));
@@ -251,17 +251,17 @@ namespace Ashen.Tests
         {
             var settings = Settings();
             var release = settings.Page(Ui, Layout, Query("advanced"));
-            Assert.That(release.Groups.Select(g => g.Label), Is.EqualTo(new[] { "Deck", "Interface", "About" }), "the web's release sections that a Core 2 build has");
+            Assert.That(release.Groups.Select(g => g.Label), Is.EqualTo(new[] { "Deck", "Interface", "Text & lore", "Changelog", "About" }), "the web's release sections that a Core 2 build has (D-1451, D-1452)");
             Assert.That(release.DeveloperSwitch, Is.Null, "a release build offers no switch");
             var dev = settings.Page(Ui, Layout, Query("advanced", dev: true));
-            Assert.That(dev.Groups.Select(g => g.Label), Is.EqualTo(new[] { "Opening sequence", "Deck", "Interface", "About" }));
+            Assert.That(dev.Groups.Select(g => g.Label), Is.EqualTo(new[] { "Opening sequence", "Deck", "Interface", "Text & lore", "Changelog", "About" }));
             Assert.That(dev.DeveloperSwitch, Is.Not.Null, "a dev build offers the Developer tools switch");
             Assert.That(dev.DeveloperOn, Is.True, "and has it on");
             Assert.That(dev.Rows.Select(r => r.Key), Is.EqualTo(new[] { SettingIds.OpeningPlayback, SettingIds.OpeningAutoAdvance, SettingIds.OpeningSpeed, SettingIds.OpeningStill }));
             Assert.That(settings.Set(SettingIds.DeveloperTools, false), Is.Null);
             var off = settings.Page(Ui, Layout, Query("advanced", dev: true));
             Assert.That(off.DeveloperOn, Is.False);
-            Assert.That(off.Groups.Select(g => g.Label), Is.EqualTo(new[] { "Deck", "Interface", "About" }), "the switch hides them again");
+            Assert.That(off.Groups.Select(g => g.Label), Is.EqualTo(new[] { "Deck", "Interface", "Text & lore", "Changelog", "About" }), "the switch hides them again");
             var map = settings.Page(Ui, Layout, Query("advanced", "interface"));
             Assert.That(map.Topics.Select(t => t.Label), Is.EqualTo(new[] { "Map & HUD", "Controls" }));
             Assert.That(map.Rows.Select(r => r.Key), Is.EqualTo(new[] { SettingIds.WalkedFade }));

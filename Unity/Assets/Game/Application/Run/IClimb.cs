@@ -47,6 +47,9 @@ namespace Ashen.App.Run
         /// <summary>The classes the run's close-out opened (a Core 2 profile opens one per completed run); empty on the 405 run.</summary>
         IReadOnlyList<string> ClassesUnlocked { get; }
 
+        /// <summary>The XP the next level costs from <paramref name="level"/> on the run's own curve (the 405 ladder, or the Core 2 profile curve); infinity at the cap.</summary>
+        double XpToNext(Newtonsoft.Json.Linq.JToken level);
+
         /// <summary>The prologue is queued before the first step (the 405 run's; a Core 2 run has none).</summary>
         bool ProloguePending { get; }
 

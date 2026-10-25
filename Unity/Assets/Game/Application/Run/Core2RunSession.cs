@@ -182,6 +182,8 @@ namespace Ashen.App.Run
         /// <summary>The classes the run's close-out opened (the profile's class ledger), once it is over.</summary>
         public IReadOnlyList<string> ClassesUnlocked { get; private set; } = Array.Empty<string>();
 
+        public double XpToNext(Newtonsoft.Json.Linq.JToken level) => Ashen.Domain.Loop.Core2Rest.XpToNext(Core.Rewards, Js.D(level));
+
         /// <summary>
         /// The kind of node the run stands at whose door has no screen, until the player moves on; or null. Every door has one now (the event is the event screen, VP-9; D-960): only a
         /// 'rest' place of a profile without the rest module keeps the act map's notice (<see cref="DismissPort"/> takes its action).
@@ -793,6 +795,7 @@ namespace Ashen.App.Run
             {
                 result.Status = Core2RunLoadStatus.Damaged;
                 result.Warnings.Add(string.Format(CultureInfo.InvariantCulture, RunFlowMessages.LoadRefused, slot, e.Message));
+                saves.SetAsideRun(slot, slotIndex, string.Format(CultureInfo.InvariantCulture, ArchiveKeys.ReasonRunUnreadable, e.Message));
                 return result;
             }
             result.Warnings.AddRange(loaded.Warnings);
@@ -800,14 +803,19 @@ namespace Ashen.App.Run
             {
                 case LoadStatus.Empty: result.Status = Core2RunLoadStatus.Empty; return result;
                 case LoadStatus.RefusedNewer: result.Status = Core2RunLoadStatus.Newer; return result;
-                case LoadStatus.Corrupt: result.Status = Core2RunLoadStatus.Damaged; return result;
+                case LoadStatus.Corrupt:
+                    result.Status = Core2RunLoadStatus.Damaged;
+                    saves.SetAsideRun(slot, slotIndex, string.Format(CultureInfo.InvariantCulture, ArchiveKeys.ReasonRunUnreadable, loaded.Warnings.FirstOrDefault() ?? ArchiveKeys.Corrupt));
+                    return result;
             }
             var payload = loaded.Payload as JObject;
             var format = (int?)payload?[RunSaveKeys.FormatVersion];
             if (format != (int)NN.SaveFormat || !(payload[RunSaveKeys.Run] is JObject run))
             {
                 result.Status = format == content.Flow.SaveFormat ? Core2RunLoadStatus.OtherRuleset : Core2RunLoadStatus.Damaged;
-                result.Warnings.Add(string.Format(CultureInfo.InvariantCulture, NM.FormatMismatch, slot, format, NN.SaveFormat));
+                var mismatch = string.Format(CultureInfo.InvariantCulture, NM.FormatMismatch, slot, format, NN.SaveFormat);
+                result.Warnings.Add(mismatch);
+                if (result.Status == Core2RunLoadStatus.Damaged) saves.SetAsideRun(slot, slotIndex, string.Format(CultureInfo.InvariantCulture, ArchiveKeys.ReasonRunUnreadable, mismatch));
                 return result;
             }
             var pin = payload.Obj(NK.GameProfile);

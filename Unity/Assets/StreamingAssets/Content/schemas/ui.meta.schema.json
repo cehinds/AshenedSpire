@@ -130,6 +130,15 @@
                 "about": {
                   "type": "boolean"
                 },
+                "changelog": {
+                  "type": "boolean"
+                },
+                "rules": {
+                  "type": "boolean"
+                },
+                "tipKey": {
+                  "type": "string"
+                },
                 "developer": {
                   "type": "boolean"
                 }

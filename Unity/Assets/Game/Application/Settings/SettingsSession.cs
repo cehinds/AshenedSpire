@@ -38,6 +38,9 @@ namespace Ashen.App.Settings
         /// <summary>The enum whose choice returns to its first option when this setting is edited by hand.</summary>
         public string ResetsPreset;
 
+        /// <summary>The row keeps a select however few options it has (the web's dropdown: true); without it a row of three or fewer options is a segmented choice.</summary>
+        public bool Dropdown;
+
         /// <summary>A control of the 405 build only (no row in the Core 2 web build): kept for that code, not on the page.</summary>
         public bool LegacyOnly;
 
@@ -115,6 +118,7 @@ namespace Ashen.App.Settings
                     Presets = c[SK.Presets] as JObject,
                     ResetsPreset = c.Str(SK.ResetsPreset),
                     LegacyOnly = c.Is(SK.LegacyOnly),
+                    Dropdown = c.Is(SettingsGroupKeys.Dropdown),
                     Positive = c[SK.Positive] == null || c.Is(SK.Positive),
                     Action = c.Str(SK.Action),
                     Row = c.Str(SK.Row),
@@ -162,6 +166,9 @@ namespace Ashen.App.Settings
         public double Max;
         public double Step;
         public bool IsDefault;
+
+        /// <summary>The row is drawn as a select (the web's dropdown flag, or more than three options).</summary>
+        public bool AsSelect;
 
         /// <summary>The switch position of a toggle (the stored value, or its opposite for a control that reads the other way round).</summary>
         public bool Shown;
@@ -244,6 +251,24 @@ namespace Ashen.App.Settings
             if (PrologueSeen) return;
             if (!(_profile.Doc[SK.Settings] is JObject stored)) _profile.Doc[SK.Settings] = stored = new JObject();
             stored[SettingIds.PrologueSeen] = true;
+            _profile.Save(_content.ContentHash);
+        }
+
+        /// <summary>The view the Armoury's equipment list was left in (the web's settings.armouryArmamentView, kept beside the other settings): "list", "grid" or null when it was never chosen.</summary>
+        public string ArmouryArmamentView
+        {
+            get
+            {
+                var view = Js.Str(Stored?[ArmouryViewKeys.Stored]);
+                return view == ArmouryViewKeys.List || view == ArmouryViewKeys.Grid ? view : null;
+            }
+        }
+
+        public void SetArmouryArmamentView(string view)
+        {
+            if (ArmouryArmamentView == view) return;
+            if (!(_profile.Doc[SK.Settings] is JObject stored)) _profile.Doc[SK.Settings] = stored = new JObject();
+            stored[ArmouryViewKeys.Stored] = view;
             _profile.Save(_content.ContentHash);
         }
 
@@ -363,6 +388,7 @@ namespace Ashen.App.Settings
                 Positive = def.Positive,
                 Action = def.Action,
                 Row = def.Row,
+                AsSelect = def.Dropdown || def.Options.Count > SegmentedChoice.Max,
                 Shown = def.IsToggle && value is JValue sv && sv.Type == JTokenType.Boolean && (bool)sv == def.Positive,
                 AppliesNextRun = InRun && def.AppliesNextRun ? strings.Get(S.SettingsAppliesNextRun) : null,
             };

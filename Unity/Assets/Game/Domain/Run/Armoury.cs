@@ -208,14 +208,14 @@ namespace Ashen.Domain.Run
 
         /// <summary>
         /// openedSets(registries, slot, { meta, loadout }): how many sets are usable — one, plus the ladder rungs the
-        /// profile has earned (none: combat passes an empty meta), raised to whatever the loadout already holds, capped
+        /// profile has earned (<paramref name="earnedRungs"/>; none in combat, which passes an empty meta), raised to whatever the loadout already holds, capped
         /// at the slot's sets.
         /// </summary>
-        public static int OpenedSets(RunData d, JObject slot, JObject loadout)
+        public static int OpenedSets(RunData d, JObject slot, JObject loadout, int earnedRungs = 0)
         {
             var sets = RunJs.Number(slot?[K.Sets]);
             var cap = Math.Max(1, double.IsNaN(sets) || sets == 0 ? 1 : sets);
-            double opened = 1;
+            double opened = 1 + earnedRungs;
             var ids = Cells(loadout, slot.Str(K.Id));
             if (ids != null) for (var i = 0; i < ids.Count; i += 1) if (Js.Truthy(ids[i])) opened = Math.Max(opened, i + 1);
             return (int)Math.Min(cap, opened);
@@ -226,14 +226,14 @@ namespace Ashen.Domain.Run
         /// <paramref name="index"/> active. False when the index, the slot, the swap rule, the ladder or the deck plan
         /// says no (the active index is then unchanged).
         /// </summary>
-        public static bool CycleSet(RunData d, JObject loadout, string slotId, int index, bool inCombat, string classId, Action<JObject> onEquipmentChanged, bool configuredDeck = false)
+        public static bool CycleSet(RunData d, JObject loadout, string slotId, int index, bool inCombat, string classId, Action<JObject> onEquipmentChanged, bool configuredDeck = false, int earnedRungs = 0)
         {
             var ids = Cells(loadout, slotId);
             if (ids == null || index < 0 || index >= ids.Count) return false;
             var slot = SlotById(d, slotId);
             if (slot == null) return false;
             if (!CanSwap(d, slotId, inCombat).Ok) return false;
-            if (index >= OpenedSets(d, slot, loadout)) return false;
+            if (index >= OpenedSets(d, slot, loadout, earnedRungs)) return false;
             var before = RunJs.Clone(loadout);
             var active = loadout.Obj(K.Active);
             active.Put(slotId, index);

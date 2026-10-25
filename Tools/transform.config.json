@@ -64,7 +64,6 @@
     { "out": "catalog/eventChoiceRequirements.json", "from": "extras.events.eventChoiceHistoryRequirements" },
     { "out": "ui/locationPresentation.json", "from": "extras.locationPresentation.locationPresentation" },
     { "out": "ui/theme.json", "from": "extras.framework.theme" },
-    { "out": "ui/terms.json", "from": "extras.framework.terms" },
     { "out": "ui/confirmationPolicies.json", "from": "extras.framework.confirmationPolicies" },
     { "out": "audio/sfx.json", "from": "extras.sfx", "pick": ["SFX_RECIPES", "SFX_FAMILY_IDS"] },
     { "out": "audio/music.json", "from": "extras.music", "pick": ["BEDS", "SCALES"] }

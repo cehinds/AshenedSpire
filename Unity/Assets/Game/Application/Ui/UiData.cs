@@ -34,6 +34,21 @@ namespace Ashen.App.Ui
         /// <summary>The words and lists of a card's rules text (ui/cardText.json over strings/app.en.json cardtext.*): the card face generator (P-1).</summary>
         public Ashen.App.Combat.CardTextData CardText;
 
+        /// <summary>ui/equipmentCard.json (P-3a): the poker-style equipment card's frame and the rows its regions are solved into.</summary>
+        public EquipmentCardLayout EquipmentCard;
+
+        /// <summary>ui/progression.json (P-3a): the Character Sheet's stat rows and what an attribute's card leads with.</summary>
+        public ProgressionLayout Progression;
+
+        /// <summary>ui/lore.json (P-3a): the lists and scales behind the Text &amp; lore settings.</summary>
+        public LoreLayout Lore;
+
+        /// <summary>ui/changelog.json (P-3a): CHANGELOG.md as Settings > Advanced > Changelog lists it.</summary>
+        public ChangelogData Changelog;
+
+        /// <summary>ui/terms.json (P-3a): the web's framework terms at the pin, the vocabulary the tooltip glossary explains.</summary>
+        public JObject Terms;
+
         /// <summary>ui/poses.json (P-1): the geometry of the player figure's pose frames and how long a pose is held.</summary>
         public PoseData Poses;
 
@@ -73,6 +88,11 @@ namespace Ashen.App.Ui
                 Battlefield = new BattlefieldData(Read(ContentFiles.UiBattlefield)),
                 FigureInk = new FigureInk(Read(ContentFiles.UiFigureInk)),
                 CombatAura = new CombatAuraData(Read(ContentFiles.UiCombatAura)),
+                EquipmentCard = EquipmentCardLayout.From(Read(ContentFiles.UiEquipmentCard)),
+                Progression = ProgressionLayout.From(Read(ContentFiles.UiProgression)),
+                Lore = LoreLayout.From(Read(ContentFiles.UiLore)),
+                Changelog = ChangelogData.From(Read(ContentFiles.UiChangelog)),
+                Terms = Read(ContentFiles.UiTerms),
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
                 Meta = Read(ContentFiles.UiMeta),

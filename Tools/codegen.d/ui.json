@@ -492,6 +492,8 @@
         "MapRailEnd": "MAP_RAIL_END",
         "ArmouryScrim": "ARMOURY_SCRIM",
         "ArmouryModal": "ARMOURY_MODAL",
+        "ArmouryDialogScrim": "ARMOURY_DIALOG_SCRIM",
+        "ArmouryDialog": "ARMOURY_DIALOG",
         "PotionsScrim": "POTIONS_SCRIM",
         "PotionsModal": "POTIONS_MODAL",
         "TitleArtDoor": "TITLE_ART_DOOR",

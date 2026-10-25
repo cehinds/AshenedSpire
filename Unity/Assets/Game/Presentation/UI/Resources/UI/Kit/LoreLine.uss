@@ -1,0 +1,56 @@
+/* Card lore (web styles/kit.css .inspection-lore-line, .lore-modal-text; P-3a): the identity line of an inspection and the lore window it opens. The face, size, letter spacing and line height come from the player's Text & lore settings
+   (LoreStyle); this file draws only the frame around them. Tokens only. */
+
+.lore-line {
+    flex-direction: row;
+    align-items: center;
+    width: var(--size-full-width);
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.lore-line--more:hover {
+    border-color: var(--color-gold);
+}
+
+.lore-identity {
+    flex-grow: 1;
+    flex-shrink: 1;
+    color: var(--color-parchment);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lore-identity--plain {
+    white-space: normal;
+    overflow: visible;
+}
+
+.lore-read {
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+    font-size: var(--font-caption);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.lore-window-text {
+    padding: var(--space-md) var(--space-lg);
+}
+
+.lore-window-text > .unity-label {
+    margin-bottom: var(--space-md);
+    white-space: normal;
+    color: var(--color-parchment);
+}
+
+.lore-closing {
+    padding-top: var(--space-md);
+    border-top-width: var(--border-hairline);
+    border-top-color: var(--color-line);
+    opacity: var(--opacity-lore-closing);
+}

@@ -228,12 +228,15 @@ namespace Ashen.Domain.Run
             var perIncrease = Js.IsFinite(row[CK.PointsPerIncrease]) ? row.Num(CK.PointsPerIncrease) : 1;
             if (perIncrease <= 0) throw new InvalidOperationException(Ashen.Generated.Core2RunMessages.PointsPerIncreaseInvalid);
             double points = 0;
+            var terms = new List<KeyValuePair<string, double>>();
             foreach (var weight in RuleWeights(d, row))
             {
                 var value = attributes?[weight.Key];
                 if (!Js.IsFinite(value)) throw new InvalidOperationException(RunJs.Fmt(Ashen.Generated.Core2RunMessages.AttributeNotFinite, weight.Key));
                 var counted = Js.IsFinite(row[CK.AttributeBaseline]) && row.Num(CK.AttributeBaseline) > 0 ? Math.Max(0, Js.D(value) - row.Num(CK.AttributeBaseline)) : Js.D(value);
-                points += Math.Floor(counted * weight.Value + Epsilon(d));
+                var term = Math.Floor(counted * weight.Value + Epsilon(d));
+                terms.Add(new KeyValuePair<string, double>(weight.Key, term));
+                points += term;
             }
             var gain = row[CK.Gain] == null ? 1 : ClassField(row[CK.Gain], classDef, statId, RM.GainClassFieldNotFinite);
             var rounding = row[RK.Rounding] == null ? RV.Floor : row.Str(RK.Rounding);
@@ -249,7 +252,9 @@ namespace Ashen.Domain.Run
             var result = cap == null || cap.Type == JTokenType.Null ? raw : Math.Min(raw, Js.D(cap));
             if (min.HasValue) result = Math.Max(min.Value, result);
             if (max.HasValue) result = Math.Min(max.Value, result);
-            return new StatReceipt { Id = statId, Points = points, Tier = tier, Base = baseValue, GainPerTier = gain, LevelBonus = bonus, Raw = raw, Value = result };
+            var receipt = new StatReceipt { Id = statId, Points = points, Tier = tier, Base = baseValue, GainPerTier = gain, LevelBonus = bonus, Raw = raw, Value = result, PointsPerIncrease = perIncrease, Min = min, Max = max };
+            receipt.Terms.AddRange(terms);
+            return receipt;
         }
 
         /// <summary>deriveStat(resolved, statId, { attributes, classDef, level }).</summary>

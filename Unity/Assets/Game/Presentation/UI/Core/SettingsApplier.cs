@@ -52,7 +52,19 @@ namespace Ashen.Presentation.UI
                 if (key == null || key == part.Key) root.EnableInClassList(part.Value, !settings.On(part.Key));
             if (key == null || key == SettingIds.Fullscreen) ApplyFullscreen(settings);
             if (key == null || key == SettingIds.ViewPreset || key == SettingIds.UiScale) ApplyLayout(settings);
+            if (key == null || Array.IndexOf(LoreSettings, key) >= 0) ApplyLore(settings);
             if (key == null || key == SettingIds.HoverTooltips || key == SettingIds.TooltipDelay || key == SettingIds.TooltipCloseDelay) ApplyTooltips(settings);
+        }
+
+        private static readonly string[] LoreSettings = { LoreKeys.Face, LoreKeys.Size, LoreKeys.Leading, LoreKeys.Tracking, LoreKeys.Slant, LoreKeys.IdentitySlant };
+
+        /// <summary>The Text &amp; lore choices, read as lore is drawn (web applyLoreType): the next lore label wears them.</summary>
+        private void ApplyLore(SettingsSession settings)
+        {
+            var layout = _host.Context?.Data.Lore;
+            if (layout == null) return;
+            Kit.LoreStyle.Layout = layout;
+            Kit.LoreStyle.Current = settings.Lore(layout);
         }
 
         private void ApplyAccent(VisualElement root, SettingsSession settings) => ApplyChoice(root, settings, SettingIds.Accent, UiClasses.AccentPrefix);

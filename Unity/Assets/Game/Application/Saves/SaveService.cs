@@ -49,6 +49,10 @@ namespace Ashen.App.Saves
         public string ContentHash;
         public string SnapshotHash;
         public JToken Payload;
+        /// <summary>The primary was unreadable and a mirror or backup copy was loaded in its place (web profileStatus state recovered).</summary>
+        public bool Recovered;
+        /// <summary>The save was written by an older version and has been brought forward (web state migrated).</summary>
+        public bool Migrated;
         public readonly List<JObject> Commands = new List<JObject>();
         /// <summary>The generation's log ends in a torn or checksum-invalid record: <see cref="Commands"/> is the valid prefix, and appending to this generation again would hide every later command behind the damage.</summary>
         public bool LogTruncated;
@@ -71,12 +75,16 @@ namespace Ashen.App.Saves
         private readonly SaveRules _rules;
         private readonly Dictionary<int, Migration> _migrations = new Dictionary<int, Migration>();
 
-        public SaveService(string directory, SaveRules rules)
+        public SaveService(string directory, SaveRules rules, Func<DateTime> clock = null)
         {
             _dir = directory;
             _rules = rules;
             Directory.CreateDirectory(_dir);
+            Drawer = new ArchiveDrawer(directory, clock);
         }
+
+        /// <summary>The archive drawer: what was set aside, and why (web listArchives and its handle).</summary>
+        public ArchiveDrawer Drawer { get; }
 
         public SaveRules Rules => _rules;
 
@@ -130,6 +138,79 @@ namespace Ashen.App.Saves
             foreach (var p in Candidates(slot).Concat(Directory.GetFiles(_dir, Format(SaveLayout.LogSearch, slot)))) if (File.Exists(p)) File.Delete(p);
         }
 
+        // ------------------------------------------------------------------ the archive drawer
+
+        /// <summary>The bytes a slot holds as stored (the primary, else the first copy that exists), whether or not they read; null when there are none.</summary>
+        public string ReadRaw(string slot)
+        {
+            var path = Candidates(slot).FirstOrDefault(File.Exists);
+            if (path == null) return null;
+            try { return File.ReadAllText(path, Encoding.UTF8); }
+            catch (IOException) { return null; }
+        }
+
+        /// <summary>Set the profile's stored bytes aside (archiveMeta): the same bytes seen again keep one entry. Null when there are none.</summary>
+        public string ArchiveProfile(string reason) => Drawer.ArchiveProfile(ReadRaw(_rules.ProfileSlot), reason);
+
+        /// <summary>archive(json, reason, slot): a run that cannot be read is set aside and its slot cleared, as the web does; the bytes are in the drawer.</summary>
+        public string SetAsideRun(string slot, int index, string reason)
+        {
+            var raw = ReadRaw(slot);
+            if (raw == null) return null;
+            var id = Drawer.ArchiveRun(raw, reason, index);
+            Delete(slot);
+            return id;
+        }
+
+        /// <summary>
+        /// startNewProfile(): the player's consent to leave the old profile behind. The old bytes are set aside first (replacePrimaryWith: no path replaces the primary without the old bytes being recoverable), then the
+        /// slot is cleared, so the next write starts a fresh profile.
+        /// </summary>
+        public string StartNewProfile()
+        {
+            var id = ArchiveProfile(ArchiveKeys.ReasonNewProfile);
+            Delete(_rules.ProfileSlot);
+            return id;
+        }
+
+        /// <summary>The result of putting a set-aside profile back (web restoreProfile).</summary>
+        public sealed class RestoreResult
+        {
+            public bool Ok;
+            public string Reason;
+            public string ArchiveId;
+        }
+
+        /// <summary>
+        /// restoreProfile(id): an archived profile becomes the live one. It goes through the one path that sets what it replaces aside, so the profile in use is kept in the drawer in its place. A copy that still cannot be read fails
+        /// plainly and is never consumed.
+        /// </summary>
+        public RestoreResult RestoreProfile(string id)
+        {
+            var entry = Drawer.Get(id);
+            if (entry == null) return new RestoreResult { Reason = Format(ArchiveKeys.ReasonNoArchive, id) };
+            if (!entry.IsProfile) return new RestoreResult { Reason = Format(ArchiveKeys.ReasonNotProfile, id, entry.Kind) };
+            LoadResult loaded;
+            try
+            {
+                // The copy is read the way a profile is: verified, refused if newer, migrated forward.
+                File.WriteAllText(PathOf(SaveLayout.Primary, ArchiveKeys.ScratchSlot), entry.Save ?? string.Empty, Encoding.UTF8);
+                loaded = Load(ArchiveKeys.ScratchSlot);
+            }
+            catch (Exception e) when (e is IOException || e is JsonException)
+            {
+                return new RestoreResult { Reason = Format(ArchiveKeys.ReasonCannotRead, e.Message) };
+            }
+            finally
+            {
+                Delete(ArchiveKeys.ScratchSlot);
+            }
+            if (loaded.Status != LoadStatus.Loaded) return new RestoreResult { Reason = Format(ArchiveKeys.ReasonCannotRead, loaded.Warnings.FirstOrDefault() ?? ArchiveKeys.Corrupt) };
+            var outgoing = ArchiveProfile(Format(ArchiveKeys.ReasonRestored, id));
+            Checkpoint(_rules.ProfileSlot, loaded.Payload, loaded.ContentHash, loaded.SnapshotHash);
+            return new RestoreResult { Ok = true, ArchiveId = outgoing };
+        }
+
         // ------------------------------------------------------------------ read
 
         public LoadResult Load(string slot)
@@ -152,6 +233,7 @@ namespace Ashen.App.Saves
                 result.Warnings.Add(Format(SaveMessages.NoValidCopy, slot));
                 return result;
             }
+            if (bestPath != PathOf(SaveLayout.Primary, slot)) result.Recovered = true;
             if (bestPath != PathOf(SaveLayout.Primary, slot)) result.Warnings.Add(Format(SaveMessages.FellBack, Path.GetFileName(bestPath), (int)best[SaveKeys.Gen]));
 
             var version = (int)best[SaveKeys.SaveVersion];
@@ -174,6 +256,7 @@ namespace Ashen.App.Saves
                 best = step((JObject)best.DeepClone());
                 version++;
                 best[SaveKeys.SaveVersion] = version;
+                result.Migrated = true;
                 result.Warnings.Add(Format(SaveMessages.Migrated, version - 1, version));
             }
 

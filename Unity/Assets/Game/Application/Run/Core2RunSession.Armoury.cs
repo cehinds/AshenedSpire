@@ -22,6 +22,9 @@ namespace Ashen.App.Run
 
         private Ashen.Domain.Run.RunData GearData => Core.Deck.Run.Run;
 
+        /// <summary>The weapon swap price rule the player chose in Settings (settings.swapCostRule), or null for the profile's own (the web's resolveSwapCostRule reads it from the profile's settings).</summary>
+        public string SwapRuleId => PlayerSettings.Text(ReceiptKeys.SwapRuleSetting);
+
         private EquipContext EquipmentContext(string itemId, int setIndex) => new EquipContext
         {
             InCombat = false,
@@ -150,7 +153,7 @@ namespace Ashen.App.Run
             bool changed;
             try
             {
-                changed = Armoury.CycleSet(GearData, loadout, slotId, setIndex, false, ClassId, null, true);
+                changed = Armoury.CycleSet(GearData, loadout, slotId, setIndex, false, ClassId, null, true, ArmouryPanes.EarnedRungs(this, slotId));
                 if (changed) DeckRules.Restamp(Core.Deck, _run);
             }
             catch (InvalidOperationException)

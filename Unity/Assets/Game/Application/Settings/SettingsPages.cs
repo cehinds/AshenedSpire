@@ -19,6 +19,15 @@ namespace Ashen.App.Settings
         public IReadOnlyList<string> Categories = Array.Empty<string>();
         public bool About;
 
+        /// <summary>The group's sentence under the pickers (the web's group tip); null for a group drawn as its own panel.</summary>
+        public string TipKey;
+
+        /// <summary>The group is the Changelog panel (web renderChangelogSection).</summary>
+        public bool Changelog;
+
+        /// <summary>The group is the Game rules panel (web mountGameProfileSettings).</summary>
+        public bool Rules;
+
         /// <summary>Shown only while Developer tools are on (the web's debug-only sections).</summary>
         public bool Developer;
     }
@@ -45,6 +54,9 @@ namespace Ashen.App.Settings
                     LabelKey = g.Str(FK.LabelKey),
                     Categories = Js.Items(g[FK.Categories]).Select(Js.Str).Where(c => c != null).ToList(),
                     About = g.Is(FK.About),
+                    TipKey = g.Str(SettingsGroupKeys.TipKey),
+                    Changelog = g.Is(SettingsGroupKeys.Changelog),
+                    Rules = g.Is(SettingsGroupKeys.Rules),
                     Developer = g.Is(FK.Developer),
                 }).ToList(),
             }).ToList();
@@ -81,6 +93,8 @@ namespace Ashen.App.Settings
         public string Label;
         public bool Active;
         public bool About;
+        public bool Changelog;
+        public bool Rules;
     }
 
     public sealed class SettingsTopicView
@@ -111,6 +125,15 @@ namespace Ashen.App.Settings
 
         /// <summary>The group in front shows the About text instead of controls.</summary>
         public bool ShowAbout;
+
+        /// <summary>The group in front is the Changelog panel.</summary>
+        public bool ShowChangelog;
+
+        /// <summary>The group in front is the Game rules panel.</summary>
+        public bool ShowRules;
+
+        /// <summary>The sentence the group in front says under the pickers (null for a group with none).</summary>
+        public string GroupTip;
 
         /// <summary>A search or the Changed filter is on: the rows come from every section.</summary>
         public bool Filtering;
@@ -151,7 +174,7 @@ namespace Ashen.App.Settings
             var strings = ui.Strings;
             var devOn = DeveloperTools(query.DevBuild);
             var tab = layout.FirstOrDefault(t => t.Id == query.Tab) ?? layout.FirstOrDefault();
-            var groups = tab == null ? new List<SettingsGroupDef>() : tab.Groups.Where(g => devOn || !g.Developer).Where(g => g.About || HasRows(g)).ToList();
+            var groups = tab == null ? new List<SettingsGroupDef>() : tab.Groups.Where(g => devOn || !g.Developer).Where(g => g.About || g.Changelog || g.Rules || HasRows(g)).ToList();
             var group = groups.FirstOrDefault(g => g.Id == query.Group) ?? groups.FirstOrDefault();
             var topics = group == null ? new List<string>() : group.Categories.Where(HasRows).ToList();
             var topic = topics.FirstOrDefault(t => t == query.Topic) ?? topics.FirstOrDefault();
@@ -169,7 +192,7 @@ namespace Ashen.App.Settings
                 SearchHint = strings.Get(StringKeys.SettingsPageSearch),
             };
             foreach (var t in layout) view.Tabs.Add(new SettingsTabView { Id = t.Id, Label = strings.Get(t.LabelKey), Tip = TabTip(ui, t, devOn), Active = t == tab });
-            foreach (var g in groups) view.Groups.Add(new SettingsGroupView { Id = g.Id, Label = strings.Get(g.LabelKey), Active = g == group, About = g.About });
+            foreach (var g in groups) view.Groups.Add(new SettingsGroupView { Id = g.Id, Label = strings.Get(g.LabelKey), Active = g == group, About = g.About, Changelog = g.Changelog, Rules = g.Rules });
             if (topics.Count > 1)
                 foreach (var t in topics) view.Topics.Add(new SettingsTopicView { Id = t, Label = strings.Get(Defs.Categories.First(c => c.Key == t).Value), Active = t == topic });
             var all = PageDefs().Select(def => ControlOf(ui, def)).ToList();
@@ -183,10 +206,13 @@ namespace Ashen.App.Settings
                     && (text.Length == 0 || Matches(c, text))));
             }
             else if (group != null && group.About) view.ShowAbout = true;
+            else if (group != null && group.Changelog) view.ShowChangelog = true;
+            else if (group != null && group.Rules) view.ShowRules = true;
             else if (topic != null)
                 view.Rows.AddRange(all.Where(c => c.Category == topic));
+            if (group != null && group.TipKey != null && !query.Filtering) view.GroupTip = strings.Get(group.TipKey);
             view.Count = strings.Format(StringKeys.SettingsPageCount, new StringArgs().Add(UiPlaceholders.Count, view.Rows.Count));
-            if (view.Rows.Count == 0 && !view.ShowAbout) view.Empty = strings.Get(StringKeys.SettingsPageEmpty);
+            if (view.Rows.Count == 0 && !view.ShowAbout && !view.ShowChangelog && !view.ShowRules) view.Empty = strings.Get(StringKeys.SettingsPageEmpty);
             return view;
         }
 

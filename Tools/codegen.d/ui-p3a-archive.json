@@ -1,0 +1,118 @@
+{
+  "comment": "P-3a (D-1480..D-1489): the profile archive (web src/ui/screens/profileArchive.js, engine/save.js the drawer). The drawer's file layout and JSON vocabulary, the reasons it writes and reads, the Profile screen's classes.",
+  "keySets": [
+    {
+      "name": "ArchiveKeys",
+      "doc": "The archive drawer (engine/save.js readArchiveIndex, writeArchiveEntry, archiveMeta, exportArchive): its file and JSON vocabulary, the reasons it writes and reads back, and the states a profile load leaves (profileStatus).",
+      "keys": {
+        "IndexFile": "archive.json",
+        "SalvageFile": "archive.salvage-{0}.json",
+        "ProfileSalvageFile": "archive.profile-{0}.json",
+        "TempSuffix": ".tmp",
+        "ScratchSlot": "archive-restore",
+        "Version": "v",
+        "Entries": "entries",
+        "Notices": "notices",
+        "Id": "id",
+        "Kind": "kind",
+        "Slot": "slot",
+        "Reason": "reason",
+        "At": "at",
+        "Count": "count",
+        "LastSeenAt": "lastSeenAt",
+        "Save": "save",
+        "Was": "was",
+        "Key": "key",
+        "KindMeta": "meta",
+        "KindRun": "run",
+        "NoticeSalvaged": "profile-salvaged",
+        "ExportedAt": "exportedAt",
+        "Game": "game",
+        "GameName": "Ashen Spire",
+        "Archive": "archive",
+        "ExportFile": "ashen-spire-{0}.json",
+        "IdMeta": "meta-{0}-{1}",
+        "IdRun": "run-s{0}-{1}-{2}",
+        "Iso": "yyyy-MM-dd'T'HH:mm:ss.fff'Z'",
+        "ReasonNewProfile": "kept when you started a new profile",
+        "ReasonRestored": "set aside when you restored {0}",
+        "ReasonUnreadable": "profile could not be read: {0}",
+        "ReasonRunUnreadable": "run could not be read: {0}",
+        "ReasonNoArchive": "no archive with id '{0}'",
+        "ReasonNotProfile": "archive '{0}' is a {1}, not a profile",
+        "ReasonCannotRead": "that archive still cannot be read: {0}",
+        "Corrupt": "corrupt",
+        "PatternUnreadable": "could not be read|corrupt|JSON|Unexpected|Unterminated|position \\d+",
+        "PatternOlder": "older than this build|older version",
+        "PatternNewProfile": "started a new profile|kept when you started",
+        "PatternDangling": "dangling id",
+        "PatternRestored": "restored",
+        "StateOk": "ok",
+        "StateEmpty": "empty",
+        "StateMigrated": "migrated",
+        "StateRecovered": "recovered",
+        "StateCorrupt": "corrupt",
+        "StateOlder": "older",
+        "StateNewer": "newer",
+        "Progress": "progress",
+        "Runs": "runs",
+        "Wins": "wins",
+        "Payload": "payload",
+        "DateFormat": "MMMM d",
+        "TimeFormat": "h:mm tt",
+        "EmptyDrawer": "drawer",
+        "EmptyCategory": "category"
+      }
+    },
+    {
+      "name": "ArchiveClasses",
+      "doc": "USS classes of the Profile screen (web .prof-*).",
+      "keys": {
+        "Split": "prof-split",
+        "Identity": "prof-identity",
+        "Eyebrow": "prof-eyebrow",
+        "State": "prof-state",
+        "Policy": "prof-policy",
+        "Notice": "prof-notice",
+        "NoticeTitle": "prof-notice-title",
+        "NoticeLine": "prof-notice-line",
+        "Records": "prof-records",
+        "Entry": "prof-entry",
+        "EntryEyebrow": "prof-entry-eyebrow",
+        "EntryName": "prof-entry-name",
+        "EntryLine": "prof-entry-line",
+        "Actions": "prof-entry-actions",
+        "Action": "prof-action",
+        "Confirm": "prof-confirm",
+        "Result": "prof-result",
+        "Empty": "prof-empty",
+        "Support": "prof-support",
+        "SupportBody": "prof-support-body",
+        "Count": "prof-count"
+      }
+    },
+    {
+      "name": "ArchivePlaceholders",
+      "doc": "Placeholders of the Profile screens strings that the shared UiPlaceholders lack.",
+      "keys": {
+        "Runs": "runs",
+        "Wins": "wins",
+        "Was": "was",
+        "At": "at"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "ArchiveNumbers",
+      "type": "int",
+      "doc": "The drawer's bounds (engine/save.js ARCHIVE_LIMIT, PROFILE_ARCHIVE_LIMIT, ARCHIVE_MAX_AGE_MS) and the kilobyte of an entry's size.",
+      "values": {
+        "RunLimit": 12,
+        "ProfileLimit": 24,
+        "MaxAgeDays": 180,
+        "BytesPerKb": 1024
+      }
+    }
+  ]
+}

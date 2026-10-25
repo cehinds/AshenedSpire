@@ -49,7 +49,7 @@ namespace Ashen.Presentation.UI.Screens
     /// cost curve, filter and sort chips, an inspector and Cancel, Undo and Done. The editor works on the run in place; Done keeps and saves it, Cancel (asked about when there are changes) and
     /// closing put it back exactly. The door is shut with the reason when <see cref="Core2RunSession.DeckEditorRefusal"/> names one.
     /// </summary>
-    public sealed class ArmouryScreen : ScreenView
+    public sealed partial class ArmouryScreen : ScreenView
     {
         private Core2RunSession _run;
         private string _tab;
@@ -92,6 +92,7 @@ namespace Ashen.Presentation.UI.Screens
             }
             _modal.size = UiValues.ModalSizeXl;
             _modal.CloseRequested += RequestClose;
+            BindDialog();
             BuildTabs();
             var openEditor = _tab == ArmouryValues.TabEditor;
             if (openEditor) _tab = ArmouryValues.TabDeck;
@@ -139,13 +140,15 @@ namespace Ashen.Presentation.UI.Screens
 
         public override bool HandleBack()
         {
-            RequestClose();
+            if (DialogOpen) CloseDialog();
+            else RequestClose();
             return true;
         }
 
         public override bool HandleMenu()
         {
-            RequestClose();
+            if (DialogOpen) CloseDialog();
+            else RequestClose();
             return true;
         }
 
@@ -219,6 +222,17 @@ namespace Ashen.Presentation.UI.Screens
             }
             _modal.Foot.RemoveFromClassList(ArmouryClasses.Foot);
             Button(_modal.Foot, StringKeys.ArmouryBack, UiClasses.ButtonBack, () => Nav.Close(Context.Instance));
+            if (_footPlan != null)
+            {
+                var plan = _footPlan;
+                var act = new LocButton();
+                act.SetResolved(plan.Label);
+                act.AddToClassList(UiClasses.Button);
+                act.AddToClassList(plan.Danger ? UiClasses.ButtonBack : UiClasses.ButtonPrimary);
+                act.EnableInClassList(ArmouryClasses.ActionOff, plan.Refusal.Length > 0);
+                act.clicked += () => plan.Act();
+                _modal.Foot.Add(act);
+            }
         }
 
         private LocButton Button(VisualElement parent, string key, string kind, Action action, string focusKey = null)
@@ -354,7 +368,7 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>The Progression door (web characterSheet.js characterPane): the meter, the cadence, the attributes, the feats and the ladder, with a Back to the Character pane.</summary>
         private void ProgressionPane(VisualElement body)
         {
-            ProgressionPanel.Fill(body, CharacterProgression.For(_run, Ui.Data), Strings, Fold);
+            ProgressionPanel.Fill(body, CharacterProgression.For(_run, Ui.Data), Strings, Fold, AttributesCard, SheetButton);
             Button(body, StringKeys.ConfirmBack, UiClasses.ButtonBack, () =>
             {
                 _progression = false;
@@ -440,289 +454,6 @@ namespace Ashen.Presentation.UI.Screens
 
         /// <summary>A deck card's face data: the cost pips in the components' order (Stamina always, Mana when it costs), its type line, rank and traits; a deck card is never dimmed.</summary>
         private CardViewData CardData(Core2CardView card) => ItemFaces.DeckCard(Ui.Data, card);
-
-        // ------------------------------------------------------------------ Equipment (map-equipment)
-
-        private void EquipmentPane(VisualElement pane)
-        {
-            var positions = ArmouryPanes.Equipment(_run, Ui.Data);
-            if (_position == null || !positions.Any(p => PositionKey(p) == _position))
-                _position = positions.Where(p => !p.Locked).Select(PositionKey).FirstOrDefault() ?? positions.Select(PositionKey).FirstOrDefault();
-            NoticeLine(pane);
-            var split = new VisualElement();
-            split.AddToClassList(ArmouryClasses.Equipment);
-            pane.Add(split);
-            var list = new VisualElement();
-            list.AddToClassList(ArmouryClasses.Positions);
-            split.Add(list);
-            Label(list, Strings.Get(StringKeys.ArmouryEquipmentTitle), ArmouryClasses.Heading);
-            foreach (var position in positions) PositionRow(list, position);
-            var inspect = new VisualElement { pickingMode = PickingMode.Ignore };
-            inspect.AddToClassList(ArmouryClasses.Inspect);
-            split.Add(inspect);
-            var chosen = positions.FirstOrDefault(p => PositionKey(p) == _position);
-            if (chosen?.Item == null)
-            {
-                Label(inspect, Strings.Get(StringKeys.ArmouryEquipmentPick), ArmouryClasses.Muted);
-                return;
-            }
-            Label(inspect, Strings.Format(StringKeys.ArmouryEquipmentInspect, new StringArgs().Add(UiPlaceholders.Code, chosen.Code)), ArmouryClasses.Heading);
-            var item = chosen.Item;
-            Label(inspect, item.Name, ArmouryClasses.PositionName);
-            Label(inspect, Strings.Format(StringKeys.ArmouryItemMeta, new StringArgs().Add(UiPlaceholders.Kind, Named(ArmouryKeys.KindStringKey, item.Kind)).Add(UiPlaceholders.Rarity, Named(ArmouryKeys.RarityStringKey, item.Rarity))), ArmouryClasses.Muted);
-            var chips = new VisualElement { pickingMode = PickingMode.Ignore };
-            chips.AddToClassList(ArmouryClasses.Chips);
-            foreach (var stat in item.Stats)
-            {
-                var holder = new VisualElement { pickingMode = PickingMode.Ignore };
-                holder.AddToClassList(ArmouryClasses.Chip);
-                holder.style.flexDirection = FlexDirection.Row;
-                Label(holder, stat.Key + ArmouryKeys.Space, ArmouryClasses.Muted);
-                Label(holder, stat.Value, ArmouryClasses.ChipValue);
-                chips.Add(holder);
-            }
-            inspect.Add(chips);
-            if (!string.IsNullOrEmpty(item.Blurb)) Label(inspect, item.Blurb, ArmouryClasses.Line);
-        }
-
-        private string Named(string format, string id)
-        {
-            if (string.IsNullOrEmpty(id)) return string.Empty;
-            var key = string.Format(CultureInfo.InvariantCulture, format, id);
-            return Strings.Has(key) ? Strings.Get(key) : id;
-        }
-
-        private static string PositionKey(ArmouryPositionView p) => p.SlotId + UiFormats.TagSeparator + p.SetIndex.ToString(CultureInfo.InvariantCulture);
-
-        private void PositionRow(VisualElement list, ArmouryPositionView position)
-        {
-            var row = new VisualElement();
-            row.AddToClassList(ArmouryClasses.Position);
-            row.EnableInClassList(ArmouryClasses.PositionLocked, position.Locked);
-            row.EnableInClassList(ArmouryClasses.PositionSelected, PositionKey(position) == _position);
-            list.Add(row);
-            var thumb = new VisualElement { pickingMode = PickingMode.Ignore };
-            thumb.AddToClassList(ArmouryClasses.Thumb);
-            var art = position.Item?.ArtKey == null ? null : Ui.Texture(StringTable.Fill(Ui.Data.Components.RewardArmamentArt, new StringArgs().Add(UiPlaceholders.Art, position.Item.ArtKey)));
-            if (art != null) thumb.style.backgroundImage = new StyleBackground(art);
-            row.Add(thumb);
-            var text = new VisualElement { pickingMode = PickingMode.Ignore };
-            text.AddToClassList(ArmouryClasses.PositionText);
-            row.Add(text);
-            var title = new VisualElement { pickingMode = PickingMode.Ignore };
-            title.style.flexDirection = FlexDirection.Row;
-            Label(title, position.Code + ArmouryKeys.Space, ArmouryClasses.Code);
-            Label(title, position.Locked ? Strings.Get(StringKeys.ArmouryRowLocked) : position.Name, ArmouryClasses.PositionName);
-            text.Add(title);
-            if (position.Locked && position.Hint.Length > 0) Label(text, position.Hint, ArmouryClasses.Muted);
-            if (position.Locked) return;
-            if (position.Item != null || position.Active)
-                Label(row, Strings.Get(position.Item != null && position.Active ? StringKeys.ArmouryChipEquipped : position.Item != null ? StringKeys.ArmouryChipEquipped : StringKeys.ArmouryChipActive), ArmouryClasses.Tag, UiClasses.Upper);
-            var key = PositionKey(position);
-            // The web's armament-position-actions: Inspect, Replace (Choose item on an empty hand), Make active, Unequip; one the rules shut stays pressable, dimmed, and says why where it was pressed.
-            var actions = new VisualElement();
-            actions.AddToClassList(ArmouryClasses.Actions);
-            text.Add(actions);
-            if (position.Item != null)
-                Button(actions, StringKeys.ArmouryRowInspect, null, () =>
-                {
-                    _position = key;
-                    _focusKey = key;
-                    Render();
-                }, key);
-            var replace = new LocButton();
-            replace.SetResolved(position.ReplaceLabel);
-            replace.AddToClassList(UiClasses.Button);
-            replace.userData = key + UiFormats.TagSeparator + StringKeys.ArmouryActionReplace;
-            replace.clicked += () => Pick(position);
-            actions.Add(replace);
-            if (!position.Active)
-                Action(actions, StringKeys.ArmouryActionActivate, key, position.ActivateRefusal, () => Say(_run.Activate(Strings, position.SlotId, position.SetIndex), key));
-            if (position.Item != null)
-                Action(actions, StringKeys.ArmouryActionUnequip, key, position.UnequipRefusal, () => Say(_run.Equip(Strings, position.SlotId, position.SetIndex, null, Strings.Get(StringKeys.ArmouryActionUnequip)), key));
-        }
-
-        /// <summary>
-        /// An action control that can be shut by the rules: it dims with the reason and stays pressable, so pressing it says why (the web disables it and prints the reason beside it). A press that can
-        /// proceed runs <paramref name="act"/>.
-        /// </summary>
-        private LocButton Action(VisualElement parent, string labelKey, string key, string refusal, Action act)
-        {
-            var button = new LocButton(labelKey);
-            button.AddToClassList(UiClasses.Button);
-            button.EnableInClassList(ArmouryClasses.ActionOff, !string.IsNullOrEmpty(refusal));
-            button.userData = key + UiFormats.TagSeparator + labelKey;
-            button.clicked += () =>
-            {
-                if (!string.IsNullOrEmpty(refusal))
-                {
-                    _notice = refusal;
-                    Refusal.Show(button, Context.Overlay, refusal, Ui.Data.Tokens.Duration(TokenKeys.Refusal));
-                    if (_modal.Body.Q<LocLabel>(className: ArmouryClasses.Notice) is LocLabel line) line.SetResolved(refusal);
-                    return;
-                }
-                act();
-            };
-            parent.Add(button);
-            return button;
-        }
-
-        /// <summary>Shows what an equipment change said (the web's notice) and redraws from the run; the control that was pressed keeps focus when it is still there.</summary>
-        private void Say(Core2ArmouryChange change, string focusKey)
-        {
-            _notice = change.Message ?? string.Empty;
-            if (change.Ok)
-            {
-                _pickSlot = null;
-                _inventoryKey = null;
-                _focusKey = focusKey;
-            }
-            Render();
-            if (!change.Ok && _notice.Length > 0) Refusal.Show(_modal, Context.Overlay, _notice, Ui.Data.Tokens.Duration(TokenKeys.Refusal));
-        }
-
-        private void NoticeLine(VisualElement pane)
-        {
-            var line = Label(pane, _notice, ArmouryClasses.Notice);
-            UiDom.Show(line, _notice.Length > 0);
-        }
-
-        // ------------------------------------------------------------------ Inventory
-
-        /// <summary>Replace / Choose item: the Inventory opens filtered to what fits the position (the web's openInventoryForSelection).</summary>
-        private void Pick(ArmouryPositionView position)
-        {
-            _pickSlot = position.SlotId;
-            _pickIndex = position.SetIndex;
-            _inventoryKey = null;
-            _notice = string.Empty;
-            _tab = ArmouryValues.TabInventory;
-            _focusKey = null;
-            Render();
-        }
-
-        private void InventoryPane(VisualElement pane)
-        {
-            var rows = ArmouryInventory.Rows(_run, Ui.Data);
-            var gear = _run.Core.Deck.Run.Run;
-            JObject slot = null;
-            if (_pickSlot != null) slot = gear.EquipmentRows(CombatKeys.Slots).FirstOrDefault(s => s.Str(CombatKeys.Id) == _pickSlot);
-            Label(pane, Strings.Get(StringKeys.ArmouryRailInventory), ArmouryClasses.Heading);
-            NoticeLine(pane);
-            if (slot != null)
-            {
-                var positions = ArmouryPanes.Equipment(_run, Ui.Data);
-                var here = positions.FirstOrDefault(p => p.SlotId == _pickSlot && p.SetIndex == _pickIndex);
-                var context = new VisualElement();
-                context.AddToClassList(ArmouryClasses.Selecting);
-                Label(context, Strings.Format(StringKeys.ArmouryInventorySelecting, new StringArgs()
-                    .Add(UiPlaceholders.Slot, ArmouryInventory.Where(Strings, slot, _pickIndex))
-                    .Add(UiPlaceholders.State, Strings.Get(here?.Active == true ? StringKeys.ArmouryChipActive : StringKeys.ArmouryInventoryReserve))
-                    .Add(UiPlaceholders.Name, here?.Name ?? string.Empty)), ArmouryClasses.Line);
-                Button(context, StringKeys.ArmouryDestinationShowAll, null, () =>
-                {
-                    _pickSlot = null;
-                    Render();
-                });
-                pane.Add(context);
-                var fitting = rows.Where(r => r.Equipable && ArmouryInventory.Destinations(_run, Ui.Data, r.Id).Any(d => d.SlotId == _pickSlot)).ToList();
-                if (fitting.Count == 0) Label(pane, Strings.Format(StringKeys.ArmouryInventoryFitsNone, new StringArgs().Add(UiPlaceholders.Slot, slot.Str(CombatKeys.Label) ?? _pickSlot)), ArmouryClasses.Muted);
-                foreach (var row in fitting) InventoryRow(pane, row, true);
-                return;
-            }
-            if (rows.Count == 0)
-            {
-                Label(pane, Strings.Get(StringKeys.ArmouryInventoryEmpty), ArmouryClasses.Muted);
-                return;
-            }
-            foreach (var row in rows) InventoryRow(pane, row, false);
-        }
-
-        private void InventoryRow(VisualElement list, ArmouryInventoryRow data, bool picking)
-        {
-            var open = !picking && data.Equipable && _inventoryKey == data.Key;
-            var row = new VisualElement();
-            row.AddToClassList(ArmouryClasses.InvRow);
-            row.EnableInClassList(ArmouryClasses.InvRowOpen, open);
-            list.Add(row);
-            var thumb = new VisualElement { pickingMode = PickingMode.Ignore };
-            thumb.AddToClassList(ArmouryClasses.Thumb);
-            var art = data.Item?.ArtKey == null ? null : Ui.Texture(StringTable.Fill(Ui.Data.Components.RewardArmamentArt, new StringArgs().Add(UiPlaceholders.Art, data.Item.ArtKey)));
-            if (art != null) thumb.style.backgroundImage = new StyleBackground(art);
-            row.Add(thumb);
-            var text = new VisualElement { pickingMode = PickingMode.Position };
-            text.AddToClassList(ArmouryClasses.InvText);
-            row.Add(text);
-            var name = new LocButton();
-            name.SetResolved(data.Name);
-            name.AddToClassList(ArmouryClasses.RowName);
-            name.userData = data.Key;
-            name.clicked += () =>
-            {
-                _inventoryKey = open ? null : data.Key;
-                _focusKey = data.Key;
-                Render();
-            };
-            text.Add(name);
-            var meta = data.Category + (data.Count > 1 ? ArmouryKeys.Space + Strings.Format(StringKeys.ArmouryInventoryOwned, new StringArgs().Add(UiPlaceholders.Count, data.Count)) : string.Empty);
-            Label(text, meta, ArmouryClasses.Muted);
-            if (data.EquippedLabels.Count > 0)
-                Label(text, Strings.Format(StringKeys.ArmouryInventoryEquippedIn, new StringArgs().Add(UiPlaceholders.Names, string.Join(Strings.Get(StringKeys.RestTagJoin), data.EquippedLabels))), ArmouryClasses.Muted);
-            if (!data.Equipable) return;
-            if (picking)
-            {
-                var compare = ArmouryReceipts.Candidate(_run, Ui.Data, _pickSlot, _pickIndex, data.Id);
-                if (compare != null)
-                    Fold(text, ArmouryValues.FoldCompare + data.Key, Strings.Get(StringKeys.ArmouryReceiptCompare), Strings.Format(StringKeys.ArmouryReceiptCompareTitle, new StringArgs().Add(UiPlaceholders.Name, data.Name)), open => ReceiptPanel.Fill(open, compare, Strings));
-                var action = ArmouryInventory.Action(_run, Ui.Data, data.Id, _pickSlot, _pickIndex);
-                var key = data.Key;
-                var button = new LocButton();
-                button.SetResolved(action.Label);
-                button.AddToClassList(UiClasses.Button);
-                button.AddToClassList(action.Kind == ArmouryActionKind.Unequip ? UiClasses.ButtonBack : UiClasses.ButtonPrimary);
-                button.EnableInClassList(ArmouryClasses.ActionOff, action.Refusal.Length > 0);
-                button.userData = key + UiFormats.TagSeparator + action.Label;
-                button.clicked += () =>
-                {
-                    if (action.Refusal.Length > 0)
-                    {
-                        _notice = action.Refusal;
-                        Refusal.Show(button, Context.Overlay, action.Refusal, Ui.Data.Tokens.Duration(TokenKeys.Refusal));
-                        if (_modal.Body.Q<LocLabel>(className: ArmouryClasses.Notice) is LocLabel line) line.SetResolved(action.Refusal);
-                        return;
-                    }
-                    Say(_run.Equip(Strings, action.SlotId, action.SetIndex, action.PieceId, action.Label), key);
-                };
-                row.Add(button);
-                return;
-            }
-            if (!open)
-            {
-                Label(text, Strings.Get(StringKeys.ArmouryDestinationChoose), ArmouryClasses.Muted);
-                return;
-            }
-            var dests = new VisualElement();
-            dests.AddToClassList(ArmouryClasses.InvDests);
-            text.Add(dests);
-            foreach (var destination in ArmouryInventory.Destinations(_run, Ui.Data, data.Id))
-            {
-                var d = destination;
-                var button = new LocButton();
-                button.SetResolved(d.Label + ArmouryKeys.Space + d.Occupant);
-                button.AddToClassList(ArmouryClasses.InvDest);
-                button.EnableInClassList(ArmouryClasses.InvDestShut, d.Locked);
-                button.userData = data.Key + UiFormats.TagSeparator + d.SlotId + d.SetIndex.ToString(CultureInfo.InvariantCulture);
-                button.clicked += () =>
-                {
-                    if (d.Locked) return;
-                    _pickSlot = d.SlotId;
-                    _pickIndex = d.SetIndex;
-                    _focusKey = null;
-                    Render();
-                };
-                dests.Add(button);
-            }
-        }
 
         // ------------------------------------------------------------------ Edit Deck (D-404 seam)
 
@@ -936,6 +667,20 @@ namespace Ashen.Presentation.UI.Screens
             card.AddToClassList(ArmouryClasses.GridCard);
             card.Bind(CardData(Core2DeckCards.View(_run.CombatData, row.Ref, Words)));
             pane.Add(card);
+            var def = _run.CombatData.Cards.Has(row.Ref.Str(CombatKeys.CardId)) ? _run.CombatData.Cards.Get(row.Ref.Str(CombatKeys.CardId)) : null;
+            Lore(pane, def?.Str(CombatKeys.Flavor), def?.Str(CombatKeys.Name));
+            var view = Core2DeckCards.View(_run.CombatData, row.Ref, Words);
+            var rules = CardFaceMarkup.Plain(Ui.Data.CardText, view.Words?.Reading ?? view.Text ?? string.Empty);
+            var entries = _run.Glossary(Ui.Data).Explain(rules);
+            if (entries.Count > 0)
+                Fold(pane, AttrCardValues.GlossaryFold, Strings.Get(StringKeys.GlossaryFold), string.Empty, open =>
+                {
+                    foreach (var entry in entries)
+                    {
+                        Label(open, entry.Name, ArmouryClasses.PositionName);
+                        Label(open, entry.Explanation, ArmouryClasses.Muted);
+                    }
+                });
         }
 
         private void TileRow(VisualElement list, DeckTile tile)

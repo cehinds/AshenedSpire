@@ -44,6 +44,16 @@ namespace Ashen.Domain.Run
         public double LevelBonus;
         public double Raw;
         public double Value;
+
+        /// <summary>Each attribute's own floored term, in the row's weight order (a Core 2 row; empty on the 405 receipts).</summary>
+        public readonly List<KeyValuePair<string, double>> Terms = new List<KeyValuePair<string, double>>();
+
+        /// <summary>The row's pointsPerIncrease (1 unless it states one).</summary>
+        public double PointsPerIncrease = 1;
+
+        /// <summary>The row's own bounds, when it states them.</summary>
+        public double? Min;
+        public double? Max;
     }
 
     /// <summary>

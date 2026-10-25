@@ -73,6 +73,10 @@
 .font-lore--spectral-italic { -unity-font-definition: url("../Fonts/Spectral-Italic.ttf"); }
 .font-lore--baskerville { -unity-font-definition: url("../Fonts/LibreBaskerville-Regular.ttf"); }
 .font-lore--baskerville-italic { -unity-font-definition: url("../Fonts/LibreBaskerville-Italic.ttf"); }
+.font-lore--cinzel { -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf"); }
+.font-lore--cinzel-italic { -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf"); }
+.font-lore--inter { -unity-font-definition: url("../Fonts/Inter-Regular.ttf"); }
+.font-lore--inter-italic { -unity-font-definition: url("../Fonts/Inter-Italic.ttf"); }
 
 /* ---- type roles (web kit.css:34-37, 250, 385, 403). Uppercase comes from the kit-upper class (LocLabel, LocButton):
         USS has no text-transform. ---- */

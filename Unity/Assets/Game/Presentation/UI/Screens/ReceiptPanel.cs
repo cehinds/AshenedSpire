@@ -35,6 +35,12 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>A candidate's comparison (renderCandidateComparison): the packages that change, the minimums, the effects it adds, Poise and load before and after.</summary>
         public static void Fill(VisualElement host, CandidateView view, StringTable strings)
         {
+            foreach (var package in view.AttackPackages)
+            {
+                var row = Row(host);
+                Head(row, package.Name, package.Hint);
+                Delta(Values(row), package.BeforeCount, package.AfterCount, strings, count => strings.Format(StringKeys.ArmouryReceiptCopies, new StringArgs().Add(UiPlaceholders.Count, (int)count)));
+            }
             foreach (var role in view.Roles)
             {
                 var row = Row(host);
@@ -48,6 +54,18 @@ namespace Ashen.Presentation.UI.Screens
             Eyebrow(effects, strings.Get(StringKeys.ArmouryReceiptEffects));
             if (view.AddedEffects.Count == 0) Note(effects, strings.Get(StringKeys.ArmouryReceiptEffectsNone));
             foreach (var effect in view.AddedEffects) Line(effects, effect);
+            var resources = Section(host);
+            Eyebrow(resources, strings.Get(StringKeys.ArmouryReceiptResources));
+            if (view.Resources.Count == 0) Note(resources, strings.Get(StringKeys.ArmouryReceiptResourcesNone));
+            foreach (var change in view.Resources)
+            {
+                var line = new VisualElement { pickingMode = PickingMode.Ignore };
+                line.AddToClassList(ArmouryClasses.ReceiptRow);
+                Text(line, change.Label, ArmouryClasses.Line, false);
+                Delta(line, change.Before, change.After, strings);
+                resources.Add(line);
+                if (change.Note.Length > 0) Note(resources, change.Note);
+            }
             var poise = Section(host);
             Eyebrow(poise, strings.Get(StringKeys.ArmouryReceiptPoise));
             var delta = Row(poise);
@@ -131,10 +149,11 @@ namespace Ashen.Presentation.UI.Screens
         private static string To(StringTable strings, string before, string after) =>
             strings.Format(StringKeys.ArmouryReceiptTo, new StringArgs().Add(UiPlaceholders.Before, before).Add(UiPlaceholders.After, after));
 
-        private static void Delta(VisualElement host, double before, double after, StringTable strings)
+        private static void Delta(VisualElement host, double before, double after, StringTable strings, System.Func<double, string> dress = null)
         {
             var cls = after > before ? ArmouryClasses.ReceiptDeltaUp : after < before ? ArmouryClasses.ReceiptDeltaDown : null;
-            var text = To(strings, RunJs.NumStr(before), RunJs.NumStr(after));
+            dress = dress ?? RunJs.NumStr;
+            var text = To(strings, dress(before), dress(after));
             var label = Text(host, text, ArmouryClasses.ReceiptDelta, false);
             if (cls != null) label.AddToClassList(cls);
         }
