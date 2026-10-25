@@ -5,6 +5,7 @@ using System.Linq;
 using Ashen.App.Combat;
 using Ashen.App.Run;
 using Ashen.App.Saves;
+using Ashen.App.Settings;
 using Ashen.App.Ui;
 using Ashen.Content;
 using Ashen.Generated;
@@ -184,6 +185,86 @@ namespace Ashen.Tests
             Assert.That(strike.Select(r => r.Label), Is.EqualTo(new[] { "Attack" }));
             foreach (var row in rows.Concat(earth))
                 Assert.That(System.IO.File.Exists(System.IO.Path.Combine(TestContent.RepoRoot, "Unity", "Assets", "Game", "Presentation", "UI", "Resources", "UI", "CardFace", (row.School ? "school-" : "sigil-") + row.Id + ".png")), Is.True, row.Id);
+        }
+
+        // ------------------------------------------------------------------ tooltips of the board's small marks
+
+        [Test]
+        public void AStatusTooltipFillsItsTokensFromItsOwnRow()
+        {
+            var def = JObject.Parse("{\"tooltip\":\"At {proc.threshold}, burst for {proc.burstPercent}% (min {proc.burstMin}). Hardened {resists.percent}% for {decay.duration} turns; {tv.pct}% more; {onEnter.0.amount}; {hooks.0.do.1.amount}; {unknown}.\"," +
+                "\"proc\":{\"threshold\":6,\"burstPercent\":12,\"burstMin\":4},\"resists\":{\"percent\":50},\"decay\":{\"duration\":3},\"taggedVulnerability\":{\"mult\":1.25},\"onEnter\":[{\"amount\":2}],\"hooks\":[{\"do\":[{\"amount\":1},{\"amount\":9}]}]}");
+            Assert.That(Core2Readings.StatusText(def), Is.EqualTo("At 6, burst for 12% (min 4). Hardened 50% for 3 turns; 25% more; 2; 9; {unknown}."));
+            Assert.That(Core2Readings.StatusText(new JObject()), Is.Empty);
+        }
+
+        [Test]
+        public void AStatusChipNamesItsStacksTurnsLeftAndBuildUp()
+        {
+            var plain = Core2Readings.Status(Ui.Strings, new Core2StatusView { Name = "Weak", Stacks = 2, Tooltip = "Deals less damage." });
+            Assert.That(plain.Title, Is.EqualTo("Weak \u00d72"));
+            Assert.That(plain.Body, Is.EqualTo("Deals less damage."));
+            var timed = Core2Readings.Status(Ui.Strings, new Core2StatusView { Name = "Frail", Stacks = 1, Duration = 1, Tooltip = "Less Block." });
+            Assert.That(timed.Body, Is.EqualTo("Less Block. Turns left: 1."));
+            var meter = Core2Readings.Status(Ui.Strings, new Core2StatusView { Name = "Bleed", Stacks = 0, MeterValue = 3, MeterMax = 6, Tooltip = "Build-up." });
+            Assert.That(meter.Title, Is.EqualTo("Bleed \u00d73"));
+            Assert.That(meter.Body, Is.EqualTo("Build-up.\nBuild-up: 3 / 6"));
+            var percent = Core2Readings.Status(Ui.Strings, new Core2StatusView { Name = "Weakened", Stacks = 25, Duration = 2, Percent = true, Tooltip = "x" });
+            Assert.That(percent.Title, Is.EqualTo("Weakened 25% \u00b7 2 turns"));
+        }
+
+        [Test]
+        public void EveryStatusInTheFightsViewCarriesItsFilledTooltip()
+        {
+            var flow = Fight();
+            var all = new[] { flow.View.Player }.Concat(flow.View.Enemies).SelectMany(f => f.Statuses).ToList();
+            foreach (var status in all)
+            {
+                Assert.That(status.Tooltip, Is.Not.Null, status.Id);
+                Assert.That(status.Tooltip, Does.Not.Contain("{"), status.Id + " has an unfilled token");
+            }
+        }
+
+        [Test]
+        public void ARelicPipExplainsItselfWithItsNameAndItsFilledText()
+        {
+            var flow = Fight();
+            var data = flow.Session.State.Data;
+            var id = data.Relics.All.First(r => !string.IsNullOrEmpty(r.Value<string>("textTemplate"))).Value<string>("id");
+            var reading = Core2Readings.Relic(data, Ui.Components, id);
+            Assert.That(reading.Title, Is.EqualTo(data.Relics.Get(id).Value<string>("name")));
+            Assert.That(reading.Body, Is.Not.Empty);
+            Assert.That(Core2Readings.Relic(data, Ui.Components, "no.such.relic").Title, Is.EqualTo("no.such.relic"));
+        }
+
+        // ------------------------------------------------------------------ the bars follow the numbers (web fx.js playTimeline onBeatApplied)
+
+        private static Core2LogLine Line(string type, string source, string target, object payload)
+        {
+            var e = JObject.FromObject(payload);
+            e["type"] = type;
+            e["sourceId"] = source;
+            e["targetId"] = target;
+            return new Core2LogLine { Type = type, SourceId = source, TargetId = target, Event = e, Text = "x" };
+        }
+
+        private static FxContext Context() => new FxContext
+        {
+            Defs = Ui.Feedback, Strings = Ui.Strings, Pace = CombatPace.From(new CombatPacing { AnimSpeed = "normal", Speed = 1, AutoSpeed = 1, StageGapMs = 500, AnimationStepMs = 390 }, Ui.Feedback, false),
+            PlayerId = "player", PlayerManeuver = "attack", MaxHp = _ => 20,
+        };
+
+        private static IEnumerable<FxCue> Numbers(IEnumerable<Core2LogLine> lines) =>
+            Core2Feedback.Plan(lines.ToList(), Context()).SelectMany(b => b.Groups.SelectMany(g => g.Numbers).Concat(b.Together).Concat(b.Resolution)).Where(c => c.Type == FxCueType.Float);
+
+        [Test]
+        public void ADamageNumberCarriesTheHitPointsItTakesAndAHealCarriesThemBack()
+        {
+            var hit = Numbers(new[] { Line(FxEvents.DamageDealt, "e1", "player", new { amount = 9, blocked = 4, hpLoss = 5 }) }).ToList();
+            Assert.That(hit.Single(c => c.Text == "-5").Hp, Is.EqualTo(5), "the red number is the loss");
+            Assert.That(hit.Single(c => c.Text == "4").Hp, Is.EqualTo(0), "the gray number is Block, not hit points");
+            var heal = Numbers(new[] { Line(FxEvents.Healed, null, "player", new { amount = 7 }) }).Single();
+            Assert.That(heal.Hp, Is.EqualTo(-7), "a heal gives the bar back what the number says");
         }
     }
 }

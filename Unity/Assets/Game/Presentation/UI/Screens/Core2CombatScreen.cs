@@ -80,6 +80,9 @@ namespace Ashen.Presentation.UI.Screens
             _flow = new Core2CombatFlow(_run, Strings);
             _hand = Root.Q<HandFan>(UiNames.Hand);
             _footer = Root.Q<FooterGroup>(UiNames.FooterGroup);
+            ChipTips.Overlay = Context.Overlay;
+            ChipTips.Size = Ui.Data.Components.CardRefusalTooltip;
+            ChipTips.DelayMs = Ui.Data.Tokens.Duration(TokenKeys.TooltipDelay);
             _overlays = new Core2Overlays(Context, _run, _flow, CardData);
             _overlays.Closed += () => Render();
             _promptRows = new Core2PromptRows(Ui, _run, _flow);
@@ -172,7 +175,7 @@ namespace Ashen.Presentation.UI.Screens
         private void RenderHud()
         {
             var p = View.Player;
-            Root.Q<Meter>(UiNames.HudHp)?.Set(Int(p.Hp), Int(p.MaxHp));
+            Root.Q<Meter>(UiNames.HudHp)?.Set(Int(p.Hp + HeldHp(p.Id)), Int(p.MaxHp));
             var ribbon = Root.Q<LocLabel>(UiNames.TurnRibbon);
             ribbon?.SetResolved(Strings.Get(_busy ? StringKeys.Core2BoardRibbonEnemy : StringKeys.Core2BoardRibbonPlayer));
             ribbon?.EnableInClassList(UiClasses.RibbonEnemy, _busy);
@@ -187,6 +190,8 @@ namespace Ashen.Presentation.UI.Screens
             {
                 var pip = new VisualElement { pickingMode = PickingMode.Ignore };
                 pip.AddToClassList(UiClasses.HudPip);
+                var reading = Core2Readings.Relic(_flow.Session.State.Data, Ui.Data.Components, (string)relic);
+                ChipTips.Attach(pip, reading.Title, reading.Body);
                 var art = Ui.Texture(StringTable.Fill(Ui.Data.Components.RewardRelicArt, new StringArgs().Add(UiPlaceholders.Id, (string)relic)));
                 pip.style.backgroundImage = art != null ? new StyleBackground(art) : new StyleBackground(StyleKeyword.None);
                 pips.Add(pip);
@@ -266,7 +271,7 @@ namespace Ashen.Presentation.UI.Screens
                 Art = Ui.Texture(player ? _run.Portrait : StringTable.Fill(Ui.Data.Components.EnemyArt, new StringArgs().Add(UiPlaceholders.Id, f.DefId))),
                 Player = player,
                 Alive = f.Alive || _dying.Contains(f.Id),
-                Hp = Int(f.Hp),
+                Hp = Int(f.Hp + HeldHp(f.Id)),
                 MaxHp = Int(f.MaxHp),
                 ReferenceMaxHp = reference,
                 HasPoise = f.Poise != null,
@@ -280,6 +285,7 @@ namespace Ashen.Presentation.UI.Screens
                 Stacks = Core2CombatText.Stacks(Strings, f),
                 Statuses = Core2CombatText.Statuses(Strings, f, Math.Max(1, Ui.Data.Components.StatusChips), Ui.Data.Components.FighterStackStatuses),
             };
+            _hpShown[f.Id] = d.Hp;
             AddChips(d, f);
             if (!player) ApplyRestArt(d, f);
             if (f.Poise != null) { d.Poise = Int(f.Poise.Value); d.PoiseMax = Int(f.Poise.Max); }
@@ -308,11 +314,11 @@ namespace Ashen.Presentation.UI.Screens
         /// </summary>
         private void AddChips(FighterData d, Core2FighterView f)
         {
-            if (f.Evade > 0) d.RatingChips.Add(Chip(Ui.Icon(BoardIcons.Evade), CombatText.Number(f.Evade), Core2CombatText.Evade(Strings, f)));
+            if (f.Evade > 0) d.RatingChips.Add(Chip(Ui.Icon(BoardIcons.Evade), CombatText.Number(f.Evade), Core2CombatText.Evade(Strings, f), f.Statuses.FirstOrDefault(s => s.Id == Core2CombatKeys.Evade)));
             if (f.Block > 0) d.RatingChips.Add(Chip(Ui.Icon(BoardIcons.Block), CombatText.Number(f.Block), Core2CombatText.Block(Strings, f)));
             if (f.Precision > 0)
             {
-                var precision = Chip(Ui.Icon(BoardIcons.Precision), CombatText.Number(f.Precision), Strings.Format(StringKeys.Core2HudPrecision, new StringArgs().Add(UiPlaceholders.Value, CombatText.Number(f.Precision))));
+                var precision = Chip(Ui.Icon(BoardIcons.Precision), CombatText.Number(f.Precision), Strings.Format(StringKeys.Core2HudPrecision, new StringArgs().Add(UiPlaceholders.Value, CombatText.Number(f.Precision))), f.Statuses.FirstOrDefault(s => s.Id == Core2CombatKeys.Precision));
                 precision.Gold = true;
                 d.StackChips.Add(precision);
             }
@@ -327,7 +333,7 @@ namespace Ashen.Presentation.UI.Screens
                 var words = status.MeterValue.HasValue && status.MeterMax.HasValue
                     ? Strings.Format(StringKeys.CombatStatusMeter, new StringArgs().Add(UiPlaceholders.Name, status.Name).Add(UiPlaceholders.Value, number).Add(UiPlaceholders.Max, CombatText.Number(status.MeterMax.Value)))
                     : Strings.Format(StringKeys.CombatStatus, new StringArgs().Add(UiPlaceholders.Name, status.Name).Add(UiPlaceholders.Stacks, CombatText.Number(status.Stacks)));
-                d.StatusChips.Add(Chip(Ui.Icon(status.Id), number, words));
+                d.StatusChips.Add(Chip(Ui.Icon(status.Id), number, words, status));
             }
             if (shown.Count > take) d.StatusChips.Add(Chip(null, null, Strings.Format(StringKeys.CombatStatusMore, new StringArgs().Add(UiPlaceholders.Count, shown.Count - take))));
         }
@@ -335,6 +341,17 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>A chip: the icon with its number when the art exists, else the words.</summary>
         private static ChipData Chip(Texture2D icon, string number, string words) =>
             icon != null && number != null ? new ChipData { Icon = icon, Text = number } : new ChipData { Text = words };
+
+        /// <summary>A chip that explains the status behind it when pointed at (the web's status pip tip).</summary>
+        private ChipData Chip(Texture2D icon, string number, string words, Core2StatusView status)
+        {
+            var chip = Chip(icon, number, words);
+            if (status == null) return chip;
+            var reading = Core2Readings.Status(Strings, status);
+            chip.TipTitle = reading.Title;
+            chip.TipBody = reading.Body;
+            return chip;
+        }
 
         private void RenderHand()
         {

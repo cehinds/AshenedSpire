@@ -35,6 +35,10 @@ namespace Ashen.App.Combat
         public double? Duration;
         public double? MeterValue;
         public double? MeterMax;
+
+        /// <summary>The status's tooltip with its numbers filled (what the chip says when pointed at), and whether its payload is a percent (the web's instancePresentation).</summary>
+        public string Tooltip;
+        public bool Percent;
     }
 
     /// <summary>
@@ -484,6 +488,8 @@ namespace Ashen.App.Combat
                     Name = def.Str(K.Name) ?? p.Name,
                     Icon = def.Str(K.Icon),
                     Tint = def.Str(K.Tint),
+                    Tooltip = Core2Readings.StatusText(def),
+                    Percent = def.Obj(Ashen.Generated.CardFaceKeys.InstancePresentation)?.Str(Ashen.Generated.CardFaceKeys.ValueToken) == K.Percent,
                     Stacks = Ashen.Domain.Combat.Statuses.Stacks(entity, p.Name),
                     Duration = Js.IsNum(inst[K.Duration]) ? inst.Num(K.Duration) : (double?)null,
                     MeterValue = meter != null ? meter.Num(K.Value) : (double?)null,

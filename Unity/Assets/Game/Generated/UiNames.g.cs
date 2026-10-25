@@ -400,6 +400,7 @@ namespace Ashen.Generated
         public const string TargetName = "TARGET_NAME";
         public const string TargetHp = "TARGET_HP";
         public const string TargetChips = "TARGET_CHIPS";
+        public const string TargetStatuses = "TARGET_STATUSES";
         public const string TargetIntentRow = "TARGET_INTENT_ROW";
         public const string TargetIntentIcon = "TARGET_INTENT_ICON";
         public const string TargetIntent = "TARGET_INTENT";

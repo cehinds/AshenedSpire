@@ -124,5 +124,7 @@ namespace Ashen.Generated
         public const string SchoolAlias = "schoolAlias";
         public const string DefenseRange = "defenseRange";
         public const string DefensiveReaction = "defensiveReaction";
+        public const string InstancePresentation = "instancePresentation";
+        public const string ValueToken = "valueToken";
     }
 }

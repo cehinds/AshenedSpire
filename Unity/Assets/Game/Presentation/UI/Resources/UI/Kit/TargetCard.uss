@@ -27,6 +27,16 @@
     margin-top: var(--space-xxs);
 }
 
+/* combatTargetHud.js panelFor: the statuses are a tray of their own under the panel (target-hud-statuses), not part of its rows */
+.target-statuses {
+    position: absolute;
+    left: 0;
+    top: var(--size-full-width);
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-xxs);
+}
+
 .target-intent-row {
     flex-direction: row;
     align-items: center;

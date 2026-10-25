@@ -2,6 +2,27 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-15: the combat screen's remaining visual gaps (worktree branch, 2026-10-25)
+
+**Landed (D-1100..D-1106)**
+- **Card face:** line-art motifs and colour wash over the art (element, then statuses; `Tools/card-face.mjs` rasterises 26 motif sprites and the wash), damage-type marks and numbered pills on the rail (counted Precision and Evade grants, the stance entry's, numbered traits, a status applied once), the Smash fist only on a damaging card, the Spell mark for every spell (the 18 spell skills read Skill before) and the mirrored Spell's second mark with the basic's word, up and down tints on previewed numbers (green `#205e2b`, red `#8d2424`, bold) with the cost shift mark.
+- **Inspector:** a row per mark (action, mirror, school with new `school-*` sprites) with its word and meaning, then the web's rule hints (counter return help or coverage, defence range, stance group, return range, reaction sweep).
+- **Board:** a tooltip on each status chip (Evade and Precision too) and on the HUD relic pips (title, filled text, turns left, build-up), the target card's statuses in a tray under its panel.
+- **Feedback:** each damage, burst or heal number moves its HP bar when it lands (figure and HUD).
+- **Engine-free and tested:** `CardFaceLookup` (motifs, rail counts, band), `CombatViewModel.ResolveText` shifts, `Core2CardHints`, `Core2Readings`, `FxCue.Hp`; `CombatFidelityTests` (15), 12 new `CardFaceTests`; data in `ui/cardface.json` (+ schema), `ui/tokens.json` (`color.cardUp/cardDown`, `face.count*`, `size.detailSigil*`), strings `card.*` and `status.tip.*`, codegen fragments `cardface.json` and `ui.json`.
+
+**Tests run (small filters):** `Enforcement|UiData|UiRules|Core2Screens|ContentValid|CardFace|CombatFidelity|CombatFeedback`; node checks ui-tokens, codegen, refresh-manifest, check-content, check-docs, ui-stage, card-face, web-key-map ok; the Presentation compile check builds.
+
+**Not verified (Unity was not run):** every USS rule (`card-motif`, `card-wash`, `card-rail-count`, `card-sigil--mirror`, `detail-sigil-row`, `detail-hint`, `target-statuses`), rich text (`<color>`, `<b>`, `<size=50%>`) in the card's rules and cost labels and in `FitText`'s measure, the motif sprites' stretch and opacity over the cutout stage, a tooltip on a chip inside the target card (pointer enter on a child keeps the fighter hovered), HP bars stepping with the numbers at every pace, and the phone layout of all of it.
+
+**Owner: check in the editor (play a Core 2 fight; compare `docs/qa/web-screens/combat-card-inspect-*`, `combat-card-selected-*`, `combat-statuses-target-hud-*`, `combat-hit-feedback-*`)**
+- A Spell, Smash, status-applying and Evade card: the faint line art and colour wash over the picture, the pills on the rail marks (`Sundering Art`: Guard, Precision with its number, Smash), the red and green figures in the rules once a target is aimed.
+- The inspector ("i" above a hovered card): marks with their meaning, then the rule hints.
+- Point at a status chip, the Evade or Precision chip and a relic pip in the top-left: the tooltip's words; the target card's status tray under its panel.
+- Take a hit: the number pops, then the bar drops (and heal the other way).
+
+**Not done:** the hand's selected-card face lines (the web's `cardFaceLines` text model), player pose frames and the card-cast effect layers (the art is not imported; masks), the target card's projected HP-loss range, tooltips on the Block/Poise/Ward/Barrier/Counter chips, the dotted underline under previewed numbers and the web's `hue-rotate` on magical library paintings.
+
 ## VP-14: the phone pass for the Core 2 screens (worktree branch, 2026-10-25)
 
 **Landed (D-1050..D-1053)**

@@ -1084,6 +1084,13 @@ namespace Ashen.Generated
         public const string SpoilsStatus = "spoils.status";
         public const string SpoilsTitleLevel = "spoils.title.level";
         public const string SpoilsTitleVictory = "spoils.title.victory";
+        public const string StatusTipBuildUp = "status.tip.buildUp";
+        public const string StatusTipJoiner = "status.tip.joiner";
+        public const string StatusTipPercent = "status.tip.percent";
+        public const string StatusTipStack = "status.tip.stack";
+        public const string StatusTipTurnPlural = "status.tip.turnPlural";
+        public const string StatusTipTurnSingular = "status.tip.turnSingular";
+        public const string StatusTipTurnsLeft = "status.tip.turnsLeft";
         public const string TitleAiDisclosure = "title.aiDisclosure";
         public const string TitleBuild = "title.build";
         public const string TitleMenuContinue = "title.menu.continue";

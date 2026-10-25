@@ -11,6 +11,7 @@ namespace Ashen.Generated
         public const string Groups = "groups";
         public const string Range = "range";
         public const string Covers = "covers";
+        public const string Duration = "duration";
         public const string Lead = "lead";
         public const string Text = "text";
         public const string Total = "total";

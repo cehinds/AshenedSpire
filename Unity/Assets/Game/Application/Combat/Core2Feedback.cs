@@ -81,6 +81,9 @@ namespace Ashen.App.Combat
         /// <summary>Shake px, or ms a flash is held.</summary>
         public double Amount;
 
+        /// <summary>The hit points the fighter loses when this number lands (negative: gains), so its bar can follow the numbers as the web's onBeatApplied does.</summary>
+        public double Hp;
+
         public bool Heavy;
     }
 
@@ -596,7 +599,9 @@ namespace Ashen.App.Combat
                     if (g.Residual > 0)
                     {
                         var tier = DamageFloat(g.Residual, maxHp, defs.Feel);
-                        parts.Numbers.Add(Float(target, Say(ctx, StringKeys.Core2FxLoss, g.Residual), tier, f, paired ? f.DamagePaired.X : 0, 0, !paired, PopOf(tier, f)));
+                        var loss = Float(target, Say(ctx, StringKeys.Core2FxLoss, g.Residual), tier, f, paired ? f.DamagePaired.X : 0, 0, !paired, PopOf(tier, f));
+                        loss.Hp = g.Residual;
+                        parts.Numbers.Add(loss);
                     }
                     break;
                 }
@@ -610,11 +615,18 @@ namespace Ashen.App.Combat
                     if (!proc && cause != V.Effect) break;
                     var amount = e.Or0(F.Amount);
                     if (amount > 0) parts.Reaction.Add(new FxCue { Type = FxCueType.HitFlash, TargetId = target, Amount = defs.Feel.PoseHurtMs });
-                    parts.Numbers.Add(Float(target, Say(ctx, StringKeys.Core2FxLoss, amount), FxFloat.Burst, f));
+                    var burst = Float(target, Say(ctx, StringKeys.Core2FxLoss, amount), FxFloat.Burst, f);
+                    burst.Hp = amount;
+                    parts.Numbers.Add(burst);
                     break;
                 }
                 case E.Healed:
-                    if (e.Or0(F.Amount) > 0) parts.Numbers.Add(Float(target, Say(ctx, StringKeys.Core2FxGain, e.Or0(F.Amount)), FxFloat.Heal, f));
+                    if (e.Or0(F.Amount) > 0)
+                    {
+                        var gain = Float(target, Say(ctx, StringKeys.Core2FxGain, e.Or0(F.Amount)), FxFloat.Heal, f);
+                        gain.Hp = -e.Or0(F.Amount);
+                        parts.Numbers.Add(gain);
+                    }
                     break;
                 case E.ProcBurst:
                     parts.Numbers.Add(new FxCue { Type = FxCueType.Banner, Text = ctx.Strings.Format(StringKeys.Core2FxBurst, new StringArgs().Add(UiPlaceholders.Name, (line.Detail ?? e.Str(F.Status) ?? string.Empty).ToUpperInvariant())), Tone = V.Blood });

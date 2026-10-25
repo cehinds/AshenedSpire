@@ -124,7 +124,9 @@
         "StanceSigils": "stanceSigils",
         "SchoolAlias": "schoolAlias",
         "DefenseRange": "defenseRange",
-        "DefensiveReaction": "defensiveReaction"
+        "DefensiveReaction": "defensiveReaction",
+        "InstancePresentation": "instancePresentation",
+        "ValueToken": "valueToken"
       }
     }
   ]

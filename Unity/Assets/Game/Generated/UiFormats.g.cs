@@ -27,6 +27,10 @@ namespace Ashen.Generated
         public const string CardRangeKey = "card.range.{0}";
         public const string CardCoverageKey = "card.coverage.{0}";
         public const string LeadSeparator = ":";
+        public const string TokenDot = ".";
+        public const string TaggedPercentToken = "tv.pct";
+        public const string PercentSign = "%";
+        public const string Space = " ";
         public const string CardMotifElement = "e";
         public const string CardMotifStatus = "s";
         public const string CardCostMarkFormat = "<size=50%>{0}</size>";

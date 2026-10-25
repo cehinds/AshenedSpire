@@ -13,6 +13,29 @@ namespace Ashen.Presentation.UI.Kit
         public Texture2D Icon;
         public string Text;
         public bool Gold;
+
+        /// <summary>What pointing at the chip explains (the web's tray icon tooltip: the status's name with its stacks, and its tooltip); null for a chip with nothing to say.</summary>
+        public string TipTitle;
+        public string TipBody;
+    }
+
+    /// <summary>
+    /// The tooltip layer and timing the board's small marks (a fighter's status chips, the relic pips) share, set once by the screen that draws them (the web's iconTray: hover or focus
+    /// explains after the shared delay). A chip with words attaches a tooltip and takes pointer events; one without stays inert.
+    /// </summary>
+    public static class ChipTips
+    {
+        public static VisualElement Overlay;
+        public static string Size;
+        public static int DelayMs;
+
+        /// <summary>Makes a chip or pip explain itself when hovered or focused.</summary>
+        public static void Attach(VisualElement mark, string title, string body)
+        {
+            if (Overlay == null || mark == null || string.IsNullOrEmpty(body) && string.IsNullOrEmpty(title)) return;
+            mark.pickingMode = PickingMode.Position;
+            Tooltip.AttachResolved(mark, Overlay, Size, title, body, DelayMs);
+        }
     }
 
     /// <summary>Display-ready values for one fighter of a Core 2 fight (text resolved by Core2CombatText, numbers from the combat view).</summary>
@@ -208,6 +231,13 @@ namespace Ashen.Presentation.UI.Kit
 
         // ------------------------------------------------------------------ feedback (VP-5, D-750): pose swaps, recoil, lunge, wobble
 
+        /// <summary>Moves the HP bar alone (a number has landed; the rest of the fighter is already drawn).</summary>
+        public void SetHp(int hp, int maxHp)
+        {
+            if (Data != null) Data.Hp = hp;
+            _hp?.Set(hp, maxHp, Data?.ReferenceMaxHp ?? maxHp);
+        }
+
         /// <summary>The figure's box: the anchor the floating numbers, the words and the effect frames are placed from (the web's .sprite).</summary>
         public VisualElement ArtBox => _art ?? (VisualElement)this;
 
@@ -371,6 +401,7 @@ namespace Ashen.Presentation.UI.Kit
                 text.AddToClassList(UiClasses.FighterChipText);
                 text.AddToClassList(UiClasses.ValueText);
                 chip.Add(text);
+                ChipTips.Attach(chip, data.TipTitle, data.TipBody);
                 host.Add(chip);
             }
         }
