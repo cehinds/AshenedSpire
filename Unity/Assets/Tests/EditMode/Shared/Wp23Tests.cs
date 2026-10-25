@@ -87,6 +87,61 @@ namespace Ashen.Tests
             Assert.That(TooltipPolicy.Millis(null, 7), Is.EqualTo(7));
         }
 
+        // ------------------------------------------------------------------ the spoken step's figure close-up (web PortraitCropModel.closeUpPlacement, measured on the web's own event-dialogue shot)
+
+        [Test]
+        public void TheDialogueRulesAreTheW4cScenesAndEveryFigureHasAVisibleBox()
+        {
+            var rules = Ui.Components.Dialogue;
+            Assert.That(rules.InsetVw, Is.EqualTo(2.5));
+            Assert.That(rules.SlotWidthVw, Is.EqualTo(20));
+            Assert.That(rules.VisibleFraction, Is.EqualTo(1d / 3d).Within(0.001), "the upper third of the figure");
+            Assert.That(rules.VisibleFractionCompact, Is.EqualTo(1), "a phone shows the whole figure");
+            Assert.That(rules.MaxOuterOverflowVw, Is.EqualTo(8));
+            Assert.That(rules.MinVisibleHeightVh, Is.EqualTo(22));
+            foreach (var id in new[] { "class.reaver.sprite.ember", "class.starseer.sprite.ember", "enemy.graveWisp.base", "enemy.emberStarvedPilgrim.base" })
+            {
+                var box = rules.BoxOf(id);
+                Assert.That(rules.Figures.ContainsKey(id), Is.True, id);
+                Assert.That(box.Height, Is.InRange(0.1, 1.0), id);
+                Assert.That(box.Width, Is.InRange(0.1, 1.0), id);
+            }
+        }
+
+        [Test]
+        public void AFigureOfTheWholeBoxFillsTheSlotToTheRevealLineAsTheWebsNpcDoes()
+        {
+            // The web's graveWisp at 1920x1080 in its own local px (zoom 1.48: a frame 1297 x 729.7): its art 151.236 x 190, the slot top at 84.76 and the context band's top at 364.75.
+            var rules = Ui.Components.Dialogue;
+            var lane = FigureCrop.LaneFor(true, 1297.0, rules);
+            Assert.That(lane.Left, Is.EqualTo(660.7).Within(0.5));
+            Assert.That(lane.Width, Is.EqualTo(604.1).Within(0.5), "half the frame less the insets and the gap (24 px at least)");
+            var left = FigureCrop.LaneFor(false, 1297.0, rules);
+            Assert.That(left.Left, Is.EqualTo(32.4).Within(0.1));
+            var box = new FigureBox { Top = 0, Height = 1, CenterX = UiMath.Half, Width = 1 };
+            var placed = FigureCrop.Place(box, 151.236, 190, 1135.05, 84.76, 364.75, lane, false, 1297.0, 729.7, rules);
+            Assert.That(placed.Scale, Is.EqualTo(4.4198).Within(0.01), "a third of the figure's height spans the slot's top to the reveal line");
+            Assert.That(placed.Y, Is.EqualTo(84.75).Within(0.5));
+            Assert.That(placed.X, Is.EqualTo(660.5).Within(0.7), "leaning out of its lane to the inner edge: the pinned centre");
+            Assert.That(placed.VisibleWidth, Is.EqualTo(667.4).Within(2), "the lane (604) plus the lean the figure needs");
+        }
+
+        [Test]
+        public void AFigureTooWideForItsLaneLeansOutwardThenShrinksButNeverBelowTheFloor()
+        {
+            var rules = Ui.Components.Dialogue;
+            var lane = FigureCrop.LaneFor(false, 1297.0, rules);
+            var allowed = lane.Width + 1297.0 * 0.08;
+            // A very wide figure, the whole of it shown (a phone): it shrinks to the lane plus the lean the config allows, and its centre stays in the lane.
+            var wide = new FigureBox { Top = 0, Height = 1, CenterX = UiMath.Half, Width = 1 };
+            var placed = FigureCrop.Place(wide, 3000, 800, 160, 84.76, 364.75, lane, true, 1297.0, 729.7, rules);
+            Assert.That(placed.VisibleWidth, Is.EqualTo(allowed).Within(0.01), "never past the lane plus the allowed lean");
+            Assert.That(placed.X + 3000 * UiMath.Half * placed.Scale, Is.InRange(lane.Left, lane.Left + lane.Width), "its centre stays inside its lane");
+            // The upper third of the same figure would be shown too small (22 % of the frame is the least): the floor wins over the lane, as the web's does.
+            var third = FigureCrop.Place(wide, 3000, 800, 160, 84.76, 364.75, lane, false, 1297.0, 729.7, rules);
+            Assert.That(800 * (1d / 3d) * third.Scale, Is.GreaterThanOrEqualTo(729.7 * 0.22 - 0.5), "the shown part is never below the floor");
+        }
+
         private static JObject Graph() => JObject.Parse(@"{
             ""startIds"": [""a1"", ""a2""],
             ""nodes"": {

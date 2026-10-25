@@ -315,6 +315,9 @@ namespace Ashen.App.Ui
 
         /// <summary>Where a tooltip goes (the web's tooltipPlacement.json and fx.js placeAnchored).</summary>
         public TooltipPlacementRules TooltipPlacement = new TooltipPlacementRules();
+
+        /// <summary>The spoken step's close-up (the web's w4c-dialogue scene): the slots, the lanes, how much of a figure shows and the visible box of every figure's art.</summary>
+        public DialogueRules Dialogue = new DialogueRules();
         public IReadOnlyList<string> CostKinds = Array.Empty<string>();
         public double DegreesPerCard;
         public double MaxSpread;
@@ -386,6 +389,7 @@ namespace Ashen.App.Ui
                 TooltipSizes = ScreenRegistry.Strings(json[UiKeys.Tooltip]?[UiKeys.Sizes]),
                 TooltipPlain = (string)json[UiKeys.Tooltip]?[UiKeys.Plain],
                 TooltipPlacement = TooltipPlacementRules.From(json[UiKeys.Tooltip]?[UiKeys.Placement] as JObject),
+                Dialogue = DialogueRules.From(json[UiKeys.Dialogue] as JObject),
                 CostKinds = ScreenRegistry.Strings(json[UiKeys.Card]?[UiKeys.CostKinds]),
                 DegreesPerCard = (double)fan[UiKeys.DegreesPerCard],
                 MaxSpread = (double)fan[UiKeys.MaxSpread],

@@ -130,5 +130,22 @@ namespace Ashen.Generated
         public const string FocusMs = "focusMs";
         public const string LaneEdgeRatio = "laneEdgeRatio";
         public const string PotionMinis = "potionMinis";
+        public const string Dialogue = "dialogue";
+        public const string Slot = "slot";
+        public const string Portraits = "portraits";
+        public const string Figures = "figures";
+        public const string InsetVw = "insetVw";
+        public const string WidthVw = "widthVw";
+        public const string WidthCompactVw = "widthCompactVw";
+        public const string TopOffsetVh = "topOffsetVh";
+        public const string VisibleFraction = "visibleFraction";
+        public const string VisibleFractionCompact = "visibleFractionCompact";
+        public const string MinGapVw = "minGapVw";
+        public const string MinGapPx = "minGapPx";
+        public const string MaxOuterOverflowVw = "maxOuterOverflowVw";
+        public const string MinVisibleHeightVh = "minVisibleHeightVh";
+        public const string ListenerOpacity = "listenerOpacity";
+        public const string Top = "top";
+        public const string CenterX = "centerX";
     }
 }

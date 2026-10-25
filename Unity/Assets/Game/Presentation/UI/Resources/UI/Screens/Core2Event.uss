@@ -224,10 +224,10 @@
 
 .c2event-figure {
     position: absolute;
-    left: var(--size-event-inset);
-    right: var(--size-event-inset);
+    left: 0;
     top: 0;
-    height: var(--size-event-figure-h);
+    width: var(--size-full-width);
+    height: var(--size-full-width);
     background-size: contain;
     background-position-x: center;
     background-position-y: top;
@@ -235,7 +235,7 @@
 }
 
 .c2event-stage-side--listening .c2event-figure {
-    opacity: var(--opacity-muted);
+    opacity: var(--opacity-dialogue-listener);
 }
 
 /* The spoken step's entrance (web content/config/ui/scenes/w4c-dialogue.json motion.entrance): the figures fade in over 400 ms, then the context band rises and fades in over 300 ms. */

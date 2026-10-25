@@ -988,7 +988,24 @@
         "ArrowInset": "arrowInset",
         "FocusMs": "focusMs",
         "LaneEdgeRatio": "laneEdgeRatio",
-        "PotionMinis": "potionMinis"
+        "PotionMinis": "potionMinis",
+        "Dialogue": "dialogue",
+        "Slot": "slot",
+        "Portraits": "portraits",
+        "Figures": "figures",
+        "InsetVw": "insetVw",
+        "WidthVw": "widthVw",
+        "WidthCompactVw": "widthCompactVw",
+        "TopOffsetVh": "topOffsetVh",
+        "VisibleFraction": "visibleFraction",
+        "VisibleFractionCompact": "visibleFractionCompact",
+        "MinGapVw": "minGapVw",
+        "MinGapPx": "minGapPx",
+        "MaxOuterOverflowVw": "maxOuterOverflowVw",
+        "MinVisibleHeightVh": "minVisibleHeightVh",
+        "ListenerOpacity": "listenerOpacity",
+        "Top": "top",
+        "CenterX": "centerX"
       }
     },
     {

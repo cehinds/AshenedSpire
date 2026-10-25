@@ -701,7 +701,6 @@
     --size-event-continue-h: 30px;
     --size-event-stage-top: 10%;
     --size-event-stage-h: 40%;
-    --size-event-figure-h: 300%;
     --size-event-context-rise: 22px;
     --size-event-plate-h: 24px;
     --size-event-context-top: 50%;
@@ -942,6 +941,7 @@
     --opacity-map-walked-subtle: 0.85;
     --opacity-map-walked-strong: 0.4;
     --opacity-title-gate-prompt: 0.82;
+    --opacity-dialogue-listener: 0.62;
     --face-w: 360px;
     --face-h: 540px;
     --face-base-x: 0px;
