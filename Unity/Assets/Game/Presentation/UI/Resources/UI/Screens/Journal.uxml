@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Front.uss" />
+    <ui:VisualElement class="page journal-page">
+        <ui:VisualElement name="JOURNAL_COLUMN" class="journal-column">
+            <Ashen.Presentation.UI.LocLabel name="JOURNAL_EYEBROW" class="journal-eyebrow kit-text-value kit-upper" string-key="history.eyebrow" />
+            <Ashen.Presentation.UI.LocLabel name="JOURNAL_TITLE" class="journal-title kit-text-header" string-key="history.title" />
+            <Ashen.Presentation.UI.LocLabel name="JOURNAL_SUMMARY" class="journal-summary kit-text-value" />
+            <ui:VisualElement name="JOURNAL_RULE" class="journal-rule" picking-mode="Ignore" />
+            <ui:VisualElement name="JOURNAL_RECORDS" class="journal-records" />
+            <ui:VisualElement class="journal-rule" picking-mode="Ignore" />
+            <ui:ScrollView name="JOURNAL_ROWS_SCROLL" class="journal-scroll">
+                <ui:VisualElement name="JOURNAL_ROWS" class="journal-rows" />
+            </ui:ScrollView>
+            <Ashen.Presentation.UI.LocLabel name="JOURNAL_EMPTY" class="journal-empty kit-text-value is-hidden" string-key="journal.history.empty" />
+            <ui:VisualElement name="JOURNAL_ACTIONS" class="journal-actions">
+                <Ashen.Presentation.UI.LocButton name="JOURNAL_BACK" class="kit-button--back journal-action" string-key="history.back" />
+                <Ashen.Presentation.UI.LocButton name="JOURNAL_COMPENDIUM" class="journal-action" string-key="history.links.compendium" />
+                <Ashen.Presentation.UI.LocButton name="JOURNAL_PROFILE" class="journal-action" string-key="history.links.profile" />
+                <Ashen.Presentation.UI.LocButton name="JOURNAL_ABOUT" class="journal-action" string-key="history.links.about" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

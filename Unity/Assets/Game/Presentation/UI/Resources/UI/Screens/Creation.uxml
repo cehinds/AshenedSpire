@@ -1,21 +1,22 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Screens.uss" />
+    <ui:Style src="Front.uss" />
     <ui:VisualElement class="page page--center">
         <Ashen.Presentation.UI.Kit.Shell name="SHELL" title-key="creation.title">
             <Ashen.Presentation.UI.Kit.Workspace name="WORKSPACE" class="creation-workspace">
                 <ui:VisualElement name="CLASS_PANE" class="class-pane">
-                    <ui:VisualElement name="CLASS_LIST" class="class-list" />
-                    <ui:VisualElement name="CLASS_DETAIL" class="class-detail">
-                        <ui:VisualElement name="CLASS_FIGURE" class="class-figure" />
-                        <ui:VisualElement class="class-texts">
-                            <Ashen.Presentation.UI.LocLabel name="CLASS_NAME" class="class-name kit-text-header" />
-                            <Ashen.Presentation.UI.LocLabel name="CLASS_SUMMARY" class="class-summary kit-text-value" />
-                            <Ashen.Presentation.UI.LocLabel name="CLASS_STATS" class="class-line kit-text-value" />
-                            <Ashen.Presentation.UI.LocLabel name="CLASS_DERIVED" class="class-line kit-text-value" />
-                            <Ashen.Presentation.UI.LocLabel name="CLASS_FLASKS" class="class-line kit-text-value" />
-                            <Ashen.Presentation.UI.LocLabel name="CLASS_PROBLEM" class="class-problem kit-text-value is-hidden" string-key="creation.problem" />
-                        </ui:VisualElement>
+                    <ui:VisualElement class="class-toolbar">
+                        <Ashen.Presentation.UI.LocButton name="CLASS_VIEW_LIST" class="class-view kit-chip" string-key="creation.view.list" />
+                        <Ashen.Presentation.UI.LocButton name="CLASS_VIEW_GRID" class="class-view kit-chip" string-key="creation.view.grid" />
                     </ui:VisualElement>
+                    <ui:ScrollView name="CLASS_SCROLL" class="class-scroll">
+                        <ui:VisualElement name="CLASS_LIST" class="class-list" />
+                    </ui:ScrollView>
+                </ui:VisualElement>
+                <ui:VisualElement name="REVIEW_PANE" class="review-pane is-hidden">
+                    <ui:ScrollView name="REVIEW_SCROLL" class="review-scroll">
+                        <ui:VisualElement name="REVIEW_BODY" />
+                    </ui:ScrollView>
                 </ui:VisualElement>
             </Ashen.Presentation.UI.Kit.Workspace>
         </Ashen.Presentation.UI.Kit.Shell>

@@ -125,6 +125,9 @@
         "prologue": {
           "type": "boolean"
         },
+        "opening": {
+          "type": "boolean"
+        },
         "ruleset": {
           "type": "string",
           "enum": [

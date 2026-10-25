@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -19,59 +20,79 @@ namespace Ashen.Presentation.UI.Screens
     public sealed class CreationViewModel : ViewModel
     {
         private string _selected;
+        private string _pane = FrontValues.PaneClass;
+        private bool _grid;
 
         public string Selected { get => _selected; set => Set(ref _selected, value); }
+
+        /// <summary>The rail pane in front: <see cref="FrontValues.PaneClass"/> or <see cref="FrontValues.PaneReview"/>.</summary>
+        public string Pane { get => _pane; set => Set(ref _pane, value); }
+
+        /// <summary>The class cards as a grid (the web's List | Grid switch).</summary>
+        public bool Grid { get => _grid; set => Set(ref _grid, value); }
     }
 
     /// <summary>
-    /// W-04 creation, Class pane only (US-2.1, US-2.8; D-058 for the planned panes). The four classes come from content in
-    /// authoring order, each with its portrait, name and summary; the selected class unfolds with its starting attributes,
-    /// pools and flask split read from createRunState. The data default (rules/runFlow.json) is preselected when it can
-    /// begin. The rail lists Class, Character, Equipment and Review with their values; only Class is built. Begin makes the
-    /// climb through the run loop's newRun (W2c Replace first when the slot holds a climb) and opens the act map (W-06).
+    /// W-04 creation (US-2.1, US-2.8; web src/ui/screens/creation, D-1003): the rail Class | Review beside the pane. Class lists the classes in content order as cards (figure, name,
+    /// summary, HP SP MP HAND DRAW, the starting relic; a locked class shows the lock and what opens it), as a list or a grid. The data default (rules/runFlow.json) is preselected
+    /// when it can begin. Next opens Review: the seed (the same seed makes the same climb), the destination slot, the CHARACTER, ARMOUR, MAIN HAND and RELIC cards the class
+    /// starts with and its starting deck, read from the run the class would make (<see cref="Core2RunSession.Preview"/>, nothing written). Begin makes the climb through the run
+    /// loop's newRun (W2c Replace first when the slot holds a climb) and opens the opening, or the act map (W-06).
     /// </summary>
     public sealed class CreationScreen : ScreenView
     {
         private readonly List<LocButton> _tiles = new List<LocButton>();
+        private readonly Dictionary<string, CreationReviewView> _reviews = new Dictionary<string, CreationReviewView>(StringComparer.Ordinal);
         private IReadOnlyList<string> _classes = new string[0];
         private RunContent _content;
         private CreationClasses _rules;
         private Shell _shell;
         private Workspace _workspace;
+        private TextField _seedField;
         private int _slot = 1;
+        private bool _core2;
 
         public CreationViewModel ViewModel { get; } = new CreationViewModel();
         public IReadOnlyList<LocButton> Tiles => _tiles;
         public IReadOnlyList<string> Classes => _classes;
 
+        /// <summary>The seed field (tests and captures type into it).</summary>
+        public TextField SeedField => _seedField;
+
+        public override string FocusMode => ViewModel.Pane == FrontValues.PaneReview ? FrontValues.FocusReview : null;
+
         protected override void OnBind(object args)
         {
             _slot = (args as CreationArgs)?.SlotIndex ?? _slot;
             _content = Ui.RunContent;
-            _rules = CreationClasses.For(_content, RunFlow.NewRuleset(Ui), ProfileStore.Load(Ui.Saves).Doc);
+            var ruleset = RunFlow.NewRuleset(Ui);
+            _core2 = ruleset == RunFlowValues.RulesetCore2;
+            _rules = CreationClasses.For(_content, ruleset, ProfileStore.Load(Ui.Saves).Doc);
             _classes = _rules.Ids;
             _shell = Root.Q<Shell>(UiNames.Shell);
-            _shell.SetFooter(StringKeys.CreationBack, StringKeys.CreationBegin);
             _shell.Exit += () => Nav.Pop();
-            _shell.Back += () => Nav.Pop();
-            _shell.Primary += () => Begin(_shell.PrimaryButton);
+            _shell.Back += GoBack;
+            _shell.Primary += () => Primary(_shell.PrimaryButton);
             _workspace = Root.Q<Workspace>(UiNames.Workspace);
-            if (_workspace != null) _workspace.Rules = Ui.Data.Layout.CategoryNav;
+            if (_workspace != null)
+            {
+                _workspace.Rules = Ui.Data.Layout.CategoryNav;
+                _workspace.Picked += OnPane;
+            }
+            Root.Q<LocButton>(UiNames.ClassViewList).clicked += () => ViewModel.Grid = false;
+            Root.Q<LocButton>(UiNames.ClassViewGrid).clicked += () => ViewModel.Grid = true;
             var list = Root.Q(UiNames.ClassList);
             foreach (var id in _classes)
             {
-                var tile = new LocButton();
-                tile.AddToClassList(UiClasses.ClassTile);
-                var portrait = new VisualElement { pickingMode = PickingMode.Ignore };
-                portrait.AddToClassList(UiClasses.ClassTilePortrait);
-                Ui.ApplyBackground(portrait, _content.Portrait(id));
-                tile.Insert(0, portrait);
-                tile.EnableInClassList(UiClasses.ClassTileProblem, _rules.Problem(id) != null);
+                var card = ClassCard(id);
                 var captured = id;
-                tile.clicked += () => ViewModel.Selected = captured;
-                list.Add(tile);
-                _tiles.Add(tile);
+                card.clicked += () => ViewModel.Selected = captured;
+                list.Add(card);
+                _tiles.Add(card);
             }
+            _seedField = new TextField { name = UiNames.SeedField, maxLength = _content.Seeds.MaxLength, value = _content.Seeds.Format(RunFlow.NewSeed()) };
+            _seedField.AddToClassList(FrontClasses.ReviewSeed);
+            _seedField.RegisterValueChangedCallback(_ => _seedField.RemoveFromClassList(FrontClasses.ReviewSeedBad));
             ViewModel.Selected = _rules.Default();
             ViewModel.Observe(Render);
             var index = _classes.ToList().IndexOf(ViewModel.Selected);
@@ -80,59 +101,332 @@ namespace Ashen.Presentation.UI.Screens
 
         private string ClassName(string id) => RunFlow.ClassName(Ui, id);
 
-        private void Render()
+        // ------------------------------------------------------------------ the class cards
+
+        /// <summary>One class as the web's choice card: the figure, the name, the sentence, the figures and the starting relic; a locked class shows the lock and what opens it.</summary>
+        private LocButton ClassCard(string id)
         {
             var strings = Ui.Data.Strings;
+            var card = new LocButton();
+            card.AddToClassList(FrontClasses.ClassCard);
+            var locked = _rules.Locked(id);
+            card.EnableInClassList(FrontClasses.ClassCardLocked, locked);
+            card.EnableInClassList(UiClasses.ClassTileProblem, _rules.Problem(id) != null);
+            var figure = new VisualElement { pickingMode = PickingMode.Ignore };
+            figure.AddToClassList(FrontClasses.ClassCardFigure);
+            Ui.ApplyBackground(figure, _content.Portrait(id));
+            card.Add(figure);
+            var texts = new VisualElement { pickingMode = PickingMode.Ignore };
+            texts.AddToClassList(FrontClasses.ClassCardTexts);
+            card.Add(texts);
+            texts.Add(Text(new LocLabel(), FrontClasses.ClassCardName, ClassName(id)));
+            texts.Add(Text(new LocLabel(), FrontClasses.ClassCardSummary, strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.ClassDescriptionKey, id))));
+            var review = ReviewOf(id);
+            if (review != null) FillStats(texts, review);
+            else if (!locked) FillLegacyStats(texts, id);
+            if (!locked && _rules.Problem(id) != null) texts.Add(Text(new LocLabel(), FrontClasses.ClassCardProblem, strings.Get(StringKeys.CreationProblem)));
+            if (locked)
+            {
+                var lockIcon = new VisualElement { pickingMode = PickingMode.Ignore };
+                lockIcon.AddToClassList(FrontClasses.ClassCardLock);
+                BoardHud.SetImage(lockIcon, Ui.Icon(FrontArt.IconLock));
+                card.Add(lockIcon);
+                var games = _rules.GamesToUnlock(id);
+                var note = new LocLabel { pickingMode = PickingMode.Ignore };
+                note.AddToClassList(UiClasses.Chip);
+                note.AddToClassList(FrontClasses.ClassCardNote);
+                note.SetResolved(strings.Format(games == 1 ? StringKeys.CreationUnlockOne : StringKeys.CreationUnlockMany, new StringArgs().Add(UiPlaceholders.N, games)));
+                card.Add(note);
+            }
+            var chevron = new VisualElement { pickingMode = PickingMode.Ignore };
+            chevron.AddToClassList(FrontClasses.ClassCardChevron);
+            BoardHud.SetImage(chevron, Ui.Icon(FrontArt.IconNext));
+            card.Add(chevron);
+            return card;
+        }
+
+        private static LocLabel Text(LocLabel label, string cls, string text)
+        {
+            label.pickingMode = PickingMode.Ignore;
+            label.AddToClassList(cls);
+            label.SetResolved(text);
+            return label;
+        }
+
+        private void FillStats(VisualElement texts, CreationReviewView review)
+        {
+            var stats = new VisualElement { pickingMode = PickingMode.Ignore };
+            stats.AddToClassList(FrontClasses.ClassCardStats);
+            foreach (var stat in review.ClassStats)
+            {
+                var cell = new VisualElement { pickingMode = PickingMode.Ignore };
+                cell.AddToClassList(FrontClasses.ClassCardStat);
+                var label = Text(new LocLabel(), FrontClasses.ClassCardStatLabel, stat.Key);
+                label.AddToClassList(UiClasses.Upper);
+                label.SetResolved(stat.Key);
+                cell.Add(label);
+                cell.Add(Text(new LocLabel(), FrontClasses.ClassCardStatValue, stat.Value));
+                stats.Add(cell);
+            }
+            texts.Add(stats);
+            if (review.RelicName == null) return;
+            var relic = new VisualElement { pickingMode = PickingMode.Ignore };
+            relic.AddToClassList(FrontClasses.ClassCardRelic);
+            var icon = new VisualElement { pickingMode = PickingMode.Ignore };
+            icon.AddToClassList(FrontClasses.ClassCardChevron);
+            BoardHud.SetImage(icon, Ui.Icon(FrontArt.IconRelic));
+            relic.Add(icon);
+            relic.Add(Text(new LocLabel(), FrontClasses.ClassCardNote, review.RelicName));
+            texts.Add(relic);
+        }
+
+        /// <summary>The 405 run has no preview run: the old lines of the class (attributes, pools, flasks).</summary>
+        private void FillLegacyStats(VisualElement texts, string id)
+        {
+            var strings = Ui.Data.Strings;
+            var preview = _rules.Preview(id);
+            if (preview == null) return;
+            var stats = string.Join(strings.Get(StringKeys.CreationStatJoin), preview.Attributes.Select(a => strings.Format(StringKeys.CreationStat, new StringArgs()
+                .Add(UiPlaceholders.Name, strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.AttributeShortKey, a.Key))).Add(UiPlaceholders.Value, (int)a.Value))));
+            texts.Add(Text(new LocLabel(), FrontClasses.ClassCardSummary, stats));
+            texts.Add(Text(new LocLabel(), FrontClasses.ClassCardSummary, strings.Format(StringKeys.CreationDerived, new StringArgs()
+                .Add(UiPlaceholders.Hp, (int)preview.MaxHp).Add(UiPlaceholders.Mp, (int)preview.MaxMana).Add(UiPlaceholders.Sp, (int)preview.MaxStamina).Add(UiPlaceholders.Actions, (int)preview.Actions))));
+        }
+
+        /// <summary>The kit the class starts with (the run it would make), or null for a class that cannot begin, and for the 405 run.</summary>
+        private CreationReviewView ReviewOf(string classId)
+        {
+            if (!_core2 || classId == null || _rules.Problem(classId) != null) return null;
+            if (_reviews.TryGetValue(classId, out var known)) return known;
+            CreationReviewView review = null;
+            try
+            {
+                var session = Core2RunSession.Preview(_content, Ui.Saves, 1u, classId, Ui.Data.Strings.Get(StringKeys.CreationDefaultName));
+                review = Core2CreationReview.Build(session, Ui.Data);
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning(string.Format(CultureInfo.InvariantCulture, UiMessages.ClassRefused, classId, e.Message));
+            }
+            _reviews[classId] = review;
+            return review;
+        }
+
+        // ------------------------------------------------------------------ render
+
+        private void Render()
+        {
             var selected = ViewModel.Selected;
+            var review = ViewModel.Pane == FrontValues.PaneReview;
             for (var i = 0; i < _tiles.Count; i++)
             {
-                var on = _classes[i] == selected;
-                _tiles[i].EnableInClassList(UiClasses.Selected, on);
-                var mark = new StringArgs().Add(UiPlaceholders.Mark, strings.Get(on ? StringKeys.GlyphRadioOn : StringKeys.GlyphRadioOff)).Add(UiPlaceholders.Name, ClassName(_classes[i]));
-                _tiles[i].SetResolved(strings.Format(_rules.Locked(_classes[i]) ? StringKeys.Core2CreationTileLocked : StringKeys.CreationTile, mark));
+                _tiles[i].EnableInClassList(UiClasses.Selected, _classes[i] == selected);
+                _tiles[i].EnableInClassList(FrontClasses.ClassCardGrid, ViewModel.Grid);
             }
+            Root.Q(UiNames.ClassList).EnableInClassList(FrontClasses.ClassListGrid, ViewModel.Grid);
+            Root.Q(UiNames.ClassViewList).EnableInClassList(FrontClasses.ClassViewOn, !ViewModel.Grid);
+            Root.Q(UiNames.ClassViewGrid).EnableInClassList(FrontClasses.ClassViewOn, ViewModel.Grid);
             _workspace?.SetCategories(Ui.Data.Menus.CreationPanes.Select(p => new CategoryItem
             {
                 Id = p.Id,
                 LabelKey = p.LabelKey,
-                Count = p.Built ? ClassName(selected) : strings.Get(StringKeys.CreationPaneLater),
+                Count = p.Id == FrontValues.PaneClass && selected != null ? ClassName(selected) : null,
                 Enabled = p.Built,
-            }).ToList(), Ui.Data.Menus.CreationPanes.FirstOrDefault(p => p.Built)?.Id);
-
-            var figure = Root.Q(UiNames.ClassFigure);
-            if (figure != null) Ui.ApplyBackground(figure, selected != null ? _content.Portrait(selected) : null);
-            Root.Q<LocLabel>(UiNames.ClassName)?.SetResolved(ClassName(selected));
-            Root.Q<LocLabel>(UiNames.ClassSummary)?.SetResolved(selected == null ? string.Empty : strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.ClassDescriptionKey, selected)));
-            var preview = selected != null ? _rules.Preview(selected) : null;
-            var stats = preview == null ? string.Empty : string.Join(strings.Get(StringKeys.CreationStatJoin), preview.Attributes.Select(a => strings.Format(StringKeys.CreationStat, new StringArgs()
-                .Add(UiPlaceholders.Name, strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.AttributeShortKey, a.Key))).Add(UiPlaceholders.Value, (int)a.Value))));
-            Line(UiNames.ClassStats, stats);
-            Line(UiNames.ClassDerived, preview == null ? string.Empty : strings.Format(StringKeys.CreationDerived, new StringArgs()
-                .Add(UiPlaceholders.Hp, (int)preview.MaxHp).Add(UiPlaceholders.Mp, (int)preview.MaxMana).Add(UiPlaceholders.Sp, (int)preview.MaxStamina).Add(UiPlaceholders.Actions, (int)preview.Actions)));
-            Line(UiNames.ClassFlasks, preview == null ? string.Empty : strings.Format(StringKeys.CreationFlasks, new StringArgs()
-                .Add(UiPlaceholders.Hp, (int)preview.HpFlasks).Add(UiPlaceholders.Mp, (int)preview.ManaFlasks)));
+            }).ToList(), ViewModel.Pane);
+            UiDom.Show(Root.Q(UiNames.ClassPane), !review);
+            UiDom.Show(Root.Q(UiNames.ReviewPane), review);
+            _shell.SetFooter(StringKeys.CreationBack, review ? StringKeys.CreationBegin : StringKeys.CreationNext);
             var problem = selected == null || _rules.Problem(selected) != null;
-            UiDom.Show(Root.Q(UiNames.ClassProblem), selected != null && problem);
             _shell.PrimaryButton?.EnableInClassList(UiClasses.ButtonReady, !problem);
+            if (review) BuildReview();
         }
 
-        private void Line(string name, string text)
+        private void BuildReview()
         {
-            var label = Root.Q<LocLabel>(name);
-            label?.SetResolved(text);
-            UiDom.Show(label, !string.IsNullOrEmpty(text));
+            var strings = Ui.Data.Strings;
+            var body = Root.Q(UiNames.ReviewBody);
+            body.Clear();
+            var seed = Row(strings.Get(StringKeys.CreationReviewSeed), strings.Get(StringKeys.CreationReviewSeedHint));
+            seed.Add(_seedField);
+            body.Add(seed);
+            var destination = Row(strings.Get(StringKeys.CreationReviewDestination), strings.Get(StringKeys.CreationReviewDestinationHint));
+            var slot = Text(new LocLabel(), FrontClasses.ReviewValue, strings.Format(StringKeys.CreationReviewSlot, new StringArgs().Add(UiPlaceholders.Slot, _slot)));
+            destination.Add(slot);
+            body.Add(destination);
+            var review = ReviewOf(ViewModel.Selected);
+            if (review == null)
+            {
+                body.Add(Text(new LocLabel(), FrontClasses.ReviewHeading, strings.Get(StringKeys.CreationReviewNoPreview)));
+                return;
+            }
+            var pieces = new VisualElement();
+            pieces.AddToClassList(FrontClasses.ReviewPieces);
+            body.Add(pieces);
+            pieces.Add(Column(strings.Get(StringKeys.CreationReviewCharacter), CharacterCard(review)));
+            if (review.Armour != null) pieces.Add(Column(review.Armour.Heading, PieceCard(review.Armour)));
+            if (review.MainHand != null) pieces.Add(Column(review.MainHand.Heading, PieceCard(review.MainHand)));
+            if (review.Relic != null) pieces.Add(Column(review.Relic.Heading, PieceCard(review.Relic)));
+            body.Add(Text(new LocLabel(), FrontClasses.ReviewHeading, strings.Format(StringKeys.CreationReviewDeck, new StringArgs().Add(UiPlaceholders.Count, review.DeckSize))));
+            var deck = new VisualElement();
+            deck.AddToClassList(FrontClasses.ReviewDeck);
+            body.Add(deck);
+            foreach (var entry in review.Deck)
+            {
+                var item = new VisualElement { pickingMode = PickingMode.Ignore };
+                item.AddToClassList(FrontClasses.ReviewDeckItem);
+                var face = new CardView { focusable = false, pickingMode = PickingMode.Ignore };
+                face.AddToClassList(FrontClasses.ReviewDeckCard);
+                face.Bind(ItemFaces.DeckCard(Ui.Data, entry.Card));
+                item.Add(face);
+                if (entry.Count > 1) item.Add(Text(new LocLabel(), FrontClasses.ReviewDeckCount, strings.Format(StringKeys.CreationReviewCopies, new StringArgs().Add(UiPlaceholders.Count, entry.Count))));
+                deck.Add(item);
+            }
+        }
+
+        private static VisualElement Row(string title, string hint)
+        {
+            var row = new VisualElement();
+            row.AddToClassList(FrontClasses.ReviewRow);
+            var texts = new VisualElement { pickingMode = PickingMode.Ignore };
+            texts.AddToClassList(FrontClasses.ReviewRowTexts);
+            texts.Add(Text(new LocLabel(), FrontClasses.ReviewRowTitle, title));
+            texts.Add(Text(new LocLabel(), FrontClasses.ReviewRowHint, hint));
+            row.Add(texts);
+            return row;
+        }
+
+        private static VisualElement Column(string heading, VisualElement card)
+        {
+            var column = new VisualElement { pickingMode = PickingMode.Ignore };
+            column.AddToClassList(FrontClasses.ReviewPieceColumn);
+            var label = Text(new LocLabel(), FrontClasses.ReviewHeading, heading);
+            label.AddToClassList(UiClasses.Upper);
+            label.SetResolved(heading);
+            column.Add(label);
+            column.Add(card);
+            return column;
+        }
+
+        /// <summary>The CHARACTER card: the class and its epithet, the five attributes and the figures of the run.</summary>
+        private VisualElement CharacterCard(CreationReviewView review)
+        {
+            var card = new VisualElement { pickingMode = PickingMode.Ignore };
+            card.AddToClassList(FrontClasses.ReviewPiece);
+            card.AddToClassList(FrontClasses.ReviewChar);
+            var eyebrow = Text(new LocLabel(), FrontClasses.ReviewCharEyebrow, review.ClassName);
+            eyebrow.AddToClassList(UiClasses.Upper);
+            eyebrow.SetResolved(review.ClassName);
+            card.Add(eyebrow);
+            card.Add(Text(new LocLabel(), FrontClasses.ReviewCharName, review.Epithet));
+            card.Add(Grid(review.Attributes));
+            var rule = new VisualElement { pickingMode = PickingMode.Ignore };
+            rule.AddToClassList(FrontClasses.ReviewCharRule);
+            card.Add(rule);
+            card.Add(Grid(review.Resources));
+            return card;
+        }
+
+        private static VisualElement Grid(IEnumerable<KeyValuePair<string, string>> cells)
+        {
+            var grid = new VisualElement { pickingMode = PickingMode.Ignore };
+            grid.AddToClassList(FrontClasses.ReviewCharGrid);
+            foreach (var cell in cells)
+            {
+                var box = new VisualElement { pickingMode = PickingMode.Ignore };
+                box.AddToClassList(FrontClasses.ReviewCharCell);
+                var label = Text(new LocLabel(), FrontClasses.ReviewCharLabel, cell.Key);
+                label.AddToClassList(UiClasses.Upper);
+                label.SetResolved(cell.Key);
+                box.Add(label);
+                box.Add(Text(new LocLabel(), FrontClasses.ReviewCharValue, cell.Value));
+                grid.Add(box);
+            }
+            return grid;
+        }
+
+        /// <summary>An ARMOUR, MAIN HAND or RELIC card: the name, the picture, the numbers, the sentence and what it is.</summary>
+        private VisualElement PieceCard(CreationPiece piece)
+        {
+            var face = piece.Face;
+            var card = new VisualElement { pickingMode = PickingMode.Ignore };
+            card.AddToClassList(FrontClasses.ReviewPiece);
+            card.Add(Text(new LocLabel(), FrontClasses.ReviewPieceName, face.Name));
+            var art = new VisualElement { pickingMode = PickingMode.Ignore };
+            art.AddToClassList(FrontClasses.ReviewPieceArt);
+            BoardHud.SetImage(art, Ui.Texture(face.ArtId) ?? Ui.Icon(face.Kind == Core2RewardsValues.KindArmor ? FrontArt.IconArmour : face.Kind == Core2RewardsValues.KindWeapons ? FrontArt.IconSword : FrontArt.IconRelic));
+            card.Add(art);
+            if (face.Stats.Count > 0)
+            {
+                var stats = new VisualElement { pickingMode = PickingMode.Ignore };
+                stats.AddToClassList(FrontClasses.ReviewPieceStats);
+                foreach (var stat in face.Stats) stats.Add(Text(new LocLabel(), FrontClasses.ReviewPieceStat, Ui.Data.Strings.Format(StringKeys.CreationReviewStat, new StringArgs().Add(UiPlaceholders.Value, stat.Value).Add(UiPlaceholders.Label, stat.Key))));
+                card.Add(stats);
+            }
+            if (!string.IsNullOrEmpty(face.PackageLine)) card.Add(Text(new LocLabel(), FrontClasses.ReviewPieceText, face.PackageLine));
+            if (!string.IsNullOrEmpty(face.Effect)) card.Add(Text(new LocLabel(), FrontClasses.ReviewPieceText, face.Effect));
+            var kind = Text(new LocLabel(), FrontClasses.ReviewPieceKind, face.KindLabel);
+            kind.AddToClassList(UiClasses.Upper);
+            kind.SetResolved(face.KindLabel);
+            card.Add(kind);
+            return card;
+        }
+
+        // ------------------------------------------------------------------ steps
+
+        private void OnPane(string id)
+        {
+            if (id == FrontValues.PaneReview) GoReview(_shell.PrimaryButton);
+            else ViewModel.Pane = FrontValues.PaneClass;
+        }
+
+        /// <summary>The primary: Next on the Class pane, Begin on Review.</summary>
+        private void Primary(VisualElement anchor)
+        {
+            if (ViewModel.Pane == FrontValues.PaneReview) Begin(anchor);
+            else GoReview(anchor);
+        }
+
+        private void GoBack()
+        {
+            if (ViewModel.Pane == FrontValues.PaneReview) ViewModel.Pane = FrontValues.PaneClass;
+            else Nav.Pop();
+        }
+
+        public override bool HandleBack()
+        {
+            if (ViewModel.Pane != FrontValues.PaneReview) return false;
+            ViewModel.Pane = FrontValues.PaneClass;
+            return true;
+        }
+
+        /// <summary>Review needs a class that can begin; otherwise it refuses with the reason at the control that asked (US-2.1).</summary>
+        private bool Refused(VisualElement anchor)
+        {
+            var selected = ViewModel.Selected;
+            if (selected == null) { RunFlow.Refuse(Context, anchor, StringKeys.CreationRefusalNoClass); return true; }
+            var problem = _rules.Problem(selected);
+            if (problem == null) return false;
+            Debug.LogWarning(string.Format(CultureInfo.InvariantCulture, UiMessages.ClassRefused, selected, problem));
+            RunFlow.Refuse(Context, anchor, _rules.Locked(selected) ? StringKeys.Core2CreationLocked : StringKeys.CreationProblem);
+            return true;
+        }
+
+        private void GoReview(VisualElement anchor)
+        {
+            if (Refused(anchor)) return;
+            ViewModel.Pane = FrontValues.PaneReview;
         }
 
         /// <summary>Begin (US-2.1: always pressable; refuses with the reason and keeps focus on the control that asked).</summary>
         private void Begin(VisualElement anchor)
         {
-            var selected = ViewModel.Selected;
-            if (selected == null) { RunFlow.Refuse(Context, anchor, StringKeys.CreationRefusalNoClass); return; }
-            var problem = _rules.Problem(selected);
-            if (problem != null)
+            if (Refused(anchor)) return;
+            uint seed;
+            try { seed = string.IsNullOrWhiteSpace(_seedField.value) ? RunFlow.NewSeed() : _content.Seeds.Parse(_seedField.value); }
+            catch (FormatException)
             {
-                Debug.LogWarning(string.Format(CultureInfo.InvariantCulture, UiMessages.ClassRefused, selected, problem));
-                RunFlow.Refuse(Context, anchor, _rules.Locked(selected) ? StringKeys.Core2CreationLocked : StringKeys.CreationProblem);
+                _seedField.AddToClassList(FrontClasses.ReviewSeedBad);
+                RunFlow.Refuse(Context, anchor, StringKeys.CreationReviewSeedProblem);
                 return;
             }
             var slot = SlotSummaries.ReadOne(Ui.Saves, _slot);
@@ -143,18 +437,26 @@ namespace Ashen.Presentation.UI.Screens
                     ConfirmId = ConfirmIds.ReplaceSlot,
                     Args = new StringArgs().Add(UiPlaceholders.Slot, _slot),
                     Target = RunFlow.SlotFacts(Ui, slot),
-                    OnConfirm = StartRun,
+                    OnConfirm = () => StartRun(seed),
                 });
                 return;
             }
-            StartRun();
+            StartRun(seed);
         }
 
-        private void StartRun()
+        private void StartRun(uint seed)
         {
-            var hosted = RunHost.Start(_content, Ui.Saves, _slot, RunFlow.NewSeed(), ViewModel.Selected, Ui.Data.Strings.Get(_content.Flow.NameKey), null, null, RunFlow.CustomOverride, RunFlow.NewRuleset(Ui));
+            var hosted = RunHost.Start(_content, Ui.Saves, _slot, seed, ViewModel.Selected, Ui.Data.Strings.Get(_content.Flow.NameKey), null, null, RunFlow.CustomOverride, RunFlow.NewRuleset(Ui));
             Ui.Session = hosted.Legacy;
             Ui.Core2Session = hosted.Core2;
+            var opening = hosted.IsCore2 && RunFlow.OpeningOverride != false
+                ? PrologueFlow.For(_content, hosted.Core2.PlayerSettings, hosted.Core2.ClassId, hosted.Core2.Name)
+                : null;
+            if (opening != null)
+            {
+                Nav.Go(ScreenIds.Prologue, new PrologueArgs { Session = hosted.Core2, Opening = opening }, true);
+                return;
+            }
             Nav.Fire(ScreenTriggers.Begin, hosted.IsCore2 ? (object)new Core2RunArgs { Session = hosted.Core2 } : new RunScreenArgs { Session = hosted.Legacy });
         }
     }

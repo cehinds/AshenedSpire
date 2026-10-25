@@ -18,6 +18,7 @@
     "cutout": "cardcut.{name}",
     "event": "event.{id}",
     "scene": "scene.{name}",
+    "background": "bg.{name}",
     "illustration": "illus.{name}",
     "portrait": "portrait.{id}",
     "prologue": "prologue.{name}",

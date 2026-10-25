@@ -84,6 +84,7 @@ namespace Ashen.Generated
         public const string Pause = "pause";
         public const string CreationPanes = "creationPanes";
         public const string HideInCombat = "hideInCombat";
+        public const string Icon = "icon";
         public const string Built = "built";
         public const string FocusModes = "focusModes";
         public const string Combat = "combat";

@@ -133,7 +133,7 @@ namespace Ashen.Tests
             Assert.That(byId["armoury"].Visible, Is.False, "the Armoury is out of combat only (W-20)");
             Assert.That(byId["saveQuit"].Enabled, Is.True);
             Assert.That(byId["deck"].Enabled, Is.False, "the pile viewer is planned (D-058)");
-            Assert.That(byId["settings"].Enabled, Is.False, "settings are planned");
+            Assert.That(byId["settings"].Enabled, Is.True, "settings are built (VP-13)");
             Assert.That(Ui.Menus.Confirm(ConfirmIds.SaveQuit).Hold, Is.True, "Save & quit is hold-to-confirm (W-20 ⟲)");
             Assert.That(Ui.Policies.IsDestructive(Ui.Menus.Confirm(ConfirmIds.ReplaceSlot).Policy), Is.True, "W2c Replace is destructive");
             Assert.That(MenuRules.Evaluate(Ui.Menus.Pause, Ui.MenuContext(true, false)).Single(s => s.Def.Id == "armoury").Visible, Is.True);
@@ -142,8 +142,8 @@ namespace Ashen.Tests
         [Test]
         public void TheCreationRailHasTheClassPaneBuiltAndTheRestPlanned()
         {
-            Assert.That(Ui.Menus.CreationPanes.Select(p => p.Id), Is.EqualTo(new[] { "class", "character", "equipment", "review" }), "04 W-04 rail order");
-            Assert.That(Ui.Menus.CreationPanes.Where(p => p.Built).Select(p => p.Id), Is.EqualTo(new[] { "class" }));
+            Assert.That(Ui.Menus.CreationPanes.Select(p => p.Id), Is.EqualTo(new[] { "class", "review" }), "the web creation rail order (Class, Review)");
+            Assert.That(Ui.Menus.CreationPanes.Where(p => p.Built).Select(p => p.Id), Is.EqualTo(new[] { "class", "review" }));
             foreach (var p in Ui.Menus.CreationPanes) Assert.That(Ui.Strings.Has(p.LabelKey), Is.True, p.LabelKey);
             Assert.That(Ui.Strings.Has(Content.Flow.NameKey), Is.True, "the default character name is a string");
         }

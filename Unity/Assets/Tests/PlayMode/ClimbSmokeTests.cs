@@ -141,7 +141,7 @@ namespace Ashen.Tests.Play
             var title = (TitleScreen)Nav.Top.View;
             yield return Press(Key.Space);
             yield return Until(() => !title.GateActive && Focused != null, 5f, "the gate to lift");
-            yield return Walk(() => Focused == title.Buttons[2], 4, "focus on New");
+            yield return Walk(() => Focused == title.Buttons[1], 4, "focus on New");
             yield return new WaitForSecondsRealtime(0.3f);
             yield return Press(Key.Enter);
             yield return Until(() => Nav.CurrentId == ScreenIds.Slots && Focused != null, 5f, "W-03 New");
@@ -152,6 +152,8 @@ namespace Ashen.Tests.Play
             yield return Until(() => Nav.CurrentId == ScreenIds.Creation && Focused != null, 20f, "W-04 creation");
             var begin = Nav.Top.Root.Q(UiNames.FooterPrimary);
             yield return Walk(() => Focused == begin, 8, "focus on Begin");
+            yield return Press(Key.Enter); // Next: the Class pane opens Review
+            yield return Until(() => ((CreationScreen)Nav.Top.View).ViewModel.Pane == FrontValues.PaneReview, 5f, "the Review pane");
             yield return Press(Key.Enter);
             yield return Until(() => Nav.CurrentId == ScreenIds.ActMap && Focused != null, 20f, "W-06 after Begin");
         }

@@ -95,6 +95,7 @@ namespace Ashen.Presentation.UI.Screens
                 case SlotStatus.Empty:
                     data.Empty = true;
                     data.Facts = strings.Get(StringKeys.SlotsEmpty);
+                    data.Saved = ViewModel.IsLoad ? null : strings.Get(StringKeys.SlotsEmptyHint);
                     break;
                 case SlotStatus.Newer:
                     data.Unreadable = true;

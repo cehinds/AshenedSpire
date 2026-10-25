@@ -32,6 +32,7 @@ namespace Ashen.Presentation.UI.Screens
         private string _identity;
         private string _progress;
         private string _slot;
+        private string _class;
         private string _portrait;
         private string _build;
         private IReadOnlyList<MenuItemViewModel> _items = Array.Empty<MenuItemViewModel>();
@@ -41,6 +42,7 @@ namespace Ashen.Presentation.UI.Screens
         public string PreviewIdentity { get => _identity; set => Set(ref _identity, value); }
         public string PreviewProgress { get => _progress; set => Set(ref _progress, value); }
         public string PreviewSlot { get => _slot; set => Set(ref _slot, value); }
+        public string PreviewClass { get => _class; set => Set(ref _class, value); }
         public string PreviewPortrait { get => _portrait; set => Set(ref _portrait, value); }
         public string Build { get => _build; set => Set(ref _build, value); }
         public IReadOnlyList<MenuItemViewModel> Items { get => _items; set { _items = value; Notify(); } }
@@ -75,13 +77,15 @@ namespace Ashen.Presentation.UI.Screens
             var menu = Root.Q(UiNames.Menu);
             foreach (var entry in Ui.Data.Menus.Title.Where(e => e.Visible))
             {
-                var button = new LocButton(entry.LabelKey);
-                button.AddToClassList(UiClasses.MenuItem);
+                var button = MenuButton(entry);
                 var captured = entry;
                 button.clicked += () => Activate(captured, button);
                 menu.Add(button);
                 _buttons.Add(button);
             }
+            SetArt(UiNames.TitleArtDoor, FrontArt.BackgroundDoor);
+            SetArt(UiNames.TitleArtDoorPhone, FrontArt.BackgroundDoorPhone);
+            SetArt(UiNames.TitleArtGate, FrontArt.BackgroundGate);
             var disclosure = Root.Q<LocButton>(UiNames.AiDisclosure);
             if (disclosure != null) disclosure.clicked += () => ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.AiNotice });
 
@@ -101,6 +105,61 @@ namespace Ashen.Presentation.UI.Screens
             }
         }
 
+        private void SetArt(string name, string art) => BoardHud.SetImage(Root.Q(name), BoardHud.Art(Ui, ArtKinds.Background, art));
+
+        /// <summary>
+        /// One plate of the menu (web title.js menuHtml): the label in Cinzel caps; Continue is the taller card (the journey icon, the class, the facts, the arrow);
+        /// a row with an icon wears it beside its label; New Game is the ready green (player-polish.css:221).
+        /// </summary>
+        private LocButton MenuButton(MenuEntryDef entry)
+        {
+            var isContinue = entry.Action == MenuActions.Continue;
+            var plain = !isContinue && entry.Icon == null;
+            var button = plain ? new LocButton(entry.LabelKey) : new LocButton();
+            button.AddToClassList(UiClasses.MenuItem);
+            button.AddToClassList(UiClasses.ButtonPlate);
+            button.AddToClassList(UiClasses.Upper);
+            if (entry.Action == MenuActions.Open && entry.Mode == UiValues.SlotModeNew)
+            {
+                button.AddToClassList(UiClasses.ButtonReady);
+                button.AddToClassList(FrontClasses.MenuItemReady);
+            }
+            if (plain) return button;
+            if (isContinue)
+            {
+                button.AddToClassList(FrontClasses.MenuItemContinue);
+                button.Add(Image(FrontClasses.MenuIcon, entry.Icon));
+                var texts = new VisualElement { pickingMode = PickingMode.Ignore };
+                texts.AddToClassList(FrontClasses.ContinueTexts);
+                texts.Add(Label(new LocLabel(entry.LabelKey), FrontClasses.ContinueHead, null));
+                texts.Add(Label(new LocLabel(), FrontClasses.ContinueName, UiNames.PreviewIdentity));
+                texts.Add(Label(new LocLabel(), FrontClasses.ContinueFacts, UiNames.PreviewProgress));
+                button.Add(texts);
+                button.Add(Image(FrontClasses.ContinueArrow, FrontArt.IconNext));
+                return button;
+            }
+            button.Add(Image(FrontClasses.MenuIcon, entry.Icon));
+            button.Add(Label(new LocLabel(entry.LabelKey), FrontClasses.MenuLabel, null));
+            return button;
+        }
+
+        private VisualElement Image(string cls, string icon)
+        {
+            var image = new VisualElement { pickingMode = PickingMode.Ignore };
+            image.AddToClassList(cls);
+            BoardHud.SetImage(image, Ui.Icon(icon));
+            return image;
+        }
+
+        private static LocLabel Label(LocLabel label, string cls, string name)
+        {
+            label.pickingMode = PickingMode.Ignore;
+            label.AddToClassList(cls);
+            label.AddToClassList(UiClasses.Upper);
+            if (name != null) label.name = name;
+            return label;
+        }
+
         /// <summary>Re-read the slots and re-evaluate the menu (after returning from W-03, a save may be gone).</summary>
         public void Refresh()
         {
@@ -112,7 +171,8 @@ namespace Ashen.Presentation.UI.Screens
             if (target == null) return;
             var strings = Ui.Data.Strings;
             ViewModel.PreviewIdentity = strings.Format(StringKeys.TitlePreviewIdentity, new StringArgs().Add(UiPlaceholders.Name, target.Name).Add(UiPlaceholders.Class, ClassName(target.ClassId)));
-            ViewModel.PreviewProgress = strings.Format(StringKeys.TitlePreviewProgress, new StringArgs().Add(UiPlaceholders.Act, target.Act).Add(UiPlaceholders.Floor, target.Floor).Add(UiPlaceholders.Hp, target.Hp));
+            ViewModel.PreviewProgress = strings.Format(StringKeys.TitlePreviewProgress, new StringArgs().Add(UiPlaceholders.Act, target.Act).Add(UiPlaceholders.Floor, target.Floor).Add(UiPlaceholders.Hp, target.Hp).Add(UiPlaceholders.HpMax, target.HpMax));
+            ViewModel.PreviewClass = strings.Format(StringKeys.TitlePreviewClass, new StringArgs().Add(UiPlaceholders.Class, ClassName(target.ClassId)));
             ViewModel.PreviewSlot = strings.Format(StringKeys.TitlePreviewSlot, new StringArgs().Add(UiPlaceholders.Slot, target.Index).Add(UiPlaceholders.Seed, target.Seed));
             ViewModel.PreviewPortrait = target.Portrait;
         }
@@ -127,11 +187,8 @@ namespace Ashen.Presentation.UI.Screens
             Root.EnableInClassList(UiClasses.NoSave, !ViewModel.HasPreview);
             for (var i = 0; i < _buttons.Count && i < ViewModel.Items.Count; i++) _buttons[i].SetEnabled(ViewModel.Items[i].Enabled);
             Root.Q<LocLabel>(UiNames.Build)?.SetResolved(ViewModel.Build);
-            Root.Q<LocLabel>(UiNames.PreviewIdentity)?.SetResolved(ViewModel.PreviewIdentity);
+            Root.Q<LocLabel>(UiNames.PreviewIdentity)?.SetResolved(ViewModel.PreviewClass);
             Root.Q<LocLabel>(UiNames.PreviewProgress)?.SetResolved(ViewModel.PreviewProgress);
-            Root.Q<LocLabel>(UiNames.PreviewSlot)?.SetResolved(ViewModel.PreviewSlot);
-            var portrait = Root.Q(UiNames.PreviewPortrait);
-            if (portrait != null && ViewModel.HasPreview) Ui.ApplyBackground(portrait, ViewModel.PreviewPortrait);
         }
 
         /// <summary>US-1.2: any input lifts the gate; the lifting press must not also press a row; focus goes to the first enabled row.</summary>

@@ -54,6 +54,7 @@
         "Cutout": "cutout",
         "Event": "event",
         "Scene": "scene",
+        "Background": "background",
         "Illustration": "illustration",
         "Portrait": "portrait",
         "Prologue": "prologue",

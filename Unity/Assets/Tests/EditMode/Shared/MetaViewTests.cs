@@ -417,7 +417,7 @@ namespace Ashen.Tests
                 {
                     Assert.That(view.ArtWide, Is.EqualTo("prologue.carry-rogue-desktop"), "the class's own art");
                     Assert.That(view.Item, Is.EqualTo("prologue.rogue"));
-                    Assert.That(view.Line, Does.Contain("knives"), "the class's own line");
+                    Assert.That(view.Line, Does.Contain("Court Surgeon"), "the class's own line");
                 }
                 // Every scene is a checkpoint: a reload stands at the same scene.
                 var loaded = RunSession.Load(content, _saves, 1).Session;

@@ -38,6 +38,9 @@ namespace Ashen.App.Run
         /// <summary>A Core 2 class still locked in the profile's ledger (the 405 run has no gate).</summary>
         public bool Locked(string classId) => IsCore2 && !CoreRunRules.ClassAvailable(_content.Core2.Combat.Run, _profile, classId);
 
+        /// <summary>How many more finished runs open a locked class (the web's "Play 1 game to unlock."); 0 for an open class.</summary>
+        public int GamesToUnlock(string classId) => IsCore2 ? CoreRunRules.GamesToUnlock(_content.Core2.Combat.Run, _profile, classId) : 0;
+
         /// <summary>Why a class cannot begin a run (null when it can): the rules' refusal of its creation, or its lock.</summary>
         public string Problem(string classId)
         {

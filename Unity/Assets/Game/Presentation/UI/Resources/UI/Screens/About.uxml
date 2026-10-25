@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Front.uss" />
+    <ui:VisualElement class="page page--center">
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="about-shell" title-key="about.title">
+            <ui:ScrollView name="ABOUT_SCROLL" class="about-scroll">
+                <ui:VisualElement name="ABOUT_BODY" class="about-column" />
+            </ui:ScrollView>
+        </Ashen.Presentation.UI.Kit.Shell>
+    </ui:VisualElement>
+</ui:UXML>

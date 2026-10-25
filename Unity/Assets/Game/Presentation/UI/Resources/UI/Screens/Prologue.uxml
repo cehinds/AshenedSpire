@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Front.uss" />
+    <ui:VisualElement class="page prologue-page">
+        <ui:VisualElement name="PROLOGUE_STAGE" class="prologue-stage">
+            <ui:VisualElement name="PROLOGUE_ART" class="prologue-art" picking-mode="Ignore" />
+            <ui:VisualElement name="PROLOGUE_ITEM" class="prologue-item" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement name="PROLOGUE_CAPTION" class="prologue-caption" picking-mode="Ignore">
+            <Ashen.Presentation.UI.LocLabel name="PROLOGUE_TITLE" class="prologue-title kit-text-header" />
+            <Ashen.Presentation.UI.LocLabel name="PROLOGUE_SPEAKER" class="prologue-speaker kit-text-value kit-upper" />
+            <Ashen.Presentation.UI.LocLabel name="PROLOGUE_LINE" class="prologue-line kit-text-value" />
+        </ui:VisualElement>
+        <ui:VisualElement name="PROLOGUE_BAR" class="prologue-bar">
+            <Ashen.Presentation.UI.LocLabel name="PROLOGUE_PROGRESS" class="prologue-progress kit-text-value" />
+            <Ashen.Presentation.UI.LocButton name="PROLOGUE_PAUSE" class="prologue-button" string-key="prologue.pause" />
+            <Ashen.Presentation.UI.LocButton name="PROLOGUE_SETTINGS" class="prologue-button" string-key="prologue.settings" />
+            <Ashen.Presentation.UI.LocButton name="PROLOGUE_SKIP" class="prologue-button" string-key="prologue.skip" />
+            <Ashen.Presentation.UI.LocButton name="PROLOGUE_CONTINUE" class="prologue-button kit-button--ready" string-key="prologue.continue" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

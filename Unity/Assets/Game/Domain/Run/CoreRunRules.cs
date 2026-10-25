@@ -77,6 +77,18 @@ namespace Ashen.Domain.Run
             return open.Contains(classId);
         }
 
+        /// <summary>How many more finished runs open a class (0 when it is open or the profile has no gate): its place in the unlock sequence less the runs the ledger holds (the web's "Play 1 game to unlock.").</summary>
+        public static int GamesToUnlock(CoreRunData d, JObject profileMeta, string classId)
+        {
+            if (ClassAvailable(d, profileMeta, classId)) return 0;
+            var rules = CoreRunData.Content(d.Profile, PC.ClassUnlocks) as JObject;
+            var at = Js.Items(rules?[CK.Sequence]).Select(Js.Str).ToList().IndexOf(classId);
+            if (at < 0) return 0;
+            var ledger = profileMeta?.Obj(CK.GameProfileUnlocks)?.Obj(d.ProfileId);
+            var completed = ledger?[CK.CompletedRunIds] is JArray ids ? ids.Count : 0;
+            return Math.Max(0, at + 1 - completed);
+        }
+
         /// <summary>
         /// gameProfileCompletedRunMeta(subject, meta, { finishId, victory }): a finished run joins the profile's ledger once (by its finish id) when its outcome qualifies
         /// (<c>classUnlocks.qualifyingOutcomes</c>), which opens the next class of the sequence. Returns the class ids it unlocked; <paramref name="profileMeta"/> is written in place.

@@ -1,0 +1,33 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Front.uss" />
+    <ui:VisualElement name="SCRIM" class="page page--center scrim">
+        <ui:VisualElement name="SETTINGS_FRAME" class="settings-frame kit-frame kit-frame--modal">
+            <ui:VisualElement class="shadow-plate" picking-mode="Ignore" />
+            <ui:VisualElement name="SETTINGS_HEAD" class="settings-head">
+                <Ashen.Presentation.UI.LocLabel name="SETTINGS_TITLE" class="settings-title kit-text-header" string-key="settings.page.title" />
+                <ui:VisualElement class="settings-tools">
+                    <Ashen.Presentation.UI.LocButton name="SETTINGS_RESET" class="settings-tool" string-key="settings.page.reset" />
+                    <Ashen.Presentation.UI.LocButton name="SETTINGS_CHANGED" class="settings-tool" />
+                    <Ashen.Presentation.UI.LocButton name="SETTINGS_SEARCH_BTN" class="settings-tool settings-tool--icon" />
+                    <Ashen.Presentation.UI.LocButton name="SETTINGS_CLOSE" class="settings-tool settings-tool--icon kit-button--back" string-key="glyph.close" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="SETTINGS_SEARCH_ROW" class="settings-search-row is-hidden">
+                <ui:TextField name="SETTINGS_SEARCH" class="settings-search" />
+            </ui:VisualElement>
+            <ui:VisualElement class="settings-linkrow">
+                <Ashen.Presentation.UI.LocButton name="SETTINGS_PROFILE" class="settings-tool" string-key="settings.page.profile" />
+            </ui:VisualElement>
+            <Ashen.Presentation.UI.LocLabel name="SETTINGS_TIP" class="settings-tip kit-text-value" />
+            <ui:VisualElement name="SETTINGS_TABS" class="settings-tabs" />
+            <ui:VisualElement name="SETTINGS_GROUPS" class="settings-groups" />
+            <ui:ScrollView name="SETTINGS_SCROLL" class="settings-scroll">
+                <ui:VisualElement name="SETTINGS_ROWS" class="settings-rows" />
+            </ui:ScrollView>
+            <ui:VisualElement class="settings-foot">
+                <Ashen.Presentation.UI.LocButton name="SETTINGS_DONE" class="settings-done kit-button--ready" string-key="settings.page.done" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

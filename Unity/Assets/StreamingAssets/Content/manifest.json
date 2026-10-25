@@ -1,5 +1,5 @@
 {
-  "contentHash": "f8574403ccb4070bdebdfba77c93632debc21195cbaea09040c65daba6f45d7e",
+  "contentHash": "bb265efc1f3b5e46204d39175ddf8edc3119a9d87d44362f8b43199169ef69eb",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -935,9 +935,9 @@
       "sha256": "0ee3532b9f7df2ca3ef92199aff217c4eb6387cf68428e98a97d738b1f3c3568"
     },
     "rules/runFlow.json": {
-      "bytes": 4292,
+      "bytes": 5530,
       "generated": false,
-      "sha256": "332df1e728f763d7a9a38c0c17beeae5613e2e88039e056c1464ac9d87491513"
+      "sha256": "19d70cbbbebafbead575dcbb988be1eb89e468e578bf88990eb381dac837372b"
     },
     "rules/runtime.json": {
       "bytes": 30534,
@@ -1820,9 +1820,9 @@
       "sha256": "f0b908a4cb2212d7c249c6430d7b9ce0cbc398ce47a2da50c4d092229a1a8f2b"
     },
     "schemas/rules.runFlow.schema.json": {
-      "bytes": 5254,
+      "bytes": 5314,
       "generated": false,
-      "sha256": "1a65de93d951fea51aa0bcd8b3618fbb4c75e37e84123bd80d927ffd3e62edd5"
+      "sha256": "93c2c86f6d2881de12bbf526bb41c79c2af75c5b14c8bc5e1d41c2cdf2cc0569"
     },
     "schemas/rules.runtime.schema.json": {
       "bytes": 1065,
@@ -2010,14 +2010,14 @@
       "sha256": "4a4726ea6740c861649d8476085f9b8c7ae611c3b325948227bde0e2c7ac9b09"
     },
     "schemas/ui.menus.schema.json": {
-      "bytes": 3764,
+      "bytes": 3888,
       "generated": false,
-      "sha256": "f487c2e18ed8f21667fa3e74091481bfe232df0ca5114d9a57e676f57be5edd1"
+      "sha256": "352b2bf11fa0a837300b5e13e7f576e72e3c4297604559569025d94e335a8be6"
     },
     "schemas/ui.meta.schema.json": {
-      "bytes": 1937,
+      "bytes": 3251,
       "generated": false,
-      "sha256": "65b8bc6654a915f9c519542ae7976ec9ad5437aa073b1372db0ce6b149701985"
+      "sha256": "c79bca44b1606eea548c6fc1520ae9b59d50ad8c5a173e5755d75ddf731be6a5"
     },
     "schemas/ui.nodes.schema.json": {
       "bytes": 1965,
@@ -2050,9 +2050,9 @@
       "sha256": "069c0b2f370c7e0ffd90ea47a7eaf3eb271cb273ef030e8fbb496e7ec088ee06"
     },
     "settings/defaults.json": {
-      "bytes": 8491,
+      "bytes": 8730,
       "generated": false,
-      "sha256": "7a98813cfd57dc2cfc0450f468c4f5b2c2da75e995499769c8e1f3c3db29d5ac"
+      "sha256": "2b5c84ef810946c78c7e0b2ee3e191961850ebf3fe3376dd5bfe75bebdf04f4f"
     },
     "settings/presets/reference.json": {
       "bytes": 4585,
@@ -2070,9 +2070,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 43651,
+      "bytes": 48199,
       "generated": false,
-      "sha256": "2a639a648bce38ef26fa66a4abfde1a341ed28f3e99f809abe12a8b17d8759d8"
+      "sha256": "eb8ac2853b10c052515e114f6895cbe1641517fc3882acac8a403195e3d31713"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2090,9 +2090,9 @@
       "sha256": "a9fcfcd2fa31bd0f98983762267ad9c5220649ba685d002700016d684325d957"
     },
     "strings/meta.en.json": {
-      "bytes": 14047,
+      "bytes": 14645,
       "generated": false,
-      "sha256": "1bf3e563e394b136d4c00623be7ca17f706d2040a86d6fdf3f3145dccfaa81e4"
+      "sha256": "23e57f3fa24c217dc1c0c25bfbe827af704de384b1d851a859ca8a7ba8854612"
     },
     "strings/nodes.en.json": {
       "bytes": 7121,
@@ -2165,9 +2165,9 @@
       "sha256": "800f85c25beaa464dee1ad55f25b838ca54e8cb72b0fa8ed44b0b40a9f5efbe0"
     },
     "ui/art.json": {
-      "bytes": 4061,
+      "bytes": 4092,
       "generated": false,
-      "sha256": "74be9770f47abc3bde8284ffd2aad73323f59e6f0c84e833513766e362871b30"
+      "sha256": "85436f7a50394f61f323703bf7b411c027474d5e227b660e90fb26102e8b8318"
     },
     "ui/cardface.json": {
       "bytes": 26926,
@@ -2175,9 +2175,9 @@
       "sha256": "8d1e9daa4605315bc0aa1251c29ef5fc42891179d27704f1397a78c31ee55533"
     },
     "ui/components.json": {
-      "bytes": 4866,
+      "bytes": 4898,
       "generated": false,
-      "sha256": "174d7ed99eaa94656ee00d07ec241846dd80c8b4d1bea1789e7cfe47fc81720a"
+      "sha256": "46c7411a0777b30a473e8ea6f7db4128c715215f05e83b5adde889dfbdd8ad3f"
     },
     "ui/confirmationPolicies.json": {
       "bytes": 3228,
@@ -2200,14 +2200,14 @@
       "sha256": "330892274c3cc8c87947d2662b07dccbd95f7c3275dc2922a80e3d30a546d178"
     },
     "ui/menus.json": {
-      "bytes": 8283,
+      "bytes": 8358,
       "generated": false,
-      "sha256": "e5415048522209aefe6ef47885de66ac712e4b681f6628e44f54a41a804a0b39"
+      "sha256": "d1f4e4fe5a6aa3636f7629afbcdbf4bcf32178660049c61eb0906f4665ee6761"
     },
     "ui/meta.json": {
-      "bytes": 890,
+      "bytes": 2818,
       "generated": false,
-      "sha256": "5692b4202186b9269ef9537dc1992629df2985063e55513b731bf84fb23159d7"
+      "sha256": "9f486fcd6bf0fa531f1e58ebb96fdcfc8be1d81a1342e5e23f14168ade672630"
     },
     "ui/nodes.json": {
       "bytes": 2785,
@@ -2215,14 +2215,14 @@
       "sha256": "e6c5b73d52c764043690f50d9647244e894a84bfb063e93dd6828a3c9ef35316"
     },
     "ui/prologue.json": {
-      "bytes": 2563,
+      "bytes": 2561,
       "generated": false,
-      "sha256": "1ca95429d719c46c8d712ea5506b72c8422b8a0ca04b4580f6a4b00ae2130d2b"
+      "sha256": "0740478f33b9022e96abe89b6aca2bc67590c9d0775f4bc535588fdda8f151b5"
     },
     "ui/screens.json": {
-      "bytes": 9995,
+      "bytes": 11188,
       "generated": false,
-      "sha256": "c3ebe056a501af7670d545c2ebcd221a765c4aa4e4d6b9fceca1c297a1a31bb3"
+      "sha256": "35dde2101b7b7a0657803d2f63099f3d6949c55083b927a95374b45604980ff8"
     },
     "ui/terms.json": {
       "bytes": 12076,
@@ -2235,9 +2235,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 35625,
+      "bytes": 42985,
       "generated": false,
-      "sha256": "3444b7c0bd654f6e5a8eef572019a96bf25347e133f87a154e8d60f360f5ab5b"
+      "sha256": "991b4f1a6062216fcce3c9c4f5cc14725de52f5117e05e03153c763e52e7d8d8"
     }
   },
   "schemaVersion": 1,

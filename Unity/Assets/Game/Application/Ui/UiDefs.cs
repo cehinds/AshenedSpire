@@ -107,6 +107,9 @@ namespace Ashen.App.Ui
 
         /// <summary>Hidden while a fight is on (the W-20 Armoury row).</summary>
         public bool HideInCombat;
+
+        /// <summary>An ui/art.json icon name the row wears beside its label (the title's plates), or null.</summary>
+        public string Icon;
     }
 
     /// <summary>A W-04 creation rail item (ui/menus.json 'creationPanes').</summary>
@@ -186,6 +189,7 @@ namespace Ashen.App.Ui
                 EnabledWhen = (string)r[UiKeys.EnabledWhen],
                 Visible = (bool?)r[UiKeys.Visible] ?? true,
                 HideInCombat = (bool?)r[UiKeys.HideInCombat] ?? false,
+                Icon = (string)r[UiKeys.Icon],
             }).ToList();
     }
 

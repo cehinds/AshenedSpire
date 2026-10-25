@@ -34,5 +34,9 @@ namespace Ashen.Generated
         public const string Core2Shop = "core2Shop";
         public const string Core2Event = "core2Event";
         public const string Core2RunEnd = "core2RunEnd";
+        public const string Prologue = "prologue";
+        public const string Compendium = "compendium";
+        public const string Profile = "profile";
+        public const string About = "about";
     }
 }
