@@ -19,6 +19,20 @@ namespace Ashen.Presentation.UI.Screens
             var nav = context.Navigator;
             switch (def.Action)
             {
+                case MenuActions.Save:
+                    SaveHere(context, session, anchor);
+                    break;
+                case MenuActions.SaveQuit:
+                    SaveAndQuit(context, session);
+                    break;
+                case MenuActions.Confirm when def.Confirm == ConfirmIds.QuitWithoutSaving:
+                    ConfirmRequest.Open(nav, new ConfirmRequest
+                    {
+                        ConfirmId = ConfirmIds.QuitWithoutSaving,
+                        Target = session == null ? null : RunFlow.SlotFacts(ui, SlotSummaries.ReadOne(ui.Saves, session.SlotIndex)),
+                        OnConfirm = () => QuitWithoutSaving(context),
+                    });
+                    break;
                 case MenuActions.Confirm when def.Confirm == ConfirmIds.SaveQuit:
                     ConfirmRequest.Open(nav, new ConfirmRequest
                     {
@@ -45,21 +59,47 @@ namespace Ashen.Presentation.UI.Screens
             }
         }
 
-        /// <summary>Checkpoint, then the title; a failure opens W1r with Retry and leaves the menu open.</summary>
+        /// <summary>Save (web overlay.js saveButton, main.js saveNow): write the run to its slot and stay where it is; the row says Saved · Slot n for a moment. A failure opens the save door with Retry.</summary>
+        public static void SaveHere(ScreenContext context, IClimb session, VisualElement anchor)
+        {
+            if (!TrySave(context, session, () => SaveHere(context, session, anchor))) return;
+            if (!(anchor is LocButton button) || session == null) return;
+            var strings = context.Ui.Data.Strings;
+            var label = button.text;
+            button.SetResolved(strings.Format(StringKeys.PauseSaved, new StringArgs().Add(UiPlaceholders.Slot, session.SlotIndex)));
+            button.schedule.Execute(() => button.SetResolved(label)).StartingIn(context.Ui.Data.Tokens.Duration(TokenKeys.SavedLabel));
+        }
+
+        /// <summary>Checkpoint, then the title with its gate down again (web onQuit: persist(); showCollapsedTitle()); a failure opens the save door with Retry and leaves the menu open.</summary>
         public static void SaveAndQuit(ScreenContext context, IClimb session)
+        {
+            if (!TrySave(context, session, () => SaveAndQuit(context, session))) return;
+            LeaveRun(context);
+        }
+
+        /// <summary>Quit without saving (web quitWithoutSaving): the run is let go as it stands; its slot keeps the last save.</summary>
+        public static void QuitWithoutSaving(ScreenContext context) => LeaveRun(context);
+
+        private static void LeaveRun(ScreenContext context)
+        {
+            context.Ui.ClearRun();
+            TitleScreen.ResetSession();
+            context.Navigator.Go(ScreenIds.Title, null, true);
+        }
+
+        private static bool TrySave(ScreenContext context, IClimb session, Action retry)
         {
             try
             {
                 session?.Save();
+                return true;
             }
             catch (Exception e)
             {
                 Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.SaveFailed, e.Message));
-                ConfirmRequest.Open(context.Navigator, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, OnConfirm = () => SaveAndQuit(context, session) });
-                return;
+                ConfirmRequest.Open(context.Navigator, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, Args = new StringArgs().Add(UiPlaceholders.Reason, e.Message), OnConfirm = retry });
+                return false;
             }
-            context.Ui.ClearRun();
-            context.Navigator.Go(ScreenIds.Title, null, true);
         }
 
         /// <summary>Abandon run (D-134): the run ends as abandoned and W-15 shows its summary; a save failure opens W1r with Retry.</summary>
@@ -73,7 +113,7 @@ namespace Ashen.Presentation.UI.Screens
             catch (Exception e)
             {
                 Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.SaveFailed, e.Message));
-                ConfirmRequest.Open(context.Navigator, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, OnConfirm = () => Abandon(context, session) });
+                ConfirmRequest.Open(context.Navigator, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, Args = new StringArgs().Add(UiPlaceholders.Reason, e.Message), OnConfirm = () => Abandon(context, session) });
                 return;
             }
             RunFlow.ShowClimb(context, session);

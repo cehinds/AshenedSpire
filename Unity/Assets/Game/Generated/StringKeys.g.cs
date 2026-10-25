@@ -750,12 +750,16 @@ namespace Ashen.Generated
         public const string ConfirmDeleteBody = "confirm.delete.body";
         public const string ConfirmDeletePrimary = "confirm.delete.primary";
         public const string ConfirmDeleteTitle = "confirm.delete.title";
+        public const string ConfirmLoadBack = "confirm.load.back";
         public const string ConfirmLoadBody = "confirm.load.body";
         public const string ConfirmLoadPrimary = "confirm.load.primary";
         public const string ConfirmLoadTitle = "confirm.load.title";
         public const string ConfirmQuitBody = "confirm.quit.body";
         public const string ConfirmQuitPrimary = "confirm.quit.primary";
         public const string ConfirmQuitTitle = "confirm.quit.title";
+        public const string ConfirmQuitWithoutSavingBody = "confirm.quitWithoutSaving.body";
+        public const string ConfirmQuitWithoutSavingPrimary = "confirm.quitWithoutSaving.primary";
+        public const string ConfirmQuitWithoutSavingTitle = "confirm.quitWithoutSaving.title";
         public const string ConfirmReplaceBody = "confirm.replace.body";
         public const string ConfirmReplacePrimary = "confirm.replace.primary";
         public const string ConfirmReplaceTitle = "confirm.replace.title";
@@ -769,8 +773,10 @@ namespace Ashen.Generated
         public const string ConfirmSaveQuitBody = "confirm.saveQuit.body";
         public const string ConfirmSaveQuitPrimary = "confirm.saveQuit.primary";
         public const string ConfirmSaveQuitTitle = "confirm.saveQuit.title";
+        public const string ConfirmStartBack = "confirm.start.back";
         public const string ConfirmStartBody = "confirm.start.body";
         public const string ConfirmStartOccupied = "confirm.start.occupied";
+        public const string ConfirmStartOccupiedPrimary = "confirm.start.occupiedPrimary";
         public const string ConfirmStartPrimary = "confirm.start.primary";
         public const string ConfirmStartTitle = "confirm.start.title";
         public const string ContentErrorBodyDev = "contentError.body.dev";
@@ -1199,6 +1205,11 @@ namespace Ashen.Generated
         public const string DeckEditorUndo = "deckEditor.undo";
         public const string DeckEditorUnlimited = "deckEditor.unlimited";
         public const string DeckEditorUp = "deckEditor.up";
+        public const string FarewellBack = "farewell.back";
+        public const string FarewellClosing = "farewell.closing";
+        public const string FarewellKept = "farewell.kept";
+        public const string FarewellSaved = "farewell.saved";
+        public const string FarewellTitle = "farewell.title";
         public const string GlossaryBlockName = "glossary.blockName";
         public const string GlossaryBlockText = "glossary.blockText";
         public const string GlossaryEntry = "glossary.entry";
@@ -1245,6 +1256,7 @@ namespace Ashen.Generated
         public const string HistoryRecord = "history.record";
         public const string HistorySummaryCustom = "history.summary.custom";
         public const string HistorySummaryJoin = "history.summary.join";
+        public const string HistorySummaryNone = "history.summary.none";
         public const string HistorySummaryRate = "history.summary.rate";
         public const string HistorySummaryRunsMany = "history.summary.runs.many";
         public const string HistorySummaryRunsOne = "history.summary.runs.one";
@@ -1354,7 +1366,9 @@ namespace Ashen.Generated
         public const string PauseArmoury = "pause.armoury";
         public const string PauseDeck = "pause.deck";
         public const string PauseLater = "pause.later";
+        public const string PauseQuitWithoutSaving = "pause.quitWithoutSaving";
         public const string PauseResume = "pause.resume";
+        public const string PauseSave = "pause.save";
         public const string PauseSaveQuit = "pause.saveQuit";
         public const string PauseSaved = "pause.saved";
         public const string PauseSeed = "pause.seed";
@@ -1983,6 +1997,7 @@ namespace Ashen.Generated
         public const string SlotsEmptyHint = "slots.emptyHint";
         public const string SlotsEmptyState = "slots.emptyState";
         public const string SlotsFacts = "slots.facts";
+        public const string SlotsFactsNamed = "slots.factsNamed";
         public const string SlotsLabel = "slots.label";
         public const string SlotsNewerBuildKept = "slots.newerBuildKept";
         public const string SlotsNewerRow = "slots.newerRow";
@@ -1995,7 +2010,6 @@ namespace Ashen.Generated
         public const string SlotsTarget = "slots.target";
         public const string SlotsTitleLoad = "slots.title.load";
         public const string SlotsTitleNew = "slots.title.new";
-        public const string SlotsWhenYesterday = "slots.when.yesterday";
         public const string SpoilsAddToDeck = "spoils.addToDeck";
         public const string SpoilsBack = "spoils.back";
         public const string SpoilsChipNew = "spoils.chip.new";
@@ -2052,6 +2066,9 @@ namespace Ashen.Generated
         public const string TitleMenuQuit = "title.menu.quit";
         public const string TitleMenuSettings = "title.menu.settings";
         public const string TitlePressAny = "title.pressAny";
+        public const string TitlePressAnyController = "title.pressAny.controller";
+        public const string TitlePressAnyPointer = "title.pressAny.pointer";
+        public const string TitlePressAnyTouch = "title.pressAny.touch";
         public const string TitlePreviewClass = "title.preview.class";
         public const string TitlePreviewEyebrow = "title.preview.eyebrow";
         public const string TitlePreviewIdentity = "title.preview.identity";

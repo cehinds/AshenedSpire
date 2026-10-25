@@ -167,9 +167,9 @@ namespace Ashen.App.Run
                     case SlotStatus.Newer: row.Facts = strings.Get(StringKeys.SlotsNewerRow); break;
                     case SlotStatus.Unreadable: row.Facts = strings.Get(StringKeys.SlotsCorrupt); break;
                     default:
-                        row.Facts = strings.Format(StringKeys.SlotsFacts, new StringArgs()
-                            .Add(UiPlaceholders.Name, slot.Name).Add(UiPlaceholders.Class, RunHudView.ClassName(ui, slot.ClassId)).Add(UiPlaceholders.Act, slot.Act).Add(UiPlaceholders.Floor, slot.Floor)
-                            .Add(UiPlaceholders.Hp, slot.Hp).Add(UiPlaceholders.HpMax, slot.HpMax));
+                        row.Facts = strings.Format(StringKeys.SlotsFactsNamed, new StringArgs()
+                            .Add(UiPlaceholders.Name, slot.Name).Add(UiPlaceholders.Class, RunHudView.ClassName(ui, slot.ClassId))
+                            .Add(UiPlaceholders.Facts, strings.Format(StringKeys.SlotsFacts, new StringArgs().Add(UiPlaceholders.Act, slot.Act).Add(UiPlaceholders.Floor, slot.Floor).Add(UiPlaceholders.Hp, slot.Hp).Add(UiPlaceholders.HpMax, slot.HpMax))));
                         break;
                 }
                 view.Slots.Add(row);

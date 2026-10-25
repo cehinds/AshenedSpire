@@ -14,6 +14,10 @@ namespace Ashen.Generated
         public const string ShellEyebrow = "SHELL_EYEBROW";
         public const string RecoveryBody = "RECOVERY_BODY";
         public const string RecoveryScroll = "RECOVERY_SCROLL";
+        public const string Farewell = "FAREWELL";
+        public const string FarewellTitle = "FAREWELL_TITLE";
+        public const string FarewellStatus = "FAREWELL_STATUS";
+        public const string FarewellBack = "FAREWELL_BACK";
         public const string ShellHeading = "SHELL_HEADING";
         public const string ShellExit = "SHELL_EXIT";
         public const string ShellBody = "SHELL_BODY";
@@ -48,6 +52,7 @@ namespace Ashen.Generated
         public const string SlotMark = "SLOT_MARK";
         public const string SlotPortrait = "SLOT_PORTRAIT";
         public const string SlotLabel = "SLOT_LABEL";
+        public const string SlotName = "SLOT_NAME";
         public const string SlotFacts = "SLOT_FACTS";
         public const string SlotSaved = "SLOT_SAVED";
         public const string SlotDelete = "SLOT_DELETE";

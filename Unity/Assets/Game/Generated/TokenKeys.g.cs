@@ -8,6 +8,9 @@ namespace Ashen.Generated
         public const string Refusal = "refusal";
         public const string TooltipDelay = "tooltipDelay";
         public const string GateSettle = "gateSettle";
+        public const string SavedLabel = "savedLabel";
+        public const string FarewellClose = "farewellClose";
+        public const string FarewellKept = "farewellKept";
         public const string GateFade = "gateFade";
         public const string GatePulse = "gatePulse";
         public const string BootMinimum = "bootMinimum";

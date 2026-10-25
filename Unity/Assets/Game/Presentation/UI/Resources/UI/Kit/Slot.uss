@@ -58,8 +58,19 @@
     margin-right: var(--space-sm);
 }
 
+.slot-name {
+    white-space: normal;
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
 .slot-facts {
     white-space: normal;
+}
+
+.slot--empty .slot-name,
+.slot--unreadable .slot-name {
+    color: var(--color-muted);
 }
 
 .slot-saved {

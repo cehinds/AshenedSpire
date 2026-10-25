@@ -24,6 +24,9 @@ namespace Ashen.Presentation.UI.Screens
         public MenuEntryDef Def;
         public string Label;
         public bool Enabled;
+
+        /// <summary>False for a row the rules keep out of sight (the web's title has no Continue or Load Game until a climb is saved).</summary>
+        public bool Shown = true;
     }
 
     public sealed class TitleViewModel : ViewModel
@@ -98,6 +101,8 @@ namespace Ashen.Presentation.UI.Screens
             ViewModel.Observe(Render);
             Refresh();
 
+            var prompt = Root.Q<LocLabel>(UiNames.GatePrompt);
+            if (prompt != null) prompt.stringKey = GatePromptKey();
             var gateOn = (args as TitleArgs)?.Gate ?? (Context.Def.Gate && !_gateLifted);
             ViewModel.GateActive = gateOn;
             if (gateOn && !(args is TitleArgs))
@@ -107,6 +112,10 @@ namespace Ashen.Presentation.UI.Screens
                 _pulse = Root.schedule.Execute(() => Root.ToggleInClassList(UiClasses.GatePulse)).Every(pulseMs);
             }
         }
+
+        /// <summary>The prompt the gate shows for the way the player is playing (web startupInputFamily): a pad when one is plugged in, a touch device, else the keyboard.</summary>
+        private static string GatePromptKey() =>
+            Gamepad.current != null ? StringKeys.TitlePressAnyController : Application.isMobilePlatform ? StringKeys.TitlePressAnyTouch : StringKeys.TitlePressAny;
 
         private void SetArt(string name, string art) => BoardHud.SetImage(Root.Q(name), BoardHud.Art(Ui, ArtKinds.Background, art));
 
@@ -168,7 +177,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             _slots = SlotSummaries.Read(Ui.Saves);
             var states = MenuRules.Evaluate(Ui.Data.Menus.Title, Ui.Data.MenuContext(SlotSummaries.HasValidSlot(_slots)));
-            ViewModel.Items = states.Where(s => s.Visible).Select(s => new MenuItemViewModel { Def = s.Def, Label = Ui.Data.Strings.Get(s.Def.LabelKey), Enabled = s.Enabled }).ToList();
+            ViewModel.Items = states.Where(s => s.Def.Visible).Select(s => new MenuItemViewModel { Def = s.Def, Label = Ui.Data.Strings.Get(s.Def.LabelKey), Enabled = s.Enabled, Shown = s.Visible }).ToList();
             var target = SlotSummaries.ContinueTarget(_slots);
             ViewModel.HasPreview = target != null;
             if (target == null) return;
@@ -188,7 +197,11 @@ namespace Ashen.Presentation.UI.Screens
             Root.EnableInClassList(UiClasses.GateActive, ViewModel.GateActive);
             Root.EnableInClassList(UiClasses.HasSave, ViewModel.HasPreview);
             Root.EnableInClassList(UiClasses.NoSave, !ViewModel.HasPreview);
-            for (var i = 0; i < _buttons.Count && i < ViewModel.Items.Count; i++) _buttons[i].SetEnabled(ViewModel.Items[i].Enabled);
+            for (var i = 0; i < _buttons.Count && i < ViewModel.Items.Count; i++)
+            {
+                _buttons[i].SetEnabled(ViewModel.Items[i].Enabled);
+                UiDom.Show(_buttons[i], ViewModel.Items[i].Shown);
+            }
             Root.Q<LocLabel>(UiNames.Build)?.SetResolved(ViewModel.Build);
             Root.Q<LocLabel>(UiNames.PreviewIdentity)?.SetResolved(ViewModel.PreviewClass);
             Root.Q<LocLabel>(UiNames.PreviewProgress)?.SetResolved(ViewModel.PreviewProgress);

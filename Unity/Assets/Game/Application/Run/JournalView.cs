@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Ashen.App.Ui;
 using Ashen.Domain.Combat;
+using Ashen.Domain.Run;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using K = Ashen.Generated.CombatKeys;
@@ -171,7 +172,7 @@ namespace Ashen.App.Run
         /// <summary>The records line: standard runs (a custom run is not counted), wins, the win rate and the custom runs set aside.</summary>
         private static string Summary(List<JObject> results, StringTable strings)
         {
-            if (results.Count == 0) return null;
+            if (results.Count == 0) return strings.Get(StringKeys.HistorySummaryNone);
             var standard = results.Where(r => !r.Is(RK.Custom)).ToList();
             var custom = results.Count - standard.Count;
             var wins = standard.Count(r => r.Is(V.Victory));
@@ -180,7 +181,7 @@ namespace Ashen.App.Run
                 strings.Format(standard.Count == 1 ? StringKeys.HistorySummaryRunsOne : StringKeys.HistorySummaryRunsMany, new StringArgs().Add(P.Count, standard.Count)),
                 strings.Format(StringKeys.HistorySummaryWon, new StringArgs().Add(P.Count, wins)),
             };
-            if (standard.Count > 0) parts.Add(strings.Format(StringKeys.HistorySummaryRate, new StringArgs().Add(UiPlaceholders.Pct, (int)Math.Round(wins * UiMath.Percent / standard.Count))));
+            if (standard.Count > 0) parts.Add(strings.Format(StringKeys.HistorySummaryRate, new StringArgs().Add(UiPlaceholders.Pct, (int)RunJs.Round(wins * UiMath.Percent / (double)standard.Count))));
             if (custom > 0) parts.Add(strings.Format(StringKeys.HistorySummaryCustom, new StringArgs().Add(P.Count, custom)));
             return string.Join(strings.Get(StringKeys.HistorySummaryJoin), parts);
         }

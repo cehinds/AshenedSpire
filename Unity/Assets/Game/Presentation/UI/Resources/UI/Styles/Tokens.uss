@@ -966,6 +966,9 @@
     --duration-gate-fade: 420ms;
     --duration-gate-pulse: 1400ms;
     --duration-gate-settle: 180ms;
+    --duration-saved-label: 1500ms;
+    --duration-farewell-close: 120ms;
+    --duration-farewell-kept: 600ms;
     --duration-map-lane-pulse: 2200ms;
     --duration-title-lockup-away: 380ms;
     --duration-title-light-up: 560ms;

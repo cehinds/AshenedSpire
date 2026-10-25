@@ -403,7 +403,7 @@ namespace Ashen.Tests
             Assert.That(view.History[0].WhereLine, Is.EqualTo("Act 2 · Floor 7 · 6 fights"));
             Assert.That(view.History[0].Custom, Is.True);
             Assert.That(view.History[0].Seed, Does.Contain("ASHFALL"));
-            Assert.That(JournalView.Build(new JObject(), Content, Ui).Summary, Is.Null, "no runs: no line");
+            Assert.That(JournalView.Build(new JObject(), Content, Ui).Summary, Is.EqualTo("No runs recorded yet"), "no runs: the web's own line (history.js)");
         }
 
         [Test]

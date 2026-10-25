@@ -93,9 +93,10 @@ namespace Ashen.Presentation.UI.Screens
             switch (s.Status)
             {
                 case SlotStatus.Empty:
+                    // The web's card: the name says there is nothing, the line under it says what the slot offers (slotOption).
                     data.Empty = true;
-                    data.Facts = strings.Get(StringKeys.SlotsEmpty);
-                    data.Saved = ViewModel.IsLoad ? null : strings.Get(StringKeys.SlotsEmptyHint);
+                    data.Name = strings.Get(StringKeys.SlotsEmpty);
+                    data.Facts = strings.Get(StringKeys.SlotsEmptyHint);
                     break;
                 case SlotStatus.Newer:
                     data.Unreadable = true;
@@ -109,10 +110,9 @@ namespace Ashen.Presentation.UI.Screens
                 default:
                     data.Deletable = true;
                     data.Portrait = Ui.Texture(s.Portrait);
-                    data.Facts = strings.Format(StringKeys.SlotsFacts, new StringArgs()
-                        .Add(UiPlaceholders.Name, s.Name).Add(UiPlaceholders.Class, ClassName(s.ClassId)).Add(UiPlaceholders.Act, s.Act).Add(UiPlaceholders.Floor, s.Floor)
-                        .Add(UiPlaceholders.Hp, s.Hp).Add(UiPlaceholders.HpMax, s.HpMax));
-                    data.Saved = strings.Format(StringKeys.SlotsSaved, new StringArgs().Add(UiPlaceholders.When, When(s.SavedAt)).Add(UiPlaceholders.Seed, s.Seed));
+                    data.Name = ClassName(s.ClassId);
+                    data.Facts = RunFlow.ActFacts(Ui, s);
+                    data.Saved = strings.Format(StringKeys.SlotsSaved, new StringArgs().Add(UiPlaceholders.When, When(s.SavedAt)));
                     break;
             }
             return data;
@@ -121,15 +121,13 @@ namespace Ashen.Presentation.UI.Screens
         private string ClassName(string classId) =>
             classId == null ? string.Empty : Ui.Data.Strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.ClassNameKey, classId));
 
-        /// <summary>"Saved {when}": the time of day today, "yesterday", else the date (04 W-03).</summary>
+        /// <summary>"Saved {when}": the time of day today, else the day and the time (web SaveStatusModel.js savedAtLabel: 04:38 PM, Oct 24, 04:38 PM).</summary>
         private string When(string iso)
         {
             if (!DateTime.TryParse(iso, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out var t)) return iso ?? string.Empty;
             var local = t.ToLocalTime();
             var today = DateTime.Now.Date;
-            if (local.Date == today) return local.ToString(UiFormats.TimeOfDay, CultureInfo.InvariantCulture);
-            if (local.Date == today.AddDays(-1)) return Ui.Data.Strings.Get(StringKeys.SlotsWhenYesterday);
-            return local.ToString(UiFormats.Date, CultureInfo.InvariantCulture);
+            return local.ToString(local.Date == today ? UiFormats.TimeOfDay : UiFormats.Date, CultureInfo.InvariantCulture);
         }
 
         private void Render()
@@ -169,7 +167,7 @@ namespace Ashen.Presentation.UI.Screens
             if (ViewModel.Selected < 0) return;
             var slot = _slots[ViewModel.Selected];
             var args = new StringArgs().Add(UiPlaceholders.Slot, slot.Index);
-            var target = ViewModel.Rows[ViewModel.Selected].Facts;
+            var target = RunFlow.SlotFacts(Ui, slot);
             if (ViewModel.IsLoad)
             {
                 if (slot.Status == SlotStatus.Empty) { Refuse(anchor, StringKeys.SlotsRefusalEmpty); return; }
@@ -195,7 +193,7 @@ namespace Ashen.Presentation.UI.Screens
             {
                 ConfirmId = ConfirmIds.DeleteSlot,
                 Args = new StringArgs().Add(UiPlaceholders.Slot, slot.Index),
-                Target = Ui.Data.Strings.Format(StringKeys.SlotsTarget, new StringArgs().Add(UiPlaceholders.Label, ViewModel.Rows[index].Label).Add(UiPlaceholders.Facts, ViewModel.Rows[index].Facts)),
+                Target = RunFlow.SlotFacts(Ui, slot),
                 OnConfirm = () =>
                 {
                     Ui.Saves.Delete(slot.SlotName);

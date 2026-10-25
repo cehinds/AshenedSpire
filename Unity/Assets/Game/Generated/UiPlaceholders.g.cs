@@ -25,6 +25,7 @@ namespace Ashen.Generated
         public const string Message = "message";
         public const string Name = "name";
         public const string Class = "class";
+        public const string Reason = "reason";
         public const string Act = "act";
         public const string Floor = "floor";
         public const string Hp = "hp";
