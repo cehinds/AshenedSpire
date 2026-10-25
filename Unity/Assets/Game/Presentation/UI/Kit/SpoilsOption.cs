@@ -65,6 +65,8 @@ namespace Ashen.Presentation.UI.Kit
                 Rarity = pick.Rarity,
                 Face = pick.Face,
                 Upgraded = pick.Upgraded,
+                RulesHtml = pick.RulesHtml,
+                RulesOverflow = pick.RulesOverflow,
                 Costs = pick.Costs.Select(c => new CardCostData { Kind = c.Kind, Text = c.Text }).ToList(),
             });
             return card;

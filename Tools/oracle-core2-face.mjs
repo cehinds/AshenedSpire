@@ -87,6 +87,8 @@ function faces(ref, { preview = null, rules = null } = {}) {
     represented: { effects: representedEffects, entry: representedEntry, rules: representedRules },
     sideTags: model.sideTags.map((tag) => ({ id: tag.id, count: tag.count ?? null })),
     hand: render(faceLines, 3), face: render(faceLines, null), inspect: render(everyLine, null),
+    // card.js cardTooltip: the card's own template with the live numbers, none marked (what the inspector reads).
+    reading: fillTemplate(def, rawModel.tokens, null, rawModel.damageSequences, wardOff.wardReadsAsPoise(registries) ? { preview: null } : null, registries),
   };
 }
 

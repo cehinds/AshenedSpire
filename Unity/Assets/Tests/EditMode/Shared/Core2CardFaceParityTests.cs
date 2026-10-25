@@ -64,9 +64,9 @@ namespace Ashen.Tests
         {
             var problems = new List<string>();
             if (WantLines(want["lines"]) != LinesText(got.Lines)) problems.Add($"{label} lines\n   web: {WantLines(want["lines"])}\n  unity: {LinesText(got.Lines)}");
-            foreach (var level in new[] { "hand", "face", "inspect" })
+            foreach (var level in new[] { "hand", "face", "inspect", "reading" })
             {
-                var gotHtml = level == "hand" ? got.Hand : level == "face" ? got.Face : got.Inspect;
+                var gotHtml = level == "hand" ? got.Hand : level == "face" ? got.Face : level == "inspect" ? got.Inspect : got.Reading;
                 if (want.Value<string>(level) != gotHtml) problems.Add($"{label} {level}\n   web: {want.Value<string>(level)}\n  unity: {gotHtml}");
             }
             return problems;
@@ -98,6 +98,27 @@ namespace Ashen.Tests
                 }
             Assert.That(checkedFaces, Is.GreaterThan(400));
             if (problems.Count > 0) Assert.Fail(problems.Count + " differences:\n" + string.Join("\n", problems.Take(8)));
+        }
+
+        [Test]
+        public void TheViewWordsEveryCardOfTheHandAndThePiles()
+        {
+            var fight = (JObject)Read("fights-herald.json")["fights"][0];
+            var seed = (uint)fight.Value<long>("seed");
+            var run = CoreRunRules.Create(Data.Run, seed, fight.Value<string>("classId"), CoreRunOptions.FromJson(null, Unlocked));
+            var session = Ashen.App.Combat.Core2CombatSession.Start(Data, new Rng(seed), run, fight.Value<string>("encounterId"));
+            var view = Core2CombatView.Build(session, text: Ui.CardText);
+            Assert.That(view.Hand, Is.Not.Empty);
+            foreach (var card in view.Hand)
+            {
+                Assert.That(card.Words, Is.Not.Null, card.Name);
+                Assert.That(card.Words.Hand, Is.Not.Empty, card.Name);
+                var direct = CardFaceRules.Render(new FaceEnv(session.State, Ui.CardText), card.FaceDef, card.FacePreview);
+                Assert.That(card.Words.Hand, Is.EqualTo(direct.Hand), card.Name);
+            }
+            var pile = Core2CombatView.Pile(session, Ashen.Generated.OverlayValues.PileDraw, Ui.CardText);
+            Assert.That(pile, Is.Not.Empty);
+            Assert.That(pile.All(card => card.Words != null && card.Words.Face.Length > 0), Is.True);
         }
 
         // ------------------------------------------------------------------ the hand

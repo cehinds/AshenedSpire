@@ -35,6 +35,9 @@ namespace Ashen.App.Combat
         public string Hand;
         public string Face;
         public string Inspect;
+
+        /// <summary>The card's own template with its numbers, none marked (card.js cardTooltip's text: what the inspector reads beside the face).</summary>
+        public string Reading;
     }
 
     /// <summary>
@@ -367,6 +370,7 @@ namespace Ashen.App.Combat
             result.Hand = Join(faceLines, true);
             result.Face = Join(faceLines, false);
             result.Inspect = Join(everyLine, false);
+            result.Reading = FillTemplate(env, def, tokens, null, preview?[T.DamageSequences] as JArray, preview);
             return result;
         }
 

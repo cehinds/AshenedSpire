@@ -77,7 +77,7 @@ namespace Ashen.Presentation.UI.Screens
             }
             Ui.Core2Session = _run;
             Ui.Session = null;
-            _flow = new Core2CombatFlow(_run, Strings);
+            _flow = new Core2CombatFlow(_run, Strings, Ui.Data.CardText);
             _hand = Root.Q<HandFan>(UiNames.Hand);
             _footer = Root.Q<FooterGroup>(UiNames.FooterGroup);
             ChipTips.Overlay = Context.Overlay;
@@ -374,6 +374,7 @@ namespace Ashen.Presentation.UI.Screens
                     e.StopPropagation();
                 });
                 view.EnableInClassList(UiClasses.CardArmed, _flow.Armed != null && _flow.Armed.InstanceId == card.InstanceId);
+                view.Selected = _flow.Armed != null && _flow.Armed.InstanceId == card.InstanceId;
                 view.focusable = Mode == null;
                 view.ShowInspect = true;
                 view.Inspect += _ => _overlays.OpenInspect(card, view);
@@ -400,6 +401,8 @@ namespace Ashen.Presentation.UI.Screens
                 Rank = Core2CombatText.Rank(Strings, card),
                 Text = card.Text,
                 Shifts = card.TextShifts,
+                RulesHtml = card.Words?.Hand,
+                RulesOverflow = card.Words?.Lines != null && card.Words.HandLines != null && card.Words.Lines.Count > card.Words.HandLines.Count,
                 Keywords = Core2CombatText.Traits(Strings, card),
                 Affordable = card.Playable,
                 Upgraded = card.Upgraded,

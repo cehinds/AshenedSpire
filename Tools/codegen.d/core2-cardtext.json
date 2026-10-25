@@ -265,6 +265,7 @@
         "TurnStartHpPct": "turnStartHpPct",
         "Type": "type",
         "Uncovered": "uncovered",
+        "Upgraded": "upgraded",
         "UsableWhile": "usableWhile",
         "Value": "value",
         "Values": "values",

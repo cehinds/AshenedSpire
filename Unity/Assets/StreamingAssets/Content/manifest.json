@@ -1,5 +1,5 @@
 {
-  "contentHash": "f59a14d5451d7991ac293cd985eff3b17f972d1d91389dc8a2eb19fa1cd307ac",
+  "contentHash": "f285d443f21b54e2361baae78be03df230dfc97bebeac0e5364a0c7ce48b2d60",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -2075,9 +2075,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 64246,
+      "bytes": 65009,
       "generated": false,
-      "sha256": "d8b5655acdd04d84a866ceec7a6df0b43909855156ac0ff3ff7d6c716a85520b"
+      "sha256": "cb0112de04c9a69b49923354787692aa6d7c250254207692e64956976b20e86e"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2245,9 +2245,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 46878,
+      "bytes": 46924,
       "generated": false,
-      "sha256": "e87fbed17f91c89c1318aa1c4a2be54930f1b28fff87560b2615a4a45eb1b03b"
+      "sha256": "25364026c5eeaa529282c316cc2f3e1e362216f4f5b7d89bfe8d4ee6b5c66b02"
     }
   },
   "schemaVersion": 1,

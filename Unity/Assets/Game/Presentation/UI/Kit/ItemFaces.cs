@@ -22,6 +22,8 @@ namespace Ashen.Presentation.UI.Kit
                 Rarity = pick.Rarity,
                 Face = pick.Face,
                 Upgraded = pick.Upgraded,
+                RulesHtml = pick.RulesHtml,
+                RulesOverflow = pick.RulesOverflow,
                 Costs = pick.Costs.Select(c => new CardCostData { Kind = c.Kind, Text = c.Text }).ToList(),
             });
             return card;
@@ -45,6 +47,8 @@ namespace Ashen.Presentation.UI.Kit
                 Rank = Core2CombatText.Rank(strings, card),
                 Text = card.Text,
                 Shifts = card.TextShifts,
+                RulesHtml = card.Words?.Face,
+                RulesOverflow = card.Words?.Lines != null && card.Words.HandLines != null && card.Words.Lines.Count > card.Words.HandLines.Count,
                 Keywords = Core2CombatText.Traits(strings, card),
                 Upgraded = card.Upgraded,
                 Costs = costs,

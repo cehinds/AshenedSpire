@@ -195,6 +195,8 @@ namespace Ashen.Generated
         public const string CardtextAnAllyFor = "cardtext.anAllyFor";
         public const string CardtextAnEnemyHas = "cardtext.anEnemyHas";
         public const string CardtextAnd = "cardtext.and";
+        public const string CardtextAngleOpen = "cardtext.angleOpen";
+        public const string CardtextAngleOpenSafe = "cardtext.angleOpenSafe";
         public const string CardtextApply = "cardtext.apply";
         public const string CardtextApplyToAlly = "cardtext.applyToAlly";
         public const string CardtextAreaAll = "cardtext.areaAll";
@@ -237,6 +239,7 @@ namespace Ashen.Generated
         public const string CardtextCountMark = "cardtext.countMark";
         public const string CardtextCounterFaceCore = "cardtext.counterFaceCore";
         public const string CardtextCounterPrefix = "cardtext.counterPrefix";
+        public const string CardtextDamageKindMark = "cardtext.damageKindMark";
         public const string CardtextDamageWord = "cardtext.damageWord";
         public const string CardtextDefensePattern = "cardtext.defensePattern";
         public const string CardtextDefenseReplacement = "cardtext.defenseReplacement";
@@ -247,6 +250,7 @@ namespace Ashen.Generated
         public const string CardtextDistinctTagPlays = "cardtext.distinctTagPlays";
         public const string CardtextDoesNotWake = "cardtext.doesNotWake";
         public const string CardtextDouble = "cardtext.double";
+        public const string CardtextDownClass = "cardtext.downClass";
         public const string CardtextDraw = "cardtext.draw";
         public const string CardtextDuration = "cardtext.duration";
         public const string CardtextEffectPrefix = "cardtext.effectPrefix";
@@ -262,7 +266,9 @@ namespace Ashen.Generated
         public const string CardtextEvadeOnly = "cardtext.evadeOnly";
         public const string CardtextEvadeStackPhrase = "cardtext.evadeStackPhrase";
         public const string CardtextExtraAttribute = "cardtext.extraAttribute";
+        public const string CardtextExtraMark = "cardtext.extraMark";
         public const string CardtextFaceLine = "cardtext.faceLine";
+        public const string CardtextFaceLineClass = "cardtext.faceLineClass";
         public const string CardtextFractionKey = "cardtext.fractionKey";
         public const string CardtextFromAlly = "cardtext.fromAlly";
         public const string CardtextFromTarget = "cardtext.fromTarget";
@@ -280,6 +286,7 @@ namespace Ashen.Generated
         public const string CardtextLeaveOne = "cardtext.leaveOne";
         public const string CardtextLessMana = "cardtext.lessMana";
         public const string CardtextLightPattern = "cardtext.lightPattern";
+        public const string CardtextLineBreak = "cardtext.lineBreak";
         public const string CardtextListJoin = "cardtext.listJoin";
         public const string CardtextMagicPhysical = "cardtext.magicPhysical";
         public const string CardtextManaGain = "cardtext.manaGain";
@@ -331,6 +338,7 @@ namespace Ashen.Generated
         public const string CardtextPrepareCounterReturn = "cardtext.prepareCounterReturn";
         public const string CardtextPrepareEvade = "cardtext.prepareEvade";
         public const string CardtextRangePrefix = "cardtext.rangePrefix";
+        public const string CardtextReceiptLink = "cardtext.receiptLink";
         public const string CardtextRemoveRow = "cardtext.removeRow";
         public const string CardtextRemoveRows = "cardtext.removeRows";
         public const string CardtextRestoreDefense = "cardtext.restoreDefense";
@@ -339,6 +347,15 @@ namespace Ashen.Generated
         public const string CardtextReturn = "cardtext.return";
         public const string CardtextReturnRow = "cardtext.returnRow";
         public const string CardtextReturnSuffix = "cardtext.returnSuffix";
+        public const string CardtextRichBoldClose = "cardtext.richBoldClose";
+        public const string CardtextRichBoldOpen = "cardtext.richBoldOpen";
+        public const string CardtextRichColourClose = "cardtext.richColourClose";
+        public const string CardtextRichColourOpen = "cardtext.richColourOpen";
+        public const string CardtextRichLinkClose = "cardtext.richLinkClose";
+        public const string CardtextRichLinkOpen = "cardtext.richLinkOpen";
+        public const string CardtextRichTagPattern = "cardtext.richTagPattern";
+        public const string CardtextRichUnderlineClose = "cardtext.richUnderlineClose";
+        public const string CardtextRichUnderlineOpen = "cardtext.richUnderlineOpen";
         public const string CardtextRoundedDown = "cardtext.roundedDown";
         public const string CardtextSchoolPrefix = "cardtext.schoolPrefix";
         public const string CardtextSentenceJoin = "cardtext.sentenceJoin";
@@ -352,6 +369,7 @@ namespace Ashen.Generated
         public const string CardtextSpGain = "cardtext.spGain";
         public const string CardtextSpace = "cardtext.space";
         public const string CardtextSpaced = "cardtext.spaced";
+        public const string CardtextSpanPattern = "cardtext.spanPattern";
         public const string CardtextSplitDamage = "cardtext.splitDamage";
         public const string CardtextStacksWhere = "cardtext.stacksWhere";
         public const string CardtextStanceNameKey = "cardtext.stanceNameKey";
@@ -373,6 +391,7 @@ namespace Ashen.Generated
         public const string CardtextTyped = "cardtext.typed";
         public const string CardtextTypedDamage = "cardtext.typedDamage";
         public const string CardtextUnknown = "cardtext.unknown";
+        public const string CardtextUpClass = "cardtext.upClass";
         public const string CardtextUsableThrough = "cardtext.usableThrough";
         public const string CardtextVal = "cardtext.val";
         public const string CardtextVerbRow = "cardtext.verbRow";

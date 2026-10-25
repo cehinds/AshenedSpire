@@ -124,7 +124,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             _modal.Reset();
             var draw = _pile == OverlayValues.PileDraw;
-            var cards = Core2CombatView.Pile(_flow.Session, _pile);
+            var cards = Core2CombatView.Pile(_flow.Session, _pile, _ui.Data.CardText);
             var view = _flow.View;
             VisualElement preferred = null;
             if (draw)
@@ -220,11 +220,14 @@ namespace Ashen.Presentation.UI.Screens
         }
 
         /// <summary>The card as a face in a pile or the inspector: never dimmed, never refused (it is not being played).</summary>
-        private CardViewData Plain(Core2CardView card)
+        private CardViewData Plain(Core2CardView card, bool inspect = false)
         {
             var data = _cardData(card);
             data.Affordable = true;
             data.RefusalText = null;
+            // A pile cell is a plain face (the profile's line limit); the inspector shows every line the model has (the web's level 'inspect').
+            if (card.Words != null) data.RulesHtml = inspect ? card.Words.Inspect : card.Words.Face;
+            data.RulesOverflow = !inspect && data.RulesOverflow;
             return data;
         }
 
@@ -242,7 +245,7 @@ namespace Ashen.Presentation.UI.Screens
             layout.AddToClassList(UiClasses.InspectLayout);
             var face = new KitCard { focusable = false };
             face.AddToClassList(UiClasses.InspectCard);
-            face.Bind(Plain(card));
+            face.Bind(Plain(card, true));
             layout.Add(face);
             var text = new VisualElement();
             text.AddToClassList(UiClasses.InspectText);
@@ -275,7 +278,8 @@ namespace Ashen.Presentation.UI.Screens
             }
             foreach (var hint in Core2CardHints.Hints(_strings, _ui.Data.CardFace, card))
                 host.Add(Text(hint.Lead == null ? hint.Text : _strings.Format(StringKeys.CardHintRow, new StringArgs().Add(UiPlaceholders.Lead, hint.Lead).Add(UiPlaceholders.Text, hint.Text)), UiClasses.DetailHint));
-            if (!string.IsNullOrEmpty(card.Text)) host.Add(Text(card.Text, UiClasses.DetailText));
+            if (card.Words?.Reading != null) host.Add(Text(CardFaceMarkup.ToRich(_ui.Data.CardText, card.Words.Reading, new CardMarkupStyle { ShowExtra = true }), UiClasses.DetailText));
+            else if (!string.IsNullOrEmpty(card.Text)) host.Add(Text(card.Text, UiClasses.DetailText));
             foreach (var tag in card.Tags)
             {
                 var id = tag.StartsWith(OverlayValues.TraitPrefix, StringComparison.Ordinal) ? tag.Substring(OverlayValues.TraitPrefix.Length) : tag;

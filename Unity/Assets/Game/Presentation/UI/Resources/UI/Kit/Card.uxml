@@ -28,6 +28,7 @@
         <ui:VisualElement name="CARD_COSTS" class="card-costs" picking-mode="Ignore" />
         <Ashen.Presentation.UI.LocLabel name="CARD_NAME" class="card-name font-lore" picking-mode="Ignore" />
         <Ashen.Presentation.UI.LocLabel name="CARD_TEXT" class="card-text font-lore" picking-mode="Ignore" />
+        <Ashen.Presentation.UI.LocLabel name="CARD_CUE" class="card-cue font-lore" picking-mode="Ignore" />
         <ui:VisualElement name="CARD_BAND" class="card-band" picking-mode="Ignore">
             <ui:VisualElement name="CARD_SIGIL" class="card-sigil" picking-mode="Ignore" />
             <ui:VisualElement name="CARD_MIRROR" class="card-sigil card-sigil--mirror" picking-mode="Ignore" />

@@ -257,6 +257,8 @@ async function faceTokens() {
     nameOutline: r2(0.65 * cqw / 2), nameShadowY: r2(0.6 * cqw), nameShadowBlur: r2(0.8 * cqw), costOutline: 1,
     glowOut: -32, glowSlice: 1, infoSize: 28, infoX: r2((doc.width - 28) / 2), infoY: -42,
     nameColor: layer('title').color, rulesColor: layer('rules').color, costColor: layer('stamina-value').color, costOutlineColor: layer('stamina-value').outline,
+    // illustrated-cards.css:12-16 .card-rules-inspect-cue: the "Inspect card" cue that closes a face whose model has more lines than the face shows (clamp(8px,4.3cqw,12px) is 12 at the design width).
+    cueSize: 12, cueColor: '#654923',
     nameOutlineColor: '#100b06', bandColor: '#efd09a', rankColor: '#f3f6ff', railColor: '#e8bd78', inkColor: '#000000',
     // illustrated-cards.css:74 .card-tag-count: a pill at the symbol's lower right; the band's second mark sits after the first (the gap is the band's).
     countSize: r2(6 * cqw), countRight: r2(-1.6 * cqw), countBottom: r2(-1.6 * cqw), countPadX: r2(0.9 * cqw), countRadius: r2(3 * cqw), countBorder: r2(0.35 * cqw), countFont: r2(5.2 * cqw),

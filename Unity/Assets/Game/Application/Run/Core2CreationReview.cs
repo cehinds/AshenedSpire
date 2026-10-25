@@ -106,9 +106,10 @@ namespace Ashen.App.Run
             }
 
             var deck = Js.Items(run[K.Deck]).OfType<JObject>().ToList();
+            var words = CardWords.Outside(preview.Core.Combat, ui.CardText);
             view.DeckSize = deck.Count;
             foreach (var group in deck.GroupBy(c => c.Str(K.CardId) + Js.Truthy(c[K.Upgraded])))
-                view.Deck.Add(new CreationDeckCard { Card = Core2DeckCards.View(data, group.First()), Count = group.Count() });
+                view.Deck.Add(new CreationDeckCard { Card = Core2DeckCards.View(data, group.First(), words), Count = group.Count() });
 
             view.BeginHint = strings.Format(StringKeys.CreationReviewBeginHint, new StringArgs()
                 .Add(UiPlaceholders.Class, className).Add(UiPlaceholders.Name, view.Relic?.Face.Name ?? view.Epithet));

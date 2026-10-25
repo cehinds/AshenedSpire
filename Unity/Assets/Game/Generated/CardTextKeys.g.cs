@@ -254,6 +254,7 @@ namespace Ashen.Generated
         public const string TurnStartHpPct = "turnStartHpPct";
         public const string Type = "type";
         public const string Uncovered = "uncovered";
+        public const string Upgraded = "upgraded";
         public const string UsableWhile = "usableWhile";
         public const string Value = "value";
         public const string Values = "values";

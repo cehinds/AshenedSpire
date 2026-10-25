@@ -169,6 +169,12 @@ namespace Ashen.App.Combat
         public string CardId;
         public string Name;
         public string Text;
+
+        /// <summary>The card instance (id, upgraded) the face is made from, the definition it is read as and, for a card in the hand, the preview it prints its numbers from (P-1: <see cref="CardWords"/> words the face from them).</summary>
+        public JObject Instance;
+        public JObject FaceDef;
+        public JObject FacePreview;
+        public FaceRules Words;
         public string Type;
         public double? Rank;
         public bool Upgraded;
@@ -432,7 +438,7 @@ namespace Ashen.App.Combat
         }
 
         /// <summary>The view of the fight as it stands. <paramref name="strings"/> fills the log's sentences; <paramref name="logLines"/> keeps the newest lines.</summary>
-        public static Core2CombatViewState Build(Core2CombatSession session, StringTable strings = null, int logLines = (int)Ashen.Generated.Core2HostNumbers.LogLines, JObject presentation = null)
+        public static Core2CombatViewState Build(Core2CombatSession session, StringTable strings = null, int logLines = (int)Ashen.Generated.Core2HostNumbers.LogLines, JObject presentation = null, CardTextData text = null)
         {
             var c = session.State;
             var legal = session.IsOver ? new List<JObject>() : session.LegalIntents(presentation).ToList();
@@ -458,7 +464,7 @@ namespace Ashen.App.Combat
             view.EndTurnRefusal = session.Why(view.EndTurn);
             view.Offer = Offer(session, legal);
             view.Choice = Choice(session, legal);
-            foreach (var inst in c.Piles.Hand) view.Hand.Add(Card(session, inst, legal));
+            foreach (var inst in c.Piles.Hand) view.Hand.Add(Worded(Card(session, inst, legal), c, text));
             view.Flasks = Flasks(session, legal);
             view.Equipment = Equipment(session);
             view.Log = Log(session, strings, logLines);
@@ -652,16 +658,23 @@ namespace Ashen.App.Combat
         /// keep the order the cards reached them (the web's spent-pile view); the draw pile is listed by name, rank then instance, which reveals nothing of its order (the web shuffles it for display with
         /// Math.random, piles.js:24-29; a sorted list is the same promise without randomness in the view).
         /// </summary>
-        public static List<Core2CardView> Pile(Core2CombatSession session, string pile)
+        public static List<Core2CardView> Pile(Core2CombatSession session, string pile, CardTextData text = null)
         {
             var piles = session.State.Piles;
             var source = pile == Ashen.Generated.OverlayValues.PileDraw ? piles.Draw : pile == Ashen.Generated.OverlayValues.PileDiscard ? piles.Discard : pile == Ashen.Generated.OverlayValues.PileExhaust ? piles.Exhaust : new List<JObject>();
-            var cards = source.Select(inst => PileCard(session, inst)).ToList();
+            var cards = source.Select(inst => Worded(PileCard(session, inst), session.State, text)).ToList();
             if (pile != Ashen.Generated.OverlayValues.PileDraw) return cards;
             return cards.OrderBy(card => card.Name, StringComparer.Ordinal).ThenBy(card => card.Rank ?? 0).ThenBy(card => card.InstanceId, StringComparer.Ordinal).ToList();
         }
 
         /// <summary>A card of a pile as its face prints it: name, type, rank, what it costs now and its text with the authored numbers (a pile card is not in play, so nothing is priced against a target).</summary>
+        /// <summary>The card with the words of its face (P-1), when the caller has the card text.</summary>
+        private static Core2CardView Worded(Core2CardView card, CombatState c, CardTextData text)
+        {
+            if (text != null) card.Words = new CardWords(c, text).For(card);
+            return card;
+        }
+
         private static Core2CardView PileCard(Core2CombatSession session, JObject inst)
         {
             var c = session.State;
@@ -683,6 +696,8 @@ namespace Ashen.App.Combat
             foreach (var tag in Js.Items(def[CK.CardTags] ?? def[K.Tags])) card.Tags.Add(Js.IsStr(tag) ? Js.Str(tag) : Js.Str(Js.Get(tag, K.Id)));
             CardFaceQuery.CollectEffects(def[K.Effects], card.Effects);
             FaceExtras(c, def, card, costs);
+            card.Instance = inst;
+            card.FaceDef = def;
             card.Text = Text(c, def, card, new Dictionary<string, double>(), Js.Items(def[K.Effects]).OfType<JObject>().ToList(), false);
             return card;
         }
@@ -719,6 +734,9 @@ namespace Ashen.App.Combat
             foreach (var tag in Js.Items(def[CK.CardTags] ?? def[K.Tags])) card.Tags.Add(Js.IsStr(tag) ? Js.Str(tag) : Js.Str(Js.Get(tag, K.Id)));
             CardFaceQuery.CollectEffects(def[K.Effects], card.Effects);
             FaceExtras(c, def, card, Try(() => CoreCosts.PreviewCosts(c, id)));
+            card.Instance = inst;
+            card.FacePreview = Try(() => Core2FacePreview.Build(c, inst));
+            card.FaceDef = card.FacePreview?.Obj(Ashen.Generated.CardTextKeys.ResolvedDefinition) ?? def;
             card.Choices = Try(() => CoreCardPlay.ChoiceOptions(def)) ?? new List<string>();
             foreach (var choice in card.Choices) card.ChoiceNames[choice] = c.Data.Stances.Has(choice) ? c.Data.Stances.Get(choice).Str(K.Name) ?? choice : choice;
             card.Plays = legal.Where(l => l.Str(RK.CardInstanceId) == id && l.Str(K.Type) == RV.IntentPlayCard).ToList();

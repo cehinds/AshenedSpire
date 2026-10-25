@@ -1011,6 +1011,8 @@
     --face-rules-color: #291f16;
     --face-cost-color: #fff5d2;
     --face-cost-outline-color: #101508;
+    --face-cue-size: 12px;
+    --face-cue-color: #654923;
     --face-name-outline-color: #100b06;
     --face-band-color: #efd09a;
     --face-rank-color: #f3f6ff;
