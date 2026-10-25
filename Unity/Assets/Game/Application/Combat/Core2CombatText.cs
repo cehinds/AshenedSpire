@@ -7,6 +7,7 @@ using Ashen.Domain.Combat;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using DK = Ashen.Generated.Core2DamageKeys;
+using IK = Ashen.Generated.IntentKeys;
 using K = Ashen.Generated.CombatKeys;
 using UF = Ashen.Generated.Core2UiFormats;
 
@@ -63,6 +64,55 @@ namespace Ashen.App.Combat
             return chips;
         }
 
+        // ------------------------------------------------------------------ what pointing at a chip or a meter says (the web's combatHealth.js badgeTipHtml)
+
+        /// <summary>A title and a body for a tooltip.</summary>
+        public sealed class Tip
+        {
+            public string Title;
+            public string Body;
+        }
+
+        private static string Title(StringTable strings, string labelKey, double value, double barrier) =>
+            barrier > 0
+                ? strings.Format(StringKeys.CombatProtectionTitleWithBarrier, Args().Add(IK.Label, strings.Get(labelKey)).Add(IK.Value, Num(value)).Add(IK.Barrier, Num(barrier)).Add(IK.BarrierName, strings.Get(StringKeys.CombatProtectionBarrier)))
+                : strings.Format(StringKeys.CombatProtectionTitlePlain, Args().Add(IK.Label, strings.Get(labelKey)).Add(IK.Value, Num(value)));
+
+        /// <summary>fixCoreProtectionDescription(combat, entity, kind) for a fight with FixCore rules; the plain protection text without them.</summary>
+        private static string Protection(StringTable strings, Core2FighterView f, bool ward)
+        {
+            var share = ward ? f.WardAbsorb : f.PoiseAbsorb;
+            if (!share.HasValue) return strings.Get(ward ? StringKeys.CombatProtectionHelpWard : StringKeys.CombatProtectionHelpPoise);
+            if (f.WardOff) return strings.Format(StringKeys.CombatProtectionHelpPoiseOnly, Args().Add(IK.Percent, Num(f.PoiseAbsorb ?? share.Value)));
+            return strings.Format(StringKeys.CombatProtectionHelpAbsorb, Args().Add(IK.Percent, Num(share.Value))
+                .Add(IK.Kind, strings.Get(ward ? StringKeys.CombatProtectionHelpMagical : StringKeys.CombatProtectionHelpPhysical)).Add(IK.Restores, strings.Get(StringKeys.CombatProtectionHelpBoth)));
+        }
+
+        /// <summary>The Block chip: "Block 7" and what Block does.</summary>
+        public static Tip BlockTip(StringTable strings, Core2FighterView f) =>
+            new Tip { Title = Title(strings, StringKeys.CombatProtectionBlock, f.Block, 0), Body = strings.Get(StringKeys.CombatProtectionHelpBlock) };
+
+        /// <summary>The Poise meter: "Poise 12" and the share of physical hits it takes off.</summary>
+        public static Tip PoiseTip(StringTable strings, Core2FighterView f) =>
+            f.Poise == null ? null : new Tip { Title = Title(strings, StringKeys.CombatProtectionPoise, f.Poise.Value, 0), Body = Protection(strings, f, false) };
+
+        /// <summary>The Ward meter: "Arcane Ward 8 (3 Barrier)", the share of magical hits it takes off, and what Barrier is when there is some.</summary>
+        public static Tip WardTip(StringTable strings, Core2FighterView f)
+        {
+            if (f.Ward == null) return null;
+            var body = Protection(strings, f, true);
+            if (f.Barrier > 0) body += "\n" + strings.Get(StringKeys.CombatProtectionHelpBarrier);
+            return new Tip { Title = Title(strings, StringKeys.CombatProtectionWard, f.Ward.Value + f.Barrier, f.Barrier), Body = body };
+        }
+
+        /// <summary>The Barrier chip: Barrier is the layer above Ward, which the web folds into the Ward badge and its tooltip.</summary>
+        public static Tip BarrierTip(StringTable strings, Core2FighterView f) =>
+            new Tip { Title = Title(strings, StringKeys.CombatProtectionBarrier, f.Barrier, 0), Body = strings.Get(StringKeys.CombatProtectionHelpBarrier) };
+
+        /// <summary>The armed Counter chip: the Counter rule in the card face's own words (the web draws no Counter chip; its stance row and the Counter card say it).</summary>
+        public static Tip CounterTip(StringTable strings) =>
+            new Tip { Title = strings.Get(StringKeys.Core2HudCounter), Body = strings.Get(StringKeys.CombatProtectionHelpCounter) };
+
         // ------------------------------------------------------------------ the enemy's intent and what the player knows of it
 
         /// <summary>
@@ -82,6 +132,9 @@ namespace Ashen.App.Combat
             }
             var args = Args().Add(UiPlaceholders.Label, label);
             if (intent.Pending || intent.Delayed) return strings.Format(StringKeys.CombatIntentTextCharging, args);
+            // The HP the move can take at the player's defenses (P-1, the web's intentDamageRead): '0–16', or '5×3' for a move of several hits.
+            var read = intent.Preview == null ? null : CoreIntentProjection.Read(intent.Preview);
+            if (read != null) return strings.Format(StringKeys.CombatIntentTextDamage, args.Add(UiPlaceholders.Damage, read.Label));
             if (intent.Damage.HasValue)
             {
                 args.Add(UiPlaceholders.Damage, Num(intent.Damage.Value));
@@ -90,6 +143,20 @@ namespace Ashen.App.Combat
             }
             if (intent.Block.HasValue) return strings.Format(StringKeys.CombatIntentTextBlock, args.Add(UiPlaceholders.Block, Num(intent.Block.Value)));
             return strings.Format(StringKeys.CombatIntentTextPlain, args);
+        }
+
+        /// <summary>The badge of a read move (the web's combatIntentPresentation): title, symbols with their numbers, the line under the number; null while the move is unread.</summary>
+        public static Core2IntentBadge IntentBadge(StringTable strings, Core2IntentView intent) =>
+            intent == null || !intent.Known || intent.Preview == null ? null : Core2IntentBadge.Of(intent.Preview, strings);
+
+        /// <summary>The tooltip of the intent badge: the line under the number ('Total 0–16 HP') and what that number is (the web's combat.targetHud.damageScope), or the unread note.</summary>
+        public static string IntentTip(StringTable strings, Core2IntentView intent)
+        {
+            if (intent == null) return null;
+            if (!intent.Known) return strings.Get(StringKeys.CombatTargetHudUnknown);
+            var badge = IntentBadge(strings, intent);
+            if (badge?.Summary == null) return null;
+            return badge.Summary + "\n" + strings.Get(StringKeys.CombatTargetHudDamageScope);
         }
 
         /// <summary>The USS intent kind of a chip: the move's kind once read, the unknown kind while it is not.</summary>

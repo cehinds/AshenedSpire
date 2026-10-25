@@ -23,6 +23,7 @@ namespace Ashen.App.Combat
             public List<double> HitDamages = new List<double>();
             public double Total;
             public JObject Return;
+            public JObject Receipt;
         }
 
         private static TOut Try<TOut>(Func<TOut> read) where TOut : class
@@ -170,7 +171,7 @@ namespace Ashen.App.Combat
                 var count = read != null ? 1 : reply?.hits ?? 0;
                 var copy = target == null ? null : (JObject)target.DeepClone();
                 var receipts = copy == null ? new List<JObject>() : CoreDamage.PreviewHits(_priced, _player, copy, amount, returnCarrier, count);
-                var row = new Reply();
+                var row = new Reply { Receipt = copy == null ? null : CoreDamage.CombinedReceipt(target, receipts) };
                 if (read != null)
                 {
                     row.Damage = read.Num(T.Hp);
@@ -339,6 +340,7 @@ namespace Ashen.App.Combat
                     var result = PreviewCounter(enemy)[at];
                     if (primary == null || primary.Str(T.Id) != enemy.Str(T.Id)) continue;
                     if (result.Return != null) entry[T.CounterReturn] = result.Return.DeepClone();
+                    if (result.Receipt != null) entry[T.DamageReceipt] = result.Receipt.DeepClone();
                     entry[T.Value] = Js.N(result.Damage);
                     entry[T.HitDamages] = new JArray(result.HitDamages.Select(Js.N));
                     entry[T.TotalDamage] = Js.N(result.Total);
@@ -346,6 +348,7 @@ namespace Ashen.App.Combat
                 if (Js.Nullish(entry[T.Value]))
                 {
                     var result = PreviewCounter(primary)[at];
+                    if (result.Receipt != null) entry[T.DamageReceipt] = result.Receipt.DeepClone();
                     entry[T.Value] = Js.N(result.Damage);
                     entry[T.HitDamages] = new JArray(result.HitDamages.Select(Js.N));
                     entry[T.TotalDamage] = Js.N(result.Total);
@@ -364,6 +367,8 @@ namespace Ashen.App.Combat
                 entry[T.Value] = Js.N(damages.Count > 0 ? damages[0] : 0);
                 entry[T.HitDamages] = new JArray(damages.Select(Js.N));
                 entry[T.TotalDamage] = Js.N(damages.Sum());
+                // The calculation behind the number (combat.js:2566: the receipts of the hits, for the target the figure is of).
+                entry[T.DamageReceipt] = CoreDamage.CombinedReceipt(enemy, receipts);
             }
             // An un-aimed face states the card's offensive amount (combat.js:2698).
             var printedAmount = Price(effect[T.Amount], null);

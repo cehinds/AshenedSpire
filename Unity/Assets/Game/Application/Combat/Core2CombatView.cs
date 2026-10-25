@@ -77,6 +77,18 @@ namespace Ashen.App.Combat
 
         /// <summary>previewEnemyAction of the move (its effects and tags) when the move is known.</summary>
         public JObject Action;
+
+        /// <summary>
+        /// The web's projectCombatIntent of the move once read (P-1): the intent priced against the player hit by hit (damage, hitDamages, hpLossBounds, ...) with the HP range it can take
+        /// at the player's current defenses in <c>projectedDamage</c>; null while the move is unread or when it cannot be priced.
+        /// </summary>
+        public JObject Preview;
+
+        /// <summary>The HP the move can take as a range ('0–16', or '9' when certain), from <see cref="Preview"/>; null without one.</summary>
+        /// <summary>The player's stance lowers the HP range shown (the web's green damage tone).</summary>
+        public bool Reduced => Known && Preview?.Obj(Ashen.Generated.IntentKeys.ProjectedDamage)?.Str(Ashen.Generated.IntentKeys.Tone) == Ashen.Generated.IntentKeys.ToneGreen;
+
+        public string DamageRange => Preview?.Obj(Ashen.Generated.IntentKeys.ProjectedDamage)?.Str(Ashen.Generated.IntentKeys.Label);
     }
 
     /// <summary>One fighter as the HUD draws it: Evade, Poise, Ward, Block, HP, the stance (Staggered included) and the statuses with their stacks.</summary>
@@ -94,6 +106,14 @@ namespace Ashen.App.Combat
         public double Barrier;
         public Core2MeterView Poise;
         public Core2MeterView Ward;
+
+        /// <summary>
+        /// The share of a physical (Poise) and a magical (Ward) hit the pool takes off while it holds, in percent, as the web's fixCoreProtectionDescription reads it (a pool of 1000 so the
+        /// share is uncapped); null when the fight has no FixCore rules. <see cref="WardOff"/> is the data toggle that switches Ward off (Poise alone is described then).
+        /// </summary>
+        public double? PoiseAbsorb;
+        public double? WardAbsorb;
+        public bool WardOff;
 
         /// <summary>The Evade and Precision stacks (the statuses of those ids).</summary>
         public double Evade;
@@ -511,6 +531,17 @@ namespace Ashen.App.Combat
             return m == null ? null : new Core2MeterView { Value = m.Num(K.Value), Max = m.Num(K.Max) };
         }
 
+        /// <summary>fixCoreProtectionDescription's share: protectionReceipt(shadow, kind, 100).reduced, the shadow holding 1000 in each pool.</summary>
+        private static double? Absorbed(CombatState c, JObject entity, string kind)
+        {
+            var shadow = Js.Spread(entity);
+            shadow[CK.PersistentWard] = Js.Spread(entity.Obj(CK.PersistentWard), Js.Obj(K.Value, 1000));
+            shadow[CK.PersistentPoise] = Js.Spread(entity.Obj(CK.PersistentPoise), Js.Obj(K.Value, 1000));
+            try { return CoreFixCore.ProtectionReceipt(c, shadow, kind, 100).Num(DK.Reduced); }
+            catch (InvalidOperationException) { return null; }
+            catch (NotSupportedException) { return null; }
+        }
+
         private static Core2FighterView Fighter(CombatState c, JObject entity, bool player)
         {
             var defId = player ? entity.Str(K.ClassId) : entity.Str(K.EnemyId);
@@ -548,6 +579,12 @@ namespace Ashen.App.Combat
                 // An entity that never switched its reactions has none recorded: they are on (the web reads `reactionsEnabled !== false`).
                 ReactionsEnabled = player && !(entity[Ashen.Generated.Core2SnapshotKeys.ReactionsEnabled] != null && !entity.Is(Ashen.Generated.Core2SnapshotKeys.ReactionsEnabled)),
             };
+            if (CoreFixCore.Enabled(c))
+            {
+                f.WardOff = CoreFixCore.WardDisabled(c);
+                f.PoiseAbsorb = Absorbed(c, entity, Ashen.Generated.Core2DamageValues.KindPhysical);
+                f.WardAbsorb = Absorbed(c, entity, Ashen.Generated.Core2DamageValues.KindMagical);
+            }
             if (!player && f.Alive) f.Intent = ReadIntent(c, entity);
             // An enemy whose move the player has not read keeps its stance and armed Counter private: they would give the move away (the web shows only the broad family).
             if (f.Intent != null && !f.Intent.Known)
@@ -594,6 +631,7 @@ namespace Ashen.App.Combat
             view.Pending = enemy[K.PendingMove] != null && enemy[K.PendingMove].Type != JTokenType.Null;
             view.Delayed = intent.Is(K.Delayed);
             if (view.MoveId != null) view.Action = Try(() => CoreEnemyPreview.Preview(c, enemy, view.MoveId));
+            view.Preview = Try(() => CoreIntentProjection.Project(c, enemy));
             return view;
         }
 

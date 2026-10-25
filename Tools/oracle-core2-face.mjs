@@ -96,10 +96,17 @@ function faces(ref, { preview = null, rules = null } = {}) {
 // The preview, as the face reads it
 // ---------------------------------------------------------------------------------------------------------------
 const VALUE_FIELDS = ['op', 'value', 'hits', 'hitDamages', 'totalDamage', 'faceValue', 'splitBase', 'ratingBonus', 'ratingPart', 'physicalDamageType', 'defenseSplit', 'tags', 'status', 'token', 'counterReturn'];
+// The calculation behind a damage number (P-1: the hand's underlined numbers and their tooltip): the hits with the sources that made them.
+const receiptOf = (receipt) => receipt && {
+  targetId: receipt.targetId ?? null, totalDamage: receipt.totalDamage,
+  hits: (receipt.hits || []).map((hit) => ({ incoming: hit.incoming, hpLoss: hit.hpLoss, physical: hit.physical ?? null, magical: hit.magical ?? null, blocked: hit.blocked ?? 0,
+    poiseReduced: hit.poiseReduced ?? 0, wardReduced: hit.wardReduced ?? 0, barrierReduced: hit.barrierReduced ?? 0, poiseDamage: hit.poiseDamage ?? 0,
+    sources: (hit.sources || []).map((source) => ({ id: source.id, label: source.label ?? null, operation: source.operation ?? null, stage: source.stage ?? null, amount: source.amount ?? null, multiplier: source.multiplier ?? null })) })),
+};
 function summary(preview) {
   if (!preview) return null;
   return canon({
-    values: (preview.values || []).map((row) => Object.fromEntries(VALUE_FIELDS.filter((key) => row[key] !== undefined).map((key) => [key, row[key]]))),
+    values: (preview.values || []).map((row) => ({ ...Object.fromEntries(VALUE_FIELDS.filter((key) => row[key] !== undefined).map((key) => [key, row[key]])), ...(row.damageReceipt ? { damageReceipt: receiptOf(row.damageReceipt) } : {}) })),
     tokens: preview.tokens, damageSequences: preview.damageSequences, counterReturn: preview.counterReturn ?? null, entryPrecision: preview.entryPrecision ?? null,
     costShift: preview.costShift ?? null, chargedEffects: preview.chargedEffects?.length ?? 0, expansion: preview.combatExpansionVersion,
   });

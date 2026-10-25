@@ -85,6 +85,7 @@
         "Damage": "damage",
         "DamageEffect": "damageEffect",
         "DamageMultiplier": "damageMultiplier",
+        "DamageReceipt": "damageReceipt",
         "DamageSequences": "damageSequences",
         "DamageTagPrefix": "damage:",
         "DamageTakenThisTurn": "damageTakenThisTurn",

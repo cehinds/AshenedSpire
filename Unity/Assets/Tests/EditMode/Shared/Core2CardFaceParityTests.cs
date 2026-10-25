@@ -188,6 +188,7 @@ namespace Ashen.Tests
                 {
                     var copy = new JObject();
                     foreach (var field in ValueFields.OrderBy(f => f, StringComparer.Ordinal)) if (row[field] != null) copy[field] = row[field].DeepClone();
+                    if (row["damageReceipt"] is JObject receipt) copy["damageReceipt"] = ReceiptOf(receipt);
                     return copy;
                 })),
                 ["tokens"] = Sorted(preview["tokens"]), ["damageSequences"] = preview["damageSequences"].DeepClone(), ["counterReturn"] = preview["counterReturn"]?.DeepClone() ?? JValue.CreateNull(),
@@ -195,6 +196,26 @@ namespace Ashen.Tests
                 ["chargedEffects"] = ((JArray)preview["chargedEffects"]).Count, ["expansion"] = preview["combatExpansionVersion"].DeepClone(),
             };
         }
+
+        private static JToken Or(JToken token, JToken fallback) => token == null || token.Type == JTokenType.Null ? fallback : token.DeepClone();
+
+        /// <summary>The oracle's receiptOf: the hits of a damage number's calculation with the sources that made them.</summary>
+        private static JObject ReceiptOf(JObject receipt) => new JObject
+        {
+            ["hits"] = new JArray(Ashen.Domain.Combat.Js.Items(receipt["hits"]).OfType<JObject>().Select(hit => new JObject
+            {
+                ["barrierReduced"] = Or(hit["barrierReduced"], 0), ["blocked"] = Or(hit["blocked"], 0), ["hpLoss"] = hit["hpLoss"]?.DeepClone(), ["incoming"] = hit["incoming"]?.DeepClone(),
+                ["magical"] = Or(hit["magical"], JValue.CreateNull()), ["physical"] = Or(hit["physical"], JValue.CreateNull()), ["poiseDamage"] = Or(hit["poiseDamage"], 0),
+                ["poiseReduced"] = Or(hit["poiseReduced"], 0),
+                ["sources"] = new JArray(Ashen.Domain.Combat.Js.Items(hit["sources"]).OfType<JObject>().Select(source => new JObject
+                {
+                    ["amount"] = Or(source["amount"], JValue.CreateNull()), ["id"] = source["id"]?.DeepClone(), ["label"] = Or(source["label"], JValue.CreateNull()),
+                    ["multiplier"] = Or(source["multiplier"], JValue.CreateNull()), ["operation"] = Or(source["operation"], JValue.CreateNull()), ["stage"] = Or(source["stage"], JValue.CreateNull()),
+                })),
+                ["wardReduced"] = Or(hit["wardReduced"], 0),
+            })),
+            ["targetId"] = Or(receipt["targetId"], JValue.CreateNull()), ["totalDamage"] = receipt["totalDamage"]?.DeepClone(),
+        };
 
         private static JToken Sorted(JToken token)
         {

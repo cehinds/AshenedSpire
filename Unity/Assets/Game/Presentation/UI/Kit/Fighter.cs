@@ -36,6 +36,25 @@ namespace Ashen.Presentation.UI.Kit
             mark.pickingMode = PickingMode.Position;
             Tooltip.AttachResolved(mark, Overlay, Size, title, body, DelayMs);
         }
+
+        /// <summary>
+        /// Makes a mark that lives across redraws (a meter, the intent) explain itself, and changes what it says as the fight moves: the tooltip is attached once and its words replaced.
+        /// No words detaches nothing but lets the pointer pass.
+        /// </summary>
+        public static void Retell(VisualElement mark, ref Tooltip tip, string title, string body)
+        {
+            if (Overlay == null || mark == null) return;
+            var speaks = !(string.IsNullOrEmpty(body) && string.IsNullOrEmpty(title));
+            if (tip == null)
+            {
+                if (!speaks) return;
+                mark.pickingMode = PickingMode.Position;
+                tip = Tooltip.AttachResolved(mark, Overlay, Size, title, body, DelayMs);
+                return;
+            }
+            if (speaks) tip.SetText(title, body);
+            tip.style.display = speaks ? DisplayStyle.Flex : DisplayStyle.None;
+        }
     }
 
     /// <summary>Display-ready values for one fighter of a Core 2 fight (text resolved by Core2CombatText, numbers from the combat view).</summary>
@@ -64,6 +83,15 @@ namespace Ashen.Presentation.UI.Kit
         public string IntentText;
         public string IntentKind;
         public Texture2D IntentIcon;
+
+        /// <summary>What pointing at the intent, the Poise meter or the Ward meter says (the web's combat target HUD and health-badge tooltips); null for nothing to say.</summary>
+        public bool IntentReduced;
+        public string IntentTipTitle;
+        public string IntentTipBody;
+        public string PoiseTipTitle;
+        public string PoiseTipBody;
+        public string WardTipTitle;
+        public string WardTipBody;
         public bool CanPredict;
         public string HitText;
         public string PreviewText;
@@ -115,6 +143,9 @@ namespace Ashen.Presentation.UI.Kit
         private readonly VisualElement _figure;
         private readonly VisualElement _pose;
         private string _intentClass;
+        private Tooltip _intentTip;
+        private Tooltip _poiseTip;
+        private Tooltip _wardTip;
         private string _order;
         private FxRun _motion;
         private IVisualElementScheduledItem _settle;
@@ -195,6 +226,7 @@ namespace Ashen.Presentation.UI.Kit
                 _intent?.AddToClassList(_intentClass);
                 _intentIcon?.AddToClassList(_intentClass);
             }
+            _intent?.EnableInClassList(UiClasses.IntentReduced, d.IntentReduced);
             var hasIntent = !string.IsNullOrEmpty(d.IntentText);
             if (_intent != null) _intent.style.visibility = hasIntent ? Visibility.Visible : Visibility.Hidden;
             if (_intentIcon != null)
@@ -222,6 +254,9 @@ namespace Ashen.Presentation.UI.Kit
             _poise?.Set(d.Poise, d.PoiseMax);
             UiDom.Show(_ward, d.HasWard && d.Alive);
             _ward?.Set(d.Ward, d.WardMax);
+            ChipTips.Retell(_poise, ref _poiseTip, d.PoiseTipTitle, d.PoiseTipBody);
+            ChipTips.Retell(_ward, ref _wardTip, d.WardTipTitle, d.WardTipBody);
+            ChipTips.Retell(_intent, ref _intentTip, d.IntentTipTitle, d.IntentTipBody);
             _hp?.Set(d.Hp, d.MaxHp, d.ReferenceMaxHp);
             Text(_stance, d.StanceText);
             Chips(_ratings, d.RatingChips);

@@ -54,6 +54,7 @@
     --color-intent-block: #8fb3e0;
     --color-intent-buff: #c9a227;
     --color-intent-debuff: #b07ad9;
+    --color-intent-reduced: #8ad498;
     --color-map-node: #15110d;
     --color-map-node-line: #85714f;
     --color-map-edge: rgba(253, 246, 230, 0.28);

@@ -632,6 +632,7 @@
         "CombatantActing": "combatant--acting",
         "CombatantStaggered": "combatant--staggered",
         "IntentPrefix": "intent--",
+        "IntentReduced": "intent--reduced",
         "StatusChip": "status-chip",
         "CombatModePrefix": "combat--",
         "CardChosen": "card--chosen",

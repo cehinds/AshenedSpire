@@ -74,6 +74,7 @@ namespace Ashen.Generated
         public const string Damage = "damage";
         public const string DamageEffect = "damageEffect";
         public const string DamageMultiplier = "damageMultiplier";
+        public const string DamageReceipt = "damageReceipt";
         public const string DamageSequences = "damageSequences";
         public const string DamageTagPrefix = "damage:";
         public const string DamageTakenThisTurn = "damageTakenThisTurn";

@@ -19,6 +19,7 @@ namespace Ashen.Presentation.UI.Kit
         private readonly VisualElement _intentIcon;
         private readonly LocLabel _intent;
         private readonly LocButton _info;
+        private Tooltip _intentTip;
 
         public TargetCard()
         {
@@ -59,6 +60,8 @@ namespace Ashen.Presentation.UI.Kit
             var hasIntent = !string.IsNullOrEmpty(d.IntentText);
             UiDom.Show(_intentRow, hasIntent);
             _intent?.SetResolved(d.IntentText ?? string.Empty);
+            _intent?.EnableInClassList(UiClasses.IntentReduced, d.IntentReduced);
+            ChipTips.Retell(_intentRow, ref _intentTip, d.IntentTipTitle, d.IntentTipBody);
             if (_intentIcon != null)
             {
                 _intentIcon.style.backgroundImage = d.IntentIcon != null ? new StyleBackground(d.IntentIcon) : new StyleBackground(StyleKeyword.None);
