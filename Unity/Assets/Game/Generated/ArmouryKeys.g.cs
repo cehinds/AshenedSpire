@@ -17,5 +17,9 @@ namespace Ashen.Generated
         public const string RarityStringKey = "armoury.rarity.{0}";
         public const string Space = " ";
         public const string UnlockHintKey = "unlock.{0}.hint";
+        public const string PowerRoles = "attack,technique,guard";
+        public const string PowerLabelKey = "armoury.power.{0}";
+        public const string PowerFullKey = "armoury.power.{0}.full";
+        public const string HandSizeRow = "handSize";
     }
 }

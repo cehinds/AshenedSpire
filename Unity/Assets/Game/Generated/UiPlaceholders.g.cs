@@ -4,6 +4,10 @@ namespace Ashen.Generated
     /// <summary>Named placeholders in UI string templates ({name}).</summary>
     public static class UiPlaceholders
     {
+        public const string Base = "base";
+        public const string Bonus = "bonus";
+        public const string Rating = "rating";
+        public const string State = "state";
         public const string Done = "done";
         public const string Total = "total";
         public const string File = "file";

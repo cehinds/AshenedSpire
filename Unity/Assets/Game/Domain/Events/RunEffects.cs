@@ -141,16 +141,17 @@ namespace Ashen.Domain.Events
     {
         /// <summary>
         /// executeRunEffects({ run, registries, rng }, effects) → events: every effect queued against the facade (source,
-        /// owner and target), the queue drained, the facade's pools written back.
+        /// owner and target), the queue drained, the facade's pools written back. A flask drunk between fights passes the relics' flask power as <paramref name="amountMult"/>
+        /// (useRunChargeFlask scales each amount, rounded up).
         /// </summary>
-        public static JArray Execute(EventsData d, JObject run, Rng rng, JArray effects)
+        public static JArray Execute(EventsData d, JObject run, Rng rng, JArray effects, double amountMult = 1)
         {
             if (d == null) throw new ArgumentNullException(nameof(d));
             if (run == null) throw new ArgumentNullException(nameof(run));
             var ctx = new RunEffectContext(d, run, rng);
             var c = ctx.State;
             foreach (var eff in Js.Items(effects).OfType<JObject>())
-                c.Enqueue(new CombatAction { Effect = eff, Source = c.Player, Owner = c.Player, Target = c.Player, Meta = ActionMeta.Empty() });
+                c.Enqueue(new CombatAction { Effect = eff, Source = c.Player, Owner = c.Player, Target = c.Player, Meta = amountMult != 1 ? new ActionMeta { AmountMult = amountMult } : ActionMeta.Empty() });
             ctx.Drain();
             return new JArray(c.EventLog.Select(e => e.DeepClone()));
         }

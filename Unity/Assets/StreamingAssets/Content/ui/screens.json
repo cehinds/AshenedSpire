@@ -208,6 +208,13 @@
       "back": "close",
       "transitions": {}
     },
+    "core2Potions": {
+      "uxml": "UI/Screens/Potions",
+      "layer": "modal",
+      "focusOrder": ["POTIONS_MODAL"],
+      "back": "close",
+      "transitions": {}
+    },
     "actMap": {
       "uxml": "UI/Screens/ActMap",
       "layer": "screen",

@@ -444,6 +444,8 @@ namespace Ashen.Generated
         public const string MapRailEnd = "MAP_RAIL_END";
         public const string ArmouryScrim = "ARMOURY_SCRIM";
         public const string ArmouryModal = "ARMOURY_MODAL";
+        public const string PotionsScrim = "POTIONS_SCRIM";
+        public const string PotionsModal = "POTIONS_MODAL";
         public const string TitleArtDoor = "TITLE_ART_DOOR";
         public const string TitleArtDoorPhone = "TITLE_ART_DOOR_PHONE";
         public const string TitleArtGate = "TITLE_ART_GATE";

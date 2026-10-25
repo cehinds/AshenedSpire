@@ -22,7 +22,7 @@ namespace Ashen.Presentation.UI.Screens
     public sealed class Core2ShopScreen : ScreenView
     {
         private readonly Dictionary<int, LocButton> _media = new Dictionary<int, LocButton>();
-        private readonly Dictionary<int, LocButton> _buy = new Dictionary<int, LocButton>();
+        private readonly Dictionary<int, HoldButton> _buy = new Dictionary<int, HoldButton>();
         private readonly List<LocButton> _tabs = new List<LocButton>();
         private Core2RunSession _run;
         private Core2ShopFlow _flow;
@@ -41,7 +41,7 @@ namespace Ashen.Presentation.UI.Screens
 
         public Core2ShopFlow Flow => _flow;
 
-        public IReadOnlyDictionary<int, LocButton> BuyButtons => _buy;
+        public IReadOnlyDictionary<int, HoldButton> BuyButtons => _buy;
 
         public IReadOnlyDictionary<int, LocButton> InspectButtons => _media;
 
@@ -184,18 +184,38 @@ namespace Ashen.Presentation.UI.Screens
             row.Add(details);
             var actions = new VisualElement { pickingMode = PickingMode.Ignore };
             actions.AddToClassList(ShopClasses.Actions);
-            var buy = new LocButton { userData = item.Index };
+            // The web's Buy is a hold button: a tap asks "Buy this item?", holding it buys at once (holdConfirm; with holds off, or an offer that cannot be bought, a press only asks or refuses).
+            var buy = new HoldButton { userData = item.Index };
             buy.AddToClassList(UiClasses.ButtonReady);
             buy.AddToClassList(ShopClasses.Buy);
             buy.EnableInClassList(ShopClasses.BuyOff, !item.Available);
-            buy.SetResolved(_flow.BuyLabel);
+            buy.labelKey = null;
+            buy.Q<LocLabel>(UiNames.HoldLabel)?.SetResolved(_flow.BuyLabel);
+            buy.HoldMs = Ui.Data.Tokens.Duration(TokenKeys.HoldConfirm);
+            buy.HoldEnabled = item.Available && _run.PlayerSettings.Text(SettingIds.HoldConfirm) != SettingIds.HoldOff;
+            var held = false;
             buy.clicked += () =>
             {
+                // The release that ends a completed hold also clicks: the purchase has been made, so it asks nothing.
+                if (held)
+                {
+                    held = false;
+                    return;
+                }
                 _opener = item.Index;
                 _openerBuy = true;
                 _focusTab = null;
                 Press(() => _flow.RequestBuy(item.Index), buy);
             };
+            if (buy.HoldEnabled)
+                buy.Committed += () =>
+                {
+                    held = true;
+                    _opener = item.Index;
+                    _openerBuy = true;
+                    _focusTab = null;
+                    Press(() => _flow.BuyNow(item.Index), buy);
+                };
             _buy[item.Index] = buy;
             actions.Add(buy);
             actions.Add(Text(item.PriceText, ShopClasses.Price));

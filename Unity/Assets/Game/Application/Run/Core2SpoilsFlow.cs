@@ -78,6 +78,15 @@ namespace Ashen.App.Run
         public bool Left;
 
         public bool Done => Refusal == null;
+
+        /// <summary>Edit deck claimed the card; the screen opens the deck editor with <see cref="EditorFocusKey"/> ready, and calls <see cref="Core2SpoilsFlow.Proceed"/> when it closes.</summary>
+        public bool OpenEditor;
+
+        /// <summary>The collection tile key of the card the reward handed over (the editor starts with it selected).</summary>
+        public string EditorFocusKey;
+
+        /// <summary>Equip now claimed the item; the screen opens the Armoury on its equipment, and calls <see cref="Core2SpoilsFlow.Proceed"/> when it closes.</summary>
+        public bool OpenEquipment;
     }
 
     /// <summary>
@@ -95,6 +104,7 @@ namespace Ashen.App.Run
         private int? _selected;
         private bool _reviewing;
         private double _cindersTotal;
+        private bool _proceedPending;
 
         public Core2SpoilsFlow(Core2RunSession session, UiData ui)
         {
@@ -146,6 +156,15 @@ namespace Ashen.App.Run
         /// <summary>The primary button cannot act now (nothing picked; a card that may not join the deck): the words that say why, shown at the control and in the status line. Empty when it can.</summary>
         public string ConfirmRefusal { get; private set; } = string.Empty;
 
+        /// <summary>"Edit deck" while a card is under review and the deck editor may open (the web hides it otherwise, and Keep in collection takes its place); empty otherwise.</summary>
+        public string EditDeckLabel { get; private set; } = string.Empty;
+
+        /// <summary>"Equip now" while an armament or armour is under review; empty otherwise.</summary>
+        public string EquipLabel { get; private set; } = string.Empty;
+
+        /// <summary>A claim opened a door (the deck editor, the Armoury) and the door has not yet been left: <see cref="Proceed"/> goes on.</summary>
+        public bool ProceedPending => _proceedPending;
+
         /// <summary>The web's status line under the options (the deck refusal, or what the last press refused).</summary>
         public string StatusLine { get; private set; } = string.Empty;
 
@@ -173,6 +192,8 @@ namespace Ashen.App.Run
             StatusLine = string.Empty;
             ConfirmRefusal = string.Empty;
             KeepLabel = string.Empty;
+            EditDeckLabel = string.Empty;
+            EquipLabel = string.Empty;
             BackLabel = string.Empty;
             if (View.ShowNotices)
             {
@@ -191,7 +212,7 @@ namespace Ashen.App.Run
             Eyebrow = strings.Get(StringKeys.SpoilsEyebrow);
             Title = strings.Get(View.Source == RV.SourceLevel ? StringKeys.SpoilsTitleLevel : StringKeys.SpoilsTitleVictory);
             Status = strings.Format(StringKeys.SpoilsStatus, new StringArgs().Add(UiPlaceholders.Claimed, View.TakenCount).Add(UiPlaceholders.Count, Math.Max(View.TakeCount, 1)));
-            Note = strings.Format(StringKeys.SpoilsNote, new StringArgs().Add(UiPlaceholders.Count, View.TakeCount));
+            Note = strings.Format(EditorOpens ? StringKeys.SpoilsNoteArmoury : StringKeys.SpoilsNote, new StringArgs().Add(UiPlaceholders.Count, View.TakeCount));
             if (View.Cinders > 0 && View.Source == RV.SourceCombat)
             {
                 CindersTitle = strings.Format(StringKeys.SpoilsCindersTitle, new StringArgs().Add(UiPlaceholders.Amount, CombatText.Number(View.Cinders)));
@@ -205,18 +226,27 @@ namespace Ashen.App.Run
                 if (picked.IsCard)
                 {
                     ConfirmLabel = strings.Get(StringKeys.SpoilsAddToDeck);
-                    KeepLabel = strings.Get(StringKeys.SpoilsKeep);
+                    // The web: with a deck door open, Edit deck takes Keep in collection's place (the card is kept either way).
+                    if (_session.DeckEditorRefusal() == null) EditDeckLabel = strings.Get(StringKeys.SpoilsEditDeck);
+                    else KeepLabel = strings.Get(StringKeys.SpoilsKeep);
                     var code = View.Options.First(o => o.Index == picked.Index).DeckRefusal;
                     ConfirmRefusal = DeckRefusalText(code);
                     StatusLine = ConfirmRefusal;
                 }
-                else ConfirmLabel = strings.Get(StringKeys.SpoilsContinue);
+                else
+                {
+                    ConfirmLabel = strings.Get(StringKeys.SpoilsContinue);
+                    if (picked.Kind == RV.KindWeapons || picked.Kind == RV.KindArmor) EquipLabel = strings.Get(StringKeys.SpoilsEquipNow);
+                }
                 return;
             }
             ConfirmLabel = strings.Get(StringKeys.SpoilsConfirm);
             BackLabel = strings.Get(StringKeys.SpoilsSkip);
             ConfirmRefusal = _selected.HasValue ? string.Empty : strings.Get(StringKeys.RewardsRefusalNoPick);
         }
+
+        /// <summary>The Armoury opens the deck editor (the web's armouryOpensDeckEditor): the note then promises the editor.</summary>
+        private bool EditorOpens => DeckRules.ArmouryOpensEditor(_session.Core.Deck, _session.Run, _session.Profile.Settings);
 
         private Core2SpoilsNotice Notice(Core2RewardNoticeView n)
         {
@@ -323,6 +353,48 @@ namespace Ashen.App.Run
             var option = SelectedOption;
             if (Stage != Core2SpoilsStage.Review || option == null || !option.IsCard) return new Core2SpoilsResult();
             return Claim(_session.TakeReward(option.Index));
+        }
+
+        /// <summary>
+        /// Review of a card, Edit deck (web gameProfileOffers.js editDeck): the card is claimed into the collection, then the deck editor opens with it ready to place. The offer is not left
+        /// until the editor closes (<see cref="Proceed"/>), so a reload mid-editor lands back on the spoils with the card already taken.
+        /// </summary>
+        public Core2SpoilsResult EditDeck()
+        {
+            var option = SelectedOption;
+            if (Stage != Core2SpoilsStage.Review || option == null || !option.IsCard || EditDeckLabel.Length == 0) return new Core2SpoilsResult();
+            var claim = _session.TakeReward(option.Index);
+            if (!claim.Done) return new Core2SpoilsResult { Refusal = claim.Refusal };
+            var instanceId = Core2Rewards.InstanceId(View.OfferId, option.Index);
+            var card = Js.Items(_session.Run[DK.Sideboard]).OfType<JObject>().FirstOrDefault(c => c.Str(DK.InstanceId) == instanceId);
+            return Opened(new Core2SpoilsResult { OpenEditor = true, EditorFocusKey = card == null ? null : Ashen.Generated.Core2DeckEditorValues.KindCard + Ashen.Generated.Core2DeckEditorValues.KeySeparator + DeckEditor.VariantKey(card) });
+        }
+
+        /// <summary>Review of an armament or armour, Equip now (web equip): the item is claimed, then the Armoury opens so it can be worn.</summary>
+        public Core2SpoilsResult EquipNow()
+        {
+            var option = SelectedOption;
+            if (Stage != Core2SpoilsStage.Review || option == null || EquipLabel.Length == 0) return new Core2SpoilsResult();
+            var claim = _session.TakeReward(option.Index);
+            if (!claim.Done) return new Core2SpoilsResult { Refusal = claim.Refusal };
+            return Opened(new Core2SpoilsResult { OpenEquipment = true });
+        }
+
+        private Core2SpoilsResult Opened(Core2SpoilsResult result)
+        {
+            _proceedPending = true;
+            _reviewing = false;
+            _selected = null;
+            Refresh();
+            return result;
+        }
+
+        /// <summary>The door a claim opened was left (the editor or the Armoury closed): a spent offer is left by itself, else the offer stands for the next pick (the web's proceed()).</summary>
+        public Core2SpoilsResult Proceed()
+        {
+            if (!_proceedPending) return new Core2SpoilsResult { Left = !_session.HasPendingReward || _session.RunOver };
+            _proceedPending = false;
+            return Claim(new Core2RewardResult { Option = new JObject() });
         }
 
         /// <summary>Review: back to the pick (the web's Back).</summary>

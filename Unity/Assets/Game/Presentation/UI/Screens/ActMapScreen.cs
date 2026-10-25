@@ -117,7 +117,7 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocButton>(UiNames.MapCenter).clicked += CentreOnRun;
             Root.Q<LocButton>(UiNames.MapLegendToggle).clicked += () => ShowLegend(!_legend);
             var potions = Root.Q<LocButton>(UiNames.MapPotions);
-            potions.clicked += () => RunFlow.Refuse(Context, potions, StringKeys.MapRefusalFlasks);
+            potions.clicked += OpenPotions;
             var action = PlannedAction;
             action.clicked += () => OnPlanned(action);
             ApplyHudArt();
@@ -573,6 +573,13 @@ namespace Ashen.Presentation.UI.Screens
         {
             OpenPause();
             return true;
+        }
+
+        /// <summary>The Potions disc: the web's list of flasks between fights (a Core 2 run); the 405 run has none.</summary>
+        private void OpenPotions()
+        {
+            if (_climb is Core2RunSession core2 && Ui.Data.Screens.IsBuilt(ScreenIds.Core2Potions)) Nav.OpenModal(ScreenIds.Core2Potions, new Core2PotionsArgs { Session = core2 });
+            else RunFlow.Refuse(Context, Root.Q<LocButton>(UiNames.MapPotions), StringKeys.MapRefusalFlasks);
         }
 
         public override void OnReturned()

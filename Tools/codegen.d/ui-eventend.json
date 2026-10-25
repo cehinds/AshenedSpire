@@ -41,6 +41,7 @@
         "ResponseLabel": "c2event-response-label",
         "ResponseTag": "c2event-response-tag",
         "ResponseHold": "c2event-response-hold",
+        "ResponseDial": "c2event-response--dial",
         "Result": "c2event-result",
         "Continue": "c2event-continue",
         "Off": "c2event-off",
