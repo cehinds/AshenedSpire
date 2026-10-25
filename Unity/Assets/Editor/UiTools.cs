@@ -32,6 +32,7 @@ namespace Ashen.EditorTools
         [MenuItem("Ashen/UI/Build UI Art Catalog")]
         public static void BuildUiArt()
         {
+            AssetDatabase.Refresh();
             var source = new DirectoryContentSource(ContentRoot);
             var data = UiData.Load(source);
             var registry = (JObject)JsonContent.Parse(source.ReadText(ContentFiles.AssetsRegistry));

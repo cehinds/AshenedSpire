@@ -1,0 +1,6 @@
+{
+  "comment": "What CI fetches to restore the gitignored Unity/Assets/Art/Imported images (D-1300). webRepo/webCommit: the web game at the commit the Unity rebuild is pinned to (Tools/export/sources.json core2.webSha is its short form); its tools/fetch-art.mjs downloads the art release its art-release.json pins. artTag must equal that pin's tag. Bump all three together when the pin moves.",
+  "webRepo": "cehinds/ashenspire",
+  "webCommit": "b8cfe4fac71fb92c1b241928626d46846becb825",
+  "artTag": "hd-assets-v23"
+}
