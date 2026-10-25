@@ -2,6 +2,15 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## CI fetches the art (worktree branch, 2026-10-25)
+
+**Landed (D-1300, D-1301)**
+- **`.github/actions/fetch-art`** (composite) over **`Tools/ci/fetch-art.sh`**: sparse checkout of the pinned web commit (`Tools/ci/art-pin.json`), cached `.art-cache` by tag, the web's `tools/fetch-art.mjs`, `npm ci` in `Tools`, `scan-assets --release ... --import`, then `Tools/ci/check-art.mjs` (fails if any of the 1530 imported ids is missing). Wired into `build-windows`, `build-webgl` and `pages-webgl.yml` before the Unity build. `Cli.BuildWebGL` / `Cli.BuildWindows` run `BuildUiArt` first.
+- **Legacy images:** the release import covered 631 of 1530 ids; the rest were made from an old source tree only the author has. `Tools/lib/release-art.mjs --import` now rebuilds them from the same files in the packs (D-1301), so a clean machine gets all 1530.
+- **Tested locally:** network allowed it. Web `tools/` copied to a scratch dir, `fetch-art.mjs --pack high,common` downloaded and verified both packs (7348 + 146 files), the images were deleted, `Tools/ci/fetch-art.sh` rebuilt them (631 + 893, 0 failed, committed metas and registry unchanged), `check-art.mjs` reports 1530 of 1530 and exits 1 when one file is removed. YAML of the action and both workflows parses (js-yaml).
+
+**Not done:** the workflow itself never ran on GitHub (the sparse checkout, `actions/cache` path and the Windows runner are unverified); the web repo checkout needs `WEB_REPO_TOKEN` if cehinds/ashenspire is private; the editor was not run, so `BuildUiArt` after the import is untested. The 899 legacy PNGs are re-encoded from the packs, not the original Blender output (58 resized to the registered size).
+
 ## WebGL: Unity 6000.6.6f1 and the browser build (worktree branch, 2026-10-25)
 
 **Landed (D-1250..D-1254; D-008 amended)**

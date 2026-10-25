@@ -227,7 +227,8 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
   writeProvenance({ ROOT, R, releaseDir, webDir, stats, releaseIds, importedIds, orphans });
 
   // ----- import -----
-  let converted = 0, skipped = 0, failed = 0, bytes = 0;
+  let converted = 0, skipped = 0, failed = 0, bytes = 0, legacy = 0, legacyResized = 0;
+  const legacyMissing = [];
   if (doImport) {
     const sharp = loadSharp(ROOT);
     const packOf = (rel) => rel.startsWith('assets-display/') ? webDir : null;
@@ -281,8 +282,50 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
     };
     const queue = [...jobs];
     await Promise.all(Array.from({ length: 6 }, async () => { for (let j = queue.shift(); j; j = queue.shift()) await worker(j); }));
+
+    // ----- legacy images (D-1300): ids imported before the release (backgrounds, class sprites, enemies, relics, env, vfx)
+    // are registered with a unityPath, but their PNGs are gitignored and the old source tree (the author's D:\repos\AshenSpire)
+    // is not on a CI runner. The release packs carry the same files (byte-identical for most), so a fresh machine rebuilds them
+    // here: a lossless WebP->PNG at the registered size. An icon size the release does not carry (relic.<id>.iconN) is
+    // resized from the release's relic.<id> image.
+    const sourceFile = (e) => Object.values(R.packs).map(p => join(releaseDir, p.dir, e.source)).find(existsSync);
+    for (const [id, e] of Object.entries(registry)) {
+      if (!e.unityPath || e.release || e.format === 'svg') continue;
+      const dst = join(ROOT, 'Unity', e.unityPath);
+      if (existsSync(dst) && !force) continue;
+      try {
+        let src = sourceFile(e), fallback = false;
+        if (!src) {
+          const stem = /^(.+)\.icon\d+$/.exec(id);
+          const twin = stem && registry[stem[1]];
+          src = twin && sourceFile(twin);
+          fallback = true;
+        }
+        if (!src) { legacyMissing.push(id); continue; }
+        mkdirSync(dirname(dst), { recursive: true });
+        let img = sharp(src);
+        const inMeta = await img.metadata();
+        // A twin, or a pack file the release has re-exported at another size: keep the registered size so layouts do not move.
+        const resize = fallback || inMeta.width !== e.width || inMeta.height !== e.height;
+        if (resize) img = img.resize(e.width, e.height, { fit: 'fill', kernel: 'lanczos3' });
+        await img.png({ compressionLevel: 9 }).toFile(dst);
+        const out = await sharp(dst).metadata();
+        if (out.width !== e.width || out.height !== e.height) throw new Error(`wrote ${out.width}x${out.height}, registry says ${e.width}x${e.height}`);
+        bytes += statSync(dst).size; legacy++; if (resize) legacyResized++;
+        const metaPath = `${dst}.meta`;
+        if (!existsSync(metaPath)) {
+          const maxSize = Math.max(32, Math.min(2048, 2 ** Math.ceil(Math.log2(Math.max(e.width, e.height)))));
+          writeFileSync(metaPath, textureMeta(md5(`Unity/${e.unityPath}`), { alpha: e.alpha !== false, maxSize }));
+        }
+        for (let d = dirname(e.unityPath); d.length > IMPORTED_UNITY.length; d = dirname(d)) {
+          const folder = join(ROOT, 'Unity', `${d}.meta`);
+          if (!existsSync(folder)) writeFileSync(folder, folderMeta(md5(`Unity/${d}`)));
+        }
+      } catch (err) { failed++; console.error(`release: legacy ${id}: ${err.message}`); }
+    }
   }
-  console.log(`${summary}` + (doImport ? `\nrelease: import wrote ${converted} images (${mb(bytes)} MB), ${skipped} already present, ${failed} failed` : ''));
+  console.log(`${summary}` + (doImport ? `\nrelease: import wrote ${converted} images (${mb(bytes)} MB), ${skipped} already present, ${failed} failed` +
+    `\nrelease: legacy ids restored from the packs: ${legacy} (${legacyResized} resized to the registered size), ${legacyMissing.length} with no source in the packs` : ''));
   if (failed) process.exit(1);
 }
 

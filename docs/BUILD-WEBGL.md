@@ -27,8 +27,13 @@ Open http://localhost:8080/. The decompression fallback means any static server 
 1. Install Unity 6000.6.6f1 with the WebGL module (Unity Hub) for local builds.
 2. Repo Settings > Pages > Source = GitHub Actions.
 3. Repo Settings > Secrets and variables > Actions: `UNITY_LICENSE`, `UNITY_EMAIL`, `UNITY_PASSWORD` (game-ci activation; without `UNITY_LICENSE` the jobs print a notice and skip).
+4. `WEB_REPO_TOKEN` (a fine-grained personal access token with read access to Contents of `cehinds/ashenspire`), only while that repo is private. The jobs use `secrets.WEB_REPO_TOKEN || github.token`; the default token cannot read another repository, so a private web repo fails at the checkout step without it. The art repo `cehinds/AshenSpire-art` is public and needs nothing.
 
 The site is https://cehinds.github.io/AshenedSpire/. `ci.yml` also has a `build-webgl` job (same branch condition as `build-windows`) that uploads the build as an artifact.
+
+## Art in CI
+
+`.github/actions/fetch-art` (used by `build-windows`, `build-webgl` and `pages-webgl.yml`) runs `Tools/ci/fetch-art.sh`: sparse checkout of `cehinds/ashenspire` at the commit in `Tools/ci/art-pin.json`, the web's `tools/fetch-art.mjs` downloads the pinned `hd-assets-v<N>` high and common packs from cehinds/AshenSpire-art (cached in `.art-web/.art-cache` by tag), `npm ci` in `Tools`, then `Tools/scan-assets.mjs --release ... --import` converts them (about 1500 images, 230 MB, a minute or two) and `Tools/ci/check-art.mjs` fails the job if any imported id is missing. `Cli.BuildWebGL` and `Cli.BuildWindows` then run `BuildUiArt` so the `UiArtCatalog` lists the textures. To run it locally: clone the web at the pinned commit, then `bash Tools/ci/fetch-art.sh <web clone>`. When the web pin or art release moves, update `Tools/ci/art-pin.json` (the script stops if the tag disagrees with the web's `art-release.json`).
 
 ## How the browser differs
 
@@ -38,6 +43,6 @@ The site is https://cehinds.github.io/AshenedSpire/. `ci.yml` also has a `build-
 
 ## Known gaps
 
-- **Art in CI**: the converted images under `Unity/Assets/Art/Imported` are gitignored (D-018) and neither `build-windows` nor the WebGL jobs restore them, so a CI build has no images. A local build on a machine that ran the asset import has them. Decide where CI gets them (commit, LFS, or an import step from the web repo).
+- **Art in CI**: the converted images under `Unity/Assets/Art/Imported` are gitignored (D-018), so every Unity CI job restores them first with `.github/actions/fetch-art` (D-1300, D-1301); see below. The first run is the proof: it was tested step by step locally but never on a runner.
 - **Not verified**: no Unity editor ran when this was written. The first build must confirm the UI Toolkit `CopyBufferRanges` WebGL renderer bug of 6000.6.0f1 is gone, that the `PlayerSettings.WebGL` calls in `Cli.cs` compile, that saves survive a reload, and the download size. See D-1254.
 - **Packages**: opening the project in 6000.6.6f1 may update `Unity/Packages/packages-lock.json`; commit it.

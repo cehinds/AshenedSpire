@@ -36,6 +36,7 @@ namespace Ashen.EditorTools
         public static void BuildWindows()
         {
             RunValidation(false);
+            BuildUiArt();
             Debug.LogWarning("BuildWindows: player build pipeline lands in F6 (PF-11).");
         }
 
@@ -62,6 +63,8 @@ namespace Ashen.EditorTools
                 EditorApplication.Exit(1);
                 return;
             }
+            // CI restores the gitignored images just before the build (Tools/ci/fetch-art.sh, D-1300): rebuild the catalogs from them.
+            BuildUiArt();
             ApplyWebGlSettings();
             var scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
             var output = WebGlOutputPath();
