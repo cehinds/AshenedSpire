@@ -36,7 +36,7 @@ namespace Ashen.Presentation.UI.Kit
 
         /// <summary>
         /// The silhouette glow (P-4): the choices of the web's auraFilter and the soft sprite that stands for its drop-shadows, by the art id of the frame it surrounds (null when it is not imported).
-        /// The web draws no glow in its light quality, which a narrow layout takes (<see cref="Lite"/>).
+        /// The web draws no glow when the Rendering quality is lite (<see cref="Lite"/>, the performanceMode setting; the light art tier is the separate Art quality).
         /// </summary>
         public CombatAuraData Aura;
         public Func<string, Texture2D> Glow;

@@ -20,6 +20,9 @@ namespace Ashen.App.Settings
         public bool ScreenShake;
         public bool ReduceFlashes;
 
+        /// <summary>The Rendering quality in force (performanceMode resolved for the device): lite leaves out the decorative glows.</summary>
+        public bool Lite;
+
         /// <summary>The multiplier in force: auto combat runs at its own.</summary>
         public double EffectiveSpeed => AutoCombat ? AutoSpeed : Speed;
 
@@ -36,11 +39,12 @@ namespace Ashen.App.Settings
             AutoSpeed = settings.Number(SI.AutoCombatSpeed),
             StageGapMs = settings.Number(SI.CombatStepPause),
             AnimationStepMs = settings.Number(SI.AnimationStepDuration),
-            AnimSpeed = settings.Text(SI.AnimSpeed),
+            AnimSpeed = RenderingQuality.Pacing(settings.Text(SI.AnimSpeed), RenderingQuality.IsLite(settings)),
             AskToUpcastAfterTarget = settings.On(SI.AskToUpcastAfterTarget),
             OneTapPlay = settings.On(SI.OneTapPlay),
             ScreenShake = settings.On(SI.ScreenShake),
             ReduceFlashes = settings.On(SI.ReduceFlashes),
+            Lite = RenderingQuality.IsLite(settings),
         };
     }
 }

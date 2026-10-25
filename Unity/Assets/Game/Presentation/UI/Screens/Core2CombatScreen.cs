@@ -293,7 +293,7 @@ namespace Ashen.Presentation.UI.Screens
             Texture = art => Ui.Texture(StageArt(art)),
             Aura = Ui.Data.CombatAura,
             Glow = art => Ui.Texture(Ui.Data.Art.Find(ArtKinds.Glow, new StringArgs().Add(ArtPlaceholders.Name, art))),
-            Lite = Nav.Layout?.Narrow ?? false,
+            Lite = _flow.Pacing.Lite,
             TickMs = Defs.Pace.TickMs,
             Reduced = ReducedMotion,
             ReduceFlashes = ReduceFlashes,

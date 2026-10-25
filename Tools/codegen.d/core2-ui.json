@@ -26,7 +26,12 @@
         "CostStamina": "stamina",
         "CostMana": "mana",
         "PromptRecover": "recover",
-        "AnimInstant": "instant"
+        "AnimInstant": "instant",
+        "AnimNormal": "normal",
+        "AnimFast": "fast",
+        "AnimSlow": "slow",
+        "RenderLite": "lite",
+        "RenderFull": "full"
       }
     },
     {

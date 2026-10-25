@@ -7,7 +7,7 @@ namespace Ashen.App.Combat
 {
     /// <summary>
     /// The pace a combat presentation plays at, from the player's pacing settings (D11, D12) as the web resolves them (src/ui/animationPace.js actionPacing): the animation
-    /// speed picks the table row (the setting "auto" plays at the reference speed, "instant" and reduced motion play no waits), the combat speed divides everything, the
+    /// speed picks the table row (the setting "auto" is resolved to Fast with lite Rendering quality and Normal otherwise, RenderingQuality.Pacing, "instant" and reduced motion play no waits), the combat speed divides everything, the
     /// pause between steps is the gap between the stages of one action and the animation step sets how long a swing takes. Engine-free and presentation-only: it never
     /// reaches the rules.
     /// </summary>

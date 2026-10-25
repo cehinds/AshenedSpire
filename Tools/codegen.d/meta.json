@@ -158,6 +158,7 @@
         "AnimationStepDuration": "animationStepDuration",
         "CombatPacingPreset": "combatPacingPreset",
         "AnimSpeed": "animSpeed",
+        "PerformanceMode": "performanceMode",
         "AskToUpcastAfterTarget": "askToUpcastAfterTarget",
         "ScreenShake": "screenShake",
         "OneTapPlay": "oneTapPlay",
