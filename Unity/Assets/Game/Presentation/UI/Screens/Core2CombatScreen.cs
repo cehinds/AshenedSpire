@@ -261,6 +261,7 @@ namespace Ashen.Presentation.UI.Screens
                 element.Bind(data);
                 element.focusable = enemy.Alive && !_busy && (Mode == null || legal);
             }
+            LayoutBoard();
         }
 
         /// <summary>
@@ -311,7 +312,7 @@ namespace Ashen.Presentation.UI.Screens
                 Stacks = Core2CombatText.Stacks(Strings, f),
                 Statuses = Core2CombatText.Statuses(Strings, f, Math.Max(1, Ui.Data.Components.StatusChips), Ui.Data.Components.FighterStackStatuses),
             };
-            if (player) AttachStage(d);
+            if (player) { AttachStage(d); d.IntentGlyph = Ui.IntentGlyph(PlayerGlyph()); }
             _hpShown[f.Id] = d.Hp;
             AddChips(d, f);
             if (!player) ApplyEnemy(d, f);

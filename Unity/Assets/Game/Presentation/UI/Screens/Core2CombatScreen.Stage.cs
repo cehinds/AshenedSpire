@@ -44,6 +44,11 @@ namespace Ashen.Presentation.UI.Screens
             return plan != null ? plan.PilotStance : CardStagePlans.PilotEntityStance(player, stance);
         }
 
+        /// <summary>
+        /// syncPlayerActionIntent: the glyph over the player's head, always shown: the armed card's maneuver while it is armed, else the last card played, else the neutral resting mark (the prepare hourglass).
+        /// </summary>
+        private string PlayerGlyph() => CardStagePlans.IntentGlyph((_flow.Armed?.Stage ?? _stageHeld)?.Maneuver);
+
         /// <summary>resolveCombatPose's rest: the downed figure, a guard or counter braced, else idle.</summary>
         private string PlayerRest(bool alive)
         {
@@ -128,6 +133,7 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>Gives the figure the stance and the rest the ledger holds now.</summary>
         private void RefreshStage()
         {
+            _player?.SetGlyph(Ui.IntentGlyph(PlayerGlyph()));
             if (_player?.Data?.Stage == null) return;
             _player.Data.Stage = MakeFeed(_player.Data.Alive);
             _player.RefreshStage();

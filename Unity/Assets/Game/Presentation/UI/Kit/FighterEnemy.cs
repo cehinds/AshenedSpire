@@ -26,6 +26,9 @@ namespace Ashen.Presentation.UI.Kit
         /// <summary>How often the stage is redrawn while it moves.</summary>
         public double TickMs;
 
+        /// <summary>The visible columns of a frame of this enemy (a floor shadow is as wide as the frame on show), or null when it was not measured.</summary>
+        public Func<string, FigureInkColumns?> Ink;
+
         public bool Reduced;
 
         /// <summary>enemyPresentation's rest (idle, guard, afflicted, wounded, defeated) and the themes of the buffs.</summary>
@@ -80,6 +83,16 @@ namespace Ashen.Presentation.UI.Kit
             PaintEnemy();
             EnsureEnemyTick();
             return true;
+        }
+
+        /// <summary>The width of the frame on show's visible ink in the stage's own units (the web's floor shadow is as wide as the opaque pixels of the frame on show), or null when it is not known.</summary>
+        public double? EnemyInkUnits()
+        {
+            if (!HasEnemyStage) return null;
+            var feed = Data.Enemy;
+            var draw = _enemyState.Draw(feed.ArtOf, art => true);
+            var ink = draw == null ? null : feed.Ink?.Invoke(draw.Frame);
+            return ink.HasValue ? ink.Value.Share * draw.Rect.Width : (double?)null;
         }
 
         /// <summary>The hit-stop: the clip on show stays and its end moves back.</summary>

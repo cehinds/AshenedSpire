@@ -56,6 +56,9 @@
     -unity-background-image-tint-color: var(--color-parchment);
 }
 
+/* The player's action glyph (the web's .player-action-intent: #ffe7ab, 28 px). */
+.fighter-intent-icon.fighter-intent-glyph { -unity-background-image-tint-color: var(--color-intent-glyph); margin-left: 0; }
+
 .fighter-intent-icon.intent--attack { -unity-background-image-tint-color: var(--color-intent-attack); }
 .fighter-intent-icon.intent--block { -unity-background-image-tint-color: var(--color-intent-block); }
 .fighter-intent-icon.intent--buff { -unity-background-image-tint-color: var(--color-intent-buff); }

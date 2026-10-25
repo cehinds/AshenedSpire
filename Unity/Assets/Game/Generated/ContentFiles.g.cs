@@ -391,6 +391,8 @@ namespace Ashen.Generated
         public const string SchemasUiConfirmationPoliciesSchema = "schemas/ui.confirmationPolicies.schema.json";
         public const string SchemasUiEnemyStageSchema = "schemas/ui.enemyStage.schema.json";
         public const string SchemasUiFeedbackSchema = "schemas/ui.feedback.schema.json";
+        public const string SchemasUiFigureInkSchema = "schemas/ui.figureInk.schema.json";
+        public const string SchemasUiIntentIconsSchema = "schemas/ui.intentIcons.schema.json";
         public const string SchemasUiLayoutSchema = "schemas/ui.layout.schema.json";
         public const string SchemasUiLocationPresentationSchema = "schemas/ui.locationPresentation.schema.json";
         public const string SchemasUiMenusSchema = "schemas/ui.menus.schema.json";
@@ -434,6 +436,8 @@ namespace Ashen.Generated
         public const string UiConfirmationPolicies = "ui/confirmationPolicies.json";
         public const string UiEnemyStage = "ui/enemyStage.json";
         public const string UiFeedback = "ui/feedback.json";
+        public const string UiFigureInk = "ui/figureInk.json";
+        public const string UiIntentIcons = "ui/intentIcons.json";
         public const string UiLayout = "ui/layout.json";
         public const string UiLocationPresentation = "ui/locationPresentation.json";
         public const string UiMenus = "ui/menus.json";

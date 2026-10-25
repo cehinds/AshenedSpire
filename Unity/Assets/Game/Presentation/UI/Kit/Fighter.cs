@@ -84,6 +84,9 @@ namespace Ashen.Presentation.UI.Kit
         public string IntentKind;
         public Texture2D IntentIcon;
 
+        /// <summary>The glyph of the action the figure holds, shown over the player without words (combatantOverhead.js playerActionIntent): the armed card's, the last card's, else the resting hourglass; null for none.</summary>
+        public Texture2D IntentGlyph;
+
         /// <summary>What pointing at the intent, the Poise meter or the Ward meter says (the web's combat target HUD and health-badge tooltips); null for nothing to say.</summary>
         public bool IntentReduced;
 
@@ -224,6 +227,25 @@ namespace Ashen.Presentation.UI.Kit
 
         public event Action<Fighter> PredictPressed;
 
+        /// <summary>The icon beside the intent: the action glyph of the player (no words with it), else the icon of the intent text.</summary>
+        private void PaintIntentIcon(FighterData d)
+        {
+            if (_intentIcon == null) return;
+            var glyph = d.IntentGlyph != null;
+            var icon = glyph ? d.IntentGlyph : d.IntentIcon;
+            _intentIcon.EnableInClassList(UiClasses.FighterIntentGlyph, glyph);
+            _intentIcon.style.backgroundImage = icon != null ? new StyleBackground(icon) : new StyleBackground(StyleKeyword.None);
+            UiDom.Show(_intentIcon, icon != null && (glyph || !string.IsNullOrEmpty(d.IntentText)));
+        }
+
+        /// <summary>Swaps the action glyph over the figure without rebinding it (the card armed or played changed).</summary>
+        public void SetGlyph(Texture2D glyph)
+        {
+            if (Data == null || Data.IntentGlyph == glyph) return;
+            Data.IntentGlyph = glyph;
+            PaintIntentIcon(Data);
+        }
+
         public void Bind(FighterData d)
         {
             Data = d;
@@ -248,11 +270,7 @@ namespace Ashen.Presentation.UI.Kit
             _intent?.EnableInClassList(UiClasses.IntentReduced, d.IntentReduced);
             var hasIntent = !string.IsNullOrEmpty(d.IntentText);
             if (_intent != null) _intent.style.visibility = hasIntent ? Visibility.Visible : Visibility.Hidden;
-            if (_intentIcon != null)
-            {
-                _intentIcon.style.backgroundImage = d.IntentIcon != null ? new StyleBackground(d.IntentIcon) : new StyleBackground(StyleKeyword.None);
-                UiDom.Show(_intentIcon, hasIntent && d.IntentIcon != null);
-            }
+            PaintIntentIcon(d);
             if (_predict != null)
             {
                 UiDom.Show(_predict, d.CanPredict);

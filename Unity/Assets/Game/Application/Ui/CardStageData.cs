@@ -80,6 +80,10 @@ namespace Ashen.App.Ui
     {
         public string Id;
         public double Unit;
+
+        /// <summary>The stage's own box: its height and its width in stage pixels (the web's root: 190 tall, as wide as the ready frame's envelope), which the board fits the figure by.</summary>
+        public double StageHeight;
+        public double IdleWidth;
         public double BodyHeight;
         public bool Pilot;
         public bool ClassSmash;
@@ -185,6 +189,8 @@ namespace Ashen.App.Ui
             {
                 Id = id,
                 Unit = row.Value<double>(StageKeys.Unit),
+                StageHeight = row.Value<double>(StageKeys.StageHeight),
+                IdleWidth = row.Value<double>(StageKeys.IdleWidth),
                 BodyHeight = row.Value<double>(StageKeys.BodyHeight),
                 Pilot = row.Value<bool>(StageKeys.Pilot),
                 ClassSmash = row.Value<bool>(StageKeys.ClassSmash),

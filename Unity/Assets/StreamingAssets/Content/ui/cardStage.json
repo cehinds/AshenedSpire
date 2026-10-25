@@ -118,6 +118,8 @@
  "classes": {
   "reaver": {
    "unit": 261,
+   "idleWidth": 179.08045977011494,
+   "stageHeight": 190,
    "bodyHeight": 261,
    "pilot": true,
    "classSmash": false,
@@ -1054,6 +1056,8 @@
   },
   "rogue": {
    "unit": 326,
+   "idleWidth": 171.34969325153375,
+   "stageHeight": 190,
    "bodyHeight": 326,
    "pilot": false,
    "classSmash": true,
@@ -1696,6 +1700,8 @@
   },
   "starseer": {
    "unit": 317,
+   "idleWidth": 133.05993690851736,
+   "stageHeight": 190,
    "bodyHeight": 294,
    "pilot": false,
    "classSmash": true,
@@ -2314,6 +2320,8 @@
   },
   "herald": {
    "unit": 303,
+   "idleWidth": 190.62706270627064,
+   "stageHeight": 190,
    "bodyHeight": 303,
    "pilot": false,
    "classSmash": true,

@@ -28,6 +28,8 @@
         "Reactions": "reactions",
         "Classes": "classes",
         "Unit": "unit",
+        "IdleWidth": "idleWidth",
+        "StageHeight": "stageHeight",
         "BodyHeight": "bodyHeight",
         "Pilot": "pilot",
         "ClassSmash": "classSmash",

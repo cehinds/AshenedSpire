@@ -59,6 +59,7 @@ namespace Ashen.Presentation.UI.Screens
                 Texture = art => Ui.Texture(art),
                 ArtOf = frame => EnemyArt(f.DefId, frame),
                 TickMs = Defs.Pace.TickMs,
+                Ink = frame => Ui.Data.FigureInk.TryGet(Ui.Data.Art.Find(ArtKinds.EnemyFrame, new StringArgs().Add(ArtPlaceholders.Id, f.DefId).Add(ArtPlaceholders.Name, frame)), out var ink) ? ink : (FigureInkColumns?)null,
                 Reduced = ReducedMotion,
                 Rest = look.Rest,
                 Themes = look.Themes,

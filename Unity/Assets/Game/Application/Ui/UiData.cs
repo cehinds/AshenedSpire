@@ -46,6 +46,9 @@ namespace Ashen.App.Ui
         /// <summary>ui/battlefield.json (P-4): the web's combat board layout: the perspective grid, the party's and the enemies' scale settings and the sprite fit's literals.</summary>
         public BattlefieldData Battlefield;
 
+        /// <summary>ui/figureInk.json (P-4): the visible columns of each combat figure frame, which a floor shadow is as wide as.</summary>
+        public FigureInk FigureInk;
+
         public static UiData Load(IContentSource source)
         {
             JObject Read(string path) => (JObject)JsonContent.Parse(source.ReadText(path));
@@ -65,6 +68,7 @@ namespace Ashen.App.Ui
                 CardStage = new CardStageData(Read(ContentFiles.UiCardStage)),
                 EnemyStage = new EnemyStageData(Read(ContentFiles.UiEnemyStage)),
                 Battlefield = new BattlefieldData(Read(ContentFiles.UiBattlefield)),
+                FigureInk = new FigureInk(Read(ContentFiles.UiFigureInk)),
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
                 Meta = Read(ContentFiles.UiMeta),

@@ -606,12 +606,101 @@
               "family"
             ]
           }
+        },
+        "travel": {
+          "type": "object",
+          "properties": {
+            "direction": {
+              "type": "integer"
+            },
+            "easing": {
+              "type": "string"
+            },
+            "recoilPx": {
+              "type": "integer"
+            },
+            "tracks": {
+              "type": "object",
+              "properties": {
+                "impact": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "at": {
+                        "type": "string"
+                      },
+                      "t": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "at",
+                      "t"
+                    ]
+                  }
+                },
+                "lunge": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "at": {
+                        "type": "string"
+                      },
+                      "t": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "at",
+                      "t"
+                    ]
+                  }
+                },
+                "sweep": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "at": {
+                        "type": "string"
+                      },
+                      "t": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "at",
+                      "t"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "impact",
+                "lunge",
+                "sweep"
+              ]
+            },
+            "travelPx": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "direction",
+            "easing",
+            "recoilPx",
+            "tracks",
+            "travelPx"
+          ]
         }
       },
       "required": [
         "actors",
         "motion",
-        "moves"
+        "moves",
+        "travel"
       ]
     },
     "aura": {

@@ -74,6 +74,16 @@
       }
     },
     {
+      "name": "InkKeys",
+      "doc": "Keys of ui/figureInk.json (the visible columns of each combat figure frame).",
+      "keys": {
+        "Frames": "frames",
+        "Width": "width",
+        "X0": "x0",
+        "X1": "x1"
+      }
+    },
+    {
       "name": "BattlefieldNames",
       "doc": "The sides, form factors and statures of the board's formation.",
       "keys": {
@@ -96,6 +106,17 @@
       "values": {
         "Pair": 2,
         "ExtraRank": 2
+      }
+    },
+    {
+      "name": "GridMesh",
+      "type": "int",
+      "doc": "The corners and indices of one line of the board's lattice, a quad of two triangles (BattlefieldGrid).",
+      "values": {
+        "Corners": 4,
+        "Indices": 6,
+        "Second": 2,
+        "Third": 3
       }
     },
     {

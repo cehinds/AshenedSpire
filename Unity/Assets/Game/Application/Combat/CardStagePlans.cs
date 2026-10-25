@@ -5,6 +5,7 @@ using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using CK = Ashen.Generated.Core2CombatKeys;
 using CV = Ashen.Generated.Core2CombatValues;
+using IK = Ashen.Generated.IntentKeys;
 using K = Ashen.Generated.CombatKeys;
 
 namespace Ashen.App.Combat
@@ -29,6 +30,9 @@ namespace Ashen.App.Combat
 
         /// <summary>selectedWeaponCounterFor: the pilot's return for a Counter card (counter-guard or counter-evade), or null.</summary>
         public string PilotCounter;
+
+        /// <summary>The authored maneuver of the card's profile (kindForCard), which names the intent glyph over the figure; null for a card with none.</summary>
+        public string Maneuver;
     }
 
     /// <summary>
@@ -59,7 +63,22 @@ namespace Ashen.App.Combat
                 Stance = stance,
                 PilotStance = PilotStance(profile, card, stance),
                 PilotCounter = PilotCounter(profile, tags),
+                Maneuver = profile.Str(CK.Maneuver),
             };
+        }
+
+        /// <summary>
+        /// playerActionIntent (ui/components/combatantOverhead.js): the glyph of the figure's intent for a maneuver; a ranged card shows the attack, and spells, untyped cards and the resting mark
+        /// (no maneuver) show the prepare hourglass.
+        /// </summary>
+        public static string IntentGlyph(string maneuver)
+        {
+            if (maneuver == CV.StanceDefend) return IK.IconDefend;
+            if (maneuver == CV.StanceCounter) return IK.IconCounter;
+            if (maneuver == CV.StanceSmash) return IK.IconSmash;
+            if (maneuver == CV.StanceSweep) return IK.IconSweep;
+            if (maneuver == CV.StanceAttack || maneuver == CV.ManeuverRanged) return IK.IconAttack;
+            return IK.IconPrepare;
         }
 
         private static bool PureDodge(JObject card)

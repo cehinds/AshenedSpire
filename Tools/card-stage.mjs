@@ -68,6 +68,11 @@ for (const classId of CLASSES) {
   const assembled = family.alternativeCardAnimationFamily(classId, { weaponProfile: profiles.weaponProfile, smashProfile: profiles.smashProfile });
   const { family: fam, selected, pilotFrames, classSmash, frames } = assembled;
   const unit = 464 - fam.frames.ready.bounds[1];
+  // The stage's own box (alternativeCardStage.js: width = the ready frame's envelope about the centre, height 190): the board fits a figure by it.
+  const readyBounds = fam.frames.ready.bounds;
+  const stageHeight = Number(/const height = 464-family\.frames\.ready\.bounds\[1\], scale = (\d+)\/height;/.exec(stageSource)?.[1]);
+  if (!stageHeight) throw new Error('card-stage: the stage height is not in alternativeCardStage.js');
+  const idleWidth = Math.max(256 - readyBounds[0], readyBounds[2] - 256) * 2 * stageHeight / unit;
   const ready = landmarks.COMBAT_BODY_LANDMARKS[fam.frames.ready.path];
   const readyDraw = fam.frames.ready.size?.[1] || DEFAULT_SIZE;
   const bodyHeight = ready ? (ready.feetY - ready.headY) * readyDraw / ready.height : unit;
@@ -92,7 +97,7 @@ for (const classId of CLASSES) {
   const hurt = hurtFrames.playerHurtFrames[classId];
   const down = defeated.DEFEATED_ART[classId];
   classes[classId] = {
-    unit, bodyHeight, pilot: !!pilotFrames, classSmash: !!classSmash,
+    unit, idleWidth, stageHeight, bodyHeight, pilot: !!pilotFrames, classSmash: !!classSmash,
     held: Object.keys(assembled.heldFrames).sort(), counterRest: selected.stances.counter,
     hurt: { art: art(hurt.file), dx: hurt.dx, dy: hurt.dy, scale: hurt.scale }, defeated: art(down.file),
     frames: rows, effects, sequences,

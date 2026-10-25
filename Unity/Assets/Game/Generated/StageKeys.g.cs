@@ -27,6 +27,8 @@ namespace Ashen.Generated
         public const string Reactions = "reactions";
         public const string Classes = "classes";
         public const string Unit = "unit";
+        public const string IdleWidth = "idleWidth";
+        public const string StageHeight = "stageHeight";
         public const string BodyHeight = "bodyHeight";
         public const string Pilot = "pilot";
         public const string ClassSmash = "classSmash";

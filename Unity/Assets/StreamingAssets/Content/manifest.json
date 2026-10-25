@@ -1,5 +1,5 @@
 {
-  "contentHash": "728667823dadd26144a675c5e0cbec55d4cfe1f7379b394a3512ce400f83b9a6",
+  "contentHash": "2088a806b07f513d23842b59be60f83765939060483834b82bfea724d49e818d",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -1995,9 +1995,9 @@
       "sha256": "96c6333197082868fb2276235b5fc6549bf4e9f8f1753a4172e617e59a8f7602"
     },
     "schemas/ui.cardStage.schema.json": {
-      "bytes": 7471,
+      "bytes": 75840,
       "generated": false,
-      "sha256": "4d5a8d32c70e5d648f5b2a0589ffe5d03ab4ff445c2d82d39cf4f5d2c28a43d3"
+      "sha256": "db9112dc8df23d4805e83f7185dc54bd0560f7b35a8602e91d1f9fe3a34676a0"
     },
     "schemas/ui.cardText.schema.json": {
       "bytes": 3089,
@@ -2020,14 +2020,24 @@
       "sha256": "bcfb76b5df5dbe3e2da9f0826aa435589234696921faf71040a6744f8b6da8d0"
     },
     "schemas/ui.enemyStage.schema.json": {
-      "bytes": 24214,
+      "bytes": 26589,
       "generated": false,
-      "sha256": "af32e67b9c85b07a55aec5aa9cb5dba569c5b6a34c4d94fed0d3706d72a155cf"
+      "sha256": "ed8af530492910bf50731f41e6057c77d878a8528dd7833025d0d9ca9de2dadf"
     },
     "schemas/ui.feedback.schema.json": {
       "bytes": 2998,
       "generated": false,
       "sha256": "bac597caf9e976b6a8a8c98291a00291eafabfec19b4517cbf420ff88cab342f"
+    },
+    "schemas/ui.figureInk.schema.json": {
+      "bytes": 723,
+      "generated": false,
+      "sha256": "f2abcb48910a71955c8c71b14d91c28629b4488d73ee78f1508f69564afd4e4a"
+    },
+    "schemas/ui.intentIcons.schema.json": {
+      "bytes": 4073,
+      "generated": false,
+      "sha256": "643175d5b8efe52583b826ec8b7804d983f5cbcd2d4eac0bda59dd84daefd1e0"
     },
     "schemas/ui.layout.schema.json": {
       "bytes": 4079,
@@ -2210,9 +2220,9 @@
       "sha256": "ff17b114b19a9b114273c8a7e446104a016591c5871e422064ef18549d4a34a4"
     },
     "ui/cardStage.json": {
-      "bytes": 50057,
+      "bytes": 50293,
       "generated": false,
-      "sha256": "8f8fc125769c9d411bc6785ecd1e5d7433464fdcd1bd0f3394b75e69471e9c0c"
+      "sha256": "e9ef64afa2f95e59d025861866aff5d0a9558fd8453475b2f669f09ce0e83834"
     },
     "ui/cardText.json": {
       "bytes": 7772,
@@ -2243,6 +2253,16 @@
       "bytes": 14869,
       "generated": false,
       "sha256": "bd1a3a904e20032c7d9908a5c6b365dd413d8e9ddcf958ce2e89e9a1651a5d41"
+    },
+    "ui/figureInk.json": {
+      "bytes": 115882,
+      "generated": false,
+      "sha256": "7da83bad59f69aa7c1a30ac38ae991a650e1d6da83336ebdb77026c38e867dad"
+    },
+    "ui/intentIcons.json": {
+      "bytes": 1677,
+      "generated": false,
+      "sha256": "869e910a1d83ce9dfa57518aa06c6b1154ec5fad7f8b67587918d91dd79ba7c0"
     },
     "ui/layout.json": {
       "bytes": 1850,
@@ -2295,9 +2315,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 49432,
+      "bytes": 50132,
       "generated": false,
-      "sha256": "dc0c80297b5988cf8bf20a7ce2376b8be0aa957469b26008c7b243f21ac532d9"
+      "sha256": "f7f6086d4b2bd5f064d577d57bb3c703b4aad7a310e439efe8c07dd4ef3ffc07"
     }
   },
   "schemaVersion": 1,

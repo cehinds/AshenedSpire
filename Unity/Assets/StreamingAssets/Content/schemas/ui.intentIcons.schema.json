@@ -1,0 +1,203 @@
+{
+  "$id": "ui/intentIcons.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "icons": {
+      "type": "object",
+      "properties": {
+        "attack": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "solid": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "path",
+            "solid"
+          ]
+        },
+        "buff": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "solid": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "path",
+            "solid"
+          ]
+        },
+        "cast": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "solid": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "path",
+            "solid"
+          ]
+        },
+        "counter": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "solid": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "path",
+            "solid"
+          ]
+        },
+        "defend": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "solid": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "path",
+            "solid"
+          ]
+        },
+        "evade": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "solid": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "path",
+            "solid"
+          ]
+        },
+        "prepare": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "solid": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "path",
+            "solid"
+          ]
+        },
+        "smash": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "solid": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "path",
+            "solid"
+          ]
+        },
+        "sweep": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "solid": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "path",
+            "solid"
+          ]
+        }
+      },
+      "required": [
+        "attack",
+        "buff",
+        "cast",
+        "counter",
+        "defend",
+        "evade",
+        "prepare",
+        "smash",
+        "sweep"
+      ]
+    },
+    "size": {
+      "type": "integer"
+    },
+    "stroke": {
+      "type": "integer"
+    },
+    "viewBox": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "comment",
+    "icons",
+    "size",
+    "stroke",
+    "viewBox"
+  ]
+}
