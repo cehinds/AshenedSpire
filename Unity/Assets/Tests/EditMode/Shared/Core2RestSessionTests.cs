@@ -119,6 +119,23 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void ASmithWhoseSaveFailsTakesNothingAndTheRetryUpgrades()
+        {
+            var session = AtTheRest(2024);
+            var item = session.RestView(Strings).SmithItems.Single();
+            var before = session.Run.ToString();
+            // The save's temp file is a directory: the write fails, as a full or read-only disk would.
+            var blocker = Path.Combine(_dir, session.Slot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            Assert.That(() => session.UpgradeItem(item.ItemRef), Throws.Exception);
+            Assert.That(session.Run.ToString(), Is.EqualTo(before), "the refused save leaves no upgrade and no spent visit behind");
+            Directory.Delete(blocker);
+            var done = session.UpgradeItem(item.ItemRef);
+            Assert.That(done.Done, Is.True, done.Refusal);
+            Assert.That(session.Run["itemUpgradeLevels"].Value<double>("armament/greatsword"), Is.EqualTo(1));
+        }
+
+        [Test]
         public void TheFreeSmithUpgradesOneItemOneTierAndOnlyOnce()
         {
             var session = AtTheRest(2024);

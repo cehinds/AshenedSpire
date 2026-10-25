@@ -25,9 +25,10 @@ namespace Ashen.App.Run
             var key = chargeKind + V.CurrentSuffix;
             if (def == null || charges == null || charges.Num(key) <= 0) return false;
             var amountMult = Cards.PassiveMult(CombatData, _run[K.Relics] as JArray ?? new JArray(), K.FlaskPowerMult, null);
+            var snapshot = Snapshot();
             RunEffects.Execute(Core.Events, _run, _rng, def[K.Effects] as JArray ?? new JArray(), amountMult);
             charges[key] = charges.Num(key) - 1;
-            Save();
+            SaveOrRestore(snapshot);
             return true;
         }
 
@@ -38,8 +39,9 @@ namespace Ashen.App.Run
             var flasks = _run.Arr(K.Flasks);
             var at = flasks == null ? -1 : flasks.ToList().FindIndex(f => f is JObject o && o.Str(K.FlaskId) == flaskId);
             if (at < 0) return false;
+            var snapshot = Snapshot();
             flasks.RemoveAt(at);
-            Save();
+            SaveOrRestore(snapshot);
             return true;
         }
     }

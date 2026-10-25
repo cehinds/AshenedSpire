@@ -60,10 +60,11 @@ namespace Ashen.App.Run
         {
             var shop = Core2Shop.Open(_run);
             if (shop == null) return new Core2ShopResult { Refusal = SM.NoShopOpen };
+            var snapshot = Snapshot();
             try
             {
                 var item = Core2Shop.Purchase(Core.Rewards, _run, shop, index);
-                Save();
+                SaveOrRestore(snapshot);
                 return new Core2ShopResult { Item = item };
             }
             catch (InvalidOperationException e) { return new Core2ShopResult { Refusal = e.Message }; }

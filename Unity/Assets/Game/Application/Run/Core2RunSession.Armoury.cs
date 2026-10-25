@@ -97,7 +97,7 @@ namespace Ashen.App.Run
                 Restore(snapshot);
                 return new Core2ArmouryChange { Message = strings.Format(StringKeys.ArmouryRefusalRefused, new StringArgs().Add(UiPlaceholders.Label, actionLabel ?? string.Empty)) };
             }
-            Save();
+            SaveOrRestore(snapshot);
             var where = strings.Format(StringKeys.ArmouryChangePosition, new StringArgs().Add(UiPlaceholders.Label, slot.Str(K.Label) ?? slotId).Add(UiPlaceholders.N, setIndex + 1));
             string NameOf(string id) => string.IsNullOrEmpty(id) ? string.Empty : Armoury_Name(id);
             if (string.IsNullOrEmpty(itemId))
@@ -178,7 +178,7 @@ namespace Ashen.App.Run
                 Restore(snapshot);
                 return new Core2ArmouryChange { Message = strings.Format(StringKeys.ArmouryRefusalRefused, new StringArgs().Add(UiPlaceholders.Label, strings.Get(StringKeys.ArmouryActionActivate))) };
             }
-            Save();
+            SaveOrRestore(snapshot);
             return new Core2ArmouryChange { Ok = true };
         }
     }

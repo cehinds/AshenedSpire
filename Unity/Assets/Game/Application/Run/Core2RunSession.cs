@@ -544,10 +544,11 @@ namespace Ashen.App.Run
         {
             var pending = Core2RewardDoor.Pending(_run);
             if (pending == null) return new Core2RewardResult { Refusal = Ashen.Generated.Core2RewardsMessages.NoDoor };
+            var snapshot = Snapshot();
             try
             {
                 var option = act(pending);
-                Save();
+                SaveOrRestore(snapshot);
                 return new Core2RewardResult { Option = option };
             }
             catch (DeckAddRefusalException e) { return new Core2RewardResult { Refusal = e.Message, Code = e.Code }; }
@@ -660,8 +661,9 @@ namespace Ashen.App.Run
             try
             {
                 // The rules write the draft only after every check passed, so a refusal leaves the run (and the editors holding it) untouched.
+                var snapshot = Snapshot();
                 var size = Ashen.Domain.Run.DeckRules.CommitDraft(Core.Deck, _run, draft, Profile.Settings);
-                Save();
+                SaveOrRestore(snapshot);
                 return new Core2DeckCommit { Ok = true, DeckSize = size };
             }
             catch (InvalidOperationException e)
@@ -698,6 +700,17 @@ namespace Ashen.App.Run
             Run = (JObject)_run.DeepClone(), Profile = Profile.Snapshot(), Rng = _rng?.Clone(), Location = _location, EncounterId = EncounterId, Combat = Combat,
             FightFinished = FightFinished, LastEnd = LastEnd, PendingPort = _pendingPort, EventId = _eventId, EventDone = _eventDone, EventResult = _eventResult, Tally = Tally.ToJson(), Resting = _resting,
         };
+
+        /// <summary>Save, or put the session back as <paramref name="snapshot"/> left it and rethrow: a change a full disk refused is not kept half-done, so the screen's Retry takes it again.</summary>
+        private void SaveOrRestore(SessionSnapshot snapshot)
+        {
+            try { Save(); }
+            catch
+            {
+                Restore(snapshot);
+                throw;
+            }
+        }
 
         private void Restore(SessionSnapshot s)
         {
