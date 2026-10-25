@@ -63,34 +63,24 @@ namespace Ashen.Content
             _map = map;
         }
 
-        /// <summary>Builds the registries from an effective content set (e.g. <c>RunSnapshot.Content</c>) and its display strings.</summary>
-        public static RuntimeRegistries Build(ContentSet content, JObject stringsEn) => Build(content, RegistryBundle.Load(content, stringsEn), false);
-
         /// <summary>
-        /// Builds the Core 2 registries (WP-2, D-168) from the projected bundle under profile/bundle/, through the same
-        /// createRegistries steps as <see cref="Build"/>. The 405 content is not read.
+        /// Builds the Core 2 registries (WP-2, D-168) from an effective content set (e.g. <c>RunSnapshot.Content</c>): the projected
+        /// bundle under profile/bundle/, through the createRegistries steps.
         /// </summary>
         public static RuntimeRegistries BuildCore2(ContentSet content)
         {
             if (content == null) throw new ArgumentNullException(nameof(content));
-            return Build(content, RegistryBundle.LoadCore2(content), true);
-        }
-
-        private static RuntimeRegistries Build(ContentSet content, JObject loaded, bool core2)
-        {
-            if (content == null) throw new ArgumentNullException(nameof(content));
-            var bundle = AttackCardDamage.ProjectBundle(loaded);
+            var bundle = AttackCardDamage.ProjectBundle(RegistryBundle.Load(content));
             var stamped = TagStamp.Stamp(bundle);
             JArray Collection(string source) =>
                 stamped.Where(kv => kv.Key == source).Select(kv => kv.Value).FirstOrDefault() ?? bundle[source] as JArray ?? new JArray();
 
             var tables = new Dictionary<string, JObject>(StringComparer.Ordinal);
             foreach (var name in TableNames)
-                tables[name] = MakeRegistry(name, core2 && name == RegistryKeys.Enemies && bundle[Core2BundleKeys.EnemyMoves] is JArray
+                tables[name] = MakeRegistry(name, name == RegistryKeys.Enemies && bundle[Core2BundleKeys.EnemyMoves] is JArray
                     ? WithMoveRows(Collection(name), Collection(Core2BundleKeys.EnemyMoves))
                     : Collection(name));
-            if (core2)
-                foreach (var name in Core2Tables) tables[name] = MakeRegistry(name, Collection(name));
+            foreach (var name in Core2Tables) tables[name] = MakeRegistry(name, Collection(name));
             tables[RegistryKeys.Attributes] = MakeRegistry(RegistryKeys.Attributes, Collection(RegistryKeys.Attributes));
             tables[RegistryKeys.PropertyRules] = MakeRegistry(RegistryKeys.PropertyRules, Collection(RegistryKeys.PropertyRules), CombatKeys.Tag);
             tables[MK.Seats] = MakeRegistry(MK.Seats, Collection(MK.Seats));
@@ -113,23 +103,19 @@ namespace Ashen.Content
 
             var balance = JsValues.Spread(bundle[RegistryKeys.Balance] as JObject);
             var tagging = (bundle[RegistryKeys.Tagging] as JArray)?.DeepClone() as JArray ?? new JArray();
-            var legacyDungeonsFile = RegistryBundle.FileFor(ContentFiles.CatalogLegacyDungeons, core2);
-            var unlocksFile = RegistryBundle.FileFor(ContentFiles.CatalogUnlocks, core2);
-            var legacyDungeons = content.Contains(legacyDungeonsFile) ? content.Get(legacyDungeonsFile).DeepClone() as JObject : null;
-            var unlockTable = content.Contains(unlocksFile) ? content.Get(unlocksFile) as JObject : null;
+            var unlockTable = content.Contains(ContentFiles.ProfileBundleUnlocks) ? content.Get(ContentFiles.ProfileBundleUnlocks) as JObject : null;
             var unlocks = new JArray((unlockTable ?? new JObject()).Properties().Select(p => p.Value.DeepClone()));
-            return new RuntimeRegistries(tables, classTree, equipment, balance, MapDocuments(content, core2), RunDocuments(bundle, stamped), EventDocuments(content, core2),
-                tagging, legacyDungeons ?? new JObject(), unlocks, Objects(bundle, stamped, equipment, balance, core2));
+            return new RuntimeRegistries(tables, classTree, equipment, balance, MapDocuments(content), RunDocuments(bundle, stamped), EventDocuments(content),
+                tagging, new JObject(), unlocks, Objects(bundle, stamped, equipment, balance));
         }
 
         /// <summary>
         /// The web registries that are plain data rather than id-keyed tables (Core 2 only): every bundle key, a tagged
         /// collection stamped, plus the finished equipment and balance. Key order is the bundle's.
         /// </summary>
-        private static JObject Objects(JObject bundle, List<KeyValuePair<string, JArray>> stamped, JObject equipment, JObject balance, bool core2)
+        private static JObject Objects(JObject bundle, List<KeyValuePair<string, JArray>> stamped, JObject equipment, JObject balance)
         {
             var objects = new JObject();
-            if (!core2) return objects;
             foreach (var p in bundle.Properties()) objects[p.Name] = p.Value.DeepClone();
             foreach (var kv in stamped)
                 if (kv.Key.IndexOf(RegistryKeys.PathSeparator, StringComparison.Ordinal) < 0) objects[kv.Key] = kv.Value.DeepClone();
@@ -287,19 +273,14 @@ namespace Ashen.Content
             new Ashen.Domain.Events.EventsData(core.Smith, DomainRegistry(RegistryKeys.Events), DomainRegistry(EventKeys.Speakers),
                 (JObject)_events[EventKeys.EventMeta].DeepClone(), (JObject)_events[EventKeys.ChoiceRequirements].DeepClone(), eventsEngine) { Core = core };
 
-        /// <summary>The event documents: catalog/eventMeta.json and catalog/eventChoiceRequirements.json (empty objects when absent).</summary>
-        private static JObject EventDocuments(ContentSet content, bool core2)
+        /// <summary>The event documents: profile/bundle/eventMeta.json and catalog/eventChoiceRequirements.json (empty objects when absent).</summary>
+        private static JObject EventDocuments(ContentSet content)
         {
             // The profile bundle does not carry the per-choice history gates (content/events.js sidecar); the shared catalog file is the same document at the pinned web sha.
-            JObject Get(string file)
-            {
-                var path = RegistryBundle.FileFor(file, core2);
-                if (!content.Contains(path)) path = file;
-                return content.Contains(path) && content.Get(path) is JObject o ? (JObject)o.DeepClone() : new JObject();
-            }
+            JObject Get(string file) => content.Contains(file) && content.Get(file) is JObject o ? (JObject)o.DeepClone() : new JObject();
             return new JObject
             {
-                [EventKeys.EventMeta] = Get(ContentFiles.CatalogEventMeta),
+                [EventKeys.EventMeta] = Get(ContentFiles.ProfileBundleEventMeta),
                 [EventKeys.ChoiceRequirements] = Get(ContentFiles.CatalogEventChoiceRequirements),
             };
         }
@@ -314,18 +295,17 @@ namespace Ashen.Content
             new Ashen.Domain.Loop.LoopData(ToEventsData(mechanics, combatEngine, handRules, runEngine, contentVersion, ascensionOrder, rewardsEngine, shopEngine, eventsEngine),
                 ToMapData(mapEngine), (JArray)_tagging.DeepClone(), (JObject)_legacyDungeons.DeepClone(), (JArray)_unlocks.DeepClone(), loopEngine);
 
-        /// <summary>The map documents, in content key order: balance/mapConfigs.json, eventMeta's gates, boss locations, mapShape limits and legacy bosses.</summary>
-        private static JObject MapDocuments(ContentSet content, bool core2)
+        /// <summary>The map documents, in content key order: mapConfigs, eventMeta's gates and boss locations from profile/bundle; the 405 mapShape limits and legacy bosses are absent (null).</summary>
+        private static JObject MapDocuments(ContentSet content)
         {
-            JToken Get(string file) => content.Contains(RegistryBundle.FileFor(file, core2)) ? content.Get(RegistryBundle.FileFor(file, core2)) : null;
-            var shape = Get(ContentFiles.BalanceMapShape) as JObject;
+            JToken Get(string file) => content.Contains(file) ? content.Get(file) : null;
             return new JObject
             {
-                [MK.MapConfigs] = Get(ContentFiles.BalanceMapConfigs)?.DeepClone(),
-                [MK.EventHistoryRequirements] = (Get(ContentFiles.CatalogEventMeta) as JObject)?[MK.EventHistoryRequirements]?.DeepClone(),
-                [MK.BossLocations] = Get(ContentFiles.CatalogBossDestinations)?.DeepClone(),
-                [MK.MapShapeLimits] = shape?[MV.MapShapeLimitsKey]?.DeepClone(),
-                [MK.LegacyActBosses] = shape?[MV.LegacyActBossesKey]?.DeepClone(),
+                [MK.MapConfigs] = Get(ContentFiles.ProfileBundleMapConfigs)?.DeepClone(),
+                [MK.EventHistoryRequirements] = (Get(ContentFiles.ProfileBundleEventMeta) as JObject)?[MK.EventHistoryRequirements]?.DeepClone(),
+                [MK.BossLocations] = Get(ContentFiles.ProfileBundleBossDestinations)?.DeepClone(),
+                [MK.MapShapeLimits] = null,
+                [MK.LegacyActBosses] = null,
             };
         }
 

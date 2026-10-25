@@ -34,7 +34,7 @@ const { propertyMountsOf } = await load('src/engine/properties.js');
 
 
 // --coverage: V8 precise coverage (node:inspector) over the whole run, printed as the shipped functions executed per
-// file — the port surface of this oracle (as in oracle-run.mjs).
+// file — the port surface of this oracle.
 let coverage = null;
 if (process.argv.includes('--coverage')) {
   const { Session } = await import('node:inspector/promises');

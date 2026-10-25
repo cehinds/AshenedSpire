@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Core 2 run-creation oracle (WP-3, docs/design/11-CORE2-PORT-PLAN.md). Drives the SHIPPED createRunState for the
-// configured `default` profile, exactly as the 405 oracle (oracle-run.mjs) does for the legacy one, and records for each
+// configured `default` profile, as the retired 405 run oracle did for the legacy one, and records for each
 // case the run document and the arguments main.js enterCombat would hand createRunCombat for two encounters (the call's
 // arguments only, not the fight). The C# port (Ashen.Domain.Run.CoreRunRules) must produce the same documents.
 //
