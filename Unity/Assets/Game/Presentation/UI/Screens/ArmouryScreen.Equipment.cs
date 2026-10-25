@@ -275,7 +275,7 @@ namespace Ashen.Presentation.UI.Screens
             Label(box, position.SlotLabel, ArmouryClasses.Eyebrow, UiClasses.Upper);
             Label(box, Strings.Format(StringKeys.ArmouryDetailTitle, new StringArgs().Add(UiPlaceholders.Name, position.Name)), ArmouryClasses.CardTitle);
             Inspection(box, position.Card);
-            Label(box, position.Lore, ArmouryClasses.Line, PokerClasses.Lore);
+            Lore(box, position.Lore, position.Name);
             foreach (var fact in position.DetailFacts)
             {
                 var row = new VisualElement { pickingMode = PickingMode.Ignore };
@@ -326,7 +326,7 @@ namespace Ashen.Presentation.UI.Screens
             }
             foreach (var effect in model.Effects) Label(wrap, effect.Label, ArmouryClasses.Line);
             if (model.HasMinimum) Label(wrap, model.Requirement, ArmouryClasses.Line);
-            Label(wrap, model.Flavor, ArmouryClasses.Muted, PokerClasses.Lore);
+            Lore(wrap, model.Flavor, model.Name);
         }
 
         /// <summary>An inspection chip (the web's inspectionTag): a word with its explanation on hover.</summary>

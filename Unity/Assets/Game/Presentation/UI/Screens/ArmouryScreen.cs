@@ -667,6 +667,8 @@ namespace Ashen.Presentation.UI.Screens
             card.AddToClassList(ArmouryClasses.GridCard);
             card.Bind(CardData(Core2DeckCards.View(_run.CombatData, row.Ref, Words)));
             pane.Add(card);
+            var def = _run.CombatData.Cards.Has(row.Ref.Str(CombatKeys.CardId)) ? _run.CombatData.Cards.Get(row.Ref.Str(CombatKeys.CardId)) : null;
+            Lore(pane, def?.Str(CombatKeys.Flavor), def?.Str(CombatKeys.Name));
         }
 
         private void TileRow(VisualElement list, DeckTile tile)

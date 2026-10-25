@@ -40,6 +40,12 @@ namespace Ashen.App.Ui
         /// <summary>ui/progression.json (P-3a): the Character Sheet's stat rows and what an attribute's card leads with.</summary>
         public ProgressionLayout Progression;
 
+        /// <summary>ui/lore.json (P-3a): the lists and scales behind the Text &amp; lore settings.</summary>
+        public LoreLayout Lore;
+
+        /// <summary>ui/changelog.json (P-3a): CHANGELOG.md as Settings > Advanced > Changelog lists it.</summary>
+        public ChangelogData Changelog;
+
         /// <summary>ui/poses.json (P-1): the geometry of the player figure's pose frames and how long a pose is held.</summary>
         public PoseData Poses;
 
@@ -61,6 +67,8 @@ namespace Ashen.App.Ui
                 Poses = new PoseData(Read(ContentFiles.UiPoses)),
                 EquipmentCard = EquipmentCardLayout.From(Read(ContentFiles.UiEquipmentCard)),
                 Progression = ProgressionLayout.From(Read(ContentFiles.UiProgression)),
+                Lore = LoreLayout.From(Read(ContentFiles.UiLore)),
+                Changelog = ChangelogData.From(Read(ContentFiles.UiChangelog)),
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
                 Meta = Read(ContentFiles.UiMeta),

@@ -35,6 +35,7 @@ namespace Ashen.Presentation.UI.Screens
         private VisualElement _rows;
         private JObject _undo;
         private string _undoLabel;
+        private readonly HashSet<string> _openChanges = new HashSet<string>();
 
         /// <summary>The page on screen (tests and captures read it).</summary>
         public SettingsPageView Page => _page;
@@ -98,12 +99,16 @@ namespace Ashen.Presentation.UI.Screens
             UiDom.Show(groups, selects || (!_page.Filtering && !_page.ShowAbout));
             if (!_page.Filtering && _page.Groups.Count > 1) groups.Add(GroupSelect());
             if (!_page.Filtering && _page.Topics.Count > 1) groups.Add(TopicSelect());
-            if (!_page.ShowAbout)
+            if (!_page.ShowAbout && !_page.ShowChangelog && !_page.ShowRules)
             {
+                var summary = new VisualElement { pickingMode = PickingMode.Ignore };
+                summary.AddToClassList(SettingsPanelClasses.Summary);
+                if (!string.IsNullOrEmpty(_page.GroupTip)) summary.Add(Text(_page.GroupTip, SettingsPanelClasses.GroupTip));
                 var count = new LocLabel { pickingMode = PickingMode.Ignore };
                 count.AddToClassList(FrontClasses.SettingsCount);
                 count.SetResolved(_page.Count);
-                groups.Add(count);
+                summary.Add(count);
+                groups.Add(summary);
             }
             var changed = Root.Q<LocButton>(UiNames.SettingsChanged);
             changed.SetResolved(_page.ChangedCount > 0 ? strings.Format(StringKeys.SettingsPageChangedCount, new StringArgs().Add(UiPlaceholders.Count, _page.ChangedCount)) : _page.ChangedLabel);
@@ -112,6 +117,13 @@ namespace Ashen.Presentation.UI.Screens
             _rows.Clear();
             if (_page.DeveloperSwitch != null && !_page.Filtering) _rows.Add(Row(_page.DeveloperSwitch));
             if (_page.ShowAbout) AboutPanel.Fill(_rows, AboutView.Build(Ui.Data, Ui.BuildVersion), Ui.Data.Strings);
+            else if (_page.ShowChangelog) SettingsPanels.Changelog(_rows, Ui.Data, _openChanges, id =>
+            {
+                if (!_openChanges.Add(id)) _openChanges.Remove(id);
+                _focusKey = id;
+                Render();
+            });
+            else if (_page.ShowRules) SettingsPanels.Rules(_rows, Ui.Data, _settings, Apply);
             else if (_page.Empty != null) _rows.Add(Text(_page.Empty, FrontClasses.SettingsEmpty));
             else foreach (var row in _page.Rows) _rows.Add(Row(row));
             RestoreFocus();
@@ -219,6 +231,7 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>An enum setting as the web's select: the chosen words with a chevron and the list of choices.</summary>
         private VisualElement Choices(SettingControlView control)
         {
+            if (!control.AsSelect) return Segmented(control);
             var select = new SelectField();
             select.AddToClassList(FrontClasses.SettingsSelect);
             select.Face.userData = control.Key;
@@ -226,6 +239,26 @@ namespace Ashen.Presentation.UI.Screens
             var key = control.Key;
             select.Picked += value => Apply(key, new JValue(value), select.Face);
             return select;
+        }
+
+        /// <summary>A choice of three or fewer options (web .as-seg.choice-group): its options side by side, the chosen one lit.</summary>
+        private VisualElement Segmented(SettingControlView control)
+        {
+            var group = new VisualElement();
+            group.AddToClassList(SettingsPanelClasses.Segmented);
+            var chosen = Js.Str(control.Value);
+            foreach (var option in control.Options)
+            {
+                var button = new LocButton { userData = control.Key + option.Key };
+                button.AddToClassList(SettingsPanelClasses.SegmentOption);
+                button.EnableInClassList(SettingsPanelClasses.SegmentOn, option.Key == chosen);
+                button.SetResolved(option.Value);
+                var key = control.Key;
+                var value = option.Key;
+                button.clicked += () => Apply(key, new JValue(value), button);
+                group.Add(button);
+            }
+            return group;
         }
 
         private VisualElement Slider(SettingControlView control)

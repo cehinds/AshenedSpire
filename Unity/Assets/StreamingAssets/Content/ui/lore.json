@@ -1,0 +1,20 @@
+{
+  "comment": "P-3a: how card lore is set (web models/LoreTypeModel.js, styles/kit.css :root[data-lore-*]): the faces the Typeface row offers (each ships with the game except Georgia, the platform's own serif, which draws in the nearest shipped face), the faces that ship no italic, the identity line's scale and the lore window's size per Size choice, the web's line heights and letter spacing, and the defaults.",
+  "faces": ["fell", "garamond", "cormorant", "crimson", "spectral", "baskerville", "cinzel", "inter", "georgia"],
+  "substitutes": { "georgia": "baskerville" },
+  "noItalic": ["cinzel"],
+  "slants": ["italic", "upright"],
+  "sizes": {
+    "S": { "identity": 0.9, "window": 15 },
+    "M": { "identity": 1, "window": 17 },
+    "L": { "identity": 1.1, "window": 19 },
+    "XL": { "identity": 1.25, "window": 22 }
+  },
+  "leading": { "tight": 1.4, "normal": 1.6, "loose": 1.85 },
+  "tracking": { "tight": -0.01, "normal": 0, "wide": 0.04 },
+  "identityBasePx": 16,
+  "identityLeading": 1.35,
+  "windowIdentityPlusPx": 2,
+  "naturalLine": 1.2,
+  "defaults": { "face": "fell", "size": "M", "leading": "normal", "tracking": "normal", "slant": "italic", "identitySlant": "italic" }
+}

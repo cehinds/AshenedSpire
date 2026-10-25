@@ -92,6 +92,131 @@
         "StepDown": "down",
         "PoolKey": "pool"
       }
+    },
+    {
+      "name": "SettingsGroupKeys",
+      "doc": "Keys the Settings page reads beyond SettingsPageKeys: a group's tip, the groups drawn as their own panels (Changelog, Game rules) and the enum rows the web keeps as selects.",
+      "keys": {
+        "TipKey": "tipKey",
+        "Changelog": "changelog",
+        "Rules": "rules",
+        "Dropdown": "dropdown"
+      }
+    },
+    {
+      "name": "LoreKeys",
+      "doc": "Keys of ui/lore.json and the lore type settings (web models/LoreTypeModel.js).",
+      "keys": {
+        "Face": "loreFace",
+        "Size": "loreSize",
+        "Leading": "loreLeading",
+        "Tracking": "loreTracking",
+        "Slant": "loreSlant",
+        "IdentitySlant": "loreIdentitySlant",
+        "Faces": "faces",
+        "Substitutes": "substitutes",
+        "NoItalic": "noItalic",
+        "Slants": "slants",
+        "Sizes": "sizes",
+        "LeadingRows": "leading",
+        "TrackingRows": "tracking",
+        "IdentityBasePx": "identityBasePx",
+        "IdentityLeading": "identityLeading",
+        "NaturalLine": "naturalLine",
+        "Defaults": "defaults",
+        "IdentityScale": "identity",
+        "WindowPx": "window",
+        "DefaultFace": "face",
+        "DefaultSize": "size",
+        "DefaultLeading": "leading",
+        "DefaultTracking": "tracking",
+        "DefaultSlant": "slant",
+        "DefaultIdentitySlant": "identitySlant",
+        "ParagraphBreak": "\\n\\s*\\n",
+        "WindowIdentityPlusPx": "windowIdentityPlusPx"
+      }
+    },
+    {
+      "name": "LoreClasses",
+      "doc": "USS classes of card lore: the identity line, the lore window's text and the faces they wear (Base.uss font-lore--*).",
+      "keys": {
+        "Identity": "lore-identity",
+        "Line": "lore-line",
+        "Read": "lore-read",
+        "Window": "lore-window-text",
+        "History": "lore-history",
+        "Closing": "lore-closing",
+        "FacePrefix": "font-lore--",
+        "ItalicSuffix": "-italic",
+        "Fell": "font-lore",
+        "FellItalic": "font-lore-italic",
+        "SizePrefix": "lore-size--",
+        "TrackingPrefix": "lore-tracking--",
+        "LineMore": "lore-line--more",
+        "IdentityPlain": "lore-identity--plain",
+        "WindowIdentity": "lore-window-identity"
+      }
+    },
+    {
+      "name": "LoreFormats",
+      "doc": "Rich text of the lore window: the line height as a percent of the font's own line.",
+      "keys": {
+        "LineHeight": "<line-height={0}%>"
+      }
+    },
+    {
+      "name": "ChangelogKeys",
+      "doc": "Keys of ui/changelog.json (Tools/changelog.mjs).",
+      "keys": {
+        "Entries": "entries",
+        "Group": "group",
+        "Summary": "summary",
+        "Detail": "detail",
+        "Build": "build"
+      }
+    },
+    {
+      "name": "SettingsPanelClasses",
+      "doc": "USS classes of the Changelog and Game rules panels of Settings (Front.uss).",
+      "keys": {
+        "Head": "settings-panel-head",
+        "Eyebrow": "settings-panel-eyebrow",
+        "Title": "settings-panel-title",
+        "Blurb": "settings-panel-blurb",
+        "Rule": "settings-panel-rule",
+        "GroupHead": "settings-change-group",
+        "Change": "settings-change",
+        "ChangeOpen": "settings-change--open",
+        "ChangeHead": "settings-change-head",
+        "ChangeSummary": "settings-change-summary",
+        "ChangeBuild": "settings-change-build",
+        "ChangeBody": "settings-change-body",
+        "GroupTip": "settings-group-tip",
+        "Summary": "settings-group-summary",
+        "RulesPanel": "settings-rules",
+        "RulesLine": "settings-rules-line",
+        "RulesStatus": "settings-rules-status",
+        "RulesNote": "settings-rules-note",
+        "RulesField": "settings-rules-field",
+        "Segmented": "settings-segmented",
+        "SegmentOption": "settings-segment",
+        "SegmentOn": "settings-segment--on"
+      }
+    },
+    {
+      "name": "SettingsRulesPlaceholders",
+      "doc": "Placeholders of the Game rules strings.",
+      "keys": {
+        "Profile": "profile"
+      }
+    },
+    {
+      "name": "SettingsRulesKeys",
+      "doc": "The two XP multipliers of the Game rules panel (settings/defaults.json controls with row gameRules).",
+      "keys": {
+        "ClassXp": "classXpMultiplier",
+        "WeaponXp": "weaponXpMultiplier"
+      }
     }
   ],
   "numberSets": [
@@ -110,6 +235,14 @@
       "doc": "How many points an attribute card looks ahead for the cycle in which every floor lands exactly (attributeCycle).",
       "values": {
         "CycleLimit": 100
+      }
+    },
+    {
+      "name": "SegmentedChoice",
+      "type": "int",
+      "doc": "How many options a Settings choice row may have and still be drawn as a segmented control (web settings.js: `r.dropdown || r.choices.length > 3` is a select).",
+      "values": {
+        "Max": 3
       }
     }
   ]

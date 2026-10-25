@@ -67,6 +67,14 @@
           "categories": [
             "audio"
           ]
+        },
+        {
+          "id": "rules",
+          "labelKey": "settings.group.rules",
+          "categories": [
+            "rules"
+          ],
+          "rules": true
         }
       ]
     },
@@ -95,14 +103,16 @@
           "categories": [
             "playback"
           ],
-          "developer": true
+          "developer": true,
+          "tipKey": "settings.tip.opening"
         },
         {
           "id": "deck",
           "labelKey": "settings.group.deck",
           "categories": [
             "deck"
-          ]
+          ],
+          "tipKey": "settings.tip.deck"
         },
         {
           "id": "interface",
@@ -110,7 +120,23 @@
           "categories": [
             "mapHud",
             "controls"
-          ]
+          ],
+          "tipKey": "settings.tip.interface"
+        },
+        {
+          "id": "text",
+          "labelKey": "settings.group.text",
+          "categories": [
+            "flavorText",
+            "loreWindow"
+          ],
+          "tipKey": "settings.tip.text"
+        },
+        {
+          "id": "changelog",
+          "labelKey": "settings.group.changelog",
+          "categories": [],
+          "changelog": true
         },
         {
           "id": "about",

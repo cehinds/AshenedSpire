@@ -1445,3 +1445,135 @@
 .layout-narrow .shell.compendium-shell {
     width: var(--size-full-width);
 }
+
+/* ---- P-3a: the group tip beside the count, the segmented choice, the Changelog and Game rules panels (web settings.js set-group-summary, .as-seg.choice-group; about.js; gameProfileSelector.js) ---- */
+
+.settings-group-summary {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: var(--size-full-width);
+}
+
+.settings-group-tip {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-right: var(--space-md);
+    font-size: var(--font-label);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.settings-segmented {
+    flex-direction: row;
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.settings-segment.unity-button {
+    margin: 0;
+    padding: var(--space-xs) var(--space-md);
+    color: var(--color-parchment);
+    background-color: var(--color-transparent);
+    border-width: 0;
+    border-radius: 0;
+}
+
+.settings-segment--on.unity-button {
+    color: var(--color-ready-text);
+    background-color: var(--color-panel-raise);
+}
+
+.settings-panel-head {
+    margin-top: var(--space-sm);
+}
+
+.settings-panel-eyebrow {
+    font-size: var(--font-label);
+    color: var(--color-muted);
+}
+
+.settings-panel-title {
+    font-size: var(--font-heading);
+    color: var(--color-gold);
+}
+
+.settings-panel-blurb {
+    margin-top: var(--space-xs);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.settings-panel-rule {
+    height: var(--border-hairline);
+    margin: var(--space-sm) 0;
+    background-color: var(--color-line);
+}
+
+.settings-change-group {
+    margin-top: var(--space-md);
+}
+
+.settings-change {
+    margin-top: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.settings-change--open {
+    border-color: var(--color-gold);
+}
+
+.settings-change-head {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.settings-change-summary {
+    flex-grow: 1;
+    flex-shrink: 1;
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.settings-change-build {
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+    color: var(--color-muted);
+}
+
+.settings-change-body {
+    margin-top: var(--space-sm);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.settings-rules {
+    margin-top: var(--space-md);
+}
+
+.settings-rules-line {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+}
+
+.settings-rules-status {
+    margin-bottom: var(--space-sm);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.settings-rules-note {
+    margin-right: var(--space-md);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.settings-rules-field {
+    min-width: var(--size-settings-select-w);
+}

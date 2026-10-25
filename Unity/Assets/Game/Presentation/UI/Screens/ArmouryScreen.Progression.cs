@@ -16,7 +16,7 @@ namespace Ashen.Presentation.UI.Screens
     /// </summary>
     public sealed partial class ArmouryScreen
     {
-        private enum DialogKind { None, Sheet, Allocation }
+        private enum DialogKind { None, Sheet, Allocation, Lore }
 
         private VisualElement _dialogScrim;
         private CombatModal _dialogModal;
@@ -26,6 +26,8 @@ namespace Ashen.Presentation.UI.Screens
         private string _paneCard;
         private string _dialogCard;
         private string _dialogFocus;
+        private LoreParts _loreParts;
+        private string _loreTitle;
 
         private bool DialogOpen => _dialogKind != DialogKind.None;
 
@@ -183,6 +185,7 @@ namespace Ashen.Presentation.UI.Screens
             _dialogModal.Reset();
             if (_dialogKind == DialogKind.Sheet) RenderSheet();
             else if (_dialogKind == DialogKind.Allocation) RenderAllocation();
+            else if (_dialogKind == DialogKind.Lore) RenderLore();
             var target = _dialogFocus != null ? _dialogModal.Query<VisualElement>().Where(e => e.focusable && _dialogFocus.Equals(e.userData)).First() : null;
             target ??= _dialogModal.Body.Query<VisualElement>().Where(e => e.focusable && e != _dialogModal.Body).First() ?? _dialogModal.CloseButton;
             Nav.FocusTop(target);
@@ -225,6 +228,32 @@ namespace Ashen.Presentation.UI.Screens
                     RenderDialog();
                 });
             DialogButton(StringKeys.ConfirmBack, UiClasses.ButtonBack, CloseDialog);
+        }
+
+        // ---- the lore line and the lore window (loreLine.js)
+
+        /// <summary>The lore line of an inspection: the identity line, and a Read cue that opens the window when the lore has more to say.</summary>
+        private void Lore(VisualElement parent, string text, string title)
+        {
+            VisualElement line = null;
+            line = LoreLine.Build(Strings, text, parts => OpenLore(parts, title, line));
+            if (line != null) parent.Add(line);
+        }
+
+        private void OpenLore(LoreParts parts, string title, VisualElement opener)
+        {
+            _loreParts = parts;
+            _loreTitle = title ?? string.Empty;
+            _dialogFocus = null;
+            ShowDialog(DialogKind.Lore, opener);
+        }
+
+        private void RenderLore()
+        {
+            _dialogModal.size = UiValues.ModalSizeMd;
+            _dialogModal.SetHead(Strings.Get(StringKeys.LoreWindowEyebrow), _loreTitle);
+            LoreLine.Window(_dialogModal.Body, _loreParts);
+            DialogButton(StringKeys.LoreWindowClose, UiClasses.ButtonBack, CloseDialog);
         }
 
         // ---- openProgressionAllocation

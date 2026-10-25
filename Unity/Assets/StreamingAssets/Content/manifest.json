@@ -1,5 +1,5 @@
 {
-  "contentHash": "b93a8cf1eda645544ea51b82de17713627f629cba7b032bdfc3e6fa1dbb96d9f",
+  "contentHash": "b543d73a2f2a32e2467b80b39b9c7dc78647cd41a25076ded4e35e92014ab5ea",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -1875,9 +1875,9 @@
       "sha256": "cb31633a816eab3c6bb1c479a3cb9c6781500b1e9747d930f2425c1d45bc93af"
     },
     "schemas/settings.defaults.schema.json": {
-      "bytes": 1519,
+      "bytes": 1564,
       "generated": false,
-      "sha256": "50fa6652c024753516207423bf37913914a4d960834e85fc47a53c614dcbf349"
+      "sha256": "96a824de7a5a9946fed7029a5526f0bef2cde5abdfffcbf3716df6954c54fbe3"
     },
     "schemas/settings.presets.reference.schema.json": {
       "bytes": 20862,
@@ -1999,6 +1999,11 @@
       "generated": false,
       "sha256": "7c7f4d1a2f293e79c8f12b9b131f1b388af3586a80e13888c398a4376a722ec8"
     },
+    "schemas/ui.changelog.schema.json": {
+      "bytes": 590,
+      "generated": false,
+      "sha256": "a8967399cec36898659d16aa49e1bab9217c31f4420dda70028f52fca3d8fdc0"
+    },
     "schemas/ui.components.schema.json": {
       "bytes": 8511,
       "generated": false,
@@ -2029,15 +2034,20 @@
       "generated": false,
       "sha256": "4a4726ea6740c861649d8476085f9b8c7ae611c3b325948227bde0e2c7ac9b09"
     },
+    "schemas/ui.lore.schema.json": {
+      "bytes": 1605,
+      "generated": false,
+      "sha256": "2efed91b3d8455d75a032d71097de72f3176bfb0e568b583402dc1edf249f49c"
+    },
     "schemas/ui.menus.schema.json": {
       "bytes": 3888,
       "generated": false,
       "sha256": "352b2bf11fa0a837300b5e13e7f576e72e3c4297604559569025d94e335a8be6"
     },
     "schemas/ui.meta.schema.json": {
-      "bytes": 3394,
+      "bytes": 3644,
       "generated": false,
-      "sha256": "56dfcbb7c907a5d36a64d93f060e1766804eb18ce046f78445532ec155cbe3fe"
+      "sha256": "31338436a6235559531a98ede3299383131eb67511c9a8a7cb428e030d74338d"
     },
     "schemas/ui.nodes.schema.json": {
       "bytes": 1965,
@@ -2080,9 +2090,9 @@
       "sha256": "069c0b2f370c7e0ffd90ea47a7eaf3eb271cb273ef030e8fbb496e7ec088ee06"
     },
     "settings/defaults.json": {
-      "bytes": 14991,
+      "bytes": 17017,
       "generated": false,
-      "sha256": "3dc2496f0ff1a757180304b1be56b83898be12242a7d2ee13fb3b8ed3cd788df"
+      "sha256": "c6394a11cef43a14c2c4291c1e27a752a5009263fea35a439fa4c606ca9d9024"
     },
     "settings/presets/reference.json": {
       "bytes": 4585,
@@ -2100,9 +2110,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 100253,
+      "bytes": 103298,
       "generated": false,
-      "sha256": "810888e1c022be354d0c68c58b196d956035c04855e1f427478b383b332823f7"
+      "sha256": "e00e2a47be98341ba6ba76d98c5c6af1636afd5e5dd9d3c139b8806f0f95ea9a"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2209,6 +2219,11 @@
       "generated": false,
       "sha256": "bb21030e16e957b39d492abcdf9129783be6bb8079a4933b1bc4b34694657e5d"
     },
+    "ui/changelog.json": {
+      "bytes": 13837,
+      "generated": false,
+      "sha256": "e2dd8fd2a67c086a33d1769f088ba0533356cfdd87f0424190e1ddd13f399108"
+    },
     "ui/components.json": {
       "bytes": 10967,
       "generated": false,
@@ -2239,15 +2254,20 @@
       "generated": true,
       "sha256": "330892274c3cc8c87947d2662b07dccbd95f7c3275dc2922a80e3d30a546d178"
     },
+    "ui/lore.json": {
+      "bytes": 1193,
+      "generated": false,
+      "sha256": "97421a1f740349288d817a3e724e84f19fdf49e9a3134ea33ef97ade7ed9e388"
+    },
     "ui/menus.json": {
       "bytes": 8561,
       "generated": false,
       "sha256": "171b93e9477c49b78349227cdc23732c6db3ab1d773a2f87c8f6786c4abf004b"
     },
     "ui/meta.json": {
-      "bytes": 3143,
+      "bytes": 3825,
       "generated": false,
-      "sha256": "55c6ec3ec6cd695a6c0f624b8429672fa4a97d61a94c374f0fe7ed77a00bc826"
+      "sha256": "dea109acc2edf5042d29a8196650f590e45b346f8bc6e43238c8b4965b8fb69b"
     },
     "ui/nodes.json": {
       "bytes": 2785,
@@ -2285,9 +2305,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 50829,
+      "bytes": 50854,
       "generated": false,
-      "sha256": "b4e45b54c324e6c97ac65c4757c0c0a36205b21de5e36f0517dd6540f0f6a4d5"
+      "sha256": "c0da44019b43a91d0cf18db8497cbb941e782c49ffa12462b30253f30632ea92"
     }
   },
   "schemaVersion": 1,

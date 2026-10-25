@@ -35,6 +35,7 @@
           "presets": { "type": "object", "additionalProperties": { "type": "object" } },
           "resetsPreset": { "type": "string" },
           "legacyOnly": { "type": "boolean" },
+          "dropdown": { "type": "boolean" },
           "positive": { "type": "boolean" },
           "action": { "type": "string" },
           "row": { "type": "string" },

@@ -1,0 +1,41 @@
+{
+  "$id": "ui/lore.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "faces": { "type": "array", "items": { "type": "string" } },
+    "substitutes": { "type": "object", "additionalProperties": { "type": "string" } },
+    "noItalic": { "type": "array", "items": { "type": "string" } },
+    "slants": { "type": "array", "items": { "type": "string" } },
+    "sizes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "identity": { "type": "number" },
+          "window": { "type": "number" }
+        },
+        "required": ["identity", "window"]
+      }
+    },
+    "leading": { "type": "object", "additionalProperties": { "type": "number" } },
+    "tracking": { "type": "object", "additionalProperties": { "type": "number" } },
+    "identityBasePx": { "type": "number" },
+    "identityLeading": { "type": "number" },
+    "windowIdentityPlusPx": { "type": "number" },
+    "naturalLine": { "type": "number" },
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "face": { "type": "string" },
+        "size": { "type": "string" },
+        "leading": { "type": "string" },
+        "tracking": { "type": "string" },
+        "slant": { "type": "string" },
+        "identitySlant": { "type": "string" }
+      },
+      "required": ["face", "size", "leading", "tracking", "slant", "identitySlant"]
+    }
+  },
+  "required": ["faces", "substitutes", "noItalic", "slants", "sizes", "leading", "tracking", "identityBasePx", "identityLeading", "windowIdentityPlusPx", "naturalLine", "defaults"]
+}

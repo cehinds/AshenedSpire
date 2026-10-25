@@ -1,0 +1,397 @@
+{
+  "comment": "GENERATED from /CHANGELOG.md by Tools/changelog.mjs --write. Do not edit: --check refuses any drift from the authoritative Markdown.",
+  "entries": [
+    {
+      "id": "v0.1.37.14",
+      "date": "2026-10-23",
+      "group": "2026-10-23",
+      "summary": "Core 2 player reaction stack in C# with oracle parity (WP-10)",
+      "detail": "",
+      "build": "0.1.37.14"
+    },
+    {
+      "id": "v0.1.37.12",
+      "date": "2026-10-23",
+      "group": "2026-10-23",
+      "summary": "Core 2 Counter, Smash and Sweep matchups in C# with oracle parity (WP-8)",
+      "detail": "",
+      "build": "0.1.37.12"
+    },
+    {
+      "id": "v0.1.37.11",
+      "date": "2026-10-23",
+      "group": "2026-10-23",
+      "summary": "Core 2 damage receipt, protections and fight wiring in C# with oracle parity (WP-7)",
+      "detail": "",
+      "build": "0.1.37.11"
+    },
+    {
+      "id": "v0.1.37.9",
+      "date": "2026-10-23",
+      "group": "2026-10-23",
+      "summary": "Core 2 combat start, hand and resources in C# with oracle parity (WP-4)",
+      "detail": "",
+      "build": "0.1.37.9"
+    },
+    {
+      "id": "v0.1.37.8",
+      "date": "2026-10-23",
+      "group": "2026-10-23",
+      "summary": "Core 2 run creation (WP-3)",
+      "detail": "",
+      "build": "0.1.37.8"
+    },
+    {
+      "id": "v0.1.37.7",
+      "date": "2026-10-23",
+      "group": "2026-10-23",
+      "summary": "Core 2 WP-2: profile loading and registries in C# (CoreProfile, Core2Registries) with oracle parity",
+      "detail": "",
+      "build": "0.1.37.7"
+    },
+    {
+      "id": "v0.1.37.6",
+      "date": "2026-10-23",
+      "group": "2026-10-23",
+      "summary": "Core 2 WP-1: oracle harness (oracle-core2, registries dump, combat smoke fixtures) at web b8cfe4fac",
+      "detail": "",
+      "build": "0.1.37.6"
+    },
+    {
+      "id": "v0.1.37.5",
+      "date": "2026-10-23",
+      "group": "2026-10-23",
+      "summary": "Core 2 WP-0: content pipeline for the default profile at web b8cfe4fac (profile/, rules/, schemas, codegen)",
+      "detail": "",
+      "build": "0.1.37.5"
+    },
+    {
+      "id": "v0.1.37.4",
+      "date": "2026-10-03",
+      "group": "2026-10-03",
+      "summary": "Record the 0.1.37.3 promotion (dev → test → main) in CHANGELOG and BUILD-LOG",
+      "detail": "",
+      "build": "0.1.37.4"
+    },
+    {
+      "id": "v0.1.37.3",
+      "date": "2026-10-02",
+      "group": "2026-10-02",
+      "summary": "Promoted dev → test → main (2026-10-03). A promotion is a process step, not an owner sign-off; the epic stays 0 (D-039). CI green on dev and test (version, docs, domain, content, bot). Unity EditMode, PlayMode and the Windows build are unverified: the CI Unity steps skip without the UNITY_ secrets and no local batchmode run was made. Tag v0.1.37.3 not yet created (the session could not write tags).",
+      "detail": "Abandon run, buy-back, XP strip data, hand example, web config import/export, combat sounds (D-134, D-159-D-163)",
+      "build": "0.1.37.3"
+    },
+    {
+      "id": "v0.1.37.2",
+      "date": "2026-10-02",
+      "group": "2026-10-02",
+      "summary": "version check: promotions may carry accumulated dev bumps (D-158)",
+      "detail": "",
+      "build": "0.1.37.2"
+    },
+    {
+      "id": "v0.1.37.1",
+      "date": "2026-10-02",
+      "group": "2026-10-02",
+      "summary": "Meta lane engine-free halves: journal, settings, map reveal, prologue, creation panes, progression, armoury, piles, music (D-148-D-156)",
+      "detail": "",
+      "build": "0.1.37.1"
+    },
+    {
+      "id": "v0.1.37.0",
+      "date": "2026-10-02",
+      "group": "2026-10-02",
+      "summary": "200-seed Classic bot report; reward card ids stay unique (D-146, D-147)",
+      "detail": "",
+      "build": "0.1.37.0"
+    },
+    {
+      "id": "v0.1.36.0",
+      "date": "2026-09-27",
+      "group": "2026-09-27",
+      "summary": "F3 node screens: W-09 merchant, W-11 event and dialogue, W-13 legacy dungeon on the climb router (US-9.3 sell only; the shipped game has no buy-back, D-081)",
+      "detail": "",
+      "build": "0.1.36.0"
+    },
+    {
+      "id": "v0.1.29.0",
+      "date": "2026-09-27",
+      "group": "2026-09-27",
+      "summary": "F3 climb flow: W-06 act map, W-10 rest, W-15 run end; RunSession drives whole runs on RunLoop; owner ruling D-138 (shipped game is reference; no save compat)",
+      "detail": "",
+      "build": "0.1.29.0"
+    },
+    {
+      "id": "v0.1.15.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Combat: weapon-set swap and re-arming, unrated poise, profile snapshot; run creation: custom attributes, derived-stat options, hand-rule settings, derived-stat restore and save migrations (all oracle-verified)",
+      "detail": "",
+      "build": "0.1.15.0"
+    },
+    {
+      "id": "v0.1.13.2",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Refactor: rest stop and merchant share one smithing/card-extraction port; upgraded-item resolution has one home (-1,469 lines, oracles unchanged)",
+      "detail": "",
+      "build": "0.1.13.2"
+    },
+    {
+      "id": "v0.1.13.1",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Record the F1 promotion (v0.1.13.0) in CHANGELOG and BUILD-LOG",
+      "detail": "",
+      "build": "0.1.13.1"
+    },
+    {
+      "id": "v0.1.13.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Promoted dev → test → main, tagged v0.1.13.0 (phase F1 First playable loop complete). A promotion is a process step, not an owner sign-off; the epic stays 0 (D-039). CI green on dev and test; Unity EditMode 2102 passed / 2 skipped and PlayMode 3 passed / 1 skipped locally (CI Unity jobs skip without the UNITY_ secrets).",
+      "detail": "F1 complete: W-08 rewards on RewardDoor (claims oracle incl. tap path), resume on rewards, permadeath on defeat; one run-effects door, chained full runs (108/108), bot smoke",
+      "build": "0.1.13.0"
+    },
+    {
+      "id": "v0.1.12.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Run loop (node travel, rest stops, acts, legacy dungeons, victory/death/Endless, run record and unlocks) ported with shipped parity: 108 runs, 14,983 steps",
+      "detail": "",
+      "build": "0.1.12.0"
+    },
+    {
+      "id": "v0.1.11.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Merchant (stock, purchases, removal, sell, smith) and all 25 events ported with shipped parity",
+      "detail": "",
+      "build": "0.1.11.0"
+    },
+    {
+      "id": "v0.1.10.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "F1 first fight: W-04 class pane, W-07 combat screen, W-20 pause, save and resume mid-fight (RunSession)",
+      "detail": "",
+      "build": "0.1.10.0"
+    },
+    {
+      "id": "v0.1.9.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Run and rewards data built from content with exact key order (textAnchors, tag stamp order)",
+      "detail": "",
+      "build": "0.1.9.0"
+    },
+    {
+      "id": "v0.1.8.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Post-combat pipeline (skills, class tree, levels, smithing, reward rolls, pendingReward) ported with shipped parity: 168 cases",
+      "detail": "",
+      "build": "0.1.8.0"
+    },
+    {
+      "id": "v0.1.7.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "F1 UI kit, boot gate, title, save slots, confirmations, keyboard/pad focus (US-1.2, 1.3 partial, 1.4, 0.10 footer, 17.1)",
+      "detail": "",
+      "build": "0.1.7.0"
+    },
+    {
+      "id": "v0.1.6.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Act map generation (buildActMap, floor plans, run shapes, encounters, seats) ported with shipped parity: 1,883 maps",
+      "detail": "",
+      "build": "0.1.6.0"
+    },
+    {
+      "id": "v0.1.5.1",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Commit Unity metas for CombatStringKeys.g.cs and SessionKeys.g.cs",
+      "detail": "",
+      "build": "0.1.5.1"
+    },
+    {
+      "id": "v0.1.5.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Run creation (createRunState) and combat start args ported with shipped parity: 76 runs, 152 combat starts, 8 refusals",
+      "detail": "",
+      "build": "0.1.5.0"
+    },
+    {
+      "id": "v0.1.4.4",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "W-07 combat view-model",
+      "detail": "",
+      "build": "0.1.4.4"
+    },
+    {
+      "id": "v0.1.4.3",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "skill XP receipts recorded on the combat bus with shipped parity",
+      "detail": "",
+      "build": "0.1.4.3"
+    },
+    {
+      "id": "v0.1.4.2",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "legality service and combat session with save/resume (engine side of US-5.9)",
+      "detail": "",
+      "build": "0.1.4.2"
+    },
+    {
+      "id": "v0.1.4.1",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "combat data built from content equals the shipped registries; golden combats replay on it",
+      "detail": "",
+      "build": "0.1.4.1"
+    },
+    {
+      "id": "v0.1.4.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "createCombat and card/intent previews with shipped parity",
+      "detail": "",
+      "build": "0.1.4.0"
+    },
+    {
+      "id": "v0.1.3.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "runtime registries port and C# combat engine with shipped parity (60 golden combats, 1068 steps); content keeps shipped key order (D-040)",
+      "detail": "",
+      "build": "0.1.3.0"
+    },
+    {
+      "id": "v0.1.1.4",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Version correction: owner ruling 2026-09-26: nothing is 1.x yet; 1.0.0.0-1.0.0.3 renumbered to 0.1.1.1-0.1.1.4, phase F0 completion is a promotion, not an epic release",
+      "detail": "combat and registries parity oracles (was 1.0.0.3)\ncodegen config fragments\nRepository moved to D:/repo/AshenedSpire\nEpic release F0 Foundation complete",
+      "build": "0.1.1.4"
+    },
+    {
+      "id": "v0.1.1.1",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "docs link check skips the verbatim Provenance archive",
+      "detail": "",
+      "build": "0.1.1.1"
+    },
+    {
+      "id": "v0.1.1.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Procedural SFX core and audio contexts (us-16.2)",
+      "detail": "",
+      "build": "0.1.1.0"
+    },
+    {
+      "id": "v0.1.0.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Feature complete: foundation (us-0.1..0.10; us-0.5 part 2 deferred per D-033)",
+      "detail": "",
+      "build": "0.1.0.0"
+    },
+    {
+      "id": "v0.0.12.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "AI disclosure as data with enforcement (us-0.10)",
+      "detail": "",
+      "build": "0.0.12.0"
+    },
+    {
+      "id": "v0.0.11.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Asset registry, lossless pipeline, provenance (us-0.1, us-0.2)",
+      "detail": "",
+      "build": "0.0.11.0"
+    },
+    {
+      "id": "v0.0.9.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Enforcement tests: no magic strings/numbers/content IDs, engine-free layers (us-0.8)",
+      "detail": "",
+      "build": "0.0.9.0"
+    },
+    {
+      "id": "v0.0.8.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Crash-safe saves: verified mirror, gen-stamped command log, migrations (us-0.6)",
+      "detail": "",
+      "build": "0.0.8.0"
+    },
+    {
+      "id": "v0.0.7.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Config layers, presets and frozen RunSnapshot (us-0.7)",
+      "detail": "",
+      "build": "0.0.7.0"
+    },
+    {
+      "id": "v0.0.6.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Deterministic RNG streams, seed codec, seat order; parity oracle (us-0.5 part 1, us-18.4)",
+      "detail": "",
+      "build": "0.0.6.0"
+    },
+    {
+      "id": "v0.0.4.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Content validator: schemas, references, ops, strings, row rules, presets (us-0.4)",
+      "detail": "",
+      "build": "0.0.4.0"
+    },
+    {
+      "id": "v0.0.3.1",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "CI workflow YAML fix",
+      "detail": "",
+      "build": "0.0.3.1"
+    },
+    {
+      "id": "v0.0.3.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Codegen of C# keys and enums; assembly skeleton; shared test harness (us-0.9)",
+      "detail": "",
+      "build": "0.0.3.0"
+    },
+    {
+      "id": "v0.0.2.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Content exported to id-keyed JSON with schemas; reference preset (us-0.3)",
+      "detail": "",
+      "build": "0.0.2.0"
+    },
+    {
+      "id": "v0.0.1.0",
+      "date": "2026-09-26",
+      "group": "2026-09-26",
+      "summary": "Unity rebuild design package (docs/design/00–10): the prompt review and shipped-code fact check, scope, features and user stories, wireframes, activity and process flows, the sub-agent diagram review, data conventions, branching, versioning and CI rules, and the one-session Unity mega prompt.",
+      "detail": "The owner's reference game config (docs/design/reference/ashen-spire-game-config.json), the default preset for the rebuild.\nVERSION file (starting version 0.0.1.0).",
+      "build": "0.0.1.0"
+    }
+  ]
+}

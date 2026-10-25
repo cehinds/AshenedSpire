@@ -182,7 +182,6 @@
         "TooltipDelay": "tooltipDelay",
         "TooltipCloseDelay": "tooltipCloseDelay",
         "HighContrast": "highContrast",
-        "TextSize": "textSize",
         "ReadableHeadings": "readableHeadings",
         "ColorblindSafe": "colorblindSafe",
         "OpeningPlayback": "openingPlayback",
