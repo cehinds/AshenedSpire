@@ -21,5 +21,15 @@ namespace Ashen.Generated
         public const string PowerLabelKey = "armoury.power.{0}";
         public const string PowerFullKey = "armoury.power.{0}.full";
         public const string HandSizeRow = "handSize";
+        public const string AttributeShortKey = "attribute.{0}.short";
+        public const string Unknown = "?";
+        public const string Over = "/";
+        public const string RelicRefPrefix = "relic/";
+        public const string PoiseRow = "poise";
+        public const string AttributesWord = "attributes";
+        public const string Plus = "+";
+        public const string ItemWeightScale = "itemWeightScale";
+        public const string WeightWordKey = "armoury.receipt.weight.{0}";
+        public const string WeightClassPriced = "weightClassPriced";
     }
 }

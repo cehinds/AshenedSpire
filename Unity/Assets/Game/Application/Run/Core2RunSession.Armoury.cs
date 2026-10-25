@@ -100,6 +100,51 @@ namespace Ashen.App.Run
             return row?.Str(K.Name) ?? id;
         }
 
+        /// <summary>
+        /// Each rating's attribute part as the web's kit receipt reads it (ratingsConfigFor(registries, run) finds no combatRatings in the live balance, so effectiveEquipmentRating prices the character's own attributes by
+        /// LEGACY_RATING_FORMULA: the sum of each attribute times its weight, each term floored, plus the base).
+        /// </summary>
+        public Func<string, double?> RatingAttributePart(UiData ui)
+        {
+            var attributes = _run.Obj(K.Attributes);
+            var rows = ui.Components.LegacyRatings;
+            return id =>
+            {
+                var row = rows.Obj(id);
+                if (row == null) return null;
+                double weighted = 0;
+                foreach (var attribute in attributes.Properties())
+                    if (Js.IsFinite(row[attribute.Name])) weighted += Math.Floor(Js.D(attribute.Value) * Js.D(row[attribute.Name]) + Ashen.Generated.CombatMath.Epsilon);
+                return Js.D(row[K.Base]) + weighted;
+            };
+        }
+
+        /// <summary>One derived-stat row (the run's own snapshot) at the run's attributes and level, or null when the run has no such row (the web's statRowValue for the Poise receipt).</summary>
+        public double? DerivedStat(string statId)
+        {
+            var run = _run;
+            var d = Core.Combat.Run;
+            var table = run.Obj(K.DerivedStatRuleSnapshot)?.Obj(K.Rules);
+            if (table == null || CoreDerivedStats.ResolvedRow(d, table, statId, ClassId) == null) return null;
+            var level = Js.Truthy(run.Obj(K.Level)?[K.Level]) ? run.Obj(K.Level).Num(K.Level) : 1;
+            return CoreDerivedStats.Derive(d, table, statId, run.Obj(K.Attributes), d.Run.Classes.Get(ClassId), level).Value;
+        }
+
+        /// <summary>
+        /// The loadout as it would stand with <paramref name="itemId"/> in a position (equipPiece on a copy: its gates, the storage transition), or null when the piece cannot go there. Nothing in the run changes;
+        /// the Armoury's comparison reads it.
+        /// </summary>
+        public JObject TrialLoadout(string slotId, int setIndex, string itemId)
+        {
+            var loadout = _run.Obj(K.Loadout);
+            if (loadout == null || string.IsNullOrEmpty(itemId)) return null;
+            var trial = (JObject)loadout.DeepClone();
+            var ok = false;
+            try { ok = Armoury.EquipPiece(GearData, trial, slotId, setIndex, itemId, Armoury.Ownership(GearData, trial), EquipmentContext(itemId, setIndex), null); }
+            catch (InvalidOperationException) { }
+            return ok ? trial : null;
+        }
+
         /// <summary>Why a set cannot be made the slot's active one (the swap rule, the grip the hands would be left in), or null (positionActivationSeal).</summary>
         public string ActivationRefusal(StringTable strings, string slotId, int setIndex)
         {

@@ -294,10 +294,12 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>effectiveEquipmentRating(config, attributes, piece, profile, id): the attribute part plus the item's own rating.</summary>
-        public static JObject EffectiveEquipmentRating(RunData d, JObject config, JObject attributes, JObject piece, JObject profile, string id)
+        public static JObject EffectiveEquipmentRating(RunData d, JObject config, JObject attributes, JObject piece, JObject profile, string id, Func<string, double?> attributePart = null)
         {
             if (!RunJs.Strs(d.Combat.Engine.Obj(K.Ratings)?[K.Ids]).Contains(id)) throw new InvalidOperationException(RunJs.Fmt(RM.UnknownEquipmentRating, id));
-            var attribute = AttributeRatingReceipt(d, config, attributes, id);
+            // The web's rating rows are the run's own derived-stat rows (ratingsConfigFor(registries, run)); a caller that has the run hands each rating's attribute part here, as that row reads it.
+            var given = attributePart?.Invoke(id);
+            var attribute = given != null ? Js.Obj(K.Base, 0, K.Value, given.Value) : AttributeRatingReceipt(d, config, attributes, id);
             string itemKey = null;
             if (piece != null)
                 itemKey = piece.Str(K.Kind) == V.Armor
@@ -310,7 +312,7 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>roleAmountReceipt: card base + source-equipment rating + rarity, capped by the profile rule.</summary>
-        public static JObject RoleAmountReceipt(RunData d, KitRow row, JObject attributes, JObject snapshot)
+        public static JObject RoleAmountReceipt(RunData d, KitRow row, JObject attributes, JObject snapshot, Func<string, double?> attributePart = null)
         {
             var profile = row.Profile;
             var rule = snapshot?.Obj(RK.Profiles)?.Obj(profile?.Str(K.Id) ?? V.Undefined);
@@ -318,7 +320,7 @@ namespace Ashen.Domain.Run
             var rarity = row.Piece == null ? Js.Null() : row.Piece[RK.Rarity];
             var rarityBonus = Js.Or0((snapshot.Obj(RK.RarityBonuses)?.Obj(RunJs.Key(rarity)))?[row.Role]);
             var ratingConfig = d.Balance.Obj(K.CombatRatings) is JObject cr && Js.Truthy(cr) ? cr : d.RuleObj(K.Ratings, RK.DefaultFormula);
-            var rating = EffectiveEquipmentRating(d, ratingConfig, attributes, row.Piece, rule, rule.Str(K.RatingId));
+            var rating = EffectiveEquipmentRating(d, ratingConfig, attributes, row.Piece, rule, rule.Str(K.RatingId), attributePart);
             rating[RK.SourceLabel] = row.Piece != null ? (row.Piece.Str(K.Kind) == RV.ShieldKind ? RV.ShieldKind : RV.WeaponLabel) : V.AttributeSource;
             var uncapped = rule.Num(RK.BaseValue) + rarityBonus;
             var capped = Js.IsFinite(rule[RK.Cap]);
@@ -332,11 +334,11 @@ namespace Ashen.Domain.Run
         }
 
         /// <summary>equipmentKitReceipt: the kit plan, each row priced from the (validated) run snapshot.</summary>
-        public static List<KitRow> KitReceipt(RunData d, JObject loadout, string classId, JObject attributes, JObject profileSnapshot)
+        public static List<KitRow> KitReceipt(RunData d, JObject loadout, string classId, JObject attributes, JObject profileSnapshot, Func<string, double?> attributePart = null)
         {
             var snapshot = RestoreProfileSnapshot(d, profileSnapshot);
             var rows = KitPlan(d, loadout, classId);
-            foreach (var row in rows) row.Receipt = RoleAmountReceipt(d, row, attributes, snapshot);
+            foreach (var row in rows) row.Receipt = RoleAmountReceipt(d, row, attributes, snapshot, attributePart);
             return rows;
         }
 
@@ -457,12 +459,22 @@ namespace Ashen.Domain.Run
             return delta;
         }
 
+        /// <summary>equipmentRequirementReceipt(...): every attribute minimum a piece asks for with what the character has, and the ones that are unmet.</summary>
+        public sealed class RequirementReceiptResult
+        {
+            public readonly List<JObject> Rows = new List<JObject>();
+            public readonly List<JObject> Failures = new List<JObject>();
+        }
+
         /// <summary>equipmentRequirementReceipt(...).failures: the attribute minimums a piece asks for that are unmet.</summary>
-        public static List<JObject> RequirementFailures(RunData d, JObject piece, JObject attributes, JObject itemUpgradeLevels = null)
+        public static List<JObject> RequirementFailures(RunData d, JObject piece, JObject attributes, JObject itemUpgradeLevels = null) => RequirementReceipt(d, piece, attributes, itemUpgradeLevels).Failures;
+
+        /// <summary>equipmentRequirementReceipt(registries, piece, attributes, { itemUpgradeLevels }).</summary>
+        public static RequirementReceiptResult RequirementReceipt(RunData d, JObject piece, JObject attributes, JObject itemUpgradeLevels = null)
         {
             if (piece == null) throw new InvalidOperationException(RM.RequirementNeedsPiece);
             var authored = piece.Obj(RK.Requirements)?.Obj(K.Attributes) ?? new JObject();
-            var failures = new List<JObject>();
+            var receipt = new RequirementReceiptResult();
             var itemRef = Combat.Equipment.PieceItemRef(piece);
             var namespaced = itemUpgradeLevels?[itemRef ?? V.Undefined];
             var level = Js.IsInt(namespaced) ? Js.D(namespaced) : 0;
@@ -475,9 +487,10 @@ namespace Ashen.Domain.Run
                 var actual = attributes?[p.Name];
                 var row = Js.Obj(RK.AttributeId, p.Name, RK.BaseRequired, p.Value, RK.Reduction, -delta, RK.Required, required,
                     RK.Actual, Js.IsFinite(actual) ? actual : Js.Null());
-                if (!Js.IsFinite(actual) || Js.D(actual) < required) failures.Add(row);
+                receipt.Rows.Add(row);
+                if (!Js.IsFinite(actual) || Js.D(actual) < required) receipt.Failures.Add(row);
             }
-            return failures;
+            return receipt;
         }
     }
 }

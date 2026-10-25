@@ -318,6 +318,12 @@ namespace Ashen.App.Ui
 
         /// <summary>The spoken step's close-up (the web's w4c-dialogue scene): the slots, the lanes, how much of a figure shows and the visible box of every figure's art.</summary>
         public DialogueRules Dialogue = new DialogueRules();
+
+        /// <summary>The web's mechanics.weight.itemWeightScale (content/framework/mechanics.json): every piece's weight is its authored weight (armour: its poise threshold) times this, to a tenth. The exported rules/mechanics.json predates it.</summary>
+        public double ItemWeightScale = 1;
+
+        /// <summary>The web's LEGACY_RATING_FORMULA (src/model/statRows.js:37): the rows the equipment kit receipt prices a card's rating by while the live balance carries no combatRatings (it does not at the pin): per rating, a base and a weight per attribute.</summary>
+        public JObject LegacyRatings = new JObject();
         public IReadOnlyList<string> CostKinds = Array.Empty<string>();
         public double DegreesPerCard;
         public double MaxSpread;
@@ -390,6 +396,8 @@ namespace Ashen.App.Ui
                 TooltipPlain = (string)json[UiKeys.Tooltip]?[UiKeys.Plain],
                 TooltipPlacement = TooltipPlacementRules.From(json[UiKeys.Tooltip]?[UiKeys.Placement] as JObject),
                 Dialogue = DialogueRules.From(json[UiKeys.Dialogue] as JObject),
+                ItemWeightScale = (double?)json[UiKeys.Armoury]?[UiKeys.ItemWeightScale] ?? 1d,
+                LegacyRatings = json[UiKeys.Armoury]?[UiKeys.LegacyRatings] as JObject ?? new JObject(),
                 CostKinds = ScreenRegistry.Strings(json[UiKeys.Card]?[UiKeys.CostKinds]),
                 DegreesPerCard = (double)fan[UiKeys.DegreesPerCard],
                 MaxSpread = (double)fan[UiKeys.MaxSpread],

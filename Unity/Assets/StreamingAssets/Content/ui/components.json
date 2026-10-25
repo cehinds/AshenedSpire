@@ -3,6 +3,16 @@
   "art": { "include": ["bg.title-city-tower", "bg.tower-city-background-unlit", "bg.bg_act1", "class.", "enemy.*.base", "env.*-combat", "relic.*.icon128", "equipment.icon.", "flask.", "env.*-map", "bg.river-citadel-lit", "bg.river-citadel-unlit", "bg.tower-entrance-hall", "bg.tower-entrance-hall-phone", "env.legacy."] },
   "meter": { "kinds": ["hp", "mp", "sp", "actions", "poise", "ward", "buildUp", "progress"] },
   "handFan": { "degreesPerCard": 4, "maxSpread": 30, "scrollAfter": 10 },
+  "armoury": {
+    "itemWeightScale": 0.2,
+    "legacyRatings": {
+      "ar": { "base": 0, "strength": 0.75, "dexterity": 0.5, "constitution": 0.25, "wisdom": 0.25, "intelligence": 0.25 },
+      "dr": { "base": 0, "strength": 0.5, "dexterity": 0.75, "constitution": 0.25, "wisdom": 0.35, "intelligence": 0.15 },
+      "pr": { "base": 0, "strength": 0, "dexterity": 0.25, "constitution": 0.5, "wisdom": 0.5, "intelligence": 0.75 },
+      "poise": { "base": 1, "strength": 0.5, "dexterity": 0, "constitution": 1, "wisdom": 0.2, "intelligence": 0.1 },
+      "ward": { "base": 1, "strength": 0, "dexterity": 0.2, "constitution": 0.3, "wisdom": 1, "intelligence": 0.5 }
+    }
+  },
   "dialogue": {
     "slot": { "insetVw": 2.5, "widthVw": 20, "widthCompactVw": 30, "topOffsetVh": 2 },
     "portraits": { "visibleFraction": 0.3333, "visibleFractionCompact": 1, "minGapVw": 1.5, "minGapPx": 24, "maxOuterOverflowVw": 8, "minVisibleHeightVh": 22 },

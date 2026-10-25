@@ -330,11 +330,7 @@ namespace Ashen.Presentation.UI.Screens
             {
                 foreach (var name in view.RelicNames) Label(open, name, ArmouryClasses.Line);
             });
-            Fold(info, ArmouryValues.FoldCards, Strings.Get(StringKeys.ArmouryCardsTitleEquipment), view.EquipmentCardsSummary, open =>
-            {
-                Label(open, Strings.Get(StringKeys.ArmouryCardsPackages), ArmouryClasses.Eyebrow, UiClasses.Upper);
-                foreach (var line in view.EquipmentCards) Label(open, line, ArmouryClasses.Line);
-            });
+            Fold(info, ArmouryValues.FoldCards, Strings.Get(StringKeys.ArmouryCardsTitleEquipment), view.EquipmentCardsSummary, open => ReceiptPanel.Fill(open, ArmouryReceipts.For(_run, Ui.Data), Strings));
         }
 
         /// <summary>
@@ -644,6 +640,9 @@ namespace Ashen.Presentation.UI.Screens
             if (!data.Equipable) return;
             if (picking)
             {
+                var compare = ArmouryReceipts.Candidate(_run, Ui.Data, _pickSlot, _pickIndex, data.Id);
+                if (compare != null)
+                    Fold(text, ArmouryValues.FoldCompare + data.Key, Strings.Get(StringKeys.ArmouryReceiptCompare), Strings.Format(StringKeys.ArmouryReceiptCompareTitle, new StringArgs().Add(UiPlaceholders.Name, data.Name)), open => ReceiptPanel.Fill(open, compare, Strings));
                 var action = ArmouryInventory.Action(_run, Ui.Data, data.Id, _pickSlot, _pickIndex);
                 var key = data.Key;
                 var button = new LocButton();

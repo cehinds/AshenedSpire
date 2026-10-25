@@ -141,7 +141,28 @@
         "StepOff": "deck-editor-step--off",
         "Empty": "deck-editor-empty",
         "Foot": "deck-editor-foot",
-        "Refusal": "deck-editor-refusal"
+        "Refusal": "deck-editor-refusal",
+        "ReceiptRow": "armoury-receipt-row",
+        "ReceiptHead": "armoury-receipt-head",
+        "ReceiptName": "armoury-receipt-name",
+        "ReceiptPill": "armoury-receipt-pill",
+        "ReceiptHint": "armoury-receipt-hint",
+        "ReceiptValues": "armoury-receipt-values",
+        "ReceiptFormula": "armoury-receipt-formula",
+        "ReceiptValue": "armoury-receipt-value",
+        "ReceiptSources": "armoury-receipt-sources",
+        "ReceiptSource": "armoury-receipt-source",
+        "ReceiptSourceValue": "armoury-receipt-source-value",
+        "ReceiptPair": "armoury-receipt-pair",
+        "ReceiptPairKey": "armoury-receipt-pair-key",
+        "ReceiptPairValue": "armoury-receipt-pair-value",
+        "ReceiptNote": "armoury-receipt-note",
+        "ReceiptMet": "armoury-receipt-met",
+        "ReceiptUnmet": "armoury-receipt-unmet",
+        "ReceiptSection": "armoury-receipt-section",
+        "ReceiptDelta": "armoury-receipt-delta",
+        "ReceiptDeltaUp": "armoury-receipt-delta--up",
+        "ReceiptDeltaDown": "armoury-receipt-delta--down"
       }
     },
     {
@@ -156,6 +177,7 @@
         "FoldPower": "power",
         "FoldRelics": "relics",
         "FoldCards": "cards",
+        "FoldCompare": "compare:",
         "StepAdd": "add",
         "StepRemove": "remove",
         "StepUp": "up",
@@ -182,7 +204,17 @@
         "PowerRoles": "attack,technique,guard",
         "PowerLabelKey": "armoury.power.{0}",
         "PowerFullKey": "armoury.power.{0}.full",
-        "HandSizeRow": "handSize"
+        "HandSizeRow": "handSize",
+        "AttributeShortKey": "attribute.{0}.short",
+        "Unknown": "?",
+        "Over": "/",
+        "RelicRefPrefix": "relic/",
+        "PoiseRow": "poise",
+        "AttributesWord": "attributes",
+        "Plus": "+",
+        "ItemWeightScale": "itemWeightScale",
+        "WeightWordKey": "armoury.receipt.weight.{0}",
+        "WeightClassPriced": "weightClassPriced"
       }
     }
   ]

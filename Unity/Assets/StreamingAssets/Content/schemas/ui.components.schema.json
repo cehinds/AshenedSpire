@@ -395,6 +395,17 @@
           }
         }
       }
+    },
+    "armoury": {
+      "type": "object",
+      "properties": {
+        "itemWeightScale": {
+          "type": "number"
+        },
+        "legacyRatings": {
+          "type": "object"
+        }
+      }
     }
   },
   "required": [

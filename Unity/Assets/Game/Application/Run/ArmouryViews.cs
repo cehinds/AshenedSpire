@@ -213,7 +213,7 @@ namespace Ashen.App.Run
             var run = session.Run;
             var loadout = run.Obj(K.Loadout);
             if (loadout == null) return;
-            var rows = Loadout.KitReceipt(session.Core.Deck.Run.Run, loadout, session.ClassId, run.Obj(K.Attributes), run.Obj(K.EquipmentProfileRuleSnapshot));
+            var rows = Loadout.KitReceipt(session.Core.Deck.Run.Run, loadout, session.ClassId, run.Obj(K.Attributes), run.Obj(K.EquipmentProfileRuleSnapshot), session.RatingAttributePart(ui));
             var held = Js.Items(run[K.Deck]).OfType<JObject>().Where(c => Js.Truthy(c[K.EquipmentRole])).GroupBy(c => c.Str(K.EquipmentRole)).ToDictionary(g => g.Key, g => g.Count());
             foreach (var role in ArmouryKeys.PowerRoles.Split(UiFormats.ListJoin[0]))
             {

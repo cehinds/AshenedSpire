@@ -147,5 +147,8 @@ namespace Ashen.Generated
         public const string ListenerOpacity = "listenerOpacity";
         public const string Top = "top";
         public const string CenterX = "centerX";
+        public const string Armoury = "armoury";
+        public const string ItemWeightScale = "itemWeightScale";
+        public const string LegacyRatings = "legacyRatings";
     }
 }

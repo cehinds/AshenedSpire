@@ -10,5 +10,6 @@ namespace Ashen.Generated
         public const double FullTurnDegrees = 360;
         public const double ByteMax = 255;
         public const double RgbChannels = 3;
+        public const double TenthScale = 10;
     }
 }

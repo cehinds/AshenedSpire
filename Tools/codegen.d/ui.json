@@ -1005,7 +1005,10 @@
         "MinVisibleHeightVh": "minVisibleHeightVh",
         "ListenerOpacity": "listenerOpacity",
         "Top": "top",
-        "CenterX": "centerX"
+        "CenterX": "centerX",
+        "Armoury": "armoury",
+        "ItemWeightScale": "itemWeightScale",
+        "LegacyRatings": "legacyRatings"
       }
     },
     {
@@ -1176,7 +1179,19 @@
         "N": "n",
         "Hand": "hand",
         "Found": "found",
-        "Date": "date"
+        "Date": "date",
+        "Items": "items",
+        "Relics": "relics",
+        "Hands": "hands",
+        "Armour": "armour",
+        "Load": "load",
+        "Capacity": "capacity",
+        "Percent": "percent",
+        "Word": "word",
+        "Tail": "tail",
+        "BeforePercent": "beforePercent",
+        "Formula": "formula",
+        "AfterPercent": "afterPercent"
       }
     },
     {
@@ -1367,7 +1382,8 @@
         "MillisPerSecond": 1000,
         "FullTurnDegrees": 360,
         "ByteMax": 255,
-        "RgbChannels": 3
+        "RgbChannels": 3,
+        "TenthScale": 10
       }
     }
   ]

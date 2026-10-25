@@ -12,6 +12,7 @@ namespace Ashen.Generated
         public const string FoldPower = "power";
         public const string FoldRelics = "relics";
         public const string FoldCards = "cards";
+        public const string FoldCompare = "compare:";
         public const string StepAdd = "add";
         public const string StepRemove = "remove";
         public const string StepUp = "up";

@@ -89,5 +89,26 @@ namespace Ashen.Generated
         public const string Empty = "deck-editor-empty";
         public const string Foot = "deck-editor-foot";
         public const string Refusal = "deck-editor-refusal";
+        public const string ReceiptRow = "armoury-receipt-row";
+        public const string ReceiptHead = "armoury-receipt-head";
+        public const string ReceiptName = "armoury-receipt-name";
+        public const string ReceiptPill = "armoury-receipt-pill";
+        public const string ReceiptHint = "armoury-receipt-hint";
+        public const string ReceiptValues = "armoury-receipt-values";
+        public const string ReceiptFormula = "armoury-receipt-formula";
+        public const string ReceiptValue = "armoury-receipt-value";
+        public const string ReceiptSources = "armoury-receipt-sources";
+        public const string ReceiptSource = "armoury-receipt-source";
+        public const string ReceiptSourceValue = "armoury-receipt-source-value";
+        public const string ReceiptPair = "armoury-receipt-pair";
+        public const string ReceiptPairKey = "armoury-receipt-pair-key";
+        public const string ReceiptPairValue = "armoury-receipt-pair-value";
+        public const string ReceiptNote = "armoury-receipt-note";
+        public const string ReceiptMet = "armoury-receipt-met";
+        public const string ReceiptUnmet = "armoury-receipt-unmet";
+        public const string ReceiptSection = "armoury-receipt-section";
+        public const string ReceiptDelta = "armoury-receipt-delta";
+        public const string ReceiptDeltaUp = "armoury-receipt-delta--up";
+        public const string ReceiptDeltaDown = "armoury-receipt-delta--down";
     }
 }
