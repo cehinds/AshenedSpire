@@ -1856,6 +1856,11 @@ namespace Ashen.Generated
         public const string SettingsPageTip = "settings.page.tip";
         public const string SettingsPageTitle = "settings.page.title";
         public const string SettingsPageUndo = "settings.page.undo";
+        public const string SettingsPerformanceMode = "settings.performanceMode";
+        public const string SettingsPerformanceModeAuto = "settings.performanceMode.auto";
+        public const string SettingsPerformanceModeFull = "settings.performanceMode.full";
+        public const string SettingsPerformanceModeHelp = "settings.performanceMode.help";
+        public const string SettingsPerformanceModeLite = "settings.performanceMode.lite";
         public const string SettingsPlayInDeckOrder = "settings.playInDeckOrder";
         public const string SettingsPlayInDeckOrderHelp = "settings.playInDeckOrder.help";
         public const string SettingsReadableHeadings = "settings.readableHeadings";

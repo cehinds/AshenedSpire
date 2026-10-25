@@ -122,6 +122,9 @@ namespace Ashen.Tests
             var hold = schedule.Items.First(i => i.Kind == FxItemKind.Hold);
             Assert.That(hold.AtMs, Is.EqualTo(contact.AtMs), "the figure holds where the blow lands");
             Assert.That(hold.Ms, Is.EqualTo(beats.Single().HoldMs));
+            var marker = schedule.Items.First(i => i.Kind == FxItemKind.Contact);
+            Assert.That(marker.AtMs, Is.EqualTo(contact.AtMs).Within(1e-9));
+            Assert.That(marker.Ms, Is.EqualTo(80), "the time the schedule plans for the clip after its contact frame, which the recovery waits for if the stage has more");
             var plain = FxTimeline.Build(beats, pace, Defs.Pace.InstantStepMs);
             Assert.That(plain.Items.Any(i => i.Kind == FxItemKind.Hold), Is.False, "a figure without a stage holds nothing of its own");
             Assert.That(plain.Items.First(i => i.Kind == FxItemKind.Swing).Ms, Is.EqualTo(pace.LungeMs));

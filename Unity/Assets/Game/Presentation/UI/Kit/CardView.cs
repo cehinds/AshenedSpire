@@ -190,8 +190,8 @@ namespace Ashen.Presentation.UI.Kit
             var plan = data.Face != null ? ui?.Data?.CardFace?.Plan(data.Face) : null;
             _name?.SetResolved(data.Name);
             _text?.SetResolved(RulesText(data));
-            // The calculation behind the underlined damage numbers: shown on pointing at the rules (UI Toolkit cannot hover a run of a label, so the whole text speaks for its numbers).
-            ChipTips.Retell(_text, ref _receiptTip, data.ReceiptTitle, data.Receipt);
+            // The calculation behind the underlined damage numbers: shown on pointing at one of them (the label's link tag events, LinkTagEvents), else at the rules as a whole.
+            ChipTips.RetellLinked(_text, ref _receiptTip, data.ReceiptTitle, data.Receipt, ui?.Data?.CardText != null ? CardFaceMarkup.ReceiptLink(ui.Data.CardText) : null);
             _cue?.SetResolved(Loc.Get(StringKeys.DeckEditorInspect));
             UiDom.Show(_cue, data.RulesOverflow);
             _refusal?.SetResolved(data.RefusalText);

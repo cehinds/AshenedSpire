@@ -27,6 +27,7 @@ namespace Ashen.Presentation
         private void Awake()
         {
             Current = this;
+            Ashen.App.Settings.RenderingQuality.Coarse = Application.isMobilePlatform;
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 #if UNITY_WEBGL && !UNITY_EDITOR

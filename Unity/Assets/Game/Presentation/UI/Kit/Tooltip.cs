@@ -124,6 +124,17 @@ namespace Ashen.Presentation.UI.Kit
             return Hook(tip, target, overlay, delayMs);
         }
 
+        /// <summary>
+        /// Hover/focus tooltip for one run of a rich text label: it opens when the pointer is over the <c>&lt;link&gt;</c> run whose id is <paramref name="linkId"/> and closes when it leaves it (the web's span carrying
+        /// data-damage-receipt). Where the platform raises no link tag events, the whole label is the target, as <see cref="AttachResolved"/> makes it.
+        /// </summary>
+        public static Tooltip AttachLinked(VisualElement label, VisualElement overlay, string sizeId, string title, string body, int delayMs, string linkId)
+        {
+            var tip = new Tooltip { size = sizeId };
+            tip.SetText(title, body);
+            return Hook(tip, label, overlay, delayMs, linkId);
+        }
+
         /// <summary>A tap is the question on a phone, where the hover clock never runs (web iconTray.js explain): the tooltip opens at once above the target. <see cref="Dismiss"/> takes it away.</summary>
         public static Tooltip ShowNow(VisualElement target, VisualElement overlay, string sizeId, string title, string body)
         {
@@ -151,7 +162,7 @@ namespace Ashen.Presentation.UI.Kit
             RemoveFromHierarchy();
         }
 
-        private static Tooltip Hook(Tooltip tip, VisualElement target, VisualElement overlay, int delayMs)
+        private static Tooltip Hook(Tooltip tip, VisualElement target, VisualElement overlay, int delayMs, string linkId = null)
         {
             IVisualElementScheduledItem pending = null;
             IVisualElementScheduledItem closing = null;
@@ -184,7 +195,9 @@ namespace Ashen.Presentation.UI.Kit
                 closing?.Pause();
                 closing = target.schedule.Execute(Hide).StartingIn(TooltipPolicy.Applied ? TooltipPolicy.CloseMs : 0);
             }
-            target.RegisterCallback<PointerEnterEvent>(_ => { if (TooltipPolicy.HoverEnabled) Arm(TooltipPolicy.Applied ? TooltipPolicy.OpenMs : delayMs); });
+            void Hover() { if (TooltipPolicy.HoverEnabled) Arm(TooltipPolicy.Applied ? TooltipPolicy.OpenMs : delayMs); }
+            var onLink = linkId != null && LinkTagEvents.Register(target, id => { if (id == linkId) Hover(); }, id => { if (id == linkId) Leave(); });
+            if (!onLink) target.RegisterCallback<PointerEnterEvent>(_ => Hover());
             target.RegisterCallback<FocusInEvent>(_ => Arm(Rules.FocusMs));
             target.RegisterCallback<PointerLeaveEvent>(_ => Leave());
             target.RegisterCallback<FocusOutEvent>(_ => Leave());

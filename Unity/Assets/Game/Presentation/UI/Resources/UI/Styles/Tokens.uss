@@ -663,6 +663,7 @@
     --size-cmodal-xl-w: 960px;
     --size-cmodal-xl-h: 88%;
     --size-cmodal-max-h: 90%;
+    --size-inspector-preview-w: 38%;
     --size-cmodal-inset: 14px;
     --size-cmodal-close: 32px;
     --size-cmodal-gap: 12px;
@@ -1191,6 +1192,10 @@
     --ratio-board-floor-shadow-drop: 3;
     --ratio-board-shadow-core: 0.7;
     --ratio-enemy-glow-opacity: 0.55;
+    --ratio-enemy-veil-gain: 0.8;
+    --ratio-inspector-art-aspect: 1.3333333;
+    --ratio-inspector-sprite-w: 150;
+    --ratio-inspector-sprite-h: 190;
     --ratio-board-shadow-mid: 0.28;
     --ratio-board-shadow-mid-stop: 0.45;
     --ratio-board-shadow-edge: 0.72;

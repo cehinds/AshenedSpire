@@ -25,6 +25,19 @@ namespace Ashen.App.Run
         /// <summary>The weapon swap price rule the player chose in Settings (settings.swapCostRule), or null for the profile's own (the web's resolveSwapCostRule reads it from the profile's settings).</summary>
         public string SwapRuleId => PlayerSettings.Text(ReceiptKeys.SwapRuleSetting);
 
+        /// <summary>
+        /// What the figure wears and holds (loadout.js figureSpec's armourId and gripOf's right and left): the armour set of the armour slot and the pieces of the two hands (null for an empty hand), which
+        /// select the painted outfit and the equipment animation set of the player's portrait (<see cref="OutfitArtData"/>).
+        /// </summary>
+        public (string Armour, string Right, string Left) FigureGear()
+        {
+            var loadout = _run.Obj(K.Loadout);
+            var data = GearData;
+            string In(string slotId) => slotId == null || loadout == null ? null : Ashen.Domain.Combat.Equipment.EquippedIn(data.Combat, loadout, ClassId, slotId)?.Str(K.Id);
+            string Hand(string hand) => In(data.EquipmentRows(K.Slots).FirstOrDefault(row => Loadout.SlotHand(data, row) == hand)?.Str(K.Id));
+            return (In(Ashen.Generated.CombatValues.Armor), Hand(Ashen.Generated.CombatValues.Right), Hand(Ashen.Generated.CombatValues.Left));
+        }
+
         private EquipContext EquipmentContext(string itemId, int setIndex) => new EquipContext
         {
             InCombat = false,

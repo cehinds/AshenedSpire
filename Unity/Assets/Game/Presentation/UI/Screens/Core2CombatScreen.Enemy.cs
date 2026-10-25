@@ -61,6 +61,7 @@ namespace Ashen.Presentation.UI.Screens
                 TickMs = Defs.Pace.TickMs,
                 Glow = frame => EnemyGlow(f.DefId, frame),
                 GlowOpacity = (float)Ui.Data.Tokens.Ratio(RatioKeys.EnemyGlowOpacity),
+                VeilGain = (float)Ui.Data.Tokens.Ratio(RatioKeys.EnemyVeilGain),
                 Ink = frame => Ui.Data.FigureInk.TryGet(Ui.Data.Art.Find(ArtKinds.EnemyFrame, new StringArgs().Add(ArtPlaceholders.Id, f.DefId).Add(ArtPlaceholders.Name, frame)), out var ink) ? ink : (FigureInkColumns?)null,
                 Reduced = ReducedMotion,
                 Rest = look.Rest,
@@ -155,8 +156,8 @@ namespace Ashen.Presentation.UI.Screens
             var action = EnemyActionOf(item.Beat);
             var pose = action?.Pose ?? (item.Attack ? EnemyActions.Attack : EnemyActions.Guard);
             if (item.Ms > 0 && !ReducedMotion) actor.PlayEnemy(pose, item.Ms);
-            if (ReduceFlashes || ReducedMotion || item.Ms <= 0) return;
-            var track = action == null ? Defs.Track(FxTrack.LungeEnemy) : EnemyData.TravelTrack(action.Motion, action.Reach, item.Ms);
+            if (ReducedMotion || item.Ms <= 0) return;
+            var track = action == null ? Defs.Track(FxTrack.LungeEnemy) : EnemyData.ActionTrack(action.Motion, action.Reach, item.Ms);
             if (track != null) actor.Play(_motion, track, item.Ms, false);
         }
     }

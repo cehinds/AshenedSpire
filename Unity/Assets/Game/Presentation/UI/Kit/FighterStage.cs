@@ -36,7 +36,7 @@ namespace Ashen.Presentation.UI.Kit
 
         /// <summary>
         /// The silhouette glow (P-4): the choices of the web's auraFilter and the soft sprite that stands for its drop-shadows, by the art id of the frame it surrounds (null when it is not imported).
-        /// The web draws no glow in its light quality, which a narrow layout takes (<see cref="Lite"/>).
+        /// The web draws no glow when the Rendering quality is lite (<see cref="Lite"/>, the performanceMode setting; the light art tier is the separate Art quality).
         /// </summary>
         public CombatAuraData Aura;
         public Func<string, Texture2D> Glow;
@@ -49,6 +49,7 @@ namespace Ashen.Presentation.UI.Kit
         private VisualElement _stageBox;
         private VisualElement _stageBody;
         private VisualElement[] _stageGlows;
+        private VisualElement _stageFlash;
         private VisualElement _stageEffect;
         private VisualElement _stageMask;
         private IVisualElementScheduledItem _stageTick;
@@ -62,6 +63,8 @@ namespace Ashen.Presentation.UI.Kit
             _stageBox.AddToClassList(UiClasses.FighterStage);
             _stageGlows = Enumerable.Range(0, AuraCount.Layers).Select(_ => StageLayer(UiClasses.FighterStageGlow)).ToArray();
             foreach (var glow in _stageGlows) _stageBox.Add(glow);
+            _stageFlash = StageLayer(UiClasses.FighterStageGlow);
+            _stageBox.Add(_stageFlash);
             _stageBody = StageLayer(UiClasses.FighterStageBody);
             _stageEffect = StageLayer(UiClasses.FighterStageEffect);
             _stageMask = StageLayer(UiClasses.FighterStageMask);
@@ -160,6 +163,9 @@ namespace Ashen.Presentation.UI.Kit
             EnsureStageTick();
             return true;
         }
+
+        /// <summary>What the stage still has to play (its clip after the contact frame, and the hit-stop it holds): the web's remainingMs, which the recovery after the blow waits for.</summary>
+        public double StageRemainingMs() => HasStage ? _stageState.RemainingMs(Now) : 0;
 
         /// <summary>The hit-stop: the clock of what the stage is playing waits.</summary>
         public bool StageHold(double ms) => HasStage && _stageState.Hold(ms, Now);

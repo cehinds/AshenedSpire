@@ -26,5 +26,10 @@ namespace Ashen.Generated
         public const string CostMana = "mana";
         public const string PromptRecover = "recover";
         public const string AnimInstant = "instant";
+        public const string AnimNormal = "normal";
+        public const string AnimFast = "fast";
+        public const string AnimSlow = "slow";
+        public const string RenderLite = "lite";
+        public const string RenderFull = "full";
     }
 }

@@ -78,6 +78,9 @@ namespace Ashen.App.Ui
 
         /// <summary>The stops of the translate of each motion (sweep, lunge, impact), as the family-* keyframes of styles/combat.css name them.</summary>
         public readonly IReadOnlyDictionary<string, IReadOnlyList<(double T, string At)>> Travel;
+
+        /// <summary>The filter each motion's keyframes play (family-slash ... family-dodge): brightness, drop-shadow glow and opacity stops, by motion.</summary>
+        public readonly IReadOnlyDictionary<string, TrackDef> Filters;
         private readonly Dictionary<string, EnemyFigure> _figures = new Dictionary<string, EnemyFigure>(StringComparer.Ordinal);
         private readonly Dictionary<string, EnemyActor> _actors = new Dictionary<string, EnemyActor>(StringComparer.Ordinal);
         private readonly Dictionary<string, EnemyMoveAction> _moves = new Dictionary<string, EnemyMoveAction>(StringComparer.Ordinal);
@@ -123,6 +126,7 @@ namespace Ashen.App.Ui
             TravelEasing = travel.Value<string>(EnemyStageKeys.Easing);
             Travel = ((JObject)travel[EnemyStageKeys.Tracks]).Properties().ToDictionary(p => p.Name,
                 p => (IReadOnlyList<(double, string)>)((JArray)p.Value).Select(t => (t.Value<double>(EnemyStageKeys.T), t.Value<string>(EnemyStageKeys.At))).ToList(), StringComparer.Ordinal);
+            Filters = ((JObject)travel[EnemyStageKeys.Filters]).Properties().ToDictionary(p => p.Name, p => FilterOf((JObject)p.Value), StringComparer.Ordinal);
             foreach (var a in (JObject)animation[EnemyStageKeys.Actors])
                 _actors[a.Key] = new EnemyActor { Tempo = a.Value.Value<double>(EnemyStageKeys.Tempo), Reach = a.Value.Value<double>(EnemyStageKeys.Reach) };
             foreach (var m in (JObject)animation[EnemyStageKeys.Moves])
@@ -209,6 +213,47 @@ namespace Ashen.App.Ui
             var track = new TrackDef { Ms = ms, Ease = TravelEasing };
             foreach (var stop in stops)
                 track.Stops.Add(new FxStop { T = stop.T, X = stop.At == EnemyTravel.Travel ? TravelDirection * TravelPx * reach : stop.At == EnemyTravel.Recoil ? -TravelDirection * RecoilPx * reach : 0 });
+            return track;
+        }
+
+        private static TrackDef FilterOf(JObject row)
+        {
+            var track = new TrackDef { GlowBlur = row.Value<double>(EnemyStageKeys.Blur), GlowColour = row.Value<string>(EnemyStageKeys.Colour) };
+            foreach (var stop in (JArray)row[EnemyStageKeys.Stops])
+                track.Stops.Add(new FxStop
+                {
+                    T = stop.Value<double>(EnemyStageKeys.T),
+                    Brightness = stop.Value<double?>(EnemyStageKeys.Brightness),
+                    Glow = stop.Value<double?>(EnemyStageKeys.Glow),
+                    Opacity = stop.Value<double?>(EnemyStageKeys.Opacity),
+                });
+            return track;
+        }
+
+        /// <summary>
+        /// Everything the action's keyframes play (the translate of <see cref="TravelTrack"/> together with the brightness, glow and opacity of the family's filter) as one track the figure plays; null for a motion
+        /// that plays neither (the settle of a neutral action).
+        /// </summary>
+        public TrackDef ActionTrack(string motion, double reach, double ms)
+        {
+            var travel = TravelTrack(motion, reach, ms);
+            if (motion == null || !Filters.TryGetValue(motion, out var filter)) return travel;
+            var track = travel ?? new TrackDef { Ms = ms, Ease = TravelEasing };
+            track.GlowBlur = filter.GlowBlur;
+            track.GlowColour = filter.GlowColour;
+            foreach (var stop in filter.Stops)
+            {
+                var same = track.Stops.FirstOrDefault(s => s.T == stop.T);
+                if (same == null)
+                {
+                    same = new FxStop { T = stop.T };
+                    track.Stops.Add(same);
+                }
+                same.Brightness = stop.Brightness ?? same.Brightness;
+                same.Glow = stop.Glow ?? same.Glow;
+                same.Opacity = stop.Opacity ?? same.Opacity;
+            }
+            track.Stops = track.Stops.OrderBy(s => s.T).ToList();
             return track;
         }
 

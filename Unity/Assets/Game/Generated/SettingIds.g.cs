@@ -25,6 +25,7 @@ namespace Ashen.Generated
         public const string AnimationStepDuration = "animationStepDuration";
         public const string CombatPacingPreset = "combatPacingPreset";
         public const string AnimSpeed = "animSpeed";
+        public const string PerformanceMode = "performanceMode";
         public const string AskToUpcastAfterTarget = "askToUpcastAfterTarget";
         public const string ScreenShake = "screenShake";
         public const string OneTapPlay = "oneTapPlay";

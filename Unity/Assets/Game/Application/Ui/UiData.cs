@@ -67,6 +67,9 @@ namespace Ashen.App.Ui
         /// <summary>ui/combatAura.json (P-4): the colours and strengths of the player figure's silhouette glow.</summary>
         public CombatAuraData CombatAura;
 
+        /// <summary>ui/outfitArt.json (P-5): the player's painted figure outside the combat board (the combatant door's portrait, the stand and conversation views) by class, armour and hands.</summary>
+        public OutfitArtData OutfitArt;
+
         public static UiData Load(IContentSource source)
         {
             JObject Read(string path) => (JObject)JsonContent.Parse(source.ReadText(path));
@@ -88,6 +91,7 @@ namespace Ashen.App.Ui
                 Battlefield = new BattlefieldData(Read(ContentFiles.UiBattlefield)),
                 FigureInk = new FigureInk(Read(ContentFiles.UiFigureInk)),
                 CombatAura = new CombatAuraData(Read(ContentFiles.UiCombatAura)),
+                OutfitArt = new OutfitArtData(Read(ContentFiles.UiOutfitArt)),
                 EquipmentCard = EquipmentCardLayout.From(Read(ContentFiles.UiEquipmentCard)),
                 Progression = ProgressionLayout.From(Read(ContentFiles.UiProgression)),
                 Lore = LoreLayout.From(Read(ContentFiles.UiLore)),

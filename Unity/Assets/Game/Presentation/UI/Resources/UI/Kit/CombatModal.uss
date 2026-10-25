@@ -463,3 +463,48 @@
 .layout-narrow .option-tile.unity-button {
     width: var(--size-half-gap-width);
 }
+
+/* ---- the combatant reading's preview (src/ui/components/combatantInspector.js, styles/kit.css .combatant-door): sprite, name and pool meters left, the details right ---- */
+
+.inspector-layout {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.inspector-preview {
+    flex-shrink: 0;
+    width: var(--size-inspector-preview-w);
+    margin-right: var(--space-md);
+}
+
+.inspector-art {
+    width: var(--size-full-width);
+    justify-content: flex-end;
+    align-items: center;
+    overflow: hidden;
+}
+
+.inspector-figure {
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.inspector-stage-frame {
+    position: absolute;
+}
+
+.inspector-name {
+    margin-top: var(--space-sm);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.inspector-meters {
+    margin-top: var(--space-xs);
+}
+
+.inspector-details {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+}

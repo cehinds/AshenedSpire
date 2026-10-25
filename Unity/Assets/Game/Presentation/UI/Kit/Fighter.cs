@@ -37,6 +37,22 @@ namespace Ashen.Presentation.UI.Kit
             Tooltip.AttachResolved(mark, Overlay, Size, title, body, DelayMs);
         }
 
+        /// <summary>As <see cref="Retell"/> for the run of a rich text label that carries <paramref name="linkId"/>: the tooltip opens over that run alone (D-1592).</summary>
+        public static void RetellLinked(VisualElement label, ref Tooltip tip, string title, string body, string linkId)
+        {
+            if (Overlay == null || label == null) return;
+            var speaks = !(string.IsNullOrEmpty(body) && string.IsNullOrEmpty(title));
+            if (tip == null)
+            {
+                if (!speaks) return;
+                label.pickingMode = PickingMode.Position;
+                tip = Tooltip.AttachLinked(label, Overlay, Size, title, body, DelayMs, linkId);
+                return;
+            }
+            if (speaks) tip.SetText(title, body);
+            tip.style.display = speaks ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
         /// <summary>
         /// Makes a mark that lives across redraws (a meter, the intent) explain itself, and changes what it says as the fight moves: the tooltip is attached once and its words replaced.
         /// No words detaches nothing but lets the pointer pass.
@@ -63,6 +79,13 @@ namespace Ashen.Presentation.UI.Kit
         public string Id;
         public string Name;
         public Texture2D Art;
+
+        /// <summary>The player's portrait for the combatant door's preview (the painted outfit of its armour and hands, <see cref="Ashen.App.Ui.OutfitArtData"/>), or null when the class has none in that armour.</summary>
+        public Texture2D Portrait;
+
+        /// <summary>The player's Mana (the door's preview shows it with the Hit points, Poise and Ward); unused for an enemy.</summary>
+        public int Mana;
+        public int MaxMana;
 
         /// <summary>The figure's rest frame when it is not the base art (an enemy's state pose: guard, afflicted, wounded, defeated; VP-5), and the share of the figure box it fills (the web's per-enemy state scale).</summary>
         public Texture2D RestArt;
@@ -469,6 +492,7 @@ namespace Ashen.Presentation.UI.Kit
             {
                 FxMotion.Apply(_figure, pose);
                 if (tinted) Tint(pose.Tinted ? motion.HitTint : (Color?)null);
+                if (HasEnemyStage) SetEnemyFilter(pose, track);
             }, () =>
             {
                 Rest();
@@ -483,6 +507,7 @@ namespace Ashen.Presentation.UI.Kit
             _motion = null;
             FxMotion.Reset(_figure);
             Tint(null);
+            ClearEnemyFilter();
         }
 
         /// <summary>Drops every held pose and motion at once (the web's click-skip settles the figures).</summary>

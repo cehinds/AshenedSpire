@@ -1,5 +1,5 @@
 {
-  "contentHash": "78baa653fa35839f67bf8a3688b195fa57c4c97ab15cc41113988ac217efb8b3",
+  "contentHash": "a6ad2f3d2c384972170f27c1647945be4980fc7e6584f45a72e37e8ab08132ad",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -100,9 +100,9 @@
       "sha256": "0a8e3b8e433e076b012b6897222ef3dffcbc5c69d159401fa68abae4d10f8d6e"
     },
     "assets/registry.json": {
-      "bytes": 3836691,
+      "bytes": 3914991,
       "generated": false,
-      "sha256": "54161bf92dbe32f20bfc8578572120ea29be41efd2d33559edf7692b9a6fe53c"
+      "sha256": "4bb05f8d0c04a1a0b61313bb244e7f6eaa05070dc76bba7743e21e92fe2c9465"
     },
     "audio/beds.json": {
       "bytes": 1990,
@@ -2030,9 +2030,9 @@
       "sha256": "bcfb76b5df5dbe3e2da9f0826aa435589234696921faf71040a6744f8b6da8d0"
     },
     "schemas/ui.enemyStage.schema.json": {
-      "bytes": 26589,
+      "bytes": 36254,
       "generated": false,
-      "sha256": "ed8af530492910bf50731f41e6057c77d878a8528dd7833025d0d9ca9de2dadf"
+      "sha256": "3448afa21e6def18b0e0bd076d65dc9b91a3c8bed599c1ec1494dca9c508e379"
     },
     "schemas/ui.equipmentCard.schema.json": {
       "bytes": 2689,
@@ -2084,6 +2084,11 @@
       "generated": false,
       "sha256": "cea54f440ad85c10aed84182b260ec25a1172199d0428b939926aa982d4ef035"
     },
+    "schemas/ui.outfitArt.schema.json": {
+      "bytes": 1368,
+      "generated": false,
+      "sha256": "04aa6083c490967a1decd2f4d6cef980ae9589c858592b3df2923e7834ad6461"
+    },
     "schemas/ui.poses.schema.json": {
       "bytes": 873,
       "generated": false,
@@ -2120,9 +2125,9 @@
       "sha256": "069c0b2f370c7e0ffd90ea47a7eaf3eb271cb273ef030e8fbb496e7ec088ee06"
     },
     "settings/defaults.json": {
-      "bytes": 17017,
+      "bytes": 17288,
       "generated": false,
-      "sha256": "c6394a11cef43a14c2c4291c1e27a752a5009263fea35a439fa4c606ca9d9024"
+      "sha256": "afed9deddfbfc585bf2f017d3399542c4d4f4a333a58dd9e5b5ba45d82d4f3c4"
     },
     "settings/presets/reference.json": {
       "bytes": 4585,
@@ -2140,9 +2145,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 108083,
+      "bytes": 108461,
       "generated": false,
-      "sha256": "104d5919958bf200940d17f277f38692938a87366b168349dfb6c37b6f0f1c6b"
+      "sha256": "cf0a6bac93d8b080224a8cb019945a075b041b4969bba7629db91ed3a4d74ad2"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2280,9 +2285,9 @@
       "sha256": "81c39ab04d97e7a52e2f66ca82f59d9963b55949c81f6c91fc241e7b3dfbce97"
     },
     "ui/enemyStage.json": {
-      "bytes": 37095,
+      "bytes": 39743,
       "generated": false,
-      "sha256": "aa7c231cde2f48faedc00673a54773deab9fe26980bd10c3b2f4554259e0534c"
+      "sha256": "290e9132696ef1c1726ece2b5e56774241c8bf108759ea540e1ba2050472d863"
     },
     "ui/equipmentCard.json": {
       "bytes": 2407,
@@ -2334,6 +2339,11 @@
       "generated": false,
       "sha256": "e6c5b73d52c764043690f50d9647244e894a84bfb063e93dd6828a3c9ef35316"
     },
+    "ui/outfitArt.json": {
+      "bytes": 280811,
+      "generated": false,
+      "sha256": "05052e3b6a6fb84bb1339d7668472887565e0a273e1008fdd05040088ca10bf4"
+    },
     "ui/poses.json": {
       "bytes": 54232,
       "generated": false,
@@ -2365,9 +2375,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 51584,
+      "bytes": 51737,
       "generated": false,
-      "sha256": "673ea539775473ec91e2cdac935e3fbff6a3d08c642ed532fc0a4de1470844fc"
+      "sha256": "04baa9c30ed5b99cd5ee1df1aa22f06ddf304f61ec246dddcf36feaeff66e374"
     }
   },
   "schemaVersion": 1,

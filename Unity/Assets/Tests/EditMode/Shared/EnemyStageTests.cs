@@ -270,6 +270,45 @@ namespace Ashen.Tests
             Assert.That(Stage.TravelTrack("lunge", 1, 300).Stops.Select(s => s.T), Is.EqualTo(new[] { 0d, 0.3, 0.55, 0.65, 1d }));
         }
 
+        private static readonly Dictionary<string, double[]> Easings = new Dictionary<string, double[]> { ["easeOut"] = new[] { 0d, 0d, 0.58, 1d } };
+
+        [Test]
+        public void TheFilterOfAnActionIsTheFamilyKeyframesOfTheCss()
+        {
+            // styles/combat.css: family-slash 55% brightness(1.25), family-strike 1.4, family-spell 1.4 with drop-shadow(0 0 10px gold), family-guard 35-70% 1.2 with 5px parchment, family-dodge opacity .65 at 40-60%.
+            double? Bright(string motion, double share) => FxCurve.Sample(Stage.ActionTrack(motion, 1, 1000), Easings, share * 1000).Brightness;
+            Assert.That(Bright("sweep", 0), Is.EqualTo(1).Within(1e-9));
+            Assert.That(Bright("sweep", 0.55), Is.EqualTo(1.25).Within(1e-9));
+            Assert.That(Bright("sweep", 1), Is.EqualTo(1).Within(1e-9));
+            Assert.That(Bright("impact", 0.55), Is.EqualTo(1.4).Within(1e-9));
+            Assert.That(Bright("lunge", 0.6), Is.EqualTo(1.25).Within(1e-9), "held from 55% to 65%");
+            Assert.That(Bright("release", 0.5), Is.EqualTo(1.25).Within(1e-9));
+            Assert.That(Bright("cast", 0.55), Is.EqualTo(1.4).Within(1e-9));
+            Assert.That(Bright("brace", 0.5), Is.EqualTo(1.2).Within(1e-9));
+            Assert.That(Bright("sweep", 0.25), Is.GreaterThan(1).And.LessThan(1.25), "eased between the stops that name the filter");
+            var cast = Stage.ActionTrack("cast", 1, 1000);
+            Assert.That(cast.GlowBlur, Is.EqualTo(10));
+            Assert.That(cast.GlowColour, Is.EqualTo("#c9a227"));
+            Assert.That(FxCurve.Sample(cast, Easings, 550).Glow, Is.EqualTo(1).Within(1e-9));
+            Assert.That(FxCurve.Sample(cast, Easings, 0).Glow, Is.EqualTo(0).Within(1e-9));
+            Assert.That(FxCurve.Sample(cast, Easings, 500).X, Is.Null, "a cast does not travel");
+            var guard = Stage.ActionTrack("brace", 1, 1000);
+            Assert.That(guard.GlowBlur, Is.EqualTo(5));
+            Assert.That(guard.GlowColour, Is.EqualTo("#e8dcc0"));
+            Assert.That(FxCurve.Sample(Stage.ActionTrack("sidestep", 1, 1000), Easings, 500).Opacity, Is.EqualTo(0.65).Within(1e-9));
+            Assert.That(Stage.ActionTrack("settle", 1, 1000), Is.Null, "a neutral action plays nothing");
+        }
+
+        [Test]
+        public void ATravellingActionKeepsItsTranslateBesideTheFilter()
+        {
+            var track = Stage.ActionTrack("sweep", 1.25, 300);
+            var travel = Stage.TravelTrack("sweep", 1.25, 300);
+            Assert.That(track.Stops.Where(s => s.X.HasValue).Select(s => (s.T, s.X.Value)), Is.EqualTo(travel.Stops.Select(s => (s.T, s.X.Value))));
+            Assert.That(track.Stops.Where(s => s.Brightness.HasValue).Select(s => s.T), Is.EqualTo(new[] { 0d, 0.55, 1d }));
+            Assert.That(track.Stops.Select(s => s.T), Is.Ordered);
+        }
+
         // ------------------------------------------------------------------ the clock
 
         [Test]

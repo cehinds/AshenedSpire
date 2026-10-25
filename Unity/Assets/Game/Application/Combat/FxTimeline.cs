@@ -115,7 +115,7 @@ namespace Ashen.App.Combat
                 var impact = swing ? own?.ImpactMs ?? pace.ImpactMs : 0;
                 var total = swing ? length : 0;
                 t += impact;
-                if (own != null) At(t, FxItemKind.Contact, beat, actor: beat.ActorId);
+                if (own != null) At(t, FxItemKind.Contact, beat, actor: beat.ActorId, span: Math.Max(total - impact, 0));
                 if (own != null && beat.HoldMs > 0) At(t, FxItemKind.Hold, beat, actor: beat.ActorId, span: beat.HoldMs);
                 Cues(t, beat, beat.Contact);
                 t += Math.Max(total - impact + beat.HoldMs, 0);
