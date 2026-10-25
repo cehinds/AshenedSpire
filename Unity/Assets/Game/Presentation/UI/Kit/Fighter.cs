@@ -86,6 +86,15 @@ namespace Ashen.Presentation.UI.Kit
 
         /// <summary>What pointing at the intent, the Poise meter or the Ward meter says (the web's combat target HUD and health-badge tooltips); null for nothing to say.</summary>
         public bool IntentReduced;
+
+        /// <summary>
+        /// The player figure as a pose stage (P-1, the web's "animated" figure style): the geometry of its frames, the class and tint they are of, and the texture of a pose by name (null when the
+        /// frame is not imported). Null for an enemy and for a class whose frames are not shipped; the figure keeps its base art then.
+        /// </summary>
+        public PoseData Poses;
+        public string PoseClass;
+        public string PoseTint;
+        public Func<string, Texture2D> PoseTexture;
         public string IntentTipTitle;
         public string IntentTipBody;
         public string PoiseTipTitle;
@@ -153,6 +162,9 @@ namespace Ashen.Presentation.UI.Kit
         private Texture2D _restArt;
         private double _restScale = 1;
         private bool _posing;
+        private bool _placed;
+        private string _stagePose = PoseKeys.Idle;
+        private int _swings;
         private double _poseScale = 1;
 
         public Fighter()
@@ -282,11 +294,66 @@ namespace Ashen.Presentation.UI.Kit
         private void ShowRest()
         {
             if (_restArt != null) ShowFrame(_restArt, _restScale);
-            else HideFrame();
+            else if (!ShowStage(PoseKeys.Idle)) HideFrame();
+        }
+
+        /// <summary>
+        /// Draws one pose of the player's pose stage at its own place on the shared canvas (PoseAnimator.js place): the idle frame's floor line on the bottom of the figure box and its pelvis
+        /// on the box centre, every other frame at its crop. False when this figure has no stage or the frame is not imported.
+        /// </summary>
+        private bool ShowStage(string pose)
+        {
+            var d = Data;
+            if (d?.Poses == null || d.PoseTexture == null || _art == null) return false;
+            var idle = d.Poses.Frame(d.PoseClass, PoseKeys.Idle, d.PoseTint);
+            var frame = d.Poses.Frame(d.PoseClass, pose, d.PoseTint);
+            var texture = d.PoseTexture(pose);
+            var h = _art.resolvedStyle.height;
+            var w = _art.resolvedStyle.width;
+            if (idle == null || frame == null || texture == null) return false;
+            var aspect = float.IsNaN(h) || float.IsNaN(w) || h <= 0 ? 1.0 : w / h;
+            var at = d.Poses.Place(idle, frame, aspect);
+            _placed = true;
+            _stagePose = pose;
+            _pose.style.backgroundImage = new StyleBackground(texture);
+            _pose.style.left = Length.Percent((float)(at.Left * 100));
+            _pose.style.top = Length.Percent((float)(at.Top * 100));
+            _pose.style.width = Length.Percent((float)(at.Width * 100));
+            _pose.style.height = Length.Percent((float)(at.Height * 100));
+            _pose.style.bottom = StyleKeyword.Auto;
+            _pose.RemoveFromClassList(UiClasses.Hidden);
+            _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
+            return true;
+        }
+
+        /// <summary>
+        /// Holds a pose of the player's stage for <paramref name="ms"/>, then settles to idle (PoseAnimator.js play). 'attack' throws the next swing of the rotation the figure keeps (attack1 to attack4),
+        /// the others (guard, hit) are frames of their own. False when the figure has no such frame; it stays as it is then.
+        /// </summary>
+        public bool PlayStage(string pose, double ms)
+        {
+            var d = Data;
+            if (d?.Poses == null) return false;
+            if (pose == PoseKeys.Attack)
+            {
+                var swings = d.Poses.Throwable(d.PoseClass, d.PoseTint);
+                if (swings.Count == 0) return false;
+                pose = swings[_swings % swings.Count];
+            }
+            var previous = _settle;
+            if (!ShowStage(pose)) return false;
+            _swings += pose.StartsWith(PoseKeys.Attack, StringComparison.Ordinal) ? 1 : 0;
+            previous?.Pause();
+            _posing = true;
+            _settle = schedule.Execute(Settle).StartingIn((long)Math.Max(d.Poses.MinimumPlayMs, ms));
+            return true;
         }
 
         private void ShowFrame(Texture2D frame, double scale)
         {
+            _placed = false;
+            _pose.style.top = StyleKeyword.Null;
+            _pose.style.bottom = StyleKeyword.Null;
             _pose.style.backgroundImage = new StyleBackground(frame);
             _poseScale = scale;
             FitPose();
@@ -298,6 +365,7 @@ namespace Ashen.Presentation.UI.Kit
         private void FitPose()
         {
             if (_art == null) return;
+            if (_placed) { ShowStage(_stagePose); return; }
             var h = _art.resolvedStyle.height;
             var w = _art.resolvedStyle.width;
             if (float.IsNaN(h) || float.IsNaN(w) || h <= 0) return;

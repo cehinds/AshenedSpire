@@ -262,6 +262,22 @@ namespace Ashen.Presentation.UI.Screens
             }
         }
 
+        /// <summary>
+        /// The player's figure is the web's pose stage when its class and tint ship frames (assets/registry.json pose.*): idle, guard, the four swings and the hit, each placed on the shared
+        /// canvas. A frame that is not imported (the art is fetched at build) leaves the figure with its base art.
+        /// </summary>
+        private void AttachPoses(FighterData d)
+        {
+            var poses = Ui.Data.Poses;
+            var classId = _run.ClassId;
+            var tint = _run.Tint ?? _run.Portrait?.Split('.').LastOrDefault();
+            if (poses == null || !poses.Has(classId, tint)) return;
+            d.Poses = poses;
+            d.PoseClass = classId;
+            d.PoseTint = tint;
+            d.PoseTexture = pose => Ui.Texture(Ui.Data.Art.Find(ArtKinds.PlayerPose, new StringArgs().Add(ArtPlaceholders.Class, classId).Add(ArtPlaceholders.Pose, pose).Add(ArtPlaceholders.Tint, tint)));
+        }
+
         private FighterData FighterData(Core2FighterView f, bool player, IReadOnlyList<string> order, int reference)
         {
             var d = new FighterData
@@ -285,6 +301,7 @@ namespace Ashen.Presentation.UI.Screens
                 Stacks = Core2CombatText.Stacks(Strings, f),
                 Statuses = Core2CombatText.Statuses(Strings, f, Math.Max(1, Ui.Data.Components.StatusChips), Ui.Data.Components.FighterStackStatuses),
             };
+            if (player) AttachPoses(d);
             _hpShown[f.Id] = d.Hp;
             AddChips(d, f);
             if (!player) ApplyRestArt(d, f);
@@ -413,8 +430,11 @@ namespace Ashen.Presentation.UI.Screens
                 if (kind == Core2UiValues.CostStamina) costs.Add(new CardCostData { Kind = kind, Text = card.CostIsX ? Strings.Get(StringKeys.CombatCostX) : CombatText.Number(card.Stamina), Shift = card.CostIsX ? 0 : card.CostShift });
                 else if (kind == Core2UiValues.CostMana && card.Mana > 0) costs.Add(new CardCostData { Kind = kind, Text = CombatText.Number(card.Mana) });
             }
+            var calculation = Core2DamageCalculation.Tip(Strings, card.FacePreview);
             return new CardViewData
             {
+                Receipt = calculation?.Body,
+                ReceiptTitle = calculation?.Title,
                 Name = card.Name,
                 TypeLine = Core2CombatText.TypeLine(Strings, card),
                 Face = card.Face,

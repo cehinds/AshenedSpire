@@ -151,6 +151,9 @@ namespace Ashen.App.Run
         public string Name { get; private set; }
         public string Portrait { get; private set; }
         public string ClassId => _run.Str(RK.Class);
+
+        /// <summary>The tint of the player's figure chosen at creation ('ember', 'frost', ...): which frames of its class the pose stage draws.</summary>
+        public string Tint => _run.Obj(LK.Customization)?.Str(RunFlowKeys.Tint);
         public uint Seed => (uint)_run.Num(RK.Seed);
         public string SeedText => Content.Seeds.Format(Seed);
         public int Act => (int)_run.Num(RK.ActNumber);

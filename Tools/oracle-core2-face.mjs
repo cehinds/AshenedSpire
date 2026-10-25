@@ -29,6 +29,7 @@ const [faceText, playing, sideTags, profileMod, baseCards, sigilView, tooltip, v
   load('src/model/gameProfile.js'),
 ]);
 const smash = await load('src/model/smashClause.js');
+const receiptView = await load('src/ui/components/damageReceipt.js');
 const wardOff = await load('src/model/wardOffCardText.js');
 const spellDef = await load('src/model/spellDefense.js');
 const registries = w.registries;
@@ -112,6 +113,18 @@ function summary(preview) {
   });
 }
 
+// The tooltip of an underlined damage number (damageReceipt.js damageReceiptHtml, collapsed form), as its parts: the summary, the scope and the three topics.
+const unesc = (text) => text.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+function calculation(preview) {
+  const receipt = receiptView.cardDamageReceipt(preview);
+  if (!receipt) return null;
+  const html = receiptView.damageReceiptHtml(receipt, { targetName: preview.targetName });
+  if (!html) return null;
+  const paragraphs = [...html.matchAll(/<p>(.*?)<\/p>/g)].map((m) => unesc(m[1]));
+  const topics = [...html.matchAll(/<span class="tooltip-keyword"[^>]*data-tip="([^"]*)">([^<]*)<\/span>/g)].map((m) => [unesc(m[2]), unesc(m[1])]);
+  return { summary: paragraphs[0], scope: paragraphs[1], topics };
+}
+
 // ---------------------------------------------------------------------------------------------------------------
 // Scenarios: the setups the costs oracle lays over a fight (the C# test applies the very same fields)
 // ---------------------------------------------------------------------------------------------------------------
@@ -152,7 +165,7 @@ function handFaces(combat, setup, onlySwings = false) {
     if (onlySwings && !swings(inst)) continue;
     out[inst.instanceId] = guarded(() => {
       const preview = w.combat.previewCard(state, inst.instanceId, undefined, undefined, { rangeRoute: 'advance' });
-      return { cardId: inst.cardId, preview: summary(preview), ...faces(inst, { preview }) };
+      return { cardId: inst.cardId, preview: summary(preview), receipt: calculation(preview), ...faces(inst, { preview }) };
     });
   }
   return out;

@@ -11,11 +11,13 @@ namespace Ashen.Generated
         public const string Baseline = "baseline";
         public const string Basis = "basis";
         public const string BasisHp = "hp";
+        public const string Blocked = "blocked";
         public const string CampMagic = "magic";
         public const string CampSpell = "spell";
         public const string CampSpells = "spells";
         public const string ClassMagic = "magic";
         public const string ClassPhysical = "physical";
+        public const string Components = "components";
         public const string ContactCount = "contactCount";
         public const string ContactIndex = "contactIndex";
         public const string Count = "count";
@@ -30,6 +32,8 @@ namespace Ashen.Generated
         public const string Expected = "expected";
         public const string Hidden = "hidden";
         public const string HitDamages = "hitDamages";
+        public const string Hits = "hits";
+        public const string Hp = "hp";
         public const string IconAttack = "attack";
         public const string IconBuff = "buff";
         public const string IconCast = "cast";
@@ -38,7 +42,10 @@ namespace Ashen.Generated
         public const string IconEvade = "evade";
         public const string IconPrepare = "prepare";
         public const string IconSmash = "smash";
+        public const string Id = "id";
+        public const string Incoming = "incoming";
         public const string Index = "index";
+        public const string Indices = "indices";
         public const string Kind = "kind";
         public const string KindAttack = "attack";
         public const string KindAttackDebuff = "attackDebuff";
@@ -48,6 +55,7 @@ namespace Ashen.Generated
         public const string KnowledgeRead = "knowledgeRead";
         public const string Label = "label";
         public const string LabelStaggered = "Staggered";
+        public const string Magical = "magical";
         public const string ManeuverAttack = "attack";
         public const string ManeuverCounter = "counter";
         public const string ManeuverDefend = "defend";
@@ -57,10 +65,17 @@ namespace Ashen.Generated
         public const string ManeuverSweep = "sweep";
         public const string Max = "max";
         public const string Min = "min";
+        public const string Multiplier = "multiplier";
+        public const string N = "n";
+        public const string OpMultiply = "multiply";
+        public const string OpSet = "set";
+        public const string Operation = "operation";
         public const string Payload = "payload";
         public const string Percent = "percent";
+        public const string Physical = "physical";
         public const string PlusMark = "+";
         public const string PoiseDamage = "poiseDamage";
+        public const string PoiseReduced = "poiseReduced";
         public const string Profile = "profile";
         public const string ProjectedDamage = "projectedDamage";
         public const string RangeDash = "–";
@@ -70,9 +85,11 @@ namespace Ashen.Generated
         public const string ReasonUnresolved = "unresolvedDamage";
         public const string Restores = "restores";
         public const string Revealed = "revealed";
+        public const string Rounding = "rounding";
         public const string Scope = "scope";
         public const string ScopeContact = "contact";
         public const string ScopeDirect = "directDamageAtCurrentDefenses";
+        public const string Sources = "sources";
         public const string Stance = "stance";
         public const string StanceAttacking = "attacking";
         public const string StanceBuffing = "buffing";
@@ -89,11 +106,15 @@ namespace Ashen.Generated
         public const string StanceStaggered = "staggered";
         public const string StanceSweeping = "sweeping";
         public const string StanceUnknown = "unknown";
+        public const string Target = "target";
+        public const string Text = "text";
         public const string TimesMark = "×";
         public const string Tone = "tone";
         public const string ToneGreen = "green";
         public const string ToneRed = "red";
+        public const string Total = "total";
         public const string UnknownMark = "?";
         public const string Value = "value";
+        public const string WardReduced = "wardReduced";
     }
 }

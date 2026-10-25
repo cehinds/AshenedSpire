@@ -52,6 +52,9 @@ namespace Ashen.Presentation.UI.Kit
         /// <summary>A damage calculation stands behind the damage numbers (they are underlined, and hovering one shows it): the web's [data-damage-receipt].</summary>
         public string Receipt;
 
+        /// <summary>The title of that calculation ('Damage calculation').</summary>
+        public string ReceiptTitle;
+
         /// <summary>The model holds more lines than the face shows: the inspect cue is lit (the web's data-rules-overflow).</summary>
         public bool RulesOverflow;
     }
@@ -75,6 +78,7 @@ namespace Ashen.Presentation.UI.Kit
         private readonly VisualElement _stage;
         private readonly LocLabel _type;
         private readonly LocLabel _text;
+        private Tooltip _receiptTip;
         private readonly LocLabel _cue;
         private readonly LocLabel _refusal;
         private readonly LocLabel _lent;
@@ -186,6 +190,8 @@ namespace Ashen.Presentation.UI.Kit
             var plan = data.Face != null ? ui?.Data?.CardFace?.Plan(data.Face) : null;
             _name?.SetResolved(data.Name);
             _text?.SetResolved(RulesText(data));
+            // The calculation behind the underlined damage numbers: shown on pointing at the rules (UI Toolkit cannot hover a run of a label, so the whole text speaks for its numbers).
+            ChipTips.Retell(_text, ref _receiptTip, data.ReceiptTitle, data.Receipt);
             _cue?.SetResolved(Loc.Get(StringKeys.DeckEditorInspect));
             UiDom.Show(_cue, data.RulesOverflow);
             _refusal?.SetResolved(data.RefusalText);

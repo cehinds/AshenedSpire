@@ -1,0 +1,25 @@
+{
+  "comment": "P-1 (D-1320..): the names of ui/poses.json, the geometry of the player figure's pose frames (the web src/content/poseSprites.js, src/ui/services/PoseAnimator.js).",
+  "keySets": [
+    {
+      "name": "PoseKeys",
+      "doc": "Keys of ui/poses.json and the pose names of the player figure's strip.",
+      "keys": {
+        "Canvas": "canvas",
+        "Width": "width",
+        "Height": "height",
+        "Strip": "strip",
+        "AttackSequence": "attackSequence",
+        "Motion": "motion",
+        "DefaultPlayMs": "defaultPlayMs",
+        "MinimumPlayMs": "minimumPlayMs",
+        "Frames": "frames",
+        "Idle": "idle",
+        "Guard": "guard",
+        "Hit": "hit",
+        "Attack": "attack",
+        "Separator": "_"
+      }
+    }
+  ]
+}

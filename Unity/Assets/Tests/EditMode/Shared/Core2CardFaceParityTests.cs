@@ -171,10 +171,28 @@ namespace Ashen.Tests
                 catch (Exception e) when (e is InvalidOperationException || e is NotSupportedException) { problems.Add($"{card.Name} ({want.Value<string>("cardId")}) preview: {e.Message}"); continue; }
                 var diff = RunParityTests.FirstDifference(want["preview"], Summary(preview), "$");
                 if (diff != null) problems.Add($"{card.Name} ({want.Value<string>("cardId")}) preview differs at {diff}\n   web: {want["preview"].ToString(Newtonsoft.Json.Formatting.None)}\n  unity: {Summary(preview).ToString(Newtonsoft.Json.Formatting.None)}");
+                var calculation = Calculation(preview);
+                var calculationDiff = RunParityTests.FirstDifference(want["receipt"] ?? JValue.CreateNull(), calculation, "$");
+                if (calculationDiff != null) problems.Add($"{card.Name} ({want.Value<string>("cardId")}) damage calculation differs at {calculationDiff}\n   web: {want["receipt"]}\n  unity: {calculation}");
                 var got = CardFaceRules.Render(env, preview.Obj("resolvedDefinition"), preview);
                 problems.AddRange(Compare($"{card.Name} ({want.Value<string>("cardId")})", want, got));
             }
             if (problems.Count > 0) Assert.Fail(problems.Count + " differences:\n" + string.Join("\n", problems.Take(8)));
+        }
+
+        /// <summary>The tooltip of an underlined damage number as the oracle records it (summary, scope, topics), from the port's.</summary>
+        private static JToken Calculation(JObject preview)
+        {
+            var tip = Core2DamageCalculation.Tip(Ui.Strings, preview);
+            if (tip == null) return JValue.CreateNull();
+            var lines = tip.Body.Split('\n');
+            var topics = new JArray();
+            foreach (var line in lines.Skip(2))
+            {
+                var at = line.IndexOf(": ", StringComparison.Ordinal);
+                topics.Add(new JArray(line.Substring(0, at), line.Substring(at + 2)));
+            }
+            return new JObject { ["scope"] = lines[1], ["summary"] = lines[0], ["topics"] = topics };
         }
 
         private static readonly string[] ValueFields = { "op", "value", "hits", "hitDamages", "totalDamage", "faceValue", "splitBase", "ratingBonus", "ratingPart", "physicalDamageType", "defenseSplit", "tags", "status", "token", "counterReturn" };
