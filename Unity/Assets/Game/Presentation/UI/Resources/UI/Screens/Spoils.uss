@@ -185,9 +185,9 @@
 
 .layout-narrow .spoils-option,
 .layout-narrow .spoils-option .spoils-face {
-    width: var(--size-spoils-face-w-narrow);
+    width: var(--size-spoils-face-wnarrow);
 }
 
 .layout-narrow .spoils-option .spoils-face {
-    height: var(--size-spoils-face-h-narrow);
+    height: var(--size-spoils-face-hnarrow);
 }

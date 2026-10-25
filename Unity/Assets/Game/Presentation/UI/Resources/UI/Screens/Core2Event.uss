@@ -306,9 +306,22 @@
     margin: 0;
 }
 
+/* phone (event-pilgrim-choices-390x844.jpg): the painting is 95% wide from y 159 to 340, the door under it to y 802 with 10 px gutters */
+.layout-narrow .c2event-band {
+    top: var(--size-event-band-top-narrow);
+    height: var(--size-event-band-narrow-h);
+}
+
+.layout-narrow .c2event-scene {
+    width: var(--size-event-band-narrow-w);
+}
+
 .layout-narrow .c2event-door.cmodal {
-    left: var(--space-sm);
-    right: var(--space-sm);
+    left: var(--space-md);
+    right: var(--space-md);
+    top: var(--size-event-door-top-narrow);
+    bottom: var(--size-event-door-bottom-narrow);
+    width: auto;
 }
 
 .layout-narrow .c2event-narrative {

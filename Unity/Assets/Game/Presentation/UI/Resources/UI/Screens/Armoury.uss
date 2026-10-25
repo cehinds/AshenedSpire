@@ -438,3 +438,51 @@
     color: var(--color-danger);
     white-space: normal;
 }
+
+/* ---- phone (map-equipment-390x844.jpg, map-deck-390x844.jpg; the web's category select and stacked panes, ui.css:1967-2057): the rail becomes a row above the pane, the equipment's inspector and the deck editor's two panes stack ---- */
+
+.layout-narrow .armoury-modal.cmodal {
+    height: var(--size-armoury-narrow-h);
+}
+
+.layout-narrow .armoury-body {
+    flex-direction: column;
+}
+
+.layout-narrow .armoury-rail {
+    flex-direction: row;
+    width: var(--size-full-width);
+    margin: 0 0 var(--size-cmodal-gap) 0;
+}
+
+.layout-narrow .armoury-rail-item.unity-button {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 0 var(--space-xs) 0 0;
+}
+
+.layout-narrow .armoury-equipment {
+    flex-direction: column;
+}
+
+.layout-narrow .armoury-positions {
+    margin-right: 0;
+}
+
+.layout-narrow .armoury-inspect {
+    width: var(--size-full-width);
+}
+
+.layout-narrow .deck-editor-panes {
+    flex-direction: column;
+}
+
+.layout-narrow .deck-editor-pane {
+    flex-grow: 0;
+    flex-basis: auto;
+    margin: 0 0 var(--size-cmodal-gap) 0;
+}
+
+.layout-narrow .deck-editor-pane--inspect {
+    width: var(--size-full-width);
+}

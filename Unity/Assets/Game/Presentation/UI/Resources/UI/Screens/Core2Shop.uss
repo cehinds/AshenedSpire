@@ -276,13 +276,20 @@
     white-space: normal;
 }
 
+/* phone (shop-390x844.jpg): the frame runs from y 155 to 838 under the HUD, 8 px from each edge */
+.layout-narrow .c2shop-scene {
+    top: var(--size-board-hud-hnarrow);
+}
+
 .layout-narrow .c2shop-frame.cmodal {
     left: var(--space-sm);
     right: var(--space-sm);
+    top: var(--size-shop-top-narrow);
+    bottom: var(--size-shop-bottom-narrow);
     width: auto;
 }
 
 .layout-narrow .c2shop-inspect-card {
-    width: var(--size-shop-inspect-w-narrow);
-    height: var(--size-shop-inspect-h-narrow);
+    width: var(--size-shop-inspect-wnarrow);
+    height: var(--size-shop-inspect-hnarrow);
 }

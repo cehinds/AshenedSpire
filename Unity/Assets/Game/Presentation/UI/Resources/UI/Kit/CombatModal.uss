@@ -411,8 +411,8 @@
 }
 
 .layout-narrow .inspect-card {
-    width: var(--size-inspect-card-w-narrow);
-    height: var(--size-inspect-card-h-narrow);
+    width: var(--size-inspect-card-wnarrow);
+    height: var(--size-inspect-card-hnarrow);
     margin-right: 0;
     margin-bottom: var(--size-cmodal-inset);
 }
@@ -427,8 +427,9 @@
     margin: 0;
 }
 
-.layout-narrow .cmodal--xl {
-    width: var(--size-full-width);
+/* The web's modal shell on a phone is 374 of 390 wide in every size (kit.css modal shell; potions, spoils, armoury and compendium shots). The doors that place themselves say width: auto at three classes. */
+.layout-narrow .cmodal {
+    width: var(--size-cmodal-narrow-w);
 }
 
 .layout-narrow .option-tile.unity-button {

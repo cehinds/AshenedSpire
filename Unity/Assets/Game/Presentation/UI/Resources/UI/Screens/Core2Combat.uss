@@ -28,8 +28,8 @@
 .layout-narrow .stage-grid {
     left: var(--size-board-grid-left-narrow);
     top: var(--size-board-grid-top-narrow);
-    width: var(--size-board-grid-w-narrow);
-    height: var(--size-board-grid-h-narrow);
+    width: var(--size-board-grid-wnarrow);
+    height: var(--size-board-grid-hnarrow);
     background-image: url("../Stage/grid-narrow.png");
 }
 
@@ -68,7 +68,7 @@
 .layout-narrow .board-field .enemy-row {
     right: var(--size-board-lane-right-narrow);
     top: var(--size-board-lane-top-narrow);
-    width: var(--size-board-lane-w-narrow);
+    width: var(--size-board-lane-wnarrow);
 }
 
 .board-field .phase-banner {
@@ -278,12 +278,12 @@
     left: 0;
     right: 0;
     bottom: var(--size-board-hand-bottom-narrow);
-    height: var(--size-board-hand-h-narrow);
+    height: var(--size-board-hand-hnarrow);
 }
 
 .layout-narrow .board-hand .cardview {
-    width: var(--size-board-card-w-narrow);
-    height: var(--size-board-card-h-narrow);
+    width: var(--size-board-card-wnarrow);
+    height: var(--size-board-card-hnarrow);
 }
 
 .layout-narrow .board-hand .hand-card {
@@ -496,14 +496,14 @@
 }
 
 .layout-narrow .combat-log {
-    width: var(--size-board-log-w-narrow);
+    width: var(--size-board-log-wnarrow);
     margin-left: var(--size-board-log-pull-narrow);
 }
 
 /* ---- narrow board (390 x 844): taller HUD for 48 px buttons and the cinders under them, a 120 px footer ---- */
 
 .layout-narrow .board-hud {
-    height: var(--size-board-hud-h-narrow);
+    height: var(--size-board-hud-hnarrow);
 }
 
 .layout-narrow .hud-hp {
@@ -529,20 +529,20 @@
 }
 
 .layout-narrow .board-prompt {
-    top: var(--size-board-hud-h-narrow);
+    top: var(--size-board-hud-hnarrow);
 }
 
 .layout-narrow .board-footer {
-    height: var(--size-board-footer-h-narrow);
+    height: var(--size-board-footer-hnarrow);
 }
 
 .layout-narrow .combat-background,
 .layout-narrow .board-field {
-    bottom: var(--size-board-footer-h-narrow);
+    bottom: var(--size-board-footer-hnarrow);
 }
 
 .layout-narrow .board-tools {
-    height: var(--size-board-tools-h-narrow);
+    height: var(--size-board-tools-hnarrow);
     padding-left: var(--space-sm);
     padding-right: var(--space-sm);
 }

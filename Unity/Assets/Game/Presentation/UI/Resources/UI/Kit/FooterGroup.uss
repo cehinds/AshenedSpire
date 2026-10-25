@@ -189,29 +189,29 @@
 /* ---- narrow board (390 x 844): smaller art, a squarer plate, bigger type relative to the art ---- */
 
 .layout-narrow .group-pile-button.kit-button {
-    width: var(--size-board-pile-w-narrow);
-    height: var(--size-board-pile-h-narrow);
-    padding-top: var(--size-board-pile-art-h-narrow);
+    width: var(--size-board-pile-wnarrow);
+    height: var(--size-board-pile-hnarrow);
+    padding-top: var(--size-board-pile-art-hnarrow);
     font-size: var(--font-board-count-narrow);
 }
 
 .layout-narrow .group-pile-button--wide.kit-button {
-    width: var(--size-board-pile-wide-w-narrow);
+    width: var(--size-board-pile-wide-wnarrow);
 }
 
 .layout-narrow .group-pile-button--potions.kit-button {
-    width: var(--size-board-potions-w-narrow);
-    height: var(--size-board-potions-h-narrow);
-    padding-top: var(--size-board-potions-art-h-narrow);
+    width: var(--size-board-potions-wnarrow);
+    height: var(--size-board-potions-hnarrow);
+    padding-top: var(--size-board-potions-art-hnarrow);
     font-size: var(--font-board-caption-narrow);
 }
 
 .layout-narrow .group-pile-art {
-    height: var(--size-board-pile-art-h-narrow);
+    height: var(--size-board-pile-art-hnarrow);
 }
 
 .layout-narrow .group-pile-art--potions {
-    height: var(--size-board-potions-art-h-narrow);
+    height: var(--size-board-potions-art-hnarrow);
 }
 
 .layout-narrow .group-pile-caption {
@@ -219,8 +219,8 @@
 }
 
 .layout-narrow .group-end-turn.kit-button {
-    width: var(--size-board-end-w-narrow);
-    height: var(--size-board-end-h-narrow);
+    width: var(--size-board-end-wnarrow);
+    height: var(--size-board-end-hnarrow);
     font-size: var(--font-board-end-narrow);
 }
 
@@ -238,5 +238,5 @@
 }
 
 .band-compact .group-end-turn.kit-button {
-    width: var(--size-board-end-w-narrow);
+    width: var(--size-board-end-wnarrow);
 }

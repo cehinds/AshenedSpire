@@ -607,32 +607,65 @@
     color: var(--color-parchment);
 }
 
-/* ---- narrow: the strip keeps the title and the rail; the keys share the bar ---- */
+/* ---- phone (flow-08, map-midclimb, map-legend, flow-09 -390x844.jpg; VP-14, D-1050): the strip is two rows (the title, then Entrance, the rail, the cue and Boss), there is no key bar (the HUD's two buttons and the pause menu carry Deck, Equipment, Stats and Menu), the tools and Potions are larger, the legend wider ---- */
 
-.layout-narrow .map-rail-start,
-.layout-narrow .map-rail-end,
-.layout-narrow .map-rail-arrow {
+.layout-narrow .map-strip {
+    flex-wrap: wrap;
+    align-content: center;
+    height: var(--size-map-strip-narrow-h);
+    padding: 0 var(--space-md);
+}
+
+.layout-narrow .map-title {
+    width: var(--size-full-width);
+    margin-right: 0;
+}
+
+.layout-narrow .map-slot-dot {
+    width: var(--size-map-slot-narrow);
+    height: var(--size-map-slot-narrow);
+}
+
+.layout-narrow .map-slot-dot--current {
+    width: var(--size-map-slot-current-narrow);
+    height: var(--size-map-slot-current-narrow);
+}
+
+.layout-narrow .map-keys {
     display: none;
 }
 
-.layout-narrow .map-key.unity-button {
-    flex-grow: 1;
-    width: auto;
-    margin: 0 var(--space-xxs);
+.layout-narrow .map-tool.unity-button {
+    width: var(--size-map-tool-btn-narrow);
+    height: var(--size-map-tool-btn-narrow);
+    margin-right: var(--size-map-tool-gap-narrow);
 }
 
-.layout-narrow .map-key-chip {
-    display: none;
+.layout-narrow .map-potions.unity-button {
+    width: var(--size-map-potions-narrow-d);
+    height: var(--size-map-potions-narrow-d);
+}
+
+.layout-narrow .map-legend {
+    width: var(--size-map-legend-narrow-w);
+    bottom: var(--size-map-legend-bottom-narrow);
+}
+
+.layout-narrow .legend-row {
+    height: var(--size-map-legend-row-narrow-h);
 }
 
 .layout-narrow .node-tray {
     width: auto;
+    min-height: var(--size-map-tray-narrow-min-h);
+    padding-left: var(--size-map-tray-narrow-pad-x);
+    padding-right: var(--size-map-tray-narrow-pad-x);
 }
 
 /* ---- narrow board (390 x 844): taller HUD for 48 px buttons and the cinders under them, a 120 px footer ---- */
 
 .layout-narrow .board-hud {
-    height: var(--size-board-hud-h-narrow);
+    height: var(--size-board-hud-hnarrow);
 }
 
 .layout-narrow .hud-hp {

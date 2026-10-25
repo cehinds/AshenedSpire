@@ -73,6 +73,10 @@ namespace Ashen.Presentation.UI.Screens
             var art = Root.Q(UiNames.PrologueArt);
             art.RemoveFromClassList(FrontClasses.PrologueArtIn);
             Ui.ApplyBackground(art, narrow ? _view.ArtNarrow : _view.ArtWide);
+            // The phone's bar reads 1 / 5, Continue, then Pause, Settings and Skip (flow-07-prologue-390x844.jpg): the one button moves behind the progress.
+            var advance = Root.Q<LocButton>(UiNames.PrologueContinue);
+            if (narrow) advance.PlaceInFront(Root.Q(UiNames.PrologueProgress));
+            else advance.BringToFront();
             art.schedule.Execute(() => art.AddToClassList(FrontClasses.PrologueArtIn));
             var item = Root.Q(UiNames.PrologueItem);
             Ui.ApplyBackground(item, _view.Item);

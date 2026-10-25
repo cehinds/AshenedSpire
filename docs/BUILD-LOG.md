@@ -2,6 +2,25 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## VP-14: the phone pass for the Core 2 screens (worktree branch, 2026-10-25)
+
+**Landed (D-1050..D-1053)**
+- **A bug under every earlier phone rule:** 29 narrow rules used token names that were never generated (`--size-board-hud-h-narrow` for `--size-board-hud-hnarrow`), so USS dropped them: the phone board, spoils faces, shop inspector and combat modals had only their wide sizes. Fixed in seven sheets; `ui-tokens --check` now fails on any undefined `var()`.
+- **Modals** 96% wide on a phone, the run end's door 88%, Smith 94% x 90%; **rest**, **shop** and **event** place their door and painting from the 390 x 844 shots (all values `ui/tokens.json size.*Narrow*`, citations in `webSource.phone`); the **map** strip is two rows with no key bar, bigger tools, Potions, legend and tray; the **Armoury** stacks its rail and panes; **creation**'s class card and review rows; the **opening**'s bar order (`PrologueScreen` moves Continue behind the progress); **settings** keep a switch at the right of its words (`FrontClasses.SettingsRowToggle`).
+- No behaviour or binding changed.
+
+**Tests run (small filters):** `Enforcement|UiData|UiRules|Core2Screens` 54/54; node checks ui-tokens, codegen, refresh-manifest (regenerated), transform-content, check-content, check-docs, ui-stage, card-face, web-key-map all ok; the Presentation compile check builds.
+
+**Not verified (Unity was not run):** every rule above in the editor at 390 x 844 (and 430 x 932, 520 wide); `PlaceInFront` on the prologue bar; `align-content: center` and `flex-wrap` on the map strip; the Armoury's stacked panes inside the modal's scroll body (the deck editor's two lists in a column need a bounded height); percent heights (86%, 90%) on modals inside the scrim.
+
+**Owner: check in the editor at 390 x 844 (compare `docs/qa/web-screens/*-390x844.jpg`)**
+- Combat: the HUD, footer, hand, piles and End Turn now take the narrow sizes (first time); compare `combat-390x844`, `combat-hit-feedback`, `combat-log-open`, `combat-potions`, `combat-quick-menu`.
+- Map: two-row strip, no key bar, tools / Potions / legend / tray (`flow-09`, `map-legend`, `map-potions`); the Armoury tabs (`map-equipment`, `map-deck`, `map-stats`).
+- Rest, shop, event and run end doors (`rest`, `shop`, `event-pilgrim-choices`, `run-end-defeat`); the smith modal; the spoils door.
+- Creation class cards and review, the opening bar, Settings switches (`flow-05..07`, `settings-general`).
+
+**Next:** map node size on a phone, the creation header cluster and step button, native selects in settings, screenshot fixtures (`Tests/Fixtures/screens`), then the editor pass.
+
 ## VP-9 (events) and VP-12 (run end): the Core 2 event screen and the web's game over (worktree branch, 2026-10-24)
 
 **Landed (D-960..D-966)**
