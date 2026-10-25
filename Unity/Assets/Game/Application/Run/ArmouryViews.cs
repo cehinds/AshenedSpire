@@ -162,7 +162,7 @@ namespace Ashen.App.Run
                 LevelText = strings.Format(StringKeys.ArmouryCharacterLevel, new StringArgs().Add(UiPlaceholders.Level, level)),
             };
             var row = run.Obj(K.Level) ?? Ashen.Domain.Rewards.LevelUp.EmptyLevel();
-            var next = Ashen.Domain.Rewards.LevelUp.XpToNext(session.Content.Loop.Rewards, row[K.Level]);
+            var next = Ashen.Domain.Loop.Core2Rest.XpToNext(session.Core.Rewards, row.Num(K.Level));
             var capped = double.IsInfinity(next) || double.IsNaN(next) || next <= 0;
             view.XpText = capped ? strings.Get(StringKeys.ArmouryCharacterXpMax)
                 : strings.Format(StringKeys.ArmouryCharacterXp, new StringArgs().Add(UiPlaceholders.Amount, Int(row.Num(K.Xp))).Add(UiPlaceholders.Total, Int(next)));

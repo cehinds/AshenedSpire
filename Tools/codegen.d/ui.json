@@ -1008,7 +1008,8 @@
         "CenterX": "centerX",
         "Armoury": "armoury",
         "ItemWeightScale": "itemWeightScale",
-        "LegacyRatings": "legacyRatings"
+        "LegacyRatings": "legacyRatings",
+        "DefaultMaxLevel": "defaultMaxLevel"
       }
     },
     {
@@ -1191,7 +1192,10 @@
         "Tail": "tail",
         "BeforePercent": "beforePercent",
         "Formula": "formula",
-        "AfterPercent": "afterPercent"
+        "AfterPercent": "afterPercent",
+        "Remaining": "remaining",
+        "Next": "next",
+        "Points": "points"
       }
     },
     {

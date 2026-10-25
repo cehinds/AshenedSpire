@@ -150,5 +150,6 @@ namespace Ashen.Generated
         public const string Armoury = "armoury";
         public const string ItemWeightScale = "itemWeightScale";
         public const string LegacyRatings = "legacyRatings";
+        public const string DefaultMaxLevel = "defaultMaxLevel";
     }
 }

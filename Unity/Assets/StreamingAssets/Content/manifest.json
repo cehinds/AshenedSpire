@@ -1,5 +1,5 @@
 {
-  "contentHash": "b251ee6f08e752ee9740feb32a3996f4121e731d8473be46d0fa3ca8a6122242",
+  "contentHash": "2e7078474625dea99d49562d69a5f15a3de708f127f0a74930d24d2e763249fe",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -1985,9 +1985,9 @@
       "sha256": "7c7f4d1a2f293e79c8f12b9b131f1b388af3586a80e13888c398a4376a722ec8"
     },
     "schemas/ui.components.schema.json": {
-      "bytes": 8575,
+      "bytes": 8643,
       "generated": false,
-      "sha256": "06af09a28fc35ec5da19ce7dce78b57654769eb881f291dac401f88307ffd415"
+      "sha256": "3fc7254380a8ab70c929338d597c8b7e7cdeaa0f3c6a74e8b81d39d62ab93295"
     },
     "schemas/ui.confirmationPolicies.schema.json": {
       "bytes": 2064,
@@ -2070,9 +2070,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 72949,
+      "bytes": 74614,
       "generated": false,
-      "sha256": "bfc93c7b98c35721bf448dcd0bbfda8b77b2a3b1184a52681dc5c9a487ccbc6b"
+      "sha256": "8366ad8e97ace24344bd304dfffd796646ed81349a767cc586ed805d7b36c333"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2175,9 +2175,9 @@
       "sha256": "bb21030e16e957b39d492abcdf9129783be6bb8079a4933b1bc4b34694657e5d"
     },
     "ui/components.json": {
-      "bytes": 11597,
+      "bytes": 11624,
       "generated": false,
-      "sha256": "b6fd4f8505f40bbb93944df6a0f11aa837cb218553988f41ca5011f12ed6a05e"
+      "sha256": "2a4f2c77d7dee516d975997b610c3ea08e82c1b9edf333ae07891469e7971ad5"
     },
     "ui/confirmationPolicies.json": {
       "bytes": 3228,
@@ -2235,9 +2235,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 49310,
+      "bytes": 49354,
       "generated": false,
-      "sha256": "561d0d3cbb8131921707833888ae162204dc2c62289f029cb1090339b9a3e507"
+      "sha256": "960d41f7fcc2c508cd7894dbf9d8f5e53ed0f3ffe0d9b55f2b1d571ad2280b6e"
     }
   },
   "schemaVersion": 1,

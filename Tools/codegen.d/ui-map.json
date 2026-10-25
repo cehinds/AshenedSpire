@@ -162,7 +162,19 @@
         "ReceiptSection": "armoury-receipt-section",
         "ReceiptDelta": "armoury-receipt-delta",
         "ReceiptDeltaUp": "armoury-receipt-delta--up",
-        "ReceiptDeltaDown": "armoury-receipt-delta--down"
+        "ReceiptDeltaDown": "armoury-receipt-delta--down",
+        "LadderRow": "armoury-ladder-row",
+        "LadderRowCurrent": "armoury-ladder-row--current",
+        "LadderRowNext": "armoury-ladder-row--next",
+        "LadderLevel": "armoury-ladder-level",
+        "LadderXp": "armoury-ladder-xp",
+        "LadderGrants": "armoury-ladder-grants",
+        "LadderGrant": "armoury-ladder-grant",
+        "LadderGrantRoutine": "armoury-ladder-grant--routine",
+        "LadderHere": "armoury-ladder-here",
+        "ProgressionButton": "armoury-progression-button",
+        "ProgressionCard": "armoury-progression-card",
+        "ProgressionPoints": "armoury-progression-points"
       }
     },
     {
@@ -181,7 +193,9 @@
         "StepAdd": "add",
         "StepRemove": "remove",
         "StepUp": "up",
-        "StepDown": "down"
+        "StepDown": "down",
+        "FoldAttributes": "attributes",
+        "FoldLevels": "levels"
       }
     },
     {
@@ -214,7 +228,25 @@
         "Plus": "+",
         "ItemWeightScale": "itemWeightScale",
         "WeightWordKey": "armoury.receipt.weight.{0}",
-        "WeightClassPriced": "weightClassPriced"
+        "WeightClassPriced": "weightClassPriced",
+        "DeckBalance": "deck",
+        "DeckMinimum": "minimum",
+        "DeckStepLevels": "minimumStepLevels",
+        "DeckPerStep": "minimumPerStep",
+        "LevelUpBalance": "levelUp",
+        "MaxLevels": "maxLevels",
+        "PointsPerLevel": "pointsPerLevel",
+        "HpRow": "hp",
+        "StaminaRow": "stamina",
+        "ManaRow": "mana",
+        "DrawRow": "draw",
+        "GrantStatKey": "progression.grant.{0}",
+        "Colon": ":",
+        "GroupFormat": "N0",
+        "StateReached": "reached",
+        "StateCurrent": "current",
+        "StateNext": "next",
+        "StateLocked": "locked"
       }
     }
   ]

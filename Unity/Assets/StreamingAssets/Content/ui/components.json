@@ -5,6 +5,7 @@
   "handFan": { "degreesPerCard": 4, "maxSpread": 30, "scrollAfter": 10 },
   "armoury": {
     "itemWeightScale": 0.2,
+    "defaultMaxLevel": 20,
     "legacyRatings": {
       "ar": { "base": 0, "strength": 0.75, "dexterity": 0.5, "constitution": 0.25, "wisdom": 0.25, "intelligence": 0.25 },
       "dr": { "base": 0, "strength": 0.5, "dexterity": 0.75, "constitution": 0.25, "wisdom": 0.35, "intelligence": 0.15 },

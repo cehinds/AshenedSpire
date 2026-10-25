@@ -755,6 +755,8 @@
     --size-flask-inspect-art: 120px;
     --size-potion-mini-gap: 3px;
     --size-potion-mini-lift: 11px;
+    --size-ladder-level: 28px;
+    --size-ladder-xp: 112px;
     --size-potion-mini-above: 8px;
     --size-map-tray-pad-x: 47px;
     --size-map-tray-pad-y: 12px;

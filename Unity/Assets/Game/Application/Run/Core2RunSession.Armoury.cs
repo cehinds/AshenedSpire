@@ -120,13 +120,13 @@ namespace Ashen.App.Run
         }
 
         /// <summary>One derived-stat row (the run's own snapshot) at the run's attributes and level, or null when the run has no such row (the web's statRowValue for the Poise receipt).</summary>
-        public double? DerivedStat(string statId)
+        public double? DerivedStat(string statId, double? atLevel = null)
         {
             var run = _run;
             var d = Core.Combat.Run;
             var table = run.Obj(K.DerivedStatRuleSnapshot)?.Obj(K.Rules);
             if (table == null || CoreDerivedStats.ResolvedRow(d, table, statId, ClassId) == null) return null;
-            var level = Js.Truthy(run.Obj(K.Level)?[K.Level]) ? run.Obj(K.Level).Num(K.Level) : 1;
+            var level = atLevel ?? (Js.Truthy(run.Obj(K.Level)?[K.Level]) ? run.Obj(K.Level).Num(K.Level) : 1);
             return CoreDerivedStats.Derive(d, table, statId, run.Obj(K.Attributes), d.Run.Classes.Get(ClassId), level).Value;
         }
 

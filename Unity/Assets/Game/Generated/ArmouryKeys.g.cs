@@ -31,5 +31,23 @@ namespace Ashen.Generated
         public const string ItemWeightScale = "itemWeightScale";
         public const string WeightWordKey = "armoury.receipt.weight.{0}";
         public const string WeightClassPriced = "weightClassPriced";
+        public const string DeckBalance = "deck";
+        public const string DeckMinimum = "minimum";
+        public const string DeckStepLevels = "minimumStepLevels";
+        public const string DeckPerStep = "minimumPerStep";
+        public const string LevelUpBalance = "levelUp";
+        public const string MaxLevels = "maxLevels";
+        public const string PointsPerLevel = "pointsPerLevel";
+        public const string HpRow = "hp";
+        public const string StaminaRow = "stamina";
+        public const string ManaRow = "mana";
+        public const string DrawRow = "draw";
+        public const string GrantStatKey = "progression.grant.{0}";
+        public const string Colon = ":";
+        public const string GroupFormat = "N0";
+        public const string StateReached = "reached";
+        public const string StateCurrent = "current";
+        public const string StateNext = "next";
+        public const string StateLocked = "locked";
     }
 }

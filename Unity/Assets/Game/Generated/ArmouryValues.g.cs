@@ -17,5 +17,7 @@ namespace Ashen.Generated
         public const string StepRemove = "remove";
         public const string StepUp = "up";
         public const string StepDown = "down";
+        public const string FoldAttributes = "attributes";
+        public const string FoldLevels = "levels";
     }
 }

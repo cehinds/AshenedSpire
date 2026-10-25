@@ -404,6 +404,9 @@
         },
         "legacyRatings": {
           "type": "object"
+        },
+        "defaultMaxLevel": {
+          "type": "integer"
         }
       }
     }

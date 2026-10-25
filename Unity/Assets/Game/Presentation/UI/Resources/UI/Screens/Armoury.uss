@@ -724,3 +724,78 @@
     color: var(--color-danger-line);
 }
 
+/* ---- the Progression door (web characterSheet.js: the cs-ladder rows, the progression cards) ---- */
+
+.armoury-progression-button {
+    margin-top: var(--space-xs);
+    align-self: flex-start;
+}
+
+.armoury-progression-card {
+    margin-top: var(--space-md);
+}
+
+.armoury-progression-points {
+    margin-top: var(--space-xs);
+    color: var(--color-muted);
+}
+
+.armoury-ladder-row {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line-soft);
+}
+
+.armoury-ladder-row--current {
+    border-left-width: var(--border-control);
+    border-left-color: var(--color-gold);
+    padding-left: var(--space-xs);
+}
+
+.armoury-ladder-row--next {
+    border-left-width: var(--border-hairline);
+    border-left-color: var(--color-line);
+    padding-left: var(--space-xs);
+}
+
+.armoury-ladder-level {
+    min-width: var(--size-ladder-level);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.armoury-ladder-xp {
+    flex-direction: column;
+    min-width: var(--size-ladder-xp);
+    margin-right: var(--space-md);
+}
+
+.armoury-ladder-grants {
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    flex-grow: 1;
+}
+
+.armoury-ladder-grant {
+    margin: 0 var(--space-xs) var(--space-xxs) 0;
+    padding: 0 var(--space-xs);
+    color: var(--color-parchment);
+    border-width: var(--border-hairline);
+    border-color: var(--color-gold);
+    border-radius: var(--radius-pill);
+}
+
+.armoury-ladder-grant--routine {
+    color: var(--color-muted);
+    border-color: var(--color-line);
+}
+
+.armoury-ladder-here {
+    margin-left: var(--space-md);
+    color: var(--color-gold);
+}
+

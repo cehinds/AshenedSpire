@@ -90,5 +90,8 @@ namespace Ashen.Generated
         public const string BeforePercent = "beforePercent";
         public const string Formula = "formula";
         public const string AfterPercent = "afterPercent";
+        public const string Remaining = "remaining";
+        public const string Next = "next";
+        public const string Points = "points";
     }
 }

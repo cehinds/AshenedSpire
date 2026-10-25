@@ -322,6 +322,9 @@ namespace Ashen.App.Ui
         /// <summary>The web's mechanics.weight.itemWeightScale (content/framework/mechanics.json): every piece's weight is its authored weight (armour: its poise threshold) times this, to a tenth. The exported rules/mechanics.json predates it.</summary>
         public double ItemWeightScale = 1;
 
+        /// <summary>The ladder's last level when the balance names none (web CharacterSheetModel.characterLadder: 20).</summary>
+        public int DefaultMaxLevel = 1;
+
         /// <summary>The web's LEGACY_RATING_FORMULA (src/model/statRows.js:37): the rows the equipment kit receipt prices a card's rating by while the live balance carries no combatRatings (it does not at the pin): per rating, a base and a weight per attribute.</summary>
         public JObject LegacyRatings = new JObject();
         public IReadOnlyList<string> CostKinds = Array.Empty<string>();
@@ -397,6 +400,7 @@ namespace Ashen.App.Ui
                 TooltipPlacement = TooltipPlacementRules.From(json[UiKeys.Tooltip]?[UiKeys.Placement] as JObject),
                 Dialogue = DialogueRules.From(json[UiKeys.Dialogue] as JObject),
                 ItemWeightScale = (double?)json[UiKeys.Armoury]?[UiKeys.ItemWeightScale] ?? 1d,
+                DefaultMaxLevel = (int?)json[UiKeys.Armoury]?[UiKeys.DefaultMaxLevel] ?? 1,
                 LegacyRatings = json[UiKeys.Armoury]?[UiKeys.LegacyRatings] as JObject ?? new JObject(),
                 CostKinds = ScreenRegistry.Strings(json[UiKeys.Card]?[UiKeys.CostKinds]),
                 DegreesPerCard = (double)fan[UiKeys.DegreesPerCard],

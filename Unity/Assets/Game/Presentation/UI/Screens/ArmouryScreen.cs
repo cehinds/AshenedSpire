@@ -272,8 +272,15 @@ namespace Ashen.Presentation.UI.Screens
 
         // ------------------------------------------------------------------ Character (map-stats)
 
+        private bool _progression;
+
         private void CharacterPane(VisualElement body)
         {
+            if (_progression)
+            {
+                ProgressionPane(body);
+                return;
+            }
             var view = ArmouryPanes.Character(_run, Ui.Data);
             Label(body, view.Eyebrow, ArmouryClasses.Eyebrow, UiClasses.Upper);
             Label(body, view.ClassName, ArmouryClasses.Name);
@@ -290,6 +297,13 @@ namespace Ashen.Presentation.UI.Screens
             fill.style.width = Length.Percent((float)(view.XpFraction * UiMath.Percent));
             bar.Add(fill);
             body.Add(bar);
+            var door = Button(body, StringKeys.ArmouryCharacterProgression, ArmouryClasses.ProgressionButton, () =>
+            {
+                _progression = true;
+                _focusKey = null;
+                Render();
+            });
+            door.userData = ArmouryValues.FoldLevels;
             var sheet = new VisualElement();
             sheet.AddToClassList(ArmouryClasses.Sheet);
             body.Add(sheet);
@@ -337,6 +351,18 @@ namespace Ashen.Presentation.UI.Screens
         /// One of the web's information cards (equipment.js informationCard): a head with an arrow and the card's title in gold, its one-line summary under it, and the full content when the head is pressed
         /// (the open cards are kept across redraws).
         /// </summary>
+        /// <summary>The Progression door (web characterSheet.js characterPane): the meter, the cadence, the attributes, the feats and the ladder, with a Back to the Character pane.</summary>
+        private void ProgressionPane(VisualElement body)
+        {
+            ProgressionPanel.Fill(body, CharacterProgression.For(_run, Ui.Data), Strings, Fold);
+            Button(body, StringKeys.ConfirmBack, UiClasses.ButtonBack, () =>
+            {
+                _progression = false;
+                _focusKey = null;
+                Render();
+            });
+        }
+
         private void Fold(VisualElement parent, string key, string title, string summary, Action<VisualElement> content)
         {
             var open = _open.Contains(key);

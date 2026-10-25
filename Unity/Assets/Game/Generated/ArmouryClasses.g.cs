@@ -110,5 +110,17 @@ namespace Ashen.Generated
         public const string ReceiptDelta = "armoury-receipt-delta";
         public const string ReceiptDeltaUp = "armoury-receipt-delta--up";
         public const string ReceiptDeltaDown = "armoury-receipt-delta--down";
+        public const string LadderRow = "armoury-ladder-row";
+        public const string LadderRowCurrent = "armoury-ladder-row--current";
+        public const string LadderRowNext = "armoury-ladder-row--next";
+        public const string LadderLevel = "armoury-ladder-level";
+        public const string LadderXp = "armoury-ladder-xp";
+        public const string LadderGrants = "armoury-ladder-grants";
+        public const string LadderGrant = "armoury-ladder-grant";
+        public const string LadderGrantRoutine = "armoury-ladder-grant--routine";
+        public const string LadderHere = "armoury-ladder-here";
+        public const string ProgressionButton = "armoury-progression-button";
+        public const string ProgressionCard = "armoury-progression-card";
+        public const string ProgressionPoints = "armoury-progression-points";
     }
 }
