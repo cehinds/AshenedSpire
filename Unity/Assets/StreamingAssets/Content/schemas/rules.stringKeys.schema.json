@@ -2,7 +2,7 @@
   "$id": "rules/stringKeys.json",
   "type": "object",
   "properties": {
-    "catalog/armaments.json": {
+    "profile/bundle/armaments.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -37,7 +37,7 @@
         "required"
       ]
     },
-    "catalog/armour.json": {
+    "profile/bundle/armour.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -76,7 +76,7 @@
         "required"
       ]
     },
-    "catalog/atlasQuests.json": {
+    "profile/bundle/atlasQuests.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -115,7 +115,7 @@
         "required"
       ]
     },
-    "catalog/attributes.json": {
+    "profile/bundle/attributes.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -154,7 +154,7 @@
         "required"
       ]
     },
-    "catalog/cards.json": {
+    "profile/bundle/cards.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -178,7 +178,9 @@
         },
         "optional": {
           "type": "array",
-          "items": {}
+          "items": {
+            "type": "string"
+          }
         },
         "prefix": {
           "type": "string"
@@ -197,7 +199,7 @@
         "required"
       ]
     },
-    "catalog/classes.json": {
+    "profile/bundle/classes.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -236,7 +238,7 @@
         "required"
       ]
     },
-    "catalog/creationModes.json": {
+    "profile/bundle/creationModes.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -271,7 +273,7 @@
         "required"
       ]
     },
-    "catalog/enemies.json": {
+    "profile/bundle/enemies.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -306,7 +308,7 @@
         "required"
       ]
     },
-    "catalog/events.json": {
+    "profile/bundle/events.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -345,7 +347,7 @@
         "required"
       ]
     },
-    "catalog/flasks.json": {
+    "profile/bundle/flasks.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -384,7 +386,7 @@
         "required"
       ]
     },
-    "catalog/keywords.json": {
+    "profile/bundle/keywords.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -423,7 +425,7 @@
         "required"
       ]
     },
-    "catalog/relics.json": {
+    "profile/bundle/relics.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -468,7 +470,7 @@
         "required"
       ]
     },
-    "catalog/resources.json": {
+    "profile/bundle/resources.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -503,7 +505,7 @@
         "required"
       ]
     },
-    "catalog/seats.json": {
+    "profile/bundle/seats.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -538,7 +540,7 @@
         "required"
       ]
     },
-    "catalog/speakers.json": {
+    "profile/bundle/speakers.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -573,7 +575,7 @@
         "required"
       ]
     },
-    "catalog/stances.json": {
+    "profile/bundle/stances.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -612,7 +614,7 @@
         "required"
       ]
     },
-    "catalog/startingKits.json": {
+    "profile/bundle/startingKits.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -647,7 +649,7 @@
         "required"
       ]
     },
-    "catalog/statuses.json": {
+    "profile/bundle/statuses.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -686,7 +688,7 @@
         "required"
       ]
     },
-    "catalog/unlocks.json": {
+    "profile/bundle/unlocks.json": {
       "type": "object",
       "properties": {
         "fields": {
@@ -727,24 +729,24 @@
     }
   },
   "required": [
-    "catalog/armaments.json",
-    "catalog/armour.json",
-    "catalog/atlasQuests.json",
-    "catalog/attributes.json",
-    "catalog/cards.json",
-    "catalog/classes.json",
-    "catalog/creationModes.json",
-    "catalog/enemies.json",
-    "catalog/events.json",
-    "catalog/flasks.json",
-    "catalog/keywords.json",
-    "catalog/relics.json",
-    "catalog/resources.json",
-    "catalog/seats.json",
-    "catalog/speakers.json",
-    "catalog/stances.json",
-    "catalog/startingKits.json",
-    "catalog/statuses.json",
-    "catalog/unlocks.json"
+    "profile/bundle/armaments.json",
+    "profile/bundle/armour.json",
+    "profile/bundle/atlasQuests.json",
+    "profile/bundle/attributes.json",
+    "profile/bundle/cards.json",
+    "profile/bundle/classes.json",
+    "profile/bundle/creationModes.json",
+    "profile/bundle/enemies.json",
+    "profile/bundle/events.json",
+    "profile/bundle/flasks.json",
+    "profile/bundle/keywords.json",
+    "profile/bundle/relics.json",
+    "profile/bundle/resources.json",
+    "profile/bundle/seats.json",
+    "profile/bundle/speakers.json",
+    "profile/bundle/stances.json",
+    "profile/bundle/startingKits.json",
+    "profile/bundle/statuses.json",
+    "profile/bundle/unlocks.json"
   ]
 }

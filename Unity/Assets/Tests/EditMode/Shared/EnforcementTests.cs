@@ -119,7 +119,7 @@ namespace Ashen.Tests
         {
             var ids = new HashSet<string>(StringComparer.Ordinal);
             var manifest = ContentManifest.Load(TestContent.Source);
-            foreach (var f in manifest.Files.Where(f => f.Path.StartsWith("catalog/", StringComparison.Ordinal)))
+            foreach (var f in manifest.Files.Where(f => f.Path.StartsWith("profile/bundle/", StringComparison.Ordinal)))
                 if (JsonContent.Parse(TestContent.Source.ReadText(f.Path)) is JObject o && !o.ContainsKey("rows"))
                     foreach (var p in o.Properties()) ids.Add(p.Name);
             var hits = AllLiterals().Where(l => l.Kind == "string" && ids.Contains(l.Text)).ToList();

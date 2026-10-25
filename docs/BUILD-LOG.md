@@ -2,6 +2,30 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## WP-21: the 405 content retired, the app on Core 2 data only (worktree branch, 2026-10-25)
+
+**Landed (D-1304)**
+- **App:** `RunContent` no longer builds the 405 registries. Seat regions, the HUD / armoury XP curve, unlock hints, the journal's names and the hand example read the profile's registries; Abandon writes through `Core2RunEnd.Abandon` (history row, ledger untouched).
+- **Registries:** `RegistryBundle` / `RuntimeRegistries` read `profile/bundle/` only.
+- **Deleted, code:** `CreationSession`, the 405 `CombatSession`, `LoopData` / `LoopContext`, the 405 `RunEnd` doors and other methods only deleted tests called.
+- **Deleted, tests and oracles:** RegistryParity, ContentRunData, ContentCombatData, CombatViewModel, EventsParity, MapParity, CombatSession tests; the `events`, `map`, `registries`, `rewards` and `run` oracles (about 45 MB) and their scripts.
+- **Deleted, content:** `catalog/*`, `tags/*`, `balance/balance.json`, `mapConfigs.json`, `mapShape.json`, `rules/attributeRules.json`, `derivedStatRules.json`, `textAnchors.json` and their schemas. The event history gates moved to `rules/eventChoiceRequirements.json`.
+- **Names:** `UiData` builds the `class.*`, `attribute.*`, `unlock.*`, `enemy.*` ... strings from the Core 2 rows through `rules/stringKeys.json`; `strings/en.json` keeps the `ui.*` strings only. SP / WARD meter glyphs are hand-written strings.
+- **Settings:** ranges come from `profile/bundle/balance.json`; Reward collection now defaults to `manual` (the profile's value).
+- **Transform:** writes no 405 table; `stringKeys.json` and `rowOrder.json` come from the Core 2 tables.
+
+**Tests run:** the full engine-free suite, one class at a time: 12,125 passed, 0 failed (two failures in the run, `CommittedContentIsValid` and `NoContentIdsInCode`, were fixed and re-run). Node: `codegen --check`, `refresh-manifest --check`, `ci/check-content`, `ci/check-docs`, `web-key-map --check`, `ui-tokens --check`. Presentation and PlayMode compile in the D-314 harness (only the known `MapBoard` error).
+
+**Not run:** `transform-content.mjs --check` and `card-face.mjs --check` (no raw export or web checkout here); the changed generated files were rendered with the transform's rules. Unity itself.
+
+**Owner: check in the editor**
+- Title, Slots, run HUD, creation: class names and descriptions, attribute labels, seat names read correctly (now from the Core 2 rows).
+- Journal and run end: enemy, card and armament names; the armoury's unlock hints.
+- Abandon a run: it appears in the history as abandoned and opens no class.
+- Settings: Reward collection shows Manual by default.
+
+**Next:** run `transform-content.mjs --check` with the raw export; a Core 2 driver for `ScreenCaptureTests.Show` (VP-16).
+
 ## WP-21: the 405 run retired, Core 2 the only ruleset (worktree branch, 2026-10-24)
 
 **Landed (D-1300..D-1303)**

@@ -143,7 +143,7 @@
         "Unknown": "unknown property '{0}'",
         "Ref": "'{0}' does not exist in {1}",
         "UnknownOp": "unknown effect op '{0}' (add it to rules/effectOps.json)",
-        "String": "missing string key '{0}'",
+        "String": "missing display text '{0}'",
         "Cost": "rule '{0}' failed: {1} = {2}",
         "PresetFile": "preset patches unknown file {0}",
         "IssueFormat": "{0} {1} [{2}] {3}",

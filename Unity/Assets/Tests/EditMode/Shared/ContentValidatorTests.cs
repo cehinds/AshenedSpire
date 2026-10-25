@@ -38,33 +38,33 @@ namespace Ashen.Tests
         public void ManifestCountsMatchTheShippedGame()
         {
             var m = ContentManifest.Load(TestContent.Source);
-            Assert.That(m.Counts[ContentFiles.CatalogCards], Is.EqualTo(195));
-            Assert.That(m.Counts[ContentFiles.CatalogRelics], Is.EqualTo(63));
-            Assert.That(m.Counts[ContentFiles.CatalogEnemies], Is.EqualTo(33));
-            Assert.That(m.Counts[ContentFiles.CatalogEvents], Is.EqualTo(25));
+            Assert.That(m.Counts[ContentFiles.ProfileBundleCards], Is.EqualTo(529));
+            Assert.That(m.Counts[ContentFiles.ProfileBundleRelics], Is.EqualTo(73));
+            Assert.That(m.Counts[ContentFiles.ProfileBundleEnemies], Is.EqualTo(33));
+            Assert.That(m.Counts[ContentFiles.ProfileBundleEvents], Is.EqualTo(25));
         }
 
         [Test]
         public void EditedFileWithoutManifestUpdateFailsTheHashCheck()
         {
             var src = Overlay();
-            var cards = src.Json(ContentFiles.CatalogCards);
+            var cards = src.Json(ContentFiles.ProfileBundleCards);
             cards["strike"]["cost"] = 2;
-            src.Set(ContentFiles.CatalogCards, cards);
+            src.Set(ContentFiles.ProfileBundleCards, cards);
             var report = new ContentValidator(src).Validate();
-            Assert.That(report.ByRule(ValidationRules.Hash).Select(i => i.File), Does.Contain(ContentFiles.CatalogCards));
+            Assert.That(report.ByRule(ValidationRules.Hash).Select(i => i.File), Does.Contain(ContentFiles.ProfileBundleCards));
         }
 
         [Test]
         public void DanglingReferenceIsReportedWithFileRowAndField()
         {
             var src = Overlay();
-            var enc = src.Json(ContentFiles.CatalogEncounters);
+            var enc = src.Json(ContentFiles.ProfileBundleEncounters);
             var first = enc.Properties().First();
             ((JArray)first.Value["enemies"])[0] = "noSuchEnemy";
-            src.Set(ContentFiles.CatalogEncounters, enc);
+            src.Set(ContentFiles.ProfileBundleEncounters, enc);
             var issue = new ContentValidator(src).Validate().ByRule(ValidationRules.Ref).Single();
-            Assert.That(issue.File, Is.EqualTo(ContentFiles.CatalogEncounters));
+            Assert.That(issue.File, Is.EqualTo(ContentFiles.ProfileBundleEncounters));
             Assert.That(issue.Path, Does.StartWith(first.Name + ".enemies"));
             Assert.That(issue.Message, Does.Contain("noSuchEnemy"));
         }
@@ -73,45 +73,47 @@ namespace Ashen.Tests
         public void TypeErrorsAndUnknownPropertiesAreReported()
         {
             var src = Overlay();
-            var cards = src.Json(ContentFiles.CatalogCards);
-            cards["strike"]["rarity"] = 5;
-            cards["strike"]["costt"] = 1;
-            src.Set(ContentFiles.CatalogCards, cards);
+            var flow = src.Json(ContentFiles.RulesRunFlow);
+            flow["saveFormat"] = "two";
+            flow["saveFormatt"] = 1;
+            src.Set(ContentFiles.RulesRunFlow, flow);
             var report = new ContentValidator(src).Validate();
-            Assert.That(report.ByRule(ValidationRules.Type).Any(i => i.Path == "strike.rarity"), Is.True, report.Summary(10));
-            Assert.That(report.ByRule(ValidationRules.Unknown).Any(i => i.Path == "strike.costt"), Is.True, report.Summary(10));
+            Assert.That(report.ByRule(ValidationRules.Type).Any(i => i.Path == "saveFormat"), Is.True, report.Summary(10));
+            Assert.That(report.ByRule(ValidationRules.Unknown).Any(i => i.Path == "saveFormatt"), Is.True, report.Summary(10));
         }
 
         [Test]
         public void UnknownEffectOpIsReported()
         {
             var src = Overlay();
-            var cards = src.Json(ContentFiles.CatalogCards);
+            var cards = src.Json(ContentFiles.ProfileBundleCards);
             cards["strike"]["effects"][0]["op"] = "teleport";
-            src.Set(ContentFiles.CatalogCards, cards);
+            src.Set(ContentFiles.ProfileBundleCards, cards);
             Assert.That(new ContentValidator(src).Validate().ByRule(ValidationRules.UnknownOp).Any(i => i.Message.Contains("teleport")), Is.True);
         }
 
         [Test]
-        public void MissingRequiredStringKeyIsReported()
+        public void MissingRequiredDisplayTextIsReported()
         {
             var src = Overlay();
-            var strings = src.Json(ContentFiles.StringsEn);
-            strings.Remove("card.strike.name");
-            src.Set(ContentFiles.StringsEn, strings);
-            Assert.That(new ContentValidator(src).Validate().ByRule(ValidationRules.String).Any(i => i.Path == "card.strike.name"), Is.True);
+            var cards = src.Json(ContentFiles.ProfileBundleCards);
+            ((JObject)cards["strike"]).Remove("name");
+            src.Set(ContentFiles.ProfileBundleCards, cards);
+            Assert.That(new ContentValidator(src).Validate().ByRule(ValidationRules.String).Any(i => i.File == ContentFiles.ProfileBundleCards && i.Path == "strike.name"), Is.True);
         }
 
         [Test]
-        public void ManaCardWithoutStaminaViolatesTheCostRule()
+        public void ARowRuleReportsTheRowAndFieldThatBreakIt()
         {
+            // The 405 cost rule left with the catalog (Core 2 cards do not keep it); the rule machinery is tested with one of its own.
             var src = Overlay();
-            var cards = src.Json(ContentFiles.CatalogCards);
-            var manaCard = cards.Properties().First(p => (int?)p.Value["manaCost"] > 0);
+            src.Set(ContentFiles.RulesValidation, JObject.Parse("{\"rowRules\":[{\"id\":\"manaImpliesStamina\",\"table\":\"profile/bundle/cards.json\",\"when\":{\"field\":\"manaCost\",\"gt\":0},\"require\":[{\"field\":\"staminaCost\",\"gte\":1}]}]}"));
+            var cards = src.Json(ContentFiles.ProfileBundleCards);
+            var manaCard = cards.Properties().First(p => (int?)p.Value["manaCost"] > 0 && (int?)p.Value["staminaCost"] >= 1);
             manaCard.Value["staminaCost"] = 0;
-            src.Set(ContentFiles.CatalogCards, cards);
-            var issue = new ContentValidator(src).Validate().ByRule(ValidationRules.Cost).Single();
-            Assert.That(issue.Path, Is.EqualTo(manaCard.Name + ".staminaCost"));
+            src.Set(ContentFiles.ProfileBundleCards, cards);
+            var issues = new ContentValidator(src).Validate().ByRule(ValidationRules.Cost).ToList();
+            Assert.That(issues.Any(i => i.File == ContentFiles.ProfileBundleCards && i.Path == manaCard.Name + ".staminaCost" && i.Message.Contains("manaImpliesStamina")), Is.True);
         }
 
         [Test]

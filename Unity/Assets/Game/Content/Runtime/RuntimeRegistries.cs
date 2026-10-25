@@ -256,15 +256,15 @@ namespace Ashen.Content
             new Ashen.Domain.Events.EventsData(core.Smith, DomainRegistry(RegistryKeys.Events), DomainRegistry(EventKeys.Speakers),
                 (JObject)_events[EventKeys.EventMeta].DeepClone(), (JObject)_events[EventKeys.ChoiceRequirements].DeepClone(), eventsEngine) { Core = core };
 
-        /// <summary>The event documents: profile/bundle/eventMeta.json and catalog/eventChoiceRequirements.json (empty objects when absent).</summary>
+        /// <summary>The event documents: profile/bundle/eventMeta.json and rules/eventChoiceRequirements.json (empty objects when absent).</summary>
         private static JObject EventDocuments(ContentSet content)
         {
-            // The profile bundle does not carry the per-choice history gates (content/events.js sidecar); the shared catalog file is the same document at the pinned web sha.
+            // The profile bundle does not carry the per-choice history gates (content/events.js sidecar); rules/eventChoiceRequirements.json is the same document at the pinned web sha.
             JObject Get(string file) => content.Contains(file) && content.Get(file) is JObject o ? (JObject)o.DeepClone() : new JObject();
             return new JObject
             {
                 [EventKeys.EventMeta] = Get(ContentFiles.ProfileBundleEventMeta),
-                [EventKeys.ChoiceRequirements] = Get(ContentFiles.CatalogEventChoiceRequirements),
+                [EventKeys.ChoiceRequirements] = Get(ContentFiles.RulesEventChoiceRequirements),
             };
         }
 

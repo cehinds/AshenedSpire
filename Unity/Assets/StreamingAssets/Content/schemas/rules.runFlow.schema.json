@@ -38,7 +38,7 @@
       "properties": {
         "defaultClass": {
           "type": "string",
-          "x-ref": "catalog/classes.json"
+          "x-ref": "profile/bundle/classes.json"
         },
         "defaultTint": {
           "type": "string"
@@ -77,7 +77,7 @@
         },
         "seat": {
           "type": "string",
-          "x-ref": "catalog/seats.json"
+          "x-ref": "profile/bundle/seats.json"
         }
       },
       "required": [

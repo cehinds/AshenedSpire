@@ -34,9 +34,8 @@ namespace Ashen.Tests
         public void ShippedPresetKeepsTheWebDefaults()
         {
             var snap = Layers().Build(new LayerSelection { PresetId = "shipped" });
-            Assert.That(Num(snap, ContentFiles.BalanceBalance, "startingCinders"), Is.EqualTo(0m));
-            Assert.That(Num(snap, ContentFiles.BalanceBalance, "combatRatings.ratings.ar.dexterity"), Is.EqualTo(0m));
-            Assert.That(Num(snap, ContentFiles.CatalogClasses, "reaver.startingFlaskAllocation.hp"), Is.EqualTo(3m));
+            Assert.That(Num(snap, ContentFiles.ProfileBundleBalance, "startingCinders"), Is.EqualTo(20m));
+            Assert.That(Num(snap, ContentFiles.ProfileBundleClasses, "reaver.startingFlaskAllocation.hp"), Is.EqualTo(2m));
             Assert.That(snap.Content.Select(ContentFiles.RulesHandRules, "openingWeighted"), Is.Null);
         }
 
@@ -54,11 +53,11 @@ namespace Ashen.Tests
         [Test]
         public void LaterPatchesWinAndNullDeletes()
         {
-            var ascension = JObject.Parse("{\"files\":{\"balance/balance.json\":{\"startingCinders\":7,\"flaskSlots\":null}}}");
-            var modifier = JObject.Parse("{\"files\":{\"balance/balance.json\":{\"startingCinders\":9}}}");
+            var ascension = JObject.Parse("{\"files\":{\"profile/bundle/balance.json\":{\"startingCinders\":7,\"flaskSlots\":null}}}");
+            var modifier = JObject.Parse("{\"files\":{\"profile/bundle/balance.json\":{\"startingCinders\":9}}}");
             var snap = Layers().Build(new LayerSelection { Patches = new[] { ascension, modifier } });
-            Assert.That(Num(snap, ContentFiles.BalanceBalance, "startingCinders"), Is.EqualTo(9m));
-            Assert.That(snap.Content.Select(ContentFiles.BalanceBalance, "flaskSlots"), Is.Null);
+            Assert.That(Num(snap, ContentFiles.ProfileBundleBalance, "startingCinders"), Is.EqualTo(9m));
+            Assert.That(snap.Content.Select(ContentFiles.ProfileBundleBalance, "flaskSlots"), Is.Null);
         }
 
         [Test]
@@ -71,7 +70,7 @@ namespace Ashen.Tests
         [Test]
         public void InvalidPatchIsCaughtBySchemaValidation()
         {
-            var bad = JObject.Parse("{\"files\":{\"catalog/cards.json\":{\"strike\":{\"rarity\":5}}}}");
+            var bad = JObject.Parse("{\"files\":{\"rules/runFlow.json\":{\"saveFormat\":\"two\"}}}");
             var report = new ValidationReport();
             Layers().Build(new LayerSelection { Patches = new[] { bad } }, report);
             Assert.That(report.ByRule(ValidationRules.Type), Is.Not.Empty);
@@ -82,7 +81,7 @@ namespace Ashen.Tests
         {
             var a = Layers().Build(new LayerSelection());
             var b = Layers().Build(new LayerSelection());
-            var patched = Layers().Build(new LayerSelection { Patches = new[] { JObject.Parse("{\"files\":{\"balance/balance.json\":{\"startingCinders\":7}}}") } });
+            var patched = Layers().Build(new LayerSelection { Patches = new[] { JObject.Parse("{\"files\":{\"profile/bundle/balance.json\":{\"startingCinders\":7}}}") } });
             Assert.That(a.Hash, Is.EqualTo(b.Hash));
             Assert.That(a.Hash, Is.Not.EqualTo(patched.Hash));
             Assert.That(a.Hash.Length, Is.EqualTo(64));
@@ -100,27 +99,27 @@ namespace Ashen.Tests
         public void SnapshotIsImmutable()
         {
             var snap = Layers().Build(new LayerSelection());
-            var balance = (JObject)snap.Content.Get(ContentFiles.BalanceBalance);
+            var balance = (JObject)snap.Content.Get(ContentFiles.ProfileBundleBalance);
             balance["startingCinders"] = 999;
-            Assert.That(Num(snap, ContentFiles.BalanceBalance, "startingCinders"), Is.EqualTo(0m));
+            Assert.That(Num(snap, ContentFiles.ProfileBundleBalance, "startingCinders"), Is.EqualTo(20m));
         }
 
         [Test]
         public void ModdingOverridesApplyOnlyWhenEnabled()
         {
-            var mods = new MemorySource().Add(ContentFiles.BalanceBalance, "{\"startingCinders\":5}");
+            var mods = new MemorySource().Add(ContentFiles.ProfileBundleBalance, "{\"startingCinders\":5}");
             var off = Layers().Build(new LayerSelection { Overrides = mods, ModdingEnabled = false });
             var on = Layers().Build(new LayerSelection { Overrides = mods, ModdingEnabled = true });
-            Assert.That(Num(off, ContentFiles.BalanceBalance, "startingCinders"), Is.EqualTo(0m));
-            Assert.That(Num(on, ContentFiles.BalanceBalance, "startingCinders"), Is.EqualTo(5m));
-            Assert.That(on.OverridesApplied, Is.EqualTo(new[] { ContentFiles.BalanceBalance }));
+            Assert.That(Num(off, ContentFiles.ProfileBundleBalance, "startingCinders"), Is.EqualTo(20m));
+            Assert.That(Num(on, ContentFiles.ProfileBundleBalance, "startingCinders"), Is.EqualTo(5m));
+            Assert.That(on.OverridesApplied, Is.EqualTo(new[] { ContentFiles.ProfileBundleBalance }));
         }
 
         [Test]
         public void OversizedOverrideIsRefused()
         {
             var big = "{\"note\":\"" + new string('x', ConfigLimits.MaxOverrideBytes) + "\"}";
-            var mods = new MemorySource().Add(ContentFiles.BalanceBalance, big);
+            var mods = new MemorySource().Add(ContentFiles.ProfileBundleBalance, big);
             Assert.Throws<System.ArgumentException>(() => Layers().Build(new LayerSelection { Overrides = mods, ModdingEnabled = true }));
         }
 

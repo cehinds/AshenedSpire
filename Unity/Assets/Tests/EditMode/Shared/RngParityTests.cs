@@ -115,7 +115,7 @@ namespace Ashen.Tests
         [Test]
         public void SeatCatalogAgreesWithTheOracleSeats()
         {
-            var catalog = TestContent.ContentJson(ContentFiles.CatalogSeats);
+            var catalog = TestContent.ContentJson(ContentFiles.ProfileBundleSeats);
             var oracle = TestContent.Oracle("seats.json");
             foreach (var s in oracle["seats"]) Assert.That((int)catalog[(string)s["id"]]["baseTier"], Is.EqualTo((int)s["baseTier"]));
         }

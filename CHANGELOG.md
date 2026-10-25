@@ -2,6 +2,10 @@
 
 Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` — see [docs/design/10-BRANCHING-VERSIONING-CI.md](docs/design/10-BRANCHING-VERSIONING-CI.md).
 
+## [0.1.37.21] — 2026-10-25
+
+- WP-21: the 405 content retired; the app reads Core 2 data only (D-1304)
+
 ## [0.1.37.20] — 2026-10-25
 
 - The 405 run retired: Core 2 is the only ruleset; reference preset and web tuning import removed (WP-21)

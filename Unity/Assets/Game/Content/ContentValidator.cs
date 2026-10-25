@@ -101,19 +101,19 @@ namespace Ashen.Content
                 for (var i = 0; i < arr.Count; i++) CheckOps(file, path + ContentLayout.SchemaNameSeparator + i.ToString(CultureInfo.InvariantCulture), arr[i], inContainer);
         }
 
+        /// <summary>Every row of a table rules/stringKeys.json names carries its required display text inline (the field that becomes each required string).</summary>
         private void CheckStrings()
         {
-            if (!(Load(RuleKeys.StringsFile) is JObject strings) || !(Load(RuleKeys.StringKeysFile) is JObject spec)) return;
+            if (!(Load(RuleKeys.StringKeysFile) is JObject spec)) return;
             foreach (var table in spec.Properties())
             {
-                var prefix = (string)table.Value[RuleKeys.Prefix];
-                var required = (table.Value[RuleKeys.Required] as JArray)?.Select(t => (string)t).ToList() ?? new List<string>();
-                foreach (var key in KeysOf(table.Name).OrderBy(k => k, StringComparer.Ordinal))
-                    foreach (var name in required)
-                    {
-                        var stringKey = prefix + ContentLayout.SchemaNameSeparator + key + ContentLayout.SchemaNameSeparator + name;
-                        if (strings[stringKey] == null) Report(RuleKeys.StringsFile, stringKey, ValidationRules.String, ValidationMessages.String, stringKey);
-                    }
+                if (!(Load(table.Name) is JObject rows)) continue;
+                var required = new HashSet<string>((table.Value[RuleKeys.Required] as JArray)?.Select(t => (string)t) ?? Enumerable.Empty<string>(), StringComparer.Ordinal);
+                var fields = (table.Value[RegistryKeys.StringKeyFields] as JObject)?.Properties().Where(f => required.Contains((string)f.Value)).Select(f => f.Name).ToList() ?? new List<string>();
+                foreach (var row in rows.Properties().OrderBy(r => r.Name, StringComparer.Ordinal))
+                    foreach (var field in fields)
+                        if (!(row.Value[field] is JValue text && text.Type == JTokenType.String))
+                            Report(table.Name, row.Name + ContentLayout.SchemaNameSeparator + field, ValidationRules.String, ValidationMessages.String, row.Name + ContentLayout.SchemaNameSeparator + field);
             }
         }
 

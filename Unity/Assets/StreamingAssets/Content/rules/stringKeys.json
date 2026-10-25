@@ -1,19 +1,20 @@
 {
-  "catalog/cards.json": {
+  "profile/bundle/cards.json": {
     "prefix": "card",
     "required": [
       "name",
-      "flavor",
       "text"
     ],
-    "optional": [],
+    "optional": [
+      "flavor"
+    ],
     "fields": {
       "name": "name",
       "flavor": "flavor",
       "textTemplate": "text"
     }
   },
-  "catalog/relics.json": {
+  "profile/bundle/relics.json": {
     "prefix": "relic",
     "required": [
       "name",
@@ -28,7 +29,7 @@
       "textTemplate": "text"
     }
   },
-  "catalog/statuses.json": {
+  "profile/bundle/statuses.json": {
     "prefix": "status",
     "required": [
       "name",
@@ -40,7 +41,7 @@
       "tooltip": "tooltip"
     }
   },
-  "catalog/stances.json": {
+  "profile/bundle/stances.json": {
     "prefix": "stance",
     "required": [
       "name",
@@ -52,7 +53,7 @@
       "tooltip": "tooltip"
     }
   },
-  "catalog/resources.json": {
+  "profile/bundle/resources.json": {
     "prefix": "resource",
     "required": [
       "name"
@@ -62,7 +63,7 @@
       "name": "name"
     }
   },
-  "catalog/keywords.json": {
+  "profile/bundle/keywords.json": {
     "prefix": "keyword",
     "required": [
       "name",
@@ -74,7 +75,7 @@
       "tooltip": "tooltip"
     }
   },
-  "catalog/enemies.json": {
+  "profile/bundle/enemies.json": {
     "prefix": "enemy",
     "required": [
       "name"
@@ -84,7 +85,7 @@
       "name": "name"
     }
   },
-  "catalog/seats.json": {
+  "profile/bundle/seats.json": {
     "prefix": "seat",
     "required": [
       "name"
@@ -94,7 +95,7 @@
       "name": "name"
     }
   },
-  "catalog/events.json": {
+  "profile/bundle/events.json": {
     "prefix": "event",
     "required": [
       "name",
@@ -106,7 +107,7 @@
       "text": "text"
     }
   },
-  "catalog/speakers.json": {
+  "profile/bundle/speakers.json": {
     "prefix": "speaker",
     "required": [
       "name"
@@ -116,7 +117,7 @@
       "name": "name"
     }
   },
-  "catalog/atlasQuests.json": {
+  "profile/bundle/atlasQuests.json": {
     "prefix": "quest",
     "required": [
       "name",
@@ -128,7 +129,7 @@
       "description": "description"
     }
   },
-  "catalog/flasks.json": {
+  "profile/bundle/flasks.json": {
     "prefix": "flask",
     "required": [
       "name",
@@ -140,7 +141,7 @@
       "textTemplate": "text"
     }
   },
-  "catalog/classes.json": {
+  "profile/bundle/classes.json": {
     "prefix": "class",
     "required": [
       "name",
@@ -152,7 +153,7 @@
       "description": "description"
     }
   },
-  "catalog/unlocks.json": {
+  "profile/bundle/unlocks.json": {
     "prefix": "unlock",
     "required": [
       "name",
@@ -164,7 +165,7 @@
       "hint": "hint"
     }
   },
-  "catalog/attributes.json": {
+  "profile/bundle/attributes.json": {
     "prefix": "attribute",
     "required": [
       "label",
@@ -176,7 +177,7 @@
       "shortLabel": "short"
     }
   },
-  "catalog/creationModes.json": {
+  "profile/bundle/creationModes.json": {
     "prefix": "creationMode",
     "required": [
       "label"
@@ -186,7 +187,7 @@
       "label": "label"
     }
   },
-  "catalog/armaments.json": {
+  "profile/bundle/armaments.json": {
     "prefix": "armament",
     "required": [
       "name"
@@ -196,7 +197,7 @@
       "name": "name"
     }
   },
-  "catalog/armour.json": {
+  "profile/bundle/armour.json": {
     "prefix": "armour",
     "required": [
       "name",
@@ -208,7 +209,7 @@
       "blurb": "blurb"
     }
   },
-  "catalog/startingKits.json": {
+  "profile/bundle/startingKits.json": {
     "prefix": "kit",
     "required": [
       "label"

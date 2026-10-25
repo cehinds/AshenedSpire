@@ -43,7 +43,7 @@ namespace Ashen.App.Ui
                 Tokens = new UiTokens(Read(ContentFiles.UiTokens)),
                 Components = ComponentDefaults.From(Read(ContentFiles.UiComponents)),
                 Policies = ConfirmPolicies.From(Read(ContentFiles.UiConfirmationPolicies)),
-                Strings = new StringTable(Read(ContentFiles.StringsEn), Read(ContentFiles.StringsCombatEn), Read(ContentFiles.StringsAppEn), Read(ContentFiles.StringsShopEn), Read(ContentFiles.StringsEventsEn), Read(ContentFiles.StringsNodesEn), Read(ContentFiles.StringsMetaEn)),
+                Strings = new StringTable(ProfileStrings(Read), Read(ContentFiles.StringsEn), Read(ContentFiles.StringsCombatEn), Read(ContentFiles.StringsAppEn), Read(ContentFiles.StringsShopEn), Read(ContentFiles.StringsEventsEn), Read(ContentFiles.StringsNodesEn), Read(ContentFiles.StringsMetaEn)),
                 About = Read(ContentFiles.About),
                 Nodes = Ashen.App.Nodes.NodeRules.From(Read(ContentFiles.UiNodes)),
                 Meta = Read(ContentFiles.UiMeta),
@@ -51,6 +51,26 @@ namespace Ashen.App.Ui
                 CardFace = new CardFaceLookup(CardFaceConfig.From(Read(ContentFiles.UiCardface)), art),
                 Feedback = FeedbackDefs.From(Read(ContentFiles.UiFeedback)),
             };
+        }
+
+        /// <summary>
+        /// The display text of the Core 2 profile's rows as string keys (<c>&lt;prefix&gt;.&lt;row key&gt;.&lt;name&gt;</c>): rules/stringKeys.json names, per profile/bundle
+        /// table, the prefix and which row field becomes which string (class names, attribute labels, unlock hints, ...). The rows keep their text inline (WP-21), so
+        /// the string files layered over this table can still override a name.
+        /// </summary>
+        private static JObject ProfileStrings(System.Func<string, JObject> read)
+        {
+            var strings = new JObject();
+            foreach (var table in read(RuleKeys.StringKeysFile).Properties())
+            {
+                var prefix = (string)table.Value[RuleKeys.Prefix];
+                if (!(table.Value[RegistryKeys.StringKeyFields] is JObject fields) || !(read(table.Name) is JObject rows)) continue;
+                foreach (var row in rows.Properties())
+                    foreach (var field in fields.Properties())
+                        if (row.Value[field.Name] is JValue text && text.Type == JTokenType.String)
+                            strings[string.Join(ContentLayout.SchemaNameSeparator, prefix, row.Name, (string)field.Value)] = text.DeepClone();
+            }
+            return strings;
         }
 
         /// <summary>The menu context for the title (US-1.3): valid slots from the save service, built screens from the registry.</summary>

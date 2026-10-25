@@ -1,5 +1,5 @@
 {
-  "$id": "catalog/eventChoiceRequirements.json",
+  "$id": "rules/eventChoiceRequirements.json",
   "type": "object",
   "additionalProperties": {
     "type": "array",

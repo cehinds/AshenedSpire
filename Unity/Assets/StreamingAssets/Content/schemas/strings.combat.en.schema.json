@@ -181,6 +181,12 @@
     },
     "combat.log.combatEnd": {
       "type": "string"
+    },
+    "resource.stamina.name": {
+      "type": "string"
+    },
+    "resource.ward.name": {
+      "type": "string"
     }
   },
   "required": [
@@ -243,6 +249,8 @@
     "combat.log.combatReactionOffered",
     "combat.log.combatReactionChosen",
     "combat.log.intentPredictionAccepted",
-    "combat.log.combatEnd"
+    "combat.log.combatEnd",
+    "resource.stamina.name",
+    "resource.ward.name"
   ]
 }

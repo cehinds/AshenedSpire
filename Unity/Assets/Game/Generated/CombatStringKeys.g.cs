@@ -64,5 +64,7 @@ namespace Ashen.Generated
         public const string CombatRefusalStamina = "combat.refusal.stamina";
         public const string CombatRefusalSwapEnergy = "combat.refusal.swapEnergy";
         public const string CombatRefusalUnplayable = "combat.refusal.unplayable";
+        public const string ResourceStaminaName = "resource.stamina.name";
+        public const string ResourceWardName = "resource.ward.name";
     }
 }
