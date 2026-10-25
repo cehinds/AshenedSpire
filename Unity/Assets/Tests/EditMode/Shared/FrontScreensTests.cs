@@ -229,7 +229,7 @@ namespace Ashen.Tests
             Assert.That(combat.Rows.Select(r => r.Key), Is.EqualTo(new[]
             {
                 SettingIds.AutoCombat, SettingIds.CombatSpeed, SettingIds.AutoCombatSpeed, SettingIds.CombatStepPause, SettingIds.AnimationStepDuration,
-                SettingIds.CombatPacingPreset, SettingIds.AnimSpeed, SettingIds.ScreenShake, SettingIds.ShowPlayedCard,
+                SettingIds.CombatPacingPreset, SettingIds.AnimSpeed, SettingIds.PerformanceMode, SettingIds.ScreenShake, SettingIds.ShowPlayedCard,
             }));
             var audio = settings.Page(Ui, Layout, Query("general", "audio"));
             Assert.That(audio.Rows.Select(r => r.Key), Is.EqualTo(new[] { SettingIds.MusicEnabled, SettingIds.MuteAudio, SettingIds.MusicVolume, SettingIds.SfxVolume }));
@@ -271,7 +271,7 @@ namespace Ashen.Tests
         public void ATabSaysHowManySettingsItHoldsAndTheFirstThreeNames()
         {
             var page = Settings().Page(Ui, Layout, Query());
-            Assert.That(page.Tabs[0].Tip, Does.StartWith("26 settings — Fullscreen, Accent color, View mode…"));
+            Assert.That(page.Tabs[0].Tip, Does.StartWith("27 settings — Fullscreen, Accent color, View mode…"));
             Assert.That(page.Tabs[1].Tip, Does.StartWith("9 settings — Hover explanations, Explanation delay, Explanation close delay…"));
             Assert.That(page.Tabs[2].Tip, Is.EqualTo("Map, HUD and card appearance, lore text, the changelog and About."), "the release sentence");
             Assert.That(Settings().Page(Ui, Layout, Query(dev: true)).Tabs[2].Tip, Is.EqualTo("Optional gameplay rules, tuning, diagnostics, sync, and the changelog."));

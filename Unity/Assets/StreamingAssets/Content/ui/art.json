@@ -9,7 +9,8 @@
     { "id": "enemies", "resource": "UI/UiEnemyArtCatalog", "include": ["exp."] },
     { "id": "lite", "resource": "UI/UiLiteArtCatalog", "include": ["lite."] },
     { "id": "glowstage", "resource": "UI/UiGlowStageArtCatalog", "include": ["glow.alt.", "glow.sweep.", "glow.hurt."] },
-    { "id": "glowenemy", "resource": "UI/UiGlowEnemyArtCatalog", "include": ["glow.exp."] }
+    { "id": "glowenemy", "resource": "UI/UiGlowEnemyArtCatalog", "include": ["glow.exp."] },
+    { "id": "outfit", "resource": "UI/UiOutfitArtCatalog", "include": ["outfit.", "anim."] }
   ],
   "lookup": {
     "icon": "icon.{name}",

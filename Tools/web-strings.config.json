@@ -566,6 +566,7 @@
   "transfer.note": "lit:ui/components/offlinePlay.js:149"
  },
  "unchecked": [
+    "core2.end.saveFailed",
   "about.build",
   "about.provenance",
   "about.runPath",

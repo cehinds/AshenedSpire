@@ -205,7 +205,7 @@ namespace Ashen.Tests
             Assert.That(pacing.AutoSpeed, Is.EqualTo(1.5), "FIXCORE D11: auto combat runs at x1.5");
             Assert.That(pacing.StageGapMs, Is.EqualTo(500), "the web dev build's pause between steps (actionPacing.motion.stageGapMs)");
             Assert.That(pacing.AnimationStepMs, Is.EqualTo(390));
-            Assert.That(pacing.AnimSpeed, Is.EqualTo("auto"));
+            Assert.That(pacing.AnimSpeed, Is.EqualTo("normal"), "the default Auto pacing resolves to Normal at full rendering quality (resolveCombatPacing, D-1590)");
             Assert.That(pacing.OneTapPlay, Is.False, "one-tap play is an opt-in");
             Assert.That(pacing.AskToUpcastAfterTarget, Is.False);
             Assert.That(pacing.ScreenShake, Is.True);

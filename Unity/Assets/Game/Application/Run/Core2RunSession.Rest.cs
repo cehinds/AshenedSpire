@@ -89,10 +89,20 @@ namespace Ashen.App.Run
         public Core2RestResult LeaveRest()
         {
             if (!IsResting) return new Core2RestResult { Refusal = RM.NoRestOpen };
-            Core2Rest.MarkLeft(_run);
-            _resting = false;
-            _location = Ashen.Generated.RunFlowValues.LocationMap;
-            Save();
+            // A save that throws puts the site back open, so the screen's Retry leaves again.
+            var snapshot = Snapshot();
+            try
+            {
+                Core2Rest.MarkLeft(_run);
+                _resting = false;
+                _location = Ashen.Generated.RunFlowValues.LocationMap;
+                Save();
+            }
+            catch
+            {
+                Restore(snapshot);
+                throw;
+            }
             return new Core2RestResult();
         }
     }

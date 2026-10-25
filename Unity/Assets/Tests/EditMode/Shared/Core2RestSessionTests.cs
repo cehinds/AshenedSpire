@@ -66,6 +66,20 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void ARestLeaveWhoseSaveFailsKeepsTheSiteOpenForTheRetry()
+        {
+            var session = AtTheRest(2024);
+            // The save's temp file is a directory: the write fails, as a full or read-only disk would.
+            var blocker = Path.Combine(_dir, session.Slot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            Assert.That(() => session.LeaveRest(), Throws.Exception);
+            Assert.That(session.IsResting, Is.True, "the failed leave keeps the door open");
+            Directory.Delete(blocker);
+            Assert.That(session.LeaveRest().Done, Is.True, "the retry leaves once the disk takes writes");
+            Assert.That(session.Location, Is.EqualTo("map"));
+        }
+
+        [Test]
         public void AnArrivalWhoseSaveFailsLeavesTheRunOnTheMap()
         {
             var session = Core2RunSession.New(Content, _saves, 1, 2024u, "reaver", "Aldric", () => Epoch);

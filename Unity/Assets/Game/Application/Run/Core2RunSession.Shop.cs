@@ -73,9 +73,19 @@ namespace Ashen.App.Run
         public Core2ShopResult LeaveShop()
         {
             if (!HasOpenShop) return new Core2ShopResult { Refusal = SM.NoShopOpen };
-            Core2Shop.Leave(_run);
-            _location = Ashen.Generated.RunFlowValues.LocationMap;
-            Save();
+            // A save that throws puts the shop back open, so the screen's Retry leaves again.
+            var snapshot = Snapshot();
+            try
+            {
+                Core2Shop.Leave(_run);
+                _location = Ashen.Generated.RunFlowValues.LocationMap;
+                Save();
+            }
+            catch
+            {
+                Restore(snapshot);
+                throw;
+            }
             return new Core2ShopResult();
         }
     }

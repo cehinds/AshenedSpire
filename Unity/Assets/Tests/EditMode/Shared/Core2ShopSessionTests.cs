@@ -57,6 +57,20 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void AShopLeaveWhoseSaveFailsKeepsTheShopOpenForTheRetry()
+        {
+            var session = AtTheShop(2024);
+            // The save's temp file is a directory: the write fails, as a full or read-only disk would.
+            var blocker = Path.Combine(_dir, session.Slot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            Assert.That(() => session.LeaveShop(), Throws.Exception);
+            Assert.That(session.HasOpenShop, Is.True, "the failed leave keeps the door open");
+            Directory.Delete(blocker);
+            Assert.That(session.LeaveShop().Done, Is.True, "the retry leaves once the disk takes writes");
+            Assert.That(session.Location, Is.EqualTo("map"));
+        }
+
+        [Test]
         public void AMerchantNodeOpensAStockOfThreeOfEachKindAtTenCinders()
         {
             var session = AtTheShop(2024);
