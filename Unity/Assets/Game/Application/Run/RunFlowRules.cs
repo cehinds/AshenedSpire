@@ -46,6 +46,9 @@ namespace Ashen.App.Run
         /// <summary>newRun.prologue: shouldPlayPrologue (false while the prologue screen is planned).</summary>
         public bool Prologue;
 
+        /// <summary>newRun.opening: a New Game plays the opening (W-05) before the climb's first step. It is the screen's, not the run's: the run itself stays headless (bots, tests); the 405 run's own prologue row is <see cref="Prologue"/>.</summary>
+        public bool Opening;
+
         /// <summary>newRun.ruleset: the ruleset a New Game starts, 'legacy' (the 405 <see cref="RunSession"/>) or 'core2' (<see cref="Core2RunSession"/>); see <see cref="RunHost"/>.</summary>
         public string NewRunRuleset;
 
@@ -90,6 +93,7 @@ namespace Ashen.App.Run
                 Customization = newRun[RunFlowKeys.Customization] as JObject ?? new JObject(),
                 AdvancedConfigSnapshot = newRun[RunFlowKeys.AdvancedConfigSnapshot] as JObject ?? new JObject(),
                 Prologue = newRun[RunFlowKeys.Prologue]?.Type == JTokenType.Boolean && (bool)newRun[RunFlowKeys.Prologue],
+                Opening = newRun[RunFlowKeys.Opening]?.Type == JTokenType.Boolean && (bool)newRun[RunFlowKeys.Opening],
                 NewRunRuleset = (string)newRun[RunFlowKeys.Ruleset] ?? RunFlowValues.RulesetLegacy,
                 MultiUse = FlowSetting.From(settings[RunFlowKeys.MultiUse]),
                 ShopSell = FlowSetting.From(settings[RunFlowKeys.ShopSell]),

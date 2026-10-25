@@ -95,6 +95,9 @@ namespace Ashen.Presentation.UI.Screens
             context.Navigator.Go(id, args, true);
         }
 
+        /// <summary>False keeps a New Game from playing the opening (W-05) before the map (the PlayMode smokes pin it); null follows the data and the player's setting.</summary>
+        public static bool? OpeningOverride;
+
         /// <summary>A fixed seed for new climbs (the PlayMode smoke pins its runs); null draws a fresh one.</summary>
         public static uint? SeedOverride;
 

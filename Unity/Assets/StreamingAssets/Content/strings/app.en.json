@@ -701,6 +701,7 @@
   "pause.seed": "Seed {seed}",
   "pause.settings": "Settings",
   "pause.title": "Paused",
+  "prologue.settings": "Settings",
   "recovery.body": "Your profile file is damaged. Starting fresh sets the damaged file aside; nothing is deleted.",
   "recovery.fresh": "Start fresh",
   "recovery.mirror": "A verified copy can be restored.",

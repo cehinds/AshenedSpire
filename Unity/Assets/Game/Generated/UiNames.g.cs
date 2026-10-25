@@ -432,5 +432,18 @@ namespace Ashen.Generated
         public const string SeedField = "SEED_FIELD";
         public const string ReviewBody = "REVIEW_BODY";
         public const string ClassScroll = "CLASS_SCROLL";
+        public const string PrologueStage = "PROLOGUE_STAGE";
+        public const string PrologueArt = "PROLOGUE_ART";
+        public const string PrologueItem = "PROLOGUE_ITEM";
+        public const string PrologueCaption = "PROLOGUE_CAPTION";
+        public const string PrologueTitle = "PROLOGUE_TITLE";
+        public const string PrologueSpeaker = "PROLOGUE_SPEAKER";
+        public const string PrologueLine = "PROLOGUE_LINE";
+        public const string PrologueBar = "PROLOGUE_BAR";
+        public const string PrologueProgress = "PROLOGUE_PROGRESS";
+        public const string ProloguePause = "PROLOGUE_PAUSE";
+        public const string PrologueSettings = "PROLOGUE_SETTINGS";
+        public const string PrologueSkip = "PROLOGUE_SKIP";
+        public const string PrologueContinue = "PROLOGUE_CONTINUE";
     }
 }

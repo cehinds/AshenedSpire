@@ -60,7 +60,8 @@
         "Steps": "steps",
         "Ref": "ref",
         "Ruleset": "ruleset",
-        "Core2Screens": "core2Screens"
+        "Core2Screens": "core2Screens",
+        "Opening": "opening"
       }
     },
     {

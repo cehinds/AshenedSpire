@@ -397,3 +397,104 @@
 .layout-narrow .review-piece {
     width: var(--size-review-piece-w);
 }
+
+/* ---- W-05 opening (D-1004): the caption layout of ui/prologue.json over the web's prologue screen (src/ui/screens/prologue.js; docs/qa/web-screens/flow-07, prologue-1, prologue-2) ---- */
+
+.prologue-page {
+    flex-direction: column;
+    background-color: var(--color-bg);
+}
+
+.prologue-stage {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.prologue-art {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    -unity-background-scale-mode: scale-and-crop;
+    transition-property: opacity;
+    transition-duration: var(--duration-prologue-fade);
+}
+
+.prologue-art--in {
+    opacity: 1;
+}
+
+.prologue-item {
+    position: absolute;
+    left: var(--space-xl);
+    bottom: var(--space-lg);
+    height: var(--size-prologue-item-h);
+    width: var(--size-prologue-item-h);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.prologue-caption {
+    height: var(--size-prologue-caption-h);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-sm) var(--space-xl);
+    background-color: var(--color-prologue-caption);
+}
+
+.prologue-title {
+    font-size: var(--font-prologue-title);
+    letter-spacing: var(--size-track-title);
+    color: var(--color-gold);
+}
+
+.prologue-speaker {
+    margin-top: var(--space-xxs);
+    font-size: var(--font-prologue-speaker);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.prologue-line {
+    margin-top: var(--space-xs);
+    font-size: var(--font-prologue-line);
+    color: var(--color-parchment);
+    white-space: normal;
+    -unity-text-align: upper-center;
+}
+
+.prologue-bar {
+    height: var(--size-prologue-bar-h);
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-prologue-bar);
+    border-top-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.prologue-progress {
+    margin-right: var(--space-sm);
+    font-size: var(--font-prologue-progress);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-muted);
+}
+
+.prologue-button {
+    min-width: var(--size-prologue-button-min-w);
+    margin: 0 var(--space-xs);
+}
+
+.layout-narrow .prologue-bar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: var(--space-xs);
+}
+
+.layout-narrow .prologue-caption {
+    height: auto;
+    min-height: var(--size-prologue-caption-h);
+}

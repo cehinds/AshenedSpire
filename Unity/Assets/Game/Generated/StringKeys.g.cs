@@ -706,6 +706,7 @@ namespace Ashen.Generated
         public const string PauseSeed = "pause.seed";
         public const string PauseSettings = "pause.settings";
         public const string PauseTitle = "pause.title";
+        public const string PrologueSettings = "prologue.settings";
         public const string RecoveryBody = "recovery.body";
         public const string RecoveryFresh = "recovery.fresh";
         public const string RecoveryMirror = "recovery.mirror";

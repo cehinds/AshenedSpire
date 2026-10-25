@@ -35,6 +35,10 @@ namespace Ashen.App.Run
         public bool Banner;
         public JObject Stage;
         public JObject Presentation;
+
+        /// <summary>The scene's name ("Remembered warmth") and who speaks ("Hamlet witness"), or empty.</summary>
+        public string Title;
+        public string Speaker;
     }
 
     /// <summary>
@@ -53,14 +57,7 @@ namespace Ashen.App.Run
         public bool ProloguePending => !RunOver && PrologueRow?.Str(PK.Status) == PV.Pending && CurrentPrologueSlot() >= 0;
 
         /// <summary>The slots in order, and whether each plays for this class.</summary>
-        private List<KeyValuePair<JObject, bool>> PrologueSlots()
-        {
-            var classId = ClassId;
-            return Js.Items(PrologueDoc[PK.Scenes]).OfType<JObject>()
-                .OrderBy(s => Js.Or0(s[PK.Order]))
-                .Select(s => new KeyValuePair<JObject, bool>(s, s.Is(PK.Enabled) && Art(s, PK.Wide, PK.WideFallback, classId) != null))
-                .ToList();
-        }
+        private List<KeyValuePair<JObject, bool>> PrologueSlots() => PrologueScenes.Slots(PrologueDoc, ClassId, Content.HasAsset);
 
         /// <summary>The slot index the run stands at: the saved one, or the next playable after it (-1: none left).</summary>
         private int CurrentPrologueSlot()
@@ -110,51 +107,25 @@ namespace Ashen.App.Run
         public PrologueViewState PrologueView(UiData ui)
         {
             if (!ProloguePending) return null;
-            var strings = ui.Strings;
-            var slots = PrologueSlots();
-            var at = CurrentPrologueSlot();
-            var scene = slots[at].Key;
-            var playable = slots.Select((s, i) => new { s, i }).Where(x => x.s.Value).Select(x => x.i).ToList();
-            var position = playable.IndexOf(at);
-            var isLast = position == playable.Count - 1;
-            var classId = ClassId;
-            var lineKey = Templated(scene.Str(PK.LineKey), classId);
-            if (lineKey == null || !strings.Has(lineKey)) lineKey = scene.Str(PK.LineFallbackKey) ?? scene.Str(PK.LineKey);
-            var item = Templated(scene.Str(PK.Item), classId);
-            var view = new PrologueViewState
-            {
-                SceneId = scene.Str(PK.Id),
-                ArtWide = Art(scene, PK.Wide, PK.WideFallback, classId),
-                ArtNarrow = Art(scene, PK.Narrow, PK.NarrowFallback, classId) ?? Art(scene, PK.Wide, PK.WideFallback, classId),
-                Item = item != null && Content.HasAsset(item) ? item : null,
-                Line = lineKey != null ? strings.Get(lineKey) : string.Empty,
-                IsLast = isLast,
-                Continue = strings.Get(isLast ? S.PrologueSetForth : S.PrologueContinue),
-                Skip = strings.Get(S.PrologueSkip),
-                Pause = strings.Get(S.ProloguePause),
-                Progress = strings.Format(S.PrologueProgress, new StringArgs().Add(MetaPlaceholders.N, position + 1).Add(MetaPlaceholders.Count, playable.Count)),
-                HoldMs = Js.Or0(scene[PK.HoldMs]),
-                Music = scene.Str(PK.Music),
-                Banner = scene.Is(PK.Banner),
-                Stage = scene.Obj(PK.Stage)?.DeepClone() as JObject ?? new JObject(),
-                Presentation = PrologueDoc.Obj(PK.Presentation)?.DeepClone() as JObject ?? new JObject(),
-            };
-            for (var i = 0; i < playable.Count; i++) view.Dots.Add(i <= position);
-            return view;
+            return PrologueScenes.View(ui, PrologueDoc, ClassId, Name, Content.HasAsset, PrologueSlots(), CurrentPrologueSlot());
         }
 
-        /// <summary>The art id for a layout: the class's own when the registry has it, else the fallback; null when neither resolves.</summary>
-        private string Art(JObject scene, string key, string fallbackKey, string classId)
+        /// <summary>The opening as the screen drives it (the saved prologue row).</summary>
+        public IPrologue Opening => new SavedOpening(this);
+
+        private sealed class SavedOpening : IPrologue
         {
-            var art = scene.Obj(PK.Art);
-            if (art == null) return null;
-            var own = Templated(art.Str(key), classId);
-            if (own != null && Content.HasAsset(own)) return own;
-            var fallback = art.Str(fallbackKey);
-            return fallback != null && Content.HasAsset(fallback) ? fallback : null;
-        }
+            private readonly RunSession _session;
 
-        private static string Templated(string text, string classId) =>
-            text?.Replace(PV.ClassToken, classId ?? string.Empty);
+            public SavedOpening(RunSession session) => _session = session;
+
+            public bool Pending => _session.ProloguePending;
+
+            public PrologueViewState View(UiData ui) => _session.PrologueView(ui);
+
+            public void Advance() => _session.AdvancePrologue();
+
+            public void Skip() => _session.SkipPrologue();
+        }
     }
 }

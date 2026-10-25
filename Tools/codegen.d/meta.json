@@ -143,7 +143,8 @@
         "ScreenShake": "screenShake",
         "OneTapPlay": "oneTapPlay",
         "ReduceFlashes": "reduceFlashes",
-        "ShowPlayedCard": "showPlayedCard"
+        "ShowPlayedCard": "showPlayedCard",
+        "OpeningAutoAdvance": "openingAutoAdvance"
       }
     },
     {
@@ -194,7 +195,11 @@
         "ShowSkip": "showSkip",
         "AdvanceOnClick": "advanceOnClick",
         "Status": "status",
-        "Scene": "scene"
+        "Scene": "scene",
+        "TitleKeyFormat": "prologue.{0}.title",
+        "SpeakerKeyFormat": "prologue.{0}.speaker",
+        "RevealCharsPerSecond": "revealCharsPerSecond",
+        "Reveal": "reveal"
       }
     },
     {
@@ -204,7 +209,8 @@
         "Pending": "pending",
         "Done": "done",
         "Skipped": "skipped",
-        "ClassToken": "{class}"
+        "ClassToken": "{class}",
+        "RevealTypewriter": "typewriter"
       }
     },
     {

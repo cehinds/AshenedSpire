@@ -42,6 +42,7 @@ namespace Ashen.Tests.Play
             AshenBoot.SaveDirectoryOverride = _saves;
             RunFlow.SeedOverride = 20261024u;
             RunFlow.RulesetOverride = null;
+            RunFlow.OpeningOverride = false;
             TitleScreen.ResetSession();
             _background = InputSystem.settings.backgroundBehavior;
             _editorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
@@ -61,6 +62,7 @@ namespace Ashen.Tests.Play
             AshenBoot.SaveDirectoryOverride = null;
             RunFlow.SeedOverride = null;
             RunFlow.RulesetOverride = null;
+            RunFlow.OpeningOverride = null;
             if (Directory.Exists(_saves)) Directory.Delete(_saves, true);
         }
 
@@ -143,6 +145,8 @@ namespace Ashen.Tests.Play
             Assert.That(creation.Classes.ToList(), Is.EqualTo(content.Core2.ClassIds.ToList()), "W-04 offers the Core 2 profile's classes");
             var begin = Nav.Top.Root.Q(UiNames.FooterPrimary);
             yield return PressUntil(Key.DownArrow, () => Focused == begin, 8, "focus on Begin");
+            yield return Press(Key.Enter); // Next: the Class pane opens Review
+            yield return Until(() => ((CreationScreen)Nav.Top.View).ViewModel.Pane == FrontValues.PaneReview, 5f, "the Review pane");
             yield return Press(Key.Enter);
             yield return Until(() => Nav.CurrentId == ScreenIds.ActMap && Focused != null, 20f, "the Core 2 act map after Begin");
         }

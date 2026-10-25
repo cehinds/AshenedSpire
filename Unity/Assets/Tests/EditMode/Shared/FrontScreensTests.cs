@@ -118,5 +118,69 @@ namespace Ashen.Tests
             Assert.That(Content.Seeds.Parse(text), Is.EqualTo(90210u));
             Assert.That(Content.Seeds.Problem("not a seed!"), Is.Not.Null, "punctuation is not part of the vocabulary");
         }
+
+        // ------------------------------------------------------------------ the opening (W-05)
+
+        private Ashen.App.Settings.SettingsSession Settings() => new Ashen.App.Settings.SettingsSession(Content, ProfileStore.Load(_saves));
+
+        [Test]
+        public void ANewCoreClimbPlaysTheFiveScenesOfTheOpeningAndEndsOnSetForth()
+        {
+            var flow = PrologueFlow.For(Content, Settings(), "reaver", "Aldric");
+            Assert.That(flow, Is.Not.Null, "the data and the setting turn the opening on");
+            var seen = new System.Collections.Generic.List<PrologueViewState>();
+            while (flow.Pending)
+            {
+                seen.Add(flow.View(Ui));
+                flow.Advance();
+            }
+            Assert.That(seen.Select(v => v.SceneId), Is.EqualTo(new[] { "warmth", "year", "carry", "night", "step" }));
+            Assert.That(seen.Select(v => v.IsLast), Is.EqualTo(new[] { false, false, false, false, true }));
+            Assert.That(seen.Select(v => v.Progress), Is.EqualTo(new[] { "1 / 5", "2 / 5", "3 / 5", "4 / 5", "5 / 5" }));
+            Assert.That(seen[0].Title, Is.EqualTo("Remembered warmth"));
+            Assert.That(seen[0].Speaker, Is.EqualTo("Hamlet witness"));
+            Assert.That(seen[0].Line, Is.EqualTo("Three hearths once kept the roads warm.\nWe lived beyond their walls."));
+            Assert.That(seen[2].ArtWide, Is.EqualTo("prologue.carry-reaver-desktop"), "the class's own painting");
+            Assert.That(seen[2].Speaker, Is.EqualTo("Reaver"), "the carry scene is spoken by the class");
+            Assert.That(seen[2].Line, Does.Contain("Fell Courtyard"), "and says the class's line");
+            Assert.That(seen[4].Speaker, Is.EqualTo("Aldric"), "the first step is the character's");
+            Assert.That(seen[4].Continue, Is.EqualTo("Set forth"));
+            Assert.That(seen[0].Continue, Is.EqualTo("Continue"));
+            Assert.That(seen[0].Skip, Is.EqualTo("Skip opening"));
+            Assert.That(flow.View(Ui), Is.Null, "nothing is left");
+        }
+
+        [Test]
+        public void SkippingEndsTheOpeningAtOnce()
+        {
+            var flow = PrologueFlow.For(Content, Settings(), "rogue", "Mira");
+            flow.Advance();
+            flow.Skip();
+            Assert.That(flow.Pending, Is.False);
+            Assert.That(flow.View(Ui), Is.Null);
+        }
+
+        [Test]
+        public void TheSettingTurnsTheOpeningOff()
+        {
+            var settings = Settings();
+            Assert.That(settings.Set(SettingIds.PlayPrologue, false), Is.Null);
+            Assert.That(PrologueFlow.For(Content, settings, "reaver", "Aldric"), Is.Null);
+            Assert.That(settings.Set(SettingIds.PlayPrologue, true), Is.Null);
+            Assert.That(PrologueFlow.For(Content, settings, "reaver", "Aldric"), Is.Not.Null);
+        }
+
+        [Test]
+        public void TheSavedOpeningOfThe405RunReadsThroughTheSameScenes()
+        {
+            var content = RunContent.Load(TestContent.Source, null, new[] { JObject.Parse("{\"files\":{\"rules/runFlow.json\":{\"newRun\":{\"prologue\":true}}}}") });
+            var session = RunSession.New(content, _saves, 1, 77u, content.DefaultClass(), "Aldric");
+            Assert.That(session.Opening.Pending, Is.True);
+            var view = session.Opening.View(Ui);
+            Assert.That(view.SceneId, Is.EqualTo("warmth"));
+            Assert.That(view.Title, Is.EqualTo("Remembered warmth"));
+            session.Opening.Skip();
+            Assert.That(session.ProloguePending, Is.False);
+        }
     }
 }

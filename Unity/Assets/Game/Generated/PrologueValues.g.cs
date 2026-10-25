@@ -8,5 +8,6 @@ namespace Ashen.Generated
         public const string Done = "done";
         public const string Skipped = "skipped";
         public const string ClassToken = "{class}";
+        public const string RevealTypewriter = "typewriter";
     }
 }

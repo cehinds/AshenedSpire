@@ -97,6 +97,8 @@
     --color-title-door-dim: rgba(13, 11, 8, 0.28);
     --color-class-selected: #6fb580;
     --color-class-card-fill: rgba(23, 19, 16, 0.86);
+    --color-prologue-caption: #100e0c;
+    --color-prologue-bar: #0e0c09;
     --space-xxs: 2px;
     --space-xs: 4px;
     --space-sm: 8px;
@@ -200,6 +202,10 @@
     --font-review-piece-stat: 9.3px;
     --font-review-epithet: 17px;
     --font-review-heading: 10.5px;
+    --font-prologue-title: 11px;
+    --font-prologue-speaker: 9px;
+    --font-prologue-line: 14px;
+    --font-prologue-progress: 8px;
     --size-button-h: 44px;
     --size-button-tall-h: 56px;
     --size-button-double-h: 88px;
@@ -682,6 +688,10 @@
     --size-review-seed-w: 260px;
     --size-review-stat-cell-w: 50%;
     --size-review-row-pad: 12px;
+    --size-prologue-caption-h: 109px;
+    --size-prologue-bar-h: 60px;
+    --size-prologue-item-h: 130px;
+    --size-prologue-button-min-w: 86px;
     --border-hairline: 1px;
     --border-control: 2px;
     --border-focus: 2px;
@@ -715,6 +725,8 @@
     --duration-fx-boss-out: 460ms;
     --duration-fx-card-fly: 220ms;
     --duration-target-hide: 120ms;
+    --duration-prologue-fade: 600ms;
+    --duration-prologue-tick: 40ms;
     --opacity-disabled: 0.45;
     --opacity-muted: 0.72;
     --opacity-gate-dim: 0.35;

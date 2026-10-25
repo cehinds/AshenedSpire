@@ -74,5 +74,17 @@ namespace Ashen.Generated
         public const string ReviewDeckCount = "review-deck-count";
         public const string ReviewPieceColumn = "review-piece-column";
         public const string ReviewDeckCard = "review-deck-card";
+        public const string ProloguePage = "prologue-page";
+        public const string PrologueStage = "prologue-stage";
+        public const string PrologueArt = "prologue-art";
+        public const string PrologueArtIn = "prologue-art--in";
+        public const string PrologueItem = "prologue-item";
+        public const string PrologueCaption = "prologue-caption";
+        public const string PrologueTitle = "prologue-title";
+        public const string PrologueSpeaker = "prologue-speaker";
+        public const string PrologueLine = "prologue-line";
+        public const string PrologueBar = "prologue-bar";
+        public const string PrologueProgress = "prologue-progress";
+        public const string PrologueButton = "prologue-button";
     }
 }

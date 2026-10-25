@@ -162,6 +162,8 @@ namespace Ashen.Tests.Play
             Assert.That(Focused, Is.SameAs(creation.Tiles[creation.Classes.ToList().IndexOf(content.DefaultClass())]), "focus starts on the selected class");
             var begin = Nav.Top.Root.Q(UiNames.FooterPrimary);
             yield return PressUntil(Key.DownArrow, () => Focused == begin, 8, "focus on Begin");
+            yield return Press(Key.Enter); // Next: the Class pane opens Review
+            yield return Until(() => ((CreationScreen)Nav.Top.View).ViewModel.Pane == FrontValues.PaneReview, 5f, "the Review pane");
             yield return Press(Key.Enter);
 
             // W-06: the climb opens on the act map; the first reachable node (a fight: floor 1 is fixed) is picked with the keyboard.

@@ -32,7 +32,8 @@
         "Core2Combat": "core2Combat",
         "Core2Rewards": "core2Rewards",
         "Core2Rest": "core2Rest",
-        "Core2Shop": "core2Shop"
+        "Core2Shop": "core2Shop",
+        "Prologue": "prologue"
       }
     },
     {
@@ -466,7 +467,20 @@
         "ReviewScroll": "REVIEW_SCROLL",
         "SeedField": "SEED_FIELD",
         "ReviewBody": "REVIEW_BODY",
-        "ClassScroll": "CLASS_SCROLL"
+        "ClassScroll": "CLASS_SCROLL",
+        "PrologueStage": "PROLOGUE_STAGE",
+        "PrologueArt": "PROLOGUE_ART",
+        "PrologueItem": "PROLOGUE_ITEM",
+        "PrologueCaption": "PROLOGUE_CAPTION",
+        "PrologueTitle": "PROLOGUE_TITLE",
+        "PrologueSpeaker": "PROLOGUE_SPEAKER",
+        "PrologueLine": "PROLOGUE_LINE",
+        "PrologueBar": "PROLOGUE_BAR",
+        "PrologueProgress": "PROLOGUE_PROGRESS",
+        "ProloguePause": "PROLOGUE_PAUSE",
+        "PrologueSettings": "PROLOGUE_SETTINGS",
+        "PrologueSkip": "PROLOGUE_SKIP",
+        "PrologueContinue": "PROLOGUE_CONTINUE"
       }
     },
     {
@@ -1074,7 +1088,8 @@
         "TargetHide": "targetHide",
         "FxHitTint": "fxHitTint",
         "MapRoute": "mapRoute",
-        "MapRouteOutline": "mapRouteOutline"
+        "MapRouteOutline": "mapRouteOutline",
+        "PrologueTick": "prologueTick"
       }
     },
     {

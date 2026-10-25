@@ -449,6 +449,14 @@ namespace Ashen.Presentation.UI.Screens
             var hosted = RunHost.Start(_content, Ui.Saves, _slot, seed, ViewModel.Selected, Ui.Data.Strings.Get(_content.Flow.NameKey), null, null, RunFlow.CustomOverride, RunFlow.NewRuleset(Ui));
             Ui.Session = hosted.Legacy;
             Ui.Core2Session = hosted.Core2;
+            var opening = hosted.IsCore2 && RunFlow.OpeningOverride != false
+                ? PrologueFlow.For(_content, hosted.Core2.PlayerSettings, hosted.Core2.ClassId, hosted.Core2.Name)
+                : null;
+            if (opening != null)
+            {
+                Nav.Go(ScreenIds.Prologue, new PrologueArgs { Session = hosted.Core2, Opening = opening }, true);
+                return;
+            }
             Nav.Fire(ScreenTriggers.Begin, hosted.IsCore2 ? (object)new Core2RunArgs { Session = hosted.Core2 } : new RunScreenArgs { Session = hosted.Legacy });
         }
     }

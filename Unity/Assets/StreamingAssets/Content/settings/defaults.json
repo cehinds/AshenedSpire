@@ -43,6 +43,7 @@
     { "key": "masterVolume", "category": "audio", "type": "slider", "scope": "live", "min": 0, "max": 100, "step": 5, "def": 80, "labelKey": "settings.masterVolume", "unitKey": "settings.unit.percent" },
     { "key": "musicVolume", "category": "audio", "type": "slider", "scope": "live", "min": 0, "max": 100, "step": 5, "def": 70, "labelKey": "settings.musicVolume", "unitKey": "settings.unit.percent" },
     { "key": "sfxVolume", "category": "audio", "type": "slider", "scope": "live", "min": 0, "max": 100, "step": 5, "def": 80, "labelKey": "settings.sfxVolume", "unitKey": "settings.unit.percent" },
-    { "key": "playPrologue", "category": "opening", "type": "toggle", "scope": "run", "def": true, "labelKey": "settings.playPrologue" }
+    { "key": "playPrologue", "category": "opening", "type": "toggle", "scope": "run", "def": true, "labelKey": "settings.playPrologue", "helpKey": "settings.playPrologue.help" },
+    { "key": "openingAutoAdvance", "category": "opening", "type": "toggle", "scope": "live", "def": true, "labelKey": "settings.openingAutoAdvance", "helpKey": "settings.openingAutoAdvance.help" }
   ]
 }

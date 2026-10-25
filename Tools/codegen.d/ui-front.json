@@ -74,7 +74,19 @@
         "ReviewDeckItem": "review-deck-item",
         "ReviewDeckCount": "review-deck-count",
         "ReviewPieceColumn": "review-piece-column",
-        "ReviewDeckCard": "review-deck-card"
+        "ReviewDeckCard": "review-deck-card",
+        "ProloguePage": "prologue-page",
+        "PrologueStage": "prologue-stage",
+        "PrologueArt": "prologue-art",
+        "PrologueArtIn": "prologue-art--in",
+        "PrologueItem": "prologue-item",
+        "PrologueCaption": "prologue-caption",
+        "PrologueTitle": "prologue-title",
+        "PrologueSpeaker": "prologue-speaker",
+        "PrologueLine": "prologue-line",
+        "PrologueBar": "prologue-bar",
+        "PrologueProgress": "prologue-progress",
+        "PrologueButton": "prologue-button"
       }
     },
     {
