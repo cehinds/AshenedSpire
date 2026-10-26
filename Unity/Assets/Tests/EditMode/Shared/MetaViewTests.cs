@@ -453,20 +453,20 @@ namespace Ashen.Tests
         {
             var settings = new SettingsSession(Default, ProfileStore.Load(_saves));
             Assert.That(Default.PresetId, Is.EqualTo("shipped"));
-            Assert.That(settings.On("shrineMultiUse"), Is.True, "the control's def, the web's (WP-21)");
+            Assert.That(settings.On("shrineMultiUse"), Is.False, "the control's def");
             Assert.That(settings.Text(SettingIds.MapMode), Is.EqualTo("fog"), "the control's def, the web's");
             Assert.That(settings.On("showPlayedCard"), Is.False, "the web's def");
             Assert.That(settings.Text("walkedFade"), Is.EqualTo("half"), "the web's def");
             Assert.That(settings.Number("levelUpValue"), Is.EqualTo(1), "a def read from balance.levelUp");
 
-            Assert.That(settings.Set("shrineMultiUse", false), Is.Null);
+            Assert.That(settings.Set("shrineMultiUse", true), Is.Null);
             Assert.That(settings.Set(SettingIds.MapMode, "path"), Is.Null);
             var reread = new SettingsSession(Default, ProfileStore.Load(_saves));
-            Assert.That(reread.On("shrineMultiUse"), Is.False, "saved to the profile");
+            Assert.That(reread.On("shrineMultiUse"), Is.True, "saved to the profile");
             Assert.That(reread.Text(SettingIds.MapMode), Is.EqualTo("path"));
 
             reread.ResetCategory("gameplay");
-            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).On("shrineMultiUse"), Is.True, "reset shows the default again");
+            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).On("shrineMultiUse"), Is.False, "reset shows the default again");
             Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Text(SettingIds.MapMode), Is.EqualTo("path"), "other categories keep their values");
         }
 

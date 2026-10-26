@@ -1,5 +1,5 @@
 {
-  "contentHash": "d87af7850b5334606040db98ba2e063afdef784f9e90e8220e688e96a185b380",
+  "contentHash": "b5dde80fa3043334f871be8e0383485080021319f8f3c7a7a9568c45ff0adb06",
   "contentVersion": "0.7.1",
   "counts": {
     "profile/bundle/armaments.json": 28,
@@ -1626,9 +1626,9 @@
       "sha256": "069c0b2f370c7e0ffd90ea47a7eaf3eb271cb273ef030e8fbb496e7ec088ee06"
     },
     "settings/defaults.json": {
-      "bytes": 17627,
+      "bytes": 17629,
       "generated": false,
-      "sha256": "66a63f8fd8b07fc4c9f3e47acc9196a9cce96f7e026b292ecbd0a7e8971e0ed9"
+      "sha256": "78ca5b450df2b4e9d42a66fc36773e7f251fb3e547cf09242c70748d51a50ae6"
     },
     "settings/presets/shipped.json": {
       "bytes": 173,
