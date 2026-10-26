@@ -11,6 +11,9 @@ namespace Ashen.Platform
     {
         public static bool Connected => Gamepad.current != null;
 
+        /// <summary>The Input System control of the button Confirm is bound to (a press-and-hold stays held while it is down); the HotkeyHost keeps it in step with the player's bindings.</summary>
+        public static string ConfirmSource = ControlsValues.PadSouth;
+
         /// <summary>True while the named control (ControlsValues.Pad*) of the current pad is held; false with no pad or an unknown name.</summary>
         public static bool IsDown(string source)
         {

@@ -30,8 +30,23 @@ namespace Ashen.Presentation.UI
         /// <summary>True while the screen takes no focus or navigation (the title gate).</summary>
         bool InputBlocked { get; }
 
-        /// <summary>Pad Start / the menu intent reached this screen. True when the screen handled it (combat opens pause).</summary>
+        /// <summary>Retained for the screens that override it; the input layer no longer raises it (the web has no pad-Start door on the screens that are not the fight or the map: the Menu action is a HandleHotkey).</summary>
         bool HandleMenu();
+
+        /// <summary>A veil stands over the screen's own surface (a pile, a prompt, a planned door; web veilIsOpen): every screen hotkey is swallowed while it does.</summary>
+        bool VeilOpen { get; }
+
+        /// <summary>
+        /// The input layer resolved a key, a pad button or a hint chip to something this screen's hotkey scope names (ui/controls.json hotkeys.scopes): a registry action, a screen command or a positional card key.
+        /// True when the screen did it.
+        /// </summary>
+        bool HandleHotkey(HotkeyResult result);
+
+        /// <summary>The screen holds the bumpers and [ ] for a tab set while it is open (web setTabRing).</summary>
+        bool HasTabRing { get; }
+
+        /// <summary>Steps the tab set one place (-1 previous, 1 next), wrapping at both ends.</summary>
+        void StepTabs(int delta);
 
         /// <summary>The screens.json focusModes entry in force (null = the screen's focusOrder).</summary>
         string FocusMode { get; }
@@ -62,6 +77,14 @@ namespace Ashen.Presentation.UI
         public virtual bool InputBlocked => false;
 
         public virtual bool HandleMenu() => false;
+
+        public virtual bool VeilOpen => false;
+
+        public virtual bool HandleHotkey(HotkeyResult result) => false;
+
+        public virtual bool HasTabRing => false;
+
+        public virtual void StepTabs(int delta) { }
 
         public virtual string FocusMode => null;
 

@@ -5,6 +5,7 @@ namespace Ashen.Generated
     public static class ControlsPlaceholders
     {
         public const string Button = "button";
+        public const string Key = "key";
         public const string Volume = "volume";
     }
 }

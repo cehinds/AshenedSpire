@@ -67,6 +67,9 @@ namespace Ashen.Presentation.UI
 
         public event Action<ScreenInstance> ScreenShown;
 
+        /// <summary>The viewport was classified again (a resize, the View mode or UI size): a screen that folds its tab strip on a narrow layout looks again.</summary>
+        public event Action LayoutChanged;
+
         public IReadOnlyList<ScreenInstance> Stack => _stack;
         public ScreenInstance Top => _stack.Count > 0 ? _stack[_stack.Count - 1] : null;
         public string CurrentId => Top?.Id;
@@ -261,14 +264,6 @@ namespace Ashen.Presentation.UI
             evt.PreventDefault();
         }
 
-        /// <summary>Router Menu (pad Start): the top screen handles it (combat opens pause, pause resumes); nothing happens otherwise.</summary>
-        public void Menu()
-        {
-            var top = Top;
-            if (top == null || !top.Def.AcceptsInput || top.View.InputBlocked) return;
-            top.View.HandleMenu();
-        }
-
         /// <summary>Router Move: next (+1) or previous (-1) in the top screen's focus order.</summary>
         public void MoveFocus(int delta)
         {
@@ -315,6 +310,7 @@ namespace Ashen.Presentation.UI
             _host.UseScale(state);
             ResetMinimumText();
             ApplyMinimums();
+            LayoutChanged?.Invoke();
         }
 
         /// <summary>The player changed View mode or UI size: classify again, whatever the viewport was.</summary>

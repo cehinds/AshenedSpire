@@ -1,5 +1,5 @@
 {
-  "contentHash": "ee1b9f526fd88810098f705b6dbbb800cd3c352397a84a75649bed0d697fb16b",
+  "contentHash": "20582ec31e1c9d05ae0618b841f56f4e3fa90dba763b5a2011e783364a4e56de",
   "contentVersion": "0.7.1",
   "counts": {
     "catalog/armaments.json": 28,
@@ -2030,9 +2030,9 @@
       "sha256": "bcfb76b5df5dbe3e2da9f0826aa435589234696921faf71040a6744f8b6da8d0"
     },
     "schemas/ui.controls.schema.json": {
-      "bytes": 1628,
+      "bytes": 3126,
       "generated": false,
-      "sha256": "d9847781920a8f3f70abd41f59c44b889d4082f33c2193233ea4a3d13dd6d445"
+      "sha256": "411590d6c28868b3f76f8b5b19f6e27f249156bd28fa0bae5c709c26c87927ad"
     },
     "schemas/ui.enemyStage.schema.json": {
       "bytes": 36254,
@@ -2130,9 +2130,9 @@
       "sha256": "069c0b2f370c7e0ffd90ea47a7eaf3eb271cb273ef030e8fbb496e7ec088ee06"
     },
     "settings/defaults.json": {
-      "bytes": 17288,
+      "bytes": 17538,
       "generated": false,
-      "sha256": "afed9deddfbfc585bf2f017d3399542c4d4f4a333a58dd9e5b5ba45d82d4f3c4"
+      "sha256": "626d3f14af685327bcc9bcc41d7d053116c16803d382820509d741849b0b88f8"
     },
     "settings/presets/reference.json": {
       "bytes": 4585,
@@ -2150,9 +2150,9 @@
       "sha256": "e11e88bc20ed548ac533a161108f5d3dafac977768d27b563212a3f6f56a003f"
     },
     "strings/app.en.json": {
-      "bytes": 116122,
+      "bytes": 116935,
       "generated": false,
-      "sha256": "118b3f39191b332870b01d336d1818069d306ae16126e3ecc8f4299b8cd15123"
+      "sha256": "7a49934989d84b7d204af79c529ad590316de21b7f0bdec177b63880d25a770e"
     },
     "strings/combat.en.json": {
       "bytes": 3600,
@@ -2290,9 +2290,9 @@
       "sha256": "81c39ab04d97e7a52e2f66ca82f59d9963b55949c81f6c91fc241e7b3dfbce97"
     },
     "ui/controls.json": {
-      "bytes": 5322,
+      "bytes": 9934,
       "generated": false,
-      "sha256": "1e9aae8ae8b9a4fb10ca8502bf2b03acf8588d6d5c683d33b61f06e0a85255db"
+      "sha256": "5785e3ba574fb7ebdfa39762f0b34c76187ffd30db9892a7c21f32dfa7bd2a17"
     },
     "ui/enemyStage.json": {
       "bytes": 39743,

@@ -36,6 +36,7 @@ namespace Ashen.Generated
         public const string Accent = "accent";
         public const string ViewPreset = "viewPreset";
         public const string UiScale = "uiScale";
+        public const string QuickNav = "quickNav";
         public const string TitleCityHold = "titleCityHold";
         public const string MapZoom = "mapZoom";
         public const string ShrinePathGlow = "shrinePathGlow";

@@ -169,6 +169,7 @@
         "Accent": "accent",
         "ViewPreset": "viewPreset",
         "UiScale": "uiScale",
+        "QuickNav": "quickNav",
         "TitleCityHold": "titleCityHold",
         "MapZoom": "mapZoom",
         "ShrinePathGlow": "shrinePathGlow",

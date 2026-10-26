@@ -27,7 +27,7 @@ namespace Ashen.Presentation.UI.Screens
     /// Escape and Done and Save leave. Opened in-run (as the modal screen menu) it is the web's Menu overlay (src/ui/components/overlay.js, menuComponents.js renderMenuOverlay): a head of the tabs
     /// Settings and Controls with the Go to... list and the close box, the Settings page or the Controls list (<see cref="ControlsPanel"/>) under it, and a foot of Save and Quit and Save Game.
     /// </summary>
-    public sealed class SettingsScreen : ScreenView
+    public sealed partial class SettingsScreen : ScreenView
     {
         private readonly SettingsPageQuery _query = new SettingsPageQuery();
         private SettingsSession _settings;
@@ -69,8 +69,8 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>The Go to... list is open: it takes the focus.</summary>
         public override string FocusMode => _goToOpen ? MenuValues.FocusQuick : null;
 
-        /// <summary>An armed Rebind takes every key and button for the binding (web input.js: the capture owns the keydown).</summary>
-        public override bool InputBlocked => _controls != null && _controls.Armed;
+        /// <summary>An armed Rebind takes every key and button for the binding (web input.js: the capture owns the keydown), and for the frame after it settles, so the press that bound a button is not also read as that button's old action.</summary>
+        public override bool InputBlocked => _controls != null && _controls.OwnsBack;
 
         protected override void OnBind(object args)
         {
@@ -147,6 +147,7 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocButton>(UiNames.OverlayQuit).clicked += () => PauseActions.SaveAndQuit(Context, Ui.Climb);
 
             var open = Ui.Data.Menus.OverlayTabs.Any(t => t.Id == tab) ? tab : MenuValues.TabSettings;
+            BindQuick();
             SelectTab(open, null);
             Context.Instance.LastFocused = _overlayTabs[open];
         }
@@ -157,6 +158,7 @@ namespace Ashen.Presentation.UI.Screens
             if (!_overlay || !_overlayTabs.ContainsKey(id)) return;
             Flush();
             _tab = id;
+            SyncSwitcherLabel();
             foreach (var pair in _overlayTabs) pair.Value.EnableInClassList(MenuClasses.OverlayTabOn, pair.Key == id);
             var controls = id == MenuValues.TabControls;
             UiDom.Show(Root.Q(UiNames.SettingsBody), !controls);
@@ -253,7 +255,7 @@ namespace Ashen.Presentation.UI.Screens
                 button.EnableInClassList(FrontClasses.SettingsTabOn, tab.Active && !_page.Filtering);
                 button.SetResolved(tab.Label);
                 var id = tab.Id;
-                button.clicked += () => { _query.Tab = id; _query.Group = null; _query.Topic = null; _query.Search = null; _query.ChangedOnly = false; Root.Q<TextField>(UiNames.SettingsSearch).SetValueWithoutNotify(string.Empty); Render(); };
+                button.clicked += () => ChoosePageTab(id);
                 if (!string.IsNullOrEmpty(tab.Tip)) Tooltip.AttachResolved(button, Context.Overlay, Ui.Data.Components.TooltipPlain, tab.Label, tab.Tip, tipDelay);
                 tabs.Add(button);
             }
@@ -623,6 +625,7 @@ namespace Ashen.Presentation.UI.Screens
             Flush();
             _controls?.Dispose();
             _undoTimer?.Pause();
+            UnbindQuick();
         }
     }
 }

@@ -34,6 +34,7 @@ namespace Ashen.Presentation.UI.Kit
         private readonly VisualElement _drawArt;
         private readonly VisualElement _discardArt;
         private readonly VisualElement _potionsArt;
+        private readonly LocLabel _endKey;
         private int _actions;
         private int _mana;
         private int _manaMax;
@@ -51,7 +52,14 @@ namespace Ashen.Presentation.UI.Kit
             _drawArt = this.Q(UiNames.GroupDrawArt);
             _discardArt = this.Q(UiNames.GroupDiscardArt);
             _potionsArt = this.Q(UiNames.GroupPotionsArt);
-            if (_endTurn != null) _endTurn.clicked += () => EndTurn?.Invoke();
+            if (_endTurn != null)
+            {
+                // The bound key (or pad button) rides on End Turn itself, so the shortcut can be found without reading a hint bar (web combat.js paintEndTurnKey).
+                _endKey = new LocLabel { pickingMode = PickingMode.Ignore };
+                _endKey.AddToClassList(HotkeyClasses.EndTurnKey);
+                _endTurn.Add(_endKey);
+                _endTurn.clicked += () => EndTurn?.Invoke();
+            }
             if (_potions != null) _potions.clicked += () => Potions?.Invoke();
             if (_draw != null) _draw.clicked += () => Piles?.Invoke(_draw);
             if (_discard != null) _discard.clicked += () => Piles?.Invoke(_discard);
@@ -66,6 +74,9 @@ namespace Ashen.Presentation.UI.Kit
         public event Action<VisualElement> Piles;
 
         public LocButton EndTurnButton => _endTurn;
+
+        /// <summary>The key or pad glyph End Turn is bound to, under its words.</summary>
+        public void SetKey(string key) => _endKey?.SetResolved(key ?? string.Empty);
         public LocButton PotionsButton => _potions;
         public LocButton DrawButton => _draw;
         public LocButton DiscardButton => _discard;
