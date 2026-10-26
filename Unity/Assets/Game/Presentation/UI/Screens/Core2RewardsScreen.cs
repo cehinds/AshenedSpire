@@ -17,7 +17,7 @@ namespace Ashen.Presentation.UI.Screens
     /// card as the VP-3 face, anything else as a collectible face) with its NEW or TAKEN chip and its name as the radio. Confirm opens the review of the picked option: a card offers Add to deck (the
     /// deck rules may refuse, and the refusal shows at the control and in the status line) and Keep in collection, anything else Continue; Back returns to the pick; Skip leaves the spoils where
     /// they lie. A claim is saved at once by the session, so Continue from the title resumes at this screen. Leaving goes where the run stands: the map, the next act after a boss, or the run end.
-    /// Escape opens the pause screen (or Back, under review).
+    /// Escape presses the foot's back button: Back under review, Skip on the pick (D-1776).
     /// </summary>
     public sealed class Core2RewardsScreen : ScreenView
     {
@@ -293,13 +293,15 @@ namespace Ashen.Presentation.UI.Screens
 
         private void OpenPause() => Nav.OpenModal(ScreenIds.Pause, new PauseArgs { Session = _run });
 
-        /// <summary>Escape: the review goes back to the pick, with none open it does nothing (D-1770; the web's spoils Back is a button, not a key of the menu).</summary>
+        /// <summary>
+        /// Escape presses the foot's back button, as the web's Back rule presses the visible <c>[data-back]</c> (input.js; reward.js:1225, 1486-1498): under review it is Back to the pick, on the
+        /// pick it is Skip (no question, as the web's), on the notices there is none and nothing happens (D-1776).
+        /// </summary>
         public override bool HandleBack()
         {
-            if (_flow != null && _flow.Stage == Core2SpoilsStage.Review)
-            {
-                OnBack();
-            }
+            if (_flow == null || _back == null) return true;
+            if (_flow.Stage == Core2SpoilsStage.Review) OnBack();
+            else if (_flow.Stage == Core2SpoilsStage.Offer) OnSkip();
             return true;
         }
 
