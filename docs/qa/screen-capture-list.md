@@ -2,6 +2,8 @@
 
 What the owner's editor capture should produce, so each Unity screen can be set beside its web shot in `docs/qa/web-screens/`. Two sizes only: **1920x1080** and **390x844** (the two sizes of the web shots; `manifest.json` lists them). Name each file like the web shot with the size suffix, e.g. `rest-1920x1080.png`, and put them in `docs/screens/` (same folder `Cli.CaptureScreens` writes to, D-060). The PNGs are not committed unless the owner says so.
 
+**CI (D-1700):** Actions > screens > Run workflow captures every fixture and uploads the `screens` artifact; open its `index.html` for web (left) beside Unity (right).
+
 ## How the fixtures drive a Core 2 run
 
 `Unity/Assets/Tests/Fixtures/screens/c2_*.json` are the Core 2 fixtures (D-1381). A fixture with a `"core2"` object is handled by `Core2Capture` (`Unity/Assets/Tests/PlayMode/Core2Capture.cs`, called from `ScreenCaptureTests.Show` and `AfterShow`): it builds a Core 2 run in slot 1 (`seed`, `class`; default 20261025, Reaver), walks a bot to the state named by `until` (`map`, `combat`, `rewards`, `rest`, `shop`, `event`, `runEnd`) clearing the way to the nearest node of the kind (`prefer`, `walk` more fights first), tries the next seeds until the run stands there (a merchant is rare; `eventId` finds a named event), edits it for review (`hpRatio`, `cinders`), and shows it with `RunFlow.Show`, as the game does. The map fixtures can also select a node, open the legend, bring the Potions minis out (`potionsTray`) or open a door over the map (`modal`: `potions`, `pause`, `armoury` with `tab`). Every fixture skips the two sizes the web shots do not have (`skipSizes`). The output is `docs/screens/<fixture>_<w>x<h>.png`.

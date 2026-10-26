@@ -20,12 +20,15 @@ namespace Ashen.EditorTools
     ///   Unity -batchmode -projectPath Unity -executeMethod Ashen.EditorTools.Cli.BuildUiArt -quit
     ///   Unity -batchmode -projectPath Unity -executeMethod Ashen.EditorTools.Cli.CreateBootScene -quit
     ///   Unity -batchmode -projectPath Unity -executeMethod Ashen.EditorTools.Cli.CaptureScreens      (no -quit, no -nographics)
+    ///   Unity -batchmode -projectPath Unity -runTests -testPlatform PlayMode -ashenCapture -testFilter Ashen.Tests.Play.ScreenCaptureTests.CaptureScreens
     /// </summary>
     public static partial class Cli
     {
         public const string BootScenePath = "Assets/Scenes/Boot.unity";
         private const string PresentationResources = "Assets/Game/Presentation/UI/Resources/";
         private const string CaptureVariable = "ASHEN_CAPTURE";
+        private const string CaptureArgument = "-ashenCapture";
+        private const string CaptureArtBuilt = "Ashen.CaptureArtBuilt";
         private const string CaptureTest = "Ashen.Tests.Play.ScreenCaptureTests.CaptureScreens";
         private const string UnityPathKey = "unityPath";
 
@@ -99,7 +102,18 @@ namespace Ashen.EditorTools
         {
             static CaptureHook()
             {
-                if (Environment.GetEnvironmentVariable(CaptureVariable) != "1" || !Application.isBatchMode) return;
+                if (!Application.isBatchMode) return;
+                // The CI screens job (.github/workflows/screens.yml) runs the capture through the stock -runTests path, which
+                // exits on its own and writes the results file; it passes -ashenCapture so the catalogs are built first.
+                if (Environment.GetCommandLineArgs().Contains(CaptureArgument))
+                {
+                    Environment.SetEnvironmentVariable(CaptureVariable, "1");
+                    if (SessionState.GetBool(CaptureArtBuilt, false)) return;
+                    SessionState.SetBool(CaptureArtBuilt, true);
+                    BuildUiArt();
+                    return;
+                }
+                if (Environment.GetEnvironmentVariable(CaptureVariable) != "1") return;
                 ScriptableObject.CreateInstance<TestRunnerApi>().RegisterCallbacks(new CaptureCallbacks());
             }
         }

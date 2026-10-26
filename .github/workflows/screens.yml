@@ -1,0 +1,77 @@
+# Captures every Unity screen fixture at 1920x1080 and 390x844 and uploads them beside the web shots (D-1700).
+# Artifact "screens": docs/screens/index.html (web left, Unity right) plus the PNGs. Needs the UNITY_* secrets.
+# Run it from Actions > screens > Run workflow; "only" takes a comma list of fixture names (empty = all).
+name: screens
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: Comma list of fixtures to capture (empty = all)
+        required: false
+        default: ''
+  pull_request:
+    branches: [test, main]
+
+permissions:
+  contents: read
+
+env:
+  UNITY_VERSION: 6000.6.6f1
+
+concurrency:
+  group: screens-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    env:
+      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+    steps:
+      - name: licence present?
+        id: lic
+        run: |
+          if [ -n "$UNITY_LICENSE" ]; then echo "ok=true" >> "$GITHUB_OUTPUT"; else echo "::notice::UNITY_LICENSE not set; screen capture skipped"; fi
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node Tools/ci/screens-compare.mjs --check
+      - uses: ./.github/actions/fetch-art
+        if: steps.lic.outputs.ok == 'true'
+        with:
+          web-token: ${{ secrets.WEB_REPO_TOKEN || github.token }}
+      - uses: actions/cache@v4
+        if: steps.lic.outputs.ok == 'true'
+        with:
+          path: Unity/Library
+          key: library-playmode-${{ env.UNITY_VERSION }}-${{ hashFiles('Unity/Packages/packages-lock.json') }}
+      - name: capture filter
+        id: only
+        if: steps.lic.outputs.ok == 'true'
+        env:
+          ONLY: ${{ inputs.only }}
+        run: |
+          if [ -n "$ONLY" ]; then echo "args=-ashenCaptureOnly $ONLY" >> "$GITHUB_OUTPUT"; else echo "args=" >> "$GITHUB_OUTPUT"; fi
+      - uses: game-ci/unity-test-runner@v4
+        if: steps.lic.outputs.ok == 'true'
+        with:
+          projectPath: Unity
+          unityVersion: ${{ env.UNITY_VERSION }}
+          testMode: playmode
+          customParameters: -ashenCapture -testFilter Ashen.Tests.Play.ScreenCaptureTests.CaptureScreens ${{ steps.only.outputs.args }}
+      - name: pair with the web shots
+        if: always() && steps.lic.outputs.ok == 'true'
+        run: sudo chown -R "$(id -u)" docs/screens 2>/dev/null; node Tools/ci/screens-compare.mjs
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.lic.outputs.ok == 'true'
+        with:
+          name: screens
+          path: |
+            docs/screens/index.html
+            docs/screens/web
+            docs/screens/c2_*.png
+          if-no-files-found: warn
