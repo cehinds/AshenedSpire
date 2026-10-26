@@ -202,12 +202,6 @@ namespace Ashen.Presentation.UI.Screens
             return true;
         }
 
-        public override bool HandleMenu()
-        {
-            TogglePause();
-            return true;
-        }
-
         private void Finish()
         {
             StopTimers();

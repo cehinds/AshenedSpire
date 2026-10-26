@@ -48,7 +48,6 @@ namespace Ashen.Presentation.UI
             _panel = panel;
             _panel.visualTree.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
             _panel.visualTree.RegisterCallback<KeyUpEvent>(OnKeyUp, TrickleDown.TrickleDown);
-            _panel.visualTree.RegisterCallback<BlurEvent>(OnBlur, TrickleDown.TrickleDown);
         }
 
         private void Unhook()
@@ -56,11 +55,8 @@ namespace Ashen.Presentation.UI
             if (_panel == null) return;
             _panel.visualTree.UnregisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
             _panel.visualTree.UnregisterCallback<KeyUpEvent>(OnKeyUp, TrickleDown.TrickleDown);
-            _panel.visualTree.UnregisterCallback<BlurEvent>(OnBlur, TrickleDown.TrickleDown);
             _panel = null;
         }
-
-        private void OnBlur(BlurEvent evt) => _down.Clear();
 
         public HotkeyDispatcher Dispatcher { get; }
 
@@ -108,7 +104,8 @@ namespace Ashen.Presentation.UI
         /// <summary>Per frame: the pad's buttons that went down (web pollPads, rising edges only; the first read of a pad only records what is held).</summary>
         public void Tick()
         {
-            // A key up the window never saw (focus left it while held) must not leave the next press counted as a repeat.
+            // A key up the window never saw (focus left it while held) must not leave the next press counted as a repeat. This is the only reset:
+            // a blur between controls (a card armed, the focus moving to the first target) must keep a held key's auto-repeat a repeat.
             var keyboard = Keyboard.current;
             if (_down.Count > 0 && keyboard != null && !keyboard.anyKey.isPressed) _down.Clear();
             var connected = PadInput.Connected;

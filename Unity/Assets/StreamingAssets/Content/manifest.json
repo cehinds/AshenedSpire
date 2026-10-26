@@ -1,5 +1,5 @@
 {
-  "contentHash": "22d58ea51627bb0759fbb2fd93412b73ff53a0f3c536a70af72b89544b174a9c",
+  "contentHash": "d87af7850b5334606040db98ba2e063afdef784f9e90e8220e688e96a185b380",
   "contentVersion": "0.7.1",
   "counts": {
     "profile/bundle/armaments.json": 28,
@@ -1526,9 +1526,9 @@
       "sha256": "bcfb76b5df5dbe3e2da9f0826aa435589234696921faf71040a6744f8b6da8d0"
     },
     "schemas/ui.controls.schema.json": {
-      "bytes": 3126,
+      "bytes": 3158,
       "generated": false,
-      "sha256": "411590d6c28868b3f76f8b5b19f6e27f249156bd28fa0bae5c709c26c87927ad"
+      "sha256": "a4d4586be1e85ceb530bcc6a7d5f0a44886c10a5c8f2ed111f7a9b5e5203fbe5"
     },
     "schemas/ui.enemyStage.schema.json": {
       "bytes": 36254,
@@ -1641,9 +1641,9 @@
       "sha256": "e806434107a3fa7cdf5cebebf5d8ecce18267840145512cd68dbe3d317286c69"
     },
     "strings/app.en.json": {
-      "bytes": 126051,
+      "bytes": 126538,
       "generated": false,
-      "sha256": "5c4fd75b08d3371e91047da68e3b662b5a021eae82a91b22794bcda4e8f09362"
+      "sha256": "e3519dbffd93e6274962648eab2737b1e22b8e99bdcd771a4550426a1329a24b"
     },
     "strings/combat.en.json": {
       "bytes": 3665,
@@ -1701,9 +1701,9 @@
       "sha256": "bb21030e16e957b39d492abcdf9129783be6bb8079a4933b1bc4b34694657e5d"
     },
     "ui/changelog.json": {
-      "bytes": 13837,
+      "bytes": 14175,
       "generated": false,
-      "sha256": "e2dd8fd2a67c086a33d1769f088ba0533356cfdd87f0424190e1ddd13f399108"
+      "sha256": "2ec821cf10fcd6f2b10b0676b3cd556631370e696bacd2fe1942f6ec6dde0b50"
     },
     "ui/combatAura.json": {
       "bytes": 1215,
@@ -1721,9 +1721,9 @@
       "sha256": "81c39ab04d97e7a52e2f66ca82f59d9963b55949c81f6c91fc241e7b3dfbce97"
     },
     "ui/controls.json": {
-      "bytes": 9934,
+      "bytes": 9996,
       "generated": false,
-      "sha256": "5785e3ba574fb7ebdfa39762f0b34c76187ffd30db9892a7c21f32dfa7bd2a17"
+      "sha256": "bdd7131708a436a5def78e48d00a23f934fff2db10f502712b3c5c6d2f5ca3b9"
     },
     "ui/enemyStage.json": {
       "bytes": 39743,

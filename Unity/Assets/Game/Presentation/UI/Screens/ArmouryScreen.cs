@@ -70,6 +70,13 @@ namespace Ashen.Presentation.UI.Screens
         private string _notice = string.Empty;
         private readonly HashSet<string> _open = new HashSet<string>();
 
+        // The editor's pane ring and key line (web deckEditor.js: pane, switchPane, the keys paragraph).
+        private string _pane = DeckEditor.Panes[0];
+        private VisualElement _libraryPane;
+        private VisualElement _deckPane;
+        private LocLabel _keysLine;
+        private Action _keysChanged;
+
         public string Tab => _tab;
         public Core2DeckEditor Editor => _editor;
         public CombatModal Modal => _modal;
@@ -92,6 +99,7 @@ namespace Ashen.Presentation.UI.Screens
             }
             _modal.size = UiValues.ModalSizeXl;
             _modal.CloseRequested += RequestClose;
+            BindKeysLine();
             BindDialog();
             BuildTabs();
             var openEditor = _tab == ArmouryValues.TabEditor;
@@ -107,6 +115,7 @@ namespace Ashen.Presentation.UI.Screens
 
         public override void Unbind()
         {
+            UnbindKeysLine();
             if (_editor != null && !_editor.Closed) _editor.Cancel();
             _editor = null;
         }
@@ -139,13 +148,6 @@ namespace Ashen.Presentation.UI.Screens
         }
 
         public override bool HandleBack()
-        {
-            if (DialogOpen) CloseDialog();
-            else RequestClose();
-            return true;
-        }
-
-        public override bool HandleMenu()
         {
             if (DialogOpen) CloseDialog();
             else RequestClose();
@@ -592,11 +594,17 @@ namespace Ashen.Presentation.UI.Screens
             var inspect = Pane(panes, null, true);
             var library = Pane(panes, StringKeys.DeckEditorPaneCollection, false);
             var deck = Pane(panes, StringKeys.DeckEditorPaneDeck, false);
+            // web deckEditor.js:124: focus landing in a pane makes it the one the ring steps from.
+            _libraryPane = library;
+            _deckPane = deck;
+            library.RegisterCallback<FocusInEvent>(_ => _pane = DeckEditor.Panes[0]);
+            deck.RegisterCallback<FocusInEvent>(_ => _pane = DeckEditor.Panes[1]);
             Inspector(inspect, model);
             if (model.Collection.Count == 0) Label(library, Strings.Get(StringKeys.DeckEditorEmptyCollection), ArmouryClasses.Empty);
             foreach (var tile in model.Collection) TileRow(library, tile);
             if (model.Deck.Count == 0) Label(deck, Strings.Get(StringKeys.DeckEditorEmptyDeck), ArmouryClasses.Empty);
             foreach (var row in model.Deck) DeckRow(deck, row, model.Ordered);
+            _keysLine = Label(editor, KeysLine(), ArmouryClasses.EditorKeys);
         }
 
         private enum ChipGroup { Type, Cost, Source, Sort }
@@ -703,6 +711,8 @@ namespace Ashen.Presentation.UI.Screens
             var row = new VisualElement();
             row.AddToClassList(ArmouryClasses.Row);
             row.EnableInClassList(ArmouryClasses.RowSelected, _selected == rowData.InstanceId);
+            row.EnableInClassList(ArmouryClasses.RowHeld, _editor.Held == rowData.InstanceId);
+            row.userData = rowData.InstanceId;
             list.Add(row);
             Select(row, rowData.Name, rowData.InstanceId, rowData.InstanceId);
             Label(row, rowData.CountText, ArmouryClasses.Meta);
@@ -712,6 +722,10 @@ namespace Ashen.Presentation.UI.Screens
                 up.clicked += () => Apply(_editor.Move(rowData.InstanceId, -1), up, rowData.InstanceId + UiFormats.TagSeparator + ArmouryValues.StepUp);
                 var down = Step(row, StringKeys.DeckEditorDown, rowData.CanDown, rowData.InstanceId + UiFormats.TagSeparator + ArmouryValues.StepDown);
                 down.clicked += () => Apply(_editor.Move(rowData.InstanceId, 1), down, rowData.InstanceId + UiFormats.TagSeparator + ArmouryValues.StepDown);
+                // web deckEditor.js:645-651: the pick control, the pointer's way to the End Turn key's pick up and put down.
+                var pick = Step(row, StringKeys.DeckEditorPickUp, true, PickKey(rowData.InstanceId));
+                pick.AddToClassList(ArmouryClasses.StepWord);
+                pick.clicked += () => TogglePick(rowData.InstanceId);
             }
             var remove = Step(row, StringKeys.DeckEditorRemove, rowData.Removable, rowData.InstanceId + UiFormats.TagSeparator + ArmouryValues.StepRemove);
             remove.clicked += () => Apply(_editor.Remove(rowData.InstanceId), remove, rowData.InstanceId + UiFormats.TagSeparator + ArmouryValues.StepRemove);

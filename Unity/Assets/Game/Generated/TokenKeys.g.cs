@@ -34,6 +34,7 @@ namespace Ashen.Generated
         public const string BoardShadow = "boardShadow";
         public const string MapRoute = "mapRoute";
         public const string CardUp = "cardUp";
+        public const string Gold = "gold";
         public const string CardDown = "cardDown";
         public const string MapRouteOutline = "mapRouteOutline";
         public const string PrologueTick = "prologueTick";

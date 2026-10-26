@@ -347,17 +347,8 @@ namespace Ashen.Presentation.UI.Screens
 
         private void OpenPause() => Nav.OpenModal(ScreenIds.Pause, new PauseArgs { Session = _run });
 
-        public override bool HandleBack()
-        {
-            OpenPause();
-            return true;
-        }
-
-        public override bool HandleMenu()
-        {
-            OpenPause();
-            return true;
-        }
+        /// <summary>Escape does nothing here: the web's event screen has no Escape of its own (D-1770).</summary>
+        public override bool HandleBack() => true;
 
         public override void OnReturned()
         {

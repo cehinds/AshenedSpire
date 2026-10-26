@@ -601,7 +601,7 @@ namespace Ashen.Presentation.UI.Screens
             Handle(_flow.ConfirmPicks(), confirm);
         }
 
-        /// <summary>The menu button: the quick menu under it (the pause list as a dropdown); pad Start still opens the pause screen.</summary>
+        /// <summary>The menu button: the quick menu under it (the pause list as a dropdown); the Menu key opens the Menu overlay.</summary>
         private void OpenQuickMenu(VisualElement anchor)
         {
             if (_busy) Skip();
@@ -854,21 +854,18 @@ namespace Ashen.Presentation.UI.Screens
 
         // ------------------------------------------------------------------ pause and back
 
-        private void OpenPause()
-        {
-            if (_busy) Skip();
-            if (_flow.Ended) return;
-            Nav.OpenModal(ScreenIds.Pause, new PauseArgs { Session = _run });
-        }
-
+        /// <summary>
+        /// Escape / pad B (web combat.js:2876-2903): close or cancel what is open, one layer, and with nothing open do nothing: the web's Escape in a fight never opens the menu (the pause list opens from the menu button or the
+        /// Menu key). The web clears the contextual selection with the same press, and does not skip an enemy turn on it (D-1770).
+        /// </summary>
         public override bool HandleBack()
         {
+            _targets?.ClearSelection();
             if (_introOpen) { CloseIntro(); return true; }
             if (_overlays != null && _overlays.HandleBack()) return true;
             if (_targets != null && _targets.IsPinned) { _targets.Hide(); return true; }
             if (_logOpen) { SetLog(false); return true; }
-            if (_busy) { Skip(); return true; }
-            if (_flow.Ended) return true;
+            if (_busy || _flow.Ended) return true;
             if (_flow.Prompt?.Kind == Core2UiValues.PromptOffer)
             {
                 OnPromptBack();
@@ -878,16 +875,7 @@ namespace Ashen.Presentation.UI.Screens
             {
                 Render();
                 FocusSoon(FirstPlayableCard());
-                return true;
             }
-            if (_flow.Prompt != null) return true;
-            OpenPause();
-            return true;
-        }
-
-        public override bool HandleMenu()
-        {
-            OpenPause();
             return true;
         }
 

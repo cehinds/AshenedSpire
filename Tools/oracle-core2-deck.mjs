@@ -336,9 +336,12 @@ function editorScenario(classId, seedIndex) {
       step = { op: 'view', view };
     }
     const now = SETTINGS[settingsIndex];
+    const liveModel = dem.deckEditorModel({ registries: reg, run, settings: now, view });
     steps.push(canon({
       ...step, pre, settingsIndex, view, canUndo: session.canUndo, closed: session.closed, after: piles(),
-      model: modelRecord(dem.deckEditorModel({ registries: reg, run, settings: now, view })),
+      model: modelRecord(liveModel),
+      // The Deck key and pad Y (deckEditor.js cycleFilters): the view one press on gives (P-7d, D-1771).
+      nextPreset: dem.deckEditorView(dem.nextFilterPreset(liveModel, view)),
       doors: [dem.deckEditorDoors({ settings: now }), dem.deckEditorDoors({ settings: now, inCombat: true }), dem.deckEditorDoors({ settings: now, services: { deckEdit: true } })],
     }));
   }

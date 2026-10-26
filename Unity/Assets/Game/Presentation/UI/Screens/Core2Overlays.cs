@@ -331,7 +331,10 @@ namespace Ashen.Presentation.UI.Screens
             body.AddToClassList(UiClasses.InspectorDetails);
             layout.Add(body);
             _modal.Body.Add(layout);
-            foreach (var block in Core2InspectorBlocks.Build(_strings, view, maneuver => _flow.Predict(view.EnemyId, maneuver).Accepted)) body.Add(block);
+            // The glossary's words are hover tips (combatantDetailBody ends in decorateKeywords); the tip is the explanation alone.
+            var glossary = _run.Glossary(_ui.Data);
+            var gold = _ui.Data.Tokens.Color(TokenKeys.Gold);
+            foreach (var block in Core2InspectorBlocks.Build(_strings, view, maneuver => _flow.Predict(view.EnemyId, maneuver).Accepted, label => KeywordLinks.Decorate(label, glossary, _ui.Data.CardText, gold))) body.Add(block);
             _modal.Foot.Add(CloseButton(StringKeys.CombatModalInspectClose));
             FocusFirst(null);
         }
@@ -369,16 +372,18 @@ namespace Ashen.Presentation.UI.Screens
             preview.Add(Text(view.PreviewName, UiClasses.InspectorName));
             var meters = new VisualElement { pickingMode = PickingMode.Ignore };
             meters.AddToClassList(UiClasses.InspectorMeters);
-            foreach (var meter in view.Meters) AddMeter(meters, meter.Id, MeterName(meter.Id), (int)meter.Cur, (int)meter.Max);
+            foreach (var meter in view.Meters) AddMeter(meters, meter.Id, MeterName(meter.Id), (int)meter.Cur, (int)meter.Max, meter.Label, meter.Tip);
             preview.Add(meters);
             return preview;
         }
 
-        private static void AddMeter(VisualElement host, string kind, string glyphKey, int value, int max)
+        private static void AddMeter(VisualElement host, string kind, string glyphKey, int value, int max, string label, string tip)
         {
             var meter = new Ashen.Presentation.UI.Kit.Meter { kind = kind, glyphKey = glyphKey, pickingMode = PickingMode.Ignore };
             meter.Set(value, max);
             host.Add(meter);
+            // combatantInspector.js resourceMeters: pointing at a meter says its label over the value and the pool's help.
+            ChipTips.Attach(meter, label, tip);
         }
 
         /// <summary>

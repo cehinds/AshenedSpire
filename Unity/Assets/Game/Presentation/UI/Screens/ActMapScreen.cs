@@ -489,13 +489,7 @@ namespace Ashen.Presentation.UI.Screens
                 CloseTray();
                 return true;
             }
-            OpenPause();
-            return true;
-        }
-
-        public override bool HandleMenu()
-        {
-            OpenPause();
+            // web map.js:455-490 and input.js:790-860: with nothing open Escape and pad B do nothing (D-1770); the list opens from the menu button or the Menu key.
             return true;
         }
 

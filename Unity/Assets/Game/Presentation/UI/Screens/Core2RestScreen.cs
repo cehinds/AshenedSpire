@@ -499,21 +499,13 @@ namespace Ashen.Presentation.UI.Screens
 
         private void OpenPause() => Nav.OpenModal(ScreenIds.Pause, new PauseArgs { Session = _run });
 
-        /// <summary>Escape: an open modal closes (a question goes back to the Smith's pane), anything else opens the pause screen.</summary>
+        /// <summary>Escape: an open modal closes (a question goes back to the Smith's pane), with none open it does nothing (the web's rest site has no Escape of its own: D-1770).</summary>
         public override bool HandleBack()
         {
             if (_flow != null && _flow.Modal != Core2RestModal.None)
             {
                 Press(_flow.CloseModal, null);
-                return true;
             }
-            OpenPause();
-            return true;
-        }
-
-        public override bool HandleMenu()
-        {
-            OpenPause();
             return true;
         }
 

@@ -207,6 +207,34 @@ namespace Ashen.Domain.Run
 
         private static KeyValuePair<string, string> A(string name, string value) => new KeyValuePair<string, string>(name, value);
 
+        /// <summary>
+        /// nextFilterPreset(model, view) (web ui/models/DeckEditorModel.js): what the Deck key and pad Y cycle. The presets are no filter, then each card type present, then each source, one step per press, wrapping; a view that is
+        /// none of them (several chips on, a cost chip) starts the cycle again at no filter. The step clears the cost chips and the upgraded switch and keeps the sort.
+        /// </summary>
+        public static DeckEditorView NextFilterPreset(DeckEditorModelData model, DeckEditorView view)
+        {
+            var presets = new List<(IReadOnlyList<string> Type, IReadOnlyList<string> Source)> { (new string[0], new string[0]) };
+            presets.AddRange(model.FilterType.Select(chip => ((IReadOnlyList<string>)new[] { chip.Id }, (IReadOnlyList<string>)new string[0])));
+            presets.AddRange(Sources.Select(source => ((IReadOnlyList<string>)new string[0], (IReadOnlyList<string>)new[] { source })));
+            var state = (view ?? new DeckEditorView()).Normalized();
+            var at = presets.FindIndex(p => string.Join(EV.ListJoin, p.Type) == string.Join(EV.ListJoin, state.Type) && string.Join(EV.ListJoin, p.Source) == string.Join(EV.ListJoin, state.Source));
+            var next = presets[(at + 1) % presets.Count];
+            return new DeckEditorView { Type = next.Type, Cost = new string[0], Source = next.Source, Upgraded = false, Sort = state.Sort };
+        }
+
+        /// <summary>
+        /// Whether the pane ring does anything (web switchPane): on a narrow layout the deck pane is hidden unless the deck is ordered (the Draw order chip is then the only way to it), so the ring does nothing there for
+        /// an unordered deck.
+        /// </summary>
+        public static bool CanSwitchPane(bool ordered, bool narrow) => ordered || !narrow;
+
+        /// <summary>The pane the ring lands on: the next (or previous) of <see cref="Panes"/>, wrapping at both ends.</summary>
+        public static string SwitchPane(string current, int delta)
+        {
+            var at = Panes.ToList().IndexOf(current);
+            return Panes[((Math.Max(at, 0) + delta) % Panes.Count + Panes.Count) % Panes.Count];
+        }
+
         private static DeckSentence Say(IDeckEditorText t, string key, params KeyValuePair<string, string>[] args) => new DeckSentence(t.Say(key, args), key, args);
 
         // ------------------------------------------------------------------ keys and rows

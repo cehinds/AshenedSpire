@@ -17,6 +17,18 @@ namespace Ashen.App.Ui
         public string Explanation;
     }
 
+    /// <summary>A stretch of a text: plain words, or a glossary word as the text spells it (<see cref="Entry"/>) with what a tooltip says of it.</summary>
+    public sealed class GlossarySegment
+    {
+        public string Text;
+
+        /// <summary>The glossary's word this stretch is, or null for plain words.</summary>
+        public GlossaryEntry Entry;
+
+        /// <summary>The word in lower case: what the glossary keys it by, and the id of the link that carries it.</summary>
+        public string Key => Entry == null ? null : Text.ToLowerInvariant();
+    }
+
     /// <summary>
     /// The tooltip glossary (web src/ui/components/tooltipGlossary.js configureTooltipGlossary and keywordExplanations): every term the framework words (ui/terms.json: a `term.tooltip.X` row explains the name and plural of `term.X`),
     /// every status and stance with its tooltip's numbers filled in (ui/uiContent.js statusTooltipText), and Block and Poise; a text names the ones it contains, each once, in the order they first appear. The first words given
@@ -124,6 +136,26 @@ namespace Ashen.App.Ui
                     Sub(GlossaryKeys.TokenHook.Replace(GlossaryKeys.Arg0, i.ToString(CultureInfo.InvariantCulture)).Replace(GlossaryKeys.Arg1, j.ToString(CultureInfo.InvariantCulture)), (effects[j] as JObject)?[GlossaryKeys.Amount]);
             }
             return text;
+        }
+
+        /// <summary>
+        /// decorate(root) of tooltipGlossary.js for one text: the text cut where the glossary's words are, every occurrence of each (the web wraps each match in a <c>tooltip-keyword</c> span carrying its explanation),
+        /// the words between them plain. A text with none is one plain stretch.
+        /// </summary>
+        public IReadOnlyList<GlossarySegment> Segments(string text)
+        {
+            var list = new List<GlossarySegment>();
+            if (string.IsNullOrEmpty(text)) return list;
+            var at = 0;
+            if (_pattern != null)
+                foreach (Match match in _pattern.Matches(text))
+                {
+                    if (match.Index > at) list.Add(new GlossarySegment { Text = text.Substring(at, match.Index - at) });
+                    list.Add(new GlossarySegment { Text = match.Value, Entry = new GlossaryEntry { Name = match.Value, Explanation = _terms[match.Value.ToLowerInvariant()] } });
+                    at = match.Index + match.Length;
+                }
+            if (at < text.Length) list.Add(new GlossarySegment { Text = text.Substring(at) });
+            return list;
         }
 
         /// <summary>keywordExplanations(registries, text): the words of the glossary the text contains, each once, in the order they first appear (spelled as they last appear).</summary>

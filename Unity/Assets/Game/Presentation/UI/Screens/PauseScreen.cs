@@ -89,11 +89,5 @@ namespace Ashen.Presentation.UI.Screens
         public void Abandon() => PauseActions.Abandon(Context, _session);
 
         public void Resume() => Nav.Close(Context.Instance);
-
-        public override bool HandleMenu()
-        {
-            Resume();
-            return true;
-        }
     }
 }

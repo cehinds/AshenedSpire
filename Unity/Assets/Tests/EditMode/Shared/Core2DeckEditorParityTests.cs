@@ -133,11 +133,13 @@ namespace Ashen.Tests
                 ["upgraded"] = new JObject { ["label"] = m.FilterUpgraded.Label, ["on"] = m.FilterUpgraded.On },
             },
             ["sorts"] = Chips(m.Sorts),
-            ["view"] = new JObject
-            {
-                ["filters"] = new JObject { ["type"] = new JArray(m.View.Type), ["cost"] = new JArray(m.View.Cost), ["source"] = new JArray(m.View.Source), ["upgraded"] = m.View.Upgraded },
-                ["sort"] = m.View.Sort,
-            },
+            ["view"] = ViewJson(m.View),
+        };
+
+        private static JObject ViewJson(DeckEditorView v) => new JObject
+        {
+            ["filters"] = new JObject { ["type"] = new JArray(v.Type), ["cost"] = new JArray(v.Cost), ["source"] = new JArray(v.Source), ["upgraded"] = v.Upgraded },
+            ["sort"] = v.Sort,
         };
 
         private static DeckEditorView ViewOf(JToken json)
@@ -287,6 +289,9 @@ namespace Ashen.Tests
                 Check(label + " state", step["after"], State(run));
                 var got = ModelJson(DeckEditor.Model(Data, _text, run, settings, ViewOf(step["view"])));
                 Check(label + " model" + Order(step["model"], got), step["model"], got);
+                // The Deck key and pad Y (web nextFilterPreset): the view one press on from this one.
+                var live = DeckEditor.Model(Data, _text, run, settings, ViewOf(step["view"]));
+                Check(label + " next filter preset", step["nextPreset"], ViewJson(DeckEditor.NextFilterPreset(live, ViewOf(step["view"])).Normalized()));
                 var doors = new JArray(
                     DoorsJson(DeckEditor.Doors(Data, settings, false, false)),
                     DoorsJson(DeckEditor.Doors(Data, settings, true, false)),

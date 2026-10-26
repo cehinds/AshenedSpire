@@ -9,7 +9,7 @@ namespace Ashen.Presentation.UI.Screens
     /// <summary>
     /// The fight's hotkeys (web screens/combat.js keyHandler, 2834-2985; P-7c, D-1750..): the Menu key opens the Menu overlay on Settings; Deck, Equipment and Stats open the Armoury where Core lets the deck and the equipment
     /// change (outside combat only: D15), and do nothing during a fight; End Turn, the three flask keys and the card keys act on the player's turn only; every key is swallowed while a veil (a pile, a prompt, the boss
-    /// intro) stands over the board. Escape is Back, which the Navigator already routes.
+    /// intro) stands over the board. Escape is Back, which the Navigator routes: it closes or cancels what is open and does nothing with nothing open (web keyHandler 2876-2903; D-1770).
     /// </summary>
     public sealed partial class Core2CombatScreen
     {
@@ -71,7 +71,7 @@ namespace Ashen.Presentation.UI.Screens
                 case HotkeyActions.Deck: return ArmouryKey(ArmouryValues.TabDeck);
                 case HotkeyActions.Relics: return ArmouryKey(ArmouryValues.TabEquipment);
                 case HotkeyActions.Stats: return ArmouryKey(ArmouryValues.TabStats);
-                case HotkeyActions.Inspect: return false;
+                case HotkeyActions.Inspect: return InspectKey();
             }
             // web: if (busy || combat.result || combat.phase !== 'player') return;
             if (_busy || _flow.Ended) return true;
@@ -86,6 +86,22 @@ namespace Ashen.Presentation.UI.Screens
                     return FlaskKey(System.Array.IndexOf(FlaskActions, id));
                 default: return false;
             }
+        }
+
+        /// <summary>
+        /// Inspect (web combat.js:2850-2860): the full read of whatever the player is looking at, the living enemy they selected, else themselves. It sits ahead of the busy, result and phase test, so it answers during an enemy
+        /// turn and after the fight too; only a veil, a modifier or a text field stops it (all three are the dispatcher's).
+        /// </summary>
+        private bool InspectKey()
+        {
+            var living = View.Enemies.Where(e => e.Alive).Select(e => e.Id);
+            var subject = InspectSubject.Subject(_targets?.SelectedId, living);
+            var fighter = subject != null && _enemies.TryGetValue(subject, out var enemy) ? enemy : _player;
+            if (fighter?.Data == null) return true;
+            var focused = Root.panel?.focusController?.focusedElement as VisualElement;
+            _targets?.Hide();
+            _overlays.OpenDetail(fighter.Data, focused ?? fighter);
+            return true;
         }
 
         /// <summary>D15: Core changes equipment and the deck outside combat only, so the door stays shut until the fight is resolved (web openCombatArmoury: if (editLocked()) return).</summary>
