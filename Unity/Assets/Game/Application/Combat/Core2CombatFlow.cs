@@ -500,6 +500,17 @@ namespace Ashen.App.Combat
             return new Core2StepResult();
         }
 
+        /// <summary>
+        /// Predict what an enemy whose move the player has not read will do (the combatant door's choice and button, web ui/components/enemyKnowledge.js renderIntentPrediction): the legal prediction the rules
+        /// offer for that enemy and maneuver goes through the run session; a refusal says why. Nothing opens, nothing is armed.
+        /// </summary>
+        public Core2StepResult Predict(string enemyId, string maneuver)
+        {
+            if (Ended) return new Core2StepResult();
+            var intent = View.Legal.FirstOrDefault(l => l.Str(K.Type) == EV.IntentPredictIntent && l.Str(Core2DamageKeys.EnemyInstanceId) == enemyId && l.Str(Core2CombatKeys.Maneuver) == maneuver);
+            return intent == null ? new Core2StepResult { Refusal = _strings?.Get(StringKeys.Core2RefusalPredict) } : Execute(intent);
+        }
+
         private Core2Prompt PredictPrompt(string enemyId)
         {
             var enemy = View.Enemies.FirstOrDefault(e => e.Id == enemyId);
