@@ -2,6 +2,20 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## P-7b: the combatant door is the web's (worktree branch, 2026-10-26)
+
+The combat screen's details pane (the door the target card's info button opens) is the web's `combatantDetailBody`, section for section and word for word, and a test holds it there.
+
+**Landed (D-1730..D-1735)**
+- **The view model:** `Core2CombatantInspector` (Application) builds the head, the pool meters and the blocks (summary, current state, revealed hand, bestiary, prediction, previous actions, enemy deck, active list, traits, lore) from a combat state; `Core2EnemyMoveCards` ports `enemyMoveCards` and `enemyActionEffectText` (the Intent row and the deck cards); `Core2InspectorBlocks` draws the blocks with kit classes (`inspector-*` in `CombatModal.uss`); `Core2Overlays.OpenDetail` is the web's door (head, preview with its meters, details, Close).
+- **The oracle and its tests:** `Tools/oracle-core2-inspector.mjs` records the web's door for the player and each enemy of fights under unread, read, laid, revealed and staggered setups; `Core2InspectorParityTests` (13 cases) and `Core2CombatantInspectorTests` (7) pass.
+- **Words:** 160 keys in `app.en.json`, mapped or classified in `Tools/web-strings.config.json`; `Core2StringsParityTests` passes. Generated names `InspectorKeys/Values/Numbers`, UI classes `inspector-*`, tokens `inspectorLabelMin/Max`.
+- **Data:** the tag registry's blurbs (`CoreCombatData.TagBlurbs`), `Core2CombatFlow.Predict` (the door's `Predict action`).
+
+**Tests run (targeted):** `Core2InspectorParity|Core2CombatantInspector|Core2StringsParity|Core2Combat|EnforcementTests|UiDataTests|CodegenTests`; the compile harness prints Build succeeded; `codegen --check`, `refresh-manifest --check`, `ui-tokens --check`, `ci/check-docs` ok.
+
+**Not done / needs the editor:** the door at 1920x1080 and 390x844 (row label widths, fold marks, the `DropdownField` of the prediction, focus order through the folds); only the details column scrolling (D-1735); the keyword hover tips and the meter tips (D-1735).
+
 ## P-5: the combat leftovers go to the web (worktree branch, 2026-10-25)
 
 **Landed (D-1590..D-1595)**

@@ -115,12 +115,16 @@ namespace Ashen.Content
                 (JObject)Rules(ContentFiles.RulesCore2Mechanics)[DK.Mechanics],
                 (JObject)Rules(ContentFiles.RulesRuntime)[DK.Ops]);
             var labels = new System.Collections.Generic.Dictionary<string, string>(StringComparer.Ordinal);
+            var blurbs = new System.Collections.Generic.Dictionary<string, string>(StringComparer.Ordinal);
             foreach (var tag in JsValues.Items(Object(RegistryKeys.TagRegistry)).OfType<JObject>())
             {
                 var id = JsValues.Text(tag[RegistryKeys.Id]);
-                if (id != null) labels[id] = JsValues.Str(tag[TagKeys.ItemTypeLabel]) ?? string.Empty;
+                if (id == null) continue;
+                labels[id] = JsValues.Str(tag[TagKeys.ItemTypeLabel]) ?? string.Empty;
+                blurbs[id] = JsValues.Str(tag[ArmouryKeys.Blurb]) ?? string.Empty;
             }
             data.TagLabels = labels;
+            data.TagBlurbs = blurbs;
             return data;
         }
 

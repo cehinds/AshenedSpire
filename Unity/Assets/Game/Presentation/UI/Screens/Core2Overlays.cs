@@ -4,6 +4,7 @@ using System.Linq;
 using Ashen.App.Combat;
 using Ashen.App.Run;
 using Ashen.App.Ui;
+using Ashen.Domain.Combat;
 using Ashen.Generated;
 using Ashen.Presentation.UI.Kit;
 using UnityEngine;
@@ -307,31 +308,29 @@ namespace Ashen.Presentation.UI.Screens
 
         // ------------------------------------------------------------------ the combatant reading
 
-        /// <summary>The full reading of a fighter (from the target card's info button): its HP and ratings, stance, intent, stacks and statuses in words.</summary>
+        /// <summary>
+        /// The full reading of a fighter (from the target card's info button): the web's combatant door (ui/screens/combat.js openCombatantDoor), its head naming what the fighter is, the preview of the figure with
+        /// its pool meters left and the details right, each block as <see cref="Core2CombatantInspector"/> projects it and <see cref="Core2InspectorBlocks"/> draws it.
+        /// </summary>
         public void OpenDetail(FighterData d, VisualElement opener)
         {
             if (IsOpen || d == null) return;
+            var state = _flow.Session?.State;
+            var entity = state == null ? null : d.Player ? state.Player : state.Enemies.FirstOrDefault(e => e.Str(Ashen.Generated.CombatKeys.Id) == d.Id);
+            if (entity == null) return;
+            var view = Core2CombatantInspector.Build(state, entity, new InspectorContext { Strings = _strings, Text = _ui.Data.CardText, PlayerName = _run.Name });
             _modal.Reset();
             _modal.size = UiValues.ModalSizeLg;
             Show(Kind.Detail, opener, true);
-            _modal.SetHead(_strings.Get(StringKeys.CombatModalTargetEyebrow), d.Name, _strings.Format(StringKeys.CombatModalTargetHp, new StringArgs().Add(UiPlaceholders.Value, d.Hp).Add(UiPlaceholders.Max, d.MaxHp)));
-            // The web's door: the preview (sprite, name, pool meters) left, the details right (combatantInspectorLayout).
+            _modal.SetHead(view.Eyebrow, view.Title);
             var layout = new VisualElement { pickingMode = PickingMode.Ignore };
             layout.AddToClassList(UiClasses.InspectorLayout);
-            layout.Add(InspectorPreview(d));
-            var body = new VisualElement { pickingMode = PickingMode.Ignore };
+            layout.Add(InspectorPreview(d, view));
+            var body = new VisualElement();
             body.AddToClassList(UiClasses.InspectorDetails);
             layout.Add(body);
             _modal.Body.Add(layout);
-            if (!string.IsNullOrEmpty(d.IntentText)) body.Add(Text(_strings.Format(StringKeys.CombatModalTargetIntent, new StringArgs().Add(UiPlaceholders.Label, d.IntentText)), UiClasses.DetailText));
-            else body.Add(Text(_strings.Get(StringKeys.CombatModalTargetNoIntent), UiClasses.DetailMeta));
-            if (!string.IsNullOrEmpty(d.StanceText)) body.Add(Text(_strings.Format(StringKeys.CombatModalTargetStance, new StringArgs().Add(UiPlaceholders.Name, d.StanceText)), UiClasses.DetailText));
-            var ratings = new[] { d.EvadeText, d.BlockText }.Where(s => !string.IsNullOrEmpty(s)).ToList();
-            if (d.HasPoise) ratings.Add(Meter(OverlayValues.Poise, d.Poise, d.PoiseMax));
-            if (d.HasWard) ratings.Add(Meter(OverlayValues.Ward, d.Ward, d.WardMax));
-            Section(body, StringKeys.CombatModalTargetRatings, ratings);
-            Section(body, StringKeys.CombatModalTargetStacks, d.Stacks);
-            Section(body, StringKeys.CombatModalTargetStatuses, d.Statuses);
+            foreach (var block in Core2InspectorBlocks.Build(_strings, view, maneuver => _flow.Predict(view.EnemyId, maneuver).Accepted)) body.Add(block);
             _modal.Foot.Add(CloseButton(StringKeys.CombatModalInspectClose));
             FocusFirst(null);
         }
@@ -340,7 +339,7 @@ namespace Ashen.Presentation.UI.Screens
         /// combatantInspectorPreview: the figure of the combatant in a box of 3 : 4 (the player's portrait, an enemy's stage in the frame its state holds), its name, and the pool meters the combatant has (the Hit
         /// points always, Mana, Poise and Ward when the pool has a size).
         /// </summary>
-        private VisualElement InspectorPreview(FighterData d)
+        private VisualElement InspectorPreview(FighterData d, CombatantInspectorView view)
         {
             var preview = new VisualElement { pickingMode = PickingMode.Ignore };
             preview.AddToClassList(UiClasses.InspectorPreview);
@@ -366,13 +365,10 @@ namespace Ashen.Presentation.UI.Screens
                 art.Add(figure);
             }
             preview.Add(art);
-            preview.Add(Text(d.Name, UiClasses.InspectorName));
+            preview.Add(Text(view.PreviewName, UiClasses.InspectorName));
             var meters = new VisualElement { pickingMode = PickingMode.Ignore };
             meters.AddToClassList(UiClasses.InspectorMeters);
-            AddMeter(meters, InspectorMeters.Hp, InspectorMeters.HpName, d.Hp, d.MaxHp);
-            if (d.Player && d.MaxMana > 0) AddMeter(meters, InspectorMeters.Mp, InspectorMeters.MpName, d.Mana, d.MaxMana);
-            if (d.HasPoise && d.PoiseMax > 0) AddMeter(meters, InspectorMeters.Poise, InspectorMeters.PoiseName, d.Poise, d.PoiseMax);
-            if (d.HasWard && d.WardMax > 0) AddMeter(meters, InspectorMeters.Ward, InspectorMeters.WardName, d.Ward, d.WardMax);
+            foreach (var meter in view.Meters) AddMeter(meters, meter.Id, MeterName(meter.Id), (int)meter.Cur, (int)meter.Max);
             preview.Add(meters);
             return preview;
         }
@@ -415,20 +411,10 @@ namespace Ashen.Presentation.UI.Screens
             return true;
         }
 
-        private string Meter(string key, int value, int max) =>
-            _strings.Get(string.Format(System.Globalization.CultureInfo.InvariantCulture, OverlayFormats.RatingKey, key)) + OverlayValues.WordJoin
-            + _strings.Format(StringKeys.MeterValue, new StringArgs().Add(UiPlaceholders.Value, value).Add(UiPlaceholders.Max, max));
-
-        private void Section(VisualElement body, string headingKey, IReadOnlyList<string> lines)
-        {
-            body.Add(Text(_strings.Get(headingKey), UiClasses.DetailHeading, true));
-            if (lines.Count == 0)
-            {
-                body.Add(Text(_strings.Get(StringKeys.CombatModalTargetNone), UiClasses.DetailMeta));
-                return;
-            }
-            foreach (var line in lines) body.Add(Text(line, UiClasses.DetailText));
-        }
+        /// <summary>The string key of a pool meter's glyph (strings resource.&lt;pool&gt;.name).</summary>
+        private static string MeterName(string id) =>
+            id == InspectorMeters.Hp ? InspectorMeters.HpName : id == InspectorMeters.Mp ? InspectorMeters.MpName : id == InspectorMeters.Sp ? InspectorMeters.SpName
+            : id == InspectorMeters.Poise ? InspectorMeters.PoiseName : InspectorMeters.WardName;
 
         // ------------------------------------------------------------------ the quick menu
 

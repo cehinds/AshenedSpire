@@ -664,6 +664,8 @@
     --size-cmodal-xl-h: 88%;
     --size-cmodal-max-h: 90%;
     --size-inspector-preview-w: 38%;
+    --size-inspector-label-min: 10%;
+    --size-inspector-label-max: 30%;
     --size-cmodal-inset: 14px;
     --size-cmodal-close: 32px;
     --size-cmodal-gap: 12px;
