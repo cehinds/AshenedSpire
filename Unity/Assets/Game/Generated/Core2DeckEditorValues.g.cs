@@ -4,6 +4,7 @@ namespace Ashen.Generated
     /// <summary>Vocabulary of the deck editor's projection (web ui/models/DeckEditorModel.js): cost buckets, card sources, sorts, panes, the collection key kinds and the tags that classify a source.</summary>
     public static class Core2DeckEditorValues
     {
+        public const string ListJoin = ",";
         public const string Bucket0 = "0";
         public const string Bucket1 = "1";
         public const string Bucket2 = "2";

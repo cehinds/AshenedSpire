@@ -269,7 +269,12 @@
   "combatant.evade.name": "lit:model/combatTacticsDisplay.js:55",
   "combatant.help.charge": "lit:config/generated/ui.js:65",
   "combatant.help.charges": "lit:config/generated/ui.js:65",
+  "combatant.help.enemyPoise": "lit:../content/config/ui/presentation/tooltipHelp.json:83",
   "combatant.help.evade": "lit:config/generated/ui.js:65",
+  "combatant.help.hp": "lit:../content/config/ui/presentation/tooltipHelp.json:77",
+  "combatant.help.mana": "lit:../content/config/ui/presentation/tooltipHelp.json:78",
+  "combatant.help.playerPoise": "lit:../content/config/ui/presentation/tooltipHelp.json:82",
+  "combatant.help.stamina": "lit:../content/config/ui/presentation/tooltipHelp.json:79",
   "combatant.history.adds": "lit:ui/screens/combat.js:954",
   "combatant.history.applies": "lit:ui/screens/combat.js:952",
   "combatant.history.heals": "lit:ui/screens/combat.js:953",
@@ -459,9 +464,12 @@
   "deckEditor.empty.collection": "table:deckEditor.empty.collection.short",
   "deckEditor.empty.deck": "table:deckEditor.empty.deck.short",
   "deckEditor.filters": "table:deckEditor.filters.short",
+  "deckEditor.held": "table:deckEditor.held.short",
   "deckEditor.inspect": "table:deckEditor.inspect.short",
+  "deckEditor.keys": "table:deckEditor.keys.short",
   "deckEditor.pane.collection": "table:deckEditor.pane.collection.short",
   "deckEditor.pane.deck": "table:deckEditor.pane.deck.short",
+  "deckEditor.pickUp": "table:deckEditor.pickUp.short",
   "deckEditor.sort": "table:deckEditor.sort.short",
   "deckEditor.undo": "table:deckEditor.undo.short",
   "gameProfile.combat.unreadIntent": "table:gameProfile.combat.unreadIntent.short",
@@ -1182,6 +1190,7 @@
   "combatant.move.tags",
   "combatant.move.tagBlurb",
   "combatant.fold.open",
-  "combatant.fold.closed"
+  "combatant.fold.closed",
+  "combatant.meterTip"
  ]
 }

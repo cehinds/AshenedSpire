@@ -293,21 +293,13 @@ namespace Ashen.Presentation.UI.Screens
 
         private void OpenPause() => Nav.OpenModal(ScreenIds.Pause, new PauseArgs { Session = _run });
 
-        /// <summary>Escape: the review goes back to the pick, anything else opens the pause screen (the door has no close).</summary>
+        /// <summary>Escape: the review goes back to the pick, with none open it does nothing (D-1770; the web's spoils Back is a button, not a key of the menu).</summary>
         public override bool HandleBack()
         {
             if (_flow != null && _flow.Stage == Core2SpoilsStage.Review)
             {
                 OnBack();
-                return true;
             }
-            OpenPause();
-            return true;
-        }
-
-        public override bool HandleMenu()
-        {
-            OpenPause();
             return true;
         }
 

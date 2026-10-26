@@ -135,6 +135,9 @@
         "Row": "deck-editor-row",
         "RowSpent": "deck-editor-row--spent",
         "RowSelected": "deck-editor-row--selected",
+        "RowHeld": "deck-editor-row--held",
+        "StepWord": "deck-editor-step--word",
+        "EditorKeys": "deck-editor-keys",
         "RowName": "deck-editor-name",
         "Meta": "deck-editor-meta",
         "Step": "deck-editor-step",
@@ -194,6 +197,7 @@
         "StepRemove": "remove",
         "StepUp": "up",
         "StepDown": "down",
+        "StepPick": "pick",
         "FoldAttributes": "attributes",
         "FoldLevels": "levels"
       }

@@ -23,6 +23,9 @@ namespace Ashen.App.Combat
         public double Cur;
         public double Max;
         public double Pct;
+
+        /// <summary>What pointing at the meter says under its label (web resourceMeters: the value, then the pool's help): "96 / 96. Health remaining. ..."</summary>
+        public string Tip;
     }
 
     /// <summary>One row of a section (a Row of the kit: its label and the status line on its plate); a disabled row says the section is empty or unknown.</summary>
@@ -165,7 +168,7 @@ namespace Ashen.App.Combat
                 [J.Preview] = new JObject
                 {
                     [J.Name] = PreviewName,
-                    [J.Meters] = new JArray(Meters.Select(m => new JObject { [J.Label] = m.Label, [J.Value] = m.Value, [J.Cur] = m.Cur, [J.Max] = m.Max, [J.Pct] = m.Pct })),
+                    [J.Meters] = new JArray(Meters.Select(m => new JObject { [J.Label] = m.Label, [J.Value] = m.Value, [J.Cur] = m.Cur, [J.Max] = m.Max, [J.Pct] = m.Pct, [J.Tip] = m.Tip })),
                 },
                 [J.Blocks] = blocks,
             };
@@ -736,6 +739,28 @@ namespace Ashen.App.Combat
 
         // ------------------------------------------------------------------ the view
 
+        /// <summary>
+        /// What pointing at a preview meter says (web combat.js inspectorResources, poiseTip(kind, entity) and combatantInspector.js resourceMeters): the pool's value, then its help. A Core 2 fight has no rating rules and no
+        /// foundation, so the branches of poiseTip it reaches are the Hit points, Stamina and Mana help, the player's Poise, an enemy's Poise with what Stagger does, and nothing for the Ward.
+        /// </summary>
+        private static string MeterTip(CombatState c, StringTable strings, bool enemy, string id, string value)
+        {
+            string help;
+            switch (id)
+            {
+                case X.PoolHp: help = strings.Get(S.CombatantHelpHp); break;
+                case X.PoolSp: help = strings.Get(S.CombatantHelpStamina); break;
+                case X.PoolMp: help = strings.Get(S.CombatantHelpMana); break;
+                case X.PoolPoise:
+                    help = enemy
+                        ? Say(strings, S.CombatantHelpEnemyPoise, X.ArgEffect, c.Data.Statuses.Has(X.StatusStaggered) ? c.Data.Statuses.Get(X.StatusStaggered).Str(UiKeys.Tooltip) ?? string.Empty : string.Empty)
+                        : strings.Get(S.CombatantHelpPlayerPoise);
+                    break;
+                default: help = string.Empty; break;
+            }
+            return Say(strings, S.CombatantMeterTip, X.ArgValue, value, X.ArgTip, help);
+        }
+
         /// <summary>The door of one fighter of the fight: the player (pass <c>c.Player</c>) or one of its enemies.</summary>
         public static CombatantInspectorView Build(CombatState c, JObject entity, InspectorContext ctx)
         {
@@ -805,6 +830,7 @@ namespace Ashen.App.Combat
                 view.Meters.Add(new InspectorMeter
                 {
                     Id = id, Label = pool.Label, Value = PoolValue(strings, pool), Cur = pool.Value, Max = max,
+                    Tip = MeterTip(c, strings, subject.Enemy, id, PoolValue(strings, pool)),
                     Pct = pool.Max > 0 ? Math.Max(0, Math.Min(Ashen.Generated.CombatMath.Percent, pool.Value / pool.Max.Value * Ashen.Generated.CombatMath.Percent)) : (pool.Value > 0 ? Ashen.Generated.CombatMath.Percent : 0),
                 });
             }

@@ -1,22 +1,22 @@
 {
  "files": [
   {
-   "bytes": 344398,
+   "bytes": 368418,
    "fights": 3,
    "file": "fights-reaver.json"
   },
   {
-   "bytes": 457809,
+   "bytes": 487469,
    "fights": 3,
    "file": "fights-starseer.json"
   },
   {
-   "bytes": 892713,
+   "bytes": 949308,
    "fights": 3,
    "file": "fights-rogue.json"
   },
   {
-   "bytes": 347022,
+   "bytes": 371022,
    "fights": 3,
    "file": "fights-herald.json"
   }

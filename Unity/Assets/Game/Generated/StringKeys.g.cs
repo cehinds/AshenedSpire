@@ -755,7 +755,12 @@ namespace Ashen.Generated
         public const string CombatantFoldOpen = "combatant.fold.open";
         public const string CombatantHelpCharge = "combatant.help.charge";
         public const string CombatantHelpCharges = "combatant.help.charges";
+        public const string CombatantHelpEnemyPoise = "combatant.help.enemyPoise";
         public const string CombatantHelpEvade = "combatant.help.evade";
+        public const string CombatantHelpHp = "combatant.help.hp";
+        public const string CombatantHelpMana = "combatant.help.mana";
+        public const string CombatantHelpPlayerPoise = "combatant.help.playerPoise";
+        public const string CombatantHelpStamina = "combatant.help.stamina";
         public const string CombatantHistoryAdds = "combatant.history.adds";
         public const string CombatantHistoryApplies = "combatant.history.applies";
         public const string CombatantHistoryBlock = "combatant.history.block";
@@ -765,6 +770,7 @@ namespace Ashen.Generated
         public const string CombatantIntentUnread = "combatant.intent.unread";
         public const string CombatantIntentUnreadMove = "combatant.intent.unreadMove";
         public const string CombatantJoin = "combatant.join";
+        public const string CombatantMeterTip = "combatant.meterTip";
         public const string CombatantMoveAddCard = "combatant.move.addCard";
         public const string CombatantMoveAmount = "combatant.move.amount";
         public const string CombatantMoveApply = "combatant.move.apply";

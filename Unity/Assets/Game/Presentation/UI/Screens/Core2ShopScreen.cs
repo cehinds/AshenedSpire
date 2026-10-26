@@ -402,21 +402,13 @@ namespace Ashen.Presentation.UI.Screens
 
         private void OpenPause() => Nav.OpenModal(ScreenIds.Pause, new PauseArgs { Session = _run });
 
-        /// <summary>Escape: an open modal closes, anything else opens the pause screen.</summary>
+        /// <summary>Escape: an open modal closes, with none open it does nothing (the web's shop has no Escape of its own: D-1770).</summary>
         public override bool HandleBack()
         {
             if (_flow != null && _flow.Stage != Core2ShopStage.Shelf)
             {
                 Press(_flow.CloseOverlay, null);
-                return true;
             }
-            OpenPause();
-            return true;
-        }
-
-        public override bool HandleMenu()
-        {
-            OpenPause();
             return true;
         }
 

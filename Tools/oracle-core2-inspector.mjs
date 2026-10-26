@@ -212,8 +212,23 @@ function revealedHandBlock(read) {
     empty: read.cards.length ? null : 'Hand is empty.', counts: ['draw', 'hand', 'discard', 'exhaust'].map((zone) => `${zone}: ${read.counts[zone]}`).join(' · ') };
 }
 
+/**
+ * combat.js inspectorResources: poiseTip(kind, entity)({ id: tipId || { MP: 'mana', SP: 'stamina' }[label] || label.toLowerCase() }), the words of the branches a Core 2 fight reaches. A fight with rating rules or a
+ * foundation takes others (the rating descriptions, the recovery sentence); the Core 2 profile has neither, so one that does is outside the C# door.
+ */
+function meterTip(combat, kind, label) {
+  if (combat.ratingsRules || combat.foundation) throw new Error('oracle-core2-inspector: a fight with ratings rules or a foundation is outside the Core 2 door');
+  const id = ({ MP: 'mana', SP: 'stamina' })[label] || label.toLowerCase();
+  if (['block', 'hp'].includes(id)) return helpText(id);
+  if (['mana', 'stamina'].includes(id)) return helpText(id);
+  if (id !== 'poise') return '';
+  if (kind === 'player') return helpText('playerPoise');
+  const staggered = registries.frameworkTerms.withStatusWords(registries.statuses.get('staggered'));
+  return helpText('enemyPoise', { effect: (staggered && staggered.tooltip) || '' });
+}
+
 /** combatantDetailBody + combatantInspectorPreview + the door's head, as what they say. */
-function door(subject) {
+function door(subject, combat) {
   const view = sections.projectCombatantInspector(subject, t);
   const byId = Object.fromEntries(view.sections.map((s) => [s.id, s]));
   let abilitiesBlock = projectedSection(byId.abilities);
@@ -235,8 +250,10 @@ function door(subject) {
   ].filter(Boolean);
   return {
     eyebrow: subject.subtitle || 'Combatant', title: subject.name,
+    // `tip` is what combatantInspector.js resourceMeters attaches to each meter: the value (and max), then the pool's help ("<value> / <max>. <help>").
     preview: { name: view.preview.name, meters: view.preview.meters.map((r) => ({ label: r.label, value: r.max == null ? String(r.value) : `${r.value} / ${r.max}`, cur: r.value, max: r.max == null ? r.value : r.max,
-      pct: r.max ? Math.max(0, Math.min(100, (r.value / r.max) * 100)) : (r.value > 0 ? 100 : 0) })) },
+      pct: r.max ? Math.max(0, Math.min(100, (r.value / r.max) * 100)) : (r.value > 0 ? 100 : 0),
+      tip: `${r.value}${r.max == null ? '' : ` / ${r.max}`}. ${meterTip(combat, subject.role, r.label)}` })) },
     blocks,
   };
 }
@@ -279,10 +296,10 @@ function snapshot(combat, run, customName) {
   for (const s of SCENARIOS) {
     const copy = lay(detach(w, combat), s.setup);
     const doors = {};
-    doors.player = door(combatantSubject(copy, run, 'player', copy.player, customName));
+    doors.player = door(combatantSubject(copy, run, 'player', copy.player, customName), copy);
     for (const e of copy.enemies) {
       if (e.alive === false || !(e.hp > 0)) continue;
-      doors[e.id] = door(combatantSubject(copy, run, 'enemy', e, customName));
+      doors[e.id] = door(combatantSubject(copy, run, 'enemy', e, customName), copy);
     }
     out[s.name] = { setup: s.setup, doors };
   }

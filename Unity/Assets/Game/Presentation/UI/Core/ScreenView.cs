@@ -30,9 +30,6 @@ namespace Ashen.Presentation.UI
         /// <summary>True while the screen takes no focus or navigation (the title gate).</summary>
         bool InputBlocked { get; }
 
-        /// <summary>Retained for the screens that override it; the input layer no longer raises it (the web has no pad-Start door on the screens that are not the fight or the map: the Menu action is a HandleHotkey).</summary>
-        bool HandleMenu();
-
         /// <summary>A veil stands over the screen's own surface (a pile, a prompt, a planned door; web veilIsOpen): every screen hotkey is swallowed while it does.</summary>
         bool VeilOpen { get; }
 
@@ -41,6 +38,15 @@ namespace Ashen.Presentation.UI
         /// True when the screen did it.
         /// </summary>
         bool HandleHotkey(HotkeyResult result);
+
+        /// <summary>
+        /// The screen's input gate (web setInputGate, input.js; deckEditor.js:933-947 while a row is held): a focus move (the arrows, the stick, Tab) it takes for itself instead of the focus (+1 down or next, -1 up or previous).
+        /// True when it did.
+        /// </summary>
+        bool HandleMove(int delta);
+
+        /// <summary>The gate's other half: Enter and pad A, which the screen takes for itself (a held row is put down) instead of pressing the focused control. True when it did.</summary>
+        bool HandleSubmit();
 
         /// <summary>The screen holds the bumpers and [ ] for a tab set while it is open (web setTabRing).</summary>
         bool HasTabRing { get; }
@@ -76,11 +82,13 @@ namespace Ashen.Presentation.UI
 
         public virtual bool InputBlocked => false;
 
-        public virtual bool HandleMenu() => false;
-
         public virtual bool VeilOpen => false;
 
         public virtual bool HandleHotkey(HotkeyResult result) => false;
+
+        public virtual bool HandleMove(int delta) => false;
+
+        public virtual bool HandleSubmit() => false;
 
         public virtual bool HasTabRing => false;
 

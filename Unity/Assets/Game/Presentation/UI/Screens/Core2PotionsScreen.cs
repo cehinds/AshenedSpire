@@ -156,11 +156,5 @@ namespace Ashen.Presentation.UI.Screens
             Leave();
             return true;
         }
-
-        public override bool HandleMenu()
-        {
-            Leave();
-            return true;
-        }
     }
 }

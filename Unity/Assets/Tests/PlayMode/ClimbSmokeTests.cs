@@ -160,14 +160,16 @@ namespace Ashen.Tests.Play
 
         /// <summary>
         /// Escape → W-20 → Save &amp; quit (hold) → title → Continue → the load door → back on the same screen, with the
-        /// identical state hash (AF-10, PF-06). Returns through <paramref name="resumed"/> the reloaded session.
+        /// identical state hash (AF-10, PF-06). Returns through <paramref name="resumed"/> the reloaded session. On the map Escape opens nothing
+        /// (web map.js, D-1770), so there W-20 is opened the way the menu button opens it (<paramref name="escapeOpens"/> false).
         /// </summary>
-        private IEnumerator SaveQuitResume(string screen, Action<RunSession> resumed)
+        private IEnumerator SaveQuitResume(string screen, Action<RunSession> resumed, bool escapeOpens = true)
         {
             var session = Current;
             var hash = session.StateHash();
             var location = session.Location;
-            for (var i = 0; i < 4 && Nav.CurrentId != ScreenIds.Pause; i++) yield return Press(Key.Escape);
+            if (escapeOpens) for (var i = 0; i < 4 && Nav.CurrentId != ScreenIds.Pause; i++) yield return Press(Key.Escape);
+            else Nav.OpenModal(ScreenIds.Pause, new PauseArgs { Session = session });
             yield return Until(() => Nav.CurrentId == ScreenIds.Pause && Focused != null, 5f, "W-20 over " + screen);
             var pause = (PauseScreen)Nav.Top.View;
             var saveQuit = pause.Rows.Single(r => r.enabledSelf);
@@ -226,7 +228,7 @@ namespace Ashen.Tests.Play
                         if (!resumedAt.Contains("map"))
                         {
                             resumedAt.Add("map");
-                            yield return SaveQuitResume(ScreenIds.ActMap, _ => { });
+                            yield return SaveQuitResume(ScreenIds.ActMap, _ => { }, escapeOpens: false);
                             break;
                         }
                         var target = Current.ReachableNodes()[0];

@@ -82,6 +82,9 @@ namespace Ashen.Generated
         public const string Row = "deck-editor-row";
         public const string RowSpent = "deck-editor-row--spent";
         public const string RowSelected = "deck-editor-row--selected";
+        public const string RowHeld = "deck-editor-row--held";
+        public const string StepWord = "deck-editor-step--word";
+        public const string EditorKeys = "deck-editor-keys";
         public const string RowName = "deck-editor-name";
         public const string Meta = "deck-editor-meta";
         public const string Step = "deck-editor-step";

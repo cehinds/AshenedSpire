@@ -23,6 +23,7 @@ namespace Ashen.Presentation.UI.Screens
         private Fighter _shown;
         private bool _pinned;
         private bool _overCard;
+        private string _selectedId;
 
         public Core2TargetInspector(VisualElement root, Func<bool> blocked, Func<bool> aiming, Action<FighterData, VisualElement> openDetail, int hideDelayMs)
         {
@@ -34,6 +35,11 @@ namespace Ashen.Presentation.UI.Screens
             _card.pickingMode = PickingMode.Position;
             UiDom.Show(_card, false);
             _root.Add(_card);
+            // web combat.js:603-606: a press on a blank part of the board ends the contextual selection (the fighters and their cards keep it).
+            _root.RegisterCallback<PointerUpEvent>(e =>
+            {
+                if (e.target is VisualElement hit && hit.GetFirstAncestorOfType<Fighter>() == null && !(hit is Fighter) && hit.GetFirstAncestorOfType<TargetCard>() == null && hit != _card) _selectedId = null;
+            });
             _card.RegisterCallback<PointerEnterEvent>(_ =>
             {
                 _overCard = true;
@@ -58,16 +64,35 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>The card was pinned by a tap (it stays until tapped again, Escape or an overlay).</summary>
         public bool IsPinned => _shown != null && _pinned;
 
+        /// <summary>
+        /// The fighter the player has selected for reading (web <c>selectedCombatantId</c>, combat.js:545 and 591-596: "contextual reading selection; never combat targeting"). A tap on a fighter and the focus landing on one
+        /// select it; a blank press, Escape, a card or flask being armed (combat.js:1530) and its death clear it. The Inspect key opens this fighter's door, else the player's.
+        /// </summary>
+        public string SelectedId => _selectedId;
+
+        public void ClearSelection() => _selectedId = null;
+
+        private void Select(Fighter fighter)
+        {
+            if (fighter?.Data == null || !fighter.Data.Alive) return;
+            _selectedId = fighter.Data.Id;
+        }
+
         /// <summary>Wires a fighter: hover and focus show its card, leaving hides it, a tap pins or unpins it.</summary>
         public void Attach(Fighter fighter)
         {
             fighter.RegisterCallback<PointerEnterEvent>(_ => Show(fighter));
             fighter.RegisterCallback<PointerLeaveEvent>(_ => HideSoon());
-            fighter.RegisterCallback<FocusInEvent>(_ => Show(fighter));
+            fighter.RegisterCallback<FocusInEvent>(_ =>
+            {
+                if (!_aiming()) Select(fighter);
+                Show(fighter);
+            });
             fighter.RegisterCallback<FocusOutEvent>(_ => HideSoon());
             fighter.RegisterCallback<PointerUpEvent>(_ =>
             {
                 if (_aiming() || _blocked()) return;
+                Select(fighter);
                 if (_shown == fighter && _pinned) Hide();
                 else
                 {
@@ -80,6 +105,7 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>The fighter changed (a redraw): the open card follows its data, or goes when the fighter is gone or an overlay took the screen.</summary>
         public void Refresh()
         {
+            if (_aiming()) _selectedId = null;
             if (_shown == null) return;
             if (_blocked() || _shown.Data == null || !_shown.Data.Alive) Hide();
             else _card.Bind(_shown.Data);
