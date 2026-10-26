@@ -41,7 +41,8 @@
         "Prologue": "prologue",
         "Compendium": "compendium",
         "Profile": "profile",
-        "About": "about"
+        "About": "about",
+        "Menu": "menu"
       }
     },
     {
@@ -588,6 +589,18 @@
         "SettingsUndoText": "SETTINGS_UNDO_TEXT",
         "SettingsUndoButton": "SETTINGS_UNDO_BUTTON",
         "SettingsTipRow": "SETTINGS_TIP_ROW",
+        "OverlayHead": "OVERLAY_HEAD",
+        "OverlayFoot": "OVERLAY_FOOT",
+        "ControlsScroll": "CONTROLS_SCROLL",
+        "OverlayTabs": "OVERLAY_TABS",
+        "OverlayGoTo": "OVERLAY_GOTO",
+        "OverlayClose": "OVERLAY_CLOSE",
+        "OverlaySave": "OVERLAY_SAVE",
+        "OverlayQuit": "OVERLAY_QUIT",
+        "SettingsBody": "SETTINGS_BODY",
+        "ControlsBody": "CONTROLS_BODY",
+        "SettingsFoot": "SETTINGS_FOOT",
+        "OverlayQuickHost": "OVERLAY_QUICK_HOST",
         "TitleArtLit": "TITLE_ART_LIT",
         "MapPotionMinis": "MAP_POTION_MINIS",
         "MapPotionsHost": "MAP_POTIONS_HOST"
@@ -1091,7 +1104,9 @@
         "Open": "open",
         "Confirm": "confirm",
         "Save": "save",
-        "SaveQuit": "saveQuit"
+        "SaveQuit": "saveQuit",
+        "Toggle": "toggle",
+        "Load": "load"
       }
     },
     {
@@ -1362,6 +1377,7 @@
         "MapRouteOutline": "mapRouteOutline",
         "PrologueTick": "prologueTick",
         "SettingsCommit": "settingsCommit",
+        "ControlsPoll": "controlsPoll",
         "EventFigureFade": "eventFigureFade",
         "EventContextAt": "eventContextAt",
         "EventContextFade": "eventContextFade",

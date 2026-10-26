@@ -46,7 +46,7 @@ The verification sizes 1280x720 and 844x390 are not in the web shots; skip them 
 | `map-trail`, `map-midclimb` | `actMap` | Two floors walked; half the act walked |
 | `map-legend` | `actMap` | Legend open (the `?` tool) |
 | `map-potions` | `actMap` | Potions door open |
-| `map-pause-menu` | `pause` | Menu from the map |
+| `map-pause-menu` | `settings` | Menu from the map: the Menu overlay on its Settings tab (`c2_map_pause`); the quick list that opens it is `modal: pause`, and the Controls tab is `modal: menu` with `tab: controls` (the web has no shot of it) |
 | `map-deck`, `map-equipment`, `map-stats` | `armoury` | Deck, Equipment and Stats tabs from the map |
 | `flow-10-first-combat`, `combat` | `core2Combat` | First fight, turn 1, nothing played |
 | `combat-card-selected`, `combat-target-hover`, `combat-player-hover`, `combat-card-inspect` | `core2Combat` | A card picked; the pointer on an enemy; on the player; the card's inspect door |

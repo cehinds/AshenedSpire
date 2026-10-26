@@ -31,6 +31,7 @@ namespace Ashen.Presentation.UI.Screens
         private readonly VisualElement _host;
         private readonly CombatModal _modal;
         private readonly QuickMenu _quick;
+        private IReadOnlyList<QuickMenuRow> _quickRows = new List<QuickMenuRow>();
         private Kind _kind;
         private VisualElement _opener;
         private string _pile;
@@ -54,7 +55,7 @@ namespace Ashen.Presentation.UI.Screens
             });
             _modal.CloseRequested += Close;
             _quick.Chosen += OnQuick;
-            _quick.Refused += (id, anchor) => Kit.Refusal.Show(anchor, context.Overlay, _strings.Get(StringKeys.PauseLater), _ui.Data.Tokens.Duration(TokenKeys.Refusal));
+            _quick.Refused += (id, anchor) => QuickMenuRows.Refuse(context, _quickRows, id, anchor);
         }
 
         /// <summary>True while an overlay is open (the screen's focus mode is then the overlay's).</summary>
@@ -432,39 +433,41 @@ namespace Ashen.Presentation.UI.Screens
 
         // ------------------------------------------------------------------ the quick menu
 
-        /// <summary>The quick menu: the pause menu's rows (ui/menus.json pause, so a row exists in both or neither) as a dropdown under the menu button.</summary>
+        /// <summary>The quick menu (web quicknav.js over quickMenuRows, ui/menus.json pause): Settings, Controls, the Fullscreen and Music switches, the Armoury's Inventory and Character (locked in a fight), Load, Save, Save and Quit and Quit Without Saving, as a dropdown under the menu button.</summary>
         public void OpenQuick(VisualElement opener)
         {
             if (IsOpen) return;
-            var context = _ui.Data.MenuContext(true, _run.IsInCombat);
-            var rows = new List<QuickRowData>();
-            var sawConfirm = false;
-            foreach (var state in MenuRules.Evaluate(_ui.Data.Menus.Pause, context).Where(s => s.Visible))
-            {
-                var confirm = state.Def.Action == MenuActions.Confirm || state.Def.Action == MenuActions.Save || state.Def.Action == MenuActions.SaveQuit;
-                rows.Add(new QuickRowData
-                {
-                    Id = state.Def.Id,
-                    Label = _strings.Get(state.Def.LabelKey),
-                    Note = state.Enabled ? null : _strings.Get(StringKeys.PauseLater),
-                    Enabled = state.Enabled,
-                    Danger = state.Def.Confirm == ConfirmIds.Abandon || state.Def.Confirm == ConfirmIds.QuitWithoutSaving,
-                    Band = confirm && !sawConfirm && rows.Count > 0,
-                });
-                sawConfirm |= confirm;
-            }
-            _quick.SetRows(rows);
+            _quickRows = QuickMenuRows.Fill(_context, _quick, _run);
             Show(Kind.Quick, opener, false);
-            var first = _quick.Rows.FirstOrDefault();
-            _context.Instance.LastFocused = first;
-            if (first != null) _context.Navigator.FocusTop(first);
+            FocusQuickRow(0);
+        }
+
+        private void FocusQuickRow(int index)
+        {
+            var row = _quick.Rows.ElementAtOrDefault(index);
+            _context.Instance.LastFocused = row;
+            if (row != null) _context.Navigator.FocusTop(row);
         }
 
         private void OnQuick(string id)
         {
             var def = _ui.Data.Menus.Pause.FirstOrDefault(e => e.Id == id);
+            if (def == null) return;
+            var index = _quickRows.ToList().FindIndex(r => r.Def.Id == id);
+            // A switch and Save act in place and leave the list open (web quicknav.js: 'keep'); Save says Saved · Slot n on its own row.
+            if (QuickMenuRows.KeepsOpen(def, false))
+            {
+                if (def.Action == MenuActions.Toggle)
+                {
+                    PauseActions.Toggle(_context, _run, def);
+                    _quickRows = QuickMenuRows.Fill(_context, _quick, _run);
+                    FocusQuickRow(index);
+                }
+                else PauseActions.SaveHere(_context, _run, _quick.Rows.ElementAtOrDefault(index));
+                return;
+            }
             Close();
-            if (def != null) PauseActions.Activate(_context, _run, def);
+            PauseActions.Activate(_context, _run, def);
         }
 
         // ------------------------------------------------------------------ small builders

@@ -224,7 +224,7 @@ namespace Ashen.Tests.Play
             yield return Press(Key.Escape);
             yield return Until(() => Nav.CurrentId == ScreenIds.Pause && Focused != null, 5f, "W-20 pause");
             var pause = (PauseScreen)Nav.Top.View;
-            Assert.That(Focused, Is.SameAs(pause.ResumeButton), "pause opens on Resume");
+            Assert.That(Focused, Is.SameAs(pause.ResumeButton), "the menu opens on its first row");
             yield return Press(GamepadButton.Start);
             yield return Until(() => Nav.CurrentId == ScreenIds.Combat, 5f, "pad Start resumes");
             yield return Press(GamepadButton.Start);

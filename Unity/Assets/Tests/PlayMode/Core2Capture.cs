@@ -20,7 +20,7 @@ namespace Ashen.Tests.Play
     ///   endTurns            with until = combat: End Turn this many times (the enemy turn, the next player turn)
     ///   result              with until = runEnd: defeat (the default; hit points set to 1 and turns ended until the run is lost)
     ///   hpRatio, cinders    edits for review, applied last
-    /// and, for the map: select (true: the first reachable node), legend (true), potionsTray (true: the minis out), modal (potions | pause | armoury) with 'tab' (deck | equipment | stats).
+    /// and, for the map: select (true: the first reachable node), legend (true), potionsTray (true: the minis out), modal (potions | pause: the quick menu | menu: the Menu overlay | armoury) with 'tab' (menu: settings | controls; armoury: deck | equipment | stats).
     /// </summary>
     public static class Core2Capture
     {
@@ -54,6 +54,9 @@ namespace Ashen.Tests.Play
                         break;
                     case "pause":
                         nav.OpenModal(ScreenIds.Pause, new PauseArgs { Session = map.Core2 });
+                        break;
+                    case "menu":
+                        nav.OpenModal(ScreenIds.Menu, new SettingsArgs { Tab = (string)spec["tab"] ?? MenuValues.TabSettings });
                         break;
                     case "armoury":
                         nav.OpenModal(ScreenIds.Armoury, new ArmouryArgs { Session = map.Core2, Tab = (string)spec["tab"] ?? ArmouryValues.TabEquipment });

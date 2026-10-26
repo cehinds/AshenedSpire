@@ -956,6 +956,200 @@
     margin: 0;
 }
 
+/* ---- the Menu overlay and the Controls list (P-7a, D-1710..): the Settings frame in the web's overlay form (src/ui/components/menuComponents.js renderMenuOverlay, docs/qa/web-screens/map-pause-menu-*.jpg):
+        a head of the two tabs with the Go to... and close icon boxes, the open tab's body, a foot of Save and Quit and Save Game. The Controls list is src/ui/screens/controls.js on the kit's Row, LabelStack and Keycap. ---- */
+
+.settings-body,
+.controls-body {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.overlay-head {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--size-settings-head-h);
+    padding: 0 var(--space-md);
+    background-color: var(--color-modal-bar);
+    border-bottom-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+}
+
+.overlay-tabs {
+    flex-direction: row;
+    align-items: flex-end;
+    align-self: stretch;
+}
+
+.overlay-actions {
+    flex-direction: row;
+    align-items: center;
+}
+
+.kit-button.overlay-tab {
+    height: var(--size-overlay-tab-h);
+    min-height: var(--size-overlay-tab-h);
+    margin: 0 var(--size-overlay-tab-gap) 0 0;
+    padding: 0 var(--space-md);
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-width: 0;
+    border-bottom-width: var(--border-control);
+    border-bottom-color: var(--color-transparent);
+    border-radius: var(--radius-tight);
+    font-size: var(--font-settings-tab);
+    color: var(--color-muted);
+}
+
+.kit-button.overlay-tab:hover,
+.kit-button.overlay-tab:focus {
+    background-color: var(--color-transparent);
+    border-bottom-color: var(--color-line-soft);
+    color: var(--color-parchment);
+}
+
+.kit-button.overlay-tab--on,
+.kit-button.overlay-tab--on:hover,
+.kit-button.overlay-tab--on:focus {
+    border-bottom-color: var(--color-ready-line);
+    color: var(--color-class-selected);
+}
+
+.overlay-icon {
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-parchment);
+}
+
+/* the foot: Save and Quit and Save Game share the width (web .overlay-footer, size medium); the note beside them is hidden by the web's own container rule at every width it ships */
+.overlay-foot {
+    flex-direction: row;
+}
+
+.overlay-foot-button {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 0 var(--size-overlay-foot-gap) 0 0;
+}
+
+/* the Go to... list hangs under its box at the frame's right edge (web .qn-panel) */
+.overlay-quick-host {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.overlay-quick.quickmenu {
+    top: var(--size-settings-menu-top);
+    right: var(--space-md);
+}
+
+.controls-pane {
+    flex-direction: column;
+    padding: var(--space-md);
+}
+
+.controls-eyebrow {
+    font-size: var(--font-controls-eyebrow);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.controls-title {
+    margin-top: var(--size-controls-pane-gap);
+    font-size: var(--font-controls-title);
+    letter-spacing: var(--size-track-title);
+    color: var(--color-parchment);
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+    -unity-font-style: bold;
+}
+
+.controls-intro {
+    margin-top: var(--size-controls-pane-gap);
+    font-size: var(--font-controls-subtitle);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.controls-pad--live {
+    color: var(--color-green);
+}
+
+.controls-pad--off {
+    color: var(--color-muted);
+}
+
+.controls-rule {
+    height: var(--border-hairline);
+    margin: var(--space-md) 0 var(--size-controls-pane-gap) 0;
+    background-color: var(--color-line);
+}
+
+.controls-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--size-settings-row-pad) var(--space-sm);
+    border-bottom-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.controls-label {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    font-size: var(--font-settings-row-label);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.controls-trail {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.controls-keycap {
+    min-width: var(--size-controls-keycap-w);
+    min-height: var(--size-settings-tool-h);
+    margin: 0 var(--size-controls-gap) 0 0;
+    padding: 0 var(--space-md);
+    background-color: var(--color-bg);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
+    font-size: var(--font-controls-keycap);
+    color: var(--color-gold);
+    -unity-text-align: middle-center;
+}
+
+.kit-button.controls-rebind {
+    min-height: var(--size-settings-tool-h);
+    height: var(--size-settings-tool-h);
+    margin: 0 var(--size-controls-gap) 0 0;
+    padding: 0 var(--space-md);
+    font-size: var(--font-body);
+}
+
+.kit-button.controls-rebind--listening {
+    border-color: var(--color-ember);
+    color: var(--color-ember);
+}
+
+.layout-narrow .controls-row {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.layout-narrow .controls-trail {
+    flex-wrap: wrap;
+    margin-top: var(--space-sm);
+}
+
 .layout-narrow .settings-frame {
     width: var(--size-full-width);
     height: var(--size-full-width);

@@ -168,8 +168,7 @@
     "pause": {
       "uxml": "UI/Screens/Pause",
       "layer": "modal",
-      "focusOrder": ["PAUSE_ROWS", "FOOTER_PRIMARY", "SHELL_EXIT"],
-      "initialFocus": "FOOTER_PRIMARY",
+      "focusOrder": ["PAUSE_ROWS"],
       "back": "close",
       "transitions": {}
     },
@@ -265,6 +264,7 @@
     "about": { "uxml": "UI/Screens/About", "layer": "screen", "background": "bg.tower-entrance-hall", "focusOrder": ["ABOUT_BODY", "FOOTER_PRIMARY", "SHELL_EXIT"], "back": "pop", "transitions": {} },
     "customRun": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
     "settings": { "uxml": "UI/Screens/Settings", "layer": "screen", "background": "bg.tower-entrance-hall", "focusOrder": ["SETTINGS_HEAD", "SETTINGS_TABS", "SETTINGS_GROUPS", "SETTINGS_ROWS", "SETTINGS_DONE"], "back": "pop", "transitions": {} },
+    "menu": { "uxml": "UI/Screens/Settings", "layer": "modal", "focusOrder": ["OVERLAY_HEAD", "SETTINGS_HEAD", "SETTINGS_TABS", "SETTINGS_GROUPS", "SETTINGS_ROWS", "CONTROLS_SCROLL", "OVERLAY_FOOT"], "focusModes": { "quick": ["OVERLAY_QUICK"] }, "back": "close", "transitions": {} },
     "lobby": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} }
   }
 }
