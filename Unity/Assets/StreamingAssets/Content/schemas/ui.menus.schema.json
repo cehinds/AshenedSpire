@@ -120,13 +120,27 @@
             "enum": [
               "confirm",
               "continue",
+              "load",
               "open",
               "save",
-              "saveQuit"
+              "saveQuit",
+              "toggle"
             ]
+          },
+          "armouryTab": {
+            "type": "string"
+          },
+          "band": {
+            "type": "string"
           },
           "confirm": {
             "type": "string"
+          },
+          "control": {
+            "type": "string",
+            "enum": [
+              "switch"
+            ]
           },
           "enabledWhen": {
             "type": "string",
@@ -152,6 +166,9 @@
           "labelKey": {
             "type": "string"
           },
+          "lockedInCombat": {
+            "type": "boolean"
+          },
           "mode": {
             "type": "string",
             "enum": [
@@ -159,8 +176,23 @@
               "new"
             ]
           },
+          "setting": {
+            "type": "string"
+          },
+          "tab": {
+            "type": "string"
+          },
           "target": {
             "type": "string"
+          },
+          "tipKey": {
+            "type": "string"
+          },
+          "tone": {
+            "type": "string",
+            "enum": [
+              "danger"
+            ]
           },
           "visible": {
             "type": "boolean"
@@ -196,12 +228,35 @@
           "labelKey"
         ]
       }
+    },
+    "overlayTabs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "labelKey": {
+            "type": "string"
+          },
+          "tipKey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "labelKey",
+          "tipKey"
+        ]
+      }
     }
   },
   "required": [
     "comment",
     "confirms",
     "creationPanes",
+    "overlayTabs",
     "pause",
     "title"
   ]

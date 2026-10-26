@@ -72,3 +72,36 @@
     font-size: var(--font-cmodal-status);
     color: var(--color-muted);
 }
+
+/* P-7a: the open tab's row is gold (web .qn-row.on), and a switch row says its sentence (.qn-condition) and its state in a pill (.qn-state, gold when on) */
+.quick-row--on .quick-row-label {
+    color: var(--color-gold);
+}
+
+.quick-condition {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin: 0 var(--space-md) 0 var(--space-md);
+    font-size: var(--font-cmodal-status);
+    color: var(--color-muted);
+    -unity-text-align: middle-right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.quick-state {
+    min-width: var(--size-quick-state-w);
+    padding: 0 var(--space-sm);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
+    font-size: var(--font-cmodal-status);
+    color: var(--color-muted);
+    -unity-text-align: middle-center;
+}
+
+.quick-state--on {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}

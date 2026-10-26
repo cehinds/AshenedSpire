@@ -9,6 +9,9 @@ namespace Ashen.App.Ui
     {
         public ScreenRegistry Screens;
         public MenuSet Menus;
+
+        /// <summary>ui/controls.json (P-7a): the actions the Controls list rebinds, the pad buttons and the key names.</summary>
+        public ControlsData Controls;
         public LayoutRules Layout;
         public UiTokens Tokens;
         public ComponentDefaults Components;
@@ -79,6 +82,7 @@ namespace Ashen.App.Ui
             {
                 Screens = ScreenRegistry.From(Read(ContentFiles.UiScreens)),
                 Menus = MenuSet.From(Read(ContentFiles.UiMenus)),
+                Controls = ControlsData.From(Read(ContentFiles.UiControls)),
                 Layout = LayoutRules.From(Read(ContentFiles.UiLayout)),
                 Tokens = new UiTokens(Read(ContentFiles.UiTokens)),
                 Components = ComponentDefaults.From(Read(ContentFiles.UiComponents)),

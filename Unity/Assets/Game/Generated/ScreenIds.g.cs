@@ -33,5 +33,6 @@ namespace Ashen.Generated
         public const string Compendium = "compendium";
         public const string Profile = "profile";
         public const string About = "about";
+        public const string Menu = "menu";
     }
 }

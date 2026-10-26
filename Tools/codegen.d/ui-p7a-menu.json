@@ -1,0 +1,128 @@
+{
+  "comment": "P-7a (D-1710..): the Controls list and the Menu overlay (web src/ui/screens/controls.js, src/ui/components/overlay.js, menuComponents.js, quicknav.js; the ACTIONS registry of src/ui/input.js): the keys of ui/controls.json and of the quick menu rows, and the names of the overlay's elements.",
+  "keySets": [
+    {
+      "name": "ControlsKeys",
+      "doc": "Keys of ui/controls.json (the actions, the pad buttons, the key names).",
+      "keys": {
+        "Actions": "actions",
+        "PadButtons": "padButtons",
+        "Id": "id",
+        "LabelKey": "labelKey",
+        "Kind": "kind",
+        "FixedKey": "fixedKey",
+        "KeyHint": "keyHint",
+        "DefKey": "defKey",
+        "DefButton": "defButton",
+        "Glyph": "glyph",
+        "Name": "name",
+        "Source": "source",
+        "PadGlyphFallback": "padGlyphFallback",
+        "PadNameFallback": "padNameFallback",
+        "Unbound": "unbound",
+        "KeyLabels": "keyLabels",
+        "KeyNames": "keyNames",
+        "ModifierKeys": "modifierKeys",
+        "CancelKey": "cancelKey",
+        "StoredKeyBindings": "storedKeyBindings",
+        "StoredPadBindings": "storedPadBindings"
+      }
+    },
+    {
+      "name": "ControlsValues",
+      "doc": "Values of ui/controls.json (an action's kind) and the gamepad's Input System controls a pad button is read from.",
+      "keys": {
+        "KindCursor": "cursor",
+        "KindKey": "key",
+        "RebindKey": "key",
+        "RebindPad": "pad",
+        "PadSouth": "buttonSouth",
+        "PadEast": "buttonEast",
+        "PadWest": "buttonWest",
+        "PadNorth": "buttonNorth",
+        "PadLeftShoulder": "leftShoulder",
+        "PadRightShoulder": "rightShoulder",
+        "PadLeftTrigger": "leftTrigger",
+        "PadRightTrigger": "rightTrigger",
+        "PadSelect": "selectButton",
+        "PadStart": "startButton",
+        "PadLeftStick": "leftStickButton",
+        "PadRightStick": "rightStickButton",
+        "PadDpadUp": "dpadUp",
+        "PadDpadDown": "dpadDown",
+        "PadDpadLeft": "dpadLeft",
+        "PadDpadRight": "dpadRight"
+      }
+    },
+    {
+      "name": "ControlsPlaceholders",
+      "doc": "Placeholders of the Controls and quick menu strings.",
+      "keys": {
+        "Button": "button",
+        "Key": "key",
+        "Volume": "volume"
+      }
+    },
+    {
+      "name": "MenuKeys",
+      "doc": "Keys of the quick menu rows (ui/menus.json pause) and of the Menu overlay's tab strip.",
+      "keys": {
+        "OverlayTabs": "overlayTabs",
+        "Band": "band",
+        "Control": "control",
+        "Setting": "setting",
+        "Tab": "tab",
+        "Tone": "tone",
+        "TipKey": "tipKey",
+        "ArmouryTab": "armouryTab",
+        "LockedInCombat": "lockedInCombat"
+      }
+    },
+    {
+      "name": "MenuValues",
+      "doc": "Values of the quick menu rows: a switch row, the loss tone, the overlay's tabs.",
+      "keys": {
+        "ControlSwitch": "switch",
+        "ToneDanger": "danger",
+        "TabSettings": "settings",
+        "TabControls": "controls",
+        "FocusQuick": "quick"
+      }
+    },
+    {
+      "name": "MenuClasses",
+      "doc": "USS classes of the Menu overlay, the Controls list and the quick menu's new parts (web .overlay-head, .ov-tab, .rebind-*, .qn-*).",
+      "keys": {
+        "OverlayHead": "overlay-head",
+        "OverlayTabs": "overlay-tabs",
+        "OverlayTab": "overlay-tab",
+        "OverlayTabOn": "overlay-tab--on",
+        "OverlayActions": "overlay-actions",
+        "OverlayIcon": "overlay-icon",
+        "OverlayFoot": "overlay-foot",
+        "OverlayFootButton": "overlay-foot-button",
+        "OverlayQuick": "overlay-quick",
+        "ControlsBody": "controls-body",
+        "ControlsPane": "controls-pane",
+        "ControlsEyebrow": "controls-eyebrow",
+        "ControlsTitle": "controls-title",
+        "ControlsIntro": "controls-intro",
+        "ControlsPad": "controls-pad",
+        "ControlsPadLive": "controls-pad--live",
+        "ControlsPadOff": "controls-pad--off",
+        "ControlsRule": "controls-rule",
+        "ControlsRow": "controls-row",
+        "ControlsLabel": "controls-label",
+        "ControlsHint": "controls-hint",
+        "ControlsTrail": "controls-trail",
+        "ControlsKeycap": "controls-keycap",
+        "ControlsRebind": "controls-rebind",
+        "ControlsListening": "controls-rebind--listening",
+        "QuickRowOn": "quick-row--on",
+        "QuickState": "quick-state",
+        "QuickStateOn": "quick-state--on",
+        "QuickCondition": "quick-condition"
+      }
+    }
+  ]
+}

@@ -465,60 +465,6 @@
     margin-right: var(--space-xl);
 }
 
-/* ---- W-20 pause (a W1 frame without categories) ---- */
-
-.pause-shell {
-    width: var(--size-pause-shell-w);
-    height: var(--size-pause-shell-h);
-}
-
-.pause-seed {
-    color: var(--color-muted);
-    margin-bottom: var(--space-md);
-}
-
-.pause-rows {
-    flex-grow: 1;
-}
-
-.pause-row {
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: var(--space-sm);
-}
-
-.pause-row .kit-button {
-    width: var(--size-half-width);
-}
-
-.pause-hint {
-    margin-left: var(--space-lg);
-    color: var(--color-muted);
-    font-size: var(--font-caption);
-    flex-shrink: 1;
-    white-space: normal;
-}
-
-.layout-narrow .pause-shell,
-.band-compact .pause-shell {
-    width: var(--size-full-width);
-    height: var(--size-full-width);
-}
-
-.layout-narrow .pause-row .kit-button {
-    width: var(--size-full-width);
-}
-
-.layout-narrow .pause-row {
-    flex-direction: column;
-    align-items: stretch;
-}
-
-.layout-narrow .pause-hint {
-    margin-left: 0;
-    margin-top: var(--space-xxs);
-}
-
 /* ---- W-08 rewards (W1t: the reward list beside its claim status; the card or draft pick as a sub-state) ---- */
 
 .rewards-background {

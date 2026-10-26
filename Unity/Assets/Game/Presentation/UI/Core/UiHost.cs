@@ -23,6 +23,12 @@ namespace Ashen.Presentation.UI
         public UIDocument Document { get; private set; }
         public Navigator Navigator { get; private set; }
 
+        /// <summary>The input layer: the keyboard, the pad and the hint chips, through the player's bindings (P-7c).</summary>
+        public HotkeyHost Hotkeys { get; private set; }
+
+        /// <summary>A key or the pad is driving the focus (the focus ring shows).</summary>
+        public void UseKeys() => _focusRing?.UseKeys();
+
         /// <summary>Dresses the UI in the player's settings (accent, palette, HUD parts, layout, tooltips); made by the boot.</summary>
         public SettingsApplier Applier { get; set; }
 
@@ -60,7 +66,7 @@ namespace Ashen.Presentation.UI
             host._input.Move += host.Navigator.MoveFocus;
             host._input.Submit += host.Navigator.Submit;
             host._input.Cancel += host.Navigator.Back;
-            host._input.Menu += host.Navigator.Menu;
+            host.Hotkeys = new HotkeyHost(host, root, context.Data.Controls);
             return host;
         }
 
@@ -106,6 +112,7 @@ namespace Ashen.Presentation.UI
         public void Tick()
         {
             Navigator?.ApplyLayout(ViewportWidth, ViewportHeight);
+            Hotkeys?.Tick();
             _input?.Tick(Time.realtimeSinceStartup);
         }
 
@@ -113,6 +120,8 @@ namespace Ashen.Presentation.UI
         {
             Applier?.Dispose();
             Applier = null;
+            Hotkeys?.Dispose();
+            Hotkeys = null;
             _input?.Dispose();
             _input = null;
             if (Document != null) Document.panelSettings = null;

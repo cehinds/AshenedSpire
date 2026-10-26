@@ -14,6 +14,19 @@ namespace Ashen.Presentation.UI.Kit
         public bool Enabled = true;
         public bool Danger;
         public bool Band;
+
+        /// <summary>The tooltip's words (web quicknav attachTooltip: the label as its title, the row's tip), or null.</summary>
+        public string Tip;
+
+        /// <summary>The Menu overlay's open tab: the row reads in gold (web .qn-row.on).</summary>
+        public bool Current;
+
+        /// <summary>A switch row: its sentence (web .qn-condition) and its On or Off pill (.qn-state).</summary>
+        public bool Switch;
+
+        public bool Checked;
+        public string Condition;
+        public string State;
     }
 
     /// <summary>
@@ -40,6 +53,13 @@ namespace Ashen.Presentation.UI.Kit
         /// <summary>Raised when a disabled row is pressed (its anchor and the id), so the host can say why.</summary>
         public event Action<string, VisualElement> Refused;
 
+        /// <summary>Gives each row that has a tip its tooltip (the row's label as the title), the way the web's quick menu does (quicknav.js attachTooltip).</summary>
+        public void AttachTips(IReadOnlyList<QuickRowData> rows, VisualElement overlay, string sizeId, int delayMs)
+        {
+            for (var i = 0; i < rows.Count && i < _buttons.Count; i++)
+                if (!string.IsNullOrEmpty(rows[i].Tip)) Tooltip.AttachResolved(_buttons[i], overlay, sizeId, rows[i].Label, rows[i].Tip, delayMs);
+        }
+
         public void SetRows(IReadOnlyList<QuickRowData> rows)
         {
             _rows.Clear();
@@ -52,11 +72,24 @@ namespace Ashen.Presentation.UI.Kit
                 button.EnableInClassList(UiClasses.QuickRowBand, row.Band);
                 button.EnableInClassList(UiClasses.QuickRowDanger, row.Danger);
                 button.EnableInClassList(UiClasses.QuickRowDisabled, !row.Enabled);
+                button.EnableInClassList(MenuClasses.QuickRowOn, row.Current);
                 var label = new LocLabel { pickingMode = PickingMode.Ignore };
                 label.AddToClassList(UiClasses.QuickRowLabel);
                 label.AddToClassList(UiClasses.ValueText);
                 label.SetResolved(row.Label);
                 button.Add(label);
+                if (row.Switch)
+                {
+                    var condition = new LocLabel { pickingMode = PickingMode.Ignore };
+                    condition.AddToClassList(MenuClasses.QuickCondition);
+                    condition.SetResolved(row.Condition);
+                    button.Add(condition);
+                    var state = new LocLabel { pickingMode = PickingMode.Ignore };
+                    state.AddToClassList(MenuClasses.QuickState);
+                    state.EnableInClassList(MenuClasses.QuickStateOn, row.Checked);
+                    state.SetResolved(row.State);
+                    button.Add(state);
+                }
                 if (!string.IsNullOrEmpty(row.Note))
                 {
                     var note = new LocLabel { pickingMode = PickingMode.Ignore };

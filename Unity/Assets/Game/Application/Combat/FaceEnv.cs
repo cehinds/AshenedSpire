@@ -28,12 +28,14 @@ namespace Ashen.App.Combat
         public readonly CombatState State;
         public readonly CardTextData Text;
         private readonly IReadOnlyDictionary<string, string> _tagLabels;
+        private readonly IReadOnlyDictionary<string, string> _tagBlurbs;
 
         public FaceEnv(CombatState state, CardTextData text)
         {
             State = state ?? throw new ArgumentNullException(nameof(state));
             Text = text ?? throw new ArgumentNullException(nameof(text));
             _tagLabels = state.CoreData?.TagLabels ?? new Dictionary<string, string>();
+            _tagBlurbs = state.CoreData?.TagBlurbs ?? new Dictionary<string, string>();
         }
 
         /// <summary>A state with the profile's data and nothing in it: what a reward, shop or deck face reads (the web prices those with the registries and the run's rules alone).</summary>
@@ -49,6 +51,12 @@ namespace Ashen.App.Combat
         public bool WardReadsAsPoise => CoreFixCore.WardDisabled(State);
 
         public string TagLabel(string id) => _tagLabels.TryGetValue(id, out var label) ? label : null;
+
+        /// <summary>The blurb of a tag of the registry (what a keyword explains itself with), or null when the registry holds none.</summary>
+        public string TagBlurb(string id) => _tagBlurbs.TryGetValue(id, out var blurb) ? blurb : null;
+
+        /// <summary>withCoreSmashBlurb: the help the maneuver:smash tag says under a Core profile that lists the stances Smash beats (tag.smash.coreHelp), else null (the registry's own blurb stands).</summary>
+        public string SmashTagBlurb() => CoreFixCore.Enabled(State) && SmashBeats().Count > 0 ? Fill(S.CardtextSmashCoreHelp) : null;
 
         /// <summary>The ids of every tag the profile's registry holds (a tag outside it is dropped from a card's face, as the web's tag service drops it).</summary>
         public IEnumerable<string> KnownTags => _tagLabels.Keys;

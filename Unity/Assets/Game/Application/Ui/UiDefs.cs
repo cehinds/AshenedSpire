@@ -113,6 +113,40 @@ namespace Ashen.App.Ui
 
         /// <summary>An ui/art.json icon name the row wears beside its label (the title's plates), or null.</summary>
         public string Icon;
+
+        /// <summary>The quick menu band the row sits in (navigation, comfort, armoury, run; web quickMenuRows band): a hairline is drawn where the band changes. Null for a row with no band.</summary>
+        public string Band;
+
+        /// <summary>"switch": the row is a switch on <see cref="Setting"/> and says its state (web control: 'switch'); null for a plain row.</summary>
+        public string Control;
+
+        /// <summary>The settings key a switch row flips.</summary>
+        public string Setting;
+
+        /// <summary>The Menu overlay tab an open row lands on (settings, controls).</summary>
+        public string Tab;
+
+        /// <summary>"danger": the row reads in the loss colour (Load, Quit Without Saving).</summary>
+        public string Tone;
+
+        /// <summary>The row's tooltip words (web quickMenuRows tip).</summary>
+        public string TipKey;
+
+        /// <summary>The Armoury tab an open row to the Armoury lands on.</summary>
+        public string ArmouryTab;
+
+        /// <summary>Shown but disabled while a fight is on (the web's combat edit lock, D15).</summary>
+        public bool LockedInCombat;
+
+        public bool IsSwitch => Control == MenuValues.ControlSwitch;
+    }
+
+    /// <summary>A tab of the Menu overlay's strip (ui/menus.json 'overlayTabs'; web MENU_TABS).</summary>
+    public sealed class OverlayTabDef
+    {
+        public string Id;
+        public string LabelKey;
+        public string TipKey;
     }
 
     /// <summary>A W-04 creation rail item (ui/menus.json 'creationPanes').</summary>
@@ -144,6 +178,7 @@ namespace Ashen.App.Ui
 
         public IReadOnlyList<MenuEntryDef> Title { get; private set; } = Array.Empty<MenuEntryDef>();
         public IReadOnlyList<MenuEntryDef> Pause { get; private set; } = Array.Empty<MenuEntryDef>();
+        public IReadOnlyList<OverlayTabDef> OverlayTabs { get; private set; } = Array.Empty<OverlayTabDef>();
         public IReadOnlyList<CreationPaneDef> CreationPanes { get; private set; } = Array.Empty<CreationPaneDef>();
         public IReadOnlyList<ConfirmDef> Confirms => _confirms;
 
@@ -155,6 +190,12 @@ namespace Ashen.App.Ui
             {
                 Title = Rows(json[UiKeys.Title]),
                 Pause = Rows(json[UiKeys.Pause]),
+                OverlayTabs = (json[MenuKeys.OverlayTabs] as JArray ?? new JArray()).OfType<JObject>().Select(r => new OverlayTabDef
+                {
+                    Id = (string)r[UiKeys.Id],
+                    LabelKey = (string)r[UiKeys.LabelKey],
+                    TipKey = (string)r[MenuKeys.TipKey],
+                }).ToList(),
                 CreationPanes = (json[UiKeys.CreationPanes] as JArray ?? new JArray()).OfType<JObject>().Select(r => new CreationPaneDef
                 {
                     Id = (string)r[UiKeys.Id],
@@ -196,6 +237,14 @@ namespace Ashen.App.Ui
                 HideInCombat = (bool?)r[UiKeys.HideInCombat] ?? false,
                 HideWhenDisabled = (bool?)r[UiKeys.HideWhenDisabled] ?? false,
                 Icon = (string)r[UiKeys.Icon],
+                Band = (string)r[MenuKeys.Band],
+                Control = (string)r[MenuKeys.Control],
+                Setting = (string)r[MenuKeys.Setting],
+                Tab = (string)r[MenuKeys.Tab],
+                Tone = (string)r[MenuKeys.Tone],
+                TipKey = (string)r[MenuKeys.TipKey],
+                ArmouryTab = (string)r[MenuKeys.ArmouryTab],
+                LockedInCombat = (bool?)r[MenuKeys.LockedInCombat] ?? false,
             }).ToList();
     }
 

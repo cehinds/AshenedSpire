@@ -298,6 +298,7 @@ namespace Ashen.Generated
         public const string SchemasUiCombatAuraSchema = "schemas/ui.combatAura.schema.json";
         public const string SchemasUiComponentsSchema = "schemas/ui.components.schema.json";
         public const string SchemasUiConfirmationPoliciesSchema = "schemas/ui.confirmationPolicies.schema.json";
+        public const string SchemasUiControlsSchema = "schemas/ui.controls.schema.json";
         public const string SchemasUiEnemyStageSchema = "schemas/ui.enemyStage.schema.json";
         public const string SchemasUiEquipmentCardSchema = "schemas/ui.equipmentCard.schema.json";
         public const string SchemasUiFeedbackSchema = "schemas/ui.feedback.schema.json";
@@ -336,6 +337,7 @@ namespace Ashen.Generated
         public const string UiCombatAura = "ui/combatAura.json";
         public const string UiComponents = "ui/components.json";
         public const string UiConfirmationPolicies = "ui/confirmationPolicies.json";
+        public const string UiControls = "ui/controls.json";
         public const string UiEnemyStage = "ui/enemyStage.json";
         public const string UiEquipmentCard = "ui/equipmentCard.json";
         public const string UiFeedback = "ui/feedback.json";

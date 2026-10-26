@@ -235,7 +235,7 @@ namespace Ashen.Tests.Play
                 yield return Press(Key.Escape);
                 yield return Until(() => Nav.CurrentId == ScreenIds.Pause && Focused != null, 5f, "W-20 pause");
                 var pause = (PauseScreen)Nav.Top.View;
-                var saveQuit = pause.Rows.Single(r => r.stringKey == StringKeys.PauseSaveQuit);
+                var saveQuit = pause.Row("saveQuit");
                 yield return PressUntil(Key.DownArrow, () => Focused == saveQuit, 6, "focus on Save and Quit");
                 var hash = session.StateHash();
                 yield return Press(Key.Enter);

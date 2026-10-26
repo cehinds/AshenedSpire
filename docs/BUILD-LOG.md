@@ -4,7 +4,7 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 ## WP-21: the 405 content retired, the app on Core 2 data only (worktree branch, 2026-10-25)
 
-**Landed (D-1704)**
+**Landed (D-1804)**
 - **App:** `RunContent` no longer builds the 405 registries. Seat regions, the HUD / armoury XP curve, unlock hints, the journal's names and the hand example read the profile's registries; Abandon writes through `Core2RunEnd.Abandon` (history row, ledger untouched).
 - **Registries:** `RegistryBundle` / `RuntimeRegistries` read `profile/bundle/` only.
 - **Deleted, code:** `CreationSession`, the 405 `CombatSession`, `LoopData` / `LoopContext`, the 405 `RunEnd` doors and other methods only deleted tests called.
@@ -24,11 +24,11 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 - Abandon a run: it appears in the history as abandoned and opens no class.
 - Settings: Reward collection shows Manual by default.
 
-**Next:** run `transform-content.mjs --check` with the raw export (the Core 2 capture driver landed on dev, D-1381). Merged with dev: D-1300..D-1304 of this branch are renumbered D-1700..D-1704, because dev used D-1300 and D-1301 for the CI art decisions; the settings list is dev's WP-23 one (D-1375), repointed to `profile/bundle/balance.json`.
+**Next:** run `transform-content.mjs --check` with the raw export (the Core 2 capture driver landed on dev, D-1381). Merged with dev: D-1300..D-1304 of this branch are renumbered D-1800..D-1804, because dev used D-1300, D-1301 and D-1700; the settings list is dev's WP-23 one (D-1375), repointed to `profile/bundle/balance.json`.
 
 ## WP-21: the 405 run retired, Core 2 the only ruleset (worktree branch, 2026-10-24)
 
-**Landed (D-1700..D-1703)**
+**Landed (D-1800..D-1803)**
 - **One ruleset:** New Game and Continue go through `Core2RunSession` only. A 405 slot (save format 2) reports `OtherRuleset` and stays on disk untouched.
 - **Deleted, 405 run:** `RunSession` and partials, `Application/Nodes` (but `NodeRules`), the 405 combat, rewards, rest, merchant, event / dialogue, legacy dungeon and run-end screens with UXML, `Nodes.uss`, screen registry entries and `ScreenIds`, the runFlow `screens` map; Domain `RunLoop`, the 405 rest, reward door, legacy dungeons, new run, act advance, shop, shelf stock, armament trading, card extraction and buy-back.
 - **Kept because Core 2 calls them:** `RunEnd`, `RewardRolls`, `ItemSmithing`, `SmithServices`, `CardRemoval`, `ClassTree`, `CombatEnd`, the `Refusal` types, the reward-face helpers of `RewardsView`.
@@ -44,7 +44,21 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 - New Game → a Core 2 climb; the map opens in fog; Settings shows Fade the walked path as Off / Subtle / Half / Strong at Half, Show played card off.
 - Settings → Import a web config: the player settings land, the tuning keys are listed as not placed.
 
-**Next:** map what the Core 2 fight still reads of the 405 content (D-1703), then retire the 405 content tables, combat paths and their oracles; a Core 2 driver for `ScreenCaptureTests.Show` (VP-16).
+**Next:** map what the Core 2 fight still reads of the 405 content (D-1803), then retire the 405 content tables, combat paths and their oracles; a Core 2 driver for `ScreenCaptureTests.Show` (VP-16).
+
+## P-7b: the combatant door is the web's (worktree branch, 2026-10-26)
+
+The combat screen's details pane (the door the target card's info button opens) is the web's `combatantDetailBody`, section for section and word for word, and a test holds it there.
+
+**Landed (D-1730..D-1735)**
+- **The view model:** `Core2CombatantInspector` (Application) builds the head, the pool meters and the blocks (summary, current state, revealed hand, bestiary, prediction, previous actions, enemy deck, active list, traits, lore) from a combat state; `Core2EnemyMoveCards` ports `enemyMoveCards` and `enemyActionEffectText` (the Intent row and the deck cards); `Core2InspectorBlocks` draws the blocks with kit classes (`inspector-*` in `CombatModal.uss`); `Core2Overlays.OpenDetail` is the web's door (head, preview with its meters, details, Close).
+- **The oracle and its tests:** `Tools/oracle-core2-inspector.mjs` records the web's door for the player and each enemy of fights under unread, read, laid, revealed and staggered setups; `Core2InspectorParityTests` (13 cases) and `Core2CombatantInspectorTests` (7) pass.
+- **Words:** 160 keys in `app.en.json`, mapped or classified in `Tools/web-strings.config.json`; `Core2StringsParityTests` passes. Generated names `InspectorKeys/Values/Numbers`, UI classes `inspector-*`, tokens `inspectorLabelMin/Max`.
+- **Data:** the tag registry's blurbs (`CoreCombatData.TagBlurbs`), `Core2CombatFlow.Predict` (the door's `Predict action`).
+
+**Tests run (targeted):** `Core2InspectorParity|Core2CombatantInspector|Core2StringsParity|Core2Combat|EnforcementTests|UiDataTests|CodegenTests`; the compile harness prints Build succeeded; `codegen --check`, `refresh-manifest --check`, `ui-tokens --check`, `ci/check-docs` ok.
+
+**Not done / needs the editor:** the door at 1920x1080 and 390x844 (row label widths, fold marks, the `DropdownField` of the prediction, focus order through the folds); only the details column scrolling (D-1735); the keyword hover tips and the meter tips (D-1735).
 
 ## P-5: the combat leftovers go to the web (worktree branch, 2026-10-25)
 

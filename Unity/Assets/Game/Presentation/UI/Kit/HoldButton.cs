@@ -2,6 +2,7 @@ using System;
 using Ashen.App.Ui;
 using Ashen.Generated;
 using UnityEngine;
+using Ashen.Platform;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
@@ -88,9 +89,8 @@ namespace Ashen.Presentation.UI.Kit
         private static bool SubmitHeld()
         {
             var k = Keyboard.current;
-            var pad = Gamepad.current;
             return (k != null && (k.enterKey.isPressed || k.numpadEnterKey.isPressed || k.spaceKey.isPressed))
-                || (pad != null && pad.buttonSouth.isPressed);
+                || PadInput.IsDown(PadInput.ConfirmSource);
         }
 
         public void Cancel()

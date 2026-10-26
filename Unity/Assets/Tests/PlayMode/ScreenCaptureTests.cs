@@ -69,6 +69,9 @@ namespace Ashen.Tests.Play
             var outDir = Path.Combine(RepoRoot, "docs", "screens");
             Directory.CreateDirectory(outDir);
             var only = Environment.GetEnvironmentVariable("ASHEN_CAPTURE_ONLY");
+            var args = Environment.GetCommandLineArgs();
+            var onlyAt = Array.IndexOf(args, "-ashenCaptureOnly");
+            if (string.IsNullOrEmpty(only) && onlyAt >= 0 && onlyAt + 1 < args.Length) only = args[onlyAt + 1];
             var written = new List<string>();
             foreach (var file in fixtures)
             {

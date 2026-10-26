@@ -16,7 +16,7 @@ namespace Ashen.Domain.Combat
     public static class CoreVisibility
     {
         /// <summary>proposalIntentRevealUntil(enemy, ownerId, turn, { legacySolo: true }): the turn an intent-revealing card keeps the move open to this observer until, or null.</summary>
-        private static double? RevealedUntil(CombatState c, JObject enemy, string ownerId)
+        public static double? RevealedUntil(CombatState c, JObject enemy, string ownerId)
         {
             var scoped = enemy.Obj(SK.ProposalIntentRevealedUntilByOwner);
             if (scoped != null && Js.IsFinite(scoped[ownerId]) && scoped.Num(ownerId) > c.Turn) return scoped.Num(ownerId);

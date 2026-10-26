@@ -1,5 +1,5 @@
 {
-  "comment": "Maps the exported shipped content (Tools/export/raw) into Unity StreamingAssets/Content (docs/design/08). Data-driven: an output is one row. 'tables' (the 405 catalog) is empty since WP-21 (D-1704); 'objects' are the documents still read from the 405 export (rules, audio, ui, the event history gates). 'key' = id field(s) for id-keyed tables (joined with ':'); 'text' names the row fields whose display text the UI reads as '<stringPrefix>.<key>.<name>' (rules/stringKeys.json; the rows keep their text). Tables whose key is not unique fail the transform.",
+  "comment": "Maps the exported shipped content (Tools/export/raw) into Unity StreamingAssets/Content (docs/design/08). Data-driven: an output is one row. 'tables' (the 405 catalog) is empty since WP-21 (D-1804); 'objects' are the documents still read from the 405 export (rules, audio, ui, the event history gates). 'key' = id field(s) for id-keyed tables (joined with ':'); 'text' names the row fields whose display text the UI reads as '<stringPrefix>.<key>.<name>' (rules/stringKeys.json; the rows keep their text). Tables whose key is not unique fail the transform.",
   "contentVersion": "0.7.1",
   "tables": [],
   "objects": [

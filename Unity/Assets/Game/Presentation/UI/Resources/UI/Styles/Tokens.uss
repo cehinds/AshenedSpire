@@ -293,6 +293,10 @@
     --font-settings-tab: 14px;
     --font-settings-row-label: 14.7px;
     --font-settings-row-help: 12.5px;
+    --font-controls-eyebrow: 10.4px;
+    --font-controls-title: 23.5px;
+    --font-controls-subtitle: 13.8px;
+    --font-controls-keycap: 12.5px;
     --font-settings-readout: 14px;
     --font-journal-title: 22px;
     --font-journal-summary: 14px;
@@ -404,8 +408,6 @@
     --size-end-panel-narrow-w: 92%;
     --size-end-panel-min-h: 260px;
     --size-banner-w: 420px;
-    --size-pause-shell-w: 52%;
-    --size-pause-shell-h: 80%;
     --size-rewards-shell-w: 84%;
     --size-reward-row-min-h: 64px;
     --size-reward-icon: 44px;
@@ -664,6 +666,8 @@
     --size-cmodal-xl-h: 88%;
     --size-cmodal-max-h: 90%;
     --size-inspector-preview-w: 38%;
+    --size-inspector-label-min: 10%;
+    --size-inspector-label-max: 30%;
     --size-cmodal-inset: 14px;
     --size-cmodal-close: 32px;
     --size-cmodal-gap: 12px;
@@ -881,6 +885,12 @@
     --size-settings-menu-right: 36px;
     --size-settings-undo-h: 34px;
     --size-settings-row-reset-h: 20px;
+    --size-controls-keycap-w: 46px;
+    --size-controls-gap: 6px;
+    --size-controls-pane-gap: 8px;
+    --size-overlay-tab-gap: 2px;
+    --size-overlay-tab-h: 30px;
+    --size-overlay-foot-gap: 4px;
     --size-journal-left: 279px;
     --size-journal-w: 716px;
     --size-journal-row-h: 48px;
@@ -1000,6 +1010,7 @@
     --duration-prologue-fade: 600ms;
     --duration-prologue-tick: 40ms;
     --duration-settings-commit: 250ms;
+    --duration-controls-poll: 16ms;
     --duration-settings-undo: 8000ms;
     --duration-event-figure-fade: 400ms;
     --duration-event-context-at: 400ms;

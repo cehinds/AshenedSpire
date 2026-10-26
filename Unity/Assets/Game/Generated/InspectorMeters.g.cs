@@ -6,10 +6,12 @@ namespace Ashen.Generated
     {
         public const string Hp = "hp";
         public const string Mp = "mp";
+        public const string Sp = "sp";
         public const string Poise = "poise";
         public const string Ward = "ward";
         public const string HpName = "resource.hp.name";
         public const string MpName = "resource.mana.name";
+        public const string SpName = "resource.stamina.name";
         public const string PoiseName = "resource.poise.name";
         public const string WardName = "resource.ward.name";
     }

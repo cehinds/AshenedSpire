@@ -112,9 +112,8 @@ namespace Ashen.Tests
         public void TheQuickMenuIsThePauseListInAFightAndTheScreenRegistryNamesTheOverlayFocus()
         {
             var rows = MenuRules.Evaluate(Ui.Menus.Pause, Ui.MenuContext(true, true)).Where(s => s.Visible).ToList();
-            Assert.That(rows.Select(r => r.Def.Id), Does.Not.Contain("armoury"), "the Armoury is out of combat only");
-            Assert.That(rows.Select(r => r.Def.Id), Is.EqualTo(new[] { "settings", "save", "saveQuit", "quitWithoutSaving" }), "the web's quick menu rows this build has, in its order: Settings, Save, Save and Quit, Quit Without Saving (the Deck and Abandon rows are hidden by their data)");
-            Assert.That(rows.All(r => r.Enabled), Is.True);
+            Assert.That(rows.Select(r => r.Def.Id), Is.EqualTo(new[] { "settings", "controls", "fullscreen", "music", "inventory", "character", "load", "save", "saveQuit", "quitWithoutSaving" }), "the web's quick menu rows in its order (P-7a: the Deck and Abandon rows are hidden by their data)");
+            Assert.That(rows.Where(r => !r.Enabled).Select(r => r.Def.Id), Is.EqualTo(new[] { "inventory", "character" }), "the Armoury rows are shown and locked while a fight is on (the web's D15 edit lock)");
             var screen = Ui.Screens.Get(ScreenIds.Core2Combat);
             Assert.That(screen.FocusModes[Core2UiValues.FocusOverlay], Does.Contain(UiNames.OverlayModal).And.Contain(UiNames.OverlayQuick));
             Assert.That(screen.FocusModes[Core2UiValues.FocusPrompt], Does.Contain(UiNames.PromptClose), "the offer's X is reachable on the pad");

@@ -508,3 +508,157 @@
     flex-shrink: 1;
     min-width: 0;
 }
+
+/* ---- the combatant reading's blocks (src/ui/components/combatantInspector.js; styles/kit.css .combatant-inspector-*, .combatant-ability, .enemy-intent-prediction): a section is an eyebrow over a hairline over rows; a row is a label of a tenth to a third of the width and a status line that wraps ---- */
+
+.inspector-details > * {
+    margin-bottom: var(--space-lg);
+}
+
+.inspector-section {
+    margin-top: var(--space-sm);
+}
+
+.inspector-eyebrow {
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.inspector-hairline {
+    height: 0;
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-xxs);
+    border-top-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.inspector-row {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: var(--space-xxs);
+}
+
+.inspector-row-label {
+    flex-shrink: 0;
+    min-width: var(--size-inspector-label-min);
+    max-width: var(--size-inspector-label-max);
+    margin-right: var(--space-md);
+    color: var(--color-parchment);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inspector-row-status {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    min-width: 0;
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.inspector-row-disabled .inspector-row-label {
+    color: var(--color-muted);
+}
+
+.inspector-status {
+    margin-top: var(--space-xs);
+    color: var(--color-muted);
+    font-size: var(--font-cmodal-status);
+    white-space: normal;
+}
+
+.inspector-prose {
+    margin-top: var(--space-xxs);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.inspector-title {
+    margin-top: var(--space-xs);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.inspector-stage-learned {
+    color: var(--color-gold);
+}
+
+.inspector-fold {
+    margin-top: var(--space-xxs);
+}
+
+.inspector-fold-head {
+    flex-direction: row;
+    align-items: center;
+    padding-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+}
+
+.inspector-fold-mark {
+    margin-right: var(--space-sm);
+    color: var(--color-muted);
+}
+
+.inspector-fold-title {
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.inspector-ability {
+    border-bottom-width: var(--border-hairline);
+    border-color: var(--color-line);
+    padding-top: var(--space-xxs);
+    padding-bottom: var(--space-xxs);
+}
+
+.inspector-ability-name {
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.inspector-ability .inspector-prose {
+    margin-bottom: var(--space-sm);
+}
+
+.inspector-cards {
+    margin-top: var(--space-xs);
+}
+
+.inspector-card {
+    margin-bottom: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.inspector-card-selected {
+    border-color: var(--color-gold);
+}
+
+.inspector-card-name {
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.inspector-card-meta {
+    margin-top: var(--space-xxs);
+    color: var(--color-muted);
+    font-size: var(--font-cmodal-status);
+    white-space: normal;
+}
+
+.inspector-select {
+    flex-grow: 1;
+}
+
+.inspector-button {
+    margin-top: var(--space-sm);
+}

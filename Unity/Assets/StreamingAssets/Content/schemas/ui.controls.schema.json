@@ -1,0 +1,60 @@
+{
+  "$id": "ui/controls.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "labelKey": { "type": "string" },
+          "kind": { "type": "string", "enum": ["cursor", "key"] },
+          "fixedKey": { "type": "string" },
+          "keyHint": { "type": "string" },
+          "defKey": { "type": "string" },
+          "defButton": { "type": "integer" },
+          "destination": { "type": "string", "enum": ["cards", "equipment", "character"] }
+        },
+        "required": ["defButton", "id", "kind", "labelKey"]
+      }
+    },
+    "padButtons": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "glyph": { "type": "string" },
+          "name": { "type": "string" },
+          "source": { "type": "string" }
+        },
+        "required": ["glyph", "name"]
+      }
+    },
+    "padGlyphFallback": { "type": "string" },
+    "padNameFallback": { "type": "string" },
+    "unbound": { "type": "string" },
+    "keyLabels": { "type": "object", "additionalProperties": { "type": "string" } },
+    "keyNames": { "type": "object", "additionalProperties": { "type": "string" } },
+    "modifierKeys": { "type": "array", "items": { "type": "string" } },
+    "cancelKey": { "type": "string" },
+    "storedKeyBindings": { "type": "string" },
+    "storedPadBindings": { "type": "string" },
+    "hotkeys": {
+      "type": "object",
+      "properties": {
+        "comment": { "type": "string" },
+        "ring": { "type": "object", "properties": { "prevKey": { "type": "string" }, "nextKey": { "type": "string" }, "prevButton": { "type": "integer" }, "nextButton": { "type": "integer" } } },
+        "padNav": { "type": "object", "additionalProperties": { "type": "string" } },
+        "cardKeys": { "type": "array", "items": { "type": "object", "properties": { "key": { "type": "string" }, "index": { "type": "integer" }, "target": { "type": "boolean" } }, "required": ["index", "key", "target"] } },
+        "scopes": { "type": "object", "additionalProperties": { "type": "object", "properties": { "actions": { "type": "array", "items": { "type": "string" } }, "modifiers": { "type": "boolean" }, "cards": { "type": "boolean" }, "keys": { "type": "object", "additionalProperties": { "type": "string" } } }, "required": ["actions"] } },
+        "hintBars": { "type": "object", "additionalProperties": { "type": "array", "items": { "type": "string" } } },
+        "hintLabels": { "type": "object", "additionalProperties": { "type": "string" } },
+        "menuTip": { "type": "object", "properties": { "title": { "type": "string" }, "list": { "type": "string" }, "direct": { "type": "string" } } }
+      },
+      "required": ["cardKeys", "hintBars", "hintLabels", "padNav", "ring", "scopes"]
+    }
+  },
+  "required": ["actions", "cancelKey", "keyLabels", "keyNames", "modifierKeys", "padButtons", "padGlyphFallback", "padNameFallback", "storedKeyBindings", "storedPadBindings", "unbound"]
+}

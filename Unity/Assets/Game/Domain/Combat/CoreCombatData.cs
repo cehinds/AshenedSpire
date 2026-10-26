@@ -32,6 +32,9 @@ namespace Ashen.Domain.Combat
         /// <summary>The label of every tag of the profile's tag registry by id (the card face names a damage type by its tag's label); empty when the build gave none.</summary>
         public System.Collections.Generic.IReadOnlyDictionary<string, string> TagLabels { get; set; } = new System.Collections.Generic.Dictionary<string, string>();
 
+        /// <summary>The blurb of every tag of the profile's tag registry by id (a keyword's explanation; the combatant door says it under an enemy's move); empty when the build gave none.</summary>
+        public System.Collections.Generic.IReadOnlyDictionary<string, string> TagBlurbs { get; set; } = new System.Collections.Generic.Dictionary<string, string>();
+
         /// <summary>The damage-type, school and magic-split rules of <c>rules/core2CombatRules.json</c> (the web's content/combatRules.js): the share of a hit that is magic.</summary>
         public JObject CombatRules { get; }
 

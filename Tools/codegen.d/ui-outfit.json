@@ -27,10 +27,12 @@
       "keys": {
         "Hp": "hp",
         "Mp": "mp",
+        "Sp": "sp",
         "Poise": "poise",
         "Ward": "ward",
         "HpName": "resource.hp.name",
         "MpName": "resource.mana.name",
+        "SpName": "resource.stamina.name",
         "PoiseName": "resource.poise.name",
         "WardName": "resource.ward.name"
       }

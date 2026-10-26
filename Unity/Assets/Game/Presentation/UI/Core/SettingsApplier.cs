@@ -42,6 +42,7 @@ namespace Ashen.Presentation.UI
         {
             var root = _host.Document?.rootVisualElement;
             if (root == null || settings == null) return;
+            if (key == null || key == _host.Context.Data.Controls.StoredKeyBindings || key == _host.Context.Data.Controls.StoredPadBindings) _host.Hotkeys?.Bind(settings);
             if (key == null || key == SettingIds.Accent) ApplyAccent(root, settings);
             if (key == null || key == SettingIds.WalkedFade) ApplyChoice(root, settings, SettingIds.WalkedFade, UiClasses.WalkedPrefix);
             if (key == null || key == SettingIds.HighContrast) root.EnableInClassList(UiClasses.PaletteSoft, !settings.On(SettingIds.HighContrast));

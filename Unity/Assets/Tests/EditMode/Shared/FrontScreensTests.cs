@@ -207,7 +207,7 @@ namespace Ashen.Tests
             Assert.That(page.Tabs.Select(t => t.Label), Is.EqualTo(new[] { "General", "Accessibility", "Advanced" }));
             Assert.That(page.Groups.Select(g => g.Label), Is.EqualTo(new[] { "Display", "Combat", "Audio", "Game rules" }), "the web's four General groups (D-1450)");
             Assert.That(page.Topics.Select(t => t.Label), Is.EqualTo(new[] { "Interface", "Title screen", "Map", "HUD" }));
-            Assert.That(page.Rows.Select(r => r.Key), Is.EqualTo(new[] { SettingIds.Fullscreen, SettingIds.Accent, SettingIds.ViewPreset, SettingIds.UiScale, "resetAllSettings" }));
+            Assert.That(page.Rows.Select(r => r.Key), Is.EqualTo(new[] { SettingIds.Fullscreen, SettingIds.Accent, SettingIds.ViewPreset, SettingIds.UiScale, SettingIds.QuickNav, "resetAllSettings" }));
             Assert.That(page.Count, Is.EqualTo(page.Rows.Count + " settings"));
             var hud = settings.Page(Ui, Layout, Query(topic: "hud"));
             Assert.That(hud.Rows.Select(r => r.Label), Is.EqualTo(new[] { "HUD health and resources", "HUD relics", "HUD Cinders", "HUD journey position", "HUD potions" }));
@@ -258,7 +258,7 @@ namespace Ashen.Tests
         public void ATabSaysHowManySettingsItHoldsAndTheFirstThreeNames()
         {
             var page = Settings().Page(Ui, Layout, Query());
-            Assert.That(page.Tabs[0].Tip, Does.StartWith("27 settings — Fullscreen, Accent color, View mode…"));
+            Assert.That(page.Tabs[0].Tip, Does.StartWith("28 settings — Fullscreen, Accent color, View mode…"));
             Assert.That(page.Tabs[1].Tip, Does.StartWith("9 settings — Hover explanations, Explanation delay, Explanation close delay…"));
             Assert.That(page.Tabs[2].Tip, Is.EqualTo("Map, HUD and card appearance, lore text, the changelog and About."), "the release sentence");
             Assert.That(Settings().Page(Ui, Layout, Query(dev: true)).Tabs[2].Tip, Is.EqualTo("Optional gameplay rules, tuning, diagnostics, sync, and the changelog."));
