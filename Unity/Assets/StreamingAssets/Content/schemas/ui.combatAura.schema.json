@@ -1,0 +1,219 @@
+{
+  "$id": "ui/combatAura.json",
+  "type": "object",
+  "properties": {
+    "colors": {
+      "type": "object",
+      "properties": {
+        "hp": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "mana": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "power": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "stamina": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "hp",
+        "mana",
+        "power",
+        "stamina"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "defaultPalette": {
+      "type": "string"
+    },
+    "faded": {
+      "type": "object",
+      "properties": {
+        "alpha": {
+          "type": "number"
+        },
+        "blur": {
+          "type": "integer"
+        },
+        "radius": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "alpha",
+        "blur",
+        "radius"
+      ]
+    },
+    "guardRest": {
+      "type": "string"
+    },
+    "guardedPalette": {
+      "type": "string"
+    },
+    "guardedRestPoses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "lit": {
+      "type": "object",
+      "properties": {
+        "alpha": {
+          "type": "number"
+        },
+        "blur": {
+          "type": "integer"
+        },
+        "radius": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "alpha",
+        "blur",
+        "radius"
+      ]
+    },
+    "powerFrames": {
+      "type": "object",
+      "properties": {
+        "power1": {
+          "type": "object",
+          "properties": {
+            "alpha": {
+              "type": "number"
+            },
+            "blur": {
+              "type": "integer"
+            },
+            "brightness": {
+              "type": "number"
+            },
+            "radius": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "alpha",
+            "blur",
+            "brightness",
+            "radius"
+          ]
+        },
+        "power2": {
+          "type": "object",
+          "properties": {
+            "alpha": {
+              "type": "number"
+            },
+            "blur": {
+              "type": "integer"
+            },
+            "brightness": {
+              "type": "number"
+            },
+            "radius": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "alpha",
+            "blur",
+            "brightness",
+            "radius"
+          ]
+        },
+        "power3": {
+          "type": "object",
+          "properties": {
+            "alpha": {
+              "type": "number"
+            },
+            "blur": {
+              "type": "integer"
+            },
+            "brightness": {
+              "type": "number"
+            },
+            "radius": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "alpha",
+            "blur",
+            "brightness",
+            "radius"
+          ]
+        }
+      },
+      "required": [
+        "power1",
+        "power2",
+        "power3"
+      ]
+    },
+    "resting": {
+      "type": "object",
+      "properties": {
+        "innerAlphaHex": {
+          "type": "string"
+        },
+        "innerBlurPx": {
+          "type": "integer"
+        },
+        "outerAlphaHex": {
+          "type": "string"
+        },
+        "outerBlurPx": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "innerAlphaHex",
+        "innerBlurPx",
+        "outerAlphaHex",
+        "outerBlurPx"
+      ]
+    },
+    "spellFrame": {
+      "type": "string"
+    },
+    "spread": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "colors",
+    "comment",
+    "defaultPalette",
+    "faded",
+    "guardRest",
+    "guardedPalette",
+    "guardedRestPoses",
+    "lit",
+    "powerFrames",
+    "resting",
+    "spellFrame",
+    "spread"
+  ]
+}

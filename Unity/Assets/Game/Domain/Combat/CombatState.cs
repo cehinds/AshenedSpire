@@ -30,10 +30,17 @@ namespace Ashen.Domain.Combat
         public string InstanceId;
         public List<JObject> Rules;
         public List<string> ScopeTags;
+
+        /// <summary>mount.mechanicTags and mechanicBindings: the mechanics the carrier attaches (an enemy's pinned gear and relics), empty for a carrier that attaches none.</summary>
+        public JArray MechanicTags = new JArray();
+        public JArray MechanicBindings = new JArray();
+
+        /// <summary>mount.configuredEnemy: the carrier is one of an enemy's pinned slots (it is re-synced from the profile row).</summary>
+        public bool ConfiguredEnemy;
     }
 
     /// <summary>What caused a queued action (shipped action.meta).</summary>
-    public sealed class ActionMeta
+    public sealed partial class ActionMeta
     {
         public double? EnergySpent;
         public double? ManaSpent;
@@ -42,8 +49,46 @@ namespace Ashen.Domain.Combat
         public double? OrdinalThisCombat;
         public double? AttackOrdinal;
         public string MoveId;
+        public bool Preparing;
+        public bool StanceEntry;
+        public bool CombatCounterReaction;
+        public bool CombatCounterInterrupted;
         public double? AmountMult;
         public JObject Event;
+
+        /// <summary>A status rule's own follow-up (a reflect, a spent protection): it earns no rating bonus and no second round of rules.</summary>
+        public bool ProposalReactive;
+
+        /// <summary>Whether the follow-up is a direct hit (the web's <c>direct</c>); unset reads as direct.</summary>
+        public bool? Direct;
+
+        /// <summary>The committed action this effect belongs to (web meta.expansionGroup).</summary>
+        public ExpansionGroup Group;
+
+        /// <summary>The contacts and targets the group planned for this effect, one batch per repeat and hit (meta.expansionContacts, meta.expansionTargets).</summary>
+        public List<List<ContactRef>> ExpansionContacts;
+        public List<List<string>> ExpansionTargets;
+        public int ExpansionCursor;
+        public int StatusTargetCursor;
+
+        /// <summary>The per-hit contact sequence this unit belongs to (meta.contactIndex, contactEffectIndex, contactEffectFirst, contactCompletion).</summary>
+        public int? ContactIndex;
+        public int ContactEffectIndex;
+        public bool? ContactEffectFirst;
+        public bool ContactCompletion;
+
+        /// <summary>The planner's target batches (meta.rangeTargetBatches).</summary>
+        public List<List<string>> RangeTargetBatches;
+
+        /// <summary>The effect's ordinal in its card (meta.abilityEffectIndex).</summary>
+        public int? AbilityEffectIndex;
+
+        public double? EnergySpentValue => EnergySpent;
+
+        /// <summary>The per-target proposal decisions of the hit (meta.proposalTargetDecisions).</summary>
+        public JObject ProposalTargetDecisions;
+
+        public ActionMeta Clone() => (ActionMeta)MemberwiseClone();
 
         public static ActionMeta Empty() => new ActionMeta();
     }
@@ -64,7 +109,7 @@ namespace Ashen.Domain.Combat
     /// documents in the shipped snapshot format (D-037); the queue, trigger gates and property mounts are runtime
     /// structures, re-derived on restore exactly as the shipped engine re-derives them.
     /// </summary>
-    public sealed class CombatState
+    public sealed partial class CombatState
     {
         public CombatData Data;
         public Rng Rng;
@@ -110,6 +155,28 @@ namespace Ashen.Domain.Combat
         public JObject SkillXp = new JObject();
         public JArray CoreTags = new JArray();
 
+        /// <summary>
+        /// The Core 2 data this fight reads (WP-4, docs/design/11); null for a 405 fight, which no Core 2 branch touches.
+        /// </summary>
+        public CoreCombatData CoreData;
+
+        /// <summary>
+        /// The plain combat-level fields a Core 2 fight carries, by the web's own names (combatKey, the rule snapshots, rangeState,
+        /// enemyKnowledge, formationPolicy, ...). A 405 fight leaves it empty.
+        /// </summary>
+        public JObject Fields = new JObject();
+
+        /// <summary>Whether the bus pays the skill tracks (a 405 fight always does; a Core 2 fight until the first XP-bearing event is ported).</summary>
+        public bool RecordSkillXp = true;
+
+        public bool IsCore => CoreData != null;
+
+        /// <summary>The action the queue is executing (web ctx._abilityAction): the events it causes say so.</summary>
+        public CombatAction CurrentAction;
+
+        /// <summary>The card whose play has not finished (web combat.pendingAbilityPlay): the fight does not end under it.</summary>
+        public JObject PendingAbilityPlay;
+
         /// <summary>The run-level door's heal scale (engine/actions.js createRunContext healMult: a rest's custom mod × restHealMult); a fight never sets it and reads 1.</summary>
         public double HealMult = 1;
 
@@ -126,11 +193,15 @@ namespace Ashen.Domain.Combat
         public JObject Emit(string type, JObject payload = null)
         {
             var ev = Triggers.EmitEvent(this, type, payload);
-            Ashen.Domain.Combat.SkillXp.Record(this, ev);
+            if (RecordSkillXp) Ashen.Domain.Combat.SkillXp.Record(this, ev);
             return ev;
         }
 
-        public void Enqueue(CombatAction action) => Queue.AddLast(action);
+        public void Enqueue(CombatAction action)
+        {
+            if (EnqueueSink != null) EnqueueSink.Add(action);
+            else Queue.AddLast(action);
+        }
 
         public string NextInstanceId()
         {

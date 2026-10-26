@@ -1,0 +1,551 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using Ashen.App.Combat;
+using Ashen.App.Settings;
+using Ashen.App.Ui;
+using Ashen.Domain.Combat;
+using Ashen.Generated;
+using Ashen.Presentation.UI.Kit;
+using UnityEngine;
+using UnityEngine.UIElements;
+using KitCard = Ashen.Presentation.UI.Kit.CardView;
+
+namespace Ashen.Presentation.UI.Screens
+{
+    /// <summary>
+    /// The combat feedback of the Core 2 screen (VP-5, D-750): every step the session returns is planned into the web's beats (<see cref="Core2Feedback"/>), timed by the player's pacing
+    /// (<see cref="CombatPace"/>, <see cref="FxTimeline"/>) and drawn by the feedback layer and the fighters: the played card's flight, the action word, the swing and its pose, the hit
+    /// flash and recoil, the numbers and words, the turn banners, the effect frames, the boss splash and the victory beat. An enemy turn locks the screen until its beats are done (Skip ends
+    /// them); a card the player plays is shown the same way without locking anything. The screen redraws from the flow's final view at once; the cues play over it.
+    /// </summary>
+    public sealed partial class Core2CombatScreen
+    {
+        private sealed class Flight
+        {
+            public string Card;
+            public string Target;
+            public Rect From;
+            public CardViewData Data;
+        }
+
+        private FxLayer _fx;
+        private FxMotion _motion;
+        private CombatPace _pace;
+        private readonly List<IVisualElementScheduledItem> _fxItems = new List<IVisualElementScheduledItem>();
+        private FxSchedule _fxPlan;
+        private double _fxStartedAt;
+        private double _fxShift;
+        private readonly HashSet<string> _dying = new HashSet<string>(StringComparer.Ordinal);
+        private IVisualElementScheduledItem _introTimer;
+
+        /// <summary>The hit points each fighter's bar still shows above (or, for a heal, below) the view's: the numbers have not landed yet (the web's onBeatApplied applies a beat's HP after its visuals).</summary>
+        private readonly Dictionary<string, double> _hpHeld = new Dictionary<string, double>(StringComparer.Ordinal);
+
+        /// <summary>The hit points each bar showed when it was last drawn.</summary>
+        private readonly Dictionary<string, double> _hpShown = new Dictionary<string, double>(StringComparer.Ordinal);
+        private bool _introOpen;
+        private bool _ending;
+        private Flight _flight;
+
+        private FeedbackDefs Defs => Ui.Data.Feedback;
+
+        private bool ReduceFlashes => _flow.Pacing.ReduceFlashes;
+
+        private bool ReducedMotion => _run.PlayerSettings.On(SettingIds.ReducedMotion);
+
+        private void SetupFx()
+        {
+            _motion = new FxMotion(Defs, Ui.TokenColor(TokenKeys.FxHitTint));
+            _fx = new FxLayer { Ui = Ui, Motion = _motion, AnchorFor = AnchorOf };
+            _pace = CombatPace.From(_flow.Pacing, Defs, ReducedMotion);
+            _fx.Pace = _pace;
+            Root.Add(_fx);
+            _fx.SetScenery(new[] { Root.Q(UiNames.CombatBackground), Root.Q(UiNames.StageGrid) });
+            // A click ends what is showing, as the web's does (fx.js playTimeline skip); an enemy turn has its Skip control.
+            Root.RegisterCallback<PointerDownEvent>(_ => ClickSkip(), TrickleDown.TrickleDown);
+        }
+
+        private Fighter AnchorOf(string id)
+        {
+            if (id == null) return null;
+            if (_player?.Data != null && _player.Data.Id == id) return _player;
+            return _enemies.TryGetValue(id, out var enemy) ? enemy : null;
+        }
+
+        private double MaxHpOf(string id)
+        {
+            if (id == null) return 0;
+            if (id == View.Player.Id) return View.Player.MaxHp;
+            return View.Enemies.FirstOrDefault(e => e.Id == id)?.MaxHp ?? 0;
+        }
+
+        private FxContext PlanContext() => new FxContext
+        {
+            Defs = Defs, Strings = Strings, Pace = _pace, PlayerId = View.Player.Id, PlayerManeuver = View.Player.StanceManeuver, MaxHp = MaxHpOf,
+            Stage = PilotClass && _player != null && _player.HasStage ? Ui.Data.CardStage : null, CanReact = kind => _player != null && _player.CanStageReact(kind),
+        };
+
+        // ------------------------------------------------------------------ the timeline
+
+        /// <summary>Plans the step's events into the web's beats and starts them; an enemy turn locks the screen until they are done, any other play just shows its cues over the redrawn board.</summary>
+        private void StartTimeline(Core2StepResult step)
+        {
+            CancelFx();
+            _pace = CombatPace.From(_flow.Pacing, Defs, ReducedMotion);
+            _fx.Pace = _pace;
+            var beats = Core2Feedback.Plan(step.Timeline, PlanContext());
+            var schedule = FxTimeline.Build(beats, _pace, Defs.Pace.InstantStepMs, AuthoredTiming);
+            PlanStage(beats);
+            HoldHp(schedule);
+            var enemyTurn = !_pace.Instant && step.Actors.Count > 0;
+            TakeFlight(step);
+            if (schedule.Items.Count == 0 && !enemyTurn)
+            {
+                _hiddenLines = 0;
+                Render();
+                AfterStep();
+                return;
+            }
+            foreach (var died in step.Timeline.Where(l => l.Type == FxEvents.EnemyDied && l.TargetId != null)) _dying.Add(died.TargetId);
+            // The player's own fall is shown when its beat is over (the web draws the downed figure from the HP the numbers have landed).
+            if (step.Timeline.Any(l => l.Type == FxEvents.PlayerDied)) _dying.Add(View.Player.Id);
+            _busy = enemyTurn;
+            _hiddenLines = enemyTurn ? step.Timeline.Count(l => !string.IsNullOrEmpty(l.Text)) : 0;
+            _acting = null;
+            Render();
+            if (enemyTurn) FocusSoon(_footer.EndTurnButton);
+            _fxPlan = schedule;
+            _fxStartedAt = FxClock.Now();
+            _fxShift = 0;
+            foreach (var item in schedule.Items)
+            {
+                var captured = item;
+                _fxItems.Add(Root.schedule.Execute(() => RunItem(captured)).StartingIn((long)item.AtMs));
+            }
+            _fxItems.Add(Root.schedule.Execute(FinishPlay).StartingIn((long)schedule.TotalMs));
+            if (!_flow.Ended) AfterNonLockedStep();
+        }
+
+        /// <summary>A play that locks nothing returns the focus at once, as before (the cues play over the redrawn board).</summary>
+        private void AfterNonLockedStep()
+        {
+            if (_busy || _flow.Prompt != null) return;
+            FocusSoon(_flow.Targeting ? FirstTarget() : FirstPlayableCard());
+        }
+
+        /// <summary>Keeps each bar at the hit points it showed before the step until the number that took them lands.</summary>
+        private void HoldHp(FxSchedule schedule)
+        {
+            _hpHeld.Clear();
+            var landing = new HashSet<string>(schedule.Items.Where(i => i.Kind == FxItemKind.Cue && i.Cue.Type == FxCueType.Float && i.Cue.Hp != 0d).Select(i => i.Cue.TargetId), StringComparer.Ordinal);
+            foreach (var fighter in new[] { View.Player }.Concat(View.Enemies))
+                if (landing.Contains(fighter.Id) && _hpShown.TryGetValue(fighter.Id, out var shown) && Math.Abs(shown - fighter.Hp) > 0d) _hpHeld[fighter.Id] = shown - fighter.Hp;
+        }
+
+        private double HeldHp(string id) => id != null && _hpHeld.TryGetValue(id, out var held) ? held : 0d;
+
+        /// <summary>A number has landed: the bar takes the hit points it carried.</summary>
+        private void LandHp(FxCue cue)
+        {
+            if (cue.TargetId == null || !_hpHeld.TryGetValue(cue.TargetId, out var held)) return;
+            held = held > 0d ? Math.Max(0d, held - cue.Hp) : Math.Min(0d, held - cue.Hp);
+            if (held == 0d) _hpHeld.Remove(cue.TargetId);
+            else _hpHeld[cue.TargetId] = held;
+            ShowHp(cue.TargetId);
+        }
+
+        /// <summary>Redraws the one bar (the figure's, and the HUD's for the player).</summary>
+        private void ShowHp(string id)
+        {
+            var f = id == View.Player.Id ? View.Player : View.Enemies.FirstOrDefault(e => e.Id == id);
+            if (f == null) return;
+            var shown = Int(f.Hp + HeldHp(id));
+            _hpShown[id] = shown;
+            AnchorOf(id)?.SetHp(shown, Int(f.MaxHp));
+            if (id == View.Player.Id) Root.Q<Meter>(UiNames.HudHp)?.Set(shown, Int(f.MaxHp));
+        }
+
+        /// <summary>The stage has more to play after the blow than the schedule planned: every item still to run, and the end of the play, waits for it.</summary>
+        private void DelayFx(FxItem from, double lateMs)
+        {
+            var plan = _fxPlan;
+            if (plan == null || lateMs <= 0 || _fxItems.Count != plan.Items.Count + 1) return;
+            var index = plan.Items.IndexOf(from);
+            if (index < 0) return;
+            _fxShift += lateMs;
+            var elapsed = FxClock.Now() - _fxStartedAt;
+            for (var j = index + 1; j < _fxItems.Count; j++)
+            {
+                var at = j < plan.Items.Count ? plan.Items[j].AtMs : plan.TotalMs;
+                _fxItems[j]?.ExecuteLater((long)Math.Max(0d, at + _fxShift - elapsed));
+            }
+        }
+
+        private void FinishPlay()
+        {
+            _hpHeld.Clear();
+            ApplyStageAll();
+            try
+            {
+                if (_flow.Ended)
+                {
+                    // The last blow has landed: the web waits a beat before the spoils (COMBAT_TIMING.fightEndDelayMs).
+                    _fxItems.Add(Root.schedule.Execute(_busy ? (Action)FinishTimeline : EnterEnded).StartingIn((long)_pace.FightEndMs));
+                    return;
+                }
+                if (_busy) { FinishTimeline(); return; }
+                _dying.Clear();
+                _acting = null;
+                RenderFighters();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.Core2StepFailed, e));
+                Unlock();
+            }
+        }
+
+        /// <summary>Ends every cue, word, pose and motion at once and puts the figures back (the web's click-skip, and the start of the next play).</summary>
+        private void CancelFx()
+        {
+            foreach (var item in _fxItems) item?.Pause();
+            _fxItems.Clear();
+            _fx?.CancelAll();
+            _hpHeld.Clear();
+            ApplyStageAll();
+            _player?.Calm();
+            foreach (var enemy in _enemies.Values) enemy.Calm();
+            _dying.Clear();
+        }
+
+        private void ClickSkip()
+        {
+            if (_busy || _fxItems.Count == 0) return;
+            CancelFx();
+            RenderFighters();
+            // The cancelled cues may have held the fight's end (FinishPlay's beat before the spoils): skipping them ends the fight now.
+            if (_flow.Ended) EnterEnded();
+        }
+
+        /// <summary>Skip: end the timeline now.</summary>
+        public void Skip()
+        {
+            if (!_busy) return;
+            FinishTimeline();
+        }
+
+        private void FinishTimeline()
+        {
+            Unlock();
+            try { AfterStep(); }
+            catch (Exception e) { Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.Core2StepFailed, e)); }
+        }
+
+        /// <summary>After an intent and its walk: the end of the fight, or the player's turn again.</summary>
+        private void AfterStep()
+        {
+            if (_flow.Ended) { EnterEnded(); return; }
+            if (_flow.Prompt != null) return;
+            FocusSoon(_flow.Targeting ? FirstTarget() : FirstPlayableCard());
+        }
+
+        private void RunItem(FxItem item)
+        {
+            try
+            {
+                switch (item.Kind)
+                {
+                    case FxItemKind.Cue: PlayCue(item.Cue); break;
+                    case FxItemKind.Swing: Swing(item); break;
+                    case FxItemKind.Contact:
+                        if (AnchorOf(item.ActorId) is Fighter striker)
+                        {
+                            striker.StageContact();
+                            // The recovery waits for the longer of the planned time and what the stage still has to play (actionTimeline.js: max(total - impact + hold, remainingMs())).
+                            DelayFx(item, striker.StageRemainingMs() - item.Ms);
+                        }
+                        break;
+                    case FxItemKind.Hold:
+                        if (AnchorOf(item.ActorId) is Fighter holder)
+                        {
+                            if (holder.HasStage) holder.StageHold(item.Ms);
+                            else if (holder.HasEnemyStage) holder.HoldEnemy(item.Ms);
+                        }
+                        break;
+                    case FxItemKind.End: EndBeat(item.Beat); break;
+                    case FxItemKind.Reveal:
+                        if (_busy && item.Lines > 0)
+                        {
+                            _hiddenLines = Math.Max(0, _hiddenLines - item.Lines);
+                            RenderLog();
+                        }
+                        break;
+                    case FxItemKind.Acting:
+                        _acting = _busy && item.ActorId != null && _enemies.ContainsKey(item.ActorId) ? item.ActorId : null;
+                        foreach (var pair in _enemies) pair.Value.EnableInClassList(UiClasses.CombatantActing, pair.Key == _acting);
+                        break;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.Core2StepFailed, e));
+            }
+        }
+
+        // ------------------------------------------------------------------ the cues
+
+        private void PlayCue(FxCue cue)
+        {
+            var target = AnchorOf(cue.TargetId);
+            switch (cue.Type)
+            {
+                case FxCueType.Float:
+                    _fx.Float(target, cue);
+                    if (cue.Hp != 0d) LandHp(cue);
+                    break;
+                case FxCueType.Callout: CalloutCue(cue, target); break;
+                case FxCueType.HitFlash: HitFlash(cue, target); break;
+                case FxCueType.GuardPose:
+                    if (target != null && !target.Data.Player && !ReducedMotion) Pose(target, FxPoses.GuardHit, cue.Amount);
+                    break;
+                case FxCueType.Wobble:
+                    if (target == null || ReduceFlashes || ReducedMotion) break;
+                    // A card stage has no canvas reaction to a stagger: its root is tinted for a step and nothing moves (styles/combat.css rear-stagger-flash).
+                    if (target.HasStage) target.StageStagger(Defs.Track(FxTrack.Wobble).Ms, Ui.Data.CardStage.StaggerTintShare);
+                    else target.Play(_motion, Defs.Track(FxTrack.Wobble), Defs.Track(FxTrack.Wobble).Ms, false);
+                    break;
+                case FxCueType.Shake:
+                    if (_flow.Pacing.ScreenShake && !ReducedMotion) _fx.Shake(cue.Amount);
+                    break;
+                case FxCueType.Body:
+                    if (target != null && target.HasStage)
+                    {
+                        // combat.js reactionForReceipt: the reaction plays for the length the unscaled pace gives it, else the stage's default.
+                        var stage = Ui.Data.CardStage;
+                        var ms = stage.Timing(stage.Reactions[cue.Text], _pace.Raw).TotalMs;
+                        target.StageReact(cue.Text, ms > 0 ? ms : stage.ReactMs);
+                    }
+                    break;
+                case FxCueType.Slash: _fx.Slash(target); break;
+                case FxCueType.Spark: _fx.Spark(target, cue.Text); break;
+                case FxCueType.Glyph: _fx.Glyph(target, cue.Text); break;
+                case FxCueType.Shatter: _fx.Shatter(target, cue.Tone); break;
+                case FxCueType.Streak: _fx.Streak(target); break;
+                case FxCueType.Effect:
+                    if (!ReduceFlashes && !ReducedMotion) _fx.Effect(target, cue.Kind, Defs.Effects.Playback.EventSize);
+                    break;
+                case FxCueType.Banner:
+                    _fx.Banner(cue.Text, cue.Tone == null, cue.Tone == FxValues.Blood, cue.Tone == null ? _pace.BannerMs : 0);
+                    break;
+                case FxCueType.Defeated:
+                    _dying.Remove(cue.TargetId);
+                    RenderFighters();
+                    break;
+            }
+        }
+
+        private void CalloutCue(FxCue cue, Fighter target)
+        {
+            if (target == null) return;
+            var status = cue.Status != null;
+            string text;
+            Color? colour = null;
+            if (status)
+            {
+                text = Strings.Get(string.Format(CultureInfo.InvariantCulture, FxFormats.StatusKey, cue.Status));
+                if (ColorUtility.TryParseHtmlString(cue.Tone, out var parsed)) colour = parsed;
+            }
+            else if (cue.Callout != FxCallout.None)
+            {
+                var kind = Defs.Kind(cue.Callout);
+                text = Strings.Get(string.Format(CultureInfo.InvariantCulture, FxFormats.CalloutKey, kind.Word));
+                cue.Tone = kind.Tone;
+            }
+            else text = cue.Text;
+            _fx.Callout(cue.TargetId, target, cue, text, colour, status);
+        }
+
+        private void HitFlash(FxCue cue, Fighter target)
+        {
+            if (target == null) return;
+            // The card stage draws its own hurt clip, red strobe and knock-back (styles/combat.css: its root takes no hit animation).
+            if (target.HasStage)
+            {
+                target.StageHit(cue.Amount);
+                return;
+            }
+            var player = target.Data.Player;
+            var id = player ? (cue.Heavy ? FxTrack.HitPlayerHeavy : FxTrack.HitPlayer) : (cue.Heavy ? FxTrack.HitEnemyHeavy : FxTrack.HitEnemy);
+            if (!ReduceFlashes) target.Play(_motion, Defs.Track(id), cue.Amount, true);
+            if (!ReducedMotion) Pose(target, FxPoses.Hurt, cue.Amount);
+        }
+
+        private void Swing(FxItem item)
+        {
+            var actor = AnchorOf(item.ActorId);
+            if (actor == null) return;
+            // The card stage owns its motion: the action's clip carries the body's travel (a lunge class would move the figure a second time).
+            if (actor.HasStage)
+            {
+                var action = StageActionOf(item.Beat);
+                if (action != null) actor.PlayStageAction(action, item.Ms, StageResources(item.Beat));
+                return;
+            }
+            // An enemy's expansion stage plays the pose of its move over the action's length and travels as the move's family does (playFamilyAnimation).
+            if (actor.HasEnemyStage)
+            {
+                SwingEnemy(actor, item);
+                return;
+            }
+            var player = actor.Data.Player;
+            if (!ReduceFlashes && !ReducedMotion)
+            {
+                var track = Defs.Track(player ? FxTrack.LungePlayer : FxTrack.LungeEnemy);
+                actor.Play(_motion, track, track.Ms, false);
+            }
+            if (!ReducedMotion) Pose(actor, item.Attack ? FxPoses.Attack : FxPoses.Guard, item.Ms + (item.Beat?.HoldMs ?? 0));
+        }
+
+        // ------------------------------------------------------------------ pose art (enemyPoseStage.js)
+
+        private string DefOf(Fighter f) => f?.Data == null || f.Data.Player ? null : View.Enemies.FirstOrDefault(e => e.Id == f.Data.Id)?.DefId;
+
+        private (Texture2D Frame, double Scale) PoseFrame(string def, string pose)
+        {
+            if (def == null) return (null, 1);
+            var frames = pose == FxPoses.Idle || pose == FxPoses.Attack;
+            var id = Ui.Data.Art.Find(frames ? ArtKinds.EnemyPose : ArtKinds.EnemyState, new StringArgs().Add(ArtPlaceholders.Id, def).Add(ArtPlaceholders.Name, pose));
+            var scale = frames ? 1 : Defs.Poses.StateScale.TryGetValue(def, out var s) ? s : 1;
+            if (pose == FxPoses.Projectile) scale *= Defs.Poses.ProjectileScale;
+            return (Ui.Texture(id), scale);
+        }
+
+        private void Pose(Fighter f, string pose, double ms)
+        {
+            if (f?.Data != null && f.Data.Player) return;
+            // An enemy's expansion stage answers to the web's own names for the reaction poses (ui/fx.js playPoseOn: hit, guardHit).
+            if (f != null && f.HasEnemyStage)
+            {
+                if (!ReducedMotion) f.PlayEnemy(pose == FxPoses.Hurt ? EnemyActions.Hurt : pose == FxPoses.GuardHit ? EnemyActions.GuardHit : pose, ms);
+                return;
+            }
+            var frame = PoseFrame(DefOf(f), pose);
+            if (frame.Frame != null) f.PlayPose(frame.Frame, frame.Scale, ms);
+        }
+
+        /// <summary>enemyStates.js enemyPresentation: the frame an enemy rests in: defeated, guard while it holds Block, afflicted under a hostile status, wounded at 35% HP, else its idle pose.</summary>
+        private void ApplyRestArt(FighterData d, Core2FighterView f)
+        {
+            if (f.DefId == null) return;
+            if (!d.Alive)
+            {
+                var id = Ui.Data.Art.Find(ArtKinds.Defeated, new StringArgs().Add(ArtPlaceholders.Id, f.DefId));
+                d.RestArt = Ui.Texture(id);
+                d.RestScale = Defs.Poses.DefeatedScale.TryGetValue(f.DefId, out var scale) ? scale : 1;
+                return;
+            }
+            string rest = null;
+            if (f.Block > 0) rest = FxPoses.Guard;
+            else if (f.Statuses.Any(s => s.MeterValue == null && s.Stacks > 0 && Defs.Poses.Negative.Contains(s.Id))) rest = FxPoses.Afflicted;
+            else if (f.Hp > 0 && f.MaxHp > 0 && f.Hp / f.MaxHp <= Defs.Poses.WoundedShare) rest = FxPoses.Wounded;
+            var frame = rest != null ? PoseFrame(f.DefId, rest) : (null, 1);
+            // The idle pose replaces the base art only with the attack pose beside it, so the swing does not jump in size.
+            if (frame.Frame == null && PoseFrame(f.DefId, FxPoses.Attack).Frame != null) frame = PoseFrame(f.DefId, FxPoses.Idle);
+            d.RestArt = frame.Frame;
+            d.RestScale = frame.Scale;
+        }
+
+        // ------------------------------------------------------------------ the played card's flight (combat.js flyCard)
+
+        /// <summary>Remembers the card about to be played: where it sits and what it shows (the redraw replaces it), and where it is going.</summary>
+        private void CaptureFlight(string instanceId, string targetId)
+        {
+            _flight = null;
+            if (instanceId == null || ReducedMotion || !_run.PlayerSettings.On(SettingIds.ShowPlayedCard)) return;
+            var i = View.Hand.FindIndex(c => c.InstanceId == instanceId);
+            if (i < 0 || i >= _hand.Cards.Count) return;
+            var card = _hand.Cards[i];
+            if (card.Data == null) return;
+            _flight = new Flight { Card = instanceId, Target = targetId, From = card.worldBound, Data = card.Data };
+        }
+
+        /// <summary>Flies the captured card when the step really played it (an accepted card play), then forgets it.</summary>
+        private void TakeFlight(Core2StepResult step)
+        {
+            var flight = _flight;
+            _flight = null;
+            if (flight == null || flight.Data == null) return;
+            var played = step.Timeline.Any(l => l.Type == FxEvents.CardPlayed && l.Event?.Str(FxKeys.CardInstanceId) == flight.Card);
+            if (!played) return;
+            var destination = (AnchorOf(flight.Target) ?? AnchorOf(View.Player.Id) ?? _player)?.ArtBox;
+            if (destination == null) return;
+            var ghost = new KitCard();
+            ghost.Bind(flight.Data);
+            _fx.CardFlight(ghost, flight.From, destination.worldBound);
+        }
+
+        // ------------------------------------------------------------------ the boss splash (components/intro.js)
+
+        private void ShowBossIntro()
+        {
+            if (_run.EncounterPool != RewardsValues.Boss || View.Enemies.Count == 0) return;
+            var intro = Root.Q(UiNames.BossIntro);
+            if (intro == null) return;
+            Root.Q<LocLabel>(UiNames.BossTag)?.SetResolved(Strings.Format(StringKeys.Core2FxBossTag, new StringArgs().Add(UiPlaceholders.Act, _run.Act)));
+            Root.Q<LocLabel>(UiNames.BossName)?.SetResolved(View.Enemies[0].Name);
+            _introOpen = true;
+            UiDom.Show(intro, true);
+            intro.focusable = true;
+            intro.RegisterCallback<PointerDownEvent>(_ => CloseIntro());
+            intro.RegisterCallback<KeyDownEvent>(_ => CloseIntro());
+            intro.RegisterCallback<NavigationSubmitEvent>(_ => CloseIntro());
+            intro.RegisterCallback<NavigationCancelEvent>(_ => CloseIntro());
+            intro.Focus();
+            Root.schedule.Execute(() => intro.AddToClassList(UiClasses.FxIn)).StartingIn(0);
+            _introTimer = Root.schedule.Execute(CloseIntro).StartingIn((long)Defs.Intro.BossHoldMs);
+        }
+
+        private void CloseIntro()
+        {
+            if (!_introOpen) return;
+            _introOpen = false;
+            _introTimer?.Pause();
+            var intro = Root.Q(UiNames.BossIntro);
+            intro.RemoveFromClassList(UiClasses.FxIn);
+            intro.AddToClassList(UiClasses.FxOut);
+            Root.schedule.Execute(() => UiDom.Show(intro, false)).StartingIn((long)Defs.Intro.RemoveMs);
+            if (!_busy && !_flow.Ended) FocusSoon(FirstPlayableCard());
+        }
+
+        // ------------------------------------------------------------------ the end of the fight (victoryBeat.js)
+
+        /// <summary>A won fight stands its title over the field for the beat's 600 ms, then the spoils; a lost one goes straight to its panel.</summary>
+        private void EnterEnded()
+        {
+            if (_ending) return;
+            _ending = true;
+            var victory = View.Result == CombatValues.Victory;
+            if (!victory || ReducedMotion || !(Defs.Intro.VictoryBeatMs > 0))
+            {
+                ShowEnded();
+                return;
+            }
+            var pool = _run.EncounterPool;
+            var title = pool == RewardsValues.Boss
+                ? Strings.Format(StringKeys.Core2FxVictoryBoss, new StringArgs().Add(UiPlaceholders.Name, (View.Enemies.FirstOrDefault()?.Name ?? string.Empty).ToUpperInvariant()))
+                : Strings.Get(pool == RewardsValues.Elite ? StringKeys.Core2FxVictoryElite : StringKeys.Core2FxVictory);
+            var beat = Root.Q(UiNames.VictoryBeat);
+            Root.Q<LocLabel>(UiNames.VictoryTitle)?.SetResolved(title);
+            UiDom.Show(beat, true);
+            Root.schedule.Execute(() => beat.AddToClassList(UiClasses.FxIn)).StartingIn(0);
+            Root.schedule.Execute(() =>
+            {
+                UiDom.Show(beat, false);
+                beat.RemoveFromClassList(UiClasses.FxIn);
+                ShowEnded();
+            }).StartingIn((long)Defs.Intro.VictoryBeatMs);
+        }
+    }
+}

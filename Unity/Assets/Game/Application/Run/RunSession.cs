@@ -92,7 +92,7 @@ namespace Ashen.App.Run
         public string Glyph;
     }
 
-    public sealed partial class RunSession
+    public sealed partial class RunSession : IClimb
     {
         private readonly Func<DateTime> _clock;
         private JObject _run;
@@ -329,6 +329,13 @@ namespace Ashen.App.Run
             if (!(end.Result?.Is(MetaKeys.Abandoned) ?? false) && LastOutcome != null && EncounterId != null && Content.Data.Encounters.Has(EncounterId))
                 extra[MetaKeys.Killer] = new JArray(Js.Items(Content.Data.Encounters.Get(EncounterId)[K.Enemies]).Select(t => t.DeepClone()));
             extra[MetaKeys.Duration] = PlaytimeSeconds;
+            // The ruleset the run was played under (docs/design/11 WP-20): the profile pin the run itself carries (D-171).
+            // A run with no pin (the 405 path) records none, so history never credits it to a profile it did not play.
+            if (Ashen.Domain.Run.CoreRunRules.PinOf(_run) is JObject pin)
+            {
+                extra[MetaKeys.ProfileId] = pin[Core2ProfileKeys.Id]?.DeepClone();
+                extra[MetaKeys.ProfileHash] = pin[Core2ProfileKeys.Hash]?.DeepClone();
+            }
             extra[MetaKeys.Deck] = new JArray(Js.Items(_run?[K.Deck]).OfType<JObject>()
                 .Select(c => Js.Obj(MetaKeys.CardId, c[K.CardId]?.DeepClone(), MetaKeys.Upgraded, c.Is(K.Upgraded))));
             if (Profile.Doc[LK.Results] is JArray results && results.Count > 0 && results[results.Count - 1] is JObject newest)

@@ -1,0 +1,200 @@
+/* The Core 2 run end screen (VP-12, D-964; web ui/screens/gameover.js, styles/player-polish.css:98-101, 357; docs/qa/web-screens/run-end-defeat-*, run-end-victory-*): the spire vista painting
+   under a veil, and in the middle the door (Kit/CombatModal: THE CLIMB ENDS over the gold Defeat or Victory; the heading and the ornament, the identity card, the strip of four numbers, the Earned
+   card, the final deck and the three ways on). Every number is a token (tokens.json size.end*, webSource.end). */
+
+.c2end-page {
+    align-items: center;
+    justify-content: center;
+}
+
+.c2end-bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: var(--color-bg);
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.c2end-shade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: var(--color-end-shade);
+}
+
+.cmodal--end {
+    width: var(--size-end-door-w);
+}
+
+.c2end-door .cmodal-close {
+    display: none;
+}
+
+.c2end-door .cmodal-body .unity-scroll-view__content-container {
+    align-items: stretch;
+}
+
+.c2end-heading {
+    margin: var(--space-md) 0 var(--space-sm) 0;
+    font-size: var(--font-title);
+    letter-spacing: var(--size-track-title);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    white-space: normal;
+}
+
+.c2end-heading--loss {
+    color: var(--color-danger-line);
+}
+
+.c2end-divider {
+    height: var(--size-end-divider-h);
+    margin: 0 var(--space-xxl) var(--space-lg) var(--space-xxl);
+}
+
+.c2end-identity,
+.c2end-earned {
+    margin: 0 0 var(--space-md) 0;
+    padding: var(--space-md);
+    background-color: var(--color-bg);
+}
+
+.c2end-eyebrow {
+    margin: 0 0 var(--space-xxs) 0;
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.c2end-name {
+    margin: 0 0 var(--space-xs) 0;
+    font-size: var(--font-armoury-name);
+    letter-spacing: var(--size-track-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.c2end-line {
+    margin: 0;
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.c2end-meta {
+    margin: 0;
+    font-size: var(--font-label);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-muted);
+}
+
+.c2end-cause {
+    margin: 0;
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.c2end-strip {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 0 var(--space-md) 0;
+}
+
+.c2end-chip {
+    flex-direction: row;
+    align-items: baseline;
+    margin: 0 var(--size-end-chip-gap) var(--space-xs) 0;
+}
+
+.c2end-chip-key {
+    margin: 0 var(--space-xs) 0 0;
+    font-size: var(--font-label);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-gold-soft);
+}
+
+.c2end-chip-value {
+    margin: 0;
+    font-size: var(--font-button);
+    color: var(--color-parchment);
+}
+
+.c2end-earned-line {
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.c2end-earned-line .c2end-line {
+    margin-right: var(--space-xs);
+    -unity-font-style: bold;
+}
+
+.c2end-earned-kind {
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-muted);
+}
+
+.c2end-deck-head {
+    align-items: center;
+    margin: var(--space-sm) 0 var(--space-sm) 0;
+}
+
+.c2end-deck-title {
+    margin: 0;
+    font-size: var(--font-heading);
+    letter-spacing: var(--size-track-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.c2end-deck {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 0 var(--space-md) 0;
+}
+
+.c2end-deck-card {
+    margin: 0 var(--space-md) var(--space-xs) var(--space-md);
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+    opacity: var(--opacity-muted);
+}
+
+.c2end-deck-card--upgraded {
+    color: var(--color-gold);
+    opacity: 1;
+}
+
+.c2end-actions {
+    flex-direction: row;
+}
+
+.c2end-action.unity-button {
+    flex-grow: 1;
+    flex-basis: 0;
+    height: var(--size-end-action-h);
+    margin: 0 0 0 var(--size-end-action-gap);
+}
+
+.c2end-action.unity-button:first-child {
+    margin-left: 0;
+}
+
+/* ---- phone (390 x 844, run-end-defeat-390x844.jpg): the door is 344 wide (88%), the three ways on are 44 high ---- */
+
+.layout-narrow .c2end-door.cmodal {
+    width: var(--size-end-door-narrow-w);
+}
+
+.layout-narrow .c2end-action.unity-button {
+    height: var(--size-end-action-narrow-h);
+}

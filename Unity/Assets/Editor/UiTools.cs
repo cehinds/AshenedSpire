@@ -20,22 +20,33 @@ namespace Ashen.EditorTools
     ///   Unity -batchmode -projectPath Unity -executeMethod Ashen.EditorTools.Cli.BuildUiArt -quit
     ///   Unity -batchmode -projectPath Unity -executeMethod Ashen.EditorTools.Cli.CreateBootScene -quit
     ///   Unity -batchmode -projectPath Unity -executeMethod Ashen.EditorTools.Cli.CaptureScreens      (no -quit, no -nographics)
+    ///   Unity -batchmode -projectPath Unity -runTests -testPlatform PlayMode -ashenCapture -testFilter Ashen.Tests.Play.ScreenCaptureTests.CaptureScreens
     /// </summary>
     public static partial class Cli
     {
         public const string BootScenePath = "Assets/Scenes/Boot.unity";
         private const string PresentationResources = "Assets/Game/Presentation/UI/Resources/";
         private const string CaptureVariable = "ASHEN_CAPTURE";
+        private const string CaptureArgument = "-ashenCapture";
+        private const string CaptureArtBuilt = "Ashen.CaptureArtBuilt";
         private const string CaptureTest = "Ashen.Tests.Play.ScreenCaptureTests.CaptureScreens";
         private const string UnityPathKey = "unityPath";
 
         [MenuItem("Ashen/UI/Build UI Art Catalog")]
         public static void BuildUiArt()
         {
+            AssetDatabase.Refresh();
             var source = new DirectoryContentSource(ContentRoot);
             var data = UiData.Load(source);
             var registry = (JObject)JsonContent.Parse(source.ReadText(ContentFiles.AssetsRegistry));
-            var path = PresentationResources + UiResources.ArtCatalog + ".asset";
+            BuildCatalog(registry, UiResources.ArtCatalog, data.Components.ArtIncludes);
+            // The art-release groups (ui/art.json: cards, icons, scenes) are separate catalogs, loaded on first use (VP-2).
+            foreach (var group in data.Art.Config.Groups) BuildCatalog(registry, group.Resource, group.Includes);
+        }
+
+        private static void BuildCatalog(JObject registry, string resource, Func<string, bool> includes)
+        {
+            var path = PresentationResources + resource + ".asset";
             var catalog = AssetDatabase.LoadAssetAtPath<UiArtCatalog>(path);
             if (catalog == null)
             {
@@ -45,15 +56,17 @@ namespace Ashen.EditorTools
             }
             catalog.entries.Clear();
             var missing = 0;
-            foreach (var p in registry.Properties().Where(p => data.Components.ArtIncludes(p.Name)))
+            foreach (var p in registry.Properties().Where(p => includes(p.Name)))
             {
-                var texture = AssetDatabase.LoadAssetAtPath<Texture2D>((string)p.Value[UnityPathKey]);
+                var unityPath = (string)p.Value[UnityPathKey];
+                if (unityPath == null) continue;
+                var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(unityPath);
                 if (texture == null) { missing++; continue; }
                 catalog.entries.Add(new UiArtCatalog.Entry { id = p.Name, texture = texture });
             }
             EditorUtility.SetDirty(catalog);
             AssetDatabase.SaveAssets();
-            Debug.Log("UI art catalog: " + catalog.entries.Count + " textures, " + missing + " registry ids without an imported texture");
+            Debug.Log("UI art catalog " + resource + ": " + catalog.entries.Count + " textures, " + missing + " registry ids without an imported texture");
         }
 
         [MenuItem("Ashen/UI/Create Boot Scene")]
@@ -89,7 +102,18 @@ namespace Ashen.EditorTools
         {
             static CaptureHook()
             {
-                if (Environment.GetEnvironmentVariable(CaptureVariable) != "1" || !Application.isBatchMode) return;
+                if (!Application.isBatchMode) return;
+                // The CI screens job (.github/workflows/screens.yml) runs the capture through the stock -runTests path, which
+                // exits on its own and writes the results file; it passes -ashenCapture so the catalogs are built first.
+                if (Environment.GetCommandLineArgs().Contains(CaptureArgument))
+                {
+                    Environment.SetEnvironmentVariable(CaptureVariable, "1");
+                    if (SessionState.GetBool(CaptureArtBuilt, false)) return;
+                    SessionState.SetBool(CaptureArtBuilt, true);
+                    BuildUiArt();
+                    return;
+                }
+                if (Environment.GetEnvironmentVariable(CaptureVariable) != "1") return;
                 ScriptableObject.CreateInstance<TestRunnerApi>().RegisterCallbacks(new CaptureCallbacks());
             }
         }

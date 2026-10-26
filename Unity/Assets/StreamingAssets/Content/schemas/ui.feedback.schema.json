@@ -1,0 +1,79 @@
+{
+  "$id": "ui/feedback.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "webSource": { "type": "object", "additionalProperties": { "type": "string" } },
+    "pace": {
+      "type": "object",
+      "properties": {
+        "speeds": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "beatMs": { "type": "number" },
+              "stepMs": { "type": "number" },
+              "lungeMs": { "type": "number" },
+              "impactCapMs": { "type": "number" },
+              "reactionMs": { "type": "number" },
+              "stanceLeadMs": { "type": "number" }
+            },
+            "required": ["beatMs", "stepMs", "lungeMs"]
+          }
+        },
+        "reference": { "type": "string" },
+        "windupFraction": { "type": "number" },
+        "turnBannerFloorMs": { "type": "number" },
+        "instantStepMs": { "type": "number" },
+        "fightEndDelayMs": { "type": "number" },
+        "spritePlaybackRate": { "type": "number" },
+        "referenceAnimationStepMs": { "type": "number" },
+        "actionMs": { "type": "number" },
+        "tickMs": { "type": "number" }
+      },
+      "required": ["speeds", "reference", "windupFraction", "turnBannerFloorMs", "instantStepMs", "spritePlaybackRate", "referenceAnimationStepMs", "tickMs"]
+    },
+    "feel": { "type": "object" },
+    "easings": { "type": "object", "additionalProperties": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 } },
+    "tracks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "ms": { "type": "number" },
+          "ease": { "type": "string" },
+          "ampScaled": { "type": "boolean" },
+          "rotateJitter": { "type": "number" },
+          "tintUntil": { "type": "number" },
+          "stops": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "t": { "type": "number" },
+                "opacity": { "type": "number" },
+                "x": { "type": "number" },
+                "y": { "type": "number" },
+                "scale": { "type": "number" },
+                "scaleX": { "type": "number" },
+                "rotate": { "type": "number" },
+                "track": { "type": "number" },
+                "popScale": { "type": "boolean" }
+              },
+              "required": ["t"]
+            }
+          }
+        },
+        "required": ["ms", "ease", "stops"]
+      }
+    },
+    "float": { "type": "object" },
+    "callout": { "type": "object" },
+    "statusColours": { "type": "object", "additionalProperties": { "type": "string" } },
+    "effects": { "type": "object" },
+    "poses": { "type": "object" },
+    "intro": { "type": "object" }
+  },
+  "required": ["comment", "pace", "feel", "easings", "tracks", "float", "callout", "statusColours", "effects", "poses", "intro"]
+}

@@ -1,0 +1,193 @@
+/* The Core 2 spoils screen (VP-7, D-850): the web's reward door (rewardDoor.js, modalShell.js) over the act map. The modal itself is Kit/CombatModal (head, body, foot); this file
+   styles what goes in it: the cinders row, the level notices, the option columns (a card face or a collectible's face, its NEW/TAKEN chip and its pick button) and the status line.
+   Every number is a token (tokens.json size.spoils*). */
+
+.spoils-page {
+    flex-direction: column;
+}
+
+.spoils-note {
+    margin-bottom: var(--space-sm);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.spoils-status {
+    min-height: var(--font-body);
+    margin-top: var(--space-xs);
+    color: var(--color-ember);
+    white-space: normal;
+}
+
+.spoils-heading {
+    margin-bottom: var(--space-sm);
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+/* ---- the cinders the fight paid (reward-full: icon, "32 cinders", "Granted . 52 total", TAKEN) ---- */
+
+.spoils-cinders {
+    flex-direction: row;
+    align-items: center;
+    min-height: var(--size-spoils-cinders-h);
+    margin-bottom: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg-raise);
+    background-image: url("../Frames/panel-frame.png");
+    -unity-slice-scale: var(--size-slice-frame);
+    border-color: var(--color-transparent);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
+    opacity: var(--opacity-muted);
+}
+
+.spoils-cinders-icon {
+    flex-shrink: 0;
+    width: var(--size-spoils-icon);
+    height: var(--size-spoils-icon);
+    margin-right: var(--space-md);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.spoils-cinders-texts {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.spoils-cinders-title {
+    font-size: var(--font-cmodal-row-title);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.spoils-cinders-body {
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+/* ---- level notices (gameProfileLevelUp.js: one sentence per level crossed) ---- */
+
+.spoils-notice {
+    padding: var(--space-xs) 0;
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line);
+}
+
+.spoils-notice-label {
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+/* ---- the offer: a column per option (face, chips, the name as the radio) ---- */
+
+.spoils-strip {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.spoils-option {
+    width: var(--size-spoils-face-w);
+    margin: 0 var(--size-spoils-gap) var(--size-spoils-gap) var(--size-spoils-gap);
+    align-items: stretch;
+}
+
+.spoils-option--taken {
+    opacity: var(--opacity-disabled);
+}
+
+.spoils-option .spoils-face {
+    width: var(--size-spoils-face-w);
+    height: var(--size-spoils-face-h);
+    margin: 0;
+    border-color: var(--color-transparent);
+    border-width: var(--border-glow);
+    border-radius: var(--radius-tight);
+}
+
+.spoils-option--selected .spoils-face {
+    border-color: var(--color-gold);
+}
+
+.spoils-collect {
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-md) var(--space-sm);
+    background-color: var(--color-bg-raise);
+    background-image: url("../Frames/panel-frame.png");
+    -unity-slice-scale: var(--size-slice-frame);
+}
+
+.spoils-collect-kind {
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.spoils-collect-art {
+    flex-shrink: 0;
+    width: var(--size-spoils-art);
+    height: var(--size-spoils-art);
+    margin: var(--space-sm) 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.spoils-collect-name {
+    font-size: var(--font-tile-name);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    -unity-text-align: upper-center;
+    white-space: normal;
+}
+
+.spoils-collect-text {
+    margin-top: var(--space-xs);
+    font-size: var(--font-tile-effect);
+    color: var(--color-parchment);
+    -unity-text-align: upper-center;
+    white-space: normal;
+}
+
+.spoils-chips {
+    position: absolute;
+    left: var(--space-xs);
+    top: var(--space-xs);
+    flex-direction: row;
+}
+
+.spoils-chips .kit-chip {
+    background-color: var(--color-bg);
+}
+
+.spoils-pick.kit-button {
+    margin-top: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    white-space: normal;
+}
+
+.spoils-option--selected .spoils-pick.kit-button {
+    border-color: var(--color-gold);
+    border-width: var(--border-glow);
+}
+
+.spoils-confirm--off.kit-button {
+    opacity: var(--opacity-disabled);
+}
+
+.spoils-line {
+    margin-top: var(--space-xs);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.layout-narrow .spoils-option,
+.layout-narrow .spoils-option .spoils-face {
+    width: var(--size-spoils-face-wnarrow);
+}
+
+.layout-narrow .spoils-option .spoils-face {
+    height: var(--size-spoils-face-hnarrow);
+}

@@ -1,34 +1,65 @@
 using System;
+using System.Globalization;
 using Ashen.App.Ui;
 using Ashen.Generated;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Ashen.Presentation.UI.Kit
 {
+    /// <summary>The raster art of the combat footer (art lookups orb.* and footer.*; null leaves a layer empty).</summary>
+    public sealed class FooterArt
+    {
+        public OrbArt Orb = new OrbArt();
+        public Texture2D Plate;
+        public Texture2D Draw;
+        public Texture2D Spent;
+        public Texture2D Potions;
+    }
+
     /// <summary>
-    /// The combat footer group (docs/design/04 §1): Actions · Draw · End Turn · Discard/Exhaust · Potions, packed
-    /// and centred. Shrink order is by class: in the compact band the text labels drop first and the glyphs and
-    /// counts stay. End Turn is neutral at rest and green when Actions are spent (04 §0 exception).
+    /// The combat footer group (docs/design/04 §1; VP-4 look, D-700): the stamina Orb with its mana ring, the Draw pile, End Turn on its plate, the Discard/Exhaust pile and the Potions
+    /// tray, laid out as the web's footer art row (the plate stays centred). In the compact band and on the narrow board the controls shrink by class. End Turn is the
+    /// plate at rest and reads green when Actions are spent (04 §0 exception); while the enemy acts it becomes the fast-forward control.
     /// </summary>
     [UxmlElement]
     public partial class FooterGroup : VisualElement
     {
-        private readonly LocLabel _actions;
+        private readonly Orb _orb;
         private readonly LocButton _draw;
         private readonly LocButton _endTurn;
         private readonly LocButton _discard;
         private readonly LocButton _potions;
+        private readonly LocLabel _discardCaption;
+        private readonly VisualElement _drawArt;
+        private readonly VisualElement _discardArt;
+        private readonly VisualElement _potionsArt;
+        private readonly LocLabel _endKey;
+        private int _actions;
+        private int _mana;
+        private int _manaMax;
 
         public FooterGroup()
         {
             AddToClassList(nameof(FooterGroup).ToLowerInvariant());
             UiDom.CloneTemplate(this, UiResources.KitFooterGroup);
-            _actions = this.Q<LocLabel>(UiNames.GroupActions);
+            _orb = this.Q<Orb>(UiNames.GroupOrb);
             _draw = this.Q<LocButton>(UiNames.GroupDraw);
             _endTurn = this.Q<LocButton>(UiNames.GroupEndTurn);
             _discard = this.Q<LocButton>(UiNames.GroupDiscard);
             _potions = this.Q<LocButton>(UiNames.GroupPotions);
-            if (_endTurn != null) _endTurn.clicked += () => EndTurn?.Invoke();
+            _discardCaption = this.Q<LocLabel>(UiNames.GroupDiscardCaption);
+            _drawArt = this.Q(UiNames.GroupDrawArt);
+            _discardArt = this.Q(UiNames.GroupDiscardArt);
+            _potionsArt = this.Q(UiNames.GroupPotionsArt);
+            if (_endTurn != null)
+            {
+                // The bound key (or pad button) rides on End Turn itself, so the shortcut can be found without reading a hint bar (web combat.js paintEndTurnKey).
+                _endKey = new LocLabel { pickingMode = PickingMode.Ignore };
+                _endKey.AddToClassList(HotkeyClasses.EndTurnKey);
+                _endTurn.Add(_endKey);
+                _endTurn.clicked += () => EndTurn?.Invoke();
+            }
             if (_potions != null) _potions.clicked += () => Potions?.Invoke();
             if (_draw != null) _draw.clicked += () => Piles?.Invoke(_draw);
             if (_discard != null) _discard.clicked += () => Piles?.Invoke(_discard);
@@ -43,7 +74,27 @@ namespace Ashen.Presentation.UI.Kit
         public event Action<VisualElement> Piles;
 
         public LocButton EndTurnButton => _endTurn;
+
+        /// <summary>The key or pad glyph End Turn is bound to, under its words.</summary>
+        public void SetKey(string key) => _endKey?.SetResolved(key ?? string.Empty);
         public LocButton PotionsButton => _potions;
+        public LocButton DrawButton => _draw;
+        public LocButton DiscardButton => _discard;
+        public Orb Orb => _orb;
+
+        /// <summary>Narrow layout: the pile and potion buttons use their short labels so End Turn keeps its words (04 W-07 narrow).</summary>
+        public bool Compact { get; set; }
+
+        /// <summary>Sets the raster art: the orb layers, the End Turn plate, the pile cradles and the potion tray (the screen looks them up by name).</summary>
+        public void SetArt(FooterArt art)
+        {
+            if (art == null) return;
+            _orb?.SetArt(art.Orb);
+            if (_endTurn != null) _endTurn.style.backgroundImage = Image(art.Plate);
+            if (_drawArt != null) _drawArt.style.backgroundImage = Image(art.Draw);
+            if (_discardArt != null) _discardArt.style.backgroundImage = Image(art.Spent);
+            if (_potionsArt != null) _potionsArt.style.backgroundImage = Image(art.Potions);
+        }
 
         /// <summary>
         /// The enemy-turn state (04 W-07): the group goes busy, End Turn becomes the fast-forward control (its label key
@@ -58,22 +109,34 @@ namespace Ashen.Presentation.UI.Kit
             _potions?.SetEnabled(!busy);
         }
 
-        /// <summary>The discard and exhaust piles on one button ("Discard 4 · Exhaust 1").</summary>
-        public void SetPiles(int discard, int exhaust) =>
-            _discard?.SetResolved(Loc.Format(Compact ? StringKeys.KitFooterPilesShort : StringKeys.KitFooterPiles, Count(discard).Add(UiPlaceholders.Exhaust, exhaust)));
+        /// <summary>The discard pile on its button and the exhaust pile in the caption under it ("Discard 4" / "Exhaust 1").</summary>
+        public void SetPiles(int discard, int exhaust)
+        {
+            _discard?.SetResolved(Loc.Format(Compact ? StringKeys.KitFooterDiscardShort : StringKeys.KitFooterDiscard, Count(discard)));
+            _discardCaption?.SetResolved(Loc.Format(StringKeys.Core2BoardExhaust, Count(exhaust)));
+        }
 
-        /// <summary>Narrow layout: the pile and potion buttons use their short labels so End Turn keeps its words (04 W-07 narrow).</summary>
-        public bool Compact { get; set; }
+        /// <summary>The Mana ring of the orb: <paramref name="mana"/> available out of <paramref name="manaMax"/> diamonds.</summary>
+        public void SetMana(int mana, int manaMax)
+        {
+            _mana = mana;
+            _manaMax = manaMax;
+            _orb?.Set(_actions, _mana, _manaMax);
+        }
 
         public void Set(int actions, int actionsMax, int draw, int discard, int potions, bool endTurnReady)
         {
-            _actions?.SetResolved(Loc.Get(StringKeys.GlyphActions) + Loc.Format(StringKeys.MeterValue, new StringArgs().Add(UiPlaceholders.Value, actions).Add(UiPlaceholders.Max, actionsMax)));
-            _draw?.SetResolved(Loc.Format(Compact ? StringKeys.KitFooterDrawShort : StringKeys.KitFooterDraw, Count(draw)));
+            _actions = actions;
+            _orb?.Set(_actions, _mana, _manaMax);
+            _draw?.SetResolved(draw.ToString(CultureInfo.InvariantCulture));
             _discard?.SetResolved(Loc.Format(Compact ? StringKeys.KitFooterDiscardShort : StringKeys.KitFooterDiscard, Count(discard)));
-            _potions?.SetResolved(Loc.Get(StringKeys.GlyphPotions) + Loc.Format(Compact ? StringKeys.KitFooterPotionsShort : StringKeys.KitFooterPotions, Count(potions)));
+            _potions?.SetResolved(Loc.Get(StringKeys.Core2BoardPotions));
             _endTurn?.EnableInClassList(UiClasses.EndTurnReady, endTurnReady);
             _endTurn?.EnableInClassList(UiClasses.ButtonReady, endTurnReady);
         }
+
+        private static StyleBackground Image(Texture2D texture) =>
+            texture != null ? new StyleBackground(texture) : new StyleBackground(StyleKeyword.None);
 
         private static StringArgs Count(int n) => new StringArgs().Add(UiPlaceholders.Count, n);
     }

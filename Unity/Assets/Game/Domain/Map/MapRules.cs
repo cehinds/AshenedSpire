@@ -53,9 +53,13 @@ namespace Ashen.Domain.Map
             IdPattern = new Regex(history.Str(MK.IdPattern), RegexOptions.CultureInvariant);
             RequirementGroups = Js.Items(history[MK.RequirementGroups]).Select(Js.Str).ToList();
             SampleSeeds = Int(MK.Sample, MK.Seeds);
+            Routes = rules.Obj(MK.Routes) is JObject routes ? new CoreRoutesVocabulary(routes) : null;
         }
 
         public JObject Source { get; }
+
+        /// <summary>The Core 2 route vocabulary (rules/mapEngine.json routes), or null when the rules carry none.</summary>
+        public CoreRoutesVocabulary Routes { get; }
 
         /// <summary>TYPING_RETRIES: typing attempts before the relax path force-places the promised counts.</summary>
         public int TypingRetries { get; }

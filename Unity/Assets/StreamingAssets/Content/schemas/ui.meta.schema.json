@@ -95,6 +95,82 @@
         "turns",
         "playsPerTurn"
       ]
+    },
+    "settingsTipNames": {
+      "type": "integer"
+    },
+    "settingsTabs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "labelKey": {
+            "type": "string"
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "labelKey": {
+                  "type": "string"
+                },
+                "categories": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "about": {
+                  "type": "boolean"
+                },
+                "changelog": {
+                  "type": "boolean"
+                },
+                "rules": {
+                  "type": "boolean"
+                },
+                "tipKey": {
+                  "type": "string"
+                },
+                "developer": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "categories",
+                "id",
+                "labelKey"
+              ]
+            }
+          }
+        },
+        "required": [
+          "groups",
+          "id",
+          "labelKey"
+        ]
+      }
+    },
+    "compendium": {
+      "type": "object",
+      "properties": {
+        "kinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "kinds"
+      ]
     }
   },
   "required": [

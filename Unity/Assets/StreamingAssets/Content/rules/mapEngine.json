@@ -55,5 +55,36 @@
   },
   "sample": {
     "seeds": 24
+  },
+  "routes": {
+    "comment": "The Core 2 route builder's closed names (web engine/actmap.js buildGameProfileActMap at b8cfe4fac). roles: the route types it treats by role. displayTypes: the map node type each authored route type is shown as. resolvedKinds: the kind a pre-resolved node reports when it differs from its type. unknownWeights: the odds it rolls its event nodes with (one weight, so the draw is taken and the result is always an event). lanes: the branchColumns it accepts. laneCentre: where a node shared by every lane sits across the lane span.",
+    "roles": {
+      "rest": "rest",
+      "boss": "boss",
+      "elite": "elite",
+      "shop": "shop",
+      "event": "event"
+    },
+    "displayTypes": {
+      "fight": "monster",
+      "event": "event",
+      "elite": "elite",
+      "treasure": "treasure",
+      "shop": "merchant",
+      "rest": "shrine",
+      "boss": "boss"
+    },
+    "resolvedKinds": {
+      "shop": "merchant"
+    },
+    "unknownWeights": {
+      "event": 1
+    },
+    "bossNodeId": "boss",
+    "lanes": {
+      "min": 2,
+      "max": 5
+    },
+    "laneCentre": 0.5
   }
 }

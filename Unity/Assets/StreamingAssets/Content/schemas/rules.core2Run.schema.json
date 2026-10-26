@@ -1,0 +1,175 @@
+{
+  "$id": "rules/core2Run.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "template": {
+      "type": "object"
+    },
+    "advancedConfig": {
+      "type": "object"
+    },
+    "fixedMode": {
+      "type": "object",
+      "properties": {
+        "baseline": {
+          "type": "integer"
+        },
+        "minimum": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "baseline",
+        "minimum"
+      ]
+    },
+    "rangeSettingKeys": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "gear": {
+      "type": "object",
+      "properties": {
+        "ratings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attributes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "poolStats": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "armorKind": {
+          "type": "string"
+        },
+        "shieldKind": {
+          "type": "string"
+        },
+        "fillNone": {
+          "type": "string"
+        },
+        "fillMin": {
+          "type": "string"
+        },
+        "poolsMerged": {
+          "type": "string"
+        },
+        "rankStat": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ratings",
+        "attributes",
+        "poolStats",
+        "armorKind",
+        "shieldKind",
+        "fillNone",
+        "fillMin",
+        "poolsMerged",
+        "rankStat"
+      ]
+    },
+    "ashenBlight": {
+      "type": "object",
+      "properties": {
+        "pathAttributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "staminaPenaltyPath": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "pathAttributes",
+        "staminaPenaltyPath"
+      ]
+    },
+    "derived": {
+      "type": "object",
+      "properties": {
+        "snapshotVersion": {
+          "type": "integer"
+        },
+        "epsilon": {
+          "type": "number"
+        },
+        "nonWeightFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "snapshotVersion",
+        "epsilon",
+        "nonWeightFields"
+      ]
+    },
+    "statOptions": {
+      "type": "object",
+      "properties": {
+        "aliases": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "handRows": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "handBaseline": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "aliases",
+        "handRows",
+        "handBaseline"
+      ]
+    },
+    "combat": {
+      "type": "object",
+      "properties": {
+        "staminaRefillsToFull": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "staminaRefillsToFull"
+      ]
+    }
+  },
+  "required": [
+    "template",
+    "advancedConfig",
+    "fixedMode",
+    "rangeSettingKeys",
+    "gear",
+    "ashenBlight",
+    "derived",
+    "statOptions",
+    "combat"
+  ]
+}

@@ -22,6 +22,9 @@
           "occupiedBodyKey": {
             "type": "string"
           },
+          "occupiedPrimaryKey": {
+            "type": "string"
+          },
           "policy": {
             "type": "string"
           },
@@ -55,7 +58,9 @@
             "enum": [
               "confirm",
               "continue",
-              "open"
+              "open",
+              "save",
+              "saveQuit"
             ]
           },
           "confirm": {
@@ -69,6 +74,12 @@
               "targetBuilt",
               "planned"
             ]
+          },
+          "hideWhenDisabled": {
+            "type": "boolean"
+          },
+          "icon": {
+            "type": "string"
           },
           "id": {
             "type": "string"
@@ -109,11 +120,27 @@
             "enum": [
               "confirm",
               "continue",
-              "open"
+              "load",
+              "open",
+              "save",
+              "saveQuit",
+              "toggle"
             ]
+          },
+          "armouryTab": {
+            "type": "string"
+          },
+          "band": {
+            "type": "string"
           },
           "confirm": {
             "type": "string"
+          },
+          "control": {
+            "type": "string",
+            "enum": [
+              "switch"
+            ]
           },
           "enabledWhen": {
             "type": "string",
@@ -124,11 +151,23 @@
               "planned"
             ]
           },
+          "hideInCombat": {
+            "type": "boolean"
+          },
+          "hideWhenDisabled": {
+            "type": "boolean"
+          },
+          "icon": {
+            "type": "string"
+          },
           "id": {
             "type": "string"
           },
           "labelKey": {
             "type": "string"
+          },
+          "lockedInCombat": {
+            "type": "boolean"
           },
           "mode": {
             "type": "string",
@@ -137,13 +176,25 @@
               "new"
             ]
           },
+          "setting": {
+            "type": "string"
+          },
+          "tab": {
+            "type": "string"
+          },
           "target": {
             "type": "string"
           },
-          "visible": {
-            "type": "boolean"
+          "tipKey": {
+            "type": "string"
           },
-          "hideInCombat": {
+          "tone": {
+            "type": "string",
+            "enum": [
+              "danger"
+            ]
+          },
+          "visible": {
             "type": "boolean"
           }
         },
@@ -177,12 +228,35 @@
           "labelKey"
         ]
       }
+    },
+    "overlayTabs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "labelKey": {
+            "type": "string"
+          },
+          "tipKey": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "labelKey",
+          "tipKey"
+        ]
+      }
     }
   },
   "required": [
     "comment",
     "confirms",
     "creationPanes",
+    "overlayTabs",
     "pause",
     "title"
   ]

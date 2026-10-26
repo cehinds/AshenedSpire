@@ -1,0 +1,32 @@
+{
+  "$id": "profile/bundle/companions.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "blurb": {
+        "type": "string"
+      },
+      "combats": {
+        "type": "integer"
+      },
+      "cost": {
+        "type": "integer"
+      },
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "blurb",
+      "combats",
+      "cost",
+      "id",
+      "name"
+    ]
+  }
+}

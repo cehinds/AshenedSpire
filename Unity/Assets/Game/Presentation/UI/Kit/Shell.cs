@@ -20,6 +20,7 @@ namespace Ashen.Presentation.UI.Kit
             UiDom.CloneTemplate(this, UiResources.KitShell);
             _body = this.Q(UiNames.ShellBody);
             TitleLabel = this.Q<LocLabel>(UiNames.ShellTitle);
+            EyebrowLabel = this.Q<LocLabel>(UiNames.ShellEyebrow);
             ExitButton = this.Q<LocButton>(UiNames.ShellExit);
             BackButton = this.Q<LocButton>(UiNames.FooterBack);
             PrimaryButton = this.Q<LocButton>(UiNames.FooterPrimary);
@@ -32,6 +33,9 @@ namespace Ashen.Presentation.UI.Kit
         public override VisualElement contentContainer => _body ?? this;
 
         public LocLabel TitleLabel { get; }
+
+        /// <summary>The small caps line over the title (the web's modalHead eyebrow, as PLAYER DATA over Profile); hidden until a screen names one.</summary>
+        public LocLabel EyebrowLabel { get; }
         public LocButton ExitButton { get; }
         public LocButton BackButton { get; }
         public LocButton PrimaryButton { get; }
@@ -46,6 +50,19 @@ namespace Ashen.Presentation.UI.Kit
         {
             get => TitleLabel?.stringKey;
             set { if (TitleLabel != null) TitleLabel.stringKey = value; }
+        }
+
+        [UxmlAttribute]
+        public string eyebrowKey
+        {
+            get => EyebrowLabel?.stringKey;
+            set
+            {
+                if (EyebrowLabel == null) return;
+                EyebrowLabel.stringKey = value;
+                EyebrowLabel.AddToClassList(UiClasses.Upper);
+                UiDom.Show(EyebrowLabel, !string.IsNullOrEmpty(value));
+            }
         }
 
         [UxmlAttribute]

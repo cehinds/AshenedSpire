@@ -21,14 +21,18 @@ namespace Ashen.Presentation.UI.Screens
     /// </summary>
     public static class RunFlow
     {
+        /// <summary>The ruleset the PlayMode smokes pin for new climbs ('legacy' keeps them on the 405 run); null follows rules/runFlow.json newRun.ruleset.</summary>
+        public static string RulesetOverride;
+
+        /// <summary>Resume a slot, whichever ruleset saved it (a Core 2 save is format 3, anything else is a 405 run; <see cref="RunHost.Load"/> reads it by its format).</summary>
         public static void Resume(ScreenContext context, int slotIndex, VisualElement anchor)
         {
             var ui = context.Ui;
-            RunLoadResult result;
-            try { result = RunSession.Load(ui.RunContent, ui.Saves, slotIndex); }
+            HostedLoad result;
+            try { result = RunHost.Load(ui.RunContent, ui.Saves, slotIndex); }
             catch (Exception e)
             {
-                Debug.LogError(Format(UiMessages.LoadFailed, slotIndex, RunLoadStatus.Damaged, e.Message));
+                Debug.LogError(Format(UiMessages.LoadFailed, slotIndex, nameof(RunLoadStatus.Damaged), e.Message));
                 Refuse(context, anchor, StringKeys.CombatLoadRefused);
                 return;
             }
@@ -36,10 +40,33 @@ namespace Ashen.Presentation.UI.Screens
             if (!result.Resumed)
             {
                 Debug.LogWarning(Format(UiMessages.LoadFailed, slotIndex, result.Status, string.Join(UiFormats.Newline, result.Warnings)));
-                Refuse(context, anchor, result.Status == RunLoadStatus.Empty ? StringKeys.SlotsRefusalEmpty : StringKeys.SlotsRefusalUnreadable);
+                Refuse(context, anchor, result.Status == nameof(RunLoadStatus.Empty) ? StringKeys.SlotsRefusalEmpty : StringKeys.SlotsRefusalUnreadable);
                 return;
             }
-            Show(context, result.Session, result.Status == RunLoadStatus.ResumedWithWarning);
+            var warned = result.Status == nameof(RunLoadStatus.ResumedWithWarning) || (result.Run.IsCore2 && result.Warnings.Count > 0);
+            if (result.Run.IsCore2) Show(context, result.Run.Core2, warned);
+            else Show(context, result.Run.Legacy, warned);
+        }
+
+        /// <summary>The ruleset a New Game starts now: the override a test pins, else the data's (rules/runFlow.json newRun.ruleset).</summary>
+        public static string NewRuleset(UiContext ui) => RulesetOverride ?? RunHost.Ruleset(ui.RunContent);
+
+        /// <summary>The screen that shows where the run stands, whichever ruleset plays it.</summary>
+        public static void ShowClimb(ScreenContext context, IClimb climb, bool resumeWarning = false)
+        {
+            if (climb is Core2RunSession core2) Show(context, core2, resumeWarning);
+            else Show(context, (RunSession)climb, resumeWarning);
+        }
+
+        /// <summary>Where a Core 2 run stands (rules/runFlow.json core2Screens: the fight, the map, the run end); a screen that is planned or unregistered falls back to the act map.</summary>
+        public static void Show(ScreenContext context, Core2RunSession session, bool resumeWarning = false)
+        {
+            var ui = context.Ui;
+            ui.Core2Session = session;
+            ui.Session = null;
+            var id = session.Content.Flow.Core2ScreenFor(session.Location);
+            if (id == null || !ui.Data.Screens.IsBuilt(id)) id = ScreenIds.ActMap;
+            context.Navigator.Go(id, new Core2RunArgs { Session = session, ResumeWarning = resumeWarning }, true);
         }
 
         /// <summary>The screen that shows where the run stands (the stack is replaced: a run screen is always the root).</summary>
@@ -47,6 +74,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             var ui = context.Ui;
             ui.Session = session;
+            ui.Core2Session = null;
             var location = session.Location;
             // A quest chain's event step shows on dialogue (W4c, D-140).
             var id = NodeScreens.Refine(session.Content.Flow.ScreenFor(location), session);
@@ -67,6 +95,9 @@ namespace Ashen.Presentation.UI.Screens
             context.Navigator.Go(id, args, true);
         }
 
+        /// <summary>False keeps a New Game from playing the opening (W-05) before the map (the PlayMode smokes pin it); null follows the data and the player's setting.</summary>
+        public static bool? OpeningOverride;
+
         /// <summary>A fixed seed for new climbs (the PlayMode smoke pins its runs); null draws a fresh one.</summary>
         public static uint? SeedOverride;
 
@@ -81,16 +112,16 @@ namespace Ashen.Presentation.UI.Screens
             return unchecked((uint)rng.Next() ^ ((uint)rng.Next() << 1));
         }
 
-        /// <summary>"name · class · Act · Floor · HP" for a slot, as the W-03 row shows it (the W2 target line).</summary>
+        /// <summary>The slot's one line of facts (web saveSlotSelector.js slotFacts): "Act 1 · Floor 0 · 71/71 HP".</summary>
+        public static string ActFacts(UiContext ui, SlotSummary s) =>
+            ui.Data.Strings.Format(StringKeys.SlotsFacts, new StringArgs().Add(UiPlaceholders.Act, s.Act).Add(UiPlaceholders.Floor, s.Floor).Add(UiPlaceholders.Hp, s.Hp).Add(UiPlaceholders.HpMax, s.HpMax));
+
+        /// <summary>The run a W2 door acts on, named the way its slot names it (web ConfirmationReviewModel.js runIdentity): "Reaver · Slot 1 · Act 1 · Floor 0 · 71/71 HP".</summary>
         public static string SlotFacts(UiContext ui, SlotSummary s)
         {
             var strings = ui.Data.Strings;
-            var label = strings.Format(StringKeys.SlotsLabel, new StringArgs().Add(UiPlaceholders.Slot, s.Index));
-            if (!s.IsReady) return label;
-            var facts = strings.Format(StringKeys.SlotsFacts, new StringArgs()
-                .Add(UiPlaceholders.Name, s.Name).Add(UiPlaceholders.Class, ClassName(ui, s.ClassId)).Add(UiPlaceholders.Act, s.Act).Add(UiPlaceholders.Floor, s.Floor)
-                .Add(UiPlaceholders.Hp, s.Hp).Add(UiPlaceholders.HpMax, s.HpMax));
-            return strings.Format(StringKeys.SlotsTarget, new StringArgs().Add(UiPlaceholders.Label, label).Add(UiPlaceholders.Facts, facts));
+            if (!s.IsReady) return strings.Format(StringKeys.SlotsLabel, new StringArgs().Add(UiPlaceholders.Slot, s.Index));
+            return strings.Format(StringKeys.SlotsTarget, new StringArgs().Add(UiPlaceholders.Class, ClassName(ui, s.ClassId)).Add(UiPlaceholders.Slot, s.Index).Add(UiPlaceholders.Facts, ActFacts(ui, s)));
         }
 
         public static string ClassName(UiContext ui, string classId) =>

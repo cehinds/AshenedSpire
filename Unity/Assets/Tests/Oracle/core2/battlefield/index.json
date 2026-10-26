@@ -1,0 +1,13 @@
+{
+ "files": [
+  {
+   "bytes": 3452999,
+   "file": "model.json"
+  },
+  {
+   "bytes": 84535,
+   "file": "board.json"
+  }
+ ],
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

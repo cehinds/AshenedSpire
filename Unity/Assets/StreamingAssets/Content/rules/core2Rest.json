@@ -1,0 +1,101 @@
+{
+  "comment": "Literals of the Core 2 rest site and its Smith that the web keeps in code (docs/design/11 WP-16; src/model/smithingCore.js, gameProfileRest.js, restRevisit.js, ui/components/gameProfileRest.js at the pinned sha b8cfe4fac). coreAuthor: the profile author whose runs level by skill alone (coreSkillOnlyProgression). simulationSeed: the seed of the throwaway fights the Smith's card rows are read from (createRng(17)). statOrder / statLabels: the item stat rows a tier step can change, in the order the receipt lists them, and their names. cardValues: the card figures the Smith follows (the op, its label and the rating that scales it). budgetLabels: the name of an armour's budget row and a shield's stat points row. consumedKinds / restedKinds: the services a left rest site remembers as spent / as a rest (restRevisit.js). restNodeTypes / restActualType: the map node types a rest service stands at. recoveryRows: the rows of the screen's recovery ledger (the pool, its run field and the flask charge field it refills). levelCurveDefaults: the base and growth the character level curve reads when the balance authors none. introServices: the services whose pair makes the arrival line say both are free.",
+  "simulationSeed": 17,
+  "coreAuthor": "ashen.core@2.0.0",
+  "levelCurveDefaults": {
+    "base": 100,
+    "growth": 1.15
+  },
+  "introServices": [
+    "smith",
+    "levelUp"
+  ],
+  "statOrder": [
+    "ar",
+    "dr",
+    "poise",
+    "ward",
+    "hp",
+    "mp",
+    "sp",
+    "evasion",
+    "precision",
+    "strength",
+    "dexterity",
+    "constitution",
+    "wisdom",
+    "intelligence"
+  ],
+  "statLabels": {
+    "ar": "AR",
+    "dr": "DR",
+    "poise": "Poise",
+    "ward": "Ward",
+    "hp": "HP",
+    "mp": "MP",
+    "sp": "SP",
+    "evasion": "Evasion",
+    "precision": "Precision",
+    "strength": "STR",
+    "dexterity": "DEX",
+    "constitution": "CON",
+    "wisdom": "WIS",
+    "intelligence": "INT"
+  },
+  "cardValues": [
+    {
+      "op": "damage",
+      "label": "Damage",
+      "rating": "AR"
+    },
+    {
+      "op": "block",
+      "label": "Block",
+      "rating": "DR"
+    }
+  ],
+  "budgetLabels": {
+    "armor": "Armor budget",
+    "shield": "Stat points"
+  },
+  "consumedKinds": [
+    "rest",
+    "smith",
+    "extract",
+    "install"
+  ],
+  "restedKinds": [
+    "rest"
+  ],
+  "restNodeTypes": [
+    "shrine"
+  ],
+  "restActualType": "rest",
+  "recoveryRows": [
+    {
+      "id": "health",
+      "pool": "hp",
+      "kind": "pool"
+    },
+    {
+      "id": "mana",
+      "pool": "mana",
+      "kind": "pool"
+    },
+    {
+      "id": "stamina",
+      "pool": "stamina",
+      "kind": "pool"
+    },
+    {
+      "id": "flask-health",
+      "pool": "hpCurrent",
+      "kind": "flask"
+    },
+    {
+      "id": "flask-mana",
+      "pool": "manaCurrent",
+      "kind": "flask"
+    }
+  ]
+}

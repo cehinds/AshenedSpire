@@ -5,9 +5,11 @@
     align-self: center;
     flex-direction: column;
     background-color: var(--color-shade);
-    border-color: var(--color-line-soft);
-    border-width: var(--border-control);
-    border-radius: var(--radius-modal);
+    background-image: url("../Frames/modal-frame.png");
+    -unity-slice-scale: var(--size-slice-frame);
+    border-color: var(--color-transparent);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
 }
 
 .shell-header {
@@ -15,11 +17,26 @@
     padding-top: var(--space-xs);
     padding-bottom: var(--space-xs);
     flex-direction: row;
+    background-color: var(--color-modal-bar);
     align-items: center;
     padding-left: var(--space-xl);
     padding-right: var(--space-md);
     border-bottom-width: var(--border-hairline);
-    border-color: var(--color-line);
+    border-color: var(--color-line-soft);
+}
+
+.shell-heading {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: column;
+}
+
+/* The web's modal head carries an Eyebrow over its title (kit modalHead: PLAYER DATA over Profile); hidden unless a screen names one. */
+.shell-eyebrow {
+    font-size: var(--font-comp-eyebrow);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+    white-space: normal;
 }
 
 .shell-title {
@@ -49,10 +66,11 @@
 .shell-footer {
     min-height: var(--size-shell-band);
     flex-direction: row;
+    background-color: var(--color-modal-bar);
     align-items: center;
     padding: var(--space-sm) var(--space-xl);
     border-top-width: var(--border-hairline);
-    border-color: var(--color-line);
+    border-color: var(--color-line-soft);
 }
 
 .shell-footer-gap {

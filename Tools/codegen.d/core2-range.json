@@ -1,0 +1,120 @@
+{
+  "comment": "Keys, values, messages and numbers of the Core 2 range and engagement package (WP-12, docs/design/11): the Advance payment, the route quotes, the engagement move, the range lineage and the formation move.",
+  "keySets": [
+    {
+      "name": "Core2RangeKeys",
+      "doc": "Keys the range package reads and writes.",
+      "keys": {
+        "Affordable": "affordable",
+        "AllCurrentInRange": "allCurrentInRange",
+        "Bands": "bands",
+        "Batch": "batch",
+        "Cell": "cell",
+        "ChoiceRequired": "choiceRequired",
+        "Conditional": "conditional",
+        "ConditionalContacts": "conditionalContacts",
+        "ConditionalOnly": "conditionalOnly",
+        "Contacts": "contacts",
+        "Current": "current",
+        "CurrentHitChance": "currentHitChance",
+        "CurrentHitChances": "currentHitChances",
+        "CurrentInRange": "currentInRange",
+        "DefenseRulesVersion": "defenseRulesVersion",
+        "Delivery": "delivery",
+        "EdgeId": "edgeId",
+        "Edges": "edges",
+        "EffectIndex": "effectIndex",
+        "Event": "event",
+        "Events": "events",
+        "From": "from",
+        "HitChances": "hitChances",
+        "Id": "id",
+        "MaxDepth": "maxDepth",
+        "MaxEvents": "maxEvents",
+        "Ok": "ok",
+        "ParentId": "parentId",
+        "PlayerId": "playerId",
+        "RangeClosingMove": "rangeClosingMove",
+        "RangeOrigin": "rangeOrigin",
+        "Routes": "routes",
+        "SelectedRoute": "selectedRoute",
+        "Settings": "settings",
+        "SiteId": "siteId",
+        "Sites": "sites",
+        "TargetPlayerId": "targetPlayerId",
+        "To": "to",
+        "TriggerKey": "triggerKey"
+      }
+    },
+    {
+      "name": "Core2RangeValues",
+      "doc": "Values of the range package.",
+      "keys": {
+        "EdgePrefix": "e",
+        "EventActionUnavailable": "combatRangeActionUnavailable",
+        "EventCharacterMoved": "characterMoved",
+        "EventEngagementMoved": "combatEngagementMoved",
+        "FirstColumn": "1",
+        "FormationRows": "ABCDEF",
+        "IntentMoveCharacter": "moveCharacter",
+        "LifecyclePrefix": "lifecycle:",
+        "ReasonLineage": "range-lineage",
+        "ReasonRangeDisabled": "range-disabled",
+        "ReasonStamina": "stamina",
+        "RiderPrefix": "rider:",
+        "RootPending": "pending",
+        "SegmentTrigger": "trigger",
+        "SettingClassic": "classicAppearance",
+        "SettingColumns": "gameConfig.presentation.formationColumns",
+        "SettingCostsAction": "gameConfig.presentation.movementCostsAction",
+        "SettingEnabled": "gameConfig.presentation.movementEnabled",
+        "SettingRows": "gameConfig.presentation.formationRows",
+        "SitePrefix": "s",
+        "SpawnRow": "F",
+        "TagRange": "range:",
+        "TargetPendingAttacker": "pendingAttacker",
+        "TypeStatus": "status",
+        "TypeCurse": "curse"
+      }
+    },
+    {
+      "name": "Core2RangeMessages",
+      "doc": "Messages of the range package; {0}.. are format arguments.",
+      "keys": {
+        "EnvelopeMissing": "The committed trigger envelope is missing",
+        "HostilePreparation": "A hostile preparation trigger needs a separately quoted action before this card can be played",
+        "MovementAlready": "Already at that position.",
+        "MovementChooseTile": "Choose a tile on your side.",
+        "MovementCost": "Not enough actions to move.",
+        "MovementDisabled": "Formation movement is disabled.",
+        "MovementNeedsOpponent": "Engagement movement requires an opposing target",
+        "MovementOnTurn": "Move only during your turn.",
+        "MovementOneBand": "Engagement movement requires one band",
+        "NotEnoughAdvance": "Not enough Stamina to Advance",
+        "OutsideEnvelope": "This trigger is outside the committed range envelope",
+        "RangeDisabled": "Range mechanics are disabled",
+        "ReservedOutside": "The reserved Counter payload is outside its accepted envelope",
+        "UnboundedEnvelope": "This action has an unbounded range-trigger envelope",
+        "UnboundedPreparation": "This preparation has an unbounded range-trigger chain",
+        "UnknownRoute": "Unknown range route"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "Core2RangeNumbers",
+      "type": "double",
+      "doc": "Numbers of the range package.",
+      "values": {
+        "CellLength": "2",
+        "FormationColumnsDefault": "2",
+        "FormationColumnsMin": "1",
+        "FormationColumnsMax": "3",
+        "FormationRowsDefault": "2",
+        "FormationRowsMin": "1",
+        "FormationRowsMax": "6",
+        "DefenseRulesVersion": "2"
+      }
+    }
+  ]
+}

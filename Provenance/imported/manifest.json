@@ -1,7 +1,7 @@
 {
   "files": [
     {
-      "sha256": "a29b5f26c07c2f84af342d677e6c887a7939d343119c7e5174e712329294c51b",
+      "sha256": "a3a886753481c7e07677f5b4177a6654cf73b9fd551b10bb71689ec662cb384d",
       "source": "CREDITS.md"
     },
     {
@@ -75,6 +75,10 @@
     {
       "sha256": "7541a010aee64deaebd18f45f647a656e235b1587440165c2ab9a25a42073e90",
       "source": "assets/enemies-unity/provenance.json"
+    },
+    {
+      "sha256": "c82099fcdd461d372c916b93ce15a871a27d4e525eaf1850484c08bbfe39a817",
+      "source": "releases/hd-assets-v23.json"
     }
   ],
   "source": "D:/repos/AshenSpire"

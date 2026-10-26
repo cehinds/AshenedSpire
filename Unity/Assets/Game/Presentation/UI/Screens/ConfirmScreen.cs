@@ -46,13 +46,13 @@ namespace Ashen.Presentation.UI.Screens
             ViewModel.Target = _request.Target;
             ViewModel.Body = strings.Format(_request.Occupied && def.OccupiedBodyKey != null ? def.OccupiedBodyKey : def.BodyKey, _request.Args);
             ViewModel.Back = strings.Get(def.BackKey);
-            ViewModel.Primary = strings.Get(def.PrimaryKey);
+            ViewModel.Primary = strings.Get(_request.Occupied && def.OccupiedPrimaryKey != null ? def.OccupiedPrimaryKey : def.PrimaryKey);
             ViewModel.Destructive = Ui.Data.Policies.IsDestructive(def.Policy);
             ViewModel.Hold = def.Hold;
             ViewModel.Single = def.Single;
             ViewModel.HoldMs = Ui.Data.Tokens.Duration(TokenKeys.HoldConfirm);
             // The door keeps its token duration (D-061); the player's 'off' turns the hold into a press (US-17.1, D-157).
-            var settings = Ui.Session?.PlayerSettings ?? new SettingsSession(Ui.RunContent, ProfileStore.Load(Ui.Saves));
+            var settings = Ui.Climb?.PlayerSettings ?? new SettingsSession(Ui.RunContent, ProfileStore.Load(Ui.Saves), core2: true);
             ViewModel.HoldEnabled = settings.Text(SettingIds.HoldConfirm) != SettingIds.HoldOff;
             var confirm = Root.Q<Confirm>(UiNames.Confirm);
             confirm.Bind(ViewModel);

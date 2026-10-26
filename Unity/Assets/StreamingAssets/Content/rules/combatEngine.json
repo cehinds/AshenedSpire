@@ -129,7 +129,14 @@
     "restoreMana",
     "restoreStamina",
     "addCinders",
-    "loseMaxHpPct"
+    "loseMaxHpPct",
+    "gainBarrier",
+    "buildup",
+    "discard",
+    "removeStatus",
+    "grantCardCharge",
+    "gainPoise",
+    "gainWard"
   ],
   "skillXp": {
     "focusItemType": "item:magic-focus",

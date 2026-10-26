@@ -214,6 +214,7 @@ namespace Ashen.Presentation.UI.Screens
             Text = pick.Text,
             TypeLine = pick.TypeLine,
             Rarity = pick.Rarity,
+            Face = pick.Face,
             Upgraded = pick.Upgraded,
             Affordable = affordable,
             RefusalText = refusal,

@@ -124,12 +124,23 @@
         },
         "prologue": {
           "type": "boolean"
+        },
+        "opening": {
+          "type": "boolean"
+        },
+        "ruleset": {
+          "type": "string",
+          "enum": [
+            "legacy",
+            "core2"
+          ]
         }
       },
       "required": [
         "customization",
         "advancedConfigSnapshot",
-        "prologue"
+        "prologue",
+        "ruleset"
       ]
     },
     "settings": {
@@ -219,11 +230,43 @@
         "dungeon",
         "runEnd"
       ]
+    },
+    "core2Screens": {
+      "type": "object",
+      "properties": {
+        "combat": {
+          "type": "string"
+        },
+        "map": {
+          "type": "string"
+        },
+        "runEnd": {
+          "type": "string"
+        },
+        "rewards": {
+          "type": "string"
+        },
+        "merchant": {
+          "type": "string"
+        },
+        "rest": {
+          "type": "string"
+        },
+        "event": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "combat",
+        "map",
+        "runEnd"
+      ]
     }
   },
   "required": [
     "autosave",
     "comment",
+    "core2Screens",
     "creation",
     "firstFight",
     "newRun",

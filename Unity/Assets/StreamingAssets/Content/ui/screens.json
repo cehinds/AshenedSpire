@@ -1,5 +1,5 @@
 {
-  "comment": "Screen registry (docs/design/08 §10, 06 PF-08, 04 W-*; 09 Appendix C ids). Each built screen names its UXML (a Resources path), its 'layer' (screen | modal), an optional registry 'background' (assets/registry.json id), and the REQUIRED 'focusOrder': UiNames regions walked in order, the focusable items inside a region in document order (04 §0 default: rail, pane, footer Primary, footer Back). 'initialFocus' names the element that takes focus first (Back on every confirmation). 'back' is what Escape / pad B does when nothing inner is open: 'pop' returns to the previous screen, 'close' closes a modal, null does nothing. 'transitions' map a trigger to a target screen and a mode (push | replace). 'input': 'none' marks a screen that takes no input (boot). 'gate' shows the press-any-input gate on first entry (US-1.2). 'planned' registers a screen that is not built yet: menu entries that target it are disabled. 'dev' marks review-only screens. ScreenIds (Tools/codegen.d/ui.json) must list exactly these keys (UiDataTests). 'focusModes' names alternative focus orders a screen switches to while one of its states is active (combat: targeting, discard chooser, flask panel, enemy turn, end state; rewards: the card or draft pick; actMap: the planned door and the legend; rest: a smith, card, flask or level pane); each is a list of regions like 'focusOrder'. The climb's screens are reached through rules/runFlow.json 'screens' (the location a run stands at → its screen); the merchant, event, dialogue (a quest chain step) and legacy-dungeon screens are built (merchant: the card pick of a burn or an install as a focus mode); the act map keeps its planned door as the fallback for a screen that is not built.",
+  "comment": "Screen registry (docs/design/08 §10, 06 PF-08, 04 W-*; 09 Appendix C ids). Each built screen names its UXML (a Resources path), its 'layer' (screen | modal), an optional registry 'background' (assets/registry.json id), and the REQUIRED 'focusOrder': UiNames regions walked in order, the focusable items inside a region in document order (04 §0 default: rail, pane, footer Primary, footer Back). 'initialFocus' names the element that takes focus first (Back on every confirmation). 'back' is what Escape / pad B does when nothing inner is open: 'pop' returns to the previous screen, 'close' closes a modal, null does nothing. 'transitions' map a trigger to a target screen and a mode (push | replace). 'input': 'none' marks a screen that takes no input (boot). 'gate' shows the press-any-input gate on first entry (US-1.2). 'planned' registers a screen that is not built yet: menu entries that target it are disabled. 'dev' marks review-only screens. ScreenIds (Tools/codegen.d/ui.json) must list exactly these keys (UiDataTests). 'core2Rewards' is the Core 2 spoils door (VP-7, D-850): the web's reward door modal over the map, its level notices, the offer's options and the review of the picked one (Core2RewardsScreen over Core2SpoilsFlow); Escape opens the pause screen. 'core2Rest' and 'core2Shop' are the Core 2 rest site and shop (VP-8, VP-9; D-950..D-953): a painted room under the board HUD with the door or frame on the right and their modals (the Smith, Level Up, Inspect, the question before spending) as the 'modal' focus mode; Escape closes the modal, else opens the pause screen. 'core2Combat' is W-07 for a Core 2 fight (WP-C1b): the Combat screen's bands bound to Core2CombatView, with a prompt panel (stance, route, reaction offer, card choice, flasks, equipment, prediction) as its 'prompt' focus mode; the act map, pause and run end are shared with the 405 run. 'focusModes' names alternative focus orders a screen switches to while one of its states is active (combat: targeting, discard chooser, flask panel, enemy turn, end state; rewards: the card or draft pick; actMap: the planned door and the legend; rest: a smith, card, flask or level pane); each is a list of regions like 'focusOrder'. The climb's screens are reached through rules/runFlow.json 'screens' (the location a run stands at → its screen); the merchant, event, dialogue (a quest chain step) and legacy-dungeon screens are built (merchant: the card pick of a burn or an install as a focus mode); the act map keeps its planned door as the fallback for a screen that is not built.",
   "initial": "boot",
   "screens": {
     "boot": {
@@ -27,15 +27,29 @@
       "uxml": "UI/Screens/ProfileRecovery",
       "layer": "screen",
       "background": "bg.tower-city-background-unlit",
-      "focusOrder": ["CONFIRM_FOOTER"],
-      "initialFocus": "CONFIRM_BACK",
+      "focusOrder": ["RECOVERY_BODY"],
       "back": null,
       "transitions": { "done": { "to": "title", "mode": "replace" } }
+    },
+    "transfer": {
+      "uxml": "UI/Screens/Transfer",
+      "layer": "screen",
+      "background": "bg.tower-entrance-hall",
+      "focusOrder": ["TRANSFER_ACTIONS", "FOOTER_PRIMARY", "SHELL_EXIT"],
+      "back": "pop",
+      "transitions": {}
+    },
+    "farewell": {
+      "uxml": "UI/Screens/Farewell",
+      "layer": "screen",
+      "background": "bg.tower-city-background-unlit",
+      "focusOrder": ["FAREWELL"],
+      "back": null,
+      "transitions": {}
     },
     "title": {
       "uxml": "UI/Screens/Title",
       "layer": "screen",
-      "background": "bg.title-city-tower",
       "gate": true,
       "focusOrder": ["MENU", "AI_DISCLOSURE"],
       "back": null,
@@ -69,7 +83,8 @@
       "uxml": "UI/Screens/Creation",
       "layer": "screen",
       "background": "bg.tower-city-background-unlit",
-      "focusOrder": ["WORKSPACE_NAV", "CLASS_LIST", "FOOTER_PRIMARY", "FOOTER_BACK", "SHELL_EXIT"],
+      "focusOrder": ["WORKSPACE_NAV", "CLASS_PANE", "FOOTER_PRIMARY", "FOOTER_BACK", "SHELL_EXIT"],
+      "focusModes": { "review": ["WORKSPACE_NAV", "REVIEW_PANE", "FOOTER_PRIMARY", "FOOTER_BACK", "SHELL_EXIT"] },
       "back": "pop",
       "transitions": { "begin": { "to": "actMap", "mode": "replace" } }
     },
@@ -87,11 +102,73 @@
       "back": null,
       "transitions": { "quit": { "to": "title", "mode": "replace" } }
     },
+    "core2Combat": {
+      "uxml": "UI/Screens/Core2Combat",
+      "layer": "screen",
+      "focusOrder": ["HAND_CARDS", "ENEMY_ROW", "ALLY_ROW", "FOOTER_GROUP", "FOOTER_TOOLS", "RUN_HUD", "COMBAT_LOG"],
+      "focusModes": {
+        "targeting": ["ENEMY_ROW", "ALLY_ROW"],
+        "prompt": ["PROMPT_LIST", "PROMPT_FOOTER", "PROMPT_CLOSE"],
+        "overlay": ["OVERLAY_MODAL", "OVERLAY_QUICK"],
+        "enemyTurn": ["FOOTER_GROUP"],
+        "ended": ["COMBAT_END"]
+      },
+      "back": null,
+      "transitions": { "quit": { "to": "title", "mode": "replace" } }
+    },
+    "core2Rewards": {
+      "uxml": "UI/Screens/Core2Rewards",
+      "layer": "screen",
+      "focusOrder": ["SPOILS_MODAL", "RUN_HUD"],
+      "back": null,
+      "transitions": {}
+    },
+    "core2Rest": {
+      "uxml": "UI/Screens/Core2Rest",
+      "layer": "screen",
+      "focusOrder": ["CREST_DOOR", "RUN_HUD"],
+      "focusModes": {
+        "modal": ["CREST_MODAL"]
+      },
+      "back": null,
+      "transitions": {}
+    },
+    "core2Shop": {
+      "uxml": "UI/Screens/Core2Shop",
+      "layer": "screen",
+      "focusOrder": ["CSHOP_FRAME", "RUN_HUD"],
+      "focusModes": {
+        "modal": ["CSHOP_MODAL"]
+      },
+      "back": null,
+      "transitions": {}
+    },
+    "core2Event": {
+      "uxml": "UI/Screens/Core2Event",
+      "layer": "screen",
+      "focusOrder": ["CEVENT_DOOR", "CEVENT_CONTEXT", "CEVENT_FOOT", "RUN_HUD"],
+      "back": null,
+      "transitions": {}
+    },
+    "core2RunEnd": {
+      "uxml": "UI/Screens/Core2RunEnd",
+      "layer": "screen",
+      "focusOrder": ["CEND_DOOR"],
+      "back": null,
+      "transitions": {}
+    },
+    "prologue": {
+      "uxml": "UI/Screens/Prologue",
+      "layer": "screen",
+      "focusOrder": ["PROLOGUE_BAR"],
+      "initialFocus": "PROLOGUE_CONTINUE",
+      "back": null,
+      "transitions": {}
+    },
     "pause": {
       "uxml": "UI/Screens/Pause",
       "layer": "modal",
-      "focusOrder": ["PAUSE_ROWS", "FOOTER_PRIMARY", "SHELL_EXIT"],
-      "initialFocus": "FOOTER_PRIMARY",
+      "focusOrder": ["PAUSE_ROWS"],
       "back": "close",
       "transitions": {}
     },
@@ -138,14 +215,27 @@
       "transitions": {}
     },
     "pileViewer": { "layer": "modal", "planned": true, "focusOrder": [], "back": "close", "transitions": {} },
-    "armoury": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
+    "armoury": {
+      "uxml": "UI/Screens/Armoury",
+      "layer": "modal",
+      "focusOrder": ["ARMOURY_MODAL"],
+      "back": "close",
+      "transitions": {}
+    },
+    "core2Potions": {
+      "uxml": "UI/Screens/Potions",
+      "layer": "modal",
+      "focusOrder": ["POTIONS_MODAL"],
+      "back": "close",
+      "transitions": {}
+    },
     "actMap": {
       "uxml": "UI/Screens/ActMap",
       "layer": "screen",
-      "focusOrder": ["MAP_NODES", "NODE_TRAY", "MAP_FOOTER", "RUN_HUD"],
+      "focusOrder": ["MAP_NODES", "NODE_TRAY", "MAP_FOOTER", "MAP_KEYS", "RUN_HUD"],
       "focusModes": {
         "planned": ["PLANNED_DOOR"],
-        "legend": ["MAP_LEGEND"]
+        "legend": ["MAP_FOOTER"]
       },
       "back": null,
       "transitions": {}
@@ -168,9 +258,13 @@
       "back": null,
       "transitions": {}
     },
-    "journal": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
+    "journal": { "uxml": "UI/Screens/Journal", "layer": "screen", "background": "scene.spire-vista-desktop", "focusOrder": ["JOURNAL_ROWS", "JOURNAL_ACTIONS"], "initialFocus": "JOURNAL_BACK", "back": "pop", "transitions": {} },
+    "compendium": { "uxml": "UI/Screens/Compendium", "layer": "screen", "background": "bg.tower-entrance-hall", "focusOrder": ["WORKSPACE_NAV", "COMP_GRID", "FOOTER_PRIMARY", "SHELL_EXIT"], "back": "pop", "transitions": {} },
+    "profile": { "uxml": "UI/Screens/Profile", "layer": "screen", "background": "bg.tower-entrance-hall", "focusOrder": ["WORKSPACE_NAV", "PROFILE_PANE", "FOOTER_PRIMARY", "SHELL_EXIT"], "back": "pop", "transitions": {} },
+    "about": { "uxml": "UI/Screens/About", "layer": "screen", "background": "bg.tower-entrance-hall", "focusOrder": ["ABOUT_BODY", "FOOTER_PRIMARY", "SHELL_EXIT"], "back": "pop", "transitions": {} },
     "customRun": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
-    "settings": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} },
+    "settings": { "uxml": "UI/Screens/Settings", "layer": "screen", "background": "bg.tower-entrance-hall", "focusOrder": ["SETTINGS_HEAD", "SETTINGS_TABS", "SETTINGS_GROUPS", "SETTINGS_ROWS", "SETTINGS_DONE"], "back": "pop", "transitions": {} },
+    "menu": { "uxml": "UI/Screens/Settings", "layer": "modal", "focusOrder": ["OVERLAY_HEAD", "SETTINGS_HEAD", "SETTINGS_TABS", "SETTINGS_GROUPS", "SETTINGS_ROWS", "CONTROLS_SCROLL", "OVERLAY_FOOT"], "focusModes": { "quick": ["OVERLAY_QUICK"] }, "back": "close", "transitions": {} },
     "lobby": { "layer": "screen", "planned": true, "focusOrder": [], "back": "pop", "transitions": {} }
   }
 }

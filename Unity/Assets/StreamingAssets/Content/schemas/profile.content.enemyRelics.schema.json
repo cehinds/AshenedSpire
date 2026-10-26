@@ -1,0 +1,50 @@
+{
+  "$id": "profile/content/enemyRelics.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "enum": [
+          "enemy.relic.abyssalCrown",
+          "enemy.relic.ashenBlightCore",
+          "enemy.relic.ashenCore",
+          "enemy.relic.emberBand",
+          "enemy.relic.graveSeal",
+          "enemy.relic.titanHeart"
+        ]
+      },
+      "modifiers": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "self.constitution=+1",
+            "self.constitution=+2",
+            "self.intelligence=+1",
+            "self.sp=-2",
+            "self.strength=+1",
+            "self.strength=+2",
+            "self.wisdom=+1",
+            "self.wisdom=+2",
+            "self.wisdom=-1"
+          ]
+        }
+      },
+      "name": {
+        "type": "string"
+      },
+      "text": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id",
+      "modifiers",
+      "name",
+      "text"
+    ]
+  }
+}

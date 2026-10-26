@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | Product | Ashen Spire: a dark-fantasy, seeded, run-based tactical deckbuilder RPG |
-| Target | Unity 6000.6.0f1: URP (2D renderer), UI Toolkit, Input System, Addressables, Test Framework. Windows standalone first, then Android. WebGL goes last because of a known UI Toolkit WebGL renderer bug in this editor version |
+| Target | Unity 6000.6.6f1: URP (2D renderer), UI Toolkit, Input System, Addressables, Test Framework. Windows standalone first, then WebGL (D-1250) and Android |
 | Code | All new C#. The old TypeScript repo (`D:\repos\AshenSpire`) is a **behaviour reference and data source only** |
 | Assets | Only the existing art from the old repo (5,241 files, almost all WebP), re-exported (WebP → PNG, SVG → PNG, atlases). **AI-generated content of almost any kind is allowed** (owner, 2026-09-26): art, music, SFX, voice and text. It must match the existing style, and each item's provenance is recorded. **No licensed or third-party material** (stock, marketplace, downloaded fonts, sample libraries, copyrighted IP). The game **clearly states that it was made with AI**. The asset set contains no audio or font files today: music is generated, the synth is the fallback, and text uses Unity's bundled font |
 | Session model | One unattended implementation session, run with the Unity MCP, Blender (optional), Python tooling and sub-agents. No human input |

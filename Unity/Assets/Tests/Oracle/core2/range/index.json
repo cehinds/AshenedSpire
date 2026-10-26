@@ -1,0 +1,116 @@
+{
+ "deckPool": [
+  "core.defend",
+  "core.counter",
+  "core.counter",
+  "core.strike",
+  "core.smash",
+  "core.sweep",
+  "core.advance",
+  "core.advance",
+  "core.closingDodge",
+  "core.backstep"
+ ],
+ "exchanges": {
+  "bytes": 12430686,
+  "count": 328,
+  "file": "exchanges.json",
+  "kinds": [
+   "defend",
+   "counter",
+   "multiHit",
+   "switch",
+   "noStamina",
+   "noCandidate",
+   "controlled",
+   "poise",
+   "twoAttackers",
+   "lethal",
+   "counterReturn",
+   "stack",
+   "distant",
+   "approach",
+   "advanceCard",
+   "dodge",
+   "close",
+   "burden",
+   "formation",
+   "hook",
+   "counterUnavailable",
+   "burdenPlay",
+   "counterReach"
+  ],
+  "steps": 1368
+ },
+ "fights": {
+  "herald": {
+   "fights": 8,
+   "steps": 98
+  },
+  "reaver": {
+   "fights": 8,
+   "steps": 118
+  },
+  "rogue": {
+   "fights": 8,
+   "steps": 71
+  },
+  "starseer": {
+   "fights": 8,
+   "steps": 83
+  }
+ },
+ "files": [
+  {
+   "bytes": 1103243,
+   "classId": "reaver",
+   "fights": 8,
+   "file": "fights-reaver.json",
+   "steps": 118
+  },
+  {
+   "bytes": 1300807,
+   "classId": "starseer",
+   "fights": 8,
+   "file": "fights-starseer.json",
+   "steps": 83
+  },
+  {
+   "bytes": 743558,
+   "classId": "rogue",
+   "fights": 8,
+   "file": "fights-rogue.json",
+   "steps": 71
+  },
+  {
+   "bytes": 1297762,
+   "classId": "herald",
+   "fights": 8,
+   "file": "fights-herald.json",
+   "steps": 98
+  }
+ ],
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "rejections": {
+  "throws: 'Dazed' is unplayable": 50,
+  "throws: 'Wound' is unplayable": 30,
+  "throws: Already at that position.": 301,
+  "throws: Choose a tile on your side.": 301,
+  "throws: Combat is over": 7,
+  "throws: Not enough Stamina or Mana": 854,
+  "throws: Not enough Stamina to Advance": 80,
+  "throws: Not enough actions to move.": 86,
+  "throws: Recover from the active control statuses before playing cards": 260,
+  "throws: The selected range route cannot reach every target": 14
+ },
+ "seen": {
+  "back": 449,
+  "fizzled": 0,
+  "offers": 734,
+  "played": 285,
+  "stacked": 285,
+  "unavailable": 328
+ },
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

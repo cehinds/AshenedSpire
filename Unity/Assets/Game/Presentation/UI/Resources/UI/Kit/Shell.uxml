@@ -1,7 +1,12 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Shell.uss" />
+    <ui:VisualElement class="shadow-plate" picking-mode="Ignore" />
+    <ui:VisualElement class="leather-plate" picking-mode="Ignore" />
     <ui:VisualElement name="SHELL_HEADER" class="shell-header">
-        <Ashen.Presentation.UI.LocLabel name="SHELL_TITLE" class="shell-title kit-text-header" />
+        <ui:VisualElement name="SHELL_HEADING" class="shell-heading">
+            <Ashen.Presentation.UI.LocLabel name="SHELL_EYEBROW" class="shell-eyebrow is-hidden" />
+            <Ashen.Presentation.UI.LocLabel name="SHELL_TITLE" class="shell-title kit-text-header" />
+        </ui:VisualElement>
         <Ashen.Presentation.UI.LocButton name="SHELL_EXIT" class="kit-button--back shell-exit" string-key="glyph.close" />
     </ui:VisualElement>
     <ui:VisualElement name="SHELL_BODY" class="shell-body" />

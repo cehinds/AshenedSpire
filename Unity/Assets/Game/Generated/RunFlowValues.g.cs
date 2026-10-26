@@ -39,5 +39,7 @@ namespace Ashen.Generated
         public const string OptionInstall = "install";
         public const string OptionFlasks = "flasks";
         public const string OptionLevel = "level";
+        public const string RulesetLegacy = "legacy";
+        public const string RulesetCore2 = "core2";
     }
 }

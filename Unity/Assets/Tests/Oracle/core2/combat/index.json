@@ -1,0 +1,248 @@
+{
+ "fixtures": [
+  {
+   "bot": "cards",
+   "bytes": 161874,
+   "classId": "herald",
+   "encounterId": "loneSoldier",
+   "file": "cards-herald-0.json",
+   "result": "victory",
+   "seed": 1121046183,
+   "steps": 10
+  },
+  {
+   "bot": "cards",
+   "bytes": 363952,
+   "classId": "herald",
+   "encounterId": "eliteWyrm",
+   "file": "cards-herald-1.json",
+   "result": "defeat",
+   "seed": 3775481944,
+   "steps": 22
+  },
+  {
+   "bot": "cards",
+   "bytes": 190869,
+   "classId": "herald",
+   "encounterId": "patrol",
+   "file": "cards-herald-2.json",
+   "result": "victory",
+   "seed": 2134950409,
+   "steps": 10
+  },
+  {
+   "bot": "cards",
+   "bytes": 98577,
+   "classId": "reaver",
+   "encounterId": "loneSoldier",
+   "file": "cards-reaver-0.json",
+   "result": "victory",
+   "seed": 3092351977,
+   "steps": 8
+  },
+  {
+   "bot": "cards",
+   "bytes": 265206,
+   "classId": "reaver",
+   "encounterId": "eliteWyrm",
+   "file": "cards-reaver-1.json",
+   "result": "victory",
+   "seed": 1451820442,
+   "steps": 24
+  },
+  {
+   "bot": "cards",
+   "bytes": 177242,
+   "classId": "reaver",
+   "encounterId": "patrol",
+   "file": "cards-reaver-2.json",
+   "result": "victory",
+   "seed": 4106256203,
+   "steps": 10
+  },
+  {
+   "bot": "cards",
+   "bytes": 164898,
+   "classId": "rogue",
+   "encounterId": "lanternFlight",
+   "file": "cards-rogue-0.json",
+   "result": "defeat",
+   "seed": 346492349,
+   "steps": 10
+  },
+  {
+   "bot": "cards",
+   "bytes": 391347,
+   "classId": "rogue",
+   "encounterId": "packHunt",
+   "file": "cards-rogue-1.json",
+   "result": "defeat",
+   "seed": 3000928110,
+   "steps": 26
+  },
+  {
+   "bot": "cards",
+   "bytes": 433420,
+   "classId": "rogue",
+   "encounterId": "briarRefuge",
+   "file": "cards-rogue-2.json",
+   "result": "victory",
+   "seed": 1360396575,
+   "steps": 40
+  },
+  {
+   "bot": "cards",
+   "bytes": 271515,
+   "classId": "starseer",
+   "encounterId": "twinPatrol",
+   "file": "cards-starseer-0.json",
+   "result": "victory",
+   "seed": 3866905811,
+   "steps": 14
+  },
+  {
+   "bot": "cards",
+   "bytes": 95644,
+   "classId": "starseer",
+   "encounterId": "chainAmbush",
+   "file": "cards-starseer-1.json",
+   "result": "victory",
+   "seed": 2226374276,
+   "steps": 5
+  },
+  {
+   "bot": "cards",
+   "bytes": 242739,
+   "classId": "starseer",
+   "encounterId": "bruiser",
+   "file": "cards-starseer-2.json",
+   "result": "victory",
+   "seed": 585842741,
+   "steps": 13
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 158833,
+   "classId": "herald",
+   "encounterId": "loneSoldier",
+   "file": "endTurnOnly-herald-0.json",
+   "result": "defeat",
+   "seed": 1121046183,
+   "steps": 8
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 99638,
+   "classId": "herald",
+   "encounterId": "eliteWyrm",
+   "file": "endTurnOnly-herald-1.json",
+   "result": "defeat",
+   "seed": 3775481944,
+   "steps": 5
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 91786,
+   "classId": "herald",
+   "encounterId": "patrol",
+   "file": "endTurnOnly-herald-2.json",
+   "result": "defeat",
+   "seed": 2134950409,
+   "steps": 4
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 363952,
+   "classId": "reaver",
+   "encounterId": "loneSoldier",
+   "file": "endTurnOnly-reaver-0.json",
+   "result": null,
+   "seed": 3092351977,
+   "steps": 24
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 110622,
+   "classId": "reaver",
+   "encounterId": "eliteWyrm",
+   "file": "endTurnOnly-reaver-1.json",
+   "result": "defeat",
+   "seed": 1451820442,
+   "steps": 8
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 133958,
+   "classId": "reaver",
+   "encounterId": "patrol",
+   "file": "endTurnOnly-reaver-2.json",
+   "result": "defeat",
+   "seed": 4106256203,
+   "steps": 7
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 86647,
+   "classId": "rogue",
+   "encounterId": "lanternFlight",
+   "file": "endTurnOnly-rogue-0.json",
+   "result": "defeat",
+   "seed": 346492349,
+   "steps": 5
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 208775,
+   "classId": "rogue",
+   "encounterId": "packHunt",
+   "file": "endTurnOnly-rogue-1.json",
+   "result": "defeat",
+   "seed": 3000928110,
+   "steps": 10
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 224561,
+   "classId": "rogue",
+   "encounterId": "briarRefuge",
+   "file": "endTurnOnly-rogue-2.json",
+   "result": "defeat",
+   "seed": 1360396575,
+   "steps": 18
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 93608,
+   "classId": "starseer",
+   "encounterId": "twinPatrol",
+   "file": "endTurnOnly-starseer-0.json",
+   "result": "defeat",
+   "seed": 3866905811,
+   "steps": 4
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 63552,
+   "classId": "starseer",
+   "encounterId": "chainAmbush",
+   "file": "endTurnOnly-starseer-1.json",
+   "result": "defeat",
+   "seed": 2226374276,
+   "steps": 3
+  },
+  {
+   "bot": "endTurnOnly",
+   "bytes": 140380,
+   "classId": "starseer",
+   "encounterId": "bruiser",
+   "file": "endTurnOnly-starseer-2.json",
+   "result": "defeat",
+   "seed": 585842741,
+   "steps": 6
+  }
+ ],
+ "previews": true,
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

@@ -231,6 +231,7 @@ namespace Ashen.Presentation.UI.Screens
                         Text = pick.Text,
                         TypeLine = pick.TypeLine,
                         Rarity = pick.Rarity,
+                        Face = pick.Face,
                         Upgraded = pick.Upgraded,
                         Costs = pick.Costs.Select(c => new CardCostData { Kind = c.Kind, Text = c.Text }).ToList(),
                     });
@@ -462,12 +463,6 @@ namespace Ashen.Presentation.UI.Screens
                 LeavePick();
                 return true;
             }
-            OpenPause();
-            return true;
-        }
-
-        public override bool HandleMenu()
-        {
             OpenPause();
             return true;
         }

@@ -1,0 +1,116 @@
+{
+  "$id": "profile/content/stats.json",
+  "type": "object",
+  "properties": {
+    "attributePointTotal": {
+      "type": "integer"
+    },
+    "handAttribute": {
+      "type": "string"
+    },
+    "handBase": {
+      "type": "integer"
+    },
+    "levelGains": {
+      "type": "object",
+      "properties": {
+        "constitution": {
+          "type": "object",
+          "properties": {
+            "hp": {
+              "type": "integer"
+            },
+            "sp": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "hp",
+            "sp"
+          ]
+        },
+        "dexterity": {
+          "type": "object",
+          "properties": {
+            "dr": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "dr"
+          ]
+        },
+        "intelligence": {
+          "type": "object",
+          "properties": {
+            "draw": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "draw"
+          ]
+        },
+        "strength": {
+          "type": "object",
+          "properties": {
+            "ar": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "ar"
+          ]
+        },
+        "wisdom": {
+          "type": "object",
+          "properties": {
+            "mp": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "mp"
+          ]
+        }
+      },
+      "required": [
+        "constitution",
+        "dexterity",
+        "intelligence",
+        "strength",
+        "wisdom"
+      ]
+    },
+    "poolBasesByClass": {
+      "type": "object",
+      "properties": {
+        "reaver": {
+          "type": "object",
+          "properties": {
+            "mana": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "mana"
+          ]
+        }
+      },
+      "required": [
+        "reaver"
+      ]
+    },
+    "secondaryPolicy": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "attributePointTotal",
+    "handAttribute",
+    "handBase",
+    "levelGains",
+    "poolBasesByClass",
+    "secondaryPolicy"
+  ]
+}

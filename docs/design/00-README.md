@@ -13,6 +13,7 @@ Read these in order. The last file is the prompt that builds the game.
 | 07 | [Diagram review](07-DIAGRAM-REVIEW.md) | Findings from four sub-agent reviews (flows, architecture, rules parity, UX) and how each was resolved |
 | 08 | [Data conventions](08-DATA-CONVENTIONS.md) | The normative data-driven / no-magic-strings contract: IDs, schemas, codegen, effect DSL, config layers, enforcement tests |
 | 10 | [Branching, versioning and CI](10-BRANCHING-VERSIONING-CI.md) | `feature/<feature>/main` lanes and `feature/<feature>/<story>` branches; `E.F.S.P` versions from 0.0.1.0; at most 9 concurrent CI jobs and at most 9 test suites |
+| 11 | [Core 2 port plan](11-CORE2-PORT-PLAN.md) | Port the web dev default ruleset (Core 2, web `b8cfe4fac`): export strategy, WP-0..WP-21 with oracles first, risks |
 | 09 | [**Unity mega prompt**](09-UNITY-MEGA-PROMPT.md) | Paste into a fresh Claude Code session at this repo. It builds the game unattended, in one session |
 
 Reference data: [`reference/ashen-spire-game-config.json`](reference/ashen-spire-game-config.json) is the owner's current tuning. The rebuild ships it as the default preset.

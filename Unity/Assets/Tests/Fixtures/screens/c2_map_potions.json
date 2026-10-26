@@ -1,0 +1,13 @@
+{
+  "comment": "map-potions: the Potions door open.",
+  "screen": "actMap",
+  "core2": {
+    "until": "map",
+    "modal": "potions",
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

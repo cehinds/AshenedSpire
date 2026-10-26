@@ -1,0 +1,1798 @@
+{
+ "moves": {
+  "ashRevenant:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "ashRevenant:cinderSlash": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "ashRevenant:reform": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "ashheartDragon:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1.4,
+   "tempo": 1.2
+  },
+  "ashheartDragon:ashBreath": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 1.4,
+   "tempo": 1.2
+  },
+  "ashheartDragon:heartRumble": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1.4,
+   "tempo": 1.2
+  },
+  "ashheartDragon:obsidianClaws": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "slash",
+   "intent": "attack",
+   "reach": 1.4,
+   "tempo": 1.2
+  },
+  "ashheartDragon:tailBastion": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1.4,
+   "tempo": 1.2
+  },
+  "bellKeeper:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.85,
+   "tempo": 1.4
+  },
+  "bellKeeper:bronzeToll": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "attack",
+   "reach": 0.85,
+   "tempo": 1.4
+  },
+  "bellKeeper:clapperSwing": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "slash",
+   "intent": "attack",
+   "reach": 0.85,
+   "tempo": 1.4
+  },
+  "bellKeeper:crackedPeal": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "attack",
+   "reach": 0.85,
+   "tempo": 1.4
+  },
+  "bellKeeper:muffledPrayer": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 0.85,
+   "tempo": 1.4
+  },
+  "blightHound:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1.25,
+   "tempo": 0.72
+  },
+  "blightHound:bite": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1.25,
+   "tempo": 0.72
+  },
+  "blightHound:lunge": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "thrust",
+   "intent": "attack",
+   "reach": 1.25,
+   "tempo": 0.72
+  },
+  "blightedValkyrie:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "blightedValkyrie:rotWings": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1,
+   "tempo": 1
+  },
+  "blightedValkyrie:scarletDance": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "blightedValkyrie:spiralThrust": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "blightedValkyrie:whirlwind": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "briarHermit:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.65,
+   "tempo": 1.18
+  },
+  "briarHermit:briarCast": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 0.65,
+   "tempo": 1.18
+  },
+  "briarHermit:rootShelter": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 0.65,
+   "tempo": 1.18
+  },
+  "briarHermit:sapMend": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.65,
+   "tempo": 1.18
+  },
+  "chainScavenger:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1.25,
+   "tempo": 0.95
+  },
+  "chainScavenger:chainSnare": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "debuff",
+   "reach": 1.25,
+   "tempo": 0.95
+  },
+  "chainScavenger:draggingBlow": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1.25,
+   "tempo": 0.95
+  },
+  "chainScavenger:hookCast": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 1.25,
+   "tempo": 0.95
+  },
+  "charredColossus:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "charredColossus:ashCloud": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "debuff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "charredColossus:harden": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1,
+   "tempo": 1
+  },
+  "charredColossus:smash": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "cinderMantis:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1.3,
+   "tempo": 0.7
+  },
+  "cinderMantis:emberPounce": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "thrust",
+   "intent": "attack",
+   "reach": 1.3,
+   "tempo": 0.7
+  },
+  "cinderMantis:foldedBlades": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1.3,
+   "tempo": 0.7
+  },
+  "cinderMantis:scythePair": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "slash",
+   "intent": "attack",
+   "reach": 1.3,
+   "tempo": 0.7
+  },
+  "courtDuelist:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtDuelist:bindingRiposte": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtDuelist:enGarde": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtDuelist:flurry": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtDuelist:lunge": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtDuelist:riposte": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtMarionette:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtMarionette:blowdart": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtMarionette:dart": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtSurgeon:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtSurgeon:scalpel": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtSurgeon:sedate": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "debuff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "courtSurgeon:stitch": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "eclipseCantor:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.5,
+   "tempo": 1.1
+  },
+  "eclipseCantor:darkHymn": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "debuff",
+   "reach": 0.5,
+   "tempo": 1.1
+  },
+  "eclipseCantor:fadingEcho": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "attack",
+   "reach": 0.5,
+   "tempo": 1.1
+  },
+  "eclipseCantor:lunarRay": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 0.5,
+   "tempo": 1.1
+  },
+  "emberStarvedPilgrim:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "emberStarvedPilgrim:desperateClaw": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "emberStarvedPilgrim:wail": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "debuff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "fellWarden:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1.15,
+   "tempo": 1.3
+  },
+  "fellWarden:caneStrike": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1.15,
+   "tempo": 1.3
+  },
+  "fellWarden:hammerToss": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 1.15,
+   "tempo": 1.3
+  },
+  "fellWarden:heldBlade": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "slash",
+   "intent": "attack",
+   "reach": 1.15,
+   "tempo": 1.3
+  },
+  "fellWarden:twinDaggers": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "thrust",
+   "intent": "attack",
+   "reach": 1.15,
+   "tempo": 1.3
+  },
+  "furnaceSaint:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1.05,
+   "tempo": 1.45
+  },
+  "furnaceSaint:censerSweep": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "slash",
+   "intent": "attack",
+   "reach": 1.05,
+   "tempo": 1.45
+  },
+  "furnaceSaint:coolingAsh": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1.05,
+   "tempo": 1.45
+  },
+  "furnaceSaint:openFurnace": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 1.05,
+   "tempo": 1.45
+  },
+  "gildedKnight:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "gildedKnight:gildedGuard": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "gildedKnight:parry": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1,
+   "tempo": 1
+  },
+  "gildedKnight:rally": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "gildedKnight:thrust": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "glassRegent:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1.2,
+   "tempo": 1.02
+  },
+  "glassRegent:crystalRapier": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "thrust",
+   "intent": "attack",
+   "reach": 1.2,
+   "tempo": 1.02
+  },
+  "glassRegent:prismGuard": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1.2,
+   "tempo": 1.02
+  },
+  "glassRegent:shatteredCourt": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "attack",
+   "reach": 1.2,
+   "tempo": 1.02
+  },
+  "glassRegent:splinterRain": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 1.2,
+   "tempo": 1.02
+  },
+  "graveWisp:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "graveWisp:curse": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "debuff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "graveWisp:drain": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "hollowAstronomer:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.7,
+   "tempo": 1.25
+  },
+  "hollowAstronomer:fallingHeavens": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 0.7,
+   "tempo": 1.25
+  },
+  "hollowAstronomer:orbitalShards": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 0.7,
+   "tempo": 1.25
+  },
+  "hollowAstronomer:starChart": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "debuff",
+   "reach": 0.7,
+   "tempo": 1.25
+  },
+  "hollowAstronomer:totalEclipse": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "attack",
+   "reach": 0.7,
+   "tempo": 1.25
+  },
+  "huskBrute:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "huskBrute:bellow": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "debuff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "huskBrute:brace": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1,
+   "tempo": 1
+  },
+  "huskBrute:club": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "lanternMoth:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.55,
+   "tempo": 0.68
+  },
+  "lanternMoth:lanternDust": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "debuff",
+   "reach": 0.55,
+   "tempo": 0.68
+  },
+  "lanternMoth:wingSparks": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 0.55,
+   "tempo": 0.68
+  },
+  "livingArmor:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "livingArmor:crush": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "livingArmor:fortify": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1,
+   "tempo": 1
+  },
+  "livingArmor:rimeCrush": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "livingArmor:slam": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "marrowOrganist:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.55,
+   "tempo": 1.35
+  },
+  "marrowOrganist:bonePrelude": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "debuff",
+   "reach": 0.55,
+   "tempo": 1.35
+  },
+  "marrowOrganist:funeralChord": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "attack",
+   "reach": 0.55,
+   "tempo": 1.35
+  },
+  "marrowOrganist:ivoryKeys": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 0.55,
+   "tempo": 1.35
+  },
+  "marrowOrganist:quietRefrain": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.55,
+   "tempo": 1.35
+  },
+  "mirrorScribe:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.6,
+   "tempo": 0.9
+  },
+  "mirrorScribe:polishedWard": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 0.6,
+   "tempo": 0.9
+  },
+  "mirrorScribe:shardVolley": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 0.6,
+   "tempo": 0.9
+  },
+  "mirrorScribe:silverScript": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "debuff",
+   "reach": 0.6,
+   "tempo": 0.9
+  },
+  "stitchCrab:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.85,
+   "tempo": 0.75
+  },
+  "stitchCrab:scuttleRush": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "thrust",
+   "intent": "attack",
+   "reach": 0.85,
+   "tempo": 0.75
+  },
+  "stitchCrab:seamShears": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "slash",
+   "intent": "attack",
+   "reach": 0.85,
+   "tempo": 0.75
+  },
+  "stitchCrab:shellFold": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 0.85,
+   "tempo": 0.75
+  },
+  "stitchedHound:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "stitchedHound:maul": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "stitchedHound:rend": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "stitchedKing:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "stitchedKing:courtlyDecree": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1,
+   "tempo": 1
+  },
+  "stitchedKing:graspingHands": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "stitchedKing:scepterBlow": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "stitchedKing:thousandHands": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "thornMatriarch:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.8,
+   "tempo": 1.3
+  },
+  "thornMatriarch:entwiningRoots": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "attack",
+   "reach": 0.8,
+   "tempo": 1.3
+  },
+  "thornMatriarch:rootCrown": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 0.8,
+   "tempo": 1.3
+  },
+  "thornMatriarch:thornNeedles": {
+   "byKind": {
+    "attack": "projectile",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "projectile",
+   "intent": "attack",
+   "reach": 0.8,
+   "tempo": 1.3
+  },
+  "valkyrieShade:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "valkyrieShade:bloodFeather": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "valkyrieShade:spiralLance": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "wanderingSoldier:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.9,
+   "tempo": 1
+  },
+  "wanderingSoldier:guard": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 0.9,
+   "tempo": 1
+  },
+  "wanderingSoldier:slash": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "slash",
+   "intent": "attack",
+   "reach": 0.9,
+   "tempo": 1
+  },
+  "wanderingSoldier:warcry": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 0.9,
+   "tempo": 1
+  },
+  "wyrmAspirant:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "wyrmAspirant:consecrate": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "wyrmAspirant:goldenGuard": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1,
+   "tempo": 1
+  },
+  "wyrmAspirant:halberdSweep": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "wyrmAspirant:tailSlam": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "wyrmLord:advance": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "wyrmLord:consecration": {
+   "byKind": {
+    "attack": "magicAttack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": true,
+   "family": "spell",
+   "intent": "buff",
+   "reach": 1,
+   "tempo": 1
+  },
+  "wyrmLord:goldenBulwark": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "guard",
+    "debuff": "guard"
+   },
+   "casting": false,
+   "family": "guard",
+   "intent": "block",
+   "reach": 1,
+   "tempo": 1
+  },
+  "wyrmLord:halberdReign": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  },
+  "wyrmLord:tailSweep": {
+   "byKind": {
+    "attack": "attack",
+    "block": "guard",
+    "buff": "buff",
+    "debuff": "buff"
+   },
+   "casting": false,
+   "family": "strike",
+   "intent": "attack",
+   "reach": 1,
+   "tempo": 1
+  }
+ }
+}

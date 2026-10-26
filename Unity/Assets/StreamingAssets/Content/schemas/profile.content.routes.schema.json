@@ -1,0 +1,69 @@
+{
+  "$id": "profile/content/routes.json",
+  "type": "object",
+  "properties": {
+    "acts": {
+      "type": "integer"
+    },
+    "bosses": {
+      "type": "integer"
+    },
+    "branchColumns": {
+      "type": "integer"
+    },
+    "firstFloor": {
+      "type": "string"
+    },
+    "hiddenTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mapMode": {
+      "type": "string"
+    },
+    "minimumThreatFloor": {
+      "type": "integer"
+    },
+    "prebossNodes": {
+      "type": "integer"
+    },
+    "requirePrebossRest": {
+      "type": "boolean"
+    },
+    "restFloors": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "restsPerAct": {
+      "type": "integer"
+    },
+    "shopShare": {
+      "type": "number"
+    },
+    "visibleTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "acts",
+    "bosses",
+    "branchColumns",
+    "firstFloor",
+    "hiddenTypes",
+    "mapMode",
+    "minimumThreatFloor",
+    "prebossNodes",
+    "requirePrebossRest",
+    "restFloors",
+    "restsPerAct",
+    "shopShare",
+    "visibleTypes"
+  ]
+}

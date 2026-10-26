@@ -30,6 +30,10 @@
         "Attempted": "attempted",
         "Attribute": "attribute",
         "AttributeBaseline": "attributeBaseline",
+        "DexterityCentre": "dexterityCentre",
+        "DexterityCentreByMode": "dexterityCentreByMode",
+        "DexterityPerModifier": "dexterityPerModifier",
+        "ItemWeightScale": "itemWeightScale",
         "AttributeDivisor": "attributeDivisor",
         "Attributes": "attributes",
         "AuthoredTags": "authoredTags",
@@ -618,7 +622,10 @@
         "GripDual": "dual",
         "GripOne": "one",
         "GripTwo": "two",
+        "GroupAmount": "amount",
+        "GroupBetween": "between",
         "GroupField": "field",
+        "GroupHits": "hits",
         "GroupIndex": "index",
         "GroupNumber": "num",
         "GroupOwner": "owner",
@@ -702,6 +709,7 @@
         "TargetOtherEnemies": "otherEnemies",
         "TargetRandomEnemy": "randomEnemy",
         "TargetSelf": "self",
+        "TokenChargePrefix": "charge",
         "TokenRepeatSeparator": ".",
         "Undefined": "undefined",
         "UpgradeCardPart": "card",
@@ -807,8 +815,12 @@
       "doc": "Patterns the combat port parses (shipped parseMod, tokens.js TOKEN_PATTERN, the legacy relic gate key).",
       "keys": {
         "CardMod": "^(?<prefix>[A-Za-z]\\w*)\\.(?<field>[A-Za-z]\\w*)=(?<sign>[+-]?)(?<num>\\d+(?:\\.\\d+)?)$",
-        "TextToken": "\\{(?<token>[A-Za-z][\\w.]*)\\}",
-        "LegacyRelicGate": "^relic:(?<owner>.+):(?<relic>[^:]+):(?<index>\\d+)$"
+        "TextToken": "\\{(?<token>[A-Za-z][\\w.-]*)\\}",
+        "LegacyRelicGate": "^relic:(?<owner>.+):(?<relic>[^:]+):(?<index>\\d+)$",
+        "DamageSequence": "\\{(?<amount>[A-Za-z][\\w.-]*)\\}(?<between>[^{}]*?)\\{(?<hits>[A-Za-z][\\w.-]*)\\}\\s+times",
+        "SequenceJoin": " + ",
+        "SequenceTotal": "({0} total across {1} hits)",
+        "TokenFormat": "{{{0}}}"
       }
     }
   ],
@@ -819,6 +831,7 @@
       "doc": "Arithmetic constants of the combat rules (definitions, not tuning): percent scale, the float-floor epsilon, JS safe-integer bits.",
       "values": {
         "Percent": "100",
+        "Tenth": "10",
         "Epsilon": "1e-9",
         "Two": "2",
         "Half": "0.5",

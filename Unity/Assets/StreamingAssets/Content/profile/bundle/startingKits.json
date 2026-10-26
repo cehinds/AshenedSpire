@@ -1,0 +1,66 @@
+{
+  "reaverBaseline": {
+    "id": "reaverBaseline",
+    "classId": "reaver",
+    "label": "Iron Vanguard",
+    "baseline": true,
+    "rightHand": "straightSword",
+    "leftHand": "roundShield"
+  },
+  "reaverGreatsword": {
+    "id": "reaverGreatsword",
+    "classId": "reaver",
+    "label": "Greatsword Vanguard",
+    "baseline": false,
+    "rightHand": "greatsword",
+    "leftHand": ""
+  },
+  "starseerBaseline": {
+    "id": "starseerBaseline",
+    "classId": "starseer",
+    "label": "Ash Focus",
+    "baseline": true,
+    "rightHand": "ashStaff",
+    "leftHand": ""
+  },
+  "starseerStarstone": {
+    "id": "starseerStarstone",
+    "classId": "starseer",
+    "label": "Starstone Focus",
+    "baseline": false,
+    "rightHand": "starstoneStaff",
+    "leftHand": ""
+  },
+  "heraldBaseline": {
+    "id": "heraldBaseline",
+    "classId": "herald",
+    "label": "Bone Rite",
+    "baseline": true,
+    "rightHand": "boneSceptre",
+    "leftHand": ""
+  },
+  "heraldEmberlight": {
+    "id": "heraldEmberlight",
+    "classId": "herald",
+    "label": "Emberlight Rite",
+    "baseline": false,
+    "rightHand": "emberlightSceptre",
+    "leftHand": ""
+  },
+  "rogueBaseline": {
+    "id": "rogueBaseline",
+    "classId": "rogue",
+    "label": "Knife and Buckler",
+    "baseline": true,
+    "rightHand": "dagger",
+    "leftHand": "buckler"
+  },
+  "rogueBow": {
+    "id": "rogueBow",
+    "classId": "rogue",
+    "label": "Shortbow and Parrying Dagger",
+    "baseline": false,
+    "rightHand": "shortbow",
+    "leftHand": "parryDagger"
+  }
+}

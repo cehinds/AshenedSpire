@@ -1,0 +1,522 @@
+{
+  "card:card": {
+    "family": "card",
+    "domain": "card"
+  },
+  "class:card": {
+    "family": "class",
+    "domain": "card"
+  },
+  "class:itemType": {
+    "family": "class",
+    "domain": "itemType"
+  },
+  "relic:item": {
+    "family": "relic",
+    "domain": "item"
+  },
+  "flask:item": {
+    "family": "flask",
+    "domain": "item"
+  },
+  "keepsake:item": {
+    "family": "keepsake",
+    "domain": "item"
+  },
+  "event:run": {
+    "family": "event",
+    "domain": "run"
+  },
+  "encounter:run": {
+    "family": "encounter",
+    "domain": "run"
+  },
+  "enemy:creature": {
+    "family": "enemy",
+    "domain": "creature"
+  },
+  "armament:card": {
+    "family": "armament",
+    "domain": "card"
+  },
+  "armament:item": {
+    "family": "armament",
+    "domain": "item"
+  },
+  "armament:itemType": {
+    "family": "armament",
+    "domain": "itemType"
+  },
+  "armour:card": {
+    "family": "armour",
+    "domain": "card"
+  },
+  "armour:item": {
+    "family": "armour",
+    "domain": "item"
+  },
+  "armour:itemType": {
+    "family": "armour",
+    "domain": "itemType"
+  },
+  "basicCardProfile:card": {
+    "family": "basicCardProfile",
+    "domain": "card"
+  },
+  "slot:item": {
+    "family": "slot",
+    "domain": "item"
+  },
+  "startingKit:item": {
+    "family": "startingKit",
+    "domain": "item"
+  },
+  "unlock:run": {
+    "family": "unlock",
+    "domain": "run"
+  },
+  "effect:card": {
+    "family": "effect",
+    "domain": "card"
+  },
+  "grant:grantSource": {
+    "family": "grant",
+    "domain": "grantSource"
+  },
+  "card:presentation": {
+    "family": "card",
+    "domain": "presentation"
+  },
+  "basicCardProfile:presentation": {
+    "family": "basicCardProfile",
+    "domain": "presentation"
+  },
+  "card:attackSource": {
+    "family": "card",
+    "domain": "attackSource"
+  },
+  "card:delivery": {
+    "family": "card",
+    "domain": "delivery"
+  },
+  "card:damageType": {
+    "family": "card",
+    "domain": "damageType"
+  },
+  "card:technique": {
+    "family": "card",
+    "domain": "technique"
+  },
+  "card:theme": {
+    "family": "card",
+    "domain": "theme"
+  },
+  "effect:attackSource": {
+    "family": "effect",
+    "domain": "attackSource"
+  },
+  "effect:delivery": {
+    "family": "effect",
+    "domain": "delivery"
+  },
+  "effect:damageType": {
+    "family": "effect",
+    "domain": "damageType"
+  },
+  "effect:technique": {
+    "family": "effect",
+    "domain": "technique"
+  },
+  "effect:theme": {
+    "family": "effect",
+    "domain": "theme"
+  },
+  "armament:attackSource": {
+    "family": "armament",
+    "domain": "attackSource"
+  },
+  "armament:delivery": {
+    "family": "armament",
+    "domain": "delivery"
+  },
+  "armament:damageType": {
+    "family": "armament",
+    "domain": "damageType"
+  },
+  "armament:technique": {
+    "family": "armament",
+    "domain": "technique"
+  },
+  "armament:theme": {
+    "family": "armament",
+    "domain": "theme"
+  },
+  "armour:attackSource": {
+    "family": "armour",
+    "domain": "attackSource"
+  },
+  "armour:delivery": {
+    "family": "armour",
+    "domain": "delivery"
+  },
+  "armour:damageType": {
+    "family": "armour",
+    "domain": "damageType"
+  },
+  "armour:technique": {
+    "family": "armour",
+    "domain": "technique"
+  },
+  "armour:theme": {
+    "family": "armour",
+    "domain": "theme"
+  },
+  "relic:attackSource": {
+    "family": "relic",
+    "domain": "attackSource"
+  },
+  "relic:delivery": {
+    "family": "relic",
+    "domain": "delivery"
+  },
+  "relic:damageType": {
+    "family": "relic",
+    "domain": "damageType"
+  },
+  "relic:technique": {
+    "family": "relic",
+    "domain": "technique"
+  },
+  "relic:theme": {
+    "family": "relic",
+    "domain": "theme"
+  },
+  "basicCardProfile:attackSource": {
+    "family": "basicCardProfile",
+    "domain": "attackSource"
+  },
+  "basicCardProfile:delivery": {
+    "family": "basicCardProfile",
+    "domain": "delivery"
+  },
+  "basicCardProfile:damageType": {
+    "family": "basicCardProfile",
+    "domain": "damageType"
+  },
+  "basicCardProfile:technique": {
+    "family": "basicCardProfile",
+    "domain": "technique"
+  },
+  "basicCardProfile:theme": {
+    "family": "basicCardProfile",
+    "domain": "theme"
+  },
+  "armament:property": {
+    "family": "armament",
+    "domain": "property"
+  },
+  "armour:property": {
+    "family": "armour",
+    "domain": "property"
+  },
+  "relic:property": {
+    "family": "relic",
+    "domain": "property"
+  },
+  "class:property": {
+    "family": "class",
+    "domain": "property"
+  },
+  "card:classification": {
+    "family": "card",
+    "domain": "classification"
+  },
+  "class:classification": {
+    "family": "class",
+    "domain": "classification"
+  },
+  "relic:classification": {
+    "family": "relic",
+    "domain": "classification"
+  },
+  "flask:classification": {
+    "family": "flask",
+    "domain": "classification"
+  },
+  "keepsake:classification": {
+    "family": "keepsake",
+    "domain": "classification"
+  },
+  "event:classification": {
+    "family": "event",
+    "domain": "classification"
+  },
+  "encounter:classification": {
+    "family": "encounter",
+    "domain": "classification"
+  },
+  "enemy:classification": {
+    "family": "enemy",
+    "domain": "classification"
+  },
+  "armament:classification": {
+    "family": "armament",
+    "domain": "classification"
+  },
+  "armour:classification": {
+    "family": "armour",
+    "domain": "classification"
+  },
+  "basicCardProfile:classification": {
+    "family": "basicCardProfile",
+    "domain": "classification"
+  },
+  "slot:classification": {
+    "family": "slot",
+    "domain": "classification"
+  },
+  "startingKit:classification": {
+    "family": "startingKit",
+    "domain": "classification"
+  },
+  "unlock:classification": {
+    "family": "unlock",
+    "domain": "classification"
+  },
+  "card:damage": {
+    "family": "card",
+    "domain": "damage"
+  },
+  "card:scaling": {
+    "family": "card",
+    "domain": "scaling"
+  },
+  "card:cost": {
+    "family": "card",
+    "domain": "cost"
+  },
+  "card:lifecycle": {
+    "family": "card",
+    "domain": "lifecycle"
+  },
+  "card:equipment": {
+    "family": "card",
+    "domain": "equipment"
+  },
+  "card:utility": {
+    "family": "card",
+    "domain": "utility"
+  },
+  "card:targeting": {
+    "family": "card",
+    "domain": "targeting"
+  },
+  "card:internal": {
+    "family": "card",
+    "domain": "internal"
+  },
+  "card:property": {
+    "family": "card",
+    "domain": "property"
+  },
+  "flask:property": {
+    "family": "flask",
+    "domain": "property"
+  },
+  "keepsake:property": {
+    "family": "keepsake",
+    "domain": "property"
+  },
+  "event:property": {
+    "family": "event",
+    "domain": "property"
+  },
+  "encounter:property": {
+    "family": "encounter",
+    "domain": "property"
+  },
+  "enemy:property": {
+    "family": "enemy",
+    "domain": "property"
+  },
+  "basicCardProfile:property": {
+    "family": "basicCardProfile",
+    "domain": "property"
+  },
+  "slot:property": {
+    "family": "slot",
+    "domain": "property"
+  },
+  "startingKit:property": {
+    "family": "startingKit",
+    "domain": "property"
+  },
+  "unlock:property": {
+    "family": "unlock",
+    "domain": "property"
+  },
+  "location:property": {
+    "family": "location",
+    "domain": "property"
+  },
+  "companion:property": {
+    "family": "companion",
+    "domain": "property"
+  },
+  "companion:classification": {
+    "family": "companion",
+    "domain": "classification"
+  },
+  "sigil:property": {
+    "family": "sigil",
+    "domain": "property"
+  },
+  "sigil:classification": {
+    "family": "sigil",
+    "domain": "classification"
+  },
+  "feat:property": {
+    "family": "feat",
+    "domain": "property"
+  },
+  "feat:classification": {
+    "family": "feat",
+    "domain": "classification"
+  },
+  "relic:card": {
+    "family": "relic",
+    "domain": "card"
+  },
+  "card:camp": {
+    "family": "card",
+    "domain": "camp"
+  },
+  "card:maneuver": {
+    "family": "card",
+    "domain": "maneuver"
+  },
+  "card:school": {
+    "family": "card",
+    "domain": "school"
+  },
+  "card:counterMode": {
+    "family": "card",
+    "domain": "counterMode"
+  },
+  "basicCardProfile:camp": {
+    "family": "basicCardProfile",
+    "domain": "camp"
+  },
+  "basicCardProfile:maneuver": {
+    "family": "basicCardProfile",
+    "domain": "maneuver"
+  },
+  "basicCardProfile:school": {
+    "family": "basicCardProfile",
+    "domain": "school"
+  },
+  "basicCardProfile:counterMode": {
+    "family": "basicCardProfile",
+    "domain": "counterMode"
+  },
+  "effect:camp": {
+    "family": "effect",
+    "domain": "camp"
+  },
+  "effect:maneuver": {
+    "family": "effect",
+    "domain": "maneuver"
+  },
+  "effect:school": {
+    "family": "effect",
+    "domain": "school"
+  },
+  "effect:counterMode": {
+    "family": "effect",
+    "domain": "counterMode"
+  },
+  "enemyMove:camp": {
+    "family": "enemyMove",
+    "domain": "camp"
+  },
+  "enemyMove:maneuver": {
+    "family": "enemyMove",
+    "domain": "maneuver"
+  },
+  "enemyMove:school": {
+    "family": "enemyMove",
+    "domain": "school"
+  },
+  "enemyMove:counterMode": {
+    "family": "enemyMove",
+    "domain": "counterMode"
+  },
+  "enemyMove:classification": {
+    "family": "enemyMove",
+    "domain": "classification"
+  },
+  "enemyMove:attackSource": {
+    "family": "enemyMove",
+    "domain": "attackSource"
+  },
+  "enemyMove:delivery": {
+    "family": "enemyMove",
+    "domain": "delivery"
+  },
+  "enemyMove:damageType": {
+    "family": "enemyMove",
+    "domain": "damageType"
+  },
+  "enemyMove:technique": {
+    "family": "enemyMove",
+    "domain": "technique"
+  },
+  "enemyMove:theme": {
+    "family": "enemyMove",
+    "domain": "theme"
+  },
+  "card:range": {
+    "family": "card",
+    "domain": "range"
+  },
+  "card:trait": {
+    "family": "card",
+    "domain": "trait"
+  },
+  "basicCardProfile:range": {
+    "family": "basicCardProfile",
+    "domain": "range"
+  },
+  "basicCardProfile:targeting": {
+    "family": "basicCardProfile",
+    "domain": "targeting"
+  },
+  "basicCardProfile:trait": {
+    "family": "basicCardProfile",
+    "domain": "trait"
+  },
+  "enemyMove:range": {
+    "family": "enemyMove",
+    "domain": "range"
+  },
+  "enemyMove:targeting": {
+    "family": "enemyMove",
+    "domain": "targeting"
+  },
+  "enemyMove:trait": {
+    "family": "enemyMove",
+    "domain": "trait"
+  },
+  "effect:range": {
+    "family": "effect",
+    "domain": "range"
+  },
+  "effect:targeting": {
+    "family": "effect",
+    "domain": "targeting"
+  },
+  "effect:trait": {
+    "family": "effect",
+    "domain": "trait"
+  }
+}

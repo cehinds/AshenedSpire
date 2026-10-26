@@ -1,0 +1,12 @@
+{
+  "comment": "map-start, flow-08-first-map: floor 0, nothing walked.",
+  "screen": "actMap",
+  "core2": {
+    "until": "map",
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

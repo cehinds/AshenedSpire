@@ -1,0 +1,13 @@
+{
+  "comment": "rest-wounded: a shrine at half hit points.",
+  "screen": "core2Rest",
+  "core2": {
+    "until": "rest",
+    "hpRatio": 0.5,
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

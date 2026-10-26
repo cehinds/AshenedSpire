@@ -1,0 +1,41 @@
+{
+  "comment": "Names the player's painted figure outside the combat board keeps in code (P-5, D-1594): the tables of ui/outfitArt.json (Tools/outfit-art.mjs), its views, and the combatant door's preview meters.",
+  "keySets": [
+    {
+      "name": "OutfitArtKeys",
+      "doc": "Keys of ui/outfitArt.json.",
+      "keys": {
+        "Outfits": "outfits",
+        "Sets": "sets",
+        "Hands": "hands",
+        "KeyJoin": "|",
+        "DefaultArmour": "default"
+      }
+    },
+    {
+      "name": "OutfitViews",
+      "doc": "The views of a painted outfit a Core 2 screen draws (src/ui/paintedOutfits.js paintedPresentation).",
+      "keys": {
+        "Stand": "stand",
+        "Portrait": "portrait",
+        "Conversation": "conversation"
+      }
+    },
+    {
+      "name": "InspectorMeters",
+      "doc": "The pool meters beside the combatant door's preview (src/ui/models/CombatantInspectorSections.js previewMeters): the meter kinds of ui/components.json meter.kinds and the string keys of their glyphs.",
+      "keys": {
+        "Hp": "hp",
+        "Mp": "mp",
+        "Sp": "sp",
+        "Poise": "poise",
+        "Ward": "ward",
+        "HpName": "resource.hp.name",
+        "MpName": "resource.mana.name",
+        "SpName": "resource.stamina.name",
+        "PoiseName": "resource.poise.name",
+        "WardName": "resource.ward.name"
+      }
+    }
+  ]
+}

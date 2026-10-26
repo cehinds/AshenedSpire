@@ -1,0 +1,85 @@
+{
+  "$id": "profile/content/baseCardSourceManifest.json",
+  "type": "object",
+  "properties": {
+    "excludedEntries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "entityKind": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "entityKind",
+          "id",
+          "reason"
+        ]
+      }
+    },
+    "normalization": {
+      "type": "object",
+      "properties": {
+        "combatCards": {
+          "type": "integer"
+        },
+        "excludedEntityKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "statusCards": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "combatCards",
+        "excludedEntityKinds",
+        "statusCards"
+      ]
+    },
+    "sourceBranch": {
+      "type": "string"
+    },
+    "sourceCommit": {
+      "type": "string"
+    },
+    "sourceEntries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "sha256"
+        ]
+      }
+    },
+    "sourceFilename": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "excludedEntries",
+    "normalization",
+    "sourceBranch",
+    "sourceCommit",
+    "sourceEntries",
+    "sourceFilename"
+  ]
+}

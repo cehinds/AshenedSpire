@@ -47,6 +47,27 @@
     "comment": {
       "type": "string"
     },
+    "fighter": {
+      "type": "object",
+      "properties": {
+        "ratings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stackStatuses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "ratings",
+        "stackStatuses"
+      ]
+    },
     "handFan": {
       "type": "object",
       "properties": {
@@ -98,6 +119,12 @@
           "items": {
             "type": "string"
           }
+        },
+        "plain": {
+          "type": "string"
+        },
+        "placement": {
+          "type": "object"
         }
       },
       "required": [
@@ -116,6 +143,9 @@
         },
         "enemy": {
           "type": "string"
+        },
+        "logLines": {
+          "type": "integer"
         }
       },
       "required": [
@@ -199,6 +229,12 @@
         "zoomDefault": {
           "type": "integer"
         },
+        "laneEdgeRatio": {
+          "type": "number"
+        },
+        "potionMinis": {
+          "type": "integer"
+        },
         "edgeWidth": {
           "type": "number"
         },
@@ -213,6 +249,94 @@
         },
         "rowTouchRatio": {
           "type": "number"
+        },
+        "colPitch": {
+          "type": "number"
+        },
+        "boardPadX": {
+          "type": "number"
+        },
+        "boardPadTop": {
+          "type": "number"
+        },
+        "edgeOutlineWidth": {
+          "type": "number"
+        },
+        "atlas": {
+          "type": "object",
+          "properties": {
+            "worlds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "worldSalt": {
+              "type": "string"
+            },
+            "hash": {
+              "type": "object",
+              "properties": {
+                "offset": {
+                  "type": "integer"
+                },
+                "prime": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "offset",
+                "prime"
+              ]
+            },
+            "level": {
+              "type": "integer"
+            },
+            "tileCols": {
+              "type": "integer"
+            },
+            "tileRows": {
+              "type": "integer"
+            },
+            "revealRadius": {
+              "type": "number"
+            },
+            "revealCore": {
+              "type": "number"
+            },
+            "gridStep": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "worlds",
+            "worldSalt",
+            "hash",
+            "level",
+            "tileCols",
+            "tileRows",
+            "revealRadius",
+            "revealCore",
+            "gridStep"
+          ]
+        },
+        "nodeIcons": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "nodeTints": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "tierNumerals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
@@ -224,8 +348,61 @@
         "dotSpacing",
         "restBackground",
         "victoryBackground",
-        "rowTouchRatio"
+        "rowTouchRatio",
+        "colPitch",
+        "boardPadX",
+        "boardPadTop",
+        "edgeOutlineWidth",
+        "atlas",
+        "nodeIcons",
+        "nodeTints",
+        "tierNumerals"
       ]
+    },
+    "dialogue": {
+      "type": "object",
+      "properties": {
+        "slot": {
+          "type": "object"
+        },
+        "portraits": {
+          "type": "object"
+        },
+        "figures": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "top": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              },
+              "centerX": {
+                "type": "number"
+              },
+              "width": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "top",
+              "height",
+              "centerX",
+              "width"
+            ]
+          }
+        }
+      }
+    },
+    "armoury": {
+      "type": "object",
+      "properties": {
+        "defaultMaxLevel": {
+          "type": "integer"
+        }
+      }
     }
   },
   "required": [
@@ -235,6 +412,7 @@
     "combat",
     "combatant",
     "comment",
+    "fighter",
     "handFan",
     "meter",
     "rewards",

@@ -54,11 +54,12 @@ function infer(samples, depth, path) {
 }
 
 const manifest = JSON.parse(readFileSync(join(CONTENT, 'manifest.json'), 'utf8'));
-const keyed = new Set(JSON.parse(readFileSync(join(ROOT, 'Tools', 'transform.config.json'), 'utf8')).tables.filter(t => !t.list).map(t => t.out));
+const transformConfig = JSON.parse(readFileSync(join(ROOT, 'Tools', 'transform.config.json'), 'utf8'));
+const keyed = new Set([...transformConfig.tables, ...transformConfig.core2.tables].filter(t => !t.list).map(t => t.out));
 let written = 0;
 for (const file of Object.keys(manifest.files)) {
   if (ONLY && file !== ONLY) continue;
-  if (file === 'strings/en.json') continue; // strings are validated by key convention, not by schema
+  if (file === 'strings/en.json' || file.startsWith('schemas/')) continue; // strings are validated by key convention, not by schema; schemas are not data
   const data = JSON.parse(readFileSync(join(CONTENT, file), 'utf8'));
   const name = file.replace(/\//g, '.').replace(/\.json$/, '');
   let schema;

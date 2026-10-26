@@ -28,5 +28,9 @@ namespace Ashen.Generated
         public const string AdvanceOnClick = "advanceOnClick";
         public const string Status = "status";
         public const string Scene = "scene";
+        public const string TitleKeyFormat = "prologue.{0}.title";
+        public const string SpeakerKeyFormat = "prologue.{0}.speaker";
+        public const string RevealCharsPerSecond = "revealCharsPerSecond";
+        public const string Reveal = "reveal";
     }
 }

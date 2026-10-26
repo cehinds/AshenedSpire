@@ -177,11 +177,9 @@ namespace Ashen.App.Run
         {
             var data = Content.Combat;
             var attributes = run?.Obj(K.Attributes) ?? new JObject();
-            double load = 0;
             if (run?.Obj(K.Loadout) != null)
-                foreach (var piece in Equipment.EquippedPieces(data, run.Obj(K.Loadout), run.Str(RK.Class), run.Obj(K.ItemUpgradeLevels) ?? new JObject()))
-                    load += Equipment.PieceWeight(piece);
-            return Equipment.ComputeWeightClass(data, attributes.Num(K.Constitution), attributes.Num(K.Strength), 0, load);
+                return Equipment.LoadoutWeightClass(data, run.Obj(K.Loadout), attributes, run.Str(RK.Class), run.Obj(K.ItemUpgradeLevels) ?? new JObject());
+            return Equipment.ComputeWeightClass(data, attributes.Num(K.Constitution), attributes.Num(K.Strength), 0, 0);
         }
 
         private string WeightName(StringTable strings, JObject run)

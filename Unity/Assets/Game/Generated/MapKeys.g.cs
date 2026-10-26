@@ -5,7 +5,9 @@ namespace Ashen.Generated
     public static class MapKeys
     {
         public const string ActNumber = "actNumber";
+        public const string Acts = "acts";
         public const string ActsPerCycle = "actsPerCycle";
+        public const string ActualType = "actualType";
         public const string All = "all";
         public const string AnchorKinds = "anchorKinds";
         public const string Any = "any";
@@ -17,11 +19,14 @@ namespace Ashen.Generated
         public const string BossIds = "bossIds";
         public const string BossLabel = "bossLabel";
         public const string BossLocations = "bossLocations";
+        public const string BossNodeId = "bossNodeId";
         public const string BossPool = "bossPool";
+        public const string BranchColumns = "branchColumns";
         public const string ChoiceId = "choiceId";
         public const string Col = "col";
         public const string Columns = "columns";
         public const string DestinationLabel = "destinationLabel";
+        public const string DisplayTypes = "displayTypes";
         public const string DoorGuard = "doorGuard";
         public const string Elite = "elite";
         public const string EliteFrom = "eliteFrom";
@@ -37,14 +42,20 @@ namespace Ashen.Generated
         public const string Events = "events";
         public const string Fight = "fight";
         public const string First = "first";
+        public const string FirstFloor = "firstFloor";
         public const string Fixed = "fixed";
         public const string Floor = "floor";
         public const string FloorRules = "floorRules";
         public const string Floors = "floors";
         public const string Fraction = "fraction";
+        public const string GameProfileHash = "gameProfileHash";
+        public const string HiddenTypes = "hiddenTypes";
+        public const string HideUnknownNodes = "hideUnknownNodes";
         public const string History = "history";
         public const string IdPattern = "idPattern";
         public const string Index = "index";
+        public const string LaneCentre = "laneCentre";
+        public const string Lanes = "lanes";
         public const string Last = "last";
         public const string LegacyActBosses = "legacyActBosses";
         public const string MapConfigs = "mapConfigs";
@@ -59,6 +70,7 @@ namespace Ashen.Generated
         public const string MinReachableElites = "minReachableElites";
         public const string MinReachableMerchants = "minReachableMerchants";
         public const string Minima = "minima";
+        public const string MinimumThreatFloor = "minimumThreatFloor";
         public const string Monster = "monster";
         public const string Next = "next";
         public const string NoEliteBefore = "noEliteBefore";
@@ -71,18 +83,27 @@ namespace Ashen.Generated
         public const string PartSeparator = "partSeparator";
         public const string PathCount = "pathCount";
         public const string Pool = "pool";
+        public const string PrebossNodes = "prebossNodes";
         public const string Prefix = "prefix";
+        public const string RequirePrebossRest = "requirePrebossRest";
         public const string RequirementGroups = "requirementGroups";
         public const string Resolved = "resolved";
+        public const string ResolvedKinds = "resolvedKinds";
+        public const string Rest = "rest";
         public const string RestBeforeElite = "restBeforeElite";
         public const string RestFloors = "restFloors";
+        public const string RestsPerAct = "restsPerAct";
         public const string Retries = "retries";
+        public const string Roles = "roles";
+        public const string Routes = "routes";
         public const string RunShapeKeys = "runShapeKeys";
         public const string Sample = "sample";
         public const string Seat = "seat";
         public const string Seats = "seats";
         public const string Seeds = "seeds";
         public const string Separator = "separator";
+        public const string Shop = "shop";
+        public const string ShopShare = "shopShare";
         public const string ShortestAct = "shortestAct";
         public const string Shrine = "shrine";
         public const string ShrineFrom = "shrineFrom";
@@ -95,6 +116,7 @@ namespace Ashen.Generated
         public const string Typing = "typing";
         public const string UnknownKinds = "unknownKinds";
         public const string UnknownWeights = "unknownWeights";
+        public const string VisibleTypes = "visibleTypes";
         public const string Walk = "walk";
     }
 }

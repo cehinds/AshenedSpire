@@ -1,0 +1,4905 @@
+{
+ "id": "core",
+ "formatVersion": 1,
+ "author": {
+  "formatVersion": 1,
+  "core": "ashen.core@2.0.0",
+  "modules": {}
+ },
+ "modules": {
+  "advanced-ui": false,
+  "animation": {
+   "mode": "configured",
+   "enabled": true
+  },
+  "art": {
+   "mode": "configured",
+   "fixedClassAppearance": true,
+   "fallback": "procedural"
+  },
+  "attribute-variance": {
+   "mode": "configured",
+   "points": 1,
+   "among": 3
+  },
+  "audio": false,
+  "card-pools": {
+   "mode": "configured",
+   "weaponTypes": true
+  },
+  "cards": {
+   "mode": "configured",
+   "roundShuffle": "entireDeck",
+   "retainHand": false,
+   "handBase": 4,
+   "handAttribute": "intelligence",
+   "turnPolicy": "multiCard",
+   "freeCommandLimit": 32,
+   "editorEnabled": true,
+   "editorWhere": "noncombat",
+   "faceMaxEffects": 2,
+   "faceMaxLines": 3
+  },
+  "character-creation": false,
+  "characters": {
+   "mode": "configured",
+   "rounding": "down",
+   "levelFrom": "levelProfile.min",
+   "statRules": {
+    "hp": {
+     "strength": 5,
+     "dexterity": 3,
+     "constitution": 10,
+     "wisdom": 2,
+     "intelligence": 1,
+     "perLevel": 5
+    },
+    "sp": {
+     "dexterity": 0.25,
+     "constitution": 0.25,
+     "wisdom": 0.2,
+     "intelligence": 0.2,
+     "perLevel": 0.1
+    },
+    "mp": {
+     "strength": 0.125,
+     "constitution": 0.25,
+     "wisdom": 0.5,
+     "intelligence": 0.125,
+     "perLevel": 0.2
+    },
+    "ar": {
+     "strength": 1
+    },
+    "dr": {
+     "dexterity": 1
+    },
+    "hand": {
+     "intelligence": 1
+    }
+   },
+   "attributeFill": {
+    "defaultPriority": [
+     "strength",
+     "dexterity",
+     "constitution",
+     "wisdom",
+     "intelligence"
+    ],
+    "priorityWeights": [
+     4,
+     3,
+     2,
+     1,
+     0
+    ],
+    "caps": {
+     "constitution": 1
+    }
+   },
+   "penaltyFloor": {
+    "sp": 1,
+    "mp": 0,
+    "hp": 1
+   },
+   "tagRules": {
+    "character.player": {
+     "requires": [
+      "player"
+     ],
+     "attributeBudget": [
+      6,
+      6
+     ],
+     "deckSize": [
+      5,
+      40
+     ],
+     "deckDefault": 11,
+     "pools": {
+      "hp": 10,
+      "sp": 0,
+      "mp": 0
+     }
+    },
+    "character.enemy": {
+     "requires": [
+      "enemy"
+     ],
+     "variance": true
+    },
+    "tier.minion": {
+     "pools": {
+      "hp": 10,
+      "sp": 2,
+      "mp": 1
+     },
+     "hand": 2,
+     "attributeBudget": [
+      2,
+      2
+     ],
+     "deckSize": [
+      2,
+      8
+     ],
+     "deckDefault": 3
+    },
+    "tier.elite": {
+     "pools": {
+      "hp": 10,
+      "sp": 3,
+      "mp": 1
+     },
+     "hand": 3,
+     "attributeBudget": [
+      4,
+      4
+     ],
+     "deckSize": [
+      3,
+      10
+     ],
+     "deckDefault": 5
+    },
+    "tier.boss": {
+     "pools": {
+      "hp": 10,
+      "sp": 3,
+      "mp": 1
+     },
+     "hand": 4,
+     "attributeBudget": [
+      6,
+      6
+     ],
+     "deckSize": [
+      4,
+      14
+     ],
+     "deckDefault": 7
+    },
+    "class.reaver": {
+     "pools": {
+      "hp": 0,
+      "sp": 3,
+      "mp": 0
+     },
+     "hand": 4
+    },
+    "class.starseer": {
+     "pools": {
+      "hp": 0,
+      "sp": 3,
+      "mp": 1
+     },
+     "hand": 4
+    },
+    "class.rogue": {
+     "pools": {
+      "hp": 0,
+      "sp": 3,
+      "mp": 1
+     },
+     "hand": 4
+    },
+    "class.herald": {
+     "pools": {
+      "hp": 0,
+      "sp": 3,
+      "mp": 1
+     },
+     "hand": 4
+    }
+   }
+  },
+  "class-selection": {
+   "mode": "configured",
+   "initialClass": "reaver",
+   "fixedAttributes": true,
+   "fixedLoadout": true
+  },
+  "damage-types": false,
+  "deck-training": {
+   "mode": "configured",
+   "default": "owned",
+   "unlimited": [
+    {
+     "id": "basicTraining",
+     "requiresTag": "training.basic",
+     "pools": [
+      "strike",
+      "defend",
+      "counter",
+      "smash",
+      "sweep",
+      "evade"
+     ],
+     "cards": {
+      "rarity": [
+       "starter"
+      ],
+      "tagsAny": [
+       "maneuver:attack",
+       "maneuver:defend",
+       "maneuver:counter",
+       "maneuver:smash",
+       "maneuver:sweep"
+      ]
+     }
+    },
+    {
+     "id": "graduate",
+     "requiresTag": "training.graduate",
+     "pools": [],
+     "cards": {
+      "tagsAll": [
+       "rank.cantrip"
+      ]
+     }
+    }
+   ],
+   "owned": {
+    "pools": [
+     "special"
+    ],
+    "tags": [
+     "classification.weaponArt"
+    ]
+   },
+   "ownedOnlyCollection": true
+  },
+  "defenses": {
+   "mode": "configured",
+   "include": [
+    "block",
+    "poise"
+   ],
+   "order": [
+    "block",
+    "poise"
+   ],
+   "poiseMultiplier": 0.75,
+   "poiseRounding": "floor",
+   "minimumPositiveDamage": 1,
+   "poiseActive": "positive",
+   "blockScope": "all",
+   "poiseDepletes": false
+  },
+  "dialogue": false,
+  "dungeons": false,
+  "effects": {
+   "mode": "configured",
+   "damageModel": "unified",
+   "elements": false,
+   "spellRanks": false,
+   "attackRatingWeight": 1,
+   "defenseRatingWeight": 1,
+   "fixCoreVersion": 1
+  },
+  "enemies": {
+   "mode": "configured",
+   "include": [
+    "minion",
+    "elite",
+    "boss"
+   ],
+   "fallback": "legacyMoves",
+   "deck": {
+    "min": 3,
+    "max": 15,
+    "reshuffle": "whenEmpty",
+    "drawTo": "hand",
+    "discardUnplayed": true
+   },
+   "stanceCosts": {
+    "attack": {
+     "sp": 1,
+     "mp": 0
+    },
+    "defend": {
+     "sp": 1,
+     "mp": 0
+    },
+    "smash": {
+     "sp": 2,
+     "mp": 0
+    },
+    "counter": {
+     "sp": 2,
+     "mp": 0
+    },
+    "sweep": {
+     "sp": 2,
+     "mp": 0
+    },
+    "casting": {
+     "sp": 1,
+     "mp": 1
+    }
+   },
+   "ai": {
+    "weightField": "aiWeight",
+    "lowHpThreshold": 0.35,
+    "lowHpDefendBias": 1.5,
+    "lowHpHealBias": 2,
+    "smashIntoBlockBias": 1.3,
+    "respectMaxConsecutive": true
+   }
+  },
+  "enemy-relics": {
+   "mode": "configured",
+   "equipment": {
+    "maxPoints": 5,
+    "maxStats": 3,
+    "source": "player"
+   }
+  },
+  "enemy-visibility": {
+   "mode": "configured",
+   "shown": [
+    "hp",
+    "poise",
+    "intent",
+    "defense",
+    "statuses"
+   ],
+   "revealedBy": {
+    "sp": [
+     "insight",
+     "bestiary"
+    ],
+    "mp": [
+     "insight",
+     "bestiary"
+    ],
+    "cardCosts": [
+     "insight"
+    ],
+    "deck": [
+     "bestiary"
+    ],
+    "hand": [
+     "insight"
+    ],
+    "gear": [
+     "bestiary"
+    ],
+    "relics": [
+     "bestiary"
+    ],
+    "attributes": [
+     "bestiary"
+    ]
+   }
+  },
+  "equipment": {
+   "mode": "configured",
+   "editorEnabled": true,
+   "editorWhere": "noncombat",
+   "fixedAppearance": true,
+   "requirementsPolicy": "none",
+   "upgradeBonuses": {
+    "weaponARPerTier": 1,
+    "armorDRPerTier": 1
+   }
+  },
+  "formation": {
+   "mode": "configured",
+   "extraRow": {
+    "enabled": false,
+    "sides": [
+     "enemy"
+    ],
+    "capacityPerLane": 1
+   }
+  },
+  "gear": {
+   "mode": "configured",
+   "pools": "merged",
+   "rarities": [
+    "common",
+    "uncommon",
+    "rare",
+    "epic"
+   ],
+   "poolSizes": {
+    "ratings": {
+     "common": {
+      "min": 3,
+      "max": 3
+     },
+     "uncommon": {
+      "min": 4,
+      "max": 4
+     },
+     "rare": {
+      "min": 5,
+      "max": 5
+     },
+     "epic": {
+      "min": 6,
+      "max": 6
+     }
+    },
+    "bonus": {
+     "common": {
+      "min": 2,
+      "max": 3
+     },
+     "uncommon": {
+      "min": 2,
+      "max": 4
+     },
+     "rare": {
+      "min": 2,
+      "max": 5
+     },
+     "epic": {
+      "min": 2,
+      "max": 6
+     }
+    },
+    "merged": {
+     "common": {
+      "min": 4,
+      "max": 4
+     },
+     "uncommon": {
+      "min": 5,
+      "max": 5
+     },
+     "rare": {
+      "min": 6,
+      "max": 6
+     },
+     "epic": {
+      "min": 7,
+      "max": 7
+     }
+    }
+   },
+   "mergedShare": {
+    "default": {
+     "ratings": 0.5,
+     "bonus": 0.5
+    },
+    "common": {
+     "ratings": 1,
+     "bonus": 0
+    }
+   },
+   "fillTo": "max",
+   "maxAttributes": 3,
+   "pointValues": {
+    "ar": 1,
+    "dr": 2,
+    "poise": 3,
+    "strength": 1,
+    "dexterity": 1,
+    "constitution": 1,
+    "wisdom": 1,
+    "intelligence": 1,
+    "hp": 10,
+    "mp": 1,
+    "sp": 1,
+    "ward": 3,
+    "evasion": 1,
+    "precision": 1
+   },
+   "tags": {
+    "sword": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 2,
+       "dr": 1,
+       "poise": 1
+      },
+      "bonus": {
+       "strength": 1,
+       "dexterity": 1
+      }
+     }
+    },
+    "greatsword": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 3,
+       "poise": 3
+      },
+      "bonus": {
+       "strength": 3,
+       "constitution": 1
+      }
+     }
+    },
+    "dagger": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 2,
+       "dr": 1
+      },
+      "bonus": {
+       "dexterity": 3
+      }
+     }
+    },
+    "bow": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 3
+      },
+      "bonus": {
+       "dexterity": 3
+      }
+     }
+    },
+    "katana": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 3,
+       "dr": 1
+      },
+      "bonus": {
+       "dexterity": 2,
+       "strength": 1
+      }
+     }
+    },
+    "polearm": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 3,
+       "poise": 2
+      },
+      "bonus": {
+       "strength": 2,
+       "dexterity": 1
+      }
+     }
+    },
+    "hammer": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 1,
+       "poise": 3
+      },
+      "bonus": {
+       "strength": 2,
+       "constitution": 1
+      }
+     }
+    },
+    "twinblade": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 3,
+       "dr": 1
+      },
+      "bonus": {
+       "dexterity": 3
+      }
+     }
+    },
+    "axe": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 3,
+       "poise": 1
+      },
+      "bonus": {
+       "strength": 3
+      }
+     }
+    },
+    "spear": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 2,
+       "poise": 1
+      },
+      "bonus": {
+       "strength": 1,
+       "dexterity": 1
+      }
+     }
+    },
+    "buckler": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 2,
+       "ar": 1
+      },
+      "bonus": {
+       "dexterity": 2,
+       "constitution": 1
+      }
+     }
+    },
+    "kiteShield": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 2,
+       "poise": 2
+      },
+      "bonus": {
+       "constitution": 2,
+       "dexterity": 1
+      }
+     }
+    },
+    "towerShield": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 3,
+       "poise": 3
+      },
+      "bonus": {
+       "constitution": 3,
+       "strength": 1
+      }
+     }
+    },
+    "roundShield": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 2,
+       "poise": 1
+      },
+      "bonus": {
+       "constitution": 1,
+       "dexterity": 1
+      }
+     }
+    },
+    "spikedShield": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 2,
+       "ar": 1,
+       "poise": 1
+      },
+      "bonus": {
+       "constitution": 1,
+       "strength": 1
+      }
+     }
+    },
+    "lantern": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 2
+      },
+      "bonus": {
+       "wisdom": 2
+      }
+     }
+    },
+    "torch": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 1,
+       "ar": 1
+      },
+      "bonus": {
+       "wisdom": 1,
+       "intelligence": 1
+      }
+     }
+    },
+    "parryingDagger": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 2,
+       "poise": 1
+      },
+      "bonus": {
+       "dexterity": 3
+      }
+     }
+    },
+    "staff": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 1,
+       "dr": 1
+      },
+      "bonus": {
+       "intelligence": 2,
+       "wisdom": 1
+      }
+     }
+    },
+    "sceptre": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 2
+      },
+      "bonus": {
+       "intelligence": 2,
+       "wisdom": 1
+      }
+     }
+    },
+    "rod": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 2
+      },
+      "bonus": {
+       "wisdom": 2,
+       "intelligence": 1
+      }
+     }
+    },
+    "chime": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "ar": 1,
+       "dr": 1
+      },
+      "bonus": {
+       "wisdom": 2,
+       "intelligence": 1
+      }
+     }
+    },
+    "plate": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 2,
+       "poise": 2
+      },
+      "bonus": {
+       "constitution": 2,
+       "strength": 1
+      }
+     }
+    },
+    "mail": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 3,
+       "poise": 1
+      },
+      "bonus": {
+       "constitution": 2,
+       "dexterity": 1
+      }
+     }
+    },
+    "robes": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 1,
+       "poise": 1
+      },
+      "bonus": {
+       "wisdom": 2,
+       "intelligence": 2
+      }
+     }
+    },
+    "leathers": {
+     "group": "type",
+     "cost": 0,
+     "priority": 50,
+     "weights": {
+      "ratings": {
+       "dr": 2,
+       "poise": 1
+      },
+      "bonus": {
+       "dexterity": 2,
+       "strength": 1
+      }
+     }
+    },
+    "heavy": {
+     "group": "penalty",
+     "cost": -1,
+     "modifier": "strike.cost",
+     "amount": 1,
+     "priority": 80,
+     "weights": {
+      "ratings": {
+       "ar": 2,
+       "poise": 3
+      },
+      "bonus": {
+       "strength": 3,
+       "constitution": 1
+      }
+     }
+    },
+    "flurry": {
+     "group": "effect",
+     "cost": 1,
+     "modifier": "strike.hits",
+     "amount": 1,
+     "priority": 70,
+     "weights": {
+      "ratings": {
+       "ar": 3,
+       "dr": 1
+      },
+      "bonus": {
+       "dexterity": 3
+      }
+     }
+    },
+    "stagger": {
+     "group": "effect",
+     "cost": 1,
+     "modifier": "strike.poise",
+     "amount": 3,
+     "priority": 60,
+     "weights": {
+      "ratings": {
+       "poise": 3,
+       "ar": 1
+      },
+      "bonus": {
+       "strength": 2
+      }
+     }
+    },
+    "encumbered": {
+     "group": "penalty",
+     "cost": -1,
+     "modifier": "self.maxStamina",
+     "amount": -1,
+     "priority": 60,
+     "weights": {
+      "ratings": {
+       "dr": 3,
+       "poise": 2
+      },
+      "bonus": {
+       "constitution": 3
+      }
+     }
+    },
+    "light": {
+     "group": "effect",
+     "cost": 1,
+     "modifier": "self.maxStamina",
+     "amount": 1,
+     "priority": 40,
+     "weights": {
+      "ratings": {},
+      "bonus": {
+       "dexterity": 1
+      }
+     }
+    },
+    "bleed": {
+     "group": "effect",
+     "cost": 1,
+     "modifier": "strike.bleed",
+     "amount": 2,
+     "priority": 30,
+     "weights": {
+      "ratings": {},
+      "bonus": {
+       "dexterity": 1
+      }
+     }
+    },
+    "burn": {
+     "group": "effect",
+     "cost": 1,
+     "modifier": "strike.burn",
+     "amount": 2,
+     "priority": 30,
+     "weights": {
+      "ratings": {},
+      "bonus": {
+       "intelligence": 1
+      }
+     }
+    },
+    "frost": {
+     "group": "effect",
+     "cost": 1,
+     "modifier": "strike.frost",
+     "amount": 2,
+     "priority": 30,
+     "weights": {
+      "ratings": {},
+      "bonus": {
+       "intelligence": 1
+      }
+     }
+    },
+    "blight": {
+     "group": "effect",
+     "cost": 1,
+     "modifier": "strike.blight",
+     "amount": 2,
+     "priority": 30,
+     "weights": {
+      "ratings": {},
+      "bonus": {
+       "wisdom": 1
+      }
+     }
+    },
+    "insanity": {
+     "group": "effect",
+     "cost": 1,
+     "modifier": "strike.insanity",
+     "amount": 2,
+     "priority": 30,
+     "weights": {
+      "ratings": {},
+      "bonus": {
+       "intelligence": 1
+      }
+     }
+    },
+    "regen": {
+     "group": "effect",
+     "cost": 1,
+     "modifier": "self.regen",
+     "amount": 1,
+     "priority": 20,
+     "weights": {
+      "ratings": {},
+      "bonus": {
+       "wisdom": 1
+      }
+     }
+    },
+    "unwieldy": {
+     "group": "penalty",
+     "cost": -1,
+     "modifier": "strike.damage",
+     "amount": -1,
+     "priority": 10,
+     "weights": {
+      "ratings": {},
+      "bonus": {}
+     }
+    },
+    "thin": {
+     "group": "penalty",
+     "cost": -1,
+     "modifier": "defend.block",
+     "amount": -1,
+     "priority": 10,
+     "weights": {
+      "ratings": {},
+      "bonus": {}
+     }
+    },
+    "throw": {
+     "group": "effect",
+     "cost": 0,
+     "priority": 0,
+     "weights": {
+      "ratings": {},
+      "bonus": {}
+     }
+    }
+   },
+   "weights": {
+    "kinds": {
+     "weapon": {
+      "ratings": {
+       "ar": 3,
+       "poise": 1
+      },
+      "bonus": {
+       "strength": 2,
+       "dexterity": 1
+      }
+     },
+     "shield": {
+      "ratings": {
+       "dr": 3,
+       "poise": 2
+      },
+      "bonus": {
+       "constitution": 2,
+       "dexterity": 1
+      }
+     },
+     "staff": {
+      "ratings": {
+       "ar": 2,
+       "dr": 1
+      },
+      "bonus": {
+       "intelligence": 2,
+       "wisdom": 1
+      }
+     },
+     "armor": {
+      "ratings": {
+       "dr": 2,
+       "poise": 2
+      },
+      "bonus": {
+       "constitution": 2,
+       "dexterity": 1
+      }
+     },
+     "head": {
+      "ratings": {
+       "dr": 1,
+       "poise": 1
+      },
+      "bonus": {
+       "wisdom": 1,
+       "intelligence": 1
+      }
+     },
+     "hands": {
+      "ratings": {
+       "ar": 1,
+       "dr": 1
+      },
+      "bonus": {
+       "strength": 1,
+       "dexterity": 1
+      }
+     },
+     "feet": {
+      "ratings": {
+       "dr": 1,
+       "poise": 1
+      },
+      "bonus": {
+       "dexterity": 2,
+       "constitution": 1
+      }
+     },
+     "talisman": {
+      "ratings": {
+       "dr": 1
+      },
+      "bonus": {
+       "wisdom": 1,
+       "intelligence": 1,
+       "constitution": 1
+      }
+     }
+    },
+    "slots": {
+     "rightHand": {
+      "ratings": {
+       "ar": 3,
+       "poise": 1
+      },
+      "bonus": {
+       "strength": 2,
+       "dexterity": 1
+      }
+     },
+     "leftHand": {
+      "ratings": {
+       "dr": 3,
+       "poise": 1
+      },
+      "bonus": {
+       "constitution": 2,
+       "dexterity": 1
+      }
+     },
+     "armor": {
+      "ratings": {
+       "dr": 2,
+       "poise": 2
+      },
+      "bonus": {
+       "constitution": 2,
+       "dexterity": 1
+      }
+     }
+    },
+    "global": {
+     "ratings": {
+      "ar": 1,
+      "dr": 1,
+      "poise": 1
+     },
+     "bonus": {
+      "strength": 1,
+      "dexterity": 1,
+      "constitution": 1
+     }
+    }
+   },
+   "armorBudget": {
+    "baseline": 3,
+    "perRank": 1,
+    "perRankStat": "dr",
+    "rarityBonus": {}
+   }
+  },
+  "heal-rules": {
+   "mode": "configured",
+   "match": "mostSpecific",
+   "authoredCostWins": true,
+   "shapes": [
+    {
+     "id": "full",
+     "tags": [
+      "fx:heal"
+     ],
+     "cost": {
+      "sp": 3,
+      "mp": 2
+     },
+     "amount": {
+      "percentMaxHp": 10
+     },
+     "exhaust": false
+    },
+    {
+     "id": "cheap",
+     "tags": [
+      "fx:heal",
+      "lifecycle.exhaust"
+     ],
+     "cost": {
+      "sp": 1,
+      "mp": 1
+     },
+     "amount": {
+      "percentMaxHp": 10
+     },
+     "exhaust": true
+    }
+   ]
+  },
+  "intent": {
+   "mode": "configured",
+   "visible": false,
+   "reads": "exact"
+  },
+  "multiplayer": false,
+  "posture": false,
+  "progression": {
+   "mode": "configured",
+   "characterLevels": false,
+   "classUnlocks": true,
+   "attributePointsPerLevel": 1,
+   "entitlementPolicy": "authored",
+   "classXpMultiplier": 1,
+   "weaponXpMultiplier": 1
+  },
+  "quests": false,
+  "reactions": {
+   "mode": "configured",
+   "chainLimit": 16
+  },
+  "resources": {
+   "mode": "configured",
+   "include": [
+    "hp",
+    "sp",
+    "mp"
+   ],
+   "costPolicy": "authoredVariants",
+   "recovery": "turnStart",
+   "chargeFlaskCapacityPerPickup": 1
+  },
+  "rest": {
+   "mode": "configured",
+   "servicesPerVisit": "all",
+   "services": [
+    "smith",
+    "levelUp"
+   ],
+   "recovery": {
+    "hp": "full",
+    "sp": "full",
+    "mp": "full",
+    "healingFlasks": "full",
+    "mpFlasks": "full"
+   },
+   "smith": {
+    "free": true,
+    "tiersPerService": 1
+   }
+  },
+  "reward-ranks": {
+   "mode": "configured",
+   "minRank": 1,
+   "lowerRankChance": 0.1,
+   "rankOfRarity": {
+    "starter": 0,
+    "common": 1,
+    "uncommon": 2,
+    "rare": 3
+   },
+   "skipOwnedBasics": true,
+   "stanceCoverage": {
+    "enabled": true,
+    "reservedSlots": 1,
+    "preferTiers": [
+     "basic",
+     "cantrip"
+    ],
+    "excludePools": [
+     "special"
+    ]
+   }
+  },
+  "rewards": {
+   "mode": "configured",
+   "offerCount": 3,
+   "takeCount": 1,
+   "rewardGroups": [
+    {
+     "id": "cards",
+     "weight": 60,
+     "categories": [
+      "combatCards",
+      "weaponArts"
+     ]
+    },
+    {
+     "id": "equipment",
+     "weight": 10,
+     "categories": [
+      "weapons",
+      "armor",
+      "relics"
+     ]
+    },
+    {
+     "id": "consumables",
+     "weight": 30,
+     "categories": [
+      "potions"
+     ]
+    }
+   ]
+  },
+  "routes": {
+   "mode": "configured",
+   "acts": 3,
+   "prebossNodes": 7,
+   "restsPerAct": 3,
+   "hideUnknownNodes": true,
+   "restFloors": [
+    3,
+    5,
+    7
+   ],
+   "branchColumns": 3,
+   "minimumThreatFloor": 3,
+   "mapMode": "fog",
+   "firstFloor": "fight",
+   "shopShare": 0.15,
+   "requirePrebossRest": true
+  },
+  "shops": {
+   "mode": "configured",
+   "options": 3,
+   "price": 10,
+   "itemsPerCategory": 3
+  },
+  "stagger": {
+   "mode": "configured",
+   "spLoss": 1,
+   "status": "vulnerable",
+   "stacks": 1,
+   "damageTakenMultiplier": 1.25
+  },
+  "stances": {
+   "mode": "configured",
+   "include": [
+    "attack",
+    "smash",
+    "defend",
+    "counter",
+    "sweep",
+    "prepared",
+    "evade"
+   ],
+   "matchups": {
+    "attack": [
+     "smash",
+     "prepared"
+    ],
+    "counter": [
+     "smash",
+     "attack"
+    ],
+    "smash": [
+     "defend",
+     "prepared"
+    ],
+    "sweep": [
+     "counter",
+     "evade"
+    ],
+    "prepared": [
+     "defend",
+     "counter"
+    ]
+   },
+   "advantageMultiplier": 1.25,
+   "evadeFailureMultiplier": 2,
+   "accuracyPolicy": "chance",
+   "staggerPolicy": "legacyAdapter",
+   "accuracyBase": 0.75,
+   "accuracyWeight": 0.02,
+   "minimumHitChance": 0.05,
+   "maximumHitChance": 0.95,
+   "accuracyStat": "ar",
+   "evasionStat": "dr",
+   "staggerOnAdvantage": true,
+   "staggerManeuvers": [
+    "smash"
+   ],
+   "staggerLimitPerTargetPerRound": 1,
+   "defenseMitigation": 0.25
+  },
+  "stats": {
+   "mode": "configured",
+   "attributePointTotal": 6,
+   "secondaryPolicy": "legacyAdapter"
+  },
+  "statuses": {
+   "mode": "configured",
+   "buffs": true
+  }
+ },
+ "foundation": {
+  "id": "ashen.foundation",
+  "version": "1.0.0",
+  "hpOwner": "foundation",
+  "baselineActions": [
+   "attack",
+   "pass"
+  ],
+  "turnPolicy": "oneActionFallback",
+  "gameplayImplementation": "legacy-adapter",
+  "portable": false,
+  "attackDamage": 5,
+  "mode": "configured"
+ },
+ "contracts": {
+  "id": "ashen.game-profile",
+  "version": "1.0.0",
+  "formatVersion": 1,
+  "runtimeABI": "ashen.runtime@1",
+  "canonicalEncoding": "ashen.canonical-json@1",
+  "hashAlgorithm": "sha256",
+  "numericPolicy": "ashen.adapter-numbers@1"
+ },
+ "schemas": {
+  "animation": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "enabled": {
+     "type": "boolean",
+     "description": "Enable solo-combat authored figure clips, action choreography and Reading Desk playback; combat timing and foundation feedback are preserved."
+    }
+   },
+   "required": [
+    "mode",
+    "enabled"
+   ],
+   "additionalProperties": false
+  },
+  "art": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "fixedClassAppearance": {
+     "type": "boolean"
+    },
+    "fallback": {
+     "type": "string",
+     "minLength": 1
+    }
+   },
+   "required": [
+    "mode",
+    "fixedClassAppearance",
+    "fallback"
+   ],
+   "additionalProperties": false
+  },
+  "attribute-variance": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "points": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 10
+    },
+    "among": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 5
+    }
+   },
+   "required": [
+    "mode",
+    "points",
+    "among"
+   ],
+   "additionalProperties": false
+  },
+  "card-pools": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "weaponTypes": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "mode",
+    "weaponTypes"
+   ],
+   "additionalProperties": false
+  },
+  "cards": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "roundShuffle": {
+     "enum": [
+      "entireDeck"
+     ]
+    },
+    "retainHand": {
+     "enum": [
+      false
+     ]
+    },
+    "handBase": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "handAttribute": {
+     "enum": [
+      "intelligence"
+     ]
+    },
+    "turnPolicy": {
+     "enum": [
+      "multiCard"
+     ]
+    },
+    "freeCommandLimit": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "editorEnabled": {
+     "type": "boolean"
+    },
+    "editorWhere": {
+     "enum": [
+      "strategize",
+      "noncombat"
+     ]
+    },
+    "faceMaxEffects": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "faceMaxLines": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    }
+   },
+   "required": [
+    "mode",
+    "roundShuffle",
+    "retainHand",
+    "handBase",
+    "handAttribute",
+    "turnPolicy",
+    "freeCommandLimit",
+    "editorEnabled",
+    "editorWhere",
+    "faceMaxEffects",
+    "faceMaxLines"
+   ],
+   "additionalProperties": false
+  },
+  "characters": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "rounding": {
+     "enum": [
+      "down",
+      "nearest",
+      "up"
+     ]
+    },
+    "levelFrom": {
+     "enum": [
+      "levelProfile.min",
+      "levelProfile.max",
+      "encounter"
+     ]
+    },
+    "statRules": {
+     "type": "object",
+     "properties": {
+      "hp": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1000
+       }
+      },
+      "sp": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1000
+       }
+      },
+      "mp": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1000
+       }
+      },
+      "ar": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1000
+       }
+      },
+      "dr": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1000
+       }
+      },
+      "hand": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1000
+       }
+      }
+     },
+     "required": [
+      "hp",
+      "sp",
+      "mp",
+      "ar",
+      "dr",
+      "hand"
+     ],
+     "additionalProperties": false
+    },
+    "attributeFill": {
+     "type": "object",
+     "properties": {
+      "defaultPriority": {
+       "type": "array",
+       "uniqueItems": true,
+       "minItems": 1,
+       "items": {
+        "enum": [
+         "strength",
+         "dexterity",
+         "constitution",
+         "wisdom",
+         "intelligence"
+        ]
+       }
+      },
+      "priorityWeights": {
+       "type": "array",
+       "minItems": 1,
+       "maxItems": 5,
+       "items": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 100
+       }
+      },
+      "caps": {
+       "type": "object",
+       "properties": {
+        "strength": {
+         "type": "integer",
+         "minimum": 0,
+         "maximum": 99
+        },
+        "dexterity": {
+         "type": "integer",
+         "minimum": 0,
+         "maximum": 99
+        },
+        "constitution": {
+         "type": "integer",
+         "minimum": 0,
+         "maximum": 99
+        },
+        "wisdom": {
+         "type": "integer",
+         "minimum": 0,
+         "maximum": 99
+        },
+        "intelligence": {
+         "type": "integer",
+         "minimum": 0,
+         "maximum": 99
+        }
+       },
+       "additionalProperties": false
+      }
+     },
+     "required": [
+      "defaultPriority",
+      "priorityWeights",
+      "caps"
+     ],
+     "additionalProperties": false
+    },
+    "penaltyFloor": {
+     "type": "object",
+     "properties": {
+      "sp": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 99
+      },
+      "mp": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 99
+      },
+      "hp": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 99
+      }
+     },
+     "required": [
+      "sp",
+      "mp",
+      "hp"
+     ],
+     "additionalProperties": false
+    },
+    "tagRules": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "object",
+      "properties": {
+       "requires": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+         "type": "string",
+         "minLength": 1
+        }
+       },
+       "variance": {
+        "type": "boolean"
+       },
+       "pools": {
+        "type": "object",
+        "properties": {
+         "hp": {
+          "type": "integer",
+          "minimum": -1000,
+          "maximum": 100000
+         },
+         "sp": {
+          "type": "integer",
+          "minimum": -99,
+          "maximum": 99
+         },
+         "mp": {
+          "type": "integer",
+          "minimum": -99,
+          "maximum": 99
+         }
+        },
+        "additionalProperties": false
+       },
+       "hand": {
+        "type": "integer",
+        "minimum": -20,
+        "maximum": 20
+       },
+       "attributeBudget": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "items": {
+         "type": "integer",
+         "minimum": 0,
+         "maximum": 200
+        }
+       },
+       "deckSize": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "items": {
+         "type": "integer",
+         "minimum": 1,
+         "maximum": 99
+        }
+       },
+       "spRange": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "items": {
+         "type": "integer",
+         "minimum": 0,
+         "maximum": 99
+        }
+       },
+       "deckDefault": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 99
+       }
+      },
+      "additionalProperties": false
+     }
+    }
+   },
+   "required": [
+    "mode",
+    "rounding",
+    "levelFrom",
+    "statRules",
+    "attributeFill",
+    "penaltyFloor",
+    "tagRules"
+   ],
+   "additionalProperties": false
+  },
+  "class-selection": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "initialClass": {
+     "type": "string",
+     "minLength": 1
+    },
+    "fixedAttributes": {
+     "type": "boolean"
+    },
+    "fixedLoadout": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "mode",
+    "initialClass",
+    "fixedAttributes",
+    "fixedLoadout"
+   ],
+   "additionalProperties": false
+  },
+  "deck-training": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "default": {
+     "enum": [
+      "owned",
+      "unlimited"
+     ]
+    },
+    "unlimited": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "id": {
+        "type": "string",
+        "minLength": 1
+       },
+       "requiresTag": {
+        "type": "string",
+        "minLength": 1
+       },
+       "pools": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+         "type": "string",
+         "minLength": 1
+        }
+       },
+       "cards": {
+        "type": "object",
+        "properties": {
+         "rarity": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+           "type": "string",
+           "minLength": 1
+          }
+         },
+         "tagsAny": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+           "type": "string",
+           "minLength": 1
+          }
+         },
+         "tagsAll": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+           "type": "string",
+           "minLength": 1
+          }
+         }
+        },
+        "additionalProperties": false
+       }
+      },
+      "required": [
+       "id",
+       "requiresTag"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "owned": {
+     "type": "object",
+     "properties": {
+      "pools": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "tags": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      }
+     },
+     "additionalProperties": false
+    },
+    "ownedOnlyCollection": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "mode",
+    "default",
+    "unlimited",
+    "owned"
+   ],
+   "additionalProperties": false
+  },
+  "defenses": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "include": {
+     "type": "array",
+     "uniqueItems": true,
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "order": {
+     "type": "array",
+     "uniqueItems": true,
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "poiseMultiplier": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "poiseRounding": {
+     "enum": [
+      "floor"
+     ]
+    },
+    "minimumPositiveDamage": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "poiseActive": {
+     "enum": [
+      "positive",
+      "always"
+     ]
+    },
+    "blockScope": {
+     "enum": [
+      "all"
+     ]
+    },
+    "poiseDepletes": {
+     "enum": [
+      false
+     ]
+    }
+   },
+   "required": [
+    "mode",
+    "include",
+    "order",
+    "poiseMultiplier",
+    "poiseRounding",
+    "minimumPositiveDamage",
+    "poiseActive",
+    "blockScope",
+    "poiseDepletes"
+   ],
+   "additionalProperties": false
+  },
+  "effects": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "damageModel": {
+     "enum": [
+      "unified"
+     ]
+    },
+    "elements": {
+     "enum": [
+      false
+     ]
+    },
+    "spellRanks": {
+     "enum": [
+      false
+     ]
+    },
+    "attackRatingWeight": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 100
+    },
+    "defenseRatingWeight": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 100
+    },
+    "fixCoreVersion": {
+     "type": "integer",
+     "enum": [
+      0,
+      1
+     ]
+    }
+   },
+   "required": [
+    "mode",
+    "damageModel",
+    "elements",
+    "spellRanks",
+    "attackRatingWeight",
+    "defenseRatingWeight"
+   ],
+   "additionalProperties": false
+  },
+  "enemies": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "include": {
+     "type": "array",
+     "uniqueItems": true,
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "fallback": {
+     "enum": [
+      "legacyMoves",
+      "none"
+     ]
+    },
+    "deck": {
+     "type": "object",
+     "properties": {
+      "min": {
+       "type": "integer",
+       "minimum": 1,
+       "maximum": 99
+      },
+      "max": {
+       "type": "integer",
+       "minimum": 1,
+       "maximum": 99
+      },
+      "reshuffle": {
+       "enum": [
+        "whenEmpty",
+        "endOfTurn",
+        "never"
+       ]
+      },
+      "drawTo": {
+       "enum": [
+        "hand"
+       ]
+      },
+      "discardUnplayed": {
+       "type": "boolean"
+      }
+     },
+     "required": [
+      "min",
+      "max",
+      "reshuffle",
+      "drawTo",
+      "discardUnplayed"
+     ],
+     "additionalProperties": false
+    },
+    "stanceCosts": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "object",
+      "properties": {
+       "sp": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 99
+       },
+       "mp": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 99
+       }
+      },
+      "required": [
+       "sp",
+       "mp"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "ai": {
+     "type": "object",
+     "properties": {
+      "weightField": {
+       "type": "string",
+       "minLength": 1
+      },
+      "lowHpThreshold": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 1
+      },
+      "lowHpDefendBias": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "lowHpHealBias": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "smashIntoBlockBias": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "respectMaxConsecutive": {
+       "type": "boolean"
+      }
+     },
+     "required": [
+      "weightField",
+      "lowHpThreshold",
+      "lowHpDefendBias",
+      "lowHpHealBias",
+      "smashIntoBlockBias",
+      "respectMaxConsecutive"
+     ],
+     "additionalProperties": false
+    }
+   },
+   "required": [
+    "mode",
+    "include",
+    "fallback",
+    "deck",
+    "stanceCosts",
+    "ai"
+   ],
+   "additionalProperties": false
+  },
+  "enemy-relics": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "equipment": {
+     "type": "object",
+     "properties": {
+      "maxPoints": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 99
+      },
+      "maxStats": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 5
+      },
+      "source": {
+       "enum": [
+        "player",
+        "enemy"
+       ]
+      }
+     },
+     "required": [
+      "maxPoints",
+      "maxStats",
+      "source"
+     ],
+     "additionalProperties": false
+    }
+   },
+   "required": [
+    "mode",
+    "equipment"
+   ],
+   "additionalProperties": false
+  },
+  "enemy-visibility": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "shown": {
+     "type": "array",
+     "uniqueItems": true,
+     "items": {
+      "enum": [
+       "hp",
+       "poise",
+       "intent",
+       "defense",
+       "statuses",
+       "sp",
+       "mp",
+       "cardCosts",
+       "deck",
+       "hand",
+       "gear",
+       "relics",
+       "attributes"
+      ]
+     }
+    },
+    "revealedBy": {
+     "type": "object",
+     "properties": {
+      "hp": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "poise": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "intent": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "defense": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "statuses": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "sp": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "mp": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "cardCosts": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "deck": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "hand": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "gear": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "relics": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "attributes": {
+       "type": "array",
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      }
+     },
+     "additionalProperties": false
+    }
+   },
+   "required": [
+    "mode",
+    "shown",
+    "revealedBy"
+   ],
+   "additionalProperties": false
+  },
+  "equipment": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "editorEnabled": {
+     "type": "boolean"
+    },
+    "editorWhere": {
+     "type": "string",
+     "minLength": 1
+    },
+    "fixedAppearance": {
+     "type": "boolean"
+    },
+    "requirementsPolicy": {
+     "enum": [
+      "none",
+      "legacy"
+     ]
+    },
+    "upgradeBonuses": {
+     "type": "object",
+     "properties": {
+      "weaponARPerTier": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 1000000
+      },
+      "armorDRPerTier": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 1000000
+      }
+     },
+     "required": [
+      "weaponARPerTier",
+      "armorDRPerTier"
+     ],
+     "additionalProperties": false
+    }
+   },
+   "required": [
+    "mode",
+    "editorEnabled",
+    "editorWhere",
+    "fixedAppearance",
+    "requirementsPolicy",
+    "upgradeBonuses"
+   ],
+   "additionalProperties": false
+  },
+  "formation": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "extraRow": {
+     "type": "object",
+     "properties": {
+      "enabled": {
+       "type": "boolean"
+      },
+      "sides": {
+       "type": "array",
+       "items": {
+        "enum": [
+         "enemy"
+        ]
+       },
+       "minItems": 1,
+       "maxItems": 1,
+       "uniqueItems": true
+      },
+      "capacityPerLane": {
+       "enum": [
+        1
+       ]
+      }
+     },
+     "required": [
+      "enabled",
+      "sides",
+      "capacityPerLane"
+     ],
+     "additionalProperties": false
+    }
+   },
+   "required": [
+    "mode",
+    "extraRow"
+   ],
+   "additionalProperties": false
+  },
+  "gear": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "pools": {
+     "enum": [
+      "split",
+      "merged"
+     ]
+    },
+    "rarities": {
+     "type": "array",
+     "minItems": 1,
+     "uniqueItems": true,
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "poolSizes": {
+     "type": "object",
+     "properties": {
+      "ratings": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object",
+        "properties": {
+         "min": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+         },
+         "max": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+         }
+        },
+        "required": [
+         "min",
+         "max"
+        ],
+        "additionalProperties": false
+       }
+      },
+      "bonus": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object",
+        "properties": {
+         "min": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+         },
+         "max": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+         }
+        },
+        "required": [
+         "min",
+         "max"
+        ],
+        "additionalProperties": false
+       }
+      },
+      "merged": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object",
+        "properties": {
+         "min": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+         },
+         "max": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+         }
+        },
+        "required": [
+         "min",
+         "max"
+        ],
+        "additionalProperties": false
+       }
+      }
+     },
+     "required": [
+      "ratings",
+      "bonus",
+      "merged"
+     ],
+     "additionalProperties": false
+    },
+    "mergedShare": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "object",
+      "properties": {
+       "ratings": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+       },
+       "bonus": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+       }
+      },
+      "required": [
+       "ratings",
+       "bonus"
+      ],
+      "additionalProperties": false
+     },
+     "required": [
+      "default"
+     ]
+    },
+    "fillTo": {
+     "enum": [
+      "max",
+      "min",
+      "none"
+     ]
+    },
+    "maxAttributes": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 5
+    },
+    "pointValues": {
+     "type": "object",
+     "properties": {
+      "ar": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "dr": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "poise": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "strength": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "dexterity": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "constitution": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "wisdom": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "intelligence": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "hp": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "mp": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "sp": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "ward": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "evasion": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      },
+      "precision": {
+       "type": "number",
+       "minimum": 0,
+       "maximum": 100
+      }
+     },
+     "required": [
+      "ar",
+      "dr",
+      "poise",
+      "strength",
+      "dexterity",
+      "constitution",
+      "wisdom",
+      "intelligence"
+     ],
+     "additionalProperties": false
+    },
+    "tags": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "object",
+      "properties": {
+       "group": {
+        "enum": [
+         "type",
+         "effect",
+         "penalty"
+        ]
+       },
+       "cost": {
+        "type": "integer",
+        "minimum": -5,
+        "maximum": 5
+       },
+       "modifier": {
+        "type": "string",
+        "minLength": 1
+       },
+       "amount": {
+        "type": "number",
+        "minimum": -100,
+        "maximum": 100
+       },
+       "priority": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 1000
+       },
+       "weights": {
+        "type": "object",
+        "properties": {
+         "ratings": {
+          "type": "object",
+          "properties": {
+           "ar": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "dr": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "poise": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "hp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "mp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "sp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "ward": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "evasion": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "precision": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           }
+          },
+          "additionalProperties": false
+         },
+         "bonus": {
+          "type": "object",
+          "properties": {
+           "strength": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "dexterity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "constitution": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "wisdom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "intelligence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           }
+          },
+          "additionalProperties": false
+         }
+        },
+        "required": [],
+        "additionalProperties": false
+       }
+      },
+      "required": [
+       "group",
+       "cost",
+       "priority",
+       "weights"
+      ],
+      "additionalProperties": false
+     }
+    },
+    "weights": {
+     "type": "object",
+     "properties": {
+      "kinds": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object",
+        "properties": {
+         "ratings": {
+          "type": "object",
+          "properties": {
+           "ar": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "dr": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "poise": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "hp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "mp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "sp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "ward": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "evasion": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "precision": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           }
+          },
+          "additionalProperties": false
+         },
+         "bonus": {
+          "type": "object",
+          "properties": {
+           "strength": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "dexterity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "constitution": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "wisdom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "intelligence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           }
+          },
+          "additionalProperties": false
+         }
+        },
+        "required": [],
+        "additionalProperties": false
+       }
+      },
+      "slots": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "object",
+        "properties": {
+         "ratings": {
+          "type": "object",
+          "properties": {
+           "ar": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "dr": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "poise": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "hp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "mp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "sp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "ward": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "evasion": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "precision": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           }
+          },
+          "additionalProperties": false
+         },
+         "bonus": {
+          "type": "object",
+          "properties": {
+           "strength": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "dexterity": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "constitution": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "wisdom": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           },
+           "intelligence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+           }
+          },
+          "additionalProperties": false
+         }
+        },
+        "required": [],
+        "additionalProperties": false
+       }
+      },
+      "global": {
+       "type": "object",
+       "properties": {
+        "ratings": {
+         "type": "object",
+         "properties": {
+          "ar": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "dr": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "poise": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "hp": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "mp": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "sp": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "ward": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "evasion": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "precision": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          }
+         },
+         "additionalProperties": false
+        },
+        "bonus": {
+         "type": "object",
+         "properties": {
+          "strength": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "dexterity": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "constitution": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "wisdom": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          },
+          "intelligence": {
+           "type": "number",
+           "minimum": 0,
+           "maximum": 100
+          }
+         },
+         "additionalProperties": false
+        }
+       },
+       "required": [],
+       "additionalProperties": false
+      }
+     },
+     "required": [
+      "kinds",
+      "slots",
+      "global"
+     ],
+     "additionalProperties": false
+    },
+    "armorBudget": {
+     "type": "object",
+     "properties": {
+      "baseline": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 99
+      },
+      "perRank": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 99
+      },
+      "perRankStat": {
+       "type": "string",
+       "enum": [
+        "dr"
+       ]
+      },
+      "rarityBonus": {
+       "type": "object",
+       "additionalProperties": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 99
+       }
+      }
+     },
+     "required": [
+      "baseline"
+     ],
+     "additionalProperties": false
+    }
+   },
+   "required": [
+    "mode",
+    "pools",
+    "rarities",
+    "poolSizes",
+    "mergedShare",
+    "fillTo",
+    "maxAttributes",
+    "pointValues",
+    "tags",
+    "weights"
+   ],
+   "additionalProperties": false
+  },
+  "heal-rules": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "match": {
+     "enum": [
+      "mostSpecific",
+      "first"
+     ]
+    },
+    "authoredCostWins": {
+     "type": "boolean"
+    },
+    "shapes": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "object",
+      "properties": {
+       "id": {
+        "type": "string",
+        "minLength": 1
+       },
+       "tags": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+         "type": "string",
+         "minLength": 1
+        }
+       },
+       "cost": {
+        "type": "object",
+        "properties": {
+         "sp": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+         },
+         "mp": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 99
+         }
+        },
+        "required": [
+         "sp",
+         "mp"
+        ],
+        "additionalProperties": false
+       },
+       "amount": {
+        "type": "object",
+        "properties": {
+         "percentMaxHp": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+         }
+        },
+        "required": [
+         "percentMaxHp"
+        ],
+        "additionalProperties": false
+       },
+       "exhaust": {
+        "type": "boolean"
+       }
+      },
+      "required": [
+       "id",
+       "tags",
+       "cost",
+       "amount",
+       "exhaust"
+      ],
+      "additionalProperties": false
+     }
+    }
+   },
+   "required": [
+    "mode",
+    "match",
+    "authoredCostWins",
+    "shapes"
+   ],
+   "additionalProperties": false
+  },
+  "intent": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "visible": {
+     "type": "boolean"
+    },
+    "reads": {
+     "enum": [
+      "rolled",
+      "exact"
+     ]
+    }
+   },
+   "required": [
+    "mode",
+    "visible",
+    "reads"
+   ],
+   "additionalProperties": false
+  },
+  "progression": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "characterLevels": {
+     "type": "boolean"
+    },
+    "classUnlocks": {
+     "type": "boolean"
+    },
+    "attributePointsPerLevel": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "entitlementPolicy": {
+     "enum": [
+      "authored"
+     ]
+    },
+    "classXpMultiplier": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 10
+    },
+    "weaponXpMultiplier": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 10
+    }
+   },
+   "required": [
+    "mode",
+    "characterLevels",
+    "classUnlocks",
+    "attributePointsPerLevel"
+   ],
+   "additionalProperties": false
+  },
+  "reactions": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "chainLimit": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    }
+   },
+   "required": [
+    "mode",
+    "chainLimit"
+   ],
+   "additionalProperties": false
+  },
+  "resources": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "include": {
+     "type": "array",
+     "uniqueItems": true,
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "costPolicy": {
+     "enum": [
+      "authoredVariants"
+     ]
+    },
+    "recovery": {
+     "enum": [
+      "turnStart"
+     ]
+    },
+    "chargeFlaskCapacityPerPickup": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000,
+     "description": "Capacity granted by collecting an HP/MP charge flask. Absent or zero preserves inventory-only acquisition."
+    }
+   },
+   "required": [
+    "mode",
+    "include",
+    "costPolicy",
+    "recovery"
+   ],
+   "additionalProperties": false
+  },
+  "rest": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "servicesPerVisit": {
+     "enum": [
+      1,
+      "all"
+     ],
+     "description": "1: exactly one listed service closes the visit. \"all\": every listed service is usable once in the same visit and none closes another."
+    },
+    "services": {
+     "type": "array",
+     "uniqueItems": true,
+     "items": {
+      "enum": [
+       "strategize",
+       "smith",
+       "levelUp"
+      ]
+     },
+     "minItems": 1
+    },
+    "allowEmptyStrategize": {
+     "enum": [
+      true
+     ]
+    },
+    "recovery": {
+     "type": "object",
+     "properties": {
+      "hp": {
+       "enum": [
+        "full"
+       ]
+      },
+      "sp": {
+       "enum": [
+        "full"
+       ]
+      },
+      "mp": {
+       "enum": [
+        "full"
+       ]
+      },
+      "healingFlasks": {
+       "enum": [
+        "full"
+       ]
+      },
+      "mpFlasks": {
+       "enum": [
+        "full"
+       ]
+      }
+     },
+     "required": [
+      "hp",
+      "sp",
+      "mp",
+      "healingFlasks",
+      "mpFlasks"
+     ],
+     "additionalProperties": false
+    },
+    "smith": {
+     "type": "object",
+     "properties": {
+      "free": {
+       "type": "boolean"
+      },
+      "tiersPerService": {
+       "type": "integer",
+       "enum": [
+        1
+       ]
+      }
+     },
+     "required": [
+      "free",
+      "tiersPerService"
+     ],
+     "additionalProperties": false
+    }
+   },
+   "required": [
+    "mode",
+    "servicesPerVisit",
+    "services",
+    "recovery",
+    "smith"
+   ],
+   "additionalProperties": false
+  },
+  "reward-ranks": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "minRank": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 10
+    },
+    "lowerRankChance": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1
+    },
+    "rankOfRarity": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+     }
+    },
+    "skipOwnedBasics": {
+     "type": "boolean"
+    },
+    "stanceCoverage": {
+     "type": "object",
+     "properties": {
+      "enabled": {
+       "type": "boolean"
+      },
+      "reservedSlots": {
+       "type": "integer",
+       "minimum": 0,
+       "maximum": 10
+      },
+      "preferTiers": {
+       "type": "array",
+       "items": {
+        "enum": [
+         "basic",
+         "cantrip"
+        ]
+       }
+      },
+      "excludePools": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      }
+     },
+     "required": [
+      "enabled",
+      "reservedSlots",
+      "preferTiers",
+      "excludePools"
+     ],
+     "additionalProperties": false
+    }
+   },
+   "required": [
+    "mode",
+    "minRank",
+    "lowerRankChance",
+    "rankOfRarity",
+    "skipOwnedBasics",
+    "stanceCoverage"
+   ],
+   "additionalProperties": false
+  },
+  "rewards": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "offerCount": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "takeCount": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "rewardGroups": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "properties": {
+       "id": {
+        "type": "string",
+        "minLength": 1
+       },
+       "weight": {
+        "type": "number",
+        "minimum": 0
+       },
+       "categories": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {
+         "enum": [
+          "combatCards",
+          "weaponArts",
+          "weapons",
+          "armor",
+          "relics",
+          "potions"
+         ]
+        }
+       }
+      },
+      "required": [
+       "id",
+       "weight",
+       "categories"
+      ],
+      "additionalProperties": false
+     }
+    }
+   },
+   "required": [
+    "mode",
+    "offerCount",
+    "takeCount"
+   ],
+   "additionalProperties": false
+  },
+  "routes": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "acts": {
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 3
+    },
+    "prebossNodes": {
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 100,
+     "description": "Number of pre-boss depths visited on a path; branching alternatives do not add levels."
+    },
+    "restsPerAct": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 100,
+     "description": "Number of mandatory rest depths; each rest depth has one visible node shared by every path."
+    },
+    "hideUnknownNodes": {
+     "type": "boolean"
+    },
+    "restFloors": {
+     "type": "array",
+     "uniqueItems": true,
+     "items": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000
+     }
+    },
+    "branchColumns": {
+     "type": "integer",
+     "minimum": 2,
+     "maximum": 5,
+     "description": "Number of lanes at non-rest depths. Rest and boss nodes merge the lanes."
+    },
+    "minimumThreatFloor": {
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 101,
+     "description": "Earliest depth that may contain an elite or the final boss."
+    },
+    "mapMode": {
+     "enum": [
+      "fog",
+      "path"
+     ],
+     "description": "Map visibility policy for configured routes; fog reveals the trail and next choices."
+    },
+    "firstFloor": {
+     "enum": [
+      "fight",
+      "event",
+      "treasure",
+      "shop",
+      "elite",
+      null
+     ],
+     "description": "Node type every lane on depth 1 is forced to; null leaves depth 1 to the ordinary draw. It must be one of the route's alternatives, and depth 1 cannot also be a rest depth."
+    },
+    "shopShare": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1,
+     "description": "Share of randomly typed nodes (not rest, elite, boss or the forced first floor) that are shops; the rest keep the even event/fight/treasure split. Absent keeps the even draw over every alternative."
+    },
+    "requirePrebossRest": {
+     "type": "boolean",
+     "description": "Require the last preboss depth to be a mandatory rest on every route."
+    }
+   },
+   "required": [
+    "mode",
+    "acts",
+    "prebossNodes",
+    "restsPerAct",
+    "hideUnknownNodes",
+    "restFloors",
+    "branchColumns",
+    "minimumThreatFloor",
+    "mapMode",
+    "firstFloor"
+   ],
+   "additionalProperties": false
+  },
+  "shops": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "options": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "price": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "itemsPerCategory": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000,
+     "description": "Distinct eligible items on each merchandise shelf; depleted catalogs offer fewer."
+    }
+   },
+   "required": [
+    "mode",
+    "options",
+    "price"
+   ],
+   "additionalProperties": false
+  },
+  "stagger": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "spLoss": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 99
+    },
+    "status": {
+     "type": "string",
+     "minLength": 1
+    },
+    "stacks": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 99
+    },
+    "damageTakenMultiplier": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 10
+    }
+   },
+   "required": [
+    "mode",
+    "spLoss",
+    "status",
+    "stacks",
+    "damageTakenMultiplier"
+   ],
+   "additionalProperties": false
+  },
+  "stances": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "include": {
+     "type": "array",
+     "uniqueItems": true,
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "matchups": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     }
+    },
+    "advantageMultiplier": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 100
+    },
+    "evadeFailureMultiplier": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "accuracyPolicy": {
+     "enum": [
+      "chance"
+     ]
+    },
+    "staggerPolicy": {
+     "type": "string",
+     "minLength": 1
+    },
+    "accuracyBase": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1
+    },
+    "accuracyWeight": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1
+    },
+    "minimumHitChance": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1
+    },
+    "maximumHitChance": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1
+    },
+    "accuracyStat": {
+     "enum": [
+      "ar",
+      "dr",
+      "accuracy",
+      "evasion"
+     ]
+    },
+    "evasionStat": {
+     "enum": [
+      "ar",
+      "dr",
+      "accuracy",
+      "evasion"
+     ]
+    },
+    "staggerOnAdvantage": {
+     "type": "boolean"
+    },
+    "staggerManeuvers": {
+     "type": "array",
+     "uniqueItems": true,
+     "items": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "staggerLimitPerTargetPerRound": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "defenseMitigation": {
+     "type": "number",
+     "minimum": 0,
+     "maximum": 1
+    }
+   },
+   "required": [
+    "mode",
+    "include",
+    "matchups",
+    "advantageMultiplier",
+    "evadeFailureMultiplier",
+    "accuracyPolicy",
+    "staggerPolicy",
+    "accuracyBase",
+    "accuracyWeight",
+    "minimumHitChance",
+    "maximumHitChance",
+    "accuracyStat",
+    "evasionStat",
+    "staggerOnAdvantage",
+    "staggerManeuvers",
+    "staggerLimitPerTargetPerRound",
+    "defenseMitigation"
+   ],
+   "additionalProperties": false
+  },
+  "stats": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "attributePointTotal": {
+     "type": "integer",
+     "minimum": 0,
+     "maximum": 1000000
+    },
+    "secondaryPolicy": {
+     "enum": [
+      "legacyAdapter"
+     ]
+    }
+   },
+   "required": [
+    "mode",
+    "attributePointTotal",
+    "secondaryPolicy"
+   ],
+   "additionalProperties": false
+  },
+  "statuses": {
+   "type": "object",
+   "properties": {
+    "mode": {
+     "enum": [
+      "legacy",
+      "configured"
+     ]
+    },
+    "buffs": {
+     "type": "boolean"
+    }
+   },
+   "required": [
+    "mode",
+    "buffs"
+   ],
+   "additionalProperties": false
+  }
+ },
+ "provenance": {
+  "animation": "bundle",
+  "art": "bundle",
+  "attribute-variance": "bundle",
+  "card-pools": "bundle",
+  "cards": "bundle",
+  "characters": "bundle",
+  "class-selection": "bundle",
+  "deck-training": "bundle",
+  "defenses": "bundle",
+  "effects": "bundle",
+  "enemies": "bundle",
+  "enemy-relics": "bundle",
+  "enemy-visibility": "bundle",
+  "equipment": "bundle",
+  "formation": "bundle",
+  "gear": "bundle",
+  "heal-rules": "bundle",
+  "intent": "bundle",
+  "progression": "bundle",
+  "reactions": "bundle",
+  "resources": "bundle",
+  "rest": "bundle",
+  "reward-ranks": "bundle",
+  "rewards": "bundle",
+  "routes": "bundle",
+  "shops": "bundle",
+  "stagger": "bundle",
+  "stances": "bundle",
+  "stats": "bundle",
+  "statuses": "bundle"
+ },
+ "instances": {
+  "damage-types": {
+   "ids": [
+    "physical",
+    "magic"
+   ],
+   "unsupported": [
+    "physical",
+    "magic"
+   ]
+  },
+  "defenses": {
+   "ids": [
+    "block",
+    "poise",
+    "ward",
+    "barrier"
+   ],
+   "unsupported": [
+    "ward",
+    "barrier"
+   ]
+  },
+  "enemies": {
+   "ids": [
+    "minion",
+    "elite",
+    "boss"
+   ],
+   "unsupported": []
+  },
+  "resources": {
+   "ids": [
+    "hp",
+    "sp",
+    "mp",
+    "actions"
+   ],
+   "unsupported": [
+    "actions"
+   ]
+  },
+  "stances": {
+   "ids": [
+    "attack",
+    "smash",
+    "defend",
+    "counter",
+    "sweep",
+    "prepared",
+    "evade"
+   ],
+   "unsupported": []
+  }
+ },
+ "lock": {
+  "formatVersion": 1,
+  "core": "ashen.core@2.0.0",
+  "artifacts": [
+   {
+    "path": "engine/contracts/game-profile.json",
+    "id": "ashen.runtime",
+    "version": "1.0.0",
+    "hash": "sha256:d3ef924c3fcbba008e71ac78ffba1aed29503699de7938944f54ba0baada081c"
+   },
+   {
+    "path": "engine/foundation/foundation.json",
+    "id": "ashen.runtime",
+    "version": "1.0.0",
+    "hash": "sha256:51418d8e770d82e93ca197b2dd509df13e3e43f7978d47d849e1c16210b7a74c"
+   },
+   {
+    "path": "engine/kernel/gameConfig.js",
+    "id": "ashen.runtime",
+    "version": "1.0.0",
+    "hash": "sha256:4f318917597b12dc58ac3fe20961c2c488fec5cac184f3958563c9fe27be4029"
+   },
+   {
+    "path": "engine/kernel/kernel.json",
+    "id": "ashen.runtime",
+    "version": "1.0.0",
+    "hash": "sha256:e13532ae886a182a47c35d32384c1b42a5849c2ad537a30fb11aa7525d639847"
+   },
+   {
+    "id": "ashen.mechanics-runtime",
+    "version": "1.0.0",
+    "path": "engine/mechanics/index.json + registered mechanic manifest/model/interface/service JSON + content/source/fixCoreMechanics.json + src/model/{mechanicsKernel,formulas,fixCoreMechanics}.js",
+    "hash": "sha256:56525f583c0238c214d2b4457c41d8721faa1e39796b9e6269d9c11dd0d5a5d0"
+   },
+   {
+    "path": "engine/modules/animation/defaults.json",
+    "id": "animation",
+    "version": "1.0.0",
+    "hash": "sha256:f5a953eeaa66a221404d7928b204e98cbc8baa14198445a445e1c20f32ba26f6"
+   },
+   {
+    "path": "engine/modules/animation/module.json",
+    "id": "animation",
+    "version": "1.0.0",
+    "hash": "sha256:6bfd1bcc1e1cd2b0355a2134a428ff7f3d947cd3b8867a9f5f9f4bb0dd097999"
+   },
+   {
+    "path": "engine/modules/animation/settings.schema.json",
+    "id": "animation",
+    "version": "1.0.0",
+    "hash": "sha256:fe539a26c12f977e4c2c3c0ef4bd31e1dae836731ba1b14023d3b491be98e693"
+   },
+   {
+    "path": "engine/modules/art/defaults.json",
+    "id": "art",
+    "version": "1.0.0",
+    "hash": "sha256:efa1abca8f577c0da0c3a10ccc03688da7e91c0788be1d29bec1b51d798790d5"
+   },
+   {
+    "path": "engine/modules/art/module.json",
+    "id": "art",
+    "version": "1.0.0",
+    "hash": "sha256:e7661c78233026a7c55e5fc46b208518af9036cb9b065ab4e7e3737f24f36a69"
+   },
+   {
+    "path": "engine/modules/art/settings.schema.json",
+    "id": "art",
+    "version": "1.0.0",
+    "hash": "sha256:f2a7df5a1fb14210092f0c3a7dbe588d38ac917de87b613dc822445fb61e232d"
+   },
+   {
+    "path": "engine/modules/attribute-variance/defaults.json",
+    "id": "attribute-variance",
+    "version": "1.0.0",
+    "hash": "sha256:7e692dc6d0b91e006b50c7b5ab6ba479bbe65c55c0b43e83631b1c1e84240f6e"
+   },
+   {
+    "path": "engine/modules/attribute-variance/module.json",
+    "id": "attribute-variance",
+    "version": "1.0.0",
+    "hash": "sha256:799c43f76e4039402dd5a7c5731d3479a5a6a9688dd27f7c98c57cb523ea038f"
+   },
+   {
+    "path": "engine/modules/attribute-variance/settings.schema.json",
+    "id": "attribute-variance",
+    "version": "1.0.0",
+    "hash": "sha256:a5dc40287aedb074dfd9acbbd04f799af48c96696536131282af3df98f3a2845"
+   },
+   {
+    "path": "engine/modules/card-pools/defaults.json",
+    "id": "card-pools",
+    "version": "1.0.0",
+    "hash": "sha256:e85550e29fecbe721560bbd83f94161c47a881202373447b33da6916929a018f"
+   },
+   {
+    "path": "engine/modules/card-pools/module.json",
+    "id": "card-pools",
+    "version": "1.0.0",
+    "hash": "sha256:0f3e1c83e40cd1519700c55d148f70ed9c30892fb1e91e90f6aba114b15fca7a"
+   },
+   {
+    "path": "engine/modules/card-pools/settings.schema.json",
+    "id": "card-pools",
+    "version": "1.0.0",
+    "hash": "sha256:d4e8df90fc7057568ad90a92b550ed06ecf15e07c7156f1b62782d5dd87f9ab2"
+   },
+   {
+    "path": "engine/modules/cards/defaults.json",
+    "id": "cards",
+    "version": "1.0.0",
+    "hash": "sha256:d5ad68914a7e794d3621edf3e7bf77bf2f48857c5f8152f21e92c1e5b61bf184"
+   },
+   {
+    "path": "engine/modules/cards/module.json",
+    "id": "cards",
+    "version": "1.0.0",
+    "hash": "sha256:710a8bdf00cd088a952dab9b647e4c4cb76e38d66f9100713ddfdc412eee9d74"
+   },
+   {
+    "path": "engine/modules/cards/settings.schema.json",
+    "id": "cards",
+    "version": "1.0.0",
+    "hash": "sha256:7523aa70231077dc6da94b814461c17e81d90d87e43098c7b6965c924fc8609d"
+   },
+   {
+    "path": "engine/modules/characters/defaults.json",
+    "id": "characters",
+    "version": "1.0.0",
+    "hash": "sha256:d902f3986fcc864651785d18087029c4d668a5c315ad302b0f8802d46624a87f"
+   },
+   {
+    "path": "engine/modules/characters/module.json",
+    "id": "characters",
+    "version": "1.0.0",
+    "hash": "sha256:4dbbabc9cd349464138a943b4e586727c39b48d3442d715385d19516276761cd"
+   },
+   {
+    "path": "engine/modules/characters/settings.schema.json",
+    "id": "characters",
+    "version": "1.0.0",
+    "hash": "sha256:da42d5faa9a9221e38bcd75fd91f791e790fa254fe615a8ac147c365cd85e2f2"
+   },
+   {
+    "path": "engine/modules/class-selection/defaults.json",
+    "id": "class-selection",
+    "version": "1.0.0",
+    "hash": "sha256:8b7195f7bf56e604c1e2d55d1eb6adb3eb1864a3cfe12256e07ebe2f3b3bfde3"
+   },
+   {
+    "path": "engine/modules/class-selection/module.json",
+    "id": "class-selection",
+    "version": "1.0.0",
+    "hash": "sha256:0f64c4f548aad89fcda29c05dffc6ceaa806303f0e2a5973dca6e6f80f594c3c"
+   },
+   {
+    "path": "engine/modules/class-selection/settings.schema.json",
+    "id": "class-selection",
+    "version": "1.0.0",
+    "hash": "sha256:45a0504df5d4eb6bf348964e36945309b127f85d56cf78d62e54f1e6edce92b0"
+   },
+   {
+    "path": "engine/modules/deck-training/defaults.json",
+    "id": "deck-training",
+    "version": "1.0.0",
+    "hash": "sha256:f495e1829b140ccd2233dec84102928a473ceeb3d458208e4412bd3a9496629f"
+   },
+   {
+    "path": "engine/modules/deck-training/module.json",
+    "id": "deck-training",
+    "version": "1.0.0",
+    "hash": "sha256:4688931f5dee21a793a5b4c3321168039775cfcad75f89be0d6619f76a0f0922"
+   },
+   {
+    "path": "engine/modules/deck-training/settings.schema.json",
+    "id": "deck-training",
+    "version": "1.0.0",
+    "hash": "sha256:5c17fb79c81b61d6614d3d923074e78b93ddd0e8a94cf0d6cedbaebb981be06c"
+   },
+   {
+    "path": "engine/modules/defenses/defaults.json",
+    "id": "defenses",
+    "version": "1.0.0",
+    "hash": "sha256:c983cd65cb424211f907016e81fce0a17b73800e2d0197ab0708623368eefb02"
+   },
+   {
+    "path": "engine/modules/defenses/module.json",
+    "id": "defenses",
+    "version": "1.0.0",
+    "hash": "sha256:d0425f59be5d8ff7c1742f47839303390aa1b8af79ccd20ef30c6d730a9923df"
+   },
+   {
+    "path": "engine/modules/defenses/settings.schema.json",
+    "id": "defenses",
+    "version": "1.0.0",
+    "hash": "sha256:edd1651a32bdb25d7a06cd440c8f0be5a1f7a0e2baa537cf9c5020f145610bfe"
+   },
+   {
+    "path": "engine/modules/effects/defaults.json",
+    "id": "effects",
+    "version": "1.0.0",
+    "hash": "sha256:6781d6b6dd947cfb37fb182035f6e00513a4f65b85d4054abfeb4b9100c83010"
+   },
+   {
+    "path": "engine/modules/effects/module.json",
+    "id": "effects",
+    "version": "1.0.0",
+    "hash": "sha256:fb388ecb86677ab12db290b14e4f070e0c14d18a03b3bb27791a5933dc9941ed"
+   },
+   {
+    "path": "engine/modules/effects/settings.schema.json",
+    "id": "effects",
+    "version": "1.0.0",
+    "hash": "sha256:9163eaba0f00013b723a4987d4944940a9182e2a52095aa801842b7075d0808b"
+   },
+   {
+    "path": "engine/modules/enemies/defaults.json",
+    "id": "enemies",
+    "version": "1.0.0",
+    "hash": "sha256:e3b2b049f509a22ea2ba9d996e329dc4256f525a0c3cd753332ee301733d3ad9"
+   },
+   {
+    "path": "engine/modules/enemies/module.json",
+    "id": "enemies",
+    "version": "1.0.0",
+    "hash": "sha256:75c630a22e3cb883e429f621984063870fec4c8f998f440ee3b06a2d21ddc954"
+   },
+   {
+    "path": "engine/modules/enemies/settings.schema.json",
+    "id": "enemies",
+    "version": "1.0.0",
+    "hash": "sha256:34fefaade15673baa80535b21fee8fa7d54d6cae7ba3cdfe965fe56e25c08aa3"
+   },
+   {
+    "path": "engine/modules/enemy-relics/defaults.json",
+    "id": "enemy-relics",
+    "version": "1.0.0",
+    "hash": "sha256:df4439e71646c5b7468b333476edb60af4b556d68eba075b16c82dbcd504c397"
+   },
+   {
+    "path": "engine/modules/enemy-relics/module.json",
+    "id": "enemy-relics",
+    "version": "1.0.0",
+    "hash": "sha256:54a4774c4f94d56ecc7906ff7c17475ba92687000ad773442f2a34981802f019"
+   },
+   {
+    "path": "engine/modules/enemy-relics/settings.schema.json",
+    "id": "enemy-relics",
+    "version": "1.0.0",
+    "hash": "sha256:5887810e29a1c4b750053b7e1063ae08f8c584659ff7e37ecc8cf8104d7918a0"
+   },
+   {
+    "path": "engine/modules/enemy-visibility/defaults.json",
+    "id": "enemy-visibility",
+    "version": "1.0.0",
+    "hash": "sha256:081a77c34dd65f338ee5e59573692de6f4342ea44d2031ed1c6b58a6616c1692"
+   },
+   {
+    "path": "engine/modules/enemy-visibility/module.json",
+    "id": "enemy-visibility",
+    "version": "1.0.0",
+    "hash": "sha256:d7c01eaebb117b5b228e7c4b80028028e7c48cba81153ecd326177ec23828960"
+   },
+   {
+    "path": "engine/modules/enemy-visibility/settings.schema.json",
+    "id": "enemy-visibility",
+    "version": "1.0.0",
+    "hash": "sha256:ac6ec1272f3d6300626c2c2bc614bd12bfc23f399ea57bc1bc073abbc35d7b6a"
+   },
+   {
+    "path": "engine/modules/equipment/defaults.json",
+    "id": "equipment",
+    "version": "1.0.0",
+    "hash": "sha256:dc63c25d206a0942e5d6513e8f0277864bef5c447f5d95a0c43380fe76d92b24"
+   },
+   {
+    "path": "engine/modules/equipment/module.json",
+    "id": "equipment",
+    "version": "1.0.0",
+    "hash": "sha256:9bd9e1269633f884d5fa2db8f3f78493164c47066c89c2fb650792d5930f0e8f"
+   },
+   {
+    "path": "engine/modules/equipment/settings.schema.json",
+    "id": "equipment",
+    "version": "1.0.0",
+    "hash": "sha256:636d8a109bac8a492fc1d26109713251ed0ac938645dbd0305e87cf5c4ab2aaf"
+   },
+   {
+    "path": "engine/modules/formation/defaults.json",
+    "id": "formation",
+    "version": "1.0.0",
+    "hash": "sha256:5ee19020e23b38d812611dc981ef9931fa71016ec6a93c38a178b97fea26acd2"
+   },
+   {
+    "path": "engine/modules/formation/module.json",
+    "id": "formation",
+    "version": "1.0.0",
+    "hash": "sha256:291f963d24bf4902637dc8bb9cfbb63f6042929595df2aec20f5e2e17f88b2e3"
+   },
+   {
+    "path": "engine/modules/formation/settings.schema.json",
+    "id": "formation",
+    "version": "1.0.0",
+    "hash": "sha256:7604d8c6c2694a06b50aba59a963f4da528d3c39d6547f412f12f7c249f5b869"
+   },
+   {
+    "path": "engine/modules/gear/defaults.json",
+    "id": "gear",
+    "version": "1.0.0",
+    "hash": "sha256:b91c8e74b5e3c9747727e9b1bc1622f4f55409849068f6bc1710df54a41ebf6d"
+   },
+   {
+    "path": "engine/modules/gear/module.json",
+    "id": "gear",
+    "version": "1.0.0",
+    "hash": "sha256:1dd5905be7f4c47e6b87ec5c1d5f36c36af7bcafaa8a505d886428ebbefcdc8c"
+   },
+   {
+    "path": "engine/modules/gear/settings.schema.json",
+    "id": "gear",
+    "version": "1.0.0",
+    "hash": "sha256:45ae31b6829bd40476966c0ea66caf7d9aea76df0e605b8f5290f00e6f74fbfe"
+   },
+   {
+    "path": "engine/modules/heal-rules/defaults.json",
+    "id": "heal-rules",
+    "version": "1.0.0",
+    "hash": "sha256:b0e67562237082c8dac12cc401140877fe94747b5d30bc056a4d29b80f5b5056"
+   },
+   {
+    "path": "engine/modules/heal-rules/module.json",
+    "id": "heal-rules",
+    "version": "1.0.0",
+    "hash": "sha256:96ba05ad114ba32c86103d5080318e8438a9575fd2b5bd7f3263c0eec0e834b5"
+   },
+   {
+    "path": "engine/modules/heal-rules/settings.schema.json",
+    "id": "heal-rules",
+    "version": "1.0.0",
+    "hash": "sha256:857be96cfa609d570d1593cf478d64955b74467592a0a02737a39d444f3f97fb"
+   },
+   {
+    "path": "engine/modules/intent/defaults.json",
+    "id": "intent",
+    "version": "1.0.0",
+    "hash": "sha256:7c25a3f444232d2a331bf7acadb57740d153bf99c8bb9ed747353c8713c6e8d2"
+   },
+   {
+    "path": "engine/modules/intent/module.json",
+    "id": "intent",
+    "version": "1.0.0",
+    "hash": "sha256:ceef1dce723111b1760c97daea509136ea5203819c1194c3b0b6f3ff7b383a10"
+   },
+   {
+    "path": "engine/modules/intent/settings.schema.json",
+    "id": "intent",
+    "version": "1.0.0",
+    "hash": "sha256:5545ab41a00a04239e82576de2f98ac830fa939cf3d296cf3f03c5d48c3e9b29"
+   },
+   {
+    "path": "engine/modules/progression/defaults.json",
+    "id": "progression",
+    "version": "1.0.0",
+    "hash": "sha256:2a64ef7652726885ea0e1f1455c649133e5b384576129af3e08c8c908aafc8d1"
+   },
+   {
+    "path": "engine/modules/progression/module.json",
+    "id": "progression",
+    "version": "1.0.0",
+    "hash": "sha256:a446aa0e3283a7840d941aedec5552024c52cc44f54db9242cdde41953d013cd"
+   },
+   {
+    "path": "engine/modules/progression/settings.schema.json",
+    "id": "progression",
+    "version": "1.0.0",
+    "hash": "sha256:648f6a4fec5509a694c05b21595614daae550361e610e2f3d4f0e34aec33ac90"
+   },
+   {
+    "path": "engine/modules/reactions/defaults.json",
+    "id": "reactions",
+    "version": "1.0.0",
+    "hash": "sha256:f9bfdc69d7eaa9f41a6a3265efe56a8f1b9ae56c94a265766b6826d51f7fadc8"
+   },
+   {
+    "path": "engine/modules/reactions/module.json",
+    "id": "reactions",
+    "version": "1.0.0",
+    "hash": "sha256:bb63109395b746af3b288c48ab6307747c0547ae769db459d2ea4ce2b43cbbf5"
+   },
+   {
+    "path": "engine/modules/reactions/settings.schema.json",
+    "id": "reactions",
+    "version": "1.0.0",
+    "hash": "sha256:63e00f28647fbec410451d980e1135df1f231f58fee4e978f51f2c4f905a5cc9"
+   },
+   {
+    "path": "engine/modules/resources/defaults.json",
+    "id": "resources",
+    "version": "1.0.0",
+    "hash": "sha256:7f7da4845b2e94c2fcb4754fec54afd5b382b6b48b729d6c094b69f449a686d9"
+   },
+   {
+    "path": "engine/modules/resources/module.json",
+    "id": "resources",
+    "version": "1.0.0",
+    "hash": "sha256:62a07b2b31a9803703d2f831a52a449d8d0d04fa7918cd5031ffcb5f66c29a5b"
+   },
+   {
+    "path": "engine/modules/resources/settings.schema.json",
+    "id": "resources",
+    "version": "1.0.0",
+    "hash": "sha256:bf1af4abcfb05f95fcab02f7e2f3308056e65bb9fbef914b89f0bf1cdf38fda9"
+   },
+   {
+    "path": "engine/modules/rest/defaults.json",
+    "id": "rest",
+    "version": "1.0.0",
+    "hash": "sha256:9899f46272b6f6cdf1b380648fd37fbbfa4a348609a8bed079b62df01279fed8"
+   },
+   {
+    "path": "engine/modules/rest/module.json",
+    "id": "rest",
+    "version": "1.0.0",
+    "hash": "sha256:a1d159efb65d77893efc36efa56c710463898ccdc68d7785d8b40297e472b8a8"
+   },
+   {
+    "path": "engine/modules/rest/settings.schema.json",
+    "id": "rest",
+    "version": "1.0.0",
+    "hash": "sha256:67fd624495b76bb9fead2d7d61061cc9de515cc9fed41339b791cffc5b6e6687"
+   },
+   {
+    "path": "engine/modules/reward-ranks/defaults.json",
+    "id": "reward-ranks",
+    "version": "1.0.0",
+    "hash": "sha256:05a5c2a6edf4251b9a750c561d063d92c7b442e59e19c4f1fcdf976fee00fe62"
+   },
+   {
+    "path": "engine/modules/reward-ranks/module.json",
+    "id": "reward-ranks",
+    "version": "1.0.0",
+    "hash": "sha256:60a7c6539a0f192ef1b3271bb4061d722f9825ed4331d71f6b23bf371bab5468"
+   },
+   {
+    "path": "engine/modules/reward-ranks/settings.schema.json",
+    "id": "reward-ranks",
+    "version": "1.0.0",
+    "hash": "sha256:9af719763a067a7bc0af7372e123e99fcdcb82cd3fdfe08f4f6663e37a376d5a"
+   },
+   {
+    "path": "engine/modules/rewards/defaults.json",
+    "id": "rewards",
+    "version": "1.0.0",
+    "hash": "sha256:687df3cea05d386ed935558c6693f31637bc2ac9871e02b5d9353688bcd224f1"
+   },
+   {
+    "path": "engine/modules/rewards/module.json",
+    "id": "rewards",
+    "version": "1.0.0",
+    "hash": "sha256:2b3179d32ebc9925727042caadbb3809bb31bb7b2e2a62036f47e2c9a57cab9f"
+   },
+   {
+    "path": "engine/modules/rewards/settings.schema.json",
+    "id": "rewards",
+    "version": "1.0.0",
+    "hash": "sha256:46dbf74707b76f235eea50b563e0c36b4315953740b422becf7312986b9ccd2d"
+   },
+   {
+    "path": "engine/modules/routes/defaults.json",
+    "id": "routes",
+    "version": "1.0.0",
+    "hash": "sha256:7fb93e70ada2481b9a071cd2713aa087e85213e174b889f40f8621bb6442217e"
+   },
+   {
+    "path": "engine/modules/routes/module.json",
+    "id": "routes",
+    "version": "1.0.0",
+    "hash": "sha256:8971537d7e74af44936b3d9a7b0c0062abb735985ed5ef5d0ac257e70893ce80"
+   },
+   {
+    "path": "engine/modules/routes/settings.schema.json",
+    "id": "routes",
+    "version": "1.0.0",
+    "hash": "sha256:2691bda0ca67e744f8798882eb6432e07615dee09d96c78fc53e8290bcf13608"
+   },
+   {
+    "path": "engine/modules/shops/defaults.json",
+    "id": "shops",
+    "version": "1.0.0",
+    "hash": "sha256:6b138e2472373c84b4074f668dba4dfab22d9ad5af894e60e067d43bea974e1b"
+   },
+   {
+    "path": "engine/modules/shops/module.json",
+    "id": "shops",
+    "version": "1.0.0",
+    "hash": "sha256:b488cde7a547b59ef0e127c51562f696cf60b27b7745ddae8d528bd0ce5e3624"
+   },
+   {
+    "path": "engine/modules/shops/settings.schema.json",
+    "id": "shops",
+    "version": "1.0.0",
+    "hash": "sha256:c90470cfd650dfbafe28c6d0188aa7370d122403ffb7bcfc87546c166bf7b70a"
+   },
+   {
+    "path": "engine/modules/stagger/defaults.json",
+    "id": "stagger",
+    "version": "1.0.0",
+    "hash": "sha256:10dc5d9f08dabd93f6fde9469d7f23df34f031c8b2405c56877a39e8208bb4f7"
+   },
+   {
+    "path": "engine/modules/stagger/module.json",
+    "id": "stagger",
+    "version": "1.0.0",
+    "hash": "sha256:bf2311362adc54a6e6902e834b00c2fa39db71ca819228e3585b6d447522a552"
+   },
+   {
+    "path": "engine/modules/stagger/settings.schema.json",
+    "id": "stagger",
+    "version": "1.0.0",
+    "hash": "sha256:7fa78b3c409cf5996eb143b0c941dc5a66abd0a20d414a3124cd35aab2b86be8"
+   },
+   {
+    "path": "engine/modules/stances/defaults.json",
+    "id": "stances",
+    "version": "1.0.0",
+    "hash": "sha256:745fb43a321ecd86ada9fa48ac34971a36a5a0c7c1b104036a97092d88eb821d"
+   },
+   {
+    "path": "engine/modules/stances/module.json",
+    "id": "stances",
+    "version": "1.0.0",
+    "hash": "sha256:976faaed95a3570160528b6f40ef9a423c0e4e069145b2e2db684c3f8a95181d"
+   },
+   {
+    "path": "engine/modules/stances/settings.schema.json",
+    "id": "stances",
+    "version": "1.0.0",
+    "hash": "sha256:eae01b4126f2d28063637164fc88ce88da6d7c0071a5ae542ae228006080f8c3"
+   },
+   {
+    "path": "engine/modules/stats/defaults.json",
+    "id": "stats",
+    "version": "1.0.0",
+    "hash": "sha256:4ada9e44833996477e007edfaf424faed64fb1db7e0787914132752dba13ba2e"
+   },
+   {
+    "path": "engine/modules/stats/module.json",
+    "id": "stats",
+    "version": "1.0.0",
+    "hash": "sha256:5f28c85e82a9cb6c2f503395e1805458d2aecc0e23d579dd4b4b31fa25b5b030"
+   },
+   {
+    "path": "engine/modules/stats/settings.schema.json",
+    "id": "stats",
+    "version": "1.0.0",
+    "hash": "sha256:01b38c7a9122893202de8baa8bc4d331868a2751c4cb2f30ae9349a0e7627fe2"
+   },
+   {
+    "path": "engine/modules/statuses/defaults.json",
+    "id": "statuses",
+    "version": "1.0.0",
+    "hash": "sha256:218c8f81c48c2dac4053a136c6eec7cce35a5eca40598b3ecb1208ff4d67df9e"
+   },
+   {
+    "path": "engine/modules/statuses/module.json",
+    "id": "statuses",
+    "version": "1.0.0",
+    "hash": "sha256:97c16e00fa7280437363f39bca0a6b9f060f8d60c2dfb69e7b14148d689aabc1"
+   },
+   {
+    "path": "engine/modules/statuses/settings.schema.json",
+    "id": "statuses",
+    "version": "1.0.0",
+    "hash": "sha256:0ceac248551b24da67db0ccac3f8442c47f7c242e6473ff099d51bfb4c333da5"
+   },
+   {
+    "id": "ashen.kernel-runtime",
+    "version": "1.0.0",
+    "path": "engine/{kernel,runtime}/** (no *.md) + engine/contracts/game-profile.json",
+    "hash": "sha256:08bf29c48c253c68adc1d9d444415e4fb80abe5fb72d26c4b8bf39618978a304"
+   },
+   {
+    "path": "games/ashenspire/bundles/core/bundle.json",
+    "id": "ashen.core",
+    "version": "2.0.0",
+    "hash": "sha256:7fac00cfd8d173dfb0b400f377a2d29219b8212176c6749bea896b55815e64ed"
+   },
+   {
+    "path": "games/ashenspire/packs/base-cards/cards.json",
+    "id": "ashen.base-cards",
+    "version": "1.0.0",
+    "hash": "sha256:08e0e831e5496aba9138780b7875ffa9f0fd30093f97c2a057fdfd779c094c13"
+   },
+   {
+    "path": "games/ashenspire/packs/base-cards/groups.json",
+    "id": "ashen.base-cards",
+    "version": "1.0.0",
+    "hash": "sha256:30624b09eacc0745d8ed062aede61187ac85b4c092e5810aec32b338b78a0015"
+   },
+   {
+    "path": "games/ashenspire/packs/base-cards/pack.json",
+    "id": "ashen.base-cards",
+    "version": "1.0.0",
+    "hash": "sha256:5b617c04bc9d4d1c823a3ecac96e437187bb1949aa5064a07ef3b2a4e11effc1"
+   },
+   {
+    "path": "games/ashenspire/packs/base-cards/resourceVariants.json",
+    "id": "ashen.base-cards",
+    "version": "1.0.0",
+    "hash": "sha256:38e1bb638c066917feb70934d18018c728abbf0e6327afb7a0c4257634a43aad"
+   },
+   {
+    "path": "games/ashenspire/packs/base-cards/sourceManifest.json",
+    "id": "ashen.base-cards",
+    "version": "1.0.0",
+    "hash": "sha256:9bdcc7435d6f2f09b261f48a268b6edefa24599a38265e5f66881b4e40208512"
+   },
+   {
+    "path": "games/ashenspire/packs/base-cards/statuses.json",
+    "id": "ashen.base-cards",
+    "version": "1.0.0",
+    "hash": "sha256:235eed116537989a79f92a26a94c8ddbf42174a94f5411b6de76929c931eb0d4"
+   },
+   {
+    "path": "games/ashenspire/packs/core/cardPools.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:d8d7d4beeecdac9977eb2803f90f755e46f66b32fc7798c74ecec3424cae28f1"
+   },
+   {
+    "path": "games/ashenspire/packs/core/cards.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:692120ccab7e0ff9cc74756565b7f50a46ac27bf991ccd267a82527e4e0204bd"
+   },
+   {
+    "path": "games/ashenspire/packs/core/characters.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:e118ce4b3d72c334031212a14887e1ea308a6b095310e16b2e49acf211154c41"
+   },
+   {
+    "path": "games/ashenspire/packs/core/classUnlocks.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:736fb6c59e2daa76f704ccd82e0db0158036bd07eaadde043215c31adbc50ef4"
+   },
+   {
+    "path": "games/ashenspire/packs/core/enemyCards.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:e8f3dc2361c9af245a3a8dec5d29d87788d0a54b1c7b00ee7cbeb91d1fa2e746"
+   },
+   {
+    "path": "games/ashenspire/packs/core/enemyRelics.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:15bc7dbf01f9fb64d7b25119cae43e1aec64e0c9c5dbcc748660fe1ffb26d0e2"
+   },
+   {
+    "path": "games/ashenspire/packs/core/gear.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:88187cf315b01d48224659cf82b4d1ab7090b85a7cdb7a60bfff256330b8c154"
+   },
+   {
+    "path": "games/ashenspire/packs/core/pack.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:397ec423c90f3a8f5b9e93bb06d972660d9bf20ec1f7915b64efb3089ba7e5fa"
+   },
+   {
+    "path": "games/ashenspire/packs/core/provisionalPolicies.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:e9f852c8757b832942930976f79b7e01ef7c38417247729cb94dc31bb236a25b"
+   },
+   {
+    "path": "games/ashenspire/packs/core/resourceVariants.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:7d576dba214f1016e090ddb2c3ebdbc65bfd49ba2ad9f746c0e8358f9c30351d"
+   },
+   {
+    "path": "games/ashenspire/packs/core/rests.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:25669f2dc06dae92d75f189aebe62c7616af64ac32029081619a1fee7c5f5e52"
+   },
+   {
+    "path": "games/ashenspire/packs/core/rewards.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:74524cb76494615232be208c15bb71e94cd72657d1bde1f96328c548e80c140d"
+   },
+   {
+    "path": "games/ashenspire/packs/core/routes.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:8406c5281bfa695211c599e8941d803006b5232b7186c1946b365e3048cf40e8"
+   },
+   {
+    "path": "games/ashenspire/packs/core/shops.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:7fcd2729d8a2b3e979c86cbd8fe31b01950ec15b15efb30eac17d6484f4a8ec2"
+   },
+   {
+    "path": "games/ashenspire/packs/core/starterDeck.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:095ddb998e1d11e13aac6ebacd552de1695191059795ec145d8f54334448e6c1"
+   },
+   {
+    "path": "games/ashenspire/packs/core/stats.json",
+    "id": "ashen.core-content",
+    "version": "2.0.0",
+    "hash": "sha256:6dde8f5ffa59b53c231493abd272e4f18ea7a2577316dcb5cf9981e3f41a8ddc"
+   }
+  ],
+  "runtimeABI": "ashen.runtime@1",
+  "numericPolicy": "ashen.adapter-numbers@1",
+  "runtimeHash": "sha256:fd3088b4bbca6111a7095f8eb823ae3a30abd5badcb82b91dd32112b0f2e80e8"
+ },
+ "portability": {
+  "portable": false,
+  "requiredCapabilities": [
+   "ashen.legacy-adapter@1"
+  ],
+  "reason": "Host gameplay adapter; no portable rules VM is claimed."
+ },
+ "hash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27"
+}

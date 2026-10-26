@@ -7,6 +7,8 @@ namespace Ashen.Generated
         public const string Boot = "boot";
         public const string ContentError = "contentError";
         public const string ProfileRecovery = "profileRecovery";
+        public const string Farewell = "farewell";
+        public const string Transfer = "transfer";
         public const string Title = "title";
         public const string Slots = "slots";
         public const string Confirm = "confirm";
@@ -22,11 +24,23 @@ namespace Ashen.Generated
         public const string Rewards = "rewards";
         public const string PileViewer = "pileViewer";
         public const string Armoury = "armoury";
+        public const string Core2Potions = "core2Potions";
         public const string RunEnd = "runEnd";
         public const string Rest = "rest";
         public const string Merchant = "merchant";
         public const string Event = "event";
         public const string Dialogue = "dialogue";
         public const string LegacyDungeon = "legacyDungeon";
+        public const string Core2Combat = "core2Combat";
+        public const string Core2Rewards = "core2Rewards";
+        public const string Core2Rest = "core2Rest";
+        public const string Core2Shop = "core2Shop";
+        public const string Core2Event = "core2Event";
+        public const string Core2RunEnd = "core2RunEnd";
+        public const string Prologue = "prologue";
+        public const string Compendium = "compendium";
+        public const string Profile = "profile";
+        public const string About = "about";
+        public const string Menu = "menu";
     }
 }

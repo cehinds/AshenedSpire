@@ -1,0 +1,62 @@
+{
+  "$id": "profile/bundle/creationModes.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "baseline": {
+        "type": "integer"
+      },
+      "belowBaseline": {
+        "type": "string",
+        "enum": [
+          "allow",
+          "forbid"
+        ]
+      },
+      "bonusPool": {
+        "type": "integer"
+      },
+      "id": {
+        "type": "string",
+        "enum": [
+          "assign",
+          "lean",
+          "pointbuy",
+          "standard",
+          "tuned",
+          "tuned2"
+        ]
+      },
+      "label": {
+        "type": "string"
+      },
+      "maximum": {
+        "type": "integer"
+      },
+      "minimum": {
+        "type": "integer"
+      },
+      "opensOn": {
+        "type": "string"
+      },
+      "redistribution": {
+        "type": "string",
+        "enum": [
+          "fixedTotal"
+        ]
+      }
+    },
+    "required": [
+      "baseline",
+      "belowBaseline",
+      "bonusPool",
+      "id",
+      "label",
+      "maximum",
+      "minimum",
+      "redistribution"
+    ]
+  }
+}

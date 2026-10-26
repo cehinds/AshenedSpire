@@ -24,9 +24,86 @@
     display: none;
 }
 
+/* ---- fonts (VP-1, D-500): Inter is the body face, Cinzel the display face, IM Fell English the card-lore face
+        (web styles/base.css:183-184, kit.css:4376-4399). Only weight 400 and italic exist, so -unity-font-style: bold is
+        synthesised, as the web's browser does. The font files are SIL OFL 1.1 (Fonts/OFL.txt). ---- */
+
+:root {
+    -unity-font-definition: url("../Fonts/Inter-Regular.ttf");
+}
+
 .unity-text-element {
     color: var(--color-parchment);
     font-size: var(--font-body);
+    -unity-font-definition: url("../Fonts/Inter-Regular.ttf");
+}
+
+.font-body {
+    -unity-font-definition: url("../Fonts/Inter-Regular.ttf");
+}
+
+.font-body-italic {
+    -unity-font-definition: url("../Fonts/Inter-Italic.ttf");
+}
+
+.font-display,
+.wordmark,
+.eyebrow,
+.kit-text-header {
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+}
+
+.font-lore {
+    -unity-font-definition: url("../Fonts/IMFellEnglish-Regular.ttf");
+}
+
+.font-lore-italic {
+    -unity-font-definition: url("../Fonts/IMFellEnglish-Italic.ttf");
+}
+
+/* The other card-lore faces of the web's Typeface choice (kit.css:4376-4390, SIL OFL 1.1, Fonts/OFL.txt). A lore line wears one of these classes
+   (and the -italic one for a slanted line); the web's default is IM Fell English above. Cinzel and Inter are the display and body faces already. */
+.font-lore--garamond { -unity-font-definition: url("../Fonts/EBGaramond-Regular.ttf"); }
+.font-lore--garamond-italic { -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); }
+.font-lore--cormorant { -unity-font-definition: url("../Fonts/CormorantGaramond-Regular.ttf"); }
+.font-lore--cormorant-italic { -unity-font-definition: url("../Fonts/CormorantGaramond-Italic.ttf"); }
+.font-lore--crimson { -unity-font-definition: url("../Fonts/CrimsonPro-Regular.ttf"); }
+.font-lore--crimson-italic { -unity-font-definition: url("../Fonts/CrimsonPro-Italic.ttf"); }
+.font-lore--spectral { -unity-font-definition: url("../Fonts/Spectral-Regular.ttf"); }
+.font-lore--spectral-italic { -unity-font-definition: url("../Fonts/Spectral-Italic.ttf"); }
+.font-lore--baskerville { -unity-font-definition: url("../Fonts/LibreBaskerville-Regular.ttf"); }
+.font-lore--baskerville-italic { -unity-font-definition: url("../Fonts/LibreBaskerville-Italic.ttf"); }
+.font-lore--cinzel { -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf"); }
+.font-lore--cinzel-italic { -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf"); }
+.font-lore--inter { -unity-font-definition: url("../Fonts/Inter-Regular.ttf"); }
+.font-lore--inter-italic { -unity-font-definition: url("../Fonts/Inter-Italic.ttf"); }
+
+/* ---- type roles (web kit.css:34-37, 250, 385, 403). Uppercase comes from the kit-upper class (LocLabel, LocButton):
+        USS has no text-transform. ---- */
+
+.kit-label {
+    font-size: var(--font-label);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-muted);
+}
+
+.kit-title {
+    font-size: var(--font-title);
+    letter-spacing: var(--size-track-title);
+    color: var(--color-parchment);
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+}
+
+.kit-heading {
+    font-size: var(--font-heading);
+    letter-spacing: var(--size-track-heading);
+    color: var(--color-gold);
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+}
+
+/* The web's text-shadow on HUD text (hud-layout.generated.css:27). */
+.text-shadowed {
+    text-shadow: 0 var(--size-text-shadow-y) var(--size-text-shadow-blur) var(--color-text-ink);
 }
 
 .wordmark {
@@ -35,6 +112,7 @@
     -unity-font-style: bold;
     letter-spacing: var(--size-wordmark-letter);
     -unity-text-align: middle-center;
+    text-shadow: 0 0 var(--size-wordmark-glow-blur) var(--color-wordmark-glow);
 }
 
 .band-compact .wordmark {
@@ -53,12 +131,15 @@
 
 .eyebrow {
     font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
     color: var(--color-gold);
     -unity-font-style: bold;
 }
 
-/* ---- buttons: neutral brown and gold at rest; Exit and Back turn red on focus; ready primary is green;
-        destructive primary is red and never green; disabled overrides every other state (04 §0) ---- */
+/* ---- buttons (VP-11, D-600): the web's live button is the kit one (styles/kit.css:90-118, 4699-4720), not base.css:336:
+        panel fill, 1 px line-soft edge, 8 px corner, parchment Inter text, gold edge on hover/focus, green when ready,
+        gold-tinted primary, #d4622e danger, muted disabled. The neutral gradient (player-polish.css:48-50) is a 9-slice
+        overlay sprite. Exit and Back turn red on highlight (kit.css:4712); destructive primary is a red tint and never green ---- */
 
 .kit-button {
     min-height: var(--size-button-h);
@@ -66,11 +147,15 @@
     padding-left: var(--space-lg);
     padding-right: var(--space-lg);
     background-color: var(--color-neutral);
-    border-color: var(--color-neutral-line);
-    border-width: var(--border-control);
+    background-image: url("../Frames/button-bevel.png");
+    -unity-slice-scale: var(--size-slice-frame);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
     border-radius: var(--radius-button);
     color: var(--color-parchment);
     font-size: var(--font-button);
+    letter-spacing: 0;
+    -unity-font-definition: url("../Fonts/Inter-Regular.ttf");
     -unity-text-align: middle-center;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -89,7 +174,7 @@
     background-color: var(--color-panel-raise);
     border-color: var(--color-gold);
     border-width: var(--border-glow);
-    color: var(--color-gold);
+    color: var(--color-parchment);
 }
 
 .kit-button:active {
@@ -99,12 +184,19 @@
 .kit-button--back:hover,
 .kit-button--back:focus,
 .unity-button.kit-button--back:focus:enabled {
-    border-color: var(--color-danger);
-    color: var(--color-danger);
+    background-color: var(--color-danger-fill);
+    border-color: var(--color-danger-line);
+    color: var(--color-parchment);
 }
 
 .kit-button--primary {
+    background-color: var(--color-primary-fill);
     border-color: var(--color-gold);
+}
+
+.kit-button--primary:hover,
+.kit-button--primary:focus {
+    background-color: var(--color-primary-fill-hover);
 }
 
 .kit-button--ready,
@@ -112,40 +204,91 @@
 .kit-button--ready:focus {
     background-color: var(--color-ready);
     border-color: var(--color-ready-line);
+    color: var(--color-ready-text);
+}
+
+.kit-button--danger {
+    background-color: var(--color-neutral);
+    border-color: var(--color-danger-line);
+    color: var(--color-danger-line);
+}
+
+.kit-button--danger:hover,
+.kit-button--danger:focus {
+    background-color: var(--color-danger-fill);
+    border-color: var(--color-danger-line);
+}
+
+.kit-button--danger.kit-button--primary,
+.tone-destructive .kit-button--primary,
+.tone-destructive .holdbutton {
+    background-color: var(--color-danger-fill);
+    border-color: var(--color-danger-line);
     color: var(--color-parchment);
 }
 
-.tone-destructive .kit-button--primary,
+.kit-button--danger.kit-button--primary:hover,
+.kit-button--danger.kit-button--primary:focus,
 .tone-destructive .kit-button--primary:hover,
 .tone-destructive .kit-button--primary:focus,
-.tone-destructive .holdbutton,
 .tone-destructive .holdbutton:hover,
 .tone-destructive .holdbutton:focus {
-    background-color: var(--color-destructive);
-    border-color: var(--color-destructive-line);
+    background-color: var(--color-danger-fill-hover);
+    border-color: var(--color-danger-line);
     color: var(--color-parchment);
 }
 
 .kit-button:disabled,
 .kit-button:disabled:hover,
 .kit-button:disabled:focus {
-    opacity: var(--opacity-disabled);
     background-color: var(--color-neutral);
     border-color: var(--color-line);
-    border-width: var(--border-control);
+    border-width: var(--border-hairline);
     color: var(--color-muted);
 }
 
-/* ---- scroll bars in the palette ---- */
+/* ---- ornate plate: the web's authored action surface (button-neutral/-primary-*.svg, player-polish.css:220-223) for
+        prominent actions such as title menu entries; Cinzel caps. The sprite carries the edge and the corner marks.
+        Rest = neutral, highlight = gold edge, ready = green, ready highlight = pale green with a ring, pressed = dark green ---- */
 
-.unity-scroll-view .unity-scroller,
-.unity-scroll-view .unity-scroller .unity-base-slider__tracker,
-.unity-scroll-view .unity-scroller .unity-repeat-button {
-    background-color: var(--color-bg-raise);
-    border-color: var(--color-line);
+.kit-button.kit-button--plate {
+    background-color: var(--color-transparent);
+    background-image: url("../Frames/plate-neutral.png");
+    border-width: 0;
+    border-radius: 0;
+    color: var(--color-gold);
+    letter-spacing: var(--size-track-button);
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
 }
 
-.unity-scroll-view .unity-scroller .unity-base-slider__dragger {
-    background-color: var(--color-line-soft);
-    border-color: var(--color-gold-soft);
+.kit-button.kit-button--plate:hover,
+.kit-button.kit-button--plate:focus,
+.unity-button.kit-button.kit-button--plate:focus:enabled {
+    background-color: var(--color-transparent);
+    background-image: url("../Frames/plate-hover.png");
+    border-width: 0;
+    color: var(--color-parchment);
+}
+
+.kit-button.kit-button--plate.kit-button--ready {
+    background-image: url("../Frames/plate-ready.png");
+    color: var(--color-ready-text);
+}
+
+.kit-button.kit-button--plate.kit-button--ready:hover,
+.kit-button.kit-button--plate.kit-button--ready:focus {
+    background-image: url("../Frames/plate-focus.png");
+}
+
+.kit-button.kit-button--plate.kit-button--ready:active {
+    background-image: url("../Frames/plate-pressed.png");
+}
+
+.kit-button.kit-button--plate:disabled,
+.kit-button.kit-button--plate:disabled:hover,
+.kit-button.kit-button--plate:disabled:focus {
+    background-color: var(--color-transparent);
+    background-image: url("../Frames/plate-neutral.png");
+    border-width: 0;
+    color: var(--color-muted);
 }

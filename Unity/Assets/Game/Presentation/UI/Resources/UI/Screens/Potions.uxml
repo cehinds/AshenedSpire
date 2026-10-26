@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="../Kit/CombatModal.uss" />
+    <ui:VisualElement name="POTIONS_SCRIM" class="overlay-scrim">
+        <Ashen.Presentation.UI.Kit.CombatModal name="POTIONS_MODAL" />
+    </ui:VisualElement>
+</ui:UXML>

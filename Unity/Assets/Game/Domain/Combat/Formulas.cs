@@ -5,6 +5,8 @@ using Newtonsoft.Json.Linq;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
 using F = Ashen.Generated.FormulaOps;
+using SK = Ashen.Generated.Core2StatusKeys;
+using SV = Ashen.Generated.Core2StatusValues;
 
 namespace Ashen.Domain.Combat
 {
@@ -15,6 +17,14 @@ namespace Ashen.Domain.Combat
         public List<JObject> AllEnemies = new List<JObject>();
         public double EnergySpent;
         public double CardsPlayedThisTurn;
+
+        /// <summary>The context a Core 2 fight adds (web formulaCtxFor): the weapon damage basis, the card, the books before the play, the resources paid and the Evade a play grants.</summary>
+        public double WeaponDamage;
+        public string CardId;
+        public JObject MetricsBefore;
+        public double ManaSpent;
+        public double StaminaSpent;
+        public double EvadeStackGain;
     }
 
     /// <summary>
@@ -85,6 +95,12 @@ namespace Ashen.Domain.Combat
                 case F.CardsPlayedThisTurn:
                     v = ctx.CardsPlayedThisTurn * Js.Coalesce(o[K.Per], 1);
                     break;
+                case SK.Metric:
+                    v = CoreFormulas.Metric(ctx, o, One(ctx, o, true));
+                    break;
+                case SV.TraitBonus:
+                    v = Js.D(CoreCardTraits.CounterstrikeAmount(Js.N(Evaluate(o[K.Base], ctx)), NumField(o, K.Pct)));
+                    break;
                 default:
                     throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.UnknownFormulaOp, op));
             }
@@ -99,9 +115,9 @@ namespace Ashen.Domain.Combat
         private static double NumField(JObject node, string field) =>
             Js.IsNum(node[field]) ? node.Num(field) : throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.FormulaNeedsField, node.Str(K.F), field));
 
-        private static JObject One(FormulaContext ctx, JObject node)
+        private static JObject One(FormulaContext ctx, JObject node, bool selfByDefault = false)
         {
-            var of = node.Str(K.Of);
+            var of = node.Str(K.Of) ?? (selfByDefault ? Ashen.Generated.CombatValues.RefSelf : null);
             if (of == K.AllEnemies) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.FormulaGroupRef, node.Str(K.F), of));
             if (of == null || !ctx.Entities.TryGetValue(of, out var ent) || ent == null)
                 throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.FormulaUnresolved, node.Str(K.F), of));

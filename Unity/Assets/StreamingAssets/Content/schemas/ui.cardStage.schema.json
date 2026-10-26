@@ -1,0 +1,2657 @@
+{
+  "$id": "ui/cardStage.json",
+  "type": "object",
+  "properties": {
+    "aliases": {
+      "type": "object",
+      "properties": {
+        "buff": {
+          "type": "string"
+        },
+        "cast": {
+          "type": "string"
+        },
+        "guard": {
+          "type": "string"
+        },
+        "guardHit": {
+          "type": "string"
+        },
+        "idle": {
+          "type": "string"
+        },
+        "power": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "buff",
+        "cast",
+        "guard",
+        "guardHit",
+        "idle",
+        "power"
+      ]
+    },
+    "classes": {
+      "type": "object",
+      "properties": {
+        "herald": {
+          "type": "object",
+          "properties": {
+            "bodyHeight": {
+              "type": "integer"
+            },
+            "classSmash": {
+              "type": "boolean"
+            },
+            "counterRest": {
+              "type": "string"
+            },
+            "defeated": {
+              "type": "string"
+            },
+            "effects": {
+              "type": "object",
+              "properties": {
+                "herald.counter.effect-1": {
+                  "type": "string"
+                },
+                "herald.counter.effect-2": {
+                  "type": "string"
+                },
+                "herald.sweep.effect-1": {
+                  "type": "string"
+                },
+                "herald.sweep.effect-2": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "herald.counter.effect-1",
+                "herald.counter.effect-2",
+                "herald.sweep.effect-1",
+                "herald.sweep.effect-2"
+              ]
+            },
+            "frames": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "art": {
+                    "type": "string"
+                  },
+                  "h": {
+                    "type": "number"
+                  },
+                  "marks": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "w": {
+                    "type": "number"
+                  },
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "art",
+                  "h",
+                  "marks",
+                  "w",
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            "held": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "casting",
+                  "counter",
+                  "defensive",
+                  "offensive",
+                  "smash",
+                  "sweep"
+                ]
+              }
+            },
+            "hurt": {
+              "type": "object",
+              "properties": {
+                "art": {
+                  "type": "string"
+                },
+                "dx": {
+                  "type": "number"
+                },
+                "dy": {
+                  "type": "number"
+                },
+                "scale": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "art",
+                "dx",
+                "dy",
+                "scale"
+              ]
+            },
+            "idleWidth": {
+              "type": "number"
+            },
+            "pilot": {
+              "type": "boolean"
+            },
+            "sequences": {
+              "type": "object",
+              "properties": {
+                "attack": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "counter": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "effects",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "counterPrepare": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "defend": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "evade": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "ranged": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "rangedMagic": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "smash": {
+                  "type": "object",
+                  "properties": {
+                    "contactCue": {
+                      "type": "boolean"
+                    },
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "timingUnits": {
+                      "type": "integer"
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "contactCue",
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "timingUnits",
+                    "travel"
+                  ]
+                },
+                "spell": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "sweep": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "effects",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                }
+              },
+              "required": [
+                "attack",
+                "counter",
+                "counterPrepare",
+                "defend",
+                "evade",
+                "ranged",
+                "rangedMagic",
+                "smash",
+                "spell",
+                "sweep"
+              ]
+            },
+            "stageHeight": {
+              "type": "integer"
+            },
+            "unit": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "bodyHeight",
+            "classSmash",
+            "counterRest",
+            "defeated",
+            "effects",
+            "frames",
+            "held",
+            "hurt",
+            "idleWidth",
+            "pilot",
+            "sequences",
+            "stageHeight",
+            "unit"
+          ]
+        },
+        "reaver": {
+          "type": "object",
+          "properties": {
+            "bodyHeight": {
+              "type": "integer"
+            },
+            "classSmash": {
+              "type": "boolean"
+            },
+            "counterRest": {
+              "type": "string"
+            },
+            "defeated": {
+              "type": "string"
+            },
+            "effects": {
+              "type": "object",
+              "properties": {
+                "reaver.counter.effect-1": {
+                  "type": "string"
+                },
+                "reaver.counter.effect-2": {
+                  "type": "string"
+                },
+                "reaver.sweep.effect-1": {
+                  "type": "string"
+                },
+                "reaver.sweep.effect-2": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "reaver.counter.effect-1",
+                "reaver.counter.effect-2",
+                "reaver.sweep.effect-1",
+                "reaver.sweep.effect-2"
+              ]
+            },
+            "frames": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "art": {
+                    "type": "string"
+                  },
+                  "h": {
+                    "type": "integer"
+                  },
+                  "marks": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "w": {
+                    "type": "integer"
+                  },
+                  "x": {
+                    "type": "integer"
+                  },
+                  "y": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "art",
+                  "h",
+                  "marks",
+                  "w",
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            "held": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "casting",
+                  "counter",
+                  "defend",
+                  "defensive",
+                  "evade",
+                  "offensive",
+                  "smash",
+                  "sweep"
+                ]
+              }
+            },
+            "hurt": {
+              "type": "object",
+              "properties": {
+                "art": {
+                  "type": "string"
+                },
+                "dx": {
+                  "type": "number"
+                },
+                "dy": {
+                  "type": "number"
+                },
+                "scale": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "art",
+                "dx",
+                "dy",
+                "scale"
+              ]
+            },
+            "idleWidth": {
+              "type": "number"
+            },
+            "pilot": {
+              "type": "boolean"
+            },
+            "sequences": {
+              "type": "object",
+              "properties": {
+                "attack": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "pilot": {
+                      "type": "boolean"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "pilot-attack-1",
+                          "pilot-attack-2",
+                          "pilot-attack-3",
+                          "pilot-attack-4",
+                          "pilot-attack-5",
+                          "pilot-attack-6"
+                        ]
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "pilot",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "counter": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "effects",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "counter-evade": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "pilot": {
+                      "type": "boolean"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "pilot-attack-1",
+                          "pilot-attack-2",
+                          "pilot-attack-3",
+                          "pilot-attack-4",
+                          "pilot-attack-5",
+                          "pilot-attack-6",
+                          "pilot-evade-1",
+                          "pilot-evade-2",
+                          "pilot-evade-3"
+                        ]
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "pilot",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "counter-guard": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "pilot": {
+                      "type": "boolean"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "pilot-attack-1",
+                          "pilot-attack-2",
+                          "pilot-attack-3",
+                          "pilot-attack-4",
+                          "pilot-attack-5",
+                          "pilot-attack-6",
+                          "pilot-counter",
+                          "pilot-defend",
+                          "pilot-impact-g",
+                          "pilot-impact-h",
+                          "pilot-impact-v",
+                          "pilot-smash"
+                        ]
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "pilot",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "counterPrepare": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "defend": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "evade": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "pilot": {
+                      "type": "boolean"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "pilot",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "ranged": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "rangedMagic": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "smash": {
+                  "type": "object",
+                  "properties": {
+                    "contactCue": {
+                      "type": "boolean"
+                    },
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "pilot": {
+                      "type": "boolean"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "timingUnits": {
+                      "type": "integer"
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "contactCue",
+                    "durations",
+                    "hold",
+                    "impact",
+                    "pilot",
+                    "poses",
+                    "timingUnits",
+                    "travel"
+                  ]
+                },
+                "spell": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "sweep": {
+                  "type": "object",
+                  "properties": {
+                    "contactCue": {
+                      "type": "boolean"
+                    },
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "pilot": {
+                      "type": "boolean"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "timingUnits": {
+                      "type": "integer"
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "contactCue",
+                    "durations",
+                    "hold",
+                    "impact",
+                    "pilot",
+                    "poses",
+                    "timingUnits",
+                    "travel"
+                  ]
+                }
+              },
+              "required": [
+                "attack",
+                "counter",
+                "counter-evade",
+                "counter-guard",
+                "counterPrepare",
+                "defend",
+                "evade",
+                "ranged",
+                "rangedMagic",
+                "smash",
+                "spell",
+                "sweep"
+              ]
+            },
+            "stageHeight": {
+              "type": "integer"
+            },
+            "unit": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "bodyHeight",
+            "classSmash",
+            "counterRest",
+            "defeated",
+            "effects",
+            "frames",
+            "held",
+            "hurt",
+            "idleWidth",
+            "pilot",
+            "sequences",
+            "stageHeight",
+            "unit"
+          ]
+        },
+        "rogue": {
+          "type": "object",
+          "properties": {
+            "bodyHeight": {
+              "type": "integer"
+            },
+            "classSmash": {
+              "type": "boolean"
+            },
+            "counterRest": {
+              "type": "string"
+            },
+            "defeated": {
+              "type": "string"
+            },
+            "effects": {
+              "type": "object",
+              "properties": {
+                "rogue.counter.effect-1": {
+                  "type": "string"
+                },
+                "rogue.counter.effect-2": {
+                  "type": "string"
+                },
+                "rogue.sweep.effect-1": {
+                  "type": "string"
+                },
+                "rogue.sweep.effect-2": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "rogue.counter.effect-1",
+                "rogue.counter.effect-2",
+                "rogue.sweep.effect-1",
+                "rogue.sweep.effect-2"
+              ]
+            },
+            "frames": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "art": {
+                    "type": "string"
+                  },
+                  "h": {
+                    "type": "number"
+                  },
+                  "marks": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "w": {
+                    "type": "number"
+                  },
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "art",
+                  "h",
+                  "marks",
+                  "w",
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            "held": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "casting",
+                  "counter",
+                  "defensive",
+                  "offensive",
+                  "smash",
+                  "sweep"
+                ]
+              }
+            },
+            "hurt": {
+              "type": "object",
+              "properties": {
+                "art": {
+                  "type": "string"
+                },
+                "dx": {
+                  "type": "number"
+                },
+                "dy": {
+                  "type": "number"
+                },
+                "scale": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "art",
+                "dx",
+                "dy",
+                "scale"
+              ]
+            },
+            "idleWidth": {
+              "type": "number"
+            },
+            "pilot": {
+              "type": "boolean"
+            },
+            "sequences": {
+              "type": "object",
+              "properties": {
+                "attack": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "counter": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "effects",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "counterPrepare": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "defend": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "evade": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "ranged": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "rangedMagic": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "smash": {
+                  "type": "object",
+                  "properties": {
+                    "contactCue": {
+                      "type": "boolean"
+                    },
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "timingUnits": {
+                      "type": "integer"
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "contactCue",
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "timingUnits",
+                    "travel"
+                  ]
+                },
+                "spell": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "sweep": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "effects",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                }
+              },
+              "required": [
+                "attack",
+                "counter",
+                "counterPrepare",
+                "defend",
+                "evade",
+                "ranged",
+                "rangedMagic",
+                "smash",
+                "spell",
+                "sweep"
+              ]
+            },
+            "stageHeight": {
+              "type": "integer"
+            },
+            "unit": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "bodyHeight",
+            "classSmash",
+            "counterRest",
+            "defeated",
+            "effects",
+            "frames",
+            "held",
+            "hurt",
+            "idleWidth",
+            "pilot",
+            "sequences",
+            "stageHeight",
+            "unit"
+          ]
+        },
+        "starseer": {
+          "type": "object",
+          "properties": {
+            "bodyHeight": {
+              "type": "integer"
+            },
+            "classSmash": {
+              "type": "boolean"
+            },
+            "counterRest": {
+              "type": "string"
+            },
+            "defeated": {
+              "type": "string"
+            },
+            "effects": {
+              "type": "object",
+              "properties": {
+                "starseer.counter.effect-1": {
+                  "type": "string"
+                },
+                "starseer.counter.effect-2": {
+                  "type": "string"
+                },
+                "starseer.sweep.effect-1": {
+                  "type": "string"
+                },
+                "starseer.sweep.effect-2": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "starseer.counter.effect-1",
+                "starseer.counter.effect-2",
+                "starseer.sweep.effect-1",
+                "starseer.sweep.effect-2"
+              ]
+            },
+            "frames": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "art": {
+                    "type": "string"
+                  },
+                  "h": {
+                    "type": "number"
+                  },
+                  "marks": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "w": {
+                    "type": "number"
+                  },
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "art",
+                  "h",
+                  "marks",
+                  "w",
+                  "x",
+                  "y"
+                ]
+              }
+            },
+            "held": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "casting",
+                  "counter",
+                  "defensive",
+                  "offensive",
+                  "smash",
+                  "sweep"
+                ]
+              }
+            },
+            "hurt": {
+              "type": "object",
+              "properties": {
+                "art": {
+                  "type": "string"
+                },
+                "dx": {
+                  "type": "number"
+                },
+                "dy": {
+                  "type": "integer"
+                },
+                "scale": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "art",
+                "dx",
+                "dy",
+                "scale"
+              ]
+            },
+            "idleWidth": {
+              "type": "number"
+            },
+            "pilot": {
+              "type": "boolean"
+            },
+            "sequences": {
+              "type": "object",
+              "properties": {
+                "attack": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "counter": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "effects",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "counterPrepare": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "defend": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "evade": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "ranged": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "rangedMagic": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "smash": {
+                  "type": "object",
+                  "properties": {
+                    "contactCue": {
+                      "type": "boolean"
+                    },
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "timingUnits": {
+                      "type": "integer"
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "contactCue",
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "timingUnits",
+                    "travel"
+                  ]
+                },
+                "spell": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                },
+                "sweep": {
+                  "type": "object",
+                  "properties": {
+                    "durations": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "effects": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    },
+                    "hold": {
+                      "type": "boolean"
+                    },
+                    "impact": {
+                      "type": "integer"
+                    },
+                    "poses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "travel": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  "required": [
+                    "durations",
+                    "effects",
+                    "hold",
+                    "impact",
+                    "poses",
+                    "travel"
+                  ]
+                }
+              },
+              "required": [
+                "attack",
+                "counter",
+                "counterPrepare",
+                "defend",
+                "evade",
+                "ranged",
+                "rangedMagic",
+                "smash",
+                "spell",
+                "sweep"
+              ]
+            },
+            "stageHeight": {
+              "type": "integer"
+            },
+            "unit": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "bodyHeight",
+            "classSmash",
+            "counterRest",
+            "defeated",
+            "effects",
+            "frames",
+            "held",
+            "hurt",
+            "idleWidth",
+            "pilot",
+            "sequences",
+            "stageHeight",
+            "unit"
+          ]
+        }
+      },
+      "required": [
+        "herald",
+        "reaver",
+        "rogue",
+        "starseer"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "motion": {
+      "type": "object",
+      "properties": {
+        "durationMs": {
+          "type": "integer"
+        },
+        "hitMs": {
+          "type": "integer"
+        },
+        "hurtFrames": {
+          "type": "integer"
+        },
+        "hurtMinMs": {
+          "type": "integer"
+        },
+        "hurtRedOpacity": {
+          "type": "number"
+        },
+        "pilotUnits": {
+          "type": "integer"
+        },
+        "playMs": {
+          "type": "integer"
+        },
+        "reactMs": {
+          "type": "integer"
+        },
+        "recoilPeak": {
+          "type": "number"
+        },
+        "recoilPx": {
+          "type": "integer"
+        },
+        "staggerTintShare": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "durationMs",
+        "hitMs",
+        "hurtFrames",
+        "hurtMinMs",
+        "hurtRedOpacity",
+        "pilotUnits",
+        "playMs",
+        "reactMs",
+        "recoilPeak",
+        "recoilPx",
+        "staggerTintShare"
+      ]
+    },
+    "reactionKinds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reactions": {
+      "type": "object",
+      "properties": {
+        "defend": {
+          "type": "object",
+          "properties": {
+            "durations": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "hold": {
+              "type": "boolean"
+            },
+            "impact": {
+              "type": "integer"
+            },
+            "pilot": {
+              "type": "boolean"
+            },
+            "poses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "reaction": {
+              "type": "boolean"
+            },
+            "travel": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "required": [
+            "durations",
+            "hold",
+            "impact",
+            "pilot",
+            "poses",
+            "reaction",
+            "travel"
+          ]
+        },
+        "evade": {
+          "type": "object",
+          "properties": {
+            "durations": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "hold": {
+              "type": "boolean"
+            },
+            "impact": {
+              "type": "integer"
+            },
+            "pilot": {
+              "type": "boolean"
+            },
+            "poses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "travel": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "required": [
+            "durations",
+            "hold",
+            "impact",
+            "pilot",
+            "poses",
+            "travel"
+          ]
+        },
+        "fully-defended": {
+          "type": "object",
+          "properties": {
+            "durations": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "hold": {
+              "type": "boolean"
+            },
+            "impact": {
+              "type": "integer"
+            },
+            "pilot": {
+              "type": "boolean"
+            },
+            "poses": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "pilot-counter",
+                  "pilot-defend",
+                  "pilot-impact-g",
+                  "pilot-impact-h",
+                  "pilot-impact-v"
+                ]
+              }
+            },
+            "travel": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "required": [
+            "durations",
+            "hold",
+            "impact",
+            "pilot",
+            "poses",
+            "travel"
+          ]
+        },
+        "guard-break": {
+          "type": "object",
+          "properties": {
+            "durations": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "hold": {
+              "type": "boolean"
+            },
+            "impact": {
+              "type": "integer"
+            },
+            "pilot": {
+              "type": "boolean"
+            },
+            "poses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "reaction": {
+              "type": "boolean"
+            },
+            "travel": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          "required": [
+            "durations",
+            "hold",
+            "impact",
+            "pilot",
+            "poses",
+            "reaction",
+            "travel"
+          ]
+        }
+      },
+      "required": [
+        "defend",
+        "evade",
+        "fully-defended",
+        "guard-break"
+      ]
+    },
+    "stage": {
+      "type": "object",
+      "properties": {
+        "anchorX": {
+          "type": "integer"
+        },
+        "defaultSize": {
+          "type": "integer"
+        },
+        "defaultX": {
+          "type": "integer"
+        },
+        "floorY": {
+          "type": "integer"
+        },
+        "frameTop": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "anchorX",
+        "defaultSize",
+        "defaultX",
+        "floorY",
+        "frameTop"
+      ]
+    }
+  },
+  "required": [
+    "aliases",
+    "classes",
+    "comment",
+    "motion",
+    "reactionKinds",
+    "reactions",
+    "stage"
+  ]
+}

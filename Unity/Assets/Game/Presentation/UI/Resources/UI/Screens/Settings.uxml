@@ -1,0 +1,69 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Front.uss" />
+    <ui:VisualElement name="SCRIM" class="page page--center scrim">
+        <ui:VisualElement name="SETTINGS_FRAME" class="settings-frame kit-frame kit-frame--modal">
+            <ui:VisualElement class="shadow-plate" picking-mode="Ignore" />
+            <ui:VisualElement class="leather-plate" picking-mode="Ignore" />
+            <ui:VisualElement name="OVERLAY_HEAD" class="overlay-head is-hidden">
+                <ui:VisualElement name="OVERLAY_TABS" class="overlay-tabs" />
+                <ui:VisualElement class="overlay-actions">
+                    <Ashen.Presentation.UI.LocButton name="OVERLAY_GOTO" class="settings-tool settings-tool--icon" />
+                    <Ashen.Presentation.UI.LocButton name="OVERLAY_CLOSE" class="settings-tool settings-tool--icon kit-button--back" string-key="glyph.close" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="SETTINGS_BODY" class="settings-body">
+                <ui:VisualElement name="SETTINGS_HEAD" class="settings-head">
+                    <Ashen.Presentation.UI.LocLabel name="SETTINGS_TITLE" class="settings-title kit-text-header" string-key="settings.page.title" />
+                    <ui:VisualElement class="settings-tools">
+                        <Ashen.Presentation.UI.LocButton name="SETTINGS_RESET" class="settings-tool" string-key="settings.page.reset" />
+                        <Ashen.Presentation.UI.LocButton name="SETTINGS_CHANGED" class="settings-tool" />
+                        <Ashen.Presentation.UI.LocButton name="SETTINGS_SEARCH_BTN" class="settings-tool settings-tool--icon" />
+                        <Ashen.Presentation.UI.LocButton name="SETTINGS_MORE" class="settings-tool settings-tool--icon settings-more">
+                            <ui:VisualElement class="settings-more-dot" picking-mode="Ignore" />
+                            <ui:VisualElement class="settings-more-dot" picking-mode="Ignore" />
+                            <ui:VisualElement class="settings-more-dot" picking-mode="Ignore" />
+                        </Ashen.Presentation.UI.LocButton>
+                        <Ashen.Presentation.UI.LocButton name="SETTINGS_CLOSE" class="settings-tool settings-tool--icon kit-button--back" string-key="glyph.close" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="SETTINGS_MENU" class="settings-menu kit-frame is-hidden">
+                    <Ashen.Presentation.UI.LocButton name="SETTINGS_MENU_GROUP" class="settings-tool settings-menu-item" string-key="settings.menu.group" />
+                    <Ashen.Presentation.UI.LocButton name="SETTINGS_MENU_ALL" class="settings-tool settings-menu-item" string-key="settings.menu.all" />
+                </ui:VisualElement>
+                <ui:VisualElement name="SETTINGS_SEARCH_ROW" class="settings-search-row is-hidden">
+                    <ui:TextField name="SETTINGS_SEARCH" class="settings-search" />
+                </ui:VisualElement>
+                <ui:VisualElement class="settings-linkrow">
+                    <Ashen.Presentation.UI.LocButton name="SETTINGS_PROFILE" class="settings-tool" string-key="settings.page.profile" />
+                </ui:VisualElement>
+                <ui:VisualElement name="SETTINGS_TIP_ROW" class="settings-tip">
+                    <Ashen.Presentation.UI.LocLabel name="SETTINGS_TIP" class="settings-tip-text kit-text-value" />
+                    <Ashen.Presentation.UI.LocButton name="SETTINGS_TIP_CLOSE" class="settings-tool" string-key="settings.page.gotIt" />
+                </ui:VisualElement>
+                <ui:VisualElement name="SETTINGS_TABS" class="settings-tabs" />
+                <ui:VisualElement name="SETTINGS_GROUPS" class="settings-groups" />
+                <ui:ScrollView name="SETTINGS_SCROLL" class="settings-scroll">
+                    <ui:VisualElement name="SETTINGS_ROWS" class="settings-rows" />
+                </ui:ScrollView>
+                <ui:VisualElement name="SETTINGS_UNDO" class="settings-undo is-hidden">
+                    <Ashen.Presentation.UI.LocLabel name="SETTINGS_UNDO_TEXT" class="settings-undo-text kit-text-value" />
+                    <Ashen.Presentation.UI.LocButton name="SETTINGS_UNDO_BUTTON" class="settings-tool" string-key="settings.page.undo" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="CONTROLS_BODY" class="controls-body is-hidden">
+                <ui:ScrollView name="CONTROLS_SCROLL" class="settings-scroll" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SETTINGS_FOOT" class="settings-foot">
+                <Ashen.Presentation.UI.LocButton name="SETTINGS_DONE" class="settings-done kit-button--ready" string-key="settings.page.done" />
+            </ui:VisualElement>
+            <ui:VisualElement name="OVERLAY_FOOT" class="settings-foot overlay-foot is-hidden">
+                <Ashen.Presentation.UI.LocButton name="OVERLAY_QUIT" class="settings-done overlay-foot-button" string-key="pause.saveQuit" />
+                <Ashen.Presentation.UI.LocButton name="OVERLAY_SAVE" class="settings-done overlay-foot-button kit-button--ready" string-key="menu.save" />
+            </ui:VisualElement>
+            <ui:VisualElement name="OVERLAY_QUICK_HOST" class="overlay-quick-host is-hidden">
+                <Ashen.Presentation.UI.Kit.QuickMenu name="OVERLAY_QUICK" class="overlay-quick" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

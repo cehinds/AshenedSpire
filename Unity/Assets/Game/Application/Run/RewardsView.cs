@@ -36,6 +36,14 @@ namespace Ashen.App.Run
         public string Rarity;
         public bool Upgraded;
         public List<RewardCost> Costs = new List<RewardCost>();
+
+        /// <summary>What the card's face is drawn from (its art, type band and tag rail); null for a node tile.</summary>
+        public CardFaceQuery Face;
+
+        /// <summary>The rules as the web writes them (P-1), for the face and for the inspector, and whether the model has more lines than the face shows; null where the card text was not given.</summary>
+        public string RulesHtml;
+        public string InspectHtml;
+        public bool RulesOverflow;
     }
 
     /// <summary>One W-08 row: its claim state, what it says, its icon, and — for a choice — the picks it offers.</summary>
@@ -317,6 +325,7 @@ namespace Ashen.App.Run
                 Name = def.Str(K.Name),
                 TypeLine = CombatText.CardKind(strings, Cards.Kind(data, def)),
                 Rarity = def.Str(RK.Rarity),
+                Face = CardFaceQuery.From(def),
                 Upgraded = upgraded,
                 Text = Sentence(data, def.Str(K.TextTemplate), EffectTokens(data, def[K.Effects])),
             };

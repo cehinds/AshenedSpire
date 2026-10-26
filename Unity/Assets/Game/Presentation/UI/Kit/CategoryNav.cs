@@ -27,6 +27,7 @@ namespace Ashen.Presentation.UI.Kit
     {
         private readonly VisualElement _rail;
         private readonly LocButton _selector;
+        private readonly LocLabel _step;
         private readonly VisualElement _list;
         private readonly List<CategoryItem> _items = new List<CategoryItem>();
         private CategoryNavMode? _mode;
@@ -37,10 +38,26 @@ namespace Ashen.Presentation.UI.Kit
             UiDom.CloneTemplate(this, UiResources.KitCategoryNav);
             _rail = this.Q(UiNames.NavRail);
             _selector = this.Q<LocButton>(UiNames.NavSelector);
+            _step = this.Q<LocLabel>(UiNames.NavStep);
             _list = this.Q(UiNames.NavSelectorList);
-            if (_selector != null) _selector.clicked += () => ToggleInClassList(UiClasses.NavOpen);
+            if (_selector != null)
+            {
+                _selector.clicked += () => ToggleInClassList(UiClasses.NavOpen);
+                // The web's select (kit.css [Category ▾]): the words, and the chevron at the right edge of the face.
+                var chevron = new LocLabel(StringKeys.SelectChevron) { pickingMode = PickingMode.Ignore };
+                chevron.AddToClassList(ChromeClasses.NavChevron);
+                _selector.Add(chevron);
+            }
             SetMode(CategoryNavMode.Rail);
         }
+
+        /// <summary>
+        /// The phone's stepper (the web's creation: a green "1 of 2 · Class" beside an "All steps" select). When both keys are set the selector
+        /// mode shows the step label (StepKey is a template of n, count and name) and the selector reads SelectorKey instead of the category.
+        /// </summary>
+        public string StepKey { get; set; }
+
+        public string SelectorKey { get; set; }
 
         public string ActiveId { get; private set; }
         public CategoryNavMode Mode => _mode ?? CategoryNavMode.Rail;
@@ -75,11 +92,21 @@ namespace Ashen.Presentation.UI.Kit
         {
             _rail?.Clear();
             _list?.Clear();
-            foreach (var item in _items)
+            var stepped = !string.IsNullOrEmpty(StepKey) && !string.IsNullOrEmpty(SelectorKey);
+            EnableInClassList(ChromeClasses.NavStepped, stepped);
+            UiDom.Show(_step, stepped);
+            for (var i = 0; i < _items.Count; i++)
             {
+                var item = _items[i];
                 _rail?.Add(Button(item));
                 _list?.Add(Button(item));
-                if (item.Id == ActiveId) _selector?.SetResolved(Loc.Format(StringKeys.NavSelector, new StringArgs().Add(UiPlaceholders.Name, Label(item))));
+                if (item.Id != ActiveId) continue;
+                if (stepped)
+                {
+                    _step?.SetResolved(Loc.Format(StepKey, new StringArgs().Add(UiPlaceholders.N, i + 1).Add(UiPlaceholders.Count, _items.Count).Add(UiPlaceholders.Name, Loc.Get(item.LabelKey))));
+                    _selector?.SetResolved(Loc.Get(SelectorKey));
+                }
+                else _selector?.SetResolved(Loc.Format(StringKeys.NavSelector, new StringArgs().Add(UiPlaceholders.Name, Label(item))));
             }
         }
 

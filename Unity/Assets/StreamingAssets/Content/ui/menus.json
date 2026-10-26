@@ -1,36 +1,48 @@
 {
-  "comment": "Menus and confirmation doors (docs/design/04 W-02, W-23; US-1.3; D-004). 'title' rows are in the owner order: Continue, Load, New, Journal, Custom Run, Settings, Quit (the co-op row exists with visible:false). Each row: id, labelKey (strings), action (continue | open | confirm), target screen and slots 'mode' for open, 'confirm' door id for confirm, 'enabledWhen' (always | hasValidSlot | targetBuilt | planned: a row whose flow is a later build, shown disabled with the planned note) and 'visible'. Continue is shown disabled when no slot holds a valid save (shipped, AW:245). 'confirms' are W2 doors: question title, target identity, exact consequence, footer keys. 'policy' names a ui/confirmationPolicies.json policy; a DESTRUCTIVE policy gives the red, never-green primary. 'hold' makes the primary hold-to-confirm (holdMs is the holdConfirm token). 'single' shows one full-width action (the AI notice). 'occupiedBodyKey' replaces the body when the slot already holds a climb. 'merchantBuy', 'merchantRemove' (destructive, hold), 'merchantSell' and 'merchantSmith' are the W-09 W2a doors; 'eventChoose' reviews a W-11 response ('eventChooseBinding' holds to commit a binding one); 'dungeonLeave' states what leaving a cleared legacy dungeon does. 'abandon' ends the run from W-20 (destructive, hold; D-134). 'rewardLeaveAuto' and 'rewardLeaveManual' guard W-08 Continue while rewards are unresolved (the rewardCollect setting picks which consequence is stated). 'pause' rows are the W-20 list in order (same fields as title rows; 'hideInCombat' hides a row while a fight is on, e.g. the Armoury). 'creationPanes' are the W-04 rail items in order: id, labelKey, and 'built' (only built panes open; the others show the planned note, D-058).",
+  "comment": "Menus and confirmation doors (docs/design/04 W-02, W-23; US-1.3; D-004). 'title' rows are in the owner order: Continue, Load, New, Journal, Custom Run, Settings, Quit (the co-op row exists with visible:false). Each row: id, labelKey (strings), action (continue | open | confirm), target screen and slots 'mode' for open, 'confirm' door id for confirm, 'enabledWhen' (always | hasValidSlot | targetBuilt | planned: a row whose flow is a later build, shown disabled with the planned note) and 'visible'. Continue is shown disabled when no slot holds a valid save (shipped, AW:245). 'confirms' are W2 doors: question title, target identity, exact consequence, footer keys. 'policy' names a ui/confirmationPolicies.json policy; a DESTRUCTIVE policy gives the red, never-green primary. 'hold' makes the primary hold-to-confirm (holdMs is the holdConfirm token). 'single' shows one full-width action (the AI notice). 'occupiedBodyKey' replaces the body when the slot already holds a climb. 'merchantBuy', 'merchantRemove' (destructive, hold), 'merchantSell' and 'merchantSmith' are the W-09 W2a doors; 'eventChoose' reviews a W-11 response ('eventChooseBinding' holds to commit a binding one); 'dungeonLeave' states what leaving a cleared legacy dungeon does. 'abandon' ends the run from W-20 (destructive, hold; D-134). 'rewardLeaveAuto' and 'rewardLeaveManual' guard W-08 Continue while rewards are unresolved (the rewardCollect setting picks which consequence is stated). 'pause' rows are the W-20 list in order (same fields as title rows; 'hideInCombat' hides a row while a fight is on, e.g. the Armoury). 'creationPanes' are the W-04 rail items in order: id, labelKey, and 'built' (only built panes open; the others show the planned note, D-058); the web's creation has two, Class and Review (src/ui/screens/creation). A title row may carry an 'icon' (an ui/art.json icon name) the plate wears beside its label (VP-12, D-1001). The 'pause' rows are also the web's quick menu (src/ui/components/quicknav.js; content/config/ui/presentation/uiContent.json quickMenuRows) in its order and bands (P-7a, D-1710): 'band' (navigation, comfort, armoury, run: a hairline between bands), 'control' switch with the 'setting' it flips (action toggle), 'tab' (the Menu overlay tab an open row lands on), 'armouryTab' (the Armoury tab it opens), 'lockedInCombat' (shown, disabled while a fight is on: the web's edit lock), 'tone' danger (the loss colour), 'tipKey' (its tooltip) and action 'load' (asks the 'confirm' door, then loads the active slot). 'overlayTabs' are the Menu overlay's tab strip in order (web MENU_TABS: Settings, Controls).",
   "title": [
-    { "id": "continue", "labelKey": "title.menu.continue", "action": "continue", "enabledWhen": "hasValidSlot", "visible": true },
-    { "id": "load", "labelKey": "title.menu.load", "action": "open", "target": "slots", "mode": "load", "enabledWhen": "always", "visible": true },
+    { "id": "continue", "labelKey": "title.menu.continue", "action": "continue", "enabledWhen": "hasValidSlot", "hideWhenDisabled": true, "visible": true, "icon": "journey" },
     { "id": "new", "labelKey": "title.menu.new", "action": "open", "target": "slots", "mode": "new", "enabledWhen": "always", "visible": true },
-    { "id": "journal", "labelKey": "title.menu.journal", "action": "open", "target": "journal", "enabledWhen": "targetBuilt", "visible": true },
-    { "id": "customRun", "labelKey": "title.menu.customRun", "action": "open", "target": "customRun", "enabledWhen": "targetBuilt", "visible": true },
-    { "id": "settings", "labelKey": "title.menu.settings", "action": "open", "target": "settings", "enabledWhen": "targetBuilt", "visible": true },
-    { "id": "quit", "labelKey": "title.menu.quit", "action": "confirm", "confirm": "quit", "enabledWhen": "always", "visible": true },
+    { "id": "load", "labelKey": "title.menu.load", "action": "open", "target": "slots", "mode": "load", "enabledWhen": "hasValidSlot", "hideWhenDisabled": true, "visible": true },
+    { "id": "journal", "labelKey": "title.menu.journal", "action": "open", "target": "journal", "enabledWhen": "targetBuilt", "visible": false, "icon": "history" },
+    { "id": "customRun", "labelKey": "title.menu.customRun", "action": "open", "target": "customRun", "enabledWhen": "targetBuilt", "visible": false },
+    { "id": "settings", "labelKey": "title.menu.settings", "action": "open", "target": "settings", "enabledWhen": "targetBuilt", "visible": true, "icon": "settings" },
+    { "id": "quit", "labelKey": "title.menu.quit", "action": "open", "target": "farewell", "enabledWhen": "targetBuilt", "visible": true },
     { "id": "coop", "labelKey": "title.menu.coop", "action": "open", "target": "lobby", "enabledWhen": "targetBuilt", "visible": false }
   ],
   "pause": [
-    { "id": "deck", "labelKey": "pause.deck", "action": "open", "target": "pileViewer", "enabledWhen": "targetBuilt", "visible": true },
-    { "id": "armoury", "labelKey": "pause.armoury", "action": "open", "target": "armoury", "enabledWhen": "targetBuilt", "visible": true, "hideInCombat": true },
-    { "id": "settings", "labelKey": "pause.settings", "action": "open", "target": "settings", "enabledWhen": "targetBuilt", "visible": true },
-    { "id": "saveQuit", "labelKey": "pause.saveQuit", "action": "confirm", "confirm": "saveQuit", "enabledWhen": "always", "visible": true },
-    { "id": "abandon", "labelKey": "pause.abandon", "action": "confirm", "confirm": "abandon", "enabledWhen": "always", "visible": true }
+    { "id": "settings", "labelKey": "pause.settings", "action": "open", "target": "menu", "tab": "settings", "band": "navigation", "tipKey": "menu.tab.settings.tip", "enabledWhen": "targetBuilt", "visible": true },
+    { "id": "controls", "labelKey": "pause.controls", "action": "open", "target": "menu", "tab": "controls", "band": "navigation", "tipKey": "menu.tab.controls.tip", "enabledWhen": "targetBuilt", "visible": true },
+    { "id": "fullscreen", "labelKey": "pause.fullscreen", "action": "toggle", "control": "switch", "setting": "fullscreen", "band": "comfort", "tipKey": "pause.fullscreen.tip", "enabledWhen": "always", "visible": true },
+    { "id": "music", "labelKey": "pause.music", "action": "toggle", "control": "switch", "setting": "musicEnabled", "band": "comfort", "tipKey": "pause.music.tip", "enabledWhen": "always", "visible": true },
+    { "id": "inventory", "labelKey": "pause.inventory", "action": "open", "target": "armoury", "armouryTab": "inventory", "band": "armoury", "lockedInCombat": true, "tipKey": "pause.inventory.tip", "enabledWhen": "targetBuilt", "visible": true },
+    { "id": "character", "labelKey": "pause.character", "action": "open", "target": "armoury", "armouryTab": "stats", "band": "armoury", "lockedInCombat": true, "tipKey": "pause.character.tip", "enabledWhen": "targetBuilt", "visible": true },
+    { "id": "load", "labelKey": "pause.load", "action": "load", "confirm": "loadSlot", "band": "run", "tone": "danger", "tipKey": "pause.load.tip", "enabledWhen": "always", "visible": true },
+    { "id": "save", "labelKey": "pause.save", "action": "save", "band": "run", "tipKey": "pause.save.tip", "enabledWhen": "always", "visible": true },
+    { "id": "saveQuit", "labelKey": "pause.saveQuit", "action": "saveQuit", "band": "run", "tipKey": "pause.saveQuit.tip", "enabledWhen": "always", "visible": true },
+    { "id": "quitWithoutSaving", "labelKey": "pause.quitWithoutSaving", "action": "confirm", "confirm": "quitWithoutSaving", "band": "run", "tone": "danger", "tipKey": "pause.quitWithoutSaving.tip", "enabledWhen": "always", "visible": true },
+    { "id": "deck", "labelKey": "pause.deck", "action": "open", "target": "pileViewer", "enabledWhen": "targetBuilt", "visible": false },
+    { "id": "abandon", "labelKey": "pause.abandon", "action": "confirm", "confirm": "abandon", "enabledWhen": "always", "visible": false }
+  ],
+  "overlayTabs": [
+    { "id": "settings", "labelKey": "menu.tab.settings", "tipKey": "menu.tab.settings.tip" },
+    { "id": "controls", "labelKey": "menu.tab.controls", "tipKey": "menu.tab.controls.tip" }
   ],
   "creationPanes": [
     { "id": "class", "labelKey": "creation.pane.class", "built": true },
-    { "id": "character", "labelKey": "creation.pane.character", "built": false },
-    { "id": "equipment", "labelKey": "creation.pane.equipment", "built": false },
-    { "id": "review", "labelKey": "creation.pane.review", "built": false }
+    { "id": "review", "labelKey": "creation.pane.review", "built": true }
   ],
   "confirms": {
     "quit": { "titleKey": "confirm.quit.title", "bodyKey": "confirm.quit.body", "primaryKey": "confirm.quit.primary", "backKey": "confirm.back", "hold": false, "single": false },
-    "loadSlot": { "titleKey": "confirm.load.title", "bodyKey": "confirm.load.body", "primaryKey": "confirm.load.primary", "backKey": "confirm.back", "hold": false, "single": false },
-    "startSlot": { "titleKey": "confirm.start.title", "bodyKey": "confirm.start.body", "occupiedBodyKey": "confirm.start.occupied", "primaryKey": "confirm.start.primary", "backKey": "confirm.back", "hold": false, "single": false },
+    "loadSlot": { "titleKey": "confirm.load.title", "bodyKey": "confirm.load.body", "primaryKey": "confirm.load.primary", "backKey": "confirm.load.back", "hold": false, "single": false },
+    "loadEmpty": { "titleKey": "confirm.loadEmpty.title", "bodyKey": "confirm.loadEmpty.body", "primaryKey": "confirm.loadEmpty.primary", "backKey": "confirm.load.back", "hold": false, "single": false },
+    "startSlot": { "titleKey": "confirm.start.title", "bodyKey": "confirm.start.body", "occupiedBodyKey": "confirm.start.occupied", "primaryKey": "confirm.start.primary", "occupiedPrimaryKey": "confirm.start.occupiedPrimary", "backKey": "confirm.start.back", "hold": false, "single": false },
     "deleteSlot": { "titleKey": "confirm.delete.title", "bodyKey": "confirm.delete.body", "primaryKey": "confirm.delete.primary", "backKey": "confirm.back", "policy": "policy.deleteSave", "hold": true, "single": false },
     "aiNotice": { "titleKey": "notice.ai.title", "bodyKey": "about.aiDisclosure", "primaryKey": "notice.ai.continue", "backKey": "confirm.back", "hold": false, "single": true },
-    "recovery": { "titleKey": "recovery.title", "bodyKey": "recovery.body", "primaryKey": "recovery.restore", "backKey": "recovery.fresh", "hold": true, "single": false },
-    "replaceSlot": { "titleKey": "confirm.replace.title", "bodyKey": "confirm.replace.body", "primaryKey": "confirm.replace.primary", "backKey": "confirm.back", "policy": "policy.saveOverwrite", "hold": true, "single": false },
+    "recovery": { "titleKey": "recovery.confirm.title", "bodyKey": "recovery.confirm.body", "primaryKey": "recovery.confirm.go", "backKey": "recovery.confirm.back", "policy": "policy.deleteSave", "hold": false, "single": false },
+    "replaceSlot": { "titleKey": "confirm.replace.title", "bodyKey": "confirm.replace.body", "primaryKey": "confirm.replace.primary", "backKey": "confirm.back", "policy": "policy.saveOverwrite", "hold": false, "single": false },
+    "quitWithoutSaving": { "titleKey": "confirm.quitWithoutSaving.title", "bodyKey": "confirm.quitWithoutSaving.body", "primaryKey": "confirm.quitWithoutSaving.primary", "backKey": "confirm.back", "policy": "policy.discardUnsavedProgress", "hold": false, "single": false },
+    "importSaves": { "titleKey": "transfer.confirm.title", "bodyKey": "transfer.confirm.consequence", "primaryKey": "transfer.confirm.primary", "backKey": "confirm.back", "hold": false, "single": false },
     "saveQuit": { "titleKey": "confirm.saveQuit.title", "bodyKey": "confirm.saveQuit.body", "primaryKey": "confirm.saveQuit.primary", "backKey": "confirm.back", "hold": true, "single": false },
     "abandon": { "titleKey": "confirm.abandon.title", "bodyKey": "confirm.abandon.body", "primaryKey": "confirm.abandon.primary", "backKey": "confirm.back", "policy": "policy.deleteSave", "hold": true, "single": false },
     "saveFailed": { "titleKey": "confirm.saveFailed.title", "bodyKey": "confirm.saveFailed.body", "primaryKey": "confirm.saveFailed.primary", "backKey": "confirm.back", "hold": false, "single": false },
@@ -42,6 +54,8 @@
     "merchantSmith": { "titleKey": "confirm.merchantSmith.title", "bodyKey": "confirm.merchantSmith.body", "primaryKey": "confirm.merchantSmith.primary", "backKey": "confirm.back", "policy": "policy.blacksmithUpgrade", "hold": false, "single": false },
     "eventChoose": { "titleKey": "confirm.eventChoose.title", "bodyKey": "confirm.eventChoose.body", "primaryKey": "confirm.eventChoose.primary", "backKey": "confirm.back", "hold": false, "single": false },
     "eventChooseBinding": { "titleKey": "confirm.eventChoose.title", "bodyKey": "confirm.eventChoose.body", "primaryKey": "confirm.eventChoose.primary", "backKey": "confirm.back", "hold": true, "single": false },
-    "dungeonLeave": { "titleKey": "confirm.dungeonLeave.title", "bodyKey": "confirm.dungeonLeave.body", "primaryKey": "confirm.dungeonLeave.primary", "backKey": "confirm.back", "hold": false, "single": false }
+    "deckDiscard": { "titleKey": "deckEditor.closeUnsaved.title", "bodyKey": "deckEditor.closeUnsaved.message", "primaryKey": "deckEditor.closeUnsaved.discard", "backKey": "deckEditor.closeUnsaved.keepEditing", "hold": false, "single": false },
+    "dungeonLeave": { "titleKey": "confirm.dungeonLeave.title", "bodyKey": "confirm.dungeonLeave.body", "primaryKey": "confirm.dungeonLeave.primary", "backKey": "confirm.back", "hold": false, "single": false },
+    "resetSettings": { "titleKey": "settings.resetAll.title", "bodyKey": "settings.resetAll.body", "primaryKey": "settings.resetAll.confirm", "backKey": "confirm.back", "hold": false, "single": false }
   }
 }

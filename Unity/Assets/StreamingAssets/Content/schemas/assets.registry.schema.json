@@ -10,9 +10,16 @@
       "bytes": {
         "type": "integer"
       },
+      "derived": {
+        "type": "string",
+        "enum": [
+          "glow"
+        ]
+      },
       "format": {
         "type": "string",
         "enum": [
+          "png",
           "svg",
           "webp"
         ]
@@ -26,17 +33,26 @@
           "imported"
         ]
       },
+      "release": {
+        "type": "string"
+      },
       "sha256": {
         "type": "string"
       },
       "source": {
         "type": "string"
       },
+      "unityHeight": {
+        "type": "integer"
+      },
       "unityPath": {
         "type": [
           "null",
           "string"
         ]
+      },
+      "unityWidth": {
+        "type": "integer"
       },
       "width": {
         "type": "integer"

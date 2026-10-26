@@ -1,0 +1,104 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Combat.uss" />
+    <ui:Style src="Core2Combat.uss" />
+    <ui:Style src="Fx.uss" />
+    <ui:Style src="../Kit/CombatModal.uss" />
+    <ui:VisualElement name="COMBAT_BACKGROUND" class="combat-background" picking-mode="Ignore" />
+    <ui:VisualElement name="COMBAT_PAGE" class="page combat-page board-page">
+        <ui:VisualElement name="STAGE_GRID" class="stage-grid" picking-mode="Ignore" />
+        <ui:VisualElement name="BATTLEFIELD" class="board-field" picking-mode="Ignore">
+            <ui:VisualElement name="ENEMY_ROW" class="enemy-row" />
+            <ui:VisualElement name="ALLY_ROW" class="ally-row" />
+            <Ashen.Presentation.UI.LocLabel name="PHASE_BANNER" class="phase-banner kit-text-header is-hidden" />
+            <Ashen.Presentation.UI.LocLabel name="NOTICE" class="combat-notice kit-text-value is-hidden" />
+        </ui:VisualElement>
+        <Ashen.Presentation.UI.LocLabel name="TARGET_PROMPT" class="board-prompt kit-text-value is-hidden" />
+        <ui:VisualElement name="RUN_HUD" class="board-hud" picking-mode="Ignore">
+            <ui:VisualElement name="HUD_HEART" class="hud-heart" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.Kit.Meter name="HUD_HP" class="hud-hp" kind="hp" picking-mode="Ignore" />
+            <ui:VisualElement name="HUD_PIPS" class="hud-pips" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.LocLabel name="TURN_RIBBON" class="turn-ribbon kit-text-header kit-upper" picking-mode="Ignore" />
+            <ui:VisualElement name="HUD_SIDE" class="hud-side" picking-mode="Ignore">
+                <ui:VisualElement class="hud-buttons" picking-mode="Ignore">
+                    <Ashen.Presentation.UI.LocButton name="TOOL_ARMAMENTS" class="hud-icon-button" string-key="core2.tools.armaments" />
+                    <Ashen.Presentation.UI.LocButton name="HUD_MENU" class="hud-icon-button" string-key="combat.menu" />
+                </ui:VisualElement>
+                <Ashen.Presentation.UI.LocLabel name="HUD_CINDERS" class="hud-cinders kit-text-header kit-upper" picking-mode="Ignore" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="COMBAT_FOOTER" class="board-footer">
+            <ui:VisualElement name="FOOTER_TOOLS" class="board-tools">
+                <ui:VisualElement class="tools-side">
+                    <Ashen.Presentation.UI.LocButton name="TOOL_LOG" class="tool-link" string-key="core2.board.log" />
+                    <Ashen.Presentation.UI.LocButton name="TOOL_GRID" class="tool-link tool-check tool--on" string-key="core2.board.grid">
+                        <ui:VisualElement class="tool-box" picking-mode="Ignore" />
+                    </Ashen.Presentation.UI.LocButton>
+                    <Ashen.Presentation.UI.LocButton name="TOOL_RECOVER" class="tool-link is-hidden" string-key="core2.tools.recover" />
+                </ui:VisualElement>
+                <ui:VisualElement class="tools-side">
+                    <Ashen.Presentation.UI.LocButton name="TOOL_REACTIONS" class="tool-pill">
+                        <ui:VisualElement class="tool-knob" picking-mode="Ignore" />
+                    </Ashen.Presentation.UI.LocButton>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <Ashen.Presentation.UI.Kit.FooterGroup name="FOOTER_GROUP" class="combat-footer-group" />
+        </ui:VisualElement>
+        <ui:VisualElement name="HAND_BAND" class="board-hand-band" picking-mode="Ignore">
+            <Ashen.Presentation.UI.Kit.HandFan name="HAND" class="combat-hand board-hand" />
+        </ui:VisualElement>
+        <ui:VisualElement name="COMBAT_LOG" class="combat-log kit-frame kit-frame--modal is-hidden">
+            <Ashen.Presentation.UI.LocLabel name="LOG_TITLE" class="log-title kit-text-header" string-key="core2.log.title" />
+            <ui:VisualElement name="LOG_LINES" class="log-lines" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.LocButton name="LOG_CLOSE" class="log-close" string-key="core2.board.logClose" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="PROMPT_PANEL" class="overlay-scrim is-hidden">
+        <ui:VisualElement name="PROMPT_FRAME" class="cmodal cmodal--md kit-frame kit-frame--modal">
+            <ui:VisualElement class="shadow-plate" picking-mode="Ignore" />
+            <ui:VisualElement name="PROMPT_HEAD" class="cmodal-head">
+                <ui:VisualElement class="cmodal-identity" picking-mode="Ignore">
+                    <Ashen.Presentation.UI.LocLabel name="PROMPT_EYEBROW" class="cmodal-eyebrow kit-upper" picking-mode="Ignore" />
+                    <Ashen.Presentation.UI.LocLabel name="PROMPT_TITLE" class="cmodal-title kit-text-header" picking-mode="Ignore" />
+                </ui:VisualElement>
+                <Ashen.Presentation.UI.LocButton name="PROMPT_CLOSE" class="cmodal-close" string-key="glyph.close" />
+            </ui:VisualElement>
+            <ui:ScrollView name="PROMPT_LIST" class="cmodal-body" />
+            <ui:VisualElement name="PROMPT_FOOTER" class="cmodal-foot">
+                <Ashen.Presentation.UI.LocButton name="PROMPT_BACK" class="kit-button--back" string-key="core2.prompt.back" />
+                <Ashen.Presentation.UI.LocButton name="PROMPT_CONFIRM" class="kit-button--primary is-hidden" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="OVERLAY_HOST" class="overlay-scrim is-hidden">
+        <Ashen.Presentation.UI.Kit.CombatModal name="OVERLAY_MODAL" class="is-hidden" />
+        <Ashen.Presentation.UI.Kit.QuickMenu name="OVERLAY_QUICK" class="is-hidden" />
+    </ui:VisualElement>
+    <ui:VisualElement name="COMBAT_END" class="page page--center scrim combat-end is-hidden">
+        <ui:VisualElement class="end-panel">
+            <Ashen.Presentation.UI.LocLabel name="END_TITLE" class="end-title kit-text-header" />
+            <Ashen.Presentation.UI.LocLabel name="END_BODY" class="end-body kit-text-value" />
+            <Ashen.Presentation.UI.LocLabel name="END_PLANNED" class="end-planned kit-text-value" />
+            <ui:VisualElement class="end-footer">
+                <Ashen.Presentation.UI.LocButton name="END_CONTINUE" class="kit-button--primary kit-button--ready end-button" string-key="core2.end.continue" />
+                <Ashen.Presentation.UI.LocButton name="END_SUMMARY" class="kit-button--primary kit-button--ready end-button is-hidden" string-key="combat.end.summary" />
+                <ui:VisualElement class="footer-gap" />
+                <Ashen.Presentation.UI.LocButton name="END_TO_TITLE" class="end-button" string-key="combat.end.toTitle" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="VICTORY_BEAT" class="victory-beat is-hidden" picking-mode="Ignore">
+        <Ashen.Presentation.UI.LocLabel name="VICTORY_TITLE" class="victory-title kit-text-header" picking-mode="Ignore" />
+    </ui:VisualElement>
+    <ui:VisualElement name="BOSS_INTRO" class="boss-intro is-hidden">
+        <ui:VisualElement class="bi-stack" picking-mode="Ignore">
+            <Ashen.Presentation.UI.LocLabel name="BOSS_TAG" class="bi-tag kit-text-value kit-upper" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.LocLabel name="BOSS_NAME" class="bi-name kit-text-header" picking-mode="Ignore" />
+            <ui:VisualElement class="bi-rule" picking-mode="Ignore">
+                <ui:VisualElement class="bi-line" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="bi-mark kit-text-header" string-key="core2.fx.ornament" picking-mode="Ignore" />
+                <ui:VisualElement class="bi-line" picking-mode="Ignore" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

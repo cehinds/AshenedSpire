@@ -12,6 +12,10 @@
     display: none;
 }
 
+.nav--rail .nav-step {
+    display: none;
+}
+
 .nav-rail {
     width: var(--size-rail-width);
     padding-right: var(--space-md);
@@ -22,6 +26,17 @@
 .nav-selector {
     width: var(--size-selector-width);
     -unity-text-align: middle-left;
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+    padding-right: var(--size-select-chevron-w);
+}
+
+.nav-chevron {
+    position: absolute;
+    right: var(--space-md);
+    top: 0;
+    bottom: 0;
+    -unity-text-align: middle-right;
 }
 
 .nav-selector-list {
@@ -48,4 +63,43 @@
 .nav-item.is-selected {
     border-color: var(--color-gold);
     color: var(--color-gold);
+}
+
+/* The phone's stepper (VP-16, D-1203; creation flow-05 / flow-06 -390x844.jpg): a green step button ("1 of 2 · Class") beside the gold "All steps" select, one row.
+   The step is a label (the select's list picks the step), so it takes no focus. */
+.nav--selector.nav--stepped {
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.nav-step {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-height: var(--size-nav-step-h);
+    margin: 0 var(--space-md) 0 0;
+    padding: 0 var(--space-md);
+    background-color: var(--color-ready);
+    border-color: var(--color-ready-line);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-button);
+    color: var(--color-ready-text);
+    font-size: var(--font-button);
+    -unity-text-align: middle-left;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.nav--stepped .nav-selector {
+    flex-grow: 0;
+    width: var(--size-nav-all-steps-w);
+    min-height: var(--size-nav-step-h);
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
+.nav--stepped .nav-selector-list {
+    top: var(--size-nav-step-h);
+    left: auto;
+    right: 0;
+    width: var(--size-nav-all-steps-w);
 }

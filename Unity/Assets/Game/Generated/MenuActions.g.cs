@@ -7,5 +7,9 @@ namespace Ashen.Generated
         public const string Continue = "continue";
         public const string Open = "open";
         public const string Confirm = "confirm";
+        public const string Save = "save";
+        public const string SaveQuit = "saveQuit";
+        public const string Toggle = "toggle";
+        public const string Load = "load";
     }
 }

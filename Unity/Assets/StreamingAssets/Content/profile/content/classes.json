@@ -1,0 +1,126 @@
+{
+  "reaver": {
+    "id": "reaver",
+    "name": "Reaver",
+    "attributes": {
+      "strength": 2,
+      "dexterity": 1,
+      "constitution": 1,
+      "wisdom": 1,
+      "intelligence": 1
+    },
+    "defaultDeck": [
+      "core.strike",
+      "core.strike",
+      "core.strike",
+      "core.defend",
+      "core.defend",
+      "core.counter",
+      "core.smash",
+      "core.sweep",
+      "core.evade",
+      "base.draw",
+      "core.reaverSpecial"
+    ],
+    "loadout": {
+      "rightHand": "greatsword",
+      "leftHand": null
+    },
+    "specialCardId": "core.reaverSpecial",
+    "maxHp": 46,
+    "description": "Strength-focused fighter with a greatsword and heavy attacks."
+  },
+  "starseer": {
+    "id": "starseer",
+    "name": "Starseer",
+    "attributes": {
+      "strength": 1,
+      "dexterity": 1,
+      "constitution": 1,
+      "wisdom": 1,
+      "intelligence": 2
+    },
+    "defaultDeck": [
+      "core.strike",
+      "core.strike",
+      "core.strike",
+      "core.defend",
+      "core.defend",
+      "core.counter",
+      "core.smash",
+      "core.sweep",
+      "core.evade",
+      "base.draw",
+      "core.starseerSpecial"
+    ],
+    "loadout": {
+      "rightHand": "boneSceptre",
+      "leftHand": null
+    },
+    "specialCardId": "core.starseerSpecial",
+    "maxHp": 36,
+    "description": "Intelligence-focused caster with a sceptre and Star Spark."
+  },
+  "rogue": {
+    "id": "rogue",
+    "name": "Rogue",
+    "attributes": {
+      "strength": 1,
+      "dexterity": 2,
+      "constitution": 1,
+      "wisdom": 1,
+      "intelligence": 1
+    },
+    "defaultDeck": [
+      "core.strike",
+      "core.strike",
+      "core.strike",
+      "core.defend",
+      "core.defend",
+      "core.counter",
+      "core.smash",
+      "core.sweep",
+      "core.evade",
+      "base.draw",
+      "core.rogueSpecial"
+    ],
+    "loadout": {
+      "rightHand": "dagger",
+      "leftHand": "dagger"
+    },
+    "specialCardId": "core.rogueSpecial",
+    "maxHp": 34,
+    "description": "Dexterity-focused fighter with two daggers and Quick Guard."
+  },
+  "herald": {
+    "id": "herald",
+    "name": "Herald",
+    "attributes": {
+      "strength": 1,
+      "dexterity": 1,
+      "constitution": 1,
+      "wisdom": 2,
+      "intelligence": 1
+    },
+    "defaultDeck": [
+      "core.strike",
+      "core.strike",
+      "core.strike",
+      "core.defend",
+      "core.defend",
+      "core.counter",
+      "core.smash",
+      "core.sweep",
+      "core.evade",
+      "base.draw",
+      "core.heraldSpecial"
+    ],
+    "loadout": {
+      "rightHand": "boneSceptre",
+      "leftHand": null
+    },
+    "specialCardId": "core.heraldSpecial",
+    "maxHp": 37,
+    "description": "Wisdom-focused fighter with a sceptre and Lasting Resolve."
+  }
+}

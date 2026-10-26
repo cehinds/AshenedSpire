@@ -1,0 +1,27 @@
+{
+ "files": [
+  {
+   "bytes": 368418,
+   "fights": 3,
+   "file": "fights-reaver.json"
+  },
+  {
+   "bytes": 487469,
+   "fights": 3,
+   "file": "fights-starseer.json"
+  },
+  {
+   "bytes": 949308,
+   "fights": 3,
+   "file": "fights-rogue.json"
+  },
+  {
+   "bytes": 371022,
+   "fights": 3,
+   "file": "fights-herald.json"
+  }
+ ],
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

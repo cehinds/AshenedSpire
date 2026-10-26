@@ -1,0 +1,28 @@
+{
+  "$id": "rules/rangePolicy.json",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "integer"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "advanceSpPerBand": {
+      "type": "integer"
+    },
+    "reachPrecisionBonus": {
+      "type": "integer"
+    },
+    "throwPrecisionPenalty": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "advanceSpPerBand",
+    "enabled",
+    "reachPrecisionBonus",
+    "throwPrecisionPenalty",
+    "version"
+  ]
+}

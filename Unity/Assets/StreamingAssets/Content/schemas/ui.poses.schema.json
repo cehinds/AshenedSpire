@@ -1,0 +1,14 @@
+{
+  "$id": "ui/poses.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "canvas": { "type": "object", "properties": { "width": { "type": "number" }, "height": { "type": "number" } }, "required": ["width", "height"] },
+    "strip": { "type": "array", "items": { "type": "string" } },
+    "tints": { "type": "object", "additionalProperties": { "type": "string" } },
+    "attackSequence": { "type": "array", "items": { "type": "string" } },
+    "motion": { "type": "object", "properties": { "defaultPlayMs": { "type": "number" }, "minimumPlayMs": { "type": "number" } }, "required": ["defaultPlayMs", "minimumPlayMs"] },
+    "frames": { "type": "object", "additionalProperties": { "type": "array", "items": { "type": "number" }, "minItems": 7, "maxItems": 7 } }
+  },
+  "required": ["canvas", "strip", "attackSequence", "motion", "frames"]
+}

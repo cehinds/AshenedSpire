@@ -4,7 +4,26 @@ namespace Ashen.Generated
     /// <summary>Named placeholders in UI string templates ({name}).</summary>
     public static class UiPlaceholders
     {
+        public const string Base = "base";
+        public const string Bonus = "bonus";
+        public const string Rating = "rating";
+        public const string State = "state";
         public const string Done = "done";
+        public const string Tip = "tip";
+        public const string Effect = "effect";
+        public const string Panes = "panes";
+        public const string Filter = "filter";
+        public const string Move = "move";
+        public const string Cancel = "cancel";
+        public const string Coverage = "coverage";
+        public const string Help = "help";
+        public const string Schools = "schools";
+        public const string Groups = "groups";
+        public const string Range = "range";
+        public const string Covers = "covers";
+        public const string Duration = "duration";
+        public const string Lead = "lead";
+        public const string Text = "text";
         public const string Total = "total";
         public const string File = "file";
         public const string Path = "path";
@@ -12,6 +31,7 @@ namespace Ashen.Generated
         public const string Message = "message";
         public const string Name = "name";
         public const string Class = "class";
+        public const string Reason = "reason";
         public const string Act = "act";
         public const string Floor = "floor";
         public const string Hp = "hp";
@@ -53,5 +73,32 @@ namespace Ashen.Generated
         public const string Rounds = "rounds";
         public const string Art = "art";
         public const string Heal = "heal";
+        public const string Cost = "cost";
+        public const string Number = "number";
+        public const string Target = "target";
+        public const string Selected = "selected";
+        public const string Names = "names";
+        public const string Code = "code";
+        public const string Rarity = "rarity";
+        public const string Bucket = "bucket";
+        public const string N = "n";
+        public const string Hand = "hand";
+        public const string Found = "found";
+        public const string Date = "date";
+        public const string Items = "items";
+        public const string Relics = "relics";
+        public const string Hands = "hands";
+        public const string Armour = "armour";
+        public const string Load = "load";
+        public const string Capacity = "capacity";
+        public const string Percent = "percent";
+        public const string Word = "word";
+        public const string Tail = "tail";
+        public const string BeforePercent = "beforePercent";
+        public const string Formula = "formula";
+        public const string AfterPercent = "afterPercent";
+        public const string Remaining = "remaining";
+        public const string Next = "next";
+        public const string Points = "points";
     }
 }

@@ -1,0 +1,19 @@
+{
+  "$id": "profile/content/provisionalPolicies.json",
+  "type": "object",
+  "properties": {
+    "choices": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "choices",
+    "status"
+  ]
+}

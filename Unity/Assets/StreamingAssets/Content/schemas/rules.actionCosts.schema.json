@@ -1,0 +1,389 @@
+{
+  "$id": "rules/actionCosts.json",
+  "type": "object",
+  "properties": {
+    "ACTION_COST_TABLE": {
+      "type": "object",
+      "properties": {
+        "attack": {
+          "type": "integer"
+        },
+        "block": {
+          "type": "integer"
+        },
+        "cast": {
+          "type": "integer"
+        },
+        "counter": {
+          "type": "integer"
+        },
+        "smash": {
+          "type": "integer"
+        },
+        "sweep": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "attack",
+        "block",
+        "cast",
+        "counter",
+        "smash",
+        "sweep"
+      ]
+    },
+    "CAST_TAGS": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "COST_BUDGET": {
+      "type": "object",
+      "properties": {
+        "castingEffortWeight": {
+          "type": "integer"
+        },
+        "damageSteps": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "damageWeight": {
+          "type": "number"
+        },
+        "mpDivisor": {
+          "type": "integer"
+        },
+        "rankWeight": {
+          "type": "integer"
+        },
+        "rankWeightMp": {
+          "type": "integer"
+        },
+        "restoreWeight": {
+          "type": "integer"
+        },
+        "smashPoiseBase": {
+          "type": "integer"
+        },
+        "spDivisor": {
+          "type": "integer"
+        },
+        "twoCostMultiplier": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "castingEffortWeight",
+        "damageSteps",
+        "damageWeight",
+        "mpDivisor",
+        "rankWeight",
+        "rankWeightMp",
+        "restoreWeight",
+        "smashPoiseBase",
+        "spDivisor",
+        "twoCostMultiplier"
+      ]
+    },
+    "COST_TAGS": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "side": {
+            "type": "string",
+            "enum": [
+              "mp",
+              "sp"
+            ]
+          },
+          "weight": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "side",
+          "weight"
+        ]
+      }
+    },
+    "DRAWBACK_KEYWORD_TAGS": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "DRAWBACK_OPS": {
+      "type": "object",
+      "properties": {
+        "addCard": {
+          "type": "string"
+        },
+        "discard": {
+          "type": "string"
+        },
+        "grantCardCharge": {
+          "type": "string"
+        },
+        "loseHp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "addCard",
+        "discard",
+        "grantCardCharge",
+        "loseHp"
+      ]
+    },
+    "ENEMY_BLIGHT_SHIFT": {
+      "type": "object",
+      "properties": {
+        "constitution": {
+          "type": "integer"
+        },
+        "dexterity": {
+          "type": "integer"
+        },
+        "intelligence": {
+          "type": "integer"
+        },
+        "strength": {
+          "type": "integer"
+        },
+        "wisdom": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "constitution",
+        "dexterity",
+        "intelligence",
+        "strength",
+        "wisdom"
+      ]
+    },
+    "ENEMY_SP_BANDS": {
+      "type": "object",
+      "properties": {
+        "boss": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "elite": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "normal": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      },
+      "required": [
+        "boss",
+        "elite",
+        "normal"
+      ]
+    },
+    "ENEMY_SP_ROW": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "integer"
+        },
+        "constitution": {
+          "type": "number"
+        },
+        "dexterity": {
+          "type": "number"
+        },
+        "intelligence": {
+          "type": "number"
+        },
+        "wisdom": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "base",
+        "constitution",
+        "dexterity",
+        "intelligence",
+        "wisdom"
+      ]
+    },
+    "KEYWORD_TAGS": {
+      "type": "object",
+      "properties": {
+        "ethereal": {
+          "type": "string"
+        },
+        "exhaust": {
+          "type": "string"
+        },
+        "innate": {
+          "type": "string"
+        },
+        "retain": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ethereal",
+        "exhaust",
+        "innate",
+        "retain"
+      ]
+    },
+    "MANEUVER_SP_FLOORS": {
+      "type": "object",
+      "properties": {
+        "maneuver:smash": {
+          "type": "integer"
+        },
+        "maneuver:sweep": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "maneuver:smash",
+        "maneuver:sweep"
+      ]
+    },
+    "RANGE_TAGS": {
+      "type": "object",
+      "properties": {
+        "delivery:area": {
+          "type": "string"
+        },
+        "delivery:melee": {
+          "type": "string"
+        },
+        "delivery:projectile": {
+          "type": "string"
+        },
+        "maneuver:ranged": {
+          "type": "string"
+        },
+        "range:melee": {
+          "type": "string"
+        },
+        "range:ranged": {
+          "type": "string"
+        },
+        "range:reach": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "delivery:area",
+        "delivery:melee",
+        "delivery:projectile",
+        "maneuver:ranged",
+        "range:melee",
+        "range:ranged",
+        "range:reach"
+      ]
+    },
+    "RANGE_WEIGHTS": {
+      "type": "object",
+      "properties": {
+        "melee": {
+          "type": "integer"
+        },
+        "ranged": {
+          "type": "integer"
+        },
+        "reach": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "melee",
+        "ranged",
+        "reach"
+      ]
+    },
+    "RESTORE_MANA_OPS": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "RESTORE_STAMINA_OPS": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "SCALED_EFFECT_OPS": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "block",
+          "buildup",
+          "damage",
+          "gainBarrier",
+          "gainPoise",
+          "gainWard",
+          "heal",
+          "poiseDamage",
+          "wardDamage"
+        ]
+      }
+    },
+    "STATUS_STACK_CAP": {
+      "type": "null"
+    },
+    "STATUS_WEIGHT": {
+      "type": "integer"
+    },
+    "STATUS_WEIGHTS": {
+      "type": "object",
+      "properties": {}
+    },
+    "SWEEP_UNSCALED_OPS": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "TWO_COST_EFFECT_MULTIPLIER": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "ACTION_COST_TABLE",
+    "CAST_TAGS",
+    "COST_BUDGET",
+    "COST_TAGS",
+    "DRAWBACK_KEYWORD_TAGS",
+    "DRAWBACK_OPS",
+    "ENEMY_BLIGHT_SHIFT",
+    "ENEMY_SP_BANDS",
+    "ENEMY_SP_ROW",
+    "KEYWORD_TAGS",
+    "MANEUVER_SP_FLOORS",
+    "RANGE_TAGS",
+    "RANGE_WEIGHTS",
+    "RESTORE_MANA_OPS",
+    "RESTORE_STAMINA_OPS",
+    "SCALED_EFFECT_OPS",
+    "STATUS_STACK_CAP",
+    "STATUS_WEIGHT",
+    "STATUS_WEIGHTS",
+    "SWEEP_UNSCALED_OPS",
+    "TWO_COST_EFFECT_MULTIPLIER"
+  ]
+}

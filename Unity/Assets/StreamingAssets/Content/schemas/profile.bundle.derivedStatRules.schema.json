@@ -1,0 +1,692 @@
+{
+  "$id": "profile/bundle/derivedStatRules.json",
+  "type": "object",
+  "properties": {
+    "defaults": {
+      "type": "object",
+      "properties": {
+        "perLevel": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "perLevel"
+      ]
+    },
+    "presentation": {
+      "type": "object",
+      "properties": {
+        "ar": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "dr": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "draw": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "faceLabel": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "faceLabel",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "energy": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "faceLabel": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "faceLabel",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "handSize": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "hp": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "mana": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "openingHand": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "poise": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "pr": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "stamina": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "faceLabel": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "faceLabel",
+            "label",
+            "order",
+            "sense"
+          ]
+        },
+        "ward": {
+          "type": "object",
+          "properties": {
+            "disclosure": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "order": {
+              "type": "integer"
+            },
+            "sense": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "disclosure",
+            "label",
+            "order",
+            "sense"
+          ]
+        }
+      },
+      "required": [
+        "ar",
+        "dr",
+        "draw",
+        "energy",
+        "handSize",
+        "hp",
+        "mana",
+        "openingHand",
+        "poise",
+        "pr",
+        "stamina",
+        "ward"
+      ]
+    },
+    "rules": {
+      "type": "object",
+      "properties": {
+        "ar": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "strength": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "base",
+            "strength"
+          ]
+        },
+        "dr": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "dexterity": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "base",
+            "dexterity"
+          ]
+        },
+        "draw": {
+          "type": "object",
+          "properties": {
+            "attributeBaseline": {
+              "type": "integer"
+            },
+            "base": {
+              "type": "integer"
+            },
+            "intelligence": {
+              "type": "number"
+            },
+            "max": {
+              "type": "integer"
+            },
+            "min": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "attributeBaseline",
+            "base",
+            "intelligence",
+            "max",
+            "min"
+          ]
+        },
+        "energy": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "dexterity": {
+              "type": "number"
+            },
+            "intelligence": {
+              "type": "number"
+            },
+            "perLevel": {
+              "type": "number"
+            },
+            "strength": {
+              "type": "number"
+            },
+            "wisdom": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "base",
+            "dexterity",
+            "intelligence",
+            "perLevel",
+            "strength",
+            "wisdom"
+          ]
+        },
+        "handSize": {
+          "type": "object",
+          "properties": {
+            "attributeBaseline": {
+              "type": "integer"
+            },
+            "base": {
+              "type": "integer"
+            },
+            "intelligence": {
+              "type": "number"
+            },
+            "max": {
+              "type": "integer"
+            },
+            "min": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "attributeBaseline",
+            "base",
+            "intelligence",
+            "max",
+            "min"
+          ]
+        },
+        "hp": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "constitution": {
+              "type": "integer"
+            },
+            "perLevel": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "base",
+            "constitution",
+            "perLevel"
+          ]
+        },
+        "mana": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "constitution": {
+              "type": "number"
+            },
+            "intelligence": {
+              "type": "number"
+            },
+            "perLevel": {
+              "type": "number"
+            },
+            "strength": {
+              "type": "number"
+            },
+            "wisdom": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "base",
+            "constitution",
+            "intelligence",
+            "perLevel",
+            "strength",
+            "wisdom"
+          ]
+        },
+        "openingHand": {
+          "type": "object",
+          "properties": {
+            "attributeBaseline": {
+              "type": "integer"
+            },
+            "base": {
+              "type": "integer"
+            },
+            "byClass": {
+              "type": "object",
+              "properties": {
+                "herald": {
+                  "type": "object",
+                  "properties": {
+                    "base": {
+                      "type": "integer"
+                    },
+                    "intelligence": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "intelligence"
+                  ]
+                },
+                "reaver": {
+                  "type": "object",
+                  "properties": {
+                    "base": {
+                      "type": "integer"
+                    },
+                    "intelligence": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "intelligence"
+                  ]
+                },
+                "rogue": {
+                  "type": "object",
+                  "properties": {
+                    "base": {
+                      "type": "integer"
+                    },
+                    "intelligence": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "intelligence"
+                  ]
+                },
+                "starseer": {
+                  "type": "object",
+                  "properties": {
+                    "base": {
+                      "type": "integer"
+                    },
+                    "intelligence": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "base",
+                    "intelligence"
+                  ]
+                }
+              },
+              "required": [
+                "herald",
+                "reaver",
+                "rogue",
+                "starseer"
+              ]
+            },
+            "intelligence": {
+              "type": "number"
+            },
+            "max": {
+              "type": "integer"
+            },
+            "min": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "attributeBaseline",
+            "base",
+            "byClass",
+            "intelligence",
+            "max",
+            "min"
+          ]
+        },
+        "poise": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "constitution": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "base",
+            "constitution"
+          ]
+        },
+        "pr": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "intelligence": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "base",
+            "intelligence"
+          ]
+        },
+        "stamina": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "constitution": {
+              "type": "number"
+            },
+            "dexterity": {
+              "type": "number"
+            },
+            "intelligence": {
+              "type": "number"
+            },
+            "perLevel": {
+              "type": "number"
+            },
+            "wisdom": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "base",
+            "constitution",
+            "dexterity",
+            "intelligence",
+            "perLevel",
+            "wisdom"
+          ]
+        },
+        "ward": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "wisdom": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "base",
+            "wisdom"
+          ]
+        }
+      },
+      "required": [
+        "ar",
+        "dr",
+        "draw",
+        "energy",
+        "handSize",
+        "hp",
+        "mana",
+        "openingHand",
+        "poise",
+        "pr",
+        "stamina",
+        "ward"
+      ]
+    },
+    "rulesetVersion": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "defaults",
+    "presentation",
+    "rules",
+    "rulesetVersion"
+  ]
+}

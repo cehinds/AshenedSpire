@@ -6,6 +6,7 @@
     "narrow": { "width": 430, "height": 780, "screenMatch": "expand", "match": 0 }
   },
   "narrowMaxWidth": 520,
+  "uiScale": { "named": { "s": 0.85, "m": 1, "l": 1.2, "xl": 1.45 }, "designW": 1200, "designH": 730 },
   "bands": { "standardMinHeight": 465, "compactMinHeight": 340 },
   "gateBelowHeight": 340,
   "minPhysical": {

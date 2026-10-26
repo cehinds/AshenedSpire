@@ -69,6 +69,18 @@ if (CHECK) {
   writeFileSync(OUT, text);
 }
 const sheets = walk(UI).filter((f) => f.endsWith('.uss') && f !== OUT);
-for (const f of sheets) for (const p of lintUss(readFileSync(f, 'utf8'))) errors.push(`${relative(ROOT, f).replace(/\\/g, '/')}:${p}`);
+// A var(--x) with no token drops the whole declaration in USS, so a rule written against a misspelt token (-h-narrow for -hnarrow) silently never applies.
+const defined = new Set([...text.matchAll(/^\s+(--[a-z0-9-]+):/gm)].map((m) => m[1]));
+export function undefinedVars(css) {
+  const body = css.replace(/\/\*[\s\S]*?\*\//g, '');
+  const local = new Set([...body.matchAll(/(--[a-z0-9-]+)\s*:/g)].map((m) => m[1]));
+  return [...new Set([...body.matchAll(/var\((--[a-z0-9-]+)/g)].map((m) => m[1]))].filter((v) => !defined.has(v) && !local.has(v));
+}
+for (const f of sheets) {
+  const css = readFileSync(f, 'utf8');
+  const rel = relative(ROOT, f).replace(/\\/g, '/');
+  for (const p of lintUss(css)) errors.push(`${rel}:${p}`);
+  for (const v of undefinedVars(css)) errors.push(`${rel}: var(${v}) is not a token in tokens.json`);
+}
 if (errors.length) { console.error(`ui-tokens: ${errors.length} problem(s)\n  ${errors.join('\n  ')}`); process.exit(1); }
 console.log(`ui-tokens: ${CHECK ? 'check ok' : 'wrote Tokens.uss'} (${Object.keys(tokens.groups).length} groups, ${sheets.length} style sheets linted)`);

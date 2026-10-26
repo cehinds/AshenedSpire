@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Orb.uss" />
+    <ui:VisualElement name="ORB_RING" class="orb-ring" picking-mode="Ignore" />
+    <ui:VisualElement name="ORB_DISC" class="orb-disc" picking-mode="Ignore" />
+    <ui:VisualElement name="ORB_FRAME" class="orb-frame" picking-mode="Ignore" />
+    <Ashen.Presentation.UI.LocLabel name="ORB_VALUE" class="orb-value kit-text-header" picking-mode="Ignore" />
+    <Ashen.Presentation.UI.LocLabel name="ORB_LABEL" class="orb-label kit-text-header" string-key="resource.stamina.name" picking-mode="Ignore" />
+</ui:UXML>

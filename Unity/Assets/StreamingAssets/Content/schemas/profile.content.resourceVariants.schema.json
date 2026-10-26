@@ -1,0 +1,198 @@
+{
+  "$id": "profile/content/resourceVariants.json",
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "mp": {
+        "type": "object",
+        "properties": {
+          "cost": {
+            "type": "integer"
+          },
+          "costGrowth": {
+            "type": "object",
+            "properties": {
+              "mana": {
+                "type": "integer"
+              },
+              "max": {
+                "type": "integer"
+              },
+              "perUse": {
+                "type": "integer"
+              },
+              "stamina": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "mana",
+              "max",
+              "perUse",
+              "stamina"
+            ]
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "amount",
+                "op",
+                "target"
+              ]
+            }
+          },
+          "manaCost": {
+            "type": "integer"
+          },
+          "staminaCost": {
+            "type": "integer"
+          },
+          "targetLimit": {
+            "type": "integer"
+          },
+          "textTemplate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cost",
+          "manaCost",
+          "staminaCost"
+        ]
+      },
+      "none": {
+        "type": "object",
+        "properties": {
+          "cost": {
+            "type": "integer"
+          },
+          "costGrowth": {
+            "type": "object",
+            "properties": {
+              "mana": {
+                "type": "integer"
+              },
+              "max": {
+                "type": "integer"
+              },
+              "perUse": {
+                "type": "integer"
+              },
+              "stamina": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "mana",
+              "max",
+              "perUse",
+              "stamina"
+            ]
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "amount",
+                "op"
+              ]
+            }
+          },
+          "manaCost": {
+            "type": "integer"
+          },
+          "staminaCost": {
+            "type": "integer"
+          },
+          "targetLimit": {
+            "type": "integer"
+          },
+          "textTemplate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cost",
+          "manaCost",
+          "staminaCost"
+        ]
+      },
+      "sp": {
+        "type": "object",
+        "properties": {
+          "cost": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "manaCost": {
+            "type": "integer"
+          },
+          "staminaCost": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "cost",
+          "manaCost",
+          "staminaCost"
+        ]
+      },
+      "sp,mp": {
+        "type": "object",
+        "properties": {
+          "cost": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "manaCost": {
+            "type": "integer"
+          },
+          "staminaCost": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "cost",
+          "manaCost",
+          "staminaCost"
+        ]
+      }
+    },
+    "required": [
+      "mp",
+      "none",
+      "sp",
+      "sp,mp"
+    ]
+  }
+}

@@ -141,16 +141,17 @@ namespace Ashen.Domain.Events
     {
         /// <summary>
         /// executeRunEffects({ run, registries, rng }, effects) → events: every effect queued against the facade (source,
-        /// owner and target), the queue drained, the facade's pools written back.
+        /// owner and target), the queue drained, the facade's pools written back. A flask drunk between fights passes the relics' flask power as <paramref name="amountMult"/>
+        /// (useRunChargeFlask scales each amount, rounded up).
         /// </summary>
-        public static JArray Execute(EventsData d, JObject run, Rng rng, JArray effects)
+        public static JArray Execute(EventsData d, JObject run, Rng rng, JArray effects, double amountMult = 1)
         {
             if (d == null) throw new ArgumentNullException(nameof(d));
             if (run == null) throw new ArgumentNullException(nameof(run));
             var ctx = new RunEffectContext(d, run, rng);
             var c = ctx.State;
             foreach (var eff in Js.Items(effects).OfType<JObject>())
-                c.Enqueue(new CombatAction { Effect = eff, Source = c.Player, Owner = c.Player, Target = c.Player, Meta = ActionMeta.Empty() });
+                c.Enqueue(new CombatAction { Effect = eff, Source = c.Player, Owner = c.Player, Target = c.Player, Meta = amountMult != 1 ? new ActionMeta { AmountMult = amountMult } : ActionMeta.Empty() });
             ctx.Drain();
             return new JArray(c.EventLog.Select(e => e.DeepClone()));
         }
@@ -211,11 +212,23 @@ namespace Ashen.Domain.Events
             else if (op == EV.UpgradeCard)
             {
                 var named = Js.Truthy(eff[K.Card]) ? eff.Str(K.Card) : null;
-                var plan = ItemSmithing.Plan(d.Shop, run);
-                // (armament id, or the deck instance itself for an ordinary card — held by reference, never copied)
+                // A Core 2 run (the Smith has a Core pipeline): a candidate is an item whose worn numbers change a deck card, found by the live card rows (smithingCore.js).
+                var core = d.Core != null && Core2Smith.Active(d.Core, run) ? d.Core : null;
+                var plan = core != null ? Core2Smith.Plan(core, run, false) : ItemSmithing.Plan(d.Shop, run);
+                // (armament id or item ref, or the deck instance itself for an ordinary card — held by reference, never copied)
                 var candidates = new List<KeyValuePair<string, JObject>>();
                 foreach (var candidate in plan.Arr(SK.Candidates).OfType<JObject>())
                 {
+                    if (candidate.Is(Ashen.Generated.Core2RestKeys.Core))
+                    {
+                        if (candidate.Str(SK.ItemKind) == V.RelicKind) continue;
+                        var rows = Core2Smith.CardRows(core, run, candidate.Str(K.ItemRef), candidate.Num(SK.CurrentLevel), candidate.Num(SK.NextLevel));
+                        var cards = Core2Smith.AffectedCards(rows);
+                        if (cards.Count == 0) continue;
+                        if (named != null && !cards.OfType<JObject>().Any(card => card.Str(K.CardId) == named)) continue;
+                        candidates.Add(new KeyValuePair<string, JObject>(candidate.Str(K.ItemRef), null));
+                        continue;
+                    }
                     if (candidate.Str(SK.ItemKind) != V.ArmamentRefPrefix) continue;
                     var affected = candidate.Arr(SK.AffectedCards);
                     if (affected.Count == 0) continue;
@@ -233,7 +246,8 @@ namespace Ashen.Domain.Events
                 var chosen = Js.Truthy(eff[K.Random]) ? rng.Pick(RngStream.Misc, candidates) : candidates[0];
                 if (chosen.Value == null)
                 {
-                    var receipt = ItemSmithing.Commit(d.Shop, run, chosen.Key, true);
+                    // A configured run commits an equipment upgrade only inside a Smith service; this response is one (free).
+                    var receipt = core != null ? Core2Smith.Commit(core, run, chosen.Key, true, true) : ItemSmithing.Commit(d.Shop, run, chosen.Key, true);
                     c.Emit(EV.ArmamentSmithed, receipt);
                 }
                 else chosen.Value.Put(K.Upgraded, true);

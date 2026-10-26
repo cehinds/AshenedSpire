@@ -1,0 +1,146 @@
+{
+  "$id": "ui/equipmentCard.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "frame": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "padding": {
+          "type": "number"
+        },
+        "gap": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "width",
+        "height",
+        "padding",
+        "gap"
+      ]
+    },
+    "bonusMaxLines": {
+      "type": "integer"
+    },
+    "regions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "minPx": {
+            "type": "number"
+          },
+          "priority": {
+            "type": "number"
+          },
+          "grow": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "minPx",
+          "priority",
+          "grow"
+        ]
+      }
+    },
+    "optional": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "art": {
+      "type": "object",
+      "properties": {
+        "icon": {
+          "type": "string"
+        },
+        "outfit": {
+          "type": "string"
+        },
+        "shared": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "icon",
+        "outfit",
+        "shared"
+      ]
+    },
+    "armoury": {
+      "type": "object",
+      "properties": {
+        "slotOrder": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "bonusLines": {
+          "type": "integer"
+        },
+        "thumbnailWidth": {
+          "type": "number"
+        },
+        "phoneThumbnailWidth": {
+          "type": "number"
+        },
+        "inspectionWidth": {
+          "type": "number"
+        },
+        "gridColumns": {
+          "type": "integer"
+        },
+        "phoneGridColumns": {
+          "type": "integer"
+        },
+        "defaultView": {
+          "type": "string"
+        },
+        "views": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "slotOrder",
+        "bonusLines",
+        "thumbnailWidth",
+        "phoneThumbnailWidth",
+        "inspectionWidth",
+        "gridColumns",
+        "phoneGridColumns",
+        "defaultView",
+        "views"
+      ]
+    },
+    "bonusLineHeight": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "frame",
+    "regions",
+    "optional",
+    "art",
+    "armoury",
+    "bonusLineHeight"
+  ]
+}

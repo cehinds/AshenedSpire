@@ -53,7 +53,10 @@ namespace Ashen.Generated
         public const string GripDual = "dual";
         public const string GripOne = "one";
         public const string GripTwo = "two";
+        public const string GroupAmount = "amount";
+        public const string GroupBetween = "between";
         public const string GroupField = "field";
+        public const string GroupHits = "hits";
         public const string GroupIndex = "index";
         public const string GroupNumber = "num";
         public const string GroupOwner = "owner";
@@ -137,6 +140,7 @@ namespace Ashen.Generated
         public const string TargetOtherEnemies = "otherEnemies";
         public const string TargetRandomEnemy = "randomEnemy";
         public const string TargetSelf = "self";
+        public const string TokenChargePrefix = "charge";
         public const string TokenRepeatSeparator = ".";
         public const string Undefined = "undefined";
         public const string UpgradeCardPart = "card";

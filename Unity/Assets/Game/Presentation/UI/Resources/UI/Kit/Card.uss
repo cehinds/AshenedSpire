@@ -1,100 +1,556 @@
-/* CardView (docs/design/04 §1): ratio 5:8 (card tokens), costs, name, art, type, text, keywords. */
+/* CardView (VP-3, D-650): the web's illustrated card (src/ui/components/illustratedCard.js). The face is laid out in the template's 360x540
+   design space (tokens group face, written by Tools/card-face.mjs from CARD_COMPONENTS.template) and CardView scales it to the card's box,
+   so every size here is a design px of the web template; text sizes are the template's. Layer order is the web's (CARD_LAYERS): base,
+   art + cutouts, title fade, footer backdrop and frame, parchment, ring, flag, cost icons, text, rank, tag rail. Sprites: Resources/UI/CardFace
+   (Tools/card-face.mjs); frame layers are the art release's cardframe.* textures, set by CardView. */
+
+/* ---- the box: the outer element is the card's real size; the face inside is scaled by CardView ---- */
+
 .cardview {
     width: var(--size-card-w);
     height: var(--size-card-h);
-    padding: var(--space-sm);
     margin: var(--space-xs);
-    background-color: var(--color-panel);
-    border-color: var(--color-line-soft);
-    border-width: var(--border-control);
-    border-radius: var(--radius-card);
-    transition-property: translate, border-color;
+    transition-property: translate;
     transition-duration: var(--duration-fast);
 }
 
-.cardview:focus,
-.cardview:hover {
-    border-color: var(--color-gold);
+.card-face {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--face-w);
+    height: var(--face-h);
+    transform-origin: 0 0;
+    visibility: hidden;
 }
 
-.card--rare { border-color: var(--color-gold-soft); }
-.card--uncommon { border-color: var(--color-ward); }
+.card--sized .card-face {
+    visibility: visible;
+}
+
+.card-layer {
+    position: absolute;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+/* A trimmed frame image: the box shows the trim rectangle, the image is drawn bigger and shifted (illustratedCardHtml crop). */
+.card-box {
+    position: absolute;
+    overflow: hidden;
+}
+
+.card-box--base {
+    left: var(--face-base-x);
+    top: var(--face-base-y);
+    width: var(--face-base-w);
+    height: var(--face-base-h);
+}
+
+.card-crop--base {
+    left: var(--face-base-crop-x);
+    top: var(--face-base-crop-y);
+    width: var(--face-base-crop-w);
+    height: var(--face-base-crop-h);
+}
+
+.card-box--panel {
+    left: var(--face-panel-x);
+    top: var(--face-panel-y);
+    width: var(--face-panel-w);
+    height: var(--face-panel-h);
+}
+
+.card-crop--panel {
+    left: var(--face-panel-crop-x);
+    top: var(--face-panel-crop-y);
+    width: var(--face-panel-crop-w);
+    height: var(--face-panel-crop-h);
+}
+
+.card-box--flag {
+    left: var(--face-flag-x);
+    top: var(--face-flag-y);
+    width: var(--face-flag-w);
+    height: var(--face-flag-h);
+}
+
+.card-crop--flag {
+    left: var(--face-flag-crop-x);
+    top: var(--face-flag-crop-y);
+    width: var(--face-flag-crop-w);
+    height: var(--face-flag-crop-h);
+}
+
+/* The banner is as tall as the costs it carries: a mana cost lengthens it (costLayouts.staminaMana). */
+.card-flag--tall .card-box--flag {
+    height: var(--face-flag-tall-h);
+}
+
+.card-flag--tall .card-crop--flag {
+    top: var(--face-flag-tall-crop-y);
+    height: var(--face-flag-tall-crop-h);
+}
+
+/* ---- art: the painting (or the cutout background) covers the window, the cutouts stand on a centred 4:5 stage ---- */
+
+.card-art {
+    position: absolute;
+    left: var(--face-art-x);
+    top: var(--face-art-y);
+    width: var(--face-art-w);
+    height: var(--face-art-h);
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg);
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.card-stage {
+    flex-shrink: 0;
+    width: var(--face-stage-w);
+    height: var(--face-stage-h);
+}
+
+.card-cut {
+    position: absolute;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* cardArtLayersHtml: the element's colour wash and the line-art motifs, stretched over the whole art window above the cutouts */
+.card-motifs {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.card-motif,
+.card-wash {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+/* illustrated-cards.css:20-27 the dark fade behind the title; :28 the footer backdrop; the SVG action frame (illustratedCard.js actionBaseFrame) */
+.card-fade {
+    position: absolute;
+    left: var(--face-fade-x);
+    top: var(--face-fade-y);
+    width: var(--face-fade-w);
+    height: var(--face-fade-h);
+    border-top-left-radius: var(--face-fade-radius);
+    border-top-right-radius: var(--face-fade-radius);
+    background-image: url("../CardFace/title-fade.png");
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.card-footer-back {
+    position: absolute;
+    left: var(--face-footer-x);
+    top: var(--face-footer-y);
+    width: var(--face-footer-w);
+    height: var(--face-footer-h);
+    background-color: var(--face-footer-back);
+}
+
+.card-footer-frame,
+.card-ring {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--face-w);
+    height: var(--face-h);
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.card-footer-frame {
+    background-image: url("../CardFace/footer-frame.png");
+}
+
+/* the frame's bronze ring and corner flourishes, over the painting (the web's base 'trim' plane) */
+.card-ring {
+    background-image: url("../CardFace/ring.png");
+}
+
+/* ---- costs: a flag (above) and, for each cost, an icon with its number (cost layouts; web ids stamina, mana, energy) ---- */
 
 .card-costs {
-    flex-direction: row;
     position: absolute;
-    left: var(--space-xs);
-    top: var(--space-xs);
+    left: 0;
+    top: 0;
+    width: var(--face-w);
+    height: var(--face-h);
 }
 
 .card-cost {
-    width: var(--size-cost-pip);
-    height: var(--size-cost-pip);
-    margin-right: var(--space-xxs);
-    border-radius: var(--radius-chip);
-    font-size: var(--font-cost);
-    -unity-font-style: bold;
-    -unity-text-align: middle-center;
-    color: var(--color-bg);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--size-full-width);
+    height: var(--size-full-width);
 }
 
-.card-cost--actions { background-color: var(--color-res-actions); }
-.card-cost--stamina { background-color: var(--color-res-sp); }
-.card-cost--mana { background-color: var(--color-res-mp); }
+.card-cost-icon {
+    position: absolute;
+    overflow: hidden;
+}
 
-.card-name {
-    margin-top: var(--size-cost-pip);
-    font-size: var(--font-card-name);
+.card-cost-value {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    -unity-text-align: middle-center;
     -unity-font-style: bold;
+    white-space: nowrap;
+    color: var(--face-cost-color);
+    -unity-text-outline-width: var(--face-cost-outline);
+    -unity-text-outline-color: var(--face-cost-outline-color);
+}
+
+.card-slot--stamina .card-cost-icon {
+    left: var(--face-stamina-icon-x);
+    top: var(--face-stamina-icon-y);
+    width: var(--face-stamina-icon-w);
+    height: var(--face-stamina-icon-h);
+}
+
+.card-slot--stamina .card-crop--stamina {
+    left: var(--face-stamina-icon-crop-x);
+    top: var(--face-stamina-icon-crop-y);
+    width: var(--face-stamina-icon-crop-w);
+    height: var(--face-stamina-icon-crop-h);
+}
+
+.card-slot--stamina .card-cost-value {
+    left: var(--face-stamina-value-x);
+    top: var(--face-stamina-value-y);
+    width: var(--face-stamina-value-w);
+    height: var(--face-stamina-value-h);
+    font-size: var(--face-stamina-value-size);
+}
+
+.card-slot--mana .card-cost-icon {
+    left: var(--face-mana-icon-x);
+    top: var(--face-mana-icon-y);
+    width: var(--face-mana-icon-w);
+    height: var(--face-mana-icon-h);
+}
+
+.card-slot--mana .card-crop--mana {
+    left: var(--face-mana-icon-crop-x);
+    top: var(--face-mana-icon-crop-y);
+    width: var(--face-mana-icon-crop-w);
+    height: var(--face-mana-icon-crop-h);
+}
+
+.card-slot--mana .card-cost-value {
+    left: var(--face-mana-value-x);
+    top: var(--face-mana-value-y);
+    width: var(--face-mana-value-w);
+    height: var(--face-mana-value-h);
+    font-size: var(--face-mana-value-size);
+}
+
+.card-slot--energy .card-cost-icon {
+    left: var(--face-energy-icon-x);
+    top: var(--face-energy-icon-y);
+    width: var(--face-energy-icon-w);
+    height: var(--face-energy-icon-h);
+}
+
+.card-slot--energy .card-crop--energy {
+    left: var(--face-energy-icon-crop-x);
+    top: var(--face-energy-icon-crop-y);
+    width: var(--face-energy-icon-crop-w);
+    height: var(--face-energy-icon-crop-h);
+}
+
+.card-slot--energy .card-cost-value {
+    left: var(--face-energy-value-x);
+    top: var(--face-energy-value-y);
+    width: var(--face-energy-value-w);
+    height: var(--face-energy-value-h);
+    font-size: var(--face-energy-value-size);
+}
+
+/* ---- text: the template's title and rules layers (the face fits their size, CardView) ---- */
+
+.cardview .card-name {
+    position: absolute;
+    left: var(--face-title-x);
+    top: var(--face-title-y);
+    width: var(--face-title-w);
+    height: var(--face-title-h);
+    margin: 0;
+    padding: 0;
+    font-size: var(--face-title-size);
+    color: var(--face-name-color);
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    overflow: hidden;
+    -unity-text-outline-width: var(--face-name-outline);
+    -unity-text-outline-color: var(--face-name-outline-color);
+    text-shadow: 0 var(--face-name-shadow-y) var(--face-name-shadow-blur) var(--face-ink-color);
+}
+
+.cardview .card-text {
+    position: absolute;
+    left: var(--face-rules-x);
+    top: var(--face-rules-y);
+    width: var(--face-rules-w);
+    height: var(--face-rules-h);
+    margin: 0;
+    padding: 0;
+    font-size: var(--face-rules-size);
+    color: var(--face-rules-color);
     -unity-text-align: middle-center;
     white-space: normal;
+    overflow: hidden;
 }
 
-.card-art {
-    height: var(--size-card-art-h);
-    margin-top: var(--space-xs);
-    background-color: var(--color-bg-raise);
-    border-radius: var(--radius-chip);
-    background-size: cover;
-}
-
-.card-type {
-    margin-top: var(--space-xs);
-    font-size: var(--font-chip);
-    color: var(--color-muted);
-    -unity-text-align: middle-center;
-}
-
-.card-text {
-    flex-grow: 1;
-    font-size: var(--font-card-text);
+/* the cue that closes a face whose model has more lines than it shows (the web's .card-rules-inspect-cue): it sits at the foot of the rules box */
+.cardview .card-cue {
+    position: absolute;
+    left: var(--face-rules-x);
+    top: var(--face-rules-y);
+    width: var(--face-rules-w);
+    height: var(--face-rules-h);
+    margin: 0;
+    padding: 0;
+    font-size: var(--face-cue-size);
+    color: var(--face-cue-color);
+    -unity-font-style: bold;
+    -unity-text-align: lower-center;
     white-space: normal;
-    -unity-text-align: upper-center;
+    overflow: hidden;
+    display: none;
 }
 
-.card-keywords,
-.card-lent {
-    font-size: var(--font-chip);
+/* lent-by and the refusal (the non-colour cue of an unplayable card) sit on the art, above the parchment */
+.card-notes {
+    position: absolute;
+    left: var(--face-note-x);
+    bottom: var(--face-note-bottom);
+    width: var(--face-note-w);
+}
+
+.cardview .card-lent,
+.cardview .card-refusal {
+    margin: 0;
+    margin-top: var(--face-note-gap);
+    padding: var(--face-note-pad);
+    font-size: var(--face-note-size);
+    white-space: normal;
+    -unity-text-align: middle-center;
+    background-color: var(--face-note-back);
+}
+
+.cardview .card-lent {
     color: var(--color-gold);
-    -unity-text-align: middle-center;
 }
 
-.card-refusal {
-    font-size: var(--font-chip);
+.cardview .card-refusal {
     color: var(--color-danger);
-    -unity-text-align: middle-center;
-    white-space: normal;
 }
 
-.card--unaffordable {
+/* ---- type band (combatSigilView.js cardSigilsHtml; illustrated-cards.css:50-67): the action's mark and word ---- */
+
+.card-band {
+    position: absolute;
+    left: var(--face-band-x);
+    top: var(--face-band-y);
+    width: var(--face-band-w);
+    height: var(--face-band-h);
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-left: var(--face-band-pad-x);
+    padding-right: var(--face-band-pad-x);
+    padding-bottom: var(--face-band-pad-bottom);
+}
+
+.card-sigil {
+    flex-shrink: 0;
+    width: var(--face-band-icon);
+    height: var(--face-band-icon);
+    margin-right: var(--face-band-gap);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--face-band-color);
+}
+
+/* a Spell that mirrors a basic card: its second mark follows the Spell mark, then the basic's word */
+.card-sigil--mirror {
+    display: none;
+}
+
+.card-band--mirrored .card-sigil--mirror {
+    display: flex;
+}
+
+/* illustrated-cards.css:101-105: a rule moved the printed price: lower reads green, higher red */
+.card-cost--down .card-cost-value {
+    color: var(--color-green);
+}
+
+.card-cost--up .card-cost-value {
+    color: var(--color-danger);
+}
+
+.cardview .card-type {
+    margin: 0;
+    padding: 0;
+    font-size: var(--face-band-size);
+    letter-spacing: var(--face-band-track);
+    color: var(--face-band-color);
+    -unity-font-style: bold;
+    white-space: nowrap;
+    text-shadow: 0 var(--face-name-shadow-y) var(--face-name-shadow-blur) var(--face-ink-color);
+}
+
+/* ---- tag rail (illustrated-cards.css:68-73): the card's symbols down the right edge ---- */
+
+.card-rail {
+    position: absolute;
+    right: var(--face-rail-right);
+    top: var(--face-rail-top);
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.card-rail-count {
+    position: absolute;
+    right: var(--face-count-right);
+    bottom: var(--face-count-bottom);
+    min-width: var(--face-count-size);
+    height: var(--face-count-size);
+    margin: 0;
+    padding-left: var(--face-count-pad-x);
+    padding-right: var(--face-count-pad-x);
+    border-width: var(--face-count-border);
+    border-radius: var(--face-count-radius);
+    border-color: var(--face-count-border-color);
+    background-color: var(--face-count-back);
+    color: var(--face-count-color);
+    font-size: var(--face-count-font);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+}
+
+.card-rail-mark {
+    width: var(--face-rail-mark);
+    height: var(--face-rail-mark);
+    margin-bottom: var(--face-rail-gap);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--face-rail-color);
+}
+
+/* ---- rank gem (illustrated-cards.css:74-86), over the top edge of the parchment ---- */
+
+.card-rank {
+    display: none;
+    position: absolute;
+    left: var(--face-rank-x);
+    top: var(--face-rank-y);
+    width: var(--face-rank-w);
+    height: var(--face-rank-h);
+    background-image: url("../CardFace/rank-bar.png");
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.card--ranked .card-rank {
+    display: flex;
+}
+
+.cardview .card-rank-text {
+    position: absolute;
+    left: var(--face-rank-text-x);
+    top: var(--face-rank-text-y);
+    width: var(--face-rank-text-w);
+    height: var(--face-rank-text-h);
+    margin: 0;
+    padding: 0;
+    font-size: var(--face-rank-size);
+    color: var(--face-rank-color);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    white-space: nowrap;
+    text-shadow: 0 var(--face-name-shadow-y) var(--face-name-shadow-blur) var(--face-ink-color);
+}
+
+/* ---- states ---- */
+
+/* illustrated-cards.css:39: a hovered, focused or selected card wears a soft gold glow; an armed card (aimed at a target) a blue one */
+.card-glow {
+    display: none;
+    position: absolute;
+    left: var(--face-glow-out);
+    top: var(--face-glow-out);
+    right: var(--face-glow-out);
+    bottom: var(--face-glow-out);
+    background-image: url("../CardFace/glow.png");
+    -unity-slice-scale: var(--face-glow-slice);
+    -unity-background-image-tint-color: var(--face-glow-color);
+}
+
+.cardview:hover .card-glow,
+.cardview:focus .card-glow {
+    display: flex;
+}
+
+.card--armed .card-glow {
+    display: flex;
+    -unity-background-image-tint-color: var(--face-glow-armed-color);
+}
+
+.card--chosen .card-glow {
+    display: flex;
+    -unity-background-image-tint-color: var(--face-glow-chosen-color);
+}
+
+/* illustrated-cards.css:38: an unaffordable card is drawn at brightness .65 (the face's images take the dim tint, the text fades) */
+.card--unaffordable .card-layer,
+.card--unaffordable .card-art,
+.card--unaffordable .card-cut,
+.card--unaffordable .card-ring,
+.card--unaffordable .card-fade,
+.card--unaffordable .card-footer-frame {
+    -unity-background-image-tint-color: var(--face-dim-color);
+}
+
+.card--unaffordable .card-text,
+.card--unaffordable .card-name,
+.card--unaffordable .card-band,
+.card--unaffordable .card-rail,
+.card--unaffordable .card-costs {
     opacity: var(--opacity-muted);
-}
-
-.card--unaffordable .card-cost {
-    background-color: var(--color-blood);
-    color: var(--color-danger);
 }
 
 .card--upgraded .card-name {
     color: var(--color-green);
+}
+
+/* the inspect button (web .card-info-button): a round "i" above the card, shown by the hand when it can open the inspector, on the hovered or focused card (VP-6) */
+.card-info {
+    display: none;
+    position: absolute;
+    left: var(--face-info-x);
+    top: var(--face-info-y);
+    width: var(--face-info-size);
+    height: var(--face-info-size);
+    border-radius: var(--radius-round);
+    border-width: var(--border-hairline);
+    border-color: var(--face-info-line);
+    background-color: var(--face-info-back);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--face-info-line);
+}
+
+.card--inspectable:hover .card-info,
+.card--inspectable:focus .card-info {
+    display: flex;
 }

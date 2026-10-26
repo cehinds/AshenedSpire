@@ -35,6 +35,12 @@
       "items": {
         "type": "string"
       }
+    },
+    "core2Streams": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   },
   "required": [

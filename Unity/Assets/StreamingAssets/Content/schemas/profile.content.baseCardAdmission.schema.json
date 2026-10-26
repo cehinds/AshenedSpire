@@ -1,0 +1,48 @@
+{
+  "$id": "profile/content/baseCardAdmission.json",
+  "type": "object",
+  "properties": {
+    "admitted": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "group": {
+      "type": "string"
+    },
+    "unavailable": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "elements",
+                "hand-retention",
+                "multiplayer",
+                "protection:barrier",
+                "ward-channel"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "reasons"
+        ]
+      }
+    }
+  },
+  "required": [
+    "admitted",
+    "group",
+    "unavailable"
+  ]
+}

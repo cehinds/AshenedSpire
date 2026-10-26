@@ -1,0 +1,26 @@
+{
+  "comment": "VP-16 chrome and phone residuals (D-1200..D-1249): the focus ring overlay, the select control, the creation header and step button. USS classes live in Styles/Chrome.uss and Screens/Front.uss.",
+  "keySets": [
+    {
+      "name": "ChromeClasses",
+      "doc": "USS classes of the VP-16 chrome: the focus ring overlay (Styles/Chrome.uss), the select control and the creation header (Screens/Front.uss).",
+      "keys": {
+        "FocusRing": "focus-ring",
+        "FocusRingBox": "focus-ring-box",
+        "NavStepped": "nav--stepped",
+        "Select": "kit-select",
+        "SelectFace": "kit-select-face",
+        "SelectValue": "kit-select-value",
+        "SelectChevron": "kit-select-chevron",
+        "SelectList": "kit-select-list",
+        "SelectOption": "kit-select-option",
+        "CreationHeadTools": "creation-head-tools",
+        "CreationHeadSeg": "creation-head-seg",
+        "CreationHeadSegButton": "creation-head-seg-button",
+        "CreationAvatar": "creation-avatar",
+        "CreationMenu": "creation-menu",
+        "NavChevron": "nav-chevron"
+      }
+    }
+  ]
+}

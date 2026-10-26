@@ -5,6 +5,7 @@ using System.Linq;
 using Ashen.Generated;
 using Newtonsoft.Json.Linq;
 using E = Ashen.Generated.CombatEvents;
+using CK = Ashen.Generated.Core2CombatKeys;
 using K = Ashen.Generated.CombatKeys;
 using M = Ashen.Generated.CombatMessages;
 using Op = Ashen.Generated.CombatOps;
@@ -228,6 +229,18 @@ namespace Ashen.Domain.Combat
             c.Emit(E.PlayerStaggered, Js.Obj(K.TargetId, player[K.Id], K.ActionLoss, actionLoss, K.Statuses, applied));
         }
 
+        /// <summary>growPoiseMeter(ctx, entity): after a full Poise fill the meter's max grows by the balance's multiplier (unless a combatant disables growth).</summary>
+        public static void GrowPoiseMeter(CombatState c, JObject entity)
+        {
+            var cfg = c.Data.Balance.Obj(K.Poise) ?? new JObject();
+            var growth = Js.Coalesce(cfg[K.GrowthMult], c.Data.Rule(K.Defaults, K.PoiseGrowthMult));
+            if (growth == 1 || Statuses.AnyCombatantFlag(c, K.MeterMaxGrowthDisabled)) return;
+            var meter = entity.Obj(K.PoiseMeter);
+            meter.Put(K.Max, Math.Ceiling(meter.Num(K.Max) * growth));
+            meter.Put(K.Growths, meter.Or0(K.Growths) + 1);
+            meter.Put(K.GrowthMult, growth);
+        }
+
         public static void DealPoiseDamage(CombatState c, JObject entity, double amount)
         {
             if (c.RatingsRules != null)
@@ -276,7 +289,9 @@ namespace Ashen.Domain.Combat
                 {
                     if (c.HandRules != null && c.HandRules[K.Reshuffle] != null && c.HandRules[K.Reshuffle].Type == JTokenType.Boolean && !c.HandRules[K.Reshuffle].Value<bool>()) return;
                     if (c.Piles.Discard.Count == 0) return;
-                    ReshuffleDiscardIntoDraw(c);
+                    // Play in deck order (SPEC 14.1) returns the discard in deck order and rolls nothing; the shuffleDiscardIntoDraw effect still shuffles.
+                    if (Js.Truthy(c.Fields[CK.OrderedDraw])) ReturnDiscardInOrder(c);
+                    else ReshuffleDiscardIntoDraw(c);
                 }
                 var card = c.Piles.Draw[0];
                 c.Piles.Draw.RemoveAt(0);
@@ -305,6 +320,15 @@ namespace Ashen.Domain.Combat
             }
         }
 
+        /// <summary>returnDiscardInOrder(ctx): the discard goes back under the draw pile in deck order, then cards the deck never held in the order discarded.</summary>
+        public static void ReturnDiscardInOrder(CombatState c)
+        {
+            var order = c.Fields.Obj(CK.OrderedDraw).Arr(Ashen.Generated.Core2SnapshotKeys.Order).Select(Js.Str).ToList();
+            c.Piles.Draw.AddRange(Ashen.Domain.Run.DeckRules.OrderedReturn(c.Piles.Discard, order));
+            c.Piles.Discard.Clear();
+            c.Emit(E.DeckShuffled, Js.Obj(K.Size, c.Piles.Draw.Count, CK.Ordered, true));
+        }
+
         public static void ReshuffleDiscardIntoDraw(CombatState c)
         {
             c.Piles.Draw.AddRange(c.Piles.Discard);
@@ -319,6 +343,7 @@ namespace Ashen.Domain.Combat
 
         public static List<JObject> ResolveTargets(CombatState c, CombatAction action, string spec)
         {
+            if (c.IsCore) return CoreOps.Targets(c, action, spec);
             var list = new List<JObject>();
             switch (spec)
             {
@@ -381,6 +406,7 @@ namespace Ashen.Domain.Combat
             ctx.AllEnemies = LivingEnemies(c);
             ctx.EnergySpent = action.Meta?.EnergySpent ?? 0;
             ctx.CardsPlayedThisTurn = c.Player != null ? c.Player.Obj(K.Counters).Num(K.CardsPlayedThisTurn) : 0;
+            if (c.IsCore) CoreFormulas.Extend(c, action, ctx);
             return ctx;
         }
 
@@ -484,7 +510,7 @@ namespace Ashen.Domain.Combat
                     var roll = c.Rng.Int(RngStream.Misc, 1, (int)c.Data.Mechanics.Obj(K.DodgeRoll).Num(K.Die));
                     var dexterity = c.Attributes != null && Js.Truthy(c.Attributes[K.Dexterity]) ? c.Attributes.Num(K.Dexterity) : c.Data.Rule(K.Defaults, K.Dexterity);
                     var stance = Equipment.PlayerWeightClass(c);
-                    var receipt = Equipment.DodgeRoll(c.Data, roll, dexterity, stance.WeightClass);
+                    var receipt = Equipment.DodgeRoll(c.Data, roll, dexterity, stance.WeightClass, c.Fields[CK.AttributeMode]?.Type == JTokenType.String ? c.Fields.Str(CK.AttributeMode) : null);
                     c.Emit(E.DodgeRolled, Js.Obj(K.SourceId, p[K.Id], K.Roll, (double)roll, K.Check, receipt.Check, K.Difficulty, receipt.Difficulty,
                         K.Success, receipt.Success, K.TemporaryGuard, receipt.TemporaryGuard, K.WeightClass, stance.WeightClass[K.Id]));
                     if (receipt.Success && receipt.TemporaryGuard > 0) GainBlock(c, p, receipt.TemporaryGuard, null);

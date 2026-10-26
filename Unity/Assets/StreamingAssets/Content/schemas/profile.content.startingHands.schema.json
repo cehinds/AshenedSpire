@@ -1,0 +1,24 @@
+{
+  "$id": "profile/content/startingHands.json",
+  "type": "object",
+  "properties": {
+    "herald": {
+      "type": "integer"
+    },
+    "reaver": {
+      "type": "integer"
+    },
+    "rogue": {
+      "type": "integer"
+    },
+    "starseer": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "herald",
+    "reaver",
+    "rogue",
+    "starseer"
+  ]
+}

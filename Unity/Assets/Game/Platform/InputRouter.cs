@@ -6,10 +6,10 @@ using UnityEngine.InputSystem;
 namespace Ashen.Platform
 {
     /// <summary>
-    /// One input source for the focus model (US-17.1; docs/design/09 §5.2 InputRouter). Reads the Input System's
-    /// UI actions (Navigate, Submit, Cancel: keyboard arrows/WASD/Enter/Escape, pad stick/d-pad/South/East) plus
-    /// Tab/Shift+Tab and the pad's Start button, and raises intents: Move(+1 next / -1 previous), Submit, Cancel, Menu. A held direction repeats after
-    /// the navRepeatDelay token, then every navRepeatInterval. Pointer input stays with UI Toolkit.
+    /// One input source for the focus model (US-17.1; docs/design/09 §5.2 InputRouter). Reads the keyboard's arrows, Enter and Escape and the pad's left stick, plus Tab/Shift+Tab, and raises
+    /// intents: Move(+1 next / -1 previous), Submit, Cancel. A held direction repeats after the navRepeatDelay token, then every navRepeatInterval. The web's navigation is the arrow keys,
+    /// the D-pad and the left stick, and nothing else (WASD are not arrows: D and R and T are bindable keys); the pad's buttons, the D-pad among them, are the HotkeyHost's, which reads
+    /// them through the player's bindings (P-7c), so a pad's Submit and Cancel here are ignored. Pointer input stays with UI Toolkit.
     /// </summary>
     public sealed class InputRouter : IDisposable
     {
@@ -23,7 +23,6 @@ namespace Ashen.Platform
         {
             _repeatDelay = (float)(repeatDelayMs / UiMath.MillisPerSecond);
             _repeatInterval = (float)(repeatIntervalMs / UiMath.MillisPerSecond);
-            _actions.UI.Navigate.Enable();
             _actions.UI.Submit.Enable();
             _actions.UI.Cancel.Enable();
             _actions.UI.Submit.performed += OnSubmit;
@@ -34,21 +33,23 @@ namespace Ashen.Platform
         public event Action Submit;
         public event Action Cancel;
 
-        /// <summary>Pad Start: open or close the in-run menu (W-20). Escape stays Cancel, which a run screen also maps to pause.</summary>
-        public event Action Menu;
+        private void OnSubmit(InputAction.CallbackContext context)
+        {
+            if (!(context.control?.device is Gamepad)) Submit?.Invoke();
+        }
 
-        private void OnSubmit(InputAction.CallbackContext _) => Submit?.Invoke();
-        private void OnCancel(InputAction.CallbackContext _) => Cancel?.Invoke();
+        private void OnCancel(InputAction.CallbackContext context)
+        {
+            if (!(context.control?.device is Gamepad)) Cancel?.Invoke();
+        }
 
         /// <summary>Call once per frame with realtime seconds.</summary>
         public void Tick(float now)
         {
             var keyboard = Keyboard.current;
             if (keyboard != null && keyboard.tabKey.wasPressedThisFrame) Move?.Invoke(keyboard.shiftKey.isPressed ? -1 : 1);
-            var pad = Gamepad.current;
-            if (pad != null && pad.startButton.wasPressedThisFrame) Menu?.Invoke();
 
-            var direction = Direction(_actions.UI.Navigate.ReadValue<Vector2>());
+            var direction = Direction(Navigate());
             if (direction == 0)
             {
                 _held = 0;
@@ -64,6 +65,23 @@ namespace Ashen.Platform
             if (now < _nextRepeat) return;
             _nextRepeat = now + _repeatInterval;
             Move?.Invoke(direction);
+        }
+
+        /// <summary>The arrow keys and the left stick (web input.js: ArrowUp/Down/Left/Right and the stick's axes; the D-pad's buttons are the HotkeyHost's).</summary>
+        private static Vector2 Navigate()
+        {
+            var v = Vector2.zero;
+            var keyboard = Keyboard.current;
+            if (keyboard != null)
+            {
+                if (keyboard.upArrowKey.isPressed) v.y += 1f;
+                if (keyboard.downArrowKey.isPressed) v.y -= 1f;
+                if (keyboard.leftArrowKey.isPressed) v.x -= 1f;
+                if (keyboard.rightArrowKey.isPressed) v.x += 1f;
+            }
+            var pad = Gamepad.current;
+            if (pad != null) v += pad.leftStick.ReadValue();
+            return v;
         }
 
         /// <summary>Down or right is next (+1), up or left is previous (-1); vertical wins on diagonals.</summary>

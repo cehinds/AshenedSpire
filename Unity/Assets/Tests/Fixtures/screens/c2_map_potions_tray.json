@@ -1,0 +1,13 @@
+{
+  "comment": "the Potions minis out of the button (the hover reveal).",
+  "screen": "actMap",
+  "core2": {
+    "until": "map",
+    "potionsTray": true,
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

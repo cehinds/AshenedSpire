@@ -1,0 +1,299 @@
+{
+  "comment": "P-3a (D-1440..D-1489): the Progression hub's Character Sheet and attribute allocation dialog (web ui/models/ProgressionInspectionModel.js, model/creationBrief.js attributeCardModels, ui/components/progressionCards.js).",
+  "keySets": [
+    {
+      "name": "StatPlaceholders",
+      "doc": "Placeholders of the stat formula and attribute card strings that the shared UiPlaceholders lack.",
+      "keys": {
+        "Terms": "terms",
+        "Gear": "gear",
+        "Permanent": "permanent",
+        "Held": "held",
+        "Limits": "limits",
+        "Capped": "capped",
+        "Never": "never",
+        "Cadence": "cadence",
+        "Rate": "rate",
+        "Gain": "gain",
+        "Weight": "weight",
+        "Multiplier": "multiplier",
+        "Short": "short"
+      }
+    },
+    {
+      "name": "ProgressionKeys",
+      "doc": "Keys of ui/progression.json and of the registry rows the Character Sheet reads (the derived-stat presentation, the attribute rows, the armaments' attribute gates).",
+      "keys": {
+        "Rows": "rows",
+        "Source": "source",
+        "LabelKey": "labelKey",
+        "FaceKey": "faceKey",
+        "RatingRows": "ratingRows",
+        "RatingLabels": "ratingLabels",
+        "HandRows": "handRows",
+        "MainBenefits": "mainBenefits",
+        "Stat": "stat",
+        "SourceDerived": "derived",
+        "SourceRating": "rating",
+        "SourceHandSize": "handSize",
+        "SourceDraw": "draw",
+        "OpeningHandRow": "openingHand",
+        "Sense": "sense",
+        "RequirementAttributes": "attributes",
+        "Weights": "weights",
+        "FirstSentence": "^.*?[.!?](?:\\s|$)"
+      }
+    },
+    {
+      "name": "ProgressionClasses",
+      "doc": "USS classes of the Character Sheet button, the attributes banner and cards and the allocation dialog (Armoury.uss).",
+      "keys": {
+        "Banner": "armoury-prog-banner",
+        "Toggle": "armoury-prog-toggle",
+        "ToggleTitle": "armoury-prog-title",
+        "SummaryLine": "armoury-prog-summary",
+        "SummaryKey": "armoury-prog-summary-key",
+        "SummaryValue": "armoury-prog-summary-value",
+        "Points": "armoury-prog-points",
+        "PointsOn": "armoury-prog-points--available",
+        "Detail": "armoury-prog-detail",
+        "SheetButton": "armoury-prog-sheet",
+        "StatCard": "armoury-stat-card",
+        "StatFace": "armoury-stat-face",
+        "StatFaceOpen": "armoury-stat-face--open",
+        "StatName": "armoury-stat-name",
+        "StatHint": "armoury-stat-hint",
+        "StatValue": "armoury-stat-value",
+        "StatReveal": "armoury-stat-reveal",
+        "StatRevealName": "armoury-stat-reveal-name",
+        "StatRevealLine": "armoury-stat-reveal-line",
+        "StatTrail": "armoury-stat-trail",
+        "StatGrid": "armoury-stat-grid",
+        "StatChip": "armoury-stat-chip",
+        "StatChipKey": "armoury-stat-chip-key",
+        "StatChipValue": "armoury-stat-chip-value",
+        "Pool": "armoury-alloc-pool",
+        "Stepper": "armoury-stepper",
+        "StepperButton": "armoury-stepper-button",
+        "StepperOff": "armoury-stepper-button--off",
+        "StepperValue": "armoury-stepper-value",
+        "AllocRows": "armoury-alloc-rows",
+        "Dialog": "armoury-dialog",
+        "DialogNote": "armoury-dialog-note"
+      }
+    },
+    {
+      "name": "AttrCardValues",
+      "doc": "Identity keys of the attribute cards (the open card is remembered across redraws) and the dialogs.",
+      "keys": {
+        "CardKey": "attr:{0}",
+        "StepperKey": "step:{0}:{1}",
+        "StepUp": "up",
+        "StepDown": "down",
+        "PoolKey": "pool",
+        "GlossaryFold": "glossary"
+      }
+    },
+    {
+      "name": "SettingsGroupKeys",
+      "doc": "Keys the Settings page reads beyond SettingsPageKeys: a group's tip, the groups drawn as their own panels (Changelog, Game rules) and the enum rows the web keeps as selects.",
+      "keys": {
+        "TipKey": "tipKey",
+        "Changelog": "changelog",
+        "Rules": "rules",
+        "Dropdown": "dropdown"
+      }
+    },
+    {
+      "name": "LoreKeys",
+      "doc": "Keys of ui/lore.json and the lore type settings (web models/LoreTypeModel.js).",
+      "keys": {
+        "Face": "loreFace",
+        "Size": "loreSize",
+        "Leading": "loreLeading",
+        "Tracking": "loreTracking",
+        "Slant": "loreSlant",
+        "IdentitySlant": "loreIdentitySlant",
+        "Faces": "faces",
+        "Substitutes": "substitutes",
+        "NoItalic": "noItalic",
+        "Slants": "slants",
+        "Sizes": "sizes",
+        "LeadingRows": "leading",
+        "TrackingRows": "tracking",
+        "IdentityBasePx": "identityBasePx",
+        "IdentityLeading": "identityLeading",
+        "NaturalLine": "naturalLine",
+        "Defaults": "defaults",
+        "IdentityScale": "identity",
+        "WindowPx": "window",
+        "DefaultFace": "face",
+        "DefaultSize": "size",
+        "DefaultLeading": "leading",
+        "DefaultTracking": "tracking",
+        "DefaultSlant": "slant",
+        "DefaultIdentitySlant": "identitySlant",
+        "ParagraphBreak": "\\n\\s*\\n",
+        "WindowIdentityPlusPx": "windowIdentityPlusPx"
+      }
+    },
+    {
+      "name": "LoreClasses",
+      "doc": "USS classes of card lore: the identity line, the lore window's text and the faces they wear (Base.uss font-lore--*).",
+      "keys": {
+        "Identity": "lore-identity",
+        "Line": "lore-line",
+        "Read": "lore-read",
+        "Window": "lore-window-text",
+        "History": "lore-history",
+        "Closing": "lore-closing",
+        "FacePrefix": "font-lore--",
+        "ItalicSuffix": "-italic",
+        "Fell": "font-lore",
+        "FellItalic": "font-lore-italic",
+        "SizePrefix": "lore-size--",
+        "TrackingPrefix": "lore-tracking--",
+        "LineMore": "lore-line--more",
+        "IdentityPlain": "lore-identity--plain",
+        "WindowIdentity": "lore-window-identity"
+      }
+    },
+    {
+      "name": "LoreFormats",
+      "doc": "Rich text of the lore window: the line height as a percent of the font's own line.",
+      "keys": {
+        "LineHeight": "<line-height={0}%>"
+      }
+    },
+    {
+      "name": "ChangelogKeys",
+      "doc": "Keys of ui/changelog.json (Tools/changelog.mjs).",
+      "keys": {
+        "Entries": "entries",
+        "Group": "group",
+        "Summary": "summary",
+        "Detail": "detail",
+        "Build": "build"
+      }
+    },
+    {
+      "name": "SettingsPanelClasses",
+      "doc": "USS classes of the Changelog and Game rules panels of Settings (Front.uss).",
+      "keys": {
+        "Head": "settings-panel-head",
+        "Eyebrow": "settings-panel-eyebrow",
+        "Title": "settings-panel-title",
+        "Blurb": "settings-panel-blurb",
+        "Rule": "settings-panel-rule",
+        "GroupHead": "settings-change-group",
+        "Change": "settings-change",
+        "ChangeOpen": "settings-change--open",
+        "ChangeHead": "settings-change-head",
+        "ChangeSummary": "settings-change-summary",
+        "ChangeBuild": "settings-change-build",
+        "ChangeBody": "settings-change-body",
+        "GroupTip": "settings-group-tip",
+        "Summary": "settings-group-summary",
+        "RulesPanel": "settings-rules",
+        "RulesLine": "settings-rules-line",
+        "RulesStatus": "settings-rules-status",
+        "RulesNote": "settings-rules-note",
+        "RulesField": "settings-rules-field",
+        "Segmented": "settings-segmented",
+        "SegmentOption": "settings-segment",
+        "SegmentOn": "settings-segment--on"
+      }
+    },
+    {
+      "name": "SettingsRulesPlaceholders",
+      "doc": "Placeholders of the Game rules strings.",
+      "keys": {
+        "Profile": "profile"
+      }
+    },
+    {
+      "name": "SettingsRulesKeys",
+      "doc": "The two XP multipliers of the Game rules panel (settings/defaults.json controls with row gameRules).",
+      "keys": {
+        "ClassXp": "classXpMultiplier",
+        "WeaponXp": "weaponXpMultiplier"
+      }
+    },
+    {
+      "name": "GlossaryKeys",
+      "doc": "The vocabulary the tooltip glossary reads (web ui/components/tooltipGlossary.js, ui/uiContent.js statusTooltipText): the framework terms' rows and the status and stance fields a tooltip's numbers come from.",
+      "keys": {
+        "Terms": "terms",
+        "Id": "id",
+        "CanonicalText": "canonicalText",
+        "PluralText": "pluralText",
+        "TooltipPrefix": "term.tooltip.",
+        "TermPrefix": "term.",
+        "Name": "name",
+        "Tooltip": "tooltip",
+        "Proc": "proc",
+        "Threshold": "threshold",
+        "BurstPercent": "burstPercent",
+        "BurstMin": "burstMin",
+        "BurstMax": "burstMax",
+        "PoiseDamage": "poiseDamage",
+        "Resists": "resists",
+        "Percent": "percent",
+        "TaggedVulnerability": "taggedVulnerability",
+        "Mult": "mult",
+        "Decay": "decay",
+        "Duration": "duration",
+        "OnEnter": "onEnter",
+        "Amount": "amount",
+        "Hooks": "hooks",
+        "Do": "do",
+        "TokenProcThreshold": "{proc.threshold}",
+        "TokenBurstPercent": "{proc.burstPercent}",
+        "TokenBurstMin": "{proc.burstMin}",
+        "TokenBurstMax": "{proc.burstMax}",
+        "TokenPoiseDamage": "{proc.poiseDamage}",
+        "TokenResists": "{resists.percent}",
+        "TokenTaggedVulnerability": "{tv.pct}",
+        "TokenDecay": "{decay.duration}",
+        "TokenOnEnter": "{onEnter.{0}.amount}",
+        "TokenHook": "{hooks.{0}.do.{1}.amount}",
+        "WordBoundary": "\\b(",
+        "WordBoundaryEnd": ")\\b",
+        "True": "true",
+        "False": "false",
+        "ArrayJoin": ",",
+        "ObjectText": "[object Object]",
+        "Alternation": "|",
+        "Arg0": "{0}",
+        "Arg1": "{1}"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "StatMath",
+      "type": "double",
+      "doc": "The arithmetic of the attribute cards (web creationBrief.js): the tolerance of a whole-number test and the scale a displayed gain is rounded to (two decimals).",
+      "values": {
+        "CycleTolerance": 1e-09,
+        "RoundScale": 100
+      }
+    },
+    {
+      "name": "StatLimits",
+      "type": "int",
+      "doc": "How many points an attribute card looks ahead for the cycle in which every floor lands exactly (attributeCycle).",
+      "values": {
+        "CycleLimit": 100
+      }
+    },
+    {
+      "name": "SegmentedChoice",
+      "type": "int",
+      "doc": "How many options a Settings choice row may have and still be drawn as a segmented control (web settings.js: `r.dropdown || r.choices.length > 3` is a select).",
+      "values": {
+        "Max": 3
+      }
+    }
+  ]
+}

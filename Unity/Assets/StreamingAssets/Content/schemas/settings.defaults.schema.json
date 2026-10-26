@@ -21,7 +21,7 @@
         "properties": {
           "key": { "type": "string" },
           "category": { "type": "string" },
-          "type": { "type": "string", "enum": ["toggle", "enum", "slider"] },
+          "type": { "type": "string", "enum": ["toggle", "enum", "slider", "button"] },
           "scope": { "type": "string", "enum": ["live", "run"] },
           "options": {},
           "min": {},
@@ -31,7 +31,15 @@
           "labelKey": { "type": "string" },
           "helpKey": { "type": "string" },
           "optionKey": { "type": "string" },
-          "unitKey": { "type": "string" }
+          "unitKey": { "type": "string" },
+          "presets": { "type": "object", "additionalProperties": { "type": "object" } },
+          "resetsPreset": { "type": "string" },
+          "legacyOnly": { "type": "boolean" },
+          "dropdown": { "type": "boolean" },
+          "positive": { "type": "boolean" },
+          "action": { "type": "string" },
+          "row": { "type": "string" },
+          "helpState": { "type": "string" }
         },
         "required": ["key", "category", "type", "scope", "def", "labelKey"]
       }

@@ -51,7 +51,7 @@ namespace Ashen.Presentation.Audio
         private void OnSettingsChanged(SettingsSession settings, string key)
         {
             if (_source == null) return;
-            if (key == null || key == SettingIds.MasterVolume || key == SettingIds.MusicVolume) _source.volume = Volume(settings);
+            if (key == null || key == SettingIds.MusicEnabled || key == SettingIds.MuteAudio || key == SettingIds.MusicVolume) _source.volume = Volume(settings);
         }
 
         /// <summary>The runtime clip is ours: stop and destroy it before the next one replaces it (its PCM is native memory).</summary>
@@ -68,18 +68,12 @@ namespace Ashen.Presentation.Audio
         {
             if (_host == null || _director == null) return;
             var ui = _host.Context;
-            var session = ui.Session;
+            var session = ui.Climb;
             string context;
             if (session == null || _host.Navigator.CurrentId == ScreenIds.Title) context = _director.ContextFor(MK.Title);
             else if (session.RunOver) context = _director.RunEndContext(session.End?.Victory ?? false);
             else if (session.ProloguePending) context = _director.ContextFor(MK.Prologue);
-            else
-            {
-                string pool = null;
-                if (session.EncounterId != null && session.Content.Data.Encounters.Has(session.EncounterId))
-                    pool = session.Content.Data.Encounters.Get(session.EncounterId).Str(MK.Pool);
-                context = _director.ContextFor(session.Location, pool);
-            }
+            else context = _director.ContextFor(session.Location, session.EncounterPool);
             var choice = _director.Choose(context, session?.Act ?? 0);
             if (choice.SameAs(_playing)) return;
             _playing = choice;
@@ -89,13 +83,13 @@ namespace Ashen.Presentation.Audio
             var clip = AudioClip.Create(string.Format(CultureInfo.InvariantCulture, MK.LoopName, choice.Bed, choice.Variant), pcm.Length, 1, _sampleRate, false);
             clip.SetData(pcm, 0);
             _source.clip = clip;
-            _source.volume = Volume(session?.PlayerSettings ?? new SettingsSession(ui.RunContent, ProfileStore.Load(ui.Saves)));
+            _source.volume = Volume(session?.PlayerSettings ?? new SettingsSession(ui.RunContent, ProfileStore.Load(ui.Saves), core2: true));
             _source.Play();
         }
 
         private static float Volume(SettingsSession settings)
         {
-            return (float)(settings.Number(SettingIds.MasterVolume) / UiMath.Percent * settings.Number(SettingIds.MusicVolume) / UiMath.Percent);
+            return (float)settings.MusicLevel;
         }
     }
 }

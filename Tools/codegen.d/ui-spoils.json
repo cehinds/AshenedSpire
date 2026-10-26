@@ -1,0 +1,58 @@
+{
+  "comment": "VP-7 spoils screen (D-850): the USS classes, art ids and string-key templates the Core 2 spoils screen (Screens/Core2RewardsScreen.cs) and its kit pieces use. The UXML names (SPOILS_MODAL, SPOILS_PAGE, SPOILS_SCRIM) and the screen id are in ui.json (UiNames, ScreenIds).",
+  "keySets": [
+    {
+      "name": "SpoilsClasses",
+      "doc": "USS classes of the spoils screen (Screens/Spoils.uss).",
+      "keys": {
+        "Page": "spoils-page",
+        "Note": "spoils-note",
+        "Status": "spoils-status",
+        "Strip": "spoils-strip",
+        "StripReview": "spoils-strip--review",
+        "Option": "spoils-option",
+        "OptionTaken": "spoils-option--taken",
+        "OptionSelected": "spoils-option--selected",
+        "Face": "spoils-face",
+        "Collect": "spoils-collect",
+        "CollectKind": "spoils-collect-kind",
+        "CollectArt": "spoils-collect-art",
+        "CollectName": "spoils-collect-name",
+        "CollectText": "spoils-collect-text",
+        "Pick": "spoils-pick",
+        "Chips": "spoils-chips",
+        "Cinders": "spoils-cinders",
+        "CindersDone": "spoils-cinders--done",
+        "CindersIcon": "spoils-cinders-icon",
+        "CindersTexts": "spoils-cinders-texts",
+        "CindersTitle": "spoils-cinders-title",
+        "CindersBody": "spoils-cinders-body",
+        "Heading": "spoils-heading",
+        "Notice": "spoils-notice",
+        "NoticeLabel": "spoils-notice-label",
+        "Line": "spoils-line",
+        "ConfirmOff": "spoils-confirm--off"
+      }
+    },
+    {
+      "name": "SpoilsIcons",
+      "doc": "Icon names (ui/art.json lookup 'icon') of the reward kinds and the cinders.",
+      "keys": {
+        "Cinders": "cinders",
+        "Card": "deck",
+        "WeaponArt": "skill",
+        "Relic": "relic",
+        "Flask": "flask-health",
+        "Armament": "sword",
+        "Armour": "armour"
+      }
+    },
+    {
+      "name": "SpoilsFormats",
+      "doc": "String-key templates of the spoils screen (strings/app.en.json spoils.*).",
+      "keys": {
+        "KindKey": "spoils.kind.{0}"
+      }
+    }
+  ]
+}

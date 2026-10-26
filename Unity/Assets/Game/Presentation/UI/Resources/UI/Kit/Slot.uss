@@ -6,9 +6,11 @@
     margin-bottom: var(--space-sm);
     padding: var(--space-sm) var(--space-md);
     background-color: var(--color-panel);
-    border-color: var(--color-line);
-    border-width: var(--border-control);
-    border-radius: var(--radius-chip);
+    background-image: url("../Frames/panel-frame.png");
+    -unity-slice-scale: var(--size-slice-frame);
+    border-color: var(--color-transparent);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
 }
 
 .slotrow:hover {
@@ -21,22 +23,22 @@
     background-color: var(--color-panel-raise);
 }
 
-.slotrow.is-selected .slot-mark {
-    color: var(--color-gold);
+.slotrow.is-selected {
+    border-color: var(--color-gold);
+    border-width: var(--border-glow);
 }
 
+/* The web marks the chosen row with its gold edge, not a radio (ui.css:424-447). */
 .slot-mark {
-    width: var(--size-cost-pip);
-    font-size: var(--font-heading);
-    color: var(--color-muted);
-    -unity-text-align: middle-center;
+    display: none;
 }
 
 .slot-label {
-    width: var(--size-button-min-w);
-    font-size: var(--font-heading);
-    color: var(--color-gold);
+    width: var(--size-slot-num-w);
+    font-size: var(--font-slot-num);
+    color: var(--color-muted);
     -unity-font-style: bold;
+    -unity-text-align: middle-center;
 }
 
 .slot-portrait {
@@ -56,8 +58,19 @@
     margin-right: var(--space-sm);
 }
 
+.slot-name {
+    white-space: normal;
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
 .slot-facts {
     white-space: normal;
+}
+
+.slot--empty .slot-name,
+.slot--unreadable .slot-name {
+    color: var(--color-muted);
 }
 
 .slot-saved {
@@ -84,7 +97,6 @@
 }
 
 .layout-narrow .slot-label {
-    width: auto;
     margin-right: var(--space-sm);
 }
 

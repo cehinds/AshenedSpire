@@ -107,6 +107,46 @@ namespace Ashen.App.Ui
 
         /// <summary>Hidden while a fight is on (the W-20 Armoury row).</summary>
         public bool HideInCombat;
+
+        /// <summary>Not shown at all while its rule keeps it disabled (the web's title has no Continue or Load Game until a climb is saved: title.js menuHtml).</summary>
+        public bool HideWhenDisabled;
+
+        /// <summary>An ui/art.json icon name the row wears beside its label (the title's plates), or null.</summary>
+        public string Icon;
+
+        /// <summary>The quick menu band the row sits in (navigation, comfort, armoury, run; web quickMenuRows band): a hairline is drawn where the band changes. Null for a row with no band.</summary>
+        public string Band;
+
+        /// <summary>"switch": the row is a switch on <see cref="Setting"/> and says its state (web control: 'switch'); null for a plain row.</summary>
+        public string Control;
+
+        /// <summary>The settings key a switch row flips.</summary>
+        public string Setting;
+
+        /// <summary>The Menu overlay tab an open row lands on (settings, controls).</summary>
+        public string Tab;
+
+        /// <summary>"danger": the row reads in the loss colour (Load, Quit Without Saving).</summary>
+        public string Tone;
+
+        /// <summary>The row's tooltip words (web quickMenuRows tip).</summary>
+        public string TipKey;
+
+        /// <summary>The Armoury tab an open row to the Armoury lands on.</summary>
+        public string ArmouryTab;
+
+        /// <summary>Shown but disabled while a fight is on (the web's combat edit lock, D15).</summary>
+        public bool LockedInCombat;
+
+        public bool IsSwitch => Control == MenuValues.ControlSwitch;
+    }
+
+    /// <summary>A tab of the Menu overlay's strip (ui/menus.json 'overlayTabs'; web MENU_TABS).</summary>
+    public sealed class OverlayTabDef
+    {
+        public string Id;
+        public string LabelKey;
+        public string TipKey;
     }
 
     /// <summary>A W-04 creation rail item (ui/menus.json 'creationPanes').</summary>
@@ -124,6 +164,7 @@ namespace Ashen.App.Ui
         public string TitleKey;
         public string BodyKey;
         public string OccupiedBodyKey;
+        public string OccupiedPrimaryKey;
         public string PrimaryKey;
         public string BackKey;
         public string Policy;
@@ -137,6 +178,7 @@ namespace Ashen.App.Ui
 
         public IReadOnlyList<MenuEntryDef> Title { get; private set; } = Array.Empty<MenuEntryDef>();
         public IReadOnlyList<MenuEntryDef> Pause { get; private set; } = Array.Empty<MenuEntryDef>();
+        public IReadOnlyList<OverlayTabDef> OverlayTabs { get; private set; } = Array.Empty<OverlayTabDef>();
         public IReadOnlyList<CreationPaneDef> CreationPanes { get; private set; } = Array.Empty<CreationPaneDef>();
         public IReadOnlyList<ConfirmDef> Confirms => _confirms;
 
@@ -148,6 +190,12 @@ namespace Ashen.App.Ui
             {
                 Title = Rows(json[UiKeys.Title]),
                 Pause = Rows(json[UiKeys.Pause]),
+                OverlayTabs = (json[MenuKeys.OverlayTabs] as JArray ?? new JArray()).OfType<JObject>().Select(r => new OverlayTabDef
+                {
+                    Id = (string)r[UiKeys.Id],
+                    LabelKey = (string)r[UiKeys.LabelKey],
+                    TipKey = (string)r[MenuKeys.TipKey],
+                }).ToList(),
                 CreationPanes = (json[UiKeys.CreationPanes] as JArray ?? new JArray()).OfType<JObject>().Select(r => new CreationPaneDef
                 {
                     Id = (string)r[UiKeys.Id],
@@ -164,6 +212,7 @@ namespace Ashen.App.Ui
                     TitleKey = (string)r[UiKeys.TitleKey],
                     BodyKey = (string)r[UiKeys.BodyKey],
                     OccupiedBodyKey = (string)r[UiKeys.OccupiedBodyKey],
+                    OccupiedPrimaryKey = (string)r[UiKeys.OccupiedPrimaryKey],
                     PrimaryKey = (string)r[UiKeys.PrimaryKey],
                     BackKey = (string)r[UiKeys.BackKey],
                     Policy = (string)r[UiKeys.Policy],
@@ -186,6 +235,16 @@ namespace Ashen.App.Ui
                 EnabledWhen = (string)r[UiKeys.EnabledWhen],
                 Visible = (bool?)r[UiKeys.Visible] ?? true,
                 HideInCombat = (bool?)r[UiKeys.HideInCombat] ?? false,
+                HideWhenDisabled = (bool?)r[UiKeys.HideWhenDisabled] ?? false,
+                Icon = (string)r[UiKeys.Icon],
+                Band = (string)r[MenuKeys.Band],
+                Control = (string)r[MenuKeys.Control],
+                Setting = (string)r[MenuKeys.Setting],
+                Tab = (string)r[MenuKeys.Tab],
+                Tone = (string)r[MenuKeys.Tone],
+                TipKey = (string)r[MenuKeys.TipKey],
+                ArmouryTab = (string)r[MenuKeys.ArmouryTab],
+                LockedInCombat = (bool?)r[MenuKeys.LockedInCombat] ?? false,
             }).ToList();
     }
 
@@ -209,6 +268,24 @@ namespace Ashen.App.Ui
         public double Hysteresis;
     }
 
+    /// <summary>The web's UI size (balance.ui.uiScale): a named size is a fixed zoom, clamped to what fits.</summary>
+    public sealed class UiScaleRules
+    {
+        public readonly Dictionary<string, double> Named = new Dictionary<string, double>(StringComparer.Ordinal);
+        public double DesignW = 1;
+        public double DesignH = 1;
+
+        public static UiScaleRules From(JObject json)
+        {
+            var rules = new UiScaleRules();
+            if (json == null) return rules;
+            foreach (var p in ((JObject)json[UiKeys.Named]).Properties()) rules.Named[p.Name] = (double)p.Value;
+            rules.DesignW = (double)json[UiKeys.DesignW];
+            rules.DesignH = (double)json[UiKeys.DesignH];
+            return rules;
+        }
+    }
+
     /// <summary>ui/layout.json (docs/design/04 §0; D-001, D-016).</summary>
     public sealed class LayoutRules
     {
@@ -219,6 +296,10 @@ namespace Ashen.App.Ui
         public int CompactMinHeight;
         public int GateBelowHeight;
         public CategoryNavRules CategoryNav;
+
+        /// <summary>UI size (the web's balance.ui.uiScale): the named zoom of S, M, L and XL against the design canvas.</summary>
+        public UiScaleRules UiScale = new UiScaleRules();
+
         public IReadOnlyDictionary<string, int> MinPhysical = new Dictionary<string, int>();
 
         public int MinPhysicalOf(string key) => MinPhysical.TryGetValue(key, out var v) ? v : 0;
@@ -239,6 +320,7 @@ namespace Ashen.App.Ui
                 CompactMinHeight = (int)bands[UiKeys.CompactMinHeight],
                 GateBelowHeight = (int)json[UiKeys.GateBelowHeight],
                 MinPhysical = min,
+                UiScale = UiScaleRules.From(json[UiKeys.UiScale] as JObject),
                 CategoryNav = new CategoryNavRules
                 {
                     RailWidth = (double)nav[UiKeys.RailWidth],
@@ -269,6 +351,10 @@ namespace Ashen.App.Ui
 
         public int Duration(string key) => (int?)_json[UiKeys.Duration]?[key] ?? 0;
         public string Color(string key) => (string)_json[UiKeys.Color]?[key];
+
+        /// <summary>A unitless token (the ratio group: shares of a box that USS cannot express).</summary>
+        public double Ratio(string key) => (double?)_json[UiKeys.Ratio]?[key] ?? 0d;
+
         public bool Has(string group, string key) => _json[group]?[key] != null;
     }
 
@@ -278,6 +364,19 @@ namespace Ashen.App.Ui
         public IReadOnlyList<string> ArtInclude = Array.Empty<string>();
         public IReadOnlyList<string> MeterKinds = Array.Empty<string>();
         public IReadOnlyList<string> TooltipSizes = Array.Empty<string>();
+
+        /// <summary>The tooltip size for plain words (a tab or a control that says what it does).</summary>
+        public string TooltipPlain;
+
+        /// <summary>Where a tooltip goes (the web's tooltipPlacement.json and fx.js placeAnchored).</summary>
+        public TooltipPlacementRules TooltipPlacement = new TooltipPlacementRules();
+
+        /// <summary>The spoken step's close-up (the web's w4c-dialogue scene): the slots, the lanes, how much of a figure shows and the visible box of every figure's art.</summary>
+        public DialogueRules Dialogue = new DialogueRules();
+
+        /// <summary>The ladder's last level when the balance names none (web CharacterSheetModel.characterLadder: 20).</summary>
+        public int DefaultMaxLevel = 1;
+
         public IReadOnlyList<string> CostKinds = Array.Empty<string>();
         public double DegreesPerCard;
         public double MaxSpread;
@@ -288,6 +387,13 @@ namespace Ashen.App.Ui
         public string EnemyArt;
         public string CardRefusalTooltip;
         public int StatusChips;
+
+        /// <summary>ui/components.json combat.logLines: the lines of the combat log the Core 2 screen shows.</summary>
+        public int LogLines;
+
+        /// <summary>ui/components.json fighter: the rating rows of a Core 2 fighter top to bottom (Evade, Poise, Ward, Block, HP) and the statuses its stack chips already show.</summary>
+        public IReadOnlyList<string> FighterRatings = Array.Empty<string>();
+        public IReadOnlyList<string> FighterStackStatuses = Array.Empty<string>();
 
         /// <summary>W-08 row icons (ui/components.json rewards): relic ({id}), armament and flask ({art}) registry-id templates, and the flask artKey prefix removed first.</summary>
         public string RewardRelicArt;
@@ -334,9 +440,16 @@ namespace Ashen.App.Ui
                 EnemyArt = (string)combat[UiKeys.Enemy],
                 CardRefusalTooltip = (string)json[UiKeys.Card]?[UiKeys.RefusalTooltip],
                 StatusChips = (int?)json[UiKeys.Combatant]?[UiKeys.StatusChips] ?? 0,
+                LogLines = (int?)combat[UiKeys.LogLines] ?? 0,
+                FighterRatings = ScreenRegistry.Strings(json[UiKeys.Fighter]?[UiKeys.Ratings]),
+                FighterStackStatuses = ScreenRegistry.Strings(json[UiKeys.Fighter]?[UiKeys.StackStatuses]),
                 ArtInclude = ScreenRegistry.Strings(json[UiKeys.Art]?[UiKeys.Include]),
                 MeterKinds = ScreenRegistry.Strings(json[UiKeys.Meter]?[UiKeys.Kinds]),
                 TooltipSizes = ScreenRegistry.Strings(json[UiKeys.Tooltip]?[UiKeys.Sizes]),
+                TooltipPlain = (string)json[UiKeys.Tooltip]?[UiKeys.Plain],
+                TooltipPlacement = TooltipPlacementRules.From(json[UiKeys.Tooltip]?[UiKeys.Placement] as JObject),
+                Dialogue = DialogueRules.From(json[UiKeys.Dialogue] as JObject),
+                DefaultMaxLevel = (int?)json[UiKeys.Armoury]?[UiKeys.DefaultMaxLevel] ?? 1,
                 CostKinds = ScreenRegistry.Strings(json[UiKeys.Card]?[UiKeys.CostKinds]),
                 DegreesPerCard = (double)fan[UiKeys.DegreesPerCard],
                 MaxSpread = (double)fan[UiKeys.MaxSpread],
@@ -358,9 +471,29 @@ namespace Ashen.App.Ui
         public double RowHeight;
         public IReadOnlyList<double> ZoomSteps = new double[] { 1d };
         public int ZoomDefault;
+
+        /// <summary>The shrine lane's line against the route's (the web's lane stroke 3.5 on the terrain, the route 3).</summary>
+        public double LaneEdgeRatio = 1d;
+
+        /// <summary>How many flask icons the map's Potions tray holds before its +N tile (web wireframeUi.iconTray.footerPotionIcons).</summary>
+        public int PotionMinis = 1;
         public double EdgeWidth;
         public double DotSpacing;
         public double RowTouchRatio = 1d;
+
+        /// <summary>The board's lane pitch, the distance from the outermost lane to the board's edge and the room above the boss row, in reference px; the outline width of a route line.</summary>
+        public double ColPitch;
+        public double BoardPadX;
+        public double BoardPadTop;
+        public double EdgeOutlineWidth;
+
+        /// <summary>The icon art name of each node kind (empty: the kind is drawn as a mark), the colour token of its tint where it has one, and the numerals of the acts.</summary>
+        public IReadOnlyDictionary<string, string> NodeIcons = new Dictionary<string, string>();
+        public IReadOnlyDictionary<string, string> NodeTints = new Dictionary<string, string>();
+        public IReadOnlyList<string> TierNumerals = Array.Empty<string>();
+
+        /// <summary>The painted atlas under the board: which world, its tiles and how the fog reveals it.</summary>
+        public AtlasDefaults Atlas = new AtlasDefaults();
 
         public static ClimbDefaults From(JObject json)
         {
@@ -373,9 +506,19 @@ namespace Ashen.App.Ui
                 RowHeight = (double?)json[UiKeys.RowHeight] ?? 0d,
                 ZoomSteps = steps != null && steps.Count > 0 ? steps : (IReadOnlyList<double>)new double[] { 1d },
                 ZoomDefault = (int?)json[UiKeys.ZoomDefault] ?? 0,
+                LaneEdgeRatio = (double?)json[UiKeys.LaneEdgeRatio] ?? 1d,
+                PotionMinis = Math.Max(1, (int?)json[UiKeys.PotionMinis] ?? 1),
                 EdgeWidth = (double?)json[UiKeys.EdgeWidth] ?? 1d,
                 DotSpacing = (double?)json[UiKeys.DotSpacing] ?? 1d,
                 RowTouchRatio = (double?)json[UiKeys.RowTouchRatio] ?? 1d,
+                ColPitch = (double?)json[AtlasKeys.ColPitch] ?? 0d,
+                BoardPadX = (double?)json[AtlasKeys.BoardPadX] ?? 0d,
+                BoardPadTop = (double?)json[AtlasKeys.BoardPadTop] ?? 0d,
+                EdgeOutlineWidth = (double?)json[AtlasKeys.EdgeOutlineWidth] ?? 0d,
+                NodeIcons = ArtConfig.Strings(json[AtlasKeys.NodeIcons]),
+                NodeTints = ArtConfig.Strings(json[AtlasKeys.NodeTints]),
+                TierNumerals = ScreenRegistry.Strings(json[AtlasKeys.TierNumerals]),
+                Atlas = AtlasDefaults.From(json[AtlasKeys.Atlas] as JObject),
             };
         }
     }

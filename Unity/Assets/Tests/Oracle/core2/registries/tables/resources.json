@@ -1,0 +1,5 @@
+{"table":"resources","count":3,"ids":["mana","hp","poise"],"rows":[
+{"id":"mana","name":"MP","glyph":"mana","tint":"#315c9b","weight":"normal","order":20,"surfaces":["main"],"source":"mana","domainMax":20},
+{"id":"hp","name":"HP","glyph":"health","tint":"var(--res-hp)","weight":"normal","order":10,"surfaces":["main","model"],"source":"hp","domainMax":200},
+{"id":"poise","name":"POISE","glyph":"poise","tint":"var(--gold)","weight":"skinny","order":90,"surfaces":["model"],"source":"poise"}
+]}

@@ -1,0 +1,143 @@
+{
+  "$id": "rules/core2Rest.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "simulationSeed": {
+      "type": "integer"
+    },
+    "coreAuthor": {
+      "type": "string"
+    },
+    "levelCurveDefaults": {
+      "type": "object",
+      "properties": {
+        "base": {
+          "type": "number"
+        },
+        "growth": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "base",
+        "growth"
+      ]
+    },
+    "introServices": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "statOrder": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "statLabels": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "cardValues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "op": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "rating": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "op",
+          "label",
+          "rating"
+        ]
+      }
+    },
+    "budgetLabels": {
+      "type": "object",
+      "properties": {
+        "armor": {
+          "type": "string"
+        },
+        "shield": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "armor",
+        "shield"
+      ]
+    },
+    "consumedKinds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "restedKinds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "restNodeTypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "restActualType": {
+      "type": "string"
+    },
+    "recoveryRows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "pool": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "pool",
+          "kind"
+        ]
+      }
+    }
+  },
+  "required": [
+    "simulationSeed",
+    "coreAuthor",
+    "statOrder",
+    "statLabels",
+    "cardValues",
+    "budgetLabels",
+    "consumedKinds",
+    "restedKinds",
+    "restNodeTypes",
+    "restActualType",
+    "recoveryRows",
+    "levelCurveDefaults",
+    "introServices"
+  ]
+}

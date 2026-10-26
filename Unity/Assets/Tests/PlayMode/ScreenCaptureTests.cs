@@ -69,6 +69,9 @@ namespace Ashen.Tests.Play
             var outDir = Path.Combine(RepoRoot, "docs", "screens");
             Directory.CreateDirectory(outDir);
             var only = Environment.GetEnvironmentVariable("ASHEN_CAPTURE_ONLY");
+            var args = Environment.GetCommandLineArgs();
+            var onlyAt = Array.IndexOf(args, "-ashenCaptureOnly");
+            if (string.IsNullOrEmpty(only) && onlyAt >= 0 && onlyAt + 1 < args.Length) only = args[onlyAt + 1];
             var written = new List<string>();
             foreach (var file in fixtures)
             {
@@ -149,6 +152,11 @@ namespace Ashen.Tests.Play
         {
             var nav = host.Navigator;
             var screen = (string)fixture["screen"];
+            if (Core2Capture.Handles(fixture))
+            {
+                Core2Capture.Show(host, fixture);
+                return;
+            }
             switch (screen)
             {
                 case ScreenIds.Boot:
@@ -324,6 +332,7 @@ namespace Ashen.Tests.Play
         private static void AfterShow(UiHost host, JObject fixture)
         {
             NodeCapture.After(host, fixture);
+            Core2Capture.After(host, fixture);
             if (host.Navigator.Top?.View is CombatScreen combat)
             {
                 switch ((string)fixture["state"])
@@ -379,6 +388,7 @@ namespace Ashen.Tests.Play
                 foreach (var v in ((JObject)c["vars"]).Properties()) args.Add(v.Name, (string)v.Value);
                 return new CardViewData
                 {
+                    Face = new CardFaceQuery { CardId = id },
                     Name = strings.Get("card." + id + ".name"),
                     Text = strings.Format("card." + id + ".text", args),
                     TypeLine = (string)c["typeLine"],

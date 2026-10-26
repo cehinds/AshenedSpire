@@ -277,6 +277,7 @@ namespace Ashen.Presentation.UI.Screens
             {
                 Name = card.Name,
                 TypeLine = CombatText.CardKind(Strings, card.Kind),
+                Face = new Ashen.App.Ui.CardFaceQuery { CardId = card.CardId, Type = card.Kind },
                 Text = card.Text,
                 Affordable = card.Playable,
                 Upgraded = card.Upgraded,
@@ -695,12 +696,6 @@ namespace Ashen.Presentation.UI.Screens
                 case UiValues.FocusEnded: return true;
                 case UiValues.FocusEnemyTurn: Skip(); return true;
             }
-            OpenPause();
-            return true;
-        }
-
-        public override bool HandleMenu()
-        {
             OpenPause();
             return true;
         }

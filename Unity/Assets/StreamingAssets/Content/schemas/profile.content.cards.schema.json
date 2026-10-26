@@ -1,0 +1,337 @@
+{
+  "$id": "profile/content/cards.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "additionalProperties": {
+      "type": [
+        "array",
+        "integer",
+        "object",
+        "string"
+      ],
+      "properties": {
+        "cardTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "f": {
+          "type": "string"
+        },
+        "mana": {
+          "type": "integer"
+        },
+        "manaTax": {
+          "type": "integer"
+        },
+        "max": {
+          "type": "integer"
+        },
+        "per": {
+          "type": "integer"
+        },
+        "perUse": {
+          "type": "integer"
+        },
+        "ranges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skipActions": {
+          "type": "integer"
+        },
+        "stamina": {
+          "type": "integer"
+        },
+        "staminaTax": {
+          "type": "integer"
+        },
+        "stance": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "items": {
+        "type": [
+          "object",
+          "string"
+        ],
+        "properties": {
+          "amount": {
+            "type": [
+              "integer",
+              "object"
+            ],
+            "properties": {
+              "args": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "integer",
+                    "object"
+                  ],
+                  "properties": {
+                    "f": {
+                      "type": "string"
+                    },
+                    "metric": {
+                      "type": "string"
+                    },
+                    "of": {
+                      "type": "string"
+                    },
+                    "per": {
+                      "type": "number"
+                    },
+                    "statuses": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "enum": [
+                          "base.bind",
+                          "base.blight",
+                          "base.charm",
+                          "base.greased",
+                          "base.poison",
+                          "base.restrained",
+                          "base.weak",
+                          "burn",
+                          "venom",
+                          "vulnerable",
+                          "weak"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "f",
+                    "metric",
+                    "of",
+                    "per"
+                  ]
+                }
+              },
+              "f": {
+                "type": "string",
+                "enum": [
+                  "add",
+                  "energySpent",
+                  "stacks"
+                ]
+              },
+              "of": {
+                "type": "string"
+              },
+              "per": {
+                "type": "integer"
+              },
+              "status": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "f"
+            ]
+          },
+          "bands": {
+            "type": "integer"
+          },
+          "card": {
+            "type": "string",
+            "enum": [
+              "base.foresight",
+              "base.paralysis-status-card",
+              "base.restrained-status-card",
+              "base.smash",
+              "base.stagger-status-card",
+              "dazed",
+              "slimed",
+              "wound"
+            ]
+          },
+          "changes": {
+            "type": "object",
+            "properties": {
+              "hideTurns": {
+                "type": "object",
+                "properties": {
+                  "f": {
+                    "type": "string"
+                  },
+                  "of": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "f",
+                  "of",
+                  "status"
+                ]
+              },
+              "maneuver": {
+                "type": "string"
+              },
+              "range": {
+                "type": "string"
+              }
+            }
+          },
+          "choose": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "integer"
+                },
+                "op": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "amount",
+                "op",
+                "target"
+              ]
+            }
+          },
+          "from": {
+            "type": "string",
+            "enum": [
+              "discard",
+              "draw",
+              "exhaust",
+              "hand"
+            ]
+          },
+          "hits": {
+            "type": "integer"
+          },
+          "if": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "integer"
+              },
+              "p": {
+                "type": "string"
+              },
+              "preds": {
+                "type": "array",
+                "items": {}
+              },
+              "resource": {
+                "type": "string"
+              },
+              "stance": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "p"
+            ]
+          },
+          "look": {
+            "type": "integer"
+          },
+          "maneuver": {
+            "type": "string"
+          },
+          "op": {
+            "type": "string"
+          },
+          "pile": {
+            "type": "string",
+            "enum": [
+              "discard",
+              "draw",
+              "hand"
+            ]
+          },
+          "position": {
+            "type": "string",
+            "enum": [
+              "random",
+              "top"
+            ]
+          },
+          "selection": {
+            "type": "string",
+            "enum": [
+              "choose",
+              "random"
+            ]
+          },
+          "stacks": {
+            "type": [
+              "integer",
+              "object"
+            ],
+            "properties": {
+              "f": {
+                "type": "string"
+              },
+              "metric": {
+                "type": "string"
+              },
+              "of": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "f",
+              "metric",
+              "of"
+            ]
+          },
+          "status": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "allAllies",
+              "allEnemies",
+              "ally",
+              "enemy",
+              "self"
+            ]
+          },
+          "textTemplate": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string",
+            "enum": [
+              "draw",
+              "exhaust",
+              "hand"
+            ]
+          },
+          "transformTo": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -32,6 +32,15 @@
         ]
       }
     },
+    "face": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    },
     "font": {
       "type": "object",
       "additionalProperties": {
@@ -68,6 +77,15 @@
         ]
       }
     },
+    "ratio": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string"
+        ]
+      }
+    },
     "radius": {
       "type": "object",
       "additionalProperties": {
@@ -93,6 +111,12 @@
           "number",
           "string"
         ]
+      }
+    },
+    "webSource": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
       }
     }
   },

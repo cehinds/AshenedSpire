@@ -1,0 +1,541 @@
+/* W-07 for a Core 2 fight: the combat board, VP-4 look (D-700). Layout and proportions follow the web's combat screen
+   (docs/qa/web-screens/combat-*-1920x1080.jpg and *-390x844.jpg; src/ui/screens/combat.js, styles/combat-layers.css, footerLayout.json): a thin full-width
+   HP line with the turn ribbon at the top, the ground grid under the figures, the hand fanned over the lower field, and a dark footer with the stamina orb,
+   piles, the End Turn plate, the potion tray and the log, grid and reaction toggles. Wide measurements are the web's pixels at 1920x1080 divided by 1.5
+   (the reference canvas is 1280x720); narrow ones are the 390x844 shots divided by 0.907 (the reference canvas is 430 wide). Tokens only (size.board*). */
+
+/* ---- background: the environment art fills the field above the footer, top-aligned, never the crude 200% crop ---- */
+
+.combat-background {
+    bottom: var(--size-board-footer-h);
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: top;
+}
+
+/* ---- the field: the perspective grid and the fighters stand on it (P-4, D-1540: src/ui/models/AlternativeFormationModel.js; Core2CombatScreen.Board.cs places every fighter and draws the lattice) ----
+   The two rows and the grid fill the field the web's formation is laid out in: the band between the HUD and the hand area (combat-1920x1080.jpg: y 108 to 637 at 1080p). */
+
+.stage-grid {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--size-board-field-top);
+    bottom: var(--size-board-hand-area-h);
+}
+
+.layout-narrow .stage-grid {
+    top: var(--size-board-field-top-narrow);
+    bottom: var(--size-board-hand-area-hnarrow);
+}
+
+.board-field {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: var(--size-board-footer-h);
+}
+
+.board-field .ally-row,
+.board-field .enemy-row {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--size-board-field-top);
+    bottom: var(--size-board-field-bottom);
+}
+
+.layout-narrow .board-field {
+    bottom: var(--size-board-footer-hnarrow);
+}
+
+.layout-narrow .board-field .ally-row,
+.layout-narrow .board-field .enemy-row {
+    top: var(--size-board-field-top-narrow);
+    bottom: var(--size-board-field-bottom-narrow);
+}
+
+.board-field .phase-banner {
+    top: var(--size-board-banner-top);
+}
+
+.board-field .combat-notice {
+    top: var(--size-board-notice-top);
+}
+
+.board-prompt {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--size-board-hud-h);
+    padding: var(--space-xs) var(--space-md);
+    -unity-text-align: middle-center;
+    color: var(--color-target-line);
+    -unity-font-style: bold;
+    background-color: var(--color-shade);
+}
+
+/* ---- HUD: heart, the long HP line, relic pips, the turn ribbon, the armoury and menu buttons, cinders (combat-1920x1080.jpg top band) ---- */
+
+.board-hud {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: var(--size-board-hud-h);
+    background-color: var(--color-hud-shade);
+}
+
+.hud-heart {
+    position: absolute;
+    left: var(--size-board-hud-pad);
+    top: var(--size-board-heart-top);
+    width: var(--size-board-heart);
+    height: var(--size-board-heart);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-res-hp);
+}
+
+.hud-hp {
+    position: absolute;
+    left: var(--size-board-hp-left);
+    right: var(--size-board-hp-right);
+    top: var(--size-board-hp-top);
+    width: auto;
+    margin: 0;
+    flex-direction: row-reverse;
+}
+
+.hud-hp .meter-value {
+    margin: 0 var(--space-sm) 0 0;
+    min-width: 0;
+    font-size: var(--font-board-chip);
+}
+
+.hud-hp .meter-track {
+    height: var(--size-board-hud-bar-h);
+    border-width: 0;
+    border-radius: 0;
+    background-color: var(--color-track);
+}
+
+.hud-pips {
+    position: absolute;
+    left: var(--size-board-hud-pad);
+    top: var(--size-board-pips-top);
+    flex-direction: row;
+}
+
+.hud-pip {
+    width: var(--size-board-pip);
+    height: var(--size-board-pip);
+    margin-right: var(--space-xs);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-round);
+    background-color: var(--color-panel);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.turn-ribbon {
+    position: absolute;
+    left: var(--size-half-width);
+    top: var(--size-board-ribbon-top);
+    width: var(--size-board-ribbon-w);
+    height: var(--size-board-ribbon-h);
+    margin-left: var(--size-board-ribbon-pull);
+    padding: 0;
+    font-size: var(--font-board-ribbon);
+    letter-spacing: var(--size-track-label);
+    -unity-text-align: middle-center;
+    color: var(--color-fx-ribbon-ink);
+    background-color: var(--color-fx-ribbon-fill);
+    border-top-color: var(--color-fx-ribbon-line);
+    border-bottom-color: var(--color-fx-ribbon-line);
+    border-top-width: var(--border-hairline);
+    border-bottom-width: var(--border-hairline);
+}
+
+/* The enemy's turn: the same ribbon in the web's rust tint (styles/combat.css:1398, [data-turn='enemy']). */
+.turn-ribbon.ribbon--enemy {
+    color: var(--color-fx-ribbon-enemy-ink);
+    background-color: var(--color-fx-ribbon-enemy-fill);
+    border-top-color: var(--color-fx-ribbon-enemy-line);
+    border-bottom-color: var(--color-fx-ribbon-enemy-line);
+}
+
+/* The end of the fight: a won fight's title in gold, a lost one's in the web's perished orange (docs/qa/web-screens/run-end-defeat-1920x1080.jpg). */
+.combat-end--victory .end-title {
+    color: var(--color-gold);
+}
+
+.combat-end--defeat .end-title {
+    color: var(--color-danger-line);
+}
+
+.hud-side {
+    position: absolute;
+    right: var(--size-board-side-right);
+    top: var(--size-board-side-top);
+    align-items: center;
+}
+
+.hud-buttons {
+    flex-direction: row;
+}
+
+.hud-icon-button.kit-button {
+    width: var(--size-board-icon-btn);
+    height: var(--size-board-icon-btn);
+    min-height: 0;
+    margin: 0 0 0 var(--space-xs);
+    padding: 0;
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-width: 0;
+    border-radius: 0;
+    color: var(--color-transparent);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.hud-icon-button.kit-button:hover,
+.hud-icon-button.kit-button:active {
+    background-color: var(--color-transparent);
+    border-width: 0;
+    color: var(--color-transparent);
+    -unity-background-image-tint-color: var(--color-target-line);
+}
+
+.hud-icon-button.kit-button:focus,
+.unity-button.hud-icon-button.kit-button:focus:enabled {
+    background-color: var(--color-transparent);
+    border-width: 0;
+    color: var(--color-transparent);
+    -unity-background-image-tint-color: var(--color-target-line);
+}
+
+.hud-icon-button.kit-button:disabled,
+.hud-icon-button.kit-button:disabled:hover,
+.hud-icon-button.kit-button:disabled:focus {
+    background-color: var(--color-transparent);
+    border-width: 0;
+    color: var(--color-transparent);
+    opacity: var(--opacity-disabled);
+}
+
+.hud-cinders {
+    margin-top: var(--space-xxs);
+    font-size: var(--font-board-cinders);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-parchment);
+}
+
+/* ---- hand: centred over the lower field, cards overlapped as the web's fan (204 x 306 at 1080p, a 145 px step) ---- */
+
+.board-hand-band {
+    position: absolute;
+    left: var(--size-board-hand-side);
+    right: var(--size-board-hand-side);
+    bottom: var(--size-board-hand-bottom);
+    height: var(--size-board-hand-h);
+}
+
+.board-hand {
+    flex-grow: 1;
+}
+
+.board-hand .cardview {
+    width: var(--size-board-card-w);
+    height: var(--size-board-card-h);
+}
+
+.board-hand .hand-card {
+    margin-left: var(--size-board-hand-overlap);
+}
+
+.board-hand .hand-cards .unity-scroll-view__content-container {
+    padding-left: var(--size-board-hand-pad);
+    padding-top: var(--size-board-hand-top);
+}
+
+.layout-narrow .board-hand-band {
+    left: 0;
+    right: 0;
+    bottom: var(--size-board-hand-bottom-narrow);
+    height: var(--size-board-hand-hnarrow);
+}
+
+.layout-narrow .board-hand .cardview {
+    width: var(--size-board-card-wnarrow);
+    height: var(--size-board-card-hnarrow);
+}
+
+.layout-narrow .board-hand .hand-card {
+    margin-left: var(--size-board-hand-overlap-narrow);
+}
+
+.layout-narrow .board-hand .hand-cards .unity-scroll-view__content-container {
+    padding-left: var(--size-board-hand-pad-narrow);
+}
+
+.combat--enemyTurn .board-hand-band {
+    opacity: var(--opacity-disabled);
+}
+
+.combat--prompt .board-hand-band {
+    opacity: var(--opacity-muted);
+}
+
+.combat--targeting .board-hand-band .hand-card {
+    opacity: var(--opacity-muted);
+}
+
+.combat--targeting .board-hand-band .card--armed {
+    opacity: 1;
+}
+
+/* ---- footer: the dark band, a tools row (log, grid, reaction) over the art row (FooterGroup) ---- */
+
+.board-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--size-board-footer-h);
+    background-color: var(--color-bg-raise);
+}
+
+.board-tools {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--size-board-tools-h);
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+}
+
+.tools-side {
+    flex-direction: row;
+    align-items: center;
+}
+
+.tool-link.kit-button {
+    height: var(--size-board-tool-h);
+    min-height: 0;
+    margin: 0 var(--space-md) 0 0;
+    padding: 0 var(--space-xs);
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-width: 0;
+    border-radius: var(--radius-tight);
+    font-size: var(--font-board-tool);
+    letter-spacing: 0;
+    color: var(--color-parchment);
+}
+
+.tool-link.kit-button:hover,
+.tool-link.kit-button:active {
+    background-color: var(--color-transparent);
+    border-width: 0;
+    color: var(--color-gold);
+}
+
+.tool-link.kit-button:focus,
+.unity-button.tool-link.kit-button:focus:enabled {
+    background-color: var(--color-transparent);
+    border-color: var(--color-gold);
+    border-width: var(--border-hairline);
+    color: var(--color-gold);
+}
+
+.tool-link.kit-button:disabled,
+.tool-link.kit-button:disabled:hover,
+.tool-link.kit-button:disabled:focus {
+    background-color: var(--color-transparent);
+    border-width: 0;
+    color: var(--color-muted);
+}
+
+.tool-check.kit-button {
+    padding-left: var(--size-board-tool-box-pad);
+}
+
+.tool-box {
+    position: absolute;
+    left: var(--space-xxs);
+    top: var(--size-half-width);
+    width: var(--size-board-tool-box);
+    height: var(--size-board-tool-box);
+    margin-top: var(--size-board-tool-box-pull);
+    background-color: var(--color-panel);
+    border-color: var(--color-gold-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
+}
+
+.tool--on .tool-box {
+    background-color: var(--color-gold);
+}
+
+/* The reaction switch as the web's pill: green "enabled" with the gold knob at the right, red "disabled" with the knob at the left. */
+
+.tool-pill.kit-button {
+    height: var(--size-board-pill-h);
+    min-height: 0;
+    min-width: var(--size-board-pill-w);
+    margin: 0;
+    padding: 0 var(--size-board-pill-pad) 0 var(--space-sm);
+    background-color: var(--color-danger-fill);
+    background-image: none;
+    border-color: var(--color-danger-line);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-pill);
+    font-size: var(--font-board-pill);
+    letter-spacing: 0;
+    color: var(--color-parchment);
+    -unity-text-align: middle-left;
+}
+
+.tool-pill.kit-button.tool--on {
+    padding: 0 var(--size-board-pill-pad) 0 var(--space-sm);
+    background-color: var(--color-ready);
+    border-color: var(--color-ready-line);
+}
+
+.tool-pill.kit-button:hover,
+.tool-pill.kit-button:focus,
+.unity-button.tool-pill.kit-button:focus:enabled {
+    background-color: var(--color-danger-fill-hover);
+    border-width: var(--border-control);
+    border-color: var(--color-gold);
+}
+
+.tool-pill.kit-button.tool--on:hover,
+.tool-pill.kit-button.tool--on:focus,
+.unity-button.tool-pill.kit-button.tool--on:focus:enabled {
+    background-color: var(--color-ready);
+}
+
+.tool-pill.kit-button:disabled,
+.tool-pill.kit-button:disabled:hover,
+.tool-pill.kit-button:disabled:focus {
+    opacity: var(--opacity-disabled);
+}
+
+.tool-knob {
+    position: absolute;
+    left: var(--space-xxs);
+    top: var(--size-half-width);
+    width: var(--size-board-knob);
+    height: var(--size-board-knob);
+    margin-top: var(--size-board-knob-pull);
+    background-color: var(--color-gold);
+    border-radius: var(--radius-round);
+}
+
+.tool--on .tool-knob {
+    left: auto;
+    right: var(--space-xxs);
+}
+
+/* ---- combat log: a framed panel over the field, opened by the footer's Combat log control ---- */
+
+.combat-log {
+    position: absolute;
+    left: var(--size-half-width);
+    top: var(--size-board-log-top);
+    width: var(--size-log-w);
+    margin-left: var(--size-board-log-pull);
+    max-height: var(--size-board-log-max-h);
+    padding: var(--space-lg);
+    background-color: var(--color-bg-raise);
+    overflow: hidden;
+}
+
+.log-title {
+    font-size: var(--font-heading);
+    letter-spacing: var(--size-track-heading);
+    color: var(--color-gold);
+    margin-bottom: var(--space-sm);
+}
+
+.log-lines {
+    flex-direction: column-reverse;
+}
+
+.log-line {
+    font-size: var(--font-body);
+    white-space: normal;
+    color: var(--color-parchment);
+    margin-bottom: var(--space-xxs);
+}
+
+.log-line--newest {
+    color: var(--color-gold);
+}
+
+.log-close {
+    align-self: flex-end;
+    margin-top: var(--space-md);
+}
+
+.layout-narrow .combat-log {
+    width: var(--size-board-log-wnarrow);
+    margin-left: var(--size-board-log-pull-narrow);
+}
+
+/* ---- narrow board (390 x 844): taller HUD for 48 px buttons and the cinders under them, a 120 px footer ---- */
+
+.layout-narrow .board-hud {
+    height: var(--size-board-hud-hnarrow);
+}
+
+.layout-narrow .hud-hp {
+    top: var(--size-board-hp-top-narrow);
+    right: var(--size-board-hp-right-narrow);
+}
+
+.layout-narrow .hud-heart {
+    top: var(--size-board-heart-top-narrow);
+}
+
+.layout-narrow .hud-pips {
+    top: var(--size-board-pips-top-narrow);
+}
+
+.layout-narrow .hud-side {
+    top: var(--size-board-side-top-narrow);
+}
+
+.layout-narrow .hud-icon-button.kit-button {
+    width: var(--size-board-icon-btn-narrow);
+    height: var(--size-board-icon-btn-narrow);
+}
+
+.layout-narrow .board-prompt {
+    top: var(--size-board-hud-hnarrow);
+}
+
+.layout-narrow .board-footer {
+    height: var(--size-board-footer-hnarrow);
+}
+
+.layout-narrow .combat-background,
+.layout-narrow .board-field {
+    bottom: var(--size-board-footer-hnarrow);
+}
+
+.layout-narrow .board-tools {
+    height: var(--size-board-tools-hnarrow);
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+}
+
+.layout-narrow .tool-link.kit-button {
+    font-size: var(--font-board-tool-narrow);
+}
+
+.layout-narrow .tool-pill.kit-button {
+    font-size: var(--font-board-tool-narrow);
+}

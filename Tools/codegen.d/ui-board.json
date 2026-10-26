@@ -1,0 +1,48 @@
+{
+  "comment": "VP-4 combat board (D-700): the art names the board looks up (ArtLookup kinds orb, footer, component and icon: ui/art.json), the icons its overhead and chips draw, and the geometry identities of the mana ring. Names of UXML regions and classes are in ui.json (UiNames, UiClasses).",
+  "keySets": [
+    {
+      "name": "BoardArt",
+      "doc": "Names of the art the combat board looks up by kind (ui/art.json lookup: orb.{name}, footer.{name}, uicomp.{name}).",
+      "keys": {
+        "OrbDisc": "orb",
+        "OrbFrame": "frame",
+        "OrbDiamond": "diamond",
+        "OrbSpent": "spent",
+        "FooterPlate": "plate",
+        "FooterDraw": "draw",
+        "FooterSpent": "spent-cards",
+        "FooterPotions": "potions",
+        "ComponentMenu": "menu",
+        "ComponentArmoury": "armoury"
+      }
+    },
+    {
+      "name": "BoardIcons",
+      "doc": "Content icon names the combat board draws (icon.{name}: ui/art.json iconAlias applies).",
+      "keys": {
+        "Health": "health",
+        "Attack": "attack",
+        "Block": "block",
+        "Unknown": "unknown",
+        "Staggered": "staggered",
+        "Buff": "strength",
+        "Debuff": "weak",
+        "Evade": "evade",
+        "Precision": "target",
+        "Relic": "relic"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "BoardMath",
+      "type": "double",
+      "doc": "Geometry identities of the combat board (not tuning): the mana ring of the Orb is a circle of up to twelve diamonds, one every 30 degrees (web footerLayout.json mana-0..mana-11 sit at 30-degree steps around the frame).",
+      "values": {
+        "OrbStepDegrees": 30,
+        "OrbMaxDiamonds": 12
+      }
+    }
+  ]
+}

@@ -17,10 +17,20 @@ namespace Ashen.Presentation.UI
         private PanelSettings _narrow;
         private RenderTexture _target;
         private InputRouter _input;
+        private Kit.FocusRing _focusRing;
 
         public UiContext Context { get; private set; }
         public UIDocument Document { get; private set; }
         public Navigator Navigator { get; private set; }
+
+        /// <summary>The input layer: the keyboard, the pad and the hint chips, through the player's bindings (P-7c).</summary>
+        public HotkeyHost Hotkeys { get; private set; }
+
+        /// <summary>A key or the pad is driving the focus (the focus ring shows).</summary>
+        public void UseKeys() => _focusRing?.UseKeys();
+
+        /// <summary>Dresses the UI in the player's settings (accent, palette, HUD parts, layout, tooltips); made by the boot.</summary>
+        public SettingsApplier Applier { get; set; }
 
         public int ViewportWidth => _target != null ? _target.width : Screen.width;
         public int ViewportHeight => _target != null ? _target.height : Screen.height;
@@ -48,11 +58,15 @@ namespace Ashen.Presentation.UI
             root.EnableInClassList(UiClasses.BuildPlayer, !context.DevBuild);
             host.Navigator = new Navigator(host, root);
             host.Navigator.ApplyLayout(host.ViewportWidth, host.ViewportHeight);
+            host._focusRing = new Kit.FocusRing(root);
+            Kit.Tooltip.Rules = context.Data.Components.TooltipPlacement;
             host._input = new InputRouter(context.Data.Tokens.Duration(TokenKeys.NavRepeatDelay), context.Data.Tokens.Duration(TokenKeys.NavRepeatInterval));
+            host._input.Move += _ => host._focusRing.UseKeys();
+            host._input.Submit += host._focusRing.UseKeys;
             host._input.Move += host.Navigator.MoveFocus;
             host._input.Submit += host.Navigator.Submit;
             host._input.Cancel += host.Navigator.Back;
-            host._input.Menu += host.Navigator.Menu;
+            host.Hotkeys = new HotkeyHost(host, root, context.Data.Controls);
             return host;
         }
 
@@ -80,15 +94,34 @@ namespace Ashen.Presentation.UI
             if (Document != null && Document.panelSettings != wanted) Document.panelSettings = wanted;
         }
 
+        /// <summary>
+        /// The UI size the player asked for: a fixed size smaller than the window's fit shrinks the layout's scale, which is the reference resolution grown by the same factor
+        /// (Scale With Screen Size has no other dial).
+        /// </summary>
+        public void UseScale(LayoutState state)
+        {
+            var ps = state.Narrow ? _narrow : _wide;
+            if (ps == null) return;
+            var auto = LayoutClassifier.Scale(state.ViewportWidth, state.ViewportHeight, state.Panel);
+            var factor = state.Scale > 0 ? auto / state.Scale : 1;
+            var size = new Vector2Int(Mathf.RoundToInt((float)(state.Panel.Width * factor)), Mathf.RoundToInt((float)(state.Panel.Height * factor)));
+            if (ps.referenceResolution != size) ps.referenceResolution = size;
+        }
+
         /// <summary>Per-frame upkeep: follow viewport size changes.</summary>
         public void Tick()
         {
             Navigator?.ApplyLayout(ViewportWidth, ViewportHeight);
+            Hotkeys?.Tick();
             _input?.Tick(Time.realtimeSinceStartup);
         }
 
         public void Dispose()
         {
+            Applier?.Dispose();
+            Applier = null;
+            Hotkeys?.Dispose();
+            Hotkeys = null;
             _input?.Dispose();
             _input = null;
             if (Document != null) Document.panelSettings = null;

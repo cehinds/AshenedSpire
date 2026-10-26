@@ -1,0 +1,30 @@
+{
+  "comment": "P-1 (D-1320..): the counts and scales the card text, the intent projection, the tooltips and the pose stage use.",
+  "numberSets": [
+    {
+      "name": "P1Math",
+      "type": "double",
+      "doc": "Scales of the web's percentages and deep-pool shadows (fixCoreProtectionDescription), the whole-group floor of the card formulas and the pose placement guards.",
+      "values": {
+        "Percent": 100,
+        "PoolDepth": 1000,
+        "Half": 0.5,
+        "AspectFloor": 0.000001
+      }
+    },
+    {
+      "name": "P1Count",
+      "type": "int",
+      "doc": "Counts the card text and the intent read compare with (a pair of arguments, a whole group of two, three listed hits) and the columns of a pose frame row [x, y, w, h, rx, ry, g].",
+      "values": {
+        "Pair": 2,
+        "Triple": 3,
+        "FrameW": 2,
+        "FrameH": 3,
+        "FrameRx": 4,
+        "FrameRy": 5,
+        "FrameG": 6
+      }
+    }
+  ]
+}

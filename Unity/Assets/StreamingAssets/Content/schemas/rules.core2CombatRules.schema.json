@@ -1,0 +1,718 @@
+{
+  "$id": "rules/core2CombatRules.json",
+  "type": "object",
+  "properties": {
+    "combatRules": {
+      "type": "object",
+      "properties": {
+        "armor": {
+          "type": "object",
+          "properties": {
+            "cap": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "cap",
+            "scale"
+          ]
+        },
+        "damageTypes": {
+          "type": "object",
+          "properties": {
+            "arcane": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "number"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            },
+            "blunt": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            },
+            "decay": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            },
+            "earth": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            },
+            "fire": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            },
+            "frost": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            },
+            "lightning": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            },
+            "piercing": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            },
+            "poison": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            },
+            "psychic": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            },
+            "sacred": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            },
+            "slashing": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "physical": {
+                  "type": "boolean"
+                },
+                "tag": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "physical",
+                "tag"
+              ]
+            }
+          },
+          "required": [
+            "arcane",
+            "blunt",
+            "decay",
+            "earth",
+            "fire",
+            "frost",
+            "lightning",
+            "piercing",
+            "poison",
+            "psychic",
+            "sacred",
+            "slashing"
+          ]
+        },
+        "dodge": {
+          "type": "object",
+          "properties": {
+            "actions": {
+              "type": "integer"
+            },
+            "charges": {
+              "type": "integer"
+            },
+            "stamina": {
+              "type": "object",
+              "properties": {
+                "heavy": {
+                  "type": "integer"
+                },
+                "light": {
+                  "type": "integer"
+                },
+                "medium": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "heavy",
+                "light",
+                "medium"
+              ]
+            },
+            "usesPerTurn": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "actions",
+            "charges",
+            "stamina",
+            "usesPerTurn"
+          ]
+        },
+        "equipmentSources": {
+          "type": "object",
+          "properties": {
+            "itemFamilies": {
+              "type": "object",
+              "properties": {
+                "warhammer": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "warhammer"
+              ]
+            },
+            "profileFamilies": {
+              "type": "object",
+              "properties": {
+                "bladeAttack": {
+                  "type": "string"
+                },
+                "bowPierceAttack": {
+                  "type": "string"
+                },
+                "daggerPierceAttack": {
+                  "type": "string"
+                },
+                "sceptreArcaneAttack": {
+                  "type": "string"
+                },
+                "shieldAttack": {
+                  "type": "string"
+                },
+                "staffMagicAttack": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "bladeAttack",
+                "bowPierceAttack",
+                "daggerPierceAttack",
+                "sceptreArcaneAttack",
+                "shieldAttack",
+                "staffMagicAttack"
+              ]
+            }
+          },
+          "required": [
+            "itemFamilies",
+            "profileFamilies"
+          ]
+        },
+        "fallbackSource": {
+          "type": "object",
+          "properties": {
+            "buildup": {
+              "type": "array",
+              "items": {}
+            },
+            "damageType": {
+              "type": "string"
+            },
+            "family": {
+              "type": "string"
+            },
+            "grip": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "tags": {
+              "type": "array",
+              "items": {}
+            },
+            "weight": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "buildup",
+            "damageType",
+            "family",
+            "grip",
+            "id",
+            "tags",
+            "weight"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "impact": {
+          "type": "object",
+          "properties": {
+            "delivery": {
+              "type": "object",
+              "properties": {
+                "magical": {
+                  "type": "number"
+                },
+                "physical": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "magical",
+                "physical"
+              ]
+            },
+            "family": {
+              "type": "object",
+              "properties": {
+                "blade": {
+                  "type": "number"
+                },
+                "bow": {
+                  "type": "number"
+                },
+                "focus": {
+                  "type": "number"
+                },
+                "hammer": {
+                  "type": "number"
+                },
+                "natural": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "blade",
+                "bow",
+                "focus",
+                "hammer",
+                "natural"
+              ]
+            },
+            "grip": {
+              "type": "object",
+              "properties": {
+                "oneHand": {
+                  "type": "integer"
+                },
+                "twoHand": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "oneHand",
+                "twoHand"
+              ]
+            },
+            "minimum": {
+              "type": "integer"
+            },
+            "protectionTurns": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "delivery",
+            "family",
+            "grip",
+            "minimum",
+            "protectionTurns"
+          ]
+        },
+        "magicSplit": {
+          "type": "object",
+          "properties": {
+            "meleeSpell": {
+              "type": "number"
+            },
+            "technique": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "meleeSpell",
+            "technique"
+          ]
+        },
+        "recovery": {
+          "type": "object",
+          "properties": {
+            "manaPerTurn": {
+              "type": "integer"
+            },
+            "staminaPerTurn": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "manaPerTurn",
+            "staminaPerTurn"
+          ]
+        },
+        "resistanceCap": {
+          "type": "number"
+        },
+        "schools": {
+          "type": "object",
+          "properties": {
+            "alteration": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "magicType": {
+                  "type": "string"
+                },
+                "physicalType": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "magicType",
+                "physicalType"
+              ]
+            },
+            "decay": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "magicType": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "magicType"
+              ]
+            },
+            "divine": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "magicType": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "magicType"
+              ]
+            },
+            "earth": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "magicType": {
+                  "type": "string"
+                },
+                "physicalType": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "magicType",
+                "physicalType"
+              ]
+            },
+            "fire": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "magicType": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "magicType"
+              ]
+            },
+            "force": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "number"
+                },
+                "magicType": {
+                  "type": "string"
+                },
+                "physicalType": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "magicType",
+                "physicalType"
+              ]
+            },
+            "frost": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "magicType": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "magicType"
+              ]
+            },
+            "lightning": {
+              "type": "object",
+              "properties": {
+                "magicShare": {
+                  "type": "integer"
+                },
+                "magicType": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "magicShare",
+                "magicType"
+              ]
+            }
+          },
+          "required": [
+            "alteration",
+            "decay",
+            "divine",
+            "earth",
+            "fire",
+            "force",
+            "frost",
+            "lightning"
+          ]
+        },
+        "stacking": {
+          "type": "object",
+          "properties": {
+            "cap": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "cap"
+          ]
+        },
+        "triggers": {
+          "type": "object",
+          "properties": {
+            "chance": {
+              "type": "integer"
+            },
+            "limitPerAction": {
+              "type": "integer"
+            },
+            "maxDepth": {
+              "type": "integer"
+            },
+            "maxEvents": {
+              "type": "integer"
+            },
+            "rollScope": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "chance",
+            "limitPerAction",
+            "maxDepth",
+            "maxEvents",
+            "rollScope"
+          ]
+        },
+        "vulnerabilityCap": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "armor",
+        "damageTypes",
+        "dodge",
+        "equipmentSources",
+        "fallbackSource",
+        "id",
+        "impact",
+        "magicSplit",
+        "recovery",
+        "resistanceCap",
+        "schools",
+        "stacking",
+        "triggers",
+        "vulnerabilityCap"
+      ]
+    }
+  },
+  "required": [
+    "combatRules"
+  ]
+}

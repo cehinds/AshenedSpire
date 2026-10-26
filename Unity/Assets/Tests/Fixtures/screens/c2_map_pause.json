@@ -1,0 +1,13 @@
+{
+  "comment": "map-pause-menu: the menu from the map (the web shows the Menu overlay on its Settings tab).",
+  "screen": "actMap",
+  "core2": {
+    "until": "map",
+    "modal": "menu",
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

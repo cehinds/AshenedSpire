@@ -124,10 +124,11 @@ namespace Ashen.Domain.Combat
             return c.PropertyMounts.TryGetValue(Triggers.OwnerKey(entity), out var m) ? m : null;
         }
 
-        private static void Mount(CombatState c, string ownerKey, string kind, string id, string instanceId, IReadOnlyList<string> tagIds, IEnumerable<string> scopeTags)
+        private static void Mount(CombatState c, string ownerKey, string kind, string id, string instanceId, IReadOnlyList<string> tagIds, IEnumerable<string> scopeTags, JArray mechanicTags = null, JArray mechanicBindings = null, bool configuredEnemy = false)
         {
             var rules = CarrierRules(c.Data, tagIds);
-            if (rules.Count == 0) return;
+            var mechanics = (mechanicTags?.Count ?? 0) > 0 || (mechanicBindings?.Count ?? 0) > 0;
+            if (rules.Count == 0 && !mechanics) return;
             var sourceKey = SourceKey(kind, instanceId ?? id);
             c.PropertyMounts ??= new OrderedMap<OrderedMap<PropertyMount>>();
             if (!c.PropertyMounts.TryGetValue(ownerKey, out var owned))
@@ -136,7 +137,8 @@ namespace Ashen.Domain.Combat
                 c.PropertyMounts[ownerKey] = owned;
             }
             if (owned.ContainsKey(sourceKey)) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.AlreadyMounted, sourceKey, ownerKey));
-            owned[sourceKey] = new PropertyMount { Kind = kind, Id = id, InstanceId = instanceId ?? id, Rules = rules, ScopeTags = (scopeTags ?? Enumerable.Empty<string>()).ToList() };
+            owned[sourceKey] = new PropertyMount { Kind = kind, Id = id, InstanceId = instanceId ?? id, Rules = rules, ScopeTags = (scopeTags ?? Enumerable.Empty<string>()).ToList(),
+                MechanicTags = (JArray)(mechanicTags ?? new JArray()).DeepClone(), MechanicBindings = (JArray)(mechanicBindings ?? new JArray()).DeepClone(), ConfiguredEnemy = configuredEnemy };
         }
 
         /// <summary>mountProperties(ctx, carrier) for a carrier outside the loadout (a location): false when it confers nothing.</summary>
@@ -145,6 +147,25 @@ namespace Ashen.Domain.Combat
             if (CarrierRules(c.Data, tagIds).Count == 0) return false;
             Mount(c, ownerKey, kind, id, instanceId, tagIds, null);
             return true;
+        }
+
+        /// <summary>
+        /// syncConfiguredEnemyProperties(ctx) for one enemy: it holds exactly its pinned gear and relic slots that attach mechanics. A mount of a slot the row no
+        /// longer pins is dropped; a slot not yet mounted is mounted under <c>sourceId@slotKey</c>.
+        /// </summary>
+        public static void SyncConfiguredEnemy(CombatState c, JObject enemy, IReadOnlyList<(string Kind, string Id, string InstanceId, List<string> Tags, JArray MechanicTags, JArray MechanicBindings)> carriers)
+        {
+            var ownerKey = Triggers.OwnerKey(enemy);
+            var keys = new HashSet<string>(carriers.Select(carrier => SourceKey(carrier.Kind, carrier.InstanceId ?? carrier.Id)), StringComparer.Ordinal);
+            if (c.PropertyMounts != null && c.PropertyMounts.TryGetValue(ownerKey, out var current))
+            {
+                foreach (var entry in current.Entries().ToList())
+                    if (entry.Value.ConfiguredEnemy && !keys.Contains(entry.Key)) current.Remove(entry.Key);
+                if (current.Count == 0) c.PropertyMounts.Remove(ownerKey);
+            }
+            foreach (var carrier in carriers)
+                if (!IsMounted(c, ownerKey, carrier.Kind, carrier.InstanceId ?? carrier.Id))
+                    Mount(c, ownerKey, carrier.Kind, carrier.Id, carrier.InstanceId, carrier.Tags, null, carrier.MechanicTags, carrier.MechanicBindings, true);
         }
 
         /// <summary>unmountProperties(ctx, carrier): true if a mount was removed (an owner left with none is dropped).</summary>

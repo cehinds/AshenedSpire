@@ -1,0 +1,83 @@
+{
+  "comment": "P-7c (D-1750..): the input layer, live (web src/ui/input.js, components/hints.js, components/quicknav.js, components/overlay.js): the keys of ui/controls.json hotkeys, the action ids, the d-pad's directions, the screen commands a fixed key runs, the hint bar contexts, the quick menu modes, and the names of the hint bar's new parts.",
+  "keySets": [
+    {
+      "name": "HotkeyKeys",
+      "doc": "Keys of ui/controls.json hotkeys (the tab ring, the d-pad, the card keys, the screen scopes, the hint bars).",
+      "keys": {
+        "Hotkeys": "hotkeys",
+        "Destination": "destination",
+        "Ring": "ring",
+        "PrevKey": "prevKey",
+        "NextKey": "nextKey",
+        "PrevButton": "prevButton",
+        "NextButton": "nextButton",
+        "PadNav": "padNav",
+        "CardKeys": "cardKeys",
+        "Key": "key",
+        "Index": "index",
+        "Target": "target",
+        "Scopes": "scopes",
+        "Modifiers": "modifiers",
+        "Plain": "plain",
+        "Cards": "cards",
+        "Keys": "keys",
+        "HintBars": "hintBars",
+        "HintLabels": "hintLabels",
+        "MenuTip": "menuTip",
+        "Title": "title",
+        "List": "list",
+        "Direct": "direct"
+      }
+    },
+    {
+      "name": "HotkeyActions",
+      "doc": "The ids of the web's ACTIONS registry (ui/controls.json actions).",
+      "keys": {
+        "Confirm": "confirm",
+        "Cancel": "cancel",
+        "EndTurn": "endTurn",
+        "Menu": "menu",
+        "Deck": "deck",
+        "Relics": "relics",
+        "Stats": "stats",
+        "Flask1": "flask1",
+        "Flask2": "flask2",
+        "Flask3": "flask3",
+        "Inspect": "inspect"
+      }
+    },
+    {
+      "name": "HotkeyValues",
+      "doc": "Values of ui/controls.json hotkeys: the d-pad's directions, the screen commands a fixed key runs, the hint bar contexts, the Armoury places and the quick menu modes (settings quickNav).",
+      "keys": {
+        "DirUp": "up",
+        "DirDown": "down",
+        "DirLeft": "left",
+        "DirRight": "right",
+        "CommandZoomIn": "zoomIn",
+        "CommandZoomOut": "zoomOut",
+        "CommandZoomReset": "zoomReset",
+        "HintCombat": "combat",
+        "HintMap": "map",
+        "HintTargeting": "targeting",
+        "DestCards": "cards",
+        "DestEquipment": "equipment",
+        "DestCharacter": "character",
+        "QuickOff": "off",
+        "QuickMirror": "mirror",
+        "QuickSwitcher": "switcher"
+      }
+    },
+    {
+      "name": "HotkeyClasses",
+      "doc": "USS classes and element names of the hint bar and the quick menu's switcher.",
+      "keys": {
+        "HintChipKey": "map-key-chip",
+        "HintChipLabel": "map-key-label",
+        "OverlaySwitch": "overlay-switch",
+        "EndTurnKey": "group-end-key"
+      }
+    }
+  ]
+}

@@ -1,30 +1,26 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Screens.uss" />
     <ui:VisualElement class="page title-page">
+        <ui:VisualElement name="TITLE_ART_DOOR" class="title-art title-art--door" picking-mode="Ignore" />
+        <ui:VisualElement name="TITLE_ART_DOOR_PHONE" class="title-art title-art--door title-art--phone" picking-mode="Ignore" />
+        <ui:VisualElement name="TITLE_ART_GATE" class="title-art title-art--gate" picking-mode="Ignore" />
+        <ui:VisualElement name="TITLE_ART_LIT" class="title-art title-art--lit" picking-mode="Ignore" />
         <ui:VisualElement name="TITLE_HEAD" class="title-head">
             <Ashen.Presentation.UI.LocLabel name="WORDMARK" class="wordmark" string-key="title.wordmark" />
-            <Ashen.Presentation.UI.LocLabel name="SUBTITLE" class="subtitle kit-text-value" string-key="title.subtitle" />
+            <Ashen.Presentation.UI.LocLabel name="SUBTITLE" class="subtitle kit-text-value kit-upper" string-key="title.subtitle" />
+            <ui:VisualElement class="kit-divider title-divider" picking-mode="Ignore" />
         </ui:VisualElement>
         <ui:VisualElement name="TITLE_MAIN" class="title-main">
             <ui:VisualElement name="MENU" class="menu" />
-            <ui:VisualElement name="SAVE_PREVIEW" class="save-preview">
-                <Ashen.Presentation.UI.LocLabel name="PREVIEW_EYEBROW" class="eyebrow kit-text-header" string-key="title.preview.eyebrow" />
-                <ui:VisualElement class="preview-row">
-                    <ui:VisualElement name="PREVIEW_PORTRAIT" class="preview-portrait" />
-                    <ui:VisualElement class="preview-texts">
-                        <Ashen.Presentation.UI.LocLabel name="PREVIEW_IDENTITY" class="preview-identity kit-text-value" />
-                        <Ashen.Presentation.UI.LocLabel name="PREVIEW_PROGRESS" class="preview-line kit-text-value" />
-                        <Ashen.Presentation.UI.LocLabel name="PREVIEW_SLOT" class="preview-line caption kit-text-value" />
-                    </ui:VisualElement>
-                </ui:VisualElement>
-            </ui:VisualElement>
+            <ui:VisualElement class="kit-divider title-divider" picking-mode="Ignore" />
+            <Ashen.Presentation.UI.LocLabel name="TAGLINE" class="tagline kit-text-value kit-upper" string-key="title.tagline" />
         </ui:VisualElement>
         <ui:VisualElement name="TITLE_FOOTER" class="title-footer">
-            <Ashen.Presentation.UI.LocLabel name="BUILD" class="build caption kit-text-header" />
+            <Ashen.Presentation.UI.LocLabel name="BUILD" class="build caption kit-text-header kit-upper" />
             <Ashen.Presentation.UI.LocButton name="AI_DISCLOSURE" class="ai-disclosure" string-key="title.aiDisclosure" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="GATE" class="gate">
-        <Ashen.Presentation.UI.LocLabel name="GATE_PROMPT" class="gate-prompt kit-text-value" string-key="title.pressAny" />
+        <Ashen.Presentation.UI.LocLabel name="GATE_PROMPT" class="gate-prompt kit-text-value kit-upper" string-key="title.pressAny" />
     </ui:VisualElement>
 </ui:UXML>

@@ -21,17 +21,19 @@ namespace Ashen.Tests
         [Test]
         public void TitleRowsAreInTheOwnerOrder()
         {
-            Assert.That(Ui.Menus.Title.Select(e => e.Id), Is.EqualTo(new[] { "continue", "load", "new", "journal", "customRun", "settings", "quit", "coop" }));
+            Assert.That(Ui.Menus.Title.Select(e => e.Id), Is.EqualTo(new[] { "continue", "new", "load", "journal", "customRun", "settings", "quit", "coop" }));
             Assert.That(Ui.Menus.Title.Where(e => e.Visible).Select(e => e.Id).Last(), Is.EqualTo("quit"), "co-op row exists but is hidden");
         }
 
         [Test]
-        public void ContinueIsDisabledWithoutAValidSlotAndFocusGoesToLoad()
+        public void ContinueIsDisabledWithoutAValidSlotAndFocusGoesToNew()
         {
             var states = MenuRules.Evaluate(Ui.Menus.Title, Ui.MenuContext(false));
-            Assert.That(states[0].Visible, Is.True, "Continue is shown");
+            Assert.That(states[0].Visible, Is.False, "the web's title has no Continue until a climb is saved (title.js menuHtml)");
             Assert.That(states[0].Enabled, Is.False, "Continue is disabled with no valid slot (AW:245)");
-            Assert.That(MenuRules.FirstEnabled(states), Is.EqualTo(1));
+            Assert.That(states.Single(s => s.Def.Id == "load").Visible, Is.False, "nor a Load Game");
+            Assert.That(states.Where(s => s.Visible).Select(s => s.Def.Id), Is.EqualTo(new[] { "new", "settings", "quit" }), "New Game, Settings, Exit (flow-02-title-no-save)");
+            Assert.That(MenuRules.FirstEnabled(states), Is.EqualTo(0), "focus goes to New");
         }
 
         [Test]
@@ -40,14 +42,15 @@ namespace Ashen.Tests
             var states = MenuRules.Evaluate(Ui.Menus.Title, Ui.MenuContext(true));
             Assert.That(states[0].Enabled, Is.True);
             Assert.That(MenuRules.FirstEnabled(states), Is.EqualTo(0));
+            Assert.That(states.Where(s => s.Visible).Select(s => s.Def.Id), Is.EqualTo(new[] { "continue", "new", "load", "settings", "quit" }), "Continue, New Game, Load Game, Settings, Exit (title-1920x1080); the Journal row is the build's own and stays out");
         }
 
         [Test]
         public void RowsTargetingPlannedScreensAreDisabledUntilBuilt()
         {
-            var journal = Ui.Menus.Title.Single(e => e.Id == "journal");
-            Assert.That(MenuRules.IsEnabled(journal, Ui.MenuContext(true)), Is.False, "journal is planned");
-            Assert.That(MenuRules.IsEnabled(journal, new MenuContext { IsBuilt = id => id == "journal" }), Is.True);
+            var customRun = Ui.Menus.Title.Single(e => e.Id == "customRun");
+            Assert.That(MenuRules.IsEnabled(customRun, Ui.MenuContext(true)), Is.False, "the custom run is planned");
+            Assert.That(MenuRules.IsEnabled(customRun, new MenuContext { IsBuilt = id => id == "customRun" }), Is.True);
             Assert.That(MenuRules.IsEnabled(new MenuEntryDef { EnabledWhen = "noSuchRule" }, new MenuContext()), Is.False);
             var hidden = MenuRules.Evaluate(Ui.Menus.Title, new MenuContext { HasValidSlot = true, IsBuilt = _ => true }).Single(s => s.Def.Id == "coop");
             Assert.That(hidden.Enabled, Is.False, "an invisible row is never enabled");

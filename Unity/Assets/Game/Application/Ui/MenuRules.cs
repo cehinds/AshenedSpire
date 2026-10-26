@@ -23,6 +23,9 @@ namespace Ashen.App.Ui
         public MenuEntryDef Def;
         public bool Visible;
         public bool Enabled;
+
+        /// <summary>Disabled because a fight is on and the row is locked in combat (the web's edit lock), not because its screen is planned.</summary>
+        public bool Locked;
     }
 
     /// <summary>
@@ -36,7 +39,10 @@ namespace Ashen.App.Ui
             entries.Select(e =>
             {
                 var visible = e.Visible && !(e.HideInCombat && context.InCombat);
-                return new MenuEntryState { Def = e, Visible = visible, Enabled = visible && IsEnabled(e, context) };
+                var locked = visible && e.LockedInCombat && context.InCombat;
+                var enabled = visible && !locked && IsEnabled(e, context);
+                if (e.HideWhenDisabled && !enabled) visible = false;
+                return new MenuEntryState { Def = e, Visible = visible, Enabled = enabled, Locked = locked };
             }).ToList();
 
         public static bool IsEnabled(MenuEntryDef entry, MenuContext context)

@@ -1,0 +1,1090 @@
+[
+ {
+  "id": "reaverIronFooting",
+  "skillId": "class:reaver",
+  "minLevel": 0,
+  "name": "Iron Footing",
+  "description": "Your Guard cards gain +2 Block.",
+  "passive": {
+   "tags": [
+    "guard"
+   ],
+   "block": 2
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "reaverKeenBlade",
+  "skillId": "class:reaver",
+  "minLevel": 0,
+  "name": "Keen Blade",
+  "description": "Blade attacks have an 8% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "blade"
+   ],
+   "base": 0.08,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "reaverBloodDiscipline",
+  "skillId": "class:reaver",
+  "minLevel": 0,
+  "name": "Blood Discipline",
+  "description": "Blood attacks have a 12% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "blood"
+   ],
+   "base": 0.12,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "reaverMasteryFocus",
+  "skillId": "class:reaver",
+  "minLevel": 0,
+  "name": "Weight of War",
+  "description": "Heavy attacks have a 15% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "heavy"
+   ],
+   "base": 0.15,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "reaverMasteryResolve",
+  "skillId": "class:reaver",
+  "minLevel": 0,
+  "name": "Unbroken Line",
+  "description": "Your Guard cards gain +3 Block.",
+  "passive": {
+   "tags": [
+    "guard"
+   ],
+   "block": 3
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "starseerAshShelter",
+  "skillId": "class:starseer",
+  "minLevel": 0,
+  "name": "Ash Shelter",
+  "description": "Your Ritual cards gain +2 Block.",
+  "passive": {
+   "tags": [
+    "ritual"
+   ],
+   "block": 2
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "starseerClearSky",
+  "skillId": "class:starseer",
+  "minLevel": 0,
+  "name": "Clear Sky",
+  "description": "Starstone attacks have a 10% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "starstone"
+   ],
+   "base": 0.1,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "starseerRitualPrecision",
+  "skillId": "class:starseer",
+  "minLevel": 0,
+  "name": "Ritual Precision",
+  "description": "Ritual attacks have an 8% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "ritual"
+   ],
+   "base": 0.08,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "starseerMasteryFocus",
+  "skillId": "class:starseer",
+  "minLevel": 0,
+  "name": "Comet Sight",
+  "description": "Starstone attacks have a 15% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "starstone"
+   ],
+   "base": 0.15,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "starseerMasteryResolve",
+  "skillId": "class:starseer",
+  "minLevel": 0,
+  "name": "Astral Shelter",
+  "description": "Your Starstone cards gain +3 Block.",
+  "passive": {
+   "tags": [
+    "starstone"
+   ],
+   "block": 3
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "rogueQuietGuard",
+  "skillId": "class:rogue",
+  "minLevel": 0,
+  "name": "Quiet Guard",
+  "description": "Your Guard cards gain +2 Block.",
+  "passive": {
+   "tags": [
+    "guard"
+   ],
+   "block": 2
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "rogueMeasuredPoint",
+  "skillId": "class:rogue",
+  "minLevel": 0,
+  "name": "Measured Point",
+  "description": "Pierce attacks have a 10% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "pierce"
+   ],
+   "base": 0.1,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "rogueKnifeWork",
+  "skillId": "class:rogue",
+  "minLevel": 0,
+  "name": "Knife Work",
+  "description": "Blade attacks have an 8% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "blade"
+   ],
+   "base": 0.08,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "rogueMasteryFocus",
+  "skillId": "class:rogue",
+  "minLevel": 0,
+  "name": "Perfect Opening",
+  "description": "Flourish attacks have a 15% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "flourish"
+   ],
+   "base": 0.15,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "rogueMasteryResolve",
+  "skillId": "class:rogue",
+  "minLevel": 0,
+  "name": "Hidden Parry",
+  "description": "Your Flourish cards gain +3 Block.",
+  "passive": {
+   "tags": [
+    "flourish"
+   ],
+   "block": 3
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "heraldRiteShelter",
+  "skillId": "class:herald",
+  "minLevel": 0,
+  "name": "Rite Shelter",
+  "description": "Your Ritual cards gain +2 Block.",
+  "passive": {
+   "tags": [
+    "ritual"
+   ],
+   "block": 2
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "heraldBlightPrecision",
+  "skillId": "class:herald",
+  "minLevel": 0,
+  "name": "Blight Precision",
+  "description": "Blight attacks have a 10% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "blight"
+   ],
+   "base": 0.1,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "heraldOathEdge",
+  "skillId": "class:herald",
+  "minLevel": 0,
+  "name": "Oath Edge",
+  "description": "Oath attacks have a 12% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "oath"
+   ],
+   "base": 0.12,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "heraldMasteryFocus",
+  "skillId": "class:herald",
+  "minLevel": 0,
+  "name": "Flame Witness",
+  "description": "Ritual attacks have a 15% chance to deal 1.5× damage.",
+  "crit": {
+   "tags": [
+    "ritual"
+   ],
+   "base": 0.15,
+   "weights": {},
+   "divisor": 100,
+   "cap": 0.5,
+   "multiplier": 1.5
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "heraldMasteryResolve",
+  "skillId": "class:herald",
+  "minLevel": 0,
+  "name": "Unspent Oath",
+  "description": "Your Oath cards gain +3 Block.",
+  "passive": {
+   "tags": [
+    "oath"
+   ],
+   "block": 3
+  },
+  "tags": [],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-coal-on-steel",
+  "skillId": "class:reaver",
+  "minLevel": 1,
+  "name": "Coal on Steel",
+  "description": "The first Blade hit each turn applies +1 Bleed buildup.",
+  "tags": [],
+  "propertyTags": [
+   "feat:coal-on-steel"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-brace-and-bite",
+  "skillId": "class:reaver",
+  "minLevel": 1,
+  "name": "Brace and Bite",
+  "description": "The first Blade attack each turn played while you have Block deals +3 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:brace-and-bite"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-red-footwork",
+  "skillId": "class:reaver",
+  "minLevel": 1,
+  "name": "Red Footwork",
+  "description": "The first Guard card each turn targeting an enemy with Bleed buildup draws 1 card.",
+  "tags": [],
+  "propertyTags": [
+   "feat:red-footwork"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-anvil-discipline",
+  "skillId": "class:reaver",
+  "minLevel": 4,
+  "name": "Anvil Discipline",
+  "description": "The first Heavy attack each turn deals +2 Break damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:anvil-discipline"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-forge-momentum",
+  "skillId": "class:reaver",
+  "minLevel": 4,
+  "name": "Forge Momentum",
+  "description": "Your first Blade attack after a Guard card each turn deals +4 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:forge-momentum"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-paid-in-blood",
+  "skillId": "class:reaver",
+  "minLevel": 8,
+  "name": "Paid in Blood",
+  "description": "The first Blood attack after you have lost HP since your previous turn began deals +4 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:paid-in-blood"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-last-rampart",
+  "skillId": "class:reaver",
+  "minLevel": 8,
+  "name": "Last Rampart",
+  "description": "At 50% HP or lower, your first Guard card each turn grants +4 Block.",
+  "tags": [],
+  "propertyTags": [
+   "feat:last-rampart"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-war-cadence",
+  "skillId": "class:reaver",
+  "minLevel": 12,
+  "name": "War Cadence",
+  "description": "After your second Heavy card in a turn, gain 4 Block, once per turn.",
+  "tags": [],
+  "propertyTags": [
+   "feat:war-cadence"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-broad-sentence",
+  "skillId": "class:reaver",
+  "minLevel": 12,
+  "name": "Broad Sentence",
+  "description": "Your first attack that hits all living enemies each turn deals +2 damage to each target.",
+  "tags": [],
+  "propertyTags": [
+   "feat:broad-sentence"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-ember-sovereign",
+  "skillId": "class:reaver",
+  "minLevel": 16,
+  "name": "Ember Sovereign",
+  "description": "Once per turn, a Crown of Cinders charge gains +2 damage before it is consumed.",
+  "tags": [],
+  "propertyTags": [
+   "feat:ember-sovereign"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-dread-of-the-hammer",
+  "skillId": "class:reaver",
+  "minLevel": 16,
+  "name": "Dread of the Hammer",
+  "description": "Your first Heavy attack against a Staggered target each turn deals +4 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:dread-of-the-hammer"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-scarred-oath",
+  "skillId": "class:reaver",
+  "minLevel": 20,
+  "name": "Scarred Oath",
+  "description": "Your first Guard card after losing HP since your previous turn began grants +3 Block, once per turn.",
+  "tags": [],
+  "propertyTags": [
+   "feat:scarred-oath"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-harvest-the-wound",
+  "skillId": "class:reaver",
+  "minLevel": 20,
+  "name": "Harvest the Wound",
+  "description": "Your first credited kill of an enemy with Bleed buildup heals 3 HP, once per combat.",
+  "tags": [],
+  "propertyTags": [
+   "feat:harvest-the-wound"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-orbit-keeper",
+  "skillId": "class:starseer",
+  "minLevel": 1,
+  "name": "Orbit Keeper",
+  "description": "Your first Starstone spell following another spell each turn deals +3 direct damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:orbit-keeper"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-moonward-scholar",
+  "skillId": "class:starseer",
+  "minLevel": 1,
+  "name": "Moonward Scholar",
+  "description": "The first Guard spell played after you spent at least 2 Mana this turn grants +3 Block.",
+  "tags": [],
+  "propertyTags": [
+   "feat:moonward-scholar"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-comet-reader",
+  "skillId": "class:starseer",
+  "minLevel": 1,
+  "name": "Comet Reader",
+  "description": "The first Comet Mark attack each turn applies +1 Vulnerable after damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:comet-reader"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-mirror-of-rime",
+  "skillId": "class:starseer",
+  "minLevel": 4,
+  "name": "Mirror of Rime",
+  "description": "Your first Rime Mirror each turn applies +2 Frost buildup.",
+  "tags": [],
+  "propertyTags": [
+   "feat:mirror-of-rime"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-constellation-keeper",
+  "skillId": "class:starseer",
+  "minLevel": 4,
+  "name": "Constellation Keeper",
+  "description": "Your first Starstone attack after two distinct Starstone card IDs this turn deals +3 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:constellation-keeper"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-patient-wellspring",
+  "skillId": "class:starseer",
+  "minLevel": 8,
+  "name": "Patient Wellspring",
+  "description": "The first Mana Weave restoration each turn also grants 3 Block.",
+  "tags": [],
+  "propertyTags": [
+   "feat:patient-wellspring"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-weight-of-the-void",
+  "skillId": "class:starseer",
+  "minLevel": 8,
+  "name": "Weight of the Void",
+  "description": "The first Gravity Snare each turn applies +1 Weak after damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:weight-of-the-void"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-nightglass-scholar",
+  "skillId": "class:starseer",
+  "minLevel": 12,
+  "name": "Nightglass Scholar",
+  "description": "Once per turn, your Nightglass charge grants +2 additional damage when consumed.",
+  "tags": [],
+  "propertyTags": [
+   "feat:nightglass-scholar"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-eclipse-hunter",
+  "skillId": "class:starseer",
+  "minLevel": 12,
+  "name": "Eclipse Hunter",
+  "description": "Your first Starstone attack against a Frost-built-up or Frost-exposed target each turn deals +4 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:eclipse-hunter"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-firmament-keeper",
+  "skillId": "class:starseer",
+  "minLevel": 16,
+  "name": "Firmament Keeper",
+  "description": "Once per turn, consuming a Warded Casting charge also grants 4 Block.",
+  "tags": [],
+  "propertyTags": [
+   "feat:firmament-keeper"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-celestial-refrain",
+  "skillId": "class:starseer",
+  "minLevel": 16,
+  "name": "Celestial Refrain",
+  "description": "The second play of the same Starstone card ID in a turn grants 4 Block, once per turn.",
+  "tags": [],
+  "propertyTags": [
+   "feat:celestial-refrain"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-memory-of-winter",
+  "skillId": "class:starseer",
+  "minLevel": 20,
+  "name": "Memory of Winter",
+  "description": "Retain up to 4 Block into your next turn; use the highest retention allowance if another source also retains Block.",
+  "tags": [],
+  "propertyTags": [
+   "feat:memory-of-winter"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-threefold-sky",
+  "skillId": "class:starseer",
+  "minLevel": 20,
+  "name": "Threefold Sky",
+  "description": "Playing your third distinct Starstone card ID in a turn draws 1 card, once per turn.",
+  "tags": [],
+  "propertyTags": [
+   "feat:threefold-sky"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-first-knife",
+  "skillId": "class:rogue",
+  "minLevel": 1,
+  "name": "First Knife",
+  "description": "If your first card this turn is a Blade attack, it deals +3 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:first-knife"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-pocket-method",
+  "skillId": "class:rogue",
+  "minLevel": 1,
+  "name": "Pocket Method",
+  "description": "Your first Guard card after an explicit discard each turn grants +3 Block.",
+  "tags": [],
+  "propertyTags": [
+   "feat:pocket-method"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-crooked-measure",
+  "skillId": "class:rogue",
+  "minLevel": 4,
+  "name": "Crooked Measure",
+  "description": "Your first Crooked Guard hit each turn applies +1 Weak after damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:crooked-measure"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-open-flank",
+  "skillId": "class:rogue",
+  "minLevel": 4,
+  "name": "Open Flank",
+  "description": "Your first Blade attack against an enemy with zero Block each turn deals +3 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:open-flank"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-hidden-palm",
+  "skillId": "class:rogue",
+  "minLevel": 8,
+  "name": "Hidden Palm",
+  "description": "The first Sleight of Hand sequence each turn grants 3 Block after the discard.",
+  "tags": [],
+  "propertyTags": [
+   "feat:hidden-palm"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-tighten-the-wire",
+  "skillId": "class:rogue",
+  "minLevel": 8,
+  "name": "Tighten the Wire",
+  "description": "Your first Tether Cut attack each turn against a Weak or Vulnerable enemy deals +3 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:tighten-the-wire"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-smoke-dancer",
+  "skillId": "class:rogue",
+  "minLevel": 12,
+  "name": "Smoke Dancer",
+  "description": "Once per turn, a Smoke Edge charge adds +2 damage before it is consumed.",
+  "tags": [],
+  "propertyTags": [
+   "feat:smoke-dancer"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-carrion-measure",
+  "skillId": "class:rogue",
+  "minLevel": 12,
+  "name": "Carrion Measure",
+  "description": "Your first Blade attack against an enemy at 50% HP or lower each turn deals +4 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:carrion-measure"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-two-quiet-knives",
+  "skillId": "class:rogue",
+  "minLevel": 16,
+  "name": "Two Quiet Knives",
+  "description": "Your first Paired Strikes attack each turn deals +1 damage on each of its two hits.",
+  "tags": [],
+  "propertyTags": [
+   "feat:two-quiet-knives"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-trapdoor-smile",
+  "skillId": "class:rogue",
+  "minLevel": 16,
+  "name": "Trapdoor Smile",
+  "description": "Your first Blade attack after both a Guile card and a Guard card this turn deals +4 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:trapdoor-smile"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-clean-exit",
+  "skillId": "class:rogue",
+  "minLevel": 20,
+  "name": "Clean Exit",
+  "description": "Your first Guard card played before any attack this turn restores 1 Stamina, once per turn.",
+  "tags": [],
+  "propertyTags": [
+   "feat:clean-exit"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-razor-ledger",
+  "skillId": "class:rogue",
+  "minLevel": 20,
+  "name": "Razor Ledger",
+  "description": "Your first Blade attack after an explicit discard each turn deals +3 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:razor-ledger"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-ashen-mercy",
+  "skillId": "class:herald",
+  "minLevel": 1,
+  "name": "Ashen Mercy",
+  "description": "The first Mercy in Ash card each turn heals +2 HP.",
+  "tags": [],
+  "propertyTags": [
+   "feat:ashen-mercy"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-censer-keeper",
+  "skillId": "class:herald",
+  "minLevel": 1,
+  "name": "Censer Keeper",
+  "description": "The first Blood Censer offering each turn grants +3 Block after its HP payment.",
+  "tags": [],
+  "propertyTags": [
+   "feat:censer-keeper"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-sower-of-blight",
+  "skillId": "class:herald",
+  "minLevel": 4,
+  "name": "Sower of Blight",
+  "description": "The first Blight Seed hit each turn applies +2 Crimson Blight buildup.",
+  "tags": [],
+  "propertyTags": [
+   "feat:sower-of-blight"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-funeral-watch",
+  "skillId": "class:herald",
+  "minLevel": 4,
+  "name": "Funeral Watch",
+  "description": "At 50% HP or lower, your first Guard card each turn grants +3 Block.",
+  "tags": [],
+  "propertyTags": [
+   "feat:funeral-watch"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-ember-almoner",
+  "skillId": "class:herald",
+  "minLevel": 8,
+  "name": "Ember Almoner",
+  "description": "Your first Ember Tithe each turn grants +1 Regen after the HP payment.",
+  "tags": [],
+  "propertyTags": [
+   "feat:ember-almoner"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-choir-of-bone",
+  "skillId": "class:herald",
+  "minLevel": 8,
+  "name": "Choir of Bone",
+  "description": "The first Guard card you play while any living enemy has Crimson or Necrotic Blight buildup restores 1 Stamina, once per turn.",
+  "tags": [],
+  "propertyTags": [
+   "feat:choir-of-bone"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-requiem-reader",
+  "skillId": "class:herald",
+  "minLevel": 12,
+  "name": "Requiem Reader",
+  "description": "The first Ritual hit against an enemy with Crimson or Necrotic Blight buildup each turn deals +3 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:requiem-reader"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-pilgrim-of-scars",
+  "skillId": "class:herald",
+  "minLevel": 12,
+  "name": "Pilgrim of Scars",
+  "description": "If you began the turn at 50% HP or lower, your first Guard card that turn heals 3 HP.",
+  "tags": [],
+  "propertyTags": [
+   "feat:pilgrim-of-scars"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-crowned-offering",
+  "skillId": "class:herald",
+  "minLevel": 16,
+  "name": "Crowned Offering",
+  "description": "The first Ritual attack after an earlier HP offering this turn deals +4 damage.",
+  "tags": [],
+  "propertyTags": [
+   "feat:crowned-offering"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-dawn-cantor",
+  "skillId": "class:herald",
+  "minLevel": 16,
+  "name": "Dawn Cantor",
+  "description": "The first Dawn Rite removal each turn also grants 3 Block.",
+  "tags": [],
+  "propertyTags": [
+   "feat:dawn-cantor"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-bearer-of-burdens",
+  "skillId": "class:herald",
+  "minLevel": 20,
+  "name": "Bearer of Burdens",
+  "description": "The first negative status newly applied to you by an enemy each turn restores 1 Mana.",
+  "tags": [],
+  "propertyTags": [
+   "feat:bearer-of-burdens"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ },
+ {
+  "id": "progression-sepulchral-promise",
+  "skillId": "class:herald",
+  "minLevel": 20,
+  "name": "Sepulchral Promise",
+  "description": "Your first credited kill of an enemy with Crimson or Necrotic Blight buildup heals 3 HP, once per combat.",
+  "tags": [],
+  "propertyTags": [
+   "feat:sepulchral-promise"
+  ],
+  "kindIds": [
+   "classification.feat"
+  ]
+ }
+]

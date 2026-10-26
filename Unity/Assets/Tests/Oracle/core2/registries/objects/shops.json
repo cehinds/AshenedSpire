@@ -1,0 +1,322 @@
+{
+ "kindWeights": {
+  "market": 100,
+  "blacksmith": 0,
+  "master": 0
+ },
+ "market": {
+  "guaranteedMinimum": 2,
+  "offerings": [
+   {
+    "id": "cards",
+    "enabled": true,
+    "chance": 100,
+    "weight": 60,
+    "conditional": false,
+    "stockKey": "balance.shop.cardStock"
+   },
+   {
+    "id": "relics",
+    "enabled": true,
+    "chance": 100,
+    "weight": 30,
+    "conditional": true
+   },
+   {
+    "id": "flasks",
+    "enabled": true,
+    "chance": 100,
+    "weight": 40,
+    "conditional": false,
+    "stockKey": "balance.shop.flaskStock"
+   },
+   {
+    "id": "armaments",
+    "enabled": true,
+    "chance": 100,
+    "weight": 30,
+    "conditional": true
+   },
+   {
+    "id": "weaponArts",
+    "enabled": true,
+    "chance": 100,
+    "weight": 20,
+    "conditional": true
+   },
+   {
+    "id": "remove",
+    "enabled": true,
+    "chance": 100,
+    "weight": 50,
+    "conditional": true
+   },
+   {
+    "id": "armour",
+    "enabled": true,
+    "chance": 35,
+    "weight": 20,
+    "conditional": true,
+    "stock": 2,
+    "includeLocked": true,
+    "cost": {
+     "min": 300,
+     "max": 390
+    }
+   },
+   {
+    "id": "smithStones",
+    "enabled": true,
+    "chance": 50,
+    "weight": 25,
+    "conditional": true,
+    "price": 110,
+    "perVisit": 2
+   },
+   {
+    "id": "sigils",
+    "enabled": true,
+    "chance": 25,
+    "weight": 10,
+    "conditional": true,
+    "stock": 2,
+    "pricePct": 100
+   },
+   {
+    "id": "innRest",
+    "enabled": true,
+    "chance": 30,
+    "weight": 15,
+    "conditional": true,
+    "price": 150
+   },
+   {
+    "id": "skillBooks",
+    "enabled": true,
+    "chance": 30,
+    "weight": 12,
+    "conditional": true,
+    "stock": 2
+   },
+   {
+    "id": "reviveTokens",
+    "enabled": true,
+    "chance": 10,
+    "weight": 5,
+    "conditional": true,
+    "stock": 1
+   },
+   {
+    "id": "questEvent",
+    "enabled": true,
+    "chance": 15,
+    "weight": 8,
+    "conditional": true,
+    "price": 60
+   },
+   {
+    "id": "companions",
+    "enabled": true,
+    "chance": 20,
+    "weight": 10,
+    "conditional": true,
+    "stock": 1
+   }
+  ]
+ },
+ "blacksmith": {
+  "guaranteedMinimum": 2,
+  "offerings": [
+   {
+    "id": "armaments",
+    "enabled": true,
+    "chance": 100,
+    "weight": 40,
+    "conditional": true,
+    "stock": 5
+   },
+   {
+    "id": "upgrade",
+    "enabled": true,
+    "chance": 100,
+    "weight": 100,
+    "conditional": true
+   },
+   {
+    "id": "smithStones",
+    "enabled": true,
+    "chance": 100,
+    "weight": 60,
+    "conditional": false,
+    "stockKey": "shops.blacksmith.smithStones.perVisit",
+    "price": 90,
+    "perVisit": 3
+   },
+   {
+    "id": "refineStones",
+    "enabled": true,
+    "chance": 100,
+    "weight": 30,
+    "conditional": false,
+    "refine": {
+     "from": 3,
+     "value": 4,
+     "cinders": 100
+    }
+   },
+   {
+    "id": "sigilSlots",
+    "enabled": true,
+    "chance": 100,
+    "weight": 20,
+    "conditional": true,
+    "sigilSlots": {
+     "base": 0,
+     "max": 3,
+     "cinders": 300
+    }
+   },
+   {
+    "id": "sigils",
+    "enabled": true,
+    "chance": 100,
+    "weight": 20,
+    "conditional": true
+   },
+   {
+    "id": "extractArt",
+    "enabled": true,
+    "chance": 100,
+    "weight": 50,
+    "conditional": true
+   },
+   {
+    "id": "installArt",
+    "enabled": true,
+    "chance": 100,
+    "weight": 50,
+    "conditional": true
+   },
+   {
+    "id": "upgradeArt",
+    "enabled": true,
+    "chance": 100,
+    "weight": 30,
+    "conditional": true,
+    "stones": 2
+   },
+   {
+    "id": "stackCopy",
+    "enabled": true,
+    "chance": 100,
+    "weight": 20,
+    "conditional": true,
+    "stack": {
+     "stones": 2,
+     "cinders": 150,
+     "stepPerOwned": 1
+    }
+   }
+  ]
+ },
+ "master": {
+  "guaranteedMinimum": 2,
+  "respecRefundPct": 60,
+  "offerings": [
+   {
+    "id": "skillBooks",
+    "enabled": true,
+    "chance": 100,
+    "weight": 40,
+    "conditional": true,
+    "stock": 2
+   },
+   {
+    "id": "weaponArts",
+    "enabled": true,
+    "chance": 100,
+    "weight": 40,
+    "conditional": true,
+    "stock": 3
+   },
+   {
+    "id": "armaments",
+    "enabled": true,
+    "chance": 100,
+    "weight": 30,
+    "conditional": true,
+    "stock": 3
+   },
+   {
+    "id": "training",
+    "enabled": true,
+    "chance": 100,
+    "weight": 100,
+    "conditional": false,
+    "stockKey": "shops.master.training.training.perVisit",
+    "training": {
+     "cinders": 150,
+     "xp": 20,
+     "perVisit": 3
+    }
+   },
+   {
+    "id": "respec",
+    "enabled": true,
+    "chance": 100,
+    "weight": 60,
+    "conditional": true,
+    "respec": {
+     "cost": {
+      "base": 200,
+      "perLevel": 50
+     }
+    }
+   },
+   {
+    "id": "lesson",
+    "enabled": true,
+    "chance": 100,
+    "weight": 50,
+    "conditional": true,
+    "cinders": 250
+   },
+   {
+    "id": "appraisal",
+    "enabled": true,
+    "chance": 100,
+    "weight": 30,
+    "conditional": false
+   },
+   {
+    "id": "redistribute",
+    "enabled": true,
+    "chance": 100,
+    "weight": 30,
+    "conditional": true
+   }
+  ]
+ },
+ "masters": [
+  {
+   "id": "swordSaint",
+   "name": "The Sword Saint",
+   "speakerId": "swordSaint",
+   "skills": [
+    "item:blade",
+    "item:shield",
+    "dualWield"
+   ]
+  },
+  {
+   "id": "starReader",
+   "name": "The Star Reader",
+   "speakerId": "starReader",
+   "skills": [
+    "item:magic-focus",
+    "item:shield",
+    "item:blade"
+   ]
+  }
+ ]
+}

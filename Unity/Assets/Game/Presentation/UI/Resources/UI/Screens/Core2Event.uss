@@ -1,0 +1,366 @@
+/* The Core 2 event screen (VP-9, D-960; web ui/screens/event.js mountEvent over components/choiceBody.js, ui/screens/dialogue.js mountDialogue over models/DialogueModel.js, styles/player-polish.css:123-127,
+   styles/kit.css:1357-1372). A one-off event is the choice body: the painting band under the board HUD, then the door (Kit/CombatModal: EVENT, the gold name, the status, the narrative with its art well
+   beside the responses, a full-width Continue). A quest step is spoken: the player and the speaker above a context band (the line, then the responses on the last beat) and the footer's Back, Skip speech
+   and Continue. Every number is a token (tokens.json size.event*, webSource.event). */
+
+.c2event-bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: none;
+    background-color: var(--color-bg);
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.c2event-page--dialogue .c2event-bg {
+    display: flex;
+}
+
+/* ---- the painting band (one-off) ---- */
+
+.c2event-band {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--size-event-band-top);
+    height: var(--size-event-band-h);
+    align-items: center;
+}
+
+.c2event-page--dialogue .c2event-band {
+    display: none;
+}
+
+.c2event-scene {
+    width: var(--size-event-band-w);
+    max-width: var(--size-full-width);
+    height: var(--size-full-width);
+    background-color: var(--color-rest-scene);
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+/* ---- the door (one-off): head, two columns, a Continue ---- */
+
+.c2event-door.cmodal {
+    position: absolute;
+    left: var(--size-event-door-side);
+    right: var(--size-event-door-side);
+    top: var(--size-event-door-top);
+    bottom: var(--size-event-door-bottom);
+    width: auto;
+    max-height: none;
+}
+
+.c2event-page--dialogue .c2event-door.cmodal {
+    display: none;
+}
+
+.cmodal--event {
+    width: auto;
+}
+
+.c2event-door .cmodal-close {
+    display: none;
+}
+
+.c2event-door .cmodal-foot {
+    flex-direction: column;
+}
+
+.c2event-columns {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.c2event-narrative {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: var(--size-event-column-min);
+    align-items: center;
+    margin-right: var(--size-event-column-gap);
+}
+
+.c2event-artwell {
+    width: var(--size-event-art-well);
+    height: var(--size-event-art-well);
+    margin-bottom: var(--space-md);
+    background-color: var(--color-bg);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    border-radius: var(--radius-card);
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.c2event-prose {
+    margin: 0 0 var(--space-sm) 0;
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+    white-space: normal;
+    -unity-text-align: upper-left;
+}
+
+.c2event-result {
+    -unity-font-style: italic;
+    color: var(--color-parchment);
+}
+
+.c2event-responses {
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: var(--size-event-column-min);
+}
+
+.c2event-response.unity-button {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--size-event-response-min-h);
+    margin: 0 0 var(--space-sm) 0;
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg);
+    background-image: none;
+    border-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    border-radius: var(--radius-tight);
+    -unity-text-align: middle-left;
+}
+
+.c2event-response.unity-button:hover,
+.c2event-response.unity-button:focus {
+    border-color: var(--color-gold);
+    background-color: var(--color-panel);
+}
+
+.c2event-response--off.unity-button {
+    opacity: var(--opacity-disabled);
+}
+
+.c2event-response-texts {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.c2event-response-label {
+    margin: 0;
+    font-size: var(--font-cmodal-row-title);
+    letter-spacing: var(--size-track-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+    -unity-text-align: middle-left;
+}
+
+.c2event-response-tag {
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-muted);
+}
+
+/* A binding response is a hold button: its own label is hidden (the texts stand in its place), the dial fills along the card's foot and the HOLD hint sits at the right. */
+.c2event-response--dial .hold-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    background-color: var(--color-transparent);
+}
+
+.c2event-response--dial .hold-state {
+    flex-shrink: 0;
+    margin: 0 0 0 var(--space-md);
+    color: var(--color-muted);
+}
+
+.c2event-response-hold {
+    flex-shrink: 0;
+    margin: 0 0 0 var(--space-md);
+    font-size: var(--font-hold-hint);
+    letter-spacing: var(--size-track-hold);
+    color: var(--color-muted);
+}
+
+.c2event-continue.unity-button {
+    width: var(--size-full-width);
+    height: var(--size-event-continue-h);
+    margin: 0;
+}
+
+.c2event-off.unity-button {
+    opacity: var(--opacity-disabled);
+}
+
+.c2event-reason {
+    margin: var(--space-xs) 0 0 0;
+    font-size: var(--font-label);
+    color: var(--color-parchment);
+    -unity-text-align: middle-right;
+}
+
+/* ---- the spoken step: the stage, the context band, the footer ---- */
+
+.c2event-stage {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--size-event-stage-top);
+    height: var(--size-event-stage-h);
+    flex-direction: row;
+    display: none;
+}
+
+.c2event-page--dialogue .c2event-stage {
+    display: flex;
+}
+
+.c2event-stage-side {
+    width: var(--size-half-width);
+    height: var(--size-full-width);
+    overflow: hidden;
+}
+
+.c2event-figure {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: var(--size-full-width);
+    height: var(--size-full-width);
+    background-size: contain;
+    background-position-x: center;
+    background-position-y: top;
+    background-repeat: no-repeat;
+}
+
+.c2event-stage-side--listening .c2event-figure {
+    opacity: var(--opacity-dialogue-listener);
+}
+
+/* The spoken step's entrance (web content/config/ui/scenes/w4c-dialogue.json motion.entrance): the figures fade in over 400 ms, then the context band rises and fades in over 300 ms. */
+.c2event-page--dialogue .c2event-figure {
+    transition-property: opacity;
+    transition-duration: var(--duration-event-figure-fade);
+}
+
+.c2event-page--dialogue .c2event-context {
+    transition-property: opacity, translate;
+    transition-duration: var(--duration-event-context-fade);
+    transition-delay: var(--duration-event-context-at);
+}
+
+.c2event-page--entering .c2event-figure {
+    opacity: 0;
+}
+
+.c2event-page--entering .c2event-context {
+    opacity: 0;
+    translate: 0 var(--size-event-context-rise);
+}
+
+.c2event-plate {
+    position: absolute;
+    left: var(--size-event-inset);
+    right: var(--size-event-inset);
+    bottom: 0;
+    height: var(--size-event-plate-h);
+    margin: 0;
+    background-color: var(--color-defeated-shade);
+    color: var(--color-parchment);
+    -unity-text-align: middle-center;
+}
+
+.c2event-context {
+    position: absolute;
+    left: var(--size-event-inset);
+    right: var(--size-event-inset);
+    top: var(--size-event-context-top);
+    height: var(--size-event-context-h);
+    display: none;
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-bg-raise);
+}
+
+.c2event-page--dialogue .c2event-context {
+    display: flex;
+}
+
+.c2event-context-title {
+    margin: 0 0 var(--space-xs) 0;
+    font-size: var(--font-cmodal-status);
+    letter-spacing: var(--size-track-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.c2event-context-scroll {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.c2event-caption {
+    margin: 0 0 var(--space-sm) 0;
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.c2event-caption--player {
+    -unity-font-style: italic;
+}
+
+.c2event-foot {
+    position: absolute;
+    left: var(--size-event-inset);
+    right: var(--size-event-inset);
+    bottom: 0;
+    height: var(--size-event-foot-h);
+    flex-direction: row;
+    align-items: center;
+    display: none;
+}
+
+.c2event-page--dialogue .c2event-foot {
+    display: flex;
+}
+
+.c2event-foot-button.unity-button {
+    flex-grow: 1;
+    flex-basis: 0;
+    height: var(--size-event-foot-button-h);
+    margin: 0 0 0 var(--size-event-foot-gap);
+}
+
+.c2event-foot-button.unity-button:first-child {
+    margin-left: 0;
+}
+
+.c2event-foot .c2event-reason {
+    position: absolute;
+    right: 0;
+    bottom: var(--space-xs);
+    margin: 0;
+}
+
+/* phone (event-pilgrim-choices-390x844.jpg): the painting is 95% wide from y 159 to 340, the door under it to y 802 with 10 px gutters */
+.layout-narrow .c2event-band {
+    top: var(--size-event-band-top-narrow);
+    height: var(--size-event-band-narrow-h);
+}
+
+.layout-narrow .c2event-scene {
+    width: var(--size-event-band-narrow-w);
+}
+
+.layout-narrow .c2event-door.cmodal {
+    left: var(--space-md);
+    right: var(--space-md);
+    top: var(--size-event-door-top-narrow);
+    bottom: var(--size-event-door-bottom-narrow);
+    width: auto;
+}
+
+.layout-narrow .c2event-narrative {
+    margin-right: 0;
+}

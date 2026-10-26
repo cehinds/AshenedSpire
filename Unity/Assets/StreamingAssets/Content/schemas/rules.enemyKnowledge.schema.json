@@ -1,0 +1,246 @@
+{
+  "$id": "rules/enemyKnowledge.json",
+  "type": "object",
+  "properties": {
+    "enemyKnowledge": {
+      "type": "object",
+      "properties": {
+        "bestiary": {
+          "type": "object",
+          "properties": {
+            "encountersToMaster": {
+              "type": "integer"
+            },
+            "perEnemy": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "required": [
+            "encountersToMaster",
+            "perEnemy"
+          ]
+        },
+        "perception": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "correctPredictionXp": {
+              "type": "integer"
+            },
+            "growth": {
+              "type": "number"
+            },
+            "maxLevel": {
+              "type": "integer"
+            },
+            "roundTo": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "base",
+            "correctPredictionXp",
+            "growth",
+            "maxLevel",
+            "roundTo"
+          ]
+        },
+        "reads": {
+          "type": "object",
+          "properties": {
+            "baseClue": {
+              "type": "number"
+            },
+            "baseExact": {
+              "type": "number"
+            },
+            "intelligenceClue": {
+              "type": "number"
+            },
+            "intelligenceExact": {
+              "type": "number"
+            },
+            "levelClue": {
+              "type": "number"
+            },
+            "levelExact": {
+              "type": "number"
+            },
+            "maximumClue": {
+              "type": "number"
+            },
+            "maximumExact": {
+              "type": "number"
+            },
+            "minimumClue": {
+              "type": "integer"
+            },
+            "minimumExact": {
+              "type": "integer"
+            },
+            "perceptionClue": {
+              "type": "number"
+            },
+            "perceptionExact": {
+              "type": "number"
+            },
+            "wisdomClue": {
+              "type": "number"
+            },
+            "wisdomExact": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "baseClue",
+            "baseExact",
+            "intelligenceClue",
+            "intelligenceExact",
+            "levelClue",
+            "levelExact",
+            "maximumClue",
+            "maximumExact",
+            "minimumClue",
+            "minimumExact",
+            "perceptionClue",
+            "perceptionExact",
+            "wisdomClue",
+            "wisdomExact"
+          ]
+        },
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "bestiary",
+        "perception",
+        "reads",
+        "version"
+      ]
+    },
+    "enemyKnowledgeTuning": {
+      "type": "object",
+      "properties": {
+        "bestiary": {
+          "type": "object",
+          "properties": {
+            "encountersToMaster": {
+              "type": "integer"
+            },
+            "perEnemy": {
+              "type": "object",
+              "properties": {}
+            }
+          },
+          "required": [
+            "encountersToMaster",
+            "perEnemy"
+          ]
+        },
+        "perception": {
+          "type": "object",
+          "properties": {
+            "base": {
+              "type": "integer"
+            },
+            "correctPredictionXp": {
+              "type": "integer"
+            },
+            "growth": {
+              "type": "number"
+            },
+            "maxLevel": {
+              "type": "integer"
+            },
+            "roundTo": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "base",
+            "correctPredictionXp",
+            "growth",
+            "maxLevel",
+            "roundTo"
+          ]
+        },
+        "reads": {
+          "type": "object",
+          "properties": {
+            "baseClue": {
+              "type": "number"
+            },
+            "baseExact": {
+              "type": "number"
+            },
+            "intelligenceClue": {
+              "type": "number"
+            },
+            "intelligenceExact": {
+              "type": "number"
+            },
+            "levelClue": {
+              "type": "number"
+            },
+            "levelExact": {
+              "type": "number"
+            },
+            "maximumClue": {
+              "type": "number"
+            },
+            "maximumExact": {
+              "type": "number"
+            },
+            "minimumClue": {
+              "type": "integer"
+            },
+            "minimumExact": {
+              "type": "integer"
+            },
+            "perceptionClue": {
+              "type": "number"
+            },
+            "perceptionExact": {
+              "type": "number"
+            },
+            "wisdomClue": {
+              "type": "number"
+            },
+            "wisdomExact": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "baseClue",
+            "baseExact",
+            "intelligenceClue",
+            "intelligenceExact",
+            "levelClue",
+            "levelExact",
+            "maximumClue",
+            "maximumExact",
+            "minimumClue",
+            "minimumExact",
+            "perceptionClue",
+            "perceptionExact",
+            "wisdomClue",
+            "wisdomExact"
+          ]
+        }
+      },
+      "required": [
+        "bestiary",
+        "perception",
+        "reads"
+      ]
+    }
+  },
+  "required": [
+    "enemyKnowledge",
+    "enemyKnowledgeTuning"
+  ]
+}

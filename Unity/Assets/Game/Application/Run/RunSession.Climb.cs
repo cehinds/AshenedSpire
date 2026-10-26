@@ -57,7 +57,26 @@ namespace Ashen.App.Run
             }
         }
 
+        public Ashen.Domain.Combat.CombatData CombatData => Content.Combat;
+
+        public IReadOnlyList<string> ClassesUnlocked => Array.Empty<string>();
+
+        public double XpToNext(Newtonsoft.Json.Linq.JToken level) => Ashen.Domain.Rewards.LevelUp.XpToNext(Content.Loop.Rewards, level);
+
+        public string EncounterPool => EncounterId != null && Content.Data.Encounters.Has(EncounterId) ? Content.Data.Encounters.Get(EncounterId).Str(MK.Pool) : null;
+
+        /// <summary>The last fight's foes by name (the enemies of its encounter, once each), empty when the run did not end in a fight.</summary>
+        public IReadOnlyList<string> LastFoes()
+        {
+            if (LastOutcome == null || EncounterId == null || !Content.Data.Encounters.Has(EncounterId)) return Array.Empty<string>();
+            return Js.Items(Content.Data.Encounters.Get(EncounterId)[K.Enemies]).Select(Js.Str)
+                .Select(id => Content.Combat.Enemies.Has(id) ? Content.Combat.Enemies.Get(id).Str(K.Name) ?? id : id).Distinct().ToList();
+        }
+
         /// <summary>The node ids the run may travel to from where it stands (the map's start row before the first step), in graph order.</summary>
+        /// <summary>The 405 run follows the player's Map reveal setting.</summary>
+        public string PinnedMapMode => null;
+
         public IReadOnlyList<string> ReachableNodes()
         {
             if (Location != RunFlowValues.LocationMap || ProloguePending) return Array.Empty<string>();

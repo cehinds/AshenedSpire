@@ -1,0 +1,42 @@
+{
+  "comment": "Literals of Core 2 rewards and the combat end that the web keeps in code (docs/design/11 WP-15; src/model/stanceCoverage.js, gameProfileRewards.js, gracerefill.js, skills.js, xpCurve.js and gameProfileProgression.js at the pinned sha b8cfe4fac). stanceAlias: a stance id the profile lists that a card reads as another (prepared -> casting). cantripTag: the tag that makes a card a cantrip. excludedRarities: the rarities a card reward never offers. lowerRankScale: the die the lowerRankChance is rolled on (a pick among 0..scale-1). defaultActs: the climb's length when the routes module names none. chargeLedgerKeys: the whole-number fields a flask charge ledger must keep. skillKinds: the kinds of skill track. abilitySkill / perceptionSkill: the track ids that are not derived from the tag tree. linearEpsilon: the rounding nudge of a linear curve. xpMultiplierMax: the ceiling of a progression module's XP rate. trackLabels: the names of the tracks that do not come from the registries.",
+  "stanceAlias": {
+    "prepared": "casting"
+  },
+  "cantripTag": "rank.cantrip",
+  "excludedRarities": [
+    "special",
+    "status"
+  ],
+  "lowerRankScale": 100,
+  "defaultActs": 3,
+  "expandedProgressionVersion": 1,
+  "chargeLedgerKeys": [
+    "capacity",
+    "base",
+    "hp",
+    "mana",
+    "hpCurrent",
+    "manaCurrent",
+    "granted"
+  ],
+  "skillKinds": [
+    "weapon",
+    "armour",
+    "focus",
+    "ability",
+    "dual",
+    "class",
+    "perception"
+  ],
+  "abilitySkill": "combatManeuvers",
+  "perceptionSkill": "perception",
+  "linearEpsilon": 1e-09,
+  "xpMultiplierMax": 10,
+  "trackLabels": {
+    "focus": "Spellcraft",
+    "ability": "Combat Maneuvers",
+    "dual": "Dual-wield",
+    "armourSuffix": " armour"
+  }
+}

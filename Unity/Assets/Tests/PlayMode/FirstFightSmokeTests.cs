@@ -23,7 +23,7 @@ namespace Ashen.Tests.Play
     /// <summary>
     /// F1 acceptance smoke (09 §F1; US-2.1, US-5.1, US-5.9, US-5.10, US-17.1; AF-10, AF-12, PF-06): Boot → title → New →
     /// W-03 slot → W-04 Class (the data default) → Begin → W-06 → the first map node → W-07 → play a card on an enemy (keyboard targeting) → End Turn
-    /// and watch the enemy turn → pause (Escape; pad Start closes and reopens it) → Save &amp; quit (hold-to-confirm) →
+    /// and watch the enemy turn → pause (Escape opens, closes and reopens it) → Save &amp; quit (hold-to-confirm) →
     /// title → Continue → the same state hash → finish the fight through the screen's command path → the end state →
     /// W-08: claim the card offer (keyboard select, a pointer click, Confirm) and one other reward (pad) → pause → Save &amp;
     /// quit on W-08 → Continue → W-08 with the same claims → Continue (sweep per rewardCollect) → W-06. A second test
@@ -47,6 +47,7 @@ namespace Ashen.Tests.Play
             _saves = Path.Combine(Path.GetTempPath(), "ashen-first-fight-" + Guid.NewGuid().ToString("N"));
             AshenBoot.SaveDirectoryOverride = _saves;
             RunFlow.SeedOverride = WinningSeed;
+            RunFlow.RulesetOverride = RunFlowValues.RulesetLegacy;
             TitleScreen.ResetSession();
             _background = InputSystem.settings.backgroundBehavior;
             _editorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
@@ -65,6 +66,7 @@ namespace Ashen.Tests.Play
             InputSystem.settings.editorInputBehaviorInPlayMode = _editorInput;
             AshenBoot.SaveDirectoryOverride = null;
             RunFlow.SeedOverride = null;
+            RunFlow.RulesetOverride = null;
             if (Directory.Exists(_saves)) Directory.Delete(_saves, true);
         }
 
@@ -139,7 +141,7 @@ namespace Ashen.Tests.Play
             yield return Until(() => !title.GateActive && Focused != null, 5f, "the gate to lift");
 
             // Title → New → W-03 New (slot 1, empty) → Start in slot 1? → Begin.
-            yield return PressUntil(Key.DownArrow, () => Focused == title.Buttons[2], 4, "focus on New");
+            yield return PressUntil(Key.DownArrow, () => Focused == title.Buttons[1], 4, "focus on New");
             yield return new WaitForSecondsRealtime(0.3f);
             yield return Press(Key.Enter);
             yield return Until(() => Nav.CurrentId == ScreenIds.Slots && Focused != null, 5f, "W-03 New");
@@ -160,6 +162,8 @@ namespace Ashen.Tests.Play
             Assert.That(Focused, Is.SameAs(creation.Tiles[creation.Classes.ToList().IndexOf(content.DefaultClass())]), "focus starts on the selected class");
             var begin = Nav.Top.Root.Q(UiNames.FooterPrimary);
             yield return PressUntil(Key.DownArrow, () => Focused == begin, 8, "focus on Begin");
+            yield return Press(Key.Enter); // Next: the Class pane opens Review
+            yield return Until(() => ((CreationScreen)Nav.Top.View).ViewModel.Pane == FrontValues.PaneReview, 5f, "the Review pane");
             yield return Press(Key.Enter);
 
             // W-06: the climb opens on the act map; the first reachable node (a fight: floor 1 is fixed) is picked with the keyboard.
@@ -215,16 +219,16 @@ namespace Ashen.Tests.Play
             Assert.That(combat.View.Turn, Is.GreaterThan(turn));
             Assert.That(combat.View.Enemies.Where(e => e.Alive).All(e => e.Intent != null), Is.True, "the next intents show before the player's turn");
 
-            // Pause: Escape opens it; pad Start resumes and reopens.
+            // Pause: Escape opens it; Escape closes and reopens it (the pad's Start is the Menu action, which this screen has no scope for: D-1752).
             yield return Until(() => Focused != null, 5f, "focus on the player's turn");
             yield return Press(Key.Escape);
             yield return Until(() => Nav.CurrentId == ScreenIds.Pause && Focused != null, 5f, "W-20 pause");
             var pause = (PauseScreen)Nav.Top.View;
-            Assert.That(Focused, Is.SameAs(pause.ResumeButton), "pause opens on Resume");
-            yield return Press(GamepadButton.Start);
-            yield return Until(() => Nav.CurrentId == ScreenIds.Combat, 5f, "pad Start resumes");
-            yield return Press(GamepadButton.Start);
-            yield return Until(() => Nav.CurrentId == ScreenIds.Pause && Focused != null, 5f, "pad Start pauses");
+            Assert.That(Focused, Is.SameAs(pause.ResumeButton), "the menu opens on its first row");
+            yield return Press(Key.Escape);
+            yield return Until(() => Nav.CurrentId == ScreenIds.Combat, 5f, "Escape resumes");
+            yield return Press(Key.Escape);
+            yield return Until(() => Nav.CurrentId == ScreenIds.Pause && Focused != null, 5f, "Escape pauses");
             pause = (PauseScreen)Nav.Top.View;
 
             // Save & quit: the row, its hold door, hold Enter past holdMs.

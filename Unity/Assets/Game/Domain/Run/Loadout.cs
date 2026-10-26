@@ -37,6 +37,8 @@ namespace Ashen.Domain.Run
     {
         public readonly List<KeyValuePair<string, double>> Pools = new List<KeyValuePair<string, double>>();
         public double SwapCostDelta;
+        /// <summary>The Draw per turn the worn gear's attributes give (a Core 2 fight's pool projection; null for the 405).</summary>
+        public double? DrawPerTurn;
         public JArray StartStatuses = new JArray();
 
         public double Pool(string field) => Pools.First(p => p.Key == field).Value;
@@ -133,7 +135,7 @@ namespace Ashen.Domain.Run
                 if (v == null) continue;
                 rule[key] = Js.Str(v) == string.Empty ? Js.Null() : v.DeepClone();
             }
-            foreach (var key in d.RuleList(K.Loadout, RK.ProfileCarrierFields)) if (profile[key] != null) rule[key] = profile[key].DeepClone();
+            foreach (var key in d.RuleList(K.Loadout, RK.ProfileCarrierFields)) if (profile[key] != null) rule[key] = Js.IsStr(profile[key]) && Js.Str(profile[key]) == string.Empty ? Js.Null() : profile[key].DeepClone();
             if (profile[RK.Compatibility] != null) rule[RK.Compatibility] = profile[RK.Compatibility].DeepClone();
             return rule;
         }
@@ -224,6 +226,10 @@ namespace Ashen.Domain.Run
                 if (rule.Str(RK.Compatibility) != compatibility) throw new InvalidOperationException(RunJs.Fmt(RM.ProfileCompatibilityMismatch, id, RunJs.Show(rule[RK.Compatibility]), compatibility));
                 if (rule[K.DamageSchool] == null) Cards.SetOrRemove(rule, K.DamageSchool, profile[K.DamageSchool]);
                 if (rule[K.ExposureBuildupPerHit] == null) Cards.SetOrRemove(rule, K.ExposureBuildupPerHit, profile[K.ExposureBuildupPerHit]);
+                // A blank magic share is the card's damage type default (null); older snapshots adopt the live row once.
+                if (rule[RK.MagicShare] == null && profile[RK.MagicShare] != null) rule[RK.MagicShare] = Js.IsStr(profile[RK.MagicShare]) && Js.Str(profile[RK.MagicShare]) == string.Empty ? Js.Null() : profile[RK.MagicShare].DeepClone();
+                if (rule[RK.MagicShare] != null && rule[RK.MagicShare].Type != JTokenType.Null && !(Js.IsFinite(rule[RK.MagicShare]) && rule.Num(RK.MagicShare) >= 0 && rule.Num(RK.MagicShare) <= 1))
+                    throw new InvalidOperationException(RunJs.Fmt(RM.ProfileMagicShareInvalid, id));
                 if (!schools.Contains(rule.Str(K.DamageSchool))) throw new InvalidOperationException(RunJs.Fmt(RM.ProfileSchoolUnknown, id, RunJs.Show(rule[K.DamageSchool])));
                 if (!Js.IsInt(rule[K.ExposureBuildupPerHit]) || rule.Num(K.ExposureBuildupPerHit) < 0) throw new InvalidOperationException(RunJs.Fmt(RM.ProfileBuildupInvalid, id));
                 foreach (var key in rule.Properties()) if (!legal.Contains(key.Name)) throw new InvalidOperationException(RunJs.Fmt(RM.ProfileFieldUnknown, id, key.Name));
@@ -311,6 +317,8 @@ namespace Ashen.Domain.Run
             if (rule == null) throw new InvalidOperationException(RunJs.Fmt(RM.ProfileSnapshotMissing, profile?.Str(K.Id)));
             var rarity = row.Piece == null ? Js.Null() : row.Piece[RK.Rarity];
             var rarityBonus = Js.Or0((snapshot.Obj(RK.RarityBonuses)?.Obj(RunJs.Key(rarity)))?[row.Role]);
+            // A configured (Core 2) run's registries carry no balance.combatRatings (main.js rebuildRegistries skips configuredContentBundle for it), so ratingsConfigFor finds none and the web prices the
+            // card by LEGACY_RATING_FORMULA (model/statRows.js:37, loadout.js roleAmountReceipt): rules/runEngine.json ratings.defaultFormula holds those rows.
             var ratingConfig = d.Balance.Obj(K.CombatRatings) is JObject cr && Js.Truthy(cr) ? cr : d.RuleObj(K.Ratings, RK.DefaultFormula);
             var rating = EffectiveEquipmentRating(d, ratingConfig, attributes, row.Piece, rule, rule.Str(K.RatingId));
             rating[RK.SourceLabel] = row.Piece != null ? (row.Piece.Str(K.Kind) == RV.ShieldKind ? RV.ShieldKind : RV.WeaponLabel) : V.AttributeSource;
@@ -451,12 +459,22 @@ namespace Ashen.Domain.Run
             return delta;
         }
 
+        /// <summary>equipmentRequirementReceipt(...): every attribute minimum a piece asks for with what the character has, and the ones that are unmet.</summary>
+        public sealed class RequirementReceiptResult
+        {
+            public readonly List<JObject> Rows = new List<JObject>();
+            public readonly List<JObject> Failures = new List<JObject>();
+        }
+
         /// <summary>equipmentRequirementReceipt(...).failures: the attribute minimums a piece asks for that are unmet.</summary>
-        public static List<JObject> RequirementFailures(RunData d, JObject piece, JObject attributes, JObject itemUpgradeLevels = null)
+        public static List<JObject> RequirementFailures(RunData d, JObject piece, JObject attributes, JObject itemUpgradeLevels = null) => RequirementReceipt(d, piece, attributes, itemUpgradeLevels).Failures;
+
+        /// <summary>equipmentRequirementReceipt(registries, piece, attributes, { itemUpgradeLevels }).</summary>
+        public static RequirementReceiptResult RequirementReceipt(RunData d, JObject piece, JObject attributes, JObject itemUpgradeLevels = null)
         {
             if (piece == null) throw new InvalidOperationException(RM.RequirementNeedsPiece);
             var authored = piece.Obj(RK.Requirements)?.Obj(K.Attributes) ?? new JObject();
-            var failures = new List<JObject>();
+            var receipt = new RequirementReceiptResult();
             var itemRef = Combat.Equipment.PieceItemRef(piece);
             var namespaced = itemUpgradeLevels?[itemRef ?? V.Undefined];
             var level = Js.IsInt(namespaced) ? Js.D(namespaced) : 0;
@@ -469,9 +487,10 @@ namespace Ashen.Domain.Run
                 var actual = attributes?[p.Name];
                 var row = Js.Obj(RK.AttributeId, p.Name, RK.BaseRequired, p.Value, RK.Reduction, -delta, RK.Required, required,
                     RK.Actual, Js.IsFinite(actual) ? actual : Js.Null());
-                if (!Js.IsFinite(actual) || Js.D(actual) < required) failures.Add(row);
+                receipt.Rows.Add(row);
+                if (!Js.IsFinite(actual) || Js.D(actual) < required) receipt.Failures.Add(row);
             }
-            return failures;
+            return receipt;
         }
     }
 }

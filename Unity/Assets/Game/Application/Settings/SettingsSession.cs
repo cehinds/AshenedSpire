@@ -32,6 +32,31 @@ namespace Ashen.App.Settings
         public string OptionKey;
         public string UnitKey;
 
+        /// <summary>An enum's named bundles: choosing an option sets these other settings with it (the web's combat pacing preset).</summary>
+        public JObject Presets;
+
+        /// <summary>The enum whose choice returns to its first option when this setting is edited by hand.</summary>
+        public string ResetsPreset;
+
+        /// <summary>The row keeps a select however few options it has (the web's dropdown: true); without it a row of three or fewer options is a segmented choice.</summary>
+        public bool Dropdown;
+
+        /// <summary>A control of the 405 build only (no row in the Core 2 web build): kept for that code, not on the page.</summary>
+        public bool LegacyOnly;
+
+        /// <summary>False for a toggle whose switch reads the other way round (the web's muteAudio: the switch is on while the audio is not muted).</summary>
+        public bool Positive = true;
+
+        /// <summary>A button control's action (resetAll).</summary>
+        public string Action;
+
+        /// <summary>How the page draws the row when it is not a plain control (the Developer tools switch).</summary>
+        public string Row;
+
+        /// <summary>The state whose words fill the row's help (music: on, off, muted).</summary>
+        public string HelpState;
+
+        public bool IsButton => Type == SV.Button;
         public bool IsToggle => Type == SV.Toggle;
         public bool IsEnum => Type == SV.Enum;
         public bool IsSlider => Type == SV.Slider;
@@ -40,7 +65,7 @@ namespace Ashen.App.Settings
         /// <summary>Whether a value fits this control (a boolean; one of the options; a number in range on the step grid).</summary>
         public string Refusal(JToken value)
         {
-            if (value == null || value.Type == JTokenType.Null) return S.SettingsRefusalType;
+            if (value == null || value.Type == JTokenType.Null || IsButton) return S.SettingsRefusalType;
             if (IsToggle) return value.Type == JTokenType.Boolean ? null : S.SettingsRefusalType;
             if (IsEnum)
             {
@@ -90,6 +115,14 @@ namespace Ashen.App.Settings
                     HelpKey = c.Str(SK.HelpKey),
                     OptionKey = c.Str(SK.OptionKey),
                     UnitKey = c.Str(SK.UnitKey),
+                    Presets = c[SK.Presets] as JObject,
+                    ResetsPreset = c.Str(SK.ResetsPreset),
+                    LegacyOnly = c.Is(SK.LegacyOnly),
+                    Dropdown = c.Is(SettingsGroupKeys.Dropdown),
+                    Positive = c[SK.Positive] == null || c.Is(SK.Positive),
+                    Action = c.Str(SK.Action),
+                    Row = c.Str(SK.Row),
+                    HelpState = c.Str(SK.HelpState),
                 });
             }
             return defs;
@@ -120,6 +153,10 @@ namespace Ashen.App.Settings
     {
         public string Key;
         public string Type;
+
+        /// <summary>The settings/defaults.json category the control is filed under.</summary>
+        public string Category;
+
         public string Label;
         public string Help;
         public JToken Value;
@@ -129,6 +166,16 @@ namespace Ashen.App.Settings
         public double Max;
         public double Step;
         public bool IsDefault;
+
+        /// <summary>The row is drawn as a select (the web's dropdown flag, or more than three options).</summary>
+        public bool AsSelect;
+
+        /// <summary>The switch position of a toggle (the stored value, or its opposite for a control that reads the other way round).</summary>
+        public bool Shown;
+
+        public bool Positive = true;
+        public string Action;
+        public string Row;
 
         /// <summary>The control is run-scoped and the screen was opened in a run: it shows settings.appliesNextRun.</summary>
         public string AppliesNextRun;
@@ -149,20 +196,25 @@ namespace Ashen.App.Settings
     /// playerSettings, else the control's def; a stored value that no longer fits the control is ignored. Each change is
     /// validated against its control and saved to the profile at once. Engine-free.
     /// </summary>
-    public sealed class SettingsSession
+    public sealed partial class SettingsSession
     {
         private readonly RunContent _content;
         private readonly ProfileStore _profile;
 
-        public SettingsSession(RunContent content, ProfileStore profile, bool inRun = false)
+        /// <param name="core2">The Core 2 build's player settings: the web's own defaults rule (the 405 reference preset's player settings are not read).</param>
+        public SettingsSession(RunContent content, ProfileStore profile, bool inRun = false, bool core2 = false)
         {
             _content = content;
             _profile = profile;
             InRun = inRun;
+            Core2 = core2;
             Defs = SettingsDefs.From(content.Snapshot.Content);
         }
 
         public SettingsDefs Defs { get; }
+
+        /// <summary>The Core 2 build's player settings: the stored value, else the control's default (the 405 preset's player settings belong to the 405 build).</summary>
+        public bool Core2 { get; }
 
         /// <summary>A setting was stored or a category reset (the session that wrote it, and the key; null for a reset), so live consumers re-read it.</summary>
         public static event Action<SettingsSession, string> Changed;
@@ -179,7 +231,7 @@ namespace Ashen.App.Settings
             if (def == null) return null;
             var stored = Stored?[key];
             if (stored != null && def.Refusal(stored) == null) return stored.DeepClone();
-            var preset = _content.Snapshot.PlayerSettings?[key];
+            var preset = Core2 ? null : _content.Snapshot.PlayerSettings?[key];
             if (preset != null && def.Refusal(preset) == null) return preset.DeepClone();
             return def.Def?.DeepClone();
         }
@@ -190,6 +242,64 @@ namespace Ashen.App.Settings
 
         public double Number(string key) => Js.Or0(Value(key));
 
+        /// <summary>The opening has been shown on this profile (the web's settings.prologueSeen: "First time per profile" plays it once).</summary>
+        public bool PrologueSeen => Stored?[SettingIds.PrologueSeen] is JValue v && v.Type == JTokenType.Boolean && (bool)v;
+
+        /// <summary>Remembers that the opening was shown (the web's persistSettingsChange({prologueSeen: true}) when it finishes, skipped or not).</summary>
+        public void MarkPrologueSeen()
+        {
+            if (PrologueSeen) return;
+            if (!(_profile.Doc[SK.Settings] is JObject stored)) _profile.Doc[SK.Settings] = stored = new JObject();
+            stored[SettingIds.PrologueSeen] = true;
+            _profile.Save(_content.ContentHash);
+        }
+
+        /// <summary>The view the Armoury's equipment list was left in (the web's settings.armouryArmamentView, kept beside the other settings): "list", "grid" or null when it was never chosen.</summary>
+        public string ArmouryArmamentView
+        {
+            get
+            {
+                var view = Js.Str(Stored?[ArmouryViewKeys.Stored]);
+                return view == ArmouryViewKeys.List || view == ArmouryViewKeys.Grid ? view : null;
+            }
+        }
+
+        public void SetArmouryArmamentView(string view)
+        {
+            if (ArmouryArmamentView == view) return;
+            if (!(_profile.Doc[SK.Settings] is JObject stored)) _profile.Doc[SK.Settings] = stored = new JObject();
+            stored[ArmouryViewKeys.Stored] = view;
+            _profile.Save(_content.ContentHash);
+        }
+
+        /// <summary>The first-open tip banner was dismissed with Got it.</summary>
+        public bool TipDismissed => Stored?[SettingIds.SettingsTipDismissed] is JValue v && v.Type == JTokenType.Boolean && (bool)v;
+
+        public void DismissTip()
+        {
+            if (TipDismissed) return;
+            if (!(_profile.Doc[SK.Settings] is JObject stored)) _profile.Doc[SK.Settings] = stored = new JObject();
+            stored[SettingIds.SettingsTipDismissed] = true;
+            _profile.Save(_content.ContentHash);
+        }
+
+        /// <summary>A copy of every stored value (what a reset's Undo puts back).</summary>
+        public JObject Snapshot() => Stored != null ? (JObject)Stored.DeepClone() : new JObject();
+
+        /// <summary>Puts a snapshot back (the web's Undo bar after a reset).</summary>
+        public void Restore(JObject snapshot)
+        {
+            _profile.Doc[SK.Settings] = snapshot?.DeepClone() ?? new JObject();
+            _profile.Save(_content.ContentHash);
+            Changed?.Invoke(this, null);
+        }
+
+        /// <summary>The music's volume, 0 to 1: the web's resolveMusicEnabled with muteAudio over it (music plays when it is on and the audio is not muted).</summary>
+        public double MusicLevel => On(SettingIds.MusicEnabled) && !On(SettingIds.MuteAudio) ? Number(SettingIds.MusicVolume) / UiMath.Percent : 0;
+
+        /// <summary>The sound effects' volume, 0 to 1 (muteAudio silences them; the music switch does not).</summary>
+        public double SfxLevel => On(SettingIds.MuteAudio) ? 0 : Number(SettingIds.SfxVolume) / UiMath.Percent;
+
         /// <summary>Sets a value and saves the profile. Returns null, or the refusal's string key (nothing changes).</summary>
         public string Set(string key, JToken value)
         {
@@ -198,10 +308,43 @@ namespace Ashen.App.Settings
             var refusal = def.Refusal(value);
             if (refusal != null) return refusal;
             if (!(_profile.Doc[SK.Settings] is JObject stored)) _profile.Doc[SK.Settings] = stored = new JObject();
-            stored[key] = value.DeepClone();
+            Store(stored, Defs, def, value);
             _profile.Save(_content.ContentHash);
             Changed?.Invoke(this, key);
             return null;
+        }
+
+        /// <summary>
+        /// Writes one validated value with its preset coupling: a preset writes its bundle with it; a hand edit of a bundled
+        /// value returns the preset to its first option. The one rule for a settings edit and a web-config import.
+        /// </summary>
+        public static void Store(JObject stored, SettingsDefs defs, SettingDef def, JToken value)
+        {
+            stored[def.Key] = value.DeepClone();
+            if (def.Presets != null && def.Presets[(string)value] is JObject bundle)
+                foreach (var p in bundle.Properties()) stored[p.Name] = p.Value.DeepClone();
+            else if (def.ResetsPreset != null && defs.Find(def.ResetsPreset) is SettingDef preset && preset.Options.Count > 0)
+                stored[def.ResetsPreset] = preset.Options[0];
+        }
+
+        /// <summary>
+        /// Stores imported (already validated) settings through <see cref="Store"/>, in import order. Where the import names
+        /// both a preset and values it bundles, the explicit values win and the imported preset stays only if every
+        /// imported bundled value matches its bundle; otherwise it returns to its first option. Independent of order.
+        /// </summary>
+        public static void StoreImported(JObject stored, SettingsDefs defs, JObject imported)
+        {
+            foreach (var p in imported.Properties())
+                if (defs.Find(p.Name) is SettingDef def) Store(stored, defs, def, p.Value);
+            foreach (var p in imported.Properties())
+                if (defs.Find(p.Name) is SettingDef def && def.Presets == null) stored[p.Name] = p.Value.DeepClone();
+            foreach (var p in imported.Properties())
+            {
+                if (!(defs.Find(p.Name) is SettingDef def) || def.Presets == null || def.Options.Count == 0) continue;
+                var bundle = def.Presets[(string)p.Value] as JObject;
+                var consistent = bundle == null || bundle.Properties().All(b => imported[b.Name] == null || JToken.DeepEquals(imported[b.Name], b.Value));
+                stored[p.Name] = consistent ? p.Value.DeepClone() : (JToken)def.Options[0];
+            }
         }
 
         /// <summary>[Reset category ⟲]: every stored value of the category is cleared (the preset's or the def show again).</summary>
@@ -221,27 +364,49 @@ namespace Ashen.App.Settings
             category ??= Defs.Categories.Select(c => c.Key).FirstOrDefault();
             var view = new SettingsViewState { Title = strings.Get(S.SettingsTitle), Category = category, Reset = strings.Get(S.SettingsReset) };
             foreach (var c in Defs.Categories) view.Rail.Add(new KeyValuePair<string, string>(c.Key, strings.Get(c.Value)));
-            foreach (var def in Defs.Controls.Where(c => c.Category == category))
-            {
-                var value = Value(def.Key);
-                var control = new SettingControlView
-                {
-                    Key = def.Key,
-                    Type = def.Type,
-                    Label = strings.Get(def.LabelKey),
-                    Help = def.HelpKey != null ? strings.Get(def.HelpKey) : null,
-                    Value = value,
-                    Min = def.Min,
-                    Max = def.Max,
-                    Step = def.Step,
-                    IsDefault = JToken.DeepEquals(value, def.Def),
-                    AppliesNextRun = InRun && def.AppliesNextRun ? strings.Get(S.SettingsAppliesNextRun) : null,
-                };
-                foreach (var option in def.Options) control.Options.Add(new KeyValuePair<string, string>(option, OptionLabel(strings, def, option)));
-                control.ValueText = ValueText(strings, def, value);
-                view.Controls.Add(control);
-            }
+            foreach (var def in Defs.Controls.Where(c => c.Category == category)) view.Controls.Add(ControlOf(ui, def));
             return view;
+        }
+
+        /// <summary>One control as the screen draws it: its words, its effective value, its options and whether it still has its default.</summary>
+        public SettingControlView ControlOf(UiData ui, SettingDef def)
+        {
+            var strings = ui.Strings;
+            var value = Value(def.Key);
+            var control = new SettingControlView
+            {
+                Key = def.Key,
+                Type = def.Type,
+                Category = def.Category,
+                Label = strings.Get(def.LabelKey),
+                Help = HelpOf(strings, def),
+                Value = value,
+                Min = def.Min,
+                Max = def.Max,
+                Step = def.Step,
+                IsDefault = def.IsButton || JToken.DeepEquals(value, def.Def),
+                Positive = def.Positive,
+                Action = def.Action,
+                Row = def.Row,
+                AsSelect = def.Dropdown || def.Options.Count > SegmentedChoice.Max,
+                Shown = def.IsToggle && value is JValue sv && sv.Type == JTokenType.Boolean && (bool)sv == def.Positive,
+                AppliesNextRun = InRun && def.AppliesNextRun ? strings.Get(S.SettingsAppliesNextRun) : null,
+            };
+            foreach (var option in def.Options) control.Options.Add(new KeyValuePair<string, string>(option, OptionLabel(strings, def, option)));
+            control.ValueText = ValueText(strings, def, value);
+            return control;
+        }
+
+        /// <summary>A row's help: its string, or for a stateful row the words of the state it is in (the web's musicEnabledCondition).</summary>
+        private string HelpOf(StringTable strings, SettingDef def)
+        {
+            if (def.HelpState == SV.HelpStateMusic)
+            {
+                if (!On(SettingIds.MusicEnabled)) return strings.Get(StringKeys.SettingsMusicEnabledOff);
+                if (On(SettingIds.MuteAudio)) return strings.Get(StringKeys.SettingsMusicEnabledMuted);
+                return strings.Format(StringKeys.SettingsMusicEnabledHelp, new StringArgs().Add(P.Value, SettingsSession.NumberText(Number(SettingIds.MusicVolume))));
+            }
+            return def.HelpKey != null ? strings.Get(def.HelpKey) : null;
         }
 
         private static string OptionLabel(StringTable strings, SettingDef def, string option)

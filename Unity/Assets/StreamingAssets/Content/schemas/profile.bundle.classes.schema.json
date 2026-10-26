@@ -1,0 +1,97 @@
+{
+  "$id": "profile/bundle/classes.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "abilityCard": {
+        "type": "string",
+        "x-ref": "profile/bundle/cards.json"
+      },
+      "cardPool": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "x-ref": "profile/bundle/cards.json"
+        }
+      },
+      "cardTint": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "eligibleStartingKitIds": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "heraldBaseline",
+            "heraldEmberlight",
+            "reaverBaseline",
+            "reaverGreatsword",
+            "rogueBaseline",
+            "rogueBow",
+            "starseerBaseline",
+            "starseerStarstone"
+          ]
+        }
+      },
+      "glyph": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "kitRelic": {
+        "type": "string",
+        "x-ref": "profile/bundle/relics.json"
+      },
+      "maxHp": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "string"
+      },
+      "startingFlaskAllocation": {
+        "type": "object",
+        "properties": {
+          "hp": {
+            "type": "integer"
+          },
+          "mana": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "hp",
+          "mana"
+        ]
+      },
+      "startingRelic": {
+        "type": "string",
+        "x-ref": "profile/bundle/relics.json"
+      },
+      "startingSignatureCard": {
+        "type": "string",
+        "x-ref": "profile/bundle/cards.json"
+      }
+    },
+    "required": [
+      "abilityCard",
+      "cardPool",
+      "cardTint",
+      "description",
+      "eligibleStartingKitIds",
+      "glyph",
+      "id",
+      "kitRelic",
+      "maxHp",
+      "name",
+      "startingFlaskAllocation",
+      "startingRelic",
+      "startingSignatureCard"
+    ]
+  }
+}

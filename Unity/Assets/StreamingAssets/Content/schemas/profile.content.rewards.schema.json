@@ -1,0 +1,495 @@
+{
+  "$id": "profile/content/rewards.json",
+  "type": "object",
+  "properties": {
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "armor",
+          "combatCards",
+          "potions",
+          "relics",
+          "weaponArts",
+          "weapons"
+        ]
+      }
+    },
+    "eligibility": {
+      "type": "object",
+      "properties": {
+        "armor": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ]
+        },
+        "combatCards": {
+          "type": "object",
+          "properties": {
+            "lowerRankChance": {
+              "type": "number"
+            },
+            "minRank": {
+              "type": "integer"
+            },
+            "rankOfRarity": {
+              "type": "object",
+              "properties": {
+                "common": {
+                  "type": "integer"
+                },
+                "rare": {
+                  "type": "integer"
+                },
+                "starter": {
+                  "type": "integer"
+                },
+                "uncommon": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "common",
+                "rare",
+                "starter",
+                "uncommon"
+              ]
+            },
+            "skipOwnedBasics": {
+              "type": "boolean"
+            },
+            "stanceCoverage": {
+              "type": "object",
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "excludePools": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "preferTiers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "reservedSlots": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "enabled",
+                "excludePools",
+                "preferTiers",
+                "reservedSlots"
+              ]
+            }
+          },
+          "required": [
+            "lowerRankChance",
+            "minRank",
+            "rankOfRarity",
+            "skipOwnedBasics",
+            "stanceCoverage"
+          ]
+        },
+        "weaponArts": {
+          "type": "object",
+          "properties": {
+            "cardIds": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "cardIds"
+          ]
+        },
+        "weapons": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "bows",
+                  "daggers",
+                  "greatswords",
+                  "scepters",
+                  "shields",
+                  "straightSwords"
+                ]
+              }
+            }
+          },
+          "required": [
+            "groups"
+          ]
+        }
+      },
+      "required": [
+        "armor",
+        "combatCards",
+        "weaponArts",
+        "weapons"
+      ]
+    },
+    "equipmentGroups": {
+      "type": "object",
+      "properties": {
+        "bows": {
+          "type": "object",
+          "properties": {
+            "allTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "family": {
+              "type": "string"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "allTags",
+            "family",
+            "members"
+          ]
+        },
+        "daggers": {
+          "type": "object",
+          "properties": {
+            "allTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "family": {
+              "type": "string"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "allTags",
+            "family",
+            "members"
+          ]
+        },
+        "greatswords": {
+          "type": "object",
+          "properties": {
+            "allTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "family": {
+              "type": "string"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "allTags",
+            "family",
+            "members"
+          ]
+        },
+        "heavyArmor": {
+          "type": "object",
+          "properties": {
+            "allTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "family": {
+              "type": "string"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "herald:wayfarerPlate",
+                  "reaver:bastion",
+                  "reaver:warden",
+                  "reaver:wayfarerPlate",
+                  "rogue:wayfarerPlate",
+                  "starseer:wayfarerPlate"
+                ]
+              }
+            }
+          },
+          "required": [
+            "allTags",
+            "family",
+            "members"
+          ]
+        },
+        "lightArmor": {
+          "type": "object",
+          "properties": {
+            "allTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "family": {
+              "type": "string"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "allTags",
+            "family",
+            "members"
+          ]
+        },
+        "mediumArmor": {
+          "type": "object",
+          "properties": {
+            "allTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "family": {
+              "type": "string"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "herald:default",
+                  "herald:ossuary",
+                  "herald:pilgrim",
+                  "reaver:default",
+                  "reaver:oathsworn",
+                  "reaver:vigil"
+                ]
+              }
+            }
+          },
+          "required": [
+            "allTags",
+            "family",
+            "members"
+          ]
+        },
+        "robes": {
+          "type": "object",
+          "properties": {
+            "allTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "family": {
+              "type": "string"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "herald:riteVestments",
+                  "reaver:riteVestments",
+                  "rogue:riteVestments",
+                  "starseer:astral",
+                  "starseer:default",
+                  "starseer:eclipse",
+                  "starseer:rimeweave",
+                  "starseer:riteVestments",
+                  "starseer:starlit"
+                ]
+              }
+            }
+          },
+          "required": [
+            "allTags",
+            "family",
+            "members"
+          ]
+        },
+        "scepters": {
+          "type": "object",
+          "properties": {
+            "allTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "family": {
+              "type": "string"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "allTags",
+            "family",
+            "members"
+          ]
+        },
+        "shields": {
+          "type": "object",
+          "properties": {
+            "allTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "family": {
+              "type": "string"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "allTags",
+            "family",
+            "members"
+          ]
+        },
+        "straightSwords": {
+          "type": "object",
+          "properties": {
+            "allTags": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "family": {
+              "type": "string"
+            },
+            "members": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "allTags",
+            "family",
+            "members"
+          ]
+        }
+      },
+      "required": [
+        "bows",
+        "daggers",
+        "greatswords",
+        "heavyArmor",
+        "lightArmor",
+        "mediumArmor",
+        "robes",
+        "scepters",
+        "shields",
+        "straightSwords"
+      ]
+    },
+    "offerCount": {
+      "type": "integer"
+    },
+    "rewardGroups": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "armor",
+                "combatCards",
+                "potions",
+                "relics",
+                "weaponArts",
+                "weapons"
+              ]
+            }
+          },
+          "id": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "categories",
+          "id",
+          "weight"
+        ]
+      }
+    },
+    "takeCount": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "categories",
+    "eligibility",
+    "equipmentGroups",
+    "offerCount",
+    "rewardGroups",
+    "takeCount"
+  ]
+}

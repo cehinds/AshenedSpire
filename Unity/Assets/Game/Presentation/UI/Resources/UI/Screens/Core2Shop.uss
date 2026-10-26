@@ -1,0 +1,295 @@
+/* The Core 2 shop screen (VP-9, D-952; web ui/screens/shop.js mountConfiguredShop, components/merchantOffer.js, styles/player-polish.css:113-117, 247-258, 641-669). The merchant's tent
+   (scene) with the merchant standing left (portrait), and the frame on the right (Kit/CombatModal: Merchant and the close glyph, the shelf's name, one row per offer, the category dock, Leave).
+   Inspect and the question before spending are the same modal shell over the room. Every number is a token (tokens.json size.shop*, ratio.shopPortrait*). */
+
+.c2shop-scene {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--size-board-hud-h);
+    bottom: 0;
+    background-color: var(--color-rest-scene);
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.c2shop-portrait {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.c2shop-frame.cmodal {
+    position: absolute;
+    right: var(--size-shop-right);
+    top: var(--size-shop-top);
+    bottom: var(--size-shop-bottom);
+    width: var(--size-shop-w);
+    max-height: none;
+}
+
+.cmodal--shop {
+    width: var(--size-shop-w);
+}
+
+.c2shop-frame .cmodal-foot {
+    flex-direction: column;
+    padding: 0;
+}
+
+.c2shop-frame .cmodal-body .unity-scroll-view__content-container {
+    padding: var(--space-sm) var(--size-cmodal-inset);
+}
+
+.c2shop-heading {
+    margin: 0 0 var(--space-sm) 0;
+    font-size: var(--font-map-tray-title);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-gold);
+}
+
+.c2shop-empty {
+    margin: var(--space-lg) 0;
+    font-size: var(--font-body);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+/* ---- an offer: media with Inspect, name and one line, Buy with its price ---- */
+
+.c2shop-offer {
+    flex-direction: row;
+    align-items: center;
+    min-height: var(--size-shop-offer-h);
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm);
+    background-color: var(--color-bg-raise);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.c2shop-offer--taken {
+    opacity: var(--opacity-disabled);
+}
+
+.c2shop-media.unity-button {
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: var(--size-shop-media-w);
+    min-height: var(--size-shop-media-h);
+    margin: 0 var(--space-md) 0 0;
+    padding: var(--space-xxs);
+    background-color: var(--color-bg);
+    background-image: none;
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.c2shop-media.unity-button:hover,
+.c2shop-media.unity-button:focus {
+    border-color: var(--color-gold);
+}
+
+.c2shop-media-art {
+    width: var(--size-shop-media-w);
+    height: var(--size-shop-media-h);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.c2shop-media-card {
+    width: var(--size-shop-card-w);
+    height: var(--size-shop-card-h);
+}
+
+.c2shop-media-caption {
+    margin: 0;
+    font-size: var(--font-caption);
+    color: var(--color-parchment);
+}
+
+.c2shop-details {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.c2shop-name {
+    margin: 0 0 var(--space-xs) 0;
+    font-size: var(--font-cmodal-status);
+    letter-spacing: var(--size-track-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.c2shop-text {
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.c2shop-actions {
+    flex-shrink: 0;
+    align-items: center;
+    margin-left: var(--space-md);
+}
+
+.c2shop-buy.unity-button {
+    width: var(--size-shop-buy-w);
+    min-width: 0;
+    min-height: var(--size-shop-buy-h);
+    margin: 0;
+    padding: 0 var(--space-xs);
+    font-size: var(--font-label);
+    white-space: normal;
+}
+
+.c2shop-buy--off.unity-button {
+    opacity: var(--opacity-disabled);
+}
+
+.c2shop-price {
+    margin: var(--space-xs) 0 0 0;
+    font-size: var(--font-label);
+    color: var(--color-gold);
+}
+
+.c2shop-reason {
+    margin: var(--space-xxs) 0 0 0;
+    font-size: var(--font-caption);
+    color: var(--color-muted);
+}
+
+/* ---- the dock and Leave ---- */
+
+.c2shop-dock {
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    padding: var(--space-xs) var(--size-cmodal-inset);
+    border-top-width: var(--border-hairline);
+    border-top-color: var(--color-line);
+}
+
+.c2shop-frame .c2shop-tab.unity-button {
+    flex-grow: 0;
+    flex-basis: auto;
+    width: var(--size-third-width);
+    min-width: 0;
+    height: var(--size-shop-tab-h);
+    min-height: 0;
+    margin: 0 var(--size-shop-tab-gap) var(--size-shop-tab-gap) 0;
+    padding: 0;
+    font-size: var(--font-label);
+    letter-spacing: var(--size-track-label);
+}
+
+.c2shop-frame .c2shop-tab--on.unity-button {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
+.c2shop-frame .cmodal-foot .c2shop-leave.unity-button {
+    flex-grow: 0;
+    flex-basis: auto;
+    margin: var(--space-xs) var(--size-cmodal-inset) var(--size-cmodal-inset) var(--size-cmodal-inset);
+}
+
+/* ---- Inspect and the question ---- */
+
+.c2shop-inspect {
+    align-items: center;
+}
+
+.c2shop-inspect-card {
+    width: var(--size-shop-inspect-w);
+    height: var(--size-shop-inspect-h);
+}
+
+.c2shop-inspect-art {
+    width: var(--size-shop-inspect-art);
+    height: var(--size-shop-inspect-art);
+    margin: var(--space-md) 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.c2shop-inspect-text {
+    margin: var(--space-sm) 0 0 0;
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+    -unity-text-align: upper-center;
+    white-space: normal;
+}
+
+.c2shop-stats {
+    flex-direction: row;
+    justify-content: space-around;
+    align-self: stretch;
+    margin-top: var(--space-md);
+}
+
+.c2shop-stat {
+    align-items: center;
+}
+
+.c2shop-stat-value {
+    margin: 0;
+    font-size: var(--font-heading);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.c2shop-stat-label {
+    margin: 0;
+    font-size: var(--font-label);
+    color: var(--color-muted);
+}
+
+.c2shop-package {
+    align-self: stretch;
+    margin-top: var(--space-md);
+    padding-top: var(--space-xs);
+    border-top-width: var(--border-hairline);
+    border-top-color: var(--color-line);
+}
+
+.c2shop-package-heading {
+    margin: 0;
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.c2shop-package-line {
+    margin: var(--space-xs) 0 0 0;
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+}
+
+.c2shop-question {
+    margin: 0;
+    font-size: var(--font-body);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+/* phone (shop-390x844.jpg): the frame runs from y 155 to 838 under the HUD, 8 px from each edge */
+.layout-narrow .c2shop-scene {
+    top: var(--size-board-hud-hnarrow);
+}
+
+.layout-narrow .c2shop-frame.cmodal {
+    left: var(--space-sm);
+    right: var(--space-sm);
+    top: var(--size-shop-top-narrow);
+    bottom: var(--size-shop-bottom-narrow);
+    width: auto;
+}
+
+.layout-narrow .c2shop-inspect-card {
+    width: var(--size-shop-inspect-wnarrow);
+    height: var(--size-shop-inspect-hnarrow);
+}

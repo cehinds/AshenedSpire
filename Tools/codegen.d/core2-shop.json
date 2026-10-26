@@ -1,0 +1,40 @@
+{
+  "comment": "Keys, values and messages of the Core 2 shop (WP-17, docs/design/11): the profile's shops content and module, the stock a run keeps among its reward offers, the open-shop marker and the web's purchase sentences.",
+  "keySets": [
+    {
+      "name": "Core2ShopKeys",
+      "doc": "Keys the Core 2 shop reads and writes: the shops content and module (web model/gameProfileRewards.js gameProfileShopStock) and the run's open-shop marker (main.js showShop).",
+      "keys": {
+        "Price": "price",
+        "ItemsPerCategory": "itemsPerCategory",
+        "Options": "options",
+        "OfferCount": "offerCount",
+        "GameProfileOpenShop": "gameProfileOpenShop",
+        "Cinders": "cinders"
+      }
+    },
+    {
+      "name": "Core2ShopValues",
+      "doc": "String values the Core 2 shop writes: the stock's offer id prefix and the shop id's separator.",
+      "keys": {
+        "OfferPrefix": "shop:",
+        "IdSeparator": ":",
+        "BarKeyFormat": "core2.shop.bar.{0}",
+        "PlaceholderCost": "cost",
+        "PlaceholderCinders": "cinders",
+        "PlaceholderLeft": "left"
+      }
+    },
+    {
+      "name": "Core2ShopMessages",
+      "doc": "The web's shop sentences (the errors a purchase throws) and the door's own refusals.",
+      "keys": {
+        "ShopUnavailable": "Configured shop unavailable",
+        "MissingShop": "Missing configured shop",
+        "InvalidPrice": "Invalid configured shop price",
+        "InsufficientCinders": "Insufficient cinders",
+        "NoShopOpen": "There is no shop open"
+      }
+    }
+  ]
+}

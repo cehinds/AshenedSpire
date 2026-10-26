@@ -1,0 +1,50 @@
+{
+  "$id": "profile/bundle/resources.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "domainMax": {
+        "type": "integer"
+      },
+      "glyph": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "order": {
+        "type": "integer"
+      },
+      "source": {
+        "type": "string"
+      },
+      "surfaces": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "tint": {
+        "type": "string"
+      },
+      "weight": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "glyph",
+      "id",
+      "name",
+      "order",
+      "source",
+      "surfaces",
+      "tint",
+      "weight"
+    ]
+  }
+}

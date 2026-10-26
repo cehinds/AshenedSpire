@@ -1,0 +1,62 @@
+{
+  "$id": "rules/runtime.json",
+  "type": "object",
+  "properties": {
+    "ops": {
+      "type": "object",
+      "required": [
+        "format",
+        "ops"
+      ],
+      "properties": {
+        "format": {
+          "type": "string"
+        },
+        "ops": {
+          "type": "object"
+        },
+        "effectEnvelope": {
+          "type": "object"
+        }
+      }
+    },
+    "formulas": {
+      "type": "object",
+      "required": [
+        "format",
+        "ops"
+      ],
+      "properties": {
+        "format": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
+        },
+        "flooring": {
+          "type": "object"
+        },
+        "of": {
+          "type": "object"
+        },
+        "ops": {
+          "type": "object"
+        },
+        "context": {
+          "type": "object"
+        },
+        "errors": {
+          "type": "array",
+          "items": {}
+        }
+      }
+    }
+  },
+  "required": [
+    "formulas",
+    "ops"
+  ]
+}

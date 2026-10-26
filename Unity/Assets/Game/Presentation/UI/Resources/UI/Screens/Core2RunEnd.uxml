@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Core2RunEnd.uss" />
+    <ui:Style src="../Kit/CombatModal.uss" />
+    <ui:VisualElement name="CEND_PAGE" class="page c2end-page">
+        <ui:VisualElement name="CEND_BACKGROUND" class="c2end-bg" picking-mode="Ignore">
+            <ui:VisualElement class="c2end-shade" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <Ashen.Presentation.UI.Kit.CombatModal name="CEND_DOOR" size="end" class="c2end-door" />
+    </ui:VisualElement>
+</ui:UXML>

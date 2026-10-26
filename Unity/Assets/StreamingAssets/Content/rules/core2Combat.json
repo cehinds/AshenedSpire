@@ -1,0 +1,514 @@
+{
+  "comment": "Core 2 combat constants that the web (model/combatCardProfile.js, model/cardClassification.js, model/profileStance.js, model/stanceRules.js, model/formationLayout.js, model/formationOccupancy.js, engine/combatCardTactics.js, engine/combatRoundsAdapter.js, engine/kernel/gameConfig.js, model/actionCosts.js, engine/combat.js at the pinned sha b8cfe4fac) keeps as literals in code (docs/design/11 WP-4). vocabulary: the identity sets combatProfileFor and stanceOf read. classification: what cardPreparationCategory leaves out and counts as a card kind. resistance: the share of the Ward and Poise ratings that opens a fight as a pool. perception: the die an enemy's intent read rolls. enemies: the enemy attribute fill and the seeded variance hash. formation: the perspective grid. range: the hands a primary weapon is looked for in. plan: the enemy plan constants. actionStances: how an enemy move is priced as a stance. enemyPressure: the buildup an enemy status becomes. counter: the version of the record an armed Counter keeps. counterCoverage: the lanes an authored-less enemy Counter covers. hand: the hand size when the profile names none and the three hand rows a fight is dealt by. ratingIds: the ratings a receipt totals. costs: the card price literals (the face's Poise line a smash gains, the cost growth cap, the derived SP from which effect amounts scale, the stances a Many Forms status allows and the reaction discount when the FixCore rules carry none). traits: the card ids and effect sets the trait projection (content/traitProjection.js, combatCardTactics.js COUNTERSTRIKE_AMOUNT_OPS, model/cardBehavior.js weaponDamageBasis) keeps in code (WP-9). scripts (WP-C0): the named behaviours the web's content/scripts.js keeps in code, as data: a `randomRowEffects` script replays the effects of `count` distinct rows drawn on `stream` from a registry (rows that run a script themselves are left out when `excludeScripted`). equipment (WP-C0): the derived stat each pool maximum follows and the stat the Draw follows when worn gear moves the attributes mid-fight.",
+  "vocabulary": {
+    "camps": [
+      "physical",
+      "spell"
+    ],
+    "maneuvers": [
+      "attack",
+      "defend",
+      "counter",
+      "sweep",
+      "ranged",
+      "smash",
+      "casting"
+    ],
+    "schools": [
+      "frost",
+      "fire",
+      "lightning",
+      "force",
+      "alteration",
+      "illusion",
+      "divine",
+      "decay",
+      "earth"
+    ],
+    "counterModes": [
+      "melee",
+      "ranged",
+      "spell"
+    ],
+    "ranges": [
+      "melee",
+      "reach",
+      "ranged"
+    ],
+    "targetings": [
+      "single",
+      "area"
+    ],
+    "legacyRanges": {
+      "contact": "melee",
+      "near": "reach",
+      "far": "ranged"
+    },
+    "profileFields": [
+      "range",
+      "defenseRange",
+      "targeting",
+      "traits",
+      "projectile",
+      "counterCoverage",
+      "counterPayload",
+      "evade",
+      "upcast",
+      "stanceTrigger",
+      "mirrors",
+      "stanceExpiry",
+      "schoolEffect",
+      "caster",
+      "breakPoiseBonus",
+      "pronePoiseBonus",
+      "traitValues"
+    ],
+    "spellCamps": [
+      "spell",
+      "spells",
+      "magic",
+      "magical"
+    ],
+    "mirroredTypes": [
+      "attack",
+      "smash",
+      "sweep",
+      "defend",
+      "counter"
+    ],
+    "offensiveManeuvers": [
+      "attack",
+      "smash",
+      "sweep",
+      "counter",
+      "casting"
+    ],
+    "defensiveManeuvers": [
+      "defend",
+      "counter",
+      "evade"
+    ],
+    "maneuverAliases": {
+      "casting": "prepared",
+      "cast": "prepared",
+      "spell": "prepared",
+      "ranged": "attack"
+    },
+    "martialStances": {
+      "smash": "smash",
+      "attack": "attack",
+      "sweep": "sweep",
+      "counter": "counter",
+      "defend": "defense"
+    }
+  },
+  "classification": {
+    "nonPreparingTypes": [
+      "consumable",
+      "status",
+      "curse"
+    ],
+    "nonPreparingKinds": [
+      "skillBook",
+      "revive",
+      "CONSUMABLE"
+    ],
+    "cardKindTypes": [
+      "attack",
+      "skill",
+      "power",
+      "spell"
+    ],
+    "cardKindClassifications": [
+      "classification.attack",
+      "classification.skill",
+      "classification.power"
+    ]
+  },
+  "resistance": {
+    "wardPool": 1,
+    "poisePool": 1
+  },
+  "perception": {
+    "die": 20
+  },
+  "hit": {
+    "die": 20,
+    "naturalMiss": 1,
+    "percent": 100,
+    "proposalAccuracyDivisor": 5,
+    "decoyRanges": [
+      "reach",
+      "ranged"
+    ]
+  },
+  "enemies": {
+    "fillGuard": 10,
+    "varianceAmong": 2,
+    "poolMods": [
+      "sp",
+      "mp",
+      "hp"
+    ],
+    "modifierPrefix": "self.",
+    "modifierEquals": "=",
+    "hash": {
+      "seed": 7,
+      "multiplier": 31,
+      "lcgMultiplier": 1103515245,
+      "lcgIncrement": 12345,
+      "shift": 3
+    },
+    "modifierSigns": "+-"
+  },
+  "formation": {
+    "rows": "ABCDEF",
+    "lanes": 3,
+    "maxRows": 6,
+    "playerColumn": 1,
+    "enemyBackColumn": 4,
+    "enemyFrontColumn": 3,
+    "extraColumn": 5,
+    "enemiesPerLane": 2,
+    "enemiesPerLaneExtra": 3
+  },
+  "range": {
+    "hands": [
+      "right",
+      "left"
+    ]
+  },
+  "plan": {
+    "queueMax": 16,
+    "moveSpFallback": 1,
+    "breakPoiseBonus": 3,
+    "pressureScale": 4,
+    "carrierFields": [
+      "targetLimit",
+      "range",
+      "defenseRange",
+      "targeting",
+      "traits",
+      "projectile",
+      "counterCoverage",
+      "counterPayload",
+      "evade",
+      "upcast",
+      "stanceTrigger",
+      "mirrors",
+      "stanceExpiry",
+      "schoolEffect",
+      "caster",
+      "breakPoiseBonus",
+      "pronePoiseBonus",
+      "comboHook",
+      "traitValues",
+      "mechanicTags",
+      "mechanicBindings"
+    ]
+  },
+  "actionStances": {
+    "byTag": [
+      {
+        "tags": [
+          "camp:spell",
+          "maneuver:casting"
+        ],
+        "stance": "cast"
+      },
+      {
+        "tags": [
+          "maneuver:smash"
+        ],
+        "stance": "smash"
+      },
+      {
+        "tags": [
+          "maneuver:sweep"
+        ],
+        "stance": "sweep"
+      },
+      {
+        "tags": [
+          "maneuver:counter"
+        ],
+        "stance": "counter"
+      },
+      {
+        "tags": [
+          "maneuver:defend"
+        ],
+        "stance": "block"
+      },
+      {
+        "tags": [
+          "maneuver:attack",
+          "maneuver:ranged"
+        ],
+        "stance": "attack"
+      }
+    ],
+    "byKind": {
+      "attack": "attack",
+      "guard": "block",
+      "evade": "evade",
+      "counter": "counter"
+    }
+  },
+  "enemyPressure": {
+    "frail": {
+      "status": "vulnerable",
+      "recoveryProfile": "bodily"
+    },
+    "weak": {
+      "status": "weak",
+      "recoveryProfile": "bodily"
+    },
+    "bleed": {
+      "status": "bleed",
+      "recoveryProfile": "bodily"
+    },
+    "crimsonBlight": {
+      "status": "crimsonBlight",
+      "recoveryProfile": "curse"
+    },
+    "frost": {
+      "status": "frost",
+      "recoveryProfile": "elemental"
+    },
+    "insanity": {
+      "status": "dazed",
+      "recoveryProfile": "mental"
+    }
+  },
+  "counterCoverage": {
+    "spellRanges": [
+      "melee",
+      "reach",
+      "ranged"
+    ],
+    "rangedRanges": [
+      "reach",
+      "ranged"
+    ],
+    "meleeRanges": [
+      "melee"
+    ],
+    "targeting": [
+      "single"
+    ],
+    "spellEffects": [
+      "damage",
+      "status"
+    ],
+    "physicalEffects": [
+      "damage"
+    ],
+    "meleeManeuvers": [
+      "attack",
+      "smash"
+    ]
+  },
+  "hand": {
+    "defaultBase": 4,
+    "defaultAttribute": "intelligence",
+    "rowIds": [
+      "openingHand",
+      "draw",
+      "handSize"
+    ]
+  },
+  "ratingIds": [
+    "ar",
+    "dr",
+    "pr",
+    "ward",
+    "poise"
+  ],
+  "counter": {
+    "version": 2
+  },
+  "matchups": {
+    "counterDefaults": {
+      "returnFraction": 0.5,
+      "poiseFraction": 0.2,
+      "advantageIncomingFraction": 0.25,
+      "advantagePoiseFraction": 0.5,
+      "advantageBlockFraction": 0.25
+    }
+  },
+  "costs": {
+    "poiseLine": " Deal {poiseDamage} Poise damage.",
+    "growthMax": 3,
+    "scaleFromSp": 2,
+    "defaultMaxStances": 2,
+    "reactionDefaults": {
+      "handCostDiscount": 1
+    }
+  },
+  "mechanics": {
+    "registered": [
+      "combat.accuracy",
+      "combat.actionCosts",
+      "combat.perception",
+      "combat.stance",
+      "combat.statuses",
+      "defense.poiseProtection",
+      "defense.wardProtection"
+    ],
+    "families": [
+      "stance",
+      "accuracy",
+      "perception",
+      "statuses",
+      "actionCosts"
+    ],
+    "familyPrefix": "combat.",
+    "familyTagPrefix": "combat:",
+    "protectionPrefix": "defense.",
+    "rulesOwner": "rules",
+    "wardTag": "defense:wardProtection",
+    "actionCostsFamily": "actionCosts",
+    "actionCostsKey": "enemyHealBlockCost",
+    "mountKinds": {
+      "armour": "gear",
+      "armament": "gear",
+      "sigil": "gear",
+      "class": "character",
+      "feat": "character",
+      "companion": "entity"
+    }
+  },
+  "damage": {
+    "smashVsDefensive": {
+      "damageMultiplier": 2,
+      "blockFraction": 0.25,
+      "poiseFraction": 0.5
+    },
+    "staggered": {
+      "stance": true,
+      "staminaLoss": 1,
+      "vulnerableStacks": 1,
+      "extendOnly": true
+    },
+    "staggerLimit": 1,
+    "meleeReaches": [
+      "contact",
+      "melee"
+    ],
+    "damageTypeAliases": {
+      "pierce": "piercing",
+      "slash": "slashing",
+      "cold": "frost",
+      "force": "arcane",
+      "holy": "sacred",
+      "necrotic": "decay"
+    },
+    "physicalSchool": "physical",
+    "schoolTagPrefix": "school:"
+  },
+  "traits": {
+    "counterNoStrike": [
+      "dodgeRoll",
+      "evasiveGuard",
+      "backstep",
+      "acrobaticsRogue",
+      "nockAndWait",
+      "barrageCounter"
+    ],
+    "sweepStrikeTier4": [
+      "crimsonCleave",
+      "progression-ashen-cleaver"
+    ],
+    "counterImpactSpell": [
+      "frostCounter",
+      "forceCounter",
+      "alterationCounter",
+      "illusionCounter",
+      "umbralWard",
+      "progression-rime-mirror"
+    ],
+    "counterImpactExcluded": [
+      "dodgeRoll",
+      "evasiveGuard"
+    ],
+    "defendImpactTier4": [
+      "bracingStance",
+      "progression-cinder-guard",
+      "progression-warbound-defiance",
+      "progression-red-standard",
+      "progression-crown-of-cinders"
+    ],
+    "counterFluxWard": [
+      "umbralWard",
+      "wardingStar",
+      "frostCounter",
+      "fireCounter",
+      "lightningCounter",
+      "alterationCounter",
+      "illusionCounter",
+      "divineCounter",
+      "decayCounter",
+      "barrageCounter",
+      "progression-rime-mirror"
+    ],
+    "fluxTier2": [
+      "hex",
+      "contagion",
+      "butterflyPlague",
+      "gravityWell",
+      "blightBloom"
+    ],
+    "defendBarrierEffects": [
+      "block",
+      "gainBarrier",
+      "gainWard"
+    ],
+    "enemyDamageTargets": [
+      "enemy",
+      "allEnemies"
+    ],
+    "fluxDamageTypes": [
+      "fire",
+      "arcane"
+    ],
+    "counterstrikeAmountOps": [
+      "damage",
+      "block",
+      "gainBarrier",
+      "poiseDamage",
+      "wardDamage",
+      "gainPoise",
+      "gainWard",
+      "heal",
+      "buildup"
+    ],
+    "strikeCardId": "core.strike",
+    "fallbackStrikeDamage": 6
+  },
+  "scripts": {
+    "wondrousDraught": {
+      "kind": "randomRowEffects",
+      "registry": "flasks",
+      "stream": "misc",
+      "count": 2,
+      "excludeScripted": true
+    }
+  },
+  "equipment": {
+    "poolStats": {
+      "maxHp": "hp",
+      "maxMana": "mana",
+      "maxStamina": "stamina"
+    },
+    "drawStat": "draw"
+  },
+  "spellDefense": {
+    "defaultWardShare": 0.7,
+    "schools": {
+      "frost": 0.5,
+      "alteration": 0.3,
+      "force": 0.3
+    }
+  }
+}

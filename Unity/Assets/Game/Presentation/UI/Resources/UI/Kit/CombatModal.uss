@@ -1,0 +1,664 @@
+/* Combat overlays (VP-6, D-800): the web's modal shell (kit.css:440-497) for the reaction offer, the flask list, the piles, the card inspector
+   and the combatant reading, and the pieces they share: option tiles, flask rows, pile grids and detail columns. Frame sprite, shadow and the
+   hairline chrome come from Chrome.uss; every number is a token (tokens.json webSource.modals). */
+
+/* ---- the veil: dims the board; the modal sits in the middle ---- */
+
+.overlay-scrim {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-veil);
+}
+
+.overlay-scrim--clear {
+    background-color: var(--color-transparent);
+}
+
+/* ---- the modal: head (eyebrow, title, status, close), scrolling body, foot ---- */
+
+.cmodal {
+    width: var(--size-cmodal-md-w);
+    max-width: var(--size-full-width);
+    max-height: var(--size-cmodal-max-h);
+    flex-direction: column;
+    background-color: var(--color-bg-raise);
+}
+
+.cmodal--md {
+    width: var(--size-cmodal-md-w);
+}
+
+.cmodal--lg {
+    width: var(--size-cmodal-lg-w);
+}
+
+.cmodal--xl {
+    width: var(--size-cmodal-xl-w);
+    height: var(--size-cmodal-xl-h);
+}
+
+.cmodal-head {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    padding: var(--size-cmodal-inset);
+    background-color: var(--color-modal-bar);
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line);
+}
+
+.cmodal-identity {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.cmodal-eyebrow {
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.cmodal-title {
+    font-size: var(--font-heading);
+    letter-spacing: var(--size-track-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.cmodal-status {
+    flex-shrink: 0;
+    margin-right: var(--size-cmodal-gap);
+    font-size: var(--font-cmodal-status);
+    color: var(--color-muted);
+}
+
+.cmodal-close.kit-button {
+    flex-shrink: 0;
+    width: var(--size-cmodal-close);
+    height: var(--size-cmodal-close);
+    min-height: 0;
+    padding: 0;
+    font-size: var(--font-glyph);
+}
+
+.cmodal-body {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+}
+
+.cmodal-body .unity-scroll-view__content-container {
+    padding: var(--size-cmodal-inset);
+}
+
+.cmodal-foot {
+    flex-direction: row;
+    flex-shrink: 0;
+    padding: var(--size-cmodal-inset);
+    background-color: var(--color-modal-bar);
+    border-top-width: var(--border-hairline);
+    border-top-color: var(--color-line);
+}
+
+.cmodal-foot .kit-button {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-left: var(--size-cmodal-gap);
+}
+
+.cmodal-foot .kit-button:first-child {
+    margin-left: 0;
+}
+
+.cmodal-line {
+    margin-bottom: var(--space-xs);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.cmodal-line--muted {
+    color: var(--color-muted);
+}
+
+/* ---- option tiles (combat.css:2037-2057): name, one-line effect, cost pills; selected = gold edge ---- */
+
+.option-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-sm);
+}
+
+.option-tile.unity-button {
+    width: var(--size-option-tile-w);
+    min-height: var(--size-option-tile-h);
+    margin: 0 var(--size-option-gap) var(--size-option-gap) 0;
+    padding: var(--space-sm);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    background-color: var(--color-bg-raise);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-button);
+}
+
+.option-tile.unity-button:hover,
+.option-tile.unity-button:focus {
+    background-color: var(--color-panel);
+    border-color: var(--color-gold);
+}
+
+.option-tile--selected.unity-button,
+.option-tile--selected.unity-button:hover,
+.option-tile--selected.unity-button:focus {
+    border-color: var(--color-gold);
+    border-width: var(--border-glow);
+    background-color: var(--color-panel);
+}
+
+.option-tile--disabled.unity-button {
+    opacity: var(--opacity-disabled);
+}
+
+.option-tile-name {
+    font-size: var(--font-tile-name);
+    -unity-font-style: bold;
+    color: var(--color-parchment);
+    -unity-text-align: upper-left;
+    white-space: normal;
+}
+
+.option-tile-effect {
+    flex-grow: 1;
+    margin-top: var(--space-xxs);
+    font-size: var(--font-tile-effect);
+    color: var(--color-parchment);
+    -unity-text-align: upper-left;
+    white-space: normal;
+}
+
+.option-tile-costs {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-xs);
+}
+
+.option-tile-cost.kit-chip {
+    margin-right: var(--space-xs);
+    font-size: var(--font-tile-chip);
+    letter-spacing: 0;
+    border-radius: var(--radius-pill);
+    color: var(--color-parchment);
+}
+
+/* ---- the prompt rows that are not tiles (route, stance, equipment, prediction): the web's option rows ---- */
+
+.prompt-option.kit-button {
+    margin-bottom: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    white-space: normal;
+    -unity-text-align: middle-left;
+    background-color: var(--color-bg-raise);
+}
+
+.prompt-option--selected.kit-button {
+    border-color: var(--color-gold);
+    border-width: var(--border-glow);
+    background-color: var(--color-panel);
+}
+
+.prompt-option--disabled.kit-button {
+    opacity: var(--opacity-disabled);
+}
+
+/* ---- flask rows (combatActionRow.js:151-198): flask art, name, effect, count, Use HOLD ---- */
+
+.potion-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--size-potion-row-gap);
+    padding: var(--space-md);
+    background-color: var(--color-bg-raise);
+    background-image: url("../Frames/panel-frame.png");
+    -unity-slice-scale: var(--size-slice-frame);
+    border-color: var(--color-transparent);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-tight);
+}
+
+.potion-row--disabled {
+    opacity: var(--opacity-disabled);
+}
+
+.potion-icon {
+    flex-shrink: 0;
+    width: var(--size-potion-icon);
+    height: var(--size-potion-icon);
+    margin-right: var(--space-md);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.potion-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-right: var(--space-md);
+}
+
+.potion-name {
+    font-size: var(--font-cmodal-row-title);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.potion-desc {
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.potion-meta {
+    font-size: var(--font-cmodal-status);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.potion-use.holdbutton {
+    flex-shrink: 0;
+    width: var(--size-potion-use-w);
+    height: var(--size-potion-use-h);
+    min-height: 0;
+}
+
+/* ---- pile viewer and card reading ---- */
+
+.pile-layout {
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.pile-rail {
+    flex-shrink: 0;
+    width: var(--size-pile-rail-w);
+    margin-right: var(--size-cmodal-inset);
+}
+
+.pile-tab.kit-button {
+    height: var(--size-pile-tab-h);
+    margin-bottom: var(--space-xs);
+    -unity-text-align: middle-left;
+}
+
+.pile-tab--on.kit-button,
+.pile-tab--on.kit-button:hover,
+.pile-tab--on.kit-button:focus {
+    border-color: var(--color-gold);
+    color: var(--color-gold);
+}
+
+.pile-pane {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.pile-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.pile-grid--centred {
+    justify-content: center;
+}
+
+.pile-cell {
+    width: var(--size-pile-card-w);
+    height: var(--size-pile-card-h);
+    margin: 0 var(--size-pile-gap) var(--size-pile-gap) 0;
+}
+
+.pile-cell--selected {
+    border-color: var(--color-gold);
+    border-width: var(--border-glow);
+    border-radius: var(--radius-tight);
+}
+
+.pile-empty {
+    color: var(--color-muted);
+    -unity-font-style: italic;
+}
+
+.pile-detail {
+    flex-shrink: 0;
+    width: var(--size-pile-detail-w);
+    margin-left: var(--size-cmodal-inset);
+}
+
+/* ---- the reading of one card or combatant: title, meta line, text, keyword tags ---- */
+
+.detail-title {
+    font-size: var(--font-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.detail-meta {
+    margin-top: var(--space-xxs);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.detail-text {
+    margin-top: var(--space-sm);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.detail-heading {
+    margin-top: var(--space-md);
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.detail-tag {
+    margin-top: var(--space-xs);
+    padding: var(--size-chip-pad-y) var(--size-detail-tag-pad-x);
+    flex-direction: column;
+    border-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    border-radius: var(--radius-tight);
+}
+
+.detail-tag-name {
+    color: var(--color-gold);
+    white-space: normal;
+}
+
+.detail-tag-tip {
+    color: var(--color-muted);
+    font-size: var(--font-cmodal-status);
+    white-space: normal;
+}
+
+/* combatSigilView.js sigilExplanationHtml (styles/illustrated-cards.css:48-50): each mark of the card with its word and meaning; card.js combat-rule-hint under them */
+.detail-sigil-row {
+    flex-direction: row;
+    align-items: center;
+    margin-top: var(--space-sm);
+}
+
+.detail-sigil {
+    flex-shrink: 0;
+    width: var(--size-detail-sigil);
+    height: var(--size-detail-sigil);
+    margin-right: var(--size-detail-sigil-gap);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.detail-hint {
+    margin-top: var(--space-sm);
+    padding: var(--size-chip-pad-y) var(--size-detail-tag-pad-x);
+    border-left-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    color: var(--color-muted);
+    font-size: var(--font-cmodal-status);
+    white-space: normal;
+}
+
+.inspect-layout {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.inspect-card {
+    flex-shrink: 0;
+    width: var(--size-inspect-card-w);
+    height: var(--size-inspect-card-h);
+    margin-right: var(--size-cmodal-inset);
+}
+
+.inspect-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+    max-width: var(--size-inspect-text-w);
+}
+
+.layout-narrow .inspect-layout {
+    flex-direction: column;
+    align-items: center;
+}
+
+.layout-narrow .inspect-card {
+    width: var(--size-inspect-card-wnarrow);
+    height: var(--size-inspect-card-hnarrow);
+    margin-right: 0;
+    margin-bottom: var(--size-cmodal-inset);
+}
+
+.layout-narrow .pile-layout {
+    flex-direction: column;
+}
+
+.layout-narrow .pile-rail,
+.layout-narrow .pile-detail {
+    width: var(--size-full-width);
+    margin: 0;
+}
+
+/* The web's modal shell on a phone is 374 of 390 wide in every size (kit.css modal shell; potions, spoils, armoury and compendium shots). The doors that place themselves say width: auto at three classes. */
+.layout-narrow .cmodal {
+    width: var(--size-cmodal-narrow-w);
+}
+
+.layout-narrow .option-tile.unity-button {
+    width: var(--size-half-gap-width);
+}
+
+/* ---- the combatant reading's preview (src/ui/components/combatantInspector.js, styles/kit.css .combatant-door): sprite, name and pool meters left, the details right ---- */
+
+.inspector-layout {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.inspector-preview {
+    flex-shrink: 0;
+    width: var(--size-inspector-preview-w);
+    margin-right: var(--space-md);
+}
+
+.inspector-art {
+    width: var(--size-full-width);
+    justify-content: flex-end;
+    align-items: center;
+    overflow: hidden;
+}
+
+.inspector-figure {
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.inspector-stage-frame {
+    position: absolute;
+}
+
+.inspector-name {
+    margin-top: var(--space-sm);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.inspector-meters {
+    margin-top: var(--space-xs);
+}
+
+.inspector-details {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+}
+
+/* ---- the combatant reading's blocks (src/ui/components/combatantInspector.js; styles/kit.css .combatant-inspector-*, .combatant-ability, .enemy-intent-prediction): a section is an eyebrow over a hairline over rows; a row is a label of a tenth to a third of the width and a status line that wraps ---- */
+
+.inspector-details > * {
+    margin-bottom: var(--space-lg);
+}
+
+.inspector-section {
+    margin-top: var(--space-sm);
+}
+
+.inspector-eyebrow {
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.inspector-hairline {
+    height: 0;
+    margin-top: var(--space-xs);
+    margin-bottom: var(--space-xxs);
+    border-top-width: var(--border-hairline);
+    border-color: var(--color-line);
+}
+
+.inspector-row {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: var(--space-xxs);
+}
+
+.inspector-row-label {
+    flex-shrink: 0;
+    min-width: var(--size-inspector-label-min);
+    max-width: var(--size-inspector-label-max);
+    margin-right: var(--space-md);
+    color: var(--color-parchment);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inspector-row-status {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    min-width: 0;
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.inspector-row-disabled .inspector-row-label {
+    color: var(--color-muted);
+}
+
+.inspector-status {
+    margin-top: var(--space-xs);
+    color: var(--color-muted);
+    font-size: var(--font-cmodal-status);
+    white-space: normal;
+}
+
+.inspector-prose {
+    margin-top: var(--space-xxs);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.inspector-title {
+    margin-top: var(--space-xs);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.inspector-stage-learned {
+    color: var(--color-gold);
+}
+
+.inspector-fold {
+    margin-top: var(--space-xxs);
+}
+
+.inspector-fold-head {
+    flex-direction: row;
+    align-items: center;
+    padding-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+}
+
+.inspector-fold-mark {
+    margin-right: var(--space-sm);
+    color: var(--color-muted);
+}
+
+.inspector-fold-title {
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.inspector-ability {
+    border-bottom-width: var(--border-hairline);
+    border-color: var(--color-line);
+    padding-top: var(--space-xxs);
+    padding-bottom: var(--space-xxs);
+}
+
+.inspector-ability-name {
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.inspector-ability .inspector-prose {
+    margin-bottom: var(--space-sm);
+}
+
+.inspector-cards {
+    margin-top: var(--space-xs);
+}
+
+.inspector-card {
+    margin-bottom: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.inspector-card-selected {
+    border-color: var(--color-gold);
+}
+
+.inspector-card-name {
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.inspector-card-meta {
+    margin-top: var(--space-xxs);
+    color: var(--color-muted);
+    font-size: var(--font-cmodal-status);
+    white-space: normal;
+}
+
+.inspector-select {
+    flex-grow: 1;
+}
+
+.inspector-button {
+    margin-top: var(--space-sm);
+}

@@ -1,0 +1,191 @@
+{
+ "defs": {
+  "bytes": 505940,
+  "file": "defs.json",
+  "statuses": 101
+ },
+ "fightFiles": [
+  {
+   "bytes": 966261,
+   "classId": "reaver",
+   "fights": 24,
+   "file": "fights-reaver.json",
+   "steps": 424
+  },
+  {
+   "bytes": 835344,
+   "classId": "starseer",
+   "fights": 24,
+   "file": "fights-starseer.json",
+   "steps": 309
+  },
+  {
+   "bytes": 1048510,
+   "classId": "rogue",
+   "fights": 24,
+   "file": "fights-rogue.json",
+   "steps": 432
+  },
+  {
+   "bytes": 830107,
+   "classId": "herald",
+   "fights": 24,
+   "file": "fights-herald.json",
+   "steps": 314
+  }
+ ],
+ "fights": {
+  "herald": {
+   "fights": 24,
+   "steps": 314
+  },
+  "reaver": {
+   "fights": 24,
+   "steps": 424
+  },
+  "rogue": {
+   "fights": 24,
+   "steps": 432
+  },
+  "starseer": {
+   "fights": 24,
+   "steps": 309
+  }
+ },
+ "files": [
+  {
+   "bytes": 139049,
+   "file": "scenarios-0.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 141534,
+   "file": "scenarios-1.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 135842,
+   "file": "scenarios-2.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 184059,
+   "file": "scenarios-3.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 173835,
+   "file": "scenarios-4.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 169736,
+   "file": "scenarios-5.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 176357,
+   "file": "scenarios-6.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 158834,
+   "file": "scenarios-7.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 146925,
+   "file": "scenarios-8.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 162345,
+   "file": "scenarios-9.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 135869,
+   "file": "scenarios-10.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 147528,
+   "file": "scenarios-11.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 129035,
+   "file": "scenarios-12.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 142117,
+   "file": "scenarios-13.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 104627,
+   "file": "scenarios-14.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 106444,
+   "file": "scenarios-15.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 109228,
+   "file": "scenarios-16.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 249762,
+   "file": "scenarios-17.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 323885,
+   "file": "scenarios-18.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 322166,
+   "file": "scenarios-19.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 296885,
+   "file": "scenarios-20.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 265523,
+   "file": "scenarios-21.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 39375,
+   "file": "scenarios-22.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 42638,
+   "file": "scenarios-23.json",
+   "scenarios": 60
+  },
+  {
+   "bytes": 44459,
+   "file": "scenarios-24.json",
+   "scenarios": 59
+  }
+ ],
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "rejections": {},
+ "scenarios": 1499,
+ "traits": {
+  "bytes": 887091,
+  "file": "traits.json"
+ },
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

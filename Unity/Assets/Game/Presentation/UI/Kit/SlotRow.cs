@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Ashen.Generated;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,6 +11,9 @@ namespace Ashen.Presentation.UI.Kit
     {
         public int Index;
         public string Label;
+
+        /// <summary>The web card's name: the class (or Empty slot).</summary>
+        public string Name;
         public string Facts;
         public string Saved;
         public Texture2D Portrait;
@@ -30,6 +34,7 @@ namespace Ashen.Presentation.UI.Kit
         private readonly LocLabel _mark;
         private readonly VisualElement _portrait;
         private readonly LocLabel _label;
+        private readonly LocLabel _name;
         private readonly LocLabel _facts;
         private readonly LocLabel _saved;
         private readonly LocButton _delete;
@@ -43,6 +48,7 @@ namespace Ashen.Presentation.UI.Kit
             _mark = this.Q<LocLabel>(UiNames.SlotMark);
             _portrait = this.Q(UiNames.SlotPortrait);
             _label = this.Q<LocLabel>(UiNames.SlotLabel);
+            _name = this.Q<LocLabel>(UiNames.SlotName);
             _facts = this.Q<LocLabel>(UiNames.SlotFacts);
             _saved = this.Q<LocLabel>(UiNames.SlotSaved);
             _delete = this.Q<LocButton>(UiNames.SlotDelete);
@@ -74,7 +80,9 @@ namespace Ashen.Presentation.UI.Kit
         public void Bind(SlotRowData data)
         {
             Data = data;
-            _label?.SetResolved(data.Label);
+            _label?.SetResolved(data.Index.ToString(CultureInfo.InvariantCulture));
+            _name?.SetResolved(data.Name);
+            UiDom.Show(_name, !string.IsNullOrEmpty(data.Name));
             _facts?.SetResolved(data.Facts);
             _saved?.SetResolved(data.Saved);
             UiDom.Show(_saved, !string.IsNullOrEmpty(data.Saved));

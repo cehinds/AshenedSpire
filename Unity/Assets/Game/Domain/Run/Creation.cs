@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Ashen.Domain.Combat;
 using Newtonsoft.Json.Linq;
+using CRM = Ashen.Generated.Core2RewardsMessages;
+using CRV = Ashen.Generated.Core2RewardsValues;
+using CRW = Ashen.Generated.Core2RewardsKeys;
 using K = Ashen.Generated.CombatKeys;
 using RK = Ashen.Generated.RunKeys;
 using RM = Ashen.Generated.RunMessages;
@@ -314,7 +317,11 @@ namespace Ashen.Domain.Run
             var hands = new JObject();
             foreach (var p in d.RuleObj(RK.Zones, RK.HandSlotIds).Properties()) hands[p.Name] = ActiveIn(loadout, Js.Str(p.Value));
             JArray Strings(JToken t) => new JArray(Js.Items(t).Where(x => Js.IsStr(x) && Js.Str(x).Length > 0).Select(x => x.DeepClone()));
-            collection = run?[K.Deck] is JArray deck ? new JArray(deck.Where(Js.Truthy).Select(c => c.DeepClone())) : new JArray();
+            // Owned means deck and sideboard (SPEC §14.1) in a Core 2 run, whose zones.js is the pinned HEAD's; the 405 snapshot's collection is the deck alone.
+            var core = run?[Ashen.Generated.Core2RunSnapshotKeys.GameProfile] != null;
+            collection = new JArray((run?[K.Deck] is JArray deck ? deck.AsEnumerable() : Enumerable.Empty<JToken>())
+                .Concat(core && run[Ashen.Generated.Core2DeckKeys.Sideboard] is JArray pile ? pile.AsEnumerable() : Enumerable.Empty<JToken>())
+                .Where(Js.Truthy).Select(c => c.DeepClone()));
             return Js.Obj(RK.Core, IdOrNull(run?[RK.Class]), K.CoreTags, Strings(run?[K.CoreTags]), RK.Worn, worn, RK.Hands, hands, RK.Passive, Strings(run?[K.Relics]));
         }
 
@@ -337,6 +344,25 @@ namespace Ashen.Domain.Run
         {
             if (seatOrder == null || seatOrder.Count == 0) throw new InvalidOperationException(RM.SeatAtTierNeedsOrder);
             return Js.Str(seatOrder[(int)TierOf(tier, seatOrder.Count) - 1]);
+        }
+
+        /// <summary>bossTierScale(registries, { encounter, tier }): the HP and damage factors of a boss met at <paramref name="tier"/> (its seat's tier ratio times the tier's boss row), or null for any other pool.</summary>
+        public static bool BossTierScale(RunData d, JObject encounter, double tier, out double hp, out double damage)
+        {
+            hp = damage = 0;
+            if (encounter == null || encounter.Str(CRW.Pool) != CRV.BossPool) return false;
+            var last = Js.D(d.Balance.Obj(RK.Endless)?[RK.ActsPerCycle]);
+            var table = d.Balance.Obj(RK.SeatTiers) ?? new JObject();
+            var at = TierOf(tier, last);
+            var baseTier = Js.Truthy(encounter[CRW.Seat]) ? d.Seats.Get(encounter.Str(CRW.Seat))[RK.BaseTier] : Js.N(last);
+            var atValue = table[RunJs.NumStr(at)];
+            var baseValue = table[RunJs.Key(baseTier)];
+            var ratio = Js.D(atValue) == Js.D(baseValue) ? 1 : Js.D(atValue) / Js.D(baseValue);
+            var row = d.Balance.Obj(CRW.BossTiers)?.Obj(RunJs.NumStr(at));
+            if (!(ratio > 0) || row == null || !(row.Num(CRW.Hp) > 0) || !(row.Num(CRW.Damage) > 0)) throw new InvalidOperationException(RunJs.Fmt(CRM.BossTierMissing, RunJs.NumStr(tier), RunJs.Key(baseTier)));
+            hp = ratio * row.Num(CRW.Hp);
+            damage = ratio * row.Num(CRW.Damage);
+            return true;
         }
 
         /// <summary>seatTierHpMult(registries, seatId, tier): seatTiers[tier] / seatTiers[baseTier], exactly 1 at the baseline.</summary>

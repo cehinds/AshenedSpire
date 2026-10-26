@@ -1,0 +1,1235 @@
+{
+  "matchups": {
+    "counter": {
+      "incomingMultiplier": 0.5,
+      "maxReturnsPerCycle": 1,
+      "defaultCoverage": {
+        "melee": {
+          "camps": [
+            "physical"
+          ],
+          "ranges": [
+            "melee"
+          ],
+          "targeting": [
+            "single"
+          ],
+          "maneuvers": [
+            "attack",
+            "smash"
+          ],
+          "effects": [
+            "damage"
+          ]
+        },
+        "ranged": {
+          "camps": [
+            "physical"
+          ],
+          "ranges": [
+            "reach",
+            "ranged"
+          ],
+          "targeting": [
+            "single"
+          ],
+          "effects": [
+            "damage"
+          ]
+        },
+        "spell": {
+          "camps": [
+            "spell"
+          ],
+          "ranges": [
+            "melee",
+            "reach",
+            "ranged"
+          ],
+          "targeting": [
+            "single"
+          ],
+          "effects": [
+            "damage",
+            "status"
+          ]
+        }
+      },
+      "schoolStrongMultiplier": 1.25,
+      "schoolWeakMultiplier": 0.75,
+      "schoolMatchups": {
+        "fire": {
+          "strongSchools": [
+            "frost"
+          ],
+          "weakDamageTypes": [
+            "blunt"
+          ]
+        },
+        "frost": {
+          "strongRanges": [
+            "melee"
+          ],
+          "weakSchools": [
+            "fire"
+          ],
+          "weakTraits": [
+            "shattering"
+          ]
+        },
+        "lightning": {
+          "strongTraits": [
+            "conductive"
+          ],
+          "weakTraits": [
+            "grounded"
+          ]
+        },
+        "force": {
+          "strongTraits": [
+            "projectile"
+          ],
+          "weakTraits": [
+            "mental",
+            "statusOnly"
+          ]
+        },
+        "alteration": {},
+        "illusion": {
+          "strongTargeting": [
+            "single"
+          ],
+          "weakTargeting": [
+            "area"
+          ],
+          "weakTraits": [
+            "reveal",
+            "mindless"
+          ]
+        },
+        "divine": {
+          "strongSchools": [
+            "decay"
+          ],
+          "weakDamageTypes": [
+            "blunt"
+          ]
+        },
+        "decay": {
+          "strongTraits": [
+            "healing",
+            "protective"
+          ]
+        },
+        "earth": {}
+      }
+    },
+    "attack": {
+      "smashMultiplier": 1.25,
+      "preparedPoiseMultiplier": 1.5
+    },
+    "smash": {
+      "defendedMultiplier": 1.5,
+      "guardBreakPoiseBonus": 3
+    },
+    "defend": {
+      "sweepMultiplier": 0.75,
+      "turnStartProtection": 1
+    },
+    "evade": {
+      "die": 20,
+      "baseDC": 8,
+      "armorPenalty": {
+        "light": 1,
+        "medium": 2,
+        "heavy": 3
+      },
+      "areaDifficulty": {
+        "melee": 0,
+        "reach": 2,
+        "ranged": 4
+      }
+    },
+    "distance": {
+      "reachChance": 20,
+      "rangedChance": 35,
+      "maximumBaseChance": 50
+    },
+    "reactionLocks": [
+      "sleep",
+      "paralysis",
+      "dazed"
+    ],
+    "damageAliases": {
+      "frost": "cold",
+      "arcane": "force",
+      "sacred": "holy",
+      "decay": "necrotic",
+      "pierce": "piercing",
+      "bludgeoning": "blunt"
+    },
+    "damageRiders": {
+      "blunt": {
+        "poise": 2
+      },
+      "piercing": {
+        "guardBypass": 2
+      },
+      "slashing": {
+        "status": "bleed",
+        "pressure": 4,
+        "recoveryProfile": "bodily",
+        "requiresHpLoss": true
+      },
+      "cold": {
+        "status": "frost",
+        "pressure": 3,
+        "recoveryProfile": "elemental",
+        "requiresHpLoss": true
+      },
+      "fire": {
+        "status": "burn",
+        "pressure": 4,
+        "recoveryProfile": "elemental",
+        "requiresHpLoss": true
+      },
+      "lightning": {
+        "status": "paralysis",
+        "pressure": 3,
+        "recoveryProfile": "elemental",
+        "requiresHpLoss": true
+      },
+      "necrotic": {
+        "status": "necroticBlight",
+        "pressure": 4,
+        "recoveryProfile": "curse",
+        "requiresHpLoss": true
+      },
+      "holy": {
+        "cleanse": 1,
+        "requiresHpLoss": true
+      },
+      "poison": {
+        "status": "venom",
+        "pressure": 4,
+        "recoveryProfile": "bodily",
+        "requiresHpLoss": true
+      },
+      "psychic": {
+        "status": "confused",
+        "pressure": 3,
+        "recoveryProfile": "mental",
+        "requiresHpLoss": true
+      },
+      "earth": {
+        "status": "slowed",
+        "pressure": 4,
+        "recoveryProfile": "elemental",
+        "requiresHpLoss": true
+      }
+    },
+    "tagRiders": {
+      "precision": {
+        "guardBypass": 4
+      },
+      "gorefire": {
+        "status": "burn",
+        "pressure": 4,
+        "recoveryProfile": "elemental",
+        "requiresHpLoss": true
+      }
+    },
+    "cleanseStatuses": [
+      "weak",
+      "frail",
+      "vulnerable",
+      "crimsonBlight",
+      "necroticBlight",
+      "burn"
+    ]
+  },
+  "statuses": {
+    "version": 2,
+    "recovery": {
+      "base": 30,
+      "minimum": 5,
+      "maximum": 80,
+      "stackPenalty": 10,
+      "pendingRemoval": 0.25
+    },
+    "profiles": {
+      "bodily": {
+        "constitution": 1,
+        "wisdom": 0,
+        "intelligence": 0
+      },
+      "elemental": {
+        "constitution": 0.5,
+        "wisdom": 0,
+        "intelligence": 0.5
+      },
+      "mental": {
+        "constitution": 0,
+        "wisdom": 0.75,
+        "intelligence": 0.25
+      },
+      "curse": {
+        "constitution": 0,
+        "wisdom": 0.5,
+        "intelligence": 0.5
+      }
+    },
+    "statuses": {
+      "bleed": {
+        "camp": "physical",
+        "profile": "bodily",
+        "activeStatus": "bleeding",
+        "initialThreshold": 7,
+        "activeThreshold": 7,
+        "cap": 3,
+        "chanceRecovery": true
+      },
+      "venom": {
+        "camp": "physical",
+        "profile": "bodily",
+        "activeStatus": "venom",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true
+      },
+      "frost": {
+        "camp": "spell",
+        "profile": "elemental",
+        "activeStatus": "frozen",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true,
+        "grants": {
+          "chilled": 1
+        }
+      },
+      "burn": {
+        "camp": "spell",
+        "profile": "elemental",
+        "activeStatus": "burn",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true
+      },
+      "crimsonBlight": {
+        "camp": "spell",
+        "profile": "curse",
+        "activeStatus": "crimsonBlight",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true
+      },
+      "necroticBlight": {
+        "camp": "spell",
+        "profile": "curse",
+        "activeStatus": "necroticBlight",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": false
+      },
+      "paralysis": {
+        "camp": "spell",
+        "profile": "elemental",
+        "activeStatus": "paralysis",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true,
+        "lock": true,
+        "recoveryCost": 3
+      },
+      "sleep": {
+        "camp": "spell",
+        "profile": "mental",
+        "activeStatus": "sleep",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true,
+        "lock": true,
+        "recoveryCost": 2
+      },
+      "dazed": {
+        "camp": "physical",
+        "profile": "bodily",
+        "activeStatus": "dazed",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true,
+        "lock": true,
+        "recoveryCost": 1
+      },
+      "weak": {
+        "camp": "physical",
+        "profile": "bodily",
+        "activeStatus": "weak",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true
+      },
+      "vulnerable": {
+        "camp": "physical",
+        "profile": "bodily",
+        "activeStatus": "vulnerable",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true
+      },
+      "offBalance": {
+        "camp": "physical",
+        "profile": "bodily",
+        "activeStatus": "offBalance",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true
+      },
+      "confused": {
+        "camp": "spell",
+        "profile": "mental",
+        "activeStatus": "confused",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true
+      },
+      "slowed": {
+        "camp": "spell",
+        "profile": "elemental",
+        "activeStatus": "slowed",
+        "initialThreshold": 6,
+        "activeThreshold": 4,
+        "cap": 3,
+        "chanceRecovery": true
+      }
+    },
+    "sleep": {
+      "status": "sleep",
+      "hpPerStack": 2,
+      "hpCombatCap": 6,
+      "wardCombatCap": 1,
+      "damagePercentPerStack": 10
+    },
+    "prone": {
+      "status": "prone",
+      "meleePercent": 25,
+      "rangedSinglePercent": -25,
+      "reachEvade": 2,
+      "rangedEvade": 4,
+      "standCost": 1
+    },
+    "frozen": {
+      "status": "frozen",
+      "actionLoss": 1
+    },
+    "interactions": {
+      "frostGauge": "frost",
+      "frozen": "frozen",
+      "chilled": "chilled",
+      "grounded": "grounded",
+      "paralysis": "paralysis",
+      "offBalance": "offBalance",
+      "decoy": "decoy",
+      "concealment": "concealed",
+      "chilledBluntPercent": 25
+    },
+    "restoration": {
+      "alterationCombatCap": 1
+    }
+  },
+  "ashenBlight": {
+    "version": 1,
+    "maximum": 100,
+    "thresholdLossPct": 90,
+    "encounterLossPct": 5,
+    "convertedActionDiscount": 1,
+    "convertedPrintedBonusPct": 25,
+    "milestones": [
+      25,
+      50,
+      75
+    ]
+  },
+  "equipment": {
+    "armour": {
+      "reaver:default": {
+        "armorClass": "medium",
+        "flat": {
+          "slashing": 1
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "reaver:vigil": {
+        "armorClass": "medium",
+        "flat": {
+          "frost": 1
+        }
+      },
+      "reaver:oathsworn": {
+        "armorClass": "medium",
+        "flat": {
+          "slashing": 1,
+          "decay": 1
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "reaver:warden": {
+        "armorClass": "heavy",
+        "flat": {
+          "slashing": 2,
+          "piercing": 1
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "reaver:bastion": {
+        "armorClass": "heavy",
+        "flat": {
+          "blunt": 1,
+          "slashing": 2
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "starseer:default": {
+        "armorClass": "light",
+        "flat": {
+          "frost": 1
+        }
+      },
+      "starseer:eclipse": {
+        "armorClass": "light",
+        "flat": {
+          "arcane": 1
+        },
+        "traits": {
+          "buildupResistance": {
+            "sleep": 10
+          }
+        }
+      },
+      "starseer:starlit": {
+        "armorClass": "light",
+        "flat": {
+          "frost": 1
+        },
+        "traits": {
+          "insulated": true
+        }
+      },
+      "starseer:astral": {
+        "armorClass": "light",
+        "flat": {
+          "arcane": 1,
+          "frost": 1
+        },
+        "traits": {
+          "buildupResistance": {
+            "dazed": 10
+          }
+        }
+      },
+      "starseer:rimeweave": {
+        "armorClass": "light",
+        "flat": {
+          "frost": 2
+        },
+        "traits": {
+          "buildupResistance": {
+            "frost": 15
+          }
+        }
+      },
+      "herald:default": {
+        "armorClass": "medium",
+        "flat": {
+          "decay": 1
+        }
+      },
+      "herald:ossuary": {
+        "armorClass": "medium",
+        "flat": {
+          "decay": 1
+        },
+        "traits": {
+          "buildupResistance": {
+            "crimsonBlight": 15,
+            "necroticBlight": 15
+          }
+        }
+      },
+      "herald:emberhabit": {
+        "armorClass": "light",
+        "flat": {
+          "fire": 1
+        },
+        "traits": {
+          "buildupResistance": {
+            "burn": 15
+          }
+        }
+      },
+      "herald:pilgrim": {
+        "armorClass": "medium",
+        "flat": {
+          "sacred": 1
+        },
+        "traits": {
+          "recoveryBonus": {
+            "curse": 5
+          }
+        }
+      },
+      "rogue:default": {
+        "armorClass": "light",
+        "flat": {
+          "piercing": 1
+        }
+      },
+      "rogue:nightveil": {
+        "armorClass": "light",
+        "flat": {
+          "piercing": 1
+        },
+        "traits": {
+          "buildupResistance": {
+            "sleep": 10
+          }
+        }
+      },
+      "rogue:duelist": {
+        "armorClass": "light",
+        "flat": {
+          "slashing": 1
+        },
+        "traits": {
+          "recoveryBonus": {
+            "bodily": 5
+          }
+        }
+      },
+      "rogue:shadow": {
+        "armorClass": "light",
+        "flat": {
+          "piercing": 1
+        },
+        "traits": {
+          "buildupResistance": {
+            "venom": 15
+          }
+        }
+      },
+      "rogue:waywatcher": {
+        "armorClass": "light",
+        "flat": {
+          "piercing": 1
+        },
+        "traits": {
+          "insulated": true
+        }
+      }
+    },
+    "sharedArmour": {
+      "wayfarerPlate": {
+        "armorClass": "heavy",
+        "flat": {
+          "slashing": 1,
+          "piercing": 1
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "nightweave": {
+        "armorClass": "light",
+        "flat": {
+          "frost": 1
+        },
+        "traits": {
+          "recoveryBonus": {
+            "mental": 5
+          }
+        }
+      },
+      "riteVestments": {
+        "armorClass": "medium",
+        "flat": {
+          "sacred": 1
+        },
+        "traits": {
+          "buildupResistance": {
+            "weak": 10
+          }
+        }
+      },
+      "gutterLeathers": {
+        "armorClass": "light",
+        "flat": {
+          "piercing": 1
+        },
+        "traits": {
+          "buildupResistance": {
+            "venom": 10
+          }
+        }
+      }
+    },
+    "armaments": {
+      "straightSword": {
+        "traits": {
+          "conductive": true
+        }
+      },
+      "greatsword": {
+        "traits": {
+          "conductive": true
+        }
+      },
+      "dagger": {
+        "traits": {
+          "conductive": true
+        }
+      },
+      "katana": {
+        "traits": {
+          "conductive": true
+        }
+      },
+      "halberd": {
+        "traits": {
+          "conductive": true
+        }
+      },
+      "warhammer": {
+        "traits": {
+          "conductive": true
+        }
+      },
+      "twinblade": {
+        "traits": {
+          "conductive": true
+        }
+      },
+      "battleaxe": {
+        "traits": {
+          "conductive": true
+        }
+      },
+      "buckler": {
+        "flat": {
+          "piercing": 1
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "kiteShield": {
+        "flat": {
+          "slashing": 1
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "towerShield": {
+        "flat": {
+          "piercing": 1,
+          "slashing": 1
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "roundShield": {
+        "flat": {
+          "piercing": 1
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "spikedShield": {
+        "flat": {
+          "slashing": 1
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "parryDagger": {
+        "traits": {
+          "conductive": true
+        }
+      },
+      "shortbow": {},
+      "lantern": {
+        "flat": {
+          "decay": 1
+        }
+      },
+      "torch": {
+        "flat": {
+          "frost": 1
+        }
+      },
+      "ashStaff": {
+        "traits": {
+          "caster": true
+        }
+      },
+      "starstoneStaff": {
+        "traits": {
+          "caster": true,
+          "conductive": true
+        }
+      },
+      "boneSceptre": {
+        "traits": {
+          "caster": true
+        }
+      },
+      "emberlightSceptre": {
+        "traits": {
+          "caster": true,
+          "insulated": true
+        }
+      },
+      "goldboughBranch": {
+        "traits": {
+          "caster": true,
+          "grounded": true
+        }
+      },
+      "blightRod": {
+        "traits": {
+          "caster": true
+        }
+      },
+      "gorefireBrand": {
+        "traits": {
+          "caster": true,
+          "conductive": true
+        }
+      },
+      "wyrmhornStaff": {
+        "traits": {
+          "caster": true,
+          "insulated": true
+        }
+      },
+      "frostSpear": {
+        "traits": {
+          "conductive": true
+        },
+        "flat": {
+          "frost": 1
+        }
+      },
+      "cinderAxe": {
+        "traits": {
+          "conductive": true
+        },
+        "flat": {
+          "fire": 1
+        }
+      },
+      "duskChime": {
+        "traits": {
+          "caster": true,
+          "conductive": true
+        }
+      }
+    },
+    "enemies": {
+      "wanderingSoldier": {
+        "armorClass": "medium",
+        "weak": {
+          "blunt": 25,
+          "fire": 25
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "blightHound": {
+        "armorClass": "light",
+        "weak": {
+          "slashing": 25,
+          "fire": 25
+        }
+      },
+      "huskBrute": {
+        "armorClass": "medium",
+        "weak": {
+          "blunt": 25,
+          "sacred": 25
+        },
+        "traits": {
+          "mindless": true
+        }
+      },
+      "graveWisp": {
+        "armorClass": "light",
+        "weak": {
+          "blunt": 25,
+          "sacred": 25
+        },
+        "traits": {
+          "caster": true
+        }
+      },
+      "wyrmAspirant": {
+        "armorClass": "heavy",
+        "weak": {
+          "piercing": 25,
+          "frost": 25
+        },
+        "traits": {
+          "conductive": true,
+          "caster": true
+        }
+      },
+      "fellWarden": {
+        "armorClass": "medium",
+        "weak": {
+          "blunt": 25,
+          "sacred": 25
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "lanternMoth": {
+        "armorClass": "light",
+        "weak": {
+          "piercing": 25,
+          "frost": 25
+        },
+        "traits": {
+          "caster": true
+        }
+      },
+      "briarHermit": {
+        "armorClass": "light",
+        "weak": {
+          "slashing": 25,
+          "fire": 25
+        },
+        "traits": {
+          "caster": true
+        }
+      },
+      "chainScavenger": {
+        "armorClass": "medium",
+        "weak": {
+          "blunt": 25,
+          "frost": 25
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "bellKeeper": {
+        "armorClass": "heavy",
+        "weak": {
+          "blunt": 25,
+          "frost": 25
+        },
+        "traits": {
+          "buildupResistance": {
+            "venom": 50
+          },
+          "conductive": true,
+          "mindless": true
+        }
+      },
+      "thornMatriarch": {
+        "armorClass": "medium",
+        "weak": {
+          "slashing": 25,
+          "fire": 25
+        },
+        "resist": {
+          "earth": 50
+        },
+        "traits": {
+          "caster": true
+        }
+      },
+      "gildedKnight": {
+        "armorClass": "heavy",
+        "weak": {
+          "blunt": 25,
+          "decay": 25
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "courtSurgeon": {
+        "armorClass": "light",
+        "weak": {
+          "piercing": 25,
+          "fire": 25
+        },
+        "traits": {
+          "caster": true
+        }
+      },
+      "stitchedHound": {
+        "armorClass": "medium",
+        "weak": {
+          "slashing": 25,
+          "sacred": 25
+        },
+        "traits": {
+          "mindless": true
+        }
+      },
+      "courtMarionette": {
+        "armorClass": "light",
+        "weak": {
+          "blunt": 25,
+          "fire": 25
+        },
+        "resist": {
+          "psychic": 50
+        },
+        "traits": {
+          "buildupResistance": {
+            "venom": 50
+          },
+          "mindless": true
+        }
+      },
+      "livingArmor": {
+        "armorClass": "heavy",
+        "flat": {
+          "slashing": 1
+        },
+        "weak": {
+          "blunt": 25,
+          "frost": 25
+        },
+        "traits": {
+          "buildupResistance": {
+            "venom": 50
+          },
+          "conductive": true,
+          "mindless": true
+        }
+      },
+      "courtDuelist": {
+        "armorClass": "light",
+        "weak": {
+          "blunt": 25,
+          "frost": 25
+        },
+        "traits": {
+          "conductive": true
+        }
+      },
+      "stitchedKing": {
+        "armorClass": "medium",
+        "weak": {
+          "slashing": 25,
+          "sacred": 25
+        },
+        "traits": {
+          "caster": true
+        }
+      },
+      "mirrorScribe": {
+        "armorClass": "light",
+        "weak": {
+          "blunt": 25,
+          "decay": 25
+        },
+        "traits": {
+          "caster": true,
+          "conductive": true
+        }
+      },
+      "stitchCrab": {
+        "armorClass": "heavy",
+        "weak": {
+          "blunt": 25,
+          "fire": 25
+        },
+        "traits": {
+          "mindless": true
+        }
+      },
+      "glassRegent": {
+        "armorClass": "heavy",
+        "flat": {
+          "piercing": 1
+        },
+        "weak": {
+          "blunt": 25,
+          "frost": 25
+        },
+        "traits": {
+          "buildupResistance": {
+            "venom": 50
+          },
+          "caster": true,
+          "mindless": true
+        }
+      },
+      "marrowOrganist": {
+        "armorClass": "light",
+        "weak": {
+          "blunt": 25,
+          "sacred": 25
+        },
+        "resist": {
+          "decay": 50
+        },
+        "traits": {
+          "caster": true
+        }
+      },
+      "ashRevenant": {
+        "armorClass": "medium",
+        "weak": {
+          "blunt": 25,
+          "frost": 25
+        }
+      },
+      "emberStarvedPilgrim": {
+        "armorClass": "light",
+        "weak": {
+          "slashing": 25,
+          "frost": 25
+        }
+      },
+      "valkyrieShade": {
+        "armorClass": "light",
+        "weak": {
+          "piercing": 25,
+          "sacred": 25
+        },
+        "traits": {
+          "caster": true
+        }
+      },
+      "charredColossus": {
+        "armorClass": "heavy",
+        "flat": {
+          "slashing": 1
+        },
+        "weak": {
+          "blunt": 25,
+          "frost": 25
+        },
+        "resist": {
+          "fire": 50
+        },
+        "traits": {
+          "buildupResistance": {
+            "venom": 50
+          },
+          "mindless": true
+        }
+      },
+      "wyrmLord": {
+        "armorClass": "heavy",
+        "weak": {
+          "piercing": 25,
+          "frost": 25
+        },
+        "traits": {
+          "caster": true,
+          "conductive": true
+        }
+      },
+      "blightedValkyrie": {
+        "armorClass": "medium",
+        "weak": {
+          "piercing": 25,
+          "sacred": 25
+        },
+        "traits": {
+          "caster": true
+        }
+      },
+      "cinderMantis": {
+        "armorClass": "light",
+        "weak": {
+          "blunt": 25,
+          "frost": 25
+        }
+      },
+      "eclipseCantor": {
+        "armorClass": "light",
+        "weak": {
+          "slashing": 25,
+          "sacred": 25
+        },
+        "traits": {
+          "caster": true
+        }
+      },
+      "furnaceSaint": {
+        "armorClass": "heavy",
+        "weak": {
+          "blunt": 25,
+          "frost": 25
+        },
+        "traits": {
+          "buildupResistance": {
+            "venom": 50
+          },
+          "conductive": true,
+          "mindless": true
+        }
+      },
+      "hollowAstronomer": {
+        "armorClass": "light",
+        "weak": {
+          "piercing": 25,
+          "sacred": 25
+        },
+        "traits": {
+          "caster": true
+        }
+      },
+      "ashheartDragon": {
+        "armorClass": "heavy",
+        "flat": {
+          "slashing": 1
+        },
+        "weak": {
+          "piercing": 25,
+          "frost": 25
+        },
+        "resist": {
+          "fire": 25
+        },
+        "traits": {
+          "caster": true
+        }
+      }
+    }
+  }
+}

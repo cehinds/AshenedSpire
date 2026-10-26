@@ -1,0 +1,63 @@
+{
+  "$id": "profile/content/rests.json",
+  "type": "object",
+  "properties": {
+    "recovery": {
+      "type": "object",
+      "properties": {
+        "healingFlasks": {
+          "type": "string"
+        },
+        "hp": {
+          "type": "string"
+        },
+        "mp": {
+          "type": "string"
+        },
+        "mpFlasks": {
+          "type": "string"
+        },
+        "sp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "healingFlasks",
+        "hp",
+        "mp",
+        "mpFlasks",
+        "sp"
+      ]
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "servicesPerVisit": {
+      "type": "string"
+    },
+    "smith": {
+      "type": "object",
+      "properties": {
+        "free": {
+          "type": "boolean"
+        },
+        "tiersPerService": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "free",
+        "tiersPerService"
+      ]
+    }
+  },
+  "required": [
+    "recovery",
+    "services",
+    "servicesPerVisit",
+    "smith"
+  ]
+}

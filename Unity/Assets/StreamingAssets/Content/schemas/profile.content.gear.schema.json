@@ -1,0 +1,137 @@
+{
+  "$id": "profile/content/gear.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "properties": {
+      "classes": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "herald",
+            "reaver",
+            "rogue",
+            "starseer"
+          ]
+        }
+      },
+      "grantedCards": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "card": {
+              "type": "string"
+            },
+            "copies": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "card",
+            "copies"
+          ]
+        }
+      },
+      "id": {
+        "type": "string"
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "armor",
+          "shield",
+          "staff",
+          "weapon"
+        ]
+      },
+      "name": {
+        "type": "string"
+      },
+      "points": {
+        "type": "object",
+        "properties": {
+          "constitution": {
+            "type": "integer"
+          },
+          "dexterity": {
+            "type": "integer"
+          },
+          "dr": {
+            "type": "integer"
+          },
+          "intelligence": {
+            "type": "integer"
+          },
+          "strength": {
+            "type": "integer"
+          },
+          "wisdom": {
+            "type": "integer"
+          }
+        }
+      },
+      "range": {
+        "type": "string",
+        "enum": [
+          "melee",
+          "ranged",
+          "reach"
+        ]
+      },
+      "rarity": {
+        "type": "string",
+        "enum": [
+          "common",
+          "rare",
+          "uncommon"
+        ]
+      },
+      "slot": {
+        "type": "string",
+        "enum": [
+          "armor",
+          "leftHand",
+          "rightHand"
+        ]
+      },
+      "source": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "enum": [
+              "content/source/outfits.csv",
+              "content/source/weapons.csv"
+            ]
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "file",
+          "id"
+        ]
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "points",
+      "rarity",
+      "slot",
+      "source",
+      "tags"
+    ]
+  }
+}

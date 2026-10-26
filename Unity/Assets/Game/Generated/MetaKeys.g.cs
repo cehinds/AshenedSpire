@@ -13,5 +13,7 @@ namespace Ashen.Generated
         public const string Icon = "icon";
         public const string Order = "order";
         public const string Abandoned = "abandoned";
+        public const string ProfileId = "profileId";
+        public const string ProfileHash = "profileHash";
     }
 }

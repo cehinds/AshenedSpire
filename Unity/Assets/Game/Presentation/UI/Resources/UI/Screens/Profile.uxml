@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Front.uss" />
+    <ui:VisualElement class="page page--center">
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="compendium-shell" title-key="profile.title" eyebrow-key="profile.eyebrow">
+            <Ashen.Presentation.UI.Kit.Workspace name="WORKSPACE" class="creation-workspace">
+                <ui:ScrollView name="PROFILE_SCROLL" class="profile-scroll">
+                    <ui:VisualElement name="PROFILE_PANE" class="profile-pane" />
+                </ui:ScrollView>
+            </Ashen.Presentation.UI.Kit.Workspace>
+        </Ashen.Presentation.UI.Kit.Shell>
+    </ui:VisualElement>
+</ui:UXML>

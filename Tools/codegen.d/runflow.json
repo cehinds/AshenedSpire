@@ -58,7 +58,10 @@
         "Key": "key",
         "Screens": "screens",
         "Steps": "steps",
-        "Ref": "ref"
+        "Ref": "ref",
+        "Ruleset": "ruleset",
+        "Core2Screens": "core2Screens",
+        "Opening": "opening"
       }
     },
     {
@@ -122,7 +125,9 @@
         "OptionExtract": "extract",
         "OptionInstall": "install",
         "OptionFlasks": "flasks",
-        "OptionLevel": "level"
+        "OptionLevel": "level",
+        "RulesetLegacy": "legacy",
+        "RulesetCore2": "core2"
       }
     },
     {
@@ -142,7 +147,9 @@
         "NotAtRest": "run: the run is not at a rest place",
         "NotAtNode": "run: the run is not at a {0}",
         "RestResumeDrift": "run: the rest place re-opened on other stream counters than the save holds; it resumed on the saved counters",
-        "NoEventChoice": "run: event '{0}' offers no open choice"
+        "NoEventChoice": "run: event '{0}' offers no open choice",
+        "UnknownRuleset": "run: unknown ruleset '{0}'",
+        "ClassLocked": "run: class '{0}' is still locked in the profile"
       }
     }
   ]

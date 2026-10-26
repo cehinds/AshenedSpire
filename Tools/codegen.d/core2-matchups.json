@@ -1,0 +1,87 @@
+{
+  "comment": "Keys, values, messages and numbers of the Core 2 matchups (WP-8, docs/design/11): the Counter's arm, coverage and reply, the Guard break of a Smash, Smash against a spell stance, Ward damage and the round-start decay of Evade, plus the Counter events and the messages for the pieces that arrive with later work packages.",
+  "keySets": [
+    {
+      "name": "Core2MatchupKeys",
+      "doc": "Keys the Core 2 matchups read and write: the Counter's rules and receipt fields, the stance rules' matchup rows, the Counter events.",
+      "keys": {
+        "AdvantageBlockFraction": "advantageBlockFraction",
+        "AdvantageIncomingFraction": "advantageIncomingFraction",
+        "AdvantagePoiseFraction": "advantagePoiseFraction",
+        "BreakPoiseBonus": "breakPoiseBonus",
+        "CombatCounterReturnedCycle": "combatCounterReturnedCycle",
+        "CombatWardEdgeApplied": "combatWardEdgeApplied",
+        "CounterBroken": "counterBroken",
+        "CounterDefaults": "counterDefaults",
+        "DamageTypesSuffix": "DamageTypes",
+        "DefenseKept": "defenseKept",
+        "ExcludedTraits": "excludedTraits",
+        "GuardBefore": "guardBefore",
+        "GuardBreakPoiseBonus": "guardBreakPoiseBonus",
+        "HpRating": "hpRating",
+        "Lineage": "lineage",
+        "ManualCounterSerial": "manualCounterSerial",
+        "PoiseFraction": "poiseFraction",
+        "RangeLineage": "rangeLineage",
+        "RangeLineagePlan": "rangeLineagePlan",
+        "RangeReturnPlan": "plan",
+        "RangesSuffix": "Ranges",
+        "RequiredTraits": "requiredTraits",
+        "ReturnFraction": "returnFraction",
+        "RoundStartDecay": "roundStartDecay",
+        "SchoolEffect": "schoolEffect",
+        "SchoolMatchups": "schoolMatchups",
+        "SchoolStrongMultiplier": "schoolStrongMultiplier",
+        "SchoolWeakMultiplier": "schoolWeakMultiplier",
+        "SchoolsSuffix": "Schools",
+        "SectionMatchups": "matchups",
+        "Smash": "smash",
+        "SourceKind": "sourceKind",
+        "SpellSmashWardShare": "spellSmashWardShare",
+        "StanceTrigger": "stanceTrigger",
+        "StrongPrefix": "strong",
+        "TargetingSuffix": "Targeting",
+        "TraitsSuffix": "Traits",
+        "UpcastTier": "upcastTier",
+        "WardOnly": "wardOnly",
+        "WeakPrefix": "weak"
+      }
+    },
+    {
+      "name": "Core2MatchupValues",
+      "doc": "Values the Core 2 matchups compare or write: the effect kinds a Counter covers, the Counter and Guard-break events, the traits and statuses the reply reads.",
+      "keys": {
+        "DamagePiercing": "piercing",
+        "EffectDamage": "damage",
+        "EffectStatus": "status",
+        "EventCombatCounterConsumed": "combatCounterConsumed",
+        "EventCombatCounterTriggered": "combatCounterTriggered",
+        "EventCombatGuardBroken": "combatGuardBroken",
+        "EventCombatRangeReturnUnavailable": "combatRangeReturnUnavailable",
+        "ReasonRoundStart": "roundStart",
+        "ReasonStamina": "stamina",
+        "SourceCounter": "counter",
+        "TraitUnreflectable": "unreflectable"
+      }
+    },
+    {
+      "name": "Core2MatchupMessages",
+      "doc": "Messages of the Core 2 matchups.",
+      "keys": {
+        "AllocationNeedsWeight": "allocation requires positive total weight",
+        "LegacyCounterNotPorted": "Core 2 combat: the legacy Counter return is not part of a Core 2 run",
+        "WardNotPorted": "Core 2 combat: Ward is off in a Core 2 run"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "Core2MatchupNumbers",
+      "type": "double",
+      "doc": "Numbers of the Core 2 matchups.",
+      "values": {
+        "PiercingWardEdge": "1.25"
+      }
+    }
+  ]
+}

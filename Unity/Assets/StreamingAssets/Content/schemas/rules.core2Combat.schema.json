@@ -1,0 +1,1180 @@
+{
+  "$id": "rules/core2Combat.json",
+  "type": "object",
+  "properties": {
+    "actionStances": {
+      "type": "object",
+      "properties": {
+        "byKind": {
+          "type": "object",
+          "properties": {
+            "attack": {
+              "type": "string"
+            },
+            "counter": {
+              "type": "string"
+            },
+            "evade": {
+              "type": "string"
+            },
+            "guard": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "attack",
+            "counter",
+            "evade",
+            "guard"
+          ]
+        },
+        "byTag": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "stance": {
+                "type": "string",
+                "enum": [
+                  "attack",
+                  "block",
+                  "cast",
+                  "counter",
+                  "smash",
+                  "sweep"
+                ]
+              },
+              "tags": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "camp:spell",
+                    "maneuver:attack",
+                    "maneuver:casting",
+                    "maneuver:counter",
+                    "maneuver:defend",
+                    "maneuver:ranged",
+                    "maneuver:smash",
+                    "maneuver:sweep"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "stance",
+              "tags"
+            ]
+          }
+        }
+      },
+      "required": [
+        "byKind",
+        "byTag"
+      ]
+    },
+    "classification": {
+      "type": "object",
+      "properties": {
+        "cardKindClassifications": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cardKindTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nonPreparingKinds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nonPreparingTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "cardKindClassifications",
+        "cardKindTypes",
+        "nonPreparingKinds",
+        "nonPreparingTypes"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "costs": {
+      "type": "object",
+      "properties": {
+        "defaultMaxStances": {
+          "type": "integer"
+        },
+        "growthMax": {
+          "type": "integer"
+        },
+        "poiseLine": {
+          "type": "string"
+        },
+        "reactionDefaults": {
+          "type": "object",
+          "properties": {
+            "handCostDiscount": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "handCostDiscount"
+          ]
+        },
+        "scaleFromSp": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "defaultMaxStances",
+        "growthMax",
+        "poiseLine",
+        "reactionDefaults",
+        "scaleFromSp"
+      ]
+    },
+    "counter": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version"
+      ]
+    },
+    "counterCoverage": {
+      "type": "object",
+      "properties": {
+        "meleeManeuvers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "meleeRanges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "physicalEffects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rangedRanges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "spellEffects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "spellRanges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "targeting": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "meleeManeuvers",
+        "meleeRanges",
+        "physicalEffects",
+        "rangedRanges",
+        "spellEffects",
+        "spellRanges",
+        "targeting"
+      ]
+    },
+    "damage": {
+      "type": "object",
+      "properties": {
+        "damageTypeAliases": {
+          "type": "object",
+          "properties": {
+            "cold": {
+              "type": "string"
+            },
+            "force": {
+              "type": "string"
+            },
+            "holy": {
+              "type": "string"
+            },
+            "necrotic": {
+              "type": "string"
+            },
+            "pierce": {
+              "type": "string"
+            },
+            "slash": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "cold",
+            "force",
+            "holy",
+            "necrotic",
+            "pierce",
+            "slash"
+          ]
+        },
+        "meleeReaches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "physicalSchool": {
+          "type": "string"
+        },
+        "schoolTagPrefix": {
+          "type": "string"
+        },
+        "smashVsDefensive": {
+          "type": "object",
+          "properties": {
+            "blockFraction": {
+              "type": "number"
+            },
+            "damageMultiplier": {
+              "type": "integer"
+            },
+            "poiseFraction": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "blockFraction",
+            "damageMultiplier",
+            "poiseFraction"
+          ]
+        },
+        "staggerLimit": {
+          "type": "integer"
+        },
+        "staggered": {
+          "type": "object",
+          "properties": {
+            "extendOnly": {
+              "type": "boolean"
+            },
+            "staminaLoss": {
+              "type": "integer"
+            },
+            "stance": {
+              "type": "boolean"
+            },
+            "vulnerableStacks": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "extendOnly",
+            "staminaLoss",
+            "stance",
+            "vulnerableStacks"
+          ]
+        }
+      },
+      "required": [
+        "damageTypeAliases",
+        "meleeReaches",
+        "physicalSchool",
+        "schoolTagPrefix",
+        "smashVsDefensive",
+        "staggerLimit",
+        "staggered"
+      ]
+    },
+    "enemies": {
+      "type": "object",
+      "properties": {
+        "fillGuard": {
+          "type": "integer"
+        },
+        "hash": {
+          "type": "object",
+          "properties": {
+            "lcgIncrement": {
+              "type": "integer"
+            },
+            "lcgMultiplier": {
+              "type": "integer"
+            },
+            "multiplier": {
+              "type": "integer"
+            },
+            "seed": {
+              "type": "integer"
+            },
+            "shift": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "lcgIncrement",
+            "lcgMultiplier",
+            "multiplier",
+            "seed",
+            "shift"
+          ]
+        },
+        "modifierEquals": {
+          "type": "string"
+        },
+        "modifierPrefix": {
+          "type": "string"
+        },
+        "modifierSigns": {
+          "type": "string"
+        },
+        "poolMods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "varianceAmong": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "fillGuard",
+        "hash",
+        "modifierEquals",
+        "modifierPrefix",
+        "modifierSigns",
+        "poolMods",
+        "varianceAmong"
+      ]
+    },
+    "enemyPressure": {
+      "type": "object",
+      "properties": {
+        "bleed": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        },
+        "crimsonBlight": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        },
+        "frail": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        },
+        "frost": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        },
+        "insanity": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        },
+        "weak": {
+          "type": "object",
+          "properties": {
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "recoveryProfile",
+            "status"
+          ]
+        }
+      },
+      "required": [
+        "bleed",
+        "crimsonBlight",
+        "frail",
+        "frost",
+        "insanity",
+        "weak"
+      ]
+    },
+    "equipment": {
+      "type": "object",
+      "properties": {
+        "drawStat": {
+          "type": "string"
+        },
+        "poolStats": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "drawStat",
+        "poolStats"
+      ]
+    },
+    "formation": {
+      "type": "object",
+      "properties": {
+        "enemiesPerLane": {
+          "type": "integer"
+        },
+        "enemiesPerLaneExtra": {
+          "type": "integer"
+        },
+        "enemyBackColumn": {
+          "type": "integer"
+        },
+        "enemyFrontColumn": {
+          "type": "integer"
+        },
+        "extraColumn": {
+          "type": "integer"
+        },
+        "lanes": {
+          "type": "integer"
+        },
+        "maxRows": {
+          "type": "integer"
+        },
+        "playerColumn": {
+          "type": "integer"
+        },
+        "rows": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "enemiesPerLane",
+        "enemiesPerLaneExtra",
+        "enemyBackColumn",
+        "enemyFrontColumn",
+        "extraColumn",
+        "lanes",
+        "maxRows",
+        "playerColumn",
+        "rows"
+      ]
+    },
+    "hand": {
+      "type": "object",
+      "properties": {
+        "defaultAttribute": {
+          "type": "string"
+        },
+        "defaultBase": {
+          "type": "integer"
+        },
+        "rowIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "defaultAttribute",
+        "defaultBase",
+        "rowIds"
+      ]
+    },
+    "hit": {
+      "type": "object",
+      "properties": {
+        "decoyRanges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "die": {
+          "type": "integer"
+        },
+        "naturalMiss": {
+          "type": "integer"
+        },
+        "percent": {
+          "type": "integer"
+        },
+        "proposalAccuracyDivisor": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "decoyRanges",
+        "die",
+        "naturalMiss",
+        "percent",
+        "proposalAccuracyDivisor"
+      ]
+    },
+    "matchups": {
+      "type": "object",
+      "properties": {
+        "counterDefaults": {
+          "type": "object",
+          "properties": {
+            "advantageBlockFraction": {
+              "type": "number"
+            },
+            "advantageIncomingFraction": {
+              "type": "number"
+            },
+            "advantagePoiseFraction": {
+              "type": "number"
+            },
+            "poiseFraction": {
+              "type": "number"
+            },
+            "returnFraction": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "advantageBlockFraction",
+            "advantageIncomingFraction",
+            "advantagePoiseFraction",
+            "poiseFraction",
+            "returnFraction"
+          ]
+        }
+      },
+      "required": [
+        "counterDefaults"
+      ]
+    },
+    "mechanics": {
+      "type": "object",
+      "properties": {
+        "actionCostsFamily": {
+          "type": "string"
+        },
+        "actionCostsKey": {
+          "type": "string"
+        },
+        "families": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "familyPrefix": {
+          "type": "string"
+        },
+        "familyTagPrefix": {
+          "type": "string"
+        },
+        "mountKinds": {
+          "type": "object",
+          "properties": {
+            "armament": {
+              "type": "string"
+            },
+            "armour": {
+              "type": "string"
+            },
+            "class": {
+              "type": "string"
+            },
+            "companion": {
+              "type": "string"
+            },
+            "feat": {
+              "type": "string"
+            },
+            "sigil": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "armament",
+            "armour",
+            "class",
+            "companion",
+            "feat",
+            "sigil"
+          ]
+        },
+        "protectionPrefix": {
+          "type": "string"
+        },
+        "registered": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "combat.accuracy",
+              "combat.actionCosts",
+              "combat.perception",
+              "combat.stance",
+              "combat.statuses",
+              "defense.poiseProtection",
+              "defense.wardProtection"
+            ]
+          }
+        },
+        "rulesOwner": {
+          "type": "string"
+        },
+        "wardTag": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "actionCostsFamily",
+        "actionCostsKey",
+        "families",
+        "familyPrefix",
+        "familyTagPrefix",
+        "mountKinds",
+        "protectionPrefix",
+        "registered",
+        "rulesOwner",
+        "wardTag"
+      ]
+    },
+    "perception": {
+      "type": "object",
+      "properties": {
+        "die": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "die"
+      ]
+    },
+    "plan": {
+      "type": "object",
+      "properties": {
+        "breakPoiseBonus": {
+          "type": "integer"
+        },
+        "carrierFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "moveSpFallback": {
+          "type": "integer"
+        },
+        "pressureScale": {
+          "type": "integer"
+        },
+        "queueMax": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "breakPoiseBonus",
+        "carrierFields",
+        "moveSpFallback",
+        "pressureScale",
+        "queueMax"
+      ]
+    },
+    "range": {
+      "type": "object",
+      "properties": {
+        "hands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "hands"
+      ]
+    },
+    "ratingIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "resistance": {
+      "type": "object",
+      "properties": {
+        "poisePool": {
+          "type": "integer"
+        },
+        "wardPool": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "poisePool",
+        "wardPool"
+      ]
+    },
+    "scripts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer"
+          },
+          "excludeScripted": {
+            "type": "boolean"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "registry": {
+            "type": "string"
+          },
+          "stream": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "count",
+          "excludeScripted",
+          "kind",
+          "registry",
+          "stream"
+        ]
+      }
+    },
+    "spellDefense": {
+      "type": "object",
+      "properties": {
+        "defaultWardShare": {
+          "type": "number"
+        },
+        "schools": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "defaultWardShare",
+        "schools"
+      ]
+    },
+    "traits": {
+      "type": "object",
+      "properties": {
+        "counterFluxWard": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "alterationCounter",
+              "barrageCounter",
+              "decayCounter",
+              "divineCounter",
+              "fireCounter",
+              "frostCounter",
+              "illusionCounter",
+              "lightningCounter",
+              "progression-rime-mirror",
+              "umbralWard",
+              "wardingStar"
+            ]
+          }
+        },
+        "counterImpactExcluded": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "counterImpactSpell": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "alterationCounter",
+              "forceCounter",
+              "frostCounter",
+              "illusionCounter",
+              "progression-rime-mirror",
+              "umbralWard"
+            ]
+          }
+        },
+        "counterNoStrike": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "acrobaticsRogue",
+              "backstep",
+              "barrageCounter",
+              "dodgeRoll",
+              "evasiveGuard",
+              "nockAndWait"
+            ]
+          }
+        },
+        "counterstrikeAmountOps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "block",
+              "buildup",
+              "damage",
+              "gainBarrier",
+              "gainPoise",
+              "gainWard",
+              "heal",
+              "poiseDamage",
+              "wardDamage"
+            ]
+          }
+        },
+        "defendBarrierEffects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defendImpactTier4": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "enemyDamageTargets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fallbackStrikeDamage": {
+          "type": "integer"
+        },
+        "fluxDamageTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fluxTier2": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "strikeCardId": {
+          "type": "string"
+        },
+        "sweepStrikeTier4": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "counterFluxWard",
+        "counterImpactExcluded",
+        "counterImpactSpell",
+        "counterNoStrike",
+        "counterstrikeAmountOps",
+        "defendBarrierEffects",
+        "defendImpactTier4",
+        "enemyDamageTargets",
+        "fallbackStrikeDamage",
+        "fluxDamageTypes",
+        "fluxTier2",
+        "strikeCardId",
+        "sweepStrikeTier4"
+      ]
+    },
+    "vocabulary": {
+      "type": "object",
+      "properties": {
+        "camps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "counterModes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "defensiveManeuvers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "legacyRanges": {
+          "type": "object",
+          "properties": {
+            "contact": {
+              "type": "string"
+            },
+            "far": {
+              "type": "string"
+            },
+            "near": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "contact",
+            "far",
+            "near"
+          ]
+        },
+        "maneuverAliases": {
+          "type": "object",
+          "properties": {
+            "cast": {
+              "type": "string"
+            },
+            "casting": {
+              "type": "string"
+            },
+            "ranged": {
+              "type": "string"
+            },
+            "spell": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "cast",
+            "casting",
+            "ranged",
+            "spell"
+          ]
+        },
+        "maneuvers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "attack",
+              "casting",
+              "counter",
+              "defend",
+              "ranged",
+              "smash",
+              "sweep"
+            ]
+          }
+        },
+        "martialStances": {
+          "type": "object",
+          "properties": {
+            "attack": {
+              "type": "string"
+            },
+            "counter": {
+              "type": "string"
+            },
+            "defend": {
+              "type": "string"
+            },
+            "smash": {
+              "type": "string"
+            },
+            "sweep": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "attack",
+            "counter",
+            "defend",
+            "smash",
+            "sweep"
+          ]
+        },
+        "mirroredTypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "offensiveManeuvers": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profileFields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ranges": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "schools": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "alteration",
+              "decay",
+              "divine",
+              "earth",
+              "fire",
+              "force",
+              "frost",
+              "illusion",
+              "lightning"
+            ]
+          }
+        },
+        "spellCamps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "targetings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "camps",
+        "counterModes",
+        "defensiveManeuvers",
+        "legacyRanges",
+        "maneuverAliases",
+        "maneuvers",
+        "martialStances",
+        "mirroredTypes",
+        "offensiveManeuvers",
+        "profileFields",
+        "ranges",
+        "schools",
+        "spellCamps",
+        "targetings"
+      ]
+    }
+  },
+  "required": [
+    "actionStances",
+    "classification",
+    "comment",
+    "costs",
+    "counter",
+    "counterCoverage",
+    "damage",
+    "enemies",
+    "enemyPressure",
+    "equipment",
+    "formation",
+    "hand",
+    "hit",
+    "matchups",
+    "mechanics",
+    "perception",
+    "plan",
+    "range",
+    "ratingIds",
+    "resistance",
+    "scripts",
+    "spellDefense",
+    "traits",
+    "vocabulary"
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "enabled": true,
+  "ward": {
+    "enabled": false
+  },
+  "defaultTags": [
+    "defense:wardProtection",
+    "defense:poiseProtection"
+  ],
+  "poise": {
+    "drain": "prevented"
+  },
+  "staggered": {
+    "stance": true,
+    "staminaLoss": 1,
+    "vulnerableStacks": 1,
+    "extendOnly": true
+  },
+  "counter": {
+    "returnFraction": 0.5,
+    "poiseFraction": 0.2,
+    "advantageIncomingFraction": 0.25,
+    "advantagePoiseFraction": 0.5,
+    "advantageBlockFraction": 0.25
+  },
+  "reaction": {
+    "handCostDiscount": 1
+  },
+  "smashVsDefensive": {
+    "damageMultiplier": 2,
+    "blockFraction": 0.25,
+    "poiseFraction": 0.5
+  },
+  "stance": {
+    "effectivenessMultiplier": 1.25,
+    "discount": 1,
+    "minimumCost": 1
+  },
+  "accuracy": {
+    "precisionWeights": {
+      "dex": 0.5,
+      "str": 0.1,
+      "wis": 0.2,
+      "int": 0.2,
+      "level": 1
+    },
+    "maneuverPrecision": {
+      "smash": 1,
+      "sweep": 1
+    },
+    "evasionVersion": 2,
+    "baseAC": 1,
+    "evadeStackBase": 1,
+    "evadeStackDex": 0,
+    "precisionBase": 1,
+    "evasionBase": 1,
+    "stanceMinimum": 1,
+    "stanceMaximum": 1.5,
+    "stanceAdvantageBonus": 0.25
+  },
+  "perception": {
+    "bonuses": [],
+    "baseDC": 5
+  },
+  "statuses": {
+    "staggerRiders": {
+      "weak": 0,
+      "vulnerable": 1
+    },
+    "overrides": {
+      "weak": {
+        "modifiers": {},
+        "stackMode": "add"
+      },
+      "vulnerable": {
+        "modifiers": {
+          "damageTakenMult": 1.25
+        },
+        "stackMode": "add"
+      },
+      "staggered": {
+        "modifiers": {},
+        "stackMode": "add"
+      }
+    },
+    "decayAmount": 1,
+    "weakARMultiplier": 0.75,
+    "vulnerabilityMultiplier": 1.25
+  },
+  "enemyHealBlockCost": 3,
+  "protectionParameters": {
+    "defense.poiseProtection": {
+      "multiplier": 0.75
+    },
+    "defense.wardProtection": {
+      "multiplier": 0.75
+    }
+  },
+  "range": {
+    "version": 1,
+    "enabled": true,
+    "advanceSpPerBand": 1,
+    "reachPrecisionBonus": 1,
+    "throwPrecisionPenalty": 1
+  }
+}

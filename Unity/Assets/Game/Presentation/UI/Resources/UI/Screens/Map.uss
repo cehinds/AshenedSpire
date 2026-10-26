@@ -1,0 +1,871 @@
+/* The act map (docs/design/04 W-06; web src/ui/screens/map.js, components/mapboard.js, styles/map.css; D-902). Every number is a token (tokens.json webSource.map). */
+
+/* ---- the HUD band: the combat board's (heart, the long HP line, relic pips, armoury and menu, cinders) ---- */
+
+/* ---- HUD: heart, the long HP line, relic pips, the turn ribbon, the armoury and menu buttons, cinders (combat-1920x1080.jpg top band) ---- */
+
+.board-hud {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: var(--size-board-hud-h);
+    background-color: var(--color-hud-shade);
+}
+
+.hud-heart {
+    position: absolute;
+    left: var(--size-board-hud-pad);
+    top: var(--size-board-heart-top);
+    width: var(--size-board-heart);
+    height: var(--size-board-heart);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-res-hp);
+}
+
+.hud-hp {
+    position: absolute;
+    left: var(--size-board-hp-left);
+    right: var(--size-board-hp-right);
+    top: var(--size-board-hp-top);
+    width: auto;
+    margin: 0;
+    flex-direction: row-reverse;
+}
+
+.hud-hp .meter-value {
+    margin: 0 var(--space-sm) 0 0;
+    min-width: 0;
+    font-size: var(--font-board-chip);
+}
+
+.hud-hp .meter-track {
+    height: var(--size-board-hud-bar-h);
+    border-width: 0;
+    border-radius: 0;
+    background-color: var(--color-track);
+}
+
+.hud-pips {
+    position: absolute;
+    left: var(--size-board-hud-pad);
+    top: var(--size-board-pips-top);
+    flex-direction: row;
+}
+
+.hud-pip {
+    width: var(--size-board-pip);
+    height: var(--size-board-pip);
+    margin-right: var(--space-xs);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-round);
+    background-color: var(--color-panel);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.hud-side {
+    position: absolute;
+    right: var(--size-board-side-right);
+    top: var(--size-board-side-top);
+    align-items: center;
+}
+
+.hud-buttons {
+    flex-direction: row;
+}
+
+.hud-icon-button.kit-button {
+    width: var(--size-board-icon-btn);
+    height: var(--size-board-icon-btn);
+    min-height: 0;
+    margin: 0 0 0 var(--space-xs);
+    padding: 0;
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-width: 0;
+    border-radius: 0;
+    color: var(--color-transparent);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.hud-icon-button.kit-button:hover,
+.hud-icon-button.kit-button:active {
+    background-color: var(--color-transparent);
+    border-width: 0;
+    color: var(--color-transparent);
+    -unity-background-image-tint-color: var(--color-target-line);
+}
+
+.hud-icon-button.kit-button:focus,
+.unity-button.hud-icon-button.kit-button:focus:enabled {
+    background-color: var(--color-transparent);
+    border-width: 0;
+    color: var(--color-transparent);
+    -unity-background-image-tint-color: var(--color-target-line);
+}
+
+.hud-icon-button.kit-button:disabled,
+.hud-icon-button.kit-button:disabled:hover,
+.hud-icon-button.kit-button:disabled:focus {
+    background-color: var(--color-transparent);
+    border-width: 0;
+    color: var(--color-transparent);
+    opacity: var(--opacity-disabled);
+}
+
+.hud-cinders {
+    margin-top: var(--space-xxs);
+    font-size: var(--font-board-cinders);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-parchment);
+}
+
+
+.map-hud {
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* ---- the progress strip (components/actRouteStrip.js): title, Entrance, a slot per floor on a rail, an arrow, Boss ---- */
+
+.map-strip {
+    flex-direction: row;
+    flex-shrink: 0;
+    align-items: center;
+    height: var(--size-map-strip-h);
+    padding: 0 var(--size-map-strip-pad-x);
+    background-color: var(--color-bg-raise);
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line);
+}
+
+.map-title {
+    flex-shrink: 0;
+    margin-right: var(--size-map-strip-gap);
+    font-size: var(--font-map-strip-title);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.map-rail-start,
+.map-rail-end {
+    flex-shrink: 0;
+    font-size: var(--font-map-strip-small);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-muted);
+}
+
+.map-rail-end {
+    color: var(--color-ember);
+}
+
+.map-rail-end--reached {
+    color: var(--color-gold);
+}
+
+.map-rail-arrow {
+    flex-shrink: 0;
+    margin: 0 var(--space-xs);
+    color: var(--color-line-soft);
+}
+
+.map-rail {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: row;
+    align-items: center;
+    height: var(--size-map-strip-h);
+    margin: 0 var(--space-xs) 0 var(--size-map-strip-gap);
+    border-top-width: 0;
+}
+
+.map-slot {
+    flex-grow: 1;
+    flex-basis: 0;
+    align-items: center;
+    justify-content: center;
+    height: var(--size-map-strip-h);
+}
+
+.map-slot-dot {
+    width: var(--size-map-slot);
+    height: var(--size-map-slot);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-round);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    background-color: var(--color-bg-raise);
+}
+
+.map-slot-dot--walked {
+    border-color: var(--color-gold-soft);
+}
+
+.map-slot-dot--current {
+    width: var(--size-map-slot-current);
+    height: var(--size-map-slot-current);
+    border-width: var(--border-control);
+    border-color: var(--color-gold);
+    background-color: var(--color-panel);
+}
+
+.map-slot-icon {
+    width: var(--size-map-slot-icon);
+    height: var(--size-map-slot-icon);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.map-slot-dot--current .map-slot-icon {
+    width: var(--size-map-slot-current-icon);
+    height: var(--size-map-slot-current-icon);
+}
+
+.map-slot-mark {
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-map-strip-small);
+    color: var(--color-gold);
+    -unity-text-align: middle-center;
+}
+
+/* ---- the stage: parchment board, the fog's vignette, tools and Potions over it, the tray at its foot ---- */
+
+.map-stage {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+}
+
+.map-viewport {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: var(--color-map-ground);
+}
+
+.map-viewport .unity-scroll-view__content-container {
+    flex-grow: 1;
+}
+
+.mapboard {
+    flex-grow: 1;
+    min-width: var(--size-full-width);
+    background-color: var(--color-map-ground);
+    background-image: url("../Stage/map-parchment.png");
+    background-repeat: repeat repeat;
+    background-size: var(--size-parchment-tile) var(--size-parchment-tile);
+}
+
+.map-vignette {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-image: url("../Stage/map-vignette.png");
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.map-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.map-tools {
+    position: absolute;
+    left: var(--size-map-tool-left);
+    bottom: var(--size-map-tool-bottom);
+    flex-direction: row;
+}
+
+.map-tool.unity-button {
+    width: var(--size-map-tool-btn);
+    height: var(--size-map-tool-btn);
+    min-width: 0;
+    min-height: 0;
+    margin: 0 var(--size-map-tool-gap) 0 0;
+    padding: 0;
+    font-size: var(--font-map-tool);
+    color: var(--color-parchment);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+    -unity-text-align: middle-center;
+}
+
+.map-tool.unity-button:hover,
+.map-tool.unity-button:focus {
+    border-color: var(--color-gold);
+}
+
+/* The Potions corner (map.css:150-220): the host is the button's own box; the minis hang off its top edge and the button fills it. */
+.map-potions-host {
+    position: absolute;
+    right: var(--size-map-potions-right);
+    bottom: var(--size-map-tool-bottom);
+    width: var(--size-map-potions-d);
+    height: var(--size-map-potions-d);
+}
+
+.map-potions.unity-button {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-map-tool);
+    color: var(--color-parchment);
+    background-color: var(--color-panel);
+    border-width: 0;
+    border-radius: var(--radius-round);
+    -unity-text-align: middle-center;
+}
+
+.map-potions.unity-button:hover,
+.map-potions.unity-button:focus {
+    background-color: var(--color-panel-raise);
+}
+
+/* ---- the Potions minis: the flasks come out of the button after the player's tooltip delay and go back at once (map.css:171-220). They keep their space while hidden, so the button never moves. ---- */
+
+.potion-minis {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--size-full-width);
+    margin-bottom: var(--size-potion-mini-above);
+    flex-direction: row;
+    justify-content: center;
+    visibility: hidden;
+}
+
+.potion-minis.minis-shown {
+    visibility: visible;
+}
+
+.potion-mini {
+    width: var(--size-potion-mini);
+    height: var(--size-potion-mini);
+    margin-left: var(--size-potion-mini-gap);
+    margin-right: var(--size-potion-mini-gap);
+    opacity: 0;
+    translate: 0 var(--size-potion-mini-lift);
+    transition-property: opacity, translate;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: ease;
+}
+
+.minis-shown .potion-mini {
+    opacity: 1;
+    translate: 0 0;
+}
+
+.reduced-motion .potion-mini {
+    translate: 0 0;
+}
+
+.potion-mini-art {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.potion-mini--spent .potion-mini-art {
+    opacity: var(--opacity-disabled);
+}
+
+.potion-mini-count {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--size-full-width);
+    font-size: var(--font-potion-mini-count);
+    color: var(--color-parchment);
+    -unity-text-align: middle-center;
+    text-shadow: 0 var(--size-text-shadow-y) var(--size-text-shadow-blur) var(--color-text-ink);
+}
+
+.potion-mini:hover .potion-mini-art,
+.potion-mini:focus .potion-mini-art {
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.potion-mini-more {
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-round);
+    justify-content: center;
+    align-items: center;
+}
+
+.potion-mini-more .potion-mini-count {
+    position: relative;
+    bottom: 0;
+}
+
+/* ---- the flask action menu under a tapped mini (web flask.js mountFlaskActionMenu, kit.css:532, 3283) ---- */
+
+.flask-menu {
+    position: absolute;
+    width: var(--size-quick-w);
+    max-width: var(--size-full-width);
+    background-color: var(--color-bg-raise);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-button);
+}
+
+.flask-menu-cap {
+    flex-direction: column;
+    padding: var(--space-md) var(--space-lg);
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line);
+}
+
+.flask-menu-title {
+    font-size: var(--font-quick-row);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.flask-menu-detail {
+    margin-top: var(--space-xs);
+    font-size: var(--font-cmodal-status);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.flask-menu-row.unity-button {
+    height: var(--size-quick-row-h);
+    min-height: 0;
+    margin: 0;
+    padding: 0 var(--space-lg);
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.flask-menu-row.unity-button:hover,
+.flask-menu-row.unity-button:focus {
+    background-color: var(--color-quick-hover);
+}
+
+.flask-menu-row-label {
+    font-size: var(--font-quick-row);
+    color: var(--color-parchment);
+}
+
+.flask-menu-row.unity-button:hover .flask-menu-row-label,
+.flask-menu-row.unity-button:focus .flask-menu-row-label {
+    color: var(--color-ember);
+}
+
+.flask-menu-row--disabled.unity-button {
+    opacity: var(--opacity-disabled);
+}
+
+/* ---- the legend popover over the zoom bar ---- */
+
+.map-legend {
+    position: absolute;
+    left: var(--size-map-legend-left);
+    bottom: var(--size-map-legend-bottom);
+    width: var(--size-map-legend-w);
+    background-color: var(--color-bg);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-chip);
+}
+
+.map-legend-title {
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line);
+}
+
+.legend-row {
+    flex-direction: row;
+    align-items: center;
+    height: var(--size-map-legend-row);
+    padding-left: var(--space-md);
+    margin: 0;
+}
+
+.legend-icon {
+    width: var(--size-map-legend-icon);
+    height: var(--size-map-legend-icon);
+    margin-right: var(--space-md);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.legend-row .map-node-mark {
+    width: var(--size-map-legend-icon);
+    margin-right: var(--space-md);
+    font-size: var(--font-map-tool);
+    color: var(--color-gold);
+}
+
+.legend-row .kit-text-value {
+    font-size: var(--font-map-legend);
+    color: var(--color-parchment);
+}
+
+/* ---- the nodes: dark discs with a gold ring; the one the run stands on is filled ---- */
+
+.map-node.unity-button {
+    position: absolute;
+    width: var(--size-map-node);
+    height: var(--size-map-node);
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-map-node-fill);
+    background-image: none;
+    border-width: var(--border-map-ring);
+    border-color: var(--color-line-soft);
+    border-radius: var(--radius-round);
+}
+
+.map-node--boss.unity-button {
+    width: var(--size-map-boss-node);
+    height: var(--size-map-boss-node);
+    border-color: var(--color-blood);
+}
+
+.map-node--elite.unity-button {
+    border-color: var(--color-blood);
+}
+
+.map-node--travelled.unity-button {
+    border-color: var(--color-gold);
+    opacity: var(--opacity-map-walked);
+}
+
+.map-node--dimmed.unity-button {
+    opacity: var(--opacity-gate-dim);
+}
+
+/* The lit walk to the nearest shrine (web map.css:307-345): the node's ring takes the lane colour and breathes between .72 and full. */
+.map-node--lane.unity-button {
+    border-color: var(--color-map-lane);
+    opacity: var(--opacity-map-lane-low);
+    transition-property: opacity;
+    transition-duration: var(--duration-map-lane-pulse);
+}
+
+.map-lane--high .map-node--lane.unity-button {
+    opacity: 1;
+}
+
+/* Walked nodes (the player's walkedFade; web styles/map.css:89-99): half is the web's default and the rule above; the other rungs are classes on the UI root. */
+.walked-off .map-node--travelled.unity-button {
+    opacity: var(--opacity-map-walked-off);
+}
+
+.walked-subtle .map-node--travelled.unity-button {
+    opacity: var(--opacity-map-walked-subtle);
+}
+
+.walked-strong .map-node--travelled.unity-button {
+    opacity: var(--opacity-map-walked-strong);
+}
+
+.map-node--reachable.unity-button {
+    border-color: var(--color-gold);
+}
+
+.map-node--reachable.unity-button:hover {
+    background-color: var(--color-panel-raise);
+}
+
+.map-node--current.unity-button,
+.map-node--current.unity-button:hover {
+    background-color: var(--color-parchment);
+    border-color: var(--color-parchment);
+    opacity: 1;
+}
+
+.map-node--selected.unity-button {
+    border-width: var(--border-map-ring-sel);
+    border-color: var(--color-parchment);
+}
+
+.map-node.unity-button:focus {
+    border-color: var(--color-ready-line);
+}
+
+/* An unknown place under the fog: the ring is dashed (a sprite), the solid edge steps aside. */
+.map-node--dashed.unity-button {
+    border-color: var(--color-transparent);
+}
+
+.map-node-dash {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    background-image: url("../Stage/map-node-dashed.png");
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.map-node--selected .map-node-dash,
+.map-node--current .map-node-dash {
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.map-node--selected.unity-button .map-node-dash {
+    -unity-background-image-tint-color: var(--color-parchment);
+}
+
+.map-node-halo {
+    position: absolute;
+    left: var(--size-map-halo-inset);
+    right: var(--size-map-halo-inset);
+    top: var(--size-map-halo-inset);
+    bottom: var(--size-map-halo-inset);
+    border-width: var(--border-control);
+    border-color: var(--color-gold-soft);
+    border-radius: var(--radius-round);
+}
+
+.map-node-icon {
+    width: var(--size-map-icon);
+    height: var(--size-map-icon);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.map-node--boss .map-node-icon {
+    width: var(--size-map-boss-icon);
+    height: var(--size-map-boss-icon);
+}
+
+.map-node-mark {
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-map-mark);
+    -unity-font-style: bold;
+    color: var(--color-parchment);
+    -unity-text-align: middle-center;
+}
+
+.map-node--current .map-node-mark {
+    color: var(--color-panel);
+}
+
+/* ---- the tray: floor, kind, what waits, Back and Enter (map.js W4b) ---- */
+
+.node-tray {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    min-height: var(--size-map-tray-min-h);
+    padding: var(--size-map-tray-pad-y) var(--size-map-tray-pad-x);
+    background-color: var(--color-panel);
+    border-width: 0;
+    border-top-width: var(--border-hairline);
+    border-top-color: var(--color-line);
+    border-radius: 0;
+}
+
+.tray-floor {
+    font-size: var(--font-caption);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+}
+
+.tray-kind {
+    font-size: var(--font-map-tray-title);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.tray-hint,
+.tray-boss {
+    margin-top: var(--space-xxs);
+    font-size: var(--font-map-tray-body);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.tray-boss {
+    color: var(--color-ember);
+}
+
+.tray-footer {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: var(--space-md);
+}
+
+.tray-button.unity-button {
+    width: var(--size-map-tray-btn-w);
+    margin: 0 var(--space-xxs);
+}
+
+/* ---- the key bar: Deck, Equipment, Stats, Menu with their keys (hint bar of components/hints.js) ---- */
+
+.map-keys {
+    flex-direction: row;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    height: var(--size-map-key-bar-h);
+    background-color: var(--color-bg);
+}
+
+.map-key.unity-button {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: var(--size-map-key-w);
+    height: var(--size-map-key-h);
+    min-width: 0;
+    min-height: 0;
+    margin: 0 var(--space-xs);
+    padding: 0;
+    background-color: var(--color-map-key-bg);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.map-key.unity-button:hover,
+.map-key.unity-button:focus {
+    border-color: var(--color-gold);
+}
+
+.map-key-chip {
+    width: var(--size-map-key-chip);
+    height: var(--size-map-key-chip);
+    margin: 0 var(--space-sm) 0 0;
+    padding: 0;
+    font-size: var(--font-map-key-chip);
+    color: var(--color-gold);
+    border-width: var(--border-hairline);
+    border-color: var(--color-gold-soft);
+    border-radius: var(--radius-tight);
+    -unity-text-align: middle-center;
+}
+
+.map-key-label {
+    margin: 0;
+    font-size: var(--font-map-key);
+    color: var(--color-parchment);
+}
+
+/* ---- phone (flow-08, map-midclimb, map-legend, flow-09 -390x844.jpg; VP-14, D-1050): the strip is two rows (the title, then Entrance, the rail, the cue and Boss), there is no key bar (the HUD's two buttons and the pause menu carry Deck, Equipment, Stats and Menu), the tools and Potions are larger, the legend wider ---- */
+
+.layout-narrow .map-strip {
+    flex-wrap: wrap;
+    align-content: center;
+    height: var(--size-map-strip-narrow-h);
+    padding: 0 var(--space-md);
+}
+
+.layout-narrow .map-title {
+    width: var(--size-full-width);
+    margin-right: 0;
+}
+
+.layout-narrow .map-slot-dot {
+    width: var(--size-map-slot-narrow);
+    height: var(--size-map-slot-narrow);
+}
+
+.layout-narrow .map-slot-dot--current {
+    width: var(--size-map-slot-current-narrow);
+    height: var(--size-map-slot-current-narrow);
+}
+
+.layout-narrow .map-keys {
+    display: none;
+}
+
+.layout-narrow .map-tool.unity-button {
+    width: var(--size-map-tool-btn-narrow);
+    height: var(--size-map-tool-btn-narrow);
+    margin-right: var(--size-map-tool-gap-narrow);
+}
+
+.layout-narrow .map-potions-host {
+    width: var(--size-map-potions-narrow-d);
+    height: var(--size-map-potions-narrow-d);
+}
+
+.layout-narrow .map-legend {
+    width: var(--size-map-legend-narrow-w);
+    bottom: var(--size-map-legend-bottom-narrow);
+}
+
+.layout-narrow .legend-row {
+    height: var(--size-map-legend-row-narrow-h);
+}
+
+.layout-narrow .node-tray {
+    width: auto;
+    min-height: var(--size-map-tray-narrow-min-h);
+    padding-left: var(--size-map-tray-narrow-pad-x);
+    padding-right: var(--size-map-tray-narrow-pad-x);
+}
+
+/* ---- narrow board (390 x 844): taller HUD for 48 px buttons and the cinders under them, a 120 px footer ---- */
+
+.layout-narrow .board-hud {
+    height: var(--size-board-hud-hnarrow);
+}
+
+.layout-narrow .hud-hp {
+    top: var(--size-board-hp-top-narrow);
+    right: var(--size-board-hp-right-narrow);
+}
+
+.layout-narrow .hud-heart {
+    top: var(--size-board-heart-top-narrow);
+}
+
+.layout-narrow .hud-pips {
+    top: var(--size-board-pips-top-narrow);
+}
+
+.layout-narrow .hud-side {
+    top: var(--size-board-side-top-narrow);
+}
+
+.layout-narrow .hud-icon-button.kit-button {
+    width: var(--size-board-icon-btn-narrow);
+    height: var(--size-board-icon-btn-narrow);
+}
+

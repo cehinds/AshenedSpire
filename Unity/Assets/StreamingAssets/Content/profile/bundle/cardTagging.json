@@ -1,0 +1,3551 @@
+{
+  "rows": [
+    {
+      "cardId": "ambush",
+      "tags": [
+        "guile",
+        "blade",
+        "source:weapon",
+        "damage:piercing",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "rogueShiv",
+      "tags": [
+        "blade",
+        "flourish",
+        "source:weapon",
+        "delivery:melee",
+        "technique:flourish",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack",
+        "damage:piercing"
+      ]
+    },
+    {
+      "cardId": "smokePellet",
+      "tags": [
+        "guile",
+        "ash",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "quickCut",
+      "tags": [
+        "blade",
+        "flourish",
+        "damage:slashing",
+        "delivery:melee",
+        "technique:flourish",
+        "classification.attack",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "feint",
+      "tags": [
+        "guile",
+        "classification.skill",
+        "source:weapon",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "backstep",
+      "tags": [
+        "flourish",
+        "guard",
+        "technique:flourish",
+        "classification.skill",
+        "source:unarmed",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "twinPrick",
+      "tags": [
+        "blade",
+        "flourish",
+        "source:weapon",
+        "delivery:melee",
+        "technique:flourish",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack",
+        "damage:piercing"
+      ]
+    },
+    {
+      "cardId": "pocketSand",
+      "tags": [
+        "guile",
+        "ash",
+        "classification.skill",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "hamstringRogue",
+      "tags": [
+        "blade",
+        "guile",
+        "source:weapon",
+        "damage:slashing",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "serratedShiv",
+      "tags": [
+        "blade",
+        "blood",
+        "source:weapon",
+        "delivery:melee",
+        "theme:blood",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack",
+        "damage:piercing"
+      ]
+    },
+    {
+      "cardId": "smokeVeil",
+      "tags": [
+        "guile",
+        "guard",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "ricochet",
+      "tags": [
+        "pierce",
+        "ranged",
+        "source:weapon",
+        "delivery:projectile",
+        "damage:piercing",
+        "delivery:area",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:ranged"
+      ]
+    },
+    {
+      "cardId": "lowBlow",
+      "tags": [
+        "blade",
+        "guile",
+        "damage:blunt",
+        "delivery:melee",
+        "classification.attack",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "pilfer",
+      "tags": [
+        "guile",
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "vanish",
+      "tags": [
+        "guile",
+        "ash",
+        "classification.skill",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "cheapShot",
+      "tags": [
+        "blade",
+        "guile",
+        "source:weapon",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "bladeDanceRogue",
+      "tags": [
+        "blade",
+        "flourish",
+        "source:weapon",
+        "damage:slashing",
+        "delivery:melee",
+        "technique:flourish",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "garrote",
+      "tags": [
+        "blade",
+        "blood",
+        "source:weapon",
+        "delivery:melee",
+        "theme:blood",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "fanOfKnives",
+      "tags": [
+        "pierce",
+        "ranged",
+        "source:weapon",
+        "delivery:projectile",
+        "damage:piercing",
+        "delivery:area",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:ranged"
+      ]
+    },
+    {
+      "cardId": "setupRogue",
+      "tags": [
+        "guile",
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "acrobaticsRogue",
+      "tags": [
+        "flourish",
+        "technique:flourish",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "disorient",
+      "tags": [
+        "guile",
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "coupDeGrace",
+      "tags": [
+        "blade",
+        "precision",
+        "source:weapon",
+        "damage:piercing",
+        "delivery:melee",
+        "technique:precision",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "sap",
+      "tags": [
+        "guile",
+        "source:weapon",
+        "damage:blunt",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "shadowstep",
+      "tags": [
+        "flourish",
+        "guile",
+        "technique:flourish",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "afterimageCard",
+      "tags": [
+        "flourish",
+        "oath",
+        "technique:flourish",
+        "theme:oath",
+        "classification.power",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "bloodletterRogue",
+      "tags": [
+        "blade",
+        "blood",
+        "theme:blood",
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "venomcoat",
+      "tags": [
+        "venom",
+        "oath",
+        "theme:oath",
+        "classification.skill",
+        "camp:physical",
+        "damage:poison"
+      ]
+    },
+    {
+      "cardId": "misdirect",
+      "tags": [
+        "guile",
+        "guard",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "assassinate",
+      "tags": [
+        "blade",
+        "precision",
+        "source:weapon",
+        "damage:piercing",
+        "delivery:melee",
+        "technique:precision",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "thousandCutsRogue",
+      "tags": [
+        "blade",
+        "flourish",
+        "source:weapon",
+        "damage:slashing",
+        "delivery:melee",
+        "technique:flourish",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "deadlyTempoCard",
+      "tags": [
+        "flourish",
+        "oath",
+        "technique:flourish",
+        "theme:oath",
+        "classification.power",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "opportunistCard",
+      "tags": [
+        "guile",
+        "oath",
+        "theme:oath",
+        "classification.power",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "envenomCard",
+      "tags": [
+        "venom",
+        "oath",
+        "theme:oath",
+        "classification.power",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "toxicVolley",
+      "tags": [
+        "venom",
+        "ranged",
+        "classification.skill",
+        "camp:physical",
+        "damage:poison",
+        "maneuver:ranged"
+      ]
+    },
+    {
+      "cardId": "smokeBomb",
+      "tags": [
+        "guile",
+        "ash",
+        "classification.skill",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "executionWindow",
+      "tags": [
+        "blade",
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "perfectHeist",
+      "tags": [
+        "guile",
+        "classification.skill",
+        "source:weapon",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "deathblow",
+      "tags": [
+        "blade",
+        "precision",
+        "source:weapon",
+        "damage:blunt",
+        "damage:decay",
+        "delivery:melee",
+        "technique:precision",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "strike",
+      "tags": [
+        "blade",
+        "source:weapon",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "defend",
+      "tags": [
+        "guard",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "gorefireSlash",
+      "tags": [
+        "blade",
+        "blood",
+        "gorefire",
+        "source:weapon",
+        "damage:slashing",
+        "delivery:melee",
+        "theme:blood",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "crimsonCleave",
+      "tags": [
+        "blade",
+        "blood",
+        "damage:slashing",
+        "delivery:area",
+        "delivery:melee",
+        "theme:blood",
+        "technique:cleave",
+        "classification.attack",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:sweep",
+        "targeting:area"
+      ]
+    },
+    {
+      "cardId": "shieldBash",
+      "tags": [
+        "guard",
+        "blade",
+        "delivery:melee",
+        "classification.attack",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:smash",
+        "damage:blunt"
+      ]
+    },
+    {
+      "cardId": "quickstep",
+      "tags": [
+        "flourish",
+        "technique:flourish",
+        "classification.skill",
+        "source:unarmed",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "katanaDrawCut",
+      "tags": [
+        "blade",
+        "flourish",
+        "extractable",
+        "source:weapon",
+        "delivery:melee",
+        "technique:flourish",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack",
+        "damage:slashing"
+      ]
+    },
+    {
+      "cardId": "greatswordSunderingHew",
+      "tags": [
+        "blade",
+        "extractable",
+        "source:weapon",
+        "delivery:melee",
+        "technique:heavy",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:smash",
+        "damage:slashing"
+      ]
+    },
+    {
+      "cardId": "guardCounter",
+      "tags": [
+        "guard",
+        "flourish",
+        "delivery:melee",
+        "technique:flourish",
+        "technique:counter",
+        "classification.attack",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:counter",
+        "counter:melee"
+      ]
+    },
+    {
+      "cardId": "ironResolve",
+      "tags": [
+        "guard",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "serratedBlade",
+      "tags": [
+        "blade",
+        "blood",
+        "source:weapon",
+        "damage:slashing",
+        "delivery:melee",
+        "theme:blood",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "enterGorefire",
+      "tags": [
+        "oath",
+        "theme:oath",
+        "theme:stance",
+        "theme:blood",
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "enterBulwark",
+      "tags": [
+        "guard",
+        "oath",
+        "theme:oath",
+        "theme:stance",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "brace",
+      "tags": [
+        "guard",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "attune",
+      "tags": [
+        "starstone",
+        "classification.skill",
+        "camp:spell",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "warmLitany",
+      "tags": [
+        "ritual",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "prepare",
+      "tags": [
+        "guile",
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "riposte",
+      "tags": [
+        "guard",
+        "flourish",
+        "damage:piercing",
+        "delivery:melee",
+        "technique:flourish",
+        "technique:counter",
+        "classification.attack",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:counter",
+        "counter:melee"
+      ]
+    },
+    {
+      "cardId": "starstonePebble",
+      "tags": [
+        "starstone",
+        "source:spell",
+        "damage:arcane",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "cometFragment",
+      "tags": [
+        "starstone",
+        "damage:arcane",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "source:spell",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "starbladePhalanx",
+      "tags": [
+        "starstone",
+        "guard",
+        "damage:arcane",
+        "delivery:melee",
+        "theme:astral",
+        "classification.attack",
+        "source:spell",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "frostNova",
+      "tags": [
+        "starstone",
+        "theme:astral",
+        "classification.attack",
+        "source:spell",
+        "camp:spell",
+        "school:frost",
+        "damage:frost",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "gildedOath",
+      "tags": [
+        "ritual",
+        "oath",
+        "theme:oath",
+        "classification.skill",
+        "source:spell",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "urgentHeal",
+      "tags": [
+        "ritual",
+        "classification.skill",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "bloodPact",
+      "tags": [
+        "blood",
+        "ritual",
+        "theme:blood",
+        "classification.skill",
+        "camp:spell",
+        "school:decay"
+      ]
+    },
+    {
+      "cardId": "blightTouch",
+      "tags": [
+        "blight",
+        "ritual",
+        "delivery:melee",
+        "theme:blight",
+        "classification.attack",
+        "source:spell",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "cleavingBlow",
+      "tags": [
+        "source:weapon",
+        "damage:slashing",
+        "delivery:area",
+        "delivery:melee",
+        "technique:cleave",
+        "classification.attack",
+        "blade",
+        "heavy",
+        "camp:physical",
+        "maneuver:sweep",
+        "targeting:area"
+      ]
+    },
+    {
+      "cardId": "twinbladeFlurry",
+      "tags": [
+        "source:weapon",
+        "damage:slashing",
+        "delivery:melee",
+        "classification.attack",
+        "blade",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "impale",
+      "tags": [
+        "source:weapon",
+        "delivery:melee",
+        "classification.attack",
+        "blade",
+        "camp:physical",
+        "maneuver:attack",
+        "damage:piercing"
+      ]
+    },
+    {
+      "cardId": "executioner",
+      "tags": [
+        "source:weapon",
+        "damage:slashing",
+        "delivery:melee",
+        "classification.attack",
+        "blade",
+        "heavy",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "stitchedArms",
+      "tags": [
+        "source:weapon",
+        "damage:slashing",
+        "delivery:melee",
+        "classification.attack",
+        "blade",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "ruinousBlow",
+      "tags": [
+        "source:weapon",
+        "damage:blunt",
+        "damage:arcane",
+        "delivery:melee",
+        "technique:heavy",
+        "classification.attack",
+        "blade",
+        "heavy",
+        "camp:physical",
+        "maneuver:smash"
+      ]
+    },
+    {
+      "cardId": "bloodhuntersStrike",
+      "tags": [
+        "source:weapon",
+        "delivery:melee",
+        "theme:blood",
+        "classification.attack",
+        "blade",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "goreslash",
+      "tags": [
+        "source:weapon",
+        "damage:slashing",
+        "delivery:melee",
+        "theme:blood",
+        "classification.attack",
+        "blade",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "flameToBlade",
+      "tags": [
+        "source:weapon",
+        "damage:slashing",
+        "delivery:melee",
+        "classification.attack",
+        "blade",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "bloodTithe",
+      "tags": [
+        "source:weapon",
+        "damage:decay",
+        "delivery:melee",
+        "theme:blood",
+        "classification.attack",
+        "blade",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "twinFang",
+      "tags": [
+        "source:weapon",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack",
+        "damage:piercing"
+      ]
+    },
+    {
+      "cardId": "bashingBlow",
+      "tags": [
+        "source:weapon",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:smash",
+        "damage:blunt"
+      ]
+    },
+    {
+      "cardId": "sweepingBlow",
+      "tags": [
+        "source:weapon",
+        "damage:slashing",
+        "delivery:area",
+        "delivery:melee",
+        "technique:cleave",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:sweep",
+        "targeting:area"
+      ]
+    },
+    {
+      "cardId": "colossusSmash",
+      "tags": [
+        "source:weapon",
+        "delivery:melee",
+        "technique:heavy",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:smash",
+        "damage:blunt"
+      ]
+    },
+    {
+      "cardId": "rend",
+      "tags": [
+        "damage:slashing",
+        "delivery:melee",
+        "theme:blood",
+        "classification.attack",
+        "blade",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "hewingArc",
+      "tags": [
+        "damage:slashing",
+        "blade",
+        "source:weapon",
+        "delivery:melee",
+        "theme:blood",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:sweep",
+        "targeting:area"
+      ]
+    },
+    {
+      "cardId": "kilnCleave",
+      "tags": [
+        "damage:slashing",
+        "heavy",
+        "source:weapon",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:smash"
+      ]
+    },
+    {
+      "cardId": "poiseBreaker",
+      "tags": [
+        "damage:blunt",
+        "delivery:melee",
+        "technique:heavy",
+        "classification.attack",
+        "blade",
+        "heavy",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:smash"
+      ]
+    },
+    {
+      "cardId": "sunderplate",
+      "tags": [
+        "damage:blunt",
+        "delivery:melee",
+        "technique:heavy",
+        "classification.attack",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:smash"
+      ]
+    },
+    {
+      "cardId": "sunderingChop",
+      "tags": [
+        "damage:blunt",
+        "blade",
+        "heavy",
+        "source:weapon",
+        "delivery:melee",
+        "technique:heavy",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:smash"
+      ]
+    },
+    {
+      "cardId": "stomp",
+      "tags": [
+        "damage:blunt",
+        "delivery:melee",
+        "classification.attack",
+        "heavy",
+        "source:unarmed",
+        "camp:physical",
+        "maneuver:smash"
+      ]
+    },
+    {
+      "cardId": "kickOff",
+      "tags": [
+        "damage:blunt",
+        "delivery:melee",
+        "classification.attack",
+        "source:unarmed",
+        "camp:physical",
+        "maneuver:smash"
+      ]
+    },
+    {
+      "cardId": "starShower",
+      "tags": [
+        "damage:arcane",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "source:spell",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "starSlicer",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:melee",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "starlance",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "starstoneArc",
+      "tags": [
+        "damage:arcane",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "source:spell",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "moonrendCut",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:melee",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "meteorite",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "meteorSwarm",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:projectile",
+        "delivery:area",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "astralCleave",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:melee",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "radiantSpray",
+      "tags": [
+        "damage:arcane",
+        "delivery:projectile",
+        "delivery:area",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "source:spell",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "supernova",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:area",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "starstoneKris",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:melee",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "starfallBeam",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:projectile",
+        "delivery:area",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "starcaller",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "shootingShard",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "celestialLance",
+      "tags": [
+        "source:spell",
+        "damage:arcane",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "starstone",
+        "camp:spell",
+        "school:force",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "starSpark",
+      "tags": [
+        "source:spell",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "camp:spell",
+        "school:lightning",
+        "damage:lightning",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "flagellation",
+      "tags": [
+        "source:spell",
+        "delivery:melee",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "graveOffering",
+      "tags": [
+        "source:spell",
+        "delivery:area",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "cullTheWeak",
+      "tags": [
+        "source:spell",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "sacredHarvest",
+      "tags": [
+        "source:spell",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:divine",
+        "damage:sacred",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "plagueBearer",
+      "tags": [
+        "source:spell",
+        "theme:blight",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "exsanguinate",
+      "tags": [
+        "source:spell",
+        "theme:blood",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "crimsonRite",
+      "tags": [
+        "source:spell",
+        "theme:blood",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "blightNova",
+      "tags": [
+        "source:spell",
+        "theme:blight",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "bloodHarvest",
+      "tags": [
+        "source:spell",
+        "delivery:area",
+        "theme:blood",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "painOffering",
+      "tags": [
+        "source:spell",
+        "theme:blood",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "witheringTouch",
+      "tags": [
+        "source:spell",
+        "delivery:melee",
+        "theme:blight",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "bloodOfferingRite",
+      "tags": [
+        "source:spell",
+        "theme:blood",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "blightwardLash",
+      "tags": [
+        "source:spell",
+        "delivery:melee",
+        "theme:blight",
+        "classification.attack",
+        "ritual",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "scourge",
+      "tags": [
+        "delivery:area",
+        "classification.attack",
+        "ritual",
+        "source:spell",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "goreblood",
+      "tags": [
+        "theme:blood",
+        "classification.power",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "sanguinePactCard",
+      "tags": [
+        "theme:blood",
+        "classification.power",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "hemorrhage",
+      "tags": [
+        "theme:blood",
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "bloodletting",
+      "tags": [
+        "theme:blood",
+        "classification.skill",
+        "ritual",
+        "camp:spell",
+        "maneuver:defend",
+        "school:decay"
+      ]
+    },
+    {
+      "cardId": "martyrBlood",
+      "tags": [
+        "theme:blood",
+        "classification.skill",
+        "ritual",
+        "camp:spell",
+        "school:decay"
+      ]
+    },
+    {
+      "cardId": "blightward",
+      "tags": [
+        "theme:blight",
+        "classification.skill",
+        "ritual",
+        "source:spell",
+        "camp:spell",
+        "maneuver:defend",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "contagion",
+      "tags": [
+        "theme:blight",
+        "classification.skill",
+        "ritual",
+        "camp:spell",
+        "school:decay"
+      ]
+    },
+    {
+      "cardId": "blightBloom",
+      "tags": [
+        "theme:blight",
+        "classification.skill",
+        "ritual",
+        "camp:spell",
+        "school:decay"
+      ]
+    },
+    {
+      "cardId": "butterflyPlague",
+      "tags": [
+        "theme:blight",
+        "classification.skill",
+        "ritual",
+        "camp:spell",
+        "school:decay"
+      ]
+    },
+    {
+      "cardId": "harbingerOfBlightCard",
+      "tags": [
+        "theme:blight",
+        "classification.power",
+        "ritual",
+        "camp:spell",
+        "school:decay"
+      ]
+    },
+    {
+      "cardId": "crystalBarrier",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "source:spell",
+        "camp:spell",
+        "maneuver:defend",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "scholarsInsight",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "source:spell",
+        "camp:spell",
+        "school:illusion"
+      ]
+    },
+    {
+      "cardId": "frostVeil",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "camp:spell",
+        "maneuver:defend",
+        "school:frost"
+      ]
+    },
+    {
+      "cardId": "starstoneWard",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "camp:spell",
+        "maneuver:defend",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "twinkling",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "camp:spell",
+        "school:illusion"
+      ]
+    },
+    {
+      "cardId": "lucidity",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "camp:spell",
+        "school:illusion"
+      ]
+    },
+    {
+      "cardId": "stargazerCard",
+      "tags": [
+        "theme:astral",
+        "classification.power",
+        "starstone",
+        "camp:spell",
+        "school:illusion"
+      ]
+    },
+    {
+      "cardId": "astralArmorCard",
+      "tags": [
+        "theme:astral",
+        "classification.power",
+        "starstone",
+        "camp:spell",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "gravityWell",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "source:spell",
+        "camp:spell",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "azureCoilCard",
+      "tags": [
+        "theme:astral",
+        "classification.power",
+        "starstone",
+        "camp:spell",
+        "school:lightning"
+      ]
+    },
+    {
+      "cardId": "timeDilation",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "camp:spell",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "constellationCard",
+      "tags": [
+        "theme:astral",
+        "classification.power",
+        "starstone",
+        "camp:spell",
+        "school:illusion"
+      ]
+    },
+    {
+      "cardId": "umbralWard",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "camp:spell",
+        "maneuver:counter",
+        "school:alteration",
+        "counter:spell",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "waxingMoonCard",
+      "tags": [
+        "theme:astral",
+        "classification.power",
+        "starstone",
+        "camp:spell",
+        "school:illusion"
+      ]
+    },
+    {
+      "cardId": "wardingStar",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "camp:spell",
+        "maneuver:counter",
+        "school:alteration",
+        "counter:spell",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "starPath",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "source:spell",
+        "camp:spell",
+        "school:illusion"
+      ]
+    },
+    {
+      "cardId": "moonlitShieldCard",
+      "tags": [
+        "theme:astral",
+        "classification.power",
+        "starstone",
+        "camp:spell",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "astromancerCard",
+      "tags": [
+        "theme:astral",
+        "classification.power",
+        "starstone",
+        "camp:spell",
+        "school:illusion"
+      ]
+    },
+    {
+      "cardId": "astralInsight",
+      "tags": [
+        "theme:astral",
+        "classification.skill",
+        "starstone",
+        "camp:spell",
+        "maneuver:defend",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "rondelParry",
+      "tags": [
+        "technique:counter",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:counter",
+        "counter:melee",
+        "source:weapon"
+      ]
+    },
+    {
+      "cardId": "shieldGuardian",
+      "tags": [
+        "guard",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "guardianBulwark",
+      "tags": [
+        "guard",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "shieldBastion",
+      "tags": [
+        "guard",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "spikedReprisal",
+      "tags": [
+        "guard",
+        "source:weapon",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:counter",
+        "damage:piercing",
+        "counter:melee"
+      ]
+    },
+    {
+      "cardId": "technique",
+      "tags": [
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "evasiveGuard",
+      "tags": [
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "dodgeRoll",
+      "tags": [
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "rallyingStandard",
+      "tags": [
+        "classification.power",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "warSurgeon",
+      "tags": [
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "shieldwall",
+      "tags": [
+        "classification.skill",
+        "guard",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "wardingLunge",
+      "tags": [
+        "classification.skill",
+        "guard",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "warcry",
+      "tags": [
+        "classification.skill",
+        "source:weapon",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "unbreakable",
+      "tags": [
+        "classification.power",
+        "guard",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "lastStand",
+      "tags": [
+        "classification.skill",
+        "guard",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "warriorsVow",
+      "tags": [
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "bracingStance",
+      "tags": [
+        "classification.skill",
+        "guard",
+        "source:weapon",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "ironVowCard",
+      "tags": [
+        "classification.power",
+        "guard",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "penance",
+      "tags": [
+        "classification.skill",
+        "ritual",
+        "source:spell",
+        "camp:spell",
+        "maneuver:defend",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "emberCommunion",
+      "tags": [
+        "classification.skill",
+        "ritual",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "litany",
+      "tags": [
+        "classification.skill",
+        "ritual",
+        "camp:spell",
+        "school:decay"
+      ]
+    },
+    {
+      "cardId": "transfusion",
+      "tags": [
+        "classification.skill",
+        "ritual",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "thornHaloCard",
+      "tags": [
+        "classification.power",
+        "ritual",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "communionCard",
+      "tags": [
+        "classification.power",
+        "ritual",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "stigmataCard",
+      "tags": [
+        "classification.power",
+        "ritual",
+        "camp:spell",
+        "school:decay"
+      ]
+    },
+    {
+      "cardId": "reclamation",
+      "tags": [
+        "classification.skill",
+        "ritual",
+        "source:spell",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "secondBloom",
+      "tags": [
+        "classification.skill",
+        "ritual",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "lifeTitheCard",
+      "tags": [
+        "classification.power",
+        "ritual",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "lastRites",
+      "tags": [
+        "classification.skill",
+        "ritual",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "zealotryCard",
+      "tags": [
+        "classification.power",
+        "ritual",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "desperateRite",
+      "tags": [
+        "classification.attack",
+        "ritual",
+        "source:spell",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "emberTideCard",
+      "tags": [
+        "classification.power",
+        "ritual",
+        "camp:spell",
+        "school:decay"
+      ]
+    },
+    {
+      "cardId": "lastMercy",
+      "tags": [
+        "classification.skill",
+        "ritual",
+        "source:spell",
+        "camp:spell",
+        "maneuver:defend",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "honedEdge",
+      "tags": [
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "ironSkin",
+      "tags": [
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "fieldDressing",
+      "tags": [
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "hex",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:illusion",
+        "target"
+      ]
+    },
+    {
+      "cardId": "transmute",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "blindingSand",
+      "tags": [
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "hamstring",
+      "tags": [
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "masterOfStrategy",
+      "tags": [
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "quickGuard",
+      "tags": [
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "enfeeble",
+      "tags": [
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "wound",
+      "tags": [
+        "classification.statusCard",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "dazed",
+      "tags": [
+        "classification.statusCard",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "slimed",
+      "tags": [
+        "classification.statusCard",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "guilt",
+      "tags": [
+        "classification.curse",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "rallyingBanner",
+      "tags": [
+        "classification.skill",
+        "camp:physical"
+      ]
+    },
+    {
+      "cardId": "sharedFlame",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "ashOath",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "rimeThrust",
+      "tags": [
+        "blade",
+        "source:weapon",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack",
+        "damage:piercing"
+      ]
+    },
+    {
+      "cardId": "vesperWard",
+      "tags": [
+        "guard",
+        "source:spell",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "setTheShield",
+      "tags": [
+        "guard",
+        "theme:stance",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "aegisOfEmbers",
+      "tags": [
+        "guard",
+        "theme:stance",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "shieldCrash",
+      "tags": [
+        "guard",
+        "source:weapon",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:smash",
+        "damage:blunt"
+      ]
+    },
+    {
+      "cardId": "pinningShot",
+      "tags": [
+        "pierce",
+        "ranged",
+        "source:weapon",
+        "delivery:projectile",
+        "damage:piercing",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:ranged"
+      ]
+    },
+    {
+      "cardId": "arrowVolley",
+      "tags": [
+        "pierce",
+        "ranged",
+        "source:weapon",
+        "delivery:projectile",
+        "damage:piercing",
+        "delivery:area",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:ranged"
+      ]
+    },
+    {
+      "cardId": "nockAndWait",
+      "tags": [
+        "ranged",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:counter",
+        "counter:ranged",
+        "source:weapon"
+      ]
+    },
+    {
+      "cardId": "aimedShot",
+      "tags": [
+        "pierce",
+        "ranged",
+        "precision",
+        "source:weapon",
+        "delivery:projectile",
+        "damage:piercing",
+        "technique:precision",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:ranged"
+      ]
+    },
+    {
+      "cardId": "barbedArrow",
+      "tags": [
+        "pierce",
+        "ranged",
+        "source:weapon",
+        "delivery:projectile",
+        "damage:piercing",
+        "theme:blood",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:ranged"
+      ]
+    },
+    {
+      "cardId": "bindingParry",
+      "tags": [
+        "guard",
+        "flourish",
+        "technique:flourish",
+        "technique:counter",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:counter",
+        "counter:melee",
+        "source:weapon"
+      ]
+    },
+    {
+      "cardId": "whirlingGuard",
+      "tags": [
+        "guard",
+        "flourish",
+        "source:weapon",
+        "delivery:melee",
+        "technique:flourish",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:sweep",
+        "targeting:area"
+      ]
+    },
+    {
+      "cardId": "cinderSigil",
+      "tags": [
+        "ritual",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "source:spell",
+        "camp:spell",
+        "school:fire",
+        "damage:fire",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "ashenMote",
+      "tags": [
+        "ritual",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "source:spell",
+        "camp:spell",
+        "school:fire",
+        "damage:fire",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "emberVigil",
+      "tags": [
+        "ritual",
+        "theme:astral",
+        "classification.skill",
+        "source:spell",
+        "camp:spell",
+        "maneuver:defend",
+        "school:fire"
+      ]
+    },
+    {
+      "cardId": "readTheAsh",
+      "tags": [
+        "ritual",
+        "theme:astral",
+        "classification.skill",
+        "source:spell",
+        "camp:spell",
+        "school:fire"
+      ]
+    },
+    {
+      "cardId": "pyreOfCharts",
+      "tags": [
+        "ritual",
+        "source:spell",
+        "delivery:projectile",
+        "delivery:area",
+        "theme:astral",
+        "classification.attack",
+        "camp:spell",
+        "school:fire",
+        "damage:fire",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "ashCircle",
+      "tags": [
+        "ritual",
+        "theme:astral",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:fire"
+      ]
+    },
+    {
+      "cardId": "kindledOmen",
+      "tags": [
+        "ritual",
+        "theme:astral",
+        "classification.skill",
+        "camp:spell",
+        "school:fire"
+      ]
+    },
+    {
+      "cardId": "cinderLance",
+      "tags": [
+        "ritual",
+        "source:spell",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "camp:spell",
+        "school:fire",
+        "damage:fire",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "ashfallRite",
+      "tags": [
+        "ritual",
+        "source:spell",
+        "delivery:area",
+        "theme:astral",
+        "classification.attack",
+        "camp:spell",
+        "school:fire",
+        "damage:fire",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "phoenixChart",
+      "tags": [
+        "ritual",
+        "theme:astral",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "pyreLight",
+      "tags": [
+        "ritual",
+        "source:spell",
+        "delivery:projectile",
+        "theme:astral",
+        "classification.attack",
+        "camp:spell",
+        "school:fire",
+        "damage:fire",
+        "maneuver:casting"
+      ]
+    },
+    {
+      "cardId": "riteOfCinders",
+      "tags": [
+        "ritual",
+        "theme:astral",
+        "classification.skill",
+        "camp:spell",
+        "school:fire"
+      ]
+    },
+    {
+      "cardId": "progression-ember-hew",
+      "tags": [
+        "blade",
+        "blood",
+        "ability:searing-edge",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "progression-cinder-guard",
+      "tags": [
+        "guard",
+        "blade",
+        "ability:guarded-strike",
+        "source:weapon",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "progression-bloodstep",
+      "tags": [
+        "guard",
+        "blood",
+        "flourish",
+        "ability:bloodstep",
+        "source:weapon",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "progression-breaker-s-toll",
+      "tags": [
+        "heavy",
+        "blade",
+        "ability:hammerfall",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:smash"
+      ]
+    },
+    {
+      "cardId": "progression-furnace-advance",
+      "tags": [
+        "blade",
+        "guard",
+        "ability:forgewake",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "progression-crimson-reprisal",
+      "tags": [
+        "blade",
+        "blood",
+        "ability:crimson-reprisal",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:counter",
+        "counter:melee"
+      ]
+    },
+    {
+      "cardId": "progression-warbound-defiance",
+      "tags": [
+        "guard",
+        "heavy",
+        "ability:last-stand",
+        "source:weapon",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "progression-red-standard",
+      "tags": [
+        "guard",
+        "heavy",
+        "oath",
+        "ability:war-tempo",
+        "source:weapon",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "progression-ashen-cleaver",
+      "tags": [
+        "blade",
+        "heavy",
+        "ability:wide-cleave",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:sweep",
+        "targeting:area"
+      ]
+    },
+    {
+      "cardId": "progression-crown-of-cinders",
+      "tags": [
+        "guard",
+        "oath",
+        "ability:ember-crown",
+        "source:weapon",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "progression-cinder-orbit",
+      "tags": [
+        "starstone",
+        "ability:cinder-orbit",
+        "source:spell",
+        "classification.attack",
+        "camp:spell",
+        "school:fire",
+        "damage:fire"
+      ]
+    },
+    {
+      "cardId": "progression-lunar-aegis",
+      "tags": [
+        "starstone",
+        "guard",
+        "ability:lunar-guard",
+        "source:spell",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "progression-comet-needle",
+      "tags": [
+        "starstone",
+        "pierce",
+        "ability:comet-mark",
+        "source:spell",
+        "classification.attack",
+        "camp:spell",
+        "school:force",
+        "damage:arcane"
+      ]
+    },
+    {
+      "cardId": "progression-rime-mirror",
+      "tags": [
+        "starstone",
+        "guard",
+        "ability:rime-mirror",
+        "source:spell",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:counter",
+        "school:frost",
+        "counter:spell"
+      ]
+    },
+    {
+      "cardId": "progression-falling-constellation",
+      "tags": [
+        "starstone",
+        "ranged",
+        "ability:constellation",
+        "source:spell",
+        "classification.attack",
+        "camp:spell",
+        "school:force",
+        "damage:arcane"
+      ]
+    },
+    {
+      "cardId": "progression-wellspring-sigil",
+      "tags": [
+        "starstone",
+        "ritual",
+        "ability:mana-weave",
+        "source:spell",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "progression-gravitic-knot",
+      "tags": [
+        "starstone",
+        "ability:gravity-snare",
+        "source:spell",
+        "classification.attack",
+        "camp:spell",
+        "school:alteration",
+        "damage:arcane"
+      ]
+    },
+    {
+      "cardId": "progression-nightglass-reading",
+      "tags": [
+        "starstone",
+        "ritual",
+        "ability:nightglass",
+        "source:spell",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:illusion"
+      ]
+    },
+    {
+      "cardId": "progression-eclipse-lance",
+      "tags": [
+        "starstone",
+        "pierce",
+        "ability:eclipse-window",
+        "source:spell",
+        "classification.attack",
+        "camp:spell",
+        "maneuver:defend",
+        "school:frost",
+        "damage:frost"
+      ]
+    },
+    {
+      "cardId": "progression-firmament-ward",
+      "tags": [
+        "starstone",
+        "guard",
+        "ability:warded-casting",
+        "source:spell",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:alteration"
+      ]
+    },
+    {
+      "cardId": "progression-shiv-of-ash",
+      "tags": [
+        "blade",
+        "flourish",
+        "ability:ash-opener",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "progression-pocket-coil",
+      "tags": [
+        "guile",
+        "guard",
+        "ability:discard-weave",
+        "source:weapon",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "progression-needle-feint",
+      "tags": [
+        "blade",
+        "guile",
+        "pierce",
+        "ability:crooked-guard",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "progression-back-alley-cut",
+      "tags": [
+        "blade",
+        "flourish",
+        "ability:exposed-flank",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "progression-silent-exchange",
+      "tags": [
+        "guile",
+        "guard",
+        "ability:sleight-hand",
+        "source:weapon",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "progression-wire-snare",
+      "tags": [
+        "guile",
+        "blood",
+        "ability:tether-cut",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "progression-nightstep",
+      "tags": [
+        "guard",
+        "flourish",
+        "ability:smoke-edge",
+        "source:weapon",
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "progression-carrion-cut",
+      "tags": [
+        "blade",
+        "blood",
+        "ability:carrion-finish",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "progression-twinshade",
+      "tags": [
+        "blade",
+        "flourish",
+        "ability:paired-strikes",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "progression-last-laugh",
+      "tags": [
+        "blade",
+        "guile",
+        "ability:trapdoor",
+        "source:weapon",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack"
+      ]
+    },
+    {
+      "cardId": "progression-ash-benediction",
+      "tags": [
+        "ritual",
+        "guard",
+        "ability:mercy-ash",
+        "source:spell",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "progression-blood-censer",
+      "tags": [
+        "ritual",
+        "blood",
+        "ability:blood-censer",
+        "source:spell",
+        "classification.attack",
+        "camp:spell",
+        "school:decay",
+        "damage:decay"
+      ]
+    },
+    {
+      "cardId": "progression-blight-litany",
+      "tags": [
+        "blight",
+        "ritual",
+        "ability:blight-seed",
+        "source:spell",
+        "classification.attack",
+        "camp:spell",
+        "school:decay",
+        "damage:decay"
+      ]
+    },
+    {
+      "cardId": "progression-pallbearer-s-ward",
+      "tags": [
+        "guard",
+        "ritual",
+        "ability:funeral-guard",
+        "source:spell",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "progression-ember-tithe",
+      "tags": [
+        "ritual",
+        "blood",
+        "ability:ember-tithe",
+        "source:spell",
+        "classification.attack",
+        "camp:spell",
+        "school:decay",
+        "damage:decay"
+      ]
+    },
+    {
+      "cardId": "progression-ossuary-cant",
+      "tags": [
+        "ritual",
+        "guard",
+        "blight",
+        "ability:bone-chorus",
+        "source:spell",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:decay"
+      ]
+    },
+    {
+      "cardId": "progression-requiem-brand",
+      "tags": [
+        "ritual",
+        "blight",
+        "ability:requiem-brand",
+        "source:spell",
+        "classification.attack",
+        "camp:spell",
+        "school:decay",
+        "damage:decay"
+      ]
+    },
+    {
+      "cardId": "progression-pilgrim-s-shelter",
+      "tags": [
+        "guard",
+        "ritual",
+        "ability:pilgrim-shelter",
+        "source:spell",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "progression-crown-of-scars",
+      "tags": [
+        "ritual",
+        "blood",
+        "oath",
+        "ability:scarred-rite",
+        "source:spell",
+        "classification.attack",
+        "camp:spell",
+        "maneuver:defend",
+        "school:decay",
+        "damage:decay"
+      ]
+    },
+    {
+      "cardId": "progression-dawn-after-ash",
+      "tags": [
+        "ritual",
+        "guard",
+        "oath",
+        "ability:dawn-rite",
+        "source:spell",
+        "classification.skill",
+        "camp:spell",
+        "maneuver:defend",
+        "school:divine"
+      ]
+    },
+    {
+      "cardId": "frostCounter",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:frost",
+        "damage:frost",
+        "maneuver:counter",
+        "counter:spell",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "fireCounter",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:fire",
+        "damage:fire",
+        "maneuver:counter",
+        "counter:spell",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "lightningCounter",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:lightning",
+        "damage:piercing",
+        "maneuver:counter",
+        "counter:spell",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "forceCounter",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:force",
+        "damage:blunt",
+        "maneuver:counter",
+        "counter:spell",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "alterationCounter",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:alteration",
+        "damage:blunt",
+        "maneuver:counter",
+        "counter:spell",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "illusionCounter",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:illusion",
+        "damage:psychic",
+        "maneuver:counter",
+        "counter:spell",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "divineCounter",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:divine",
+        "damage:sacred",
+        "maneuver:counter",
+        "counter:spell",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "decayCounter",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:counter",
+        "counter:spell",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "barrageCounter",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:alteration",
+        "damage:blunt",
+        "maneuver:counter",
+        "counter:ranged",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "rimeNeedle",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:frost",
+        "damage:frost",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "emberDart",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:fire",
+        "damage:fire",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "staticNeedle",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:lightning",
+        "damage:piercing",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "forceNudge",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:force",
+        "damage:blunt",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "drowsingMote",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:illusion",
+        "damage:psychic",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "holySpark",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:divine",
+        "damage:sacred",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "rotMote",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:decay",
+        "damage:decay",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "earthGrounding",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:alteration",
+        "damage:blunt",
+        "range:melee",
+        "targeting:single",
+        "trait:grounded",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "restfulDream",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:illusion",
+        "damage:psychic",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "sanctuaryCleanse",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:divine",
+        "damage:sacred",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "blightedTransmute",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:alteration",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "blightedSecondBloom",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:divine",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "blightedBlightward",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:divine",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "dreamHarvest",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:illusion",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "lucidRecovery",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:illusion",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "groundedResolve",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:alteration",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "clearHead",
+      "tags": [
+        "classification.skill",
+        "camp:physical",
+        "range:melee",
+        "targeting:single"
+      ]
+    },
+    {
+      "cardId": "lowGuardRiposte",
+      "tags": [
+        "classification.skill",
+        "camp:physical",
+        "maneuver:counter",
+        "counter:melee",
+        "range:melee",
+        "targeting:single",
+        "source:weapon"
+      ]
+    },
+    {
+      "cardId": "crawlingShot",
+      "tags": [
+        "classification.attack",
+        "camp:physical",
+        "maneuver:ranged",
+        "damage:piercing",
+        "range:reach",
+        "targeting:single"
+      ]
+    },
+    {
+      "cardId": "emberCovenant",
+      "tags": [
+        "classification.power",
+        "camp:spell",
+        "school:fire",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "shatterOpportunity",
+      "tags": [
+        "classification.power",
+        "camp:spell",
+        "school:frost",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "phaseWard",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:alteration",
+        "damage:blunt",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "illusionDecoy",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:illusion",
+        "damage:psychic",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "aspDart",
+      "tags": [
+        "ranged",
+        "venom",
+        "source:weapon",
+        "delivery:projectile",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:ranged",
+        "damage:poison"
+      ]
+    },
+    {
+      "cardId": "viperStrike",
+      "tags": [
+        "venom",
+        "source:weapon",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack",
+        "damage:poison"
+      ]
+    },
+    {
+      "cardId": "septicBlade",
+      "tags": [
+        "venom",
+        "source:weapon",
+        "delivery:melee",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack",
+        "damage:poison"
+      ]
+    },
+    {
+      "cardId": "lethalDose",
+      "tags": [
+        "venom",
+        "source:weapon",
+        "delivery:projectile",
+        "classification.attack",
+        "camp:physical",
+        "maneuver:attack",
+        "damage:poison",
+        "range:reach",
+        "precision",
+        "technique:precision"
+      ]
+    },
+    {
+      "cardId": "mindSpike",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:illusion",
+        "damage:psychic",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "dissonance",
+      "tags": [
+        "classification.skill",
+        "camp:spell",
+        "school:illusion",
+        "damage:psychic",
+        "range:melee",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "mindFracture",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:illusion",
+        "damage:psychic",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "wakingNightmare",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:illusion",
+        "damage:psychic",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "stoneSling",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:earth",
+        "damage:earth",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "rockfall",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:earth",
+        "damage:earth",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:area",
+        "source:spell"
+      ]
+    },
+    {
+      "cardId": "stoneskin",
+      "tags": [
+        "classification.skill",
+        "camp:physical",
+        "maneuver:defend"
+      ]
+    },
+    {
+      "cardId": "entomb",
+      "tags": [
+        "classification.attack",
+        "camp:spell",
+        "school:earth",
+        "damage:earth",
+        "maneuver:casting",
+        "range:reach",
+        "targeting:single",
+        "source:spell"
+      ]
+    }
+  ]
+}

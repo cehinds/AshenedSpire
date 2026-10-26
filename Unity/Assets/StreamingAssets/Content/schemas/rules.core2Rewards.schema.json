@@ -1,0 +1,95 @@
+{
+  "$id": "rules/core2Rewards.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "stanceAlias": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "cantripTag": {
+      "type": "string"
+    },
+    "excludedRarities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "lowerRankScale": {
+      "type": "integer"
+    },
+    "expandedProgressionVersion": {
+      "type": "integer"
+    },
+    "defaultActs": {
+      "type": "integer"
+    },
+    "chargeLedgerKeys": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "skillKinds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "abilitySkill": {
+      "type": "string"
+    },
+    "perceptionSkill": {
+      "type": "string"
+    },
+    "linearEpsilon": {
+      "type": "number"
+    },
+    "xpMultiplierMax": {
+      "type": "number"
+    },
+    "trackLabels": {
+      "type": "object",
+      "properties": {
+        "focus": {
+          "type": "string"
+        },
+        "ability": {
+          "type": "string"
+        },
+        "dual": {
+          "type": "string"
+        },
+        "armourSuffix": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "focus",
+        "ability",
+        "dual",
+        "armourSuffix"
+      ]
+    }
+  },
+  "required": [
+    "stanceAlias",
+    "cantripTag",
+    "excludedRarities",
+    "lowerRankScale",
+    "defaultActs",
+    "expandedProgressionVersion",
+    "chargeLedgerKeys",
+    "skillKinds",
+    "abilitySkill",
+    "perceptionSkill",
+    "linearEpsilon",
+    "xpMultiplierMax",
+    "trackLabels"
+  ]
+}

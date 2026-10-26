@@ -67,6 +67,9 @@ namespace Ashen.Presentation.UI
 
         public event Action<ScreenInstance> ScreenShown;
 
+        /// <summary>The viewport was classified again (a resize, the View mode or UI size): a screen that folds its tab strip on a narrow layout looks again.</summary>
+        public event Action LayoutChanged;
+
         public IReadOnlyList<ScreenInstance> Stack => _stack;
         public ScreenInstance Top => _stack.Count > 0 ? _stack[_stack.Count - 1] : null;
         public string CurrentId => Top?.Id;
@@ -241,13 +244,13 @@ namespace Ashen.Presentation.UI
         private void OnMove(NavigationMoveEvent evt)
         {
             evt.StopImmediatePropagation();
-            _panel?.focusController?.IgnoreEvent(evt);
+            evt.PreventDefault();
         }
 
         private void OnCancel(NavigationCancelEvent evt)
         {
             evt.StopImmediatePropagation();
-            _panel?.focusController?.IgnoreEvent(evt);
+            evt.PreventDefault();
         }
 
         private void OnSubmit(NavigationSubmitEvent evt)
@@ -258,15 +261,7 @@ namespace Ashen.Presentation.UI
                 return;
             }
             evt.StopImmediatePropagation();
-            _panel?.focusController?.IgnoreEvent(evt);
-        }
-
-        /// <summary>Router Menu (pad Start): the top screen handles it (combat opens pause, pause resumes); nothing happens otherwise.</summary>
-        public void Menu()
-        {
-            var top = Top;
-            if (top == null || !top.Def.AcceptsInput || top.View.InputBlocked) return;
-            top.View.HandleMenu();
+            evt.PreventDefault();
         }
 
         /// <summary>Router Move: next (+1) or previous (-1) in the top screen's focus order.</summary>
@@ -274,6 +269,7 @@ namespace Ashen.Presentation.UI
         {
             var top = Top;
             if (top == null || !top.Def.AcceptsInput || top.View.InputBlocked) return;
+            if (top.View.HandleMove(delta)) return;
             top.Focus.Move(delta);
         }
 
@@ -283,6 +279,7 @@ namespace Ashen.Presentation.UI
             var top = Top;
             if (top == null || !top.Def.AcceptsInput || top.View.InputBlocked) return;
             if (Time.realtimeSinceStartup < _suppressSubmitUntil) return;
+            if (top.View.HandleSubmit()) return;
             var focused = top.Focus.Focused;
             if (focused == null)
             {
@@ -312,8 +309,18 @@ namespace Ashen.Presentation.UI
             Root.EnableInClassList(UiClasses.LayoutNarrow, state.Narrow);
             Root.EnableInClassList(UiClasses.LayoutWide, !state.Narrow);
             if (modeChanged) _host.UsePanel(state.Narrow);
+            _host.UseScale(state);
             ResetMinimumText();
             ApplyMinimums();
+            LayoutChanged?.Invoke();
+        }
+
+        /// <summary>The player changed View mode or UI size: classify again, whatever the viewport was.</summary>
+        public void Relayout()
+        {
+            var size = (Layout?.ViewportWidth ?? _host.ViewportWidth, Layout?.ViewportHeight ?? _host.ViewportHeight);
+            Layout = null;
+            ApplyLayout(size.Item1, size.Item2);
         }
 
         /// <summary>layout.json#minPhysical after scaling: touch targets never below the physical minimum, value and header text never below theirs.</summary>

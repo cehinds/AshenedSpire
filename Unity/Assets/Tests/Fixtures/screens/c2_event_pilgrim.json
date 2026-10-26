@@ -1,0 +1,14 @@
+{
+  "comment": "event-pilgrim-choices: the Wayward Pilgrim, 40 cinders so Give 50 cinders is dimmed.",
+  "screen": "core2Event",
+  "core2": {
+    "until": "event",
+    "eventId": "weepingPilgrim",
+    "cinders": 40,
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

@@ -1,0 +1,407 @@
+{
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825",
+ "profileId": "core",
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "contentVersion": "0.7.1",
+ "files": [
+  {
+   "file": "objects/attributeRules.json",
+   "bytes": 3192,
+   "keys": 3
+  },
+  {
+   "file": "objects/balance.json",
+   "bytes": 64362,
+   "keys": 46
+  },
+  {
+   "file": "objects/characterCreation.json",
+   "bytes": 3272,
+   "keys": 7
+  },
+  {
+   "file": "objects/classMastery.json",
+   "bytes": 22204,
+   "keys": 229
+  },
+  {
+   "file": "objects/classSkillFeats.json",
+   "bytes": 23342,
+   "keys": 70
+  },
+  {
+   "file": "objects/classTree.json",
+   "bytes": 2733,
+   "keys": 40
+  },
+  {
+   "file": "objects/contentVersion.json",
+   "bytes": 8
+  },
+  {
+   "file": "objects/derivedStatRules.json",
+   "bytes": 3268,
+   "keys": 4
+  },
+  {
+   "file": "objects/enemyMoves.json",
+   "bytes": 44700,
+   "keys": 138
+  },
+  {
+   "file": "objects/equipment.json",
+   "bytes": 215080,
+   "keys": 15
+  },
+  {
+   "file": "objects/eventHistoryRequirements.json",
+   "bytes": 636,
+   "keys": 3
+  },
+  {
+   "file": "objects/eventSpeakers.json",
+   "bytes": 178,
+   "keys": 5
+  },
+  {
+   "file": "objects/familyNodes.json",
+   "bytes": 6977,
+   "keys": 130
+  },
+  {
+   "file": "objects/framework.json",
+   "bytes": 3,
+   "keys": 0
+  },
+  {
+   "file": "objects/frameworkTerms.json",
+   "bytes": 3,
+   "keys": 0
+  },
+  {
+   "file": "objects/mapConfigs.json",
+   "bytes": 2082,
+   "keys": 3
+  },
+  {
+   "file": "objects/nodeEffects.json",
+   "bytes": 72574,
+   "keys": 174
+  },
+  {
+   "file": "objects/nodeRelations.json",
+   "bytes": 3386,
+   "keys": 27
+  },
+  {
+   "file": "objects/nodeTerms.json",
+   "bytes": 27889,
+   "keys": 172
+  },
+  {
+   "file": "objects/nodeVariables.json",
+   "bytes": 16016,
+   "keys": 197
+  },
+  {
+   "file": "objects/nodes.json",
+   "bytes": 123092,
+   "keys": 464
+  },
+  {
+   "file": "objects/proposalStatusRules.json",
+   "bytes": 8882,
+   "keys": 30
+  },
+  {
+   "file": "objects/questChains.json",
+   "bytes": 665,
+   "keys": 2
+  },
+  {
+   "file": "objects/scripts.json",
+   "bytes": 3,
+   "keys": 0
+  },
+  {
+   "file": "objects/shops.json",
+   "bytes": 5342,
+   "keys": 5
+  },
+  {
+   "file": "objects/statDomains.json",
+   "bytes": 57,
+   "keys": 4
+  },
+  {
+   "file": "objects/tagDomains.json",
+   "bytes": 4072,
+   "keys": 28
+  },
+  {
+   "file": "objects/tagFamilies.json",
+   "bytes": 3817,
+   "keys": 21
+  },
+  {
+   "file": "objects/tagFamilyDomains.json",
+   "bytes": 6977,
+   "keys": 130
+  },
+  {
+   "file": "objects/tagging.json",
+   "bytes": 483209,
+   "keys": 4708
+  },
+  {
+   "file": "objects/tags.json",
+   "bytes": 93898,
+   "keys": 436
+  },
+  {
+   "file": "objects/tree.json",
+   "bytes": 3,
+   "keys": 0
+  },
+  {
+   "file": "objects/unlocks.json",
+   "bytes": 4775,
+   "keys": 18
+  },
+  {
+   "file": "objects/variableBindings.json",
+   "bytes": 30088,
+   "keys": 197
+  },
+  {
+   "file": "profile/content/baseCardAdmission.json",
+   "bytes": 2524,
+   "keys": 3
+  },
+  {
+   "file": "profile/content/baseCardGroups.json",
+   "bytes": 3321,
+   "keys": 4
+  },
+  {
+   "file": "profile/content/baseCardSourceManifest.json",
+   "bytes": 10114,
+   "keys": 6
+  },
+  {
+   "file": "profile/content/baseCardStatusSource.json",
+   "bytes": 17771,
+   "keys": 4
+  },
+  {
+   "file": "profile/content/baseCardVariants.json",
+   "bytes": 22739,
+   "keys": 72
+  },
+  {
+   "file": "profile/content/baseCards.json",
+   "bytes": 269585,
+   "keys": 3
+  },
+  {
+   "file": "profile/content/cardPools.json",
+   "bytes": 990,
+   "keys": 7
+  },
+  {
+   "file": "profile/content/cards.json",
+   "bytes": 136011,
+   "keys": 211
+  },
+  {
+   "file": "profile/content/characters.json",
+   "bytes": 58465,
+   "keys": 37
+  },
+  {
+   "file": "profile/content/classAttributes.json",
+   "bytes": 436,
+   "keys": 4
+  },
+  {
+   "file": "profile/content/classUnlocks.json",
+   "bytes": 140,
+   "keys": 3
+  },
+  {
+   "file": "profile/content/classes.json",
+   "bytes": 2381,
+   "keys": 4
+  },
+  {
+   "file": "profile/content/enemies.json",
+   "bytes": 51941,
+   "keys": 33
+  },
+  {
+   "file": "profile/content/enemyCards.json",
+   "bytes": 72706,
+   "keys": 138
+  },
+  {
+   "file": "profile/content/enemyCardsMerged.json",
+   "bytes": 5
+  },
+  {
+   "file": "profile/content/enemyRelics.json",
+   "bytes": 1045,
+   "keys": 6
+  },
+  {
+   "file": "profile/content/gear.json",
+   "bytes": 14089,
+   "keys": 47
+  },
+  {
+   "file": "profile/content/provisionalPolicies.json",
+   "bytes": 2734,
+   "keys": 2
+  },
+  {
+   "file": "profile/content/resourceVariants.json",
+   "bytes": 69294,
+   "keys": 225
+  },
+  {
+   "file": "profile/content/rests.json",
+   "bytes": 243,
+   "keys": 4
+  },
+  {
+   "file": "profile/content/rewards.json",
+   "bytes": 3342,
+   "keys": 6
+  },
+  {
+   "file": "profile/content/routes.json",
+   "bytes": 362,
+   "keys": 13
+  },
+  {
+   "file": "profile/content/shops.json",
+   "bytes": 59,
+   "keys": 3
+  },
+  {
+   "file": "profile/content/starterDeck.json",
+   "bytes": 1556,
+   "keys": 4
+  },
+  {
+   "file": "profile/content/startingHands.json",
+   "bytes": 60,
+   "keys": 4
+  },
+  {
+   "file": "profile/content/stats.json",
+   "bytes": 379,
+   "keys": 6
+  },
+  {
+   "file": "profile/core.json",
+   "bytes": 99125,
+   "keys": 12
+  },
+  {
+   "file": "tables/attributes.json",
+   "bytes": 868,
+   "rows": 5
+  },
+  {
+   "file": "tables/cards.json",
+   "bytes": 656523,
+   "rows": 529
+  },
+  {
+   "file": "tables/classes.json",
+   "bytes": 11377,
+   "rows": 4
+  },
+  {
+   "file": "tables/companions.json",
+   "bytes": 555,
+   "rows": 2
+  },
+  {
+   "file": "tables/consumables.json",
+   "bytes": 4228,
+   "rows": 11
+  },
+  {
+   "file": "tables/creationModes.json",
+   "bytes": 1011,
+   "rows": 6
+  },
+  {
+   "file": "tables/encounters.json",
+   "bytes": 8006,
+   "rows": 35
+  },
+  {
+   "file": "tables/enemies.json",
+   "bytes": 51439,
+   "rows": 33
+  },
+  {
+   "file": "tables/events.json",
+   "bytes": 23392,
+   "rows": 25
+  },
+  {
+   "file": "tables/flasks.json",
+   "bytes": 2548,
+   "rows": 7
+  },
+  {
+   "file": "tables/keywords.json",
+   "bytes": 595,
+   "rows": 5
+  },
+  {
+   "file": "tables/propertyRules.json",
+   "bytes": 56087,
+   "rows": 182
+  },
+  {
+   "file": "tables/relics.json",
+   "bytes": 24798,
+   "rows": 73
+  },
+  {
+   "file": "tables/resources.json",
+   "bytes": 496,
+   "rows": 3
+  },
+  {
+   "file": "tables/seats.json",
+   "bytes": 317,
+   "rows": 3
+  },
+  {
+   "file": "tables/sigils.json",
+   "bytes": 1761,
+   "rows": 7
+  },
+  {
+   "file": "tables/speakers.json",
+   "bytes": 495,
+   "rows": 5
+  },
+  {
+   "file": "tables/stances.json",
+   "bytes": 1142,
+   "rows": 3
+  },
+  {
+   "file": "tables/statuses.json",
+   "bytes": 29987,
+   "rows": 101
+  }
+ ],
+ "totalBytes": 2993827
+}

@@ -1,5 +1,9 @@
 {
   "GroupToken": "token",
+  "TokenChargePrefix": "charge",
+  "GroupAmount": "amount",
+  "GroupHits": "hits",
+  "GroupBetween": "between",
   "GroupSign": "sign",
   "GroupNumber": "num",
   "GroupField": "field",

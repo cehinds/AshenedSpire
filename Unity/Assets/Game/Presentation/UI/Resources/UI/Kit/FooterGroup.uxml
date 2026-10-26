@@ -1,8 +1,28 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="FooterGroup.uss" />
-    <Ashen.Presentation.UI.LocLabel name="GROUP_ACTIONS" class="group-actions kit-text-value" />
-    <Ashen.Presentation.UI.LocButton name="GROUP_DRAW" class="group-button" />
-    <Ashen.Presentation.UI.LocButton name="GROUP_END_TURN" class="group-button group-end-turn" string-key="kit.footer.endTurn" />
-    <Ashen.Presentation.UI.LocButton name="GROUP_DISCARD" class="group-button" />
-    <Ashen.Presentation.UI.LocButton name="GROUP_POTIONS" class="group-button" />
+    <ui:VisualElement class="group-zone group-zone--left" picking-mode="Ignore">
+        <Ashen.Presentation.UI.Kit.Orb name="GROUP_ORB" class="group-orb" picking-mode="Ignore" />
+        <ui:VisualElement class="group-pile" picking-mode="Ignore">
+            <Ashen.Presentation.UI.LocButton name="GROUP_DRAW" class="group-pile-button">
+                <ui:VisualElement name="GROUP_DRAW_ART" class="group-pile-art" picking-mode="Ignore" />
+            </Ashen.Presentation.UI.LocButton>
+            <Ashen.Presentation.UI.LocLabel name="GROUP_DRAW_CAPTION" class="group-pile-caption kit-text-header kit-upper" string-key="core2.board.drawLabel" picking-mode="Ignore" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement class="group-zone group-zone--center" picking-mode="Ignore">
+        <Ashen.Presentation.UI.LocButton name="GROUP_END_TURN" class="group-end-turn" string-key="kit.footer.endTurn" />
+    </ui:VisualElement>
+    <ui:VisualElement class="group-zone group-zone--right" picking-mode="Ignore">
+        <ui:VisualElement class="group-pile" picking-mode="Ignore">
+            <Ashen.Presentation.UI.LocButton name="GROUP_DISCARD" class="group-pile-button group-pile-button--wide">
+                <ui:VisualElement name="GROUP_DISCARD_ART" class="group-pile-art" picking-mode="Ignore" />
+            </Ashen.Presentation.UI.LocButton>
+            <Ashen.Presentation.UI.LocLabel name="GROUP_DISCARD_CAPTION" class="group-pile-caption kit-text-header kit-upper" picking-mode="Ignore" />
+        </ui:VisualElement>
+        <ui:VisualElement class="group-pile" picking-mode="Ignore">
+            <Ashen.Presentation.UI.LocButton name="GROUP_POTIONS" class="group-pile-button group-pile-button--potions">
+                <ui:VisualElement name="GROUP_POTIONS_ART" class="group-pile-art group-pile-art--potions" picking-mode="Ignore" />
+            </Ashen.Presentation.UI.LocButton>
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

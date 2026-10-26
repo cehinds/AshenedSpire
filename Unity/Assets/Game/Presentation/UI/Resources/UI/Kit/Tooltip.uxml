@@ -1,5 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Tooltip.uss" />
+    <ui:VisualElement class="shadow-plate shadow-plate--tooltip" picking-mode="Ignore" />
+    <ui:VisualElement name="TOOLTIP_ARROW" class="tooltip-arrow" picking-mode="Ignore" />
     <ui:VisualElement class="tooltip-head" picking-mode="Ignore">
         <Ashen.Presentation.UI.LocLabel name="TOOLTIP_GLYPH" class="tooltip-glyph is-hidden" picking-mode="Ignore" />
         <Ashen.Presentation.UI.LocLabel name="TOOLTIP_TITLE" class="tooltip-title kit-text-header" picking-mode="Ignore" />

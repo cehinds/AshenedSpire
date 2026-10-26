@@ -1,0 +1,43 @@
+{
+  "$id": "ui/figureInk.json",
+  "type": "object",
+  "properties": {
+    "alpha": {
+      "type": "integer"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "frames": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "sha": {
+            "type": "string"
+          },
+          "width": {
+            "type": "integer"
+          },
+          "x0": {
+            "type": "integer"
+          },
+          "x1": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "sha",
+          "width",
+          "x0",
+          "x1"
+        ]
+      }
+    }
+  },
+  "required": [
+    "alpha",
+    "comment",
+    "frames"
+  ]
+}

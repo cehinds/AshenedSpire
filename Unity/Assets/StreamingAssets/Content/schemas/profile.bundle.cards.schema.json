@@ -1,0 +1,968 @@
+{
+  "$id": "profile/bundle/cards.json",
+  "x-keyed": true,
+  "type": "object",
+  "additionalProperties": {
+    "type": "object",
+    "additionalProperties": {
+      "type": [
+        "array",
+        "boolean",
+        "integer",
+        "object",
+        "string"
+      ],
+      "additionalProperties": {
+        "type": [
+          "array",
+          "boolean",
+          "integer",
+          "object",
+          "string"
+        ],
+        "properties": {
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": [
+                    "integer",
+                    "object"
+                  ],
+                  "properties": {
+                    "args": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "f": {
+                            "type": "string"
+                          },
+                          "of": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "f",
+                          "of",
+                          "status"
+                        ]
+                      }
+                    },
+                    "f": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "args",
+                    "f"
+                  ]
+                },
+                "card": {
+                  "type": "string"
+                },
+                "hits": {
+                  "type": "integer"
+                },
+                "if": {
+                  "type": "object",
+                  "properties": {
+                    "of": {
+                      "type": "string",
+                      "enum": [
+                        "self",
+                        "target"
+                      ]
+                    },
+                    "p": {
+                      "type": "string",
+                      "enum": [
+                        "hasBlock",
+                        "hasStatus",
+                        "hpBelowPct",
+                        "inStance",
+                        "not"
+                      ]
+                    },
+                    "pct": {
+                      "type": "integer"
+                    },
+                    "pred": {
+                      "type": "object",
+                      "properties": {
+                        "of": {
+                          "type": "string"
+                        },
+                        "p": {
+                          "type": "string"
+                        },
+                        "pct": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "of",
+                        "p"
+                      ]
+                    },
+                    "stance": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "prepared",
+                        "staggered",
+                        "starstoneCharge"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "p"
+                  ]
+                },
+                "op": {
+                  "type": "string",
+                  "enum": [
+                    "addCard",
+                    "applyStatus",
+                    "block",
+                    "damage",
+                    "draw",
+                    "gainEnergy",
+                    "heal",
+                    "poiseDamage",
+                    "removeStatus"
+                  ]
+                },
+                "pile": {
+                  "type": "string"
+                },
+                "stacks": {
+                  "type": [
+                    "integer",
+                    "object"
+                  ],
+                  "properties": {
+                    "args": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer"
+                      }
+                    },
+                    "f": {
+                      "type": "string",
+                      "enum": [
+                        "add"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "args",
+                    "f"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "x-ref": "profile/bundle/statuses.json"
+                },
+                "target": {
+                  "type": "string",
+                  "enum": [
+                    "allEnemies",
+                    "enemy",
+                    "self"
+                  ]
+                }
+              },
+              "required": [
+                "op"
+              ]
+            }
+          },
+          "families": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "textTemplate": {
+            "type": "string"
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "items": {
+          "type": [
+            "integer",
+            "object",
+            "string"
+          ],
+          "properties": {
+            "amount": {
+              "type": [
+                "integer",
+                "object"
+              ],
+              "properties": {
+                "args": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "number",
+                      "object"
+                    ],
+                    "properties": {
+                      "args": {
+                        "type": "array",
+                        "items": {
+                          "type": [
+                            "integer",
+                            "object"
+                          ]
+                        }
+                      },
+                      "f": {
+                        "type": "string"
+                      },
+                      "of": {
+                        "type": "string"
+                      },
+                      "per": {
+                        "type": "integer"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "f"
+                    ]
+                  }
+                },
+                "f": {
+                  "type": "string",
+                  "enum": [
+                    "add",
+                    "blockOf",
+                    "energySpent",
+                    "missingHp",
+                    "mul",
+                    "stacks"
+                  ]
+                },
+                "max": {
+                  "type": "integer"
+                },
+                "of": {
+                  "type": "string"
+                },
+                "per": {
+                  "type": "integer"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "f"
+              ]
+            },
+            "camp": {
+              "type": "string"
+            },
+            "card": {
+              "type": "string"
+            },
+            "chance": {
+              "type": "integer"
+            },
+            "choose": {
+              "type": "string"
+            },
+            "hits": {
+              "type": [
+                "integer",
+                "object"
+              ],
+              "properties": {
+                "f": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "f"
+              ]
+            },
+            "if": {
+              "type": "object",
+              "properties": {
+                "atLeast": {
+                  "type": "integer"
+                },
+                "of": {
+                  "type": "string",
+                  "enum": [
+                    "self",
+                    "target"
+                  ]
+                },
+                "p": {
+                  "type": "string",
+                  "enum": [
+                    "any",
+                    "hasBlock",
+                    "hasStatus",
+                    "hpBelowPct",
+                    "inStance",
+                    "not"
+                  ]
+                },
+                "pct": {
+                  "type": "integer"
+                },
+                "pred": {
+                  "type": "object",
+                  "properties": {
+                    "of": {
+                      "type": "string",
+                      "enum": [
+                        "self",
+                        "target"
+                      ]
+                    },
+                    "p": {
+                      "type": "string",
+                      "enum": [
+                        "hasBlock",
+                        "hasStatus",
+                        "hpBelowPct",
+                        "inStance"
+                      ]
+                    },
+                    "pct": {
+                      "type": "integer"
+                    },
+                    "stance": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "staggered",
+                        "starstoneCharge"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "p"
+                  ]
+                },
+                "preds": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "of": {
+                        "type": "string"
+                      },
+                      "p": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "of",
+                      "p",
+                      "status"
+                    ]
+                  }
+                },
+                "stance": {
+                  "type": "string",
+                  "enum": [
+                    "bulwark",
+                    "gorefire"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "bleed",
+                    "necroticBlight",
+                    "prepared",
+                    "staggered",
+                    "starstoneCharge",
+                    "venom",
+                    "vulnerable",
+                    "weak"
+                  ]
+                }
+              },
+              "required": [
+                "p"
+              ]
+            },
+            "op": {
+              "type": "string"
+            },
+            "pile": {
+              "type": "string"
+            },
+            "position": {
+              "type": "string"
+            },
+            "random": {
+              "type": "boolean"
+            },
+            "recoveryProfile": {
+              "type": "string"
+            },
+            "stacks": {
+              "type": [
+                "integer",
+                "object"
+              ],
+              "properties": {
+                "args": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer"
+                  }
+                },
+                "f": {
+                  "type": "string",
+                  "enum": [
+                    "add",
+                    "stacks"
+                  ]
+                },
+                "of": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "f"
+              ]
+            },
+            "stance": {
+              "type": "string",
+              "enum": [
+                "brace",
+                "bulwark",
+                "gorefire"
+              ]
+            },
+            "status": {
+              "type": "string"
+            },
+            "target": {
+              "type": "string",
+              "enum": [
+                "allEnemies",
+                "ally",
+                "enemy",
+                "randomEnemy",
+                "self"
+              ]
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "arcane",
+                "blunt",
+                "decay",
+                "slashing"
+              ]
+            },
+            "weight": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "items": {
+        "type": [
+          "object",
+          "string"
+        ],
+        "additionalProperties": {
+          "type": [
+            "array",
+            "boolean",
+            "integer",
+            "object",
+            "string"
+          ],
+          "additionalProperties": {
+            "type": [
+              "array",
+              "boolean",
+              "integer",
+              "object",
+              "string"
+            ],
+            "properties": {
+              "f": {
+                "type": "string"
+              },
+              "of": {
+                "type": "string",
+                "enum": [
+                  "self",
+                  "target"
+                ]
+              },
+              "p": {
+                "type": "string",
+                "enum": [
+                  "hasStatus",
+                  "inStance"
+                ]
+              },
+              "stance": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "base.conceal",
+                  "staggered",
+                  "starstoneCharge"
+                ]
+              }
+            },
+            "items": {
+              "type": [
+                "number",
+                "object"
+              ],
+              "properties": {
+                "args": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "integer",
+                      "object"
+                    ],
+                    "properties": {
+                      "f": {
+                        "type": "string"
+                      },
+                      "of": {
+                        "type": "string"
+                      },
+                      "status": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "f",
+                      "of",
+                      "status"
+                    ]
+                  }
+                },
+                "atLeast": {
+                  "type": "integer"
+                },
+                "f": {
+                  "type": "string",
+                  "enum": [
+                    "add",
+                    "metric",
+                    "missingHp",
+                    "mul",
+                    "stacks"
+                  ]
+                },
+                "metric": {
+                  "type": "string",
+                  "enum": [
+                    "damageTakenThisTurn",
+                    "distinctTypes",
+                    "negativeStatusTypes",
+                    "sameCardPlays",
+                    "tagPlays"
+                  ]
+                },
+                "of": {
+                  "type": "string",
+                  "enum": [
+                    "allEnemies",
+                    "self",
+                    "target"
+                  ]
+                },
+                "p": {
+                  "type": "string",
+                  "enum": [
+                    "hasStatus",
+                    "turnMetric"
+                  ]
+                },
+                "per": {
+                  "type": "number"
+                },
+                "snapshot": {
+                  "type": "string",
+                  "enum": [
+                    "beforePlay"
+                  ]
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "bleed",
+                    "crimsonBlight",
+                    "frost",
+                    "frostExposed",
+                    "necroticBlight",
+                    "vulnerable",
+                    "weak"
+                  ]
+                },
+                "statuses": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "base.bind",
+                      "base.blight",
+                      "base.charm",
+                      "base.greased",
+                      "base.poison",
+                      "base.restrained",
+                      "base.weak",
+                      "burn",
+                      "venom",
+                      "vulnerable",
+                      "weak"
+                    ]
+                  }
+                },
+                "tag": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "items": {
+            "type": [
+              "object",
+              "string"
+            ],
+            "properties": {
+              "abilityKind": {
+                "type": "string",
+                "enum": [
+                  "spell"
+                ]
+              },
+              "amount": {
+                "type": [
+                  "integer",
+                  "object"
+                ],
+                "properties": {
+                  "args": {
+                    "type": "array",
+                    "items": {
+                      "type": [
+                        "number",
+                        "object"
+                      ],
+                      "properties": {
+                        "args": {
+                          "type": "array"
+                        },
+                        "f": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "args",
+                        "f"
+                      ]
+                    }
+                  },
+                  "f": {
+                    "type": "string",
+                    "enum": [
+                      "mul"
+                    ]
+                  },
+                  "max": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "args",
+                  "f",
+                  "max"
+                ]
+              },
+              "card": {
+                "type": "string"
+              },
+              "cardTag": {
+                "type": "string"
+              },
+              "cardType": {
+                "type": "string",
+                "enum": [
+                  "attack"
+                ]
+              },
+              "choose": {
+                "type": "boolean"
+              },
+              "damage": {
+                "type": "integer"
+              },
+              "hits": {
+                "type": "integer"
+              },
+              "if": {
+                "type": "object",
+                "properties": {
+                  "atLeast": {
+                    "type": "integer"
+                  },
+                  "atMost": {
+                    "type": "integer"
+                  },
+                  "metric": {
+                    "type": "string",
+                    "enum": [
+                      "discarded",
+                      "distinctTagPlays",
+                      "hpLostSinceTurnStart",
+                      "manaSpent",
+                      "offeringsPaid",
+                      "previousSpell",
+                      "tagPlays",
+                      "turnStartHpPct"
+                    ]
+                  },
+                  "of": {
+                    "type": "string",
+                    "enum": [
+                      "self",
+                      "target"
+                    ]
+                  },
+                  "p": {
+                    "type": "string",
+                    "enum": [
+                      "all",
+                      "any",
+                      "firstCardThisTurn",
+                      "hasBlock",
+                      "hasStatus",
+                      "hpBelowPct",
+                      "inStance",
+                      "not",
+                      "turnMetric"
+                    ]
+                  },
+                  "pct": {
+                    "type": "integer"
+                  },
+                  "pred": {
+                    "type": "object",
+                    "properties": {
+                      "of": {
+                        "type": "string"
+                      },
+                      "p": {
+                        "type": "string"
+                      },
+                      "snapshot": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "of",
+                      "p",
+                      "snapshot"
+                    ]
+                  },
+                  "preds": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "atLeast": {
+                          "type": "integer"
+                        },
+                        "metric": {
+                          "type": "string"
+                        },
+                        "of": {
+                          "type": "string"
+                        },
+                        "p": {
+                          "type": "string"
+                        },
+                        "snapshot": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "tag": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "p"
+                      ]
+                    }
+                  },
+                  "snapshot": {
+                    "type": "string",
+                    "enum": [
+                      "beforePlay"
+                    ]
+                  },
+                  "stance": {
+                    "type": "string",
+                    "enum": [
+                      "bulwark",
+                      "gorefire"
+                    ]
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "bleed",
+                      "prepared",
+                      "staggered",
+                      "starstoneCharge"
+                    ]
+                  },
+                  "tag": {
+                    "type": "string",
+                    "enum": [
+                      "guard",
+                      "heavy",
+                      "starstone"
+                    ]
+                  }
+                },
+                "required": [
+                  "p"
+                ]
+              },
+              "key": {
+                "type": "string",
+                "enum": [
+                  "ember-crown",
+                  "guarded-strike",
+                  "nightglass",
+                  "smoke-edge",
+                  "warded-casting"
+                ]
+              },
+              "manaDiscount": {
+                "type": "integer"
+              },
+              "nonlethal": {
+                "type": "boolean"
+              },
+              "offering": {
+                "type": "boolean"
+              },
+              "oncePerTurn": {
+                "type": "string",
+                "enum": [
+                  "grade-block",
+                  "grade-draw",
+                  "mana-weave"
+                ]
+              },
+              "op": {
+                "type": "string"
+              },
+              "pile": {
+                "type": "string"
+              },
+              "stacks": {
+                "type": [
+                  "integer",
+                  "object"
+                ],
+                "properties": {
+                  "args": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "f": {
+                    "type": "string",
+                    "enum": [
+                      "add"
+                    ]
+                  }
+                },
+                "required": [
+                  "args",
+                  "f"
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "bleed",
+                  "burn",
+                  "crimsonBlight",
+                  "dexterity",
+                  "frost",
+                  "prepared",
+                  "regen",
+                  "starstoneCharge",
+                  "strength",
+                  "vulnerable",
+                  "weak"
+                ]
+              },
+              "target": {
+                "type": "string",
+                "enum": [
+                  "allEnemies",
+                  "enemy",
+                  "self"
+                ]
+              }
+            },
+            "required": [
+              "op"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

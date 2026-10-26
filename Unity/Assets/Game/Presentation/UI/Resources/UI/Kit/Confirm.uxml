@@ -1,5 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Confirm.uss" />
+    <ui:VisualElement class="shadow-plate" picking-mode="Ignore" />
+    <ui:VisualElement class="leather-plate" picking-mode="Ignore" />
     <Ashen.Presentation.UI.LocLabel name="CONFIRM_TITLE" class="confirm-title kit-text-header" />
     <Ashen.Presentation.UI.LocLabel name="CONFIRM_TARGET" class="confirm-target kit-text-value" />
     <Ashen.Presentation.UI.LocLabel name="CONFIRM_BODY" class="confirm-body kit-text-value" />

@@ -1,0 +1,127 @@
+{
+ "counterEvents": [
+  "combatCounterArmed",
+  "combatCounterConsumed",
+  "combatCounterTriggered",
+  "combatGuardBroken",
+  "combatRangeReturnUnavailable"
+ ],
+ "deckPool": [
+  "core.counter",
+  "core.counter",
+  "core.smash",
+  "base.smash",
+  "core.reaverSpecial",
+  "core.sweep",
+  "core.strike",
+  "core.defend"
+ ],
+ "exchanges": {
+  "bytes": 977893,
+  "count": 51,
+  "file": "exchanges.json",
+  "kinds": [
+   "playerCounter",
+   "enemyCounter",
+   "poiseBreak",
+   "poiseBreakPlayer",
+   "twoAttackers",
+   "smashVsSpell",
+   "smashIntoSpell"
+  ],
+  "steps": 173
+ },
+ "fights": {
+  "herald": {
+   "fights": 6,
+   "steps": 47
+  },
+  "reaver": {
+   "fights": 6,
+   "steps": 118
+  },
+  "rogue": {
+   "fights": 6,
+   "steps": 95
+  },
+  "starseer": {
+   "fights": 6,
+   "steps": 86
+  }
+ },
+ "files": [
+  {
+   "bytes": 373795,
+   "classId": "reaver",
+   "fights": 6,
+   "file": "fights-reaver.json",
+   "steps": 118
+  },
+  {
+   "bytes": 326741,
+   "classId": "starseer",
+   "fights": 6,
+   "file": "fights-starseer.json",
+   "steps": 86
+  },
+  {
+   "bytes": 332071,
+   "classId": "rogue",
+   "fights": 6,
+   "file": "fights-rogue.json",
+   "steps": 95
+  },
+  {
+   "bytes": 202421,
+   "classId": "herald",
+   "fights": 6,
+   "file": "fights-herald.json",
+   "steps": 47
+  }
+ ],
+ "profileHash": "sha256:0b5c8941b89d6be675240f83e9e025cc7b17021fcdf2271eb6c07f156a95bd27",
+ "profileId": "core",
+ "rejections": {
+  "throws: Combat is over": 2,
+  "throws: Invalid enemy target 'eN'": 4
+ },
+ "seen": {
+  "counterArmed": 88,
+  "counterConsumed": 60,
+  "counterTriggered": 60,
+  "guardBroken": 0,
+  "rangeReturnUnavailable": 0
+ },
+ "units": {
+  "bytes": 1491796,
+  "count": 1006,
+  "errors": [
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input",
+   "counterAttack: Invalid engagement plan input"
+  ],
+  "file": "units.json",
+  "kinds": [
+   "counterReturn",
+   "receiptReturn",
+   "blockGrant",
+   "spentPaid",
+   "coverage",
+   "counterCard",
+   "prepare",
+   "preview",
+   "stancePressure",
+   "counterAttack",
+   "guardBreak",
+   "decay",
+   "authorize",
+   "paidAuthorize",
+   "wardDamage"
+  ]
+ },
+ "webSha": "b8cfe4fac71fb92c1b241928626d46846becb825"
+}

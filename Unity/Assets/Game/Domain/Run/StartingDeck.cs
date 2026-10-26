@@ -404,9 +404,9 @@ namespace Ashen.Domain.Run
         /// stampDeck(registries, run, cards) — a subset restamp (one combat pile, in place): the attack instances rebind
         /// to the run's birth quota (a subset may hold any of the slots), and no item-owned card is minted or dropped.
         /// </summary>
-        public static int StampPile(RunData d, JObject run, List<JObject> cards) => Stamp(d, run, cards, true, true);
+        public static int StampPile(RunData d, JObject run, List<JObject> cards, bool configuredDeck = false) => Stamp(d, run, cards, true, true, configuredDeck);
 
-        private static int Stamp(RunData d, JObject run, List<JObject> cards, bool adoptEquipmentBonuses, bool reconcileEquipmentPools)
+        private static int Stamp(RunData d, JObject run, List<JObject> cards, bool adoptEquipmentBonuses, bool reconcileEquipmentPools, bool configuredDeck = false)
         {
             if (reconcileEquipmentPools) Loadout.ReconcileRunLoadoutHp(d, run, adoptEquipmentBonuses);
             // `cards || run.deck || []`: without a deck the list is a detached empty array (the reconcile below then
@@ -419,7 +419,7 @@ namespace Ashen.Domain.Run
             var snapshot = run.Obj(K.EquipmentProfileRuleSnapshot);
             double? bornWith = Js.IsFinite(run[K.EquipmentAttackSlotCount]) ? run.Num(K.EquipmentAttackSlotCount) : (double?)null;
             if (bornWith == null && run[K.Deck] is JArray born && born.Count > 0) bornWith = born.OfType<JObject>().Count(c => c.Str(K.EquipmentRole) == RV.RoleAttack);
-            var attackPlan = WeaponCards.BuildPlan(d, loadout, classId, bornWith, run[K.RemovedAttackSlotIds]);
+            var attackPlan = WeaponCards.BuildPlan(d, loadout, classId, bornWith, run[K.RemovedAttackSlotIds], configuredDeck);
             foreach (var inst in Items().Where(c => c.Str(K.EquipmentRole) == RV.RoleAttack).ToList())
             {
                 var prior = Js.Truthy(inst[K.ProfileId]) ? snapshot.Obj(RK.Profiles).Obj(inst.Str(K.ProfileId)) : null;
