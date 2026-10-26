@@ -341,7 +341,7 @@ namespace Ashen.App.Run
 
         /// <summary>The ladder of a slot (slotRungs): the unlock rows that open its sets, in authored order.</summary>
         private static List<JObject> Rungs(Core2RunSession session, string slotId) =>
-            Js.Items(session.Content.Loop.Unlocks).OfType<JObject>().Where(u => u.Str(K.Kind) == ArmouryKeys.KindSlot && u.Str(ArmouryKeys.UnlockRef) == slotId).ToList();
+            Js.Items(session.Core.Registries.Registries.Unlocks).OfType<JObject>().Where(u => u.Str(K.Kind) == ArmouryKeys.KindSlot && u.Str(ArmouryKeys.UnlockRef) == slotId).ToList();
 
         /// <summary>How many rungs of a slot's ladder the profile has earned (meta.unlocked).</summary>
         public static int EarnedRungs(Core2RunSession session, string slotId)
@@ -443,7 +443,7 @@ namespace Ashen.App.Run
         /// </summary>
         private static string UnlockHint(Core2RunSession session, StringTable strings, string slotId, int setIndex)
         {
-            var rows = Js.Items(session.Content.Loop.Unlocks).OfType<JObject>().Where(u => u.Str(K.Kind) == ArmouryKeys.KindSlot && u.Str(ArmouryKeys.UnlockRef) == slotId).ToList();
+            var rows = Js.Items(session.Core.Registries.Registries.Unlocks).OfType<JObject>().Where(u => u.Str(K.Kind) == ArmouryKeys.KindSlot && u.Str(ArmouryKeys.UnlockRef) == slotId).ToList();
             if (setIndex < 1 || setIndex > rows.Count) return string.Empty;
             var key = string.Format(CultureInfo.InvariantCulture, ArmouryKeys.UnlockHintKey, rows[setIndex - 1].Str(K.Id));
             return strings.Has(key) ? strings.Get(key) : string.Empty;

@@ -131,15 +131,6 @@ namespace Ashen.Tests
             Assert.That(Core2.Profile.Id, Is.Not.Empty);
         }
 
-        [Test]
-        public void TheLegacyRegistriesAreUntouched()
-        {
-            var snapshot = new ConfigLayers(TestContent.Source).Build(new LayerSelection { PresetId = "shipped" });
-            var legacy = RuntimeRegistries.Build(snapshot.Content, (JObject)snapshot.Content.Get(ContentFiles.StringsEn));
-            Assert.That(legacy.Table(RegistryKeys.Cards).Count, Is.EqualTo(TestContent.ContentJson(ContentFiles.CatalogCards).Count));
-            Assert.That(legacy.Table(Core2BundleKeys.Resources), Is.Null);
-        }
-
         private static ContentSet WithoutPaths(Func<string, bool> drop, Action<IDictionary<string, JToken>> edit = null)
         {
             var snapshot = new ConfigLayers(TestContent.Source).Build(new LayerSelection { PresetId = "shipped" });

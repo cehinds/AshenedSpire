@@ -14,7 +14,7 @@ namespace Ashen.Generated
         public const string Unknown = "unknown property '{0}'";
         public const string Ref = "'{0}' does not exist in {1}";
         public const string UnknownOp = "unknown effect op '{0}' (add it to rules/effectOps.json)";
-        public const string String = "missing string key '{0}'";
+        public const string String = "missing display text '{0}'";
         public const string Cost = "rule '{0}' failed: {1} = {2}";
         public const string PresetFile = "preset patches unknown file {0}";
         public const string IssueFormat = "{0} {1} [{2}] {3}";

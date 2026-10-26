@@ -23,30 +23,24 @@ namespace Ashen.Tests
         private static decimal Num(RunSnapshot s, string file, string path) => s.Content.Select(file, path).Value<decimal>();
 
         [Test]
-        public void DefaultPresetIsTheOwnersReferenceConfig()
+        public void TheShippedPresetIsTheDefaultAndTheOnlyOne()
         {
             var snap = Layers().Build(new LayerSelection());
-            Assert.That(snap.PresetId, Is.EqualTo("reference"));
-            Assert.That(Num(snap, ContentFiles.BalanceBalance, "startingCinders"), Is.EqualTo(100m));
-            Assert.That(Num(snap, ContentFiles.BalanceBalance, "combatRatings.ratings.ar.dexterity"), Is.EqualTo(0.25m));
-            Assert.That(Num(snap, ContentFiles.BalanceBalance, "combatRatings.breaks.recoveryPerTurn"), Is.EqualTo(1m));
-            Assert.That(Num(snap, ContentFiles.CatalogClasses, "reaver.startingFlaskAllocation.hp"), Is.EqualTo(2m));
-            Assert.That(snap.Content.Select(ContentFiles.RulesHandRules, "openingWeighted.base"), Is.Not.Null);
-            Assert.That((bool)snap.PlayerSettings["shrineMultiUse"], Is.True);
+            Assert.That(snap.PresetId, Is.EqualTo("shipped"), "the owner's reference tuning patched the 405 tables and left with them (WP-21)");
+            Assert.That(Layers().PresetIds, Is.EqualTo(new[] { "shipped" }));
         }
 
         [Test]
         public void ShippedPresetKeepsTheWebDefaults()
         {
             var snap = Layers().Build(new LayerSelection { PresetId = "shipped" });
-            Assert.That(Num(snap, ContentFiles.BalanceBalance, "startingCinders"), Is.EqualTo(0m));
-            Assert.That(Num(snap, ContentFiles.BalanceBalance, "combatRatings.ratings.ar.dexterity"), Is.EqualTo(0m));
-            Assert.That(Num(snap, ContentFiles.CatalogClasses, "reaver.startingFlaskAllocation.hp"), Is.EqualTo(3m));
+            Assert.That(Num(snap, ContentFiles.ProfileBundleBalance, "startingCinders"), Is.EqualTo(20m));
+            Assert.That(Num(snap, ContentFiles.ProfileBundleClasses, "reaver.startingFlaskAllocation.hp"), Is.EqualTo(2m));
             Assert.That(snap.Content.Select(ContentFiles.RulesHandRules, "openingWeighted"), Is.Null);
         }
 
         [Test]
-        public void EffectiveConfigurationOfBothPresetsIsSchemaValid()
+        public void EffectiveConfigurationOfEveryPresetIsSchemaValid()
         {
             foreach (var id in Layers().PresetIds)
             {
@@ -59,11 +53,11 @@ namespace Ashen.Tests
         [Test]
         public void LaterPatchesWinAndNullDeletes()
         {
-            var ascension = JObject.Parse("{\"files\":{\"balance/balance.json\":{\"startingCinders\":7,\"flaskSlots\":null}}}");
-            var modifier = JObject.Parse("{\"files\":{\"balance/balance.json\":{\"startingCinders\":9}}}");
+            var ascension = JObject.Parse("{\"files\":{\"profile/bundle/balance.json\":{\"startingCinders\":7,\"flaskSlots\":null}}}");
+            var modifier = JObject.Parse("{\"files\":{\"profile/bundle/balance.json\":{\"startingCinders\":9}}}");
             var snap = Layers().Build(new LayerSelection { Patches = new[] { ascension, modifier } });
-            Assert.That(Num(snap, ContentFiles.BalanceBalance, "startingCinders"), Is.EqualTo(9m));
-            Assert.That(snap.Content.Select(ContentFiles.BalanceBalance, "flaskSlots"), Is.Null);
+            Assert.That(Num(snap, ContentFiles.ProfileBundleBalance, "startingCinders"), Is.EqualTo(9m));
+            Assert.That(snap.Content.Select(ContentFiles.ProfileBundleBalance, "flaskSlots"), Is.Null);
         }
 
         [Test]
@@ -76,20 +70,20 @@ namespace Ashen.Tests
         [Test]
         public void InvalidPatchIsCaughtBySchemaValidation()
         {
-            var bad = JObject.Parse("{\"files\":{\"catalog/cards.json\":{\"strike\":{\"rarity\":5}}}}");
+            var bad = JObject.Parse("{\"files\":{\"rules/runFlow.json\":{\"saveFormat\":\"two\"}}}");
             var report = new ValidationReport();
             Layers().Build(new LayerSelection { Patches = new[] { bad } }, report);
             Assert.That(report.ByRule(ValidationRules.Type), Is.Not.Empty);
         }
 
         [Test]
-        public void SnapshotHashIsStableAndDistinguishesPresets()
+        public void SnapshotHashIsStableAndDistinguishesPatches()
         {
             var a = Layers().Build(new LayerSelection());
             var b = Layers().Build(new LayerSelection());
-            var shipped = Layers().Build(new LayerSelection { PresetId = "shipped" });
+            var patched = Layers().Build(new LayerSelection { Patches = new[] { JObject.Parse("{\"files\":{\"profile/bundle/balance.json\":{\"startingCinders\":7}}}") } });
             Assert.That(a.Hash, Is.EqualTo(b.Hash));
-            Assert.That(a.Hash, Is.Not.EqualTo(shipped.Hash));
+            Assert.That(a.Hash, Is.Not.EqualTo(patched.Hash));
             Assert.That(a.Hash.Length, Is.EqualTo(64));
         }
 
@@ -105,27 +99,27 @@ namespace Ashen.Tests
         public void SnapshotIsImmutable()
         {
             var snap = Layers().Build(new LayerSelection());
-            var balance = (JObject)snap.Content.Get(ContentFiles.BalanceBalance);
+            var balance = (JObject)snap.Content.Get(ContentFiles.ProfileBundleBalance);
             balance["startingCinders"] = 999;
-            Assert.That(Num(snap, ContentFiles.BalanceBalance, "startingCinders"), Is.EqualTo(100m));
+            Assert.That(Num(snap, ContentFiles.ProfileBundleBalance, "startingCinders"), Is.EqualTo(20m));
         }
 
         [Test]
         public void ModdingOverridesApplyOnlyWhenEnabled()
         {
-            var mods = new MemorySource().Add(ContentFiles.BalanceBalance, "{\"startingCinders\":5}");
+            var mods = new MemorySource().Add(ContentFiles.ProfileBundleBalance, "{\"startingCinders\":5}");
             var off = Layers().Build(new LayerSelection { Overrides = mods, ModdingEnabled = false });
             var on = Layers().Build(new LayerSelection { Overrides = mods, ModdingEnabled = true });
-            Assert.That(Num(off, ContentFiles.BalanceBalance, "startingCinders"), Is.EqualTo(100m));
-            Assert.That(Num(on, ContentFiles.BalanceBalance, "startingCinders"), Is.EqualTo(5m));
-            Assert.That(on.OverridesApplied, Is.EqualTo(new[] { ContentFiles.BalanceBalance }));
+            Assert.That(Num(off, ContentFiles.ProfileBundleBalance, "startingCinders"), Is.EqualTo(20m));
+            Assert.That(Num(on, ContentFiles.ProfileBundleBalance, "startingCinders"), Is.EqualTo(5m));
+            Assert.That(on.OverridesApplied, Is.EqualTo(new[] { ContentFiles.ProfileBundleBalance }));
         }
 
         [Test]
         public void OversizedOverrideIsRefused()
         {
             var big = "{\"note\":\"" + new string('x', ConfigLimits.MaxOverrideBytes) + "\"}";
-            var mods = new MemorySource().Add(ContentFiles.BalanceBalance, big);
+            var mods = new MemorySource().Add(ContentFiles.ProfileBundleBalance, big);
             Assert.Throws<System.ArgumentException>(() => Layers().Build(new LayerSelection { Overrides = mods, ModdingEnabled = true }));
         }
 
@@ -134,7 +128,7 @@ namespace Ashen.Tests
         {
             var snap = Layers().Build(new LayerSelection { PlayerSettings = JObject.Parse("{\"holdConfirm\":\"off\"}") });
             Assert.That((string)snap.PlayerSettings["holdConfirm"], Is.EqualTo("off"));
-            Assert.That((string)snap.PlayerSettings["rewardCollect"], Is.EqualTo("manual"));
+            Assert.That(snap.PresetId, Is.EqualTo("shipped"), "the player's layer sits over the shipped preset, which sets no player settings");
         }
     }
 }

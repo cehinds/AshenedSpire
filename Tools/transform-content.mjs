@@ -55,43 +55,11 @@ function rowKey(t, row) {
 }
 function deepClone(v) { return v === undefined ? undefined : JSON.parse(JSON.stringify(v)); }
 
-// ---------- build one content set from a bundle ----------
+// ---------- the documents still read from the 405 export (rules, audio, ui, the event history gates) and the ui strings ----------
+// The 405 catalog tables are gone (WP-21, D-1804): CONFIG.tables is empty, and the UI reads the Core 2 rows' own display text.
 function build(bundle, extras) {
   const roots = { bundle, extras };
   const files = {};
-  const strings = {};
-  const counts = {};
-  // Canonical JSON sorts every object's keys, so an id-keyed table loses its authoring order. The shipped engine
-  // iterates its registries in that order (tag lists, equipment arrays, card order), so it is recorded here.
-  const rowOrder = {};
-  // Where each extracted text field sat in its row (D-069): the key it followed ('' = first). Rows are copied verbatim
-  // into run documents (a creation mode snapshot, a relic, a card), so re-attached text must land where it was authored.
-  const textAnchors = {};
-  for (const t of CONFIG.tables) {
-    const rows = at(roots, t.from);
-    if (!Array.isArray(rows)) fail(`${t.from} is not an array`);
-    if (t.list) { files[t.out] = { rows: deepClone(rows) }; counts[t.out] = rows.length; continue; }
-    const table = {};
-    const order = [];
-    for (const src of rows) {
-      const row = deepClone(src);
-      const key = rowKey(t, row);
-      if (!key) fail(`${t.out}: row without key ${t.key.join('+')}`);
-      if (key in table) fail(`${t.out}: duplicate key "${key}"`);
-      const keys = Object.keys(row);
-      const anchors = {};
-      for (const [field, name] of Object.entries(t.text || {})) {
-        if (typeof row[field] === 'string') { strings[`${t.stringPrefix}.${key}.${name}`] = row[field]; delete row[field]; }
-      }
-      for (const [i, k] of keys.entries()) if (t.text && k in t.text && typeof src[k] === 'string') anchors[k] = i === 0 ? '' : keys[i - 1];
-      if (Object.keys(anchors).length) (textAnchors[t.out] ||= {})[key] = anchors;
-      table[key] = row;
-      order.push(key);
-    }
-    files[t.out] = table;
-    rowOrder[t.out] = order; // an array: integer-like keys would reorder an object's keys
-    counts[t.out] = Object.keys(table).length;
-  }
   for (const o of CONFIG.objects) {
     let v = deepClone(at(roots, o.from));
     if (v == null) fail(`${o.from} not found`);
@@ -99,30 +67,19 @@ function build(bundle, extras) {
     if (o.omit) for (const k of o.omit) delete v[k];
     files[o.out] = v;
   }
-  // Required string keys per keyed catalog: a text field present on every source row is required (validator reads this).
-  const stringKeys = {};
-  for (const t of CONFIG.tables) {
-    if (t.list || !t.text) continue;
-    const rows = at(roots, t.from);
-    const required = Object.entries(t.text).filter(([field]) => rows.every(r => typeof r[field] === 'string')).map(([, name]) => name);
-    const optional = Object.entries(t.text).filter(([field]) => !rows.every(r => typeof r[field] === 'string')).map(([, name]) => name);
-    stringKeys[t.out] = { prefix: t.stringPrefix, required, optional, fields: { ...t.text } };
-  }
-  files['rules/stringKeys.json'] = stringKeys;
-  files['rules/rowOrder.json'] = rowOrder;
-  files['rules/textAnchors.json'] = textAnchors;
+  const strings = {};
   const us = at(roots, CONFIG.uiStrings.from) || [];
   for (const row of us) for (const f of CONFIG.uiStrings.fields) if (typeof row[f] === 'string') strings[`${CONFIG.uiStrings.prefix}.${row.id}.${f}`] = row[f];
   files['strings/en.json'] = strings;
-  return { files, counts };
+  return { files, counts: {} };
 }
 
 // ---------- the Core 2 profile (docs/design/11 2.2): tables and documents under profile/ and rules/ ----------
-// Same row semantics as build(), over the root 'core2' (Tools/export/raw/core2). No text is extracted: rows keep their
-// display fields until the work package that shows them moves them into the string tables.
+// Over the root 'core2' (Tools/export/raw/core2). Rows keep their display fields; rules/stringKeys.json records, per table with
+// 'text', the string prefix and which field becomes which string (the UI's string table reads the rows through it, D-1804).
 function buildCore2(core2) {
   const roots = { core2 };
-  const files = {}, counts = {}, rowOrder = {};
+  const files = {}, counts = {}, rowOrder = {}, stringKeys = {};
   for (const t of CONFIG.core2.tables) {
     const rows = at(roots, t.from);
     if (!Array.isArray(rows)) fail(`${t.from} is not an array`);
@@ -139,6 +96,16 @@ function buildCore2(core2) {
     files[t.out] = table;
     rowOrder[t.out] = order; // D-040: an array, because integer-like keys would reorder an object's keys
     counts[t.out] = Object.keys(table).length;
+    // A text field present on every row is required (the validator reads this); the rest are optional.
+    if (t.text) {
+      const every = ([field]) => rows.every(r => typeof r[field] === 'string');
+      stringKeys[t.out] = {
+        prefix: t.stringPrefix,
+        required: Object.entries(t.text).filter(every).map(([, name]) => name),
+        optional: Object.entries(t.text).filter(e => !every(e)).map(([, name]) => name),
+        fields: { ...t.text },
+      };
+    }
   }
   for (const o of CONFIG.core2.objects) {
     let v = deepClone(at(roots, o.from));
@@ -147,7 +114,9 @@ function buildCore2(core2) {
     if (o.omit) for (const k of o.omit) delete v[k];
     files[o.out] = v;
   }
-  return { files, counts, rowOrder };
+  files['rules/stringKeys.json'] = stringKeys;
+  files['rules/rowOrder.json'] = rowOrder;
+  return { files, counts };
 }
 // Raw Core 2 export -> the 'core2' root: { bundle, profile, extras, rules: { <name>: ... } }.
 function readCore2() {
@@ -167,63 +136,17 @@ function readCore2() {
   };
 }
 
-// ---------- RFC 7386 merge-patch diff ----------
-function diff(a, b) {
-  if (JSON.stringify(a) === JSON.stringify(b)) return undefined;
-  const isObj = (x) => x && typeof x === 'object' && !Array.isArray(x);
-  if (!isObj(a) || !isObj(b)) return b === undefined ? null : b;
-  const patch = {};
-  for (const k of new Set([...Object.keys(a), ...Object.keys(b)])) {
-    if (!(k in b)) patch[k] = null;
-    else { const d = diff(a[k], b[k]); if (d !== undefined) patch[k] = d; }
-  }
-  return Object.keys(patch).length ? patch : undefined;
-}
-
-// Owner-only keys the shipped build cannot express (Tools/export/legacy-key-map.json → unmappedInShippedBuild)
-function referenceExtras(unmapped) {
-  const out = { rulePatches: {}, playerSettings: {}, unresolved: {} };
-  const hand = {};
-  for (const [key, value] of Object.entries(unmapped)) {
-    let m;
-    if ((m = /^gameConfig\.derivedStatRules\.rules\.openingHand\.(\w+)$/.exec(key))) hand[m[1]] = value;
-    else if ((m = /^settings\.(.+)$/.exec(key))) out.playerSettings[m[1]] = value;
-    else out.unresolved[key] = value;
-  }
-  if (Object.keys(hand).length) {
-    const attrs = ['strength', 'dexterity', 'constitution', 'wisdom', 'intelligence'];
-    out.rulePatches['rules/handRules.json'] = {
-      openingWeighted: {
-        base: hand.base ?? 0,
-        terms: attrs.filter(a => hand[a]).map(a => ({ attr: a, weight: hand[a] })),
-        perLevel: hand.perLevel ?? 0,
-        min: hand.min ?? 0, max: hand.max ?? 99,
-        rounding: 'floor',
-        note: 'Owner reference model (weighted multi-attribute). Replaces handRules.starting when present.',
-      },
-    };
-  }
-  return out;
-}
-
 // ---------- main ----------
 const shipped = readRaw('bundle.shipped.json');
-const reference = readRaw('bundle.reference.json');
 const extras = readRaw('extras.json');
-const unmapped = existsSync(join(RAW, 'reference.unmapped.json')) ? readRaw('reference.unmapped.json') : {};
-const outOfRange = existsSync(join(RAW, 'reference.outOfRange.json')) ? readRaw('reference.outOfRange.json') : {};
 
 const base = build(shipped, extras);
-const ref = build(reference, extras);
 const c2 = readCore2();
 const core2 = buildCore2(c2.core2);
 Object.assign(base.files, core2.files);
 Object.assign(base.counts, core2.counts);
-Object.assign(base.files['rules/rowOrder.json'], core2.rowOrder);
-Object.assign(ref.files, core2.files); // the reference preset patches the legacy tables only
-Object.assign(ref.files['rules/rowOrder.json'], core2.rowOrder);
 
-// Count gate (docs/design/09 §4 step 3): the legacy tables stay at the 405 export; the Core 2 tables are frozen from the first clean export at the pin
+// Count gate (docs/design/09 §4 step 3): the Core 2 tables are frozen from the first clean export at the pin
 const countErrors = Object.entries(CONFIG.expectedCounts).filter(([f, n]) => base.counts[f] !== n).map(([f, n]) => `${f}: expected ${n}, got ${base.counts[f]}`);
 if (countErrors.length) fail(`count gate failed:\n  ${countErrors.join('\n  ')}`);
 
@@ -237,23 +160,12 @@ if (existsSync(rngPath)) {
   if (JSON.stringify(have) !== JSON.stringify(web)) fail(`rules/rng.json streams + core2Streams must equal the web's STREAM_NAMES at ${c2.summary.webShaShort}:\n  ${web.join(', ')}`);
 }
 
-// Presets
-const refFiles = {};
-for (const path of Object.keys(base.files)) { const d = diff(base.files[path], ref.files[path]); if (d !== undefined) refFiles[path] = d; }
-const extra = referenceExtras(unmapped);
-for (const [path, patch] of Object.entries(extra.rulePatches)) refFiles[path] = { ...(refFiles[path] || {}), ...patch };
+// Presets: the shipped defaults only. The owner's reference tuning patched the 405 tables, which a Core 2 run never reads (WP-21, D-1801).
 const presets = {
-  'settings/presets/shipped.json': { id: 'shipped', labelKey: 'preset.shipped.name', description: 'The shipped web build defaults (content 0.7.1), unmodified.', files: {} },
-  'settings/presets/reference.json': {
-    id: 'reference', labelKey: 'preset.reference.name', default: true,
-    source: 'docs/design/reference/ashen-spire-game-config.json',
-    description: "The owner's reference tuning (D-019), applied through the shipped import path (D-029).",
-    files: refFiles, playerSettings: extra.playerSettings, unresolved: extra.unresolved, widenedRanges: outOfRange,
-  },
+  'settings/presets/shipped.json': { id: 'shipped', labelKey: 'preset.shipped.name', default: true, description: 'The shipped web build defaults (content 0.7.1), unmodified.', files: {} },
 };
 const strings = base.files['strings/en.json'];
 strings['preset.shipped.name'] = 'Shipped defaults';
-strings['preset.reference.name'] = 'Reference (owner tuning)';
 
 const all = { ...base.files, ...presets };
 const manifestFiles = {};
@@ -292,6 +204,6 @@ if (CHECK) {
     mkdirSync(dirname(p), { recursive: true });
     writeFileSync(p, text);
   }
-  console.log(`transform: wrote ${Object.keys(rendered).length} files · ${Object.keys(strings).length} strings · reference preset patches ${Object.keys(refFiles).length} files · contentHash ${contentHash.slice(0, 12)}`);
+  console.log(`transform: wrote ${Object.keys(rendered).length} files · ${Object.keys(strings).length} strings · contentHash ${contentHash.slice(0, 12)}`);
   console.log('counts:', JSON.stringify(base.counts));
 }

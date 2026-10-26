@@ -78,7 +78,7 @@ namespace Ashen.Tests
 
         private static void Check(string file, string label, JToken want, JToken got)
         {
-            var diff = RunParityTests.FirstDifference(want, got, "$");
+            var diff = OracleCompare.FirstDifference(want, got, "$");
             if (diff != null) Assert.Fail($"{file} {label}: first difference at {diff}");
         }
 

@@ -80,7 +80,7 @@ namespace Ashen.Tests
                 _now = AtMs(step.Value<long>("now"));
                 if (step.Value<string>("kind") == ArchiveKeys.KindMeta) drawer.ArchiveProfile(step.Value<string>("save"), step.Value<string>("reason"));
                 else drawer.ArchiveRun(step.Value<string>("save"), step.Value<string>("reason"), step.Value<int>("slot"));
-                var diff = RunParityTests.FirstDifference(step["listing"], Listing(drawer), "$.listing") ?? RunParityTests.FirstDifference(step["notices"], Notices(drawer), "$.notices");
+                var diff = OracleCompare.FirstDifference(step["listing"], Listing(drawer), "$.listing") ?? OracleCompare.FirstDifference(step["notices"], Notices(drawer), "$.notices");
                 if (diff != null) Assert.Fail("step " + index + ": first difference at " + diff);
                 foreach (var export in exports.Where(x => x.Value<int>("step") == index))
                 {

@@ -183,7 +183,6 @@ namespace Ashen.Presentation.UI.Screens
                 return;
             }
             Ui.Core2Session = result.Session;
-            Ui.Session = null;
             RunFlow.Show(Context, result.Session);
         }
 

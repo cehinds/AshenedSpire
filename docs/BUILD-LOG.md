@@ -2,6 +2,50 @@
 
 Newest entries go at the top. Each entry records the story, what landed, the tests, what wasn't verified, and the next step. After a context summary, re-read this file and `DECISIONS.md` before continuing.
 
+## WP-21: the 405 content retired, the app on Core 2 data only (worktree branch, 2026-10-25)
+
+**Landed (D-1804)**
+- **App:** `RunContent` no longer builds the 405 registries. Seat regions, the HUD / armoury XP curve, unlock hints, the journal's names and the hand example read the profile's registries; Abandon writes through `Core2RunEnd.Abandon` (history row, ledger untouched).
+- **Registries:** `RegistryBundle` / `RuntimeRegistries` read `profile/bundle/` only.
+- **Deleted, code:** `CreationSession`, the 405 `CombatSession`, `LoopData` / `LoopContext`, the 405 `RunEnd` doors and other methods only deleted tests called.
+- **Deleted, tests and oracles:** RegistryParity, ContentRunData, ContentCombatData, CombatViewModel, EventsParity, MapParity, CombatSession tests; the `events`, `map`, `registries`, `rewards` and `run` oracles (about 45 MB) and their scripts.
+- **Deleted, content:** `catalog/*`, `tags/*`, `balance/balance.json`, `mapConfigs.json`, `mapShape.json`, `rules/attributeRules.json`, `derivedStatRules.json`, `textAnchors.json` and their schemas. The event history gates moved to `rules/eventChoiceRequirements.json`.
+- **Names:** `UiData` builds the `class.*`, `attribute.*`, `unlock.*`, `enemy.*` ... strings from the Core 2 rows through `rules/stringKeys.json`; `strings/en.json` keeps the `ui.*` strings only. SP / WARD meter glyphs are hand-written strings.
+- **Settings:** ranges come from `profile/bundle/balance.json`; Reward collection now defaults to `manual` (the profile's value).
+- **Transform:** writes no 405 table; `stringKeys.json` and `rowOrder.json` come from the Core 2 tables.
+
+**Tests run:** the full engine-free suite, one class at a time: 12,125 passed, 0 failed (two failures in the run, `CommittedContentIsValid` and `NoContentIdsInCode`, were fixed and re-run). Node: `codegen --check`, `refresh-manifest --check`, `ci/check-content`, `ci/check-docs`, `web-key-map --check`, `ui-tokens --check`. Presentation and PlayMode compile in the D-314 harness (only the known `MapBoard` error).
+
+**Not run:** `transform-content.mjs --check` and `card-face.mjs --check` (no raw export or web checkout here); the changed generated files were rendered with the transform's rules. Unity itself.
+
+**Owner: check in the editor**
+- Title, Slots, run HUD, creation: class names and descriptions, attribute labels, seat names read correctly (now from the Core 2 rows).
+- Journal and run end: enemy, card and armament names; the armoury's unlock hints.
+- Abandon a run: it appears in the history as abandoned and opens no class.
+- Settings: Reward collection shows Manual by default.
+
+**Next:** run `transform-content.mjs --check` with the raw export (the Core 2 capture driver landed on dev, D-1381). Merged with dev: D-1300..D-1304 of this branch are renumbered D-1800..D-1804, because dev used D-1300, D-1301 and D-1700; the settings list is dev's WP-23 one (D-1375), repointed to `profile/bundle/balance.json`.
+
+## WP-21: the 405 run retired, Core 2 the only ruleset (worktree branch, 2026-10-24)
+
+**Landed (D-1800..D-1803)**
+- **One ruleset:** New Game and Continue go through `Core2RunSession` only. A 405 slot (save format 2) reports `OtherRuleset` and stays on disk untouched.
+- **Deleted, 405 run:** `RunSession` and partials, `Application/Nodes` (but `NodeRules`), the 405 combat, rewards, rest, merchant, event / dialogue, legacy dungeon and run-end screens with UXML, `Nodes.uss`, screen registry entries and `ScreenIds`, the runFlow `screens` map; Domain `RunLoop`, the 405 rest, reward door, legacy dungeons, new run, act advance, shop, shelf stock, armament trading, card extraction and buy-back.
+- **Kept because Core 2 calls them:** `RunEnd`, `RewardRolls`, `ItemSmithing`, `SmithServices`, `CardRemoval`, `ClassTree`, `CombatEnd`, the `Refusal` types, the reward-face helpers of `RewardsView`.
+- **Tests and oracles:** the 405 session / node / climb tests, the run, loop, shop, rewards and claims parity tests, the PlayMode climb, first-fight and node smokes, and the screen fixtures that needed a 405 run are gone; so are the `loop`, `shop`, `claims` and `registries/reference` oracles (about 33 MB) and their generators. `OracleCompare` holds the shared compare helpers. The audio, settings-layer and web-config tests were rewritten without a 405 run.
+- **Content:** the reference preset is deleted (`shipped` is the default); `webKeyMap.json` imports player settings only and reports every `gameConfig.*` key; `mapMode` fog, `walkedFade` half (the web's four options), `showPlayedCard` off (web `b8cfe4fac`); `shrineMultiUse` and `useRestorativeFlasksOutsideCombat` stay off after the merge with dev (D-1802).
+
+**Tests run:** the full engine-free suite, one class at a time: 13,038 passed, 0 failed before the content step; after it, the full suite again: 12,811 passed, 0 failed (the 227 fewer are the reference preset's registry and event cases). Node: `codegen --check`, `refresh-manifest --check`, `ci/check-content`, `ci/check-docs`, `web-key-map --check`, `ui-tokens --check` pass. Presentation and the PlayMode tests compile against the `UnityEngine.Modules` 2021.3.33 reference assemblies with Input System / Unity 6 stubs (D-314 harness, rebuilt in the session scratchpad; the one known error is `MapBoard`'s `mgc.painter2D`, as before).
+
+**Not run:** `transform-content.mjs` and `card-face.mjs --check` (no raw export and no web checkout at `b8cfe4fac` on this machine; the generated preset and strings were re-rendered with the transform's canonical writer). Unity itself (no editor here): UXML/USS load after the deletions, the PlayMode smokes left (`BootTitleSmokeTests`, `Core2FightSmokeTests`, `ScreenCaptureTests`).
+
+**Owner: check in the editor**
+- Title → Continue on a slot saved by the 405 build: refused as unreadable, the slot still listed and still on disk.
+- New Game → a Core 2 climb; the map opens in fog; Settings shows Fade the walked path as Off / Subtle / Half / Strong at Half, Show played card off.
+- Settings → Import a web config: the player settings land, the tuning keys are listed as not placed.
+
+**Next:** map what the Core 2 fight still reads of the 405 content (D-1803), then retire the 405 content tables, combat paths and their oracles; a Core 2 driver for `ScreenCaptureTests.Show` (VP-16).
+
 ## P-7b: the combatant door is the web's (worktree branch, 2026-10-26)
 
 The combat screen's details pane (the door the target card's info button opens) is the web's `combatantDetailBody`, section for section and word for word, and a test holds it there.

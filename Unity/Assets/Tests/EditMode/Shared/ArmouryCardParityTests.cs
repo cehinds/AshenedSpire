@@ -108,11 +108,11 @@ namespace Ashen.Tests
                 Assert.That(view.Heading, Is.EqualTo(variant.Value<string>("heading")), at + " heading");
                 Assert.That(view.Empty, Is.EqualTo(model.Value<bool>("armor") ? "No additional bonuses" : variant.Value<string>("empty") ?? "No additional bonuses"), at + " empty line");
                 var facts = new JArray(((JArray)model["facts"]).OfType<JObject>().Select(f => new JObject { ["label"] = f["label"], ["value"] = f["value"].ToString(), ["explanation"] = f["explanation"] }));
-                Assert.That(RunParityTests.FirstDifference(facts, Lines(view.Facts, true), "$"), Is.Null, at + " facts: " + Lines(view.Facts, true).ToString(Newtonsoft.Json.Formatting.None) + " vs " + facts.ToString(Newtonsoft.Json.Formatting.None));
+                Assert.That(OracleCompare.FirstDifference(facts, Lines(view.Facts, true), "$"), Is.Null, at + " facts: " + Lines(view.Facts, true).ToString(Newtonsoft.Json.Formatting.None) + " vs " + facts.ToString(Newtonsoft.Json.Formatting.None));
                 var tags = new JArray(((JArray)model["tags"]).OfType<JObject>().Select(t => new JObject { ["label"] = t["label"], ["explanation"] = t["explanation"] }));
-                Assert.That(RunParityTests.FirstDifference(tags, Lines(view.Tags, false), "$"), Is.Null, at + " tags");
+                Assert.That(OracleCompare.FirstDifference(tags, Lines(view.Tags, false), "$"), Is.Null, at + " tags");
                 var effects = new JArray(((JArray)variant["entries"]).OfType<JObject>().Select(e => new JObject { ["label"] = e["label"], ["explanation"] = e["explanation"] }));
-                Assert.That(RunParityTests.FirstDifference(effects, Lines(view.Effects, false), "$"), Is.Null, at + " effects: " + Lines(view.Effects, false).ToString(Newtonsoft.Json.Formatting.None) + " vs " + effects.ToString(Newtonsoft.Json.Formatting.None));
+                Assert.That(OracleCompare.FirstDifference(effects, Lines(view.Effects, false), "$"), Is.Null, at + " effects: " + Lines(view.Effects, false).ToString(Newtonsoft.Json.Formatting.None) + " vs " + effects.ToString(Newtonsoft.Json.Formatting.None));
                 checkedCards++;
             }
             Assert.That(checkedCards, Is.GreaterThan(150));

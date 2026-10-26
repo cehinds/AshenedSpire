@@ -64,7 +64,7 @@ namespace Ashen.App.Settings
         /// <summary>The example for a class as the run would start it (its creation attributes), under the content's hand rules.</summary>
         public static HandExampleState ForClass(RunContent content, UiData ui, string classId)
         {
-            var preview = content.Preview(classId);
+            var preview = Ashen.App.Run.CreationClasses.For(content, null).Preview(classId);
             var attributes = new JObject();
             if (preview != null) foreach (var a in preview.Attributes) attributes[a.Key] = a.Value;
             var rules = content.Snapshot.Content.Get(ContentFiles.RulesHandRules) as JObject ?? new JObject();

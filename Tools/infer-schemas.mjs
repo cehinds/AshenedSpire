@@ -3,7 +3,7 @@
 // Run ONCE (or with --only <file>) to seed schemas from the imported data; afterwards the committed
 // schemas are the source of truth and the validator checks the data against them.
 //
-//   node Tools/infer-schemas.mjs --write [--only catalog/cards.json]
+//   node Tools/infer-schemas.mjs --write [--only profile/bundle/cards.json]
 //
 // Subset: type (union allowed), properties, required, items, enum, additionalProperties,
 // plus x-keyed (id-keyed catalog: every property value matches x-row), x-ref (from Tools/schema-refs.json).

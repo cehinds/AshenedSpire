@@ -27,6 +27,8 @@ What the owner's editor capture should produce, so each Unity screen can be set 
 
 States the fixtures cannot put on screen (no review hook on the screen, or a pointer or a key held) are still taken by hand from the table below: the combat screen's picked card, hover, inspect, piles, log, quick menu, reactions and hold states; the Smith door and its selected item; the shop's shelves, Inspect and Buy question; the event result and the Grave's replies; run-end victory; the Settings tabs other than General; the creation, slots and title states (the 405 fixtures `creation`, `slots_*`, `title_*` already cover the screens' first states).
 
+The old fixtures that drove the 405 screens through `RunSession` and `ClimbPilot` were deleted with the 405 run (WP-21, D-1800).
+
 The verification sizes 1280x720 and 844x390 are not in the web shots; skip them for this comparison.
 
 ## How to reach each state (Core 2 run, seed `ASHEN1`, class Reaver, profile `core`)

@@ -44,7 +44,7 @@ namespace Ashen.App.Run
         /// <summary>No valid copy, or a payload this build cannot resume.</summary>
         Damaged,
 
-        /// <summary>The slot holds another kind of run (a 405 run, save format 2): the caller loads it with <see cref="RunSession"/>.</summary>
+        /// <summary>The slot holds another kind of run (a 405 run, save format 2), which this build no longer plays (WP-21): kept, never loaded.</summary>
         OtherRuleset,
 
         /// <summary>The run was made under another profile (D-171): the slot is kept as it is.</summary>
@@ -286,7 +286,7 @@ namespace Ashen.App.Run
         public string RegionOfEncounter(string encounterId) =>
             encounterId != null && Core.Loop.Map.Encounters.Has(encounterId) ? RegionOfSeat(Core.Loop.Map.Encounters.Get(encounterId).Str(MK.Seat)) : null;
 
-        private string RegionOfSeat(string seat) => seat != null && Content.Data.Seats.Has(seat) ? Content.Data.Seats.Get(seat).Str(RunFlowKeys.RegionId) : null;
+        private string RegionOfSeat(string seat) => seat != null && Core.Combat.Run.Run.Seats.Has(seat) ? Core.Combat.Run.Run.Seats.Get(seat).Str(RunFlowKeys.RegionId) : null;
 
         private Ashen.App.Settings.SettingsSession _playerSettings;
 
@@ -591,7 +591,7 @@ namespace Ashen.App.Run
                 RetrySave();
                 return End;
             }
-            var end = RunEnd.Abandon(new LoopContext(Content.Loop, _run, _rng, Profile.Doc));
+            var end = Core2RunEnd.Abandon(Core.Rewards, Core.Loop, _run, Profile.Doc);
             try { FinishRun(end, true); }
             catch (Exception e) when (e is IOException || e is UnauthorizedAccessException)
             {

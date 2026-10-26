@@ -142,7 +142,7 @@ namespace Ashen.Tests
 
         private static void Same(string label, JToken want, JToken got)
         {
-            var diff = RunParityTests.FirstDifference(want, got, "$");
+            var diff = OracleCompare.FirstDifference(want, got, "$");
             if (diff != null) Assert.Fail($"{label}: first difference at {diff}");
         }
 

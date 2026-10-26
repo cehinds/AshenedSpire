@@ -58,5 +58,7 @@
   "combat.log.combatReactionOffered": "A reaction is offered.",
   "combat.log.combatReactionChosen": "A reaction is chosen.",
   "combat.log.intentPredictionAccepted": "You predict {source}.",
-  "combat.log.combatEnd": "The fight is over."
+  "combat.log.combatEnd": "The fight is over.",
+  "resource.stamina.name": "SP",
+  "resource.ward.name": "WARD"
 }

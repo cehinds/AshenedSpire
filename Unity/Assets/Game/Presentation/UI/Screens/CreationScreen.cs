@@ -53,7 +53,6 @@ namespace Ashen.Presentation.UI.Screens
         private LocButton _headGrid;
         private VisualElement _avatar;
         private int _slot = 1;
-        private bool _core2;
 
         public CreationViewModel ViewModel { get; } = new CreationViewModel();
         public IReadOnlyList<LocButton> Tiles => _tiles;
@@ -68,9 +67,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             _slot = (args as CreationArgs)?.SlotIndex ?? _slot;
             _content = Ui.RunContent;
-            var ruleset = RunFlow.NewRuleset(Ui);
-            _core2 = ruleset == RunFlowValues.RulesetCore2;
-            _rules = CreationClasses.For(_content, ruleset, ProfileStore.Load(Ui.Saves).Doc);
+            _rules = CreationClasses.For(_content, ProfileStore.Load(Ui.Saves).Doc);
             _classes = _rules.Ids;
             _shell = Root.Q<Shell>(UiNames.Shell);
             _shell.Exit += () => Nav.Pop();
@@ -243,10 +240,10 @@ namespace Ashen.Presentation.UI.Screens
                 .Add(UiPlaceholders.Hp, (int)preview.MaxHp).Add(UiPlaceholders.Mp, (int)preview.MaxMana).Add(UiPlaceholders.Sp, (int)preview.MaxStamina).Add(UiPlaceholders.Actions, (int)preview.Actions))));
         }
 
-        /// <summary>The kit the class starts with (the run it would make), or null for a class that cannot begin, and for the 405 run.</summary>
+        /// <summary>The kit the class starts with (the run it would make), or null for a class that cannot begin.</summary>
         private CreationReviewView ReviewOf(string classId)
         {
-            if (!_core2 || classId == null || _rules.Problem(classId) != null) return null;
+            if (classId == null || _rules.Problem(classId) != null) return null;
             if (_reviews.TryGetValue(classId, out var known)) return known;
             CreationReviewView review = null;
             try
@@ -500,10 +497,9 @@ namespace Ashen.Presentation.UI.Screens
 
         private void StartRun(uint seed)
         {
-            var hosted = RunHost.Start(_content, Ui.Saves, _slot, seed, ViewModel.Selected, Ui.Data.Strings.Get(_content.Flow.NameKey), null, null, RunFlow.CustomOverride, RunFlow.NewRuleset(Ui));
-            Ui.Session = hosted.Legacy;
+            var hosted = RunHost.Start(_content, Ui.Saves, _slot, seed, ViewModel.Selected, Ui.Data.Strings.Get(_content.Flow.NameKey));
             Ui.Core2Session = hosted.Core2;
-            var opening = hosted.IsCore2 && RunFlow.OpeningOverride != false
+            var opening = RunFlow.OpeningOverride != false
                 ? PrologueFlow.For(_content, hosted.Core2.PlayerSettings, hosted.Core2.ClassId, hosted.Core2.Name)
                 : null;
             if (opening != null)
@@ -511,7 +507,7 @@ namespace Ashen.Presentation.UI.Screens
                 Nav.Go(ScreenIds.Prologue, new PrologueArgs { Session = hosted.Core2, Opening = opening }, true);
                 return;
             }
-            Nav.Fire(ScreenTriggers.Begin, hosted.IsCore2 ? (object)new Core2RunArgs { Session = hosted.Core2 } : new RunScreenArgs { Session = hosted.Legacy });
+            Nav.Fire(ScreenTriggers.Begin, new Core2RunArgs { Session = hosted.Core2 });
         }
     }
 }

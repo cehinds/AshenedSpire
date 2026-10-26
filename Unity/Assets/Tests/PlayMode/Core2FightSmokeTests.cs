@@ -41,7 +41,6 @@ namespace Ashen.Tests.Play
             _saves = Path.Combine(Path.GetTempPath(), "ashen-core2-smoke-" + Guid.NewGuid().ToString("N"));
             AshenBoot.SaveDirectoryOverride = _saves;
             RunFlow.SeedOverride = 20261024u;
-            RunFlow.RulesetOverride = null;
             RunFlow.OpeningOverride = false;
             TitleScreen.ResetSession();
             _background = InputSystem.settings.backgroundBehavior;
@@ -61,7 +60,6 @@ namespace Ashen.Tests.Play
             InputSystem.settings.editorInputBehaviorInPlayMode = _editorInput;
             AshenBoot.SaveDirectoryOverride = null;
             RunFlow.SeedOverride = null;
-            RunFlow.RulesetOverride = null;
             RunFlow.OpeningOverride = null;
             if (Directory.Exists(_saves)) Directory.Delete(_saves, true);
         }
@@ -141,7 +139,7 @@ namespace Ashen.Tests.Play
             yield return Until(() => Nav.CurrentId == ScreenIds.Creation && Focused != null, 20f, "W-04 creation");
             var creation = (CreationScreen)Nav.Top.View;
             var content = Ui.RunContent;
-            Assert.That(RunFlow.NewRuleset(Ui), Is.EqualTo(RunFlowValues.RulesetCore2), "the data's New Game is the Core 2 run (rules/runFlow.json)");
+            Assert.That(RunHost.Ruleset(Ui.RunContent), Is.EqualTo(RunFlowValues.RulesetCore2), "the data's New Game is the Core 2 run (rules/runFlow.json)");
             Assert.That(creation.Classes.ToList(), Is.EqualTo(content.Core2.ClassIds.ToList()), "W-04 offers the Core 2 profile's classes");
             var begin = Nav.Top.Root.Q(UiNames.FooterPrimary);
             yield return PressUntil(Key.DownArrow, () => Focused == begin, 8, "focus on Begin");
@@ -192,7 +190,6 @@ namespace Ashen.Tests.Play
             Assert.That(map.View.Nodes.Any(n => n.Reachable), Is.True, "the first row is reachable");
             Assert.That(map.View.Nodes.All(n => n.Col >= 0d), Is.True, "every lane is a number (a rest depth sits between lanes)");
             Assert.That(Ui.Core2Session, Is.Not.Null);
-            Assert.That(Ui.Session, Is.Null);
             yield return TravelToFirstNode();
 
             // The fight: both sides are drawn from the Core 2 view.

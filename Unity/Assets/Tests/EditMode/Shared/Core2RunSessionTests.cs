@@ -199,6 +199,23 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void AnAbandonedRunJoinsTheHistoryButOpensNoClass()
+        {
+            var session = New();
+            session.Abandon();
+            Assert.That(session.RunOver, Is.True);
+            Assert.That(session.Abandoned, Is.True);
+            Assert.That(_saves.Exists(session.Slot), Is.False, "the slot is cleared");
+            var profile = ProfileStore.Load(_saves).Doc;
+            var record = (JObject)((JArray)profile["results"]).Single();
+            Assert.That(record["abandoned"].Value<bool>(), Is.True);
+            Assert.That(record["victory"].Value<bool>(), Is.False);
+            Assert.That(record["profileHash"].Value<string>(), Is.EqualTo(Content.Core2.ProfileHash));
+            Assert.That(profile["gameProfileUnlocks"]?[Content.Core2.ProfileId]?["completedRunIds"], Is.Null.Or.Empty, "abandoning leaves the unlock ledger alone");
+            Assert.That(session.ClassesUnlocked, Is.Empty);
+        }
+
+        [Test]
         public void TheLastBossesEndTheClimbWithAVictoryAndEarlierOnesAdvanceTheAct()
         {
             var session = New(2026);
@@ -385,7 +402,7 @@ namespace Ashen.Tests
             var legacy = (JObject)envelope.Payload.DeepClone();
             legacy["formatVersion"] = Content.Flow.SaveFormat;
             _saves.Checkpoint(session.Slot, legacy, "c", session.StateHash());
-            Assert.That(Core2RunSession.Load(Content, _saves, 1, () => Epoch).Status, Is.EqualTo(Core2RunLoadStatus.OtherRuleset), "the 405 format is the other session's");
+            Assert.That(Core2RunSession.Load(Content, _saves, 1, () => Epoch).Status, Is.EqualTo(Core2RunLoadStatus.OtherRuleset), "a 405 slot is kept, never loaded (WP-21)");
             Assert.That(Core2RunSession.Load(Content, _saves, 5, () => Epoch).Status, Is.EqualTo(Core2RunLoadStatus.Empty));
         }
 
@@ -393,7 +410,7 @@ namespace Ashen.Tests
         public void TheGamesDefaultPresetHostsACore2RunToo()
         {
             var content = RunContent.Load(TestContent.Source);
-            Assert.That(content.PresetId, Is.Not.EqualTo(Content.PresetId), "this is the tuning the game ships, not the neutral one the other tests use");
+            Assert.That(content.PresetId, Is.EqualTo("shipped"), "the game's default preset is the shipped one since WP-21");
             var session = Core2RunSession.New(content, _saves, 1, 5u, "reaver", "Preset", () => Epoch);
             Assert.That(session.Travel(session.ReachableNodes()[0]).Door.IsFight, Is.True);
             Assert.That(session.Combat.State.Player.Value<string>("classId"), Is.EqualTo("reaver"));
@@ -403,32 +420,25 @@ namespace Ashen.Tests
         // ------------------------------------------------------------------ the title door
 
         [Test]
-        public void TheTitleDoorStartsTheRulesetTheDataNamesAndReadsASlotByItsFormat()
+        public void TheTitleDoorStartsCore2AndKeepsA405SlotUnloaded()
         {
             Assert.That(RunHost.Ruleset(Content), Is.EqualTo(RunFlowValues.RulesetCore2), "the data's New Game is the Core 2 run (owner ruling D-164; WP-C1b flipped the switch)");
-            Assert.That(RunHost.Start(Content, _saves, 5, 7u, "reaver", "Data", () => Epoch).IsCore2, Is.True, "a New Game starts the ruleset the data names");
-            var legacy = RunHost.Start(Content, _saves, 1, 7u, Content.DefaultClass(), "Old", () => Epoch, ruleset: RunFlowValues.RulesetLegacy);
-            Assert.That(legacy.Legacy, Is.Not.Null);
-            Assert.That(legacy.IsCore2, Is.False);
-
-            var core2 = RunHost.Start(Content, _saves, 2, 7u, "reaver", "New", () => Epoch, ruleset: RunFlowValues.RulesetCore2);
-            Assert.That(core2.IsCore2, Is.True);
+            var core2 = RunHost.Start(Content, _saves, 2, 7u, "reaver", "New", () => Epoch);
+            Assert.That(core2.Core2, Is.Not.Null, "a New Game starts the ruleset the data names");
             Assert.That(core2.Location, Is.EqualTo("map"));
-
-            var flow = Content.Flow;
-            var before = flow.NewRunRuleset;
-            try
-            {
-                flow.NewRunRuleset = RunFlowValues.RulesetLegacy;
-                Assert.That(RunHost.Start(Content, _saves, 3, 9u, Content.DefaultClass(), "Flip", () => Epoch).IsCore2, Is.False, "flipping the data back starts a 405 run");
-            }
-            finally { flow.NewRunRuleset = before; }
+            Assert.Throws<ArgumentException>(() => RunHost.Start(Content, _saves, 3, 9u, "reaver", "Old", () => Epoch, ruleset: RunFlowValues.RulesetLegacy), "the 405 run is retired (WP-21)");
             Assert.Throws<ArgumentException>(() => RunHost.Start(Content, _saves, 4, 1u, "reaver", "X", () => Epoch, ruleset: "nonsense"));
 
-            var back1 = RunHost.Load(Content, _saves, 1, () => Epoch);
-            Assert.That(back1.Run.Legacy, Is.Not.Null, "a format-2 slot is the 405 run");
             var back2 = RunHost.Load(Content, _saves, 2, () => Epoch);
             Assert.That(back2.Run.Core2, Is.Not.Null, "a format-3 slot is a Core 2 run");
+
+            var legacy = (JObject)_saves.Load(core2.Core2.Slot).Payload.DeepClone();
+            legacy["formatVersion"] = Content.Flow.SaveFormat;
+            _saves.Checkpoint(core2.Core2.Slot, legacy, "c", core2.Core2.StateHash());
+            var old = RunHost.Load(Content, _saves, 2, () => Epoch);
+            Assert.That(old.Resumed, Is.False);
+            Assert.That(old.Status, Is.EqualTo(nameof(Core2RunLoadStatus.OtherRuleset)));
+            Assert.That(_saves.Exists(core2.Core2.Slot), Is.True, "a 405 slot is kept as it is");
             Assert.That(RunHost.Load(Content, _saves, 6, () => Epoch).Resumed, Is.False);
         }
     }

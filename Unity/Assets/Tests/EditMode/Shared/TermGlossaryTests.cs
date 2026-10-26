@@ -76,7 +76,7 @@ namespace Ashen.Tests
             {
                 var want = new JArray(((JArray)row["entries"]).OfType<JObject>().Select(e => new JObject { ["name"] = e["name"], ["explanation"] = e["explanation"] }));
                 var got = new JArray(glossary.Explain(row.Value<string>("text")).Select(e => new JObject { ["name"] = e.Name, ["explanation"] = e.Explanation }));
-                var diff = RunParityTests.FirstDifference(want, got, "$");
+                var diff = OracleCompare.FirstDifference(want, got, "$");
                 if (diff != null) Assert.Fail(row.Value<string>("source") + ": first difference at " + diff + "\ntext " + row.Value<string>("text") + "\nwant " + want.ToString(Newtonsoft.Json.Formatting.None) + "\ngot  " + got.ToString(Newtonsoft.Json.Formatting.None));
                 checkedEntries += want.Count;
             }

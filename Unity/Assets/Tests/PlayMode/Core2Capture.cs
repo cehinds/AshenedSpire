@@ -32,7 +32,6 @@ namespace Ashen.Tests.Play
             var ui = host.Context;
             var session = Build(ui, spec);
             ui.Core2Session = session;
-            ui.Session = null;
             RunFlow.Show(new ScreenContext { Host = host, Navigator = host.Navigator, Ui = ui }, session);
         }
 

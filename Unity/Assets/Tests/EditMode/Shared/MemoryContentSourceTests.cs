@@ -46,7 +46,7 @@ namespace Ashen.Tests
             memory.Add(Ashen.Generated.ContentLayout.Manifest, disk.ReadText(Ashen.Generated.ContentLayout.Manifest));
             foreach (var entry in ContentManifest.Load(memory).Files) memory.Add(entry.Path, disk.ReadText(entry.Path));
 
-            Assert.That(memory.Paths.Count(), Is.GreaterThan(400));
+            Assert.That(memory.Paths.Count(), Is.GreaterThan(300), "the 405 catalog, tags and balance left with WP-21 (D-1804)");
             var report = new ContentValidator(memory).Validate();
             Assert.That(report.IsValid, Is.True, report.Summary(20));
             Assert.That(UiData.Load(memory).Screens.Initial, Is.EqualTo(UiData.Load(disk).Screens.Initial));

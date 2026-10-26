@@ -108,7 +108,7 @@ namespace Ashen.Tests
 
         private static JToken S(string text) => text == null ? JValue.CreateNull() : new JValue(text);
 
-        /// <summary>RunParityTests.FirstDifference with the probabilities compared to nine decimals (the walk sums floats in the web's order; the last bit is noise).</summary>
+        /// <summary>OracleCompare.FirstDifference with the probabilities compared to nine decimals (the walk sums floats in the web's order; the last bit is noise).</summary>
         private static string Same(JToken a, JToken b, string path)
         {
             if (a == null || b == null) return a == null && b == null ? null : $"{path}: {a} vs {b}";

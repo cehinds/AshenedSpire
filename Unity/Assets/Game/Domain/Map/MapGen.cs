@@ -26,16 +26,6 @@ namespace Ashen.Domain.Map
         public string Label { get; }
     }
 
-    /// <summary>sampleActShape's answer: node-count statistics and mean nodes per act by type (in first-seen order).</summary>
-    public sealed class ActShapeSample
-    {
-        public int Seeds { get; internal set; }
-        public double Mean { get; internal set; }
-        public int Min { get; internal set; }
-        public int Max { get; internal set; }
-        public List<KeyValuePair<string, double>> ByType { get; } = new List<KeyValuePair<string, double>>();
-    }
-
     /// <summary>
     /// The procedural act-map generator (shipped engine/mapgen.js, SPEC §3.8, §6), line for line: walk the paths bottom
     /// to top (edges merge, never cross), type the nodes under the floor plan with bounded retries, relax, keep the
@@ -317,37 +307,6 @@ namespace Ashen.Domain.Map
             map.BossId = terminals[0];
             return map;
         }
-
-        /// <summary>
-        /// sampleActShape(config, seeds): node-count mean/min/max over <c>sweepSeed(0..seeds-1)</c> and mean nodes per
-        /// act by type, each rounded to hundredths with the JS Math.round.
-        /// </summary>
-        public static ActShapeSample SampleActShape(MapRules rules, JObject config, int seeds)
-        {
-            var counts = new List<int>();
-            var byType = new OrderedMap<int>();
-            for (var i = 0; i < seeds; i++)
-            {
-                var g = GenerateActMap(rules, config, new Rng(SweepSeed(i)));
-                var all = g.AllNodes();
-                counts.Add(all.Count);
-                foreach (var n in all) byType[n.Type] = (byType.TryGetValue(n.Type, out var c) ? c : 0) + 1;
-            }
-            var sum = 0d;
-            foreach (var c in counts) sum = sum + c;
-            var sample = new ActShapeSample
-            {
-                Seeds = seeds,
-                Mean = MapMath.Round((sum / counts.Count) * CM.Percent) / CM.Percent,
-                Min = counts.Min(),
-                Max = counts.Max(),
-            };
-            foreach (var e in byType.Entries()) sample.ByType.Add(new KeyValuePair<string, double>(e.Key, MapMath.Round(((double)e.Value / seeds) * CM.Percent) / CM.Percent));
-            return sample;
-        }
-
-        /// <summary>sweepSeed(i) (engine/rng.js): Knuth's multiplicative hash on (i + 1).</summary>
-        public static uint SweepSeed(int i) => unchecked((uint)(i + 1) * MapNumbers.SweepMultiplier);
 
         private static int Clamp(int v, int lo, int hi) => v < lo ? lo : v > hi ? hi : v;
 

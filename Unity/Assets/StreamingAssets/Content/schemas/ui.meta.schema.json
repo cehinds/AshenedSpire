@@ -47,7 +47,7 @@
         },
         "attributeMode": {
           "type": "string",
-          "x-ref": "catalog/creationModes.json"
+          "x-ref": "profile/bundle/creationModes.json"
         },
         "panes": {
           "type": "array",

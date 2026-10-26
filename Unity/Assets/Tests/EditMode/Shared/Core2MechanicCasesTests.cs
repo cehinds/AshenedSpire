@@ -89,12 +89,12 @@ namespace Ashen.Tests
             {
                 foreach (var section in new[] { "entities", "piles", "mechanics" })
                 {
-                    var diff = RunParityTests.FirstDifference(row["state"][section] ?? new JObject(), result.State[section] ?? new JObject(), "$." + section);
+                    var diff = OracleCompare.FirstDifference(row["state"][section] ?? new JObject(), result.State[section] ?? new JObject(), "$." + section);
                     if (diff != null) Assert.Fail(slug + " / " + row.Value<string>("name") + ": first difference at " + diff);
                 }
                 Assert.That(result.Events, Is.EqualTo(row["events"].Select(t => t.Value<string>()).ToList()), "events");
             }
-            if (row["value"] != null) Assert.That(RunParityTests.FirstDifference(row["value"], result.Value, "$"), Is.Null, slug + " value");
+            if (row["value"] != null) Assert.That(OracleCompare.FirstDifference(row["value"], result.Value, "$"), Is.Null, slug + " value");
         }
 
         // ------------------------------------------------------------------ the generic kernel
@@ -133,13 +133,13 @@ namespace Ashen.Tests
                     if (bindings.Count != 1) throw new InvalidOperationException("one active binding");
                     return CoreMechanicsKernel.QueryBinding(bindings[0], query.Value<string>("query"), query["params"] as JObject);
                 });
-                Assert.That(RunParityTests.FirstDifference(want, got, "$"), Is.Null, label);
+                Assert.That(OracleCompare.FirstDifference(want, got, "$"), Is.Null, label);
             }
             else if (unit.Value<bool>("bindings"))
             {
                 var got = Run(() => new JArray(CoreMechanicsKernel.CompileBindings(mechanics, attachments, moduleParameters == null ? null : Clone(moduleParameters))
                     .Select(b => new JObject { ["id"] = b.Id, ["tag"] = b.Tag, ["config"] = b.Config.DeepClone() })));
-                Assert.That(RunParityTests.FirstDifference(want, got, "$"), Is.Null, label);
+                Assert.That(OracleCompare.FirstDifference(want, got, "$"), Is.Null, label);
             }
             else
             {
@@ -154,7 +154,7 @@ namespace Ashen.Tests
                         return CoreMechanicsKernel.EvaluateModifiers(bindings, call.Value<string>("phase"), call.Value<string>("subjectId"), call.Value<string>("actorId"),
                             Context((JObject)(call["context"] ?? new JObject())), call.Value<double>("amount"), call.Value<bool>("quantity"));
                     });
-                    Assert.That(RunParityTests.FirstDifference(results[i], got, "$"), Is.Null, label + " #" + i);
+                    Assert.That(OracleCompare.FirstDifference(results[i], got, "$"), Is.Null, label + " #" + i);
                 }
             }
         }

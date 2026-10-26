@@ -7,11 +7,10 @@ using Newtonsoft.Json.Linq;
 namespace Ashen.Content
 {
     /// <summary>
-    /// Reassembles the shipped content bundle shape (arrays in authoring order, display text attached) from the
-    /// id-keyed content files of a <see cref="ContentSet"/>: the input the shipped createRegistries() receives.
-    /// Authoring order comes from rules/rowOrder.json (canonical JSON sorts keys); rows a layer added that the order
-    /// does not list follow in ordinal key order. Display text is re-attached from strings/en.json using the
-    /// prefix and field→name map of rules/stringKeys.json.
+    /// Reassembles the Core 2 content bundle (WP-2) from the id-keyed files under profile/bundle/ (the bundle the web projects through
+    /// applyGameProfileToContent): arrays in projection order, the input the shipped createRegistries() receives. Order comes from
+    /// rules/rowOrder.json (canonical JSON sorts keys); rows a layer added that the order does not list follow in ordinal key order.
+    /// Display text is already inline in those rows.
     /// </summary>
     internal sealed class RegistryBundle
     {
@@ -30,86 +29,65 @@ namespace Ashen.Content
         /// <summary>Bundle path → content file. Documents come first so the collections nested in them land on top.</summary>
         private static readonly Source[] Sources =
         {
-            new Source(RegistryKeys.Balance, ContentFiles.BalanceBalance, Shape.Document),
-            new Source(RegistryKeys.Equipment, ContentFiles.CatalogEquipmentMeta, Shape.Document),
-            new Source(RegistryKeys.Cards, ContentFiles.CatalogCards, Shape.Keyed),
-            new Source(RegistryKeys.Relics, ContentFiles.CatalogRelics, Shape.Keyed),
-            new Source(RegistryKeys.Statuses, ContentFiles.CatalogStatuses, Shape.Keyed),
-            new Source(RegistryKeys.Stances, ContentFiles.CatalogStances, Shape.Keyed),
-            new Source(RegistryKeys.Keywords, ContentFiles.CatalogKeywords, Shape.Keyed),
-            new Source(RegistryKeys.Enemies, ContentFiles.CatalogEnemies, Shape.Keyed),
-            new Source(RegistryKeys.Encounters, ContentFiles.CatalogEncounters, Shape.Keyed),
-            new Source(RegistryKeys.Flasks, ContentFiles.CatalogFlasks, Shape.Keyed),
-            new Source(RegistryKeys.Classes, ContentFiles.CatalogClasses, Shape.Keyed),
-            new Source(RegistryKeys.Events, ContentFiles.CatalogEvents, Shape.Keyed),
-            new Source(EventKeys.Speakers, ContentFiles.CatalogSpeakers, Shape.Keyed),
-            new Source(RegistryKeys.Attributes, ContentFiles.CatalogAttributes, Shape.Keyed),
-            new Source(RegistryKeys.ClassTree, ContentFiles.CatalogClassTree, Shape.Keyed),
-            new Source(MapKeys.Seats, ContentFiles.CatalogSeats, Shape.Keyed),
-            new Source(RunKeys.CreationModes, ContentFiles.CatalogCreationModes, Shape.Keyed),
-            new Source(RunKeys.CharacterCreation, ContentFiles.CatalogCharacterCreation, Shape.Document),
-            new Source(RunKeys.AttributeRules, ContentFiles.RulesAttributeRules, Shape.Document),
-            new Source(RunKeys.DerivedStatRules, ContentFiles.RulesDerivedStatRules, Shape.Document),
-            new Source(RewardsKeys.Nodes, ContentFiles.TagsNodes, Shape.Keyed),
-            new Source(RegistryKeys.PropertyRules, ContentFiles.TagsPropertyRules, Shape.List),
-            new Source(RegistryKeys.TagDomains, ContentFiles.TagsTagDomains, Shape.Keyed),
-            new Source(RegistryKeys.TagRegistry, ContentFiles.TagsTags, Shape.Keyed),
-            new Source(RegistryKeys.TagFamilies, ContentFiles.TagsTagFamilies, Shape.Keyed),
-            new Source(RegistryKeys.Tagging, ContentFiles.TagsTagging, Shape.Keyed),
-            new Source(At(RegistryKeys.Equipment, RegistryKeys.Armaments), ContentFiles.CatalogArmaments, Shape.Keyed),
-            new Source(At(RegistryKeys.Equipment, RegistryKeys.Armour), ContentFiles.CatalogArmour, Shape.Keyed),
-            new Source(At(RegistryKeys.Equipment, RegistryKeys.StartingKits), ContentFiles.CatalogStartingKits, Shape.Keyed),
-            new Source(At(RegistryKeys.Equipment, RegistryKeys.BasicCardProfiles), ContentFiles.CatalogBasicCardProfiles, Shape.Keyed),
-            new Source(At(RegistryKeys.Equipment, RegistryKeys.ItemUpgradeChanges), ContentFiles.CatalogItemUpgradeChanges, Shape.List),
-            new Source(At(RegistryKeys.Equipment, RegistryKeys.CardExposure), ContentFiles.CatalogCardExposure, Shape.List),
-            new Source(At(RegistryKeys.Equipment, RegistryKeys.CardTagging), ContentFiles.CatalogCardTagging, Shape.List),
-            new Source(At(RegistryKeys.Equipment, RegistryKeys.EquipmentRequirements), ContentFiles.CatalogEquipmentRequirements, Shape.List),
-            new Source(At(RegistryKeys.Equipment, RegistryKeys.Slots), ContentFiles.CatalogEquipmentSlots, Shape.Document),
+            new Source(RegistryKeys.Balance, ContentFiles.ProfileBundleBalance, Shape.Document),
+            new Source(RegistryKeys.Equipment, ContentFiles.ProfileBundleEquipmentMeta, Shape.Document),
+            new Source(RegistryKeys.Cards, ContentFiles.ProfileBundleCards, Shape.Keyed),
+            new Source(RegistryKeys.Relics, ContentFiles.ProfileBundleRelics, Shape.Keyed),
+            new Source(RegistryKeys.Statuses, ContentFiles.ProfileBundleStatuses, Shape.Keyed),
+            new Source(RegistryKeys.Stances, ContentFiles.ProfileBundleStances, Shape.Keyed),
+            new Source(RegistryKeys.Keywords, ContentFiles.ProfileBundleKeywords, Shape.Keyed),
+            new Source(RegistryKeys.Enemies, ContentFiles.ProfileBundleEnemies, Shape.Keyed),
+            new Source(RegistryKeys.Encounters, ContentFiles.ProfileBundleEncounters, Shape.Keyed),
+            new Source(RegistryKeys.Flasks, ContentFiles.ProfileBundleFlasks, Shape.Keyed),
+            new Source(RegistryKeys.Classes, ContentFiles.ProfileBundleClasses, Shape.Keyed),
+            new Source(RegistryKeys.Events, ContentFiles.ProfileBundleEvents, Shape.Keyed),
+            new Source(EventKeys.Speakers, ContentFiles.ProfileBundleSpeakers, Shape.Keyed),
+            new Source(RegistryKeys.Attributes, ContentFiles.ProfileBundleAttributes, Shape.Keyed),
+            new Source(RegistryKeys.ClassTree, ContentFiles.ProfileBundleClassTree, Shape.Keyed),
+            new Source(MapKeys.Seats, ContentFiles.ProfileBundleSeats, Shape.Keyed),
+            new Source(RunKeys.CreationModes, ContentFiles.ProfileBundleCreationModes, Shape.Keyed),
+            new Source(RunKeys.CharacterCreation, ContentFiles.ProfileBundleCharacterCreation, Shape.Document),
+            new Source(RunKeys.AttributeRules, ContentFiles.ProfileBundleAttributeRules, Shape.Document),
+            new Source(RunKeys.DerivedStatRules, ContentFiles.ProfileBundleDerivedStatRules, Shape.Document),
+            new Source(RewardsKeys.Nodes, ContentFiles.ProfileBundleNodes, Shape.Keyed),
+            new Source(RegistryKeys.PropertyRules, ContentFiles.ProfileBundlePropertyRules, Shape.List),
+            new Source(RegistryKeys.TagDomains, ContentFiles.ProfileBundleTagDomains, Shape.Keyed),
+            new Source(RegistryKeys.TagRegistry, ContentFiles.ProfileBundleTags, Shape.Keyed),
+            new Source(RegistryKeys.TagFamilies, ContentFiles.ProfileBundleTagFamilies, Shape.Keyed),
+            new Source(RegistryKeys.Tagging, ContentFiles.ProfileBundleTagging, Shape.Keyed),
+            new Source(At(RegistryKeys.Equipment, RegistryKeys.Armaments), ContentFiles.ProfileBundleArmaments, Shape.Keyed),
+            new Source(At(RegistryKeys.Equipment, RegistryKeys.Armour), ContentFiles.ProfileBundleArmour, Shape.Keyed),
+            new Source(At(RegistryKeys.Equipment, RegistryKeys.StartingKits), ContentFiles.ProfileBundleStartingKits, Shape.Keyed),
+            new Source(At(RegistryKeys.Equipment, RegistryKeys.BasicCardProfiles), ContentFiles.ProfileBundleBasicCardProfiles, Shape.Keyed),
+            new Source(At(RegistryKeys.Equipment, RegistryKeys.ItemUpgradeChanges), ContentFiles.ProfileBundleItemUpgradeChanges, Shape.List),
+            new Source(At(RegistryKeys.Equipment, RegistryKeys.CardExposure), ContentFiles.ProfileBundleCardExposure, Shape.List),
+            new Source(At(RegistryKeys.Equipment, RegistryKeys.CardTagging), ContentFiles.ProfileBundleCardTagging, Shape.List),
+            new Source(At(RegistryKeys.Equipment, RegistryKeys.EquipmentRequirements), ContentFiles.ProfileBundleEquipmentRequirements, Shape.List),
+            new Source(At(RegistryKeys.Equipment, RegistryKeys.Slots), ContentFiles.ProfileBundleEquipmentSlots, Shape.Document),
         };
 
         private readonly ContentSet _content;
-        private readonly bool _core2;
-        private readonly JObject _strings;
         private readonly JObject _rowOrder;
-        private readonly JObject _stringKeys;
-        private readonly JObject _textAnchors;
 
-        private RegistryBundle(ContentSet content, JObject strings, bool core2)
+        private RegistryBundle(ContentSet content)
         {
             _content = content;
-            _core2 = core2;
-            _strings = strings ?? new JObject();
             _rowOrder = content.Get(ContentFiles.RulesRowOrder) as JObject ?? new JObject();
-            _stringKeys = content.Get(ContentFiles.RulesStringKeys) as JObject ?? new JObject();
-            _textAnchors = content.Get(ContentFiles.RulesTextAnchors) as JObject ?? new JObject();
         }
 
         /// <summary>The bundle object: { cards: [...], equipment: { armaments: [...], ... }, balance: {...}, tagging: [...], ... }.</summary>
-        public static JObject Load(ContentSet content, JObject strings) => Load(content, strings, false);
-
-        /// <summary>
-        /// The Core 2 bundle (WP-2): the same sources read from profile/bundle/ (the bundle the web projects through
-        /// applyGameProfileToContent), in their projection order. Display text is already inline in those rows.
-        /// </summary>
-        public static JObject LoadCore2(ContentSet content) => Load(content, null, true);
-
-        /// <summary>The content file a source is read from: its catalog/rules/tags path, or its profile/bundle twin for Core 2.</summary>
-        public static string FileFor(string file, bool core2) =>
-            core2 ? Core2Layout.BundleFolder + file.Substring(file.LastIndexOf(ContentLayout.PathSeparator, StringComparison.Ordinal) + 1) : file;
-
-        private static JObject Load(ContentSet content, JObject strings, bool core2)
+        public static JObject Load(ContentSet content)
         {
-            var loader = new RegistryBundle(content, strings, core2);
+            var loader = new RegistryBundle(content);
             var bundle = new JObject();
             var read = new HashSet<string>(StringComparer.Ordinal);
             foreach (var source in Sources)
             {
-                var file = FileFor(source.File, core2);
-                if (!content.Contains(file)) continue;
-                read.Add(file);
+                if (!content.Contains(source.File)) continue;
+                read.Add(source.File);
                 SetPath(bundle, source.Path, loader.Read(source));
             }
-            if (core2) loader.ReadRemaining(bundle, read);
+            loader.ReadRemaining(bundle, read);
             return bundle;
         }
 
@@ -136,7 +114,7 @@ namespace Ashen.Content
 
         private JToken Read(Source source)
         {
-            var file = FileFor(source.File, _core2);
+            var file = source.File;
             var doc = _content.Get(file);
             switch (source.Shape)
             {
@@ -149,59 +127,7 @@ namespace Ashen.Content
             }
         }
 
-        private JArray Keyed(string file, JObject doc)
-        {
-            var order = OrderedKeys(file, doc);
-            var spec = _stringKeys[file] as JObject;
-            var prefix = (string)spec?[RuleKeys.Prefix];
-            var fields = spec?[RegistryKeys.StringKeyFields] as JObject;
-            var anchorsByRow = _textAnchors[file] as JObject;
-            var rows = new JArray();
-            foreach (var key in order)
-            {
-                var row = doc[key];
-                if (row is JObject obj && fields != null && prefix != null)
-                {
-                    var texts = new List<KeyValuePair<string, JToken>>();
-                    foreach (var field in fields.Properties())
-                    {
-                        var text = _strings[string.Join(ContentLayout.SchemaNameSeparator, prefix, key, (string)field.Value)];
-                        if (text != null && text.Type == JTokenType.String) texts.Add(new KeyValuePair<string, JToken>(field.Name, text.DeepClone()));
-                    }
-                    row = texts.Count == 0 ? obj : Attach(obj, texts, anchorsByRow?[key] as JObject);
-                }
-                rows.Add(row);
-            }
-            return rows;
-        }
-
-        /// <summary>
-        /// Re-attaches display text where it was authored (D-069): each field goes after the key rules/textAnchors.json
-        /// recorded for it ('' = first; a field may follow another text field). Text with no anchor, or whose anchor the
-        /// row no longer has, follows the row's own keys.
-        /// </summary>
-        private static JObject Attach(JObject row, List<KeyValuePair<string, JToken>> texts, JObject anchors)
-        {
-            var pending = texts.ToDictionary(kv => kv.Key, kv => kv.Value, StringComparer.Ordinal);
-            var result = new JObject();
-            void Place(string anchor)
-            {
-                foreach (var field in texts.Select(kv => kv.Key).Where(f => pending.ContainsKey(f) && anchors?[f] is JValue v && (string)v == anchor).ToList())
-                {
-                    result[field] = pending[field];
-                    pending.Remove(field);
-                    Place(field);
-                }
-            }
-            Place(string.Empty);
-            foreach (var p in row.Properties())
-            {
-                result[p.Name] = p.Value;
-                Place(p.Name);
-            }
-            foreach (var kv in texts.Where(kv => pending.ContainsKey(kv.Key))) result[kv.Key] = kv.Value;
-            return result;
-        }
+        private JArray Keyed(string file, JObject doc) => new JArray(OrderedKeys(file, doc).Select(key => doc[key]));
 
         private List<string> OrderedKeys(string file, JObject doc) => OrderedKeys(_rowOrder, file, doc);
 

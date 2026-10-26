@@ -287,18 +287,13 @@ namespace Ashen.Tests
             Assert.That(session.Region, Is.Not.Null);
         }
 
-        // ------------------------------------------------------------------ W-04 under each ruleset
+        // ------------------------------------------------------------------ W-04
 
         [Test]
-        public void TheClassesOfNewGameAreEachRulesetsOwnAndACore2ClassStaysLockedUntilTheLedgerOpensIt()
+        public void TheClassesOfNewGameAreTheProfilesAndAClassStaysLockedUntilTheLedgerOpensIt()
         {
             var profile = ProfileStore.Load(_saves).Doc;
-            var legacy = CreationClasses.For(Content, RunFlowValues.RulesetLegacy, profile);
-            Assert.That(legacy.IsCore2, Is.False);
-            Assert.That(legacy.Ids, Is.EqualTo(Content.ClassIds));
-            Assert.That(legacy.Locked("reaver"), Is.False);
-
-            var core2 = CreationClasses.For(Content, RunFlowValues.RulesetCore2, profile);
+            var core2 = CreationClasses.For(Content, profile);
             Assert.That(core2.Ids, Is.EqualTo(Content.Core2.ClassIds));
             Assert.That(core2.Locked(core2.Ids[0]), Is.False, "the first class is open");
             Assert.That(core2.Ids.Skip(1).All(core2.Locked), Is.True, "the others wait for finished runs");

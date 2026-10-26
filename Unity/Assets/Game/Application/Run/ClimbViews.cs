@@ -408,65 +408,6 @@ namespace Ashen.App.Run
         public string ActionText;
     }
 
-    public static class PlannedDoorView
-    {
-        public static PlannedDoorState Build(RunSession session, UiData ui)
-        {
-            var strings = ui.Strings;
-            var location = session.Location;
-            var state = new PlannedDoorState
-            {
-                Location = location,
-                Body = strings.Get(string.Format(CultureInfo.InvariantCulture, UiFormats.PlannedBodyKey, location)),
-            };
-            if (location == RunFlowValues.LocationMerchant)
-            {
-                state.Title = strings.Get(StringKeys.MapPlannedMerchantTitle);
-                state.ActionText = strings.Get(StringKeys.MapPlannedLeave);
-            }
-            else if (location == RunFlowValues.LocationEvent)
-            {
-                var view = session.EventView();
-                state.Title = view?.Str(WK.Title) ?? string.Empty;
-                if (session.EventDone)
-                {
-                    state.Result = LastResult(session);
-                    state.ActionText = strings.Get(StringKeys.MapPlannedContinue);
-                }
-                else
-                {
-                    var id = session.EventStandInChoice();
-                    var choice = Js.Items(view?[RunKeys.Choices]).OfType<JObject>().FirstOrDefault(c => c.Str(MK.ChoiceId) == id);
-                    state.ActionText = strings.Format(StringKeys.MapPlannedChoose, new StringArgs().Add(UiPlaceholders.Label, choice?.Str(K.Label) ?? id));
-                }
-            }
-            else if (location == RunFlowValues.LocationDungeon)
-            {
-                var run = session.Run;
-                var dungeon = Ashen.Domain.Loop.LegacyDungeons.Definition(session.Content.Loop, run);
-                var room = Ashen.Domain.Loop.LegacyDungeons.Node(session.Content.Loop, run);
-                state.Title = strings.Format(StringKeys.MapPlannedDungeonTitle, new StringArgs()
-                    .Add(UiPlaceholders.Name, dungeon?.Str(K.Name) ?? session.DungeonId).Add(UiPlaceholders.Label, room?.Str(K.Name) ?? string.Empty));
-                var pending = run.Obj(RK.LegacyDungeon)?.Obj(K.Pending);
-                if (pending != null) state.Result = pending.Str(LK.Text);
-                state.ActionText = strings.Get(StringKeys.MapPlannedAdvance);
-            }
-            return state;
-        }
-
-        /// <summary>The response text of the event's last history row (the choice just taken).</summary>
-        private static string LastResult(RunSession session)
-        {
-            var view = session.EventView();
-            var history = session.Run.Arr(MK.History);
-            var last = history?.Count > 0 ? history[history.Count - 1] as JObject : null;
-            var choiceId = last?.Str(MK.ChoiceId);
-            var def = session.Content.Loop.Events.Events.Get(session.EventId);
-            var choice = Js.Items(def?[RunKeys.Choices]).OfType<JObject>().FirstOrDefault(c => c.Str(K.Id) == choiceId);
-            return choice?.Str(EventKeys.ResultText) ?? view?.Str(EventKeys.Text) ?? string.Empty;
-        }
-    }
-
     /// <summary>
     /// W-15 run end (AF-11, US-4.7, US-4.9) as display data: victory or death, who and where, the seed, class, act and
     /// floor, what ended it, how long it took, the final deck and what was newly unlocked (finishRun's receipt). The killer
@@ -539,7 +480,7 @@ namespace Ashen.App.Run
         private static string Killer(IClimb session)
         {
             var names = session.LastFoes();
-            return names.Count == 0 ? null : string.Join(session.Content.Loop.Map.Rules.EnemySeparator, names);
+            return names.Count == 0 ? null : string.Join(session.Content.Core2.Loop.Map.Rules.EnemySeparator, names);
         }
     }
 

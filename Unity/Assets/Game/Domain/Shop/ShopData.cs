@@ -16,7 +16,7 @@ namespace Ashen.Domain.Shop
     /// merchant's own rules (rules/shopEngine.json — the shelves' rarities, the price mods, the smith's service
     /// vocabulary and the Smithing receipt labels the shipped code kept as constants). The smith's one port (SmithServices,
     /// ItemSmithing, CardExtraction) reads it wherever it is called: the merchant, the events and the rest stop, which
-    /// reaches it as <c>LoopData.Shop</c> (D-112). Read-only.
+    /// reaches it through the Core 2 rewards data (D-112). Read-only.
     /// </summary>
     public sealed class ShopData
     {

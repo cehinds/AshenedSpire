@@ -55,7 +55,6 @@ namespace Ashen.Generated
         public const string ShopSell = "shopSell";
         public const string HoldConfirm = "holdConfirm";
         public const string Key = "key";
-        public const string Screens = "screens";
         public const string Steps = "steps";
         public const string Ref = "ref";
         public const string Ruleset = "ruleset";

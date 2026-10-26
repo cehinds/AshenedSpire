@@ -34,13 +34,11 @@ namespace Ashen.Tests
         {
             _dir = Path.Combine(Path.GetTempPath(), "ashen-meta-" + Guid.NewGuid().ToString("N"));
             _saves = new SaveService(_dir, SaveRules.From(TestContent.ContentJson(ContentFiles.RulesSaves)));
-            RunSession.ReviewEnemyHpScale = null;
         }
 
         [TearDown]
         public void TearDown()
         {
-            RunSession.ReviewEnemyHpScale = null;
             if (Directory.Exists(_dir)) Directory.Delete(_dir, true);
         }
 
@@ -61,34 +59,6 @@ namespace Ashen.Tests
             Assert.That(view.ArmamentsEmpty, Is.Not.Null);
             Assert.That(view.Rail.Select(r => r.Id), Is.EqualTo(new[] { MetaValues.JournalHistory, MetaValues.JournalProfile, MetaValues.JournalArmaments }));
             Resolved(view.Rail.Select(r => r.Label).Concat(view.Profile).Concat(view.Bosses).Concat(view.Unlocks).Concat(new[] { view.Title, view.HistoryEmpty, view.ArmamentsEmpty }).ToArray());
-        }
-
-        [Test]
-        public void ADeathIsRecordedWithItsKillerDurationAndDeck()
-        {
-            var session = RunSession.New(Default, _saves, 1, 90210, Default.DefaultClass(), "Aldric");
-            var driver = new ClimbSessionTests.Driver(Default, _saves, session, 90210) { EndTurnsOnly = true, Reload = false };
-            Assert.That(driver.Play(400), Is.EqualTo("defeat"));
-
-            // Read back from disk, as the title's Journal would.
-            var profile = ProfileStore.Load(_saves).Doc;
-            var record = (JObject)((JArray)profile["results"]).Last();
-            Assert.That(record[MetaKeys.Killer], Is.InstanceOf<JArray>().And.Not.Empty, "the killer's enemy ids (D-148)");
-            Assert.That(record[MetaKeys.Duration], Is.Not.Null);
-            Assert.That(((JArray)record[MetaKeys.Deck]).Count, Is.EqualTo(((JArray)session.Run["deck"]).Count), "the final deck");
-            Assert.That(JToken.DeepEquals(record, session.End.Result), Is.True, "the receipt carries the same record");
-
-            var view = JournalView.Build(profile, Default, Ui);
-            Assert.That(view.History, Has.Count.EqualTo(1));
-            var row = view.History[0];
-            Assert.That(row.Victory, Is.False);
-            Assert.That(row.Title, Is.EqualTo("Starseer"), "the row's name is the class, as the web's history row (history.js label)");
-            Assert.That(row.Detail.Any(d => d.StartsWith("Slain by", StringComparison.Ordinal)), Is.True, "the killer is named");
-            Assert.That(row.Detail.Any(d => d.StartsWith("Time", StringComparison.Ordinal)), Is.True);
-            Assert.That(row.Deck, Has.Count.EqualTo(((JArray)record[MetaKeys.Deck]).Count));
-            Assert.That(view.WinRates, Has.Count.EqualTo(1));
-            Assert.That(view.WinRates[0], Does.Contain("0 of 1"));
-            Resolved(row.Detail.Concat(row.Deck).Concat(row.Pills).Concat(view.Profile).Concat(view.WinRates).Concat(new[] { row.Title, row.Where, row.Outcome, row.DeckTitle }).ToArray());
         }
 
         [Test]
@@ -124,8 +94,8 @@ namespace Ashen.Tests
                 if (def.IsEnum) Assert.That(def.Options, Is.Not.Empty, def.Key + ": options resolve");
                 if (def.IsSlider) Assert.That(def.Max, Is.GreaterThan(def.Min), def.Key + ": the range resolves");
             }
-            // Every preset's player setting is a known control and fits it (the reference preset's values are new-profile defaults).
-            foreach (var preset in new[] { "shipped", "reference" })
+            // Every preset's player setting is a known control and fits it.
+            foreach (var preset in new[] { "shipped" })
             {
                 var content = RunContent.Load(TestContent.Source, preset);
                 foreach (var p in content.Snapshot.PlayerSettings?.Properties() ?? Enumerable.Empty<JProperty>())
@@ -142,31 +112,6 @@ namespace Ashen.Tests
                 Resolved(view.Controls.SelectMany(c => new[] { c.Label, c.Help, c.ValueText }.Concat(c.Options.Select(o => o.Value))).Concat(view.Rail.Select(r => r.Value)).Concat(new[] { view.Title, view.Reset }).ToArray());
                 foreach (var c in view.Controls) Assert.That(c.Label.StartsWith("settings.", StringComparison.Ordinal), Is.False, c.Key);
             }
-        }
-
-        [Test]
-        public void AValueComesFromTheProfileThenThePresetThenTheDefault()
-        {
-            var settings = new SettingsSession(Default, ProfileStore.Load(_saves));
-            Assert.That(Default.PresetId, Is.EqualTo("reference"));
-            Assert.That(settings.On("shrineMultiUse"), Is.True, "the reference preset's player setting");
-            Assert.That(settings.Text("holdConfirm"), Is.EqualTo("short"));
-            Assert.That(settings.Text(SettingIds.MapMode), Is.EqualTo("fog"), "the control's def (the web's reveal)");
-            Assert.That(settings.Number("levelUpValue"), Is.EqualTo(1), "a def read from balance.levelUp");
-
-            Assert.That(settings.Set("shrineMultiUse", false), Is.Null);
-            Assert.That(settings.Set(SettingIds.MapMode, "fog"), Is.Null);
-            var reread = new SettingsSession(Default, ProfileStore.Load(_saves));
-            Assert.That(reread.On("shrineMultiUse"), Is.False, "saved to the profile");
-            Assert.That(reread.Text(SettingIds.MapMode), Is.EqualTo("fog"));
-
-            // The run reads the same stored value.
-            var session = RunSession.New(Default, _saves, 1, 7, Default.DefaultClass(), "Aldric");
-            Assert.That(session.Settings().MultiUse, Is.False);
-
-            reread.ResetCategory("gameplay");
-            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).On("shrineMultiUse"), Is.True, "reset shows the preset again");
-            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Text(SettingIds.MapMode), Is.EqualTo("fog"), "other categories keep their values");
         }
 
         [Test]
@@ -325,17 +270,6 @@ namespace Ashen.Tests
         }
 
         [Test]
-        public void ARunRecordNamesNoProfileForARunWithoutAPin()
-        {
-            // The 405 run carries no gameProfile pin, so its record must not claim the shipped Core 2 profile.
-            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
-            session.Abandon();
-            var record = (JObject)((JArray)ProfileStore.Load(_saves).Doc["results"]).Last();
-            Assert.That(record[MetaKeys.ProfileId], Is.Null);
-            Assert.That(record[MetaKeys.ProfileHash], Is.Null);
-        }
-
-        [Test]
         public void APinnedRunStatesItsPin()
         {
             var core = (JObject)Default.Snapshot.Content.Get(ContentFiles.ProfileCore);
@@ -348,359 +282,11 @@ namespace Ashen.Tests
 
         // ------------------------------------------------------------------ W-06 reveal modes (US-4.2, D-151)
 
-        [Test]
-        public void TheMapRevealFollowsTheMapModeSetting()
-        {
-            var session = RunSession.New(Default, _saves, 1, 7, Default.DefaultClass(), "Aldric");
-            var fresh = ActMapView.Build(session, Ui);
-            Assert.That(fresh.Mode, Is.EqualTo(SettingIds.MapFog), "the web's default reveal is fog");
-
-            // Step onto the map so some of the act falls behind the run.
-            var first = session.ReachableNodes().First();
-            Assert.That(session.PlayerSettings.Set(SettingIds.MapMode, SettingIds.MapPath), Is.Null);
-            var start = ActMapView.Build(session, Ui);
-            Assert.That(start.Nodes.Any(n => n.Dimmed), Is.False, "before the first step everything is still ahead");
-
-            var after = RunSession.New(Default, _saves, 2, 7, Default.DefaultClass(), "Aldric");
-            after.PlayerSettings.Set(SettingIds.MapMode, SettingIds.MapPath);
-            after.Travel(first);
-            while (after.Location != RunFlowValues.LocationMap && !after.RunOver) Step(after);
-            var path = ActMapView.Build(after, Ui);
-            var reachable = new System.Collections.Generic.HashSet<string>(after.ReachableNodes());
-            Assert.That(path.Nodes.Where(n => reachable.Contains(n.Id)).Any(n => n.Dimmed), Is.False, "the reachable row is lit");
-            Assert.That(path.Nodes.Where(n => n.Floor == path.Node(path.CurrentId).Floor && !n.Current).All(n => n.Dimmed), Is.True, "the floor's other nodes are behind");
-            Assert.That(path.Nodes.Any(n => n.Hidden), Is.False, "path hides nothing");
-
-            after.PlayerSettings.Set(SettingIds.MapMode, SettingIds.MapFog);
-            var fog = ActMapView.Build(after, Ui);
-            var row = fog.Nodes.Where(n => n.Reachable).Min(n => n.Floor);
-            Assert.That(fog.Nodes.Where(n => n.Floor <= row + 1).Any(n => n.Hidden), Is.False, "the reachable row and the next floor are revealed");
-            Assert.That(fog.Nodes.Where(n => n.Floor > row + 1 && n.Kind != "boss").All(n => n.Hidden), Is.True, "beyond them the kinds are unseen");
-            Assert.That(fog.Nodes.Where(n => n.Hidden).All(n => n.Label == "Unseen" && n.Kind == "unseen" && n.BossLabel == null), Is.True);
-            Assert.That(fog.Nodes.Any(n => n.Kind == "boss" && !n.Hidden), Is.True, "the boss destinations stay drawn (US-4.4)");
-            Assert.That(fog.Legend.Any(l => l.Kind == "unseen"), Is.True);
-            Resolved(fog.Nodes.SelectMany(n => new[] { n.Label, n.Hint, n.AccessibleName }).Concat(fog.Legend.Select(l => l.Label)).ToArray());
-        }
-
-        /// <summary>Plays out whatever the first node opened (a fight's end turns, a reward's Continue, a place's Leave) back to the map.</summary>
-        private static void Step(RunSession s)
-        {
-            var driver = new ClimbSessionTests.Driver(Default, null, s, 7) { Reload = false };
-            driver.StepOnce();
-        }
-
         // ------------------------------------------------------------------ W-05 prologue (US-3.1-3.3)
 
         /// <summary>The content with prologue playback on (rules/runFlow.json newRun.prologue stays off until W-05's screen is built; D-152).</summary>
         private static RunContent WithPrologue(params JObject[] more) =>
             RunContent.Load(TestContent.Source, null, new[] { JObject.Parse("{\"files\":{\"rules/runFlow.json\":{\"newRun\":{\"prologue\":true}}}}") }.Concat(more).ToArray());
-
-        [Test]
-        public void ANewRunPlaysThePrologueSceneByScene()
-        {
-            var content = WithPrologue();
-            var session = RunSession.New(content, _saves, 1, 7, "rogue", "Aldric");
-            Assert.That(session.ProloguePending, Is.True);
-            Assert.That(session.ReachableNodes(), Is.Empty, "the map waits on the prologue");
-            var seen = new System.Collections.Generic.List<string>();
-            var guard = 0;
-            while (session.ProloguePending && guard++ < 20)
-            {
-                var view = session.PrologueView(Ui);
-                seen.Add(view.SceneId);
-                Assert.That(content.HasAsset(view.ArtWide) && content.HasAsset(view.ArtNarrow), Is.True, view.SceneId + ": art resolves");
-                Assert.That(view.Dots.Count(d => d), Is.EqualTo(seen.Count));
-                Assert.That(view.Continue, Is.EqualTo(view.IsLast ? "Set forth" : "Continue"));
-                Resolved(view.Line, view.Continue, view.Skip, view.Progress);
-                Assert.That(view.Line, Is.Not.Empty);
-                if (view.SceneId == "carry")
-                {
-                    Assert.That(view.ArtWide, Is.EqualTo("prologue.carry-rogue-desktop"), "the class's own art");
-                    Assert.That(view.Item, Is.EqualTo("prologue.rogue"));
-                    Assert.That(view.Line, Does.Contain("Court Surgeon"), "the class's own line");
-                }
-                // Every scene is a checkpoint: a reload stands at the same scene.
-                var loaded = RunSession.Load(content, _saves, 1).Session;
-                Assert.That(loaded.PrologueView(Ui).SceneId, Is.EqualTo(view.SceneId));
-                session.AdvancePrologue();
-            }
-            Assert.That(seen, Is.EqualTo(new[] { "warmth", "year", "carry", "night", "step" }), "the shipped subset and order; the empty slots are skipped");
-            Assert.That(session.ProloguePending, Is.False);
-            Assert.That(session.ReachableNodes(), Is.Not.Empty, "Set forth lands on the map");
-            Assert.That(RunSession.Load(content, _saves, 1).Session.ProloguePending, Is.False, "saved done");
-        }
-
-        [Test]
-        public void HoldToSkipEndsThePrologueAndTheSettingTurnsItOff()
-        {
-            var content = WithPrologue();
-            var session = RunSession.New(content, _saves, 1, 7, Default.DefaultClass(), "Aldric");
-            session.AdvancePrologue();
-            session.SkipPrologue();
-            Assert.That(session.ProloguePending, Is.False);
-            Assert.That(RunSession.Load(content, _saves, 1).Session.ReachableNodes(), Is.Not.Empty);
-
-            Assert.That(new SettingsSession(content, ProfileStore.Load(_saves)).Set(SettingIds.PlayPrologue, false), Is.Null);
-            var off = RunSession.New(content, _saves, 2, 7, Default.DefaultClass(), "Aldric");
-            Assert.That(off.ProloguePending, Is.False, "playback off: the run starts at the map");
-            Assert.That(RunSession.New(Default, _saves, 3, 7, Default.DefaultClass(), "Aldric").ProloguePending, Is.False, "the shipped flow keeps it off");
-        }
-
-        [Test]
-        public void ADisabledSavedSceneResumesAtTheNextAndANewSlotPlaysFromData()
-        {
-            var content = WithPrologue();
-            var session = RunSession.New(content, _saves, 1, 7, Default.DefaultClass(), "Aldric");
-            session.AdvancePrologue();
-            Assert.That(session.PrologueView(Ui).SceneId, Is.EqualTo("year"));
-
-            // The designer disables 'year' (slot 2) and fills the first extra slot: no code change (US-3.2, US-3.3).
-            var scenes = (JArray)TestContent.ContentJson("ui/prologue.json")["scenes"];
-            scenes[1]["enabled"] = false;
-            scenes[5] = JObject.Parse("{\"id\":\"extraA\",\"order\":6,\"enabled\":true,\"art\":{\"wide\":\"prologue.road-desktop\",\"narrow\":\"prologue.road-mobile\"},\"lineKey\":\"prologue.step.line\",\"holdMs\":3000}");
-            var edited = WithPrologue(new JObject { ["files"] = new JObject { ["ui/prologue.json"] = new JObject { ["scenes"] = scenes } } });
-            var resumed = RunSession.Load(edited, _saves, 1).Session;
-            Assert.That(resumed.PrologueView(Ui).SceneId, Is.EqualTo("carry"), "the disabled scene is passed over");
-            var order = new System.Collections.Generic.List<string>();
-            while (resumed.ProloguePending) { order.Add(resumed.PrologueView(Ui).SceneId); resumed.AdvancePrologue(); }
-            Assert.That(order, Is.EqualTo(new[] { "carry", "night", "step", "extraA" }));
-        }
-
-        // ------------------------------------------------------------------ W-04 creation panes (US-2.1-2.6, US-2.8)
-
-        private CreationSession NewCreation(int slot = 1) => new CreationSession(Default, _saves, ProfileStore.Load(_saves).Doc, Ui, slot, () => 4242u);
-
-        [Test]
-        public void NextAlwaysAnswersWithTheReasonAndTheControlToFocus()
-        {
-            var c = NewCreation();
-            Assert.That(c.Pane, Is.EqualTo("class"));
-            var refusal = c.Next();
-            Assert.That(refusal.Text, Is.EqualTo("Choose a class."));
-            Assert.That(refusal.Focus, Is.EqualTo("class"));
-            var blocked = c.Classes().FirstOrDefault(o => o.Locked);
-            if (blocked != null)
-            {
-                c.ChooseClass(blocked.Id);
-                Assert.That(c.Next(), Is.Not.Null, "a class the tuning cannot begin refuses");
-            }
-            Assert.That(c.ChooseClass("rogue"), Is.Null);
-            Assert.That(c.Next(), Is.Null);
-            Assert.That(c.Pane, Is.EqualTo("character"));
-
-            c.SetAssign(true);
-            Assert.That(c.PointsLeft, Is.EqualTo(3), "the lean mode's bonus pool");
-            refusal = c.Next();
-            Assert.That(refusal.Text, Is.EqualTo("3 points left."));
-            Assert.That(refusal.Focus, Is.EqualTo("attributes"));
-            var rows = c.AttributeRows();
-            Assert.That(rows.All(r => r.Value == 1 && r.CanRaise && !r.CanLower), Is.True, "every cell starts at the baseline");
-            Assert.That(c.Adjust(rows[0].Id, -1), Is.Not.Null, "below the floor is refused");
-            Assert.That(c.Adjust(rows[0].Id, 1), Is.Null);
-            Assert.That(c.Adjust(rows[0].Id, 1), Is.Null);
-            Assert.That(c.Adjust(rows[0].Id, 1), Is.Null);
-            Assert.That(c.PointsLeft, Is.EqualTo(0));
-            Assert.That(c.Adjust(rows[1].Id, 1).Text, Is.EqualTo("No points left to spend."));
-            Assert.That(c.Adjust(rows[0].Id, -1), Is.Null);
-            Assert.That(c.Adjust(rows[1].Id, 1), Is.Null);
-            Assert.That(c.SetName("   ").Text, Is.EqualTo("Give your climber a name."));
-            Assert.That(c.SetName(new string('a', 40)), Is.Not.Null);
-            Assert.That(c.SetName("Vessa"), Is.Null);
-            Assert.That(c.ChooseKeepsake("oldCinder"), Is.Null);
-            Assert.That(c.ChooseTint("nope"), Is.Not.Null);
-            Assert.That(c.Tints(), Is.Not.Empty, "the class's portrait frame sets");
-            Assert.That(c.ChooseTint(c.Tints().Last().Id), Is.Null);
-            Assert.That(c.ChooseGlyph(c.Glyphs()[1].Id), Is.Null);
-            Assert.That(c.Next(), Is.Null);
-            Assert.That(c.Pane, Is.EqualTo("equipment"));
-
-            c.Back();
-            c.Back();
-            Assert.That(c.Pane, Is.EqualTo("class"));
-            Assert.That(c.ClassId, Is.EqualTo("rogue"), "Back keeps the choices");
-            Assert.That(c.Open("review"), Is.Null, "a rail jump over finished panes");
-            Assert.That(c.Rail().Select(r => r.Value).Any(v => v.Contains("{")), Is.False);
-            Assert.That(c.Rail()[1].Value, Is.EqualTo("Vessa · Assign"));
-        }
-
-        [Test]
-        public void AnItemNeverSitsInBothHandsAndAnIllegalLoadoutRefusesOnEquipment()
-        {
-            var c = NewCreation();
-            c.ChooseClass("rogue");
-            c.Next();
-            c.Next();
-            Assert.That(c.Pane, Is.EqualTo("equipment"));
-            Assert.That(c.Armour().Count(o => o.Selected), Is.EqualTo(1), "the free armour is preselected");
-            Assert.That(c.Armour().Where(o => o.Locked).All(o => !string.IsNullOrEmpty(o.LockReason)), Is.True, "locked armour names its unlock");
-            var right = c.RightHand;
-            Assert.That(right, Is.Not.Null, "the baseline kit's hands");
-            Assert.That(c.ChooseHand("leftHand", right, out var receipt), Is.Null);
-            Assert.That(c.LeftHand, Is.EqualTo(right));
-            Assert.That(c.RightHand, Is.Null, "moved, never duplicated");
-            Assert.That(receipt, Does.Contain("moved to the off hand"));
-            // Every pair the lists offer either previews a run or refuses on Next with the loadout's reason, never both.
-            var illegal = 0;
-            foreach (var r in c.Hands("rightHand"))
-                foreach (var l in c.Hands("leftHand"))
-                {
-                    c.ChooseHand("rightHand", r.Id, out _);
-                    c.ChooseHand("leftHand", l.Id, out _);
-                    var problem = c.Preview().Problem;
-                    var next = c.Next();
-                    if (next == null) { c.Back(); Assert.That(problem, Is.Null); continue; }
-                    illegal++;
-                    Assert.That(next.Text, Is.EqualTo(problem));
-                    Assert.That(next.Pane, Is.EqualTo("equipment"));
-                }
-            TestContext.Progress.WriteLine("rogue hand pairs refused: " + illegal);
-            // Put a legal pair back and every pane passes.
-            c.ChooseHand("rightHand", right, out _);
-            c.ChooseHand("leftHand", string.Empty, out _);
-            var preview = c.Preview();
-            Assert.That(preview.Problem, Is.Null);
-            Assert.That(preview.DeckCards, Has.Count.GreaterThanOrEqualTo(11), "the starting deck (US-7.2)");
-            Resolved(preview.Derived, preview.Flasks, preview.Deck);
-            Assert.That(c.Next(), Is.Null);
-            Assert.That(c.Pane, Is.EqualTo("review"));
-            Assert.That(c.Relics().Count(o => o.Selected), Is.EqualTo(1));
-            Assert.That(c.Kits(), Is.Not.Empty);
-        }
-
-        [Test]
-        public void BeginMakesTheRunFromEveryChoiceAndAnOccupiedSlotNeedsReplace()
-        {
-            var c = NewCreation();
-            c.ChooseClass("starseer");
-            c.SetName("Ilse");
-            c.SetAssign(true);
-            var rows = c.AttributeRows();
-            c.Adjust(rows[3].Id, 1);
-            c.Adjust(rows[3].Id, 1);
-            c.Adjust(rows[4].Id, 1);
-            c.ChooseKeepsake("oldCinder");
-            var tint = c.Tints().Last().Id;
-            c.ChooseTint(tint);
-            Assert.That(c.SetSeed("!!").Text, Does.StartWith("Seeds use only"));
-            Assert.That(c.SetSeed(string.Empty).Text, Is.EqualTo("Type a seed, or choose Random."));
-            Assert.That(c.SetSeed("ASH42"), Is.Null);
-            var seed = c.Seed;
-
-            var session = c.Begin(false, out var refusal);
-            Assert.That(refusal, Is.Null, refusal?.Text);
-            Assert.That(session.ClassId, Is.EqualTo("starseer"));
-            Assert.That(session.Name, Is.EqualTo("Ilse"));
-            Assert.That(session.Seed, Is.EqualTo(seed));
-            Assert.That(session.Portrait, Does.EndWith("." + tint));
-            var attributes = (JObject)session.Run["attributes"];
-            Assert.That((int)attributes[rows[3].Id].Value<double>(), Is.EqualTo(3), "the assigned cells");
-            var plain = RunSession.New(Default, new SaveService(_dir + "-b", SaveRules.From(TestContent.ContentJson(ContentFiles.RulesSaves))), 1, seed, "starseer", "Ilse");
-            Assert.That(session.Run["cinders"].Value<double>() - plain.Run["cinders"].Value<double>(), Is.EqualTo(50), "the keepsake's effect");
-
-            var again = NewCreation();
-            again.ChooseClass("rogue");
-            Assert.That(again.SlotOccupied, Is.True);
-            Assert.That(again.Begin(false, out refusal), Is.Null);
-            Assert.That(refusal.Text, Does.Contain("holds a climb"));
-            Assert.That(RunSession.Load(Default, _saves, 1).Session.ClassId, Is.EqualTo("starseer"), "nothing was written");
-            Assert.That(again.Begin(true, out refusal).ClassId, Is.EqualTo("rogue"), "Replace confirmed");
-            if (Directory.Exists(_dir + "-b")) Directory.Delete(_dir + "-b", true);
-        }
-
-        // ------------------------------------------------------------------ W-22 progression (US-12.1-12.3, US-12.5)
-
-        [Test]
-        public void TheClassTreeShowsTiersStatesAndTheExclusiveChoice()
-        {
-            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
-            var view = ProgressionView.Build(session, Ui);
-            Assert.That(view.Tiers, Is.Not.Empty);
-            Assert.That(view.Tiers.All(t => !t.Open), Is.True, "class level 0: every tier is closed");
-            Assert.That(view.Tiers.SelectMany(t => t.Nodes).All(n => n.State == ProgressionValues.Closed), Is.True);
-            Assert.That(view.Tracks, Has.Count.EqualTo(1), "no track has grown yet");
-
-            // Raise the class track to the top tier: the open tiers' nodes can be drafted.
-            var classSkill = Ashen.Domain.Rewards.Skills.ClassSkillId("rogue");
-            var run = session.Run;
-            if (!(run["skills"] is JObject skills)) run["skills"] = skills = new JObject();
-            skills[classSkill] = new JObject { ["level"] = 20.0, ["xp"] = 0.0 };
-            view = ProgressionView.Build(session, Ui, run);
-            Assert.That(view.Tiers.All(t => t.Open), Is.True);
-            var first = view.Tiers[0].Nodes[0];
-            Assert.That(first.State, Is.EqualTo(ProgressionValues.Available));
-            var top = view.Tiers.Last();
-            Assert.That(top.Exclusive, Is.Not.Null.And.StartsWith("Choose one:"), "the tier-3 nodes are mutually exclusive");
-
-            // Choosing one top node closes its partner.
-            var core = new JArray(view.Tiers.Take(view.Tiers.Count - 1).SelectMany(t => t.Nodes).Select(n => (JToken)n.Id));
-            core.Add(top.Nodes[0].Id);
-            run["coreTags"] = core;
-            view = ProgressionView.Build(session, Ui, run);
-            Assert.That(view.Tiers.Last().Nodes[0].State, Is.EqualTo(ProgressionValues.Picked));
-            Assert.That(view.Tiers.Last().Nodes.Skip(1).Any(n => n.State == ProgressionValues.Excluded && n.StateText.StartsWith("Closed by", StringComparison.Ordinal)), Is.True);
-            Resolved(view.Tiers.SelectMany(t => t.Nodes.SelectMany(n => new[] { n.Name, n.StateText })).Concat(view.Tiers.Select(t => t.Title)).Concat(view.Tracks)
-                .Concat(new[] { view.Title, view.Level, view.Points, view.ClassTreeTitle, view.TracksTitle }).ToArray());
-        }
-
-        // ------------------------------------------------------------------ W-12 armoury (US-7.3, US-7.4, US-7.6)
-
-        [Test]
-        public void TheArmouryMovesPiecesRestampsTheDeckAndSaves()
-        {
-            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
-            var view = session.ArmouryView(Ui);
-            Assert.That(view.Slots.Select(s => s.SlotId), Has.Member("rightHand").And.Member("leftHand").And.Member("armor"));
-            Assert.That(view.Slots.First(s => s.SlotId == "rightHand").Cells, Has.Count.EqualTo(3), "three sets per hand");
-            Assert.That(view.Weight, Does.StartWith("Weight "));
-            Resolved(view.Slots.SelectMany(s => s.Cells.Select(c => c.Label)).Concat(new[] { view.Title, view.Weight, view.StorageTitle, view.StorageEmpty }).ToArray());
-
-            var right = (string)session.Run["loadout"]["sets"]["rightHand"][0];
-            var deck = ((JArray)session.Run["deck"]).Count;
-            // Clear the off hand into storage: a preview changes nothing, the commit is saved.
-            var preview = session.PreviewEquip(Ui, "leftHand", 0, null);
-            Assert.That(preview.Done, Is.True, preview.Refusal);
-            Assert.That(preview.Receipts, Is.Not.Empty);
-            Assert.That(session.Run["loadout"]["sets"]["leftHand"][0].Type, Is.Not.EqualTo(JTokenType.Null), "the preview left the run alone");
-            var change = session.Equip(Ui, "leftHand", 0, null);
-            Assert.That(change.Done, Is.True);
-            var loaded = RunSession.Load(Default, _saves, 1).Session;
-            Assert.That(loaded.Run["loadout"]["sets"]["leftHand"][0].Type, Is.EqualTo(JTokenType.Null), "saved");
-            Assert.That(loaded.ArmouryView(Ui).Storage, Is.Not.Empty, "the piece went to storage");
-            Assert.That(session.Equip(Ui, "rightHand", 0, right).Refusal, Is.EqualTo("That is already there."));
-
-            // Put it back from storage; a second set of the main hand can be made active.
-            var stored = loaded.ArmouryView(Ui).Storage[0].Key;
-            Assert.That(loaded.ArmouryCandidates("leftHand"), Has.Member(stored));
-            Assert.That(loaded.Equip(Ui, "leftHand", 0, stored).Done, Is.True);
-            Assert.That(((JArray)loaded.Run["deck"]).Count, Is.EqualTo(deck), "the lent cards came back with the item");
-        }
-
-        [Test]
-        public void TheArmouryIsClosedInAFight()
-        {
-            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
-            session.StartEncounter();
-            Assert.That(session.Equip(Ui, "leftHand", 0, null).Refusal, Is.EqualTo("The Armoury is closed during a fight."));
-        }
-
-        // ------------------------------------------------------------------ W-17 pile viewer
-
-        [Test]
-        public void ThePileViewerShowsDiscardAndExhaustAndOnlyTheDrawCount()
-        {
-            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
-            var combat = session.StartEncounter();
-            var c = combat.State;
-            var start = Ashen.App.Combat.CombatViewModel.Piles(c, Ui.Strings, MetaValues.PileDiscard);
-            Assert.That(start.Cards, Is.Empty);
-            Assert.That(start.Empty, Is.EqualTo("Nothing here yet."));
-            Assert.That(start.Draw, Does.Contain(c.Piles.Draw.Count.ToString()));
-            c.Piles.Discard.Add(c.Piles.Hand[0]);
-            var after = Ashen.App.Combat.CombatViewModel.Piles(c, Ui.Strings, MetaValues.PileDiscard);
-            Assert.That(after.Cards, Has.Count.EqualTo(1));
-            Assert.That(after.Rail[0].Value, Is.EqualTo("Discard (1)"));
-            Resolved(after.Rail.Select(r => r.Value).Concat(new[] { after.Title, after.Draw }).ToArray());
-        }
 
         // ------------------------------------------------------------------ music (US-16.1)
 
@@ -753,38 +339,6 @@ namespace Ashen.Tests
         // ------------------------------------------------------------------ W-20 Abandon run (D-134)
 
         [Test]
-        public void AbandoningMidFightRecordsAnAbandonedRunClearsTheSlotAndEarnsNothing()
-        {
-            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
-            session.StartEncounter();
-            Assert.That(session.IsInCombat, Is.True);
-            var end = session.Abandon();
-            Assert.That(end.Victory, Is.False);
-            Assert.That(end.Earned, Is.Empty, "no unlock is evaluated at the abandon door");
-            Assert.That(session.RunOver && session.Abandoned, Is.True);
-            Assert.That(session.Location, Is.EqualTo(RunFlowValues.LocationRunEnd));
-            Assert.That(_saves.Exists(session.Slot), Is.False, "the slot is cleared");
-            Assert.That(RunSession.Load(Default, _saves, 1).Status, Is.EqualTo(RunLoadStatus.Empty));
-
-            var profile = ProfileStore.Load(_saves).Doc;
-            var record = (JObject)((JArray)profile["results"]).Last();
-            Assert.That(record["abandoned"].Value<bool>(), Is.True);
-            Assert.That(record["victory"].Value<bool>(), Is.False);
-            Assert.That(record[MetaKeys.Killer], Is.Null, "an abandoned run names no killer");
-            Assert.That(record[MetaKeys.Deck], Is.Not.Null);
-            Assert.That(profile["progress"]["runs"].Value<double>(), Is.EqualTo(1), "it counts as a run");
-            Assert.That(profile["progress"]["wins"].Value<double>(), Is.EqualTo(0));
-            Assert.That(session.Abandon(), Is.SameAs(end), "a second abandon changes nothing");
-
-            var runEnd = RunEndView.Build(session, Ui);
-            Assert.That(runEnd.Title, Is.EqualTo("CLIMB ABANDONED"));
-            Assert.That(runEnd.Stats.Any(t => t.StartsWith("Fell to", StringComparison.Ordinal)), Is.False);
-            var journal = JournalView.Build(profile, Default, Ui);
-            Assert.That(journal.History[0].Outcome, Is.EqualTo("Abandoned"));
-            Assert.That(journal.History[0].Detail, Has.Member("Unknown."), "no killer to name");
-        }
-
-        [Test]
         public void ThePauseMenuOffersAbandonBehindADestructiveHoldDoor()
         {
             var row = Ui.Menus.Pause.First(e => e.Id == "abandon");
@@ -798,96 +352,6 @@ namespace Ashen.Tests
         }
 
         // ------------------------------------------------------------------ W-09 buy-back (US-9.3, D-159)
-
-        /// <summary>A common relic put first in the run's relics, so the sell shelf has something it buys.</summary>
-        private static void GiveSellableRelic(RunSession session)
-        {
-            var id = Default.Combat.Relics.All.First(r => (string)r["rarity"] == "common").Value<string>("id");
-            session.EditRunForReview(run => ((JArray)run["relics"]).Insert(0, id));
-        }
-
-        [Test]
-        public void ASoldRelicCanBeBoughtBackAtItsPriceUntilTheMerchantIsLeft()
-        {
-            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
-            NodeReview.AtMerchant(session);
-            GiveSellableRelic(session);
-            var merchant = MerchantSession.Start(session);
-            var relics = ((JArray)session.Run["relics"]).Count;
-            var cinders = session.Run["cinders"].Value<double>();
-            var sale = merchant.Execute(new ShopAction { Kind = "sellRelic", Index = 0 });
-            Assert.That(sale.Ok, Is.True);
-            var received = sale.Receipt["received"].Value<double>();
-            Assert.That(session.BuyBackList, Has.Count.EqualTo(1));
-
-            // The shelf offers it back; a reload keeps the list.
-            var offer = MerchantView.Build(merchant, Ui).Shelf("sell").Offers.Single(o => o.Action.Kind == ShopValues.ActionBuyBack);
-            Assert.That(offer.Price, Is.EqualTo(received));
-            Assert.That(offer.Available, Is.True);
-            Resolved(offer.PriceText, offer.PrimaryText, offer.KindText);
-            var resumed = RunSession.Load(Default, _saves, 1).Session;
-            Assert.That(resumed.BuyBackList, Has.Count.EqualTo(1), "saved with the visit");
-
-            var back = MerchantSession.Start(resumed).Execute(offer.Action);
-            Assert.That(back.Ok, Is.True);
-            Assert.That(((JArray)resumed.Run["relics"]).Count, Is.EqualTo(relics));
-            Assert.That(resumed.Run["cinders"].Value<double>(), Is.EqualTo(cinders), "sold and bought back at the same price");
-            Assert.That(resumed.BuyBackList, Is.Empty);
-            Assert.That(MerchantSession.Start(resumed).Execute(offer.Action).Ok, Is.False, "an entry is bought back once");
-
-            // Sell again, then leave: the list is gone.
-            Assert.That(MerchantSession.Start(resumed).Execute(new ShopAction { Kind = "sellRelic", Index = relics - 1 }).Ok, Is.True, "the bought-back relic sits last");
-            Assert.That(resumed.BuyBackList, Has.Count.EqualTo(1));
-            resumed.LeaveMerchant();
-            Assert.That(resumed.BuyBackList, Is.Empty);
-            Assert.That(RunSession.Load(Default, _saves, 1).Session.BuyBackList, Is.Empty);
-        }
-
-        [Test]
-        public void ABuyBackThePurseCannotCoverIsRefusedAndChangesNothing()
-        {
-            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
-            NodeReview.AtMerchant(session);
-            GiveSellableRelic(session);
-            var merchant = MerchantSession.Start(session);
-            Assert.That(merchant.Execute(new ShopAction { Kind = "sellRelic", Index = 0 }).Ok, Is.True);
-            session.EditRunForReview(run => run["cinders"] = 0.0);
-            var before = session.Run.ToString();
-            var result = merchant.Execute(new ShopAction { Kind = ShopValues.ActionBuyBack, Index = 0 });
-            Assert.That(result.Ok, Is.False);
-            Assert.That(session.Run.ToString(), Is.EqualTo(before));
-            Assert.That(session.BuyBackList, Has.Count.EqualTo(1));
-            Assert.That(MerchantView.Build(merchant, Ui).Shelf("sell").Offers.Single(o => o.Action.Kind == ShopValues.ActionBuyBack).ReasonText, Does.StartWith("Need"));
-        }
-
-        [Test]
-        public void ASoldArmamentComesBackToStorageWithItsTier()
-        {
-            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
-            NodeReview.AtMerchant(session);
-            Assert.That(session.Equip(Ui, "leftHand", 0, null).Done, Is.True, "the off hand goes to storage");
-            var id = (string)session.Run["loadout"]["storage"][0];
-            var deck = ((JArray)session.Run["deck"]).Count;
-            var merchant = MerchantSession.Start(session);
-            var sale = merchant.Execute(new ShopAction { Kind = "sellArmament", Id = id });
-            Assert.That(sale.Ok, Is.True, sale.Refusal?.Key);
-            Assert.That((JArray)session.Run["loadout"]["storage"], Is.Empty);
-            Assert.That(merchant.Execute(new ShopAction { Kind = ShopValues.ActionBuyBack, Index = 0 }).Ok, Is.True);
-            Assert.That(((JArray)session.Run["loadout"]["storage"]).Select(t => (string)t), Has.Member(id));
-            Assert.That(((JArray)session.Run["deck"]).Count, Is.EqualTo(deck), "the deck stamps back as it was");
-        }
-
-        [Test]
-        public void TheXpStripStaysHiddenUntilTheFlagIsOn()
-        {
-            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
-            Assert.That(RunHudView.Build(session, Ui).Xp, Is.Null, "off by default (an open owner decision)");
-            var on = UiData.Load(TestContent.Source);
-            on.Meta["runHud"]["showXp"] = true;
-            var hud = RunHudView.Build(session, on);
-            Assert.That(hud.Xp, Does.StartWith("XP 0/"));
-            Assert.That(hud.XpFraction, Is.EqualTo(0));
-        }
 
         // ------------------------------------------------------------------ W-18 hand-rules worked example (US-15.2)
 
@@ -922,7 +386,7 @@ namespace Ashen.Tests
             JObject.Parse(File.ReadAllText(Path.Combine(TestContent.RepoRoot, "docs", "design", "reference", "ashen-spire-game-config.json")));
 
         [Test]
-        public void TheOwnersReferenceFileImportsOverTheShippedPresetAndReportsWhatItCannotPlace()
+        public void TheOwnersReferenceFileImportsItsSettingsAndReportsItsTuning()
         {
             var web = ReferenceWebConfig();
             var shipped = RunContent.Load(TestContent.Source, "shipped");
@@ -936,22 +400,9 @@ namespace Ashen.Tests
                 + string.Join(", ", result.Reported.GroupBy(r => r.Value).Select(g => g.Key + " " + g.Count())));
             Assert.That(result.PlayerSettings["holdConfirm"].Value<string>(), Is.EqualTo("short"));
             Assert.That(result.PlayerSettings.Count, Is.EqualTo(8), "the owner's eight player settings");
-            Assert.That(result.Reported.Where(r => r.Key.StartsWith("gameConfig.prologue.", StringComparison.Ordinal)).All(r => r.Value == WebConfigReasons.NoRoot), Is.True,
-                "the prologue's web staging has no content path here (ui/prologue.json is this build's)");
+            Assert.That(result.GameConfig.Properties(), Is.Empty, "the tuning keys tuned the 405 tables, which left the run (WP-21)");
+            Assert.That(result.Reported.Where(r => r.Key.StartsWith("gameConfig.", StringComparison.Ordinal)).All(r => r.Value == WebConfigReasons.NoRoot), Is.True);
             Assert.That(result.Reported.Any(r => r.Value == WebConfigReasons.Mirror), Is.True);
-            Assert.That(result.GameConfig["gameConfig.balance.startingCinders"].Value<double>(), Is.EqualTo(100));
-
-            // The patch over the shipped preset gives the values the reference preset carries.
-            var patched = RunContent.Load(TestContent.Source, "shipped", new[] { result.Patch });
-            var reference = RunContent.Load(TestContent.Source, "reference");
-            Assert.That(patched.Data.Balance["startingCinders"].Value<double>(), Is.EqualTo(reference.Data.Balance["startingCinders"].Value<double>()));
-            Assert.That(patched.Data.Classes.Get("reaver")["startingFlaskAllocation"]["hp"].Value<double>(),
-                Is.EqualTo(reference.Data.Classes.Get("reaver")["startingFlaskAllocation"]["hp"].Value<double>()));
-            Assert.That(patched.Data.Balance["combatRatings"]["ratings"]["ar"]["dexterity"].Value<double>(),
-                Is.EqualTo(reference.Data.Balance["combatRatings"]["ratings"]["ar"]["dexterity"].Value<double>()), "a renamed key lands where the shipped importer puts it");
-            Assert.That(JToken.DeepEquals(patched.Data.Balance["rewards"]["cinders"], reference.Data.Balance["rewards"]["cinders"]), Is.True, "array elements by index");
-            Assert.That(JToken.DeepEquals(patched.Data.Balance["skill"]["class"]["tierAt"], reference.Data.Balance["skill"]["class"]["tierAt"]), Is.True);
-            Assert.That(result.Reported.Count(r => r.Value == WebConfigReasons.UnknownPath), Is.LessThanOrEqualTo(8), "only the owner-only opening-hand model and one item rating have no place (D-029)");
         }
 
         [Test]
@@ -966,7 +417,7 @@ namespace Ashen.Tests
                     ["gameConfig.balance.shop.sellFraction"] = "lots",
                     ["gameConfig.balance.nope"] = 1,
                     ["gameConfig.noSuchRoot.x"] = 1,
-                    ["settings.mapMode"] = "fog",
+                    ["settings.mapMode"] = "path",
                     ["settings.textScale"] = 999,
                     ["settings.unknownThing"] = true,
                     ["somethingElse"] = 1,
@@ -975,28 +426,48 @@ namespace Ashen.Tests
             var defs = SettingsDefs.From(Default.Snapshot.Content);
             var result = WebConfig.Import(web, TestContent.Source, Default.PresetId, defs);
             var reported = result.Reported.ToDictionary(r => r.Key, r => r.Value);
-            Assert.That(reported["gameConfig.balance.shop.sellFraction"], Is.EqualTo(WebConfigReasons.WrongType), "a string where balance.json holds a number");
-            Assert.That(reported["gameConfig.balance.nope"], Is.EqualTo(WebConfigReasons.UnknownPath), "strict: no new values");
-            Assert.That(reported["gameConfig.noSuchRoot.x"], Is.EqualTo(WebConfigReasons.NoRoot));
+            foreach (var key in new[] { "gameConfig.balance.startingCinders", "gameConfig.balance.shop.sellFraction", "gameConfig.balance.nope", "gameConfig.noSuchRoot.x" })
+                Assert.That(reported[key], Is.EqualTo(WebConfigReasons.NoRoot), key + ": the web's tuning keys have no root since the 405 tables left the run (WP-21)");
             Assert.That(reported["settings.textScale"], Is.EqualTo(WebConfigReasons.SettingDoesNotFit));
             Assert.That(reported["settings.unknownThing"], Is.EqualTo(WebConfigReasons.UnknownSetting));
             Assert.That(reported["somethingElse"], Is.EqualTo(WebConfigReasons.NotAKey));
-            Assert.That(result.GameConfig.Properties().Select(p => p.Name), Is.EqualTo(new[] { "gameConfig.balance.startingCinders" }));
+            Assert.That(result.GameConfig.Properties(), Is.Empty);
 
             var store = ProfileStore.Load(_saves);
             WebConfig.Apply(store, result, Default.ContentHash, defs);
             var profile = ProfileStore.Load(_saves).Doc;
-            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Text(SettingIds.MapMode), Is.EqualTo("fog"));
-            var content = WebConfig.ContentFor(TestContent.Source, profile);
-            var run = RunSession.New(content, _saves, 1, 7, "rogue", "Aldric");
-            Assert.That(run.Run["cinders"].Value<double>(), Is.EqualTo(77), "a new run starts with the imported tuning");
+            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Text(SettingIds.MapMode), Is.EqualTo("path"));
+            Assert.That(WebConfig.ContentFor(TestContent.Source, profile).ContentHash, Is.EqualTo(Default.ContentHash), "nothing tunes the content");
 
             var exported = WebConfig.Export(profile, WebConfig.SettingsPrefix(TestContent.Source));
-            Assert.That(exported["overrides"]["gameConfig.balance.startingCinders"].Value<double>(), Is.EqualTo(77));
-            Assert.That(exported["overrides"]["settings.mapMode"].Value<string>(), Is.EqualTo("fog"));
+            Assert.That(exported["overrides"]["settings.mapMode"].Value<string>(), Is.EqualTo("path"));
+            Assert.That(((JObject)exported["overrides"]).Properties().Any(p => p.Name.StartsWith("gameConfig.", StringComparison.Ordinal)), Is.False);
             var again = WebConfig.Import(exported, TestContent.Source, Default.PresetId, defs);
             Assert.That(again.Reported, Is.Empty, "the export imports cleanly");
-            Assert.That(JToken.DeepEquals(again.GameConfig, result.GameConfig), Is.True, "round trip");
+        }
+
+        // ------------------------------------------------------------------ W-18 settings layers (US-15.1)
+
+        [Test]
+        public void AValueComesFromTheProfileThenThePresetThenTheDefault()
+        {
+            var settings = new SettingsSession(Default, ProfileStore.Load(_saves));
+            Assert.That(Default.PresetId, Is.EqualTo("shipped"));
+            Assert.That(settings.On("shrineMultiUse"), Is.False, "the control's def");
+            Assert.That(settings.Text(SettingIds.MapMode), Is.EqualTo("fog"), "the control's def, the web's");
+            Assert.That(settings.On("showPlayedCard"), Is.False, "the web's def");
+            Assert.That(settings.Text("walkedFade"), Is.EqualTo("half"), "the web's def");
+            Assert.That(settings.Number("levelUpValue"), Is.EqualTo(1), "a def read from balance.levelUp");
+
+            Assert.That(settings.Set("shrineMultiUse", true), Is.Null);
+            Assert.That(settings.Set(SettingIds.MapMode, "path"), Is.Null);
+            var reread = new SettingsSession(Default, ProfileStore.Load(_saves));
+            Assert.That(reread.On("shrineMultiUse"), Is.True, "saved to the profile");
+            Assert.That(reread.Text(SettingIds.MapMode), Is.EqualTo("path"));
+
+            reread.ResetCategory("gameplay");
+            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).On("shrineMultiUse"), Is.False, "reset shows the default again");
+            Assert.That(new SettingsSession(Default, ProfileStore.Load(_saves)).Text(SettingIds.MapMode), Is.EqualTo("path"), "other categories keep their values");
         }
 
         // ------------------------------------------------------------------ SFX (US-16.2)
@@ -1021,18 +492,20 @@ namespace Ashen.Tests
                 Assert.That(recipes[(string)mapped.Value], Is.Not.Null, mapped.Name + " → a recipe that exists");
             Assert.That(renderer.Resolve(sfx.For(new[] { JObject.Parse("{\"type\":\"procBurst\",\"status\":\"venom\"}") })[0]), Is.EqualTo("procBurst"), "family fallback");
 
-            // A real fight's first command calls for sounds.
-            var session = RunSession.New(Default, _saves, 1, 7, "rogue", "Aldric");
-            var combat = session.StartEncounter();
+            // A real Core 2 fight's first command calls for sounds.
+            var session = Core2RunSession.New(Default, _saves, 1, 7, "reaver", "Aldric");
+            Assert.That(session.Travel(session.ReachableNodes()[0]).Door.IsFight, Is.True);
             var heard = new System.Collections.Generic.List<string>();
-            session.CommandCommitted += o => heard.AddRange(sfx.For(o.Events));
-            var c = combat.State;
+            session.CommandCommitted += o => { if (o.Accepted) heard.AddRange(sfx.For(o.Events)); };
+            var c = session.Combat.State;
             var target = c.Enemies[0]["id"].Value<string>();
-            var card = c.Piles.Hand.Select(h => h["instanceId"].Value<string>())
-                .FirstOrDefault(id => Ashen.Domain.Combat.CombatLegality.CanPlay(c, id, target) == null || Ashen.Domain.Combat.CombatLegality.CanPlay(c, id, null) == null);
-            Assert.That(card, Is.Not.Null, "a playable opening card");
-            var played = session.Execute(Ashen.Domain.Combat.CombatCommand.PlayCard(card, Ashen.Domain.Combat.CombatLegality.CanPlay(c, card, target) == null ? target : null));
-            Assert.That(played.Accepted, Is.True);
+            var played = false;
+            foreach (var card in c.Piles.Hand.Select(h => h["instanceId"].Value<string>()).ToList())
+            {
+                var intent = new JObject { ["type"] = "playCard", ["cardInstanceId"] = card, ["targetId"] = target };
+                if (session.Execute(intent).Accepted || session.Execute(new JObject { ["type"] = "playCard", ["cardInstanceId"] = card }).Accepted) { played = true; break; }
+            }
+            Assert.That(played, Is.True, "a playable opening card");
             Assert.That(heard, Has.Member("cardPlay"), "an accepted play makes its sound");
         }
     }

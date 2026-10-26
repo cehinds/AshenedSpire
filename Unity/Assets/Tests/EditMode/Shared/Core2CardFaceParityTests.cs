@@ -169,10 +169,10 @@ namespace Ashen.Tests
                 JObject preview;
                 try { preview = Core2FacePreview.Build(c, instance); }
                 catch (Exception e) when (e is InvalidOperationException || e is NotSupportedException) { problems.Add($"{card.Name} ({want.Value<string>("cardId")}) preview: {e.Message}"); continue; }
-                var diff = RunParityTests.FirstDifference(want["preview"], Summary(preview), "$");
+                var diff = OracleCompare.FirstDifference(want["preview"], Summary(preview), "$");
                 if (diff != null) problems.Add($"{card.Name} ({want.Value<string>("cardId")}) preview differs at {diff}\n   web: {want["preview"].ToString(Newtonsoft.Json.Formatting.None)}\n  unity: {Summary(preview).ToString(Newtonsoft.Json.Formatting.None)}");
                 var calculation = Calculation(preview);
-                var calculationDiff = RunParityTests.FirstDifference(want["receipt"] ?? JValue.CreateNull(), calculation, "$");
+                var calculationDiff = OracleCompare.FirstDifference(want["receipt"] ?? JValue.CreateNull(), calculation, "$");
                 if (calculationDiff != null) problems.Add($"{card.Name} ({want.Value<string>("cardId")}) damage calculation differs at {calculationDiff}\n   web: {want["receipt"]}\n  unity: {calculation}");
                 var got = CardFaceRules.Render(env, preview.Obj("resolvedDefinition"), preview);
                 problems.AddRange(Compare($"{card.Name} ({want.Value<string>("cardId")})", want, got));

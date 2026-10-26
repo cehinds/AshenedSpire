@@ -179,7 +179,7 @@ namespace Ashen.Tests
                 want = Core2SnapshotParityTests.WithoutZeroCounters(want);
                 got = Core2SnapshotParityTests.WithoutZeroCounters(got);
             }
-            var diff = RunParityTests.FirstDifference(want, got, "$");
+            var diff = OracleCompare.FirstDifference(want, got, "$");
             if (diff != null) Assert.Fail($"{label}: first difference at {diff}");
         }
 

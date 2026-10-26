@@ -60,7 +60,7 @@ namespace Ashen.Tests
         public void EnemyArtCoversEveryEnemyInTheCatalog()
         {
             var reg = Registry;
-            var enemies = TestContent.ContentJson(ContentFiles.CatalogEnemies);
+            var enemies = TestContent.ContentJson(ContentFiles.ProfileBundleEnemies);
             foreach (var e in enemies.Properties())
             {
                 Assert.That(reg["enemy." + e.Name + ".base"], Is.Not.Null, e.Name + " base art");

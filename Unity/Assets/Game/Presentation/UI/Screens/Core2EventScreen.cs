@@ -56,7 +56,6 @@ namespace Ashen.Presentation.UI.Screens
                 return;
             }
             Ui.Core2Session = _run;
-            Ui.Session = null;
             _flow = new Core2EventFlow(_run, Ui.Data);
             _door = Root.Q<CombatModal>(UiNames.CeventDoor);
             _back = Root.Q<LocButton>(UiNames.CeventBack);

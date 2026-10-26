@@ -76,7 +76,6 @@ namespace Ashen.Presentation.UI.Screens
                 return;
             }
             Ui.Core2Session = _run;
-            Ui.Session = null;
             _flow = new Core2CombatFlow(_run, Strings, Ui.Data.CardText);
             _hand = Root.Q<HandFan>(UiNames.Hand);
             _footer = Root.Q<FooterGroup>(UiNames.FooterGroup);

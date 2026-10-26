@@ -38,7 +38,7 @@ namespace Ashen.Tests
             if (Directory.Exists(_dir)) Directory.Delete(_dir, true);
         }
 
-        private CreationClasses Classes() => CreationClasses.For(Content, RunFlowValues.RulesetCore2, ProfileStore.Load(_saves).Doc);
+        private CreationClasses Classes() => CreationClasses.For(Content, ProfileStore.Load(_saves).Doc);
 
         // ------------------------------------------------------------------ the Review pane
 
@@ -168,19 +168,6 @@ namespace Ashen.Tests
             Assert.That(PrologueFlow.For(Content, settings, "reaver", "Aldric"), Is.Null);
             Assert.That(settings.Set(SettingIds.OpeningPlayback, "every"), Is.Null);
             Assert.That(PrologueFlow.For(Content, settings, "reaver", "Aldric"), Is.Not.Null);
-        }
-
-        [Test]
-        public void TheSavedOpeningOfThe405RunReadsThroughTheSameScenes()
-        {
-            var content = RunContent.Load(TestContent.Source, null, new[] { JObject.Parse("{\"files\":{\"rules/runFlow.json\":{\"newRun\":{\"prologue\":true}}}}") });
-            var session = RunSession.New(content, _saves, 1, 77u, content.DefaultClass(), "Aldric");
-            Assert.That(session.Opening.Pending, Is.True);
-            var view = session.Opening.View(Ui);
-            Assert.That(view.SceneId, Is.EqualTo("warmth"));
-            Assert.That(view.Title, Is.EqualTo("Remembered warmth"));
-            session.Opening.Skip();
-            Assert.That(session.ProloguePending, Is.False);
         }
 
         // ------------------------------------------------------------------ Settings (W-18 laid out as the web's)
@@ -357,14 +344,12 @@ namespace Ashen.Tests
         }
 
         [Test]
-        public void TheCoreBuildTakesTheWebsDefaultsNotTheReferencePresetsPlayerSettings()
+        public void TheCoreBuildTakesTheWebsDefaults()
         {
-            var reference = RunContent.Load(TestContent.Source, "reference");
-            var core2 = new Ashen.App.Settings.SettingsSession(reference, ProfileStore.Load(_saves), core2: true);
-            Assert.That(core2.Text(SettingIds.HoldConfirm), Is.EqualTo("normal"), "the web's hold dial, not the reference's short");
+            var core2 = new Ashen.App.Settings.SettingsSession(Content, ProfileStore.Load(_saves), core2: true);
+            Assert.That(core2.Text(SettingIds.HoldConfirm), Is.EqualTo("normal"), "the web's hold dial");
             Assert.That(core2.On(SettingIds.ShowPlayedCard), Is.False, "the web's default");
             Assert.That(core2.Text(SettingIds.WalkedFade), Is.EqualTo("half"));
-            Assert.That(new Ashen.App.Settings.SettingsSession(reference, ProfileStore.Load(_saves)).Text(SettingIds.HoldConfirm), Is.EqualTo("short"), "the 405 build keeps the reference preset's");
             Assert.That(core2.Defs.Find(SettingIds.MapMode).Def.ToString(), Is.EqualTo("fog"), "the web's reveal is fog; there is no 'full'");
             Assert.That(core2.Defs.Find(SettingIds.MapMode).Options, Is.EqualTo(new[] { "path", "fog" }));
         }

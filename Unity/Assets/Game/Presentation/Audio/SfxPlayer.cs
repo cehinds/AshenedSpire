@@ -21,7 +21,6 @@ namespace Ashen.Presentation.Audio
         private SfxDirector _director;
         private SynthClipCache _clips;
         private AudioSource _source;
-        private RunSession _watched;
         private Core2RunSession _watchedCore2;
         private float _volume = 1f;
 
@@ -39,18 +38,10 @@ namespace Ashen.Presentation.Audio
 
         private void Update()
         {
-            var session = _host?.Context.Session;
             var core2 = _host?.Context.Core2Session;
-            if (session == _watched && core2 == _watchedCore2) return;
-            if (_watched != null) _watched.CommandCommitted -= OnCommand;
+            if (core2 == _watchedCore2) return;
             if (_watchedCore2 != null) _watchedCore2.CommandCommitted -= OnCore2Command;
-            _watched = session;
             _watchedCore2 = core2;
-            if (_watched != null)
-            {
-                _watched.CommandCommitted += OnCommand;
-                _volume = Volume(_watched.PlayerSettings);
-            }
             if (_watchedCore2 != null)
             {
                 _watchedCore2.CommandCommitted += OnCore2Command;
@@ -61,19 +52,12 @@ namespace Ashen.Presentation.Audio
         private void OnDestroy()
         {
             SettingsSession.Changed -= OnSettingsChanged;
-            if (_watched != null) _watched.CommandCommitted -= OnCommand;
             if (_watchedCore2 != null) _watchedCore2.CommandCommitted -= OnCore2Command;
         }
 
         private void OnSettingsChanged(SettingsSession settings, string key)
         {
             if (key == null || key == SettingIds.MuteAudio || key == SettingIds.SfxVolume) _volume = Volume(settings);
-        }
-
-        private void OnCommand(Ashen.App.Combat.CombatOutcome outcome)
-        {
-            if (outcome == null || !outcome.Accepted) return;
-            foreach (var id in _director.For(outcome.Events)) _source.PlayOneShot(_clips.Get(id), _volume);
         }
 
         private void OnCore2Command(Ashen.App.Combat.Core2Outcome outcome)
