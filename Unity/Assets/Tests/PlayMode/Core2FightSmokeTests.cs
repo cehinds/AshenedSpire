@@ -22,7 +22,7 @@ namespace Ashen.Tests.Play
     /// <summary>
     /// WP-C1b smoke (docs/design/11 §4; US-5.x, AF-05, AF-10, PF-06): a New Game starts a Core 2 run (rules/runFlow.json newRun.ruleset), Boot → title → New → W-03 → W-04 Begin → the Core 2 act map →
     /// the first fight node → W-07 for a Core 2 fight, driven with real keyboard and pad devices like the other smokes: a card is chosen with the arrow keys and played (a stance or a target asked
-    /// for with Enter), the footer's End Turn is reached with the d-pad, the enemy turn is walked at the combat pace and skipped, Escape opens W-20, Save &amp; quit and Continue resume the same
+    /// for with Enter), the footer's End Turn is reached with the d-pad, the enemy turn is walked at the combat pace and skipped, Escape does nothing with nothing open (D-1770), W-20 is opened by the menu list, Save &amp; quit and Continue resume the same
     /// fight state (the Core 2 save, format 3), the fight is finished through the screen's own flow, Continue returns to the Core 2 map with the 'not yet available' notice for the rewards, and a
     /// second run is lost on purpose to reach W-15. The Core 2 flow's logic (prompts, intents, refusals) is held by Core2CombatFlowTests in the engine-free suite; this smoke is the wiring.
     /// </summary>
@@ -231,11 +231,14 @@ namespace Ashen.Tests.Play
             }
             if (!combat.Ended) Assert.That(combat.View.Turn, Is.GreaterThan(turn));
 
-            // Pause: Escape opens W-20; Save and Quit (no door, as the web's) returns to the title; Continue resumes the same fight.
+            // Pause: the web's Escape opens nothing in a fight (D-1770), so W-20 is opened as the menu button's list opens it; Save and Quit (no door, as the web's) returns to the title; Continue resumes the same fight.
             if (!combat.Ended)
             {
                 yield return Until(() => Focused != null, 5f, "focus on the player's turn");
                 yield return Press(Key.Escape);
+                yield return new WaitForSecondsRealtime(0.2f);
+                Assert.That(Nav.CurrentId, Is.EqualTo(ScreenIds.Core2Combat), "Escape with nothing open does nothing in the web's fight");
+                Nav.OpenModal(ScreenIds.Pause, new PauseArgs { Session = session });
                 yield return Until(() => Nav.CurrentId == ScreenIds.Pause && Focused != null, 5f, "W-20 pause");
                 var pause = (PauseScreen)Nav.Top.View;
                 var saveQuit = pause.Row("saveQuit");

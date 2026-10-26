@@ -18,6 +18,12 @@ namespace Ashen.App.Ui
         /// <summary>False: Ctrl, Alt and Meta swallow the key (the fight does; the map does not).</summary>
         public bool Modifiers;
 
+        /// <summary>
+        /// The screen asks <c>matchAction</c> and nothing else (the deck editor, deckEditor.js:1058-1061): an action that is also an Armoury door answers on its key without the exactly-one-door test the map and the fight
+        /// apply (<c>actionDestinationForEvent</c>).
+        /// </summary>
+        public bool Plain;
+
         /// <summary>The positional card keys are live.</summary>
         public bool Cards;
 
@@ -73,6 +79,7 @@ namespace Ashen.App.Ui
                     Screen = p.Name,
                     Actions = (s[ControlsKeys.Actions] as JArray ?? new JArray()).Select(t => (string)t).ToList(),
                     Modifiers = (bool?)s[HotkeyKeys.Modifiers] ?? false,
+                    Plain = (bool?)s[HotkeyKeys.Plain] ?? false,
                     Cards = (bool?)s[HotkeyKeys.Cards] ?? false,
                     Keys = (s[HotkeyKeys.Keys] as JObject ?? new JObject()).Properties().ToDictionary(k => k.Name, k => (string)k.Value, StringComparer.Ordinal),
                 };
@@ -241,7 +248,7 @@ namespace Ashen.App.Ui
                 if (!Bindings.Matches(id, press.Key)) continue;
                 // web actionDestinationForEvent: the three Armoury doors answer only when exactly one of them is on this key.
                 var action = _data.Find(id);
-                if (action?.Destination != null && DestinationMatches(press.Key) != 1) continue;
+                if (!scope.Plain && action?.Destination != null && DestinationMatches(press.Key) != 1) continue;
                 return new HotkeyResult { Kind = HotkeyKind.Action, Id = id };
             }
             if (scope.Keys.TryGetValue(press.Key, out var command)) return new HotkeyResult { Kind = HotkeyKind.Command, Id = command };
@@ -280,6 +287,16 @@ namespace Ashen.App.Ui
             if (targeting && digit) return index < livingEnemies ? new CardKeyResult { Kind = CardKeyKind.Target, Index = index } : new CardKeyResult();
             return index < handSize ? new CardKeyResult { Kind = CardKeyKind.Select, Index = index } : new CardKeyResult();
         }
+    }
+
+    public static class InspectSubject
+    {
+        /// <summary>
+        /// Which fighter the Inspect key reads (web combat.js:2857-2858): the selected enemy when it is still alive, else the player (also when the selection names the player or a dead enemy).
+        /// Returns the enemy's id, or null for the player.
+        /// </summary>
+        public static string Subject(string selectedId, IEnumerable<string> livingEnemyIds) =>
+            selectedId != null && livingEnemyIds != null && livingEnemyIds.Contains(selectedId) ? selectedId : null;
     }
 
     /// <summary>The tab ring (web setTabRing, Law 3): the set's own order, wrapping at both ends.</summary>
@@ -341,6 +358,22 @@ namespace Ashen.App.Ui
         /// <summary>"Menu (M)" (web actionHint).</summary>
         public static string Hint(UiData data, ControlBindings bindings, string id, bool pad) =>
             data.Strings.Format(StringKeys.ControlsHintTitle, new StringArgs().Add(UiPlaceholders.Name, Short(data, id)).Add(ControlsPlaceholders.Key, Label(data, bindings, id, pad)));
+
+        /// <summary>
+        /// The deck editor's key line (web deckEditor.js:817-824): what the keys do, each named as the player has it bound (the pad's glyph while a pad is connected), or, while a row is held, how it moves and drops.
+        /// <paramref name="heldName"/> is the held card's name, null when none is held.
+        /// </summary>
+        public static string DeckEditorLine(UiData data, ControlBindings bindings, bool pad, string heldName)
+        {
+            if (heldName != null) return data.Strings.Format(StringKeys.DeckEditorHeld, new StringArgs().Add(UiPlaceholders.Name, heldName));
+            var ring = data.Controls.Hotkeys;
+            return data.Strings.Format(StringKeys.DeckEditorKeys, new StringArgs()
+                .Add(UiPlaceholders.Panes, ring.RingPrevKey + ArmouryKeys.Space + ring.RingNextKey)
+                .Add(UiPlaceholders.Filter, Label(data, bindings, HotkeyActions.Deck, pad))
+                .Add(UiPlaceholders.Move, Label(data, bindings, HotkeyActions.EndTurn, pad))
+                .Add(UiPlaceholders.Done, Label(data, bindings, HotkeyActions.Menu, pad))
+                .Add(UiPlaceholders.Cancel, Label(data, bindings, HotkeyActions.Cancel, pad)));
+        }
 
         /// <summary>The chips of a context ('combat', 'map', 'targeting') in order.</summary>
         public static IReadOnlyList<HintChip> Build(UiData data, ControlBindings bindings, string context, bool pad)

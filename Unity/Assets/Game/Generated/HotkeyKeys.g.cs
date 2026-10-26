@@ -18,6 +18,7 @@ namespace Ashen.Generated
         public const string Target = "target";
         public const string Scopes = "scopes";
         public const string Modifiers = "modifiers";
+        public const string Plain = "plain";
         public const string Cards = "cards";
         public const string Keys = "keys";
         public const string HintBars = "hintBars";

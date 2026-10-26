@@ -12,6 +12,7 @@
         "Amount": "amount",
         "Aria": "aria",
         "Authored": "authored",
+        "Tip": "tip",
         "Bands": "bands",
         "Bestiary": "bestiary",
         "Block": "block",
@@ -170,7 +171,10 @@
       "name": "InspectorValues",
       "doc": "Values and patterns of the combatant door: block kinds, the web's ops and pool ids, tag prefixes, the words patterns and the names of its string arguments.",
       "keys": {
+        "StatusStaggered": "staggered",
         "ArgAmount": "amount",
+        "ArgEffect": "effect",
+        "ArgTip": "tip",
         "ArgCharges": "charges",
         "ArgCount": "count",
         "ArgDuration": "duration",

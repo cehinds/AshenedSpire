@@ -19,6 +19,7 @@
         "Target": "target",
         "Scopes": "scopes",
         "Modifiers": "modifiers",
+        "Plain": "plain",
         "Cards": "cards",
         "Keys": "keys",
         "HintBars": "hintBars",

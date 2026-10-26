@@ -48,7 +48,7 @@
         "ring": { "type": "object", "properties": { "prevKey": { "type": "string" }, "nextKey": { "type": "string" }, "prevButton": { "type": "integer" }, "nextButton": { "type": "integer" } } },
         "padNav": { "type": "object", "additionalProperties": { "type": "string" } },
         "cardKeys": { "type": "array", "items": { "type": "object", "properties": { "key": { "type": "string" }, "index": { "type": "integer" }, "target": { "type": "boolean" } }, "required": ["index", "key", "target"] } },
-        "scopes": { "type": "object", "additionalProperties": { "type": "object", "properties": { "actions": { "type": "array", "items": { "type": "string" } }, "modifiers": { "type": "boolean" }, "cards": { "type": "boolean" }, "keys": { "type": "object", "additionalProperties": { "type": "string" } } }, "required": ["actions"] } },
+        "scopes": { "type": "object", "additionalProperties": { "type": "object", "properties": { "actions": { "type": "array", "items": { "type": "string" } }, "modifiers": { "type": "boolean" }, "plain": { "type": "boolean" }, "cards": { "type": "boolean" }, "keys": { "type": "object", "additionalProperties": { "type": "string" } } }, "required": ["actions"] } },
         "hintBars": { "type": "object", "additionalProperties": { "type": "array", "items": { "type": "string" } } },
         "hintLabels": { "type": "object", "additionalProperties": { "type": "string" } },
         "menuTip": { "type": "object", "properties": { "title": { "type": "string" }, "list": { "type": "string" }, "direct": { "type": "string" } } }

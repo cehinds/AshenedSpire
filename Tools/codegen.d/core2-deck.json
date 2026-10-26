@@ -131,6 +131,7 @@
       "name": "Core2DeckEditorValues",
       "doc": "Vocabulary of the deck editor's projection (web ui/models/DeckEditorModel.js): cost buckets, card sources, sorts, panes, the collection key kinds and the tags that classify a source.",
       "keys": {
+        "ListJoin": ",",
         "Bucket0": "0",
         "Bucket1": "1",
         "Bucket2": "2",

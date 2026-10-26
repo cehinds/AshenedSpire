@@ -223,8 +223,16 @@ namespace Ashen.Presentation.UI.Screens
             return panel;
         }
 
-        /// <summary>The blocks of the pane in order, ready to add to the details column.</summary>
-        public static List<VisualElement> Build(StringTable strings, CombatantInspectorView view, Func<string, bool> predict)
+        /// <summary>
+        /// The classes of the labels the web's decorate skips (tooltipGlossary.js: a summary, an <c>.epc-name</c>, a button, anything carrying its own tip): the headers of the folds, the names of the active list and of the cards, the fold marks.
+        /// </summary>
+        private static readonly string[] NotDecorated = { UiClasses.InspectorFoldTitle, UiClasses.InspectorAbilityName, UiClasses.InspectorFoldMark, UiClasses.InspectorCardName };
+
+        /// <summary>
+        /// The blocks of the pane in order, ready to add to the details column. <paramref name="keywords"/> decorates the words of a label with the glossary's hover tips (combatantDetailBody ends in
+        /// <c>.map(decorateKeywords)</c>); it is asked of every label of the blocks the web decorates.
+        /// </summary>
+        public static List<VisualElement> Build(StringTable strings, CombatantInspectorView view, Func<string, bool> predict, Action<Label> keywords = null)
         {
             var blocks = new List<VisualElement>();
             foreach (var block in view.Blocks)
@@ -236,6 +244,12 @@ namespace Ashen.Presentation.UI.Screens
                 else if (block.Kind == X.BlockPrediction) blocks.Add(Prediction(strings, block, predict));
                 else if (block.Kind == X.BlockDeck) blocks.Add(Deck(strings, block));
             }
+            if (keywords != null)
+                foreach (var block in blocks)
+                    block.Query<LocLabel>().ForEach(label =>
+                    {
+                        if (!NotDecorated.Any(label.ClassListContains)) keywords(label);
+                    });
             return blocks;
         }
     }

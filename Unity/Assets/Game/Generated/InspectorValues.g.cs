@@ -4,7 +4,10 @@ namespace Ashen.Generated
     /// <summary>Values and patterns of the combatant door: block kinds, the web's ops and pool ids, tag prefixes, the words patterns and the names of its string arguments.</summary>
     public static class InspectorValues
     {
+        public const string StatusStaggered = "staggered";
         public const string ArgAmount = "amount";
+        public const string ArgEffect = "effect";
+        public const string ArgTip = "tip";
         public const string ArgCharges = "charges";
         public const string ArgCount = "count";
         public const string ArgDuration = "duration";

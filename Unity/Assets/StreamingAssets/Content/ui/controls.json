@@ -359,9 +359,12 @@
       },
       "armoury": {
         "actions": [
-          "menu"
+          "menu",
+          "deck",
+          "endTurn"
         ],
         "modifiers": true,
+        "plain": true,
         "cards": false,
         "keys": {}
       }

@@ -9,6 +9,12 @@ namespace Ashen.Generated
         public const string Rating = "rating";
         public const string State = "state";
         public const string Done = "done";
+        public const string Tip = "tip";
+        public const string Effect = "effect";
+        public const string Panes = "panes";
+        public const string Filter = "filter";
+        public const string Move = "move";
+        public const string Cancel = "cancel";
         public const string Coverage = "coverage";
         public const string Help = "help";
         public const string Schools = "schools";

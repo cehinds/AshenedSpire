@@ -387,6 +387,12 @@
     border-color: var(--color-gold);
 }
 
+/* web styles/ui.css:1386 .deck-editor-row.held: the row picked up for reordering wears the gold ring. */
+.deck-editor-row--held {
+    border-color: var(--color-gold);
+    border-width: var(--border-focus);
+}
+
 .deck-editor-name.unity-button {
     flex-grow: 1;
     flex-shrink: 1;
@@ -420,8 +426,27 @@
     border-radius: var(--radius-tight);
 }
 
+/* The pick control says a word (Move), not a glyph. */
+.deck-editor-step--word.unity-button {
+    width: auto;
+    padding: 0 var(--space-xs);
+}
+
 .deck-editor-step--off.unity-button {
     opacity: var(--opacity-disabled);
+}
+
+/* web styles/ui.css:1396 .deck-editor-keys: the line that names the keys, muted. */
+.deck-editor-keys {
+    margin-top: var(--space-xs);
+    font-size: var(--font-caption);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+/* web styles/ui.css:1502: the line is out of the narrow layout (container max-width 1000px). */
+.layout-narrow .deck-editor-keys {
+    display: none;
 }
 
 .deck-editor-empty {

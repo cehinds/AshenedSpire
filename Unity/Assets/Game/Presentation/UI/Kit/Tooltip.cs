@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Ashen.App.Ui;
 using Ashen.Generated;
 using UnityEngine;
@@ -57,6 +59,8 @@ namespace Ashen.Presentation.UI.Kit
         public void SetText(string title, string body)
         {
             _title?.SetResolved(title);
+            // A tooltip with no title (a glossary word's, tooltip.js:408 shows only the explanation) has no title line.
+            if (_title != null) UiDom.Show(_title, !string.IsNullOrEmpty(title));
             _body?.SetResolved(body);
         }
 
@@ -135,6 +139,22 @@ namespace Ashen.Presentation.UI.Kit
             return Hook(tip, label, overlay, delayMs, linkId);
         }
 
+        /// <summary>
+        /// Hover tooltip for the glossary words of a rich text label (web tooltipGlossary.js decorate: every <c>.tooltip-keyword</c> span carries its explanation and shows it as a tooltip): each word is a
+        /// <c>&lt;link&gt;</c> run whose id is a key of <paramref name="explanations"/>, and pointing at one opens the tooltip with that word's explanation (only the explanation: the web's tip has no title). One tooltip
+        /// serves the label; where the platform raises no link tag events the label has no word tips (the whole label cannot say which word it means).
+        /// </summary>
+        public static Tooltip AttachKeywords(VisualElement label, VisualElement overlay, string sizeId, int delayMs, IReadOnlyDictionary<string, string> explanations)
+        {
+            var tip = new Tooltip { size = sizeId };
+            return Hook(tip, label, overlay, delayMs, null, id =>
+            {
+                if (!explanations.TryGetValue(id ?? string.Empty, out var explanation)) return false;
+                tip.SetText(string.Empty, explanation);
+                return true;
+            });
+        }
+
         /// <summary>A tap is the question on a phone, where the hover clock never runs (web iconTray.js explain): the tooltip opens at once above the target. <see cref="Dismiss"/> takes it away.</summary>
         public static Tooltip ShowNow(VisualElement target, VisualElement overlay, string sizeId, string title, string body)
         {
@@ -162,7 +182,7 @@ namespace Ashen.Presentation.UI.Kit
             RemoveFromHierarchy();
         }
 
-        private static Tooltip Hook(Tooltip tip, VisualElement target, VisualElement overlay, int delayMs, string linkId = null)
+        private static Tooltip Hook(Tooltip tip, VisualElement target, VisualElement overlay, int delayMs, string linkId = null, Func<string, bool> linkChosen = null)
         {
             IVisualElementScheduledItem pending = null;
             IVisualElementScheduledItem closing = null;
@@ -196,8 +216,10 @@ namespace Ashen.Presentation.UI.Kit
                 closing = target.schedule.Execute(Hide).StartingIn(TooltipPolicy.Applied ? TooltipPolicy.CloseMs : 0);
             }
             void Hover() { if (TooltipPolicy.HoverEnabled) Arm(TooltipPolicy.Applied ? TooltipPolicy.OpenMs : delayMs); }
-            var onLink = linkId != null && LinkTagEvents.Register(target, id => { if (id == linkId) Hover(); }, id => { if (id == linkId) Leave(); });
-            if (!onLink) target.RegisterCallback<PointerEnterEvent>(_ => Hover());
+            // linkChosen: a label with several linked words (the glossary's) says which one is under the pointer, and sets the tooltip's words as it answers.
+            bool Chosen(string id) => linkChosen != null ? linkChosen(id) : id == linkId;
+            var onLink = (linkId != null || linkChosen != null) && LinkTagEvents.Register(target, id => { if (Chosen(id)) Hover(); }, id => { if (Chosen(id)) Leave(); });
+            if (!onLink && linkChosen == null) target.RegisterCallback<PointerEnterEvent>(_ => Hover());
             target.RegisterCallback<FocusInEvent>(_ => Arm(Rules.FocusMs));
             target.RegisterCallback<PointerLeaveEvent>(_ => Leave());
             target.RegisterCallback<FocusOutEvent>(_ => Leave());

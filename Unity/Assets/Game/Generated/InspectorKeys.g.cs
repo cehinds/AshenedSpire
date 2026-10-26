@@ -11,6 +11,7 @@ namespace Ashen.Generated
         public const string Amount = "amount";
         public const string Aria = "aria";
         public const string Authored = "authored";
+        public const string Tip = "tip";
         public const string Bands = "bands";
         public const string Bestiary = "bestiary";
         public const string Block = "block";

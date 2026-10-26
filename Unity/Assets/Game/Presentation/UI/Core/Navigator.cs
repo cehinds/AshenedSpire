@@ -269,6 +269,7 @@ namespace Ashen.Presentation.UI
         {
             var top = Top;
             if (top == null || !top.Def.AcceptsInput || top.View.InputBlocked) return;
+            if (top.View.HandleMove(delta)) return;
             top.Focus.Move(delta);
         }
 
@@ -278,6 +279,7 @@ namespace Ashen.Presentation.UI
             var top = Top;
             if (top == null || !top.Def.AcceptsInput || top.View.InputBlocked) return;
             if (Time.realtimeSinceStartup < _suppressSubmitUntil) return;
+            if (top.View.HandleSubmit()) return;
             var focused = top.Focus.Focused;
             if (focused == null)
             {

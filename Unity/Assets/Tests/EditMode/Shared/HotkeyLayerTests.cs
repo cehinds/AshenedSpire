@@ -105,13 +105,14 @@ namespace Ashen.Tests
         }
 
         [Test]
-        public void TheArmouryOnlyAnswersTheMenuKeyForTheDeckEditorsDone()
+        public void TheArmouryAnswersTheDeckEditorsThreeKeysOnly()
         {
             var d = Dispatcher();
             var armoury = new HotkeyState { Screen = ScreenIds.Armoury };
-            Assert.That(ActionOf(d.Key(Key("m"), armoury)), Is.EqualTo(HotkeyActions.Menu));
-            Assert.That(d.Key(Key("e"), armoury).Consumed, Is.False);
-            Assert.That(d.Key(Key("d"), armoury).Consumed, Is.False);
+            Assert.That(ActionOf(d.Key(Key("m"), armoury)), Is.EqualTo(HotkeyActions.Menu), "Done");
+            Assert.That(ActionOf(d.Key(Key("d"), armoury)), Is.EqualTo(HotkeyActions.Deck), "cycle the filters (P-7d)");
+            Assert.That(ActionOf(d.Key(Key("e"), armoury)), Is.EqualTo(HotkeyActions.EndTurn), "pick a row (P-7d)");
+            foreach (var key in new[] { "r", "t", "f", "i", "1" }) Assert.That(d.Key(Key(key), armoury).Consumed, Is.False, key);
         }
 
         // ------------------------------------------------------------------ the card keys

@@ -134,12 +134,6 @@ namespace Ashen.Presentation.UI.Screens
             return true;
         }
 
-        public override bool HandleMenu()
-        {
-            OpenPause();
-            return true;
-        }
-
         public override void OnReturned()
         {
             if (Ready && !Session.RunOver) Render();
