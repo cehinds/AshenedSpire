@@ -1,0 +1,13 @@
+{
+  "comment": "map-pause-menu: the menu from the map.",
+  "screen": "actMap",
+  "core2": {
+    "until": "map",
+    "modal": "pause",
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

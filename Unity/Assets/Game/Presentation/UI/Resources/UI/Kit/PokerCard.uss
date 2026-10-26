@@ -1,0 +1,189 @@
+/* The poker-style equipment card (web src/ui/components/equipmentCard.js, styles/kit.css .equipment-poker-card / .epc-*; P-3a). The frame is laid out at the design size of
+   ui/equipmentCard.json and PokerCard scales it into the element's width; every size here is a design px of the web's frame, every colour a token. Tokens only. */
+
+.pokercard {
+    --epc-accent: var(--color-epc-gold);
+    position: relative;
+    flex-shrink: 0;
+    width: var(--size-full-width);
+}
+
+.pokercard--gold {
+    --epc-accent: var(--color-epc-gold);
+}
+
+.pokercard--staff {
+    --epc-accent: var(--color-epc-steel);
+}
+
+.pokercard--blade {
+    --epc-accent: var(--color-epc-blade);
+}
+
+.pokercard-frame {
+    position: absolute;
+    left: 0;
+    top: 0;
+    flex-direction: column;
+    transform-origin: 0 0;
+    background-color: var(--color-epc-frame);
+    border-width: var(--border-hairline);
+    border-color: var(--epc-accent);
+    border-radius: var(--size-epc-radius);
+    overflow: hidden;
+}
+
+.pokercard-name {
+    position: absolute;
+    top: var(--size-epc-name-top);
+    left: var(--size-epc-name-side);
+    right: var(--size-epc-name-side);
+    min-height: var(--size-epc-name-min-h);
+    padding: var(--size-epc-name-pad-y) var(--size-epc-name-pad-x);
+    font-size: var(--font-epc-name);
+    color: var(--color-epc-name);
+    background-color: var(--color-epc-name-bg);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.pokercard-art {
+    flex-shrink: 0;
+    padding: var(--size-epc-art-pad-top) var(--size-epc-art-pad) var(--size-epc-art-pad) var(--size-epc-art-pad);
+    background-color: var(--color-epc-art);
+    border-width: var(--border-hairline);
+    border-color: var(--color-epc-art-line);
+    border-radius: var(--size-epc-art-radius);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.pokercard-type {
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--color-epc-type-bg);
+    border-top-width: var(--border-hairline);
+    border-bottom-width: var(--border-hairline);
+    border-color: var(--color-epc-art-line);
+}
+
+.pokercard-type-text {
+    flex-shrink: 1;
+    font-size: var(--font-epc-type);
+    letter-spacing: var(--size-track-label);
+    color: var(--epc-accent);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pokercard-requirement {
+    flex-shrink: 1;
+    margin-left: var(--space-xs);
+    font-size: var(--font-epc-type);
+    color: var(--color-epc-tag);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pokercard-facts {
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    overflow: hidden;
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-epc-rule);
+}
+
+.pokercard-fact {
+    align-items: center;
+}
+
+.pokercard-fact-value {
+    font-size: var(--font-epc-fact-value);
+    color: var(--color-epc-text);
+    white-space: nowrap;
+}
+
+.pokercard-fact-label {
+    font-size: var(--font-epc-fact);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-epc-fact);
+    white-space: nowrap;
+}
+
+.pokercard-tags {
+    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+}
+
+.pokercard-tag {
+    flex-shrink: 0;
+    margin-right: var(--space-xs);
+    padding: var(--size-epc-tag-pad-y) var(--size-epc-tag-pad-x);
+    font-size: var(--font-epc-tag);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-epc-tag);
+    border-width: var(--border-hairline);
+    border-color: var(--color-epc-tag-line);
+    border-radius: var(--size-epc-tag-radius);
+    white-space: nowrap;
+}
+
+.pokercard-effects {
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.pokercard-heading {
+    margin-bottom: var(--size-epc-heading-gap);
+    font-size: var(--font-epc-heading);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-epc-heading);
+}
+
+.pokercard-bonus {
+    font-size: var(--font-epc-bonus);
+    color: var(--color-epc-bonus);
+    white-space: normal;
+}
+
+.pokercard-flavor {
+    flex-shrink: 0;
+    padding-top: var(--size-epc-flavor-pad);
+    font-size: var(--font-epc-flavor);
+    color: var(--color-epc-flavor);
+    border-top-width: var(--border-hairline);
+    border-top-color: var(--color-epc-rule);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pokercard-footer {
+    flex-shrink: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.pokercard-footer-rarity {
+    font-size: var(--font-epc-footer);
+    letter-spacing: var(--size-track-label);
+    color: var(--epc-accent);
+    white-space: nowrap;
+}
+
+.pokercard-footer-owned {
+    margin-left: auto;
+    font-size: var(--font-epc-footer);
+    color: var(--color-epc-footer);
+    white-space: nowrap;
+}

@@ -28,7 +28,7 @@ namespace Ashen.App.Run
 
     /// <summary>
     /// The title-level door to a run (docs/design/11 WP-C1a, D-302): New Game starts the ruleset rules/runFlow.json <c>newRun.ruleset</c> names and Continue reads
-    /// a slot. Core 2 is the only ruleset since WP-21 (D-1300): a slot of the 405 run (save format 2) reports <see cref="Core2RunLoadStatus.OtherRuleset"/> and is kept.
+    /// a slot. Core 2 is the only ruleset since WP-21 (D-1700): a slot of the 405 run (save format 2) reports <see cref="Core2RunLoadStatus.OtherRuleset"/> and is kept.
     /// </summary>
     public static class RunHost
     {

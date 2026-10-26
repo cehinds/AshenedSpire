@@ -88,7 +88,7 @@ namespace Ashen.Content
             if (content == null) throw new ArgumentNullException(nameof(content));
             JObject Rules(string file) => (JObject)content.Get(file);
             var versions = Rules(ContentFiles.RulesVersions);
-            var run = Registries.ToRunData(Rules(ContentFiles.RulesMechanics), Rules(ContentFiles.RulesCombatEngine), Rules(ContentFiles.RulesHandRules),
+            var run = Registries.ToRunData(Rules(ContentFiles.RulesFrameworkMechanics), Rules(ContentFiles.RulesCombatEngine), Rules(ContentFiles.RulesHandRules),
                 Rules(ContentFiles.RulesRunEngine), JsValues.Str(versions[Core2VersionKeys.WebContentVersion]));
             var profile = Profile.Core;
             var body = new JObject();
@@ -107,13 +107,21 @@ namespace Ashen.Content
             if (content == null) throw new ArgumentNullException(nameof(content));
             if (run == null) throw new ArgumentNullException(nameof(run));
             JObject Rules(string file) => (JObject)content.Get(file);
-            return new Ashen.Domain.Combat.CoreCombatData(run, Rules(ContentFiles.RulesFixCoreSnapshot), Rules(ContentFiles.RulesActionCosts),
+            var data = new Ashen.Domain.Combat.CoreCombatData(run, Rules(ContentFiles.RulesFixCoreSnapshot), Rules(ContentFiles.RulesActionCosts),
                 (JObject)Rules(ContentFiles.RulesStanceRules)[Core2CombatKeys.StanceRules], Rules(ContentFiles.RulesCore2Combat),
                 Rules(ContentFiles.RulesEnemyKnowledgeRules), (JObject)Rules(ContentFiles.RulesCore2HandRules)[Core2CombatKeys.HandRulesDefaults],
                 Object(Core2BundleKeys.ProposalStatusRules) as JObject,
                 (JObject)Rules(ContentFiles.RulesCore2CombatRules)[DK.CombatRules],
                 (JObject)Rules(ContentFiles.RulesCore2Mechanics)[DK.Mechanics],
                 (JObject)Rules(ContentFiles.RulesRuntime)[DK.Ops]);
+            var labels = new System.Collections.Generic.Dictionary<string, string>(StringComparer.Ordinal);
+            foreach (var tag in JsValues.Items(Object(RegistryKeys.TagRegistry)).OfType<JObject>())
+            {
+                var id = JsValues.Text(tag[RegistryKeys.Id]);
+                if (id != null) labels[id] = JsValues.Str(tag[TagKeys.ItemTypeLabel]) ?? string.Empty;
+            }
+            data.TagLabels = labels;
+            return data;
         }
 
         /// <summary>
@@ -140,7 +148,7 @@ namespace Ashen.Content
         {
             JObject Rules(string file) => (JObject)content.Get(file);
             var versions = Rules(ContentFiles.RulesVersions);
-            var rewards = Registries.ToRewardsData(Rules(ContentFiles.RulesMechanics), Rules(ContentFiles.RulesCombatEngine), Rules(ContentFiles.RulesHandRules),
+            var rewards = Registries.ToRewardsData(Rules(ContentFiles.RulesFrameworkMechanics), Rules(ContentFiles.RulesCombatEngine), Rules(ContentFiles.RulesHandRules),
                 Rules(ContentFiles.RulesRunEngine), JsValues.Str(versions[Core2VersionKeys.WebContentVersion]),
                 (JArray)Rules(ContentFiles.BalanceCustomRun)[RunFlowKeys.AscensionOrder], Rules(ContentFiles.RulesRewardsEngine));
             return new Ashen.Domain.Rewards.Core2RewardsData(deck, rewards, combat, Rules(ContentFiles.RulesCore2Rewards), new Ashen.Domain.Shop.ShopData(rewards, Rules(ContentFiles.RulesShopEngine)), Rules(ContentFiles.RulesCore2Rest));

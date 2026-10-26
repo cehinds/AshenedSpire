@@ -4,7 +4,7 @@ Versions follow `E.F.S.P` — `<epic release>.<feature>.<user story>.<patch>` �
 
 ## [0.1.37.21] — 2026-10-25
 
-- WP-21: the 405 content retired; the app reads Core 2 data only (D-1304)
+- WP-21: the 405 content retired; the app reads Core 2 data only (D-1704)
 
 ## [0.1.37.20] — 2026-10-25
 

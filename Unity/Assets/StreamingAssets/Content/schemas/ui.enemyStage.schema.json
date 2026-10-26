@@ -1,0 +1,1439 @@
+{
+  "$id": "ui/enemyStage.json",
+  "type": "object",
+  "properties": {
+    "actions": {
+      "type": "object",
+      "properties": {
+        "attack": {
+          "type": "object",
+          "properties": {
+            "durations": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "poses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "durations",
+            "poses"
+          ]
+        },
+        "block": {
+          "type": "object",
+          "properties": {
+            "durations": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "poses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "durations",
+            "poses"
+          ]
+        },
+        "counterattack": {
+          "type": "object",
+          "properties": {
+            "durations": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "poses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "durations",
+            "poses"
+          ]
+        },
+        "magicAttack": {
+          "type": "object",
+          "properties": {
+            "durations": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "poses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "durations",
+            "poses"
+          ]
+        },
+        "rangedWeaponAttack": {
+          "type": "object",
+          "properties": {
+            "durations": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "poses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "durations",
+            "poses"
+          ]
+        },
+        "sweep": {
+          "type": "object",
+          "properties": {
+            "durations": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "poses": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "durations",
+            "poses"
+          ]
+        }
+      },
+      "required": [
+        "attack",
+        "block",
+        "counterattack",
+        "magicAttack",
+        "rangedWeaponAttack",
+        "sweep"
+      ]
+    },
+    "aliases": {
+      "type": "object",
+      "properties": {
+        "afflicted": {
+          "type": "string"
+        },
+        "buff": {
+          "type": "string"
+        },
+        "casting": {
+          "type": "string"
+        },
+        "counter": {
+          "type": "string"
+        },
+        "guard": {
+          "type": "string"
+        },
+        "guardHit": {
+          "type": "string"
+        },
+        "hurt": {
+          "type": "string"
+        },
+        "magic": {
+          "type": "string"
+        },
+        "projectile": {
+          "type": "string"
+        },
+        "prone": {
+          "type": "string"
+        },
+        "ranged": {
+          "type": "string"
+        },
+        "sleep": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "afflicted",
+        "buff",
+        "casting",
+        "counter",
+        "guard",
+        "guardHit",
+        "hurt",
+        "magic",
+        "projectile",
+        "prone",
+        "ranged",
+        "sleep"
+      ]
+    },
+    "animation": {
+      "type": "object",
+      "properties": {
+        "actors": {
+          "type": "object",
+          "properties": {
+            "ashheartDragon": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "bellKeeper": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "blightHound": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "briarHermit": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "chainScavenger": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "cinderMantis": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "eclipseCantor": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "fellWarden": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "furnaceSaint": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "glassRegent": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "herald": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "hollowAstronomer": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "lanternMoth": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "marrowOrganist": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "mirrorScribe": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "reaver": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "rogue": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "starseer": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "stitchCrab": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "thornMatriarch": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            },
+            "wanderingSoldier": {
+              "type": "object",
+              "properties": {
+                "reach": {
+                  "type": "number"
+                },
+                "tempo": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "reach",
+                "tempo"
+              ]
+            }
+          },
+          "required": [
+            "ashheartDragon",
+            "bellKeeper",
+            "blightHound",
+            "briarHermit",
+            "chainScavenger",
+            "cinderMantis",
+            "eclipseCantor",
+            "fellWarden",
+            "furnaceSaint",
+            "glassRegent",
+            "herald",
+            "hollowAstronomer",
+            "lanternMoth",
+            "marrowOrganist",
+            "mirrorScribe",
+            "reaver",
+            "rogue",
+            "starseer",
+            "stitchCrab",
+            "thornMatriarch",
+            "wanderingSoldier"
+          ]
+        },
+        "motion": {
+          "type": "object",
+          "properties": {
+            "dodge": {
+              "type": "string"
+            },
+            "guard": {
+              "type": "string"
+            },
+            "neutral": {
+              "type": "string"
+            },
+            "projectile": {
+              "type": "string"
+            },
+            "slash": {
+              "type": "string"
+            },
+            "spell": {
+              "type": "string"
+            },
+            "strike": {
+              "type": "string"
+            },
+            "thrust": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "dodge",
+            "guard",
+            "neutral",
+            "projectile",
+            "slash",
+            "spell",
+            "strike",
+            "thrust"
+          ]
+        },
+        "moves": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "casting": {
+                "type": "boolean"
+              },
+              "family": {
+                "type": "string",
+                "enum": [
+                  "guard",
+                  "projectile",
+                  "slash",
+                  "spell",
+                  "strike",
+                  "thrust"
+                ]
+              }
+            },
+            "required": [
+              "casting",
+              "family"
+            ]
+          }
+        },
+        "travel": {
+          "type": "object",
+          "properties": {
+            "direction": {
+              "type": "integer"
+            },
+            "easing": {
+              "type": "string"
+            },
+            "filters": {
+              "type": "object",
+              "properties": {
+                "brace": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "string"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "cast": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "string"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "impact": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "null"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "lunge": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "null"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "release": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "null"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "sidestep": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "null"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "opacity": {
+                            "type": "number"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "opacity",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                },
+                "sweep": {
+                  "type": "object",
+                  "properties": {
+                    "blur": {
+                      "type": "integer"
+                    },
+                    "colour": {
+                      "type": "null"
+                    },
+                    "keyframes": {
+                      "type": "string"
+                    },
+                    "stops": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "brightness": {
+                            "type": "number"
+                          },
+                          "glow": {
+                            "type": "integer"
+                          },
+                          "t": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "brightness",
+                          "glow",
+                          "t"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "blur",
+                    "colour",
+                    "keyframes",
+                    "stops"
+                  ]
+                }
+              },
+              "required": [
+                "brace",
+                "cast",
+                "impact",
+                "lunge",
+                "release",
+                "sidestep",
+                "sweep"
+              ]
+            },
+            "recoilPx": {
+              "type": "integer"
+            },
+            "tracks": {
+              "type": "object",
+              "properties": {
+                "impact": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "at": {
+                        "type": "string"
+                      },
+                      "t": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "at",
+                      "t"
+                    ]
+                  }
+                },
+                "lunge": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "at": {
+                        "type": "string"
+                      },
+                      "t": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "at",
+                      "t"
+                    ]
+                  }
+                },
+                "sweep": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "at": {
+                        "type": "string"
+                      },
+                      "t": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "at",
+                      "t"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "impact",
+                "lunge",
+                "sweep"
+              ]
+            },
+            "travelPx": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "direction",
+            "easing",
+            "filters",
+            "recoilPx",
+            "tracks",
+            "travelPx"
+          ]
+        }
+      },
+      "required": [
+        "actors",
+        "motion",
+        "moves",
+        "travel"
+      ]
+    },
+    "aura": {
+      "type": "object",
+      "properties": {
+        "blurBase": {
+          "type": "integer"
+        },
+        "blurStep": {
+          "type": "integer"
+        },
+        "colors": {
+          "type": "object",
+          "properties": {
+            "arcane": {
+              "type": "string"
+            },
+            "blood": {
+              "type": "string"
+            },
+            "defense": {
+              "type": "string"
+            },
+            "evasion": {
+              "type": "string"
+            },
+            "fire": {
+              "type": "string"
+            },
+            "frost": {
+              "type": "string"
+            },
+            "healing": {
+              "type": "string"
+            },
+            "nature": {
+              "type": "string"
+            },
+            "strength": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "arcane",
+            "blood",
+            "defense",
+            "evasion",
+            "fire",
+            "frost",
+            "healing",
+            "nature",
+            "strength"
+          ]
+        },
+        "negative": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "themes": {
+          "type": "object",
+          "properties": {
+            "arcane": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "astromancer",
+                  "azureCoil",
+                  "constellation",
+                  "insanityResist",
+                  "stargazer",
+                  "starstoneCharge",
+                  "waxingMoon"
+                ]
+              }
+            },
+            "blood": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "bleedResist",
+                  "bloodUnction",
+                  "goreblood",
+                  "lifeTithe",
+                  "sanguinePact",
+                  "stigmata"
+                ]
+              }
+            },
+            "defense": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "astralArmor",
+                  "bulwarkEcho",
+                  "dexterity",
+                  "ironVow",
+                  "moonlitShield",
+                  "unbreakable",
+                  "unbreakableUp"
+                ]
+              }
+            },
+            "evasion": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "fire": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "frost": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "healing": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "nature": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "strength": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "deadlyTempo",
+                  "glassCannon",
+                  "opportunist",
+                  "prepared",
+                  "rallyingStandard",
+                  "rallyingStandardUp",
+                  "strength",
+                  "zealotry"
+                ]
+              }
+            }
+          },
+          "required": [
+            "arcane",
+            "blood",
+            "defense",
+            "evasion",
+            "fire",
+            "frost",
+            "healing",
+            "nature",
+            "strength"
+          ]
+        },
+        "woundedShare": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "blurBase",
+        "blurStep",
+        "colors",
+        "negative",
+        "themes",
+        "woundedShare"
+      ]
+    },
+    "comment": {
+      "type": "string"
+    },
+    "enemies": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "idleHeight": {
+            "type": "integer"
+          },
+          "idleWidth": {
+            "type": "integer"
+          },
+          "marks": {
+            "type": "object",
+            "properties": {
+              "attack-01": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "attack-02": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "block-01": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "counterattack-02": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "idle": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "magic-01": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "preparing": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "stance-counter": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "stance-smash": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "stance-sweep": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "sweep-01": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              }
+            },
+            "required": [
+              "block-01",
+              "idle",
+              "stance-counter"
+            ]
+          },
+          "stances": {
+            "type": "object",
+            "properties": {
+              "attack": {
+                "type": "string",
+                "enum": [
+                  "attack-02",
+                  "counterattack-02"
+                ]
+              },
+              "counter": {
+                "type": "string",
+                "enum": [
+                  "stance-counter"
+                ]
+              },
+              "defend": {
+                "type": "string",
+                "enum": [
+                  "block-01"
+                ]
+              },
+              "preparing": {
+                "type": "string",
+                "enum": [
+                  "magic-01",
+                  "preparing"
+                ]
+              },
+              "smash": {
+                "type": "string",
+                "enum": [
+                  "attack-01",
+                  "stance-smash"
+                ]
+              },
+              "sweep": {
+                "type": "string",
+                "enum": [
+                  "stance-sweep",
+                  "sweep-01"
+                ]
+              }
+            },
+            "required": [
+              "attack",
+              "counter",
+              "defend",
+              "preparing",
+              "smash",
+              "sweep"
+            ]
+          }
+        },
+        "required": [
+          "idleHeight",
+          "idleWidth",
+          "marks",
+          "stances"
+        ]
+      }
+    },
+    "families": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "attack",
+          "counter",
+          "defend",
+          "preparing",
+          "smash",
+          "sweep"
+        ]
+      }
+    },
+    "poses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stage": {
+      "type": "object",
+      "properties": {
+        "canvas": {
+          "type": "integer"
+        },
+        "clipMs": {
+          "type": "integer"
+        },
+        "floor": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "canvas",
+        "clipMs",
+        "floor",
+        "height"
+      ]
+    },
+    "stanceOf": {
+      "type": "object",
+      "properties": {
+        "attacking": {
+          "type": "string"
+        },
+        "casting": {
+          "type": "string"
+        },
+        "countering": {
+          "type": "string"
+        },
+        "defending": {
+          "type": "string"
+        },
+        "preparing": {
+          "type": "string"
+        },
+        "ranged": {
+          "type": "string"
+        },
+        "smashing": {
+          "type": "string"
+        },
+        "staggered": {
+          "type": "null"
+        },
+        "sweeping": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "attacking",
+        "casting",
+        "countering",
+        "defending",
+        "preparing",
+        "ranged",
+        "smashing",
+        "staggered",
+        "sweeping"
+      ]
+    }
+  },
+  "required": [
+    "actions",
+    "aliases",
+    "animation",
+    "aura",
+    "comment",
+    "enemies",
+    "families",
+    "poses",
+    "stage",
+    "stanceOf"
+  ]
+}

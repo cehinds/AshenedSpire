@@ -9,6 +9,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="CARD_ART" class="card-art" picking-mode="Ignore">
             <ui:VisualElement name="CARD_STAGE" class="card-stage" picking-mode="Ignore" />
+            <ui:VisualElement name="CARD_MOTIFS" class="card-motifs" picking-mode="Ignore" />
         </ui:VisualElement>
         <ui:VisualElement class="card-fade" picking-mode="Ignore" />
         <ui:VisualElement class="card-footer-back" picking-mode="Ignore" />
@@ -27,8 +28,10 @@
         <ui:VisualElement name="CARD_COSTS" class="card-costs" picking-mode="Ignore" />
         <Ashen.Presentation.UI.LocLabel name="CARD_NAME" class="card-name font-lore" picking-mode="Ignore" />
         <Ashen.Presentation.UI.LocLabel name="CARD_TEXT" class="card-text font-lore" picking-mode="Ignore" />
+        <Ashen.Presentation.UI.LocLabel name="CARD_CUE" class="card-cue font-lore" picking-mode="Ignore" />
         <ui:VisualElement name="CARD_BAND" class="card-band" picking-mode="Ignore">
             <ui:VisualElement name="CARD_SIGIL" class="card-sigil" picking-mode="Ignore" />
+            <ui:VisualElement name="CARD_MIRROR" class="card-sigil card-sigil--mirror" picking-mode="Ignore" />
             <Ashen.Presentation.UI.LocLabel name="CARD_TYPE" class="card-type font-lore kit-upper" picking-mode="Ignore" />
         </ui:VisualElement>
         <ui:VisualElement name="CARD_RAIL" class="card-rail" picking-mode="Ignore" />

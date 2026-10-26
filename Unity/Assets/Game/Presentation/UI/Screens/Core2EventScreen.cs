@@ -21,7 +21,7 @@ namespace Ashen.Presentation.UI.Screens
     /// </summary>
     public sealed class Core2EventScreen : ScreenView
     {
-        private readonly Dictionary<string, LocButton> _responses = new Dictionary<string, LocButton>();
+        private readonly Dictionary<string, Button> _responses = new Dictionary<string, Button>();
         private Core2RunSession _run;
         private Core2EventFlow _flow;
         private CombatModal _door;
@@ -30,12 +30,14 @@ namespace Ashen.Presentation.UI.Screens
         private LocButton _skip;
         private LocLabel _reason;
         private bool _bound;
+        private string _playerArt;
+        private string _npcArt;
 
         public Core2RunSession Run => _run;
 
         public Core2EventFlow Flow => _flow;
 
-        public IReadOnlyDictionary<string, LocButton> ResponseButtons => _responses;
+        public IReadOnlyDictionary<string, Button> ResponseButtons => _responses;
 
         public LocButton ContinueButton => _continue;
 
@@ -68,8 +70,67 @@ namespace Ashen.Presentation.UI.Screens
             BoardHud.Wire(Context, _run, OpenPause);
             Root.Q(UiNames.EventPage).EnableInClassList(EventClasses.PageDialogue, _flow.IsDialogue);
             BoardHud.SetImage(Root.Q(UiNames.CeventScene), Ui.Texture(_flow.SceneArtId));
+            Root.Q(UiNames.EventPage).RegisterCallback<GeometryChangedEvent>(_ => PlaceFigures());
             Render();
             _bound = true;
+            PlayEntrance();
+        }
+
+        /// <summary>
+        /// The close-up of the spoken step (web dialogueStage.js placeFigures over PortraitCropModel.closeUpPlacement; <see cref="FigureCrop"/>): each figure is its whole image scaled so the upper third of its visible part
+        /// spans from its slot's top to the context band's top, kept in its own lane (it leans outward, then shrinks), centred on its slot. The figure's visible box is data (ui/components.json dialogue.figures).
+        /// </summary>
+        private void PlaceFigures()
+        {
+            if (_flow == null || !_flow.IsDialogue) return;
+            var page = Root.Q(UiNames.EventPage);
+            var stage = Root.Q(UiNames.CeventStage);
+            var context = Root.Q(UiNames.CeventContext);
+            var frameWidth = page.layout.width;
+            var frameHeight = page.layout.height;
+            if (!(frameWidth > 0) || !(frameHeight > 0) || !(context.layout.y > stage.layout.y)) return;
+            var rules = Ui.Data.Components.Dialogue;
+            var compact = Nav.Layout != null && Nav.Layout.Narrow;
+            var slotWidth = frameWidth * ((compact ? rules.SlotWidthCompactVw : rules.SlotWidthVw) / UiMath.Percent);
+            var inset = frameWidth * (rules.InsetVw / UiMath.Percent);
+            var slotTop = stage.layout.y + frameHeight * (rules.SlotTopOffsetVh / UiMath.Percent);
+            PlaceFigure(Root.Q(UiNames.CeventPlayer), _playerArt, false);
+            PlaceFigure(Root.Q(UiNames.CeventNpc), _npcArt, true);
+
+            void PlaceFigure(VisualElement figure, string artId, bool right)
+            {
+                var texture = figure.resolvedStyle.backgroundImage.texture;
+                if (texture == null) return;
+                var lane = FigureCrop.LaneFor(right, frameWidth, rules);
+                var slotLeft = right ? frameWidth - inset - slotWidth : inset;
+                var placed = FigureCrop.Place(rules.BoxOf(artId), texture.width, texture.height, slotLeft + slotWidth * UiMath.Half, slotTop, context.layout.y, lane, compact, frameWidth, frameHeight, rules);
+                var sideLeft = right ? frameWidth * UiMath.Half : 0d;
+                figure.style.left = (float)(placed.X - sideLeft);
+                figure.style.top = (float)(placed.Y - stage.layout.y);
+                figure.style.width = (float)(texture.width * placed.Scale);
+                figure.style.height = (float)(texture.height * placed.Scale);
+            }
+        }
+
+        /// <summary>
+        /// The spoken step's entrance (web dialogue.js playEntrance, dialogueEntrance): the figures fade in over their duration, the context band follows and rises; the controls open when the last step
+        /// has appeared. Reduced motion shows the step at once. Played once per screen, never again for the steps that follow.
+        /// </summary>
+        private void PlayEntrance()
+        {
+            if (!_flow.IsDialogue || _run.PlayerSettings.On(SettingIds.ReducedMotion)) return;
+            var tokens = Ui.Data.Tokens;
+            var page = Root.Q(UiNames.EventPage);
+            var controls = new[] { Root.Q(UiNames.CeventContext), Root.Q(UiNames.CeventFoot) };
+            page.AddToClassList(EventClasses.PageEntering);
+            foreach (var c in controls) c.SetEnabled(false);
+            page.schedule.Execute(() => page.RemoveFromClassList(EventClasses.PageEntering));
+            var ready = Math.Max(tokens.Duration(TokenKeys.EventFigureFade), tokens.Duration(TokenKeys.EventContextAt) + tokens.Duration(TokenKeys.EventContextFade));
+            page.schedule.Execute(() =>
+            {
+                foreach (var c in controls) c.SetEnabled(true);
+                if (_flow != null) Render();
+            }).ExecuteLater(ready);
         }
 
         // ------------------------------------------------------------------ render
@@ -122,9 +183,12 @@ namespace Ashen.Presentation.UI.Screens
         {
             var background = Root.Q(UiNames.CeventBackground);
             if (!SetArt(background, _flow.BackgroundId)) SetArt(background, Ui.Data.Nodes.EventFallbackBackground);
-            SetArt(Root.Q(UiNames.CeventPlayer), _run.Portrait);
+            _playerArt = _run.Portrait;
+            _npcArt = _flow.SpeakerArtId;
+            SetArt(Root.Q(UiNames.CeventPlayer), _playerArt);
             var npc = Root.Q(UiNames.CeventNpc);
-            SetArt(npc, _flow.SpeakerArtId);
+            SetArt(npc, _npcArt);
+            PlaceFigures();
             Root.Q<LocLabel>(UiNames.CeventPlayerName).SetResolved(_flow.PlayerName);
             Root.Q<LocLabel>(UiNames.CeventNpcName).SetResolved(_flow.SpeakerName);
             Root.Q(UiNames.CeventPlayer).parent.EnableInClassList(EventClasses.StageSideListening, !_flow.Resolved);
@@ -150,16 +214,43 @@ namespace Ashen.Presentation.UI.Screens
 
         private VisualElement Response(Core2EventResponseView response)
         {
-            var row = new LocButton { userData = response.ChoiceId };
+            // A binding response is the web's hold button: a tap reviews it in the question, holding it chooses at once (the dial fills along the card; holdConfirm; with holds off a press reviews).
+            var holds = response.Binding && response.Affordable;
+            Button row = holds ? new HoldButton() : new LocButton();
+            row.userData = response.ChoiceId;
             row.AddToClassList(EventClasses.Response);
             row.EnableInClassList(EventClasses.ResponseOff, !response.Affordable);
+            if (holds)
+            {
+                var dial = (HoldButton)row;
+                dial.labelKey = null;
+                UiDom.Show(dial.Q(UiNames.HoldLabel), false);
+                dial.AddToClassList(EventClasses.ResponseDial);
+                dial.HoldMs = Ui.Data.Tokens.Duration(TokenKeys.HoldConfirm);
+                dial.HoldEnabled = _run.PlayerSettings.Text(SettingIds.HoldConfirm) != SettingIds.HoldOff;
+            }
             var texts = new VisualElement { pickingMode = PickingMode.Ignore };
             texts.AddToClassList(EventClasses.ResponseTexts);
             texts.Add(Text(response.Label, EventClasses.ResponseLabel));
             if (!string.IsNullOrEmpty(response.Tag)) texts.Add(Text(response.Tag, EventClasses.ResponseTag));
-            row.Add(texts);
-            if (response.Binding && response.Affordable) row.Add(Text(_flow.HoldLabel, EventClasses.ResponseHold, UiClasses.Upper));
-            row.clicked += () => PressResponse(response, row);
+            row.Insert(0, texts);
+            var held = false;
+            row.clicked += () =>
+            {
+                // The release that ends a completed hold also clicks: the response has been chosen, so it asks nothing.
+                if (held)
+                {
+                    held = false;
+                    return;
+                }
+                PressResponse(response, row);
+            };
+            if (holds && ((HoldButton)row).HoldEnabled)
+                ((HoldButton)row).Committed += () =>
+                {
+                    held = true;
+                    ChooseHeld(response, row);
+                };
             _responses[response.ChoiceId] = row;
             return row;
         }
@@ -181,6 +272,13 @@ namespace Ashen.Presentation.UI.Screens
                 });
                 return;
             }
+            Press(() => _flow.Choose(response.ChoiceId), anchor);
+        }
+
+        /// <summary>A binding response that was held: chosen at once, without its question (the web's hold approves the same callback and skips the review).</summary>
+        public void ChooseHeld(Core2EventResponseView response, VisualElement anchor)
+        {
+            if (_flow == null || response == null) return;
             Press(() => _flow.Choose(response.ChoiceId), anchor);
         }
 

@@ -36,7 +36,9 @@ namespace Ashen.App.Ui
             entries.Select(e =>
             {
                 var visible = e.Visible && !(e.HideInCombat && context.InCombat);
-                return new MenuEntryState { Def = e, Visible = visible, Enabled = visible && IsEnabled(e, context) };
+                var enabled = visible && IsEnabled(e, context);
+                if (e.HideWhenDisabled && !enabled) visible = false;
+                return new MenuEntryState { Def = e, Visible = visible, Enabled = enabled };
             }).ToList();
 
         public static bool IsEnabled(MenuEntryDef entry, MenuContext context)

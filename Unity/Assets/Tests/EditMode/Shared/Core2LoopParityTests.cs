@@ -350,7 +350,8 @@ namespace Ashen.Tests
                 var row = (JObject)results.Last;
                 var want = (JObject)step["record"];
                 // The web's record; the run summary adds its own fields beside it (killer, duration, deck, the profile's ids).
-                foreach (var p in want.Properties()) Same(at + " record." + p.Name, p.Value, row[p.Name] ?? JValue.CreateNull());
+                // The oracle has no combat screen, so its damage tallies are zero; the session writes the real tally into the record (D-962), so those two fields are not compared.
+                foreach (var p in want.Properties().Where(p => p.Name != LoopKeys.DamageDealt && p.Name != LoopKeys.DamageTaken)) Same(at + " record." + p.Name, p.Value, row[p.Name] ?? JValue.CreateNull());
             }
             Assert.That(_saves.Load(session.Slot).Status, Is.EqualTo(LoadStatus.Empty), at + " the slot is cleared");
         }

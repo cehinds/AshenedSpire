@@ -34,8 +34,17 @@ namespace Ashen.Presentation.UI.Screens
         private FxMotion _motion;
         private CombatPace _pace;
         private readonly List<IVisualElementScheduledItem> _fxItems = new List<IVisualElementScheduledItem>();
+        private FxSchedule _fxPlan;
+        private double _fxStartedAt;
+        private double _fxShift;
         private readonly HashSet<string> _dying = new HashSet<string>(StringComparer.Ordinal);
         private IVisualElementScheduledItem _introTimer;
+
+        /// <summary>The hit points each fighter's bar still shows above (or, for a heal, below) the view's: the numbers have not landed yet (the web's onBeatApplied applies a beat's HP after its visuals).</summary>
+        private readonly Dictionary<string, double> _hpHeld = new Dictionary<string, double>(StringComparer.Ordinal);
+
+        /// <summary>The hit points each bar showed when it was last drawn.</summary>
+        private readonly Dictionary<string, double> _hpShown = new Dictionary<string, double>(StringComparer.Ordinal);
         private bool _introOpen;
         private bool _ending;
         private Flight _flight;
@@ -75,6 +84,7 @@ namespace Ashen.Presentation.UI.Screens
         private FxContext PlanContext() => new FxContext
         {
             Defs = Defs, Strings = Strings, Pace = _pace, PlayerId = View.Player.Id, PlayerManeuver = View.Player.StanceManeuver, MaxHp = MaxHpOf,
+            Stage = PilotClass && _player != null && _player.HasStage ? Ui.Data.CardStage : null, CanReact = kind => _player != null && _player.CanStageReact(kind),
         };
 
         // ------------------------------------------------------------------ the timeline
@@ -86,7 +96,9 @@ namespace Ashen.Presentation.UI.Screens
             _pace = CombatPace.From(_flow.Pacing, Defs, ReducedMotion);
             _fx.Pace = _pace;
             var beats = Core2Feedback.Plan(step.Timeline, PlanContext());
-            var schedule = FxTimeline.Build(beats, _pace, Defs.Pace.InstantStepMs);
+            var schedule = FxTimeline.Build(beats, _pace, Defs.Pace.InstantStepMs, AuthoredTiming);
+            PlanStage(beats);
+            HoldHp(schedule);
             var enemyTurn = !_pace.Instant && step.Actors.Count > 0;
             TakeFlight(step);
             if (schedule.Items.Count == 0 && !enemyTurn)
@@ -97,11 +109,16 @@ namespace Ashen.Presentation.UI.Screens
                 return;
             }
             foreach (var died in step.Timeline.Where(l => l.Type == FxEvents.EnemyDied && l.TargetId != null)) _dying.Add(died.TargetId);
+            // The player's own fall is shown when its beat is over (the web draws the downed figure from the HP the numbers have landed).
+            if (step.Timeline.Any(l => l.Type == FxEvents.PlayerDied)) _dying.Add(View.Player.Id);
             _busy = enemyTurn;
             _hiddenLines = enemyTurn ? step.Timeline.Count(l => !string.IsNullOrEmpty(l.Text)) : 0;
             _acting = null;
             Render();
             if (enemyTurn) FocusSoon(_footer.EndTurnButton);
+            _fxPlan = schedule;
+            _fxStartedAt = FxClock.Now();
+            _fxShift = 0;
             foreach (var item in schedule.Items)
             {
                 var captured = item;
@@ -118,8 +135,58 @@ namespace Ashen.Presentation.UI.Screens
             FocusSoon(_flow.Targeting ? FirstTarget() : FirstPlayableCard());
         }
 
+        /// <summary>Keeps each bar at the hit points it showed before the step until the number that took them lands.</summary>
+        private void HoldHp(FxSchedule schedule)
+        {
+            _hpHeld.Clear();
+            var landing = new HashSet<string>(schedule.Items.Where(i => i.Kind == FxItemKind.Cue && i.Cue.Type == FxCueType.Float && i.Cue.Hp != 0d).Select(i => i.Cue.TargetId), StringComparer.Ordinal);
+            foreach (var fighter in new[] { View.Player }.Concat(View.Enemies))
+                if (landing.Contains(fighter.Id) && _hpShown.TryGetValue(fighter.Id, out var shown) && Math.Abs(shown - fighter.Hp) > 0d) _hpHeld[fighter.Id] = shown - fighter.Hp;
+        }
+
+        private double HeldHp(string id) => id != null && _hpHeld.TryGetValue(id, out var held) ? held : 0d;
+
+        /// <summary>A number has landed: the bar takes the hit points it carried.</summary>
+        private void LandHp(FxCue cue)
+        {
+            if (cue.TargetId == null || !_hpHeld.TryGetValue(cue.TargetId, out var held)) return;
+            held = held > 0d ? Math.Max(0d, held - cue.Hp) : Math.Min(0d, held - cue.Hp);
+            if (held == 0d) _hpHeld.Remove(cue.TargetId);
+            else _hpHeld[cue.TargetId] = held;
+            ShowHp(cue.TargetId);
+        }
+
+        /// <summary>Redraws the one bar (the figure's, and the HUD's for the player).</summary>
+        private void ShowHp(string id)
+        {
+            var f = id == View.Player.Id ? View.Player : View.Enemies.FirstOrDefault(e => e.Id == id);
+            if (f == null) return;
+            var shown = Int(f.Hp + HeldHp(id));
+            _hpShown[id] = shown;
+            AnchorOf(id)?.SetHp(shown, Int(f.MaxHp));
+            if (id == View.Player.Id) Root.Q<Meter>(UiNames.HudHp)?.Set(shown, Int(f.MaxHp));
+        }
+
+        /// <summary>The stage has more to play after the blow than the schedule planned: every item still to run, and the end of the play, waits for it.</summary>
+        private void DelayFx(FxItem from, double lateMs)
+        {
+            var plan = _fxPlan;
+            if (plan == null || lateMs <= 0 || _fxItems.Count != plan.Items.Count + 1) return;
+            var index = plan.Items.IndexOf(from);
+            if (index < 0) return;
+            _fxShift += lateMs;
+            var elapsed = FxClock.Now() - _fxStartedAt;
+            for (var j = index + 1; j < _fxItems.Count; j++)
+            {
+                var at = j < plan.Items.Count ? plan.Items[j].AtMs : plan.TotalMs;
+                _fxItems[j]?.ExecuteLater((long)Math.Max(0d, at + _fxShift - elapsed));
+            }
+        }
+
         private void FinishPlay()
         {
+            _hpHeld.Clear();
+            ApplyStageAll();
             try
             {
                 if (_flow.Ended)
@@ -146,6 +213,8 @@ namespace Ashen.Presentation.UI.Screens
             foreach (var item in _fxItems) item?.Pause();
             _fxItems.Clear();
             _fx?.CancelAll();
+            _hpHeld.Clear();
+            ApplyStageAll();
             _player?.Calm();
             foreach (var enemy in _enemies.Values) enemy.Calm();
             _dying.Clear();
@@ -190,6 +259,22 @@ namespace Ashen.Presentation.UI.Screens
                 {
                     case FxItemKind.Cue: PlayCue(item.Cue); break;
                     case FxItemKind.Swing: Swing(item); break;
+                    case FxItemKind.Contact:
+                        if (AnchorOf(item.ActorId) is Fighter striker)
+                        {
+                            striker.StageContact();
+                            // The recovery waits for the longer of the planned time and what the stage still has to play (actionTimeline.js: max(total - impact + hold, remainingMs())).
+                            DelayFx(item, striker.StageRemainingMs() - item.Ms);
+                        }
+                        break;
+                    case FxItemKind.Hold:
+                        if (AnchorOf(item.ActorId) is Fighter holder)
+                        {
+                            if (holder.HasStage) holder.StageHold(item.Ms);
+                            else if (holder.HasEnemyStage) holder.HoldEnemy(item.Ms);
+                        }
+                        break;
+                    case FxItemKind.End: EndBeat(item.Beat); break;
                     case FxItemKind.Reveal:
                         if (_busy && item.Lines > 0)
                         {
@@ -216,17 +301,32 @@ namespace Ashen.Presentation.UI.Screens
             var target = AnchorOf(cue.TargetId);
             switch (cue.Type)
             {
-                case FxCueType.Float: _fx.Float(target, cue); break;
+                case FxCueType.Float:
+                    _fx.Float(target, cue);
+                    if (cue.Hp != 0d) LandHp(cue);
+                    break;
                 case FxCueType.Callout: CalloutCue(cue, target); break;
                 case FxCueType.HitFlash: HitFlash(cue, target); break;
                 case FxCueType.GuardPose:
                     if (target != null && !target.Data.Player && !ReducedMotion) Pose(target, FxPoses.GuardHit, cue.Amount);
                     break;
                 case FxCueType.Wobble:
-                    if (target != null && !ReduceFlashes && !ReducedMotion) target.Play(_motion, Defs.Track(FxTrack.Wobble), Defs.Track(FxTrack.Wobble).Ms, false);
+                    if (target == null || ReduceFlashes || ReducedMotion) break;
+                    // A card stage has no canvas reaction to a stagger: its root is tinted for a step and nothing moves (styles/combat.css rear-stagger-flash).
+                    if (target.HasStage) target.StageStagger(Defs.Track(FxTrack.Wobble).Ms, Ui.Data.CardStage.StaggerTintShare);
+                    else target.Play(_motion, Defs.Track(FxTrack.Wobble), Defs.Track(FxTrack.Wobble).Ms, false);
                     break;
                 case FxCueType.Shake:
                     if (_flow.Pacing.ScreenShake && !ReducedMotion) _fx.Shake(cue.Amount);
+                    break;
+                case FxCueType.Body:
+                    if (target != null && target.HasStage)
+                    {
+                        // combat.js reactionForReceipt: the reaction plays for the length the unscaled pace gives it, else the stage's default.
+                        var stage = Ui.Data.CardStage;
+                        var ms = stage.Timing(stage.Reactions[cue.Text], _pace.Raw).TotalMs;
+                        target.StageReact(cue.Text, ms > 0 ? ms : stage.ReactMs);
+                    }
                     break;
                 case FxCueType.Slash: _fx.Slash(target); break;
                 case FxCueType.Spark: _fx.Spark(target, cue.Text); break;
@@ -270,6 +370,12 @@ namespace Ashen.Presentation.UI.Screens
         private void HitFlash(FxCue cue, Fighter target)
         {
             if (target == null) return;
+            // The card stage draws its own hurt clip, red strobe and knock-back (styles/combat.css: its root takes no hit animation).
+            if (target.HasStage)
+            {
+                target.StageHit(cue.Amount);
+                return;
+            }
             var player = target.Data.Player;
             var id = player ? (cue.Heavy ? FxTrack.HitPlayerHeavy : FxTrack.HitPlayer) : (cue.Heavy ? FxTrack.HitEnemyHeavy : FxTrack.HitEnemy);
             if (!ReduceFlashes) target.Play(_motion, Defs.Track(id), cue.Amount, true);
@@ -280,6 +386,19 @@ namespace Ashen.Presentation.UI.Screens
         {
             var actor = AnchorOf(item.ActorId);
             if (actor == null) return;
+            // The card stage owns its motion: the action's clip carries the body's travel (a lunge class would move the figure a second time).
+            if (actor.HasStage)
+            {
+                var action = StageActionOf(item.Beat);
+                if (action != null) actor.PlayStageAction(action, item.Ms, StageResources(item.Beat));
+                return;
+            }
+            // An enemy's expansion stage plays the pose of its move over the action's length and travels as the move's family does (playFamilyAnimation).
+            if (actor.HasEnemyStage)
+            {
+                SwingEnemy(actor, item);
+                return;
+            }
             var player = actor.Data.Player;
             if (!ReduceFlashes && !ReducedMotion)
             {
@@ -305,6 +424,13 @@ namespace Ashen.Presentation.UI.Screens
 
         private void Pose(Fighter f, string pose, double ms)
         {
+            if (f?.Data != null && f.Data.Player) return;
+            // An enemy's expansion stage answers to the web's own names for the reaction poses (ui/fx.js playPoseOn: hit, guardHit).
+            if (f != null && f.HasEnemyStage)
+            {
+                if (!ReducedMotion) f.PlayEnemy(pose == FxPoses.Hurt ? EnemyActions.Hurt : pose == FxPoses.GuardHit ? EnemyActions.GuardHit : pose, ms);
+                return;
+            }
             var frame = PoseFrame(DefOf(f), pose);
             if (frame.Frame != null) f.PlayPose(frame.Frame, frame.Scale, ms);
         }

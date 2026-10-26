@@ -11,6 +11,23 @@ namespace Ashen.Generated
         public const string Shell = "SHELL";
         public const string ShellHeader = "SHELL_HEADER";
         public const string ShellTitle = "SHELL_TITLE";
+        public const string ShellEyebrow = "SHELL_EYEBROW";
+        public const string RecoveryBody = "RECOVERY_BODY";
+        public const string RecoveryScroll = "RECOVERY_SCROLL";
+        public const string TransferNote = "TRANSFER_NOTE";
+        public const string TransferStatus = "TRANSFER_STATUS";
+        public const string TransferImport = "TRANSFER_IMPORT";
+        public const string TransferExport = "TRANSFER_EXPORT";
+        public const string TransferRecovery = "TRANSFER_RECOVERY";
+        public const string TransferHeading = "TRANSFER_HEADING";
+        public const string TransferActions = "TRANSFER_ACTIONS";
+        public const string TransferBody = "TRANSFER_BODY";
+        public const string TransferScroll = "TRANSFER_SCROLL";
+        public const string Farewell = "FAREWELL";
+        public const string FarewellTitle = "FAREWELL_TITLE";
+        public const string FarewellStatus = "FAREWELL_STATUS";
+        public const string FarewellBack = "FAREWELL_BACK";
+        public const string ShellHeading = "SHELL_HEADING";
         public const string ShellExit = "SHELL_EXIT";
         public const string ShellBody = "SHELL_BODY";
         public const string ShellFooter = "SHELL_FOOTER";
@@ -44,6 +61,7 @@ namespace Ashen.Generated
         public const string SlotMark = "SLOT_MARK";
         public const string SlotPortrait = "SLOT_PORTRAIT";
         public const string SlotLabel = "SLOT_LABEL";
+        public const string SlotName = "SLOT_NAME";
         public const string SlotFacts = "SLOT_FACTS";
         public const string SlotSaved = "SLOT_SAVED";
         public const string SlotDelete = "SLOT_DELETE";
@@ -69,6 +87,7 @@ namespace Ashen.Generated
         public const string CardArt = "CARD_ART";
         public const string CardType = "CARD_TYPE";
         public const string CardText = "CARD_TEXT";
+        public const string CardCue = "CARD_CUE";
         public const string CardKeywords = "CARD_KEYWORDS";
         public const string CardRefusal = "CARD_REFUSAL";
         public const string CardLent = "CARD_LENT";
@@ -76,6 +95,8 @@ namespace Ashen.Generated
         public const string CardStage = "CARD_STAGE";
         public const string CardBand = "CARD_BAND";
         public const string CardSigil = "CARD_SIGIL";
+        public const string CardMirror = "CARD_MIRROR";
+        public const string CardMotifs = "CARD_MOTIFS";
         public const string CardRail = "CARD_RAIL";
         public const string CardRank = "CARD_RANK";
         public const string CardRankText = "CARD_RANK_TEXT";
@@ -400,6 +421,7 @@ namespace Ashen.Generated
         public const string TargetName = "TARGET_NAME";
         public const string TargetHp = "TARGET_HP";
         public const string TargetChips = "TARGET_CHIPS";
+        public const string TargetStatuses = "TARGET_STATUSES";
         public const string TargetIntentRow = "TARGET_INTENT_ROW";
         public const string TargetIntentIcon = "TARGET_INTENT_ICON";
         public const string TargetIntent = "TARGET_INTENT";
@@ -446,6 +468,10 @@ namespace Ashen.Generated
         public const string MapRailEnd = "MAP_RAIL_END";
         public const string ArmouryScrim = "ARMOURY_SCRIM";
         public const string ArmouryModal = "ARMOURY_MODAL";
+        public const string ArmouryDialogScrim = "ARMOURY_DIALOG_SCRIM";
+        public const string ArmouryDialog = "ARMOURY_DIALOG";
+        public const string PotionsScrim = "POTIONS_SCRIM";
+        public const string PotionsModal = "POTIONS_MODAL";
         public const string TitleArtDoor = "TITLE_ART_DOOR";
         public const string TitleArtDoorPhone = "TITLE_ART_DOOR_PHONE";
         public const string TitleArtGate = "TITLE_ART_GATE";
@@ -509,5 +535,17 @@ namespace Ashen.Generated
         public const string ProfilePane = "PROFILE_PANE";
         public const string AboutScroll = "ABOUT_SCROLL";
         public const string AboutBody = "ABOUT_BODY";
+        public const string SettingsTipClose = "SETTINGS_TIP_CLOSE";
+        public const string SettingsMore = "SETTINGS_MORE";
+        public const string SettingsMenu = "SETTINGS_MENU";
+        public const string SettingsMenuGroup = "SETTINGS_MENU_GROUP";
+        public const string SettingsMenuAll = "SETTINGS_MENU_ALL";
+        public const string SettingsUndo = "SETTINGS_UNDO";
+        public const string SettingsUndoText = "SETTINGS_UNDO_TEXT";
+        public const string SettingsUndoButton = "SETTINGS_UNDO_BUTTON";
+        public const string SettingsTipRow = "SETTINGS_TIP_ROW";
+        public const string TitleArtLit = "TITLE_ART_LIT";
+        public const string MapPotionMinis = "MAP_POTION_MINIS";
+        public const string MapPotionsHost = "MAP_POTIONS_HOST";
     }
 }

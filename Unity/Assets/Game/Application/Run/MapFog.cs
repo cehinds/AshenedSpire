@@ -57,6 +57,41 @@ namespace Ashen.App.Run
         }
 
         /// <summary>
+        /// shrineLane({ graph, run }): the walk to the nearest shrine ahead of where the run stands (the entrances before the first step), source first and the shrine last; empty when no shrine lies ahead.
+        /// Recomputed whenever the map is built, so stepping to a new node re-aims it. The whole walk is returned, fogged nodes included: the board draws only what it draws (the lane never paints through the fog).
+        /// </summary>
+        public static List<string> ShrineLane(JObject graph, string at)
+        {
+            var nodes = graph?.Obj(MK.Nodes);
+            if (nodes == null) return new List<string>();
+            var from = at != null ? new[] { at } : Js.Items(graph[MK.StartIds]).Select(Js.Str).ToArray();
+            var previous = new Dictionary<string, string>(StringComparer.Ordinal);
+            var seen = new HashSet<string>(from.Where(id => id != null && nodes[id] != null), StringComparer.Ordinal);
+            var frontier = seen.OrderBy(id => id, StringComparer.Ordinal).ToList();
+            while (frontier.Count > 0)
+            {
+                var step = new List<string>();
+                foreach (var id in frontier)
+                    foreach (var to in Js.Items(nodes.Obj(id)[MK.Next]).Select(Js.Str))
+                    {
+                        if (to == null || nodes[to] == null || !seen.Add(to)) continue;
+                        previous[to] = id;
+                        step.Add(to);
+                    }
+                step.Sort(StringComparer.Ordinal);
+                var hit = step.FirstOrDefault(id => nodes.Obj(id).Str(K.Type) == MK.Shrine);
+                if (hit != null)
+                {
+                    var walk = new List<string> { hit };
+                    while (previous.TryGetValue(walk[0], out var before)) walk.Insert(0, before);
+                    return walk;
+                }
+                frontier = step;
+            }
+            return new List<string>();
+        }
+
+        /// <summary>
         /// nearestShrine({ graph, from }): the shrine nearest ahead of the sources, walking the one-way edges breadth first (a source is never its own answer); ties go to the smaller id and
         /// every frontier is walked in sorted order, so the answer does not depend on key order. Null when no shrine lies ahead.
         /// </summary>

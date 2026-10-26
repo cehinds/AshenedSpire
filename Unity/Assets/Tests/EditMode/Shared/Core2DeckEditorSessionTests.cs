@@ -48,6 +48,21 @@ namespace Ashen.Tests
         private static string FirstCard(Core2RunSession session) => session.Run.Arr(Core2DeckKeys.Deck)[0].Value<string>(Core2DeckKeys.InstanceId);
 
         [Test]
+        public void ADoneWhoseSaveFailsLeavesTheEditorOpen()
+        {
+            var session = New();
+            var editor = session.OpenDeckEditor(Strings).Editor;
+            // The save's temp file is a directory: the write fails, as a full or read-only disk would.
+            var blocker = Path.Combine(_dir, session.Slot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            Assert.That(() => editor.Confirm(), Throws.Exception);
+            Assert.That(editor.Closed, Is.False, "the editor stays usable after a failed save");
+            Directory.Delete(blocker);
+            Assert.That(editor.Confirm().Ok, Is.True, "Done works once the disk takes writes again");
+            Assert.That(editor.Closed, Is.True);
+        }
+
+        [Test]
         public void TheEditorOpensAtTheMapAndShowsTheDeck()
         {
             var session = New();

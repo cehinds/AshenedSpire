@@ -53,7 +53,8 @@
         "Attribute": "c2rest-attr",
         "AttributeSelected": "c2rest-attr--selected",
         "AttributeLocked": "c2rest-attr--locked",
-        "AttributeName": "c2rest-attr-name"
+        "AttributeName": "c2rest-attr-name",
+        "ItemSelect": "c2rest-item-select"
       }
     },
     {
@@ -116,7 +117,25 @@
         "RestTravelerAspect": "restTravelerAspect",
         "RestTravelerBottom": "restTravelerBottom",
         "ShopPortraitW": "shopPortraitW",
-        "ShopPortraitH": "shopPortraitH"
+        "ShopPortraitH": "shopPortraitH",
+        "BoardScale": "boardScale",
+        "BoardScaleNarrow": "boardScaleNarrow",
+        "BoardGridLinePx": "boardGridLinePx",
+        "BoardFloorShadowH": "boardFloorShadowH",
+        "BoardFloorShadowDrop": "boardFloorShadowDrop",
+        "BoardShadowCore": "boardShadowCore",
+        "EnemyGlowOpacity": "enemyGlowOpacity",
+        "EnemyVeilGain": "enemyVeilGain",
+        "InspectorArtAspect": "inspectorArtAspect",
+        "InspectorSpriteW": "inspectorSpriteW",
+        "InspectorSpriteH": "inspectorSpriteH",
+        "BoardShadowMid": "boardShadowMid",
+        "BoardShadowMidStop": "boardShadowMidStop",
+        "BoardShadowEdge": "boardShadowEdge",
+        "BoardShadowTexW": "boardShadowTexW",
+        "BoardShadowTexH": "boardShadowTexH",
+        "BoardShadowReach": "boardShadowReach",
+        "BoardShadowDefaultShare": "boardShadowDefaultShare"
       }
     },
     {

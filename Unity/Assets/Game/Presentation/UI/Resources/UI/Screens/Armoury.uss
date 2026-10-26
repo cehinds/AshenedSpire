@@ -486,3 +486,852 @@
 .layout-narrow .deck-editor-pane--inspect {
     width: var(--size-full-width);
 }
+
+/* ---- equipment changes: position actions, the notice, the Inventory (web equipment.js armament-position-actions, inventoryBlock; D-1160) ---- */
+
+.armoury-notice {
+    margin: var(--space-xs) 0 var(--space-sm) 0;
+    color: var(--color-gold-soft);
+    white-space: normal;
+}
+
+.armoury-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-xs);
+}
+
+.armoury-actions .unity-button {
+    margin: 0 var(--space-xs) var(--space-xxs) 0;
+}
+
+.armoury-action--off.unity-button {
+    opacity: var(--opacity-muted);
+}
+
+.armoury-selecting {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+}
+
+.armoury-inv-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-inv-row--open {
+    border-color: var(--color-gold);
+}
+
+.armoury-inv-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.armoury-inv-dests {
+    flex-direction: column;
+    margin-top: var(--space-xs);
+}
+
+.armoury-inv-dest.unity-button {
+    margin: 0 0 var(--space-xxs) 0;
+    -unity-text-align: middle-left;
+}
+
+.armoury-inv-dest--shut.unity-button {
+    opacity: var(--opacity-muted);
+}
+
+/* ---- the Character pane's information cards: Combat Power, Relics, Equipment cards ---- */
+
+.armoury-fold {
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-fold-head.unity-button {
+    margin: 0;
+    padding: 0;
+    min-height: 0;
+    font-size: var(--font-heading);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+    -unity-text-align: middle-left;
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-width: 0;
+}
+
+.armoury-fold-summary {
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.armoury-fold-body {
+    margin-top: var(--space-xs);
+}
+
+.armoury-power {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.armoury-power-label {
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.armoury-power-value {
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+/* ---- the receipts (web equipmentReceipts.js: StatRows with a name, a hint and a calculation; Kit lines for sources; StatPairs; Deltas) ---- */
+
+.armoury-receipt-section {
+    margin-top: var(--space-md);
+}
+
+.armoury-receipt-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line-soft);
+}
+
+.armoury-receipt-head {
+    flex-direction: column;
+    flex-shrink: 1;
+    flex-grow: 1;
+}
+
+.armoury-receipt-name {
+    flex-direction: row;
+    align-items: center;
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.armoury-receipt-pill {
+    margin-left: var(--space-xs);
+    padding: 0 var(--space-xs);
+    font-size: var(--font-label);
+    color: var(--color-muted);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-pill);
+}
+
+.armoury-receipt-hint {
+    font-size: var(--font-label);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.armoury-receipt-values {
+    flex-direction: row;
+    align-items: baseline;
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+}
+
+.armoury-receipt-formula {
+    margin-right: var(--space-xs);
+    font-size: var(--font-label);
+    letter-spacing: var(--size-track-label);
+    color: var(--color-muted);
+}
+
+.armoury-receipt-value {
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.armoury-receipt-sources {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-xs);
+}
+
+.armoury-receipt-source {
+    flex-direction: row;
+    margin: 0 var(--space-md) var(--space-xxs) 0;
+    color: var(--color-muted);
+}
+
+.armoury-receipt-source-value {
+    margin-left: var(--space-xs);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.armoury-receipt-pair {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: var(--space-xs);
+}
+
+.armoury-receipt-pair-key {
+    color: var(--color-muted);
+}
+
+.armoury-receipt-pair-value {
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.armoury-receipt-note {
+    margin-top: var(--space-xs);
+    font-size: var(--font-label);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.armoury-receipt-met {
+    color: var(--color-green);
+}
+
+.armoury-receipt-unmet {
+    color: var(--color-danger-line);
+}
+
+.armoury-receipt-delta {
+    color: var(--color-parchment);
+}
+
+.armoury-receipt-delta--up {
+    color: var(--color-green);
+}
+
+.armoury-receipt-delta--down {
+    color: var(--color-danger-line);
+}
+
+/* ---- the Progression door (web characterSheet.js: the cs-ladder rows, the progression cards) ---- */
+
+.armoury-progression-button {
+    margin-top: var(--space-xs);
+    align-self: flex-start;
+}
+
+.armoury-progression-card {
+    margin-top: var(--space-md);
+}
+
+.armoury-progression-points {
+    margin-top: var(--space-xs);
+    color: var(--color-muted);
+}
+
+.armoury-ladder-row {
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: var(--space-xs);
+    padding-bottom: var(--space-xs);
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line-soft);
+}
+
+.armoury-ladder-row--current {
+    border-left-width: var(--border-control);
+    border-left-color: var(--color-gold);
+    padding-left: var(--space-xs);
+}
+
+.armoury-ladder-row--next {
+    border-left-width: var(--border-hairline);
+    border-left-color: var(--color-line);
+    padding-left: var(--space-xs);
+}
+
+.armoury-ladder-level {
+    min-width: var(--size-ladder-level);
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.armoury-ladder-xp {
+    flex-direction: column;
+    min-width: var(--size-ladder-xp);
+    margin-right: var(--space-md);
+}
+
+.armoury-ladder-grants {
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-shrink: 1;
+    flex-grow: 1;
+}
+
+.armoury-ladder-grant {
+    margin: 0 var(--space-xs) var(--space-xxs) 0;
+    padding: 0 var(--space-xs);
+    color: var(--color-parchment);
+    border-width: var(--border-hairline);
+    border-color: var(--color-gold);
+    border-radius: var(--radius-pill);
+}
+
+.armoury-ladder-grant--routine {
+    color: var(--color-muted);
+    border-color: var(--color-line);
+}
+
+.armoury-ladder-here {
+    margin-left: var(--space-md);
+    color: var(--color-gold);
+}
+
+/* ---- P-3a: the equipment list and grid, the inventory's faces and picker (web equipment.js, styles/kit.css armoury-*; docs/qa/web-screens/map-equipment-1920x1080.jpg) ---- */
+
+.armoury-equip-card {
+    padding: var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-equip-head {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+}
+
+.armoury-count {
+    margin-left: auto;
+    margin-right: var(--space-sm);
+    padding: var(--space-xxs) var(--space-sm);
+    color: var(--color-muted);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-view-toggle.unity-button {
+    margin: 0;
+}
+
+.armoury-list-workspace {
+    flex-direction: row;
+}
+
+.armoury-pos-list {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.armoury-pos {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+    padding: var(--space-sm);
+    background-color: var(--color-panel-raise);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-pos--locked {
+    opacity: var(--opacity-muted);
+}
+
+.armoury-pos--active {
+    border-color: var(--color-gold-soft);
+}
+
+.armoury-pos--selected {
+    border-color: var(--color-gold);
+}
+
+.armoury-pos-thumb {
+    flex-shrink: 0;
+    width: var(--size-armoury-thumb-w);
+    margin-right: var(--space-md);
+}
+
+.armoury-pos-body {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.armoury-pos-heading {
+    flex-direction: row;
+    align-items: center;
+}
+
+.armoury-pos-heading .armoury-tag {
+    margin-left: auto;
+}
+
+.armoury-list-inspect {
+    flex-shrink: 0;
+    width: var(--size-armoury-list-inspect-w);
+    margin-left: var(--size-cmodal-gap);
+    padding-left: var(--space-md);
+    border-left-width: var(--border-hairline);
+    border-left-color: var(--color-line);
+}
+
+.armoury-inspection {
+    align-items: stretch;
+    margin-top: var(--space-sm);
+}
+
+.armoury-chip-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-sm);
+}
+
+.armoury-chip-tag {
+    margin: 0 var(--space-xs) var(--space-xs) 0;
+    padding: var(--space-xxs) var(--space-sm);
+    color: var(--color-gold-soft);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-fact-row {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: var(--space-xxs);
+}
+
+/* ---- the grid view ---- */
+
+.armoury-grid-workspace {
+    flex-direction: row;
+}
+
+.armoury-grid-collection {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.armoury-grid-group {
+    margin-bottom: var(--space-md);
+}
+
+.armoury-grid-tiles {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-xs);
+}
+
+.armoury-tile {
+    align-items: center;
+    width: var(--size-armoury-tile-w);
+    margin: 0 var(--space-sm) var(--space-sm) 0;
+    padding: var(--space-sm);
+    background-color: var(--color-panel-raise);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-tile--selected {
+    border-color: var(--color-gold);
+}
+
+.armoury-tile--locked {
+    opacity: var(--opacity-muted);
+}
+
+.armoury-tile-art {
+    width: var(--size-armoury-tile-art);
+    height: var(--size-armoury-tile-art);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.armoury-grid-detail {
+    flex-shrink: 0;
+    width: var(--size-armoury-detail-w);
+    margin-left: var(--size-cmodal-gap);
+}
+
+/* ---- the inventory: faces beside the chosen item's detail ---- */
+
+.armoury-inv-split {
+    flex-direction: row;
+}
+
+.armoury-inv-collection {
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    flex-shrink: 1;
+    align-content: flex-start;
+}
+
+.armoury-inv-detail {
+    flex-shrink: 0;
+    width: var(--size-armoury-detail-w);
+    margin-left: var(--size-cmodal-gap);
+}
+
+.armoury-face {
+    width: var(--size-armoury-face-w);
+    margin: 0 var(--space-md) var(--space-md) 0;
+    padding: var(--space-sm);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-face--on {
+    border-color: var(--color-gold);
+}
+
+.armoury-face--poker {
+    align-items: stretch;
+}
+
+.armoury-face-art {
+    align-self: center;
+    width: var(--size-armoury-tile-art);
+    height: var(--size-armoury-tile-art);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.armoury-face-art--icon {
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.armoury-face-trail {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: var(--space-xs);
+}
+
+.armoury-face-trail .armoury-tag {
+    margin: 0 var(--space-xxs) var(--space-xxs) 0;
+}
+
+.armoury-tag--on {
+    color: var(--color-gold);
+    border-color: var(--color-gold);
+}
+
+.armoury-compare-box {
+    margin-top: var(--space-md);
+    padding: var(--space-sm);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-plain-detail {
+    flex-direction: row;
+}
+
+.armoury-detail-art {
+    flex-shrink: 0;
+    width: var(--size-armoury-class-art);
+    height: var(--size-armoury-class-art);
+    margin-right: var(--space-md);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+/* ---- the picker table: Item, Status, Actions ---- */
+
+.armoury-picker {
+    margin-top: var(--space-sm);
+}
+
+.armoury-picker-head {
+    flex-direction: row;
+    margin-bottom: var(--space-xs);
+}
+
+.armoury-picker-sort.unity-button {
+    margin: 0 var(--space-md) 0 0;
+    min-height: 0;
+    padding: var(--space-xxs) var(--space-sm);
+    color: var(--color-gold-soft);
+    background-color: var(--color-transparent);
+    border-width: 0;
+}
+
+.armoury-picker-row {
+    margin-bottom: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-picker-row--open {
+    border-color: var(--color-gold);
+}
+
+.armoury-picker-row--shut {
+    opacity: var(--opacity-muted);
+}
+
+.armoury-picker-line {
+    flex-direction: row;
+    align-items: center;
+}
+
+.armoury-picker-thumb {
+    flex-shrink: 0;
+    width: var(--size-armoury-picker-thumb);
+    height: var(--size-armoury-picker-thumb);
+    margin-right: var(--space-md);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.armoury-picker-line .armoury-tag {
+    margin: 0 var(--space-md);
+}
+
+.armoury-picker-reveal {
+    margin-top: var(--space-sm);
+    padding-top: var(--space-sm);
+    border-top-width: var(--border-hairline);
+    border-top-color: var(--color-line-soft);
+}
+
+/* ---- narrow: the list's inspection and the details stack under the lists ---- */
+
+.layout-narrow .armoury-list-workspace,
+.layout-narrow .armoury-grid-workspace,
+.layout-narrow .armoury-inv-split {
+    flex-direction: column;
+}
+
+.layout-narrow .armoury-list-inspect,
+.layout-narrow .armoury-grid-detail,
+.layout-narrow .armoury-inv-detail {
+    width: var(--size-full-width);
+    margin: var(--space-md) 0 0 0;
+}
+
+.layout-narrow .armoury-pos-thumb {
+    width: var(--size-armoury-thumb-narrow-w);
+}
+
+/* ---- P-3a: the Character Sheet and the allocation dialog (web styles/kit.css .progression-*, .cc-attribute-card, .se-*; characterSheet.js, progressionCards.js, statAllocationCard.js) ---- */
+
+.armoury-prog-banner {
+    flex-direction: row;
+    align-items: center;
+    margin-top: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-prog-toggle {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.armoury-prog-title {
+    font-size: var(--font-heading);
+    color: var(--color-parchment);
+}
+
+.armoury-prog-summary {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-xs);
+}
+
+.armoury-prog-summary-key {
+    margin-right: var(--space-xs);
+    color: var(--color-parchment);
+}
+
+.armoury-prog-summary-value {
+    margin-right: var(--space-md);
+    color: var(--color-gold);
+}
+
+.armoury-prog-points {
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+    padding: var(--space-sm) var(--space-md);
+    color: var(--color-muted);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-prog-points--available {
+    color: var(--color-points-text);
+    background-color: var(--color-points-fill);
+    border-color: var(--color-points-line);
+}
+
+.armoury-prog-points--available:hover {
+    background-color: var(--color-points-fill-hover);
+}
+
+.armoury-prog-detail {
+    margin-top: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-prog-sheet {
+    margin-top: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-prog-toggle:hover,
+.armoury-prog-sheet:hover {
+    border-color: var(--color-gold);
+}
+
+.armoury-stat-card {
+    margin-top: var(--space-xs);
+}
+
+.armoury-stat-face {
+    flex-direction: row;
+    align-items: center;
+    padding: var(--space-sm) var(--space-md);
+    background-color: var(--color-panel-raise);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-stat-face--open {
+    border-color: var(--color-gold);
+}
+
+.armoury-stat-name {
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.armoury-stat-hint {
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.armoury-stat-value {
+    margin-left: var(--space-md);
+    color: var(--color-gold);
+}
+
+.armoury-stat-trail {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+}
+
+.armoury-stat-reveal {
+    margin-top: var(--space-xxs);
+    padding: var(--space-sm) var(--space-md);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-stat-reveal-name {
+    color: var(--color-gold);
+    -unity-font-style: bold;
+}
+
+.armoury-stat-reveal-line {
+    margin-top: var(--space-xxs);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.armoury-stat-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-sm);
+}
+
+.armoury-stat-chip {
+    flex-direction: row;
+    margin: 0 var(--space-sm) var(--space-sm) 0;
+    padding: var(--space-xs) var(--space-md);
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-stat-chip-key {
+    margin-right: var(--space-sm);
+    color: var(--color-muted);
+}
+
+.armoury-stat-chip-value {
+    color: var(--color-gold);
+}
+
+.armoury-alloc-pool {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+}
+
+.armoury-dialog-note {
+    margin-bottom: var(--space-sm);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.armoury-stepper {
+    flex-direction: row;
+    align-items: center;
+}
+
+.armoury-stepper-button {
+    width: var(--size-armoury-step);
+    height: var(--size-armoury-step);
+    -unity-text-align: middle-center;
+    color: var(--color-gold);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.armoury-stepper-button--off {
+    opacity: var(--opacity-muted);
+}
+
+.armoury-stepper-value {
+    min-width: var(--size-armoury-step);
+    -unity-text-align: middle-center;
+    color: var(--color-parchment);
+}

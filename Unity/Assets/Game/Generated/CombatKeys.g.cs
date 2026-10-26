@@ -29,6 +29,10 @@ namespace Ashen.Generated
         public const string Attempted = "attempted";
         public const string Attribute = "attribute";
         public const string AttributeBaseline = "attributeBaseline";
+        public const string DexterityCentre = "dexterityCentre";
+        public const string DexterityCentreByMode = "dexterityCentreByMode";
+        public const string DexterityPerModifier = "dexterityPerModifier";
+        public const string ItemWeightScale = "itemWeightScale";
         public const string AttributeDivisor = "attributeDivisor";
         public const string Attributes = "attributes";
         public const string AuthoredTags = "authoredTags";

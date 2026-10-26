@@ -2,9 +2,30 @@
 
 What the owner's editor capture should produce, so each Unity screen can be set beside its web shot in `docs/qa/web-screens/`. Two sizes only: **1920x1080** and **390x844** (the two sizes of the web shots; `manifest.json` lists them). Name each file like the web shot with the size suffix, e.g. `rest-1920x1080.png`, and put them in `docs/screens/` (same folder `Cli.CaptureScreens` writes to, D-060). The PNGs are not committed unless the owner says so.
 
-## Why this is a list and not fixture files
+## How the fixtures drive a Core 2 run
 
-`Unity/Assets/Tests/Fixtures/screens/*.json` is the fixture format (`ScreenCaptureTests`, one file per screen state, sizes from `ui/layout.json#verification`: 1280x720, 1920x1080, 844x390, 390x844). Its fixtures that drove the 405 screens (`combat`, `rewards`, `rest`, `merchant`, ...) through `RunSession` and `ClimbPilot` were deleted with the 405 run (WP-21, D-1300); the remaining ones cover the title, slots, creation, confirm doors, boot, content error, profile recovery and the kit gallery. The Core 2 screens (`core2Combat`, `core2Rewards`, `core2Rest`, `core2Shop`, `core2Event`, `core2RunEnd`, the Core 2 `actMap`) are reached through `Core2RunSession`, which `ScreenCaptureTests.Show` does not drive, so a fixture file for them would be a file nothing reads. Until that driver exists (a PlayMode edit; the folder is the owner's), take these by hand in the editor (Game view set to each size), or extend `Show` with a `core2` case that builds a `Core2RunSession` and edits the run through `EditRunForReview`. A fixture file added to `screens/` that `Show` cannot handle fails the whole capture run (the default branch calls `nav.Go` with the fixture's screen id), so do not add one before the driver.
+`Unity/Assets/Tests/Fixtures/screens/c2_*.json` are the Core 2 fixtures (D-1381). A fixture with a `"core2"` object is handled by `Core2Capture` (`Unity/Assets/Tests/PlayMode/Core2Capture.cs`, called from `ScreenCaptureTests.Show` and `AfterShow`): it builds a Core 2 run in slot 1 (`seed`, `class`; default 20261025, Reaver), walks a bot to the state named by `until` (`map`, `combat`, `rewards`, `rest`, `shop`, `event`, `runEnd`) clearing the way to the nearest node of the kind (`prefer`, `walk` more fights first), tries the next seeds until the run stands there (a merchant is rare; `eventId` finds a named event), edits it for review (`hpRatio`, `cinders`), and shows it with `RunFlow.Show`, as the game does. The map fixtures can also select a node, open the legend, bring the Potions minis out (`potionsTray`) or open a door over the map (`modal`: `potions`, `pause`, `armoury` with `tab`). Every fixture skips the two sizes the web shots do not have (`skipSizes`). The output is `docs/screens/<fixture>_<w>x<h>.png`.
+
+| Fixture | Web shot it sets beside |
+|---|---|
+| `c2_map_start` | `map-start`, `flow-08-first-map` |
+| `c2_map_selected` | `flow-09-map-node-selected`, `map-trail-selected` |
+| `c2_map_trail`, `c2_map_midclimb` | `map-trail`, `map-midclimb` |
+| `c2_map_legend` | `map-legend` |
+| `c2_map_potions`, `c2_map_potions_tray` | `map-potions` (and the hover minis, which the web only shows under a pointer) |
+| `c2_map_pause` | `map-pause-menu` |
+| `c2_map_deck`, `c2_map_equipment`, `c2_map_stats` | `map-deck`, `map-equipment`, `map-stats` |
+| `c2_combat`, `c2_combat_enemy_turn` | `flow-10-first-combat`, `combat`, `combat-next-player-turn` |
+| `c2_reward_full` | `reward-full` |
+| `c2_rest`, `c2_rest_wounded` | `rest`, `rest-wounded` |
+| `c2_shop` | `shop` |
+| `c2_event_pilgrim`, `c2_event_grave` | `event-pilgrim-choices`, `event-dialogue` |
+| `c2_runend_defeat` | `run-end-defeat` |
+| `c2_settings` | `settings-general` |
+
+States the fixtures cannot put on screen (no review hook on the screen, or a pointer or a key held) are still taken by hand from the table below: the combat screen's picked card, hover, inspect, piles, log, quick menu, reactions and hold states; the Smith door and its selected item; the shop's shelves, Inspect and Buy question; the event result and the Grave's replies; run-end victory; the Settings tabs other than General; the creation, slots and title states (the 405 fixtures `creation`, `slots_*`, `title_*` already cover the screens' first states).
+
+The old fixtures that drove the 405 screens through `RunSession` and `ClimbPilot` were deleted with the 405 run (WP-21, D-1700).
 
 The verification sizes 1280x720 and 844x390 are not in the web shots; skip them for this comparison.
 

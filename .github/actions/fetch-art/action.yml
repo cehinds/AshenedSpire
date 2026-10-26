@@ -1,0 +1,53 @@
+name: fetch-art
+description: >
+  Restores the gitignored Unity/Assets/Art/Imported images (D-1300): checks out the pinned web repo (sparse),
+  fetches the pinned art release with its tools/fetch-art.mjs (cached by tag), converts it with Tools/scan-assets.mjs
+  and fails unless every imported id is on disk. Run after actions/checkout and before the Unity build.
+inputs:
+  web-token:
+    description: Token that can read the web repo (the WEB_REPO_TOKEN secret; needed only while cehinds/ashenspire is private).
+    required: true
+  art-token:
+    description: Optional token for the art release downloads (the art repo is public; a token only raises the rate limit).
+    required: false
+    default: ''
+runs:
+  using: composite
+  steps:
+    - name: read the art pin
+      id: pin
+      shell: bash
+      run: |
+        echo "web-repo=$(node -p "require('./Tools/ci/art-pin.json').webRepo")" >> "$GITHUB_OUTPUT"
+        echo "web-commit=$(node -p "require('./Tools/ci/art-pin.json').webCommit")" >> "$GITHUB_OUTPUT"
+        echo "tag=$(node -p "require('./Tools/ci/art-pin.json').artTag")" >> "$GITHUB_OUTPUT"
+    - name: check out the pinned web repo (sparse)
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ steps.pin.outputs.web-repo }}
+        ref: ${{ steps.pin.outputs.web-commit }}
+        token: ${{ inputs.web-token }}
+        path: .art-web
+        sparse-checkout: |
+          tools
+          assets-display/card-cutouts
+          assets-display/alternative
+          assets-mobile/enemy-poses/expansion
+          assets-mobile/animations/player-counter-sweep
+          assets-mobile/animations/greatsword-outfits/reaver
+          assets-mobile/animations/twin-sword-outfits/rogue
+          assets-mobile/animations/unarmed/herald
+          assets-mobile/animations/unarmed-magic/starseer
+        sparse-checkout-cone-mode: true
+    - uses: actions/cache@v4
+      with:
+        path: .art-web/.art-cache
+        key: art-${{ steps.pin.outputs.tag }}-${{ hashFiles('.art-web/art-release.json') }}
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: fetch, import and verify the art
+      shell: bash
+      env:
+        ART_REPO_TOKEN: ${{ inputs.art-token }}
+      run: bash Tools/ci/fetch-art.sh .art-web

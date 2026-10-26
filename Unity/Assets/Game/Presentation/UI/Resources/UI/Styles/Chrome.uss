@@ -24,6 +24,19 @@
     background-image: url("../Frames/tooltip-shadow.png");
 }
 
+/* ---- leather: the soot-leather material under every modal fill (player-polish.css:30-31: `cover` under a 91 % veil of the page colour, baked into the sprite by
+        Tools/ui-frames.mjs). It lies inside the frame's border art, over the panel's own fill. ---- */
+
+.leather-plate {
+    position: absolute;
+    left: var(--size-frame-inset);
+    right: var(--size-frame-inset);
+    top: var(--size-frame-inset);
+    bottom: var(--size-frame-inset);
+    background-image: url("../Frames/modal-leather.png");
+    -unity-background-scale-mode: scale-and-crop;
+}
+
 /* ---- frames: brass hairline with corner brackets. The element keeps a transparent 1 px border for layout and
         highlights (hover/focus recolour it); the sprite is the visible edge. ---- */
 

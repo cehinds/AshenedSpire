@@ -124,7 +124,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             _modal.Reset();
             var draw = _pile == OverlayValues.PileDraw;
-            var cards = Core2CombatView.Pile(_flow.Session, _pile);
+            var cards = Core2CombatView.Pile(_flow.Session, _pile, _ui.Data.CardText);
             var view = _flow.View;
             VisualElement preferred = null;
             if (draw)
@@ -220,11 +220,14 @@ namespace Ashen.Presentation.UI.Screens
         }
 
         /// <summary>The card as a face in a pile or the inspector: never dimmed, never refused (it is not being played).</summary>
-        private CardViewData Plain(Core2CardView card)
+        private CardViewData Plain(Core2CardView card, bool inspect = false)
         {
             var data = _cardData(card);
             data.Affordable = true;
             data.RefusalText = null;
+            // A pile cell is a plain face (the profile's line limit); the inspector shows every line the model has (the web's level 'inspect').
+            if (card.Words != null) data.RulesHtml = inspect ? card.Words.Inspect : card.Words.Face;
+            data.RulesOverflow = !inspect && data.RulesOverflow;
             return data;
         }
 
@@ -242,7 +245,7 @@ namespace Ashen.Presentation.UI.Screens
             layout.AddToClassList(UiClasses.InspectLayout);
             var face = new KitCard { focusable = false };
             face.AddToClassList(UiClasses.InspectCard);
-            face.Bind(Plain(card));
+            face.Bind(Plain(card, true));
             layout.Add(face);
             var text = new VisualElement();
             text.AddToClassList(UiClasses.InspectText);
@@ -261,7 +264,22 @@ namespace Ashen.Presentation.UI.Screens
             host.Add(Text(card.Name, UiClasses.DetailTitle));
             host.Add(Text(Core2CombatText.TypeLine(_strings, card), UiClasses.DetailMeta));
             host.Add(Text(CostLine(card), UiClasses.DetailMeta));
-            if (!string.IsNullOrEmpty(card.Text)) host.Add(Text(card.Text, UiClasses.DetailText));
+            foreach (var row in Core2CardHints.Sigils(_strings, _ui.Data.CardFace, card))
+            {
+                var line = new VisualElement { pickingMode = PickingMode.Ignore };
+                line.AddToClassList(UiClasses.DetailSigilRow);
+                var mark = new VisualElement { pickingMode = PickingMode.Ignore };
+                mark.AddToClassList(UiClasses.DetailSigil);
+                var sprite = KitCard.Glyph(row.School ? UiFormats.CardSchoolGlyph : UiFormats.CardSigilGlyph, row.Id);
+                mark.style.backgroundImage = sprite != null ? new StyleBackground(sprite) : new StyleBackground(StyleKeyword.None);
+                line.Add(mark);
+                line.Add(Text(_strings.Format(StringKeys.CardSigilRow, new StringArgs().Add(UiPlaceholders.Label, row.Label).Add(UiPlaceholders.Help, row.Help)), UiClasses.DetailMeta));
+                host.Add(line);
+            }
+            foreach (var hint in Core2CardHints.Hints(_strings, _ui.Data.CardFace, card))
+                host.Add(Text(hint.Lead == null ? hint.Text : _strings.Format(StringKeys.CardHintRow, new StringArgs().Add(UiPlaceholders.Lead, hint.Lead).Add(UiPlaceholders.Text, hint.Text)), UiClasses.DetailHint));
+            if (card.Words?.Reading != null) host.Add(Text(CardFaceMarkup.ToRich(_ui.Data.CardText, card.Words.Reading, new CardMarkupStyle { ShowExtra = true }), UiClasses.DetailText));
+            else if (!string.IsNullOrEmpty(card.Text)) host.Add(Text(card.Text, UiClasses.DetailText));
             foreach (var tag in card.Tags)
             {
                 var id = tag.StartsWith(OverlayValues.TraitPrefix, StringComparison.Ordinal) ? tag.Substring(OverlayValues.TraitPrefix.Length) : tag;
@@ -294,10 +312,17 @@ namespace Ashen.Presentation.UI.Screens
         {
             if (IsOpen || d == null) return;
             _modal.Reset();
-            _modal.size = UiValues.ModalSizeMd;
+            _modal.size = UiValues.ModalSizeLg;
             Show(Kind.Detail, opener, true);
             _modal.SetHead(_strings.Get(StringKeys.CombatModalTargetEyebrow), d.Name, _strings.Format(StringKeys.CombatModalTargetHp, new StringArgs().Add(UiPlaceholders.Value, d.Hp).Add(UiPlaceholders.Max, d.MaxHp)));
-            var body = _modal.Body;
+            // The web's door: the preview (sprite, name, pool meters) left, the details right (combatantInspectorLayout).
+            var layout = new VisualElement { pickingMode = PickingMode.Ignore };
+            layout.AddToClassList(UiClasses.InspectorLayout);
+            layout.Add(InspectorPreview(d));
+            var body = new VisualElement { pickingMode = PickingMode.Ignore };
+            body.AddToClassList(UiClasses.InspectorDetails);
+            layout.Add(body);
+            _modal.Body.Add(layout);
             if (!string.IsNullOrEmpty(d.IntentText)) body.Add(Text(_strings.Format(StringKeys.CombatModalTargetIntent, new StringArgs().Add(UiPlaceholders.Label, d.IntentText)), UiClasses.DetailText));
             else body.Add(Text(_strings.Get(StringKeys.CombatModalTargetNoIntent), UiClasses.DetailMeta));
             if (!string.IsNullOrEmpty(d.StanceText)) body.Add(Text(_strings.Format(StringKeys.CombatModalTargetStance, new StringArgs().Add(UiPlaceholders.Name, d.StanceText)), UiClasses.DetailText));
@@ -309,6 +334,85 @@ namespace Ashen.Presentation.UI.Screens
             Section(body, StringKeys.CombatModalTargetStatuses, d.Statuses);
             _modal.Foot.Add(CloseButton(StringKeys.CombatModalInspectClose));
             FocusFirst(null);
+        }
+
+        /// <summary>
+        /// combatantInspectorPreview: the figure of the combatant in a box of 3 : 4 (the player's portrait, an enemy's stage in the frame its state holds), its name, and the pool meters the combatant has (the Hit
+        /// points always, Mana, Poise and Ward when the pool has a size).
+        /// </summary>
+        private VisualElement InspectorPreview(FighterData d)
+        {
+            var preview = new VisualElement { pickingMode = PickingMode.Ignore };
+            preview.AddToClassList(UiClasses.InspectorPreview);
+            var art = new VisualElement { pickingMode = PickingMode.Ignore };
+            art.AddToClassList(UiClasses.InspectorArt);
+            var aspect = (float)_ui.Data.Tokens.Ratio(RatioKeys.InspectorArtAspect);
+            art.RegisterCallback<GeometryChangedEvent>(_ =>
+            {
+                var w = art.resolvedStyle.width;
+                if (!float.IsNaN(w) && w > 0) art.style.height = w * aspect;
+            });
+            var width = (float)_ui.Data.Tokens.Ratio(RatioKeys.InspectorSpriteW);
+            var height = (float)_ui.Data.Tokens.Ratio(RatioKeys.InspectorSpriteH);
+            if (d.Enemy != null && TryEnemyStage(d.Enemy, height, out var stage)) art.Add(stage);
+            else
+            {
+                var figure = new VisualElement { pickingMode = PickingMode.Ignore };
+                figure.AddToClassList(UiClasses.InspectorFigure);
+                figure.style.width = width;
+                figure.style.height = height;
+                var texture = d.Portrait ?? d.RestArt ?? d.Art;
+                if (texture != null) figure.style.backgroundImage = new StyleBackground(texture);
+                art.Add(figure);
+            }
+            preview.Add(art);
+            preview.Add(Text(d.Name, UiClasses.InspectorName));
+            var meters = new VisualElement { pickingMode = PickingMode.Ignore };
+            meters.AddToClassList(UiClasses.InspectorMeters);
+            AddMeter(meters, InspectorMeters.Hp, InspectorMeters.HpName, d.Hp, d.MaxHp);
+            if (d.Player && d.MaxMana > 0) AddMeter(meters, InspectorMeters.Mp, InspectorMeters.MpName, d.Mana, d.MaxMana);
+            if (d.HasPoise && d.PoiseMax > 0) AddMeter(meters, InspectorMeters.Poise, InspectorMeters.PoiseName, d.Poise, d.PoiseMax);
+            if (d.HasWard && d.WardMax > 0) AddMeter(meters, InspectorMeters.Ward, InspectorMeters.WardName, d.Ward, d.WardMax);
+            preview.Add(meters);
+            return preview;
+        }
+
+        private static void AddMeter(VisualElement host, string kind, string glyphKey, int value, int max)
+        {
+            var meter = new Ashen.Presentation.UI.Kit.Meter { kind = kind, glyphKey = glyphKey, pickingMode = PickingMode.Ignore };
+            meter.Set(value, max);
+            host.Add(meter);
+        }
+
+        /// <summary>
+        /// An enemy's figure as its stage draws it at rest in the state it is in (enemyExpansionSprite over enemySpriteState): a stage as tall as the stage's own height and as wide as its idle figure, the
+        /// frame placed in it as in combat. False when the enemy has no frame imported (the legacy art shows).
+        /// </summary>
+        private static bool TryEnemyStage(EnemyFeed feed, float boxHeight, out VisualElement stage)
+        {
+            stage = null;
+            var figure = feed.Data?.Figure(feed.EnemyId);
+            if (figure == null) return false;
+            var state = new EnemyStageState(feed.Data, feed.EnemyId);
+            state.SetState(feed.Rest, feed.Themes, feed.Category);
+            var draw = state.Draw(feed.ArtOf, art => feed.Texture(art) != null);
+            var texture = draw == null ? null : feed.Texture(draw.Art);
+            if (texture == null) return false;
+            var scale = boxHeight / (float)feed.Data.Height;
+            var rootWidth = (float)(figure.IdleWidth * feed.Data.Height / figure.IdleHeight) * scale;
+            stage = new VisualElement { pickingMode = PickingMode.Ignore };
+            stage.style.width = rootWidth;
+            stage.style.height = boxHeight;
+            stage.style.flexShrink = 0;
+            var frame = new VisualElement { pickingMode = PickingMode.Ignore };
+            frame.AddToClassList(UiClasses.InspectorStageFrame);
+            frame.style.backgroundImage = new StyleBackground(texture);
+            frame.style.left = rootWidth * (float)UiMath.Half + (float)draw.Rect.Left * scale;
+            frame.style.top = (float)draw.Rect.Top * scale;
+            frame.style.width = (float)draw.Rect.Width * scale;
+            frame.style.height = (float)draw.Rect.Height * scale;
+            stage.Add(frame);
+            return true;
         }
 
         private string Meter(string key, int value, int max) =>
@@ -337,14 +441,14 @@ namespace Ashen.Presentation.UI.Screens
             var sawConfirm = false;
             foreach (var state in MenuRules.Evaluate(_ui.Data.Menus.Pause, context).Where(s => s.Visible))
             {
-                var confirm = state.Def.Action == MenuActions.Confirm;
+                var confirm = state.Def.Action == MenuActions.Confirm || state.Def.Action == MenuActions.Save || state.Def.Action == MenuActions.SaveQuit;
                 rows.Add(new QuickRowData
                 {
                     Id = state.Def.Id,
                     Label = _strings.Get(state.Def.LabelKey),
                     Note = state.Enabled ? null : _strings.Get(StringKeys.PauseLater),
                     Enabled = state.Enabled,
-                    Danger = state.Def.Confirm == ConfirmIds.Abandon,
+                    Danger = state.Def.Confirm == ConfirmIds.Abandon || state.Def.Confirm == ConfirmIds.QuitWithoutSaving,
                     Band = confirm && !sawConfirm && rows.Count > 0,
                 });
                 sawConfirm |= confirm;

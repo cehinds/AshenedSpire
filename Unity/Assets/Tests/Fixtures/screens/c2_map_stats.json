@@ -1,0 +1,14 @@
+{
+  "comment": "map-stats: the Armoury, Stats tab.",
+  "screen": "actMap",
+  "core2": {
+    "until": "map",
+    "modal": "armoury",
+    "tab": "stats",
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

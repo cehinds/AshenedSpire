@@ -35,3 +35,5 @@ node_modules/
 Unity/Assets/InitTestScene*.unity
 Unity/Assets/InitTestScene*.unity.meta
 Tests/Domain.Tests/TestResults/
+/.art-web/
+/Unity/Assets/Game/Presentation/UI/Resources/UI/Intent/*.png

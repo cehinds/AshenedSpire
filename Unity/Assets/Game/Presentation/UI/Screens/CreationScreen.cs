@@ -485,7 +485,8 @@ namespace Ashen.Presentation.UI.Screens
                 ConfirmRequest.Open(Nav, new ConfirmRequest
                 {
                     ConfirmId = ConfirmIds.ReplaceSlot,
-                    Args = new StringArgs().Add(UiPlaceholders.Slot, _slot),
+                    // The replacement is named (web replaceSaveReview): the class it starts and the seed it will run on.
+                    Args = new StringArgs().Add(UiPlaceholders.Slot, _slot).Add(UiPlaceholders.Class, ClassName(ViewModel.Selected)).Add(UiPlaceholders.Seed, _content.Seeds.Format(seed)),
                     Target = RunFlow.SlotFacts(Ui, slot),
                     OnConfirm = () => StartRun(seed),
                 });

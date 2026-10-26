@@ -69,10 +69,14 @@ namespace Ashen.Presentation.UI.Screens
             Context.Instance.LastFocused = Root.Q(UiNames.JournalBack);
         }
 
+        /// <summary>
+        /// The Compendium, Profile and About links are Unity's own: the web's run history has only Back (history.js: one ButtonRow with Back), reaches the Compendium and the Profile from no menu at the pin
+        /// (main.js showCompendium / showProfile are wired to nothing a player can press) and About from Settings. The buttons stay in the view, hidden, with their screens (P-6 D-1647).
+        /// </summary>
         private void Open(string name, string screen)
         {
             var button = Root.Q<LocButton>(name);
-            UiDom.Show(button, Ui.Data.Screens.IsBuilt(screen));
+            UiDom.Show(button, false);
             button.clicked += () => Nav.Go(screen);
         }
 
@@ -85,7 +89,7 @@ namespace Ashen.Presentation.UI.Screens
             tail.pickingMode = PickingMode.Ignore;
             MetaDom.Label(tail, run.WhereLine, FrontClasses.JournalRowWhere);
             Pill(tail, run.ResultPill, run.Victory);
-            if (run.Custom) Pill(tail, Ui.Data.Strings.Get(StringKeys.HistoryCustom), false);
+            if (run.Custom) Pill(tail, run.Pills.Count > 0 ? run.Pills[0] : Ui.Data.Strings.Get(StringKeys.HistoryCustom), false);
             var seed = MetaDom.Label(tail, run.Seed, FrontClasses.JournalSeed);
             seed.AddToClassList(UiClasses.Upper);
             seed.SetResolved(run.Seed);
@@ -189,73 +193,6 @@ namespace Ashen.Presentation.UI.Screens
         }
     }
 
-    /// <summary>
-    /// The Profile (web src/ui/screens/profileArchive.js; docs/qa/web-screens/profile-*, D-1006): PLAYER DATA, "Profile", a rail of Profile and Saves, and the pane: whether the profile reads ("Your profile is
-    /// fine." or what to do), what it holds (runs, wins, the highest act and level, the keepers felled, the unlocks) and the save slots with what each keeps. This build keeps no set-aside copies, so the web's
-    /// archive actions (save a copy to a file, restore) are not here.
-    /// </summary>
-    public sealed class ProfileScreen : ScreenView
-    {
-        private ProfileViewState _view;
-        private Shell _shell;
-        private Workspace _workspace;
-        private string _pane = FrontValues.PaneProfile;
-
-        public ProfileViewState View => _view;
-
-        protected override void OnBind(object args)
-        {
-            _view = ProfileView.Build(ProfileStore.Load(Ui.Saves), Ui.Saves, Ui.RunContent, Ui.Data);
-            _shell = Root.Q<Shell>(UiNames.Shell);
-            _shell.SetFooter(null, StringKeys.HistoryBack);
-            _shell.Primary += () => Nav.Pop();
-            _shell.Exit += () => Nav.Pop();
-            _workspace = Root.Q<Workspace>(UiNames.Workspace);
-            _workspace.Rules = Ui.Data.Layout.CategoryNav;
-            _workspace.Picked += id => { _pane = id; Render(); };
-            Render();
-            Context.Instance.LastFocused = _shell.PrimaryButton;
-        }
-
-        private void Render()
-        {
-            var strings = Ui.Data.Strings;
-            _workspace.SetCategories(new[]
-            {
-                new CategoryItem { Id = FrontValues.PaneProfile, LabelKey = StringKeys.ProfileRailProfile, Count = _view.RunCount.ToString(System.Globalization.CultureInfo.InvariantCulture) },
-                new CategoryItem { Id = FrontValues.PaneSaves, LabelKey = StringKeys.ProfileRailSaves, Count = _view.SlotCount.ToString(System.Globalization.CultureInfo.InvariantCulture) },
-            }, _pane);
-            var host = Root.Q(UiNames.ProfilePane);
-            host.Clear();
-            var eyebrow = MetaDom.Label(host, strings.Get(_pane == FrontValues.PaneProfile ? StringKeys.ProfileYour : StringKeys.ProfileSavesTitle), FrontClasses.ProfileEyebrow);
-            eyebrow.AddToClassList(UiClasses.Upper);
-            eyebrow.SetResolved(strings.Get(_pane == FrontValues.PaneProfile ? StringKeys.ProfileYour : StringKeys.ProfileSavesTitle));
-            if (_pane == FrontValues.PaneSaves)
-            {
-                foreach (var slot in _view.Slots) host.Add(Slot(slot));
-                return;
-            }
-            MetaDom.Label(host, _view.Status, FrontClasses.ProfileStatus);
-            MetaDom.Label(host, _view.Body, FrontClasses.ProfileBody);
-            var card = MetaDom.Box(host, FrontClasses.ProfileCard);
-            foreach (var line in _view.Tally) MetaDom.Label(card, line, FrontClasses.ProfileTally);
-        }
-
-        private VisualElement Slot(ProfileSlotRow slot)
-        {
-            var row = MetaDom.Box(null, FrontClasses.ProfileSlot);
-            var portrait = MetaDom.Box(row, FrontClasses.ProfileSlotPortrait);
-            portrait.pickingMode = PickingMode.Ignore;
-            Ui.ApplyBackground(portrait, slot.Portrait);
-            var texts = MetaDom.Box(row, FrontClasses.ProfileSlotTexts);
-            texts.pickingMode = PickingMode.Ignore;
-            MetaDom.Label(texts, slot.Label, FrontClasses.ProfileSlotLabel);
-            MetaDom.Label(texts, slot.Facts, FrontClasses.ProfileSlotFacts);
-            row.EnableInClassList(UiClasses.SlotEmpty, slot.Empty);
-            return row;
-        }
-    }
-
     /// <summary>The About screen: the same text as Settings → Advanced → About (<see cref="AboutPanel"/>) in its own frame.</summary>
     public sealed class AboutScreen : ScreenView
     {
@@ -265,7 +202,7 @@ namespace Ashen.Presentation.UI.Screens
             shell.SetFooter(null, StringKeys.HistoryBack);
             shell.Primary += () => Nav.Pop();
             shell.Exit += () => Nav.Pop();
-            AboutPanel.Fill(Root.Q(UiNames.AboutBody), AboutView.Build(Ui.Data, Ui.BuildVersion));
+            AboutPanel.Fill(Root.Q(UiNames.AboutBody), AboutView.Build(Ui.Data, Ui.BuildVersion), Ui.Data.Strings);
             Context.Instance.LastFocused = shell.PrimaryButton;
         }
     }

@@ -1,5 +1,5 @@
 {
-  "contentHash": "5114088f91d88ef3dac5fe7987546271c62d76c825d56b4f84f4dfd38273f14a",
+  "contentHash": "57ca40beb81a7b911a5d080815f28cc2f61879f2f7e99ba6b60d3369651bd383",
   "contentVersion": "0.7.1",
   "counts": {
     "profile/bundle/armaments.json": 28,
@@ -56,14 +56,14 @@
   },
   "files": {
     "about.json": {
-      "bytes": 676,
+      "bytes": 1781,
       "generated": false,
-      "sha256": "5d663083f183f94bfbe6bdb4be634f791e64ad52754c505e3bb53f920cf81267"
+      "sha256": "0a8e3b8e433e076b012b6897222ef3dffcbc5c69d159401fa68abae4d10f8d6e"
     },
     "assets/registry.json": {
-      "bytes": 2337901,
+      "bytes": 3914991,
       "generated": false,
-      "sha256": "4ec4d727fdda0c7e32316521a4c06dd6dcced01ca9cac0e7aa8579471bf04175"
+      "sha256": "4bb05f8d0c04a1a0b61313bb244e7f6eaa05070dc76bba7743e21e92fe2c9465"
     },
     "audio/beds.json": {
       "bytes": 1990,
@@ -561,9 +561,9 @@
       "sha256": "e8a2d8799e70ded4d80ade5db2ad57c35a82ff3f2d9e1b8190f17fa42efd3873"
     },
     "rules/core2Combat.json": {
-      "bytes": 11561,
+      "bytes": 11702,
       "generated": false,
-      "sha256": "665c0f55ea6aaf0efbd4b81039cf331a149ba7346c34782573c68ea02e72fa0f"
+      "sha256": "86839f69bcfc83b9fff502c7c58b1d77acc63b2da02881bca814a21d62724eb2"
     },
     "rules/core2CombatRules.json": {
       "bytes": 3704,
@@ -640,6 +640,11 @@
       "generated": true,
       "sha256": "f25807ecd7fe607cd4af8d6cd58fd33434a21598549ed091e1712666578d3c55"
     },
+    "rules/frameworkMechanics.json": {
+      "bytes": 7357,
+      "generated": true,
+      "sha256": "2af9d4785a3bde5285b3f98d69d25e75180cbdcac67c6178eda9d9a3c524eace"
+    },
     "rules/handRules.json": {
       "bytes": 671,
       "generated": true,
@@ -696,14 +701,14 @@
       "sha256": "358c774eda910c96715254f9f27fcee442e582ca59b3edb085099992ce9d2e56"
     },
     "rules/runEngine.json": {
-      "bytes": 3632,
+      "bytes": 3670,
       "generated": false,
-      "sha256": "0ee3532b9f7df2ca3ef92199aff217c4eb6387cf68428e98a97d738b1f3c3568"
+      "sha256": "cb3988e06f0ba6682c5ddce3c9fa83724a9f9f41ae563e931ab3e610e8c6bce2"
     },
     "rules/runFlow.json": {
       "bytes": 2923,
       "generated": false,
-      "sha256": "84b68c08e6400008833ec231f75c6d557d26c4543b2cf0b13ae5996f39706f6a"
+      "sha256": "6a5394305a1d4e5f00d84d23454da83eaedde69ae3c7af8675b30d6889d65439"
     },
     "rules/runtime.json": {
       "bytes": 30534,
@@ -733,7 +738,7 @@
     "rules/validation.json": {
       "bytes": 384,
       "generated": false,
-      "sha256": "0fcac9ef22efa1aa4eabffbe96b7051007b866a254a6562217faae1c8546ae5b"
+      "sha256": "d0aa918d1f0ac15f243ee1744986201a94519847cdaf1b8dbe42ee044d690a4d"
     },
     "rules/versions.json": {
       "bytes": 349,
@@ -741,14 +746,14 @@
       "sha256": "22b102bc277c4b46bf4c2a4afc8de08df8d6f42aa37bbed79d3268ace9bc7c8e"
     },
     "schemas/about.schema.json": {
-      "bytes": 1249,
+      "bytes": 2015,
       "generated": false,
-      "sha256": "7e3f866eca3c79321aa3552b5cc57deda1c01a912161d7b526dcfff54a9d934b"
+      "sha256": "6679aed41f92d08bce5fb826d48a1168c31c4c5a8f481969ea6bfd9426cf624c"
     },
     "schemas/assets.registry.schema.json": {
-      "bytes": 1114,
+      "bytes": 1213,
       "generated": false,
-      "sha256": "ab958f0d9426f690268ee25d662b0c7998d177a2108e21483fe464beb451ceb4"
+      "sha256": "638fca6c6c1c81c04b79bb65003feefd67a1a8a13380da754b42cad16fa8bbf3"
     },
     "schemas/audio.beds.schema.json": {
       "bytes": 2427,
@@ -1246,9 +1251,9 @@
       "sha256": "318fd79e4a732497a6f564b7c26257e1e993125535ee89b2e8e464a344550b49"
     },
     "schemas/rules.core2Combat.schema.json": {
-      "bytes": 25027,
+      "bytes": 25409,
       "generated": false,
-      "sha256": "1c7e3a090cf8260ae7acdf6bd23403530f00959dfc1c8a36433c6ca1406a4d2e"
+      "sha256": "0aa864c8fa01deb0feb1b2ef88950c958dc92b9892b5409716a484eb3bd3a2d2"
     },
     "schemas/rules.core2CombatRules.schema.json": {
       "bytes": 17693,
@@ -1325,6 +1330,11 @@
       "generated": false,
       "sha256": "5891dbd9b5bcd67939bda0bfafabee225558ffd1a34022f94e578b9441e6e10b"
     },
+    "schemas/rules.frameworkMechanics.schema.json": {
+      "bytes": 5344,
+      "generated": false,
+      "sha256": "a166002b6377e3a0fffc68ebcd32ede53e1867d7cab93680f509039e8a7fc1cd"
+    },
     "schemas/rules.handRules.schema.json": {
       "bytes": 3796,
       "generated": false,
@@ -1381,9 +1391,9 @@
       "sha256": "3413fd0d7c5754529f514ab1cf1fe3de8a00e78d287c6ab35474d024ba616979"
     },
     "schemas/rules.runEngine.schema.json": {
-      "bytes": 15754,
+      "bytes": 15730,
       "generated": false,
-      "sha256": "f0b908a4cb2212d7c249c6430d7b9ce0cbc398ce47a2da50c4d092229a1a8f2b"
+      "sha256": "b40c5117d45b8418916501c20c00467ec9c2c4eeb2ecb1558a4ded28b4af7f35"
     },
     "schemas/rules.runFlow.schema.json": {
       "bytes": 4604,
@@ -1426,9 +1436,9 @@
       "sha256": "cb31633a816eab3c6bb1c479a3cb9c6781500b1e9747d930f2425c1d45bc93af"
     },
     "schemas/settings.defaults.schema.json": {
-      "bytes": 1291,
+      "bytes": 1564,
       "generated": false,
-      "sha256": "6a577b12310614a429856d9802c01f468832b771e16c69c67571193cc6679225"
+      "sha256": "96a824de7a5a9946fed7029a5526f0bef2cde5abdfffcbf3716df6954c54fbe3"
     },
     "schemas/settings.presets.shipped.schema.json": {
       "bytes": 375,
@@ -1475,50 +1485,115 @@
       "generated": false,
       "sha256": "3af105c94763728307b39d6e27895a06d143e181316b177c91938703b5969610"
     },
-    "schemas/ui.cardface.schema.json": {
-      "bytes": 6449,
+    "schemas/ui.battlefield.schema.json": {
+      "bytes": 16054,
       "generated": false,
-      "sha256": "7358836352b0c40d62407b340787cc5223daf634f3847b28aea12e5392be2654"
+      "sha256": "96c6333197082868fb2276235b5fc6549bf4e9f8f1753a4172e617e59a8f7602"
+    },
+    "schemas/ui.cardStage.schema.json": {
+      "bytes": 75840,
+      "generated": false,
+      "sha256": "db9112dc8df23d4805e83f7185dc54bd0560f7b35a8602e91d1f9fe3a34676a0"
+    },
+    "schemas/ui.cardText.schema.json": {
+      "bytes": 3089,
+      "generated": false,
+      "sha256": "3c3ce5c2be3784c5b6613ff496c6eabf33ff8a7cc04affc95b1e9082acaae6b9"
+    },
+    "schemas/ui.cardface.schema.json": {
+      "bytes": 10695,
+      "generated": false,
+      "sha256": "7c7f4d1a2f293e79c8f12b9b131f1b388af3586a80e13888c398a4376a722ec8"
+    },
+    "schemas/ui.changelog.schema.json": {
+      "bytes": 590,
+      "generated": false,
+      "sha256": "a8967399cec36898659d16aa49e1bab9217c31f4420dda70028f52fca3d8fdc0"
+    },
+    "schemas/ui.combatAura.schema.json": {
+      "bytes": 4136,
+      "generated": false,
+      "sha256": "af623da1f0946eba27f60c65f12f7ff5666dcf8a6af267b6b08257736b10a314"
     },
     "schemas/ui.components.schema.json": {
-      "bytes": 7311,
+      "bytes": 8511,
       "generated": false,
-      "sha256": "d55e83c9504403ebbe3a70e5a9af4ff826302118fd64bdc7314e4c4ecbaca177"
+      "sha256": "9e02cd0cbdc8286f2d285992b9e8bef16c98bf0bc9bf68310aceb4293bdf36e9"
     },
     "schemas/ui.confirmationPolicies.schema.json": {
       "bytes": 2064,
       "generated": false,
       "sha256": "bcfb76b5df5dbe3e2da9f0826aa435589234696921faf71040a6744f8b6da8d0"
     },
+    "schemas/ui.enemyStage.schema.json": {
+      "bytes": 36254,
+      "generated": false,
+      "sha256": "3448afa21e6def18b0e0bd076d65dc9b91a3c8bed599c1ec1494dca9c508e379"
+    },
+    "schemas/ui.equipmentCard.schema.json": {
+      "bytes": 2689,
+      "generated": false,
+      "sha256": "e852bdd5e078219f6cef06182da734247390759b517e210d54f3d6eea72f24b4"
+    },
     "schemas/ui.feedback.schema.json": {
       "bytes": 2998,
       "generated": false,
       "sha256": "bac597caf9e976b6a8a8c98291a00291eafabfec19b4517cbf420ff88cab342f"
     },
-    "schemas/ui.layout.schema.json": {
-      "bytes": 3666,
+    "schemas/ui.figureInk.schema.json": {
+      "bytes": 723,
       "generated": false,
-      "sha256": "9a8eeeb1560785c035d8fe99467348d329fa1a8fba6d7cc556db69a799cecd3c"
+      "sha256": "f2abcb48910a71955c8c71b14d91c28629b4488d73ee78f1508f69564afd4e4a"
+    },
+    "schemas/ui.intentIcons.schema.json": {
+      "bytes": 4073,
+      "generated": false,
+      "sha256": "643175d5b8efe52583b826ec8b7804d983f5cbcd2d4eac0bda59dd84daefd1e0"
+    },
+    "schemas/ui.layout.schema.json": {
+      "bytes": 4079,
+      "generated": false,
+      "sha256": "ba6e9eb5f44d5462e9adee7b0d6257a1688255671cb946107cf42d27c8065bfb"
     },
     "schemas/ui.locationPresentation.schema.json": {
       "bytes": 3438,
       "generated": false,
       "sha256": "4a4726ea6740c861649d8476085f9b8c7ae611c3b325948227bde0e2c7ac9b09"
     },
-    "schemas/ui.menus.schema.json": {
-      "bytes": 3888,
+    "schemas/ui.lore.schema.json": {
+      "bytes": 1605,
       "generated": false,
-      "sha256": "352b2bf11fa0a837300b5e13e7f576e72e3c4297604559569025d94e335a8be6"
+      "sha256": "2efed91b3d8455d75a032d71097de72f3176bfb0e568b583402dc1edf249f49c"
+    },
+    "schemas/ui.menus.schema.json": {
+      "bytes": 4210,
+      "generated": false,
+      "sha256": "25587d4a9291093c04f26abd299d89f00c8c99fff763651e375f126b2267cb51"
     },
     "schemas/ui.meta.schema.json": {
-      "bytes": 3258,
+      "bytes": 3651,
       "generated": false,
-      "sha256": "4c38ec6a6f4479ca5d45e498844de23321c117e7f584eb2a574aa6c1542794de"
+      "sha256": "62a645e09235119b3105b727dd6c1aeab2ddc2cb43247af876a78759a1fe3a8d"
     },
     "schemas/ui.nodes.schema.json": {
       "bytes": 1965,
       "generated": false,
       "sha256": "cea54f440ad85c10aed84182b260ec25a1172199d0428b939926aa982d4ef035"
+    },
+    "schemas/ui.outfitArt.schema.json": {
+      "bytes": 1368,
+      "generated": false,
+      "sha256": "04aa6083c490967a1decd2f4d6cef980ae9589c858592b3df2923e7834ad6461"
+    },
+    "schemas/ui.poses.schema.json": {
+      "bytes": 873,
+      "generated": false,
+      "sha256": "3600e9c931498e0589d43c9ba51ec020bb2ce5c01560cec74f7c4786c4d665b1"
+    },
+    "schemas/ui.progression.schema.json": {
+      "bytes": 1161,
+      "generated": false,
+      "sha256": "165b1e124289a0ff4720c71a081f0f63a213c615d7fbc54e527e5ac35c469365"
     },
     "schemas/ui.prologue.schema.json": {
       "bytes": 2359,
@@ -1546,9 +1621,9 @@
       "sha256": "069c0b2f370c7e0ffd90ea47a7eaf3eb271cb273ef030e8fbb496e7ec088ee06"
     },
     "settings/defaults.json": {
-      "bytes": 8836,
+      "bytes": 17377,
       "generated": false,
-      "sha256": "20559907a99a4605c4f25d627333a4e78594a182dd44ae78c63c5d5cb1ef0a03"
+      "sha256": "5dedc01ccd589a23369e72b01c32d83febec5a9c109fa55d184650b446130767"
     },
     "settings/presets/shipped.json": {
       "bytes": 173,
@@ -1558,12 +1633,12 @@
     "settings/webKeyMap.json": {
       "bytes": 473,
       "generated": false,
-      "sha256": "b96fcf1bfefe65ad4d947a9831d268c13b57af95e31ba8d9f07dbbe622c020e0"
+      "sha256": "d17526ac4c43711cf566e96f99bad2efd3e50043b88cf8bc382d8e9644a88ee5"
     },
     "strings/app.en.json": {
-      "bytes": 48313,
+      "bytes": 113460,
       "generated": false,
-      "sha256": "3d12d51ed64a421d75b1091fd823276feef19bf84f04aae0e44f7b23572b7d28"
+      "sha256": "1d5876bea0daa0fc31c0d17996b88ab2fe8fd36dee9f44e35af9eacf9474ef4c"
     },
     "strings/combat.en.json": {
       "bytes": 3665,
@@ -1581,9 +1656,9 @@
       "sha256": "a9fcfcd2fa31bd0f98983762267ad9c5220649ba685d002700016d684325d957"
     },
     "strings/meta.en.json": {
-      "bytes": 14687,
+      "bytes": 11565,
       "generated": false,
-      "sha256": "f3f6ed2c82382c61739dbf2ac2b713ad0f7538ef64ed47b85d1027584186fec0"
+      "sha256": "ed3a1bfd8437afa0b3fd580fe14d99b189a7e018930f4118197177c10a89511f"
     },
     "strings/nodes.en.json": {
       "bytes": 7121,
@@ -1596,54 +1671,119 @@
       "sha256": "9d03cf27e245a8bc91d98e3a1678b6fb443f89fc6502c666441892881065ca06"
     },
     "ui/art.json": {
-      "bytes": 4092,
+      "bytes": 4866,
       "generated": false,
-      "sha256": "85436f7a50394f61f323703bf7b411c027474d5e227b660e90fb26102e8b8318"
+      "sha256": "1d3fb9f4bc390d0d4d23d32f4caa5691b6992caf8b3f6f87b2098bf758e4d810"
+    },
+    "ui/battlefield.json": {
+      "bytes": 4877,
+      "generated": false,
+      "sha256": "ff17b114b19a9b114273c8a7e446104a016591c5871e422064ef18549d4a34a4"
+    },
+    "ui/cardStage.json": {
+      "bytes": 50293,
+      "generated": false,
+      "sha256": "e9ef64afa2f95e59d025861866aff5d0a9558fd8453475b2f669f09ce0e83834"
+    },
+    "ui/cardText.json": {
+      "bytes": 7772,
+      "generated": false,
+      "sha256": "ab20e2eda3740cfdba1da61388bf03da2d41f6a5ee1b04c3691bd07b1745e5a1"
     },
     "ui/cardface.json": {
-      "bytes": 26926,
+      "bytes": 34415,
       "generated": false,
-      "sha256": "8d1e9daa4605315bc0aa1251c29ef5fc42891179d27704f1397a78c31ee55533"
+      "sha256": "bb21030e16e957b39d492abcdf9129783be6bb8079a4933b1bc4b34694657e5d"
+    },
+    "ui/changelog.json": {
+      "bytes": 13837,
+      "generated": false,
+      "sha256": "e2dd8fd2a67c086a33d1769f088ba0533356cfdd87f0424190e1ddd13f399108"
+    },
+    "ui/combatAura.json": {
+      "bytes": 1215,
+      "generated": false,
+      "sha256": "36ff7866380a020635d833714109fc952a440ba0e15b50b1ab7f2bdeefa4c53a"
     },
     "ui/components.json": {
-      "bytes": 4898,
+      "bytes": 10967,
       "generated": false,
-      "sha256": "46c7411a0777b30a473e8ea6f7db4128c715215f05e83b5adde889dfbdd8ad3f"
+      "sha256": "79b69f9a0df6f016cbdb42956a2006012f492c60949a8cbf823dc8c3b15ec3a0"
     },
     "ui/confirmationPolicies.json": {
       "bytes": 3228,
       "generated": true,
       "sha256": "81c39ab04d97e7a52e2f66ca82f59d9963b55949c81f6c91fc241e7b3dfbce97"
     },
+    "ui/enemyStage.json": {
+      "bytes": 39743,
+      "generated": false,
+      "sha256": "290e9132696ef1c1726ece2b5e56774241c8bf108759ea540e1ba2050472d863"
+    },
+    "ui/equipmentCard.json": {
+      "bytes": 2407,
+      "generated": false,
+      "sha256": "803ec294e22d07753e180ebcfe394244fadc21522f3d654a74fb0bb456b68a9d"
+    },
     "ui/feedback.json": {
       "bytes": 14869,
       "generated": false,
       "sha256": "bd1a3a904e20032c7d9908a5c6b365dd413d8e9ddcf958ce2e89e9a1651a5d41"
     },
-    "ui/layout.json": {
-      "bytes": 1746,
+    "ui/figureInk.json": {
+      "bytes": 115882,
       "generated": false,
-      "sha256": "9c824e55481d2ddc7130e1189d3d37a66733963c4964729dcc511d7d336cd00d"
+      "sha256": "7da83bad59f69aa7c1a30ac38ae991a650e1d6da83336ebdb77026c38e867dad"
+    },
+    "ui/intentIcons.json": {
+      "bytes": 1677,
+      "generated": false,
+      "sha256": "869e910a1d83ce9dfa57518aa06c6b1154ec5fad7f8b67587918d91dd79ba7c0"
+    },
+    "ui/layout.json": {
+      "bytes": 1850,
+      "generated": false,
+      "sha256": "e9451ceec582be8004d80511dd1280d85c62cad63765223e3e41d7efc74a0a03"
     },
     "ui/locationPresentation.json": {
       "bytes": 25682,
       "generated": true,
       "sha256": "330892274c3cc8c87947d2662b07dccbd95f7c3275dc2922a80e3d30a546d178"
     },
-    "ui/menus.json": {
-      "bytes": 8358,
+    "ui/lore.json": {
+      "bytes": 1193,
       "generated": false,
-      "sha256": "d1f4e4fe5a6aa3636f7629afbcdbf4bcf32178660049c61eb0906f4665ee6761"
+      "sha256": "97421a1f740349288d817a3e724e84f19fdf49e9a3134ea33ef97ade7ed9e388"
+    },
+    "ui/menus.json": {
+      "bytes": 9690,
+      "generated": false,
+      "sha256": "b021725bf089232d977b282eb3ed06ba180113c27ba024dc211aa14101452e52"
     },
     "ui/meta.json": {
-      "bytes": 2818,
+      "bytes": 3825,
       "generated": false,
-      "sha256": "9f486fcd6bf0fa531f1e58ebb96fdcfc8be1d81a1342e5e23f14168ade672630"
+      "sha256": "dea109acc2edf5042d29a8196650f590e45b346f8bc6e43238c8b4965b8fb69b"
     },
     "ui/nodes.json": {
       "bytes": 2785,
       "generated": false,
       "sha256": "e6c5b73d52c764043690f50d9647244e894a84bfb063e93dd6828a3c9ef35316"
+    },
+    "ui/outfitArt.json": {
+      "bytes": 280811,
+      "generated": false,
+      "sha256": "05052e3b6a6fb84bb1339d7668472887565e0a273e1008fdd05040088ca10bf4"
+    },
+    "ui/poses.json": {
+      "bytes": 54232,
+      "generated": false,
+      "sha256": "1ff3cbdb23dc856f09b6552cc477839736e833d3fd2bb6c5a707ccaa5e004d28"
+    },
+    "ui/progression.json": {
+      "bytes": 1818,
+      "generated": false,
+      "sha256": "cb706e2afdf1d025b9fcf0ba862801b4470cf45ea1367c29e2da1a58c971df1a"
     },
     "ui/prologue.json": {
       "bytes": 2561,
@@ -1651,14 +1791,14 @@
       "sha256": "0740478f33b9022e96abe89b6aca2bc67590c9d0775f4bc535588fdda8f151b5"
     },
     "ui/screens.json": {
-      "bytes": 8985,
+      "bytes": 9592,
       "generated": false,
-      "sha256": "bfa76865035c6c48db25fa53f5ae4f6b599d6f3f68b10eb085ade9b8ae7dbae2"
+      "sha256": "04ce6bf0ce58df3f6c4ff0f529bce923fa95b2876a605a23641ae0b9feb53065"
     },
     "ui/terms.json": {
-      "bytes": 12076,
-      "generated": true,
-      "sha256": "994994250284397e9e0dafb3b0f9e6108c1ae3bb13533a04e4feeee6a4b44246"
+      "bytes": 12931,
+      "generated": false,
+      "sha256": "6af7604cd25001f0ac9676b77c1764a2e4594b5ff028edccbacd0d856cbf78ab"
     },
     "ui/theme.json": {
       "bytes": 2974,
@@ -1666,9 +1806,9 @@
       "sha256": "487d7f2387a94911acd0820366374c7be0fe918a83dc22f63d175aa1d73702d9"
     },
     "ui/tokens.json": {
-      "bytes": 46414,
+      "bytes": 51833,
       "generated": false,
-      "sha256": "c47cb2cabd49c552b16ae3082c1323243ada546f281de838f2f84c2e6eb56b90"
+      "sha256": "0dafb44edbaa507d4aea715b1ac0446847c4968f4717bc36f2740a4b49becfac"
     }
   },
   "schemaVersion": 1,

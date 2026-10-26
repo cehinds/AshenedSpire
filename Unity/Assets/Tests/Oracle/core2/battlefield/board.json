@@ -1,0 +1,3044 @@
+{
+ "scenarios": [
+  {
+   "cells": [
+    {
+     "band": "D",
+     "cell": "A1",
+     "ground": 472.93996874999993,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 932.5797119140625,
+      "top": 557.6875,
+      "width": 413.559326171875
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 648.799px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1144.8955036458333
+    },
+    {
+     "band": "B",
+     "cell": "A3",
+     "ground": 347.24585625,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 326.5640563964844,
+      "top": 441.296875,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 239.328px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 547.7239313541666
+    },
+    {
+     "band": "A",
+     "cell": "A4",
+     "ground": 289.05413749999997,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 381.8453063964844,
+      "top": 383.109375,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 276.681px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 603.0060641666666
+    },
+    {
+     "band": "C",
+     "cell": "A5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 271.2828063964844,
+      "top": 499.5,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 201.975px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 492.4417985416666
+    },
+    {
+     "band": "D",
+     "cell": "B1",
+     "ground": 472.93996874999993,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 574.2828369140625,
+      "top": 557.6875,
+      "width": 413.559326171875
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 406.711px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 786.6050140625
+    },
+    {
+     "band": "B",
+     "cell": "B3",
+     "ground": 347.24585625,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 684.8453369140625,
+      "top": 441.296875,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 481.416px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 906.0144209374998
+    },
+    {
+     "band": "A",
+     "cell": "B4",
+     "ground": 289.05413749999997,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 740.1265869140625,
+      "top": 383.109375,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 518.769px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 961.2965537499999
+    },
+    {
+     "band": "C",
+     "cell": "B5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 629.5640869140625,
+      "top": 499.5,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 444.063px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 850.7322881249999
+    },
+    {
+     "band": "D",
+     "cell": "C1",
+     "ground": 472.93996874999993,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 216.00155639648438,
+      "top": 557.6875,
+      "width": 413.5593566894531
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 164.622px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 428.31452447916666
+    },
+    {
+     "band": "B",
+     "cell": "C3",
+     "ground": 347.24585625,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 1043.1422119140625,
+      "top": 441.296875,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 723.504px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1264.3049105208333
+    },
+    {
+     "band": "A",
+     "cell": "C4",
+     "ground": 289.05413749999997,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 1098.4234619140625,
+      "top": 383.109375,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 760.857px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1319.5870433333332
+    },
+    {
+     "band": "C",
+     "cell": "C5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 987.8609619140625,
+      "top": 499.5,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 686.151px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1209.0227777083333
+    }
+   ],
+   "combatants": [
+    {
+     "baseScale": 1.4241657483552632,
+     "cell": "C1",
+     "enemyId": null,
+     "frame": {
+      "height": 529.015625,
+      "left": 338.3125,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.8939999999999999,
+     "groundY": 580.9712187499999,
+     "id": "player",
+     "miniHudLeft": 273.28213281250004,
+     "miniHudTop": 136.3484765624999,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "96.75%",
+     "sprite": {
+      "height": 270.515625,
+      "left": 300.828125,
+      "top": 310.375,
+      "width": 254.96875
+     },
+     "spriteZoom": 0.962054,
+     "visibleHeight": 270.5914921875,
+     "x": 428.31452447916666
+    },
+    {
+     "baseScale": 1.4897586184210525,
+     "cell": "C4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 529.015625,
+      "left": 1229.578125,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.5527441472073721,
+     "groundY": 400.4415405,
+     "id": "e1",
+     "miniHudLeft": 1155.7095104166665,
+     "miniHudTop": -56.643846999999994,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 282.984375,
+      "left": 1224.390625,
+      "top": 117.375,
+      "width": 190.390625
+     },
+     "spriteZoom": 1.00636,
+     "stature": "normal",
+     "visibleHeight": 283.05413749999997,
+     "x": 1319.5870433333332
+    }
+   ],
+   "enemies": 1,
+   "field": {
+    "height": 529.015625,
+    "left": 0,
+    "top": 108.03125,
+    "width": 1920
+   },
+   "formFactor": "desktop",
+   "hand": {
+    "height": 442.953125,
+    "left": 0,
+    "top": 637.046875,
+    "width": 1920
+   },
+   "layout": "wide",
+   "plan": {
+    "ground": 472.93996874999993,
+    "height": 529.015625,
+    "rows": 3,
+    "width": 1920
+   },
+   "slots": [
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 243.64106640625002,
+      "skew": 0.95,
+      "top": 449.66328124999995,
+      "width": 358.2904895833333
+     },
+     "cell": "C1",
+     "ground": 472.93996874999993,
+     "id": "player",
+     "lane": 0,
+     "miniHudLeft": 273.28213281250004,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 428.31452447916666
+    },
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 1126.0684440104164,
+      "skew": 0.95,
+      "top": 275.088125,
+      "width": 358.2904895833333
+     },
+     "cell": "C4",
+     "ground": 289.05413749999997,
+     "id": "e1",
+     "lane": 2,
+     "miniHudLeft": 1155.7095104166665,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 1319.5870433333332
+    }
+   ],
+   "topbar": {
+    "height": 103.875,
+    "left": 0,
+    "top": 0,
+    "width": 1920
+   },
+   "viewport": {
+    "height": 1080,
+    "width": 1920
+   },
+   "zoom": "1.48"
+  },
+  {
+   "cells": [
+    {
+     "band": "D",
+     "cell": "A1",
+     "ground": 472.93996874999993,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 932.5797119140625,
+      "top": 557.6875,
+      "width": 413.559326171875
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 648.799px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1144.8955036458333
+    },
+    {
+     "band": "B",
+     "cell": "A3",
+     "ground": 347.24585625,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 326.5640563964844,
+      "top": 441.296875,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 239.328px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 547.7239313541666
+    },
+    {
+     "band": "A",
+     "cell": "A4",
+     "ground": 289.05413749999997,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 381.8453063964844,
+      "top": 383.109375,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 276.681px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 603.0060641666666
+    },
+    {
+     "band": "C",
+     "cell": "A5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 271.2828063964844,
+      "top": 499.5,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 201.975px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 492.4417985416666
+    },
+    {
+     "band": "D",
+     "cell": "B1",
+     "ground": 472.93996874999993,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 574.2828369140625,
+      "top": 557.6875,
+      "width": 413.559326171875
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 406.711px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 786.6050140625
+    },
+    {
+     "band": "B",
+     "cell": "B3",
+     "ground": 347.24585625,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 684.8453369140625,
+      "top": 441.296875,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 481.416px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 906.0144209374998
+    },
+    {
+     "band": "A",
+     "cell": "B4",
+     "ground": 289.05413749999997,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 740.1265869140625,
+      "top": 383.109375,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 518.769px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 961.2965537499999
+    },
+    {
+     "band": "C",
+     "cell": "B5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 629.5640869140625,
+      "top": 499.5,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 444.063px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 850.7322881249999
+    },
+    {
+     "band": "D",
+     "cell": "C1",
+     "ground": 472.93996874999993,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 216.00155639648438,
+      "top": 557.6875,
+      "width": 413.5593566894531
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 164.622px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 428.31452447916666
+    },
+    {
+     "band": "B",
+     "cell": "C3",
+     "ground": 347.24585625,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 1043.1422119140625,
+      "top": 441.296875,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 723.504px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1264.3049105208333
+    },
+    {
+     "band": "A",
+     "cell": "C4",
+     "ground": 289.05413749999997,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 1098.4234619140625,
+      "top": 383.109375,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 760.857px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1319.5870433333332
+    },
+    {
+     "band": "C",
+     "cell": "C5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 987.8609619140625,
+      "top": 499.5,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 686.151px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1209.0227777083333
+    }
+   ],
+   "combatants": [
+    {
+     "baseScale": 1.4241657483552632,
+     "cell": "C1",
+     "enemyId": null,
+     "frame": {
+      "height": 529.015625,
+      "left": 338.3125,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.8939999999999999,
+     "groundY": 580.9712187499999,
+     "id": "player",
+     "miniHudLeft": 273.28213281250004,
+     "miniHudTop": 136.3484765624999,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "96.75%",
+     "sprite": {
+      "height": 270.515625,
+      "left": 300.828125,
+      "top": 310.375,
+      "width": 254.96875
+     },
+     "spriteZoom": 0.962054,
+     "visibleHeight": 270.5914921875,
+     "x": 428.31452447916666
+    },
+    {
+     "baseScale": 1.4897586184210525,
+     "cell": "C4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 529.015625,
+      "left": 1229.578125,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.5527441472073721,
+     "groundY": 400.4415405,
+     "id": "e1",
+     "miniHudLeft": 1155.7095104166665,
+     "miniHudTop": -56.643846999999994,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 282.984375,
+      "left": 1224.390625,
+      "top": 117.375,
+      "width": 190.390625
+     },
+     "spriteZoom": 1.00636,
+     "stature": "normal",
+     "visibleHeight": 283.05413749999997,
+     "x": 1319.5870433333332
+    },
+    {
+     "baseScale": 1.4897586184210525,
+     "cell": "A4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 529.015625,
+      "left": 513,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.5527441472073721,
+     "groundY": 400.4415405,
+     "id": "e2",
+     "miniHudLeft": 439.12853125,
+     "miniHudTop": -56.643846999999994,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 282.984375,
+      "left": 507.8125,
+      "top": 117.375,
+      "width": 190.390625
+     },
+     "spriteZoom": 1.00636,
+     "stature": "normal",
+     "visibleHeight": 283.05413749999997,
+     "x": 603.0060641666666
+    }
+   ],
+   "enemies": 2,
+   "field": {
+    "height": 529.015625,
+    "left": 0,
+    "top": 108.03125,
+    "width": 1920
+   },
+   "formFactor": "desktop",
+   "hand": {
+    "height": 442.953125,
+    "left": 0,
+    "top": 637.046875,
+    "width": 1920
+   },
+   "layout": "wide",
+   "plan": {
+    "ground": 472.93996874999993,
+    "height": 529.015625,
+    "rows": 3,
+    "width": 1920
+   },
+   "slots": [
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 243.64106640625002,
+      "skew": 0.95,
+      "top": 449.66328124999995,
+      "width": 358.2904895833333
+     },
+     "cell": "C1",
+     "ground": 472.93996874999993,
+     "id": "player",
+     "lane": 0,
+     "miniHudLeft": 273.28213281250004,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 428.31452447916666
+    },
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 1126.0684440104164,
+      "skew": 0.95,
+      "top": 275.088125,
+      "width": 358.2904895833333
+     },
+     "cell": "C4",
+     "ground": 289.05413749999997,
+     "id": "e1",
+     "lane": 2,
+     "miniHudLeft": 1155.7095104166665,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 1319.5870433333332
+    },
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 409.48746484375,
+      "skew": 0.95,
+      "top": 275.088125,
+      "width": 358.2904895833333
+     },
+     "cell": "A4",
+     "ground": 289.05413749999997,
+     "id": "e2",
+     "lane": 0,
+     "miniHudLeft": 439.12853125,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 603.0060641666666
+    }
+   ],
+   "topbar": {
+    "height": 103.875,
+    "left": 0,
+    "top": 0,
+    "width": 1920
+   },
+   "viewport": {
+    "height": 1080,
+    "width": 1920
+   },
+   "zoom": "1.48"
+  },
+  {
+   "cells": [
+    {
+     "band": "D",
+     "cell": "A1",
+     "ground": 472.93996874999993,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 932.5797119140625,
+      "top": 557.6875,
+      "width": 413.559326171875
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 648.799px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1144.8955036458333
+    },
+    {
+     "band": "B",
+     "cell": "A3",
+     "ground": 347.24585625,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 326.5640563964844,
+      "top": 441.296875,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 239.328px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 547.7239313541666
+    },
+    {
+     "band": "A",
+     "cell": "A4",
+     "ground": 289.05413749999997,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 381.8453063964844,
+      "top": 383.109375,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 276.681px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 603.0060641666666
+    },
+    {
+     "band": "C",
+     "cell": "A5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 271.2828063964844,
+      "top": 499.5,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 201.975px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 492.4417985416666
+    },
+    {
+     "band": "D",
+     "cell": "B1",
+     "ground": 472.93996874999993,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 574.2828369140625,
+      "top": 557.6875,
+      "width": 413.559326171875
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 406.711px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 786.6050140625
+    },
+    {
+     "band": "B",
+     "cell": "B3",
+     "ground": 347.24585625,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 684.8453369140625,
+      "top": 441.296875,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 481.416px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 906.0144209374998
+    },
+    {
+     "band": "A",
+     "cell": "B4",
+     "ground": 289.05413749999997,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 740.1265869140625,
+      "top": 383.109375,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 518.769px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 961.2965537499999
+    },
+    {
+     "band": "C",
+     "cell": "B5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 629.5640869140625,
+      "top": 499.5,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 444.063px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 850.7322881249999
+    },
+    {
+     "band": "D",
+     "cell": "C1",
+     "ground": 472.93996874999993,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 216.00155639648438,
+      "top": 557.6875,
+      "width": 413.5593566894531
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 164.622px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 428.31452447916666
+    },
+    {
+     "band": "B",
+     "cell": "C3",
+     "ground": 347.24585625,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 1043.1422119140625,
+      "top": 441.296875,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 723.504px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1264.3049105208333
+    },
+    {
+     "band": "A",
+     "cell": "C4",
+     "ground": 289.05413749999997,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 1098.4234619140625,
+      "top": 383.109375,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 760.857px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1319.5870433333332
+    },
+    {
+     "band": "C",
+     "cell": "C5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 987.8609619140625,
+      "top": 499.5,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 686.151px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1209.0227777083333
+    }
+   ],
+   "combatants": [
+    {
+     "baseScale": 1.4241657483552632,
+     "cell": "C1",
+     "enemyId": null,
+     "frame": {
+      "height": 529.015625,
+      "left": 338.3125,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.8939999999999999,
+     "groundY": 580.9712187499999,
+     "id": "player",
+     "miniHudLeft": 273.28213281250004,
+     "miniHudTop": 136.3484765624999,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "96.75%",
+     "sprite": {
+      "height": 270.515625,
+      "left": 300.828125,
+      "top": 310.375,
+      "width": 254.96875
+     },
+     "spriteZoom": 0.962054,
+     "visibleHeight": 270.5914921875,
+     "x": 428.31452447916666
+    },
+    {
+     "baseScale": 1.4897586184210525,
+     "cell": "C4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 529.015625,
+      "left": 1229.578125,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.5527441472073721,
+     "groundY": 400.4415405,
+     "id": "e1",
+     "miniHudLeft": 1155.7095104166665,
+     "miniHudTop": -56.643846999999994,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 282.984375,
+      "left": 1224.390625,
+      "top": 117.375,
+      "width": 190.390625
+     },
+     "spriteZoom": 1.00636,
+     "stature": "normal",
+     "visibleHeight": 283.05413749999997,
+     "x": 1319.5870433333332
+    },
+    {
+     "baseScale": 1.4897586184210525,
+     "cell": "A4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 529.015625,
+      "left": 513,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.5527441472073721,
+     "groundY": 400.4415405,
+     "id": "e2",
+     "miniHudLeft": 439.12853125,
+     "miniHudTop": -56.643846999999994,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 282.984375,
+      "left": 507.8125,
+      "top": 117.375,
+      "width": 190.390625
+     },
+     "spriteZoom": 1.00636,
+     "stature": "normal",
+     "visibleHeight": 283.05413749999997,
+     "x": 603.0060641666666
+    },
+    {
+     "baseScale": 1.4897586184210525,
+     "cell": "B4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 529.015625,
+      "left": 871.28125,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.5527441472073721,
+     "groundY": 400.4415405,
+     "id": "e3",
+     "miniHudLeft": 797.4190208333333,
+     "miniHudTop": -56.643846999999994,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 282.984375,
+      "left": 866.09375,
+      "top": 117.375,
+      "width": 190.390625
+     },
+     "spriteZoom": 1.00636,
+     "stature": "normal",
+     "visibleHeight": 283.05413749999997,
+     "x": 961.2965537499999
+    }
+   ],
+   "enemies": 3,
+   "field": {
+    "height": 529.015625,
+    "left": 0,
+    "top": 108.03125,
+    "width": 1920
+   },
+   "formFactor": "desktop",
+   "hand": {
+    "height": 442.953125,
+    "left": 0,
+    "top": 637.046875,
+    "width": 1920
+   },
+   "layout": "wide",
+   "plan": {
+    "ground": 472.93996874999993,
+    "height": 529.015625,
+    "rows": 3,
+    "width": 1920
+   },
+   "slots": [
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 243.64106640625002,
+      "skew": 0.95,
+      "top": 449.66328124999995,
+      "width": 358.2904895833333
+     },
+     "cell": "C1",
+     "ground": 472.93996874999993,
+     "id": "player",
+     "lane": 0,
+     "miniHudLeft": 273.28213281250004,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 428.31452447916666
+    },
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 1126.0684440104164,
+      "skew": 0.95,
+      "top": 275.088125,
+      "width": 358.2904895833333
+     },
+     "cell": "C4",
+     "ground": 289.05413749999997,
+     "id": "e1",
+     "lane": 2,
+     "miniHudLeft": 1155.7095104166665,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 1319.5870433333332
+    },
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 409.48746484375,
+      "skew": 0.95,
+      "top": 275.088125,
+      "width": 358.2904895833333
+     },
+     "cell": "A4",
+     "ground": 289.05413749999997,
+     "id": "e2",
+     "lane": 0,
+     "miniHudLeft": 439.12853125,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 603.0060641666666
+    },
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 767.7779544270833,
+      "skew": 0.95,
+      "top": 275.088125,
+      "width": 358.2904895833333
+     },
+     "cell": "B4",
+     "ground": 289.05413749999997,
+     "id": "e3",
+     "lane": 1,
+     "miniHudLeft": 797.4190208333333,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 961.2965537499999
+    }
+   ],
+   "topbar": {
+    "height": 103.875,
+    "left": 0,
+    "top": 0,
+    "width": 1920
+   },
+   "viewport": {
+    "height": 1080,
+    "width": 1920
+   },
+   "zoom": "1.48"
+  },
+  {
+   "cells": [
+    {
+     "band": "D",
+     "cell": "A1",
+     "ground": 472.93996874999993,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 932.5797119140625,
+      "top": 557.6875,
+      "width": 413.559326171875
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 648.799px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1144.8955036458333
+    },
+    {
+     "band": "B",
+     "cell": "A3",
+     "ground": 347.24585625,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 326.5640563964844,
+      "top": 441.296875,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 239.328px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 547.7239313541666
+    },
+    {
+     "band": "A",
+     "cell": "A4",
+     "ground": 289.05413749999997,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 381.8453063964844,
+      "top": 383.109375,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 276.681px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 603.0060641666666
+    },
+    {
+     "band": "C",
+     "cell": "A5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 271.2828063964844,
+      "top": 499.5,
+      "width": 413.5593566894531
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 201.975px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 492.4417985416666
+    },
+    {
+     "band": "D",
+     "cell": "B1",
+     "ground": 472.93996874999993,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 574.2828369140625,
+      "top": 557.6875,
+      "width": 413.559326171875
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 406.711px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 786.6050140625
+    },
+    {
+     "band": "B",
+     "cell": "B3",
+     "ground": 347.24585625,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 684.8453369140625,
+      "top": 441.296875,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 481.416px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 906.0144209374998
+    },
+    {
+     "band": "A",
+     "cell": "B4",
+     "ground": 289.05413749999997,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 740.1265869140625,
+      "top": 383.109375,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 518.769px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 961.2965537499999
+    },
+    {
+     "band": "C",
+     "cell": "B5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 629.5640869140625,
+      "top": 499.5,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 444.063px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 850.7322881249999
+    },
+    {
+     "band": "D",
+     "cell": "C1",
+     "ground": 472.93996874999993,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 216.00155639648438,
+      "top": 557.6875,
+      "width": 413.5593566894531
+     },
+     "side": "player",
+     "style": "--foot-y: 39.999999999999964%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 164.622px; top: 303.827px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 428.31452447916666
+    },
+    {
+     "band": "B",
+     "cell": "C3",
+     "ground": 347.24585625,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 1043.1422119140625,
+      "top": 441.296875,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 723.504px; top: 225.189px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1264.3049105208333
+    },
+    {
+     "band": "A",
+     "cell": "C4",
+     "ground": 289.05413749999997,
+     "occupied": "true",
+     "rect": {
+      "height": 58.1875,
+      "left": 1098.4234619140625,
+      "top": 383.109375,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 760.857px; top: 185.87px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1319.5870433333332
+    },
+    {
+     "band": "C",
+     "cell": "C5",
+     "ground": 405.437575,
+     "occupied": "false",
+     "rect": {
+      "height": 58.1875,
+      "left": 987.8609619140625,
+      "top": 499.5,
+      "width": 413.559326171875
+     },
+     "side": "enemy",
+     "style": "--foot-y: 23.99999999999996%; transform: skewX(-0.759763rad); --cell-unskew: 0.7597627548757708rad; left: 686.151px; top: 264.508px; width: 242.088px; height: 39.3187px; --tile-transform: none; --hold: 0;",
+     "x": 1209.0227777083333
+    }
+   ],
+   "combatants": [
+    {
+     "baseScale": 1.4241657483552632,
+     "cell": "C1",
+     "enemyId": null,
+     "frame": {
+      "height": 529.015625,
+      "left": 338.3125,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.8939999999999999,
+     "groundY": 580.9712187499999,
+     "id": "player",
+     "miniHudLeft": 273.28213281250004,
+     "miniHudTop": 136.3484765624999,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "96.75%",
+     "sprite": {
+      "height": 270.515625,
+      "left": 300.828125,
+      "top": 310.375,
+      "width": 254.96875
+     },
+     "spriteZoom": 0.962054,
+     "visibleHeight": 270.5914921875,
+     "x": 428.31452447916666
+    },
+    {
+     "baseScale": 1.142390197368421,
+     "cell": "C4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 529.015625,
+      "left": 1229.578125,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.5477537464039932,
+     "groundY": 397.8015405,
+     "id": "e1",
+     "miniHudLeft": 1155.7095104166665,
+     "miniHudTop": 6.71615300000002,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.70%",
+     "sprite": {
+      "height": 217,
+      "left": 1246.578125,
+      "top": 180.734375,
+      "width": 146
+     },
+     "spriteZoom": 0.771708,
+     "stature": "normal",
+     "visibleHeight": 217.05413749999997,
+     "x": 1319.5870433333332
+    },
+    {
+     "baseScale": 1.142390197368421,
+     "cell": "A4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 529.015625,
+      "left": 513,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.5477537464039932,
+     "groundY": 397.8015405,
+     "id": "e2",
+     "miniHudLeft": 439.12853125,
+     "miniHudTop": 6.71615300000002,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.70%",
+     "sprite": {
+      "height": 217,
+      "left": 530,
+      "top": 180.734375,
+      "width": 146
+     },
+     "spriteZoom": 0.771708,
+     "stature": "normal",
+     "visibleHeight": 217.05413749999997,
+     "x": 603.0060641666666
+    },
+    {
+     "baseScale": 1.142390197368421,
+     "cell": "B4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 529.015625,
+      "left": 871.28125,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.5477537464039932,
+     "groundY": 397.8015405,
+     "id": "e3",
+     "miniHudLeft": 797.4190208333333,
+     "miniHudTop": 6.71615300000002,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.70%",
+     "sprite": {
+      "height": 217,
+      "left": 888.28125,
+      "top": 180.734375,
+      "width": 146
+     },
+     "spriteZoom": 0.771708,
+     "stature": "normal",
+     "visibleHeight": 217.05413749999997,
+     "x": 961.2965537499999
+    },
+    {
+     "baseScale": 1.142390197368421,
+     "cell": "C3",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 529.015625,
+      "left": 1174.296875,
+      "top": 108.03125,
+      "width": 180
+     },
+     "groundRatio": 0.6577537464039932,
+     "groundY": 455.99325925,
+     "id": "e4",
+     "miniHudLeft": 1100.4273776041666,
+     "miniHudTop": 64.90787175000003,
+     "miniHudWidth": 354.2904895833333,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.70%",
+     "sprite": {
+      "height": 217,
+      "left": 1191.296875,
+      "top": 238.9375,
+      "width": 146
+     },
+     "spriteZoom": 0.771708,
+     "stature": "normal",
+     "visibleHeight": 217.05413749999997,
+     "x": 1264.3049105208333
+    }
+   ],
+   "enemies": 4,
+   "field": {
+    "height": 529.015625,
+    "left": 0,
+    "top": 108.03125,
+    "width": 1920
+   },
+   "formFactor": "desktop",
+   "hand": {
+    "height": 442.953125,
+    "left": 0,
+    "top": 637.046875,
+    "width": 1920
+   },
+   "layout": "wide",
+   "plan": {
+    "ground": 472.93996874999993,
+    "height": 529.015625,
+    "rows": 3,
+    "width": 1920
+   },
+   "slots": [
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 243.64106640625002,
+      "skew": 0.95,
+      "top": 449.66328124999995,
+      "width": 358.2904895833333
+     },
+     "cell": "C1",
+     "ground": 472.93996874999993,
+     "id": "player",
+     "lane": 0,
+     "miniHudLeft": 273.28213281250004,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 428.31452447916666
+    },
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 1126.0684440104164,
+      "skew": 0.95,
+      "top": 275.088125,
+      "width": 358.2904895833333
+     },
+     "cell": "C4",
+     "ground": 289.05413749999997,
+     "id": "e1",
+     "lane": 2,
+     "miniHudLeft": 1155.7095104166665,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 1319.5870433333332
+    },
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 409.48746484375,
+      "skew": 0.95,
+      "top": 275.088125,
+      "width": 358.2904895833333
+     },
+     "cell": "A4",
+     "ground": 289.05413749999997,
+     "id": "e2",
+     "lane": 0,
+     "miniHudLeft": 439.12853125,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 603.0060641666666
+    },
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 767.7779544270833,
+      "skew": 0.95,
+      "top": 275.088125,
+      "width": 358.2904895833333
+     },
+     "cell": "B4",
+     "ground": 289.05413749999997,
+     "id": "e3",
+     "lane": 1,
+     "miniHudLeft": 797.4190208333333,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 0,
+     "x": 961.2965537499999
+    },
+    {
+     "box": {
+      "height": 58.19171875,
+      "left": 1070.7863111979166,
+      "skew": 0.95,
+      "top": 333.27984375,
+      "width": 358.2904895833333
+     },
+     "cell": "C3",
+     "ground": 347.24585625,
+     "id": "e4",
+     "lane": 2,
+     "miniHudLeft": 1100.4273776041666,
+     "miniHudWidth": 354.2904895833333,
+     "rank": 1,
+     "x": 1264.3049105208333
+    }
+   ],
+   "topbar": {
+    "height": 103.875,
+    "left": 0,
+    "top": 0,
+    "width": 1920
+   },
+   "viewport": {
+    "height": 1080,
+    "width": 1920
+   },
+   "zoom": "1.48"
+  },
+  {
+   "cells": [
+    {
+     "band": "D",
+     "cell": "A1",
+     "ground": 363.474,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 231.76522827148438,
+      "top": 429.859375,
+      "width": 124.03204345703125
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 263.138px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 294.8029
+    },
+    {
+     "band": "B",
+     "cell": "A3",
+     "ground": 218.08440000000002,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 24.093358993530273,
+      "top": 295.234375,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 32.3792px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 88.73534
+    },
+    {
+     "band": "A",
+     "cell": "A4",
+     "ground": 150.7744,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 34.187110900878906,
+      "top": 227.921875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 43.5975px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 98.83184
+    },
+    {
+     "band": "C",
+     "cell": "A5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 13.983983993530273,
+      "top": 362.546875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 21.1608px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 78.63883999999999
+    },
+    {
+     "band": "D",
+     "cell": "B1",
+     "ground": 363.474,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 117.8277359008789,
+      "top": 429.859375,
+      "width": 124.03203582763672
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 136.54px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 180.8649
+    },
+    {
+     "band": "B",
+     "cell": "B3",
+     "ground": 218.08440000000002,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 138.03085327148438,
+      "top": 295.234375,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 158.977px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 202.67334
+    },
+    {
+     "band": "A",
+     "cell": "B4",
+     "ground": 150.7744,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 148.12460327148438,
+      "top": 227.921875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 170.195px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 212.76984000000002
+    },
+    {
+     "band": "C",
+     "cell": "B5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 127.9214859008789,
+      "top": 362.546875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 147.759px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 192.57684
+    },
+    {
+     "band": "D",
+     "cell": "C1",
+     "ground": 363.474,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 3.8902344703674316,
+      "top": 429.859375,
+      "width": 124.03202819824219
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 9.9425px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 66.92689999999999
+    },
+    {
+     "band": "B",
+     "cell": "C3",
+     "ground": 218.08440000000002,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 251.96835327148438,
+      "top": 295.234375,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 285.575px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 316.61134
+    },
+    {
+     "band": "A",
+     "cell": "C4",
+     "ground": 150.7744,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 262.0621032714844,
+      "top": 227.921875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 296.793px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 326.70784
+    },
+    {
+     "band": "C",
+     "cell": "C5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 241.85897827148438,
+      "top": 362.546875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 274.356px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 306.51484
+    }
+   ],
+   "combatants": [
+    {
+     "baseScale": 0.4962134078212289,
+     "cell": "C1",
+     "enemyId": null,
+     "frame": {
+      "height": 420.6875,
+      "left": 21.34375,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.864,
+     "groundY": 456.7865,
+     "id": "player",
+     "miniHudLeft": 15.996499999999987,
+     "miniHudTop": 203.19345251396646,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "96.76%",
+     "sprite": {
+      "height": 94.203125,
+      "left": 22.515625,
+      "top": 362.5,
+      "width": 88.78125
+     },
+     "spriteZoom": 0.550924,
+     "visibleHeight": 94.2805474860335,
+     "x": 66.92689999999999
+    },
+    {
+     "baseScale": 0.414602105263158,
+     "cell": "C4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 420.6875,
+      "left": 281.125,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.35840000000000005,
+     "groundY": 244.0869,
+     "id": "e1",
+     "miniHudLeft": 274.162,
+     "miniHudTop": 6,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 78.703125,
+      "left": 300.21875,
+      "top": 165.3125,
+      "width": 52.953125
+     },
+     "spriteZoom": 0.460315,
+     "stature": "normal",
+     "visibleHeight": 78.77440000000001,
+     "x": 326.70784
+    }
+   ],
+   "enemies": 1,
+   "field": {
+    "height": 420.6875,
+    "left": 0,
+    "top": 93.3125,
+    "width": 390
+   },
+   "formFactor": "mobile",
+   "hand": {
+    "height": 330,
+    "left": 0,
+    "top": 514,
+    "width": 390
+   },
+   "layout": "narrow",
+   "plan": {
+    "ground": 363.474,
+    "height": 420.6875,
+    "rows": 3,
+    "width": 390
+   },
+   "slots": [
+    {
+     "box": {
+      "height": 67.31,
+      "left": 8.948249999999987,
+      "skew": 0.15,
+      "top": 336.55,
+      "width": 113.938
+     },
+     "cell": "C1",
+     "ground": 363.474,
+     "id": "player",
+     "lane": 0,
+     "miniHudLeft": 15.996499999999987,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 66.92689999999999
+    },
+    {
+     "box": {
+      "height": 67.31,
+      "left": 267.11375,
+      "skew": 0.15,
+      "top": 134.62,
+      "width": 113.938
+     },
+     "cell": "C4",
+     "ground": 150.7744,
+     "id": "e1",
+     "lane": 2,
+     "miniHudLeft": 274.162,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 326.70784
+    }
+   ],
+   "topbar": {
+    "height": 100.390625,
+    "left": 0,
+    "top": 0,
+    "width": 390
+   },
+   "viewport": {
+    "height": 844,
+    "width": 390
+   },
+   "zoom": "0.9"
+  },
+  {
+   "cells": [
+    {
+     "band": "D",
+     "cell": "A1",
+     "ground": 363.474,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 231.76522827148438,
+      "top": 429.859375,
+      "width": 124.03204345703125
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 263.138px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 294.8029
+    },
+    {
+     "band": "B",
+     "cell": "A3",
+     "ground": 218.08440000000002,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 24.093358993530273,
+      "top": 295.234375,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 32.3792px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 88.73534
+    },
+    {
+     "band": "A",
+     "cell": "A4",
+     "ground": 150.7744,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 34.187110900878906,
+      "top": 227.921875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 43.5975px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 98.83184
+    },
+    {
+     "band": "C",
+     "cell": "A5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 13.983983993530273,
+      "top": 362.546875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 21.1608px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 78.63883999999999
+    },
+    {
+     "band": "D",
+     "cell": "B1",
+     "ground": 363.474,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 117.8277359008789,
+      "top": 429.859375,
+      "width": 124.03203582763672
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 136.54px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 180.8649
+    },
+    {
+     "band": "B",
+     "cell": "B3",
+     "ground": 218.08440000000002,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 138.03085327148438,
+      "top": 295.234375,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 158.977px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 202.67334
+    },
+    {
+     "band": "A",
+     "cell": "B4",
+     "ground": 150.7744,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 148.12460327148438,
+      "top": 227.921875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 170.195px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 212.76984000000002
+    },
+    {
+     "band": "C",
+     "cell": "B5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 127.9214859008789,
+      "top": 362.546875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 147.759px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 192.57684
+    },
+    {
+     "band": "D",
+     "cell": "C1",
+     "ground": 363.474,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 3.8902344703674316,
+      "top": 429.859375,
+      "width": 124.03202819824219
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 9.9425px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 66.92689999999999
+    },
+    {
+     "band": "B",
+     "cell": "C3",
+     "ground": 218.08440000000002,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 251.96835327148438,
+      "top": 295.234375,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 285.575px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 316.61134
+    },
+    {
+     "band": "A",
+     "cell": "C4",
+     "ground": 150.7744,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 262.0621032714844,
+      "top": 227.921875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 296.793px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 326.70784
+    },
+    {
+     "band": "C",
+     "cell": "C5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 241.85897827148438,
+      "top": 362.546875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 274.356px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 306.51484
+    }
+   ],
+   "combatants": [
+    {
+     "baseScale": 0.4962134078212289,
+     "cell": "C1",
+     "enemyId": null,
+     "frame": {
+      "height": 420.6875,
+      "left": 21.34375,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.864,
+     "groundY": 456.7865,
+     "id": "player",
+     "miniHudLeft": 15.996499999999987,
+     "miniHudTop": 203.19345251396646,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "96.76%",
+     "sprite": {
+      "height": 94.203125,
+      "left": 22.515625,
+      "top": 362.5,
+      "width": 88.78125
+     },
+     "spriteZoom": 0.550924,
+     "visibleHeight": 94.2805474860335,
+     "x": 66.92689999999999
+    },
+    {
+     "baseScale": 0.414602105263158,
+     "cell": "C4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 420.6875,
+      "left": 281.125,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.35840000000000005,
+     "groundY": 244.0869,
+     "id": "e1",
+     "miniHudLeft": 274.162,
+     "miniHudTop": 6,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 78.703125,
+      "left": 300.21875,
+      "top": 165.3125,
+      "width": 52.953125
+     },
+     "spriteZoom": 0.460315,
+     "stature": "normal",
+     "visibleHeight": 78.77440000000001,
+     "x": 326.70784
+    },
+    {
+     "baseScale": 0.414602105263158,
+     "cell": "A4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 420.6875,
+      "left": 53.25,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.35840000000000005,
+     "groundY": 244.0869,
+     "id": "e2",
+     "miniHudLeft": 46.285999999999994,
+     "miniHudTop": 6,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 78.703125,
+      "left": 72.34375,
+      "top": 165.3125,
+      "width": 52.953125
+     },
+     "spriteZoom": 0.460315,
+     "stature": "normal",
+     "visibleHeight": 78.77440000000001,
+     "x": 98.83184
+    }
+   ],
+   "enemies": 2,
+   "field": {
+    "height": 420.6875,
+    "left": 0,
+    "top": 93.3125,
+    "width": 390
+   },
+   "formFactor": "mobile",
+   "hand": {
+    "height": 330,
+    "left": 0,
+    "top": 514,
+    "width": 390
+   },
+   "layout": "narrow",
+   "plan": {
+    "ground": 363.474,
+    "height": 420.6875,
+    "rows": 3,
+    "width": 390
+   },
+   "slots": [
+    {
+     "box": {
+      "height": 67.31,
+      "left": 8.948249999999987,
+      "skew": 0.15,
+      "top": 336.55,
+      "width": 113.938
+     },
+     "cell": "C1",
+     "ground": 363.474,
+     "id": "player",
+     "lane": 0,
+     "miniHudLeft": 15.996499999999987,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 66.92689999999999
+    },
+    {
+     "box": {
+      "height": 67.31,
+      "left": 267.11375,
+      "skew": 0.15,
+      "top": 134.62,
+      "width": 113.938
+     },
+     "cell": "C4",
+     "ground": 150.7744,
+     "id": "e1",
+     "lane": 2,
+     "miniHudLeft": 274.162,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 326.70784
+    },
+    {
+     "box": {
+      "height": 67.31,
+      "left": 39.23774999999999,
+      "skew": 0.15,
+      "top": 134.62,
+      "width": 113.938
+     },
+     "cell": "A4",
+     "ground": 150.7744,
+     "id": "e2",
+     "lane": 0,
+     "miniHudLeft": 46.285999999999994,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 98.83184
+    }
+   ],
+   "topbar": {
+    "height": 100.390625,
+    "left": 0,
+    "top": 0,
+    "width": 390
+   },
+   "viewport": {
+    "height": 844,
+    "width": 390
+   },
+   "zoom": "0.9"
+  },
+  {
+   "cells": [
+    {
+     "band": "D",
+     "cell": "A1",
+     "ground": 363.474,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 231.76522827148438,
+      "top": 429.859375,
+      "width": 124.03204345703125
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 263.138px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 294.8029
+    },
+    {
+     "band": "B",
+     "cell": "A3",
+     "ground": 218.08440000000002,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 24.093358993530273,
+      "top": 295.234375,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 32.3792px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 88.73534
+    },
+    {
+     "band": "A",
+     "cell": "A4",
+     "ground": 150.7744,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 34.187110900878906,
+      "top": 227.921875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 43.5975px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 98.83184
+    },
+    {
+     "band": "C",
+     "cell": "A5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 13.983983993530273,
+      "top": 362.546875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 21.1608px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 78.63883999999999
+    },
+    {
+     "band": "D",
+     "cell": "B1",
+     "ground": 363.474,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 117.8277359008789,
+      "top": 429.859375,
+      "width": 124.03203582763672
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 136.54px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 180.8649
+    },
+    {
+     "band": "B",
+     "cell": "B3",
+     "ground": 218.08440000000002,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 138.03085327148438,
+      "top": 295.234375,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 158.977px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 202.67334
+    },
+    {
+     "band": "A",
+     "cell": "B4",
+     "ground": 150.7744,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 148.12460327148438,
+      "top": 227.921875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 170.195px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 212.76984000000002
+    },
+    {
+     "band": "C",
+     "cell": "B5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 127.9214859008789,
+      "top": 362.546875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 147.759px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 192.57684
+    },
+    {
+     "band": "D",
+     "cell": "C1",
+     "ground": 363.474,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 3.8902344703674316,
+      "top": 429.859375,
+      "width": 124.03202819824219
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 9.9425px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 66.92689999999999
+    },
+    {
+     "band": "B",
+     "cell": "C3",
+     "ground": 218.08440000000002,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 251.96835327148438,
+      "top": 295.234375,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 285.575px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 316.61134
+    },
+    {
+     "band": "A",
+     "cell": "C4",
+     "ground": 150.7744,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 262.0621032714844,
+      "top": 227.921875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 296.793px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 326.70784
+    },
+    {
+     "band": "C",
+     "cell": "C5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 241.85897827148438,
+      "top": 362.546875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 274.356px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 306.51484
+    }
+   ],
+   "combatants": [
+    {
+     "baseScale": 0.4962134078212289,
+     "cell": "C1",
+     "enemyId": null,
+     "frame": {
+      "height": 420.6875,
+      "left": 21.34375,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.864,
+     "groundY": 456.7865,
+     "id": "player",
+     "miniHudLeft": 15.996499999999987,
+     "miniHudTop": 203.19345251396646,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "96.76%",
+     "sprite": {
+      "height": 94.203125,
+      "left": 22.515625,
+      "top": 362.5,
+      "width": 88.78125
+     },
+     "spriteZoom": 0.550924,
+     "visibleHeight": 94.2805474860335,
+     "x": 66.92689999999999
+    },
+    {
+     "baseScale": 0.414602105263158,
+     "cell": "C4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 420.6875,
+      "left": 281.125,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.35840000000000005,
+     "groundY": 244.0869,
+     "id": "e1",
+     "miniHudLeft": 274.162,
+     "miniHudTop": 6,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 78.703125,
+      "left": 300.21875,
+      "top": 165.3125,
+      "width": 52.953125
+     },
+     "spriteZoom": 0.460315,
+     "stature": "normal",
+     "visibleHeight": 78.77440000000001,
+     "x": 326.70784
+    },
+    {
+     "baseScale": 0.414602105263158,
+     "cell": "A4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 420.6875,
+      "left": 53.25,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.35840000000000005,
+     "groundY": 244.0869,
+     "id": "e2",
+     "miniHudLeft": 46.285999999999994,
+     "miniHudTop": 6,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 78.703125,
+      "left": 72.34375,
+      "top": 165.3125,
+      "width": 52.953125
+     },
+     "spriteZoom": 0.460315,
+     "stature": "normal",
+     "visibleHeight": 78.77440000000001,
+     "x": 98.83184
+    },
+    {
+     "baseScale": 0.414602105263158,
+     "cell": "B4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 420.6875,
+      "left": 167.1875,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.35840000000000005,
+     "groundY": 244.0869,
+     "id": "e3",
+     "miniHudLeft": 160.224,
+     "miniHudTop": 6,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 78.703125,
+      "left": 186.28125,
+      "top": 165.3125,
+      "width": 52.953125
+     },
+     "spriteZoom": 0.460315,
+     "stature": "normal",
+     "visibleHeight": 78.77440000000001,
+     "x": 212.76984000000002
+    }
+   ],
+   "enemies": 3,
+   "field": {
+    "height": 420.6875,
+    "left": 0,
+    "top": 93.3125,
+    "width": 390
+   },
+   "formFactor": "mobile",
+   "hand": {
+    "height": 330,
+    "left": 0,
+    "top": 514,
+    "width": 390
+   },
+   "layout": "narrow",
+   "plan": {
+    "ground": 363.474,
+    "height": 420.6875,
+    "rows": 3,
+    "width": 390
+   },
+   "slots": [
+    {
+     "box": {
+      "height": 67.31,
+      "left": 8.948249999999987,
+      "skew": 0.15,
+      "top": 336.55,
+      "width": 113.938
+     },
+     "cell": "C1",
+     "ground": 363.474,
+     "id": "player",
+     "lane": 0,
+     "miniHudLeft": 15.996499999999987,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 66.92689999999999
+    },
+    {
+     "box": {
+      "height": 67.31,
+      "left": 267.11375,
+      "skew": 0.15,
+      "top": 134.62,
+      "width": 113.938
+     },
+     "cell": "C4",
+     "ground": 150.7744,
+     "id": "e1",
+     "lane": 2,
+     "miniHudLeft": 274.162,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 326.70784
+    },
+    {
+     "box": {
+      "height": 67.31,
+      "left": 39.23774999999999,
+      "skew": 0.15,
+      "top": 134.62,
+      "width": 113.938
+     },
+     "cell": "A4",
+     "ground": 150.7744,
+     "id": "e2",
+     "lane": 0,
+     "miniHudLeft": 46.285999999999994,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 98.83184
+    },
+    {
+     "box": {
+      "height": 67.31,
+      "left": 153.17575,
+      "skew": 0.15,
+      "top": 134.62,
+      "width": 113.938
+     },
+     "cell": "B4",
+     "ground": 150.7744,
+     "id": "e3",
+     "lane": 1,
+     "miniHudLeft": 160.224,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 212.76984000000002
+    }
+   ],
+   "topbar": {
+    "height": 100.390625,
+    "left": 0,
+    "top": 0,
+    "width": 390
+   },
+   "viewport": {
+    "height": 844,
+    "width": 390
+   },
+   "zoom": "0.9"
+  },
+  {
+   "cells": [
+    {
+     "band": "D",
+     "cell": "A1",
+     "ground": 363.474,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 231.76522827148438,
+      "top": 429.859375,
+      "width": 124.03204345703125
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 263.138px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 294.8029
+    },
+    {
+     "band": "B",
+     "cell": "A3",
+     "ground": 218.08440000000002,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 24.093358993530273,
+      "top": 295.234375,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 32.3792px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 88.73534
+    },
+    {
+     "band": "A",
+     "cell": "A4",
+     "ground": 150.7744,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 34.187110900878906,
+      "top": 227.921875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 43.5975px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 98.83184
+    },
+    {
+     "band": "C",
+     "cell": "A5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 13.983983993530273,
+      "top": 362.546875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 21.1608px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 78.63883999999999
+    },
+    {
+     "band": "D",
+     "cell": "B1",
+     "ground": 363.474,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 117.8277359008789,
+      "top": 429.859375,
+      "width": 124.03203582763672
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 136.54px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 180.8649
+    },
+    {
+     "band": "B",
+     "cell": "B3",
+     "ground": 218.08440000000002,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 138.03085327148438,
+      "top": 295.234375,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 158.977px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 202.67334
+    },
+    {
+     "band": "A",
+     "cell": "B4",
+     "ground": 150.7744,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 148.12460327148438,
+      "top": 227.921875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 170.195px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 212.76984000000002
+    },
+    {
+     "band": "C",
+     "cell": "B5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 127.9214859008789,
+      "top": 362.546875,
+      "width": 124.03203582763672
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 147.759px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 192.57684
+    },
+    {
+     "band": "D",
+     "cell": "C1",
+     "ground": 363.474,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 3.8902344703674316,
+      "top": 429.859375,
+      "width": 124.03202819824219
+     },
+     "side": "player",
+     "style": "--foot-y: 39.99999999999997%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 9.9425px; top: 373.944px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 66.92689999999999
+    },
+    {
+     "band": "B",
+     "cell": "C3",
+     "ground": 218.08440000000002,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 251.96835327148438,
+      "top": 295.234375,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 285.575px; top: 224.367px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 316.61134
+    },
+    {
+     "band": "A",
+     "cell": "C4",
+     "ground": 150.7744,
+     "occupied": "true",
+     "rect": {
+      "height": 67.296875,
+      "left": 262.0621032714844,
+      "top": 227.921875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 296.793px; top: 149.578px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 326.70784
+    },
+    {
+     "band": "C",
+     "cell": "C5",
+     "ground": 285.3944,
+     "occupied": "false",
+     "rect": {
+      "height": 67.296875,
+      "left": 241.85897827148438,
+      "top": 362.546875,
+      "width": 124.03204345703125
+     },
+     "side": "enemy",
+     "style": "--foot-y: 24.000000000000014%; transform: skewX(-0.14889rad); --cell-unskew: 0.14888994760949725rad; left: 274.356px; top: 299.156px; width: 126.598px; height: 74.7889px; --tile-transform: none; --hold: 0;",
+     "x": 306.51484
+    }
+   ],
+   "combatants": [
+    {
+     "baseScale": 0.4962134078212289,
+     "cell": "C1",
+     "enemyId": null,
+     "frame": {
+      "height": 420.6875,
+      "left": 21.34375,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.864,
+     "groundY": 456.7865,
+     "id": "player",
+     "miniHudLeft": 15.996499999999987,
+     "miniHudTop": 203.19345251396646,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "96.76%",
+     "sprite": {
+      "height": 94.203125,
+      "left": 22.515625,
+      "top": 362.5,
+      "width": 88.78125
+     },
+     "spriteZoom": 0.550924,
+     "visibleHeight": 94.2805474860335,
+     "x": 66.92689999999999
+    },
+    {
+     "baseScale": 0.414602105263158,
+     "cell": "C4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 420.6875,
+      "left": 281.125,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.35840000000000005,
+     "groundY": 244.0869,
+     "id": "e1",
+     "miniHudLeft": 274.162,
+     "miniHudTop": 6,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 78.703125,
+      "left": 300.21875,
+      "top": 165.3125,
+      "width": 52.953125
+     },
+     "spriteZoom": 0.460315,
+     "stature": "normal",
+     "visibleHeight": 78.77440000000001,
+     "x": 326.70784
+    },
+    {
+     "baseScale": 0.414602105263158,
+     "cell": "A4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 420.6875,
+      "left": 53.25,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.35840000000000005,
+     "groundY": 244.0869,
+     "id": "e2",
+     "miniHudLeft": 46.285999999999994,
+     "miniHudTop": 6,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 78.703125,
+      "left": 72.34375,
+      "top": 165.3125,
+      "width": 52.953125
+     },
+     "spriteZoom": 0.460315,
+     "stature": "normal",
+     "visibleHeight": 78.77440000000001,
+     "x": 98.83184
+    },
+    {
+     "baseScale": 0.414602105263158,
+     "cell": "B4",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 420.6875,
+      "left": 167.1875,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.35840000000000005,
+     "groundY": 244.0869,
+     "id": "e3",
+     "miniHudLeft": 160.224,
+     "miniHudTop": 6,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 78.703125,
+      "left": 186.28125,
+      "top": 165.3125,
+      "width": 52.953125
+     },
+     "spriteZoom": 0.460315,
+     "stature": "normal",
+     "visibleHeight": 78.77440000000001,
+     "x": 212.76984000000002
+    },
+    {
+     "baseScale": 0.414602105263158,
+     "cell": "C3",
+     "enemyId": "ashRevenant",
+     "frame": {
+      "height": 420.6875,
+      "left": 271.03125,
+      "top": 93.3125,
+      "width": 91.140625
+     },
+     "groundRatio": 0.5184000000000001,
+     "groundY": 311.3969,
+     "id": "e4",
+     "miniHudLeft": 264.0655,
+     "miniHudTop": 73.31,
+     "miniHudWidth": 109.938,
+     "presentationScale": 0.9090909090909091,
+     "shadowWidth": "120.71%",
+     "sprite": {
+      "height": 78.703125,
+      "left": 290.125,
+      "top": 232.609375,
+      "width": 52.953125
+     },
+     "spriteZoom": 0.460315,
+     "stature": "normal",
+     "visibleHeight": 78.77440000000001,
+     "x": 316.61134
+    }
+   ],
+   "enemies": 4,
+   "field": {
+    "height": 420.6875,
+    "left": 0,
+    "top": 93.3125,
+    "width": 390
+   },
+   "formFactor": "mobile",
+   "hand": {
+    "height": 330,
+    "left": 0,
+    "top": 514,
+    "width": 390
+   },
+   "layout": "narrow",
+   "plan": {
+    "ground": 363.474,
+    "height": 420.6875,
+    "rows": 3,
+    "width": 390
+   },
+   "slots": [
+    {
+     "box": {
+      "height": 67.31,
+      "left": 8.948249999999987,
+      "skew": 0.15,
+      "top": 336.55,
+      "width": 113.938
+     },
+     "cell": "C1",
+     "ground": 363.474,
+     "id": "player",
+     "lane": 0,
+     "miniHudLeft": 15.996499999999987,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 66.92689999999999
+    },
+    {
+     "box": {
+      "height": 67.31,
+      "left": 267.11375,
+      "skew": 0.15,
+      "top": 134.62,
+      "width": 113.938
+     },
+     "cell": "C4",
+     "ground": 150.7744,
+     "id": "e1",
+     "lane": 2,
+     "miniHudLeft": 274.162,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 326.70784
+    },
+    {
+     "box": {
+      "height": 67.31,
+      "left": 39.23774999999999,
+      "skew": 0.15,
+      "top": 134.62,
+      "width": 113.938
+     },
+     "cell": "A4",
+     "ground": 150.7744,
+     "id": "e2",
+     "lane": 0,
+     "miniHudLeft": 46.285999999999994,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 98.83184
+    },
+    {
+     "box": {
+      "height": 67.31,
+      "left": 153.17575,
+      "skew": 0.15,
+      "top": 134.62,
+      "width": 113.938
+     },
+     "cell": "B4",
+     "ground": 150.7744,
+     "id": "e3",
+     "lane": 1,
+     "miniHudLeft": 160.224,
+     "miniHudWidth": 109.938,
+     "rank": 0,
+     "x": 212.76984000000002
+    },
+    {
+     "box": {
+      "height": 67.31,
+      "left": 257.01725,
+      "skew": 0.15,
+      "top": 201.93,
+      "width": 113.938
+     },
+     "cell": "C3",
+     "ground": 218.08440000000002,
+     "id": "e4",
+     "lane": 2,
+     "miniHudLeft": 264.0655,
+     "miniHudWidth": 109.938,
+     "rank": 1,
+     "x": 316.61134
+    }
+   ],
+   "topbar": {
+    "height": 100.390625,
+    "left": 0,
+    "top": 0,
+    "width": 390
+   },
+   "viewport": {
+    "height": 844,
+    "width": 390
+   },
+   "zoom": "0.9"
+  }
+ ]
+}

@@ -308,12 +308,21 @@
     border-color: var(--color-gold);
 }
 
-.map-potions.unity-button {
+/* The Potions corner (map.css:150-220): the host is the button's own box; the minis hang off its top edge and the button fills it. */
+.map-potions-host {
     position: absolute;
     right: var(--size-map-potions-right);
     bottom: var(--size-map-tool-bottom);
     width: var(--size-map-potions-d);
     height: var(--size-map-potions-d);
+}
+
+.map-potions.unity-button {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     min-width: 0;
     min-height: 0;
     margin: 0;
@@ -329,6 +338,151 @@
 .map-potions.unity-button:hover,
 .map-potions.unity-button:focus {
     background-color: var(--color-panel-raise);
+}
+
+/* ---- the Potions minis: the flasks come out of the button after the player's tooltip delay and go back at once (map.css:171-220). They keep their space while hidden, so the button never moves. ---- */
+
+.potion-minis {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--size-full-width);
+    margin-bottom: var(--size-potion-mini-above);
+    flex-direction: row;
+    justify-content: center;
+    visibility: hidden;
+}
+
+.potion-minis.minis-shown {
+    visibility: visible;
+}
+
+.potion-mini {
+    width: var(--size-potion-mini);
+    height: var(--size-potion-mini);
+    margin-left: var(--size-potion-mini-gap);
+    margin-right: var(--size-potion-mini-gap);
+    opacity: 0;
+    translate: 0 var(--size-potion-mini-lift);
+    transition-property: opacity, translate;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: ease;
+}
+
+.minis-shown .potion-mini {
+    opacity: 1;
+    translate: 0 0;
+}
+
+.reduced-motion .potion-mini {
+    translate: 0 0;
+}
+
+.potion-mini-art {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.potion-mini--spent .potion-mini-art {
+    opacity: var(--opacity-disabled);
+}
+
+.potion-mini-count {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--size-full-width);
+    font-size: var(--font-potion-mini-count);
+    color: var(--color-parchment);
+    -unity-text-align: middle-center;
+    text-shadow: 0 var(--size-text-shadow-y) var(--size-text-shadow-blur) var(--color-text-ink);
+}
+
+.potion-mini:hover .potion-mini-art,
+.potion-mini:focus .potion-mini-art {
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.potion-mini-more {
+    background-color: var(--color-panel);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-round);
+    justify-content: center;
+    align-items: center;
+}
+
+.potion-mini-more .potion-mini-count {
+    position: relative;
+    bottom: 0;
+}
+
+/* ---- the flask action menu under a tapped mini (web flask.js mountFlaskActionMenu, kit.css:532, 3283) ---- */
+
+.flask-menu {
+    position: absolute;
+    width: var(--size-quick-w);
+    max-width: var(--size-full-width);
+    background-color: var(--color-bg-raise);
+    border-color: var(--color-line-soft);
+    border-width: var(--border-hairline);
+    border-radius: var(--radius-button);
+}
+
+.flask-menu-cap {
+    flex-direction: column;
+    padding: var(--space-md) var(--space-lg);
+    border-bottom-width: var(--border-hairline);
+    border-bottom-color: var(--color-line);
+}
+
+.flask-menu-title {
+    font-size: var(--font-quick-row);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.flask-menu-detail {
+    margin-top: var(--space-xs);
+    font-size: var(--font-cmodal-status);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.flask-menu-row.unity-button {
+    height: var(--size-quick-row-h);
+    min-height: 0;
+    margin: 0;
+    padding: 0 var(--space-lg);
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--color-transparent);
+    background-image: none;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.flask-menu-row.unity-button:hover,
+.flask-menu-row.unity-button:focus {
+    background-color: var(--color-quick-hover);
+}
+
+.flask-menu-row-label {
+    font-size: var(--font-quick-row);
+    color: var(--color-parchment);
+}
+
+.flask-menu-row.unity-button:hover .flask-menu-row-label,
+.flask-menu-row.unity-button:focus .flask-menu-row-label {
+    color: var(--color-ember);
+}
+
+.flask-menu-row--disabled.unity-button {
+    opacity: var(--opacity-disabled);
 }
 
 /* ---- the legend popover over the zoom bar ---- */
@@ -417,6 +571,31 @@
 
 .map-node--dimmed.unity-button {
     opacity: var(--opacity-gate-dim);
+}
+
+/* The lit walk to the nearest shrine (web map.css:307-345): the node's ring takes the lane colour and breathes between .72 and full. */
+.map-node--lane.unity-button {
+    border-color: var(--color-map-lane);
+    opacity: var(--opacity-map-lane-low);
+    transition-property: opacity;
+    transition-duration: var(--duration-map-lane-pulse);
+}
+
+.map-lane--high .map-node--lane.unity-button {
+    opacity: 1;
+}
+
+/* Walked nodes (the player's walkedFade; web styles/map.css:89-99): half is the web's default and the rule above; the other rungs are classes on the UI root. */
+.walked-off .map-node--travelled.unity-button {
+    opacity: var(--opacity-map-walked-off);
+}
+
+.walked-subtle .map-node--travelled.unity-button {
+    opacity: var(--opacity-map-walked-subtle);
+}
+
+.walked-strong .map-node--travelled.unity-button {
+    opacity: var(--opacity-map-walked-strong);
 }
 
 .map-node--reachable.unity-button {
@@ -641,7 +820,7 @@
     margin-right: var(--size-map-tool-gap-narrow);
 }
 
-.layout-narrow .map-potions.unity-button {
+.layout-narrow .map-potions-host {
     width: var(--size-map-potions-narrow-d);
     height: var(--size-map-potions-narrow-d);
 }

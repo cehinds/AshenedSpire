@@ -96,13 +96,16 @@ namespace Ashen.Presentation.UI.Screens
                 return;
             }
             var profile = Ui.Saves.Rules.ProfileSlot;
-            if (Ui.Saves.Exists(profile) && Ui.Saves.Load(profile).Status == LoadStatus.Corrupt)
+            // The web's notice stands in front of the title whenever the profile reads as anything but fine: corrupt or older (set aside) or newer (left as it is).
+            if (Ui.Saves.Exists(profile) && IsRefused(Ui.Saves.Load(profile).Status))
             {
                 Nav.Fire(ScreenTriggers.Recovery);
                 return;
             }
             Nav.Fire(ScreenTriggers.Ready);
         }
+
+        private static bool IsRefused(LoadStatus status) => status == LoadStatus.Corrupt || status == LoadStatus.RefusedNewer;
 
         public override void Unbind() => _tick?.Pause();
     }

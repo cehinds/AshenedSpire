@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="Screens.uss" />
+    <ui:Style src="Front.uss" />
+    <ui:VisualElement class="page page--center">
+        <ui:VisualElement name="FAREWELL" class="farewell">
+            <Ashen.Presentation.UI.LocLabel name="FAREWELL_TITLE" class="wordmark farewell-title" string-key="farewell.title" />
+            <Ashen.Presentation.UI.LocLabel name="FAREWELL_STATUS" class="subtitle kit-text-value farewell-status" />
+            <Ashen.Presentation.UI.LocButton name="FAREWELL_BACK" class="farewell-back" string-key="farewell.back" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

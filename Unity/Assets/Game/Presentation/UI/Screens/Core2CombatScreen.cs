@@ -76,9 +76,12 @@ namespace Ashen.Presentation.UI.Screens
                 return;
             }
             Ui.Core2Session = _run;
-            _flow = new Core2CombatFlow(_run, Strings);
+            _flow = new Core2CombatFlow(_run, Strings, Ui.Data.CardText);
             _hand = Root.Q<HandFan>(UiNames.Hand);
             _footer = Root.Q<FooterGroup>(UiNames.FooterGroup);
+            ChipTips.Overlay = Context.Overlay;
+            ChipTips.Size = Ui.Data.Components.CardRefusalTooltip;
+            ChipTips.DelayMs = Ui.Data.Tokens.Duration(TokenKeys.TooltipDelay);
             _overlays = new Core2Overlays(Context, _run, _flow, CardData);
             _overlays.Closed += () => Render();
             _promptRows = new Core2PromptRows(Ui, _run, _flow);
@@ -114,11 +117,7 @@ namespace Ashen.Presentation.UI.Screens
             list.verticalScroller.slider.focusable = false;
             Root.Q<LocButton>(UiNames.EndContinue).clicked += OnContinue;
             Root.Q<LocButton>(UiNames.EndSummary).clicked += OpenRunEnd;
-            Root.Q<LocButton>(UiNames.EndToTitle).clicked += () =>
-            {
-                Ui.ClearRun();
-                Nav.Fire(ScreenTriggers.Quit);
-            };
+            Root.Q<LocButton>(UiNames.EndToTitle).clicked += ToTitle;
             ApplyBackground();
             ApplyBoardArt();
             SetupFx();
@@ -171,7 +170,7 @@ namespace Ashen.Presentation.UI.Screens
         private void RenderHud()
         {
             var p = View.Player;
-            Root.Q<Meter>(UiNames.HudHp)?.Set(Int(p.Hp), Int(p.MaxHp));
+            Root.Q<Meter>(UiNames.HudHp)?.Set(Int(p.Hp + HeldHp(p.Id)), Int(p.MaxHp));
             var ribbon = Root.Q<LocLabel>(UiNames.TurnRibbon);
             ribbon?.SetResolved(Strings.Get(_busy ? StringKeys.Core2BoardRibbonEnemy : StringKeys.Core2BoardRibbonPlayer));
             ribbon?.EnableInClassList(UiClasses.RibbonEnemy, _busy);
@@ -186,6 +185,8 @@ namespace Ashen.Presentation.UI.Screens
             {
                 var pip = new VisualElement { pickingMode = PickingMode.Ignore };
                 pip.AddToClassList(UiClasses.HudPip);
+                var reading = Core2Readings.Relic(_flow.Session.State.Data, Ui.Data.Components, (string)relic);
+                ChipTips.Attach(pip, reading.Title, reading.Body);
                 var art = Ui.Texture(StringTable.Fill(Ui.Data.Components.RewardRelicArt, new StringArgs().Add(UiPlaceholders.Id, (string)relic)));
                 pip.style.backgroundImage = art != null ? new StyleBackground(art) : new StyleBackground(StyleKeyword.None);
                 pips.Add(pip);
@@ -225,6 +226,7 @@ namespace Ashen.Presentation.UI.Screens
 
         private void RenderFighters()
         {
+            RememberPlans();
             var order = Ui.Data.Components.FighterRatings;
             _player.Bind(FighterData(View.Player, true, order, 0));
             var row = Root.Q(UiNames.EnemyRow);
@@ -254,7 +256,46 @@ namespace Ashen.Presentation.UI.Screens
                 element.Bind(data);
                 element.focusable = enemy.Alive && !_busy && (Mode == null || legal);
             }
+            LayoutBoard();
         }
+
+        /// <summary>
+        /// The player's figure is the web's card stage (alternativeCardStage.js): the class's card-action frames, the held stance frames and the clips of its actions, over the frames imported as
+        /// alt.*, sweep.*, hurt.* and defeated.* (D-1490). The screen holds the stance (the card armed, else the last one played) and the rest the figure keeps between actions, as combat.js does.
+        /// A class whose frames are not imported keeps its base art.
+        /// </summary>
+        private void AttachStage(FighterData d)
+        {
+            var data = Ui.Data.CardStage;
+            if (data == null || !data.Has(_run.ClassId)) return;
+            d.Stage = MakeFeed(d.Alive);
+        }
+
+        /// <summary>
+        /// The art of a stage frame at the tier the layout asks for (assetUrl under the Auto art quality): the light copy on a narrow layout where the web ships one (the sweep, counter and hurt clips; the
+        /// alternative card frames have none), else the full frame.
+        /// </summary>
+        private string StageArt(string art)
+        {
+            if (art == null || !(Nav.Layout?.Narrow ?? false)) return art;
+            return Ui.Data.Art.Find(ArtKinds.StageLite, new StringArgs().Add(ArtPlaceholders.Name, art)) ?? art;
+        }
+
+        private StageFeed MakeFeed(bool alive) => new StageFeed
+        {
+            Data = Ui.Data.CardStage,
+            ClassId = _run.ClassId,
+            Texture = art => Ui.Texture(StageArt(art)),
+            Aura = Ui.Data.CombatAura,
+            Glow = art => Ui.Texture(Ui.Data.Art.Find(ArtKinds.Glow, new StringArgs().Add(ArtPlaceholders.Name, art))),
+            Lite = _flow.Pacing.Lite,
+            TickMs = Defs.Pace.TickMs,
+            Reduced = ReducedMotion,
+            ReduceFlashes = ReduceFlashes,
+            HitTint = _motion.HitTint,
+            Stance = PlayerStance(),
+            Rest = PlayerRest(alive),
+        };
 
         private FighterData FighterData(Core2FighterView f, bool player, IReadOnlyList<string> order, int reference)
         {
@@ -265,7 +306,7 @@ namespace Ashen.Presentation.UI.Screens
                 Art = Ui.Texture(player ? _run.Portrait : StringTable.Fill(Ui.Data.Components.EnemyArt, new StringArgs().Add(UiPlaceholders.Id, f.DefId))),
                 Player = player,
                 Alive = f.Alive || _dying.Contains(f.Id),
-                Hp = Int(f.Hp),
+                Hp = Int(f.Hp + HeldHp(f.Id)),
                 MaxHp = Int(f.MaxHp),
                 ReferenceMaxHp = reference,
                 HasPoise = f.Poise != null,
@@ -279,8 +320,19 @@ namespace Ashen.Presentation.UI.Screens
                 Stacks = Core2CombatText.Stacks(Strings, f),
                 Statuses = Core2CombatText.Statuses(Strings, f, Math.Max(1, Ui.Data.Components.StatusChips), Ui.Data.Components.FighterStackStatuses),
             };
+            if (player)
+            {
+                AttachStage(d);
+                d.IntentGlyph = Ui.IntentGlyph(PlayerGlyph());
+                var gear = _run.FigureGear();
+                var portrait = Ui.Data.OutfitArt.Frame(_run.ClassId, gear.Armour, gear.Right, gear.Left, OutfitViews.Portrait);
+                d.Portrait = portrait == null ? null : Ui.Texture(portrait);
+                d.Mana = Int(View.Player.Mana);
+                d.MaxMana = Int(View.Player.MaxMana);
+            }
+            _hpShown[f.Id] = d.Hp;
             AddChips(d, f);
-            if (!player) ApplyRestArt(d, f);
+            if (!player) ApplyEnemy(d, f);
             if (f.Poise != null) { d.Poise = Int(f.Poise.Value); d.PoiseMax = Int(f.Poise.Max); }
             if (d.HasWard) { d.Ward = Int(f.Ward.Value); d.WardMax = Int(f.Ward.Max); }
             if (f.Alive && f.Intent != null)
@@ -288,7 +340,18 @@ namespace Ashen.Presentation.UI.Screens
                 d.IntentText = Core2CombatText.Intent(Strings, f.Intent);
                 d.IntentKind = Core2CombatText.IntentKind(f.Intent);
                 d.IntentIcon = IntentIcon(d.IntentKind);
+                d.IntentReduced = f.Intent.Reduced;
+                var tip = Core2CombatText.IntentTip(Strings, f.Intent);
+                if (tip != null)
+                {
+                    d.IntentTipTitle = Core2CombatText.IntentBadge(Strings, f.Intent)?.Title;
+                    d.IntentTipBody = tip;
+                }
             }
+            var poiseTip = Core2CombatText.PoiseTip(Strings, f);
+            if (poiseTip != null) { d.PoiseTipTitle = poiseTip.Title; d.PoiseTipBody = poiseTip.Body; }
+            var wardTip = Core2CombatText.WardTip(Strings, f);
+            if (wardTip != null) { d.WardTipTitle = wardTip.Title; d.WardTipBody = wardTip.Body; }
             return d;
         }
 
@@ -307,16 +370,16 @@ namespace Ashen.Presentation.UI.Screens
         /// </summary>
         private void AddChips(FighterData d, Core2FighterView f)
         {
-            if (f.Evade > 0) d.RatingChips.Add(Chip(Ui.Icon(BoardIcons.Evade), CombatText.Number(f.Evade), Core2CombatText.Evade(Strings, f)));
-            if (f.Block > 0) d.RatingChips.Add(Chip(Ui.Icon(BoardIcons.Block), CombatText.Number(f.Block), Core2CombatText.Block(Strings, f)));
+            if (f.Evade > 0) d.RatingChips.Add(Chip(Ui.Icon(BoardIcons.Evade), CombatText.Number(f.Evade), Core2CombatText.Evade(Strings, f), f.Statuses.FirstOrDefault(s => s.Id == Core2CombatKeys.Evade)));
+            if (f.Block > 0) d.RatingChips.Add(Tipped(Chip(Ui.Icon(BoardIcons.Block), CombatText.Number(f.Block), Core2CombatText.Block(Strings, f)), Core2CombatText.BlockTip(Strings, f)));
             if (f.Precision > 0)
             {
-                var precision = Chip(Ui.Icon(BoardIcons.Precision), CombatText.Number(f.Precision), Strings.Format(StringKeys.Core2HudPrecision, new StringArgs().Add(UiPlaceholders.Value, CombatText.Number(f.Precision))));
+                var precision = Chip(Ui.Icon(BoardIcons.Precision), CombatText.Number(f.Precision), Strings.Format(StringKeys.Core2HudPrecision, new StringArgs().Add(UiPlaceholders.Value, CombatText.Number(f.Precision))), f.Statuses.FirstOrDefault(s => s.Id == Core2CombatKeys.Precision));
                 precision.Gold = true;
                 d.StackChips.Add(precision);
             }
-            if (f.Barrier > 0) d.StackChips.Add(Chip(null, null, Strings.Format(StringKeys.Core2HudBarrier, new StringArgs().Add(UiPlaceholders.Value, CombatText.Number(f.Barrier)))));
-            if (f.Counter != null) d.StackChips.Add(Chip(null, null, Strings.Get(StringKeys.Core2HudCounter)));
+            if (f.Barrier > 0) d.StackChips.Add(Tipped(Chip(null, null, Strings.Format(StringKeys.Core2HudBarrier, new StringArgs().Add(UiPlaceholders.Value, CombatText.Number(f.Barrier)))), Core2CombatText.BarrierTip(Strings, f)));
+            if (f.Counter != null) d.StackChips.Add(Tipped(Chip(null, null, Strings.Get(StringKeys.Core2HudCounter)), Core2CombatText.CounterTip(Strings)));
             var shown = f.Statuses.Where(s => !Ui.Data.Components.FighterStackStatuses.Contains(s.Id)).ToList();
             var limit = Math.Max(1, Ui.Data.Components.StatusChips);
             var take = shown.Count > limit ? limit - 1 : shown.Count;
@@ -326,14 +389,34 @@ namespace Ashen.Presentation.UI.Screens
                 var words = status.MeterValue.HasValue && status.MeterMax.HasValue
                     ? Strings.Format(StringKeys.CombatStatusMeter, new StringArgs().Add(UiPlaceholders.Name, status.Name).Add(UiPlaceholders.Value, number).Add(UiPlaceholders.Max, CombatText.Number(status.MeterMax.Value)))
                     : Strings.Format(StringKeys.CombatStatus, new StringArgs().Add(UiPlaceholders.Name, status.Name).Add(UiPlaceholders.Stacks, CombatText.Number(status.Stacks)));
-                d.StatusChips.Add(Chip(Ui.Icon(status.Id), number, words));
+                d.StatusChips.Add(Chip(Ui.Icon(status.Id), number, words, status));
             }
             if (shown.Count > take) d.StatusChips.Add(Chip(null, null, Strings.Format(StringKeys.CombatStatusMore, new StringArgs().Add(UiPlaceholders.Count, shown.Count - take))));
+        }
+
+        /// <summary>A chip that says what it is when pointed at (the web's health-badge tooltip).</summary>
+        private static ChipData Tipped(ChipData chip, Core2CombatText.Tip tip)
+        {
+            if (tip == null) return chip;
+            chip.TipTitle = tip.Title;
+            chip.TipBody = tip.Body;
+            return chip;
         }
 
         /// <summary>A chip: the icon with its number when the art exists, else the words.</summary>
         private static ChipData Chip(Texture2D icon, string number, string words) =>
             icon != null && number != null ? new ChipData { Icon = icon, Text = number } : new ChipData { Text = words };
+
+        /// <summary>A chip that explains the status behind it when pointed at (the web's status pip tip).</summary>
+        private ChipData Chip(Texture2D icon, string number, string words, Core2StatusView status)
+        {
+            var chip = Chip(icon, number, words);
+            if (status == null) return chip;
+            var reading = Core2Readings.Status(Strings, status);
+            chip.TipTitle = reading.Title;
+            chip.TipBody = reading.Body;
+            return chip;
+        }
 
         private void RenderHand()
         {
@@ -356,6 +439,7 @@ namespace Ashen.Presentation.UI.Screens
                     e.StopPropagation();
                 });
                 view.EnableInClassList(UiClasses.CardArmed, _flow.Armed != null && _flow.Armed.InstanceId == card.InstanceId);
+                view.Selected = _flow.Armed != null && _flow.Armed.InstanceId == card.InstanceId;
                 view.focusable = Mode == null;
                 view.ShowInspect = true;
                 view.Inspect += _ => _overlays.OpenInspect(card, view);
@@ -371,16 +455,22 @@ namespace Ashen.Presentation.UI.Screens
             // Pips in ui/components.json card.costKinds order: in Core 2 the Actions are Stamina, so the Stamina pip is always shown and the Mana pip when the card costs it.
             foreach (var kind in kinds)
             {
-                if (kind == Core2UiValues.CostStamina) costs.Add(new CardCostData { Kind = kind, Text = card.CostIsX ? Strings.Get(StringKeys.CombatCostX) : CombatText.Number(card.Stamina) });
+                if (kind == Core2UiValues.CostStamina) costs.Add(new CardCostData { Kind = kind, Text = card.CostIsX ? Strings.Get(StringKeys.CombatCostX) : CombatText.Number(card.Stamina), Shift = card.CostIsX ? 0 : card.CostShift });
                 else if (kind == Core2UiValues.CostMana && card.Mana > 0) costs.Add(new CardCostData { Kind = kind, Text = CombatText.Number(card.Mana) });
             }
+            var calculation = Core2DamageCalculation.Tip(Strings, card.FacePreview);
             return new CardViewData
             {
+                Receipt = calculation?.Body,
+                ReceiptTitle = calculation?.Title,
                 Name = card.Name,
                 TypeLine = Core2CombatText.TypeLine(Strings, card),
                 Face = card.Face,
                 Rank = Core2CombatText.Rank(Strings, card),
                 Text = card.Text,
+                Shifts = card.TextShifts,
+                RulesHtml = card.Words?.Hand,
+                RulesOverflow = card.Words?.Lines != null && card.Words.HandLines != null && card.Words.Lines.Count > card.Words.HandLines.Count,
                 Keywords = Core2CombatText.Traits(Strings, card),
                 Affordable = card.Playable,
                 Upgraded = card.Upgraded,
@@ -716,6 +806,7 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocLabel>(UiNames.EndBody)?.SetResolved(Strings.Format(over && !victory ? StringKeys.CombatEndDefeatBody : StringKeys.Core2EndBody,
                 new StringArgs().Add(UiPlaceholders.Slot, _run.SlotIndex)));
             var notice = victory ? Core2PortView.FightNotice(_run, Ui.Data) : null;
+            if (_run.PendingSaveError != null) notice = Strings.Get(StringKeys.Core2EndSaveFailed);
             var planned = Root.Q<LocLabel>(UiNames.EndPlanned);
             planned?.SetResolved(notice ?? string.Empty);
             UiDom.Show(planned, !string.IsNullOrEmpty(notice));
@@ -730,6 +821,19 @@ namespace Ashen.Presentation.UI.Screens
             end.EnableInClassList(UiClasses.CombatEndDefeat, !victory);
             UiDom.Show(end, true);
             FocusSoon(over ? (summary.ClassListContains(UiClasses.Hidden) ? (VisualElement)toTitle : summary) : next);
+        }
+
+        /// <summary>To the title from the fight's end: a close-out the disk refused is written first (W1r with Retry), never dropped with the session.</summary>
+        private void ToTitle()
+        {
+            if (_run.TryRetrySave() is Exception e)
+            {
+                Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.SaveFailed, e.Message));
+                ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, OnConfirm = ToTitle });
+                return;
+            }
+            Ui.ClearRun();
+            Nav.Fire(ScreenTriggers.Quit);
         }
 
         /// <summary>Continue after a won fight: back to the Core 2 act map (the run stands where the fight ended it).</summary>

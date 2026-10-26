@@ -16,5 +16,8 @@ namespace Ashen.Generated
         public const string Y = "y";
         public const string Kind = "kind";
         public const string Frame = "frame";
+        public const string Class = "class";
+        public const string Pose = "pose";
+        public const string Tint = "tint";
     }
 }

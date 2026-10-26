@@ -1,0 +1,185 @@
+{
+  "$id": "ui/cardText.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "lineOrder": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "enemyTargets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "neverPhrased": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mechanicStatuses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "baseCardIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "compact": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "marks": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "escapes": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "authoredRiderCards": {
+      "type": "array"
+    },
+    "artElements": {
+      "type": "array"
+    },
+    "artAliases": {
+      "type": "object"
+    },
+    "symbolTraits": {
+      "type": "array"
+    },
+    "turnMetricNames": {
+      "type": "object"
+    },
+    "constantFormulaKeys": {
+      "type": "array"
+    },
+    "formulaKeys": {
+      "type": "array"
+    },
+    "metricKeys": {
+      "type": "array"
+    },
+    "energyKeys": {
+      "type": "array"
+    },
+    "stacksKeys": {
+      "type": "array"
+    },
+    "weaponMetricKeys": {
+      "type": "array"
+    },
+    "evadeMetricKeys": {
+      "type": "array"
+    },
+    "moveKeys": {
+      "type": "array"
+    },
+    "predicateKeys": {
+      "type": "array"
+    },
+    "notKeys": {
+      "type": "array"
+    },
+    "simpleGrantKeys": {
+      "type": "array"
+    },
+    "stackLocations": {
+      "type": "object"
+    },
+    "chargeLabels": {
+      "type": "object"
+    },
+    "counterReturns": {
+      "type": "object"
+    },
+    "entryOrder": {
+      "type": "array"
+    },
+    "coreEntryStatuses": {
+      "type": "array"
+    },
+    "entryNames": {
+      "type": "object"
+    },
+    "benefitStatuses": {
+      "type": "array"
+    },
+    "protectionKinds": {
+      "type": "array"
+    },
+    "campTags": {
+      "type": "array"
+    },
+    "evadeTags": {
+      "type": "array"
+    },
+    "damageWalkKeys": {
+      "type": "array"
+    },
+    "statusWalkKeys": {
+      "type": "array"
+    },
+    "fractions": {
+      "type": "object"
+    },
+    "railMax": {
+      "type": "number"
+    },
+    "statusMax": {
+      "type": "number"
+    },
+    "walkDepth": {
+      "type": "number"
+    },
+    "handLines": {
+      "type": "number"
+    },
+    "whitespace": {
+      "type": "string"
+    },
+    "space": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "lineOrder",
+    "keywords",
+    "baseCardIds",
+    "compact",
+    "marks",
+    "escapes"
+  ]
+}

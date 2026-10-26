@@ -5,7 +5,7 @@
 # machine-level .upmconfig.toml pointing at an unavailable drive cannot break the build).
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-UNITY_EXE="${UNITY_EXE:-/d/Unity/6000.6.0f1/Editor/Unity.exe}"
+UNITY_EXE="${UNITY_EXE:-/d/Unity/6000.6.6f1/Editor/Unity.exe}"
 LOCAL_APPDATA="${LOCALAPPDATA:-$HOME/AppData/Local}"
 export UPM_CACHE_ROOT="${UPM_CACHE_ROOT:-$(cygpath -m "$ROOT/.cache/upm" 2>/dev/null || echo "$ROOT/.cache/upm")}"
 NAME="${1:?log name required}"; shift

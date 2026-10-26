@@ -66,6 +66,37 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void ARestLeaveWhoseSaveFailsKeepsTheSiteOpenForTheRetry()
+        {
+            var session = AtTheRest(2024);
+            // The save's temp file is a directory: the write fails, as a full or read-only disk would.
+            var blocker = Path.Combine(_dir, session.Slot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            Assert.That(() => session.LeaveRest(), Throws.Exception);
+            Assert.That(session.IsResting, Is.True, "the failed leave keeps the door open");
+            Directory.Delete(blocker);
+            Assert.That(session.LeaveRest().Done, Is.True, "the retry leaves once the disk takes writes");
+            Assert.That(session.Location, Is.EqualTo("map"));
+        }
+
+        [Test]
+        public void AnArrivalWhoseSaveFailsLeavesTheRunOnTheMap()
+        {
+            var session = Core2RunSession.New(Content, _saves, 1, 2024u, "reaver", "Aldric", () => Epoch);
+            var node = session.ReachableNodes()[0];
+            session.EditRunForReview(r => r["mapGraph"]["nodes"][node]["type"] = "shrine");
+            // The save's temp file is a directory: the write fails, as a full or read-only disk would.
+            var blocker = Path.Combine(_dir, session.Slot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            Assert.That(() => session.Travel(node), Throws.Exception);
+            Assert.That(session.IsResting, Is.False, "the failed arrival opened no rest site");
+            Assert.That(session.Location, Is.EqualTo("map"));
+            Directory.Delete(blocker);
+            Assert.That(session.Travel(node).Travelled, Is.True, "once the disk takes writes again, the same node can be entered");
+            Assert.That(session.IsResting, Is.True);
+        }
+
+        [Test]
         public void ArrivalHealsOnceAndTheVisitRemembersWhatItGave()
         {
             var session = AtTheRest(2024);
@@ -85,6 +116,23 @@ namespace Ashen.Tests
             Assert.That(view.Services[0].Available, Is.True);
             Assert.That(view.Status, Is.EqualTo("1 of 1 available"));
             Assert.That(view.Line, Is.EqualTo("Use any service here, all or none, then Continue."));
+        }
+
+        [Test]
+        public void ASmithWhoseSaveFailsTakesNothingAndTheRetryUpgrades()
+        {
+            var session = AtTheRest(2024);
+            var item = session.RestView(Strings).SmithItems.Single();
+            var before = session.Run.ToString();
+            // The save's temp file is a directory: the write fails, as a full or read-only disk would.
+            var blocker = Path.Combine(_dir, session.Slot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            Assert.That(() => session.UpgradeItem(item.ItemRef), Throws.Exception);
+            Assert.That(session.Run.ToString(), Is.EqualTo(before), "the refused save leaves no upgrade and no spent visit behind");
+            Directory.Delete(blocker);
+            var done = session.UpgradeItem(item.ItemRef);
+            Assert.That(done.Done, Is.True, done.Refusal);
+            Assert.That(session.Run["itemUpgradeLevels"].Value<double>("armament/greatsword"), Is.EqualTo(1));
         }
 
         [Test]

@@ -68,16 +68,16 @@ namespace Ashen.Presentation.UI.Screens
             return unchecked((uint)rng.Next() ^ ((uint)rng.Next() << 1));
         }
 
-        /// <summary>"name · class · Act · Floor · HP" for a slot, as the W-03 row shows it (the W2 target line).</summary>
+        /// <summary>The slot's one line of facts (web saveSlotSelector.js slotFacts): "Act 1 · Floor 0 · 71/71 HP".</summary>
+        public static string ActFacts(UiContext ui, SlotSummary s) =>
+            ui.Data.Strings.Format(StringKeys.SlotsFacts, new StringArgs().Add(UiPlaceholders.Act, s.Act).Add(UiPlaceholders.Floor, s.Floor).Add(UiPlaceholders.Hp, s.Hp).Add(UiPlaceholders.HpMax, s.HpMax));
+
+        /// <summary>The run a W2 door acts on, named the way its slot names it (web ConfirmationReviewModel.js runIdentity): "Reaver · Slot 1 · Act 1 · Floor 0 · 71/71 HP".</summary>
         public static string SlotFacts(UiContext ui, SlotSummary s)
         {
             var strings = ui.Data.Strings;
-            var label = strings.Format(StringKeys.SlotsLabel, new StringArgs().Add(UiPlaceholders.Slot, s.Index));
-            if (!s.IsReady) return label;
-            var facts = strings.Format(StringKeys.SlotsFacts, new StringArgs()
-                .Add(UiPlaceholders.Name, s.Name).Add(UiPlaceholders.Class, ClassName(ui, s.ClassId)).Add(UiPlaceholders.Act, s.Act).Add(UiPlaceholders.Floor, s.Floor)
-                .Add(UiPlaceholders.Hp, s.Hp).Add(UiPlaceholders.HpMax, s.HpMax));
-            return strings.Format(StringKeys.SlotsTarget, new StringArgs().Add(UiPlaceholders.Label, label).Add(UiPlaceholders.Facts, facts));
+            if (!s.IsReady) return strings.Format(StringKeys.SlotsLabel, new StringArgs().Add(UiPlaceholders.Slot, s.Index));
+            return strings.Format(StringKeys.SlotsTarget, new StringArgs().Add(UiPlaceholders.Class, ClassName(ui, s.ClassId)).Add(UiPlaceholders.Slot, s.Index).Add(UiPlaceholders.Facts, ActFacts(ui, s)));
         }
 
         public static string ClassName(UiContext ui, string classId) =>

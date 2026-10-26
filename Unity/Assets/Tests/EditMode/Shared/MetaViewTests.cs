@@ -69,7 +69,7 @@ namespace Ashen.Tests
             var view = JournalView.Build(profile, Default, Ui);
             var row = view.History.Single();
             Assert.That(row.Victory, Is.True);
-            Assert.That(row.Pills, Has.Count.EqualTo(2), "custom and ascension pills");
+            Assert.That(row.Pills, Is.EqualTo(new[] { "Custom A2" }), "one Custom tag carrying the ascension (history.js tagChip)");
             Assert.That(row.Detail, Has.Member("Unknown."));
             Assert.That(row.Deck, Is.Empty);
             Assert.That(view.Armaments, Is.EqualTo(new[] { "Dagger" }), "found armaments, once each, by name");
@@ -89,6 +89,7 @@ namespace Ashen.Tests
             foreach (var def in settings.Defs.Controls)
             {
                 Assert.That(categories, Has.Member(def.Category), def.Key);
+                if (def.IsButton) continue;
                 Assert.That(def.Refusal(def.Def), Is.Null, def.Key + ": the def fits its control");
                 if (def.IsEnum) Assert.That(def.Options, Is.Not.Empty, def.Key + ": options resolve");
                 if (def.IsSlider) Assert.That(def.Max, Is.GreaterThan(def.Min), def.Key + ": the range resolves");
@@ -149,7 +150,7 @@ namespace Ashen.Tests
             Assert.That(pacing.AutoSpeed, Is.EqualTo(1.5), "FIXCORE D11: auto combat runs at x1.5");
             Assert.That(pacing.StageGapMs, Is.EqualTo(500), "the web dev build's pause between steps (actionPacing.motion.stageGapMs)");
             Assert.That(pacing.AnimationStepMs, Is.EqualTo(390));
-            Assert.That(pacing.AnimSpeed, Is.EqualTo("auto"));
+            Assert.That(pacing.AnimSpeed, Is.EqualTo("normal"), "the default Auto pacing resolves to Normal at full rendering quality (resolveCombatPacing, D-1590)");
             Assert.That(pacing.OneTapPlay, Is.False, "one-tap play is an opt-in");
             Assert.That(pacing.AskToUpcastAfterTarget, Is.False);
             Assert.That(pacing.ScreenShake, Is.True);

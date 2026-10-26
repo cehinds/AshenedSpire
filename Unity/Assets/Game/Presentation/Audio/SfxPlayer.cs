@@ -57,7 +57,7 @@ namespace Ashen.Presentation.Audio
 
         private void OnSettingsChanged(SettingsSession settings, string key)
         {
-            if (key == null || key == SettingIds.MasterVolume || key == SettingIds.SfxVolume) _volume = Volume(settings);
+            if (key == null || key == SettingIds.MuteAudio || key == SettingIds.SfxVolume) _volume = Volume(settings);
         }
 
         private void OnCore2Command(Ashen.App.Combat.Core2Outcome outcome)
@@ -67,6 +67,6 @@ namespace Ashen.Presentation.Audio
         }
 
         private static float Volume(SettingsSession settings) =>
-            (float)(settings.Number(SettingIds.MasterVolume) / UiMath.Percent * settings.Number(SettingIds.SfxVolume) / UiMath.Percent);
+            (float)settings.SfxLevel;
     }
 }

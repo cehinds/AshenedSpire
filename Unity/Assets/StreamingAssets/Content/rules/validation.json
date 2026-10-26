@@ -1,4 +1,4 @@
 {
-  "comment": "Data-driven row rules for the content validator (docs/design/08 §12, US-0.4). A rule applies to every row of 'table' matching 'when'; each 'require' clause must hold. The 405 catalog's cost rule left with it (WP-21, D-1304): Core 2 cards do not keep it. Clause: field + one of eq/gte/gt/lte/lt, optional 'orValues' (values that also satisfy it).",
+  "comment": "Data-driven row rules for the content validator (docs/design/08 §12, US-0.4). A rule applies to every row of 'table' matching 'when'; each 'require' clause must hold. The 405 catalog's cost rule left with it (WP-21, D-1704): Core 2 cards do not keep it. Clause: field + one of eq/gte/gt/lte/lt, optional 'orValues' (values that also satisfy it).",
   "rowRules": []
 }

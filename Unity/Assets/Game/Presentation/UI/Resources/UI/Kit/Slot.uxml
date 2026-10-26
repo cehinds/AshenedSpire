@@ -4,6 +4,7 @@
     <Ashen.Presentation.UI.LocLabel name="SLOT_LABEL" class="slot-label kit-text-header" picking-mode="Ignore" />
     <ui:VisualElement name="SLOT_PORTRAIT" class="slot-portrait" picking-mode="Ignore" />
     <ui:VisualElement class="slot-texts" picking-mode="Ignore">
+        <Ashen.Presentation.UI.LocLabel name="SLOT_NAME" class="slot-name kit-text-value" picking-mode="Ignore" />
         <Ashen.Presentation.UI.LocLabel name="SLOT_FACTS" class="slot-facts kit-text-value" picking-mode="Ignore" />
         <Ashen.Presentation.UI.LocLabel name="SLOT_SAVED" class="slot-saved kit-text-value" picking-mode="Ignore" />
     </ui:VisualElement>

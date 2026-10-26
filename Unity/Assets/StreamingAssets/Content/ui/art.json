@@ -4,7 +4,13 @@
     { "id": "cards", "resource": "UI/UiCardArtCatalog", "include": ["card.*.art512", "cardlib.*.art512", "cardprofile.*.art512", "cardcut."] },
     { "id": "icons", "resource": "UI/UiIconArtCatalog", "include": ["icon.", "uikit.", "cardframe.", "uicomp.", "orb.", "footer.", "creation.", "shop."] },
     { "id": "scenes", "resource": "UI/UiSceneArtCatalog", "include": ["scene.", "illus.", "event.", "portrait.", "prologue.", "mapdetail."] },
-    { "id": "fx", "resource": "UI/UiFxArtCatalog", "include": ["vfx.", "defeated.", "enemy.*.pose.idle", "enemy.*.pose.attack", "enemy.*.state.afflicted", "enemy.*.state.buff", "enemy.*.state.guard", "enemy.*.state.guardHit", "enemy.*.state.hurt", "enemy.*.state.projectile", "enemy.*.state.wounded"] }
+    { "id": "fx", "resource": "UI/UiFxArtCatalog", "include": ["vfx.", "posefx.", "pose.", "defeated.", "enemy.*.pose.idle", "enemy.*.pose.attack", "enemy.*.state.afflicted", "enemy.*.state.buff", "enemy.*.state.guard", "enemy.*.state.guardHit", "enemy.*.state.hurt", "enemy.*.state.projectile", "enemy.*.state.wounded"] },
+    { "id": "stage", "resource": "UI/UiStageArtCatalog", "include": ["alt.", "sweep.", "hurt."] },
+    { "id": "enemies", "resource": "UI/UiEnemyArtCatalog", "include": ["exp."] },
+    { "id": "lite", "resource": "UI/UiLiteArtCatalog", "include": ["lite."] },
+    { "id": "glowstage", "resource": "UI/UiGlowStageArtCatalog", "include": ["glow.alt.", "glow.sweep.", "glow.hurt."] },
+    { "id": "glowenemy", "resource": "UI/UiGlowEnemyArtCatalog", "include": ["glow.exp."] },
+    { "id": "outfit", "resource": "UI/UiOutfitArtCatalog", "include": ["outfit.", "anim."] }
   ],
   "lookup": {
     "icon": "icon.{name}",
@@ -26,8 +32,13 @@
     "vfx": "vfx.{kind}.{frame}",
     "posefx": "posefx.{kind}.{frame}",
     "enemyPose": "enemy.{id}.pose.{name}",
+    "playerPose": "pose.{class}.{pose}.{tint}",
     "enemyState": "enemy.{id}.state.{name}",
     "defeated": "defeated.{id}",
+    "enemyFrame": "exp.{id}.{name}",
+    "enemyLite": "lite.exp.{id}.{name}",
+    "stageLite": "lite.{name}",
+    "glow": "glow.{name}",
     "flask": "flask.{name}"
   },
   "iconAlias": {

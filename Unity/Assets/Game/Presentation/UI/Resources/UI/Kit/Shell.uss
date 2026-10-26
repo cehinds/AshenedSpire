@@ -25,6 +25,20 @@
     border-color: var(--color-line-soft);
 }
 
+.shell-heading {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-direction: column;
+}
+
+/* The web's modal head carries an Eyebrow over its title (kit modalHead: PLAYER DATA over Profile); hidden unless a screen names one. */
+.shell-eyebrow {
+    font-size: var(--font-comp-eyebrow);
+    letter-spacing: var(--size-track-eyebrow);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
 .shell-title {
     flex-grow: 1;
     flex-shrink: 1;

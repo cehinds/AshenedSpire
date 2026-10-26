@@ -674,14 +674,83 @@
 }
 
 .settings-tip {
+    flex-direction: row;
+    align-items: center;
     margin: var(--space-sm) var(--space-md);
     padding: var(--space-sm) var(--space-md);
     background-color: var(--color-settings-tip);
     border-left-width: var(--size-settings-tip-bar);
     border-color: var(--color-gold);
+}
+
+.settings-tip-text {
+    flex-grow: 1;
+    flex-shrink: 1;
     font-size: var(--font-settings-tip);
     color: var(--color-parchment);
     white-space: normal;
+}
+
+/* The three dots of the header's more menu (settings.js set-options): the Reset this group and Reset all settings items drop from it. */
+.settings-more {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-more-dot {
+    width: var(--size-settings-more-dot);
+    height: var(--size-settings-more-dot);
+    margin: var(--size-settings-more-gap) 0 0 0;
+    border-radius: var(--radius-round);
+    background-color: var(--color-parchment);
+}
+
+.settings-menu {
+    position: absolute;
+    top: var(--size-settings-menu-top);
+    right: var(--size-settings-menu-right);
+    width: var(--size-settings-menu-w);
+    padding: var(--space-xs);
+    background-color: var(--color-bg-raise);
+}
+
+.settings-menu-item {
+    margin: var(--space-xxs) 0;
+}
+
+.settings-undo {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--size-settings-undo-h);
+    padding: 0 var(--space-md);
+    background-color: var(--color-settings-tip);
+    border-top-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+}
+
+.settings-undo-text {
+    flex-grow: 1;
+    color: var(--color-parchment);
+}
+
+.settings-row-reset {
+    min-height: var(--size-settings-row-reset-h);
+    height: var(--size-settings-row-reset-h);
+    margin: 0 0 0 var(--space-sm);
+    padding: 0 var(--space-sm);
+    font-size: var(--font-label);
+}
+
+.settings-button {
+    margin: 0;
+}
+
+.settings-topic {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin: 0 0 var(--space-xs) 0;
 }
 
 .settings-tabs {
@@ -942,14 +1011,12 @@
     white-space: normal;
 }
 
-.about-credits-heading {
-    margin-top: var(--space-lg);
-    font-size: var(--font-heading);
-    color: var(--color-gold);
-    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+.about-save.unity-button {
+    margin: var(--space-lg) 0 0 0;
+    align-self: flex-start;
 }
 
-.about-credit {
+.about-result {
     margin-top: var(--space-xs);
     font-size: var(--font-settings-row-help);
     color: var(--color-muted);
@@ -957,11 +1024,14 @@
 }
 
 .about-build {
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-md);
-    font-size: var(--font-label);
-    letter-spacing: var(--size-track-label);
+    margin-top: var(--space-xs);
+    font-size: var(--font-settings-row-help);
     color: var(--color-muted);
+    white-space: normal;
+}
+
+.about-build--first {
+    margin-top: var(--space-lg);
 }
 
 /* ---- W-16 run history, the Compendium, the Profile and About (D-1006): src/ui/screens/{history,compendium,profileArchive,about}.js ---- */
@@ -1276,8 +1346,12 @@
 }
 
 .profile-pane {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.layout-narrow .profile-pane {
     flex-direction: column;
-    max-width: var(--size-profile-card-w);
 }
 
 .profile-eyebrow {
@@ -1374,4 +1448,274 @@
 .layout-narrow .shell.about-shell,
 .layout-narrow .shell.compendium-shell {
     width: var(--size-full-width);
+}
+
+/* ---- P-3a: the group tip beside the count, the segmented choice, the Changelog and Game rules panels (web settings.js set-group-summary, .as-seg.choice-group; about.js; gameProfileSelector.js) ---- */
+
+.settings-group-summary {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: var(--size-full-width);
+}
+
+.settings-group-tip {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-right: var(--space-md);
+    font-size: var(--font-label);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.settings-segmented {
+    flex-direction: row;
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.settings-segment.unity-button {
+    margin: 0;
+    padding: var(--space-xs) var(--space-md);
+    color: var(--color-parchment);
+    background-color: var(--color-transparent);
+    border-width: 0;
+    border-radius: 0;
+}
+
+.settings-segment--on.unity-button {
+    color: var(--color-ready-text);
+    background-color: var(--color-panel-raise);
+}
+
+.settings-panel-head {
+    margin-top: var(--space-sm);
+}
+
+.settings-panel-eyebrow {
+    font-size: var(--font-label);
+    color: var(--color-muted);
+}
+
+.settings-panel-title {
+    font-size: var(--font-heading);
+    color: var(--color-gold);
+}
+
+.settings-panel-blurb {
+    margin-top: var(--space-xs);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.settings-panel-rule {
+    height: var(--border-hairline);
+    margin: var(--space-sm) 0;
+    background-color: var(--color-line);
+}
+
+.settings-change-group {
+    margin-top: var(--space-md);
+}
+
+.settings-change {
+    margin-top: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    border-width: var(--border-hairline);
+    border-color: var(--color-line);
+    border-radius: var(--radius-tight);
+}
+
+.settings-change--open {
+    border-color: var(--color-gold);
+}
+
+.settings-change-head {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.settings-change-summary {
+    flex-grow: 1;
+    flex-shrink: 1;
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.settings-change-build {
+    flex-shrink: 0;
+    margin-left: var(--space-md);
+    color: var(--color-muted);
+}
+
+.settings-change-body {
+    margin-top: var(--space-sm);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.settings-rules {
+    margin-top: var(--space-md);
+}
+
+.settings-rules-line {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: var(--space-sm);
+}
+
+.settings-rules-status {
+    margin-bottom: var(--space-sm);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.settings-rules-note {
+    margin-right: var(--space-md);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.settings-rules-field {
+    min-width: var(--size-settings-select-w);
+}
+
+/* ---- P-3a: the Profile's archive (web profileArchive.js W1g: the profile's identity beside the selected category's set-aside entries) ---- */
+
+.prof-identity,
+.prof-records {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    flex-direction: column;
+}
+
+.prof-identity {
+    margin-right: var(--space-lg);
+}
+
+.layout-narrow .prof-identity {
+    margin-right: 0;
+    margin-bottom: var(--space-lg);
+}
+
+.prof-entry,
+.prof-notice,
+.prof-confirm {
+    margin-top: var(--space-md);
+}
+
+.prof-recovery {
+    flex-direction: column;
+}
+
+/* ---- P-6: Download & saves, Move your saves (web offlinePlay.js: h3, set-note, offline-actions, status) ---- */
+
+.transfer-heading {
+    font-size: var(--font-profile-status);
+    color: var(--color-gold);
+    white-space: normal;
+}
+
+.transfer-note {
+    margin-top: var(--space-xs);
+    font-size: var(--font-profile-body);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.transfer-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-md);
+}
+
+.transfer-status {
+    margin-top: var(--space-md);
+    font-size: var(--font-profile-body);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.farewell {
+    flex-direction: column;
+    align-items: center;
+}
+
+.farewell-status {
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-lg);
+    -unity-text-align: middle-center;
+}
+
+.prof-emphasis {
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+}
+
+.prof-recovery .prof-entry {
+    margin-bottom: var(--space-md);
+}
+
+.prof-entry-name {
+    font-size: var(--font-profile-status);
+    color: var(--color-gold);
+    -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf");
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.prof-entry-line {
+    margin-top: var(--space-xs);
+    font-size: var(--font-profile-body);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.prof-notice-line {
+    margin-top: var(--space-xs);
+    font-size: var(--font-profile-body);
+    color: var(--color-muted);
+    -unity-font-style: italic;
+    white-space: normal;
+}
+
+.prof-entry-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: var(--space-sm);
+}
+
+.prof-action {
+    flex-grow: 1;
+    margin-right: var(--space-sm);
+    margin-bottom: var(--space-xs);
+}
+
+.prof-support {
+    margin-top: var(--space-xs);
+    align-self: flex-start;
+}
+
+.prof-support-body {
+    margin-top: var(--space-xs);
+    font-size: var(--font-profile-body);
+    color: var(--color-muted);
+    white-space: normal;
+}
+
+.prof-result {
+    margin-top: var(--space-md);
+    font-size: var(--font-profile-body);
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.prof-empty {
+    font-size: var(--font-profile-body);
+    color: var(--color-muted);
+    -unity-font-style: italic;
+    white-space: normal;
 }

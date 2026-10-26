@@ -7,6 +7,8 @@ namespace Ashen.Generated
         public const string Boot = "boot";
         public const string ContentError = "contentError";
         public const string ProfileRecovery = "profileRecovery";
+        public const string Farewell = "farewell";
+        public const string Transfer = "transfer";
         public const string Title = "title";
         public const string Slots = "slots";
         public const string Confirm = "confirm";
@@ -20,6 +22,7 @@ namespace Ashen.Generated
         public const string Pause = "pause";
         public const string PileViewer = "pileViewer";
         public const string Armoury = "armoury";
+        public const string Core2Potions = "core2Potions";
         public const string Core2Combat = "core2Combat";
         public const string Core2Rewards = "core2Rewards";
         public const string Core2Rest = "core2Rest";

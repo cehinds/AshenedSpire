@@ -12,5 +12,7 @@ namespace Ashen.Generated
         public const string About = "about";
         public const string Compendium = "compendium";
         public const string Kinds = "kinds";
+        public const string Developer = "developer";
+        public const string TipNames = "settingsTipNames";
     }
 }

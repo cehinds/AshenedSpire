@@ -1,0 +1,710 @@
+{
+  "$id": "ui/battlefield.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "fit": {
+      "type": "object",
+      "properties": {
+        "defaultBoxHeight": {
+          "type": "integer"
+        },
+        "edgeMargin": {
+          "type": "integer"
+        },
+        "headroom": {
+          "type": "integer"
+        },
+        "leading": {
+          "type": "object",
+          "properties": {
+            "cap": {
+              "type": "integer"
+            },
+            "gap": {
+              "type": "integer"
+            },
+            "gapCompact": {
+              "type": "integer"
+            },
+            "heightShare": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "cap",
+            "gap",
+            "gapCompact",
+            "heightShare"
+          ]
+        },
+        "lowRatio": {
+          "type": "number"
+        },
+        "multiplierCap": {
+          "type": "number"
+        },
+        "ratioCap": {
+          "type": "number"
+        },
+        "requested": {
+          "type": "object",
+          "properties": {
+            "enemy": {
+              "type": "object",
+              "properties": {
+                "narrow": {
+                  "type": "number"
+                },
+                "wide": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "narrow",
+                "wide"
+              ]
+            },
+            "player": {
+              "type": "object",
+              "properties": {
+                "narrow": {
+                  "type": "number"
+                },
+                "wide": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "narrow",
+                "wide"
+              ]
+            }
+          },
+          "required": [
+            "enemy",
+            "player"
+          ]
+        },
+        "screenMargin": {
+          "type": "integer"
+        },
+        "shadowHeightShare": {
+          "type": "number"
+        },
+        "spaciousMaxEnemies": {
+          "type": "integer"
+        },
+        "widthMargin": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "defaultBoxHeight",
+        "edgeMargin",
+        "headroom",
+        "leading",
+        "lowRatio",
+        "multiplierCap",
+        "ratioCap",
+        "requested",
+        "screenMargin",
+        "shadowHeightShare",
+        "spaciousMaxEnemies",
+        "widthMargin"
+      ]
+    },
+    "grid": {
+      "type": "object",
+      "properties": {
+        "backRankShift": {
+          "type": "number"
+        },
+        "bands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "anchor": {
+                "type": "object",
+                "properties": {
+                  "x": {
+                    "type": "number"
+                  },
+                  "y": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y"
+                ]
+              },
+              "depth": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "index": {
+                "type": "integer"
+              },
+              "layer": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "anchor",
+              "depth",
+              "id",
+              "index",
+              "layer"
+            ]
+          }
+        },
+        "bodyWidthFraction": {
+          "type": "number"
+        },
+        "bodyWidthMaxPx": {
+          "type": "integer"
+        },
+        "depth": {
+          "type": "object",
+          "properties": {
+            "back": {
+              "type": "number"
+            },
+            "front": {
+              "type": "number"
+            },
+            "player": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "back",
+            "front",
+            "player"
+          ]
+        },
+        "enemyMiniHudScale": {
+          "type": "number"
+        },
+        "footFraction": {
+          "type": "object",
+          "properties": {
+            "enemy": {
+              "type": "number"
+            },
+            "player": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "enemy",
+            "player"
+          ]
+        },
+        "footprintInsetPx": {
+          "type": "integer"
+        },
+        "miniHudGroupHeightPx": {
+          "type": "integer"
+        },
+        "miniHudInsetPx": {
+          "type": "integer"
+        },
+        "miniHudScale": {
+          "type": "number"
+        },
+        "miniHudSpriteGapPx": {
+          "type": "integer"
+        },
+        "narrow": {
+          "type": "object",
+          "properties": {
+            "enemyRowHeight": {
+              "type": "number"
+            },
+            "enemyTop": {
+              "type": "number"
+            },
+            "left": {
+              "type": "number"
+            },
+            "playerRowHeight": {
+              "type": "number"
+            },
+            "playerTop": {
+              "type": "number"
+            },
+            "right": {
+              "type": "number"
+            },
+            "rowHeight": {
+              "type": "number"
+            },
+            "skew": {
+              "type": "number"
+            },
+            "top": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "enemyRowHeight",
+            "enemyTop",
+            "left",
+            "playerRowHeight",
+            "playerTop",
+            "right",
+            "rowHeight",
+            "skew",
+            "top"
+          ]
+        },
+        "playerArtworkScale": {
+          "type": "number"
+        },
+        "playerBelowFootPx": {
+          "type": "integer"
+        },
+        "profiles": {
+          "type": "object",
+          "properties": {
+            "desktop": {
+              "type": "object",
+              "properties": {
+                "enemyRowHeight": {
+                  "type": "number"
+                },
+                "enemyTop": {
+                  "type": "number"
+                },
+                "left": {
+                  "type": "number"
+                },
+                "playerRowHeight": {
+                  "type": "number"
+                },
+                "playerTop": {
+                  "type": "number"
+                },
+                "right": {
+                  "type": "number"
+                },
+                "rowHeight": {
+                  "type": "number"
+                },
+                "skew": {
+                  "type": "number"
+                },
+                "top": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "enemyRowHeight",
+                "enemyTop",
+                "left",
+                "playerRowHeight",
+                "playerTop",
+                "right",
+                "rowHeight",
+                "skew",
+                "top"
+              ]
+            },
+            "mobile": {
+              "type": "object",
+              "properties": {
+                "enemyRowHeight": {
+                  "type": "number"
+                },
+                "enemyTop": {
+                  "type": "number"
+                },
+                "left": {
+                  "type": "number"
+                },
+                "playerRowHeight": {
+                  "type": "number"
+                },
+                "playerTop": {
+                  "type": "number"
+                },
+                "right": {
+                  "type": "number"
+                },
+                "rowHeight": {
+                  "type": "number"
+                },
+                "skew": {
+                  "type": "number"
+                },
+                "top": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "enemyRowHeight",
+                "enemyTop",
+                "left",
+                "playerRowHeight",
+                "playerTop",
+                "right",
+                "rowHeight",
+                "skew",
+                "top"
+              ]
+            },
+            "tablet": {
+              "type": "object",
+              "properties": {
+                "enemyRowHeight": {
+                  "type": "number"
+                },
+                "enemyTop": {
+                  "type": "number"
+                },
+                "left": {
+                  "type": "number"
+                },
+                "playerRowHeight": {
+                  "type": "number"
+                },
+                "playerTop": {
+                  "type": "number"
+                },
+                "right": {
+                  "type": "number"
+                },
+                "rowHeight": {
+                  "type": "number"
+                },
+                "skew": {
+                  "type": "number"
+                },
+                "top": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "enemyRowHeight",
+                "enemyTop",
+                "left",
+                "playerRowHeight",
+                "playerTop",
+                "right",
+                "rowHeight",
+                "skew",
+                "top"
+              ]
+            }
+          },
+          "required": [
+            "desktop",
+            "mobile",
+            "tablet"
+          ]
+        },
+        "short": {
+          "type": "object",
+          "properties": {
+            "enemyRowHeight": {
+              "type": "number"
+            },
+            "enemyTop": {
+              "type": "number"
+            },
+            "left": {
+              "type": "number"
+            },
+            "playerRowHeight": {
+              "type": "number"
+            },
+            "playerTop": {
+              "type": "number"
+            },
+            "right": {
+              "type": "number"
+            },
+            "rowHeight": {
+              "type": "number"
+            },
+            "skew": {
+              "type": "number"
+            },
+            "top": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "enemyRowHeight",
+            "enemyTop",
+            "left",
+            "playerRowHeight",
+            "playerTop",
+            "right",
+            "rowHeight",
+            "skew",
+            "top"
+          ]
+        },
+        "shortBelowPx": {
+          "type": "integer"
+        },
+        "spaciousEnemyClassHeightFraction": {
+          "type": "number"
+        },
+        "wide": {
+          "type": "object",
+          "properties": {
+            "enemyRowHeight": {
+              "type": "number"
+            },
+            "enemyTop": {
+              "type": "number"
+            },
+            "left": {
+              "type": "number"
+            },
+            "playerRowHeight": {
+              "type": "number"
+            },
+            "playerTop": {
+              "type": "number"
+            },
+            "right": {
+              "type": "number"
+            },
+            "rowHeight": {
+              "type": "number"
+            },
+            "skew": {
+              "type": "number"
+            },
+            "top": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "enemyRowHeight",
+            "enemyTop",
+            "left",
+            "playerRowHeight",
+            "playerTop",
+            "right",
+            "rowHeight",
+            "skew",
+            "top"
+          ]
+        }
+      },
+      "required": [
+        "backRankShift",
+        "bands",
+        "bodyWidthFraction",
+        "bodyWidthMaxPx",
+        "depth",
+        "enemyMiniHudScale",
+        "footFraction",
+        "footprintInsetPx",
+        "miniHudGroupHeightPx",
+        "miniHudInsetPx",
+        "miniHudScale",
+        "miniHudSpriteGapPx",
+        "narrow",
+        "playerArtworkScale",
+        "playerBelowFootPx",
+        "profiles",
+        "short",
+        "shortBelowPx",
+        "spaciousEnemyClassHeightFraction",
+        "wide"
+      ]
+    },
+    "low": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "blightHound",
+          "cinderMantis",
+          "graveWisp",
+          "lanternMoth",
+          "stitchCrab",
+          "stitchedHound"
+        ]
+      }
+    },
+    "presentation": {
+      "type": "object",
+      "properties": {
+        "backLayer": {
+          "type": "integer"
+        },
+        "columns": {
+          "type": "integer"
+        },
+        "displayScale": {
+          "type": "number"
+        },
+        "enemySpriteScale": {
+          "type": "number"
+        },
+        "frontLayer": {
+          "type": "integer"
+        },
+        "lanes": {
+          "type": "integer"
+        },
+        "playerSpawnRow": {
+          "type": "string"
+        },
+        "playerSpriteScale": {
+          "type": "integer"
+        },
+        "rowLayer": {
+          "type": "object",
+          "properties": {
+            "A": {
+              "type": "integer"
+            },
+            "B": {
+              "type": "integer"
+            },
+            "C": {
+              "type": "integer"
+            },
+            "D": {
+              "type": "integer"
+            },
+            "E": {
+              "type": "integer"
+            },
+            "F": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ]
+        },
+        "rowScale": {
+          "type": "object",
+          "properties": {
+            "A": {
+              "type": "integer"
+            },
+            "B": {
+              "type": "integer"
+            },
+            "C": {
+              "type": "integer"
+            },
+            "D": {
+              "type": "integer"
+            },
+            "E": {
+              "type": "integer"
+            },
+            "F": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ]
+        }
+      },
+      "required": [
+        "backLayer",
+        "columns",
+        "displayScale",
+        "enemySpriteScale",
+        "frontLayer",
+        "lanes",
+        "playerSpawnRow",
+        "playerSpriteScale",
+        "rowLayer",
+        "rowScale"
+      ]
+    },
+    "rows": {
+      "type": "string"
+    },
+    "stature": {
+      "type": "object",
+      "properties": {
+        "bossScale": {
+          "type": "object",
+          "properties": {
+            "ashheartDragon": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "ashheartDragon"
+          ]
+        },
+        "of": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "enum": [
+              "huge",
+              "large",
+              "normal"
+            ]
+          }
+        },
+        "ratio": {
+          "type": "object",
+          "properties": {
+            "huge": {
+              "type": "integer"
+            },
+            "large": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "huge",
+            "large"
+          ]
+        }
+      },
+      "required": [
+        "bossScale",
+        "of",
+        "ratio"
+      ]
+    },
+    "visualBands": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "comment",
+    "fit",
+    "grid",
+    "low",
+    "presentation",
+    "rows",
+    "stature",
+    "visualBands"
+  ]
+}

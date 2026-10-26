@@ -58,11 +58,12 @@ namespace Ashen.App.Run
         public Core2RestResult TakeRestService(string service, JObject payload)
         {
             if (!IsResting) return new Core2RestResult { Refusal = RM.NoRestOpen };
+            var snapshot = Snapshot();
             try
             {
                 var receipt = Core2Rest.Commit(Core.Rewards, _run, service, payload ?? new JObject());
                 Core2Rest.RecordConsumed(Core.Rewards, _run, service);
-                Save();
+                SaveOrRestore(snapshot);
                 return new Core2RestResult { Receipt = receipt };
             }
             catch (InvalidOperationException e) { return new Core2RestResult { Refusal = e.Message }; }
@@ -89,10 +90,20 @@ namespace Ashen.App.Run
         public Core2RestResult LeaveRest()
         {
             if (!IsResting) return new Core2RestResult { Refusal = RM.NoRestOpen };
-            Core2Rest.MarkLeft(_run);
-            _resting = false;
-            _location = Ashen.Generated.RunFlowValues.LocationMap;
-            Save();
+            // A save that throws puts the site back open, so the screen's Retry leaves again.
+            var snapshot = Snapshot();
+            try
+            {
+                Core2Rest.MarkLeft(_run);
+                _resting = false;
+                _location = Ashen.Generated.RunFlowValues.LocationMap;
+                Save();
+            }
+            catch
+            {
+                Restore(snapshot);
+                throw;
+            }
             return new Core2RestResult();
         }
     }

@@ -1,0 +1,9 @@
+<linker>
+  <!-- The damage calculation tooltip finds the link tag events by name (LinkTagEvents, D-1592): keep them when a build strips managed code. A type this editor does not ship is skipped. -->
+  <assembly fullname="UnityEngine.UIElementsModule">
+    <type fullname="UnityEngine.UIElements.PointerOverLinkTagEvent" preserve="all" />
+    <type fullname="UnityEngine.UIElements.PointerOutLinkTagEvent" preserve="all" />
+    <type fullname="UnityEngine.UIElements.Experimental.PointerOverLinkTagEvent" preserve="all" />
+    <type fullname="UnityEngine.UIElements.Experimental.PointerOutLinkTagEvent" preserve="all" />
+  </assembly>
+</linker>

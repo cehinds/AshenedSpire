@@ -2,3 +2,4 @@
 @import url("../Styles/Tokens.uss");
 @import url("../Styles/Base.uss");
 @import url("../Styles/Chrome.uss");
+@import url("../Styles/Accessibility.uss");

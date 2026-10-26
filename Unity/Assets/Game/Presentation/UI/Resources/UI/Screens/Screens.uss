@@ -100,6 +100,42 @@
     display: flex;
 }
 
+/* The startup entrance (web startupGate.js, kit.css:4834-4890): a press lights the city (the lit painting fades in), the city is held, then it fades away over the hall. */
+.title-art--lit {
+    display: none;
+    opacity: 0;
+    -unity-background-image-tint-color: var(--color-title-gate-dim);
+    transition-property: opacity;
+    transition-duration: var(--duration-title-light-up);
+}
+
+.gate-active .title-art--lit {
+    display: flex;
+}
+
+.gate-lighting .title-art--lit {
+    opacity: 1;
+}
+
+.gate-lighting .gate {
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: var(--duration-title-lockup-away);
+}
+
+.gate-leaving .title-art--gate,
+.gate-leaving .title-art--lit {
+    display: flex;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: var(--duration-title-fade);
+}
+
+.gate-leaving.gate-leaving--out .title-art--gate,
+.gate-leaving.gate-leaving--out .title-art--lit {
+    opacity: 0;
+}
+
 .gate-active .title-art--door {
     display: none;
 }
@@ -794,4 +830,35 @@
 
 .layout-narrow .pick-button {
     width: var(--size-third-width);
+}
+
+/* ---- the flask door (flask.js openFlaskInspectModal): the art at a size worth looking at beside what the flask does ---- */
+
+.flask-inspect {
+    flex-direction: row;
+    align-items: center;
+}
+
+.flask-inspect-art {
+    flex-shrink: 0;
+    width: var(--size-flask-inspect-art);
+    height: var(--size-flask-inspect-art);
+    margin-right: var(--space-lg);
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.flask-inspect-text {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.flask-inspect-line {
+    color: var(--color-parchment);
+    white-space: normal;
+}
+
+.flask-inspect-reason {
+    margin-top: var(--space-sm);
+    color: var(--color-muted);
+    white-space: normal;
 }

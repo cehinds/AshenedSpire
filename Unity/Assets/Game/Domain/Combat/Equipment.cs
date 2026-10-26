@@ -265,56 +265,87 @@ namespace Ashen.Domain.Combat
 
         // ------------------------------------------------------------------ weight class (framework)
 
+        /// <summary>
+        /// computeWeightClass (src/framework/weight.js): the capacity from Constitution and Strength, the load in tenths (equipLoad rounds the sum to a tenth, loadPercent works in whole tenths so
+        /// 4.6 / 10 is 46%, not the 45% that 100 * 4.6 = 459.99... floors to) and the first class whose ceiling holds the percent.
+        /// </summary>
         public static WeightClassReceipt ComputeWeightClass(CombatData data, double constitution, double strength, double bonuses, double load)
         {
             var w = data.Mechanics.Obj(K.Weight);
             var capacity = w.Num(K.CapacityBase) + w.Num(K.CapacityPerConstitution) * constitution + w.Num(K.CapacityPerStrength) * strength + bonuses;
-            var percent = Math.Floor(Ashen.Generated.CombatMath.Percent * load / Math.Max(1, capacity));
+            var tenths = Ashen.Generated.CombatMath.Tenth;
+            var rounded = RoundToTenth(load);
+            var percent = Math.Floor(tenths * Math.Floor(tenths * rounded + Ashen.Generated.CombatMath.Half) / Math.Max(1, capacity));
             var classes = w.Arr(K.Classes);
             JObject cls = null;
             foreach (var c in classes.OfType<JObject>())
                 if (percent <= c.Num(K.MaxLoadPercent)) { cls = c; break; }
             cls ??= (JObject)classes[classes.Count - 1];
-            return new WeightClassReceipt { Capacity = capacity, Load = load, Percent = percent, WeightClass = cls };
+            return new WeightClassReceipt { Capacity = capacity, Load = rounded, Percent = percent, WeightClass = cls };
         }
 
-        /// <summary>pieceWeight: armour weighs its poise threshold, an armament its authored integer weight.</summary>
-        public static double PieceWeight(JObject piece)
+        /// <summary>Math.round(n * 10) / 10: the tenth every scaled weight and load is kept to.</summary>
+        public static double RoundToTenth(double n) =>
+            Math.Floor(n * Ashen.Generated.CombatMath.Tenth + Ashen.Generated.CombatMath.Half) / Ashen.Generated.CombatMath.Tenth;
+
+        /// <summary>
+        /// pieceWeight (model/statProjection.js): armour weighs its poise threshold, an armament its authored integer weight, both rescaled by mechanics.weight.itemWeightScale and kept to a tenth.
+        /// Mechanics without the key (the 405 table) leave the authored weight as it is.
+        /// </summary>
+        public static double PieceWeight(CombatData data, JObject piece)
         {
             if (piece == null) return 0;
-            if (piece.Str(K.Kind) == V.Armor) return piece.Or0(K.PoiseThreshold);
-            return Js.IsInt(piece[K.Weight]) ? piece.Num(K.Weight) : 0;
+            var authored = piece.Str(K.Kind) == V.Armor ? piece.Or0(K.PoiseThreshold) : Js.IsInt(piece[K.Weight]) ? piece.Num(K.Weight) : 0;
+            var scale = data.Mechanics.Obj(K.Weight)?[K.ItemWeightScale];
+            return RoundToTenth(authored * (Js.IsFinite(scale) ? Js.D(scale) : 1));
+        }
+
+        /// <summary>
+        /// The class a worn loadout puts a character in (model/combatWeight.js playerWeightClass through statProjection.playerLoadReceipt): hands and armour are each summed and kept to a tenth,
+        /// then the framework weighs the sum against the capacity.
+        /// </summary>
+        public static WeightClassReceipt LoadoutWeightClass(CombatData data, JObject loadout, JObject attributes, string classId, JObject itemUpgradeLevels)
+        {
+            double hands = 0, armour = 0;
+            foreach (var piece in EquippedPieces(data, loadout, classId, itemUpgradeLevels ?? new JObject()))
+            {
+                if (piece.Str(K.Kind) == V.Armor && !Js.Nullish(piece[K.ClassId])) armour += PieceWeight(data, piece);
+                else hands += PieceWeight(data, piece);
+            }
+            return ComputeWeightClass(data, attributes.Num(K.Constitution), attributes.Num(K.Strength), 0, RoundToTenth(hands) + RoundToTenth(armour));
         }
 
         /// <summary>playerWeightClass(combat): the class the player's worn load puts them in.</summary>
         public static WeightClassReceipt PlayerWeightClass(CombatState c)
         {
             if (c.Loadout != null && c.Attributes != null)
-            {
-                double hands = 0, armour = 0;
-                foreach (var piece in EquippedPieces(c.Data, c.Loadout, c.Player.Str(K.ClassId), c.ItemUpgradeLevels ?? new JObject()))
-                {
-                    if (piece.Str(K.Kind) == V.Armor && !Js.Nullish(piece[K.ClassId])) armour += PieceWeight(piece);
-                    else hands += PieceWeight(piece);
-                }
-                return ComputeWeightClass(c.Data, c.Attributes.Num(K.Constitution), c.Attributes.Num(K.Strength), 0, hands + armour);
-            }
+                return LoadoutWeightClass(c.Data, c.Loadout, c.Attributes, c.Player.Str(K.ClassId), c.ItemUpgradeLevels as JObject ?? new JObject());
             var fallback = c.Data.Rule(K.Defaults, K.WeightAttribute);
             var con = c.Attributes != null && c.Attributes[K.Constitution] != null ? c.Attributes.Num(K.Constitution) : fallback;
             var str = c.Attributes != null && c.Attributes[K.Strength] != null ? c.Attributes.Num(K.Strength) : fallback;
             return ComputeWeightClass(c.Data, con, str, 0, 0);
         }
 
-        /// <summary>The framework attribute modifier floor((score - baseline) / divisor).</summary>
-        public static double AttributeModifier(CombatData data, double score) =>
-            Math.Floor((score - data.Rule(K.Dodge, K.AttributeBaseline)) / data.Rule(K.Dodge, K.AttributeDivisor));
+        /// <summary>
+        /// attributeModifier(score, attributeMode) (src/framework/weight.js): floor((score - centre) / per). The centre is the run's creation mode's row (mechanics.dodgeRoll.dexterityCentreByMode, the lean
+        /// scale's 3), else dexterityCentre (the d20-scale 10), so a sheet from an older scale keeps the dodge it was made with. Mechanics without those rows (the 405 table) read rules/combatEngine.json dodge.
+        /// </summary>
+        public static double AttributeModifier(CombatData data, double score, string attributeMode = null)
+        {
+            var d = data.Mechanics.Obj(K.DodgeRoll);
+            if (!Js.IsFinite(d?[K.DexterityCentre]))
+                return Math.Floor((score - data.Rule(K.Dodge, K.AttributeBaseline)) / data.Rule(K.Dodge, K.AttributeDivisor));
+            var byMode = d.Obj(K.DexterityCentreByMode);
+            var centre = attributeMode != null && byMode != null && byMode[attributeMode] != null ? byMode.Num(attributeMode) : d.Num(K.DexterityCentre);
+            return Math.Floor((score - centre) / Math.Max(1, d.Num(K.DexterityPerModifier)));
+        }
 
         /// <summary>dodgeRollCheck: d20 + DEX modifier + weight-class evasion against the base difficulty.</summary>
-        public static (double Check, double Difficulty, bool Success, double TemporaryGuard) DodgeRoll(CombatData data, double roll, double dexterity, JObject weightClass)
+        public static (double Check, double Difficulty, bool Success, double TemporaryGuard) DodgeRoll(CombatData data, double roll, double dexterity, JObject weightClass, string attributeMode = null)
         {
             var d = data.Mechanics.Obj(K.DodgeRoll);
             if (Math.Floor(roll) != roll || roll < 1 || roll > d.Num(K.Die)) throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture, M.BadDodgeRoll, roll));
-            var mod = AttributeModifier(data, dexterity);
+            var mod = AttributeModifier(data, dexterity, attributeMode);
             var check = roll + mod + weightClass.Num(K.EvasionModifier);
             var difficulty = d.Num(K.BaseDifficulty);
             var success = check > difficulty;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -151,6 +152,9 @@ namespace Ashen.App.Run
         public string Name { get; private set; }
         public string Portrait { get; private set; }
         public string ClassId => _run.Str(RK.Class);
+
+        /// <summary>The tint of the player's figure chosen at creation ('ember', 'frost', ...): which frames of its class the pose stage draws.</summary>
+        public string Tint => _run.Obj(LK.Customization)?.Str(RunFlowKeys.Tint);
         public uint Seed => (uint)_run.Num(RK.Seed);
         public string SeedText => Content.Seeds.Format(Seed);
         public int Act => (int)_run.Num(RK.ActNumber);
@@ -177,6 +181,8 @@ namespace Ashen.App.Run
 
         /// <summary>The classes the run's close-out opened (the profile's class ledger), once it is over.</summary>
         public IReadOnlyList<string> ClassesUnlocked { get; private set; } = Array.Empty<string>();
+
+        public double XpToNext(Newtonsoft.Json.Linq.JToken level) => Ashen.Domain.Loop.Core2Rest.XpToNext(Core.Rewards, Js.D(level));
 
         /// <summary>
         /// The kind of node the run stands at whose door has no screen, until the player moves on; or null. Every door has one now (the event is the event screen, VP-9; D-960): only a
@@ -285,7 +291,7 @@ namespace Ashen.App.Run
         private Ashen.App.Settings.SettingsSession _playerSettings;
 
         /// <summary>The settings over this session's profile (settings/defaults.json): the combat pacing, the map mode, reduced motion.</summary>
-        public Ashen.App.Settings.SettingsSession PlayerSettings => _playerSettings ??= new Ashen.App.Settings.SettingsSession(Content, Profile, true);
+        public Ashen.App.Settings.SettingsSession PlayerSettings => _playerSettings ??= new Ashen.App.Settings.SettingsSession(Content, Profile, true, core2: true);
 
         public Ashen.Domain.Combat.CombatData CombatData => Core.Combat.Combat;
 
@@ -388,10 +394,44 @@ namespace Ashen.App.Run
             var outcome = flow.AfterCommand == RunFlowValues.AutosaveAppend ? Combat.ExecuteAndLog(Saves, Slot, intent) : Combat.Execute(intent);
             if (!outcome.Accepted) return outcome;
             Tally.Observe(outcome.Events, Combat.State.Enemies);
-            if (Combat.IsOver) FinishCombat();
+            if (Combat.IsOver) FinishCombat(true);
             else if (flow.AfterCommand == RunFlowValues.AutosaveCheckpoint || flow.CheckpointOn.Contains(intent.Str(K.Type))) Save();
             CommandCommitted?.Invoke(outcome);
             return outcome;
+        }
+
+        /// <summary>
+        /// The save the fight's end could not write (a full or read-only disk), or null. The finishing command is already in the slot's log, so the fight is settled in memory and the climb goes on to
+        /// the spoils or the run's end; any later save (the next door's step) writes the checkpoint, and a reload meanwhile replays the log into the same end. <see cref="RetrySave"/> tries again at once.
+        /// </summary>
+        public Exception PendingSaveError { get; private set; }
+
+        /// <summary>Writes what the fight's end could not (the checkpoint at the spoils or the map, or the run's end into the profile). A failure keeps <see cref="PendingSaveError"/> and rethrows.</summary>
+        public void RetrySave()
+        {
+            if (PendingSaveError == null) return;
+            try
+            {
+                if (RunOver)
+                {
+                    Profile.Save(Content.ContentHash);
+                    Saves.Delete(Slot);
+                }
+                else Save();
+                PendingSaveError = null;
+            }
+            catch (Exception e)
+            {
+                PendingSaveError = e;
+                throw;
+            }
+        }
+
+        /// <summary><see cref="RetrySave"/> for the screens: null when nothing is pending or the write went through, else the failure (kept in <see cref="PendingSaveError"/>).</summary>
+        public Exception TryRetrySave()
+        {
+            try { RetrySave(); return null; }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { return e; }
         }
 
         /// <summary>
@@ -400,14 +440,18 @@ namespace Ashen.App.Run
         /// (the last act's boss) or opens the reward door with a persisted offer. The climb goes on from the door (<see cref="LeaveRewards"/>): the map, or the next
         /// act after a boss. A death or the summit with level notices still to be read waits for them first (<see cref="AcknowledgeProgression"/>).
         /// </summary>
-        private void FinishCombat()
+        private void FinishCombat(bool deferSaveFailure = false)
         {
             var state = Combat.State;
             _rng = state.Rng;
             FightFinished = true;
             var receipt = Core2CombatEnd.Settle(Core.Rewards, _run, _rng, state, Core.Loop.Map.Encounters.Get(EncounterId));
             LastEnd = new Core2FightEnd { Outcome = receipt.Result, Receipt = receipt };
-            Continue(receipt.Next);
+            // The command that ended the fight is in the log by now and cannot be taken back: a failed checkpoint here must not strand the fight (Execute would refuse the player's every press
+            // while the screen never moved on). The fight stays settled, the climb goes on, and the save is kept to be retried.
+            if (!deferSaveFailure) { Continue(receipt.Next); return; }
+            try { Continue(receipt.Next); }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { PendingSaveError = e; }
         }
 
         /// <summary>Goes where the reward door says the climb goes (<see cref="Core2RewardDoor"/>): the door stays open, the map, the next act, or the run's end.</summary>
@@ -500,10 +544,11 @@ namespace Ashen.App.Run
         {
             var pending = Core2RewardDoor.Pending(_run);
             if (pending == null) return new Core2RewardResult { Refusal = Ashen.Generated.Core2RewardsMessages.NoDoor };
+            var snapshot = Snapshot();
             try
             {
                 var option = act(pending);
-                Save();
+                SaveOrRestore(snapshot);
                 return new Core2RewardResult { Option = option };
             }
             catch (DeckAddRefusalException e) { return new Core2RewardResult { Refusal = e.Message, Code = e.Code }; }
@@ -540,9 +585,19 @@ namespace Ashen.App.Run
         /// <summary>W-20 Abandon run: the run ends here, recorded as abandoned (it counts as a run, earns no unlock), the profile is saved and the slot cleared.</summary>
         public RunEndReceipt Abandon()
         {
-            if (RunOver) return End;
+            // A close-out whose profile save or slot clear failed has set RunOver already: the repeated call (the Retry of W1r) writes what is still owed before it reports success.
+            if (RunOver)
+            {
+                RetrySave();
+                return End;
+            }
             var end = Core2RunEnd.Abandon(Core.Rewards, Core.Loop, _run, Profile.Doc);
-            FinishRun(end, true);
+            try { FinishRun(end, true); }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException)
+            {
+                PendingSaveError = e;
+                throw;
+            }
             return end;
         }
 
@@ -553,6 +608,9 @@ namespace Ashen.App.Run
             var extra = new JObject();
             if (!(end.Result?.Is(MetaKeys.Abandoned) ?? false) && EncounterId != null && Core.Loop.Map.Encounters.Has(EncounterId))
                 extra[MetaKeys.Killer] = new JArray(Js.Items(Core.Loop.Map.Encounters.Get(EncounterId)[K.Enemies]).Select(t => t.DeepClone()));
+            // The web's record carries the damage trackStats tallied (run.stats.damageDealt/damageTaken); the session keeps the tally beside the run (D-962), so the record takes it here.
+            extra[LK.DamageDealt] = Tally.DamageDealt;
+            extra[LK.DamageTaken] = Tally.DamageTaken;
             extra[MetaKeys.Duration] = PlaytimeSeconds;
             if (CoreRunRules.PinOf(_run) is JObject pin)
             {
@@ -603,8 +661,9 @@ namespace Ashen.App.Run
             try
             {
                 // The rules write the draft only after every check passed, so a refusal leaves the run (and the editors holding it) untouched.
+                var snapshot = Snapshot();
                 var size = Ashen.Domain.Run.DeckRules.CommitDraft(Core.Deck, _run, draft, Profile.Settings);
-                Save();
+                SaveOrRestore(snapshot);
                 return new Core2DeckCommit { Ok = true, DeckSize = size };
             }
             catch (InvalidOperationException e)
@@ -633,13 +692,29 @@ namespace Ashen.App.Run
             public bool EventDone;
             public Core2EventResult EventResult;
             public JObject Tally;
+            public bool Resting;
+            public bool RunOver;
+            public RunEndReceipt End;
+            public Exception PendingSaveError;
         }
 
         private SessionSnapshot Snapshot() => new SessionSnapshot
         {
             Run = (JObject)_run.DeepClone(), Profile = Profile.Snapshot(), Rng = _rng?.Clone(), Location = _location, EncounterId = EncounterId, Combat = Combat,
-            FightFinished = FightFinished, LastEnd = LastEnd, PendingPort = _pendingPort, EventId = _eventId, EventDone = _eventDone, EventResult = _eventResult, Tally = Tally.ToJson(),
+            FightFinished = FightFinished, LastEnd = LastEnd, PendingPort = _pendingPort, EventId = _eventId, EventDone = _eventDone, EventResult = _eventResult, Tally = Tally.ToJson(), Resting = _resting,
+            RunOver = RunOver, End = End, PendingSaveError = PendingSaveError,
         };
+
+        /// <summary>Save, or put the session back as <paramref name="snapshot"/> left it and rethrow: a change a full disk refused is not kept half-done, so the screen's Retry takes it again.</summary>
+        private void SaveOrRestore(SessionSnapshot snapshot)
+        {
+            try { Save(); }
+            catch
+            {
+                Restore(snapshot);
+                throw;
+            }
+        }
 
         private void Restore(SessionSnapshot s)
         {
@@ -656,6 +731,11 @@ namespace Ashen.App.Run
             _eventDone = s.EventDone;
             _eventResult = s.EventResult;
             Tally = Core2RunTally.FromJson(s.Tally);
+            _resting = s.Resting;
+            // A close-out a refused save rolled back is not over: the run end must not open, nor a new run replace this slot.
+            RunOver = s.RunOver;
+            End = s.End;
+            PendingSaveError = s.PendingSaveError;
         }
 
         // ------------------------------------------------------------------ save
@@ -668,6 +748,7 @@ namespace Ashen.App.Run
             var payload = Payload();
             if (IsInCombat) Combat.Commit(Saves, Slot, payload, Content.ContentHash);
             else Saves.Checkpoint(Slot, payload, Content.ContentHash, StateHash());
+            PendingSaveError = null;
         }
 
         private JObject Payload()
@@ -752,6 +833,7 @@ namespace Ashen.App.Run
             {
                 result.Status = Core2RunLoadStatus.Damaged;
                 result.Warnings.Add(string.Format(CultureInfo.InvariantCulture, RunFlowMessages.LoadRefused, slot, e.Message));
+                saves.SetAsideRun(slot, slotIndex, string.Format(CultureInfo.InvariantCulture, ArchiveKeys.ReasonRunUnreadable, e.Message));
                 return result;
             }
             result.Warnings.AddRange(loaded.Warnings);
@@ -759,14 +841,19 @@ namespace Ashen.App.Run
             {
                 case LoadStatus.Empty: result.Status = Core2RunLoadStatus.Empty; return result;
                 case LoadStatus.RefusedNewer: result.Status = Core2RunLoadStatus.Newer; return result;
-                case LoadStatus.Corrupt: result.Status = Core2RunLoadStatus.Damaged; return result;
+                case LoadStatus.Corrupt:
+                    result.Status = Core2RunLoadStatus.Damaged;
+                    saves.SetAsideRun(slot, slotIndex, string.Format(CultureInfo.InvariantCulture, ArchiveKeys.ReasonRunUnreadable, loaded.Warnings.FirstOrDefault() ?? ArchiveKeys.Corrupt));
+                    return result;
             }
             var payload = loaded.Payload as JObject;
             var format = (int?)payload?[RunSaveKeys.FormatVersion];
             if (format != (int)NN.SaveFormat || !(payload[RunSaveKeys.Run] is JObject run))
             {
                 result.Status = format == content.Flow.SaveFormat ? Core2RunLoadStatus.OtherRuleset : Core2RunLoadStatus.Damaged;
-                result.Warnings.Add(string.Format(CultureInfo.InvariantCulture, NM.FormatMismatch, slot, format, NN.SaveFormat));
+                var mismatch = string.Format(CultureInfo.InvariantCulture, NM.FormatMismatch, slot, format, NN.SaveFormat);
+                result.Warnings.Add(mismatch);
+                if (result.Status == Core2RunLoadStatus.Damaged) saves.SetAsideRun(slot, slotIndex, string.Format(CultureInfo.InvariantCulture, ArchiveKeys.ReasonRunUnreadable, mismatch));
                 return result;
             }
             var pin = payload.Obj(NK.GameProfile);
@@ -813,6 +900,8 @@ namespace Ashen.App.Run
                         warned = true;
                         result.Warnings.Add(string.Format(CultureInfo.InvariantCulture, RunFlowMessages.LogDiverged, session.Combat.LoggedCommands));
                     }
+                    // A torn or checksum-invalid record ends the replay at the same place on every load: a fresh checkpoint (below) moves the fight to a clean log (its warning came with the load).
+                    else if (fight.LogTruncated) warned = true;
                     if (session.Combat.IsOver)
                     {
                         session.FinishCombat();

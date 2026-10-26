@@ -53,6 +53,7 @@ namespace Ashen.Presentation.UI.Screens
             divider.AddToClassList(RunEndClasses.Divider);
             divider.AddToClassList(UiClasses.Divider);
             body.Add(divider);
+            if (_flow.PendingSaveNotice != null) body.Add(Text(_flow.PendingSaveNotice, RunEndClasses.Cause));
             body.Add(Identity());
             body.Add(Strip());
             if (_flow.Earned.Count > 0) body.Add(Earned());
@@ -171,6 +172,11 @@ namespace Ashen.Presentation.UI.Screens
                 RunFlow.Refuse(Context, _again, StringKeys.Core2EndAgainRefused);
                 return;
             }
+            if (result.SaveFailed)
+            {
+                SaveFailed(RunAgain);
+                return;
+            }
             if (!result.Done)
             {
                 Kit.Refusal.Show(_again, Context.Overlay, result.Refusal, Ui.Data.Tokens.Duration(TokenKeys.Refusal));
@@ -178,6 +184,13 @@ namespace Ashen.Presentation.UI.Screens
             }
             Ui.Core2Session = result.Session;
             RunFlow.Show(Context, result.Session);
+        }
+
+        /// <summary>The close-out could not be written: W1r "Could not save" with Retry, which presses the same way on again.</summary>
+        private void SaveFailed(Action retry)
+        {
+            Debug.LogError(string.Format(CultureInfo.InvariantCulture, UiMessages.SaveFailed, _run.PendingSaveError?.Message));
+            ConfirmRequest.Open(Nav, new ConfirmRequest { ConfirmId = ConfirmIds.SaveFailed, OnConfirm = retry });
         }
 
         /// <summary>Run history: the journal when it is built, else its refusal at the button (the web's history screen is a later work package).</summary>
@@ -190,6 +203,12 @@ namespace Ashen.Presentation.UI.Screens
         /// <summary>Return to title: the run is over and its slot already clear.</summary>
         public void ToTitle()
         {
+            // A close-out the disk refused is written first: leaving would drop the run's record with the session.
+            if (!_flow.Settle())
+            {
+                SaveFailed(ToTitle);
+                return;
+            }
             Ui.ClearRun();
             Nav.Go(ScreenIds.Title, null, true);
         }

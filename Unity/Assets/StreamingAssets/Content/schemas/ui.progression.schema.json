@@ -1,0 +1,38 @@
+{
+  "$id": "ui/progression.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "source": { "type": "string", "enum": ["derived", "rating", "handSize", "draw"] },
+          "labelKey": { "type": "string" },
+          "faceKey": { "type": "string" }
+        },
+        "required": ["id", "source", "faceKey"]
+      }
+    },
+    "ratingRows": { "type": "array", "items": { "type": "string" } },
+    "ratingLabels": { "type": "object", "additionalProperties": { "type": "string" } },
+    "handRows": { "type": "array", "items": { "type": "string" } },
+    "mainBenefits": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "stat": { "type": "string" },
+            "labelKey": { "type": "string" }
+          },
+          "required": ["stat", "labelKey"]
+        }
+      }
+    }
+  },
+  "required": ["rows", "ratingRows", "ratingLabels", "handRows", "mainBenefits"]
+}

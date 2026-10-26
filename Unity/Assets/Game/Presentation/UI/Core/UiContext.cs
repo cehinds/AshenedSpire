@@ -78,6 +78,16 @@ namespace Ashen.Presentation.UI
             return catalog;
         }
 
+        private readonly Dictionary<string, Texture2D> _glyphs = new Dictionary<string, Texture2D>(StringComparer.Ordinal);
+
+        /// <summary>The white intent glyph of a name (attack, defend, counter, smash, sweep, evade, prepare, cast, buff; Resources/UI/Intent), or null when it is not imported.</summary>
+        public Texture2D IntentGlyph(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return null;
+            if (!_glyphs.TryGetValue(name, out var glyph)) _glyphs[name] = glyph = Resources.Load<Texture2D>(UiResources.IntentGlyphFolder + name);
+            return glyph;
+        }
+
         /// <summary>The icon texture of a content icon name (white glyph: tint it with -unity-background-image-tint-color), or null.</summary>
         public Texture2D Icon(string name) => Texture(Data.Art.Icon(name));
 

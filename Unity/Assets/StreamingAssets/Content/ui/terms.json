@@ -55,6 +55,30 @@
       "canonicalText": "Magic"
     },
     {
+      "id": "term.fire",
+      "canonicalText": "Fire"
+    },
+    {
+      "id": "term.sacred",
+      "canonicalText": "Sacred"
+    },
+    {
+      "id": "term.targetAllAllies",
+      "canonicalText": "All allies"
+    },
+    {
+      "id": "term.tooltip.fire",
+      "canonicalText": "Fire damage. Its magical protection and typed resistance remain separate from resource costs."
+    },
+    {
+      "id": "term.tooltip.sacred",
+      "canonicalText": "Sacred damage. Its magical protection and typed resistance remain separate from resource costs."
+    },
+    {
+      "id": "term.tooltip.targetAllAllies",
+      "canonicalText": "Affects every living ally, including the acting character."
+    },
+    {
       "id": "term.arcane",
       "canonicalText": "Arcane"
     },
@@ -97,12 +121,12 @@
     },
     {
       "id": "term.action",
-      "canonicalText": "Action",
-      "pluralText": "Actions"
+      "canonicalText": "Stamina",
+      "pluralText": "Stamina"
     },
     {
       "id": "term.energy",
-      "canonicalText": "Energy"
+      "canonicalText": "Stamina"
     },
     {
       "id": "term.stamina",
@@ -187,6 +211,10 @@
       "id": "term.parryTool",
       "canonicalText": "Parry Tool",
       "pluralText": "Parry Tools"
+    },
+    {
+      "id": "term.dualWield",
+      "canonicalText": "Dual-Wield"
     },
     {
       "id": "term.evasion",
@@ -350,11 +378,11 @@
     },
     {
       "id": "term.tooltip.action",
-      "canonicalText": "Costs Actions to play."
+      "canonicalText": "Costs Stamina to play."
     },
     {
       "id": "term.tooltip.stamina",
-      "canonicalText": "Costs Stamina to play. Spend no Stamina for a full turn to recover 1."
+      "canonicalText": "Costs Stamina to play. Refills at the start of every turn."
     },
     {
       "id": "term.tooltip.mana",
@@ -370,7 +398,7 @@
     },
     {
       "id": "term.tooltip.retain",
-      "canonicalText": "Not discarded at the end of your turn."
+      "canonicalText": "Stays in your hand at the end of your turn."
     },
     {
       "id": "term.tooltip.recall",
@@ -429,6 +457,10 @@
       "canonicalText": "Bound to an equipped parry tool."
     },
     {
+      "id": "term.tooltip.dualWield",
+      "canonicalText": "Played while holding an armament in each hand."
+    },
+    {
       "id": "term.tooltip.evasion",
       "canonicalText": "Contributes to Dodge Rolls and avoiding damage."
     },
@@ -470,7 +502,7 @@
     },
     {
       "id": "term.desc.dodgeRoll",
-      "canonicalText": "Roll clear of the next blow. On success, gain Temporary Guard against the next damage tick."
+      "canonicalText": "Gain Block, Poise and Ward, each 3 plus your DR."
     }
   ]
 }

@@ -388,6 +388,32 @@
     white-space: normal;
 }
 
+/* combatSigilView.js sigilExplanationHtml (styles/illustrated-cards.css:48-50): each mark of the card with its word and meaning; card.js combat-rule-hint under them */
+.detail-sigil-row {
+    flex-direction: row;
+    align-items: center;
+    margin-top: var(--space-sm);
+}
+
+.detail-sigil {
+    flex-shrink: 0;
+    width: var(--size-detail-sigil);
+    height: var(--size-detail-sigil);
+    margin-right: var(--size-detail-sigil-gap);
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--color-gold);
+}
+
+.detail-hint {
+    margin-top: var(--space-sm);
+    padding: var(--size-chip-pad-y) var(--size-detail-tag-pad-x);
+    border-left-width: var(--border-hairline);
+    border-color: var(--color-line-soft);
+    color: var(--color-muted);
+    font-size: var(--font-cmodal-status);
+    white-space: normal;
+}
+
 .inspect-layout {
     flex-direction: row;
     justify-content: center;
@@ -436,4 +462,49 @@
 
 .layout-narrow .option-tile.unity-button {
     width: var(--size-half-gap-width);
+}
+
+/* ---- the combatant reading's preview (src/ui/components/combatantInspector.js, styles/kit.css .combatant-door): sprite, name and pool meters left, the details right ---- */
+
+.inspector-layout {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.inspector-preview {
+    flex-shrink: 0;
+    width: var(--size-inspector-preview-w);
+    margin-right: var(--space-md);
+}
+
+.inspector-art {
+    width: var(--size-full-width);
+    justify-content: flex-end;
+    align-items: center;
+    overflow: hidden;
+}
+
+.inspector-figure {
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.inspector-stage-frame {
+    position: absolute;
+}
+
+.inspector-name {
+    margin-top: var(--space-sm);
+    color: var(--color-parchment);
+    -unity-font-style: bold;
+    white-space: normal;
+}
+
+.inspector-meters {
+    margin-top: var(--space-xs);
+}
+
+.inspector-details {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
 }

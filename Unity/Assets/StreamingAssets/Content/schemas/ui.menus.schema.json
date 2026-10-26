@@ -22,6 +22,9 @@
           "occupiedBodyKey": {
             "type": "string"
           },
+          "occupiedPrimaryKey": {
+            "type": "string"
+          },
           "policy": {
             "type": "string"
           },
@@ -55,7 +58,9 @@
             "enum": [
               "confirm",
               "continue",
-              "open"
+              "open",
+              "save",
+              "saveQuit"
             ]
           },
           "confirm": {
@@ -69,6 +74,9 @@
               "targetBuilt",
               "planned"
             ]
+          },
+          "hideWhenDisabled": {
+            "type": "boolean"
           },
           "icon": {
             "type": "string"
@@ -112,7 +120,9 @@
             "enum": [
               "confirm",
               "continue",
-              "open"
+              "open",
+              "save",
+              "saveQuit"
             ]
           },
           "confirm": {
@@ -128,6 +138,9 @@
             ]
           },
           "hideInCombat": {
+            "type": "boolean"
+          },
+          "hideWhenDisabled": {
             "type": "boolean"
           },
           "icon": {

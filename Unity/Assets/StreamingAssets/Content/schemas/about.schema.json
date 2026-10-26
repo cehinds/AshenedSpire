@@ -56,11 +56,49 @@
       "items": {
         "type": "string"
       }
+    },
+    "page": {
+      "type": "object",
+      "properties": {
+        "lead": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "headingKey": {
+                "type": "string"
+              },
+              "bodyKey": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "bodyKey",
+              "headingKey"
+            ]
+          }
+        },
+        "updatedKey": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "lead",
+        "sections",
+        "updatedKey"
+      ]
     }
   },
   "required": [
     "aiDisclosure",
     "comment",
+    "page",
     "provenance"
   ]
 }

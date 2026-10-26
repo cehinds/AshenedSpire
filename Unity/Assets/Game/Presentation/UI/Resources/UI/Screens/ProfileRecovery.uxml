@@ -1,6 +1,11 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Screens.uss" />
+    <ui:Style src="Front.uss" />
     <ui:VisualElement class="page page--center">
-        <Ashen.Presentation.UI.Kit.Confirm name="CONFIRM" />
+        <Ashen.Presentation.UI.Kit.Shell name="SHELL" class="about-shell" exit-visible="false">
+            <ui:ScrollView name="RECOVERY_SCROLL" class="profile-scroll">
+                <ui:VisualElement name="RECOVERY_BODY" class="prof-recovery" />
+            </ui:ScrollView>
+        </Ashen.Presentation.UI.Kit.Shell>
     </ui:VisualElement>
 </ui:UXML>

@@ -73,7 +73,7 @@ namespace Ashen.App.Run
             if (ui.Meta?.Obj(MetaUiKeys.RunHud)?.Is(MetaUiKeys.ShowXp) == true)
             {
                 var row = run.Obj(K.Level) ?? Ashen.Domain.Rewards.LevelUp.EmptyLevel();
-                var next = Ashen.Domain.Rewards.LevelUp.XpToNext(session.Content.Core2.Rewards.Rewards, row[K.Level]);
+                var next = session.XpToNext(row[K.Level]);
                 var capped = double.IsInfinity(next) || double.IsNaN(next) || next <= 0;
                 hud.Xp = capped ? strings.Get(MetaStringKeys.HudXpMax)
                     : strings.Format(MetaStringKeys.HudXp, new StringArgs().Add(MetaPlaceholders.Xp, Int(row.Num(K.Xp))).Add(MetaPlaceholders.Next, Int(next)));
@@ -124,6 +124,9 @@ namespace Ashen.App.Run
         /// <summary>The node is on the map at all: under a pinned fog a node the light has not reached is not drawn (the web never creates it).</summary>
         public bool Drawn = true;
 
+        /// <summary>The node is on the lit walk to the nearest shrine (the player's Shrine path glow).</summary>
+        public bool Lane;
+
         /// <summary>The art name of the kind's icon (empty: the kind is a mark, the "?" of an unknown place), and the colour token that tints it (null: the gold of the board).</summary>
         public string IconName = string.Empty;
         public string TintToken;
@@ -140,6 +143,9 @@ namespace Ashen.App.Run
 
         /// <summary>Both ends are on the map.</summary>
         public bool Drawn = true;
+
+        /// <summary>The edge is a step of the lit walk to the nearest shrine, and both its ends are drawn.</summary>
+        public bool Lane;
     }
 
     public sealed class MapLegendEntry
@@ -249,6 +255,7 @@ namespace Ashen.App.Run
             var pinned = session.PinnedMapMode;
             if (pinned != null) PinnedReveal(view, graph, path, at, pinned);
             else Reveal(session, ui, view, nodes, reachable);
+            if (session.PlayerSettings.On(SettingIds.ShrinePathGlow)) Glow(view, MapFog.ShrineLane(graph, at));
             var climb = ui.Components.Climb;
             foreach (var n in view.Nodes) SetIcon(climb, n.Kind, out n.IconName, out n.TintToken);
             view.Floors = view.Nodes.Count == 0 ? 0 : view.Nodes.Max(n => n.Floor);
@@ -321,6 +328,26 @@ namespace Ashen.App.Run
             foreach (var e in view.Edges) e.Drawn = lit.Contains(e.From) && lit.Contains(e.To);
         }
 
+        /// <summary>
+        /// The shrine lane (mapboard.js:330-360): the walk glows only where it is drawn, a node if the board draws it and an edge if it draws both ends, so the lane never shows a node the fog is covering.
+        /// </summary>
+        private static void Glow(ActMapViewState view, List<string> lane)
+        {
+            foreach (var id in lane)
+            {
+                var node = view.Node(id);
+                if (node != null && node.Drawn) node.Lane = true;
+            }
+            for (var i = 0; i + 1 < lane.Count; i++)
+            {
+                var from = view.Node(lane[i]);
+                var to = view.Node(lane[i + 1]);
+                if (from == null || to == null || !from.Drawn || !to.Drawn) continue;
+                var edge = view.Edges.FirstOrDefault(e => e.From == lane[i] && e.To == lane[i + 1]);
+                if (edge != null) edge.Lane = true;
+            }
+        }
+
         internal static string Name(StringTable strings, string format, string id)
         {
             var key = string.Format(CultureInfo.InvariantCulture, format, id);
@@ -330,7 +357,7 @@ namespace Ashen.App.Run
         /// <summary>The mapMode reveal (D-151): dim what is behind or beside the run's way on; in fog, hide the far floors.</summary>
         private static void Reveal(IClimb session, UiData ui, ActMapViewState view, JObject nodes, HashSet<string> reachable)
         {
-            view.Mode = session.PlayerSettings.Text(SettingIds.MapMode) ?? SettingIds.MapFull;
+            view.Mode = session.PlayerSettings.Text(SettingIds.MapMode) ?? SettingIds.MapFog;
             if (view.Mode == SettingIds.MapFull) return;
             // Every node still ahead: the forward closure of the reachable row (the start row before the first step).
             var ahead = new HashSet<string>(reachable, StringComparer.Ordinal);

@@ -6,6 +6,7 @@ namespace Ashen.Generated
     {
         public const string Page = "c2event-page";
         public const string PageDialogue = "c2event-page--dialogue";
+        public const string PageEntering = "c2event-page--entering";
         public const string Columns = "c2event-columns";
         public const string Narrative = "c2event-narrative";
         public const string ArtWell = "c2event-artwell";
@@ -18,6 +19,7 @@ namespace Ashen.Generated
         public const string ResponseLabel = "c2event-response-label";
         public const string ResponseTag = "c2event-response-tag";
         public const string ResponseHold = "c2event-response-hold";
+        public const string ResponseDial = "c2event-response--dial";
         public const string Result = "c2event-result";
         public const string Continue = "c2event-continue";
         public const string Off = "c2event-off";

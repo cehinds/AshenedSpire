@@ -8,6 +8,10 @@ namespace Ashen.Generated
         public const string Refusal = "refusal";
         public const string TooltipDelay = "tooltipDelay";
         public const string GateSettle = "gateSettle";
+        public const string SavedLabel = "savedLabel";
+        public const string FarewellClose = "farewellClose";
+        public const string FarewellKept = "farewellKept";
+        public const string FilePoll = "filePoll";
         public const string GateFade = "gateFade";
         public const string GatePulse = "gatePulse";
         public const string BootMinimum = "bootMinimum";
@@ -26,9 +30,23 @@ namespace Ashen.Generated
         public const string RepeatPick = "repeatPick";
         public const string TargetHide = "targetHide";
         public const string FxHitTint = "fxHitTint";
+        public const string BoardGridLine = "boardGridLine";
+        public const string BoardShadow = "boardShadow";
         public const string MapRoute = "mapRoute";
+        public const string CardUp = "cardUp";
+        public const string CardDown = "cardDown";
         public const string MapRouteOutline = "mapRouteOutline";
         public const string PrologueTick = "prologueTick";
         public const string SettingsCommit = "settingsCommit";
+        public const string EventFigureFade = "eventFigureFade";
+        public const string EventContextAt = "eventContextAt";
+        public const string EventContextFade = "eventContextFade";
+        public const string SettingsUndo = "settingsUndo";
+        public const string TitleLockupAway = "titleLockupAway";
+        public const string TitleLightUp = "titleLightUp";
+        public const string TitleFade = "titleFade";
+        public const string TitleReducedFade = "titleReducedFade";
+        public const string MapLane = "mapLane";
+        public const string MapLanePulse = "mapLanePulse";
     }
 }

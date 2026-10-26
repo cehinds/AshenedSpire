@@ -14,10 +14,11 @@ using SV = Ashen.Generated.SettingsValues;
 namespace Ashen.Presentation.UI.Screens
 {
     /// <summary>
-    /// W-18 settings as the web's Settings (src/ui/screens/settings.js; D-1005): a framed modal with the tabs General | Accessibility | Advanced, the groups of the open tab (Display, Combat, Audio, Game rules;
-    /// Opening sequence and About under Advanced), one row per setting (its name, a dot when it is changed, its help and its control: a switch, a row of choices or a slider with minus and plus) and
-    /// the header's Reset to defaults, Changed and search. Every change is validated by its control and saved to the profile at once; a slider commits a moment after it stops. The layout is data (ui/meta.json
-    /// settingsTabs), the page is <see cref="SettingsSession.Page"/>. Opened from the title or the pause menu (the prologue's bar); Escape and Done and Save leave.
+    /// W-18 settings as the web's Settings (src/ui/screens/settings.js; D-1005, D-1370..): a framed modal with the tabs General | Accessibility | Advanced, the group select and the topic select of the open tab
+    /// (Display / Combat / Audio, then Interface / Title screen / Map / HUD; Opening sequence, Deck, Interface and About under Advanced), one row per setting (its name, a dot and a Reset when it is changed, its help and its control:
+    /// a switch, a select, a slider with minus and plus, or a button) and the header's Reset to defaults, Changed, search and more menu, the first-open tip and the Undo bar a reset leaves for eight seconds. Every change is validated by its
+    /// control and saved to the profile at once; a slider commits a moment after it stops. The layout is data (ui/meta.json settingsTabs), the page is <see cref="SettingsSession.Page"/>. Opened from the title or the pause menu (the prologue's bar);
+    /// Escape and Done and Save leave.
     /// </summary>
     public sealed class SettingsScreen : ScreenView
     {
@@ -27,10 +28,14 @@ namespace Ashen.Presentation.UI.Screens
         private SettingsPageView _page;
         private string _focusKey;
         private IVisualElementScheduledItem _commit;
+        private IVisualElementScheduledItem _undoTimer;
         private string _pendingKey;
         private JToken _pendingValue;
         private ScrollView _scroll;
         private VisualElement _rows;
+        private JObject _undo;
+        private string _undoLabel;
+        private readonly HashSet<string> _openChanges = new HashSet<string>();
 
         /// <summary>The page on screen (tests and captures read it).</summary>
         public SettingsPageView Page => _page;
@@ -41,21 +46,28 @@ namespace Ashen.Presentation.UI.Screens
 
         protected override void OnBind(object args)
         {
-            _settings = Ui.Climb?.PlayerSettings ?? new SettingsSession(Ui.RunContent, ProfileStore.Load(Ui.Saves));
+            _settings = Ui.Climb?.PlayerSettings ?? new SettingsSession(Ui.RunContent, ProfileStore.Load(Ui.Saves), core2: true);
             _layout = SettingsLayout.From(Ui.Data.Meta);
+            _query.DevBuild = Ui.DevBuild;
             _scroll = Root.Q<ScrollView>(UiNames.SettingsScroll);
             _rows = Root.Q(UiNames.SettingsRows);
             _rows.RegisterCallback<FocusInEvent>(e => { if (e.target is VisualElement target && _scroll != null) _scroll.ScrollTo(target); });
             Root.Q<LocButton>(UiNames.SettingsClose).clicked += Leave;
             Root.Q<LocButton>(UiNames.SettingsDone).clicked += Leave;
-            Root.Q<LocButton>(UiNames.SettingsReset).clicked += Reset;
+            Root.Q<LocButton>(UiNames.SettingsReset).clicked += AskResetAll;
             Root.Q<LocButton>(UiNames.SettingsChanged).clicked += () => { _query.ChangedOnly = !_query.ChangedOnly; Render(); };
             Root.Q<LocButton>(UiNames.SettingsSearchBtn).clicked += ToggleSearch;
-            Root.Q<LocButton>(UiNames.SettingsProfile).clicked += OpenProfile;
+            Root.Q<LocButton>(UiNames.SettingsProfile).clicked += OpenTransfer;
+            Root.Q<LocButton>(UiNames.SettingsMore).clicked += ToggleMenu;
+            Root.Q<LocButton>(UiNames.SettingsMenuGroup).clicked += () => { CloseMenu(); ResetOpenTopic(); };
+            Root.Q<LocButton>(UiNames.SettingsMenuAll).clicked += () => { CloseMenu(); AskResetAll(); };
+            Root.Q<LocButton>(UiNames.SettingsTipClose).clicked += () => { _settings.DismissTip(); UiDom.Show(Root.Q(UiNames.SettingsTipRow), false); };
+            Root.Q<LocButton>(UiNames.SettingsUndoButton).clicked += Undo;
             var search = Root.Q<TextField>(UiNames.SettingsSearch);
             search.RegisterValueChangedCallback(e => { _query.Search = e.newValue; Render(); });
             BoardHud.SetImage(Root.Q(UiNames.SettingsSearchBtn), Ui.Icon(FrontArt.IconSearch));
-            UiDom.Show(Root.Q(UiNames.SettingsProfile), Ui.Data.Screens.IsBuilt(ScreenIds.Profile));
+            UiDom.Show(Root.Q(UiNames.SettingsProfile), Ui.Data.Screens.IsBuilt(ScreenIds.Transfer));
+            UiDom.Show(Root.Q(UiNames.SettingsTipRow), !_settings.TipDismissed);
             Render();
             Context.Instance.LastFocused = Root.Q(UiNames.SettingsTabs).Children().FirstOrDefault() ?? Root.Q(UiNames.SettingsDone);
         }
@@ -69,6 +81,7 @@ namespace Ashen.Presentation.UI.Screens
             Root.Q<LocLabel>(UiNames.SettingsTip).SetResolved(_page.Tip);
             var tabs = Root.Q(UiNames.SettingsTabs);
             tabs.Clear();
+            var tipDelay = Ui.Data.Tokens.Duration(TokenKeys.TooltipDelay);
             foreach (var tab in _page.Tabs)
             {
                 var button = new LocButton();
@@ -76,32 +89,45 @@ namespace Ashen.Presentation.UI.Screens
                 button.EnableInClassList(FrontClasses.SettingsTabOn, tab.Active && !_page.Filtering);
                 button.SetResolved(tab.Label);
                 var id = tab.Id;
-                button.clicked += () => { _query.Tab = id; _query.Group = null; _query.Search = null; _query.ChangedOnly = false; Root.Q<TextField>(UiNames.SettingsSearch).SetValueWithoutNotify(string.Empty); Render(); };
+                button.clicked += () => { _query.Tab = id; _query.Group = null; _query.Topic = null; _query.Search = null; _query.ChangedOnly = false; Root.Q<TextField>(UiNames.SettingsSearch).SetValueWithoutNotify(string.Empty); Render(); };
+                if (!string.IsNullOrEmpty(tab.Tip)) Tooltip.AttachResolved(button, Context.Overlay, Ui.Data.Components.TooltipPlain, tab.Label, tab.Tip, tipDelay);
                 tabs.Add(button);
             }
             var groups = Root.Q(UiNames.SettingsGroups);
             groups.Clear();
-            UiDom.Show(groups, !_page.Filtering && _page.Groups.Count > 1);
-            if (_page.Groups.Count > 1) groups.Add(GroupSelect());
-            if (!_page.ShowAbout)
+            var selects = !_page.Filtering && (_page.Groups.Count > 1 || _page.Topics.Count > 1);
+            UiDom.Show(groups, selects || (!_page.Filtering && !_page.ShowAbout));
+            if (!_page.Filtering && _page.Groups.Count > 1) groups.Add(GroupSelect());
+            if (!_page.Filtering && _page.Topics.Count > 1) groups.Add(TopicSelect());
+            if (!_page.ShowAbout && !_page.ShowChangelog && !_page.ShowRules)
             {
+                var summary = new VisualElement { pickingMode = PickingMode.Ignore };
+                summary.AddToClassList(SettingsPanelClasses.Summary);
+                if (!string.IsNullOrEmpty(_page.GroupTip)) summary.Add(Text(_page.GroupTip, SettingsPanelClasses.GroupTip));
                 var count = new LocLabel { pickingMode = PickingMode.Ignore };
                 count.AddToClassList(FrontClasses.SettingsCount);
                 count.SetResolved(_page.Count);
-                groups.Add(count);
+                summary.Add(count);
+                groups.Add(summary);
             }
             var changed = Root.Q<LocButton>(UiNames.SettingsChanged);
             changed.SetResolved(_page.ChangedCount > 0 ? strings.Format(StringKeys.SettingsPageChangedCount, new StringArgs().Add(UiPlaceholders.Count, _page.ChangedCount)) : _page.ChangedLabel);
             changed.EnableInClassList(FrontClasses.SettingsToolOn, _query.ChangedOnly);
-            Root.Q<LocButton>(UiNames.SettingsReset).SetEnabled(HasToReset());
+            Root.Q<LocButton>(UiNames.SettingsReset).SetEnabled(_page.ChangedCount > 0);
             _rows.Clear();
-            if (_page.ShowAbout) AboutPanel.Fill(_rows, AboutView.Build(Ui.Data, Ui.BuildVersion));
+            if (_page.DeveloperSwitch != null && !_page.Filtering) _rows.Add(Row(_page.DeveloperSwitch));
+            if (_page.ShowAbout) AboutPanel.Fill(_rows, AboutView.Build(Ui.Data, Ui.BuildVersion), Ui.Data.Strings);
+            else if (_page.ShowChangelog) SettingsPanels.Changelog(_rows, Ui.Data, _openChanges, id =>
+            {
+                if (!_openChanges.Add(id)) _openChanges.Remove(id);
+                _focusKey = id;
+                Render();
+            });
+            else if (_page.ShowRules) SettingsPanels.Rules(_rows, Ui.Data, _settings, Apply);
             else if (_page.Empty != null) _rows.Add(Text(_page.Empty, FrontClasses.SettingsEmpty));
             else foreach (var row in _page.Rows) _rows.Add(Row(row));
             RestoreFocus();
         }
-
-        private bool HasToReset() => _page.Filtering ? _page.ChangedCount > 0 : _page.Rows.Any(r => !r.IsDefault);
 
         private static LocLabel Text(string text, string cls)
         {
@@ -117,10 +143,11 @@ namespace Ashen.Presentation.UI.Screens
             row.AddToClassList(FrontClasses.SettingsRow);
             var texts = new VisualElement { pickingMode = PickingMode.Ignore };
             texts.AddToClassList(FrontClasses.SettingsRowTexts);
-            var head = new VisualElement { pickingMode = PickingMode.Ignore };
+            var head = new VisualElement();
             head.AddToClassList(FrontClasses.SettingsRowHead);
             if (!control.IsDefault) head.Add(Text(Ui.Data.Strings.Get(StringKeys.SettingsPageDot), FrontClasses.SettingsDot));
             head.Add(Text(control.Label, FrontClasses.SettingsRowLabel));
+            if (!control.IsDefault) head.Add(RowReset(control));
             texts.Add(head);
             if (!string.IsNullOrEmpty(control.Help)) texts.Add(Text(control.Help, FrontClasses.SettingsRowHelp));
             if (!string.IsNullOrEmpty(control.AppliesNextRun)) texts.Add(Text(control.AppliesNextRun, FrontClasses.SettingsRowNote));
@@ -134,39 +161,77 @@ namespace Ashen.Presentation.UI.Screens
                 case SV.Toggle: host.Add(Switch(control)); break;
                 case SV.Enum: host.Add(Choices(control)); break;
                 case SV.Slider: host.Add(Slider(control)); break;
+                case SV.Button: host.Add(ActionButton(control)); break;
             }
             return row;
         }
 
+        /// <summary>The Reset beside a changed setting's name (settings.js set-row-reset): this one setting returns to its default, with an Undo.</summary>
+        private LocButton RowReset(SettingControlView control)
+        {
+            var button = new LocButton { userData = control.Key + StringKeys.SettingsPageRowReset };
+            button.AddToClassList(FrontClasses.SettingsRowReset);
+            button.SetResolved(Ui.Data.Strings.Get(StringKeys.SettingsPageRowReset));
+            button.tooltip = Ui.Data.Strings.Get(StringKeys.SettingsPageRowResetTip);
+            var key = control.Key;
+            var name = control.Label;
+            button.clicked += () => ResetWith(Ui.Data.Strings.Format(StringKeys.SettingsUndoRow, new StringArgs().Add(UiPlaceholders.Name, name)), () => _settings.ResetKey(key));
+            return button;
+        }
+
         private VisualElement Switch(SettingControlView control)
         {
-            var on = control.Value is JValue v && v.Type == JTokenType.Boolean && (bool)v;
+            var on = control.Shown;
             var button = new LocButton { userData = control.Key };
             button.AddToClassList(FrontClasses.SettingsSwitch);
             button.EnableInClassList(FrontClasses.SettingsSwitchOn, on);
             var knob = new VisualElement { pickingMode = PickingMode.Ignore };
             knob.AddToClassList(FrontClasses.SettingsKnob);
             button.Add(knob);
-            button.tooltip = control.ValueText;
+            button.tooltip = Ui.Data.Strings.Get(on ? MetaStringKeys.SettingsOn : MetaStringKeys.SettingsOff);
             var key = control.Key;
-            button.clicked += () => Apply(key, new JValue(!on), button);
+            var positive = control.Positive;
+            button.clicked += () => Apply(key, new JValue(positive ? !on : on), button);
             return button;
         }
 
-        /// <summary>The group picker: a select of the open tab's groups (settings.js renders it as a select on the wide screen and the phone).</summary>
+        /// <summary>A button row (Reset all settings): it asks first.</summary>
+        private VisualElement ActionButton(SettingControlView control)
+        {
+            var button = new LocButton { userData = control.Key };
+            button.AddToClassList(FrontClasses.SettingsButton);
+            button.AddToClassList(FrontClasses.SettingsTool);
+            button.SetResolved(Ui.Data.Strings.Get(StringKeys.SettingsResetAllSettingsButton));
+            if (control.Action == SV.ActionResetAll) button.clicked += AskResetAll;
+            return button;
+        }
+
+        /// <summary>The group select: the open tab's groups (settings.js renders it as a select on the wide screen and the phone).</summary>
         private SelectField GroupSelect()
         {
             var select = new SelectField();
             select.AddToClassList(FrontClasses.SettingsGroup);
             select.Face.userData = UiNames.SettingsGroups;
             select.SetOptions(_page.Groups.Select(g => new SelectOption { Value = g.Id, Label = g.Label }).ToList(), _page.Groups.FirstOrDefault(g => g.Active)?.Id);
-            select.Picked += id => { _focusKey = UiNames.SettingsGroups; _query.Group = id; Render(); };
+            select.Picked += id => { _focusKey = UiNames.SettingsGroups; _query.Group = id; _query.Topic = null; Render(); };
+            return select;
+        }
+
+        /// <summary>The topic select beside the group select: the open group's topics (Interface, Title screen, Map, HUD).</summary>
+        private SelectField TopicSelect()
+        {
+            var select = new SelectField();
+            select.AddToClassList(FrontClasses.SettingsTopic);
+            select.Face.userData = FrontClasses.SettingsTopic;
+            select.SetOptions(_page.Topics.Select(t => new SelectOption { Value = t.Id, Label = t.Label }).ToList(), _page.Topics.FirstOrDefault(t => t.Active)?.Id);
+            select.Picked += id => { _focusKey = FrontClasses.SettingsTopic; _query.Topic = id; Render(); };
             return select;
         }
 
         /// <summary>An enum setting as the web's select: the chosen words with a chevron and the list of choices.</summary>
         private VisualElement Choices(SettingControlView control)
         {
+            if (!control.AsSelect) return Segmented(control);
             var select = new SelectField();
             select.AddToClassList(FrontClasses.SettingsSelect);
             select.Face.userData = control.Key;
@@ -174,6 +239,26 @@ namespace Ashen.Presentation.UI.Screens
             var key = control.Key;
             select.Picked += value => Apply(key, new JValue(value), select.Face);
             return select;
+        }
+
+        /// <summary>A choice of three or fewer options (web .as-seg.choice-group): its options side by side, the chosen one lit.</summary>
+        private VisualElement Segmented(SettingControlView control)
+        {
+            var group = new VisualElement();
+            group.AddToClassList(SettingsPanelClasses.Segmented);
+            var chosen = Js.Str(control.Value);
+            foreach (var option in control.Options)
+            {
+                var button = new LocButton { userData = control.Key + option.Key };
+                button.AddToClassList(SettingsPanelClasses.SegmentOption);
+                button.EnableInClassList(SettingsPanelClasses.SegmentOn, option.Key == chosen);
+                button.SetResolved(option.Value);
+                var key = control.Key;
+                var value = option.Key;
+                button.clicked += () => Apply(key, new JValue(value), button);
+                group.Add(button);
+            }
+            return group;
         }
 
         private VisualElement Slider(SettingControlView control)
@@ -257,13 +342,72 @@ namespace Ashen.Presentation.UI.Screens
             target?.Focus();
         }
 
-        private void Reset()
+        // ------------------------------------------------------------------ resets, with an Undo for eight seconds (settings.js resetKeys, offerUndo)
+
+        /// <summary>Takes a snapshot, runs the reset, and offers the Undo bar with the label.</summary>
+        private void ResetWith(string label, System.Action reset)
         {
             Flush();
-            if (_page.Filtering) _settings.ResetAll();
-            else _settings.ResetGroup(_layout.First(t => t.Id == _page.Tab).Groups.First(g => g.Id == _page.Group));
+            var before = _settings.Snapshot();
+            reset();
+            if (!JToken.DeepEquals(before, _settings.Snapshot())) OfferUndo(label, before);
             Render();
         }
+
+        /// <summary>The header's Reset to defaults and the menu's Reset all settings: it asks first (the web's confirmResetAll).</summary>
+        private void AskResetAll()
+        {
+            Flush();
+            ConfirmRequest.Open(Nav, new ConfirmRequest
+            {
+                ConfirmId = ConfirmIds.ResetSettings,
+                OnConfirm = () => ResetWith(Ui.Data.Strings.Get(StringKeys.SettingsUndoAll), () => _settings.ResetAll()),
+            });
+        }
+
+        /// <summary>Reset this group: the settings of the topic in front, or the matches while a filter is on.</summary>
+        private void ResetOpenTopic()
+        {
+            var keys = _page.Rows.Select(r => r.Key).ToList();
+            ResetWith(Ui.Data.Strings.Get(_page.Filtering ? StringKeys.SettingsUndoResults : StringKeys.SettingsUndoGroup), () => _settings.ResetKeys(keys));
+        }
+
+        private void OfferUndo(string label, JObject before)
+        {
+            _undo = before;
+            _undoLabel = label;
+            var bar = Root.Q(UiNames.SettingsUndo);
+            Root.Q<LocLabel>(UiNames.SettingsUndoText).SetResolved(label);
+            UiDom.Show(bar, true);
+            _undoTimer?.Pause();
+            _undoTimer = Root.schedule.Execute(DropUndo).StartingIn(Ui.Data.Tokens.Duration(TokenKeys.SettingsUndo));
+        }
+
+        private void DropUndo()
+        {
+            _undo = null;
+            _undoTimer?.Pause();
+            _undoTimer = null;
+            UiDom.Show(Root.Q(UiNames.SettingsUndo), false);
+        }
+
+        private void Undo()
+        {
+            if (_undo == null) return;
+            _settings.Restore(_undo);
+            DropUndo();
+            Render();
+        }
+
+        // ------------------------------------------------------------------ the header's tools
+
+        private void ToggleMenu()
+        {
+            var menu = Root.Q(UiNames.SettingsMenu);
+            UiDom.Show(menu, menu.ClassListContains(UiClasses.Hidden));
+        }
+
+        private void CloseMenu() => UiDom.Show(Root.Q(UiNames.SettingsMenu), false);
 
         private void ToggleSearch()
         {
@@ -280,10 +424,11 @@ namespace Ashen.Presentation.UI.Screens
             }
         }
 
-        private void OpenProfile()
+        /// <summary>The Settings header's Download &amp; saves (web settings.js: offlinePlay.title, onOffline), which opens Move your saves. The Profile screen has no door here: the web's Settings has none (D-1647).</summary>
+        private void OpenTransfer()
         {
             Flush();
-            if (Ui.Data.Screens.IsBuilt(ScreenIds.Profile)) Nav.Go(ScreenIds.Profile);
+            if (Ui.Data.Screens.IsBuilt(ScreenIds.Transfer)) Nav.Go(ScreenIds.Transfer);
         }
 
         private void Leave()
@@ -298,6 +443,10 @@ namespace Ashen.Presentation.UI.Screens
             return false;
         }
 
-        public override void Unbind() => Flush();
+        public override void Unbind()
+        {
+            Flush();
+            _undoTimer?.Pause();
+        }
     }
 }

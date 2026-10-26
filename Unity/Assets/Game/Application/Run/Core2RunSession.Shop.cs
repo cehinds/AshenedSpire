@@ -60,10 +60,11 @@ namespace Ashen.App.Run
         {
             var shop = Core2Shop.Open(_run);
             if (shop == null) return new Core2ShopResult { Refusal = SM.NoShopOpen };
+            var snapshot = Snapshot();
             try
             {
                 var item = Core2Shop.Purchase(Core.Rewards, _run, shop, index);
-                Save();
+                SaveOrRestore(snapshot);
                 return new Core2ShopResult { Item = item };
             }
             catch (InvalidOperationException e) { return new Core2ShopResult { Refusal = e.Message }; }
@@ -73,9 +74,19 @@ namespace Ashen.App.Run
         public Core2ShopResult LeaveShop()
         {
             if (!HasOpenShop) return new Core2ShopResult { Refusal = SM.NoShopOpen };
-            Core2Shop.Leave(_run);
-            _location = Ashen.Generated.RunFlowValues.LocationMap;
-            Save();
+            // A save that throws puts the shop back open, so the screen's Retry leaves again.
+            var snapshot = Snapshot();
+            try
+            {
+                Core2Shop.Leave(_run);
+                _location = Ashen.Generated.RunFlowValues.LocationMap;
+                Save();
+            }
+            catch
+            {
+                Restore(snapshot);
+                throw;
+            }
             return new Core2ShopResult();
         }
     }

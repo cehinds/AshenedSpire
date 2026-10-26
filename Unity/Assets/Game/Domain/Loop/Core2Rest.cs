@@ -279,7 +279,8 @@ namespace Ashen.Domain.Loop
             return moved;
         }
 
-        private static double XpToNext(Core2RewardsData d, double level)
+        /// <summary>xpToNext(registries, level): the Core 2 profile curve (balance.level.xp: base, growth or linear, rounded), at least one unit.</summary>
+        public static double XpToNext(Core2RewardsData d, double level)
         {
             var curve = d.RunData.Balance.Obj(K.Level)?.Obj(K.Xp) ?? new JObject();
             var defaults = d.RestRules.Obj(RR.LevelCurveDefaults);

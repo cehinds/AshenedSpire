@@ -99,7 +99,12 @@
         "UnitKey": "unitKey",
         "Presets": "presets",
         "ResetsPreset": "resetsPreset",
-        "Settings": "settings"
+        "Settings": "settings",
+        "LegacyOnly": "legacyOnly",
+        "Positive": "positive",
+        "Action": "action",
+        "Row": "row",
+        "HelpState": "helpState"
       }
     },
     {
@@ -112,7 +117,20 @@
         "Live": "live",
         "Run": "run",
         "RefSeparator": "#",
-        "PathSeparator": "."
+        "PathSeparator": ".",
+        "Button": "button",
+        "ActionResetAll": "resetAll",
+        "RowDeveloperSwitch": "developerSwitch",
+        "HelpStateMusic": "music",
+        "OpeningEvery": "every",
+        "OpeningOnce": "once",
+        "OpeningOff": "off",
+        "ViewAuto": "auto",
+        "ViewMobile": "mobile",
+        "ViewDesktop": "desktop",
+        "SizeAuto": "Auto",
+        "TabAdvanced": "advanced",
+        "ZoomFit": "Fit"
       }
     },
     {
@@ -127,6 +145,7 @@
         "MusicVolume": "musicVolume",
         "SfxVolume": "sfxVolume",
         "CreationAutoAdvance": "creationAutoAdvance",
+        "UseRestorativeFlasksOutsideCombat": "useRestorativeFlasksOutsideCombat",
         "MapFull": "full",
         "MapPath": "path",
         "MapFog": "fog",
@@ -139,12 +158,42 @@
         "AnimationStepDuration": "animationStepDuration",
         "CombatPacingPreset": "combatPacingPreset",
         "AnimSpeed": "animSpeed",
+        "PerformanceMode": "performanceMode",
         "AskToUpcastAfterTarget": "askToUpcastAfterTarget",
         "ScreenShake": "screenShake",
         "OneTapPlay": "oneTapPlay",
         "ReduceFlashes": "reduceFlashes",
         "ShowPlayedCard": "showPlayedCard",
-        "OpeningAutoAdvance": "openingAutoAdvance"
+        "OpeningAutoAdvance": "openingAutoAdvance",
+        "Fullscreen": "fullscreen",
+        "Accent": "accent",
+        "ViewPreset": "viewPreset",
+        "UiScale": "uiScale",
+        "TitleCityHold": "titleCityHold",
+        "MapZoom": "mapZoom",
+        "ShrinePathGlow": "shrinePathGlow",
+        "HudShowVitality": "hudShowVitality",
+        "HudShowRelics": "hudShowRelics",
+        "HudShowCurrency": "hudShowCurrency",
+        "HudShowPosition": "hudShowPosition",
+        "HudShowPotions": "hudShowPotions",
+        "MusicEnabled": "musicEnabled",
+        "MuteAudio": "muteAudio",
+        "HoverTooltips": "hoverTooltips",
+        "TooltipDelay": "tooltipDelay",
+        "TooltipCloseDelay": "tooltipCloseDelay",
+        "HighContrast": "highContrast",
+        "ReadableHeadings": "readableHeadings",
+        "ColorblindSafe": "colorblindSafe",
+        "OpeningPlayback": "openingPlayback",
+        "OpeningSpeed": "openingSpeed",
+        "OpeningStill": "openingStill",
+        "PlayInDeckOrder": "playInDeckOrder",
+        "WalkedFade": "walkedFade",
+        "ControlHints": "controlHints",
+        "DeveloperTools": "developerTools",
+        "PrologueSeen": "prologueSeen",
+        "SettingsTipDismissed": "settingsTipDismissed"
       }
     },
     {
@@ -339,6 +388,16 @@
         "NotAKey": "notAKey",
         "UnknownPath": "unknownPath",
         "WrongType": "wrongType"
+      }
+    }
+  ],
+  "numberSets": [
+    {
+      "name": "MetaNumbers",
+      "type": "int",
+      "doc": "The act a won run reads when its record names none (web ui/screens/history.js: r.act || 3).",
+      "values": {
+        "WinAct": 3
       }
     }
   ],

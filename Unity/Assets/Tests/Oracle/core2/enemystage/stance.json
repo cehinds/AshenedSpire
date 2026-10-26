@@ -1,0 +1,6302 @@
+{
+ "cases": [
+  {
+   "category": "smash",
+   "intent": {
+    "stance": "smashing"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "stance": "attacking"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "stance": "ranged"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "stance": "countering"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "stance": "sweeping"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "stance": "defending"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "stance": "casting"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "stance": "preparing"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "stance": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "profile": {
+     "camp": null,
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": null
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": null,
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": null
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": null,
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": null
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": null,
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": null
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": null,
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": null
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": null,
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": null
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": null,
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": null
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": null,
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": null
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": null,
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "profile": {
+     "camp": null,
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "attack"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": null,
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "attack"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": null,
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "attack"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": null,
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "attack"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": null,
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "attack"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "attack"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "attack"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": null,
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "attack"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": null,
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "profile": {
+     "camp": null,
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "defend"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": null,
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "defend"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": null,
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "defend"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": null,
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "defend"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": null,
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "defend"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "defend"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "defend"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": null,
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "defend"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": null,
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "profile": {
+     "camp": null,
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "counter"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": null,
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "counter"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": null,
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "counter"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": null,
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "counter"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": null,
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "counter"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "counter"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "counter"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": null,
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "counter"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": null,
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "profile": {
+     "camp": null,
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "sweep"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": null,
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "sweep"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": null,
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "sweep"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": null,
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "sweep"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": null,
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "sweep"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "sweep"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "sweep"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": null,
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "sweep"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": null,
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "profile": {
+     "camp": null,
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "smash"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": null,
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "smash"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": null,
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "smash"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": null,
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "smash"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": null,
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "smash"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "smash"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "smash"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": null,
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "smash"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": null,
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "profile": {
+     "camp": null,
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "ranged"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": null,
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "ranged"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": null,
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "ranged"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": null,
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "ranged"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": null,
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "ranged"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "ranged"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": null,
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "ranged"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": null,
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": null,
+     "maneuver": "ranged"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": null,
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "physical",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": null
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "physical",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": null
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "physical",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": null
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "physical",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": null
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": null
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": null
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": null
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "physical",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": null
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "physical",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "profile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "profile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "profile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "profile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "profile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "smash",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "profile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "combatProfile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "attack",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "physical",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "spell",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": null
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spell",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": null
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spell",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": null
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spell",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": null
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": null
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": null
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": null
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spell",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": null
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spell",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "profile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "profile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "profile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spell",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "spells",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": null
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spells",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": null
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spells",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": null
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spells",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": null
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": null
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": null
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": null
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spells",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": null
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spells",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "profile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "profile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "profile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "spells",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "magic",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": null
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "magic",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": null
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "magic",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": null
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "magic",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": null
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": null
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": null
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": null
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "magic",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": null
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "magic",
+     "maneuver": null
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "attack"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "profile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "defend",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "defend"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "profile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "counter",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "counter"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "profile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "sweep",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "sweep"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "smash"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "profile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    },
+    "kind": "attack"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attack",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    },
+    "kind": "block"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "block",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    },
+    "kind": "defend"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "defend",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    },
+    "kind": "buff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "buff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    },
+    "kind": "debuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "debuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    },
+    "kind": "attackDebuff"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "attackDebuff",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    },
+    "kind": "staggered"
+   }
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "staggered",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "combatProfile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    },
+    "kind": "unknown"
+   }
+  },
+  {
+   "category": "preparing",
+   "intent": {
+    "kind": "unknown",
+    "profile": {
+     "camp": "magic",
+     "maneuver": "ranged"
+    }
+   }
+  },
+  {
+   "category": null,
+   "intent": {}
+  },
+  {
+   "category": null,
+   "intent": null
+  },
+  {
+   "category": null,
+   "intent": {
+    "kind": "unknown"
+   }
+  }
+ ]
+}

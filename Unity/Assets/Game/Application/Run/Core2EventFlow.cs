@@ -37,6 +37,7 @@ namespace Ashen.App.Run
         private Core2EventViewState _view;
         private IReadOnlyList<string> _beats = Array.Empty<string>();
         private int _beat;
+        private int _generation;
 
         public Core2EventFlow(Core2RunSession session, UiData ui)
         {
@@ -167,6 +168,7 @@ namespace Ashen.App.Run
             if (response == null) return Refuse(SN.Core2EventUnknown);
             if (!response.Affordable) return new Core2EventStep { Refusal = response.Tag };
             var result = _session.ChooseEvent(choiceId);
+            _generation++;
             Refresh();
             if (result.Error != null) return new Core2EventStep { Refusal = result.Error };
             if (!result.Ok) return new Core2EventStep { Refusal = NodeText.Refusal(_strings, result.Result.Refusal) };
@@ -180,11 +182,30 @@ namespace Ashen.App.Run
             return response != null && response.Affordable && response.Binding;
         }
 
+        /// <summary>
+        /// The beat's generation (web DialogueModel state.generation): it moves on every line read, skipped to or answered, so a voice that reports the end of a line it started under can be told from a stale
+        /// one. The screen has no voice; <see cref="SpeechEnded"/> is the hook it would call.
+        /// </summary>
+        public int Generation => _generation;
+
+        /// <summary>
+        /// speechEnded: a line's speech ended under <paramref name="generation"/>. A stale generation (the player moved on or skipped since), a resolved event or the last line changes nothing; a current one
+        /// reads the next line. It never picks a response.
+        /// </summary>
+        public Core2EventStep SpeechEnded(int generation)
+        {
+            if (generation != _generation || _view == null || !IsDialogue || Resolved || OnLastBeat) return new Core2EventStep();
+            _beat++;
+            _generation++;
+            return new Core2EventStep();
+        }
+
         /// <summary>Back reads the line before this one again (a dialogue only; nothing changes).</summary>
         public Core2EventStep Back()
         {
             if (!BackEnabled) return new Core2EventStep();
             _beat--;
+            _generation++;
             return new Core2EventStep();
         }
 
@@ -193,6 +214,7 @@ namespace Ashen.App.Run
         {
             if (!SkipEnabled) return new Core2EventStep();
             _beat = _beats.Count - 1;
+            _generation++;
             return new Core2EventStep();
         }
 
@@ -208,6 +230,7 @@ namespace Ashen.App.Run
                 if (IsDialogue && !OnLastBeat)
                 {
                     _beat++;
+                    _generation++;
                     return new Core2EventStep();
                 }
                 return new Core2EventStep { Refusal = ContinueReason };

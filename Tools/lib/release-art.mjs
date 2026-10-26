@@ -168,6 +168,8 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
   const rules = R.rules.map(r => ({ re: new RegExp(r.match), id: r.id }));
   const legacyRules = CONFIG.rules.map(r => new RegExp(r.match));
   const converts = R.convert.map(c => ({ ...c, re: new RegExp(c.match) }));
+  // `restrict`: of the ids a pattern names, only those a generated list holds are registered and imported (the player's painted figure: 512 of the thousands of equipment animation frames, Tools/outfit-art.mjs).
+  const restricts = (R.restrict || []).map(r => ({ re: new RegExp(r.match), ids: new Set(JSON.parse(readFileSync(join(ROOT, r.ids), 'utf8')).ids) }));
 
   // ----- the files of each pack (and of the web repo's tracked roots) -----
   const files = [];
@@ -188,6 +190,7 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
     if (!rule) { if (legacyRules.some(re => re.test(f.rel))) stats.legacy++; else orphans.push(f.rel); continue; }
     const id = applyTemplate(rule.id, rule.re.exec(f.rel), { maps: R.maps });
     if (seen.has(id)) { console.error(`release: duplicate asset id ${id}: ${seen.get(id)} | ${f.rel}`); process.exit(1); }
+    if (restricts.some(r => r.re.test(id) && !r.ids.has(id))) { stats.restricted = (stats.restricted || 0) + 1; continue; }
     seen.set(id, f.rel);
     const buf = readFileSync(f.abs);
     const ext = extname(f.rel).toLowerCase();
@@ -210,6 +213,31 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
     registry[id] = entry;
   }
 
+  // A restricted id this release registered earlier and the list no longer names leaves the registry (its image is no longer imported).
+  for (const [id, entry] of Object.entries(registry))
+    if (entry.release === R.tag && restricts.some(r => r.re.test(id) && !r.ids.has(id))) { delete registry[id]; stats.restricted = (stats.restricted || 0) + 1; }
+
+  // ----- derived images: the soft silhouette glows of the combat figures (P-4, D-1540..). Each is made from the frame it glows around, so it shares that frame's source and hash; the
+  // import writes it from the source at the size the registry records (config release.derive).
+  const glowOf = new Map();
+  const derives = (R.derive || []).map(d => ({ ...d, re: new RegExp(d.match) }));
+  for (const [id, base] of Object.entries(registry)) {
+    if (base.release !== R.tag || base.derived || !base.unityPath) continue;
+    for (const d of derives) {
+      const m = d.re.exec(id);
+      if (!m) continue;
+      const gid = applyTemplate(d.id, m);
+      const spec = converts.find(c => c.re.test(gid));
+      const entry = {
+        origin: 'imported', release: R.tag, derived: 'glow', source: base.source, sha256: base.sha256, bytes: base.bytes, format: base.format,
+        width: base.width, height: base.height, alpha: true, unityPath: unityPathFor(gid, spec),
+        unityWidth: Math.max(1, Math.round(base.unityWidth * d.glow.scale)), unityHeight: Math.max(1, Math.round(base.unityHeight * d.glow.scale)),
+      };
+      glowOf.set(gid, d.glow);
+      if (canonical(registry[gid]) !== canonical(entry)) { registry[gid] = entry; stats.added++; }
+    }
+  }
+
   const releaseIds = Object.entries(registry).filter(([, e]) => e.release === R.tag);
   const importedIds = releaseIds.filter(([, e]) => e.unityPath);
   const after = canonical(registry);
@@ -227,10 +255,11 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
   writeProvenance({ ROOT, R, releaseDir, webDir, stats, releaseIds, importedIds, orphans });
 
   // ----- import -----
-  let converted = 0, skipped = 0, failed = 0, bytes = 0;
+  let converted = 0, skipped = 0, failed = 0, bytes = 0, legacy = 0, legacyResized = 0;
+  const legacyMissing = [];
   if (doImport) {
     const sharp = loadSharp(ROOT);
-    const packOf = (rel) => rel.startsWith('assets-display/') ? webDir : null;
+    const packOf = (rel) => /^assets-(display|mobile)\//.test(rel) ? webDir : null;
     const jobs = [];
     for (const [id, e] of importedIds) {
       const dst = join(ROOT, 'Unity', e.unityPath);
@@ -250,7 +279,14 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
           const src = srcOf(e);
           mkdirSync(dirname(dst), { recursive: true });
           let img;
-          if (e.format === 'svg') {
+          if (e.derived === 'glow') {
+            // The glow of a frame: its alpha, shrunk, blurred and gained so the halo reaches past the edge, as white with that alpha (UI Toolkit tints it).
+            const glow = glowOf.get(id);
+            const alpha = await sharp(src).ensureAlpha().extractChannel(3).resize(e.unityWidth, e.unityHeight, { fit: 'fill', kernel: 'lanczos3' })
+              .blur(glow.sigma).linear(glow.gain, 0).raw().toBuffer();
+            img = sharp({ create: { width: e.unityWidth, height: e.unityHeight, channels: 3, background: { r: 255, g: 255, b: 255 } } })
+              .joinChannel(alpha, { raw: { width: e.unityWidth, height: e.unityHeight, channels: 1 } });
+          } else if (e.format === 'svg') {
             let svg = readFileSync(src, 'utf8');
             if (spec.svgColor) svg = svg.replace(/currentColor/g, spec.svgColor).replace(/\scolor="[^"]*"/, '');
             const k = e.unityWidth / e.width;
@@ -281,8 +317,50 @@ export async function runRelease({ ROOT, CONFIG, releaseDir, webDir, doImport, c
     };
     const queue = [...jobs];
     await Promise.all(Array.from({ length: 6 }, async () => { for (let j = queue.shift(); j; j = queue.shift()) await worker(j); }));
+
+    // ----- legacy images (D-1300): ids imported before the release (backgrounds, class sprites, enemies, relics, env, vfx)
+    // are registered with a unityPath, but their PNGs are gitignored and the old source tree (the author's D:\repos\AshenSpire)
+    // is not on a CI runner. The release packs carry the same files (byte-identical for most), so a fresh machine rebuilds them
+    // here: a lossless WebP->PNG at the registered size. An icon size the release does not carry (relic.<id>.iconN) is
+    // resized from the release's relic.<id> image.
+    const sourceFile = (e) => Object.values(R.packs).map(p => join(releaseDir, p.dir, e.source)).find(existsSync);
+    for (const [id, e] of Object.entries(registry)) {
+      if (!e.unityPath || e.release || e.format === 'svg') continue;
+      const dst = join(ROOT, 'Unity', e.unityPath);
+      if (existsSync(dst) && !force) continue;
+      try {
+        let src = sourceFile(e), fallback = false;
+        if (!src) {
+          const stem = /^(.+)\.icon\d+$/.exec(id);
+          const twin = stem && registry[stem[1]];
+          src = twin && sourceFile(twin);
+          fallback = true;
+        }
+        if (!src) { legacyMissing.push(id); continue; }
+        mkdirSync(dirname(dst), { recursive: true });
+        let img = sharp(src);
+        const inMeta = await img.metadata();
+        // A twin, or a pack file the release has re-exported at another size: keep the registered size so layouts do not move.
+        const resize = fallback || inMeta.width !== e.width || inMeta.height !== e.height;
+        if (resize) img = img.resize(e.width, e.height, { fit: 'fill', kernel: 'lanczos3' });
+        await img.png({ compressionLevel: 9 }).toFile(dst);
+        const out = await sharp(dst).metadata();
+        if (out.width !== e.width || out.height !== e.height) throw new Error(`wrote ${out.width}x${out.height}, registry says ${e.width}x${e.height}`);
+        bytes += statSync(dst).size; legacy++; if (resize) legacyResized++;
+        const metaPath = `${dst}.meta`;
+        if (!existsSync(metaPath)) {
+          const maxSize = Math.max(32, Math.min(2048, 2 ** Math.ceil(Math.log2(Math.max(e.width, e.height)))));
+          writeFileSync(metaPath, textureMeta(md5(`Unity/${e.unityPath}`), { alpha: e.alpha !== false, maxSize }));
+        }
+        for (let d = dirname(e.unityPath); d.length > IMPORTED_UNITY.length; d = dirname(d)) {
+          const folder = join(ROOT, 'Unity', `${d}.meta`);
+          if (!existsSync(folder)) writeFileSync(folder, folderMeta(md5(`Unity/${d}`)));
+        }
+      } catch (err) { failed++; console.error(`release: legacy ${id}: ${err.message}`); }
+    }
   }
-  console.log(`${summary}` + (doImport ? `\nrelease: import wrote ${converted} images (${mb(bytes)} MB), ${skipped} already present, ${failed} failed` : ''));
+  console.log(`${summary}` + (doImport ? `\nrelease: import wrote ${converted} images (${mb(bytes)} MB), ${skipped} already present, ${failed} failed` +
+    `\nrelease: legacy ids restored from the packs: ${legacy} (${legacyResized} resized to the registered size), ${legacyMissing.length} with no source in the packs` : ''));
   if (failed) process.exit(1);
 }
 

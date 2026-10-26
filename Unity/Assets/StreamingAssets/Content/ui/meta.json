@@ -49,14 +49,16 @@
           "labelKey": "settings.group.display",
           "categories": [
             "interface",
-            "map"
+            "titleScreen",
+            "map",
+            "hud"
           ]
         },
         {
           "id": "combat",
           "labelKey": "settings.group.combat",
           "categories": [
-            "combat"
+            "animation"
           ]
         },
         {
@@ -70,8 +72,9 @@
           "id": "rules",
           "labelKey": "settings.group.rules",
           "categories": [
-            "gameplay"
-          ]
+            "rules"
+          ],
+          "rules": true
         }
       ]
     },
@@ -83,7 +86,9 @@
           "id": "accessibility",
           "labelKey": "settings.group.accessibility",
           "categories": [
-            "accessibility"
+            "tooltips",
+            "readability",
+            "motion"
           ]
         }
       ]
@@ -96,8 +101,42 @@
           "id": "opening",
           "labelKey": "settings.group.opening",
           "categories": [
-            "opening"
-          ]
+            "playback"
+          ],
+          "developer": true,
+          "tipKey": "settings.tip.opening"
+        },
+        {
+          "id": "deck",
+          "labelKey": "settings.group.deck",
+          "categories": [
+            "deck"
+          ],
+          "tipKey": "settings.tip.deck"
+        },
+        {
+          "id": "interface",
+          "labelKey": "settings.group.interface",
+          "categories": [
+            "mapHud",
+            "controls"
+          ],
+          "tipKey": "settings.tip.interface"
+        },
+        {
+          "id": "text",
+          "labelKey": "settings.group.text",
+          "categories": [
+            "flavorText",
+            "loreWindow"
+          ],
+          "tipKey": "settings.tip.text"
+        },
+        {
+          "id": "changelog",
+          "labelKey": "settings.group.changelog",
+          "categories": [],
+          "changelog": true
         },
         {
           "id": "about",
@@ -114,5 +153,6 @@
       "shield",
       "staff"
     ]
-  }
+  },
+  "settingsTipNames": 3
 }

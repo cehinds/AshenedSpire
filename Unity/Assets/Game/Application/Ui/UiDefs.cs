@@ -108,6 +108,9 @@ namespace Ashen.App.Ui
         /// <summary>Hidden while a fight is on (the W-20 Armoury row).</summary>
         public bool HideInCombat;
 
+        /// <summary>Not shown at all while its rule keeps it disabled (the web's title has no Continue or Load Game until a climb is saved: title.js menuHtml).</summary>
+        public bool HideWhenDisabled;
+
         /// <summary>An ui/art.json icon name the row wears beside its label (the title's plates), or null.</summary>
         public string Icon;
     }
@@ -127,6 +130,7 @@ namespace Ashen.App.Ui
         public string TitleKey;
         public string BodyKey;
         public string OccupiedBodyKey;
+        public string OccupiedPrimaryKey;
         public string PrimaryKey;
         public string BackKey;
         public string Policy;
@@ -167,6 +171,7 @@ namespace Ashen.App.Ui
                     TitleKey = (string)r[UiKeys.TitleKey],
                     BodyKey = (string)r[UiKeys.BodyKey],
                     OccupiedBodyKey = (string)r[UiKeys.OccupiedBodyKey],
+                    OccupiedPrimaryKey = (string)r[UiKeys.OccupiedPrimaryKey],
                     PrimaryKey = (string)r[UiKeys.PrimaryKey],
                     BackKey = (string)r[UiKeys.BackKey],
                     Policy = (string)r[UiKeys.Policy],
@@ -189,6 +194,7 @@ namespace Ashen.App.Ui
                 EnabledWhen = (string)r[UiKeys.EnabledWhen],
                 Visible = (bool?)r[UiKeys.Visible] ?? true,
                 HideInCombat = (bool?)r[UiKeys.HideInCombat] ?? false,
+                HideWhenDisabled = (bool?)r[UiKeys.HideWhenDisabled] ?? false,
                 Icon = (string)r[UiKeys.Icon],
             }).ToList();
     }
@@ -213,6 +219,24 @@ namespace Ashen.App.Ui
         public double Hysteresis;
     }
 
+    /// <summary>The web's UI size (balance.ui.uiScale): a named size is a fixed zoom, clamped to what fits.</summary>
+    public sealed class UiScaleRules
+    {
+        public readonly Dictionary<string, double> Named = new Dictionary<string, double>(StringComparer.Ordinal);
+        public double DesignW = 1;
+        public double DesignH = 1;
+
+        public static UiScaleRules From(JObject json)
+        {
+            var rules = new UiScaleRules();
+            if (json == null) return rules;
+            foreach (var p in ((JObject)json[UiKeys.Named]).Properties()) rules.Named[p.Name] = (double)p.Value;
+            rules.DesignW = (double)json[UiKeys.DesignW];
+            rules.DesignH = (double)json[UiKeys.DesignH];
+            return rules;
+        }
+    }
+
     /// <summary>ui/layout.json (docs/design/04 §0; D-001, D-016).</summary>
     public sealed class LayoutRules
     {
@@ -223,6 +247,10 @@ namespace Ashen.App.Ui
         public int CompactMinHeight;
         public int GateBelowHeight;
         public CategoryNavRules CategoryNav;
+
+        /// <summary>UI size (the web's balance.ui.uiScale): the named zoom of S, M, L and XL against the design canvas.</summary>
+        public UiScaleRules UiScale = new UiScaleRules();
+
         public IReadOnlyDictionary<string, int> MinPhysical = new Dictionary<string, int>();
 
         public int MinPhysicalOf(string key) => MinPhysical.TryGetValue(key, out var v) ? v : 0;
@@ -243,6 +271,7 @@ namespace Ashen.App.Ui
                 CompactMinHeight = (int)bands[UiKeys.CompactMinHeight],
                 GateBelowHeight = (int)json[UiKeys.GateBelowHeight],
                 MinPhysical = min,
+                UiScale = UiScaleRules.From(json[UiKeys.UiScale] as JObject),
                 CategoryNav = new CategoryNavRules
                 {
                     RailWidth = (double)nav[UiKeys.RailWidth],
@@ -286,6 +315,19 @@ namespace Ashen.App.Ui
         public IReadOnlyList<string> ArtInclude = Array.Empty<string>();
         public IReadOnlyList<string> MeterKinds = Array.Empty<string>();
         public IReadOnlyList<string> TooltipSizes = Array.Empty<string>();
+
+        /// <summary>The tooltip size for plain words (a tab or a control that says what it does).</summary>
+        public string TooltipPlain;
+
+        /// <summary>Where a tooltip goes (the web's tooltipPlacement.json and fx.js placeAnchored).</summary>
+        public TooltipPlacementRules TooltipPlacement = new TooltipPlacementRules();
+
+        /// <summary>The spoken step's close-up (the web's w4c-dialogue scene): the slots, the lanes, how much of a figure shows and the visible box of every figure's art.</summary>
+        public DialogueRules Dialogue = new DialogueRules();
+
+        /// <summary>The ladder's last level when the balance names none (web CharacterSheetModel.characterLadder: 20).</summary>
+        public int DefaultMaxLevel = 1;
+
         public IReadOnlyList<string> CostKinds = Array.Empty<string>();
         public double DegreesPerCard;
         public double MaxSpread;
@@ -355,6 +397,10 @@ namespace Ashen.App.Ui
                 ArtInclude = ScreenRegistry.Strings(json[UiKeys.Art]?[UiKeys.Include]),
                 MeterKinds = ScreenRegistry.Strings(json[UiKeys.Meter]?[UiKeys.Kinds]),
                 TooltipSizes = ScreenRegistry.Strings(json[UiKeys.Tooltip]?[UiKeys.Sizes]),
+                TooltipPlain = (string)json[UiKeys.Tooltip]?[UiKeys.Plain],
+                TooltipPlacement = TooltipPlacementRules.From(json[UiKeys.Tooltip]?[UiKeys.Placement] as JObject),
+                Dialogue = DialogueRules.From(json[UiKeys.Dialogue] as JObject),
+                DefaultMaxLevel = (int?)json[UiKeys.Armoury]?[UiKeys.DefaultMaxLevel] ?? 1,
                 CostKinds = ScreenRegistry.Strings(json[UiKeys.Card]?[UiKeys.CostKinds]),
                 DegreesPerCard = (double)fan[UiKeys.DegreesPerCard],
                 MaxSpread = (double)fan[UiKeys.MaxSpread],
@@ -376,6 +422,12 @@ namespace Ashen.App.Ui
         public double RowHeight;
         public IReadOnlyList<double> ZoomSteps = new double[] { 1d };
         public int ZoomDefault;
+
+        /// <summary>The shrine lane's line against the route's (the web's lane stroke 3.5 on the terrain, the route 3).</summary>
+        public double LaneEdgeRatio = 1d;
+
+        /// <summary>How many flask icons the map's Potions tray holds before its +N tile (web wireframeUi.iconTray.footerPotionIcons).</summary>
+        public int PotionMinis = 1;
         public double EdgeWidth;
         public double DotSpacing;
         public double RowTouchRatio = 1d;
@@ -405,6 +457,8 @@ namespace Ashen.App.Ui
                 RowHeight = (double?)json[UiKeys.RowHeight] ?? 0d,
                 ZoomSteps = steps != null && steps.Count > 0 ? steps : (IReadOnlyList<double>)new double[] { 1d },
                 ZoomDefault = (int?)json[UiKeys.ZoomDefault] ?? 0,
+                LaneEdgeRatio = (double?)json[UiKeys.LaneEdgeRatio] ?? 1d,
+                PotionMinis = Math.Max(1, (int?)json[UiKeys.PotionMinis] ?? 1),
                 EdgeWidth = (double?)json[UiKeys.EdgeWidth] ?? 1d,
                 DotSpacing = (double?)json[UiKeys.DotSpacing] ?? 1d,
                 RowTouchRatio = (double?)json[UiKeys.RowTouchRatio] ?? 1d,

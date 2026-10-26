@@ -66,6 +66,8 @@ namespace Ashen.App.Combat
         public Core2CombatSession Session;
         public JObject Run;
         public bool LogDiverged;
+        /// <summary>The log ended in a damaged record (a crash mid-append): the replay is the valid prefix, and the caller checkpoints before it appends again.</summary>
+        public bool LogTruncated;
         public readonly List<string> Warnings = new List<string>();
     }
 
@@ -147,7 +149,13 @@ namespace Ashen.App.Combat
         /// dispatch(combat, intent): the intent is applied and the queue drained, or the fight is paused on a reaction offer or a card choice. A refused
         /// intent (the rules throw) changes nothing; an unexpected failure restores the last safe point.
         /// </summary>
-        public Core2Outcome Execute(JObject intent)
+        public Core2Outcome Execute(JObject intent) => Execute(intent, null, null);
+
+        /// <summary>
+        /// Run an intent; with a save slot an accepted one is appended to the slot's log before anyone hears of it, and a failed append rolls the fight back
+        /// to before the intent (a full disk leaves no fight the log cannot replay, nor a finishing blow the run never settled).
+        /// </summary>
+        private Core2Outcome Execute(JObject intent, SaveService saves, string slot)
         {
             if (IsOver) return Refused(new InvalidOperationException(Ashen.Generated.CombatMessages.CombatOver));
             var safe = Checkpoint();
@@ -171,6 +179,16 @@ namespace Ashen.App.Combat
             {
                 RestoreKeepingGenerator(safe);
                 return new Core2Outcome { RolledBack = true, Refusal = new Core2Refusal { Message = CombatStringKeys.CombatErrorUnexpected } };
+            }
+            if (saves != null && _gen > 0)
+            {
+                try { saves.Append(slot, _gen, _seq + 1, intent, StateHash()); }
+                catch (Exception)
+                {
+                    RestoreKeepingGenerator(safe);
+                    return new Core2Outcome { RolledBack = true, Refusal = new Core2Refusal { Message = CombatStringKeys.CombatErrorUnexpected } };
+                }
+                _seq++;
             }
             var done = new Core2Outcome { Events = State.EventLog.Skip(mark).Select(e => (JObject)e.DeepClone()).ToList(), Offer = PendingOffer() };
             Resolved?.Invoke(done);
@@ -421,12 +439,7 @@ namespace Ashen.App.Combat
         public int LoggedCommands => _seq;
 
         /// <summary>Execute and, when accepted, append the intent with its after-state hash to the slot's log.</summary>
-        public Core2Outcome ExecuteAndLog(SaveService saves, string slot, JObject intent)
-        {
-            var outcome = Execute(intent);
-            if (outcome.Accepted && _gen > 0) saves.Append(slot, _gen, ++_seq, intent, StateHash());
-            return outcome;
-        }
+        public Core2Outcome ExecuteAndLog(SaveService saves, string slot, JObject intent) => Execute(intent, saves, slot);
 
         /// <summary>
         /// Resume a slot: the verified envelope, this build's Core 2 format, the profile the fight is pinned to (D-171: another profile is recoverable, the slot
@@ -482,6 +495,7 @@ namespace Ashen.App.Combat
                     session._seq++;
                     replayed?.Invoke(outcome, session);
                 }
+                result.LogTruncated = loaded.LogTruncated;
                 result.Session = session;
                 result.Run = payload[RunSaveKeys.Run] is JObject run ? CoreSnapshot.Doubles(run) : null;
                 result.Status = Core2LoadStatus.Loaded;

@@ -1,0 +1,23 @@
+{
+  "$id": "ui/changelog.json",
+  "type": "object",
+  "properties": {
+    "comment": { "type": "string" },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "date": { "type": "string" },
+          "group": { "type": "string" },
+          "summary": { "type": "string" },
+          "detail": { "type": "string" },
+          "build": { "type": "string" }
+        },
+        "required": ["id", "date", "group", "summary", "detail", "build"]
+      }
+    }
+  },
+  "required": ["entries"]
+}

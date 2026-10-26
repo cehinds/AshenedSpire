@@ -75,12 +75,16 @@ namespace Ashen.App.Run
 
         public DeckEditResult Undo() => _session.Undo();
 
-        /// <summary>Done: inside the bounds the edit is kept and the slot saved; otherwise the refusal is the rules' sentence and the editor stays open.</summary>
+        /// <summary>
+        /// Done: inside the bounds the slot is saved and then the edit is kept; otherwise the refusal is the rules' sentence and the editor stays open. A save that
+        /// throws leaves the editor open (Done, Cancel and Undo still work), so a full disk never strands the player in a closed editor.
+        /// </summary>
         public DeckEditResult Confirm()
         {
-            var result = _session.Confirm();
-            if (result.Ok) _owner.Save();
-            return result;
+            var check = _session.CheckConfirm();
+            if (!check.Ok) return check;
+            _owner.Save();
+            return _session.Confirm();
         }
 
         /// <summary>Cancel: both piles, the attack-slot allocation and the mint counter put back exactly.</summary>

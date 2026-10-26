@@ -233,6 +233,31 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void ANoticeReadWhoseProfileSaveFailsLeavesTheRunOpenForTheRetry()
+        {
+            var session = New(5151);
+            session.Travel(session.ReachableNodes()[0]);
+            session.EditRunForReview(r =>
+            {
+                r["actNumber"] = Content.Core2.Loop.Acts;
+                r["skills"] = new JObject { ["class:reaver"] = new JObject { ["xp"] = 399, ["level"] = 0, ["pendingDrafts"] = 0 } };
+            });
+            FightTheBoss(session);
+            Assert.That(session.NoticeOnlyDoor, Is.True);
+            // The profile's temp file is a directory: the close-out's profile write fails, as a full disk would.
+            var blocker = Path.Combine(_dir, _saves.Rules.ProfileSlot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            Assert.That(() => session.AcknowledgeProgression(), Throws.Exception);
+            Assert.That(session.RunOver, Is.False, "the rolled-back close-out is not over, so the run end does not open");
+            Assert.That(session.End, Is.Null);
+            Assert.That(session.ProgressionNotices, Has.Count.EqualTo(1), "the notice is still unread");
+            Directory.Delete(blocker);
+            Assert.That(session.AcknowledgeProgression().Done, Is.True);
+            Assert.That(session.RunOver, Is.True);
+            Assert.That(_saves.Exists(session.Slot), Is.False);
+        }
+
+        [Test]
         public void TheLastBossEndsTheClimbOnceItsLevelNoticesAreRead()
         {
             var session = New(5151);

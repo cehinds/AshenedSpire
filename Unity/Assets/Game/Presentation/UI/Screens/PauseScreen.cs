@@ -17,11 +17,11 @@ namespace Ashen.Presentation.UI.Screens
     }
 
     /// <summary>
-    /// W-20 pause (AF-12), a W1 frame without categories over the run screen: the seed, the rows from ui/menus.json pause
-    /// in order (Deck, Armoury out of combat only, Settings, Save &amp; quit ⟲, Abandon run), and a full-width Resume.
-    /// Rows whose screen is planned are disabled with a "Later build" note (D-058). Save &amp; quit opens its hold door,
-    /// checkpoints the run and returns to the title; a failed save opens W1r "Could not save" with Retry (it never replays
-    /// gameplay). Escape, the exit control and pad Start resume.
+    /// W-20 pause (AF-12), a W1 frame without categories over the run screen: the rows from ui/menus.json pause in order
+    /// (Settings, Armoury out of combat only, Save, Save and Quit, Quit Without Saving: the web's quick menu rows that this build has; the Deck and Abandon rows
+    /// are hidden by their data, P-6 D-1647). Rows whose screen is planned are disabled with a "Later build" note (D-058). Save and Quit checkpoints the run and
+    /// returns to the title with its gate down again; Quit Without Saving asks first; a failed save opens the save door with Retry (it never replays gameplay).
+    /// Escape, the exit control and pad Start resume.
     /// </summary>
     public sealed class PauseScreen : ScreenView
     {
@@ -37,13 +37,11 @@ namespace Ashen.Presentation.UI.Screens
             _session = (args as PauseArgs)?.Session ?? Ui.Climb;
             var strings = Ui.Data.Strings;
             _shell = Root.Q<Shell>(UiNames.Shell);
-            _shell.SetFooter(null, StringKeys.PauseResume);
-            _shell.PrimaryButton?.AddToClassList(UiClasses.ButtonReady);
+            // The web's Menu has no Resume button and no seed line (menuComponents.js: the close X, Save and Quit, Save Game); the way back is the exit control and Escape.
+            _shell.SetFooter(null, null);
             _shell.Primary += Resume;
             _shell.Exit += Resume;
-            if (_session != null)
-                Root.Q<LocLabel>(UiNames.PauseSeed)?.SetResolved(strings.Format(StringKeys.PauseSeed, new StringArgs().Add(UiPlaceholders.Seed, _session.SeedText))
-                    + strings.Get(StringKeys.CreationStatJoin) + strings.Format(StringKeys.PauseSaved, new StringArgs().Add(UiPlaceholders.Slot, _session.SlotIndex)));
+            UiDom.Show(Root.Q(UiNames.PauseSeed), false);
             var list = Root.Q(UiNames.PauseRows);
             var context = Ui.Data.MenuContext(true, _session?.IsInCombat ?? false);
             foreach (var state in MenuRules.Evaluate(Ui.Data.Menus.Pause, context).Where(s => s.Visible))

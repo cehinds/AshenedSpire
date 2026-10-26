@@ -13,6 +13,64 @@ namespace Ashen.Presentation.UI.Kit
         public Texture2D Icon;
         public string Text;
         public bool Gold;
+
+        /// <summary>What pointing at the chip explains (the web's tray icon tooltip: the status's name with its stacks, and its tooltip); null for a chip with nothing to say.</summary>
+        public string TipTitle;
+        public string TipBody;
+    }
+
+    /// <summary>
+    /// The tooltip layer and timing the board's small marks (a fighter's status chips, the relic pips) share, set once by the screen that draws them (the web's iconTray: hover or focus
+    /// explains after the shared delay). A chip with words attaches a tooltip and takes pointer events; one without stays inert.
+    /// </summary>
+    public static class ChipTips
+    {
+        public static VisualElement Overlay;
+        public static string Size;
+        public static int DelayMs;
+
+        /// <summary>Makes a chip or pip explain itself when hovered or focused.</summary>
+        public static void Attach(VisualElement mark, string title, string body)
+        {
+            if (Overlay == null || mark == null || string.IsNullOrEmpty(body) && string.IsNullOrEmpty(title)) return;
+            mark.pickingMode = PickingMode.Position;
+            Tooltip.AttachResolved(mark, Overlay, Size, title, body, DelayMs);
+        }
+
+        /// <summary>As <see cref="Retell"/> for the run of a rich text label that carries <paramref name="linkId"/>: the tooltip opens over that run alone (D-1592).</summary>
+        public static void RetellLinked(VisualElement label, ref Tooltip tip, string title, string body, string linkId)
+        {
+            if (Overlay == null || label == null) return;
+            var speaks = !(string.IsNullOrEmpty(body) && string.IsNullOrEmpty(title));
+            if (tip == null)
+            {
+                if (!speaks) return;
+                label.pickingMode = PickingMode.Position;
+                tip = Tooltip.AttachLinked(label, Overlay, Size, title, body, DelayMs, linkId);
+                return;
+            }
+            if (speaks) tip.SetText(title, body);
+            tip.style.display = speaks ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
+        /// <summary>
+        /// Makes a mark that lives across redraws (a meter, the intent) explain itself, and changes what it says as the fight moves: the tooltip is attached once and its words replaced.
+        /// No words detaches nothing but lets the pointer pass.
+        /// </summary>
+        public static void Retell(VisualElement mark, ref Tooltip tip, string title, string body)
+        {
+            if (Overlay == null || mark == null) return;
+            var speaks = !(string.IsNullOrEmpty(body) && string.IsNullOrEmpty(title));
+            if (tip == null)
+            {
+                if (!speaks) return;
+                mark.pickingMode = PickingMode.Position;
+                tip = Tooltip.AttachResolved(mark, Overlay, Size, title, body, DelayMs);
+                return;
+            }
+            if (speaks) tip.SetText(title, body);
+            tip.style.display = speaks ? DisplayStyle.Flex : DisplayStyle.None;
+        }
     }
 
     /// <summary>Display-ready values for one fighter of a Core 2 fight (text resolved by Core2CombatText, numbers from the combat view).</summary>
@@ -21,6 +79,13 @@ namespace Ashen.Presentation.UI.Kit
         public string Id;
         public string Name;
         public Texture2D Art;
+
+        /// <summary>The player's portrait for the combatant door's preview (the painted outfit of its armour and hands, <see cref="Ashen.App.Ui.OutfitArtData"/>), or null when the class has none in that armour.</summary>
+        public Texture2D Portrait;
+
+        /// <summary>The player's Mana (the door's preview shows it with the Hit points, Poise and Ward); unused for an enemy.</summary>
+        public int Mana;
+        public int MaxMana;
 
         /// <summary>The figure's rest frame when it is not the base art (an enemy's state pose: guard, afflicted, wounded, defeated; VP-5), and the share of the figure box it fills (the web's per-enemy state scale).</summary>
         public Texture2D RestArt;
@@ -41,6 +106,33 @@ namespace Ashen.Presentation.UI.Kit
         public string IntentText;
         public string IntentKind;
         public Texture2D IntentIcon;
+
+        /// <summary>The glyph of the action the figure holds, shown over the player without words (combatantOverhead.js playerActionIntent): the armed card's, the last card's, else the resting hourglass; null for none.</summary>
+        public Texture2D IntentGlyph;
+
+        /// <summary>What pointing at the intent, the Poise meter or the Ward meter says (the web's combat target HUD and health-badge tooltips); null for nothing to say.</summary>
+        public bool IntentReduced;
+
+        /// <summary>
+        /// The player figure as a pose stage (P-1, the web's "animated" figure style): the geometry of its frames, the class and tint they are of, and the texture of a pose by name (null when the
+        /// frame is not imported). Null for an enemy and for a class whose frames are not shipped; the figure keeps its base art then.
+        /// </summary>
+        public PoseData Poses;
+        public string PoseClass;
+        public string PoseTint;
+        public Func<string, Texture2D> PoseTexture;
+
+        /// <summary>The player figure as the web's card stage (P-3b): its data, its textures, the stance that holds it and the rest it keeps. Null for an enemy and for a class with no stage; the figure keeps its base art then.</summary>
+        public StageFeed Stage;
+
+        /// <summary>The enemy figure as the web's expansion stage (P-4): its data, textures and the rest, themes and stance that hold it. Null for the player and for an enemy with no stage; the figure keeps its base art then.</summary>
+        public EnemyFeed Enemy;
+        public string IntentTipTitle;
+        public string IntentTipBody;
+        public string PoiseTipTitle;
+        public string PoiseTipBody;
+        public string WardTipTitle;
+        public string WardTipBody;
         public bool CanPredict;
         public string HitText;
         public string PreviewText;
@@ -92,6 +184,9 @@ namespace Ashen.Presentation.UI.Kit
         private readonly VisualElement _figure;
         private readonly VisualElement _pose;
         private string _intentClass;
+        private Tooltip _intentTip;
+        private Tooltip _poiseTip;
+        private Tooltip _wardTip;
         private string _order;
         private FxRun _motion;
         private IVisualElementScheduledItem _settle;
@@ -99,6 +194,9 @@ namespace Ashen.Presentation.UI.Kit
         private Texture2D _restArt;
         private double _restScale = 1;
         private bool _posing;
+        private bool _placed;
+        private string _stagePose = PoseKeys.Idle;
+        private int _swings;
         private double _poseScale = 1;
 
         public Fighter()
@@ -118,6 +216,7 @@ namespace Ashen.Presentation.UI.Kit
             _pose.AddToClassList(UiClasses.FighterPose);
             _pose.AddToClassList(UiClasses.Hidden);
             _figure.Add(_pose);
+            BuildStage();
             _art?.Insert(0, _figure);
             _art?.RegisterCallback<GeometryChangedEvent>(_ => FitPose());
             _hit = this.Q<LocLabel>(UiNames.FighterHit);
@@ -151,6 +250,25 @@ namespace Ashen.Presentation.UI.Kit
 
         public event Action<Fighter> PredictPressed;
 
+        /// <summary>The icon beside the intent: the action glyph of the player (no words with it), else the icon of the intent text.</summary>
+        private void PaintIntentIcon(FighterData d)
+        {
+            if (_intentIcon == null) return;
+            var glyph = d.IntentGlyph != null;
+            var icon = glyph ? d.IntentGlyph : d.IntentIcon;
+            _intentIcon.EnableInClassList(UiClasses.FighterIntentGlyph, glyph);
+            _intentIcon.style.backgroundImage = icon != null ? new StyleBackground(icon) : new StyleBackground(StyleKeyword.None);
+            UiDom.Show(_intentIcon, icon != null && (glyph || !string.IsNullOrEmpty(d.IntentText)));
+        }
+
+        /// <summary>Swaps the action glyph over the figure without rebinding it (the card armed or played changed).</summary>
+        public void SetGlyph(Texture2D glyph)
+        {
+            if (Data == null || Data.IntentGlyph == glyph) return;
+            Data.IntentGlyph = glyph;
+            PaintIntentIcon(Data);
+        }
+
         public void Bind(FighterData d)
         {
             Data = d;
@@ -172,13 +290,10 @@ namespace Ashen.Presentation.UI.Kit
                 _intent?.AddToClassList(_intentClass);
                 _intentIcon?.AddToClassList(_intentClass);
             }
+            _intent?.EnableInClassList(UiClasses.IntentReduced, d.IntentReduced);
             var hasIntent = !string.IsNullOrEmpty(d.IntentText);
             if (_intent != null) _intent.style.visibility = hasIntent ? Visibility.Visible : Visibility.Hidden;
-            if (_intentIcon != null)
-            {
-                _intentIcon.style.backgroundImage = d.IntentIcon != null ? new StyleBackground(d.IntentIcon) : new StyleBackground(StyleKeyword.None);
-                UiDom.Show(_intentIcon, hasIntent && d.IntentIcon != null);
-            }
+            PaintIntentIcon(d);
             if (_predict != null)
             {
                 UiDom.Show(_predict, d.CanPredict);
@@ -187,6 +302,8 @@ namespace Ashen.Presentation.UI.Kit
             _baseArt = d.Art;
             _restArt = d.RestArt;
             _restScale = d.RestScale;
+            BindStage(d);
+            BindEnemy(d);
             if (_posing) _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
             else ShowRest();
             Text(_hit, d.HitText);
@@ -199,6 +316,9 @@ namespace Ashen.Presentation.UI.Kit
             _poise?.Set(d.Poise, d.PoiseMax);
             UiDom.Show(_ward, d.HasWard && d.Alive);
             _ward?.Set(d.Ward, d.WardMax);
+            ChipTips.Retell(_poise, ref _poiseTip, d.PoiseTipTitle, d.PoiseTipBody);
+            ChipTips.Retell(_ward, ref _wardTip, d.WardTipTitle, d.WardTipBody);
+            ChipTips.Retell(_intent, ref _intentTip, d.IntentTipTitle, d.IntentTipBody);
             _hp?.Set(d.Hp, d.MaxHp, d.ReferenceMaxHp);
             Text(_stance, d.StanceText);
             Chips(_ratings, d.RatingChips);
@@ -208,6 +328,13 @@ namespace Ashen.Presentation.UI.Kit
 
         // ------------------------------------------------------------------ feedback (VP-5, D-750): pose swaps, recoil, lunge, wobble
 
+        /// <summary>Moves the HP bar alone (a number has landed; the rest of the fighter is already drawn).</summary>
+        public void SetHp(int hp, int maxHp)
+        {
+            if (Data != null) Data.Hp = hp;
+            _hp?.Set(hp, maxHp, Data?.ReferenceMaxHp ?? maxHp);
+        }
+
         /// <summary>The figure's box: the anchor the floating numbers, the words and the effect frames are placed from (the web's .sprite).</summary>
         public VisualElement ArtBox => _art ?? (VisualElement)this;
 
@@ -216,12 +343,68 @@ namespace Ashen.Presentation.UI.Kit
 
         private void ShowRest()
         {
+            if (PaintStage() || PaintEnemy()) return;
             if (_restArt != null) ShowFrame(_restArt, _restScale);
-            else HideFrame();
+            else if (!ShowStage(PoseKeys.Idle)) HideFrame();
+        }
+
+        /// <summary>
+        /// Draws one pose of the player's pose stage at its own place on the shared canvas (PoseAnimator.js place): the idle frame's floor line on the bottom of the figure box and its pelvis
+        /// on the box centre, every other frame at its crop. False when this figure has no stage or the frame is not imported.
+        /// </summary>
+        private bool ShowStage(string pose)
+        {
+            var d = Data;
+            if (d?.Poses == null || d.PoseTexture == null || _art == null) return false;
+            var idle = d.Poses.Frame(d.PoseClass, PoseKeys.Idle, d.PoseTint);
+            var frame = d.Poses.Frame(d.PoseClass, pose, d.PoseTint);
+            var texture = d.PoseTexture(pose);
+            var h = _art.resolvedStyle.height;
+            var w = _art.resolvedStyle.width;
+            if (idle == null || frame == null || texture == null) return false;
+            var aspect = float.IsNaN(h) || float.IsNaN(w) || h <= 0 ? 1.0 : w / h;
+            var at = d.Poses.Place(idle, frame, aspect);
+            _placed = true;
+            _stagePose = pose;
+            _pose.style.backgroundImage = new StyleBackground(texture);
+            _pose.style.left = Length.Percent((float)(at.Left * Ashen.Generated.P1Math.Percent));
+            _pose.style.top = Length.Percent((float)(at.Top * Ashen.Generated.P1Math.Percent));
+            _pose.style.width = Length.Percent((float)(at.Width * Ashen.Generated.P1Math.Percent));
+            _pose.style.height = Length.Percent((float)(at.Height * Ashen.Generated.P1Math.Percent));
+            _pose.style.bottom = StyleKeyword.Auto;
+            _pose.RemoveFromClassList(UiClasses.Hidden);
+            _figure.style.backgroundImage = new StyleBackground(StyleKeyword.None);
+            return true;
+        }
+
+        /// <summary>
+        /// Holds a pose of the player's stage for <paramref name="ms"/>, then settles to idle (PoseAnimator.js play). 'attack' throws the next swing of the rotation the figure keeps (attack1 to attack4),
+        /// the others (guard, hit) are frames of their own. False when the figure has no such frame; it stays as it is then.
+        /// </summary>
+        public bool PlayStage(string pose, double ms)
+        {
+            var d = Data;
+            if (d?.Poses == null) return false;
+            if (pose == PoseKeys.Attack)
+            {
+                var swings = d.Poses.Throwable(d.PoseClass, d.PoseTint);
+                if (swings.Count == 0) return false;
+                pose = swings[_swings % swings.Count];
+            }
+            var previous = _settle;
+            if (!ShowStage(pose)) return false;
+            _swings += pose.StartsWith(PoseKeys.Attack, StringComparison.Ordinal) ? 1 : 0;
+            previous?.Pause();
+            _posing = true;
+            _settle = schedule.Execute(Settle).StartingIn((long)Math.Max(d.Poses.MinimumPlayMs, ms));
+            return true;
         }
 
         private void ShowFrame(Texture2D frame, double scale)
         {
+            _placed = false;
+            _pose.style.top = StyleKeyword.Null;
+            _pose.style.bottom = StyleKeyword.Null;
             _pose.style.backgroundImage = new StyleBackground(frame);
             _poseScale = scale;
             FitPose();
@@ -233,6 +416,8 @@ namespace Ashen.Presentation.UI.Kit
         private void FitPose()
         {
             if (_art == null) return;
+            if (PaintStage() || PaintEnemy()) return;
+            if (_placed) { ShowStage(_stagePose); return; }
             var h = _art.resolvedStyle.height;
             var w = _art.resolvedStyle.width;
             if (float.IsNaN(h) || float.IsNaN(w) || h <= 0) return;
@@ -296,6 +481,7 @@ namespace Ashen.Presentation.UI.Kit
             var value = color.HasValue ? new StyleColor(color.Value) : new StyleColor(StyleKeyword.Null);
             _pose.style.unityBackgroundImageTintColor = value;
             _figure.style.unityBackgroundImageTintColor = value;
+            if (HasEnemyStage) _stageBody.style.unityBackgroundImageTintColor = value;
         }
 
         /// <summary>Plays a motion track on the figure: recoil and lunge slide it, the wobble turns it; <paramref name="tinted"/> also reddens it while the track says so.</summary>
@@ -306,6 +492,7 @@ namespace Ashen.Presentation.UI.Kit
             {
                 FxMotion.Apply(_figure, pose);
                 if (tinted) Tint(pose.Tinted ? motion.HitTint : (Color?)null);
+                if (HasEnemyStage) SetEnemyFilter(pose, track);
             }, () =>
             {
                 Rest();
@@ -320,12 +507,15 @@ namespace Ashen.Presentation.UI.Kit
             _motion = null;
             FxMotion.Reset(_figure);
             Tint(null);
+            ClearEnemyFilter();
         }
 
         /// <summary>Drops every held pose and motion at once (the web's click-skip settles the figures).</summary>
         public void Calm()
         {
             Rest();
+            StageSettle(true);
+            EnemySettle();
             Settle();
         }
 
@@ -371,6 +561,7 @@ namespace Ashen.Presentation.UI.Kit
                 text.AddToClassList(UiClasses.FighterChipText);
                 text.AddToClassList(UiClasses.ValueText);
                 chip.Add(text);
+                ChipTips.Attach(chip, data.TipTitle, data.TipBody);
                 host.Add(chip);
             }
         }

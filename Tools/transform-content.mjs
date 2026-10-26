@@ -15,7 +15,7 @@ const CONTENT = join(ROOT, 'Unity', 'Assets', 'StreamingAssets', 'Content');
 const CONFIG = JSON.parse(readFileSync(join(ROOT, 'Tools', 'transform.config.json'), 'utf8'));
 const CHECK = process.argv.includes('--check');
 const GENERATED_DIRS = ['catalog', 'balance', 'rules', 'tags', 'strings', 'settings/presets', 'audio', 'ui', 'profile', 'profile/bundle', 'profile/content'];
-const HAND_WRITTEN = new Set(['ui/screens.json', 'ui/menus.json', 'ui/layout.json', 'ui/tokens.json', 'ui/components.json', 'audio/contexts.json', 'settings/defaults.json', 'about.json', 'rules/effectOps.json', 'rules/validation.json', 'rules/rng.json', 'rules/saves.json', 'assets/registry.json', 'strings/app.en.json', 'audio/synth.json', 'rules/combatEngine.json', 'strings/combat.en.json', 'rules/runEngine.json', 'rules/mapEngine.json', 'rules/rewardsEngine.json', 'rules/runFlow.json', 'rules/shopEngine.json', 'strings/shop.en.json', 'rules/eventsEngine.json', 'strings/events.en.json', 'rules/loopEngine.json', 'ui/nodes.json', 'strings/nodes.en.json', 'strings/meta.en.json', 'ui/meta.json', 'ui/prologue.json', 'ui/art.json', 'ui/cardface.json', 'ui/feedback.json', 'audio/beds.json', 'settings/webKeyMap.json', 'rules/core2Vocabulary.json', 'rules/core2Run.json', 'rules/core2Combat.json', 'rules/core2Deck.json', 'rules/core2Rewards.json', 'rules/core2Rest.json']);
+const HAND_WRITTEN = new Set(['ui/screens.json', 'ui/menus.json', 'ui/layout.json', 'ui/tokens.json', 'ui/components.json', 'audio/contexts.json', 'settings/defaults.json', 'about.json', 'rules/effectOps.json', 'rules/validation.json', 'rules/rng.json', 'rules/saves.json', 'assets/registry.json', 'strings/app.en.json', 'audio/synth.json', 'rules/combatEngine.json', 'strings/combat.en.json', 'rules/runEngine.json', 'rules/mapEngine.json', 'rules/rewardsEngine.json', 'rules/runFlow.json', 'rules/shopEngine.json', 'strings/shop.en.json', 'rules/eventsEngine.json', 'strings/events.en.json', 'rules/loopEngine.json', 'ui/nodes.json', 'strings/nodes.en.json', 'strings/meta.en.json', 'ui/meta.json', 'ui/prologue.json', 'ui/art.json', 'ui/cardface.json', 'ui/cardText.json', 'ui/poses.json', 'ui/cardStage.json', 'ui/enemyStage.json', 'ui/battlefield.json', 'ui/figureInk.json', 'ui/combatAura.json', 'ui/outfitArt.json', 'ui/intentIcons.json', 'ui/feedback.json', 'audio/beds.json', 'settings/webKeyMap.json', 'rules/core2Vocabulary.json', 'rules/core2Run.json', 'rules/core2Combat.json', 'rules/core2Deck.json', 'rules/core2Rewards.json', 'rules/core2Rest.json', 'ui/equipmentCard.json', 'ui/progression.json', 'ui/lore.json', 'ui/changelog.json', 'ui/terms.json']);
 
 const fail = (m) => { console.error(`transform: ${m}`); process.exit(1); };
 const readRaw = (name) => {
@@ -56,7 +56,7 @@ function rowKey(t, row) {
 function deepClone(v) { return v === undefined ? undefined : JSON.parse(JSON.stringify(v)); }
 
 // ---------- the documents still read from the 405 export (rules, audio, ui, the event history gates) and the ui strings ----------
-// The 405 catalog tables are gone (WP-21, D-1304): CONFIG.tables is empty, and the UI reads the Core 2 rows' own display text.
+// The 405 catalog tables are gone (WP-21, D-1704): CONFIG.tables is empty, and the UI reads the Core 2 rows' own display text.
 function build(bundle, extras) {
   const roots = { bundle, extras };
   const files = {};
@@ -76,7 +76,7 @@ function build(bundle, extras) {
 
 // ---------- the Core 2 profile (docs/design/11 2.2): tables and documents under profile/ and rules/ ----------
 // Over the root 'core2' (Tools/export/raw/core2). Rows keep their display fields; rules/stringKeys.json records, per table with
-// 'text', the string prefix and which field becomes which string (the UI's string table reads the rows through it, D-1304).
+// 'text', the string prefix and which field becomes which string (the UI's string table reads the rows through it, D-1704).
 function buildCore2(core2) {
   const roots = { core2 };
   const files = {}, counts = {}, rowOrder = {}, stringKeys = {};
@@ -160,7 +160,7 @@ if (existsSync(rngPath)) {
   if (JSON.stringify(have) !== JSON.stringify(web)) fail(`rules/rng.json streams + core2Streams must equal the web's STREAM_NAMES at ${c2.summary.webShaShort}:\n  ${web.join(', ')}`);
 }
 
-// Presets: the shipped defaults only. The owner's reference tuning patched the 405 tables, which a Core 2 run never reads (WP-21, D-1301).
+// Presets: the shipped defaults only. The owner's reference tuning patched the 405 tables, which a Core 2 run never reads (WP-21, D-1701).
 const presets = {
   'settings/presets/shipped.json': { id: 'shipped', labelKey: 'preset.shipped.name', default: true, description: 'The shipped web build defaults (content 0.7.1), unmodified.', files: {} },
 };

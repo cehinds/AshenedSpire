@@ -62,8 +62,13 @@
     "Vfx": "vfx",
     "PoseFx": "posefx",
     "EnemyPose": "enemyPose",
+    "PlayerPose": "playerPose",
     "EnemyState": "enemyState",
     "Defeated": "defeated",
+    "EnemyFrame": "enemyFrame",
+    "EnemyLite": "enemyLite",
+    "StageLite": "stageLite",
+    "Glow": "glow",
         "Flask": "flask"
       }
     },
@@ -82,7 +87,10 @@
         "X": "x",
         "Y": "y",
     "Kind": "kind",
-    "Frame": "frame"
+    "Frame": "frame",
+    "Class": "class",
+    "Pose": "pose",
+    "Tint": "tint"
       }
     },
     {

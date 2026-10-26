@@ -1,8 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <ui:Style src="Screens.uss" />
     <ui:Style src="../Kit/CombatModal.uss" />
+    <ui:Style src="../Kit/PokerCard.uss" />
+    <ui:Style src="../Kit/LoreLine.uss" />
     <ui:Style src="Armoury.uss" />
     <ui:VisualElement name="ARMOURY_SCRIM" class="overlay-scrim">
         <Ashen.Presentation.UI.Kit.CombatModal name="ARMOURY_MODAL" class="armoury-modal" />
+    </ui:VisualElement>
+    <ui:VisualElement name="ARMOURY_DIALOG_SCRIM" class="overlay-scrim is-hidden">
+        <Ashen.Presentation.UI.Kit.CombatModal name="ARMOURY_DIALOG" class="armoury-dialog" />
     </ui:VisualElement>
 </ui:UXML>

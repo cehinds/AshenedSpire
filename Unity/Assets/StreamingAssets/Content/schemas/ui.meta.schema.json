@@ -96,6 +96,9 @@
         "playsPerTurn"
       ]
     },
+    "settingsTipNames": {
+      "type": "integer"
+    },
     "settingsTabs": {
       "type": "array",
       "items": {
@@ -125,6 +128,18 @@
                   }
                 },
                 "about": {
+                  "type": "boolean"
+                },
+                "changelog": {
+                  "type": "boolean"
+                },
+                "rules": {
+                  "type": "boolean"
+                },
+                "tipKey": {
+                  "type": "string"
+                },
+                "developer": {
                   "type": "boolean"
                 }
               },

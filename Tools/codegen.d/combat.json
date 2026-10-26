@@ -30,6 +30,10 @@
         "Attempted": "attempted",
         "Attribute": "attribute",
         "AttributeBaseline": "attributeBaseline",
+        "DexterityCentre": "dexterityCentre",
+        "DexterityCentreByMode": "dexterityCentreByMode",
+        "DexterityPerModifier": "dexterityPerModifier",
+        "ItemWeightScale": "itemWeightScale",
         "AttributeDivisor": "attributeDivisor",
         "Attributes": "attributes",
         "AuthoredTags": "authoredTags",
@@ -827,6 +831,7 @@
       "doc": "Arithmetic constants of the combat rules (definitions, not tuning): percent scale, the float-floor epsilon, JS safe-integer bits.",
       "values": {
         "Percent": "100",
+        "Tenth": "10",
         "Epsilon": "1e-9",
         "Two": "2",
         "Half": "0.5",

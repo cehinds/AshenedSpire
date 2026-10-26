@@ -172,6 +172,30 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void AnIntentWhoseLogAppendFailsRollsTheFightBack()
+        {
+            var (record, _) = PausedFight();
+            var steps = ((JArray)record["steps"]).OfType<JObject>().ToList();
+            var live = StartRecorded(record, out var run);
+            const string slot = "slot3";
+            live.Save(_saves, slot, "content-hash", run);
+            var hash = live.StateHash();
+            // The log file turns into a directory: the append cannot open it (as a full or read-only disk refuses the write).
+            var log = Directory.GetFiles(_dir, slot + ".*.log").Single();
+            File.Delete(log);
+            Directory.CreateDirectory(log);
+            var first = steps.First(st => st["error"] == null);
+            var resolved = 0;
+            live.Resolved += _ => resolved++;
+            var outcome = live.ExecuteAndLog(_saves, slot, (JObject)first["intent"]);
+            Assert.That(outcome.Accepted, Is.False, "an intent the log could not keep is not accepted");
+            Assert.That(outcome.RolledBack, Is.True);
+            Assert.That(live.StateHash(), Is.EqualTo(hash), "the fight is as it was before the intent");
+            Assert.That(live.LoggedCommands, Is.EqualTo(0));
+            Assert.That(resolved, Is.EqualTo(0), "nobody hears of an intent that was rolled back");
+        }
+
+        [Test]
         public void TheLogOfASaveReplaysOnTopOfItsCheckpointAndAMismatchStopsAtTheLastVerifiedState()
         {
             var (record, pause) = PausedFight();

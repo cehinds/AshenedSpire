@@ -61,6 +61,23 @@
     -unity-font-definition: url("../Fonts/IMFellEnglish-Italic.ttf");
 }
 
+/* The other card-lore faces of the web's Typeface choice (kit.css:4376-4390, SIL OFL 1.1, Fonts/OFL.txt). A lore line wears one of these classes
+   (and the -italic one for a slanted line); the web's default is IM Fell English above. Cinzel and Inter are the display and body faces already. */
+.font-lore--garamond { -unity-font-definition: url("../Fonts/EBGaramond-Regular.ttf"); }
+.font-lore--garamond-italic { -unity-font-definition: url("../Fonts/EBGaramond-Italic.ttf"); }
+.font-lore--cormorant { -unity-font-definition: url("../Fonts/CormorantGaramond-Regular.ttf"); }
+.font-lore--cormorant-italic { -unity-font-definition: url("../Fonts/CormorantGaramond-Italic.ttf"); }
+.font-lore--crimson { -unity-font-definition: url("../Fonts/CrimsonPro-Regular.ttf"); }
+.font-lore--crimson-italic { -unity-font-definition: url("../Fonts/CrimsonPro-Italic.ttf"); }
+.font-lore--spectral { -unity-font-definition: url("../Fonts/Spectral-Regular.ttf"); }
+.font-lore--spectral-italic { -unity-font-definition: url("../Fonts/Spectral-Italic.ttf"); }
+.font-lore--baskerville { -unity-font-definition: url("../Fonts/LibreBaskerville-Regular.ttf"); }
+.font-lore--baskerville-italic { -unity-font-definition: url("../Fonts/LibreBaskerville-Italic.ttf"); }
+.font-lore--cinzel { -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf"); }
+.font-lore--cinzel-italic { -unity-font-definition: url("../Fonts/Cinzel-Regular.ttf"); }
+.font-lore--inter { -unity-font-definition: url("../Fonts/Inter-Regular.ttf"); }
+.font-lore--inter-italic { -unity-font-definition: url("../Fonts/Inter-Italic.ttf"); }
+
 /* ---- type roles (web kit.css:34-37, 250, 385, 403). Uppercase comes from the kit-upper class (LocLabel, LocButton):
         USS has no text-transform. ---- */
 

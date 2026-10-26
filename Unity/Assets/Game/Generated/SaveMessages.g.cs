@@ -6,6 +6,7 @@ namespace Ashen.Generated
     {
         public const string FellBack = "primary save unreadable; loaded {0} (gen {1})";
         public const string Newer = "save version {0} is newer than this build ({1}); kept, not loaded";
+        public const string Older = "save version {0} is older than this build ({1}) and has no migration";
         public const string NoValidCopy = "no valid copy of {0}";
         public const string TornLog = "command log truncated at record {0} (bad checksum)";
         public const string Migrated = "migrated save from version {0} to {1}";

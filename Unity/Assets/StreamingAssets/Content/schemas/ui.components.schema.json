@@ -119,6 +119,12 @@
           "items": {
             "type": "string"
           }
+        },
+        "plain": {
+          "type": "string"
+        },
+        "placement": {
+          "type": "object"
         }
       },
       "required": [
@@ -221,6 +227,12 @@
           }
         },
         "zoomDefault": {
+          "type": "integer"
+        },
+        "laneEdgeRatio": {
+          "type": "number"
+        },
+        "potionMinis": {
           "type": "integer"
         },
         "edgeWidth": {
@@ -346,6 +358,51 @@
         "nodeTints",
         "tierNumerals"
       ]
+    },
+    "dialogue": {
+      "type": "object",
+      "properties": {
+        "slot": {
+          "type": "object"
+        },
+        "portraits": {
+          "type": "object"
+        },
+        "figures": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "top": {
+                "type": "number"
+              },
+              "height": {
+                "type": "number"
+              },
+              "centerX": {
+                "type": "number"
+              },
+              "width": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "top",
+              "height",
+              "centerX",
+              "width"
+            ]
+          }
+        }
+      }
+    },
+    "armoury": {
+      "type": "object",
+      "properties": {
+        "defaultMaxLevel": {
+          "type": "integer"
+        }
+      }
     }
   },
   "required": [

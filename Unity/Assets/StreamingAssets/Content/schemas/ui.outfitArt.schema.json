@@ -1,0 +1,78 @@
+{
+  "$id": "ui/outfitArt.json",
+  "type": "object",
+  "properties": {
+    "comment": {
+      "type": "string"
+    },
+    "hands": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "integer"
+        }
+      }
+    },
+    "ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outfits": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "portrait": {
+            "type": "string"
+          },
+          "stand": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "portrait",
+          "stand"
+        ]
+      }
+    },
+    "sets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "conversation": {
+            "type": "string"
+          },
+          "portrait": {
+            "type": "string"
+          },
+          "stand": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "conversation",
+          "portrait",
+          "stand"
+        ]
+      }
+    },
+    "views": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "comment",
+    "hands",
+    "ids",
+    "outfits",
+    "sets",
+    "views"
+  ]
+}

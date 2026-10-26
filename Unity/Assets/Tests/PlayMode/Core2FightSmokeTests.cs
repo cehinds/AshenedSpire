@@ -228,21 +228,18 @@ namespace Ashen.Tests.Play
             }
             if (!combat.Ended) Assert.That(combat.View.Turn, Is.GreaterThan(turn));
 
-            // Pause: Escape opens W-20; Save & quit (hold) returns to the title; Continue resumes the same fight.
+            // Pause: Escape opens W-20; Save and Quit (no door, as the web's) returns to the title; Continue resumes the same fight.
             if (!combat.Ended)
             {
                 yield return Until(() => Focused != null, 5f, "focus on the player's turn");
                 yield return Press(Key.Escape);
                 yield return Until(() => Nav.CurrentId == ScreenIds.Pause && Focused != null, 5f, "W-20 pause");
                 var pause = (PauseScreen)Nav.Top.View;
-                var saveQuit = pause.Rows.Single(r => r.enabledSelf);
-                yield return PressUntil(Key.UpArrow, () => Focused == saveQuit, 4, "focus on Save & quit");
+                var saveQuit = pause.Rows.Single(r => r.stringKey == StringKeys.PauseSaveQuit);
+                yield return PressUntil(Key.DownArrow, () => Focused == saveQuit, 6, "focus on Save and Quit");
                 var hash = session.StateHash();
                 yield return Press(Key.Enter);
-                yield return Until(() => Nav.CurrentId == ScreenIds.Confirm && Focused != null, 5f, "the Save & quit door");
-                yield return Press(Key.DownArrow);
-                yield return Hold(Key.Enter, Ui.Data.Tokens.Duration(TokenKeys.HoldConfirm) / 1000f + 0.5f);
-                yield return Until(() => Nav.CurrentId == ScreenIds.Title && Nav.Stack.Count == 1, 10f, "the title after Save & quit");
+                yield return Until(() => Nav.CurrentId == ScreenIds.Title && Nav.Stack.Count == 1, 10f, "the title after Save and Quit");
                 var title = (TitleScreen)Nav.Top.View;
                 yield return Until(() => Focused == title.Buttons[0], 5f, "focus on Continue");
                 yield return new WaitForSecondsRealtime(0.3f);

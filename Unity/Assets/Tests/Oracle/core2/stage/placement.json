@@ -1,0 +1,3099 @@
+{
+ "classes": {
+  "herald": {
+   "bodyHeight": 303,
+   "frames": {
+    "attack-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "attack-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "class-smash-airborne": {
+     "authored": {
+      "anchorX": 384,
+      "height": 424.44534412955466,
+      "left": 224.5263157894737,
+      "top": -35.22267206477732,
+      "width": 318.9473684210526
+     },
+     "held": {
+      "height": 424.44534412955466,
+      "left": 224.5263157894737,
+      "top": -35.22267206477732,
+      "width": 318.9473684210526
+     },
+     "landmarks": null
+    },
+    "class-smash-held": {
+     "authored": {
+      "anchorX": 384,
+      "height": 397.4574898785425,
+      "left": 217.165991902834,
+      "top": 92.35627530364371,
+      "width": 333.668016194332
+     },
+     "held": {
+      "height": 400.7020408163266,
+      "left": 215.80408163265304,
+      "top": 90.42857142857144,
+      "width": 336.3918367346939
+     },
+     "landmarks": {
+      "feetY": 315,
+      "headY": 70,
+      "height": 324,
+      "width": 272
+     }
+    },
+    "class-smash-impact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 314.0404858299595,
+      "left": 170.5506072874494,
+      "top": 207.66801619433198,
+      "width": 426.8987854251012
+     },
+     "held": {
+      "height": 314.0404858299595,
+      "left": 170.5506072874494,
+      "top": 207.66801619433198,
+      "width": 426.8987854251012
+     },
+     "landmarks": null
+    },
+    "class-smash-takeoff": {
+     "authored": {
+      "anchorX": 384,
+      "height": 417.08502024291494,
+      "left": 222.07287449392715,
+      "top": 77.63562753036439,
+      "width": 323.8542510121457
+     },
+     "held": {
+      "height": 417.08502024291494,
+      "left": 222.07287449392715,
+      "top": 77.63562753036439,
+      "width": 323.8542510121457
+     },
+     "landmarks": null
+    },
+    "counter-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "counter-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "counter-parry": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "guard-brace": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 525.8847457627119,
+      "left": 121.05762711864406,
+      "top": 3.4169491525423723,
+      "width": 525.8847457627119
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 84.5,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "guard-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "guard-rise": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "herald.counter.contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "herald.counter.recovery": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "herald.counter.stance": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 492.4952380952381,
+      "left": 137.75238095238095,
+      "top": 33.67619047619047,
+      "width": 492.4952380952381
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 74.5,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "herald.sweep.contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "herald.sweep.recovery": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "herald.sweep.stance": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 517.12,
+      "left": 125.44,
+      "top": 11.360000000000014,
+      "width": 517.12
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 82,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "ranged-aim": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ranged-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ranged-release": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ready": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 80.5,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "smash-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "smash-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "smash-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-release": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "stance-casting": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 369.37142857142857,
+      "left": 199.31428571428572,
+      "top": 145.25714285714287,
+      "width": 369.37142857142857
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 22,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-counter": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 492.4952380952381,
+      "left": 137.75238095238095,
+      "top": 33.67619047619047,
+      "width": 492.4952380952381
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 74.5,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-defensive": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 381.16953316953317,
+      "left": 193.41523341523342,
+      "top": 134.56511056511056,
+      "width": 381.16953316953317
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 28.5,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-offensive": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 372.0287769784173,
+      "left": 197.98561151079136,
+      "top": 142.84892086330933,
+      "width": 372.0287769784173
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 23.5,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-smash": {
+     "authored": {
+      "anchorX": 384,
+      "height": 397.4574898785425,
+      "left": 217.165991902834,
+      "top": 92.35627530364371,
+      "width": 333.668016194332
+     },
+     "held": {
+      "height": 400.7020408163266,
+      "left": 215.80408163265304,
+      "top": 90.42857142857144,
+      "width": 336.3918367346939
+     },
+     "landmarks": {
+      "feetY": 315,
+      "headY": 70,
+      "height": 324,
+      "width": 272
+     }
+    },
+    "stance-sweep": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 517.12,
+      "left": 125.44,
+      "top": 11.360000000000014,
+      "width": 517.12
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 82,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "sweep-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "sweep-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "sweep-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    }
+   },
+   "unit": 303
+  },
+  "reaver": {
+   "bodyHeight": 261,
+   "frames": {
+    "attack-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "attack-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "counter-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "counter-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "counter-parry": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "guard-brace": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 517.953488372093,
+      "left": 125.02325581395348,
+      "top": 10.604651162790674,
+      "width": 517.953488372093
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 103,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "guard-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "guard-rise": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "magic-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "magic-release": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "magic-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "pilot-attack-1": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 50,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 411.1753846153846,
+      "left": 115.77230769230772,
+      "top": 106.56923076923078,
+      "width": 411.1753846153846
+     },
+     "landmarks": {
+      "feetY": 465,
+      "headY": 140,
+      "height": 512,
+      "width": 512
+     }
+    },
+    "pilot-attack-2": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-attack-3": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 84,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 84,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "pilot-attack-4": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-attack-5": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 581.008695652174,
+      "left": -51.75652173913045,
+      "top": -46.53913043478269,
+      "width": 871.5130434782609
+     },
+     "landmarks": {
+      "feetY": 464,
+      "headY": 234,
+      "height": 512,
+      "width": 768
+     }
+    },
+    "pilot-attack-6": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-counter": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 378.5609065155807,
+      "left": 100.07932011331445,
+      "top": 136.18980169971672,
+      "width": 567.8413597733711
+     },
+     "landmarks": {
+      "feetY": 465,
+      "headY": 112,
+      "height": 512,
+      "width": 768
+     }
+    },
+    "pilot-defend": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 384,
+      "left": 96,
+      "top": 132,
+      "width": 576
+     },
+     "landmarks": {
+      "feetY": 464,
+      "headY": 116,
+      "height": 512,
+      "width": 768
+     }
+    },
+    "pilot-evade": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 581.008695652174,
+      "left": -51.75652173913045,
+      "top": -46.53913043478269,
+      "width": 871.5130434782609
+     },
+     "landmarks": {
+      "feetY": 464,
+      "headY": 234,
+      "height": 512,
+      "width": 768
+     }
+    },
+    "pilot-evade-1": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-evade-2": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-evade-3": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-guard-break": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "pilot-impact-g": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-impact-h": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-impact-v": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-smash": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 50,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 411.1753846153846,
+      "left": 115.77230769230772,
+      "top": 106.56923076923078,
+      "width": 411.1753846153846
+     },
+     "landmarks": {
+      "feetY": 465,
+      "headY": 140,
+      "height": 512,
+      "width": 512
+     }
+    },
+    "pilot-smash-airborne": {
+     "authored": {
+      "anchorX": 384,
+      "height": 768,
+      "left": -78,
+      "top": -176,
+      "width": 768
+     },
+     "held": {
+      "height": 768,
+      "left": -78,
+      "top": -176,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-smash-impact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 768,
+      "left": -78,
+      "top": -176,
+      "width": 768
+     },
+     "held": {
+      "height": 768,
+      "left": -78,
+      "top": -176,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-smash-takeoff": {
+     "authored": {
+      "anchorX": 384,
+      "height": 768,
+      "left": -78,
+      "top": -176,
+      "width": 768
+     },
+     "held": {
+      "height": 768,
+      "left": -78,
+      "top": -176,
+      "width": 768
+     },
+     "landmarks": null
+    },
+    "pilot-sweep": {
+     "authored": {
+      "anchorX": 384,
+      "height": 1024,
+      "left": -136,
+      "top": -254,
+      "width": 1024
+     },
+     "held": {
+      "height": 774.6782608695652,
+      "left": -9.391304347826065,
+      "top": -94.19999999999993,
+      "width": 774.6782608695652
+     },
+     "landmarks": {
+      "feetY": 759,
+      "headY": 414,
+      "height": 1024,
+      "width": 1024
+     }
+    },
+    "pilot-sweep-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 1024,
+      "left": -136,
+      "top": -254,
+      "width": 1024
+     },
+     "held": {
+      "height": 1024,
+      "left": -136,
+      "top": -254,
+      "width": 1024
+     },
+     "landmarks": null
+    },
+    "pilot-sweep-finish": {
+     "authored": {
+      "anchorX": 384,
+      "height": 1024,
+      "left": -136,
+      "top": -254,
+      "width": 1024
+     },
+     "held": {
+      "height": 1024,
+      "left": -136,
+      "top": -254,
+      "width": 1024
+     },
+     "landmarks": null
+    },
+    "pilot-sweep-windup": {
+     "authored": {
+      "anchorX": 384,
+      "height": 1024,
+      "left": -136,
+      "top": -254,
+      "width": 1024
+     },
+     "held": {
+      "height": 1024,
+      "left": -136,
+      "top": -254,
+      "width": 1024
+     },
+     "landmarks": null
+    },
+    "ranged-aim": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ranged-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ranged-release": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ready": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 101.5,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "reaver.counter.contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "reaver.counter.recovery": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "reaver.counter.stance": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "reaver.sweep.contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "reaver.sweep.recovery": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "reaver.sweep.stance": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "smash-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "smash-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 50,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 411.1753846153846,
+      "left": 115.77230769230772,
+      "top": 106.56923076923078,
+      "width": 411.1753846153846
+     },
+     "landmarks": {
+      "feetY": 465,
+      "headY": 140,
+      "height": 512,
+      "width": 512
+     }
+    },
+    "smash-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-release": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "stance-casting": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 340.8979591836735,
+      "left": 213.55102040816325,
+      "top": 171.0612244897959,
+      "width": 340.8979591836735
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 36,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-counter": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 378.5609065155807,
+      "left": 100.07932011331445,
+      "top": 136.18980169971672,
+      "width": 567.8413597733711
+     },
+     "landmarks": {
+      "feetY": 465,
+      "headY": 112,
+      "height": 512,
+      "width": 768
+     }
+    },
+    "stance-defend": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 384,
+      "left": 96,
+      "top": 132,
+      "width": 576
+     },
+     "landmarks": {
+      "feetY": 464,
+      "headY": 116,
+      "height": 512,
+      "width": 768
+     }
+    },
+    "stance-defensive": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 384,
+      "left": 96,
+      "top": 132,
+      "width": 576
+     },
+     "landmarks": {
+      "feetY": 464,
+      "headY": 116,
+      "height": 512,
+      "width": 768
+     }
+    },
+    "stance-evade": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 0,
+      "top": 16,
+      "width": 768
+     },
+     "held": {
+      "height": 581.008695652174,
+      "left": -51.75652173913045,
+      "top": -46.53913043478269,
+      "width": 871.5130434782609
+     },
+     "landmarks": {
+      "feetY": 464,
+      "headY": 234,
+      "height": 512,
+      "width": 768
+     }
+    },
+    "stance-offensive": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 436.70588235294116,
+      "left": 165.64705882352942,
+      "top": 84.23529411764707,
+      "width": 436.70588235294116
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 79,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-smash": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 50,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 411.1753846153846,
+      "left": 115.77230769230772,
+      "top": 106.56923076923078,
+      "width": 411.1753846153846
+     },
+     "landmarks": {
+      "feetY": 465,
+      "headY": 140,
+      "height": 512,
+      "width": 512
+     }
+    },
+    "stance-sweep": {
+     "authored": {
+      "anchorX": 384,
+      "height": 1024,
+      "left": -136,
+      "top": -254,
+      "width": 1024
+     },
+     "held": {
+      "height": 774.6782608695652,
+      "left": -9.391304347826065,
+      "top": -94.19999999999993,
+      "width": 774.6782608695652
+     },
+     "landmarks": {
+      "feetY": 759,
+      "headY": 414,
+      "height": 1024,
+      "width": 1024
+     }
+    },
+    "sweep-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "sweep-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "sweep-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    }
+   },
+   "unit": 261
+  },
+  "rogue": {
+   "bodyHeight": 326,
+   "frames": {
+    "attack-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "attack-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "class-smash-airborne": {
+     "authored": {
+      "anchorX": 384,
+      "height": 346.49142857142857,
+      "left": 257.3257142857143,
+      "top": 125.1257142857143,
+      "width": 255.21142857142857
+     },
+     "held": {
+      "height": 346.49142857142857,
+      "left": 257.3257142857143,
+      "top": 125.1257142857143,
+      "width": 255.21142857142857
+     },
+     "landmarks": null
+    },
+    "class-smash-held": {
+     "authored": {
+      "anchorX": 384,
+      "height": 391.2,
+      "left": 259.18857142857144,
+      "top": 100.90857142857143,
+      "width": 257.0742857142857
+     },
+     "held": {
+      "height": 526.6153846153845,
+      "left": 215.9846153846154,
+      "top": -31.56923076923067,
+      "width": 346.06153846153836
+     },
+     "landmarks": {
+      "feetY": 408,
+      "headY": 148,
+      "height": 420,
+      "width": 276
+     }
+    },
+    "class-smash-impact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 322.2742857142857,
+      "left": 231.2457142857143,
+      "top": 167.9714285714286,
+      "width": 298.0571428571428
+     },
+     "held": {
+      "height": 322.2742857142857,
+      "left": 231.2457142857143,
+      "top": 167.9714285714286,
+      "width": 298.0571428571428
+     },
+     "landmarks": null
+    },
+    "class-smash-takeoff": {
+     "authored": {
+      "anchorX": 384,
+      "height": 398.65142857142854,
+      "left": 253.60000000000002,
+      "top": 89.73142857142858,
+      "width": 262.66285714285715
+     },
+     "held": {
+      "height": 398.65142857142854,
+      "left": 253.60000000000002,
+      "top": 89.73142857142858,
+      "width": 262.66285714285715
+     },
+     "landmarks": null
+    },
+    "counter-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "counter-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "counter-parry": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "guard-brace": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 515.1604938271605,
+      "left": 126.41975308641975,
+      "top": 13.135802469135797,
+      "width": 515.1604938271605
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 70,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "guard-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "guard-rise": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "magic-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "magic-release": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "magic-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ranged-aim": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ranged-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ranged-release": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ready": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 69,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "rogue.counter.contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "rogue.counter.recovery": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "rogue.counter.stance": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 508.8780487804878,
+      "left": 129.5609756097561,
+      "top": 18.82926829268291,
+      "width": 508.8780487804878
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 68,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "rogue.sweep.contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "rogue.sweep.recovery": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "rogue.sweep.stance": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 515.1604938271605,
+      "left": 126.41975308641975,
+      "top": 13.135802469135797,
+      "width": 515.1604938271605
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 70,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "smash-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "smash-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "smash-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-release": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "stance-casting": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 442.737400530504,
+      "left": 162.631299734748,
+      "top": 78.76923076923077,
+      "width": 442.737400530504
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 43.5,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-counter": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 508.8780487804878,
+      "left": 129.5609756097561,
+      "top": 18.82926829268291,
+      "width": 508.8780487804878
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 68,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-defensive": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 397.4095238095238,
+      "left": 185.2952380952381,
+      "top": 119.84761904761905,
+      "width": 397.4095238095238
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 22,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-offensive": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 521.6,
+      "left": 123.19999999999999,
+      "top": 7.2999999999999545,
+      "width": 521.6
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 72,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-smash": {
+     "authored": {
+      "anchorX": 384,
+      "height": 391.2,
+      "left": 259.18857142857144,
+      "top": 100.90857142857143,
+      "width": 257.0742857142857
+     },
+     "held": {
+      "height": 526.6153846153845,
+      "left": 215.9846153846154,
+      "top": -31.56923076923067,
+      "width": 346.06153846153836
+     },
+     "landmarks": {
+      "feetY": 408,
+      "headY": 148,
+      "height": 420,
+      "width": 276
+     }
+    },
+    "stance-sweep": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 515.1604938271605,
+      "left": 126.41975308641975,
+      "top": 13.135802469135797,
+      "width": 515.1604938271605
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 70,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "sweep-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "sweep-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "sweep-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    }
+   },
+   "unit": 326
+  },
+  "starseer": {
+   "bodyHeight": 294,
+   "frames": {
+    "attack-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "attack-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "class-smash-airborne": {
+     "authored": {
+      "anchorX": 384,
+      "height": 579.5793991416309,
+      "left": 204.41201716738198,
+      "top": -34.274678111587946,
+      "width": 293.87124463519314
+     },
+     "held": {
+      "height": 579.5793991416309,
+      "left": 204.41201716738198,
+      "top": -34.274678111587946,
+      "width": 293.87124463519314
+     },
+     "landmarks": null
+    },
+    "class-smash-held": {
+     "authored": {
+      "anchorX": 384,
+      "height": 565.9742489270386,
+      "left": 215.2961373390558,
+      "top": -12.506437768240303,
+      "width": 315.63948497854074
+     },
+     "held": {
+      "height": 657.5483870967741,
+      "left": 188,
+      "top": -90.61290322580646,
+      "width": 366.7096774193548
+     },
+     "landmarks": {
+      "feetY": 361,
+      "headY": 175,
+      "height": 416,
+      "width": 232
+     }
+    },
+    "class-smash-impact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 525.1587982832618,
+      "left": 171.75965665236052,
+      "top": -7.064377682403389,
+      "width": 399.9914163090129
+     },
+     "held": {
+      "height": 525.1587982832618,
+      "left": 171.75965665236052,
+      "top": -7.064377682403389,
+      "width": 399.9914163090129
+     },
+     "landmarks": null
+    },
+    "class-smash-takeoff": {
+     "authored": {
+      "anchorX": 384,
+      "height": 544.206008583691,
+      "left": 209.8540772532189,
+      "top": -12.506437768240303,
+      "width": 272.1030042918455
+     },
+     "held": {
+      "height": 544.206008583691,
+      "left": 209.8540772532189,
+      "top": -12.506437768240303,
+      "width": 272.1030042918455
+     },
+     "landmarks": null
+    },
+    "counter-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "counter-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "counter-parry": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "guard-brace": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 474.8517350157729,
+      "left": 146.57413249211356,
+      "top": 49.66561514195581,
+      "width": 474.8517350157729
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 73.5,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "guard-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "guard-rise": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ranged-aim": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ranged-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ranged-release": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "ready": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 85,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "smash-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "smash-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "smash-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-release": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "spell-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "stance-casting": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 464.5925925925926,
+      "left": 151.7037037037037,
+      "top": 58.96296296296293,
+      "width": 464.5925925925926
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 70,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-counter": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 537.6,
+      "left": 115.19999999999999,
+      "top": -7.2000000000000455,
+      "width": 537.6
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 92,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-defensive": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 442.7294117647059,
+      "left": 162.63529411764705,
+      "top": 78.77647058823527,
+      "width": 442.7294117647059
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 62,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-offensive": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 453.3975903614458,
+      "left": 157.3012048192771,
+      "top": 69.10843373493975,
+      "width": 453.3975903614458
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 66,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "stance-smash": {
+     "authored": {
+      "anchorX": 384,
+      "height": 565.9742489270386,
+      "left": 215.2961373390558,
+      "top": -12.506437768240303,
+      "width": 315.63948497854074
+     },
+     "held": {
+      "height": 657.5483870967741,
+      "left": 188,
+      "top": -90.61290322580646,
+      "width": 366.7096774193548
+     },
+     "landmarks": {
+      "feetY": 361,
+      "headY": 175,
+      "height": 416,
+      "width": 232
+     }
+    },
+    "stance-sweep": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 585.7120622568093,
+      "left": 91.14396887159535,
+      "top": -50.801556420233396,
+      "width": 585.7120622568093
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 103.5,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "starseer.counter.contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "starseer.counter.recovery": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "starseer.counter.stance": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 537.6,
+      "left": 115.19999999999999,
+      "top": -7.2000000000000455,
+      "width": 537.6
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 92,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "starseer.sweep.contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "starseer.sweep.recovery": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "starseer.sweep.stance": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 585.7120622568093,
+      "left": 91.14396887159535,
+      "top": -50.801556420233396,
+      "width": 585.7120622568093
+     },
+     "landmarks": {
+      "feetY": 232,
+      "headY": 103.5,
+      "height": 256,
+      "width": 256
+     }
+    },
+    "sweep-contact": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "sweep-load": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    },
+    "sweep-return": {
+     "authored": {
+      "anchorX": 384,
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "held": {
+      "height": 512,
+      "left": 128,
+      "top": 16,
+      "width": 512
+     },
+     "landmarks": null
+    }
+   },
+   "unit": 317
+  }
+ }
+}

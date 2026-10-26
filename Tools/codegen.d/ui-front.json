@@ -128,8 +128,8 @@
         "AboutEyebrow": "about-eyebrow",
         "AboutHeading": "about-heading",
         "AboutBody": "about-body",
-        "AboutCreditsHeading": "about-credits-heading",
-        "AboutCredit": "about-credit",
+        "AboutSave": "about-save",
+        "AboutResult": "about-result",
         "AboutBuild": "about-build",
         "JournalPage": "journal-page",
         "JournalColumn": "journal-column",
@@ -186,7 +186,15 @@
         "ProfileSlotFacts": "profile-slot-facts",
         "AboutShell": "about-shell",
         "AboutScroll": "about-scroll",
-        "AboutColumn": "about-column"
+        "AboutColumn": "about-column",
+        "SettingsTipText": "settings-tip-text",
+        "SettingsRowReset": "settings-row-reset",
+        "SettingsMoreDot": "settings-more-dot",
+        "SettingsMenu": "settings-menu",
+        "SettingsUndo": "settings-undo",
+        "SettingsButton": "settings-button",
+        "SettingsTopic": "settings-topic",
+        "AboutBuildFirst": "about-build--first"
       }
     },
     {
@@ -195,7 +203,8 @@
       "keys": {
         "BackgroundDoor": "tower-entrance-hall",
         "BackgroundDoorPhone": "tower-entrance-hall-phone",
-        "BackgroundGate": "tower-city-background-unlit",
+        "BackgroundGate": "river-citadel-unlit",
+        "BackgroundLit": "river-citadel-lit",
         "IconNext": "next",
         "IconLock": "lock",
         "IconArmour": "armour",
@@ -226,7 +235,9 @@
         "Categories": "categories",
         "About": "about",
         "Compendium": "compendium",
-        "Kinds": "kinds"
+        "Kinds": "kinds",
+        "Developer": "developer",
+        "TipNames": "settingsTipNames"
       }
     },
     {
@@ -237,6 +248,26 @@
         "CompendiumUnknown": "compendium.unknown.{0}",
         "CompendiumRarity": "compendium.rarity.{0}",
         "CompendiumHand": "compendium.hand.{0}"
+      }
+    },
+    {
+      "name": "TooltipPlacementValues",
+      "doc": "TooltipPlacementValues",
+      "keys": {
+        "Above": "above",
+        "Under": "under",
+        "Left": "left",
+        "Right": "right",
+        "Beside": "beside",
+        "EdgeNone": "none",
+        "EdgeTop": "top",
+        "EdgeBottom": "bottom",
+        "EdgeLeft": "left",
+        "EdgeRight": "right",
+        "AlignStart": "start",
+        "AlignCenter": "center",
+        "AlignEnd": "end",
+        "SecondsSuffix": "s"
       }
     }
   ]

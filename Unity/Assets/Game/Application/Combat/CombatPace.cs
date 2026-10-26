@@ -7,7 +7,7 @@ namespace Ashen.App.Combat
 {
     /// <summary>
     /// The pace a combat presentation plays at, from the player's pacing settings (D11, D12) as the web resolves them (src/ui/animationPace.js actionPacing): the animation
-    /// speed picks the table row (the setting "auto" plays at the reference speed, "instant" and reduced motion play no waits), the combat speed divides everything, the
+    /// speed picks the table row (the setting "auto" is resolved to Fast with lite Rendering quality and Normal otherwise, RenderingQuality.Pacing, "instant" and reduced motion play no waits), the combat speed divides everything, the
     /// pause between steps is the gap between the stages of one action and the animation step sets how long a swing takes. Engine-free and presentation-only: it never
     /// reaches the rules.
     /// </summary>
@@ -32,6 +32,12 @@ namespace Ashen.App.Combat
         public double LungeMs;
 
         public double ImpactMs;
+
+        /// <summary>The pace's sprite speed (the web's actionPacing spriteSpeed: ANIM_SPEEDS scaled for the sprite): the lunge, the cap before which the blow lands and the reaction time.</summary>
+        public SpriteSpeed Sprite;
+
+        /// <summary>The speed row as it stands, unscaled (ANIM_SPEEDS[getAnimSpeed()]): the length a pilot body reaction plays for; none when the animation speed is instant.</summary>
+        public SpriteSpeed Raw;
 
         /// <summary>How long a callout lives (the web's CALLOUT_MS scaled, or the instant length).</summary>
         public double CalloutMs;
@@ -64,6 +70,8 @@ namespace Ashen.App.Combat
                 BannerMs = Math.Max(pace.TurnBannerFloorMs, row.BeatMs) * scale,
                 LungeMs = lunge,
                 ImpactMs = lunge * pace.WindupFraction,
+                Raw = animInstant ? default : new SpriteSpeed { LungeMs = row.LungeMs, ImpactCapMs = row.ImpactCapMs, ReactionMs = row.ReactionMs },
+                Sprite = new SpriteSpeed { LungeMs = lunge, ImpactCapMs = row.ImpactCapMs * spriteScale, ReactionMs = row.ReactionMs * spriteScale },
                 CalloutMs = animInstant ? defs.Callout.InstantMs : defs.Callout.LifeMs * (raw > 0 ? raw : 1),
                 FightEndMs = pace.FightEndDelayMs,
             };

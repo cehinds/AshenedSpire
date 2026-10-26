@@ -1,0 +1,14 @@
+{
+  "comment": "map-trail: two floors walked.",
+  "screen": "actMap",
+  "core2": {
+    "until": "map",
+    "walk": 2,
+    "select": true,
+    "seed": 20261025
+  },
+  "skipSizes": [
+    "1280x720",
+    "844x390"
+  ]
+}

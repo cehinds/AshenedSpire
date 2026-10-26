@@ -4,6 +4,7 @@
     <Ashen.Presentation.UI.LocLabel name="TARGET_NAME" class="target-name" picking-mode="Ignore" />
     <Ashen.Presentation.UI.Kit.Meter name="TARGET_HP" class="target-hp" kind="hp" picking-mode="Ignore" />
     <ui:VisualElement name="TARGET_CHIPS" class="target-chips" picking-mode="Ignore" />
+    <ui:VisualElement name="TARGET_STATUSES" class="target-statuses" picking-mode="Ignore" />
     <ui:VisualElement name="TARGET_INTENT_ROW" class="target-intent-row" picking-mode="Ignore">
         <ui:VisualElement name="TARGET_INTENT_ICON" class="target-intent-icon" picking-mode="Ignore" />
         <Ashen.Presentation.UI.LocLabel name="TARGET_INTENT" class="target-intent" picking-mode="Ignore" />

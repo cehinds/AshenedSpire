@@ -208,14 +208,14 @@ namespace Ashen.Domain.Run
 
         /// <summary>
         /// openedSets(registries, slot, { meta, loadout }): how many sets are usable — one, plus the ladder rungs the
-        /// profile has earned (none: combat passes an empty meta), raised to whatever the loadout already holds, capped
+        /// profile has earned (<paramref name="earnedRungs"/>; none in combat, which passes an empty meta), raised to whatever the loadout already holds, capped
         /// at the slot's sets.
         /// </summary>
-        public static int OpenedSets(RunData d, JObject slot, JObject loadout)
+        public static int OpenedSets(RunData d, JObject slot, JObject loadout, int earnedRungs = 0)
         {
             var sets = RunJs.Number(slot?[K.Sets]);
             var cap = Math.Max(1, double.IsNaN(sets) || sets == 0 ? 1 : sets);
-            double opened = 1;
+            double opened = 1 + earnedRungs;
             var ids = Cells(loadout, slot.Str(K.Id));
             if (ids != null) for (var i = 0; i < ids.Count; i += 1) if (Js.Truthy(ids[i])) opened = Math.Max(opened, i + 1);
             return (int)Math.Min(cap, opened);
@@ -226,14 +226,14 @@ namespace Ashen.Domain.Run
         /// <paramref name="index"/> active. False when the index, the slot, the swap rule, the ladder or the deck plan
         /// says no (the active index is then unchanged).
         /// </summary>
-        public static bool CycleSet(RunData d, JObject loadout, string slotId, int index, bool inCombat, string classId, Action<JObject> onEquipmentChanged, bool configuredDeck = false)
+        public static bool CycleSet(RunData d, JObject loadout, string slotId, int index, bool inCombat, string classId, Action<JObject> onEquipmentChanged, bool configuredDeck = false, int earnedRungs = 0)
         {
             var ids = Cells(loadout, slotId);
             if (ids == null || index < 0 || index >= ids.Count) return false;
             var slot = SlotById(d, slotId);
             if (slot == null) return false;
             if (!CanSwap(d, slotId, inCombat).Ok) return false;
-            if (index >= OpenedSets(d, slot, loadout)) return false;
+            if (index >= OpenedSets(d, slot, loadout, earnedRungs)) return false;
             var before = RunJs.Clone(loadout);
             var active = loadout.Obj(K.Active);
             active.Put(slotId, index);
@@ -295,6 +295,42 @@ namespace Ashen.Domain.Run
             return may == Loadout.SlotHand(d, slot);
         }
 
+        /// <summary>What equipTransitionPlan decides for one position (the Armoury's capacity verdict): fine, the location gone, or the storage full.</summary>
+        public sealed class TransitionVerdict
+        {
+            public bool Ok = true;
+
+            /// <summary>The slot or the set index no longer exists.</summary>
+            public bool NoLocation;
+
+            /// <summary>The piece the position holds would go to storage and storage has no room: how many it holds and its capacity.</summary>
+            public bool StorageFull;
+
+            public int Stored;
+            public int Capacity;
+        }
+
+        /// <summary>
+        /// equipTransitionPlan / equipTransitionReceipt: may <paramref name="itemId"/> (or nothing) go into one position. A hand position sends the piece it displaces to storage, which must
+        /// have room; the other slots simply take it. Pure: nothing is changed.
+        /// </summary>
+        public static TransitionVerdict TransitionPlan(RunData d, JObject loadout, string slotId, int setIndex, string itemId)
+        {
+            var ids = Cells(loadout, slotId);
+            var slot = SlotById(d, slotId);
+            if (slot == null || ids == null || setIndex < 0 || setIndex >= ids.Count) return new TransitionVerdict { Ok = false, NoLocation = true };
+            var previousId = Js.Truthy(ids[setIndex]) ? Js.Str(ids[setIndex]) : null;
+            if (Loadout.SlotHand(d, slot) == null) return new TransitionVerdict();
+            var cap = Js.IsInt(d.EquipmentBalance[RK.StorageSlots]) ? d.EquipmentBalance.Num(RK.StorageSlots) : d.RuleNum(K.Loadout, RK.StorageSlotsDefault);
+            var nextStorage = new List<JToken>();
+            foreach (var id in Js.Items(loadout[RK.Storage]))
+                if (!nextStorage.Any(x => Equipment.StrictEquals(x, id))) nextStorage.Add(id);
+            nextStorage = nextStorage.Where(id => !Equipment.StrictEquals(id, itemId == null ? Js.Null() : new JValue(itemId))).ToList();
+            var storesPrevious = previousId != null && previousId != itemId && !nextStorage.Any(id => Js.Str(id) == previousId);
+            if (storesPrevious && nextStorage.Count >= cap) return new TransitionVerdict { Ok = false, StorageFull = true, Stored = nextStorage.Count, Capacity = (int)cap };
+            return new TransitionVerdict();
+        }
+
         /// <summary>
         /// equipTransitionPlan + applyEquipTransition: put <paramref name="itemId"/> (or nothing) into one position. A hand
         /// position also clears the piece from every other hand cell and sends the piece it displaces to storage, which
@@ -302,9 +338,9 @@ namespace Ashen.Domain.Run
         /// </summary>
         public static bool ApplyEquipTransition(RunData d, JObject loadout, string slotId, int setIndex, string itemId)
         {
+            if (!TransitionPlan(d, loadout, slotId, setIndex, itemId).Ok) return false;
             var ids = Cells(loadout, slotId);
             var slot = SlotById(d, slotId);
-            if (slot == null || ids == null || setIndex < 0 || setIndex >= ids.Count) return false;
             var previousId = Js.Truthy(ids[setIndex]) ? Js.Str(ids[setIndex]) : null;
             JToken Held() => string.IsNullOrEmpty(itemId) ? Js.Null() : new JValue(itemId);
             if (Loadout.SlotHand(d, slot) == null)
@@ -312,13 +348,11 @@ namespace Ashen.Domain.Run
                 ids[setIndex] = Held();
                 return true;
             }
-            var cap = Js.IsInt(d.EquipmentBalance[RK.StorageSlots]) ? d.EquipmentBalance.Num(RK.StorageSlots) : d.RuleNum(K.Loadout, RK.StorageSlotsDefault);
             var nextStorage = new List<JToken>();
             foreach (var id in Js.Items(loadout[RK.Storage]))
                 if (!nextStorage.Any(x => Equipment.StrictEquals(x, id))) nextStorage.Add(id);
             nextStorage = nextStorage.Where(id => !Equipment.StrictEquals(id, itemId == null ? Js.Null() : new JValue(itemId))).ToList();
             var storesPrevious = previousId != null && previousId != itemId && !nextStorage.Any(id => Js.Str(id) == previousId);
-            if (storesPrevious && nextStorage.Count >= cap) return false;
             var handSlotIds = new HashSet<string>(d.EquipmentRows(K.Slots).Where(s => Loadout.SlotHand(d, s) != null).Select(s => s.Str(K.Id)), StringComparer.Ordinal);
             if (!string.IsNullOrEmpty(itemId))
                 foreach (var p in (loadout.Obj(K.Sets) ?? new JObject()).Properties())

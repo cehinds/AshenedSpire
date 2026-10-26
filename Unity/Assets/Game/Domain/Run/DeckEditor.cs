@@ -717,12 +717,19 @@ namespace Ashen.Domain.Run
         /// <summary>confirm(): succeeds only inside the bounds; the refusal is the rules' sentence.</summary>
         public DeckEditResult Confirm()
         {
-            Live();
-            var refusal = DeckRules.EditRefusal(_d, _run.Arr(DK.Deck).Count, _settings);
-            if (refusal.Length > 0) return new DeckEditResult(false, new DeckSentence(refusal, null, null));
+            var check = CheckConfirm();
+            if (!check.Ok) return check;
             Closed = true;
             _history.Clear();
             return new DeckEditResult(true);
+        }
+
+        /// <summary>Whether Done would keep the edit now (the rules' sentence when not), leaving the session open either way.</summary>
+        public DeckEditResult CheckConfirm()
+        {
+            Live();
+            var refusal = DeckRules.EditRefusal(_d, _run.Arr(DK.Deck).Count, _settings);
+            return refusal.Length > 0 ? new DeckEditResult(false, new DeckSentence(refusal, null, null)) : new DeckEditResult(true);
         }
 
         /// <summary>cancel(): puts back everything the session can change.</summary>

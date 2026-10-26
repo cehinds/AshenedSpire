@@ -202,6 +202,11 @@
     padding: var(--size-cmodal-inset);
 }
 
+.c2rest-item-select {
+    margin: var(--size-cmodal-inset);
+    flex-shrink: 0;
+}
+
 .c2rest-pane {
     flex-grow: 1;
     flex-shrink: 1;

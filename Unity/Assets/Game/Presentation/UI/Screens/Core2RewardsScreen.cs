@@ -29,6 +29,8 @@ namespace Ashen.Presentation.UI.Screens
         private LocButton _confirm;
         private LocButton _back;
         private LocButton _keep;
+        private LocButton _editDeck;
+        private LocButton _equip;
         private LocLabel _status;
         private bool _bound;
 
@@ -43,6 +45,10 @@ namespace Ashen.Presentation.UI.Screens
         public LocButton BackButton => _back;
 
         public LocButton KeepButton => _keep;
+
+        public LocButton EditDeckButton => _editDeck;
+
+        public LocButton EquipButton => _equip;
 
         private StringTable Strings => Ui.Data.Strings;
 
@@ -82,7 +88,7 @@ namespace Ashen.Presentation.UI.Screens
             _hud?.Bind(RunHudView.Build(_run, Ui.Data));
             if (_hud?.Portrait != null) Ui.ApplyBackground(_hud.Portrait, _run.Portrait);
             _options.Clear();
-            _confirm = _back = _keep = null;
+            _confirm = _back = _keep = _editDeck = _equip = null;
             _status = null;
             _modal.Reset();
             _modal.SetHead(_flow.Eyebrow, _flow.Title, _flow.Status);
@@ -101,6 +107,8 @@ namespace Ashen.Presentation.UI.Screens
                 {
                     _back = Foot(_flow.BackLabel, UiClasses.ButtonBack, OnBack);
                     if (_flow.KeepLabel.Length > 0) _keep = Foot(_flow.KeepLabel, null, OnKeep);
+                    if (_flow.EditDeckLabel.Length > 0) _editDeck = Foot(_flow.EditDeckLabel, null, OnEditDeck);
+                    if (_flow.EquipLabel.Length > 0 && ArmouryReachable) _equip = Foot(_flow.EquipLabel, null, OnEquip);
                     _confirm = Foot(_flow.ConfirmLabel, UiClasses.ButtonPrimary, OnConfirm);
                     focus = _confirm;
                 }
@@ -208,6 +216,15 @@ namespace Ashen.Presentation.UI.Screens
 
         private void OnBack() => Press(_flow.Back, _back);
 
+        /// <summary>The Armoury can be opened from here (it reads a Core 2 run and its screen must be built).</summary>
+        private bool ArmouryReachable => Ui.Data.Screens.IsBuilt(ScreenIds.Armoury);
+
+        /// <summary>Edit deck: the card is claimed, then the deck editor opens over the spoils with the card selected; closing it goes on (<see cref="OnReturned"/>).</summary>
+        private void OnEditDeck() => Press(_flow.EditDeck, _editDeck);
+
+        /// <summary>Equip now: the item is claimed, then the Armoury opens on its equipment.</summary>
+        private void OnEquip() => Press(_flow.EquipNow, _equip);
+
         private void OnSkip() => Press(_flow.Skip, _back);
 
         /// <summary>
@@ -232,6 +249,18 @@ namespace Ashen.Presentation.UI.Screens
             if (result.Left)
             {
                 RunFlow.Show(Context, _run);
+                return;
+            }
+            if (result.OpenEditor || result.OpenEquipment)
+            {
+                Render();
+                Nav.OpenModal(ScreenIds.Armoury, new ArmouryArgs
+                {
+                    Session = _run,
+                    Tab = result.OpenEditor ? ArmouryValues.TabEditor : ArmouryValues.TabEquipment,
+                    FocusKey = result.EditorFocusKey,
+                    CloseWithEditor = result.OpenEditor,
+                });
                 return;
             }
             Render();
@@ -289,7 +318,16 @@ namespace Ashen.Presentation.UI.Screens
                 RunFlow.Show(Context, _run);
                 return;
             }
-            _flow.Refresh();
+            if (_flow.ProceedPending)
+            {
+                var proceeded = _flow.Proceed();
+                if (proceeded.Left)
+                {
+                    RunFlow.Show(Context, _run);
+                    return;
+                }
+            }
+            else _flow.Refresh();
             Render();
         }
     }

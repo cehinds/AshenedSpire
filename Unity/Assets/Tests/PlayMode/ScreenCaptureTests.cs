@@ -149,6 +149,11 @@ namespace Ashen.Tests.Play
         {
             var nav = host.Navigator;
             var screen = (string)fixture["screen"];
+            if (Core2Capture.Handles(fixture))
+            {
+                Core2Capture.Show(host, fixture);
+                return;
+            }
             switch (screen)
             {
                 case ScreenIds.Boot:
@@ -179,6 +184,7 @@ namespace Ashen.Tests.Play
 
         private static void AfterShow(UiHost host, JObject fixture)
         {
+            Core2Capture.After(host, fixture);
             if (!(fixture["confirm"] is JObject confirm)) return;
             var nav = host.Navigator;
             var request = new ConfirmRequest { ConfirmId = (string)confirm["id"] };

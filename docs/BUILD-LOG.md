@@ -4,7 +4,7 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 
 ## WP-21: the 405 content retired, the app on Core 2 data only (worktree branch, 2026-10-25)
 
-**Landed (D-1304)**
+**Landed (D-1704)**
 - **App:** `RunContent` no longer builds the 405 registries. Seat regions, the HUD / armoury XP curve, unlock hints, the journal's names and the hand example read the profile's registries; Abandon writes through `Core2RunEnd.Abandon` (history row, ledger untouched).
 - **Registries:** `RegistryBundle` / `RuntimeRegistries` read `profile/bundle/` only.
 - **Deleted, code:** `CreationSession`, the 405 `CombatSession`, `LoopData` / `LoopContext`, the 405 `RunEnd` doors and other methods only deleted tests called.
@@ -24,11 +24,11 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 - Abandon a run: it appears in the history as abandoned and opens no class.
 - Settings: Reward collection shows Manual by default.
 
-**Next:** run `transform-content.mjs --check` with the raw export; a Core 2 driver for `ScreenCaptureTests.Show` (VP-16).
+**Next:** run `transform-content.mjs --check` with the raw export (the Core 2 capture driver landed on dev, D-1381). Merged with dev: D-1300..D-1304 of this branch are renumbered D-1700..D-1704, because dev used D-1300 and D-1301 for the CI art decisions; the settings list is dev's WP-23 one (D-1375), repointed to `profile/bundle/balance.json`.
 
 ## WP-21: the 405 run retired, Core 2 the only ruleset (worktree branch, 2026-10-24)
 
-**Landed (D-1300..D-1303)**
+**Landed (D-1700..D-1703)**
 - **One ruleset:** New Game and Continue go through `Core2RunSession` only. A 405 slot (save format 2) reports `OtherRuleset` and stays on disk untouched.
 - **Deleted, 405 run:** `RunSession` and partials, `Application/Nodes` (but `NodeRules`), the 405 combat, rewards, rest, merchant, event / dialogue, legacy dungeon and run-end screens with UXML, `Nodes.uss`, screen registry entries and `ScreenIds`, the runFlow `screens` map; Domain `RunLoop`, the 405 rest, reward door, legacy dungeons, new run, act advance, shop, shelf stock, armament trading, card extraction and buy-back.
 - **Kept because Core 2 calls them:** `RunEnd`, `RewardRolls`, `ItemSmithing`, `SmithServices`, `CardRemoval`, `ClassTree`, `CombatEnd`, the `Refusal` types, the reward-face helpers of `RewardsView`.
@@ -44,7 +44,181 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 - New Game → a Core 2 climb; the map opens in fog; Settings shows Fade the walked path as Off / Subtle / Half / Strong at Half, Show played card off.
 - Settings → Import a web config: the player settings land, the tuning keys are listed as not placed.
 
-**Next:** map what the Core 2 fight still reads of the 405 content (D-1303), then retire the 405 content tables, combat paths and their oracles; a Core 2 driver for `ScreenCaptureTests.Show` (VP-16).
+**Next:** map what the Core 2 fight still reads of the 405 content (D-1703), then retire the 405 content tables, combat paths and their oracles; a Core 2 driver for `ScreenCaptureTests.Show` (VP-16).
+
+## P-5: the combat leftovers go to the web (worktree branch, 2026-10-25)
+
+**Landed (D-1590..D-1595)**
+- **Rendering quality (D-1590):** the web's `performanceMode` row (label, note, auto/full/lite, default auto) sits after Combat pacing; `RenderingQuality` (tested) resolves it (lite, or auto on a touch device) and `CombatPacing.Lite` drives the player's aura glow instead of the narrow layout and makes Auto combat pacing play Fast in lite. The light ART tier stays on the narrow layout: in the web it is the separate Art quality row, whose Auto is exactly that.
+- **Enemy action filters and the hit-stop (D-1591):** `Tools/enemy-stage.mjs` reads the family keyframes' brightness, drop-shadow glow and opacity from the web's css; `EnemyStageData.ActionTrack` merges them with the travel; the figure paints a white veil of the silhouette sprite for brightness and a tinted silhouette behind it for the drop-shadow. The enemy's travel no longer stops under Reduce flashes (the web's css only stops it for reduced motion). The defender's hit-stop is not a feature of the web's default beat order (only the `impact` order has it, which nothing sets): closed.
+- **Damage calculation over its own number (D-1592):** `LinkTagEvents` finds `PointerOverLinkTagEvent` and `PointerOutLinkTagEvent` (names and `linkID` confirmed in the Unity 6000.6 manual) by reflection, so the branch compiles against any editor and falls back to the whole label; `Tooltip.AttachLinked`, `ChipTips.RetellLinked`, `CardView.Bind`; `Assets/link.xml` keeps the types.
+- **Contact cue recovery (D-1593):** the `Contact` item carries the planned recovery and, when the stage still has more to play, every later item and the end of the play are rescheduled (`DelayFx`).
+- **The door's preview pane and the player's painted outfit (D-1594, D-1595):** the combatant reading is the web's lg door with the preview (figure, name, meters) beside the details; the player's portrait is chosen by `Tools/outfit-art.mjs` -> `ui/outfitArt.json` over the web's own functions for every class, armour and pair of hands (35 outfits, 8680 pairs, 496 frames); an enemy shows its stage at rest. Art: `release.restrict` imports only those 496 frames (`outfit.*`, `anim.*`, 47.5 MB png, gitignored). The Armoury has no figure in the shipped Core 2 (both shots), so none was added; the conversation frames are imported for the dialogue screen.
+
+**Tests:** the filtered suite (`Enforcement|UiData|UiRules|Core2Screens|ContentValid|RenderingQuality|SettingsPageParity|EnemyStage|CardStageFeedback|CombatFeedback|OutfitArt`) passes; the compile harness prints Build succeeded; `node Tools/outfit-art.mjs --check`, `enemy-stage.mjs --check`, `ci/check-art.mjs` (5618 of 5618) clean. Unity was not run.
+
+**Not done / needs the editor:** (1) the link tag events firing on the card label at runtime and the reflective registration under IL2CPP/WebGL (D-1592), and the tooltip sits beside the whole label, not the number; (2) the veil and flash look of the enemy filters (D-1591); (3) the door at 1920x1080 and 390x844: the 3 : 4 box, the 150 x 190 portrait, the enemy stage frame placement, the meters; the details pane is still the Unity words-only reading, not the web's `combatantDetailBody`, and only the whole body scrolls; (4) the build size of the 496 outfit textures (D-1594); (5) the conversation view is imported but the dialogue screen does not draw it; (6) the door's enemy preview draws no buff aura; (7) the Armoury and creation `stand` frames are imported and unused; (8) the contact recovery wait is untested against a real frame drop (D-1593).
+## P-6: the flow and the profile are the web's (worktree branch, 2026-10-25)
+
+Owner directive of 2026-10-25 holds: the Unity build looks and plays exactly like the JS version. This pass closes the P-3a leftovers, gives WebGL real file doors, hides what the web's Core 2 flow does not show, and puts the Core 2 words under a test against the web's.
+
+**Landed (D-1640..D-1651)**
+- **Profile leftovers (D-1640..D-1644):** the profile that would not read is the web's notice screen (`ProfileNoticeView`, `ProfileRecoveryScreen`: corrupt and older with Try to restore, Save a copy to a file, Not now, Start a new profile behind its own question; newer with Keep it and close first; boot routes to it for newer profiles too), the `older` state (`LoadResult.Older`, the engine's own reason in the drawer), PLAYER DATA over Profile (the shell's eyebrow line), the date's space (V8 writes a plain space; Inter and Cinzel now carry U+202F anyway, with a test that reads their character maps) and the Profile door's keyboard trap (the focus model already wraps inside a screen; pinned by a test).
+- **WebGL files (D-1645, D-1648):** `Plugins/WebGL/AshenFiles.jslib` + `Platform/WebFiles` + `FileExport`: Save a copy, About's file and the previous-save backup are browser downloads under `UNITY_WEBGL && !UNITY_EDITOR` (the exports folder elsewhere). The web's Load is Settings > Download & saves > Import saves: `SaveTransfer` (export, validated import with a previous-save backup and rollback, tested) and `TransferScreen` (a picked file in a browser, the exports folder elsewhere); the Settings button no longer opens the Profile screen.
+- **The flow (D-1646, D-1647, D-1650, D-1651):** the title is Continue, New Game, Load Game, Settings, Exit (Continue and Load only with a save, no Journal row, Exit straight to the farewell screen, the gate prompt by device); the slot, load, start, delete, replace and save doors say the web's words with the web's target line; the pause rows are the web quick menu's that exist (Settings, Armoury, Save, Save and Quit with no door and the gate down again, Quit Without Saving behind its door) with Deck, Abandon, Resume, the seed line and the Journal's three links hidden; the run history rows read the web's. DECISIONS D-1647 lists every hidden piece with the web file:line that shows what the web has.
+- **Words under test (D-1649):** `Tools/web-strings.config.json` (544 keys mapped to a uiStrings row or a web literal, 398 listed as having none, the 405 files named and left out), `Tools/oracle-core2-strings.mjs`, `Core2StringsParityTests` (text equal, every used key classified).
+
+**Tests run (small filters, one at a time):** `ProfileNotice|ProfileArchive|SaveService|SaveTransfer|Core2StringsParity` 100% pass; `Enforcement|UiData|UiRules|Core2Screens|ContentValid|FrontScreens|FirstFightUi|MetaView|Core2Overlay` pass after the title, pause and journal tests were updated to the web's rows; node checks: `ui-tokens`, `codegen`, `refresh-manifest`, `ci/check-content`, `ci/check-docs`, `ui-stage`, `card-face`, `web-key-map`, `oracle-core2-strings`; Presentation compiles with the stub harness ("Build succeeded"). Unity was not run.
+
+**Not done:** the web's Menu is a Settings and Controls overlay with a quick list (Fullscreen, Music, Load rows, Inventory and Character as two rows); the Pause modal stays a list (D-1647); no Controls screen; the 398 unchecked keys have no web row or literal of their own and were not walked one by one beyond the near-miss search; the 405 PlayMode smokes (`FirstFight`, `Climb`, `NodeScreens`) still press the old Save & quit door and will fail until WP-21 retires them (the Core 2 one was updated); the Profile and Compendium screens have no door (the web's have none); the `Made with generative AI` title footer is kept for the owner to rule on; a browser's file chooser and the download were not run (no browser here), nor the glyph in the editor.
+
+## P-4: the rest of the Core 2 combat board is the web's (worktree branch, 2026-10-25)
+
+**Landed (D-1540..D-1549)**
+- **Enemies (D-1540, D-1541):** the enemies' figure is the web's expansion stage, not the legacy pose frames. `Tools/enemy-stage.mjs` -> `ui/enemyStage.json` (the web's own clips, aliases, per-enemy stance frames and landmarks, the aura themes, the action family of every move); `EnemyStageData`/`EnemyStageState`/`EnemyStagePlans`/`EnemyStancePlans` are engine-free; `FighterEnemy` draws it, the screen holds the ledger of what each enemy holds as the beats play (move started, turn intent, player's turn start) and plays the pose of each move over the pace's lunge scaled by tempo. Art: `exp.*` 828 and `lite.exp.*` 828 imported (the light tier on a narrow layout). `Tools/oracle-core2-enemystage.mjs`: placement equal to the web's within 0.05 px for every frame of every enemy, and presentation, stance, action and clip answers equal for all 138 moves.
+- **Formation (D-1542, D-1543):** `BattlefieldFormation` ports the web's perspective grid, the slot order, the sprite fit and the composition; `Core2CombatScreen.Board` lays the fighters out on the foot anchors of their cells, hangs the readouts from the tallest figure of each band, draws the lattice as a mesh and the floor shadows as the web's gradient at the width of the frame on show (`ui/figureInk.json`, 1057 frames). `Tools/oracle-core2-battlefield.mjs`: the web's functions on 378 fields and fights equal to 1e-4, the shipped board measured at 1920x1080 and 390x844 for 1 to 4 enemies within 0.1 px (`BattlefieldTests`, 388 cases).
+- **The player's intent glyph (D-1544), the contact cue (D-1545), the light art tier (D-1546):** the glyph over the figure's head is the armed card's maneuver, else the last card's, else the resting hourglass, drawn from the web's own sigil geometry as nine white images (`Tools/intent-icons.mjs`); the card stage waits at its contact frame until the timeline lands the blow (`CueContact`/`Contact`/`RemainingMs`, a `Contact` timeline item, tested against the stage clock); a narrow layout draws the light sweep, counter and hurt frames and enemy frames the web ships.
+- **Aura glows (D-1547):** the web's `auraFilter` and `resourceAura` are ported and compared with the web's own filters parsed by its renderer for 3840 stage cases and 336 cost cases (`CombatAuraTests`); the drawing is a derived soft silhouette sprite per frame (1008 `glow.*` images from `release.derive`, 4.7 MB), tinted and faded behind the body: the resource colour while a card plays, the guard's pale blue while braced, the power glow of a spell, the enemies' buff themes. Documented approximations: one halo width, no brightness lift, a soft halo for the 1 px outline, a fixed enemy opacity, none on a narrow layout.
+- **Not imported (D-1548):** the `outfit.*` frames; the Unity combatant reading has no preview pane for any combatant, so they have nowhere to go until the door is matched, and the armoury is another worker's.
+- **Tooling:** `release.derive` in the art release pass (derived images share their source's hash and are registered with `derived: glow`), the registry schema knows it; the images stay gitignored (the intent glyph images too: `--check` only fails on a stale one that is present); `ui-tokens`, `codegen`, `refresh-manifest`, `check-content` and `check-docs` clean.
+
+**Tests:** the filtered suite (`Enforcement|UiData|UiRules|Core2Screens|ContentValid|EnemyStage|Battlefield|CardStage|CombatAura`) passes, 633 tests; the compile harness prints Build succeeded.
+
+**Not done:** (1) the editor run of everything above (D-1549 lists what to check against `docs/qa/web-screens/combat*.jpg`); (2) `outfit.*` and the door's preview pane (D-1548); (3) the enemies' family brightness filters and the defender's hit-stop (D-1541); (4) the performance setting (lite versus full) that the web's aura and art tier follow: a narrow layout stands for it (D-1546, D-1547); (5) the power frames' brightness lift and a sharper 1 px guard outline (D-1547); (6) the recovery wait of the contact cue in the precomputed timeline (D-1545).
+
+**Next:** one editor session on the combat screen at 1920x1080 and 390x844 with 1 to 3 enemies: grid, feet, readout heights, shadows, glyph, a card of each resource colour, a braced guard, a buffed enemy; then the door.
+
+## P-3b: the player's combat figure is the web's card stage (worktree branch, 2026-10-25)
+
+**Landed (D-1490..D-1496)**
+- **The finding that changed the task (D-1490):** the web draws no `pose.*`, `outfit.*` or `anim.*` frame on a Core 2 board. Its default display appearance is `alternative`, `DEFAULT_COMBAT_WEAPONS` paints the starter hands, and `playerSprite` asks the card stage (`alternativeCardStage.js`) first: one canvas of the class's card-action frames, held stance frames, the Reaver greatsword pilot or the other classes' smash frames, counter and sweep frames with trails, sampled along the clip of the card played (every web combat screenshot shows it). P-1's pose stage is only the fallback for a class with no painted outfit. So the figure is now that stage and the unused families are not imported.
+- **Art (D-1491):** release rules and converts for `alt.*` (135, from the web's tracked `assets-display/alternative`), `sweep.*` (40) and `hurt.*` (4) from the art cache; 179 images, 15 MB; registry, provenance and metas committed. `node Tools/ci/check-art.mjs`: 2414 of 2414 imported ids on disk.
+- **Data and port (D-1490, D-1492, D-1493):** `Tools/card-stage.mjs` -> `ui/cardStage.json` (runs the web's `alternativeCardAnimationFamily` per class); `CardStageData` (placement with `bodyPlacement`, `sampleSequence`, `durationFor`, the pilot and class clip timing, the hurt clip, the knock-back), `CardStageState` (rest, stance, clip, hit, body reaction, hit-stop as a clock-driven state machine), `CardStagePlans` (card action, rest, stance, pilot stance from the resolved card), `Core2CardView.Stage`.
+- **Playing it (D-1493, D-1494):** `FighterStage` draws the stage in pixels from the figure box; the screen holds the stance (armed card, else last card played) and the rest (a guard braced into the next turn until the turn starts) and applies them at the end of the beat that played the card; the swing item takes the clip's own length and the blow lands at its frame, the hit-stop holds the figure there, the stage replaces the lunge and the hit track, a stagger tints and moves nothing, the pilot's body reactions play beside the hurt reaction and the beat waits for them (`FxTimeline` rest rule). `ui/poses.json` and `PoseData` stay (hidden).
+- **Oracle:** `Tools/oracle-core2-stage.mjs` -> `Oracle/core2/stage/{cards,placement,index}.json`: for each class all 211 cards plain and upgraded (technique, rest, stance, pilot stance, counter) and every frame's authored and held placement.
+- **D-1324 re-checked (D-1496):** the dotted underline cannot be drawn in UI Toolkit; the per-number tooltip can (link tag events) but the API cannot be compile-checked here.
+
+**Tests run (small filters, one at a time):** `CardStageTests` 20/20 (the oracle comparisons and the clip arithmetic), `CardStageFeedbackTests` 6/6, `CombatFeedback` and `Enforcement` pass with them (49); the final filtered run is listed in the commit. node checks: `ui-tokens`, `codegen`, `refresh-manifest`, `ci/check-content`, `ci/check-docs`, `ui-stage`, `card-face`, `web-key-map`, `card-stage`, `ci/check-art`. Presentation compiles with the harness ("Build succeeded"). Unity was not run.
+
+**Not done:** nothing was seen in the editor (D-1495 lists what to check first: the box width and height against the web's, the red mask, the travel at board scale); the aura (resource, guard and readiness glow) is not drawn; the contact cue is not awaited; the mobile (lite) frames are not used; the figure's intent glyph above its head (the last card's kind) is not drawn; the dotted underline and the per-number tooltip (D-1496); `outfit.*` and `anim.*` (not used by the combat; the portrait of the combatant door and the armoury use 448 of them, about 20 MB as source, when those doors are matched); the enemies are drawn from `enemy.*` poses where the web draws `assets-display/alternative/<enemy>.webp` (`alternativeSprite`), a separate gap; the battlefield formation (the perspective grid, the stage cell under the figure, the figure's scale by formation) is not part of this.
+## P-3a: the non-combat web features P-2 left open (worktree branch, 2026-10-25)
+
+Owner directive of 2026-10-25 holds: the Unity build looks and plays exactly like the JS version. Every item below is matched to the web at `b8cfe4fac` (read from its source and, where a screen is the question, from the running page), and oracle-tested where it computes numbers or words.
+
+**Landed (D-1440..D-1483)**
+- **Armoury (D-1440..D-1442):** the candidate comparison lists every role with the attack-package counts, the pool and swap-price resource changes and the declined-talisman sentence, and runs on the equip transition alone; the poker-style equipment card (`equipmentCardModel`, possession variant, the row solver) is the equipment list's thumbnail and inspection; the Grid view / List view toggle; the Inventory's faces with the class as the first, its detail card and the Item / Status / Actions picker table. Oracle `core2/armoury` (1470 candidates, 189 cards).
+- **Progression (D-1456, D-1457):** the Character Sheet (`progressionStats`: HP, SP, MP, AR, PR, DR, Hand size, Draw with the arithmetic behind each, and a card per attribute) and the attribute allocation dialog, whose Done spends nothing in the configured profile as the web's. Oracle `core2/progression` (12 cases, 72 allocation previews).
+- **Map HUD XP (D-1443):** `IClimb.XpToNext`; the Core 2 path reads `Core2Rest.XpToNext`.
+- **Settings (D-1450..D-1453):** the General groups (Display, Combat, Audio, Game rules) with their tips, the web's segmented choice, the Text & lore rows over `ui/lore.json` with a lore line and window in the Armoury's inspections, the Changelog group (`Tools/changelog.mjs`), Game rules (Ashen core and the two XP multipliers). The unused `SettingIds.TextSize` is removed. Oracle `core2/settings`.
+- **Terms (D-1455):** `ui/terms.json` is the web's, verbatim (119 terms: the eight missing and the six reworded); the tooltip glossary (`TermGlossary`) is built from it and shown on the Edit Deck inspector's Rules and keywords fold and the equipment inspection's effect lines. Oracle `core2/glossary` (876 card and piece texts).
+- **Profile archive (D-1480..D-1483):** the web's Profile screen (rail of Profiles and Runs, state line, drawer policy and notice, an entry card per set-aside copy with Save a copy to a file, Restore this profile behind its own question and Details for support) and the drawer behind it: `ArchiveDrawer` (`archive.json`, 180 days and 12 runs, 24 profiles, salvage to files and notices, dedupe with counts), `SaveService` (`ReadRaw`, `SetAsideRun`, `StartNewProfile`, `RestoreProfile`, `Drawer`), `ProfileStore.State` and set-aside of an unreadable profile, a damaged Core 2 run set aside with its slot cleared, Start fresh on the recovery screen keeping the old profile. Oracle `core2/archive` (the web's drawer driven through `loadMeta`, `startNewProfile` and `loadRun` over 51 steps; the screen's own helpers cut from `profileArchive.js` and run as written). The classic tally and save slots are hidden from the screen, not deleted.
+
+**Tests run (small filters, one at a time):** `ProfileArchive` 10/10; `ProgressionStatsParity|AttributeAllocation|SettingsPageParity|LoreType|TermGlossary|Armoury*Parity` (each when written); `Enforcement|UiData|UiRules|Core2Screens|ContentValid|FrontScreens|SaveService` 105/105; the node checks listed in the commit; Presentation compiles with the stub harness ("Build succeeded"). Unity was not run.
+
+**Not done:** the PLAYER DATA eyebrow over the Profile title (the shared shell has no eyebrow line, here or on the other meta screens); the Settings rows the web hides behind the developer build; the web's `older` profile state (the Unity save has no schema-version migration to refuse by name, so an unreadable profile is `corrupt`); a run's Restore (the web offers none; a run copy can only be saved to a file); the web's keyboard focus trap in the Profile door (the navigator's focus order applies; the pad cursor starts on Close); the file export on WebGL writes into the browser's file system (no download link); the recovery screen's Back action ('Restore copy') still only continues to the title (restore is on the Profile screen, listed there after the first read of a damaged profile); `Tools/oracle-core2-archive.mjs` fixes the zone to UTC and prints the narrow no-break space the browser uses as a plain space. The Settings Game rules select holds one ruleset, so Import JSON is not drawn (D-1451).
+
+## P-2: the framework config the Core 2 export missed (worktree branch, 2026-10-25)
+
+**Landed (D-1420..D-1422)**
+- **Two reports from the Armoury work, checked against the web at `b8cfe4fac`:** (1) confirmed and fixed: `rules/mechanics.json` came from the legacy sha, so a Core 2 fight lacked `weight.itemWeightScale` 0.2, the dodge's Dexterity centre by creation mode and the lower Medium/Heavy dodge prices; the opening kits stood in the wrong weight class (Starseer Heavy where the web says Light, Reaver 400% where the web says 80%). The exporter now writes `rules/frameworkMechanics.json` (`content/framework/mechanics.json` verbatim at the pinned sha) and Core 2 builds its `CombatData` from it; `Equipment` ports `pieceWeight`, the tenth-rounded loads and `attributeModifier(score, attributeMode)`. (2) refuted as stated, real gap one step over: Core 2 never reads `balance/balance.json combatRatings` (its balance has none, like the web's), but the kit fallback rows (`runEngine.json ratings.defaultFormula`) were the 405 rows, not `LEGACY_RATING_FORMULA`, which showed once attributes passed 2.
+- **One source of truth:** `ui/components.json armoury.itemWeightScale` and `armoury.legacyRatings`, their `UiData` fields, `Core2RunSession.RatingAttributePart` and the Armoury's own load maths are deleted; the Armoury calls `Equipment.PieceWeight` / `ComputeWeightClass` and `Loadout.KitReceipt`.
+- **Oracle:** `Tools/oracle-core2-parity.mjs` -> `Unity/Assets/Tests/Oracle/core2/parity/{weight,dodge,kit,index}.json` (4112 worn loadouts across the four classes crossing every weight ceiling, 756 dodge rolls over six creation modes, 20 kit receipts at attributes up to 12); `Core2FrameworkParityTests` (7 tests) fails on the old export (run with the two fixes reverted: 6 failures) and passes now.
+- **Audit (D-1422):** web config objects at the pin missing from the export, all inert in a Core 2 fight; listed there.
+
+**Tests run (small filters, one at a time):** `Core2FrameworkParity` 7/7; `Core2CombatFlow|Core2CostParity|Core2CombatSession|Core2FrameworkParity` 162/162 (the existing Core 2 combat oracles do not cross a weight ceiling, so they passed before and after); `Enforcement|UiData|UiRules|Core2Screens|ContentValid|Armoury|Core2RunSession`; node checks listed in the commit.
+
+**Not done:** `mechanics.stamina.combatStartRefill` is not read by name (the fight start's refill is the `core2Run` rule `combat.staminaRefillsToFull`, which already says full); the 405 profile still reads the legacy `rules/mechanics.json` (WP-21 retires it); `ui/terms.json` is eight terms behind the web's `terms.json` and unread by C# (closed by P-3a, D-1455); `recoveryRules` Settings rows and percents are not on the Core 2 settings page.
+
+## P-1: the combat screen to exact web parity (worktree branch, 2026-10-25)
+
+**Landed (D-1320..D-1324)**
+- **Card text:** the web's `cardFaceLines`, `renderCard` rules and `previewCard` ported (`CardFaceText`, `CardFaceRules`, `Core2FacePreview`, `CardFaceMarkup`, `CardWords`); the hand, inspector, piles, rewards, shop and deck say what the web says. Oracle `face/` (211 cards plain and upgraded, 4 classes of fights under 7 setups) with `Core2CardFaceParityTests` (63 tests) and `CardFaceMarkupTests`.
+- **Intent projection:** `CoreIntentProjection` and `Core2IntentBadge` (HP range `0-16`, `Total 0-16 HP`, green tone) on the board badge and the target card; oracle `intent/`, `Core2IntentParityTests` (17).
+- **Tooltips:** Block, Poise, Ward, Barrier and Counter; the damage calculation behind a previewed number (text checked against the web for every hand card).
+- **Player pose stage:** `ui/poses.json`, `PoseData`, `Fighter.PlayStage`; import rules for `pose.` and `posefx.`; `PoseDataTests`.
+
+**Tests:** Core2CardFaceParity, CardFaceMarkup, Core2IntentParity, PoseData and the filtered Enforcement/UiData/UiRules/Core2Screens/ContentValid suites; Presentation compiles with the harness. Unity was not run.
+
+**Not done:** no pose frame is imported (the release art cache is unreachable here; `Tools/scan-assets.mjs --import` with the web's art will fetch `pose.*` and `posefx.*`); armour-outfit poses, persistent rest guard, `anim.*` and `outfit.*`; dotted underline (solid), per-number hover (whole rules text); `computeSpellDefenseGain`; the warded-Block line; gradient masks and blend modes of card-cast layers need no approximation yet because no cast layer is drawn.
+## WP-23: everything outside combat matches the web (worktree branch, 2026-10-25)
+
+Owner directive of 2026-10-25: the Unity build looks and plays exactly like the JS version outside combat. Ground truth is the running web at the pin (`b8cfe4fac`, `?gameProfile=core&shot=...&shotSeed=ASHEN1`), read with Playwright and the web's own modules through `Tools/oracle-core2.mjs`.
+
+**Landed (D-1370..D-1386)**
+- **Owner decisions resolved toward the web (D-1370..D-1374):** the fonts (Cinzel and Inter plus the five lore faces, D-005 retired), the live button look (D-600 over D-500), the map reveal default (fog; the web has no 'full'), no XP strip on the run HUD, the Core 2 player settings take the web's defaults and not the reference preset's.
+- **Settings (D-1375, D-1376):** the Core 2 Settings page row for row, one applier for the accent, contrast, colour-blind, HUD, walked-node, view-mode, UI-size, tooltip and audio settings. The complete list of rows follows.
+- **Startup and tooltips (D-1377, D-1378):** the gate's lift with the Lit city pause; tooltip placement as `placeAnchored` (flip, clamp, arrow).
+- **Leather and selects (D-1379):** the soot-leather plate under every modal fill; the Smith's item list and the profile rail as selects on the narrow layout.
+- **Potions (D-1380):** the map's minis beside the Potions disc, the flask action menu (Use, Inspect, Drop), the flask door.
+- **Capture driver (D-1381):** `Core2Capture` for `ScreenCaptureTests.Show` and 21 `c2_*` fixtures; `docs/qa/screen-capture-list.md` rewritten.
+- **Event (D-1382, D-1383):** the per-speaker figure close-up (`FigureCrop`, 53 figure boxes from `Tools/figure-boxes.mjs`), the speech hook (`Core2EventFlow.Generation`, `SpeechEnded`); the rewards Progression column and Continue HOLD recorded as the classic door's.
+- **About (D-1384):** the web's acknowledgement text, sections, Save this to a file, build lines.
+- **Armoury receipts (D-1385):** the Equipment cards fold is the web's receipt (card packages with their calculation, minimums, Poise threshold, equip load) and a candidate Compare fold while picking a destination, over `ArmouryReceipts` and `Core2RunSession.TrialLoadout`.
+- **Progression (D-1386):** the Character pane's Progression door (meter, cadence, Attributes, Feats, the twenty-level ladder) checked against the web's ladder; the Armoury's XP now reads the Core 2 curve (200 XP to level 2, as the web).
+
+**The web's Core 2 Settings rows, as read (the page this build now draws, in the web's order, with defaults)**
+- General > Display > Interface: Fullscreen (toggle, default false); Accent color (enum, default "gold"); View mode (enum, default "auto"); UI size (enum, default "Auto"); Reset all settings (button, default null)
+- General > Display > Title screen: Lit city pause (enum, default "2s")
+- General > Display > Map: Map zoom (enum, default "Fit"); Shrine path glow (toggle, default true)
+- General > Display > HUD: HUD health and resources (toggle, default true); HUD relics (toggle, default true); HUD Cinders (toggle, default true); HUD journey position (toggle, default true); HUD potions (toggle, default true)
+- General > Combat > Animation & effects: Auto combat (toggle, default false); Combat speed × (slider, default 1); Auto combat speed × (slider, default 1.5); Pause between steps (ms) (slider, default 500); Animation step duration (ms) (slider, default 390); Combat pacing preset (enum, default "custom"); Combat pacing (enum, default "auto"); Screen shake (toggle, default true); Show played card animation (toggle, default false)
+- General > Audio > Audio: Music (toggle, default true); Audio (toggle, default false); Music volume (slider, default 50); Sound effects (slider, default 75)
+- Accessibility > Accessibility > Tooltips: Hover explanations (toggle, default true); Explanation delay (enum, default "1s"); Explanation close delay (enum, default "0.5s")
+- Accessibility > Accessibility > Readability: Tap a card to play it (toggle, default false); High contrast (toggle, default true); Readable headings (toggle, default false)
+- Accessibility > Accessibility > Motion & colour: Reduced motion (toggle, default false); Colorblind-friendly (toggle, default false); Reduce flashes (toggle, default false)
+- Advanced > Opening sequence > Playback: Show opening (enum, default "every"); Advance scenes automatically (toggle, default true); Playback speed (slider, default 1); Still artwork (toggle, default false); Developer tools (toggle, default false)
+- Advanced > Deck > Deck: Play in deck order (toggle, default false)
+- Advanced > Interface > Map & HUD: Walked nodes (enum, default "half")
+- Advanced > Interface > Controls: Control hints (toggle, default true); Hold to confirm (enum, default "balance/balance.json#ui.holdConfirm.def")
+- Advanced > About: the acknowledgement text, Save this to a file
+
+**Tests run (small filters, one at a time):** `Enforcement`, `UiData`, `UiRules`, `Core2Screens`, `ArmouryReceipts` 5/5, `CharacterProgression` 2/2, `Wp22RunScreens`, `Wp23`, `FrontScreens`, `MetaView`, `Core2EventEndFlow` and `ContentValid` pass in the final run (one filter set, 173 tests); node checks `ui-tokens`, `codegen`, `refresh-manifest`, `ci/check-content`, `ci/check-docs`, `ui-stage`, `card-face`, `web-key-map` ok; Presentation compiles against the UnityEngine reference assemblies (D-314 harness, "Build succeeded").
+
+**Not verified:** Unity was not run. No UI Toolkit layout, USS, font, tooltip arrow, modal leather, receipt or ladder rendering, entrance animation or capture fixture has been looked at in the editor; the PlayMode `Core2Capture` driver was validated only through a scratch test of its logic. Numbers (receipts, ladder, figure placements, tooltip positions) are asserted against what the web computes.
+
+**Not done:**
+- Armoury: drag and drop (the web wires it only in the both-panes layout; the default rail shows Equipment and Inventory apart, so it is unreachable there), the Equipment pane's Grid view toggle, the Sigils, books and consumables sections (nothing in the Core 2 profile grants them), the Inventory class face and its detail card, the poker-style equipment card, and the candidate comparison's attack-package counts, resource changes and swap prices.
+- Progression: the Skills and Class tabs, level-reward claim and respec (hidden in the web's configured profile), the attribute allocation dialog (points are spent at a shrine), the stat inspection modal.
+- Profile: the set-aside archive (Save a copy to a file, Restore this profile, Details for support) needs `SaveService` archive plumbing.
+- Settings: the Game rules and Changelog groups, the text and lore Typeface rows (they restyle the combat inspector's identity line), and the combat-owned rows are not on the page. `SettingIds.TextSize` is still declared.
+- Map HUD XP (`ClimbViews`, over `IClimb`) still reads the classic XP curve; it is off by D-1373.
+- For the combat owner: resolved afterwards by D-1420 (the combat weight class now scales every piece by `itemWeightScale`) and D-1421 (the static `balance/balance.json` is the 405 profile's; Core 2 never reads it, the real gap was the kit fallback rows).
+- Next: run the editor on the `c2_*` fixtures and compare each against `docs/qa/web-screens`.
+
+## WP-22: the run screens' remaining gaps (worktree branch, 2026-10-25)
+
+**Landed (D-1160..D-1165)**
+- **Spoils review:** Edit deck (claims the card, opens the deck editor with its tile selected, the offer leaves when the editor closes) and Equip now (claims the item, opens the Armoury on its equipment); the web's `noteArmoury` line.
+- **Armoury:** Replace / Choose item / Make active / Unequip on the equipment rows with the rules' refusals at the control (`Core2RunSession.Equip`, `Armoury.TransitionPlan`, `DeckRules.Restamp` public); the Inventory pane (owned armour and armaments, relics, potions, destinations and the filtered Replace list); the Character pane's Combat Power, AR / PR / DR / HandSize and foldable Relics and Equipment cards.
+- **Potions** outside a fight: the map's disc opens the web's list (Drink with the setting and a charge, Drop for a carried potion).
+- **Run history:** the record takes the session's damage tally (`FinishRun`); the loop parity test skips those two fields (D-962 text updated).
+- **Event:** a binding response is a hold button; the spoken step's entrance (figures 400 ms, context band rising at 400 ms).
+- **Shop:** Buy is a hold button (tap asks, hold buys); D-952's note was a gap, not an owner choice.
+
+**Tests run (small filters):** `Wp22RunScreens` (6 new), `Core2RewardsFlow`, `Core2Screens` (two expectations updated: the review's Edit deck, the sheet's chips), `Core2LoopParity`, `Core2EventEndFlow`, `Core2RestShop`, `Enforcement`, `UiData`, `UiRules`, `ContentValid`; node checks and the Presentation compile (see the final report).
+
+**Not verified (Unity was not run):** every new USS rule (`Armoury.uss` position actions, notice, Inventory, folds; `Core2Event.uss` dial and entrance transitions: `translate` and `transition-delay` in UI Toolkit, class removal one frame after bind); `HoldButton` as the event response and the shop Buy (the layout of its template label, bar and HOLD hint inside those controls, the click after a completed hold); the Potions modal's `PotionRow` without hold; focus after an equipment change.
+
+**Not done:** the Armoury's drag and drop, comparison tooltip, grid view, Sigils and the poise / load receipts; class cards, books and consumables in the Inventory; the hover potion tray and flask menu on the map; Character's Progression button.
+
+**Next:** the editor pass over these screens; the speech hook (`speechEnded`) and the figure crop of the spoken step.
+## CI fetches the art (worktree branch, 2026-10-25)
+
+**Landed (D-1300, D-1301)**
+- **`.github/actions/fetch-art`** (composite) over **`Tools/ci/fetch-art.sh`**: sparse checkout of the pinned web commit (`Tools/ci/art-pin.json`), cached `.art-cache` by tag, the web's `tools/fetch-art.mjs`, `npm ci` in `Tools`, `scan-assets --release ... --import`, then `Tools/ci/check-art.mjs` (fails if any of the 1530 imported ids is missing). Wired into `build-windows`, `build-webgl` and `pages-webgl.yml` before the Unity build. `Cli.BuildWebGL` / `Cli.BuildWindows` run `BuildUiArt` first.
+- **Legacy images:** the release import covered 631 of 1530 ids; the rest were made from an old source tree only the author has. `Tools/lib/release-art.mjs --import` now rebuilds them from the same files in the packs (D-1301), so a clean machine gets all 1530.
+- **Tested locally:** network allowed it. Web `tools/` copied to a scratch dir, `fetch-art.mjs --pack high,common` downloaded and verified both packs (7348 + 146 files), the images were deleted, `Tools/ci/fetch-art.sh` rebuilt them (631 + 893, 0 failed, committed metas and registry unchanged), `check-art.mjs` reports 1530 of 1530 and exits 1 when one file is removed. YAML of the action and both workflows parses (js-yaml).
+
+**Not done:** the workflow itself never ran on GitHub (the sparse checkout, `actions/cache` path and the Windows runner are unverified); the web repo checkout needs `WEB_REPO_TOKEN` if cehinds/ashenspire is private; the editor was not run, so `BuildUiArt` after the import is untested. The 899 legacy PNGs are re-encoded from the packs, not the original Blender output (58 resized to the registered size).
+
+## WebGL: Unity 6000.6.6f1 and the browser build (worktree branch, 2026-10-25)
+
+**Landed (D-1250..D-1254; D-008 amended)**
+- **Upgrade:** the pin is 6000.6.6f1 (`d20c9ac777da`) in `ProjectVersion.txt`, `ci.yml`, `Tools/unity.sh`, the README and the scope target line. Packages are untouched; the editor re-resolves the bundled ones on first open (commit `packages-lock.json` then).
+- **Build:** `Cli.BuildWebGL` sets the WebGL PlayerSettings in code (Brotli + decompression fallback, no threads, IndexedDB cache, 256 MB to 2 GB memory, stripping Low) and builds to `Builds/WebGL` or `-customBuildPath`. CI: `build-webgl` job in `ci.yml` and `pages-webgl.yml` (push to dev, GitHub Pages, `.nojekyll`). `docs/BUILD-WEBGL.md` has the local build, serve and owner steps.
+- **Browser runtime:** `MemoryContentSource` (engine-free, 4 Domain tests, including the whole shipped content validated and loaded from memory) behind `IContentSource`; `WebContentLoader` fetches the manifest and its files with `UnityWebRequest`; `AshenBoot` boots from it under `UNITY_WEBGL && !UNITY_EDITOR` (Windows and the editor keep `DirectoryContentSource`). Saves: `AshenFs.jslib` + `WebFileSystem` flush IndexedDB; `SaveService` replaces files by copy on WebGL. No thread use besides `Thread.Sleep` in the replace retry.
+
+**Not done:** no Unity editor ran, so nothing was built or run in a browser: the `CopyBufferRanges` UI Toolkit WebGL bug, the `PlayerSettings.WebGL` / `NamedBuildTarget.WebGL` calls in `Cli.cs`, the jslib flush, the copy-based save replace, download size and mobile input are for the first WebGL build. CI builds (Windows and WebGL) have no `Art/Imported` images (D-018): the owner decides where CI gets them. `BuildWindows` is still the F0 stub.
 
 ## VP-16: chrome and phone residuals (worktree branch, 2026-10-25)
 
@@ -68,6 +242,26 @@ Newest entries go at the top. Each entry records the story, what landed, the tes
 - Modal heads and feet are a shade darker than the body (combat modals, Settings, the shell screens).
 
 **Not done:** the leather texture under modal fills; the tooltip's flip above the trigger and the side edges; the smith's item select and the profile's rail select as selects; the web's inline hold dial; a Core 2 driver for `ScreenCaptureTests.Show` and fixture files that use it; the editor pass.
+## VP-15: the combat screen's remaining visual gaps (worktree branch, 2026-10-25)
+
+**Landed (D-1100..D-1106)**
+- **Card face:** line-art motifs and colour wash over the art (element, then statuses; `Tools/card-face.mjs` rasterises 26 motif sprites and the wash), damage-type marks and numbered pills on the rail (counted Precision and Evade grants, the stance entry's, numbered traits, a status applied once), the Smash fist only on a damaging card, the Spell mark for every spell (the 18 spell skills read Skill before) and the mirrored Spell's second mark with the basic's word, up and down tints on previewed numbers (green `#205e2b`, red `#8d2424`, bold) with the cost shift mark.
+- **Inspector:** a row per mark (action, mirror, school with new `school-*` sprites) with its word and meaning, then the web's rule hints (counter return help or coverage, defence range, stance group, return range, reaction sweep).
+- **Board:** a tooltip on each status chip (Evade and Precision too) and on the HUD relic pips (title, filled text, turns left, build-up), the target card's statuses in a tray under its panel.
+- **Feedback:** each damage, burst or heal number moves its HP bar when it lands (figure and HUD).
+- **Engine-free and tested:** `CardFaceLookup` (motifs, rail counts, band), `CombatViewModel.ResolveText` shifts, `Core2CardHints`, `Core2Readings`, `FxCue.Hp`; `CombatFidelityTests` (15), 12 new `CardFaceTests`; data in `ui/cardface.json` (+ schema), `ui/tokens.json` (`color.cardUp/cardDown`, `face.count*`, `size.detailSigil*`), strings `card.*` and `status.tip.*`, codegen fragments `cardface.json` and `ui.json`.
+
+**Tests run (small filters):** `Enforcement|UiData|UiRules|Core2Screens|ContentValid|CardFace|CombatFidelity|CombatFeedback`; node checks ui-tokens, codegen, refresh-manifest, check-content, check-docs, ui-stage, card-face, web-key-map ok; the Presentation compile check builds.
+
+**Not verified (Unity was not run):** every USS rule (`card-motif`, `card-wash`, `card-rail-count`, `card-sigil--mirror`, `detail-sigil-row`, `detail-hint`, `target-statuses`), rich text (`<color>`, `<b>`, `<size=50%>`) in the card's rules and cost labels and in `FitText`'s measure, the motif sprites' stretch and opacity over the cutout stage, a tooltip on a chip inside the target card (pointer enter on a child keeps the fighter hovered), HP bars stepping with the numbers at every pace, and the phone layout of all of it.
+
+**Owner: check in the editor (play a Core 2 fight; compare `docs/qa/web-screens/combat-card-inspect-*`, `combat-card-selected-*`, `combat-statuses-target-hud-*`, `combat-hit-feedback-*`)**
+- A Spell, Smash, status-applying and Evade card: the faint line art and colour wash over the picture, the pills on the rail marks (`Sundering Art`: Guard, Precision with its number, Smash), the red and green figures in the rules once a target is aimed.
+- The inspector ("i" above a hovered card): marks with their meaning, then the rule hints.
+- Point at a status chip, the Evade or Precision chip and a relic pip in the top-left: the tooltip's words; the target card's status tray under its panel.
+- Take a hit: the number pops, then the bar drops (and heal the other way).
+
+**Not done:** the hand's selected-card face lines (the web's `cardFaceLines` text model), player pose frames and the card-cast effect layers (the art is not imported; masks), the target card's projected HP-loss range, tooltips on the Block/Poise/Ward/Barrier/Counter chips, the dotted underline under previewed numbers and the web's `hue-rotate` on magical library paintings.
 
 ## VP-14: the phone pass for the Core 2 screens (worktree branch, 2026-10-25)
 

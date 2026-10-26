@@ -16,6 +16,10 @@ namespace Ashen.App.Ui
         public double? Rotate;
         public double? Track;
 
+        /// <summary>The brightness() the figure takes (null when the track never names one) and the share of the track's drop-shadow glow in force.</summary>
+        public double? Brightness;
+        public double? Glow;
+
         /// <summary>The red hit tint is on (the web's stepped filter, which holds from impact to <see cref="TrackDef.TintUntil"/>).</summary>
         public bool Tinted;
     }
@@ -65,6 +69,8 @@ namespace Ashen.App.Ui
                 ScaleX = Along(track, share, curve, s => s.ScaleX, pop, 1),
                 Rotate = Along(track, share, curve, s => s.Rotate, pop, 1) is double r ? r + rotateOffset : (double?)null,
                 Track = Along(track, share, curve, s => s.Track, pop, 1),
+                Brightness = Along(track, share, curve, s => s.Brightness, pop, 1),
+                Glow = Along(track, share, curve, s => s.Glow, pop, 1),
                 Tinted = track.TintUntil > 0 && share < track.TintUntil,
             };
         }

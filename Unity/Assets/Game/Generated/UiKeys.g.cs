@@ -31,6 +31,7 @@ namespace Ashen.Generated
         public const string TitleKey = "titleKey";
         public const string BodyKey = "bodyKey";
         public const string OccupiedBodyKey = "occupiedBodyKey";
+        public const string OccupiedPrimaryKey = "occupiedPrimaryKey";
         public const string PrimaryKey = "primaryKey";
         public const string BackKey = "backKey";
         public const string Policy = "policy";
@@ -84,6 +85,7 @@ namespace Ashen.Generated
         public const string Pause = "pause";
         public const string CreationPanes = "creationPanes";
         public const string HideInCombat = "hideInCombat";
+        public const string HideWhenDisabled = "hideWhenDisabled";
         public const string Icon = "icon";
         public const string Built = "built";
         public const string FocusModes = "focusModes";
@@ -114,5 +116,40 @@ namespace Ashen.Generated
         public const string Ratings = "ratings";
         public const string StackStatuses = "stackStatuses";
         public const string LogLines = "logLines";
+        public const string Plain = "plain";
+        public const string UiScale = "uiScale";
+        public const string Named = "named";
+        public const string DesignW = "designW";
+        public const string DesignH = "designH";
+        public const string Placement = "placement";
+        public const string Gap = "gap";
+        public const string Pad = "pad";
+        public const string TopBandPct = "topBandPct";
+        public const string SideBandPct = "sideBandPct";
+        public const string EdgeEpsilon = "edgeEpsilon";
+        public const string ArrowW = "arrowW";
+        public const string ArrowInset = "arrowInset";
+        public const string FocusMs = "focusMs";
+        public const string LaneEdgeRatio = "laneEdgeRatio";
+        public const string PotionMinis = "potionMinis";
+        public const string Dialogue = "dialogue";
+        public const string Slot = "slot";
+        public const string Portraits = "portraits";
+        public const string Figures = "figures";
+        public const string InsetVw = "insetVw";
+        public const string WidthVw = "widthVw";
+        public const string WidthCompactVw = "widthCompactVw";
+        public const string TopOffsetVh = "topOffsetVh";
+        public const string VisibleFraction = "visibleFraction";
+        public const string VisibleFractionCompact = "visibleFractionCompact";
+        public const string MinGapVw = "minGapVw";
+        public const string MinGapPx = "minGapPx";
+        public const string MaxOuterOverflowVw = "maxOuterOverflowVw";
+        public const string MinVisibleHeightVh = "minVisibleHeightVh";
+        public const string ListenerOpacity = "listenerOpacity";
+        public const string Top = "top";
+        public const string CenterX = "centerX";
+        public const string Armoury = "armoury";
+        public const string DefaultMaxLevel = "defaultMaxLevel";
     }
 }

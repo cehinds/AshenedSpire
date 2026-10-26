@@ -5,6 +5,26 @@ namespace Ashen.Generated
     public static class ArmouryClasses
     {
         public const string Modal = "armoury-modal";
+        public const string Notice = "armoury-notice";
+        public const string Actions = "armoury-actions";
+        public const string Reason = "armoury-reason";
+        public const string Selecting = "armoury-selecting";
+        public const string Fold = "armoury-fold";
+        public const string FoldOpen = "armoury-fold--open";
+        public const string FoldHead = "armoury-fold-head";
+        public const string FoldSummary = "armoury-fold-summary";
+        public const string FoldBody = "armoury-fold-body";
+        public const string Power = "armoury-power";
+        public const string PowerLabel = "armoury-power-label";
+        public const string PowerValue = "armoury-power-value";
+        public const string InvRow = "armoury-inv-row";
+        public const string InvRowOpen = "armoury-inv-row--open";
+        public const string InvText = "armoury-inv-text";
+        public const string InvDests = "armoury-inv-dests";
+        public const string InvDest = "armoury-inv-dest";
+        public const string InvDestOn = "armoury-inv-dest--on";
+        public const string InvDestShut = "armoury-inv-dest--shut";
+        public const string ActionOff = "armoury-action--off";
         public const string Tabs = "armoury-tabs";
         public const string Tab = "armoury-tab";
         public const string TabOn = "armoury-tab--on";
@@ -69,5 +89,38 @@ namespace Ashen.Generated
         public const string Empty = "deck-editor-empty";
         public const string Foot = "deck-editor-foot";
         public const string Refusal = "deck-editor-refusal";
+        public const string ReceiptRow = "armoury-receipt-row";
+        public const string ReceiptHead = "armoury-receipt-head";
+        public const string ReceiptName = "armoury-receipt-name";
+        public const string ReceiptPill = "armoury-receipt-pill";
+        public const string ReceiptHint = "armoury-receipt-hint";
+        public const string ReceiptValues = "armoury-receipt-values";
+        public const string ReceiptFormula = "armoury-receipt-formula";
+        public const string ReceiptValue = "armoury-receipt-value";
+        public const string ReceiptSources = "armoury-receipt-sources";
+        public const string ReceiptSource = "armoury-receipt-source";
+        public const string ReceiptSourceValue = "armoury-receipt-source-value";
+        public const string ReceiptPair = "armoury-receipt-pair";
+        public const string ReceiptPairKey = "armoury-receipt-pair-key";
+        public const string ReceiptPairValue = "armoury-receipt-pair-value";
+        public const string ReceiptNote = "armoury-receipt-note";
+        public const string ReceiptMet = "armoury-receipt-met";
+        public const string ReceiptUnmet = "armoury-receipt-unmet";
+        public const string ReceiptSection = "armoury-receipt-section";
+        public const string ReceiptDelta = "armoury-receipt-delta";
+        public const string ReceiptDeltaUp = "armoury-receipt-delta--up";
+        public const string ReceiptDeltaDown = "armoury-receipt-delta--down";
+        public const string LadderRow = "armoury-ladder-row";
+        public const string LadderRowCurrent = "armoury-ladder-row--current";
+        public const string LadderRowNext = "armoury-ladder-row--next";
+        public const string LadderLevel = "armoury-ladder-level";
+        public const string LadderXp = "armoury-ladder-xp";
+        public const string LadderGrants = "armoury-ladder-grants";
+        public const string LadderGrant = "armoury-ladder-grant";
+        public const string LadderGrantRoutine = "armoury-ladder-grant--routine";
+        public const string LadderHere = "armoury-ladder-here";
+        public const string ProgressionButton = "armoury-progression-button";
+        public const string ProgressionCard = "armoury-progression-card";
+        public const string ProgressionPoints = "armoury-progression-points";
     }
 }

@@ -1,5 +1,5 @@
 {
-  "comment": "Maps the exported shipped content (Tools/export/raw) into Unity StreamingAssets/Content (docs/design/08). Data-driven: an output is one row. 'tables' (the 405 catalog) is empty since WP-21 (D-1304); 'objects' are the documents still read from the 405 export (rules, audio, ui, the event history gates). 'key' = id field(s) for id-keyed tables (joined with ':'); 'text' names the row fields whose display text the UI reads as '<stringPrefix>.<key>.<name>' (rules/stringKeys.json; the rows keep their text). Tables whose key is not unique fail the transform.",
+  "comment": "Maps the exported shipped content (Tools/export/raw) into Unity StreamingAssets/Content (docs/design/08). Data-driven: an output is one row. 'tables' (the 405 catalog) is empty since WP-21 (D-1704); 'objects' are the documents still read from the 405 export (rules, audio, ui, the event history gates). 'key' = id field(s) for id-keyed tables (joined with ':'); 'text' names the row fields whose display text the UI reads as '<stringPrefix>.<key>.<name>' (rules/stringKeys.json; the rows keep their text). Tables whose key is not unique fail the transform.",
   "contentVersion": "0.7.1",
   "tables": [],
   "objects": [
@@ -12,7 +12,6 @@
     { "out": "rules/eventChoiceRequirements.json", "from": "extras.events.eventChoiceHistoryRequirements" },
     { "out": "ui/locationPresentation.json", "from": "extras.locationPresentation.locationPresentation" },
     { "out": "ui/theme.json", "from": "extras.framework.theme" },
-    { "out": "ui/terms.json", "from": "extras.framework.terms" },
     { "out": "ui/confirmationPolicies.json", "from": "extras.framework.confirmationPolicies" },
     { "out": "audio/sfx.json", "from": "extras.sfx", "pick": ["SFX_RECIPES", "SFX_FAMILY_IDS"] },
     { "out": "audio/music.json", "from": "extras.music", "pick": ["BEDS", "SCALES"] }
@@ -110,6 +109,7 @@
       { "out": "rules/fixCoreMechanics.json", "from": "core2.rules.fixCoreMechanics" },
       { "out": "rules/fixCoreSnapshot.json", "from": "core2.rules.fixCoreSnapshot" },
       { "out": "rules/core2Mechanics.json", "from": "core2.rules.mechanics" },
+      { "out": "rules/frameworkMechanics.json", "from": "core2.rules.frameworkMechanics" },
       { "out": "rules/runtime.json", "from": "core2.rules.runtime" },
       { "out": "rules/reactionRules.json", "from": "core2.rules.reactionRules" },
       { "out": "rules/combatExpansionRules.json", "from": "core2.rules.combatExpansionRules" },

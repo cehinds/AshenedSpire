@@ -259,18 +259,35 @@ namespace Ashen.Presentation.UI.Screens
             _modal.SetHead(null, _flow.ModalTitle, _flow.ModalStatus);
             var split = new VisualElement();
             split.AddToClassList(RestClasses.Split);
-            var list = Scroll();
-            list.AddToClassList(RestClasses.List);
-            foreach (var row in _flow.SmithRows) list.Add(ItemRow(row));
+            // On a phone the items are the web's select ('Choose an item', then the chosen item's name; smithUpgradeModal.js nav, smithSelectorFace); wide, a list beside the pane.
+            var narrow = Nav.Layout != null && Nav.Layout.Narrow;
             var pane = Scroll();
             pane.AddToClassList(RestClasses.Pane);
             FillPane(pane.contentContainer);
-            split.Add(list);
+            if (narrow) split.Add(SmithSelect());
+            else
+            {
+                var list = Scroll();
+                list.AddToClassList(RestClasses.List);
+                foreach (var row in _flow.SmithRows) list.Add(ItemRow(row));
+                split.Add(list);
+            }
             split.Add(pane);
             _modal.Body.Add(split);
             _modalBack = Foot(_flow.BackLabel, UiClasses.ButtonBack, () => Press(_flow.CloseModal, _modalBack));
             var chosen = _items.FirstOrDefault(b => (string)b.userData == _flow.SmithSelected);
             Focus(chosen ?? _items.FirstOrDefault() ?? _modalBack);
+        }
+
+        /// <summary>The phone's item select: the face says 'Choose an item' until one is chosen; the list is the same items.</summary>
+        private SelectField SmithSelect()
+        {
+            var select = new SelectField();
+            select.AddToClassList(RestClasses.ItemSelect);
+            select.SetOptions(_flow.SmithRows.Select(r => new SelectOption { Value = r.ItemRef, Label = r.Name }).ToList(), _flow.SmithSelected, Strings.Get(StringKeys.RestSmithChoose));
+            select.Picked += itemRef => Press(() => _flow.SelectSmith(itemRef), select.Face);
+            _items.Add(select.Face);
+            return select;
         }
 
         private LocButton ItemRow(Core2SmithRow row)

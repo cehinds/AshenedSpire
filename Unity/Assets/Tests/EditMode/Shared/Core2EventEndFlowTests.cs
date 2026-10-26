@@ -301,6 +301,27 @@ namespace Ashen.Tests
         }
 
         [Test]
+        public void ASpeechThatEndsUnderTheCurrentGenerationReadsTheNextLineAndAStaleOneChangesNothing()
+        {
+            var session = AtTheEvent("graveOfTheNameless");
+            var flow = new Core2EventFlow(session, Ui);
+            var generation = flow.Generation;
+            Assert.That(flow.Back().Done, Is.True);
+            Assert.That(flow.Generation, Is.EqualTo(generation), "a Back that did nothing moves nothing");
+            flow.SpeechEnded(generation + 7);
+            Assert.That(flow.Beat, Is.EqualTo(0), "a generation the beat never had is stale");
+            flow.SpeechEnded(generation);
+            Assert.That(flow.Beat, Is.EqualTo(1), "the line it was started under ended: the next line is read");
+            Assert.That(flow.Generation, Is.EqualTo(generation + 1));
+            flow.SpeechEnded(generation);
+            flow.SpeechEnded(flow.Generation);
+            Assert.That(flow.Beat, Is.EqualTo(1), "a stale callback and the last line change nothing: a speech never picks a response");
+            Assert.That(flow.Resolved, Is.False);
+            flow.Back();
+            Assert.That(flow.Generation, Is.EqualTo(generation + 2), "reading backwards is a move too");
+        }
+
+        [Test]
         public void ASpokenResponseThatCannotBePaidRefusesAtThePressLikeTheOneOffs()
         {
             var session = AtTheEvent("lastLantern", 0);
@@ -362,7 +383,8 @@ namespace Ashen.Tests
             Assert.That(session.Tally.LastHit, Is.Not.Null);
             Assert.That(session.Tally.LastHit.SourceName, Is.Not.Empty);
             var record = (JObject)((JArray)ProfileStore.Load(_saves).Doc["results"]).Last;
-            Assert.That(record.Value<double>("damageDealt"), Is.EqualTo(0), "the configured run's own record keeps the web's tally of nothing (D-962)");
+            Assert.That(record.Value<double>("damageDealt"), Is.EqualTo(session.Tally.DamageDealt), "the history row carries the session's tally (D-1162)");
+            Assert.That(record.Value<double>("damageTaken"), Is.EqualTo(session.Tally.DamageTaken));
             var mid = Core2RunSession.New(Content, _saves, 2, 99u, "reaver", "Aldric", () => Epoch);
             mid.Travel(mid.ReachableNodes()[0]);
             mid.EditRunForReview(r => { r["hp"] = 100000; r["maxHp"] = 100000; });
@@ -453,6 +475,31 @@ namespace Ashen.Tests
             Assert.That(flow.Chips[3].Value, Does.EndWith(" / 5000"));
             Assert.That(flow.Chips[3].Value, Does.Not.StartWith("0 /"));
             Assert.That(flow.Chips[0].Value, Is.Not.EqualTo("0"), "the player struck the keeper");
+        }
+
+        [Test]
+        public void RunAgainWithTheCloseOutUnwrittenIsRefusedUntilTheRetrySucceeds()
+        {
+            var session = Core2RunSession.New(Content, _saves, 1, 31337, "reaver", "Aldric", () => Epoch);
+            session.Travel(session.ReachableNodes()[0]);
+            session.EditRunForReview(r => { r["hp"] = 1; r["maxHp"] = 1; });
+            session.StartEncounter(session.EncounterId);
+            var blocker = Path.Combine(_dir, _saves.Rules.ProfileSlot + ".json.tmp");
+            Directory.CreateDirectory(blocker);
+            FightToTheEnd(session);
+            Assert.That(session.RunOver, Is.True);
+            Assert.That(session.PendingSaveError, Is.Not.Null, "the profile could not be written");
+            var flow = new Core2RunEndFlow(session, Ui);
+            Assert.That(flow.PendingSaveNotice, Is.Not.Null);
+            var refused = flow.RunAgain(Content, _saves, 777u);
+            Assert.That(refused.Done, Is.False);
+            Assert.That(refused.SaveFailed, Is.True);
+            Assert.That(_saves.Exists(session.Slot), Is.True, "the finished run's slot is not replaced");
+            Directory.Delete(blocker);
+            var again = flow.RunAgain(Content, _saves, 777u);
+            Assert.That(again.Done, Is.True, again.Refusal);
+            Assert.That(session.PendingSaveError, Is.Null);
+            Assert.That(((Newtonsoft.Json.Linq.JArray)ProfileStore.Load(_saves).Doc["results"]).Count, Is.EqualTo(1), "the first run's record was written before the new climb");
         }
 
         [Test]

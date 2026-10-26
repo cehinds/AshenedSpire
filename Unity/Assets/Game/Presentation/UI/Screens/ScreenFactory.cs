@@ -12,6 +12,8 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.Boot: return new BootScreen();
                 case ScreenIds.ContentError: return new ContentErrorScreen();
                 case ScreenIds.ProfileRecovery: return new ProfileRecoveryScreen();
+                case ScreenIds.Farewell: return new FarewellScreen();
+                case ScreenIds.Transfer: return new TransferScreen();
                 case ScreenIds.Title: return new TitleScreen();
                 case ScreenIds.Slots: return new SlotsScreen();
                 case ScreenIds.Confirm: return new ConfirmScreen();
@@ -31,6 +33,7 @@ namespace Ashen.Presentation.UI.Screens
                 case ScreenIds.Core2RunEnd: return new Core2RunEndScreen();
                 case ScreenIds.Pause: return new PauseScreen();
                 case ScreenIds.Armoury: return new ArmouryScreen();
+                case ScreenIds.Core2Potions: return new Core2PotionsScreen();
                 case ScreenIds.ActMap: return new ActMapScreen();
                 default: return new PlaceholderScreen();
             }

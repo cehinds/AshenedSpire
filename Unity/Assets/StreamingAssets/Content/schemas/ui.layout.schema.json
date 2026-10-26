@@ -88,6 +88,28 @@
     "narrowMaxWidth": {
       "type": "integer"
     },
+    "uiScale": {
+      "type": "object",
+      "properties": {
+        "named": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "designW": {
+          "type": "number"
+        },
+        "designH": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "named",
+        "designW",
+        "designH"
+      ]
+    },
     "panels": {
       "type": "object",
       "properties": {

@@ -1,6 +1,6 @@
 # Ashen Spire (Unity rebuild)
 
-A dark-fantasy, seeded, run-based tactical deckbuilder RPG, rebuilt in Unity 6000.6.0f1 as a fully data-driven game.
+A dark-fantasy, seeded, run-based tactical deckbuilder RPG, rebuilt in Unity 6000.6.6f1 as a fully data-driven game.
 
 > **Made with generative AI.** Ashen Spire was created with generative AI. Its code, art, music, sound, text and design were produced with AI tools under human direction. The game contains no licensed third-party assets. Every generated asset's provenance is recorded in `Provenance/`.
 
