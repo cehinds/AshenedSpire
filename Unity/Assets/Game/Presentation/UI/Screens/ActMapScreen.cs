@@ -43,7 +43,6 @@ namespace Ashen.Presentation.UI.Screens
         private MapBoard _board;
         private ScrollView _viewport;
         private Meter _hudHp;
-        private readonly List<MapKey> _keys = new List<MapKey>();
         private string _selected;
         private float _selectedAt;
         private int _zoom;
@@ -92,7 +91,8 @@ namespace Ashen.Presentation.UI.Screens
             Ui.Core2Session = _core2;
             _hudHp = Root.Q<Meter>(UiNames.HudHp);
             var menu = Root.Q<LocButton>(UiNames.HudMenu);
-            menu.clicked += OpenPause;
+            menu.clicked += PressMenuButton;
+            _menuTip = MenuDoor.Tip(Context, menu, _climb);
             var armoury = Root.Q<LocButton>(UiNames.ToolArmaments);
             armoury.clicked += () => OpenArmoury(ArmouryValues.TabEquipment, armoury);
             _board = Root.Q<MapBoard>(UiNames.MapNodes);
@@ -109,7 +109,7 @@ namespace Ashen.Presentation.UI.Screens
             _board.TintColor = Ui.TokenColor;
             _board.TileTexture = (x, y) => Ui.Texture(MapAtlas.TileId(Ui.Data.Art, climb.Atlas, _view?.World, x, y));
             _board.NodePicked += OnNode;
-            BindKeys();
+            BindHints();
             PulseLane();
             _zoom = Math.Max(0, Math.Min(climb.ZoomSteps.Count - 1, StartingZoom(climb)));
             Root.Q<LocButton>(UiNames.TrayBack).clicked += CloseTray;
@@ -174,40 +174,6 @@ namespace Ashen.Presentation.UI.Screens
         {
             if (element == null) return;
             element.style.backgroundImage = texture != null ? new StyleBackground(texture) : new StyleBackground(StyleKeyword.None);
-        }
-
-        private sealed class MapKey
-        {
-            public KeyCode Code;
-            public Action Action;
-        }
-
-        /// <summary>The key bar: Deck, Equipment, Stats and Menu are buttons and their keys (the letters on the chips).</summary>
-        private void BindKeys()
-        {
-            void Bind(string name, string keyString, Action<VisualElement> action)
-            {
-                var button = Root.Q<LocButton>(name);
-                button.clicked += () => action(button);
-                if (Enum.TryParse(Strings.Get(keyString), true, out KeyCode code)) _keys.Add(new MapKey { Code = code, Action = () => action(button) });
-            }
-            Bind(UiNames.MapKeyDeck, StringKeys.MapKeysDeckKey, b => OpenArmoury(ArmouryValues.TabDeck, b));
-            Bind(UiNames.MapKeyEquipment, StringKeys.MapKeysEquipmentKey, b => OpenArmoury(ArmouryValues.TabEquipment, b));
-            Bind(UiNames.MapKeyStats, StringKeys.MapKeysStatsKey, b => OpenArmoury(ArmouryValues.TabStats, b));
-            Bind(UiNames.MapKeyMenu, StringKeys.MapKeysMenuKey, b => OpenPause());
-            Root.RegisterCallback<KeyDownEvent>(OnKey, TrickleDown.TrickleDown);
-        }
-
-        private void OnKey(KeyDownEvent evt)
-        {
-            if (_door != null || _legend) return;
-            foreach (var key in _keys)
-            {
-                if (evt.keyCode != key.Code) continue;
-                evt.StopPropagation();
-                key.Action();
-                return;
-            }
         }
 
         /// <summary>Opens the Armoury modal on a tab (the Deck, Equipment and Stats of the map); until it is built the press is refused where it was made.</summary>
@@ -620,6 +586,7 @@ namespace Ashen.Presentation.UI.Screens
 
         public override void OnReturned()
         {
+            MenuDoor.Retip(_menuTip, Context, _climb);
             if (_climb != null && !_climb.RunOver) Render();
         }
 
@@ -627,6 +594,7 @@ namespace Ashen.Presentation.UI.Screens
         {
             _trayShow?.Pause();
             _miniReveal?.Pause();
+            _hints?.Dispose();
             ClearExplained();
             CloseFlaskMenu();
         }

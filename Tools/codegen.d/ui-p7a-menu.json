@@ -59,6 +59,7 @@
       "doc": "Placeholders of the Controls and quick menu strings.",
       "keys": {
         "Button": "button",
+        "Key": "key",
         "Volume": "volume"
       }
     },

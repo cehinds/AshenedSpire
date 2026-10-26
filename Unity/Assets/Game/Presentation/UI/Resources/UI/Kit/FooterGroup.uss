@@ -152,6 +152,16 @@
     -unity-background-image-tint-color: var(--color-plate-rest);
 }
 
+.group-end-key {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: var(--space-xs);
+    font-size: var(--font-board-caption);
+    color: var(--color-muted);
+    -unity-text-align: lower-center;
+}
+
 .group-end-turn.kit-button:hover,
 .group-end-turn.kit-button:active {
     background-color: var(--color-transparent);

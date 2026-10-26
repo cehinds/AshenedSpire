@@ -36,21 +36,24 @@
       "labelKey": "controls.action.deck",
       "kind": "key",
       "defButton": 3,
-      "defKey": "d"
+      "defKey": "d",
+      "destination": "cards"
     },
     {
       "id": "relics",
       "labelKey": "controls.action.relics",
       "kind": "key",
       "defButton": 4,
-      "defKey": "r"
+      "defKey": "r",
+      "destination": "equipment"
     },
     {
       "id": "stats",
       "labelKey": "controls.action.stats",
       "kind": "key",
       "defButton": 5,
-      "defKey": "t"
+      "defKey": "t",
+      "destination": "character"
     },
     {
       "id": "flask1",
@@ -203,7 +206,40 @@
     "F9": "F9",
     "F10": "F10",
     "F11": "F11",
-    "F12": "F12"
+    "F12": "F12",
+    "Alpha0": "0",
+    "Keypad0": "0",
+    "Alpha1": "1",
+    "Keypad1": "1",
+    "Alpha2": "2",
+    "Keypad2": "2",
+    "Alpha3": "3",
+    "Keypad3": "3",
+    "Alpha4": "4",
+    "Keypad4": "4",
+    "Alpha5": "5",
+    "Keypad5": "5",
+    "Alpha6": "6",
+    "Keypad6": "6",
+    "Alpha7": "7",
+    "Keypad7": "7",
+    "Alpha8": "8",
+    "Keypad8": "8",
+    "Alpha9": "9",
+    "Keypad9": "9",
+    "LeftBracket": "[",
+    "RightBracket": "]",
+    "Minus": "-",
+    "Equals": "=",
+    "KeypadMinus": "-",
+    "KeypadPlus": "+",
+    "Slash": "/",
+    "Backslash": "\\",
+    "Period": ".",
+    "Comma": ",",
+    "Semicolon": ";",
+    "Quote": "'",
+    "BackQuote": "`"
   },
   "modifierKeys": [
     "LeftShift",
@@ -220,5 +256,152 @@
   ],
   "cancelKey": "Escape",
   "storedKeyBindings": "keyBindings",
-  "storedPadBindings": "bindings"
+  "storedPadBindings": "bindings",
+  "hotkeys": {
+    "comment": "P-7c (D-1750..): the web's input layer, live (src/ui/input.js onKeydown and pollPads, the per-screen key handlers of screens/combat.js:2834-2985, screens/map.js:455-490, screens/deckEditor.js:1030-1110, components/overlay.js:316, components/hints.js). 'ring' is the tab ring's own keys and pad buttons (Law 3: [ and ] and LB and RB step the open tab set, wrap at both ends, and take the bumpers from their global bindings); 'padNav' are the d-pad buttons that move the focus unless an action is bound to them; 'cardKeys' are the positional card keys of the fight (1-9 name hand slots, and the Nth living enemy while a card or flask is armed; Q is slot 10 and never targets). 'scopes' say which actions and fixed keys a screen answers to: 'modifiers' false means Ctrl, Alt and Meta swallow the key (combat does; the map does not), 'actions' are the registry ids the screen handles, 'cards' turns the card keys on, 'keys' map a fixed key to the screen command it runs. 'hintBars' are the chips of the web's hint bar per context, in order; their words are controls.hint.<id>.",
+    "ring": {
+      "prevKey": "[",
+      "nextKey": "]",
+      "prevButton": 4,
+      "nextButton": 5
+    },
+    "padNav": {
+      "12": "up",
+      "13": "down",
+      "14": "left",
+      "15": "right"
+    },
+    "cardKeys": [
+      {
+        "key": "1",
+        "index": 0,
+        "target": true
+      },
+      {
+        "key": "2",
+        "index": 1,
+        "target": true
+      },
+      {
+        "key": "3",
+        "index": 2,
+        "target": true
+      },
+      {
+        "key": "4",
+        "index": 3,
+        "target": true
+      },
+      {
+        "key": "5",
+        "index": 4,
+        "target": true
+      },
+      {
+        "key": "6",
+        "index": 5,
+        "target": true
+      },
+      {
+        "key": "7",
+        "index": 6,
+        "target": true
+      },
+      {
+        "key": "8",
+        "index": 7,
+        "target": true
+      },
+      {
+        "key": "9",
+        "index": 8,
+        "target": true
+      },
+      {
+        "key": "q",
+        "index": 9,
+        "target": false
+      }
+    ],
+    "scopes": {
+      "core2Combat": {
+        "actions": [
+          "inspect",
+          "menu",
+          "deck",
+          "relics",
+          "stats",
+          "endTurn",
+          "flask1",
+          "flask2",
+          "flask3"
+        ],
+        "modifiers": false,
+        "cards": true,
+        "keys": {}
+      },
+      "actMap": {
+        "actions": [
+          "menu",
+          "deck",
+          "relics",
+          "stats"
+        ],
+        "modifiers": true,
+        "cards": false,
+        "keys": {
+          "+": "zoomIn",
+          "=": "zoomIn",
+          "-": "zoomOut",
+          "_": "zoomOut",
+          "0": "zoomReset"
+        }
+      },
+      "armoury": {
+        "actions": [
+          "menu"
+        ],
+        "modifiers": true,
+        "cards": false,
+        "keys": {}
+      }
+    },
+    "hintBars": {
+      "combat": [
+        "endTurn",
+        "deck",
+        "relics",
+        "stats",
+        "menu"
+      ],
+      "map": [
+        "deck",
+        "relics",
+        "stats",
+        "menu"
+      ],
+      "targeting": [
+        "confirm",
+        "cancel"
+      ]
+    },
+    "hintLabels": {
+      "confirm": "controls.hint.confirm",
+      "cancel": "controls.hint.cancel",
+      "endTurn": "controls.hint.endTurn",
+      "menu": "controls.hint.menu",
+      "deck": "controls.hint.deck",
+      "relics": "controls.hint.relics",
+      "stats": "controls.hint.stats",
+      "flask1": "controls.hint.flask1",
+      "flask2": "controls.hint.flask2",
+      "flask3": "controls.hint.flask3",
+      "inspect": "controls.hint.inspect"
+    },
+    "menuTip": {
+      "title": "menu.button.title",
+      "list": "menu.button.tip",
+      "direct": "menu.button.tip.off"
+    }
+  }
 }

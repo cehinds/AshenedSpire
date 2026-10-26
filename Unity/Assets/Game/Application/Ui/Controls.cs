@@ -23,6 +23,9 @@ namespace Ashen.App.Ui
         public string DefKey;
         public int DefButton;
 
+        /// <summary>The Armoury place an action opens (web ACTIONS destination: cards, equipment, character), or null.</summary>
+        public string Destination;
+
         /// <summary>The web rebinds a key only for an action that has a default key (controls.js rebindableKey).</summary>
         public bool KeyRebindable => DefKey != null;
     }
@@ -53,6 +56,9 @@ namespace Ashen.App.Ui
         public IReadOnlyDictionary<string, string> KeyNames { get; private set; } = new Dictionary<string, string>();
         public IReadOnlyCollection<string> ModifierKeys { get; private set; } = Array.Empty<string>();
 
+        /// <summary>The input layer's data (ui/controls.json hotkeys).</summary>
+        public HotkeyData Hotkeys { get; private set; } = new HotkeyData();
+
         public ControlActionDef Find(string id) => Actions.FirstOrDefault(a => a.Id == id);
 
         public PadButtonDef Pad(int index) => _pads.TryGetValue(index, out var def) ? def : null;
@@ -70,6 +76,7 @@ namespace Ashen.App.Ui
                     KeyHint = (string)a[ControlsKeys.KeyHint],
                     DefKey = (string)a[ControlsKeys.DefKey],
                     DefButton = (int)a[ControlsKeys.DefButton],
+                    Destination = (string)a[HotkeyKeys.Destination],
                 }).ToList(),
                 PadGlyphFallback = (string)json[ControlsKeys.PadGlyphFallback],
                 PadNameFallback = (string)json[ControlsKeys.PadNameFallback],
@@ -80,6 +87,7 @@ namespace Ashen.App.Ui
                 KeyLabels = Map(json[ControlsKeys.KeyLabels]),
                 KeyNames = Map(json[ControlsKeys.KeyNames]),
                 ModifierKeys = (json[ControlsKeys.ModifierKeys] as JArray ?? new JArray()).Select(t => (string)t).ToList(),
+                Hotkeys = HotkeyData.From(json[HotkeyKeys.Hotkeys] as JObject),
             };
             foreach (var p in (json[ControlsKeys.PadButtons] as JObject ?? new JObject()).Properties())
             {

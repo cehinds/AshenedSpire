@@ -56,20 +56,20 @@
         </ui:VisualElement>
         <ui:VisualElement name="MAP_KEYS" class="map-keys">
             <Ashen.Presentation.UI.LocButton name="MAP_KEY_DECK" class="map-key">
-                <Ashen.Presentation.UI.LocLabel class="map-key-chip" string-key="map.keys.deck.key" picking-mode="Ignore" />
-                <Ashen.Presentation.UI.LocLabel class="map-key-label" string-key="map.keys.deck" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-chip" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-label" picking-mode="Ignore" />
             </Ashen.Presentation.UI.LocButton>
             <Ashen.Presentation.UI.LocButton name="MAP_KEY_EQUIPMENT" class="map-key">
-                <Ashen.Presentation.UI.LocLabel class="map-key-chip" string-key="map.keys.equipment.key" picking-mode="Ignore" />
-                <Ashen.Presentation.UI.LocLabel class="map-key-label" string-key="map.keys.equipment" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-chip" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-label" picking-mode="Ignore" />
             </Ashen.Presentation.UI.LocButton>
             <Ashen.Presentation.UI.LocButton name="MAP_KEY_STATS" class="map-key">
-                <Ashen.Presentation.UI.LocLabel class="map-key-chip" string-key="map.keys.stats.key" picking-mode="Ignore" />
-                <Ashen.Presentation.UI.LocLabel class="map-key-label" string-key="map.keys.stats" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-chip" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-label" picking-mode="Ignore" />
             </Ashen.Presentation.UI.LocButton>
             <Ashen.Presentation.UI.LocButton name="MAP_KEY_MENU" class="map-key">
-                <Ashen.Presentation.UI.LocLabel class="map-key-chip" string-key="map.keys.menu.key" picking-mode="Ignore" />
-                <Ashen.Presentation.UI.LocLabel class="map-key-label" string-key="map.keys.menu" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-chip" picking-mode="Ignore" />
+                <Ashen.Presentation.UI.LocLabel class="map-key-label" picking-mode="Ignore" />
             </Ashen.Presentation.UI.LocButton>
         </ui:VisualElement>
     </ui:VisualElement>

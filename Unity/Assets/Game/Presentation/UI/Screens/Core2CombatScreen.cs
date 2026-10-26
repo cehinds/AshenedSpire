@@ -88,10 +88,12 @@ namespace Ashen.Presentation.UI.Screens
             _promptRows = new Core2PromptRows(Ui, _run, _flow);
             _targets = new Core2TargetInspector(Root, () => _overlays.IsOpen || ShowingPrompt, () => _flow.Targeting, _overlays.OpenDetail, Ui.Data.Tokens.Duration(TokenKeys.TargetHide));
             _footer.EndTurn += OnEndTurn;
+            BindHotkeyLabels();
             _footer.Potions += () => Handle(_flow.OpenFlasks(), _footer.PotionsButton);
             _footer.Piles += anchor => _overlays.OpenPiles(anchor == _footer.DrawButton ? OverlayValues.PileDraw : OverlayValues.PileDiscard, anchor);
             var menu = Root.Q<LocButton>(UiNames.HudMenu);
-            menu.clicked += () => OpenQuickMenu(menu);
+            menu.clicked += () => PressMenuButton(menu);
+            _menuTip = MenuDoor.Tip(Context, menu, _run);
             Root.Q<LocButton>(UiNames.PromptBack).clicked += OnPromptBack;
             Root.Q<LocButton>(UiNames.PromptClose).clicked += OnPromptBack;
             var confirm = Root.Q<LocButton>(UiNames.PromptConfirm);
@@ -893,12 +895,14 @@ namespace Ashen.Presentation.UI.Screens
         public override void OnReturned()
         {
             if (_flow == null || _run?.Combat == null) return;
+            MenuDoor.Retip(_menuTip, Context, _run);
             _flow.Refresh();
             Render();
         }
 
         public override void Unbind()
         {
+            UnbindHotkeyLabels();
             CancelFx();
             _introTimer?.Pause();
         }
